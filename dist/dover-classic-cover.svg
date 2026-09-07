@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="700" height="1000" viewBox="0 0 700 1000" role="img" aria-labelledby="title desc">
+  <title id="title">Dover Tzedek Volume I cover concept</title>
+  <desc id="desc">A restrained ivory, forest green, and antique brass book cover for Akiva Publishing.</desc>
+  <defs>
+    <linearGradient id="paper" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f8f1e3"/>
+      <stop offset="0.52" stop-color="#efe3cf"/>
+      <stop offset="1" stop-color="#e5d6bd"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="43%" r="52%">
+      <stop offset="0" stop-color="#fffaf0" stop-opacity="0.9"/>
+      <stop offset="1" stop-color="#fffaf0" stop-opacity="0"/>
+    </radialGradient>
+    <pattern id="grain" width="8" height="8" patternUnits="userSpaceOnUse">
+      <circle cx="1" cy="2" r="0.55" fill="#6d5a3a" opacity="0.05"/>
+      <circle cx="6" cy="5" r="0.45" fill="#17372d" opacity="0.035"/>
+    </pattern>
+  </defs>
+  <rect width="700" height="1000" fill="#17372d"/>
+  <rect x="18" y="18" width="664" height="964" rx="2" fill="url(#paper)"/>
+  <rect x="34" y="34" width="632" height="932" fill="none" stroke="#9d7541" stroke-width="2"/>
+  <rect x="48" y="48" width="604" height="904" fill="none" stroke="#17372d" stroke-opacity="0.62" stroke-width="1"/>
+  <rect x="18" y="18" width="664" height="964" fill="url(#grain)"/>
+  <ellipse cx="350" cy="430" rx="270" ry="310" fill="url(#glow)"/>
+
+  <g fill="none" stroke="#9d7541" stroke-width="1.6" opacity="0.72">
+    <path d="M126 228 H292 M408 228 H574"/>
+    <path d="M126 748 H292 M408 748 H574"/>
+    <circle cx="350" cy="228" r="5"/>
+    <path d="M332 228 l18 -11 18 11 -18 11z"/>
+    <circle cx="350" cy="748" r="5"/>
+    <path d="M332 748 l18 -11 18 11 -18 11z"/>
+  </g>
+
+  <g text-anchor="middle" fill="#17372d">
+    <text x="350" y="116" font-family="Arial, Helvetica, sans-serif" font-size="19" font-weight="700" letter-spacing="5">AKIVA PUBLISHING</text>
+    <text x="350" y="150" font-family="Arial, Helvetica, sans-serif" font-size="12" letter-spacing="4" opacity="0.72">KISVEI RAV TZADOK</text>
+
+    <text x="350" y="386" font-family="Georgia, 'Times New Roman', serif" font-size="82" letter-spacing="-3">Dover</text>
+    <text x="350" y="474" font-family="Georgia, 'Times New Roman', serif" font-size="82" letter-spacing="-3">Tzedek</text>
+    <text x="350" y="529" font-family="Arial, Helvetica, sans-serif" font-size="17" font-weight="700" letter-spacing="7">VOLUME I</text>
+
+    <text x="350" y="625" font-family="Georgia, 'Times New Roman', serif" font-size="25">Rav Tzadok HaKohen of Lublin</text>
+    <text x="350" y="673" font-family="Arial, Helvetica, sans-serif" font-size="13" letter-spacing="2.6" opacity="0.76">BILINGUAL EDITION · ANNOTATED SOURCES</text>
+  </g>
+
+  <g transform="translate(350 825)">
+    <rect x="-86" y="-23" width="172" height="46" rx="23" fill="#17372d"/>
+    <text x="0" y="6" text-anchor="middle" fill="#f4e9d7" font-family="Arial, Helvetica, sans-serif" font-size="13" font-weight="700" letter-spacing="3">COMING SOON</text>
+  </g>
+
+  <text x="350" y="922" text-anchor="middle" fill="#6f2e2b" font-family="Georgia, 'Times New Roman', serif" font-size="17" font-style="italic">A path into the original, not around it.</text>
+</svg>
