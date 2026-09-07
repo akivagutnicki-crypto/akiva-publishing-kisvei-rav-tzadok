@@ -1,53 +1,19 @@
 [build]
   publish = "dist"
 
+# Keep the real preview PDFs served as PDFs. The homepage polish is handled
+# by the edge function in netlify/edge-functions/site-polish.ts.
 [[headers]]
-  for = "/assets/rooted-ascent.webp"
-  [headers.values]
-    Content-Type = "image/png"
-
-[[headers]]
-  for = "/assets/quiet-threshold.webp"
-  [headers.values]
-    Content-Type = "image/png"
-
-[[headers]]
-  for = "/assets/takanas-set.webp"
-  [headers.values]
-    Content-Type = "image/png"
-
-[[headers]]
-  for = "/assets/takanas-page-intro.webp"
-  [headers.values]
-    Content-Type = "image/png"
-
-[[headers]]
-  for = "/assets/takanas-page-siman.webp"
-  [headers.values]
-    Content-Type = "image/png"
-
-[[headers]]
-  for = "/assets/takanas-promo-2.webp"
-  [headers.values]
-    Content-Type = "image/png"
-
-[[headers]]
-  for = "/assets/livyasan-page.webp"
-  [headers.values]
-    Content-Type = "image/jpeg"
-
-[[headers]]
-  for = "/assets/dover-eruvin-page.webp"
-  [headers.values]
-    Content-Type = "image/png"
-
-[[headers]]
-  for = "/assets/dover-vol1.webp"
-  [headers.values]
-    Content-Type = "image/svg+xml; charset=utf-8"
-
-[[headers]]
-  for = "/previews/*.pdf"
+  for = "/Takanas_HaShavin_Volume_I_Siman_Aleph.pdf"
   [headers.values]
     X-Content-Type-Options = "nosniff"
-    Content-Type = "application/pdf"
+
+[[headers]]
+  for = "/Livyasan_Shavuos_Preview.pdf"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+
+[[headers]]
+  for = "/Dover_Tzedek_Two_Volume_Preview.pdf"
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
