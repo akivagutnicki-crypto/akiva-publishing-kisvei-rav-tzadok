@@ -1,0 +1,20 @@
+[build]
+  publish = "dist"
+
+[[headers]]
+  for = "/Takanas_HaShavin_Volume_I_Siman_Aleph.pdf"
+
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+
+[[headers]]
+  for = "/Livyasan_Shavuos_Preview.pdf"
+
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
+
+[[headers]]
+  for = "/Dover_Tzedek_Two_Volume_Preview.pdf"
+
+  [headers.values]
+    X-Content-Type-Options = "nosniff"
