@@ -1,0 +1,983 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="description" content="The Rav Tzadok Library: read the writings of Rav Tzadok HaKohen of Lublin in Hebrew and English, with sources and connections, from Akiva Publishing.">
+<title>Rav Tzadok Library · Akiva Publishing</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700&family=Crimson+Pro:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#fbf8f1;--panel:#ffffff;--soft:#f3ede0;--ink:#20211e;--muted:#6b6962;--faint:#9a978e;--line:rgba(32,33,30,.13);
+  --forest:#17372d;--deep:#10281f;--ox:#6f2e2b;--brass:#b28b55;--hl:#f6ecd6;--hl-strong:#efdcb3;--link:#1f5a47;
+  --he:"Frank Ruhl Libre","Taamey Frank CLM","Times New Roman",serif;--en:"Crimson Pro",Georgia,serif;--ui:Inter,system-ui,-apple-system,"Segoe UI",Arial,sans-serif;
+  --fs:1;--panel-w:400px;--head-h:62px;
+  --c-tanakh:#004e5f;--c-talmud:#ccb479;--c-midrash:#5d956f;--c-halakhah:#802f3e;--c-kabbalah:#594176;--c-chasidut:#97b386;--c-commentary:#4b71b7;--c-other:#999;
+}
+:root[data-theme="sepia"]{--bg:#f4ecd8;--panel:#f9f3e3;--soft:#eadfc5;--ink:#3b2f20;--muted:#76674f;--line:rgba(59,47,32,.16);--hl:#ead9b3;--hl-strong:#e0c995}
+:root[data-theme="dark"]{--bg:#141815;--panel:#1b201c;--soft:#222823;--ink:#e9e4d8;--muted:#a9a497;--faint:#7d7a71;--line:rgba(233,228,216,.14);--forest:#9fc3b2;--deep:#0c120f;--ox:#e0a29a;--brass:#d2ac77;--hl:#2c3329;--hl-strong:#3a4433;--link:#9fd0bb}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--ui);line-height:1.5;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;cursor:pointer}
+[hidden]{display:none!important}
+.he{font-family:var(--he);direction:rtl;text-align:right}
+.en{font-family:var(--en)}
+
+/* ---------- header ---------- */
+.top{position:sticky;top:0;z-index:40;height:var(--head-h);background:var(--panel);border-bottom:1px solid var(--line);display:flex;align-items:center;gap:18px;padding:0 22px}
+.brand{display:flex;align-items:center;gap:11px;white-space:nowrap}
+.mark{width:34px;height:34px;border:1px solid var(--forest);color:var(--forest);display:grid;place-items:center;font:700 .66rem var(--ui);letter-spacing:.04em}
+.brand strong{display:block;font:600 .95rem/1.1 var(--ui)}
+.brand small{display:block;color:var(--muted);font:600 .6rem/1.2 var(--ui);letter-spacing:.13em;text-transform:uppercase;margin-top:3px}
+.topnav{display:flex;gap:20px;font:600 .8rem var(--ui);color:var(--muted)}
+.topnav a:hover{color:var(--ink)}
+.search{margin-left:auto;position:relative;width:min(340px,40vw)}
+.search input{width:100%;height:38px;border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:6px;padding:0 12px 0 34px;font:400 .88rem var(--ui)}
+.search input:focus{outline:2px solid var(--brass);outline-offset:0;border-color:transparent}
+.search svg{position:absolute;left:11px;top:11px;width:16px;height:16px;color:var(--faint)}
+.suggest{position:absolute;top:44px;left:0;right:0;background:var(--panel);border:1px solid var(--line);border-radius:6px;box-shadow:0 14px 40px rgba(0,0,0,.14);overflow:hidden;z-index:50}
+.suggest a,.suggest .note{display:flex;justify-content:space-between;gap:10px;padding:10px 13px;font-size:.86rem;border-bottom:1px solid var(--line)}
+.suggest a:last-child{border-bottom:0}
+.suggest a:hover,.suggest a.on{background:var(--hl)}
+.suggest .kind{color:var(--faint);font-size:.72rem;text-transform:uppercase;letter-spacing:.08em}
+.suggest .note{color:var(--muted)}
+
+/* ---------- generic ---------- */
+.page{max-width:1120px;margin:0 auto;padding:46px 26px 90px}
+.eyebrow{font:700 .7rem/1.2 var(--ui);letter-spacing:.16em;text-transform:uppercase;color:var(--ox)}
+.btn{display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 15px;border:1px solid var(--line);background:var(--panel);border-radius:6px;font:600 .8rem var(--ui)}
+.btn:hover{border-color:var(--ink)}
+.btn.primary{background:var(--forest);border-color:var(--forest);color:var(--bg)}
+.loading{color:var(--muted);font:500 .9rem var(--ui);padding:30px 0;display:flex;align-items:center;gap:10px}
+.loading:before{content:"";width:14px;height:14px;border:2px solid var(--line);border-top-color:var(--forest);border-radius:50%;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.error{border:1px solid var(--line);background:var(--panel);border-radius:8px;padding:22px;color:var(--muted);font-size:.92rem}
+.error strong{display:block;color:var(--ink);margin-bottom:6px}
+.error a{color:var(--link);text-decoration:underline}
+
+/* ---------- home ---------- */
+.home-grid{display:grid;grid-template-columns:1fr 300px;gap:60px}
+.intro h1{font:400 clamp(2.3rem,4.4vw,3.4rem)/1.02 var(--en);letter-spacing:-.02em;margin:12px 0 6px}
+.intro .he-title{font:500 1.7rem var(--he);color:var(--muted);margin:0 0 18px}
+.intro p{font:400 1.18rem/1.6 var(--en);color:var(--muted);max-width:60ch;margin:0}
+.cat-head{display:flex;justify-content:space-between;align-items:baseline;border-bottom:1px solid var(--line);padding-bottom:10px;margin:48px 0 0}
+.cat-head h2{font:600 .78rem var(--ui);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0}
+.cat-head span{font:600 .78rem var(--he);color:var(--muted)}
+.books{display:grid;grid-template-columns:1fr 1fr;column-gap:34px}
+.book{display:block;padding:20px 0 18px;border-top:4px solid var(--c-chasidut);margin-top:22px;transition:background .15s}
+.book:hover .book-title{color:var(--ox)}
+.book-titles{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.book-title{font:500 1.32rem/1.2 var(--en);transition:color .15s}
+.book-he{font:500 1.22rem var(--he);color:var(--muted)}
+.book p{margin:6px 0 0;color:var(--muted);font:400 1.02rem/1.45 var(--en)}
+.tag{display:inline-block;margin-top:9px;padding:3px 8px;border-radius:3px;background:var(--forest);color:var(--bg);font:700 .6rem var(--ui);letter-spacing:.11em;text-transform:uppercase}
+.tag.soon{background:var(--ox)}
+.side h3{font:600 .74rem var(--ui);letter-spacing:.14em;text-transform:uppercase;color:var(--muted);margin:0 0 12px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.side section{margin-bottom:40px}
+.side p{font:400 1rem/1.55 var(--en);color:var(--muted);margin:0 0 12px}
+.side .link{display:block;color:var(--link);font:600 .84rem var(--ui);padding:5px 0}
+.side .link:hover{text-decoration:underline}
+.recent a{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-bottom:1px solid var(--line);font:400 1rem var(--en)}
+.recent a:hover{color:var(--ox)}
+.recent .he{font-size:.95rem;color:var(--muted)}
+.edition{background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:18px}
+.edition img{width:100%;border-radius:3px;margin-bottom:14px}
+
+/* ---------- book TOC ---------- */
+.crumbs{font:600 .76rem var(--ui);color:var(--muted);display:flex;gap:8px;flex-wrap:wrap}
+.crumbs a:hover{color:var(--ink)}
+.toc-head{display:grid;grid-template-columns:1fr auto;gap:24px;align-items:end;border-bottom:1px solid var(--line);padding-bottom:26px;margin:16px 0 30px}
+.toc-head h1{font:400 clamp(2.4rem,5vw,3.6rem)/1 var(--en);margin:0}
+.toc-head .he{font:500 clamp(2rem,4vw,2.8rem)/1.1 var(--he);color:var(--muted)}
+.toc-head p{grid-column:1/-1;margin:0;font:400 1.15rem/1.55 var(--en);color:var(--muted);max-width:68ch}
+.toc-actions{grid-column:1/-1;display:flex;gap:10px;flex-wrap:wrap}
+.node{margin:0 0 30px}
+.node h3{display:flex;justify-content:space-between;gap:16px;font:500 1.15rem var(--en);margin:0 0 12px;padding-bottom:8px;border-bottom:1px solid var(--line)}
+.node h3 .he{font:500 1.12rem var(--he);color:var(--muted)}
+.node .node{margin-left:18px}
+.chapters{display:grid;grid-template-columns:repeat(auto-fill,minmax(52px,1fr));gap:8px}
+.chapters a,.chapters span{display:grid;place-items:center;height:44px;border:1px solid var(--line);background:var(--panel);border-radius:5px;font:500 .9rem var(--ui)}
+.chapters a:hover{border-color:var(--forest);background:var(--hl)}
+.chapters span{opacity:.35}
+.sub-label{font:600 .72rem var(--ui);color:var(--muted);margin:14px 0 6px;letter-spacing:.06em;text-transform:uppercase}
+.single{display:inline-flex}
+
+/* ---------- reader ---------- */
+.reader{display:grid;grid-template-columns:minmax(0,1fr);min-height:calc(100vh - var(--head-h))}
+body.panel-open .reader{grid-template-columns:minmax(0,1fr) var(--panel-w)}
+.rbar{position:sticky;top:var(--head-h);z-index:30;background:color-mix(in srgb,var(--bg) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line);height:52px;display:flex;align-items:center;gap:12px;padding:0 20px}
+.rbar .title{flex:1;text-align:center;min-width:0;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;font:500 1.06rem var(--en)}
+.rbar .title .he{font:500 1rem var(--he);color:var(--muted);margin-left:10px}
+.rbar .title a:hover{color:var(--ox)}
+.icon-btn{width:36px;height:36px;display:grid;place-items:center;border:1px solid transparent;background:transparent;border-radius:6px;color:var(--muted)}
+.icon-btn:hover{border-color:var(--line);color:var(--ink)}
+.icon-btn svg{width:19px;height:19px}
+.aa{font:600 .9rem var(--ui);letter-spacing:-.02em}
+.settings{position:absolute;right:16px;top:50px;width:280px;background:var(--panel);border:1px solid var(--line);border-radius:8px;box-shadow:0 18px 50px rgba(0,0,0,.16);padding:14px;z-index:60}
+.settings .grp{padding:10px 0;border-bottom:1px solid var(--line)}
+.settings .grp:last-child{border-bottom:0}
+.settings label{display:block;font:600 .66rem var(--ui);letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin-bottom:8px}
+.seg-ctl{display:flex;border:1px solid var(--line);border-radius:6px;overflow:hidden}
+.seg-ctl button{flex:1;border:0;background:transparent;padding:8px 4px;font:500 .8rem var(--ui);border-right:1px solid var(--line)}
+.seg-ctl button:last-child{border-right:0}
+.seg-ctl button[aria-pressed="true"]{background:var(--forest);color:var(--bg)}
+.seg-ctl .heb{font-family:var(--he);font-size:1rem}
+.size{display:flex;align-items:center;gap:10px}
+.size input{flex:1;accent-color:var(--forest)}
+.textcol{min-width:0}
+.text{max-width:1000px;margin:0 auto;padding:28px 40px 120px}
+body.panel-open .text{max-width:860px}
+.sec-head{text-align:center;margin:44px 0 26px;font:600 .74rem var(--ui);letter-spacing:.16em;text-transform:uppercase;color:var(--muted);display:flex;align-items:center;gap:16px}
+.sec-head:before,.sec-head:after{content:"";flex:1;height:1px;background:var(--line)}
+.sec-head .he{font:500 1rem var(--he);letter-spacing:0;text-transform:none}
+.sec-head:first-child{margin-top:12px}
+.seg{position:relative;display:grid;gap:10px 34px;padding:10px 46px 10px 46px;margin:0 -12px;border-radius:6px;cursor:pointer;transition:background .15s}
+.seg:hover{background:color-mix(in srgb,var(--hl) 55%,transparent)}
+.seg.on{background:var(--hl)}
+.seg.flash{animation:flash 1.8s ease}
+@keyframes flash{0%,40%{background:var(--hl-strong)}100%{background:var(--hl)}}
+.seg .num{position:absolute;left:8px;top:15px;width:28px;text-align:center;font:600 .7rem var(--ui);color:var(--faint)}
+.seg .lc{position:absolute;right:8px;top:14px;min-width:24px;height:20px;padding:0 6px;border-radius:10px;background:var(--soft);color:var(--muted);font:600 .64rem/20px var(--ui);text-align:center}
+.seg .seg-he{font-family:var(--he);direction:rtl;text-align:justify;font-size:calc(1.42rem * var(--fs));line-height:1.75}
+.seg .seg-en{font-family:var(--en);font-size:calc(1.28rem * var(--fs));line-height:1.6;text-align:left}
+.seg .seg-he small,.seg .seg-en small{font-size:.78em;color:var(--muted)}
+.seg .missing{color:var(--faint);font:italic 400 calc(1.05rem * var(--fs)) var(--en)}
+/* layout modes */
+.text[data-lang="he"] .seg-en,.text[data-lang="en"] .seg-he{display:none}
+.text[data-lang="bi"][data-layout="side"] .seg{grid-template-columns:1fr 1fr}
+.text[data-lang="bi"][data-layout="side"] .seg-he{order:2}
+.text[data-lang="bi"][data-layout="side"] .seg-en{order:1}
+.text[data-lang="he"] .num{left:auto;right:8px}
+.text[data-lang="he"] .lc{right:auto;left:8px}
+.sec.no-en .seg-en{display:none}
+.text .sec.no-en .seg{grid-template-columns:1fr}
+.text[data-lang="en"] .sec.no-en .seg-he{display:block}
+.footnote-marker{color:var(--ox);font:700 .7em var(--ui);cursor:pointer;padding:0 2px}
+i.footnote{display:none;font-style:normal;font-size:.85em;color:var(--muted);background:var(--soft);padding:2px 6px;border-radius:4px}
+i.footnote.open{display:inline}
+.sentinel{height:80px}
+.endnote{text-align:center;color:var(--faint);font:500 .82rem var(--ui);padding:30px 0}
+.pager{display:flex;justify-content:space-between;gap:12px;margin-top:30px}
+
+/* ---------- connections panel ---------- */
+.panel{position:sticky;top:var(--head-h);height:calc(100vh - var(--head-h));background:var(--panel);border-left:1px solid var(--line);display:flex;flex-direction:column;min-width:0}
+.panel-head{display:flex;align-items:center;gap:8px;height:52px;padding:0 10px 0 18px;border-bottom:1px solid var(--line);flex-shrink:0}
+.panel-head .ttl{flex:1;font:600 .84rem var(--ui);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.panel-body{overflow:auto;padding:16px 18px 40px;flex:1}
+.ptabs{display:flex;gap:4px;margin-bottom:16px;border-bottom:1px solid var(--line)}
+.ptabs button{border:0;background:none;padding:8px 10px;font:600 .76rem var(--ui);color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-1px}
+.ptabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--forest)}
+.cat{display:flex;align-items:center;gap:12px;width:100%;padding:11px 0;border:0;border-bottom:1px solid var(--line);background:none;text-align:left}
+.cat .bar{width:4px;align-self:stretch;border-radius:2px;background:var(--c-other)}
+.cat .nm{flex:1;font:500 .95rem var(--ui)}
+.cat .ct{font:600 .74rem var(--ui);color:var(--muted)}
+.cat:hover .nm{color:var(--ox)}
+.book-group{margin:4px 0 10px 16px}
+.book-group button{display:flex;justify-content:space-between;width:100%;border:0;background:none;padding:7px 0;font:400 .9rem var(--ui);color:var(--muted);text-align:left}
+.book-group button:hover{color:var(--ink)}
+.link-item{border-bottom:1px solid var(--line);padding:16px 0}
+.link-item .ref{display:flex;justify-content:space-between;gap:10px;align-items:baseline;font:600 .8rem var(--ui);margin-bottom:8px}
+.link-item .ref .he{font:500 .9rem var(--he);color:var(--muted)}
+.link-item .he-text{font:400 1.12rem/1.65 var(--he);direction:rtl;text-align:right;max-height:15em;overflow:hidden;position:relative}
+.link-item .en-text{font:400 1.04rem/1.5 var(--en);color:var(--muted);margin-top:8px;max-height:10em;overflow:hidden}
+.link-item .acts{display:flex;gap:16px;margin-top:10px;font:600 .74rem var(--ui);color:var(--link)}
+.link-item .acts a:hover,.link-item .acts button:hover{text-decoration:underline}
+.link-item .acts button{border:0;background:none;padding:0;color:inherit;font:inherit}
+.back{border:0;background:none;padding:0 0 12px;font:600 .76rem var(--ui);color:var(--muted)}
+.back:hover{color:var(--ink)}
+.empty{color:var(--muted);font:400 1rem/1.55 var(--en);padding:12px 0}
+.tool{display:flex;align-items:center;gap:12px;width:100%;padding:12px 0;border:0;border-bottom:1px solid var(--line);background:none;font:500 .92rem var(--ui);text-align:left}
+.tool:hover{color:var(--ox)}
+.tool svg{width:17px;height:17px;color:var(--muted)}
+.ver{padding:12px 0;border-bottom:1px solid var(--line);font-size:.86rem}
+.ver b{display:block;font-weight:600}
+.ver span{color:var(--muted);font-size:.78rem}
+.ver a{color:var(--link);font-size:.78rem;word-break:break-all}
+.toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:6px;font:600 .8rem var(--ui);z-index:90;opacity:0;transition:opacity .2s;pointer-events:none}
+.toast.show{opacity:1}
+.credit{border-top:1px solid var(--line);margin-top:60px;padding-top:20px;color:var(--faint);font:500 .76rem/1.6 var(--ui)}
+.credit a{text-decoration:underline}
+
+@media (max-width:980px){
+  .home-grid{grid-template-columns:1fr;gap:20px}
+  body.panel-open .reader{grid-template-columns:1fr}
+  .panel{position:fixed;left:0;right:0;bottom:0;top:auto;height:62vh;border-left:0;border-top:1px solid var(--line);box-shadow:0 -18px 50px rgba(0,0,0,.18);border-radius:14px 14px 0 0;z-index:70}
+  body.panel-open .text{padding-bottom:65vh}
+}
+@media (max-width:760px){
+  .topnav{display:none}
+  .top{gap:12px;padding:0 14px}
+  .brand small{display:none}
+  .search{width:auto;flex:1}
+  .page{padding:30px 16px 70px}
+  .books{grid-template-columns:1fr}
+  .text{padding:14px 16px 110px}
+  .seg{padding:8px 30px;margin:0 -10px}
+  .seg .num{left:2px;width:24px}
+  .seg .lc{right:2px;min-width:20px;padding:0 4px}
+  .text[data-lang="bi"][data-layout="side"] .seg{grid-template-columns:1fr}
+  .text[data-lang="bi"][data-layout="side"] .seg-he{order:0}
+  .rbar{padding:0 8px;gap:4px}
+  .toc-head{grid-template-columns:1fr}
+}
+@media (max-width:420px){.brand strong{display:none}}
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="#/"><span class="mark">AP</span><span><strong>Rav Tzadok Library</strong><small>Akiva Publishing</small></span></a>
+  <nav class="topnav" aria-label="Primary"><a href="#/">Texts</a><a href="../">Our editions</a><a href="../#method">Approach</a></nav>
+  <form class="search" id="searchForm" role="search" autocomplete="off">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+    <input id="q" type="search" placeholder="Go to a text, e.g. Takanat HaShavin 7" aria-label="Search texts and references">
+    <div class="suggest" id="suggest" hidden></div>
+  </form>
+</header>
+<main id="app"></main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+(() => {
+'use strict';
+
+/* ======================= Catalogue ======================= */
+const API = 'https://www.sefaria.org';
+// Descriptions and Akiva edition status, keyed by Sefaria title.
+const INFO = {
+  'Takanat HaShavin': {d:'Fifteen chapters on teshuvah: how return transforms the past, from first stirrings of the heart to complete repair.', edition:'available'},
+  'Dover Tzedek': {d:'Discourses opening from Eruvin and Berakhot, the Kuntres Ner HaMitzvot, comments on Mishlei and a miscellany.', edition:'soon'},
+  'Sefer HaZikhronot': {d:'The mitzvot that every person must keep in mind, arranged after the order of the Rambam. Fully vocalized text from Akiva Publishing.', akiva:true},
+  'Tzidkat HaTzadik': {d:'Two hundred sixty-four short teachings on faith, self-knowledge and the inner life of avodah.'},
+  'Peri Tzadik': {d:'Discourses on the weekly Torah portions, Shabbat, Rosh Chodesh and the festivals through the year.'},
+  'Resisei Layla': {d:'"Dewdrops of the Night": brief, dense teachings on faith, Torah and the service of God.'},
+  'Machshavot Charutz': {d:'On human thought, the mind and its Divine root.'},
+  'Sichat Malakhei HaSharet': {d:'On the ministering angels, gathered from the Talmud, Yerushalmi, Midrash Tanchuma and the Zohar.'},
+  'Sichat Shedim': {d:'A short companion piece on the shedim in rabbinic literature.'},
+  'Likkutei Maamarim': {d:'Collected essays: on Shimshon, the Book of Joshua, the completion of the Talmud and the festivals.'},
+  'Yisrael Kedoshim': {d:'On the holiness of the Jewish people.'},
+  'Divrei Soferim': {d:'Teachings on the Oral Torah and the words of the Sages.'},
+  'Divrei Chalomot': {d:'Torah insights that came to Rav Tzadok in dreams, written down on waking.'},
+  'Et HaOchel': {d:'A short treatise, from his manuscript, on eating, separation and holiness.'},
+  'Kometz HaMinchah': {d:'Halakhic insights on the mitzvot.'},
+  'Ohr Zarua LaTzadik': {d:'Essays including thirteen principles of conduct, the Egyptian exile and the large and small letters of the Torah.'},
+  "Meshiv HaTa'anah": {d:'A reply to the pamphlet "Megillat Ta\'anot," written in 1842 in defense of tradition.'},
+  'Poked Akarim': {d:'A halakhic work on foundational principles of the law.'},
+  'Mei HaShiloach': {d:'Teachings of Rabbi Mordechai Yosef Leiner of Izhbitza on the Torah, the festivals and Tanakh.'},
+  'Beit Yaakov on Torah': {d:'Teachings of Rabbi Yaakov Leiner of Izhbitza–Radzin, son of the Mei HaShiloach, on the Torah.'},
+  'Tiferet Yosef': {d:'Teachings from the Izhbitza–Radzin school on the festivals and the Torah.'},
+  'Sod Yesharim': {d:'Discourses from the Radzin dynasty on Shabbat, the festivals and the Torah.'},
+  "Sha'ar HaEmunah VeYesod HaChasidut": {d:'A work of the Radzin school on faith and the foundations of Chasidut.'}
+};
+// Works read live from Sefaria when no local copy is bundled.
+const REMOTE = [
+  {title:'Resisei Layla', he:'רסיסי לילה', group:"R' Tzadok HaKohen"},
+  {title:'Poked Akarim', he:'פוקד עקרים', group:"R' Tzadok HaKohen"}
+];
+const GROUPS = [
+  {id:"R' Tzadok HaKohen", en:'Rav Tzadok HaKohen of Lublin', he:'רבי צדוק הכהן מלובלין'},
+  {id:'Izhbitz', en:'The Izhbitza–Radzin tradition', he:'בית איזביצא־ראדזין'}
+];
+const ORDER = ['Takanat HaShavin','Sefer HaZikhronot','Dover Tzedek','Tzidkat HaTzadik','Peri Tzadik','Resisei Layla','Machshavot Charutz','Divrei Soferim','Yisrael Kedoshim','Likkutei Maamarim','Sichat Malakhei HaSharet','Sichat Shedim','Divrei Chalomot','Et HaOchel','Ohr Zarua LaTzadik','Kometz HaMinchah',"Meshiv HaTa'anah",'Poked Akarim','Mei HaShiloach','Beit Yaakov on Torah','Tiferet Yosef','Sod Yesharim',"Sha'ar HaEmunah VeYesod HaChasidut"];
+const info = t => INFO[t] || {};
+
+/* ---------- local library data (built by scripts/build-library.mjs) ---------- */
+let CATALOG = [];
+const catalogReady = fetch('data/catalog.json').then(r => r.ok ? r.json() : []).catch(() => []).then(c => { CATALOG = c; return c; });
+const localBook = t => CATALOG.find(b => b.title === t);
+const tocCache = new Map();
+function loadToc(slug) {
+  if (!tocCache.has(slug)) tocCache.set(slug, fetch(`data/${slug}/toc.json`).then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }));
+  return tocCache.get(slug);
+}
+const leavesOf = n => n.children ? n.children.flatMap(leavesOf) : [n];
+// All section addresses of a leaf, in reading order, skipping empty ones.
+function sectionsOf(leaf) {
+  if (leaf.depth === 1) return leaf.shape > 0 ? [[]] : [];
+  const out = [];
+  const walk = (sh, addr) => Array.isArray(sh) && sh.some(Array.isArray)
+    ? sh.forEach((c, i) => walk(c, [...addr, i + 1]))
+    : Array.isArray(sh) ? sh.forEach((c, i) => { if (c) out.push([...addr, i + 1]); }) : null;
+  // shape for depth d has d-1 nesting levels of arrays; sections are addressed by d-1 indices
+  if (leaf.depth === 2) leaf.shape.forEach((c, i) => { if (c) out.push([i + 1]); });
+  else walk(leaf.shape, []);
+  return out;
+}
+const secRefOf = (leaf, addr) => addr.length ? `${leaf.ref} ${addr.join(':')}` : leaf.ref;
+const heSecRefOf = (leaf, addr) => addr.length ? `${leaf.heRef} ${addr.map(gematria).join(':')}` : leaf.heRef;
+const fileCache = new Map();
+function loadFile(url) {
+  if (!fileCache.has(url)) fileCache.set(url, fetch(url).then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }));
+  return fileCache.get(url);
+}
+// Resolve a ref against bundled texts. Returns null when the text is not local.
+async function resolveLocal(ref) {
+  await catalogReady;
+  const book = CATALOG.filter(b => ref === b.title || ref.startsWith(b.title + ' ') || ref.startsWith(b.title + ',')).sort((a, b) => b.title.length - a.title.length)[0];
+  if (!book) return null;
+  const toc = await loadToc(book.slug);
+  const leaves = leavesOf(toc.toc);
+  let leaf = null, addr = [];
+  for (const l of leaves) {
+    if (ref === l.ref) { leaf = l; addr = []; break; }
+    const m = ref.startsWith(l.ref + ' ') && ref.slice(l.ref.length + 1).match(/^\d+(?::\d+)*$/);
+    if (m && (!leaf || l.ref.length > leaf.ref.length)) { leaf = l; addr = m[0].split(':').map(Number); }
+  }
+  if (!leaf) { // a node above the leaves, e.g. "Mei HaShiloach, Volume I"
+    leaf = leaves.find(l => l.ref.startsWith(ref + ',') && sectionsOf(l).length);
+    if (!leaf) return null;
+  }
+  const secs = sectionsOf(leaf);
+  if (!secs.length) return null;
+  const secLen = leaf.depth - 1;
+  let segment = null;
+  if (addr.length > secLen) { segment = addr[secLen]; addr = addr.slice(0, secLen); }
+  if (addr.length < secLen) addr = secs.find(a => addr.every((v, i) => a[i] === v)) || secs[0];
+  // text
+  let text;
+  if (leaf.depth === 1) text = await loadFile(`data/${book.slug}/${leaf.id}.json`);
+  else { text = await loadFile(`data/${book.slug}/${leaf.id}-${addr[0]}.json`); for (const i of addr.slice(1)) text = (text || [])[i - 1]; }
+  // neighbours across the whole book
+  const all = leaves.flatMap(l => sectionsOf(l).map(a => secRefOf(l, a)));
+  const sectionRef = secRefOf(leaf, addr), k = all.indexOf(sectionRef);
+  return {
+    local: true, ref: sectionRef, sectionRef, heRef: heSecRefOf(leaf, addr), book: book.title, heBook: book.he,
+    he: Array.isArray(text) ? text : [text], en: [], segmentLevel: false, sep: secLen ? ':' : ' ', highlight: segment ? `${sectionRef}${secLen ? ':' : ' '}${segment}` : null,
+    next: all[k + 1] || null, prev: k > 0 ? all[k - 1] : null,
+    versions: [{title: book.version.title, lang: 'Hebrew', source: book.version.source, license: book.version.license}]
+  };
+}
+const CAT_COLORS = {Tanakh:'--c-tanakh',Talmud:'--c-talmud',Mishnah:'--c-talmud',Midrash:'--c-midrash',Halakhah:'--c-halakhah',Kabbalah:'--c-kabbalah',Chasidut:'--c-chasidut',Commentary:'--c-commentary','Quoting Commentary':'--c-commentary',Musar:'--c-midrash','Jewish Thought':'--c-kabbalah',Liturgy:'--c-tanakh'};
+
+/* ======================= Utilities ======================= */
+const $ = (s, el = document) => el.querySelector(s);
+const app = $('#app');
+const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const toHash = ref => encodeURIComponent(ref).replace(/%20/g, '_').replace(/%2C/g, ',').replace(/%3A/g, ':');
+const fromHash = s => decodeURIComponent(s.replace(/_/g, ' '));
+const sefariaUrl = ref => `${API}/${encodeURIComponent(ref.replace(/ /g, '_')).replace(/%2C/g, ',').replace(/%3A/g, ':')}?lang=bi`;
+const store = {
+  get(k, d) { try { const v = localStorage.getItem('rtl.' + k); return v == null ? d : JSON.parse(v); } catch { return d; } },
+  set(k, v) { try { localStorage.setItem('rtl.' + k, JSON.stringify(v)); } catch {} }
+};
+function toast(msg) { const t = $('#toast'); t.textContent = msg; t.classList.add('show'); clearTimeout(toast.t); toast.t = setTimeout(() => t.classList.remove('show'), 1800); }
+
+const cache = new Map();
+async function getJSON(path) {
+  if (cache.has(path)) return cache.get(path);
+  const p = fetch(API + path).then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
+    .then(j => { if (j && j.error) throw new Error(j.error); return j; });
+  cache.set(path, p);
+  p.catch(() => cache.delete(path));
+  return p;
+}
+
+/* Hebrew numerals for segment numbers in Hebrew-only mode */
+function gematria(n) {
+  if (n <= 0 || n >= 1000) return String(n);
+  const H = ['','ק','ר','ש','ת','תק','תר','תש','תת','תתק'], T = ['','י','כ','ל','מ','נ','ס','ע','פ','צ'], O = ['','א','ב','ג','ד','ה','ו','ז','ח','ט'];
+  let h = H[Math.floor(n / 100)], r = n % 100;
+  if (r === 15) return h + 'טו'; if (r === 16) return h + 'טז';
+  return h + T[Math.floor(r / 10)] + O[r % 10];
+}
+
+/* Allow only simple inline formatting from source texts */
+const ALLOWED = new Set(['B','I','EM','STRONG','SMALL','SUP','SUB','BR','SPAN','BIG','U']);
+function clean(html) {
+  if (!html) return '';
+  const doc = new DOMParser().parseFromString('<div>' + html + '</div>', 'text/html');
+  const walk = node => {
+    [...node.childNodes].forEach(ch => {
+      if (ch.nodeType === 1) {
+        walk(ch);
+        if (!ALLOWED.has(ch.tagName)) { ch.replaceWith(...ch.childNodes); return; }
+        const cls = ch.getAttribute('class') || '';
+        [...ch.attributes].forEach(a => ch.removeAttribute(a.name));
+        if (/footnote-marker/.test(cls)) ch.className = 'footnote-marker';
+        else if (/footnote/.test(cls)) ch.className = 'footnote';
+      } else if (ch.nodeType !== 3) ch.remove();
+    });
+  };
+  const root = doc.body.firstChild; walk(root);
+  return root.innerHTML;
+}
+const plain = html => { const d = document.createElement('div'); d.innerHTML = clean(html); return d.textContent; };
+const flatten = t => Array.isArray(t) ? t.flat(Infinity) : (t == null ? [] : [t]);
+
+/* ======================= Text fetching ======================= */
+// Returns {ref, heRef, sectionRef, sections, next, prev, he:[], en:[], versions:[], segmentLevel}
+async function fetchText(ref, {remoteOnly = false} = {}) {
+  if (!remoteOnly) { try { const loc = await resolveLocal(ref); if (loc) return loc; } catch (e) { console.warn('local text failed', e); } }
+  try {
+    const j = await getJSON(`/api/v3/texts/${encodeURIComponent(ref)}?version=source&version=translation`);
+    const vs = j.versions || [];
+    const isHe = v => v.languageFamilyName === 'hebrew' || v.language === 'he' || v.direction === 'rtl';
+    const heV = vs.find(isHe), enV = vs.find(v => !isHe(v));
+    return {
+      ref: j.ref, heRef: j.heRef, sectionRef: j.sectionRef || j.ref, sections: j.sections || [], next: j.next, prev: j.prev,
+      book: j.book || j.indexTitle, he: heV ? heV.text : [], en: enV ? enV.text : [],
+      segmentLevel: typeof (heV ? heV.text : enV ? enV.text : []) === 'string',
+      versions: vs.map(v => ({title: v.versionTitle, lang: isHe(v) ? 'Hebrew' : (v.languageFamilyName || v.language || 'English'), source: v.versionSource, license: v.license}))
+    };
+  } catch (e) {
+    // Fall back to the older v1 endpoint
+    const j = await getJSON(`/api/texts/${encodeURIComponent(ref)}?context=0&commentary=0&pad=0`);
+    return {
+      ref: j.ref, heRef: j.heRef, sectionRef: j.sectionRef || j.ref, sections: j.sections || [], next: j.next, prev: j.prev, book: j.book || j.indexTitle,
+      he: j.he, en: j.text, segmentLevel: typeof j.he === 'string' || typeof j.text === 'string',
+      versions: [j.heVersionTitle && {title: j.heVersionTitle, lang: 'Hebrew', source: j.heVersionSource}, j.versionTitle && {title: j.versionTitle, lang: 'English', source: j.versionSource}].filter(Boolean)
+    };
+  }
+}
+async function fetchEnglish(sectionRef) {
+  const j = await getJSON(`/api/v3/texts/${encodeURIComponent(sectionRef)}?version=translation`);
+  const v = (j.versions || []).find(v => v.languageFamilyName !== 'hebrew' && v.language !== 'he');
+  return v ? {text: v.text, version: {title: v.versionTitle, lang: v.languageFamilyName || 'English', source: v.versionSource, license: v.license}} : null;
+}
+const segRef = (sectionRef, n) => /\d$/.test(sectionRef) ? `${sectionRef}:${n}` : `${sectionRef} ${n}`;
+
+/* ======================= Router ======================= */
+let cleanupFns = [];
+function route() {
+  cleanupFns.forEach(f => f()); cleanupFns = [];
+  document.body.classList.remove('panel-open');
+  closeSuggest();
+  const h = location.hash.replace(/^#\/?/, '');
+  window.scrollTo(0, 0);
+  if (!h) return renderHome();
+  const [kind, ...rest] = h.split('/');
+  const arg = fromHash(rest.join('/').split('?')[0]);
+  if (kind === 'book') return renderBook(arg);
+  if (kind === 'read') return renderReader(arg);
+  renderHome();
+}
+let silentHash = false;
+window.addEventListener('hashchange', () => { if (silentHash) { silentHash = false; return; } route(); });
+
+/* ======================= Home ======================= */
+async function renderHome() {
+  document.title = 'Rav Tzadok Library · Akiva Publishing';
+  app.innerHTML = '<div class="page"><div class="loading">Loading the library…</div></div>';
+  await catalogReady;
+  if (location.hash.replace(/^#\/?/, '')) return; // navigated away while loading
+  const recent = store.get('recent', []);
+  const books = [...CATALOG.map(b => ({...b, local: true})), ...REMOTE.filter(r => !localBook(r.title))];
+  books.sort((x, y) => (ORDER.indexOf(x.title) + 1 || 99) - (ORDER.indexOf(y.title) + 1 || 99));
+  const groups = [...GROUPS, ...[...new Set(books.map(b => b.group))].filter(g => !GROUPS.some(G => G.id === g)).map(g => ({id: g, en: g, he: ''}))];
+  const card = w => {
+    const i = info(w.title);
+    const tag = i.edition === 'available' ? '<span class="tag">Akiva edition available</span>'
+      : i.edition === 'soon' ? '<span class="tag soon">Akiva edition coming soon</span>'
+      : (i.akiva || w.akiva) ? '<span class="tag">Vocalized · Akiva Publishing</span>' : '';
+    return `<a class="book" href="#/book/${toHash(w.title)}">
+      <div class="book-titles"><span class="book-title">${esc(w.title)}</span><span class="book-he" lang="he">${esc(w.he)}</span></div>
+      ${i.d ? `<p>${esc(i.d)}</p>` : ''}${tag}</a>`;
+  };
+  app.innerHTML = `
+  <div class="page home-grid">
+    <div>
+      <div class="intro">
+        <div class="eyebrow">Kisvei Rav Tzadok · Akiva Publishing</div>
+        <h1>The Rav Tzadok Library</h1>
+        <div class="he-title he" lang="he">כתבי רבי צדוק הכהן מלובלין</div>
+        <p>Read the writings of Rav Tzadok HaKohen and the Izhbitza–Radzin masters in the original Hebrew, with English where a translation exists. Tap any passage to see the sources it draws on and the texts that cite it.</p>
+      </div>
+      ${groups.map(g => {
+        const list = books.filter(b => b.group === g.id);
+        return list.length ? `<div class="cat-head"><h2>${esc(g.en)}</h2><span class="he" lang="he">${esc(g.he)}</span></div><div class="books">${list.map(card).join('')}</div>` : '';
+      }).join('')}
+    </div>
+    <aside class="side">
+      ${recent.length ? `<section class="recent"><h3>Continue reading</h3>${recent.slice(0, 5).map(r => `<a href="#/read/${toHash(r.ref)}"><span>${esc(r.ref)}</span><span class="he" lang="he">${esc(r.heRef || '')}</span></a>`).join('')}</section>` : ''}
+      <section>
+        <h3>Start here</h3>
+        <a class="link" href="#/read/${toHash('Takanat HaShavin 1')}">Takanat HaShavin, Chapter 1 →</a>
+        <a class="link" href="#/read/${toHash('Tzidkat HaTzadik 1')}">Tzidkat HaTzadik, §1 →</a>
+        <a class="link" href="#/book/${toHash('Peri Tzadik')}">Peri Tzadik on the parashah →</a>
+        <a class="link" href="#/book/${toHash('Sefer HaZikhronot')}">Sefer HaZikhronot, vocalized →</a>
+      </section>
+      <section>
+        <h3>About Rav Tzadok</h3>
+        <p>Rav Tzadok HaKohen Rabinowitz of Lublin (1823–1900) was a Talmudist and Chasidic master, a disciple of Rabbi Mordechai Yosef of Izhbitza and Rabbi Leibele Eiger. His writing is compressed and allusive, and full of sources.</p>
+      </section>
+      <section class="edition">
+        <h3>Akiva Publishing editions</h3>
+        <img src="../takanas-two-volume-set.png" alt="Takanas HaShavin two-volume edition">
+        <p>Phrase-by-phrase English with the Hebrew on the same page and annotated sources, in print.</p>
+        <a class="link" href="../#takanas">Takanas HaShavin →</a>
+        <a class="link" href="../#dover">Dover Tzedek (coming soon) →</a>
+        <a class="link" href="../#livyasan">The Livyasan and Shavuos →</a>
+      </section>
+    </aside>
+  </div>
+  ${credit()}`;
+}
+const credit = () => `<div class="page" style="padding-top:0"><div class="credit">Hebrew texts are digitized editions from the <a href="https://www.sefaria.org" target="_blank" rel="noopener">Sefaria</a> library (sources listed under About on each text). English translations and connections are loaded live from Sefaria and are used under each version's license; some are community translations. Sefer HaZikhronot is vocalized by Akiva Publishing. The Akiva Publishing print editions are separate translations.</div></div>`;
+
+/* ======================= Book / TOC ======================= */
+async function renderBook(title) {
+  const w = info(title);
+  document.title = `${title} · Rav Tzadok Library`;
+  app.innerHTML = `<div class="page"><div class="crumbs"><a href="#/">Texts</a><span>›</span><span id="bookGroup">Library</span></div>
+    <div class="toc-head"><h1>${esc(title)}</h1><div class="he" lang="he" id="bookHe"></div>
+    ${w.d ? `<p>${esc(w.d)}</p>` : ''}
+    <div class="toc-actions" id="tocActions"></div></div>
+    <div id="toc"><div class="loading">Loading contents…</div></div></div>${credit()}`;
+  const actions = first => `${first ? `<a class="btn primary" href="#/read/${toHash(first)}">Start reading →</a>` : ''}
+      ${w.edition ? `<a class="btn" href="../#${w.edition === 'available' ? 'takanas' : 'dover'}">Akiva Publishing edition</a>` : ''}
+      ${w.akiva ? '' : `<a class="btn" href="${sefariaUrl(title)}" target="_blank" rel="noopener">View on Sefaria ↗</a>`}`;
+  try {
+    await catalogReady;
+    const lb = localBook(title);
+    if (lb) {
+      const toc = await loadToc(lb.slug);
+      $('#bookHe').textContent = lb.he;
+      const g = GROUPS.find(G => G.id === lb.group); $('#bookGroup').textContent = g ? g.en : lb.group;
+      const first = leavesOf(toc.toc).map(l => sectionsOf(l)[0] && secRefOf(l, sectionsOf(l)[0])).find(Boolean);
+      $('#tocActions').innerHTML = actions(first);
+      $('#toc').innerHTML = renderLocalNode(toc.toc, true);
+      return;
+    }
+    const shape = await getJSON(`/api/shape/${encodeURIComponent(title)}`);
+    const root = Array.isArray(shape) ? shape[0] : shape;
+    if (!root) throw new Error('No contents found');
+    if (root.heBook) $('#bookHe').textContent = root.heBook;
+    $('#tocActions').innerHTML = actions(firstRef(root));
+    $('#toc').innerHTML = renderNode(root, root.book || title, true);
+  } catch (e) {
+    $('#toc').innerHTML = errorBox('The table of contents could not be loaded.', title, e);
+  }
+}
+function renderLocalNode(node, isRoot) {
+  let body;
+  if (node.children) body = node.children.map(c => renderLocalNode(c, false)).join('');
+  else if (node.depth === 1) body = node.shape > 0 ? `<a class="btn single" href="#/read/${toHash(node.ref)}">Read · ${node.shape} ${node.shape === 1 ? 'paragraph' : 'paragraphs'}</a>` : '<div class="empty">No text yet.</div>';
+  else {
+    const secs = sectionsOf(node);
+    if (node.depth === 2) body = `<div class="chapters">${node.shape.map((n, i) => n ? `<a href="#/read/${toHash(`${node.ref} ${i + 1}`)}" title="${n} paragraph${n === 1 ? '' : 's'}">${i + 1}</a>` : `<span>${i + 1}</span>`).join('')}</div>`;
+    else {
+      const byTop = {};
+      secs.forEach(a => (byTop[a[0]] = byTop[a[0]] || []).push(a));
+      body = Object.entries(byTop).map(([t, as]) => `<div class="sub-label">${t}</div><div class="chapters">${as.map(a => `<a href="#/read/${toHash(secRefOf(node, a))}">${a.slice(1).join(':')}</a>`).join('')}</div>`).join('');
+    }
+  }
+  if (isRoot) return node.children ? body : `<div class="node">${body}</div>`;
+  if (!node.en && !node.he) return `<div class="node">${body}</div>`;
+  return `<div class="node"><h3><span>${esc(node.en)}</span><span class="he" lang="he">${esc(node.he)}</span></h3>${body}</div>`;
+}
+function firstRef(node) {
+  const ch = node.chapters;
+  if (typeof ch === 'number') return ch > 0 ? node.title : null;
+  if (!Array.isArray(ch)) return null;
+  for (let i = 0; i < ch.length; i++) {
+    const c = ch[i];
+    if (c && typeof c === 'object' && !Array.isArray(c)) { const r = firstRef(c); if (r) return r; }
+    else if (Array.isArray(c)) { const j = c.findIndex(x => x > 0); if (j >= 0) return `${node.title} ${i + 1}:${j + 1}`; }
+    else if (c > 0) return `${node.title} ${i + 1}`;
+  }
+  return null;
+}
+function renderNode(node, parentTitle, isRoot) {
+  const ch = node.chapters;
+  const strip = (t, p) => t && p && t.startsWith(p + ', ') ? t.slice(p.length + 2) : t;
+  const enName = isRoot ? '' : strip(node.title, parentTitle);
+  const heParent = node.heBook && node.heTitle ? node.heTitle.split(', ').slice(0, -1).join(', ') : '';
+  const heName = isRoot ? '' : (node.heTitle ? node.heTitle.split(', ').pop() : '');
+  let body = '';
+  if (typeof ch === 'number') {
+    body = ch > 0 ? `<a class="btn single" href="#/read/${toHash(node.title)}">Read · ${ch} ${ch === 1 ? 'paragraph' : 'paragraphs'}</a>` : '<div class="empty">No text yet.</div>';
+  } else if (Array.isArray(ch) && ch.length && typeof ch[0] === 'object' && !Array.isArray(ch[0])) {
+    body = ch.map(c => renderNode(c, node.title, false)).join('');
+  } else if (Array.isArray(ch) && ch.some(Array.isArray)) {
+    body = ch.map((c, i) => `<div class="sub-label">${i + 1}</div><div class="chapters">${(Array.isArray(c) ? c : [c]).map((n, j) => n ? `<a href="#/read/${toHash(`${node.title} ${i + 1}:${j + 1}`)}">${j + 1}</a>` : `<span>${j + 1}</span>`).join('')}</div>`).join('');
+  } else if (Array.isArray(ch)) {
+    body = `<div class="chapters">${ch.map((n, i) => n ? `<a href="#/read/${toHash(`${node.title} ${i + 1}`)}" title="${n} paragraph${n === 1 ? '' : 's'}">${i + 1}</a>` : `<span>${i + 1}</span>`).join('')}</div>`;
+  }
+  if (isRoot && typeof ch !== 'number' && !(Array.isArray(ch) && typeof ch[0] === 'object')) return `<div class="node">${body}</div>`;
+  if (isRoot) return body;
+  return `<div class="node"><h3><span>${esc(enName)}</span><span class="he" lang="he">${esc(heName)}</span></h3>${body}</div>`;
+}
+function errorBox(msg, ref, e) {
+  return `<div class="error"><strong>${esc(msg)}</strong>Sefaria may be busy or unreachable right now (${esc(e && e.message || 'network error')}). Try again in a moment, or <a href="${sefariaUrl(ref)}" target="_blank" rel="noopener">open ${esc(ref)} on Sefaria ↗</a>.</div>`;
+}
+
+/* ======================= Reader ======================= */
+const prefs = {lang: store.get('lang', 'bi'), layout: store.get('layout', 'side'), fs: store.get('fs', 1), theme: store.get('theme', 'light')};
+applyTheme();
+function applyTheme() {
+  document.documentElement.dataset.theme = prefs.theme;
+  document.documentElement.style.setProperty('--fs', prefs.fs);
+}
+
+const ICON = {
+  list: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M8 6h13M8 12h13M8 18h13M3 6h.01M3 12h.01M3 18h.01"/></svg>',
+  left: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m15 18-6-6 6-6"/></svg>',
+  right: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m9 18 6-6-6-6"/></svg>',
+  close: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 6 6 18M6 6l12 12"/></svg>',
+  link: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 0 0 7.5.5l3-3a5 5 0 0 0-7-7l-1.7 1.7"/><path d="M14 11a5 5 0 0 0-7.5-.5l-3 3a5 5 0 0 0 7 7l1.7-1.7"/></svg>',
+  copy: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="12" height="12" rx="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>',
+  ext: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14 21 3"/></svg>'
+};
+
+let R = null; // reader state
+
+async function renderReader(ref) {
+  document.title = `${ref} · Rav Tzadok Library`;
+  app.innerHTML = `
+  <div class="reader">
+    <div class="textcol">
+      <div class="rbar">
+        <a class="icon-btn" id="tocBtn" title="Table of contents" aria-label="Table of contents">${ICON.list}</a>
+        <button class="icon-btn" id="prevBtn" title="Previous section" aria-label="Previous section">${ICON.left}</button>
+        <div class="title" id="rTitle">${esc(ref)}</div>
+        <button class="icon-btn" id="nextBtn" title="Next section" aria-label="Next section">${ICON.right}</button>
+        <button class="icon-btn aa" id="setBtn" title="Text settings" aria-label="Text settings" aria-expanded="false">Aa</button>
+        <div class="settings" id="settings" hidden>
+          <div class="grp"><label>Language</label><div class="seg-ctl" data-pref="lang">
+            <button data-v="en">English</button><button data-v="bi">Both</button><button data-v="he" class="heb">עברית</button></div></div>
+          <div class="grp"><label>Bilingual layout</label><div class="seg-ctl" data-pref="layout">
+            <button data-v="stack">Stacked</button><button data-v="side">Side by side</button></div></div>
+          <div class="grp"><label>Theme</label><div class="seg-ctl" data-pref="theme">
+            <button data-v="light">Light</button><button data-v="sepia">Sepia</button><button data-v="dark">Dark</button></div></div>
+          <div class="grp"><label>Text size</label><div class="size"><span style="font-size:.8rem">A</span><input type="range" min="0.8" max="1.6" step="0.05" id="fsRange" aria-label="Text size"><span style="font-size:1.2rem">A</span></div></div>
+        </div>
+      </div>
+      <div class="text" id="text"><div class="loading">Loading text…</div></div>
+    </div>
+    <aside class="panel" id="panel" hidden aria-label="Connections"></aside>
+  </div>`;
+
+  R = {sections: [], loading: false, next: null, prev: null, selected: null, links: new Map(), book: null};
+  const text = $('#text');
+  syncPrefs();
+
+  // settings
+  const setBtn = $('#setBtn'), settings = $('#settings');
+  setBtn.onclick = e => { e.stopPropagation(); settings.hidden = !settings.hidden; setBtn.setAttribute('aria-expanded', !settings.hidden); };
+  const outside = e => { if (!settings.hidden && !settings.contains(e.target) && e.target !== setBtn) { settings.hidden = true; setBtn.setAttribute('aria-expanded', 'false'); } };
+  document.addEventListener('click', outside); cleanupFns.push(() => document.removeEventListener('click', outside));
+  settings.querySelectorAll('.seg-ctl').forEach(g => g.addEventListener('click', e => {
+    const b = e.target.closest('button'); if (!b) return;
+    prefs[g.dataset.pref] = b.dataset.v; store.set(g.dataset.pref, b.dataset.v); applyTheme(); syncPrefs();
+  }));
+  $('#fsRange').value = prefs.fs;
+  $('#fsRange').oninput = e => { prefs.fs = +e.target.value; store.set('fs', prefs.fs); applyTheme(); };
+
+  $('#prevBtn').onclick = () => R.firstPrev && (location.hash = '#/read/' + toHash(R.firstPrev));
+  $('#nextBtn').onclick = () => {
+    const cur = R.current && R.sections.findIndex(s => s.sectionRef === R.current);
+    const nxt = cur >= 0 && R.sections[cur + 1] ? R.sections[cur + 1].sectionRef : R.next;
+    if (nxt) location.hash = '#/read/' + toHash(nxt);
+  };
+
+  // segment clicks
+  text.addEventListener('click', e => {
+    const fm = e.target.closest('.footnote-marker');
+    if (fm) { const fn = fm.nextElementSibling; if (fn && fn.classList.contains('footnote')) fn.classList.toggle('open'); e.stopPropagation(); return; }
+    if (window.getSelection && String(window.getSelection()).length > 1) return;
+    const seg = e.target.closest('.seg'); if (seg) selectSegment(seg.dataset.ref, seg);
+  });
+
+  const onKey = e => {
+    if (e.key === 'Escape') { if (!settings.hidden) settings.hidden = true; else closePanel(); }
+    if (e.target.matches('input,textarea')) return;
+    if (e.key === 'ArrowRight' && e.altKey) $('#nextBtn').click();
+    if (e.key === 'ArrowLeft' && e.altKey) $('#prevBtn').click();
+  };
+  document.addEventListener('keydown', onKey); cleanupFns.push(() => document.removeEventListener('keydown', onKey));
+
+  try {
+    let first = await fetchText(ref);
+    let highlight = first.highlight || null;
+    if (!first.local && first.segmentLevel || (first.sectionRef && first.sectionRef !== first.ref && !/-/.test(first.ref))) {
+      highlight = first.ref;
+      first = await fetchText(first.sectionRef);
+    }
+    R.book = first.book;
+    R.firstPrev = first.prev;
+    text.innerHTML = '';
+    appendSection(first);
+    rememberRecent(first);
+    $('#tocBtn').href = '#/book/' + toHash(first.book || ref.split(/[ ,]\d/)[0]);
+    updateTitle(first.sectionRef);
+    setupInfinite();
+    if (highlight) {
+      const el = text.querySelector(`.seg[data-ref="${CSS.escape(highlight)}"]`);
+      if (el) { el.scrollIntoView({block: 'center'}); el.classList.add('flash'); selectSegment(highlight, el); }
+    }
+  } catch (e) {
+    text.innerHTML = errorBox('This text could not be loaded.', ref, e);
+  }
+}
+
+function syncPrefs() {
+  const t = $('#text'); if (!t) return;
+  t.dataset.lang = prefs.lang; t.dataset.layout = prefs.layout;
+  document.querySelectorAll('.settings .seg-ctl').forEach(g => g.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', prefs[g.dataset.pref] === b.dataset.v)));
+  document.querySelectorAll('.seg .num').forEach(n => n.textContent = prefs.lang === 'he' ? gematria(+n.dataset.n) : n.dataset.n);
+}
+
+function appendSection(d) {
+  const text = $('#text');
+  const he = flatten(d.he), en = flatten(d.en);
+  const n = Math.max(he.length, en.length);
+  const sec = document.createElement('section');
+  sec.className = 'sec' + (en.some(x => String(x || '').trim()) ? '' : ' no-en');
+  sec.dataset.ref = d.sectionRef;
+  let html = `<div class="sec-head"><span>${esc(d.sectionRef)}</span>${d.heRef ? `<span class="he" lang="he">${esc(d.heRef)}</span>` : ''}</div>`;
+  if (!n) html += `<div class="empty" style="text-align:center">This section has no text yet.</div>`;
+  for (let i = 0; i < n; i++) {
+    const r = d.sep ? d.sectionRef + d.sep + (i + 1) : segRef(d.sectionRef, i + 1);
+    const h = he[i] ? clean(he[i]) : '', e = en[i] ? clean(en[i]) : '';
+    if (!h.trim() && !e.trim()) continue;
+    html += `<div class="seg" data-ref="${esc(r)}" data-i="${i + 1}" tabindex="0">
+      <span class="num" data-n="${i + 1}">${prefs.lang === 'he' ? gematria(i + 1) : i + 1}</span>
+      <div class="seg-he" lang="he" dir="rtl">${h}</div>
+      <div class="seg-en" lang="en">${e}</div>
+    </div>`;
+  }
+  sec.innerHTML = html;
+  const sentinel = text.querySelector('.sentinel, .endnote');
+  text.insertBefore(sec, sentinel || null);
+  R.sections.push(d);
+  R.next = d.next;
+  loadLinkCounts(d.sectionRef, sec);
+  sec.querySelectorAll('.seg').forEach(s => s.addEventListener('keydown', e => { if (e.key === 'Enter') selectSegment(s.dataset.ref, s); }));
+  // Bundled texts are Hebrew only; add Sefaria's English translation when one exists.
+  if (d.local && !info(d.book).akiva) fetchEnglish(d.sectionRef).then(res => {
+    if (!res) return;
+    const tr = flatten(res.text);
+    let any = false;
+    sec.querySelectorAll('.seg').forEach(s => { const t = tr[s.dataset.i - 1]; if (t && String(t).trim()) { $('.seg-en', s).innerHTML = clean(t); any = true; } });
+    if (any) { sec.classList.remove('no-en'); d.en = tr; d.versions = [...d.versions, res.version]; }
+  }).catch(() => {});
+}
+
+function setupInfinite() {
+  const text = $('#text');
+  const sentinel = document.createElement('div'); sentinel.className = 'sentinel';
+  text.appendChild(sentinel);
+  const io = new IntersectionObserver(async es => {
+    if (!es[0].isIntersecting || R.loading) return;
+    if (!R.next) { sentinel.replaceWith(Object.assign(document.createElement('div'), {className: 'endnote', textContent: 'End of the book'})); io.disconnect(); return; }
+    if (R.sections.length >= 25) return; // keep the DOM reasonable
+    R.loading = true;
+    try { appendSection(await fetchText(R.next)); } catch { R.next = null; }
+    R.loading = false;
+    // re-check if sentinel still visible
+    io.unobserve(sentinel); io.observe(sentinel);
+  }, {rootMargin: '600px'});
+  io.observe(sentinel);
+  // track current section in the title bar
+  const onScroll = () => {
+    const secs = [...document.querySelectorAll('.sec')];
+    let cur = secs[0];
+    for (const s of secs) if (s.getBoundingClientRect().top < 160) cur = s;
+    if (cur && cur.dataset.ref !== R.current) {
+      updateTitle(cur.dataset.ref);
+      silentHash = true; history.replaceState(null, '', '#/read/' + toHash(cur.dataset.ref)); silentHash = false;
+      const d = R.sections.find(s => s.sectionRef === cur.dataset.ref); if (d) rememberRecent(d);
+    }
+  };
+  window.addEventListener('scroll', onScroll, {passive: true});
+  cleanupFns.push(() => { io.disconnect(); window.removeEventListener('scroll', onScroll); });
+}
+function updateTitle(ref) {
+  R.current = ref;
+  const d = R.sections.find(s => s.sectionRef === ref);
+  $('#rTitle').innerHTML = `<a href="#/book/${toHash(R.book || '')}">${esc(ref)}</a>${d && d.heRef ? `<span class="he" lang="he">${esc(d.heRef)}</span>` : ''}`;
+  const idx = R.sections.findIndex(s => s.sectionRef === ref);
+  R.firstPrev = idx > 0 ? R.sections[idx - 1].sectionRef : R.sections[0] && R.sections[0].prev;
+  $('#prevBtn').disabled = !R.firstPrev;
+  document.title = `${ref} · Rav Tzadok Library`;
+}
+function rememberRecent(d) {
+  const list = store.get('recent', []).filter(r => r.book !== d.book);
+  list.unshift({ref: d.sectionRef, heRef: d.heRef, book: d.book});
+  store.set('recent', list.slice(0, 8));
+}
+
+/* ---------- links ---------- */
+async function loadLinks(sectionRef) {
+  if (!R.links.has(sectionRef)) R.links.set(sectionRef, getJSON(`/api/links/${encodeURIComponent(sectionRef)}?with_text=0`).then(ls => Array.isArray(ls) ? ls : []).catch(() => []));
+  return R.links.get(sectionRef);
+}
+function segOf(anchorRef, sectionRef) {
+  if (!anchorRef || !anchorRef.startsWith(sectionRef)) return null;
+  const m = anchorRef.slice(sectionRef.length).match(/^[ :](\d+)(?:-(\d+))?$/);
+  if (!m) return null;
+  return [+m[1], m[2] ? +m[2] : +m[1]];
+}
+async function loadLinkCounts(sectionRef, secEl) {
+  const links = await loadLinks(sectionRef);
+  const counts = {};
+  links.forEach(l => { const r = segOf(l.anchorRef, sectionRef); if (r) for (let i = r[0]; i <= r[1]; i++) counts[i] = (counts[i] || 0) + 1; });
+  secEl.querySelectorAll('.seg').forEach(s => {
+    const c = counts[s.dataset.i];
+    if (c) s.insertAdjacentHTML('beforeend', `<span class="lc" title="${c} connection${c === 1 ? '' : 's'}">${c}</span>`);
+  });
+}
+async function linksFor(ref) {
+  const sec = R.sections.find(s => ref === s.sectionRef || ref.startsWith(s.sectionRef + ':') || ref.startsWith(s.sectionRef + ' '));
+  if (!sec) return getJSON(`/api/links/${encodeURIComponent(ref)}?with_text=0`).catch(() => []);
+  const n = +ref.slice(sec.sectionRef.length + 1);
+  const all = await loadLinks(sec.sectionRef);
+  return all.filter(l => { const r = segOf(l.anchorRef, sec.sectionRef); return r && n >= r[0] && n <= r[1]; });
+}
+
+/* ---------- panel ---------- */
+function selectSegment(ref, el) {
+  document.querySelectorAll('.seg.on').forEach(s => s.classList.remove('on'));
+  el.classList.add('on');
+  R.selected = {ref, el};
+  openPanel(ref);
+}
+function closePanel() {
+  document.body.classList.remove('panel-open');
+  const p = $('#panel'); if (p) p.hidden = true;
+  document.querySelectorAll('.seg.on').forEach(s => s.classList.remove('on'));
+}
+async function openPanel(ref, tab = 'connections') {
+  const p = $('#panel');
+  p.hidden = false; document.body.classList.add('panel-open');
+  p.innerHTML = `<div class="panel-head"><div class="ttl">${esc(ref)}</div><button class="icon-btn" id="pClose" aria-label="Close panel">${ICON.close}</button></div>
+    <div class="panel-body"><div class="ptabs" role="tablist">
+      <button role="tab" data-tab="connections">Connections</button><button role="tab" data-tab="tools">Tools</button><button role="tab" data-tab="about">About</button></div>
+      <div id="pContent"></div></div>`;
+  $('#pClose').onclick = closePanel;
+  p.querySelectorAll('.ptabs button').forEach(b => b.onclick = () => showTab(ref, b.dataset.tab));
+  showTab(ref, tab);
+}
+function showTab(ref, tab) {
+  document.querySelectorAll('.ptabs button').forEach(b => b.setAttribute('aria-selected', b.dataset.tab === tab));
+  const c = $('#pContent');
+  if (tab === 'tools') return renderTools(ref, c);
+  if (tab === 'about') return renderAbout(ref, c);
+  renderConnections(ref, c);
+}
+async function renderConnections(ref, c) {
+  c.innerHTML = '<div class="loading">Finding connections…</div>';
+  const links = await linksFor(ref);
+  if (R.selected && R.selected.ref !== ref) return;
+  if (!links.length) { c.innerHTML = `<div class="empty">No connections are recorded for this passage yet. Rav Tzadok cites many sources inline; tap a citation’s book on Sefaria to explore it.</div>`; return; }
+  const byCat = {};
+  links.forEach(l => { const k = l.category || 'Other'; (byCat[k] = byCat[k] || []).push(l); });
+  const cats = Object.keys(byCat).sort((a, b) => byCat[b].length - byCat[a].length);
+  c.innerHTML = cats.map(k => {
+    const books = {};
+    byCat[k].forEach(l => { const t = (l.collectiveTitle && l.collectiveTitle.en) || l.index_title || 'Other'; (books[t] = books[t] || []).push(l); });
+    return `<button class="cat" data-cat="${esc(k)}"><span class="bar" style="background:var(${CAT_COLORS[k] || '--c-other'})"></span><span class="nm">${esc(k)}</span><span class="ct">${byCat[k].length}</span></button>
+      <div class="book-group">${Object.entries(books).map(([t, ls]) => `<button data-cat="${esc(k)}" data-book="${esc(t)}"><span>${esc(t)}</span><span>${ls.length}</span></button>`).join('')}</div>`;
+  }).join('');
+  c.onclick = e => {
+    const b = e.target.closest('button[data-cat]'); if (!b) return;
+    const list = byCat[b.dataset.cat].filter(l => !b.dataset.book || ((l.collectiveTitle && l.collectiveTitle.en) || l.index_title) === b.dataset.book);
+    showLinkList(ref, b.dataset.book || b.dataset.cat, list, c);
+  };
+}
+async function showLinkList(ref, label, list, c) {
+  c.onclick = null;
+  c.innerHTML = `<button class="back" id="pBack">← All connections</button><div class="eyebrow" style="margin-bottom:4px">${esc(label)}</div><div id="lItems"></div>`;
+  $('#pBack').onclick = () => renderConnections(ref, c);
+  const box = $('#lItems');
+  list.slice(0, 40).forEach(l => {
+    const div = document.createElement('div'); div.className = 'link-item';
+    div.innerHTML = `<div class="ref"><span>${esc(l.sourceRef || l.ref)}</span><span class="he" lang="he">${esc(l.sourceHeRef || '')}</span></div><div class="loading" style="padding:6px 0">Loading…</div>`;
+    box.appendChild(div);
+    fetchText(l.sourceRef || l.ref).then(d => {
+      const he = flatten(d.he).map(plain).join(' '), en = flatten(d.en).map(plain).join(' ');
+      const target = l.sourceRef || l.ref;
+      div.querySelector('.loading').outerHTML = `${he ? `<div class="he-text" lang="he">${esc(he)}</div>` : ''}${en ? `<div class="en-text">${esc(en)}</div>` : ''}
+        <div class="acts"><a href="#/read/${toHash(target)}">Open in reader</a><a href="${sefariaUrl(target)}" target="_blank" rel="noopener">Sefaria ↗</a></div>`;
+    }).catch(() => {
+      const target = l.sourceRef || l.ref;
+      div.querySelector('.loading').outerHTML = `<div class="acts"><a href="#/read/${toHash(target)}">Open in reader</a><a href="${sefariaUrl(target)}" target="_blank" rel="noopener">Sefaria ↗</a></div>`;
+    });
+  });
+  if (list.length > 40) box.insertAdjacentHTML('beforeend', `<div class="empty">Showing 40 of ${list.length}.</div>`);
+}
+function renderTools(ref, c) {
+  const el = R.selected && R.selected.el;
+  const he = el ? $('.seg-he', el).textContent.trim() : '', en = el ? $('.seg-en', el).textContent.trim() : '';
+  const url = location.href.split('#')[0] + '#/read/' + toHash(ref);
+  c.innerHTML = `
+    <button class="tool" data-act="link">${ICON.link}Copy link to this passage</button>
+    <button class="tool" data-act="he">${ICON.copy}Copy Hebrew</button>
+    ${en && !/No English translation/.test(en) ? `<button class="tool" data-act="en">${ICON.copy}Copy English</button>` : ''}
+    <button class="tool" data-act="cite">${ICON.copy}Copy with citation</button>
+    <a class="tool" href="${sefariaUrl(ref)}" target="_blank" rel="noopener">${ICON.ext}Open on Sefaria</a>
+    <a class="tool" href="${API}/search?q=${encodeURIComponent(he.split(/\s+/).slice(0, 6).join(' '))}&tab=text" target="_blank" rel="noopener">${ICON.ext}Search Sefaria for this phrase</a>`;
+  c.onclick = async e => {
+    const b = e.target.closest('button[data-act]'); if (!b) return;
+    const v = {link: url, he, en, cite: `${he}\n\n${en && !/No English translation/.test(en) ? en + '\n\n' : ''}— ${ref}`}[b.dataset.act];
+    try { await navigator.clipboard.writeText(v); toast('Copied'); } catch { toast('Copy failed'); }
+  };
+}
+function renderAbout(ref, c) {
+  c.onclick = null;
+  const d = R.sections.find(s => ref.startsWith(s.sectionRef)) || R.sections[0];
+  const w = {...info(R.book), he: (localBook(R.book) || {}).he || (REMOTE.find(r => r.title === R.book) || {}).he || ''};
+  c.innerHTML = `<div style="margin-bottom:14px"><div style="font:500 1.3rem var(--en)">${esc(R.book || '')}</div><div class="he" lang="he" style="font-size:1.2rem;color:var(--muted)">${esc(w.he || '')}</div>
+    ${w.d ? `<p class="empty" style="padding:6px 0 0">${esc(w.d)}</p>` : ''}</div>
+    <div class="eyebrow" style="margin:18px 0 4px">Versions on this page</div>
+    ${(d && d.versions.length ? d.versions : []).map(v => `<div class="ver"><b>${esc(v.title)}</b><span>${esc(v.lang)}${v.license ? ' · ' + esc(v.license) : ''}</span>${v.source ? `<br><a href="${esc(v.source)}" target="_blank" rel="noopener">${esc(v.source)}</a>` : ''}</div>`).join('') || '<div class="empty">No version information.</div>'}
+    ${w.edition ? `<div class="edition" style="margin-top:22px"><div class="eyebrow">Akiva Publishing</div><p class="empty">${w.edition === 'available' ? 'Our two-volume edition presents this work with phrase-by-phrase English and annotated sources.' : 'Our bilingual edition of this work is in preparation.'}</p><a class="btn" href="../#${w.edition === 'available' ? 'takanas' : 'dover'}">See the edition</a></div>` : ''}`;
+}
+
+/* ======================= Search / jump ======================= */
+const q = $('#q'), sug = $('#suggest');
+let sugTimer, sugItems = [], sugIdx = -1;
+function closeSuggest() { sug.hidden = true; sugIdx = -1; }
+function localMatches(s) {
+  const n = s.toLowerCase();
+  return [...CATALOG, ...REMOTE].filter((w, i, arr) => arr.findIndex(x => x.title === w.title) === i)
+    .filter(w => w.title.toLowerCase().includes(n) || (w.he || '').includes(s)).slice(0, 6)
+    .map(w => ({label: w.title, he: w.he, href: '#/book/' + toHash(w.title), kind: 'Book'}));
+}
+function drawSuggest() {
+  if (!sugItems.length) { sug.innerHTML = `<div class="note">No matching text. <a href="${API}/search?q=${encodeURIComponent(q.value)}&tab=text" target="_blank" rel="noopener" style="padding:0;border:0;text-decoration:underline">Search all of Sefaria ↗</a></div>`; sug.hidden = false; return; }
+  sug.innerHTML = sugItems.map((it, i) => `<a href="${it.href}" class="${i === sugIdx ? 'on' : ''}"><span>${esc(it.label)}${it.he ? ` <span class="he" lang="he" style="color:var(--muted)">${esc(it.he)}</span>` : ''}</span><span class="kind">${esc(it.kind)}</span></a>`).join('')
+    + `<a href="${API}/search?q=${encodeURIComponent(q.value)}&tab=text" target="_blank" rel="noopener"><span>Full-text search for “${esc(q.value)}”</span><span class="kind">Sefaria ↗</span></a>`;
+  sug.hidden = false;
+}
+q.addEventListener('input', () => {
+  clearTimeout(sugTimer);
+  const s = q.value.trim();
+  if (!s) return closeSuggest();
+  sugItems = localMatches(s); sugIdx = -1; drawSuggest();
+  sugTimer = setTimeout(async () => {
+    try {
+      const j = await getJSON(`/api/name/${encodeURIComponent(s)}?limit=8`);
+      if (q.value.trim() !== s) return;
+      const items = localMatches(s);
+      if (j.is_ref && j.ref) items.unshift({label: j.ref, href: (j.is_book ? '#/book/' : '#/read/') + toHash(j.ref), kind: j.is_book ? 'Book' : 'Go to'});
+      (j.completion_objects || []).filter(o => o.type === 'ref').slice(0, 6).forEach(o => {
+        if (!items.some(i => i.label === o.title || i.label === o.key)) items.push({label: o.title, href: '#/read/' + toHash(o.key), kind: 'Text'});
+      });
+      sugItems = items; drawSuggest();
+    } catch {}
+  }, 220);
+});
+q.addEventListener('keydown', e => {
+  if (sug.hidden) return;
+  if (e.key === 'ArrowDown') { sugIdx = Math.min(sugIdx + 1, sugItems.length - 1); drawSuggest(); e.preventDefault(); }
+  if (e.key === 'ArrowUp') { sugIdx = Math.max(sugIdx - 1, 0); drawSuggest(); e.preventDefault(); }
+  if (e.key === 'Escape') closeSuggest();
+});
+$('#searchForm').addEventListener('submit', e => {
+  e.preventDefault();
+  const it = sugItems[sugIdx >= 0 ? sugIdx : 0];
+  if (it) { location.hash = it.href; q.value = ''; q.blur(); closeSuggest(); }
+  else if (q.value.trim()) location.hash = '#/read/' + toHash(q.value.trim());
+});
+sug.addEventListener('click', e => { if (e.target.closest('a[href^="#"]')) { q.value = ''; closeSuggest(); } });
+document.addEventListener('click', e => { if (!e.target.closest('#searchForm')) closeSuggest(); });
+
+route();
+})();
+</script>
+</body>
+</html>
