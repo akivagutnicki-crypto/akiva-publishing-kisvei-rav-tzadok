@@ -49,6 +49,7 @@ PARTS = [
     (r'Miscellany', ('Dover Tzedek', 'Miscellany')),
     (r'Mach?sh?avo[st][ _]Charutz|מחשבות חרוץ', ('Machshavot Charutz', '')),
     (r'Yisrael[ _]Kedosh|ישראל קדושים', ('Yisrael Kedoshim', '')),
+    (r'Sichat[ _]Mala[kc]hei|שיחת מלאכי', ('Sichat Malakhei HaSharet', '*')),
 ]
 # Parts whose section markers do not follow Sefaria's paragraphs: every paragraph
 # is placed by matching its opening words against the Sefaria Hebrew, moving
@@ -518,6 +519,8 @@ def convert_part(path, z):
             or next((v for pat, v in PARTS if re.search(pat, first)), None))
     if not part:
         sys.exit(f'{path}: cannot tell which book this is (first line: {first[:80]})')
+    if part[1] == '*':
+        return convert_aligned_book(path, paras, part[0])
     chapters = PART_DATA.setdefault(part, {})
     if part[0] in ALIGN_ALL:
         return convert_aligned(path, paras, part, chapters)
@@ -627,8 +630,80 @@ def convert_aligned(path, paras, part, chapters):
     print(f'{path}: {part[0]} (aligned to Sefaria paragraphs)')
 
 
+def sefaria_segments(book):
+    """[(node, chapter or None, paragraph, plain text)] over every node of a Sefaria export."""
+    f = Path('sources/sefaria') / (re.sub(r'[^A-Za-z0-9]+', '_', book).strip('_') + '.json')
+    src = json.loads(f.read_text(encoding='utf-8'))
+    nodes = [(n['enTitle'], src['text'].get(n['enTitle'])) for n in src['schema']['nodes']] if 'schema' in src else [('', src['text'])]
+    out = []
+    for node, t in nodes:
+        t = t or []
+        if t and isinstance(t[0], list):
+            out += [(node, c + 1, k + 1, plain_he(seg)) for c, chap in enumerate(t) for k, seg in enumerate(chap) if isinstance(seg, str)]
+        else:
+            out += [(node, None, k + 1, plain_he(seg)) for k, seg in enumerate(t) if isinstance(seg, str)]
+    return out
+
+
+def convert_aligned_book(path, paras, book):
+    """A whole book whose paragraphs follow Sefaria's one to one, across all its parts.
+    Paragraphs are matched by their opening words; unmatched ones between two
+    matches take the Sefaria paragraphs in between, in order."""
+    segs = sefaria_segments(book)
+
+    def find(he):
+        words = plain_he(he).split()
+        for n in (6, 5, 4):
+            key = ' '.join(words[:n])
+            if len(key) < 8:
+                continue
+            hits = [i for i, s_ in enumerate(segs) if s_[3].startswith(key) or s_[3][:200].find(key) >= 0]
+            if len(hits) == 1:
+                return hits[0]
+        return None
+
+    body, closing = [], []
+    for is_heading, runs in paras:
+        text = ''.join(r[0] for r in runs).strip()
+        if is_heading or not text:
+            continue  # "אוֹת א׳ (Section 1)", "פִּסְקָה ב׳ (Paragraph 2)": the margin numbers show these
+        if body and len(text) < 120 and (re.match(r'^תַּם|^תם', NIQQUD.sub('', text)) or not HEB.search(text)) and closing is not None:
+            closing.append(text); continue  # colophon
+        body.append(pairs_of(runs))
+    at = [find(' '.join(p[0] for p in pairs[:2])) for pairs in body]
+    # keep matches only while they move forward
+    last = -1
+    for k, i in enumerate(at):
+        if i is not None and i <= last: at[k] = None
+        elif i is not None: last = i
+    # fill gaps between matches in order; extra paragraphs continue the previous one
+    known = [k for k, i in enumerate(at) if i is not None]
+    for a, b in zip([-1] + known, known + [len(at)]):
+        lo = at[a] if a >= 0 else -1
+        hi = at[b] if b < len(at) else len(segs)
+        for j, k in enumerate(range(a + 1, b)):
+            at[k] = lo + 1 + j if lo + 1 + j < hi else None
+    current = {}
+    for pairs, i in zip(body, at):
+        if i is None:
+            prev = current.get('item')
+            if prev: prev['p'] += pairs
+            continue
+        node, ch, n, _ = segs[i]
+        item = {'p': pairs, 'n': n}
+        PART_DATA.setdefault((book, node), {}).setdefault(ch or 1, []).append(item)
+        current['item'] = item
+    if closing and current.get('item'):
+        node, ch = segs[at[[k for k, i in enumerate(at) if i is not None][-1]]][:2]
+        PART_DATA[(book, node)][ch or 1].append({'h': ' — '.join(closing)})
+    placed = sum(1 for i in at if i is not None)
+    print(f'{path}: {book}, {len(body)} paragraphs, {sum(1 for i in known)} matched by text, {placed} placed of {len(segs)} Sefaria paragraphs')
+
+
 def write_parts():
     for (book, node), chapters in PART_DATA.items():
+        if not any(chapters.values()):
+            continue
         for ch, items in chapters.items():
             # Parts may arrive in any file order; numbered paragraphs sort into place.
             seen = {}

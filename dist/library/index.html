@@ -409,7 +409,7 @@ async function resolveLocal(ref) {
   const sectionRef = secRefOf(leaf, addr), k = all.indexOf(sectionRef);
   const sep = leaf.sep || (secLen ? ':' : ' ');
   let he = Array.isArray(text) ? text : [text], en = [], phrases = null, heads = null;
-  const il = leaf.interlinear || (leaf.ilch && leaf.ilch.includes(addr[0]));
+  const il = leaf.interlinear || leaf.il1 || (leaf.ilch && leaf.ilch.includes(addr[0]));
   let nums = null;
   if (il) { // items: {p: [[he, en], ...], n?} paragraphs and {h: title} subheadings
     phrases = []; heads = {}; nums = [];
@@ -661,7 +661,7 @@ function renderLocalNode(node, isRoot) {
     return isRoot ? body : `<div class="node"><h3><span>${esc(node.en)}</span><span class="he" lang="he">${esc(node.he)}</span></h3>${body}</div>`;
   }
   if (node.children) body = node.children.map(c => renderLocalNode(c, false)).join('');
-  else if (node.depth === 1) body = node.shape > 0 ? `<a class="btn single" href="#/read/${toHash(node.ref)}">Read · ${node.shape} ${node.shape === 1 ? 'paragraph' : 'paragraphs'}</a>` : '<div class="empty">No text yet.</div>';
+  else if (node.depth === 1) body = node.shape > 0 ? `<a class="btn single" href="#/read/${toHash(node.ref)}">Read · ${node.shape} ${node.shape === 1 ? 'paragraph' : 'paragraphs'}${node.il1 ? ' · interlinear English' : ''}</a>` : '<div class="empty">No text yet.</div>';
   else {
     const secs = sectionsOf(node);
     if (node.depth === 2) body = `<div class="chapters">${node.shape.map((n, i) => {
