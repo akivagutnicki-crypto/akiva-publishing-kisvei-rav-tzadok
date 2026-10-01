@@ -169,6 +169,9 @@ body.panel-open .text{max-width:860px}
 .subhead{font:500 calc(1.2rem * var(--fs))/1.5 var(--he);text-align:center;color:var(--ox);margin:30px 0 14px}
 a.cite{color:var(--link);text-decoration:underline;text-decoration-color:color-mix(in srgb,var(--link) 40%,transparent);text-underline-offset:3px}
 a.cite:hover{text-decoration-color:var(--link)}
+.chapters a.il{border-color:var(--forest);box-shadow:inset 0 -3px 0 var(--forest)}
+.il-key{display:flex;align-items:center;gap:8px;margin-top:10px;font:500 .74rem var(--ui);color:var(--muted)}
+.il-key span{width:16px;height:12px;border:1px solid var(--forest);box-shadow:inset 0 -3px 0 var(--forest);border-radius:2px}
 .toc-list a{display:grid;grid-template-columns:auto 1fr;gap:6px 22px;align-items:baseline;padding:14px 4px;border-bottom:1px solid var(--line)}
 .toc-list a:hover{background:var(--hl)}
 .toc-list .en{font:500 1.05rem var(--en)}
@@ -370,18 +373,21 @@ async function resolveLocal(ref) {
   const sectionRef = secRefOf(leaf, addr), k = all.indexOf(sectionRef);
   const sep = leaf.sep || (secLen ? ':' : ' ');
   let he = Array.isArray(text) ? text : [text], en = [], phrases = null, heads = null;
-  if (leaf.interlinear) { // items: {p: [[he, en], ...]} paragraphs and {h: title} subheadings
-    phrases = []; heads = {};
-    text.forEach(it => { if (it.h) heads[phrases.length] = it.h; else if (it.p) phrases.push(it.p); });
+  const il = leaf.interlinear || (leaf.ilch && leaf.ilch.includes(addr[0]));
+  let nums = null;
+  if (il) { // items: {p: [[he, en], ...], n?} paragraphs and {h: title} subheadings
+    phrases = []; heads = {}; nums = [];
+    text.forEach(it => { if (it.h) heads[phrases.length] = it.h; else if (it.p) { phrases.push(it.p); nums.push(it.n || nums.length + 1); } });
     he = phrases.map(ps => ps.map(x => x[0]).join(' '));
     en = phrases.map(ps => ps.map(x => x[1]).join(' '));
   }
   return {
     local: true, ref: sectionRef, sectionRef, heRef: leaf.interlinear ? leaf.heRef : heSecRefOf(leaf, addr), book: book.title, heBook: book.he,
-    he, en, phrases, heads, chapterLinks: !!leaf.interlinear, title: leaf.interlinear ? {en: leaf.en, he: leaf.he} : null,
+    he, en, phrases, heads, nums, chapterLinks: !!il, title: leaf.interlinear ? {en: leaf.en, he: leaf.he} : null,
     segmentLevel: false, sep, highlight: segment ? `${sectionRef}${sep}${segment}` : null,
     next: all[k + 1] || null, prev: k > 0 ? all[k - 1] : null,
-    versions: [{title: book.version.title, lang: leaf.interlinear ? 'Hebrew with interlinear English' : 'Hebrew', source: book.version.source, license: book.version.license}]
+    versions: [il && !leaf.interlinear ? {title: 'Akiva Publishing interlinear edition', lang: 'Hebrew with interlinear English', source: '', license: '© Akiva Publishing'}
+      : {title: book.version.title, lang: il ? 'Hebrew with interlinear English' : 'Hebrew', source: book.version.source, license: book.version.license}]
   };
 }
 const CAT_COLORS = {Tanakh:'--c-tanakh',Talmud:'--c-talmud',Mishnah:'--c-talmud',Midrash:'--c-midrash',Halakhah:'--c-halakhah',Kabbalah:'--c-kabbalah',Chasidut:'--c-chasidut',Commentary:'--c-commentary','Quoting Commentary':'--c-commentary',Musar:'--c-midrash','Jewish Thought':'--c-kabbalah',Liturgy:'--c-tanakh'};
@@ -504,10 +510,12 @@ async function renderHome() {
   const groups = [...GROUPS, ...[...new Set(books.map(b => b.group))].filter(g => !GROUPS.some(G => G.id === g)).map(g => ({id: g, en: g, he: ''}))];
   const card = w => {
     const i = info(w.title);
-    const tag = i.edition === 'available' ? '<span class="tag">Akiva edition available</span>'
-      : i.edition === 'soon' ? '<span class="tag soon">Akiva edition coming soon</span>'
-      : w.interlinear ? '<span class="tag">Interlinear English · Akiva Publishing</span>'
-      : (i.akiva || w.akiva) ? '<span class="tag">Vocalized · Akiva Publishing</span>' : '';
+    const tag = [
+      i.edition === 'available' && '<span class="tag">Akiva edition available</span>',
+      w.interlinear && '<span class="tag">Interlinear English · Akiva Publishing</span>',
+      w.ilParts && '<span class="tag">Interlinear English online</span>',
+      i.edition === 'soon' && '<span class="tag soon">Print edition coming soon</span>'
+    ].filter(Boolean).join(' ');
     return `<a class="book" href="#/book/${toHash(w.title)}">
       <div class="book-titles"><span class="book-title">${esc(w.title)}</span><span class="book-he" lang="he">${esc(w.he)}</span></div>
       ${i.d ? `<p>${esc(i.d)}</p>` : ''}${tag}</a>`;
@@ -598,7 +606,11 @@ function renderLocalNode(node, isRoot) {
   else if (node.depth === 1) body = node.shape > 0 ? `<a class="btn single" href="#/read/${toHash(node.ref)}">Read · ${node.shape} ${node.shape === 1 ? 'paragraph' : 'paragraphs'}</a>` : '<div class="empty">No text yet.</div>';
   else {
     const secs = sectionsOf(node);
-    if (node.depth === 2) body = `<div class="chapters">${node.shape.map((n, i) => n ? `<a href="#/read/${toHash(`${node.ref} ${i + 1}`)}" title="${n} paragraph${n === 1 ? '' : 's'}">${i + 1}</a>` : `<span>${i + 1}</span>`).join('')}</div>`;
+    if (node.depth === 2) body = `<div class="chapters">${node.shape.map((n, i) => {
+      const il = node.ilch && node.ilch.includes(i + 1);
+      return n ? `<a href="#/read/${toHash(`${node.ref} ${i + 1}`)}" class="${il ? 'il' : ''}" title="${il ? 'Interlinear English · ' : ''}${n} paragraph${n === 1 ? '' : 's'}">${i + 1}</a>` : `<span>${i + 1}</span>`;
+    }).join('')}</div>`;
+    if (node.ilch) body += `<div class="il-key"><span></span>Interlinear English by Akiva Publishing</div>`;
     else {
       const byTop = {};
       secs.forEach(a => (byTop[a[0]] = byTop[a[0]] || []).push(a));
@@ -781,13 +793,14 @@ function appendSection(d) {
     : `<div class="sec-head"><span>${esc(d.sectionRef)}</span>${d.heRef ? `<span class="he" lang="he">${esc(d.heRef)}</span>` : ''}</div>`;
   if (!n) html += `<div class="empty" style="text-align:center">This section has no text yet.</div>`;
   for (let i = 0; i < n; i++) {
-    const r = d.sep ? d.sectionRef + d.sep + (i + 1) : segRef(d.sectionRef, i + 1);
+    const num = d.nums ? d.nums[i] : i + 1;
+    const r = d.sep ? d.sectionRef + d.sep + num : segRef(d.sectionRef, num);
     const h = he[i] ? clean(he[i]) : '', e = en[i] ? clean(en[i]) : '';
     if (d.heads && d.heads[i]) html += `<div class="subhead he" lang="he">${esc(d.heads[i])}</div>`;
     if (!h.trim() && !e.trim()) continue;
     const il = d.phrases ? `<div class="seg-il">${d.phrases[i].map(([ph, pe]) => `<div class="ph"><div class="ph-he" lang="he" dir="rtl">${clean(ph)}</div><div class="ph-en" lang="en">${clean(pe)}</div></div>`).join('')}</div>` : '';
-    html += `<div class="seg" data-ref="${esc(r)}" data-i="${i + 1}" tabindex="0">
-      <span class="num" data-n="${i + 1}">${prefs.lang === 'he' ? gematria(i + 1) : i + 1}</span>
+    html += `<div class="seg" data-ref="${esc(r)}" data-i="${num}" data-k="${i}" tabindex="0">
+      <span class="num" data-n="${num}">${prefs.lang === 'he' ? gematria(num) : num}</span>
       <div class="seg-he" lang="he" dir="rtl">${h}</div>
       <div class="seg-en" lang="en">${e}</div>${il}
     </div>`;
@@ -804,7 +817,7 @@ function appendSection(d) {
     if (!res) return;
     const tr = flatten(res.text);
     let any = false;
-    sec.querySelectorAll('.seg').forEach(s => { const t = tr[s.dataset.i - 1]; if (t && String(t).trim()) { $('.seg-en', s).innerHTML = clean(t); any = true; } });
+    sec.querySelectorAll('.seg').forEach(s => { const t = tr[s.dataset.k]; if (t && String(t).trim()) { $('.seg-en', s).innerHTML = clean(t); any = true; } });
     if (any) { sec.classList.remove('no-en'); d.en = tr; d.versions = [...d.versions, res.version]; }
   }).catch(() => {});
 }
