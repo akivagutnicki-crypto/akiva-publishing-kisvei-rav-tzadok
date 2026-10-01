@@ -27,6 +27,9 @@ jobs:
       - name: Build static site
         run: node scripts/build-pages.mjs
 
+      - name: Build library text data
+        run: node scripts/build-library.mjs
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
         with:
