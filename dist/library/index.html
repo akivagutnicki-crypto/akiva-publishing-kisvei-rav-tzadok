@@ -165,8 +165,11 @@ body.panel-open .text{max-width:860px}
 .ph:last-child{border-bottom:0}
 .ph-he{font-family:var(--he);font-weight:500;font-size:calc(1.4rem * var(--fs));line-height:1.75;text-align:right}
 .ph-en{font-family:var(--en);font-size:calc(1.14rem * var(--fs));line-height:1.5;color:var(--muted);margin-top:2px}
+.sec-sub{font:500 calc(1.2rem * var(--fs))/1.4 var(--en);text-align:center;margin:-14px 0 20px;color:var(--ink)}
 .sec-title{font:500 calc(1.55rem * var(--fs))/1.4 var(--he);text-align:center;margin:-12px 0 22px;color:var(--ink)}
 .subhead{font:500 calc(1.2rem * var(--fs))/1.5 var(--he);text-align:center;color:var(--ox);margin:30px 0 14px}
+.subhead.en-head{font:600 calc(1.08rem * var(--fs))/1.45 var(--en);max-width:640px;margin-left:auto;margin-right:auto}
+.subhead .summary{display:block;font:italic 400 calc(1rem * var(--fs))/1.5 var(--en);color:var(--muted);margin-top:4px}
 a.cite{color:var(--link);text-decoration:underline;text-decoration-color:color-mix(in srgb,var(--link) 40%,transparent);text-underline-offset:3px}
 a.cite:hover{text-decoration-color:var(--link)}
 .chapters a.il{border-color:var(--forest);box-shadow:inset 0 -3px 0 var(--forest)}
@@ -297,7 +300,6 @@ const INFO = {
 };
 // Works read live from Sefaria when no local copy is bundled.
 const REMOTE = [
-  {title:'Resisei Layla', he:'רסיסי לילה', group:"R' Tzadok HaKohen"},
   {title:'Poked Akarim', he:'פוקד עקרים', group:"R' Tzadok HaKohen"},
   {title:'Mei HaShiloach', he:'מי השלוח', group:'Izhbitz'},
   {title:'Beit Yaakov on Torah', he:'בית יעקב על התורה', group:'Izhbitz'},
@@ -377,7 +379,7 @@ async function resolveLocal(ref) {
   let nums = null;
   if (il) { // items: {p: [[he, en], ...], n?} paragraphs and {h: title} subheadings
     phrases = []; heads = {}; nums = [];
-    text.forEach(it => { if (it.h) heads[phrases.length] = it.h; else if (it.p) { phrases.push(it.p); nums.push(it.n || nums.length + 1); } });
+    text.forEach(it => { if (it.h) (heads[phrases.length] = heads[phrases.length] || []).push(it.h); else if (it.p) { phrases.push(it.p); nums.push(it.n || nums.length + 1); } });
     he = phrases.map(ps => ps.map(x => x[0]).join(' '));
     en = phrases.map(ps => ps.map(x => x[1]).join(' '));
   }
@@ -789,14 +791,14 @@ function appendSection(d) {
   sec.className = 'sec' + (en.some(x => String(x || '').trim()) ? '' : ' no-en') + (d.phrases ? ' il' : '');
   sec.dataset.ref = d.sectionRef;
   let html = d.title
-    ? `<div class="sec-head"><span>${esc(d.title.en || d.sectionRef)}</span></div><h2 class="sec-title he" lang="he">${esc(d.title.he)}</h2>`
+    ? `<div class="sec-head"><span>${esc(d.title.he && /^סימן/.test(d.title.he) ? d.sectionRef : d.title.en || d.sectionRef)}</span></div><h2 class="sec-title he" lang="he">${esc(d.title.he)}</h2>${d.title.he && /^סימן/.test(d.title.he) && d.title.en ? `<div class="sec-sub">${esc(d.title.en)}</div>` : ''}`
     : `<div class="sec-head"><span>${esc(d.sectionRef)}</span>${d.heRef ? `<span class="he" lang="he">${esc(d.heRef)}</span>` : ''}</div>`;
   if (!n) html += `<div class="empty" style="text-align:center">This section has no text yet.</div>`;
   for (let i = 0; i < n; i++) {
     const num = d.nums ? d.nums[i] : i + 1;
     const r = d.sep ? d.sectionRef + d.sep + num : segRef(d.sectionRef, num);
     const h = he[i] ? clean(he[i]) : '', e = en[i] ? clean(en[i]) : '';
-    if (d.heads && d.heads[i]) html += `<div class="subhead he" lang="he">${esc(d.heads[i])}</div>`;
+    if (d.heads && d.heads[i]) html += d.heads[i].map(subhead).join('');
     if (!h.trim() && !e.trim()) continue;
     const il = d.phrases ? `<div class="seg-il">${d.phrases[i].map(([ph, pe]) => `<div class="ph"><div class="ph-he" lang="he" dir="rtl">${clean(ph)}</div><div class="ph-en" lang="en">${clean(pe)}</div></div>`).join('')}</div>` : '';
     html += `<div class="seg" data-ref="${esc(r)}" data-i="${num}" data-k="${i}" tabindex="0">
@@ -820,6 +822,13 @@ function appendSection(d) {
     sec.querySelectorAll('.seg').forEach(s => { const t = tr[s.dataset.k]; if (t && String(t).trim()) { $('.seg-en', s).innerHTML = clean(t); any = true; } });
     if (any) { sec.classList.remove('no-en'); d.en = tr; d.versions = [...d.versions, res.version]; }
   }).catch(() => {});
+}
+
+// Subheadings: Hebrew or English; a second line is a summary.
+function subhead(text) {
+  const [title, ...rest] = String(text).split('\n');
+  const he = /[\u05D0-\u05EA]/.test(title);
+  return `<div class="subhead ${he ? 'he' : 'en-head'}" ${he ? 'lang="he"' : ''}>${esc(title)}${rest.length ? `<span class="summary">${esc(rest.join(' '))}</span>` : ''}</div>`;
 }
 
 function setupInfinite() {

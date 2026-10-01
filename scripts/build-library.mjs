@@ -108,8 +108,16 @@ for (const dir of DIRS) {
       const part = PARTS.get(`${src.title}|${enPath.slice(1).join(', ')}`);
       if (part && depth === 2) {
         leaf.ilch = [];
-        for (const [ch, items] of Object.entries(part.chapters)) {
+        for (const [ch, rawItems] of Object.entries(part.chapters)) {
           const k = +ch;
+          // Keep the Hebrew of paragraphs before the translation begins (e.g. a title page).
+          const nums = rawItems.filter(i => i.p && i.n).map(i => i.n);
+          const lead = [];
+          for (let n = 1; nums.length && n < Math.min(...nums); n++) {
+            const heb = t[k - 1]?.[n - 1];
+            if (typeof heb === 'string' && heb.trim()) lead.push({ p: [[heb, '']], n });
+          }
+          const items = [...lead, ...rawItems];
           fs.writeFileSync(path.join(bookDir, `${id}-${k}.json`), JSON.stringify(items));
           while (shape.length < k) shape.push(0);
           shape[k - 1] = Math.max(1, items.filter(i => i.p).length);

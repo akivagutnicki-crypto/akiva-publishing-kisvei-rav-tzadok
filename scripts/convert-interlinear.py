@@ -30,7 +30,11 @@ BOOKS = {
     'divrei chalomot': ('Divrei Chalomot', 'דברי חלומות'),
     'divrei sofrim': ('Divrei Soferim', 'דברי סופרים'),
     'sefer hazichronos': ('Sefer HaZikhronot', 'ספר הזכרונות'),
+    'resisei layla': ('Resisei Layla', 'רסיסי לילה'),
 }
+# Books laid out as "Siman N - Title" / "Seif N - Title" lines, each followed by
+# an italic summary; Siman and Seif match Sefaria's chapter and paragraph.
+SIMAN_BOOKS = {'Resisei Layla'}
 # Opening title of a part file -> (book, Sefaria node path within the book).
 PARTS = [
     (r'Tractate Eruvin|\bEruvin\b', ('Dover Tzedek', 'Kuntres Dover Tzedek, Eruvin')),
@@ -38,7 +42,11 @@ PARTS = [
     (r'Ner HaMitzvo[st]', ('Dover Tzedek', 'Kuntres Ner HaMitzvot')),
     (r'Mishlei Commentary', ('Dover Tzedek', 'Mishlei Commentary')),
     (r'Miscellany', ('Dover Tzedek', 'Miscellany')),
+    (r'Mach?sh?avo[st][ _]Charutz|מחשבות חרוץ', ('Machshavot Charutz', '')),
 ]
+# Parts whose unnumbered paragraphs are placed by matching their opening words
+# against the Sefaria Hebrew in sources/sefaria.
+ALIGN = {'Machshavot Charutz'}
 OUT = Path('sources/akiva')
 
 W = '{http://schemas.openxmlformats.org/wordprocessingml/2006/main}'
@@ -107,7 +115,8 @@ def finish(pairs):
         h = to_html(he).strip()
         h = re.sub(r'\s*[–—-]\s*$', '', h)
         e = re.sub(r'^\s*[–—-]\s*', '', to_html(en)).strip()
-        e = re.sub(r'\*([^*\n]+)\*', r'<i>\1</i>', e)
+        h = h.replace('**', '')
+        e = re.sub(r'\*([^*\n]+)\*', r'<i>\1</i>', e.replace('**', ''))
         if h or e:
             result.append([h, e])
     return result
@@ -211,6 +220,8 @@ def convert(path):
     if not key:
         return convert_part(path, z)
     title, he_title = BOOKS[key]
+    if title in SIMAN_BOOKS:
+        return convert_simanim(path, z, title, he_title)
     rels = rels_of(z)
     doc = z.read('word/document.xml').decode('utf-8')
 
@@ -270,47 +281,192 @@ def convert(path):
     print(f'{title}: {len(sections)} sections, {paras} paragraphs, {phrases} phrase pairs -> {dest}')
 
 
+NIQQUD = re.compile(r'[֑-ׇ]')
+GEM = dict(zip('אבגדהוזחטיכלמנסעפצקרשת', [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 200, 300, 400]))
+GEM.update({'ך': 20, 'ם': 40, 'ן': 50, 'ף': 80, 'ץ': 90})
+
+
+def gematria(word):
+    return sum(GEM.get(c, 0) for c in NIQQUD.sub('', word))
+
+
+def plain_he(text):
+    """Hebrew letters only, for matching against the Sefaria text. Vav and yod
+    are dropped because vocalized and plain spellings differ (עקר / עיקר)."""
+    words = re.findall(r'[א-ת]+', NIQQUD.sub('', re.sub(r'<[^>]+>', '', text)))
+    return ' '.join(w for w in (re.sub('[וי]', '', w) for w in words) if w)
+
+
+def sefaria_index(book):
+    """[(chapter, paragraph, plain text)] from the bundled Sefaria export, if any."""
+    f = Path('sources/sefaria') / (re.sub(r'[^A-Za-z0-9]+', '_', book).strip('_') + '.json')
+    if not f.exists():
+        return []
+    text = json.loads(f.read_text(encoding='utf-8'))['text']
+    return [(c + 1, k + 1, plain_he(seg)) for c, chap in enumerate(text) if isinstance(chap, list)
+            for k, seg in enumerate(chap) if isinstance(seg, str)]
+
+
+def locate(index, hebrew):
+    """Chapter and paragraph of the Sefaria segment that starts like this Hebrew."""
+    words = plain_he(hebrew).split()
+    for n in (6, 5, 4):
+        key = ' '.join(words[:n])
+        if len(key) < 8:
+            continue
+        hits = [(c, k) for c, k, t in index if t.startswith(key) or t[:200].find(key) >= 0]
+        if len(hits) == 1:
+            return hits[0]
+    return None
+
+
+def heb_num(n):
+    ones, tens, hundreds = ' אבגדהוזחט', ' יכלמנסעפצ', ' קרשת'
+    out = hundreds[n // 100] if n >= 100 else ''
+    r = n % 100
+    out += 'טו' if r == 15 else 'טז' if r == 16 else (tens[r // 10] if r >= 10 else '') + (ones[r % 10] if r % 10 else '')
+    out = out.replace(' ', '')
+    return out[:-1] + '״' + out[-1] if len(out) > 1 else out + '׳'
+
+
+def convert_simanim(path, z, title, he_title):
+    rels = rels_of(z)
+    doc = z.read('word/document.xml').decode('utf-8')
+    paras = [list(runs_of(pm.group(0), rels)) for pm in re.finditer(r'<w:p[ >].*?</w:p>', doc, re.S)]
+    paras = [p for p in paras if ''.join(r[0] for r in p).strip()]
+    texts = [''.join(r[0] for r in p).strip() for p in paras]
+    # The body starts at the second "Siman 1" (the first is the table of contents).
+    starts = [k for k, t in enumerate(texts) if re.match(r'^Siman 1 - ', t)]
+    begin = starts[1] if len(starts) > 1 else starts[0]
+    sections, sec, current, last_title = [], None, None, None
+    for runs, text in zip(paras[begin:], texts[begin:]):
+        m = re.match(r'^Siman (\d+) - (.*)$', text)
+        if m:
+            sec = {'n': int(m.group(1)), 'he': f'סימן {heb_num(int(m.group(1)))}', 'en': m.group(2).strip(), 'items': []}
+            sections.append(sec); current = None; last_title = 'siman'
+            continue
+        m = re.match(r'^Seif (\d+) - (.*)$', text)
+        if m:
+            sec['items'].append({'h': f'Seif {m.group(1)} — {m.group(2).strip()}'})
+            current = {'p': [], 'n': int(m.group(1))}; last_title = 'seif'
+            continue
+        if not HEB.search(text) and all(r[2] for r in runs if r[0].strip()):  # italic summary
+            if last_title == 'seif':
+                sec['items'][-1]['h'] += '\n' + text
+            elif last_title == 'siman':
+                sec['items'].append({'h': '\n' + text})  # summary only, no title line
+            last_title = None
+            continue
+        if current is None:  # text before any Seif title
+            current = {'p': [], 'n': 1}
+        if not current['p']:
+            sec['items'].append(current)
+        current['p'] += pairs_of(runs)
+    out = {
+        'title': title, 'heTitle': he_title, 'language': 'he',
+        'versionTitle': 'Akiva Publishing interlinear edition', 'versionSource': '',
+        'license': '© Akiva Publishing', 'categories': ['Chasidut', "R' Tzadok HaKohen"],
+        'akiva': True, 'interlinear': True, 'sections': sections,
+    }
+    dest = OUT / (re.sub(r'[^A-Za-z0-9]+', '_', title).strip('_') + '.json')
+    dest.write_text(json.dumps(out, ensure_ascii=False), encoding='utf-8')
+    paras_n = sum(1 for s_ in sections for i in s_['items'] if 'p' in i)
+    phrases = sum(len(i['p']) for s_ in sections for i in s_['items'] if 'p' in i)
+    print(f'{title}: {len(sections)} simanim, {paras_n} seifim, {phrases} phrase pairs -> {dest}')
+
+
 PART_DATA = {}  # (book, node) -> merged chapters from every file of that part
 
 
 def convert_part(path, z):
     rels = rels_of(z)
     doc = z.read('word/document.xml').decode('utf-8')
-    paras = [list(runs_of(pm.group(0), rels)) for pm in re.finditer(r'<w:p[ >].*?</w:p>', doc, re.S)]
-    paras = [p for p in paras if re.search(r'[A-Za-z\u05D0-\u05EA]', ''.join(r[0] for r in p))]
-    first = ''.join(r[0] for r in paras[0])
-    part = next((v for pat, v in PARTS if re.search(pat, first)), None)
+    paras = []
+    for pm in re.finditer(r'<w:p[ >].*?</w:p>', doc, re.S):
+        runs = list(runs_of(pm.group(0), rels))
+        if re.search(r'[A-Za-zא-ת]', ''.join(r[0] for r in runs)):
+            paras.append((bool(re.search(r'<w:pStyle w:val="Heading\d"/>', pm.group(0))), runs))
+    first = ''.join(r[0] for r in paras[0][1])
+    part = (next((v for pat, v in PARTS if re.search(pat, Path(path).name)), None)
+            or next((v for pat, v in PARTS if re.search(pat, first)), None))
     if not part:
         sys.exit(f'{path}: cannot tell which book this is (first line: {first[:80]})')
     chapters = PART_DATA.setdefault(part, {})
-    ch, n = 1, 0
-    for k, runs in enumerate(paras):
+    index = sefaria_index(part[0]) if part[0] in ALIGN else []
+    ch, n, fresh, current, marked = 1, 0, True, None, False
+
+    def start(c, k):  # the next text paragraph opens paragraph k+1 of chapter c
+        nonlocal ch, n, fresh, marked
+        ch, n, fresh, marked = c, k, True, True
+
+    for k, (is_heading, runs) in enumerate(paras):
         text = ''.join(r[0] for r in runs).strip()
+        plain = NIQQUD.sub('', text)
         short = len(text) < 200
-        # "Dover Tzedek, Miscellany 4, Section 41": chapter and paragraph number
+        # "Dover Tzedek, Miscellany 4, Section 41"
         m = short and re.search(r'(?:Miscellany|Chapter),? (\d+), Section (\d+)\s*$', text)
         if m:
-            ch, n = int(m.group(1)), int(m.group(2)) - 1
+            start(int(m.group(1)), int(m.group(2)) - 1); continue
+        # "מחשבות חרוץ — פרק ז׳, סעיפים ב׳–ד׳" or "— אות ג׳, פסקא ג׳"
+        if (is_heading or short) and plain.startswith('מחשבות חרוץ'):
+            m = re.search(r'פרק ([א-ת"\'׳״]+)', plain) or re.search(r'אות ([א-ת"\'׳״]+)', plain)
+            m2 = re.search(r'(?:סעיפים|סעיף|אותיות|פסקא)\s+([א-ת"\'׳״]+)', plain[m.end():] if m else plain)
+            if m:
+                start(gematria(m.group(1)), gematria(m2.group(1)) - 1 if m2 else 0)
+            continue
+        # "פסקא ג (סעיף 3) — Paragraph 3 (Se'if 3)", "(Chapter 9, Paragraph 17)", "Segment 2"
+        if re.match(r'^(פסקא|סגמנט)\s', plain):
+            m = re.search(r'\(Chapter (\d+), Paragraph (\d+)\)', text)
+            if m:
+                start(int(m.group(1)), int(m.group(2)) - 1)
+            elif not re.search(r'Segment \d', text):
+                m = re.search(r'(?:Paragraph|Section) (\d+)', text)
+                if m:
+                    start(ch, int(m.group(1)) - 1)
+            rest = re.split(r'\)\s*(?=The theme|Theme)', text, maxsplit=1)
+            if len(rest) == 2:
+                chapters.setdefault(ch, []).append({'h': rest[1].strip()})
             continue
         m = short and re.search(r'\bChapter (\d+)\b', text)
         if m:  # "Miscellany, Chapter 3 - Avodah Zara", "... Berakhot, Chapter 2:"
-            ch, n = int(m.group(1)), 0
-            continue
+            start(int(m.group(1)), 0); continue
         if k == 0 and short:  # opening title line, e.g. "Eruvin — Tractate Eruvin:"
             continue
         items = chapters.setdefault(ch, [])
         if short and all(r[1] for r in runs if r[0].strip() and HEB.search(r[0])) and any(r[1] for r in runs):
-            items.append({'h': re.sub(r'([\u05D0-\u05EA\u05F3\u05F4])([A-Z])', r'\1 — \2', text).rstrip(':')})
+            items.append({'h': re.sub(r'([א-ת׳״])([A-Z])', r'\1 — \2', text).rstrip(':')})
             continue
-        n += 1
-        items.append({'p': pairs_of(runs), 'n': n})
-    print(f'{path}: {part[0]} / {part[1]}')
+        if not HEB.search(text) and re.match(r'^(The )?theme:', text, re.I):
+            items.append({'h': text}); continue
+        if short and not HEB.search(text) and items and 'h' in items[-1]:
+            items[-1]['h'] += ' — ' + text  # English line under a Hebrew heading (colophon)
+            continue
+        pairs = pairs_of(runs)
+        # Before the first chapter/paragraph marker, place paragraphs by their opening words.
+        if index and not marked:
+            hit = locate(index, ' '.join(p[0] for p in pairs[:2]))
+            if hit and (current is None or hit != (ch, current['n'])):
+                ch, n, fresh = hit[0], hit[1] - 1, True
+                items = chapters.setdefault(ch, [])
+        if fresh or not index and not current:
+            n += 1
+            current = {'p': pairs, 'n': n}
+            items.append(current)
+            fresh = not index  # without markers every paragraph is its own; with them, merge until the next
+        else:
+            current['p'] = current['p'] + pairs
+    print(f'{path}: {part[0]} / {part[1] or "(whole book)"}')
 
 
 def write_parts():
     for (book, node), chapters in PART_DATA.items():
         for ch, items in chapters.items():
             # Parts may arrive in any file order; numbered paragraphs sort into place.
+            seen = {}
+            for i in items:
+                if 'p' in i:
+                    seen[i['n']] = i  # a later file replaces a repeated paragraph
+            items[:] = [i for i in items if 'p' not in i or seen[i['n']] is i]
             if all('n' in i for i in items if 'p' in i):
                 order = {id(i): (i.get('n', 0), k) for k, i in enumerate(items)}
                 last = 0
