@@ -46,6 +46,21 @@ if (fs.existsSync(partsDir)) {
     PARTS.set(`${part.book}|${part.node}`, part);
   }
 }
+// Topic subheadings written for an edition (sources/akiva/headings), keyed
+// node -> "chapter:paragraph"; each goes just before that paragraph.
+const headingsDir = 'sources/akiva/headings';
+if (fs.existsSync(headingsDir)) {
+  for (const f of fs.readdirSync(headingsDir).filter(f => f.endsWith('.json'))) {
+    const { book, headings } = JSON.parse(fs.readFileSync(path.join(headingsDir, f), 'utf8'));
+    for (const [node, byPara] of Object.entries(headings)) {
+      const part = PARTS.get(`${book}|${node}`);
+      if (!part) throw new Error(`headings ${f}: no translated part "${node}"`);
+      for (const [ch, items] of Object.entries(part.chapters)) {
+        part.chapters[ch] = items.flatMap(i => (i.p && byPara[`${ch}:${i.n}`] ? [{ h: byPara[`${ch}:${i.n}`] }, i] : [i]));
+      }
+    }
+  }
+}
 
 // Connections: what each translated paragraph cites, and the reverse.
 const LINKS = {};  // slug -> { sectionRef: [{a: paragraph ref, r: cited ref, c: category}] }
