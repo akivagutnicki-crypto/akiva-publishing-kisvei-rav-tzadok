@@ -3,7 +3,7 @@
 // - Texts (data/) are served from cache and refreshed in the background.
 // - Sefaria API answers (English, connections, quoted sources) are network-first
 //   with the last answer kept for offline use; web fonts are cache-first.
-const VERSION = 'v2';
+const VERSION = 'v3';
 const SHELL = `rtl-shell-${VERSION}`;
 const DATA = 'rtl-data';
 const EXTERNAL = 'rtl-external';
@@ -11,7 +11,7 @@ const SHELL_FILES = [
   './', './index.html', './manifest.webmanifest',
   './icons/icon.svg', './icons/icon-192.png', './icons/icon-512.png', './icons/maskable-512.png',
   './icons/apple-touch-icon.png', './icons/favicon-32.png',
-  './data/catalog.json', './data/cited/index.json',
+  './data/catalog.json', './data/cited/index.json', './vendor/fflate.min.js',
 ];
 
 self.addEventListener('install', event => {
@@ -68,6 +68,8 @@ self.addEventListener('fetch', event => {
     if (request.mode === 'navigate' || rel === '' || rel === 'index.html') {
       // The page itself: newest when online, cached copy offline.
       event.respondWith(networkFirst(request, SHELL, 5000).catch(() => caches.match('./index.html')));
+    } else if (rel.startsWith('downloads/')) {
+      return; // large zip: straight from the network, not cached
     } else if (rel.startsWith('data/')) {
       event.respondWith(staleWhileRevalidate(request, DATA, event));
     } else {
