@@ -5,6 +5,13 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="The Rav Tzadok Library: read the writings of Rav Tzadok HaKohen of Lublin in Hebrew and English, with sources and connections, from Akiva Publishing.">
 <title>Rav Tzadok Library · Akiva Publishing</title>
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Akiva Publishing">
+<meta property="og:title" content="Rav Tzadok Library · Akiva Publishing">
+<meta property="og:description" content="Read Rav Tzadok HaKohen in Hebrew with interlinear English, with Sefaria sources and connections. Install it as an app and read offline.">
+<meta property="og:url" content="https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/">
+<meta property="og:image" content="https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/icons/icon-512.png">
+<meta name="twitter:card" content="summary">
 <link rel="manifest" href="manifest.webmanifest">
 <link rel="icon" href="icons/favicon-32.png" sizes="32x32" type="image/png">
 <link rel="icon" href="icons/icon.svg" type="image/svg+xml">
@@ -242,6 +249,24 @@ i.footnote.open{display:block;direction:ltr;text-align:left;font-family:var(--en
 .app-card .bar span{display:block;height:100%;width:0;background:var(--forest);transition:width .2s}
 .app-card .status{font:500 .78rem var(--ui);color:var(--muted)}
 .app-card .btn{margin:4px 8px 4px 0}
+.install-page{max-width:860px}
+.install-page h1{font:600 2rem var(--en);margin:0 0 6px}
+.install-page .lead{color:var(--muted);font:1.08rem/1.55 var(--en);margin:0 0 26px}
+.share-box{display:grid;grid-template-columns:1fr auto;gap:22px;align-items:center;background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:22px}
+.share-box .url{display:block;font:600 .9rem var(--ui);color:var(--link);word-break:break-all;margin:0 0 12px}
+.share-box .btn{margin:4px 8px 4px 0}
+.share-box .qr{width:168px;text-align:center;font:500 .72rem var(--ui);color:var(--muted)}
+.share-box .qr svg{width:168px;height:168px;display:block;background:#fff;border-radius:6px;padding:6px;box-sizing:border-box}
+.share-box .qr a{color:var(--link)}
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:26px 0}
+.steps section{background:var(--panel);border:1px solid var(--line);border-radius:10px;padding:16px 18px}
+.steps section.mine{border-color:var(--forest);box-shadow:0 0 0 1px var(--forest)}
+.steps h3{font:600 .95rem var(--ui);margin:0 0 8px}
+.steps ol{margin:0;padding-left:20px;font:.95rem/1.5 var(--en)}
+.steps .here{display:block;margin:0 0 4px;font:600 .66rem var(--ui);text-transform:uppercase;letter-spacing:.06em;color:var(--forest)}
+.install-page .note{font:.95rem/1.55 var(--en);color:var(--muted)}
+.install-page .note a{color:var(--link)}
+@media (max-width:760px){.steps{grid-template-columns:1fr}.share-box{grid-template-columns:1fr}.share-box .qr{margin:0 auto}}
 .pack{border-top:1px solid var(--line);padding:12px 0}
 .pack b{display:block;font:600 .86rem var(--ui)}
 .pack small{display:block;color:var(--muted);font:400 .76rem/1.4 var(--ui);margin:2px 0 6px}
@@ -529,6 +554,7 @@ function route() {
   const arg = fromHash(rest.join('/').split('?')[0]);
   if (kind === 'book') return renderBook(arg);
   if (kind === 'read') return renderReader(arg);
+  if (kind === 'install') return renderInstall();
   renderHome();
 }
 let silentHash = false;
@@ -586,6 +612,7 @@ async function renderHome() {
         <h3>The app</h3>
         <p id="appText">Install the library as an app on your phone or computer, and save the texts to read without an internet connection.</p>
         <button class="btn primary" id="installBtn2" type="button" hidden>Install app</button>
+        <a class="btn" href="#/install">Share the app</a>
         <p class="status">Large collections are hundreds of megabytes; check your device's free space first. Downloads can be stopped and resumed.</p>
         <p id="iosHint" hidden>On iPhone or iPad: tap <b>Share</b> <span aria-hidden="true">⎋</span>, then <b>Add to Home Screen</b>.</p>
         <div class="packs" id="packs"></div>
@@ -1205,10 +1232,72 @@ async function install() {
   installEvent = null; showInstall();
 }
 function showInstall() {
-  ['installBtn', 'installBtn2'].forEach(id => { const b = document.getElementById(id); if (b) { b.hidden = !installEvent || standalone(); b.onclick = install; } });
+  ['installBtn', 'installBtn2', 'installBtn3'].forEach(id => { const b = document.getElementById(id); if (b) { b.hidden = !installEvent || standalone(); b.onclick = install; } });
   const ios = /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   const hint = document.getElementById('iosHint'); if (hint) hint.hidden = !(ios && !standalone());
 }
+/* ======================= Install / share page ======================= */
+// #/install (or install/, which redirects here): a link to send people, with a
+// QR code, a share button, and the steps for each kind of device.
+function appUrl() { return new URL('./', location.href.split('#')[0]).href; }
+function loadScript(src) {
+  return new Promise((ok, fail) => {
+    if (document.querySelector(`script[src="${src}"]`)) return ok();
+    const s = Object.assign(document.createElement('script'), {src, onload: ok, onerror: fail});
+    document.head.appendChild(s);
+  });
+}
+function platform() {
+  const ua = navigator.userAgent;
+  if (/iphone|ipad|ipod/i.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)) return 'ios';
+  if (/android/i.test(ua)) return 'android';
+  return 'desktop';
+}
+async function renderInstall() {
+  document.title = 'Install the app · Rav Tzadok Library';
+  const link = appUrl() + 'install/';
+  const mine = platform();
+  app.innerHTML = `<div class="page install-page">
+    <h1>Install the Rav Tzadok Library app</h1>
+    <p class="lead">${standalone() ? 'You are using the app. Share it with this link or QR code.' : 'The library installs from this website onto a phone, tablet or computer. It opens from its own icon, works without an internet connection, and updates itself. No app store is needed.'}</p>
+    <div class="share-box">
+      <div>
+        <a class="url" id="shareUrl" href="${esc(link)}">${esc(link)}</a>
+        <button class="btn primary" id="installBtn3" type="button" hidden>Install app</button>
+        <button class="btn" id="shareBtn" type="button" hidden>Share…</button>
+        <button class="btn" id="copyBtn" type="button">Copy link</button>
+      </div>
+      <div class="qr"><div id="qr" role="img" aria-label="QR code for ${esc(link)}"></div><span>Scan with a phone camera · <a id="qrSave" href="#" download="rav-tzadok-app-qr.svg">Save QR</a></span></div>
+    </div>
+    <div class="steps">
+      <section class="${mine === 'ios' ? 'mine' : ''}">${mine === 'ios' ? '<span class="here">This device</span>' : ''}<h3>iPhone and iPad</h3>
+        <ol><li>Open the link in <b>Safari</b>.</li><li>Tap <b>Share</b> (the square with an arrow).</li><li>Tap <b>Add to Home Screen</b>, then <b>Add</b>.</li></ol></section>
+      <section class="${mine === 'android' ? 'mine' : ''}">${mine === 'android' ? '<span class="here">This device</span>' : ''}<h3>Android</h3>
+        <ol><li>Open the link in <b>Chrome</b>.</li><li>Tap <b>Install app</b> above, or the menu <b>⋮</b> → <b>Install app</b> (or <b>Add to Home screen</b>).</li><li>Confirm with <b>Install</b>.</li></ol></section>
+      <section class="${mine === 'desktop' ? 'mine' : ''}">${mine === 'desktop' ? '<span class="here">This device</span>' : ''}<h3>Computer</h3>
+        <ol><li>In <b>Chrome</b> or <b>Edge</b>: click <b>Install app</b> above, or the install icon at the right of the address bar.</li><li>On a Mac in <b>Safari</b>: <b>File</b> → <b>Add to Dock</b>.</li></ol></section>
+    </div>
+    <p class="note">After installing, open the app and use <b>The app</b> panel on the home page to save the library and Sefaria texts for offline reading. <a href="#/">Go to the library →</a></p>
+  </div>`;
+  showInstall();
+  const copy = async () => {
+    try { await navigator.clipboard.writeText(link); toast('Link copied'); }
+    catch { prompt('Copy this link:', link); }
+  };
+  $('#copyBtn').onclick = copy;
+  if (navigator.share) {
+    const b = $('#shareBtn'); b.hidden = false;
+    b.onclick = () => navigator.share({title: 'Rav Tzadok Library', text: 'Rav Tzadok HaKohen in Hebrew with interlinear English. Install the app:', url: link}).catch(() => {});
+  }
+  try {
+    await loadScript('vendor/qrcode.js');
+    const qr = qrcode(0, 'M'); qr.addData(link); qr.make();
+    const svg = qr.createSvgTag({cellSize: 4, margin: 2, scalable: true});
+    $('#qr').innerHTML = svg;
+    $('#qrSave').href = URL.createObjectURL(new Blob([svg], {type: 'image/svg+xml'}));
+  } catch { $('#qr').textContent = ''; $('#qrSave').hidden = true; }
+}
+
 // Offline downloads. "library" = this site's texts (one zip); the others are Sefaria
 // texts, saved as the exact API answers the reader asks for, so they open offline.
 const PACKS = [
