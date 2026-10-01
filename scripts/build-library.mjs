@@ -182,5 +182,18 @@ for (const [slug, bySection] of Object.entries(LINKS)) {
 fs.mkdirSync(path.join(OUT, 'cited'), { recursive: true });
 for (const [book, refs] of Object.entries(CITED)) fs.writeFileSync(path.join(OUT, 'cited', `${book}.json`), JSON.stringify(refs));
 fs.writeFileSync(path.join(OUT, 'cited', 'index.json'), JSON.stringify(Object.keys(CITED).sort()));
+// Every data file, for the web app's "download for offline reading".
+const files = [];
+const walk = dir => fs.readdirSync(dir, { withFileTypes: true }).forEach(e => {
+  const f = path.join(dir, e.name);
+  if (e.isDirectory()) walk(f);
+  else files.push([path.relative(OUT, f).split(path.sep).join('/'), fs.statSync(f).size]);
+});
+walk(OUT);
+files.sort((a, b) => a[0].localeCompare(b[0]));
+const bytes = files.reduce((n, f) => n + f[1], 0);
+const version = files.reduce((h, [f, n]) => (h * 31 + n + f.length) % 2147483647, 7).toString(36);
+fs.writeFileSync(path.join(OUT, 'files.json'), JSON.stringify({ version, bytes, files: files.map(f => f[0]) }));
+console.log(`Offline package: ${files.length} files, ${(bytes / 1048576).toFixed(1)} MB, version ${version}`);
 console.log(`Connections: ${nLinks} citations from ${Object.keys(LINKS).length} books into ${Object.keys(CITED).length} cited books`);
 console.log(`Built ${catalog.length} books into ${OUT}`);

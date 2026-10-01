@@ -1,0 +1,27 @@
+{
+  "name": "Rav Tzadok Library · Akiva Publishing",
+  "short_name": "Rav Tzadok",
+  "description": "The writings of Rav Tzadok HaKohen of Lublin and the Izhbitza–Radzin masters, in Hebrew with interlinear English, sources and connections.",
+  "id": "./",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "display_override": ["standalone", "minimal-ui"],
+  "orientation": "any",
+  "background_color": "#fbf8f1",
+  "theme_color": "#17372d",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["books", "education", "lifestyle"],
+  "icons": [
+    { "src": "icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icons/maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "icons/icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ],
+  "shortcuts": [
+    { "name": "Takanat HaShavin", "url": "./#/book/Takanat_HaShavin", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Resisei Layla", "url": "./#/book/Resisei_Layla", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] },
+    { "name": "Dover Tzedek", "url": "./#/book/Dover_Tzedek", "icons": [{ "src": "icons/icon-192.png", "sizes": "192x192" }] }
+  ]
+}
