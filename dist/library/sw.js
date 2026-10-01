@@ -3,7 +3,7 @@
 // - Texts (data/) are served from cache and refreshed in the background.
 // - Sefaria API answers (English, connections, quoted sources) are network-first
 //   with the last answer kept for offline use; web fonts are cache-first.
-const VERSION = 'v3';
+const VERSION = 'v4';
 const SHELL = `rtl-shell-${VERSION}`;
 const DATA = 'rtl-data';
 const EXTERNAL = 'rtl-external';
@@ -11,7 +11,7 @@ const SHELL_FILES = [
   './', './index.html', './manifest.webmanifest',
   './icons/icon.svg', './icons/icon-192.png', './icons/icon-512.png', './icons/maskable-512.png',
   './icons/apple-touch-icon.png', './icons/favicon-32.png',
-  './data/catalog.json', './data/cited/index.json', './vendor/fflate.min.js',
+  './data/catalog.json', './data/cited/index.json', './vendor/fflate.min.js', './vendor/qrcode.js', './install/',
 ];
 
 self.addEventListener('install', event => {
