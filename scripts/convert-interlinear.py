@@ -31,7 +31,12 @@ BOOKS = {
     'divrei sofrim': ('Divrei Soferim', 'דברי סופרים'),
     'sefer hazichronos': ('Sefer HaZikhronot', 'ספר הזכרונות'),
     'resisei layla': ('Resisei Layla', 'רסיסי לילה'),
+    'takanas hashavin': ('Takanat HaShavin', 'תקנת השבין'),
 }
+# Print editions in volumes: "Siman N" (Heading 1) and "Se'if N" (Heading 3)
+# sections with footnotes; volumes merge into one book.
+VOLUME_BOOKS = {'Takanat HaShavin'}
+BOOK_SECTIONS = {}  # title -> {section key: section}
 # Books laid out as "Siman N - Title" / "Seif N - Title" lines, each followed by
 # an italic summary; Siman and Seif match Sefaria's chapter and paragraph.
 SIMAN_BOOKS = {'Resisei Layla'}
@@ -64,6 +69,10 @@ def runs_of(p, rels):
         inner = re.findall(r'<w:r[ >](.*?)</w:r>', m.group(2), re.S) if m.group(1) else [m.group(3)]
         for r in inner:
             t = html.unescape(''.join(re.findall(r'<w:t(?: [^>]*)?>(.*?)</w:t>', r, re.S)))
+            fn = re.search(r'<w:footnoteReference [^>]*w:id="(\d+)"', r)
+            if fn:
+                t += f'\ue000{fn.group(1)}\ue001'  # replaced by the note in finish()
+            t = re.sub('[\u200e\u200f\u202a-\u202e]', '', t)  # directional marks
             if not t:
                 continue
             bold = bool(re.search(r'<w:b(?: w:val="(?:1|true)")?/>', r))
@@ -109,6 +118,35 @@ def pairs_of(runs):
     return dash_pairs(runs) if dashes > parens else paren_pairs(runs)
 
 
+FOOTNOTES = {}  # footnote id -> (number shown, html) for the file being converted
+
+
+def footnotes_of(z):
+    """Read word/footnotes.xml; number notes in order of their references."""
+    FOOTNOTES.clear()
+    if 'word/footnotes.xml' not in z.namelist():
+        return
+    xml = z.read('word/footnotes.xml').decode('utf-8')
+    order = re.findall(r'<w:footnoteReference [^>]*w:id="(\d+)"', z.read('word/document.xml').decode('utf-8'))
+    number = {fid: k + 1 for k, fid in enumerate(order)}
+    for fid, body in re.findall(r'<w:footnote [^>]*w:id="(\d+)"[^>]*>(.*?)</w:footnote>', xml, re.S):
+        parts = []
+        for r in re.findall(r'<w:r[ >](.*?)</w:r>', body, re.S):
+            t = html.unescape(''.join(re.findall(r'<w:t(?: [^>]*)?>(.*?)</w:t>', r, re.S)))
+            t = re.sub('[\u200e\u200f\u202a-\u202e]', '', t)
+            if t:
+                ital = bool(re.search(r'<w:i(?: w:val="(?:1|true)")?/>', r))
+                parts.append(f'<i>{html.escape(t, quote=False)}</i>' if ital else html.escape(t, quote=False))
+        FOOTNOTES[fid] = (number.get(fid, fid), ''.join(parts).replace('</i><i>', '').strip())
+
+
+def notes_html(s):
+    def sub(m):
+        num, body = FOOTNOTES.get(m.group(1), (m.group(1), ''))
+        return f'<sup class="footnote-marker">{num}</sup><i class="footnote">{body}</i>'
+    return re.sub('\ue000(\\d+)\ue001', sub, s)
+
+
 def finish(pairs):
     result = []
     for he, en in pairs:
@@ -117,6 +155,7 @@ def finish(pairs):
         e = re.sub(r'^\s*[–—-]\s*', '', to_html(en)).strip()
         h = h.replace('**', '')
         e = re.sub(r'\*([^*\n]+)\*', r'<i>\1</i>', e.replace('**', ''))
+        h, e = notes_html(h), notes_html(e)
         if h or e:
             result.append([h, e])
     return result
@@ -222,6 +261,8 @@ def convert(path):
     title, he_title = BOOKS[key]
     if title in SIMAN_BOOKS:
         return convert_simanim(path, z, title, he_title)
+    if title in VOLUME_BOOKS:
+        return convert_volume(path, z, title, he_title)
     rels = rels_of(z)
     doc = z.read('word/document.xml').decode('utf-8')
 
@@ -375,6 +416,84 @@ def convert_simanim(path, z, title, he_title):
     print(f'{title}: {len(sections)} simanim, {paras_n} seifim, {phrases} phrase pairs -> {dest}')
 
 
+def convert_volume(path, z, title, he_title):
+    rels = rels_of(z)
+    footnotes_of(z)
+    doc = z.read('word/document.xml').decode('utf-8')
+    secs = BOOK_SECTIONS.setdefault(title, {})
+    sec = current = None
+    header = False  # inside the title block that follows a Siman heading
+    for pm in re.finditer(r'<w:p[ >].*?</w:p>', doc, re.S):
+        p = pm.group(0)
+        runs = list(runs_of(p, rels))
+        text = re.sub('\ue000\\d+\ue001', '', ''.join(r[0] for r in runs)).strip()
+        if not text:
+            continue
+        style = (re.search(r'<w:pStyle w:val="([^"]+)"', p) or [None, ''])[1]
+        if style == 'Heading1':
+            m = re.match(r'Siman (\d+)', text)
+            key = int(m.group(1)) if m else 'Introduction'
+            sec = {'n': key, 'he': '', 'en': '', 'items': []} if m else {'key': key, 'he': '', 'en': 'Introduction', 'items': []}
+            secs[key] = sec
+            current, header = None, True
+            continue
+        if sec is not None and (re.search(r'Table of Contents|Detailed Contents', text)
+                                or NIQQUD.sub('', text).startswith('תכן הענינים')):
+            sec = current = None  # back matter: contents pages after the last Siman
+            continue
+        if sec is None or text.startswith('§'):
+            continue  # front matter, contents, and the closing summary index
+        if style == 'Heading3':
+            m = re.search(r'Se.if (\d+)', text)
+            current = {'p': [], 'n': int(m.group(1))} if m else None
+            header = False
+            continue
+        if header and style not in ('BodyText', 'FirstParagraph'):
+            if HEB.search(text) and not LAT.search(text) and not sec['he']:
+                sec['he'] = text  # "סִימָן א"
+            elif not HEB.search(text) and not sec['en'] and 'n' in sec:
+                sec['en'] = text  # English title
+            elif HEB.search(text):
+                sec['items'].append({'h': text})  # Hebrew subject line
+            continue
+        if style == 'FirstParagraph' or re.match(r'^(The )?theme:', text, re.I):
+            sec['items'].append({'h': '\n' + text})  # summary
+            continue
+        if len(text) < 120 and not LAT.search(text) and re.search(r'סעיף|סעיפים', NIQQUD.sub('', text)):
+            sec['items'].append({'h': re.sub(r'^תַּקָּנַת הַשָּׁבִין — ', '', text)})  # "סִימָן ט״ו: סְעִיפִים ד׳–ז׳"
+            continue
+        if text in (he_title, 'תַּקָּנַת הַשָּׁבִין', 'Takanas HaShavin'):
+            continue  # running title before each Siman
+        if current is None:
+            current = {'p': [], 'n': 1}
+        if not current['p']:
+            sec['items'].append(current)
+        current['p'] += dash_pairs(runs)
+        header = False
+    n_p = sum(1 for s_ in secs.values() for i in s_['items'] if 'p' in i)
+    print(f'{path}: {title}, {len(secs)} sections so far, {n_p} paragraphs, {len(FOOTNOTES)} footnotes')
+
+
+def write_books():
+    for title, secs in BOOK_SECTIONS.items():
+        he_title = next(h for t, h in BOOKS.values() if t == title)
+        order = sorted(secs.values(), key=lambda s_: (0, 0) if 'key' in s_ else (1, s_['n']))
+        for s_ in order:
+            if 'n' in s_ and not s_['en']:
+                s_['en'] = f'Siman {s_["n"]}'
+        out = {
+            'title': title, 'heTitle': he_title, 'language': 'he',
+            'versionTitle': 'Akiva Publishing interlinear edition', 'versionSource': '',
+            'license': '© Akiva Publishing', 'categories': ['Chasidut', "R' Tzadok HaKohen"],
+            'akiva': True, 'interlinear': True, 'sections': order,
+        }
+        dest = OUT / (re.sub(r'[^A-Za-z0-9]+', '_', title).strip('_') + '.json')
+        dest.write_text(json.dumps(out, ensure_ascii=False), encoding='utf-8')
+        pairs = [pr for s_ in order for i in s_['items'] if 'p' in i for pr in i['p']]
+        notes = sum(len(re.findall('footnote-marker', a + b)) for a, b in pairs)
+        print(f'{title}: {len(order)} sections, {len(pairs)} phrase pairs, {notes} footnotes -> {dest}')
+
+
 PART_DATA = {}  # (book, node) -> merged chapters from every file of that part
 
 
@@ -489,3 +608,4 @@ if __name__ == '__main__':
     for f in sys.argv[1:]:
         convert(f)
     write_parts()
+    write_books()
