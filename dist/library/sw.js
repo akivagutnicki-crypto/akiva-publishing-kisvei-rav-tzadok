@@ -3,7 +3,7 @@
 // - Texts (data/) are served from cache and refreshed in the background.
 // - Sefaria API answers (English, connections, quoted sources) are network-first
 //   with the last answer kept for offline use; web fonts are cache-first.
-const VERSION = 'v1';
+const VERSION = 'v2';
 const SHELL = `rtl-shell-${VERSION}`;
 const DATA = 'rtl-data';
 const EXTERNAL = 'rtl-external';
@@ -34,7 +34,7 @@ async function networkFirst(request, cacheName, ms = 8000) {
     if (res.ok) cache.put(request, res.clone());
     return res;
   } catch (e) {
-    const hit = await cache.match(request, { ignoreSearch: false });
+    const hit = await cache.match(request, { ignoreVary: true });  // also texts saved by a download pack
     if (hit) return hit;
     throw e;
   }

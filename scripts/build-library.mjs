@@ -13,6 +13,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { linkCitations, categoryOf, normalizeRef } from './citations.mjs';
+import { packs, TANAKH, SHAS } from './packs.mjs';
 
 const OUT = 'dist/library/data';
 // Akiva sources come first and replace a Sefaria export of the same title.
@@ -182,6 +183,23 @@ for (const [slug, bySection] of Object.entries(LINKS)) {
 fs.mkdirSync(path.join(OUT, 'cited'), { recursive: true });
 for (const [book, refs] of Object.entries(CITED)) fs.writeFileSync(path.join(OUT, 'cited', `${book}.json`), JSON.stringify(refs));
 fs.writeFileSync(path.join(OUT, 'cited', 'index.json'), JSON.stringify(Object.keys(CITED).sort()));
+// Offline packs of Sefaria texts: every source the library cites, Tanakh, Shas.
+const localTitles = catalog.map(b => b.title);
+const cited = new Set();
+for (const bySection of Object.values(LINKS)) for (const l of Object.values(bySection).flat()) {
+  if (!localTitles.some(t => l.r === t || l.r.startsWith(t + ' ') || l.r.startsWith(t + ','))) cited.add(l.r);
+}
+fs.mkdirSync(path.join(OUT, 'packs'), { recursive: true });
+for (const [name, pack] of Object.entries(packs([...cited].sort()))) {
+  fs.writeFileSync(path.join(OUT, 'packs', `${name}.json`), JSON.stringify(pack));
+  console.log(`Pack ${name}: ${pack.refs.length} texts`);
+}
+
+fs.writeFileSync(path.join(OUT, 'packs', 'index.json'), JSON.stringify([
+  ['Tanakh', TANAKH.map(([g, books]) => [g, books.map(b => b[0])])],
+  ['Talmud Bavli', SHAS.map(([g, ts]) => [g, ts.map(t => t[0])])],
+]));
+
 // Every data file, for the web app's "download for offline reading".
 const files = [];
 const walk = dir => fs.readdirSync(dir, { withFileTypes: true }).forEach(e => {
