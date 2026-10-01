@@ -32,6 +32,16 @@ function shapeOf(x, depth) {
   return x.map(c => (Array.isArray(c) ? shapeOf(c, depth - 1) : 0));
 }
 
+// Translated parts of a book (scripts/convert-interlinear.py), keyed "Book|Node path".
+const PARTS = new Map();
+const partsDir = 'sources/akiva/parts';
+if (fs.existsSync(partsDir)) {
+  for (const f of fs.readdirSync(partsDir).filter(f => f.endsWith('.json'))) {
+    const part = JSON.parse(fs.readFileSync(path.join(partsDir, f), 'utf8'));
+    PARTS.set(`${part.book}|${part.node}`, part);
+  }
+}
+
 fs.rmSync(OUT, { recursive: true, force: true });
 fs.mkdirSync(OUT, { recursive: true });
 
@@ -93,7 +103,21 @@ for (const dir of DIRS) {
         });
       }
       const shape = depth === 1 ? t.length : t.map(c => (isEmpty(c) ? 0 : shapeOf(c, depth - 1)));
-      return { en: schemaNode?.enTitle ?? '', he: schemaNode?.heTitle ?? '', ref, heRef, id, depth, shape };
+      const leaf = { en: schemaNode?.enTitle ?? '', he: schemaNode?.heTitle ?? '', ref, heRef, id, depth, shape };
+      // Lay Akiva interlinear chapters over this node's Hebrew.
+      const part = PARTS.get(`${src.title}|${enPath.slice(1).join(', ')}`);
+      if (part && depth === 2) {
+        leaf.ilch = [];
+        for (const [ch, items] of Object.entries(part.chapters)) {
+          const k = +ch;
+          fs.writeFileSync(path.join(bookDir, `${id}-${k}.json`), JSON.stringify(items));
+          while (shape.length < k) shape.push(0);
+          shape[k - 1] = Math.max(1, items.filter(i => i.p).length);
+          leaf.ilch.push(k);
+        }
+        console.log(`  ${ref}: interlinear chapters ${leaf.ilch.join(', ')}`);
+      }
+      return leaf;
     };
 
     const root = src.schema
@@ -108,7 +132,8 @@ for (const dir of DIRS) {
       license: src.license && src.license !== 'unknown' ? src.license : '',
     };
     fs.writeFileSync(path.join(bookDir, 'toc.json'), JSON.stringify({ title: src.title, he: src.heTitle, version, toc: root }));
-    catalog.push({ title: src.title, he: src.heTitle, slug, group, version, akiva: !!src.akiva, segments });
+    const ilParts = [...PARTS.values()].some(p => p.book === src.title);
+    catalog.push({ title: src.title, he: src.heTitle, slug, group, version, akiva: !!src.akiva, ilParts, segments });
     console.log(`${src.title}: ${leafId} node(s), ${segments} segments`);
   }
 }
