@@ -242,6 +242,14 @@ i.footnote.open{display:block;direction:ltr;text-align:left;font-family:var(--en
 .app-card .bar span{display:block;height:100%;width:0;background:var(--forest);transition:width .2s}
 .app-card .status{font:500 .78rem var(--ui);color:var(--muted)}
 .app-card .btn{margin:4px 8px 4px 0}
+.pack{border-top:1px solid var(--line);padding:12px 0}
+.pack b{display:block;font:600 .86rem var(--ui)}
+.pack small{display:block;color:var(--muted);font:400 .76rem/1.4 var(--ui);margin:2px 0 6px}
+.src-groups{display:grid;grid-template-columns:1fr 1fr;column-gap:34px}
+.src-group h4{font:600 .7rem var(--ui);letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin:22px 0 8px}
+.src-group a{display:inline-block;margin:0 14px 6px 0;font:400 1rem var(--en);color:var(--ink)}
+.src-group a:hover{color:var(--ox)}
+@media (max-width:760px){.src-groups{grid-template-columns:1fr}}
 .offline-pill{position:fixed;left:50%;top:calc(var(--head-h) + 8px);transform:translateX(-50%);z-index:80;background:var(--ox);color:#fff;font:600 .72rem var(--ui);letter-spacing:.06em;padding:6px 12px;border-radius:14px}
 @media (display-mode: standalone){.top{padding-top:env(safe-area-inset-top);height:calc(var(--head-h) + env(safe-area-inset-top))}}
 .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:6px;font:600 .8rem var(--ui);z-index:90;opacity:0;transition:opacity .2s;pointer-events:none}
@@ -561,6 +569,8 @@ async function renderHome() {
         const list = books.filter(b => b.group === g.id);
         return list.length ? `<div class="cat-head"><h2>${esc(g.en)}</h2><span class="he" lang="he">${esc(g.he)}</span></div><div class="books">${list.map(card).join('')}</div>` : '';
       }).join('')}
+      <div class="cat-head"><h2>Sources · from Sefaria</h2><span class="he" lang="he">תנ״ך · תלמוד בבלי</span></div>
+      <div class="src-groups" id="srcGroups"></div>
     </div>
     <aside class="side">
       ${recent.length ? `<section class="recent"><h3>Continue reading</h3>${recent.slice(0, 5).map(r => `<a href="#/read/${toHash(r.ref)}"><span>${esc(r.ref)}</span><span class="he" lang="he">${esc(r.heRef || '')}</span></a>`).join('')}</section>` : ''}
@@ -577,9 +587,8 @@ async function renderHome() {
         <p id="appText">Install the library as an app on your phone or computer, and save the texts to read without an internet connection.</p>
         <button class="btn primary" id="installBtn2" type="button" hidden>Install app</button>
         <p id="iosHint" hidden>On iPhone or iPad: tap <b>Share</b> <span aria-hidden="true">⎋</span>, then <b>Add to Home Screen</b>.</p>
-        <button class="btn" id="offlineBtn" type="button">Download for offline reading</button>
-        <div class="bar" id="offlineBar" hidden><span></span></div>
-        <div class="status" id="offlineStatus"></div>
+        <div class="packs" id="packs"></div>
+        <div class="status" id="storageStatus"></div>
       </section>
       <section>
         <h3>About Rav Tzadok</h3>
@@ -597,6 +606,10 @@ async function renderHome() {
   </div>
   ${credit()}`;
   setupAppCard();
+  fetch('data/packs/index.json').then(r => r.json()).then(ix => {
+    const el = document.getElementById('srcGroups'); if (!el) return;
+    el.innerHTML = ix.map(([name, groups]) => `<div>${groups.map(([g, books]) => `<div class="src-group"><h4>${esc(name)} · ${esc(g)}</h4>${books.map(b => `<a href="#/book/${toHash(b)}">${esc(b)}</a>`).join('')}</div>`).join('')}</div>`).join('');
+  }).catch(() => {});
 }
 const credit = () => `<div class="page" style="padding-top:0"><div class="credit">Hebrew texts are digitized editions from the <a href="https://www.sefaria.org" target="_blank" rel="noopener">Sefaria</a> library (sources listed under About on each text). English translations and connections are loaded live from Sefaria and are used under each version's license; some are community translations. Interlinear editions (Sefer HaZikhronot, Et HaOchel, Divrei Chalomot, Divrei Soferim) are © Akiva Publishing. The Akiva Publishing print editions are separate translations.</div></div>`;
 
@@ -1174,46 +1187,81 @@ function showInstall() {
   const ios = /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
   const hint = document.getElementById('iosHint'); if (hint) hint.hidden = !(ios && !standalone());
 }
-// Save every text file in the cache the service worker reads from.
-async function downloadOffline() {
-  const btn = $('#offlineBtn'), bar = $('#offlineBar'), status = $('#offlineStatus');
+// Offline downloads. "library" = this site's text files; the others are Sefaria
+// texts (built by scripts/packs.mjs), saved as the exact API answers the reader asks for.
+const PACKS = [
+  {id: 'library', title: 'Rav Tzadok Library', note: 'All the seforim and translations in this library.'},
+  {id: 'sources', title: 'Sources cited in the library', note: 'Every Tanakh, Talmud, Midrash and halakhah passage the translations cite, so citations open offline.'},
+  {id: 'tanakh', title: 'Tanakh', note: 'All 24 books, Hebrew with English.'},
+  {id: 'shas', title: 'Talmud Bavli', note: 'All 37 tractates, Hebrew/Aramaic with English. A large download.'},
+];
+const sefariaUrls = pack => [
+  ...pack.refs.map(r => `${API}/api/v3/texts/${encodeURIComponent(r)}?version=source&version=translation`),
+  ...(pack.shapes || []).map(t => `${API}/api/shape/${encodeURIComponent(t)}`)];
+async function packInfo(id) {
+  if (id === 'library') { const l = await fetch('data/files.json', {cache: 'no-cache'}).then(r => r.json()); return {version: l.version, urls: l.files.map(f => 'data/' + f), cache: 'rtl-data', mb: l.bytes / 1048576}; }
+  const pack = await fetch(`data/packs/${id}.json`, {cache: 'no-cache'}).then(r => r.json());
+  const urls = sefariaUrls(pack);
+  return {version: String(urls.length) + ':' + (pack.refs[0] || '') + (pack.refs[pack.refs.length - 1] || ''), urls, cache: 'rtl-external', count: pack.refs.length};
+}
+async function downloadPack(id, row) {
+  const btn = row.querySelector('button'), bar = row.querySelector('.bar'), status = row.querySelector('.status');
   if (!('caches' in window)) { status.textContent = 'This browser cannot save texts for offline use.'; return; }
   btn.disabled = true; bar.hidden = false;
+  try { await navigator.storage?.persist?.(); } catch {}
   try {
-    const list = await fetch('data/files.json', {cache: 'no-store'}).then(r => r.json());
-    const cache = await caches.open('rtl-data');
-    let done = 0, failed = 0;
-    const queue = list.files.slice();
+    const info = await packInfo(id);
+    const cache = await caches.open(info.cache);
+    const fresh = id === 'library'; // library files change with each update; Sefaria texts are kept
+    let done = 0, failed = 0, i = 0;
+    const total = info.urls.length;
     const worker = async () => {
-      while (queue.length) {
-        const f = queue.shift();
-        try { const res = await fetch('data/' + f, {cache: 'no-cache'}); if (res.ok) await cache.put(new Request('data/' + f), res); else failed++; }
-        catch { failed++; }
+      while (i < total) {
+        const url = info.urls[i++];
+        try {
+          if (fresh || !(await cache.match(url, {ignoreVary: true}))) {
+            const res = await fetch(url, {cache: 'no-cache'});
+            if (res.ok) await cache.put(url, res); else failed++;
+          }
+        } catch { failed++; }
         done++;
-        bar.firstElementChild.style.width = (100 * done / list.files.length).toFixed(1) + '%';
-        status.textContent = `Saving texts… ${done} of ${list.files.length}`;
+        if (done % 5 === 0 || done === total) {
+          bar.firstElementChild.style.width = (100 * done / total).toFixed(1) + '%';
+          status.textContent = `Saving… ${done.toLocaleString()} of ${total.toLocaleString()}`;
+        }
       }
     };
-    await Promise.all(Array.from({length: 8}, worker));
-    if (failed) { status.textContent = `Saved, but ${failed} files failed. Try again on a better connection.`; }
-    else { store.set('offline', {version: list.version, at: Date.now()}); status.textContent = 'All texts are saved for offline reading.'; btn.textContent = 'Update saved texts'; }
+    await Promise.all(Array.from({length: id === 'library' ? 8 : 4}, worker));
+    if (failed) status.textContent = `Saved ${(total - failed).toLocaleString()} of ${total.toLocaleString()}. ${failed.toLocaleString()} could not be downloaded (Sefaria may be busy). Tap again to finish; saved texts are skipped.`;
+    else { store.set('pack-' + id, {version: info.version, at: Date.now()}); status.textContent = 'Saved for offline reading.'; btn.textContent = 'Update'; }
   } catch (e) {
     status.textContent = 'Could not download right now. Check your connection and try again.';
   }
   btn.disabled = false;
+  showStorage();
+}
+async function showStorage() {
+  const el = document.getElementById('storageStatus');
+  if (!el || !navigator.storage?.estimate) return;
+  try { const {usage} = await navigator.storage.estimate(); el.textContent = `Saved on this device: ${(usage / 1048576).toFixed(0)} MB.`; } catch {}
 }
 async function setupAppCard() {
   showInstall();
-  const btn = document.getElementById('offlineBtn'); if (!btn) return;
-  btn.onclick = downloadOffline;
-  const saved = store.get('offline', null);
-  try {
-    const list = await fetch('data/files.json').then(r => r.json());
-    const mb = (list.bytes / 1048576).toFixed(0);
-    if (saved && saved.version === list.version) { $('#offlineStatus').textContent = 'All texts are saved for offline reading.'; btn.textContent = 'Update saved texts'; }
-    else if (saved) { $('#offlineStatus').textContent = 'New or updated texts are available.'; btn.textContent = 'Update saved texts'; }
-    else btn.textContent = `Download for offline reading (about ${Math.max(1, Math.round(mb / 4))}–${mb} MB)`;
-  } catch {}
+  const box = document.getElementById('packs'); if (!box) return;
+  box.innerHTML = PACKS.map(p => `<div class="pack" data-id="${p.id}"><b>${esc(p.title)}</b><small>${esc(p.note)}</small>
+    <button class="btn" type="button">Download</button><div class="bar" hidden><span></span></div><div class="status"></div></div>`).join('');
+  for (const row of box.querySelectorAll('.pack')) {
+    const id = row.dataset.id, btn = row.querySelector('button'), status = row.querySelector('.status');
+    btn.onclick = () => downloadPack(id, row);
+    const saved = store.get('pack-' + id, null) || (id === 'library' ? store.get('offline', null) : null);
+    packInfo(id).then(info => {
+      const size = info.mb ? ` (about ${Math.max(1, Math.round(info.mb / 4))}–${Math.round(info.mb)} MB)` : ` (${info.count.toLocaleString()} texts)`;
+      if (saved && saved.version === info.version) { status.textContent = 'Saved for offline reading.'; btn.textContent = 'Update'; }
+      else if (saved) { status.textContent = 'New or updated texts are available.'; btn.textContent = 'Update'; }
+      else btn.textContent = 'Download' + size;
+    }).catch(() => {});
+  }
+  showStorage();
 }
 const onlineState = () => { const p = document.getElementById('offlinePill'); if (p) p.hidden = navigator.onLine; };
 addEventListener('online', onlineState); addEventListener('offline', onlineState); onlineState();
