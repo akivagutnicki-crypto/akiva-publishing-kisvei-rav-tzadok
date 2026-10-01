@@ -48,7 +48,12 @@ PARTS = [
     (r'Mishlei Commentary', ('Dover Tzedek', 'Mishlei Commentary')),
     (r'Miscellany', ('Dover Tzedek', 'Miscellany')),
     (r'Mach?sh?avo[st][ _]Charutz|מחשבות חרוץ', ('Machshavot Charutz', '')),
+    (r'Yisrael[ _]Kedosh|ישראל קדושים', ('Yisrael Kedoshim', '')),
 ]
+# Parts whose section markers do not follow Sefaria's paragraphs: every paragraph
+# is placed by matching its opening words against the Sefaria Hebrew, moving
+# only forward; what does not match continues the current paragraph.
+ALIGN_ALL = {'Yisrael Kedoshim'}
 # Parts whose unnumbered paragraphs are placed by matching their opening words
 # against the Sefaria Hebrew in sources/sefaria.
 ALIGN = {'Machshavot Charutz'}
@@ -511,6 +516,8 @@ def convert_part(path, z):
     if not part:
         sys.exit(f'{path}: cannot tell which book this is (first line: {first[:80]})')
     chapters = PART_DATA.setdefault(part, {})
+    if part[0] in ALIGN_ALL:
+        return convert_aligned(path, paras, part, chapters)
     index = sefaria_index(part[0]) if part[0] in ALIGN else []
     ch, n, fresh, current, marked = 1, 0, True, None, False
 
@@ -575,6 +582,42 @@ def convert_part(path, z):
         else:
             current['p'] = current['p'] + pairs
     print(f'{path}: {part[0]} / {part[1] or "(whole book)"}')
+
+
+def convert_aligned(path, paras, part, chapters):
+    index = sefaria_index(part[0])
+    ch, n, current = 1, 0, None
+    pending = []  # headings seen before the paragraph they belong to
+    for is_heading, runs in paras:
+        text = ''.join(r[0] for r in runs).strip()
+        plain = NIQQUD.sub('', text)
+        hebrew_title = len(text) < 260 and (is_heading or all(r[1] for r in runs if r[0].strip()))
+        if hebrew_title:  # chapter heading or section title: keep as a subheading
+            pending.append({'h': re.sub(r'([\u05D0-\u05EA\u05F3\u05F4\)])\s*[—-]\s*([A-Z])', r'\1 — \2', text)})
+            m = re.search(r'פרק ([א-ת"\'׳״]+)', plain)
+            if is_heading and m and gematria(m.group(1)) > ch:
+                ch, n = gematria(m.group(1)), n if gematria(m.group(1)) == ch else 0
+            continue
+        if re.match(r'^(The )?theme:', text, re.I):
+            pending.append({'h': '\n' + text})
+            continue
+        pairs = pairs_of(runs)
+        hit = locate(index, ' '.join(p[0] for p in pairs[:2]))
+        if hit and (hit[0], hit[1]) > (ch, n if current else 0) and hit[0] - ch <= 1:
+            ch, n = hit
+            current = {'p': [], 'n': n}
+            chapters.setdefault(ch, []).extend(pending); pending = []
+            chapters[ch].append(current)
+        elif current is None:
+            ch, n = ch, 1
+            current = {'p': [], 'n': 1}
+            chapters.setdefault(ch, []).extend(pending); pending = []
+            chapters[ch].append(current)
+        elif pending:  # a subheading inside a paragraph: keep its place in the text
+            current['p'] += [[f'<b>{html.escape(re.sub(chr(10), " ", x["h"]).strip())}</b>', ''] for x in pending if not x['h'].startswith(chr(10))]
+            pending = [x for x in pending if x['h'].startswith(chr(10))]
+        current['p'] += pairs
+    print(f'{path}: {part[0]} (aligned to Sefaria paragraphs)')
 
 
 def write_parts():
