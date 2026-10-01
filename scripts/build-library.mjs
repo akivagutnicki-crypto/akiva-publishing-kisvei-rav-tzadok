@@ -52,8 +52,47 @@ const LINKS = {};  // slug -> { sectionRef: [{a: paragraph ref, r: cited ref, c:
 const CITED = {};  // cited book slug -> { cited ref: [paragraph refs] }
 const decode = s => s.replace(/&quot;/g, '"').replace(/&#x27;|&#39;/g, "'").replace(/&amp;/g, '&');
 const bookOfRef = ref => ref.replace(/\s+\d[\dab:\-–]*$/, '');
+// Subheadings in one consistent style: the topic only (Hebrew, English beneath).
+// Numbering in the source files (אות / סעיף / פסקא / Section / Paragraph / Seif,
+// "[המשך …]") is not consistent across books, so it is dropped; headings that are
+// only a number or a range are removed (the margin numbers show the place).
+const NIQQUD = /[\u0591-\u05C7]/g;
+const HE_MARK = /^\[?(?:המשך |סיום |סוף )?(?:אות|אותיות|סעיף|סעיפים|פסקא|פסקה|פרק|סימן|סגמנט)(?=\s|$)[^\]—(:]*\]?$/;
+const EN_MARK = /^(?:Sections?|Paragraphs?|Chapter|Se['’]?ifs?|Segment|Siman|Ois)\b[\s\d–\-,]*$/i;
+function topicOf(part) {
+  const plain = part.replace(NIQQUD, '').trim();
+  const paren = /\(([^()]+)\)\s*$/.exec(part);
+  // "סעיף 1 (הקדמה)" / "Section 1 (Ois Aleph: Introduction)" -> the words in the brackets
+  if (paren && (HE_MARK.test(plain.replace(/\s*\([^()]*\)\s*$/, '')) || EN_MARK.test(part.replace(/\s*\([^()]*\)\s*$/, '')))) return paren[1].replace(/^Ois \w+:\s*/, '').trim();
+  // "Paragraph 1: King David …" / "Section 2: …" -> after the colon
+  const colon = /^(?:Sections?|Paragraphs?|Chapter \d+[^:]*|Se['’]?if)[^:]*:\s*(.+)$/i.exec(part);
+  if (colon) return colon[1].trim();
+  if (HE_MARK.test(plain) || EN_MARK.test(part)) return '';
+  return part.trim();
+}
+function cleanHeading(h) {
+  if (h.startsWith('\n')) return h; // a summary ("The theme: …") stays as it is
+  const [title, ...rest] = h.split('\n');
+  const plainTitle = title.replace(NIQQUD, '');
+  // "ישראל קדושים — פרק ה׳, אותיות ט׳–י״ב", "סימן ט״ו: סעיפים ד׳–ז׳": a range only
+  if (/^[^—]*—\s*(?:פרק|סימן)\s[^—]*$/.test(plainTitle) && !/[A-Za-z]/.test(plainTitle) && /(פרק|סימן|אות|סעיף)/.test(plainTitle.split('—').pop())) return null;
+  if (/^(?:סימן|פרק)\s+\S+:\s*(?:סעיפים|סעיף|אותיות|אות)/.test(plainTitle)) return null;
+  const parts = title.split(/\s+[—–]\s+/).map(topicOf).filter(Boolean);
+  if (!parts.length) return rest.length ? '\n' + rest.join(' ') : null;
+  const he = parts.filter(x => /[\u05D0-\u05EA]/.test(x) && !/[A-Za-z]{3}/.test(x));
+  const en = parts.filter(x => !he.includes(x));
+  const lines = [(he.length ? he : en).join(' — '), ...(he.length && en.length ? [en.join(' — ')] : []), ...rest];
+  return lines.join('\n');
+}
+const cleanHeadings = items => items.flatMap(i => {
+  if (!('h' in i)) return [i];
+  const h = cleanHeading(i.h);
+  return h ? [{ ...i, h }] : [];
+}).filter((i, k, all) => !('h' in i) || !(k > 0 && 'h' in all[k - 1] && all[k - 1].h === i.h)); // no repeats
+
 // Link citations in interlinear paragraphs and record them as connections.
 function connect(slug, sectionRef, sep, items) {
+  items = cleanHeadings(items);
   let k = 0;
   for (const item of items) {
     if (!item.p) continue;
@@ -136,6 +175,14 @@ for (const dir of DIRS) {
       const leaf = { en: schemaNode?.enTitle ?? '', he: schemaNode?.heTitle ?? '', ref, heRef, id, depth, shape };
       // Lay Akiva interlinear chapters over this node's Hebrew.
       const part = PARTS.get(`${src.title}|${enPath.slice(1).join(', ')}`);
+      if (part && depth === 1 && part.chapters['1']) {
+        // A single-level node (e.g. "From Zohar"): its translated paragraphs replace the Hebrew file.
+        const items = connect(slug, ref, ' ', part.chapters['1']);
+        fs.writeFileSync(path.join(bookDir, `${id}.json`), JSON.stringify(items));
+        leaf.il1 = true;
+        leaf.shape = Math.max(leaf.shape, items.filter(i => i.p).length);
+        console.log(`  ${ref}: interlinear`);
+      }
       if (part && depth === 2) {
         leaf.ilch = [];
         for (const [ch, rawItems] of Object.entries(part.chapters)) {
