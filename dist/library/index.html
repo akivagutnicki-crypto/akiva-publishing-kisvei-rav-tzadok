@@ -181,7 +181,8 @@ a.cite:hover{text-decoration-color:var(--link)}
 .toc-list .he{font:500 1.15rem/1.5 var(--he);color:var(--muted)}
 .footnote-marker{color:var(--ox);font:700 .7em var(--ui);cursor:pointer;padding:0 2px}
 i.footnote{display:none;font-style:normal;font-size:.85em;color:var(--muted);background:var(--soft);padding:2px 6px;border-radius:4px}
-i.footnote.open{display:inline}
+i.footnote.open{display:block;direction:ltr;text-align:left;font-family:var(--en);font-size:calc(1rem * var(--fs));line-height:1.55;margin:8px 0 6px;padding:10px 14px;border-left:3px solid var(--brass);border-radius:4px}
+.ph-he i.footnote.open{text-align:left}
 .sentinel{height:80px}
 .endnote{text-align:center;color:var(--faint);font:500 .82rem var(--ui);padding:30px 0}
 .pager{display:flex;justify-content:space-between;gap:12px;margin-top:30px}
