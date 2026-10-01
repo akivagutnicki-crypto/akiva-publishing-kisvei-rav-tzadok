@@ -208,6 +208,13 @@ i.footnote.open{display:block;direction:ltr;text-align:left;font-family:var(--en
 .link-item .ref .he{font:500 .9rem var(--he);color:var(--muted)}
 .link-item .he-text{font:400 1.12rem/1.65 var(--he);direction:rtl;text-align:right;max-height:15em;overflow:hidden;position:relative}
 .link-item .en-text{font:400 1.04rem/1.5 var(--en);color:var(--muted);margin-top:8px;max-height:10em;overflow:hidden}
+.link-item .quote{max-height:22em;overflow:hidden}
+.link-item.full .quote{max-height:none}
+.link-item .qp{padding:6px 0;border-bottom:1px solid color-mix(in srgb,var(--line) 60%,transparent)}
+.link-item .qp:last-child{border-bottom:0}
+.link-item .qh{font:400 1.12rem/1.65 var(--he);direction:rtl;text-align:right;margin:0}
+.link-item .qe{font:400 1.04rem/1.5 var(--en);color:var(--muted);margin:4px 0 0}
+.link-item:not(.full) .clipped{-webkit-mask-image:linear-gradient(#000 70%,transparent);mask-image:linear-gradient(#000 70%,transparent)}
 .link-item .acts{display:flex;gap:16px;margin-top:10px;font:600 .74rem var(--ui);color:var(--link)}
 .link-item .acts a:hover,.link-item .acts button:hover{text-decoration:underline}
 .link-item .acts button{border:0;background:none;padding:0;color:inherit;font:inherit}
@@ -1014,10 +1021,26 @@ async function showLinkList(ref, label, list, c) {
       let k = -1;
       if (d.highlight) { const n = +d.highlight.split(/[ :]/).pop(); k = d.nums ? d.nums.indexOf(n) : n - 1; }
       const pick = a => k >= 0 ? [flatten(a)[k]] : flatten(a);
-      const he = pick(d.he).map(plain).join(' '), en = pick(d.en).map(plain).join(' ');
+      const he = pick(d.he).map(plain), en = pick(d.en).map(plain);
+      const hes = he.filter(x => x.trim()), ens = en.filter(x => x.trim());
       const target = l.sourceRef || l.ref;
-      div.querySelector('.loading').outerHTML = `${he ? `<div class="he-text" lang="he">${esc(he)}</div>` : ''}${en ? `<div class="en-text">${esc(en)}</div>` : ''}
-        <div class="acts"><a href="#/read/${toHash(target)}">Open in reader</a><a href="${sefariaUrl(target)}" target="_blank" rel="noopener">Sefaria ↗</a></div>`;
+      // Hebrew and English paragraph by paragraph, so a long quote reads in pairs.
+      const rows = Array.from({length: Math.max(he.length, en.length)}, (_, i) => [he[i] || '', en[i] || ''])
+        .filter(([h, e]) => h.trim() || e.trim())
+        .map(([h, e]) => `<div class="qp">${h.trim() ? `<p class="qh" lang="he">${esc(h)}</p>` : ''}${e.trim() ? `<p class="qe">${esc(e)}</p>` : ''}</div>`).join('');
+      div.querySelector('.loading').outerHTML = `<div class="quote">${rows}</div>
+        <div class="acts"><button type="button" class="more" hidden>Show full text</button><button type="button" class="copyq">Copy quote</button><a href="#/read/${toHash(target)}">Open in reader</a><a href="${sefariaUrl(target)}" target="_blank" rel="noopener">Sefaria ↗</a></div>`;
+      // A single cited source opens in full; in a list, long quotes get a "Show full text" toggle.
+      if (list.length === 1) div.classList.add('full');
+      const boxes = [...div.querySelectorAll('.quote')];
+      const clipped = boxes.filter(b => b.scrollHeight > b.clientHeight + 4);
+      clipped.forEach(b => b.classList.add('clipped'));
+      const more = div.querySelector('.more');
+      if (clipped.length && !div.classList.contains('full')) more.hidden = false;
+      more.onclick = () => { const full = div.classList.toggle('full'); more.textContent = full ? 'Show less' : 'Show full text'; };
+      div.querySelector('.copyq').onclick = async () => {
+        try { await navigator.clipboard.writeText([hes.join('\n'), ens.join('\n'), '— ' + target].filter(Boolean).join('\n\n')); toast('Quote copied'); } catch { toast('Copy failed'); }
+      };
     }).catch(() => {
       const target = l.sourceRef || l.ref;
       div.querySelector('.loading').outerHTML = `<div class="acts"><a href="#/read/${toHash(target)}">Open in reader</a><a href="${sefariaUrl(target)}" target="_blank" rel="noopener">Sefaria ↗</a></div>`;
