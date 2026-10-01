@@ -432,6 +432,9 @@ def convert_volume(path, z, title, he_title):
         p = pm.group(0)
         runs = list(runs_of(p, rels))
         text = re.sub('\ue000\\d+\ue001', '', ''.join(r[0] for r in runs)).strip()
+        # Footnotes on a heading or summary line are appended to it as plain text.
+        notes = [FOOTNOTES.get(fid) for fid in re.findall('\ue000(\\d+)\ue001', ''.join(r[0] for r in runs))]
+        htext = text + ''.join(f' [{num}: {html.unescape(re.sub("<[^>]+>", "", note))}]' for num, note in filter(None, notes))
         if not text:
             continue
         style = (re.search(r'<w:pStyle w:val="([^"]+)"', p) or [None, ''])[1]
@@ -459,13 +462,13 @@ def convert_volume(path, z, title, he_title):
             elif not HEB.search(text) and not sec['en'] and 'n' in sec:
                 sec['en'] = text  # English title
             elif HEB.search(text):
-                sec['items'].append({'h': text})  # Hebrew subject line
+                sec['items'].append({'h': htext})  # Hebrew subject line
             continue
         if style == 'FirstParagraph' or re.match(r'^(The )?theme:', text, re.I):
-            sec['items'].append({'h': '\n' + text})  # summary
+            sec['items'].append({'h': '\n' + htext})  # summary
             continue
         if len(text) < 120 and not LAT.search(text) and re.search(r'סעיף|סעיפים', NIQQUD.sub('', text)):
-            sec['items'].append({'h': re.sub(r'^תַּקָּנַת הַשָּׁבִין — ', '', text)})  # "סִימָן ט״ו: סְעִיפִים ד׳–ז׳"
+            sec['items'].append({'h': re.sub(r'^תַּקָּנַת הַשָּׁבִין — ', '', htext)})  # "סִימָן ט״ו: סְעִיפִים ד׳–ז׳"
             continue
         if text in (he_title, 'תַּקָּנַת הַשָּׁבִין', 'Takanas HaShavin'):
             continue  # running title before each Siman
@@ -549,9 +552,9 @@ def convert_part(path, z):
                 m = re.search(r'(?:Paragraph|Section) (\d+)', text)
                 if m:
                     start(ch, int(m.group(1)) - 1)
-            rest = re.split(r'\)\s*(?=The theme|Theme)', text, maxsplit=1)
+            rest = re.split(r'\s*(?=\bThe theme:|\bTheme:)', text, maxsplit=1)
             if len(rest) == 2:
-                chapters.setdefault(ch, []).append({'h': rest[1].strip()})
+                chapters.setdefault(ch, []).append({'h': '\n' + rest[1].strip()})  # summary on the marker line
             continue
         m = short and re.search(r'\bChapter (\d+)\b', text)
         if m:  # "Miscellany, Chapter 3 - Avodah Zara", "... Berakhot, Chapter 2:"
@@ -613,10 +616,14 @@ def convert_aligned(path, paras, part, chapters):
             current = {'p': [], 'n': 1}
             chapters.setdefault(ch, []).extend(pending); pending = []
             chapters[ch].append(current)
-        elif pending:  # a subheading inside a paragraph: keep its place in the text
-            current['p'] += [[f'<b>{html.escape(re.sub(chr(10), " ", x["h"]).strip())}</b>', ''] for x in pending if not x['h'].startswith(chr(10))]
-            pending = [x for x in pending if x['h'].startswith(chr(10))]
+        elif pending:  # headings inside a paragraph: keep them in place in the text
+            for x in pending:
+                t = html.escape(x['h'].strip())
+                current['p'].append([f'<b>{t}</b>', ''] if not x['h'].startswith('\n') else ['', f'<i>{t}</i>'])
+            pending = []
         current['p'] += pairs
+    if pending and current is not None:  # headings after the last paragraph of the file
+        chapters.setdefault(ch, []).extend(pending)
     print(f'{path}: {part[0]} (aligned to Sefaria paragraphs)')
 
 

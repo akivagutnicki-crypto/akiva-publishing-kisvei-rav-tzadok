@@ -86,6 +86,8 @@ const TRACTATES = {
 };
 // Midrash, codes and other works cited by chapter (and verse/paragraph).
 const WORKS = {
+  'Sifrei Devarim': ['Sifrei Devarim', 'Sifrei, Devarim', 'Sifre Devarim', 'Sifrei Deuteronomy'],
+  'Sifrei Bamidbar': ['Sifrei Bamidbar', 'Sifrei, Bamidbar', 'Sifre Bamidbar', 'Sifrei Numbers'],
   'Bereshit Rabbah': ['Bereishis Rabbah', 'Bereishit Rabbah', 'Bereshit Rabbah', 'Genesis Rabbah'],
   'Shemot Rabbah': ['Shemos Rabbah', 'Shemot Rabbah', 'Exodus Rabbah'],
   'Vayikra Rabbah': ['Vayikra Rabbah', 'Leviticus Rabbah'],
@@ -125,6 +127,18 @@ const LIBRARY = {
   'Sichat Malakhei HaSharet': ['Sichas Malachei HaShareis', 'Sichat Malachei HaSharet'],
   'Peri Tzadik': ['Pri Tzaddik', 'Peri Tzadik', 'Pri Tzadik'],
 };
+import { TANAKH as TANAKH_CHAPTERS, SHAS } from './packs.mjs';
+// Bounds, so a citation to a chapter or daf that does not exist is not linked.
+const MAX_CHAPTER = Object.fromEntries(TANAKH_CHAPTERS.flatMap(([, books]) => books));
+const amud = s => { const m = /^(\d+)([ab])$/.exec(s); return m ? +m[1] * 2 + (m[2] === 'b' ? 1 : 0) : null; };
+const DAF_RANGE = Object.fromEntries(SHAS.flatMap(([, ts]) => ts.map(([t, , a, z]) => [t, [amud(a), amud(z)]])));
+const inBounds = ref => {
+  let m = /^(.*) (\d+):\d+/.exec(ref);
+  if (m && MAX_CHAPTER[m[1]] && +m[2] > MAX_CHAPTER[m[1]]) return false;
+  m = /^(.*) (\d+[ab])$/.exec(ref);
+  if (m && DAF_RANGE[m[1]]) { const x = amud(m[2]); if (x < DAF_RANGE[m[1]][0] || x > DAF_RANGE[m[1]][1]) return false; }
+  return true;
+};
 export const CATEGORY = {};
 const ALIASES = [];
 const add = (table, kind, cat) => {
@@ -135,7 +149,7 @@ const add = (table, kind, cat) => {
 };
 add(TANAKH, 'tanakh', 'Tanakh');
 add(TRACTATES, 'talmud', 'Talmud');
-add(WORKS, 'work', t => /Rabbah|Tehillim|Eliezer/.test(t) ? 'Midrash' : /Avot/.test(t) ? 'Mishnah'
+add(WORKS, 'work', t => /Rabbah|Tehillim|Eliezer|Sifrei/.test(t) ? 'Midrash' : /Avot/.test(t) ? 'Mishnah'
   : /Mishneh Torah|Shulchan/.test(t) ? 'Halakhah' : /Yetzirah/.test(t) ? 'Kabbalah' : 'Midrash');
 add(LIBRARY, 'library', 'Rav Tzadok');
 ALIASES.sort((a, b) => b.name.length - a.name.length); // longest first: "Shemos Rabbah" before "Shemos"
@@ -177,7 +191,9 @@ export function findCitations(text) {
       const close = text.slice(m.index + whole.length).match(/^[^)\]]{0,4}[)\]]/);
       if (close) length += close[0].length;
     }
-    if (ref) out.push({ index: m.index + prefix.length, length, ref, category });
+    // "Sulam on Zohar, Vayikra 285:1" is not Leviticus
+    if (ref && alias.kind === 'tanakh' && /Zohar,?\s*$/.test(text.slice(Math.max(0, m.index - 8), m.index))) ref = null;
+    if (ref && inBounds(ref)) out.push({ index: m.index + prefix.length, length, ref, category });
   }
   return out;
 }
