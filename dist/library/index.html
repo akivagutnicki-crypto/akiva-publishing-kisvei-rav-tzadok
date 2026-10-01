@@ -586,9 +586,10 @@ async function renderHome() {
         <h3>The app</h3>
         <p id="appText">Install the library as an app on your phone or computer, and save the texts to read without an internet connection.</p>
         <button class="btn primary" id="installBtn2" type="button" hidden>Install app</button>
+        <p class="status">Large collections are hundreds of megabytes; check your device's free space first. Downloads can be stopped and resumed.</p>
         <p id="iosHint" hidden>On iPhone or iPad: tap <b>Share</b> <span aria-hidden="true">⎋</span>, then <b>Add to Home Screen</b>.</p>
         <div class="packs" id="packs"></div>
-        <div class="pack"><b>One file</b><small>Download the whole library as a single .zip, or export everything saved on this device (including Sefaria packs) as one .zip.</small>
+        <div class="pack"><b>One file</b><small>Each pack above has its own <b>.zip</b> button. Or download the whole library as one file, or export everything saved on this device.</small>
           <a class="btn" href="downloads/rav-tzadok-library.zip" download>Library .zip (about 11 MB)</a>
           <button class="btn" type="button" id="exportBtn">Export saved texts (.zip)</button><div class="status" id="exportStatus"></div></div>
         <div class="status" id="storageStatus"></div>
@@ -1218,6 +1219,11 @@ const PACKS = [
   {id: 'shas', title: 'Talmud Bavli', note: 'All 37 tractates, Hebrew/Aramaic with English. A large download.'},
   {id: 'rambam', title: 'Mishneh Torah (Rambam)', note: 'All fourteen books, Hebrew with English.', prefix: 'Mishneh Torah, '},
   {id: 'shulchan', title: 'Shulchan Arukh', note: 'All four sections.', prefix: 'Shulchan Arukh, '},
+  {id: 'chasidut', title: 'Chassidus', note: 'Every Chasidic sefer on Sefaria. A large download.', path: ['Chasidut']},
+  {id: 'thought', title: 'Jewish Thought (philosophy)', note: 'Rishonim and Acharonim on emunah and hashkafah. A large download.', path: ['Jewish Thought']},
+  {id: 'kabbalah', title: 'Kabbalah', note: 'Zohar, Arizal and other Kabbalah seforim. A large download.', path: ['Kabbalah']},
+  {id: 'musar', title: 'Mussar', note: 'The Mussar seforim on Sefaria.', path: ['Musar']},
+  {id: 'maharal', title: 'Maharal of Prague', note: 'The works of the Maharal, with Gur Aryeh on the Torah.', path: ['Jewish Thought', 'Acharonim', 'Maharal'], prefix: 'Gur Aryeh on '},
 ];
 const textUrl = r => `${API}/api/v3/texts/${encodeURIComponent(r)}?version=source&version=translation`;
 const shapeUrl = t => `${API}/api/shape/${encodeURIComponent(t)}`;
@@ -1234,21 +1240,33 @@ async function sefariaBookUrls(title) {
   const root = Array.isArray(shape) ? shape[0] : shape;
   return [shapeUrl(title), ...sectionsOfShape(root).map(textUrl)];
 }
-async function titlesWithPrefix(prefix) {
-  const index = await fetch(`${API}/api/index`).then(r => r.json());
+let sefariaIndex = null;
+// Titles from Sefaria's table of contents: everything under a category path,
+// and/or every title starting with a prefix (commentaries excluded for prefixes).
+async function packTitles({path, prefix}) {
+  sefariaIndex = sefariaIndex || await fetch(`${API}/api/index`).then(r => r.json());
   const out = [];
-  const walk = n => { if (Array.isArray(n)) n.forEach(walk); else if (n && n.contents) walk(n.contents); else if (n && n.title && n.title.startsWith(prefix) && !/ on /.test(n.title)) out.push(n.title); };
-  walk(index);
+  const all = n => { if (Array.isArray(n)) n.forEach(all); else if (n && n.contents) all(n.contents); else if (n && n.title) out.push(n.title); };
+  if (path) {
+    let level = sefariaIndex, node = null;
+    for (const name of path) { node = (level || []).find(c => c.category === name); level = node && node.contents; }
+    if (node) all(node.contents);
+  }
+  if (prefix) {
+    const withPrefix = n => { if (Array.isArray(n)) n.forEach(withPrefix); else if (n && n.contents) withPrefix(n.contents); else if (n && n.title && n.title.startsWith(prefix) && (prefix.endsWith(' on ') || !/ on /.test(n.title))) out.push(n.title); };
+    withPrefix(sefariaIndex);
+  }
   return [...new Set(out)];
 }
 async function packInfo(id) {
   if (id === 'library') { const l = await fetch('data/files.json', {cache: 'no-cache'}).then(r => r.json()); return {version: l.version, urls: l.files.map(f => 'data/' + f), cache: 'rtl-data', mb: l.bytes / 1048576, zip: 'downloads/rav-tzadok-library.zip'}; }
   const def = PACKS.find(p => p.id === id);
-  if (def.prefix) return {version: id, cache: 'rtl-external', lazy: async status => {
+  if (def.prefix || def.path) return {version: id, cache: 'rtl-external', lazy: async (status, cancelled) => {
     status('Finding the books…');
-    const titles = await titlesWithPrefix(def.prefix);
+    const titles = await packTitles(def);
+    if (!titles.length) throw new Error('no books found');
     const urls = [];
-    for (let k = 0; k < titles.length; k++) { status(`Listing ${k + 1} of ${titles.length} books…`); try { urls.push(...await sefariaBookUrls(titles[k])); } catch {} }
+    for (let k = 0; k < titles.length && !cancelled(); k++) { status(`Listing ${k + 1} of ${titles.length} books…`); try { urls.push(...await sefariaBookUrls(titles[k])); } catch {} }
     return urls;
   }};
   const pack = await fetch(`data/packs/${id}.json`, {cache: 'no-cache'}).then(r => r.json());
@@ -1278,11 +1296,11 @@ async function installZip(zipUrl, cacheName, progress) {
   return names.length;
 }
 // Fetch a list of URLs into a cache, a few at a time, skipping what is already saved.
-async function saveUrls(urls, cacheName, {fresh = false, workers = 4, progress}) {
+async function saveUrls(urls, cacheName, {fresh = false, workers = 4, progress, cancelled = () => false}) {
   const cache = await caches.open(cacheName);
   let done = 0, failed = 0, i = 0;
   const work = async () => {
-    while (i < urls.length) {
+    while (i < urls.length && !cancelled()) {
       const url = urls[i++];
       try {
         if (fresh || !(await cache.match(url, {ignoreVary: true}))) {
@@ -1295,31 +1313,40 @@ async function saveUrls(urls, cacheName, {fresh = false, workers = 4, progress})
     }
   };
   await Promise.all(Array.from({length: workers}, work));
-  return failed;
+  return failed + (urls.length - done);
 }
+// Each pack's file list is kept so the pack can be zipped on its own later.
+const META = 'rtl-meta';
+const rememberPack = async (id, cacheName, urls) => (await caches.open(META)).put(`packs/${id}.json`, new Response(JSON.stringify({cache: cacheName, urls})));
+const packList = async id => { const r = await (await caches.open(META)).match(`packs/${id}.json`); return r ? r.json() : null; };
 async function downloadPack(id, row) {
-  const btn = row.querySelector('button'), bar = row.querySelector('.bar'), status = row.querySelector('.status');
+  const btn = row.querySelector('.get'), stop = row.querySelector('.stop'), bar = row.querySelector('.bar'), status = row.querySelector('.status');
   if (!('caches' in window)) { status.textContent = 'This browser cannot save texts for offline use.'; return; }
-  btn.disabled = true; bar.hidden = false;
+  let cancel = false; const cancelled = () => cancel;
+  btn.disabled = true; bar.hidden = false; stop.hidden = false;
+  stop.onclick = () => { cancel = true; status.textContent = 'Stopping…'; };
   const progress = (f, msg) => { bar.firstElementChild.style.width = (100 * f).toFixed(1) + '%'; if (msg) status.textContent = msg; };
   try { await navigator.storage?.persist?.(); } catch {}
   try {
     const info = await packInfo(id);
-    let failed = 0, total = 0;
+    let failed = 0, total = 0, urls = info.urls;
     if (info.zip) {
       try { total = await installZip(info.zip, info.cache, progress); }
-      catch { total = info.urls.length; failed = await saveUrls(info.urls, info.cache, {fresh: true, workers: 8, progress}); }
+      catch { total = urls.length; failed = await saveUrls(urls, info.cache, {fresh: true, workers: 8, progress, cancelled}); }
     } else {
-      const urls = info.lazy ? await info.lazy(m => status.textContent = m) : info.urls;
+      urls = info.lazy ? await info.lazy(m => status.textContent = m, cancelled) : urls;
       total = urls.length;
-      failed = await saveUrls(urls, info.cache, {progress});
+      await rememberPack(id, info.cache, urls);
+      failed = await saveUrls(urls, info.cache, {progress, cancelled});
     }
-    if (failed) status.textContent = `Saved ${(total - failed).toLocaleString()} of ${total.toLocaleString()}. ${failed.toLocaleString()} could not be downloaded (Sefaria may be busy). Tap again to finish; saved texts are skipped.`;
+    if (info.zip) await rememberPack(id, info.cache, info.urls);
+    if (cancel) status.textContent = `Stopped. ${(total - failed).toLocaleString()} of ${total.toLocaleString()} saved; tap Download to continue.`;
+    else if (failed) status.textContent = `Saved ${(total - failed).toLocaleString()} of ${total.toLocaleString()}. ${failed.toLocaleString()} could not be downloaded (Sefaria may be busy). Tap again to finish; saved texts are skipped.`;
     else { store.set('pack-' + id, {version: info.version, at: Date.now()}); progress(1, 'Saved for offline reading.'); btn.textContent = 'Update'; }
   } catch (e) {
     status.textContent = 'Could not download right now. Check your connection and try again.';
   }
-  btn.disabled = false;
+  btn.disabled = false; stop.hidden = true;
   showStorage();
 }
 // "Save this sefer offline" on a book's contents page.
@@ -1339,37 +1366,60 @@ async function saveBook(title) {
   } catch { status.textContent = 'Could not save right now. Check your connection.'; }
   btn.disabled = false;
 }
-// Everything saved on this device, as one .zip file.
+// Zip saved texts on the device: one pack, or everything. Streams file by file,
+// so large packs do not need to fit in memory twice.
+function zipPathFor(url) {
+  const u = new URL(url, location.href);
+  if (u.hostname.endsWith('sefaria.org')) {
+    const m = u.pathname.match(/^\/api\/(v3\/texts|shape)\/(.+)$/);
+    return m ? `sefaria/${m[1] === 'shape' ? 'contents' : 'texts'}/${decodeURIComponent(m[2]).replace(/[\/\\:*?"<>|]/g, '_')}.json` : null;
+  }
+  const i = u.pathname.indexOf('/data/');
+  return i >= 0 ? u.pathname.slice(i + 1) : null;
+}
+async function zipSaved(entries, name, status) {
+  const {Zip, ZipDeflate} = await loadFflate();
+  const chunks = [];
+  let err = null;
+  const zip = new Zip((e, chunk) => { if (e) err = e; else chunks.push(chunk); });
+  const enc = new TextEncoder(), seen = new Set();
+  const add = (path, bytes) => { const f = new ZipDeflate(path, {level: 6}); zip.add(f); f.push(bytes, true); };
+  add('README.txt', enc.encode('Rav Tzadok Library - texts saved for offline reading.\n\ndata/: the library (see data/catalog.json).\nsefaria/texts/: Sefaria texts as returned by the Sefaria API (Hebrew and English versions).\nsefaria/contents/: chapter structure of Sefaria books.\n\nSefaria texts are under their own licenses; Akiva Publishing translations (c) Akiva Publishing.\n'));
+  let n = 0;
+  for (const [cacheName, urls] of entries) {
+    const cache = await caches.open(cacheName);
+    for (const url of urls) {
+      const path = zipPathFor(url); if (!path || seen.has(path)) continue;
+      const res = await cache.match(url, {ignoreVary: true}); if (!res) continue;
+      seen.add(path); add(path, new Uint8Array(await res.arrayBuffer())); n++;
+      if (n % 100 === 0) { status.textContent = `Zipping… ${n.toLocaleString()} files`; await new Promise(r => setTimeout(r)); }
+      if (err) throw err;
+    }
+  }
+  zip.end();
+  if (!n) { status.textContent = 'Nothing is saved yet. Download it first.'; return; }
+  const blob = new Blob(chunks, {type: 'application/zip'});
+  const a = Object.assign(document.createElement('a'), {href: URL.createObjectURL(blob), download: `${name}-${new Date().toISOString().slice(0, 10)}.zip`});
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 60000);
+  status.textContent = `Zip ready: ${n.toLocaleString()} files, ${(blob.size / 1048576).toFixed(1)} MB.`;
+}
+async function zipPack(id, btn, status) {
+  btn.disabled = true;
+  try {
+    const list = await packList(id);
+    if (!list) status.textContent = 'Download this pack first, then make the zip.';
+    else await zipSaved([[list.cache, list.urls]], `rav-tzadok-${id}`, status);
+  } catch { status.textContent = 'Could not make the zip on this device (it may be too large).'; }
+  btn.disabled = false;
+}
 async function exportZip(btn, status) {
   btn.disabled = true;
   try {
-    const {zipSync} = await loadFflate();
-    const files = {}, enc = new TextEncoder();
-    let n = 0;
-    for (const name of ['rtl-data', 'rtl-external']) {
-      const cache = await caches.open(name);
-      for (const req of await cache.keys()) {
-        const u = new URL(req.url);
-        const res = await cache.match(req, {ignoreVary: true}); if (!res) continue;
-        const body = new Uint8Array(await res.arrayBuffer());
-        let path;
-        if (u.hostname.endsWith('sefaria.org')) {
-          const m = u.pathname.match(/^\/api\/(v3\/texts|shape)\/(.+)$/);
-          path = m ? `sefaria/${m[1] === 'shape' ? 'contents' : 'texts'}/${decodeURIComponent(m[2]).replace(/[\/\\:*?"<>|]/g, '_')}.json` : null;
-        } else path = u.pathname.slice(u.pathname.indexOf('/data/') + 1);
-        if (path && !files[path]) { files[path] = body; n++; }
-        if (n % 200 === 0) status.textContent = `Collecting… ${n.toLocaleString()} files`;
-      }
-    }
-    if (!n) { status.textContent = 'Nothing is saved on this device yet.'; btn.disabled = false; return; }
-    files['README.txt'] = enc.encode('Rav Tzadok Library - texts saved for offline reading.\n\ndata/: the library (see data/catalog.json).\nsefaria/texts/: Sefaria texts as returned by the Sefaria API (Hebrew and English versions).\nsefaria/contents/: chapter structure of Sefaria books.\n\nSefaria texts are under their own licenses; Akiva Publishing translations (c) Akiva Publishing.\n');
-    status.textContent = `Zipping ${n.toLocaleString()} files…`;
-    await new Promise(r => setTimeout(r, 30));
-    const zip = zipSync(files, {level: 6});
-    const a = Object.assign(document.createElement('a'), {href: URL.createObjectURL(new Blob([zip], {type: 'application/zip'})), download: `rav-tzadok-offline-${new Date().toISOString().slice(0, 10)}.zip`});
-    document.body.appendChild(a); a.click(); a.remove();
-    status.textContent = `Exported ${n.toLocaleString()} files (${(zip.length / 1048576).toFixed(1)} MB).`;
-  } catch (e) { status.textContent = 'Could not create the zip on this device (it may be too large). Try exporting fewer packs.'; }
+    const entries = [];
+    for (const name of ['rtl-data', 'rtl-external']) entries.push([name, (await (await caches.open(name)).keys()).map(r => r.url)]);
+    await zipSaved(entries, 'rav-tzadok-offline', status);
+  } catch { status.textContent = 'Could not make the zip on this device (it may be too large). Try zipping one pack at a time.'; }
   btn.disabled = false;
 }
 async function showStorage() {
@@ -1381,11 +1431,14 @@ async function setupAppCard() {
   showInstall();
   const box = document.getElementById('packs'); if (!box) return;
   box.innerHTML = PACKS.map(p => `<div class="pack" data-id="${p.id}"><b>${esc(p.title)}</b><small>${esc(p.note)}</small>
-    <button class="btn" type="button">Download</button><div class="bar" hidden><span></span></div><div class="status"></div></div>`).join('');
+    <button class="btn get" type="button">Download</button><button class="btn stop" type="button" hidden>Stop</button><button class="btn zipb" type="button">.zip</button><div class="bar" hidden><span></span></div><div class="status"></div></div>`).join('');
   const ex = document.getElementById('exportBtn'); if (ex) ex.onclick = () => exportZip(ex, document.getElementById('exportStatus'));
   for (const row of box.querySelectorAll('.pack')) {
-    const id = row.dataset.id, btn = row.querySelector('button'), status = row.querySelector('.status');
+    const id = row.dataset.id, btn = row.querySelector('.get'), status = row.querySelector('.status');
     btn.onclick = () => downloadPack(id, row);
+    const zb = row.querySelector('.zipb');
+    zb.title = 'Save this pack as one .zip file';
+    zb.onclick = () => id === 'library' ? location.assign('downloads/rav-tzadok-library.zip') : zipPack(id, zb, status);
     const saved = store.get('pack-' + id, null) || (id === 'library' ? store.get('offline', null) : null);
     packInfo(id).then(info => {
       const size = info.mb ? ' (about 11 MB)' : info.count ? ` (${info.count.toLocaleString()} texts)` : '';
