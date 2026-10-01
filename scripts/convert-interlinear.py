@@ -50,6 +50,7 @@ PARTS = [
     (r'Mach?sh?avo[st][ _]Charutz|מחשבות חרוץ', ('Machshavot Charutz', '')),
     (r'Yisrael[ _]Kedosh|ישראל קדושים', ('Yisrael Kedoshim', '')),
     (r'Sichat[ _]Mala[kc]hei|שיחת מלאכי', ('Sichat Malakhei HaSharet', '*')),
+    (r'Sichat[ _]Shedim|שיחת שדים', ('Sichat Shedim', '*')),
 ]
 # Parts whose section markers do not follow Sefaria's paragraphs: every paragraph
 # is placed by matching its opening words against the Sefaria Hebrew, moving
@@ -91,7 +92,14 @@ def sefaria_ref(url):
     u = urllib.parse.urlparse(url)
     if 'sefaria.org' not in u.netloc or not u.path.strip('/'):
         return None
-    return urllib.parse.unquote(u.path.strip('/')).replace('_', ' ')
+    ref = urllib.parse.unquote(u.path.strip('/')).replace('_', ' ')
+    return LINK_FIXES.get(ref, ref)
+
+
+# Hyperlinks in the .docx files that do not resolve on Sefaria -> what the text cites.
+LINK_FIXES = {
+    'Sanhedrin 63b:65': 'Sanhedrin 63b',  # "סנהדרין ס״ג [ס״ה] עמוד ב׳": the bracket is a variant daf, not a line
+}
 
 
 def to_html(parts):
@@ -669,7 +677,11 @@ def convert_aligned_book(path, paras, book):
             continue  # "אוֹת א׳ (Section 1)", "פִּסְקָה ב׳ (Paragraph 2)": the margin numbers show these
         if body and len(text) < 120 and (re.match(r'^תַּם|^תם', NIQQUD.sub('', text)) or not HEB.search(text)) and closing is not None:
             closing.append(text); continue  # colophon
-        body.append(pairs_of(runs))
+        pairs = pairs_of(runs)
+        # "שִׂיחַת שֵׁדִים: אוֹת א׳:" / "Section 1:" opening a paragraph: a marker, not text
+        if len(pairs) > 1 and re.fullmatch(r'(?:[^:]*:\s*)?אות\s+\S+:', NIQQUD.sub('', pairs[0][0]).strip()):
+            pairs = pairs[1:]
+        body.append(pairs)
     at = [find(' '.join(p[0] for p in pairs[:2])) for pairs in body]
     # keep matches only while they move forward
     last = -1
