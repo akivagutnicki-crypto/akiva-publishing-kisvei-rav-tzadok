@@ -156,6 +156,23 @@ body.panel-open .text{max-width:860px}
 .sec.no-en .seg-en{display:none}
 .text .sec.no-en .seg{grid-template-columns:1fr}
 .text[data-lang="en"] .sec.no-en .seg-he{display:block}
+.seg-il{display:none}
+.text[data-lang="bi"][data-layout="inter"] .sec.il .seg-il{display:block}
+.text[data-lang="bi"][data-layout="inter"] .sec.il .seg-he,.text[data-lang="bi"][data-layout="inter"] .sec.il .seg-en{display:none}
+.text[data-lang="bi"][data-layout="inter"] .sec:not(.il) .seg{grid-template-columns:1fr 1fr}
+.text[data-lang="bi"][data-layout="inter"] .sec:not(.il) .seg-he{order:2}
+.ph{padding:9px 0 11px;border-bottom:1px solid color-mix(in srgb,var(--line) 60%,transparent)}
+.ph:last-child{border-bottom:0}
+.ph-he{font-family:var(--he);font-weight:500;font-size:calc(1.4rem * var(--fs));line-height:1.75;text-align:right}
+.ph-en{font-family:var(--en);font-size:calc(1.14rem * var(--fs));line-height:1.5;color:var(--muted);margin-top:2px}
+.sec-title{font:500 calc(1.55rem * var(--fs))/1.4 var(--he);text-align:center;margin:-12px 0 22px;color:var(--ink)}
+.subhead{font:500 calc(1.2rem * var(--fs))/1.5 var(--he);text-align:center;color:var(--ox);margin:30px 0 14px}
+a.cite{color:var(--link);text-decoration:underline;text-decoration-color:color-mix(in srgb,var(--link) 40%,transparent);text-underline-offset:3px}
+a.cite:hover{text-decoration-color:var(--link)}
+.toc-list a{display:grid;grid-template-columns:auto 1fr;gap:6px 22px;align-items:baseline;padding:14px 4px;border-bottom:1px solid var(--line)}
+.toc-list a:hover{background:var(--hl)}
+.toc-list .en{font:500 1.05rem var(--en)}
+.toc-list .he{font:500 1.15rem/1.5 var(--he);color:var(--muted)}
 .footnote-marker{color:var(--ox);font:700 .7em var(--ui);cursor:pointer;padding:0 2px}
 i.footnote{display:none;font-style:normal;font-size:.85em;color:var(--muted);background:var(--soft);padding:2px 6px;border-radius:4px}
 i.footnote.open{display:inline}
@@ -221,6 +238,9 @@ i.footnote.open{display:inline}
   .seg .lc{right:2px;min-width:20px;padding:0 4px}
   .text[data-lang="bi"][data-layout="side"] .seg{grid-template-columns:1fr}
   .text[data-lang="bi"][data-layout="side"] .seg-he{order:0}
+  .text[data-lang="bi"][data-layout="inter"] .sec:not(.il) .seg{grid-template-columns:1fr}
+  .text[data-lang="bi"][data-layout="inter"] .sec:not(.il) .seg-he{order:0}
+  .toc-list a{grid-template-columns:1fr}
   .rbar{padding:0 8px;gap:4px}
   .toc-head{grid-template-columns:1fr}
 }
@@ -250,7 +270,7 @@ const API = 'https://www.sefaria.org';
 const INFO = {
   'Takanat HaShavin': {d:'Fifteen chapters on teshuvah: how return transforms the past, from first stirrings of the heart to complete repair.', edition:'available'},
   'Dover Tzedek': {d:'Discourses opening from Eruvin and Berakhot, the Kuntres Ner HaMitzvot, comments on Mishlei and a miscellany.', edition:'soon'},
-  'Sefer HaZikhronot': {d:'The mitzvot that every person must keep in mind, arranged after the order of the Rambam. Fully vocalized text from Akiva Publishing.', akiva:true},
+  'Sefer HaZikhronot': {d:'The mitzvot that every person must keep in mind, arranged after the order of the Rambam.', akiva:true},
   'Tzidkat HaTzadik': {d:'Two hundred sixty-four short teachings on faith, self-knowledge and the inner life of avodah.'},
   'Peri Tzadik': {d:'Discourses on the weekly Torah portions, Shabbat, Rosh Chodesh and the festivals through the year.'},
   'Resisei Layla': {d:'"Dewdrops of the Night": brief, dense teachings on faith, Torah and the service of God.'},
@@ -327,7 +347,8 @@ async function resolveLocal(ref) {
   let leaf = null, addr = [];
   for (const l of leaves) {
     if (ref === l.ref) { leaf = l; addr = []; break; }
-    const m = ref.startsWith(l.ref + ' ') && ref.slice(l.ref.length + 1).match(/^\d+(?::\d+)*$/);
+    const sep = l.sep || ' ';
+    const m = ref.startsWith(l.ref + sep) && ref.slice(l.ref.length + 1).match(/^\d+(?::\d+)*$/);
     if (m && (!leaf || l.ref.length > leaf.ref.length)) { leaf = l; addr = m[0].split(':').map(Number); }
   }
   if (!leaf) { // a node above the leaves, e.g. "Mei HaShiloach, Volume I"
@@ -347,11 +368,20 @@ async function resolveLocal(ref) {
   // neighbours across the whole book
   const all = leaves.flatMap(l => sectionsOf(l).map(a => secRefOf(l, a)));
   const sectionRef = secRefOf(leaf, addr), k = all.indexOf(sectionRef);
+  const sep = leaf.sep || (secLen ? ':' : ' ');
+  let he = Array.isArray(text) ? text : [text], en = [], phrases = null, heads = null;
+  if (leaf.interlinear) { // items: {p: [[he, en], ...]} paragraphs and {h: title} subheadings
+    phrases = []; heads = {};
+    text.forEach(it => { if (it.h) heads[phrases.length] = it.h; else if (it.p) phrases.push(it.p); });
+    he = phrases.map(ps => ps.map(x => x[0]).join(' '));
+    en = phrases.map(ps => ps.map(x => x[1]).join(' '));
+  }
   return {
-    local: true, ref: sectionRef, sectionRef, heRef: heSecRefOf(leaf, addr), book: book.title, heBook: book.he,
-    he: Array.isArray(text) ? text : [text], en: [], segmentLevel: false, sep: secLen ? ':' : ' ', highlight: segment ? `${sectionRef}${secLen ? ':' : ' '}${segment}` : null,
+    local: true, ref: sectionRef, sectionRef, heRef: leaf.interlinear ? leaf.heRef : heSecRefOf(leaf, addr), book: book.title, heBook: book.he,
+    he, en, phrases, heads, chapterLinks: !!leaf.interlinear, title: leaf.interlinear ? {en: leaf.en, he: leaf.he} : null,
+    segmentLevel: false, sep, highlight: segment ? `${sectionRef}${sep}${segment}` : null,
     next: all[k + 1] || null, prev: k > 0 ? all[k - 1] : null,
-    versions: [{title: book.version.title, lang: 'Hebrew', source: book.version.source, license: book.version.license}]
+    versions: [{title: book.version.title, lang: leaf.interlinear ? 'Hebrew with interlinear English' : 'Hebrew', source: book.version.source, license: book.version.license}]
   };
 }
 const CAT_COLORS = {Tanakh:'--c-tanakh',Talmud:'--c-talmud',Mishnah:'--c-talmud',Midrash:'--c-midrash',Halakhah:'--c-halakhah',Kabbalah:'--c-kabbalah',Chasidut:'--c-chasidut',Commentary:'--c-commentary','Quoting Commentary':'--c-commentary',Musar:'--c-midrash','Jewish Thought':'--c-kabbalah',Liturgy:'--c-tanakh'};
@@ -389,7 +419,7 @@ function gematria(n) {
 }
 
 /* Allow only simple inline formatting from source texts */
-const ALLOWED = new Set(['B','I','EM','STRONG','SMALL','SUP','SUB','BR','SPAN','BIG','U']);
+const ALLOWED = new Set(['B','I','EM','STRONG','SMALL','SUP','SUB','BR','SPAN','BIG','U','A']);
 function clean(html) {
   if (!html) return '';
   const doc = new DOMParser().parseFromString('<div>' + html + '</div>', 'text/html');
@@ -398,8 +428,9 @@ function clean(html) {
       if (ch.nodeType === 1) {
         walk(ch);
         if (!ALLOWED.has(ch.tagName)) { ch.replaceWith(...ch.childNodes); return; }
-        const cls = ch.getAttribute('class') || '';
+        const cls = ch.getAttribute('class') || '', dref = ch.getAttribute('data-ref');
         [...ch.attributes].forEach(a => ch.removeAttribute(a.name));
+        if (ch.tagName === 'A') { if (dref) { ch.className = 'cite'; ch.dataset.ref = dref; ch.href = '#/read/' + toHash(dref); } else ch.replaceWith(...ch.childNodes); return; }
         if (/footnote-marker/.test(cls)) ch.className = 'footnote-marker';
         else if (/footnote/.test(cls)) ch.className = 'footnote';
       } else if (ch.nodeType !== 3) ch.remove();
@@ -475,6 +506,7 @@ async function renderHome() {
     const i = info(w.title);
     const tag = i.edition === 'available' ? '<span class="tag">Akiva edition available</span>'
       : i.edition === 'soon' ? '<span class="tag soon">Akiva edition coming soon</span>'
+      : w.interlinear ? '<span class="tag">Interlinear English · Akiva Publishing</span>'
       : (i.akiva || w.akiva) ? '<span class="tag">Vocalized · Akiva Publishing</span>' : '';
     return `<a class="book" href="#/book/${toHash(w.title)}">
       <div class="book-titles"><span class="book-title">${esc(w.title)}</span><span class="book-he" lang="he">${esc(w.he)}</span></div>
@@ -501,7 +533,8 @@ async function renderHome() {
         <a class="link" href="#/read/${toHash('Takanat HaShavin 1')}">Takanat HaShavin, Chapter 1 →</a>
         <a class="link" href="#/read/${toHash('Tzidkat HaTzadik 1')}">Tzidkat HaTzadik, §1 →</a>
         <a class="link" href="#/book/${toHash('Peri Tzadik')}">Peri Tzadik on the parashah →</a>
-        <a class="link" href="#/book/${toHash('Sefer HaZikhronot')}">Sefer HaZikhronot, vocalized →</a>
+        <a class="link" href="#/book/${toHash('Sefer HaZikhronot')}">Sefer HaZikhronot, interlinear →</a>
+        <a class="link" href="#/read/${toHash('Et HaOchel 1')}">Et HaOchel, interlinear →</a>
       </section>
       <section>
         <h3>About Rav Tzadok</h3>
@@ -519,7 +552,7 @@ async function renderHome() {
   </div>
   ${credit()}`;
 }
-const credit = () => `<div class="page" style="padding-top:0"><div class="credit">Hebrew texts are digitized editions from the <a href="https://www.sefaria.org" target="_blank" rel="noopener">Sefaria</a> library (sources listed under About on each text). English translations and connections are loaded live from Sefaria and are used under each version's license; some are community translations. Sefer HaZikhronot is vocalized by Akiva Publishing. The Akiva Publishing print editions are separate translations.</div></div>`;
+const credit = () => `<div class="page" style="padding-top:0"><div class="credit">Hebrew texts are digitized editions from the <a href="https://www.sefaria.org" target="_blank" rel="noopener">Sefaria</a> library (sources listed under About on each text). English translations and connections are loaded live from Sefaria and are used under each version's license; some are community translations. Interlinear editions (Sefer HaZikhronot, Et HaOchel, Divrei Chalomot, Divrei Soferim) are © Akiva Publishing. The Akiva Publishing print editions are separate translations.</div></div>`;
 
 /* ======================= Book / TOC ======================= */
 async function renderBook(title) {
@@ -557,6 +590,10 @@ async function renderBook(title) {
 }
 function renderLocalNode(node, isRoot) {
   let body;
+  if (node.children && node.children.every(c => !c.children && c.depth === 1)) {
+    body = `<div class="toc-list">${node.children.filter(c => c.shape > 0).map(c => `<a href="#/read/${toHash(c.ref)}"><span class="en">${esc(c.en)}</span><span class="he" lang="he">${esc(c.he)}</span></a>`).join('')}</div>`;
+    return isRoot ? body : `<div class="node"><h3><span>${esc(node.en)}</span><span class="he" lang="he">${esc(node.he)}</span></h3>${body}</div>`;
+  }
   if (node.children) body = node.children.map(c => renderLocalNode(c, false)).join('');
   else if (node.depth === 1) body = node.shape > 0 ? `<a class="btn single" href="#/read/${toHash(node.ref)}">Read · ${node.shape} ${node.shape === 1 ? 'paragraph' : 'paragraphs'}</a>` : '<div class="empty">No text yet.</div>';
   else {
@@ -609,7 +646,7 @@ function errorBox(msg, ref, e) {
 }
 
 /* ======================= Reader ======================= */
-const prefs = {lang: store.get('lang', 'bi'), layout: store.get('layout', 'side'), fs: store.get('fs', 1), theme: store.get('theme', 'light')};
+const prefs = {lang: store.get('lang', 'bi'), layout: store.get('layout', 'inter'), fs: store.get('fs', 1), theme: store.get('theme', 'light')};
 applyTheme();
 function applyTheme() {
   document.documentElement.dataset.theme = prefs.theme;
@@ -643,7 +680,7 @@ async function renderReader(ref) {
           <div class="grp"><label>Language</label><div class="seg-ctl" data-pref="lang">
             <button data-v="en">English</button><button data-v="bi">Both</button><button data-v="he" class="heb">עברית</button></div></div>
           <div class="grp"><label>Bilingual layout</label><div class="seg-ctl" data-pref="layout">
-            <button data-v="stack">Stacked</button><button data-v="side">Side by side</button></div></div>
+            <button data-v="inter">Interlinear</button><button data-v="stack">Stacked</button><button data-v="side">Side by side</button></div></div>
           <div class="grp"><label>Theme</label><div class="seg-ctl" data-pref="theme">
             <button data-v="light">Light</button><button data-v="sepia">Sepia</button><button data-v="dark">Dark</button></div></div>
           <div class="grp"><label>Text size</label><div class="size"><span style="font-size:.8rem">A</span><input type="range" min="0.8" max="1.6" step="0.05" id="fsRange" aria-label="Text size"><span style="font-size:1.2rem">A</span></div></div>
@@ -682,7 +719,15 @@ async function renderReader(ref) {
     const fm = e.target.closest('.footnote-marker');
     if (fm) { const fn = fm.nextElementSibling; if (fn && fn.classList.contains('footnote')) fn.classList.toggle('open'); e.stopPropagation(); return; }
     if (window.getSelection && String(window.getSelection()).length > 1) return;
-    const seg = e.target.closest('.seg'); if (seg) selectSegment(seg.dataset.ref, seg);
+    const seg = e.target.closest('.seg');
+    const cite = e.target.closest('a.cite');
+    if (cite && seg) {
+      e.preventDefault();
+      selectSegment(seg.dataset.ref, seg);
+      showLinkList(seg.dataset.ref, 'Cited source', [{sourceRef: cite.dataset.ref, category: 'Source'}], $('#pContent'));
+      return;
+    }
+    if (seg) selectSegment(seg.dataset.ref, seg);
   });
 
   const onKey = e => {
@@ -729,18 +774,22 @@ function appendSection(d) {
   const he = flatten(d.he), en = flatten(d.en);
   const n = Math.max(he.length, en.length);
   const sec = document.createElement('section');
-  sec.className = 'sec' + (en.some(x => String(x || '').trim()) ? '' : ' no-en');
+  sec.className = 'sec' + (en.some(x => String(x || '').trim()) ? '' : ' no-en') + (d.phrases ? ' il' : '');
   sec.dataset.ref = d.sectionRef;
-  let html = `<div class="sec-head"><span>${esc(d.sectionRef)}</span>${d.heRef ? `<span class="he" lang="he">${esc(d.heRef)}</span>` : ''}</div>`;
+  let html = d.title
+    ? `<div class="sec-head"><span>${esc(d.title.en || d.sectionRef)}</span></div><h2 class="sec-title he" lang="he">${esc(d.title.he)}</h2>`
+    : `<div class="sec-head"><span>${esc(d.sectionRef)}</span>${d.heRef ? `<span class="he" lang="he">${esc(d.heRef)}</span>` : ''}</div>`;
   if (!n) html += `<div class="empty" style="text-align:center">This section has no text yet.</div>`;
   for (let i = 0; i < n; i++) {
     const r = d.sep ? d.sectionRef + d.sep + (i + 1) : segRef(d.sectionRef, i + 1);
     const h = he[i] ? clean(he[i]) : '', e = en[i] ? clean(en[i]) : '';
+    if (d.heads && d.heads[i]) html += `<div class="subhead he" lang="he">${esc(d.heads[i])}</div>`;
     if (!h.trim() && !e.trim()) continue;
+    const il = d.phrases ? `<div class="seg-il">${d.phrases[i].map(([ph, pe]) => `<div class="ph"><div class="ph-he" lang="he" dir="rtl">${clean(ph)}</div><div class="ph-en" lang="en">${clean(pe)}</div></div>`).join('')}</div>` : '';
     html += `<div class="seg" data-ref="${esc(r)}" data-i="${i + 1}" tabindex="0">
       <span class="num" data-n="${i + 1}">${prefs.lang === 'he' ? gematria(i + 1) : i + 1}</span>
       <div class="seg-he" lang="he" dir="rtl">${h}</div>
-      <div class="seg-en" lang="en">${e}</div>
+      <div class="seg-en" lang="en">${e}</div>${il}
     </div>`;
   }
   sec.innerHTML = html;
@@ -748,10 +797,10 @@ function appendSection(d) {
   text.insertBefore(sec, sentinel || null);
   R.sections.push(d);
   R.next = d.next;
-  loadLinkCounts(d.sectionRef, sec);
+  if (!d.chapterLinks) loadLinkCounts(d.sectionRef, sec);
   sec.querySelectorAll('.seg').forEach(s => s.addEventListener('keydown', e => { if (e.key === 'Enter') selectSegment(s.dataset.ref, s); }));
   // Bundled texts are Hebrew only; add Sefaria's English translation when one exists.
-  if (d.local && !info(d.book).akiva) fetchEnglish(d.sectionRef).then(res => {
+  if (d.local && !d.phrases && !info(d.book).akiva) fetchEnglish(d.sectionRef).then(res => {
     if (!res) return;
     const tr = flatten(res.text);
     let any = false;
@@ -829,6 +878,7 @@ async function linksFor(ref) {
   if (!sec) return getJSON(`/api/links/${encodeURIComponent(ref)}?with_text=0`).catch(() => []);
   const n = +ref.slice(sec.sectionRef.length + 1);
   const all = await loadLinks(sec.sectionRef);
+  if (sec.chapterLinks) return all;
   return all.filter(l => { const r = segOf(l.anchorRef, sec.sectionRef); return r && n >= r[0] && n <= r[1]; });
 }
 
@@ -862,15 +912,21 @@ function showTab(ref, tab) {
   if (tab === 'about') return renderAbout(ref, c);
   renderConnections(ref, c);
 }
+// Each panel view bumps this; slower async renders drop out if a newer view replaced them.
+let panelSeq = 0;
 async function renderConnections(ref, c) {
+  const seq = ++panelSeq;
   c.innerHTML = '<div class="loading">Finding connections…</div>';
   const links = await linksFor(ref);
-  if (R.selected && R.selected.ref !== ref) return;
+  if (seq !== panelSeq || (R.selected && R.selected.ref !== ref)) return;
+  if (!links.length && R.selected && R.selected.el && R.selected.el.querySelector('a.cite')) { c.innerHTML = `<div class="empty">Sefaria has no recorded connections here, but this passage cites its sources directly. Tap a highlighted citation in the text to read it.</div>`; return; }
   if (!links.length) { c.innerHTML = `<div class="empty">No connections are recorded for this passage yet. Rav Tzadok cites many sources inline; tap a citation’s book on Sefaria to explore it.</div>`; return; }
+  const sec = R.sections.find(s => ref.startsWith(s.sectionRef));
+  const note = sec && sec.chapterLinks ? `<p class="empty" style="padding:0 0 10px;font-size:.92rem">Connections for this whole section. Citations in the text are links too.</p>` : '';
   const byCat = {};
   links.forEach(l => { const k = l.category || 'Other'; (byCat[k] = byCat[k] || []).push(l); });
   const cats = Object.keys(byCat).sort((a, b) => byCat[b].length - byCat[a].length);
-  c.innerHTML = cats.map(k => {
+  c.innerHTML = note + cats.map(k => {
     const books = {};
     byCat[k].forEach(l => { const t = (l.collectiveTitle && l.collectiveTitle.en) || l.index_title || 'Other'; (books[t] = books[t] || []).push(l); });
     return `<button class="cat" data-cat="${esc(k)}"><span class="bar" style="background:var(${CAT_COLORS[k] || '--c-other'})"></span><span class="nm">${esc(k)}</span><span class="ct">${byCat[k].length}</span></button>
@@ -883,6 +939,7 @@ async function renderConnections(ref, c) {
   };
 }
 async function showLinkList(ref, label, list, c) {
+  ++panelSeq;
   c.onclick = null;
   c.innerHTML = `<button class="back" id="pBack">← All connections</button><div class="eyebrow" style="margin-bottom:4px">${esc(label)}</div><div id="lItems"></div>`;
   $('#pBack').onclick = () => renderConnections(ref, c);
@@ -904,6 +961,7 @@ async function showLinkList(ref, label, list, c) {
   if (list.length > 40) box.insertAdjacentHTML('beforeend', `<div class="empty">Showing 40 of ${list.length}.</div>`);
 }
 function renderTools(ref, c) {
+  ++panelSeq;
   const el = R.selected && R.selected.el;
   const he = el ? $('.seg-he', el).textContent.trim() : '', en = el ? $('.seg-en', el).textContent.trim() : '';
   const url = location.href.split('#')[0] + '#/read/' + toHash(ref);
@@ -921,6 +979,7 @@ function renderTools(ref, c) {
   };
 }
 function renderAbout(ref, c) {
+  ++panelSeq;
   c.onclick = null;
   const d = R.sections.find(s => ref.startsWith(s.sectionRef)) || R.sections[0];
   const w = {...info(R.book), he: (localBook(R.book) || {}).he || (REMOTE.find(r => r.title === R.book) || {}).he || ''};
