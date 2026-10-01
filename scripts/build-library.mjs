@@ -6,10 +6,13 @@
 //         dist/library/data/<slug>/toc.json     table of contents + shapes
 //         dist/library/data/<slug>/<leaf>.json  text of a depth-1 node
 //         dist/library/data/<slug>/<leaf>-<n>.json  chapter n of a deeper node
+//         dist/library/data/<slug>/links.json   sources each paragraph cites
+//         dist/library/data/cited/<book>.json   library passages citing that book
 //
 // To add a book, drop its Sefaria JSON export into sources/sefaria and rerun.
 import fs from 'node:fs';
 import path from 'node:path';
+import { linkCitations, categoryOf, normalizeRef } from './citations.mjs';
 
 const OUT = 'dist/library/data';
 // Akiva sources come first and replace a Sefaria export of the same title.
@@ -42,6 +45,30 @@ if (fs.existsSync(partsDir)) {
   }
 }
 
+// Connections: what each translated paragraph cites, and the reverse.
+const LINKS = {};  // slug -> { sectionRef: [{a: paragraph ref, r: cited ref, c: category}] }
+const CITED = {};  // cited book slug -> { cited ref: [paragraph refs] }
+const decode = s => s.replace(/&quot;/g, '"').replace(/&#x27;|&#39;/g, "'").replace(/&amp;/g, '&');
+const bookOfRef = ref => ref.replace(/\s+\d[\dab:\-–]*$/, '');
+// Link citations in interlinear paragraphs and record them as connections.
+function connect(slug, sectionRef, sep, items) {
+  let k = 0;
+  for (const item of items) {
+    if (!item.p) continue;
+    k++;
+    const anchor = sectionRef + sep + (item.n || k);
+    const norm = h => linkCitations(h).replace(/data-ref="([^"]+)"/g, (_, r) => `data-ref="${normalizeRef(r)}"`);
+    item.p = item.p.map(([he, en]) => [norm(he), norm(en)]);
+    const refs = new Set();
+    for (const [he, en] of item.p) for (const m of (he + en).matchAll(/data-ref="([^"]+)"/g)) refs.add(decode(m[1]));
+    for (const r of refs) {
+      ((LINKS[slug] ??= {})[sectionRef] ??= []).push({ a: anchor, r, c: categoryOf(r) });
+      ((CITED[slugify(bookOfRef(r))] ??= {})[r] ??= []).push(anchor);
+    }
+  }
+  return items;
+}
+
 fs.rmSync(OUT, { recursive: true, force: true });
 fs.mkdirSync(OUT, { recursive: true });
 
@@ -64,10 +91,11 @@ for (const dir of DIRS) {
         const numbered = !sec.key;
         const paras = sec.items.filter(i => i.p).length;
         segments += paras;
-        fs.writeFileSync(path.join(bookDir, `${id}.json`), JSON.stringify(sec.items));
+        const ref = numbered ? `${src.title} ${sec.n}` : `${src.title}, ${sec.key}`;
+        fs.writeFileSync(path.join(bookDir, `${id}.json`), JSON.stringify(connect(slug, ref, numbered ? ':' : ' ', sec.items)));
         return {
           en: sec.en, he: sec.he, id, depth: 1, shape: paras, interlinear: true,
-          ref: numbered ? `${src.title} ${sec.n}` : `${src.title}, ${sec.key}`,
+          ref,
           heRef: `${src.heTitle}, ${sec.he}`, sep: numbered ? ':' : ' ',
         };
       });
@@ -117,7 +145,7 @@ for (const dir of DIRS) {
             const heb = t[k - 1]?.[n - 1];
             if (typeof heb === 'string' && heb.trim()) lead.push({ p: [[heb, '']], n });
           }
-          const items = [...lead, ...rawItems];
+          const items = [...lead, ...connect(slug, `${ref} ${k}`, ':', rawItems)];
           fs.writeFileSync(path.join(bookDir, `${id}-${k}.json`), JSON.stringify(items));
           while (shape.length < k) shape.push(0);
           shape[k - 1] = Math.max(1, items.filter(i => i.p).length);
@@ -146,4 +174,13 @@ for (const dir of DIRS) {
   }
 }
 fs.writeFileSync(path.join(OUT, 'catalog.json'), JSON.stringify(catalog, null, 1));
+let nLinks = 0;
+for (const [slug, bySection] of Object.entries(LINKS)) {
+  fs.writeFileSync(path.join(OUT, slug, 'links.json'), JSON.stringify(bySection));
+  nLinks += Object.values(bySection).reduce((n, l) => n + l.length, 0);
+}
+fs.mkdirSync(path.join(OUT, 'cited'), { recursive: true });
+for (const [book, refs] of Object.entries(CITED)) fs.writeFileSync(path.join(OUT, 'cited', `${book}.json`), JSON.stringify(refs));
+fs.writeFileSync(path.join(OUT, 'cited', 'index.json'), JSON.stringify(Object.keys(CITED).sort()));
+console.log(`Connections: ${nLinks} citations from ${Object.keys(LINKS).length} books into ${Object.keys(CITED).length} cited books`);
 console.log(`Built ${catalog.length} books into ${OUT}`);

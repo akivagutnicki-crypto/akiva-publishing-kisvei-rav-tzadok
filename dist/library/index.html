@@ -393,7 +393,7 @@ async function resolveLocal(ref) {
       : {title: book.version.title, lang: il ? 'Hebrew with interlinear English' : 'Hebrew', source: book.version.source, license: book.version.license}]
   };
 }
-const CAT_COLORS = {Tanakh:'--c-tanakh',Talmud:'--c-talmud',Mishnah:'--c-talmud',Midrash:'--c-midrash',Halakhah:'--c-halakhah',Kabbalah:'--c-kabbalah',Chasidut:'--c-chasidut',Commentary:'--c-commentary','Quoting Commentary':'--c-commentary',Musar:'--c-midrash','Jewish Thought':'--c-kabbalah',Liturgy:'--c-tanakh'};
+const CAT_COLORS = {'Rav Tzadok Library':'--ox','Rav Tzadok':'--ox',Tanakh:'--c-tanakh',Talmud:'--c-talmud',Mishnah:'--c-talmud',Midrash:'--c-midrash',Halakhah:'--c-halakhah',Kabbalah:'--c-kabbalah',Chasidut:'--c-chasidut',Commentary:'--c-commentary','Quoting Commentary':'--c-commentary',Musar:'--c-midrash','Jewish Thought':'--c-kabbalah',Liturgy:'--c-tanakh'};
 
 /* ======================= Utilities ======================= */
 const $ = (s, el = document) => el.querySelector(s);
@@ -813,7 +813,7 @@ function appendSection(d) {
   text.insertBefore(sec, sentinel || null);
   R.sections.push(d);
   R.next = d.next;
-  if (!d.chapterLinks) loadLinkCounts(d.sectionRef, sec);
+  loadLinkCounts(d.sectionRef, sec, d);
   sec.querySelectorAll('.seg').forEach(s => s.addEventListener('keydown', e => { if (e.key === 'Enter') selectSegment(s.dataset.ref, s); }));
   // Bundled texts are Hebrew only; add Sefaria's English translation when one exists.
   if (d.local && !d.phrases && !info(d.book).akiva) fetchEnglish(d.sectionRef).then(res => {
@@ -887,10 +887,43 @@ function segOf(anchorRef, sectionRef) {
   if (!m) return null;
   return [+m[1], m[2] ? +m[2] : +m[1]];
 }
-async function loadLinkCounts(sectionRef, secEl) {
-  const links = await loadLinks(sectionRef);
+/* Library connections (scripts/build-library.mjs): what our translated paragraphs
+   cite (data/<slug>/links.json) and which of them cite a given book (data/cited). */
+const slugify = t => t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+const bookOfRef = ref => ref.replace(/\s+\d[\dab:\-–]*$/, '');
+const localJSON = new Map();
+function dataJSON(path) {
+  if (!localJSON.has(path)) localJSON.set(path, fetch('data/' + path).then(r => r.ok ? r.json() : null).catch(() => null));
+  return localJSON.get(path);
+}
+const asLink = (anchorRef, sourceRef, category) => ({anchorRef, sourceRef, sourceHeRef: '', category,
+  index_title: bookOfRef(sourceRef), collectiveTitle: {en: bookOfRef(sourceRef)}, local: true});
+// Our own connections for one paragraph (or every paragraph of a section when whole = true).
+async function libraryLinks(sec, ref, whole) {
+  const out = [];
+  const lb = localBook(sec.book);
+  if (lb) {
+    const links = (await dataJSON(`${lb.slug}/links.json`)) || {};
+    for (const l of links[sec.sectionRef] || []) if (whole || l.a === ref) out.push(asLink(l.a, l.r, l.c));
+  }
+  const index = (await dataJSON('cited/index.json')) || [];
+  const slug = slugify(bookOfRef(sec.sectionRef));
+  if (index.includes(slug)) {
+    const cited = (await dataJSON(`cited/${slug}.json`)) || {};
+    for (const [k, anchors] of Object.entries(cited)) {
+      const base = k.split('-')[0];
+      const hit = whole ? (base === sec.sectionRef || base.startsWith(sec.sectionRef + ':') || base.startsWith(sec.sectionRef + ' '))
+        : (base === ref || base === sec.sectionRef);
+      if (hit) for (const a of anchors) out.push(asLink(whole ? (base === sec.sectionRef ? null : base) : ref, a, 'Rav Tzadok Library'));
+    }
+  }
+  return out;
+}
+async function loadLinkCounts(sectionRef, secEl, d) {
   const counts = {};
-  links.forEach(l => { const r = segOf(l.anchorRef, sectionRef); if (r) for (let i = r[0]; i <= r[1]; i++) counts[i] = (counts[i] || 0) + 1; });
+  const bump = (anchor, n) => { const r = segOf(anchor, sectionRef); if (r) for (let i = r[0]; i <= r[1]; i++) counts[i] = (counts[i] || 0) + n; };
+  if (!d || !d.chapterLinks) (await loadLinks(sectionRef)).forEach(l => bump(l.anchorRef, 1));
+  if (d) (await libraryLinks(d, null, true)).forEach(l => l.anchorRef && bump(l.anchorRef, 1));
   secEl.querySelectorAll('.seg').forEach(s => {
     const c = counts[s.dataset.i];
     if (c) s.insertAdjacentHTML('beforeend', `<span class="lc" title="${c} connection${c === 1 ? '' : 's'}">${c}</span>`);
@@ -900,9 +933,14 @@ async function linksFor(ref) {
   const sec = R.sections.find(s => ref === s.sectionRef || ref.startsWith(s.sectionRef + ':') || ref.startsWith(s.sectionRef + ' '));
   if (!sec) return getJSON(`/api/links/${encodeURIComponent(ref)}?with_text=0`).catch(() => []);
   const n = +ref.slice(sec.sectionRef.length + 1);
-  const all = await loadLinks(sec.sectionRef);
-  if (sec.chapterLinks) return all;
-  return all.filter(l => { const r = segOf(l.anchorRef, sec.sectionRef); return r && n >= r[0] && n <= r[1]; });
+  const [all, ours] = await Promise.all([loadLinks(sec.sectionRef), libraryLinks(sec, ref, false)]);
+  const sefaria = sec.chapterLinks ? all : all.filter(l => { const r = segOf(l.anchorRef, sec.sectionRef); return r && n >= r[0] && n <= r[1]; });
+  const seen = new Set(), out = [];
+  for (const l of [...ours, ...sefaria]) {
+    const key = (l.category === 'Rav Tzadok Library' ? 'L|' : '') + (l.sourceRef || l.ref);
+    if (!seen.has(key)) { seen.add(key); out.push(l); }
+  }
+  return out;
 }
 
 /* ---------- panel ---------- */
@@ -945,10 +983,10 @@ async function renderConnections(ref, c) {
   if (!links.length && R.selected && R.selected.el && R.selected.el.querySelector('a.cite')) { c.innerHTML = `<div class="empty">Sefaria has no recorded connections here, but this passage cites its sources directly. Tap a highlighted citation in the text to read it.</div>`; return; }
   if (!links.length) { c.innerHTML = `<div class="empty">No connections are recorded for this passage yet. Rav Tzadok cites many sources inline; tap a citation’s book on Sefaria to explore it.</div>`; return; }
   const sec = R.sections.find(s => ref.startsWith(s.sectionRef));
-  const note = sec && sec.chapterLinks ? `<p class="empty" style="padding:0 0 10px;font-size:.92rem">Connections for this whole section. Citations in the text are links too.</p>` : '';
+  const note = sec && sec.chapterLinks ? `<p class="empty" style="padding:0 0 10px;font-size:.92rem">Sources this passage cites, the library passages that cite it, and Sefaria's connections for the whole section.</p>` : '';
   const byCat = {};
   links.forEach(l => { const k = l.category || 'Other'; (byCat[k] = byCat[k] || []).push(l); });
-  const cats = Object.keys(byCat).sort((a, b) => byCat[b].length - byCat[a].length);
+  const cats = Object.keys(byCat).sort((a, b) => (b === 'Rav Tzadok Library') - (a === 'Rav Tzadok Library') || byCat[b].length - byCat[a].length);
   c.innerHTML = note + cats.map(k => {
     const books = {};
     byCat[k].forEach(l => { const t = (l.collectiveTitle && l.collectiveTitle.en) || l.index_title || 'Other'; (books[t] = books[t] || []).push(l); });
@@ -972,7 +1010,11 @@ async function showLinkList(ref, label, list, c) {
     div.innerHTML = `<div class="ref"><span>${esc(l.sourceRef || l.ref)}</span><span class="he" lang="he">${esc(l.sourceHeRef || '')}</span></div><div class="loading" style="padding:6px 0">Loading…</div>`;
     box.appendChild(div);
     fetchText(l.sourceRef || l.ref).then(d => {
-      const he = flatten(d.he).map(plain).join(' '), en = flatten(d.en).map(plain).join(' ');
+      // A paragraph of one of our books: preview just that paragraph.
+      let k = -1;
+      if (d.highlight) { const n = +d.highlight.split(/[ :]/).pop(); k = d.nums ? d.nums.indexOf(n) : n - 1; }
+      const pick = a => k >= 0 ? [flatten(a)[k]] : flatten(a);
+      const he = pick(d.he).map(plain).join(' '), en = pick(d.en).map(plain).join(' ');
       const target = l.sourceRef || l.ref;
       div.querySelector('.loading').outerHTML = `${he ? `<div class="he-text" lang="he">${esc(he)}</div>` : ''}${en ? `<div class="en-text">${esc(en)}</div>` : ''}
         <div class="acts"><a href="#/read/${toHash(target)}">Open in reader</a><a href="${sefariaUrl(target)}" target="_blank" rel="noopener">Sefaria ↗</a></div>`;
