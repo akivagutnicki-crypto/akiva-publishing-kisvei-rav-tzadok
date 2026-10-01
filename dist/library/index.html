@@ -5,6 +5,15 @@
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="description" content="The Rav Tzadok Library: read the writings of Rav Tzadok HaKohen of Lublin in Hebrew and English, with sources and connections, from Akiva Publishing.">
 <title>Rav Tzadok Library · Akiva Publishing</title>
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="icon" href="icons/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="icon" href="icons/icon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="icons/apple-touch-icon.png">
+<meta name="theme-color" content="#17372d">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Rav Tzadok">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;500;700&family=Crimson+Pro:ital,wght@0,400;0,500;0,600;1,400&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -228,6 +237,13 @@ i.footnote.open{display:block;direction:ltr;text-align:left;font-family:var(--en
 .ver b{display:block;font-weight:600}
 .ver span{color:var(--muted);font-size:.78rem}
 .ver a{color:var(--link);font-size:.78rem;word-break:break-all}
+.install{height:34px;padding:0 12px;border-color:var(--forest);color:var(--forest);white-space:nowrap}
+.app-card .bar{height:6px;border-radius:3px;background:var(--soft);overflow:hidden;margin:10px 0 6px}
+.app-card .bar span{display:block;height:100%;width:0;background:var(--forest);transition:width .2s}
+.app-card .status{font:500 .78rem var(--ui);color:var(--muted)}
+.app-card .btn{margin:4px 8px 4px 0}
+.offline-pill{position:fixed;left:50%;top:calc(var(--head-h) + 8px);transform:translateX(-50%);z-index:80;background:var(--ox);color:#fff;font:600 .72rem var(--ui);letter-spacing:.06em;padding:6px 12px;border-radius:14px}
+@media (display-mode: standalone){.top{padding-top:env(safe-area-inset-top);height:calc(var(--head-h) + env(safe-area-inset-top))}}
 .toast{position:fixed;left:50%;bottom:26px;transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:6px;font:600 .8rem var(--ui);z-index:90;opacity:0;transition:opacity .2s;pointer-events:none}
 .toast.show{opacity:1}
 .credit{border-top:1px solid var(--line);margin-top:60px;padding-top:20px;color:var(--faint);font:500 .76rem/1.6 var(--ui)}
@@ -265,6 +281,7 @@ i.footnote.open{display:block;direction:ltr;text-align:left;font-family:var(--en
 <header class="top">
   <a class="brand" href="#/"><span class="mark">AP</span><span><strong>Rav Tzadok Library</strong><small>Akiva Publishing</small></span></a>
   <nav class="topnav" aria-label="Primary"><a href="#/">Texts</a><a href="../">Our editions</a><a href="../#method">Approach</a></nav>
+  <button class="btn install" id="installBtn" type="button" hidden>Install app</button>
   <form class="search" id="searchForm" role="search" autocomplete="off">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
     <input id="q" type="search" placeholder="Go to a text, e.g. Takanat HaShavin 7" aria-label="Search texts and references">
@@ -273,6 +290,7 @@ i.footnote.open{display:block;direction:ltr;text-align:left;font-family:var(--en
 </header>
 <main id="app"></main>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
+<div class="offline-pill" id="offlinePill" hidden>Offline · reading saved texts</div>
 
 <script>
 (() => {
@@ -554,6 +572,15 @@ async function renderHome() {
         <a class="link" href="#/book/${toHash('Sefer HaZikhronot')}">Sefer HaZikhronot, interlinear →</a>
         <a class="link" href="#/read/${toHash('Et HaOchel 1')}">Et HaOchel, interlinear →</a>
       </section>
+      <section class="app-card" id="appCard">
+        <h3>The app</h3>
+        <p id="appText">Install the library as an app on your phone or computer, and save the texts to read without an internet connection.</p>
+        <button class="btn primary" id="installBtn2" type="button" hidden>Install app</button>
+        <p id="iosHint" hidden>On iPhone or iPad: tap <b>Share</b> <span aria-hidden="true">⎋</span>, then <b>Add to Home Screen</b>.</p>
+        <button class="btn" id="offlineBtn" type="button">Download for offline reading</button>
+        <div class="bar" id="offlineBar" hidden><span></span></div>
+        <div class="status" id="offlineStatus"></div>
+      </section>
       <section>
         <h3>About Rav Tzadok</h3>
         <p>Rav Tzadok HaKohen Rabinowitz of Lublin (1823–1900) was a Talmudist and Chasidic master, a disciple of Rabbi Mordechai Yosef of Izhbitza and Rabbi Leibele Eiger. His writing is compressed and allusive, and full of sources.</p>
@@ -569,6 +596,7 @@ async function renderHome() {
     </aside>
   </div>
   ${credit()}`;
+  setupAppCard();
 }
 const credit = () => `<div class="page" style="padding-top:0"><div class="credit">Hebrew texts are digitized editions from the <a href="https://www.sefaria.org" target="_blank" rel="noopener">Sefaria</a> library (sources listed under About on each text). English translations and connections are loaded live from Sefaria and are used under each version's license; some are community translations. Interlinear editions (Sefer HaZikhronot, Et HaOchel, Divrei Chalomot, Divrei Soferim) are © Akiva Publishing. The Akiva Publishing print editions are separate translations.</div></div>`;
 
@@ -1126,6 +1154,69 @@ $('#searchForm').addEventListener('submit', e => {
 });
 sug.addEventListener('click', e => { if (e.target.closest('a[href^="#"]')) { q.value = ''; closeSuggest(); } });
 document.addEventListener('click', e => { if (!e.target.closest('#searchForm')) closeSuggest(); });
+
+/* ======================= Web app ======================= */
+let installEvent = null;
+const standalone = () => matchMedia('(display-mode: standalone)').matches || navigator.standalone;
+if ('serviceWorker' in navigator && location.protocol !== 'file:') {
+  addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(e => console.warn('service worker', e)));
+}
+addEventListener('beforeinstallprompt', e => { e.preventDefault(); installEvent = e; showInstall(); });
+addEventListener('appinstalled', () => { installEvent = null; showInstall(); toast('Installed'); });
+async function install() {
+  if (!installEvent) return;
+  installEvent.prompt();
+  await installEvent.userChoice.catch(() => {});
+  installEvent = null; showInstall();
+}
+function showInstall() {
+  ['installBtn', 'installBtn2'].forEach(id => { const b = document.getElementById(id); if (b) { b.hidden = !installEvent || standalone(); b.onclick = install; } });
+  const ios = /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+  const hint = document.getElementById('iosHint'); if (hint) hint.hidden = !(ios && !standalone());
+}
+// Save every text file in the cache the service worker reads from.
+async function downloadOffline() {
+  const btn = $('#offlineBtn'), bar = $('#offlineBar'), status = $('#offlineStatus');
+  if (!('caches' in window)) { status.textContent = 'This browser cannot save texts for offline use.'; return; }
+  btn.disabled = true; bar.hidden = false;
+  try {
+    const list = await fetch('data/files.json', {cache: 'no-store'}).then(r => r.json());
+    const cache = await caches.open('rtl-data');
+    let done = 0, failed = 0;
+    const queue = list.files.slice();
+    const worker = async () => {
+      while (queue.length) {
+        const f = queue.shift();
+        try { const res = await fetch('data/' + f, {cache: 'no-cache'}); if (res.ok) await cache.put(new Request('data/' + f), res); else failed++; }
+        catch { failed++; }
+        done++;
+        bar.firstElementChild.style.width = (100 * done / list.files.length).toFixed(1) + '%';
+        status.textContent = `Saving texts… ${done} of ${list.files.length}`;
+      }
+    };
+    await Promise.all(Array.from({length: 8}, worker));
+    if (failed) { status.textContent = `Saved, but ${failed} files failed. Try again on a better connection.`; }
+    else { store.set('offline', {version: list.version, at: Date.now()}); status.textContent = 'All texts are saved for offline reading.'; btn.textContent = 'Update saved texts'; }
+  } catch (e) {
+    status.textContent = 'Could not download right now. Check your connection and try again.';
+  }
+  btn.disabled = false;
+}
+async function setupAppCard() {
+  showInstall();
+  const btn = document.getElementById('offlineBtn'); if (!btn) return;
+  btn.onclick = downloadOffline;
+  const saved = store.get('offline', null);
+  try {
+    const list = await fetch('data/files.json').then(r => r.json());
+    const mb = (list.bytes / 1048576).toFixed(0);
+    if (saved && saved.version === list.version) { $('#offlineStatus').textContent = 'All texts are saved for offline reading.'; btn.textContent = 'Update saved texts'; }
+    else if (saved) { $('#offlineStatus').textContent = 'New or updated texts are available.'; btn.textContent = 'Update saved texts'; }
+    else btn.textContent = `Download for offline reading (about ${Math.max(1, Math.round(mb / 4))}–${mb} MB)`;
+  } catch {}
+}
+const onlineState = () => { const p = document.getElementById('offlinePill'); if (p) p.hidden = navigator.onLine; };
+addEventListener('online', onlineState); addEventListener('offline', onlineState); onlineState();
 
 route();
 })();

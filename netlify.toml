@@ -19,3 +19,16 @@
   for = "/Dover_Tzedek_Two_Volume_Preview.pdf"
   [headers.values]
     X-Content-Type-Options = "nosniff"
+
+# Web app: always check for a new service worker and manifest.
+[[headers]]
+  for = "/library/sw.js"
+  [headers.values]
+    Cache-Control = "no-cache"
+    Service-Worker-Allowed = "/library/"
+
+[[headers]]
+  for = "/library/manifest.webmanifest"
+  [headers.values]
+    Content-Type = "application/manifest+json"
+    Cache-Control = "no-cache"
