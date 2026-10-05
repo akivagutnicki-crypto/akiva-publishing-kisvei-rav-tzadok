@@ -217,6 +217,20 @@ i.footnote.open{display:block;direction:ltr;text-align:left;font-family:var(--en
 .ptabs{display:flex;gap:4px;margin-bottom:16px;border-bottom:1px solid var(--line)}
 .ptabs button{border:0;background:none;padding:8px 10px;font:600 .76rem var(--ui);color:var(--muted);border-bottom:2px solid transparent;margin-bottom:-1px}
 .ptabs button[aria-selected="true"]{color:var(--ink);border-bottom-color:var(--forest)}
+.source-controls{position:sticky;top:0;z-index:2;background:var(--panel);padding:0 0 14px;margin-bottom:8px;border-bottom:1px solid var(--line)}
+.source-controls .eyebrow{display:block;margin-bottom:8px}
+.source-tabs{display:flex;gap:16px;overflow-x:auto;margin:0 0 14px;padding-bottom:2px}
+.source-tabs button{flex-shrink:0;border:0;border-bottom:3px solid transparent;background:none;padding:8px 0;font:500 .85rem var(--ui);color:var(--muted)}
+.source-tabs button[aria-pressed="true"]{color:var(--ink);border-bottom-color:var(--source-color,var(--forest))}
+.source-tabs .ct{font-size:.7rem;margin-left:5px;color:var(--faint)}
+#pContent[data-source-lang="he"] .qe,#pContent[data-source-lang="en"] .qh{display:none}
+#pContent[data-source-lang="en"] .ref .he{display:none}
+#pContent[data-source-lang="he"] .ref.has-he .ref-en{display:none}
+#pContent[data-source-lang="he"] .ref.has-he{justify-content:flex-end}
+#pContent[data-source-lang="he"] .source-missing[data-missing="en"],#pContent[data-source-lang="en"] .source-missing[data-missing="he"]{display:none}
+.source-missing{font:italic 400 .86rem/1.5 var(--en);color:var(--muted);padding:8px 0}
+.link-item .acts{flex-wrap:wrap}
+.link-item .acts button:disabled{color:var(--faint);cursor:default;text-decoration:none}
 .cat{display:flex;align-items:center;gap:12px;width:100%;padding:11px 0;border:0;border-bottom:1px solid var(--line);background:none;text-align:left}
 .cat .bar{width:4px;align-self:stretch;border-radius:2px;background:var(--c-other)}
 .cat .nm{flex:1;font:500 .95rem var(--ui)}
@@ -1061,6 +1075,40 @@ async function linksFor(ref) {
 }
 
 /* ---------- panel ---------- */
+const savedSourceLang = store.get('sourceLang', 'bi');
+let sourceLang = ['he', 'en', 'bi'].includes(savedSourceLang) ? savedSourceLang : 'bi';
+function sourceLanguageControls() {
+  return `<div class="source-controls"><span class="eyebrow" id="sourceLanguageLabel">Source language</span>
+    <div class="seg-ctl" role="group" aria-labelledby="sourceLanguageLabel">
+      <button type="button" data-source-lang="en" aria-label="English only">English</button>
+      <button type="button" data-source-lang="bi" aria-label="Hebrew and English">Both</button>
+      <button type="button" data-source-lang="he" class="heb" lang="he" aria-label="Hebrew only">עברית</button>
+    </div></div>`;
+}
+function updateSourceQuote(div) {
+  const quote = div.querySelector('.quote'), more = div.querySelector('.more');
+  if (!quote || !more) return;
+  div.querySelectorAll('.qp').forEach(row => { row.hidden = sourceLang === 'he' ? !row.querySelector('.qh') : sourceLang === 'en' ? !row.querySelector('.qe') : false; });
+  const full = div.classList.contains('full');
+  const clipped = !full && quote.scrollHeight > quote.clientHeight + 4;
+  quote.classList.toggle('clipped', clipped);
+  more.hidden = div.dataset.single === 'true' || (!full && !clipped);
+  more.textContent = full ? 'Show less' : 'Show full text';
+  const hasText = sourceLang === 'he' ? div.dataset.hasHe === 'true' : sourceLang === 'en' ? div.dataset.hasEn === 'true' : div.dataset.hasHe === 'true' || div.dataset.hasEn === 'true';
+  div.querySelector('.copyq').disabled = !hasText;
+}
+function syncSourceLanguage(c) {
+  c.dataset.sourceLang = sourceLang;
+  c.querySelectorAll('button[data-source-lang]').forEach(b => b.setAttribute('aria-pressed', b.dataset.sourceLang === sourceLang));
+  c.querySelectorAll('.link-item').forEach(updateSourceQuote);
+}
+function bindSourceLanguage(c) {
+  syncSourceLanguage(c);
+  c.querySelector('.source-controls .seg-ctl').onclick = e => {
+    const b = e.target.closest('button[data-source-lang]'); if (!b) return;
+    sourceLang = b.dataset.sourceLang; store.set('sourceLang', sourceLang); syncSourceLanguage(c);
+  };
+}
 function selectSegment(ref, el) {
   document.querySelectorAll('.seg.on').forEach(s => s.classList.remove('on'));
   el.classList.add('on');
@@ -1068,6 +1116,7 @@ function selectSegment(ref, el) {
   openPanel(ref);
 }
 function closePanel() {
+  ++panelSeq;
   document.body.classList.remove('panel-open');
   const p = $('#panel'); if (p) p.hidden = true;
   document.querySelectorAll('.seg.on').forEach(s => s.classList.remove('on'));
@@ -1094,6 +1143,7 @@ function showTab(ref, tab) {
 let panelSeq = 0;
 async function renderConnections(ref, c) {
   const seq = ++panelSeq;
+  c.onclick = null;
   c.innerHTML = '<div class="loading">Finding connections…</div>';
   const links = await linksFor(ref);
   if (seq !== panelSeq || (R.selected && R.selected.ref !== ref)) return;
@@ -1104,29 +1154,38 @@ async function renderConnections(ref, c) {
   const byCat = {};
   links.forEach(l => { const k = l.category || 'Other'; (byCat[k] = byCat[k] || []).push(l); });
   const cats = Object.keys(byCat).sort((a, b) => (b === 'Rav Tzadok Library') - (a === 'Rav Tzadok Library') || byCat[b].length - byCat[a].length);
-  c.innerHTML = note + cats.map(k => {
+  c.innerHTML = sourceLanguageControls() + note + cats.map(k => {
     const books = {};
     byCat[k].forEach(l => { const t = (l.collectiveTitle && l.collectiveTitle.en) || l.index_title || 'Other'; (books[t] = books[t] || []).push(l); });
     return `<button class="cat" data-cat="${esc(k)}"><span class="bar" style="background:var(${CAT_COLORS[k] || '--c-other'})"></span><span class="nm">${esc(k)}</span><span class="ct">${byCat[k].length}</span></button>
       <div class="book-group">${Object.entries(books).map(([t, ls]) => `<button data-cat="${esc(k)}" data-book="${esc(t)}"><span>${esc(t)}</span><span>${ls.length}</span></button>`).join('')}</div>`;
   }).join('');
+  bindSourceLanguage(c);
+  const groups = cats.map(k => ({label: k, list: byCat[k]}));
   c.onclick = e => {
     const b = e.target.closest('button[data-cat]'); if (!b) return;
     const list = byCat[b.dataset.cat].filter(l => !b.dataset.book || ((l.collectiveTitle && l.collectiveTitle.en) || l.index_title) === b.dataset.book);
-    showLinkList(ref, b.dataset.book || b.dataset.cat, list, c);
+    showLinkList(ref, b.dataset.book || b.dataset.cat, list, c, {groups, selectedCategory: b.dataset.cat});
   };
 }
-async function showLinkList(ref, label, list, c) {
-  ++panelSeq;
+async function showLinkList(ref, label, list, c, {groups = [], selectedCategory = ''} = {}) {
+  const seq = ++panelSeq;
   c.onclick = null;
-  c.innerHTML = `<button class="back" id="pBack">← All connections</button><div class="eyebrow" style="margin-bottom:4px">${esc(label)}</div><div id="lItems"></div>`;
+  const nav = groups.length > 1 ? `<div class="source-tabs" role="group" aria-label="Source categories">${groups.map((g, i) => `<button type="button" data-source-category="${i}" aria-label="${esc(g.label)} sources" aria-pressed="${g.label === selectedCategory}" style="--source-color:var(${CAT_COLORS[g.label] || '--c-other'})">${esc(g.label)}<span class="ct" aria-hidden="true">${g.list.length}</span></button>`).join('')}</div>` : '';
+  c.innerHTML = sourceLanguageControls() + `<button class="back" id="pBack">← All connections</button>${nav}<div class="eyebrow" style="margin-bottom:4px">${esc(label)}</div><div id="lItems"></div>`;
+  bindSourceLanguage(c);
   $('#pBack').onclick = () => renderConnections(ref, c);
+  c.querySelectorAll('button[data-source-category]').forEach(b => b.onclick = () => {
+    const g = groups[+b.dataset.sourceCategory];
+    showLinkList(ref, g.label, g.list, c, {groups, selectedCategory: g.label});
+  });
   const box = $('#lItems');
   list.slice(0, 40).forEach(l => {
     const div = document.createElement('div'); div.className = 'link-item';
-    div.innerHTML = `<div class="ref"><span>${esc(l.sourceRef || l.ref)}</span><span class="he" lang="he">${esc(l.sourceHeRef || '')}</span></div><div class="loading" style="padding:6px 0">Loading…</div>`;
+    div.innerHTML = `<div class="ref"><span class="ref-en">${esc(l.sourceRef || l.ref)}</span><span class="he" lang="he" dir="rtl">${esc(l.sourceHeRef || '')}</span></div><div class="loading" style="padding:6px 0">Loading…</div>`;
     box.appendChild(div);
     fetchText(l.sourceRef || l.ref).then(d => {
+      if (seq !== panelSeq || !div.isConnected) return;
       // A paragraph of one of our books: preview just that paragraph.
       let k = -1;
       if (d.highlight) { const n = +d.highlight.split(/[ :]/).pop(); k = d.nums ? d.nums.indexOf(n) : n - 1; }
@@ -1134,24 +1193,30 @@ async function showLinkList(ref, label, list, c) {
       const he = pick(d.he).map(plain), en = pick(d.en).map(plain);
       const hes = he.filter(x => x.trim()), ens = en.filter(x => x.trim());
       const target = l.sourceRef || l.ref;
+      div.dataset.hasHe = String(hes.length > 0); div.dataset.hasEn = String(ens.length > 0);
+      const heRef = l.sourceHeRef || d.heRef || '';
+      div.querySelector('.ref .he').textContent = heRef;
+      div.querySelector('.ref').classList.toggle('has-he', !!heRef);
       // Hebrew and English paragraph by paragraph, so a long quote reads in pairs.
       const rows = Array.from({length: Math.max(he.length, en.length)}, (_, i) => [he[i] || '', en[i] || ''])
         .filter(([h, e]) => h.trim() || e.trim())
-        .map(([h, e]) => `<div class="qp">${h.trim() ? `<p class="qh" lang="he">${esc(h)}</p>` : ''}${e.trim() ? `<p class="qe">${esc(e)}</p>` : ''}</div>`).join('');
-      div.querySelector('.loading').outerHTML = `<div class="quote">${rows}</div>
+        .map(([h, e]) => `<div class="qp">${h.trim() ? `<p class="qh" lang="he" dir="rtl">${esc(h)}</p>` : ''}${e.trim() ? `<p class="qe" lang="en" dir="ltr">${esc(e)}</p>` : ''}</div>`).join('');
+      const missing = (hes.length ? '' : '<div class="source-missing" data-missing="he">No Hebrew text is available for this source.</div>') + (ens.length ? '' : '<div class="source-missing" data-missing="en">No English translation is available for this source.</div>');
+      div.querySelector('.loading').outerHTML = `<div class="quote">${rows}</div>${missing}
         <div class="acts"><button type="button" class="more" hidden>Show full text</button><button type="button" class="copyq">Copy quote</button><a href="#/read/${toHash(target)}">Open in reader</a><a href="${sefariaUrl(target)}" target="_blank" rel="noopener">Sefaria ↗</a></div>`;
       // A single cited source opens in full; in a list, long quotes get a "Show full text" toggle.
       if (list.length === 1) div.classList.add('full');
-      const boxes = [...div.querySelectorAll('.quote')];
-      const clipped = boxes.filter(b => b.scrollHeight > b.clientHeight + 4);
-      clipped.forEach(b => b.classList.add('clipped'));
+      div.dataset.single = String(list.length === 1);
       const more = div.querySelector('.more');
-      if (clipped.length && !div.classList.contains('full')) more.hidden = false;
-      more.onclick = () => { const full = div.classList.toggle('full'); more.textContent = full ? 'Show less' : 'Show full text'; };
+      updateSourceQuote(div);
+      more.onclick = () => { div.classList.toggle('full'); updateSourceQuote(div); };
       div.querySelector('.copyq').onclick = async () => {
-        try { await navigator.clipboard.writeText([hes.join('\n'), ens.join('\n'), '— ' + target].filter(Boolean).join('\n\n')); toast('Quote copied'); } catch { toast('Copy failed'); }
+        const texts = sourceLang === 'he' ? [hes.join('\n')] : sourceLang === 'en' ? [ens.join('\n')] : [hes.join('\n'), ens.join('\n')];
+        const citation = sourceLang === 'he' && heRef ? heRef : target;
+        try { await navigator.clipboard.writeText([...texts, '— ' + citation].filter(Boolean).join('\n\n')); toast('Quote copied'); } catch { toast('Copy failed'); }
       };
     }).catch(() => {
+      if (seq !== panelSeq || !div.isConnected) return;
       const target = l.sourceRef || l.ref;
       div.querySelector('.loading').outerHTML = `<div class="acts"><a href="#/read/${toHash(target)}">Open in reader</a><a href="${sefariaUrl(target)}" target="_blank" rel="noopener">Sefaria ↗</a></div>`;
     });
