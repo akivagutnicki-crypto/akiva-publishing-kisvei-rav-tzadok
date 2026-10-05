@@ -181,6 +181,12 @@ body.panel-open .text{max-width:860px}
 .ph:last-child{border-bottom:0}
 .ph-he{font-family:var(--he);font-weight:500;font-size:calc(1.4rem * var(--fs));line-height:1.75;text-align:right}
 .ph-en{font-family:var(--en);font-size:calc(1.14rem * var(--fs));line-height:1.5;color:var(--muted);margin-top:2px}
+.source-table{margin:24px 0;overflow-x:auto;border:1px solid var(--line);border-radius:6px}
+.source-table table{border-collapse:collapse;width:100%;min-width:540px;font:400 calc(1.12rem * var(--fs))/1.5 var(--he);direction:rtl}
+.source-table th,.source-table td{padding:10px 14px;text-align:right;border-bottom:1px solid var(--line);border-left:1px solid var(--line)}
+.source-table thead{background:var(--soft)}
+.source-table th{font-weight:500}
+.source-table tr:last-child td,.source-table tr:last-child th{border-bottom:0}
 .sec-sub{font:500 calc(1.2rem * var(--fs))/1.4 var(--en);text-align:center;margin:-14px 0 20px;color:var(--ink)}
 .sec-title{font:500 calc(1.55rem * var(--fs))/1.4 var(--he);text-align:center;margin:-12px 0 22px;color:var(--ink)}
 .subhead{font:500 calc(1.2rem * var(--fs))/1.5 var(--he);text-align:center;color:var(--ox);margin:30px 0 14px}
@@ -350,7 +356,7 @@ const INFO = {
   'Kometz HaMinchah': {d:'Halakhic insights on the mitzvot.'},
   'Ohr Zarua LaTzadik': {d:'Essays including thirteen principles of conduct, the Egyptian exile and the large and small letters of the Torah.'},
   "Meshiv HaTa'anah": {d:'A reply to the pamphlet "Megillat Ta\'anot," written in 1842 in defense of tradition.'},
-  'Poked Akarim': {d:'A halakhic work on foundational principles of the law.'},
+  'Poked Akarim': {d:'On Divine remembrance, prayer, and the barren women of Tanakh, with teachings on renewal and blessing.'},
   'Mei HaShiloach': {d:'Teachings of Rabbi Mordechai Yosef Leiner of Izhbitza on the Torah, the festivals and Tanakh.'},
   'Beit Yaakov on Torah': {d:'Teachings of Rabbi Yaakov Leiner of Izhbitza–Radzin, son of the Mei HaShiloach, on the Torah.'},
   'Tiferet Yosef': {d:'Teachings from the Izhbitza–Radzin school on the festivals and the Torah.'},
@@ -374,11 +380,14 @@ const info = t => INFO[t] || {};
 
 /* ---------- local library data (built by scripts/build-library.mjs) ---------- */
 let CATALOG = [];
-const catalogReady = fetch('data/catalog.json').then(r => r.ok ? r.json() : []).catch(() => []).then(c => { CATALOG = c; return c; });
+// Edition URLs keep older installed app caches from mixing Hebrew-only data
+// with the new interlinear contents. The service worker also accepts saved packs.
+const editionDataUrl = url => /^data\/(?:catalog\.json|(?:ohr-zarua-latzadik|poked-akarim|sefer-hazikhronot)\/)/.test(url) ? url + '?edition=20261005' : url;
+const catalogReady = fetch(editionDataUrl('data/catalog.json')).then(r => r.ok ? r.json() : []).catch(() => []).then(c => { CATALOG = c; return c; });
 const localBook = t => CATALOG.find(b => b.title === t);
 const tocCache = new Map();
 function loadToc(slug) {
-  if (!tocCache.has(slug)) tocCache.set(slug, fetch(`data/${slug}/toc.json`).then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }));
+  if (!tocCache.has(slug)) tocCache.set(slug, fetch(editionDataUrl(`data/${slug}/toc.json`)).then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }));
   return tocCache.get(slug);
 }
 const leavesOf = n => n.children ? n.children.flatMap(leavesOf) : [n];
@@ -398,7 +407,7 @@ const secRefOf = (leaf, addr) => addr.length ? `${leaf.ref} ${addr.join(':')}` :
 const heSecRefOf = (leaf, addr) => addr.length ? `${leaf.heRef} ${addr.map(gematria).join(':')}` : leaf.heRef;
 const fileCache = new Map();
 function loadFile(url) {
-  if (!fileCache.has(url)) fileCache.set(url, fetch(url).then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }));
+  if (!fileCache.has(url)) fileCache.set(url, fetch(editionDataUrl(url)).then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }));
   return fileCache.get(url);
 }
 // Resolve a ref against bundled texts. Returns null when the text is not local.
@@ -433,18 +442,22 @@ async function resolveLocal(ref) {
   const all = leaves.flatMap(l => sectionsOf(l).map(a => secRefOf(l, a)));
   const sectionRef = secRefOf(leaf, addr), k = all.indexOf(sectionRef);
   const sep = leaf.sep || (secLen ? ':' : ' ');
-  let he = Array.isArray(text) ? text : [text], en = [], phrases = null, heads = null;
+  let he = Array.isArray(text) ? text : [text], en = [], phrases = null, heads = null, tables = null;
   const il = leaf.interlinear || leaf.il1 || (leaf.ilch && leaf.ilch.includes(addr[0]));
   let nums = null;
   if (il) { // items: {p: [[he, en], ...], n?} paragraphs and {h: title} subheadings
-    phrases = []; heads = {}; nums = [];
-    text.forEach(it => { if (it.h) (heads[phrases.length] = heads[phrases.length] || []).push(it.h); else if (it.p) { phrases.push(it.p); nums.push(it.n || nums.length + 1); } });
+    phrases = []; heads = {}; tables = {}; nums = [];
+    text.forEach(it => {
+      if (it.h) (heads[phrases.length] = heads[phrases.length] || []).push(it.h);
+      else if (it.table) (tables[phrases.length] = tables[phrases.length] || []).push(it.table);
+      else if (it.p) { phrases.push(it.p); nums.push(it.n || nums.length + 1); }
+    });
     he = phrases.map(ps => ps.map(x => x[0]).join(' '));
     en = phrases.map(ps => ps.map(x => x[1]).join(' '));
   }
   return {
     local: true, ref: sectionRef, sectionRef, heRef: leaf.interlinear ? leaf.heRef : heSecRefOf(leaf, addr), book: book.title, heBook: book.he,
-    he, en, phrases, heads, nums, chapterLinks: !!il, title: leaf.interlinear ? {en: leaf.en, he: leaf.he} : null,
+    he, en, phrases, heads, tables, nums, chapterLinks: !!il, title: leaf.interlinear ? {en: leaf.en, he: leaf.he} : null,
     segmentLevel: false, sep, highlight: segment ? `${sectionRef}${sep}${segment}` : null,
     next: all[k + 1] || null, prev: k > 0 ? all[k - 1] : null,
     versions: [il && !leaf.interlinear ? {title: 'Akiva Publishing interlinear edition', lang: 'Hebrew with interlinear English', source: '', license: '© Akiva Publishing'}
@@ -642,7 +655,7 @@ async function renderHome() {
     el.innerHTML = ix.map(([name, groups]) => `<div>${groups.map(([g, books]) => `<div class="src-group"><h4>${esc(name)} · ${esc(g)}</h4>${books.map(b => `<a href="#/book/${toHash(b)}">${esc(b)}</a>`).join('')}</div>`).join('')}</div>`).join('');
   }).catch(() => {});
 }
-const credit = () => `<div class="page" style="padding-top:0"><div class="credit">Hebrew texts are digitized editions from the <a href="https://www.sefaria.org" target="_blank" rel="noopener">Sefaria</a> library (sources listed under About on each text). English translations and connections are loaded live from Sefaria and are used under each version's license; some are community translations. Interlinear editions (Sefer HaZikhronot, Et HaOchel, Divrei Chalomot, Divrei Soferim) are © Akiva Publishing. The Akiva Publishing print editions are separate translations.</div></div>`;
+const credit = () => `<div class="page" style="padding-top:0"><div class="credit">Hebrew texts are digitized editions from the <a href="https://www.sefaria.org" target="_blank" rel="noopener">Sefaria</a> library (sources listed under About on each text). English translations and connections are loaded live from Sefaria and are used under each version's license; some are community translations. The Akiva Publishing interlinear editions, including the vocalized Hebrew, are © Akiva Publishing.</div></div>`;
 
 /* ======================= Book / TOC ======================= */
 async function renderBook(title) {
@@ -897,6 +910,7 @@ function appendSection(d) {
     const r = refs ? refs[i] : d.sep ? d.sectionRef + d.sep + num : segRef(d.sectionRef, num);
     const h = he[i] ? clean(he[i]) : '', e = en[i] ? clean(en[i]) : '';
     if (d.heads && d.heads[i]) html += d.heads[i].map(subhead).join('');
+    if (d.tables && d.tables[i]) html += d.tables[i].map(sourceTable).join('');
     if (!h.trim() && !e.trim()) continue;
     const il = d.phrases ? `<div class="seg-il">${d.phrases[i].map(([ph, pe]) => `<div class="ph"><div class="ph-he" lang="he" dir="rtl">${clean(ph)}</div><div class="ph-en" lang="en">${clean(pe)}</div></div>`).join('')}</div>` : '';
     html += `<div class="seg" data-ref="${esc(r)}" data-i="${num}" data-k="${i}" tabindex="0">
@@ -905,6 +919,8 @@ function appendSection(d) {
       <div class="seg-en" lang="en">${e}</div>${il}
     </div>`;
   }
+  if (d.heads && d.heads[n]) html += d.heads[n].map(subhead).join('');
+  if (d.tables && d.tables[n]) html += d.tables[n].map(sourceTable).join('');
   sec.innerHTML = html;
   const sentinel = text.querySelector('.sentinel, .endnote');
   text.insertBefore(sec, sentinel || null);
@@ -923,6 +939,9 @@ function appendSection(d) {
 }
 
 // Subheadings: Hebrew or English; a second line is a summary.
+function sourceTable(table) {
+  return `<div class="source-table" role="region" aria-label="Coordinates of places" tabindex="0"><table lang="he"><thead><tr>${table.headers.map(cell => `<th scope="col">${esc(cell)}</th>`).join('')}</tr></thead><tbody>${table.rows.map(row => `<tr>${row.map((cell, i) => i === 0 ? `<th scope="row">${esc(cell)}</th>` : `<td>${esc(cell)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+}
 function subhead(text) {
   const [title, ...rest] = String(text).split('\n');
   const he = /[\u05D0-\u05EA]/.test(title);

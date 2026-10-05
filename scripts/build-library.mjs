@@ -148,11 +148,12 @@ for (const dir of DIRS) {
         const paras = sec.items.filter(i => i.p).length;
         segments += paras;
         const ref = numbered ? `${src.title} ${sec.n}` : `${src.title}, ${sec.key}`;
-        fs.writeFileSync(path.join(bookDir, `${id}.json`), JSON.stringify(connect(slug, ref, numbered ? ':' : ' ', sec.items)));
+        const sep = sec.sep || (numbered ? ':' : ' ');
+        fs.writeFileSync(path.join(bookDir, `${id}.json`), JSON.stringify(connect(slug, ref, sep, sec.items)));
         return {
           en: sec.en, he: sec.he, id, depth: 1, shape: paras, interlinear: true,
           ref,
-          heRef: `${src.heTitle}, ${sec.he}`, sep: numbered ? ':' : ' ',
+          heRef: `${src.heTitle}, ${sec.he}`, sep,
         };
       });
       const version = { title: src.versionTitle, source: src.versionSource || '', license: src.license || '' };

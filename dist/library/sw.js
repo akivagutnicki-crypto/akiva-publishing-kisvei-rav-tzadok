@@ -3,7 +3,7 @@
 // - Texts (data/) are served from cache and refreshed in the background.
 // - Sefaria API answers (English, connections, quoted sources) are network-first
 //   with the last answer kept for offline use; web fonts are cache-first.
-const VERSION = 'v4';
+const VERSION = 'v5';
 const SHELL = `rtl-shell-${VERSION}`;
 const DATA = 'rtl-data';
 const EXTERNAL = 'rtl-external';
@@ -34,7 +34,7 @@ async function networkFirst(request, cacheName, ms = 8000) {
     if (res.ok) cache.put(request, res.clone());
     return res;
   } catch (e) {
-    const hit = await cache.match(request, { ignoreVary: true });  // also texts saved by a download pack
+    const hit = (await cache.match(request, { ignoreVary: true })) || (await cache.match(request, { ignoreVary: true, ignoreSearch: true }));  // also texts saved by a download pack
     if (hit) return hit;
     throw e;
   }
@@ -70,6 +70,9 @@ self.addEventListener('fetch', event => {
       event.respondWith(networkFirst(request, SHELL, 5000).catch(() => caches.match('./index.html')));
     } else if (rel.startsWith('downloads/')) {
       return; // large zip: straight from the network, not cached
+    } else if (/^data\/(?:catalog\.json|files\.json|cited\/index\.json|[^/]+\/toc\.json)$/.test(rel) || /^data\/(?:ohr-zarua-latzadik|poked-akarim|sefer-hazikhronot)\//.test(rel)) {
+      // Contents and manifests must reflect newly added editions immediately.
+      event.respondWith(networkFirst(request, DATA));
     } else if (rel.startsWith('data/')) {
       event.respondWith(staleWhileRevalidate(request, DATA, event));
     } else {
