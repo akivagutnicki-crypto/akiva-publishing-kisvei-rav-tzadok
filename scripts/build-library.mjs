@@ -144,6 +144,13 @@ for (const dir of DIRS) {
     // Interlinear editions (scripts/convert-interlinear.py): one leaf per section,
     // each paragraph a list of [hebrew, english] phrase pairs.
     if (src.interlinear) {
+      const downloads = (src.downloads || []).map(({ source, file, label }) => {
+        if (!/^downloads\/[a-z0-9-]+\.docx$/.test(file)) throw new Error(`Invalid download path: ${file}`);
+        const destination = path.join('dist/library', file);
+        fs.mkdirSync(path.dirname(destination), { recursive: true });
+        fs.copyFileSync(source, destination);
+        return { file, label };
+      });
       const children = src.sections.map(sec => {
         const id = leafId++;
         const numbered = !sec.key;
@@ -161,7 +168,7 @@ for (const dir of DIRS) {
       const version = { title: src.versionTitle, source: src.versionSource || '', license: src.license || '' };
       const toc = { en: src.title, he: src.heTitle, children };
       fs.writeFileSync(path.join(bookDir, 'toc.json'), JSON.stringify({ title: src.title, he: src.heTitle, version, toc }));
-      catalog.push({ title: src.title, he: src.heTitle, slug, group: (src.categories || [])[1] || 'Other', version, akiva: true, interlinear: true, segments });
+      catalog.push({ title: src.title, he: src.heTitle, slug, group: (src.categories || [])[1] || 'Other', version, akiva: true, interlinear: true, segments, ...(downloads.length ? { downloads } : {}) });
       console.log(`${src.title}: interlinear, ${children.length} sections, ${segments} paragraphs`);
       continue;
     }

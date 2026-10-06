@@ -3,6 +3,7 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 
 const html = fs.readFileSync('dist/library/index.html', 'utf8');
+const edition = /\?edition=([^']+)/.exec(html)[1];
 const resolver = html.slice(html.indexOf('let CATALOG = []'), html.indexOf('const CAT_COLORS'));
 const root = 'dist/library/data/likkutei-maamarim/';
 const toc = JSON.parse(fs.readFileSync(root + 'toc.json', 'utf8'));
@@ -19,7 +20,7 @@ async function reader(oldContents, oldTexts) {
     gematria: String,
     fetch: async url => {
       requested.push(url);
-      assert.match(url, /\?edition=20261006$/);
+      assert.ok(url.endsWith('?edition=' + edition));
       const path = url.split('?')[0];
       let data = path === 'data/catalog.json' ? [{title: toc.title, he: toc.he,
         slug: 'likkutei-maamarim', version: toc.version}]
@@ -52,7 +53,35 @@ await reader(true, false);  // The installed-app failure from the screenshot.
 await reader(false, true); // An offline pack saved before the new edition.
 await reader(false, false);
 
+// Canonical three-level Kometz addresses must still resolve in the new edition.
+const kometzContext = vm.createContext({gematria: String, fetch: async url => ({
+  ok: true, json: async () => JSON.parse(fs.readFileSync('dist/library/' + url.split('?')[0], 'utf8'))
+})});
+vm.runInContext(resolver, kometzContext);
+let kometzParagraphs = 0;
+for (const [volume, chapters] of [[1, 115], [2, 79]]) {
+  for (let chapter = 1; chapter <= chapters; chapter++) {
+    const result = await kometzContext.resolveLocal(`Kometz HaMinchah ${volume}:${chapter}`);
+    assert.ok(result.he.length);
+    assert.ok(result.he.every(x => typeof x === 'string' && !x.includes('[object Object]')));
+    if (volume === 2 && chapter === 79) {
+      assert.equal(result.he.length, 20);
+      assert.ok(result.en.every(x => !x));
+      assert.equal(result.tables[20][0].rows.length, 49);
+    } else assert.ok(result.en.some(x => x.trim()));
+    kometzParagraphs += result.he.length;
+  }
+}
+assert.equal(kometzParagraphs, 214);
+assert.equal((await kometzContext.resolveLocal('Kometz HaMinchah 1:115')).next, 'Kometz HaMinchah 2:1');
+assert.equal((await kometzContext.resolveLocal('Kometz HaMinchah 2:79:20')).highlight, 'Kometz HaMinchah 2:79:20');
+for (const [source, download] of [['Kometz_HaMincha_Part_1.docx', 'kometz-haminchah-part-1.docx'],
+  ['Kometz_Hamincha_Part_2.docx', 'kometz-haminchah-part-2.docx']])
+  assert.deepEqual(fs.readFileSync('sources/akiva/docx/' + source), fs.readFileSync('dist/library/downloads/' + download));
+console.log('Kometz passed: 214 paragraphs, canonical navigation, 49 sources, exact Word downloads.');
+
 const sw = fs.readFileSync('dist/library/sw.js', 'utf8');
+const workerVersion = /const VERSION = '([^']+)'/.exec(sw)[1];
 async function worker(upgrade) {
   const events = {}, deleted = [], navigated = [], requests = [];
   const scope = 'https://example.test/library/';
@@ -67,7 +96,7 @@ async function worker(upgrade) {
     if (request.offline) throw Error('offline');
     return {ok: true, clone() { return this; }};
   }, caches: {open: async () => cache, keys: async () =>
-    [upgrade ? 'rtl-shell-v8' : 'rtl-shell-v9', 'rtl-data', 'rtl-pack-library', 'rtl-meta'],
+    [upgrade ? 'rtl-shell-v8' : 'rtl-shell-' + workerVersion, 'rtl-data', 'rtl-pack-library', 'rtl-meta'],
     delete: async name => deleted.push(name)}, self: {
     registration: {scope}, skipWaiting: async () => {},
     addEventListener: (type, fn) => events[type] = fn,

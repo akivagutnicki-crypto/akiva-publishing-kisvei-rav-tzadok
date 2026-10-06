@@ -402,7 +402,7 @@ const info = t => INFO[t] || {};
 let CATALOG = [];
 // Edition URLs keep older installed app caches from mixing Hebrew-only data
 // with the new interlinear contents. The service worker also accepts saved packs.
-const editionDataUrl = url => url.startsWith('data/') ? url + '?edition=20261006' : url;
+const editionDataUrl = url => url.startsWith('data/') ? url + '?edition=20261006-kometz' : url;
 const catalogReady = fetch(editionDataUrl('data/catalog.json')).then(r => r.ok ? r.json() : []).catch(() => []).then(c => { CATALOG = c; return c; });
 const localBook = t => CATALOG.find(b => b.title === t);
 const tocCache = new Map();
@@ -692,7 +692,8 @@ async function renderBook(title) {
     ${w.d ? `<p>${esc(w.d)}</p>` : ''}
     <div class="toc-actions" id="tocActions"></div></div>
     <div id="toc"><div class="loading">Loading contents…</div></div></div>${credit()}`;
-  const actions = first => `${first ? `<a class="btn primary" href="#/read/${toHash(first)}">Start reading →</a>` : ''}
+  const actions = (first, downloads = []) => `${first ? `<a class="btn primary" href="#/read/${toHash(first)}">Start reading →</a>` : ''}
+      ${downloads.map(d => `<a class="btn" href="${esc(d.file)}" download>${esc(d.label)}</a>`).join('')}
       ${w.edition ? `<a class="btn" href="../#${w.edition === 'available' ? 'takanas' : 'dover'}">Akiva Publishing edition</a>` : ''}
       ${w.akiva ? '' : `<a class="btn" href="${sefariaUrl(title)}" target="_blank" rel="noopener">View on Sefaria ↗</a>`}
       <button class="btn" type="button" id="saveBook">Save this sefer offline</button><span class="status" id="saveBookStatus" style="align-self:center;font:500 .8rem var(--ui);color:var(--muted)"></span>`;
@@ -704,7 +705,7 @@ async function renderBook(title) {
       $('#bookHe').textContent = lb.he;
       const g = GROUPS.find(G => G.id === lb.group); $('#bookGroup').textContent = g ? g.en : lb.group;
       const first = leavesOf(toc.toc).map(l => sectionsOf(l)[0] && secRefOf(l, sectionsOf(l)[0])).find(Boolean);
-      $('#tocActions').innerHTML = actions(first);
+      $('#tocActions').innerHTML = actions(first, lb.downloads || []);
       $('#toc').innerHTML = renderLocalNode(toc.toc, true);
       $('#saveBook').onclick = () => saveBook(title);
       return;
@@ -967,6 +968,7 @@ function appendSection(d) {
 
 // Subheadings: Hebrew or English; a second line is a summary.
 function sourceTable(table) {
+  if (table.references) return `<div class="source-table" role="region" aria-label="Source references" tabindex="0"><h3>${esc(table.headers[0])}</h3><ul>${table.rows.map(([ref]) => `<li><a href="#/read/${toHash(ref)}">${esc(ref)}</a></li>`).join('')}</ul></div>`;
   return `<div class="source-table" role="region" aria-label="Coordinates of places" tabindex="0"><table lang="he"><thead><tr>${table.headers.map(cell => `<th scope="col">${esc(cell)}</th>`).join('')}</tr></thead><tbody>${table.rows.map(row => `<tr>${row.map((cell, i) => i === 0 ? `<th scope="row">${esc(cell)}</th>` : `<td>${esc(cell)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
 }
 function subhead(text) {
