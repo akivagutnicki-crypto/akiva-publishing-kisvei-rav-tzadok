@@ -3,7 +3,7 @@
 // - Texts (data/) are served from cache and refreshed in the background.
 // - Sefaria API answers (English, connections, quoted sources) are network-first
 //   with the last answer kept for offline use; web fonts are cache-first.
-const VERSION = 'v8';
+const VERSION = 'v9';
 const SHELL = `rtl-shell-${VERSION}`;
 const DATA = 'rtl-data';
 const EXTERNAL = 'rtl-external';
@@ -15,14 +15,25 @@ const SHELL_FILES = [
 ];
 
 self.addEventListener('install', event => {
-  event.waitUntil(caches.open(SHELL).then(c => c.addAll(SHELL_FILES)).then(() => self.skipWaiting()));
+  event.waitUntil(caches.open(SHELL)
+    .then(c => c.addAll(SHELL_FILES.map(url => new Request(url, {cache: 'reload'}))))
+    .then(() => self.skipWaiting()));
 });
 
 self.addEventListener('activate', event => {
-  event.waitUntil(
-    caches.keys()
-      .then(keys => Promise.all(keys.filter(k => k.startsWith('rtl-shell-') && k !== SHELL).map(k => caches.delete(k))))
-      .then(() => self.clients.claim()));
+  event.waitUntil((async () => {
+    const keys = await caches.keys();
+    const oldShells = keys.filter(k => k.startsWith('rtl-shell-') && k !== SHELL);
+    await Promise.all(oldShells.map(k => caches.delete(k)));
+    await self.clients.claim();
+    // Older installed screens have no update listener. Reload them once when
+    // their shell is replaced, preserving their current text URL and packs.
+    if (oldShells.length) {
+      const windows = await self.clients.matchAll({type: 'window', includeUncontrolled: true});
+      await Promise.all(windows.filter(c => c.url.startsWith(self.registration.scope))
+        .map(c => c.navigate(c.url).catch(() => {})));
+    }
+  })());
 });
 
 const timeout = (ms, p) => Promise.race([p, new Promise((_, no) => setTimeout(() => no(new Error('timeout')), ms))]);
@@ -30,7 +41,7 @@ const timeout = (ms, p) => Promise.race([p, new Promise((_, no) => setTimeout(()
 async function networkFirst(request, cacheName, ms = 8000) {
   const cache = await caches.open(cacheName);
   try {
-    const res = await timeout(ms, fetch(request));
+    const res = await timeout(ms, fetch(request, {cache: 'no-cache'}));
     if (res.ok) cache.put(request, res.clone());
     return res;
   } catch (e) {

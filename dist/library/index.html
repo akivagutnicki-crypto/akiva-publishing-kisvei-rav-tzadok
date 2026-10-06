@@ -402,7 +402,7 @@ const info = t => INFO[t] || {};
 let CATALOG = [];
 // Edition URLs keep older installed app caches from mixing Hebrew-only data
 // with the new interlinear contents. The service worker also accepts saved packs.
-const editionDataUrl = url => /^data\/(?:catalog\.json|(?:ohr-zarua-latzadik|poked-akarim|sefer-hazikhronot)\/)/.test(url) ? url + '?edition=20261005' : url;
+const editionDataUrl = url => url.startsWith('data/') ? url + '?edition=20261006' : url;
 const catalogReady = fetch(editionDataUrl('data/catalog.json')).then(r => r.ok ? r.json() : []).catch(() => []).then(c => { CATALOG = c; return c; });
 const localBook = t => CATALOG.find(b => b.title === t);
 const tocCache = new Map();
@@ -463,7 +463,10 @@ async function resolveLocal(ref) {
   const sectionRef = secRefOf(leaf, addr), k = all.indexOf(sectionRef);
   const sep = leaf.sep || (secLen ? ':' : ' ');
   let he = Array.isArray(text) ? text : [text], en = [], phrases = null, heads = null, tables = null, transcriptionNotes = null;
-  const il = leaf.interlinear || leaf.il1 || (leaf.ilch && leaf.ilch.includes(addr[0]));
+  // A saved contents file can predate an edition update (or vice versa).
+  // Decode the format actually received rather than trusting cached flags.
+  const il = Array.isArray(text) && text.some(it => it && typeof it === 'object'
+    && (Array.isArray(it.p) || typeof it.h === 'string' || it.table));
   let nums = null;
   if (il) { // items: {p: [[he, en], ...], n?} paragraphs and {h: title} subheadings
     phrases = []; heads = {}; tables = {}; nums = []; transcriptionNotes = {};
@@ -1315,7 +1318,11 @@ document.addEventListener('click', e => { if (!e.target.closest('#searchForm')) 
 let installEvent = null;
 const standalone = () => matchMedia('(display-mode: standalone)').matches || navigator.standalone;
 if ('serviceWorker' in navigator && location.protocol !== 'file:') {
-  addEventListener('load', () => navigator.serviceWorker.register('sw.js').catch(e => console.warn('service worker', e)));
+  const registration = navigator.serviceWorker.register('sw.js', {updateViaCache: 'none'})
+    .catch(e => console.warn('service worker', e));
+  document.addEventListener('visibilitychange', () => {
+    if (document.visibilityState === 'visible') registration.then(r => r?.update()).catch(() => {});
+  });
 }
 addEventListener('beforeinstallprompt', e => { e.preventDefault(); installEvent = e; showInstall(); });
 addEventListener('appinstalled', () => { installEvent = null; showInstall(); toast('Installed'); });
