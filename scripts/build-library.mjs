@@ -17,6 +17,13 @@ import { linkCitations, categoryOf, normalizeRef } from './citations.mjs';
 import { packs, TANAKH, SHAS } from './packs.mjs';
 import { linkLikkuteiCitations } from './likkutei-citations.mjs';
 
+// Publish each generated file atomically when an interlinear overlay replaces Hebrew.
+function writeFile(file, contents) {
+  const temporary = file + '.tmp';
+  fs.writeFileSync(temporary, contents);
+  fs.renameSync(temporary, file);
+}
+
 const OUT = 'dist/library/data';
 // Akiva sources come first and replace a Sefaria export of the same title.
 const DIRS = ['sources/akiva', 'sources/sefaria'];
@@ -158,7 +165,7 @@ for (const dir of DIRS) {
         segments += paras;
         const ref = numbered ? `${src.title} ${sec.n}` : `${src.title}, ${sec.key}`;
         const sep = sec.sep || (numbered ? ':' : ' ');
-        fs.writeFileSync(path.join(bookDir, `${id}.json`), JSON.stringify(connect(slug, ref, sep, sec.items)));
+        writeFile(path.join(bookDir, `${id}.json`), JSON.stringify(connect(slug, ref, sep, sec.items)));
         return {
           en: sec.en, he: sec.he, id, depth: 1, shape: paras, interlinear: true,
           ref,
@@ -167,7 +174,7 @@ for (const dir of DIRS) {
       });
       const version = { title: src.versionTitle, source: src.versionSource || '', license: src.license || '' };
       const toc = { en: src.title, he: src.heTitle, children };
-      fs.writeFileSync(path.join(bookDir, 'toc.json'), JSON.stringify({ title: src.title, he: src.heTitle, version, toc }));
+      writeFile(path.join(bookDir, 'toc.json'), JSON.stringify({ title: src.title, he: src.heTitle, version, toc }));
       catalog.push({ title: src.title, he: src.heTitle, slug, group: (src.categories || [])[1] || 'Other', version, akiva: true, interlinear: true, segments, ...(downloads.length ? { downloads } : {}) });
       console.log(`${src.title}: interlinear, ${children.length} sections, ${segments} paragraphs`);
       continue;
@@ -188,11 +195,11 @@ for (const dir of DIRS) {
       const ref = [src.title, ...enPath.slice(1)].join(', ');
       const heRef = [src.heTitle, ...hePath.slice(1)].join(', ');
       if (depth === 1) {
-        fs.writeFileSync(path.join(bookDir, `${id}.json`), JSON.stringify(t));
+        writeFile(path.join(bookDir, `${id}.json`), JSON.stringify(t));
         segments += t.filter(s => String(s ?? '').trim()).length;
       } else {
         t.forEach((ch, i) => {
-          if (!isEmpty(ch)) fs.writeFileSync(path.join(bookDir, `${id}-${i + 1}.json`), JSON.stringify(ch));
+          if (!isEmpty(ch)) writeFile(path.join(bookDir, `${id}-${i + 1}.json`), JSON.stringify(ch));
           segments += [ch].flat(Infinity).filter(s => String(s ?? '').trim()).length;
         });
       }
@@ -203,7 +210,7 @@ for (const dir of DIRS) {
       if (part && depth === 1 && part.chapters['1']) {
         // A single-level node (e.g. "From Zohar"): its translated paragraphs replace the Hebrew file.
         const items = connect(slug, ref, ' ', part.chapters['1']);
-        fs.writeFileSync(path.join(bookDir, `${id}.json`), JSON.stringify(items));
+        writeFile(path.join(bookDir, `${id}.json`), JSON.stringify(items));
         leaf.il1 = true;
         leaf.shape = Math.max(leaf.shape, items.filter(i => i.p).length);
         console.log(`  ${ref}: interlinear`);
@@ -220,7 +227,7 @@ for (const dir of DIRS) {
             if (typeof heb === 'string' && heb.trim()) lead.push({ p: [[heb, '']], n });
           }
           const items = [...lead, ...connect(slug, `${ref} ${k}`, ':', rawItems)];
-          fs.writeFileSync(path.join(bookDir, `${id}-${k}.json`), JSON.stringify(items));
+          writeFile(path.join(bookDir, `${id}-${k}.json`), JSON.stringify(items));
           while (shape.length < k) shape.push(0);
           shape[k - 1] = Math.max(1, items.filter(i => i.p).length);
           leaf.ilch.push(k);
@@ -241,21 +248,21 @@ for (const dir of DIRS) {
       source: (src.versionSource || src.versions?.[0]?.[1] || '').trim().split(/\s+/)[0],
       license: src.license && src.license !== 'unknown' ? src.license : '',
     };
-    fs.writeFileSync(path.join(bookDir, 'toc.json'), JSON.stringify({ title: src.title, he: src.heTitle, version, toc: root }));
+    writeFile(path.join(bookDir, 'toc.json'), JSON.stringify({ title: src.title, he: src.heTitle, version, toc: root }));
     const ilParts = [...PARTS.values()].some(p => p.book === src.title);
     catalog.push({ title: src.title, he: src.heTitle, slug, group, version, akiva: !!src.akiva, ilParts, segments });
     console.log(`${src.title}: ${leafId} node(s), ${segments} segments`);
   }
 }
-fs.writeFileSync(path.join(OUT, 'catalog.json'), JSON.stringify(catalog, null, 1));
+writeFile(path.join(OUT, 'catalog.json'), JSON.stringify(catalog, null, 1));
 let nLinks = 0;
 for (const [slug, bySection] of Object.entries(LINKS)) {
-  fs.writeFileSync(path.join(OUT, slug, 'links.json'), JSON.stringify(bySection));
+  writeFile(path.join(OUT, slug, 'links.json'), JSON.stringify(bySection));
   nLinks += Object.values(bySection).reduce((n, l) => n + l.length, 0);
 }
 fs.mkdirSync(path.join(OUT, 'cited'), { recursive: true });
-for (const [book, refs] of Object.entries(CITED)) fs.writeFileSync(path.join(OUT, 'cited', `${book}.json`), JSON.stringify(refs));
-fs.writeFileSync(path.join(OUT, 'cited', 'index.json'), JSON.stringify(Object.keys(CITED).sort()));
+for (const [book, refs] of Object.entries(CITED)) writeFile(path.join(OUT, 'cited', `${book}.json`), JSON.stringify(refs));
+writeFile(path.join(OUT, 'cited', 'index.json'), JSON.stringify(Object.keys(CITED).sort()));
 // Offline packs of Sefaria texts: every source the library cites, Tanakh, Shas.
 const localTitles = catalog.map(b => b.title);
 const cited = new Set();
@@ -264,11 +271,11 @@ for (const bySection of Object.values(LINKS)) for (const l of Object.values(bySe
 }
 fs.mkdirSync(path.join(OUT, 'packs'), { recursive: true });
 for (const [name, pack] of Object.entries(packs([...cited].sort()))) {
-  fs.writeFileSync(path.join(OUT, 'packs', `${name}.json`), JSON.stringify(pack));
+  writeFile(path.join(OUT, 'packs', `${name}.json`), JSON.stringify(pack));
   console.log(`Pack ${name}: ${pack.refs.length} texts`);
 }
 
-fs.writeFileSync(path.join(OUT, 'packs', 'index.json'), JSON.stringify([
+writeFile(path.join(OUT, 'packs', 'index.json'), JSON.stringify([
   ['Tanakh', TANAKH.map(([g, books]) => [g, books.map(b => b[0])])],
   ['Talmud Bavli', SHAS.map(([g, ts]) => [g, ts.map(t => t[0])])],
 ]));
@@ -284,7 +291,7 @@ walk(OUT);
 files.sort((a, b) => a[0].localeCompare(b[0]));
 const bytes = files.reduce((n, f) => n + f[1], 0);
 const version = files.reduce((h, [f, n]) => (h * 31 + n + f.length) % 2147483647, 7).toString(36);
-fs.writeFileSync(path.join(OUT, 'files.json'), JSON.stringify({ version, bytes, files: files.map(f => f[0]) }));
+writeFile(path.join(OUT, 'files.json'), JSON.stringify({ version, bytes, files: files.map(f => f[0]) }));
 // The whole library as one zip: downloadable as a file, and used by the web app
 // to save everything for offline reading in a single download.
 const { zipSync } = createRequire(import.meta.url)('../dist/library/vendor/fflate.min.js');
@@ -301,7 +308,7 @@ for (const [f] of files) entries['data/' + f] = fs.readFileSync(path.join(OUT, f
 const DL = path.join(OUT, '..', 'downloads');
 fs.mkdirSync(DL, { recursive: true });
 const zip = zipSync(entries, { level: 6 });
-fs.writeFileSync(path.join(DL, 'rav-tzadok-library.zip'), zip);
+writeFile(path.join(DL, 'rav-tzadok-library.zip'), zip);
 console.log(`Zip: downloads/rav-tzadok-library.zip, ${(zip.length / 1048576).toFixed(1)} MB`);
 console.log(`Offline package: ${files.length} files, ${(bytes / 1048576).toFixed(1)} MB, version ${version}`);
 console.log(`Connections: ${nLinks} citations from ${Object.keys(LINKS).length} books into ${Object.keys(CITED).length} cited books`);

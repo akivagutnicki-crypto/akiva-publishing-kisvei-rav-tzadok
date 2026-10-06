@@ -40,6 +40,7 @@ async function reader(oldContents, oldTexts) {
     assert.ok(result.he.every(x => !x.includes('[object Object]')), ref);
     if (oldTexts) assert.equal(result.phrases, null, ref);
     else {
+      assert.ok(result.phrases, ref);
       assert.equal(result.phrases.length, result.he.length, ref);
       assert.ok(result.en.every(x => typeof x === 'string'), ref);
       assert.ok(result.en.some(x => x.trim()), ref);
@@ -79,6 +80,21 @@ for (const [source, download] of [['Kometz_HaMincha_Part_1.docx', 'kometz-haminc
   ['Kometz_Part2_Complete.docx', 'kometz-haminchah-part-2.docx']])
   assert.deepEqual(fs.readFileSync('sources/akiva/docx/' + source), fs.readFileSync('dist/library/downloads/' + download));
 console.log('Kometz passed: 214 translated paragraphs, canonical navigation, 49 sources, exact Word downloads.');
+
+let resiseiParagraphs = 0, resiseiNotes = 0;
+for (let siman = 1; siman <= 58; siman++) {
+  const result = await kometzContext.resolveLocal(`Resisei Layla ${siman}`);
+  assert.ok(result.he.length && result.en.some(x => x.trim()));
+  assert.ok(result.he.every(x => typeof x === 'string' && !x.includes('[object Object]')));
+  resiseiParagraphs += result.he.length;
+  resiseiNotes += result.phrases.flat().reduce((n, pair) => n + pair.join('').split('class="footnote-marker"').length - 1, 0);
+}
+assert.equal(resiseiParagraphs, 149);
+assert.equal(resiseiNotes, 1359);
+assert.equal((await kometzContext.resolveLocal('Resisei Layla 58:7')).highlight, 'Resisei Layla 58:7');
+assert.deepEqual(fs.readFileSync('sources/akiva/docx/Resisei_Layla_Interlinear.docx'),
+  fs.readFileSync('dist/library/downloads/resisei-layla-interlinear.docx'));
+console.log('Resisei passed: 58 simanim, 149 seifim, 1359 expandable footnotes, exact Word download.');
 
 const sw = fs.readFileSync('dist/library/sw.js', 'utf8');
 const workerVersion = /const VERSION = '([^']+)'/.exec(sw)[1];
