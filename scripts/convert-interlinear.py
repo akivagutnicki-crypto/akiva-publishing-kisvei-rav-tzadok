@@ -124,12 +124,24 @@ def pairs_of(runs):
     Two layouts occur: bold Hebrew followed by plain English (" – ..."), or
     plain Hebrew followed by the English in parentheses.
     """
+    # Some Word imports retain literal Markdown rather than native bold runs.
+    # Its Hebrew delimiters, not incidental English parentheses, define pairs.
+    runs = markdown_links(runs)
+    markdown = markdown_pairs(runs)
+    if markdown is not None:
+        return markdown
     if any(r[1] for r in runs) and any(not r[1] and LAT.search(r[0]) for r in runs):
-        return bold_pairs(runs)
+        result = bold_pairs(runs)
+        if not mixed_hebrew(result):
+            return result
+        return dash_pairs(runs)
     text = ''.join(r[0] for r in runs)
     parens = len(re.findall(r'[\u05D0-\u05EA][^A-Za-z\u05D0-\u05EA]{0,4}\(\s*["\u201c\'\[]*[A-Za-z]', text))
     dashes = len(re.findall(r'[\u05D0-\u05EA][^A-Za-z\u05D0-\u05EA]{0,6}\s[\u2014\u2013-]\s', text))
-    return dash_pairs(runs) if dashes > parens else paren_pairs(runs)
+    result = dash_pairs(runs) if dashes > parens else paren_pairs(runs)
+    # Bare alternating phrases also occur, with parentheses used for notes.
+    # A note must never make the parser consume English as Hebrew body text.
+    return dash_pairs(runs) if mixed_hebrew(result) else result
 
 
 FOOTNOTES = {}  # footnote id -> (number shown, html) for the file being converted
@@ -170,6 +182,11 @@ def finish(pairs):
         h = h.replace('**', '')
         e = re.sub(r'\*([^*\n]+)\*', r'<i>\1</i>', e.replace('**', ''))
         h, e = notes_html(h), notes_html(e)
+        # A parenthetical Hebrew letter's numeric value can trail its English
+        # explanation. Keep that gloss with the explanation, not in a new row.
+        if not e and re.fullmatch(r'\([א-ת]\s*=\s*\d+\)\.?', h) and result and result[-1][1]:
+            result[-1][1] += ' ' + h
+            continue
         if h or e:
             result.append([h, e])
     return result
@@ -191,6 +208,39 @@ def bold_pairs(runs):
 
 HEB = re.compile(r'[\u05D0-\u05EA]')
 LAT = re.compile(r'[A-Za-z]')
+
+
+def mixed_hebrew(pairs):
+    return any(HEB.search(h) and re.search(r'[A-Za-z]{3}', re.sub(r'<[^>]+>', '', h))
+               for h, _ in pairs)
+
+
+def markdown_links(runs):
+    chars = [(c, b, i, l) for t, b, i, l in runs for c in t]
+    text = ''.join(c[0] for c in chars)
+    # Convert Markdown source links before recognizing phrase boundaries.
+    # Keep their visible labels and preserve the targets as hyperlink metadata.
+    for m in reversed(list(re.finditer(r'\[([^\]\n]+)\]\((https?://[^\s)]+)\)', text))):
+        label = [(c, b, i, m[2]) for c, b, i, _ in chars[m.start(1):m.end(1)]]
+        chars[m.start():m.end()] = label
+    return group(chars)
+
+
+def markdown_pairs(runs):
+    chars = [(c, b, i, l) for t, b, i, l in runs for c in t]
+    text = ''.join(c[0] for c in chars)
+    spans = [m for m in re.finditer(r'\*\*(.+?)\*\*', text, re.S) if HEB.search(m[1])]
+    if not spans:
+        return None
+    pairs = []
+    for k, m in enumerate(spans):
+        end = spans[k + 1].start() if k + 1 < len(spans) else len(chars)
+        he = chars[m.start(1):m.end(1)]
+        if k == 0:
+            he = chars[:m.start()] + he
+        en = chars[m.end():end]
+        pairs.append([group(he), group(en)])
+    return finish(pairs)
 
 
 def paren_pairs(runs):
@@ -576,7 +626,7 @@ def convert_part(path, z):
         if short and all(r[1] for r in runs if r[0].strip() and HEB.search(r[0])) and any(r[1] for r in runs):
             items.append({'h': re.sub(r'([א-ת׳״])([A-Z])', r'\1 — \2', text).rstrip(':')})
             continue
-        if not HEB.search(text) and re.match(r'^(The )?theme:', text, re.I):
+        if re.match(r'^(The )?theme:', text, re.I):
             items.append({'h': text}); continue
         if short and not HEB.search(text) and items and 'h' in items[-1]:
             items[-1]['h'] += ' — ' + text  # English line under a Hebrew heading (colophon)

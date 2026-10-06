@@ -3,7 +3,7 @@ import fs from 'node:fs';
 import vm from 'node:vm';
 
 const html = fs.readFileSync('dist/library/index.html', 'utf8');
-const edition = /\?edition=([^']+)/.exec(html)[1];
+const editionDataUrl = vm.runInNewContext(/const editionDataUrl = ([^\n]+);/.exec(html)[1]);
 const resolver = html.slice(html.indexOf('let CATALOG = []'), html.indexOf('const CAT_COLORS'));
 const root = 'dist/library/data/likkutei-maamarim/';
 const toc = JSON.parse(fs.readFileSync(root + 'toc.json', 'utf8'));
@@ -20,7 +20,7 @@ async function reader(oldContents, oldTexts) {
     gematria: String,
     fetch: async url => {
       requested.push(url);
-      assert.ok(url.endsWith('?edition=' + edition));
+      assert.equal(url, editionDataUrl(url.split('?')[0]));
       const path = url.split('?')[0];
       let data = path === 'data/catalog.json' ? [{title: toc.title, he: toc.he,
         slug: 'likkutei-maamarim', version: toc.version}]
@@ -135,3 +135,32 @@ async function worker(upgrade) {
 }
 await worker(true);
 await worker(false);
+
+// Imported Markdown and parenthetical glosses must stay out of the Hebrew field.
+let machParagraphs = 0, machPhrases = 0;
+for (let chapter = 1; chapter <= 21; chapter++) {
+  const result = await kometzContext.resolveLocal(`Machshavot Charutz ${chapter}`);
+  assert.ok(result.phrases);
+  result.phrases.forEach((phrases, i) => {
+    if (!result.en[i].trim()) return; // The original title and publication notices.
+    machParagraphs++; machPhrases += phrases.length;
+    for (const [he, en] of phrases) {
+      assert.ok(he.trim() && en.trim(), `Machshavot ${chapter}:${result.nums[i]}`);
+      assert.ok(!/[A-Za-z]{3}/.test(he.replace(/<[^>]+>/g, '')), he);
+      assert.ok(!/https?:\/\/|\]\(/.test(he + en), he);
+    }
+  });
+}
+assert.equal(machParagraphs, 203);
+assert.equal(machPhrases, 8555);
+const mach2 = await kometzContext.resolveLocal('Machshavot Charutz 2');
+assert.equal(mach2.phrases[0][0][1], 'Faith is the primary service of man');
+assert.ok(mach2.phrases[0].some(([he]) => he.includes('data-ref="Makkot 23b"')));
+const yisrael4 = await kometzContext.resolveLocal('Yisrael Kedoshim 4:1');
+assert.equal(yisrael4.phrases[0].length, 77);
+assert.equal(yisrael4.highlight, 'Yisrael Kedoshim 4:1');
+assert.equal(yisrael4.nums[1], 2);
+assert.ok(yisrael4.en[0].includes('if Yehudah were alive'));
+assert.ok(editionDataUrl('data/yisrael-kedoshim/0-4.json').endsWith('?edition=20261006-yisrael-4-opening'));
+assert.ok(editionDataUrl('data/machshavot-charutz/0-2.json').endsWith('?edition=20261006-machshavot-format'));
+console.log('Machshavot passed: 21 chapters, 203 translated paragraphs, 8555 phrase pairs, clean language fields and source links. Yisrael opening retained.');
