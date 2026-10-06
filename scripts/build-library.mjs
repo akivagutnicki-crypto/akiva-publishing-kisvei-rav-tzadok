@@ -15,6 +15,7 @@ import path from 'node:path';
 import { createRequire } from 'node:module';
 import { linkCitations, categoryOf, normalizeRef } from './citations.mjs';
 import { packs, TANAKH, SHAS } from './packs.mjs';
+import { linkLikkuteiCitations } from './likkutei-citations.mjs';
 
 const OUT = 'dist/library/data';
 // Akiva sources come first and replace a Sefaria export of the same title.
@@ -113,7 +114,8 @@ function connect(slug, sectionRef, sep, items) {
     if (!item.p) continue;
     k++;
     const anchor = sectionRef + sep + (item.n || k);
-    const norm = h => linkCitations(h).replace(/data-ref="([^"]+)"/g, (_, r) => `data-ref="${normalizeRef(r)}"`);
+    const norm = h => (slug === 'likkutei-maamarim' ? linkLikkuteiCitations(h) : linkCitations(h))
+      .replace(/data-ref="([^"]+)"/g, (_, r) => `data-ref="${normalizeRef(r)}"`);
     item.p = item.p.map(([he, en]) => [norm(he), norm(en)]);
     const refs = new Set();
     for (const [he, en] of item.p) for (const m of (he + en).matchAll(/data-ref="([^"]+)"/g)) refs.add(decode(m[1]));

@@ -229,7 +229,8 @@ export function categoryOf(ref) {
   const title = Object.keys(CATEGORY).filter(t => ref === t || ref.startsWith(t + ' ') || ref.startsWith(t + ','))
     .sort((a, b) => b.length - a.length)[0];
   if (title) return CATEGORY[title];
-  if (/^Zohar|^Tikkunei/.test(ref)) return 'Kabbalah';
+  if (/^Zohar|^Tikkunei|^Sefer Etz Chaim|^Pri Etz Chaim/.test(ref)) return 'Kabbalah';
+  if (/^Tanna DeBei Eliyahu/.test(ref)) return 'Midrash';
   if (/^(Rashi|Tosafot|Ramban|Ibn Ezra|Maharsha)/.test(ref)) return 'Commentary';
   if (/^Mishneh Torah|^Shulchan/.test(ref)) return 'Halakhah';
   if (/Rabbah|Tanchuma|Midrash|Sifrei|Sifra|Mekhilta|Yalkut/.test(ref)) return 'Midrash';

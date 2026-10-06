@@ -164,6 +164,11 @@ body.panel-open .text{max-width:860px}
 .seg .missing{color:var(--faint);font:italic 400 calc(1.05rem * var(--fs)) var(--en)}
 /* layout modes */
 .text[data-lang="he"] .seg-en,.text[data-lang="en"] .seg-he{display:none}
+.transcription-note{margin:0 0 28px;padding:0 12px;font:.82rem/1.55 var(--ui);color:var(--muted)}
+.transcription-note summary{cursor:pointer}
+.text[data-lang="bi"] .transcription-note summary .note-he{margin-inline-start:.6em}
+.transcription-note .note-he{font-family:var(--he);direction:rtl}
+.text[data-lang="he"] .note-en,.text[data-lang="en"] .note-he{display:none}
 .text[data-lang="bi"][data-layout="side"] .seg{grid-template-columns:1fr 1fr}
 .text[data-lang="bi"][data-layout="side"] .seg-he{order:2}
 .text[data-lang="bi"][data-layout="side"] .seg-en{order:1}
@@ -457,22 +462,25 @@ async function resolveLocal(ref) {
   const all = leaves.flatMap(l => sectionsOf(l).map(a => secRefOf(l, a)));
   const sectionRef = secRefOf(leaf, addr), k = all.indexOf(sectionRef);
   const sep = leaf.sep || (secLen ? ':' : ' ');
-  let he = Array.isArray(text) ? text : [text], en = [], phrases = null, heads = null, tables = null;
+  let he = Array.isArray(text) ? text : [text], en = [], phrases = null, heads = null, tables = null, transcriptionNotes = null;
   const il = leaf.interlinear || leaf.il1 || (leaf.ilch && leaf.ilch.includes(addr[0]));
   let nums = null;
   if (il) { // items: {p: [[he, en], ...], n?} paragraphs and {h: title} subheadings
-    phrases = []; heads = {}; tables = {}; nums = [];
+    phrases = []; heads = {}; tables = {}; nums = []; transcriptionNotes = {};
     text.forEach(it => {
       if (it.h) (heads[phrases.length] = heads[phrases.length] || []).push(it.h);
       else if (it.table) (tables[phrases.length] = tables[phrases.length] || []).push(it.table);
-      else if (it.p) { phrases.push(it.p); nums.push(it.n || nums.length + 1); }
+      else if (it.p) {
+        if (it.transcriptionNotes?.length) transcriptionNotes[phrases.length] = it.transcriptionNotes;
+        phrases.push(it.p); nums.push(it.n || nums.length + 1);
+      }
     });
     he = phrases.map(ps => ps.map(x => x[0]).join(' '));
     en = phrases.map(ps => ps.map(x => x[1]).join(' '));
   }
   return {
     local: true, ref: sectionRef, sectionRef, heRef: leaf.interlinear ? leaf.heRef : heSecRefOf(leaf, addr), book: book.title, heBook: book.he,
-    he, en, phrases, heads, tables, nums, chapterLinks: !!il, title: leaf.interlinear ? {en: leaf.en, he: leaf.he} : null,
+    he, en, phrases, heads, tables, nums, transcriptionNotes, chapterLinks: !!il, title: leaf.interlinear ? {en: leaf.en, he: leaf.he} : null,
     segmentLevel: false, sep, highlight: segment ? `${sectionRef}${sep}${segment}` : null,
     next: all[k + 1] || null, prev: k > 0 ? all[k - 1] : null,
     versions: [il && !leaf.interlinear ? {title: 'Akiva Publishing interlinear edition', lang: 'Hebrew with interlinear English', source: '', license: '© Akiva Publishing'}
@@ -933,6 +941,7 @@ function appendSection(d) {
       <div class="seg-he" lang="he" dir="rtl">${h}</div>
       <div class="seg-en" lang="en">${e}</div>${il}
     </div>`;
+    if (d.transcriptionNotes?.[i]) html += `<details class="transcription-note"><summary><span class="note-en">Source transcription notes</span><span class="note-he" lang="he">הֶעָרוֹת לַנּוּסָח</span></summary><p class="note-en">${esc(d.transcriptionNotes[i].join(' '))}</p><p class="note-he" lang="he">הַנּוּסָח נִשְׁמַר כַּתַּעֲתִיק. קְרִיאוֹת אוֹ רָאשֵׁי תֵּבוֹת שֶׁאֵינָם בְּרוּרִים נִשְׁמְרוּ, וְהַמַּשְׁמָעוּת בַּתַּרְגּוּם נִקְבְּעָה לְפִי הַהֶקְשֵׁר.</p></details>`;
   }
   if (d.heads && d.heads[n]) html += d.heads[n].map(subhead).join('');
   if (d.tables && d.tables[n]) html += d.tables[n].map(sourceTable).join('');
