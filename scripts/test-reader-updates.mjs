@@ -66,7 +66,7 @@ for (const [volume, chapters] of [[1, 115], [2, 79]]) {
     assert.ok(result.he.every(x => typeof x === 'string' && !x.includes('[object Object]')));
     if (volume === 2 && chapter === 79) {
       assert.equal(result.he.length, 20);
-      assert.ok(result.en.every(x => !x));
+      assert.ok(result.en.every(x => x.trim()));
       assert.equal(result.tables[20][0].rows.length, 49);
     } else assert.ok(result.en.some(x => x.trim()));
     kometzParagraphs += result.he.length;
@@ -76,9 +76,9 @@ assert.equal(kometzParagraphs, 214);
 assert.equal((await kometzContext.resolveLocal('Kometz HaMinchah 1:115')).next, 'Kometz HaMinchah 2:1');
 assert.equal((await kometzContext.resolveLocal('Kometz HaMinchah 2:79:20')).highlight, 'Kometz HaMinchah 2:79:20');
 for (const [source, download] of [['Kometz_HaMincha_Part_1.docx', 'kometz-haminchah-part-1.docx'],
-  ['Kometz_Hamincha_Part_2.docx', 'kometz-haminchah-part-2.docx']])
+  ['Kometz_Part2_Complete.docx', 'kometz-haminchah-part-2.docx']])
   assert.deepEqual(fs.readFileSync('sources/akiva/docx/' + source), fs.readFileSync('dist/library/downloads/' + download));
-console.log('Kometz passed: 214 paragraphs, canonical navigation, 49 sources, exact Word downloads.');
+console.log('Kometz passed: 214 translated paragraphs, canonical navigation, 49 sources, exact Word downloads.');
 
 const sw = fs.readFileSync('dist/library/sw.js', 'utf8');
 const workerVersion = /const VERSION = '([^']+)'/.exec(sw)[1];
