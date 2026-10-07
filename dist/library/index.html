@@ -681,7 +681,7 @@ async function renderHome() {
     el.innerHTML = ix.map(([name, groups]) => `<div>${groups.map(([g, books]) => `<div class="src-group"><h4>${esc(name)} · ${esc(g)}</h4>${books.map(b => `<a href="#/book/${toHash(b)}">${esc(b)}</a>`).join('')}</div>`).join('')}</div>`).join('');
   }).catch(() => {});
 }
-const credit = () => `<div class="page" style="padding-top:0"><div class="credit">Hebrew texts are digitized editions from the <a href="https://www.sefaria.org" target="_blank" rel="noopener">Sefaria</a> library (sources listed under About on each text). English translations and connections are loaded live from Sefaria and are used under each version's license; some are community translations. The Akiva Publishing interlinear editions, including the vocalized Hebrew, are © Akiva Publishing.</div></div>`;
+const credit = () => `<div class="page" style="padding-top:0"><div class="credit">Hebrew texts are digitized editions from the <a href="https://www.sefaria.org" target="_blank" rel="noopener">Sefaria</a> library (sources listed under About on each text). English translations and connections are loaded live from Sefaria and are used under each version's license; some are community translations. The Akiva Publishing interlinear editions, including the vocalized Hebrew, are © Akiva Publishing. <a href="/library/privacy/">Privacy policy</a>.</div></div>`;
 
 /* ======================= Book / TOC ======================= */
 async function renderBook(title) {
