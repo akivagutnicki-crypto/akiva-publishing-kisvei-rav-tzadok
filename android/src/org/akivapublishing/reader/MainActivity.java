@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.text.TextUtils;
 import android.util.Base64;
 import android.view.Gravity;
 import android.view.KeyEvent;
@@ -82,9 +83,10 @@ public final class MainActivity extends Activity {
         back.setOnClickListener(v -> goBack());
         toolbar.addView(back, new LinearLayout.LayoutParams(dp(48), -1));
         TextView title = new TextView(this);
-        title.setText("Akiva Publishing"); title.setTextColor(Color.WHITE); title.setTextSize(16);
+        title.setText(R.string.app_name); title.setTextColor(Color.WHITE); title.setTextSize(16);
+        title.setSingleLine(true); title.setEllipsize(TextUtils.TruncateAt.END);
         title.setGravity(Gravity.CENTER_VERTICAL);
-        title.setContentDescription("Akiva Publishing. Tap to open the library.");
+        title.setContentDescription(getString(R.string.app_name) + ". Tap to open the library.");
         title.setOnClickListener(v -> reader.loadUrl(HOME + "#/"));
         toolbar.addView(title, new LinearLayout.LayoutParams(0, -1, 1));
         Button more = toolbarButton("⋮", "Reader menu");
@@ -119,7 +121,7 @@ public final class MainActivity extends Activity {
         s.setAllowFileAccess(false); s.setAllowContentAccess(false);
         s.setMixedContentMode(WebSettings.MIXED_CONTENT_NEVER_ALLOW);
         s.setSupportMultipleWindows(true); s.setJavaScriptCanOpenWindowsAutomatically(false);
-        s.setUserAgentString(s.getUserAgentString() + " AkivaPublishingAndroid/1.0.1");
+        s.setUserAgentString(s.getUserAgentString() + " AkivaPublishingAndroid/1.0.2");
         if (Build.VERSION.SDK_INT >= 26) s.setSafeBrowsingEnabled(true);
         CookieManager.getInstance().setAcceptCookie(true);
         CookieManager.getInstance().setAcceptThirdPartyCookies(reader, false);
@@ -271,7 +273,7 @@ public final class MainActivity extends Activity {
                 case "Refresh": reader.reload(); break;
                 case "Share reading link":
                     Intent share = new Intent(Intent.ACTION_SEND).setType("text/plain")
-                        .putExtra(Intent.EXTRA_TEXT, currentUrl()).putExtra(Intent.EXTRA_SUBJECT, "Akiva Publishing");
+                        .putExtra(Intent.EXTRA_TEXT, currentUrl()).putExtra(Intent.EXTRA_SUBJECT, getString(R.string.app_name));
                     startActivity(Intent.createChooser(share, "Share reading link")); break;
                 case "Open in browser": openExternal(Uri.parse(currentUrl())); break;
                 case "Privacy policy": reader.loadUrl(HOME + "privacy/"); break;
