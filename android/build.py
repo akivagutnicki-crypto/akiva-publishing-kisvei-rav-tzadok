@@ -42,7 +42,7 @@ def compile_apk(name, manifest, sources, resources=None, classpath=None):
     if resources:
         compiled = work / 'resources.zip'
         run(TOOLS / 'aapt2', 'compile', '--dir', resources, '-o', compiled)
-        link.extend(['-R', compiled])
+        link.append(compiled)
     run(*link)
     java = sorted(sources.rglob('*.java')) + sorted(generated.rglob('*.java'))
     javac = ['javac', '-source', '8', '-target', '8', '-bootclasspath', ANDROID, '-encoding', 'UTF-8', '-d', classes]
