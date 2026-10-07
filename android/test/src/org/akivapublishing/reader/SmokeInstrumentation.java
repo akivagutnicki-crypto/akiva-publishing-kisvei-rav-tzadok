@@ -47,8 +47,9 @@ public final class SmokeInstrumentation extends Instrumentation {
                 assertJs(expected > 980 ? "getComputedStyle(document.querySelector('#panel')).position==='sticky'"
                     : "getComputedStyle(document.querySelector('#panel')).position==='fixed'", "Adaptive connections layout");
                 screenshot(size[0]);
-                js("(closePanel(),true)");
+                runOnMainSync(() -> activity.onBackPressed());
                 waitFor("document.querySelector('#panel').hidden&&getComputedStyle(document.querySelector('#panel')).display==='none'", 15000);
+                assertJs("location.hash==='#/read/Tzidkat_HaTzadik_2'", "Native Back closes sources and keeps reading position");
             }
             // Reload the saved chapter with all WebView and worker network loads blocked.
             runOnMainSync(() -> {
@@ -61,7 +62,7 @@ public final class SmokeInstrumentation extends Instrumentation {
             assertJs("location.hash==='#/read/Tzidkat_HaTzadik_2'", "Offline reading route");
             screenshot("offline");
             result.putString("akiva.status", "passed");
-            result.putString("akiva.checks", "phone,tablet,laptop,landscape,resize-state,citations,connections,offline-reload");
+            result.putString("akiva.checks", "phone,tablet,laptop,landscape,resize-state,citations,connections,native-back,offline-reload");
             finish(Activity.RESULT_OK, result);
         } catch (Throwable error) {
             result.putString("akiva.status", "failed");

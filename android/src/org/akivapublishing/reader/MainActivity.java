@@ -119,7 +119,7 @@ public final class MainActivity extends Activity {
         s.setAllowFileAccess(false); s.setAllowContentAccess(false);
         s.setMixedContentMode(WebSettings.MIXED_CONTENT_NEVER_ALLOW);
         s.setSupportMultipleWindows(true); s.setJavaScriptCanOpenWindowsAutomatically(false);
-        s.setUserAgentString(s.getUserAgentString() + " AkivaPublishingAndroid/1.0.0");
+        s.setUserAgentString(s.getUserAgentString() + " AkivaPublishingAndroid/1.0.1");
         if (Build.VERSION.SDK_INT >= 26) s.setSafeBrowsingEnabled(true);
         CookieManager.getInstance().setAcceptCookie(true);
         CookieManager.getInstance().setAcceptThirdPartyCookies(reader, false);
@@ -139,8 +139,7 @@ public final class MainActivity extends Activity {
                 if (mainError || !isLibraryUrl(url)) return;
                 remember(url);
                 // Let the website recognize its installed Android context.
-                v.evaluateJavascript("Object.defineProperty(navigator,'standalone',{value:true,configurable:true});"
-                    + "if(typeof showInstall==='function')showInstall();", null);
+                v.evaluateJavascript("Object.defineProperty(navigator,'standalone',{value:true,configurable:true});", null);
             }
             @Override public void doUpdateVisitedHistory(WebView v, String url, boolean reload) {
                 remember(url);
@@ -244,9 +243,12 @@ public final class MainActivity extends Activity {
     @Override public void onBackPressed() { goBack(); }
 
     private void goBack() {
-        reader.evaluateJavascript("document.body.classList.contains('panel-open')", value -> {
-            if ("true".equals(value)) reader.evaluateJavascript("if(typeof closePanel==='function')closePanel()", null);
-            else if (reader.canGoBack()) reader.goBack(); else finish();
+        // The web reader keeps its functions inside a closure. Use its bound
+        // close control so the native Back action follows the same path as a tap.
+        reader.evaluateJavascript("(()=>{const panel=document.getElementById('panel');"
+            + "const close=document.getElementById('pClose');"
+            + "if(panel&&!panel.hidden&&close){close.click();return true;}return false;})()", value -> {
+            if (!"true".equals(value)) { if (reader.canGoBack()) reader.goBack(); else finish(); }
         });
     }
 
