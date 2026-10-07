@@ -1,0 +1,6 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android" package="org.akivapublishing.reader.test">
+    <uses-sdk android:minSdkVersion="24" android:targetSdkVersion="37" />
+    <application android:label="Akiva smoke tests" />
+    <instrumentation android:name="org.akivapublishing.reader.SmokeInstrumentation"
+        android:targetPackage="org.akivapublishing.reader" android:label="Adaptive reader smoke tests" />
+</manifest>
