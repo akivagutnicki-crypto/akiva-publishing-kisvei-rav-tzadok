@@ -38,8 +38,8 @@ jobs:
           retention-days: 14
           if-no-files-found: error
           path: |
-            android/build/akiva-publishing-1.0.1-unsigned.apk
-            android/build/akiva-publishing-1.0.1-unsigned.aab
+            android/build/akiva-publishing-*-unsigned.apk
+            android/build/akiva-publishing-*-unsigned.aab
             android/build/apksigner.jar
             android/build/aapt2
             android/build/zipalign
