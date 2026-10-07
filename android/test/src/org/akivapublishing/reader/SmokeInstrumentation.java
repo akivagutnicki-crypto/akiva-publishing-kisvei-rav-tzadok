@@ -36,6 +36,10 @@ public final class SmokeInstrumentation extends Instrumentation {
                 waitFor("innerWidth>=" + (expected - 80) + "&&innerWidth<=" + expected, 15000);
                 assertJs("location.hash==='#/read/Tzidkat_HaTzadik_2'", "Reading state survives resize");
                 assertJs("document.documentElement.scrollWidth<=innerWidth+2", size[0] + " has no horizontal overflow");
+                if ("phone".equals(size[0])) {
+                    waitFor("document.querySelector('#panel').hidden&&getComputedStyle(document.querySelector('#panel')).display==='none'", 15000);
+                    screenshot("phone-reading");
+                }
                 js("(document.querySelector('.seg').click(),true)");
                 waitFor("document.body.classList.contains('panel-open')", 15000);
                 waitFor("document.querySelector('#pContent .source-controls')!==null", 45000);
@@ -44,7 +48,7 @@ public final class SmokeInstrumentation extends Instrumentation {
                     : "getComputedStyle(document.querySelector('#panel')).position==='fixed'", "Adaptive connections layout");
                 screenshot(size[0]);
                 js("(closePanel(),true)");
-                if ("phone".equals(size[0])) screenshot("phone-reading");
+                waitFor("document.querySelector('#panel').hidden&&getComputedStyle(document.querySelector('#panel')).display==='none'", 15000);
             }
             // Reload the saved chapter with all WebView and worker network loads blocked.
             runOnMainSync(() -> {
