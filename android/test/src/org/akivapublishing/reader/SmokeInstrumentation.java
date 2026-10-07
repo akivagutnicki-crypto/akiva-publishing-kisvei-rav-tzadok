@@ -93,6 +93,16 @@ public final class SmokeInstrumentation extends Instrumentation {
         throw new AssertionError("Condition timed out: " + expression);
     }
     private void screenshot(String name) throws Exception {
+        CountDownLatch painted = new CountDownLatch(1);
+        runOnMainSync(() -> {
+            activity.getWindow().getDecorView().invalidate();
+            activity.reader.postVisualStateCallback(System.nanoTime(), new android.webkit.WebView.VisualStateCallback() {
+                @Override public void onComplete(long request) { activity.reader.invalidate(); painted.countDown(); }
+            });
+        });
+        if (!painted.await(15, TimeUnit.SECONDS)) throw new AssertionError("WebView paint timed out");
+        // Allow the emulator's display-resize transition surface to disappear.
+        Thread.sleep(3000); waitForIdleSync();
         File directory = new File(getTargetContext().getExternalFilesDir(null), "smoke-screenshots");
         directory.mkdirs();
         Bitmap image = getUiAutomation().takeScreenshot();
