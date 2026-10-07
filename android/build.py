@@ -45,9 +45,8 @@ def compile_apk(name, manifest, sources, resources=None, classpath=None):
         link.append(compiled)
     run(*link)
     java = sorted(sources.rglob('*.java')) + sorted(generated.rglob('*.java'))
-    javac = ['javac', '-source', '8', '-target', '8', '-bootclasspath', ANDROID, '-encoding', 'UTF-8', '-d', classes]
-    if classpath:
-        javac.extend(['-classpath', classpath])
+    compile_classpath = str(ANDROID) + (os.pathsep + str(classpath) if classpath else '')
+    javac = ['javac', '--release', '8', '-classpath', compile_classpath, '-encoding', 'UTF-8', '-d', classes]
     run(*javac, *java)
     jar = work / 'classes.jar'; class_jar(classes, jar)
     d8 = [TOOLS / 'd8', '--release', '--min-api', '24', '--lib', ANDROID, '--output', dex]
