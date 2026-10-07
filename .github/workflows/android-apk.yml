@@ -1,4 +1,4 @@
-name: Android universal APK
+name: Android App Bundle and universal APK
 on:
   push:
     branches: [main, android/universal-apk]
@@ -12,7 +12,7 @@ jobs:
     timeout-minutes: 25
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
-      - name: Compile universal APK and instrumentation
+      - name: Compile and validate Play bundle, APK, and instrumentation
         run: |
           export JAVA_HOME="$JAVA_HOME_17_X64"
           export PATH="$JAVA_HOME/bin:$PATH"
@@ -30,7 +30,7 @@ jobs:
           disable-animations: true
           emulator-options: -no-window -no-audio -no-boot-anim -gpu swiftshader_indirect -camera-back none -camera-front none
           script: bash android/test-device.sh
-      - name: Preserve APK, verifier, and test evidence
+      - name: Preserve app bundle, APK, verifier, and test evidence
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
@@ -38,7 +38,8 @@ jobs:
           retention-days: 14
           if-no-files-found: error
           path: |
-            android/build/akiva-publishing-1.0.0-unsigned.apk
+            android/build/akiva-publishing-1.0.1-unsigned.apk
+            android/build/akiva-publishing-1.0.1-unsigned.aab
             android/build/apksigner.jar
             android/build/aapt2
             android/build/zipalign

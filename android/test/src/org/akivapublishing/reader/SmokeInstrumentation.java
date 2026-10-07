@@ -28,7 +28,7 @@ public final class SmokeInstrumentation extends Instrumentation {
             assertJs("location.hash==='#/read/Tzidkat_HaTzadik_2'", "Tzidkas reading route");
             assertJs("document.querySelectorAll('a.cite').length>0", "Sefaria citations");
             waitFor("!!navigator.serviceWorker.controller", 60000);
-            String[][] sizes = {{"phone", "360x800"}, {"tablet", "800x1280"},
+            String[][] sizes = {{"phone", "400x800"}, {"tablet", "800x1280"},
                 {"laptop", "1280x800"}, {"phone-landscape", "800x360"}};
             for (String[] size : sizes) {
                 shell("wm size " + size[1]);
@@ -44,6 +44,7 @@ public final class SmokeInstrumentation extends Instrumentation {
                     : "getComputedStyle(document.querySelector('#panel')).position==='fixed'", "Adaptive connections layout");
                 screenshot(size[0]);
                 js("(closePanel(),true)");
+                if ("phone".equals(size[0])) screenshot("phone-reading");
             }
             // Reload the saved chapter with all WebView and worker network loads blocked.
             runOnMainSync(() -> {

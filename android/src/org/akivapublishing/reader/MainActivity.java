@@ -219,7 +219,8 @@ public final class MainActivity extends Activity {
     }
 
     private void remember(String url) {
-        if (isLibraryUrl(url)) getPreferences(MODE_PRIVATE).edit().putString("lastUrl", url).apply();
+        if (isLibraryUrl(url) && !Uri.parse(url).getPath().startsWith("/library/privacy"))
+            getPreferences(MODE_PRIVATE).edit().putString("lastUrl", url).apply();
     }
 
     private String intentUrl(Intent intent) {
@@ -259,7 +260,7 @@ public final class MainActivity extends Activity {
 
     private void showMenu(View anchor) {
         PopupMenu menu = new PopupMenu(this, anchor);
-        for (String label : new String[]{"Library", "Find in text", "Refresh", "Share reading link", "Open in browser"})
+        for (String label : new String[]{"Library", "Find in text", "Refresh", "Share reading link", "Open in browser", "Privacy policy"})
             menu.getMenu().add(label);
         menu.setOnMenuItemClickListener(item -> {
             switch (item.getTitle().toString()) {
@@ -271,6 +272,7 @@ public final class MainActivity extends Activity {
                         .putExtra(Intent.EXTRA_TEXT, currentUrl()).putExtra(Intent.EXTRA_SUBJECT, "Akiva Publishing");
                     startActivity(Intent.createChooser(share, "Share reading link")); break;
                 case "Open in browser": openExternal(Uri.parse(currentUrl())); break;
+                case "Privacy policy": reader.loadUrl(HOME + "privacy/"); break;
             }
             return true;
         });
