@@ -1,0 +1,48 @@
+name: Android App Bundle and universal APK
+on:
+  push:
+    branches: [main, android/universal-apk]
+    paths: ['android/**', '.github/workflows/android-apk.yml']
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  build-and-test:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
+      - name: Compile and validate Play bundle, APK, and instrumentation
+        run: |
+          export JAVA_HOME="$JAVA_HOME_17_X64"
+          export PATH="$JAVA_HOME/bin:$PATH"
+          python3 android/build.py
+      - name: Enable emulator acceleration
+        run: |
+          sudo chmod 666 /dev/kvm
+      - name: Test phone, tablet, laptop, rotation, and offline reading
+        uses: reactivecircus/android-emulator-runner@a421e43855164a8197daf9d8d40fe71c6996bb0d # v2
+        with:
+          api-level: 35
+          target: google_apis
+          arch: x86_64
+          profile: pixel_2
+          disable-animations: true
+          emulator-options: -no-window -no-audio -no-boot-anim -gpu swiftshader_indirect -camera-back none -camera-front none
+          script: bash android/test-device.sh
+      - name: Preserve app bundle, APK, verifier, and test evidence
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: akiva-android-build
+          retention-days: 14
+          if-no-files-found: error
+          path: |
+            android/build/akiva-publishing-1.0.1-unsigned.apk
+            android/build/akiva-publishing-1.0.1-unsigned.aab
+            android/build/apksigner.jar
+            android/build/aapt2
+            android/build/zipalign
+            android/build/smoke-results.txt
+            android/build/device-log.txt
+            android/build/screenshots/
