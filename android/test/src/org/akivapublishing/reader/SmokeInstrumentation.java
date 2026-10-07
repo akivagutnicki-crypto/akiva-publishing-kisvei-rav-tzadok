@@ -61,8 +61,9 @@ public final class SmokeInstrumentation extends Instrumentation {
             waitFor("document.querySelectorAll('.ph-he').length>0", 45000);
             assertJs("location.hash==='#/read/Tzidkat_HaTzadik_2'", "Offline reading route");
             screenshot("offline");
+            captureStoreScreenshots();
             result.putString("akiva.status", "passed");
-            result.putString("akiva.checks", "phone,tablet,laptop,landscape,resize-state,citations,connections,native-back,offline-reload");
+            result.putString("akiva.checks", "phone,tablet,laptop,landscape,resize-state,citations,connections,native-back,offline-reload,store-captures");
             finish(Activity.RESULT_OK, result);
         } catch (Throwable error) {
             result.putString("akiva.status", "failed");
@@ -70,6 +71,52 @@ public final class SmokeInstrumentation extends Instrumentation {
             android.util.Log.e("AkivaSmoke", "Smoke test failed", error);
             try { screenshot("failure"); } catch (Throwable ignored) {}
             finish(Activity.RESULT_CANCELED, result);
+        }
+    }
+
+
+    /** Capture the installed app at exact Play listing sizes, without image scaling. */
+    private void captureStoreScreenshots() throws Exception {
+        runOnMainSync(() -> {
+            activity.reader.getSettings().setBlockNetworkLoads(false);
+            android.webkit.ServiceWorkerController.getInstance().getServiceWorkerWebSettings().setBlockNetworkLoads(false);
+        });
+        String[][] profiles = {
+            {"phone", "1080x1920", "480", "360"},
+            {"tablet-7", "1080x1920", "240", "720"},
+            {"tablet-10", "1920x1080", "240", "1280"},
+            {"desktop", "1920x1080", "160", "1920"}
+        };
+        for (String[] profile : profiles) {
+            // Density changes recreate activities, so launch after configuring the display.
+            runOnMainSync(() -> activity.finish());
+            waitForIdleSync();
+            shell("wm density " + profile[2]);
+            shell("wm size " + profile[1]);
+            Intent intent = new Intent(getTargetContext(), MainActivity.class)
+                .setAction(Intent.ACTION_VIEW).setData(Uri.parse(MainActivity.HOME + "#/read/Tzidkat_HaTzadik_2"))
+                .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            activity = (MainActivity) startActivitySync(intent);
+            waitFor("document.querySelectorAll('.ph-he').length>0", 90000);
+            int expectedCssWidth = Integer.parseInt(profile[3]);
+            waitFor("innerWidth>=" + (expectedCssWidth - 80) + "&&innerWidth<=" + expectedCssWidth, 15000);
+            assertJs("document.documentElement.scrollWidth<=innerWidth+2", profile[0] + " store layout has no horizontal overflow");
+            String prefix = "store-" + profile[0] + "-";
+            screenshot(prefix + "01-reading");
+            js("(document.querySelector('.seg').click(),true)");
+            waitFor("document.body.classList.contains('panel-open')", 15000);
+            waitFor("document.querySelector('#pContent .source-controls')!==null", 45000);
+            assertJs("document.querySelectorAll('#pContent .cat').length>0", "Store source connections are populated");
+            screenshot(prefix + "02-connections");
+            runOnMainSync(() -> activity.onBackPressed());
+            waitFor("document.querySelector('#panel').hidden", 15000);
+            js("(document.querySelector('#setBtn').click(),true)");
+            waitFor("!document.querySelector('#settings').hidden", 15000);
+            screenshot(prefix + "03-settings");
+            js("(location.hash='#/',true)");
+            waitFor("document.querySelectorAll('.books .book').length>0", 45000);
+            assertJs("document.documentElement.scrollWidth<=innerWidth+2", profile[0] + " library has no horizontal overflow");
+            screenshot(prefix + "04-library");
         }
     }
 
@@ -113,6 +160,7 @@ public final class SmokeInstrumentation extends Instrumentation {
         directory.mkdirs();
         Bitmap image = getUiAutomation().takeScreenshot();
         if (image == null) throw new AssertionError("No screenshot");
+        image.setHasAlpha(false);
         try (FileOutputStream out = new FileOutputStream(new File(directory, name + ".png"))) {
             image.compress(Bitmap.CompressFormat.PNG, 100, out);
         }
