@@ -21,11 +21,11 @@ public final class SmokeInstrumentation extends Instrumentation {
         try {
             shell("wm density 160"); shell("wm size 360x800");
             Intent intent = new Intent(getTargetContext(), MainActivity.class)
-                .setAction(Intent.ACTION_VIEW).setData(Uri.parse(MainActivity.HOME + "#/read/Tzidkat_HaTzadik_1"))
+                .setAction(Intent.ACTION_VIEW).setData(Uri.parse(MainActivity.HOME + "#/read/Tzidkat_HaTzadik_2"))
                 .addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             activity = (MainActivity) startActivitySync(intent);
             waitFor("document.querySelectorAll('.ph-he').length>0", 90000);
-            assertJs("location.hash==='#/read/Tzidkat_HaTzadik_1'", "Tzidkas reading route");
+            assertJs("location.hash==='#/read/Tzidkat_HaTzadik_2'", "Tzidkas reading route");
             assertJs("document.querySelectorAll('a.cite').length>0", "Sefaria citations");
             waitFor("!!navigator.serviceWorker.controller", 60000);
             String[][] sizes = {{"phone", "360x800"}, {"tablet", "800x1280"},
@@ -34,7 +34,7 @@ public final class SmokeInstrumentation extends Instrumentation {
                 shell("wm size " + size[1]);
                 int expected = Integer.parseInt(size[1].split("x")[0]);
                 waitFor("innerWidth>=" + (expected - 80) + "&&innerWidth<=" + expected, 15000);
-                assertJs("location.hash==='#/read/Tzidkat_HaTzadik_1'", "Reading state survives resize");
+                assertJs("location.hash==='#/read/Tzidkat_HaTzadik_2'", "Reading state survives resize");
                 assertJs("document.documentElement.scrollWidth<=innerWidth+2", size[0] + " has no horizontal overflow");
                 js("(document.querySelector('.seg').click(),true)");
                 waitFor("document.body.classList.contains('panel-open')", 15000);
@@ -53,7 +53,7 @@ public final class SmokeInstrumentation extends Instrumentation {
             });
             Thread.sleep(1000);
             waitFor("document.querySelectorAll('.ph-he').length>0", 45000);
-            assertJs("location.hash==='#/read/Tzidkat_HaTzadik_1'", "Offline reading route");
+            assertJs("location.hash==='#/read/Tzidkat_HaTzadik_2'", "Offline reading route");
             screenshot("offline");
             result.putString("akiva.status", "passed");
             result.putString("akiva.checks", "phone,tablet,laptop,landscape,resize-state,citations,connections,offline-reload");
