@@ -3,7 +3,7 @@
 // - Texts (data/) are served from cache and refreshed in the background.
 // - Sefaria API answers (English, connections, quoted sources) are network-first
 //   with the last answer kept for offline use; web fonts are cache-first.
-const VERSION = 'v14';
+const VERSION = 'v15';
 const SHELL = `rtl-shell-${VERSION}`;
 const DATA = 'rtl-data';
 const EXTERNAL = 'rtl-external';
@@ -81,7 +81,7 @@ self.addEventListener('fetch', event => {
       event.respondWith(networkFirst(request, SHELL, 5000).catch(() => caches.match('./index.html')));
     } else if (rel.startsWith('downloads/')) {
       return; // large zip: straight from the network, not cached
-    } else if (/^data\/(?:catalog\.json|files\.json|cited\/index\.json|[^/]+\/toc\.json)$/.test(rel) || /^data\/(?:likkutei-maamarim|ohr-zarua-latzadik|poked-akarim|sefer-hazikhronot|yisrael-kedoshim|machshavot-charutz)\//.test(rel)) {
+    } else if (/^data\/(?:catalog\.json|files\.json|cited\/index\.json|[^/]+\/toc\.json)$/.test(rel) || /^data\/(?:likkutei-maamarim|ohr-zarua-latzadik|poked-akarim|sefer-hazikhronot|yisrael-kedoshim|machshavot-charutz|tzidkat-hatzadik)\//.test(rel)) {
       // Contents and manifests must reflect newly added editions immediately.
       event.respondWith(networkFirst(request, DATA));
     } else if (rel.startsWith('data/')) {

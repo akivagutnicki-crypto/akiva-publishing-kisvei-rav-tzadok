@@ -402,7 +402,7 @@ const info = t => INFO[t] || {};
 let CATALOG = [];
 // Edition URLs keep older installed app caches from mixing Hebrew-only data
 // with the new interlinear contents. The service worker also accepts saved packs.
-const editionDataUrl = url => url.startsWith('data/') ? url + (url.startsWith('data/yisrael-kedoshim/') ? '?edition=20261006-yisrael-4-opening' : url.startsWith('data/machshavot-charutz/') ? '?edition=20261006-machshavot-format' : '?edition=20261006-resisei-complete') : url;
+const editionDataUrl = url => url.startsWith('data/') ? url + (url.startsWith('data/yisrael-kedoshim/') ? '?edition=20261006-yisrael-4-opening' : url.startsWith('data/machshavot-charutz/') ? '?edition=20261006-machshavot-format' : url.startsWith('data/tzidkat-hatzadik/') || /^data\/(?:catalog\.json|files\.json|cited\/)/.test(url) ? '?edition=20261007-tzidkat-complete' : '?edition=20261006-resisei-complete') : url;
 const catalogReady = fetch(editionDataUrl('data/catalog.json')).then(r => r.ok ? r.json() : []).catch(() => []).then(c => { CATALOG = c; return c; });
 const localBook = t => CATALOG.find(b => b.title === t);
 const tocCache = new Map();
@@ -1038,7 +1038,7 @@ const slugify = t => t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/
 const bookOfRef = ref => ref.replace(/\s+\d[\dab:\-–]*$/, '');
 const localJSON = new Map();
 function dataJSON(path) {
-  if (!localJSON.has(path)) localJSON.set(path, fetch('data/' + path).then(r => r.ok ? r.json() : null).catch(() => null));
+  if (!localJSON.has(path)) localJSON.set(path, fetch(editionDataUrl('data/' + path)).then(r => r.ok ? r.json() : null).catch(() => null));
   return localJSON.get(path);
 }
 const asLink = (anchorRef, sourceRef, category) => ({anchorRef, sourceRef, sourceHeRef: '', category,
