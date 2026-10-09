@@ -255,42 +255,105 @@ for (const dir of DIRS) {
       : build(null, src.text, [src.title], [src.heTitle]);
     root.en = src.title; root.he = src.heTitle;
 
-    // Add the uploaded Akiva Publishing study translations *inside* the
-    // existing work, preserving the canonical Hebrew Sefaria text and TOC.
-    // The translation sections are distinct reader leaves rather than a
-    // replacement for Hebrew paragraphs elsewhere in the work.
+    // True phrase-by-phrase study editions. The OCR extraction supplies the
+    // boundaries/English, while the original Sefaria manuscript supplies clean,
+    // correctly ordered Hebrew. Do not append a whole Hebrew block before a
+    // whole English translation (that is not interlinear).
     const edition = EDITIONS.get(src.title);
     if (edition) {
-      const leaves = [];
-      for (let j = 0; j < edition.sections.length; j++) {
-        const sec = edition.sections[j];
-        const node = src.text?.[sec.node];
-        const original = sec.chapter && Array.isArray(node) ? node[sec.chapter - 1] : '';
-        const hebrew = typeof original === 'string' ? original
-          : Array.isArray(original) ? original.filter(x => typeof x === 'string').join(' ') : '';
-        const canonical = !sec.node.startsWith('Editorial supplement:');
-        if (canonical && !hebrew) console.warn('Missing original Hebrew for', src.title, sec.node, sec.chapter);
-        const items = [{ h: sec.title }, { h: '\n' + sec.summary }];
-        if (hebrew) items.push({ p: [[hebrew, '']], n: 1 });
-        for (const topic of sec.topics || []) {
-          if (topic.h && topic.h !== 'Opening Text') items.push({ h: topic.h });
-          if (topic.en) items.push({ p: [['', escapeHtml(topic.en)]], n: 1 });
+      const heLetters = s => (String(s || '').match(/[\u05d0-\u05ea]/g) || []).length;
+      const originalHebrew = (node, chapter) => {
+        const t = src.text?.[node];
+        const selected = chapter && Array.isArray(t) ? t[chapter - 1] : t;
+        const strings = Array.isArray(selected) ? selected.flat(Infinity) : [selected];
+        return strings.filter(x => typeof x === 'string').join(' ')
+          .replace(/<[^>]*>/g, ' ').replace(/&nbsp;/g, ' ')
+          .replace(/&amp;/g, '&').replace(/\s+/g, ' ').trim();
+      };
+      const mapSection = sec => {
+        if (src.title === 'Peri Tzadik' && /^Editorial supplement:/.test(sec.node)) {
+          if (/Motzaei Shabbat and the Sixfold/.test(sec.title)) return {node:'Bereshit', chapter:15};
+          if (/Eliyahu and the Hope/.test(sec.title)) return {node:'Noach', chapter:10};
         }
-        const ref = canonical ? src.title + ', ' + sec.node + (['Bereshit', 'Noach'].includes(sec.node) ? ' ' + sec.chapter : '')
-          : src.title + ', Akiva Study Edition ' + (j + 1);
+        return {node:sec.node, chapter:sec.chapter};
+      };
+      const groups = new Map();
+      for (const sec of edition.sections) {
+        const addr = mapSection(sec);
+        const key = addr.node + '|' + (addr.chapter || '');
+        if (!groups.has(key)) groups.set(key, {...addr, sections:[]});
+        groups.get(key).sections.push(sec);
+      }
+      // Split the original Hebrew at word boundaries in the same sequence as
+      // the English phrase divisions. This avoids the reversed letters and
+      // vowels produced by extracting Hebrew from PDF-page text.
+      function alignOriginalHebrew(original, inputPairs) {
+        if (!original || heLetters(original) < 20) return inputPairs.map(([he,en]) => [he,en]);
+        const letters = [];
+        for (let i = 0; i < original.length; i++)
+          if (/[\u05d0-\u05ea]/.test(original[i])) letters.push(i);
+        const weights = inputPairs.map(([he]) => Math.max(1, heLetters(he)));
+        const total = weights.reduce((a,b) => a+b, 0);
+        const boundaries = [0];
+        let cum = 0, prev = 0;
+        for (let i = 0; i < inputPairs.length - 1; i++) {
+          cum += weights[i];
+          const approx = Math.min(letters.length - 1, Math.max(0, Math.round(cum / total * letters.length)));
+          const at = letters[approx];
+          let lo = at, hi = at;
+          while (lo > 0 && !/\s/.test(original[lo - 1]) && at - lo < 22) lo--;
+          while (hi < original.length && !/\s/.test(original[hi]) && hi - at < 22) hi++;
+          let boundary = hi < original.length && (hi - at < at - lo || lo <= prev) ? hi : lo;
+          if (boundary <= prev) boundary = Math.min(original.length, Math.max(prev+1,at));
+          boundaries.push(boundary);
+          prev = boundary;
+        }
+        boundaries.push(original.length);
+        return inputPairs.map(([,en],i) =>
+          [original.slice(boundaries[i], boundaries[i+1]).trim(), en]);
+      }
+      const leaves = [];
+      for (const group of groups.values()) {
+        const sections = group.sections;
+        const fullPairs = sections.flatMap(sec => sec.topics.flatMap(t => t.pairs || []));
+        if (!fullPairs.length) throw new Error('Study edition has no phrase pairs: ' + src.title + ' ' + group.node);
+        const canonical = originalHebrew(group.node, group.chapter);
+        if (!canonical) throw new Error('Missing original Hebrew for interlinear edition: ' + src.title + ' ' + group.node + ' ' + group.chapter);
+        const aligned = alignOriginalHebrew(canonical, fullPairs);
+        let cursor = 0, counter = 0;
+        const items = [];
+        for (const sec of sections) {
+          items.push({h: sec.title}, {h: '\n' + sec.summary});
+          for (const topic of sec.topics) {
+            if (topic.h && topic.h !== 'Opening Text') items.push({h: topic.h});
+            const count = (topic.pairs || []).length;
+            if (!count) continue;
+            const pairs = aligned.slice(cursor, cursor + count).map(([he,en]) => {
+              let english = String(en).replace(/,\s*\)/g, ',').replace(/,\s*,/g, ',').trim();
+              if ((english.match(/\)/g) || []).length > (english.match(/\(/g) || []).length)
+                english = english.replace(/\)\s*$/, '').trim();
+              return [escapeHtml(he), escapeHtml(english)];
+            });
+            items.push({p:pairs, n:++counter});
+            cursor += count;
+          }
+        }
+        if (cursor !== aligned.length) throw new Error('Interlinear pairing lost: ' + group.node);
+        const ref = src.title + ', ' + group.node + (['Bereshit','Noach'].includes(group.node) ? ' ' + group.chapter : '');
         const id = leafId++;
         const converted = connect(slug, ref, ':', items);
         writeFile(path.join(bookDir, id + '.json'), JSON.stringify(converted));
-        const leaf = { en: sec.title, he: canonical ? sec.node : 'הוספות', id, depth: 1,
-          shape: converted.filter(i => i.p).length, il1: true, interlinear: true,
-          ref, heRef: src.heTitle + ', ' + sec.node, sep: ':' };
+        const leaf = {en:sections.map(x=>x.title).join(' / '), he:group.node, id,
+          depth:1, shape:converted.filter(x => x.p).length, il1:true, interlinear:true,
+          ref, heRef:src.heTitle + ', ' + group.node, sep:':'};
         leaves.push(leaf);
         segments += leaf.shape;
+        console.log('  ' + ref + ': ' + fullPairs.length + ' aligned Hebrew-English phrases');
       }
       if (!root.children) root.children = [];
-      root.children.push({ en: 'Akiva Publishing — English Study Edition',
-        he: 'מהדורת לימוד באנגלית — עקיבא פאבלישינג', children: leaves });
-      console.log(src.title + ': Akiva study edition added (' + leaves.length + ' sections)');
+      root.children.push({en:'Akiva Publishing — Interlinear Study Edition',
+        he:'מהדורה בין-שורתית — עקיבא פאבלישינג', children:leaves});
+      console.log(src.title + ': interlinear study edition added (' + leaves.length + ' sections)');
     }
 
     const [, group = 'Other'] = src.categories || [];
