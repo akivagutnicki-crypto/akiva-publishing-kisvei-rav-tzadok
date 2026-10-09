@@ -353,7 +353,7 @@ i.footnote.open{display:block;direction:ltr;text-align:left;font-family:var(--en
 <body>
 <header class="top">
   <a class="brand" href="#/"><span class="mark">AP</span><span><strong>Rav Tzadok Library</strong><small>Akiva Publishing</small></span></a>
-  <nav class="topnav" aria-label="Primary"><a href="#/">Texts</a><a href="samples/bereishit/">Interlinear Samples</a><a href="blog/">Weekly Torah</a><a href="../">Our editions</a><a href="../#method">Approach</a></nav>
+  <nav class="topnav" aria-label="Primary"><a href="#/">Texts</a><a href="blog/">Weekly Torah</a><a href="../">Our editions</a><a href="../#method">Approach</a></nav>
   <button class="btn install" id="installBtn" type="button" hidden>Install app</button>
   <form class="search" id="searchForm" role="search" autocomplete="off">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
@@ -686,7 +686,7 @@ async function renderHome() {
       <div class="src-groups" id="srcGroups"></div>
     </div>
     <aside class="side">
-      <section class="library-weekly"><h3>Interlinear Samples</h3><p>Read Pri Tzaddik, Tzidkas HaTzadik and Mei HaShiloach Chelek Beis for Bereishis.</p><a class="link" href="samples/bereishit/">See three free reading samples →</a></section><section class="library-weekly"><h3>Weekly Torah</h3><p><strong>The Alchemy of the Soul</strong><br>Parashat Bereishit · Mar Cheshvan</p><a class="link" href="blog/the-alchemy-of-the-soul/">Read this week's essay →</a><a class="link" href="blog/the-alchemy-of-the-soul/read-pdf/">Read PDF online →</a><a class="link" href="blog/pdfs/the-alchemy-of-the-soul.pdf" download>Download PDF ↓</a><a class="link" href="blog/">See the Weekly Torah blog →</a></section>
+<section class="library-weekly"><h3>Weekly Torah</h3><p><strong>The Alchemy of the Soul</strong><br>Parashat Bereishit · Mar Cheshvan</p><a class="link" href="blog/the-alchemy-of-the-soul/">Read this week's essay →</a><a class="link" href="blog/the-alchemy-of-the-soul/read-pdf/">Read PDF online →</a><a class="link" href="blog/pdfs/the-alchemy-of-the-soul.pdf" download>Download PDF ↓</a><a class="link" href="blog/">See the Weekly Torah blog →</a></section>
       ${recent.length ? `<section class="recent"><h3>Continue reading</h3>${recent.slice(0, 5).map(r => `<a href="#/read/${toHash(r.ref)}"><span>${esc(r.ref)}</span><span class="he" lang="he">${esc(r.heRef || '')}</span></a>`).join('')}</section>` : ''}
       <section>
         <h3>Start here</h3>
