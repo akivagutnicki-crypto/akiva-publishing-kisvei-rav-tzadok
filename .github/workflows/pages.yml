@@ -31,7 +31,7 @@ jobs:
         run: node scripts/build-library.mjs
 
       - name: Verify interlinear Hebrew, nikkud, and Sefaria links
-        run: node scripts/test-interlinear-publication.mjs && node scripts/test-beit-yaakov-publication.mjs
+        run: node scripts/test-interlinear-publication.mjs && node scripts/test-beit-yaakov-publication.mjs && node scripts/test-mei-shiloach-publication.mjs
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
