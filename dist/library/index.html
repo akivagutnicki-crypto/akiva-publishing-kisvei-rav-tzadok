@@ -210,6 +210,7 @@ a.cite:hover{text-decoration-color:var(--link)}
 .toc-list a{display:grid;grid-template-columns:auto 1fr;gap:6px 22px;align-items:baseline;padding:14px 4px;border-bottom:1px solid var(--line)}
 .toc-list a:hover{background:var(--hl)}
 .toc-list .en{font:500 1.05rem var(--en)}
+.toc-list .toc-ois{display:inline-block;white-space:nowrap;font:700 .78rem/1.5 var(--ui);color:var(--forest);background:var(--soft);border:1px solid var(--line);border-radius:4px;padding:2px 8px;margin-inline-end:10px}
 .toc-list .he{font:500 1.15rem/1.5 var(--he);color:var(--muted)}
 .footnote-marker{color:var(--ox);font:700 .7em var(--ui);cursor:pointer;padding:0 2px}
 i.footnote{display:none;font-style:normal;font-size:.85em;color:var(--muted);background:var(--soft);padding:2px 6px;border-radius:4px}
@@ -407,7 +408,7 @@ const info = t => INFO[t] || {};
 let CATALOG = [];
 // Edition URLs keep older installed app caches from mixing Hebrew-only data
 // with the new interlinear contents. The service worker also accepts saved packs.
-const editionDataUrl = url => url.startsWith('data/') ? url + (/^data\/(?:peri-tzadik\/|tiferet-yosef\/|catalog\.json|files\.json|cited\/)/.test(url) ? '?edition=20261009-interlinear-verified-v2' : url.startsWith('data/yisrael-kedoshim/') ? '?edition=20261006-yisrael-4-opening' : url.startsWith('data/machshavot-charutz/') ? '?edition=20261006-machshavot-format' : url.startsWith('data/tzidkat-hatzadik/') ? '?edition=20261007-tzidkat-complete' : '?edition=20261006-resisei-complete') : url;
+const editionDataUrl = url => url.startsWith('data/') ? url + (/^data\/(?:peri-tzadik\/|tiferet-yosef\/|catalog\.json|files\.json|cited\/)/.test(url) ? '?edition=20261009-ois-labelled-v4' : url.startsWith('data/yisrael-kedoshim/') ? '?edition=20261006-yisrael-4-opening' : url.startsWith('data/machshavot-charutz/') ? '?edition=20261006-machshavot-format' : url.startsWith('data/tzidkat-hatzadik/') ? '?edition=20261007-tzidkat-complete' : '?edition=20261006-resisei-complete') : url;
 const catalogReady = fetch(editionDataUrl('data/catalog.json')).then(r => r.ok ? r.json() : []).catch(() => []).then(c => { CATALOG = c; return c; });
 const localBook = t => CATALOG.find(b => b.title === t);
 const tocCache = new Map();
@@ -496,7 +497,7 @@ async function resolveLocal(ref) {
   }
   return {
     local: true, ref: sectionRef, sectionRef, heRef: leaf.interlinear ? leaf.heRef : heSecRefOf(leaf, addr), book: book.title, heBook: book.he,
-    he, en, phrases, heads, tables, nums, transcriptionNotes, chapterLinks: !!il, title: leaf.interlinear ? {en: leaf.en, he: leaf.he} : null,
+    he, en, phrases, heads, tables, nums, transcriptionNotes, chapterLinks: !!il, title: leaf.interlinear ? {en: leaf.en, he: leaf.he, ois: leaf.ois, parashah: leaf.parashah} : null,
     segmentLevel: false, sep, highlight: segment ? `${sectionRef}${sep}${segment}` : null,
     next: all[k + 1] || null, prev: k > 0 ? all[k - 1] : null,
     versions: [il && !leaf.interlinear ? {title: 'Akiva Publishing interlinear edition', lang: 'Hebrew with interlinear English', source: '', license: '© Akiva Publishing'}
@@ -745,7 +746,7 @@ async function renderBook(title) {
 function renderLocalNode(node, isRoot) {
   let body;
   if (node.children && node.children.every(c => !c.children && c.depth === 1)) {
-    body = `<div class="toc-list">${node.children.filter(c => c.shape > 0).map(c => `<a href="#/read/${toHash(c.ref)}"><span class="en">${esc(c.en)}</span><span class="he" lang="he">${esc(c.he)}</span></a>`).join('')}</div>`;
+    body = `<div class="toc-list">${node.children.filter(c => c.shape > 0).map(c => `<a href="#/read/${toHash(c.ref)}"><span class="en">${c.ois ? `<span class="toc-ois">Ois ${c.ois}</span>` : ''}${esc(c.en)}</span><span class="he" lang="he" dir="rtl">${esc(c.he)}</span></a>`).join('')}</div>`;
     return isRoot ? body : `<div class="node"><h3><span>${esc(node.en)}</span><span class="he" lang="he">${esc(node.he)}</span></h3>${body}</div>`;
   }
   if (node.children) body = node.children.map(c => renderLocalNode(c, false)).join('');
@@ -960,7 +961,7 @@ function appendSection(d) {
   sec.className = 'sec' + (en.some(x => String(x || '').trim()) ? '' : ' no-en') + (d.phrases ? ' il' : '');
   sec.dataset.ref = d.sectionRef;
   let html = d.title
-    ? `<div class="sec-head"><span>${esc(d.title.he && /^סימן/.test(d.title.he) ? d.sectionRef : d.title.en || d.sectionRef)}</span></div><h2 class="sec-title he" lang="he">${esc(d.title.he)}</h2>${d.title.he && /^סימן/.test(d.title.he) && d.title.en ? `<div class="sec-sub">${esc(d.title.en)}</div>` : ''}`
+    ? `<div class="sec-head"><span>${esc(d.title.ois ? d.title.parashah + ' · Ois ' + d.title.ois + ' — ' + (d.title.en || d.sectionRef) : d.title.he && /^סימן/.test(d.title.he) ? d.sectionRef : d.title.en || d.sectionRef)}</span></div><h2 class="sec-title he" lang="he">${esc(d.title.he)}</h2>${d.title.he && /^סימן/.test(d.title.he) && d.title.en ? `<div class="sec-sub">${esc(d.title.en)}</div>` : ''}`
     : `<div class="sec-head"><span>${esc(d.sectionRef)}</span>${d.heRef ? `<span class="he" lang="he">${esc(d.heRef)}</span>` : ''}</div>`;
   if (!n) html += `<div class="empty" style="text-align:center">This section has no text yet.</div>`;
   for (let i = 0; i < n; i++) {
