@@ -339,12 +339,21 @@ i.footnote.open{display:block;direction:ltr;text-align:left;font-family:var(--en
   .toc-head{grid-template-columns:1fr}
 }
 @media (max-width:420px){.brand strong{display:none}}
+
+/* Weekly Torah incorporated into the library shelf and navigation */
+.weekly-teaser{display:grid;grid-template-columns:210px 1fr;gap:21px;align-items:stretch;background:var(--panel);border:1px solid var(--line);margin:34px 0 12px;overflow:hidden;text-decoration:none}
+.weekly-teaser>img{width:100%;height:100%;max-height:220px;min-height:176px;object-fit:cover}
+.weekly-teaser-copy{display:flex;flex-direction:column;justify-content:center;gap:9px;padding:18px 18px 18px 0}
+.weekly-teaser-copy strong{font:500 1.65rem/1.16 var(--en);color:var(--forest)}
+.weekly-teaser-copy>span:last-child{font:400 1rem/1.45 var(--en);color:var(--muted)}
+.weekly-teaser:hover strong{color:var(--ox)}.library-weekly{border-top:3px solid var(--brass);padding-top:16px}
+@media(max-width:680px){.weekly-teaser{grid-template-columns:1fr}.weekly-teaser>img{height:180px;min-height:0;max-height:none}.weekly-teaser-copy{padding:12px 18px 22px}}
 </style>
 </head>
 <body>
 <header class="top">
   <a class="brand" href="#/"><span class="mark">AP</span><span><strong>Rav Tzadok Library</strong><small>Akiva Publishing</small></span></a>
-  <nav class="topnav" aria-label="Primary"><a href="#/">Texts</a><a href="../">Our editions</a><a href="../#method">Approach</a></nav>
+  <nav class="topnav" aria-label="Primary"><a href="#/">Texts</a><a href="blog/">Weekly Torah</a><a href="../">Our editions</a><a href="../#method">Approach</a></nav>
   <button class="btn install" id="installBtn" type="button" hidden>Install app</button>
   <form class="search" id="searchForm" role="search" autocomplete="off">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
@@ -665,6 +674,10 @@ async function renderHome() {
         <div class="he-title he" lang="he">כתבי רבי צדוק הכהן מלובלין</div>
         <p>Read the writings of Rav Tzadok HaKohen and the Izhbitza–Radzin masters in the original Hebrew, with English where a translation exists. Tap any passage to see the sources it draws on and the texts that cite it.</p>
       </div>
+      <a class="weekly-teaser" href="blog/the-alchemy-of-the-soul/" aria-label="Read this week's Torah essay The Alchemy of the Soul">
+        <img src="../akiva-five-book-collection.webp" alt="Five published Akiva Publishing books displayed on a table" loading="lazy">
+        <span class="weekly-teaser-copy"><span class="eyebrow">Weekly Torah · Parashat Bereishit</span><strong>The Alchemy of the Soul</strong><span>How the darkness and the yetzer hara become the raw material of spiritual growth · Read this week's essay →</span></span>
+      </a>
       ${groups.map(g => {
         const list = books.filter(b => b.group === g.id);
         return list.length ? `<div class="cat-head"><h2>${esc(g.en)}</h2><span class="he" lang="he">${esc(g.he)}</span></div><div class="books">${list.map(card).join('')}</div>` : '';
@@ -673,6 +686,7 @@ async function renderHome() {
       <div class="src-groups" id="srcGroups"></div>
     </div>
     <aside class="side">
+      <section class="library-weekly"><h3>Weekly Torah</h3><p><strong>The Alchemy of the Soul</strong><br>Parashat Bereishit · Mar Cheshvan</p><a class="link" href="blog/the-alchemy-of-the-soul/">Read this week's essay →</a><a class="link" href="blog/pdfs/the-alchemy-of-the-soul.pdf" target="_blank" rel="noopener">Open original PDF ↗</a><a class="link" href="blog/">See the Weekly Torah blog →</a></section>
       ${recent.length ? `<section class="recent"><h3>Continue reading</h3>${recent.slice(0, 5).map(r => `<a href="#/read/${toHash(r.ref)}"><span>${esc(r.ref)}</span><span class="he" lang="he">${esc(r.heRef || '')}</span></a>`).join('')}</section>` : ''}
       <section>
         <h3>Start here</h3>
