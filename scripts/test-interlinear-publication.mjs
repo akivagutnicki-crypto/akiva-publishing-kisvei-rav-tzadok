@@ -13,7 +13,7 @@ for(const b of books){
   const {toc}=JSON.parse(fs.readFileSync(path.join(directory,'toc.json'),'utf8'));
   const edition=toc.children?.find(x=>x.en==='Akiva Publishing — Interlinear Study Edition');
   if(!edition || toc.children[0]!==edition)throw new Error('Interlinear edition must be the first reading option: '+b.title);
-  let count=0,segments=0,heads=0,refs=[];
+  let count=0,segments=0,heads=0,refs=[],hebrewLetters=0,vowelledLetters=0;
   for(const leaf of edition.children){
     refs.push(leaf.ref);
     if(!leaf.interlinear||!leaf.il1)throw new Error('Interlinear metadata missing: '+leaf.ref);
@@ -27,15 +27,23 @@ for(const b of books){
         if(typeof he!=='string'||!/[א-ת]/.test(he) || typeof en!=='string'||!/[A-Za-z]/.test(en))
           throw new Error('Missing Hebrew or English phrase in '+leaf.ref+': '+String(en).slice(0,40));
         count++;
+        hebrewLetters += (he.match(/[\u05d0-\u05ea]/g) || []).length;
+        vowelledLetters += (he.match(/[\u0591-\u05bd\u05bf-\u05c7]/g) || []).length;
       }
     }
   }
   if(!refs.includes(b.required))throw new Error('Missing required translated section: '+b.required);
   if(count<b.minPairs)throw new Error('Too few bilingual pairs: '+b.title+' ('+count+')');
   if(heads<edition.children.length*2)throw new Error('Missing study edition headings: '+b.title);
+  // Catch regressions where the canonical Hebrew inadvertently replaces the
+  // vocalized Hebrew, even though interlinear translations still load.
+  const minNikkudRatio = b.title === 'Peri Tzadik' ? 0.48 : 0.34;
+  if (vowelledLetters / Math.max(1,hebrewLetters) < minNikkudRatio)
+    throw new Error('Nikkud missing from published interlinear Hebrew in '+b.title+
+      ': '+vowelledLetters+'/'+hebrewLetters+' marks');
   const linksFile=path.join(directory,'links.json');
   const links=fs.existsSync(linksFile)?JSON.parse(fs.readFileSync(linksFile,'utf8')):{};
   const linkCount=Object.values(links).flat().length;
   if(linkCount<b.minLinks)throw new Error('Too few Sefaria source connections: '+b.title+' ('+linkCount+')');
-  console.log('PASS '+b.title+': '+edition.children.length+' sections, '+segments+' paragraphs, '+count+' Hebrew-English pairs, '+linkCount+' source connections');
+  console.log('PASS '+b.title+': '+edition.children.length+' sections, '+segments+' paragraphs, '+count+' Hebrew-English pairs, '+vowelledLetters+' nikkud marks, '+linkCount+' source connections');
 }
