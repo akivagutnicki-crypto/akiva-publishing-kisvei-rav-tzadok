@@ -383,7 +383,7 @@ const INFO = {
   "Meshiv HaTa'anah": {d:'A reply to the pamphlet "Megillat Ta\'anot," written in 1842 in defense of tradition.'},
   'Meshiv Tzedek': {d:'On sitting in the sukkah on Shemini Atzeret, with four talks for a bar mitzvah.'},
   'Poked Akarim': {d:'On Divine remembrance, prayer, and the barren women of Tanakh, with teachings on renewal and blessing.'},
-  'Mei HaShiloach': {d:'Teachings of Rabbi Mordechai Yosef Leiner of Izhbitza on the Torah, the festivals and Tanakh.'},
+  'Mei HaShiloach': {d:'Teachings of Rabbi Mordechai Yosef Leiner of Izhbitza on the Torah, the festivals and Tanakh. Interlinear study text available for Bereishit and Noach across both volumes and the anthology.'},
   'Beit Yaakov on Torah': {d:'Teachings of Rabbi Yaakov Leiner of Izhbitza–Radzin, son of the Mei HaShiloach, on the Torah.'},
   'Tiferet Yosef': {d:'Teachings from the Izhbitza–Radzin school on the festivals and the Torah.'},
   'Sod Yesharim': {d:'Discourses from the Radzin dynasty on Shabbat, the festivals and the Torah.'},
@@ -408,7 +408,7 @@ const info = t => INFO[t] || {};
 let CATALOG = [];
 // Edition URLs keep older installed app caches from mixing Hebrew-only data
 // with the new interlinear contents. The service worker also accepts saved packs.
-const editionDataUrl = url => url.startsWith('data/') ? url + (/^data\/(?:peri-tzadik\/|tiferet-yosef\/|beit-yaakov-on-torah\/|catalog\.json|files\.json|cited\/)/.test(url) ? '?edition=20261009-beit-yaakov-v1' : url.startsWith('data/yisrael-kedoshim/') ? '?edition=20261006-yisrael-4-opening' : url.startsWith('data/machshavot-charutz/') ? '?edition=20261006-machshavot-format' : url.startsWith('data/tzidkat-hatzadik/') ? '?edition=20261007-tzidkat-complete' : '?edition=20261006-resisei-complete') : url;
+const editionDataUrl = url => url.startsWith('data/') ? url + (/^data\/(?:peri-tzadik\/|tiferet-yosef\/|beit-yaakov-on-torah\/|mei-ha-shiloach\/|catalog\.json|files\.json|cited\/)/.test(url) ? '?edition=20261009-beit-yaakov-v1' : url.startsWith('data/yisrael-kedoshim/') ? '?edition=20261006-yisrael-4-opening' : url.startsWith('data/machshavot-charutz/') ? '?edition=20261006-machshavot-format' : url.startsWith('data/tzidkat-hatzadik/') ? '?edition=20261007-tzidkat-complete' : '?edition=20261006-resisei-complete') : url;
 const catalogReady = fetch(editionDataUrl('data/catalog.json')).then(r => r.ok ? r.json() : []).catch(() => []).then(c => { CATALOG = c; return c; });
 const localBook = t => CATALOG.find(b => b.title === t);
 const tocCache = new Map();
@@ -564,6 +564,26 @@ const flatten = t => Array.isArray(t) ? t.flat(Infinity) : (t == null ? [] : [t]
 
 /* ======================= Text fetching ======================= */
 // Returns {ref, heRef, sectionRef, sections, next, prev, he:[], en:[], versions:[], segmentLevel}
+// Add study phrases only for these six original chapters. Sefaria's own
+// Hebrew and English remain the basis for Stacked and Side-by-side.
+const meiStudyRefs = new Set([
+  'Mei HaShiloach, Volume I, Genesis, Bereshit',
+  'Mei HaShiloach, Volume I, Genesis, Noach',
+  'Mei HaShiloach, Volume II, Genesis, Bereshit',
+  'Mei HaShiloach, Volume II, Genesis, Noach',
+  'Mei HaShiloach, Mei HaShiloach Anthology, Genesis, Bereshit',
+  'Mei HaShiloach, Mei HaShiloach Anthology, Genesis, Noach'
+]);
+async function withMeiStudy(d) {
+  const ref = d.sectionRef || d.ref;
+  if (d.book !== 'Mei HaShiloach' || !meiStudyRefs.has(ref) || !Array.isArray(d.he)) return d;
+  const overlay = (await dataJSON('mei-ha-shiloach/interlinear.json'))?.[ref];
+  // If a source edition later changes its passage count, don't attach
+  // translations to incorrect paragraphs.
+  if (!Array.isArray(overlay) || overlay.length !== d.he.length
+      || overlay.some(pairs => !Array.isArray(pairs) || !pairs.length)) return d;
+  return {...d, phrases:overlay, meiStudy:true};
+}
 async function fetchText(ref, {remoteOnly = false} = {}) {
   if (!remoteOnly) { try { const loc = await resolveLocal(ref); if (loc) return loc; } catch (e) { console.warn('local text failed', e); } }
   try {
@@ -571,20 +591,20 @@ async function fetchText(ref, {remoteOnly = false} = {}) {
     const vs = j.versions || [];
     const isHe = v => v.languageFamilyName === 'hebrew' || v.language === 'he' || v.direction === 'rtl';
     const heV = vs.find(isHe), enV = vs.find(v => !isHe(v));
-    return {
+    return await withMeiStudy({
       ref: j.ref, heRef: j.heRef, sectionRef: j.sectionRef || j.ref, sections: j.sections || [], next: j.next, prev: j.prev,
       book: j.book || j.indexTitle, he: heV ? heV.text : [], en: enV ? enV.text : [],
       segmentLevel: typeof (heV ? heV.text : enV ? enV.text : []) === 'string',
       versions: vs.map(v => ({title: v.versionTitle, lang: isHe(v) ? 'Hebrew' : (v.languageFamilyName || v.language || 'English'), source: v.versionSource, license: v.license}))
-    };
+    });
   } catch (e) {
     // Fall back to the older v1 endpoint
     const j = await getJSON(`/api/texts/${encodeURIComponent(ref)}?context=0&commentary=0&pad=0`);
-    return {
+    return await withMeiStudy({
       ref: j.ref, heRef: j.heRef, sectionRef: j.sectionRef || j.ref, sections: j.sections || [], next: j.next, prev: j.prev, book: j.book || j.indexTitle,
       he: j.he, en: j.text, segmentLevel: typeof j.he === 'string' || typeof j.text === 'string',
       versions: [j.heVersionTitle && {title: j.heVersionTitle, lang: 'Hebrew', source: j.heVersionSource}, j.versionTitle && {title: j.versionTitle, lang: 'English', source: j.versionSource}].filter(Boolean)
-    };
+    });
   }
 }
 async function fetchEnglish(sectionRef) {
@@ -629,6 +649,7 @@ async function renderHome() {
       i.edition === 'available' && '<span class="tag">Akiva edition available</span>',
       w.interlinear && '<span class="tag">Interlinear English · Akiva Publishing</span>',
       w.ilParts && '<span class="tag">Interlinear English online</span>',
+      w.title === 'Mei HaShiloach' && '<span class="tag">Interlinear · Bereishit &amp; Noach</span>',
       i.edition === 'soon' && '<span class="tag soon">Print edition coming soon</span>'
     ].filter(Boolean).join(' ');
     return `<a class="book" href="#/book/${toHash(w.title)}">
@@ -737,7 +758,12 @@ async function renderBook(title) {
     if (!root) throw new Error('No contents found');
     if (root.heBook) $('#bookHe').textContent = root.heBook;
     $('#tocActions').innerHTML = actions(firstRef(root));
-    $('#toc').innerHTML = renderNode(root, root.book || title, true);
+    const studyLinks = title === 'Mei HaShiloach'
+      ? '<div class="study-entry"><h2>Interlinear · Bereishit and Noach</h2><p>The Interlinear setting uses Akiva Publishing’s phrase-by-phrase translation. Stacked and Side by side continue showing Sefaria’s existing English translation.</p><div class="toc-list">'
+        + [...meiStudyRefs].map(ref => '<a href="#/read/' + toHash(ref) + '"><span class="en">' + esc(ref.replace('Mei HaShiloach, ', '').replace(', Genesis, ', ' · ')) + '</span><span class="he" lang="he">עברית · English</span></a>').join('')
+        + '</div></div>'
+      : '';
+    $('#toc').innerHTML = studyLinks + renderNode(root, root.book || title, true);
     $('#saveBook').onclick = () => saveBook(title);
   } catch (e) {
     $('#toc').innerHTML = errorBox('The table of contents could not be loaded.', title, e);
@@ -908,7 +934,7 @@ async function renderReader(ref) {
     // Older installations can preserve "English only" or a stacked layout.
     // For the first visit to either newly published study edition, make the
     // requested genuine phrase-by-phrase interlinear view visible by default.
-    if (first.local && first.phrases && ['Peri Tzadik', 'Tiferet Yosef'].includes(first.book)
+    if (first.local && first.phrases && ['Peri Tzadik', 'Tiferet Yosef', 'Mei HaShiloach'].includes(first.book)
         && !store.get('studySeen.' + first.book, false)) {
       prefs.lang = 'bi'; prefs.layout = 'inter';
       store.set('lang', 'bi'); store.set('layout', 'inter');
@@ -1079,8 +1105,9 @@ const asLink = (anchorRef, sourceRef, category) => ({anchorRef, sourceRef, sourc
 async function libraryLinks(sec, ref, whole) {
   const out = [];
   const lb = localBook(sec.book);
-  if (lb) {
-    const links = (await dataJSON(`${lb.slug}/links.json`)) || {};
+  const dataSlug = lb?.slug || (sec.book === 'Mei HaShiloach' ? 'mei-ha-shiloach' : null);
+  if (dataSlug) {
+    const links = (await dataJSON(`${dataSlug}/links.json`)) || {};
     for (const l of links[sec.sectionRef] || []) if (whole || l.a === ref) out.push(asLink(l.a, l.r, l.c));
   }
   const index = (await dataJSON('cited/index.json')) || [];
