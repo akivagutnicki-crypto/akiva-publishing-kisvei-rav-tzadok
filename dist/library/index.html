@@ -507,6 +507,7 @@ async function resolveLocal(ref) {
   return {
     local: true, ref: sectionRef, sectionRef, heRef: leaf.interlinear ? leaf.heRef : heSecRefOf(leaf, addr), book: book.title, heBook: book.he,
     he, en, phrases, heads, tables, nums, transcriptionNotes, chapterLinks: !!il, title: leaf.interlinear ? {en: leaf.en, he: leaf.he, ois: leaf.ois, parashah: leaf.parashah} : null,
+    sourceUrl: leaf.sourceUrl || null,
     segmentLevel: false, sep, highlight: segment ? `${sectionRef}${sep}${segment}` : null,
     next: all[k + 1] || null, prev: k > 0 ? all[k - 1] : null,
     versions: [il && !leaf.interlinear ? {title: 'Akiva Publishing interlinear edition', lang: 'Hebrew with interlinear English', source: '', license: '© Akiva Publishing'}
@@ -1004,6 +1005,7 @@ function appendSection(d) {
   let html = d.title
     ? `<div class="sec-head"><span>${esc(d.title.ois ? d.title.parashah + ' · Ois ' + d.title.ois + ' — ' + (d.title.en || d.sectionRef) : d.title.he && /^סימן/.test(d.title.he) ? d.sectionRef : d.title.en || d.sectionRef)}</span></div><h2 class="sec-title he" lang="he">${esc(d.title.he)}</h2>${d.title.he && /^סימן/.test(d.title.he) && d.title.en ? `<div class="sec-sub">${esc(d.title.en)}</div>` : ''}`
     : `<div class="sec-head"><span>${esc(d.sectionRef)}</span>${d.heRef ? `<span class="he" lang="he">${esc(d.heRef)}</span>` : ''}</div>`;
+  if (d.sourceUrl) html += `<div class="sec-sub"><a href="${esc(d.sourceUrl)}" target="_blank" rel="noopener noreferrer">View the original Hebrew on Sefaria ↗</a></div>`;
   if (!n) html += `<div class="empty" style="text-align:center">This section has no text yet.</div>`;
   for (let i = 0; i < n; i++) {
     const num = d.nums ? d.nums[i] : i + 1;

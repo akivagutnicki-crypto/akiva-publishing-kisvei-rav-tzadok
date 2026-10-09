@@ -360,7 +360,11 @@ for (const dir of DIRS) {
         const pointed = restoreStudyNikkud(canonical, fullPairs);
         if (canonical && pointed.vocalized < Math.min(12, Math.floor(pointed.targetLetters * 0.1)))
           console.warn('LOW NIKKUD COVERAGE:', src.title, group.node, group.chapter, pointed);
-        const aligned = alignOriginalHebrew(pointed.text, fullPairs);
+        // For newly verified Hebrew-original sections, retain precisely the source words
+        // at their original sentence boundaries instead of repartitioning by length.
+        const aligned = sections.length === 1 && sections[0].useVerifiedHebrew
+          ? fullPairs.map(([he, en]) => [he, en])
+          : alignOriginalHebrew(pointed.text, fullPairs);
         let cursor = 0, counter = 0;
         const items = [];
         for (const sec of sections) {
@@ -389,7 +393,8 @@ for (const dir of DIRS) {
         const leaf = {en:sections.map(x=>x.title).join(' / '), he:hebrewHeading, id,
           depth:1, shape:converted.filter(x => x.p).length, il1:true, interlinear:true,
           ref, heRef:src.heTitle + ', ' + hebrewHeading, sep:':',
-          ...(hasOis ? {parashah:group.node, ois:group.chapter} : {})};
+          ...(hasOis ? {parashah:group.node, ois:group.chapter} : {}),
+           ...(sections[0]?.sourceUrl ? {sourceUrl:sections[0].sourceUrl} : {})};
         leaves.push(leaf);
         segments += leaf.shape;
         console.log('  ' + ref + ': ' + fullPairs.length + ' aligned Hebrew-English phrases, ' + pointed.vocalized + '/' + pointed.targetLetters + ' Hebrew letters with nikkud');
