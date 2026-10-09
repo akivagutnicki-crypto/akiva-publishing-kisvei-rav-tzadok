@@ -198,9 +198,57 @@ export function findCitations(text) {
   return out;
 }
 
+// Additional source forms used by the Akiva Publishing study editions.
+// Link to the *existing* Sefaria work, never a fabricated paragraph of a
+// text unavailable on Sefaria. Ambiguous Zohar folios link to the parashah.
+const SPECIAL_REFERENCES = [
+  { re: /\b(?:Holy\s+)?Zohar\s*\(\s*(Bo|Balak|Tetzaveh|Emor|Beshalach|Noach|Bereshit|Bereishit|Vayera|Vayechi|Vayikra|Pinchas|Kedoshim|Acharei Mot|Acharei Mos|Ki Tisa|Terumah|Behar|Naso)\s+\d+[ab]\s*\)/gi,
+    ref: m => 'Zohar, ' + ({Bereishit:'Bereshit','Acharei Mos':'Acharei Mot'}[m[1]] || m[1]) },
+  { re: /\bTikkun(?:ei\s+Zohar)?\s+(\d{1,3})\b/gi,
+    ref: m => 'Tikkunei Zohar ' + m[1] },
+  { re: /\bMidrash Tanchuma,?\s+(Yitro|Noach|Bereshit|Bereishit|Ki Tisa|Terumah|Vayikra|Bo|Vayera|Naso|Shmini|Shemot)\s+(\d{1,3})\b/gi,
+    ref: m => 'Midrash Tanchuma, ' + ({Bereishit:'Bereshit'}[m[1]] || m[1]) + ' ' + m[2] },
+  { re: /\bRashi on\s+(Genesis|Exodus|Leviticus|Numbers|Deuteronomy)\s+(\d{1,3}:\d{1,3})\b/gi,
+    ref: m => 'Rashi on ' + m[1] + ' ' + m[2] },
+  { re: /\b(?:Bereishit|Bereshit) Rabbah,?\s+parashah\s+(\d{1,3})\b/gi,
+    ref: m => 'Bereshit Rabbah ' + m[1] },
+  { re: /\bSefer HaBahir\b/gi, ref: () => 'Sefer HaBahir' },
+];
+function linkSpecialReferences(html) {
+  let inLink = 0, inSup = 0;
+  return html.split(/(<[^>]+>)/).map(part => {
+    if (part.startsWith('<')) {
+      if (/^<a\b/i.test(part)) inLink++;
+      else if (/^<\/a>/i.test(part)) inLink = Math.max(0, inLink - 1);
+      else if (/^<sup\b/i.test(part)) inSup++;
+      else if (/^<\/sup>/i.test(part)) inSup = Math.max(0, inSup - 1);
+      return part;
+    }
+    if (inLink || inSup || !part) return part;
+    const matches = [];
+    for (const rule of SPECIAL_REFERENCES) {
+      rule.re.lastIndex = 0;
+      for (const m of part.matchAll(rule.re)) {
+        matches.push({ index: m.index, length: m[0].length, ref: rule.ref(m) });
+      }
+    }
+    matches.sort((a, b) => a.index - b.index || b.length - a.length);
+    let out = '', at = 0;
+    for (const m of matches) {
+      if (m.index < at) continue;
+      out += part.slice(at, m.index)
+        + '<a data-ref="' + m.ref.replace(/"/g, '&quot;') + '">'
+        + part.slice(m.index, m.index + m.length) + '</a>';
+      at = m.index + m.length;
+    }
+    return out + part.slice(at);
+  }).join('');
+}
+
 // Wraps citations found in the text parts of an HTML string in <a data-ref>,
 // leaving existing links, tags and footnote markers alone.
 export function linkCitations(html) {
+  html = linkSpecialReferences(html);
   let inLink = 0, inSup = 0;
   return html.split(/(<[^>]+>)/).map(part => {
     if (part.startsWith('<')) {
