@@ -351,7 +351,9 @@ for (const dir of DIRS) {
         console.log('  ' + ref + ': ' + fullPairs.length + ' aligned Hebrew-English phrases');
       }
       if (!root.children) root.children = [];
-      root.children.push({en:'Akiva Publishing — Interlinear Study Edition',
+      // Prefer the translated leaf for overlapping references; the original
+      // Hebrew remains in the interlinear reader's Hebrew-only mode.
+      root.children.unshift({en:'Akiva Publishing — Interlinear Study Edition',
         he:'מהדורה בין-שורתית — עקיבא פאבלישינג', children:leaves});
       console.log(src.title + ': interlinear study edition added (' + leaves.length + ' sections)');
     }
