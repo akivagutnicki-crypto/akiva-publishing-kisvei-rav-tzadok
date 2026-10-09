@@ -686,7 +686,7 @@ async function renderHome() {
       <div class="src-groups" id="srcGroups"></div>
     </div>
     <aside class="side">
-      <section class="library-weekly"><h3>Weekly Torah</h3><p><strong>The Alchemy of the Soul</strong><br>Parashat Bereishit · Mar Cheshvan</p><a class="link" href="blog/the-alchemy-of-the-soul/">Read this week's essay →</a><a class="link" href="blog/pdfs/the-alchemy-of-the-soul.pdf" target="_blank" rel="noopener">Open original PDF ↗</a><a class="link" href="blog/">See the Weekly Torah blog →</a></section>
+      <section class="library-weekly"><h3>Weekly Torah</h3><p><strong>The Alchemy of the Soul</strong><br>Parashat Bereishit · Mar Cheshvan</p><a class="link" href="blog/the-alchemy-of-the-soul/">Read this week's essay →</a><a class="link" href="blog/the-alchemy-of-the-soul/read-pdf/">Read PDF online →</a><a class="link" href="blog/pdfs/the-alchemy-of-the-soul.pdf" download>Download PDF ↓</a><a class="link" href="blog/">See the Weekly Torah blog →</a></section>
       ${recent.length ? `<section class="recent"><h3>Continue reading</h3>${recent.slice(0, 5).map(r => `<a href="#/read/${toHash(r.ref)}"><span>${esc(r.ref)}</span><span class="he" lang="he">${esc(r.heRef || '')}</span></a>`).join('')}</section>` : ''}
       <section>
         <h3>Start here</h3>
