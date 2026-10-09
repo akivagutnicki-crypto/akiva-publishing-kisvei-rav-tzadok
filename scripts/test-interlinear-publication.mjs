@@ -17,6 +17,23 @@ for(const b of books){
   for(const leaf of edition.children){
     refs.push(leaf.ref);
     if(!leaf.interlinear||!leaf.il1)throw new Error('Interlinear metadata missing: '+leaf.ref);
+    // The number in the canonical section ref is the original ois, not the
+    // running position in the translated TOC. Some ois are not translated.
+    const numbered = leaf.ref.match(/, (Bereshit|Noach) (\d+)$/);
+    if(numbered){
+      const [, parashah, number] = numbered;
+      if(leaf.parashah!==parashah || leaf.ois!==Number(number))
+        throw new Error('Wrong parashah / ois metadata: '+leaf.ref);
+      if(!/אות\s+[א-ת][א-ת׳״]*/u.test(leaf.he))
+        throw new Error('Hebrew אות label missing: '+leaf.ref);
+      if(!leaf.heRef.includes(leaf.he))
+        throw new Error('Reader Hebrew heading lacks ois: '+leaf.ref);
+    }
+    if (leaf.ref === 'Peri Tzadik, Bereshit 15' && leaf.he !== 'בראשית · אות ט״ו')
+      throw new Error('Ois 15 must use ט״ו, not a sequential label');
+    if (leaf.ref === 'Peri Tzadik, Noach 10' && leaf.ois !== 10)
+      throw new Error('Noach Ois 10 must not be renumbered to Ois 7');
+
     const items=JSON.parse(fs.readFileSync(path.join(directory,leaf.id+'.json'),'utf8'));
     for(const item of items){
       if(item.h)heads++;
