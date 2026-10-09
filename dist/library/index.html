@@ -202,6 +202,11 @@ a.cite:hover{text-decoration-color:var(--link)}
 .chapters a.il{border-color:var(--forest);box-shadow:inset 0 -3px 0 var(--forest)}
 .il-key{display:flex;align-items:center;gap:8px;margin-top:10px;font:500 .74rem var(--ui);color:var(--muted)}
 .il-key span{width:16px;height:12px;border:1px solid var(--forest);box-shadow:inset 0 -3px 0 var(--forest);border-radius:2px}
+.study-entry{margin:8px 0 30px;padding:18px 20px;background:var(--panel);border:1px solid var(--line);border-radius:8px}
+.study-entry h2{font:600 1.2rem/1.3 var(--ui);color:var(--forest);margin:0 0 7px}
+.study-entry p{font:.9rem/1.5 var(--ui);color:var(--muted);margin:0 0 14px}
+.original-edition{border-top:1px solid var(--line);padding:18px 4px;margin:30px 0}
+.original-edition summary{cursor:pointer;font:600 .92rem var(--ui);color:var(--muted);padding:9px}
 .toc-list a{display:grid;grid-template-columns:auto 1fr;gap:6px 22px;align-items:baseline;padding:14px 4px;border-bottom:1px solid var(--line)}
 .toc-list a:hover{background:var(--hl)}
 .toc-list .en{font:500 1.05rem var(--en)}
@@ -402,7 +407,7 @@ const info = t => INFO[t] || {};
 let CATALOG = [];
 // Edition URLs keep older installed app caches from mixing Hebrew-only data
 // with the new interlinear contents. The service worker also accepts saved packs.
-const editionDataUrl = url => url.startsWith('data/') ? url + (/^data\/(?:peri-tzadik\/|tiferet-yosef\/|catalog\.json|files\.json|cited\/)/.test(url) ? '?edition=20261009-interlinear-first' : url.startsWith('data/yisrael-kedoshim/') ? '?edition=20261006-yisrael-4-opening' : url.startsWith('data/machshavot-charutz/') ? '?edition=20261006-machshavot-format' : url.startsWith('data/tzidkat-hatzadik/') ? '?edition=20261007-tzidkat-complete' : '?edition=20261006-resisei-complete') : url;
+const editionDataUrl = url => url.startsWith('data/') ? url + (/^data\/(?:peri-tzadik\/|tiferet-yosef\/|catalog\.json|files\.json|cited\/)/.test(url) ? '?edition=20261009-interlinear-verified-v2' : url.startsWith('data/yisrael-kedoshim/') ? '?edition=20261006-yisrael-4-opening' : url.startsWith('data/machshavot-charutz/') ? '?edition=20261006-machshavot-format' : url.startsWith('data/tzidkat-hatzadik/') ? '?edition=20261007-tzidkat-complete' : '?edition=20261006-resisei-complete') : url;
 const catalogReady = fetch(editionDataUrl('data/catalog.json')).then(r => r.ok ? r.json() : []).catch(() => []).then(c => { CATALOG = c; return c; });
 const localBook = t => CATALOG.find(b => b.title === t);
 const tocCache = new Map();
@@ -463,7 +468,11 @@ async function resolveLocal(ref) {
   if (leaf.depth === 1) text = await loadFile(`data/${book.slug}/${leaf.id}.json`);
   else { text = await loadFile(`data/${book.slug}/${leaf.id}-${addr[0]}.json`); for (const i of addr.slice(1)) text = (text || [])[i - 1]; }
   // neighbours across the whole book
-  const all = [...new Set(leaves.flatMap(l => sectionsOf(l).map(a => secRefOf(l, a))))];
+  // Keep a translated study edition within its own sequence of sections.
+  // Otherwise scrolling past the final translated page switches silently to the Hebrew-only corpus.
+  const readingLeaves = leaf.interlinear && ['Peri Tzadik', 'Tiferet Yosef'].includes(book.title)
+    ? leaves.filter(l => l.interlinear) : leaves;
+  const all = [...new Set(readingLeaves.flatMap(l => sectionsOf(l).map(a => secRefOf(l, a))))];
   const sectionRef = secRefOf(leaf, addr), k = all.indexOf(sectionRef);
   const sep = leaf.sep || (secLen ? ':' : ' ');
   let he = Array.isArray(text) ? text : [text], en = [], phrases = null, heads = null, tables = null, transcriptionNotes = null;
@@ -710,7 +719,15 @@ async function renderBook(title) {
       const g = GROUPS.find(G => G.id === lb.group); $('#bookGroup').textContent = g ? g.en : lb.group;
       const first = leavesOf(toc.toc).map(l => sectionsOf(l)[0] && secRefOf(l, sectionsOf(l)[0])).find(Boolean);
       $('#tocActions').innerHTML = actions(first, lb.downloads || []);
-      $('#toc').innerHTML = renderLocalNode(toc.toc, true);
+      const study = ['Peri Tzadik', 'Tiferet Yosef'].includes(title)
+        && toc.toc.children?.[0]?.en === 'Akiva Publishing — Interlinear Study Edition'
+        ? toc.toc.children[0] : null;
+      if (study) {
+        const originals = toc.toc.children.slice(1).map(n => renderLocalNode(n, false)).join('');
+        $('#toc').innerHTML = '<div class="study-entry"><h2>Hebrew & English · Interlinear Study Edition</h2><p>Read each Hebrew phrase with its English directly beneath it. Select any passage for sources and Sefaria connections.</p>'
+          + renderLocalNode(study, true) + '</div>'
+          + (originals ? '<details class="original-edition"><summary>Original Hebrew text · additional sections</summary>' + originals + '</details>' : '');
+      } else $('#toc').innerHTML = renderLocalNode(toc.toc, true);
       $('#saveBook').onclick = () => saveBook(title);
       return;
     }
@@ -886,6 +903,16 @@ async function renderReader(ref) {
     if (!first.local && first.segmentLevel || (first.sectionRef && first.sectionRef !== first.ref && !/-/.test(first.ref))) {
       highlight = first.ref;
       first = await fetchText(first.sectionRef);
+    }
+    // Older installations can preserve "English only" or a stacked layout.
+    // For the first visit to either newly published study edition, make the
+    // requested genuine phrase-by-phrase interlinear view visible by default.
+    if (first.local && first.phrases && ['Peri Tzadik', 'Tiferet Yosef'].includes(first.book)
+        && !store.get('studySeen.' + first.book, false)) {
+      prefs.lang = 'bi'; prefs.layout = 'inter';
+      store.set('lang', 'bi'); store.set('layout', 'inter');
+      store.set('studySeen.' + first.book, true);
+      syncPrefs();
     }
     R.book = first.book;
     R.firstPrev = first.prev;
