@@ -1,7 +1,7 @@
 [build]
   publish = "dist"
   # Generates dist/library/data from the texts in sources/
-  command = "node scripts/build-library.mjs"
+  command = "node scripts/build-library.mjs && node scripts/test-interlinear-publication.mjs"
 
 # Keep the real preview PDFs served as PDFs. The homepage polish is handled
 # by the edge function in netlify/edge-functions/site-polish.ts.
