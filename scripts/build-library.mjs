@@ -415,6 +415,36 @@ for (const dir of DIRS) {
     console.log(`${src.title}: ${leafId} node(s), ${segments} segments`);
   }
 }
+// An optional interlinear overlay for Mei HaShiloach: the site's standard
+// stacked and side-by-side views continue to use Sefaria's existing English.
+// This dataset contributes ONLY phrase-by-phrase study pairs in Interlinear.
+const meiStudyPath = 'sources/akiva/overlays/mei-hashiloach-interlinear.json';
+if (fs.existsSync(meiStudyPath)) {
+  const study = JSON.parse(fs.readFileSync(meiStudyPath, 'utf8'));
+  const slug = 'mei-ha-shiloach';
+  const dest = path.join(OUT, slug);
+  if (study.book !== 'Mei HaShiloach' || !Array.isArray(study.sections) || study.sections.length !== 6)
+    throw new Error('Invalid Mei HaShiloach interlinear overlay');
+  fs.mkdirSync(dest, {recursive: true});
+  const overlay = {};
+  let paragraphCount = 0, phraseCount = 0;
+  for (const sec of study.sections) {
+    if (!/^Mei HaShiloach, (?:Volume I|Volume II|Mei HaShiloach Anthology), Genesis, (?:Bereshit|Noach)$/.test(sec.ref))
+      throw new Error('Unexpected Mei HaShiloach study reference: ' + sec.ref);
+    if (overlay[sec.ref] || !Array.isArray(sec.paragraphs)) throw new Error('Duplicate or invalid study section: ' + sec.ref);
+    const items = sec.paragraphs.map((pairs, i) => ({n:i + 1, p:pairs}));
+    if (items.some(item => !item.p.length || item.p.some(pair => !Array.isArray(pair) || pair.length !== 2
+      || !/[א-ת]/.test(pair[0]) || !/[A-Za-z]/.test(pair[1]))))
+      throw new Error('Empty or non-bilingual study paragraph: ' + sec.ref);
+    const linked = connect(slug, sec.ref, ' ', items);
+    overlay[sec.ref] = linked.map(x => x.p);
+    paragraphCount += linked.length;
+    phraseCount += linked.reduce((n,item) => n + item.p.length,0);
+  }
+  writeFile(path.join(dest,'interlinear.json'), JSON.stringify(overlay));
+  console.log('Mei HaShiloach: '+study.sections.length+' groups, '+paragraphCount+' original passages, '+phraseCount+' bilingual phrase pairs; existing English untouched');
+}
+
 writeFile(path.join(OUT, 'catalog.json'), JSON.stringify(catalog, null, 1));
 let nLinks = 0;
 for (const [slug, bySection] of Object.entries(LINKS)) {
