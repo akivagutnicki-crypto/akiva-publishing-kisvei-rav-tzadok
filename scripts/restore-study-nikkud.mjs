@@ -111,6 +111,26 @@ export function restoreStudyNikkud(canonicalText, phrasePairs) {
     lastS=a.i+WIDTH; lastT=a.k+WIDTH;
   }
   alignGap(source,target,lastS,source.length,lastT,target.length,mapping);
+  // A PDF sometimes puts the second half of a right-to-left line before its
+  // first half. LIS correctly avoids shifting the running alignment, but
+  // those reversed *unique* passages can still be recovered independently:
+  // an exact nine-consonant match cannot be an unrelated source passage.
+  for (const a of proposals) {
+    for (let d = 0; d < WIDTH; ++d) {
+      const si=a.i+d, tj=a.k+d;
+      if (mapping[tj] === undefined && source[si].c === target[tj].c)
+        mapping[tj] = source[si].marks;
+    }
+    // Extend each proven exact anchor outward until consonants disagree.
+    for (const dir of [-1, 1]) {
+      let si=dir<0 ? a.i-1 : a.i+WIDTH;
+      let tj=dir<0 ? a.k-1 : a.k+WIDTH;
+      for (let distance=0; distance<120
+         && si>=0 && si<source.length && tj>=0 && tj<target.length
+         && source[si].c===target[tj].c; ++distance, si+=dir, tj+=dir)
+        if (mapping[tj] === undefined) mapping[tj]=source[si].marks;
+    }
+  }
   let result='', glyphIndex=0, vocalized=0, matched=0, sourceMarks=0;
   for(const g of source) if(g.marks) sourceMarks++;
   for(let i=0;i<canonical.length;++i) {
