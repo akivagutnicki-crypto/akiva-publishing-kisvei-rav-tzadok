@@ -186,6 +186,22 @@ body.panel-open .text{max-width:860px}
 .ph:last-child{border-bottom:0}
 .ph-he{font-family:var(--he);font-weight:500;font-size:calc(1.4rem * var(--fs));line-height:1.75;text-align:right}
 .ph-en{font-family:var(--en);font-size:calc(1.14rem * var(--fs));line-height:1.5;color:var(--muted);margin-top:2px}
+/* Notes from the annotated DOCX, accessible in all three reading modes. */
+.annotated-trigger{display:inline-block;border:0;background:transparent;color:var(--ox);font:700 .73rem/1.2 var(--ui);vertical-align:super;padding:3px 5px;cursor:pointer;border-radius:3px;margin-inline:2px}
+.annotated-trigger:hover,.annotated-trigger:focus-visible{background:var(--soft);outline:2px solid var(--brass);outline-offset:2px}
+.reader-footnote{display:none;max-width:100%;margin:12px 0 10px;padding:18px 19px;border:1px solid var(--line);border-left:4px solid var(--brass);border-radius:5px;background:var(--panel);color:var(--ink);font:400 calc(.96rem * var(--fs))/1.65 var(--en);text-align:left;direction:ltr;overflow-wrap:anywhere}
+.reader-footnote.open{display:block}
+.reader-footnote .annotated-title{font:700 .87rem/1.5 var(--ui);color:var(--forest);margin:0 0 12px}
+.reader-footnote .annotation-part{margin:0 0 13px;border-top:1px solid var(--line);padding-top:10px}
+.reader-footnote .annotation-part:first-of-type{border-top:0;padding-top:0}
+.reader-footnote .annotation-label{font:700 .76rem/1.5 var(--ui);color:var(--ox);margin-bottom:4px}
+.reader-footnote .annotation-text{white-space:pre-wrap;font:400 calc(.96rem * var(--fs))/1.62 var(--en);margin:0}
+.reader-footnote .annotation-links{display:flex;gap:8px 16px;flex-wrap:wrap;font:600 .78rem/1.5 var(--ui);margin-top:7px}
+.reader-footnote a{color:var(--link);text-decoration:underline;text-underline-offset:3px}
+.segment-annotations{grid-column:1/-1;width:100%;min-width:0;border-top:1px solid var(--line);padding:8px 0 2px;line-height:1.9}
+.segment-annotations-label{font:600 .77rem/1.4 var(--ui);color:var(--muted);margin-inline-end:10px}
+.text[data-lang="bi"][data-layout="inter"] .segment-annotations{display:none}
+.note-discovery{font:500 .86rem/1.5 var(--ui);color:var(--muted);text-align:center;margin:0 0 18px}
 .source-table{margin:24px 0;overflow-x:auto;border:1px solid var(--line);border-radius:6px}
 .source-table table{border-collapse:collapse;width:100%;min-width:540px;font:400 calc(1.12rem * var(--fs))/1.5 var(--he);direction:rtl}
 .source-table th,.source-table td{padding:10px 14px;text-align:right;border-bottom:1px solid var(--line);border-left:1px solid var(--line)}
@@ -485,19 +501,20 @@ async function resolveLocal(ref) {
   const all = [...new Set(readingLeaves.flatMap(l => sectionsOf(l).map(a => secRefOf(l, a))))];
   const sectionRef = secRefOf(leaf, addr), k = all.indexOf(sectionRef);
   const sep = leaf.sep || (secLen ? ':' : ' ');
-  let he = Array.isArray(text) ? text : [text], en = [], phrases = null, heads = null, tables = null, transcriptionNotes = null;
+  let he = Array.isArray(text) ? text : [text], en = [], phrases = null, heads = null, tables = null, transcriptionNotes = null, annotations = null;
   // A saved contents file can predate an edition update (or vice versa).
   // Decode the format actually received rather than trusting cached flags.
   const il = Array.isArray(text) && text.some(it => it && typeof it === 'object'
     && (Array.isArray(it.p) || typeof it.h === 'string' || it.table));
   let nums = null;
   if (il) { // items: {p: [[he, en], ...], n?} paragraphs and {h: title} subheadings
-    phrases = []; heads = {}; tables = {}; nums = []; transcriptionNotes = {};
+    phrases = []; heads = {}; tables = {}; nums = []; transcriptionNotes = {}; annotations = {};
     text.forEach(it => {
       if (it.h) (heads[phrases.length] = heads[phrases.length] || []).push(it.h);
       else if (it.table) (tables[phrases.length] = tables[phrases.length] || []).push(it.table);
       else if (it.p) {
         if (it.transcriptionNotes?.length) transcriptionNotes[phrases.length] = it.transcriptionNotes;
+        if (it.footnotes?.length) annotations[phrases.length] = it.footnotes;
         phrases.push(it.p); nums.push(it.n || nums.length + 1);
       }
     });
@@ -506,7 +523,7 @@ async function resolveLocal(ref) {
   }
   return {
     local: true, ref: sectionRef, sectionRef, heRef: leaf.interlinear ? leaf.heRef : heSecRefOf(leaf, addr), book: book.title, heBook: book.he,
-    he, en, phrases, heads, tables, nums, transcriptionNotes, chapterLinks: !!il, title: leaf.interlinear ? {en: leaf.en, he: leaf.he, ois: leaf.ois, parashah: leaf.parashah} : null,
+    he, en, phrases, heads, tables, nums, transcriptionNotes, annotations, chapterLinks: !!il, title: leaf.interlinear ? {en: leaf.en, he: leaf.he, ois: leaf.ois, parashah: leaf.parashah} : null,
     sourceUrl: leaf.sourceUrl || null,
     segmentLevel: false, sep, highlight: segment ? `${sectionRef}${sep}${segment}` : null,
     next: all[k + 1] || null, prev: k > 0 ? all[k - 1] : null,
@@ -919,7 +936,15 @@ async function renderReader(ref) {
   // segment clicks
   text.addEventListener('click', e => {
     const fm = e.target.closest('.footnote-marker');
-    if (fm) { const fn = fm.nextElementSibling; if (fn && fn.classList.contains('footnote')) fn.classList.toggle('open'); e.stopPropagation(); return; }
+    if (fm) {
+      const fn = fm.nextElementSibling;
+      if (fn && fn.classList.contains('footnote')) {
+        const expanded = fn.classList.toggle('open');
+        if (fm.tagName === 'BUTTON') fm.setAttribute('aria-expanded', String(expanded));
+      }
+      e.stopPropagation(); return;
+    }
+    if (e.target.closest('.reader-footnote')) { e.stopPropagation(); return; }
     if (window.getSelection && String(window.getSelection()).length > 1) return;
     const seg = e.target.closest('.seg');
     const cite = e.target.closest('a.cite');
@@ -981,6 +1006,20 @@ function syncPrefs() {
   document.querySelectorAll('.seg .num').forEach(n => n.textContent = prefs.lang === 'he' ? gematria(+n.dataset.n) : n.dataset.n);
 }
 
+/* Render the complete annotated Word footnote, without paraphrasing the source excerpts. */
+function readingFootnote(note) {
+  const titles = ['Original cited source and translated passage', 'Parallel in Kisvei Rav Tzadok / Ishbitz–Radzin',
+    'Explanation of the parallel', 'Additional Chassidus source', 'English translation of the Chassidus passage', 'Connection to this footnote'];
+  const content = (note.paragraphs || []).map((p, i) => {
+    const links = (p.links || []).filter(l => /^https:\/\/(?:www\.)?sefaria\.org\//i.test(String(l.url || '')))
+      .map(l => `<a href="${esc(l.url)}" target="_blank" rel="noopener noreferrer">Open ${esc(l.label)} on Sefaria ↗</a>`).join('');
+    return `<section class="annotation-part"><div class="annotation-label">${titles[i] || 'Source context'}</div>
+      <p class="annotation-text">${esc(p.text || '')}</p>${links ? `<div class="annotation-links">${links}</div>` : ''}</section>`;
+  }).join('');
+  return `<button type="button" class="footnote-marker annotated-trigger" aria-label="Open annotated footnote ${note.number}" aria-expanded="false">${note.number}</button>
+    <div class="footnote reader-footnote" lang="en"><div class="annotated-title">Footnote ${note.number} · Sources and commentary</div>${content}</div>`;
+}
+
 function appendSection(d) {
   const text = $('#text');
   // A chapter of a commentary arrives as verses of comments: label each "verse:comment".
@@ -1006,6 +1045,8 @@ function appendSection(d) {
     ? `<div class="sec-head"><span>${esc(d.title.ois ? d.title.parashah + ' · Ois ' + d.title.ois + ' — ' + (d.title.en || d.sectionRef) : d.title.he && /^סימן/.test(d.title.he) ? d.sectionRef : d.title.en || d.sectionRef)}</span></div><h2 class="sec-title he" lang="he">${esc(d.title.he)}</h2>${d.title.he && /^סימן/.test(d.title.he) && d.title.en ? `<div class="sec-sub">${esc(d.title.en)}</div>` : ''}`
     : `<div class="sec-head"><span>${esc(d.sectionRef)}</span>${d.heRef ? `<span class="he" lang="he">${esc(d.heRef)}</span>` : ''}</div>`;
   if (d.sourceUrl) html += `<div class="sec-sub"><a href="${esc(d.sourceUrl)}" target="_blank" rel="noopener noreferrer">View the original Hebrew on Sefaria ↗</a></div>`;
+  const numberOfNotes = Object.values(d.annotations || {}).reduce((sum, arr) => sum + arr.length, 0);
+  if (numberOfNotes) html += `<div class="note-discovery">${numberOfNotes} annotated source footnotes · Select a superscript number to read the complete quotations and commentary.</div>`;
   if (!n) html += `<div class="empty" style="text-align:center">This section has no text yet.</div>`;
   for (let i = 0; i < n; i++) {
     const num = d.nums ? d.nums[i] : i + 1;
@@ -1014,11 +1055,18 @@ function appendSection(d) {
     if (d.heads && d.heads[i]) html += d.heads[i].map(subhead).join('');
     if (d.tables && d.tables[i]) html += d.tables[i].map(sourceTable).join('');
     if (!h.trim() && !e.trim()) continue;
-    const il = d.phrases ? `<div class="seg-il">${d.phrases[i].map(([ph, pe]) => `<div class="ph"><div class="ph-he" lang="he" dir="rtl">${clean(ph)}</div><div class="ph-en" lang="en">${clean(pe)}</div></div>`).join('')}</div>` : '';
+    const annotated = d.annotations?.[i] || [];
+    const notesAt = new Map();
+    for (const note of annotated) {
+      const list = notesAt.get(note.phraseIndex) || [];
+      list.push(note); notesAt.set(note.phraseIndex, list);
+    }
+    const il = d.phrases ? `<div class="seg-il">${d.phrases[i].map(([ph, pe], j) => `<div class="ph"><div class="ph-he" lang="he" dir="rtl">${clean(ph)}</div><div class="ph-en" lang="en">${clean(pe)}${(notesAt.get(j) || []).map(readingFootnote).join('')}</div></div>`).join('')}</div>` : '';
+    const noteTray = annotated.length ? `<div class="segment-annotations"><span class="segment-annotations-label">Annotated footnotes:</span>${annotated.map(readingFootnote).join('')}</div>` : '';
     html += `<div class="seg" data-ref="${esc(r)}" data-i="${num}" data-k="${i}" tabindex="0">
       <span class="num" data-n="${num}">${labels ? labels[i] : prefs.lang === 'he' ? gematria(num) : num}</span>
       <div class="seg-he" lang="he" dir="rtl">${h}</div>
-      <div class="seg-en" lang="en">${e}</div>${il}
+      <div class="seg-en" lang="en">${e}</div>${il}${noteTray}
     </div>`;
     if (d.transcriptionNotes?.[i]) html += `<details class="transcription-note"><summary><span class="note-en">Source transcription notes</span><span class="note-he" lang="he">הֶעָרוֹת לַנּוּסָח</span></summary><p class="note-en">${esc(d.transcriptionNotes[i].join(' '))}</p><p class="note-he" lang="he">הַנּוּסָח נִשְׁמַר כַּתַּעֲתִיק. קְרִיאוֹת אוֹ רָאשֵׁי תֵּבוֹת שֶׁאֵינָם בְּרוּרִים נִשְׁמְרוּ, וְהַמַּשְׁמָעוּת בַּתַּרְגּוּם נִקְבְּעָה לְפִי הַהֶקְשֵׁר.</p></details>`;
   }

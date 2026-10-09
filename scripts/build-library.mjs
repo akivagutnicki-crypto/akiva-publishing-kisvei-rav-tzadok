@@ -39,6 +39,21 @@ if (fs.existsSync(editionsDir)) {
     EDITIONS.set(edition.book, edition);
   }
 }
+// Word-footnote annotations, anchored to individual phrases in a study edition.
+const STUDY_NOTES = new Map();
+const notesDir = 'sources/akiva/annotations';
+if (fs.existsSync(notesDir)) {
+  for (const file of fs.readdirSync(notesDir).filter(f => f.endsWith('.json'))) {
+    const pack = JSON.parse(fs.readFileSync(path.join(notesDir, file), 'utf8'));
+    if (!pack.work || !pack.parashah || !Array.isArray(pack.notes)) throw new Error('Invalid study annotations: ' + file);
+    for (const note of pack.notes) {
+      const key = pack.work + '|' + pack.parashah + '|' + note.ois;
+      const list = STUDY_NOTES.get(key) || [];
+      list.push(note);
+      STUDY_NOTES.set(key, list);
+    }
+  }
+}
 const escapeHtml = x => String(x ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
 const slugify = s => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
@@ -369,7 +384,7 @@ for (const dir of DIRS) {
         const items = [];
         for (const sec of sections) {
           items.push({h: sec.title}, {h: '\n' + sec.summary});
-          for (const topic of sec.topics) {
+          for (const [topicIndex, topic] of sec.topics.entries()) {
             if (topic.h && topic.h !== 'Opening Text') items.push({h: topic.h});
             const count = (topic.pairs || []).length;
             if (!count) continue;
@@ -379,7 +394,16 @@ for (const dir of DIRS) {
                 english = english.replace(/\)\s*$/, '').trim();
               return [escapeHtml(he), escapeHtml(english)];
             });
-            items.push({p:pairs, n:++counter});
+            const notes = (STUDY_NOTES.get(src.title + '|' + group.node + '|' + group.chapter) || [])
+              .filter(note => note.topicIndex === topicIndex);
+            for (const note of notes) {
+              if (!Number.isInteger(note.phraseIndex) || note.phraseIndex < 0 || note.phraseIndex >= count ||
+                  !Array.isArray(note.paragraphs) || note.paragraphs.length !== 6)
+                throw new Error('Misaligned annotated footnote ' + note.number + ' in ' + group.node + ' ' + group.chapter);
+            }
+            items.push({p:pairs, n:++counter, ...(notes.length ? {footnotes:notes.map(note => ({
+              number:note.number, phraseIndex:note.phraseIndex, paragraphs:note.paragraphs
+            }))} : {})});
             cursor += count;
           }
         }
