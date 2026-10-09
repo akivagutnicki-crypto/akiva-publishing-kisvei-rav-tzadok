@@ -262,6 +262,27 @@ for (const dir of DIRS) {
     // whole English translation (that is not interlinear).
     const edition = EDITIONS.get(src.title);
     if (edition) {
+      // Hebrew gematria with traditional gershayim (15=ט״ו, 16=ט״ז).
+      // This is the actual ois number in the text, NOT the position of
+      // the chapter in the current translation (which can skip an ois).
+      const oisHebrew = value => {
+        let n = Number(value);
+        if (!Number.isInteger(n) || n < 1 || n >= 1000) throw new Error('Invalid ois: ' + value);
+        let out = '';
+        while (n >= 400) {out += 'ת'; n -= 400;}
+        const hundreds = ['', 'ק', 'ר', 'ש'];
+        out += hundreds[Math.floor(n / 100)];
+        n %= 100;
+        if (n === 15) out += 'טו';
+        else if (n === 16) out += 'טז';
+        else {
+          const tens = ['', 'י', 'כ', 'ל', 'מ', 'נ', 'ס', 'ע', 'פ', 'צ'];
+          const units = ['', 'א', 'ב', 'ג', 'ד', 'ה', 'ו', 'ז', 'ח', 'ט'];
+          out += tens[Math.floor(n / 10)] + units[n % 10];
+        }
+        return out.length === 1 ? out + '׳' : out.slice(0, -1) + '״' + out.slice(-1);
+      };
+      const parashahHebrew = {Bereshit:'בראשית', Noach:'נח'};
       const heLetters = s => (String(s || '').match(/[\u05d0-\u05ea]/g) || []).length;
       const originalHebrew = (node, chapter) => {
         const t = src.text?.[node];
@@ -353,9 +374,12 @@ for (const dir of DIRS) {
         const id = leafId++;
         const converted = connect(slug, ref, ':', items);
         writeFile(path.join(bookDir, id + '.json'), JSON.stringify(converted));
-        const leaf = {en:sections.map(x=>x.title).join(' / '), he:group.node, id,
+        const hasOis = Object.hasOwn(parashahHebrew, group.node) && Number.isInteger(group.chapter);
+        const hebrewHeading = hasOis ? parashahHebrew[group.node] + ' · אות ' + oisHebrew(group.chapter) : group.node;
+        const leaf = {en:sections.map(x=>x.title).join(' / '), he:hebrewHeading, id,
           depth:1, shape:converted.filter(x => x.p).length, il1:true, interlinear:true,
-          ref, heRef:src.heTitle + ', ' + group.node, sep:':'};
+          ref, heRef:src.heTitle + ', ' + hebrewHeading, sep:':',
+          ...(hasOis ? {parashah:group.node, ois:group.chapter} : {})};
         leaves.push(leaf);
         segments += leaf.shape;
         console.log('  ' + ref + ': ' + fullPairs.length + ' aligned Hebrew-English phrases, ' + pointed.vocalized + '/' + pointed.targetLetters + ' Hebrew letters with nikkud');
