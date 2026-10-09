@@ -26,7 +26,19 @@ function writeFile(file, contents) {
 
 const OUT = 'dist/library/data';
 // Akiva sources come first and replace a Sefaria export of the same title.
-const DIRS = ['sources/akiva', 'sources/sefaria'];
+// Tiferet Yosef has a complete original Hebrew export in the held corpus.
+// Publish this one work now that an Akiva study translation is present.
+const DIRS = ['sources/akiva', 'sources/sefaria', 'sources/held'];
+const EDITIONS = new Map();
+const editionsDir = 'sources/akiva/editions';
+if (fs.existsSync(editionsDir)) {
+  for (const file of fs.readdirSync(editionsDir).filter(x => x.endsWith('.json'))) {
+    const edition = JSON.parse(fs.readFileSync(path.join(editionsDir, file), 'utf8'));
+    if (!Array.isArray(edition.sections) || !edition.book) throw new Error('Invalid study edition: ' + file);
+    EDITIONS.set(edition.book, edition);
+  }
+}
+const escapeHtml = x => String(x ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
 const slugify = s => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const depthOf = x => (Array.isArray(x) ? 1 + Math.max(0, ...x.map(depthOf)) : 0);
@@ -140,7 +152,8 @@ fs.mkdirSync(OUT, { recursive: true });
 const catalog = [];
 for (const dir of DIRS) {
   if (!fs.existsSync(dir)) continue;
-  for (const file of fs.readdirSync(dir).filter(f => f.endsWith('.json')).sort()) {
+  const candidateFiles = dir === 'sources/held' ? ['Tiferet_Yosef.json'] : fs.readdirSync(dir).filter(f => f.endsWith('.json')).sort();
+  for (const file of candidateFiles) {
     const src = JSON.parse(fs.readFileSync(path.join(dir, file), 'utf8'));
     if (catalog.some(b => b.title === src.title)) { console.log(`${src.title}: using Akiva edition, skipping ${path.join(dir, file)}`); continue; }
     const slug = slugify(src.title);
@@ -242,6 +255,44 @@ for (const dir of DIRS) {
       : build(null, src.text, [src.title], [src.heTitle]);
     root.en = src.title; root.he = src.heTitle;
 
+    // Add the uploaded Akiva Publishing study translations *inside* the
+    // existing work, preserving the canonical Hebrew Sefaria text and TOC.
+    // The translation sections are distinct reader leaves rather than a
+    // replacement for Hebrew paragraphs elsewhere in the work.
+    const edition = EDITIONS.get(src.title);
+    if (edition) {
+      const leaves = [];
+      for (let j = 0; j < edition.sections.length; j++) {
+        const sec = edition.sections[j];
+        const node = src.text?.[sec.node];
+        const original = sec.chapter && Array.isArray(node) ? node[sec.chapter - 1] : '';
+        const hebrew = typeof original === 'string' ? original
+          : Array.isArray(original) ? original.filter(x => typeof x === 'string').join(' ') : '';
+        const canonical = !sec.node.startsWith('Editorial supplement:');
+        if (canonical && !hebrew) console.warn('Missing original Hebrew for', src.title, sec.node, sec.chapter);
+        const items = [{ h: sec.title }, { h: '\\n' + sec.summary }];
+        if (hebrew) items.push({ p: [[hebrew, '']], n: 1 });
+        for (const topic of sec.topics || []) {
+          if (topic.h && topic.h !== 'Opening Text') items.push({ h: topic.h });
+          if (topic.en) items.push({ p: [['', escapeHtml(topic.en)]], n: 1 });
+        }
+        const ref = canonical ? src.title + ', ' + sec.node + (['Bereshit', 'Noach'].includes(sec.node) ? ' ' + sec.chapter : '')
+          : src.title + ', Akiva Study Edition ' + (j + 1);
+        const id = leafId++;
+        const converted = connect(slug, ref, ':', items);
+        writeFile(path.join(bookDir, id + '.json'), JSON.stringify(converted));
+        const leaf = { en: sec.title, he: canonical ? sec.node : 'הוספות', id, depth: 1,
+          shape: converted.filter(i => i.p).length, il1: true, interlinear: true,
+          ref, heRef: src.heTitle + ', ' + sec.node, sep: ':' };
+        leaves.push(leaf);
+        segments += leaf.shape;
+      }
+      if (!root.children) root.children = [];
+      root.children.push({ en: 'Akiva Publishing — English Study Edition',
+        he: 'מהדורת לימוד באנגלית — עקיבא פאבלישינג', children: leaves });
+      console.log(src.title + ': Akiva study edition added (' + leaves.length + ' sections)');
+    }
+
     const [, group = 'Other'] = src.categories || [];
     const version = {
       title: src.versionTitle === 'merged' && src.versions?.[0] ? src.versions[0][0] : src.versionTitle,
@@ -250,7 +301,8 @@ for (const dir of DIRS) {
     };
     writeFile(path.join(bookDir, 'toc.json'), JSON.stringify({ title: src.title, he: src.heTitle, version, toc: root }));
     const ilParts = [...PARTS.values()].some(p => p.book === src.title);
-    catalog.push({ title: src.title, he: src.heTitle, slug, group, version, akiva: !!src.akiva, ilParts, segments });
+    catalog.push({ title: src.title, he: src.heTitle, slug, group, version,
+      akiva: !!src.akiva || !!edition, ilParts: ilParts || !!edition, segments });
     console.log(`${src.title}: ${leafId} node(s), ${segments} segments`);
   }
 }
