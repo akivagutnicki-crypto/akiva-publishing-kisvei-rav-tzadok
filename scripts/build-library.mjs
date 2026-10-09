@@ -187,7 +187,17 @@ for (const dir of DIRS) {
         };
       });
       const version = { title: src.versionTitle, source: src.versionSource || '', license: src.license || '' };
-      const toc = { en: src.title, he: src.heTitle, children };
+      // The Beit Yaakov upload contains 77 Bereishit and 55 Noach osiyos.
+      // Group its chapter links by parashah without changing the original
+      // chapter numbers, the bilingual phrase pairs, or citation anchors.
+      const tocChildren = src.title === 'Beit Yaakov on Torah'
+        ? [
+            {en: 'Bereishit · 77 Osiyos', he: 'בראשית',
+              children: children.filter(leaf => /, Bereshit \d+$/.test(leaf.ref))},
+            {en: 'Noach · 55 Osiyos', he: 'נח',
+              children: children.filter(leaf => /, Noach \d+$/.test(leaf.ref))},
+          ] : children;
+      const toc = { en: src.title, he: src.heTitle, children: tocChildren };
       writeFile(path.join(bookDir, 'toc.json'), JSON.stringify({ title: src.title, he: src.heTitle, version, toc }));
       catalog.push({ title: src.title, he: src.heTitle, slug, group: (src.categories || [])[1] || 'Other', version, akiva: true, interlinear: true, segments, ...(downloads.length ? { downloads } : {}) });
       console.log(`${src.title}: interlinear, ${children.length} sections, ${segments} paragraphs`);
