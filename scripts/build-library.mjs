@@ -16,6 +16,7 @@ import { createRequire } from 'node:module';
 import { linkCitations, categoryOf, normalizeRef } from './citations.mjs';
 import { packs, TANAKH, SHAS } from './packs.mjs';
 import { linkLikkuteiCitations } from './likkutei-citations.mjs';
+import { restoreStudyNikkud } from './restore-study-nikkud.mjs';
 
 // Publish each generated file atomically when an interlinear overlay replaces Hebrew.
 function writeFile(file, contents) {
@@ -321,7 +322,14 @@ for (const dir of DIRS) {
         if (!fullPairs.length) throw new Error('Study edition has no phrase pairs: ' + src.title + ' ' + group.node);
         const canonical = originalHebrew(group.node, group.chapter);
         if (!canonical) console.warn('Original Hebrew unavailable; retaining manuscript text:', src.title, group.node, group.chapter);
-        const aligned = alignOriginalHebrew(canonical, fullPairs);
+        // The canonical source retains original consonants, words and layout,
+        // but lacks vowels. Recover the nikkud from the study edition by
+        // matching consonants, rather than displaying garbled PDF-extracted
+        // sequences with vowels detached from their Hebrew letters.
+        const pointed = restoreStudyNikkud(canonical, fullPairs);
+        if (canonical && pointed.vocalized < Math.min(12, Math.floor(pointed.targetLetters * 0.1)))
+          console.warn('LOW NIKKUD COVERAGE:', src.title, group.node, group.chapter, pointed);
+        const aligned = alignOriginalHebrew(pointed.text, fullPairs);
         let cursor = 0, counter = 0;
         const items = [];
         for (const sec of sections) {
@@ -350,7 +358,7 @@ for (const dir of DIRS) {
           ref, heRef:src.heTitle + ', ' + group.node, sep:':'};
         leaves.push(leaf);
         segments += leaf.shape;
-        console.log('  ' + ref + ': ' + fullPairs.length + ' aligned Hebrew-English phrases');
+        console.log('  ' + ref + ': ' + fullPairs.length + ' aligned Hebrew-English phrases, ' + pointed.vocalized + '/' + pointed.targetLetters + ' Hebrew letters with nikkud');
       }
       if (!root.children) root.children = [];
       // Prefer the translated leaf for overlapping references; the original
