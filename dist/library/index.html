@@ -674,9 +674,9 @@ async function renderHome() {
         <div class="he-title he" lang="he">כתבי רבי צדוק הכהן מלובלין</div>
         <p>Read the writings of Rav Tzadok HaKohen and the Izhbitza–Radzin masters in the original Hebrew, with English where a translation exists. Tap any passage to see the sources it draws on and the texts that cite it.</p>
       </div>
-      <a class="weekly-teaser" href="blog/the-alchemy-of-the-soul/" aria-label="Read this week's Torah essay The Alchemy of the Soul">
+      <a class="weekly-teaser" href="blog/the-lamp-the-dough-and-the-open-gates/" aria-label="Read The Lamp, the Dough, and the Open Gates">
         <img src="../akiva-five-book-collection.webp" alt="Five published Akiva Publishing books displayed on a table" loading="lazy">
-        <span class="weekly-teaser-copy"><span class="eyebrow">Weekly Torah · Parashat Bereishit</span><strong>The Alchemy of the Soul</strong><span>How the darkness and the yetzer hara become the raw material of spiritual growth · Read this week's essay →</span></span>
+        <span class="weekly-teaser-copy"><span class="eyebrow">Weekly Torah · Parashat Noach</span><strong>The Lamp, the Dough, and the Open Gates</strong><span>Shabbos candles, the soul and the wisdom hidden beneath the Flood · Read the essay →</span></span>
       </a>
       ${groups.map(g => {
         const list = books.filter(b => b.group === g.id);
@@ -686,7 +686,7 @@ async function renderHome() {
       <div class="src-groups" id="srcGroups"></div>
     </div>
     <aside class="side">
-<section class="library-weekly"><h3>Weekly Torah</h3><p><strong>The Alchemy of the Soul</strong><br>Parashat Bereishit · Mar Cheshvan</p><a class="link" href="blog/the-alchemy-of-the-soul/">Read this week's essay →</a><a class="link" href="blog/the-alchemy-of-the-soul/read-pdf/">Read PDF online →</a><a class="link" href="blog/pdfs/the-alchemy-of-the-soul.pdf" download>Download PDF ↓</a><a class="link" href="blog/">See the Weekly Torah blog →</a></section>
+<section class="library-weekly"><h3>Weekly Torah</h3><p><strong>The Lamp, the Dough, and the Open Gates</strong><br>Parashat Noach · Pri Tzaddik Ois 5–6</p><a class="link" href="blog/the-lamp-the-dough-and-the-open-gates/">Read latest essay →</a><a class="link" href="blog/the-lamp-the-dough-and-the-open-gates/read-pdf/">Read PDF online →</a><a class="link" href="blog/pdfs/the-lamp-the-dough-and-the-open-gates-noach.pdf" download>Download essay PDF ↓</a><a class="link" href="blog/docs/the-lamp-the-dough-and-the-open-gates-noach.docx" download>Download essay DOCX ↓</a><p><strong>Annotated Pri Tzaddik · Noach Ois 5–6</strong></p><a class="link" href="downloads/pri-tzaddik-noach-ois-5-6-chassidus-kdp-7x10.pdf">Read KDP 7×10 edition ↗</a><a class="link" href="downloads/pri-tzaddik-noach-ois-5-6-chassidus-kdp-7x10.docx" download>Download annotated DOCX ↓</a><a class="link" href="blog/">All Weekly Torah essays →</a></section>
       ${recent.length ? `<section class="recent"><h3>Continue reading</h3>${recent.slice(0, 5).map(r => `<a href="#/read/${toHash(r.ref)}"><span>${esc(r.ref)}</span><span class="he" lang="he">${esc(r.heRef || '')}</span></a>`).join('')}</section>` : ''}
       <section>
         <h3>Start here</h3>
@@ -743,6 +743,7 @@ async function renderBook(title) {
     <div id="toc"><div class="loading">Loading contents…</div></div></div>${credit()}`;
   const actions = (first, downloads = []) => `${first ? `<a class="btn primary" href="#/read/${toHash(first)}">Start reading →</a>` : ''}
       ${downloads.map(d => `<a class="btn" href="${esc(d.file)}" download>${esc(d.label)}</a>`).join('')}
+      ${title === 'Peri Tzadik' ? `<a class="btn" href="downloads/pri-tzaddik-noach-ois-5-6-chassidus-kdp-7x10.pdf" target="_blank" rel="noopener">Noach Ois 5–6 · Annotated KDP PDF</a><a class="btn" href="downloads/pri-tzaddik-noach-ois-5-6-chassidus-kdp-7x10.docx" download>Noach Ois 5–6 · Word DOCX</a>` : ''}
       ${w.edition ? `<a class="btn" href="../#${w.edition === 'available' ? 'takanas' : 'dover'}">Akiva Publishing edition</a>` : ''}
       ${w.akiva ? '' : `<a class="btn" href="${sefariaUrl(title)}" target="_blank" rel="noopener">View on Sefaria ↗</a>`}
       <button class="btn" type="button" id="saveBook">Save this sefer offline</button><span class="status" id="saveBookStatus" style="align-self:center;font:500 .8rem var(--ui);color:var(--muted)"></span>`;
