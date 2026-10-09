@@ -309,8 +309,10 @@ for (const dir of DIRS) {
           prev = boundary;
         }
         boundaries.push(original.length);
-        return inputPairs.map(([,en],i) =>
-          [original.slice(boundaries[i], boundaries[i+1]).trim(), en]);
+        return inputPairs.map(([he,en],i) => {
+          const aligned = original.slice(boundaries[i], boundaries[i+1]).trim();
+          return [heLetters(aligned) ? aligned : he, en];
+        });
       }
       const leaves = [];
       for (const group of groups.values()) {
@@ -318,7 +320,7 @@ for (const dir of DIRS) {
         const fullPairs = sections.flatMap(sec => sec.topics.flatMap(t => t.pairs || []));
         if (!fullPairs.length) throw new Error('Study edition has no phrase pairs: ' + src.title + ' ' + group.node);
         const canonical = originalHebrew(group.node, group.chapter);
-        if (!canonical) throw new Error('Missing original Hebrew for interlinear edition: ' + src.title + ' ' + group.node + ' ' + group.chapter);
+        if (!canonical) console.warn('Original Hebrew unavailable; retaining manuscript text:', src.title, group.node, group.chapter);
         const aligned = alignOriginalHebrew(canonical, fullPairs);
         let cursor = 0, counter = 0;
         const items = [];
