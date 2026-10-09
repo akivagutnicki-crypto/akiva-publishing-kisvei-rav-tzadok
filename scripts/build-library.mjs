@@ -270,7 +270,7 @@ for (const dir of DIRS) {
           : Array.isArray(original) ? original.filter(x => typeof x === 'string').join(' ') : '';
         const canonical = !sec.node.startsWith('Editorial supplement:');
         if (canonical && !hebrew) console.warn('Missing original Hebrew for', src.title, sec.node, sec.chapter);
-        const items = [{ h: sec.title }, { h: '\\n' + sec.summary }];
+        const items = [{ h: sec.title }, { h: '\n' + sec.summary }];
         if (hebrew) items.push({ p: [[hebrew, '']], n: 1 });
         for (const topic of sec.topics || []) {
           if (topic.h && topic.h !== 'Opening Text') items.push({ h: topic.h });
