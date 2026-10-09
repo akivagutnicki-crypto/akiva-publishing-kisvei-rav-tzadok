@@ -576,13 +576,13 @@ const meiStudyRefs = new Set([
 ]);
 async function withMeiStudy(d) {
   const ref = d.sectionRef || d.ref;
-  if (d.book !== 'Mei HaShiloach' || !meiStudyRefs.has(ref) || !Array.isArray(d.he)) return d;
+  if (!meiStudyRefs.has(ref) || !Array.isArray(d.he)) return d;
   const overlay = (await dataJSON('mei-ha-shiloach/interlinear.json'))?.[ref];
   // If a source edition later changes its passage count, don't attach
   // translations to incorrect paragraphs.
   if (!Array.isArray(overlay) || overlay.length !== d.he.length
       || overlay.some(pairs => !Array.isArray(pairs) || !pairs.length)) return d;
-  return {...d, phrases:overlay, meiStudy:true};
+  return {...d, book:'Mei HaShiloach', phrases:overlay, meiStudy:true};
 }
 async function fetchText(ref, {remoteOnly = false} = {}) {
   if (!remoteOnly) { try { const loc = await resolveLocal(ref); if (loc) return loc; } catch (e) { console.warn('local text failed', e); } }
