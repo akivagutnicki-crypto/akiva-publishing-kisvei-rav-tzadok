@@ -30,6 +30,9 @@ jobs:
       - name: Build library text data
         run: node scripts/build-library.mjs
 
+      - name: Verify interlinear Hebrew, nikkud, and Sefaria links
+        run: node scripts/test-interlinear-publication.mjs
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
         with:
