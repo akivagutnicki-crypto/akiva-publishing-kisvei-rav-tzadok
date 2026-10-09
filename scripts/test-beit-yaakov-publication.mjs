@@ -15,7 +15,7 @@ for(const [node,group] of [['Bereshit',bereshit],['Noach',noach]]){
  for(const [ix,leaf] of group.children.entries()){
   const n=ix+1;
   if(leaf.ref!==`Beit Yaakov on Torah, ${node} ${n}`)throw Error('Bad ois numbering '+leaf.ref);
-  if(!leaf.interlinear || leaf.shape<1 || !/אות/.test(leaf.he))throw Error('Missing interlinear metadata for '+leaf.ref);
+  if(!leaf.interlinear || leaf.shape<1 || !/אות/.test(leaf.he.replace(/[\u0591-\u05c7]/g,'')))throw Error('Missing interlinear metadata for '+leaf.ref);
   const items=JSON.parse(fs.readFileSync(path.join(bookRoot,leaf.id+'.json'),'utf8'));
   const ps=items.filter(it=>it.p);
   if(ps.length!==leaf.shape)throw Error('Segment count mismatch: '+leaf.ref);
