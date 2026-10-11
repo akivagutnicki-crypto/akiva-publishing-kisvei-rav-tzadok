@@ -196,6 +196,11 @@ body.panel-open .text{max-width:860px}
 .reader-footnote .annotation-part:first-of-type{border-top:0;padding-top:0}
 .reader-footnote .annotation-label{font:700 .76rem/1.5 var(--ui);color:var(--ox);margin-bottom:4px}
 .reader-footnote .annotation-text{white-space:pre-wrap;font:400 calc(.96rem * var(--fs))/1.62 var(--en);margin:0}
+.reader-footnote .annotation-text strong{font-weight:700;color:var(--ink)}
+.reader-footnote .annotation-text em{font-style:italic}
+.reader-footnote .annotation-part.word-note{padding-top:6px;margin-bottom:7px}
+.reader-footnote .annotation-part.word-note + .annotation-part.word-note{border-top:0}
+.section-docx-link{display:block;text-align:center;margin:9px auto 18px;font:600 .83rem/1.6 var(--ui)}
 .reader-footnote .annotation-links{display:flex;gap:8px 16px;flex-wrap:wrap;font:600 .78rem/1.5 var(--ui);margin-top:7px}
 .reader-footnote a{color:var(--link);text-decoration:underline;text-underline-offset:3px}
 .segment-annotations{grid-column:1/-1;width:100%;min-width:0;border-top:1px solid var(--line);padding:8px 0 2px;line-height:1.9}
@@ -524,7 +529,7 @@ async function resolveLocal(ref) {
   return {
     local: true, ref: sectionRef, sectionRef, heRef: leaf.interlinear ? leaf.heRef : heSecRefOf(leaf, addr), book: book.title, heBook: book.he,
     he, en, phrases, heads, tables, nums, transcriptionNotes, annotations, chapterLinks: !!il, title: leaf.interlinear ? {en: leaf.en, he: leaf.he, ois: leaf.ois, parashah: leaf.parashah} : null,
-    sourceUrl: leaf.sourceUrl || null,
+    sourceUrl: leaf.sourceUrl || null, downloadDocx: leaf.downloadDocx || null,
     segmentLevel: false, sep, highlight: segment ? `${sectionRef}${sep}${segment}` : null,
     next: all[k + 1] || null, prev: k > 0 ? all[k - 1] : null,
     versions: [il && !leaf.interlinear ? {title: 'Akiva Publishing interlinear edition', lang: 'Hebrew with interlinear English', source: '', license: '© Akiva Publishing'}
@@ -761,7 +766,7 @@ async function renderBook(title) {
     <div id="toc"><div class="loading">Loading contents…</div></div></div>${credit()}`;
   const actions = (first, downloads = []) => `${first ? `<a class="btn primary" href="#/read/${toHash(first)}">Start reading →</a>` : ''}
       ${downloads.map(d => `<a class="btn" href="${esc(d.file)}" download>${esc(d.label)}</a>`).join('')}
-      ${title === 'Peri Tzadik' ? `<a class="btn" href="downloads/pri-tzaddik-noach-ois-5-6-chassidus-kdp-7x10.pdf" target="_blank" rel="noopener">Noach Ois 5–6 · Annotated KDP PDF</a><a class="btn" href="downloads/pri-tzaddik-noach-ois-5-6-chassidus-kdp-7x10.docx" download>Noach Ois 5–6 · Word DOCX</a>` : ''}
+      ${title === 'Peri Tzadik' ? `<a class="btn" href="downloads/pri-tzaddik-rosh-chodesh-manuscript-annotated.docx" download>Rosh Chodesh Manuscript · Annotated DOCX</a><a class="btn" href="downloads/pri-tzaddik-rosh-chodesh-marcheshvan-annotated.docx" download>Marcheshvan · Annotated DOCX</a><a class="btn" href="downloads/pri-tzaddik-noach-ois-5-6-chassidus-kdp-7x10.pdf" target="_blank" rel="noopener">Noach Ois 5–6 · Annotated KDP PDF</a><a class="btn" href="downloads/pri-tzaddik-noach-ois-5-6-chassidus-kdp-7x10.docx" download>Noach Ois 5–6 · Word DOCX</a>` : ''}
       ${w.edition ? `<a class="btn" href="../#${w.edition === 'available' ? 'takanas' : 'dover'}">Akiva Publishing edition</a>` : ''}
       ${w.akiva ? '' : `<a class="btn" href="${sefariaUrl(title)}" target="_blank" rel="noopener">View on Sefaria ↗</a>`}
       <button class="btn" type="button" id="saveBook">Save this sefer offline</button><span class="status" id="saveBookStatus" style="align-self:center;font:500 .8rem var(--ui);color:var(--muted)"></span>`;
@@ -1010,11 +1015,24 @@ function syncPrefs() {
 function readingFootnote(note) {
   const titles = ['Original cited source and translated passage', 'Parallel in Kisvei Rav Tzadok / Ishbitz–Radzin',
     'Explanation of the parallel', 'Additional Chassidus source', 'English translation of the Chassidus passage', 'Connection to this footnote'];
+  const wordSource = (note.paragraphs || []).some(p => Array.isArray(p.rich) && p.rich.length);
   const content = (note.paragraphs || []).map((p, i) => {
-    const links = (p.links || []).filter(l => /^https:\/\/(?:www\.)?sefaria\.org\//i.test(String(l.url || '')))
-      .map(l => `<a href="${esc(l.url)}" target="_blank" rel="noopener noreferrer">Open ${esc(l.label)} on Sefaria ↗</a>`).join('');
-    return `<section class="annotation-part"><div class="annotation-label">${titles[i] || 'Source context'}</div>
-      <p class="annotation-text">${esc(p.text || '')}</p>${links ? `<div class="annotation-links">${links}</div>` : ''}</section>`;
+    const isSefaria = url => /^https:\/\/(?:www\.)?sefaria\.org\//i.test(String(url || ''));
+    // Preserve bold source labels, complete English quotations and linked source locations
+    // from each true Word footnote. Do not flatten a multi-paragraph note to one summary.
+    const rich = Array.isArray(p.rich) && p.rich.length ? p.rich.map(run => {
+      let segment = esc(run.text || '');
+      if (run.bold) segment = '<strong>' + segment + '</strong>';
+      if (run.italic) segment = '<em>' + segment + '</em>';
+      if (isSefaria(run.href)) segment = '<a href="' + esc(run.href) + '" target="_blank" rel="noopener noreferrer">' + segment + '</a>';
+      return segment;
+    }).join('') : esc(p.text || '');
+    const unique = new Set();
+    const links = (p.links || []).filter(l => isSefaria(l.url) && !unique.has(l.url) && unique.add(l.url))
+      .map(l => `<a href="${esc(l.url)}" target="_blank" rel="noopener noreferrer">Sefaria · ${esc(l.label || 'Original text')} ↗</a>`).join('');
+    return `<section class="annotation-part${wordSource ? ' word-note' : ''}">
+      ${wordSource ? '' : `<div class="annotation-label">${titles[i] || 'Source context'}</div>`}
+      <p class="annotation-text">${rich}</p>${links ? `<div class="annotation-links">${links}</div>` : ''}</section>`;
   }).join('');
   return `<button type="button" class="footnote-marker annotated-trigger" aria-label="Open annotated footnote ${note.number}" aria-expanded="false">${note.number}</button>
     <div class="footnote reader-footnote" lang="en"><div class="annotated-title">Footnote ${note.number} · Sources and commentary</div>${content}</div>`;
@@ -1045,6 +1063,7 @@ function appendSection(d) {
     ? `<div class="sec-head"><span>${esc(d.title.ois ? d.title.parashah + ' · Ois ' + d.title.ois + ' — ' + (d.title.en || d.sectionRef) : d.title.he && /^סימן/.test(d.title.he) ? d.sectionRef : d.title.en || d.sectionRef)}</span></div><h2 class="sec-title he" lang="he">${esc(d.title.he)}</h2>${d.title.he && /^סימן/.test(d.title.he) && d.title.en ? `<div class="sec-sub">${esc(d.title.en)}</div>` : ''}`
     : `<div class="sec-head"><span>${esc(d.sectionRef)}</span>${d.heRef ? `<span class="he" lang="he">${esc(d.heRef)}</span>` : ''}</div>`;
   if (d.sourceUrl) html += `<div class="sec-sub"><a href="${esc(d.sourceUrl)}" target="_blank" rel="noopener noreferrer">View the original Hebrew on Sefaria ↗</a></div>`;
+  if (d.downloadDocx) html += `<div class="section-docx-link"><a href="${esc(d.downloadDocx)}" download>Download the complete annotated Word edition (DOCX) ↓</a></div>`;
   const numberOfNotes = Object.values(d.annotations || {}).reduce((sum, arr) => sum + arr.length, 0);
   if (numberOfNotes) html += `<div class="note-discovery">${numberOfNotes} annotated source footnotes · Select a superscript number to read the complete quotations and commentary.</div>`;
   if (!n) html += `<div class="empty" style="text-align:center">This section has no text yet.</div>`;

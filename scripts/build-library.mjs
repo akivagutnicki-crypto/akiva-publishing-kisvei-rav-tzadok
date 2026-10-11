@@ -398,7 +398,7 @@ for (const dir of DIRS) {
               .filter(note => note.topicIndex === topicIndex);
             for (const note of notes) {
               if (!Number.isInteger(note.phraseIndex) || note.phraseIndex < 0 || note.phraseIndex >= count ||
-                  !Array.isArray(note.paragraphs) || note.paragraphs.length !== 6)
+                  !Array.isArray(note.paragraphs) || note.paragraphs.length < 1)
                 throw new Error('Misaligned annotated footnote ' + note.number + ' in ' + group.node + ' ' + group.chapter);
             }
             items.push({p:pairs, n:++counter, ...(notes.length ? {footnotes:notes.map(note => ({
@@ -418,7 +418,11 @@ for (const dir of DIRS) {
           depth:1, shape:converted.filter(x => x.p).length, il1:true, interlinear:true,
           ref, heRef:src.heTitle + ', ' + hebrewHeading, sep:':',
           ...(hasOis ? {parashah:group.node, ois:group.chapter} : {}),
-           ...(sections[0]?.sourceUrl ? {sourceUrl:sections[0].sourceUrl} : {})};
+           ...(sections[0]?.sourceUrl ? {sourceUrl:sections[0].sourceUrl} : {}),
+           ...(src.title === 'Peri Tzadik' && group.node === 'Rosh Chodesh (manuscript)'
+             ? {downloadDocx:'downloads/pri-tzaddik-rosh-chodesh-manuscript-annotated.docx'} : {}),
+           ...(src.title === 'Peri Tzadik' && group.node === 'Rosh Chodesh Cheshvan'
+             ? {downloadDocx:'downloads/pri-tzaddik-rosh-chodesh-marcheshvan-annotated.docx'} : {})};
         leaves.push(leaf);
         segments += leaf.shape;
         console.log('  ' + ref + ': ' + fullPairs.length + ' aligned Hebrew-English phrases, ' + pointed.vocalized + '/' + pointed.targetLetters + ' Hebrew letters with nikkud');
