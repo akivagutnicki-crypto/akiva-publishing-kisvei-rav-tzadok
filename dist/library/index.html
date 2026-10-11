@@ -438,7 +438,7 @@ const info = t => INFO[t] || {};
 let CATALOG = [];
 // Edition URLs keep older installed app caches from mixing Hebrew-only data
 // with the new interlinear contents. The service worker also accepts saved packs.
-const editionDataUrl = url => url.startsWith('data/') ? url + (/^data\/(?:peri-tzadik\/|tiferet-yosef\/|beit-yaakov-on-torah\/|mei-ha-shiloach\/|catalog\.json|files\.json|cited\/)/.test(url) ? '?edition=20261011-pri-noach-789-nikkud-v1' : url.startsWith('data/yisrael-kedoshim/') ? '?edition=20261006-yisrael-4-opening' : url.startsWith('data/machshavot-charutz/') ? '?edition=20261006-machshavot-format' : url.startsWith('data/tzidkat-hatzadik/') ? '?edition=20261007-tzidkat-complete' : '?edition=20261006-resisei-complete') : url;
+const editionDataUrl = url => url.startsWith('data/') ? url + (/^data\/(?:peri-tzadik\/|tiferet-yosef\/|beit-yaakov-on-torah\/|mei-ha-shiloach\/|catalog\.json|files\.json|cited\/)/.test(url) ? '?edition=20261011-lech-lecha-three-seforim-v1' : url.startsWith('data/yisrael-kedoshim/') ? '?edition=20261006-yisrael-4-opening' : url.startsWith('data/machshavot-charutz/') ? '?edition=20261006-machshavot-format' : url.startsWith('data/tzidkat-hatzadik/') ? '?edition=20261007-tzidkat-complete' : '?edition=20261006-resisei-complete') : url;
 const catalogReady = fetch(editionDataUrl('data/catalog.json')).then(r => r.ok ? r.json() : []).catch(() => []).then(c => { CATALOG = c; return c; });
 const localBook = t => CATALOG.find(b => b.title === t);
 const tocCache = new Map();
@@ -604,7 +604,10 @@ const meiStudyRefs = new Set([
   'Mei HaShiloach, Volume II, Genesis, Bereshit',
   'Mei HaShiloach, Volume II, Genesis, Noach',
   'Mei HaShiloach, Mei HaShiloach Anthology, Genesis, Bereshit',
-  'Mei HaShiloach, Mei HaShiloach Anthology, Genesis, Noach'
+  'Mei HaShiloach, Mei HaShiloach Anthology, Genesis, Noach',
+  'Mei HaShiloach, Volume I, Genesis, Lech Lecha',
+  'Mei HaShiloach, Volume II, Genesis, Lech Lecha',
+  'Mei HaShiloach, Mei HaShiloach Anthology, Genesis, Lech Lecha'
 ]);
 async function withMeiStudy(d) {
   const ref = d.sectionRef || d.ref;
@@ -614,7 +617,13 @@ async function withMeiStudy(d) {
   // translations to incorrect paragraphs.
   if (!Array.isArray(overlay) || overlay.length !== d.he.length
       || overlay.some(pairs => !Array.isArray(pairs) || !pairs.length)) return d;
-  return {...d, book:'Mei HaShiloach', phrases:overlay, meiStudy:true};
+  const headingInfo = (await dataJSON('mei-ha-shiloach/headings.json'))?.[ref];
+  const heads = headingInfo && Array.isArray(headingInfo.headings)
+    && headingInfo.headings.length === overlay.length
+    ? Object.fromEntries(headingInfo.headings.map((title,i) => [i, String(title).split('\n')]))
+    : null;
+  return {...d, book:'Mei HaShiloach', phrases:overlay, meiStudy:true,
+    ...(heads ? {heads, studyHeading:headingInfo.title} : {})};
 }
 async function fetchText(ref, {remoteOnly = false} = {}) {
   if (!remoteOnly) { try { const loc = await resolveLocal(ref); if (loc) return loc; } catch (e) { console.warn('local text failed', e); } }
@@ -766,7 +775,9 @@ async function renderBook(title) {
     <div id="toc"><div class="loading">Loading contents…</div></div></div>${credit()}`;
   const actions = (first, downloads = []) => `${first ? `<a class="btn primary" href="#/read/${toHash(first)}">Start reading →</a>` : ''}
       ${downloads.map(d => `<a class="btn" href="${esc(d.file)}" download>${esc(d.label)}</a>`).join('')}
-      ${title === 'Peri Tzadik' ? `<a class="btn" href="downloads/pri-tzaddik-rosh-chodesh-manuscript-annotated.docx" download>Rosh Chodesh Manuscript · Annotated DOCX</a><a class="btn" href="downloads/pri-tzaddik-rosh-chodesh-marcheshvan-annotated.docx" download>Marcheshvan · Annotated DOCX</a><a class="btn" href="downloads/pri-tzaddik-noach-ois-5-6-chassidus-kdp-7x10.pdf" target="_blank" rel="noopener">Noach Ois 5–6 · Annotated KDP PDF</a><a class="btn" href="downloads/pri-tzaddik-noach-ois-5-6-chassidus-kdp-7x10.docx" download>Noach Ois 5–6 · Word DOCX</a>` : ''}
+      ${title === 'Peri Tzadik' ? `<a class="btn" href="downloads/pri-tzaddik-lech-lecha-interlinear.docx" download>Lech Lecha · Interlinear DOCX</a><a class="btn" href="downloads/pri-tzaddik-rosh-chodesh-manuscript-annotated.docx" download>Rosh Chodesh Manuscript · Annotated DOCX</a><a class="btn" href="downloads/pri-tzaddik-rosh-chodesh-marcheshvan-annotated.docx" download>Marcheshvan · Annotated DOCX</a><a class="btn" href="downloads/pri-tzaddik-noach-ois-5-6-chassidus-kdp-7x10.pdf" target="_blank" rel="noopener">Noach Ois 5–6 · Annotated KDP PDF</a><a class="btn" href="downloads/pri-tzaddik-noach-ois-5-6-chassidus-kdp-7x10.docx" download>Noach Ois 5–6 · Word DOCX</a>` : ''}
+      ${title === 'Beit Yaakov on Torah' ? `<a class="btn" href="downloads/beit-yaakov-lech-lecha-interlinear.docx" download>Lech Lecha · Interlinear DOCX</a>` : ''}
+      ${title === 'Mei HaShiloach' ? `<a class="btn" href="downloads/mei-hashiloach-lech-lecha-interlinear.docx" download>Lech Lecha · Interlinear DOCX</a>` : ''}
       ${w.edition ? `<a class="btn" href="../#${w.edition === 'available' ? 'takanas' : 'dover'}">Akiva Publishing edition</a>` : ''}
       ${w.akiva ? '' : `<a class="btn" href="${sefariaUrl(title)}" target="_blank" rel="noopener">View on Sefaria ↗</a>`}
       <button class="btn" type="button" id="saveBook">Save this sefer offline</button><span class="status" id="saveBookStatus" style="align-self:center;font:500 .8rem var(--ui);color:var(--muted)"></span>`;
@@ -1061,8 +1072,13 @@ function appendSection(d) {
   sec.dataset.ref = d.sectionRef;
   let html = d.title
     ? `<div class="sec-head"><span>${esc(d.title.ois ? d.title.parashah + ' · Ois ' + d.title.ois + ' — ' + (d.title.en || d.sectionRef) : d.title.he && /^סימן/.test(d.title.he) ? d.sectionRef : d.title.en || d.sectionRef)}</span></div><h2 class="sec-title he" lang="he">${esc(d.title.he)}</h2>${d.title.he && /^סימן/.test(d.title.he) && d.title.en ? `<div class="sec-sub">${esc(d.title.en)}</div>` : ''}`
-    : `<div class="sec-head"><span>${esc(d.sectionRef)}</span>${d.heRef ? `<span class="he" lang="he">${esc(d.heRef)}</span>` : ''}</div>`;
+    : `<div class="sec-head"><span>${esc(d.studyHeading || d.sectionRef)}</span>${d.heRef ? `<span class="he" lang="he">${esc(d.heRef)}</span>` : ''}</div>`;
   if (d.sourceUrl) html += `<div class="sec-sub"><a href="${esc(d.sourceUrl)}" target="_blank" rel="noopener noreferrer">View the original Hebrew on Sefaria ↗</a></div>`;
+  const lechDownloads = d.sectionRef.startsWith('Peri Tzadik, Lech Lecha ') ? 'pri-tzaddik-lech-lecha-interlinear.docx'
+    : d.sectionRef.startsWith('Beit Yaakov on Torah, Lech Lecha ') ? 'beit-yaakov-lech-lecha-interlinear.docx'
+    : d.sectionRef.startsWith('Mei HaShiloach,') && d.sectionRef.endsWith(', Lech Lecha')
+      ? 'mei-hashiloach-lech-lecha-interlinear.docx' : null;
+  if (lechDownloads) html += `<div class="section-docx-link"><a href="downloads/${lechDownloads}" download>Download the complete Lech Lecha interlinear Word edition ↓</a></div>`;
   if (d.downloadDocx) html += `<div class="section-docx-link"><a href="${esc(d.downloadDocx)}" download>Download the complete annotated Word edition (DOCX) ↓</a></div>`;
   const numberOfNotes = Object.values(d.annotations || {}).reduce((sum, arr) => sum + arr.length, 0);
   if (numberOfNotes) html += `<div class="note-discovery">${numberOfNotes} annotated source footnotes · Select a superscript number to read the complete quotations and commentary.</div>`;

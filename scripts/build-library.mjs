@@ -227,6 +227,8 @@ for (const dir of DIRS) {
               children: children.filter(leaf => /, Bereshit \d+$/.test(leaf.ref))},
             {en: 'Noach · 55 Osiyos', he: 'נח',
               children: children.filter(leaf => /, Noach \d+$/.test(leaf.ref))},
+            {en: 'Lech Lecha · 51 Osiyos', he: 'לך לך',
+              children: children.filter(leaf => /, Lech Lecha \d+$/.test(leaf.ref))},
           ] : children;
       const toc = { en: src.title, he: src.heTitle, children: tocChildren };
       writeFile(path.join(bookDir, 'toc.json'), JSON.stringify({ title: src.title, he: src.heTitle, version, toc }));
@@ -323,7 +325,7 @@ for (const dir of DIRS) {
         }
         return out.length === 1 ? out + '׳' : out.slice(0, -1) + '״' + out.slice(-1);
       };
-      const parashahHebrew = {Bereshit:'בראשית', Noach:'נח'};
+      const parashahHebrew = {Bereshit:'בראשית', Noach:'נח', 'Lech Lecha':'לך לך'};
       const heLetters = s => (String(s || '').match(/[\u05d0-\u05ea]/g) || []).length;
       const originalHebrew = (node, chapter) => {
         const t = src.text?.[node];
@@ -434,7 +436,7 @@ for (const dir of DIRS) {
           }
         }
         if (cursor !== aligned.length) throw new Error('Interlinear pairing lost: ' + group.node);
-        const ref = src.title + ', ' + group.node + (['Bereshit','Noach'].includes(group.node) ? ' ' + group.chapter : '');
+        const ref = src.title + ', ' + group.node + (['Bereshit','Noach','Lech Lecha'].includes(group.node) ? ' ' + group.chapter : '');
         const id = leafId++;
         const converted = connect(slug, ref, ':', items);
         writeFile(path.join(bookDir, id + '.json'), JSON.stringify(converted));
@@ -482,13 +484,14 @@ if (fs.existsSync(meiStudyPath)) {
   const study = JSON.parse(fs.readFileSync(meiStudyPath, 'utf8'));
   const slug = 'mei-ha-shiloach';
   const dest = path.join(OUT, slug);
-  if (study.book !== 'Mei HaShiloach' || !Array.isArray(study.sections) || study.sections.length !== 6)
+  if (study.book !== 'Mei HaShiloach' || !Array.isArray(study.sections) || study.sections.length !== 9)
     throw new Error('Invalid Mei HaShiloach interlinear overlay');
   fs.mkdirSync(dest, {recursive: true});
   const overlay = {};
+  const headingIndex = {};
   let paragraphCount = 0, phraseCount = 0;
   for (const sec of study.sections) {
-    if (!/^Mei HaShiloach, (?:Volume I|Volume II|Mei HaShiloach Anthology), Genesis, (?:Bereshit|Noach)$/.test(sec.ref))
+    if (!/^Mei HaShiloach, (?:Volume I|Volume II|Mei HaShiloach Anthology), Genesis, (?:Bereshit|Noach|Lech Lecha)$/.test(sec.ref))
       throw new Error('Unexpected Mei HaShiloach study reference: ' + sec.ref);
     if (overlay[sec.ref] || !Array.isArray(sec.paragraphs)) throw new Error('Duplicate or invalid study section: ' + sec.ref);
     const items = sec.paragraphs.map((pairs, i) => ({n:i + 1, p:pairs}));
@@ -497,10 +500,19 @@ if (fs.existsSync(meiStudyPath)) {
       throw new Error('Empty or non-bilingual study paragraph: ' + sec.ref);
     const linked = connect(slug, sec.ref, ' ', items);
     overlay[sec.ref] = linked.map(x => x.p);
+    if (Array.isArray(sec.headings)) {
+      if (sec.headings.length !== sec.paragraphs.length)
+        throw Error('Mei HaShiloach headings must match paragraph count: ' + sec.ref);
+      headingIndex[sec.ref] = {
+        title: sec.title || 'Lech Lecha',
+        headings: sec.headings
+      };
+    }
     paragraphCount += linked.length;
     phraseCount += linked.reduce((n,item) => n + item.p.length,0);
   }
   writeFile(path.join(dest,'interlinear.json'), JSON.stringify(overlay));
+  writeFile(path.join(dest,'headings.json'), JSON.stringify(headingIndex));
   console.log('Mei HaShiloach: '+study.sections.length+' groups, '+paragraphCount+' original passages, '+phraseCount+' bilingual phrase pairs; existing English untouched');
 }
 
