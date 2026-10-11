@@ -18,6 +18,7 @@ import { packs, TANAKH, SHAS } from './packs.mjs';
 import { linkLikkuteiCitations } from './likkutei-citations.mjs';
 import { restoreStudyNikkud } from './restore-study-nikkud.mjs';
 import { addLechDocumentHeadings, meiLechHeadingIndex } from './lech-headlines.mjs';
+import { noachSixPairs } from './pri-noach-ois-6.mjs';
 
 // Publish each generated file atomically when an interlinear overlay replaces Hebrew.
 function writeFile(file, contents) {
@@ -324,6 +325,24 @@ for (const dir of DIRS) {
     // whole English translation (that is not interlinear).
     const edition = EDITIONS.get(src.title);
     if (edition) {
+      // Noach Ois 6 uses the actual reviewed Word phrase boundaries, not
+      // approximate splits derived from the Sefaria Hebrew paragraph.
+      // Preserve all existing topic divisions and 31 linked Word footnotes.
+      if (src.title === 'Peri Tzadik') {
+        const noach6 = edition.sections.find(sec => sec.node === 'Noach' && sec.chapter === 6);
+        if (!noach6) throw Error('Noach Ois 6 study section missing');
+        const exact = noachSixPairs('dist/library/downloads/pri-tzaddik-noach-ois-5-6-chassidus-kdp-7x10.docx');
+        const counts = noach6.topics.map(t => (t.pairs || []).length);
+        if (counts.reduce((a,b)=>a+b,0) !== exact.length)
+          throw Error('Noach Ois 6 topic divisions do not match Word phrases');
+        let cursor = 0;
+        for (let i=0;i<noach6.topics.length;i++) {
+          noach6.topics[i].pairs = exact.slice(cursor,cursor+counts[i]);
+          cursor += counts[i];
+        }
+        noach6.useVerifiedHebrew = true;
+        noach6.sourceDocument = 'pri-tzaddik-noach-ois-5-6-chassidus-kdp-7x10.docx';
+      }
       // Hebrew gematria with traditional gershayim (15=ט״ו, 16=ט״ז).
       // This is the actual ois number in the text, NOT the position of
       // the chapter in the current translation (which can skip an ois).
