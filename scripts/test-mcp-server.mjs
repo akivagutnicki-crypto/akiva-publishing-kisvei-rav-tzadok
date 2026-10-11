@@ -29,7 +29,7 @@ r = await send({ jsonrpc: '2.0', method: 'notifications/initialized' }, { 'mcp-p
 check(r.status === 202 && !r.text, 'notifications get 202 and no body');
 r = await send({ jsonrpc: '2.0', id: 3, method: 'tools/list' }, { 'mcp-protocol-version': '2025-06-18' });
 const tools = r.json.result.tools;
-check(tools.length === 6 && tools.every(t => t.name.startsWith('kisvei_') && t.inputSchema.type === 'object' && t.annotations.readOnlyHint === true), 'six read-only tools');
+check(tools.length === 7 && tools.every(t => t.name.startsWith('kisvei_') && t.inputSchema.type === 'object' && t.annotations.readOnlyHint === true), 'seven read-only tools');
 r = await send({ jsonrpc: '2.0', id: 4, method: 'ping' }, { 'mcp-protocol-version': '2025-11-25' });
 check(r.status === 200 && r.json.result && !r.json.error, 'ping');
 r = await send({ jsonrpc: '2.0', id: 5, method: 'nope/nothing' }, { 'mcp-protocol-version': '2025-06-18' });
@@ -52,7 +52,7 @@ r = await modern(10, 'server/discover');
 check(r.status === 200 && r.json.result.resultType === 'complete' && r.json.result.supportedVersions.includes('2026-07-28')
   && r.json.result.capabilities.tools && r.json.result._meta[META + 'serverInfo'].name === 'kisvei-rav-tzadok-library', 'server/discover');
 r = await modern(11, 'tools/list');
-check(r.json.result.resultType === 'complete' && r.json.result.tools.length === 6, 'modern tools/list');
+check(r.json.result.resultType === 'complete' && r.json.result.tools.length === 7, 'modern tools/list');
 r = await modern(12, 'tools/call', { name: 'kisvei_list_books', arguments: {} });
 check(r.json.result.resultType === 'complete' && r.json.result.isError === false && r.json.result.content[0].text.includes('Resisei Layla'), 'modern tools/call');
 r = await send({ jsonrpc: '2.0', id: 13, method: 'tools/call', params: { name: 'kisvei_list_books', arguments: {}, _meta: meta() } },
@@ -142,6 +142,11 @@ check(js.total > 0 && js.passages.every(p => p.book === 'Resisei Layla' && /^Ber
 t = await tool('kisvei_get_cited_sources', { ref: 'Resisei Layla 1:1' });
 check(t.text.includes('Berakhot 6b'), 'get_cited_sources');
 
+t = await tool('kisvei_find_parallels', { ref: 'Tzidkas HaTzaddik 1:3', response_format: 'json' });
+js = JSON.parse(t.text);
+check(js.total > 0 && js.parallels.some(p => p.school === 'Ishbitz-Radzin') && js.parallels.every(p => p.shared.length), 'find_parallels');
+t = await tool('kisvei_find_parallels', { ref: 'Tzidkat HaTzadik 1:3', school: 'Ishbitz-Radzin' });
+check(!t.isError && t.text.includes('Shares:') && !t.text.includes('[Kisvei Rav Tzadok]'), 'find_parallels by school');
 t = await tool('kisvei_search', {});
 check(t.isError && t.text.includes('"query" is required'), 'missing argument is a tool error');
 t = await tool('kisvei_search', { query: 'x', colour: 'red' });

@@ -22,7 +22,7 @@ const SUPPORTED = [...MODERN, ...LEGACY];
 const META = 'io.modelcontextprotocol/';
 
 const INSTRUCTIONS = `Kisvei Rav Tzadok Library: the writings of R. Tzadok HaKohen of Lublin and works of the Izhbitz-Radzin school, as published in Akiva Publishing's online library. Akiva Publishing interlinear editions give vocalized Hebrew phrase by phrase with English and source notes (© Akiva Publishing); the other works are the original Hebrew of public-domain printings.
-How to use: kisvei_search finds passages (Hebrew is matched without nikkud, prefixes included; spelling "loose" also ignores ו/י spelling differences); kisvei_get_text returns the exact text of a ref; kisvei_get_contents browses a book; kisvei_find_citing_passages lists every passage citing a source such as "Berakhot 6b" or "Genesis 1:1"; kisvei_get_cited_sources lists what a passage cites.
+How to use: kisvei_search finds passages (Hebrew is matched without nikkud, prefixes included; spelling "loose" also ignores ו/י spelling differences); kisvei_get_text returns the exact text of a ref; kisvei_get_contents browses a book; kisvei_find_citing_passages lists every passage citing a source such as "Berakhot 6b" or "Genesis 1:1"; kisvei_get_cited_sources lists what a passage cites; kisvei_find_parallels lists the passages in Kisvei Rav Tzadok and the Ishbitz-Radzin works that share a passage's sources.
 Quote the text exactly as returned and give its ref. Refs follow the reader, e.g. "Resisei Layla 5:2", "Tzidkat HaTzadik 100", "Peri Tzadik, Bereshit 1:3". Ashkenazi spellings (Tzidkas HaTzaddik, Pri Tzaddik, Bereishis, Berachos) are accepted.`;
 
 // ---------------------------------------------------------------- data
@@ -395,6 +395,23 @@ const TOOLS = [
       additionalProperties: false,
     },
     annotations: { title: 'Sources a passage cites', ...RO },
+  },
+  {
+    name: 'kisvei_find_parallels',
+    title: 'Parallels in the library',
+    description: 'Parallels to a passage across Kisvei Rav Tzadok and the Ishbitz-Radzin works: the passages that draw on the same sources (verses, Gemara, Midrash, Zohar, halachah, other works of the library), including verses quoted without being named and distinctive Biblical words such as חפזון. Strongest first; each parallel lists what the two passages share, so check the text before relying on it. Give a paragraph ref ("Tzidkat HaTzadik 1:3") or a section ref (all its paragraphs).',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        ref: { type: 'string', description: 'Paragraph or section ref, e.g. "Tzidkat HaTzadik 1:3", "Resisei Layla 5".' },
+        school: { type: 'string', enum: ['all', 'Kisvei Rav Tzadok', 'Ishbitz-Radzin'], default: 'all', description: 'Only parallels from this school.' },
+        limit: { type: 'integer', minimum: 1, maximum: 100, default: 30, description: 'Maximum number of parallels.' },
+        response_format: FORMAT,
+      },
+      required: ['ref'],
+      additionalProperties: false,
+    },
+    annotations: { title: 'Parallels in the library', ...RO },
   },
 ];
 
@@ -869,6 +886,54 @@ async function getCited({ ref, edition, response_format }) {
   return lines.join('\n');
 }
 
+// ---- kisvei_find_parallels (data from scripts/build-parallels.mjs)
+const readerSlug = slug => (slug === 'mei-hashiloach' ? 'mei-ha-shiloach' : slug);
+async function findParallels({ ref, school, limit, response_format }) {
+  const r = await resolveRef(ref, undefined);
+  if (r.error) throw new ToolError(r.error + (r.suggest?.length ? ` Try: ${r.suggest.slice(0, 15).join('; ')}.` : ''));
+  const t = await bookText(r.book);
+  let paras = t.paras.slice(r.sec.first, r.sec.first + r.sec.count);
+  if (r.from != null) paras = paras.filter(p => { const n = +p.r.match(/\d+$/)[0]; return n >= r.from && n <= r.to; });
+  let data, words;
+  try { [data, words] = await Promise.all([load(`parallels/${readerSlug(r.book.slug)}.json`), load('parallels/words.json')]); }
+  catch { data = {}; words = {}; }
+  const { books } = await catalog();
+  const byTitle = [...books].sort((x, y) => y.title.length - x.title.length);
+  const schoolOf = x => { const b = byTitle.find(b => x.startsWith(b.title)); return b && b.group === 'Izhbitz' ? 'Ishbitz-Radzin' : 'Kisvei Rav Tzadok'; };
+  const best = new Map(), quoted = new Set();
+  for (const p of paras) {
+    const e = data[p.r];
+    if (!e) continue;
+    for (const q of e.q || []) quoted.add(q);
+    for (const [other, score, sources, ids] of e.p || []) {
+      const prev = best.get(other);
+      if (!prev || prev.score < score) best.set(other, { ref: other, from: p.r, score, school: schoolOf(other), shared: [...sources, ...ids.map(id => words[id] ? `the Biblical word ${words[id].w} (${words[id].v.join('; ')})` : '').filter(Boolean)] });
+    }
+  }
+  let list = [...best.values()].filter(x => school === 'all' || x.school === school).sort((a, b) => b.score - a.score);
+  const total = list.length;
+  list = list.slice(0, limit);
+  for (const x of list) {
+    const b = byTitle.find(b => x.ref.startsWith(b.title));
+    if (!b) continue;
+    const bt = await bookText(b);
+    const ids = bt.byRef.get(x.ref) || [];
+    const p = ids.map(i => bt.paras[i]).find(q => b.sections[q.s].il) || bt.paras[ids[0]];
+    if (p) { const sec = b.sections[p.s]; x.section = sec.title + (sec.heTitle ? ` · ${sec.heTitle}` : ''); x.preview = clip((p.p ? p.p.slice(0, 2).map(([he, en]) => `${he} — ${en}`).join(' / ') : (p.t || '')).replace(/\s+/g, ' '), 260); }
+  }
+  const label = r.from != null ? (r.from === r.to ? paras[0]?.r : `${paras[0]?.r}–${r.to}`) : r.sec.ref;
+  if (response_format === 'json') return json({ ref: label, total, quoted_verses: [...quoted], parallels: list.map(x => ({ ...x, link: readerLink(x.ref) })) });
+  if (!total && !quoted.size) return `No parallels are recorded for ${label}. Try kisvei_search with its key words.`;
+  const lines = [`# Parallels to ${label}`, `${total} passage${total === 1 ? '' : 's'} in the library share its sources${school !== 'all' ? ` (${school})` : ''}; showing ${list.length}, strongest first. What the passages share is listed; read both before relying on a parallel.`];
+  if (quoted.size) lines.push(`Verses it quotes without naming them: ${[...quoted].join('; ')}.`);
+  lines.push('');
+  for (const x of list) {
+    lines.push(`- ${x.ref}${x.section ? ` — ${x.section}` : ''} [${x.school}]`, `  Shares: ${x.shared.join(' · ')}`);
+    if (x.preview) lines.push(`  ${x.preview}`);
+  }
+  return lines.join('\n');
+}
+
 const HANDLERS = {
   kisvei_list_books: listBooks,
   kisvei_get_contents: getContents,
@@ -876,6 +941,7 @@ const HANDLERS = {
   kisvei_search: search,
   kisvei_find_citing_passages: findCiting,
   kisvei_get_cited_sources: getCited,
+  kisvei_find_parallels: findParallels,
 };
 
 async function callTool(params) {

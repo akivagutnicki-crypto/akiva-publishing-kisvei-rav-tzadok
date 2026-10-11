@@ -21,7 +21,7 @@ const initialization = await post('initialize', {
 });
 if (initialization.result?.serverInfo?.name !== 'kisvei-rav-tzadok-library') throw Error('MCP initialize failed');
 const listed = await post('tools/list');
-if (listed.result?.tools?.length !== 6) throw Error('Expected six MCP tools');
+if (listed.result?.tools?.length !== 7) throw Error('Expected seven MCP tools');
 const books = await post('tools/call', { name: 'kisvei_list_books', arguments: { response_format: 'json' } });
 const parsed = JSON.parse(books.result?.content?.[0]?.text ?? '{}');
 if (!Array.isArray(parsed.books) || !parsed.books.some(b => /Resisei Layla/.test(b.title || b.name || ''))) {
@@ -31,4 +31,4 @@ const root = await worker.fetch(new Request('https://example.workers.dev/'), env
 if (root.status !== 200) throw Error('Root status page should answer 200');
 const badPath = await worker.fetch(new Request('https://example.workers.dev/not-a-route'), env, context);
 if (badPath.status !== 404) throw Error('Unexpected route accepted');
-console.log('Cloudflare adapter smoke test: six tools and library catalog OK');
+console.log('Cloudflare adapter smoke test: seven tools and library catalog OK');
