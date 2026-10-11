@@ -1,7 +1,7 @@
 {
   // Browser-only setup: Cloudflare Workers & Pages > Create > Import repository.
   // This Worker exposes /mcp while the website remains hosted by GitHub Pages.
-  "name": "akiva-publishing-mcp",
+  "name": "akiva-publishing-kisvei-rav-tzadok",
   "main": "cloudflare/worker.mjs",
   "compatibility_date": "2026-10-11",
   "workers_dev": true,
