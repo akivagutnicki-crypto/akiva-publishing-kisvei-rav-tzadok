@@ -91,7 +91,9 @@ const WORKS = {
   'Bereshit Rabbah': ['Bereishis Rabbah', 'Bereishit Rabbah', 'Bereshit Rabbah', 'Genesis Rabbah'],
   'Shemot Rabbah': ['Shemos Rabbah', 'Shemot Rabbah', 'Exodus Rabbah'],
   'Vayikra Rabbah': ['Vayikra Rabbah', 'Leviticus Rabbah'],
-  'Bamidbar Rabbah': ['Bamidbar Rabbah', 'Numbers Rabbah'],
+  'Bamidbar Rabbah': ['Bamidbar Rabbah', 'Bemidbar Rabbah', 'Numbers Rabbah'],
+  'Avot DeRabbi Natan': ['Avot DeRabbi Natan', "Avot d'Rabbi Natan", 'Avot D’Rabbi Natan'],
+  'Tanna DeBei Eliyahu Rabbah': ['Tanna DeBei Eliyahu Rabbah'],
   'Devarim Rabbah': ['Devarim Rabbah', 'Deuteronomy Rabbah'],
   'Shir HaShirim Rabbah': ['Shir HaShirim Rabbah', 'Song of Songs Rabbah'],
   'Ruth Rabbah': ['Rus Rabbah', 'Ruth Rabbah'],
@@ -149,7 +151,7 @@ const add = (table, kind, cat) => {
 };
 add(TANAKH, 'tanakh', 'Tanakh');
 add(TRACTATES, 'talmud', 'Talmud');
-add(WORKS, 'work', t => /Rabbah|Tehillim|Eliezer|Sifrei/.test(t) ? 'Midrash' : /Avot/.test(t) ? 'Mishnah'
+add(WORKS, 'work', t => /Rabbah|Tehillim|Eliezer|Sifrei/.test(t) ? 'Midrash' : /Avot/.test(t) && !/Natan/.test(t) ? 'Mishnah'
   : /Mishneh Torah|Shulchan/.test(t) ? 'Halakhah' : /Yetzirah/.test(t) ? 'Kabbalah' : 'Midrash');
 add(LIBRARY, 'library', 'Rav Tzadok');
 ALIASES.sort((a, b) => b.name.length - a.name.length); // longest first: "Shemos Rabbah" before "Shemos"
@@ -213,6 +215,17 @@ const SPECIAL_REFERENCES = [
   { re: /\b(?:Bereishit|Bereshit) Rabbah,?\s+parashah\s+(\d{1,3})\b/gi,
     ref: m => 'Bereshit Rabbah ' + m[1] },
   { re: /\bSefer HaBahir\b/gi, ref: () => 'Sefer HaBahir' },
+  // Mei HaShiloach study edition: forms the Word edition links to Sefaria.
+  { re: /\b(?:Tractate )?Middot\s*\(\s*(\d{1,2}):(\d{1,2})\s*\)/gi,
+    ref: m => 'Mishnah Middot ' + m[1] + ':' + m[2] },
+  { re: /\b(?:Midrash Rabbah|Midrash)\s*\(\s*(?:Bereishit|Bereshit)(?:\s+Rabbah)?\s+(\d{1,3}):(\d{1,3})\s*\)/gi,
+    ref: m => 'Bereshit Rabbah ' + m[1] + ':' + m[2] },
+  { re: /\bMidrash Rabbah\s*\(\s*(?:Bereishit|Bereshit)\s+(\d{1,3}):(\d{1,3})\s*\)/gi,
+    ref: m => 'Bereshit Rabbah ' + m[1] + ':' + m[2] },
+  { re: /\bSod Yesharim,\s*Rosh Hashanah\s+(\d{1,3})\b/gi,
+    ref: m => 'Sod Yesharim, Rosh Hashanah ' + m[1] },
+  { re: /\(\s*Tetzaveh\s*\)/g, ref: () => 'Exodus 27:20-30:10' },
+  { re: /\(\s*Va['’]etchanan\s*[;)]/g, ref: () => 'Deuteronomy 3:23-7:11' },
 ];
 function linkSpecialReferences(html) {
   let inLink = 0, inSup = 0;
