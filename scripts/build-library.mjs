@@ -17,6 +17,7 @@ import { linkCitations, categoryOf, normalizeRef } from './citations.mjs';
 import { packs, TANAKH, SHAS } from './packs.mjs';
 import { linkLikkuteiCitations } from './likkutei-citations.mjs';
 import { restoreStudyNikkud } from './restore-study-nikkud.mjs';
+import { addLechDocumentHeadings, meiLechHeadingIndex } from './lech-headlines.mjs';
 
 // Publish each generated file atomically when an interlinear overlay replaces Hebrew.
 function writeFile(file, contents) {
@@ -204,6 +205,8 @@ for (const dir of DIRS) {
         return { file, label };
       });
       const children = src.sections.map(sec => {
+        if (src.title === 'Beit Yaakov on Torah' && /^Lech Lecha \d+$/.test(sec.key || ''))
+          addLechDocumentHeadings(sec, 'beit');
         const id = leafId++;
         const numbered = !sec.key;
         const paras = sec.items.filter(i => i.p).length;
@@ -436,13 +439,20 @@ for (const dir of DIRS) {
           }
         }
         if (cursor !== aligned.length) throw new Error('Interlinear pairing lost: ' + group.node);
+        // Preserve the fine-grained Word headlines, even where an English
+        // topical division falls inside a single Sefaria paragraph.
+        const lechHeaded = src.title === 'Peri Tzadik' && group.node === 'Lech Lecha'
+          ? addLechDocumentHeadings(
+              {key:'Lech Lecha ' + group.chapter, en:'', items}, 'pri',
+              sections.flatMap(sec => sec.topics.filter(t => (t.pairs || []).length).map(t => t.pairs)))
+          : null;
         const ref = src.title + ', ' + group.node + (['Bereshit','Noach','Lech Lecha'].includes(group.node) ? ' ' + group.chapter : '');
         const id = leafId++;
-        const converted = connect(slug, ref, ':', items);
+        const converted = connect(slug, ref, ':', lechHeaded ? lechHeaded.items : items);
         writeFile(path.join(bookDir, id + '.json'), JSON.stringify(converted));
         const hasOis = Object.hasOwn(parashahHebrew, group.node) && Number.isInteger(group.chapter);
         const hebrewHeading = hasOis ? parashahHebrew[group.node] + ' · אות ' + oisHebrew(group.chapter) : group.node;
-        const leaf = {en:sections.map(x=>x.title).join(' / '), he:hebrewHeading, id,
+        const leaf = {en:lechHeaded?.en || sections.map(x=>x.title).join(' / '), he:hebrewHeading, id,
           depth:1, shape:converted.filter(x => x.p).length, il1:true, interlinear:true,
           ref, heRef:src.heTitle + ', ' + hebrewHeading, sep:':',
           ...(hasOis ? {parashah:group.node, ois:group.chapter} : {}),
@@ -489,6 +499,7 @@ if (fs.existsSync(meiStudyPath)) {
   fs.mkdirSync(dest, {recursive: true});
   const overlay = {};
   const headingIndex = {};
+  const lechWordHeadings = meiLechHeadingIndex(study.sections);
   let paragraphCount = 0, phraseCount = 0;
   for (const sec of study.sections) {
     if (!/^Mei HaShiloach, (?:Volume I|Volume II|Mei HaShiloach Anthology), Genesis, (?:Bereshit|Noach|Lech Lecha)$/.test(sec.ref))
@@ -500,7 +511,9 @@ if (fs.existsSync(meiStudyPath)) {
       throw new Error('Empty or non-bilingual study paragraph: ' + sec.ref);
     const linked = connect(slug, sec.ref, ' ', items);
     overlay[sec.ref] = linked.map(x => x.p);
-    if (Array.isArray(sec.headings)) {
+    const importedHeadings = lechWordHeadings[sec.ref];
+    if (importedHeadings) headingIndex[sec.ref] = importedHeadings;
+    else if (Array.isArray(sec.headings)) {
       if (sec.headings.length !== sec.paragraphs.length)
         throw Error('Mei HaShiloach headings must match paragraph count: ' + sec.ref);
       headingIndex[sec.ref] = {
