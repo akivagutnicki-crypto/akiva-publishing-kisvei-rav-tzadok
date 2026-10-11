@@ -11,7 +11,7 @@ function collect(node) {
 }
 collect(toc.toc);
 const all = [];
-for (const [ois, expectedNotes, expectedPhrases] of [[5,15,162],[6,16,194]]) {
+for (const [ois, expectedNotes, expectedPhrases] of [[5,15,158],[6,16,194]]) {
   const ref = 'Peri Tzadik, Noach ' + ois;
   const leaf = leaves.find(l => l.ref === ref && l.interlinear);
   assert.ok(leaf, 'Missing interlinear reader section: ' + ref);
@@ -19,6 +19,11 @@ for (const [ois, expectedNotes, expectedPhrases] of [[5,15,162],[6,16,194]]) {
   const paragraphs = data.filter(x => x.p);
   const phrases = paragraphs.reduce((sum, p) => sum + p.p.length, 0);
   assert.equal(phrases, expectedPhrases, 'Changed interlinear phrase count: ' + ref);
+  // Word-source importer must preserve exact pointed Hebrew, not OCR spacing.
+  for(const [he,en] of paragraphs.flatMap(p=>p.p)){
+    assert.ok((he.match(/[\u0591-\u05c7]/g)||[]).length>0,'Unvocalized Hebrew phrase in '+ref);
+    assert.ok(!/\s{2,}/.test(en),'Bad English spacing in '+ref);
+  }
   const annotated = paragraphs.flatMap(p => (p.footnotes || []).map(note => ({note,p})));
   assert.equal(annotated.length, expectedNotes, 'Incorrect annotated footnote count: ' + ref);
   for (const {note,p} of annotated) {
