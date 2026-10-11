@@ -7,7 +7,7 @@ It reads the same catalog, interlinear text, source citations, and links served 
 - MCP handler: `cloudflare/mcp.mjs` (independent of the old Netlify deployment)
 - Cloudflare entry: `cloudflare/worker.mjs`
 - Cloudflare configuration: `wrangler.jsonc`
-- Worker name: `akiva-publishing-mcp`
+- Worker name: `akiva-publishing-kisvei-rav-tzadok`
 - MCP path: `/mcp`
 
 ## One-time setup — works in Chrome on Android/tablet
@@ -16,10 +16,10 @@ It reads the same catalog, interlinear text, source citations, and links served 
 2. Open **Workers & Pages**, choose **Create application → Import a repository**.
 3. Connect **GitHub** and select `akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok`.
 4. Choose **Workers**, branch `main`, repository root (where `wrangler.jsonc` resides).
-5. The Worker name must be **akiva-publishing-mcp**, matching `wrangler.jsonc`.
+5. The Worker name must be **akiva-publishing-kisvei-rav-tzadok**, matching `wrangler.jsonc`.
 6. If Cloudflare asks for build/deploy commands: no separate build command is required for this Worker; use `npx wrangler deploy` as its deploy command. Keep `wrangler.jsonc` as the source of configuration.
-7. Save and deploy. Cloudflare gives you a URL ending in `.workers.dev`.
-8. Your MCP endpoint is **that URL plus `/mcp`**. Paste this URL into Claude's Custom Connector. For ChatGPT, create or connect a hosted ChatGPT App using that MCP URL; updating a desktop-only imported plugin does not make it mobile-compatible.
+7. Save and deploy. The existing Worker URL is `https://akiva-publishing-kisvei-rav-tzadok.akivagutnicki.workers.dev/`.
+8. Your MCP endpoint is `https://akiva-publishing-kisvei-rav-tzadok.akivagutnicki.workers.dev/mcp` (browser status: `/health`). Paste this URL into Claude's Custom Connector. For ChatGPT, create or connect a hosted ChatGPT App using that MCP URL; updating a desktop-only imported plugin does not make it mobile-compatible.
 
 ## Data source and release process
 
