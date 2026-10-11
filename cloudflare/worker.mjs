@@ -1,6 +1,6 @@
 // Cloudflare Workers entry point for Akiva Publishing's existing read-only MCP server.
 // The searchable texts remain published by GitHub Pages (same content as the reader).
-import mcp from '../netlify/functions/mcp.mjs';
+import mcp from './mcp.mjs';
 
 async function health(env) {
   const origin = String(env.MCP_SITE_ORIGIN || '').replace(/\/+$/, '');
