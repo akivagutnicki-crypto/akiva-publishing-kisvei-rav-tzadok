@@ -159,7 +159,7 @@ export function meiLechHeadingIndex(sections) {
     const before=Object.fromEntries(sec.paragraphs.map((_,i)=>[i,[]]));
     const inline={};
     for (const h of m.positioned) {
-      if (h.phraseIndex === 0) before[h.pIndex].push(h.text);
+      if (h.phraseIndex === 0) before[h.pIndex].push(h.kind === 'section' ? '§ ' + h.text : h.text);
       else (inline[h.pIndex] ||= []).push({phraseIndex:h.phraseIndex,text:h.text,kind:h.kind});
     }
     index[sec.ref] = { title:list[0]?.title || sec.title || 'Lech Lecha',
