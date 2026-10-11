@@ -134,6 +134,8 @@ export function addLechDocumentHeadings(section, kind, matchingParagraphs = null
   const groups = lechGroups(kind).filter(g => g.key === key);
   if (!groups.length) return section;
   section.en = groups[0].title;
+  // Replace only old topical markers, never the translated text or tables.
+  if (kind === 'beit') section.items = section.items.filter(i => i.p || i.table);
   const paragraphs = matchingParagraphs || section.items.filter(i=>Array.isArray(i.p)).map(i=>i.p);
   const blocks = groups.flatMap((g, idx) => [
     ...(idx ? [{kind:'section', text:g.label + ' — ' + g.title,lead:g.heads[0].lead}] : []),
