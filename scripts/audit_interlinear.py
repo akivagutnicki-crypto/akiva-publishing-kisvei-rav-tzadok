@@ -71,7 +71,11 @@ def audit_book(book_dir):
     return {'pairs': sum(len(p) for p in leaves.values()), 'leaves': len(leaves), 'median_ratio': round(med, 2), 'issues': issues}
 
 if __name__ == '__main__':
-    args = [a for a in sys.argv[1:] if not a.startswith('--')]
+    argv = sys.argv[1:]
+    for flag in ('--book', '--json'):
+        if flag in argv:
+            i = argv.index(flag); del argv[i:i+2]
+    args = [a for a in argv if not a.startswith('--')]
     data = args[0] if args else 'dist/library/data'
     only = sys.argv[sys.argv.index('--book') + 1] if '--book' in sys.argv else None
     out = {}

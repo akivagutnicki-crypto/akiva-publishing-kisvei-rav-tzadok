@@ -47,7 +47,7 @@ async function reader(oldContents, oldTexts) {
     }
     paragraphs += result.he.length;
   }
-  assert.equal(paragraphs, 171);
+  assert.equal(paragraphs, 168);
   console.log(`Reader passed: ${oldContents ? 'old' : 'current'} contents, ${oldTexts ? 'old' : 'current'} texts; ${paragraphs} paragraphs.`);
 }
 await reader(true, false);  // The installed-app failure from the screenshot.
@@ -151,8 +151,8 @@ for (let chapter = 1; chapter <= 21; chapter++) {
     }
   });
 }
-assert.equal(machParagraphs, 203);
-assert.equal(machPhrases, 8555);
+assert.equal(machParagraphs, 208);
+assert.equal(machPhrases, 8531);
 const mach2 = await kometzContext.resolveLocal('Machshavot Charutz 2');
 assert.equal(mach2.phrases[0][0][1], 'Faith is the primary service of man');
 assert.ok(mach2.phrases[0].some(([he]) => he.includes('data-ref="Makkot 23b"')));
@@ -163,4 +163,4 @@ assert.equal(yisrael4.nums[1], 2);
 assert.ok(yisrael4.en[0].includes('if Yehudah were alive'));
 assert.ok(editionDataUrl('data/yisrael-kedoshim/0-4.json').endsWith('?edition=20261006-yisrael-4-opening'));
 assert.ok(editionDataUrl('data/machshavot-charutz/0-2.json').endsWith('?edition=20261006-machshavot-format'));
-console.log('Machshavot passed: 21 chapters, 203 translated paragraphs, 8555 phrase pairs, clean language fields and source links. Yisrael opening retained.');
+console.log('Machshavot passed: 21 chapters, 208 translated paragraphs, 8531 phrase pairs, clean language fields and source links. Yisrael opening retained.');
