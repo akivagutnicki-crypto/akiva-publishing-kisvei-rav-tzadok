@@ -33,7 +33,7 @@ function load(file) {
   let p = cache.get(file);
   if (!p) {
     p = (async () => {
-      if (process.env.MCP_DATA_DIR) {                       // tests: read the built files from disk
+      if (typeof process !== 'undefined' && process.env?.MCP_DATA_DIR) { // tests: disk; Cloudflare has no Node process by default
         const { readFile } = await import('node:fs/promises');
         return JSON.parse(await readFile(`${process.env.MCP_DATA_DIR}/${file}`, 'utf8'));
       }
