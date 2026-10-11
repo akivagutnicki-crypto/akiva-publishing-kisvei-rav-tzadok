@@ -1,4 +1,4 @@
-// Builds the data the Kisvei Rav Tzadok MCP server (netlify/functions/mcp.mjs) serves.
+// Builds the data the Kisvei Rav Tzadok MCP server (cloudflare/mcp.mjs) serves.
 // Run after scripts/build-library.mjs; it reads only what the library reader publishes.
 //
 // Input:  dist/library/data   (catalog, contents, texts, citations; see build-library.mjs)
