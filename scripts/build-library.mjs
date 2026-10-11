@@ -245,8 +245,6 @@ function connect(slug, sectionRef, sep, items) {
     const norm = h => (slug === 'likkutei-maamarim' ? linkLikkuteiCitations(h) : linkCitations(h))
       .replace(/data-ref="([^"]+)"/g, (_, r) => `data-ref="${normalizeRef(r)}"`);
     item.p = item.p.map(([he, en]) => [linkHebrewCitations(norm(he)).replace(/data-ref="([^"]+)"/g, (_, r) => `data-ref="${normalizeRef(r.replace(/&amp;/g, '&'))}"`), norm(en)]);
-    const refs = new Set();
-    for (const [he, en] of item.p) for (const m of (he + en).matchAll(/data-ref="([^"]+)"/g)) refs.add(decode(m[1]));
     // Explicitly hyperlink the two Scripture allusions in the opening title and
     // the haste of the Egyptian Pesach. Preserve every Hebrew vowel and phrase pair.
     if (slug === 'tzidkat-hatzadik' && sectionRef === 'Tzidkat HaTzadik 1') {
@@ -269,6 +267,8 @@ function connect(slug, sectionRef, sep, items) {
         if (!found) throw new Error('Missing Tzidkat 1 Scripture allusion: ' + word);
       }
     }
+    const refs = new Set();
+    for (const [he, en] of item.p) for (const m of (he + en).matchAll(/data-ref="([^"]+)"/g)) refs.add(decode(m[1]));
     // Scholarly Word-footnote sources are first-class connections in Noach 5–6,
     // anchored to their existing paragraphs. Only use real Sefaria URLs
     // already verified and stored in the footnote annotation.
