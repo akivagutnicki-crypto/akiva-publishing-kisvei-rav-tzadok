@@ -39,6 +39,23 @@ assert.equal(paragraphs, 271);
 assert.ok(connections >= src.importInfo.sefariaTargets);
 assert.deepEqual(fs.readFileSync('sources/akiva/docx/Tzidkas_HaTzaddik_Complete.docx'),
   fs.readFileSync('dist/library/downloads/tzidkas-hatzaddik-complete.docx'));
+// Validate the carefully sourced opening-siman apparatus and its verse hyperlinks.
+const curated = JSON.parse(fs.readFileSync('sources/akiva/references/Tzidkat_HaTzadik_1_Parallels.json', 'utf8'));
+assert.equal(curated.entries.length, 28);
+const opening = links['Tzidkat HaTzadik 1'] || [];
+const openingText = JSON.stringify(JSON.parse(fs.readFileSync('dist/library/data/tzidkat-hatzadik/0.json', 'utf8')));
+for (const [anchor, ref] of [
+  ['Tzidkat HaTzadik 1:2', 'Ezekiel 18:20'],
+  ['Tzidkat HaTzadik 1:2', 'Psalms 11:7'],
+  ['Tzidkat HaTzadik 1:3', 'Exodus 12:11']]) {
+  assert.ok(opening.some(l => l.a === anchor && l.r === ref && l.note), 'Missing explained Scripture: ' + ref);
+  assert.ok(openingText.includes('data-ref=\\\"' + ref), 'Missing inline hyperlink: ' + ref);
+}
+for (const e of curated.entries) {
+  assert.ok(opening.some(l => l.a === e.anchor && l.r === e.ref && l.note === e.note), e.ref);
+}
+assert.ok(html.includes('parallel-note'), 'The reader must show why the parallel matters');
+
 const reverse = JSON.parse(fs.readFileSync('dist/library/data/cited/proverbs.json', 'utf8'));
 assert.ok(reverse['Proverbs 10:6'].includes('Tzidkat HaTzadik 2:1'));
 assert.ok(links['Tzidkat HaTzadik 242'].some(l => l.r === 'Zohar, Lech Lecha 26:286'));
