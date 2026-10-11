@@ -283,6 +283,8 @@ i.footnote.open{display:block;direction:ltr;text-align:left;font-family:var(--en
 #pContent[data-source-lang="he"] .source-missing[data-missing="en"],#pContent[data-source-lang="en"] .source-missing[data-missing="he"]{display:none}
 .source-missing{font:italic 400 .86rem/1.5 var(--en);color:var(--muted);padding:8px 0}
 .link-item .acts{flex-wrap:wrap}
+.link-item.source-head{border-top:3px solid var(--forest);margin-top:18px;padding-top:12px}
+.link-item.parallel-item{margin-left:14px;padding-left:12px;border-left:2px solid var(--line)}
 .parallel-note{font:400 .86rem/1.48 var(--en);color:var(--muted);padding:8px 0 11px;border-bottom:1px solid var(--line);margin-bottom:9px}
 .parallel-note strong{display:block;font:600 .71rem/1.5 var(--ui);letter-spacing:.02em;color:var(--forest);margin-bottom:3px}
 .link-item .acts button:disabled{color:var(--faint);cursor:default;text-decoration:none}
@@ -561,7 +563,7 @@ async function resolveLocal(ref) {
       : {title: book.version.title, lang: il ? 'Hebrew with interlinear English' : 'Hebrew', source: book.version.source, license: book.version.license}]
   };
 }
-const CAT_COLORS = {'Rav Tzadok Library':'--ox','Rav Tzadok':'--ox',Tanakh:'--c-tanakh',Talmud:'--c-talmud',Mishnah:'--c-talmud',Midrash:'--c-midrash',Halakhah:'--c-halakhah',Kabbalah:'--c-kabbalah',Chasidut:'--c-chasidut',Commentary:'--c-commentary','Quoting Commentary':'--c-commentary','Parallel Sources':'--c-chasidut','Parallels · Kisvei Rav Tzadok':'--ox','Parallels · Ishbitz–Radzin':'--c-chasidut',Musar:'--c-midrash','Jewish Thought':'--c-kabbalah',Liturgy:'--c-tanakh'};
+const CAT_COLORS = {'Rav Tzadok Library':'--ox','Rav Tzadok':'--ox',Tanakh:'--c-tanakh',Talmud:'--c-talmud',Mishnah:'--c-talmud',Midrash:'--c-midrash',Halakhah:'--c-halakhah',Kabbalah:'--c-kabbalah',Chasidut:'--c-chasidut',Commentary:'--c-commentary','Quoting Commentary':'--c-commentary','Parallel Sources':'--c-chasidut','Parallels by source':'--ox',Musar:'--c-midrash','Jewish Thought':'--c-kabbalah',Liturgy:'--c-tanakh'};
 
 /* ======================= Utilities ======================= */
 const $ = (s, el = document) => el.querySelector(s);
@@ -1266,7 +1268,7 @@ async function libraryLinks(sec, ref, whole) {
   }
   if (dataSlug && !whole && ref) {            // curated entries and direct citations take precedence
     const have = new Set(out.map(l => l.sourceRef));
-    out.push(...(await parallelLinks(dataSlug, ref)).filter(l => !have.has(l.sourceRef)));
+    out.push(...(await parallelLinks(dataSlug, ref)).filter(l => l.grouped || !have.has(l.sourceRef)));
   }
   return out;
 }
@@ -1283,14 +1285,31 @@ async function parallelLinks(dataSlug, ref) {
   if (!e) return [];
   const out = (e.q || []).map(v => asLink(ref, v, 'Tanakh', {kind: 'Verse quoted', note: 'The passage quotes this verse in its own words without naming it; found by matching the wording of the verse.'}));
   const words = (e.p || []).some(x => x[3].length) ? ((await dataJSON('parallels/words.json')) || {}) : {};
-  for (const [other, , sources, ids] of e.p || []) {
-    const bits = [...sources, ...ids.map(id => words[id] ? `the Biblical word ${words[id].w} (${words[id].v.join('; ')})` : '').filter(Boolean)];
-    out.push(asLink(ref, other, 'Parallels · ' + schoolOf(other), {
-      kind: sources.length ? (ids.length ? 'Shared sources and wording' : 'Shared sources') : 'Shared Biblical wording',
-      note: 'Both passages draw on ' + bits.join(' · ') + '.'}));
+  // Grouped by source: each source this passage draws on, then the passages elsewhere that draw on it too.
+  const groups = new Map();
+  for (const [other, score, sources, ids] of e.p || []) {
+    for (const key of [...sources, ...ids.map(id => 'w:' + id)]) {
+      const g = groups.get(key) || {key, score: 0, list: []};
+      g.score += score; g.list.push(other); groups.set(key, g);
+    }
+  }
+  const ordered = [...groups.values()].sort((a, b) => b.score - a.score);
+  let n = 0;
+  for (const g of ordered) {
+    const w = g.key.startsWith('w:') ? words[g.key.slice(2)] : null;
+    if (g.key.startsWith('w:') && !w) continue;
+    const label = w ? `${w.w} (Biblical word)` : g.key;
+    const extra = {collectiveTitle: {en: label}, index_title: label};
+    out.push(asLink(ref, w ? w.v[0] : g.key, PARALLEL_CAT, {...extra, grouped: ++n,
+      kind: w ? `Source · the Biblical word ${w.w}` : 'Source',
+      note: w ? `The passage uses the word ${w.w}, found in Tanakh only in ${w.v.join('; ')}. Passages that use it too follow.`
+        : `This passage draws on ${g.key}. The passages below draw on it too.`}));
+    for (const other of g.list.slice(0, 6)) out.push(asLink(ref, other, PARALLEL_CAT, {...extra, grouped: ++n,
+      kind: 'Parallel · ' + schoolOf(other), note: w ? `Also uses the Biblical word ${w.w}.` : `Also draws on ${g.key}.`}));
   }
   return out;
 }
+const PARALLEL_CAT = 'Parallels by source';
 async function loadLinkCounts(sectionRef, secEl, d) {
   const counts = {};
   const bump = (anchor, n) => { const r = segOf(anchor, sectionRef); if (r) for (let i = r[0]; i <= r[1]; i++) counts[i] = (counts[i] || 0) + n; };
@@ -1309,7 +1328,7 @@ async function linksFor(ref) {
   const sefaria = sec.chapterLinks ? all : all.filter(l => { const r = segOf(l.anchorRef, sec.sectionRef); return r && n >= r[0] && n <= r[1]; });
   const seen = new Set(), out = [];
   for (const l of [...ours, ...sefaria]) {
-    const key = (l.category === 'Rav Tzadok Library' || String(l.category).startsWith('Parallels · ') ? 'L|' : '') + (l.sourceRef || l.ref);
+    const key = l.grouped ? 'G|' + l.grouped : (l.category === 'Rav Tzadok Library' ? 'L|' : '') + (l.sourceRef || l.ref);
     if (!seen.has(key)) { seen.add(key); out.push(l); }
   }
   return out;
@@ -1394,7 +1413,7 @@ async function renderConnections(ref, c) {
   const note = sec && sec.chapterLinks ? `<p class="empty" style="padding:0 0 10px;font-size:.92rem">Sources this passage cites, the library passages that cite it, and Sefaria's connections for the whole section.</p>` : '';
   const byCat = {};
   links.forEach(l => { const k = l.category || 'Other'; (byCat[k] = byCat[k] || []).push(l); });
-  const FIRST = ['Parallel Sources', 'Rav Tzadok Library', 'Parallels · Kisvei Rav Tzadok', 'Parallels · Ishbitz–Radzin'];
+  const FIRST = ['Parallel Sources', PARALLEL_CAT, 'Rav Tzadok Library'];
   const rank = k => (FIRST.includes(k) ? FIRST.indexOf(k) : FIRST.length);
   const cats = Object.keys(byCat).sort((a, b) => rank(a) - rank(b) || byCat[b].length - byCat[a].length);
   c.innerHTML = sourceLanguageControls() + note + cats.map(k => {
@@ -1423,8 +1442,9 @@ async function showLinkList(ref, label, list, c, {groups = [], selectedCategory 
     showLinkList(ref, g.label, g.list, c, {groups, selectedCategory: g.label});
   });
   const box = $('#lItems');
-  list.slice(0, 40).forEach(l => {
-    const div = document.createElement('div'); div.className = 'link-item';
+  const cap = list.some(l => l.grouped) ? 120 : 40;
+  list.slice(0, cap).forEach(l => {
+    const div = document.createElement('div'); div.className = 'link-item' + (l.grouped && String(l.kind).startsWith('Source') ? ' source-head' : l.grouped ? ' parallel-item' : '');
     div.innerHTML = `<div class="ref"><span class="ref-en">${esc(l.sourceRef || l.ref)}</span><span class="he" lang="he" dir="rtl">${esc(l.sourceHeRef || '')}</span></div>${l.note ? `<div class="parallel-note"><strong>${esc(l.kind || 'Related passage')}</strong>${esc(l.note)}</div>` : ''}<div class="loading" style="padding:6px 0">Loading…</div>`;
     box.appendChild(div);
     fetchText(l.sourceRef || l.ref).then(d => {
@@ -1464,7 +1484,7 @@ async function showLinkList(ref, label, list, c, {groups = [], selectedCategory 
       div.querySelector('.loading').outerHTML = `<div class="acts"><a href="#/read/${toHash(target)}">Open in reader</a><a href="${sefariaUrl(target)}" target="_blank" rel="noopener">Sefaria ↗</a></div>`;
     });
   });
-  if (list.length > 40) box.insertAdjacentHTML('beforeend', `<div class="empty">Showing 40 of ${list.length}.</div>`);
+  if (list.length > cap) box.insertAdjacentHTML('beforeend', `<div class="empty">Showing ${cap} of ${list.length}.</div>`);
 }
 function renderTools(ref, c) {
   ++panelSeq;
