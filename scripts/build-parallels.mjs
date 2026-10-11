@@ -8,7 +8,8 @@
 //   - a source: the same verse, daf, Mishnah, Midrash, Zohar, halachah, or other work, as the library already
 //     links it (citations in the text and notes, English and Hebrew) or as found here: a verse a passage quotes
 //     word for word without naming it (sources/tanakh/wlc-consonantal.json);
-//   - a distinctive Biblical word: a word found in at most eight verses of Tanakh (sources/tanakh/rare-lemmas.json),
+//   - a distinctive Biblical word: a Hebrew word of five letters or more found in at most three verses of Tanakh
+//     (sources/tanakh/rare-lemmas.json), spelled as there and rare as a spelling,
 //     e.g. חפזון, which a passage uses without quoting a verse.
 // Rarer shared sources count for more. Each paragraph keeps its strongest parallels, at most ten from each school,
 // never from its own section, with the shared sources spelled out so the reader can judge the connection.
@@ -22,7 +23,7 @@ import path from 'node:path';
 
 const TEXT = 'dist/mcp-data/text';
 const OUT_DIRS = ['dist/library/data/parallels', 'dist/mcp-data/parallels'];
-const MAX_PER_SCHOOL = 10, MAX_SOURCE_DF = 400, MAX_WORD_DF = 60, MIN_SCORE = 5.0;
+const MAX_PER_SCHOOL = 10, MAX_SOURCE_DF = 400, MAX_WORD_DF = 25, MIN_SCORE = 5.0;
 const catalog = JSON.parse(fs.readFileSync('dist/mcp-data/catalog.json', 'utf8')).books;
 const school = new Map(catalog.map(b => [b.slug, b.group === 'Izhbitz' ? 'Ishbitz–Radzin' : 'Kisvei Rav Tzadok']));
 const readerSlug = slug => (slug === 'mei-hashiloach' ? 'mei-ha-shiloach' : slug);
@@ -30,11 +31,12 @@ const readerSlug = slug => (slug === 'mei-hashiloach' ? 'mei-ha-shiloach' : slug
 // ---------- Hebrew words, loosely: no nikkud, no quote marks, final letters as medial, no ו/י (spelling varies)
 const FIN = { 'ך': 'כ', 'ם': 'מ', 'ן': 'נ', 'ף': 'פ', 'ץ': 'צ' };
 const loose = w => w.replace(/[ךםןףץ]/g, c => FIN[c]).replace(/[וי]/g, '');
-function words(s) {
+function words(s, keepMatres = false) {
   return String(s).replace(/[֑-ׇ]/g, m => (m === '־' ? ' ' : '')).replace(/[׳״'"`’]/g, '').replace(/[^א-ת\s]/g, ' ')
     .split(/\s+/).filter(Boolean).map(w => {
       if (w === 'יהוה' || w === 'יהו') return 'ה';
-      return loose(w.replace(/^(ו?[בלמכה]?)אלה(?=ים|י|כ|נו|יו|יה|ה|$)/, '$1אלק'));
+      w = w.replace(/^(ו?[בלמכה]?)אלה(?=ים|י|כ|נו|יו|יה|ה|$)/, '$1אלק');
+      return keepMatres ? w.replace(/[ךםןףץ]/g, c => FIN[c]) : loose(w);
     }).filter(Boolean);
 }
 
@@ -71,16 +73,34 @@ function quotedVerses(text) {
 }
 
 // ---------- Distinctive Biblical words
+const PREFIX_RE = /^[והבכלמש]/;
 const lemmas = JSON.parse(fs.readFileSync('sources/tanakh/rare-lemmas.json', 'utf8'));
+// How often each spelling occurs in Tanakh, with or without prefixes, whatever word it is: a rare word must also
+// be a rare spelling, so that e.g. עגלה (a calf, and also a name) or בית never count as distinctive.
+const formCount = new Map();
+for (const t of Object.values(verses)) for (let w of words(t, true)) {
+  for (let k = 0; k <= 3 && w; k++) {
+    formCount.set(w, (formCount.get(w) || 0) + 1);
+    if (!PREFIX_RE.test(w)) break;
+    w = w.slice(1);
+  }
+}
 const formToLemma = new Map();
-for (const [id, { f }] of Object.entries(lemmas)) for (const form of f) {
-  const k = loose(form);
-  if (k.length >= 4 && !formToLemma.has(k)) formToLemma.set(k, id);
+// Biblical Aramaic (Daniel 2:4–7:28, Ezra 4:8–6:18, 7:12–26, Jeremiah 10:11) is everyday language in the Gemara and Zohar.
+const aramaic = ref => { const m = ref.match(/^(Daniel|Ezra|Jeremiah) (\d+):(\d+)$/); if (!m) return false; const c = +m[2], v = +m[3];
+  return m[1] === 'Daniel' ? (c > 2 || (c === 2 && v >= 4)) && c <= 7 : m[1] === 'Ezra' ? ((c === 4 && v >= 8) || c === 5 || (c === 6 && v <= 18) || (c === 7 && v >= 12 && v <= 26)) : c === 10 && v === 11; };
+for (const [id, { f, v }] of Object.entries(lemmas)) for (const form of f) {
+  // Found in at most three verses, five letters or more, not Aramaic: shorter or commoner words are too often
+  // ordinary Rabbinic Hebrew (חזקת, כפול) rather than an echo of a verse.
+  if (v.length > 3 || v.some(aramaic) || form.replace(/[ךםןףץ]/g, c => FIN[c]).length < 5) continue;
+  // Spelled exactly as in Tanakh (only final letters folded): dropping ו/י here would confuse distinct words.
+  const k = form.replace(/[ךםןףץ]/g, c => FIN[c]);
+  if (k.length >= 4 && (formCount.get(k) || 0) <= 8 && !formToLemma.has(k)) formToLemma.set(k, id);
 }
 const PREFIX = /^[והבכלמש]/;
 function rareWords(text) {
   const out = new Set();
-  for (let w of words(text)) {
+  for (let w of words(text, true)) {
     for (let k = 0; k <= 3 && w.length >= 4; k++) {
       const id = formToLemma.get(w);
       if (id) { out.add(id); break; }
@@ -165,8 +185,9 @@ paras.forEach((p, i) => {
   if (Object.keys(entry).length) ((out[readerSlug(p.slug)] ||= {})[p.ref] = entry);
 });
 
+const verseOrder = new Map(Object.keys(verses).map((r, i) => [r, i]));
 const wordInfo = {};
-for (const id of usedWords) wordInfo[id] = { w: lemmas[id].f[0], v: lemmas[id].v };
+for (const id of usedWords) wordInfo[id] = { w: lemmas[id].f.find(f => formToLemma.get(f.replace(/[ךםןףץ]/g, c => FIN[c])) === id) || lemmas[id].f[0], v: [...lemmas[id].v].sort((a, b) => verseOrder.get(a) - verseOrder.get(b)) };
 const quoted = paras.reduce((n, p) => n + p.quoted.size, 0);
 for (const dir of OUT_DIRS) {
   fs.rmSync(dir, { recursive: true, force: true });
