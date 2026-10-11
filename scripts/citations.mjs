@@ -129,6 +129,7 @@ const LIBRARY = {
   'Sichat Malakhei HaSharet': ['Sichas Malachei HaShareis', 'Sichat Malachei HaSharet'],
   'Peri Tzadik': ['Pri Tzaddik', 'Peri Tzadik', 'Pri Tzadik'],
 };
+import { referenceMatches } from './reference-finders.mjs';
 import { TANAKH as TANAKH_CHAPTERS, SHAS } from './packs.mjs';
 // Bounds, so a citation to a chapter or daf that does not exist is not linked.
 const MAX_CHAPTER = Object.fromEntries(TANAKH_CHAPTERS.flatMap(([, books]) => books));
@@ -206,10 +207,6 @@ export function findCitations(text) {
 const SPECIAL_REFERENCES = [
   { re: /\b(?:Holy\s+)?Zohar\s*\(\s*(Bo|Balak|Tetzaveh|Emor|Beshalach|Noach|Bereshit|Bereishit|Vayera|Vayechi|Vayikra|Pinchas|Kedoshim|Acharei Mot|Acharei Mos|Ki Tisa|Terumah|Behar|Naso)\s+\d+[ab]\s*\)/gi,
     ref: m => 'Zohar, ' + ({Bereishit:'Bereshit','Acharei Mos':'Acharei Mot'}[m[1]] || m[1]) },
-  { re: /\bTikkun(?:ei\s+Zohar)?\s+(\d{1,3})\b/gi,
-    ref: m => 'Tikkunei Zohar ' + m[1] },
-  { re: /\bMidrash Tanchuma,?\s+(Yitro|Noach|Bereshit|Bereishit|Ki Tisa|Terumah|Vayikra|Bo|Vayera|Naso|Shmini|Shemot)\s+(\d{1,3})\b/gi,
-    ref: m => 'Midrash Tanchuma, ' + ({Bereishit:'Bereshit'}[m[1]] || m[1]) + ' ' + m[2] },
   { re: /\bRashi on\s+(Genesis|Exodus|Leviticus|Numbers|Deuteronomy)\s+(\d{1,3}:\d{1,3})\b/gi,
     ref: m => 'Rashi on ' + m[1] + ' ' + m[2] },
   { re: /\b(?:Bereishit|Bereshit) Rabbah,?\s+parashah\s+(\d{1,3})\b/gi,
@@ -227,60 +224,74 @@ const SPECIAL_REFERENCES = [
   { re: /\(\s*Tetzaveh\s*\)/g, ref: () => 'Exodus 27:20-30:10' },
   { re: /\(\s*Va['’]etchanan\s*[;)]/g, ref: () => 'Deuteronomy 3:23-7:11' },
 ];
-function linkSpecialReferences(html) {
-  let inLink = 0, inSup = 0;
-  return html.split(/(<[^>]+>)/).map(part => {
-    if (part.startsWith('<')) {
-      if (/^<a\b/i.test(part)) inLink++;
-      else if (/^<\/a>/i.test(part)) inLink = Math.max(0, inLink - 1);
-      else if (/^<sup\b/i.test(part)) inSup++;
-      else if (/^<\/sup>/i.test(part)) inSup = Math.max(0, inSup - 1);
-      return part;
+// Runs `finder(plainText)` over the text of an HTML string and wraps every match
+// in <a data-ref>. Inline formatting tags (<i>, <b>, <em> ...) are transparent,
+// so "<i>Sefer Yetzirah</i> 1:3" is still one citation; a match that crosses a
+// tag is wrapped piece by piece so the markup stays well formed. Existing links,
+// footnote markers and any other tag act as barriers.
+const TRANSPARENT = /^<\/?(?:i|b|em|strong|u|span|small|big)\b/i;
+function linkWith(html, finder) {
+  const tokens = html.split(/(<[^>]+>)/);
+  const pieces = [];           // {tokenIndex, start, end} text pieces inside the plain string
+  let plain = '', inLink = 0, inSup = 0;
+  tokens.forEach((tok, ti) => {
+    if (ti % 2) {
+      if (/^<a\b/i.test(tok)) { inLink++; plain += '\u0001'; }
+      else if (/^<\/a>/i.test(tok)) { inLink = Math.max(0, inLink - 1); plain += '\u0001'; }
+      else if (/^<sup\b/i.test(tok)) { inSup++; plain += '\u0001'; }
+      else if (/^<\/sup>/i.test(tok)) { inSup = Math.max(0, inSup - 1); plain += '\u0001'; }
+      else if (!TRANSPARENT.test(tok)) plain += '\u0001';
+      return;
     }
-    if (inLink || inSup || !part) return part;
-    const matches = [];
-    for (const rule of SPECIAL_REFERENCES) {
-      rule.re.lastIndex = 0;
-      for (const m of part.matchAll(rule.re)) {
-        matches.push({ index: m.index, length: m[0].length, ref: rule.ref(m) });
-      }
+    if (!tok) return;
+    if (inLink || inSup) { plain += '\u0001'.repeat(Math.min(tok.length, 1)); return; }
+    pieces.push({ ti, start: plain.length, end: plain.length + tok.length });
+    plain += tok;
+  });
+  const found = finder(plain);
+  if (!found.length) return html;
+  found.sort((a, b) => a.index - b.index || b.length - a.length);
+  const edits = new Map();     // tokenIndex -> [{from,to,ref}]
+  let at = 0;
+  for (const f of found) {
+    if (f.index < at) continue;
+    const to = f.index + f.length;
+    for (const p of pieces) {
+      const from = Math.max(f.index, p.start), end = Math.min(to, p.end);
+      if (from >= end || !plain.slice(from, end).trim()) continue;
+      if (!edits.has(p.ti)) edits.set(p.ti, []);
+      edits.get(p.ti).push({ from: from - p.start, to: end - p.start, ref: f.ref });
     }
-    matches.sort((a, b) => a.index - b.index || b.length - a.length);
-    let out = '', at = 0;
-    for (const m of matches) {
-      if (m.index < at) continue;
-      out += part.slice(at, m.index)
-        + '<a data-ref="' + m.ref.replace(/"/g, '&quot;') + '">'
-        + part.slice(m.index, m.index + m.length) + '</a>';
-      at = m.index + m.length;
+    at = to;
+  }
+  for (const [ti, list] of edits) {
+    let out = '', pos = 0;
+    for (const e of list.sort((a, b) => a.from - b.from)) {
+      out += tokens[ti].slice(pos, e.from) + `<a data-ref="${e.ref.replace(/&/g, '&amp;').replace(/"/g, '&quot;')}">` + tokens[ti].slice(e.from, e.to) + '</a>';
+      pos = e.to;
     }
-    return out + part.slice(at);
-  }).join('');
+    tokens[ti] = out + tokens[ti].slice(pos);
+  }
+  return tokens.join('');
 }
+function specialMatches(text) {
+  const matches = referenceMatches(text);
+  for (const rule of SPECIAL_REFERENCES) {
+    rule.re.lastIndex = 0;
+    for (const m of text.matchAll(rule.re)) {
+      const ref = rule.ref(m);
+      if (ref) matches.push({ index: m.index, length: m[0].length, ref });
+    }
+  }
+  return matches;
+}
+const linkSpecialReferences = html => linkWith(html, specialMatches);
 
-// Wraps citations found in the text parts of an HTML string in <a data-ref>,
+// Wraps citations found in the text of an HTML string in <a data-ref>,
 // leaving existing links, tags and footnote markers alone.
 export function linkCitations(html) {
   html = linkSpecialReferences(html);
-  let inLink = 0, inSup = 0;
-  return html.split(/(<[^>]+>)/).map(part => {
-    if (part.startsWith('<')) {
-      if (/^<a\b/i.test(part)) inLink++;
-      else if (/^<\/a>/i.test(part)) inLink = Math.max(0, inLink - 1);
-      else if (/^<sup\b/i.test(part)) inSup++;
-      else if (/^<\/sup>/i.test(part)) inSup = Math.max(0, inSup - 1);
-      return part;
-    }
-    if (inLink || inSup || !part) return part;
-    const found = findCitations(part);
-    if (!found.length) return part;
-    let out = '', at = 0;
-    for (const f of found) {
-      out += part.slice(at, f.index) + `<a data-ref="${f.ref.replace(/"/g, '&quot;')}">${part.slice(f.index, f.index + f.length)}</a>`;
-      at = f.index + f.length;
-    }
-    return out + part.slice(at);
-  }).join('');
+  return linkWith(html, text => findCitations(text));
 }
 
 // Category for any Sefaria-style ref (used for links already in the source files).
