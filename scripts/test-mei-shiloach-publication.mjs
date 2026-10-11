@@ -5,16 +5,19 @@ const file = path.join(root,'mei-ha-shiloach','interlinear.json');
 if (!fs.existsSync(file)) throw new Error('Missing Mei HaShiloach study overlay');
 const source = JSON.parse(fs.readFileSync('sources/akiva/overlays/mei-hashiloach-interlinear.json','utf8'));
 const study = JSON.parse(fs.readFileSync(file,'utf8'));
-const expected = [15,8,10,2,3,1];
+const expected = [15,8,10,2,3,1,9,3,4];
 const refs = [
   'Mei HaShiloach, Volume I, Genesis, Bereshit',
   'Mei HaShiloach, Volume I, Genesis, Noach',
   'Mei HaShiloach, Volume II, Genesis, Bereshit',
   'Mei HaShiloach, Volume II, Genesis, Noach',
   'Mei HaShiloach, Mei HaShiloach Anthology, Genesis, Bereshit',
-  'Mei HaShiloach, Mei HaShiloach Anthology, Genesis, Noach'
+  'Mei HaShiloach, Mei HaShiloach Anthology, Genesis, Noach',
+  'Mei HaShiloach, Volume I, Genesis, Lech Lecha',
+  'Mei HaShiloach, Volume II, Genesis, Lech Lecha',
+  'Mei HaShiloach, Mei HaShiloach Anthology, Genesis, Lech Lecha'
 ];
-if (Object.keys(study).length !== 6) throw new Error('Expected six Mei HaShiloach groups');
+if (Object.keys(study).length !== 9) throw new Error('Expected nine Mei HaShiloach groups');
 let passages = 0, phrases = 0, nikkud = 0;
 for (let i = 0; i < refs.length; i++) {
   const list = study[refs[i]];
@@ -34,8 +37,13 @@ for (let i = 0; i < refs.length; i++) {
     }
   }
 }
-if (passages !== 39 || phrases !== 1022 || nikkud < 1000)
+if (passages !== 55 || phrases !== 1378 || nikkud < 1000)
   throw new Error('Mei HaShiloach coverage regression: '+JSON.stringify({passages,phrases,nikkud}));
+const newHeadings=JSON.parse(fs.readFileSync(path.join(root,'mei-ha-shiloach','headings.json'),'utf8'));
+for(const ref of refs.slice(6)){
+  if(!Array.isArray(newHeadings[ref]?.headings)||newHeadings[ref].headings.length!==study[ref].length)
+    throw Error('Lech Lecha subheadings missing or misaligned: '+ref);
+}
 const catalog = JSON.parse(fs.readFileSync(path.join(root,'catalog.json'),'utf8'));
 if (catalog.some(x => x.title==='Mei HaShiloach'))
   throw new Error('The overlay must not replace Sefaria original English by shadowing its catalog entry');
