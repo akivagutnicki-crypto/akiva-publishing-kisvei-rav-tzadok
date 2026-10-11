@@ -27,6 +27,8 @@ const parsed = JSON.parse(books.result?.content?.[0]?.text ?? '{}');
 if (!Array.isArray(parsed.books) || !parsed.books.some(b => /Resisei Layla/.test(b.title || b.name || ''))) {
   throw Error('MCP failed to load the expected catalog');
 }
-const badPath = await worker.fetch(new Request('https://example.workers.dev/'), env, context);
+const root = await worker.fetch(new Request('https://example.workers.dev/'), env, context);
+if (root.status !== 200) throw Error('Root status page should answer 200');
+const badPath = await worker.fetch(new Request('https://example.workers.dev/not-a-route'), env, context);
 if (badPath.status !== 404) throw Error('Unexpected route accepted');
 console.log('Cloudflare adapter smoke test: six tools and library catalog OK');
