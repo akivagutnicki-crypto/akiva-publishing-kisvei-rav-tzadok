@@ -31,7 +31,7 @@ for(const [node,group] of [['Bereshit',bereshit],['Noach',noach],['Lech Lecha',l
 }
 if(pairs!==3889)throw Error('Expected 3889 bilingual phrases, found '+pairs);
 if(nikkud<200000)throw Error('Hebrew nikkud was lost: '+nikkud);
-if(lechPairs!==4171 || lechHeads!==431)throw Error('Lech Lecha heading/phrase coverage changed: '+lechPairs+' / '+lechHeads);
+if(lechPairs!==4171 || lechHeads!==432)throw Error('Lech Lecha heading/phrase coverage changed (includes a separate heading for the continuation of Ois 1): '+lechPairs+' / '+lechHeads);
 const links=JSON.parse(fs.readFileSync(path.join(bookRoot,'links.json'),'utf8'));
 const linkCount=Object.values(links).flat().length;
 if(linkCount<60)throw Error('Not enough source links/connections: '+linkCount);
