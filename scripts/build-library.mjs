@@ -247,6 +247,28 @@ function connect(slug, sectionRef, sep, items) {
     item.p = item.p.map(([he, en]) => [linkHebrewCitations(norm(he)).replace(/data-ref="([^"]+)"/g, (_, r) => `data-ref="${normalizeRef(r.replace(/&amp;/g, '&'))}"`), norm(en)]);
     const refs = new Set();
     for (const [he, en] of item.p) for (const m of (he + en).matchAll(/data-ref="([^"]+)"/g)) refs.add(decode(m[1]));
+    // Explicitly hyperlink the two Scripture allusions in the opening title and
+    // the haste of the Egyptian Pesach. Preserve every Hebrew vowel and phrase pair.
+    if (slug === 'tzidkat-hatzadik' && sectionRef === 'Tzidkat HaTzadik 1') {
+      const citations = {
+        2: [['צדקת הצדיק', 'Ezekiel 18:20'], ['צדקות אהב', 'Psalms 11:7']],
+        3: [['בחפזון', 'Exodus 12:11']]
+      };
+      for (const [word, ref] of citations[item.n || k] || []) {
+        const re = new RegExp([...word].map(ch =>
+          /[א-ת]/.test(ch) ? ch + '[\\u0591-\\u05c7]*' :
+          ch === ' ' ? '\\s+' : ch).join(''), 'u');
+        let found = false;
+        item.p = item.p.map(([he, en]) => {
+          if (!found && re.test(he)) {
+            found = true;
+            he = he.replace(re, m => '<a data-ref="' + ref + '">' + m + '</a>');
+          }
+          return [he, en];
+        });
+        if (!found) throw new Error('Missing Tzidkat 1 Scripture allusion: ' + word);
+      }
+    }
     // Scholarly Word-footnote sources are first-class connections in Noach 5–6,
     // anchored to their existing paragraphs. Only use real Sefaria URLs
     // already verified and stored in the footnote annotation.
@@ -647,6 +669,36 @@ if (fs.existsSync(meiStudyPath)) {
   writeFile(path.join(dest,'interlinear.json'), JSON.stringify(overlay));
   writeFile(path.join(dest,'headings.json'), JSON.stringify(headingIndex));
   console.log('Mei HaShiloach: '+study.sections.length+' groups, '+paragraphCount+' original passages, '+phraseCount+' bilingual phrase pairs; existing English untouched');
+}
+
+// Curated academic parallels for the two opening verse links of Tzidkat HaTzadik.
+// Source, relationship, and explanatory summaries are kept in a small auditable
+// editorial JSON file, separate from the immutable Word edition.
+const parallelPath = 'sources/akiva/references/Tzidkat_HaTzadik_1_Parallels.json';
+if (fs.existsSync(parallelPath)) {
+  const study = JSON.parse(fs.readFileSync(parallelPath, 'utf8'));
+  if (study.book !== 'Tzidkat HaTzadik' || study.sectionRef !== 'Tzidkat HaTzadik 1' ||
+      !Array.isArray(study.entries)) throw new Error('Invalid Tzidkat HaTzadik parallels');
+  const slug = slugify(study.book);
+  const bySection = (LINKS[slug] ??= {});
+  const refs = (bySection[study.sectionRef] ??= []);
+  for (const entry of study.entries) {
+    if (!/^Tzidkat HaTzadik 1:[23]$/.test(entry.anchor) ||
+        !/^[A-Za-z][^<>]{4,160}$/.test(entry.ref) ||
+        !entry.kind || !entry.note) throw new Error('Invalid parallel source: ' + JSON.stringify(entry));
+    const prior = refs.find(l => l.a === entry.anchor && l.r === entry.ref);
+    if (prior) {
+      // Keep already-linked pesukim categorized as Tanakh; enrich their panel.
+      prior.note = entry.note;
+      prior.kind = entry.kind;
+    } else {
+      refs.push({a:entry.anchor,r:entry.ref,c:'Parallel Sources',
+        note:entry.note,kind:entry.kind});
+      const reverse = ((CITED[slugify(bookOfRef(entry.ref))] ??= {})[entry.ref] ??= []);
+      if (!reverse.includes(entry.anchor)) reverse.push(entry.anchor);
+    }
+  }
+  console.log('Tzidkat HaTzadik 1: ' + study.entries.length + ' verified source and parallel annotations');
 }
 
 writeFile(path.join(OUT, 'catalog.json'), JSON.stringify(catalog, null, 1));
