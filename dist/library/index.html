@@ -283,6 +283,8 @@ i.footnote.open{display:block;direction:ltr;text-align:left;font-family:var(--en
 #pContent[data-source-lang="he"] .source-missing[data-missing="en"],#pContent[data-source-lang="en"] .source-missing[data-missing="he"]{display:none}
 .source-missing{font:italic 400 .86rem/1.5 var(--en);color:var(--muted);padding:8px 0}
 .link-item .acts{flex-wrap:wrap}
+.parallel-note{font:400 .86rem/1.48 var(--en);color:var(--muted);padding:8px 0 11px;border-bottom:1px solid var(--line);margin-bottom:9px}
+.parallel-note strong{display:block;font:600 .71rem/1.5 var(--ui);letter-spacing:.02em;color:var(--forest);margin-bottom:3px}
 .link-item .acts button:disabled{color:var(--faint);cursor:default;text-decoration:none}
 .cat{display:flex;align-items:center;gap:12px;width:100%;padding:11px 0;border:0;border-bottom:1px solid var(--line);background:none;text-align:left}
 .cat .bar{width:4px;align-self:stretch;border-radius:2px;background:var(--c-other)}
@@ -559,7 +561,7 @@ async function resolveLocal(ref) {
       : {title: book.version.title, lang: il ? 'Hebrew with interlinear English' : 'Hebrew', source: book.version.source, license: book.version.license}]
   };
 }
-const CAT_COLORS = {'Rav Tzadok Library':'--ox','Rav Tzadok':'--ox',Tanakh:'--c-tanakh',Talmud:'--c-talmud',Mishnah:'--c-talmud',Midrash:'--c-midrash',Halakhah:'--c-halakhah',Kabbalah:'--c-kabbalah',Chasidut:'--c-chasidut',Commentary:'--c-commentary','Quoting Commentary':'--c-commentary',Musar:'--c-midrash','Jewish Thought':'--c-kabbalah',Liturgy:'--c-tanakh'};
+const CAT_COLORS = {'Rav Tzadok Library':'--ox','Rav Tzadok':'--ox',Tanakh:'--c-tanakh',Talmud:'--c-talmud',Mishnah:'--c-talmud',Midrash:'--c-midrash',Halakhah:'--c-halakhah',Kabbalah:'--c-kabbalah',Chasidut:'--c-chasidut',Commentary:'--c-commentary','Quoting Commentary':'--c-commentary','Parallel Sources':'--c-chasidut',Musar:'--c-midrash','Jewish Thought':'--c-kabbalah',Liturgy:'--c-tanakh'};
 
 /* ======================= Utilities ======================= */
 const $ = (s, el = document) => el.querySelector(s);
@@ -1240,8 +1242,8 @@ function dataJSON(path) {
   if (!localJSON.has(path)) localJSON.set(path, fetch(editionDataUrl('data/' + path)).then(r => r.ok ? r.json() : null).catch(() => null));
   return localJSON.get(path);
 }
-const asLink = (anchorRef, sourceRef, category) => ({anchorRef, sourceRef, sourceHeRef: '', category,
-  index_title: bookOfRef(sourceRef), collectiveTitle: {en: bookOfRef(sourceRef)}, local: true});
+const asLink = (anchorRef, sourceRef, category, extras = {}) => ({anchorRef, sourceRef, sourceHeRef: '', category,
+  index_title: bookOfRef(sourceRef), collectiveTitle: {en: bookOfRef(sourceRef)}, local: true, ...extras});
 // Our own connections for one paragraph (or every paragraph of a section when whole = true).
 async function libraryLinks(sec, ref, whole) {
   const out = [];
@@ -1249,7 +1251,7 @@ async function libraryLinks(sec, ref, whole) {
   const dataSlug = lb?.slug || (sec.book === 'Mei HaShiloach' ? 'mei-ha-shiloach' : null);
   if (dataSlug) {
     const links = (await dataJSON(`${dataSlug}/links.json`)) || {};
-    for (const l of links[sec.sectionRef] || []) if (whole || l.a === ref) out.push(asLink(l.a, l.r, l.c));
+    for (const l of links[sec.sectionRef] || []) if (whole || l.a === ref) out.push(asLink(l.a, l.r, l.c, {note:l.note || '', kind:l.kind || ''}));
   }
   const index = (await dataJSON('cited/index.json')) || [];
   const slug = slugify(bookOfRef(sec.sectionRef));
@@ -1396,7 +1398,7 @@ async function showLinkList(ref, label, list, c, {groups = [], selectedCategory 
   const box = $('#lItems');
   list.slice(0, 40).forEach(l => {
     const div = document.createElement('div'); div.className = 'link-item';
-    div.innerHTML = `<div class="ref"><span class="ref-en">${esc(l.sourceRef || l.ref)}</span><span class="he" lang="he" dir="rtl">${esc(l.sourceHeRef || '')}</span></div><div class="loading" style="padding:6px 0">Loading…</div>`;
+    div.innerHTML = `<div class="ref"><span class="ref-en">${esc(l.sourceRef || l.ref)}</span><span class="he" lang="he" dir="rtl">${esc(l.sourceHeRef || '')}</span></div>${l.note ? `<div class="parallel-note"><strong>${esc(l.kind || 'Related passage')}</strong>${esc(l.note)}</div>` : ''}<div class="loading" style="padding:6px 0">Loading…</div>`;
     box.appendChild(div);
     fetchText(l.sourceRef || l.ref).then(d => {
       if (seq !== panelSeq || !div.isConnected) return;
