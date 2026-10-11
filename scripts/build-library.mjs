@@ -171,6 +171,22 @@ function connect(slug, sectionRef, sep, items) {
     item.p = item.p.map(([he, en]) => [norm(he), norm(en)]);
     const refs = new Set();
     for (const [he, en] of item.p) for (const m of (he + en).matchAll(/data-ref="([^"]+)"/g)) refs.add(decode(m[1]));
+    // Scholarly Word-footnote sources are first-class connections in Noach 5–6,
+    // anchored to their existing paragraphs. Only use real Sefaria URLs
+    // already verified and stored in the footnote annotation.
+    if (slug === 'peri-tzadik' && /^Peri Tzadik, Noach [56]$/.test(sectionRef)) {
+      for (const note of item.footnotes || []) {
+        for (const paragraph of note.paragraphs || []) {
+          for (const link of paragraph.links || []) {
+            if (!/^https:\/\/www\.sefaria\.org\//.test(link.url || '')) continue;
+            const u = new URL(link.url);
+            const r = decodeURIComponent(u.pathname.slice(1))
+              .replace(/_/g, ' ').replace(/\.(?=\d)/g, ' ');
+            if (r.trim()) refs.add(r);
+          }
+        }
+      }
+    }
     for (const r of refs) {
       ((LINKS[slug] ??= {})[sectionRef] ??= []).push({ a: anchor, r, c: categoryOf(r) });
       ((CITED[slugify(bookOfRef(r))] ??= {})[r] ??= []).push(anchor);
