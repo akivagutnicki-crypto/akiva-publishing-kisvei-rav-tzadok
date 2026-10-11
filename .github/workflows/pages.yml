@@ -34,7 +34,7 @@ jobs:
         run: node scripts/test-interlinear-publication.mjs && node scripts/test-beit-yaakov-publication.mjs && node scripts/test-mei-shiloach-publication.mjs
 
       - name: Build and verify MCP search index
-        run: node scripts/build-mcp-index.mjs && node scripts/test-mcp-server.mjs
+        run: node scripts/build-mcp-index.mjs && node scripts/test-mcp-server.mjs && node scripts/test-cloudflare-worker.mjs
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
