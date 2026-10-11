@@ -1,7 +1,7 @@
 // Tests the Kisvei Rav Tzadok MCP server (netlify/functions/mcp.mjs) against the freshly built data
 // (dist/mcp-data, from scripts/build-mcp-index.mjs): both protocol eras, every tool, and the error paths.
 process.env.MCP_DATA_DIR = 'dist/mcp-data';
-const { default: handler, config } = await import('../netlify/functions/mcp.mjs');
+const { default: handler, config } = await import('../cloudflare/mcp.mjs');
 
 let passed = 0;
 const check = (ok, what) => { if (!ok) throw new Error('MCP server test failed: ' + what); passed++; };
