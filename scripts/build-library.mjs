@@ -443,7 +443,7 @@ for (const dir of DIRS) {
         // topical division falls inside a single Sefaria paragraph.
         const lechHeaded = src.title === 'Peri Tzadik' && group.node === 'Lech Lecha'
           ? addLechDocumentHeadings(
-              {key:'Lech Lecha ' + group.chapter, en:'', items}, 'pri',
+              {key:'Lech Lecha ' + group.chapter, en:'', items:items.filter(i => i.p || i.table)}, 'pri',
               sections.flatMap(sec => sec.topics.filter(t => (t.pairs || []).length).map(t => t.pairs)))
           : null;
         const ref = src.title + ', ' + group.node + (['Bereshit','Noach','Lech Lecha'].includes(group.node) ? ' ' + group.chapter : '');
