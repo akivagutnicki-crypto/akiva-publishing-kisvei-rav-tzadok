@@ -6,15 +6,17 @@ const read=(path)=>JSON.parse(fs.readFileSync(path,'utf8'));
 const extract=(slug)=>{const toc=read(root+slug+'/toc.json');const leaves=[];function walk(x){if(x.ref)leaves.push(x);for(const c of x.children||[])walk(c)}walk(toc.toc);return leaves};
 const points=s=>(s.match(/[\u0591-\u05C7]/g)||[]).length;
 const checks=[
- {name:'Peri Tzadik',slug:'peri-tzadik',prefix:'Peri Tzadik, Lech Lecha ',leafCount:11,phrases:1224,download:'pri-tzaddik-lech-lecha-interlinear.docx'},
- {name:'Beit Yaakov on Torah',slug:'beit-yaakov-on-torah',prefix:'Beit Yaakov on Torah, Lech Lecha ',leafCount:51,phrases:4171,download:'beit-yaakov-lech-lecha-interlinear.docx'}
+ {name:'Peri Tzadik',slug:'peri-tzadik',prefix:'Peri Tzadik, Lech Lecha ',leafCount:11,phrases:1224,download:'pri-tzaddik-lech-lecha-interlinear.docx',headlines:106},
+ {name:'Beit Yaakov on Torah',slug:'beit-yaakov-on-torah',prefix:'Beit Yaakov on Torah, Lech Lecha ',leafCount:51,phrases:4171,download:'beit-yaakov-lech-lecha-interlinear.docx',headlines:432}
 ];
 for(const cfg of checks){
  const leaves=extract(cfg.slug).filter(l=>l.ref.startsWith(cfg.prefix)&&l.interlinear);
  assert.equal(leaves.length,cfg.leafCount,'Missing Lech Lecha osiyos: '+cfg.name);
- let phrases=0,connections=0;
+ let phrases=0,connections=0,headlines=0;
  for(const leaf of leaves){
-   const rows=read(root+cfg.slug+'/'+leaf.id+'.json').filter(x=>x.p);
+   const items=read(root+cfg.slug+'/'+leaf.id+'.json');
+   headlines+=items.reduce((n,x)=>n+(x.h?1:0)+(x.inlineHeadings?.length||0),0);
+   const rows=items.filter(x=>x.p);
    for(const row of rows)for(const pair of row.p){
      assert.ok(pair.length===2&&/[א-ת]/.test(pair[0])&&/[A-Za-z]/.test(pair[1]),'Unpaired text '+leaf.ref);
      assert.ok(!/^\s*\[/.test(pair[1]),'Unclean English translation in '+leaf.ref);
@@ -23,9 +25,10 @@ for(const cfg of checks){
    }
  }
  assert.equal(phrases,cfg.phrases,'Missing translated phrases: '+cfg.name);
+ assert.equal(headlines,cfg.headlines,'Word headlines missing from reader: '+cfg.name);
  const p='dist/library/downloads/'+cfg.download;
  const raw=fs.readFileSync(p);assert.ok(raw.length>50000&&raw[0]===0x50&&raw[1]===0x4b,'Missing DOCX');
- console.log('PASS '+cfg.name+': '+leaves.length+' osiyos, '+phrases+' pairs, '+connections+' inline source links, DOCX');
+ console.log('PASS '+cfg.name+': '+leaves.length+' osiyos, '+phrases+' pairs, '+headlines+' correctly anchored Word headlines, '+connections+' inline source links, DOCX');
 }
 const mei=read(root+'mei-ha-shiloach/interlinear.json');
 const refs=[
