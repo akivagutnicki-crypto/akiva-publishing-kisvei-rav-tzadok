@@ -44,6 +44,16 @@ for(const [ref,paras,phrases] of refs){
  assert.ok(pairs.every(p=>p.length===2&&/[א-ת]/.test(p[0])&&/[A-Za-z]/.test(p[1])&&!/^\s*\[/.test(p[1])));
  console.log('PASS '+ref+': '+paras+' verified paragraph boundaries / '+phrases+' phrase pairs');
 }
+const meiHeadings=read(root+'mei-ha-shiloach/headings.json');
+let meiHeadlineCount=0;
+for(const [ref] of refs) {
+ const h=meiHeadings[ref];
+ assert.ok(h && Array.isArray(h.headings),'Mei HaShiloach chapter headlines missing: '+ref);
+ meiHeadlineCount+=h.headings.flatMap(x=>String(x).split('\\n')).filter(Boolean).length;
+ meiHeadlineCount+=Object.values(h.phraseHeadings||{}).flat().length;
+}
+assert.equal(meiHeadlineCount,30,'Some of the 29 Word subheadlines or the Volume I continuation headline are missing');
+console.log('PASS Mei HaShiloach: '+meiHeadlineCount+' precisely anchored headlines/subheadlines from the Word edition');
 const meiDoc=fs.readFileSync('dist/library/downloads/mei-hashiloach-lech-lecha-interlinear.docx');
 assert.ok(meiDoc.length>50000&&meiDoc[0]===0x50&&meiDoc[1]===0x4b);
 console.log('PASS: all three Lech Lecha editions available in the library with cleaned English and downloadable DOCX files.');
