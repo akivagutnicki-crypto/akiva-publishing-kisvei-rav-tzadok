@@ -1,0 +1,20 @@
+name: Generate Pri Tzaddik Noach 7-9 nikkud
+on:
+  push:
+    paths:
+      - "scripts/vocalize-noach-789.mjs"
+      - ".github/workflows/noach-nikkud.yml"
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  vocalize:
+    runs-on: ubuntu-latest
+    timeout-minutes: 12
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Vocalize the original Noach 7-9 Hebrew with Dicta Nakdan
+        run: node scripts/vocalize-noach-789.mjs
