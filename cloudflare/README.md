@@ -4,7 +4,7 @@ This adapter hosts the **existing, read-only** Kisvei Rav Tzadok MCP tools on Cl
 It reads the same catalog, interlinear text, source citations, and links served by the GitHub Pages reader.
 
 - Website/data: https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/
-- MCP handler: `netlify/functions/mcp.mjs` (shared source; no code duplication)
+- MCP handler: `cloudflare/mcp.mjs` (independent of the old Netlify deployment)
 - Cloudflare entry: `cloudflare/worker.mjs`
 - Cloudflare configuration: `wrangler.jsonc`
 - Worker name: `akiva-publishing-mcp`
