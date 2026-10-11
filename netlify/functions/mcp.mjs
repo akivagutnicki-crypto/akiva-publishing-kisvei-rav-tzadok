@@ -37,7 +37,7 @@ function load(file) {
         const { readFile } = await import('node:fs/promises');
         return JSON.parse(await readFile(`${process.env.MCP_DATA_DIR}/${file}`, 'utf8'));
       }
-      const res = await fetch(new URL(`/mcp-data/${file}`, ORIGIN));
+      const res = await fetch(new URL(`mcp-data/${file}`, `${ORIGIN.replace(/\/+$/, '')}/`));
       if (!res.ok) throw new Error(`library data ${file} is unavailable (HTTP ${res.status})`);
       return res.json();
     })();
@@ -992,9 +992,9 @@ function warm() {
 }
 
 export default async (req, context) => {
-  ORIGIN = process.env.MCP_SITE_ORIGIN || new URL(req.url).origin;
+  ORIGIN = context?.siteOrigin || process.env.MCP_SITE_ORIGIN || new URL(req.url).origin;
   const res = await handle(req);
-  if (req.method === 'POST' && res.status < 300 && !warming && typeof context?.waitUntil === 'function') context.waitUntil(warm());
+  if (req.method === 'POST' && res.status < 300 && !warming && !context?.disableWarm && typeof context?.waitUntil === 'function') context.waitUntil(warm());
   return res;
 };
 
