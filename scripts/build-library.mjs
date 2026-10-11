@@ -54,6 +54,22 @@ if (fs.existsSync(notesDir)) {
     }
   }
 }
+// Static, consonant-preserving Nakdan vocalization for Pri Tzaddik Noach 7–9.
+// The overlay is committed to source control, so every offline/app rebuild
+// reproduces the same pointed Hebrew without relying on a third-party API.
+const NOACH_NIKKUD = new Map();
+const noachNikkudPath = 'sources/akiva/nikud/Peri_Tzadik_Noach_7-9.json';
+if (fs.existsSync(noachNikkudPath)) {
+  const overlay=JSON.parse(fs.readFileSync(noachNikkudPath,'utf8'));
+  if(overlay.book !== 'Peri Tzadik')throw Error('Invalid Noach nikkud overlay book');
+  for(const entry of overlay.sections || []) {
+    if(![7,8,9].includes(entry.chapter)||entry.node!=='Noach'||!Array.isArray(entry.phrases))
+      throw Error('Unexpected Noach nikud section');
+    NOACH_NIKKUD.set(entry.chapter,entry.phrases);
+  }
+}
+const stripNikkud = s=>String(s).replace(/[\u0591-\u05bd\u05bf-\u05c7]/g,'');
+
 const escapeHtml = x => String(x ?? '').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
 const slugify = s => s.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
@@ -377,9 +393,19 @@ for (const dir of DIRS) {
           console.warn('LOW NIKKUD COVERAGE:', src.title, group.node, group.chapter, pointed);
         // For newly verified Hebrew-original sections, retain precisely the source words
         // at their original sentence boundaries instead of repartitioning by length.
-        const aligned = sections.length === 1 && sections[0].useVerifiedHebrew
-          ? fullPairs.map(([he, en]) => [he, en])
-          : alignOriginalHebrew(pointed.text, fullPairs);
+        const noachOverlay = src.title === 'Peri Tzadik' && group.node === 'Noach'
+          ? NOACH_NIKKUD.get(group.chapter) : null;
+        if (src.title === 'Peri Tzadik' && group.node === 'Noach' &&
+            [7,8,9].includes(group.chapter) && !noachOverlay)
+          throw Error('Required niqqud missing for Noach ' + group.chapter);
+        if (noachOverlay && (noachOverlay.length !== fullPairs.length ||
+            noachOverlay.some((s,i) => stripNikkud(s) !== fullPairs[i][0])))
+          throw Error('Niqqud must preserve each original Hebrew phrase in Noach ' + group.chapter);
+        const aligned = noachOverlay
+          ? fullPairs.map(([he,en],i) => [noachOverlay[i], en])
+          : sections.length === 1 && sections[0].useVerifiedHebrew
+            ? fullPairs.map(([he, en]) => [he, en])
+            : alignOriginalHebrew(pointed.text, fullPairs);
         let cursor = 0, counter = 0;
         const items = [];
         for (const sec of sections) {
