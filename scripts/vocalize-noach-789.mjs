@@ -9,21 +9,41 @@ const letter=/[\u05d0-\u05ea]/;
 const mark=/[\u0591-\u05bd\u05bf-\u05c7]/;
 const originalLetters=s=>[...s].filter(c=>letter.test(c)).join('');
 function applyNikkud(original,vocalized) {
-  const src=[...original], diac=[...vocalized];
-  const marks=[];
-  let j=-1;
-  for(const c of diac) {
-    if(letter.test(c)) { marks.push([]);j++; }
-    else if(mark.test(c)&&j>=0)marks[j].push(c);
+  const canonical=[...original].filter(c=>letter.test(c));
+  const target=[...vocalized], vocalLetters=[],markMap=[];
+  for(const c of target) {
+    if(letter.test(c)) {vocalLetters.push(c);markMap.push('');}
+    else if(mark.test(c)&&markMap.length)markMap[markMap.length-1]+=c;
   }
-  if(originalLetters(original)!==originalLetters(vocalized))
-    throw Error('Nakdan changed Hebrew consonants');
+  const m=canonical.length,n=vocalLetters.length;
+  // Recover only vowel marks attached to matching Hebrew letters. Dicta may
+  // normalize printed abbreviations: an LCS keeps the original text unchanged.
+  const mapping=new Int32Array(m).fill(-1);
+  if(canonical.join('')===vocalLetters.join('')) {
+    for(let i=0;i<m;i++)mapping[i]=i;
+  }else{
+    const cols=n+1,table=new Uint16Array((m+1)*cols);
+    for(let i=m-1;i>=0;i--)
+      for(let j=n-1;j>=0;j--)
+        table[i*cols+j]=canonical[i]===vocalLetters[j]
+          ?1+table[(i+1)*cols+j+1]
+          :Math.max(table[(i+1)*cols+j],table[i*cols+j+1]);
+    let i=0,j=0;
+    while(i<m&&j<n) {
+      if(canonical[i]===vocalLetters[j]){mapping[i]=j;i++;j++;}
+      else if(table[(i+1)*cols+j]>=table[i*cols+j+1])i++;
+      else j++;
+    }
+  }
+  const matched=[...mapping].filter(x=>x>=0).length;
+  if(matched/m<0.94)throw Error('Unreliable Dicta letter alignment: '+matched+'/'+m);
   let out='',k=0;
-  for(const c of src) {
+  for(const c of original) {
     out+=c;
-    if(letter.test(c)) {out+=marks[k]?.join('')||''; k++;}
+    if(letter.test(c)){if(mapping[k]>=0)out+=markMap[mapping[k]];k++;}
   }
-  if(strip(out)!==original)throw Error('Nikkud preservation check failed');
+  if(strip(out)!==original)throw Error('Nikkud changed the source wording');
+  if(matched<m)console.warn('Preserved original text while aligning '+matched+'/'+m+' matching consonants');
   return out;
 }
 async function vocalize(original) {
