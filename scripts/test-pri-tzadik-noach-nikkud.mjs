@@ -23,7 +23,7 @@ for(const [ois,number] of [[7,75],[8,55],[9,19]]){
   assert.equal(original.length,number);
   for(let i=0;i<number;i++){
     assert.equal(strip(pointed[i]),original[i][0],'Nikkud changed source consonants or punctuation');
-    assert.equal(pairs[i][0],pointed[i],'Published reader lost niqqud for '+ois+' phrase '+i);
+    assert.equal(pairs[i][0].replace(/<\/?a\b[^>]*>/g,''),pointed[i],'Published reader lost niqqud for '+ois+' phrase '+i);
     assert.ok(pairs[i][1].length>10,'English interlinear missing in Ois '+ois);
     if(original[i][0].length>60)
       assert.ok((pointed[i].match(/[\u0591-\u05bd\u05bf-\u05c7]/g)||[]).length>5,

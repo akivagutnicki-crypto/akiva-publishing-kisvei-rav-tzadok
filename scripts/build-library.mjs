@@ -13,7 +13,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { createRequire } from 'node:module';
-import { linkCitations, categoryOf, normalizeRef } from './citations.mjs';
+import { linkCitations, linkHebrewCitations, categoryOf, normalizeRef } from './citations.mjs';
 import { packs, TANAKH, SHAS } from './packs.mjs';
 import { linkLikkuteiCitations } from './likkutei-citations.mjs';
 import { restoreStudyNikkud } from './restore-study-nikkud.mjs';
@@ -199,7 +199,42 @@ function normalizePairs(pairs) {
 }
 
 // Link citations in interlinear paragraphs and record them as connections.
+// Hebrew-only text is linked paragraph by paragraph (see linkHebrewSection). When an
+// interlinear edition later replaces the same section, its own connections win.
+const HEBREW_RECORDS = new Map();
+function dropHebrewRecords(slug, sectionRef) {
+  const recs = HEBREW_RECORDS.get(slug + '|' + sectionRef);
+  if (!recs) return;
+  HEBREW_RECORDS.delete(slug + '|' + sectionRef);
+  const mine = new Set(recs.map(x => x.a + '|' + x.r));
+  if (LINKS[slug]?.[sectionRef]) LINKS[slug][sectionRef] = LINKS[slug][sectionRef].filter(l => !mine.has(l.a + '|' + l.r));
+  for (const { a, r } of recs) {
+    const cited = CITED[slugify(bookOfRef(r))]?.[r];
+    if (cited) { const i = cited.indexOf(a); if (i >= 0) cited.splice(i, 1); }
+  }
+}
+// strings of a Hebrew-only section -> linked strings; connections recorded per paragraph
+function linkHebrewSection(slug, sectionRef, strings) {
+  const recs = [];
+  const linked = strings.map((s, i) => {
+    if (typeof s !== 'string' || !/[\u05d0-\u05ea]/.test(s)) return s;
+    const html = linkHebrewCitations(s).replace(/data-ref="([^"]+)"/g, (_, r) => `data-ref="${normalizeRef(r.replace(/&amp;/g, '&'))}"`);
+    if (html === s) return s;
+    const anchor = (/\d$/.test(sectionRef) ? sectionRef + ':' : sectionRef + ' ') + (i + 1);
+    for (const r of new Set([...html.matchAll(/data-ref="([^"]+)"/g)].map(m => decode(m[1])))) {
+      ((LINKS[slug] ??= {})[sectionRef] ??= []).push({ a: anchor, r, c: categoryOf(r) });
+      ((CITED[slugify(bookOfRef(r))] ??= {})[r] ??= []).push(anchor);
+      recs.push({ a: anchor, r });
+    }
+    return html;
+  });
+  if (recs.length) HEBREW_RECORDS.set(slug + '|' + sectionRef, recs);
+  return linked;
+}
+const linkHebrewDeep = x => Array.isArray(x) ? x.map(linkHebrewDeep) : (typeof x === 'string' && /[\u05d0-\u05ea]/.test(x) ? linkHebrewCitations(x).replace(/data-ref="([^"]+)"/g, (_, r) => `data-ref="${normalizeRef(r.replace(/&amp;/g, '&'))}"`) : x);
+
 function connect(slug, sectionRef, sep, items) {
+  dropHebrewRecords(slug, sectionRef);
   items = cleanHeadings(items);
   for (const item of items) if (item.p && !item.footnotes) item.p = normalizePairs(item.p);
   let k = 0;
@@ -209,7 +244,7 @@ function connect(slug, sectionRef, sep, items) {
     const anchor = sectionRef + sep + (item.n || k);
     const norm = h => (slug === 'likkutei-maamarim' ? linkLikkuteiCitations(h) : linkCitations(h))
       .replace(/data-ref="([^"]+)"/g, (_, r) => `data-ref="${normalizeRef(r)}"`);
-    item.p = item.p.map(([he, en]) => [norm(he), norm(en)]);
+    item.p = item.p.map(([he, en]) => [linkHebrewCitations(norm(he)).replace(/data-ref="([^"]+)"/g, (_, r) => `data-ref="${normalizeRef(r.replace(/&amp;/g, '&'))}"`), norm(en)]);
     const refs = new Set();
     for (const [he, en] of item.p) for (const m of (he + en).matchAll(/data-ref="([^"]+)"/g)) refs.add(decode(m[1]));
     // Scholarly Word-footnote sources are first-class connections in Noach 5–6,
@@ -312,11 +347,11 @@ for (const dir of DIRS) {
       const ref = [src.title, ...enPath.slice(1)].join(', ');
       const heRef = [src.heTitle, ...hePath.slice(1)].join(', ');
       if (depth === 1) {
-        writeFile(path.join(bookDir, `${id}.json`), JSON.stringify(t));
+        writeFile(path.join(bookDir, `${id}.json`), JSON.stringify(Array.isArray(t) && t.every(x => typeof x === 'string') ? linkHebrewSection(slug, ref, t) : linkHebrewDeep(t)));
         segments += t.filter(s => String(s ?? '').trim()).length;
       } else {
         t.forEach((ch, i) => {
-          if (!isEmpty(ch)) writeFile(path.join(bookDir, `${id}-${i + 1}.json`), JSON.stringify(ch));
+          if (!isEmpty(ch)) writeFile(path.join(bookDir, `${id}-${i + 1}.json`), JSON.stringify(Array.isArray(ch) && ch.every(x => typeof x === 'string') ? linkHebrewSection(slug, `${ref} ${i + 1}`, ch) : linkHebrewDeep(ch)));
           segments += [ch].flat(Infinity).filter(s => String(s ?? '').trim()).length;
         });
       }

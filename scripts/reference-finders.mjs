@@ -8,7 +8,7 @@
 // checked-in Zohar map (Sefaria cannot address a Zohar folio directly).
 import fs from 'node:fs';
 const read = p => JSON.parse(fs.readFileSync(new URL(p, import.meta.url), 'utf8'));
-const map = read('../sources/akiva/references/Likkutei_Maamarim.json');
+export const map = read('../sources/akiva/references/Likkutei_Maamarim.json');
 let libraryRefs = {};
 try { libraryRefs = read('../sources/akiva/references/Library_refs.json'); } catch { /* generated file; library links are skipped without it */ }
 
@@ -17,7 +17,7 @@ const A = "['’]?";                     // optional apostrophe
 const alt = list => list.map(s => s.replace(/ /g, '\\s*').replace(/'/g, A)).join('|');
 
 // ---- parashot: [canonical Sefaria name, Zohar node, Torah book, aliases...] ----
-const PARASHOT = [
+export const PARASHOT = [
   ['Bereshit', 'Bereshit', 'Genesis', 'Bereishis', 'Bereishit', 'Bereshit', 'Bereishis'],
   ['Noach', 'Noach', 'Genesis', 'Noach', 'Noah'],
   ['Lech Lecha', 'Lech Lecha', 'Genesis', 'Lech Lecha', 'Lekh Lekha', 'Lech-Lecha'],
@@ -155,7 +155,7 @@ function tanchumaMatches(text) {
 
 // ---- Mishnah-only tractates and the Yerushalmi on Zeraim ----
 // [Sefaria tractate, aliases, has a Yerushalmi]
-const MISHNAH = [
+export const MISHNAH = [
   ['Peah', ['Peah', "Pe'ah"], true], ['Demai', ['Demai'], true], ['Kilayim', ['Kilayim', "Kil'ayim"], true],
   ['Sheviit', ["Shevi'it", 'Sheviis', 'Sheviit', "Sh'viis"], true], ['Terumot', ['Terumos', 'Terumot'], true],
   ['Maasrot', ['Maasros', 'Maasrot', "Ma'asros", "Ma'asrot"], true], ['Maaser Sheni', ['Maaser Sheni', "Ma'aser Sheni"], true],
@@ -188,7 +188,7 @@ function mishnahMatches(text) {
 }
 
 // ---- Mishneh Torah by the printed transliteration ----
-const RAMBAM = {
+export const RAMBAM = {
   teshuvah: 'Repentance', teshuva: 'Repentance', repentance: 'Repentance',
   yesodeihatorah: 'Foundations of the Torah', yesodeyhatorah: 'Foundations of the Torah', foundationsofthetorah: 'Foundations of the Torah',
   deos: 'Human Dispositions', deot: 'Human Dispositions', deah: 'Human Dispositions',
@@ -239,7 +239,7 @@ function numberedWorks(text) {
 }
 
 // ---- Rav Tzadok's library and the Izhbitz-Radzin school ----
-const LIB = new Set(Object.values(libraryRefs).flat());
+export const LIB = new Set(Object.values(libraryRefs).flat());
 const PT_ALIAS = {
   bereshit: 'Bereshit', noach: 'Noach', lechlecha: 'Lech Lecha', vayera: 'Vayera', chayeisarah: 'Chayei Sara', chayeisara: 'Chayei Sara',
   toldot: 'Toldot', vayetzei: 'Vayetzei', vayishlach: 'Vayishlach', vayeshev: 'Vayeshev', miketz: 'Miketz', vayigash: 'Vayigash', vayechi: 'Vayechi',

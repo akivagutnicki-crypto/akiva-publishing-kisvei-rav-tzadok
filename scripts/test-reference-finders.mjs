@@ -20,3 +20,20 @@ has('Tanya, Likkutei Amarim ch. 39', 'Tanya, Part I; Likkutei Amarim 39');
 has('<i>Zohar</i> III, 73a', 'Zohar, Achrei Mot 49:296-50:305');
 assert.deepEqual(refs('Hilchos Sanhedrin 18:2'), ['Mishneh Torah, The Sanhedrin and the Penalties within Their Jurisdiction 18:2']);
 console.log('reference finder checks passed');
+// Hebrew-side citations
+import { linkHebrewCitations } from './citations.mjs';
+const heRefs = html => [...linkHebrewCitations(html).matchAll(/data-ref="([^"]+)"/g)].map(m => m[1]);
+const heHas = (html, ref) => assert.ok(heRefs(html).includes(ref), `${html} -> ${heRefs(html).join(' | ')} (wanted ${ref})`);
+heHas('(תהילים ס״ח:ל״ה)', 'Psalms 68:35');
+heHas('כדאיתא בברכות ז׳ ע״ב', 'Berakhot 7b');
+heHas('(יבמות ס״ב:)', 'Yevamot 62b');
+heHas('בְּרָכוֹת דַּף מ״ג עַמּוּד ב׳', 'Berakhot 43b');
+heHas('בזוה"ק (לך פד.)', 'Zohar, Lech Lecha 20:187-21:199');
+heHas('תיקוני זוהר דף י״ז ע״ב', 'Tikkunei Zohar 17b');
+heHas('הלכות תשובה פרק ג הלכה ד', 'Mishneh Torah, Repentance 3:4');
+heHas('ספר חסידים סי\' רל"א', 'Sefer Chasidim 231');
+heHas('אבות פ"ג מ"ד', 'Mishnah Avot 3:4');
+heHas('<i>ישעיה</i> נ״ח י״ג', 'Isaiah 58:13');
+assert.deepEqual(heRefs('שמואל א, כט'), []);   // chapter without a verse is not a verse citation
+assert.deepEqual(heRefs('ויקרא אל משה שבת קודש'), []);
+console.log('Hebrew citation checks passed');

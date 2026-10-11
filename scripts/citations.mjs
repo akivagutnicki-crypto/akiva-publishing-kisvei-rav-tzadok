@@ -130,6 +130,7 @@ const LIBRARY = {
   'Peri Tzadik': ['Pri Tzaddik', 'Peri Tzadik', 'Pri Tzadik'],
 };
 import { referenceMatches } from './reference-finders.mjs';
+import { hebrewMatchesVocalized } from './hebrew-citations.mjs';
 import { TANAKH as TANAKH_CHAPTERS, SHAS } from './packs.mjs';
 // Bounds, so a citation to a chapter or daf that does not exist is not linked.
 const MAX_CHAPTER = Object.fromEntries(TANAKH_CHAPTERS.flatMap(([, books]) => books));
@@ -230,7 +231,7 @@ const SPECIAL_REFERENCES = [
 // tag is wrapped piece by piece so the markup stays well formed. Existing links,
 // footnote markers and any other tag act as barriers.
 const TRANSPARENT = /^<\/?(?:i|b|em|strong|u|span|small|big)\b/i;
-function linkWith(html, finder) {
+export function linkWith(html, finder) {
   const tokens = html.split(/(<[^>]+>)/);
   const pieces = [];           // {tokenIndex, start, end} text pieces inside the plain string
   let plain = '', inLink = 0, inSup = 0;
@@ -293,6 +294,9 @@ export function linkCitations(html) {
   html = linkSpecialReferences(html);
   return linkWith(html, text => findCitations(text));
 }
+
+// Citations written in Hebrew (e.g. "ברכות ז׳ ע״ב", "זוה״ק (לך פד.)").
+export const linkHebrewCitations = html => linkWith(html, hebrewMatchesVocalized);
 
 // Category for any Sefaria-style ref (used for links already in the source files).
 export function categoryOf(ref) {
