@@ -49,7 +49,7 @@ let meiHeadlineCount=0;
 for(const [ref] of refs) {
  const h=meiHeadings[ref];
  assert.ok(h && Array.isArray(h.headings),'Mei HaShiloach chapter headlines missing: '+ref);
- meiHeadlineCount+=h.headings.flatMap(x=>String(x).split('\\n')).filter(Boolean).length;
+ meiHeadlineCount+=h.headings.flatMap(x=>String(x).split('\n')).filter(Boolean).length;
  meiHeadlineCount+=Object.values(h.phraseHeadings||{}).flat().length;
 }
 assert.equal(meiHeadlineCount,30,'Some of the 29 Word subheadlines or the Volume I continuation headline are missing');
