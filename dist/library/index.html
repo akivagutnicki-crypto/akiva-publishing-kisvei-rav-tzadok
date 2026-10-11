@@ -561,7 +561,7 @@ async function resolveLocal(ref) {
       : {title: book.version.title, lang: il ? 'Hebrew with interlinear English' : 'Hebrew', source: book.version.source, license: book.version.license}]
   };
 }
-const CAT_COLORS = {'Rav Tzadok Library':'--ox','Rav Tzadok':'--ox',Tanakh:'--c-tanakh',Talmud:'--c-talmud',Mishnah:'--c-talmud',Midrash:'--c-midrash',Halakhah:'--c-halakhah',Kabbalah:'--c-kabbalah',Chasidut:'--c-chasidut',Commentary:'--c-commentary','Quoting Commentary':'--c-commentary','Parallel Sources':'--c-chasidut',Musar:'--c-midrash','Jewish Thought':'--c-kabbalah',Liturgy:'--c-tanakh'};
+const CAT_COLORS = {'Rav Tzadok Library':'--ox','Rav Tzadok':'--ox',Tanakh:'--c-tanakh',Talmud:'--c-talmud',Mishnah:'--c-talmud',Midrash:'--c-midrash',Halakhah:'--c-halakhah',Kabbalah:'--c-kabbalah',Chasidut:'--c-chasidut',Commentary:'--c-commentary','Quoting Commentary':'--c-commentary','Parallel Sources':'--c-chasidut','Parallels · Kisvei Rav Tzadok':'--ox','Parallels · Ishbitz–Radzin':'--c-chasidut',Musar:'--c-midrash','Jewish Thought':'--c-kabbalah',Liturgy:'--c-tanakh'};
 
 /* ======================= Utilities ======================= */
 const $ = (s, el = document) => el.querySelector(s);
@@ -1264,6 +1264,31 @@ async function libraryLinks(sec, ref, whole) {
       if (hit) for (const a of anchors) out.push(asLink(whole ? (base === sec.sectionRef ? null : base) : ref, a, 'Rav Tzadok Library'));
     }
   }
+  if (dataSlug && !whole && ref) {            // curated entries and direct citations take precedence
+    const have = new Set(out.map(l => l.sourceRef));
+    out.push(...(await parallelLinks(dataSlug, ref)).filter(l => !have.has(l.sourceRef)));
+  }
+  return out;
+}
+/* Parallels (scripts/build-parallels.mjs): verses this paragraph quotes without naming them, and the passages
+   in Kisvei Rav Tzadok and the Ishbitz–Radzin works that draw on the same sources, strongest first. */
+const schoolOf = ref => {
+  const b = CATALOG.filter(x => ref.startsWith(x.title)).sort((x, y) => y.title.length - x.title.length)[0];
+  return (b ? b.group === 'Izhbitz' : ref.startsWith('Mei HaShiloach')) ? 'Ishbitz–Radzin' : 'Kisvei Rav Tzadok';
+};
+async function parallelLinks(dataSlug, ref) {
+  const index = (await dataJSON('parallels/index.json')) || [];
+  if (!index.includes(dataSlug)) return [];
+  const e = ((await dataJSON(`parallels/${dataSlug}.json`)) || {})[ref];
+  if (!e) return [];
+  const out = (e.q || []).map(v => asLink(ref, v, 'Tanakh', {kind: 'Verse quoted', note: 'The passage quotes this verse in its own words without naming it; found by matching the wording of the verse.'}));
+  const words = (e.p || []).some(x => x[3].length) ? ((await dataJSON('parallels/words.json')) || {}) : {};
+  for (const [other, , sources, ids] of e.p || []) {
+    const bits = [...sources, ...ids.map(id => words[id] ? `the Biblical word ${words[id].w} (${words[id].v.join('; ')})` : '').filter(Boolean)];
+    out.push(asLink(ref, other, 'Parallels · ' + schoolOf(other), {
+      kind: sources.length ? (ids.length ? 'Shared sources and wording' : 'Shared sources') : 'Shared Biblical wording',
+      note: 'Both passages draw on ' + bits.join(' · ') + '.'}));
+  }
   return out;
 }
 async function loadLinkCounts(sectionRef, secEl, d) {
@@ -1284,7 +1309,7 @@ async function linksFor(ref) {
   const sefaria = sec.chapterLinks ? all : all.filter(l => { const r = segOf(l.anchorRef, sec.sectionRef); return r && n >= r[0] && n <= r[1]; });
   const seen = new Set(), out = [];
   for (const l of [...ours, ...sefaria]) {
-    const key = (l.category === 'Rav Tzadok Library' ? 'L|' : '') + (l.sourceRef || l.ref);
+    const key = (l.category === 'Rav Tzadok Library' || String(l.category).startsWith('Parallels · ') ? 'L|' : '') + (l.sourceRef || l.ref);
     if (!seen.has(key)) { seen.add(key); out.push(l); }
   }
   return out;
@@ -1369,7 +1394,9 @@ async function renderConnections(ref, c) {
   const note = sec && sec.chapterLinks ? `<p class="empty" style="padding:0 0 10px;font-size:.92rem">Sources this passage cites, the library passages that cite it, and Sefaria's connections for the whole section.</p>` : '';
   const byCat = {};
   links.forEach(l => { const k = l.category || 'Other'; (byCat[k] = byCat[k] || []).push(l); });
-  const cats = Object.keys(byCat).sort((a, b) => (b === 'Rav Tzadok Library') - (a === 'Rav Tzadok Library') || byCat[b].length - byCat[a].length);
+  const FIRST = ['Parallel Sources', 'Rav Tzadok Library', 'Parallels · Kisvei Rav Tzadok', 'Parallels · Ishbitz–Radzin'];
+  const rank = k => (FIRST.includes(k) ? FIRST.indexOf(k) : FIRST.length);
+  const cats = Object.keys(byCat).sort((a, b) => rank(a) - rank(b) || byCat[b].length - byCat[a].length);
   c.innerHTML = sourceLanguageControls() + note + cats.map(k => {
     const books = {};
     byCat[k].forEach(l => { const t = (l.collectiveTitle && l.collectiveTitle.en) || l.index_title || 'Other'; (books[t] = books[t] || []).push(l); });
