@@ -37,7 +37,7 @@ for (let i = 0; i < refs.length; i++) {
     }
   }
 }
-if (passages !== 55 || phrases !== 1378 || nikkud < 1000)
+if (passages !== 55 || phrases !== 1382 || nikkud < 1000)
   throw new Error('Mei HaShiloach coverage regression: '+JSON.stringify({passages,phrases,nikkud}));
 const newHeadings=JSON.parse(fs.readFileSync(path.join(root,'mei-ha-shiloach','headings.json'),'utf8'));
 for(const ref of refs.slice(6)){

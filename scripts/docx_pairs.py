@@ -71,6 +71,27 @@ def read_sections(path):
         sec['pairs'] = out
     return secs
 
+
+def _is_heb(t):
+    return len(re.findall(r'[\u05d0-\u05ea]', t)) > len(re.findall(r'[A-Za-z]', t))
+
+def read_paragraph_sections(path):
+    """Layout used by Beit Yaakov / Tiferet Yosef: Heading 3 per section, then a Hebrew paragraph
+    followed by its English paragraph (English may quote a few Hebrew words, so judge by majority)."""
+    d = docx.Document(path); secs = []; cur = None; pend = None
+    for p in d.paragraphs:
+        t = p.text.strip()
+        if not t: continue
+        if p.style.name.startswith('Heading'):
+            cur = {'he': t, 'en': None, 'summary': None, 'pairs': []}; secs.append(cur); pend = None; continue
+        if cur is None: cur = {'he': '', 'en': None, 'summary': None, 'pairs': []}; secs.append(cur)
+        if _is_heb(t):
+            if pend is not None: cur['pairs'].append([pend, ''])
+            pend = t
+        else:
+            cur['pairs'].append([pend or '', t]); pend = None
+    return secs
+
 if __name__ == '__main__':
     for i, s in enumerate(read_sections(sys.argv[1])):
         print(i, s['he'], '|', s['en'], '|', len(s['pairs']), 'pairs')

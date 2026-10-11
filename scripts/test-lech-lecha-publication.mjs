@@ -33,7 +33,7 @@ for(const cfg of checks){
 const mei=read(root+'mei-ha-shiloach/interlinear.json');
 const refs=[
  ['Mei HaShiloach, Volume I, Genesis, Lech Lecha',9,249],
- ['Mei HaShiloach, Volume II, Genesis, Lech Lecha',3,42],
+ ['Mei HaShiloach, Volume II, Genesis, Lech Lecha',3,46],
  ['Mei HaShiloach, Mei HaShiloach Anthology, Genesis, Lech Lecha',4,65]
 ];
 for(const [ref,paras,phrases] of refs){

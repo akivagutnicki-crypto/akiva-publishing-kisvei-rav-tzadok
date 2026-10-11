@@ -10,7 +10,7 @@ Without --apply it only prints a report.
 """
 import argparse, difflib, glob, json, os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
-from docx_pairs import read_sections, es
+from docx_pairs import read_sections, read_paragraph_sections, es
 
 def mapper(old, new):
     a = [es(p[1]) for p in old]; b = [es(p[1]) for p in new]
@@ -28,9 +28,11 @@ def main():
     ap.add_argument('--docx', required=True); ap.add_argument('--edition', required=True)
     ap.add_argument('--map', required=True, help='docxSectionIdx:editionSectionIdx,...')
     ap.add_argument('--skip', default='', help='edition section indexes to leave untouched')
+    ap.add_argument('--format', choices=['inline', 'paragraph'], default='inline',
+                    help='inline = Hebrew/English runs alternate inside paragraphs (Pri Tzaddik); paragraph = Hebrew paragraph then English paragraph (Tiferet Yosef)')
     ap.add_argument('--annotations'); ap.add_argument('--apply', action='store_true')
     a = ap.parse_args()
-    secs = read_sections(a.docx)
+    secs = (read_paragraph_sections if a.format == 'paragraph' else read_sections)(a.docx)
     ed = json.load(open(a.edition)); skip = {int(x) for x in a.skip.split(',') if x}
     notes = {}
     if a.annotations:
