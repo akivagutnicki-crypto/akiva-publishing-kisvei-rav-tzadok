@@ -422,7 +422,7 @@ for (const dir of DIRS) {
         const sections = group.sections;
         const fullPairs = sections.flatMap(sec => sec.topics.flatMap(t => t.pairs || []));
         if (!fullPairs.length) throw new Error('Study edition has no phrase pairs: ' + src.title + ' ' + group.node);
-        const verifiedHebrew = sections.length === 1 && sections[0].useVerifiedHebrew;
+        const verifiedHebrew = sections.every(sec => sec.useVerifiedHebrew);
         const verifiedWordPairs = verifiedHebrew && sections[0].sourceDocument?.startsWith('pri-tzaddik-rosh-chodesh-');
         const canonical = sections[0].sourceChapters
           ? sections[0].sourceChapters.map(chapter => originalHebrew(group.node, chapter)).join(' ')
