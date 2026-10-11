@@ -205,6 +205,8 @@ body.panel-open .text{max-width:860px}
 .ph:last-child{border-bottom:0}
 .ph-he{font-family:var(--he);font-weight:500;font-size:calc(1.4rem * var(--fs));line-height:1.75;text-align:right}
 .ph-en{font-family:var(--en);font-size:calc(1.14rem * var(--fs));line-height:1.5;color:var(--muted);margin-top:2px}
+.rosh-study .ph-he{font-weight:400}
+.rosh-study .ph-en{font-weight:700}
 /* Notes from the annotated DOCX, accessible in all three reading modes. */
 .annotated-trigger{display:inline-block;border:0;background:transparent;color:var(--ox);font:700 .73rem/1.2 var(--ui);vertical-align:super;padding:3px 5px;cursor:pointer;border-radius:3px;margin-inline:2px}
 .annotated-trigger:hover,.annotated-trigger:focus-visible{background:var(--soft);outline:2px solid var(--brass);outline-offset:2px}
@@ -457,7 +459,7 @@ const info = t => INFO[t] || {};
 let CATALOG = [];
 // Edition URLs keep older installed app caches from mixing Hebrew-only data
 // with the new interlinear contents. The service worker also accepts saved packs.
-const editionDataUrl = url => url.startsWith('data/') ? url + (/^data\/(?:peri-tzadik\/|tiferet-yosef\/|beit-yaakov-on-torah\/|mei-ha-shiloach\/|catalog\.json|files\.json|cited\/)/.test(url) ? '?edition=20261011-lech-lecha-three-seforim-v1' : url.startsWith('data/yisrael-kedoshim/') ? '?edition=20261006-yisrael-4-opening' : url.startsWith('data/machshavot-charutz/') ? '?edition=20261006-machshavot-format' : url.startsWith('data/tzidkat-hatzadik/') ? '?edition=20261007-tzidkat-complete' : '?edition=20261006-resisei-complete') : url;
+const editionDataUrl = url => url.startsWith('data/') ? url + (/^data\/(?:peri-tzadik\/|tiferet-yosef\/|beit-yaakov-on-torah\/|mei-ha-shiloach\/|catalog\.json|files\.json|cited\/)/.test(url) ? '?edition=20261011-rosh-chodesh-reviewed-v2' : url.startsWith('data/yisrael-kedoshim/') ? '?edition=20261006-yisrael-4-opening' : url.startsWith('data/machshavot-charutz/') ? '?edition=20261006-machshavot-format' : url.startsWith('data/tzidkat-hatzadik/') ? '?edition=20261007-tzidkat-complete' : '?edition=20261006-resisei-complete') : url;
 const catalogReady = fetch(editionDataUrl('data/catalog.json')).then(r => r.ok ? r.json() : []).catch(() => []).then(c => { CATALOG = c; return c; });
 const localBook = t => CATALOG.find(b => b.title === t);
 const tocCache = new Map();
@@ -487,6 +489,7 @@ function loadFile(url) {
 }
 // Resolve a ref against bundled texts. Returns null when the text is not local.
 async function resolveLocal(ref) {
+  ref = String(ref).trim().replace(/,+\s*$/, '').trim();
   await catalogReady;
   const book = CATALOG.filter(b => ref === b.title || ref.startsWith(b.title + ' ') || ref.startsWith(b.title + ',')).sort((a, b) => b.title.length - a.title.length)[0];
   if (!book) return null;
@@ -1104,6 +1107,7 @@ function appendSection(d) {
   const n = Math.max(he.length, en.length);
   const sec = document.createElement('section');
   sec.className = 'sec' + (en.some(x => String(x || '').trim()) ? '' : ' no-en') + (d.phrases ? ' il' : '');
+  if (/^Peri Tzadik, Rosh Chodesh(?: \(manuscript\)| Cheshvan)(?::|$)/.test(d.sectionRef)) sec.classList.add('rosh-study');
   sec.dataset.ref = d.sectionRef;
   let html = d.title
     ? `<div class="sec-head"><span>${esc(d.title.ois ? d.title.parashah + ' · Ois ' + d.title.ois + ' — ' + (d.title.en || d.sectionRef) : d.title.he && /^סימן/.test(d.title.he) ? d.sectionRef : d.title.en || d.sectionRef)}</span></div><h2 class="sec-title he" lang="he">${esc(d.title.he)}</h2>${d.title.he && /^סימן/.test(d.title.he) && d.title.en ? `<div class="sec-sub">${esc(d.title.en)}</div>` : ''}`

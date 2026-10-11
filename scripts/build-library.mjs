@@ -387,14 +387,22 @@ for (const dir of DIRS) {
         const sections = group.sections;
         const fullPairs = sections.flatMap(sec => sec.topics.flatMap(t => t.pairs || []));
         if (!fullPairs.length) throw new Error('Study edition has no phrase pairs: ' + src.title + ' ' + group.node);
-        const canonical = originalHebrew(group.node, group.chapter);
+        const verifiedHebrew = sections.length === 1 && sections[0].useVerifiedHebrew;
+        const verifiedWordPairs = verifiedHebrew && sections[0].sourceDocument?.startsWith('pri-tzaddik-rosh-chodesh-');
+        const canonical = sections[0].sourceChapters
+          ? sections[0].sourceChapters.map(chapter => originalHebrew(group.node, chapter)).join(' ')
+          : originalHebrew(group.node, group.chapter);
         if (!canonical) console.warn('Original Hebrew unavailable; retaining manuscript text:', src.title, group.node, group.chapter);
         // The canonical source retains original consonants, words and layout,
         // but lacks vowels. Recover the nikkud from the study edition by
         // matching consonants, rather than displaying garbled PDF-extracted
         // sequences with vowels detached from their Hebrew letters.
-        const pointed = restoreStudyNikkud(canonical, fullPairs);
-        if (canonical && pointed.vocalized < Math.min(12, Math.floor(pointed.targetLetters * 0.1)))
+        const verifiedText = fullPairs.map(pair => pair[0]).join(' ');
+        const pointed = verifiedHebrew
+          ? {text:verifiedText, targetLetters:heLetters(verifiedText),
+              vocalized:(verifiedText.match(/[\u05d0-\u05ea][\u0591-\u05bd\u05bf-\u05c7]+/g) || []).length}
+          : restoreStudyNikkud(canonical, fullPairs);
+        if (!verifiedHebrew && canonical && pointed.vocalized < Math.min(12, Math.floor(pointed.targetLetters * 0.1)))
           console.warn('LOW NIKKUD COVERAGE:', src.title, group.node, group.chapter, pointed);
         // For newly verified Hebrew-original sections, retain precisely the source words
         // at their original sentence boundaries instead of repartitioning by length.
@@ -408,7 +416,7 @@ for (const dir of DIRS) {
           throw Error('Niqqud must preserve each original Hebrew phrase in Noach ' + group.chapter);
         const aligned = noachOverlay
           ? fullPairs.map(([he,en],i) => [noachOverlay[i], en])
-          : sections.length === 1 && sections[0].useVerifiedHebrew
+          : verifiedHebrew
             ? fullPairs.map(([he, en]) => [he, en])
             : alignOriginalHebrew(pointed.text, fullPairs);
         let cursor = 0, counter = 0;
@@ -420,8 +428,8 @@ for (const dir of DIRS) {
             const count = (topic.pairs || []).length;
             if (!count) continue;
             const pairs = aligned.slice(cursor, cursor + count).map(([he,en]) => {
-              let english = String(en).replace(/,\s*\)/g, ',').replace(/,\s*,/g, ',').trim();
-              if ((english.match(/\)/g) || []).length > (english.match(/\(/g) || []).length)
+              let english = verifiedWordPairs ? String(en) : String(en).replace(/,\s*\)/g, ',').replace(/,\s*,/g, ',').trim();
+              if (!verifiedWordPairs && (english.match(/\)/g) || []).length > (english.match(/\(/g) || []).length)
                 english = english.replace(/\)\s*$/, '').trim();
               return [escapeHtml(he), escapeHtml(english)];
             });
@@ -451,7 +459,9 @@ for (const dir of DIRS) {
         const converted = connect(slug, ref, ':', lechHeaded ? lechHeaded.items : items);
         writeFile(path.join(bookDir, id + '.json'), JSON.stringify(converted));
         const hasOis = Object.hasOwn(parashahHebrew, group.node) && Number.isInteger(group.chapter);
-        const hebrewHeading = hasOis ? parashahHebrew[group.node] + ' · אות ' + oisHebrew(group.chapter) : group.node;
+        const hebrewHeading = hasOis ? parashahHebrew[group.node] + ' · אות ' + oisHebrew(group.chapter)
+          : ({'Rosh Chodesh (manuscript)':'ראש חודש מתוך כתב יד',
+              'Rosh Chodesh Cheshvan':'ראש חודש חשוון'}[group.node] || group.node);
         const leaf = {en:lechHeaded?.en || sections.map(x=>x.title).join(' / '), he:hebrewHeading, id,
           depth:1, shape:converted.filter(x => x.p).length, il1:true, interlinear:true,
           ref, heRef:src.heTitle + ', ' + hebrewHeading, sep:':',
