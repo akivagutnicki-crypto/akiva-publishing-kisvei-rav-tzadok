@@ -104,7 +104,7 @@ function anchor(blocks, paragraphs) {
     }
     if (best && best.score >= Math.min(14, opening.length)) {
       positioned.push({...best, text:block.text, kind:block.kind || 'subheading'});
-      after = best.k + 1;
+      after = best.k + (block.kind === 'section' ? 0 : 1);
     }
   }
   return {positioned, expected:blocks.length};
@@ -128,13 +128,13 @@ function applyToItems(items, found) {
     return [...heads, item];
   });
 }
-export function addLechDocumentHeadings(section, kind) {
+export function addLechDocumentHeadings(section, kind, matchingParagraphs = null) {
   const key = (section.key || '').match(/Lech Lecha (\d+)$/)?.[1];
   if (!key) return section;
   const groups = lechGroups(kind).filter(g => g.key === key);
   if (!groups.length) return section;
   section.en = groups[0].title;
-  const paragraphs = section.items.filter(i=>Array.isArray(i.p)).map(i=>i.p);
+  const paragraphs = matchingParagraphs || section.items.filter(i=>Array.isArray(i.p)).map(i=>i.p);
   const blocks = groups.flatMap((g, idx) => [
     ...(idx ? [{kind:'section', text:g.label + ' — ' + g.title,lead:g.heads[0].lead}] : []),
     ...g.heads.map(h=>({...h,kind:'subheading'}))
