@@ -159,9 +159,49 @@ const cleanHeadings = items => items.flatMap(i => {
   return h ? [{ ...i, h }] : [];
 }).filter((i, k, all) => !('h' in i) || !(k > 0 && 'h' in all[k - 1] && all[k - 1].h === i.h)); // no repeats
 
+// Repair two structural defects in imported [hebrew, english] phrase pairs (found by scripts/audit_interlinear.py):
+//  1. A pair whose English column swallowed whole Hebrew phrases ("English (cite): Hebrew — English; Hebrew — English"):
+//     split it at each run of 3+ Hebrew words (not one inside a parenthesis) so every Hebrew phrase sits beside its own English.
+//  2. A Hebrew-only row immediately followed by an English-only row (heading / colophon halves): join them.
+// Short inline Hebrew inside English (a transliterated word in parentheses) is left alone. Applied per paragraph, so
+// citation connections (anchored per paragraph) are unaffected; skipped where footnotes are anchored by phrase index.
+const HEB_RE = /[\u05d0-\u05ea]/;
+function unswallowPair([he, en]) {
+  const toks = String(en).split(' ');
+  const isHeb = t => HEB_RE.test(t);
+  const segs = [];
+  for (let i = 0; i < toks.length;) {
+    const h = isHeb(toks[i]);
+    let j = i; while (j < toks.length && (isHeb(toks[j]) === h || (h && /^[—–-]$/.test(toks[j])))) j++;
+    segs.push({h, words: toks.slice(i, j)}); i = j;
+  }
+  const out = []; let curHe = he, curEn = [];
+  for (const seg of segs) {
+    if (seg.h && seg.words.filter(isHeb).length >= 3 && !/\($/.test(curEn[curEn.length - 1] || '') && !/\)[.,;:]*$/.test(seg.words[seg.words.length - 1])) {
+      out.push([curHe, curEn.join(' ').replace(/\s*[—–]\s*$/, '').trim()]);
+      curHe = seg.words.join(' '); curEn = [];
+    } else curEn.push(...seg.words);
+  }
+  out.push([curHe, curEn.join(' ').replace(/^\s*[—–]\s*/, '').trim()]);
+  return out;
+}
+function normalizePairs(pairs) {
+  // Expandable footnotes legitimately quote Hebrew sources inside the English cell: never split those.
+  const plain = pr => !/class="footnote/.test(String(pr[0]) + String(pr[1]));
+  const split = pairs.flatMap(pr => plain(pr) && (String(pr[1]).match(/[\u05d0-\u05ea]/g) || []).length > 12 ? unswallowPair(pr) : [pr]);
+  const out = [];
+  for (const pr of split) {
+    const prev = out[out.length - 1];
+    if (prev && prev[0].trim() && !prev[1].trim() && !pr[0].trim() && pr[1].trim()) prev[1] = pr[1];
+    else out.push([...pr]);
+  }
+  return out;
+}
+
 // Link citations in interlinear paragraphs and record them as connections.
 function connect(slug, sectionRef, sep, items) {
   items = cleanHeadings(items);
+  for (const item of items) if (item.p && !item.footnotes) item.p = normalizePairs(item.p);
   let k = 0;
   for (const item of items) {
     if (!item.p) continue;
