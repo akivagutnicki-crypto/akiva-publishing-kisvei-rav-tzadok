@@ -28,6 +28,7 @@ const context = vm.createContext({window: {SefariaPacks: core}, location: {href:
   document: {body: {appendChild() {}}, createElement: () => ({click() {clicks++; download.filename = this.download;}, remove() {}})},
 });
 vm.runInContext(exporter, context);
+vm.runInContext(html.slice(html.indexOf('async function saveUrls('), html.indexOf('// Each pack\'s file list')), context);
 const status = {textContent: '', appendChild() {}};
 const decode = bytes => JSON.parse(new TextDecoder().decode(bytes));
 const unpack = async () => unzipSync(new Uint8Array(await download.blob.arrayBuffer()));
@@ -79,6 +80,24 @@ await context.zipPack('sources', zipButton, status);
 assert.equal(clicks, beforeFailure);
 assert.match(status.textContent, /Nothing is saved yet/);
 
+// Retrying Download must replace a cached HTTP-200 error response, while
+// reusing genuine saved texts and refusing to count new API errors as texts.
+files.set(missing, JSON.stringify({error: 'Old unavailable response'}));
+const unavailable = sourceUrl('Unavailable source'), fetched = [];
+currentCache = {
+  match: async url => files.has(url) ? new Response(files.get(url)) : undefined,
+  put: async (url, response) => files.set(url, await response.text()),
+};
+context.fetch = async url => {
+  fetched.push(url);
+  return new Response(JSON.stringify(url === missing ? original('Berakhot 2a') : {error: 'Source unavailable'}));
+};
+const failed = await context.saveUrls([first, missing, unavailable], 'rtl-external', {validateSources: true, progress() {}});
+assert.equal(failed, 1);
+assert.deepEqual(new Set(fetched), new Set([missing, unavailable]));
+assert.deepEqual(JSON.parse(files.get(missing)), original('Berakhot 2a'));
+assert.equal(files.has(unavailable), false);
+
 // Reproduce the exact counts from the user's screenshot. A few unavailable
 // references must not block exporting thousands of successfully saved texts.
 const total = 9026, saved = 8915;
@@ -100,4 +119,4 @@ assert.deepEqual(decode(archive[core.archivePath(urls[saved - 1])]), original('S
 assert.ok(archive['missing-sources.txt']);
 assert.equal(download.blob.type, 'application/zip');
 if (process.argv.includes('--write-fixture')) fs.writeFileSync('/tmp/akiva-source-zip-regression.zip', new Uint8Array(await download.blob.arrayBuffer()));
-console.log('PASS cited-source ZIPs: 8,915 saved texts exported with 111 missing sources listed; original text and licenses, proper ZIP MIME/name, complete exports, empty-cache handling and strict commentary coverage preserved.');
+console.log('PASS cited-source ZIPs: 8,915 saved texts exported with 111 missing sources listed; original text and licenses, proper ZIP MIME/name, invalid-response retry, complete exports, empty-cache handling and strict commentary coverage preserved.');

@@ -1971,16 +1971,23 @@ async function installZip(zipUrl, cacheName, progress) {
   return names.length;
 }
 // Fetch a list of URLs into a cache, a few at a time, skipping what is already saved.
-async function saveUrls(urls, cacheName, {fresh = false, workers = 4, progress, cancelled = () => false}) {
+async function saveUrls(urls, cacheName, {fresh = false, workers = 4, progress, cancelled = () => false, validateSources = false}) {
   const cache = await caches.open(cacheName);
   let done = 0, failed = 0, i = 0;
   const work = async () => {
     while (i < urls.length && !cancelled()) {
       const url = urls[i++];
       try {
-        if (fresh || !(await cache.match(url, {ignoreVary: true}))) {
+        const saved = fresh ? null : await cache.match(url, {ignoreVary: true});
+        let reusable = !!saved;
+        if (saved && validateSources) {
+          try { reusable = !sourceResponseError(await saved.json()); } catch { reusable = false; }
+        }
+        if (!reusable) {
           const res = await fetch(url, {cache: 'no-cache'});
-          if (res.ok) await cache.put(url, res); else failed++;
+          if (!res.ok) failed++;
+          else if (validateSources && sourceResponseError(await res.clone().json())) failed++;
+          else await cache.put(url, res);
         }
       } catch { failed++; }
       done++;
@@ -2015,7 +2022,7 @@ async function downloadPack(id, row) {
       urls = info.lazy ? await info.lazy(m => status.textContent = m, cancelled) : urls;
       total = urls.length;
       await rememberPack(id, info.cache, urls);
-      failed = await saveUrls(urls, info.cache, {progress, cancelled});
+      failed = await saveUrls(urls, info.cache, {progress, cancelled, validateSources: id === 'sources'});
     }
     if (info.zip) await rememberPack(id, info.cache, info.urls);
     if (cancel) status.textContent = `Stopped. ${(total - failed).toLocaleString()} of ${total.toLocaleString()} saved; tap Download to continue.`;
@@ -2055,6 +2062,13 @@ function zipPathFor(url) {
   const i = u.pathname.indexOf('/data/');
   return i >= 0 ? u.pathname.slice(i + 1) : null;
 }
+function sourceResponseError(value) {
+  if (!value || typeof value !== 'object') return 'The saved source response could not be read';
+  if (value.error) return String(value.error);
+  const hasText = text => Array.isArray(text) ? text.some(hasText) : text && typeof text === 'object' ? Object.values(text).some(hasText) : typeof text === 'string' && !!text.trim();
+  return (Array.isArray(value.versions) && value.versions.some(v => hasText(v.text))) || hasText(value.he) || hasText(value.text)
+    ? null : 'The saved response contains no source text';
+}
 async function zipSaved(entries, name, status, {manifest = null, cancelled = () => false, allowMissing = false, title = ''} = {}) {
   const {Zip, ZipDeflate} = await loadFflate();
   const sink = await window.SefariaPacks.createZipSink();
@@ -2084,9 +2098,8 @@ async function zipSaved(entries, name, status, {manifest = null, cancelled = () 
       if (allowMissing && /\/api\/(?:v3\/texts|texts)\//.test(url)) {
         try {
           const value = JSON.parse(new TextDecoder().decode(bytes));
-          const hasText = text => Array.isArray(text) ? text.some(hasText) : text && typeof text === 'object' ? Object.values(text).some(hasText) : typeof text === 'string' && !!text.trim();
-          if (value.error || !(value.versions?.some(v => hasText(v.text)) || hasText(value.he) || hasText(value.text)))
-            throw Error(value.error || 'The saved response contains no source text');
+          const invalid = sourceResponseError(value);
+          if (invalid) throw Error(invalid);
         } catch (error) {
           seen.add(path); missing.push({url, path, reason: String(error.message || error)}); continue;
         }
