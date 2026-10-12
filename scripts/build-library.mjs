@@ -118,7 +118,9 @@ if (fs.existsSync(footnotesDir)) {
       // normalizedPhraseIndex: for a paragraph whose English cell swallowed Hebrew phrases, the phrase
       // after the repair in normalizePairs (one source pair can become several).
       (item.footnotes ??= []).push({ number: note.number, phraseIndex: note.phraseIndex, paragraphs: note.paragraphs,
-        ...(Number.isInteger(note.normalizedPhraseIndex) ? { normalizedPhraseIndex: note.normalizedPhraseIndex } : {}) });
+        ...(Number.isInteger(note.normalizedPhraseIndex) ? { normalizedPhraseIndex: note.normalizedPhraseIndex } : {}),
+        // heWord: the marker follows this Hebrew word of the phrase (1-based), as in the Word edition.
+        ...(Number.isInteger(note.heWord) ? { heWord: note.heWord, heWordText: note.heWordText } : {}) });
       item.footnotesNormalize = true;
     }
   }
@@ -277,6 +279,13 @@ function connect(slug, sectionRef, sep, items) {
       item.footnotes = item.footnotes.map(({ normalizedPhraseIndex, ...note }) => {
         const phraseIndex = normalizedPhraseIndex ?? map[note.phraseIndex];
         if (!(phraseIndex >= 0 && phraseIndex < pairs.length)) throw new Error('Misaligned source footnote ' + note.number + ' in ' + sectionRef);
+        if (note.heWord) {
+          const words = String(pairs[phraseIndex][0]).replace(/<[^>]+>/g, '').split(/\s+/).filter(Boolean);
+          const word = String(words[note.heWord - 1] || '').replace(/[\u0591-\u05c7]/g, '').replace(/[^\u05d0-\u05ea]/g, '');
+          if (word !== note.heWordText) throw new Error('Source footnote ' + note.number + ' is not beside its Hebrew word in ' + sectionRef);
+          const { heWordText, ...rest } = note;
+          return { ...rest, phraseIndex };
+        }
         return { ...note, phraseIndex };
       });
       delete item.footnotesNormalize;

@@ -209,6 +209,7 @@ body.panel-open .text{max-width:860px}
 .rosh-study .ph-en{font-weight:700}
 /* Notes from the annotated DOCX, accessible in all three reading modes. */
 .annotated-trigger{display:inline-block;border:0;background:transparent;color:var(--ox);font:700 .73rem/1.2 var(--ui);vertical-align:super;padding:3px 5px;cursor:pointer;border-radius:3px;margin-inline:2px}
+.he-note{font-size:.62em;margin-inline:1px;padding:2px 3px}
 .annotated-trigger:hover,.annotated-trigger:focus-visible{background:var(--soft);outline:2px solid var(--brass);outline-offset:2px}
 .reader-footnote{display:none;max-width:100%;margin:12px 0 10px;padding:18px 19px;border:1px solid var(--line);border-left:4px solid var(--brass);border-radius:5px;background:var(--panel);color:var(--ink);font:400 calc(.96rem * var(--fs))/1.65 var(--en);text-align:left;direction:ltr;overflow-wrap:anywhere}
 .reader-footnote.open{display:block}
@@ -1011,7 +1012,9 @@ async function renderReader(ref) {
   text.addEventListener('click', e => {
     const fm = e.target.closest('.footnote-marker');
     if (fm) {
-      const fn = fm.nextElementSibling;
+      const fn = fm.dataset.fn
+        ? (fm.dataset.scope === 'ph' ? fm.closest('.ph') : fm.closest('.seg')?.querySelector('.segment-annotations'))?.querySelector(`.reader-footnote[data-fn="${fm.dataset.fn}"]`)
+        : fm.nextElementSibling;
       if (fn && fn.classList.contains('footnote')) {
         const expanded = fn.classList.toggle('open');
         if (fm.tagName === 'BUTTON') fm.setAttribute('aria-expanded', String(expanded));
@@ -1081,7 +1084,7 @@ function syncPrefs() {
 }
 
 /* Render the complete annotated Word footnote, without paraphrasing the source excerpts. */
-function readingFootnote(note) {
+function readingFootnote(note, part) {
   const titles = ['Original cited source and translated passage', 'Parallel in Kisvei Rav Tzadok / Ishbitz–Radzin',
     'Explanation of the parallel', 'Additional Chassidus source', 'English translation of the Chassidus passage', 'Connection to this footnote'];
   const wordSource = (note.paragraphs || []).some(p => Array.isArray(p.rich) && p.rich.length);
@@ -1103,9 +1106,31 @@ function readingFootnote(note) {
       ${wordSource ? '' : `<div class="annotation-label">${titles[i] || 'Source context'}</div>`}
       <p class="annotation-text">${rich}</p>${links ? `<div class="annotation-links">${links}</div>` : ''}</section>`;
   }).join('');
+  const box = `<div class="footnote reader-footnote" lang="en" data-fn="${note.number}"><div class="annotated-title">Footnote ${note.number} · Sources and commentary</div>${content}</div>`;
+  if (part === 'box') return box;
   return `<button type="button" class="footnote-marker annotated-trigger" aria-label="Open annotated footnote ${note.number}" aria-expanded="false">${note.number}</button>
-    <div class="footnote reader-footnote" lang="en"><div class="annotated-title">Footnote ${note.number} · Sources and commentary</div>${content}</div>`;
+    ${box}`;
 }
+/* A footnote marker placed inside the Hebrew, beside the word it annotates (as in the Word edition).
+   It opens the matching footnote box of the same phrase, or of the paragraph's footnote tray. */
+const inlineFootnoteMarker = (note, scope) => `<button type="button" class="footnote-marker annotated-trigger he-note" data-fn="${note.number}" data-scope="${scope}" aria-label="Open annotated footnote ${note.number}" aria-expanded="false">${note.number}</button>`;
+/* Insert markers after the given word counts ([[wordCount, html], ...]) of cleaned HTML, counting words outside tags. */
+function insertAfterWords(html, marks) {
+  if (!marks.length) return html;
+  const todo = [...marks].sort((a, b) => a[0] - b[0]);
+  let out = '', words = 0, inTag = false, inWord = false, k = 0;
+  const flush = () => { while (k < todo.length && todo[k][0] <= words) out += todo[k++][1]; };
+  for (const ch of html) {
+    if (inTag) { out += ch; if (ch === '>') inTag = false; continue; }
+    if (ch === '<') { inTag = true; out += ch; continue; }
+    if (/\s/.test(ch)) { if (inWord) { inWord = false; words++; flush(); } out += ch; continue; }
+    inWord = true; out += ch;
+  }
+  if (inWord) words++;
+  while (k < todo.length) out += todo[k++][1];
+  return out;
+}
+const wordCount = html => { let n = 0, inTag = false, inWord = false; for (const ch of html) { if (inTag) { if (ch === '>') inTag = false; continue; } if (ch === '<') { inTag = true; continue; } if (/\s/.test(ch)) { if (inWord) { inWord = false; n++; } } else inWord = true; } return n + (inWord ? 1 : 0); };
 
 function appendSection(d) {
   const text = $('#text');
@@ -1146,7 +1171,14 @@ function appendSection(d) {
   for (let i = 0; i < n; i++) {
     const num = d.nums ? d.nums[i] : i + 1;
     const r = refs ? refs[i] : d.sep ? d.sectionRef + d.sep + num : segRef(d.sectionRef, num);
-    const h = he[i] ? clean(he[i]) : '', e = en[i] ? clean(en[i]) : '';
+    let h = he[i] ? clean(he[i]) : '';
+    const e = en[i] ? clean(en[i]) : '';
+    if (d.phrases && d.annotations?.[i]?.some(n => n.heWord)) {
+      const offsets = []; let total = 0;
+      for (const [ph] of d.phrases[i]) { offsets.push(total); total += wordCount(clean(ph)); }
+      h = insertAfterWords(h, d.annotations[i].filter(n => n.heWord && offsets[n.phraseIndex] !== undefined)
+        .map(n => [offsets[n.phraseIndex] + n.heWord, inlineFootnoteMarker(n, 'tray')]));
+    }
     if (d.heads && d.heads[i]) html += d.heads[i].map(subhead).join('');
     if (d.tables && d.tables[i]) html += d.tables[i].map(sourceTable).join('');
     if (!h.trim() && !e.trim()) continue;
@@ -1156,7 +1188,7 @@ function appendSection(d) {
       const list = notesAt.get(note.phraseIndex) || [];
       list.push(note); notesAt.set(note.phraseIndex, list);
     }
-    const il = d.phrases ? `<div class="seg-il">${d.phrases[i].map(([ph, pe], j) => `${(d.phraseHeads?.[i] || []).filter(hd => hd.phraseIndex === j).map(hd => subhead(hd.kind === 'section' ? '§ ' + hd.text : hd.text)).join('')}<div class="ph"><div class="ph-he" lang="he" dir="rtl">${clean(ph)}</div><div class="ph-en" lang="en">${clean(pe)}${(notesAt.get(j) || []).map(readingFootnote).join('')}</div></div>`).join('')}</div>` : '';
+    const il = d.phrases ? `<div class="seg-il">${d.phrases[i].map(([ph, pe], j) => `${(d.phraseHeads?.[i] || []).filter(hd => hd.phraseIndex === j).map(hd => subhead(hd.kind === 'section' ? '§ ' + hd.text : hd.text)).join('')}<div class="ph"><div class="ph-he" lang="he" dir="rtl">${insertAfterWords(clean(ph), (notesAt.get(j) || []).filter(n => n.heWord).map(n => [n.heWord, inlineFootnoteMarker(n, 'ph')]))}</div><div class="ph-en" lang="en">${clean(pe)}${(notesAt.get(j) || []).map(n => readingFootnote(n, n.heWord ? 'box' : undefined)).join('')}</div></div>`).join('')}</div>` : '';
     const noteTray = annotated.length ? `<div class="segment-annotations"><span class="segment-annotations-label">Annotated footnotes:</span>${annotated.map(readingFootnote).join('')}</div>` : '';
     html += `<div class="seg" data-ref="${esc(r)}" data-i="${num}" data-k="${i}" tabindex="0">
       <span class="num" data-n="${num}">${labels ? labels[i] : prefs.lang === 'he' ? gematria(num) : num}</span>
