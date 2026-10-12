@@ -99,3 +99,49 @@ for(const b of books){
     throw new Error('Meshiv reader version/caching update missing');
   console.log("PASS Meshiv HaTa'anah: " + sections.length + " sections, " + hebrewEnglish + " bilingual phrases, " + explanations + " explanations, " + sourceAnchors + " source anchors");
 }
+
+
+// Meshiv Tzedek must replace the old Hebrew-only reader with the actual
+// Sefaria-linked Akiva Publishing interlinear Word edition, without breaking
+// the two existing reading URLs.
+{
+  const book = catalog.find(b => b.title === 'Meshiv Tzedek');
+  if (!book || !book.akiva || !book.interlinear || book.slug !== 'meshiv-tzedek')
+    throw new Error('Meshiv Tzedek must replace the old Hebrew-only edition');
+  const dir = path.join(out, book.slug);
+  const {toc} = JSON.parse(fs.readFileSync(path.join(dir, 'toc.json'), 'utf8'));
+  const leaves = toc.children || [];
+  const expectedRefs = [
+    'Meshiv Tzedek, A Rebuttal Regarding Sitting in the Sukkah on Shemini Atzeret',
+    'Meshiv Tzedek, Talks for Bar Mitzvah'
+  ];
+  if (leaves.length !== 2 || expectedRefs.some(ref => !leaves.some(l => l.ref === ref && l.interlinear)))
+    throw new Error('Meshiv Tzedek previous chapter URLs were not preserved');
+  let headings = 0, bilingual = 0, links = 0, editorialConnections = 0, paragraphs = 0, nikkud = 0;
+  for (const leaf of leaves) {
+    const items = JSON.parse(fs.readFileSync(path.join(dir, leaf.id + '.json'), 'utf8'));
+    for (const item of items) {
+      if (item.h) headings++;
+      if (!item.p) continue;
+      paragraphs++;
+      for (const [he, en] of item.p) {
+        if (/[א-ת]/.test(he) && /[A-Za-z]/.test(en)) bilingual++;
+        nikkud += (he.match(/[\u0591-\u05c7]/g) || []).length;
+        links += ((he + en).match(/<a[^>]+data-ref="/g) || []).length;
+        if (/Sefaria connections \(editorial\)|Sources in this discussion/.test(en)) editorialConnections++;
+      }
+    }
+  }
+  if (headings < 245 || bilingual < 4800 || links < 425 || editorialConnections !== 112 || nikkud < 1000)
+    throw new Error('Meshiv Tzedek reader lost translated text or source links: ' +
+      JSON.stringify({headings, bilingual, links, editorialConnections, paragraphs, nikkud}));
+  const page = fs.readFileSync('dist/library/index.html', 'utf8');
+  const sw = fs.readFileSync('dist/library/sw.js', 'utf8');
+  if (!page.includes('20261012-meshiv-tzedek-interlinear-v1') ||
+      !sw.includes('v34-meshiv-tzedek-20261012-interlinear') ||
+      !sw.includes('meshiv-hata-anah|meshiv-tzedek'))
+    throw new Error('Meshiv Tzedek offline/app cache invalidation is incomplete');
+  console.log('PASS Meshiv Tzedek: '+leaves.length+' historical chapters, '+headings+
+    ' topic headings, '+bilingual+' Hebrew–English phrases, '+editorialConnections+
+    ' editorial source panels, '+links+' Sefaria references');
+}
