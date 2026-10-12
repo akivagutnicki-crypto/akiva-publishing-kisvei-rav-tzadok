@@ -13,6 +13,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import { createRequire } from 'node:module';
+import { gunzipSync } from 'node:zlib';
 import { linkCitations, linkHebrewCitations, categoryOf, normalizeRef } from './citations.mjs';
 import { packs, TANAKH, SHAS } from './packs.mjs';
 import { linkLikkuteiCitations } from './likkutei-citations.mjs';
@@ -775,6 +776,16 @@ for (const [name, pack] of Object.entries(packs([...cited].sort()))) {
   writeFile(path.join(OUT, 'packs', `${name}.json`), JSON.stringify(pack));
   console.log(`Pack ${name}: ${pack.refs.length} texts`);
 }
+
+// A verified Sefaria catalog snapshot lets the app show the full commentary
+// collections immediately. Downloads refresh it from Sefaria when online.
+const packCatalog = JSON.parse(gunzipSync(fs.readFileSync('sources/akiva/packs/catalog.json.gz')).toString('utf8'));
+const corpusTools = createRequire(import.meta.url)('../dist/library/sefaria-packs.js');
+const collections = Object.fromEntries(corpusTools.COLLECTIONS.map(c => [c.id,
+  corpusTools.collectionBooks(packCatalog.books, c.id)]));
+writeFile(path.join(OUT, 'packs', 'collections.json'), JSON.stringify({
+  revision: corpusTools.REVISION, asOf: packCatalog.asOf, source: packCatalog.source, collections,
+}));
 
 writeFile(path.join(OUT, 'packs', 'index.json'), JSON.stringify([
   ['Tanakh', TANAKH.map(([g, books]) => [g, books.map(b => b[0])])],

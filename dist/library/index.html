@@ -86,6 +86,13 @@ button{font:inherit;color:inherit;cursor:pointer}
 .download-item .btn{align-self:flex-start;margin-top:auto}
 .download-page .btn,.download-callout .btn{min-height:44px;height:auto;padding:11px 15px;line-height:1.4}
 .download-page .note{color:var(--muted);font:.9rem/1.6 var(--ui);margin-top:24px}
+.corpus-downloads{margin:0 0 32px}
+.corpus-downloads>p{color:var(--muted);font:.92rem/1.6 var(--ui)}
+.corpus-downloads .packs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,310px),1fr));gap:14px}
+.corpus-downloads .pack{min-width:0;padding:20px;border:1px solid var(--line);border-radius:8px;background:var(--panel)}
+.corpus-downloads .pack>b{font:500 1.35rem/1.3 var(--en);margin-bottom:8px}
+.corpus-downloads .pack small{font:.82rem/1.6 var(--ui);margin-bottom:12px}
+.corpus-downloads .status{overflow-wrap:anywhere}
 @media(max-width:1060px){.topnav{display:none}}
 .loading{color:var(--muted);font:500 .9rem var(--ui);padding:30px 0;display:flex;align-items:center;gap:10px}
 .loading:before{content:"";width:14px;height:14px;border:2px solid var(--line);border-top-color:var(--forest);border-radius:50%;animation:spin .8s linear infinite}
@@ -447,6 +454,7 @@ i.footnote.open{display:block;direction:ltr;text-align:left;font-family:var(--en
 <div class="offline-pill" id="offlinePill" hidden>Offline · reading saved texts</div>
 
 <script src="shiur-player.js?v=20261012-audio"></script>
+<script src="sefaria-packs.js?v=20261012-meforshim"></script>
 <script>
 (() => {
 'use strict';
@@ -618,7 +626,12 @@ const cache = new Map();
 async function getJSON(path) {
   if (cache.has(path)) return cache.get(path);
   const p = fetch(API + path).then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); })
-    .then(j => { if (j && j.error) throw new Error(j.error); return j; });
+    .then(j => { if (j && j.error) throw new Error(j.error); return j; })
+    .catch(async error => {
+      const saved = await window.SefariaPacks?.offlineJSON(path);
+      if (saved) return saved;
+      throw error;
+    });
   cache.set(path, p);
   p.catch(() => cache.delete(path));
   return p;
@@ -863,10 +876,16 @@ async function renderDownloads() {
       <p id="libraryZipDetails">All the sefarim in one ZIP file.</p>
       <a class="btn primary" href="downloads/rav-tzadok-library.zip?v=20261012-zips" download>Download library ZIP ↓</a>
     </section>
+    <section class="app-card corpus-downloads" aria-label="Torah collections with meforshim">
+      <h2>Tanach, Shas and Midrashim · with meforshim</h2>
+      <p>Download each collection with all its available Sefaria commentaries, including Rishonim, Acharonim and supercommentaries. The ZIP button fetches complete works and builds the archive on your device. Keep this page open; Stop pauses the download and the next attempt resumes saved works.</p>
+      <div class="packs" id="corpusPacks"></div>
+    </section>
     <h2>Individual sefarim</h2>
     <div class="download-grid" id="bookZips" aria-live="polite"><div class="loading">Loading ZIP downloads…</div></div>
     <p class="note">Unzip the file to access the reader text data (JSON) and any Word or PDF editions. For offline reading inside the app, use “Save this sefer offline” on a sefer’s contents page. Shiur audio and external source texts are downloaded separately.</p>
   </div>${credit()}`;
+  setupCorpusCards();
   try {
     const res = await fetch('downloads/index.json', {cache: 'no-cache'});
     if (!res.ok) throw Error('Download list unavailable');
@@ -1779,9 +1798,11 @@ async function renderInstall() {
 const PACKS = [
   {id: 'library', title: 'Rav Tzadok Library', note: 'All the seforim and translations in this library, in one download.'},
   {id: 'sources', title: 'Sources cited in the library', note: 'Every Tanakh, Talmud, Midrash and halakhah passage the translations cite, so citations open offline.'},
-  {id: 'tanakh', title: 'Tanakh', note: 'All 24 books, Hebrew with English.'},
+  {id: 'tanakh', title: 'Tanach + meforshim', note: 'Tanach with available Rishonim, Acharonim, modern commentaries, supercommentaries and Targum. Hebrew and English where available.'},
   {id: 'mishnah', title: 'Mishnah', note: 'All six orders, Hebrew with English.', prefix: 'Mishnah '},
-  {id: 'shas', title: 'Talmud Bavli', note: 'All 37 tractates, Hebrew/Aramaic with English. A large download.'},
+  {id: 'shas', title: 'Talmud Bavli + meforshim', note: 'Bavli with available commentaries, including Rashi, Tosafos, Rishonim and Acharonim. Complete works, with English where available.'},
+  {id: 'yerushalmi', title: 'Talmud Yerushalmi + meforshim', note: 'Yerushalmi with available meforshim, including Penei Moshe, Korban HaEdah and their supplementary commentaries. Hebrew and English where available.'},
+  {id: 'midrash', title: 'Midrashim + meforshim', note: 'Halakhic and aggadic Midrashim with available meforshim, including Matnos Kehunah, Etz Yosef, Anaf Yosef and others.'},
   {id: 'rambam', title: 'Mishneh Torah (Rambam)', note: 'All fourteen books, Hebrew with English.', prefix: 'Mishneh Torah, '},
   {id: 'shulchan', title: 'Shulchan Arukh', note: 'All four sections.', prefix: 'Shulchan Arukh, '},
   {id: 'chasidut', title: 'Chassidus', note: 'Every Chasidic sefer on Sefaria. A large download.', path: ['Chasidut']},
@@ -1823,8 +1844,81 @@ async function packTitles({path, prefix}) {
   }
   return [...new Set(out)];
 }
+const CORPUS_IDS = new Set(['tanakh', 'shas', 'yerushalmi', 'midrash']);
+let corpusSnapshot = null;
+function loadCorpusSnapshot() {
+  if (!corpusSnapshot) corpusSnapshot = fetch('data/packs/collections.json', {cache: 'no-cache'})
+    .then(r => { if (!r.ok) throw Error('Collection catalog unavailable'); return r.json(); })
+    .catch(error => { corpusSnapshot = null; throw error; });
+  return corpusSnapshot;
+}
+async function corpusBooks(id, signal) {
+  const snapshot = await loadCorpusSnapshot();
+  // Always try the current table of contents on a new download. A dated,
+  // verified snapshot remains usable when Sefaria's catalog is temporarily busy.
+  const controller = new AbortController(), stop = () => controller.abort();
+  signal?.addEventListener('abort', stop, {once: true});
+  const timeout = setTimeout(stop, 25000);
+  try {
+    const response = await fetch(`${API}/api/index`, {cache: 'no-cache', signal: controller.signal});
+    if (!response.ok) throw Error('Catalog HTTP ' + response.status);
+    const books = window.SefariaPacks.collectionBooks(await response.json(), id);
+    return {books, asOf: new Date().toISOString().slice(0, 10)};
+  } catch {
+    if (signal?.aborted) throw Error('Stopped');
+    const books = snapshot.collections[id];
+    if (!books?.length) throw Error('No collection books found');
+    return {books, asOf: snapshot.asOf};
+  } finally { clearTimeout(timeout); signal?.removeEventListener('abort', stop); }
+}
+const corpusJobs = new Map();
+async function downloadCorpusPack(id, row, makeZip) {
+  if (corpusJobs.has(id)) return;
+  const btn = row.querySelector('.get'), zipBtn = row.querySelector('.zipb'), stop = row.querySelector('.stop'),
+    bar = row.querySelector('.bar'), status = row.querySelector('.status');
+  if (!('caches' in window)) { status.textContent = 'This browser cannot save the collection. Open it in Chrome or another browser with offline storage.'; return; }
+  const controller = new AbortController();
+  corpusJobs.set(id, controller);
+  cleanupFns.push(() => controller.abort());
+  btn.disabled = true; zipBtn.disabled = true; stop.hidden = false; bar.hidden = false;
+  status.textContent = 'Finding the complete collection and its meforshim…';
+  stop.onclick = () => { controller.abort(); status.textContent = 'Stopping; saved works will be kept…'; };
+  const progress = (fraction, message) => { bar.firstElementChild.style.width = `${Math.round(100 * fraction)}%`; status.textContent = message; };
+  try {
+    try { await navigator.storage?.persist?.(); } catch {}
+    const {books, asOf} = await corpusBooks(id, controller.signal);
+    const cache = await caches.open('rtl-external');
+    const meta = await caches.open(META);
+    const manifest = await window.SefariaPacks.prepare({id, books, cache, signal: controller.signal, catalogDate: asOf,
+      refresh: !makeZip && btn.textContent === 'Update',
+      progress, checkpoint: pack => meta.put(`packs/${id}.json`, new Response(JSON.stringify(pack), {headers: {'Content-Type': 'application/json'}}))});
+    if (!manifest.complete) {
+      const saved = manifest.books.filter(b => b.complete).length;
+      status.textContent = `${controller.signal.aborted ? 'Stopped.' : 'Some works could not be downloaded.'} Saved ${saved.toLocaleString()} of ${books.length.toLocaleString()} works. Tap Download or ZIP to resume; saved works are reused.`;
+      return;
+    }
+    store.set('pack-' + id, {version: window.SefariaPacks.REVISION + ':' + id, at: Date.now()});
+    btn.textContent = 'Update';
+    status.textContent = `Saved ${books.length.toLocaleString()} complete works, including ${manifest.commentaries.toLocaleString()} meforshim/Targum.`;
+    if (makeZip) {
+      status.textContent = 'Building the complete ZIP with meforshim…';
+      await zipSaved([[manifest.cache, manifest.urls]], `rav-tzadok-${id}-with-meforshim`, status,
+        {manifest, cancelled: () => controller.signal.aborted});
+    }
+  } catch (error) {
+    status.textContent = controller.signal.aborted ? 'Stopped. Tap Download or ZIP to resume; saved works are kept.'
+      : `Could not finish: ${error.message || 'check your connection and retry'}. Saved works are kept for the next attempt.`;
+  } finally {
+    btn.disabled = false; zipBtn.disabled = false; stop.hidden = true; corpusJobs.delete(id); showStorage();
+  }
+}
 async function packInfo(id) {
   if (id === 'library') { const l = await fetch('data/files.json', {cache: 'no-cache'}).then(r => r.json()); return {version: l.version, urls: l.files.map(f => 'data/' + f), cache: 'rtl-data', mb: l.bytes / 1048576, zip: 'downloads/rav-tzadok-library.zip'}; }
+  if (CORPUS_IDS.has(id)) {
+    const snapshot = await loadCorpusSnapshot(), books = snapshot.collections[id];
+    return {version: window.SefariaPacks.REVISION + ':' + id, cache: 'rtl-external', books: books.length,
+      commentaries: books.filter(b => b.dependence).length};
+  }
   const def = PACKS.find(p => p.id === id);
   if (def.prefix || def.path) return {version: id, cache: 'rtl-external', lazy: async (status, cancelled) => {
     status('Finding the books…');
@@ -1885,6 +1979,7 @@ const META = 'rtl-meta';
 const rememberPack = async (id, cacheName, urls) => (await caches.open(META)).put(`packs/${id}.json`, new Response(JSON.stringify({cache: cacheName, urls})));
 const packList = async id => { const r = await (await caches.open(META)).match(`packs/${id}.json`); return r ? r.json() : null; };
 async function downloadPack(id, row) {
+  if (CORPUS_IDS.has(id)) return downloadCorpusPack(id, row, false);
   const btn = row.querySelector('.get'), stop = row.querySelector('.stop'), bar = row.querySelector('.bar'), status = row.querySelector('.status');
   if (!('caches' in window)) { status.textContent = 'This browser cannot save texts for offline use.'; return; }
   let cancel = false; const cancelled = () => cancel;
@@ -1936,46 +2031,60 @@ async function saveBook(title) {
 function zipPathFor(url) {
   const u = new URL(url, location.href);
   if (u.hostname.endsWith('sefaria.org')) {
-    const m = u.pathname.match(/^\/api\/(v3\/texts|shape)\/(.+)$/);
-    return m ? `sefaria/${m[1] === 'shape' ? 'contents' : 'texts'}/${decodeURIComponent(m[2]).replace(/[\/\\:*?"<>|]/g, '_')}.json` : null;
+    return window.SefariaPacks.archivePath(url);
   }
   const i = u.pathname.indexOf('/data/');
   return i >= 0 ? u.pathname.slice(i + 1) : null;
 }
-async function zipSaved(entries, name, status) {
+async function zipSaved(entries, name, status, {manifest = null, cancelled = () => false} = {}) {
   const {Zip, ZipDeflate} = await loadFflate();
-  const chunks = [];
+  const sink = await window.SefariaPacks.createZipSink();
+  let pending = Promise.resolve();
   let err = null;
-  const zip = new Zip((e, chunk) => { if (e) err = e; else chunks.push(chunk); });
+  const zip = new Zip((e, chunk) => { if (e) err = e; else pending = pending.then(() => sink.write(chunk)); });
   const enc = new TextEncoder(), seen = new Set();
   const add = (path, bytes) => { const f = new ZipDeflate(path, {level: 6}); zip.add(f); f.push(bytes, true); };
-  add('README.txt', enc.encode('Rav Tzadok Library - texts saved for offline reading.\n\ndata/: the library (see data/catalog.json).\nsefaria/texts/: Sefaria texts as returned by the Sefaria API (Hebrew and English versions).\nsefaria/contents/: chapter structure of Sefaria books.\n\nSefaria texts are under their own licenses; Akiva Publishing translations (c) Akiva Publishing.\n'));
+  add('README.txt', enc.encode('Rav Tzadok Library - saved texts and meforshim.\n\ndata/: Akiva Publishing reader data.\nsefaria/books/: COMPLETE Sefaria works or complex-text nodes, with Hebrew and English where available, footnotes and version/license metadata.\nsefaria/indexes/: full book structure and source attribution.\nsefaria/texts/: previously saved individual passages.\nsefaria/contents/: book shapes where available.\nmanifest.json: catalog snapshot, every included work and commentary, completeness and source URLs.\n\nCoverage is the available Sefaria collection; a source edition or its translation may itself be partial. No missing download is silently treated as complete.\nSefaria texts retain their original version licenses. Akiva Publishing translations (c) Akiva Publishing.\n'));
+  if (manifest) {
+    if (!manifest.complete || manifest.missing?.length) { await pending; await sink.abort(); throw Error('The collection is incomplete. Resume its download before creating the ZIP'); }
+    add('manifest.json', enc.encode(JSON.stringify({...manifest, files: manifest.urls.map(url => ({url, path: zipPathFor(url)}))}, null, 2)));
+  }
   let n = 0;
+  try {
   for (const [cacheName, urls] of entries) {
     const cache = await caches.open(cacheName);
     for (const url of urls) {
       const path = zipPathFor(url); if (!path || seen.has(path)) continue;
-      const res = await cache.match(url, {ignoreVary: true}); if (!res) continue;
+      if (cancelled()) throw Error('Stopped');
+      const res = await cache.match(url, {ignoreVary: true});
+      if (!res) throw Error('Some collection files are not saved. Tap Download to finish before creating the ZIP');
       seen.add(path); add(path, new Uint8Array(await res.arrayBuffer())); n++;
+      await pending;
       if (n % 100 === 0) { status.textContent = `Zipping… ${n.toLocaleString()} files`; await new Promise(r => setTimeout(r)); }
       if (err) throw err;
     }
   }
   zip.end();
-  if (!n) { status.textContent = 'Nothing is saved yet. Download it first.'; return; }
-  const blob = new Blob(chunks, {type: 'application/zip'});
+  await pending;
+  if (err) throw err;
+  if (!n) { await sink.abort(); status.textContent = 'Nothing is saved yet. Download it first.'; return; }
+  const blob = await sink.finish();
   const a = Object.assign(document.createElement('a'), {href: URL.createObjectURL(blob), download: `${name}-${new Date().toISOString().slice(0, 10)}.zip`});
   document.body.appendChild(a); a.click(); a.remove();
-  setTimeout(() => URL.revokeObjectURL(a.href), 60000);
   status.textContent = `Zip ready: ${n.toLocaleString()} files, ${(blob.size / 1048576).toFixed(1)} MB.`;
+  const again = Object.assign(document.createElement('a'), {href: a.href, download: a.download, textContent: 'Download ZIP', className: 'link'});
+  status.appendChild(again);
+  setTimeout(() => { URL.revokeObjectURL(a.href); again.remove(); sink.cleanup(); }, 3600000);
+  } catch (error) { try { await pending; } catch {} await sink.abort(); throw error; }
 }
 async function zipPack(id, btn, status) {
+  if (CORPUS_IDS.has(id)) return downloadCorpusPack(id, btn.closest('.pack'), true);
   btn.disabled = true;
   try {
     const list = await packList(id);
     if (!list) status.textContent = 'Download this pack first, then make the zip.';
     else await zipSaved([[list.cache, list.urls]], `rav-tzadok-${id}`, status);
-  } catch { status.textContent = 'Could not make the zip on this device (it may be too large).'; }
+  } catch (error) { status.textContent = error.message || 'Could not make the ZIP. Check the download and retry.'; }
   btn.disabled = false;
 }
 async function exportZip(btn, status) {
@@ -1996,8 +2105,18 @@ async function setupAppCard() {
   showInstall();
   const box = document.getElementById('packs'); if (!box) return;
   box.innerHTML = PACKS.map(p => `<div class="pack" data-id="${p.id}"><b>${esc(p.title)}</b><small>${esc(p.note)}</small>
-    <button class="btn get" type="button">Download</button><button class="btn stop" type="button" hidden>Stop</button><button class="btn zipb" type="button">.zip</button><div class="bar" hidden><span></span></div><div class="status"></div></div>`).join('');
+    <button class="btn get" type="button">Download</button><button class="btn stop" type="button" hidden>Stop</button><button class="btn zipb" type="button">ZIP ↓</button><div class="bar" hidden><span></span></div><div class="status" role="status"></div></div>`).join('');
   const ex = document.getElementById('exportBtn'); if (ex) ex.onclick = () => exportZip(ex, document.getElementById('exportStatus'));
+  bindPackRows(box);
+  showStorage();
+}
+function setupCorpusCards() {
+  const box = document.getElementById('corpusPacks'); if (!box) return;
+  box.innerHTML = PACKS.filter(p => CORPUS_IDS.has(p.id)).map(p => `<div class="pack" data-id="${p.id}"><b>${esc(p.title)}</b><small>${esc(p.note)}</small>
+    <button class="btn get" type="button">Save offline</button><button class="btn zipb" type="button">Download ZIP ↓</button><button class="btn stop" type="button" hidden>Stop</button><div class="bar" hidden><span></span></div><div class="status" role="status"></div></div>`).join('');
+  bindPackRows(box);
+}
+function bindPackRows(box) {
   for (const row of box.querySelectorAll('.pack')) {
     const id = row.dataset.id, btn = row.querySelector('.get'), status = row.querySelector('.status');
     btn.onclick = () => downloadPack(id, row);
@@ -2006,13 +2125,12 @@ async function setupAppCard() {
     zb.onclick = () => id === 'library' ? location.assign('downloads/rav-tzadok-library.zip') : zipPack(id, zb, status);
     const saved = store.get('pack-' + id, null) || (id === 'library' ? store.get('offline', null) : null);
     packInfo(id).then(info => {
-      const size = info.mb ? ` (${info.mb.toFixed(1)} MB of texts)` : info.count ? ` (${info.count.toLocaleString()} texts)` : '';
+      const size = info.mb ? ` (${info.mb.toFixed(1)} MB of texts)` : info.books ? ` (${info.books.toLocaleString()} works)` : info.count ? ` (${info.count.toLocaleString()} texts)` : '';
       if (saved && saved.version === info.version) { status.textContent = 'Saved for offline reading.'; btn.textContent = 'Update'; }
       else if (saved) { status.textContent = 'New or updated texts are available.'; btn.textContent = 'Update'; }
-      else btn.textContent = 'Download' + size;
+      else { btn.textContent = 'Download' + size; if (info.commentaries) status.textContent = `${info.commentaries.toLocaleString()} meforshim/Targum included.`; }
     }).catch(() => {});
   }
-  showStorage();
 }
 const onlineState = () => { const p = document.getElementById('offlinePill'); if (p) p.hidden = navigator.onLine; };
 addEventListener('online', onlineState); addEventListener('offline', onlineState); onlineState();
