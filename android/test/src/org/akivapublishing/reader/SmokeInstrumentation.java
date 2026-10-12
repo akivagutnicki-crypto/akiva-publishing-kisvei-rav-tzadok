@@ -13,6 +13,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 /** Exercises real WebView layout, connections, resize state, and offline caches. */
+// Deep links must use the public GitHub Pages reader, never the retired Netlify service.
 public final class SmokeInstrumentation extends Instrumentation {
     private MainActivity activity;
     @Override public void onCreate(Bundle args) { super.onCreate(args); start(); }

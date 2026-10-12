@@ -46,8 +46,8 @@ import java.security.SecureRandom;
 
 /** A resizable, CPU-independent Android reader for the live Akiva library. */
 public final class MainActivity extends Activity {
-    static final String HOME = "https://akiva-publishing-kisvei-rav-tzadok.netlify.app/library/";
-    private static final String HOST = "akiva-publishing-kisvei-rav-tzadok.netlify.app";
+    static final String HOME = "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/";
+    private static final String HOST = "akivagutnicki-crypto.github.io";
     private static final int SAVE_FILE = 10;
     WebView reader;
     private ProgressBar progress;
@@ -106,8 +106,8 @@ public final class MainActivity extends Activity {
                 android.window.OnBackInvokedDispatcher.PRIORITY_DEFAULT, this::goBack);
         }
         String initial = intentUrl(getIntent());
-        if (initial == null && state != null && reader.restoreState(state) != null) return;
-        if (initial == null) initial = getPreferences(MODE_PRIVATE).getString("lastUrl", HOME);
+        if (initial == null && state != null && reader.restoreState(state) != null && isLibraryUrl(reader.getUrl())) return;
+        if (initial == null) initial = migrateLegacyUrl(getPreferences(MODE_PRIVATE).getString("lastUrl", HOME));
         reader.loadUrl(isLibraryUrl(initial) ? initial : HOME);
     }
 
@@ -119,7 +119,7 @@ public final class MainActivity extends Activity {
         s.setAllowFileAccess(false); s.setAllowContentAccess(false);
         s.setMixedContentMode(WebSettings.MIXED_CONTENT_NEVER_ALLOW);
         s.setSupportMultipleWindows(true); s.setJavaScriptCanOpenWindowsAutomatically(false);
-        s.setUserAgentString(s.getUserAgentString() + " AkivaPublishingAndroid/1.0.1");
+        s.setUserAgentString(s.getUserAgentString() + " AkivaPublishingAndroid/1.0.4");
         if (Build.VERSION.SDK_INT >= 26) s.setSafeBrowsingEnabled(true);
         CookieManager.getInstance().setAcceptCookie(true);
         CookieManager.getInstance().setAcceptThirdPartyCookies(reader, false);
@@ -170,7 +170,7 @@ public final class MainActivity extends Activity {
             }
         });
         reader.setDownloadListener((url, userAgent, disposition, mime, length) -> {
-            boolean blob = url.startsWith("blob:" + HOME.substring(0, HOME.indexOf("/library/")) + "/");
+            boolean blob = url.startsWith("blob:https://" + HOST + "/");
             if (!blob && !isLibraryUrl(url)) { openExternal(Uri.parse(url)); return; }
             if (pendingDownload != null || blobDownload != null) { toast("A file is already being saved."); return; }
             String type = mime == null || mime.isEmpty() ? "application/octet-stream" : mime;
@@ -209,16 +209,29 @@ public final class MainActivity extends Activity {
         errorView.setVisibility(View.VISIBLE);
     }
 
+    // Keep a reader's last passage when upgrading from the retired Netlify host.
+    static String migrateLegacyUrl(String url) {
+        if (url == null) return HOME;
+        Uri parsed = Uri.parse(url);
+        if ("https".equals(parsed.getScheme())
+            && "akiva-publishing-kisvei-rav-tzadok.netlify.app".equals(parsed.getHost())
+            && parsed.getPath() != null && parsed.getPath().startsWith("/library")) {
+            String hash = parsed.getEncodedFragment();
+            return HOME + (hash == null ? "" : "#" + hash);
+        }
+        return url;
+    }
+
     static boolean isLibraryUrl(String url) {
         if (url == null) return false;
         Uri uri = Uri.parse(url);
         return "https".equals(uri.getScheme()) && HOST.equals(uri.getHost())
             && (uri.getPort() == -1 || uri.getPort() == 443) && uri.getUserInfo() == null
-            && ("/library".equals(uri.getPath()) || (uri.getPath() != null && uri.getPath().startsWith("/library/")));
+            && ("/akiva-publishing-kisvei-rav-tzadok/library".equals(uri.getPath()) || (uri.getPath() != null && uri.getPath().startsWith("/akiva-publishing-kisvei-rav-tzadok/library/")));
     }
 
     private void remember(String url) {
-        if (isLibraryUrl(url) && !Uri.parse(url).getPath().startsWith("/library/privacy"))
+        if (isLibraryUrl(url) && !Uri.parse(url).getPath().startsWith("/akiva-publishing-kisvei-rav-tzadok/library/privacy"))
             getPreferences(MODE_PRIVATE).edit().putString("lastUrl", url).apply();
     }
 
