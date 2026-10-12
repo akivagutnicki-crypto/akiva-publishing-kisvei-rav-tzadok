@@ -3,13 +3,13 @@
 // - Texts (data/) are served from cache and refreshed in the background.
 // - Sefaria API answers (English, connections, quoted sources) are network-first
 //   with the last answer kept for offline use; web fonts are cache-first.
-const VERSION = 'v34-meshiv-tzedek-20261012-interlinear';
+const VERSION = 'v35-meforshim-diagnostics';
 const SHELL = `rtl-shell-${VERSION}`;
 const DATA = 'rtl-data';
 const EXTERNAL = 'rtl-external';
 const SHELL_FILES = [
   './', './index.html', './manifest.webmanifest', './shiur-player.js?v=20261012-audio',
-  './sefaria-packs.js?v=20261012-meforshim', './data/packs/collections.json',
+  './sefaria-packs.js?v=20261012-meforshim-v2', './data/packs/collections.json',
   './icons/icon.svg', './icons/icon-192.png', './icons/icon-512.png', './icons/maskable-512.png',
   './icons/apple-touch-icon.png', './icons/favicon-32.png',
   './blog/', './blog/the-alchemy-of-the-soul/', './blog/the-alchemy-of-the-soul/read-pdf/', './blog/pdfs/the-alchemy-of-the-soul.pdf',

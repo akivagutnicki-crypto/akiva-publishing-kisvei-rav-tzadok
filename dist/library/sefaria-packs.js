@@ -113,7 +113,7 @@
     const work = async () => {
       while (next < manifest.books.length && !signal?.aborted) {
         const book = manifest.books[next++];
-        progress(done / books.length, `Downloading ${book.title} · ${done.toLocaleString()} of ${books.length.toLocaleString()} works saved`);
+        progress(done / books.length, `Downloading ${book.title} · ${manifest.books.filter(b => b.complete).length.toLocaleString()} of ${books.length.toLocaleString()} works saved`);
         try {
           const index = await getSavedJSON(cache, indexUrl(book.title), fetcher, signal, d => d?.schema && !d.error, refresh);
           book.nodes = leafRefs(index, book.title);
@@ -127,7 +127,7 @@
             if (shape) book.urls.push(shapeUrl(book.title));
           } catch (error) { if (signal?.aborted) throw error; } // The full index still records the complete structure.
           book.complete = true;
-        } catch (error) { book.error = String(error.message || error); }
+        } catch (error) { book.error = String(error.message || error); console.warn('Collection download:', book.title, book.error); }
         done++;
         manifest.urls = [...new Set(manifest.books.flatMap(b => b.urls))];
         if (done % 8 === 0 || Date.now() - lastCheckpoint > 5000) { await persist(); lastCheckpoint = Date.now(); }
