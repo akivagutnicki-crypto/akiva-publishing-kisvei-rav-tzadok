@@ -64,3 +64,37 @@ for(const b of books){
   if(linkCount<b.minLinks)throw new Error('Too few Sefaria source connections: '+b.title+' ('+linkCount+')');
   console.log('PASS '+b.title+': '+edition.children.length+' sections, '+segments+' paragraphs, '+count+' Hebrew-English pairs, '+vowelledLetters+' nikkud marks, '+linkCount+' source connections');
 }
+
+
+// Meshiv HaTa'anah must be available as an actual bilingual local reader text,
+// not merely as a book title in the catalogue.
+{
+  const entry = catalog.find(x => x.title === "Meshiv HaTa'anah");
+  if (!entry) throw new Error("Meshiv HaTa'anah missing from published catalog");
+  const dir = path.join(out, entry.slug);
+  if (entry.slug !== 'meshiv-hata-anah') throw new Error('Unexpected Meshiv data path: ' + entry.slug);
+  const toc = JSON.parse(fs.readFileSync(path.join(dir, 'toc.json'), 'utf8')).toc;
+  const leaves = (node) => node.children ? node.children.flatMap(leaves) : [node];
+  const leaf = leaves(toc).find(x => x.il1 && x.ref === "Meshiv HaTa'anah");
+  if (!leaf || leaf.shape < 240) throw new Error('Meshiv annotated leaf is absent or incomplete');
+  const rows = JSON.parse(fs.readFileSync(path.join(dir, leaf.id + '.json'), 'utf8'));
+  let heads = 0, explanations = 0, sourceAnchors = 0, bilingual = 0;
+  for (const row of rows) {
+    if (row.h) heads++;
+    for (const pair of row.p || []) {
+      const [he, en] = pair;
+      if (/[א-ת]/u.test(he || '') && /[A-Za-z]/.test(en || '')) bilingual++;
+      if ((en || '').includes('Explanation')) explanations++;
+      sourceAnchors += ((en || '').match(/<a[^>]+data-ref="[^"]+"/g) || []).length;
+    }
+  }
+  if (bilingual < 2000 || heads < 60 || explanations < 60 || sourceAnchors < 90)
+    throw new Error('Meshiv edition incomplete: ' + JSON.stringify({bilingual,heads,explanations,sourceAnchors}));
+  const reader = fs.readFileSync('dist/library/index.html','utf8');
+  const sw = fs.readFileSync('dist/library/sw.js','utf8');
+  if (!reader.includes('meshiv-new-edition') || !reader.includes('20261012-meshiv-live-v2')
+    || !sw.includes('v32-meshiv-refresh-20261012') || !sw.includes('meshiv-hata-anah'))
+    throw new Error('Meshiv reader update/cache invalidation missing');
+  console.log('PASS Meshiv HaTa\'anah published: ' + bilingual + ' bilingual phrases, ' +
+    heads + ' headings, ' + explanations + ' explanations, ' + sourceAnchors + ' Sefaria anchors');
+}

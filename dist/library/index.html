@@ -507,7 +507,7 @@ const info = t => INFO[t] || {};
 let CATALOG = [];
 // Edition URLs keep older installed app caches from mixing Hebrew-only data
 // with the new interlinear contents. The service worker also accepts saved packs.
-const editionDataUrl = url => url.startsWith('data/') ? url + (/^data\/(?:peri-tzadik\/|tiferet-yosef\/|beit-yaakov-on-torah\/|mei-ha-shiloach\/|catalog\.json|files\.json|cited\/)/.test(url) ? '?edition=20261011-rosh-chodesh-reviewed-v2' : url.startsWith('data/yisrael-kedoshim/') ? '?edition=20261006-yisrael-4-opening' : url.startsWith('data/machshavot-charutz/') ? '?edition=20261006-machshavot-format' : url.startsWith('data/tzidkat-hatzadik/') ? '?edition=20261007-tzidkat-complete' : '?edition=20261006-resisei-complete') : url;
+const editionDataUrl = url => url.startsWith('data/') ? url + ((url.startsWith('data/meshiv-hata-anah/') || url === 'data/catalog.json') ? '?edition=20261012-meshiv-live-v2' : /^data\/(?:peri-tzadik\/|tiferet-yosef\/|beit-yaakov-on-torah\/|mei-ha-shiloach\/|catalog\.json|files\.json|cited\/)/.test(url) ? '?edition=20261011-rosh-chodesh-reviewed-v2' : url.startsWith('data/yisrael-kedoshim/') ? '?edition=20261006-yisrael-4-opening' : url.startsWith('data/machshavot-charutz/') ? '?edition=20261006-machshavot-format' : url.startsWith('data/tzidkat-hatzadik/') ? '?edition=20261007-tzidkat-complete' : '?edition=20261006-resisei-complete') : url;
 const catalogReady = fetch(editionDataUrl('data/catalog.json')).then(r => r.ok ? r.json() : []).catch(() => []).then(c => { CATALOG = c; return c; });
 const localBook = t => CATALOG.find(b => b.title === t);
 const tocCache = new Map();
@@ -783,6 +783,11 @@ async function renderHome() {
         <div class="he-title he" lang="he">כתבי רבי צדוק הכהן מלובלין</div>
         <p>Read the writings of Rav Tzadok HaKohen and the Izhbitza–Radzin masters in the original Hebrew, with English where a translation exists. Tap any passage to see the sources it draws on and the texts that cite it.</p>
       </div>
+      ${localBook("Meshiv HaTa'anah") ? `<div class="study-entry" id="meshiv-new-edition">
+        <h2>New interlinear edition: Meshiv HaTa'anah</h2>
+        <p>Read the Hebrew with phrase-by-phrase English, editorial explanations, topic headings, and linked Sefaria sources.</p>
+        <a class="btn primary" href="#/book/${toHash("Meshiv HaTa'anah")}">Open Meshiv HaTa'anah →</a>
+      </div>` : ''}
       <div class="download-callout">
         <a class="btn primary" href="downloads/rav-tzadok-library.zip?v=20261012-zips" download>Download library ZIP ↓</a>
         <a class="btn" href="#/downloads">Choose a sefer ZIP</a>

@@ -3,7 +3,7 @@
 // - Texts (data/) are served from cache and refreshed in the background.
 // - Sefaria API answers (English, connections, quoted sources) are network-first
 //   with the last answer kept for offline use; web fonts are cache-first.
-const VERSION = 'v31-meforshim-packs';
+const VERSION = 'v32-meshiv-refresh-20261012';
 const SHELL = `rtl-shell-${VERSION}`;
 const DATA = 'rtl-data';
 const EXTERNAL = 'rtl-external';
@@ -84,7 +84,7 @@ self.addEventListener('fetch', event => {
     } else if (rel.startsWith('downloads/') || rel.startsWith('audio/')) {
       return; // MP3 range requests and large downloads: straight from the network.
       // Never cache a partial audio response as if it were the whole recording.
-    } else if (/^data\/(?:catalog\.json|files\.json|cited\/index\.json|[^/]+\/toc\.json)$/.test(rel) || /^data\/(?:likkutei-maamarim|ohr-zarua-latzadik|peri-tzadik|tiferet-yosef|beit-yaakov-on-torah|mei-ha-shiloach|poked-akarim|sefer-hazikhronot|yisrael-kedoshim|machshavot-charutz|tzidkat-hatzadik|toldos-hakohen)\//.test(rel)) {
+    } else if (/^data\/(?:catalog\.json|files\.json|cited\/index\.json|[^/]+\/toc\.json)$/.test(rel) || /^data\/(?:likkutei-maamarim|ohr-zarua-latzadik|peri-tzadik|tiferet-yosef|beit-yaakov-on-torah|mei-ha-shiloach|poked-akarim|sefer-hazikhronot|yisrael-kedoshim|machshavot-charutz|tzidkat-hatzadik|toldos-hakohen|meshiv-hata-anah)\//.test(rel)) {
       // Contents and manifests must reflect newly added editions immediately.
       event.respondWith(networkFirst(request, DATA));
     } else if (rel.startsWith('data/')) {
