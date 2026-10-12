@@ -21,6 +21,18 @@ apksigner verify --verbose --print-certs Akiva-Publishing-1.0.5.apk
 
 The **release-signed** APK is an Android installer. A Windows or macOS laptop needs an Android runtime to install it; the existing website can also be installed as a browser app on those systems. Chromebook APK sideloading depends on the device's Android and installation settings. The App Bundle is the upload format for Google Play. Publication requires the owner’s verified Play Console account, Play App Signing setup, completed store declarations, and any testing requirements imposed on that account.
 
+## One-time signing setup on your Mac
+
+If you already have the original Android release/upload keystore, there is a secure local setup script:
+[`android/configure-github-signing.sh`](configure-github-signing.sh). **Do not upload your keystore or passwords to GitHub source code or to a chat.**
+
+1. Install [GitHub CLI](https://cli.github.com/) (`brew install gh` on a Mac with Homebrew) and run `gh auth login`.
+2. Clone or download this repository, then run `bash android/configure-github-signing.sh` locally.
+3. Supply the **existing** `.jks`, `.keystore`, or `.p12` file path, key alias, and passwords when prompted. The script verifies the keystore locally (when `keytool` is installed), sends the key and credentials into the four encrypted GitHub Actions Secrets through `gh secret set`, and starts the Android build. Nothing sensitive is committed to the repository.
+4. Follow the [Android build workflow](https://github.com/akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok/actions/workflows/android-apk.yml). After a successful signed build, the APK and AAB are published on [GitHub Releases](https://github.com/akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok/releases).
+
+If the existing key is unavailable, **stop before generating a replacement**: updates to an already-installed Android package require the existing signing certificate, and Google Play may have a separate existing upload-key registration that needs recovery/reset. If the app is new and has never been published or signed for distribution, a new keystore can instead be generated privately and backed up before its first use.
+
 ## GitHub Actions and Google Play signing
 
 Every change to `android/**`, its build workflow, or the reader app icon triggers a GitHub Actions build; it can also be started manually in GitHub Actions. Download the latest successful run's artifact named `akiva-android-github-pages-build`. It contains the versioned unsigned APK/AAB, smoke tests, and signed packages when an existing private signing key is configured. If correctly signed, APK/AAB are additionally published on the project's GitHub Releases page. Read the workflow's `build-info.txt` to confirm the version and GitHub Pages URL.
