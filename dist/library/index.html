@@ -282,6 +282,15 @@ a.cite:hover{text-decoration-color:var(--link)}
 .toc-list .toc-ois{display:inline-block;white-space:nowrap;font:700 .78rem/1.5 var(--ui);color:var(--forest);background:var(--soft);border:1px solid var(--line);border-radius:4px;padding:2px 8px;margin-inline-end:10px}
 .toc-list .he{font:500 1.15rem/1.5 var(--he);color:var(--muted)}
 .footnote-marker{color:var(--ox);font:700 .7em var(--ui);cursor:pointer;padding:0 2px}
+/* Footnote markers: keep the small superscript look but give fingers a real target.
+   An invisible ::after enlarges the tappable area (~40x44px on touch) without moving the text. */
+.footnote-marker{position:relative;display:inline-block;touch-action:manipulation;-webkit-tap-highlight-color:rgba(160,110,30,.25);-webkit-user-select:none;user-select:none}
+.footnote-marker::after{content:"";position:absolute;inset:-10px -9px}
+@media (pointer:coarse){
+  .footnote-marker{min-width:1.5em;margin-inline:3px;padding:1px 4px;text-align:center;line-height:1.25;background:var(--soft);border-radius:999px;font-size:.78em}
+  .he-note.footnote-marker{font-size:.7em}
+  .footnote-marker::after{inset:-14px -12px}
+}
 i.footnote{display:none;font-style:normal;font-size:.85em;color:var(--muted);background:var(--soft);padding:2px 6px;border-radius:4px}
 i.footnote.open{display:block;direction:ltr;text-align:left;font-family:var(--en);font-size:calc(1rem * var(--fs));line-height:1.55;margin:8px 0 6px;padding:10px 14px;border-left:3px solid var(--brass);border-radius:4px}
 .ph-he i.footnote.open{text-align:left}
