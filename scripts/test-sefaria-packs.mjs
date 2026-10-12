@@ -110,12 +110,14 @@ for (const url of manifest.urls) {
 const writes = []; let writerClosed = false;
 const directory = {getDirectoryHandle: async () => directory, removeEntry: async () => {}, getFileHandle: async () => ({
   createWritable: async () => ({write: async bytes => writes.push(bytes), close: async () => {writerClosed = true;}, abort: async () => {}}),
-  getFile: async () => {assert.ok(writerClosed); return new Blob(writes, {type: 'application/zip'});}
+  // Real OPFS File objects have no MIME type; the exporter must add it.
+  getFile: async () => {assert.ok(writerClosed); return new Blob(writes);}
 })};
 const navigatorDescriptor = Object.getOwnPropertyDescriptor(globalThis, 'navigator');
 Object.defineProperty(globalThis, 'navigator', {configurable: true, value: {storage: {getDirectory: async () => directory}}});
 await context.zipSaved([[manifest.cache, manifest.urls]], 'disk-fixture', status, {manifest});
 assert.ok(writerClosed && writes.length > 1);
+assert.equal(blob.type, 'application/zip');
 assert.ok(unzipSync(new Uint8Array(await blob.arrayBuffer()))['manifest.json']);
 if (navigatorDescriptor) Object.defineProperty(globalThis, 'navigator', navigatorDescriptor);
 else delete globalThis.navigator;

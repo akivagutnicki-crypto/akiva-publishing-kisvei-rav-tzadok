@@ -235,7 +235,13 @@
         const handle = await directory.getFileHandle(filename, { create: true });
         const writer = await handle.createWritable();
         return { write: bytes => writer.write(bytes),
-          finish: async () => { await writer.close(); return handle.getFile(); },
+          finish: async () => {
+            await writer.close();
+            const file = await handle.getFile();
+            // OPFS files normally have an empty MIME type. Supply the ZIP type
+            // without reading the whole archive back into memory.
+            return file.slice(0, file.size, 'application/zip');
+          },
           abort: async () => { try { await writer.abort(); } catch {} try { await directory.removeEntry(filename); } catch {} },
           cleanup: () => directory.removeEntry(filename).catch(() => {}) };
       } catch {} // A restricted browser can still build smaller ZIPs in memory.

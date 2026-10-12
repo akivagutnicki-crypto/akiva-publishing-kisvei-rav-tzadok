@@ -463,7 +463,7 @@ i.footnote.open{display:block;direction:ltr;text-align:left;font-family:var(--en
 <div class="offline-pill" id="offlinePill" hidden>Offline · reading saved texts</div>
 
 <script src="shiur-player.js?v=20261012-audio"></script>
-<script src="sefaria-packs.js?v=20261012-meforshim-v2"></script>
+<script src="sefaria-packs.js?v=20261012-source-zips-v3"></script>
 <script>
 (() => {
 'use strict';
@@ -1997,9 +1997,11 @@ const packList = async id => { const r = await (await caches.open(META)).match(`
 async function downloadPack(id, row) {
   if (CORPUS_IDS.has(id)) return downloadCorpusPack(id, row, false);
   const btn = row.querySelector('.get'), stop = row.querySelector('.stop'), bar = row.querySelector('.bar'), status = row.querySelector('.status');
+  const zipButton = row.querySelector('button.zipb');
   if (!('caches' in window)) { status.textContent = 'This browser cannot save texts for offline use.'; return; }
   let cancel = false; const cancelled = () => cancel;
   btn.disabled = true; bar.hidden = false; stop.hidden = false;
+  if (zipButton) zipButton.disabled = true;
   stop.onclick = () => { cancel = true; status.textContent = 'Stopping…'; };
   const progress = (f, msg) => { bar.firstElementChild.style.width = (100 * f).toFixed(1) + '%'; if (msg) status.textContent = msg; };
   try { await navigator.storage?.persist?.(); } catch {}
@@ -2023,6 +2025,7 @@ async function downloadPack(id, row) {
     status.textContent = 'Could not download right now. Check your connection and try again.';
   }
   btn.disabled = false; stop.hidden = true;
+  if (zipButton) zipButton.disabled = false;
   showStorage();
 }
 // "Save this sefer offline" on a book's contents page.
@@ -2052,15 +2055,15 @@ function zipPathFor(url) {
   const i = u.pathname.indexOf('/data/');
   return i >= 0 ? u.pathname.slice(i + 1) : null;
 }
-async function zipSaved(entries, name, status, {manifest = null, cancelled = () => false} = {}) {
+async function zipSaved(entries, name, status, {manifest = null, cancelled = () => false, allowMissing = false, title = ''} = {}) {
   const {Zip, ZipDeflate} = await loadFflate();
   const sink = await window.SefariaPacks.createZipSink();
   let pending = Promise.resolve();
   let err = null;
   const zip = new Zip((e, chunk) => { if (e) err = e; else pending = pending.then(() => sink.write(chunk)); });
-  const enc = new TextEncoder(), seen = new Set();
+  const enc = new TextEncoder(), seen = new Set(), missing = [], included = [];
   const add = (path, bytes) => { const f = new ZipDeflate(path, {level: 6}); zip.add(f); f.push(bytes, true); };
-  add('README.txt', enc.encode('Rav Tzadok Library - saved texts and meforshim.\n\ndata/: Akiva Publishing reader data.\nsefaria/books/: COMPLETE Sefaria works or complex-text nodes, with Hebrew and English where available, footnotes and version/license metadata.\nsefaria/indexes/: full book structure and source attribution.\nsefaria/texts/: previously saved individual passages.\nsefaria/contents/: book shapes where available.\nmanifest.json: catalog snapshot, every included work and commentary, completeness and source URLs.\n\nCoverage is the available Sefaria collection; a source edition or its translation may itself be partial. No missing download is silently treated as complete.\nSefaria texts retain their original version licenses. Akiva Publishing translations (c) Akiva Publishing.\n'));
+  add('README.txt', enc.encode('Rav Tzadok Library - saved texts and meforshim.\n\ndata/: Akiva Publishing reader data.\nsefaria/books/: COMPLETE Sefaria works or complex-text nodes, with Hebrew and English where available, footnotes and version/license metadata.\nsefaria/indexes/: full book structure and source attribution.\nsefaria/texts/: previously saved individual passages.\nsefaria/contents/: book shapes where available.\nmanifest.json (when included): source file inventory, coverage, completeness and source URLs.\n\nCoverage is the available Sefaria collection; a source edition or its translation may itself be partial. No missing download is silently treated as complete.\nSefaria texts retain their original version licenses. Akiva Publishing translations (c) Akiva Publishing.\n'));
   if (manifest) {
     if (!manifest.complete || manifest.missing?.length) { await pending; await sink.abort(); throw Error('The collection is incomplete. Resume its download before creating the ZIP'); }
     add('manifest.json', enc.encode(JSON.stringify({...manifest, files: manifest.urls.map(url => ({url, path: zipPathFor(url)}))}, null, 2)));
@@ -2073,21 +2076,47 @@ async function zipSaved(entries, name, status, {manifest = null, cancelled = () 
       const path = zipPathFor(url); if (!path || seen.has(path)) continue;
       if (cancelled()) throw Error('Stopped');
       const res = await cache.match(url, {ignoreVary: true});
-      if (!res) throw Error('Some collection files are not saved. Tap Download to finish before creating the ZIP');
-      seen.add(path); add(path, new Uint8Array(await res.arrayBuffer())); n++;
+      if (!res) {
+        if (!allowMissing) throw Error('Some collection files are not saved. Tap Download to finish before creating the ZIP');
+        seen.add(path); missing.push({url, path, reason: 'Not saved on this device'}); continue;
+      }
+      const bytes = new Uint8Array(await res.arrayBuffer());
+      if (allowMissing && /\/api\/(?:v3\/texts|texts)\//.test(url)) {
+        try {
+          const value = JSON.parse(new TextDecoder().decode(bytes));
+          const hasText = text => Array.isArray(text) ? text.some(hasText) : text && typeof text === 'object' ? Object.values(text).some(hasText) : typeof text === 'string' && !!text.trim();
+          if (value.error || !(value.versions?.some(v => hasText(v.text)) || hasText(value.he) || hasText(value.text)))
+            throw Error(value.error || 'The saved response contains no source text');
+        } catch (error) {
+          seen.add(path); missing.push({url, path, reason: String(error.message || error)}); continue;
+        }
+      }
+      seen.add(path); add(path, bytes); n++; included.push({url, path});
       await pending;
       if (n % 100 === 0) { status.textContent = `Zipping… ${n.toLocaleString()} files`; await new Promise(r => setTimeout(r)); }
       if (err) throw err;
     }
   }
+  if (!n) { await pending; await sink.abort(); status.textContent = 'Nothing is saved yet. Download it first.'; return; }
+  if (allowMissing) {
+    const sourceRef = url => { try { return decodeURIComponent(new URL(url).pathname.replace(/^\/api\/(?:v3\/texts|texts)\//, '')); } catch { return url; } };
+    add('manifest.json', enc.encode(JSON.stringify({title: title || name, createdAt: new Date().toISOString(),
+      complete: !missing.length, expectedFiles: seen.size, includedFiles: n,
+      files: included, missing: missing.map(file => ({ref: sourceRef(file.url), ...file}))}, null, 2)));
+    if (missing.length) add('missing-sources.txt', enc.encode(
+      `${title || name}\n\n${missing.length.toLocaleString()} source files could not be included.\n` +
+      'Saved texts are included unchanged. Tap Download in the app to retry missing sources; then create a new ZIP.\n\n' +
+      missing.map(file => `${sourceRef(file.url)}\n${file.reason}\n${file.url}`).join('\n\n') + '\n'));
+  }
   zip.end();
   await pending;
   if (err) throw err;
-  if (!n) { await sink.abort(); status.textContent = 'Nothing is saved yet. Download it first.'; return; }
   const blob = await sink.finish();
-  const a = Object.assign(document.createElement('a'), {href: URL.createObjectURL(blob), download: `${name}-${new Date().toISOString().slice(0, 10)}.zip`});
+  const a = Object.assign(document.createElement('a'), {href: URL.createObjectURL(blob), download: `${name}${missing.length ? '-partial' : ''}-${new Date().toISOString().slice(0, 10)}.zip`});
   document.body.appendChild(a); a.click(); a.remove();
-  status.textContent = `Zip ready: ${n.toLocaleString()} files, ${(blob.size / 1048576).toFixed(1)} MB.`;
+  status.textContent = missing.length
+    ? `ZIP ready: ${n.toLocaleString()} saved files, ${(blob.size / 1048576).toFixed(1)} MB. ${missing.length.toLocaleString()} missing sources are listed in the ZIP. Tap Download to retry them. `
+    : `ZIP ready: ${n.toLocaleString()} files, ${(blob.size / 1048576).toFixed(1)} MB. `;
   const again = Object.assign(document.createElement('a'), {href: a.href, download: a.download, textContent: 'Download ZIP', className: 'link'});
   status.appendChild(again);
   setTimeout(() => { URL.revokeObjectURL(a.href); again.remove(); sink.cleanup(); }, 3600000);
@@ -2096,12 +2125,17 @@ async function zipSaved(entries, name, status, {manifest = null, cancelled = () 
 async function zipPack(id, btn, status) {
   if (CORPUS_IDS.has(id)) return location.assign(corpusZipFile(id));
   btn.disabled = true;
+  const downloadButton = btn.closest('.pack').querySelector('.get');
+  const previousDisabled = downloadButton?.disabled;
+  if (downloadButton) downloadButton.disabled = true;
   try {
     const list = await packList(id);
     if (!list) status.textContent = 'Download this pack first, then make the zip.';
-    else await zipSaved([[list.cache, list.urls]], `rav-tzadok-${id}`, status);
+    else await zipSaved([[list.cache, list.urls]], `rav-tzadok-${id}`, status,
+      {allowMissing: id === 'sources', title: PACKS.find(p => p.id === id)?.title});
   } catch (error) { status.textContent = error.message || 'Could not make the ZIP. Check the download and retry.'; }
   btn.disabled = false;
+  if (downloadButton) downloadButton.disabled = previousDisabled;
 }
 async function exportZip(btn, status) {
   btn.disabled = true;
