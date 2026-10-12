@@ -42,6 +42,18 @@ jobs:
       - name: Build and verify library ZIP downloads
         run: node scripts/build-library-zips.mjs && node scripts/test-library-zips.mjs && node scripts/test-sefaria-packs.mjs
 
+      - name: Cache official Sefaria source exports
+        uses: actions/cache@v4
+        with:
+          path: .cache/sefaria-export
+          key: sefaria-exports-${{ runner.os }}-${{ hashFiles('sources/akiva/packs/exports.json.gz') }}
+
+      - name: Build and verify collection ZIPs with meforshim
+        run: |
+          python -m pip install 'requests==2.32.5'
+          python scripts/build-sefaria-zips.py
+          python scripts/test-sefaria-zips.py
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
         with:

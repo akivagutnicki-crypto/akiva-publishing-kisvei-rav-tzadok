@@ -892,7 +892,7 @@ async function renderDownloads() {
     </section>
     <section class="app-card corpus-downloads" aria-label="Torah collections with meforshim">
       <h2>Tanach, Shas and Midrashim · with meforshim</h2>
-      <p>Download each collection with all its available Sefaria commentaries, including Rishonim, Acharonim and supercommentaries. The ZIP button fetches complete works and builds the archive on your device. Keep this page open; Stop pauses the download and the next attempt resumes saved works.</p>
+      <p>Each ZIP includes the collection and all its meforshim available in Sefaria’s public exports, including Rishonim, Acharonim and supercommentaries. Hebrew and English editions are included where available. Tap Download ZIP to save the complete archive.</p>
       <div class="packs" id="corpusPacks"></div>
     </section>
     <h2>Individual sefarim</h2>
@@ -2094,7 +2094,7 @@ async function zipSaved(entries, name, status, {manifest = null, cancelled = () 
   } catch (error) { try { await pending; } catch {} await sink.abort(); throw error; }
 }
 async function zipPack(id, btn, status) {
-  if (CORPUS_IDS.has(id)) return downloadCorpusPack(id, btn.closest('.pack'), true);
+  if (CORPUS_IDS.has(id)) return location.assign(corpusZipFile(id));
   btn.disabled = true;
   try {
     const list = await packList(id);
@@ -2121,16 +2121,32 @@ async function setupAppCard() {
   showInstall();
   const box = document.getElementById('packs'); if (!box) return;
   box.innerHTML = PACKS.map(p => `<div class="pack" data-id="${p.id}"><b>${esc(p.title)}</b><small>${esc(p.note)}</small>
-    <button class="btn get" type="button">Download</button><button class="btn stop" type="button" hidden>Stop</button><button class="btn zipb" type="button">ZIP ↓</button><div class="bar" hidden><span></span></div><div class="status" role="status"></div></div>`).join('');
+    <button class="btn get" type="button">Download</button><button class="btn stop" type="button" hidden>Stop</button>${CORPUS_IDS.has(p.id) ? corpusZipLink(p) + '<small class="zip-details"></small>' : '<button class="btn zipb" type="button">ZIP ↓</button>'}<div class="bar" hidden><span></span></div><div class="status" role="status"></div></div>`).join('');
   const ex = document.getElementById('exportBtn'); if (ex) ex.onclick = () => exportZip(ex, document.getElementById('exportStatus'));
   bindPackRows(box);
+  showCorpusZipDetails(box);
   showStorage();
+}
+const corpusZipFile = id => `downloads/collections/${id}-with-meforshim.zip`;
+const corpusZipLink = pack => `<a class="btn zipb" href="${corpusZipFile(pack.id)}" download aria-label="Download ${esc(pack.title)} ZIP">Download ZIP ↓</a>`;
+async function showCorpusZipDetails(box) {
+  try {
+    const response = await fetch('downloads/collections/index.json', {cache: 'no-cache'});
+    if (!response.ok) throw Error('Collection ZIP list unavailable');
+    const manifest = await response.json();
+    for (const row of box.querySelectorAll('.pack')) {
+      const pack = manifest.collections?.[row.dataset.id], details = row.querySelector('.zip-details');
+      if (pack && details) details.textContent = `ZIP: ${pack.books.toLocaleString()} works · ${pack.commentaries.toLocaleString()} meforshim/Targum · ${zipSize(pack.bytes)} · public export ${manifest.sourceDate.slice(0, 10)}`;
+    }
+  } catch {
+    for (const details of box.querySelectorAll('.zip-details')) details.textContent = 'Complete public source editions with meforshim.';
+  }
 }
 function setupCorpusCards() {
   const box = document.getElementById('corpusPacks'); if (!box) return;
   box.innerHTML = PACKS.filter(p => CORPUS_IDS.has(p.id)).map(p => `<div class="pack" data-id="${p.id}"><b>${esc(p.title)}</b><small>${esc(p.note)}</small>
-    <button class="btn get" type="button">Save offline</button><button class="btn zipb" type="button">Download ZIP ↓</button><button class="btn stop" type="button" hidden>Stop</button><div class="bar" hidden><span></span></div><div class="status" role="status"></div></div>`).join('');
-  bindPackRows(box);
+    ${corpusZipLink(p)}<small class="zip-details">Loading archive details…</small></div>`).join('');
+  showCorpusZipDetails(box);
 }
 function bindPackRows(box) {
   for (const row of box.querySelectorAll('.pack')) {
@@ -2138,7 +2154,7 @@ function bindPackRows(box) {
     btn.onclick = () => downloadPack(id, row);
     const zb = row.querySelector('.zipb');
     zb.title = 'Save this pack as one .zip file';
-    zb.onclick = () => id === 'library' ? location.assign('downloads/rav-tzadok-library.zip') : zipPack(id, zb, status);
+    if (zb.tagName === 'BUTTON') zb.onclick = () => id === 'library' ? location.assign('downloads/rav-tzadok-library.zip') : zipPack(id, zb, status);
     const saved = store.get('pack-' + id, null) || (id === 'library' ? store.get('offline', null) : null);
     packInfo(id).then(info => {
       const size = info.mb ? ` (${info.mb.toFixed(1)} MB of texts)` : info.books ? ` (${info.books.toLocaleString()} works)` : info.count ? ` (${info.count.toLocaleString()} texts)` : '';
