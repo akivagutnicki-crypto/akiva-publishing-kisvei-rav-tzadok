@@ -1,6 +1,9 @@
 import fs from 'node:fs';
 import path from 'node:path';
 const out='dist/library/data';
+// Later reader releases retain these editions; an unrelated cache revision
+// must not prevent publishing. Require the edition's revision or a newer one.
+const workerRevision = Number(fs.readFileSync('dist/library/sw.js', 'utf8').match(/const VERSION = 'v(\d+)-/)?.[1] || 0);
 const catalog=JSON.parse(fs.readFileSync(path.join(out,'catalog.json'),'utf8'));
 const books=[
   {title:'Peri Tzadik',minPairs:3000,minLinks:40,required:'Peri Tzadik, Noach 1'},
@@ -95,7 +98,7 @@ for(const b of books){
     throw new Error("Meshiv source incomplete: "+JSON.stringify({hebrewEnglish,explanations,editorialLinks,vowelMarks,sourceAnchors}));
   const reader=fs.readFileSync('dist/library/index.html','utf8');
   const sw=fs.readFileSync('dist/library/sw.js','utf8');
-  if(!reader.includes('meshiv-new-edition') || !reader.includes('20261012-meshiv-interlinear-v3') || !sw.includes('v34-meshiv-tzedek-20261012-interlinear') || !sw.includes('meshiv-hata-anah'))
+  if(!reader.includes('meshiv-new-edition') || !reader.includes('20261012-meshiv-interlinear-v3') || workerRevision < 34 || !sw.includes('meshiv-hata-anah'))
     throw new Error('Meshiv reader version/caching update missing');
   console.log("PASS Meshiv HaTa'anah: " + sections.length + " sections, " + hebrewEnglish + " bilingual phrases, " + explanations + " explanations, " + sourceAnchors + " source anchors");
 }
@@ -138,7 +141,7 @@ for(const b of books){
   const page = fs.readFileSync('dist/library/index.html', 'utf8');
   const sw = fs.readFileSync('dist/library/sw.js', 'utf8');
   if (!page.includes('20261012-meshiv-tzedek-interlinear-v1') ||
-      !sw.includes('v34-meshiv-tzedek-20261012-interlinear') ||
+      workerRevision < 34 ||
       !sw.includes('meshiv-hata-anah|meshiv-tzedek'))
     throw new Error('Meshiv Tzedek offline/app cache invalidation is incomplete');
   console.log('PASS Meshiv Tzedek: '+leaves.length+' historical chapters, '+headings+
