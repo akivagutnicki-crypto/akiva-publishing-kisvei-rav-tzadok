@@ -100,6 +100,31 @@ if (fs.existsSync(partsDir)) {
     PARTS.set(`${part.book}|${part.node}`, part);
   }
 }
+// Source footnotes from a Word edition (sources/akiva/footnotes), each anchored to one
+// phrase of a translated paragraph. The anchor (opening Hebrew of the phrase, without
+// vowels) is checked so a re-translated paragraph cannot silently misplace a note.
+const footnotesDir = 'sources/akiva/footnotes';
+if (fs.existsSync(footnotesDir)) {
+  const bare = s => String(s).replace(/<[^>]+>/g, '').replace(/[֑-ׇ]/g, '');
+  for (const f of fs.readdirSync(footnotesDir).filter(f => f.endsWith('.json'))) {
+    const pack = JSON.parse(fs.readFileSync(path.join(footnotesDir, f), 'utf8'));
+    if (!pack.book || !Array.isArray(pack.notes)) throw new Error('Invalid footnote pack: ' + f);
+    for (const note of pack.notes) {
+      const part = PARTS.get(`${pack.book}|${note.node}`);
+      const item = part?.chapters[String(note.chapter)]?.find(i => i.p && i.n === note.paragraph);
+      const phrase = item?.p?.[note.phraseIndex];
+      if (!phrase || !bare(phrase[0]).startsWith(note.anchor))
+        throw new Error(`Footnote ${note.number} (${f}) does not match ${note.node} ${note.chapter}:${note.paragraph}`);
+      // normalizedPhraseIndex: for a paragraph whose English cell swallowed Hebrew phrases, the phrase
+      // after the repair in normalizePairs (one source pair can become several).
+      (item.footnotes ??= []).push({ number: note.number, phraseIndex: note.phraseIndex, paragraphs: note.paragraphs,
+        ...(Number.isInteger(note.normalizedPhraseIndex) ? { normalizedPhraseIndex: note.normalizedPhraseIndex } : {}),
+        // heWord: the marker follows this Hebrew word of the phrase (1-based), as in the Word edition.
+        ...(Number.isInteger(note.heWord) ? { heWord: note.heWord, heWordText: note.heWordText } : {}) });
+      item.footnotesNormalize = true;
+    }
+  }
+}
 // Topic subheadings written for an edition (sources/akiva/headings), keyed
 // node -> "chapter:paragraph"; each goes just before that paragraph.
 const headingsDir = 'sources/akiva/headings';
@@ -185,18 +210,26 @@ function unswallowPair([he, en]) {
   out.push([curHe, curEn.join(' ').replace(/^\s*[—–]\s*/, '').trim()]);
   return out;
 }
-function normalizePairs(pairs) {
+// Returns the repaired pairs and, for each original pair, the index of the last
+// repaired pair it became (so phrase-anchored footnotes can follow their phrase).
+function normalizePairsTracked(pairs) {
   // Expandable footnotes legitimately quote Hebrew sources inside the English cell: never split those.
   const plain = pr => !/class="footnote/.test(String(pr[0]) + String(pr[1]));
-  const split = pairs.flatMap(pr => plain(pr) && (String(pr[1]).match(/[\u05d0-\u05ea]/g) || []).length > 12 ? unswallowPair(pr) : [pr]);
-  const out = [];
+  const split = [], lastOf = [];
+  for (const pr of pairs) {
+    split.push(...(plain(pr) && (String(pr[1]).match(/[\u05d0-\u05ea]/g) || []).length > 12 ? unswallowPair(pr) : [pr]));
+    lastOf.push(split.length - 1);
+  }
+  const out = [], at = [];
   for (const pr of split) {
     const prev = out[out.length - 1];
     if (prev && prev[0].trim() && !prev[1].trim() && !pr[0].trim() && pr[1].trim()) prev[1] = pr[1];
     else out.push([...pr]);
+    at.push(out.length - 1);
   }
-  return out;
+  return { pairs: out, map: lastOf.map(i => at[i]) };
 }
+const normalizePairs = pairs => normalizePairsTracked(pairs).pairs;
 
 // Link citations in interlinear paragraphs and record them as connections.
 // Hebrew-only text is linked paragraph by paragraph (see linkHebrewSection). When an
@@ -236,7 +269,28 @@ const linkHebrewDeep = x => Array.isArray(x) ? x.map(linkHebrewDeep) : (typeof x
 function connect(slug, sectionRef, sep, items) {
   dropHebrewRecords(slug, sectionRef);
   items = cleanHeadings(items);
-  for (const item of items) if (item.p && !item.footnotes) item.p = normalizePairs(item.p);
+  for (const item of items) {
+    if (!item.p) continue;
+    if (!item.footnotes) item.p = normalizePairs(item.p);
+    else if (item.footnotesNormalize) {
+      // Word source footnotes (sources/akiva/footnotes): repair the pairs as usual and move each note with its phrase.
+      const { pairs, map } = normalizePairsTracked(item.p);
+      item.p = pairs;
+      item.footnotes = item.footnotes.map(({ normalizedPhraseIndex, ...note }) => {
+        const phraseIndex = normalizedPhraseIndex ?? map[note.phraseIndex];
+        if (!(phraseIndex >= 0 && phraseIndex < pairs.length)) throw new Error('Misaligned source footnote ' + note.number + ' in ' + sectionRef);
+        if (note.heWord) {
+          const words = String(pairs[phraseIndex][0]).replace(/<[^>]+>/g, '').split(/\s+/).filter(Boolean);
+          const word = String(words[note.heWord - 1] || '').replace(/[\u0591-\u05c7]/g, '').replace(/[^\u05d0-\u05ea]/g, '');
+          if (word !== note.heWordText) throw new Error('Source footnote ' + note.number + ' is not beside its Hebrew word in ' + sectionRef);
+          const { heWordText, ...rest } = note;
+          return { ...rest, phraseIndex };
+        }
+        return { ...note, phraseIndex };
+      });
+      delete item.footnotesNormalize;
+    }
+  }
   let k = 0;
   for (const item of items) {
     if (!item.p) continue;
