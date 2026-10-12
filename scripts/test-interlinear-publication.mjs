@@ -66,35 +66,36 @@ for(const b of books){
 }
 
 
-// Meshiv HaTa'anah must be available as an actual bilingual local reader text,
-// not merely as a book title in the catalogue.
+// Meshiv HaTa'anah is published as 65 genuine interlinear reader sections,
+// not a Hebrew-only leaf masquerading as an interlinear translation.
 {
-  const entry = catalog.find(x => x.title === "Meshiv HaTa'anah");
-  if (!entry) throw new Error("Meshiv HaTa'anah missing from published catalog");
-  const dir = path.join(out, entry.slug);
-  if (entry.slug !== 'meshiv-hata-anah') throw new Error('Unexpected Meshiv data path: ' + entry.slug);
-  const toc = JSON.parse(fs.readFileSync(path.join(dir, 'toc.json'), 'utf8')).toc;
-  const leaves = (node) => node.children ? node.children.flatMap(leaves) : [node];
-  const leaf = leaves(toc).find(x => x.il1 && x.ref === "Meshiv HaTa'anah");
-  if (!leaf || leaf.shape < 240) throw new Error('Meshiv annotated leaf is absent or incomplete');
-  const rows = JSON.parse(fs.readFileSync(path.join(dir, leaf.id + '.json'), 'utf8'));
-  let heads = 0, explanations = 0, sourceAnchors = 0, bilingual = 0;
-  for (const row of rows) {
-    if (row.h) heads++;
-    for (const pair of row.p || []) {
-      const [he, en] = pair;
-      if (/[א-ת]/u.test(he || '') && /[A-Za-z]/.test(en || '')) bilingual++;
-      if ((en || '').includes('Explanation')) explanations++;
-      sourceAnchors += ((en || '').match(/<a[^>]+data-ref="[^"]+"/g) || []).length;
+  const book = catalog.find(x => x.title === "Meshiv HaTa'anah");
+  if (!book || !book.akiva || !book.interlinear || book.slug !== "meshiv-hata-anah")
+    throw new Error("Meshiv HaTa'anah is not the new interlinear Akiva source");
+  const dir=path.join(out, book.slug);
+  const {toc}=JSON.parse(fs.readFileSync(path.join(dir,'toc.json'),'utf8'));
+  const leaves=(node)=>node.children ? node.children.flatMap(leaves) : [node];
+  const sections=leaves(toc);
+  if (sections.length!==65 || sections.some(s=>!s.interlinear))
+    throw new Error("Meshiv requires 65 linked interlinear headings: "+sections.length);
+  let hebrewEnglish=0, explanations=0, editorialLinks=0, vowelMarks=0, sourceAnchors=0;
+  for(const leaf of sections){
+    const rows=JSON.parse(fs.readFileSync(path.join(dir,String(leaf.id)+'.json'),'utf8'));
+    for(const row of rows){
+      for(const [he,en] of row.p || []){
+        if (/[א-ת]/u.test(he||'') && /[A-Za-z]/.test(en||'')) hebrewEnglish++;
+        if ((en||'').includes('Explanation')) explanations++;
+        if ((en||'').includes('Sefaria connections (editorial)')) editorialLinks++;
+        vowelMarks+=((he||'').match(/[\\u0591-\\u05bd\\u05bf-\\u05c7]/g)||[]).length;
+        sourceAnchors+=((he+' '+en).match(/<a[^>]+data-ref="/g)||[]).length;
+      }
     }
   }
-  if (bilingual < 2000 || heads < 60 || explanations < 60 || sourceAnchors < 90)
-    throw new Error('Meshiv edition incomplete: ' + JSON.stringify({bilingual,heads,explanations,sourceAnchors}));
-  const reader = fs.readFileSync('dist/library/index.html','utf8');
-  const sw = fs.readFileSync('dist/library/sw.js','utf8');
-  if (!reader.includes('meshiv-new-edition') || !reader.includes('20261012-meshiv-live-v2')
-    || !sw.includes('v32-meshiv-refresh-20261012') || !sw.includes('meshiv-hata-anah'))
-    throw new Error('Meshiv reader update/cache invalidation missing');
-  console.log('PASS Meshiv HaTa\'anah published: ' + bilingual + ' bilingual phrases, ' +
-    heads + ' headings, ' + explanations + ' explanations, ' + sourceAnchors + ' Sefaria anchors');
+  if(hebrewEnglish<2100 || explanations!==67 || editorialLinks!==67 || vowelMarks<2000 || sourceAnchors<100)
+    throw new Error("Meshiv source incomplete: "+JSON.stringify({hebrewEnglish,explanations,editorialLinks,vowelMarks,sourceAnchors}));
+  const reader=fs.readFileSync('dist/library/index.html','utf8');
+  const sw=fs.readFileSync('dist/library/sw.js','utf8');
+  if(!reader.includes('meshiv-new-edition') || !reader.includes('20261012-meshiv-interlinear-v3') || !sw.includes('v33-meshiv-interlinear-live-20261012') || !sw.includes('meshiv-hata-anah'))
+    throw new Error('Meshiv reader version/caching update missing');
+  console.log('PASS Meshiv HaTa\\'anah: '+sections.length+' sections, '+hebrewEnglish+' bilingual phrases, '+explanations+' explanations, '+sourceAnchors+' source anchors');
 }
