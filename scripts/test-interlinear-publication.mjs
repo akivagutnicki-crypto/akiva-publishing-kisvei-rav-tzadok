@@ -86,7 +86,7 @@ for(const b of books){
         if (/[א-ת]/u.test(he||'') && /[A-Za-z]/.test(en||'')) hebrewEnglish++;
         if ((en||'').includes('Explanation')) explanations++;
         if ((en||'').includes('Sefaria connections (editorial)')) editorialLinks++;
-        vowelMarks+=((he||'').match(/[\\u0591-\\u05bd\\u05bf-\\u05c7]/g)||[]).length;
+        vowelMarks+=((he||'').match(/[\u0591-\u05c7]/g)||[]).length;
         sourceAnchors+=((he+' '+en).match(/<a[^>]+data-ref="/g)||[]).length;
       }
     }
