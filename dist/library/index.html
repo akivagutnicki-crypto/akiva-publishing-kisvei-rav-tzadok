@@ -395,14 +395,19 @@ i.footnote.open{display:block;direction:ltr;text-align:left;font-family:var(--en
 .weekly-teaser:hover strong{color:var(--ox)}.library-weekly{border-top:3px solid var(--brass);padding-top:16px}
 @media(max-width:680px){.weekly-teaser{grid-template-columns:1fr}.weekly-teaser>img{height:180px;min-height:0;max-height:none}.weekly-teaser-copy{padding:12px 18px 22px}}
 \n.reader-section-break{font-weight:700!important;font-size:1.14em!important;border-top:1px solid var(--line);margin-top:24px!important;padding-top:17px!important}\n
-/* Akiva Publishing shiur audio · Pri Tzadik Noach 2 / Noach 4 */
-.shiur-audio{margin:20px 0 24px;padding:20px;border:1px solid var(--line);border-radius:12px;background:rgba(250,247,237,.84)}
-.shiur-audio h3{font:700 1.18rem var(--ui);margin:0 0 5px;color:var(--ink)}
+/* Akiva Publishing shiur audio */
+.shiur-audio{margin:20px 0 24px;padding:20px;border:1px solid var(--line);border-radius:12px;background:var(--soft)}
+.shiur-audio h3{font:700 1.18rem/1.4 var(--ui);margin:0 0 5px;color:var(--ink)}
 .shiur-audio .shiur-audio-meta{font:400 .9rem/1.5 var(--ui);color:var(--muted);margin:0 0 14px}
-.shiur-audio iframe{width:100%;min-height:180px;border:0;border-radius:8px;background:#111;display:block}
-.shiur-audio-actions{display:flex;flex-wrap:wrap;gap:9px;margin-top:13px;align-items:center}
-.shiur-audio-actions a{font:.9rem var(--ui)}
-@media(max-width:640px){.shiur-audio{margin:14px 0;padding:13px}.shiur-audio iframe{min-height:155px}.shiur-audio-actions a{flex:1 1 auto;text-align:center}}
+.shiur-audio audio{width:100%;display:block;min-height:54px}
+.shiur-audio-controls,.shiur-audio-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:13px;align-items:center}
+.shiur-audio-controls label{display:flex;align-items:center;gap:8px;font:600 .85rem var(--ui)}
+.shiur-audio-controls select{min-height:40px;padding:6px 10px;border:1px solid var(--line);border-radius:6px;background:var(--panel);color:var(--ink);font:500 .9rem var(--ui)}
+.shiur-audio .btn{min-height:40px;height:auto;padding:9px 12px;justify-content:center}
+.shiur-audio-status{font:400 .8rem/1.5 var(--ui);color:var(--muted);margin:11px 0 0}
+.shiur-audio :focus-visible{outline:2px solid var(--brass);outline-offset:3px}
+:root[data-theme="dark"] .shiur-audio audio{color-scheme:dark}
+@media(max-width:640px){.shiur-audio{margin:14px 0;padding:13px}.shiur-audio-controls{gap:9px 14px}.shiur-audio-actions .btn{flex:1 1 auto}.shiur-audio h3{font-size:1.02rem}}
 </style>
 </head>
 <body>
@@ -420,6 +425,7 @@ i.footnote.open{display:block;direction:ltr;text-align:left;font-family:var(--en
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <div class="offline-pill" id="offlinePill" hidden>Offline · reading saved texts</div>
 
+<script src="shiur-player.js?v=20261012-audio"></script>
 <script>
 (() => {
 'use strict';
@@ -1127,32 +1133,7 @@ function appendSection(d) {
     ? `<div class="sec-head"><span>${esc(d.title.ois ? d.title.parashah + ' · Ois ' + d.title.ois + ' — ' + (d.title.en || d.sectionRef) : d.title.he && /^סימן/.test(d.title.he) ? d.sectionRef : d.title.en || d.sectionRef)}</span></div><h2 class="sec-title he" lang="he">${esc(d.title.he)}</h2>${d.title.he && /^סימן/.test(d.title.he) && d.title.en ? `<div class="sec-sub">${esc(d.title.en)}</div>` : ''}`
     : `<div class="sec-head"><span>${esc(d.studyHeading || d.sectionRef)}</span>${d.heRef ? `<span class="he" lang="he">${esc(d.heRef)}</span>` : ''}</div>`;
   if (d.sourceUrl) html += `<div class="sec-sub"><a href="${esc(d.sourceUrl)}" target="_blank" rel="noopener noreferrer">View the original Hebrew on Sefaria ↗</a></div>`;
-  // Two full-length shiur recordings supplied by the publisher. Match only the
-  // actual Noach ois reference; never surface either recording under a different ois.
-  const noachAudio = {
-    'Peri Tzadik, Noach 2': {
-      id: '1TnLUJE2J7DpAA4pAlk9V8cbZYaOFiMaO',
-      label: 'Noach · Ois Beis (2) · אות ב׳',
-      duration: '35:36', bytes: '12.7 MB'
-    },
-    'Peri Tzadik, Noach 4': {
-      id: '1zOUmpxshWzhs5KpddipNboS2hY3Gkced',
-      label: 'Noach · Ois Daled (4) · אות ד׳',
-      duration: '27:01', bytes: '9.7 MB'
-    }
-  }[d.sectionRef];
-  if (noachAudio) {
-    const shiurId = encodeURIComponent(noachAudio.id);
-    html += `<aside class="shiur-audio" aria-label="Listen to Rabbi Moshe Teitelbaum's shiur">
-      <h3>🎧 Listen to the Shiur · ${esc(noachAudio.label)}</h3>
-      <p class="shiur-audio-meta">Rabbi Moshe Teitelbaum · Pri Tzaddik, Parshas Noach · ${esc(noachAudio.duration)} · MP3 (${esc(noachAudio.bytes)})</p>
-      <iframe title="Audio player: Rabbi Moshe Teitelbaum, ${esc(noachAudio.label)}" src="https://drive.google.com/file/d/${shiurId}/preview" loading="lazy" allow="autoplay" referrerpolicy="no-referrer"></iframe>
-      <div class="shiur-audio-actions">
-        <a class="btn primary" href="https://drive.google.com/uc?export=download&amp;id=${shiurId}" target="_blank" rel="noopener noreferrer" aria-label="Download MP3 for ${esc(noachAudio.label)}">⬇ Download MP3</a>
-        <a class="btn" href="https://drive.google.com/file/d/${shiurId}/view" target="_blank" rel="noopener noreferrer">Open audio in Google Drive ↗</a>
-      </div>
-    </aside>`;
-  }
+  html += window.AkivaShiurPlayer?.render(d.sectionRef) || '';
   const lechDownloads = d.sectionRef.startsWith('Peri Tzadik, Lech Lecha ') ? 'pri-tzaddik-lech-lecha-interlinear.docx'
     : d.sectionRef.startsWith('Beit Yaakov on Torah, Lech Lecha ') ? 'beit-yaakov-lech-lecha-interlinear.docx'
     : d.sectionRef.startsWith('Mei HaShiloach,') && d.sectionRef.endsWith(', Lech Lecha')
@@ -1189,6 +1170,8 @@ function appendSection(d) {
   sec.innerHTML = html;
   const sentinel = text.querySelector('.sentinel, .endnote');
   text.insertBefore(sec, sentinel || null);
+  const audioCleanup = window.AkivaShiurPlayer?.mount(sec);
+  if (audioCleanup) cleanupFns.push(audioCleanup);
   R.sections.push(d);
   R.next = d.next;
   loadLinkCounts(d.sectionRef, sec, d);

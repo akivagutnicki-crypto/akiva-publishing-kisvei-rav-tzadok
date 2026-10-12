@@ -30,6 +30,9 @@ jobs:
       - name: Build library text data
         run: node scripts/build-library.mjs
 
+      - name: Prepare and verify the supplied shiur recordings
+        run: node scripts/build-shiur-audio.mjs && node scripts/test-shiur-player.mjs
+
       - name: Verify interlinear Hebrew, nikkud, and Sefaria links
         run: node scripts/test-interlinear-publication.mjs && node scripts/test-beit-yaakov-publication.mjs && node scripts/test-mei-shiloach-publication.mjs
 
