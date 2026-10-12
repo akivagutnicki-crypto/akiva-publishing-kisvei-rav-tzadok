@@ -1,26 +1,49 @@
-name: Android App Bundle and universal APK
+name: GitHub Pages Android APK and Play AAB
 on:
   push:
     branches: [main, android/universal-apk]
-    paths: ['android/**', '.github/workflows/android-apk.yml']
+    paths:
+      - 'android/**'
+      - '.github/workflows/android-apk.yml'
+      - 'dist/library/icons/**'
   workflow_dispatch:
 permissions:
-  contents: read
+  contents: write  # Only needed when private signing keys are configured to publish a signed GitHub Release.
 jobs:
   build-and-test:
     runs-on: ubuntu-24.04
-    timeout-minutes: 25
+    timeout-minutes: 30
     steps:
       - uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
-      - name: Compile and validate Play bundle, APK, and instrumentation
+      - name: Verify native wrapper uses the GitHub Pages library
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          manifest=Path('android/AndroidManifest.xml').read_text()
+          app=Path('android/src/org/akivapublishing/reader/MainActivity.java').read_text()
+          assert 'package="org.akivapublishing.reader"' in manifest
+          assert 'android:versionCode="6"' in manifest and 'android:versionName="1.0.5"' in manifest
+          assert 'android:host="akivagutnicki-crypto.github.io"' in manifest
+          assert 'static final String HOME = "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/"' in app
+          assert 'AkivaPublishingAndroid/1.0.5' in app
+          print('Verified GitHub Pages production host, existing package identity, version 1.0.5')
+          PY
+      - name: Compile and validate Android 1.0.5 Play bundle and APK
         run: |
           export JAVA_HOME="$JAVA_HOME_17_X64"
           export PATH="$JAVA_HOME/bin:$PATH"
           python3 android/build.py
+          cat > android/build/build-info.txt <<'INFO'
+          Akiva Publishing Android 1.0.5 (versionCode 6)
+          Package: org.akivapublishing.reader
+          Website and reader: https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/
+          Build origin: GitHub Actions
+          The -unsigned.apk and -unsigned.aab require signing before distribution.
+          akiva-emulator.apk is test-signed and cannot update an existing release installation.
+          INFO
       - name: Enable emulator acceleration
-        run: |
-          sudo chmod 666 /dev/kvm
-      - name: Test phone, tablet, laptop, rotation, and offline reading
+        run: sudo chmod 666 /dev/kvm
+      - name: Test phone, tablet, laptop, rotation, sources, and offline reading
         uses: reactivecircus/android-emulator-runner@a421e43855164a8197daf9d8d40fe71c6996bb0d # v2
         with:
           api-level: 35
@@ -30,20 +53,67 @@ jobs:
           disable-animations: true
           emulator-options: -no-window -no-audio -no-boot-anim -gpu swiftshader_indirect -camera-back none -camera-front none
           script: bash android/test-device.sh
-      - name: Preserve app bundle, APK, verifier, and test evidence
+      - name: Sign APK and AAB with existing production key, when configured
+        env:
+          AKIVA_ANDROID_KEYSTORE_BASE64: ${{ secrets.AKIVA_ANDROID_KEYSTORE_BASE64 }}
+          AKIVA_ANDROID_KEYSTORE_PASSWORD: ${{ secrets.AKIVA_ANDROID_KEYSTORE_PASSWORD }}
+          AKIVA_ANDROID_KEY_ALIAS: ${{ secrets.AKIVA_ANDROID_KEY_ALIAS }}
+          AKIVA_ANDROID_KEY_PASSWORD: ${{ secrets.AKIVA_ANDROID_KEY_PASSWORD }}
+        run: |
+          set -euo pipefail
+          if [[ -z "${AKIVA_ANDROID_KEYSTORE_BASE64:-}" ]]; then
+            echo "Existing production signing key not configured: unsigned APK/AAB and emulator test APK will be uploaded."
+            exit 0
+          fi
+          : "${AKIVA_ANDROID_KEYSTORE_PASSWORD:?Missing signing password secret}"
+          : "${AKIVA_ANDROID_KEY_ALIAS:?Missing signing alias secret}"
+          : "${AKIVA_ANDROID_KEY_PASSWORD:?Missing key password secret}"
+          export JAVA_HOME="$JAVA_HOME_17_X64"
+          export PATH="$JAVA_HOME/bin:$PATH"
+          KEYFILE="$RUNNER_TEMP/akiva-android-release.keystore"
+          trap 'rm -f "$KEYFILE"' EXIT
+          printf '%s' "$AKIVA_ANDROID_KEYSTORE_BASE64" | base64 --decode > "$KEYFILE"
+          chmod 600 "$KEYFILE"
+          VERSION="1.0.5"
+          TOOLS="$ANDROID_HOME/build-tools/37.0.0"
+          jarsigner -keystore "$KEYFILE" -storepass:env AKIVA_ANDROID_KEYSTORE_PASSWORD -keypass:env AKIVA_ANDROID_KEY_PASSWORD             -signedjar "android/build/akiva-publishing-$VERSION.aab" "android/build/akiva-publishing-$VERSION-unsigned.aab" "$AKIVA_ANDROID_KEY_ALIAS"
+          jarsigner -verify "android/build/akiva-publishing-$VERSION.aab"
+          java -jar android/build/bundletool-1.18.3.jar validate --bundle="android/build/akiva-publishing-$VERSION.aab"
+          "$TOOLS/apksigner" sign --ks "$KEYFILE" --ks-pass env:AKIVA_ANDROID_KEYSTORE_PASSWORD --key-pass env:AKIVA_ANDROID_KEY_PASSWORD             --ks-key-alias "$AKIVA_ANDROID_KEY_ALIAS" --out "android/build/akiva-publishing-$VERSION.apk" "android/build/akiva-publishing-$VERSION-unsigned.apk"
+          "$TOOLS/apksigner" verify --verbose --print-certs "android/build/akiva-publishing-$VERSION.apk"
+          echo "Signed release APK and AAB with the existing private production key." | tee -a android/build/build-info.txt
+      - name: Preserve APK, AAB, signing status, and test evidence on GitHub
         if: always()
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
         with:
-          name: akiva-android-build
-          retention-days: 14
+          name: akiva-android-github-pages-build
+          retention-days: 30
           if-no-files-found: error
           path: |
             android/build/akiva-emulator.apk
             android/build/akiva-publishing-*-unsigned.apk
             android/build/akiva-publishing-*-unsigned.aab
-            android/build/apksigner.jar
-            android/build/aapt2
-            android/build/zipalign
+            android/build/akiva-publishing-1.0.5.apk
+            android/build/akiva-publishing-1.0.5.aab
+            android/build/build-info.txt
             android/build/smoke-results.txt
             android/build/device-log.txt
             android/build/screenshots/
+      - name: Publish signed release assets on GitHub (only with existing key)
+        if: success() && github.ref == 'refs/heads/main'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          set -euo pipefail
+          APK="android/build/akiva-publishing-1.0.5.apk"
+          AAB="android/build/akiva-publishing-1.0.5.aab"
+          TAG="android-v1.0.5"
+          if [[ ! -f "$APK" || ! -f "$AAB" ]]; then
+            echo "Signed assets unavailable, no public release created. Unsigned build files are in the workflow artifact."
+            exit 0
+          fi
+          if gh release view "$TAG" >/dev/null 2>&1; then
+            echo "Release $TAG already exists. Do not replace signed binaries without increasing versionCode."
+            exit 0
+          fi
+          gh release create "$TAG" "$APK" "$AAB"             --title "Akiva Publishing Android 1.0.5 — GitHub Pages"             --notes "Android 1.0.5 (versionCode 6), package org.akivapublishing.reader. The app reads the GitHub Pages Akiva Publishing library. Release packages are signed with the existing production/upload keystore. An AAB is intended for Google Play upload; the APK is for compatible sideloaded Android installations."
