@@ -715,7 +715,7 @@ async function renderHome() {
     const i = info(w.title);
     const tag = [
       i.edition === 'available' && '<span class="tag">Akiva edition available</span>',
-      w.interlinear && (w.title === 'Toldos HaKohen' ? '<span class="tag">Complete Hebrew and English · Chapter-aligned</span>' : '<span class="tag">Interlinear English · Akiva Publishing</span>'),
+      w.interlinear && (w.title === 'Toldos HaKohen' ? '<span class="tag">Complete Hebrew and English · Passage-aligned</span>' : '<span class="tag">Interlinear English · Akiva Publishing</span>'),
       w.ilParts && '<span class="tag">Interlinear English online</span>',
       w.title === 'Mei HaShiloach' && '<span class="tag">Interlinear · Bereishit &amp; Noach</span>',
       i.edition === 'soon' && '<span class="tag soon">Print edition coming soon</span>'
@@ -813,7 +813,7 @@ async function renderBook(title) {
   app.innerHTML = `<div class="page"><div class="crumbs"><a href="#/">Texts</a><span>›</span><span id="bookGroup">Library</span></div>
     <div class="toc-head"><h1>${esc(title)}</h1><div class="he" lang="he" id="bookHe"></div>
     ${w.d ? `<p>${esc(w.d)}</p>` : ''}
-    ${title === 'Toldos HaKohen' ? '<p>Original Hebrew and complete English translation are available in the reader. The two texts are aligned chapter by chapter, not phrase by phrase; use Language in the reading settings to choose Hebrew, English, or Both.</p>' : ''}
+    ${title === 'Toldos HaKohen' ? '<p>Original Hebrew and complete English translation are available in the reader. Hebrew and English are synchronized passage by passage, including the corresponding notes. Open a chapter and select Side by side for paired reading, or use Language to choose Hebrew, English, or Both.</p>' : ''}
     <div class="toc-actions" id="tocActions"></div></div>
     <div id="toc"><div class="loading">Loading contents…</div></div></div>${credit()}`;
   const actions = (first, downloads = []) => `${first ? `<a class="btn primary" href="#/read/${toHash(first)}">Start reading →</a>` : ''}
