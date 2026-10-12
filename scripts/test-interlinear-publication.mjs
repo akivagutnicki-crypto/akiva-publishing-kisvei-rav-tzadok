@@ -97,5 +97,5 @@ for(const b of books){
   const sw=fs.readFileSync('dist/library/sw.js','utf8');
   if(!reader.includes('meshiv-new-edition') || !reader.includes('20261012-meshiv-interlinear-v3') || !sw.includes('v33-meshiv-interlinear-live-20261012') || !sw.includes('meshiv-hata-anah'))
     throw new Error('Meshiv reader version/caching update missing');
-  console.log('PASS Meshiv HaTa\\'anah: '+sections.length+' sections, '+hebrewEnglish+' bilingual phrases, '+explanations+' explanations, '+sourceAnchors+' source anchors');
+  console.log("PASS Meshiv HaTa'anah: " + sections.length + " sections, " + hebrewEnglish + " bilingual phrases, " + explanations + " explanations, " + sourceAnchors + " source anchors");
 }
