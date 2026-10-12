@@ -20,6 +20,8 @@ Production site and Torah-library MCP integration, hosted **without Netlify**.
 
 Open the `/library/` address from Chrome or another mobile browser. It is an installable web app with a service worker.
 
+Native Android APK and Play AAB builds are produced by the [GitHub Actions Android workflow](https://github.com/akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok/actions/workflows/android-apk.yml). Android version 1.0.5 (`versionCode` 6) opens this GitHub Pages library—not Netlify—and uses the same `org.akivapublishing.reader` application ID. Download the builds from the latest successful Android workflow's `akiva-android-github-pages-build` artifact. Release-signed packages are published to [GitHub Releases](https://github.com/akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok/releases) if the existing release key is configured in GitHub Actions secrets. Otherwise the workflow provides unsigned APK/AAB builds and an emulator-only test APK. See [android/README.md](android/README.md) for signing and installation details.
+
 ## ZIP downloads
 
 The reader's **ZIP ↓** button opens `#/downloads`, with the complete library and individual sefer archives. Sefer ZIP links also appear on book contents pages and in the reading toolbar. Archives include the published Hebrew, available translations, footnotes, citations, parallels and available Word/PDF editions. They contain reader text data, rather than a standalone offline website; use the reader's offline controls for offline reading in the app.
