@@ -38,6 +38,7 @@ jobs:
           retention-days: 14
           if-no-files-found: error
           path: |
+            android/build/akiva-emulator.apk # installable test-signed APK; NOT a Play release
             android/build/akiva-publishing-*-unsigned.apk
             android/build/akiva-publishing-*-unsigned.aab
             android/build/apksigner.jar
