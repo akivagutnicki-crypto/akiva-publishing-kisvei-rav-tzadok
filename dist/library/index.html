@@ -68,6 +68,25 @@ button{font:inherit;color:inherit;cursor:pointer}
 .btn{display:inline-flex;align-items:center;gap:8px;height:38px;padding:0 15px;border:1px solid var(--line);background:var(--panel);border-radius:6px;font:600 .8rem var(--ui)}
 .btn:hover{border-color:var(--ink)}
 .btn.primary{background:var(--forest);border-color:var(--forest);color:var(--bg)}
+.zip-nav{flex-shrink:0;height:34px;padding:0 11px;white-space:nowrap}
+.search{min-width:0}
+.zip-reader{font:700 .65rem var(--ui);white-space:nowrap}
+.download-callout{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:20px 0 26px}
+.download-callout p{flex-basis:100%;margin:0;color:var(--muted);font:.88rem/1.5 var(--ui)}
+.download-page h1{font:400 clamp(2.2rem,5vw,3.4rem)/1.1 var(--en);margin:18px 0 12px}
+.download-page .lead{max-width:70ch;color:var(--muted);font:1.12rem/1.6 var(--en);margin:0 0 24px}
+.download-all{background:var(--panel);border:1px solid var(--line);border-top:4px solid var(--forest);border-radius:8px;padding:24px;margin:0 0 30px}
+.download-page h2{font:500 1.65rem/1.2 var(--en);margin:0 0 12px}
+.download-all p{color:var(--muted);font:.92rem/1.6 var(--ui);margin:0 0 16px}
+.download-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,290px),1fr));gap:16px}
+.download-item{display:flex;flex-direction:column;gap:10px;min-width:0;background:var(--panel);border:1px solid var(--line);border-radius:8px;padding:20px}
+.download-item h3{font:500 1.4rem/1.25 var(--en);margin:0;overflow-wrap:anywhere}
+.download-item .he{font-size:1.25rem;color:var(--muted)}
+.download-details{color:var(--muted);font:.8rem/1.55 var(--ui)}
+.download-item .btn{align-self:flex-start;margin-top:auto}
+.download-page .btn,.download-callout .btn{min-height:44px;height:auto;padding:11px 15px;line-height:1.4}
+.download-page .note{color:var(--muted);font:.9rem/1.6 var(--ui);margin-top:24px}
+@media(max-width:1060px){.topnav{display:none}}
 .loading{color:var(--muted);font:500 .9rem var(--ui);padding:30px 0;display:flex;align-items:center;gap:10px}
 .loading:before{content:"";width:14px;height:14px;border:2px solid var(--line);border-top-color:var(--forest);border-radius:50%;animation:spin .8s linear infinite}
 @keyframes spin{to{transform:rotate(360deg)}}
@@ -415,6 +434,7 @@ i.footnote.open{display:block;direction:ltr;text-align:left;font-family:var(--en
 <header class="top">
   <a class="brand" href="#/"><span class="mark">AP</span><span><strong>Rav Tzadok Library</strong><small>Akiva Publishing</small></span></a>
   <nav class="topnav" aria-label="Primary"><a href="#/">Texts</a><a href="blog/">Weekly Torah</a><a href="../">Our editions</a><a href="../#method">Approach</a></nav>
+  <a class="btn zip-nav" href="#/downloads" aria-label="Download library or sefer ZIP files">ZIP ↓</a>
   <button class="btn install" id="installBtn" type="button" hidden>Install app</button>
   <form class="search" id="searchForm" role="search" autocomplete="off">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
@@ -712,6 +732,7 @@ function route() {
   if (kind === 'book') return renderBook(arg);
   if (kind === 'read') return renderReader(arg);
   if (kind === 'install') return renderInstall();
+  if (kind === 'downloads') return renderDownloads();
   renderHome();
 }
 let silentHash = false;
@@ -748,6 +769,11 @@ async function renderHome() {
         <h1>The Rav Tzadok Library</h1>
         <div class="he-title he" lang="he">כתבי רבי צדוק הכהן מלובלין</div>
         <p>Read the writings of Rav Tzadok HaKohen and the Izhbitza–Radzin masters in the original Hebrew, with English where a translation exists. Tap any passage to see the sources it draws on and the texts that cite it.</p>
+      </div>
+      <div class="download-callout">
+        <a class="btn primary" href="downloads/rav-tzadok-library.zip?v=20261012-zips" download>Download library ZIP ↓</a>
+        <a class="btn" href="#/downloads">Choose a sefer ZIP</a>
+        <p>Hebrew texts, available translations, footnotes and source links in one archive.</p>
       </div>
       <a class="weekly-teaser" href="blog/faith-in-the-night/" aria-label="Read Faith in the Night">
         <img src="../resisei-genuine-front-back-bookshelves.webp" alt="The genuine Resisei Layla volumes from Akiva Publishing" loading="lazy">
@@ -795,7 +821,8 @@ async function renderHome() {
         <p id="iosHint" hidden>On iPhone or iPad: tap <b>Share</b> <span aria-hidden="true">⎋</span>, then <b>Add to Home Screen</b>.</p>
         <div class="packs" id="packs"></div>
         <div class="pack"><b>One file</b><small>Each pack above has its own <b>.zip</b> button. Or download the whole library as one file, or export everything saved on this device.</small>
-          <a class="btn" href="downloads/rav-tzadok-library.zip" download>Library .zip (about 11 MB)</a>
+          <a class="btn" href="downloads/rav-tzadok-library.zip?v=20261012-zips" download>Download library ZIP ↓</a>
+          <a class="btn" href="#/downloads">Individual sefer ZIP files</a>
           <button class="btn" type="button" id="exportBtn">Export saved texts (.zip)</button><div class="status" id="exportStatus"></div></div>
         <div class="status" id="storageStatus"></div>
       </section>
@@ -822,6 +849,48 @@ async function renderHome() {
 }
 const credit = () => `<div class="page" style="padding-top:0"><div class="credit">Hebrew texts are digitized editions from the <a href="https://www.sefaria.org" target="_blank" rel="noopener">Sefaria</a> library (sources listed under About on each text). English translations and connections are loaded live from Sefaria and are used under each version's license; some are community translations. The Akiva Publishing interlinear editions, including the vocalized Hebrew, are © Akiva Publishing. <a href="/library/privacy/">Privacy policy</a>.</div></div>`;
 
+/* ======================= ZIP downloads ======================= */
+const bookZipFile = slug => `downloads/books/${slug}.zip`;
+const zipSize = bytes => bytes < 1048576 ? `${Math.max(1, Math.round(bytes / 1024))} KB` : `${(bytes / 1048576).toFixed(1)} MB`;
+async function renderDownloads() {
+  document.title = 'ZIP downloads · Rav Tzadok Library';
+  app.innerHTML = `<div class="page download-page">
+    <div class="crumbs"><a href="#/">Texts</a><span>›</span><span>ZIP downloads</span></div>
+    <h1>Download the library</h1>
+    <p class="lead">Keep the complete library, or choose one sefer. Each ZIP includes the published Hebrew, available English and interlinear translations, footnotes, source links and parallel-source indexes. Available Word and PDF editions are included.</p>
+    <section class="download-all" aria-label="Complete library ZIP">
+      <h2>The complete library</h2>
+      <p id="libraryZipDetails">All the sefarim in one ZIP file.</p>
+      <a class="btn primary" href="downloads/rav-tzadok-library.zip?v=20261012-zips" download>Download library ZIP ↓</a>
+    </section>
+    <h2>Individual sefarim</h2>
+    <div class="download-grid" id="bookZips" aria-live="polite"><div class="loading">Loading ZIP downloads…</div></div>
+    <p class="note">Unzip the file to access the reader text data (JSON) and any Word or PDF editions. For offline reading inside the app, use “Save this sefer offline” on a sefer’s contents page. Shiur audio and external source texts are downloaded separately.</p>
+  </div>${credit()}`;
+  try {
+    const res = await fetch('downloads/index.json', {cache: 'no-cache'});
+    if (!res.ok) throw Error('Download list unavailable');
+    const manifest = await res.json();
+    if (!Array.isArray(manifest.books) || !manifest.library) throw Error('Invalid download list');
+    if (!document.getElementById('bookZips')) return;
+    const documents = count => count ? ` · ${count.toLocaleString()} Word/PDF ${count === 1 ? 'file' : 'files'}` : '';
+    $('#libraryZipDetails').textContent = `${manifest.books.length.toLocaleString()} sefarim · ${zipSize(manifest.library.bytes)}${documents(manifest.library.documents)}`;
+    $('#bookZips').innerHTML = manifest.books.slice().sort((a, b) => {
+      const rank = title => ORDER.includes(title) ? ORDER.indexOf(title) : ORDER.length;
+      return rank(a.title) - rank(b.title) || a.title.localeCompare(b.title);
+    }).map(book => `<section class="download-item">
+      <h3>${esc(book.title)}</h3><div class="he" lang="he">${esc(book.he)}</div>
+      <div class="download-details">${zipSize(book.bytes)}${documents(book.documents)}</div>
+      <a class="btn" href="${esc(book.file)}" download aria-label="Download ${esc(book.title)} ZIP">Download sefer ZIP ↓</a>
+    </section>`).join('');
+  } catch {
+    const el = document.getElementById('bookZips');
+    if (el) el.innerHTML = '<div class="error">The individual ZIP list could not be loaded. Check your connection and <a href="#/downloads" id="retryZips">try again</a>. The complete-library download is available above.</div>';
+    const retry = document.getElementById('retryZips');
+    if (retry) retry.onclick = e => { e.preventDefault(); renderDownloads(); };
+  }
+}
+
 /* ======================= Book / TOC ======================= */
 async function renderBook(title) {
   const w = info(title);
@@ -833,6 +902,7 @@ async function renderBook(title) {
     <div class="toc-actions" id="tocActions"></div></div>
     <div id="toc"><div class="loading">Loading contents…</div></div></div>${credit()}`;
   const actions = (first, downloads = []) => `${first ? `<a class="btn primary" href="#/read/${toHash(first)}">Start reading →</a>` : ''}
+      ${localBook(title) ? `<a class="btn" href="${bookZipFile(localBook(title).slug)}" download>Download sefer ZIP ↓</a>` : ''}
       ${downloads.map(d => `<a class="btn" href="${esc(d.file)}" download>${esc(d.label)}</a>`).join('')}
       ${title === 'Peri Tzadik' ? `<a class="btn" href="downloads/pri-tzaddik-lech-lecha-interlinear.docx" download>Lech Lecha · Interlinear DOCX</a><a class="btn" href="downloads/pri-tzaddik-rosh-chodesh-manuscript-annotated.docx" download>Rosh Chodesh Manuscript · Annotated DOCX</a><a class="btn" href="downloads/pri-tzaddik-rosh-chodesh-marcheshvan-annotated.docx" download>Marcheshvan · Annotated DOCX</a><a class="btn" href="downloads/pri-tzaddik-noach-ois-5-6-chassidus-kdp-7x10.pdf" target="_blank" rel="noopener">Noach Ois 5–6 · Annotated KDP PDF</a><a class="btn" href="downloads/pri-tzaddik-noach-ois-5-6-chassidus-kdp-7x10.docx" download>Noach Ois 5–6 · Word DOCX</a>` : ''}
       ${title === 'Beit Yaakov on Torah' ? `<a class="btn" href="downloads/beit-yaakov-lech-lecha-interlinear.docx" download>Lech Lecha · Interlinear DOCX</a>` : ''}
@@ -968,6 +1038,7 @@ async function renderReader(ref) {
         <a class="icon-btn" id="tocBtn" title="Table of contents" aria-label="Table of contents">${ICON.list}</a>
         <button class="icon-btn" id="prevBtn" title="Previous section" aria-label="Previous section">${ICON.left}</button>
         <div class="title" id="rTitle">${esc(ref)}</div>
+        <a class="icon-btn zip-reader" id="readerZip" title="Download this sefer as a ZIP file" aria-label="Download this sefer as a ZIP file" download hidden>ZIP ↓</a>
         <button class="icon-btn" id="nextBtn" title="Next section" aria-label="Next section">${ICON.right}</button>
         <button class="icon-btn aa" id="setBtn" title="Text settings" aria-label="Text settings" aria-expanded="false">Aa</button>
         <div class="settings" id="settings" hidden>
@@ -1060,6 +1131,8 @@ async function renderReader(ref) {
       syncPrefs();
     }
     R.book = first.book;
+    const zipBook = localBook(first.book);
+    if (zipBook) { $('#readerZip').href = bookZipFile(zipBook.slug); $('#readerZip').hidden = false; }
     R.firstPrev = first.prev;
     text.innerHTML = '';
     appendSection(first);
@@ -1933,7 +2006,7 @@ async function setupAppCard() {
     zb.onclick = () => id === 'library' ? location.assign('downloads/rav-tzadok-library.zip') : zipPack(id, zb, status);
     const saved = store.get('pack-' + id, null) || (id === 'library' ? store.get('offline', null) : null);
     packInfo(id).then(info => {
-      const size = info.mb ? ' (about 11 MB)' : info.count ? ` (${info.count.toLocaleString()} texts)` : '';
+      const size = info.mb ? ` (${info.mb.toFixed(1)} MB of texts)` : info.count ? ` (${info.count.toLocaleString()} texts)` : '';
       if (saved && saved.version === info.version) { status.textContent = 'Saved for offline reading.'; btn.textContent = 'Update'; }
       else if (saved) { status.textContent = 'New or updated texts are available.'; btn.textContent = 'Update'; }
       else btn.textContent = 'Download' + size;

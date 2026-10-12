@@ -20,6 +20,12 @@ Production site and Torah-library MCP integration, hosted **without Netlify**.
 
 Open the `/library/` address from Chrome or another mobile browser. It is an installable web app with a service worker.
 
+## ZIP downloads
+
+The reader's **ZIP ↓** button opens `#/downloads`, with the complete library and individual sefer archives. Sefer ZIP links also appear on book contents pages and in the reading toolbar. Archives include the published Hebrew, available translations, footnotes, citations, parallels and available Word/PDF editions. They contain reader text data, rather than a standalone offline website; use the reader's offline controls for offline reading in the app.
+
+After building the library and parallels, run `node scripts/build-library-zips.mjs` and `node scripts/test-library-zips.mjs`. The Pages workflow runs these steps automatically. This refreshes the offline file manifest and produces `dist/library/downloads/index.json`, `rav-tzadok-library.zip` and `books/<slug>.zip` from the final published data.
+
 ## Legacy hosting retirement
 
 The old Netlify site's deployment connection needs to be stopped or removed separately in the Netlify dashboard. Removing the Netlify configuration from this repository does **not** automatically unlink or delete the old Netlify project. Once the replacement site and endpoint are checked, unlink the Git provider and pause builds or delete the old project there. Links ending in `.netlify.app` won't redirect after the project is deleted; replace bookmarks or links that still reference them.
