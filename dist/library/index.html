@@ -255,6 +255,23 @@ body.panel-open .text{max-width:860px}
 .segment-annotations-label{font:600 .77rem/1.4 var(--ui);color:var(--muted);margin-inline-end:10px}
 .text[data-lang="bi"][data-layout="inter"] .segment-annotations{display:none}
 .note-discovery{font:500 .86rem/1.5 var(--ui);color:var(--muted);text-align:center;margin:0 0 18px}
+.source-note-trigger{display:inline-flex;align-items:center;justify-content:center;min-width:32px;min-height:32px;box-sizing:border-box;padding:4px 7px;border:1px solid var(--line);background:var(--soft);border-radius:7px;font:700 .78rem/1 var(--ui);direction:ltr;vertical-align:super;touch-action:manipulation}
+.source-note-trigger[aria-expanded="true"]{background:var(--forest);color:var(--panel)}
+.source-note-dialog{width:min(760px,calc(100vw - 24px));max-height:90vh;max-height:90dvh;padding:0;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--ink);box-shadow:0 18px 70px #0005;overflow:hidden;direction:ltr}
+.source-note-dialog::backdrop{background:#0008}
+.source-note-dialog-head{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;border-bottom:1px solid var(--line);font:700 1rem/1.4 var(--ui)}
+.source-note-dialog-close{min-width:44px;min-height:44px;border:1px solid var(--line);border-radius:8px;background:var(--soft);color:var(--ink);font:700 1.35rem/1 var(--ui);cursor:pointer;touch-action:manipulation}
+.source-note-dialog-close:focus-visible{outline:3px solid var(--brass);outline-offset:2px}
+.source-note-dialog-body{max-height:calc(90vh - 80px);max-height:calc(90dvh - 80px);overflow:auto;overscroll-behavior:contain;padding:4px 16px 18px}
+.source-note-dialog .reader-footnote{display:block;border:0;margin:0;padding:12px 0;background:transparent}
+.source-note-dialog .annotated-title{display:none}
+.source-note-dialog .annotation-text{font-size:calc(1.05rem * var(--fs));line-height:1.65}
+.footnote-connections{margin-top:14px;padding-top:10px;border-top:1px solid var(--line);font:500 .88rem/1.6 var(--ui)}
+.footnote-connections summary{cursor:pointer;min-height:44px;display:flex;align-items:center;font-weight:700;color:var(--forest)}
+.footnote-connection-list{display:grid;gap:9px;margin-top:9px}
+.footnote-connection-list a{display:block;padding:4px 0;overflow-wrap:anywhere}
+.footnote-edition-warning{margin:12px 0;padding:10px 12px;border-left:3px solid var(--brass);background:var(--soft);font:500 .87rem/1.5 var(--ui)}
+@media(pointer:coarse){.source-note-trigger{min-width:44px;min-height:44px}}
 .source-table{margin:24px 0;overflow-x:auto;border:1px solid var(--line);border-radius:6px}
 .source-table table{border-collapse:collapse;width:100%;min-width:540px;font:400 calc(1.12rem * var(--fs))/1.5 var(--he);direction:rtl}
 .source-table th,.source-table td{padding:10px 14px;text-align:right;border-bottom:1px solid var(--line);border-left:1px solid var(--line)}
@@ -568,7 +585,7 @@ const info = t => INFO[t] || {};
 let CATALOG = [];
 // Edition URLs keep older installed app caches from mixing Hebrew-only data
 // with the new interlinear contents. The service worker also accepts saved packs.
-const editionDataUrl = url => url.startsWith('data/') ? url + ((url.startsWith('data/meshiv-tzedek/') || url === 'data/catalog.json') ? '?edition=20261012-meshiv-tzedek-interlinear-v1' : url.startsWith('data/meshiv-hata-anah/') ? '?edition=20261012-meshiv-interlinear-v3' : /^data\/(?:peri-tzadik\/|tiferet-yosef\/|beit-yaakov-on-torah\/|mei-ha-shiloach\/|catalog\.json|files\.json|cited\/)/.test(url) ? '?edition=20261011-rosh-chodesh-reviewed-v2' : url.startsWith('data/yisrael-kedoshim/') ? '?edition=20261006-yisrael-4-opening' : url.startsWith('data/machshavot-charutz/') ? '?edition=20261006-machshavot-format' : url.startsWith('data/tzidkat-hatzadik/') ? '?edition=20261007-tzidkat-complete' : '?edition=20261006-resisei-complete') : url;
+const editionDataUrl = url => url.startsWith('data/') ? url + ((url.startsWith('data/tzidkat-hatzadik/') || url === 'data/catalog.json' || url.startsWith('data/cited/')) ? '?edition=20261013-tzidkat-footnotes-v1' : url.startsWith('data/meshiv-tzedek/') ? '?edition=20261012-meshiv-tzedek-interlinear-v1' : url.startsWith('data/meshiv-hata-anah/') ? '?edition=20261012-meshiv-interlinear-v3' : /^data\/(?:peri-tzadik\/|tiferet-yosef\/|beit-yaakov-on-torah\/|mei-ha-shiloach\/|files\.json)/.test(url) ? '?edition=20261011-rosh-chodesh-reviewed-v2' : url.startsWith('data/yisrael-kedoshim/') ? '?edition=20261006-yisrael-4-opening' : url.startsWith('data/machshavot-charutz/') ? '?edition=20261006-machshavot-format' : '?edition=20261006-resisei-complete') : url;
 const catalogReady = fetch(editionDataUrl('data/catalog.json')).then(r => r.ok ? r.json() : []).catch(() => []).then(c => { CATALOG = c; return c; });
 const localBook = t => CATALOG.find(b => b.title === t);
 const tocCache = new Map();
@@ -1223,6 +1240,7 @@ async function renderReader(ref) {
         ? (fm.dataset.scope === 'ph' ? fm.closest('.ph') : fm.closest('.seg')?.querySelector('.segment-annotations'))?.querySelector(`.reader-footnote[data-fn="${fm.dataset.fn}"]`)
         : fm.nextElementSibling;
       if (fn && fn.classList.contains('footnote')) {
+        if (fn.dataset.sourceNote === 'true') { openSourceFootnote(fn, fm); e.stopPropagation(); return; }
         const expanded = fn.classList.toggle('open');
         if (fm.tagName === 'BUTTON') fm.setAttribute('aria-expanded', String(expanded));
       }
@@ -1242,6 +1260,7 @@ async function renderReader(ref) {
   });
 
   const onKey = e => {
+    if (sourceNoteDialog?.open) return; // Native dialog handles Escape and its focus trap.
     if (e.key === 'Escape') { if (!settings.hidden) settings.hidden = true; else closePanel(); }
     if (e.target.matches('input,textarea')) return;
     if (e.key === 'ArrowRight' && e.altKey) $('#nextBtn').click();
@@ -1298,7 +1317,7 @@ function readingFootnote(note, part) {
     'Explanation of the parallel', 'Additional Chassidus source', 'English translation of the Chassidus passage', 'Connection to this footnote'];
   const wordSource = (note.paragraphs || []).some(p => Array.isArray(p.rich) && p.rich.length);
   const content = (note.paragraphs || []).map((p, i) => {
-    const isSefaria = url => /^https:\/\/(?:www\.)?sefaria\.org\//i.test(String(url || ''));
+    const isSefaria = url => safeFootnoteUrl(url);
     // Preserve bold source labels, complete English quotations and linked source locations
     // from each true Word footnote. Do not flatten a multi-paragraph note to one summary.
     const rich = Array.isArray(p.rich) && p.rich.length ? p.rich.map(run => {
@@ -1315,14 +1334,76 @@ function readingFootnote(note, part) {
       ${wordSource ? '' : `<div class="annotation-label">${titles[i] || 'Source context'}</div>`}
       <p class="annotation-text">${rich}</p>${links ? `<div class="annotation-links">${links}</div>` : ''}</section>`;
   }).join('');
-  const box = `<div class="footnote reader-footnote" lang="en" data-fn="${note.number}"><div class="annotated-title">Footnote ${note.number} · Sources and commentary</div>${content}</div>`;
+  const reviewed = Boolean(note.sourceId);
+  const native = [...new Map((note.nativeConnections || []).filter(l=>safeFootnoteUrl(l.url)).map(l=>[l.url,l])).values()];
+  const exploration = (note.sources || []).filter(s=>safeFootnoteUrl(s.connectionsUrl))
+    .map(s=>`<a href="${esc(s.connectionsUrl)}" target="_blank" rel="noopener noreferrer">${esc(s.ref)} · all connections ↗</a>`).join('');
+  const connections = reviewed ? `<details class="footnote-connections"><summary>Explore Sefaria connections${native.length ? ' ('+native.length+')' : ''}</summary><p>Connections indexed for the cited passages.</p><div class="footnote-connection-list">${exploration}${native.map(l=>`<a href="${esc(l.url)}" target="_blank" rel="noopener noreferrer">${esc(l.ref)} ↗</a>`).join('')}</div></details>` : '';
+  const editions = (note.editionLinks || []).filter(l=>safeFootnoteUrl(l.url))
+    .map(l=>`<a href="${esc(l.url)}" target="_blank" rel="noopener noreferrer">${esc(l.label)} · edition link ↗</a>`).join('');
+  const warning = /requires collation/.test(note.verificationStatus || '') ? '<div class="footnote-edition-warning">Exact named-edition verification remains pending. Verified passages and parallels are linked below.</div>' : '';
+  const review = reviewed ? `<details class="footnote-connections"><summary>Source review</summary><p>${esc(note.verificationNote || '')}</p>${note.bodySourceNote ? '<p>'+esc(note.bodySourceNote)+'</p>' : ''}<div class="footnote-connection-list">${editions}</div></details>` : '';
+  const cross = note.crossReference ? `<p><a href="#/read/${toHash(note.crossReference.ref)}" class="footnote-cross-reference">Open referenced note · reader footnote ${note.crossReference.number}, ${esc(note.crossReference.ref.split(':')[0])} →</a></p>` : '';
+  const box = `<div class="footnote reader-footnote" lang="en" data-fn="${note.number}"${reviewed ? ' data-source-note="true" data-note-key="'+esc(note.placementId)+'"' : ''}><div class="annotated-title">Footnote ${note.number} · Sources and commentary</div>${warning}${content}${cross}${connections}${review}</div>`;
   if (part === 'box') return box;
-  return `<button type="button" class="footnote-marker annotated-trigger" aria-label="Open annotated footnote ${note.number}" aria-expanded="false">${note.number}</button>
+  return `<button type="button" class="footnote-marker annotated-trigger${reviewed ? ' source-note-trigger' : ''}"${reviewed ? ' data-note-key="'+esc(note.placementId)+'" aria-haspopup="dialog" aria-controls="source-note-dialog"' : ''} aria-label="Open annotated footnote ${note.number}" aria-expanded="false">${note.number}</button>
     ${box}`;
 }
 /* A footnote marker placed inside the Hebrew, beside the word it annotates (as in the Word edition).
    It opens the matching footnote box of the same phrase, or of the paragraph's footnote tray. */
-const inlineFootnoteMarker = (note, scope) => `<button type="button" class="footnote-marker annotated-trigger he-note" data-fn="${note.number}" data-scope="${scope}" aria-label="Open annotated footnote ${note.number}" aria-expanded="false">${note.number}</button>`;
+const safeFootnoteUrl = url => /^https:\/\/(?:(?:www\.)?sefaria\.org|(?:www\.)?nli\.org\.il|(?:www\.)?hebrewbooks\.org|he\.wikisource\.org)\//i.test(String(url || ''));
+const inlineFootnoteMarker = (note, scope) => `<button type="button" class="footnote-marker annotated-trigger he-note${note.sourceId ? ' source-note-trigger' : ''}" data-fn="${note.number}" data-scope="${scope}"${note.sourceId ? ' data-note-key="'+esc(note.placementId)+'" aria-haspopup="dialog" aria-controls="source-note-dialog"' : ''} aria-label="Open annotated footnote ${note.number}" aria-expanded="false">${note.number}</button>`;
+let sourceNoteDialog = null, sourceNoteTrigger = null;
+function openSourceFootnote(box, trigger) {
+  if (!sourceNoteDialog) {
+    sourceNoteDialog = document.createElement('dialog');
+    sourceNoteDialog.id = 'source-note-dialog'; sourceNoteDialog.className = 'source-note-dialog';
+    sourceNoteDialog.setAttribute('aria-labelledby','source-note-dialog-title');
+    sourceNoteDialog.innerHTML = '<div class="source-note-dialog-head"><span id="source-note-dialog-title"></span><button type="button" class="source-note-dialog-close" aria-label="Close footnote" autofocus>×</button></div><div class="source-note-dialog-body"></div>';
+    document.body.append(sourceNoteDialog);
+    sourceNoteDialog.querySelector('button').onclick = () => sourceNoteDialog.close();
+    sourceNoteDialog.addEventListener('close', () => {
+      if (sourceNoteTrigger) { sourceNoteTrigger.setAttribute('aria-expanded','false'); if(sourceNoteTrigger.isConnected)sourceNoteTrigger.focus({preventScroll:true}); }
+      sourceNoteTrigger = null;
+    });
+    sourceNoteDialog.addEventListener('click', e => {
+      if (e.target.closest('.footnote-cross-reference')) { sourceNoteDialog.close(); return; }
+      if (e.target !== sourceNoteDialog) return;
+      const b = sourceNoteDialog.getBoundingClientRect();
+      if (e.clientX < b.left || e.clientX > b.right || e.clientY < b.top || e.clientY > b.bottom) sourceNoteDialog.close();
+    });
+  }
+  sourceNoteTrigger = trigger; trigger.setAttribute('aria-expanded','true');
+  sourceNoteDialog.querySelector('#source-note-dialog-title').textContent = 'Footnote '+box.dataset.fn+' · '+(trigger.closest('.sec')?.dataset.ref || 'Sources and commentary');
+  const content = box.cloneNode(true); content.classList.add('open');
+  const body = sourceNoteDialog.querySelector('.source-note-dialog-body'); body.replaceChildren(content); body.scrollTop = 0;
+  if (!sourceNoteDialog.open) sourceNoteDialog.showModal();
+}
+/* Exact character anchors count decoded visible text, preserving nikkud and links.
+   Splitting a citation link keeps the button outside any other interactive element. */
+function insertAtTextOffsets(html, marks) {
+  if (!marks.length) return html;
+  const template = document.createElement('template'); template.innerHTML = html;
+  for (const [offset, marker] of marks.map((m,i)=>[...m,i]).sort((a,b)=>b[0]-a[0]||b[2]-a[2])) {
+    const walker = document.createTreeWalker(template.content, NodeFilter.SHOW_TEXT);
+    let node = walker.nextNode(), remaining = offset;
+    while (node && remaining > node.data.length) { remaining -= node.data.length; node = walker.nextNode(); }
+    if (!node || remaining < 0) throw new Error('Footnote outside its rendered phrase');
+    const range = document.createRange(); range.setStart(node,remaining); range.collapse(true);
+    const button = document.createElement('template'); button.innerHTML = marker;
+    const link = node.parentElement?.closest('a');
+    if (link) { range.setEndAfter(link); const tail = range.extractContents(); link.after(button.content,tail); }
+    else range.insertNode(button.content);
+  }
+  return template.innerHTML;
+}
+function anchoredPhrase(value, notes, language, scope) {
+  let html = clean(value);
+  const key = language === 'he' ? 'heCharOffset' : 'enCharOffset';
+  html = insertAtTextOffsets(html, notes.filter(n=>Number.isInteger(n[key])).map(n=>[n[key],inlineFootnoteMarker(n,scope)]));
+  if (language === 'he') html = insertAfterWords(html,notes.filter(n=>!Number.isInteger(n[key])&&n.heWord).map(n=>[n.heWord,inlineFootnoteMarker(n,scope)]));
+  return html;
+}
 /* Insert markers after the given word counts ([[wordCount, html], ...]) of cleaned HTML, counting words outside tags. */
 function insertAfterWords(html, marks) {
   if (!marks.length) return html;
@@ -1375,17 +1456,26 @@ function appendSection(d) {
   if (lechDownloads) html += `<div class="section-docx-link"><a href="downloads/${lechDownloads}" download>Download the complete Lech Lecha interlinear Word edition ↓</a></div>`;
   if (d.downloadDocx) html += `<div class="section-docx-link"><a href="${esc(d.downloadDocx)}" download>Download the complete annotated Word edition (DOCX) ↓</a></div>`;
   const numberOfNotes = Object.values(d.annotations || {}).reduce((sum, arr) => sum + arr.length, 0);
-  if (numberOfNotes) html += `<div class="note-discovery">${numberOfNotes} annotated source footnotes · Select a superscript number to read the complete quotations and commentary.</div>`;
+  if (numberOfNotes) html += `<div class="note-discovery">${numberOfNotes} annotated source footnotes · Tap a numbered marker beside its Hebrew word to read the full note and sources.</div>`;
   if (!n) html += `<div class="empty" style="text-align:center">This section has no text yet.</div>`;
   for (let i = 0; i < n; i++) {
     const num = d.nums ? d.nums[i] : i + 1;
     const r = refs ? refs[i] : d.sep ? d.sectionRef + d.sep + num : segRef(d.sectionRef, num);
     let h = he[i] ? clean(he[i]) : '';
-    const e = en[i] ? clean(en[i]) : '';
+    let e = en[i] ? clean(en[i]) : '';
+    if (d.phrases && d.annotations?.[i]?.some(n => Number.isInteger(n.heCharOffset))) {
+      for (const [language,column] of [['he',0],['en',1]]) {
+        const offsets=[];let total=0;
+        for(const pair of d.phrases[i]) { offsets.push(total);total+=plain(pair[column]).length+1; }
+        const marks=d.annotations[i].filter(n=>Number.isInteger(n[language+'CharOffset']))
+          .map(n=>[offsets[n.phraseIndex]+n[language+'CharOffset'],inlineFootnoteMarker(n,'tray')]);
+        if(language==='he')h=insertAtTextOffsets(h,marks);else e=insertAtTextOffsets(e,marks);
+      }
+    }
     if (d.phrases && d.annotations?.[i]?.some(n => n.heWord)) {
       const offsets = []; let total = 0;
       for (const [ph] of d.phrases[i]) { offsets.push(total); total += wordCount(clean(ph)); }
-      h = insertAfterWords(h, d.annotations[i].filter(n => n.heWord && offsets[n.phraseIndex] !== undefined)
+      h = insertAfterWords(h, d.annotations[i].filter(n => !Number.isInteger(n.heCharOffset) && n.heWord && offsets[n.phraseIndex] !== undefined)
         .map(n => [offsets[n.phraseIndex] + n.heWord, inlineFootnoteMarker(n, 'tray')]));
     }
     if (d.heads && d.heads[i]) html += d.heads[i].map(subhead).join('');
@@ -1398,7 +1488,7 @@ function appendSection(d) {
       const list = notesAt.get(note.phraseIndex) || [];
       list.push(note); notesAt.set(note.phraseIndex, list);
     }
-    const il = d.phrases ? `<div class="seg-il">${d.phrases[i].map(([ph, pe], j) => `${(d.phraseHeads?.[i] || []).filter(hd => hd.phraseIndex === j).map(hd => subhead(hd.kind === 'section' ? '§ ' + hd.text : hd.text)).join('')}<div class="ph"><div class="ph-he" lang="he" dir="rtl">${insertAfterWords(clean(ph), (notesAt.get(j) || []).filter(n => n.heWord).map(n => [n.heWord, inlineFootnoteMarker(n, 'ph')]))}</div><div class="ph-en" lang="en">${clean(pe)}${(notesAt.get(j) || []).map(n => readingFootnote(n, n.heWord ? 'box' : undefined)).join('')}</div></div>`).join('')}</div>` : '';
+    const il = d.phrases ? `<div class="seg-il">${d.phrases[i].map(([ph, pe], j) => `${(d.phraseHeads?.[i] || []).filter(hd => hd.phraseIndex === j).map(hd => subhead(hd.kind === 'section' ? '§ ' + hd.text : hd.text)).join('')}<div class="ph"><div class="ph-he" lang="he" dir="rtl">${anchoredPhrase(ph,notesAt.get(j)||[],'he','ph')}</div><div class="ph-en" lang="en">${anchoredPhrase(pe,notesAt.get(j)||[],'en','ph')}${(notesAt.get(j) || []).map(n => readingFootnote(n, n.heWord ? 'box' : undefined)).join('')}</div></div>`).join('')}</div>` : '';
     const noteTray = annotated.length ? `<div class="segment-annotations"><span class="segment-annotations-label">Annotated footnotes:</span>${annotated.map(readingFootnote).join('')}</div>` : '';
     html += `<div class="seg" data-ref="${esc(r)}" data-i="${num}" data-k="${i}" tabindex="0">
       <span class="num" data-n="${num}">${labels ? labels[i] : prefs.lang === 'he' ? gematria(num) : num}</span>

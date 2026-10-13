@@ -326,6 +326,22 @@ function connect(slug, sectionRef, sep, items) {
     }
     const refs = new Set();
     for (const [he, en] of item.p) for (const m of (he + en).matchAll(/data-ref="([^"]+)"/g)) refs.add(decode(m[1]));
+    // The reviewed Tzidkat apparatus records exact rendered-text boundaries.
+    // Fail a future rebuild if either phrase changes underneath its Hebrew marker.
+    for (const note of item.footnotes || []) {
+      if (!note.sourceId?.startsWith('TZ-')) continue;
+      const phrase = item.p[note.phraseIndex];
+      const textOf = s => String(s).replace(/<[^>]*>/g, '').replace(/&(?:quot|amp|apos|lt|gt|nbsp|#39|#x27);/g,
+        t => ({'&quot;':'"','&amp;':'&','&apos;':"'",'&lt;':'<','&gt;':'>','&nbsp;':' ','&#39;':"'",'&#x27;':"'"}[t]));
+      if (!phrase || textOf(phrase[0]).slice(0,note.heCharOffset)!==note.heAnchorPrefix ||
+          textOf(phrase[1]).slice(0,note.enCharOffset)!==note.enAnchorPrefix)
+        throw new Error('Tzidkat footnote anchor changed: '+note.placementId+' in '+anchor);
+      for (const source of note.sources || []) {
+        if (!source.ref || !/^https:\/\/www\.sefaria\.org\//.test(source.url || ''))
+          throw new Error('Invalid reviewed footnote source: '+note.sourceId);
+        refs.add(source.ref);
+      }
+    }
     // Scholarly Word-footnote sources are first-class connections in Noach 5–6,
     // anchored to their existing paragraphs. Only use real Sefaria URLs
     // already verified and stored in the footnote annotation.

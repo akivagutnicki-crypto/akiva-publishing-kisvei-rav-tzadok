@@ -24,6 +24,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
+      - name: Set up Node for reader browser verification
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+
       - name: Build static site
         run: node scripts/build-pages.mjs
 
@@ -34,7 +39,13 @@ jobs:
         run: node scripts/build-shiur-audio.mjs && node scripts/test-shiur-player.mjs
 
       - name: Verify interlinear Hebrew, nikkud, and Sefaria links
-        run: node scripts/test-interlinear-publication.mjs && node scripts/test-beit-yaakov-publication.mjs && node scripts/test-mei-shiloach-publication.mjs && node scripts/test-dover-footnotes.mjs
+        run: node scripts/test-interlinear-publication.mjs && node scripts/test-beit-yaakov-publication.mjs && node scripts/test-mei-shiloach-publication.mjs && node scripts/test-dover-footnotes.mjs && node scripts/test-tzidkat.mjs && node scripts/test-tzidkat-footnotes.mjs
+
+      - name: Verify Hebrew-word footnotes in a mobile browser
+        run: |
+          npm install --no-save --package-lock=false playwright@1.62.1
+          npx playwright install --with-deps chromium
+          node scripts/test-tzidkat-reader-browser.mjs
 
       - name: Build and verify MCP search index and library parallels
         run: node scripts/build-mcp-index.mjs && node scripts/build-parallels.mjs && node scripts/test-parallels.mjs && node scripts/test-mcp-server.mjs && node scripts/test-cloudflare-worker.mjs
