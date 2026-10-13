@@ -39,7 +39,9 @@ if (fs.existsSync(editionsDir)) {
   for (const file of fs.readdirSync(editionsDir).filter(x => x.endsWith('.json'))) {
     const edition = JSON.parse(fs.readFileSync(path.join(editionsDir, file), 'utf8'));
     if (!Array.isArray(edition.sections) || !edition.book) throw new Error('Invalid study edition: ' + file);
-    EDITIONS.set(edition.book, edition);
+    const previous = EDITIONS.get(edition.book);
+    if (previous) previous.sections.push(...edition.sections);
+    else EDITIONS.set(edition.book, edition);
   }
 }
 // Word-footnote annotations, anchored to individual phrases in a study edition.
@@ -515,7 +517,8 @@ for (const dir of DIRS) {
         }
         return out.length === 1 ? out + '׳' : out.slice(0, -1) + '״' + out.slice(-1);
       };
-      const parashahHebrew = {Bereshit:'בראשית', Noach:'נח', 'Lech Lecha':'לך לך'};
+      const parashahHebrew = {Bereshit:'בראשית', Noach:'נח', 'Lech Lecha':'לך לך',
+        'Rosh Chodesh Kislev':'ראש חודש כסלו', Chanukah:'חנוכה'};
       const heLetters = s => (String(s || '').match(/[\u05d0-\u05ea]/g) || []).length;
       const originalHebrew = (node, chapter) => {
         const t = src.text?.[node];
@@ -632,6 +635,10 @@ for (const dir of DIRS) {
             }))} : {})});
             cursor += count;
           }
+          // Cross-reference links from the edited Kislev–Chanukah Word study edition.
+          if (sec.related?.length) items.push({related:sec.related.map(x => ({
+            ref:src.title + ', ' + x.node + ' ' + x.chapter, title:x.title
+          }))});
         }
         if (cursor !== aligned.length) throw new Error('Interlinear pairing lost: ' + group.node);
         // Preserve the fine-grained Word headlines, even where an English
@@ -641,7 +648,7 @@ for (const dir of DIRS) {
               {key:'Lech Lecha ' + group.chapter, en:'', items:items.filter(i => i.p || i.table)}, 'pri',
               sections.flatMap(sec => sec.topics.filter(t => (t.pairs || []).length).map(t => t.pairs)))
           : null;
-        const ref = src.title + ', ' + group.node + (['Bereshit','Noach','Lech Lecha'].includes(group.node) ? ' ' + group.chapter : '');
+        const ref = src.title + ', ' + group.node + (['Bereshit','Noach','Lech Lecha','Rosh Chodesh Kislev','Chanukah'].includes(group.node) ? ' ' + group.chapter : '');
         const id = leafId++;
         const converted = connect(slug, ref, ':', lechHeaded ? lechHeaded.items : items);
         writeFile(path.join(bookDir, id + '.json'), JSON.stringify(converted));

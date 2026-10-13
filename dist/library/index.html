@@ -444,6 +444,9 @@ i.footnote.open{display:block;direction:ltr;text-align:left;font-family:var(--en
 .shiur-audio :focus-visible{outline:2px solid var(--brass);outline-offset:3px}
 :root[data-theme="dark"] .shiur-audio audio{color-scheme:dark}
 @media(max-width:640px){.shiur-audio{margin:14px 0;padding:13px}.shiur-audio-controls{gap:9px 14px}.shiur-audio-actions .btn{flex:1 1 auto}.shiur-audio h3{font-size:1.02rem}}
+.reader-related{margin:1.2rem 0;padding:1rem;border:1px solid var(--line);border-radius:10px;background:var(--paper)}
+.reader-related strong{display:block;color:var(--forest);font:600 .85rem var(--ui);margin-bottom:.6rem}
+.reader-related a{display:block;padding:.35rem 0;color:var(--forest);text-decoration:underline;font:.95rem/1.4 var(--en)}
 </style>
 </head>
 <body>
@@ -585,17 +588,18 @@ async function resolveLocal(ref) {
   const all = [...new Set(readingLeaves.flatMap(l => sectionsOf(l).map(a => secRefOf(l, a))))];
   const sectionRef = secRefOf(leaf, addr), k = all.indexOf(sectionRef);
   const sep = leaf.sep || (secLen ? ':' : ' ');
-  let he = Array.isArray(text) ? text : [text], en = [], phrases = null, heads = null, phraseHeads = null, tables = null, transcriptionNotes = null, annotations = null;
+  let he = Array.isArray(text) ? text : [text], en = [], phrases = null, heads = null, phraseHeads = null, tables = null, transcriptionNotes = null, annotations = null, related = null;
   // A saved contents file can predate an edition update (or vice versa).
   // Decode the format actually received rather than trusting cached flags.
   const il = Array.isArray(text) && text.some(it => it && typeof it === 'object'
     && (Array.isArray(it.p) || typeof it.h === 'string' || it.table));
   let nums = null;
   if (il) { // items: {p: [[he, en], ...], n?} paragraphs and {h: title} subheadings
-    phrases = []; heads = {}; phraseHeads = {}; tables = {}; nums = []; transcriptionNotes = {}; annotations = {};
+    phrases = []; heads = {}; phraseHeads = {}; tables = {}; nums = []; transcriptionNotes = {}; annotations = {}; related = {};
     text.forEach(it => {
       if (it.h) (heads[phrases.length] = heads[phrases.length] || []).push(it.h);
       else if (it.table) (tables[phrases.length] = tables[phrases.length] || []).push(it.table);
+      else if (Array.isArray(it.related)) (related[phrases.length] = related[phrases.length] || []).push(it.related);
       else if (it.p) {
         if (it.inlineHeadings?.length) phraseHeads[phrases.length] = it.inlineHeadings;
         if (it.transcriptionNotes?.length) transcriptionNotes[phrases.length] = it.transcriptionNotes;
@@ -608,7 +612,7 @@ async function resolveLocal(ref) {
   }
   return {
     local: true, ref: sectionRef, sectionRef, heRef: leaf.interlinear ? leaf.heRef : heSecRefOf(leaf, addr), book: book.title, heBook: book.he,
-    he, en, phrases, heads, phraseHeads, tables, nums, transcriptionNotes, annotations, chapterLinks: !!il, title: leaf.interlinear ? {en: leaf.en, he: leaf.he, ois: leaf.ois, parashah: leaf.parashah} : null,
+    he, en, phrases, heads, phraseHeads, tables, nums, transcriptionNotes, annotations, related, chapterLinks: !!il, title: leaf.interlinear ? {en: leaf.en, he: leaf.he, ois: leaf.ois, parashah: leaf.parashah} : null,
     sourceUrl: leaf.sourceUrl || null, downloadDocx: leaf.downloadDocx || null,
     segmentLevel: false, sep, highlight: segment ? `${sectionRef}${sep}${segment}` : null,
     next: all[k + 1] || null, prev: k > 0 ? all[k - 1] : null,
@@ -1287,6 +1291,7 @@ function appendSection(d) {
     }
     if (d.heads && d.heads[i]) html += d.heads[i].map(subhead).join('');
     if (d.tables && d.tables[i]) html += d.tables[i].map(sourceTable).join('');
+    if (d.related?.[i]) html += relatedTeachings(d.related[i]);
     if (!h.trim() && !e.trim()) continue;
     const annotated = d.annotations?.[i] || [];
     const notesAt = new Map();
@@ -1305,6 +1310,7 @@ function appendSection(d) {
   }
   if (d.heads && d.heads[n]) html += d.heads[n].map(subhead).join('');
   if (d.tables && d.tables[n]) html += d.tables[n].map(sourceTable).join('');
+  if (d.related?.[n]) html += relatedTeachings(d.related[n]);
   sec.innerHTML = html;
   const sentinel = text.querySelector('.sentinel, .endnote');
   text.insertBefore(sec, sentinel || null);
@@ -1328,6 +1334,11 @@ function appendSection(d) {
 function sourceTable(table) {
   if (table.references) return `<div class="source-table" role="region" aria-label="Source references" tabindex="0"><h3>${esc(table.headers[0])}</h3><ul>${table.rows.map(([ref]) => `<li><a href="#/read/${toHash(ref)}">${esc(ref)}</a></li>`).join('')}</ul></div>`;
   return `<div class="source-table" role="region" aria-label="Coordinates of places" tabindex="0"><table lang="he"><thead><tr>${table.headers.map(cell => `<th scope="col">${esc(cell)}</th>`).join('')}</tr></thead><tbody>${table.rows.map(row => `<tr>${row.map((cell, i) => i === 0 ? `<th scope="row">${esc(cell)}</th>` : `<td>${esc(cell)}</td>`).join('')}</tr>`).join('')}</tbody></table></div>`;
+}
+function relatedTeachings(groups) {
+  return groups.map(links => '<nav class="reader-related"><strong>Related teachings in this sefer</strong><div>' +
+    links.map(link => '<a href="#/read/' + toHash(link.ref) + '">' + esc(link.title || link.ref) + ' →</a>').join('') +
+    '</div></nav>').join('');
 }
 function subhead(text) {
   const [title, ...rest] = String(text).split('\n');
