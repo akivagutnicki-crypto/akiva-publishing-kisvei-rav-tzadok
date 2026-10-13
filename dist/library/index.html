@@ -469,6 +469,26 @@ i.footnote.open{display:block;direction:ltr;text-align:left;font-family:var(--en
 @media(max-width:760px){.donate-nav{font-size:.69rem;padding:0 8px}.akiva-donate-home{padding:17px}.akiva-support-embed{padding:8px}}
 @media(max-width:460px){.top{gap:7px}.donate-nav{height:32px;font-size:.65rem;padding:0 6px}.zip-nav{padding:0 7px;font-size:.69rem}}
 
+
+/* Reliable donation experience: show native and standalone readers a secure external-checkout CTA. */
+.akiva-donate-home{background:linear-gradient(115deg,var(--panel),var(--soft));border-left-width:5px;box-shadow:0 8px 25px rgba(0,0,0,.05)}
+.akiva-donate-home .akiva-donate-direct,.akiva-support-embed .akiva-donate-direct{background:#6f2e2b!important;border-color:#6f2e2b!important;color:white!important}
+.akiva-donate-direct:hover{filter:brightness(1.08)}
+.akiva-donate-home .akiva-donate-help{font:400 .83rem/1.6 var(--ui)!important}
+.akiva-support-embed{padding:24px}
+.akiva-support-embed h2{font:500 clamp(1.7rem,3vw,2.4rem)/1.2 var(--en);color:var(--ink);margin:12px 0}
+.akiva-support-embed>p{font:400 1.07rem/1.6 var(--en);color:var(--muted)}
+.akiva-donate-browser-only{margin-top:22px;padding-top:15px;border-top:1px solid var(--line)}
+.akiva-donate-browser-only summary{font:600 .88rem/1.4 var(--ui);color:var(--link);cursor:pointer}
+.akiva-donate-browser-only iframe{display:block;max-width:100%;width:100%;height:670px;border:1px solid var(--line);background:white;margin:14px 0}
+body.akiva-android-reader .akiva-donate-browser-only{display:none!important}
+body.akiva-android-reader .akiva-support-embed{border-top-color:var(--ox)}
+.akiva-mini-support{border:1px solid var(--line);border-top:4px solid var(--brass);background:var(--panel);padding:18px;margin:0 0 20px;border-radius:7px}
+.akiva-mini-support strong{display:block;font:600 1.25rem/1.2 var(--en);margin-bottom:8px;color:var(--ink)}
+.akiva-mini-support p{font:400 .9rem/1.4 var(--en);margin:0 0 13px;color:var(--muted)}
+.akiva-mini-support .btn{height:auto;min-height:43px;padding:9px 14px}
+@media(max-width:760px){.akiva-support-embed{padding:16px}.akiva-mini-support{margin:0 0 15px}.akiva-donate-home{margin:15px 0 22px}}
+
 </style>
 </head>
 <body>
@@ -493,6 +513,12 @@ i.footnote.open{display:block;direction:ltr;text-align:left;font-family:var(--en
 <script>
 (() => {
 'use strict';
+
+/* The Android wrapper intentionally blocks third-party cookies. External checkout
+   must navigate in the same WebView so its native URL handler opens the browser. */
+if (/AkivaPublishingAndroid\/\d+/i.test(navigator.userAgent)) {
+  document.body.classList.add('akiva-android-reader');
+}
 
 /* ======================= Catalogue ======================= */
 const API = 'https://www.sefaria.org';
@@ -794,13 +820,23 @@ function renderSupport() {
   app.innerHTML = `
     <div class="page akiva-support-page" id="support-donation-widget">
       <div class="crumbs"><a href="#/">Texts</a><span>›</span><span>Support</span></div>
-      <div class="eyebrow" style="margin-top:27px">Support the printed sefarim and developing reader</div>
+      <div class="eyebrow" style="margin-top:27px">Support the sefarim and developing reader</div>
       <h1>Help bring Toras Rav Tzadok to more learners</h1>
-      <p class="lead">Support annotated bilingual editions and an accessible digital library of Rav Tzadok's writings and the Izhbitz–Radzin teachings.</p>
-      <div class="akiva-donate-links"><a class="btn primary" href="https://thechesedfund.com/kisveiravtzadokhakohen/bringing-the-wisdom-of-rav-tzadok-hakohen-of-lublin-kisvei-ishbitz-radzin-to-the-english-speaking-world/donate" target="_blank" rel="noopener noreferrer">Donate securely through The Chesed Fund ↗</a><a class="btn" href="#/">Back to library</a></div>
-      <section class="akiva-support-embed" aria-label="Chesed Fund donation form">
-        <iframe src="https://thechesedfund.com/kisveiravtzadokhakohen/bringing-the-wisdom-of-rav-tzadok-hakohen-of-lublin-kisvei-ishbitz-radzin-to-the-english-speaking-world/donate" title="Akiva Publishing secure donation form" loading="lazy" allow="payment" referrerpolicy="strict-origin-when-cross-origin"></iframe>
-        <p class="akiva-donate-help">If the embedded checkout is blocked, <a href="https://thechesedfund.com/kisveiravtzadokhakohen/bringing-the-wisdom-of-rav-tzadok-hakohen-of-lublin-kisvei-ishbitz-radzin-to-the-english-speaking-world/donate" target="_blank" rel="noopener noreferrer">open The Chesed Fund donation page ↗</a>. Donations are processed by The Chesed Fund.</p>
+      <p class="lead">Your contribution helps prepare bilingual editions, annotate primary sources, and expand access to Rav Tzadok HaKohen's writings and the teachings of Izhbitz–Radzin.</p>
+      <section class="akiva-support-embed" aria-label="Support Akiva Publishing">
+        <div class="eyebrow">Donate through the Chesed Fund</div>
+        <h2>Make an impact through Torah learning</h2>
+        <p>To ensure reliable and secure payment on phones, tablets and the installed app, the Donate button opens your device's browser directly at The Chesed Fund.</p>
+        <div class="akiva-donate-links">
+          <a class="btn primary akiva-donate-direct" href="https://thechesedfund.com/kisveiravtzadokhakohen/bringing-the-wisdom-of-rav-tzadok-hakohen-of-lublin-kisvei-ishbitz-radzin-to-the-english-speaking-world/donate" rel="noreferrer">Open secure donation checkout ↗</a>
+          <a class="btn" href="#/">Return to the library</a>
+        </div>
+        <p class="akiva-donate-help">The payment process is hosted by The Chesed Fund. Your card information is not entered or stored in the Akiva Publishing reader.</p>
+        <details class="akiva-donate-browser-only">
+          <summary>Try the embedded donation form (web browser only)</summary>
+          <iframe src="https://thechesedfund.com/kisveiravtzadokhakohen/bringing-the-wisdom-of-rav-tzadok-hakohen-of-lublin-kisvei-ishbitz-radzin-to-the-english-speaking-world/donate" loading="lazy" allow="payment" referrerpolicy="strict-origin-when-cross-origin" title="The Chesed Fund donation checkout"></iframe>
+          <p class="akiva-donate-help">Not loading? <a href="https://thechesedfund.com/kisveiravtzadokhakohen/bringing-the-wisdom-of-rav-tzadok-hakohen-of-lublin-kisvei-ishbitz-radzin-to-the-english-speaking-world/donate" rel="noreferrer">Open the official Chesed Fund checkout ↗</a>.</p>
+        </details>
       </section>
     </div>${credit()}`;
 }
@@ -837,6 +873,21 @@ async function renderHome() {
         <div class="he-title he" lang="he">כתבי רבי צדוק הכהן מלובלין</div>
         <p>Read the writings of Rav Tzadok HaKohen and the Izhbitza–Radzin masters in the original Hebrew, with English where a translation exists. Tap any passage to see the sources it draws on and the texts that cite it.</p>
       </div>
+      <section class="akiva-donate-home" id="akiva-donate-home" aria-labelledby="akiva-donate-home-heading">
+        <div class="eyebrow">Support the sefarim and digital reader</div>
+        <h2 id="akiva-donate-home-heading">Help bring Toras Rav Tzadok to more learners</h2>
+        <p>Support the interlinear editions, detailed source annotations and the developing Akiva Publishing reader.</p>
+        <div class="akiva-donate-links">
+          <a class="btn primary akiva-donate-direct" href="https://thechesedfund.com/kisveiravtzadokhakohen/bringing-the-wisdom-of-rav-tzadok-hakohen-of-lublin-kisvei-ishbitz-radzin-to-the-english-speaking-world/donate" rel="noreferrer">Donate securely through The Chesed Fund ↗</a>
+          <a class="btn" href="#/support">About supporting the project →</a>
+        </div>
+        <p class="akiva-donate-help">Secure checkout opens in your device's browser; no payment information is collected inside the reader app.</p>
+        <details class="akiva-donate-browser-only">
+          <summary>View the donation form on this page (web browser)</summary>
+          <iframe src="https://thechesedfund.com/kisveiravtzadokhakohen/bringing-the-wisdom-of-rav-tzadok-hakohen-of-lublin-kisvei-ishbitz-radzin-to-the-english-speaking-world/donate" title="Chesed Fund secure donation checkout" loading="lazy" allow="payment" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+          <p class="akiva-donate-help">If the checkout is blocked inside this frame, <a href="https://thechesedfund.com/kisveiravtzadokhakohen/bringing-the-wisdom-of-rav-tzadok-hakohen-of-lublin-kisvei-ishbitz-radzin-to-the-english-speaking-world/donate" rel="noreferrer">open the official donation page ↗</a>.</p>
+        </details>
+      </section>
       ${localBook("Meshiv HaTa'anah") ? `<div class="study-entry" id="meshiv-new-edition">
         <h2>New interlinear edition: Meshiv HaTa'anah</h2>
         <p>Read the Hebrew with phrase-by-phrase English, editorial explanations, topic headings, and linked Sefaria sources.</p>
@@ -848,16 +899,7 @@ async function renderHome() {
         <p>Hebrew texts, available translations, footnotes and source links in one archive.</p>
       </div>
 
-      <section class="akiva-donate-home" id="akiva-donate-home" aria-label="Support Akiva Publishing">
-        <div class="eyebrow">Support the sefarim and reader app</div>
-        <h2>Help share Toras Rav Tzadok</h2>
-        <p>Contribute to the interlinear editions, source annotations and developing digital library.</p>
-        <div class="akiva-donate-links"><a class="btn primary" href="https://thechesedfund.com/kisveiravtzadokhakohen/bringing-the-wisdom-of-rav-tzadok-hakohen-of-lublin-kisvei-ishbitz-radzin-to-the-english-speaking-world/donate" target="_blank" rel="noopener noreferrer">Donate securely ↗</a><a class="btn" href="#/support">Donation widget →</a></div>
-        <details><summary>Show the Chesed Fund donation form here</summary>
-          <iframe src="https://thechesedfund.com/kisveiravtzadokhakohen/bringing-the-wisdom-of-rav-tzadok-hakohen-of-lublin-kisvei-ishbitz-radzin-to-the-english-speaking-world/donate" title="Chesed Fund donation form for Akiva Publishing" loading="lazy" allow="payment" referrerpolicy="strict-origin-when-cross-origin"></iframe>
-          <p class="akiva-donate-help">If embedded checkout is restricted, <a href="https://thechesedfund.com/kisveiravtzadokhakohen/bringing-the-wisdom-of-rav-tzadok-hakohen-of-lublin-kisvei-ishbitz-radzin-to-the-english-speaking-world/donate" target="_blank" rel="noopener noreferrer">open the secure donation page ↗</a>.</p>
-        </details>
-      </section>
+      
       <a class="weekly-teaser" href="blog/faith-in-the-night/" aria-label="Read Faith in the Night">
         <img src="../resisei-genuine-front-back-bookshelves.webp" alt="The genuine Resisei Layla volumes from Akiva Publishing" loading="lazy">
         <span class="weekly-teaser-copy"><span class="eyebrow">Latest essay · Mar Cheshvan · Resisei Layla</span><strong>Faith in the Night</strong><span>A tribute to my mother and Rav Tzadok's teaching on emunah, Shabbos and finding joy in the night · Read the essay →</span></span>
@@ -870,6 +912,11 @@ async function renderHome() {
       <div class="src-groups" id="srcGroups"></div>
     </div>
     <aside class="side">
+      <section class="akiva-mini-support" aria-label="Support Akiva Publishing">
+        <strong>Help share Toras Rav Tzadok</strong>
+        <p>Support the printed sefarim and the developing digital reader.</p>
+        <a class="btn primary akiva-donate-direct" href="https://thechesedfund.com/kisveiravtzadokhakohen/bringing-the-wisdom-of-rav-tzadok-hakohen-of-lublin-kisvei-ishbitz-radzin-to-the-english-speaking-world/donate" rel="noreferrer">Donate securely ↗</a>
+      </section>
 <section class="library-bookshop" id="libraryBookshop" aria-label="Purchase the published Akiva Publishing editions"><div class="eyebrow">Akiva Publishing</div><h2>Explore the books</h2><p class="shop-intro">Continue your learning with the printed editions. Choose a volume and format.</p>
 <section class="shop-group"><h3>Resisei Layla · Two Volumes</h3>
 <div class="shop-book"><img loading="lazy" alt="Volume I · Simanim 1–42 cover" src="../resisei-volume-i-front-original.webp"><div><div class="book-name">Volume I · Simanim 1–42</div><div class="formats"><a href="https://www.amazon.com/dp/B0HM7GT85X" target="_blank" rel="noopener noreferrer">Paperback ↗</a><a href="https://www.amazon.com/dp/B0HM6TX1S9" target="_blank" rel="noopener noreferrer">Hardcover ↗</a></div></div></div>
