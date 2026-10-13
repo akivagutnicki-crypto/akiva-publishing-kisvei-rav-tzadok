@@ -79,6 +79,8 @@ try{
   await connections.click();
   assert.ok(await page.locator('#source-note-dialog a[href*="?with=all"]').first().isVisible(),'Source connections are not accessible');
   await page.keyboard.press('Escape');await page.waitForSelector('#source-note-dialog:not([open])',{state:'attached'});
+  // The native dialog queues its close event after removing the open attribute.
+  await trigger.and(page.locator('[aria-expanded="false"]')).waitFor({state:'visible'});
   assert.equal(await trigger.getAttribute('aria-expanded'),'false');
   checkedCases.add(id);
   }
@@ -102,6 +104,7 @@ try{
   await trigger.click();await page.waitForSelector('#source-note-dialog[open]');
   for(let i=0;i<5;i++){await page.keyboard.press('Tab');assert.ok(await page.evaluate(()=>document.querySelector('#source-note-dialog').contains(document.activeElement)),'Keyboard focus escaped the dialog');}
   await page.locator('.source-note-dialog-close').click();await page.waitForSelector('#source-note-dialog:not([open])',{state:'attached'});
+  await trigger.and(page.locator(':focus')).waitFor({state:'visible'});
   assert.ok(await trigger.evaluate(el=>document.activeElement===el),'Focus was not restored to the clicked marker');
  }
  assert.deepEqual(errors,[],'Reader runtime errors');
