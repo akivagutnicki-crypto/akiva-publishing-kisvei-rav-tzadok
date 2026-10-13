@@ -255,7 +255,8 @@ body.panel-open .text{max-width:860px}
 .segment-annotations-label{font:600 .77rem/1.4 var(--ui);color:var(--muted);margin-inline-end:10px}
 .text[data-lang="bi"][data-layout="inter"] .segment-annotations{display:none}
 .note-discovery{font:500 .86rem/1.5 var(--ui);color:var(--muted);text-align:center;margin:0 0 18px}
-.source-note-trigger{display:inline-flex;align-items:center;justify-content:center;min-width:32px;min-height:32px;box-sizing:border-box;padding:4px 7px;border:1px solid var(--line);background:var(--soft);border-radius:7px;font:700 .78rem/1 var(--ui);direction:ltr;vertical-align:super;touch-action:manipulation}
+.source-note-trigger.footnote-marker{display:inline-flex;align-items:center;justify-content:center;min-width:32px;min-height:32px;box-sizing:border-box;padding:4px 7px;border:1px solid var(--line);background:var(--soft);border-radius:7px;font:700 .78rem/1 var(--ui);direction:ltr;vertical-align:super;touch-action:manipulation}
+.source-note-trigger.footnote-marker::after{content:none}
 .source-note-trigger[aria-expanded="true"]{background:var(--forest);color:var(--panel)}
 .source-note-dialog{width:min(760px,calc(100vw - 24px));max-height:90vh;max-height:90dvh;padding:0;border:1px solid var(--line);border-radius:12px;background:var(--panel);color:var(--ink);box-shadow:0 18px 70px #0005;overflow:hidden;direction:ltr}
 .source-note-dialog::backdrop{background:#0008}
@@ -271,7 +272,7 @@ body.panel-open .text{max-width:860px}
 .footnote-connection-list{display:grid;gap:9px;margin-top:9px}
 .footnote-connection-list a{display:block;padding:4px 0;overflow-wrap:anywhere}
 .footnote-edition-warning{margin:12px 0;padding:10px 12px;border-left:3px solid var(--brass);background:var(--soft);font:500 .87rem/1.5 var(--ui)}
-@media(pointer:coarse){.source-note-trigger{min-width:44px;min-height:44px}}
+@media(pointer:coarse){.source-note-trigger.footnote-marker{min-width:44px;min-height:44px}}
 .source-table{margin:24px 0;overflow-x:auto;border:1px solid var(--line);border-radius:6px}
 .source-table table{border-collapse:collapse;width:100%;min-width:540px;font:400 calc(1.12rem * var(--fs))/1.5 var(--he);direction:rtl}
 .source-table th,.source-table td{padding:10px 14px;text-align:right;border-bottom:1px solid var(--line);border-left:1px solid var(--line)}
