@@ -447,13 +447,36 @@ i.footnote.open{display:block;direction:ltr;text-align:left;font-family:var(--en
 .reader-related{margin:1.2rem 0;padding:1rem;border:1px solid var(--line);border-radius:10px;background:var(--paper)}
 .reader-related strong{display:block;color:var(--forest);font:600 .85rem var(--ui);margin-bottom:.6rem}
 .reader-related a{display:block;padding:.35rem 0;color:var(--forest);text-decoration:underline;font:.95rem/1.4 var(--en)}
+
+/* Standalone fundraising widget: no effect on Hebrew reader layouts */
+.donate-nav{flex-shrink:0;height:34px;padding:0 12px;background:#6f2e2b!important;border-color:#6f2e2b!important;color:#fff!important;white-space:nowrap}
+.donate-nav:hover{background:#51221f!important}
+.akiva-donate-home{margin:28px 0;padding:22px 24px;background:var(--panel);border:1px solid var(--line);border-left:5px solid var(--brass);border-radius:8px}
+.akiva-donate-home h2{font:500 clamp(1.55rem,3vw,2.3rem)/1.15 var(--en);margin:9px 0;color:var(--ink)}
+.akiva-donate-home p{color:var(--muted);font:1.05rem/1.5 var(--en);margin:9px 0 14px}
+.akiva-donate-links{display:flex;flex-wrap:wrap;gap:10px;margin:18px 0}
+.akiva-donate-links .btn{height:auto;min-height:43px;padding:10px 14px;white-space:normal}
+.akiva-donate-home details{border-top:1px solid var(--line);padding-top:12px}
+.akiva-donate-home summary{cursor:pointer;color:var(--forest);font:600 .85rem/1.4 var(--ui)}
+.akiva-donate-home iframe{width:100%;height:680px;display:block;border:1px solid var(--line);margin:13px 0;background:white}
+.akiva-support-page{max-width:980px}
+.akiva-support-page h1{font:400 clamp(2.4rem,5vw,3.65rem)/1.1 var(--en);margin:15px 0 12px}
+.akiva-support-page .lead{color:var(--muted);font:1.15rem/1.6 var(--en)}
+.akiva-support-embed{margin-top:22px;padding:14px;border:1px solid var(--line);border-top:4px solid var(--brass);border-radius:8px;background:var(--panel)}
+.akiva-support-embed iframe{display:block;width:100%;height:780px;background:white;border:0}
+.akiva-donate-help{font:400 .82rem/1.55 var(--ui)!important;color:var(--muted)!important;margin:12px 0!important}
+.akiva-donate-help a{color:var(--link);text-decoration:underline}
+@media(max-width:760px){.donate-nav{font-size:.69rem;padding:0 8px}.akiva-donate-home{padding:17px}.akiva-support-embed{padding:8px}}
+@media(max-width:460px){.top{gap:7px}.donate-nav{height:32px;font-size:.65rem;padding:0 6px}.zip-nav{padding:0 7px;font-size:.69rem}}
+
 </style>
 </head>
 <body>
 <header class="top">
   <a class="brand" href="#/"><span class="mark">AP</span><span><strong>Rav Tzadok Library</strong><small>Akiva Publishing</small></span></a>
-  <nav class="topnav" aria-label="Primary"><a href="#/">Texts</a><a href="blog/">Weekly Torah</a><a href="../">Our editions</a><a href="../#method">Approach</a></nav>
+  <nav class="topnav" aria-label="Primary"><a href="#/">Texts</a><a href="blog/">Weekly Torah</a><a href="../">Our editions</a><a href="../#method">Approach</a><a href="#/support">Support</a></nav>
   <a class="btn zip-nav" href="#/downloads" aria-label="Download library or sefer ZIP files">ZIP ↓</a>
+  <a class="btn donate-nav" href="#/support" aria-label="Support Akiva Publishing">Donate ♥</a>
   <button class="btn install" id="installBtn" type="button" hidden>Install app</button>
   <form class="search" id="searchForm" role="search" autocomplete="off">
     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
@@ -759,10 +782,28 @@ function route() {
   if (kind === 'read') return renderReader(arg);
   if (kind === 'install') return renderInstall();
   if (kind === 'downloads') return renderDownloads();
+  if (kind === 'support') return renderSupport();
   renderHome();
 }
 let silentHash = false;
 window.addEventListener('hashchange', () => { if (silentHash) { silentHash = false; return; } route(); });
+
+/* ======================= Donate / Support ======================= */
+function renderSupport() {
+  document.title = 'Support Akiva Publishing · Rav Tzadok Library';
+  app.innerHTML = `
+    <div class="page akiva-support-page" id="support-donation-widget">
+      <div class="crumbs"><a href="#/">Texts</a><span>›</span><span>Support</span></div>
+      <div class="eyebrow" style="margin-top:27px">Support the printed sefarim and developing reader</div>
+      <h1>Help bring Toras Rav Tzadok to more learners</h1>
+      <p class="lead">Support annotated bilingual editions and an accessible digital library of Rav Tzadok's writings and the Izhbitz–Radzin teachings.</p>
+      <div class="akiva-donate-links"><a class="btn primary" href="https://thechesedfund.com/kisveiravtzadokhakohen/bringing-the-wisdom-of-rav-tzadok-hakohen-of-lublin-kisvei-ishbitz-radzin-to-the-english-speaking-world/donate" target="_blank" rel="noopener noreferrer">Donate securely through The Chesed Fund ↗</a><a class="btn" href="#/">Back to library</a></div>
+      <section class="akiva-support-embed" aria-label="Chesed Fund donation form">
+        <iframe src="https://thechesedfund.com/kisveiravtzadokhakohen/bringing-the-wisdom-of-rav-tzadok-hakohen-of-lublin-kisvei-ishbitz-radzin-to-the-english-speaking-world/donate" title="Akiva Publishing secure donation form" loading="lazy" allow="payment" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        <p class="akiva-donate-help">If the embedded checkout is blocked, <a href="https://thechesedfund.com/kisveiravtzadokhakohen/bringing-the-wisdom-of-rav-tzadok-hakohen-of-lublin-kisvei-ishbitz-radzin-to-the-english-speaking-world/donate" target="_blank" rel="noopener noreferrer">open The Chesed Fund donation page ↗</a>. Donations are processed by The Chesed Fund.</p>
+      </section>
+    </div>${credit()}`;
+}
 
 /* ======================= Home ======================= */
 async function renderHome() {
@@ -806,6 +847,17 @@ async function renderHome() {
         <a class="btn" href="#/downloads">Choose a sefer ZIP</a>
         <p>Hebrew texts, available translations, footnotes and source links in one archive.</p>
       </div>
+
+      <section class="akiva-donate-home" id="akiva-donate-home" aria-label="Support Akiva Publishing">
+        <div class="eyebrow">Support the sefarim and reader app</div>
+        <h2>Help share Toras Rav Tzadok</h2>
+        <p>Contribute to the interlinear editions, source annotations and developing digital library.</p>
+        <div class="akiva-donate-links"><a class="btn primary" href="https://thechesedfund.com/kisveiravtzadokhakohen/bringing-the-wisdom-of-rav-tzadok-hakohen-of-lublin-kisvei-ishbitz-radzin-to-the-english-speaking-world/donate" target="_blank" rel="noopener noreferrer">Donate securely ↗</a><a class="btn" href="#/support">Donation widget →</a></div>
+        <details><summary>Show the Chesed Fund donation form here</summary>
+          <iframe src="https://thechesedfund.com/kisveiravtzadokhakohen/bringing-the-wisdom-of-rav-tzadok-hakohen-of-lublin-kisvei-ishbitz-radzin-to-the-english-speaking-world/donate" title="Chesed Fund donation form for Akiva Publishing" loading="lazy" allow="payment" referrerpolicy="strict-origin-when-cross-origin"></iframe>
+          <p class="akiva-donate-help">If embedded checkout is restricted, <a href="https://thechesedfund.com/kisveiravtzadokhakohen/bringing-the-wisdom-of-rav-tzadok-hakohen-of-lublin-kisvei-ishbitz-radzin-to-the-english-speaking-world/donate" target="_blank" rel="noopener noreferrer">open the secure donation page ↗</a>.</p>
+        </details>
+      </section>
       <a class="weekly-teaser" href="blog/faith-in-the-night/" aria-label="Read Faith in the Night">
         <img src="../resisei-genuine-front-back-bookshelves.webp" alt="The genuine Resisei Layla volumes from Akiva Publishing" loading="lazy">
         <span class="weekly-teaser-copy"><span class="eyebrow">Latest essay · Mar Cheshvan · Resisei Layla</span><strong>Faith in the Night</strong><span>A tribute to my mother and Rav Tzadok's teaching on emunah, Shabbos and finding joy in the night · Read the essay →</span></span>
