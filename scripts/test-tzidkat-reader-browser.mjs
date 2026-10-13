@@ -20,27 +20,30 @@ const origin='http://127.0.0.1:'+server.address().port;
 const toc=JSON.parse(fs.readFileSync(root+'/library/data/tzidkat-hatzadik/toc.json','utf8'));
 const sections=toc.toc.children.map(leaf=>({leaf,items:JSON.parse(fs.readFileSync(root+'/library/data/tzidkat-hatzadik/'+leaf.id+'.json','utf8'))}));
 const expected=sections.flatMap(s=>s.items.flatMap(i=>(i.footnotes||[]).map(note=>({note,ref:s.leaf.ref,paragraph:i.n}))));
+assert.equal(expected.length,279);
+const annotatedSections=sections.filter(s=>s.items.some(i=>i.footnotes?.length));
+const toHash=ref=>encodeURIComponent(ref).replace(/%20/g,'_').replace(/%2C/g,',').replace(/%3A/g,':');
 const browser=await chromium.launch({headless:true});
 try{
  const context=await browser.newContext({viewport:{width:390,height:844},isMobile:true,hasTouch:true,deviceScaleFactor:1,serviceWorkers:'block'});
  await context.route('https://**/*',r=>r.fulfill({status:200,contentType:'text/html',body:'<p>Source navigation test</p>'}));
  const page=await context.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));
- await page.goto(origin+'/library/#/read/Tzidkat_HaTzadik_6');
- await page.locator('.seg-il .ph-he .source-note-trigger').first().waitFor({state:'visible'});
- // Render the actual published items through the production renderer, in one
- // document, avoiding a slow navigation for each of the 165 annotated simanim.
- await page.evaluate(all=>{
-  document.querySelector('#text').replaceChildren();R.sections=[];
-  for(const {leaf,items} of all){
-   const ps=items.filter(i=>i.p),annotations={};ps.forEach((p,i)=>{if(p.footnotes?.length)annotations[i]=p.footnotes;});
-   appendSection({local:true,ref:leaf.ref,sectionRef:leaf.ref,book:'Tzidkat HaTzadik',sep:':',chapterLinks:true,
-    title:{en:leaf.en,he:leaf.he},he:ps.map(p=>p.p.map(x=>x[0]).join(' ')),en:ps.map(p=>p.p.map(x=>x[1]).join(' ')),
-    phrases:ps.map(p=>p.p),nums:ps.map(p=>p.n),annotations});
-  }
- },sections.filter(s=>s.items.some(i=>i.footnotes?.length)));
- const boundaries=await page.evaluate(()=>{
+ async function openSection(ref){
+  await page.goto(origin+'/library/#/read/'+toHash(ref));
+  const section=page.locator('#text > .sec[data-ref="'+ref+'"]');
+  await section.locator('.seg-il .ph-he .source-note-trigger').first().waitFor({state:'visible'});
+  return section;
+ }
+ const cases=new Set(['TZ-0001','TZ-0007','TZ-0023','TZ-0034','TZ-0047','TZ-0093','TZ-0094','TZ-0114','TZ-0144','TZ-0205','TZ-0222','TZ-0241','TZ-0251','TZ-0255','TZ-0256','TZ-0269']);
+ const checkedCases=new Set();let markerCount=0,noteCount=0,sectionCount=0;
+ // Navigate the actual reader routes. Its renderer is private to the app's
+ // closure, and a single 165-section injected document would bypass routing.
+ for(const {leaf,items} of annotatedSections){
+  const section=await openSection(leaf.ref);
+  const sectionNotes=items.flatMap(i=>i.footnotes||[]);
+  const boundaries=await section.evaluate(root=>{
   const found=[];
-  document.querySelectorAll('.seg-il .ph-he,.seg-il .ph-en').forEach(container=>{
+  root.querySelectorAll('.seg-il .ph-he,.seg-il .ph-en').forEach(container=>{
    const walker=document.createTreeWalker(container,NodeFilter.SHOW_TEXT);let node,prefix='';
    while(node=walker.nextNode()){
     const marker=node.parentElement?.closest('.source-note-trigger');
@@ -49,18 +52,18 @@ try{
    }
   });return found;
  });
- assert.equal(boundaries.length,558,'All 279 bilingual markers must be rendered');
- for(const {note} of expected){for(const language of ['he','en']){
+  assert.equal(boundaries.length,sectionNotes.length*2,'Missing bilingual markers in '+leaf.ref);
+  markerCount+=boundaries.length;
+  for(const note of sectionNotes){for(const language of ['he','en']){
   const b=boundaries.find(b=>b.key===note.placementId&&b.language===language);assert.ok(b,note.placementId);
   assert.equal(b.prefix,note[language+'AnchorPrefix'],'Wrong visible insertion point '+note.placementId+' '+language);
   assert.equal(b.nested,false,'A marker must not be inside a source hyperlink');assert.equal(+b.number,note.number);
  }}
- const literal=await page.evaluate(()=>[...document.querySelectorAll('.seg-il .reader-footnote[data-source-note]')].map(box=>({key:box.dataset.noteKey,text:box.querySelector('.annotation-text').textContent})));
- for(const {note} of expected)assert.equal(literal.find(x=>x.key===note.placementId).text,note.paragraphs[0].text,'Truncated displayed footnote '+note.placementId);
- const cases=['TZ-0001','TZ-0007','TZ-0023','TZ-0034','TZ-0047','TZ-0093','TZ-0094','TZ-0114','TZ-0144','TZ-0205','TZ-0222','TZ-0241','TZ-0251','TZ-0255','TZ-0256','TZ-0269'];
- for(const id of cases){
-  const {note}=expected.find(x=>x.note.sourceId===id);
-  const trigger=page.locator('.seg-il .ph-he button[data-note-key="'+note.placementId+'"]');
+  const literal=await section.evaluate(root=>[...root.querySelectorAll('.seg-il .reader-footnote[data-source-note]')].map(box=>({key:box.dataset.noteKey,text:box.querySelector('.annotation-text').textContent})));
+  for(const note of sectionNotes){
+   assert.equal(literal.find(x=>x.key===note.placementId).text,note.paragraphs[0].text,'Truncated displayed footnote '+note.placementId);noteCount++;
+   const id=note.sourceId;if(!cases.has(id)||checkedCases.has(id))continue;
+   const trigger=section.locator('.seg-il .ph-he button[data-note-key="'+note.placementId+'"]');
   await trigger.click();await page.waitForSelector('#source-note-dialog[open]');
   assert.equal(await page.locator('#source-note-dialog .annotation-text').first().textContent(),note.paragraphs[0].text);
   const box=await page.locator('#source-note-dialog').boundingBox();assert.ok(box.x>=0&&box.x+box.width<=390.5,'Mobile dialog overflows viewport');
@@ -72,17 +75,29 @@ try{
   if(id==='TZ-0001'){
    const popupPromise=page.waitForEvent('popup');await source.click();const popup=await popupPromise;await popup.waitForLoadState('domcontentloaded');assert.equal(popup.url(),expectedUrl);await popup.close();
   }
+  const connections=page.locator('#source-note-dialog summary').filter({hasText:'Explore Sefaria connections'});
+  await connections.click();
+  assert.ok(await page.locator('#source-note-dialog a[href*="?with=all"]').first().isVisible(),'Source connections are not accessible');
   await page.keyboard.press('Escape');await page.waitForSelector('#source-note-dialog:not([open])',{state:'attached'});
   assert.equal(await trigger.getAttribute('aria-expanded'),'false');
+  checkedCases.add(id);
+  }
+  sectionCount++;
+  if(sectionCount%25===0)console.log('Verified '+sectionCount+'/'+annotatedSections.length+' reader routes.');
  }
+ assert.equal(markerCount,558,'All 279 bilingual markers must be rendered');
+ assert.equal(noteCount,279,'All notes must retain their complete displayed text');
+ assert.equal(sectionCount,165);
+ assert.equal(checkedCases.size,cases.size,'Every representative note must be opened');
  async function setPrefs(language,layout){
   await page.locator('#setBtn').click();
   await page.locator('[data-pref="lang"] button[data-v="'+language+'"]').click();
   await page.locator('[data-pref="layout"] button[data-v="'+layout+'"]').click();
   await page.locator('#setBtn').click();
  }
+ const firstSection=await openSection('Tzidkat HaTzadik 6');
  for(const [language,layout,selector] of [['he','stack','.seg-he'],['en','stack','.seg-en'],['bi','side','.seg-he'],['bi','inter','.ph-he']]){
-  await setPrefs(language,layout);const trigger=page.locator(selector+' button[data-note-key="TZ-0001-1"]');
+  await setPrefs(language,layout);const trigger=firstSection.locator(selector+' button[data-note-key="TZ-0001-1"]');
   assert.ok(await trigger.isVisible(),language+' '+layout);const area=await trigger.boundingBox();assert.ok(area.width>=44&&area.height>=44,'Touch targets must be at least 44px');
   await trigger.click();await page.waitForSelector('#source-note-dialog[open]');
   for(let i=0;i<5;i++){await page.keyboard.press('Tab');assert.ok(await page.evaluate(()=>document.querySelector('#source-note-dialog').contains(document.activeElement)),'Keyboard focus escaped the dialog');}
