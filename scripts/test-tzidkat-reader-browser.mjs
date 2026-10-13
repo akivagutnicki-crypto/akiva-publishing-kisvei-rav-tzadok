@@ -26,7 +26,7 @@ try{
  await context.route('https://**/*',r=>r.fulfill({status:200,contentType:'text/html',body:'<p>Source navigation test</p>'}));
  const page=await context.newPage();const errors=[];page.on('pageerror',e=>errors.push(e.message));
  await page.goto(origin+'/library/#/read/Tzidkat_HaTzadik_6');
- await page.waitForSelector('.source-note-trigger');
+ await page.locator('.seg-il .ph-he .source-note-trigger').first().waitFor({state:'visible'});
  // Render the actual published items through the production renderer, in one
  // document, avoiding a slow navigation for each of the 165 annotated simanim.
  await page.evaluate(all=>{
