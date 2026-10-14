@@ -60,7 +60,10 @@ export function addReviewedFootnotes(src){
   if(number!==++last||row.id!==config.prefix+'-'+String(number).padStart(4,'0'))
     throw Error('Numbering gap or duplicate in '+src.title+' footnote '+number);
   const chapter=numeric(row.chapter??row.section,'section');
-  const sec=src.sections.find(x=>x.n===chapter);
+  // Original chapters 1–20 are numbered. The later Mitzvot chapters
+  // retain their manuscript section keys, so locate those by sequence.
+  const sec=src.sections.find(x=>x.n===chapter) ??
+    (src.title==='Sefer HaZikhronot' ? src.sections[chapter] : undefined);
   if(!sec||chapter<1||chapter>config.chapters)throw Error('Missing '+src.title+' chapter '+chapter);
   const pi=numeric(row.phraseIndex,'phraseIndex');
   const offset=numeric(row.heCharOffset,'heCharOffset'),enOffset=numeric(row.enCharOffset,'enCharOffset');
