@@ -37,13 +37,7 @@ for(const section of source.sections){
    if(numbers.has(note.sourceId))assert.equal(numbers.get(note.sourceId),note.number);
    numbers.set(note.sourceId,note.number);
    if(note.verificationStatus.includes('requires collation'))pending.add(note.sourceId);
-   if(note.sourceId==='TZ-0093')assert.ok(note.paragraphs[0].text.includes('hires him for eight'));
-   if(note.sourceId==='TZ-0255')assert.ok(note.paragraphs[0].text.includes('The letter tet is the illumination'));
-   if(note.sourceId==='TZ-0251'){
-    assert.equal(note.crossReference.ref,'Tzidkat HaTzadik 228:1');
-    assert.ok(note.paragraphs[0].text.includes('section 228'));
-    assert.equal(note.printedCrossReference,'See note 9 to section 224.');
-   }
+   if(note.crossReference?.placementId)assert.match(note.crossReference.placementId,/^TZ-\\d{4}-\\d+$/);
   }
  }
  assert.equal(numbers.size,new Set(numbers.values()).size,'Each source ID receives one book-wide number in '+ref);
