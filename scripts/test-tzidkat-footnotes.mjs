@@ -18,7 +18,10 @@ for(const section of source.sections){
   const expected=item.footnotes||[];assert.equal((actual.footnotes||[]).length,expected.length);
   for(const note of actual.footnotes||[]){
    count++;ids.add(note.sourceId);assert.ok(!placements.has(note.placementId));placements.add(note.placementId);
-   const original=expected.find(n=>n.placementId===note.placementId);assert.deepEqual(note,original,'Incomplete note '+note.sourceId);
+   const original=expected.find(n=>n.placementId===note.placementId);const canonical=structuredClone(original);canonical.number=Number(note.sourceId.slice(3));
+   if(canonical.crossReference?.placementId)canonical.crossReference.number=Number(canonical.crossReference.placementId.slice(3,7));
+   assert.deepEqual(note,canonical,'Incomplete note '+note.sourceId);
+   assert.equal(note.number,Number(note.sourceId.slice(3)),'Continuous source-note number');
    const pair=actual.p[note.phraseIndex];assert.ok(pair);
    assert.equal(textOf(pair[0]).slice(0,note.heCharOffset),note.heAnchorPrefix,'Wrong Hebrew boundary '+note.placementId);
    assert.equal(textOf(pair[1]).slice(0,note.enCharOffset),note.enAnchorPrefix,'Wrong English boundary '+note.placementId);
@@ -43,7 +46,7 @@ for(const section of source.sections){
    }
   }
  }
- assert.deepEqual([...new Set(numbers.values())].sort((a,b)=>a-b),Array.from({length:numbers.size},(_,i)=>i+1),'Numbering must restart in '+ref);
+ assert.equal(numbers.size,new Set(numbers.values()).size,'Each source ID receives one book-wide number in '+ref);
 }
 assert.equal(count,279);assert.equal(ids.size,269);assert.equal(placements.size,279);assert.equal(pending.size,6);
 assert.deepEqual([...ids].sort(),Array.from({length:269},(_,i)=>'TZ-'+String(i+1).padStart(4,'0')));

@@ -46,12 +46,12 @@ for row in rows:
   placements.append((siman,item,p,row))
 assert len(placements)==279
 placements.sort(key=lambda x:(x[0],x[1]['n'],x[2]['reader_pair_index_0_based'],x[2]['reader_hebrew_char_offset_0_based'],int(x[3]['original_source_order'])))
-numbering=defaultdict(dict)
+numbering={}
 for siman,item,p,row in placements:
- if row['id'] not in numbering[siman]:numbering[siman][row['id']]=len(numbering[siman])+1
+ if row['id'] not in numbering:numbering[row['id']]=len(numbering)+1
 targets={}
 for siman,item,p,row in placements:
- targets.setdefault(row['id'],{'ref':f'Tzidkat HaTzadik {siman}:{item["n"]}','number':numbering[siman][row['id']],'placementId':row['id']+'-'+str(p['occurrence'])})
+ targets.setdefault(row['id'],{'ref':f'Tzidkat HaTzadik {siman}:{item["n"]}','number':numbering[row['id']],'placementId':row['id']+'-'+str(p['occurrence'])})
 additional_cross_refs={'TZ-0026':'TZ-0018','TZ-0120':'TZ-0112','TZ-0125':'TZ-0256','TZ-0190':'TZ-0187','TZ-0238':'TZ-0241'}
 for sec in book['sections']:
  for item in sec['items']:
@@ -101,9 +101,9 @@ for sec in comparison:
 assert json.dumps(comparison,ensure_ascii=False,separators=(',',':'))==before
 assert len(pending)==6
 book['footnoteImportInfo']={'edition':'Har Bracha / supplied 192-page source','notes':269,'placements':279,
- 'sectionsWithNotes':len(numbering),'sourceLinks':433,'exactEditionChecksPending':sorted(pending),
+ 'sectionsWithNotes':len({siman for siman,_,_,_ in placements}),'sourceLinks':433,'exactEditionChecksPending':sorted(pending),
  'reviewedCsvSha256':hashlib.sha256(csv_path.read_bytes()).hexdigest(),'reviewed':'2026-10-13',
  'anchorConvention':'Exact UTF-16 offset in rendered, HTML-decoded phrase text; original pointed Hebrew preserved.',
- 'numbering':'Restart per siman; repeated markers for the same source note share its section number.'}
+ 'numbering':'Continuous 1–269 across the entire sefer; repeated placements of one source use the same number.'}
 book_path.write_text(json.dumps(book,ensure_ascii=False,indent=2)+'\n')
-print('Imported 269 complete English notes at 279 verified Hebrew boundaries in',len(numbering),'simanim; 6 edition checks explicitly flagged.')
+print('Imported 269 complete English notes at 279 verified Hebrew boundaries in',len({siman for siman,_,_,_ in placements}),'simanim; 6 edition checks explicitly flagged.')

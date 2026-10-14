@@ -274,6 +274,14 @@ function connect(slug, sectionRef, sep, items) {
   items = cleanHeadings(items);
   for (const item of items) {
     if (!item.p) continue;
+    // A reviewed Tzidkat note has one canonical book-wide number. It never
+    // restarts at the next siman; multiple placements share one source ID.
+    for (const note of item.footnotes || []) {
+      if (!/^TZ-\d{4}$/.test(note.sourceId || '')) continue;
+      note.number = Number(note.sourceId.slice(3));
+      if (note.crossReference?.placementId && /^TZ-\d{4}-/.test(note.crossReference.placementId))
+        note.crossReference.number = Number(note.crossReference.placementId.slice(3,7));
+    }
     if (!item.footnotes) item.p = normalizePairs(item.p);
     else if (item.footnotesNormalize) {
       // Word source footnotes (sources/akiva/footnotes): repair the pairs as usual and move each note with its phrase.
