@@ -38,6 +38,9 @@ jobs:
       - name: Import collated English parallels into Tzidkat footnotes
         run: node scripts/import-tzidkat-parallels.mjs
 
+      - name: Apply supplied 2,096 deduplicated Tzidkat footnotes and Sefaria parallels
+        run: python scripts/import-tzidkat-expanded-2096.py
+
       - name: Import Mei HaShiloach Vayera to Bo translation and source annotations
         run: node scripts/import-mei-vayera-bo.mjs
 

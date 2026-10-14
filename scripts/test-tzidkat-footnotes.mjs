@@ -49,5 +49,5 @@ assert.equal(placements.size,expected.placements,'Distinct note placements');
 assert.deepEqual([...ids].sort(),Array.from({length:ids.size},(_,i)=>'TZ-'+String(i+1).padStart(4,'0')),'Book-wide numbering is continuous');
 const countedSections=source.sections.filter(s=>s.items.some(i=>(i.footnotes||[]).length)).length;
 assert.equal(countedSections,expected.sectionsWithNotes);
-assert.equal(pending.size,6,'Preserve flagged edition checks in existing notes');
+assert.equal(pending.size,0,'The supplied reviewed edition has no pending collation notices');
 console.log('PASS Tzidkat footnotes: '+ids.size+' complete English notes, '+count+' exact bilingual anchors, '+countedSections+' simanim, with book-wide numbering and linked paragraph sources.');

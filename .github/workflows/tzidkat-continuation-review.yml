@@ -25,6 +25,7 @@ jobs:
           node scripts/build-pages.mjs
           node scripts/import-tzidkat-reviewed.mjs
           node scripts/import-tzidkat-parallels.mjs
+          python scripts/import-tzidkat-expanded-2096.py
           node scripts/import-mei-vayera-bo.mjs
           node scripts/import-machshavot-charutz.mjs
           python scripts/import-divrei-footnotes.py
