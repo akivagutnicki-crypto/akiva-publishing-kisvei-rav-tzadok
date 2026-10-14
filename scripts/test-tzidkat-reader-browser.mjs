@@ -105,19 +105,21 @@ try {
   await page.locator('[data-pref="layout"] button[data-v="'+layout+'"]').click();
   await page.locator('#setBtn').click();
  }
- const first=await openSection('Tzidkat HaTzadik 6');
+ const layoutSectionRef='Tzidkat HaTzadik 6';
+ const firstKey=sections.find(s=>s.leaf.ref===layoutSectionRef).items.flatMap(i=>i.footnotes||[])[0].placementId;
+ const first=await openSection(layoutSectionRef);
  for(const [lang,layout,selector] of [['he','stack','.seg-he'],['bi','side','.seg-he'],['bi','inter','.ph-he']]){
   await setPrefs(lang,layout);
-  const trigger=first.locator(selector+' button[data-note-key="TZ-0001-1"]');
+  const trigger=first.locator(selector+' button[data-note-key="'+firstKey+'"]');
   assert.ok(await trigger.isVisible(),lang+' '+layout);
   await trigger.click();
-  const box=first.locator(layout==='inter'?'.seg-il .reader-footnote[data-note-key="TZ-0001-1"]':'.segment-annotations .reader-footnote[data-note-key="TZ-0001-1"]');
+  const box=first.locator(layout==='inter'?'.seg-il .reader-footnote[data-note-key="'+firstKey+'"]':'.segment-annotations .reader-footnote[data-note-key="'+firstKey+'"]');
   assert.ok(await box.isVisible(),lang+' '+layout+' inline expansion');
   await trigger.click();assert.ok(!(await box.isVisible()));
  }
  await setPrefs('en','stack');
- assert.equal(await first.locator('.seg-en button[data-note-key="TZ-0001-1"]').count(),0);
- assert.ok(await first.locator('.segment-annotations .reader-footnote[data-note-key="TZ-0001-1"]').isVisible(),'Source text accessible in English-only view');
+ assert.equal(await first.locator('.seg-en button[data-note-key="'+firstKey+'"]').count(),0);
+ assert.ok(await first.locator('.segment-annotations .reader-footnote[data-note-key="'+firstKey+'"]').isVisible(),'Source text accessible in English-only view');
  await setPrefs('bi','inter');
  for(const [ref,nums] of [['Dover Tzedek, Kuntres Dover Tzedek, Eruvin 2',[37,38,44]],['Dover Tzedek, Kuntres Dover Tzedek, Eruvin 3',[91]]]){
   const sec=await openSection(ref,'.seg-il .ph-he .footnote-marker');
