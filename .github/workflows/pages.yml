@@ -53,6 +53,9 @@ jobs:
       - name: Build library text data
         run: node scripts/build-library.mjs
 
+      - name: Verify annotated Pri Tzaddik Noach homepage, reader, and downloads
+        run: node scripts/test-noach-home-links.mjs && node scripts/test-pri-tzadik-annotations.mjs
+
       - name: Import Yisrael Kedoshim English footnotes and Sefaria links
         run: node scripts/import-yisrael-footnotes.mjs
 
