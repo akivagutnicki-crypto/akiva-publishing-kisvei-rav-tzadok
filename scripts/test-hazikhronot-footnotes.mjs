@@ -40,7 +40,7 @@ for(let ch=1;ch<=35;ch++){
         if(source.url?.startsWith('https://www.sefaria.org/')){
           sourceLinks++;
           assert.ok(note.paragraphs[0].rich.some(run=>run.href===source.url),'Sefaria hyperlink not in source paragraph');
-          assert.ok((links[ref]||[]).some(l=>l.r===source.ref&&l.a.startsWith(ref+':')),
+          assert.ok((links[ref]||[]).some(l=>l.r===source.ref&&l.a.startsWith(ref+(leaf.sep||':'))),
             'Primary source not in paragraph connections: '+source.ref);
         }
       }
