@@ -10,8 +10,11 @@ const visible=s=>String(s||'').replace(/<[^>]*>/g,'').replace(/&(?:quot|amp|lt|g
 
 let total=0,sourceLinks=0,parallels=0;
 for(let ch=1;ch<=35;ch++){
-  const ref='Sefer HaZikhronot '+ch;
-  const leaf=leaves.find(l=>l.ref===ref);
+  // Chapters 21–35 have manuscript Mitzvot section keys instead of numeric refs.
+  const leaf=leaves[ch];
+  const ref=leaf?.ref;
+  assert.ok(ch<=20 ? ref==='Sefer HaZikhronot '+ch : ref?.startsWith('Sefer HaZikhronot, Mitzvot,'),
+    'Incorrect Sefer HaZikhronot section order '+ch);
   assert.ok(leaf?.interlinear,'Missing interlinear leaf '+ref);
   const data=JSON.parse(fs.readFileSync(ROOT+leaf.id+'.json','utf8'));
   let chapterNotes=0;
