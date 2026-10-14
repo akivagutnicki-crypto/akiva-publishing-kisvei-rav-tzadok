@@ -55,7 +55,7 @@ function cleanEn(str) {
 
 function canonicalRef(ref) {
     return String(ref).replace(/\.(\d+)\.(\d+)(?=\b)/g, ' $1:$2')
-                      .replace(/\.(\d+[ab])(?=\b)/g, ' $1');
+                      .replace(/\.(\d+[ab]?)(?=\b)/g, ' $1');
 }
 
 function toSefariaUrl(ref) {
