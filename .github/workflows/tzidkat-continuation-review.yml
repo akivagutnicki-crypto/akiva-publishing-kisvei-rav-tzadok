@@ -1,0 +1,55 @@
+name: Validate Tzidkat Parallel Continuation
+
+on:
+  push:
+    branches: ["codex/tzidkat-parallels-47-83"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout proposed continuation
+        uses: actions/checkout@v6
+
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+
+      - name: Build reader with the current published editions
+        run: |
+          node scripts/build-pages.mjs
+          node scripts/import-tzidkat-reviewed.mjs
+          node scripts/import-tzidkat-parallels.mjs
+          node scripts/import-mei-vayera-bo.mjs
+          node scripts/import-machshavot-charutz.mjs
+          python scripts/import-divrei-footnotes.py
+          node scripts/build-library.mjs
+
+      - name: Verify Tzidkat source text, all numbered notes and exact parallel quotations
+        run: |
+          node scripts/test-tzidkat.mjs
+          node scripts/test-tzidkat-footnotes.mjs
+          node scripts/test-tzidkat-parallels.mjs
+
+      - name: Verify all Hebrew note anchors and text in a mobile browser
+        run: |
+          npm install --no-save --package-lock=false playwright@1.62.1
+          npx playwright install --with-deps chromium
+          node scripts/test-tzidkat-reader-browser.mjs
+
+      - name: Verify the source and parallel indexes
+        run: |
+          node scripts/build-mcp-index.mjs
+          node scripts/build-parallels.mjs
+          node scripts/test-parallels.mjs
+          node scripts/test-mcp-server.mjs
+
+      - name: Verify the downloadable reader archives
+        run: |
+          node scripts/build-library-zips.mjs
+          node scripts/test-library-zips.mjs
