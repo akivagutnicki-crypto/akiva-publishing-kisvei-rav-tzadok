@@ -31,9 +31,9 @@ book = json.loads(BOOK.read_text(encoding="utf-8"))
 if len(book.get("sections", [])) != 264:
     raise RuntimeError("Expected 264 Tzidkat HaTzadik simanim")
 section_map = {s["n"]: s for s in book["sections"]}
-items = {(s["n"], item["n"]): item for s in book["sections"] for item in s["items"]}
+items = {(s["n"], item["n"]): item for s in book["sections"] for item in s["items"] if "n" in item}
 text_snapshot = json.dumps(
-    [(s["n"], [(i["n"], i.get("p")) for i in s["items"]]) for s in book["sections"]],
+    [(s["n"], [(i.get("n"), i.get("p")) for i in s["items"]]) for s in book["sections"]],
     ensure_ascii=False, separators=(",", ":"),
 )
 for item in items.values():
@@ -164,7 +164,7 @@ for expected_num, row in enumerate(rows, 1):
 if len(section_note_counts) != 263:
     raise RuntimeError(f"Expected notes in 263 simanim; found {len(section_note_counts)}")
 after = json.dumps(
-    [(s["n"], [(i["n"], i.get("p")) for i in s["items"]]) for s in book["sections"]],
+    [(s["n"], [(i.get("n"), i.get("p")) for i in s["items"]]) for s in book["sections"]],
     ensure_ascii=False, separators=(",", ":"),
 )
 if after != text_snapshot:
