@@ -28,3 +28,5 @@ jobs:
         run: |
           node scripts/test-noach-home-links.mjs
           node scripts/test-pri-tzadik-annotations.mjs
+          node scripts/test-pri-marcheshvan-bereishis-home.mjs
+          node scripts/test-pri-rosh-chodesh-annotations.mjs
