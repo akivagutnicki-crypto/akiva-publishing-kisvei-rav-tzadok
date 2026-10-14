@@ -37,7 +37,7 @@ try {
   await section.locator(marker||'.seg-il .ph-he .source-note-trigger').first().waitFor({state:'visible'});
   return section;
  }
- const cases=new Set(['TZ-0001','TZ-0007','TZ-0023','TZ-0034','TZ-0047','TZ-0093','TZ-0094','TZ-0114','TZ-0144','TZ-0205','TZ-0222','TZ-0241','TZ-0251','TZ-0255','TZ-0256','TZ-0269']);
+ const cases=new Set(['TZ-0001','TZ-0007','TZ-0023','TZ-0034','TZ-0047','TZ-0093','TZ-0094','TZ-0114','TZ-0144','TZ-0205','TZ-0222','TZ-0241','TZ-0251','TZ-0255','TZ-0256','TZ-0269','TZ-0934','TZ-0939','TZ-0940']);
  const checkedCases=new Set();let markerCount=0,noteCount=0,sectionCount=0;
  for(const {leaf,items} of annotatedSections){
   const section=await openSection(leaf.ref);
@@ -62,13 +62,13 @@ try {
    assert.equal(mark.nested,false,'Footnote marker inside source hyperlink');
    assert.equal(+mark.number,Number(note.sourceId.slice(3)),'Book-wide numbering');
   }
-  const literal=await section.evaluate(root=>[...root.querySelectorAll('.seg-il .reader-footnote[data-source-note]')].map(box=>({key:box.dataset.noteKey,text:box.querySelector('.annotation-text').textContent})));
+  const literal=await section.evaluate(root=>[...root.querySelectorAll('.seg-il .reader-footnote[data-source-note]')].map(box=>({key:box.dataset.noteKey,paragraphs:[...box.querySelectorAll('.annotation-text')].map(p=>p.textContent)})));
   assert.equal(literal.length,sectionNotes.length,'One complete inline box per footnote');
   assert.equal(await section.locator('.seg-il .reader-footnote summary').filter({hasText:'Explore Sefaria connections'}).count(),0,'Redundant Tzidkat connection sections must be absent');
   assert.equal(await section.locator('.seg-il .reader-footnote summary').filter({hasText:'Source review'}).count(),0,'Editorial verification controls must not clutter the Tzidkat footnotes');
   assert.equal(await section.locator('.seg-il .reader-footnote .footnote-connections').count(),0,'No auxiliary Sefaria or source-review panels are rendered');
   for(const note of sectionNotes){
-   assert.equal(literal.find(x=>x.key===note.placementId)?.text,note.paragraphs[0].text,'Footnote text missing '+note.placementId);noteCount++;
+   assert.deepEqual(literal.find(x=>x.key===note.placementId)?.paragraphs,note.paragraphs.map(p=>p.text),'Footnote text missing '+note.placementId);noteCount++;
    if(!cases.has(note.sourceId)||checkedCases.has(note.sourceId))continue;
    const trigger=section.locator('.seg-il .ph-he button[data-note-key="'+note.placementId+'"]');
    const box=section.locator('.seg-il .reader-footnote[data-note-key="'+note.placementId+'"]');

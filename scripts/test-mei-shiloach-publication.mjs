@@ -65,7 +65,7 @@ assert.ok(html.includes("const en = overlay.map(pairs => pairs.map(p => p[1]).jo
 assert.ok(!html.includes('overlay.length !== d.he.length'),
   'Reader must not discard imported Mei edition when remote Sefaria count differs');
 const sw=fs.readFileSync('dist/library/sw.js','utf8');
-assert.ok(sw.includes('v47-mei-hashiloach-vayera-bo-reviewed'),
+assert.ok(Number(/const VERSION = 'v(\d+)-/.exec(sw)?.[1]) >= 47,
   'Installed reader shell cache was not refreshed');
 
 assert.ok(html.includes('withMeiStudy')&&html.includes('phrases:overlay'),'Reader did not load the Mei study overlay');
