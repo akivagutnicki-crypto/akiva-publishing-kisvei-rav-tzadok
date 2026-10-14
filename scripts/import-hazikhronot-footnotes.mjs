@@ -37,7 +37,9 @@ function paragraph(text,url=''){
  text=String(text||'');
  if(!text.trim())return null;
  // Source title is bold, Sefaria-linked where the supplied URL is valid.
- const lead=/:\s[“‘"]/.exec(text),cut=lead?lead.index+1:-1;
+ // Some reviewed notes introduce a prose explanation rather than a quotation.
+ // Link their source heading too; never drop the canonical Sefaria URL.
+ const lead=/:\s/.exec(text),cut=lead?lead.index+1:-1;
  const rich=cut>0 ? [
   {text:text.slice(0,cut),bold:true,...(sefaria(url)?{href:url}:{})},
   {text:text.slice(cut)}
