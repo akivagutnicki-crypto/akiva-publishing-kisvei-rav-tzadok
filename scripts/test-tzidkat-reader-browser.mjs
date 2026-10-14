@@ -63,6 +63,7 @@ try {
   assert.equal(literal.length,sectionNotes.length,'One complete inline box per footnote');
   assert.equal(await section.locator('.seg-il .reader-footnote summary').filter({hasText:'Explore Sefaria connections'}).count(),0,'Redundant Tzidkat connection sections must be absent');
   assert.equal(await section.locator('.seg-il .reader-footnote summary').filter({hasText:'Source review'}).count(),0,'Editorial verification controls must not clutter the Tzidkat footnotes');
+  assert.equal(await section.locator('.seg-il .reader-footnote .footnote-connections').count(),0,'No auxiliary Sefaria or source-review panels are rendered');
   for(const note of sectionNotes){
    assert.equal(literal.find(x=>x.key===note.placementId)?.text,note.paragraphs[0].text,'Footnote text missing '+note.placementId);noteCount++;
    if(!cases.has(note.sourceId)||checkedCases.has(note.sourceId))continue;
