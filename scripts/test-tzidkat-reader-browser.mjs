@@ -20,7 +20,10 @@ const origin='http://127.0.0.1:'+server.address().port;
 const toc=JSON.parse(fs.readFileSync(root+'/library/data/tzidkat-hatzadik/toc.json','utf8'));
 const sections=toc.toc.children.map(leaf=>({leaf,items:JSON.parse(fs.readFileSync(root+'/library/data/tzidkat-hatzadik/'+leaf.id+'.json','utf8'))}));
 const expected=sections.flatMap(s=>s.items.flatMap(i=>(i.footnotes||[]).map(note=>({note,ref:s.leaf.ref,paragraph:i.n}))));
-assert.equal(expected.length,279);
+const source=JSON.parse(fs.readFileSync('sources/akiva/Tzidkat_HaTzadik.json','utf8'));
+const expectedCount=source.footnoteImportInfo.placements;
+const expectedSections=source.footnoteImportInfo.sectionsWithNotes;
+assert.equal(expected.length,expectedCount);
 const annotatedSections=sections.filter(s=>s.items.some(i=>i.footnotes?.length));
 const toHash=ref=>encodeURIComponent(ref).replace(/%20/g,'_').replace(/%2C/g,',').replace(/%3A/g,':');
 const browser=await chromium.launch({headless:true});
@@ -93,9 +96,9 @@ try {
   sectionCount++;
   if(sectionCount%25===0)console.log('Verified '+sectionCount+'/'+annotatedSections.length+' reader routes.');
  }
- assert.equal(markerCount,279,'279 Hebrew-only anchors');
- assert.equal(noteCount,279,'279 full notes');
- assert.equal(sectionCount,165);assert.equal(checkedCases.size,cases.size);
+ assert.equal(markerCount,expectedCount,'All Hebrew-only anchors');
+ assert.equal(noteCount,expectedCount,'All full notes');
+ assert.equal(sectionCount,expectedSections);assert.equal(checkedCases.size,cases.size);
  async function setPrefs(language,layout){
   await page.locator('#setBtn').click();
   await page.locator('[data-pref="lang"] button[data-v="'+language+'"]').click();
@@ -129,6 +132,6 @@ try {
   }
  }
  assert.deepEqual(errors,[],'Reader JavaScript errors');
- console.log('PASS browser: 279 Hebrew-only Tzidkat markers, 269 canonical book-wide numbers, 279 untruncated inline notes, Sefaria links, three reading layouts, English-only access, and restored Dover inline notes.');
+ console.log('PASS browser: '+expectedCount+' Hebrew-only Tzidkat markers, continuous book-wide numbering, all untruncated inline notes, Sefaria links, three reading layouts, English-only access, and preserved Dover inline notes.');
  await context.close();
 }finally{await browser.close();await new Promise(ok=>server.close(ok));}
