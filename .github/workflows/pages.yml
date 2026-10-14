@@ -31,7 +31,8 @@ jobs:
 
       - name: Build static site
         run: node scripts/build-pages.mjs
-
+      - name: Expand Tzidkat HaTzadik source footnotes
+              run: node scripts/expand-tzidkat-footnotes.mjs
       - name: Build library text data
         run: node scripts/build-library.mjs
 
