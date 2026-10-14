@@ -2,8 +2,7 @@ name: Deploy Akiva Publishing to GitHub Pages
 
 on:
   push:
-    branches:
-      - main
+    branches: ["main"]
   workflow_dispatch:
 
 permissions:
@@ -13,57 +12,72 @@ permissions:
 
 concurrency:
   group: "pages"
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 jobs:
-  build:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
     runs-on: ubuntu-latest
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
-      - name: Setup Node
-        uses: actions/setup-node@v4
+      - name: Set up Node for reader browser verification
+        uses: actions/setup-node@v6
         with:
-          node-version: 20
-          cache: npm
+          node-version: '24'
 
-      - name: Install dependencies
-        run: npm ci
+      - name: Build static site
+        run: node scripts/build-pages.mjs
 
       - name: Expand Tzidkat HaTzadik source footnotes
         run: node scripts/expand-tzidkat-footnotes.mjs
 
-      - name: Build library
-        run: npm run build
+      - name: Build library text data
+        run: node scripts/build-library.mjs
 
-      - name: Verify Tzidkat HaTzadik footnotes
-        run: npm run test:tzidkat-footnotes
+      - name: Prepare and verify the supplied shiur recordings
+        run: node scripts/build-shiur-audio.mjs && node scripts/test-shiur-player.mjs
 
-      - name: Verify reader data
-        run: npm run test:reader-data
+      - name: Verify interlinear Hebrew, nikkud, and Sefaria links
+        run: node scripts/test-interlinear-publication.mjs && node scripts/test-beit-yaakov-publication.mjs && node scripts/test-mei-shiloach-publication.mjs && node scripts/test-dover-footnotes.mjs && node scripts/test-tzidkat.mjs && node scripts/test-tzidkat-footnotes.mjs
 
-      - name: Install Playwright Chromium
-        run: npx playwright install --with-deps chromium
+      - name: Verify Hebrew-word footnotes in a mobile browser
+        run: |
+          npm install --no-save --package-lock=false playwright@1.62.1
+          npx playwright install --with-deps chromium
+          node scripts/test-tzidkat-reader-browser.mjs
 
-      - name: Verify Tzidkat reader in headless browser
-        run: npm run test:tzidkat-reader-browser
+      - name: Build and verify MCP search index and library parallels
+        run: node scripts/build-mcp-index.mjs && node scripts/build-parallels.mjs && node scripts/test-parallels.mjs && node scripts/test-mcp-server.mjs && node scripts/test-cloudflare-worker.mjs
+
+      - name: Build and verify library ZIP downloads
+        run: node scripts/build-library-zips.mjs && node scripts/test-library-zips.mjs && node scripts/test-sefaria-packs.mjs && node scripts/test-source-zip-export.mjs
+
+      - name: Cache official Sefaria source exports
+        uses: actions/cache@v4
+        with:
+          path: .cache/sefaria-export
+          key: sefaria-exports-${{ runner.os }}-${{ hashFiles('sources/akiva/packs/exports.json.gz') }}
+
+      - name: Build and verify collection ZIPs with meforshim
+        run: |
+          python -m pip install 'requests==2.32.5'
+          python scripts/build-sefaria-zips.py
+          python scripts/test-sefaria-zips.py
 
       - name: Setup Pages
         uses: actions/configure-pages@v5
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
         with:
-          path: dist
+          enablement: true
 
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
+      - name: Upload site
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ./dist
+
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
