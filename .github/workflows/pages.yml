@@ -50,6 +50,12 @@ jobs:
       - name: Build library text data
         run: node scripts/build-library.mjs
 
+      - name: Import Yisrael Kedoshim English footnotes and Sefaria links
+        run: node scripts/import-yisrael-footnotes.mjs
+
+      - name: Verify Yisrael Kedoshim Hebrew anchors and links
+        run: node scripts/test-yisrael-footnotes.mjs
+
       - name: Prepare and verify the supplied shiur recordings
         run: node scripts/build-shiur-audio.mjs && node scripts/test-shiur-player.mjs
 
