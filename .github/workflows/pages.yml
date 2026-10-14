@@ -62,6 +62,7 @@ jobs:
           npx playwright install --with-deps chromium
           node scripts/test-tzidkat-reader-browser.mjs
           node scripts/test-divrei-reader-browser.mjs
+          node scripts/test-hazikhronot-reader-browser.mjs
 
       - name: Build and verify MCP search index and library parallels
         run: node scripts/build-mcp-index.mjs && node scripts/build-parallels.mjs && node scripts/test-parallels.mjs && node scripts/test-mcp-server.mjs && node scripts/test-cloudflare-worker.mjs
