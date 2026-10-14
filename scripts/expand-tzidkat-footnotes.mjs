@@ -53,6 +53,11 @@ function cleanEn(str) {
       .trim();
 }
 
+function canonicalRef(ref) {
+    return String(ref).replace(/\.(\d+)\.(\d+)(?=\b)/g, ' $1:$2')
+                      .replace(/\.(\d+[ab])(?=\b)/g, ' $1');
+}
+
 function toSefariaUrl(ref) {
     return SEFARIA_ORIGIN + '/' + encodeURI(ref.replace(/ /g, '_')).replace(/#/g, '%23');
 }
@@ -275,12 +280,13 @@ async function main() {
                                 }
                     }
 
-                  pairRefs.forEach((ref, rIdx) => {
-                              if (existingPairRefs.has(`${pIdx}::${ref}`)) return;
+                  pairRefs.forEach((rawRef, rIdx) => {
+                               const ref = canonicalRef(rawRef);
+                              if (existingPairRefs.has(`${pIdx}::${ref}`) || existingPairRefs.has(`${pIdx}::${rawRef}`)) return;
                               existingPairRefs.add(`${pIdx}::${ref}`);
 
-                                             const hePrefix = computeHeAnchor(he, ref, rIdx);
-                              const enPrefix = computeEnAnchor(en, ref);
+                                             const hePrefix = computeHeAnchor(he, rawRef, rIdx);
+                              const enPrefix = computeEnAnchor(en, rawRef);
                               if (!hePrefix || !enPrefix) return;
 
                                              maxNoteNum++;
