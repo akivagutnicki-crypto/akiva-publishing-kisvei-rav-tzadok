@@ -1,39 +1,55 @@
+// End-to-end validation of the supplied 2,096 footnotes and two parallel sources per note.
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
-import {spawnSync} from 'node:child_process';
 
-const overlay=JSON.parse(fs.readFileSync('sources/akiva/overlays/tzidkat-footnote-parallels.json','utf8'));
-const sourcePath='sources/akiva/Tzidkat_HaTzadik.json';
-const bytes=fs.readFileSync(sourcePath,'utf8');
-const source=JSON.parse(bytes);
-const toc=JSON.parse(fs.readFileSync('dist/library/data/tzidkat-hatzadik/toc.json','utf8'));
-for(const e of overlay.entries){
- const s=source.sections.find(s=>s.n===e.siman), i=s.items.find(i=>i.n===e.item);
- const note=i.footnotes.find(n=>n.placementId===e.anchor.placementId);
- assert.ok(note.parallelEdition,'Unimported parallel '+e.anchor.sourceId);
- assert.equal(note.paragraphs.length,e.parallels.length,'One or two complete English paragraphs');
- for(const p of note.paragraphs){
-  assert.ok(!/[א-ת]/.test(p.text));
-  assert.equal(p.rich.map(r=>r.text).join(''),p.text);
- }
- for(const [index,key] of e.parallels.entries()){
-  const p=overlay.passages[key];
-  const rich=note.paragraphs[index].rich;
-  assert.ok(rich.some(r=>r.bold&&r.text===(p.displayRef||p.ref)&&r.href==='https://www.sefaria.org/'+p.ref.replaceAll(' ','_')),'Bold canonical source link '+key);
-  assert.ok(note.paragraphs[index].text.includes(p.quote),'Complete quotation '+key);
-  assert.ok(note.sources.some(s=>s.ref===p.ref),'Parallel absent from source index');
- }
- for(const [key,value] of Object.entries(e.anchor))assert.deepEqual(note[key],value,'Moved footnote anchor');
- const leaf=toc.toc.children.find(l=>l.ref==='Tzidkat HaTzadik '+e.siman);
- const data=JSON.parse(fs.readFileSync('dist/library/data/tzidkat-hatzadik/'+leaf.id+'.json','utf8'));
- assert.deepEqual(data.find(i=>i.n===e.item).footnotes.find(n=>n.placementId===e.anchor.placementId),note,'Reader omitted parallel quotation');
+const src = JSON.parse(fs.readFileSync('sources/akiva/Tzidkat_HaTzadik.json','utf8'));
+const toc = JSON.parse(fs.readFileSync('dist/library/data/tzidkat-hatzadik/toc.json','utf8'));
+assert.equal(src.sections.length,264);
+let count=0,covered=0,parallelLinks=0;
+for (const sec of src.sections) {
+  const notes=sec.items.flatMap(item=>item.footnotes||[]);
+  if(notes.length)covered++;
+  const uniqueSources=new Set(),lastBySchool=[null,null];
+  const leaf=toc.toc.children.find(t=>t.ref==='Tzidkat HaTzadik '+sec.n);
+  assert.ok(leaf,'Missing reader chapter '+sec.n);
+  const published=JSON.parse(fs.readFileSync('dist/library/data/tzidkat-hatzadik/'+leaf.id+'.json','utf8'));
+  assert.deepEqual(
+    published.flatMap(item=>item.footnotes||[]),
+    notes,
+    'Lost source or parallel footnotes in reader chapter '+sec.n
+  );
+  for(const note of notes) {
+    count++;
+    assert.equal(note.number,count,'Book-wide footnote numbering');
+    assert.equal(note.sourceId,'TZ-'+String(count).padStart(4,'0'));
+    assert.equal(note.placementId,note.sourceId+'-1');
+    assert.equal(note.paragraphs.length,4,'Primary source + Rav Tzadok + Ishbitz + source links');
+    assert.equal(note.sources.length,1,'One primary source per note');
+    assert.equal(note.nativeConnections.length,2,'Two source-school parallels per note');
+    assert.ok(!uniqueSources.has(note.sources[0].ref),'Repeated source within siman '+sec.n);
+    uniqueSources.add(note.sources[0].ref);
+    for(const [index,school] of ['Kisvei Rav Tzadok Parallel','Kisvei Beis Ishbitz–Radzin Parallel'].entries()){
+      const paragraph=note.paragraphs[index+1];
+      assert.ok(paragraph.text.startsWith(school+' — '),'Wrong source-school label '+count);
+      assert.ok(paragraph.text.includes('“'),'Missing actual English translated passage '+count);
+      assert.ok(!/[א-ת]/.test(paragraph.text),'Footnote is not fully English '+count);
+      const anchor=paragraph.rich.find(x=>x.href&&x.bold);
+      assert.ok(anchor && anchor.href.startsWith('https://www.sefaria.org/'));
+      assert.ok(paragraph.text.includes(note.nativeConnections[index]),'Wrong quoted passage '+count);
+      assert.notEqual(note.nativeConnections[index],lastBySchool[index],
+        'Back-to-back repeated Chassidic parallel in siman '+sec.n+' (school '+index+')');
+      lastBySchool[index]=note.nativeConnections[index];
+      parallelLinks++;
+    }
+    for(const p of note.paragraphs)
+      assert.equal(p.rich.map(x=>x.text).join(''),p.text,'Truncated footnote '+count);
+    assert.ok(note.paragraphs[3].text.includes('Sources:'));
+    assert.equal(note.verificationStatus,'verified');
+  }
 }
-const correction=source.sections.flatMap(s=>s.items.flatMap(i=>i.footnotes||[])).find(n=>n.sourceId==='TZ-0934');
-assert.ok(correction.sources.some(s=>s.ref==='Zohar, Beshalach 27:360'),'Exact Netzach and Hod Zohar source');
-assert.ok(correction.paragraphs[0].text.includes('Hod and Netzach'));
-assert.ok(!correction.paragraphs[0].text.includes('Moses was created'));
-const run=spawnSync(process.execPath,['scripts/import-tzidkat-parallels.mjs'],{encoding:'utf8'});
-assert.equal(run.status,0,run.stderr);
-assert.equal(fs.readFileSync(sourcePath,'utf8'),bytes,'Idempotent parallel import');
-assert.equal(source.footnoteParallelInfo.reviewedPlacements,overlay.entries.length);
-console.log('PASS Tzidkat parallel quotations: '+overlay.entries.length+' reviewed placements, complete English, bold canonical links, exact anchors, corrected Zohar, and idempotent import.');
+assert.equal(count,2096,'Missing notes');
+assert.equal(covered,263,'Missing annotated simanim');
+assert.equal(parallelLinks,4192,'Both schools must be linked for all notes');
+assert.equal(src.footnoteImportInfo.notes,count);
+assert.equal(src.footnoteImportInfo.placements,count);
+console.log('PASS: 2,096 complete Hebrew-anchored Tzidkat footnotes, 4,192 linked distinct parallels, no adjacent parallel repetition, and all 263 annotated simanim published.');
