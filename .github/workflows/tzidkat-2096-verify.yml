@@ -4,6 +4,8 @@ on:
   push:
     branches: ["tzidkat-2096-expanded-20261014"]
   workflow_dispatch:
+  pull_request:
+    branches: ["main"]
 
 permissions:
   contents: read
