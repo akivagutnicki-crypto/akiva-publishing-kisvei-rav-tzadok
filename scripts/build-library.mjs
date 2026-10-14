@@ -337,7 +337,7 @@ function connect(slug, sectionRef, sep, items) {
     // Reviewed Tzidkat and Machshavot sources use precise bilingual insertion boundaries.
     // Fail a future rebuild if either phrase changes underneath its Hebrew marker.
     for (const note of item.footnotes || []) {
-      if (!/^(?:TZ|MC)-\d{4}$/.test(note.sourceId || '')) continue;
+      if (!/^(?:TZ|MC|DS)-\d{4}$/.test(note.sourceId || '')) continue;
       const phrase = item.p[note.phraseIndex];
       const textOf = s => String(s).replace(/<[^>]*>/g, '').replace(/&(?:quot|amp|apos|lt|gt|nbsp|#39|#x27);/g,
         t => ({'&quot;':'"','&amp;':'&','&apos;':"'",'&lt;':'<','&gt;':'>','&nbsp;':' ','&#39;':"'",'&#x27;':"'"}[t]));
@@ -346,7 +346,7 @@ function connect(slug, sectionRef, sep, items) {
         throw new Error('Reviewed source footnote anchor changed: '+note.placementId+' in '+anchor);
       for (const source of note.sources || []) {
         if (!source.ref || !/^https:\/\/www\.sefaria\.org\//.test(source.url || '')) {
-          if (note.sourceId.startsWith('MC-')) continue; // Keep the note with no Sefaria match.
+          if (note.sourceId.startsWith('MC-') || note.sourceId.startsWith('DS-')) continue; // Preserve notes even when no Sefaria match exists.
           throw new Error('Invalid reviewed footnote source: '+note.sourceId);
         }
         refs.add(source.ref);
