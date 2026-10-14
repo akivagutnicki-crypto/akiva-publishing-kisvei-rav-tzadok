@@ -56,6 +56,9 @@ jobs:
       - name: Verify annotated Pri Tzaddik Noach homepage, reader, and downloads
         run: node scripts/test-noach-home-links.mjs && node scripts/test-pri-tzadik-annotations.mjs
 
+      - name: Verify Pri Tzaddik Mar Cheshvan and Bereishis Ois 4 home links
+        run: node scripts/test-pri-marcheshvan-bereishis-home.mjs && node scripts/test-pri-rosh-chodesh-annotations.mjs
+
       - name: Import Yisrael Kedoshim English footnotes and Sefaria links
         run: node scripts/import-yisrael-footnotes.mjs
 
