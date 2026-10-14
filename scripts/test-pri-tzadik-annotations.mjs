@@ -29,7 +29,7 @@ for (const [ois, expectedNotes, expectedPhrases] of [[5,15,158],[6,16,194]]) {
   for (const {note,p} of annotated) {
     assert.ok(Number.isInteger(note.phraseIndex) && note.phraseIndex >= 0 && note.phraseIndex < p.p.length,
       'Footnote positioned outside a phrase: ' + note.number);
-    assert.equal(note.heCharOffset, p.p[note.phraseIndex][0].replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').length,
+    assert.equal(note.heCharOffset, p.p[note.phraseIndex][0].replace(/<[^>]*>/g,'').replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&#39;/g,"'").length,
       'Word footnote marker is not attached to the Hebrew phrase: ' + note.number);
     assert.equal(note.paragraphs.length, 6, 'Missing source/parallel/commentary block: ' + note.number);
     assert.ok(note.paragraphs.every(item => item.text.length > 20),
