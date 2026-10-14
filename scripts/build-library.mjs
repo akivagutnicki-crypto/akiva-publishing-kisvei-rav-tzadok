@@ -722,7 +722,7 @@ if (fs.existsSync(meiStudyPath)) {
   const study = JSON.parse(fs.readFileSync(meiStudyPath, 'utf8'));
   const slug = 'mei-ha-shiloach';
   const dest = path.join(OUT, slug);
-  if (study.book !== 'Mei HaShiloach' || !Array.isArray(study.sections) || study.sections.length !== 9)
+  if (study.book !== 'Mei HaShiloach' || !Array.isArray(study.sections) || study.sections.length !== 21)
     throw new Error('Invalid Mei HaShiloach interlinear overlay');
   fs.mkdirSync(dest, {recursive: true});
   const overlay = {};
@@ -730,7 +730,7 @@ if (fs.existsSync(meiStudyPath)) {
   const lechWordHeadings = meiLechHeadingIndex(study.sections);
   let paragraphCount = 0, phraseCount = 0;
   for (const sec of study.sections) {
-    if (!/^Mei HaShiloach, (?:Volume I|Volume II|Mei HaShiloach Anthology), Genesis, (?:Bereshit|Noach|Lech Lecha)$/.test(sec.ref))
+    if (!/^Mei HaShiloach, (?:Volume I|Volume II|Mei HaShiloach Anthology), (?:Genesis|Exodus), (?:Bereshit|Noach|Lech Lecha|Vayera|Chayei Sarah|Toldot|Vayetzei|Vayishlach|Vayeshev|Miketz|Vayigash|Vayechi|Shemot|Vaera|Bo)$/.test(sec.ref))
       throw new Error('Unexpected Mei HaShiloach study reference: ' + sec.ref);
     if (overlay[sec.ref] || !Array.isArray(sec.paragraphs)) throw new Error('Duplicate or invalid study section: ' + sec.ref);
     const items = sec.paragraphs.map((pairs, i) => ({n:i + 1, p:pairs}));
@@ -739,6 +739,21 @@ if (fs.existsSync(meiStudyPath)) {
       throw new Error('Empty or non-bilingual study paragraph: ' + sec.ref);
     const linked = connect(slug, sec.ref, ' ', items);
     overlay[sec.ref] = linked.map(x => x.p);
+    // Each source printed in the supplied Mei HaShiloach edition is a first-class
+    // reader connection, even where the automatic citation recognizer misses it.
+    // Preserve the separate Sefaria-edition translation in non-interlinear views.
+    const own=(LINKS[slug] ??= {});
+    const outward=(own[sec.ref] ??= []);
+    for(let i=0;i<linked.length;i++){
+      const anchorRef=sec.ref+':'+(i+1);
+      for(const ref of sec.sourceLinks?.[i]||[]){
+        if(outward.some(l=>l.a===anchorRef&&l.r===ref))continue;
+        outward.push({a:anchorRef,r:ref,c:'Primary Sources'});
+        const back=((CITED[slugify(bookOfRef(ref))] ??= {})[ref] ??= []);
+        if(!back.includes(anchorRef))back.push(anchorRef);
+      }
+    }
+
     const importedHeadings = lechWordHeadings[sec.ref];
     if (importedHeadings) headingIndex[sec.ref] = importedHeadings;
     else if (Array.isArray(sec.headings)) {
