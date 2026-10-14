@@ -23,8 +23,14 @@ for(let c=1;c<=10;c++){
     for(const [paragraphIndex,para] of n.paragraphs.entries()){
       assert.equal(para.rich.map(x=>x.text).join(''),para.text);
       assert.ok(!para.text.startsWith('Sources:'),'Redundant source list '+n.sourceId);
-      if(paragraphIndex>0 && (para.text.startsWith('Beit Yaakov')||para.text.startsWith('Mei HaShiloach'))){if(lastIsh.text===para.text)assert.ok(n.number-lastIsh.number>=20,'Repeated nearby Ishbitz source');lastIsh={text:para.text,number:n.number};}
-      if(paragraphIndex>0 && (para.text.startsWith('Tzidkat ')||para.text.startsWith('Resisei ')||para.text.startsWith('Kometz ')){if(lastRav.text===para.text)assert.ok(n.number-lastRav.number>=20,'Repeated nearby Rav Tzadok source');lastRav={text:para.text,number:n.number};}
+      if(paragraphIndex>0 && (para.text.startsWith('Beit Yaakov') || para.text.startsWith('Mei HaShiloach'))) {
+        if(lastIsh.text===para.text) assert.ok(n.number-lastIsh.number>=20,'Repeated nearby Ishbitz source');
+        lastIsh={text:para.text,number:n.number};
+      }
+      if(paragraphIndex>0 && (para.text.startsWith('Tzidkat ') || para.text.startsWith('Resisei ') || para.text.startsWith('Kometz '))) {
+        if(lastRav.text===para.text) assert.ok(n.number-lastRav.number>=20,'Repeated nearby Rav Tzadok source');
+        lastRav={text:para.text,number:n.number};
+      }
     }
     assert.ok(n.sources?.length===1);
     if(n.sources[0].role==='har-bracha-footnote'){
