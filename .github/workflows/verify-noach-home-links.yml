@@ -1,0 +1,30 @@
+name: Verify Noach Annotated Reader Links
+on:
+  push:
+    branches: ["fix-noach-annotated-reader-links-20261014"]
+  pull_request:
+    branches: ["main"]
+permissions:
+  contents: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - name: Build pages and import source editions
+        run: |
+          node scripts/build-pages.mjs
+          node scripts/import-tzidkat-reviewed.mjs
+          node scripts/import-tzidkat-parallels.mjs
+          python scripts/import-tzidkat-expanded-2096.py
+          node scripts/import-mei-vayera-bo.mjs
+          node scripts/import-machshavot-charutz.mjs
+          python scripts/import-divrei-footnotes.py
+          node scripts/build-library.mjs
+      - name: Check Noach homepage, reader routes, annotations and downloads
+        run: |
+          node scripts/test-noach-home-links.mjs
+          node scripts/test-pri-tzadik-annotations.mjs
