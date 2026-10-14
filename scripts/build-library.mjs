@@ -20,6 +20,7 @@ import { linkLikkuteiCitations } from './likkutei-citations.mjs';
 import { restoreStudyNikkud } from './restore-study-nikkud.mjs';
 import { addLechDocumentHeadings, meiLechHeadingIndex } from './lech-headlines.mjs';
 import { noachSixPairs } from './pri-noach-ois-6.mjs';
+import { addReviewedFootnotes } from './import-hazikhronot-footnotes.mjs';
 
 // Publish each generated file atomically when an interlinear overlay replaces Hebrew.
 function writeFile(file, contents) {
@@ -337,7 +338,7 @@ function connect(slug, sectionRef, sep, items) {
     // Reviewed Tzidkat and Machshavot sources use precise bilingual insertion boundaries.
     // Fail a future rebuild if either phrase changes underneath its Hebrew marker.
     for (const note of item.footnotes || []) {
-      if (!/^(?:TZ|MC|DS)-\d{4}$/.test(note.sourceId || '')) continue;
+      if (!/^(?:TZ|MC|DS|SZ)-\d{4}$/.test(note.sourceId || '')) continue;
       const phrase = item.p[note.phraseIndex];
       const textOf = s => String(s).replace(/<[^>]*>/g, '').replace(/&(?:quot|amp|apos|lt|gt|nbsp|#39|#x27);/g,
         t => ({'&quot;':'"','&amp;':'&','&apos;':"'",'&lt;':'<','&gt;':'>','&nbsp;':' ','&#39;':"'",'&#x27;':"'"}[t]));
@@ -346,10 +347,13 @@ function connect(slug, sectionRef, sep, items) {
         throw new Error('Reviewed source footnote anchor changed: '+note.placementId+' in '+anchor);
       for (const source of note.sources || []) {
         if (!source.ref || !/^https:\/\/www\.sefaria\.org\//.test(source.url || '')) {
-          if (note.sourceId.startsWith('MC-') || note.sourceId.startsWith('DS-')) continue; // Preserve notes even when no Sefaria match exists.
+          if (/^(?:MC|DS|SZ)-/.test(note.sourceId)) continue; // Preserve notes even without a Sefaria match.
           throw new Error('Invalid reviewed footnote source: '+note.sourceId);
         }
         refs.add(source.ref);
+      }
+      if (note.sourceId?.startsWith('SZ-')) {
+        for (const parallel of note.nativeConnections || []) refs.add(parallel);
       }
     }
     // Scholarly Word-footnote sources are first-class connections in Noach 5–6,
@@ -386,6 +390,7 @@ for (const dir of DIRS) {
   for (const file of candidateFiles) {
     const src = JSON.parse(fs.readFileSync(path.join(dir, file), 'utf8'));
     if (catalog.some(b => b.title === src.title)) { console.log(`${src.title}: using Akiva edition, skipping ${path.join(dir, file)}`); continue; }
+    if (src.title === 'Sefer HaZikhronot') addReviewedFootnotes(src);
     const slug = slugify(src.title);
     const bookDir = path.join(OUT, slug);
     fs.mkdirSync(bookDir, { recursive: true });
