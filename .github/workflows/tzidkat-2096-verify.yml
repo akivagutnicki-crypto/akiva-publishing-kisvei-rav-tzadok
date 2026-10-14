@@ -1,0 +1,32 @@
+name: Verify Tzidkat 2096 Footnotes
+
+on:
+  push:
+    branches: ["tzidkat-2096-expanded-20261014"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "24"
+      - name: Build reader base
+        run: node scripts/build-pages.mjs
+      - name: Prepare existing Har Bracha text and approved original notes
+        run: |
+          node scripts/import-tzidkat-reviewed.mjs
+          node scripts/import-tzidkat-parallels.mjs
+      - name: Import attached 2096 source notes and both sets of parallels
+        run: python scripts/import-tzidkat-expanded-2096.py
+      - name: Build reader
+        run: node scripts/build-library.mjs
+      - name: Validate all imported notes, anchors, and hyperlinks
+        run: |
+          node scripts/test-tzidkat-footnotes.mjs
+          node scripts/test-tzidkat-parallels.mjs
