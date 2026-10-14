@@ -334,19 +334,21 @@ function connect(slug, sectionRef, sep, items) {
     }
     const refs = new Set();
     for (const [he, en] of item.p) for (const m of (he + en).matchAll(/data-ref="([^"]+)"/g)) refs.add(decode(m[1]));
-    // The reviewed Tzidkat apparatus records exact rendered-text boundaries.
+    // Reviewed Tzidkat and Machshavot sources use precise bilingual insertion boundaries.
     // Fail a future rebuild if either phrase changes underneath its Hebrew marker.
     for (const note of item.footnotes || []) {
-      if (!note.sourceId?.startsWith('TZ-')) continue;
+      if (!/^(?:TZ|MC)-\d{4}$/.test(note.sourceId || '')) continue;
       const phrase = item.p[note.phraseIndex];
       const textOf = s => String(s).replace(/<[^>]*>/g, '').replace(/&(?:quot|amp|apos|lt|gt|nbsp|#39|#x27);/g,
         t => ({'&quot;':'"','&amp;':'&','&apos;':"'",'&lt;':'<','&gt;':'>','&nbsp;':' ','&#39;':"'",'&#x27;':"'"}[t]));
       if (!phrase || textOf(phrase[0]).slice(0,note.heCharOffset)!==note.heAnchorPrefix ||
           textOf(phrase[1]).slice(0,note.enCharOffset)!==note.enAnchorPrefix)
-        throw new Error('Tzidkat footnote anchor changed: '+note.placementId+' in '+anchor);
+        throw new Error('Reviewed source footnote anchor changed: '+note.placementId+' in '+anchor);
       for (const source of note.sources || []) {
-        if (!source.ref || !/^https:\/\/www\.sefaria\.org\//.test(source.url || ''))
+        if (!source.ref || !/^https:\/\/www\.sefaria\.org\//.test(source.url || '')) {
+          if (note.sourceId.startsWith('MC-')) continue; // Keep the note with no Sefaria match.
           throw new Error('Invalid reviewed footnote source: '+note.sourceId);
+        }
         refs.add(source.ref);
       }
     }
