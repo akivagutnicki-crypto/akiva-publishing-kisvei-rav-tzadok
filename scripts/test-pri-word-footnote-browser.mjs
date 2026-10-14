@@ -26,7 +26,7 @@ for (const [ref,total] of sections) {
   assert.equal(notes.length,total,'Missing notes '+ref);
   for(const {note,phrase} of notes){
     assert.ok(Number.isInteger(note.heCharOffset)&&note.heCharOffset>0,'No Hebrew marker anchor '+note.number);
-    assert.equal(note.heCharOffset,phrase[0].replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').length,
+    assert.equal(note.heCharOffset,phrase[0].replace(/<[^>]*>/g,'').replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&#39;/g,"'").length,
       'Marker must follow the exact Hebrew phrase '+ref+' #'+note.number);
     assert.ok(note.paragraphs.some(p=>p.links?.some(l=>/^https:\/\/www\.sefaria\.org\//.test(l.url))),
       'Missing existing Sefaria source link '+ref+' #'+note.number);
