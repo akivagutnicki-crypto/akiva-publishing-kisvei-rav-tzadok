@@ -54,7 +54,7 @@ try{
   assert.equal(cards.length,expected.length,'Missing note bodies '+leaf.ref);
   for(const note of expected)assert.deepEqual(cards.find(c=>c.id===note.placementId)?.paragraphs,note.paragraphs.map(p=>p.text));
   if(leaf.ref==='Divrei Soferim 1'){
-   const note=expected[0],trigger=section.locator('button.source-note-trigger[data-note-key="'+note.placementId+'"]');
+   const note=expected[0],trigger=section.locator('.seg-il .ph-he button.source-note-trigger[data-note-key="'+note.placementId+'"]');
    await trigger.click();
    const box=section.locator('.seg-il .reader-footnote[data-note-key="'+note.placementId+'"]');
    assert.ok(await box.isVisible(),'Source popup did not expand');
