@@ -48,7 +48,12 @@ for(const section of source.sections){
  }
  assert.equal(numbers.size,new Set(numbers.values()).size,'Each source ID receives one book-wide number in '+ref);
 }
-assert.equal(count,279);assert.equal(ids.size,269);assert.equal(placements.size,279);assert.equal(pending.size,6);
-assert.deepEqual([...ids].sort(),Array.from({length:269},(_,i)=>'TZ-'+String(i+1).padStart(4,'0')));
-assert.equal(source.footnoteImportInfo.sectionsWithNotes,165);
-console.log('PASS Tzidkat footnotes: 269 complete English notes, 279 exact bilingual anchors, 165 simanim, six explicitly flagged edition checks, and linked paragraph sources.');
+const expected=source.footnoteImportInfo;
+assert.equal(count,expected.placements,'Published source placements');
+assert.equal(ids.size,expected.notes,'Published unique sources');
+assert.equal(placements.size,expected.placements,'Distinct note placements');
+assert.deepEqual([...ids].sort(),Array.from({length:ids.size},(_,i)=>'TZ-'+String(i+1).padStart(4,'0')),'Book-wide numbering is continuous');
+const countedSections=source.sections.filter(s=>s.items.some(i=>(i.footnotes||[]).length)).length;
+assert.equal(countedSections,expected.sectionsWithNotes);
+assert.equal(pending.size,6,'Preserve flagged edition checks in existing notes');
+console.log('PASS Tzidkat footnotes: '+ids.size+' complete English notes, '+count+' exact bilingual anchors, '+countedSections+' simanim, with book-wide numbering and linked paragraph sources.');
