@@ -12,6 +12,7 @@ const leaves=[];
 function walk(node){if(node?.ref)leaves.push(node);for(const child of node?.children||[])walk(child);}
 walk(toc.toc);
 const sections=[
+  ['Peri Tzadik, Bereshit 3',17],
   ['Peri Tzadik, Noach 5',15],
   ['Peri Tzadik, Noach 6',16],
   ['Peri Tzadik, Rosh Chodesh Cheshvan',48],
@@ -78,7 +79,7 @@ try {
       'Footnote paragraphs truncated '+ref);
     const body=await box.locator('.annotation-text').allTextContents();
     assert.deepEqual(body,n.paragraphs.map(p=>p.text),'Word-source English changed '+ref);
-    if (n.paragraphs.some(p=>p.links?.some(l=>/^https:\/\/www\.sefaria\.org\//.test(l.url))))
+    if (n.paragraphs.some(p=>p.links?.some(l=>/^https:\/\/www\.sefaria\.org\//.test(l.url)) || p.rich?.some(run=>run.href?.startsWith('https://www.sefaria.org/'))))
       assert.ok(await box.locator('a[href^="https://www.sefaria.org/"]').count()>0,'Existing Sefaria links invisible '+ref);
     await trigger.click();
     assert.equal(await trigger.getAttribute('aria-expanded'),'false','Note did not close '+ref);
@@ -90,4 +91,4 @@ try {
   await browser.close();
   await new Promise(resolve=>server.close(resolve));
 }
-console.log('PASS browser: 112 Hebrew footnote markers, intact English translations and clickable source links.');
+console.log('PASS browser: 129 Hebrew footnote markers, intact English translations and clickable source links.');
