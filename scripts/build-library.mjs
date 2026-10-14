@@ -661,8 +661,15 @@ for (const dir of DIRS) {
                   !Array.isArray(note.paragraphs) || note.paragraphs.length < 1)
                 throw new Error('Misaligned annotated footnote ' + note.number + ' in ' + group.node + ' ' + group.chapter);
             }
+            // A Word footnote reference is attached to an English phrase.
+            // Place its reader marker immediately after the corresponding
+            // original Hebrew phrase, preserving the exact phrase boundary.
+            // The reader requires heCharOffset or heWord to render a marker;
+            // without one, a complete note is stored but invisible to users.
             items.push({p:pairs, n:++counter, ...(notes.length ? {footnotes:notes.map(note => ({
-              number:note.number, phraseIndex:note.phraseIndex, paragraphs:note.paragraphs
+              number:note.number, phraseIndex:note.phraseIndex, paragraphs:note.paragraphs,
+              heCharOffset:Number.isInteger(note.heCharOffset) ? note.heCharOffset
+                : String(aligned[cursor + note.phraseIndex][0]).length
             }))} : {})});
             cursor += count;
           }
