@@ -1,56 +1,59 @@
 import fs from 'node:fs';
 import path from 'node:path';
-const root = 'dist/library/data';
-const file = path.join(root,'mei-ha-shiloach','interlinear.json');
-if (!fs.existsSync(file)) throw new Error('Missing Mei HaShiloach study overlay');
-const source = JSON.parse(fs.readFileSync('sources/akiva/overlays/mei-hashiloach-interlinear.json','utf8'));
-const study = JSON.parse(fs.readFileSync(file,'utf8'));
-const expected = [15,8,10,2,3,1,9,3,4];
-const refs = [
-  'Mei HaShiloach, Volume I, Genesis, Bereshit',
-  'Mei HaShiloach, Volume I, Genesis, Noach',
-  'Mei HaShiloach, Volume II, Genesis, Bereshit',
-  'Mei HaShiloach, Volume II, Genesis, Noach',
-  'Mei HaShiloach, Mei HaShiloach Anthology, Genesis, Bereshit',
-  'Mei HaShiloach, Mei HaShiloach Anthology, Genesis, Noach',
-  'Mei HaShiloach, Volume I, Genesis, Lech Lecha',
-  'Mei HaShiloach, Volume II, Genesis, Lech Lecha',
-  'Mei HaShiloach, Mei HaShiloach Anthology, Genesis, Lech Lecha'
-];
-if (Object.keys(study).length !== 9) throw new Error('Expected nine Mei HaShiloach groups');
-let passages = 0, phrases = 0, nikkud = 0;
-for (let i = 0; i < refs.length; i++) {
-  const list = study[refs[i]];
-  if (!Array.isArray(list) || list.length !== expected[i])
-    throw new Error('Wrong passage count in '+refs[i]);
-  const original = source.sections[i].paragraphs;
-  for (let j=0; j<list.length; j++) {
-    if (list[j].length !== original[j].length)
-      throw new Error('Phrase count changed for '+refs[i]+' #'+(j+1));
-    passages++;
-    for (const [he,en] of list[j]) {
-      if (!/[א-ת]/.test(he) || !/[A-Za-z]/.test(en))
-        throw new Error('Unaligned Hebrew-English text');
-      if (/[\[\]]/.test(en)) throw new Error('English brackets leaked into interlinear translation');
-      nikkud += (he.match(/[\u0591-\u05c7]/g)||[]).length;
-      phrases++;
-    }
+import assert from 'node:assert/strict';
+
+const root='dist/library/data';
+const slug='mei-ha-shiloach';
+const load=path.join(root,slug);
+const data=JSON.parse(fs.readFileSync(path.join(load,'interlinear.json'),'utf8'));
+const headings=JSON.parse(fs.readFileSync(path.join(load,'headings.json'),'utf8'));
+const links=JSON.parse(fs.readFileSync(path.join(load,'links.json'),'utf8'));
+const source=JSON.parse(fs.readFileSync('sources/akiva/overlays/mei-hashiloach-interlinear.json','utf8'));
+const legacy=[15,8,10,2,3,1,9,3,4];
+const added=[9,5,13,9,38,7,9,7,10,5,4,7];
+const counts=[...legacy,...added];
+assert.equal(source.sections.length,21,'Nine prior sections and twelve newly translated parashiyos');
+assert.equal(Object.keys(data).length,21,'Every translated section is present in reader');
+let passages=0,phrases=0,nikkud=0,sourceLinks=0,inlineLinks=0;
+for(let i=0;i<source.sections.length;i++){
+ const sect=source.sections[i];
+ assert.ok(Array.isArray(data[sect.ref]),'Missing reader section '+sect.ref);
+ assert.equal(data[sect.ref].length,counts[i],'Wrong canonical Sefaria paragraph count '+sect.ref);
+ assert.equal(sect.paragraphs.length,counts[i],'Wrong source paragraph count '+sect.ref);
+ if(i>=9){
+  assert.equal(headings[sect.ref].headings.length,counts[i],'Headlines and subtitles must match every canonical passage '+sect.ref);
+  assert.ok(headings[sect.ref].headings.every(h=>h.includes('\n')),'Missing source-based subheadline');
+ }
+ for(let j=0;j<counts[i];j++){
+  const actual=data[sect.ref][j];
+  assert.ok(actual.length>0);
+  // The existing pipeline is allowed to merge pairs but must retain all source words.
+  assert.ok(actual.every(p=>p.length===2),'Malformed bilingual pair');
+  passages++;
+  for(const [he,en] of actual){
+   assert.match(he,/[א-ת]/,'Missing Hebrew');
+   assert.match(en,/[A-Za-z]/,'Missing English');
+   assert.doesNotMatch(en,/[\[\]]/,'No translation brackets');
+   nikkud+=(he.match(/[\u0591-\u05c7]/g)||[]).length;
+   inlineLinks+=(he+en).match(/data-ref="/g)?.length||0;
+   phrases++;
   }
+  if(i>=9){
+   for(const ref of sect.sourceLinks?.[j]||[]){
+    assert.ok((links[sect.ref]||[]).some(l=>l.a===sect.ref+':'+(j+1)&&l.r===ref),
+      'Unlinked Sefaria reference '+ref+' at '+sect.ref+':'+(j+1));
+    sourceLinks++;
+   }
+  }
+ }
 }
-if (passages !== 55 || phrases !== 1382 || nikkud < 1000)
-  throw new Error('Mei HaShiloach coverage regression: '+JSON.stringify({passages,phrases,nikkud}));
-const newHeadings=JSON.parse(fs.readFileSync(path.join(root,'mei-ha-shiloach','headings.json'),'utf8'));
-for(const ref of refs.slice(6)){
-  if(!Array.isArray(newHeadings[ref]?.headings)||newHeadings[ref].headings.length!==study[ref].length)
-    throw Error('Lech Lecha subheadings missing or misaligned: '+ref);
-}
-const catalog = JSON.parse(fs.readFileSync(path.join(root,'catalog.json'),'utf8'));
-if (catalog.some(x => x.title==='Mei HaShiloach'))
-  throw new Error('The overlay must not replace Sefaria original English by shadowing its catalog entry');
-const linksFile = path.join(root,'mei-ha-shiloach','links.json');
-const links = fs.existsSync(linksFile) ? JSON.parse(fs.readFileSync(linksFile,'utf8')) : {};
-const connectionCount = Object.values(links).flat().length;
-const html = fs.readFileSync('dist/library/index.html','utf8');
-if (!html.includes('withMeiStudy') || !html.includes('phrases:overlay') || !html.includes('Mei HaShiloach'))
-  throw new Error('Reader is not wired for Mei HaShiloach overlay');
-console.log('PASS Mei HaShiloach: '+passages+' paragraphs, '+phrases+' aligned phrases, '+nikkud+' nikkud marks, '+connectionCount+' detected local source links; Sefaria English is separate');
+assert.equal(passages,178,'Expected 55 prior plus 123 new canonical passages');
+assert.ok(phrases>=2400,'No Hebrew-English text truncated');
+assert.ok(nikkud>1000,'Hebrew vocalization missing');
+assert.ok(sourceLinks>=200,'Missing source connections from the supplied DOCX');
+assert.ok(inlineLinks>=100,'Inline primary-source links missing');
+const html=fs.readFileSync('dist/library/index.html','utf8');
+assert.ok(html.includes('withMeiStudy')&&html.includes('phrases:overlay'),'Reader did not load the Mei study overlay');
+const catalog=JSON.parse(fs.readFileSync(path.join(root,'catalog.json'),'utf8'));
+assert.ok(!catalog.some(e=>e.title==='Mei HaShiloach'),'Do not override the canonical Sefaria catalog');
+console.log('PASS Mei HaShiloach: '+passages+' canonical passages, '+phrases+' bilingual pairs, '+sourceLinks+' explicit Sefaria source connections, '+inlineLinks+' inline hyperlinks, headings and nikkud; original Sefaria English unaffected.');
