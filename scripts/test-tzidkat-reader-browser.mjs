@@ -61,6 +61,7 @@ try {
   }
   const literal=await section.evaluate(root=>[...root.querySelectorAll('.seg-il .reader-footnote[data-source-note]')].map(box=>({key:box.dataset.noteKey,text:box.querySelector('.annotation-text').textContent})));
   assert.equal(literal.length,sectionNotes.length,'One complete inline box per footnote');
+  assert.equal(await section.locator('.seg-il .reader-footnote summary').filter({hasText:'Explore Sefaria connections'}).count(),0,'Redundant Tzidkat connection sections must be absent');
   for(const note of sectionNotes){
    assert.equal(literal.find(x=>x.key===note.placementId)?.text,note.paragraphs[0].text,'Footnote text missing '+note.placementId);noteCount++;
    if(!cases.has(note.sourceId)||checkedCases.has(note.sourceId))continue;
@@ -79,8 +80,10 @@ try {
     const popupPromise=page.waitForEvent('popup');await source.click();const popup=await popupPromise;
     await popup.waitForLoadState('domcontentloaded');assert.equal(popup.url(),expectedUrl);await popup.close();
    }
-   const connections=box.locator('summary').filter({hasText:'Explore Sefaria connections'});
-   await connections.click();assert.ok(await box.locator('a[href*="?with=all"]').first().isVisible());
+   // The original linked citations remain, but Tzidkat's redundant Sefaria
+   // connections explorer must never be displayed inside a footnote.
+   assert.equal(await box.locator('summary').filter({hasText:'Explore Sefaria connections'}).count(),0);
+   assert.ok(await box.locator('a[href^="https://www.sefaria.org/"]').count()>0);
    await trigger.click();assert.ok(!(await box.isVisible()),'Inline note did not collapse');
    assert.equal(await trigger.getAttribute('aria-expanded'),'false');
    checkedCases.add(note.sourceId);

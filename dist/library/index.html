@@ -1341,7 +1341,7 @@ function readingFootnote(note, part) {
   const native = [...new Map((note.nativeConnections || []).filter(l=>safeFootnoteUrl(l.url)).map(l=>[l.url,l])).values()];
   const exploration = (note.sources || []).filter(s=>safeFootnoteUrl(s.connectionsUrl))
     .map(s=>`<a href="${esc(s.connectionsUrl)}" target="_blank" rel="noopener noreferrer">${esc(s.ref)} · all connections ↗</a>`).join('');
-  const connections = reviewed ? `<details class="footnote-connections"><summary>Explore Sefaria connections${native.length ? ' ('+native.length+')' : ''}</summary><p>Connections indexed for the cited passages.</p><div class="footnote-connection-list">${exploration}${native.map(l=>`<a href="${esc(l.url)}" target="_blank" rel="noopener noreferrer">${esc(l.ref)} ↗</a>`).join('')}</div></details>` : '';
+  const connections = reviewed && !/^TZ-\d{4}$/.test(note.sourceId || '') ? `<details class="footnote-connections"><summary>Explore Sefaria connections${native.length ? ' ('+native.length+')' : ''}</summary><p>Connections indexed for the cited passages.</p><div class="footnote-connection-list">${exploration}${native.map(l=>`<a href="${esc(l.url)}" target="_blank" rel="noopener noreferrer">${esc(l.ref)} ↗</a>`).join('')}</div></details>` : '';
   const editions = (note.editionLinks || []).filter(l=>safeFootnoteUrl(l.url))
     .map(l=>`<a href="${esc(l.url)}" target="_blank" rel="noopener noreferrer">${esc(l.label)} · edition link ↗</a>`).join('');
   const warning = /requires collation/.test(note.verificationStatus || '') ? '<div class="footnote-edition-warning">Exact named-edition verification remains pending. Verified passages and parallels are linked below.</div>' : '';
