@@ -30,6 +30,7 @@ jobs:
           node scripts/test-pri-tzadik-annotations.mjs
           node scripts/test-pri-marcheshvan-bereishis-home.mjs
           node scripts/test-pri-rosh-chodesh-annotations.mjs
+          node scripts/test-pri-bereishis3-commentary.mjs
       - name: Verify Hebrew footnote markers and on-screen Sefaria links
         run: |
           npm install --no-save --package-lock=false playwright@1.62.1

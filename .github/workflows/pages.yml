@@ -59,6 +59,9 @@ jobs:
       - name: Verify Pri Tzaddik Mar Cheshvan and Bereishis Ois 4 home links
         run: node scripts/test-pri-marcheshvan-bereishis-home.mjs && node scripts/test-pri-rosh-chodesh-annotations.mjs
 
+      - name: Verify annotated Bereishis Ois Gimmel source commentary
+        run: node scripts/test-pri-bereishis3-commentary.mjs
+
       - name: Import Yisrael Kedoshim English footnotes and Sefaria links
         run: node scripts/import-yisrael-footnotes.mjs
 
