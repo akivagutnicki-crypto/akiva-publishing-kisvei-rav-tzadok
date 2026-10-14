@@ -37,7 +37,7 @@ for(const section of source.sections){
    if(numbers.has(note.sourceId))assert.equal(numbers.get(note.sourceId),note.number);
    numbers.set(note.sourceId,note.number);
    if(note.verificationStatus.includes('requires collation'))pending.add(note.sourceId);
-   if(note.crossReference?.placementId)assert.match(note.crossReference.placementId,/^TZ-\\d{4}-\\d+$/);
+   if(note.crossReference?.placementId)assert.match(note.crossReference.placementId,/^TZ-\d{4}-\d+$/);
   }
  }
  assert.equal(numbers.size,new Set(numbers.values()).size,'Each source ID receives one book-wide number in '+ref);
