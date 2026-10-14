@@ -26,6 +26,11 @@ jobs:
           node scripts/import-tzidkat-parallels.mjs
       - name: Import attached 2096 source notes and both sets of parallels
         run: python scripts/import-tzidkat-expanded-2096.py
+      - name: Import other required edition overlays before building library
+        run: |
+          node scripts/import-mei-vayera-bo.mjs
+          node scripts/import-machshavot-charutz.mjs
+          python scripts/import-divrei-footnotes.py
       - name: Build reader
         run: node scripts/build-library.mjs
       - name: Validate all imported notes, anchors, and hyperlinks
