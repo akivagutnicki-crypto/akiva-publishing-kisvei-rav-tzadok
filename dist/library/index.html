@@ -563,7 +563,7 @@ const INFO = {
   "Meshiv HaTa'anah": {d:'A reply to the pamphlet "Megillat Ta\'anot," written in 1842 in defense of tradition.'},
   'Meshiv Tzedek': {d:'On sitting in the sukkah on Shemini Atzeret, with four talks for a bar mitzvah.'},
   'Poked Akarim': {d:'On Divine remembrance, prayer, and the barren women of Tanakh, with teachings on renewal and blessing.'},
-  'Mei HaShiloach': {d:'Teachings of Rabbi Mordechai Yosef Leiner of Izhbitza on the Torah, the festivals and Tanakh. Interlinear study text available for Bereishit and Noach across both volumes and the anthology.'},
+  'Mei HaShiloach': {d:'Teachings of Rabbi Mordechai Yosef Leiner of Izhbitza on the Torah, the festivals and Tanakh. Reviewed Hebrew–English interlinear edition available through Bo, with Sefaria source links and topical headings.'},
   'Beit Yaakov on Torah': {d:'Teachings of Rabbi Yaakov Leiner of Izhbitza–Radzin, son of the Mei HaShiloach, on the Torah.'},
   'Tiferet Yosef': {d:'Teachings from the Izhbitza–Radzin school on the festivals and the Torah.'},
   'Sod Yesharim': {d:'Discourses from the Radzin dynasty on Shabbat, the festivals and the Torah.'},
@@ -588,7 +588,7 @@ const info = t => INFO[t] || {};
 let CATALOG = [];
 // Edition URLs keep older installed app caches from mixing Hebrew-only data
 // with the new interlinear contents. The service worker also accepts saved packs.
-const editionDataUrl = url => url.startsWith('data/') ? url + ((url.startsWith('data/tzidkat-hatzadik/') || url.startsWith('data/dover-tzedek/') || url === 'data/catalog.json' || url.startsWith('data/cited/')) ? '?edition=20261013-inline-footnotes-v2' : url.startsWith('data/meshiv-tzedek/') ? '?edition=20261012-meshiv-tzedek-interlinear-v1' : url.startsWith('data/meshiv-hata-anah/') ? '?edition=20261012-meshiv-interlinear-v3' : /^data\/(?:peri-tzadik\/|tiferet-yosef\/|beit-yaakov-on-torah\/|mei-ha-shiloach\/|files\.json)/.test(url) ? '?edition=20261011-rosh-chodesh-reviewed-v2' : url.startsWith('data/yisrael-kedoshim/') ? '?edition=20261006-yisrael-4-opening' : url.startsWith('data/machshavot-charutz/') ? '?edition=20261006-machshavot-format' : '?edition=20261006-resisei-complete') : url;
+const editionDataUrl = url => url.startsWith('data/') ? url + ((url.startsWith('data/tzidkat-hatzadik/') || url.startsWith('data/dover-tzedek/') || url === 'data/catalog.json' || url.startsWith('data/cited/')) ? '?edition=20261013-inline-footnotes-v2' : url.startsWith('data/mei-ha-shiloach/') ? '?edition=20261014-mei-vayera-bo-reader-fix-v1' : url.startsWith('data/meshiv-tzedek/') ? '?edition=20261012-meshiv-tzedek-interlinear-v1' : url.startsWith('data/meshiv-hata-anah/') ? '?edition=20261012-meshiv-interlinear-v3' : /^data\/(?:peri-tzadik\/|tiferet-yosef\/|beit-yaakov-on-torah\/|mei-ha-shiloach\/|files\.json)/.test(url) ? '?edition=20261011-rosh-chodesh-reviewed-v2' : url.startsWith('data/yisrael-kedoshim/') ? '?edition=20261006-yisrael-4-opening' : url.startsWith('data/machshavot-charutz/') ? '?edition=20261006-machshavot-format' : '?edition=20261006-resisei-complete') : url;
 const catalogReady = fetch(editionDataUrl('data/catalog.json')).then(r => r.ok ? r.json() : []).catch(() => []).then(c => { CATALOG = c; return c; });
 const localBook = t => CATALOG.find(b => b.title === t);
 const tocCache = new Map();
@@ -755,8 +755,10 @@ const flatten = t => Array.isArray(t) ? t.flat(Infinity) : (t == null ? [] : [t]
 
 /* ======================= Text fetching ======================= */
 // Returns {ref, heRef, sectionRef, sections, next, prev, he:[], en:[], versions:[], segmentLevel}
-// Add study phrases only for these six original chapters. Sefaria's own
-// Hebrew and English remain the basis for Stacked and Side-by-side.
+// Mei HaShiloach's reviewed Akiva Publishing edition is self-contained.
+// Read the committed study pairs directly, without silently falling back to
+// the older Sefaria translation or requiring an external API request.
+// Keep the canonical paragraph refs for Sefaria hyperlinks and connections.
 const meiStudyRefs = new Set([
   'Mei HaShiloach, Volume I, Genesis, Bereshit',
   'Mei HaShiloach, Volume I, Genesis, Noach',
@@ -766,25 +768,50 @@ const meiStudyRefs = new Set([
   'Mei HaShiloach, Mei HaShiloach Anthology, Genesis, Noach',
   'Mei HaShiloach, Volume I, Genesis, Lech Lecha',
   'Mei HaShiloach, Volume II, Genesis, Lech Lecha',
-  'Mei HaShiloach, Mei HaShiloach Anthology, Genesis, Lech Lecha'
+  'Mei HaShiloach, Mei HaShiloach Anthology, Genesis, Lech Lecha',
+  'Mei HaShiloach, Volume I, Genesis, Vayera',
+  'Mei HaShiloach, Volume I, Genesis, Chayei Sarah',
+  'Mei HaShiloach, Volume I, Genesis, Toldot',
+  'Mei HaShiloach, Volume I, Genesis, Vayetzei',
+  'Mei HaShiloach, Volume I, Genesis, Vayishlach',
+  'Mei HaShiloach, Volume I, Genesis, Vayeshev',
+  'Mei HaShiloach, Volume I, Genesis, Miketz',
+  'Mei HaShiloach, Volume I, Genesis, Vayigash',
+  'Mei HaShiloach, Volume I, Genesis, Vayechi',
+  'Mei HaShiloach, Volume I, Exodus, Shemot',
+  'Mei HaShiloach, Volume I, Exodus, Vaera',
+  'Mei HaShiloach, Volume I, Exodus, Bo'
 ]);
 async function withMeiStudy(d) {
   const ref = d.sectionRef || d.ref;
-  if (!meiStudyRefs.has(ref) || !Array.isArray(d.he)) return d;
+  if (!meiStudyRefs.has(ref)) return d;
   const overlay = (await dataJSON('mei-ha-shiloach/interlinear.json'))?.[ref];
-  // If a source edition later changes its passage count, don't attach
-  // translations to incorrect paragraphs.
-  if (!Array.isArray(overlay) || overlay.length !== d.he.length
-      || overlay.some(pairs => !Array.isArray(pairs) || !pairs.length)) return d;
+  if (!Array.isArray(overlay) || !overlay.length ||
+      overlay.some(pairs => !Array.isArray(pairs) || !pairs.length ||
+        pairs.some(p => !Array.isArray(p) || p.length !== 2))) return d;
   const headingInfo = (await dataJSON('mei-ha-shiloach/headings.json'))?.[ref];
   const heads = headingInfo && Array.isArray(headingInfo.headings)
     && headingInfo.headings.length === overlay.length
     ? Object.fromEntries(headingInfo.headings.map((title,i) => [i, String(title).split('\n').filter(Boolean)]).filter(([,titles]) => titles.length))
     : null;
-  return {...d, book:'Mei HaShiloach', phrases:overlay, meiStudy:true,
+  const he = overlay.map(pairs => pairs.map(p => p[0]).join(' '));
+  const en = overlay.map(pairs => pairs.map(p => p[1]).join(' '));
+  const sequence=[...meiStudyRefs];
+  const position=sequence.indexOf(ref);
+  return {...d, book:'Mei HaShiloach', ref, sectionRef:ref, he, en,
+    phrases:overlay, meiStudy:true, segmentLevel:false, sep:':',
+    ...(d.next ? {} : {next:sequence[position+1] || null}),
+    ...(d.prev ? {} : {prev:sequence[position-1] || null}),
+    versions:[{title:'Akiva Publishing reviewed interlinear edition',lang:'Hebrew and English',source:'Akiva Publishing',license:'© Akiva Publishing'}],
     ...(heads ? {heads, studyHeading:headingInfo.title, phraseHeads:headingInfo.phraseHeadings || {}} : {})};
 }
 async function fetchText(ref, {remoteOnly = false} = {}) {
+  // All 21 study sections are bundled; do not let a stale Sefaria or app cache
+  // replace the reviewed English. This also makes them available offline.
+  if (!remoteOnly && meiStudyRefs.has(ref)) {
+    const study = await withMeiStudy({ref, sectionRef:ref, he:[], en:[]});
+    if (study.meiStudy) return study;
+  }
   if (!remoteOnly) { try { const loc = await resolveLocal(ref); if (loc) return loc; } catch (e) { console.warn('local text failed', e); } }
   try {
     const j = await getJSON(`/api/v3/texts/${encodeURIComponent(ref)}?version=source&version=translation`);
@@ -878,7 +905,7 @@ async function renderHome() {
       i.edition === 'available' && '<span class="tag">Akiva edition available</span>',
       w.interlinear && (w.title === 'Toldos HaKohen' ? '<span class="tag">Complete Hebrew and English · Passage-aligned</span>' : '<span class="tag">Interlinear English · Akiva Publishing</span>'),
       w.ilParts && '<span class="tag">Interlinear English online</span>',
-      w.title === 'Mei HaShiloach' && '<span class="tag">Interlinear · Bereishit &amp; Noach</span>',
+      w.title === 'Mei HaShiloach' && '<span class="tag">Interlinear · Bereishit–Bo</span>',
       i.edition === 'soon' && '<span class="tag soon">Print edition coming soon</span>'
     ].filter(Boolean).join(' ');
     return `<a class="book" href="#/book/${toHash(w.title)}">
@@ -1094,7 +1121,7 @@ async function renderBook(title) {
     if (root.heBook) $('#bookHe').textContent = root.heBook;
     $('#tocActions').innerHTML = actions(firstRef(root));
     const studyLinks = title === 'Mei HaShiloach'
-      ? '<div class="study-entry"><h2>Interlinear · Bereishit and Noach</h2><p>The Interlinear setting uses Akiva Publishing’s phrase-by-phrase translation. Stacked and Side by side continue showing Sefaria’s existing English translation.</p><div class="toc-list">'
+      ? '<div class="study-entry"><h2>Reviewed Interlinear · Bereishit through Bo</h2><p>Akiva Publishing’s corrected Hebrew–English edition, source links and topical headings are available in Interlinear, Stacked and Side-by-side layouts.</p><div class="toc-list">'
         + [...meiStudyRefs].map(ref => '<a href="#/read/' + toHash(ref) + '"><span class="en">' + esc(ref.replace('Mei HaShiloach, ', '').replace(', Genesis, ', ' · ')) + '</span><span class="he" lang="he">עברית · English</span></a>').join('')
         + '</div></div>'
       : '';
