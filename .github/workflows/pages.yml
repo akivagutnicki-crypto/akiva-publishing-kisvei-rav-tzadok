@@ -35,6 +35,9 @@ jobs:
       - name: Import supplied Tzidkat HaTzadik expanded source footnotes
         run: node scripts/import-tzidkat-reviewed.mjs
 
+      - name: Import Mei HaShiloach Vayera to Bo translation and source annotations
+        run: node scripts/import-mei-vayera-bo.mjs
+
       - name: Build library text data
         run: node scripts/build-library.mjs
 
