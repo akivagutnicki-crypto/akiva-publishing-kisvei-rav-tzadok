@@ -1345,7 +1345,7 @@ function readingFootnote(note, part) {
   const editions = (note.editionLinks || []).filter(l=>safeFootnoteUrl(l.url))
     .map(l=>`<a href="${esc(l.url)}" target="_blank" rel="noopener noreferrer">${esc(l.label)} · edition link ↗</a>`).join('');
   const warning = /requires collation/.test(note.verificationStatus || '') ? '<div class="footnote-edition-warning">Exact named-edition verification remains pending. Verified passages and parallels are linked below.</div>' : '';
-  const review = reviewed ? `<details class="footnote-connections"><summary>Source review</summary><p>${esc(note.verificationNote || '')}</p>${note.bodySourceNote ? '<p>'+esc(note.bodySourceNote)+'</p>' : ''}<div class="footnote-connection-list">${editions}</div></details>` : '';
+  const review = reviewed && !/^TZ-\d{4}$/.test(note.sourceId || '') ? `<details class="footnote-connections"><summary>Source review</summary><p>${esc(note.verificationNote || '')}</p>${note.bodySourceNote ? '<p>'+esc(note.bodySourceNote)+'</p>' : ''}<div class="footnote-connection-list">${editions}</div></details>` : '';
   const cross = note.crossReference ? `<p><a href="#/read/${toHash(note.crossReference.ref)}" class="footnote-cross-reference">Open referenced note · reader footnote ${note.crossReference.number}, ${esc(note.crossReference.ref.split(':')[0])} →</a></p>` : '';
   const box = `<div class="footnote reader-footnote" lang="en" data-fn="${note.number}"${reviewed ? ' data-source-note="true" data-note-key="'+esc(note.placementId)+'"' : ''}><div class="annotated-title">Footnote ${note.number} · Sources and commentary</div>${warning}${content}${cross}${connections}${review}</div>`;
   return box;

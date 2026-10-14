@@ -62,6 +62,7 @@ try {
   const literal=await section.evaluate(root=>[...root.querySelectorAll('.seg-il .reader-footnote[data-source-note]')].map(box=>({key:box.dataset.noteKey,text:box.querySelector('.annotation-text').textContent})));
   assert.equal(literal.length,sectionNotes.length,'One complete inline box per footnote');
   assert.equal(await section.locator('.seg-il .reader-footnote summary').filter({hasText:'Explore Sefaria connections'}).count(),0,'Redundant Tzidkat connection sections must be absent');
+  assert.equal(await section.locator('.seg-il .reader-footnote summary').filter({hasText:'Source review'}).count(),0,'Editorial verification controls must not clutter the Tzidkat footnotes');
   for(const note of sectionNotes){
    assert.equal(literal.find(x=>x.key===note.placementId)?.text,note.paragraphs[0].text,'Footnote text missing '+note.placementId);noteCount++;
    if(!cases.has(note.sourceId)||checkedCases.has(note.sourceId))continue;
