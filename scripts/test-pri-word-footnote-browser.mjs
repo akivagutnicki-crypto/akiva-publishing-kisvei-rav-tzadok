@@ -28,8 +28,11 @@ for (const [ref,total] of sections) {
     assert.ok(Number.isInteger(note.heCharOffset)&&note.heCharOffset>0,'No Hebrew marker anchor '+note.number);
     assert.equal(note.heCharOffset,phrase[0].replace(/<[^>]*>/g,'').replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&#39;/g,"'").length,
       'Marker must follow the exact Hebrew phrase '+ref+' #'+note.number);
-    assert.ok(note.paragraphs.some(p=>p.links?.some(l=>/^https:\/\/www\.sefaria\.org\//.test(l.url))),
-      'Missing existing Sefaria source link '+ref+' #'+note.number);
+    // Noach's supplied 31 notes have verified Sefaria links; older Cheshvan
+    // Word notes are preserved verbatim, even when a note lacks a link.
+    if (ref.startsWith('Peri Tzadik, Noach'))
+      assert.ok(note.paragraphs.some(p=>p.links?.some(l=>/^https:\/\/www\.sefaria\.org\//.test(l.url))),
+        'Missing original Noach Sefaria source link '+ref+' #'+note.number);
   }
   expectations.push({ref,total,notes});
 }
@@ -75,7 +78,8 @@ try {
       'Footnote paragraphs truncated '+ref);
     const body=await box.locator('.annotation-text').allTextContents();
     assert.deepEqual(body,n.paragraphs.map(p=>p.text),'Word-source English changed '+ref);
-    assert.ok(await box.locator('a[href^="https://www.sefaria.org/"]').count()>0,'Sefaria links invisible '+ref);
+    if (n.paragraphs.some(p=>p.links?.some(l=>/^https:\/\/www\.sefaria\.org\//.test(l.url))))
+      assert.ok(await box.locator('a[href^="https://www.sefaria.org/"]').count()>0,'Existing Sefaria links invisible '+ref);
     await trigger.click();
     assert.equal(await trigger.getAttribute('aria-expanded'),'false','Note did not close '+ref);
     console.log('PASS '+ref+': '+total+' real Hebrew markers and complete opening note.');
