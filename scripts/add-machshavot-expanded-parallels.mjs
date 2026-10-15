@@ -43,7 +43,7 @@ export function addMachshavotExpandedParallels(work,{root=CSV_DIR}={}){
     seen.add(id);stats.sourceRows++;
     const found=byId.get(id);if(!found)throw Error('Missing Hebrew word note '+id);
     const {sec,item,note}=found;
-    if(row.Section_File!==sec.file || row.Section_Ref!==sec.ref || Number(row.Item_Number)!==Number(item.n) || Number(row.Phrase_Index)!==note.phraseIndex)
+    if(Number(row.Section_File.replace(/\.json$/,''))+1!==Number(sec.n) || row.Section_Ref!==sec.ref || Number(row.Item_Number)!==Number(item.n) || Number(row.Phrase_Index)!==note.phraseIndex)
       throw Error('Supplied citation refers to different Hebrew phrase: '+id+' / '+JSON.stringify({csv:[row.Section_File,row.Section_Ref,row.Item_Number,row.Phrase_Index],reader:[sec.file,sec.ref,item.n,note.phraseIndex]}));
     stats.matchedNotes++;
     const english=strip(item.p?.[note.phraseIndex]?.[1]);if(!english)throw Error('Empty English interlinear phrase '+id);
