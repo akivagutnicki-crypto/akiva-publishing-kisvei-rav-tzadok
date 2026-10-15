@@ -66,7 +66,7 @@ const keyWords=s=>new Set((String(s).toLowerCase().match(/[a-z]{5,}/g)||[]).filt
 const relevance=(a,b)=>{
  const A=keyWords(a),B=keyWords(b);let n=0;for(const word of A)if(B.has(word))n++;return n;
 };
-const precise=url=>/^https:\/\/www\.sefaria\.org\/[^\s<>"']+$/i.test(url||'')&&!url.includes('/topics/');
+const precise=url=>/^https:\/\/www\.sefaria\.org\/[^\s<>\"]+$/i.test(url||'')&&!url.includes('/topics/');
 function excerpt(text,label=''){
  let s=String(text||'').split(/\s+Context and connection to Pri Tzaddik:/i)[0].trim();
  s=s.replace(/\s*Connection to this note:[\s\S]*$/,'').trim();
