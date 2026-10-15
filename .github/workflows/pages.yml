@@ -81,7 +81,7 @@ jobs:
         run: node scripts/import-pri-selective-footnotes.mjs && node scripts/test-pri-selective-footnotes.mjs
 
       - name: Fill footnotes in all 69 interlinear Pri Tzaddik sections and verify Hebrew anchors
-        run: node scripts/import-pri-all-footnotes.mjs && node scripts/test-pri-full-coverage.mjs
+        run: node scripts/import-pri-all-footnotes.mjs && node scripts/import-pri-expanded-parallels.mjs && node scripts/test-pri-full-coverage.mjs && node scripts/test-pri-expanded-parallels.mjs
 
       - name: Verify annotated Pri Tzaddik Noach homepage, reader, and downloads
         run: node scripts/test-noach-home-links.mjs && node scripts/test-pri-tzadik-annotations.mjs
