@@ -24,6 +24,7 @@ import { addReviewedFootnotes } from './import-hazikhronot-footnotes.mjs';
 import { addKometzFootnotes } from './import-kometz-footnotes.mjs';
 import { addLikkuteiFootnotes } from './import-likkutei-footnotes.mjs';
 import { addPokedFootnotes } from './import-poked-footnotes.mjs';
+import { addOhrZaruaFootnotes } from './import-ohr-zarua-footnotes.mjs';
 
 // Publish each generated file atomically when an interlinear overlay replaces Hebrew.
 function writeFile(file, contents) {
@@ -344,7 +345,7 @@ function connect(slug, sectionRef, sep, items) {
     // Reviewed Tzidkat and Machshavot sources use precise bilingual insertion boundaries.
     // Fail a future rebuild if either phrase changes underneath its Hebrew marker.
     for (const note of item.footnotes || []) {
-      if (!/^(?:TZ|MC|DS|SZ|KH|PA)-\d{4}$/.test(note.sourceId || '')) continue;
+      if (!/^(?:TZ|MC|DS|SZ|KH|PA|OZ)-\d{4}$/.test(note.sourceId || '')) continue;
       const phrase = item.p[note.phraseIndex];
       const textOf = s => String(s).replace(/<[^>]*>/g, '').replace(/&(?:quot|amp|apos|lt|gt|nbsp|#39|#x27);/g,
         t => ({'&quot;':'"','&amp;':'&','&apos;':"'",'&lt;':'<','&gt;':'>','&nbsp;':' ','&#39;':"'",'&#x27;':"'"}[t]));
@@ -399,6 +400,7 @@ for (const dir of DIRS) {
     if (src.title === 'Sefer HaZikhronot') addReviewedFootnotes(src);
     if (src.title === 'Kometz HaMinchah') addKometzFootnotes(src);
     if (src.title === 'Poked Akarim') addPokedFootnotes(src);
+    if (src.title === 'Ohr Zarua LaTzadik') addOhrZaruaFootnotes(src);
     const slug = slugify(src.title);
     const bookDir = path.join(OUT, slug);
     fs.mkdirSync(bookDir, { recursive: true });
