@@ -23,6 +23,7 @@ import { noachSixPairs } from './pri-noach-ois-6.mjs';
 import { addReviewedFootnotes } from './import-hazikhronot-footnotes.mjs';
 import { addKometzFootnotes } from './import-kometz-footnotes.mjs';
 import { addLikkuteiFootnotes } from './import-likkutei-footnotes.mjs';
+import { addSichatFootnotes } from './import-sichat-footnotes.mjs';
 import { addPokedFootnotes } from './import-poked-footnotes.mjs';
 import { addOhrZaruaFootnotes } from './import-ohr-zarua-footnotes.mjs';
 
@@ -110,6 +111,8 @@ if (fs.existsSync(partsDir)) {
 }
 // Overlay the submitted Likkutei Maamarim Hebrew-word source notes on its four study parts.
 addLikkuteiFootnotes(PARTS);
+// Overlay uploaded Sichat Malakhei HaSharet English source translations.
+addSichatFootnotes(PARTS);
 
 // Source footnotes from a Word edition (sources/akiva/footnotes), each anchored to one
 // phrase of a translated paragraph. The anchor (opening Hebrew of the phrase, without
@@ -345,7 +348,7 @@ function connect(slug, sectionRef, sep, items) {
     // Reviewed Tzidkat and Machshavot sources use precise bilingual insertion boundaries.
     // Fail a future rebuild if either phrase changes underneath its Hebrew marker.
     for (const note of item.footnotes || []) {
-      if (!/^(?:TZ|MC|DS|SZ|KH|PA|OZ)-\d{4}$/.test(note.sourceId || '')) continue;
+      if (!/^(?:TZ|MC|DS|SZ|KH|PA|OZ|SM)-\d{4}$/.test(note.sourceId || '')) continue;
       const phrase = item.p[note.phraseIndex];
       const textOf = s => String(s).replace(/<[^>]*>/g, '').replace(/&(?:quot|amp|apos|lt|gt|nbsp|#39|#x27);/g,
         t => ({'&quot;':'"','&amp;':'&','&apos;':"'",'&lt;':'<','&gt;':'>','&nbsp;':' ','&#39;':"'",'&#x27;':"'"}[t]));
