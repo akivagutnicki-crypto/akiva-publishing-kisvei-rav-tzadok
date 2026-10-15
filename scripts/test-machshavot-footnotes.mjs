@@ -9,7 +9,8 @@ assert.equal(work.sections.length,21);
 assert.equal(work.interlinear,true);
 const clean=x=>String(x).replace(/<[^>]*>/g,'').replace(/&(?:quot|amp|apos|lt|gt|nbsp|#39|#x27);/g,
  t=>({'&quot;':'"','&amp;':'&','&apos':"'",'&lt;':'<','&gt;':'>','&nbsp;':' ','&#39;':"'",'&#x27;':"'"}[t]));
-let total=0,notesWithLinks=0,untranslated=0;
+let total=0,notesWithLinks=0,untranslated=0,parallelCount=0;
+const nearbyParallels=new Map();
 for(const sec of work.sections){
  const ref='Machshavot Charutz '+sec.n;
  const leaf=toc.toc.children.find(l=>l.ref===ref);
@@ -28,8 +29,17 @@ for(const sec of work.sections){
    assert.ok(p,'Missing anchored phrase '+note.sourceId);
    assert.equal(clean(p[0]).slice(0,note.heCharOffset),note.heAnchorPrefix);
    assert.equal(clean(p[1]).slice(0,note.enCharOffset),note.enAnchorPrefix);
-   assert.equal(note.paragraphs.length,1,'Duplicate citations in '+note.sourceId);
-   assert.equal(note.paragraphs[0].rich.map(x=>x.text).join(''),note.paragraphs[0].text);
+   assert.ok(note.paragraphs.length>=1&&note.paragraphs.length<=3,'Incorrect popup paragraph count '+note.sourceId);
+   for(const part of note.paragraphs)
+     assert.equal(part.rich.map(x=>x.text).join(''),part.text,'Truncated rich popup '+note.sourceId);
+   for(const part of note.paragraphs.slice(1)){
+     assert.match(part.text,/^Kisvei (Rav Tzadok|Ishbitz–Radzin) — /,'Unidentified parallel passage '+note.sourceId);
+     const label=part.text.split(': ')[0];
+     const old=nearbyParallels.get(label);
+     if(old!==undefined)assert.ok(note.number-old>=16,'Repeated same parallel within nearby footnotes '+label);
+     nearbyParallels.set(label,note.number);
+     parallelCount++;
+   }
    assert.ok(/[a-z]{3,}/i.test(note.paragraphs[0].text),'English source explanation required');
    if(note.sources.some(s=>s.url?.startsWith('https://www.sefaria.org/')))
      assert.ok(note.paragraphs[0].rich.some(x=>x.href?.startsWith('https://www.sefaria.org/')));
@@ -44,5 +54,9 @@ for(const sec of work.sections){
 }
 assert.equal(total,3478);
 assert.ok(notesWithLinks<=total); // Unavailable Sefaria sources must never drop notes.
-assert.equal(untranslated,42);
-console.log('PASS Machshavot publication: '+total+' continuously numbered Hebrew anchors, '+notesWithLinks+' Sefaria links, 21 interlinear simanim and 42 transparently flagged translations.');
+assert.equal(untranslated,work.footnoteImportInfo.sourceTranslationsAwaitingVerification);
+assert.equal(work.footnoteImportInfo.expandedCsvNotes,3478);
+assert.equal(work.footnoteImportInfo.matchedNotes,3478);
+assert.equal(parallelCount,work.footnoteImportInfo.addedParallels);
+assert.ok(parallelCount>=30,'Uploaded source parallels not imported');
+console.log('PASS Machshavot publication: '+total+' Hebrew-anchored footnotes, 21 interlinear simanim, '+parallelCount+' selected expanded parallels and '+untranslated+' unverified source translations.');

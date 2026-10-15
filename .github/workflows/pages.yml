@@ -110,6 +110,7 @@ jobs:
           npx playwright install --with-deps chromium
           node scripts/test-pri-word-footnote-browser.mjs
           node scripts/test-pri-full-coverage-browser.mjs
+          node scripts/test-machshavot-reader-browser.mjs
           node scripts/test-tzidkat-reader-browser.mjs
           node scripts/test-divrei-reader-browser.mjs
           node scripts/test-hazikhronot-reader-browser.mjs

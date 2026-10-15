@@ -4,6 +4,7 @@
 import fs from 'node:fs';
 import path from 'node:path';
 import crypto from 'node:crypto';
+import { addMachshavotExpandedParallels } from './add-machshavot-expanded-parallels.mjs';
 
 const ROOT='sources/akiva/overlays/machshavot-charutz';
 const OUTPUT='sources/akiva/Machshavot_Charutz.json';
@@ -68,9 +69,12 @@ for(let n=1;n<=21;n++){
 }
 if(count!==3478 || pending!==42 || removed!==3478)
   throw Error('Unexpected editorial import counts: '+JSON.stringify({count,linked,pending,removed}));
+const expansion=addMachshavotExpandedParallels(work);
+const remainingPending=work.sections.flatMap(s=>s.items||[]).flatMap(i=>i.footnotes||[])
+  .filter(n=>n.verificationStatus==='source translation pending').length;
 work.footnoteImportInfo={
  ...work.footnoteImportInfo,
- sourceTranslationsAwaitingVerification:pending,
+ sourceTranslationsAwaitingVerification:remainingPending,
  redundantSourcesParagraphsRemoved:removed,
  numbering:'Continuous 1-3478 across all 21 simanim; Hebrew-only footnote markers'
 };
@@ -78,4 +82,4 @@ fs.mkdirSync(path.dirname(OUTPUT),{recursive:true});
 fs.writeFileSync(OUTPUT,JSON.stringify(work)+'\n');
 console.log('PASS Machshavot import:',count,'exact bilingual footnote placements,',
   linked,'Sefaria links;',removed,'redundant source paragraphs removed;',
-  pending,'placeholders flagged for source translation review.');
+  remainingPending,'translations still pending review;',expansion.addedParallels,'relevant, deduplicated source parallels added.');
