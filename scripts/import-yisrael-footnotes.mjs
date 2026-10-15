@@ -14,7 +14,7 @@ const strip=s=>String(s||'').replace(/<[^>]*>/g,'').replace(/&(?:amp|lt|gt|quot|
  '&amp;':'&','&lt;':'<','&gt;':'>','&quot;':'"','&apos;':"'",'&nbsp;':' ','&#39;':"'",'&#x27;':"'"
 }[x]));
 const sourceUrl=u=>/^https:\/\/www\.sefaria\.org\/[^<>"\s]+$/.test(u||'');
-const precise=u=>sourceUrl(u)&&!u.includes('/topics/')&&!/\/(?:Beit_Yaakov_on_Torah|Yisrael_Kedoshim)$/.test(u);
+const precise=u=>sourceUrl(u)&&!u.includes('/topics/')&&/\d/.test(u.slice('https://www.sefaria.org/'.length));
 function parseCsv(s){
  const out=[];let row=[],v='',quoted=false;
  for(let i=0;i<s.length;i++){
