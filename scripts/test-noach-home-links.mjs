@@ -21,8 +21,11 @@ for (const [ois, phrases, notes] of [[5, 158, 15], [6, 194, 16]]) {
   const segments = JSON.parse(fs.readFileSync(dir + leaf.id + '.json', 'utf8')).filter(item => item.p);
   assert.equal(segments.flatMap(item => item.p).length, phrases, 'Missing phrases in ' + ref);
   const sourceNotes = segments.flatMap(item => item.footnotes || []);
-  assert.equal(sourceNotes.length, notes, 'Missing annotated footnotes in ' + ref);
-  assert.ok(sourceNotes.every(note => note.paragraphs?.length >= 6), 'Incomplete English commentary in ' + ref);
+  assert.ok(sourceNotes.length >= notes, 'Missing annotated footnotes in ' + ref);
+  const originallyReviewed=sourceNotes.filter(n => !n.provenance?.reviewSource);
+  assert.equal(originallyReviewed.length,notes,'One of the original Word notes has gone missing in '+ref);
+  assert.ok(originallyReviewed.every(note => note.paragraphs?.length >= 6), 'Incomplete original English commentary in ' + ref);
+  assert.ok(sourceNotes.filter(n=>n.provenance?.reviewSource).every(n=>n.paragraphs?.length>=1),'Missing expanded source excerpts in '+ref);
 }
 
 for (const [file, header] of [
