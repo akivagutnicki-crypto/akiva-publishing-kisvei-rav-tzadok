@@ -22,6 +22,7 @@ import { addLechDocumentHeadings, meiLechHeadingIndex } from './lech-headlines.m
 import { noachSixPairs } from './pri-noach-ois-6.mjs';
 import { addReviewedFootnotes } from './import-hazikhronot-footnotes.mjs';
 import { addKometzFootnotes } from './import-kometz-footnotes.mjs';
+import { addLikkuteiFootnotes } from './import-likkutei-footnotes.mjs';
 
 // Publish each generated file atomically when an interlinear overlay replaces Hebrew.
 function writeFile(file, contents) {
@@ -105,6 +106,9 @@ if (fs.existsSync(partsDir)) {
     PARTS.set(`${part.book}|${part.node}`, part);
   }
 }
+// Overlay the submitted Likkutei Maamarim Hebrew-word source notes on its four study parts.
+addLikkuteiFootnotes(PARTS);
+
 // Source footnotes from a Word edition (sources/akiva/footnotes), each anchored to one
 // phrase of a translated paragraph. The anchor (opening Hebrew of the phrase, without
 // vowels) is checked so a re-translated paragraph cannot silently misplace a note.
