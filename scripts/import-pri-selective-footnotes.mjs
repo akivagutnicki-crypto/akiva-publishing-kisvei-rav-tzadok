@@ -25,7 +25,7 @@ const leafs=[];function walk(node){if(node?.ref)leafs.push(node);for(const v of 
 const edited=new Map();
 const summaries=[];
 function noteText(record){
- let body=String(record.primary||'').trim();
+ let body=String(record.primary||record.paragraphs?.[0]?.text||'').trim();
  // The expanded dataset repeats this broad, template-style explanation in
  // every note. Keep the actual source excerpt; never call it a verified full
  // translation when the supplied passage is abbreviated.
