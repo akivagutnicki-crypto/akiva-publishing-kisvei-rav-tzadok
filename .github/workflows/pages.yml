@@ -32,6 +32,9 @@ jobs:
       - name: Build static site
         run: node scripts/build-pages.mjs
 
+      - name: Verify library homepage grouping and donation placement
+        run: node scripts/test-library-home-layout.mjs
+
       - name: Import supplied Tzidkat HaTzadik expanded source footnotes
         run: node scripts/import-tzidkat-reviewed.mjs
 
