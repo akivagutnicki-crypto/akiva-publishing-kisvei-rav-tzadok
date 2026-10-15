@@ -896,7 +896,9 @@ async function renderHome() {
   await catalogReady;
   if (location.hash.replace(/^#\/?/, '')) return; // navigated away while loading
   const recent = store.get('recent', []);
-  const books = [...CATALOG.map(b => ({...b, local: true})), ...REMOTE.filter(r => !localBook(r.title))];
+  // Keep Machshavot Charutz alongside Rav Tzadok's other sefarim even when
+  // its Sefaria catalog category differs from the main Rav Tzadok group.
+  const books = [...CATALOG.map(b => ({...b, local: true, group: b.title === 'Machshavot Charutz' ? GROUPS[0].id : b.group})), ...REMOTE.filter(r => !localBook(r.title))];
   books.sort((x, y) => (ORDER.indexOf(x.title) + 1 || 99) - (ORDER.indexOf(y.title) + 1 || 99));
   const groups = [...GROUPS, ...[...new Set(books.map(b => b.group))].filter(g => !GROUPS.some(G => G.id === g)).map(g => ({id: g, en: g, he: ''}))];
   const card = w => {
@@ -921,21 +923,6 @@ async function renderHome() {
         <div class="he-title he" lang="he">כתבי רבי צדוק הכהן מלובלין</div>
         <p>Read the writings of Rav Tzadok HaKohen and the Izhbitza–Radzin masters in the original Hebrew, with English where a translation exists. Tap any passage to see the sources it draws on and the texts that cite it.</p>
       </div>
-      <section class="akiva-donate-home" id="akiva-donate-home" aria-labelledby="akiva-donate-home-heading">
-        <div class="eyebrow">Support the sefarim and digital reader</div>
-        <h2 id="akiva-donate-home-heading">Help bring Toras Rav Tzadok to more learners</h2>
-        <p>Support the interlinear editions, detailed source annotations and the developing Akiva Publishing reader.</p>
-        <div class="akiva-donate-links">
-          <a class="btn primary akiva-donate-direct" href="https://thechesedfund.com/kisveiravtzadokhakohen/bringing-the-wisdom-of-rav-tzadok-hakohen-of-lublin-kisvei-ishbitz-radzin-to-the-english-speaking-world/donate" rel="noreferrer">Donate securely through The Chesed Fund ↗</a>
-          <a class="btn" href="#/support">About supporting the project →</a>
-        </div>
-        <p class="akiva-donate-help">Secure checkout opens in your device's browser; no payment information is collected inside the reader app.</p>
-        <details class="akiva-donate-browser-only">
-          <summary>View the donation form on this page (web browser)</summary>
-          <iframe src="https://thechesedfund.com/kisveiravtzadokhakohen/bringing-the-wisdom-of-rav-tzadok-hakohen-of-lublin-kisvei-ishbitz-radzin-to-the-english-speaking-world/donate" title="Chesed Fund secure donation checkout" loading="lazy" allow="payment" referrerpolicy="strict-origin-when-cross-origin"></iframe>
-          <p class="akiva-donate-help">If the checkout is blocked inside this frame, <a href="https://thechesedfund.com/kisveiravtzadokhakohen/bringing-the-wisdom-of-rav-tzadok-hakohen-of-lublin-kisvei-ishbitz-radzin-to-the-english-speaking-world/donate" rel="noreferrer">open the official donation page ↗</a>.</p>
-        </details>
-      </section>
       ${localBook("Meshiv HaTa'anah") ? `<div class="study-entry" id="meshiv-new-edition">
         <h2>New interlinear edition: Meshiv HaTa'anah</h2>
         <p>Read the Hebrew with phrase-by-phrase English, editorial explanations, topic headings, and linked Sefaria sources.</p>
