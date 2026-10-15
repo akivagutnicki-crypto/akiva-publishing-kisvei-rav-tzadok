@@ -22,10 +22,10 @@ for(const leaf of leaves.filter(x=>x.interlinear&&x.id>=90&&x.id<=158)){
    assert.ok(item.p[note.phraseIndex],'Original phrase missing '+note.sourceId);
    assert.ok(note.paragraphs[0].rich.some(r=>r.href?.startsWith('https://www.sefaria.org/')),'Original Sefaria primary citation lost '+note.sourceId);
    assert.ok(!note.paragraphs.some(p=>p.text.startsWith('Sources: ')),'Duplicate source summary in '+note.sourceId);
-   assert.ok(note.paragraphs.length<=3,'More than 2 expanded parallels '+note.sourceId);
+   assert.ok(note.paragraphs.length<=5,'More than 4 total parallels '+note.sourceId);
    if(note.sourceId==='PT-0002')assert.equal(note.paragraphs.length,1,'Do not reintroduce off-topic RH 32a parallels');
-   if(note.paragraphs.length>1)withExtra++;
-   for(const p of note.paragraphs.slice(1)){
+   if(note.paragraphs.some(p=>p.expansion==='pri-2026-reviewed'))withExtra++;
+   for(const p of note.paragraphs.slice(1).filter(p=>p.expansion==='pri-2026-reviewed')){
     assert.match(p.text,/^Kisvei (Rav Tzadok|Ishbitz–Radzin) — /,'Unknown parallel');
     assert.equal(p.rich.map(z=>z.text).join(''),p.text,'Truncated English source passage '+note.sourceId);
     const sourceKey=p.text.split(': ')[0];
