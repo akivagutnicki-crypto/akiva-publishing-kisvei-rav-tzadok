@@ -16,6 +16,11 @@ assert.equal(notes.length,17,'Not all 17 supplied commentary paragraphs became r
 assert.equal(annotations.notes.length,17);
 const byNumber=new Map(notes.map(x=>[x.note.number,x]));
 assert.equal(byNumber.size,17,'Footnote numbers must be unique');
+const wordFootnotePositions=[[0,18],[0,21],[0,22],[1,7],[1,8],[1,10],[1,15],[1,19],[1,20],[1,25],[1,31],[2,7],[2,13],[4,6],[4,20],[4,21],[4,23]];
+for (const [i,source] of annotations.notes.entries()) {
+  assert.deepEqual([source.topicIndex,source.phraseIndex],wordFootnotePositions[i],
+    'Reader note must match original Word footnote Hebrew anchor '+source.number);
+}
 let lastPosition=-1;
 for(const source of annotations.notes){
   const {p,note}=byNumber.get(source.number)||{};
