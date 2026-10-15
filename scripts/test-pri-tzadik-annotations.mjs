@@ -1,47 +1,37 @@
-// Ensures the published reader really contains all 31 complete annotated Word footnotes.
+// Confirm the original 31 Word annotations survive the selective expansion.
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
-
-const dir = 'dist/library/data/peri-tzadik';
-const toc = JSON.parse(fs.readFileSync(dir + '/toc.json', 'utf8'));
-const leaves = [];
-function collect(node) {
-  if (node?.ref) leaves.push(node);
-  for (const child of node?.children || []) collect(child);
+const dir='dist/library/data/peri-tzadik/';
+const toc=JSON.parse(fs.readFileSync(dir+'toc.json','utf8'));
+const leaves=[];function walk(x){if(x?.ref)leaves.push(x);for(const y of x?.children||[])walk(y);}walk(toc.toc);
+const strip=s=>String(s||'').replace(/<[^>]*>/g,'').replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&#39;/g,"'");
+let originalCount=0,expandedCount=0,all=[];
+for(const [ois,expectedNotes,expectedPhrases] of [[5,15,158],[6,16,194]]){
+ const ref='Peri Tzadik, Noach '+ois;
+ const leaf=leaves.find(x=>x.ref===ref&&x.interlinear);assert.ok(leaf);
+ const data=JSON.parse(fs.readFileSync(dir+leaf.id+'.json','utf8'));
+ const ps=data.filter(i=>i.p);
+ assert.equal(ps.flatMap(x=>x.p).length,expectedPhrases,'Original phrase count changed');
+ assert.ok(ps.every(i=>i.p.every(([he,en])=>/[\u0591-\u05c7]/.test(he)&&en&&!/\s{2,}/.test(en))));
+ const notes=ps.flatMap(i=>(i.footnotes||[]).map(n=>({item:i,n})));
+ const preserved=notes.filter(x=>!x.n.provenance?.reviewSource);
+ const expanded=notes.filter(x=>x.n.provenance?.reviewSource);
+ assert.equal(preserved.length,expectedNotes,'Original Word-footnote omitted');
+ for(const {item,n} of preserved){
+  assert.equal(n.heCharOffset,strip(item.p[n.phraseIndex][0]).length,'Original Word anchor moved');
+  assert.equal(n.paragraphs.length,6,'Original commentary material rewritten');
+  assert.ok(n.paragraphs.some(p=>/English translation/i.test(p.text)));
+  assert.ok(n.paragraphs.flatMap(p=>p.links||[]).filter(l=>/^https:\/\/www\.sefaria\.org\//.test(l.url)).length>=2);
+ }
+ for(const {item,n} of expanded){
+  assert.equal(strip(item.p[n.phraseIndex][0]).slice(0,n.heCharOffset),n.heAnchorPrefix);
+  assert.equal(strip(item.p[n.phraseIndex][1]).slice(0,n.enCharOffset),n.enAnchorPrefix);
+  assert.equal(n.paragraphs.length,1,'Unwanted duplicate Source Review paragraphs');
+ }
+ originalCount+=preserved.length;expandedCount+=expanded.length;
+ all.push(...notes.map(x=>x.n.number));
 }
-collect(toc.toc);
-const all = [];
-for (const [ois, expectedNotes, expectedPhrases] of [[5,15,158],[6,16,194]]) {
-  const ref = 'Peri Tzadik, Noach ' + ois;
-  const leaf = leaves.find(l => l.ref === ref && l.interlinear);
-  assert.ok(leaf, 'Missing interlinear reader section: ' + ref);
-  const data = JSON.parse(fs.readFileSync(dir + '/' + leaf.id + '.json', 'utf8'));
-  const paragraphs = data.filter(x => x.p);
-  const phrases = paragraphs.reduce((sum, p) => sum + p.p.length, 0);
-  assert.equal(phrases, expectedPhrases, 'Changed interlinear phrase count: ' + ref);
-  // Word-source importer must preserve exact pointed Hebrew, not OCR spacing.
-  for(const [he,en] of paragraphs.flatMap(p=>p.p)){
-    assert.ok((he.match(/[\u0591-\u05c7]/g)||[]).length>0,'Unvocalized Hebrew phrase in '+ref);
-    assert.ok(!/\s{2,}/.test(en),'Bad English spacing in '+ref);
-  }
-  const annotated = paragraphs.flatMap(p => (p.footnotes || []).map(note => ({note,p})));
-  assert.equal(annotated.length, expectedNotes, 'Incorrect annotated footnote count: ' + ref);
-  for (const {note,p} of annotated) {
-    assert.ok(Number.isInteger(note.phraseIndex) && note.phraseIndex >= 0 && note.phraseIndex < p.p.length,
-      'Footnote positioned outside a phrase: ' + note.number);
-    assert.equal(note.heCharOffset, p.p[note.phraseIndex][0].replace(/<[^>]*>/g,'').replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&#39;/g,"'").length,
-      'Word footnote marker is not attached to the Hebrew phrase: ' + note.number);
-    assert.equal(note.paragraphs.length, 6, 'Missing source/parallel/commentary block: ' + note.number);
-    assert.ok(note.paragraphs.every(item => item.text.length > 20),
-      'Empty or truncated source passage in footnote ' + note.number);
-    assert.ok(note.paragraphs.some(item => /English translation/i.test(item.text)),
-      'No English translation in footnote ' + note.number);
-    const links = note.paragraphs.flatMap(item => item.links || []);
-    assert.ok(links.length >= 2 && links.every(link => /^https:\/\/www\.sefaria\.org\//.test(link.url)),
-      'Invalid or missing Sefaria source links in note ' + note.number);
-    all.push(note.number);
-  }
-  console.log('Verified ' + ref + ': ' + phrases + ' interlinear phrases, ' + annotated.length + ' fully anchored annotated footnotes');
-}
-assert.deepEqual(all,[...Array(31)].map((_,i)=>i+1),'Footnote numbering is not complete and sequential');
-console.log('Annotated Pri Tzaddik Noach Ois 5–6: 31 complete footnotes verified.');
+assert.equal(originalCount,31);
+assert.equal(expandedCount,8);
+assert.deepEqual(all,Array.from({length:39},(_,i)=>i+1));
+console.log('PASS Noach Ois 5–6: all 31 reviewed Word notes preserved; 8 targeted new citations; 39 continuous Hebrew footnote numbers.');

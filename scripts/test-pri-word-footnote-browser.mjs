@@ -24,18 +24,21 @@ for (const [ref,total] of sections) {
   assert.ok(leaf,'Missing interlinear section '+ref);
   const data=JSON.parse(fs.readFileSync(dir+leaf.id+'.json','utf8'));
   const notes=data.filter(i=>i.p).flatMap(i=>(i.footnotes||[]).map(n=>({note:n,phrase:i.p[n.phraseIndex]})));
-  assert.equal(notes.length,total,'Missing notes '+ref);
+  assert.ok(notes.length>=total,'Missing original notes '+ref);
   for(const {note,phrase} of notes){
     assert.ok(Number.isInteger(note.heCharOffset)&&note.heCharOffset>0,'No Hebrew marker anchor '+note.number);
-    assert.equal(note.heCharOffset,phrase[0].replace(/<[^>]*>/g,'').replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&#39;/g,"'").length,
-      'Marker must follow the exact Hebrew phrase '+ref+' #'+note.number);
+    const hebrew=phrase[0].replace(/<[^>]*>/g,'').replace(/&amp;/g,'&').replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&quot;/g,'"').replace(/&#39;/g,"'");
+    if(note.provenance?.reviewSource) assert.equal(hebrew.slice(0,note.heCharOffset),note.heAnchorPrefix,
+      'New source marker is not attached to the exact Hebrew word '+ref+' #'+note.number);
+    else assert.equal(note.heCharOffset,hebrew.length,
+      'Original Word-footnote marker moved '+ref+' #'+note.number);
     // Noach's supplied 31 notes have verified Sefaria links; older Cheshvan
     // Word notes are preserved verbatim, even when a note lacks a link.
-    if (ref.startsWith('Peri Tzadik, Noach'))
+    if (ref.startsWith('Peri Tzadik, Noach') && !note.provenance?.reviewSource)
       assert.ok(note.paragraphs.some(p=>p.links?.some(l=>/^https:\/\/www\.sefaria\.org\//.test(l.url))),
         'Missing original Noach Sefaria source link '+ref+' #'+note.number);
   }
-  expectations.push({ref,total,notes});
+  expectations.push({ref,total:notes.length,notes});
 }
 
 const root=path.resolve('dist');
@@ -91,4 +94,4 @@ try {
   await browser.close();
   await new Promise(resolve=>server.close(resolve));
 }
-console.log('PASS browser: 129 Hebrew footnote markers, intact English translations and clickable source links.');
+console.log('PASS browser: all reviewed original and new Hebrew footnote markers, complete English and clickable source links.');
