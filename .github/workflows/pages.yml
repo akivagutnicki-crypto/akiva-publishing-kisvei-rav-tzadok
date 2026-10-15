@@ -6,7 +6,7 @@ on:
   workflow_dispatch:
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -120,6 +120,9 @@ jobs:
           node scripts/test-sichat-reader-browser.mjs
           node scripts/test-shedim-reader-browser.mjs
 
+      - name: Reassemble and checksum verified 13-volume archives
+        run: python scripts/assemble-akiva-reader-13.py
+
       - name: Apply fixed 13-volume annotated reader release when archive is staged
         run: python scripts/apply-reader-expanded-13.py
 
@@ -154,3 +157,15 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Save full source ZIPs to GitHub repository
+        if: success()
+        continue-on-error: true
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f incoming/akiva-reader-13-part-1.zip incoming/akiva-reader-13-part-2.zip
+          if ! git diff --cached --quiet; then
+            git commit -m "Store verified 13-volume reader archives [skip ci]"
+            git push origin HEAD:main
+          fi
