@@ -47,6 +47,13 @@ const seenNotes=new Set(),seenParallelRefs=new Set(),stats={
  duplicatesAvoided:0,weakParallelsExcluded:0,
  primaryTextsPreserved:0,unmatched:0
 };
+// Existing importer already supplies a small set of source parallels. Respect
+// those citations, too, when filtering repetition throughout the new overlay.
+for(const [ch,items] of content)if(!PROTECTED.has(ch))
+  for(const item of items)for(const note of item.footnotes||[])for(const p of (note.paragraphs||[]).slice(1)){
+    const m=String(p.text||'').match(/^(Kisvei Rav Tzadok|Izhbitz–Radzin) — (.+?): /);
+    if(m)seenParallelRefs.add((m[1]==='Kisvei Rav Tzadok'?'rav':'ish')+'|'+refKey(m[2]));
+  }
 for(let index=0;index<lines.length;index++){
  const cells=parse(lines[index]);
  if(cells.length!==heads.length)throw Error('CSV column count changed on row '+(index+2));
@@ -83,7 +90,7 @@ for(let index=0;index<lines.length;index++){
      stats.weakParallelsExcluded++;continue;
    }
    const header=(kind==='rav'?'Kisvei Rav Tzadok':'Kisvei Ishbitz–Radzin')+' — '+parallelRef;
-   const paragraph={text:header+': '+quote,rich:[{text:header,bold:true},{text:': '+quote}]};
+   const paragraph={text:header+': '+quote,rich:[{text:header,bold:true},{text:': '+quote}],expansion:'pri-2026-reviewed'};
    if((note.paragraphs||[]).some(p=>p.text===paragraph.text)){stats.duplicatesAvoided++;continue;}
    (note.paragraphs??=[]).push(paragraph);
    seenParallelRefs.add(refToken);
