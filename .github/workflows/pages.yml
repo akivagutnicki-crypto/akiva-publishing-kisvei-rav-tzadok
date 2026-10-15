@@ -59,6 +59,9 @@ jobs:
       - name: Add selectively reviewed Pri Tzaddik footnotes without overwriting original Word notes
         run: node scripts/import-pri-selective-footnotes.mjs && node scripts/test-pri-selective-footnotes.mjs
 
+      - name: Fill footnotes in all 69 interlinear Pri Tzaddik sections and verify Hebrew anchors
+        run: node scripts/import-pri-all-footnotes.mjs && node scripts/test-pri-full-coverage.mjs
+
       - name: Verify annotated Pri Tzaddik Noach homepage, reader, and downloads
         run: node scripts/test-noach-home-links.mjs && node scripts/test-pri-tzadik-annotations.mjs
 
@@ -85,6 +88,7 @@ jobs:
           npm install --no-save --package-lock=false playwright@1.62.1
           npx playwright install --with-deps chromium
           node scripts/test-pri-word-footnote-browser.mjs
+          node scripts/test-pri-full-coverage-browser.mjs
           node scripts/test-tzidkat-reader-browser.mjs
           node scripts/test-divrei-reader-browser.mjs
           node scripts/test-hazikhronot-reader-browser.mjs

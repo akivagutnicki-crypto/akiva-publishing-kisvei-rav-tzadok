@@ -1,0 +1,29 @@
+name: Validate full Pri Tzaddik expanded footnote coverage
+on:
+  push:
+    branches: ["pri-tzadik-all-69-expanded-footnotes"]
+permissions:
+  contents: read
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - run: node scripts/build-pages.mjs
+      - run: node scripts/import-tzidkat-reviewed.mjs
+      - run: node scripts/import-tzidkat-parallels.mjs
+      - run: python scripts/import-tzidkat-expanded-2096.py
+      - run: node scripts/import-mei-vayera-bo.mjs
+      - run: node scripts/import-machshavot-charutz.mjs
+      - run: python scripts/import-divrei-footnotes.py
+      - run: node scripts/build-library.mjs
+      - run: node scripts/import-pri-selective-footnotes.mjs
+      - run: node scripts/import-pri-all-footnotes.mjs
+      - run: node scripts/test-pri-full-coverage.mjs
+      - run: node scripts/test-pri-bereishis3-commentary.mjs
+      - run: node scripts/test-pri-tzadik-annotations.mjs
+      - run: node scripts/test-pri-rosh-chodesh-annotations.mjs
+      - run: node scripts/test-noach-home-links.mjs
