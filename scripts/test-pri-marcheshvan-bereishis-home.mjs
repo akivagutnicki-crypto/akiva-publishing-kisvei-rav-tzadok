@@ -14,7 +14,7 @@ for (const test of [
   {ref:'Peri Tzadik, Rosh Chodesh Cheshvan',hash:'#/read/Peri_Tzadik,_Rosh_Chodesh_Cheshvan',
    phraseCount:327,notes:48,docx:'pri-tzaddik-rosh-chodesh-marcheshvan-annotated.docx'},
   {ref:'Peri Tzadik, Bereshit 4',hash:'#/read/Peri_Tzadik,_Bereshit_4',
-   phraseCount:115,notes:0},
+   phraseCount:115,notes:24},
 ]) {
   assert.ok(home.includes('href="'+test.hash+'"'), 'Missing homepage reader link: '+test.ref);
   const leaf=leaves.find(item=>item.ref===test.ref&&item.interlinear);
@@ -34,6 +34,6 @@ for (const test of [
     assert.ok(notes.every(n=>n.paragraphs?.length>0),'Incomplete Mar Cheshvan footnotes');
   }
 }
-assert.ok(home.includes('Read Bereishis Ois 4 interlinear study edition'),
-  'Do not present unannotated Bereishis as though scholarly footnotes are attached');
-console.log('PASS Pri Tzaddik homepage links: 327 Mar Cheshvan phrase pairs with 48 Word footnotes and 115 Bereishis Ois 4 interlinear phrases.');
+assert.ok(home.includes('Read annotated Bereishis Ois 4 with 24 source footnotes'),
+  'Show the new 24-source Bereishis Ois 4 edition with accurate description');
+console.log('PASS Pri Tzaddik homepage links: 327 Mar Cheshvan phrase pairs with 48 Word footnotes and 115 Bereishis Ois 4 interlinear phrases and 24 source footnotes.');
