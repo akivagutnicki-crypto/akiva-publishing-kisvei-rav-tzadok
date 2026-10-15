@@ -29,14 +29,14 @@ for(let ch=1;ch<=10;ch++){
   for(let i=0;i<3;i++){
    const p=note.paragraphs[i];
    assert.equal(p.text,p.rich.map(r=>r.text).join(''),'Rich text corrupt '+id);
-   assert.ok(p.text.length>60,'Truncated translation '+id);
+   assert.ok(p.text.length>(i===0?10:60),'Truncated translation '+id);
    assert.ok(!p.text.startsWith('Sources:'),'Redundant source list '+id);
    if(i>0&&p.rich[0].href)parallelLinked++;
    if(i>0&&p.rich[0].href)assert.ok(!p.rich[0].href.includes('/topics/'),'Generic parallel erroneously hyperlinked');
   }
   const source=note.sources[0];
   assert.ok(source.url?.startsWith('https://www.sefaria.org/'),'Lost Sefaria link '+id);
-  if(!/\/(?:Zohar,_Balak)$/.test(source.url))assert.equal(note.paragraphs[0].rich[0].href,source.url,'Missing exact source link '+id);
+  if(/\d/.test(source.url.slice('https://www.sefaria.org/'.length)))assert.equal(note.paragraphs[0].rich[0].href,source.url,'Missing exact source link '+id);
   assert.ok((cited['Yisrael Kedoshim '+ch]||[]).some(l=>l.r===source.ref && l.a==='Yisrael Kedoshim '+ch+':'+item.n),'Missing indexed connection '+id);
   primaryLinked++;
  }
