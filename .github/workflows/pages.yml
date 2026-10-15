@@ -56,6 +56,9 @@ jobs:
       - name: Build library text data
         run: node scripts/build-library.mjs
 
+      - name: Validate all 1,619 Kometz HaMinchah Hebrew-anchored footnotes
+        run: node scripts/test-kometz-footnotes.mjs
+
       - name: Add selectively reviewed Pri Tzaddik footnotes without overwriting original Word notes
         run: node scripts/import-pri-selective-footnotes.mjs && node scripts/test-pri-selective-footnotes.mjs
 
