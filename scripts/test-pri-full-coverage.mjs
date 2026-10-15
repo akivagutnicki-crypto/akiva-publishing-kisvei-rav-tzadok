@@ -33,6 +33,17 @@ for(const leaf of relevant){
   assert.equal(info.imported,info.supplied,'Dropped uploaded sources '+leaf.ref);
  }
  for(const {item,n} of notes){
+  // PT-0002 source correctness regression: the cited sugya must actually
+  // explain "Bereishit nami ma'amar hu", not the unrelated blessing-order debate.
+  if(n.sourceId==='PT-0002'){
+    assert.equal(n.sources?.[0]?.ref,'Rosh Hashanah 32a:18-19','Wrong sugya citation for PT-0002');
+    assert.equal(n.sources?.[0]?.url,'https://www.sefaria.org/Rosh_Hashanah.32a.18-19','Not linked to the exact sugya');
+    assert.match(n.paragraphs[0].text,/ten utterances/i,'Missing ten utterances discussion');
+    assert.match(n.paragraphs[0].text,/Bereishit.{0,24}utterance/i,'Missing the Gemara\'s actual answer');
+    assert.doesNotMatch(n.paragraphs[0].text,/Rabban Shimon ben Gamliel/i,'Off-topic Gemara excerpt reintroduced');
+    assert.equal(n.paragraphs.length,1,'Unverified or irrelevant parallels must not be added');
+    assert.equal(n.sources.length,1,'Spurious cross-references must not be added');
+  }
   assert.ok(n.paragraphs?.length,'Empty source note '+leaf.ref);
   assert.ok(Number.isInteger(n.phraseIndex) && item.p[n.phraseIndex],'Bad phrase index '+leaf.ref);
   const pair=item.p[n.phraseIndex];
