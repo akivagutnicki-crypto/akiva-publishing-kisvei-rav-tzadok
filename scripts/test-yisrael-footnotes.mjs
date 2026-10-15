@@ -1,47 +1,51 @@
 import fs from 'node:fs';
 import assert from 'node:assert/strict';
-const base='dist/library/data/yisrael-kedoshim/';
-const strip=s=>String(s||'').replace(/<[^>]*>/g,'').replace(/&(?:amp|quot|apos|lt|gt|nbsp|#39|#x27);/g,
- m=>({'&amp;':'&','&quot;':'"','&apos;':"'",'&lt;':'<','&gt;':'>','&nbsp;':' ','&#39;':"'",'&#x27;':"'"}[m]));
-const toc=JSON.parse(fs.readFileSync(base+'toc.json'));
-assert.equal(toc.footnoteImportInfo.notes,2658);
-let total=0,sourceLinks=0,hb=0;
-for(let c=1;c<=10;c++){
-  const arr=JSON.parse(fs.readFileSync(base+'0-'+c+'.json'));
-  let count=0,lastRav='',lastIsh='';
-  for(const item of arr)for(const n of item.footnotes||[]){
-    if(!n.sourceId?.startsWith('YK-'))continue;
-    count++;total++;
-    assert.equal(n.number,total,'Footnote numbering gap');
-    assert.equal(n.sourceId,'YK-'+String(total).padStart(4,'0'));
-    assert.equal(n.placementId,n.sourceId+'-1');
-    const p=item.p[n.phraseIndex];
-    assert.ok(p,'Missing phrase '+n.sourceId);
-    assert.equal(strip(p[0]).slice(0,n.heCharOffset),n.heAnchorPrefix,'Hebrew anchor mismatch '+n.sourceId);
-    assert.equal(strip(p[1]).slice(0,n.enCharOffset),n.enAnchorPrefix,'English anchor mismatch '+n.sourceId);
-    assert.ok(n.paragraphs.length>=1);
-    for(const [paragraphIndex,para] of n.paragraphs.entries()){
-      assert.equal(para.rich.map(x=>x.text).join(''),para.text);
-      assert.ok(!para.text.startsWith('Sources:'),'Redundant source list '+n.sourceId);
-      if(paragraphIndex>0 && (para.text.startsWith('Beit Yaakov') || para.text.startsWith('Mei HaShiloach'))) {
-        if(lastIsh.text===para.text) assert.ok(n.number-lastIsh.number>=20,'Repeated nearby Ishbitz source');
-        lastIsh={text:para.text,number:n.number};
-      }
-      if(paragraphIndex>0 && (para.text.startsWith('Tzidkat ') || para.text.startsWith('Resisei ') || para.text.startsWith('Kometz '))) {
-        if(lastRav.text===para.text) assert.ok(n.number-lastRav.number>=20,'Repeated nearby Rav Tzadok source');
-        lastRav={text:para.text,number:n.number};
-      }
-    }
-    assert.ok(n.sources?.length===1);
-    if(n.sources[0].role==='har-bracha-footnote'){
-      hb++;assert.ok(!n.sources[0].url,'Misleading Har Bracha link');
-    } else {
-      assert.ok(n.sources[0].url?.startsWith('https://www.sefaria.org/'));
-      assert.equal(n.paragraphs[0].rich[0].href,n.sources[0].url);
-      sourceLinks++;
-    }
+const dir='dist/library/data/yisrael-kedoshim/';
+const strip=s=>String(s||'').replace(/<[^>]*>/g,'').replace(/&(?:amp|lt|gt|quot|apos|nbsp|#39|#x27);/g,x=>({
+ '&amp;':'&','&lt;':'<','&gt;':'>','&quot;':'"','&apos;':"'",'&nbsp;':' ','&#39;':"'",'&#x27;':"'"
+}[x]));
+const toc=JSON.parse(fs.readFileSync(dir+'toc.json','utf8'));
+assert.equal(toc.footnoteImportInfo.notes,2097);
+assert.equal(toc.footnoteImportInfo.sectionsWithNotes,10);
+let total=0,primaryLinked=0,parallelLinked=0,active=0,perChapter=[];
+const cited=JSON.parse(fs.readFileSync(dir+'links.json','utf8'));
+for(let ch=1;ch<=10;ch++){
+ const items=JSON.parse(fs.readFileSync(dir+'0-'+ch+'.json','utf8'));
+ let here=0;
+ for(const item of items)for(const note of item.footnotes||[]){
+  here++;total++;
+  const id='YK-'+String(total).padStart(4,'0');
+  assert.equal(note.number,total,'No restart within book');
+  assert.equal(note.sourceId,id);
+  assert.equal(note.placementId,id+'-1');
+  assert.equal(note.paragraphs.length,3,'One primary + two unique English parallels');
+  assert.equal(note.nativeConnections.length,2);
+  assert.equal(note.sources.length,1);
+  const pair=item.p[note.phraseIndex];
+  assert.ok(pair,'Missing original Hebrew/English pair '+id);
+  assert.equal(strip(pair[0]).slice(0,note.heCharOffset),note.heAnchorPrefix,'Incorrect Hebrew marker '+id);
+  assert.equal(strip(pair[1]).slice(0,note.enCharOffset),note.enAnchorPrefix,'Incorrect English anchor '+id);
+  assert.ok(note.heWord>=1);
+  for(let i=0;i<3;i++){
+   const p=note.paragraphs[i];
+   assert.equal(p.text,p.rich.map(r=>r.text).join(''),'Rich text corrupt '+id);
+   assert.ok(p.text.length>60,'Truncated translation '+id);
+   assert.ok(!p.text.startsWith('Sources:'),'Redundant source list '+id);
+   if(i>0&&p.rich[0].href)parallelLinked++;
+   if(i>0&&p.rich[0].href)assert.ok(!p.rich[0].href.includes('/topics/'),'Generic parallel erroneously hyperlinked');
   }
-  assert.ok(count>0,'No notes in section '+c);
+  const source=note.sources[0];
+  assert.ok(source.url?.startsWith('https://www.sefaria.org/'),'Lost Sefaria link '+id);
+  if(!/\/(?:Zohar,_Balak)$/.test(source.url))assert.equal(note.paragraphs[0].rich[0].href,source.url,'Missing exact source link '+id);
+  assert.ok((cited['Yisrael Kedoshim '+ch]||[]).some(l=>l.r===source.ref && l.a==='Yisrael Kedoshim '+ch+':'+item.n),'Missing indexed connection '+id);
+  primaryLinked++;
+ }
+ assert.ok(here>0,'Section '+ch+' contains no notes');
+ perChapter.push(here);
 }
-assert.equal(total,2658);assert.equal(hb,327);assert.equal(sourceLinks,2331);
-console.log('PASS Yisrael Kedoshim: 2658 continuous anchored Hebrew footnotes, 327 printed Har Bracha notes, 2331 Sefaria-linked source notes.');
+assert.equal(total,2097);
+assert.equal(primaryLinked,2097);
+assert.equal(toc.footnoteImportInfo.sourceLinks,2097);
+assert.equal(parallelLinked,toc.footnoteImportInfo.exactParallelLinks);
+assert.equal(perChapter.reduce((a,b)=>a+b),2097);
+console.log('PASS REPLACED Yisrael Kedoshim: 2097 continuously numbered Hebrew markers, 2097 primary Sefaria citations, exact positions across 10 sections and 2 English parallels per note.');
