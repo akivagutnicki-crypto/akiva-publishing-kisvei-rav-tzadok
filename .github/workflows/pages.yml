@@ -138,6 +138,9 @@ jobs:
           python scripts/build-sefaria-zips.py
           python scripts/test-sefaria-zips.py
 
+      - name: Apply fixed 13-volume annotated reader release when archive is staged
+        run: python scripts/apply-reader-expanded-13.py
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
         with:
