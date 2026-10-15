@@ -62,6 +62,9 @@ jobs:
       - name: Validate 729 Sichat Malakhei HaSharet Hebrew-only English source footnotes
         run: node scripts/test-sichat-footnotes.mjs
 
+      - name: Validate 116 Sichat Shedim English source notes with Hebrew-only anchors
+        run: node scripts/test-shedim-footnotes.mjs
+
       - name: Validate 925 Poked Akarim Hebrew-only source footnotes
         run: node scripts/test-poked-footnotes.mjs
 
@@ -110,6 +113,7 @@ jobs:
           node scripts/test-poked-reader-browser.mjs
           node scripts/test-ohr-zarua-reader-browser.mjs
           node scripts/test-sichat-reader-browser.mjs
+          node scripts/test-shedim-reader-browser.mjs
 
       - name: Build and verify MCP search index and library parallels
         run: node scripts/build-mcp-index.mjs && node scripts/build-parallels.mjs && node scripts/test-parallels.mjs && node scripts/test-mcp-server.mjs && node scripts/test-cloudflare-worker.mjs
