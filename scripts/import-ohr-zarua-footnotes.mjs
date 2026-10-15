@@ -59,7 +59,13 @@ export function addOhrZaruaFootnotes(src){
   const itemNumber=int(r.Item_Number,'item');
   const matches=section.items.filter(i=>i.p&&i.n===itemNumber);
   if(matches.length!==1)throw Error('Ohr Zarua missing/ambiguous paragraph '+sourceId);
-  const item=matches[0],phraseIndex=int(r.Phrase_Index,'phrase index');
+  const item=matches[0];
+  // The repository retains a separate English-only colophon after Hilchos Mamrim.
+  // The annotated upload joined that colophon to the preceding phrase, so all
+  // later phrase indices in this one paragraph are shifted forward by one.
+  const csvPhraseIndex=int(r.Phrase_Index,'phrase index');
+  const phraseIndex=(secIndex===26&&itemNumber===16&&csvPhraseIndex>=4)
+    ?csvPhraseIndex+1:csvPhraseIndex;
   const phrase=item.p[phraseIndex];
   if(!phrase)throw Error('Ohr Zarua missing Hebrew/English pair '+sourceId);
   const he=visible(phrase[0]),en=visible(phrase[1]),heWord=int(r.Hebrew_Word_Index,'Hebrew word');
