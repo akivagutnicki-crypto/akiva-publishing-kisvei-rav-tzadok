@@ -128,6 +128,9 @@ jobs:
       - name: Install Meshiv HaTaanah and Meshiv Tzedek expanded Hebrew-anchored source footnotes
         run: python scripts/apply-meshiv-2026.py
 
+      - name: Add editorial section titles and source-grounded thematic subheadings to six seforim
+        run: python scripts/apply-six-torah-headings.py && node scripts/test-six-torah-headings.mjs && node scripts/test-six-headings-reader-browser.mjs
+
       - name: Build and verify MCP search index and library parallels
         run: node scripts/build-mcp-index.mjs && node scripts/build-parallels.mjs && node scripts/test-parallels.mjs && node scripts/test-mcp-server.mjs && node scripts/test-cloudflare-worker.mjs
 
