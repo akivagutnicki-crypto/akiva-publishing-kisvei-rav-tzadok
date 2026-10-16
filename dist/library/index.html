@@ -460,6 +460,16 @@ i.footnote.open{display:block;direction:ltr;text-align:left;font-family:var(--en
 .shiur-audio-controls label{display:flex;align-items:center;gap:8px;font:600 .85rem var(--ui)}
 .shiur-audio-controls select{min-height:40px;padding:6px 10px;border:1px solid var(--line);border-radius:6px;background:var(--panel);color:var(--ink);font:500 .9rem var(--ui)}
 .shiur-audio .btn{min-height:40px;height:auto;padding:9px 12px;justify-content:center}
+/* Noach Ois Vav: player in the existing shiur position, PDF preview to the right. */
+.noach6-media-grid{display:grid;grid-template-columns:minmax(0,1fr) 270px;align-items:start;gap:16px;margin:18px 0 26px}
+.noach6-media-grid .shiur-audio{margin:0;min-width:0}
+.noach6-pdf{border:1px solid var(--line);border-radius:12px;padding:12px;background:var(--soft);min-width:0}
+.noach6-pdf h3{font:700 1rem/1.4 var(--ui);margin:0 0 8px}
+.noach6-pdf iframe{width:100%;height:245px;background:var(--paper);border:1px solid var(--line);border-radius:5px;display:block}
+.noach6-pdf p{font:.79rem/1.5 var(--ui);color:var(--muted);margin:8px 0}
+.noach6-pdf .btn{display:inline-flex;margin-top:8px;width:100%;justify-content:center}
+.shiur-host-note{display:block;max-width:390px;font:.78rem/1.5 var(--ui);color:var(--muted)}
+@media(max-width:800px){.noach6-media-grid{grid-template-columns:minmax(0,1fr)}.noach6-pdf iframe{max-width:330px;height:250px}}
 .shiur-audio-status{font:400 .8rem/1.5 var(--ui);color:var(--muted);margin:11px 0 0}
 .shiur-audio :focus-visible{outline:2px solid var(--brass);outline-offset:3px}
 :root[data-theme="dark"] .shiur-audio audio{color-scheme:dark}
@@ -528,7 +538,7 @@ body.akiva-android-reader .akiva-support-embed{border-top-color:var(--ox)}
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <div class="offline-pill" id="offlinePill" hidden>Offline · reading saved texts</div>
 
-<script src="shiur-player.js?v=20261012-audio"></script>
+<script src="shiur-player.js?v=20261016-noach-ois-vav"></script>
 <script src="sefaria-packs.js?v=20261012-source-zips-v3"></script>
 <script>
 (() => {
@@ -1450,7 +1460,19 @@ function appendSection(d) {
     ? `<div class="sec-head"><span>${esc(d.title.ois ? d.title.parashah + ' · Ois ' + d.title.ois + ' — ' + (d.title.en || d.sectionRef) : d.title.he && /^סימן/.test(d.title.he) ? d.sectionRef : d.title.en || d.sectionRef)}</span></div><h2 class="sec-title he" lang="he">${esc(d.title.he)}</h2>${d.title.he && /^סימן/.test(d.title.he) && d.title.en ? `<div class="sec-sub">${esc(d.title.en)}</div>` : ''}`
     : `<div class="sec-head"><span>${esc(d.studyHeading || d.sectionRef)}</span>${d.heRef ? `<span class="he" lang="he">${esc(d.heRef)}</span>` : ''}</div>`;
   if (d.sourceUrl) html += `<div class="sec-sub"><a href="${esc(d.sourceUrl)}" target="_blank" rel="noopener noreferrer">View the original Hebrew on Sefaria ↗</a></div>`;
-  html += window.AkivaShiurPlayer?.render(d.sectionRef) || '';
+  const shiurMarkup = window.AkivaShiurPlayer?.render(d.sectionRef) || '';
+  if (d.sectionRef === 'Peri Tzadik, Noach 6') {
+    html += `<div class="noach6-media-grid">${shiurMarkup}
+      <aside class="noach6-pdf" aria-label="Noach Ois Vav PDF preview">
+        <h3>📄 Noach — Ois Vav · Shiur PDF</h3>
+        <iframe title="Preview Pri Tzaddik Noach Ois Vav PDF, 13 pages" loading="lazy"
+          src="https://drive.google.com/file/d/1PPOTTaxf5rIqgBTHBthOc221EUWHP1wI/preview"></iframe>
+        <p>13-page shiur transcript. The Google Drive preview may require you to sign in.</p>
+        <a class="btn" target="_blank" rel="noopener noreferrer"
+          href="https://drive.google.com/file/d/1PPOTTaxf5rIqgBTHBthOc221EUWHP1wI/view">Open or download PDF ↗</a>
+      </aside>
+    </div>`;
+  } else html += shiurMarkup;
   const lechDownloads = d.sectionRef.startsWith('Peri Tzadik, Lech Lecha ') ? 'pri-tzaddik-lech-lecha-interlinear.docx'
     : d.sectionRef.startsWith('Beit Yaakov on Torah, Lech Lecha ') ? 'beit-yaakov-lech-lecha-interlinear.docx'
     : d.sectionRef.startsWith('Mei HaShiloach,') && d.sectionRef.endsWith(', Lech Lecha')
