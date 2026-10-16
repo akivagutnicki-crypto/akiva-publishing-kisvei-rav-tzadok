@@ -75,7 +75,7 @@ def main():
       raise ValueError('Invalid phrase heading position in '+str(p))
      if (h['phraseIndex'],h['text']) not in seen:
       newinline.append(h);seen.add((h['phraseIndex'],h['text']));stats['subheadings']+=1
-    if slug=='et-haochel':
+    if slug=='et-haochel' and n==0:
      for hd in ET_INLINE[filename]:
       idx=hd['phraseIndex']
       if idx>=len(item['p']):raise ValueError('Subheading outside Et HaOchel '+filename)
