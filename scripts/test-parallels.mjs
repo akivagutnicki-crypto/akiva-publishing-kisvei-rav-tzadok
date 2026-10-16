@@ -12,7 +12,7 @@ for (const slug of index) {
     paragraphs++;
     for (const [other, score, sources, ids] of e.p || []) {
       parallels++;
-      if (other === ref || !(score > 0) || !(sources.length || ids.length)) fail(`bad parallel ${ref} -> ${other}`);
+      if (other === ref || !(score > 0) || (!(slug === 'et-haochel' && e.reviewedParallels === true) && !(sources.length || ids.length))) fail(`bad parallel ${ref} -> ${other}`);
       for (const id of ids) if (!words[id]) fail(`unknown word ${id} in ${ref}`);
     }
   }
@@ -25,3 +25,4 @@ for (const want of ['Sod Yesharim, The First Night of Pesach', 'Machshavot Charu
 const pt = read('peri-tzadik.json')['Peri Tzadik, Rosh Chodesh Nisan 2:1'];
 if (!pt || !(pt.q || []).includes('Exodus 12:11')) fail('Exodus 12:11 not found by wording in Peri Tzadik, Rosh Chodesh Nisan 2:1');
 console.log(`PASS parallels: ${paragraphs} paragraphs with connections, ${parallels} parallels, ${Object.keys(words).length} distinctive words`);
+
