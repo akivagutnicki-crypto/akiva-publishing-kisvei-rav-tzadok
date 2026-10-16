@@ -450,30 +450,29 @@ i.footnote.open{display:block;direction:ltr;text-align:left;font-family:var(--en
 .weekly-teaser-copy>span:last-child{font:400 1rem/1.45 var(--en);color:var(--muted)}
 .weekly-teaser:hover strong{color:var(--ox)}.library-weekly{border-top:3px solid var(--brass);padding-top:16px}
 @media(max-width:680px){.weekly-teaser{grid-template-columns:1fr}.weekly-teaser>img{height:180px;min-height:0;max-height:none}.weekly-teaser-copy{padding:12px 18px 22px}}
-\n.reader-section-break{font-weight:700!important;font-size:1.14em!important;border-top:1px solid var(--line);margin-top:24px!important;padding-top:17px!important}\n
+.reader-section-break{font-weight:700!important;font-size:1.14em!important;border-top:1px solid var(--line);margin-top:24px!important;padding-top:17px!important}
 /* Akiva Publishing shiur audio */
-.shiur-audio{margin:20px 0 24px;padding:20px;border:1px solid var(--line);border-radius:12px;background:var(--soft)}
-.shiur-audio h3{font:700 1.18rem/1.4 var(--ui);margin:0 0 5px;color:var(--ink)}
-.shiur-audio .shiur-audio-meta{font:400 .9rem/1.5 var(--ui);color:var(--muted);margin:0 0 14px}
-.shiur-audio audio{width:100%;display:block;min-height:54px}
-.shiur-audio-controls,.shiur-audio-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:13px;align-items:center}
-.shiur-audio-controls label{display:flex;align-items:center;gap:8px;font:600 .85rem var(--ui)}
-.shiur-audio-controls select{min-height:40px;padding:6px 10px;border:1px solid var(--line);border-radius:6px;background:var(--panel);color:var(--ink);font:500 .9rem var(--ui)}
-.shiur-audio .btn{min-height:40px;height:auto;padding:9px 12px;justify-content:center}
-/* Noach Ois Vav: player in the existing shiur position, PDF preview to the right. */
-.noach6-media-grid{display:grid;grid-template-columns:minmax(0,1fr) 270px;align-items:start;gap:16px;margin:18px 0 26px}
-.noach6-media-grid .shiur-audio{margin:0;min-width:0}
-.noach6-pdf{border:1px solid var(--line);border-radius:12px;padding:12px;background:var(--soft);min-width:0}
-.noach6-pdf h3{font:700 1rem/1.4 var(--ui);margin:0 0 8px}
-.noach6-pdf iframe{width:100%;height:245px;background:var(--paper);border:1px solid var(--line);border-radius:5px;display:block}
-.noach6-pdf p{font:.79rem/1.5 var(--ui);color:var(--muted);margin:8px 0}
-.noach6-pdf .btn{display:inline-flex;margin-top:8px;width:100%;justify-content:center}
+.shiur-audio{margin:12px 0 14px;padding:12px 14px;border:1px solid var(--line);border-radius:10px;background:var(--soft)}
+.shiur-audio h3{font:700 1.05rem/1.3 var(--ui);margin:0 0 4px;color:var(--ink)}
+.shiur-audio .shiur-audio-meta{font:400 .82rem/1.4 var(--ui);color:var(--muted);margin:0 0 6px}
+.shiur-audio audio{width:100%;display:block;height:40px;min-height:40px}
+.shiur-audio-controls,.shiur-audio-actions{display:flex;flex-wrap:wrap;gap:6px 8px;margin-top:6px;align-items:center}
+.shiur-audio-controls label{display:flex;align-items:center;gap:6px;font:600 .8rem var(--ui)}
+.shiur-audio-controls select{min-height:36px;padding:4px 8px;border:1px solid var(--line);border-radius:6px;background:var(--panel);color:var(--ink);font:500 .85rem var(--ui)}
+.shiur-audio .btn{min-height:36px;height:auto;padding:6px 10px;justify-content:center}
+/* Keep the Noach Ois Vav transcript available without reserving a tall PDF column. */
+.noach6-media{margin:12px 0 14px}
+.noach6-media .shiur-audio{margin:0;min-width:0;border-bottom:0;border-radius:10px 10px 0 0}
+.noach6-pdf{border:1px solid var(--line);border-radius:0 0 10px 10px;padding:10px 14px;background:var(--soft);min-width:0}
+.noach6-pdf summary{cursor:pointer;font:600 .85rem/1.4 var(--ui);color:var(--ink)}
+.noach6-pdf summary:focus-visible{outline:2px solid var(--brass);outline-offset:3px}
+.noach6-pdf iframe{width:100%;height:360px;margin-top:10px;background:var(--paper);border:1px solid var(--line);border-radius:5px;display:block}
+.noach6-pdf .btn{display:inline-flex;margin-top:8px;min-height:36px;padding:6px 10px;justify-content:center}
 .shiur-host-note{display:block;max-width:390px;font:.78rem/1.5 var(--ui);color:var(--muted)}
-@media(max-width:800px){.noach6-media-grid{grid-template-columns:minmax(0,1fr)}.noach6-pdf iframe{max-width:330px;height:250px}}
-.shiur-audio-status{font:400 .8rem/1.5 var(--ui);color:var(--muted);margin:11px 0 0}
+.shiur-audio-status{font:400 .75rem/1.4 var(--ui);color:var(--muted);margin:6px 0 0}
 .shiur-audio :focus-visible{outline:2px solid var(--brass);outline-offset:3px}
 :root[data-theme="dark"] .shiur-audio audio{color-scheme:dark}
-@media(max-width:640px){.shiur-audio{margin:14px 0;padding:13px}.shiur-audio-controls{gap:9px 14px}.shiur-audio-actions .btn{flex:1 1 auto}.shiur-audio h3{font-size:1.02rem}}
+@media(max-width:640px){.shiur-audio{padding:10px}.shiur-audio-controls{gap:6px 10px}.shiur-audio-controls select,.shiur-audio .btn{min-height:40px}.shiur-audio-actions .btn{flex:1 1 auto}.shiur-audio h3{font-size:1rem}.noach6-pdf{padding:10px}.noach6-pdf iframe{height:300px}}
 .reader-related{margin:1.2rem 0;padding:1rem;border:1px solid var(--line);border-radius:10px;background:var(--paper)}
 .reader-related strong{display:block;color:var(--forest);font:600 .85rem var(--ui);margin-bottom:.6rem}
 .reader-related a{display:block;padding:.35rem 0;color:var(--forest);text-decoration:underline;font:.95rem/1.4 var(--en)}
@@ -538,7 +537,7 @@ body.akiva-android-reader .akiva-support-embed{border-top-color:var(--ox)}
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <div class="offline-pill" id="offlinePill" hidden>Offline · reading saved texts</div>
 
-<script src="shiur-player.js?v=20261016-noach-ois-vav"></script>
+<script src="shiur-player.js?v=20261016-compact-noach-audio"></script>
 <script src="sefaria-packs.js?v=20261012-source-zips-v3"></script>
 <script>
 (() => {
@@ -1462,15 +1461,14 @@ function appendSection(d) {
   if (d.sourceUrl) html += `<div class="sec-sub"><a href="${esc(d.sourceUrl)}" target="_blank" rel="noopener noreferrer">View the original Hebrew on Sefaria ↗</a></div>`;
   const shiurMarkup = window.AkivaShiurPlayer?.render(d.sectionRef) || '';
   if (d.sectionRef === 'Peri Tzadik, Noach 6') {
-    html += `<div class="noach6-media-grid">${shiurMarkup}
-      <aside class="noach6-pdf" aria-label="Noach Ois Vav PDF preview">
-        <h3>📄 Noach — Ois Vav · Shiur PDF</h3>
+    html += `<div class="noach6-media">${shiurMarkup}
+      <details class="noach6-pdf">
+        <summary>📄 Preview the shiur transcript · 13-page PDF</summary>
         <iframe title="Preview Pri Tzaddik Noach Ois Vav PDF, 13 pages" loading="lazy"
           src="downloads/pri-tzaddik-noach-ois-6-shiur.pdf#toolbar=0&navpanes=0"></iframe>
-        <p>13-page shiur transcript. Preview the supplied PDF in the top-right pane.</p>
         <a class="btn" target="_blank" rel="noopener noreferrer"
           href="downloads/pri-tzaddik-noach-ois-6-shiur.pdf">Open or download PDF ↗</a>
-      </aside>
+      </details>
     </div>`;
   } else html += shiurMarkup;
   const lechDownloads = d.sectionRef.startsWith('Peri Tzadik, Lech Lecha ') ? 'pri-tzaddik-lech-lecha-interlinear.docx'
