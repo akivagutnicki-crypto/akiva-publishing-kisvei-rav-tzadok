@@ -37,7 +37,11 @@ assert.match(player.render('Peri Tzadik, Noach 4'), /audio\/rabbi-moshe-teitelba
 assert.match(player.render('Peri Tzadik, Noach 6'), /noach-ois-vav-6/);
 assert.match(player.render('Peri Tzadik, Noach 6'), /55:15/);
 assert.match(player.render('Peri Tzadik, Noach 6'), /M4A/);
-assert.match(player.render('Peri Tzadik, Noach 6'), /1nXMkMW76DZB2tk-MshPYE4DdCgwX-eV0/);
+assert.match(player.render('Peri Tzadik, Noach 6'), /audio\\/pri-tzaddik-noach-ois-6\\.m4a/);
+assert.match(player.render('Peri Tzadik, Noach 6'), /Download M4A/);
+assert.match(player.render('Peri Tzadik, Noach 8'), /audio\\/rabbi-moshe-teitelbaum-noach-ois-4\\.mp3/);
+assert.match(player.render('Peri Tzadik, Noach 8'), /Ois Ches/);
+assert.match(player.render('Peri Tzadik, Noach 8'), /teitelbaum-noach-8/);
 assert.match(player.render('Peri Tzadik, Noach 6'), /value="2.5">2.5×/);
 assert.equal(player.render('Peri Tzadik, Noach 1'), '');
 assert.equal(player.render('Peri Tzadik, Noach 8'), '');
@@ -69,6 +73,12 @@ sec.audio.currentTime = 480;
 event(sec.audio, 'seeked');
 assert.equal(saved('teitelbaum-noach-2').position, 480);
 
+const oisChes = section('teitelbaum-noach-8');
+const disposeChes = player.mount(oisChes);
+oisChes.audio.readyState=1;
+event(oisChes.audio,'loadedmetadata');
+assert.equal(oisChes.audio.currentTime,0,'Ois Ches has its own listening position');
+disposeChes();
 const other = section('teitelbaum-noach-4');
 const disposeOther = player.mount(other);
 other.audio.readyState = 1;
