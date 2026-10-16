@@ -37,14 +37,14 @@ assert.match(player.render('Peri Tzadik, Noach 4'), /audio\/rabbi-moshe-teitelba
 assert.match(player.render('Peri Tzadik, Noach 6'), /noach-ois-vav-6/);
 assert.match(player.render('Peri Tzadik, Noach 6'), /55:15/);
 assert.match(player.render('Peri Tzadik, Noach 6'), /M4A/);
-assert.match(player.render('Peri Tzadik, Noach 6'), /audio\\/pri-tzaddik-noach-ois-6\\.m4a/);
+assert.ok(player.render('Peri Tzadik, Noach 6').includes('audio/pri-tzaddik-noach-ois-6.m4a'));
 assert.match(player.render('Peri Tzadik, Noach 6'), /Download M4A/);
-assert.match(player.render('Peri Tzadik, Noach 8'), /audio\\/rabbi-moshe-teitelbaum-noach-ois-4\\.mp3/);
+assert.ok(player.render('Peri Tzadik, Noach 8').includes('audio/rabbi-moshe-teitelbaum-noach-ois-4.mp3'));
 assert.match(player.render('Peri Tzadik, Noach 8'), /Ois Ches/);
 assert.match(player.render('Peri Tzadik, Noach 8'), /teitelbaum-noach-8/);
 assert.match(player.render('Peri Tzadik, Noach 6'), /value="2.5">2.5×/);
 assert.equal(player.render('Peri Tzadik, Noach 1'), '');
-assert.equal(player.render('Peri Tzadik, Noach 8'), '');
+assert.equal(player.render('Peri Tzadik, Noach 9'), '');
 assert.match(player.render('Peri Tzadik, Noach 2'), /value="2">2×/);
 assert.match(player.render('Peri Tzadik, Noach 2'), /value="2.5">2.5×/);
 assert.doesNotMatch(player.render('Peri Tzadik, Noach 2'), /iframe|drive\.google/);
