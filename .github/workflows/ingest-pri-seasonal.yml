@@ -1,0 +1,35 @@
+name: Ingest supplied Pri seasonal source
+on:
+  push:
+    branches: [work/pri-seasonal-footnotes-20261016]
+    paths: [.github/workflows/ingest-pri-seasonal.yml]
+permissions:
+  contents: write
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Transfer the user-supplied four seasonal groups with a checksum
+        run: |
+          python - <<'PY'
+          import gzip,hashlib,json,urllib.request
+          from pathlib import Path
+          target=Path('sources/akiva/pri-seasonal-supplied-20261016.json.gz')
+          url='https://sdmntprcentralus.oaiusercontent.com/files/00000000-4eb0-81f5-b6f1-ad747858e7f9/raw?se=2026-10-16T20%3A37%3A26Z&sp=r&sv=2026-02-06&sr=b&scid=7de37028-93f8-5ea9-b991-28c6df53568c&skoid=2757bbe4-5137-4324-975b-acedc0bad279&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-10-16T02%3A56%3A54Z&ske=2026-10-17T02%3A56%3A54Z&sks=b&skv=2026-02-06&sig=Mhqpsask%2BWgzLx1kUUUx6S4M8pjbbij6AzweN/Lc1os%3D'
+          raw=gzip.decompress(target.read_bytes()) if target.exists() else urllib.request.urlopen(url,timeout=90).read()
+          assert hashlib.sha256(raw).hexdigest()=='52e53d19420823db61c6772770e84cd8e1719596b736ee7affd3b0540d020eba'
+          pack=json.loads(raw)
+          assert len(pack['sections'])==42
+          assert sum(len(r.get('footnotes',[])) for s in pack['sections'] for r in s['items'])==1407
+          target.parent.mkdir(parents=True,exist_ok=True)
+          target.write_bytes(gzip.compress(raw,compresslevel=9,mtime=0))
+          print('PASS: exact supplied 42 sections and 1407 footnotes staged')
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add -f sources/akiva/pri-seasonal-supplied-20261016.json.gz
+          if ! git diff --cached --quiet; then
+            git commit -m 'Store exact supplied seasonal source package [skip ci]'
+            git push origin HEAD:work/pri-seasonal-footnotes-20261016
+          fi
