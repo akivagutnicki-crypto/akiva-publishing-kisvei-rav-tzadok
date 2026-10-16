@@ -13,6 +13,10 @@ export const leavesOf=node=>node.children?node.children.flatMap(leavesOf):[node]
 export const digest=bytes=>createHash('sha256').update(bytes).digest('hex');
 const read=file=>JSON.parse(fs.readFileSync(file,'utf8'));
 const write=(file,value)=>fs.writeFileSync(file,JSON.stringify(value));
+// Python annotation imports canonicalize every index key. Use that same order
+// now so their later idempotent pass does not change preservation snapshots.
+const canonical=value=>Array.isArray(value)?value.map(canonical):value&&typeof value==='object'
+  ?Object.fromEntries(Object.keys(value).sort().map(key=>[key,canonical(value[key])])):value;
 const decode=text=>text.replace(/&quot;/g,'"').replace(/&#x27;|&apos;/g,"'").replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&');
 export const plain=text=>decode(String(text).replace(/<[^>]*>/g,''));
 const compact=text=>text.replace(/\s/gu,'');
@@ -77,7 +81,7 @@ export function publishToldos(library='dist/library'){
   study.children.splice(afterChayei+1,0,{en:'Toldos · 10 teachings',he:'תולדות',toldosEdition:true,children});
   for(const original of toc.toc.children)if(original.ref==='Peri Tzadik, Toldot')original.coveredByInterlinear=true;
   book.segments=book.segments-old.reduce((n,l)=>n+l.shape,0)+40;book.akiva=true;book.ilParts=true;
-  write(path.join(dir,'toc.json'),toc);write(path.join(dir,'links.json'),links);write(path.join(data,'catalog.json'),catalog);
+  write(path.join(dir,'toc.json'),toc);write(path.join(dir,'links.json'),canonical(links));write(path.join(data,'catalog.json'),catalog);
   const citedDir=path.join(data,'cited'),reverse=new Map();
   // Replace only these teachings' outgoing reverse anchors; preserve incoming
   // citations from every other passage and from every other book.
