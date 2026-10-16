@@ -258,3 +258,9 @@ const size = dir => fs.readdirSync(dir, { withFileTypes: true }).reduce((n, e) =
 for (const w of warnings.slice(0, 20)) console.warn('  warning: ' + w);
 if (warnings.length > 20) console.warn(`  … ${warnings.length - 20} more warnings`);
 console.log(`MCP index: ${books.length} books, ${totalParas} paragraphs, ${Object.keys(cited).length} cited sources, ${(size(OUT) / 1e6).toFixed(1)} MB in ${OUT}`);
+
+// Rebuilding text data clears OUT. Retain the exact published, curated parallels.
+// The normal build-parallels step can replace these when a full rebuild is requested.
+if (exists('parallels')) {
+  fs.cpSync(path.join(DATA, 'parallels'), path.join(OUT, 'parallels'), {recursive: true});
+}
