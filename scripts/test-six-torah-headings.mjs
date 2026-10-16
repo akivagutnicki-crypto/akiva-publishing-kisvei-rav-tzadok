@@ -9,7 +9,7 @@ const expected={
   'likkutei-maamarim':[19,3347],
   'divrei-chalomot':[28,247],
   'kometz-haminchah':[194,1688],
-  'et-haochel':[16,248]
+  'et-haochel':[16,290]
 };
 let allSections=0,allInline=0,allNotes=0;
 for(const [slug,[sections,notes]] of Object.entries(expected)){
@@ -57,5 +57,5 @@ for(const leaf of etChapters){
 }
 assert.equal(allSections,284);
 assert.ok(allInline>=1200);
-assert.equal(allNotes,10062);
+assert.equal(allNotes,10104);
 console.log('PASS 284 section headings, '+allInline+' phrase-level transitions; '+allNotes+' footnotes retained');
