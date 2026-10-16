@@ -15,6 +15,15 @@
       label: 'Noach · Ois Daled (4) · אות ד׳',
       src: 'audio/rabbi-moshe-teitelbaum-noach-ois-4.mp3',
       duration: '27:01', bytes: '9.7 MB'
+    },
+    'Peri Tzadik, Noach 6': {
+      key: 'noach-ois-vav-6',
+      label: 'Noach · Ois Vav (6) · אות ו׳',
+      speaker: 'Pri Tzaddik shiur recording',
+      src: 'https://drive.google.com/uc?export=download&id=1nXMkMW76DZB2tk-MshPYE4DdCgwX-eV0',
+      openUrl: 'https://drive.google.com/file/d/1nXMkMW76DZB2tk-MshPYE4DdCgwX-eV0/view',
+      format: 'M4A',
+      duration: '55:15', bytes: '20.8 MB'
     }
   };
   const escape = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'}[c]));
@@ -32,10 +41,10 @@
   function render(ref) {
     const track = TRACKS[ref];
     if (!track) return '';
-    return `<aside class="shiur-audio" data-shiur-key="${track.key}" aria-label="Listen to Rabbi Moshe Teitelbaum's shiur">
+    return `<aside class="shiur-audio" data-shiur-key="${track.key}" aria-label="Listen to the Noach shiur">
       <h3>🎧 Listen to the Shiur · ${escape(track.label)}</h3>
-      <p class="shiur-audio-meta">Rabbi Moshe Teitelbaum · Pri Tzaddik, Parshas Noach · ${track.duration} · MP3 (${track.bytes})</p>
-      <audio controls preload="none" src="${track.src}" aria-label="Rabbi Moshe Teitelbaum, ${escape(track.label)}"></audio>
+      <p class="shiur-audio-meta">${escape(track.speaker || 'Rabbi Moshe Teitelbaum')} · Pri Tzaddik, Parshas Noach · ${track.duration} · ${track.format || 'MP3'} (${track.bytes})</p>
+      <audio controls preload="none" src="${escape(track.src)}" aria-label="${escape(track.speaker || 'Rabbi Moshe Teitelbaum')}, ${escape(track.label)}"></audio>
       <div class="shiur-audio-controls">
         <label>Speed <select class="shiur-speed" aria-label="Playback speed">${SPEEDS.map(speed => `<option value="${speed}"${speed === 1 ? ' selected' : ''}>${speed}×${speed === 1 ? ' (normal)' : ''}</option>`).join('')}</select></label>
         <label>Volume boost <select class="shiur-boost" aria-label="Volume boost"><option value="1">Normal</option><option value="1.5">1.5×</option><option value="2">2×</option><option value="3">3×</option></select></label>
@@ -45,8 +54,9 @@
       <p class="shiur-audio-status" role="status" aria-live="polite">Your place is saved automatically in this browser.</p>
       <div class="shiur-audio-actions">
         <button class="btn shiur-retry" type="button" hidden>Retry audio</button>
-        <a class="btn primary" href="${track.src}" download="${track.key}.mp3">↓ Download MP3</a>
-        <a class="btn" href="${track.src}" target="_blank" rel="noopener noreferrer">Open audio ↗</a>
+        ${track.openUrl
+          ? `<a class="btn primary" href="${escape(track.openUrl)}" target="_blank" rel="noopener noreferrer">Open or download M4A ↗</a><small class="shiur-host-note">This recording is currently hosted on Google Drive. Playback in a public reader requires public file access.</small>`
+          : `<a class="btn primary" href="${escape(track.src)}" download="${track.key}.mp3">↓ Download MP3</a><a class="btn" href="${escape(track.src)}" target="_blank" rel="noopener noreferrer">Open audio ↗</a>`}
       </div>
     </aside>`;
   }
