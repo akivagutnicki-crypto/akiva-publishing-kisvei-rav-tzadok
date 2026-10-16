@@ -143,13 +143,14 @@ jobs:
       - name: Add 929 supplied Hebrew-anchored notes only to Pri Tzadik Vayera and Chayei Sara
         run: python scripts/import-pri-vayera-chayei-footnotes.py
 
+      - name: Publish uploaded Pri Tzaddik Toldos before later imports record preservation checks
+        run: node scripts/publish-pri-toldos.mjs
+
       - name: Publish uploaded Pri Tzaddik Shevat and Tu BiShvat interlinear teachings after archive imports
         run: node scripts/publish-pri-shevat-tubishvat.mjs && node scripts/test-pri-shevat-tubishvat.mjs
 
       - name: Build and verify MCP search index and library parallels
-        # Toldos is installed after the legacy archive so its new translation
-        # survives every rebuild and is indexed with the other reader texts.
-        run: node scripts/publish-pri-toldos.mjs && node scripts/build-mcp-index.mjs && node scripts/test-pri-toldos.mjs && node scripts/build-parallels.mjs && node scripts/test-parallels.mjs && node scripts/test-mcp-server.mjs && node scripts/test-cloudflare-worker.mjs
+        run: node scripts/build-mcp-index.mjs && node scripts/test-pri-toldos.mjs && node scripts/build-parallels.mjs && node scripts/test-parallels.mjs && node scripts/test-mcp-server.mjs && node scripts/test-cloudflare-worker.mjs
 
       - name: Publish and verify Et HaOchel translated source footnotes and unique parallels
         run: node scripts/publish-et-haochel.mjs && node scripts/test-parallels.mjs && node scripts/test-et-haochel-reader-browser.mjs
