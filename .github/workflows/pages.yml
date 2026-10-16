@@ -56,6 +56,9 @@ jobs:
       - name: Build library text data
         run: node scripts/build-library.mjs
 
+      - name: Verify new Pri Tzaddik Vayera and Chayei Sara reader content and navigation
+        run: node scripts/test-pri-vayera-chayei-reader.mjs
+
       - name: Verify all Likkutei Maamarim expanded English source footnotes
         run: node scripts/test-likkutei-footnotes.mjs
 
