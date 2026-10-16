@@ -50,6 +50,10 @@ for(const leaf of etChapters){
  observed.add(leaf.en);
  const contents=JSON.parse(fs.readFileSync(root+'et-haochel/'+leaf.id+'.json','utf8'));
  assert.ok(contents[0].h.startsWith('§ '+leaf.en+'\n'),'Eis HaOchel headline differs from the TOC '+leaf.ref);
+ const inline=contents.flatMap(item=>item.inlineHeadings||[]);
+ assert.ok(inline.length>=2,'Insufficient source-anchored Eis HaOchel subheadings '+leaf.ref);
+ const pos=new Set(inline.map(h=>h.phraseIndex));
+ assert.ok(pos.size>=2,'Eis HaOchel headings duplicated at the same phrase '+leaf.ref);
 }
 assert.equal(allSections,284);
 assert.ok(allInline>=1200);
