@@ -6,7 +6,7 @@ const book = catalog.find(b=>b.title==='Beit Yaakov on Torah');
 if(!book || !book.interlinear) throw Error('Beit Yaakov bilingual edition missing');
 const bookRoot=path.join(root,book.slug);
 const {toc}=JSON.parse(fs.readFileSync(path.join(bookRoot,'toc.json'),'utf8'));
-if(toc.children.length!==3)throw Error('Expected Bereshit, Noach and Lech Lecha parashah groups in TOC');
+if(toc.children.length!==5)throw Error('Expected Bereshit, Noach, Lech Lecha, Vayera and Chayei Sarah groups in TOC');
 const [bereshit,noach,lech]=toc.children;
 if(!bereshit.en.includes('Bereishit')||bereshit.children.length!==77)throw Error('Expected 77 Bereshit osiyos');
 if(!noach.en.includes('Noach')||noach.children.length!==55)throw Error('Expected 55 Noach osiyos');

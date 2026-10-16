@@ -28,6 +28,7 @@ import { addShedimFootnotes } from './import-shedim-footnotes.mjs';
 import { addPokedFootnotes } from './import-poked-footnotes.mjs';
 import { addOhrZaruaFootnotes } from './import-ohr-zarua-footnotes.mjs';
 import { addDivreiChalomotFootnotes } from './import-divrei-chalomot-footnotes.mjs';
+import { addBeitYaakovDocuments } from './beit-yaakov-documents.mjs';
 
 // Publish each generated file atomically when an interlinear overlay replaces Hebrew.
 function writeFile(file, contents) {
@@ -297,7 +298,7 @@ function connect(slug, sectionRef, sep, items) {
       if (note.crossReference?.placementId && /^TZ-\d{4}-/.test(note.crossReference.placementId))
         note.crossReference.number = Number(note.crossReference.placementId.slice(3,7));
     }
-    if (!item.footnotes) item.p = normalizePairs(item.p);
+    if (!item.footnotes && !item.keepPairs) item.p = normalizePairs(item.p);
     else if (item.footnotesNormalize) {
       // Word source footnotes (sources/akiva/footnotes): repair the pairs as usual and move each note with its phrase.
       const { pairs, map } = normalizePairsTracked(item.p);
@@ -349,6 +350,13 @@ function connect(slug, sectionRef, sep, items) {
     }
     const refs = new Set();
     for (const [he, en] of item.p) for (const m of (he + en).matchAll(/data-ref="([^"]+)"/g)) refs.add(decode(m[1]));
+    // Reviewed document connections are sources linked by the supplied edition,
+    // attached to their paragraph without inserting extra Torah prose.
+    for (const source of item.connections || []) {
+      if (!source.ref || !/^https:\/\/www\.sefaria\.org\//.test(source.url || ''))
+        throw Error('Invalid document connection in ' + anchor);
+      refs.add(normalizeRef(source.ref));
+    }
     // Reviewed Tzidkat and Machshavot sources use precise bilingual insertion boundaries.
     // Fail a future rebuild if either phrase changes underneath its Hebrew marker.
     for (const note of item.footnotes || []) {
@@ -404,6 +412,7 @@ for (const dir of DIRS) {
   for (const file of candidateFiles) {
     const src = JSON.parse(fs.readFileSync(path.join(dir, file), 'utf8'));
     if (catalog.some(b => b.title === src.title)) { console.log(`${src.title}: using Akiva edition, skipping ${path.join(dir, file)}`); continue; }
+    if (src.title === 'Beit Yaakov on Torah') addBeitYaakovDocuments(src);
     if (src.title === 'Sefer HaZikhronot') addReviewedFootnotes(src);
     if (src.title === 'Kometz HaMinchah') addKometzFootnotes(src);
     if (src.title === 'Poked Akarim') addPokedFootnotes(src);
@@ -438,6 +447,8 @@ for (const dir of DIRS) {
           en: sec.en, he: sec.he, id, depth: 1, shape: paras, interlinear: true,
           ref,
           heRef: `${src.heTitle}, ${sec.he}`, sep,
+          ...(sec.sourceUrl ? { sourceUrl: sec.sourceUrl } : {}),
+          ...(sec.downloadDocx ? { downloadDocx: sec.downloadDocx } : {}),
         };
       });
       const version = { title: src.versionTitle, source: src.versionSource || '', license: src.license || '' };
@@ -452,6 +463,10 @@ for (const dir of DIRS) {
               children: children.filter(leaf => /, Noach \d+$/.test(leaf.ref))},
             {en: 'Lech Lecha · 51 Osiyos', he: 'לך לך',
               children: children.filter(leaf => /, Lech Lecha \d+$/.test(leaf.ref))},
+            {en: 'Vayera · 58 Osiyos', he: 'וירא',
+              children: children.filter(leaf => /, Vayera \d+$/.test(leaf.ref))},
+            {en: 'Chayei Sarah · 40 Osiyos', he: 'חיי שרה',
+              children: children.filter(leaf => /, Chayei Sara \d+$/.test(leaf.ref))},
           ] : children;
       const toc = { en: src.title, he: src.heTitle, children: tocChildren };
       writeFile(path.join(bookDir, 'toc.json'), JSON.stringify({ title: src.title, he: src.heTitle, version, toc }));

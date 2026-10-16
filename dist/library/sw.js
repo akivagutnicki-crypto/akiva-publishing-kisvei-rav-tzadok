@@ -5,7 +5,7 @@
 //   with the last answer kept for offline use; web fonts are cache-first.
 const VERSION = 'v59-pri-vayera-chayei-20261016-compact-noach-audio';
 // Keep this layout refresh when a later publishing step updates the text edition version.
-const SHELL = `rtl-shell-${VERSION}-compact-noach-audio-20261016`;
+const SHELL = `rtl-shell-${VERSION}-compact-noach-audio-20261016-beit-vayera-chayei-20261016`;
 const DATA = 'rtl-data';
 const EXTERNAL = 'rtl-external';
 const SHELL_FILES = [
