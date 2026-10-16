@@ -15,13 +15,13 @@ jobs:
           python - <<'PY'
           import hashlib,io,urllib.request,zipfile
           from pathlib import Path
-          url='https://sdmntprcentralus.oaiusercontent.com/files/00000000-9c44-81f5-a08e-c34d318e7f56/raw?se=2026-10-16T20%3A46%3A07Z&sp=r&sv=2026-02-06&sr=b&scid=b5b8a97f-2b52-5ade-8612-a90c106dadf5&skoid=2757bbe4-5137-4324-975b-acedc0bad279&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-10-16T03%3A07%3A24Z&ske=2026-10-17T03%3A07%3A24Z&sks=b&skv=2026-02-06&sig=vqmblmWrwPKXJlRbxDLgCGOvZvBXfALRXlp7aRIr3SA%3D'
+          url='https://sdmntprcentralus.oaiusercontent.com/files/00000000-344c-81f5-93f3-50cc9b621877/raw?se=2026-10-16T20%3A50%3A32Z&sp=r&sv=2026-02-06&sr=b&scid=bbac9f60-45d9-58d8-85e6-8a845aa19a92&skoid=2757bbe4-5137-4324-975b-acedc0bad279&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-10-16T20%3A37%3A13Z&ske=2026-10-17T20%3A37%3A13Z&sks=b&skv=2026-02-06&sig=4ea7uRK1U3XB5EpHxuOkLY0R5OyvankSYDehFD8y4Jc%3D'
           data=urllib.request.urlopen(url,timeout=60).read()
-          assert hashlib.sha256(data).hexdigest()=='e0362223f181cc31448f89663328daecf9fb449c178a63eb0f7f35ac00e36ca2'
+          assert hashlib.sha256(data).hexdigest()=='34278d80b3cfed50f2563e613b570da643d12ffdc6f7d62a58b16a814ee42dcb'
           z=zipfile.ZipFile(io.BytesIO(data));allowed={'scripts/import-pri-seasonal-footnotes.py','scripts/test-pri-seasonal-footnotes.mjs'}
           assert set(z.namelist())==allowed
           for name in allowed:Path(name).write_bytes(z.read(name))
-          page=Path('.github/workflows/pages.yml');raw=page.read_bytes()
+          raw=Path('.github/workflows/pages.yml').read_bytes()
           assert hashlib.sha1(('blob '+str(len(raw))+'\0').encode()+raw).hexdigest()=='6006ae1119f64210d690d1a449aee25b7be5adb9','Pages workflow changed; reconcile first'
           s=raw.decode()
           anchor='      - name: Build and verify library ZIP downloads\n'
@@ -33,12 +33,12 @@ jobs:
           anchor='      - name: Save Pri Tzadik live verification report and screenshots\n'
           assert s.count(anchor)==1
           s=s.replace(anchor,'      - name: Verify all four seasonal groups and footnote popups on the live reader\n        run: |\n          for attempt in 1 2 3; do\n            if node scripts/test-pri-seasonal-footnotes.mjs --url \'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/\'; then\n              exit 0\n            fi\n            sleep 20\n          done\n          exit 1\n\n      - name: Save seasonal live reader verification\n        if: always()\n        uses: actions/upload-artifact@v4\n        with:\n          name: pri-seasonal-live-verification\n          path: |\n            seasonal-verification\n            dist/library/pri-seasonal-footnotes-report.json\n          retention-days: 14\n\n'+anchor)
-          page.write_text(s)
+          Path('incoming/pri-seasonal-pages.yml').write_text(s)
           PY
           python -m py_compile scripts/import-pri-seasonal-footnotes.py
           node --check scripts/test-pri-seasonal-footnotes.mjs
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
-          git add scripts/import-pri-seasonal-footnotes.py scripts/test-pri-seasonal-footnotes.mjs .github/workflows/pages.yml
-          git commit -m 'Stage scoped seasonal source-note import and final browser verification [skip ci]'
+          git add scripts/import-pri-seasonal-footnotes.py scripts/test-pri-seasonal-footnotes.mjs incoming/pri-seasonal-pages.yml
+          git commit -m 'Stage scoped seasonal source-note importer and publication checks [skip ci]'
           git push origin HEAD:work/pri-seasonal-footnotes-20261016
