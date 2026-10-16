@@ -44,7 +44,19 @@ for(const [name,count] of [['Vayera',7],['Chayei Sara',11]]){
 assert.equal(totalPairs,1268,'Original translation phrase count changed');
 assert.ok(headings>=90,'Fewer than 90 thematic subheadings published');
 assert.ok(cited>=10,'Sefaria source citation links were not generated');
-assert.match(sw,/v(?:59-pri-vayera-chayei|61-akiva-expanded-13-vayera-chayei)/,'Reader service worker cache was not refreshed');
+// The final publication adds a new version after the Et HaOchel publisher.
+// Check the active version, not the obsolete version's presence in comments.
+const swVersion=sw.match(/^const VERSION = '([^']+)';/m)?.[1];
+assert.ok(swVersion,'Missing active service worker version');
+if(toc.vayeraChayeiSaraFootnotes){
+ const release='20261016-pri-vayera-chayei-footnotes-929';
+ assert.equal(toc.vayeraChayeiSaraFootnotes.release,release,'Unexpected footnote release');
+ assert.equal(toc.vayeraChayeiSaraFootnotes.suppliedNotes,929,'Missing footnote release count');
+ assert.ok(swVersion.includes(release),'Final reader cache lacks this footnote release');
+ assert.ok(html.includes('20261016-pri-thematic-headings-v3-footnotes929'),'Final reader JSON cache lacks the footnotes');
+}else{
+ assert.match(swVersion,/v(?:59-pri-vayera-chayei|61-akiva-expanded-13-vayera-chayei)/,'Reader service worker cache was not refreshed');
+}
 if(process.argv.includes('--after-archive')){
  assert.equal(toc.restoredVayeraChayeiSara?.chapters,18,'Archive installer removed or failed to restore new chapters');
  assert.equal(toc.restoredVayeraChayeiSara?.phrasePairs,1268,'Restored phrase count metadata missing');
