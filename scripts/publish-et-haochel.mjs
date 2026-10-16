@@ -41,7 +41,10 @@ for(const section of source.sections){
    assert.equal(plain(item.p[note.phraseIndex][0]).slice(0,note.heCharOffset),note.heAnchorPrefix);
    assert.ok(!('enCharOffset' in note)&&!('enWord' in note),'English note marker');
    assert.equal(note.sources.length,1);
-   assert.match(note.sources[0].url,/^https:\/\/www\.sefaria\.org\//);
+   assert.ok(/^https:\/\/www\.sefaria\.org\//.test(note.sources[0].url) || [
+    'https://voices.sefaria.org/sheets/554271?lang=bi',
+    'https://www.chabad.org/library/tanya/tanya_cdo/aid/6088199/jewish/Kuntres-Acharon-Essay-3-Part-1.htm'
+   ].includes(note.sources[0].url),'Unverified source location');
    assert.ok(note.paragraphs.length>=1);
    assert.ok(note.paragraphs[0].rich.some(r=>r.bold&&r.href===note.sources[0].url));
    for(const p of note.paragraphs){
@@ -61,10 +64,21 @@ for(const section of source.sections){
   }
   curated[ref]={p:parallels,reviewedParallels:true};
  }
- assert.equal(parallelCount,2,'Expected two distinct parallels in ois '+section.n);
+ assert.equal(parallelCount,section.n===8?3:2,'Unexpected distinct parallels in ois '+section.n);
 }
-assert.equal(paragraphs,17);assert.equal(pairs,303);assert.equal(placed,248);assert.equal(notes.size,230);assert.equal(parallelRefs.size,32);
-assert.deepEqual([...notes.keys()].sort(),Array.from({length:230},(_,i)=>`EH-${String(i+1).padStart(4,'0')}`));
+assert.equal(paragraphs,17);assert.equal(pairs,303);assert.equal(placed,290);assert.equal(notes.size,272);assert.equal(parallelRefs.size,33);
+assert.deepEqual([...notes.keys()].sort(),Array.from({length:272},(_,i)=>`EH-${String(i+1).padStart(4,'0')}`));
+// The supplied sheet's 39 text entries and 25 images are accounted for;
+// eight entries are already contained in the pre-existing source notes.
+const sourceAudit=JSON.parse(fs.readFileSync('editorial/et-haochel-8-sources-554271.json','utf8'));
+assert.equal(sourceAudit.coverage.length,39);
+assert.equal(sourceAudit.coverage.filter(x=>x.status==='already present').length,8);
+assert.equal(Object.keys(sourceAudit.images).length,25);
+assert.ok(Object.values(sourceAudit.images).every(x=>x.length));
+const ois8=source.sections.find(s=>s.n===8).items.flatMap(i=>i.footnotes||[]);
+assert.equal(ois8.length,52);
+assert.equal(new Set(ois8.map(n=>n.sources[0].ref)).size,52,'Duplicate source note in ois 8');
+for(const entry of sourceAudit.coverage)assert.ok(ois8.some(n=>n.sources[0].ref===entry.coveredBy),'Missing supplied source '+entry.ref);
 for(const dir of ['dist/library/data/parallels','dist/mcp-data/parallels']){
  const file=path.join(dir,'et-haochel.json');
  const old=fs.existsSync(file)?JSON.parse(fs.readFileSync(file,'utf8')):{};
@@ -79,7 +93,7 @@ for(const dir of ['dist/library/data/parallels','dist/mcp-data/parallels']){
  }
 }
 const sourceHash=createHash('sha256').update(sourceBytes).digest('hex');
-const tag='20261016-et-haochel-230-'+sourceHash.slice(0,12);
+const tag='20261016-et-haochel-272-'+sourceHash.slice(0,12);
 const htmlFile=path.join(root,'index.html');
 if(fs.existsSync(htmlFile)){
  let html=fs.readFileSync(htmlFile,'utf8');
@@ -106,4 +120,4 @@ const report={title:source.title,sections:16,paragraphs,phrasePairs:pairs,unique
  footnotePlacements:placed,distinctParallelPassages:parallelRefs.size,englishMarkers:0,hebrewPreserved:true,
  sourceSha256:sourceHash,edition:tag};
 fs.writeFileSync(path.join(root,'et-haochel-publication.json'),JSON.stringify(report,null,2)+'\n');
-console.log('PASS Et HaOchel publication: all 16 oisiyos, 230 English notes, 248 Hebrew-only anchors, 32 nonrepeated parallels; updated reader cache version.');
+console.log('PASS Et HaOchel publication: all 16 oisiyos, 272 English notes, 290 Hebrew-only anchors, 33 nonrepeated parallels; Ois 8 supplied sources covered and reader cache refreshed.');

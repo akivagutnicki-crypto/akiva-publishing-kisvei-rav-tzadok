@@ -1,0 +1,959 @@
+{
+  "sourceSheet": "https://voices.sefaria.org/sheets/554271?lang=bi",
+  "document": "Kuntrus Eis Ha'oicheil ois ches from Rav Tzadok Hakohen.docx",
+  "sourceSheetModified": "2026-10-16T08:56:40.380113",
+  "target": "Et HaOchel 8",
+  "addedNotes": 42,
+  "preservedNotes": 10,
+  "totalOis8Notes": 52,
+  "coverage": [
+    {
+      "sheetNode": 12,
+      "ref": "Berakhot 26b:4",
+      "status": "added",
+      "coveredBy": "Berakhot 26b:4"
+    },
+    {
+      "sheetNode": 16,
+      "ref": "Genesis 22:2",
+      "status": "added",
+      "coveredBy": "Genesis 22:2"
+    },
+    {
+      "sheetNode": 17,
+      "ref": "Bereshit Rabbah 65:19",
+      "status": "already present",
+      "coveredBy": "Bereshit Rabbah 65:19"
+    },
+    {
+      "sheetNode": 13,
+      "ref": "Tiferet Shlomo, on Torah, Bo 5",
+      "status": "added",
+      "coveredBy": "Tiferet Shlomo, on Torah, Bo 5"
+    },
+    {
+      "sheetNode": 15,
+      "ref": "Avodat Yisrael, Sefer Bereshit, Toldot 2",
+      "status": "added",
+      "coveredBy": "Avodat Yisrael, Sefer Bereshit, Toldot 2"
+    },
+    {
+      "sheetNode": 32,
+      "ref": "Zevachim 31a:3",
+      "status": "already present",
+      "coveredBy": "Zevachim 31a:3"
+    },
+    {
+      "sheetNode": 35,
+      "ref": "Rashi on Zevachim 31a:3:1",
+      "status": "already present",
+      "coveredBy": "Rashi on Zevachim 31a:3:1"
+    },
+    {
+      "sheetNode": 36,
+      "ref": "Zechariah 4:1",
+      "status": "added",
+      "coveredBy": "Zechariah 4:1"
+    },
+    {
+      "sheetNode": 38,
+      "ref": "Avodah Zarah 73a:10",
+      "status": "added",
+      "coveredBy": "Avodah Zarah 73a:10"
+    },
+    {
+      "sheetNode": 37,
+      "ref": "Rashi on Avodah Zarah 73a:10:2",
+      "status": "added",
+      "coveredBy": "Rashi on Avodah Zarah 73a:10:2"
+    },
+    {
+      "sheetNode": 39,
+      "ref": "Psalms 126:1",
+      "status": "added",
+      "coveredBy": "Psalms 126:1"
+    },
+    {
+      "sheetNode": 40,
+      "ref": "Steinsaltz on Psalms 126:1",
+      "status": "added",
+      "coveredBy": "Steinsaltz on Psalms 126:1"
+    },
+    {
+      "sheetNode": 41,
+      "ref": "Taanit 23a:14",
+      "status": "already present",
+      "coveredBy": "Taanit 23a:14-16"
+    },
+    {
+      "sheetNode": 42,
+      "ref": "Rashi on Taanit 23a:14:3",
+      "status": "added",
+      "coveredBy": "Rashi on Taanit 23a:14:3-4"
+    },
+    {
+      "sheetNode": 43,
+      "ref": "Rashi on Taanit 23a:14:4",
+      "status": "added",
+      "coveredBy": "Rashi on Taanit 23a:14:3-4"
+    },
+    {
+      "sheetNode": 44,
+      "ref": "Taanit 23a:15",
+      "status": "already present",
+      "coveredBy": "Taanit 23a:14-16"
+    },
+    {
+      "sheetNode": 46,
+      "ref": "Psalms 90:10",
+      "status": "added",
+      "coveredBy": "Psalms 90:10"
+    },
+    {
+      "sheetNode": 45,
+      "ref": "Mishneh Torah, Repentance 3:4",
+      "status": "added",
+      "coveredBy": "Mishneh Torah, Repentance 3:4"
+    },
+    {
+      "sheetNode": 47,
+      "ref": "Avodah Zarah 18b:9",
+      "status": "added",
+      "coveredBy": "Avodah Zarah 18b:9-11"
+    },
+    {
+      "sheetNode": 48,
+      "ref": "Avodah Zarah 18b:10",
+      "status": "added",
+      "coveredBy": "Avodah Zarah 18b:9-11"
+    },
+    {
+      "sheetNode": 49,
+      "ref": "Avodah Zarah 18b:11",
+      "status": "added",
+      "coveredBy": "Avodah Zarah 18b:9-11"
+    },
+    {
+      "sheetNode": 50,
+      "ref": "Avodah Zarah 18b:16",
+      "status": "added",
+      "coveredBy": "Avodah Zarah 18b:16"
+    },
+    {
+      "sheetNode": 51,
+      "ref": "Rashi on Avodah Zarah 18b:16:1",
+      "status": "added",
+      "coveredBy": "Rashi on Avodah Zarah 18b:16:1-2"
+    },
+    {
+      "sheetNode": 52,
+      "ref": "Rashi on Avodah Zarah 18b:16:2",
+      "status": "added",
+      "coveredBy": "Rashi on Avodah Zarah 18b:16:1-2"
+    },
+    {
+      "sheetNode": 95,
+      "ref": "Shenei Luchot HaBerit, Aseret HaDibrot, Shabbat, Torah Ohr 29",
+      "status": "added",
+      "coveredBy": "Shenei Luchot HaBerit, Aseret HaDibrot, Shabbat, Torah Ohr 29"
+    },
+    {
+      "sheetNode": 61,
+      "ref": "Shulchan Arukh, Orach Chayim 583:2",
+      "status": "added",
+      "coveredBy": "Shulchan Arukh, Orach Chayim 583:2"
+    },
+    {
+      "sheetNode": 62,
+      "ref": "Magen Avraham 583:6",
+      "status": "added",
+      "coveredBy": "Magen Avraham 583:6"
+    },
+    {
+      "sheetNode": 63,
+      "ref": "Kaf HaChayim on Shulchan Arukh, Orach Chayim 583:37:1",
+      "status": "added",
+      "coveredBy": "Kaf HaChayim on Shulchan Arukh, Orach Chayim 583:37:1"
+    },
+    {
+      "sheetNode": 64,
+      "ref": "Bereshit Rabbah 17:5",
+      "status": "already present",
+      "coveredBy": "Bereshit Rabbah 17:5"
+    },
+    {
+      "sheetNode": 70,
+      "ref": "Ramban on Genesis 25:34:1",
+      "status": "added",
+      "coveredBy": "Ramban on Genesis 25:34:1"
+    },
+    {
+      "sheetNode": 71,
+      "ref": "Shabbat 30b:6",
+      "status": "already present",
+      "coveredBy": "Shabbat 30b:5-6"
+    },
+    {
+      "sheetNode": 75,
+      "ref": "Shabbat 70b:5",
+      "status": "added",
+      "coveredBy": "Shabbat 70b:5"
+    },
+    {
+      "sheetNode": 76,
+      "ref": "Shabbat 71a:1",
+      "status": "already present",
+      "coveredBy": "Shabbat 71a:1-3"
+    },
+    {
+      "sheetNode": 77,
+      "ref": "Rashi on Shabbat 71a:1:1",
+      "status": "added",
+      "coveredBy": "Rashi on Shabbat 71a:1:1"
+    },
+    {
+      "sheetNode": 88,
+      "ref": "Psalms 78:65",
+      "status": "added",
+      "coveredBy": "Psalms 78:65"
+    },
+    {
+      "sheetNode": 89,
+      "ref": "Radak on Psalms 78:65:1",
+      "status": "added",
+      "coveredBy": "Radak on Psalms 78:65:1"
+    },
+    {
+      "sheetNode": 90,
+      "ref": "Steinsaltz on Psalms 78:65",
+      "status": "added",
+      "coveredBy": "Steinsaltz on Psalms 78:65"
+    },
+    {
+      "sheetNode": 93,
+      "ref": "Ezekiel 1:27",
+      "status": "added",
+      "coveredBy": "Ezekiel 1:27"
+    },
+    {
+      "sheetNode": 94,
+      "ref": "Ezekiel 1:4",
+      "status": "added",
+      "coveredBy": "Ezekiel 1:4"
+    }
+  ],
+  "images": {
+    "1": [
+      "Tanya, Part I; Likkutei Amarim 39"
+    ],
+    "2": [
+      "Supplied explanatory edition, Et HaOchel 8"
+    ],
+    "3": [
+      "Tanya, Part I; Likkutei Amarim 39"
+    ],
+    "4": [
+      "Berakhot 10b:25",
+      "Zohar, Toldot 5:41-44",
+      "Supplied Biurei HaChassidus commentary on sacred eating"
+    ],
+    "5": [
+      "Avodat Yisrael, Sefer Bereshit, Toldot 2",
+      "Berakhot 10b:25",
+      "Taanit 7a:3",
+      "Supplied Biurei HaChassidus commentary on sacred eating"
+    ],
+    "6": [
+      "Avodat Yisrael, Sefer Bereshit, Toldot 2",
+      "Sha'arei Orah, Second Gate, Ninth Sefirah 160",
+      "Mishnah Zevachim 2:5",
+      "Berakhot 10b:25"
+    ],
+    "7": [
+      "Tanya, Part I; Likkutei Amarim 39"
+    ],
+    "8": [
+      "Lessons in Tanya, Kuntres Acharon 3, note 3"
+    ],
+    "9": [
+      "Ramban on Genesis 25:34:1",
+      "Taamei HaMitzvos, Vaeschanan, excerpt in supplied notes",
+      "Supplied explanatory edition, Et HaOchel 8"
+    ],
+    "10": [
+      "Tanya, Part I; Likkutei Amarim 39"
+    ],
+    "11": [
+      "Avodat Yisrael, Sefer Bereshit, Toldot 2",
+      "Supplied explanatory edition, Et HaOchel 8"
+    ],
+    "12": [
+      "Pri Etz Chaim, Gate of Conduct While Learning 1:34"
+    ],
+    "13": [
+      "Tanya, Part V; Kuntres Acharon 3"
+    ],
+    "14": [
+      "Psalms 78:65",
+      "Zevachim 31a:3",
+      "Rashi on Zevachim 31a:3:1"
+    ],
+    "15": [
+      "Supplied explanatory edition, Et HaOchel 8"
+    ],
+    "16": [
+      "Supplied explanatory edition, Et HaOchel 8"
+    ],
+    "17": [
+      "Tanya, Part I; Likkutei Amarim 7:1-6"
+    ],
+    "18": [
+      "Tanya, Part I; Likkutei Amarim 7:1-6"
+    ],
+    "19": [
+      "Tzidkat HaTzadik 140"
+    ],
+    "20": [
+      "Tanya, Part I; Likkutei Amarim 7:1-6"
+    ],
+    "21": [
+      "Tzidkat HaTzadik 140"
+    ],
+    "22": [
+      "Tzidkat HaTzadik 140"
+    ],
+    "23": [
+      "Magen Avraham 583:6",
+      "Taamei HaMitzvos, Vaeschanan, excerpt in supplied notes",
+      "Supplied explanatory edition, Et HaOchel 8"
+    ],
+    "24": [
+      "Supplied explanatory edition, Et HaOchel 8"
+    ],
+    "25": [
+      "Tzidkat HaTzadik 140"
+    ]
+  },
+  "newSources": [
+    {
+      "ref": "Berakhot 26b:4",
+      "phraseIndex": 2,
+      "anchor": "הקרבנות",
+      "translation": "“Rabbi Yosei son of Rabbi Chanina said: The Patriarchs instituted the prayers. Rabbi Yehoshua ben Levi said: The prayers were instituted corresponding to the daily offerings.”",
+      "explanation": "This is the explicit Talmudic basis for comparing prayer with korbanos. The dispute concerns the institution of the prayers; it does not itself state that eating surpasses prayer.",
+      "url": "https://www.sefaria.org/Berakhot_26b:4",
+      "label": "Berakhot 26b:4",
+      "kind": "primary",
+      "sheetNodes": [
+        12
+      ],
+      "documentImages": []
+    },
+    {
+      "ref": "Genesis 22:2",
+      "phraseIndex": 2,
+      "anchor": "גבי יצחק",
+      "translation": "“Take, please, your son, your only one, whom you love, Yitzchak; go to the land of Moriah, and bring him up there as a burnt offering on one of the mountains that I will tell you.”",
+      "explanation": "The command at the Akeidah supplies the background to the Midrash’s comparison between provision for Yitzchak’s offering and provision for his food.",
+      "url": "https://www.sefaria.org/Genesis_22:2",
+      "label": "Genesis 22:2",
+      "kind": "primary",
+      "sheetNodes": [
+        16
+      ],
+      "documentImages": []
+    },
+    {
+      "ref": "Tiferet Shlomo, on Torah, Bo 5",
+      "phraseIndex": 2,
+      "anchor": "מן התפלה",
+      "translation": "“There is a supernal realm called ‘He,’ in which there is no angel or seraph, but, as it were, He alone, blessed be His name. ‘That which is eaten for every soul’ alludes to a person who does not seek indulgence, but only to sustain his soul, as Hillel the Elder spoke of doing kindness for the poor body. For such a person, Hashem Himself provides all his needs: ‘He alone shall do it for you.’ When the flow comes from that realm, the external forces cannot seize it. Thus the Midrash says concerning Yitzchak: If He provided for your offering, all the more for your food, because the food of the righteous is considered greater than offerings.”",
+      "explanation": "This translated passage explicitly draws the conclusion about the exceptional value of a tzaddik’s eating that Rav Tzadok reports as a received teaching.",
+      "url": "https://www.sefaria.org/Tiferet_Shlomo,_on_Torah,_Bo_5",
+      "label": "Tiferet Shlomo, on Torah, Bo 5",
+      "kind": "primary",
+      "sheetNodes": [
+        13
+      ],
+      "documentImages": []
+    },
+    {
+      "ref": "Avodat Yisrael, Sefer Bereshit, Toldot 2",
+      "phraseIndex": 2,
+      "anchor": "על טהרת קדש",
+      "translation": "“Yaakov knew his father’s holiness: he ate in holiness and purity and brought about wondrous unifications through his eating. The Gemara says that a person’s table takes the place of the altar. We magnify the table’s greatness through an inference: If an altar, consisting only of earth and wood, makes the offering upon it a pleasing fragrance to Hashem, how much more should the table atone for one who eats in holiness and purity and, through his eating, gains strength to occupy himself with Torah and divine service!”",
+      "explanation": "The comparison depends on the eater’s holiness and on the use of the resulting strength for Torah and avodah. It is the passage cited in the supplied annotated edition’s note 22.",
+      "url": "https://www.sefaria.org/Avodat_Yisrael,_Sefer_Bereshit,_Toldot_2",
+      "label": "Avodat Yisrael, Sefer Bereshit, Toldot 2",
+      "kind": "primary",
+      "sheetNodes": [
+        15
+      ],
+      "documentImages": [
+        5,
+        6,
+        11
+      ]
+    },
+    {
+      "ref": "Psalms 78:65",
+      "phraseIndex": 3,
+      "anchor": "ויקץ כישן",
+      "translation": "“The Lord awoke as one who sleeps, like a mighty man shouting after wine.”",
+      "explanation": "This is the verse whose wording Rava borrows for the reawakening of piggul in Zevachim. The metaphor describes renewed manifestation of power, not literal sleep in Hashem.",
+      "url": "https://www.sefaria.org/Psalms_78:65",
+      "label": "Psalms 78:65",
+      "kind": "primary",
+      "sheetNodes": [
+        88
+      ],
+      "documentImages": [
+        14
+      ]
+    },
+    {
+      "ref": "Radak on Psalms 78:65:1",
+      "phraseIndex": 3,
+      "anchor": "ויקץ כישן",
+      "translation": "“Like a person who fell asleep from the abundance of wine he drank, and now awakens from his wine and cries out. It says ‘like a mighty man,’ because his strength was lacking only on account of the wine. Similarly, the Holy One saw Israel’s sins and remained silent toward them; when their sins increased and they provoked Him through their evil deeds, He awoke and exacted retribution, like a mighty man shouting after wine.”",
+      "explanation": "Radak explains apparent inactivity followed by revealed strength. Rav Tzadok uses the language of awakening for spiritual powers whose activity had been concealed.",
+      "url": "https://www.sefaria.org/Radak_on_Psalms_78:65:1",
+      "label": "Radak on Psalms 78:65:1",
+      "kind": "primary",
+      "sheetNodes": [
+        89
+      ],
+      "documentImages": []
+    },
+    {
+      "ref": "Steinsaltz on Psalms 78:65",
+      "phraseIndex": 3,
+      "anchor": "ויקץ כישן",
+      "translation": "Summary of the supplied commentary: After prolonged defeat and subjugation, the time for deliverance arrives. What had appeared to be divine abandonment gives way to manifest intervention, compared to a warrior returning with renewed vigor.",
+      "explanation": "This explanation reads the verse’s awakening as the appearance of salvation after concealment.",
+      "url": "https://www.sefaria.org/Steinsaltz_on_Psalms_78:65",
+      "label": "Steinsaltz on Psalms 78:65",
+      "kind": "primary",
+      "sheetNodes": [
+        90
+      ],
+      "documentImages": []
+    },
+    {
+      "ref": "Avodah Zarah 73a:10",
+      "phraseIndex": 3,
+      "anchor": "ומצא מין את מינו ונעור",
+      "translation": "“When Rav Shmuel bar Yehuda came, he said in Rabbi Yochanan’s name: They taught this only when a pitcher of water fell in first. But if the water did not fall in first, [the forbidden wine] found its own kind and awoke.”",
+      "explanation": "In the case of forbidden libation wine mixed with permitted wine and water, the sequence affects whether the forbidden wine can first join the wine of its own kind. This is a second Talmudic setting for the expression Rav Tzadok uses as an analogy.",
+      "url": "https://www.sefaria.org/Avodah_Zarah_73a:10",
+      "label": "Avodah Zarah 73a:10",
+      "kind": "primary",
+      "sheetNodes": [
+        38
+      ],
+      "documentImages": []
+    },
+    {
+      "ref": "Rashi on Avodah Zarah 73a:10:2",
+      "phraseIndex": 3,
+      "anchor": "ומצא מין את מינו ונעור",
+      "translation": "“‘It found its own kind’: afterward, and awoke; that is, its prohibition was strengthened and increased, and the wine exceeded the water. ‘Awoke’ is the expression ‘like a man awakened from his sleep.’ Wherever ‘it found its own kind and awoke’ is taught, this is its meaning. Some explain that it shakes off its former status, joins its companion, and gains strength; but then the word should have been ‘shakes off.’”",
+      "explanation": "Rashi explicitly explains awakening as renewed strength through joining something of the same kind.",
+      "url": "https://www.sefaria.org/Rashi_on_Avodah_Zarah_73a:10:2",
+      "label": "Rashi on Avodah Zarah 73a:10:2",
+      "kind": "primary",
+      "sheetNodes": [
+        37
+      ],
+      "documentImages": []
+    },
+    {
+      "ref": "Zechariah 4:1",
+      "phraseIndex": 3,
+      "anchor": "ונעור",
+      "translation": "“The angel who spoke with me returned and awakened me, like a man who is awakened from his sleep.”",
+      "explanation": "Rashi on Avodah Zarah cites this wording to explain the verb “awoke.” In its biblical setting the awakening prepares Zechariah to receive a further prophetic vision.",
+      "url": "https://www.sefaria.org/Zechariah_4:1",
+      "label": "Zechariah 4:1",
+      "kind": "primary",
+      "sheetNodes": [
+        36
+      ],
+      "documentImages": []
+    },
+    {
+      "ref": "Psalms 126:1",
+      "phraseIndex": 5,
+      "anchor": "היינו כחלמים",
+      "translation": "“A song of ascents. When Hashem restores the return to Zion, we shall have been like dreamers.”",
+      "explanation": "Rav Tzadok follows the reading that looks back upon the preceding exile as a dream. The existing Taanit footnote gives Choni’s question and the story that develops this verse.",
+      "url": "https://www.sefaria.org/Psalms_126:1",
+      "label": "Psalms 126:1",
+      "kind": "primary",
+      "sheetNodes": [
+        39
+      ],
+      "documentImages": []
+    },
+    {
+      "ref": "Steinsaltz on Psalms 126:1",
+      "phraseIndex": 5,
+      "anchor": "היינו כחלמים",
+      "translation": "Summary of the supplied commentary: Redemption will reveal that exile, with its distorted relations between power, truth, and falsehood, resembled a troubling dream. During a dream its strange conditions appear normal; only on awakening does their distortion become clear.",
+      "explanation": "This supplies background to Rav Tzadok’s comparison of an unawakened life with sleep.",
+      "url": "https://www.sefaria.org/Steinsaltz_on_Psalms_126:1",
+      "label": "Steinsaltz on Psalms 126:1",
+      "kind": "primary",
+      "sheetNodes": [
+        40
+      ],
+      "documentImages": []
+    },
+    {
+      "ref": "Rashi on Taanit 23a:14:3-4",
+      "phraseIndex": 5,
+      "anchor": "דניים שבעים שנין",
+      "translation": "“‘We were like dreamers’: The Babylonian exile, which lasted seventy years, seemed like a dream. ‘Seventy years in a dream’: This is a question—is there someone who sleeps seventy years in a dream? Can a person sleep seventy years in a single sleep?”",
+      "explanation": "These two adjacent comments explain the verse and Choni’s question. They supplement the existing translation of the Gemara without repeating its narrative.",
+      "url": "https://www.sefaria.org/Rashi_on_Taanit_23a:14:3-4",
+      "label": "Rashi on Taanit 23a:14:3-4",
+      "kind": "primary",
+      "sheetNodes": [
+        42,
+        43
+      ],
+      "documentImages": []
+    },
+    {
+      "ref": "Psalms 90:10",
+      "phraseIndex": 5,
+      "anchor": "ימי שנותינו בהם",
+      "translation": "“The days of our years are seventy years, or, with strength, eighty years; their proudest part is toil and sorrow, for it passes swiftly and we fly away.”",
+      "explanation": "This is Rav Tzadok’s source for identifying the seventy years of sleep with the ordinary span of a person’s life.",
+      "url": "https://www.sefaria.org/Psalms_90:10",
+      "label": "Psalms 90:10",
+      "kind": "primary",
+      "sheetNodes": [
+        46
+      ],
+      "documentImages": []
+    },
+    {
+      "ref": "Mishneh Torah, Repentance 3:4",
+      "phraseIndex": 5,
+      "anchor": "מתרדמת הזמן",
+      "translation": "“Although sounding the shofar on Rosh Hashanah is a decree of Scripture, it contains an allusion: Awaken, sleepers, from your sleep, and you who slumber, rise from your deep sleep. Search your deeds, return in repentance, and remember your Creator. Those who forget the truth amid the vanities of time, and wander throughout their year in emptiness that neither benefits nor saves—look to your souls, improve your ways and deeds, and let each abandon his evil path and improper thought. Therefore a person must regard himself throughout the year as half meritorious and half guilty, and the entire world likewise.”",
+      "explanation": "The passage connects spiritual sleep with absorption in passing concerns and calls for renewed, active service.",
+      "url": "https://www.sefaria.org/Mishneh_Torah,_Repentance_3:4",
+      "label": "Mishneh Torah, Repentance 3:4",
+      "kind": "primary",
+      "sheetNodes": [
+        45
+      ],
+      "documentImages": []
+    },
+    {
+      "ref": "Avodah Zarah 18b:9-11",
+      "phraseIndex": 6,
+      "anchor": "כשאינו עושה אסורים ממש רק בהתר",
+      "translation": "“The Sages taught: One may not go to theaters and circuses because offerings are made there for idolatry, according to Rabbi Meir. The Sages say: Where offerings are made, it is forbidden because of suspicion of idolatry; where none are made, it is forbidden as a gathering of scoffers. Rabbi Chanina of Sura explained that the dispute affects one who did business there. Rabbi Shimon ben Pazi expounded: ‘Happy is the man who did not walk in the counsel of the wicked, stand in the way of sinners, or sit in the seat of scoffers.’ If he did not walk there, how did he stand; if he did not stand, how did he sit; and if he did not sit, how did he scoff?”",
+      "explanation": "These passages from the sheet describe prohibited settings and the progression toward scoffing. They provide a boundary to the present discussion: Rav Tzadok is speaking here about permitted acts, not authorizing conduct prohibited in these passages. His specific quotation about indulging in sleep is already footnoted at Avodah Zarah 19b:10.",
+      "url": "https://www.sefaria.org/Avodah_Zarah_18b:9-11",
+      "label": "Avodah Zarah 18b:9-11",
+      "kind": "primary",
+      "sheetNodes": [
+        47,
+        48,
+        49
+      ],
+      "documentImages": []
+    },
+    {
+      "ref": "Avodah Zarah 18b:16",
+      "phraseIndex": 6,
+      "anchor": "כשאינו עושה אסורים ממש רק בהתר",
+      "translation": "“Rabbi Eliezer said: Scoffing is severe: its beginning is suffering and its end is destruction. Rabbi Shimon ben Pazi expounded: ‘Who did not walk in the counsel of the wicked’ refers to the theaters and circuses of idolaters; ‘did not stand in the way of sinners,’ to one who did not attend hunting spectacles; ‘did not sit in the seat of scoffers,’ to one who did not sit among their schemes and entertainments.”",
+      "explanation": "This additional source from the sheet distinguishes forbidden frivolity from ordinary permitted enjoyment that can be directed toward a mitzvah.",
+      "url": "https://www.sefaria.org/Avodah_Zarah_18b:16",
+      "label": "Avodah Zarah 18b:16",
+      "kind": "primary",
+      "sheetNodes": [
+        50
+      ],
+      "documentImages": []
+    },
+    {
+      "ref": "Rashi on Avodah Zarah 18b:16:1-2",
+      "phraseIndex": 6,
+      "anchor": "כשאינו עושה אסורים ממש רק בהתר",
+      "translation": "“‘Theaters’: palaces and all their activities when they gather for laughter and scoffing. ‘Hunting spectacles’: hunting an animal with dogs, with all these acts undertaken for amusement and enjoyment; similarly, Chullin asks, ‘Was Moshe a hunter?’”",
+      "explanation": "Rashi identifies the kinds of entertainment discussed by the Gemara. These are contextual sources, distinct from the permitted activities addressed by Rav Tzadok.",
+      "url": "https://www.sefaria.org/Rashi_on_Avodah_Zarah_18b:16:1-2",
+      "label": "Rashi on Avodah Zarah 18b:16:1-2",
+      "kind": "primary",
+      "sheetNodes": [
+        51,
+        52
+      ],
+      "documentImages": []
+    },
+    {
+      "ref": "Shenei Luchot HaBerit, Aseret HaDibrot, Shabbat, Torah Ohr 29",
+      "phraseIndex": 6,
+      "anchor": "שהוא סוד התרגום",
+      "translation": "“Kanfei Yonah explains the secret of reading the verse twice and its Targum once: Three kelipos surround holiness; the fourth, nogah, is sometimes holy and sometimes returns to the kelipos. ‘A radiance surrounded it’ describes its position around holiness. Converts are associated with this realm, which can incline toward holiness or toward impurity. Onkelos the convert wished to rectify it and composed the Targum, corresponding to his spiritual quality, to include it within holiness. Therefore, on Friday, as holiness begins to enter, it is fitting to review the weekly portion twice in Scripture and once in Targum. The other kelipos seek to rise after nogah, but when Shabbos enters they descend. This is the meaning of the wicked sprouting only to be destroyed, and of the workers of iniquity being separated: nogah goes toward holiness and the other kelipos toward impurity.”",
+      "explanation": "This is the sheet’s named source for the connection between Targum and the intermediate realm that can be elevated.",
+      "url": "https://www.sefaria.org/Shenei_Luchot_HaBerit,_Aseret_HaDibrot,_Shabbat,_Torah_Ohr_29",
+      "label": "Shenei Luchot HaBerit, Aseret HaDibrot, Shabbat, Torah Ohr 29",
+      "kind": "primary",
+      "sheetNodes": [
+        95
+      ],
+      "documentImages": []
+    },
+    {
+      "ref": "Ezekiel 1:4",
+      "phraseIndex": 6,
+      "anchor": "מקלפת נגה",
+      "translation": "“I saw, and behold, a storm wind came from the north, a great cloud and flashing fire, with radiance surrounding it; from its midst, from the midst of the fire, was something like the appearance of chashmal.”",
+      "explanation": "The word nogah means radiance. The verse supplies the imagery used by the kabbalistic sources when describing kelipat nogah; the technical teaching is an interpretation of the prophetic image.",
+      "url": "https://www.sefaria.org/Ezekiel_1:4",
+      "label": "Ezekiel 1:4",
+      "kind": "primary",
+      "sheetNodes": [
+        94
+      ],
+      "documentImages": []
+    },
+    {
+      "ref": "Ezekiel 1:27",
+      "phraseIndex": 6,
+      "anchor": "מקלפת נגה",
+      "translation": "“I saw something like the appearance of chashmal, like fire enclosed within it, from the appearance of His loins upward; and from the appearance of His loins downward I saw something like fire, with radiance surrounding it.”",
+      "explanation": "This second verse in the vision also uses the expression “radiance surrounding it.” The prophetic description is the scriptural background to the later kabbalistic terminology.",
+      "url": "https://www.sefaria.org/Ezekiel_1:27",
+      "label": "Ezekiel 1:27",
+      "kind": "primary",
+      "sheetNodes": [
+        93
+      ],
+      "documentImages": []
+    },
+    {
+      "ref": "Shulchan Arukh, Orach Chayim 583:2",
+      "phraseIndex": 7,
+      "anchor": "יושב בטל כישן דמי",
+      "translation": "“One eats the head of a lamb, saying: May we be a head and not a tail, also as a remembrance of Yitzchak’s ram. Rema adds that some avoid nuts, whose Hebrew name has the numerical value of ‘sin’ and which can increase mucus and disturb prayer. People go to a river and recite ‘You will cast all their sins into the depths of the sea.’ There is also a custom not to sleep during the day on Rosh Hashanah, and it is a proper custom.”",
+      "explanation": "The final custom is the setting for Magen Avraham’s statement that idle wakefulness is also like sleep. The sheet includes the complete paragraph, including the preceding customs.",
+      "url": "https://www.sefaria.org/Shulchan_Arukh,_Orach_Chayim_583:2",
+      "label": "Shulchan Arukh, Orach Chayim 583:2",
+      "kind": "primary",
+      "sheetNodes": [
+        61
+      ],
+      "documentImages": []
+    },
+    {
+      "ref": "Magen Avraham 583:6",
+      "phraseIndex": 7,
+      "anchor": "יושב בטל כישן דמי",
+      "translation": "“‘Not to sleep’: The Ari said that after midday it is permissible to sleep, because the angel has already been awakened through the prayers and shofar blasts. The Bach writes that Maharam slept on Rosh Hashanah. One who sits idle is considered like one who sleeps.”",
+      "explanation": "The last sentence is the precise wording Rav Tzadok cites. It concerns the need for meaningful activity, not merely physical wakefulness.",
+      "url": "https://www.sefaria.org/Magen_Avraham_583:6",
+      "label": "Magen Avraham 583:6",
+      "kind": "primary",
+      "sheetNodes": [
+        62
+      ],
+      "documentImages": [
+        23
+      ]
+    },
+    {
+      "ref": "Kaf HaChayim on Shulchan Arukh, Orach Chayim 583:37:1",
+      "phraseIndex": 7,
+      "anchor": "יושב בטל כישן דמי",
+      "translation": "“‘There is also a custom not to sleep’: This means that when a person occupies himself with Torah or prayer, he awakens his angel above to pray on his behalf. This does not happen when he sleeps. Consequently, even when he is awake but idle, he does not awaken the angel.”",
+      "explanation": "Kaf HaChayim cites Machatzis HaShekel for this explanation of the custom. It makes explicit why idleness can resemble sleep.",
+      "url": "https://www.sefaria.org/Kaf_HaChayim_on_Shulchan_Arukh,_Orach_Chayim_583:37:1",
+      "label": "Kaf HaChayim on Shulchan Arukh, Orach Chayim 583:37:1",
+      "kind": "primary",
+      "sheetNodes": [
+        63
+      ],
+      "documentImages": []
+    },
+    {
+      "ref": "Ramban on Genesis 25:34:1",
+      "phraseIndex": 9,
+      "anchor": "כמו שכתוב ביצחק",
+      "translation": "“Yitzchak’s wish to bless him after he prepared the delicacies was not payment for eating or a bribe. Rather, he wished to benefit from him so that, at the moment of enjoyment, his soul would be bound to his son’s soul, and he would bless him with full desire and complete willingness. Alternatively, he knew that after eating his soul would be delighted and joyful, and the holy spirit would rest upon it, as in: ‘Now bring me a musician’; and when the musician played, the hand of Hashem was upon him.”",
+      "explanation": "This translated selection directly explains the connection between Yitzchak’s meal, joy, and ruach hakodesh. Ramban offers two explanations rather than asserting only one.",
+      "url": "https://www.sefaria.org/Ramban_on_Genesis_25:34:1",
+      "label": "Ramban on Genesis 25:34:1",
+      "kind": "primary",
+      "sheetNodes": [
+        70
+      ],
+      "documentImages": [
+        9
+      ]
+    },
+    {
+      "ref": "Shabbat 70b:5",
+      "phraseIndex": 12,
+      "anchor": "דין הגרירה כדאיתא בשבת",
+      "translation": "“Rava said: A person harvested and ground a dried fig’s measure while unaware that it was Shabbos but knowing the labors were forbidden; then he again harvested and ground a dried fig’s measure, knowing it was Shabbos but unaware that the labors were forbidden. He then learned of the harvesting and grinding committed through forgetting Shabbos, and afterward learned of those committed through forgetting the labors.”",
+      "explanation": "This is the setup for the discussion on the next page, already quoted in the existing Shabbat 71a footnote. The different lapses of awareness explain why the Gemara must determine which acts one offering can draw into its atonement.",
+      "url": "https://www.sefaria.org/Shabbat_70b:5",
+      "label": "Shabbat 70b:5",
+      "kind": "primary",
+      "sheetNodes": [
+        75
+      ],
+      "documentImages": []
+    },
+    {
+      "ref": "Rashi on Shabbat 71a:1:1",
+      "phraseIndex": 12,
+      "anchor": "ואכילה גוררת אכילה להיות כמותה",
+      "translation": "“‘Harvesting draws harvesting’: the second harvesting into its atonement; likewise grinding draws the second grinding, and all are atoned for. We hold that eating two olive-bulks of forbidden fat in one lapse of awareness incurs only one offering. Here, too, the two harvestings occurred without awareness of the sin between them. Although the second lapse differed somewhat from the first, they remain one lapse because there was no awareness in between; awareness is what divides them. Therefore the sin-offering for the first harvesting and grinding applies to both, and each includes the corresponding acts done in that same lapse.”",
+      "explanation": "Rashi supplies the legal mechanism of gerirah. Rav Tzadok uses it as an analogy for one sanctified act of eating drawing earlier meals after it.",
+      "url": "https://www.sefaria.org/Rashi_on_Shabbat_71a:1:1",
+      "label": "Rashi on Shabbat 71a:1:1",
+      "kind": "primary",
+      "sheetNodes": [
+        77
+      ],
+      "documentImages": []
+    },
+    {
+      "ref": "Tanya, Part I; Likkutei Amarim 39",
+      "phraseIndex": 11,
+      "anchor": "מעשה המצות בלא כונה וחיות",
+      "translation": "“Even habitual service learned from one’s father and teacher is not fully for its own sake without at least awakening the natural love and fear of Hashem. When one studies for personal honor, that motive clothes the Torah and holds it in exile until repentance; when he returns to Hashem, his Torah returns with him. But when he acts without a particular motive, neither for its own sake nor for an ulterior purpose, the matter does not depend on repentance: as soon as he studies the same teaching again for its own sake, the earlier study joins this study and ascends. The same applies to prayer without intention.”",
+      "explanation": "Earlier in the chapter, the Alter Rebbe also describes someone who reaches a state of deep self-nullification only at occasional favorable moments, especially in the Amidah. Together, these supplied excerpts distinguish temporary spiritual awakening, neutral habitual service, and service driven by self-interest.",
+      "url": "https://www.sefaria.org/Tanya,_Part_I;_Likkutei_Amarim_39",
+      "label": "Tanya, Part I; Likkutei Amarim 39",
+      "kind": "primary",
+      "sheetNodes": [],
+      "documentImages": [
+        1,
+        3,
+        7,
+        10
+      ]
+    },
+    {
+      "ref": "Tanya, Part V; Kuntres Acharon 3",
+      "phraseIndex": 1,
+      "anchor": "כל התפלות הפסולות של כל השנה",
+      "translation": "“Prayer without intention, in which one thinks foreign thoughts, is prevented from ascending by those thoughts. Yet because his intention is directed toward Heaven, it has an accessible repair: it can rise again when he prays with intention—even one prayer assembled from the prayers of the entire year—as written in Mikdash Melech on Pekudei.”",
+      "explanation": "This is the precise passage shown in the supplied Tanya excerpt. It directly supports the comparison with a later, wholehearted prayer raising earlier prayers.",
+      "url": "https://www.sefaria.org/Tanya,_Part_V;_Kuntres_Acharon_3",
+      "label": "Tanya, Part V; Kuntres Acharon 3",
+      "kind": "primary",
+      "sheetNodes": [],
+      "documentImages": [
+        13
+      ]
+    },
+    {
+      "ref": "Lessons in Tanya, Kuntres Acharon 3, note 3",
+      "phraseIndex": 1,
+      "anchor": "כל התפלות הפסולות של כל השנה",
+      "translation": "Summary of the note attributed to the Lubavitcher Rebbe in the supplied excerpt: The Zohar’s wording appears to require a later complete prayer said with pure intention. Mikdash Melech presents a reading in which a complete prayer can be assembled from properly intended portions of different prayers throughout the year. The note identifies a textual difficulty in Mikdash Melech and recommends checking earlier editions.",
+      "explanation": "This qualification preserves the distinction between the two readings rather than presenting their details as undisputed.",
+      "url": "https://www.chabad.org/library/tanya/tanya_cdo/aid/6088199/jewish/Kuntres-Acharon-Essay-3-Part-1.htm",
+      "label": "Lessons in Tanya, Kuntres Acharon 3, note 3",
+      "kind": "editorial",
+      "sheetNodes": [],
+      "documentImages": [
+        8
+      ]
+    },
+    {
+      "ref": "Sha'arei Orah, Second Gate, Ninth Sefirah 160",
+      "phraseIndex": 1,
+      "anchor": "תפלה אחת מעלה",
+      "translation": "“Do not think that the prayers of an individual are lost because so few are offered with fitting intention. Hashem made a firmament, with appointed guardians, in which the rejected prayers are kept. If that person afterward offers one prayer with great intention, a worthy and complete prayer, it enters the outer chamber where his earlier prayers wait, brings them out, and all ascend with it. Together they enter as one company before Hashem, so that nothing of the individual’s prayers is lost.”",
+      "explanation": "This is the passage quoted in the supplied annotated page’s source note on the elevation of flawed prayers.",
+      "url": "https://www.sefaria.org/Sha'arei_Orah,_Second_Gate,_Ninth_Sefirah_160",
+      "label": "Sha'arei Orah, Second Gate, Ninth Sefirah 160",
+      "kind": "primary",
+      "sheetNodes": [],
+      "documentImages": [
+        6
+      ]
+    },
+    {
+      "ref": "Tanya, Part I; Likkutei Amarim 7:1-6",
+      "phraseIndex": 6,
+      "anchor": "מקלפת נגה",
+      "translation": "“The vitality of permitted food and of worldly actions, speech, and thought containing no prohibition, but undertaken only for the body’s desire rather than to serve Hashem, comes from kelipat nogah. It stands between the wholly impure kelipos and holiness. Sometimes it joins the impure realms; sometimes its good is separated from its evil and rises into holiness. If a person eats meat or drinks wine to broaden his mind for Hashem and His Torah, or to fulfill the delight of Shabbos and Yom Tov, their vitality rises to Hashem like an offering. The same applies to a humorous remark that opens and gladdens the heart for divine service. If permitted food was consumed gluttonously, its vitality descends temporarily; it can rise again when the person returns to Torah and service, because it was permitted rather than bound permanently to the external forces.”",
+      "explanation": "The supplied screenshots show both the intermediate status of permitted activity and its capacity for later elevation.",
+      "url": "https://www.sefaria.org/Tanya,_Part_I;_Likkutei_Amarim_7:1-6",
+      "label": "Tanya, Part I; Likkutei Amarim 7:1-6",
+      "kind": "primary",
+      "sheetNodes": [],
+      "documentImages": [
+        17,
+        18,
+        20
+      ]
+    },
+    {
+      "ref": "Pri Etz Chaim, Gate of Conduct While Learning 1:34",
+      "phraseIndex": 6,
+      "anchor": "בגימטריא תרדמה",
+      "translation": "“Targum has the numerical value of tardemah, deep sleep. The separation of the rear aspects takes place through the sleep described by ‘Hashem God cast a deep sleep upon the man.’ This is the secret of Targum. Tardemah has the value of Targum because [the revelation] speaks to prophets in the language of Targum when they cannot receive prophecy except through deep sleep, as in ‘a deep sleep fell upon Avram.’ Therefore the verse uses the Aramaic word machazeh for ‘vision.’ The language of Targum is the rear aspect of holiness.”",
+      "explanation": "This selection is visible in the supplied Pri Etz Chaim scan. The gematria is 649 for each word.",
+      "url": "https://www.sefaria.org/Pri_Etz_Chaim,_Gate_of_Conduct_While_Learning_1:34",
+      "label": "Pri Etz Chaim, Gate of Conduct While Learning 1:34",
+      "kind": "primary",
+      "sheetNodes": [],
+      "documentImages": [
+        12
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 140",
+      "phraseIndex": 8,
+      "anchor": "שיהיה תרדמה של נבואה",
+      "translation": "“Until a person reaches completeness, what appears to him may be the opposite of the truth. Torah can illuminate his eyes, for it is truth. The final outcome reveals the truth of a matter. All the deeds of this world are called a dream, as in ‘When Hashem restores Zion.’ Nevertheless, a dream is one-sixtieth of prophecy, and Shabbos one-sixtieth of the World to Come: even here a slight taste of truth is felt. Actions are faint impressions of the true point hidden within the heart. ‘Dreams follow the mouth’ means, in this interpretation, that through words of Torah a person can clarify his past actions for good. One attached to Torah is attached to true, eternal life; his actions are included, because wherever the person is, there he is in his entirety.”",
+      "explanation": "This is a translated selection from the single ois spread across four supplied scans. Its account of dreams, hidden intention, and later clarification closely parallels the present teaching.",
+      "url": "https://www.sefaria.org/Tzidkat_HaTzadik_140",
+      "label": "Tzidkat HaTzadik 140",
+      "kind": "parallel",
+      "sheetNodes": [],
+      "documentImages": [
+        19,
+        21,
+        22,
+        25
+      ]
+    },
+    {
+      "ref": "Mishnah Zevachim 2:5",
+      "phraseIndex": 3,
+      "anchor": "הפגול",
+      "translation": "“If one intended to eat an olive-bulk outside its place and an olive-bulk outside its time, or the reverse, the offering is invalid but there is no liability of karet. Rabbi Yehuda says: If the intention concerning time preceded that concerning place, it is piggul and carries karet; if the intention concerning place came first, it is invalid without karet. The Sages say that in either order it is invalid without karet.”",
+      "explanation": "This is the Mishnah quoted in the supplied explanatory notes before the case of the three half-olive intentions. It establishes the difference between an offering that is merely invalid and one classified as piggul.",
+      "url": "https://www.sefaria.org/Mishnah_Zevachim_2:5",
+      "label": "Mishnah Zevachim 2:5",
+      "kind": "primary",
+      "sheetNodes": [],
+      "documentImages": [
+        6
+      ]
+    },
+    {
+      "ref": "Berakhot 10b:25",
+      "phraseIndex": 2,
+      "anchor": "וכן האכילה",
+      "translation": "“Rabbi Yosei son of Rabbi Chanina said in the name of Rabbi Eliezer ben Yaakov: Whoever hosts a Torah scholar in his home and benefits him from his possessions is credited by Scripture as though he offered the daily offerings.”",
+      "explanation": "The supplied commentary uses this passage in discussing the relationship between feeding a talmid chacham and bringing a korban. The Gemara states the comparison; the further ranking of Yitzchak’s sacred eating belongs to the Chassidic interpretation.",
+      "url": "https://www.sefaria.org/Berakhot_10b:25",
+      "label": "Berakhot 10b:25",
+      "kind": "primary",
+      "sheetNodes": [],
+      "documentImages": [
+        4,
+        5,
+        6
+      ]
+    },
+    {
+      "ref": "Taanit 7a:3",
+      "phraseIndex": 2,
+      "anchor": "וגדולה מעלת האכילה",
+      "translation": "“Rav Yehuda said: Great is the day of rain, like the day on which the Torah was given, as it says, ‘My teaching shall drop as rain’; ‘teaching’ means Torah. Rava said: It is greater than the day on which the Torah was given, as it says, ‘My teaching shall drop as rain.’ When something small is compared with something great, which is made dependent on which? The smaller is made dependent on the greater.”",
+      "explanation": "The supplied Biurei HaChassidus discussion cites this example when considering what can, or cannot, be inferred from a comparison. It is background to that commentary’s argument, not a statement in the Gemara about the rank of meals.",
+      "url": "https://www.sefaria.org/Taanit_7a:3",
+      "label": "Taanit 7a:3",
+      "kind": "primary",
+      "sheetNodes": [],
+      "documentImages": [
+        5
+      ]
+    },
+    {
+      "ref": "Zohar, Toldot 5:41-44",
+      "phraseIndex": 2,
+      "anchor": "על טהרת קדש",
+      "translation": "Translated selection: “Rabbi Yehuda said to Rabbi Chiya: What the Holy One will do in the future is a banquet for the righteous. Rabbi Yitzchak said: I asked Rabbi Yehoshua about that future banquet, for Rabbi Elazar had said that it would be like ‘They beheld God, and ate and drank.’ Rabbi Yehoshua replied: Rabbi Elazar spoke well, and so it is.”",
+      "explanation": "The supplied commentary cites this Midrash HaNeelam passage while discussing Yitzchak’s meal and the future banquet of the righteous. It presents spiritual perception through the imagery of eating.",
+      "url": "https://www.sefaria.org/Zohar,_Toldot_5:41-44",
+      "label": "Zohar, Toldot 5:41-44",
+      "kind": "primary",
+      "sheetNodes": [],
+      "documentImages": [
+        4
+      ]
+    },
+    {
+      "ref": "Taamei HaMitzvos, Vaeschanan, excerpt in supplied notes",
+      "phraseIndex": 6,
+      "anchor": "שהוא סוד התרגום",
+      "translation": "Translated excerpt as quoted in the supplied annotated page: “Three kelipos surround holiness, and the fourth is nogah, which contains both holy and ordinary elements. It can return to the kelipos and become the fourth, as it says, ‘A radiance surrounded it.’ Targum is the secret of nogah: at times it is included within holiness and at times it departs from it. Onkelos the convert, who was from the aspect of nogah, wished to rectify it and established the Targum so that this level could be included within holiness.”",
+      "explanation": "The supplied annotated page attributes this passage to Taamei HaMitzvos, Vaeschanan. It is reproduced in note 25 on the linked source sheet.",
+      "url": "https://voices.sefaria.org/sheets/554271?lang=bi",
+      "label": "Taamei HaMitzvos, Vaeschanan, excerpt in supplied notes",
+      "kind": "primary",
+      "sheetNodes": [],
+      "documentImages": [
+        9,
+        23
+      ]
+    },
+    {
+      "ref": "Source sheet 554271, explanation of Targum and nogah",
+      "phraseIndex": 6,
+      "anchor": "שהוא סוד התרגום",
+      "translation": "Translation of the sheet’s unattributed explanation: “Nogah is the connection between the two sides until their final separation. Similarly, Aramaic connects the holy tongue with the languages of the nations; it contains a mixture of holiness and impurity. The Gemara and Zohar use this language to separate holiness from impurity. Their recitation in the original Aramaic is described as extracting sparks of holiness. Translation for understanding is appropriate, while the spiritual rectification described here is associated with reciting the original language.”",
+      "explanation": "The explanation continues: “The pattern of the worlds is also found within the individual. Nogah links the good and evil inclinations; when one rules, the other yields. A person can direct these powers toward benefit or stumbling through his choice. Holiness is attained through fulfilling the laws of the Creator.” This is supplied explanatory material, not a quotation attributed to Rav Tzadok or an independently identified classical work.",
+      "url": "https://voices.sefaria.org/sheets/554271?lang=bi",
+      "label": "Source sheet 554271, explanation of Targum and nogah",
+      "kind": "editorial",
+      "sheetNodes": [
+        97
+      ],
+      "documentImages": []
+    },
+    {
+      "ref": "Supplied Biurei HaChassidus commentary on sacred eating",
+      "phraseIndex": 2,
+      "anchor": "למאכלך לא כל שכן",
+      "translation": "Summary of the supplied scans headed Biurei HaChassidus: Yaakov’s answer is read as attributing the rapid arrival of the food and blessing to Yitzchak’s merit. The commentary asks how the claim that sacred eating is greater than sacrifice fits the Gemara’s comparison of hosting a scholar to offering daily sacrifices. Its answer distinguishes the recipient’s holy eating from the host’s act of providing food: the host is credited as if he brought offerings, while the tzaddik’s eating itself can accomplish a more elevated service.",
+      "explanation": "The supplied scans present this Chassidic explanation of the Midrash under the heading Biurei HaChassidus.",
+      "url": "https://voices.sefaria.org/sheets/554271?lang=bi",
+      "label": "Supplied Biurei HaChassidus commentary on sacred eating",
+      "kind": "editorial",
+      "sheetNodes": [],
+      "documentImages": [
+        4,
+        5
+      ]
+    },
+    {
+      "ref": "Supplied explanatory edition, Et HaOchel 8",
+      "phraseIndex": 4,
+      "anchor": "בכונת לבו ומחו הוא דגמת ישן",
+      "translation": "Summary of the supplied explanatory pages: A Jew’s deeper will is to serve Hashem, even when that will has not become clear in the conscious mind during a meal. Eating without this clarified intention is compared with sleep. A later act performed wholeheartedly awakens what had been dormant and can disclose the preparatory role of earlier permitted acts. The exposition compares this with an earlier sacrificial intention becoming active again when joined by another intention of the same kind. It also explains that the pleasure of food can ready a person for prophecy, and that humor becomes the joy of a mitzvah when it helps lead to Torah and divine service.",
+      "explanation": "This is the supplied explanatory edition’s reading of Rav Tzadok’s language of sleep and reawakening.",
+      "url": "https://voices.sefaria.org/sheets/554271?lang=bi",
+      "label": "Supplied explanatory edition, Et HaOchel 8",
+      "kind": "editorial",
+      "sheetNodes": [],
+      "documentImages": [
+        2,
+        9,
+        11,
+        15,
+        16,
+        23,
+        24
+      ]
+    }
+  ]
+}
