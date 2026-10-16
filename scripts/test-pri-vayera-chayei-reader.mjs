@@ -10,7 +10,7 @@ const sw=fs.readFileSync(root+'sw.js','utf8');
 const leaves=[];
 function walk(n){if(n?.ref)leaves.push(n);for(const c of n?.children||[])walk(c);}
 walk(toc.toc);
-let totalPairs=0, cited=0;
+let totalPairs=0, cited=0, headings=0;
 for(const [name,count] of [['Vayera',7],['Chayei Sara',11]]){
  for(let ois=1;ois<=count;ois++){
   const ref='Peri Tzadik, '+name+' '+ois;
@@ -30,12 +30,19 @@ for(const [name,count] of [['Vayera',7],['Chayei Sara',11]]){
    cited+=(String(pair[0])+String(pair[1])).match(/data-ref=/g)?.length||0;
   }
   assert.ok(data.some(item=>item.h),'Missing teaching headline '+ref);
+  assert.doesNotMatch(leaf.en,/Teaching\\s*\\d+/,'Generic title remains in TOC '+ref);
+  assert.ok(leaf.en.length>20,'TOC title not sufficiently descriptive '+ref);
+  assert.ok(data.some(item=>item.h?.includes(leaf.en)),'TOC title does not match in-reader headline '+ref);
+  const subtitleCount=data.filter(item=>item.h&&item.h!==leaf.en).length;
+  assert.ok(subtitleCount>=2,'In-text thematic subheadings missing '+ref);
+  headings+=subtitleCount;
   totalPairs+=pairs.length;
  }
  const link='#/read/Peri_Tzadik,_'+name.replace(/ /g,'_')+'_1';
  assert.ok(html.includes('href="'+link+'"'),'Missing prominent reader navigation '+link);
 }
 assert.equal(totalPairs,1268,'Original translation phrase count changed');
+assert.ok(headings>=90,'Fewer than 90 thematic subheadings published');
 assert.ok(cited>=10,'Sefaria source citation links were not generated');
 assert.match(sw,/v(?:59-pri-vayera-chayei|61-akiva-expanded-13-vayera-chayei)/,'Reader service worker cache was not refreshed');
 if(process.argv.includes('--after-archive')){
