@@ -44,7 +44,10 @@ try{
       assert.deepEqual(await rendered.locator('.seg-il .ph-en').allTextContents(),expectedPairs.map(pair=>pair.english));
       assert.equal(await rendered.locator('.seg-il .subhead').count(),section.paragraphs.reduce((n,paragraph)=>n+(paragraph.headings||[]).length,0));
       assert.equal(await rendered.locator('.source-note-trigger,.reader-footnote,.footnote-marker').count(),0,'Unexpected source footnotes');
-      assert.ok((await rendered.locator('.sec-head').innerText()).includes(section.title));
+      // The reader displays this label in uppercase through CSS. Compare its
+      // underlying text so capitalization styling does not alter the title.
+      const headline=await rendered.locator('.sec-head').textContent();
+      assert.ok(headline.includes(section.title),'Missing teaching headline '+ref+': '+headline);
       assert.ok(await rendered.locator('.sec-sub a[href^="https://www.sefaria.org/"]').count(),'Original Sefaria source link missing');
       const resolved=await page.evaluate(async ref=>{
         const section=await resolveLocal(ref);
