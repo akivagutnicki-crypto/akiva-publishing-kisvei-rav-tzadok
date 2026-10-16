@@ -1,10 +1,13 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {chromium} from 'playwright';
-import {readToldos,refOf,plain} from './publish-pri-toldos.mjs';
+import {gunzipSync} from 'node:zlib';
+
+const refOf=section=>`Peri Tzadik, Toldot ${section.chapter}`;
+const plain=text=>String(text).replace(/<[^>]*>/g,'').replace(/&quot;/g,'"').replace(/&#x27;|&apos;/g,"'").replace(/&lt;/g,'<').replace(/&gt;/g,'>').replace(/&amp;/g,'&');
 
 const base='https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/';
-const pack=readToldos(),hash=ref=>ref.replace(/ /g,'_');
+const pack=JSON.parse(gunzipSync(Buffer.from(fs.readFileSync('sources/akiva/overlays/pri-toldos.json.gz.b64','utf8').trim(),'base64'))),hash=ref=>ref.replace(/ /g,'_');
 fs.mkdirSync('toldos-browser-verification',{recursive:true});
 const browser=await chromium.launch({headless:true});
 try{
