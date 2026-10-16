@@ -9,6 +9,13 @@ import {readPriShevatTuBiShvat,BOOK,SLUG,GROUPS,PACK_SHA256,sectionRef,leavesOf,
 const library='dist/library',data=library+'/data',dir=data+'/'+SLUG;
 const read=file=>JSON.parse(fs.readFileSync(file,'utf8'));
 const pack=readPriShevatTuBiShvat(),report=read(library+'/pri-shevat-tubishvat-publication.json');
+// Both cited Midrashim confirm these omitted words in the original upload.
+const restored=pack.sections.find(s=>s.node==='Tu BiShvat'&&s.chapter===2);
+assert.equal(pack.revision,2);assert.equal(report.revision,2);
+assert.equal(restored.audit.restorations.length,1);
+assert.deepEqual(restored.audit.restorations[0].sourceRefs,['Bamidbar Rabbah 19:6','Midrash Tanchuma, Chukat 8']);
+assert.match(restored.paragraphs[0].pairs[95].hebrew,/שֶׁלֹּא נִגְלוּ לְמֹשֶׁה נִגְלוּ לְרַבִּי עֲקִיבָא/);
+assert.match(restored.paragraphs[0].pairs[95].english,/not revealed to Moshe were revealed to Rabbi Akiva/);
 const toc=read(dir+'/toc.json'),leaves=leavesOf(toc.toc),study=toc.toc.children[0];
 const links=read(dir+'/links.json'),catalog=read(data+'/catalog.json'),book=catalog.find(book=>book.slug===SLUG);
 const manifest=read(data+'/files.json');

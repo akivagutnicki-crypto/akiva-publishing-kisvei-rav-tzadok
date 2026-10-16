@@ -1,5 +1,6 @@
 // Reviewed uploaded Word text. Run the publisher AFTER the archive/headline passes.
-// No Sefaria body is substituted for the supplied Hebrew, and no phrase is merged.
+// Preserve the supplied original; explicitly record verified quotation repairs.
+// No Sefaria body is substituted and no phrase is merged.
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
@@ -9,7 +10,7 @@ import {categoryOf, normalizeRef} from './citations.mjs';
 
 export const PACK_PATH='sources/akiva/overlays/pri-shevat-tubishvat.json.gz.b64';
 // Filled with the checksum of the final reviewed, compressed package before release.
-export const PACK_SHA256='ff7e583f1cfb13e802c16f06d944d7595392646159d48bfa3205ba93549e218e';
+export const PACK_SHA256='399c2228eea0a0cfc6a750a4b35410e2da32a2b869d19af8ba58d8175e007fc1';
 export const SOURCE_DOCX_SHA256='9df2f893409a04329e83f67fdcbb5f2d03dc893bb07546da886685dc19250d3b';
 export const SOURCE_BODY_SHA256='8ab30016f6ddc9d0a8e6f603a22e1519d9fc130c8084cbc808109a49c8494f54';
 export const BOOK='Peri Tzadik', SLUG='peri-tzadik';
@@ -262,7 +263,9 @@ export function publishPriShevatTuBiShvat(library='dist/library'){
   assert.equal(JSON.stringify(catalog.filter(book=>book.slug!==SLUG)),catalogOthers);
   assert.equal(JSON.stringify(Object.fromEntries(Object.entries(oldLinks).filter(([ref])=>!targets.has(ref)))),protectedLinks,'Other Pri connections changed');
   assert.equal(JSON.stringify(study.children.filter(child=>!child.shevatTuBiShvatEdition)),protectedToc,'Existing Pri TOC changed');
-  const report={book:BOOK,sections:11,paragraphs,phrasePairs:pairs,inlineHeadings:headings,sourceAnchors:anchors,
+  const report={book:BOOK,revision:pack.revision||1,
+    restorations:pack.sections.flatMap(section=>(section.audit?.restorations||[]).map(repair=>({ref:sectionRef(section),...repair}))),
+    sections:11,paragraphs,phrasePairs:pairs,inlineHeadings:headings,sourceAnchors:anchors,
     sourceDocxSha256:SOURCE_DOCX_SHA256,sourceBodySha256:SOURCE_BODY_SHA256,packSha256:PACK_SHA256,edition,
     chapters:newLeaves.map(leaf=>({ref:leaf.ref,id:leaf.id,paragraphs:leaf.shape,sha256:sha256(fs.readFileSync(path.join(dir,`${leaf.id}.json`)))})),
     protectedFiles,protectedSha256,protectedLinksSha256:sha256(protectedLinks),
