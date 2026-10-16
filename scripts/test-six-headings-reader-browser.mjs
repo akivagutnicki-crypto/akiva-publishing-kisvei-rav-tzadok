@@ -38,6 +38,21 @@ try{
    assert.ok(await root.locator('.seg-il .ph-en').count(),'Original interlinear English not rendered '+ref);
    console.log('PASS live-reader heading '+ref+': '+(await root.locator('.subhead').count())+' headings, Hebrew and English present');
  }
+ // Confirm that the actual mobile book contents display thematic titles,
+ // not generic "Teaching 1" or "Ois 1" labels.
+ const menu=[
+  {book:'Peri_Tzadik',chapter:'Peri_Tzadik,_Vayera_1',expected:'Divine Revelation, Circumcision, and the Shabbat Soul'},
+  {book:'Peri_Tzadik',chapter:'Peri_Tzadik,_Chayei_Sara_1',expected:'Eshet Chayil, Sarah, and the Field of Machpelah'},
+  {book:'Et_HaOchel',chapter:'Et_HaOchel_1',expected:'Eating, Fasting, and the Sanctity of Body and Mind'}
+ ];
+ for(const entry of menu){
+   await page.goto('http://127.0.0.1:'+server.address().port+'/library/#/book/'+entry.book);
+   const link=page.locator('a[href="#/read/'+entry.chapter+'"]').first();
+   await link.waitFor({state:'visible',timeout:30000});
+   const name=await link.innerText();
+   assert.ok(name.includes(entry.expected),'Generic or incorrect public reader TOC title: '+entry.chapter+' : '+name);
+   console.log('PASS real-reader themed TOC '+entry.chapter+': '+entry.expected);
+ }
  assert.deepEqual(errors,[],'Reader JS errors');
  await context.close();
 }finally{await browser.close();await new Promise(r=>server.close(r));}
