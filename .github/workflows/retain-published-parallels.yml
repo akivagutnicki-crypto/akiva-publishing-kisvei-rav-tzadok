@@ -1,0 +1,29 @@
+name: Preserve published parallels in rebuilt search index
+on:
+  push:
+    branches: [work/pri-seasonal-footnotes-20261016]
+    paths: [.github/workflows/retain-published-parallels.yml]
+permissions:
+  contents: write
+jobs:
+  stage:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Preserve the reader's already-published parallel index
+        run: |
+          python - <<'PY'
+          import hashlib
+          from pathlib import Path
+          p=Path('scripts/build-mcp-index.mjs');raw=p.read_bytes()
+          assert hashlib.sha1(('blob '+str(len(raw))+'\0').encode()+raw).hexdigest()=='60ab4b513758d5da53762ddc96089e36fd669cf7'
+          s=raw.decode()
+          s+='\n// Rebuilding text data clears OUT. Retain the exact published, curated parallels.\n// The normal build-parallels step can replace these when a full rebuild is requested.\nif (exists(\'parallels\')) {\n  fs.cpSync(path.join(DATA, \'parallels\'), path.join(OUT, \'parallels\'), {recursive: true});\n}\n'
+          p.write_text(s)
+          PY
+          node --check scripts/build-mcp-index.mjs
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add scripts/build-mcp-index.mjs
+          git commit -m 'Preserve exact curated reader parallels during search-index rebuild [skip ci]'
+          git push origin HEAD:work/pri-seasonal-footnotes-20261016
