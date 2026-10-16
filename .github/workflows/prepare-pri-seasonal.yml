@@ -1,0 +1,56 @@
+name: Prepare Pri seasonal publication
+on:
+  push:
+    branches: [work/pri-seasonal-footnotes-20261016]
+permissions:
+  contents: write
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - name: Snapshot published reader and exact repository build sources
+        run: |
+          python - <<'PY'
+          import concurrent.futures,hashlib,json,lzma,urllib.request,zipfile,io
+          from pathlib import Path
+          base='https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'
+          def get(file):
+            with urllib.request.urlopen(base+file+'?audit=pri-seasonal-20261016',timeout=90) as r:return r.read()
+          root=Path('seasonal-probe');root.mkdir(exist_ok=True)
+          data=get('downloads/rav-tzadok-library.zip')
+          z=zipfile.ZipFile(io.BytesIO(data))
+          print('Published ZIP entries',len(z.namelist()))
+          chunks=[]
+          for name in sorted(z.namelist()):
+            if '/data/' in '/'+name and name.endswith('.json'):
+              b=z.read(name);chunks.append(b)
+          donor=b'\n'.join(chunks)
+          (root/'donor.bin.xz').write_bytes(lzma.compress(donor))
+          print('Donor bytes',len(donor),'SHA',hashlib.sha256(donor).hexdigest())
+          toc=json.loads(get('data/peri-tzadik/toc.json'))
+          leaves=[]
+          def walk(n):
+            if n.get('ref'):leaves.append(n)
+            for c in n.get('children',[]):walk(c)
+          walk(toc['toc'])
+          refs=[f'Peri Tzadik, {g} {i}' for g,n in [('Rosh Chodesh Kislev',7),('Chanukah',24),('Rosh Chodesh Shvat',6),('Tu BiShvat',5)] for i in range(1,n+1)]
+          selected=[x for x in leaves if x.get('interlinear') and x['ref'] in refs]
+          snapshot={}
+          def fetch(l):return str(l['id'])+'.json',json.loads(get('data/peri-tzadik/'+str(l['id'])+'.json'))
+          for file,rows in concurrent.futures.ThreadPoolExecutor(8).map(fetch,selected):snapshot[file]=rows
+          (root/'chapters.json').write_text(json.dumps(snapshot,ensure_ascii=False))
+          for file in ['index.html','sw.js','data/peri-tzadik/toc.json','data/peri-tzadik/links.json','data/catalog.json','data/files.json']:
+            p=root/'live'/file;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(get(file))
+          for file in ['scripts/pri-shevat-tubishvat.mjs','scripts/test-pri-shevat-tubishvat.mjs','scripts/test-pri-shevat-tubishvat-browser.mjs','scripts/test-pri-vayera-chayei-footnotes-browser.mjs','scripts/test-pri-vayera-chayei-reader.mjs','scripts/import-pri-vayera-chayei-footnotes.py','.github/workflows/pages.yml']:
+            p=root/'repo'/file;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(Path(file).read_bytes())
+          print('Published seasonal chapters',len(selected))
+          for l in selected:
+            ns=[n for row in snapshot[str(l['id'])+'.json'] for n in row.get('footnotes',[])]
+            print(l['ref'],l['id'],len(ns))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pri-seasonal-baseline
+          path: seasonal-probe
+          retention-days: 7
