@@ -15,11 +15,16 @@ assert.equal(source.sections.length,16);
 const notes=new Map(),placements=new Set(),parallelRefs=new Set(),curated={};
 let pairs=0,paragraphs=0,placed=0;
 for(const section of source.sections){
- const built=JSON.parse(fs.readFileSync(path.join(data,`${section.n-1}.json`),'utf8'));
- assert.equal(built.length,section.items.length);
+ const records=JSON.parse(fs.readFileSync(path.join(data,`${section.n-1}.json`),'utf8'));
+ // The editorial heading importer adds standalone heading records before the text.
+ // Validate every text paragraph and leave those headings in place.
+ const built=records.filter(item=>Array.isArray(item.p));
+ const originals=section.items.filter(item=>Array.isArray(item.p));
+ assert.ok(records.every(item=>Array.isArray(item.p)||!item.footnotes),'Footnotes outside a text paragraph');
+ assert.equal(built.length,originals.length);
  let parallelCount=0;
  for(let i=0;i<built.length;i++){
-  const item=built[i],original=section.items[i];paragraphs++;
+  const item=built[i],original=originals[i];paragraphs++;
   assert.deepEqual(item.footnotes||[],original.footnotes||[],'Footnote payload changed in ois '+section.n);
   assert.equal(item.p.length,original.p.length);
   for(let j=0;j<item.p.length;j++){
