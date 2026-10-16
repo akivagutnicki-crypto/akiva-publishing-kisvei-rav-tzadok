@@ -34,6 +34,11 @@ function section(key, ready = 0) {
 
 assert.match(player.render('Peri Tzadik, Noach 2'), /audio\/rabbi-moshe-teitelbaum-noach-ois-2\.mp3/);
 assert.match(player.render('Peri Tzadik, Noach 4'), /audio\/rabbi-moshe-teitelbaum-noach-ois-4\.mp3/);
+assert.match(player.render('Peri Tzadik, Noach 6'), /noach-ois-vav-6/);
+assert.match(player.render('Peri Tzadik, Noach 6'), /55:15/);
+assert.match(player.render('Peri Tzadik, Noach 6'), /M4A/);
+assert.match(player.render('Peri Tzadik, Noach 6'), /1nXMkMW76DZB2tk-MshPYE4DdCgwX-eV0/);
+assert.match(player.render('Peri Tzadik, Noach 6'), /value="2.5">2.5×/);
 assert.equal(player.render('Peri Tzadik, Noach 1'), '');
 assert.equal(player.render('Peri Tzadik, Noach 8'), '');
 assert.match(player.render('Peri Tzadik, Noach 2'), /value="2">2×/);
