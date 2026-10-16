@@ -1,0 +1,27 @@
+import assert from 'node:assert/strict';
+import fs from 'node:fs';
+import {createHash} from 'node:crypto';
+
+const sha256 = bytes => createHash('sha256').update(bytes).digest('hex');
+const manifest=JSON.parse(fs.readFileSync('sources/akiva/audio/manifest.json','utf8'));
+const six=manifest.find(t=>t.ref==='Peri Tzadik, Noach 6');
+assert.ok(six,'Noach Ois Vav not present in audio manifest');
+assert.equal(six.parts.length,22,'Missing original audio segments');
+const src=Buffer.concat(six.parts.map(p=>fs.readFileSync('sources/akiva/audio/'+p)));
+assert.equal(src.length,20805829,'Incomplete Ois Vav audio');
+assert.equal(sha256(src),'89a8f5daf25d742b4863971c7ee6f3d071081ff9aafd9d3163a97e2e34798d88','Ois Vav M4A did not match supplied recording');
+const out=fs.readFileSync('dist/library/audio/'+six.output);
+assert.equal(sha256(out),sha256(src),'Published M4A differs from the original recording');
+const pdf=fs.readFileSync('dist/library/downloads/pri-tzaddik-noach-ois-6-shiur.pdf');
+assert.equal(pdf.length,347578,'Ois Vav PDF changed');
+assert.ok(pdf.subarray(0,8).toString().startsWith('%PDF-'),'PDF preview is not a PDF');
+const reader=fs.readFileSync('dist/library/index.html','utf8');
+const player=fs.readFileSync('dist/library/shiur-player.js','utf8');
+assert.ok(reader.includes('noach6-media-grid'),'Ois Vav player/PDF side-by-side positioning missing');
+assert.ok(reader.includes('downloads/pri-tzaddik-noach-ois-6-shiur.pdf'),'Reader cannot preview PDF');
+assert.ok(player.includes("Peri Tzadik, Noach 6"),'Ois Vav player missing');
+assert.ok(player.includes('audio/pri-tzaddik-noach-ois-6.m4a'),'Reader audio URL not local');
+assert.ok(player.includes("Peri Tzadik, Noach 8"),'Ois Ches player missing');
+assert.ok(player.includes('teitelbaum-noach-8'),'Ois Ches has no independent resume position');
+assert.ok(player.includes('audio/rabbi-moshe-teitelbaum-noach-ois-4.mp3'),'Ois Ches recording not available');
+console.log('PASS Noach Ois Vav original 20.8 MB M4A, checksum, 13-page PDF preview; Ois Ches MP3 & independent resume');
