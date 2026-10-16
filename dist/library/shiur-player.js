@@ -20,8 +20,7 @@
       key: 'noach-ois-vav-6',
       label: 'Noach · Ois Vav (6) · אות ו׳',
       speaker: 'Pri Tzaddik shiur recording',
-      src: 'https://drive.google.com/uc?export=download&id=1nXMkMW76DZB2tk-MshPYE4DdCgwX-eV0',
-      openUrl: 'https://drive.google.com/file/d/1nXMkMW76DZB2tk-MshPYE4DdCgwX-eV0/view',
+      src: 'audio/pri-tzaddik-noach-ois-6.m4a',
       format: 'M4A',
       duration: '55:15', bytes: '20.8 MB'
     },
@@ -60,9 +59,8 @@
       <p class="shiur-audio-status" role="status" aria-live="polite">Your place is saved automatically in this browser.</p>
       <div class="shiur-audio-actions">
         <button class="btn shiur-retry" type="button" hidden>Retry audio</button>
-        ${track.openUrl
-          ? `<a class="btn primary" href="${escape(track.openUrl)}" target="_blank" rel="noopener noreferrer">Open or download M4A ↗</a><small class="shiur-host-note">This recording is currently hosted on Google Drive. Playback in a public reader requires public file access.</small>`
-          : `<a class="btn primary" href="${escape(track.src)}" download="${track.key}.mp3">↓ Download MP3</a><a class="btn" href="${escape(track.src)}" target="_blank" rel="noopener noreferrer">Open audio ↗</a>`}
+        <a class="btn primary" href="${escape(track.src)}" download="${track.key}.${(track.format||'mp3').toLowerCase()}">↓ Download ${escape(track.format || 'MP3')}</a>
+        <a class="btn" href="${escape(track.src)}" target="_blank" rel="noopener noreferrer">Open audio ↗</a>
       </div>
     </aside>`;
   }
