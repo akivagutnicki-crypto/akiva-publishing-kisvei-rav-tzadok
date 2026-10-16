@@ -97,9 +97,9 @@ assert.deepEqual(fs.readFileSync('sources/akiva/docx/Resisei_Layla_Interlinear.d
 console.log('Resisei passed: 58 simanim, 149 seifim, 1359 expandable footnotes, exact Word download.');
 
 const sw = fs.readFileSync('dist/library/sw.js', 'utf8');
-const workerVersion = /const VERSION = '([^']+)'/.exec(sw)[1];
 async function worker(upgrade) {
   const events = {}, deleted = [], navigated = [], requests = [];
+  let currentShell;
   const scope = 'https://example.test/library/';
   const offlineResponse = {saved: true};
   const cache = {addAll: async files => {
@@ -112,7 +112,7 @@ async function worker(upgrade) {
     if (request.offline) throw Error('offline');
     return {ok: true, clone() { return this; }};
   }, caches: {open: async () => cache, keys: async () =>
-    [upgrade ? 'rtl-shell-v8' : 'rtl-shell-' + workerVersion, 'rtl-data', 'rtl-pack-library', 'rtl-meta'],
+    [upgrade ? 'rtl-shell-v8' : currentShell, 'rtl-data', 'rtl-pack-library', 'rtl-meta'],
     delete: async name => deleted.push(name)}, self: {
     registration: {scope}, skipWaiting: async () => {},
     addEventListener: (type, fn) => events[type] = fn,
@@ -121,6 +121,7 @@ async function worker(upgrade) {
         ({url, navigate: async next => navigated.push(next)}))}
   }});
   vm.runInContext(sw, context);
+  currentShell = vm.runInContext('SHELL', context);
   for (const type of ['install', 'activate']) {
     let pending;
     events[type]({waitUntil(p) { pending = p; }});
