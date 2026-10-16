@@ -29,6 +29,7 @@ import { addPokedFootnotes } from './import-poked-footnotes.mjs';
 import { addOhrZaruaFootnotes } from './import-ohr-zarua-footnotes.mjs';
 import { addDivreiChalomotFootnotes } from './import-divrei-chalomot-footnotes.mjs';
 import { addBeitYaakovDocuments } from './beit-yaakov-documents.mjs';
+import { addBeitYaakovVayeraGap } from './beit-yaakov-vayera-gap.mjs';
 
 // Publish each generated file atomically when an interlinear overlay replaces Hebrew.
 function writeFile(file, contents) {
@@ -412,7 +413,10 @@ for (const dir of DIRS) {
   for (const file of candidateFiles) {
     const src = JSON.parse(fs.readFileSync(path.join(dir, file), 'utf8'));
     if (catalog.some(b => b.title === src.title)) { console.log(`${src.title}: using Akiva edition, skipping ${path.join(dir, file)}`); continue; }
-    if (src.title === 'Beit Yaakov on Torah') addBeitYaakovDocuments(src);
+    if (src.title === 'Beit Yaakov on Torah') {
+      addBeitYaakovDocuments(src);
+      addBeitYaakovVayeraGap(src);
+    }
     if (src.title === 'Sefer HaZikhronot') addReviewedFootnotes(src);
     if (src.title === 'Kometz HaMinchah') addKometzFootnotes(src);
     if (src.title === 'Poked Akarim') addPokedFootnotes(src);
@@ -463,8 +467,9 @@ for (const dir of DIRS) {
               children: children.filter(leaf => /, Noach \d+$/.test(leaf.ref))},
             {en: 'Lech Lecha · 51 Osiyos', he: 'לך לך',
               children: children.filter(leaf => /, Lech Lecha \d+$/.test(leaf.ref))},
-            {en: 'Vayera · 58 Osiyos', he: 'וירא',
-              children: children.filter(leaf => /, Vayera \d+$/.test(leaf.ref))},
+            {en: 'Vayera · 63 Osiyos', he: 'וירא',
+              children: children.filter(leaf => /, Vayera \d+$/.test(leaf.ref))
+                .sort((a,b)=>Number(a.ref.match(/\d+$/)[0])-Number(b.ref.match(/\d+$/)[0]))},
             {en: 'Chayei Sarah · 40 Osiyos', he: 'חיי שרה',
               children: children.filter(leaf => /, Chayei Sara \d+$/.test(leaf.ref))},
           ] : children;

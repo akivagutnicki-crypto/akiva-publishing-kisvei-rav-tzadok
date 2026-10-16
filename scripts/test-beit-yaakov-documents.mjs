@@ -82,10 +82,16 @@ const groups = [
   { node: 'Bereshit', label: 'Bereishit', numbers: range(1, 77), first: 0 },
   { node: 'Noach', label: 'Noach', numbers: range(1, 55), first: 77 },
   { node: 'Lech Lecha', label: 'Lech Lecha', numbers: [...range(1, 24), ...range(31, 57)], first: 132 },
-  { node: 'Vayera', label: 'Vayera', numbers: [...range(1, 21), ...range(27, 63)], first: 183 },
+  { node: 'Vayera', label: 'Vayera', numbers: range(1, 63),
+    ids: [...range(183, 203), ...range(281, 285), ...range(204, 240)] },
   { node: 'Chayei Sara', label: 'Chayei Sarah', numbers: range(1, 40), first: 241 },
 ];
-const expectedKeys = groups.slice(3).flatMap(group => group.numbers.map(n => `${group.node} ${n}`));
+// The original DOCX pack remains frozen; the five supplied gap sections are
+// separately appended files and only appear between these leaves in the TOC.
+const expectedKeys = [
+  ...[...range(1, 21), ...range(27, 63)].map(n => `Vayera ${n}`),
+  ...range(1, 40).map(n => `Chayei Sara ${n}`),
+];
 assert.deepEqual(pack.sections.map(section => section.key), expectedKeys,
   'The 98 supplied sections must retain original numbers and order');
 const catalog = read(path.join(data, 'catalog.json'));
@@ -101,16 +107,19 @@ for (const [index, group] of groups.entries()) {
   assert.equal(published.en, `${group.label} · ${group.numbers.length} Osiyos`, 'TOC group title/count changed');
   for (const [offset, number] of group.numbers.entries()) {
     const leaf = published.children[offset];
-    assert.equal(leaf.id, group.first + offset, `Stable reader ID changed in ${group.node}`);
+    assert.equal(leaf.id, group.ids ? group.ids[offset] : group.first + offset,
+      `Stable reader ID changed in ${group.node}`);
     assert.equal(leaf.ref, `${bookTitle}, ${group.node} ${number}`, 'Canonical section numbering changed');
     assert.equal(leaf.interlinear, true);
     assert.equal(leaf.depth, 1);
     leaves.push(leaf);
   }
 }
-assert.equal(leaves.length, 281);
+assert.equal(leaves.length, 286);
+const leafByRef = new Map(leaves.map(leaf => [leaf.ref, leaf]));
+assert.equal(leafByRef.size, leaves.length, 'Duplicate reader section reference');
 assert.deepEqual(fs.readdirSync(bookDir).filter(file => /^\d+\.json$/.test(file)).map(file => Number(file.slice(0, -5))).sort((a, b) => a - b),
-  range(0, 280), 'Generated chapter files must be exactly IDs 0–280');
+  range(0, 285), 'Generated chapter files must be exactly IDs 0–285');
 
 const links = read(path.join(bookDir, 'links.json'));
 const reverseIndex = new Set(read(path.join(data, 'cited/index.json')));
@@ -125,8 +134,9 @@ function reverse(ref) {
 }
 
 let paragraphs = 0, pairs = 0, sourceAnchors = 0, headings = 0, connections = 0;
-for (const [sectionIndex, section] of pack.sections.entries()) {
-  const leaf = leaves[183 + sectionIndex];
+for (const section of pack.sections) {
+  const leaf = leafByRef.get(`${bookTitle}, ${section.key}`);
+  assert.ok(leaf, 'Original supplied document section missing: ' + section.key);
   assert.equal(leaf.en, section.en, `Main title changed: ${section.key}`);
   assert.equal(leaf.he, section.he, `Hebrew label changed: ${section.key}`);
   assert.equal(leaf.sep, ':', `Paragraph reference separator changed: ${section.key}`);
@@ -227,6 +237,6 @@ if (process.argv.includes('--zips')) {
       assert.equal(sha256(contents[file]), sha256(fs.readFileSync(path.join(library, file))), `${entry.file} has stale reader text: ${file}`);
     }
   }
-  console.log('PASS Beit Yaakov ZIPs: both supplied DOCX files and all 281 reader chapters included byte for byte');
+  console.log('PASS Beit Yaakov ZIPs: both supplied DOCX files and all 286 reader chapters included byte for byte');
 }
-console.log(`PASS Beit Yaakov documents: original 183 chapters unchanged; TOC 77/55/51/58/40; 98 appended sections, ${paragraphs} original paragraphs, ${pairs} exact phrase pairs, ${headings} exact headings, ${sourceAnchors} preserved source anchors, ${connections} paragraph connections, reverse citations, two exact DOCX downloads`);
+console.log(`PASS Beit Yaakov documents: original 183 chapters unchanged; TOC 77/55/51/63/40; 98 original document sections, ${paragraphs} original paragraphs, ${pairs} exact phrase pairs, ${headings} exact headings, ${sourceAnchors} preserved source anchors, ${connections} paragraph connections, reverse citations, two exact DOCX downloads`);

@@ -28,10 +28,11 @@ try{
     page.on('pageerror',e=>errors.push(e.message));
     await page.goto(base+'#/book/Beit_Yaakov_on_Torah');
     await page.locator('#toc a[href="#/read/Beit_Yaakov_on_Torah,_Chayei_Sara_40"]').waitFor();
-    for(const [parashah,count]of [['Vayera',58],['Chayei_Sara',40]])
+    for(const [parashah,count]of [['Vayera',63],['Chayei_Sara',40]])
       assert.equal(await page.locator(`#toc a[href^="#/read/Beit_Yaakov_on_Torah,_${parashah}_"]`).count(),count);
-    assert.equal(await page.locator('#toc a[href="#/read/Beit_Yaakov_on_Torah,_Vayera_22"]').count(),0);
-    for(const [parashah,ois]of [['Vayera',1],['Vayera',21],['Vayera',27],['Vayera',63],['Chayei Sara',1],['Chayei Sara',40]]){
+    for(const ois of [22,23,24,25,26])
+      assert.equal(await page.locator(`#toc a[href="#/read/Beit_Yaakov_on_Torah,_Vayera_${ois}"]`).count(),1);
+    for(const [parashah,ois]of [['Vayera',1],['Vayera',21],['Vayera',22],['Vayera',23],['Vayera',24],['Vayera',25],['Vayera',26],['Vayera',27],['Vayera',63],['Chayei Sara',1],['Chayei Sara',40]]){
       const ref=`Beit Yaakov on Torah, ${parashah} ${ois}`;
       await page.goto(base+'#/read/'+hash(ref));
       const section=page.locator(`#text > .sec[data-ref="${ref}"]`);
@@ -40,13 +41,30 @@ try{
       assert.ok(await section.locator('.subhead').count());
       assert.ok(await section.locator('.seg-il a.cite[data-ref]').count());
       const download=section.locator('.section-docx-link a[download]');
-      assert.equal(await download.count(),1);
-      assert.match(await download.innerText(),/interlinear Word edition/);
+      const supplement=parashah==='Vayera'&&ois>=22&&ois<=26;
+      assert.equal(await download.count(),supplement?0:1);
+      if(!supplement)assert.match(await download.innerText(),/interlinear Word edition/);
+      if(supplement){
+        const expected={22:147,23:61,24:63,25:44,26:133};
+        assert.equal(await section.locator('.seg-il .ph-he').count(),expected[ois]);
+        assert.equal(await section.locator('.seg-il .ph-en').count(),expected[ois]);
+        assert.equal(await section.locator('.source-note-trigger,.reader-footnote,.footnote-marker').count(),0);
+      }
       assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+2),false,'Horizontal page overflow '+ref);
       await section.locator('.seg-il a.cite').first().click();
       await page.locator('#pContent').waitFor({state:'visible'});
       assert.ok((await page.locator('#pContent').innerText()).trim().length);
       console.log('PASS reader '+viewport.width+'px '+ref);
+    }
+    for(const [start,button,target]of [[21,'nextBtn',22],[26,'nextBtn',27],[27,'prevBtn',26]]){
+      const from=`Beit Yaakov on Torah, Vayera ${start}`;
+      const to=`Beit Yaakov on Torah, Vayera ${target}`;
+      await page.goto(base+'#/read/'+hash(from));
+      await page.locator(`#text > .sec[data-ref="${from}"] .ph-he`).first().waitFor();
+      await page.locator('#'+button).click();
+      await page.waitForURL(base+'#/read/'+hash(to));
+      await page.locator(`#text > .sec[data-ref="${to}"] .ph-he`).first().waitFor();
+      console.log('PASS reader navigation '+start+' → '+target);
     }
     assert.deepEqual(errors,[]);
     await context.close();
