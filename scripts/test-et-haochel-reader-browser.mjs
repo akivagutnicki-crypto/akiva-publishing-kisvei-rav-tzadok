@@ -56,11 +56,22 @@ try{
     assert.equal(m.nested,false,'Footnote nested inside citation link');
   }
   const cards=await section.evaluate(el=>[...el.querySelectorAll('.seg-il .reader-footnote[data-source-note]')].map(n=>({
-   id:n.dataset.noteKey,text:[...n.querySelectorAll('.annotation-text')].map(p=>p.textContent)
+   id:n.dataset.noteKey,text:[...n.querySelectorAll('.annotation-text')].map(p=>p.textContent),
+   links:[...n.querySelectorAll('.annotation-text a[href]')].map(a=>a.href)
   })));
   assert.equal(cards.length,expected.length,'Incorrect popup note count '+leaf.ref);
   for(const note of expected)
    assert.deepEqual(cards.find(c=>c.id===note.placementId)?.text,note.paragraphs.map(p=>p.text));
+  if(sectionIndex===7){
+   assert.equal(expected.length,21,'Ois Ches source notes were not consolidated');
+   for(const note of expected){
+    const card=cards.find(c=>c.id===note.placementId);
+    for(const source of note.sources)
+     assert.ok(card.links.includes(new URL(source.url).href),'Consolidated source link missing: '+source.ref);
+   }
+   assert.equal(cards.filter(c=>c.text.some(p=>p.startsWith('Explanatory note: '))).length,3);
+   assert.ok(!/Biurei\s+HaChassidus/i.test(JSON.stringify(cards)),'Unwanted attribution in explanatory text');
+  }
   const first=expected[0],trigger=section.locator('.seg-il .ph-he button.source-note-trigger[data-note-key="'+first.placementId+'"]');
   await trigger.click();
   const popup=section.locator('.seg-il .reader-footnote[data-note-key="'+first.placementId+'"]');
