@@ -8,7 +8,7 @@ const SHELL = `rtl-shell-${VERSION}`;
 const DATA = 'rtl-data';
 const EXTERNAL = 'rtl-external';
 const SHELL_FILES = [
-  './', './index.html', './manifest.webmanifest', './shiur-player.js?v=20261012-audio',
+  './', './index.html', './manifest.webmanifest', './shiur-player.js?v=20261016-noach-ois-vav',
   './sefaria-packs.js?v=20261012-source-zips-v3', './data/packs/collections.json',
   './icons/icon.svg', './icons/icon-192.png', './icons/icon-512.png', './icons/maskable-512.png',
   './icons/apple-touch-icon.png', './icons/favicon-32.png',
