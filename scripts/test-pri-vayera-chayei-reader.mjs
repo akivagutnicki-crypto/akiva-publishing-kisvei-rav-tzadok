@@ -55,7 +55,12 @@ if(toc.vayeraChayeiSaraFootnotes){
  assert.ok(swVersion.includes(release),'Final reader cache lacks this footnote release');
  assert.ok(html.includes('20261016-pri-thematic-headings-v3-footnotes929'),'Final reader JSON cache lacks the footnotes');
 }else{
- assert.match(swVersion,/v(?:59-pri-vayera-chayei|61-akiva-expanded-13-vayera-chayei)/,'Reader service worker cache was not refreshed');
+ // The early build runs before the 929-note import, while the committed shell
+ // can already carry that final release. The annotated-TOC branch above still
+ // requires its exact release metadata, note count, and JSON cache version.
+ assert.ok(/v(?:59-pri-vayera-chayei|61-akiva-expanded-13-vayera-chayei)/.test(swVersion)
+  ||swVersion.includes('20261016-pri-vayera-chayei-footnotes-929'),
+  'Reader service worker cache was not refreshed');
 }
 if(process.argv.includes('--after-archive')){
  assert.equal(toc.restoredVayeraChayeiSara?.chapters,18,'Archive installer removed or failed to restore new chapters');
