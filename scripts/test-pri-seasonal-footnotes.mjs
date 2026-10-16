@@ -14,6 +14,9 @@ const sha=b=>createHash('sha256').update(b).digest('hex');
 const sorted=x=>Array.isArray(x)?x.map(sorted):x&&typeof x==='object'?Object.fromEntries(Object.keys(x).sort().map(k=>[k,sorted(x[k])])):x;
 const canonical=x=>JSON.stringify(sorted(x));
 const supplied=JSON.parse(gunzipSync(fs.readFileSync('sources/akiva/pri-seasonal-supplied-20261016.json.gz')));
+// Independently calculated from the user's uploaded Peri_Tzadik (3).json.
+const uploadedContent=supplied.sections.flatMap(s=>s.items.flatMap(r=>(r.footnotes||[]).map(n=>[s.ref,r.n,n.number,n.paragraphs,n.sources])));
+assert.equal(sha(canonical(uploadedContent)),'78788c0cd849450759d8928de03396bddd591deb202734c9e6e7d4576ecef086','Exact uploaded seasonal note content');
 const targets=supplied.sections.map(s=>s.ref),expectedCounts=[27,16,10,29,28,15,11,52,69,16,32,32,10,13,20,54,15,21,10,40,62,44,11,21,23,12,12,27,11,19,10,74,82,35,50,31,65,63,145,49,29,12];
 async function bytes(file){
   if(!live)return fs.readFileSync(root+file);
@@ -105,8 +108,16 @@ try{
     const context=await browser.newContext({viewport:mobile?{width:390,height:844}:{width:1440,height:1000},isMobile:mobile,hasTouch:mobile,serviceWorkers:'block'});
     const page=await context.newPage(),errors=[];page.on('pageerror',e=>errors.push(e.message));
     await page.goto(base+'#/book/Peri_Tzadik',{waitUntil:'domcontentloaded'});
-    await page.locator('#toc a[href="#/read/Peri_Tzadik,_Tu_BiShvat_5"]').waitFor({timeout:60000});
-    for(const e of expectations)assert.equal(await page.locator('#toc a[href="#/read/'+hash(e.ref)+'"]').count(),1,'Contents route '+e.ref);
+    // Original Hebrew entries intentionally share canonical routes. Test uniqueness
+    // within the visible interlinear edition, not across both separate editions.
+    const studyToc=page.locator('#toc > .study-entry');
+    await studyToc.locator('a[href="#/read/Peri_Tzadik,_Tu_BiShvat_5"]').waitFor({state:'visible',timeout:60000});
+    assert.equal(await studyToc.count(),1,'One interlinear contents group');
+    for(const e of expectations){
+      const entry=studyToc.locator('a[href="#/read/'+hash(e.ref)+'"]');
+      assert.equal(await entry.count(),1,'Unique interlinear contents route '+e.ref);
+      assert.ok(await entry.isVisible(),'Visible interlinear contents route '+e.ref);
+    }
     for(const e of expectations){
       await page.goto(base+'#/read/'+hash(e.ref),{waitUntil:'domcontentloaded'});
       const sec=page.locator('#text > .sec[data-ref="'+e.ref+'"]');
@@ -144,5 +155,5 @@ try{
     await ms.first().waitFor({timeout:60000});assert.equal(await ms.count(),74);await context.close();
   }
 }finally{await browser.close();if(server)await new Promise(r=>server.close(r));}
-fs.writeFileSync('seasonal-verification/'+(live?'live-':'')+'report.json',JSON.stringify({release,live:live||false,sections:42,notes:1407,results},null,2));
+fs.writeFileSync('seasonal-verification/'+(live?'live-':'')+'report.json',JSON.stringify({release,live:live||false,sections:42,notes:1407,uploadedContentSHA256:sha(canonical(uploadedContent)),results},null,2));
 console.log('PASS '+(live?'LIVE':'FINAL')+' seasonal reader: all 1407 notes rendered with complete supplied English; 42 mobile and 42 desktop routes; source popups open.');
