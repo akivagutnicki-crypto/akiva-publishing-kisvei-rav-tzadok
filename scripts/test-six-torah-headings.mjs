@@ -37,6 +37,20 @@ for(const [slug,[sections,notes]] of Object.entries(expected)){
   console.log('PASS six-book headings: '+slug+' '+files.length+' sections, '+inline+' inline subheadings, '+counted+' original notes');
   allSections+=files.length;allInline+=inline;allNotes+=counted;
 }
+// Eis HaOchel's contents must display the same specific editorial chapter
+// titles that readers encounter at the start of each ois.
+const etToc=JSON.parse(fs.readFileSync(root+'et-haochel/toc.json','utf8'));
+const etChapters=etToc.toc.children;
+assert.equal(etChapters.length,16,'Missing Kuntres Eis HaOchel chapters');
+const observed=new Set();
+for(const leaf of etChapters){
+ assert.ok(leaf.ref.startsWith('Et HaOchel '),'Wrong Eis HaOchel TOC ref');
+ assert.ok(leaf.en.length>=25&&!/^Ois\\s*\\d+/.test(leaf.en),'Unhelpful Eis HaOchel TOC title '+leaf.ref);
+ assert.ok(!observed.has(leaf.en),'Duplicate Eis HaOchel chapter title');
+ observed.add(leaf.en);
+ const contents=JSON.parse(fs.readFileSync(root+'et-haochel/'+leaf.id+'.json','utf8'));
+ assert.ok(contents[0].h.startsWith('§ '+leaf.en+'\\n'),'Eis HaOchel headline differs from the TOC '+leaf.ref);
+}
 assert.equal(allSections,284);
 assert.ok(allInline>=1200);
 assert.equal(allNotes,10062);
