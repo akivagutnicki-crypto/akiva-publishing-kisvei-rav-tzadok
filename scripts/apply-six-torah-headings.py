@@ -9,6 +9,10 @@ ROOT=Path('dist/library/data')
 MANIFEST=Path('sources/akiva/editorial-headings-six.b64')
 WORKS={'poked-akarim':6,'machshavot-charutz':21,'likkutei-maamarim':19,'divrei-chalomot':28,'kometz-haminchah':194,'et-haochel':16}
 EXCLUDED={'takanat-hashavin','resisei-layla','dover-tzedek'}
+# Additional source-anchored subheadings for every Eis HaOchel ois. These are
+# editorial labels only; never alter or resegment the Hebrew/English pairs.
+ET_INLINE={"0.json":[{"phraseIndex":2,"text":"Netilas Yadayim and Sanctity Before Eating"},{"phraseIndex":8,"text":"Mayim Acharonim and Purity After the Meal"}],"1.json":[{"phraseIndex":2,"text":"A Full Stomach and the Awakening of Desire"},{"phraseIndex":8,"text":"Nazirus as a Fence Against Joined Appetites"}],"2.json":[{"phraseIndex":2,"text":"Why the Lighter Struggle Comes First"},{"phraseIndex":6,"text":"The Shunammite Woman and Elisha’s Holiness"}],"3.json":[{"phraseIndex":2,"text":"Preparing to Receive Torah by Purifying Desire"},{"phraseIndex":5,"text":"Torah as the Essential Cure for the Heart"}],"4.json":[{"phraseIndex":2,"text":"Preparation and Restraint Before Eating"},{"phraseIndex":7,"text":"Eating Quickly Without Becoming Attached to Pleasure"}],"5.json":[{"phraseIndex":2,"text":"Recognizing Hashem as the Source of Food"},{"phraseIndex":5,"text":"Indulgence as an Offering to the Animal Soul"}],"6.json":[{"phraseIndex":2,"text":"Emunah, Zeraim, and the Blessing Before Food"},{"phraseIndex":7,"text":"The Fire of Torah Elevates the Vitality of Food"}],"7.json":[{"phraseIndex":2,"text":"Eating and Prayer as Forms of Sacrificial Service"},{"phraseIndex":10,"text":"Turning Ordinary Pleasure Into a Mitzvah"}],"8.json":[{"phraseIndex":2,"text":"The Three Names for Food and Their Purpose"},{"phraseIndex":13,"text":"The Righteous Person Eats to Satisfy the Soul"},{"phraseIndex":19,"text":"Arousal From Below and the Heavenly Response"}],"9.json":[{"phraseIndex":2,"text":"Every Mitzvah Adds Holiness to Eating"},{"phraseIndex":20,"text":"Pesach, Matzah, and Maror Rectify Eating"},{"phraseIndex":28,"text":"Yosef and the Root of Egyptian Redemption"}],"10.json":[{"phraseIndex":2,"text":"The Earth Is Hashem’s: Pleasure Without Attachment"},{"phraseIndex":14,"text":"Manna and the Torah of Those Who Eat It"},{"phraseIndex":20,"text":"Heavenly Sustenance Hidden in Earthly Food"}],"11.json":[{"phraseIndex":2,"text":"Divine Vitality, Food, and Bodily Health"},{"phraseIndex":9,"text":"The Residual Venom of the Serpent"},{"phraseIndex":13,"text":"Torah as the Antidote to Desire"}],"12.json":[{"phraseIndex":2,"text":"The Seven Species and Their Inner Attributes"},{"phraseIndex":14,"text":"Yesod and Malchus in the Fruits of the Land"},{"phraseIndex":20,"text":"Oil, Chochmah, and the Sweetening of Yesod"}],"13.json":[{"phraseIndex":2,"text":"The Exodus as the Birth of Israel"},{"phraseIndex":18,"text":"From Poverty to an Expansive Divine Answer"},{"phraseIndex":25,"text":"Lechem Oni and the Power of Prayer"}],"14.json":[{"phraseIndex":2,"text":"Bitterness Awakens the Thirst for Divine Life"},{"phraseIndex":14,"text":"Four Distinct Stages of Redemption"},{"phraseIndex":21,"text":"The Fifth Cup and the Promise of the Land"}],"15.json":[{"phraseIndex":2,"text":"Karpas Awakens the Child’s Questions"},{"phraseIndex":13,"text":"Spiritual Wealth and Inner Awareness"},{"phraseIndex":19,"text":"Holiness Before the Separation of Evil"}]}
+
 
 def digest_dir(book):
  d=ROOT/book
@@ -71,6 +75,12 @@ def main():
       raise ValueError('Invalid phrase heading position in '+str(p))
      if (h['phraseIndex'],h['text']) not in seen:
       newinline.append(h);seen.add((h['phraseIndex'],h['text']));stats['subheadings']+=1
+    if slug=='et-haochel':
+     for hd in ET_INLINE[filename]:
+      idx=hd['phraseIndex']
+      if idx>=len(item['p']):raise ValueError('Subheading outside Et HaOchel '+filename)
+      if not any(x['phraseIndex']==idx for x in newinline):
+       newinline.append(hd);stats['subheadings']+=1
     if newinline:item={**item,'inlineHeadings':sorted(newinline,key=lambda x:x['phraseIndex'])}
     updated.append(item);n+=1
    # Keep existing title-page headings intact. The new introduction comes
