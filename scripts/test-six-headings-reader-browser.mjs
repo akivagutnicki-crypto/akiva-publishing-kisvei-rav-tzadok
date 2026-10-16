@@ -47,7 +47,7 @@ try{
  ];
  for(const entry of menu){
    await page.goto('http://127.0.0.1:'+server.address().port+'/library/#/book/'+entry.book);
-   const link=page.locator('a[href="#/read/'+entry.chapter+'"]').first();
+   const link=page.locator('#toc a[href="#/read/'+entry.chapter+'"]').first();
    await link.waitFor({state:'visible',timeout:30000});
    const name=await link.innerText();
    assert.ok(name.includes(entry.expected),'Generic or incorrect public reader TOC title: '+entry.chapter+' : '+name);
