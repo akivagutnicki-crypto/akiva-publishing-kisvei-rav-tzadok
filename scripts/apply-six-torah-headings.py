@@ -112,7 +112,7 @@ def main():
  sw=ROOT.parent/'sw.js'
  if sw.is_file():
   code=sw.read_text()
-  code2=re.sub(r"const VERSION = '[^']+';","const VERSION = 'v62-six-editorial-headings-20261015';",code,count=1)
+  code2=re.sub(r"const VERSION = '[^']+';","const VERSION = 'v63-pri-vayera-chayei-et-haochel-20261016';",code,count=1)
   if code2==code:raise ValueError('Reader cache version failed to update')
   sw.write_text(code2)
  print('PASS six interlinear seforim: '+json.dumps(report,ensure_ascii=False))
