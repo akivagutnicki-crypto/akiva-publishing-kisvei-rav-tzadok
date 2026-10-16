@@ -164,14 +164,21 @@ jobs:
       - name: Verify final Pri Tzaddik Shevat and Tu BiShvat source text connections and reader navigation
         run: node scripts/test-pri-shevat-tubishvat.mjs --final && node scripts/test-pri-shevat-tubishvat-browser.mjs
 
+      - name: Merge supplied Kislev Chanukah Shevat and Tu BiShvat source footnotes
+        run: |
+          python scripts/import-pri-seasonal-footnotes.py
+          node scripts/build-mcp-index.mjs
+          node scripts/test-mcp-server.mjs
+          node scripts/test-pri-seasonal-footnotes.mjs
+
       - name: Build and verify library ZIP downloads
         run: node scripts/build-library-zips.mjs && node scripts/test-library-zips.mjs && node scripts/test-sefaria-packs.mjs && node scripts/test-source-zip-export.mjs
 
       - name: Verify Bais Yaakov original documents in offline downloads
         run: node scripts/test-beit-yaakov-documents.mjs --zips && node scripts/test-beit-yaakov-vayera-gap.mjs --zips
 
-      - name: Verify Pri Tzaddik Shevat and Tu BiShvat text and Word edition in offline downloads
-        run: node scripts/test-pri-shevat-tubishvat.mjs --zips
+      - name: Verify seasonal source notes preserved chapters and exact Word editions in offline downloads
+        run: node scripts/test-pri-seasonal-footnotes.mjs --zips
 
       - name: Cache official Sefaria source exports
         uses: actions/cache@v4
@@ -208,6 +215,26 @@ jobs:
             sleep 20
           done
           exit 1
+
+      - name: Verify all four seasonal groups and footnote popups on the live reader
+        run: |
+          for attempt in 1 2 3; do
+            if node scripts/test-pri-seasonal-footnotes.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'; then
+              exit 0
+            fi
+            sleep 20
+          done
+          exit 1
+
+      - name: Save seasonal live reader verification
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pri-seasonal-live-verification
+          path: |
+            seasonal-verification
+            dist/library/pri-seasonal-footnotes-report.json
+          retention-days: 14
 
       - name: Save Pri Tzadik live verification report and screenshots
         if: always()
