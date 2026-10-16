@@ -49,7 +49,7 @@ for(const leaf of etChapters){
  assert.ok(!observed.has(leaf.en),'Duplicate Eis HaOchel chapter title');
  observed.add(leaf.en);
  const contents=JSON.parse(fs.readFileSync(root+'et-haochel/'+leaf.id+'.json','utf8'));
- assert.ok(contents[0].h.startsWith('§ '+leaf.en+'\\n'),'Eis HaOchel headline differs from the TOC '+leaf.ref);
+ assert.ok(contents[0].h.startsWith('§ '+leaf.en+'\n'),'Eis HaOchel headline differs from the TOC '+leaf.ref);
 }
 assert.equal(allSections,284);
 assert.ok(allInline>=1200);
