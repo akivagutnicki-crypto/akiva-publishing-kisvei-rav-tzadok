@@ -24,6 +24,12 @@
       openUrl: 'https://drive.google.com/file/d/1nXMkMW76DZB2tk-MshPYE4DdCgwX-eV0/view',
       format: 'M4A',
       duration: '55:15', bytes: '20.8 MB'
+    },
+    'Peri Tzadik, Noach 8': {
+      key: 'teitelbaum-noach-8',
+      label: 'Noach · Ois Ches (8) · אות ח׳',
+      src: 'audio/rabbi-moshe-teitelbaum-noach-ois-4.mp3',
+      duration: '27:01', bytes: '9.7 MB'
     }
   };
   const escape = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'}[c]));
