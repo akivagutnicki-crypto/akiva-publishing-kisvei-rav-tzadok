@@ -52,5 +52,5 @@ if(process.argv.includes('--after-archive')){
  for(const name of ['Vayera 1','Chayei Sara 1'])
   assert.ok(Array.isArray(linkIndex['Peri Tzadik, '+name]),'Missing source-link index after archive: '+name);
 }
-assert.ok(html.includes('20261016-pri-vayera-chayei-sara-live-v2'),'Reader JSON cache was not refreshed');
+assert.ok(html.includes('20261016-pri-thematic-headings-v3'),'Reader JSON cache was not refreshed');
 console.log('PASS published Pri Tzaddik Vayera 1-7 and Chayei Sara 1-11:',totalPairs,'phrase pairs;',cited,'linked source references; all direct navigation links.');
