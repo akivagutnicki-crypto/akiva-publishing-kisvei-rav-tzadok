@@ -31,6 +31,9 @@ def main():
   raise ValueError('Unexpected editorial heading coverage')
  old={b:digest_dir(b) for b in EXCLUDED}
  report={}
+ et_source=json.loads(Path('sources/akiva/Et_HaOchel.json').read_text())
+ et_titles={str(sec['n']-1)+'.json':sec['en'] for sec in et_source['sections']}
+ if len(et_titles)!=16:raise ValueError('Wrong Et HaOchel title count')
  for slug,sections in books.items():
   loc=ROOT/slug
   if not loc.is_dir():raise ValueError('Missing reader text directory '+str(loc))
@@ -74,7 +77,8 @@ def main():
    # before the first source item, rather than replacing any original heading.
    first=next((j for j,x in enumerate(updated) if isinstance(x,dict) and isinstance(x.get('p'),list)),None)
    if first is None:raise ValueError('No interlinear segment '+str(p))
-   updated.insert(0,{'h':'§ '+meta['title']+'\n'+meta.get('summary','')})
+   display_title=et_titles[filename] if slug=='et-haochel' else meta['title']
+   updated.insert(0,{'h':'§ '+display_title+'\n'+meta.get('summary','')})
    stats['headlines']+=1;stats['sections']+=1
    if frozen!=json.dumps(source_projection(updated),ensure_ascii=False,sort_keys=True):
     raise ValueError('Existing interlinear text was altered '+str(p))
@@ -82,6 +86,16 @@ def main():
     raise ValueError('Existing source footnotes were altered '+str(p))
    stats['footnotes']+=before_notes
    p.write_text(json.dumps(updated,ensure_ascii=False,separators=(',',':'))+'\n')
+  if slug=='et-haochel':
+   toc_path=loc/'toc.json'
+   toc=json.loads(toc_path.read_text())
+   leaves=toc['toc'].get('children',[])
+   if len(leaves)!=16:raise ValueError('Unexpected Et HaOchel TOC chapter count')
+   for leaf in leaves:
+    label=et_titles.get(str(leaf.get('id'))+'.json')
+    if not label:raise ValueError('No Et HaOchel editorial title for TOC leaf '+str(leaf))
+    leaf['en']=label
+   toc_path.write_text(json.dumps(toc,ensure_ascii=False,separators=(',',':'))+'\n')
   report[slug]=stats
  if old!={b:digest_dir(b) for b in EXCLUDED}:raise ValueError('Other excluded seforim changed')
  # The original source data is immutable; refresh offline shell after new headings.
