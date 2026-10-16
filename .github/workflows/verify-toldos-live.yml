@@ -1,0 +1,36 @@
+name: Verify live Toldos reader
+on:
+  push:
+    branches: [toldos-live-verification]
+  create:
+  workflow_dispatch:
+permissions:
+  contents: read
+concurrency:
+  group: toldos-live-verification
+  cancel-in-progress: true
+jobs:
+  browser:
+    if: github.ref == 'refs/heads/toldos-live-verification'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          sparse-checkout-cone-mode: false
+          sparse-checkout: |
+            scripts/check-live-toldos-browser.mjs
+            scripts/publish-pri-toldos.mjs
+            scripts/citations.mjs
+            sources/akiva/overlays/pri-toldos.json.gz.b64
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - run: npm install --no-save --package-lock=false playwright@1.62.1
+      - run: npx playwright install --with-deps chromium
+      - name: Check all ten live Toldos routes on mobile and desktop
+        run: node scripts/check-live-toldos-browser.mjs
+      - uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: toldos-browser-verification
+          path: toldos-browser-verification
