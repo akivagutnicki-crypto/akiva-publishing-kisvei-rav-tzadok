@@ -128,6 +128,9 @@ jobs:
 
       - name: Apply fixed 13-volume annotated reader release when archive is staged
         run: python scripts/apply-reader-expanded-13.py
+      - name: Verify Pri Tzaddik new Vayera and Chayei Sara content survives the 13-volume archive
+        run: node scripts/test-pri-vayera-chayei-reader.mjs --after-archive
+
       - name: Install Meshiv HaTaanah and Meshiv Tzedek expanded Hebrew-anchored source footnotes
         run: python scripts/apply-meshiv-2026.py
 
