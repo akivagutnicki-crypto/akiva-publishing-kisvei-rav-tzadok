@@ -567,6 +567,7 @@ for (const dir of DIRS) {
         return out.length === 1 ? out + '׳' : out.slice(0, -1) + '״' + out.slice(-1);
       };
       const parashahHebrew = {Bereshit:'בראשית', Noach:'נח', 'Lech Lecha':'לך לך',
+        Vayera:'וירא', 'Chayei Sara':'חיי שרה',
         'Rosh Chodesh Kislev':'ראש חודש כסלו', Chanukah:'חנוכה'};
       const heLetters = s => (String(s || '').match(/[\u05d0-\u05ea]/g) || []).length;
       const originalHebrew = (node, chapter) => {
@@ -704,7 +705,7 @@ for (const dir of DIRS) {
               {key:'Lech Lecha ' + group.chapter, en:'', items:items.filter(i => i.p || i.table)}, 'pri',
               sections.flatMap(sec => sec.topics.filter(t => (t.pairs || []).length).map(t => t.pairs)))
           : null;
-        const ref = src.title + ', ' + group.node + (['Bereshit','Noach','Lech Lecha','Rosh Chodesh Kislev','Chanukah'].includes(group.node) ? ' ' + group.chapter : '');
+        const ref = src.title + ', ' + group.node + (['Bereshit','Noach','Lech Lecha','Vayera','Chayei Sara','Rosh Chodesh Kislev','Chanukah'].includes(group.node) ? ' ' + group.chapter : '');
         const id = leafId++;
         const converted = connect(slug, ref, ':', lechHeaded ? lechHeaded.items : items);
         writeFile(path.join(bookDir, id + '.json'), JSON.stringify(converted));
