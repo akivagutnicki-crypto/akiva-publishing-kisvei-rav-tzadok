@@ -1,0 +1,79 @@
+name: Prepare Pri Tzadik footnote import
+on:
+  push:
+    branches: [work/pri-vayera-chayei-footnotes-929]
+permissions:
+  contents: read
+jobs:
+  inspect:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - name: Build current reader without publishing
+        run: node scripts/build-pages.mjs && node scripts/build-library.mjs
+      - name: Collect reference fingerprints and current target chapters
+        run: |
+          python - <<'PY'
+          import json,gzip,zipfile,re,html,hashlib,shutil
+          from pathlib import Path
+          out=Path('pri-probe');out.mkdir(exist_ok=True)
+          hashes=set()
+          def plain(s):return html.unescape(re.sub('<[^>]*>','',str(s or ''))).replace('\u00a0',' ')
+          def norm(s):return re.sub(r'\s+',' ',plain(s)).strip()
+          def add(s):
+            if len(s)>=32 and not any('\u0590'<=c<='\u05ff' for c in s):
+              hashes.add(hashlib.sha256(s.encode()).hexdigest()[:16])
+              hashes.add(hashlib.sha256(norm(s).encode()).hexdigest()[:16])
+          def visit(o):
+            if isinstance(o,str):add(o)
+            elif isinstance(o,dict):
+              for v in o.values():visit(v)
+              p=o.get('p')
+              if isinstance(p,list):
+                en=[norm(a[1]) for a in p if isinstance(a,list) and len(a)==2 and isinstance(a[1],str)]
+                if en:add(' '.join(en))
+            elif isinstance(o,list):
+              for a in o:visit(a)
+              en=[]
+              for a in o:
+                if isinstance(a,dict) and isinstance(a.get('p'),list):
+                  en += [norm(p[1]) for p in a['p'] if isinstance(p,list) and len(p)==2 and isinstance(p[1],str)]
+              if en:add(' '.join(en))
+          for p in Path('dist/library/data').glob('*/*.json'):
+            if p.name in ('toc.json','links.json'):continue
+            try:visit(json.loads(p.read_bytes()))
+            except (ValueError,UnicodeError):pass
+          for zp in Path('incoming').glob('akiva-reader-13-part-*.zip'):
+            with zipfile.ZipFile(zp) as z:
+              for n in z.namelist():
+                if re.fullmatch(r'data/[^/]+/(?!toc.json|links.json)[^/]+\.json',n):
+                  visit(json.loads(z.read(n)))
+          (out/'donor-hashes.json.gz').write_bytes(gzip.compress(json.dumps(sorted(hashes)).encode(),mtime=0))
+          root=Path('dist/library/data/peri-tzadik')
+          toc=json.loads((root/'toc.json').read_bytes())
+          leaves=[]
+          def walk(n):
+            if n.get('ref'):leaves.append(n)
+            for c in n.get('children',[]):walk(c)
+          walk(toc['toc'])
+          targets=[f'Peri Tzadik, Vayera {i}' for i in range(1,8)]+[f'Peri Tzadik, Chayei Sara {i}' for i in range(1,12)]
+          report=[]
+          for ref in targets:
+            leaf=next(n for n in leaves if n.get('interlinear') and n['ref']==ref)
+            f=root/(str(leaf['id'])+'.json');shutil.copyfile(f,out/f.name)
+            rows=json.loads(f.read_bytes())
+            report.append({'ref':ref,'id':leaf['id'],'pairs':sum(len(i.get('p',[])) for i in rows),'notes':sum(len(i.get('footnotes',[])) for i in rows)})
+          shutil.copyfile(root/'toc.json',out/'toc.json')
+          shutil.copyfile('dist/library/index.html',out/'reader-index.html')
+          (out/'report.json').write_text(json.dumps({'donorHashes':len(hashes),'sections':report},indent=2))
+          print((out/'report.json').read_text())
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: pri-footnote-import-probe
+          path: pri-probe
+          compression-level: 9
+          retention-days: 7
