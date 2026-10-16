@@ -73,31 +73,43 @@ for(const section of source.sections){
  }
  assert.equal(parallelCount,section.n===8?3:2,'Unexpected distinct parallels in ois '+section.n);
 }
-assert.equal(paragraphs,17);assert.equal(pairs,303);assert.equal(placed,259);assert.equal(notes.size,241);assert.equal(parallelRefs.size,33);
-assert.deepEqual([...notes.keys()].sort(),Array.from({length:241},(_,i)=>`EH-${String(i+1).padStart(4,'0')}`));
-// The supplied sheet's 39 text entries and 25 images are accounted for;
-// eight entries are already contained in the pre-existing source notes.
+assert.equal(paragraphs,17);assert.equal(pairs,303);assert.equal(placed,258);assert.equal(notes.size,240);assert.equal(parallelRefs.size,33);
+assert.deepEqual([...notes.keys()].sort(),Array.from({length:240},(_,i)=>`EH-${String(i+1).padStart(4,'0')}`));
+// Audit the original sheet and record sources deliberately omitted as
+// redundant during the user's requested editorial trimming.
 const sourceAudit=JSON.parse(fs.readFileSync('editorial/et-haochel-8-sources-554271.json','utf8'));
 assert.equal(sourceAudit.coverage.length,39);
 assert.equal(sourceAudit.coverage.filter(x=>x.status==='already present').length,8);
 assert.equal(Object.keys(sourceAudit.images).length,25);
 assert.ok(Object.values(sourceAudit.images).every(x=>x.length));
 const ois8=source.sections.find(s=>s.n===8).items.flatMap(i=>i.footnotes||[]);
-assert.equal(ois8.length,21);
+assert.equal(ois8.length,20);
 const ois8Sources=ois8.flatMap(n=>n.sources);
-assert.equal(ois8Sources.length,49);
-assert.equal(new Set(ois8Sources.map(s=>s.ref)).size,49,'Duplicate source in ois 8');
-assert.equal(ois8.flatMap(n=>n.paragraphs).filter(p=>p.text.startsWith('Explanatory note: ')).length,3);
+assert.equal(ois8Sources.length,39);
+assert.equal(new Set(ois8Sources.map(s=>s.ref)).size,39,'Duplicate source in ois 8');
+assert.equal(ois8.flatMap(n=>n.paragraphs).filter(p=>p.text.startsWith('Explanatory note: ')).length,2);
 assert.ok(!/Biurei\s+HaChassidus|ביאורי\s+החסידות/i.test(JSON.stringify(ois8)),
  'Unattributed explanation still names Biurei HaChassidus');
-assert.equal(sourceAudit.consolidation.length,21);
+assert.equal(sourceAudit.consolidation.length,20);
 for(const group of sourceAudit.consolidation){
  const note=ois8.find(n=>n.sourceId===group.sourceId);
  assert.ok(note,'Consolidated note missing: '+group.title);
  assert.deepEqual(note.sources.map(s=>s.ref),group.retainedSources);
  assert.equal(note.heAnchorPrefix,group.heAnchorPrefix);
 }
-for(const entry of sourceAudit.coverage)assert.ok(ois8Sources.some(s=>s.ref===entry.coveredBy),'Missing supplied source '+entry.ref);
+const omitted=new Map(sourceAudit.trimming.removedSources.map(s=>[s.ref,s.reason]));
+assert.equal(omitted.size,10);
+for(const [ref,reason] of omitted){
+ assert.ok(reason.length>20,'Missing reason for source omission');
+ assert.ok(!ois8Sources.some(s=>s.ref===ref),'Redundant source returned: '+ref);
+}
+for(const entry of sourceAudit.coverage){
+ if(entry.status==='omitted as redundant')assert.ok(omitted.has(entry.coveredBy)&&entry.reason);
+ else assert.ok(ois8Sources.some(s=>s.ref===entry.coveredBy),'Missing supplied source '+entry.ref);
+}
+const ois8Words=ois8.flatMap(n=>n.paragraphs).reduce((count,p)=>count+p.text.trim().split(/\s+/).length,0);
+assert.equal(ois8Words,sourceAudit.trimming.currentWords);
+assert.ok(ois8Words<sourceAudit.trimming.previousWords*0.7,'Repetitive wording was not trimmed');
 for(const dir of ['dist/library/data/parallels','dist/mcp-data/parallels']){
  const file=path.join(dir,'et-haochel.json');
  const old=fs.existsSync(file)?JSON.parse(fs.readFileSync(file,'utf8')):{};
@@ -112,7 +124,7 @@ for(const dir of ['dist/library/data/parallels','dist/mcp-data/parallels']){
  }
 }
 const sourceHash=createHash('sha256').update(sourceBytes).digest('hex');
-const tag='20261016-et-haochel-241-'+sourceHash.slice(0,12);
+const tag='20261016-et-haochel-240-'+sourceHash.slice(0,12);
 const htmlFile=path.join(root,'index.html');
 if(fs.existsSync(htmlFile)){
  let html=fs.readFileSync(htmlFile,'utf8');
@@ -137,7 +149,7 @@ if(fs.existsSync(swFile)){
 }
 const report={title:source.title,sections:16,paragraphs,phrasePairs:pairs,uniqueFootnotes:notes.size,
  footnotePlacements:placed,distinctParallelPassages:parallelRefs.size,englishMarkers:0,hebrewPreserved:true,
- ois8Footnotes:ois8.length,ois8AttributedSources:ois8Sources.length,ois8ExplanatoryPassages:3,
+ ois8Footnotes:ois8.length,ois8AttributedSources:ois8Sources.length,ois8ExplanatoryPassages:2,ois8FootnoteWords:ois8Words,
  sourceSha256:sourceHash,edition:tag};
 fs.writeFileSync(path.join(root,'et-haochel-publication.json'),JSON.stringify(report,null,2)+'\n');
-console.log('PASS Et HaOchel publication: all 16 oisiyos, 241 English notes, 259 Hebrew-only anchors, 33 nonrepeated parallels; Ois 8 consolidated into 21 notes, with 49 attributed sources and 3 unattributed explanations.');
+console.log('PASS Et HaOchel publication: all 16 oisiyos, 240 English notes, 258 Hebrew-only anchors, 33 nonrepeated parallels; Ois 8 trimmed to 20 notes and '+ois8Words+' words, with 39 attributed sources and 2 unattributed explanations.');

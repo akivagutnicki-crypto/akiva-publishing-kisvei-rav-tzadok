@@ -3,7 +3,7 @@
   "document": "Kuntrus Eis Ha'oicheil ois ches from Rav Tzadok Hakohen.docx",
   "sourceSheetModified": "2026-10-16T08:56:40.380113",
   "target": "Et HaOchel 8",
-  "totalOis8Notes": 21,
+  "totalOis8Notes": 20,
   "coverage": [
     {
       "sheetNode": 12,
@@ -14,8 +14,9 @@
     {
       "sheetNode": 16,
       "ref": "Genesis 22:2",
-      "status": "added",
-      "coveredBy": "Genesis 22:2"
+      "status": "omitted as redundant",
+      "coveredBy": "Genesis 22:2",
+      "reason": "The Akeidah background is already supplied by the Midrash itself."
     },
     {
       "sheetNode": 17,
@@ -50,8 +51,9 @@
     {
       "sheetNode": 36,
       "ref": "Zechariah 4:1",
-      "status": "added",
-      "coveredBy": "Zechariah 4:1"
+      "status": "omitted as redundant",
+      "coveredBy": "Zechariah 4:1",
+      "reason": "The additional illustration of awakening repeats the image already supplied by Psalms and its commentaries."
     },
     {
       "sheetNode": 38,
@@ -116,38 +118,44 @@
     {
       "sheetNode": 47,
       "ref": "Avodah Zarah 18b:9",
-      "status": "added",
-      "coveredBy": "Avodah Zarah 18b:9-11"
+      "status": "omitted as redundant",
+      "coveredBy": "Avodah Zarah 18b:9-11",
+      "reason": "The peripheral discussion of forbidden entertainments is unnecessary to the quoted teaching on 19b."
     },
     {
       "sheetNode": 48,
       "ref": "Avodah Zarah 18b:10",
-      "status": "added",
-      "coveredBy": "Avodah Zarah 18b:9-11"
+      "status": "omitted as redundant",
+      "coveredBy": "Avodah Zarah 18b:9-11",
+      "reason": "The peripheral discussion of forbidden entertainments is unnecessary to the quoted teaching on 19b."
     },
     {
       "sheetNode": 49,
       "ref": "Avodah Zarah 18b:11",
-      "status": "added",
-      "coveredBy": "Avodah Zarah 18b:9-11"
+      "status": "omitted as redundant",
+      "coveredBy": "Avodah Zarah 18b:9-11",
+      "reason": "The peripheral discussion of forbidden entertainments is unnecessary to the quoted teaching on 19b."
     },
     {
       "sheetNode": 50,
       "ref": "Avodah Zarah 18b:16",
-      "status": "added",
-      "coveredBy": "Avodah Zarah 18b:16"
+      "status": "omitted as redundant",
+      "coveredBy": "Avodah Zarah 18b:16",
+      "reason": "The warning about entertainments adds no needed explanation of the quoted teaching on 19b."
     },
     {
       "sheetNode": 51,
       "ref": "Rashi on Avodah Zarah 18b:16:1",
-      "status": "added",
-      "coveredBy": "Rashi on Avodah Zarah 18b:16:1-2"
+      "status": "omitted as redundant",
+      "coveredBy": "Rashi on Avodah Zarah 18b:16:1-2",
+      "reason": "Explains the peripheral entertainment discussion removed from this note."
     },
     {
       "sheetNode": 52,
       "ref": "Rashi on Avodah Zarah 18b:16:2",
-      "status": "added",
-      "coveredBy": "Rashi on Avodah Zarah 18b:16:1-2"
+      "status": "omitted as redundant",
+      "coveredBy": "Rashi on Avodah Zarah 18b:16:1-2",
+      "reason": "Explains the peripheral entertainment discussion removed from this note."
     },
     {
       "sheetNode": 95,
@@ -194,8 +202,9 @@
     {
       "sheetNode": 75,
       "ref": "Shabbat 70b:5",
-      "status": "added",
-      "coveredBy": "Shabbat 70b:5"
+      "status": "omitted as redundant",
+      "coveredBy": "Shabbat 70b:5",
+      "reason": "The necessary distinction between lapses of awareness is already explained by the retained Rashi on 71a."
     },
     {
       "sheetNode": 76,
@@ -230,8 +239,9 @@
     {
       "sheetNode": 93,
       "ref": "Ezekiel 1:27",
-      "status": "added",
-      "coveredBy": "Ezekiel 1:27"
+      "status": "omitted as redundant",
+      "coveredBy": "Ezekiel 1:27",
+      "reason": "Repeats the surrounding-radiance imagery already quoted from Ezekiel 1:4."
     },
     {
       "sheetNode": 94,
@@ -245,7 +255,7 @@
       "Tanya, Part I; Likkutei Amarim 39"
     ],
     "2": [
-      "Explanatory note: dormant intention"
+      "Main text; repetitive overview omitted"
     ],
     "3": [
       "Tanya, Part I; Likkutei Amarim 39"
@@ -258,13 +268,13 @@
     "5": [
       "Avodat Yisrael, Sefer Bereshit, Toldot 2",
       "Berakhot 10b:25",
-      "Taanit 7a:3",
+      "Redundant source omitted: Taanit 7a:3",
       "Explanatory note: sacred eating"
     ],
     "6": [
       "Avodat Yisrael, Sefer Bereshit, Toldot 2",
       "Sha'arei Orah, Second Gate, Ninth Sefirah 160",
-      "Mishnah Zevachim 2:5",
+      "Redundant source omitted: Mishnah Zevachim 2:5",
       "Berakhot 10b:25"
     ],
     "7": [
@@ -275,15 +285,15 @@
     ],
     "9": [
       "Ramban on Genesis 25:34:1",
-      "Taamei HaMitzvos, Vaeschanan, excerpt in supplied notes",
-      "Explanatory note: dormant intention"
+      "Redundant source omitted: Taamei HaMitzvos, Vaeschanan, excerpt in supplied notes",
+      "Main text; repetitive overview omitted"
     ],
     "10": [
       "Tanya, Part I; Likkutei Amarim 39"
     ],
     "11": [
       "Avodat Yisrael, Sefer Bereshit, Toldot 2",
-      "Explanatory note: dormant intention"
+      "Main text; repetitive overview omitted"
     ],
     "12": [
       "Pri Etz Chaim, Gate of Conduct While Learning 1:34"
@@ -297,10 +307,10 @@
       "Rashi on Zevachim 31a:3:1"
     ],
     "15": [
-      "Explanatory note: dormant intention"
+      "Main text; repetitive overview omitted"
     ],
     "16": [
-      "Explanatory note: dormant intention"
+      "Main text; repetitive overview omitted"
     ],
     "17": [
       "Tanya, Part I; Likkutei Amarim 7:1-6"
@@ -322,20 +332,20 @@
     ],
     "23": [
       "Magen Avraham 583:6",
-      "Taamei HaMitzvos, Vaeschanan, excerpt in supplied notes",
-      "Explanatory note: dormant intention"
+      "Redundant source omitted: Taamei HaMitzvos, Vaeschanan, excerpt in supplied notes",
+      "Main text; repetitive overview omitted"
     ],
     "24": [
-      "Explanatory note: dormant intention"
+      "Main text; repetitive overview omitted"
     ],
     "25": [
       "Tzidkat HaTzadik 140"
     ]
   },
   "previousFootnotes": 52,
-  "attributedSources": 49,
-  "unattributedExplanatoryPassages": 3,
-  "revision": "Related sources share a footnote. Explanatory material is retained without attribution to an unidentified edition or Biurei HaChassidus.",
+  "attributedSources": 39,
+  "unattributedExplanatoryPassages": 2,
+  "revision": "Related sources remain grouped. Repetitive explanations, repeated background quotations, and one overview note have been removed; relevant translated excerpts and distinct parallels remain.",
   "consolidation": [
     {
       "title": "One prayer elevates earlier prayers",
@@ -383,7 +393,6 @@
         "Avodat Yisrael, Sefer Bereshit, Toldot 2",
         "Tiferet Shlomo, on Torah, Bo 5",
         "Berakhot 10b:25",
-        "Taanit 7a:3",
         "Zohar, Toldot 5:41-44"
       ],
       "explanatoryPassages": [
@@ -401,7 +410,6 @@
         76
       ],
       "retainedSources": [
-        "Genesis 22:2",
         "Bereshit Rabbah 65:19"
       ],
       "explanatoryPassages": [],
@@ -439,32 +447,16 @@
         85
       ],
       "retainedSources": [
-        "Mishnah Zevachim 2:5",
         "Zevachim 31a:3",
         "Rashi on Zevachim 31a:3:1",
         "Avodah Zarah 73a:10",
-        "Rashi on Avodah Zarah 73a:10:2",
-        "Zechariah 4:1"
+        "Rashi on Avodah Zarah 73a:10:2"
       ],
       "explanatoryPassages": [],
       "number": 70,
       "sourceId": "EH-0070",
       "phraseIndex": 3,
       "heAnchorPrefix": "שֶׁהוּא עַל דֶּרֶךְ שֶׁאָמְרוּ: \"וַיִּקַץ כְּיָשֵׁן\", הַפִּגּוּל — וּמָצָא מִין אֶת מִינוֹ וְנֵעוֹר"
-    },
-    {
-      "title": "Dormant intention and later awakening",
-      "previousNumbers": [
-        86
-      ],
-      "retainedSources": [],
-      "explanatoryPassages": [
-        86
-      ],
-      "number": 71,
-      "sourceId": "EH-0071",
-      "phraseIndex": 4,
-      "heAnchorPrefix": "כִּי בֶּאֱמֶת לַאֲמִתּוֹ, כָּל הָאֲכִילוֹת שֶׁל אִישׁ הַיִּשְׂרְאֵלִי הוּא דֻּגְמַת הַקָּרְבָּנוֹת, רַק כְּשֶׁאֵינוֹ מְבֹרָר לָאָדָם בְּכַוָּנַת לִבּוֹ וּמֹחוֹ הוּא דֻּגְמַת יָשֵׁן"
     },
     {
       "title": "Dreams and the seventy years of life",
@@ -483,8 +475,8 @@
         "Psalms 90:10"
       ],
       "explanatoryPassages": [],
-      "number": 72,
-      "sourceId": "EH-0072",
+      "number": 71,
+      "sourceId": "EH-0071",
       "phraseIndex": 5,
       "heAnchorPrefix": "וּכְדֶרֶךְ שֶׁאָמְרוּ: \"בְּשׁוּב ה' וְגוֹמֵר הָיִינוּ כְּחֹלְמִים\", וְאִיכָּא אִינָשׁ דְּנָיֵים שִׁבְעִים שְׁנִין, שֶׁהֵם יְמֵי שְׁנוֹתֵינוּ בָּהֶם"
     },
@@ -497,8 +489,8 @@
         "Mishneh Torah, Repentance 3:4"
       ],
       "explanatoryPassages": [],
-      "number": 73,
-      "sourceId": "EH-0073",
+      "number": 72,
+      "sourceId": "EH-0072",
       "phraseIndex": 5,
       "heAnchorPrefix": "וּכְדֶרֶךְ שֶׁאָמְרוּ: \"בְּשׁוּב ה' וְגוֹמֵר הָיִינוּ כְּחֹלְמִים\", וְאִיכָּא אִינָשׁ דְּנָיֵים שִׁבְעִים שְׁנִין, שֶׁהֵם יְמֵי שְׁנוֹתֵינוּ בָּהֶם, כְּשֶׁאֵינוֹ מִתְעוֹרֵר מִתַּרְדֵּמַת הַזְּמָן"
     },
@@ -511,14 +503,11 @@
         96
       ],
       "retainedSources": [
-        "Avodah Zarah 18b:9-11",
-        "Avodah Zarah 18b:16",
-        "Rashi on Avodah Zarah 18b:16:1-2",
         "Avodah Zarah 19b:10"
       ],
       "explanatoryPassages": [],
-      "number": 74,
-      "sourceId": "EH-0074",
+      "number": 73,
+      "sourceId": "EH-0073",
       "phraseIndex": 6,
       "heAnchorPrefix": "כְּשֶׁאֵינוֹ עוֹשֶׂה אִסּוּרִים מַמָּשׁ רַק בְּהֶתֵּר, עַל זֶה אָמְרוּ בַּעֲבוֹדָה זָרָה [ס״ה עַמּוּד א׳]: יָכוֹל יְגָרֶה עַצְמוֹ בְּשֵׁנָה"
     },
@@ -531,12 +520,11 @@
       ],
       "retainedSources": [
         "Tanya, Part I; Likkutei Amarim 7:1-6",
-        "Ezekiel 1:4",
-        "Ezekiel 1:27"
+        "Ezekiel 1:4"
       ],
       "explanatoryPassages": [],
-      "number": 75,
-      "sourceId": "EH-0075",
+      "number": 74,
+      "sourceId": "EH-0074",
       "phraseIndex": 6,
       "heAnchorPrefix": "כְּשֶׁאֵינוֹ עוֹשֶׂה אִסּוּרִים מַמָּשׁ רַק בְּהֶתֵּר, עַל זֶה אָמְרוּ בַּעֲבוֹדָה זָרָה [ס״ה עַמּוּד א׳]: יָכוֹל יְגָרֶה עַצְמוֹ בְּשֵׁנָה (וְכַיָּדוּעַ דְּהַהֶתֵּר הוּא מִקְּלִפַּת נֹגַהּ"
     },
@@ -550,14 +538,13 @@
       ],
       "retainedSources": [
         "Shenei Luchot HaBerit, Aseret HaDibrot, Shabbat, Torah Ohr 29",
-        "Taamei HaMitzvos, Vaeschanan, excerpt in supplied notes",
         "Pri Etz Chaim, Gate of Conduct While Learning 1:34"
       ],
       "explanatoryPassages": [
         102
       ],
-      "number": 76,
-      "sourceId": "EH-0076",
+      "number": 75,
+      "sourceId": "EH-0075",
       "phraseIndex": 6,
       "heAnchorPrefix": "כְּשֶׁאֵינוֹ עוֹשֶׂה אִסּוּרִים מַמָּשׁ רַק בְּהֶתֵּר, עַל זֶה אָמְרוּ בַּעֲבוֹדָה זָרָה [ס״ה עַמּוּד א׳]: יָכוֹל יְגָרֶה עַצְמוֹ בְּשֵׁנָה (וְכַיָּדוּעַ דְּהַהֶתֵּר הוּא מִקְּלִפַּת נֹגַהּ שֶׁהוּא סוֹד הַתַּרְגּוּם, בְּגִימַטְרִיָּא תַּרְדֵּמָה"
     },
@@ -574,8 +561,8 @@
         "Kaf HaChayim on Shulchan Arukh, Orach Chayim 583:37:1"
       ],
       "explanatoryPassages": [],
-      "number": 77,
-      "sourceId": "EH-0077",
+      "number": 76,
+      "sourceId": "EH-0076",
       "phraseIndex": 7,
       "heAnchorPrefix": "וְאָמַר: יוֹשֵׁב בָּטֵל כְּיָשֵׁן דָּמֵי"
     },
@@ -588,8 +575,8 @@
         "Tzidkat HaTzadik 140"
       ],
       "explanatoryPassages": [],
-      "number": 78,
-      "sourceId": "EH-0078",
+      "number": 77,
+      "sourceId": "EH-0077",
       "phraseIndex": 8,
       "heAnchorPrefix": "וּכְשֶׁזּוֹכֶה לְהִתְעוֹרֵר פַּעַם אַחַת מִשְּׁנָתוֹ, יוּכַל לְתַקֵּן כָּל הַתַּרְדֵּמוֹת, שֶׁיִּהְיֶה תַּרְדֵּמָה שֶׁל נְבוּאָה"
     },
@@ -602,8 +589,8 @@
         "Bereshit Rabbah 17:5"
       ],
       "explanatoryPassages": [],
-      "number": 79,
-      "sourceId": "EH-0079",
+      "number": 78,
+      "sourceId": "EH-0078",
       "phraseIndex": 8,
       "heAnchorPrefix": "וּכְשֶׁזּוֹכֶה לְהִתְעוֹרֵר פַּעַם אַחַת מִשְּׁנָתוֹ, יוּכַל לְתַקֵּן כָּל הַתַּרְדֵּמוֹת, שֶׁיִּהְיֶה תַּרְדֵּמָה שֶׁל נְבוּאָה, כִּדְאִיתָא בִּבְרֵאשִׁית רַבָּה דְּג׳ תַּרְדֵּמוֹת הֵן וְיֵשׁ שֶׁל נְבוּאָה;"
     },
@@ -616,8 +603,8 @@
         "Ramban on Genesis 25:34:1"
       ],
       "explanatoryPassages": [],
-      "number": 80,
-      "sourceId": "EH-0080",
+      "number": 79,
+      "sourceId": "EH-0079",
       "phraseIndex": 9,
       "heAnchorPrefix": "כִּי אָז נְבוּאָה בָּאָה עַל יְדֵי אֲכִילָה וּשְׁתִיָּה כְּמוֹ שֶׁכָּתוּב בְּיִצְחָק"
     },
@@ -630,8 +617,8 @@
         "Shabbat 30b:5-6"
       ],
       "explanatoryPassages": [],
-      "number": 81,
-      "sourceId": "EH-0081",
+      "number": 80,
+      "sourceId": "EH-0080",
       "phraseIndex": 10,
       "heAnchorPrefix": "(וְכֵן כָּל תַּאֲווֹת דְּהֶתֵּר כְּעִנְיַן \"כְּנַגֵּן הַמְנַגֵּן\", וּכְדֶרֶךְ שֶׁאָמְרוּ: רַבָּה פָּתַח בְּמִילֵי דִּבְדִיחוּתָא"
     },
@@ -644,8 +631,8 @@
         "Tanya, Part I; Likkutei Amarim 39"
       ],
       "explanatoryPassages": [],
-      "number": 82,
-      "sourceId": "EH-0082",
+      "number": 81,
+      "sourceId": "EH-0081",
       "phraseIndex": 11,
       "heAnchorPrefix": "וְכֵן כָּל שֶׁמִּתְעוֹרֵר פַּעַם אַחַת יוּכַל לְהַעֲלוֹת כָּל מַעֲשָׂיו שֶׁל הֶתֵּר וְדִבְרֵי הָרְשׁוּת שֶׁעָשָׂה (וְאֵין צָרִיךְ לוֹמַר מַעֲשֵׂה הַמִּצְוֹת בְּלֹא כַּוָּנָה וְחִיּוּת"
     },
@@ -658,8 +645,8 @@
         "Peri Tzadik, Bamidbar 8:3"
       ],
       "explanatoryPassages": [],
-      "number": 83,
-      "sourceId": "EH-0083",
+      "number": 82,
+      "sourceId": "EH-0082",
       "phraseIndex": 11,
       "heAnchorPrefix": "וְכֵן כָּל שֶׁמִּתְעוֹרֵר פַּעַם אַחַת יוּכַל לְהַעֲלוֹת כָּל מַעֲשָׂיו שֶׁל הֶתֵּר וְדִבְרֵי הָרְשׁוּת שֶׁעָשָׂה (וְאֵין צָרִיךְ לוֹמַר מַעֲשֵׂה הַמִּצְוֹת בְּלֹא כַּוָּנָה וְחִיּוּת) מִקֹּדֶם, עַל יְדֵי שֶׁעוֹשֶׂה אוֹתָהּ פַּעַם אַחֶרֶת עִם חִיּוּת וְכַוָּנָה לְשֵׁם שָׁמַיִם."
     },
@@ -671,13 +658,12 @@
         115
       ],
       "retainedSources": [
-        "Shabbat 70b:5",
         "Shabbat 71a:1-3",
         "Rashi on Shabbat 71a:1:1"
       ],
       "explanatoryPassages": [],
-      "number": 84,
-      "sourceId": "EH-0084",
+      "number": 83,
+      "sourceId": "EH-0083",
       "phraseIndex": 12,
       "heAnchorPrefix": "וּבְיוֹתֵר בַּאֲכִילָה שֶׁהִיא דֻּגְמַת הַקָּרְבָּנוֹת (שֶׁבָּהֶם נוֹהֵג דִּין הַגְּרִירָה כִּדְאִיתָא בְּשַׁבָּת), וַאֲכִילָה גּוֹרֶרֶת אֲכִילָה לִהְיוֹת כְּמוֹתָהּ"
     },
@@ -690,10 +676,66 @@
         "Sod Yesharim, Yom Kippur 32"
       ],
       "explanatoryPassages": [],
-      "number": 85,
-      "sourceId": "EH-0085",
+      "number": 84,
+      "sourceId": "EH-0084",
       "phraseIndex": 12,
       "heAnchorPrefix": "וּבְיוֹתֵר בַּאֲכִילָה שֶׁהִיא דֻּגְמַת הַקָּרְבָּנוֹת (שֶׁבָּהֶם נוֹהֵג דִּין הַגְּרִירָה כִּדְאִיתָא בְּשַׁבָּת), וַאֲכִילָה גּוֹרֶרֶת אֲכִילָה לִהְיוֹת כְּמוֹתָהּ."
     }
-  ]
+  ],
+  "trimming": {
+    "previousFootnotes": 21,
+    "currentFootnotes": 20,
+    "previousWords": 5301,
+    "currentWords": 2839,
+    "removedSources": [
+      {
+        "ref": "Taanit 7a:3",
+        "reason": "The general comparison about rain adds no direct explanation of sacred eating beyond the accompanying sources."
+      },
+      {
+        "ref": "Genesis 22:2",
+        "reason": "The Akeidah background is already supplied by the Midrash itself."
+      },
+      {
+        "ref": "Mishnah Zevachim 2:5",
+        "reason": "The required piggul background is already explained by Zevachim 31a and its Rashi."
+      },
+      {
+        "ref": "Zechariah 4:1",
+        "reason": "The additional illustration of awakening repeats the image already supplied by Psalms and its commentaries."
+      },
+      {
+        "ref": "Avodah Zarah 18b:9-11",
+        "reason": "The peripheral discussion of forbidden entertainments is unnecessary to the quoted teaching on 19b."
+      },
+      {
+        "ref": "Avodah Zarah 18b:16",
+        "reason": "The warning about entertainments adds no needed explanation of the quoted teaching on 19b."
+      },
+      {
+        "ref": "Rashi on Avodah Zarah 18b:16:1-2",
+        "reason": "Explains the peripheral entertainment discussion removed from this note."
+      },
+      {
+        "ref": "Ezekiel 1:27",
+        "reason": "Repeats the surrounding-radiance imagery already quoted from Ezekiel 1:4."
+      },
+      {
+        "ref": "Taamei HaMitzvos, Vaeschanan, excerpt in supplied notes",
+        "reason": "Repeats the nogah, Targum, and Onkelos explanation already quoted from Shelah."
+      },
+      {
+        "ref": "Shabbat 70b:5",
+        "reason": "The necessary distinction between lapses of awareness is already explained by the retained Rashi on 71a."
+      }
+    ],
+    "removedNotes": [
+      {
+        "previousNumber": 71,
+        "title": "Dormant intention and later awakening",
+        "reason": "Repeated the main text and the later notes on prophecy and joy."
+      }
+    ],
+    "mainTextPreserved": true
+  }
 }

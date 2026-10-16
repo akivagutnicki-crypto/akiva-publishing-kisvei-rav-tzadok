@@ -63,13 +63,15 @@ try{
   for(const note of expected)
    assert.deepEqual(cards.find(c=>c.id===note.placementId)?.text,note.paragraphs.map(p=>p.text));
   if(sectionIndex===7){
-   assert.equal(expected.length,21,'Ois Ches source notes were not consolidated');
+   assert.equal(expected.length,20,'Ois Ches source notes were not trimmed');
    for(const note of expected){
     const card=cards.find(c=>c.id===note.placementId);
     for(const source of note.sources)
      assert.ok(card.links.includes(new URL(source.url).href),'Consolidated source link missing: '+source.ref);
    }
-   assert.equal(cards.filter(c=>c.text.some(p=>p.startsWith('Explanatory note: '))).length,3);
+   assert.equal(cards.filter(c=>c.text.some(p=>p.startsWith('Explanatory note: '))).length,2);
+   assert.ok(!/supplied (?:scan|screenshot|annotated|commentary|excerpt)/i.test(JSON.stringify(cards)),
+    'Repetitive source-provenance text returned');
    assert.ok(!/Biurei\s+HaChassidus/i.test(JSON.stringify(cards)),'Unwanted attribution in explanatory text');
   }
   const first=expected[0],trigger=section.locator('.seg-il .ph-he button.source-note-trigger[data-note-key="'+first.placementId+'"]');
