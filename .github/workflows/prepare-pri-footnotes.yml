@@ -13,7 +13,7 @@ jobs:
         with:
           node-version: '24'
       - name: Build current reader without publishing
-        run: node scripts/build-pages.mjs && node scripts/build-library.mjs
+        run: node scripts/build-pages.mjs && node scripts/import-mei-vayera-bo.mjs && node scripts/build-library.mjs
       - name: Collect reference fingerprints and current target chapters
         run: |
           python - <<'PY'
