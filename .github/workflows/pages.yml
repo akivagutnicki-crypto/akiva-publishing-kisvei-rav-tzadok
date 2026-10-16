@@ -102,7 +102,7 @@ jobs:
         run: node scripts/test-yisrael-footnotes.mjs
 
       - name: Prepare and verify the supplied shiur recordings
-        run: node scripts/build-shiur-audio.mjs && node scripts/test-shiur-player.mjs
+        run: node scripts/build-shiur-audio.mjs && node scripts/test-shiur-player.mjs && node scripts/test-noach6-media.mjs
 
       - name: Verify interlinear Hebrew, nikkud, and Sefaria links
         run: node scripts/test-interlinear-publication.mjs && node scripts/test-beit-yaakov-publication.mjs && node scripts/test-mei-shiloach-publication.mjs && node scripts/test-dover-footnotes.mjs && node scripts/test-tzidkat.mjs && node scripts/test-tzidkat-footnotes.mjs && node scripts/test-tzidkat-parallels.mjs && node scripts/test-machshavot-footnotes.mjs && node scripts/test-divrei-footnotes.mjs && node scripts/test-hazikhronot-footnotes.mjs
