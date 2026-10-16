@@ -3,9 +3,9 @@
 // - Texts (data/) are served from cache and refreshed in the background.
 // - Sefaria API answers (English, connections, quoted sources) are network-first
 //   with the last answer kept for offline use; web fonts are cache-first.
-const VERSION = 'v59-pri-vayera-chayei-20261016-compact-noach-audio';
+const VERSION = '20261016-et-haochel-240-5468b7180d41-20261016-pri-vayera-chayei-footnotes-929';
 // Keep this layout refresh when a later publishing step updates the text edition version.
-const SHELL = `rtl-shell-${VERSION}-compact-noach-audio-20261016-beit-vayera-complete-20261016`;
+const SHELL = `rtl-shell-${VERSION}-compact-noach-audio-20261016-beit-vayera-complete-20261016-pri-shevat-tubishvat-ff7e583f1cfb`;
 const DATA = 'rtl-data';
 const EXTERNAL = 'rtl-external';
 const SHELL_FILES = [
@@ -85,7 +85,7 @@ self.addEventListener('fetch', event => {
     } else if (rel.startsWith('downloads/') || rel.startsWith('audio/')) {
       return; // MP3 range requests and large downloads: straight from the network.
       // Never cache a partial audio response as if it were the whole recording.
-    } else if (/^data\/(?:catalog\.json|files\.json|cited\/index\.json|[^/]+\/toc\.json)$/.test(rel) || /^data\/(?:likkutei-maamarim|ohr-zarua-latzadik|peri-tzadik|tiferet-yosef|beit-yaakov-on-torah|mei-ha-shiloach|poked-akarim|sefer-hazikhronot|yisrael-kedoshim|machshavot-charutz|divrei-soferim|tzidkat-hatzadik|toldos-hakohen|meshiv-hata-anah|meshiv-tzedek)\//.test(rel)) {
+    } else if (rel.startsWith('data/et-haochel/') || rel === 'data/parallels/et-haochel.json' || /^data\/(?:catalog\.json|files\.json|cited\/index\.json|[^/]+\/toc\.json)$/.test(rel) || /^data\/(?:likkutei-maamarim|ohr-zarua-latzadik|peri-tzadik|tiferet-yosef|beit-yaakov-on-torah|mei-ha-shiloach|poked-akarim|sefer-hazikhronot|yisrael-kedoshim|machshavot-charutz|divrei-soferim|tzidkat-hatzadik|toldos-hakohen|meshiv-hata-anah|meshiv-tzedek)\//.test(rel)) {
       // Contents and manifests must reflect newly added editions immediately.
       event.respondWith(networkFirst(request, DATA));
     } else if (rel.startsWith('data/')) {

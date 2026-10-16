@@ -143,6 +143,9 @@ jobs:
       - name: Add 929 supplied Hebrew-anchored notes only to Pri Tzadik Vayera and Chayei Sara
         run: python scripts/import-pri-vayera-chayei-footnotes.py
 
+      - name: Publish uploaded Pri Tzaddik Shevat and Tu BiShvat interlinear teachings after archive imports
+        run: node scripts/publish-pri-shevat-tubishvat.mjs && node scripts/test-pri-shevat-tubishvat.mjs
+
       - name: Build and verify MCP search index and library parallels
         run: node scripts/build-mcp-index.mjs && node scripts/build-parallels.mjs && node scripts/test-parallels.mjs && node scripts/test-mcp-server.mjs && node scripts/test-cloudflare-worker.mjs
 
@@ -158,11 +161,17 @@ jobs:
           node scripts/test-pri-vayera-chayei-reader.mjs --after-archive
           node scripts/test-pri-vayera-chayei-footnotes-browser.mjs
 
+      - name: Verify final Pri Tzaddik Shevat and Tu BiShvat source text connections and reader navigation
+        run: node scripts/test-pri-shevat-tubishvat.mjs --final && node scripts/test-pri-shevat-tubishvat-browser.mjs
+
       - name: Build and verify library ZIP downloads
         run: node scripts/build-library-zips.mjs && node scripts/test-library-zips.mjs && node scripts/test-sefaria-packs.mjs && node scripts/test-source-zip-export.mjs
 
       - name: Verify Bais Yaakov original documents in offline downloads
         run: node scripts/test-beit-yaakov-documents.mjs --zips && node scripts/test-beit-yaakov-vayera-gap.mjs --zips
+
+      - name: Verify Pri Tzaddik Shevat and Tu BiShvat text and Word edition in offline downloads
+        run: node scripts/test-pri-shevat-tubishvat.mjs --zips
 
       - name: Cache official Sefaria source exports
         uses: actions/cache@v4
