@@ -23,6 +23,16 @@ const hash=ref=>encodeURIComponent(ref).replace(/%20/g,'_').replace(/%2C/g,',').
 try{
   for(const viewport of [{width:390,height:844},{width:1280,height:900}]){
     const context=await browser.newContext({viewport,serviceWorkers:'block'});
+    // The app keeps these helpers private inside its closure. Expose them only
+    // in the test response; the published reader and its globals stay intact.
+    const readerUrl=new URL(base);
+    await context.route(url=>url.origin===readerUrl.origin&&url.pathname===readerUrl.pathname,async route=>{
+      const response=await route.fetch(),html=await response.text();
+      const end='\nroute();\n})();';
+      assert.ok(html.includes(end),'Reader test could not locate the app closure');
+      await route.fulfill({response,body:html.replace(end,
+        '\nwindow.__shevatReaderTest={resolveLocal,libraryLinks};'+end)});
+    });
     // All reviewed text and source indexes are local; external APIs are not a
     // dependency of this edition or of this UI check.
     await context.route('https://www.sefaria.org/**',route=>route.fulfill({status:200,contentType:'application/json',body:JSON.stringify({he:[],text:[],versions:[]})}));
@@ -50,6 +60,7 @@ try{
       assert.ok(headline.includes(section.title),'Missing teaching headline '+ref+': '+headline);
       assert.ok(await rendered.locator('.sec-sub a[href^="https://www.sefaria.org/"]').count(),'Original Sefaria source link missing');
       const resolved=await page.evaluate(async ref=>{
+        const {resolveLocal,libraryLinks}=window.__shevatReaderTest;
         const section=await resolveLocal(ref);
         return {ref:section.sectionRef,paragraphs:section.phrases?.length,next:section.next,prev:section.prev,
           sourceUrl:section.sourceUrl,downloadDocx:section.downloadDocx,downloadDocxLabel:section.downloadDocxLabel,
@@ -99,6 +110,7 @@ try{
       await page.locator(`#text > .sec[data-ref="${to}"] .ph-he`).first().waitFor();
     }
     const paragraph=await page.evaluate(async()=>{
+      const {resolveLocal}=window.__shevatReaderTest;
       const section=await resolveLocal('Peri Tzadik, Rosh Chodesh Shvat 2:2');
       return {ref:section.sectionRef,highlight:section.highlight,paragraphs:section.phrases?.length};
     });
