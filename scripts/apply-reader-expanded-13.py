@@ -156,6 +156,15 @@ def restore_new_study(target,snapshot):
   leaf=dict(leaf);leaf['id']=last
   (target/(str(last)+'.json')).write_bytes(body)
   study['children'].append(leaf)
+ # Keep the weekly parashah entries together rather than placing Vayera and
+ # Chayei Sara after the 24 Chanukah osiyos in the contents.
+ new_chapters=[c for c in study['children'] if c.get('ref') in selected]
+ old_chapters=[c for c in study['children'] if c.get('ref') not in selected]
+ if len(new_chapters)!=18:raise ValueError('Failed to reorder all restored parashah chapters')
+ insert_at=next((i for i,c in enumerate(old_chapters) if
+                 c.get('ref','').startswith(('Peri Tzadik, Rosh Chodesh Kislev',
+                                            'Peri Tzadik, Chanukah'))),len(old_chapters))
+ study['children']=old_chapters[:insert_at]+new_chapters+old_chapters[insert_at:]
  toc['restoredVayeraChayeiSara']={'chapters':len(STUDY_REFS),
                                   'phrasePairs':1268,'preservedArchiveFootnotes':True}
  toc_path.write_text(json.dumps(toc,ensure_ascii=False,separators=(',',':'))+'\n')
