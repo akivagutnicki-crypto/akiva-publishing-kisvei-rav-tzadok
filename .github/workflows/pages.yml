@@ -71,7 +71,7 @@ jobs:
       - name: Validate 925 Poked Akarim Hebrew-only source footnotes
         run: node scripts/test-poked-footnotes.mjs
 
-      - name: Validate all 1,687 Ohr Zarua LaTzadik Hebrew-anchored English footnotes
+      - name: Validate all 1,687 Ohr Zarua LaTzadik Hebrew-anchored footnotes
         run: node scripts/test-ohr-zarua-footnotes.mjs
 
       - name: Validate all 242 Divrei Chalomot English source footnotes and Hebrew anchors
@@ -140,6 +140,9 @@ jobs:
       - name: Publish and verify English descriptive contents and in-text headings in seven sefarim
         run: python scripts/apply-seven-editorial-tocs.py && node scripts/test-seven-editorial-tocs.mjs
 
+      - name: Add 929 supplied Hebrew-anchored notes only to Pri Tzadik Vayera and Chayei Sara
+        run: python scripts/import-pri-vayera-chayei-footnotes.py
+
       - name: Build and verify MCP search index and library parallels
         run: node scripts/build-mcp-index.mjs && node scripts/build-parallels.mjs && node scripts/test-parallels.mjs && node scripts/test-mcp-server.mjs && node scripts/test-cloudflare-worker.mjs
 
@@ -148,6 +151,12 @@ jobs:
 
       - name: Verify supplied Bais Yaakov Vayera and Chayei Sarah documents in the final reader
         run: node scripts/test-beit-yaakov-documents.mjs && node scripts/test-beit-yaakov-vayera-gap.mjs && node scripts/test-beit-yaakov-documents-browser.mjs
+
+      - name: Verify final Pri Tzadik footnote content and mobile and desktop popups
+        run: |
+          python scripts/import-pri-vayera-chayei-footnotes.py
+          node scripts/test-pri-vayera-chayei-reader.mjs --after-archive
+          node scripts/test-pri-vayera-chayei-footnotes-browser.mjs
 
       - name: Build and verify library ZIP downloads
         run: node scripts/build-library-zips.mjs && node scripts/test-library-zips.mjs && node scripts/test-sefaria-packs.mjs && node scripts/test-source-zip-export.mjs
@@ -180,6 +189,26 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Verify all 929 footnotes on the published GitHub Pages reader
+        run: |
+          for attempt in 1 2 3; do
+            if node scripts/test-pri-vayera-chayei-footnotes-browser.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'; then
+              exit 0
+            fi
+            sleep 20
+          done
+          exit 1
+
+      - name: Save Pri Tzadik live verification report and screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pri-vayera-chayei-929-verification
+          path: |
+            pri-verification
+            dist/library/pri-vayera-chayei-footnotes-report.json
+          retention-days: 14
 
       - name: Save full source ZIPs to GitHub repository
         if: success()
