@@ -1,0 +1,260 @@
+name: Deploy Akiva Publishing to GitHub Pages
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Node for reader browser verification
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+
+      - name: Build static site
+        run: node scripts/build-pages.mjs
+
+      - name: Verify library homepage grouping and donation placement
+        run: node scripts/test-library-home-layout.mjs
+
+      - name: Import supplied Tzidkat HaTzadik expanded source footnotes
+        run: node scripts/import-tzidkat-reviewed.mjs
+
+      - name: Import collated English parallels into Tzidkat footnotes
+        run: node scripts/import-tzidkat-parallels.mjs
+
+      - name: Apply supplied 2,096 deduplicated Tzidkat footnotes and Sefaria parallels
+        run: python scripts/import-tzidkat-expanded-2096.py
+
+      - name: Import Mei HaShiloach Vayera to Bo translation and source annotations
+        run: node scripts/import-mei-vayera-bo.mjs
+
+      - name: Import reviewed Machshavot Charutz expanded English footnotes
+        run: node scripts/import-machshavot-charutz.mjs
+
+      - name: Import Divrei Soferim Har Bracha and expanded source footnotes
+        run: python scripts/import-divrei-footnotes.py
+
+      - name: Build library text data
+        run: node scripts/build-library.mjs
+
+      - name: Verify new Pri Tzaddik Vayera and Chayei Sara reader content and navigation
+        run: node scripts/test-pri-vayera-chayei-reader.mjs
+
+      - name: Verify all Likkutei Maamarim expanded English source footnotes
+        run: node scripts/test-likkutei-footnotes.mjs
+
+      - name: Validate 729 Sichat Malakhei HaSharet Hebrew-only English source footnotes
+        run: node scripts/test-sichat-footnotes.mjs
+
+      - name: Validate 116 Sichat Shedim English source notes with Hebrew-only anchors
+        run: node scripts/test-shedim-footnotes.mjs
+
+      - name: Validate 925 Poked Akarim Hebrew-only source footnotes
+        run: node scripts/test-poked-footnotes.mjs
+
+      - name: Validate all 1,687 Ohr Zarua LaTzadik Hebrew-anchored footnotes
+        run: node scripts/test-ohr-zarua-footnotes.mjs
+
+      - name: Validate all 242 Divrei Chalomot English source footnotes and Hebrew anchors
+        run: node scripts/test-divrei-chalomot-footnotes.mjs
+
+      - name: Validate all 1,619 Kometz HaMinchah Hebrew-anchored footnotes
+        run: node scripts/test-kometz-footnotes.mjs
+
+      - name: Add selectively reviewed Pri Tzaddik footnotes without overwriting original Word notes
+        run: node scripts/import-pri-selective-footnotes.mjs && node scripts/test-pri-selective-footnotes.mjs
+
+      - name: Fill footnotes in all 69 interlinear Pri Tzaddik sections and verify Hebrew anchors
+        run: node scripts/import-pri-all-footnotes.mjs && node scripts/import-pri-expanded-parallels.mjs && node scripts/test-pri-full-coverage.mjs && node scripts/test-pri-expanded-parallels.mjs
+
+      - name: Verify annotated Pri Tzaddik Noach homepage, reader, and downloads
+        run: node scripts/test-noach-home-links.mjs && node scripts/test-pri-tzadik-annotations.mjs
+
+      - name: Verify Pri Tzaddik Mar Cheshvan and Bereishis Ois 4 home links
+        run: node scripts/test-pri-marcheshvan-bereishis-home.mjs && node scripts/test-pri-rosh-chodesh-annotations.mjs
+
+      - name: Verify annotated Bereishis Ois Gimmel source commentary
+        run: node scripts/test-pri-bereishis3-commentary.mjs
+
+      - name: Import Yisrael Kedoshim English footnotes and Sefaria links
+        run: node scripts/import-yisrael-footnotes.mjs
+
+      - name: Verify Yisrael Kedoshim Hebrew anchors and links
+        run: node scripts/test-yisrael-footnotes.mjs
+
+      - name: Prepare and verify the supplied shiur recordings
+        run: node scripts/build-shiur-audio.mjs && node scripts/test-shiur-player.mjs && node scripts/test-noach6-media.mjs
+
+      - name: Verify interlinear Hebrew, nikkud, and Sefaria links
+        run: node scripts/test-interlinear-publication.mjs && node scripts/test-beit-yaakov-publication.mjs && node scripts/test-mei-shiloach-publication.mjs && node scripts/test-dover-footnotes.mjs && node scripts/test-tzidkat.mjs && node scripts/test-tzidkat-footnotes.mjs && node scripts/test-tzidkat-parallels.mjs && node scripts/test-machshavot-footnotes.mjs && node scripts/test-divrei-footnotes.mjs && node scripts/test-hazikhronot-footnotes.mjs
+
+      - name: Verify Hebrew-word footnotes in a mobile browser
+        run: |
+          npm install --no-save --package-lock=false playwright@1.62.1
+          npx playwright install --with-deps chromium
+          node scripts/test-pri-word-footnote-browser.mjs
+          node scripts/test-pri-full-coverage-browser.mjs
+          node scripts/test-machshavot-reader-browser.mjs
+          node scripts/test-tzidkat-reader-browser.mjs
+          node scripts/test-divrei-reader-browser.mjs
+          node scripts/test-hazikhronot-reader-browser.mjs
+          node scripts/test-poked-reader-browser.mjs
+          node scripts/test-ohr-zarua-reader-browser.mjs
+          node scripts/test-divrei-chalomot-reader-browser.mjs
+          node scripts/test-sichat-reader-browser.mjs
+          node scripts/test-shedim-reader-browser.mjs
+
+      - name: Reassemble and checksum verified 13-volume archives
+        run: python scripts/assemble-akiva-reader-13.py
+
+      - name: Apply fixed 13-volume annotated reader release when archive is staged
+        run: python scripts/apply-reader-expanded-13.py
+      - name: Verify Pri Tzaddik new Vayera and Chayei Sara content survives the 13-volume archive
+        run: node scripts/test-pri-vayera-chayei-reader.mjs --after-archive
+
+      - name: Install Meshiv HaTaanah and Meshiv Tzedek expanded Hebrew-anchored source footnotes
+        run: python scripts/apply-meshiv-2026.py
+
+      - name: Add editorial section titles and source-grounded thematic subheadings to six seforim
+        run: python scripts/apply-six-torah-headings.py && node scripts/test-six-torah-headings.mjs && node scripts/test-six-headings-reader-browser.mjs
+
+      - name: Publish and verify English descriptive contents and in-text headings in seven sefarim
+        run: python scripts/apply-seven-editorial-tocs.py && node scripts/test-seven-editorial-tocs.mjs
+
+      - name: Add 929 supplied Hebrew-anchored notes only to Pri Tzadik Vayera and Chayei Sara
+        run: python scripts/import-pri-vayera-chayei-footnotes.py
+
+      - name: Publish uploaded Pri Tzaddik Shevat and Tu BiShvat interlinear teachings after archive imports
+        run: node scripts/publish-pri-shevat-tubishvat.mjs && node scripts/test-pri-shevat-tubishvat.mjs
+
+      - name: Build and verify MCP search index and library parallels
+        run: node scripts/build-mcp-index.mjs && node scripts/build-parallels.mjs && node scripts/test-parallels.mjs && node scripts/test-mcp-server.mjs && node scripts/test-cloudflare-worker.mjs
+
+      - name: Publish and verify Et HaOchel translated source footnotes and unique parallels
+        run: node scripts/publish-et-haochel.mjs && node scripts/test-parallels.mjs && node scripts/test-et-haochel-reader-browser.mjs
+
+      - name: Verify supplied Bais Yaakov Vayera and Chayei Sarah documents in the final reader
+        run: node scripts/test-beit-yaakov-documents.mjs && node scripts/test-beit-yaakov-vayera-gap.mjs && node scripts/test-beit-yaakov-documents-browser.mjs
+
+      - name: Verify final Pri Tzadik footnote content and mobile and desktop popups
+        run: |
+          python scripts/import-pri-vayera-chayei-footnotes.py
+          node scripts/test-pri-vayera-chayei-reader.mjs --after-archive
+          node scripts/test-pri-vayera-chayei-footnotes-browser.mjs
+
+      - name: Verify final Pri Tzaddik Shevat and Tu BiShvat source text connections and reader navigation
+        run: node scripts/test-pri-shevat-tubishvat.mjs --final && node scripts/test-pri-shevat-tubishvat-browser.mjs
+
+      - name: Merge supplied Kislev Chanukah Shevat and Tu BiShvat source footnotes
+        run: |
+          python scripts/import-pri-seasonal-footnotes.py
+          node scripts/build-mcp-index.mjs
+          node scripts/test-mcp-server.mjs
+          node scripts/test-pri-seasonal-footnotes.mjs
+
+      - name: Build and verify library ZIP downloads
+        run: node scripts/build-library-zips.mjs && node scripts/test-library-zips.mjs && node scripts/test-sefaria-packs.mjs && node scripts/test-source-zip-export.mjs
+
+      - name: Verify Bais Yaakov original documents in offline downloads
+        run: node scripts/test-beit-yaakov-documents.mjs --zips && node scripts/test-beit-yaakov-vayera-gap.mjs --zips
+
+      - name: Verify seasonal source notes preserved chapters and exact Word editions in offline downloads
+        run: node scripts/test-pri-seasonal-footnotes.mjs --zips
+
+      - name: Cache official Sefaria source exports
+        uses: actions/cache@v4
+        with:
+          path: .cache/sefaria-export
+          key: sefaria-exports-${{ runner.os }}-${{ hashFiles('sources/akiva/packs/exports.json.gz') }}
+
+      - name: Build and verify collection ZIPs with meforshim
+        run: |
+          python -m pip install 'requests==2.32.5'
+          python scripts/build-sefaria-zips.py
+          python scripts/test-sefaria-zips.py
+
+      - name: Setup Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: Upload site
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ./dist
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Verify all 929 footnotes on the published GitHub Pages reader
+        run: |
+          for attempt in 1 2 3; do
+            if node scripts/test-pri-vayera-chayei-footnotes-browser.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'; then
+              exit 0
+            fi
+            sleep 20
+          done
+          exit 1
+
+      - name: Verify all four seasonal groups and footnote popups on the live reader
+        run: |
+          for attempt in 1 2 3; do
+            if node scripts/test-pri-seasonal-footnotes.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'; then
+              exit 0
+            fi
+            sleep 20
+          done
+          exit 1
+
+      - name: Save seasonal live reader verification
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pri-seasonal-live-verification
+          path: |
+            seasonal-verification
+            dist/library/pri-seasonal-footnotes-report.json
+          retention-days: 14
+
+      - name: Save Pri Tzadik live verification report and screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pri-vayera-chayei-929-verification
+          path: |
+            pri-verification
+            dist/library/pri-vayera-chayei-footnotes-report.json
+          retention-days: 14
+
+      - name: Save full source ZIPs to GitHub repository
+        if: success()
+        continue-on-error: true
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add -f incoming/akiva-reader-13-part-1.zip incoming/akiva-reader-13-part-2.zip
+          if ! git diff --cached --quiet; then
+            git commit -m "Store verified 13-volume reader archives [skip ci]"
+            git push origin HEAD:main
+          fi
+
