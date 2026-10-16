@@ -1135,7 +1135,14 @@ function renderLocalNode(node, isRoot) {
   else if (node.depth === 1) body = node.shape > 0 ? `<a class="btn single" href="#/read/${toHash(node.ref)}">Read · ${node.shape} ${node.shape === 1 ? 'paragraph' : 'paragraphs'}${node.il1 ? ' · interlinear English' : ''}</a>` : '<div class="empty">No text yet.</div>';
   else {
     const secs = sectionsOf(node);
-    if (node.depth === 2) body = `<div class="chapters">${node.shape.map((n, i) => {
+    if (node.depth === 2 && Array.isArray(node.chapterTitles) && node.chapterTitles.some(Boolean)) {
+      // English editorial contents replace bare numbered chapter buttons.
+      // Original stable refs remain untouched for saved links and offline data.
+      body = '<div class="toc-list thematic-toc">'+node.shape.map((n,i) => n
+        ? '<a href="#/read/'+toHash(node.ref+' '+(i+1))+'"><span class="en"><span class="toc-ois">Chapter '+(i+1)+'</span>'+esc(node.chapterTitles[i]||'Chapter '+(i+1))+'</span></a>'
+        : '').join('')+'</div>';
+    } else {
+      if (node.depth === 2) body = `<div class="chapters">${node.shape.map((n, i) => {
       const il = node.ilch && node.ilch.includes(i + 1);
       return n ? `<a href="#/read/${toHash(`${node.ref} ${i + 1}`)}" class="${il ? 'il' : ''}" title="${il ? 'Interlinear English · ' : ''}${n} paragraph${n === 1 ? '' : 's'}">${i + 1}</a>` : `<span>${i + 1}</span>`;
     }).join('')}</div>`;
@@ -1144,6 +1151,7 @@ function renderLocalNode(node, isRoot) {
       const byTop = {};
       secs.forEach(a => (byTop[a[0]] = byTop[a[0]] || []).push(a));
       body = Object.entries(byTop).map(([t, as]) => `<div class="sub-label">${t}</div><div class="chapters">${as.map(a => `<a href="#/read/${toHash(secRefOf(node, a))}">${a.slice(1).join(':')}</a>`).join('')}</div>`).join('');
+    }
     }
   }
   if (isRoot) return node.children ? body : `<div class="node">${body}</div>`;
