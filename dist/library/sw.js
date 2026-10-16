@@ -3,7 +3,7 @@
 // - Texts (data/) are served from cache and refreshed in the background.
 // - Sefaria API answers (English, connections, quoted sources) are network-first
 //   with the last answer kept for offline use; web fonts are cache-first.
-const VERSION = '20261016-et-haochel-240-5468b7180d41-20261016-pri-vayera-chayei-footnotes-929';
+const VERSION = 'v62-20261016-et-haochel-240-5468b7180d41-20261016-pri-vayera-chayei-footnotes-929';
 // Keep this layout refresh when a later publishing step updates the text edition version.
 const SHELL = `rtl-shell-${VERSION}-compact-noach-audio-20261016-beit-vayera-complete-20261016-pri-shevat-tubishvat-ff7e583f1cfb`;
 const DATA = 'rtl-data';
