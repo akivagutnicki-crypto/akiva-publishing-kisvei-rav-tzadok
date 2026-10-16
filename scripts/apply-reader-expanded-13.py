@@ -90,16 +90,92 @@ def merge_cited(old,new):
    raise ValueError('Invalid cited index for '+ref)
   selected=[x for x in n if target_ref(x)]
   if not selected:selected=[x for x in o if target_ref(x)]
-  out[ref]=list(dict.fromkeys([x for x in o if not target_ref(x)]+selected))
+  # Newer Vayera / Chayei Sara citations exist in the freshly built reader,
+  # but not in the older approved 13-volume ZIP; retain only those additions.
+  new_study=[x for x in o if isinstance(x,str) and
+             re.match(r'^Peri Tzadik, (?:Vayera|Chayei Sara) [0-9]+(?::|$)',x)]
+  out[ref]=list(dict.fromkeys([x for x in o if not target_ref(x)]+selected+new_study))
  return out
+
+# Keep the 18 newly edited teachings before the approved archival release
+# replaces the entire peri-tzadik folder. Preserve their exact paragraph JSON,
+# interlinear nikkud, topic headings and Sefaria citation links.
+STUDY_REFS=['Peri Tzadik, Vayera '+str(i) for i in range(1,8)]+[
+            'Peri Tzadik, Chayei Sara '+str(i) for i in range(1,12)]
+def study_leaves(node):
+ if not isinstance(node,dict):return []
+ children=node.get('children')
+ return sum((study_leaves(c) for c in children),[]) if isinstance(children,list) else ([node] if node.get('ref') else [])
+def snapshot_new_study():
+ location=BASE/'peri-tzadik'
+ toc=json.loads((location/'toc.json').read_text())
+ leaves=study_leaves(toc['toc'])
+ wanted={}
+ pairs=0
+ for ref in STUDY_REFS:
+  matching=[leaf for leaf in leaves if leaf.get('ref')==ref and leaf.get('interlinear')]
+  if len(matching)!=1:raise ValueError('Fresh Vayera/Chayei Sara chapter missing or duplicated: '+ref)
+  leaf=matching[0]
+  path=location/(str(leaf['id'])+'.json')
+  rows=json.loads(path.read_text())
+  phrase_pairs=[p for row in rows for p in row.get('p',[])]
+  if len(phrase_pairs)<5 or any(len(p)!=2 for p in phrase_pairs):
+   raise ValueError('Missing fresh interlinear text: '+ref)
+  pairs+=len(phrase_pairs)
+  wanted[ref]=(leaf,path.read_bytes())
+ if pairs!=1268:raise ValueError('New study phrases changed: expected 1268 got '+str(pairs))
+ links=json.loads((location/'links.json').read_text())
+ if not isinstance(links,dict):raise ValueError('Invalid source link index for Pri Tzaddik')
+ return wanted,{ref:links.get(ref,[]) for ref in STUDY_REFS}
+def restore_new_study(target,snapshot):
+ originals,new_links=snapshot
+ toc_path=target/'toc.json'
+ toc=json.loads(toc_path.read_text())
+ root=toc['toc']
+ if not isinstance(root.get('children'),list):raise ValueError('Pri Tzaddik archive TOC has no children')
+ existing=study_leaves(root)
+ used={x['id'] for x in existing if isinstance(x.get('id'),int)}
+ last=max(used or {-1})
+ study=next((x for x in root['children'] if x.get('en')=='Akiva Publishing — Interlinear Study Edition' and isinstance(x.get('children'),list)),None)
+ if study is None:
+  study={'en':'Akiva Publishing — Interlinear Study Edition',
+         'he':'מהדורה בין-שורתית — עקיבא פאבלישינג','children':[]}
+  root['children'].insert(0,study)
+ elif root['children'][0] is not study:
+  root['children'].remove(study);root['children'].insert(0,study)
+ # Replace any obsolete versions of these chapters, without disturbing other
+ # previously annotated sections in the 13-volume archive.
+ selected=set(STUDY_REFS)
+ for entry in root['children']:
+  if isinstance(entry.get('children'),list):
+   entry['children']=[c for c in entry['children'] if c.get('ref') not in selected]
+ for ref in STUDY_REFS:
+  leaf,body=originals[ref]
+  last+=1
+  while (target/(str(last)+'.json')).exists():last+=1
+  leaf=dict(leaf);leaf['id']=last
+  (target/(str(last)+'.json')).write_bytes(body)
+  study['children'].append(leaf)
+ toc['restoredVayeraChayeiSara']={'chapters':len(STUDY_REFS),
+                                  'phrasePairs':1268,'preservedArchiveFootnotes':True}
+ toc_path.write_text(json.dumps(toc,ensure_ascii=False,separators=(',',':'))+'\n')
+ linkfile=target/'links.json'
+ links=json.loads(linkfile.read_text())
+ if not isinstance(links,dict):raise ValueError('Invalid archived source index')
+ for ref in STUDY_REFS:links[ref]=new_links[ref]
+ linkfile.write_text(json.dumps(links,ensure_ascii=False,separators=(',',':'))+'\n')
+ print('PASS restored all 18 Pri Tzaddik Vayera/Chayei Sara teachings and 1,268 exact phrase pairs after archive replacement')
 def install(data):
  before={b:hashdir(BASE/b) for b in EXCLUDED}
+ saved_study=snapshot_new_study()
  with tempfile.TemporaryDirectory(dir=BASE.parent,prefix='akiva-stage-') as td:
   stage=Path(td)/'data';stage.mkdir()
   for name,body in data.items():
    rel=name.removeprefix('data/')
    if rel.startswith('cited/') or rel in ('catalog.json','files.json'):continue
    p=stage/rel;p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(body)
+  # Merge the new 18 teachings into the archived folder before swapping it in.
+  restore_new_study(stage/'peri-tzadik',saved_study)
   cited=stage/'cited';cited.mkdir()
   active=BASE/'cited'
   files=set(p.name for p in active.glob('*.json')) if active.exists() else set()
@@ -139,7 +215,7 @@ def install(data):
  sw=BASE.parent/'sw.js'
  if sw.exists():
   code=sw.read_text()
-  tag='v60-akiva-expanded-13-'+sha(MANIFEST.read_bytes())[:12]
+  tag='v61-akiva-expanded-13-vayera-chayei-'+sha(MANIFEST.read_bytes())[:12]
   upgraded=re.sub(r"const VERSION = '[^']+';", "const VERSION = '"+tag+"';",code,count=1)
   if upgraded==code:raise ValueError('Service worker version marker missing')
   sw.write_text(upgraded)
