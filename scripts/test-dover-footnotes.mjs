@@ -23,9 +23,9 @@ async function checkDoverRefresh() {
   const editionFunction = html.match(/^const editionDataUrl = url => [\s\S]*?;\s*(?=const catalogReady)/m)?.[0];
   if (!editionFunction) throw new Error('Reader data URL function missing');
   const currentUrl = vm.runInNewContext(editionFunction + '\neditionDataUrl("data/dover-tzedek/1-2.json")');
-  if (!currentUrl.includes('20261018-dover-source-quotes-2570'))
+  if (!currentUrl.includes('20261018-dover-elaboration-sources'))
     throw new Error('Dover still uses its old edition cache key');
-  if (!worker.includes('dover-source-quotes-20261018'))
+  if (!worker.includes('dover-elaboration-sources-20261018'))
     throw new Error('Installed reader shell has no Dover update version');
   const handlers = {}, entries = new Map();
   const request = new Request('https://reader.example/library/data/dover-tzedek/1-2.json?edition=previous');
@@ -53,6 +53,40 @@ async function checkDoverRefresh() {
 }
 await checkDoverRefresh();
 const expected = new Map(pack.notes.map(note => [note.number, note]));
+const review = JSON.parse(fs.readFileSync('editorial/dover-elaboration-source-review.json', 'utf8'));
+const reviewedSources = [...new Map(review.review.flatMap(entry => entry.results.filter(r => r.status === 'new')).map(source => [source.number, source])).values()];
+if (review.triggerCount !== 155 || reviewedSources.length !== review.notesAdded.length)
+  throw new Error('Dover elaboration review is incomplete');
+const bareHebrew = text => String(text).replace(/<[^>]+>/g, '').replace(/[^\u05d0-\u05ea]/g, '');
+const sourceCache = new Map();
+for (const source of reviewedSources) {
+  const note = expected.get(source.number);
+  if (!note || !['שמעתי', 'קבלתי', 'להאריך'].some(cue => note.heWordText.includes(cue)))
+    throw new Error('New source note is missing its Hebrew elaboration cue: ' + source.number);
+  if (note.paragraphs[0].rich[0].text !== 'Parallel: ' + source.sourceRef ||
+      !note.paragraphs[0].text.endsWith('“' + source.translation.trim() + '”'))
+    throw new Error('New source note lost its exact citation or full translation: ' + source.number);
+  const path = source.sourcePath.replace(/^reader-repo\//, '');
+  if (!sourceCache.has(path)) {
+    const strings = [];
+    const walk = value => {
+      if (typeof value === 'string') strings.push(value);
+      else if (value && typeof value === 'object') Object.values(value).forEach(walk);
+    };
+    const raw = JSON.parse(fs.readFileSync(path, 'utf8'));
+    walk(raw.text ?? raw);
+    sourceCache.set(path, bareHebrew(strings.join(' ')));
+  }
+  const original = sourceCache.get(path);
+  let cursor = 0;
+  for (const excerpt of source.hebrewQuote.split(/…|\.\.\./)) {
+    const quote = bareHebrew(excerpt);
+    if (!quote) continue;
+    const found = original.indexOf(quote, cursor);
+    if (found < 0) throw new Error('Quoted Hebrew does not match its source: ' + source.number);
+    cursor = found + quote.length;
+  }
+}
 const seen = new Map();
 for (const f of fs.readdirSync(dir).filter(f => /^\d+-\d+\.json$/.test(f))) {
   let items;
@@ -75,6 +109,8 @@ for (const f of fs.readdirSync(dir).filter(f => /^\d+-\d+\.json$/.test(f))) {
         throw new Error(`Footnote ${note.number} does not contain the complete current quotation`);
       const words = String(item.p[note.phraseIndex][0]).replace(/<[^>]+>/g, '').split(/\s+/).filter(Boolean);
       if (!(note.heWord >= 1 && note.heWord <= words.length)) throw new Error(`Footnote ${note.number} is not beside a Hebrew word`);
+      if (sourceNote.heWordText && bareHebrew(words[note.heWord - 1]) !== sourceNote.heWordText)
+        throw new Error(`Footnote ${note.number} moved away from its Hebrew word`);
       seen.set(note.number, f);
     }
   }
