@@ -20,7 +20,7 @@ async function checkDoverRefresh() {
     return response.text();
   };
   const [worker, html] = await Promise.all([asset('sw.js'), asset('index.html')]);
-  const editionFunction = html.match(/^const editionDataUrl = url => .*;$/m)?.[0];
+  const editionFunction = html.match(/^const editionDataUrl = url => [\s\S]*?;\s*(?=const catalogReady)/m)?.[0];
   if (!editionFunction) throw new Error('Reader data URL function missing');
   const currentUrl = vm.runInNewContext(editionFunction + '\neditionDataUrl("data/dover-tzedek/1-2.json")');
   if (!currentUrl.includes('20261018-dover-source-quotes-2570'))
