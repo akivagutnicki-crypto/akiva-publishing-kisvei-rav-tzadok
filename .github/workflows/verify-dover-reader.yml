@@ -1,0 +1,42 @@
+name: Verify live Dover Tzedek reader
+
+on:
+  push:
+    branches: ["main"]
+    paths:
+      - scripts/test-dover-revisions.mjs
+      - .github/workflows/verify-dover-reader.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v6
+
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+
+      - name: Install browser test tools
+        run: |
+          npm install --no-save --package-lock=false playwright@1.62.1
+          npx playwright install --with-deps chromium
+
+      - name: Verify live Dover contents, headings, navigation, and source notes
+        run: node scripts/test-dover-revisions.mjs --url https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/
+
+      - name: Save heading jump diagnostics when present
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dover-reader-verification
+          path: dover-reader-verification
+          if-no-files-found: ignore
+          retention-days: 14

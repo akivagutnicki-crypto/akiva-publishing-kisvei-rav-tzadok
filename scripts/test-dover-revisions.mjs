@@ -320,6 +320,27 @@ const topicHash=entry=>{
   return chapterHash(entry.ref)+'?'+params;
 };
 const outlineEntries=[...leaves.values()].flatMap(leaf=>leaf.chapterOutlines?.flat()||[]);
+const assertHeadingInViewport=async(page,selector,message)=>{
+  let ready=true;
+  try {
+    await page.waitForFunction(selector=>[...document.querySelectorAll('#text '+selector)].some(element=>{
+      const box=element.getBoundingClientRect();return element.classList.contains('flash')&&box.height>0&&box.top>=-1&&box.bottom<=innerHeight+1;
+    }),selector,{timeout:10000});
+  } catch {ready=false;}
+  const bounds=await page.locator('#text '+selector).evaluateAll(elements=>elements.map(element=>{
+    const box=element.getBoundingClientRect();
+    return {top:box.top,bottom:box.bottom,height:box.height,viewportHeight:innerHeight,viewportWidth:innerWidth,
+      scrollY,fonts:document.fonts?.status,jumpApplied:element.classList.contains('flash')};
+  }));
+  const visible=ready&&bounds.some(box=>box.jumpApplied&&box.height>0&&box.top>=-1&&box.bottom<=box.viewportHeight+1);
+  if(!visible) {
+    const directory='dover-reader-verification',name='heading-jump-'+Date.now();
+    fs.mkdirSync(directory,{recursive:true});
+    fs.writeFileSync(path.join(directory,name+'.json'),JSON.stringify({message,url:page.url(),bounds},null,2));
+    await page.screenshot({path:path.join(directory,name+'.png'),fullPage:false});
+  }
+  assert.ok(visible,message+': '+JSON.stringify(bounds));
+};
 const targets = [];
 const walk = node => {
   if (node.children) node.children.forEach(walk);
@@ -370,11 +391,9 @@ try {
     await page.locator(`#toc a[data-topic-link][href="${topicHash(adapted)}"]`).first().click();
     await page.waitForURL(url=>url.hash===topicHash(adapted),{timeout:45000});
     const adaptedSelector=await page.evaluate(entry=>`.subhead[data-topic-ref="${CSS.escape(entry.ref)}"][data-topic-title="${CSS.escape(entry.title)}"]`,adapted);
-    await page.locator('#text '+adaptedSelector).first().waitFor({state:'visible',timeout:45000});
+    await page.locator('#text '+adaptedSelector+'.flash').first().waitFor({state:'visible',timeout:45000});
     assert.equal(await page.locator('#panel').isVisible(),false,'Contents jump must leave the reading area open');
-    assert.ok(await page.locator('#text '+adaptedSelector).evaluateAll(elements=>elements.some(element=>{
-      const box=element.getBoundingClientRect();return box.height>0&&box.top>=-1&&box.bottom<=innerHeight+1;
-    })),'Paragraph subsection link did not scroll to the adapted heading');
+    await assertHeadingInViewport(page,adaptedSelector,'Paragraph subsection link did not scroll to the adapted heading');
     await page.locator('#tocBtn').click();
     await page.locator('#toc a[data-topic-link]').first().waitFor({state:'attached',timeout:45000});
     // Follow a subsection link to its actual phrase heading, then exercise the
@@ -387,11 +406,9 @@ try {
     await topicLink.click();
     await page.waitForURL(url=>url.hash===topicHash(topic),{timeout:45000});
     const topicSelector=await page.evaluate(entry=>`.subhead[data-topic-ref="${CSS.escape(entry.ref)}"][data-topic-title="${CSS.escape(entry.title)}"][data-topic-phrase-index="${entry.phraseIndex}"]`,topic);
-    await page.locator('#text '+topicSelector).first().waitFor({state:'attached',timeout:45000});
+    await page.locator('#text '+topicSelector+'.flash').first().waitFor({state:'visible',timeout:45000});
     assert.equal(await page.locator('#panel').isVisible(),false,'Within-paragraph contents jump must leave the reading area open');
-    assert.ok(await page.locator('#text '+topicSelector).evaluateAll(elements=>elements.some(element=>{
-      const box=element.getBoundingClientRect();return box.height>0&&box.top>=-1&&box.bottom<=innerHeight+1;
-    })),'Subsection link did not scroll to its actual phrase heading');
+    await assertHeadingInViewport(page,topicSelector,'Subsection link did not scroll to its actual phrase heading');
     const topicParagraph=page.locator(`.seg[data-ref="${topic.ref}"]`).first();
     const topicSectionRef=topic.ref.replace(/:\d+$/,'');
     const topicRow=[...sections.values()].find(section=>section.entry.ref===topicSectionRef)?.rows.find(row=>row.p&&topic.ref.endsWith(':'+row.n));
