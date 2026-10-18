@@ -104,6 +104,20 @@ const quarantined = new Map(clean.quarantinedNotes.map(entry => [entry.note.numb
 assert.equal(original.size, clean.notes.length, 'Duplicate retained baseline note');
 assert.equal(quarantined.size, clean.quarantinedNotes.length, 'Duplicate quarantined note');
 assert.ok([...original.keys()].every(number => !quarantined.has(number)), 'A quarantined note remains in the clean baseline');
+// Reviewed sources may need a Hebrew anchor the original edition never had. Such anchors take
+// fresh numbers above the 2,698 original notes and never move or reuse an original number.
+const created = new Map((approved.newPlacements||[]).map(record => [record.number, {file:record.file, paragraph:record.paragraph, note:record}]));
+assert.equal(created.size, (approved.newPlacements||[]).length, 'Duplicate new placement number');
+const takenAnchors = new Set([...clean.notes, ...clean.quarantinedNotes].map(entry => JSON.stringify([entry.file, entry.paragraph, entry.note.phraseIndex, entry.note.heWord])));
+for (const [number, entry] of created) {
+  assert.ok(Number.isInteger(number) && number > 2698 && !original.has(number) && !quarantined.has(number), 'A new placement reuses an original note number');
+  assert.equal(entry.note.sourceId, 'DT-'+String(number).padStart(4,'0'), 'Invalid new placement source ID');
+  assert.equal(entry.note.placementId, entry.note.sourceId+'-1', 'Invalid new placement ID');
+  assert.ok(String(entry.note.reason||'').trim(), 'A new placement must state its reason');
+  const key = JSON.stringify([entry.file, entry.paragraph, entry.note.phraseIndex, entry.note.heWord]);
+  assert.ok(!takenAnchors.has(key), 'A new placement duplicates an existing Hebrew anchor');
+  takenAnchors.add(key);
+}
 const replacements = new Map(), canonicalRefs = new Set(), quoteKeys = new Set(), approvedIds = new Set();
 const refKey = value => String(value).normalize('NFC').toLowerCase().replace(/[\s_]+/g,' ').trim();
 const expectedAdditions = replacement => {
@@ -117,7 +131,7 @@ for (const replacement of approved.replacements) {
   assert.match(replacement.targetSourceId, /^DT-\d{4}$/);
   assert.equal(replacement.targetPlacementId, replacement.targetSourceId+'-1');
   const number = +replacement.targetSourceId.slice(3);
-  assert.ok(original.has(number) || quarantined.has(number), 'Approved replacement has no original Hebrew anchor');
+  assert.ok(original.has(number) || quarantined.has(number) || created.has(number), 'Approved replacement has no Hebrew anchor');
   const key = refKey(replacement.canonicalRef);
   assert.ok(key && !canonicalRefs.has(key), 'A canonical source passage is used more than once');
   canonicalRefs.add(key);
@@ -138,6 +152,7 @@ for (const replacement of approved.replacements) {
   (replacements.get(number) || replacements.set(number, []).get(number)).push(replacement);
 }
 const finalNumbers = new Set([...original.keys(), ...replacements.keys()]);
+assert.ok([...created.keys()].every(number=>replacements.has(number)), 'A new placement has no approved source');
 const finalQuarantined = [...quarantined.keys()].filter(number=>!replacements.has(number));
 assert.deepEqual([...report.quarantinedNumbers].sort((a,b)=>a-b), finalQuarantined.sort((a,b)=>a-b), 'Final quarantine manifest changed');
 const expected = new Map(report.expectedNotes.map(note => [note.number,note]));
@@ -146,7 +161,8 @@ assert.deepEqual([...expected.keys()].sort((a,b)=>a-b), [...finalNumbers].sort((
 assert.equal(report.notes, finalNumbers.size);
 assert.equal(report.counts.retainedBaseNotes, original.size);
 assert.equal(report.counts.quarantinedNotes, finalQuarantined.length);
-assert.equal(report.counts.restoredNotes, [...replacements.keys()].filter(number=>!original.has(number)).length);
+assert.equal(report.counts.restoredNotes, [...replacements.keys()].filter(number=>quarantined.has(number)).length);
+assert.equal(report.counts.newPlacements ?? 0, created.size, 'New placement count changed');
 assert.equal(report.counts.retainedBaseParagraphs, clean.notes.reduce((count,entry)=>count+entry.note.paragraphs.length,0));
 assert.equal(report.counts.approvedReplacements, approved.replacements.length);
 const rejectedHashes = new Set(clean.rejectedTextHashes);
@@ -258,7 +274,7 @@ for (const entry of report.sections) {
     const label = `${entry.file}, footnote ${note.number}`;
     assert.ok(!seen.has(note.number), 'Duplicate '+label); seen.add(note.number);
     const source = expected.get(note.number), baseline = original.get(note.number);
-    const anchor = baseline || quarantined.get(note.number);
+    const anchor = baseline || quarantined.get(note.number) || created.get(note.number);
     const old = anchor?.note;
     assert.ok(source && old, 'Unknown stable number '+label);
     assert.equal(source.file, entry.file, 'Wrong chapter '+label);
