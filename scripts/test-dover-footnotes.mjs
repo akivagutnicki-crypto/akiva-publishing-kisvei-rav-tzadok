@@ -88,6 +88,32 @@ for (const source of reviewedSources) {
   }
 }
 const seen = new Map();
+// The uploaded revision adds translated parallel passages around these reviewed
+// quotations. Keep the original source-evidence checks above, then compare the
+// final reader with the complete late-published revision when it is present.
+let publicationExpected = expected;
+const readPublication = async file => {
+  if (!publicBase) return JSON.parse(fs.readFileSync(`dist/library/${file}`, 'utf8'));
+  const url = new URL(file, publicBase.endsWith('/') ? publicBase : publicBase + '/');
+  url.searchParams.set('dover-publication-check', String(Date.now()));
+  const response = await fetch(url, {cache: 'no-store'});
+  if (!response.ok) throw new Error(`Cannot read ${file}: HTTP ${response.status}`);
+  return response.json();
+};
+const publicationToc = await readPublication('data/dover-tzedek/toc.json');
+if (publicationToc.revisedFootnotes?.release === '20261018-dover-revisions-v1') {
+  const publication = await readPublication('dover-revisions-report.json');
+  if (publication.release !== publicationToc.revisedFootnotes.release || publication.expectedNotes.length !== expected.size)
+    throw new Error('Dover revision publication report is incomplete');
+  publicationExpected = new Map(publication.expectedNotes.map(note => [note.number, note]));
+  for (const note of pack.notes) {
+    const published = publicationExpected.get(note.number);
+    // Every earlier complete source quotation, including secondary paragraphs,
+    // must remain verbatim. The uploaded revision cannot replace it by a teaser.
+    if (!published || note.paragraphs.some(p => !published.paragraphs.some(q => JSON.stringify(p) === JSON.stringify(q))))
+      throw new Error('Dover revision lost an earlier complete quotation: ' + note.number);
+  }
+}
 for (const f of fs.readdirSync(dir).filter(f => /^\d+-\d+\.json$/.test(f))) {
   let items;
   if (publicBase) {
@@ -105,7 +131,7 @@ for (const f of fs.readdirSync(dir).filter(f => /^\d+-\d+\.json$/.test(f))) {
       if (!/[A-Za-z]{3}/.test(text)) throw new Error(`Footnote ${note.number} has no English text`);
       const sourceNote = expected.get(note.number);
       if (!sourceNote) throw new Error(`Unexpected Dover footnote ${note.number}`);
-      if (JSON.stringify(note.paragraphs) !== JSON.stringify(sourceNote.paragraphs))
+      if (JSON.stringify(note.paragraphs) !== JSON.stringify(publicationExpected.get(note.number).paragraphs))
         throw new Error(`Footnote ${note.number} does not contain the complete current quotation`);
       const words = String(item.p[note.phraseIndex][0]).replace(/<[^>]+>/g, '').split(/\s+/).filter(Boolean);
       if (!(note.heWord >= 1 && note.heWord <= words.length)) throw new Error(`Footnote ${note.number} is not beside a Hebrew word`);
