@@ -452,16 +452,22 @@ def main():
     index_path = ROOT / 'index.html'
     index = index_path.read_text()
     old_key = '20261018-dover-elaboration-sources'
-    new_key = old_key + '-revisions-v2-title-paragraphs-v1'
+    new_key = old_key + '-revisions-v2-title-paragraphs-v1-headings-v1'
     if new_key not in index:
         if old_key not in index:
             raise ValueError('Existing Dover reader cache key is missing')
-        index_path.write_text(re.sub(re.escape(old_key) + r'(?:-revisions-v\d+)?(?:-title-paragraphs-v\d+)?', new_key, index))
+        index_path.write_text(re.sub(re.escape(old_key) + r'(?:-revisions-v\d+)?(?:-title-paragraphs-v\d+)?(?:-headings-v\d+)?', new_key, index))
     worker_path = ROOT / 'sw.js'
     worker = worker_path.read_text()
     shell_version = re.search(r'^const SHELL = `([^`]+)`;', worker, re.M)
     if not shell_version or '-dover-title-paragraphs-v1' not in shell_version.group(1):
         worker, count = re.subn(r'(const SHELL = `[^`]+)(`;)', r'\1-dover-title-paragraphs-v1\2', worker, count=1)
+        if count != 1:
+            raise ValueError('Existing reader shell cache version is missing')
+        worker_path.write_text(worker)
+    shell_version = re.search(r'^const SHELL = `([^`]+)`;', worker, re.M)
+    if not shell_version or '-dover-headings-v1' not in shell_version.group(1):
+        worker, count = re.subn(r'(const SHELL = `[^`]+)(`;)', r'\1-dover-headings-v1\2', worker, count=1)
         if count != 1:
             raise ValueError('Existing reader shell cache version is missing')
         worker_path.write_text(worker)

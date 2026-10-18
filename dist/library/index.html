@@ -305,6 +305,13 @@ a.cite:hover{text-decoration-color:var(--link)}
 .toc-list .en{font:500 1.05rem var(--en)}
 .toc-list .toc-ois{display:inline-block;white-space:nowrap;font:700 .78rem/1.5 var(--ui);color:var(--forest);background:var(--soft);border:1px solid var(--line);border-radius:4px;padding:2px 8px;margin-inline-end:10px}
 .toc-list .he{font:500 1.15rem/1.5 var(--he);color:var(--muted)}
+.chapter-outline{padding:0 12px 14px 20px;border-bottom:1px solid var(--line)}
+.chapter-outline>summary{cursor:pointer;font:600 .83rem/1.5 var(--ui);color:var(--forest);padding:8px 0}
+.chapter-outline ul{list-style:none;padding:0 0 0 16px;margin:4px 0 10px;border-left:1px solid var(--line)}
+.chapter-outline a{display:block;padding:6px 8px;border:0;font:400 .97rem/1.45 var(--en)}
+.chapter-outline .toc-topic-group>summary{cursor:pointer;font:600 1rem/1.45 var(--en);padding:3px 0}
+.chapter-outline .toc-topic-group>summary a{display:inline;font-weight:600}
+.subhead.flash{animation:flash 1.8s ease}
 .footnote-marker{color:var(--ox);font:700 .7em var(--ui);cursor:pointer;padding:0 2px}
 /* Footnote markers: keep the small superscript look but give fingers a real target.
    An invisible ::after enlarges the tappable area (~40x44px on touch) without moving the text. */
@@ -601,7 +608,7 @@ const info = t => INFO[t] || {};
 let CATALOG = [];
 // Edition URLs keep older installed app caches from mixing Hebrew-only data
 // with the new interlinear contents. The service worker also accepts saved packs.
-const editionDataUrl = url => url.startsWith('data/dover-tzedek/') ? url + '?edition=20261018-dover-elaboration-sources-revisions-v2-title-paragraphs-v1' : (url.startsWith('data/peri-tzadik/') || url === 'data/catalog.json' || url.startsWith('data/cited/') || url === 'data/packs/sources.json' || url === 'data/files.json') ? url + '?edition=20261016-pri-shevat-tubishvat-399c2228eea0' : (url.startsWith('data/et-haochel/') || url === 'data/parallels/et-haochel.json') ? url + '?edition=20261016-et-haochel-240-5468b7180d41' : url.startsWith('data/') ? url + ((url === 'data/catalog.json' || url.startsWith('data/beit-yaakov-on-torah/') || url.startsWith('data/cited/')) ? '?edition=20261016-beit-vayera-complete-v2' : (url.startsWith('data/tzidkat-hatzadik/') || url.startsWith('data/dover-tzedek/') || url === 'data/catalog.json' || url.startsWith('data/cited/')) ? '?edition=20261014-collated-tzidkat-parallels-v2-97' : url.startsWith('data/mei-ha-shiloach/') ? '?edition=20261014-mei-vayera-bo-reader-fix-v1' : url.startsWith('data/meshiv-tzedek/') ? '?edition=20261012-meshiv-tzedek-interlinear-v1' : url.startsWith('data/meshiv-hata-anah/') ? '?edition=20261012-meshiv-interlinear-v3' : /^data\/(?:peri-tzadik\/|tiferet-yosef\/|beit-yaakov-on-torah\/|mei-ha-shiloach\/|files\.json)/.test(url) ? '?edition=20261016-pri-thematic-headings-v3-footnotes929' : url.startsWith('data/et-haochel/') ? '?edition=20261016-et-haochel-headings-v2' : url.startsWith('data/yisrael-kedoshim/') ? '?edition=20261006-yisrael-4-opening' : url.startsWith('data/divrei-soferim/') ? '?edition=20261014-divrei-491-footnotes-v1' : url.startsWith('data/machshavot-charutz/') ? '?edition=20261006-machshavot-format' : '?edition=20261006-resisei-complete') : url;
+const editionDataUrl = url => url.startsWith('data/dover-tzedek/') ? url + '?edition=20261018-dover-elaboration-sources-revisions-v2-title-paragraphs-v1-headings-v1' : (url.startsWith('data/peri-tzadik/') || url === 'data/catalog.json' || url.startsWith('data/cited/') || url === 'data/packs/sources.json' || url === 'data/files.json') ? url + '?edition=20261016-pri-shevat-tubishvat-399c2228eea0' : (url.startsWith('data/et-haochel/') || url === 'data/parallels/et-haochel.json') ? url + '?edition=20261016-et-haochel-240-5468b7180d41' : url.startsWith('data/') ? url + ((url === 'data/catalog.json' || url.startsWith('data/beit-yaakov-on-torah/') || url.startsWith('data/cited/')) ? '?edition=20261016-beit-vayera-complete-v2' : (url.startsWith('data/tzidkat-hatzadik/') || url.startsWith('data/dover-tzedek/') || url === 'data/catalog.json' || url.startsWith('data/cited/')) ? '?edition=20261014-collated-tzidkat-parallels-v2-97' : url.startsWith('data/mei-ha-shiloach/') ? '?edition=20261014-mei-vayera-bo-reader-fix-v1' : url.startsWith('data/meshiv-tzedek/') ? '?edition=20261012-meshiv-tzedek-interlinear-v1' : url.startsWith('data/meshiv-hata-anah/') ? '?edition=20261012-meshiv-interlinear-v3' : /^data\/(?:peri-tzadik\/|tiferet-yosef\/|beit-yaakov-on-torah\/|mei-ha-shiloach\/|files\.json)/.test(url) ? '?edition=20261016-pri-thematic-headings-v3-footnotes929' : url.startsWith('data/et-haochel/') ? '?edition=20261016-et-haochel-headings-v2' : url.startsWith('data/yisrael-kedoshim/') ? '?edition=20261006-yisrael-4-opening' : url.startsWith('data/divrei-soferim/') ? '?edition=20261014-divrei-491-footnotes-v1' : url.startsWith('data/machshavot-charutz/') ? '?edition=20261006-machshavot-format' : '?edition=20261006-resisei-complete') : url;
 const catalogReady = fetch(editionDataUrl('data/catalog.json')).then(r => r.ok ? r.json() : []).catch(() => []).then(c => { CATALOG = c; return c; });
 const localBook = t => CATALOG.find(b => b.title === t);
 const tocCache = new Map();
@@ -669,6 +676,7 @@ async function resolveLocal(ref) {
     ? leaves.filter(l => l.interlinear) : leaves;
   const all = [...new Set(readingLeaves.flatMap(l => sectionsOf(l).map(a => secRefOf(l, a))))];
   const sectionRef = secRefOf(leaf, addr), k = all.indexOf(sectionRef);
+  const chapterDisplayTitle = leaf.chapterTitleDisplay && leaf.chapterTitles?.[addr[0] - 1];
   const sep = leaf.sep || (secLen ? ':' : ' ');
   let he = Array.isArray(text) ? text : [text], en = [], phrases = null, heads = null, phraseHeads = null, tables = null, transcriptionNotes = null, annotations = null, related = null;
   // A saved contents file can predate an edition update (or vice versa).
@@ -696,7 +704,9 @@ async function resolveLocal(ref) {
   }
   return {
     local: true, ref: sectionRef, sectionRef, heRef: leaf.interlinear ? leaf.heRef : heSecRefOf(leaf, addr), book: book.title, heBook: book.he,
-    he, en, phrases, heads, phraseHeads, tables, nums, transcriptionNotes, annotations, related, paragraphTranslation, chapterLinks: !!il, title: leaf.interlinear ? {en: leaf.en, he: leaf.he, ois: leaf.ois, parashah: leaf.parashah} : null,
+    he, en, phrases, heads, phraseHeads, tables, nums, transcriptionNotes, annotations, related, paragraphTranslation,
+    displayTitle: chapterDisplayTitle ? `${book.title} — ${chapterDisplayTitle}` : null, studyHeading: chapterDisplayTitle || null,
+    chapterLinks: !!il, title: leaf.interlinear ? {en: leaf.en, he: leaf.he, ois: leaf.ois, parashah: leaf.parashah} : null,
     sourceUrl: leaf.sourceUrl || null, downloadDocx: leaf.downloadDocx || null, downloadDocxLabel: leaf.downloadDocxLabel || null,
     segmentLevel: false, sep, highlight: segment ? `${sectionRef}${sep}${segment}` : null,
     next: all[k + 1] || null, prev: k > 0 ? all[k - 1] : null,
@@ -867,7 +877,7 @@ function route() {
   const [kind, ...rest] = h.split('/');
   const arg = fromHash(rest.join('/').split('?')[0]);
   if (kind === 'book') return renderBook(arg);
-  if (kind === 'read') return renderReader(arg);
+  if (kind === 'read') return renderReader(arg, new URLSearchParams(rest.join('/').split('?').slice(1).join('?')));
   if (kind === 'install') return renderInstall();
   if (kind === 'downloads') return renderDownloads();
   if (kind === 'support') return renderSupport();
@@ -989,7 +999,7 @@ async function renderHome() {
         <p><strong>Annotated Pri Tzaddik · Bereishis Ois 4</strong></p>
         <a class="link" href="#/read/Peri_Tzadik,_Bereshit_4">Read annotated Bereishis Ois 4 with 24 source footnotes →</a>
         <a class="link" href="blog/">All Weekly Torah essays →</a></section>
-      ${recent.length ? `<section class="recent"><h3>Continue reading</h3>${recent.slice(0, 5).map(r => `<a href="#/read/${toHash(r.ref)}"><span>${esc(r.ref)}</span><span class="he" lang="he">${esc(r.heRef || '')}</span></a>`).join('')}</section>` : ''}
+      ${recent.length ? `<section class="recent"><h3>Continue reading</h3>${recent.slice(0, 5).map(r => `<a href="#/read/${toHash(r.ref)}"><span>${esc(r.displayTitle || r.ref)}</span><span class="he" lang="he">${esc(r.heRef || '')}</span></a>`).join('')}</section>` : ''}
       <section>
         <h3>Start here</h3>
         <a class="link" href="#/read/${toHash('Takanat HaShavin 1')}">Takanat HaShavin, Chapter 1 →</a>
@@ -1149,11 +1159,11 @@ function renderLocalNode(node, isRoot) {
   else if (node.depth === 1) body = node.shape > 0 ? `<a class="btn single" href="#/read/${toHash(node.ref)}">Read · ${node.shape} ${node.shape === 1 ? 'paragraph' : 'paragraphs'}${node.bi1 ? ' · English translation' : node.il1 ? ' · interlinear English' : ''}</a>` : '<div class="empty">No text yet.</div>';
   else {
     const secs = sectionsOf(node);
-    if (node.depth === 2 && Array.isArray(node.chapterTitles) && node.chapterTitles.some(Boolean)) {
+    if (node.depth === 2 && ((Array.isArray(node.chapterTitles) && node.chapterTitles.some(Boolean)) || node.chapterOutlines?.some(entries=>entries?.length))) {
       // English editorial contents replace bare numbered chapter buttons.
       // Original stable refs remain untouched for saved links and offline data.
       body = '<div class="toc-list thematic-toc">'+node.shape.map((n,i) => n
-        ? '<a href="#/read/'+toHash(node.ref+' '+(i+1))+'"><span class="en"><span class="toc-ois">Chapter '+(i+1)+'</span>'+esc(node.chapterTitles[i]||'Chapter '+(i+1))+'</span></a>'
+        ? '<div class="toc-chapter"><a href="#/read/'+toHash(node.ref+' '+(i+1))+'"><span class="en"><span class="toc-ois">Chapter '+(i+1)+'</span>'+esc(node.chapterTitles?.[i]||node.en+' '+(i+1))+'</span></a>'+renderChapterOutline(node.chapterOutlines?.[i]||[])+'</div>'
         : '').join('')+'</div>';
     } else {
       if (node.depth === 2) body = `<div class="chapters">${node.shape.map((n, i) => {
@@ -1171,6 +1181,24 @@ function renderLocalNode(node, isRoot) {
   if (isRoot) return node.children ? body : `<div class="node">${body}</div>`;
   if (!node.en && !node.he) return `<div class="node">${body}</div>`;
   return `<div class="node"><h3><span>${esc(node.en)}</span><span class="he" lang="he">${esc(node.he)}</span></h3>${body}</div>`;
+}
+function outlineHref(entry) {
+  const params=new URLSearchParams({heading:entry.title});
+  if(Number.isInteger(entry.phraseIndex)) params.set('topic',entry.phraseIndex);
+  return '#/read/'+toHash(entry.ref)+'?'+params;
+}
+function renderChapterOutline(entries) {
+  if(!entries.length) return '';
+  const groups=[];let current=null;
+  for(const entry of entries) {
+    if(entry.kind==='section') {current={entry,children:[]};groups.push(current);}
+    else if(current) current.children.push(entry);
+    else groups.push({entry,children:[]});
+  }
+  const link=entry=>'<a data-topic-link href="'+esc(outlineHref(entry))+'">'+esc(entry.title)+'</a>';
+  return '<details class="chapter-outline"><summary>Sections and subsections</summary><ul>'+groups.map(group=>group.children.length
+    ? '<li><details class="toc-topic-group" open><summary>'+link(group.entry)+'</summary><ul>'+group.children.map(entry=>'<li>'+link(entry)+'</li>').join('')+'</ul></details></li>'
+    : '<li>'+link(group.entry)+'</li>').join('')+'</ul></details>';
 }
 function firstRef(node) {
   const ch = node.chapters;
@@ -1229,7 +1257,7 @@ const ICON = {
 
 let R = null; // reader state
 
-async function renderReader(ref) {
+async function renderReader(ref, jump = new URLSearchParams()) {
   document.title = `${ref} · Rav Tzadok Library`;
   app.innerHTML = `
   <div class="reader">
@@ -1341,9 +1369,21 @@ async function renderReader(ref) {
     $('#tocBtn').href = '#/book/' + toHash(first.book || ref.split(/[ ,]\d/)[0]);
     updateTitle(first.sectionRef);
     setupInfinite();
+    if ((jump.has('heading') || jump.has('topic')) && document.fonts) await document.fonts.ready;
     if (highlight) {
       const el = text.querySelector(`.seg[data-ref="${CSS.escape(highlight)}"]`);
-      if (el) { el.scrollIntoView({block: 'center'}); el.classList.add('flash'); selectSegment(highlight, el); }
+      if (el) {
+        el.scrollIntoView({block: 'center'}); el.classList.add('flash');
+        if (!jump.has('heading') && !jump.has('topic')) selectSegment(highlight, el);
+      }
+    }
+    if (jump.has('heading') || /^\d+$/.test(jump.get('topic') || '')) {
+      const reference=highlight || ref, phrase=jump.get('topic'), title=jump.get('heading');
+      const targets=[...text.querySelectorAll('.subhead[data-topic-ref]')].filter(element=>element.dataset.topicRef===reference
+        && (title===null || element.dataset.topicTitle===title)
+        && (phrase===null || element.dataset.topicPhraseIndex===phrase));
+      const target=targets.find(element=>element.getClientRects().length);
+      if(target) {target.scrollIntoView({block:'center'});target.classList.add('flash');}
     }
   } catch (e) {
     text.innerHTML = errorBox('This text could not be loaded.', ref, e);
@@ -1505,7 +1545,7 @@ function appendSection(d) {
       h = insertAfterWords(h, d.annotations[i].filter(n => !Number.isInteger(n.heCharOffset) && n.heWord && offsets[n.phraseIndex] !== undefined)
         .map(n => [offsets[n.phraseIndex] + n.heWord, inlineFootnoteMarker(n, 'tray')]));
     }
-    if (d.heads && d.heads[i]) html += d.heads[i].map(subhead).join('');
+    if (d.heads && d.heads[i]) html += d.heads[i].map(heading=>subhead(heading,{ref:r})).join('');
     if (d.tables && d.tables[i]) html += d.tables[i].map(sourceTable).join('');
     if (d.related?.[i]) html += relatedTeachings(d.related[i]);
     if (!h.trim() && !e.trim()) continue;
@@ -1515,7 +1555,13 @@ function appendSection(d) {
       const list = notesAt.get(note.phraseIndex) || [];
       list.push(note); notesAt.set(note.phraseIndex, list);
     }
-    const il = d.phrases && !d.paragraphTranslation ? `<div class="seg-il">${d.phrases[i].map(([ph, pe], j) => `${(d.phraseHeads?.[i] || []).filter(hd => hd.phraseIndex === j).map(hd => subhead(hd.kind === 'section' ? '§ ' + hd.text : hd.text)).join('')}<div class="ph"><div class="ph-he" lang="he" dir="rtl">${anchoredPhrase(ph,notesAt.get(j)||[],'he','ph')}</div><div class="ph-en" lang="en">${anchoredPhrase(pe,notesAt.get(j)||[],'en','ph')}${(notesAt.get(j) || []).map(n => readingFootnote(n, 'box')).join('')}</div></div>`).join('')}</div>` : '';
+    const phraseHeadings=index=>(d.phraseHeads?.[i] || []).filter(heading=>heading.phraseIndex===index)
+      .map(heading=>subhead(heading.kind==='section'?'§ '+heading.text:heading.text,{ref:r,phraseIndex:index})).join('');
+    if(d.phrases && d.phraseHeads?.[i]?.length) {
+      h=d.phrases[i].map(([ph],index)=>phraseHeadings(index)+anchoredPhrase(ph,notesAt.get(index)||[],'he','tray')).join(' ');
+      e=d.phrases[i].map(([,pe],index)=>phraseHeadings(index)+clean(pe)).join(' ');
+    }
+    const il = d.phrases && !d.paragraphTranslation ? `<div class="seg-il">${d.phrases[i].map(([ph, pe], j) => `${phraseHeadings(j)}<div class="ph"><div class="ph-he" lang="he" dir="rtl">${anchoredPhrase(ph,notesAt.get(j)||[],'he','ph')}</div><div class="ph-en" lang="en">${anchoredPhrase(pe,notesAt.get(j)||[],'en','ph')}${(notesAt.get(j) || []).map(n => readingFootnote(n, 'box')).join('')}</div></div>`).join('')}</div>` : '';
     const noteTray = annotated.length ? `<div class="segment-annotations">${annotated.map(n => readingFootnote(n, 'box')).join('')}</div>` : '';
     html += `<div class="seg" data-ref="${esc(r)}" data-i="${num}" data-k="${i}" tabindex="0">
       <span class="num" data-n="${num}">${labels ? labels[i] : prefs.lang === 'he' ? gematria(num) : num}</span>
@@ -1556,12 +1602,13 @@ function relatedTeachings(groups) {
     links.map(link => '<a href="#/read/' + toHash(link.ref) + '">' + esc(link.title || link.ref) + ' →</a>').join('') +
     '</div></nav>').join('');
 }
-function subhead(text) {
+function subhead(text, target = {}) {
   const [title, ...rest] = String(text).split('\n');
   const major = title.startsWith('§ ');
   const shown = major ? title.slice(2) : title;
   const he = /[\u05D0-\u05EA]/.test(shown);
-  return `<div class="subhead ${he ? 'he' : 'en-head'}${major ? ' reader-section-break' : ''}" ${he ? 'lang="he"' : ''}>${esc(shown)}${rest.length ? `<span class="summary">${esc(rest.join(' '))}</span>` : ''}</div>`;
+  const attrs=target.ref?' data-topic-ref="'+esc(target.ref)+'" data-topic-title="'+esc(shown)+'"'+(Number.isInteger(target.phraseIndex)?' data-topic-phrase-index="'+target.phraseIndex+'"':''):'';
+  return `<div class="subhead ${he ? 'he' : 'en-head'}${major ? ' reader-section-break' : ''}" ${he ? 'lang="he"' : 'lang="en" dir="ltr"'}${attrs}>${esc(shown)}${rest.length ? `<span class="summary">${esc(rest.join(' '))}</span>` : ''}</div>`;
 }
 
 function setupInfinite() {
@@ -1596,15 +1643,15 @@ function setupInfinite() {
 function updateTitle(ref) {
   R.current = ref;
   const d = R.sections.find(s => s.sectionRef === ref);
-  $('#rTitle').innerHTML = `<a href="#/book/${toHash(R.book || '')}">${esc(ref)}</a>${d && d.heRef ? `<span class="he" lang="he">${esc(d.heRef)}</span>` : ''}`;
+  $('#rTitle').innerHTML = `<a href="#/book/${toHash(R.book || '')}">${esc(d?.displayTitle || ref)}</a>${d && d.heRef ? `<span class="he" lang="he">${esc(d.heRef)}</span>` : ''}`;
   const idx = R.sections.findIndex(s => s.sectionRef === ref);
   R.firstPrev = idx > 0 ? R.sections[idx - 1].sectionRef : R.sections[0] && R.sections[0].prev;
   $('#prevBtn').disabled = !R.firstPrev;
-  document.title = `${ref} · Rav Tzadok Library`;
+  document.title = `${d?.displayTitle || ref} · Rav Tzadok Library`;
 }
 function rememberRecent(d) {
   const list = store.get('recent', []).filter(r => r.book !== d.book);
-  list.unshift({ref: d.sectionRef, heRef: d.heRef, book: d.book});
+  list.unshift({ref: d.sectionRef, heRef: d.heRef, book: d.book, ...(d.displayTitle ? {displayTitle:d.displayTitle} : {})});
   store.set('recent', list.slice(0, 8));
 }
 

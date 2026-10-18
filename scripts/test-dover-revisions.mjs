@@ -5,6 +5,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import http from 'node:http';
 import vm from 'node:vm';
+import {gunzipSync} from 'node:zlib';
 import {createHash} from 'node:crypto';
 import {createRequire} from 'node:module';
 import {pathToFileURL} from 'node:url';
@@ -55,6 +56,27 @@ const toc = await json('data/dover-tzedek/toc.json');
 assert.equal(toc.revisedFootnotes.release, release);
 assert.equal(toc.revisedFootnotes.notes, 2698);
 assert.equal(toc.revisedFootnotes.report, 'dover-revisions-report.json');
+const headingPack=JSON.parse(fs.readFileSync('sources/akiva/headings/Dover_Tzedek.json','utf8'));
+const headingReview=JSON.parse(gunzipSync(fs.readFileSync('editorial/dover-kdp-headings-review.json.gz')).toString());
+assert.equal(headingPack.book,'Dover Tzedek');
+assert.equal(headingPack.outline,true,'Dover contents must include sections and subsections');
+const leavesOf=node=>node.children?node.children.flatMap(leavesOf):[node];
+const leaves=new Map(leavesOf(toc.toc).map(leaf=>[leaf.ref,leaf]));
+const miscellanyNames=['Ki Savo','Vayeishev','Avodah Zarah','Acharei Mos'];
+const miscellany=leaves.get('Dover Tzedek, Miscellany');
+assert.ok(miscellany,'Canonical Miscellany reference must remain available');
+assert.equal(miscellany.id,5,'Canonical Miscellany file ID changed');
+assert.equal(miscellany.en,'Additional Teachings');
+assert.deepEqual(miscellany.chapterTitles,miscellanyNames);
+assert.equal(miscellany.chapterTitleDisplay,true);
+for(const [node,titles] of Object.entries(headingPack.chapterTitles||{})) {
+  const leaf=leaves.get('Dover Tzedek, '+node);
+  assert.ok(leaf,'Heading pack references missing node '+node);
+  assert.deepEqual(leaf.chapterTitles,titles,'Chapter display titles changed '+node);
+  assert.equal(leaf.chapterTitleDisplay,true,'Chapter display title flag missing '+node);
+}
+for(const [node,title] of Object.entries(headingPack.nodeTitles||{}))
+  assert.equal(leaves.get('Dover Tzedek, '+node)?.en,title,'Node display title changed '+node);
 const titlePack = JSON.parse(fs.readFileSync('sources/akiva/parts/Dover_Tzedek_Title_Page.json','utf8'));
 const titleCanonical = JSON.parse(fs.readFileSync('sources/sefaria/Dover_Tzedek.json','utf8')).text['Title Page'];
 assert.equal(titlePack.presentation,'paragraphs','Opening must be translated paragraph by paragraph');
@@ -135,9 +157,69 @@ for(const [index,row] of titleSection.rows.entries()) {
   assert.ok(norm(row.p[0][1]),'Missing opening English '+row.n);
 }
 for(const key of ['heSha256','enSha256']) assert.equal(report.titleTranslation[key],titleSection.entry[key]);
+let kdpParagraphHeadings=0,kdpInlineHeadings=0;
+for(const [node,byParagraph] of Object.entries(headingPack.headings||{})) {
+  for(const [location,text] of Object.entries(byParagraph)) {
+    const [chapter,paragraph]=location.split(':').map(Number);
+    const section=[...sections.values()].find(section=>section.entry.ref===`Dover Tzedek, ${node} ${chapter}`);
+    assert.ok(section,'Missing headed Dover chapter '+node+' '+chapter);
+    const position=section.rows.findIndex(row=>row.p&&row.n===paragraph);
+    assert.ok(position>=0,'Missing headed Dover paragraph '+node+' '+location);
+    const preceding=[];
+    for(let index=position-1;index>=0&&section.rows[index].h;index--) preceding.push(section.rows[index].h);
+    assert.ok(preceding.includes(text),'KDP heading moved or missing '+node+' '+location+': '+text);
+    assert.ok(/[A-Za-z]/.test(text),'KDP heading must contain English '+location);
+    const anchor=headingPack.anchors?.[node]?.[location];
+    if(anchor) assert.ok(bareHebrew(section.rows[position].p.map(pair=>pair[0]).join(' ')).startsWith(bareHebrew(anchor)),'KDP heading paragraph anchor changed '+node+' '+location);
+    kdpParagraphHeadings++;
+  }
+}
+for(const [node,byParagraph] of Object.entries(headingPack.inlineHeadings||{})) {
+  for(const [location,headings] of Object.entries(byParagraph)) {
+    const [chapter,paragraph]=location.split(':').map(Number);
+    const section=[...sections.values()].find(section=>section.entry.ref===`Dover Tzedek, ${node} ${chapter}`);
+    const row=section?.rows.find(row=>row.p&&row.n===paragraph);
+    assert.ok(row,'Missing KDP subheading paragraph '+node+' '+location);
+    for(const heading of headings) {
+      assert.ok(row.inlineHeadings?.some(actual=>actual.phraseIndex===heading.phraseIndex&&actual.text===heading.text&&(actual.kind||'topic')===(heading.kind||'topic')),'KDP inline subheading moved or missing '+node+' '+location);
+      assert.ok(Number.isInteger(heading.phraseIndex)&&row.p[heading.phraseIndex],'KDP subheading phrase missing '+location);
+      if(heading.anchor) assert.ok(bareHebrew(row.p[heading.phraseIndex][0]).startsWith(bareHebrew(heading.anchor)),'KDP subheading phrase anchor changed '+node+' '+location);
+      kdpInlineHeadings++;
+    }
+  }
+}
+for(const section of sections.values()) if(section.entry.file!=='0.json')
+  assert.ok(section.rows.some(row=>row.h||row.inlineHeadings?.length),'Dover chapter has no English headings '+section.entry.ref);
+assert.ok(kdpParagraphHeadings+kdpInlineHeadings>15,'KDP headings must cover the full Dover text');
+let outlineChapters=0,outlineTopics=0;
+for(const [nodeRef,leaf] of leaves) if(leaf.depth===2) {
+  const node=nodeRef.replace('Dover Tzedek, ','');
+  assert.equal(leaf.chapterOutlines?.length,leaf.shape.length,'Missing chapter contents '+nodeRef);
+  for(let chapter=1;chapter<=leaf.shape.length;chapter++) {
+    const expected=[];
+    for(const [location,text] of Object.entries(headingPack.headings?.[node]||{})) {
+      const [ch,paragraph]=location.split(':').map(Number);
+      if(ch===chapter) expected.push({paragraph,entry:{title:text.replace(/^§ /,''),ref:`${nodeRef} ${chapter}:${paragraph}`,kind:text.startsWith('§ ')?'section':'topic'}});
+    }
+    for(const [location,headings] of Object.entries(headingPack.inlineHeadings?.[node]||{})) {
+      const [ch,paragraph]=location.split(':').map(Number);
+      if(ch===chapter) for(const heading of headings) expected.push({paragraph,entry:{title:heading.text,ref:`${nodeRef} ${chapter}:${paragraph}`,kind:heading.kind||'topic',phraseIndex:heading.phraseIndex}});
+    }
+    expected.sort((a,b)=>a.paragraph-b.paragraph||(a.entry.phraseIndex??-1)-(b.entry.phraseIndex??-1));
+    assert.ok(expected.length,'Chapter outline must contain its KDP topics '+nodeRef+' '+chapter);
+    assert.deepEqual(leaf.chapterOutlines[chapter-1],expected.map(item=>item.entry),'Contents topics do not match their actual KDP heading locations '+nodeRef+' '+chapter);
+    outlineChapters++;outlineTopics+=expected.length;
+  }
+}
+assert.equal(outlineChapters,15,'All Dover content chapters need section contents');
+assert.equal(outlineTopics,kdpParagraphHeadings+kdpInlineHeadings,'Lost or duplicated contents heading');
+assert.equal(outlineTopics,headingReview.counts.headingsAndSubheadings,'Contents do not cover the reviewed KDP headings and adaptations');
+assert.equal(headingReview.counts.kdpTopics,333,'Expected all KDP source headlines');
 assert.ok((await read('index.html')).toString().includes('20261018-dover-elaboration-sources-revisions-v2-title-paragraphs-v1'),'Opening edition cache key missing');
+assert.ok((await read('index.html')).toString().includes('20261018-dover-elaboration-sources-revisions-v2-title-paragraphs-v1-headings-v1'),'Dover headings edition cache key missing');
 const shellVersion=(await read('sw.js')).toString().match(/^const SHELL = `([^`]+)`;/m)?.[1];
 assert.ok(shellVersion?.includes('-dover-title-paragraphs-v1'),'Opening app refresh version missing');
+assert.ok(shellVersion?.includes('-dover-headings-v1'),'Dover headings app refresh version missing');
 // Installed readers may retain the old contents file while receiving new text.
 // The row flag must still select paragraph presentation in that mixed state.
 const readerHtml=(await read('index.html')).toString();
@@ -159,6 +241,14 @@ for(const oldContents of [false,true]) {
   assert.equal(resolved.next,'Dover Tzedek, Kuntres Dover Tzedek, Eruvin 1','Opening next section');
   assert.equal(resolved.prev,null,'Opening must remain first');
   assert.equal(resolved.versions[0].title,'Akiva Publishing paragraph translation');
+  for(const [index,title] of miscellanyNames.entries()) {
+    const ref='Dover Tzedek, Miscellany '+(index+1);
+    const resolved=await context.resolveLocal(ref);
+    assert.equal(resolved.sectionRef,ref,'Named section changed canonical reference');
+    assert.equal(resolved.studyHeading,title,'Named section heading');
+    assert.equal(resolved.displayTitle,'Dover Tzedek — '+title,'Named section reader title');
+    assert.equal(resolved.he.length,miscellany.shape[index],'Named section paragraph count changed');
+  }
 }
 assert.equal(seen.size,2698,'Some Dover footnotes are missing');
 assert.equal(supplementary,90,'Lost existing supplementary quotations');
@@ -224,6 +314,12 @@ if (!base) {
   base = `http://127.0.0.1:${server.address().port}/library/`;
 }
 const chapterHash = ref => '#/read/'+encodeURIComponent(ref).replace(/%20/g,'_').replace(/%2C/g,',').replace(/%3A/g,':');
+const topicHash=entry=>{
+  const params=new URLSearchParams({heading:entry.title});
+  if(Number.isInteger(entry.phraseIndex)) params.set('topic',entry.phraseIndex);
+  return chapterHash(entry.ref)+'?'+params;
+};
+const outlineEntries=[...leaves.values()].flatMap(leaf=>leaf.chapterOutlines?.flat()||[]);
 const targets = [];
 const walk = node => {
   if (node.children) node.children.forEach(walk);
@@ -240,6 +336,10 @@ const tocTargets=[...targets];
 const largest=[...sections.values()].filter(section=>section.entry.file!=='0.json').sort((a,b)=>
   b.rows.reduce((n,row)=>n+(row.footnotes?.length||0),0)-a.rows.reduce((n,row)=>n+(row.footnotes?.length||0),0)).slice(0,2);
 for(const section of largest) if(!targets.some(target=>target.entry.file===section.entry.file)) targets.push(section);
+for(let chapter=1;chapter<=4;chapter++) {
+  const section=sections.get('5-'+chapter+'.json');
+  if(!targets.some(target=>target.entry.file===section.entry.file)) targets.push(section);
+}
 const browser = await playwright.chromium.launch({headless:true});
 try {
   for (const viewport of [{width:1280,height:900},{width:390,height:844}]) {
@@ -252,6 +352,79 @@ try {
     await page.locator(`#toc a[href="${chapterHash(tocTargets[0].entry.ref)}"]`).first().waitFor({state:'visible',timeout:45000});
     for(const target of tocTargets)
       assert.ok(await page.locator(`#toc a[href="${chapterHash(target.entry.ref)}"]`).count(),'Missing TOC chapter link '+target.entry.ref);
+    assert.ok((await page.locator('#toc').textContent()).includes('Additional Teachings'),'Named additional-teachings contents group');
+    assert.equal(await page.locator('#toc details.chapter-outline').count(),15,'Expandable chapter outlines');
+    assert.equal(await page.locator('#toc a[data-topic-link]').count(),outlineTopics,'All sections and subsections must appear in contents');
+    assert.ok(await page.locator('#toc details.toc-topic-group').count(),'Contents must group subsections under section headings');
+    for(const entry of outlineEntries)
+      assert.ok(await page.locator(`#toc a[data-topic-link][href="${topicHash(entry)}"]`).count(),'Contents topic link missing '+entry.title);
+    for(const [index,title] of miscellanyNames.entries()) {
+      const link=page.locator(`#toc a[href="${chapterHash('Dover Tzedek, Miscellany '+(index+1))}"]`).first();
+      assert.ok((await link.textContent()).includes(title),'Named contents link missing '+title);
+    }
+    const adaptedReview=headingReview.volume2.review.find(entry=>entry.source==='editorial adaptation');
+    const adapted=outlineEntries.find(entry=>entry.title===adaptedReview?.text&&entry.ref==='Dover Tzedek, '+adaptedReview.readerNode+' '+adaptedReview.readerKey);
+    assert.ok(adapted,'No reviewed adapted paragraph subheading in contents');
+    const adaptedOutline=page.locator('#toc details.chapter-outline').filter({has:page.locator(`a[data-topic-link][href="${topicHash(adapted)}"]`)}).first();
+    await adaptedOutline.locator(':scope > summary').click();
+    await page.locator(`#toc a[data-topic-link][href="${topicHash(adapted)}"]`).first().click();
+    await page.waitForURL(url=>url.hash===topicHash(adapted),{timeout:45000});
+    const adaptedSelector=await page.evaluate(entry=>`.subhead[data-topic-ref="${CSS.escape(entry.ref)}"][data-topic-title="${CSS.escape(entry.title)}"]`,adapted);
+    await page.locator('#text '+adaptedSelector).first().waitFor({state:'visible',timeout:45000});
+    assert.equal(await page.locator('#panel').isVisible(),false,'Contents jump must leave the reading area open');
+    assert.ok(await page.locator('#text '+adaptedSelector).evaluateAll(elements=>elements.some(element=>{
+      const box=element.getBoundingClientRect();return box.height>0&&box.top>=-1&&box.bottom<=innerHeight+1;
+    })),'Paragraph subsection link did not scroll to the adapted heading');
+    await page.locator('#tocBtn').click();
+    await page.locator('#toc a[data-topic-link]').first().waitFor({state:'attached',timeout:45000});
+    // Follow a subsection link to its actual phrase heading, then exercise the
+    // same heading and source notes in every reading layout and language.
+    const topic=outlineEntries.find(entry=>Number.isInteger(entry.phraseIndex)&&entry.phraseIndex>0);
+    assert.ok(topic,'No within-paragraph KDP subsection to navigate');
+    const topicLink=page.locator(`#toc a[data-topic-link][href="${topicHash(topic)}"]`).first();
+    const outline=page.locator('#toc details.chapter-outline').filter({has:page.locator(`a[data-topic-link][href="${topicHash(topic)}"]`)}).first();
+    await outline.locator(':scope > summary').click();
+    await topicLink.click();
+    await page.waitForURL(url=>url.hash===topicHash(topic),{timeout:45000});
+    const topicSelector=await page.evaluate(entry=>`.subhead[data-topic-ref="${CSS.escape(entry.ref)}"][data-topic-title="${CSS.escape(entry.title)}"][data-topic-phrase-index="${entry.phraseIndex}"]`,topic);
+    await page.locator('#text '+topicSelector).first().waitFor({state:'attached',timeout:45000});
+    assert.equal(await page.locator('#panel').isVisible(),false,'Within-paragraph contents jump must leave the reading area open');
+    assert.ok(await page.locator('#text '+topicSelector).evaluateAll(elements=>elements.some(element=>{
+      const box=element.getBoundingClientRect();return box.height>0&&box.top>=-1&&box.bottom<=innerHeight+1;
+    })),'Subsection link did not scroll to its actual phrase heading');
+    const topicParagraph=page.locator(`.seg[data-ref="${topic.ref}"]`).first();
+    const topicSectionRef=topic.ref.replace(/:\d+$/,'');
+    const topicRow=[...sections.values()].find(section=>section.entry.ref===topicSectionRef)?.rows.find(row=>row.p&&topic.ref.endsWith(':'+row.n));
+    assert.ok(topicRow,'Subsection target source paragraph');
+    await page.locator('#setBtn').click();
+    for(const [language,layout] of [['bi','inter'],['bi','stack'],['bi','side'],['he','stack'],['en','stack']]) {
+      await page.locator(`#settings [data-pref="lang"] button[data-v="${language}"]`).click();
+      await page.locator(`#settings [data-pref="layout"] button[data-v="${layout}"]`).click();
+      assert.ok(await topicParagraph.locator(topicSelector).evaluateAll(elements=>elements.some(element=>element.getClientRects().length)),'Subsection heading hidden in '+language+'/'+layout);
+      const columns=language==='bi'?['he','en']:[language];
+      for(const column of columns) {
+        const selector=layout==='inter'&&language==='bi'?'.seg-il .ph-'+column:'.seg-'+column;
+        const rendered=await topicParagraph.locator(selector).evaluateAll(elements=>elements.map(element=>{
+          const clone=element.cloneNode(true);clone.querySelectorAll('.subhead,.source-note-trigger,.reader-footnote').forEach(element=>element.remove());return clone.textContent;
+        }).join(' '));
+        assert.equal(norm(rendered),norm(topicRow.p.map(pair=>pair[column==='he'?0:1]).join(' ')),'Heading changed original '+column+' text in '+language+'/'+layout);
+      }
+      if(language!=='en'&&topicRow.footnotes?.length) {
+        const scope=language==='bi'&&layout==='inter'?'.seg-il .ph-he':'.seg-he';
+        assert.equal(await topicParagraph.locator(scope+' .source-note-trigger').count(),topicRow.footnotes.length,'Headed paragraph lost Hebrew notes in '+language+'/'+layout);
+        const note=topicRow.footnotes[0];
+        const trigger=topicParagraph.locator(`${scope} .source-note-trigger[data-note-key="${note.placementId}"]`).first();
+        const card=topicParagraph.locator(`${language==='bi'&&layout==='inter'?'.seg-il':'.segment-annotations'} .reader-footnote[data-note-key="${note.placementId}"]`).first();
+        await trigger.click();await card.waitFor({state:'visible'});
+        assert.deepEqual(await card.locator('.annotation-text').allTextContents(),note.paragraphs.map(paragraph=>paragraph.text),'Headed paragraph truncated source note in '+language+'/'+layout);
+        await trigger.click();assert.equal(await trigger.getAttribute('aria-expanded'),'false','Headed paragraph source note failed to close');
+      }
+      assert.equal(await topicParagraph.locator('.seg-en .source-note-trigger').count(),0,'Headed paragraph added English-side note markers');
+    }
+    await page.locator('#settings [data-pref="lang"] button[data-v="bi"]').click();
+    await page.locator('#settings [data-pref="layout"] button[data-v="inter"]').click();
+    await page.goto(base+'#/book/Dover_Tzedek');
+    await page.locator(`#toc a[href="${chapterHash(titleLeaf.ref)}"]`).first().waitFor({state:'visible',timeout:45000});
     const openingLink=page.locator(`#toc a[href="${chapterHash(titleLeaf.ref)}"]`).first();
     assert.ok((await openingLink.textContent()).includes('English translation'),'Opening TOC translation label');
     assert.ok(!(await openingLink.textContent()).includes('interlinear'),'Opening wrongly labelled interlinear');
@@ -298,6 +471,18 @@ try {
       await page.goto(base+chapterHash(ref));
       const section = page.locator('#text > .sec').filter({has:page.locator(`.source-note-trigger[data-note-key="${chapterNotes[0].placementId}"]`)}).first();
       await section.locator('.seg-il .ph-he .source-note-trigger').first().waitFor({state:'visible',timeout:45000});
+      const nodeRef=ref.replace(/ \d+$/,''),chapter=+ref.match(/ (\d+)$/)[1];
+      const displayTitle=leaves.get(nodeRef)?.chapterTitles?.[chapter-1];
+      if(displayTitle) {
+        assert.ok((await page.locator('#rTitle').textContent()).includes(displayTitle),'Named reader title missing '+ref);
+        assert.ok((await section.locator('.sec-head').textContent()).includes(displayTitle),'Named section header missing '+ref);
+        assert.equal(new URL(page.url()).hash,chapterHash(ref),'Named section changed its bookmark URL');
+      }
+      const node=nodeRef.replace('Dover Tzedek, ','');
+      const expectedHeadings=Object.entries(headingPack.headings?.[node]||{}).filter(([location])=>+location.split(':')[0]===chapter).map(([,text])=>text.replace(/^§ /,''));
+      const expectedInline=Object.entries(headingPack.inlineHeadings?.[node]||{}).filter(([location])=>+location.split(':')[0]===chapter).flatMap(([,headings])=>headings.map(heading=>heading.text));
+      const renderedHeadings=await section.locator('.subhead').allTextContents();
+      for(const text of [...expectedHeadings,...expectedInline]) assert.ok(renderedHeadings.includes(text),'Full KDP English heading not rendered '+ref+': '+text);
       assert.equal(await section.locator('.seg-il .ph-he .source-note-trigger').count(),chapterNotes.length,'Hebrew marker count '+ref);
       assert.equal(await section.locator('.seg-il .ph-en .source-note-trigger').count(),0,'English marker duplicate '+ref);
       const markers = await section.evaluate(element=>[...element.querySelectorAll('.seg-il .ph-he')].flatMap(he=>{
@@ -352,13 +537,13 @@ try {
     const destination=popup||page;
     await destination.waitForURL(url=>url.hash===href,{timeout:45000});
     const destinationRef=decodeURIComponent(href.slice('#/read/'.length)).replace(/_/g,' ');
-    await destination.waitForFunction(ref=>document.querySelector('#rTitle')?.textContent.includes(ref.split(':')[0]),destinationRef,{timeout:45000});
+    await destination.waitForFunction(ref=>[...document.querySelectorAll('#text > .sec')].some(section=>ref===section.dataset.ref||ref.startsWith(section.dataset.ref+':')||ref.startsWith(section.dataset.ref+' ')),destinationRef,{timeout:45000});
     await destination.locator('#text .sec .seg').first().waitFor({state:'visible',timeout:45000});
     if(popup) await popup.close();
     else {await page.goBack();await marker.waitFor({state:'visible',timeout:45000});}
     assert.deepEqual(errors,[],'Reader JavaScript errors');
     await context.close();
-    console.log(`PASS Dover ${mobile?'mobile':'desktop'} browser: nine complete Hebrew-then-English opening paragraphs, all layout/language settings and Eruvin navigation; five content nodes plus the two largest chapters (${targets.length} chapters), exact Hebrew markers, complete expandable quotations, source typography and internal parallel navigation.`);
+    console.log(`PASS Dover ${mobile?'mobile':'desktop'} browser: nine complete Hebrew-then-English opening paragraphs; KDP English headings and all four named additional teachings at their original URLs; ${targets.length} chapters, exact Hebrew markers, complete expandable quotations, source typography and internal parallel navigation.`);
   }
 } finally {
   await browser.close();

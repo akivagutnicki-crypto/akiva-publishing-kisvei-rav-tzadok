@@ -1,0 +1,1346 @@
+{
+  "book": "Dover Tzedek",
+  "release": "20261018-dover-kdp-headings-v1",
+  "note": "English editorial headlines from both KDP editorial volumes, aligned by Hebrew context to canonical reader paragraphs and normalized phrases. Additional paragraph subheadings are distinguished in the source review. Original Hebrew, English translations, paragraph numbers, references, and footnotes are retained.",
+  "outline": true,
+  "source": {
+    "volumes": [
+      {
+        "filename": "Dover_Tzedek_VOLUME_1_7x10_FINAL_EDITORIAL.docx",
+        "sha256": "3a63919c07434b0394c894a4d94f7ac03774b1d404cfe18e91cdd4853d0ae987",
+        "kdpTopics": 118
+      },
+      {
+        "filename": "Dover_Tzedek_VOLUME_2_7x10_FINAL_EDITORIAL.docx",
+        "sha256": "4c8e5699dfce96de12a4f1d9468ec608403f262accaad49f80fdeb7101ae65a9",
+        "kdpTopics": 215
+      }
+    ],
+    "review": "editorial/dover-kdp-headings-review.json.gz"
+  },
+  "nodeTitles": {
+    "Miscellany": "Additional Teachings"
+  },
+  "chapterTitles": {
+    "Kuntres Dover Tzedek, Eruvin": [
+      "Eruvin — Mishkan and Mikdash: Divine Indwelling",
+      "Eruvin — Torah, Rabbi Meir, and Hidden Purity",
+      "Eruvin — Beit Hillel and Beit Shammai",
+      "Eruvin — Shlomo’s Sea: Teshuvah and Purification"
+    ],
+    "Kuntres Dover Tzedek, Berakhot": [
+      "Berachos — Mishnah in Exile: Oral Torah and Faith",
+      "Berachos — The Eight Steps Before Shema",
+      "Berachos — Faith, Prayer, and Spiritual Completion"
+    ],
+    "Kuntres Ner HaMitzvot": [
+      "Ner HaMitzvos — Hakdamah: Faith, Thought, and Action",
+      "Ner HaMitzvos — Parashas Bereishis: Procreation, Wisdom, and Deed"
+    ],
+    "Mishlei Commentary": [
+      "Mishlei Chapter Ten",
+      "Mishlei Chapter One"
+    ],
+    "Miscellany": [
+      "Ki Savo",
+      "Vayeishev",
+      "Avodah Zarah",
+      "Acharei Mos"
+    ]
+  },
+  "headings": {
+    "Kuntres Dover Tzedek, Eruvin": {
+      "1:1": "§ Mishkan and Mikdash: Shekhinah, Mitzvot, and Divine Indwelling",
+      "1:5": "§ Fear and Love: The Inner Wings of Mitzvah",
+      "1:8": "§ Havayah and Adnut: Shema, Kingship, and the Unity of Love and Fear",
+      "1:15": "§ Mishkan and Mikdash: From Indwelling Presence to Permanent Home",
+      "2:1": "§ Torah as the Pattern of Creation; Writing and the Song of Haazinu",
+      "2:7": "§ Rabbi Meir, Hidden Purity, and the Boundaries of Halakhah",
+      "2:20": "§ Rabbi Meir’s Unbounded Da’at; Names, Ink, Acher, and Practical Halakhah",
+      "2:27": "§ Purifying the Sheretz; the Forty-Eight Acquisitions and Elu Va-Elu",
+      "3:1": "§ Beit Hillel and Beit Shammai: Humility, Higher Truth, Choice, and Teshuvah",
+      "4:1": "§ Shlomo’s Sea: Mikveh, Teshuvah, the Four Worlds, and Complete Purification"
+    },
+    "Kuntres Dover Tzedek, Berakhot": {
+      "1:1": "§ Mishnah in Exile: Torah She-be’al Peh, Malchut, and Faith",
+      "2:1": "§ The Eight Steps Before Shema and the Future Eight-String Harp",
+      "3:1": "§ Why Berakhot Begins at Night: Emunah, Daylight, and Yaakov’s Sleep",
+      "3:7": "§ Shema as Nourishment and Purification: Washing, Immersion, and Divine Completion",
+      "3:9": "§ The Three Watches of Exile: Yoke, Prayer, Torah, and Heavenly Response",
+      "3:17": "§ Torah Before the Dead: Honor, Spiritual Death, and Rebuke",
+      "3:18": "§ Midnight: From Gevurah to Chesed and the Torah of Kindness",
+      "3:27": "§ David’s Chasidut: The Three Pillars, Three Camps, and Renewed Spiritual Battle",
+      "3:38": "§ The Fence Before Lost Control: Pleasure, Sleep, and Rabbinic Boundaries",
+      "3:39": "§ From Kingship to Redemption: Hashkiveinu, Ashrei, and Ordered Freedom",
+      "3:50": "§ Four Flights and Four Exiles: Chesed, Gevurah, and the Future Song",
+      "3:65": "§ ‘The Way’ and the Bridegroom: A Grammatical Reading of Keriat Shema",
+      "3:67": "§ Why Only Three Are Called Avot: Fatherhood, Motherhood, Brain, and Heart",
+      "3:76": "§ Acharit and Tikvah: Spiritual Completion, the Sages’ Prayers, and the Limits of the Vessel",
+      "3:80": "§ Rabbi Yochanan After Job: Good Name, Shabbat, the Third Temple, and Olam HaBa"
+    },
+    "Kuntres Ner HaMitzvot": {
+      "1:1": "§ Two Orders of Avodah: Sur Me-ra and Aseh Tov, Night and Day",
+      "1:7": "§ Emunah in the Night: Faith, Shema, and the Suspension of Outward Action",
+      "1:10": "§ Day and Night: Emet v’Yatziv, Emet v’Emunah, and the Rhythm of Avodah",
+      "1:15": "§ Olam, Shanah, Nefesh: Sun and Moon, Shabbat, Body and Soul",
+      "1:17": "§ Torah and Marriage: Thought, Action, and Knowing Which Must Lead",
+      "1:25": "§ When Day Precedes Night: Kodashim, Sinai, Anochi, and Yirah",
+      "1:29": "§ Reading the Mitzvot Inwardly: Positive Recognition Before Prohibition",
+      "2:1": "§ Procreation: Blessing, Command, and Human Desire",
+      "2:7": "§ Receptivity, Lack, and the Feminine Power of Longing",
+      "2:12": "§ Spiritual Fatherhood: Transmission, Seed, and Enduring Form",
+      "2:19": "§ Matter and Form: Body, Soul, Potential, and Actuality",
+      "2:21": "§ Written and Oral Torah; Father, Mother, Son, and Seed",
+      "2:25": "§ Mortality, Material Deficiency, Purification, and Resurrection",
+      "2:30": "§ Eating and Procreation as Vehicles of Added Holiness",
+      "2:33": "§ Blessing, Mastery, Day and Night",
+      "2:41": "§ The Divine Image and Human Self-Mastery",
+      "2:49": "§ Wisdom, Reverence, and Human Choice",
+      "2:59": "§ Torah, Reverence, and Purifying the Middot",
+      "2:69": "§ The Three Camps of the Soul",
+      "2:77": "§ From Shelo Lishmah to Purity",
+      "2:83": "§ The Birth of Deeds and Divine Assistance",
+      "2:89": "§ Chochmah and Binah: Mind and Heart",
+      "2:97": "§ Blessing, Peace, and Perfected Action",
+      "2:105": "§ Reverence Before Wisdom and Torah Flowing from the Heart",
+      "2:114": "§ A Prepared Heart: Wisdom, Strength, and Richness",
+      "2:117": "§ God as First and Last in Action",
+      "2:123": "§ Temple, Torah, and Yirah",
+      "2:129": "§ West, North, and Completion of the Deed",
+      "2:137": "§ Male and Female in the Offspring of Deeds",
+      "2:144": "§ Wisdom, Reverence, and the Birth of Deed",
+      "2:147": "§ Blessing, Yirah, and the Birth of Wisdom",
+      "2:151": "§ Fixity of Heart, Humility, and Fear of Sin",
+      "2:160": "§ From Outside to Inside: Purifying the Faculties and the Householder",
+      "2:162": "§ The Air of Eretz Yisrael: From Acquired Wisdom to Ruach HaKodesh",
+      "2:174": "§ Shabbat as a Taste of the World to Come: From Fixed Yirah to the Wellspring of Wisdom",
+      "2:181": "§ Acquired Torah and the Sanctified Body: From Shabbat Delight to the Body as Altar",
+      "2:189": "§ The Tzaddik as Shabbat: Unceasing Blessing and the Ever-New Drop",
+      "2:197": "§ Shalom as the Vessel of Blessing: Unity, Hillel, and the One Principle of Torah",
+      "2:202": "§ From Unity to Middot: Deveikut Verified in Love of One's Fellow",
+      "2:205": "§ From Holiness to Deed: Love, Trial, and Verification in Action",
+      "2:214": "§ Shalom as the Vessel of Blessing: Tzaddik, Shabbat, and Eretz Yisrael",
+      "2:222": "§ Two Unifications: Havayah, Adnut, and the Tzimtzum of Kingship",
+      "2:230": "§ Written and Oral Torah: Day and Night, Revelation and Tzimtzum",
+      "2:235": "§ Shammai and Hillel: Din and Chesed, Four Cubits and the Treasury of Yirah",
+      "2:241": "§ Knowing and Understanding: The Ox, the Donkey, and the Perfection of Action",
+      "2:252": "§ Yissachar: Torah That Is Itself Deed and the Heart's Perception",
+      "2:253": "§ From Da'at to Deed: Torah as a Two-Edged Sword",
+      "2:254": "§ Understanding the Times: The Heart That Senses Hashem's Will",
+      "2:255": "§ Water, Milk, and the Hidden Light: Chochmah, Binah, and Da'at in Torah",
+      "2:256": "§ The Wine of Da'at: Counsel, Healing, and Embodied Action",
+      "2:257": "§ MI and ELEH: Heart, Deed, and the World of Action",
+      "2:258": "§ The Iron Wall: Deed, Rain, and the Fruitfulness of the Heart",
+      "2:259": "§ Be Fruitful: Brain, Heart, and the Boundaries of Deed",
+      "2:260": "§ The Yoke of Yirah and the Birth of Deed",
+      "2:261": "§ Melekh: Brain, Heart, Liver, and the Measure of Wisdom",
+      "2:262": "§ The Purse, Anger, and the Unity of the Human Form",
+      "2:266": "§ Garments of Vengeance and Lower Awe"
+    },
+    "Mishlei Commentary": {
+      "1:1": "§ The Complete Father and the Mother Completed Through the Son",
+      "1:2": "§ Yirah as a Treasury and Tzedakah That Saves from Death",
+      "1:3": "§ Hunger for the Word of Hashem and the Soul's Longing",
+      "1:4": "§ Palm, Hand, Chochmah, and Deed",
+      "1:5": "§ The Maskil, Zeal, and the Seasons of Deed",
+      "1:6": "§ Head, Mouth, and the Vessel That Holds Blessing",
+      "1:7": "§ Name, Remembrance, and the Life of the Tzaddik",
+      "2:1": "§ The Ten Sefirot in the Opening of Mishlei",
+      "2:2": "§ Chochmah, Binah, and Da'at - Brain and Heart",
+      "2:3": "§ Taking and Giving - Awakening Below and Above",
+      "2:4": "§ Pesi, Tam, Ormah, and Mezimah"
+    },
+    "Miscellany": {
+      "1:1": "§ The Resident of Eretz Yisrael Resembles One Who Has a God",
+      "1:2": "§ Bikkurim Only From Eretz Yisrael; the Defilement of Chutz La-Aretz",
+      "1:3": "§ Bris, Torah, and Land in Birkas HaMazon; the Air of Eretz Yisrael Makes Wise",
+      "1:4": "§ The Bris: The Bond of Israel; the Sign That Endures Even in the Uncircumcised",
+      "1:6": "§ The Two Signs: The Bris from Birth, Tefilin of Effort, and Shabbos as the World-to-Come Sign",
+      "1:7": "§ The Three Signs Save from Gehinnom; Avraham at the Opening of Gehinnom",
+      "1:9": "§ Yaakov Merits the Land: The Inheritance Without Boundaries; the One Who Sinned Yet Never Sinned",
+      "1:10": "§ Malchus in Birkas HaMazon; David HaMelech, the Fourth Leg of the Chariot",
+      "1:11": "§ The Three Good Gifts Given Through Suffering; Joy from Within Fear",
+      "1:12": "§ The Blessing Before [the Bikkurim]; Why It Is Not in the Written Torah",
+      "2:1": "§ Yaakov Sought Tranquility; Murder and Adultery as the Roots of All Evil",
+      "2:2": "§ Rachel and Leah, and Rus; Mashiach as the Rectification of the Serpent's Defilement",
+      "2:3": "§ Yosef and David, the Two Mashiachs; the Bow That Hates Immorality, and Mashiach ben Yosef",
+      "2:4": "§ Mashiach ben David, Who Rectifies the Serpent; the Two Kingships of Yosef and Yehuda",
+      "2:5": "§ Yaakov Has No Tranquility in This World; the Wine and the Dregs, and R’ Elazar ben Durdaya",
+      "2:6": "§ Why Yosef's Agitation Sprang Upon Yaakov; the Interdependence of the Two Mashiachs",
+      "2:7": "§ The Sale as Yehuda's Flaw and Yosef's Descent; the Birth of Mashiach's Light",
+      "3:1": "§ The Festivals of the Nations: Joy and Its Opposite; True Tranquility Rests on Trust in Hashem",
+      "3:2": "§ The Joy of Mitzvah and Ru'ach HaKodesh; Truth United with Faith",
+      "3:3": "§ This Union Through Trust; “Dwell in the Land and Be Nourished by Faith”",
+      "3:5": "§ The Nations' Claim and the Sukkah; “Anochi” Is Not a Command, and Faith in the Darkness",
+      "3:6": "§ “From Among You They Will Come and Testify”; the Seventy Bulls and the Elevation of the Nations",
+      "3:8": "§ The Hundred Ascents and the Four Hundred Chapters; the Fifth as the Depth of the Beginning",
+      "3:11": "§ Yitzchak Attains the Fifth Chapter; the Mountain Held Over Them, and “We Will Do and We Will Hear”",
+      "3:13": "§ Converts Drawn from the “Heh” of the Native; Avraham as First of the Converts",
+      "4:1": "§ Nadav and Avihu; “With All Your Soul” as the Pillar of Service, Sacrifice and Prayer",
+      "4:2": "§ Hashem Longs for the Prayer of the Righteous; “With All” as Complete Union",
+      "4:6": "§ Two Forms of Deliberation; Why “Strange Fire,” and Why Hashem Did Not Desire It",
+      "4:8": "§ The Small Yud; Thought Embedded in Deed, and the Two Zeals of Pinchas",
+      "4:11": "§ Moshe and Bilam: Knowledge Against Folly; “Moshe Within Is Yaakov Without”",
+      "4:12": "§ “Moshe Wrote His Book and the Section of Bilam”: Profane Made Holy",
+      "4:17": "§ The Killing of Bilam as Prerequisite for Moshe’s Passing; the Census",
+      "4:18": "§ Pinchas, Zealous over the Covenant; the Distinction of Israel Rooted in Yesod",
+      "4:19": "§ The Queen of Sheba; the Evil Impulse Turned Good, and Avraham Against Bilam",
+      "4:21": "§ The Medium Who Raised Shmuel; the Bones Free of Evil, and Shaul’s Halachic Reckoning",
+      "4:22": "§ “He Shall Not Defile Himself”; the Urim Ve-Tumim and the Contraction of the Infinite",
+      "4:24": "§ Attaining Wisdom Beyond One’s Own: the Revelation of Eliyahu and the Bone-Vapor of Moshe",
+      "4:25": "§ The Queen of Sheba and Bilam’s Bone-Vapor; Shlomo’s Reply on the Root of Craving",
+      "4:30": "§ The Heavenly Voice’s Argument; the Proof from Acher and the Outer Books",
+      "4:31": "§ The Great Awe This Evokes; “Is It from You” — You Cannot Judge the Hidden Root",
+      "4:32": "§ “Expounders of Hidden Marks”; the Hidden-Within-the-Hidden, and Shlomo Brings Rectification to All",
+      "4:33": "§ Shlomo’s View of His Own Era and Rung; the Heavenly Voice’s Correction",
+      "4:37": "§ Man in the Image of God; the Hidden Root of Free Choice, and the Avodah of Recognizing the King",
+      "4:39": "§ The Attribute of Kingship; the Bounded Apprehension of the Infinite",
+      "4:40": "§ The Good Impulse as “the Other Serpent of Life”; Every Craving Needs Clarification",
+      "4:41": "§ “God Made Man Upright”; the Tree of Knowledge Stood Outside Him",
+      "4:42": "§ The Root of the Craving as the Lowest Divine Power; the Woman’s Root and “the Female from the Side of Judgment”",
+      "4:44": "§ The Human Form across the Four Worlds; the “Soul of the Soul”",
+      "4:46": "§ Hashem’s Warning; the Serpent’s Coming upon Chavah, and “Lest You Die” Spoken in Doubt",
+      "4:47": "§ The Knowledge Itself Becomes Evil; Chavah’s Fence of “Touching,” and the Origin of the Commandments",
+      "4:48": "§ The Giving to Her Husband; the Birth of Shame and Doubt, and the Garments of Skin",
+      "4:51": "§ Israel’s Souls Are Wholly-Good Particulars; the Clarification through Repentance",
+      "4:52": "§ These Apprehensions Are an Inner Acquisition; R’ Elazar ben Durdaya and “One Acquires His World in a Single Hour”",
+      "4:54": "§ The Clarification Begins in the Egyptian Exile; Israel Handed to Pharaoh, the Great Sea-Serpent",
+      "4:55": "§ The Three Knots of Faith; Why Moshe “Fled Before” the Serpent-Staff, Grasping Only Its Tail",
+      "4:59": "§ Body-Powers from Father and Mother, but the Soul from the Holy One; the Body as “the Serpent’s Skin”",
+      "4:60": "§ The Souls “in the Body”; the Soul’s Clothing in the Body as Itself from Hashem; Birth as Joy and Sorrow",
+      "4:61": "§ The Three Gifts as the Three Modes of Knowing Hashem — “I,” “You,” “He” / Torah, the Land, and the World to Come",
+      "4:62": "§ The Three Gifts and Their “Garment”; the Written Torah’s Parchment as “the Serpent’s Skin,” the Oral Torah Without a Garment",
+      "4:64": "§ The Land of Israel’s Revealed Delights as “the Serpent’s Skin”; the Spies Who Saw Only the Garment",
+      "4:65": "§ The Three Gifts as the Pattern for Every Salvation; the “Error” and the Serpent’s Bite, and the Great Serpent of the Dark Mountains",
+      "4:67": "§ “No Man Is Righteous on Earth” Until It Is Clarified; Why Even Moshe and Rashbi Feared; the Arizal’s Revelation as a “Vision of the Heart”",
+      "4:71": "§ Moshe Who Vanquishes the Serpent vs. Shlomo Who Enters All the Shells; Moshe and the Fear of Heaven as His “Bride”",
+      "4:72": "§ The Complete Vanquishing in the Days of Mashiach; Miriam’s Well and the Sea; Moshe Drawing the Well into Israel’s Hearts; the Staff of Gevurah at Chorev",
+      "4:73": "§ All Human Deeds and Speech Are an “Echo” of Hashem’s Voice, Refracted into Many Forms; Why Its Truth Is Unrecognizable Except to the One Who Hears the Bas Kol",
+      "4:74": "§ This Surpasses the Prophecy of Fools and Children; the Ba’alas Ov; the False Prophets and Bilam Who Heard the “Echo”; “You Shall See My Back”",
+      "4:75": "§ The Essence of Vitality Is Speech; the Angels Who Do Not Attend to Aramaic; the Seventy Princes; Michael and Gavriel; the Exile to Bavel as the “Hinder-Parts,” and the Destruction Returning Israel There",
+      "4:76": "§ The Voices Heard from Jerusalem to Jericho; the Tenth Being Scent; “Sound, Sight, and Scent” as the Three Recognitions “I, You, He”; the Ten Parsa’os",
+      "4:78": "§ The Converts in Every Gift to Israel; Yisro and Rachav; How Converts Come Through Evil Speech, Rectifying the Sin of the Spies",
+      "4:80": "§ The “Hinder-Parts” as the Body Itself, Its Advantage over Prophecy and the Written Torah; Why Moshe’s Mind Was Set at Ease — the Oral Torah’s Clarification Through “Halachah le-Moshe mi-Sinai” and the Innovation of the Worthy Disciple",
+      "4:81": "§ Why a “Single Law” Sets Moshe’s Mind at Ease: the Written Torah as “Truth” That Is One; “These and These Are the Words of the Living God” in the Oral Torah; the Supernal Wisdom Where Multiplicity Unifies, and the Indisputable “Halachah le-Moshe mi-Sinai”",
+      "4:82": "§ “My Children Have Defeated Me” and Rabbi Eliezer’s “Let Heaven Prove It”; the Rung of “Sinai” and the Parah Adumah; the Two Extremes of the Yetzer — Desire and Idolatry — the Calf and Moshe’s Rectification of the Covenant; Why the Reason of the Parah Was Revealed to Moshe but Was “Far” from Shlomo; Rabbi Eliezer as a Likeness of Moshe, the “Glorious Wisdom in an Ugly Vessel,” and the Written Torah as the Light Within the Vessel of the Oral Torah",
+      "4:85": "§ “At First the Torah of Hashem, at Last His Own”: Why the Sages Did Not Bless First",
+      "4:86": "§ “Do Not Credit Yourself”: Striving, the Finding, and the Torah of Mashiach",
+      "4:87": "§ Exile and the Loss of the Land: Even an Am Ha’aretz’s Words Are Torah",
+      "4:88": "§ The Returning Echo: Israel’s Prayer Begets a Bas Kol",
+      "4:89": "§ The Returning Echo of Torah and Prayer: Why Tefillah Is Born of Kerias Shema",
+      "4:90": "§ “Sister” First: Awe and Love, the Two Wings, and the Crossroads",
+      "4:91": "§ At the Crossroads: Three Clarifications — Death, the Fearing Heart, and the Halachah-Resolving Mind",
+      "4:92": "§ Bored Through from Side to Side: Le-Okmei Girsa, Divine Aid, and Yehudah vs. the Galil",
+      "4:93": "§ The Might of David’s Men: Torah-Novellae That Vanquish the Powers of Evil",
+      "4:94": "§ Shaul and David: The Spindle of Silence and the Wisdom Revealed in Deed",
+      "4:95": "§ Seeing David: Forgetfulness, the Broken Tablets, and Shaul Undiminished",
+      "4:96": "§ The Soul in the Face: The Garment, the Breath of the Bones, and the Joy That Swallows Death",
+      "4:97": "§ Moshe and David: Heaven Brought Down, and Earth Raised Up",
+      "4:98": "§ Children, Life, and Sustenance: The Mazal, Rava’s Three Requests, and the Rungs of Ru’ach HaKodesh",
+      "4:99": "§ Prophecy, the Maggidim, and the False Prophet: The Voice That Speaks from Within",
+      "4:100": "§ No Free Grace: The Reward-Mechanism, the Three and the Seven, and the Inner Chambers",
+      "4:101": "§ Body and Soul Inseparable: The Sin of the Calf at the Root, and Grasping the King’s Hand",
+      "4:102": "§ The Morning Ascent and the Eagle: East, South, and the Force of Awe; the Mountains of Darkness",
+      "4:103": "§ The Accuser and the Inclination: Uza and Azael, and the Champion Hidden Within",
+      "4:104": "§ The Name Taught to Isteher: Nogah, Venus, and the Good Within the Inclination",
+      "4:105": "§ The Bath of Aphrodite and the Chain of Iron: Raising the Shell, and the Mountains of Antiquity",
+      "4:106": "§ The Bow and the Bound Two: Machzeh Shaddai, the Depths, and the Peril of External Wisdom",
+      "4:107": "§ Shlomo Ruling the Powers: The Two Leaves, the Morning Gaze, and the Longing of the Chains",
+      "4:108": "§ Tarmod and the Mule: Mamzerus, the Brazenness of the Footsteps of Mashiach, and Daniel the Tailor",
+      "4:109": "§ Shlomo Fixed to the Mule: Rabbi and Pinchas ben Yair, Gichon, and the Affliction of the Skin",
+      "4:110": "§ The River and the Hidden Light: The Sea-Serpent, the Light Stored for the Righteous, and Shlomo’s Servants",
+      "4:111": "§ The Power of Separation: Israel and the Nations, the Daughters of Jerusalem, and the Future Clarification",
+      "4:112": "§ Tarmod the Hindparts of Sinai: The Mixed Multitude, the Mamzerim, and the Festival of the Final Union",
+      "4:113": "§ The Fifteenth of Av and Yom Kippur: The Reversed Union, the Permitted Tribes, and Redemption from Death",
+      "4:114": "§ Redemption from She’ol: The Ten Kavin, the Hidden Root, and the Kav of Frivolity",
+      "4:115": "§ The Power of Lack: She’ol and the Closing of the Womb, the Four Rivers, and Shlomo’s Excess of Love",
+      "4:116": "§ The Reed in the Sea: Rome Wedged at Its Beginning, and the Turn to the Root of Longing",
+      "4:117": "§ The Tamid at the Fourth Hour: Clarification in Sleep, and “I Shall Ask of Supernal Wisdom”",
+      "4:118": "§ Nevuchadnetzar the Servant: No Evil in Atzilus, and the Queen of Sheba Returned to Her Land",
+      "4:119": "§ The Oral Torah from Bavel: The Great Assembly, the Three Lines, and the Nine Kavin Restored",
+      "4:120": "§ The Four Faces and Chizkiyahu Who Did Not Say Song: The Hidden Root Bubbling Up in Bavel",
+      "4:121": "§ The Tenth Kav and Yom Kippur: Bavel as Fine Flour, and Harpanya the Gate of Eden",
+      "4:122": "§ The Fruits of Harpanya: The Face of the Dog, and the Two Keys of the Heart",
+      "4:123": "§ Comforting the Oppressed: The Two Keys, and the Ruling That the Mamzerim Will Be Purified",
+      "4:124": "§ The Halachah and the Fall of Tarmod: The Chanukah Lights, and Drawing Godliness to the Lowly Places",
+      "4:125": "§ The Note and the Ring: The Cry of the Oppressed, and the Encompassing Light That Guards",
+      "4:126": "§ The Ring and the Encompassing Light: Shlomo’s Lost Kingship, Naamah, and the Vanity of the Breath",
+      "4:127": "§ The Father’s Inheritance: David Who Slew the Inclination, and Shlomo’s Greater Spreading",
+      "4:128": "§ Why the Lower Rung Spreads More: The Beast on a Thousand Mountains, and the Force of Having No Force",
+      "4:129": "§ Nechemiah’s Book in Ezra’s Name: The Written and Oral Torah, and the Thousand Wives",
+      "4:130": "§ The Torah as Might: The World Created in Gevurah, and the Brazen Souls of the Mamzerim",
+      "4:131": "§ No Generation Fewer Than Sixty Myriads: The Mazal as Angel, and the Vitality in the Grass",
+      "4:132": "§ The Thousand Mountains and the Four Levels: Inanimate, Growing, Living, Speaking, and the Fourth Attribute",
+      "4:133": "§ When Death Is Swallowed Up: Eating for Heaven’s Sake, and Doeg the Inverse of David",
+      "4:134": "§ Doeg and Reish Lakish: Ascent from the Lowest Rung to the Hidden Root",
+      "4:135": "§ Shimshon, Goliath, and the Hundred and One: The Dog, Ba’al Tzefon, and the Sprouting of David’s Horn",
+      "4:136": "§ Dan Joined to Yehudah: The Lowliest and the Greatest Tribe, the End Wedged in the Beginning",
+      "4:137": "§ The Sin of Might: Doeg Torn Out, the Power Taken from the Philistine, and the Hidden Root Above Reason",
+      "4:138": "§ Reish Lakish Under the Wings of the Shechinah: The Brigand’s Root, and the Accusation That Killed",
+      "4:139": "§ The Ludim and the Three Meals: Brigandage of Holiness, and the Tenth Kav as Seasoning",
+      "4:140": "§ Saffron and the Tenth Kav: The Four Rungs, and Inheriting the Father’s Rung",
+      "4:141": "§ The Three Rava Requested, and the Two Voices Every Soul Leaves Behind",
+      "4:142": "§ The Greatness of the Later Generations: Halacha Ke-Basrai, and the Closeness Within the Darkness",
+      "4:143": "§ The Two Voices and the Breath: How the Sage Attains Prophecy from the Souls of the Past",
+      "4:144": "§ Scripture Versus Talmud: Why David, Shlomo, and Daniel Are Prophets, and the Virtue of the Lower Rung",
+      "4:145": "§ The Father Confers in Righteousness, Not Wisdom: Inheritance Through the Heart, Not the Brain",
+      "4:146": "§ Wisdom and Imagination a Hairsbreadth Apart: The Barren Seed, and the Heart’s Union with Wisdom",
+      "4:147": "§ Derech Eretz Before the Torah: The Ten Generations, the Flood as a Portion of the Torah, and Avraham",
+      "4:148": "§ Fire That Consumes Fire: Shlomo’s House Without Punishment, and the Whole Chariot in Man",
+      "4:149": "§ The Avos Are the Chariot: Yechezkel and Yeshayah, and the Soul’s Apprehension of the Infinite",
+      "4:150": "§ The Soul’s Limbs and the Fractal of Apprehension: Each Soul a Chariot, the Stones of the Bush",
+      "4:151": "§ Thought, Speech, and the Serpent’s Two Voices: Prayer as the Attribute of the Lack, and the Garments of Skin",
+      "4:152": "§ The Voice That Returns: Speech, the Three Curses, and the Two Strikings of the Rock",
+      "4:153": "§ Shlomo and the Serpent: Dan Joined to Yehudah, Caesarea and Jerusalem, and the Rivers of Eden",
+      "4:154": "§ Pishon Above Gichon: Shlomo’s Deficiency, and Moshe at the Rock",
+      "4:155": "§ Between Blood and Blood: The Exile to Bavel, and the Clarification of Awe",
+      "4:156": "§ Pinchas, Eliyahu, and the Final Union: Awe and Love Made One in the Secret of Yaakov",
+      "3:4": "The Seventh-Year Blessing and the Trust of Sukkos",
+      "3:7": "The Five Books of Torah and Avraham’s Four Hundred Chapters",
+      "3:9": "Hashem’s War with Amalek and the Completion of His Name",
+      "3:10": "From Marah to Refidim: Sweetening Concealment and Surrender Above Reason",
+      "3:12": "The Seven Noahide Laws and Israel’s Trust beyond Reason",
+      "4:3": "Heavenly Fire, Falling on the Face, and Days of Favor",
+      "4:4": "Sifra di-Tzeni’usa: Measure, Balance, and the Middle Line",
+      "4:5": "Nadav and Avihu Pressed the Hour: The Need for Measured Service",
+      "4:7": "Pinchas Rectifies Nadav and Avihu: Mistaken Intent and Inner Faithfulness",
+      "4:9": "Eliyahu at Mount Carmel: Rectifying the Two Extremes",
+      "4:10": "Eliyahu’s Altar and the Recognition That Hashem Turns the Heart",
+      "4:13": "Divine Providence in Apparent Happenstance",
+      "4:14": "The Three Letters Tav: Marah, the World to Come, and the Forty-Two Journeys",
+      "4:15": "Miryam and Aharon: Kingship, Priesthood, and Speech about Moshe",
+      "4:16": "The Spies and Sefer Devarim: Moshe’s Speech and the Holiness of the Land",
+      "4:20": "Havla de-Garmi: The Subtle Bond between Soul and Body",
+      "4:23": "Spiritual Hearing and Sight: Desire as the Means of Attachment",
+      "4:26": "The Holiness of Two Jews Together and the Fall of Sheba",
+      "4:27": "Shlomo and the Queen of Sheba: Worldly Desire Confronts Holy Wisdom",
+      "4:28": "Israel’s Enduring Covenant and Onkelos’s Questions",
+      "4:29": "Titus, the Hidden Root of Thought, and the Limits of Judgment",
+      "4:34": "Shlomo’s Messianic Aspiration and the Mystery of the Great Serpent",
+      "4:35": "The Four Kingdoms and the Refinement of Israel in Exile",
+      "4:36": "The Serpent’s Fin and the Appearance of a World Apart from Hashem",
+      "4:38": "Eliyahu’s Still, Small Voice and the Rectification of the Shells",
+      "4:45": "The Desire to Know Good and Evil: From Holy Root to Human Choice",
+      "4:49": "The Serpent’s Seduction and Man’s Task in Eden",
+      "4:53": "David’s Slain Inclination and the Future Clarification through Shlomo",
+      "4:56": "Silence at the Sea: Faith beyond Intellect and the Opening to Repentance",
+      "4:57": "Adam’s Garments of Light and the Garments of Good Deeds",
+      "4:66": "Error, the Serpent’s Bite, and the Birth of Redemption",
+      "4:68": "Torah and Prayer: Human Effort and the Recognition of Divine Power",
+      "4:69": "The Tower in the Air: Israel Has No Fixed Foundation Apart from Hashem",
+      "4:70": "The Four Hundred Questions about David and Shlomo’s Clarification",
+      "4:77": "Jericho, the Root of Worldly Powers, and the Difficulty of Converts",
+      "4:79": "Rabbi Akiva, Converts, and the Divine Wisdom of the Oral Torah",
+      "4:83": "Rabbi Eliezer and Rabbi Yehoshua: Body, Soul, and the Heavenly Voice",
+      "4:84": "Koheles, Judgment of the Heart, and the Limits of Wisdom"
+    }
+  },
+  "inlineHeadings": {
+    "Miscellany": {
+      "1:4": [
+        {
+          "phraseIndex": 13,
+          "text": "Why Kohanim Are Included in Birkas HaMazon; Bris, Torah, and Land as Three Levels",
+          "kind": "section",
+          "anchor": "ואמרו בערכין (דף ד׳ עמוד א׳): סלקא דעתך אמינא דכהנים פטורים מברכת המזון, הואיל ולא נטלו חלק בארץ"
+        }
+      ],
+      "1:7": [
+        {
+          "phraseIndex": 11,
+          "text": "The Torah-Sign Is Not from the Womb; Yitzchak, Gevurah, and the Light That Enters Gehinnom",
+          "kind": "section",
+          "anchor": "ואות התורה אינו מבטן, דאדרבא: כשנולד שוכח כל התורה כדאיתא בפרק המפלת (נדה דף ל׳ עמוד ב׳)."
+        }
+      ],
+      "1:8": [
+        {
+          "phraseIndex": 6,
+          "text": "The Scholar's Table as Altar; Ru'ach HaKodesh Through Torah, Eating, and Drinking",
+          "kind": "section",
+          "anchor": "וכמו שכתבתי לעיל דמאכל תלמיד חכם כבכורים, וכן משקהו כמנסך על גבי מזבח כמו שאמרו זכרונם לברכה."
+        }
+      ],
+      "1:12": [
+        {
+          "phraseIndex": 18,
+          "text": "“Arami Oved Avi” Is Not in the Book of Bereishis; the Egyptian Exile Clarifies the Root",
+          "kind": "section",
+          "anchor": "וענין \"ארמי אבד אבי\" לא נזכר בספר בראשית כלל, רק מה שאמר: \"הבנות בנתי והבנים בני והצאן [הם ששים רבוא נפשות ישראל] צאני\""
+        }
+      ],
+      "2:1": [
+        {
+          "phraseIndex": 16,
+          "text": "The Ten Nations; Edom in Murder, Amon and Moav in Adultery",
+          "kind": "section",
+          "anchor": "ונגדם בקדשה: יעקב, רחל, ולאה."
+        }
+      ],
+      "2:2": [
+        {
+          "phraseIndex": 20,
+          "text": "Exile to Gather Converts; Shimon, Levi, and the Brothers of Dinah",
+          "kind": "section",
+          "anchor": "וכן איתא: לא גלו ישראל אלא כדי שיתוספו עליהם גרים (פסחים דף פ״ז עמוד ב׳)."
+        }
+      ],
+      "2:4": [
+        {
+          "phraseIndex": 14,
+          "text": "Mashiach ben David Revealed Only After the Slaying of Mashiach ben Yosef; Sun and Moon",
+          "kind": "section",
+          "anchor": "והינו כי גלוי משיח בן דוד הוא רק אחר הריגת משיח בן יוסף, שהם דגמת חמה ולבנה [כמו שכתוב בראש השנה (דף כ״ה עמוד א׳): ושלח לי סימנא וכולי, כנודע]"
+        },
+        {
+          "phraseIndex": 24,
+          "text": "The Sale of Yosef: “Master of Dreams,” Imagination, and the World of Falsehood",
+          "kind": "section",
+          "anchor": "וכך היה גם כן מכירת יוסף, שקראוהו \"בעל החלמות\"."
+        }
+      ],
+      "3:3": [
+        {
+          "phraseIndex": 13,
+          "text": "The Two Inclinations and the Two Foundations; the Sabbatical Year, and Sukkos as Complete Trust",
+          "kind": "section",
+          "anchor": "ו\"אי לא תתער\" וכולי — כמאן דדחיל מן מותא"
+        }
+      ],
+      "3:6": [
+        {
+          "phraseIndex": 9,
+          "text": "The Close of the Tractate; the Five Chapters Against the Five Books of the Torah",
+          "kind": "section",
+          "anchor": "וכדמסים מסכת עבודה זרה בעובדא דרב יהודה ובאטי בר טובי, שנתברר ביניהם מי הוא משרשא וגזעא קדישא דישראל ומי לא"
+        }
+      ],
+      "3:7": [
+        {
+          "phraseIndex": 3,
+          "text": "Avraham's Four Hundred Chapters; the Ten Trials, “Eisan,” and the Subsuming in Yitzchak",
+          "kind": "section",
+          "anchor": "ומסכת עבודה זרה דאברהם אבינו ארבע מאות פרקי הוה (כמו שכתוב עבודה זרה דף י״ד עמוד ב׳), כי אברהם אבינו נקרא \"אב המון גוים\""
+        }
+      ],
+      "3:8": [
+        {
+          "phraseIndex": 11,
+          "text": "Amalek, the “Beginning of the Nations” and the Depth of the Beginning of Evil",
+          "kind": "section",
+          "anchor": "והנה מצד כל מדרגה יש הבדלים וברורים בין ישראל לעובדי כוכבים ומזלות, והברור האחרון שמצד עמק ראשית, והינו כשאין נכר בפועל "
+        }
+      ],
+      "3:9": [
+        {
+          "phraseIndex": 2,
+          "text": "The Name and the Throne Incomplete; Why Amalek Came After “Is Hashem in Our Midst?”",
+          "kind": "section",
+          "anchor": "[ודבר זה הוא תכלית כל היגיעה והשתדלות דעולם הזה, ו\"אין השם שלם והכסא שלם\" וכולי"
+        }
+      ],
+      "3:10": [
+        {
+          "phraseIndex": 8,
+          "text": "Yitzchak and the Hidden Depth; Avraham's Tenth Trial and Surrender Above Reason",
+          "kind": "section",
+          "anchor": "ולכך יצחק גם כן לא עמד על זה מהשגתו, כי זהו לא אתיידע."
+        }
+      ],
+      "3:11": [
+        {
+          "phraseIndex": 16,
+          "text": "“The Former Things” and the Seven Noahide Laws; Striving Below Reason and Being Led Above It",
+          "kind": "section",
+          "anchor": "מכל מקום \"סוף מעשה נעוץ במחשבה תחלה\", ומאחר דמקור הנעלם של המעשה דבוק מהשם יתברך, אי אפשר שיהיה סוף המעשה נטוי ממנו כמלא"
+        }
+      ],
+      "3:13": [
+        {
+          "phraseIndex": 6,
+          "text": "He Strove Until He Found; the Native's Recognition That All Is From Hashem",
+          "kind": "section",
+          "anchor": "רק השתדל כל כך עד שיגע ומצא דבר זה [וכמו ששמעתי על מדרש \"הציץ עליו בעל הבירה\" וכולי, פרוש: עליו, על ענין תמיהתו זה עצמו "
+        }
+      ],
+      "4:2": [
+        {
+          "phraseIndex": 15,
+          "text": "The Expiring of the Soul and the Inflow of New Life; Why They Were Saved from the Fire",
+          "kind": "section",
+          "anchor": "והנה כשהוא \"בכל נפשך\" ממש, הינו כשמוסר נפשו באמת בשעת מעשה, כענין \"כלתה נפשי\", שהוא כלות הנפש ממש בפועל, כדרך שאמרו בכתב"
+        },
+        {
+          "phraseIndex": 26,
+          "text": "The Two Ways of Filling Desire; Why They Fell Upon Their Faces",
+          "kind": "section",
+          "anchor": "אך יש שני מיני מלוי תאוה, כדאיתא שם: \"תבעל לו\" או \"תספר מאחרי הגדר\"."
+        }
+      ],
+      "4:3": [
+        {
+          "phraseIndex": 8,
+          "text": "“Under the Heavens”: Times and Limits, and the Scale of the Sifra di-Tzeni’usa",
+          "kind": "section",
+          "anchor": "רק יש ימים שאין ימי רצון, והינו כמו שכתוב: \"עת לכל חפץ תחת השמים\" (קהלת ג׳, א׳)."
+        }
+      ],
+      "4:4": [
+        {
+          "phraseIndex": 10,
+          "text": "Hashem Made Man Bounded; the Three Traits and the Middle Line",
+          "kind": "section",
+          "anchor": "ולכך הוא מתבטל לגמרי, כי השם יתברך עשה האדם בעל גבול וגדר."
+        },
+        {
+          "phraseIndex": 24,
+          "text": "“The Heavens” Above the Limit; the Time of Favor When the Community Prays",
+          "kind": "section",
+          "anchor": "אבל השמים, דהינו המנהיג בעצמו, הוא באמת למעלה מן ההגדרה."
+        },
+        {
+          "phraseIndex": 31,
+          "text": "They Pressed the Hour; the Zeal of the Priests and the Yoke of Heaven.",
+          "kind": "section",
+          "anchor": "מה שאין כן ביחיד, אין השם יתברך חותם עדין תכף, וכל זמן שאין השם יתברך מעיד, אין הדבר מברר שחשקו ורצונו הוא באמת רק להשם."
+        }
+      ],
+      "4:6": [
+        {
+          "phraseIndex": 19,
+          "text": "Their Rectification in Pinchas; the Restitution of the Balance",
+          "kind": "section",
+          "anchor": "ועין זהר (דף נ״ו עמוד ב׳) ד\"בקרבתם\" וגומר ו\"בהקריבם\" וגומר הכל אחד, ויעין שם לשונו"
+        }
+      ],
+      "4:7": [
+        {
+          "phraseIndex": 14,
+          "text": "Pinchas Who Did Not Die; the Tree of Life and the Tree of Death",
+          "kind": "section",
+          "anchor": "ולכך כשנתקנו, זכו למה שרצו שהוא \"ברית שלום\", כי פינחס זה אליהו שאמרו זכרונם לברכה (עדיות פרק ח׳ משנה ז׳) שיבוא לעשות שלו"
+        }
+      ],
+      "4:8": [
+        {
+          "phraseIndex": 18,
+          "text": "Eliyahu the Middle Line; Yom Kippur as “Every Time,” the Rung of Repentance",
+          "kind": "section",
+          "anchor": "וכן נדב ואביהוא חטאם בתקף הזריזות חוץ לגבולו, ופינחס להיפך — במתינות שלא במקום הראוי, ותקונו באליהו שהוא קו המצוע: לקרב "
+        }
+      ],
+      "4:9": [
+        {
+          "phraseIndex": 20,
+          "text": "Offerings Slaughtered Outside: the Second Extreme; Unbounded in Time and in Place",
+          "kind": "section",
+          "anchor": "ואחר כך הזהיר על שחוטי חוץ שהוא הקצה השני, בהוצאה מפנים לחוץ, שסופו לבוא לידי כך גם כן כנזכר לעיל."
+        },
+        {
+          "phraseIndex": 27,
+          "text": "The Middle-Line Boundary in the Soul: the Blood, and Israel Set Apart from Birth",
+          "kind": "section",
+          "anchor": "והם שני הקצות, והגדרה דקו אמצעי נגד מדת יעקב אבינו עליו השלום הוא בנפש, והוא אזהרת אכילת דם בהמה, שלא לערב נפש הבהמה בנפ"
+        },
+        {
+          "phraseIndex": 33,
+          "text": "“They Have Forsaken Your Covenant”; the Altar of Shaul and “You Turned Their Heart”",
+          "kind": "section",
+          "anchor": "רק על זה צווח אליהו: \"עזבו בריתך\" וגומר (מלכים א י״ט, י׳), שלפי מבינותו במעשיהם ראה שעזבו וכולי."
+        }
+      ],
+      "4:10": [
+        {
+          "phraseIndex": 3,
+          "text": "“Hashem Is the God”: Fear Among the Nations, and the Blending of the Attributes",
+          "kind": "section",
+          "anchor": "ואז הקריב שחוטי חוץ, שזה נקרא בדברי רבותינו זכרונם לברכה על \"וקהל גוים\" — ככל הגוים."
+        }
+      ],
+      "4:11": [
+        {
+          "phraseIndex": 12,
+          "text": "Whence Bilam’s Prophecy: the Fallen Sparks and the Sin of Pe’or",
+          "kind": "section",
+          "anchor": "ונביאות בלעם נמשך ממה שהחטיא את בני ישראל בזנות."
+        }
+      ],
+      "4:12": [
+        {
+          "phraseIndex": 16,
+          "text": "“Remember the Righteous Acts of Hashem”: All Happenings Are Ordered by Him",
+          "kind": "section",
+          "anchor": "ולכך נאמר: \"עמי זכר נא [מה יעץ בלק מלך מואב ומה ענה אתו בלעם בן בעור]... צדקות השם\" (מיכה ו׳, ה׳)."
+        }
+      ],
+      "4:13": [
+        {
+          "phraseIndex": 7,
+          "text": "The Forty-Two Journeys and the Name of Forty-Two; the Letter Tav",
+          "kind": "section",
+          "anchor": "וזהו צדקה גמורה שלא זעם השם אז כשהתעורר אותו שרש רע דבני ישראל לקטרג עליהם, שהוא קודם כניסתם לארץ כשחנו על מיצר ארץ ישרא"
+        }
+      ],
+      "4:14": [
+        {
+          "phraseIndex": 4,
+          "text": "Moshe, “Husband of the Matron”, and His Counterpart Eliyahu; the Manna and the Elders",
+          "kind": "section",
+          "anchor": "כי תאות אכילה כבר נתקן בקברות התאוה [והיא נקרא סתם \"תאוה\", לפי שזהו מכשול הגלוי דאדם הראשון, ולכך דבר זה בגלוי, \"ולא יתב"
+        },
+        {
+          "phraseIndex": 16,
+          "text": "The Letters Nun, Samech, Tav; Miryam and Aharon, the Houses of Kingship and Priesthood",
+          "kind": "section",
+          "anchor": "ולכך תכף אחר כך שנקבר התאוה [באות הנו״ן דשם מ״ב הרומז לנפילה כמו שכתוב בפרק קמא דברכות (דף ד׳ עמוד ב׳)"
+        }
+      ],
+      "4:15": [
+        {
+          "phraseIndex": 7,
+          "text": "It Was Slander; the Gimel and Dalet, the Spies, and the Gift of Sefer Devarim",
+          "kind": "section",
+          "anchor": "ובאמת היה לשון הרע כי אינו עדין זמנו, ואז אין ברית המעור מתקן עדין."
+        }
+      ],
+      "4:16": [
+        {
+          "phraseIndex": 10,
+          "text": "Seeing the Land but Not Acquiring It; “Is There a Tree?”",
+          "kind": "section",
+          "anchor": "ומשם זכה ל\"עלה ראש הפסגה\" ולראות הארץ."
+        }
+      ],
+      "4:18": [
+        {
+          "phraseIndex": 14,
+          "text": "Bilam, Root of All Gentile Wisdom; the Nations “Gathered to Bilam,” and Sinai as Hatred",
+          "kind": "section",
+          "anchor": "ובאורו כמו שכתוב שם (דף קצ״ג עמוד ב׳): כי בלעם במסאבותא דגמת משה רבנו עליו השלום בקדשה"
+        }
+      ],
+      "4:19": [
+        {
+          "phraseIndex": 19,
+          "text": "The Vapor of the Bones; How Spirit Binds to Body, the Foundation of All Creation",
+          "kind": "section",
+          "anchor": "וכידוע בסוד \"הבלא דגרמי\" בזהר שלח (דף קס״ט עמוד א׳) דזהו סוד \"אוב מארץ\", עין שם."
+        }
+      ],
+      "4:22": [
+        {
+          "phraseIndex": 11,
+          "text": "The Necromancer and the “Mouth of the Abyss”; Why It Fails on the Sabbath",
+          "kind": "section",
+          "anchor": "מה שאין כן בעל אוב — זה פיתום וכולי, עין שם במשנה וגמרא בסנהדרין (דף ס״ה עמוד ב׳) דקימא לן: מעלה בזכורו"
+        },
+        {
+          "phraseIndex": 31,
+          "text": "The Mechanics of the Ov: the Voice, the Armpit, and Craving as the Point of Attachment",
+          "kind": "section",
+          "anchor": "ומדבר משחיו, כי אמרו חכמינו זכרונם לברכה (תנחומא פרשת אמר סימן ד׳): הנשאל רואהו ואינו שומע קולו, והשואל שומע קולו ואינו "
+        }
+      ],
+      "4:25": [
+        {
+          "phraseIndex": 5,
+          "text": "The Queen as the Root of Licentious Craving; the Land of Sheba and Naftali",
+          "kind": "section",
+          "anchor": "והיא לא ידעה זה כי היא היתה דבוקה בדמיון, ודבר זה הוא השגת האמת שברע — זה השיג רק שלמה המלך עליו השלום, והיא באמת היתה ש"
+        },
+        {
+          "phraseIndex": 13,
+          "text": "The Danger of Solitude; the Holiness Resting on a Jew, and Why Afflictions Are Rooted in Israel",
+          "kind": "section",
+          "anchor": "וכשהוא יחידי יש חשש יותר, כי באמת על איש יהודי חופף קדשה, כי שרשו ממקום קדוש, וכל עמק מחשבותיו באמת הוא רק בקדשה וטהרה ו"
+        }
+      ],
+      "4:26": [
+        {
+          "phraseIndex": 7,
+          "text": "“And Sheva Fell”; the Foretaste of the World to Come, and Shlomo’s Mastery",
+          "kind": "section",
+          "anchor": "ולכך נאמר \"ותפל שבא ותקחם\" לאותם \"בקר חרשות והאתנות רעות על ידיהם\", שאמרו חכמינו זכרונם לברכה (בבא בתרא דף ט״ו עמוד ב׳) "
+        }
+      ],
+      "4:27": [
+        {
+          "phraseIndex": 4,
+          "text": "Shlomo and Nevuchadnetzar; a Blemish of the Covenant Admits No Healing",
+          "kind": "section",
+          "anchor": "וזהו \"ויגד לה את כל לבה\" שזהו באמת כל לבה גם כן החשק דזמה, רק שהיא לא ידעה שזה שרש דבלעם כמו שכתבתי לעיל על ידי \"ויקר\" ד"
+        }
+      ],
+      "4:28": [
+        {
+          "phraseIndex": 2,
+          "text": "“Transgressors of Israel in Their Body”: the One Who Never Dons Tefillin, and the Two Impulses",
+          "kind": "section",
+          "anchor": "ורק פושעי עובדי כוכבים ומזלות בגופן אמרו זכרונם לברכה בראש השנה (דף י״ז עמוד א׳) בעברה, אבל פושעי ישראל בגופן דוקא קרקפת"
+        },
+        {
+          "phraseIndex": 8,
+          "text": "Onkelos’s Questions and the Judgments; the Root of Idolatry Was the Impulse of Forbidden Relations",
+          "kind": "section",
+          "anchor": "ואונקלוס שאל שני כחות אלו על ידי התדבקות בהבלא דגרמי דשרשם, ושאל תכף \"דיניה דההוא גברא\" כדי שלא להתדבק ברע שבהבלא דגרמי,"
+        },
+        {
+          "phraseIndex": 15,
+          "text": "“Do Not Seek”; the Peace of the Tzaddik, and Titus’s Root of Bloodshed",
+          "kind": "section",
+          "anchor": "מה שאין כן מצד שרש הזמה, דהינו בנביאי עובדי כוכבים ומזלות, אמר לו \"לא תדרוש\" כוליה, כמו שכתוב בנזיר (דף כ״ג עמוד ב׳) דטו"
+        }
+      ],
+      "4:29": [
+        {
+          "phraseIndex": 1,
+          "text": "The Depth of the Beginning of Thought Is “Nothing”; the Day Iniquity Will Not Be Found",
+          "kind": "section",
+          "anchor": "רק דבר זה של עמק ראשית המחשבה אין מברר בעולם הזה כידוע, דעמק ראשית נקרא \"אין\", כי המחשבה נקראת \"יש\", שכבר היא ישות מה מו"
+        },
+        {
+          "phraseIndex": 7,
+          "text": "Why the Sages Sought to Count Even Shlomo: the Revealed Acts upon the Hidden",
+          "kind": "section",
+          "anchor": "ודבר זה גם כן הוא קצת גלוי כשיודע שיש נעלם כך וכך, אבל להיות ברור כיום כך, זה לא היה עדין לשום נביא, ולכך מצד חכמת החכמי"
+        }
+      ],
+      "4:32": [
+        {
+          "phraseIndex": 6,
+          "text": "The Question Put to Shlomo ben David; Judgment by Self-Admission, and the Attribute of Kingship",
+          "kind": "section",
+          "anchor": "והינו כמו שכתוב בבבא בתרא (דף י׳ עמוד ב׳): שאלו את שלמה בן דוד: איזהו בן העולם הבא? כוליה, והנה לא נזכר מי השואל ואנה מצ"
+        }
+      ],
+      "4:34": [
+        {
+          "phraseIndex": 5,
+          "text": "The Thought to Rectify Evil at Its Root; “the Way of a Serpent upon a Rock”",
+          "kind": "section",
+          "anchor": "אבל מכל מקום מחשבתו שחשב לתקן הרע בשרשו, דנמצא מחשבה זו להתדבק בשרש הרע כדבוק איש ואשתו ד\"היו לבשר אחד\" שהוא יחוד הגמור,"
+        },
+        {
+          "phraseIndex": 11,
+          "text": "The Great Sea-Serpent and the Structure of Exile; the Four Kingdoms and Egypt",
+          "kind": "section",
+          "anchor": "והנה כל אדם הוא גם כן שרשו הנעלם מהשם יתברך שהוא תכלית השלימות בלי שום חסרון, ואם כן הוא ממש שני הפכים בנושא אחד, ואיך א"
+        }
+      ],
+      "4:35": [
+        {
+          "phraseIndex": 8,
+          "text": "Creation Hangs upon the Serpent’s Fin; Recognizing All as from Hashem Rectifies the Root",
+          "kind": "section",
+          "anchor": "ולכך נאמר \"אהיה\" לשון עתיד, כי הוי\"ה הוא מה שנגלה לכל, ולכך שם הוי\"ה הוא תאר \"אתה\" כנודע, פרוש: לזכר נוכח, ו\"אהיה\" הינו "
+        }
+      ],
+      "4:37": [
+        {
+          "phraseIndex": 9,
+          "text": "The Four Shells Yechezkel Saw; Eliyahu’s “Still, Small Voice” as Hashem’s Seal",
+          "kind": "section",
+          "anchor": "וכן הם ארבע קליפות שראה יחזקאל כנזכר בזהר תרומה (דף קל״א ריש עמוד א׳) [ודרגא חמישי דחשמל הנזכר שם ובפרשת יתרו דף פ״ב ריש"
+        }
+      ],
+      "4:38": [
+        {
+          "phraseIndex": 4,
+          "text": "The Shells upon the Foundation; the Work of the Chariot, and the Shell of Glow as the Tree of Knowledge",
+          "kind": "section",
+          "anchor": "וכל אלו הקליפות הם חופפים על היסוד המכנה בשם \"חשמל\", עין שם בזהר ויקהל, ועין תקונים תקון ל״ז, כי היסוד שם ההבדלה בין ישר"
+        },
+        {
+          "phraseIndex": 12,
+          "text": "Adam’s Single Command, and His Naming of the Animals",
+          "kind": "section",
+          "anchor": "ואמנם לאדם הראשון צוה השם יתברך רק על שרש הרע הזה רק צווי אחת: שלא יאכל גם מעץ הדעת הזה, כי הוא יציר כפיו של השם יתברך, "
+        }
+      ],
+      "4:40": [
+        {
+          "phraseIndex": 7,
+          "text": "“Smallness” Cleaved through the Knot of the Tefillin; the Covenant Dividing Israel from the Nations",
+          "kind": "section",
+          "anchor": "ואמנם קטנות זה הוא גם כן דבוק בעצמות השם יתברך, והוא נחש דקדשה היונק מאחוריים דאהיה, כי אמרו זכרונם לברכה (ברכות דף ז׳ ע"
+        }
+      ],
+      "4:42": [
+        {
+          "phraseIndex": 5,
+          "text": "The Serpent’s Joining to the Chashmal; the Four Shells against the Four Worlds",
+          "kind": "section",
+          "anchor": "ולכך היה התחברות הנחש שהוא הנגה הנמשכת משרש רצון זה כנזכר לעיל וחופפת על החשמל, \"פתי לה לאתתא\", כי יש לו התחברות ושיכות "
+        }
+      ],
+      "4:44": [
+        {
+          "phraseIndex": 12,
+          "text": "The Serpent of Holiness; “a Woman of Harlotry” as the Counterfeit of “a Woman of Valor”",
+          "kind": "section",
+          "anchor": "ונמצא באדם הם כל העולמות: אצילות, בריאה, יצירה, עשיה, כי כללות וחבור פרטיהם יחד הוא הנקרא \"צורת אדם\" בכל עולם, שרצונו לו"
+        }
+      ],
+      "4:45": [
+        {
+          "phraseIndex": 9,
+          "text": "Before It Issues into Act It Is a Creation; Free Choice Given Only to Man; Samael Who Fell Only When Heeded",
+          "kind": "section",
+          "anchor": "ומכל מקום, מקודם שיצא הדבר לפעל היא בריאה מהשם יתברך, שהשם יתברך רצה שיהיה כח זה בעולם, והוא יעצר עצמו שלא יעשה זולת רצו"
+        }
+      ],
+      "4:48": [
+        {
+          "phraseIndex": 8,
+          "text": "The Four Worlds of Evil Built from the Sundered Power; the Shell of Glow as the “Atzilus of Evil”",
+          "kind": "section",
+          "anchor": "וממילא כח הרע הפרטי שבעולם נעשה בגדר רע גמור, רצונו לומר הפוך ונגד רצון השם יתברך, כי הלא רצון השם יתברך היה שלא ישמע לו"
+        }
+      ],
+      "4:49": [
+        {
+          "phraseIndex": 7,
+          "text": "Man Placed in Eden “to Work and Guard It”; the Permitted Things, and “in Iniquity I Was Formed”",
+          "kind": "section",
+          "anchor": "ולכך נברא אדם להיות בגן עדן \"לעבדה ולשמרה\", ואמרו זכרונם לברכה (זהר הקדוש חלק א׳ דף כ״ז עמוד א׳): במצות עשה ובמצות לא תע"
+        },
+        {
+          "phraseIndex": 12,
+          "text": "“a Woman of Harlotry” Cannot Truly Resemble “a Woman of Valor”; Israel as a Rose among the Thorns",
+          "kind": "section",
+          "anchor": "רק מכל מקום, לא יכילת אשת זנונים נעשית אז רע גמור כנזכר לעיל, מה שאין כן אשת חיל היא רק בגדר יודעי רע כנזכר לעיל, דשרש א"
+        }
+      ],
+      "4:51": [
+        {
+          "phraseIndex": 10,
+          "text": "Repentance as the “Return” of Evil to Its Source; the Sweetening of Evil, and “The Way of the Serpent upon the Rock Was for the Good”",
+          "kind": "section",
+          "anchor": "וידוע דתשובה היא לשון השבה והחזרת דבר למקום שנטל משם, והינו כי הרע נטל ממקומו ומקורו שהוא מעצמות רצון השם יתברך ונפרד לה"
+        }
+      ],
+      "4:54": [
+        {
+          "phraseIndex": 2,
+          "text": "Moshe as the “Knowledge” of Holiness against Pharaoh, the “Crown” of Evil",
+          "kind": "section",
+          "anchor": "ולעמת זה משה רבנו עליו השלום הוא הדעת דקדשה כידוע, והיה יודע כל מיני קדשה והתקרבות לרצון השם יתברך איך יהיה"
+        },
+        {
+          "phraseIndex": 9,
+          "text": "Bilam’s “Knowledge of the Most High”; Why Evil “Bears No Fruit of Its Own”",
+          "kind": "section",
+          "anchor": "[ומה שאמרו זכרונם לברכה (ספרי ברכה): אבל באמות העולם קם, ומנו? בלעם, שאמר: \"וידע דעת עליון\", זה היה על ידי הטפת קרי כדאי"
+        },
+        {
+          "phraseIndex": 15,
+          "text": "The Egyptian “God” and Haman from Amalek; Pharaoh’s Hold Only in the “Hinder-Parts”",
+          "kind": "section",
+          "anchor": "וההוא גברא עשה עצמו אלוה ונתקים בעובדי כוכבים ומזלות עד שיבער הרע מן העולם לגמרי, לפי שהיה בו שרש מישראל, וכנזכר לעיל דע"
+        }
+      ],
+      "4:55": [
+        {
+          "phraseIndex": 9,
+          "text": "The Plague of the Firstborn and “I Am Hashem”; the Exodus as the “Conception” and the Splitting of the Sea as the “Birth”",
+          "kind": "section",
+          "anchor": "ולכן במכת בכורות שהיה \"מבכור פרעה\" וגומר, דבכור פרוש ראשית והיא מכה עשירית כידוע דהמכות נגד עשר ספירות מתתא לעילא שהוא ל"
+        },
+        {
+          "phraseIndex": 15,
+          "text": "The Splitting of the Sea “Depends on the Ancient One”; “You Shall Be Silent” as Self-Surrender Beyond Intellect",
+          "kind": "section",
+          "anchor": "ולכן איתא בזהר בשלח (דף נ״ב עמוד ב׳) על קריעת ים סוף: \"בעתיקא תליא\", וידוע דהוא הנקרא \"אין\" כדאיתא שם (דף ס״ד עמוד ב׳), "
+        }
+      ],
+      "4:56": [
+        {
+          "phraseIndex": 3,
+          "text": "The Serpent’s Bite That Opens the Womb for Repentance; the “Foundation” of Smallness through Suffering",
+          "kind": "section",
+          "anchor": "ועין בזהר בשלח שם אחר כך אמר רבי שמעון: חד אילתא כוליה וזמין לקבלה חד נחש כוליה, ופרוש בפרי עץ חיים סוף שער כ״א בסוד קרי"
+        },
+        {
+          "phraseIndex": 12,
+          "text": "The Garments of Skin as the Body, “from the Serpent’s Skin”; Body and Soul as “Lights and Vessels”",
+          "kind": "section",
+          "anchor": "וממילא נתן המקום לרע להתעורר, שעומד מיד כקליפה הסמוכה לפרי והוא לבוש לפרי, וכמו שכתוב על \"כתנות עור\" שהוא הגוף, עין זהר "
+        },
+        {
+          "phraseIndex": 18,
+          "text": "Rabbi Meir’s Reading “Garments of Light”; the Garments of Eden as Good Deeds",
+          "kind": "section",
+          "anchor": "ומכל מקום אמרו זכרונם לברכה בבראשית רבה (פרשה כ׳): בתורתו של רבי מאיר היה כתוב \"כתנות אור\" באל״ף"
+        }
+      ],
+      "4:57": [
+        {
+          "phraseIndex": 6,
+          "text": "The Garments as “Hinder-Parts”; Why Only One Who “Knows Evil” Has an Opening to Claim the Counterfeit",
+          "kind": "section",
+          "anchor": "[ולכן נקרא \"לבושי טופרא\" בפרשת ויקהל (דף ר״ח עמוד ב׳) [עין סודו בפרי עץ חיים שער פרצופי זכר ונקבה פרק ב׳] ושהם מאחוריים "
+        }
+      ],
+      "4:59": [
+        {
+          "phraseIndex": 7,
+          "text": "The Body Purified “through What They Sinned”; Eliyahu Who Entered Eden Alive, and Death Swallowed Up Forever",
+          "kind": "section",
+          "anchor": "וכל כלי מסתמא מקביל לאור שלו ויש בו מכח אותו האור רק מצד הצמצום ואינו בהתפשטות כל כך, וזה שכתוב בתקונים: לאתדכאה במה דחא"
+        }
+      ],
+      "4:61": [
+        {
+          "phraseIndex": 6,
+          "text": "The World to Come as the Vitality of the Heart; the Righteous “Asleep,” Not Dead; Joy as the Essence of Life",
+          "kind": "section",
+          "anchor": "והנה קרא עולם הבא גם כן ממתנות שנתן, ומאחר שנקרא \"יום ההוא\" שעדין נעלם, איך כבר נתן? ומקרא דיליף קרי ליה \"דרך חיים\" [וחש"
+        },
+        {
+          "phraseIndex": 10,
+          "text": "Shabbos as a Foretaste of the World to Come; the “Feast of the Holy Ancient One,” and Tefillin and Shabbos as the “Sign”",
+          "kind": "section",
+          "anchor": "שעקר החיות היא השמחה, וכמו שכתוב בזהר סוף פרשת ויקהל שם על \"בעצב\" דהינו המיתה, ובשבת שמעין עולם הבא דרשו רבותינו זכרונם "
+        }
+      ],
+      "4:64": [
+        {
+          "phraseIndex": 10,
+          "text": "The World to Come Too Has “the Serpent’s Skin”; the Incense as a “Garment” with the Drug of Death Within",
+          "kind": "section",
+          "anchor": "וגם בחיי עולם הבא יש משכא דחויא ולבוש [כמו ששמעתי על פסוק: ערמה ולא באה, כי בעולם הזה אי אפשר בלא לבוש] שיש בו מקום לטעו"
+        }
+      ],
+      "4:66": [
+        {
+          "phraseIndex": 2,
+          "text": "The Blood of Birth and the “Error”; the Rectification Begun at the Sea; “The Work of Creation” and “The Work of the Chariot” in the Secret of the Great Sea-Serpent",
+          "kind": "section",
+          "anchor": "ובאמת בזה הצעקה גדולה: על מה עשה ה' ככה, שעל ידי מה שמאיר דוקא, על ידי זה יהיה נמשך טעות?!"
+        }
+      ],
+      "4:67": [
+        {
+          "phraseIndex": 8,
+          "text": "The Essence of the Punishment; the “Test” at Refidim; Faith Above the Intellect, and Why Moshe Fled from the Great Sea-Serpent",
+          "kind": "section",
+          "anchor": "כי עקר הענש היא כמו שכתוב ברפידים: \"על ריב בני ישראל ועל נסתם את ה'\" וגומר, כי מצד היסוד דקטנות הזה אי אפשר שלא לבוא ליד"
+        },
+        {
+          "phraseIndex": 17,
+          "text": "Refidim and the Striking of the Rock; Miriam’s Well; Moshe and Miriam as Sun and Moon; Torah and Prayer as Two Opposites",
+          "kind": "section",
+          "anchor": "ולכך הראה לו אות דנחש ונתירא ממנו, דהינו שאין עדין האמונה ברורה בלמעלה מן השכל, ולא ידע עדין דרך נחש עלי צור עד רפידים ש"
+        }
+      ],
+      "4:68": [
+        {
+          "phraseIndex": 7,
+          "text": "Knowledge and Choice as Two Opposites That Only Israel Unifies; Torah and Prayer as Effort and Recognition",
+          "kind": "section",
+          "anchor": "והנה זהו ב' הפכים ממש, כידוע הקשיא דידיעה ובחירה שבשכל האדם אי אפשר לתרצה כמו שכתב הרמב״ם"
+        },
+        {
+          "phraseIndex": 13,
+          "text": "The “Daughter of the King” on the Tower Floating in the Air; the 400 Questions of Do’eg and Achitofel That Shlomo Resolved; David Adorning the Bride and Shlomo Uniting Them",
+          "kind": "section",
+          "anchor": "וכמו שכתוב בתקונים סוף תקון י״ג איתא על מגדלא דפרח באוירא, ובסוף תקון י״ג איתא על מגדלא דאתמר עליו: \"מגדל עז שם ה'\" וגומ"
+        }
+      ],
+      "4:70": [
+        {
+          "phraseIndex": 6,
+          "text": "“If It Is Stone, It Dissolves”; Prayer from the Heart Only When One Recognizes His Need; the Stray Thoughts as Shells Clothing the Shechinah, and Adam’s Failure",
+          "kind": "section",
+          "anchor": "והינו כטעם: אם אבן הוא נמוח, פרוש: שעל ידי השתדלות האדם בגבורתו הוא כובש את יצרו, זוכה להכיר שבאמת הכל בידי שמים ואלמלא "
+        }
+      ],
+      "4:71": [
+        {
+          "phraseIndex": 9,
+          "text": "After the Effort, the Recognition “I”; Shlomo’s Union Above; Moshe Unable to Vanquish the Root of the Serpent; Miriam’s Death at Kadesh, the Letter Lamed and the Tower",
+          "kind": "section",
+          "anchor": "ואחר ההשתדלות אדם זוכה להכיר שהכל בידי שמים, ואז נעשה בטעם \"אנ״י\" שכל מחשבותיו ורצונותיו מצד שכינתו יתברך בתוכו, כטעם סי"
+        }
+      ],
+      "4:72": [
+        {
+          "phraseIndex": 8,
+          "text": "The Zohar Shlach on the “Echoing Voice of the Serpent”; Rabbi Shimon’s Wonder That Even Shlomo Did Not Know It; the Bas Kol as the “Hinder-Parts” of Hashem’s Voice",
+          "kind": "section",
+          "anchor": "ועין בזהר שלח (דף קס״ט עמוד א׳) בסוד קול דהבראה דקלא דנחש אתער לגבי קול הכאה, ויעין שם דאמר רבי שמעון: תווהנא איך שלמה מ"
+        }
+      ],
+      "4:73": [
+        {
+          "phraseIndex": 8,
+          "text": "The True Sages of Israel Whose Wisdom Is an “Echo” of Hashem’s Voice; the Chain Written Torah → Mishnah → Talmud",
+          "kind": "section",
+          "anchor": "וגם כן לחכמים, פרוש: חכמי ישראל האמתיים היודעים ומכירים שכל חכמתם מהשם יתברך"
+        }
+      ],
+      "4:74": [
+        {
+          "phraseIndex": 5,
+          "text": "“He Has Set Me in Dark Places — This Is the Talmud of Bavel”; Bavel as the “Hinder-Parts” of Jerusalem; Targum as the “Hinder-Parts” of the Holy Tongue; the Seventy Languages from the Dispersion",
+          "kind": "section",
+          "anchor": "רק מכל מקום אין מכיר אור הפנים עצמו לשמוע הקול עצמו, שעדין נדמה כאלו הוא מעצמו ממציא אותו דבר, וכמו שכתוב בסנהדרין (דף כ"
+        }
+      ],
+      "4:76": [
+        {
+          "phraseIndex": 11,
+          "text": "Achan and Jericho’s Link to Bavel; Dates as “The End”; Milk and Honey as the Two Torahs; the Curse of Yehoshua; Jericho as the “Lock” and “Hinder-Parts” of the Land",
+          "kind": "section",
+          "anchor": "וכמו שכתבתי במקום אחר על מה שאמרו חכמינו זכרונם לברכה (בבראשית רבה סוף פרשת וישב) על פסוק \"ואדרת שנער\" דעכן, שמלך בבל הי"
+        }
+      ],
+      "4:77": [
+        {
+          "phraseIndex": 15,
+          "text": "The Converts “Hard as a Sapachas”; Plagues and Tents as the Roots of “Do Not Murder” and “Do Not Commit Adultery”; the Two Impulses; the Erev Rav Who Made the Calf",
+          "kind": "section",
+          "anchor": "ומצד הזה נתוספים גם כן גרים, ומכל מקום \"הם קשים לישראל כספחת\" (יבמות דף מ״ז עמוד ב׳),"
+        }
+      ],
+      "4:78": [
+        {
+          "phraseIndex": 11,
+          "text": "In the Future, a Rectification for Evil Speech; No More Converts; the Letters Tes and Kuf, and “Good Hidden Within” Until the World to Come",
+          "kind": "section",
+          "anchor": "ולעתיד לבא כשיתקן משיח בן דוד יהיה תקון ללשון הרע שהוא נגד רגל דוד הרביעי במרכבה כמו שכתבתי במקום אחר, אז לא יקבלו גרים."
+        }
+      ],
+      "4:79": [
+        {
+          "phraseIndex": 1,
+          "text": "“Who Is a Convert with You in Your Poverty”; Rabbi Akiva, Foundation of the Oral Torah, the Son of Converts; the Wisdom of the Oral Torah as Ru’ach HaKodesh, Greater Than Prophecy",
+          "kind": "section",
+          "anchor": "וכמו שאמרו חכמינו זכרונם לברכה (יבמות דף כ״ד עמוד ב׳) דאין מקבלים גרים אז, רק מי גר אתך בעניותך כוליה, פרוש: בעניות בדעת"
+        },
+        {
+          "phraseIndex": 9,
+          "text": "The Three Powers of Hashem — Thought, Speech, and Deed — as “I, You, He”; “Wisdom” the Beginning of Revelation, Still “Being”, While “Thought” Is the Hidden “He”; “The Unripe Fruit of Supernal Wisdom Is Torah”; and How Thought Is Revealed Only in the Oral Torah, “the Mysteries of the Holy One”",
+          "kind": "section",
+          "anchor": "וביאור זה, כי ג' כחות השם יתברך דמחשבה, דבור, ומעשה הם כענין \"אני\", \"אתה\", \"הוא\":"
+        }
+      ],
+      "4:81": [
+        {
+          "phraseIndex": 6,
+          "text": "Purifying the Sheretz with 150 Reasons, and Sharpening the Students: Intellect That Contradicts Moshe’s Perception; “A Law Without a Reason”; Rabbah the “Uprooter of Mountains” versus Rav Yosef “Sinai,” and Why the Halachah Follows the Oral Torah",
+          "kind": "section",
+          "anchor": "ולכן כשהגיעו להלכה אחת שאמרו שהיא אחת ואין שני לה, שאלו: זו מנין לך? כי מצד הטעם אי אפשר להיות שהיא אחת, וכמו שכתוב בערו"
+        },
+        {
+          "phraseIndex": 16,
+          "text": "The Intellect Is Not Rejected, for It Is Drawn from Hashem’s Essence Where Both Opposites Are True; Teshuvah Turning Sins to Merits and David’s “Yoke of Repentance”; Thought versus Deed in Knowledge and Free Choice; Why a Sage Is Preferable to a Prophet",
+          "kind": "section",
+          "anchor": "אבל מכל מקום אין השכל נדחה, כי מאחר ששכלו הוא רק מעצמות השם יתברך דשם יוכל להיות שני הפכים אמת, אלא שמכל מקום צריך לבטל "
+        }
+      ],
+      "4:83": [
+        {
+          "phraseIndex": 6,
+          "text": "“Let Heaven Prove It” and the Heavenly Voice (Bas Kol); Why the Halachah Follows Beis Hillel and “It Is Not in Heaven”; and the Sages’ Wisdom Drawn from Above the Heavens",
+          "kind": "section",
+          "anchor": "ולכן \"מן השמים\" [שמשם הנבואה כנזכר לעיל] הוכיח כדעתו ויצא בת קול, שהקול הוא מן השמים כמו שכתוב: \"מן השמים השמיעך את קולו"
+        },
+        {
+          "phraseIndex": 18,
+          "text": "When Koheles Sought to Judge by the Heart: The Bas Kol That His Wisdom Was Not Yet Clarified",
+          "kind": "section",
+          "anchor": "אבל למעלה יש אמת אחר שגם כן אמת, וההלכה כן דוקא מאחר שמצד השכל דבני אדם הוא כן, הוא עקר להלכה כנזכר לעיל דחכם עדיף מנביא"
+        }
+      ]
+    }
+  },
+  "anchors": {
+    "Kuntres Dover Tzedek, Eruvin": {
+      "1:1": "פרק ראשון (דף ב׳ עמוד א׳): \"אשכחן משכן דאיקרי מקדש\" וכולי",
+      "1:5": "וענין \"בדחילו ורחימו, ורחימו ודחילו\"",
+      "1:8": "וזהו ענין יחוד המפרסם בספרי המקבלים, שלוב השמות שם הוי״ה ואדנות",
+      "1:15": "והנה זהו ענין משכן ומקדש",
+      "2:1": "[ה] \"הוי זהיר במלאכתך, שמלאכתך\" וכולי (עירובין דף י״ג עמוד א׳)",
+      "2:7": "[ו] \"ואמרתי לו: דבר אחד יש לי, וקנקנתום [שמו, שאני מטיל לתוך הדיו]\" וכולי, \"לזבוב\" וכולי (עירובין דף י״ג עמוד א׳)",
+      "2:20": "[ז] וזה שאמרו (עירובין שם): \"שלא היו יכולים לעמד על סוף דעתו\"",
+      "2:27": "[ח] וזהו גם כן אותו תלמיד שידע לטהר השרץ (עירובין שם) — [8]",
+      "3:1": "שם (עירובין דף י״ג עמוד ב׳): \"שלש שנים נחלקו\" וכולי",
+      "4:1": "\"ים שעשה שלמה\" וכולי (עירובין דף י״ד עמוד א׳)"
+    },
+    "Kuntres Dover Tzedek, Berakhot": {
+      "1:1": "בויקרא רבה (פרק ז׳) ובפסיקתא רבתי: \"גם כי יתנו בגוים עתה אקבצם\" — אין הגליות מתקבצות אלא בזכות משניות",
+      "2:1": "בברכת קריאת שמע: \"להבין\" וגומר עד \"ולקים\" — שמונה דברים",
+      "3:1": "ברכות (דף ב׳ עמוד א׳): יליף מבריתו של עולם וכולי, עין שם",
+      "3:7": "ברכות (דף ב׳ עמוד ב׳): מדמה קריאת שמע בזמנה לזמן אכילה, עין שם",
+      "3:9": "[דף ג׳ עמוד א׳] \"שלש משמורות הוי הלילה\" וכולי",
+      "3:17": "שם (דף ג׳ עמוד ב׳): \"אין אומרים בפני המת\" וכולי",
+      "3:18": "שם: \"עד חצות\" וכולי",
+      "3:27": "[דף ד׳ עמוד א׳] \"לא חסיד אני\" וכולי",
+      "3:38": "שם (עמוד ב׳): \"ואוכל\" וכולי \"וחוטפתו שנה\"",
+      "3:39": "שם: \"הסומך גאלה [לתפלה]\" וכולי (ברכות דף ד׳ עמוד ב׳)",
+      "3:50": "שם (דף ד׳ עמוד ב׳): דאלו במיכאל וכולי: \"מעף ביעף\"",
+      "3:65": "שם [ברכות דף ט״ז עמוד א׳]: \"פרט לחתן\"",
+      "3:67": "שם [עמוד ב׳]: \"אין קורין 'אבות' אלא לשלשה\" וכולי",
+      "3:76": "שם (ברכות דף ט״ז עמוד ב׳): \"אחרית ותקוה\"",
+      "3:80": "שם: \"ספרא דאיוב\""
+    },
+    "Kuntres Ner HaMitzvot": {
+      "1:1": "מצינו בלשון הכתוב: \"סור מרע\" קודם, ואחר כך \"ועשה טוב\"",
+      "1:7": "וזה שכתוב מכות (דף כ״ג עמוד ב׳ / כ״ד עמוד א׳): \"בא חבקוק\" וכולי",
+      "1:10": "ובברכות (דף י״ב עמוד א׳): \"כל שלא אמר 'אמת ויציב' שחרית [ו'אמת ואמונה' ערבית, לא יצא ידי חובתו]\"",
+      "1:15": "ובזה יובן הפלוגתות (שבת דף ס״ט עמוד ב׳): אם מונה ששה ומקדש שביעי, או להפך",
+      "1:17": "והנה התורה היא דפוס כל מעשה בראשית, כמו שכתוב בבראשית רבה פרשה א׳, וכוללת הכל",
+      "1:25": "וזהו דבכל התורה כלה בחלין הלילה קודמת",
+      "1:29": "רמיזת המצות במחשבת הלב וכחות הנפשיים, ואיך עצתם ינחו להכרת \"אנכי\" וגומר, יש להקדים העשין ללאוין כנזכר לעיל",
+      "2:1": "פרשת בראשית, מצות עשה א׳ — בראשית פרק א׳: \"ויברך [אתם אלהים ויאמר להם אלהים] פרו ורבו ומלאו [את הארץ]\" וגומר",
+      "2:7": "ולכן נראה כשנבין טעמא דחכמים",
+      "2:12": "ובזה יש להבין מה שכתוב: \"בן חכם ישמח אב\" וגומר",
+      "2:19": "והקדמונים המשילו איש ואשה לחמר וצורה, גוף ונפש",
+      "2:21": "וזה גם כן במדרש [עין רקנאטי פרשת יתרו, ובתרגום שיר השירים פרק ה׳ פסוק: \"דודי צח\", ואיכה פרק ב׳ פסוק: \"קומי רני\"]: כשלמד תורה שבכתב ידע שהוא יום וכולי",
+      "2:25": "והנה החסרון שבתולדה היא לכל חמרי, שכל חמר מרכב, וכל מרכב עתיד להפרד, ואם כן הוא חסר",
+      "2:30": "ובזה יובן מה דמצות אכילות מצאנו או בזמן והתלוי בו, או בכהנים [באכילת תרומה וקדשים]",
+      "2:33": "והנה דבר זה מבאר מן הכתוב: שתכלית \"פרו ורבו\" — הכבישה לארץ",
+      "2:41": "והנה יש להבין באמת מה ענין הסמיכות וההתלות מלוי הארץ ו\"רדו\" וגומר ל\"פרו ורבו\"",
+      "2:49": "והנה הדרך שיגיע האדם לצורתו וצלמו האלוקי כאמור, והכח אשר שם בו השם יתברך אשר בו ינצח טבע תולדתו",
+      "2:59": "ומשכן צלם אלהים הוא בשני כחות אלה המעוררים המעשה",
+      "2:69": "ואלו השלשה הם שרש כל המדות רעות, שכלם ענפים להם, והם בטבעי תולדות הגוף",
+      "2:77": "והנה הסדר הנזכר הוא בכל פרט מעשה, וכן בדרך כלל למי שהוא בקדש, שהוא חכם וירא",
+      "2:83": "ומה שכתוב (יומא שם): \"הנושא אשה\" וכולי, ירמז כי ידוע מה שכתוב בבראשית רבה (פרשה ל״ח): \"תולדותיהם של צדיקים — מעשים טובים\"",
+      "2:89": "וזה סוד מה שכתוב בזהר יתרו (דף פ״ה עמוד א׳) ושאר דוכתיה: דחכמה ובינה הם אבא ואמא",
+      "2:97": "ולכך אמרו בפרק הבא על יבמתו (יבמות דף ס״ב עמוד ב׳): \"כל מי שאין לו אשה שרוי בלא שמחה, בלא ברכה, בלא טובה\", ואחר כך הוסיפו עוד: \"בלא תורה, בלא חומה, בלא שלום\"",
+      "2:105": "ועל זה איתא גם כן בשלהי תענית (דף ל״א עמוד א׳): \"אין אשה אלא ליופי, אין אשה אלא לבנים\", ובכתבות (דף נ״ט עמוד ב׳) הוסיפו: \"אין אשה אלא לתכשיטין\"",
+      "2:114": "זה השלמות הגמור, כמו שכתוב בברכות (דף ה׳ עמוד ב׳) גבי אבא בנימין: שנצטער על תפלתו סמוך למטתו, עין שם ברש״י, שלא ילמוד קודם",
+      "2:117": "וטעם שגמר המעשה ביד השם יתברך",
+      "2:123": "והנה האדם עולם קטן, והעולם הגדול גם הוא דגמתו",
+      "2:129": "ואחר כך רוח מערבי נגד הלב",
+      "2:137": "\"והויין לו בנים זכרים\", כמו שכתוב בהמפלת (נדה דף ל״א עמוד א׳): \"אשה מזרעת תחלה — יולדת זכר\"",
+      "2:144": "ולכך יצירת האיש היה מן העפר, מגלמים פשוטים, כמו עפר הוא נבנה",
+      "2:147": "וזה שכתוב בנדרים (דף פ״א עמוד א׳): מפני מה אין תלמידי חכמים מצויים להיות בניהם תלמידי חכמים",
+      "2:151": "ובמקום אחר בבאור המאמרים פרק קמא דברכות בארתי",
+      "2:160": "וכבר נתבאר בטעם חלוף סדר המדרגות: קנאה, תאוה, וכבוד, נגד תורה, ועבודה, וגמילות חסדים",
+      "2:162": "והנה זהו החלוק בין יושבי ארעא הקדושה לארעא מסאבתא",
+      "2:174": "ובכזה נאמר: \"הן יראת השם היא חכמה\", שהכל אחד",
+      "2:181": "וזהו כשהתורה נקנית לו ונעשית \"תורתו\", אז רחבה שאין לה גבול",
+      "2:189": "ולכך איתא בזהר: כי \"צדיק\" הוא מדרגת שבת",
+      "2:197": "וזה דשאל (ברכות דף ח׳ עמוד א׳): \"איכא סבי בבבל\" וכולי",
+      "2:202": "והנה מצות התורה חלוקות לדעות, ומדות, ומעשים",
+      "2:205": "והנה דבר זה ד\"ואהבת\" וגומר אינו ביד האדם לקימו כלל, אם לא כאשר יגיע למדרגת האמונה והדבקות שאמרנו",
+      "2:214": "וזהו \"כלי מחזיק ברכה הוא השלום\"",
+      "2:222": "ומעתה יתבאר כי הנך מאן דאמר דפרק במה מדליקין (שבת דף ל״א עמוד ב׳): מר אמר: \"דבר אורין עדיף\", ומר אמר: \"דדחיל חטאין\"",
+      "2:230": "וכן תורה שבכתב ותורה שבעל פה ידוע מדרשות חכמינו זכרונם לברכה שהם מדת יום ומדת לילה",
+      "2:235": "ובזה יובן דברי האר״י זכרונו לברכה בספר הגלגולים: כי שמאי היה ממדת הגבורה והדין",
+      "2:241": "וזהו גם כן באור פסוק: \"ישראל לא ידע, עמי לא התבונן\"",
+      "2:252": "וזהו יששכר, כמו שכתוב (בראשית רבה פרשה ע״ב): \"שמח זבולן בצאתך\" — בפרקמטיא, \"ויששכר באהליך\" — אינו עוסק בפרקמטיא",
+      "2:253": "ואית דאמרי וכולי (בבא קמא שם דף י״ז עמוד א׳): מפרשי \"זורעי\" וכולי, שהגמילות חסד שהוא גמר המעשה הוא \"על כל מים\", על ידי שכחו יצא על ידי היראה, וזהו מדרגת החסידות, ואצלו החכמה במדרגה יתירה שהוא מדרגת הדעת",
+      "2:254": "ורישיה דקרא: \"יעלזו חסידים בכבוד\" וגומר \"וחרב פיפיות [בידם]\"",
+      "2:255": "ולפיכך התורה נקראת גם כן \"בינה\", כי יש חכמה שמלב גם כן [והתורה כלולה מכל, כמו שכתוב בזהר יתרו דף פ״ה עמוד א׳]",
+      "2:256": "והיין הוא הדעת שבכליות, שהוא מהשגת איש הישראלי מעצמו כיין היוצא מן הגפן.",
+      "2:257": "והם ששת ימי המעשה שהם שש קצוות הרמוזים ב\"אלה\" [הנגלים במעשה], וחבורם הוא שם אלהים — רצה לומר בעל הכחות כלם שהם כחות המחשבה שבלב והמעשה.",
+      "2:258": "ועל זה אמרו בברכות (דף ל״ב עמוד ב׳): מיום שחרב בית המקדש נפסקה חומת ברזל וכולי.",
+      "2:259": "ולכך הסמיך הכתוב ל\"בצלם אלהים עשה את האדם\" — \"זכר ונקבה ברא אתם\"",
+      "2:260": "וגם זה עבודה זרה, כי במדרגת הדעת צריך גם כן יראת השם כנזכר לעיל, ושיהיו המעשים יוצאים מתוך היראה שבלב.",
+      "2:261": "ואחר שזכר שלמות הג׳, אז: \"ומוראכם וחתכם\" וגומר, שכבר נבדל מהבעלי חיים באלו השלשת כחות שבו, שהוא מושל על שלשתן שלא יונהגו כפי טבעם, רק כרצון השם ולא ככל הבעלי חיים.",
+      "2:262": "ובכיסו הוא נגד הלב, כמו שכתוב לעיל ד\"לבא בכיסא תליא\" (ירושלמי סוף פרק ח׳ דתרומות)",
+      "2:266": "\"כל מלבושי אגאלתי\" (ישעיהו ס״ג)."
+    },
+    "Mishlei Commentary": {
+      "1:1": "משלי י׳, א׳: \"אב\" הוא השלם, ואשה חסרה, והשלמתה בבן, כמו שכתוב: \"אסף [אלהים את] חרפתי\"",
+      "1:2": "ב׳. היראה היא אוצר, כמו שכתוב: \"יראת השם היא אוצרו\", וכמו שאמרו זכרונם לברכה (ברכות דף ס״א עמוד א׳): אשה דומה לאוצר וכולי, שהיא מכילה בקרבה מעשה המצות",
+      "1:3": "ג׳. הרעבון הוא לשמע דבר השם, ולפעמים יקר כש\"אין חזון נפרץ\"",
+      "1:4": "ד׳. הכף והיד מיחסים לחלק המעשים, כמו שכתוב: \"מעשה ידיו\", \"נקי כפים\" וגומר",
+      "1:5": "ה׳. \"משכיל\" הוא המצליח במעשה, וכמו שכתוב בדוד המלך עליו השלום: \"לכל דרכו משכיל\"",
+      "1:6": "ו׳. התחלת כל דבר גלמי נקרא \"ראש\", וכל דבר שיש לו בית קבול התחלתו מכונה \"פה\"",
+      "1:7": "ז׳. השם והזכרון מעוררים התשוקה לדבר גם ממרחק, ועל דרך שנאמר במגלה (דף ט״ו עמוד א׳): רחב — בשמה זנתה, אביגיל — בזכירתה",
+      "2:1": "משלי א׳, א׳: חשיב כל העשר ספירות: \"משלי\" הוא המקור",
+      "2:2": "ב׳. חכמה היא במחשבה שבמח, ובינה הוא הרצון וההרגשה שבלב, כידוע ממאמר \"פתח אליהו\"",
+      "2:3": "ג׳. \"לקחת\" הינו כשתלוי גם ביד המקבל",
+      "2:4": "ד׳. \"פתי\" הוא כמו תם, שאינו יודע לרמות, ופיו ולבו שוין, ואין בו עצות וישובים, וכמו שכתוב: \"פתי יאמין לכל דבר\""
+    },
+    "Miscellany": {
+      "1:1": "א׳. \"כי תבוא\" וגומר, \"מראשית\" וגומר",
+      "1:2": "ולכך אין מביאים בכורים אלא מארץ ישראל, ששם הוא הכרה זו, מה שאין כן בחוצה לארץ \"דומה\" וכולי",
+      "1:3": "וצריך לומר בברכת המזון: ברית, ותורה, וארץ",
+      "1:4": "והברית הוא קשר ויחוד אמה זו להשם יתברך, כמו שכתוב בנדרים (דף ל״א עמוד ב׳): שאין הערלה נקראת אלא על שם אמות העולם עובדי כוכבים ומזלות",
+      "1:6": "וענין שני האותות הנזכר לעיל: אות ברית הוא \"בטרם ידע הנער\" וגומר, שהוא אות על היהדות מלדה, מבטן, ומהריון בלי שום השתדלות.",
+      "1:7": "וכל שלשת האותות הנזכר לעיל, שהם לברר עצם קדשת ישראל והבדלם מאמות עובדי כוכבים ומזלות כנזכר לעיל, מצילים מגיהנם שעקרו לאמות העולם עובדי כוכבים ומזלות, כמו שכתוב בברייתא דרבי יהושע בן לוי.",
+      "1:8": "והוא אחר שעמד על דעתו והגיע לבחירה, אות על בחירתו שהוא לטובה ושלא בחר כלל ברע.",
+      "1:9": "ויעקב זכה לאות השלישי שהוא הארץ, כמו שכתוב בפרק כל כתבי (שבת דף קי״ח עמוד ב׳): \"נחלת יעקב [אביך]\" — בלא מצרים.",
+      "1:10": "ומזכירים גם כן \"מלכות\" בברכת המזון.",
+      "1:11": "והם שלש מתנות טובות שאיתא בפרק קמא דברכות (דף ה׳ עמוד א׳) שנתנו על ידי יסורין.",
+      "1:12": "וזהו הברכה שלפניה שתקנו חכמים ואינו בתורה שבכתב.",
+      "2:1": "ב׳. \"וישב יעקב\" — בקש לישב בשלוה, קפץ עליו רגזו של יוסף.",
+      "2:2": "והם חלוקים לשנים דגמת רחל ולאה, שנגדם רות, שאמר: \"יתן השם את האשה [הבאה אל ביתך כרחל וכלאה]\" וגומר, שתהיה כוללת שניהם.",
+      "2:3": "והנה אמרו חכמינו זכרונם לברכה על פסוק: \"ויגע בכף ירכו\" (בראשית ל״ב, כ״ו) — הינו בזרעו.",
+      "2:4": "אבל משיח בן דוד, נאמר: \"חיים שאל ממך\" וגומר, שהוא המתקן עולם, שנה, נפש לגמרי כנזכר לעיל, דהוא נגד הנחש.",
+      "2:5": "וכך חשב יעקב שבקש לישב בשלוה.",
+      "2:6": "וחשב יעקב כי כבר הגיע להפרשה הגמורה, הוא זמן השלוה, וקפץ רגזו של יוסף כנזכר לעיל.",
+      "2:7": "ונמצא היה מכירה זו קלקול דיהודה, וגרם אדרבא קלקול ליוסף, שכל עקר קדשת רציחתו הוא לפי שאיננו מזמה רק משנאת זמה כנזכר לעיל.",
+      "3:1": "ג׳. (עבודה זרה דף ב׳ עמוד א׳): חד תני \"אידיהן\" וחד תני \"עידיהן\"",
+      "3:2": "וכן להיפך, שמחה של מצוה, שהיא שמחת בני ישראל, המעיד על אמונתם ושלות לבם שנכון ובטוח בהשם",
+      "3:3": "ויחוד זה נעשה על ידי הבטוחות בהשם, וכמו שכתוב: \"בטח בהשם ועשה טוב, שכן ארץ ורעה אמונה\" (תהלים ל״ז, ג׳)",
+      "3:5": "וזה שאמרו בהך גמרא דלפני אידיהן: טענת עובדי כוכבים ומזלות: \"תנה לנו מראש\", והתשובה: \"מצוה קלה יש לי וסכה שמה\" — היא המבר",
+      "3:6": "ולכך אמר: \"מכם יבואו ויעידו\" וכולי, שעל ידי כל כבד הגלות והיסורין שיסרתם אותם, לא סרו מאחרי",
+      "3:7": "וידוע כי בכל ענין מתחלתו וסופו מובן שכלו כן, כמו שכתוב בשבת (דף ל׳ עמוד ב׳): ראו שתחלתו דברי תורה וסופו דברי תורה וכולי.",
+      "3:8": "והנה מסתמא אחר כל נסיון נתעלה אברהם אבינו ממדרגה למדרגה.",
+      "3:9": "ולכך נאמר: \"מלחמה להשם בעמלק\", כי דבר זה אי אפשר לברר כלל, שהרי הוא עמק ונעלם מן העין ואף מן האדם בעצמו לשעה.",
+      "3:10": "והנה כבר האירו עיניהם במרה, כי גם בהעלם ומים מרים של חשיקות עולם הזה יכולים להמתיק ולדעת כי השם יתברך גנוז בגויה.",
+      "3:11": "ויצחק השיג הפרק החמישי דעבודה זרה בענין יעקב ועשו, כמו שכתבתי לעיל, להכיר ולהבדיל בין אלו ששניהם מלדה ומבטן הקדושה ונמול",
+      "3:13": "וגרים נתרבו מה״א ד\"האזרח\", שאינם בפרוש אזרחיים, רק מרבויא [דה״א הרומזת לשכינה כנודע, וכידוע דמקורם תחת כנפי השכינה, והינ",
+      "4:1": "ד׳. \"אחרי מות\" וגומר, ובזהר (חלק ג׳, דף נ״ז עמוד א׳): \"מאן שזיב\" וכולי, \"דלא אתיחדו\" וכולי",
+      "4:2": "והנה השם יתברך מתאוה לתפלתן של צדיקים, והינו כמו שכתוב (קדושין דף ב׳ עמוד ב׳): מי מחזר אחר מי.",
+      "4:3": "ובנפילת אש מן השמים דפרשת שמיני נאמר: \"ויפלו על פניהם\" (ויקרא ט׳, כ״ד).",
+      "4:4": "ותנא בריש ספרא דצניעותא: \"ספרא דתקיל במתקלא\".",
+      "4:6": "והנה הללו היו ראשית הנבחרים בכהנה, וזה נקרא \"מנעוריו\", ואז הוא רתיחת הזריזות, ולא השגיחו בנשיאות על דשעה אחת שהיו החסידי",
+      "4:7": "ותקונם בפינחס, שגם הוא הורה הלכה בפני משה כמו שאמרו חכמינו זכרונם לברכה, רק שהיה אדרבא לנקם במקרבי רחיקא",
+      "4:8": "ונתוסף בפינחס יו״ד זעירא, עין שם בזהר.",
+      "4:9": "והתקון היה בשחוטי חוץ בהר הכרמל",
+      "4:10": "והנה מתחלה צווח: \"עזבו בריתך\", רצה לומר: שקלקלו גם מה שבתולדתם, מאחר שאחר כך אינו כן, חשב דהוכיח סופו על תחלתו.",
+      "4:11": "וגם הוא התחיל בזה בהריגת בלעם, שאמרו זכרונם לברכה שהיה נביא אמות העולם דגמת משה, וממנו והלאה נפסקה נבואה מעובדי כוכבים ו",
+      "4:12": "ואיתא בפרק קמא דבבא בתרא (דף י״ד עמוד ב׳): משה כתב ספרו ופרשת בלעם.",
+      "4:13": "והתקון לזה — לדעת שכל המקרים גם כן מהשם יתברך, שהוא מסדר כל המקרים גם כן.",
+      "4:14": "ושלשה תוי״ן יש בשם מ״ב, כי בכל דבר יש שלשה מדרגות: שני קצות ואמצעי.",
+      "4:15": "התחילו לדבר במשה, שכבר התחיל להתנוצץ קדשת הארץ במתאוים תאוה דבשר שהיא הפך משה כנזכר לעיל.",
+      "4:16": "וזה סוד: \"שלח לך\" — לדעתך, אני איני מצוך (רש״י במדבר י״ג, ב׳).",
+      "4:17": "ולכך היתה תכף הריגת בלעם והעדר הנבואה מעובדי כוכבים ומזלות",
+      "4:18": "והריגתו על ידי פינחס שהוא הקנאי על קלקול הברית, שדבר זה הוא ההבדל שבין ישראל לעובדי כוכבים ומזלות כנזכר לעיל, וכמו שכתוב",
+      "4:19": "והנה מלכת שבא מסתמא היתה מפלגת בחכמה בעובדי כוכבים ומזלות בדורה, מדבאה לנסות לשלמה המלך עליו השלום, והיה בה שרש גדול מבל",
+      "4:21": "ולכך בעל אוב יכול לשאול מאותו הבלא דגרמי אף מצדיק גמור כשמואל, שאצלו ההבל דגרמי הוא משם אלהים ממש, כמו שכתוב: \"אלהים ראי",
+      "4:22": "ולכך הסמיך לו פרשת \"לנפש לא יטמא\" (ויקרא כ״א, א׳), פן ידבק איזה רע שבהבלא דגרמי שלהם בו",
+      "4:24": "והנה כל ההשגות של האדם לחכמה מה שלמעלה מהשגת חכמתו, רק לדעת חכמה שידעו אחרים השיכת לחכמתם ואינה שיכת לו — הוא על ידי ההב",
+      "4:25": "ובקשה מלכת שבא איך להתדבק בהבלא דגרמי דבלעם, כדי שתגיע למדרגת \"חכם עדיף מנביא\" בחכמות חיצונות, כיון דאתאמרה משמיה דבלעם ",
+      "4:26": "וכששני יהודים ביחד אז הקדשה, כמו שכתוב (ברכות דף ו׳ עמוד א׳) \"תרי מכתבן מילייהו\" כוליה, פרוש: שעושים רשם יותר בקדשתן למע",
+      "4:27": "ואמרו זכרונם לברכה: איוב בימי שלמה היה, שנאמר \"ותפל שבא\", הינו דהתפשטות כח זה דמלכת שבא היה בימי שלמה",
+      "4:28": "ואצל נבוכדנצר בקש הקדוש ברוך הוא ולא הניחו הם כטעם (אבות פרק ב׳ משנה ד׳) \"בטל רצונך כוליה כדי כוליה\", לכך בשלמה המלך עלי",
+      "4:29": "מה שאין כן טיטוס דהוא מזרעו דעשו דשרשו רציחה כנודע [וכמו שכתבתי במקום אחר דג' קוין דמסאבותא ואבות הטמאה הם עבודה זרה, גל",
+      "4:30": "והנה זה היה טענת הבת קול: \"חזית איש מהיר\" שבנה בית כוליה, ולא השגיחו בו, כי אדרבא, דוקא מטעם זה הוכיחו דעתם, כי הוכיחו מ",
+      "4:31": "והנה מצד זה הוא יראה גדולה לאדם שיוכל להיות שאף שהוא שרש טוב משרשא קדישא דישראל, יוכל לצאת ממנו עמק רע כל כך שלא יועיל א",
+      "4:32": "ולכן נסמך אחר כך \"דורשי רשימות\" כוליה, כי מיד שנפתח דבר זה שגם שרש רע יכול לצאת משרש טוב, שהרי שלמה המלך עליו השלום היה ",
+      "4:33": "והנה אנשי כנסת הגדולה הם נקראים מאה ועשרים זקנים במגלה (דף י״ז עמוד ב׳) [ושמעתי כי הם נקראים אצל השם יתברך בתואר זקנים, ",
+      "4:34": "וגם שני הכונות בדברי שבן דוד בבן עולם הבא — אמת, כי הנה שלמה המלך עליו השלום היה סבור, להיות שהיה בזמנו \"סיהרא באשלמותא\"",
+      "4:35": "והנה העובדי כוכבים ומזלות הם כללות כחות הרע, והמלכיות הכוללות הם השרשים, שהשאר ענפים ופרטים, ולכן ארבע מלכיות הם ארבעה פ",
+      "4:37": "ואמרו דזעירין אנון דידעין לרמזא כוליה, פרוש: כי הנה האדם נברא בצלם אלהים, \"בצלמנו כדמותנו\" ממש, ויש בו גם כן נטוע בתחלת ",
+      "4:38": "וברעיא מהימנא פינחס (דף רכ״ז ריש עמוד ב׳) דהם גם כן \"רוח, רעש, ואש, וקול דממה דקה\" דאליהו, עין שם",
+      "4:39": "ואמנם מאחר שענין הבריאה היה להיות נברא הנראה חוץ מהשם יתברך ומקבל על מלכותו, ונאצל כח מדה זו בהשם יתברך לחשוק להראות מלכ",
+      "4:40": "והנה השם יתברך יצר האדם בצלמו כדמותו ונטע בו גם כן כח התשוקה והחשק להשפיע לזולתו, והוא הולדת החשק ד\"לאדם לא מצא עזר כנגד",
+      "4:41": "והנה האלהים עשה האדם ישר, שלא היה עולה בעצמו כלל מיחוש זה שמא מתכון בחשק זה לגרמיה, כי היה תמים במעשיו, הכל בהכרה ברורה ",
+      "4:42": "והנה שרש חשק זה להגיע לידע טוב ורע המשרש בשרש רצונו יתברך הוא במדה וכח האחרון שבכחותיו יתברך שהוא מדת הראות על מלכותו בנ",
+      "4:44": "והנה כידוע כללות הבריאה היא רק האדם, כמו שכתוב: \"בראשית\" — בשביל ישראל, הינו כי עצם הבריאה הם כחות נפרדים, כל מיני כחות ",
+      "4:45": "והנה התפשטות אותו שרש הרצון דידיעת טוב ורע הנמשך מצד שרש החשק דמדת מלכותו כנזכר לעיל, שמשם הוא שרש לחשק ותאוה וכמו שכתבת",
+      "4:46": "והשם יתברך הזהיר האדם שלא יחפץ אף לידע ברע, ואז ממילא יעמדו אלה הכחות הפרטיים רק במדרגת יודעי רע לבד, וזה במדרגתם שבראם ",
+      "4:47": "ודבר זה דאכילת עץ הדעת טוב ורע, מאחר שהזהרו מהשם יתברך, הרי הידיעה עצמו לאדם נעשה רע גמור, שהשם יתברך צוה שלא יאכל וידע",
+      "4:48": "ותכף נתנה לאישה, פרוש: מצד שהוא אישה, כי מאיש לקחה זאת ומשם שרשה, ובו יש גם כן אותו כח השרש שלה, דאותו חשקות בעטרת היסוד",
+      "4:49": "וכשפתה נגה, פרוש: אותו שרש נחש שהיה אז רק בסוד קליפת נגה שהוא עץ הדעת טוב ורע ראשית האסור שהיה בעולם, וזולת זה לא היה שו",
+      "4:51": "ואמנם נפשות בני ישראל הם פרטים דטוב שבאדם, רק לפי שהם בשרשם יודעי רע ועומדים בין החוחים, כידוע דבעולם הזה שהוא עולם העשי",
+      "4:52": "וידיעות אלו אינם בשכל חיצוני שנקרא בגמרא פרק חלק (סנהדרין דף ק״ו עמוד ב׳) \"מן השפה ולחוץ\", רק בקנין גמור בלב, וזה אי אפש",
+      "4:54": "והנה התחלת הברור שהיה בגלות מצרים לברר ההבדל בין אשת זנונים ובין אשת חיל, שכל תאות בני ישראל דלגרמם גם כן אינן לגרמם ממש",
+      "4:55": "וזה שכתוב שם: \"וקדשא בריך הוא דכר תלת קטרי מהימנותא\" כוליה, ועל ידם זכו לחירות דשער החמשים ונאבדו כלם ממילא, שעל ידי התש",
+      "4:56": "וזהו \"מה תצעק אלי\", כי הצעקה להשם יתברך היא למה שהוא משיג, דלכך אומרים בכל התפלות \"ברוך אתה\" לנוכח, אבל כאן \"אתם תחרישון",
+      "4:57": "ואיתא בזהר פקודי (דף רכ״ט עמוד ב׳) [ועין עוד ויחי דף רכ״ד סוף עמוד א׳, ואתחנן דף רס״א סוף עמוד ב׳] דהם הלבושין דאדם שהיה",
+      "4:59": "ועין שם (עמוד ב׳) דלבתר מהאי אתר נפקו רוחין ונשמתין וגופין מלתתא בארעא, ועל דרך \"בשתפו\" כוליה עין שם, פרוש: כמו שכתוב בה",
+      "4:60": "וזה שאמר בהבא על יבמתו (יבמות דף ס״ג עמוד ב׳): עד שיכלו הנשמות שבגוף, פרוש: המתלבשות בגוף דמשכא דחויא",
+      "4:61": "וזהו סוד הקטנות שיש לה אז שמהם החבלי לידה, וכטעם שלשה מתנות על ידי יסורין הנתבאר לעיל, וחשיב ג' דברים: תורה, וארץ ישראל,",
+      "4:62": "ובכל שלשה מתנות טובות הכוללות כל סדר שלימות האדם, מאחר שנתנו בעולם הזה יש להם לבוש זה",
+      "4:64": "וארץ ישראל הנגלה ממנה בכל מיני חמדות ותאוות הוא משכא דחויא, ולכן אמרו זכרונם לברכה במכילתא דהכנענים גרועים מכל האמות",
+      "4:65": "והנה שלשה מתנות אלו כוללות כל המיני טובות וישועות דהשם יתברך וכמו שכתבתי לעיל, ומהם נלמוד לכל לידת טובה וצמיחת ישועה כי ",
+      "4:66": "והנה באמת היה תמיד שני דברים: טעות וגם נשיכת נחש הרע אחר כך: קדם מתן תורה \"ויבא עמלק\", וקדם ארץ ישראל בלעם, ולעתיד לבא ג",
+      "4:67": "וכל זמן שלא נתברר: \"אין אדם צדיק בארץ\" כוליה מכח המשכא דחויא, ועל זה אמר רבי שמעון בן יוחאי: \"לא תשאל ולא תנסה את ה'\" למ",
+      "4:68": "והנה היו ב' הפכים שאי אפשר להם להמצא בנושא אחד, כטעם: אי אפשר לשני מלכים להשתמש בכתר אחד, כידוע דהם סוד תורה ותפלה: שמשה",
+      "4:70": "והבעיא דבעו נראה לי כי הוא מה ששאלו לדוד: הבא על אשת איש מיתתו במה? כדאיתא בהזהב (בבא מציעא דף נ״ט עמוד א׳), וכדאיתא בזה",
+      "4:71": "והנה משה רבנו עליו השלום הוא המנצח לחויא כדאיתא בתקון כ״א, וכן הוא בתקון כ״ו: דרעיא מהימנא תבר כל הקליפין ואפיק מוחא, מה",
+      "4:72": "והנה מצד הזה יהיה נצוח דחויא מכל וכל כשתתגלה מלכות שמים באמת בימי משיח בן דוד, וגם משה רבנו עליו השלום בקש לעמוד שם על ז",
+      "4:73": "וידוע כל פעלות וכל דבורי בני אדם הכל הוא מעצמות השם יתברך, שהשם יתברך פועל ומדבר באותו רגע ענין זה, רק שהוא כטעם: \"ה' ית",
+      "4:74": "ודבר זה גדול מנביאות דשוטה ותינוקת וכן כל בת קול שבעל הקול עצמו אינו יודע כלום רק השומע",
+      "4:75": "וידוע כי עקר חיות האדם הוא הדבור,",
+      "4:76": "ולכך כל הקולות היה נשמעים מירושלים ליריחו, וכדתנן בתמיד (דף ל׳ עמוד ב׳) וחשיב שם תשעה קולות והעשירית ריח,",
+      "4:77": "וכל הכחות היו בארץ ישראל כמו שאמרו חכמינו זכרונם לברכה (קהלת רבה פרשה ב׳ פסקא ה׳) בשלמה המלך עליו השלום שעמד על משתיתה ש",
+      "4:78": "ובכל מתנות טובות דישראל היה גם גרים,",
+      "4:79": "וכשיברר זה ויתקן גם ברית הלשון על ידי התורה שבעל פה שהיא בלשון, אז במתנת עולם הבא נאמר: \"ה' בדד ינחנו\",",
+      "4:80": "והנה מאחוריים הוא גם כן גוף האדם עצמו רק שאינו מצד הפנים, ומצד הזה יש לזה מעלה ועדיפות מנבואה ותורה שבכתב,",
+      "4:81": "ודבר זה היה כשהגיעו להלכה אחת, פרוש: כי תורה שבכתב נקרא \"אמת\", שאין שום חולק בדבר והאמת הוא אחד, וכידוע שזהו מדת יעקב אב",
+      "4:82": "וכטעם \"נצחוני בני\" בפרק הזהב, שרבי אליעזר אמר: \"מן השמים יוכיחו\", כנזכר לעיל דדרגא דרבי אליעזר היא דגמת סיני,",
+      "4:83": "ורבי אליעזר היה גם כן דגמת משה רבנו עליו השלום, וכמו שכתבתי במקום אחר על גמרא דנדרים (דף כ׳ עמוד ב׳): מפני מה בניך יפיפי",
+      "4:85": "והמשנה והתלמוד, אף על פי שמאחר שחכמתם אמת הרי הכל רוח הקדש וכנזכר לעיל שהוא נמשך מאמתת חכמת השם יתברך,",
+      "4:86": "והנה זה נגד המשנה (אבות פרק ב׳ משנה ח׳): אם למדת תורה הרבה אל תחזיק טובה לעצמך כי לכך נוצרת,",
+      "4:87": "ועל זה הוא הגליות ואבידת הארץ, הינו שלא הגיעו עדין למדרגת \"הארץ נתן לבני אדם\", כידוע סודה ורמיזתה לתורה שבעל פה",
+      "4:88": "ולברור דבר זה הוא הגלות, כטעם: לאתדכאה במה דחאבו, ולהוסיף מחשכים על מחשכים מדה כנגד מדה לפי שהם לא הכירו כנזכר לעיל,",
+      "4:89": "וידוע קול החוזר הוא מתדמה לקול המדבר [ומכל מקום הוא משתנה כפי המקבל ולכך הוא בשנוי לשון],",
+      "4:90": "והנה זהו אחר כך, דמתחלה הוא רק במדרגת \"אחות\", כמו שכתוב בתקונים תקון י׳: דאורייתא בלא דחילו ורחימו לא פרחא לעילא, ודחילו",
+      "4:91": "וחד אמר: יום המיתה, פרוש: דמי שרוצה בכל מיני השתדלות דמחשבה, דבור, ומעשה שבכחו [דזה נקרא תלמיד חכם, יעין שם בתוספות דסתם",
+      "4:92": "ודבר זה הוא רק סיעתא דשמיא, שזהו סוף ותכלית הנצוח דיצר, שאמרו זכרונם לברכה (קדושין דף ל׳ עמוד ב׳): אלמלא הקדוש ברוך הוא ",
+      "4:93": "וברורין אלו הוא רק על פי התיגעות איש הישראלי בדברי תורה ועבודה שבלב ומוח, כטעם: \"בחכמה אתברירו\" וכנודע,",
+      "4:94": "וגם שאול היה פועל במעשה ומנצח לגוים, והיה לו גם כן החמשה מדרגות דגבורה, רק הששית שהוא דבוק והתקשרות גמר הפעלה בכח המוציא",
+      "4:95": "ורואהו, פרוש משיגו וכענין שכתבו הקדמונים על משה: \"שפיר קאמרת\" (שבת דף ק״א עמוד ב׳),",
+      "4:96": "והרואה דוד המלך עליו השלום ומשיגו, וכן בחייו ראית פניו הגופניים כטעם הא דמחדדנא דחזיתיה לרבי מאיר (ערובין דף י״ג עמוד ב׳",
+      "4:97": "ומדרגה זו דמסיק שמעתתא אליבא דהלכתא, אז הוא על פרשת דרכים,",
+      "4:98": "והנה ודאי סיעתא זו גם כן במשפט, הגם דעל זה לא שיך יגיעה,",
+      "4:99": "וביאור זה: כי הנה הנבואה או רוח הקדש הוא רק על ידי זכות שקדם שיתגלה אליו אמתת השם יתברך,",
+      "4:100": "ואמנם אין השם יתברך שופע בחסד חנם, שהרי כך יסד העולם שיהיה הכל כאלו באים בשכרן.",
+      "4:101": "ומהות הגוף והנפש מחברים ממש ומורכבים זה בזה כמשלא דחגר וסומא, עד שאי אפשר בכח אדם להבדילם.",
+      "4:102": "וזהו להאיר לפניו הדרך, כטעם \"ותורה אור\", כי החכמה מדרכת לאדם כטעם \"בהתהלכך תנחה [אתך]\".",
+      "4:103": "והוא עצמו כח היצר, כמו שאמרו חכמינו זכרונם לברכה (בבא בתרא דף ט״ז עמוד א׳): הוא שטן, הוא יצר הרע, יורד כוליה.",
+      "4:104": "וזהו השם שלמדו לאותה ריבה ששמה אסטהר הנזכרת שם במדרש אבכיר,",
+      "4:105": "וזהו הטוב שבנגה [ואמנם לפי שהוא בנגה שמשם יניקת העובדי כוכבים ומזלות, לכן עשאוה אחר כך אלהות כי הוא שרש הנעלם דרע,",
+      "4:106": "ואלו כחות היצר הרע שבנסתרות הגוף במוח ולב קשרם שם,",
+      "4:107": "ועל ידו זכה לגלוי רוח הקדש והסיעתא מהשם יתברך כנגדו,",
+      "4:108": "ובימי שלמה המלך עליו השלום היה להם באמת גם כן כל מיני טובות וחמדות וכל מיני חכמות דעולם הזה,",
+      "4:109": "ושלמה המלך עליו השלום היה תקוע, פרוש: תקע עצמו לדבר הלכה לומר: \"אני ארבה ולא אסיר\",",
+      "4:110": "ונהר זה הוא הסובב, פרוש: מגדל אותה מדינה, מסתמא כל ארץ ונהר שבה יש להם כח מיחד השיך לענינה.",
+      "4:111": "ומצד הזה הוא תקון השרש הרע גם כן,",
+      "4:112": "ובשעה שבאו להיכל, שהוא מקום השכינה, כידוע דהוא בגימטריא שם המורה עליה,",
+      "4:113": "ולכך לא היו ימים טובים לישראל כחמשה עשר באב וכיום הכפורים, שבהם בנות ישראל וכוליה (תענית דף ל׳ עמוד ב׳),",
+      "4:114": "ויום הכפורים הוא פדיון משאול, כמו שכתוב שם (יבמות דף י״ז עמוד א׳): קבא רבא וקבא זוטא מיגנדר ואזיל לשאול וכוליה,",
+      "4:115": "ועקר כח החסרון שבעולם נקרא \"אשה\" ו\"נוקבא\", כנודע שעקר החסרון שמבקש השלמה,",
+      "4:116": "ולכך אז נעץ גבריאל וכוליה כדאיתא בסוף פרק במה אשה (שבת דף נ״ו עמוד ב׳), שהוא בסוד \"נעוץ סופה בתחלתה\".",
+      "4:117": "ועל אותו יום העידו על תמיד של שחר שקרב בד' שעות.",
+      "4:118": "וזהו תאר \"עבד\", שם בין העבדים יש טוב ורע,",
+      "4:119": "והנה חוזרת על ידי התורה שבעל פה שעלה בידינו מבבל כמו שכתבתי במקום אחר,",
+      "4:120": "והם נגד ד' פרצופין שבט' המדרגות,",
+      "4:121": "והקב העשירי דשרש הנעלם היה באנשי כנסת הגדולה וכל עולי גולה,",
+      "4:122": "ולכך רבא עצמו שאמר כאן: \"והיא עמקה משאול\" דלית ליה תקנתא,",
+      "4:123": "והוא ירד לשם על ההוא נשרא כדי להעלות כל פרי הרע על ידו למעלה ולנחם העשוקים.",
+      "4:124": "ודומה אני שהלכה זו נאמרה כשחרבה תרמוד",
+      "4:125": "והוא כתב פתקא וארמי כוליה, נראה לי דהוא צעקת \"רמה ידך בל יחזיון\" הנזכר בפרשת משפטים",
+      "4:126": "ושלמה שנקרא בשמו של הקדוש ברוך הוא, והנסתרות שלו דאור פנימי היה ממש ברזא דשמו בסוד \"הוא ושמו\" כנזכר לעיל,",
+      "4:127": "וזה שאמר דהוה אחסנתא דאבוי,",
+      "4:128": "וממקום שפסק, שם התחיל שלמה, וזכך הנסתרות שבמוח ובחכמה,",
+      "4:129": "וגם נחמיה אמר: \"זכרה\", כנזכר לעיל, ולא נקרא ספרו על שמו כמו שאמרו חכמינו זכרונם לברכה.",
+      "4:130": "ובפרשת פינחס (רי\"ז ע\"א) איתא, דבכל הר ששים אלף רבוא חציר,",
+      "4:131": "והנה אמרו: \"אין דור פחות מששים רבוא\", כי התורה שורש העולם,",
+      "4:132": "ולשלמה המלך עליו השלום היה מאכלו אלף הרים מששים רבוא מלאכים הללו, שהם כל האלף דור שורש נפשותם,",
+      "4:133": "ודבר זה יתקן כשיבלע המות,",
+      "4:134": "והנה עמלק היה זורק ערלות וכולי כמו שאמרו חכמינו זכרונם לברכה, דמבזה ברית,",
+      "4:135": "ולכן חשב יעקב על שמשון שהוא משיח, כי הוא תקף הגבורה, כדחשיב ליה בבמדבר רבה שם: \"ב' (שני) גבורים עמדו\";",
+      "4:136": "ובאמת בכמה מקומות דן מחבר ליהודה,",
+      "4:137": "והנה חטא הגבורה כשהיא גבורה רעה היא ברציחה, שאז עושה ממעלה מטה ודומם כנזכר לעיל, ונקרא \"ירוד\",",
+      "4:138": "והנה ריש לקיש גם כן בא לנסיון דלסטיות ורציחה,",
+      "4:139": "ולודאי יש להם תקף גדול בשורש הנעלם דרע, דמצדו הוא תאות אכילה כמו שכתבתי לעיל בחטא דאדם הראשון, שהיה רק ערבוב השורש הנעלם",
+      "4:140": "והנה בתבלין יש גם כן עשרה קבין, והעשירי הוא מוריקא כדאיתא בסוף פרק קמא דביצה (י\"ד ע\"א): דכלם מפיג טעמן כשנדוכין חוץ ממור",
+      "4:141": "והם השלשה שבקש רבא: עותריה, וחכמתיה, וענותנותיה",
+      "4:142": "ובדבר זה גדלה מעלת דורות האחרונים מדורות הראשונים,",
+      "4:143": "ושני כחות אלו מתחברים עם ההבלא דגרמי כמו שכתבתי לעיל דף ל\"ז סוף עמוד א' וריש עמוד ב',",
+      "4:144": "ובזה הוא החלוק בין כתובים לתלמוד, כי כל כתובים נכתבו על ידי נביאים או על ידי בעלי רוח הקדש שהיה מצד הבל שלהם,",
+      "4:145": "והנה זהו ב' (שני) חלוקים דאין תלמידי חכמים בניהם תלמידי חכמים,",
+      "4:146": "וזה שאמרו בסבא דמשפטים (זהר משפטים ק\"ח ע\"א): דאל אחר אסתרס ולא עביד פירין,",
+      "4:147": "ומאדם עד נח היה דגמת דרך ארץ שקדם לתורה, דכל מצוות אדם הם מצד דרך ארץ;",
+      "4:148": "והם שלשלת אחת, כי התעוררות דאברהם התחיל במבול כנזכר לעיל, ואז הותר לאכל בשר להשיב נפש הבהמית גם כן;",
+      "4:149": "ולכן איתא בבראשית רבה (פרשה פ\"ב): האבות הן המרכבה, שבכלל הדורות כלם וצרופם האבות ודוד הם ד' (ארבע) רגלי הכסא,",
+      "4:150": "והנה הגוף הוא מלבוש לנפש, וגם הנפש כלולה מרמ\"ח (ממאתים ארבעים ושמונה) אברים ושס\"ה (ושלש מאות ששים וחמשה) גידים,",
+      "4:151": "וזה שאמר הזהר: דמחשבה סלקא וכולי,",
+      "4:152": "ופעלת ה' בהכרח טובה וסופו לטוב,",
+      "4:153": "ושלמה המלך עליו השלום לא ידע זה ד\"דרך נחש עלי צור\",",
+      "4:154": "ושלמה המלך עליו השלום חשב שקלט כל החכמות אליו, הרי חזרו כל הנהרות לגן עדן, והחכים מכל וכולי, מכל הנהרות הללו החזירם למקו",
+      "4:155": "וב' (ושתי) נשיכות הם נגד ב' (שני) כחות הנזכרים,",
+      "4:156": "ואל תתמה על מה שכתבתי לעיל בדוד ושלמה",
+      "3:4": "וסים (הזהר הקדוש שם): דהא כדין נורא דליק וכולי",
+      "3:12": "וזה שטענו: \"כלום כפית עלינו\" וכולי למעלה משכלנו, והשיבו: \"הראשנות ישמיענו\" — שבע מצות וכולי.",
+      "4:5": "ועין בזהר (חלק ג׳, דף נ״ח עמוד ב׳) דבזה טעו בני אהרן",
+      "4:20": "וזה נקרא \"הבל\" מחכמתו, כמו הבל העולה מן הקדרה [או מפי האדם בעת דבורו], שההבל הוא כלול מכל מיני הטעמים וריחות המאכלים [או",
+      "4:23": "וידוע כל שמועה וראיתא בדברים רומז על השגת עין ואזן השכלי, נאמר כי קולו הוא דגמת ההבל היוצא מן הדבור וכן מראהו. ואין נרגש",
+      "4:36": "ואמר דעובדא דבראשית, רצונו לומר מעשה בראשית, דהינו הבריאה מצד שהיא בריאה ונראה כנבדלת מהשם יתברך, היא משתלשלא על סנפירוי",
+      "4:53": "והוא דרגא דדוד המלך עליו השלום שאמר: \"ולבי חלל בקרבי\", ואמרו זכרונם לברכה בהרואה (ברכות דף ס״א עמוד ב׳) שהרגו ליצר הרע ב",
+      "4:69": "וטעם \"פרחא באוירא\" על דרך ששמעתי על \"בני לן ביתא באוירא דעלמא\" (בכורות דף ח׳ עמוד ב׳), פרוש: כי כל אמה עובדי כוכבים ומזל",
+      "4:84": "ומזה נמשך מה שבקש קהלת לדון דברים שבלב בלא עדים והתראה (ראש השנה דף כ״א עמוד ב׳):"
+    }
+  }
+}

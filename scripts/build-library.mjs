@@ -150,12 +150,31 @@ if (fs.existsSync(footnotesDir)) {
 const headingsDir = 'sources/akiva/headings';
 if (fs.existsSync(headingsDir)) {
   for (const f of fs.readdirSync(headingsDir).filter(f => f.endsWith('.json'))) {
-    const { book, headings } = JSON.parse(fs.readFileSync(path.join(headingsDir, f), 'utf8'));
-    for (const [node, byPara] of Object.entries(headings)) {
+    const { book, headings = {}, inlineHeadings = {}, chapterTitles = {}, nodeTitles = {}, anchors = {}, outline = false } = JSON.parse(fs.readFileSync(path.join(headingsDir, f), 'utf8'));
+    const nodes = new Set([...Object.keys(headings), ...Object.keys(inlineHeadings), ...Object.keys(chapterTitles), ...Object.keys(nodeTitles), ...Object.keys(anchors)]);
+    const bareHeadingAnchor = value => stripNikkud(String(value).replace(/<[^>]+>/g, '')).replace(/[^א-ת]/g, '');
+    for (const node of nodes) {
+      const byPara = headings[node] || {};
       const part = PARTS.get(`${book}|${node}`);
       if (!part) throw new Error(`headings ${f}: no translated part "${node}"`);
+      if (outline) part.buildOutline = true;
+      if (nodeTitles[node]) part.displayNodeTitle = nodeTitles[node];
+      if (chapterTitles[node]) {
+        if (!Array.isArray(chapterTitles[node]) || chapterTitles[node].some(title => typeof title !== 'string' || !title.trim()))
+          throw new Error(`headings ${f}: invalid chapter display titles for ${node}`);
+        part.chapterTitles = chapterTitles[node];
+      }
+      for (const [location, anchor] of Object.entries(anchors[node] || {})) {
+        const [chapter, paragraph] = location.split(':');
+        const item = part.chapters[chapter]?.find(item => item.p && item.n === +paragraph);
+        if (!item || !bareHeadingAnchor(item.p.map(pair => pair[0]).join(' ')).startsWith(bareHeadingAnchor(anchor)))
+          throw new Error(`headings ${f}: Hebrew anchor mismatch at ${node} ${location}`);
+      }
       for (const [ch, items] of Object.entries(part.chapters)) {
-        part.chapters[ch] = items.flatMap(i => (i.p && byPara[`${ch}:${i.n}`] ? [{ h: byPara[`${ch}:${i.n}`] }, i] : [i]));
+        for (const item of items) if (item.p && inlineHeadings[node]?.[`${ch}:${item.n}`]) {
+          item.pendingEditorialHeadings = [...(item.pendingEditorialHeadings || []), ...inlineHeadings[node][`${ch}:${item.n}`].map(heading => ({...heading, ...(outline ? {editorialHeading:true} : {})}))];
+        }
+        part.chapters[ch] = items.flatMap(i => (i.p && byPara[`${ch}:${i.n}`] ? [{ h: byPara[`${ch}:${i.n}`], ...(outline ? {editorialHeading:true} : {}) }, i] : [i]));
       }
     }
   }
@@ -251,6 +270,22 @@ function normalizePairsTracked(pairs) {
 }
 const normalizePairs = pairs => normalizePairsTracked(pairs).pairs;
 
+// Contents entries come from the exact headings applied to reader paragraphs.
+// Canonical section and paragraph references remain unchanged by display names.
+function outlineOf(items, sectionRef, separator) {
+  const entries = [], pending = [];
+  for (const item of items) {
+    if (item.h && item.editorialHeading) pending.push(item.h);
+    if (!item.p) continue;
+    const ref = sectionRef + separator + item.n;
+    for (const heading of pending.splice(0)) entries.push({title:heading.replace(/^§ /,''), ref, kind:heading.startsWith('§ ')?'section':'topic'});
+    for (const heading of item.inlineHeadings || []) if (heading.editorialHeading)
+      entries.push({title:heading.text,ref,kind:heading.kind || 'topic',phraseIndex:heading.phraseIndex});
+  }
+  if (pending.length) throw new Error('An editorial heading has no following paragraph: ' + sectionRef);
+  return entries;
+}
+
 // Link citations in interlinear paragraphs and record them as connections.
 // Hebrew-only text is linked paragraph by paragraph (see linkHebrewSection). When an
 // interlinear edition later replaces the same section, its own connections win.
@@ -322,6 +357,16 @@ function connect(slug, sectionRef, sep, items) {
   let k = 0;
   for (const item of items) {
     if (!item.p) continue;
+    for (const heading of item.pendingEditorialHeadings || []) {
+      const phrase = item.p[heading.phraseIndex];
+      const bare = value => stripNikkud(String(value).replace(/<[^>]+>/g, '')).replace(/[^א-ת]/g, '');
+      if (!Number.isInteger(heading.phraseIndex) || !phrase || !String(heading.text || '').trim()
+          || (heading.anchor && !bare(phrase[0]).startsWith(bare(heading.anchor))))
+        throw new Error(`Misplaced editorial heading in ${sectionRef}, paragraph ${item.n}`);
+    }
+    if (item.pendingEditorialHeadings?.length)
+      item.inlineHeadings = [...(item.inlineHeadings || []), ...item.pendingEditorialHeadings].sort((a, b) => a.phraseIndex - b.phraseIndex);
+    delete item.pendingEditorialHeadings;
     k++;
     const anchor = sectionRef + sep + (item.n || k);
     const norm = h => (slug === 'likkutei-maamarim' ? linkLikkuteiCitations(h) : linkCitations(h))
@@ -507,6 +552,12 @@ for (const dir of DIRS) {
       const leaf = { en: schemaNode?.enTitle ?? '', he: schemaNode?.heTitle ?? '', ref, heRef, id, depth, shape };
       // Lay Akiva interlinear chapters over this node's Hebrew.
       const part = PARTS.get(`${src.title}|${enPath.slice(1).join(', ')}`);
+      if (part?.displayNodeTitle) leaf.en = part.displayNodeTitle;
+      if (part?.chapterTitles && depth === 2) {
+        if (part.chapterTitles.length !== shape.length) throw new Error('Chapter display title count changed: ' + ref);
+        leaf.chapterTitles = part.chapterTitles;
+        leaf.chapterTitleDisplay = true;
+      }
       if (part && depth === 1 && part.chapters['1']) {
         // A single-level node (e.g. "From Zohar"): its translated paragraphs replace the Hebrew file.
         const items = connect(slug, ref, ' ', part.chapters['1']);
@@ -523,6 +574,7 @@ for (const dir of DIRS) {
       }
       if (part && depth === 2) {
         leaf.ilch = [];
+        if (part.buildOutline) leaf.chapterOutlines = [];
         for (const [ch, rawItems] of Object.entries(part.chapters)) {
           const k = +ch;
           // Keep the Hebrew of paragraphs before the translation begins (e.g. a title page).
@@ -533,6 +585,7 @@ for (const dir of DIRS) {
             if (typeof heb === 'string' && heb.trim()) lead.push({ p: [[heb, '']], n });
           }
           const items = [...lead, ...connect(slug, `${ref} ${k}`, ':', rawItems)];
+          if (part.buildOutline) leaf.chapterOutlines[k - 1] = outlineOf(items, `${ref} ${k}`, ':');
           writeFile(path.join(bookDir, `${id}-${k}.json`), JSON.stringify(items));
           while (shape.length < k) shape.push(0);
           shape[k - 1] = Math.max(1, items.filter(i => i.p).length);
