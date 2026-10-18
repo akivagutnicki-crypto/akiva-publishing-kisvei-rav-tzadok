@@ -174,6 +174,9 @@ jobs:
           node scripts/test-mcp-server.mjs
           node scripts/test-pri-seasonal-footnotes.mjs
 
+      - name: Verify complete Dover Tzedek quotations after all final imports
+        run: node scripts/test-dover-footnotes.mjs
+
       - name: Build and verify library ZIP downloads
         run: node scripts/build-library-zips.mjs && node scripts/test-library-zips.mjs && node scripts/test-sefaria-packs.mjs && node scripts/test-source-zip-export.mjs
 
@@ -211,6 +214,9 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
+
+      - name: Verify complete Dover Tzedek quotations on the published reader
+        run: node scripts/test-dover-footnotes.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'
 
       - name: Verify all 929 footnotes on the published GitHub Pages reader
         run: |
