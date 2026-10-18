@@ -146,6 +146,9 @@ jobs:
       - name: Publish uploaded Pri Tzaddik Toldos before later imports record preservation checks
         run: node scripts/publish-pri-toldos.mjs
 
+      - name: Publish checked Kedushas Shabbos and Kuntres Shevisas Shabbos interlinear editions
+        run: node scripts/publish-pri-shabbos.mjs
+
       - name: Publish uploaded Pri Tzaddik Shevat and Tu BiShvat interlinear teachings after archive imports
         run: node scripts/publish-pri-shevat-tubishvat.mjs && node scripts/test-pri-shevat-tubishvat.mjs
 
@@ -184,8 +187,17 @@ jobs:
       - name: Verify complete Dover Tzedek quotations after all final imports
         run: node scripts/test-dover-footnotes.mjs
 
+      - name: Refresh and verify both Shabbos works after final imports
+        run: |
+          node scripts/publish-pri-shabbos.mjs --finalize-only
+          node scripts/test-pri-shabbos.mjs
+          node scripts/test-pri-shabbos-browser.mjs
+
       - name: Build and verify library ZIP downloads
         run: node scripts/build-library-zips.mjs && node scripts/test-library-zips.mjs && node scripts/test-sefaria-packs.mjs && node scripts/test-source-zip-export.mjs
+
+      - name: Verify both Shabbos works and their exact Word edition in offline downloads
+        run: node scripts/test-pri-shabbos.mjs --zips
 
       - name: Verify Bais Yaakov original documents in offline downloads
         run: node scripts/test-beit-yaakov-documents.mjs --zips && node scripts/test-beit-yaakov-vayera-gap.mjs --zips
@@ -260,6 +272,21 @@ jobs:
 
       - name: Verify all ten Toldos teachings on the live reader
         run: node scripts/test-pri-toldos.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'
+
+      - name: Verify Kedushas Shabbos and Kuntres Shevisas Shabbos on the live reader
+        run: |
+          node scripts/test-pri-shabbos.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'
+          node scripts/test-pri-shabbos-browser.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'
+
+      - name: Save Shabbos reader verification and screenshots
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pri-shabbos-reader-verification
+          path: |
+            shabbos-verification
+            dist/library/pri-shabbos-publication.json
+          retention-days: 14
 
       - name: Save seasonal live reader verification
         if: always()

@@ -235,8 +235,14 @@ body.panel-open .text{max-width:860px}
 .ph:last-child{border-bottom:0}
 .ph-he{font-family:var(--he);font-weight:500;font-size:calc(1.4rem * var(--fs));line-height:1.75;text-align:right}
 .ph-en{font-family:var(--en);font-size:calc(1.14rem * var(--fs));line-height:1.5;color:var(--muted);margin-top:2px}
+.source-paragraph+.source-paragraph{margin-top:1.15em}
 .rosh-study .ph-he{font-weight:400}
 .rosh-study .ph-en{font-weight:700}
+/* Match the reviewed Shabbos edition without changing other library texts. */
+.pri-shabbos-study{--he:"Times New Roman",Times,serif;--en:"Times New Roman",Times,serif}
+.pri-shabbos-study .seg-he,.pri-shabbos-study .ph-he{font-weight:400;text-align:left}
+.pri-shabbos-study .seg-en,.pri-shabbos-study .ph-en{font-weight:700;text-align:left}
+.pri-shabbos-study .seg-en span[lang="he"],.pri-shabbos-study .ph-en span[lang="he"]{font-family:var(--he);font-weight:400}
 /* Notes from the annotated DOCX, accessible in all three reading modes. */
 .annotated-trigger{display:inline-block;border:0;background:transparent;color:var(--ox);font:700 .73rem/1.2 var(--ui);vertical-align:super;padding:3px 5px;cursor:pointer;border-radius:3px;margin-inline:2px}
 .he-note{font-size:.62em;margin-inline:1px;padding:2px 3px}
@@ -290,6 +296,11 @@ body.panel-open .text{max-width:860px}
 .subhead{font:500 calc(1.2rem * var(--fs))/1.5 var(--he);text-align:center;color:var(--ox);margin:30px 0 14px}
 .subhead.en-head{font:600 calc(1.08rem * var(--fs))/1.45 var(--en);max-width:640px;margin-left:auto;margin-right:auto}
 .subhead .summary{display:block;font:italic 400 calc(1rem * var(--fs))/1.5 var(--en);color:var(--muted);margin-top:4px}
+.pri-shabbos-study .sec-head{display:block;font-family:var(--en);font-weight:700;text-align:left;letter-spacing:0;text-transform:none}
+.pri-shabbos-study .sec-head:before,.pri-shabbos-study .sec-head:after{display:none}
+.pri-shabbos-study .sec-sub,.pri-shabbos-study .subhead,.pri-shabbos-study .subhead .summary{font-family:var(--en);font-weight:700;text-align:left}
+.pri-shabbos-study .sec-title,.pri-shabbos-study .sec-head .he,.pri-shabbos-study .subhead.he{font-family:var(--he);font-weight:400;text-align:left}
+.pri-shabbos-study .subhead.en-head{max-width:none;margin-left:0;margin-right:0}
 a.cite{color:var(--link);text-decoration:underline;text-decoration-color:color-mix(in srgb,var(--link) 40%,transparent);text-underline-offset:3px}
 a.cite:hover{text-decoration-color:var(--link)}
 .chapters a.il{border-color:var(--forest);box-shadow:inset 0 -3px 0 var(--forest)}
@@ -631,6 +642,7 @@ function sectionsOf(leaf) {
 }
 const secRefOf = (leaf, addr) => addr.length ? `${leaf.ref} ${addr.join(':')}` : leaf.ref;
 const heSecRefOf = (leaf, addr) => addr.length ? `${leaf.heRef} ${addr.map(gematria).join(':')}` : leaf.heRef;
+const isPriShabbosEdition = ref => /^Peri Tzadik, (?:Sefer Kedushat Shabbat|Kuntres Shvitat Shabbat|Title|Introduction)(?:[ :]\d+(?::\d+)*)?$/.test(ref);
 const fileCache = new Map();
 function loadFile(url) {
   if (!fileCache.has(url)) fileCache.set(url, fetch(editionDataUrl(url)).then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }));
@@ -678,7 +690,7 @@ async function resolveLocal(ref) {
   const sectionRef = secRefOf(leaf, addr), k = all.indexOf(sectionRef);
   const chapterDisplayTitle = leaf.chapterTitleDisplay && leaf.chapterTitles?.[addr[0] - 1];
   const sep = leaf.sep || (secLen ? ':' : ' ');
-  let he = Array.isArray(text) ? text : [text], en = [], phrases = null, heads = null, phraseHeads = null, tables = null, transcriptionNotes = null, annotations = null, related = null;
+  let he = Array.isArray(text) ? text : [text], en = [], phrases = null, heads = null, phraseHeads = null, paragraphBreaks = null, tables = null, transcriptionNotes = null, annotations = null, related = null;
   // A saved contents file can predate an edition update (or vice versa).
   // Decode the format actually received rather than trusting cached flags.
   const il = Array.isArray(text) && text.some(it => it && typeof it === 'object'
@@ -686,13 +698,14 @@ async function resolveLocal(ref) {
   const paragraphTranslation = leaf.presentation === 'paragraphs' || (il && text.some(it=>it?.p) && text.filter(it=>it?.p).every(it=>it.paragraphTranslation));
   let nums = null;
   if (il) { // items: {p: [[he, en], ...], n?} paragraphs and {h: title} subheadings
-    phrases = []; heads = {}; phraseHeads = {}; tables = {}; nums = []; transcriptionNotes = {}; annotations = {}; related = {};
+    phrases = []; heads = {}; phraseHeads = {}; paragraphBreaks = {}; tables = {}; nums = []; transcriptionNotes = {}; annotations = {}; related = {};
     text.forEach(it => {
       if (it.h) (heads[phrases.length] = heads[phrases.length] || []).push(it.h);
       else if (it.table) (tables[phrases.length] = tables[phrases.length] || []).push(it.table);
       else if (Array.isArray(it.related)) (related[phrases.length] = related[phrases.length] || []).push(it.related);
       else if (it.p) {
         if (it.inlineHeadings?.length) phraseHeads[phrases.length] = it.inlineHeadings;
+        if (Array.isArray(it.paragraphBreaks)) paragraphBreaks[phrases.length] = it.paragraphBreaks;
         if (it.transcriptionNotes?.length) transcriptionNotes[phrases.length] = it.transcriptionNotes;
         if (it.footnotes?.length) annotations[phrases.length] = it.footnotes.map(note => /^TZ-\d{4}$/.test(note.sourceId || '')
           ? {...note, number:Number(note.sourceId.slice(3)), ...(note.crossReference?.placementId ? {crossReference:{...note.crossReference,number:Number(note.crossReference.placementId.slice(3,7))}} : {})} : note);
@@ -704,10 +717,10 @@ async function resolveLocal(ref) {
   }
   return {
     local: true, ref: sectionRef, sectionRef, heRef: leaf.interlinear ? leaf.heRef : heSecRefOf(leaf, addr), book: book.title, heBook: book.he,
-    he, en, phrases, heads, phraseHeads, tables, nums, transcriptionNotes, annotations, related, paragraphTranslation,
+    he, en, phrases, heads, phraseHeads, paragraphBreaks, tables, nums, transcriptionNotes, annotations, related, paragraphTranslation,
     displayTitle: chapterDisplayTitle ? `${book.title} — ${chapterDisplayTitle}` : null, studyHeading: chapterDisplayTitle || null,
-    chapterLinks: !!il, title: leaf.interlinear ? {en: leaf.en, he: leaf.he, ois: leaf.ois, parashah: leaf.parashah} : null,
-    sourceUrl: leaf.sourceUrl || null, downloadDocx: leaf.downloadDocx || null, downloadDocxLabel: leaf.downloadDocxLabel || null,
+    chapterLinks: !!il, title: leaf.interlinear ? {en: chapterDisplayTitle || leaf.en, he: leaf.he, ois: leaf.ois, parashah: leaf.parashah} : null,
+    sourceUrl: leaf.sourceUrls?.[addr[0] - 1] || leaf.sourceUrl || null, downloadDocx: leaf.downloadDocx || null, downloadDocxLabel: leaf.downloadDocxLabel || null,
     segmentLevel: false, sep, highlight: segment ? `${sectionRef}${sep}${segment}` : null,
     next: all[k + 1] || null, prev: k > 0 ? all[k - 1] : null,
     versions: [paragraphTranslation ? {title: 'Akiva Publishing paragraph translation', lang: 'Hebrew with English translation', source: '', license: '© Akiva Publishing'} : il && !leaf.interlinear ? {title: 'Akiva Publishing interlinear edition', lang: 'Hebrew with interlinear English', source: '', license: '© Akiva Publishing'}
@@ -764,7 +777,9 @@ function clean(html) {
         walk(ch);
         if (!ALLOWED.has(ch.tagName)) { ch.replaceWith(...ch.childNodes); return; }
         const cls = ch.getAttribute('class') || '', dref = ch.getAttribute('data-ref');
+        const hebrewSpan = ch.tagName === 'SPAN' && ch.getAttribute('lang') === 'he';
         [...ch.attributes].forEach(a => ch.removeAttribute(a.name));
+        if (hebrewSpan) { ch.lang = 'he'; ch.dir = 'rtl'; }
         if (ch.tagName === 'A') { if (dref) { ch.className = 'cite'; ch.dataset.ref = dref; ch.href = '#/read/' + toHash(dref); } else ch.replaceWith(...ch.childNodes); return; }
         if (/footnote-marker/.test(cls)) ch.className = 'footnote-marker';
         else if (/footnote/.test(cls)) ch.className = 'footnote';
@@ -1163,7 +1178,7 @@ function renderLocalNode(node, isRoot) {
       // English editorial contents replace bare numbered chapter buttons.
       // Original stable refs remain untouched for saved links and offline data.
       body = '<div class="toc-list thematic-toc">'+node.shape.map((n,i) => n
-        ? '<div class="toc-chapter"><a href="#/read/'+toHash(node.ref+' '+(i+1))+'"><span class="en"><span class="toc-ois">Chapter '+(i+1)+'</span>'+esc(node.chapterTitles?.[i]||node.en+' '+(i+1))+'</span></a>'+renderChapterOutline(node.chapterOutlines?.[i]||[])+'</div>'
+        ? '<div class="toc-chapter"><a href="#/read/'+toHash(node.ref+' '+(i+1))+'"><span class="en">'+(isPriShabbosEdition(node.ref) && /^Ois\s*\d+\b/i.test(node.chapterTitles?.[i] || '') ? '' : '<span class="toc-ois">Chapter '+(i+1)+'</span>')+esc(node.chapterTitles?.[i]||node.en+' '+(i+1))+'</span></a>'+renderChapterOutline(node.chapterOutlines?.[i]||[])+'</div>'
         : '').join('')+'</div>';
     } else {
       if (node.depth === 2) body = `<div class="chapters">${node.shape.map((n, i) => {
@@ -1480,6 +1495,22 @@ function insertAfterWords(html, marks) {
 }
 const wordCount = html => { let n = 0, inTag = false, inWord = false; for (const ch of html) { if (inTag) { if (ch === '>') inTag = false; continue; } if (ch === '<') { inTag = true; continue; } if (/\s/.test(ch)) { if (inWord) { inWord = false; n++; } } else inWord = true; } return n + (inWord ? 1 : 0); };
 
+// Several manuscript paragraphs can belong to one canonical source segment.
+// Keep the canonical anchor on .seg and group its phrases in each reading mode.
+function renderSourceParagraphs(phrases, breaks, renderPhrase, separator) {
+  const starts = new Set((Array.isArray(breaks) ? breaks : []).filter(index => Number.isInteger(index) && index > 0 && index < phrases.length));
+  if (!starts.size) return phrases.map(renderPhrase).join(separator);
+  const paragraphs = []; let start = 0;
+  for (let index = 1; index <= phrases.length; index++) {
+    if (index === phrases.length || starts.has(index)) {
+      const content = phrases.slice(start, index).map((pair, offset) => renderPhrase(pair, start + offset)).join(separator);
+      paragraphs.push(`<div class="source-paragraph" data-phrase-start="${start}">${content}</div>`);
+      start = index;
+    }
+  }
+  return paragraphs.join('\n');
+}
+
 function appendSection(d) {
   const text = $('#text');
   // A chapter of a commentary arrives as verses of comments: label each "verse:comment".
@@ -1501,6 +1532,7 @@ function appendSection(d) {
   const sec = document.createElement('section');
   sec.className = 'sec' + (en.some(x => String(x || '').trim()) ? '' : ' no-en') + (d.paragraphTranslation ? ' paragraph-translation' : d.phrases ? ' il' : '');
   if (/^Peri Tzadik, Rosh Chodesh(?: \(manuscript\)| Cheshvan)(?::|$)/.test(d.sectionRef)) sec.classList.add('rosh-study');
+  if (d.local && d.phrases && isPriShabbosEdition(d.sectionRef)) sec.classList.add('pri-shabbos-study');
   sec.dataset.ref = d.sectionRef;
   let html = d.title
     ? `<div class="sec-head"><span>${esc(d.title.ois ? d.title.parashah + ' · Ois ' + d.title.ois + ' — ' + (d.title.en || d.sectionRef) : d.title.he && /^סימן/.test(d.title.he) ? d.sectionRef : d.title.en || d.sectionRef)}</span></div><h2 class="sec-title he" lang="he">${esc(d.title.he)}</h2>${d.title.he && /^סימן/.test(d.title.he) && d.title.en ? `<div class="sec-sub">${esc(d.title.en)}</div>` : ''}`
@@ -1559,11 +1591,12 @@ function appendSection(d) {
     }
     const phraseHeadings=index=>(d.phraseHeads?.[i] || []).filter(heading=>heading.phraseIndex===index)
       .map(heading=>subhead(heading.kind==='section'?'§ '+heading.text:heading.text,{ref:r,phraseIndex:index})).join('');
-    if(d.phrases && d.phraseHeads?.[i]?.length) {
-      h=d.phrases[i].map(([ph],index)=>phraseHeadings(index)+anchoredPhrase(ph,notesAt.get(index)||[],'he','tray')).join(' ');
-      e=d.phrases[i].map(([,pe],index)=>phraseHeadings(index)+clean(pe)).join(' ');
+    const breaks = d.paragraphBreaks?.[i];
+    if(d.phrases && (d.phraseHeads?.[i]?.length || breaks?.length)) {
+      h=renderSourceParagraphs(d.phrases[i],breaks,([ph],index)=>phraseHeadings(index)+anchoredPhrase(ph,notesAt.get(index)||[],'he','tray'),' ');
+      e=renderSourceParagraphs(d.phrases[i],breaks,([,pe],index)=>phraseHeadings(index)+clean(pe),' ');
     }
-    const il = d.phrases && !d.paragraphTranslation ? `<div class="seg-il">${d.phrases[i].map(([ph, pe], j) => `${phraseHeadings(j)}<div class="ph"><div class="ph-he" lang="he" dir="rtl">${anchoredPhrase(ph,notesAt.get(j)||[],'he','ph')}</div><div class="ph-en" lang="en">${anchoredPhrase(pe,notesAt.get(j)||[],'en','ph')}${(notesAt.get(j) || []).map(n => readingFootnote(n, 'box')).join('')}</div></div>`).join('')}</div>` : '';
+    const il = d.phrases && !d.paragraphTranslation ? `<div class="seg-il">${renderSourceParagraphs(d.phrases[i],breaks,([ph, pe], j) => `${phraseHeadings(j)}<div class="ph"><div class="ph-he" lang="he" dir="rtl">${anchoredPhrase(ph,notesAt.get(j)||[],'he','ph')}</div><div class="ph-en" lang="en">${anchoredPhrase(pe,notesAt.get(j)||[],'en','ph')}${(notesAt.get(j) || []).map(n => readingFootnote(n, 'box')).join('')}</div></div>`,'')}</div>` : '';
     const noteTray = annotated.length ? `<div class="segment-annotations">${annotated.map(n => readingFootnote(n, 'box')).join('')}</div>` : '';
     html += `<div class="seg" data-ref="${esc(r)}" data-i="${num}" data-k="${i}" tabindex="0">
       <span class="num" data-n="${num}">${labels ? labels[i] : prefs.lang === 'he' ? gematria(num) : num}</span>

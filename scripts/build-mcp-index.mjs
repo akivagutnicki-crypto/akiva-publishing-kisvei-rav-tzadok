@@ -148,6 +148,15 @@ function paragraphsOf(items, where) {
     if (places) para.a = places;
     if (it.transcriptionNotes?.length) para.x = it.transcriptionNotes.map(plain);
     if (pending.length) { para.h = pending; pending = []; }
+    // Keep editorial structure beside the canonical paragraph and phrase pairs.
+    // The MCP server searches h/h2; include topical titles there without putting
+    // them into the Hebrew or English source text or changing citation offsets.
+    if (Array.isArray(it.inlineHeadings)) {
+      para.inlineHeadings = it.inlineHeadings.map(heading => ({ ...heading, text: plain(heading.text) }));
+      const titles = para.inlineHeadings.map(heading => heading.text).filter(Boolean);
+      if (titles.length) para.h = [...(para.h || []), ...titles];
+    }
+    if (Array.isArray(it.paragraphBreaks)) para.paragraphBreaks = [...it.paragraphBreaks];
     paras.push(para);
   });
   if (pending.length) {                      // headings after the last paragraph: keep them on it
@@ -197,10 +206,12 @@ for (const b of catalog) {
       if (!list.length) continue;
       const s = sections.length;
       const il = list.some(x => x.p);
+      const chapterDisplayTitle = leaf.shabbosEdition && leaf.chapterTitleDisplay && leaf.chapterTitles?.[addr[0] - 1];
       sections.push({
-        ref, he: heRef, title: addr.length ? `${leaf.en} ${addr.join(':')}` : leaf.en,
+        ref, he: heRef, title: chapterDisplayTitle || (addr.length ? `${leaf.en} ${addr.join(':')}` : leaf.en),
         heTitle: addr.length ? `${leaf.he} ${addr.map(gematria).join(':')}` : leaf.he,
         path: trail.filter(Boolean).join(' › '), il, first: paras.length, count: list.length,
+        ...(chapterDisplayTitle ? { chapterDisplayTitle } : {}),
         ...(leaf.parashah ? { parashah: leaf.parashah } : {}), ...(leaf.ois ? { ois: leaf.ois } : {}),
       });
       for (const p of list) paras.push({ r: `${ref}${sep}${p.n}`, s, ...p });
