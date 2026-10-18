@@ -5,7 +5,7 @@
 //   with the last answer kept for offline use; web fonts are cache-first.
 const VERSION = 'v62-20261016-et-haochel-240-5468b7180d41-20261016-pri-vayera-chayei-footnotes-929';
 // Keep this layout refresh when a later publishing step updates the text edition version.
-const SHELL = `rtl-shell-${VERSION}-compact-noach-audio-20261016-beit-vayera-complete-20261016-pri-shevat-tubishvat-399c2228eea0-dover-elaboration-sources-20261018-dover-revisions-v1-dover-revisions-v2`;
+const SHELL = `rtl-shell-${VERSION}-compact-noach-audio-20261016-beit-vayera-complete-20261016-pri-shevat-tubishvat-399c2228eea0-dover-elaboration-sources-20261018-dover-revisions-v1-dover-revisions-v2-dover-title-paragraphs-v1`;
 const DATA = 'rtl-data';
 const EXTERNAL = 'rtl-external';
 const SHELL_FILES = [

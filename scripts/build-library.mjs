@@ -510,8 +510,14 @@ for (const dir of DIRS) {
       if (part && depth === 1 && part.chapters['1']) {
         // A single-level node (e.g. "From Zohar"): its translated paragraphs replace the Hebrew file.
         const items = connect(slug, ref, ' ', part.chapters['1']);
+        if (part.presentation === 'paragraphs') {
+          // Keep complete source paragraphs above their translations, even if
+          // the reader's saved preference is phrase-by-phrase interlinear.
+          for (const item of items) if (item.p) item.paragraphTranslation = true;
+          leaf.presentation = 'paragraphs';
+          leaf.bi1 = true;
+        } else leaf.il1 = true;
         writeFile(path.join(bookDir, `${id}.json`), JSON.stringify(items));
-        leaf.il1 = true;
         leaf.shape = Math.max(leaf.shape, items.filter(i => i.p).length);
         console.log(`  ${ref}: interlinear`);
       }

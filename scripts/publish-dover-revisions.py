@@ -3,7 +3,9 @@
 
 The checked source quotations, interlinear text, paragraph numbers and existing
 note numbers are immutable. Only additional source excerpts and Hebrew citation
-links are imported. No archive-wide indexes or other sefarim are copied.
+links are imported. The separately translated opening retains its exact Hebrew
+and complete paragraph translations. No archive-wide indexes or other sefarim
+are copied.
 """
 import copy
 import gzip
@@ -23,6 +25,8 @@ BOOK = DATA / 'dover-tzedek'
 INPUT = Path('sources/akiva/overlays/dover-revisions-20261018.json.gz')
 REPORT = ROOT / 'dover-revisions-report.json'
 RELEASE = '20261018-dover-revisions-v2'
+TITLE_RELEASE = '20261018-dover-title-paragraphs-v1'
+TITLE_SOURCE = Path('sources/akiva/parts/Dover_Tzedek_Title_Page.json')
 SOURCE_SHA = '1d2d2efbf4cf1a420c369fcaac1553087825fefa300ad60f2c09bd0887f79cb6'
 FILES = ['0.json'] + [f'{a}-{b}.json' for a, length in [(1, 4), (2, 3), (3, 2), (4, 2), (5, 4)] for b in range(1, length + 1)]
 # These are the three incoming edits to an original first source paragraph.
@@ -141,7 +145,7 @@ def quoted(value):
 
 def body_info(rows, file):
     pairs = [row for row in rows if isinstance(row, dict) and 'p' in row]
-    texts = [[norm(x) for x in rows], [norm(x) for x in rows]] if file == '0.json' else [
+    texts = [[norm(x) for x in rows], [norm(x) for x in rows]] if file == '0.json' and not pairs else [
         [[row['n'], [norm(pair[language]) for pair in row['p']]] for row in pairs]
         for language in (0, 1)
     ]
@@ -149,6 +153,31 @@ def body_info(rows, file):
     return {'heSha256': sha(serial(texts[0])), 'enSha256': sha(serial(texts[1])),
             'heLinks': links[0], 'enLinks': links[1], 'paragraphs': len(pairs),
             'phrases': sum(len(row['p']) for row in pairs)}
+
+
+def validate_title_page(rows, supplied):
+    """The later note overlay must retain the newly translated opening intact."""
+    pack = json.loads(TITLE_SOURCE.read_text())
+    canonical = json.loads(Path('sources/sefaria/Dover_Tzedek.json').read_text())['text']['Title Page']
+    if (pack.get('book'), pack.get('node'), pack.get('presentation')) != ('Dover Tzedek', 'Title Page', 'paragraphs'):
+        raise ValueError('Dover opening must be a paragraph translation')
+    if pack.get('sourceParagraphs') != canonical or list(map(norm, supplied)) != list(map(norm, canonical)):
+        raise ValueError('Dover opening Hebrew source changed')
+    expected = pack.get('chapters', {}).get('1', [])
+    if len(rows) != 9 or len(expected) != 9:
+        raise ValueError('Dover opening must retain all nine original paragraphs')
+    for index, (row, source) in enumerate(zip(rows, expected)):
+        if (not isinstance(row, dict) or row.get('n') != index + 1 or not row.get('paragraphTranslation')
+                or len(row.get('p', [])) != 1 or len(source.get('p', [])) != 1
+                or row.get('footnotes')):
+            raise ValueError('Invalid Dover opening paragraph ' + str(index + 1))
+        if norm(source['p'][0][0]) != norm(canonical[index]) or norm(row['p'][0][0]) != norm(canonical[index]):
+            raise ValueError('Original Dover opening Hebrew changed at paragraph ' + str(index + 1))
+        if not norm(source['p'][0][1]) or norm(row['p'][0][1]) != norm(source['p'][0][1]):
+            raise ValueError('Incomplete Dover opening translation at paragraph ' + str(index + 1))
+    return {'release': TITLE_RELEASE, 'presentation': 'paragraphs', 'paragraphs': 9,
+            'sourceHebrewSha256': sha(serial(list(map(norm, canonical)))),
+            **{key: body_info(rows, '0.json')[key] for key in ('heSha256', 'enSha256')}}
 
 
 def anchors(note, row):
@@ -193,12 +222,15 @@ def main():
     if source.get('title') != 'Dover Tzedek' or [s['file'] for s in source['sections']] != FILES:
         raise ValueError('Unexpected Dover revision source or section set')
     toc = json.loads((BOOK / 'toc.json').read_text())
+    title_translation = validate_title_page(json.loads((BOOK / '0.json').read_text()), source['sections'][0]['items'])
     # Re-running late in the same build is safe: verify the current overlay and
     # leave its checked original preservation evidence intact.
     if toc.get('revisedFootnotes', {}).get('release') == RELEASE:
         report = json.loads(REPORT.read_text())
         if report.get('sourceSha256') != sha(raw):
             raise ValueError('Dover source changed after this release was applied')
+        if report.get('titleTranslation') != title_translation or toc.get('titleTranslation') != title_translation:
+            raise ValueError('Dover opening translation changed after this release was applied')
         expected = {note['number']: note for note in report['expectedNotes']}
         for file in FILES:
             for row in json.loads((BOOK / file).read_text()):
@@ -250,6 +282,15 @@ def main():
         before = json.loads((BOOK / file).read_text())
         after = copy.deepcopy(before)
         old_info = body_info(before, file)
+        if file == '0.json':
+            # This section is translated independently from the supplied note
+            # archive. Its exact original Hebrew and complete English were
+            # checked above; the note overlay cannot replace it with raw text.
+            sections.append({'file': file, 'ref': section['ref'], **old_info,
+                             'baselineHeLinks': old_info['heLinks'], 'baselineEnLinks': old_info['enLinks'],
+                             'addedHebrewLinks': 0, 'removedHebrewLinks': 0})
+            staged[file] = after
+            continue
         new_info = body_info(section['items'], file)
         if (old_info['heSha256'], old_info['enSha256']) != (new_info['heSha256'], new_info['enSha256']):
             raise ValueError('Supplied revision changes Dover body text: ' + file)
@@ -393,7 +434,9 @@ def main():
     if total_links != 944:
         raise ValueError('Expected precisely 944 additional Hebrew citation links, got ' + str(total_links))
     toc['revisedFootnotes'] = {'release': RELEASE, 'notes': 2698, 'report': REPORT.name}
+    toc['titleTranslation'] = title_translation
     report = {'release': RELEASE, 'sourceSha256': sha(raw), 'notes': 2698,
+              'titleTranslation': title_translation,
               'counts': {'notes': 2698, 'sections': 16, 'contentSections': 15,
                          'addedHebrewLinks': total_links, 'removedHebrewLinks': 0, 'bodyChanges': 0,
                          'originalParagraphsPreserved': True, 'originalExtraParagraphsPreserved': original_extra,
@@ -409,15 +452,15 @@ def main():
     index_path = ROOT / 'index.html'
     index = index_path.read_text()
     old_key = '20261018-dover-elaboration-sources'
-    new_key = old_key + '-revisions-v2'
+    new_key = old_key + '-revisions-v2-title-paragraphs-v1'
     if new_key not in index:
         if old_key not in index:
             raise ValueError('Existing Dover reader cache key is missing')
-        index_path.write_text(re.sub(re.escape(old_key) + r'(?:-revisions-v\d+)?', new_key, index))
+        index_path.write_text(re.sub(re.escape(old_key) + r'(?:-revisions-v\d+)?(?:-title-paragraphs-v\d+)?', new_key, index))
     worker_path = ROOT / 'sw.js'
     worker = worker_path.read_text()
-    if '-dover-revisions-v2`' not in worker:
-        worker, count = re.subn(r'(const SHELL = `[^`]+)(`;)', r'\1-dover-revisions-v2\2', worker, count=1)
+    if '-dover-title-paragraphs-v1`' not in worker:
+        worker, count = re.subn(r'(const SHELL = `[^`]+)(`;)', r'\1-dover-title-paragraphs-v1\2', worker, count=1)
         if count != 1:
             raise ValueError('Existing reader shell cache version is missing')
         worker_path.write_text(worker)

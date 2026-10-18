@@ -1,9 +1,10 @@
-// Publication checks for the revised Dover Tzedek footnotes, anchors and links.
+// Publication checks for Dover's translated opening and revised source footnotes.
 // node scripts/test-dover-revisions.mjs [--data-only] [--url https://…/library/] [--zips]
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import http from 'node:http';
+import vm from 'node:vm';
 import {createHash} from 'node:crypto';
 import {createRequire} from 'node:module';
 import {pathToFileURL} from 'node:url';
@@ -54,6 +55,23 @@ const toc = await json('data/dover-tzedek/toc.json');
 assert.equal(toc.revisedFootnotes.release, release);
 assert.equal(toc.revisedFootnotes.notes, 2698);
 assert.equal(toc.revisedFootnotes.report, 'dover-revisions-report.json');
+const titlePack = JSON.parse(fs.readFileSync('sources/akiva/parts/Dover_Tzedek_Title_Page.json','utf8'));
+const titleCanonical = JSON.parse(fs.readFileSync('sources/sefaria/Dover_Tzedek.json','utf8')).text['Title Page'];
+assert.equal(titlePack.presentation,'paragraphs','Opening must be translated paragraph by paragraph');
+assert.deepEqual(titlePack.sourceParagraphs,titleCanonical,'Original opening Hebrew source changed');
+assert.equal(titlePack.chapters['1'].length,9,'Opening translation must retain nine paragraphs');
+const titleLeaf = toc.toc.children[0];
+assert.equal(titleLeaf.ref,'Dover Tzedek, Title Page','Opening must precede Eruvin');
+assert.equal(titleLeaf.id,0);
+assert.equal(titleLeaf.shape,9);
+assert.equal(titleLeaf.presentation,'paragraphs');
+assert.equal(titleLeaf.bi1,true);
+assert.ok(!titleLeaf.il1,'Opening must not be labelled interlinear');
+assert.equal(report.titleTranslation.release,'20261018-dover-title-paragraphs-v1');
+assert.equal(report.titleTranslation.presentation,'paragraphs');
+assert.equal(report.titleTranslation.paragraphs,9);
+assert.equal(report.titleTranslation.sourceHebrewSha256,hash(titleCanonical.map(norm)));
+assert.deepEqual(toc.titleTranslation,report.titleTranslation);
 const sections = new Map();
 const seen = new Set();
 const rejected = /Context and connection to Dover Tzedek:|Connection to this note:|Extended English quotation from Akiva interlinear:/i;
@@ -63,7 +81,7 @@ for (const entry of report.sections) {
   const rows = await json('data/dover-tzedek/' + entry.file);
   sections.set(entry.file, {entry,rows});
   for (const [language,key] of [[0,'heSha256'],[1,'enSha256']]) {
-    const normalized = entry.file === '0.json' ? rows.map(norm) : rows.filter(row=>row.p).map(row=>[row.n,row.p.map(pair=>norm(pair[language]))]);
+    const normalized = rows.filter(row=>row.p).map(row=>[row.n,row.p.map(pair=>norm(pair[language]))]);
     assert.equal(hash(normalized), entry[key], `Body text changed: ${entry.file}, language ${language}`);
   }
   const anchors = language => rows.filter(row=>row.p).flatMap(row=>row.p.map(pair=>pair[language])).reduce((count,text)=>count+(String(text).match(/data-ref=["']/gi)||[]).length,0);
@@ -105,6 +123,42 @@ for (const entry of report.sections) {
     }
   }
 }
+const titleSection=sections.get('0.json');
+assert.equal(titleSection.rows.length,9,'Opening lost an original paragraph');
+for(const [index,row] of titleSection.rows.entries()) {
+  assert.equal(row.n,index+1,'Opening paragraph order');
+  assert.equal(row.paragraphTranslation,true,'Opening paragraph presentation flag');
+  assert.equal(row.p.length,1,'Opening paragraph must not be split into phrase pairs');
+  assert.ok(!row.footnotes?.length,'Opening must not change Dover footnote numbering');
+  assert.equal(norm(row.p[0][0]),norm(titleCanonical[index]),'Opening Hebrew changed '+row.n);
+  assert.equal(norm(row.p[0][1]),norm(titlePack.chapters['1'][index].p[0][1]),'Incomplete opening English '+row.n);
+  assert.ok(norm(row.p[0][1]),'Missing opening English '+row.n);
+}
+for(const key of ['heSha256','enSha256']) assert.equal(report.titleTranslation[key],titleSection.entry[key]);
+assert.ok((await read('index.html')).toString().includes('20261018-dover-elaboration-sources-revisions-v2-title-paragraphs-v1'),'Opening edition cache key missing');
+assert.ok((await read('sw.js')).toString().includes('-dover-title-paragraphs-v1`'),'Opening app refresh version missing');
+// Installed readers may retain the old contents file while receiving new text.
+// The row flag must still select paragraph presentation in that mixed state.
+const readerHtml=(await read('index.html')).toString();
+const localResolver=readerHtml.slice(readerHtml.indexOf('let CATALOG = []'),readerHtml.indexOf('const CAT_COLORS'));
+for(const oldContents of [false,true]) {
+  const contents=structuredClone(toc);
+  if(oldContents) {delete contents.toc.children[0].presentation;delete contents.toc.children[0].bi1;}
+  const context=vm.createContext({gematria:String,fetch:async url=>({ok:true,json:async()=>{
+    const file=url.split('?')[0];
+    if(file==='data/catalog.json') return [{title:toc.title,he:toc.he,slug:'dover-tzedek',version:toc.version}];
+    if(file==='data/dover-tzedek/toc.json') return contents;
+    return json(file);
+  }})});
+  vm.runInContext(localResolver,context);
+  const resolved=await context.resolveLocal(titleLeaf.ref);
+  assert.equal(resolved.paragraphTranslation,true,'Opening presentation with '+(oldContents?'saved':'current')+' contents');
+  assert.equal(resolved.he.length,9);
+  assert.equal(resolved.en.length,9);
+  assert.equal(resolved.next,'Dover Tzedek, Kuntres Dover Tzedek, Eruvin 1','Opening next section');
+  assert.equal(resolved.prev,null,'Opening must remain first');
+  assert.equal(resolved.versions[0].title,'Akiva Publishing paragraph translation');
+}
 assert.equal(seen.size,2698,'Some Dover footnotes are missing');
 assert.equal(supplementary,90,'Lost existing supplementary quotations');
 assert.equal(linksAdded,944,'Missing added Hebrew hyperlinks');
@@ -123,7 +177,7 @@ for (const note of [...expected.values()].sort((a,b)=>a.uploadNumber-b.uploadNum
   }
   previousAddedQuotes = current;
 }
-console.log(`PASS Dover revised data${publicBase?' publicly verified':''}: 2,698 complete notes; 90 supplementary original paragraphs preserved; 944 Hebrew links; both languages unchanged (${quoteParagraphs} quotation paragraphs).`);
+console.log(`PASS Dover revised data${publicBase?' publicly verified':''}: nine complete Hebrew/English opening paragraphs; 2,698 complete notes; 90 supplementary original paragraphs preserved; 944 Hebrew links; content languages unchanged (${quoteParagraphs} quotation paragraphs).`);
 if(!publicBase) await checkDoverSourceLinks();
 
 if (args.includes('--zips')) {
@@ -197,6 +251,46 @@ try {
     await page.locator(`#toc a[href="${chapterHash(tocTargets[0].entry.ref)}"]`).first().waitFor({state:'visible',timeout:45000});
     for(const target of tocTargets)
       assert.ok(await page.locator(`#toc a[href="${chapterHash(target.entry.ref)}"]`).count(),'Missing TOC chapter link '+target.entry.ref);
+    const openingLink=page.locator(`#toc a[href="${chapterHash(titleLeaf.ref)}"]`).first();
+    assert.ok((await openingLink.textContent()).includes('English translation'),'Opening TOC translation label');
+    assert.ok(!(await openingLink.textContent()).includes('interlinear'),'Opening wrongly labelled interlinear');
+    await openingLink.click();
+    const opening=page.locator('#text > .sec.paragraph-translation').filter({has:page.locator('.seg[data-ref="Dover Tzedek, Title Page 1"]')}).first();
+    await opening.locator('.seg-en').first().waitFor({state:'visible',timeout:45000});
+    assert.equal(await opening.locator('.seg').count(),9,'Opening paragraph count in browser');
+    assert.equal(await opening.locator('.seg-il,.ph').count(),0,'Opening must not render phrase interlinear text');
+    const rendered=await opening.locator('.seg').evaluateAll(elements=>elements.map(element=>({
+      he:element.querySelector('.seg-he').textContent,en:element.querySelector('.seg-en').textContent
+    })));
+    for(const [index,row] of titleSection.rows.entries()) {
+      assert.equal(norm(rendered[index].he),norm(row.p[0][0]),'Complete opening Hebrew in browser '+row.n);
+      assert.equal(norm(rendered[index].en),norm(row.p[0][1]),'Complete opening English in browser '+row.n);
+    }
+    await page.locator('#setBtn').click();
+    for(const layout of ['inter','stack','side']) {
+      await page.locator(`#settings [data-pref="layout"] button[data-v="${layout}"]`).click();
+      const ordered=await opening.locator('.seg').evaluateAll(elements=>elements.every(element=>{
+        const he=element.querySelector('.seg-he'),en=element.querySelector('.seg-en');
+        const h=he.getBoundingClientRect(),e=en.getBoundingClientRect();
+        return h.height>0 && e.height>0 && h.bottom<=e.top+1 && +getComputedStyle(en).fontWeight>=600;
+      }));
+      assert.ok(ordered,'Complete Hebrew must precede English in opening under '+layout+' setting');
+    }
+    for(const language of ['he','en']) {
+      await page.locator(`#settings [data-pref="lang"] button[data-v="${language}"]`).click();
+      assert.equal(await opening.locator('.seg-'+language).first().isVisible(),true,'Opening language toggle '+language);
+      assert.equal(await opening.locator('.seg-'+(language==='he'?'en':'he')).first().isVisible(),false,'Opening language toggle hides other language');
+    }
+    await page.locator('#settings [data-pref="lang"] button[data-v="bi"]').click();
+    await page.locator('#settings [data-pref="layout"] button[data-v="inter"]').click();
+    await page.locator('#setBtn').click();
+    await page.locator('#nextBtn').click();
+    await page.waitForURL(url=>url.hash===chapterHash(tocTargets[0].entry.ref),{timeout:45000});
+    await page.locator('#prevBtn').waitFor({state:'visible'});
+    await page.locator('#text > .sec.il .seg-il .source-note-trigger').first().waitFor({state:'visible',timeout:45000});
+    await page.locator('#prevBtn').click();
+    await page.waitForURL(url=>url.hash===chapterHash(titleLeaf.ref),{timeout:45000});
+    await page.locator('#text > .sec.paragraph-translation .seg-en').first().waitFor({state:'visible',timeout:45000});
     for (const target of targets) {
       const ref = target.entry.ref;
       const chapterNotes = target.rows.flatMap(row=>row.footnotes||[]);
@@ -263,7 +357,7 @@ try {
     else {await page.goBack();await marker.waitFor({state:'visible',timeout:45000});}
     assert.deepEqual(errors,[],'Reader JavaScript errors');
     await context.close();
-    console.log(`PASS Dover ${mobile?'mobile':'desktop'} browser: five TOC nodes plus the two largest chapters (${targets.length} chapters), exact Hebrew markers, complete expandable quotations, source typography and internal parallel navigation.`);
+    console.log(`PASS Dover ${mobile?'mobile':'desktop'} browser: nine complete Hebrew-then-English opening paragraphs, all layout/language settings and Eruvin navigation; five content nodes plus the two largest chapters (${targets.length} chapters), exact Hebrew markers, complete expandable quotations, source typography and internal parallel navigation.`);
   }
 } finally {
   await browser.close();
