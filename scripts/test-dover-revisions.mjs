@@ -136,7 +136,8 @@ for(const [index,row] of titleSection.rows.entries()) {
 }
 for(const key of ['heSha256','enSha256']) assert.equal(report.titleTranslation[key],titleSection.entry[key]);
 assert.ok((await read('index.html')).toString().includes('20261018-dover-elaboration-sources-revisions-v2-title-paragraphs-v1'),'Opening edition cache key missing');
-assert.ok((await read('sw.js')).toString().includes('-dover-title-paragraphs-v1`'),'Opening app refresh version missing');
+const shellVersion=(await read('sw.js')).toString().match(/^const SHELL = `([^`]+)`;/m)?.[1];
+assert.ok(shellVersion?.includes('-dover-title-paragraphs-v1'),'Opening app refresh version missing');
 // Installed readers may retain the old contents file while receiving new text.
 // The row flag must still select paragraph presentation in that mixed state.
 const readerHtml=(await read('index.html')).toString();

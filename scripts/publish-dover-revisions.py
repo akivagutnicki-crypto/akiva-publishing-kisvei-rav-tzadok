@@ -459,7 +459,8 @@ def main():
         index_path.write_text(re.sub(re.escape(old_key) + r'(?:-revisions-v\d+)?(?:-title-paragraphs-v\d+)?', new_key, index))
     worker_path = ROOT / 'sw.js'
     worker = worker_path.read_text()
-    if '-dover-title-paragraphs-v1`' not in worker:
+    shell_version = re.search(r'^const SHELL = `([^`]+)`;', worker, re.M)
+    if not shell_version or '-dover-title-paragraphs-v1' not in shell_version.group(1):
         worker, count = re.subn(r'(const SHELL = `[^`]+)(`;)', r'\1-dover-title-paragraphs-v1\2', worker, count=1)
         if count != 1:
             raise ValueError('Existing reader shell cache version is missing')
