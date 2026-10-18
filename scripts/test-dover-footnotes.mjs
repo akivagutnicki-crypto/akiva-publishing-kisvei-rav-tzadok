@@ -101,7 +101,7 @@ const readPublication = async file => {
   return response.json();
 };
 const publicationToc = await readPublication('data/dover-tzedek/toc.json');
-if (publicationToc.revisedFootnotes?.release === '20261018-dover-revisions-v1') {
+if (['20261018-dover-revisions-v1', '20261018-dover-revisions-v2'].includes(publicationToc.revisedFootnotes?.release)) {
   const publication = await readPublication('dover-revisions-report.json');
   if (publication.release !== publicationToc.revisedFootnotes.release || publication.expectedNotes.length !== expected.size)
     throw new Error('Dover revision publication report is incomplete');

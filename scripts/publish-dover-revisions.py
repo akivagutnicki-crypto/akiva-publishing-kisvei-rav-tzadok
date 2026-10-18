@@ -22,7 +22,7 @@ DATA = ROOT / 'data'
 BOOK = DATA / 'dover-tzedek'
 INPUT = Path('sources/akiva/overlays/dover-revisions-20261018.json.gz')
 REPORT = ROOT / 'dover-revisions-report.json'
-RELEASE = '20261018-dover-revisions-v1'
+RELEASE = '20261018-dover-revisions-v2'
 SOURCE_SHA = '1d2d2efbf4cf1a420c369fcaac1553087825fefa300ad60f2c09bd0887f79cb6'
 FILES = ['0.json'] + [f'{a}-{b}.json' for a, length in [(1, 4), (2, 3), (3, 2), (4, 2), (5, 4)] for b in range(1, length + 1)]
 # These are the three incoming edits to an original first source paragraph.
@@ -214,6 +214,26 @@ def main():
     baseline_notes = {note['number']: note for note in baseline_pack['notes']}
     if set(baseline_notes) != set(range(1, 2699)):
         raise ValueError('The checked Dover baseline must contain all 2,698 notes')
+    # The upload is numbered in reading order. A second copy of a translated
+    # parallel in the immediately following note adds no context for the reader.
+    adjacent_repetitions = set()
+    previous_quotes = set()
+    incoming_notes = sorted((note for section in source['sections']
+                             for row in section['items'] if isinstance(row, dict)
+                             for note in row.get('footnotes', [])), key=lambda note: note['number'])
+    for incoming_note in incoming_notes:
+        current_quotes = set()
+        for paragraph in incoming_note['paragraphs'][1:]:
+            if not paragraph.get('text', '').startswith(('Kisvei Rav Tzadok Parallel', 'Kisvei Beis Ishbitz')):
+                continue
+            clean = clean_excerpt(paragraph)
+            if clean is None:
+                continue
+            text = quoted(clean['text'])
+            current_quotes.add(text)
+            if text in previous_quotes:
+                adjacent_repetitions.add((incoming_note['number'], text))
+        previous_quotes = current_quotes
     protected_before = other_data_snapshot()
     sections = []
     expected = []
@@ -303,7 +323,11 @@ def main():
                     else:
                         urls = hrefs(clean)
                         refs = {ref_key(reference_from_url(url)) for url in urls if reference_from_url(url)}
-                        if urls & primary_urls or refs & primary_sources:
+                        if ref_key(anchor) in refs:
+                            reason = 'parallel quotes the same Dover paragraph being annotated'
+                        elif (candidate['number'], quoted(clean['text'])) in adjacent_repetitions:
+                            reason = 'identical parallel quotation in the preceding footnote'
+                        elif urls & primary_urls or refs & primary_sources:
                             reason = 'same source as primary quotation'
                         elif urls and urls.issubset(retained_urls):
                             reason = 'source excerpt already present'
@@ -385,15 +409,15 @@ def main():
     index_path = ROOT / 'index.html'
     index = index_path.read_text()
     old_key = '20261018-dover-elaboration-sources'
-    new_key = old_key + '-revisions-v1'
+    new_key = old_key + '-revisions-v2'
     if new_key not in index:
         if old_key not in index:
             raise ValueError('Existing Dover reader cache key is missing')
-        index_path.write_text(index.replace(old_key, new_key))
+        index_path.write_text(re.sub(re.escape(old_key) + r'(?:-revisions-v\d+)?', new_key, index))
     worker_path = ROOT / 'sw.js'
     worker = worker_path.read_text()
-    if '-dover-revisions-v1`' not in worker:
-        worker, count = re.subn(r'(const SHELL = `[^`]+)(`;)', r'\1-dover-revisions-v1\2', worker, count=1)
+    if '-dover-revisions-v2`' not in worker:
+        worker, count = re.subn(r'(const SHELL = `[^`]+)(`;)', r'\1-dover-revisions-v2\2', worker, count=1)
         if count != 1:
             raise ValueError('Existing reader shell cache version is missing')
         worker_path.write_text(worker)

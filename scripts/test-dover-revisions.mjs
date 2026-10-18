@@ -15,7 +15,7 @@ assert.ok(urlIndex < 0 || args[urlIndex + 1], '--url requires a library URL');
 const publicBase = urlIndex < 0 ? null : new URL(args[urlIndex + 1]);
 if (publicBase && !publicBase.pathname.endsWith('/')) publicBase.pathname += '/';
 if (publicBase) publicBase.hash = '';
-const release = '20261018-dover-revisions-v1';
+const release = '20261018-dover-revisions-v2';
 const root = path.resolve('dist/library');
 const hash = value => createHash('sha256').update(typeof value === 'string' ? value : JSON.stringify(value)).digest('hex');
 const entity = {amp:'&',lt:'<',gt:'>',quot:'"',apos:"'",nbsp:'\u00a0'};
@@ -108,6 +108,21 @@ for (const entry of report.sections) {
 assert.equal(seen.size,2698,'Some Dover footnotes are missing');
 assert.equal(supplementary,90,'Lost existing supplementary quotations');
 assert.equal(linksAdded,944,'Missing added Hebrew hyperlinks');
+let previousAddedQuotes = new Set();
+for (const note of [...expected.values()].sort((a,b)=>a.uploadNumber-b.uploadNumber)) {
+  const current = new Set();
+  const sourceSection = report.sections.find(section=>section.file===note.file);
+  const ownParagraph = sourceSection.ref+':'+note.paragraph;
+  for (const paragraph of note.paragraphs.slice(note.originalParagraphCount)) {
+    const match = paragraph.text.match(/[“‘](.*)[”’]/);
+    const quote = (match?.[1]||paragraph.text).replace(/\s+/g,' ').trim();
+    assert.ok(!previousAddedQuotes.has(quote),'Repeated added quotation in consecutive footnotes '+note.number);
+    for (const run of paragraph.rich||[]) if (run.href?.startsWith('#/read/'))
+      assert.notEqual(decodeURIComponent(run.href.slice(7)).replace(/_/g,' '),ownParagraph,'A parallel repeats the current Dover paragraph '+note.number);
+    current.add(quote);
+  }
+  previousAddedQuotes = current;
+}
 console.log(`PASS Dover revised data${publicBase?' publicly verified':''}: 2,698 complete notes; 90 supplementary original paragraphs preserved; 944 Hebrew links; both languages unchanged (${quoteParagraphs} quotation paragraphs).`);
 if(!publicBase) await checkDoverSourceLinks();
 
