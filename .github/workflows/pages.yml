@@ -187,25 +187,34 @@ jobs:
       - name: Verify complete Dover Tzedek quotations after all final imports
         run: node scripts/test-dover-footnotes.mjs
 
-      - name: Refresh and verify both Shabbos works after final imports
+      - name: Remove appended footnote parallels after all source imports
         run: |
-          node scripts/publish-pri-shabbos.mjs --finalize-only
+          node scripts/test-strip-appended-parallels.mjs
+          node scripts/test-finalize-parallel-cleanup.mjs
+          node scripts/finalize-parallel-cleanup.mjs --write
+          node scripts/test-pri-seasonal-footnotes.mjs --after-parallel-cleanup --data-only
+          node scripts/test-pri-vayera-chayei-footnotes-browser.mjs --after-parallel-cleanup --data-only
+          node scripts/test-dover-footnotes.mjs
+
+      - name: Seal cleanup proof and verify both finalized Shabbos works
+        run: |
+          node scripts/finalize-parallel-cleanup.mjs --seal --write
           node scripts/test-pri-shabbos.mjs
           node scripts/test-pri-shabbos-browser.mjs
 
-      # Clean only the specific appended parallel blocks in the published reader.
-      # All source imports run above. The script refuses a changed Dover Tzedek
-      # or other protected edition; any failure stops publishing before ZIPs.
-      - name: Safely remove redundant appended parallels while preserving all primary footnotes
-        run: |
-          node --check scripts/strip_appended_parallels.js
-          node scripts/strip_appended_parallels.js --root dist/library --report dist/library/parallel-cleanup-preview.json
-          node scripts/strip_appended_parallels.js --root dist/library --write --report dist/library/parallel-cleanup-report.json
-          node scripts/strip_appended_parallels.js --root dist/library --report dist/library/parallel-cleanup-idempotence.json
-          node --input-type=module -e "import fs from 'node:fs'; const a=JSON.parse(fs.readFileSync('dist/library/parallel-cleanup-report.json')); const b=JSON.parse(fs.readFileSync('dist/library/parallel-cleanup-idempotence.json')); if(a.totals.footnotesBefore!==a.totals.footnotesAfter || a.assertions.protectedUnchanged!==true || a.assertions.bodyUnchanged!==true || b.totals.filesChanged!==0) process.exit(1); console.log('All primary footnotes and protected editions retained; cleanup is idempotent.');"
-
       - name: Build and verify library ZIP downloads
         run: node scripts/build-library-zips.mjs && node scripts/test-library-zips.mjs && node scripts/test-sefaria-packs.mjs && node scripts/test-source-zip-export.mjs
+
+      - name: Rebuild and verify MCP data from the final cleaned library and download manifest
+        run: |
+          node scripts/build-mcp-index.mjs
+          node scripts/test-mcp-server.mjs
+          node scripts/test-cloudflare-worker.mjs
+
+      - name: Verify final cleanup proof protected editions and download consistency
+        run: |
+          node scripts/test-parallel-cleanup-publication.mjs --final > parallel-cleanup-final-verification.json
+          cat parallel-cleanup-final-verification.json
 
       - name: Verify both Shabbos works and their exact Word edition in offline downloads
         run: node scripts/test-pri-shabbos.mjs --zips
@@ -214,7 +223,7 @@ jobs:
         run: node scripts/test-beit-yaakov-documents.mjs --zips && node scripts/test-beit-yaakov-vayera-gap.mjs --zips
 
       - name: Verify seasonal source notes preserved chapters and exact Word editions in offline downloads
-        run: node scripts/test-pri-seasonal-footnotes.mjs --zips
+        run: node scripts/test-pri-seasonal-footnotes.mjs --after-parallel-cleanup --zips
 
       - name: Verify revised Dover Tzedek source notes in offline downloads
         run: node scripts/test-dover-revisions.mjs --zips --data-only
@@ -248,6 +257,17 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
+      - name: Verify cleaned library and all protected editions on the published reader
+        run: |
+          for attempt in 1 2 3; do
+            if node scripts/test-parallel-cleanup-publication.mjs --final --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/' > parallel-cleanup-live-verification.json; then
+              cat parallel-cleanup-live-verification.json
+              exit 0
+            fi
+            sleep 20
+          done
+          exit 1
+
       - name: Verify complete Dover Tzedek quotations on the published reader
         run: node scripts/test-dover-footnotes.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'
 
@@ -264,7 +284,7 @@ jobs:
       - name: Verify all 929 footnotes on the published GitHub Pages reader
         run: |
           for attempt in 1 2 3; do
-            if node scripts/test-pri-vayera-chayei-footnotes-browser.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'; then
+            if node scripts/test-pri-vayera-chayei-footnotes-browser.mjs --after-parallel-cleanup --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'; then
               exit 0
             fi
             sleep 20
@@ -274,7 +294,7 @@ jobs:
       - name: Verify all four seasonal groups and footnote popups on the live reader
         run: |
           for attempt in 1 2 3; do
-            if node scripts/test-pri-seasonal-footnotes.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'; then
+            if node scripts/test-pri-seasonal-footnotes.mjs --after-parallel-cleanup --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'; then
               exit 0
             fi
             sleep 20
@@ -307,6 +327,17 @@ jobs:
           path: |
             seasonal-verification
             dist/library/pri-seasonal-footnotes-report.json
+          retention-days: 14
+
+      - name: Save final parallel cleanup preservation report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: appended-parallel-cleanup-verification
+          path: |
+            dist/library/parallel-cleanup-report.json
+            parallel-cleanup-final-verification.json
+            parallel-cleanup-live-verification.json
           retention-days: 14
 
       - name: Save Pri Tzadik live verification report and screenshots

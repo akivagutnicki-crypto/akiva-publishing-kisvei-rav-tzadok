@@ -8,7 +8,10 @@ import {gunzipSync} from 'node:zlib';
 import {createRequire} from 'node:module';
 
 const release='20261016-pri-seasonal-1407-v1';
-const root='dist/library/';
+const rootAt=process.argv.indexOf('--root');
+const root=path.resolve(rootAt>=0?process.argv[rootAt+1]:'dist/library')+path.sep;
+const afterParallelCleanup=process.argv.includes('--after-parallel-cleanup');
+const cleanupReportAt=process.argv.indexOf('--cleanup-report');
 const arg=process.argv.indexOf('--url'),live=arg>=0?process.argv[arg+1].replace(/\/?$/,'/'):null;
 const sha=b=>createHash('sha256').update(b).digest('hex');
 const sorted=x=>Array.isArray(x)?x.map(sorted):x&&typeof x==='object'?Object.fromEntries(Object.keys(x).sort().map(k=>[k,sorted(x[k])])):x;
@@ -24,6 +27,52 @@ async function bytes(file){
   assert.ok(r.ok,`${r.status}: ${file}`);return Buffer.from(await r.arrayBuffer());
 }
 const read=async file=>JSON.parse(await bytes(file));
+// This final-stage mode is explicit. The normal import checks still require
+// every supplied paragraph and source, including the original appendices.
+const cleanupReport=afterParallelCleanup
+  ?(cleanupReportAt>=0?JSON.parse(fs.readFileSync(process.argv[cleanupReportAt+1],'utf8')):await read('parallel-cleanup-report.json'))
+  :null;
+const cleanupFiles=new Map((cleanupReport?.files||[]).map(entry=>[entry.path,entry]));
+const cleanupTargets=new Set(['sefer-hazikhronot','tzidkat-hatzadik','peri-tzadik','machshavot-charutz',
+  'divrei-soferim','yisrael-kedoshim','likkutei-maamarim','sichat-malakhei-hasharet','sichat-shedim',
+  'divrei-chalomot','et-haochel','ohr-zarua-latzadik','kometz-haminchah','meshiv-hata-anah','meshiv-tzedek','poked-akarim']);
+const protectedPriFiles=new Set(['data/peri-tzadik/6.json','data/peri-tzadik/106.json','data/peri-tzadik/111.json','data/peri-tzadik/112.json',
+  'data/peri-tzadik/7-5.json','data/peri-tzadik/7-6.json']);
+if(afterParallelCleanup){
+  assert.equal(cleanupReport.schemaVersion,1,'Cleanup report schema');
+  assert.equal(cleanupReport.mode,'write','A dry run is not a completed cleanup');
+  assert.equal(cleanupFiles.size,cleanupReport.files.length,'Duplicate cleanup file evidence');
+  for(const assertion of ['bodyUnchanged','footnoteCountsUnchanged','noteMetadataUnchanged','firstParagraphsUnchanged','protectedUnchanged','idempotent'])
+    assert.equal(cleanupReport.assertions[assertion],true,'Cleanup preservation proof: '+assertion);
+}
+function checkPublishedHash(file,beforeHash,raw){
+  const change=afterParallelCleanup?cleanupFiles.get(file):null;
+  if(change){
+    const target=file.match(/^data\/([^/]+)\/(?:links|\d+(?:-\d+)*)\.json$/);
+    assert.ok(target&&cleanupTargets.has(target[1])&&!protectedPriFiles.has(file),
+      'Cleanup cannot excuse a changed protected or unrelated file: '+file);
+    assert.equal(change.beforeSha256,beforeHash,'Cleanup must start from the verified import: '+file);
+    assert.equal(sha(raw),change.afterSha256,'Cleaned published chapter checksum '+file);
+    if(change.bodyBeforeSha256!==undefined)assert.equal(change.bodyBeforeSha256,change.bodyAfterSha256,'Cleanup changed body '+file);
+    if(change.notesBefore!==undefined)assert.equal(change.notesBefore,change.notesAfter,'Cleanup changed footnote count '+file);
+  }else assert.equal(sha(raw),beforeHash,'Published chapter checksum '+file);
+  return change;
+}
+function approvedPrimary(source,label){
+  // An independent, narrow expectation for this frozen four-part upload.
+  // Do not use the cleanup implementation to decide what the test may omit.
+  assert.equal(source.paragraphs.length,4,'Original four-part upload '+label);
+  assert.deepEqual(source.sources.map(src=>src.role),['primary-source','parallel-rav-tzadok','parallel-ishbitz-radzin'],label);
+  // The frozen upload contains both orders for these two labeled appendices.
+  // Require one of each; the source digest and restored-file hash still fix
+  // every original word and its exact position independently.
+  const labels=source.paragraphs.slice(1,3).map(paragraph=>
+    /^Kisvei\s+Rav\s+Tzadok\s+Parallel\b/.test(paragraph.text)?'rav':
+    /^Kisvei\s+Beis\s+Ishbitz[–—\-\s]+Radzin\s+Parallel\b/.test(paragraph.text)?'ishbitz':null);
+  assert.deepEqual(labels.sort(),['ishbitz','rav'],label);
+  assert.match(source.paragraphs[3].text,/^Sources:.*\|\s*Parallels:/s,label);
+  return {paragraphs:[source.paragraphs[0]],sources:[source.sources[0]]};
+}
 if(live){
   let ready=false;
   for(let i=0;i<20;i++){
@@ -41,7 +90,8 @@ const expectations=[],seenNumbers=new Set(),links=await read('data/peri-tzadik/l
 for(const [index,s]of supplied.sections.entries()){
   const matches=leaves.filter(l=>l.interlinear&&l.ref===s.ref);assert.equal(matches.length,1,s.ref);
   const leaf=matches[0],file='data/peri-tzadik/'+leaf.id+'.json',raw=await bytes(file),rows=JSON.parse(raw);
-  const entry=report.chapters.find(c=>c.ref===s.ref);assert.equal(sha(raw),entry.sha256,'Published chapter checksum '+s.ref);
+  const entry=report.chapters.find(c=>c.ref===s.ref),cleanup=checkPublishedHash(file,entry.sha256,raw);
+  const reconstructed=afterParallelCleanup?structuredClone(rows):null;
   const body=rows.map(r=>Object.fromEntries(Object.entries(r).filter(([k])=>k!=='footnotes')));
   assert.equal(sha(canonical(body)),entry.bodySHA256,'Existing text, headings and inline links '+s.ref);
   const notes=rows.flatMap(r=>r.footnotes||[]);
@@ -54,8 +104,20 @@ for(const [index,s]of supplied.sections.entries()){
     for(const [k,n]of r.footnotes.entries()){
       const source=sr.footnotes[k];assert.equal(n.provenance.uploadedNumber,source.number);
       assert.equal(n.provenance.importRelease,release);
-      assert.deepEqual(n.paragraphs,source.paragraphs,'Complete supplied English');
-      assert.deepEqual(n.sources,source.sources,'Supplied source hyperlinks');
+      const expected=afterParallelCleanup?approvedPrimary(source,s.ref+' #'+n.number):source;
+      assert.deepEqual(n.paragraphs,expected.paragraphs,afterParallelCleanup?'Exact original primary quotation and commentary':'Complete supplied English');
+      assert.deepEqual(n.sources,expected.sources,'Supplied source hyperlinks');
+      if(afterParallelCleanup){
+        assert.ok(cleanup,'Missing cleanup evidence for '+file);
+        const proof=cleanup.changes.find(change=>change.itemNumber===r.n&&change.noteIndex===k&&change.sourceId===n.sourceId);
+        assert.ok(proof,'Missing note cleanup evidence '+n.sourceId);
+        assert.equal(proof.number,n.number);assert.equal(proof.placementId,n.placementId);
+        assert.equal(proof.paragraphCountBefore,4);assert.equal(proof.paragraphCountAfter,1);
+        assert.deepEqual(proof.removedParagraphs.map(p=>p.index),[1,2,3]);
+        assert.deepEqual(proof.removedSources.map(src=>src.role),['parallel-rav-tzadok','parallel-ishbitz-radzin']);
+        const original=reconstructed.find(row=>row.p&&row.n===r.n).footnotes[k];
+        original.paragraphs=source.paragraphs;original.sources=source.sources;
+      }
       assert.ok(!seenNumbers.has(n.number),'Duplicate note number');seenNumbers.add(n.number);
       assert.equal(n.sourceId,'PT-'+String(n.number).padStart(4,'0'));
       assert.ok(n.heCharOffset>0&&n.heAnchorPrefix);
@@ -65,11 +127,18 @@ for(const [index,s]of supplied.sections.entries()){
       }
     }
   }
+  if(afterParallelCleanup){
+    // Restoring only the three appendices and their two source entries must
+    // recover the exact pre-cleanup file. This also verifies all note metadata,
+    // IDs, English and Hebrew anchors, body text, headings and inline links.
+    assert.equal(sha(canonical(reconstructed)+'\n'),entry.sha256,'Only approved appendices and source roles may change: '+s.ref);
+    assert.equal(cleanup.notesBefore,notes.length);assert.equal(cleanup.notesAfter,notes.length);
+  }
   expectations.push({ref:s.ref,file,leaf,rows,notes});
 }
 assert.equal(seenNumbers.size,1407);
 if(!live){
-  for(const [file,digest]of Object.entries(report.protectedFiles))assert.equal(sha(fs.readFileSync(root+'data/'+file)),digest,'Unrelated chapter or book changed '+file);
+  for(const [file,digest]of Object.entries(report.protectedFiles))checkPublishedHash('data/'+file,digest,fs.readFileSync(root+'data/'+file));
   const html=fs.readFileSync(root+'index.html','utf8'),sw=fs.readFileSync(root+'sw.js','utf8');
   assert.ok(html.includes(release));assert.ok(sw.includes('-pri-seasonal-1407-v1'));
   // The original Word downloads remain exact, even though the reader now has new source notes.
@@ -82,19 +151,21 @@ if(!live){
       for(const f of files)assert.deepEqual(Buffer.from(zip[f]||[]),fs.readFileSync(root+f),'Missing or changed ZIP content '+f);
       for(const d of docReport.documents||[])assert.equal(sha(Buffer.from(zip[d.file]||[])),d.sha256,'Original Word edition '+name);
     }
-    console.log('PASS offline ZIPs: all 42 seasonal teachings, 1407 supplied notes, protected Pri chapters, and exact original Word editions.');
+    console.log('PASS offline ZIPs: all 42 seasonal teachings, 1407 '+(afterParallelCleanup?'primary source notes after approved appendix cleanup':'supplied notes')+', protected Pri chapters, and exact original Word editions.');
   }
 }
 if(process.argv.includes('--data-only')||process.argv.includes('--zips')){
-  console.log('PASS final seasonal data: 42 teachings; 1407 complete source notes; original body and other books preserved.');
+  console.log('PASS final seasonal data: 42 teachings; 1407 complete primary source notes; '+(afterParallelCleanup?'approved appendices removed; all original metadata, body and unaffected files preserved.':'original body and other books preserved.'));
   process.exit(0);
 }
 const {chromium}=await import('playwright');
 let server,base=live;
 if(!base){
-  const dist=path.resolve('dist');server=http.createServer((req,res)=>{
-    let f=path.resolve(dist,'.'+decodeURIComponent(new URL(req.url,'http://localhost').pathname));
-    if(!f.startsWith(dist+path.sep)){res.writeHead(403).end();return;}
+  const dist=path.resolve(root);server=http.createServer((req,res)=>{
+    const pathname=decodeURIComponent(new URL(req.url,'http://localhost').pathname);
+    if(!pathname.startsWith('/library/')){res.writeHead(404).end();return;}
+    let f=path.resolve(dist,'.'+pathname.slice('/library'.length));
+    if(f!==dist&&!f.startsWith(dist+path.sep)){res.writeHead(403).end();return;}
     try{if(fs.statSync(f).isDirectory())f=path.join(f,'index.html');
       res.setHeader('Content-Type',({'.html':'text/html;charset=utf-8','.js':'text/javascript;charset=utf-8','.json':'application/json;charset=utf-8','.css':'text/css;charset=utf-8'})[path.extname(f)]||'application/octet-stream');res.end(fs.readFileSync(f));
     }catch{res.writeHead(404).end();}
@@ -152,8 +223,18 @@ try{
     await page.locator('#text > .sec[data-ref="Peri Tzadik, Rosh Chodesh Shvat 1"] .seg-il .ph-he button.footnote-marker').first().waitFor({timeout:60000});
     await page.reload({waitUntil:'domcontentloaded'});
     const ms=page.locator('#text > .sec[data-ref="Peri Tzadik, Rosh Chodesh Shvat 1"] .seg-il .ph-he button.footnote-marker');
-    await ms.first().waitFor({timeout:60000});assert.equal(await ms.count(),74);await context.close();
+    await ms.first().waitFor({timeout:60000});assert.equal(await ms.count(),74);
+    if(afterParallelCleanup){
+      const expected=expectations.find(section=>section.ref==='Peri Tzadik, Rosh Chodesh Shvat 1');
+      const boxes=page.locator('#text > .sec[data-ref="Peri Tzadik, Rosh Chodesh Shvat 1"] .seg-il .reader-footnote');
+      const rendered=await boxes.evaluateAll(elements=>Object.fromEntries(elements.map(box=>[box.dataset.fn,
+        [...box.querySelectorAll('.annotation-text')].map(paragraph=>paragraph.textContent)])));
+      for(const note of expected.notes)assert.deepEqual(rendered[note.number],note.paragraphs.map(paragraph=>
+        paragraph.rich?.length?paragraph.rich.map(run=>run.text||'').join(''):paragraph.text),
+        'Installed reader retained stale appended paragraphs after reload #'+note.number);
+    }
+    await context.close();
   }
 }finally{await browser.close();if(server)await new Promise(r=>server.close(r));}
-fs.writeFileSync('seasonal-verification/'+(live?'live-':'')+'report.json',JSON.stringify({release,live:live||false,sections:42,notes:1407,uploadedContentSHA256:sha(canonical(uploadedContent)),results},null,2));
-console.log('PASS '+(live?'LIVE':'FINAL')+' seasonal reader: all 1407 notes rendered with complete supplied English; 42 mobile and 42 desktop routes; source popups open.');
+fs.writeFileSync('seasonal-verification/'+(live?'live-':'')+'report.json',JSON.stringify({release,afterParallelCleanup,live:live||false,sections:42,notes:1407,uploadedContentSHA256:sha(canonical(uploadedContent)),results},null,2));
+console.log('PASS '+(live?'LIVE':'FINAL')+' seasonal reader: all 1407 notes rendered with '+(afterParallelCleanup?'exact original primary quotations and commentary':'complete supplied English')+'; 42 mobile and 42 desktop routes; source popups open.');
