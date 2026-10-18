@@ -320,6 +320,36 @@ def remove_unsupported_body_links(rows, file, manifest):
         pair[language] = cleaned
 
 
+def new_placements(pack, bases, quarantine):
+    """Explicit new Hebrew anchors for reviewed sources where the original edition has no note.
+
+    Original stable numbers 1-2698 are never reused or moved; each new anchor takes the next
+    number above them, names its exact Hebrew word, and must carry at least one approved source.
+    """
+    created = {}
+    taken = {(e['file'], e['paragraph'], e['note']['phraseIndex'], e['note']['heWord'])
+             for e in list(bases.values()) + list(quarantine.values())}
+    for record in pack.get('newPlacements', []):
+        number = record.get('number')
+        if not isinstance(number, int) or number <= 2698 or number in created or number in bases or number in quarantine:
+            raise ValueError('A new placement needs a fresh number above the original 2,698 notes')
+        if record.get('sourceId') != f'DT-{number:04}' or record.get('placementId') != record['sourceId'] + '-1':
+            raise ValueError('Invalid new placement ID: ' + str(number))
+        if not str(record.get('reason', '')).strip():
+            raise ValueError('A new placement must state why the anchor is needed: ' + str(number))
+        for key in ('file', 'paragraph', 'phraseIndex', 'heWord', 'heCharOffset', 'heAnchorPrefix', 'enCharOffset', 'enAnchorPrefix'):
+            if record.get(key) in (None, ''):
+                raise ValueError('Incomplete new placement anchor: ' + str(number))
+        position = (record['file'], record['paragraph'], record['phraseIndex'], record['heWord'])
+        if position in taken:
+            raise ValueError('A new placement duplicates an existing Hebrew anchor: ' + str(number))
+        taken.add(position)
+        note = {key: copy.deepcopy(record[key]) for key in ANCHORS if key in record}
+        note['paragraphs'] = []
+        created[number] = {'file': record['file'], 'paragraph': record['paragraph'], 'note': note}
+    return created
+
+
 def main():
     raw_base = gzip.decompress(BASE.read_bytes())
     base = json.loads(raw_base)
@@ -343,13 +373,16 @@ def main():
     quarantine = {entry['note']['number']: entry for entry in base['quarantinedNotes']}
     if set(bases) & set(quarantine) or set(bases) | set(quarantine) != set(range(1, 2699)):
         raise ValueError('Clean/quarantine registry must account for every original stable note ID')
+    created = new_placements(approved_pack, bases, quarantine)
     additions = {}
     for record in approved:
         number = int(record['targetSourceId'][3:])
-        seed = bases.get(number) or quarantine.get(number)
+        seed = bases.get(number) or quarantine.get(number) or created.get(number)
         if not seed or seed['note']['placementId'] != record['targetPlacementId']:
             raise ValueError('Approved note has no exact original placement')
         additions.setdefault(number, []).append(record)
+    if any(number not in additions for number in created):
+        raise ValueError('A new placement has no approved source')
     sections, staged, expected, restored = [], {}, [], []
     rejected = set(base['rejectedTextHashes'])
     kept_by_anchor = {}
@@ -366,7 +399,7 @@ def main():
         for row in rows:
             if not isinstance(row, dict) or 'p' not in row:
                 continue
-            selected = [entry for number, entry in {**quarantine, **bases}.items()
+            selected = [entry for number, entry in {**created, **quarantine, **bases}.items()
                         if entry['file'] == file and entry['paragraph'] == row['n'] and (number in bases or number in additions)]
             notes = []
             anchor = section['ref'] + ':' + str(row['n'])
@@ -461,7 +494,7 @@ def main():
                          'retainedBaseParagraphs': sum(len(entry['note']['paragraphs']) for entry in bases.values()),
                          'cleanBaseParagraphsPreserved': True,
                          'addedSourceParagraphs': sum(note['addedParagraphCount'] for note in expected),
-                         'approvedReplacements': len(approved), 'rejectedParagraphsRemoved': base['removedParagraphCount'],
+                         'approvedReplacements': len(approved), 'newPlacements': len(created), 'rejectedParagraphsRemoved': base['removedParagraphCount'],
                          'addedHebrewLinks': sum(section['addedHebrewLinks'] for section in sections),
                          'removedUnsupportedBodyLinks': len(body_links['removeWrappers']),
                          'removedUnsupportedConnections': removed_links + (legacy.get('counts', {}).get('removedUnsupportedConnections', 0) if legacy.get('release') == RELEASE else 0),
