@@ -211,7 +211,7 @@ try {
       const first=chapterNotes.find(note=>note.paragraphs.some(p=>p.rich?.some(run=>run.bold && run.href)));
       assert.ok(first,'No linked source citation '+ref);
       const trigger=section.locator(`.ph-he .source-note-trigger[data-note-key="${first.placementId}"]`);
-      const card=section.locator(`.reader-footnote[data-note-key="${first.placementId}"]`);
+      const card=section.locator(`.seg-il .reader-footnote[data-note-key="${first.placementId}"]`);
       await trigger.click();
       await card.waitFor({state:'visible'});
       assert.equal(await trigger.getAttribute('aria-expanded'),'true','Footnote did not open');
