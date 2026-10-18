@@ -13,6 +13,7 @@ import hashlib
 import html
 import json
 import re
+import runpy
 import unicodedata
 from collections import Counter
 from pathlib import Path
@@ -215,6 +216,12 @@ def other_data_snapshot():
 
 
 def main():
+    # The reviewed clean layer is authoritative on repeat runs. Never restore
+    # rejected parallels simply because an earlier uploader is invoked again.
+    existing_toc = BOOK / 'toc.json'
+    if existing_toc.exists() and json.loads(existing_toc.read_text()).get('revisedFootnotes', {}).get('release') == '20261018-dover-reviewed-parallels-v3':
+        runpy.run_path('scripts/apply-dover-reviewed-parallels.py', run_name='__main__')
+        return
     raw = gzip.decompress(INPUT.read_bytes())
     if sha(raw) != SOURCE_SHA:
         raise ValueError('The supplied Dover revision checksum changed')
@@ -240,6 +247,7 @@ def main():
                     if note['paragraphs'] != expected[note['number']]['paragraphs']:
                         raise ValueError('Published Dover quotation changed on repeat run')
         print('Dover revisions already applied and verified:', len(expected), 'notes')
+        runpy.run_path('scripts/apply-dover-reviewed-parallels.py', run_name='__main__')
         return
 
     baseline_pack = json.loads(Path('sources/akiva/footnotes/Dover_Tzedek_Source_Expansion.json').read_text())
@@ -476,6 +484,7 @@ def main():
         raise ValueError('Dover publisher altered another work or a shared source index')
     print(f'Published Dover revisions: 2,698 original notes retained; {additions} added source excerpts; '
           f'{total_links} additional Hebrew source links; {original_extra} prior extra paragraphs preserved.')
+    runpy.run_path('scripts/apply-dover-reviewed-parallels.py', run_name='__main__')
 
 
 if __name__ == '__main__':

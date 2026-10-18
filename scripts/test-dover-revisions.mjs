@@ -17,9 +17,10 @@ assert.ok(urlIndex < 0 || args[urlIndex + 1], '--url requires a library URL');
 const publicBase = urlIndex < 0 ? null : new URL(args[urlIndex + 1]);
 if (publicBase && !publicBase.pathname.endsWith('/')) publicBase.pathname += '/';
 if (publicBase) publicBase.hash = '';
-const release = '20261018-dover-revisions-v2';
+const release = '20261018-dover-reviewed-parallels-v3';
 const root = path.resolve('dist/library');
 const hash = value => createHash('sha256').update(typeof value === 'string' ? value : JSON.stringify(value)).digest('hex');
+const byteHash = value => createHash('sha256').update(value).digest('hex');
 const entity = {amp:'&',lt:'<',gt:'>',quot:'"',apos:"'",nbsp:'\u00a0'};
 const visible = value => String(value || '').replace(/<[^>]*>/g, '').replace(/&(#x[\da-f]+|#\d+|[a-z]+);/gi, (all, key) => {
   if (key[0] === '#') return String.fromCodePoint(key[1].toLowerCase() === 'x' ? parseInt(key.slice(2),16) : +key.slice(1));
@@ -37,24 +38,83 @@ const read = async file => {
 const json = async file => JSON.parse((await read(file)).toString('utf8'));
 const report = await json('dover-revisions-report.json');
 assert.equal(report.release, release, 'Unexpected Dover revisions release');
-assert.equal(report.notes, 2698);
+const cleanBytes = gunzipSync(fs.readFileSync('sources/akiva/overlays/dover-clean-base-20261018.json.gz'));
+const clean = JSON.parse(cleanBytes.toString('utf8'));
+const approvedBytes = fs.readFileSync('sources/akiva/footnotes/Dover_Tzedek_Approved_Parallels.json');
+const approved = JSON.parse(approvedBytes.toString('utf8'));
+assert.equal(approved.book, 'Dover Tzedek');
+assert.equal(approved.release, release);
+assert.ok(approved.replacements.length, 'No individually reviewed replacements supplied');
+assert.equal(report.cleanedSourceSha256, byteHash(cleanBytes), 'Clean source checksum changed');
+assert.equal(report.approvedSourcesSha256, byteHash(approvedBytes), 'Approved source checksum changed');
+assert.deepEqual(report.reviewedParallels, approved.replacements, 'Publication differs from the reviewed Hebrew, translation or source context');
+const original = new Map(clean.notes.map(entry => [entry.note.number, entry]));
+const quarantined = new Map(clean.quarantinedNotes.map(entry => [entry.note.number, entry]));
+assert.equal(original.size, clean.notes.length, 'Duplicate retained baseline note');
+assert.equal(quarantined.size, clean.quarantinedNotes.length, 'Duplicate quarantined note');
+assert.ok([...original.keys()].every(number => !quarantined.has(number)), 'A quarantined note remains in the clean baseline');
+const replacements = new Map(), canonicalRefs = new Set(), quoteKeys = new Set(), approvedIds = new Set();
+const refKey = value => String(value).normalize('NFC').toLowerCase().replace(/[\s_]+/g,' ').trim();
+const expectedAdditions = replacement => {
+  const label = `${replacement.corpus} — ${replacement.displayCitation || replacement.sourceRef}`;
+  const passages = replacement.excerpts || [replacement];
+  const paragraphs = [];
+  for (const [index,passage] of passages.entries()) {
+    if (index) paragraphs.push({text:'[…]', language:'he', approvedParallelId:replacement.id});
+    paragraphs.push({text:`${label}: “${passage.hebrewQuote}”`, language:'he', approvedParallelId:replacement.id});
+    paragraphs.push({text:`English translation: “${passage.englishQuote}”`, language:'en', approvedParallelId:replacement.id});
+  }
+  return paragraphs;
+};
+for (const replacement of approved.replacements) {
+  assert.ok(replacement.id && !approvedIds.has(replacement.id), 'Duplicate approved replacement ID');
+  approvedIds.add(replacement.id);
+  assert.match(replacement.targetSourceId, /^DT-\d{4}$/);
+  assert.equal(replacement.targetPlacementId, replacement.targetSourceId+'-1');
+  const number = +replacement.targetSourceId.slice(3);
+  assert.ok(original.has(number) || quarantined.has(number), 'Approved replacement has no original Hebrew anchor');
+  const key = refKey(replacement.canonicalRef);
+  assert.ok(key && !canonicalRefs.has(key), 'A canonical source passage is used more than once');
+  canonicalRefs.add(key);
+  assert.ok(replacement.contextAssessment?.trim(), 'Approved source has no contextual assessment');
+  assert.ok(replacement.evidence?.sourceHebrew?.trim(), 'Approved source has no complete Hebrew context');
+  assert.equal(hash(replacement.evidence.sourceHebrew), replacement.evidence.sourceHebrewSha256, 'Approved Hebrew context checksum changed');
+  let cursor = 0;
+  const sourceText = bareHebrew(replacement.evidence.sourceHebrew);
+  for (const passage of replacement.excerpts || [replacement]) {
+    assert.ok(passage.hebrewQuote?.trim() && passage.englishQuote?.trim(), 'Approved passage needs complete Hebrew and English');
+    const quote = bareHebrew(passage.hebrewQuote), position = sourceText.indexOf(quote, cursor);
+    assert.ok(quote && position >= cursor, 'Approved Hebrew quotation is not an exact ordered excerpt of its supplied source context');
+    cursor = position + quote.length;
+    assert.ok(!quoteKeys.has(quote), 'A Hebrew source quotation is repeated');
+    quoteKeys.add(quote);
+  }
+  (replacements.get(number) || replacements.set(number, []).get(number)).push(replacement);
+}
+const finalNumbers = new Set([...original.keys(), ...replacements.keys()]);
+const finalQuarantined = [...quarantined.keys()].filter(number=>!replacements.has(number));
+assert.deepEqual([...report.quarantinedNumbers].sort((a,b)=>a-b), finalQuarantined.sort((a,b)=>a-b), 'Final quarantine manifest changed');
+const expected = new Map(report.expectedNotes.map(note => [note.number,note]));
+assert.equal(expected.size, report.expectedNotes.length, 'Duplicate final stable footnote number');
+assert.deepEqual([...expected.keys()].sort((a,b)=>a-b), [...finalNumbers].sort((a,b)=>a-b), 'Final note set differs from clean baseline and approved restorations');
+assert.equal(report.notes, finalNumbers.size);
+assert.equal(report.counts.retainedBaseNotes, original.size);
+assert.equal(report.counts.quarantinedNotes, finalQuarantined.length);
+assert.equal(report.counts.restoredNotes, [...replacements.keys()].filter(number=>!original.has(number)).length);
+assert.equal(report.counts.retainedBaseParagraphs, clean.notes.reduce((count,entry)=>count+entry.note.paragraphs.length,0));
+assert.equal(report.counts.approvedReplacements, approved.replacements.length);
+const rejectedHashes = new Set(clean.rejectedTextHashes);
+assert.ok(clean.rejectedTextHashes.length > 5000, 'Historical rejected-paragraph manifest is incomplete');
+assert.ok([...rejectedHashes].every(value=>/^[a-f0-9]{64}$/.test(value)), 'Invalid rejected paragraph checksum');
+assert.equal(report.counts.rejectedParagraphsRemoved, clean.removedParagraphCount);
 assert.equal(report.counts.contentSections, 15);
 assert.equal(report.counts.addedHebrewLinks, 944);
-assert.equal(report.counts.removedHebrewLinks, 0);
 assert.equal(report.counts.bodyChanges, 0);
-assert.equal(report.counts.originalParagraphsPreserved, true);
-assert.equal(report.counts.originalExtraParagraphsPreserved, 90);
-assert.equal(report.expectedNotes.length, 2698);
 assert.equal(report.sections.length, 16);
-const baseline = JSON.parse(fs.readFileSync('sources/akiva/footnotes/Dover_Tzedek_Source_Expansion.json','utf8'));
-const original = new Map(baseline.notes.map(note => [note.number,note]));
-const expected = new Map(report.expectedNotes.map(note => [note.number,note]));
-assert.equal(expected.size, 2698, 'Duplicate expected stable footnote number');
-assert.equal(new Set(report.expectedNotes.map(note=>note.uploadNumber)).size,2698,'Incoming footnote mapping is not one to one');
-assert.equal(baseline.notes.reduce((count,note)=>count+note.paragraphs.length-1,0), 90, 'Original supplementary quotation baseline changed');
+assert.equal(clean.sections.length, 16, 'Clean source must anchor every chapter body');
 const toc = await json('data/dover-tzedek/toc.json');
 assert.equal(toc.revisedFootnotes.release, release);
-assert.equal(toc.revisedFootnotes.notes, 2698);
+assert.equal(toc.revisedFootnotes.notes, finalNumbers.size);
 assert.equal(toc.revisedFootnotes.report, 'dover-revisions-report.json');
 const headingPack=JSON.parse(fs.readFileSync('sources/akiva/headings/Dover_Tzedek.json','utf8'));
 const headingReview=JSON.parse(gunzipSync(fs.readFileSync('editorial/dover-kdp-headings-review.json.gz')).toString());
@@ -97,9 +157,13 @@ assert.deepEqual(toc.titleTranslation,report.titleTranslation);
 const sections = new Map();
 const seen = new Set();
 const rejected = /Context and connection to Dover Tzedek:|Connection to this note:|Extended English quotation from Akiva interlinear:/i;
-let supplementary = 0, linksAdded = 0, quoteParagraphs = 0;
+let retainedParagraphs = 0, linksAdded = 0, quoteParagraphs = 0, approvedParagraphs = 0;
 for (const entry of report.sections) {
   assert.ok(/^\d+(?:-\d+)?\.json$/.test(entry.file), 'Invalid Dover chapter path');
+  const baselineSection = clean.sections.find(section=>section.file===entry.file);
+  assert.ok(baselineSection, 'No independent body baseline for '+entry.file);
+  for (const key of ['ref','heSha256','enSha256','heLinks','enLinks'])
+    assert.equal(entry[key], baselineSection[key], 'Clean body baseline changed '+entry.file+': '+key);
   const rows = await json('data/dover-tzedek/' + entry.file);
   sections.set(entry.file, {entry,rows});
   for (const [language,key] of [[0,'heSha256'],[1,'enSha256']]) {
@@ -115,19 +179,47 @@ for (const entry of report.sections) {
   for (const item of rows) for (const note of item.footnotes || []) {
     const label = `${entry.file}, footnote ${note.number}`;
     assert.ok(!seen.has(note.number), 'Duplicate '+label); seen.add(note.number);
-    const source = expected.get(note.number), old = original.get(note.number);
+    const source = expected.get(note.number), baseline = original.get(note.number);
+    const anchor = baseline || quarantined.get(note.number);
+    const old = anchor?.note;
     assert.ok(source && old, 'Unknown stable number '+label);
     assert.equal(source.file, entry.file, 'Wrong chapter '+label);
     assert.equal(source.paragraph, item.n, 'Wrong reader paragraph '+label);
+    assert.equal(anchor.file, entry.file, 'Clean baseline chapter changed '+label);
+    assert.equal(anchor.paragraph, item.n, 'Clean baseline paragraph changed '+label);
     for (const key of ['phraseIndex','heWord','heCharOffset','heAnchorPrefix','sourceId','placementId'])
       assert.equal(note[key],source[key],`Changed ${key}: ${label}`);
+    for (const key of ['phraseIndex','heWord','heCharOffset','heAnchorPrefix'])
+      assert.equal(note[key],old[key],`Clean Hebrew anchor changed ${key}: ${label}`);
     assert.equal(note.sourceId, 'DT-'+String(note.number).padStart(4,'0'), 'Changed stable source ID '+label);
     assert.equal(note.placementId,note.sourceId+'-1', 'Changed stable placement ID '+label);
     assert.deepEqual(note.paragraphs,source.paragraphs, 'Incomplete published quotation '+label);
-    assert.equal(source.originalParagraphCount,old.paragraphs.length, 'Original paragraph count '+label);
-    assert.equal(hash(old.paragraphs),source.originalParagraphsSha256,'Original quotation checksum '+label);
-    assert.deepEqual(note.paragraphs.slice(0,old.paragraphs.length),old.paragraphs,'Lost original quotation '+label);
-    supplementary += old.paragraphs.length-1;
+    const baselineParagraphs = baseline?.note.paragraphs || [];
+    assert.deepEqual(source.baselineParagraphs, baselineParagraphs, 'Retained baseline report changed '+label);
+    assert.equal(source.originalParagraphCount,baselineParagraphs.length, 'Retained paragraph count '+label);
+    assert.deepEqual(note.paragraphs.slice(0,baselineParagraphs.length),baselineParagraphs,'Lost or changed retained quotation '+label);
+    retainedParagraphs += baselineParagraphs.length;
+    const additions = note.paragraphs.slice(baselineParagraphs.length);
+    const approvedForNote = replacements.get(note.number) || [];
+    assert.deepEqual(note.reviewedParallelIds || [], approvedForNote.map(replacement=>replacement.id), 'Wrong approved passage IDs '+label);
+    assert.deepEqual(additions.map(({text,language,approvedParallelId})=>({text,language,approvedParallelId})),
+      approvedForNote.flatMap(expectedAdditions), 'Approved Hebrew, translation or context changed '+label);
+    approvedParagraphs += additions.length;
+    for (const paragraph of additions) {
+      assert.ok(approvedIds.has(paragraph.approvedParallelId), 'Unapproved paragraph '+label);
+      if (paragraph.language==='he' && paragraph.text!=='[…]') {
+        const replacement=approvedForNote.find(item=>item.id===paragraph.approvedParallelId);
+        const labelText=`${replacement.corpus} — ${replacement.displayCitation || replacement.sourceRef}`;
+        const url=new URL(replacement.sourceUrl);
+        const href=url.hostname==='akivagutnicki-crypto.github.io' && url.hash.startsWith('#/read/') ? url.hash : replacement.sourceUrl;
+        assert.equal(paragraph.rich?.[0]?.text,labelText,'Incorrect approved source label '+label);
+        assert.equal(paragraph.rich?.[0]?.bold,true,'Approved citation must be bold '+label);
+        assert.equal(paragraph.rich?.[0]?.href,href,'Approved source link changed '+label);
+        assert.equal(paragraph.rich?.length,2,'Approved citation and quotation must remain distinct '+label);
+        assert.equal(paragraph.rich[1].text,paragraph.text.slice(labelText.length),'Approved quotation run changed '+label);
+        assert.ok(!paragraph.rich[1].bold,'Approved quotation must use regular type '+label);
+      }
+    }
     const phrase = item.p?.[note.phraseIndex]?.[0];
     assert.ok(typeof phrase === 'string', 'Missing Hebrew phrase '+label);
     const text = visible(phrase), words = text.split(/\s+/).filter(Boolean);
@@ -140,6 +232,8 @@ for (const entry of report.sections) {
     for (const paragraph of note.paragraphs) {
       assert.ok(paragraph.text?.trim(), 'Empty quotation '+label);
       assert.ok(!rejected.test(paragraph.text) && !/^Sources:\s/.test(paragraph.text), 'Editorial boilerplate '+label);
+      assert.ok(!rejectedHashes.has(hash(norm(paragraph.text))), 'A rejected historical paragraph returned '+label);
+      assert.ok(!/^(?:Kisvei Rav Tzadok Parallel\b|Kisvei Beis Ishbitz[–— -]*Radzin Parallel\b|Parallel:)/.test(paragraph.text), 'An unreviewed historical parallel returned '+label);
       if (paragraph.rich?.length) assert.equal(paragraph.rich.map(run=>run.text||'').join(''),paragraph.text,'Rich text differs from full quotation '+label);
       quoteParagraphs++;
     }
@@ -215,11 +309,11 @@ assert.equal(outlineChapters,15,'All Dover content chapters need section content
 assert.equal(outlineTopics,kdpParagraphHeadings+kdpInlineHeadings,'Lost or duplicated contents heading');
 assert.equal(outlineTopics,headingReview.counts.headingsAndSubheadings,'Contents do not cover the reviewed KDP headings and adaptations');
 assert.equal(headingReview.counts.kdpTopics,333,'Expected all KDP source headlines');
-assert.ok((await read('index.html')).toString().includes('20261018-dover-elaboration-sources-revisions-v2-title-paragraphs-v1'),'Opening edition cache key missing');
-assert.ok((await read('index.html')).toString().includes('20261018-dover-elaboration-sources-revisions-v2-title-paragraphs-v1-headings-v1'),'Dover headings edition cache key missing');
+assert.ok((await read('index.html')).toString().includes('-dover-reviewed-parallels-v3'),'Reviewed Dover edition cache key missing');
 const shellVersion=(await read('sw.js')).toString().match(/^const SHELL = `([^`]+)`;/m)?.[1];
 assert.ok(shellVersion?.includes('-dover-title-paragraphs-v1'),'Opening app refresh version missing');
 assert.ok(shellVersion?.includes('-dover-headings-v1'),'Dover headings app refresh version missing');
+assert.ok(shellVersion?.includes('-dover-reviewed-parallels-v3'),'Reviewed Dover shell version missing');
 // Installed readers may retain the old contents file while receiving new text.
 // The row flag must still select paragraph presentation in that mixed state.
 const readerHtml=(await read('index.html')).toString();
@@ -250,25 +344,11 @@ for(const oldContents of [false,true]) {
     assert.equal(resolved.he.length,miscellany.shape[index],'Named section paragraph count changed');
   }
 }
-assert.equal(seen.size,2698,'Some Dover footnotes are missing');
-assert.equal(supplementary,90,'Lost existing supplementary quotations');
+assert.equal(seen.size,finalNumbers.size,'Some clean or approved Dover footnotes are missing');
+assert.equal(retainedParagraphs,report.counts.retainedBaseParagraphs,'Lost retained baseline quotations');
+assert.equal(approvedParagraphs,approved.replacements.flatMap(expectedAdditions).length,'Lost approved Hebrew or English paragraphs');
 assert.equal(linksAdded,944,'Missing added Hebrew hyperlinks');
-let previousAddedQuotes = new Set();
-for (const note of [...expected.values()].sort((a,b)=>a.uploadNumber-b.uploadNumber)) {
-  const current = new Set();
-  const sourceSection = report.sections.find(section=>section.file===note.file);
-  const ownParagraph = sourceSection.ref+':'+note.paragraph;
-  for (const paragraph of note.paragraphs.slice(note.originalParagraphCount)) {
-    const match = paragraph.text.match(/[“‘](.*)[”’]/);
-    const quote = (match?.[1]||paragraph.text).replace(/\s+/g,' ').trim();
-    assert.ok(!previousAddedQuotes.has(quote),'Repeated added quotation in consecutive footnotes '+note.number);
-    for (const run of paragraph.rich||[]) if (run.href?.startsWith('#/read/'))
-      assert.notEqual(decodeURIComponent(run.href.slice(7)).replace(/_/g,' '),ownParagraph,'A parallel repeats the current Dover paragraph '+note.number);
-    current.add(quote);
-  }
-  previousAddedQuotes = current;
-}
-console.log(`PASS Dover revised data${publicBase?' publicly verified':''}: nine complete Hebrew/English opening paragraphs; 2,698 complete notes; 90 supplementary original paragraphs preserved; 944 Hebrew links; content languages unchanged (${quoteParagraphs} quotation paragraphs).`);
+console.log(`PASS Dover reviewed data${publicBase?' publicly verified':''}: ${seen.size} anchored notes, ${retainedParagraphs} retained quotation paragraphs, ${approved.replacements.length} distinct approved sources with exact Hebrew, English and context; rejected historical paragraphs absent; all chapter bodies, opening and contents preserved (${quoteParagraphs} quotation paragraphs).`);
 if(!publicBase) await checkDoverSourceLinks();
 
 if (args.includes('--zips')) {
