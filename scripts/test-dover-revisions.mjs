@@ -28,6 +28,11 @@ const visible = value => String(value || '').replace(/<[^>]*>/g, '').replace(/&(
 });
 const norm = value => visible(value).normalize('NFC').replace(/\s+/g, ' ').trim();
 const bareHebrew = value => visible(value).replace(/[^\u05d0-\u05ea]/g, '');
+const stable = value => Array.isArray(value) ? value.map(stable) : value && typeof value === 'object' ?
+  Object.fromEntries(Object.keys(value).sort().map(key=>[key,stable(value[key])])) : value;
+const nonnotes = rows => rows.map(row=>row && typeof row === 'object' && !Array.isArray(row) ?
+  Object.fromEntries(Object.entries(row).filter(([key])=>key!=='footnotes')) : row);
+const bodyFingerprint = rows => hash(stable(nonnotes(rows)));
 const read = async file => {
   if (!publicBase) return fs.readFileSync(path.join(root, file));
   const url = new URL(file, publicBase); url.searchParams.set('dover-revision-check', String(Date.now()));
@@ -51,6 +56,45 @@ const bodyLinkBytes=fs.readFileSync('sources/akiva/overlays/dover-reviewed-body-
 const bodyLinkReview=JSON.parse(bodyLinkBytes.toString('utf8'));
 assert.equal(approved.bodyLinkReviewSha256,byteHash(bodyLinkBytes),'Body-link review requires a current edition revision');
 assert.equal(report.bodyLinkReviewSha256,byteHash(bodyLinkBytes),'Published body-link review changed');
+const correctionBytes=fs.readFileSync('sources/akiva/overlays/dover-verified-text-corrections-20261018.json');
+const correctionPack=JSON.parse(correctionBytes.toString('utf8'));
+assert.equal(correctionPack.book,'Dover Tzedek');
+assert.equal(correctionPack.release,'20261018-dover-verified-text-corrections-v1');
+assert.equal(approved.verifiedTextCorrectionsSha256,byteHash(correctionBytes),'Text repairs require a current reader edition revision');
+assert.equal(report.verifiedTextCorrectionsSha256,byteHash(correctionBytes),'Published text-repair proof changed');
+assert.ok(correctionPack.corrections?.length,'Verified text-correction list is empty');
+assert.equal(correctionPack.sections?.length,clean.sections.length,'Every original body section needs an exact preservation fingerprint');
+assert.deepEqual(correctionPack.sections.map(section=>section.file).sort(),clean.sections.map(section=>section.file).sort(),'Exact preservation fingerprints must cover all and only original sections');
+const correctionsByLocation=new Map();
+for(const correction of correctionPack.corrections) {
+  const key=JSON.stringify([correction.file,correction.rowN,correction.phraseIndex]);
+  assert.ok(!correctionsByLocation.has(key),'Duplicate verified phrase repair');correctionsByLocation.set(key,correction);
+  assert.ok(correction.file!=='0.json'&&clean.sections.some(section=>section.file===correction.file),'A text repair must be in a declared body chapter');
+  assert.ok(Number.isInteger(correction.phraseIndex)&&correction.phraseIndex>=0&&correction.reason?.trim(),'Incomplete verified repair location/reason');
+  for(const field of ['beforePair','afterPair'])assert.ok(Array.isArray(correction[field])&&correction[field].length===2&&correction[field].every(cell=>typeof cell==='string'),'A verified repair must preserve the phrase-pair schema');
+  assert.notDeepEqual(correction.beforePair,correction.afterPair,'Unchanged phrase in repair manifest');
+  const [he,en]=correction.afterPair.map(visible);
+  assert.ok(he.trim()&&en.trim(),'A repaired phrase has an empty language field');
+  if(correction.beforePair[0]!==correction.afterPair[0])assert.ok(![...he].some(char=>/\p{Letter}/u.test(char)&&!/[\u0590-\u05ff\ufb1d-\ufb4f]/u.test(char)),'A repaired Hebrew phrase retains foreign letters');
+  assert.ok(!/^[\s\u0590-\u05ff]*[ETl][\s\u0590-\u05ff]*$/u.test(en),'A repaired English field is still an orphan E/T/l fragment');
+  assert.ok(!/\(\s*\)|out of\s+being the majority|yielding\s*;/u.test(en),'A repaired mathematical phrase is still incomplete');
+  if(correction.beforePair[1]!==correction.afterPair[1])assert.ok(!/[\u0590-\u05ff\ufb1d-\ufb4f]/u.test(en),'A repaired English field retains Hebrew fragments');
+  const evidence=correction.primaryEvidence;
+  assert.ok(/^sources\/verified\/dover\//.test(evidence?.sourcePath||'')&&!evidence.sourcePath.split('/').includes('..'),'A verified repair needs a repository primary source');
+  const proofBytes=fs.readFileSync(evidence.sourcePath);
+  assert.equal(byteHash(proofBytes),evidence.sourceSha256,'Verified repair primary proof checksum changed');
+  assert.ok(evidence.jsonPointer?.startsWith('/'),'Verified repair needs an exact primary source pointer');
+  let proof=JSON.parse(proofBytes.toString('utf8'));
+  for(const token of evidence.jsonPointer.slice(1).split('/'))proof=proof[token.replace(/~1/g,'/').replace(/~0/g,'~')];
+  const textOf=value=>typeof value==='string'?value:Array.isArray(value)?value.map(textOf).join(' '):assert.fail('Primary proof pointer must resolve to full text');
+  assert.ok(bareHebrew(evidence.exactHebrewExcerpt)&&bareHebrew(textOf(proof)).includes(bareHebrew(evidence.exactHebrewExcerpt)),'Verified repair excerpt is absent from its full primary proof');
+}
+const anchorUpdates=new Map();
+for(const update of correctionPack.anchorUpdates||[]) {
+  assert.ok(!anchorUpdates.has(update.sourceId),'Duplicate corrected English anchor');anchorUpdates.set(update.sourceId,update);
+  for(const field of ['before','after'])assert.deepEqual(Object.keys(update[field]||{}).sort(),['enAnchorPrefix','enCharOffset'],'A repair may change only exact English anchor fields');
+  assert.equal(update.after.enAnchorPrefix.length,update.after.enCharOffset,'Corrected English anchor prefix/offset disagree');
+}
 assert.ok(approved.replacements.length, 'No individually reviewed replacements supplied');
 assert.equal(report.cleanedSourceSha256, byteHash(cleanBytes), 'Clean source checksum changed');
 assert.equal(report.approvedSourcesSha256, byteHash(approvedBytes), 'Approved source checksum changed');
@@ -112,7 +156,7 @@ assert.equal(report.counts.rejectedParagraphsRemoved, clean.removedParagraphCoun
 assert.equal(report.counts.contentSections, 15);
 assert.equal(report.counts.addedHebrewLinks,bodyLinkReview.counts.legacyHebrewLinksAddedAfter);
 assert.equal(report.counts.removedUnsupportedBodyLinks,bodyLinkReview.removeWrappers.length);
-assert.equal(report.counts.bodyChanges, 0);
+assert.equal(report.counts.bodyChanges,correctionPack.corrections.length);
 assert.equal(report.sections.length, 16);
 assert.equal(clean.sections.length, 16, 'Clean source must anchor every chapter body');
 const reviewedSourceGraph=await json('data/dover-tzedek/links.json');
@@ -170,12 +214,25 @@ for (const entry of report.sections) {
   assert.ok(/^\d+(?:-\d+)?\.json$/.test(entry.file), 'Invalid Dover chapter path');
   const baselineSection = clean.sections.find(section=>section.file===entry.file);
   assert.ok(baselineSection, 'No independent body baseline for '+entry.file);
-  for (const key of ['ref','heSha256','enSha256'])
-    assert.equal(entry[key], baselineSection[key], 'Clean body baseline changed '+entry.file+': '+key);
+  assert.equal(entry.ref,baselineSection.ref,'Clean section reference changed '+entry.file);
+  for (const [key,baselineKey] of [['heSha256','baselineHeSha256'],['enSha256','baselineEnSha256']])
+    assert.equal(entry[baselineKey], baselineSection[key], 'Original body baseline changed '+entry.file+': '+key);
   const removedBodyLinks=bodyLinkReview.removeWrappers.filter(record=>record.file===entry.file);
   assert.equal(entry.heLinks,baselineSection.heLinks-removedBodyLinks.filter(record=>record.languageIndex===0).length,'Wrong reviewed Hebrew link count');
   assert.equal(entry.enLinks,baselineSection.enLinks-removedBodyLinks.filter(record=>record.languageIndex===1).length,'Wrong reviewed English link count');
   const rows = await json('data/dover-tzedek/' + entry.file);
+  const sectionCorrections=correctionPack.corrections.filter(record=>record.file===entry.file);
+  assert.equal(entry.bodyChanges,sectionCorrections.length,'Wrong verified phrase-repair count '+entry.file);
+  const fingerprint=correctionPack.sections.find(section=>section.file===entry.file);
+  assert.equal(bodyFingerprint(rows),fingerprint.afterNonNotesSha256,'An undeclared body/header field changed '+entry.file);
+  const originalRows=structuredClone(rows);
+  for(const correction of sectionCorrections) {
+    const matches=originalRows.filter(row=>row?.p&&row.n===correction.rowN);
+    assert.equal(matches.length,1,'Verified phrase repair row moved');
+    assert.deepEqual(matches[0].p[correction.phraseIndex],correction.afterPair,'A finite verified phrase repair is missing or altered');
+    matches[0].p[correction.phraseIndex]=structuredClone(correction.beforePair);
+  }
+  assert.equal(bodyFingerprint(originalRows),fingerprint.beforeNonNotesSha256,'Fields beyond the finite phrase repairs changed '+entry.file);
   for(const record of removedBodyLinks) {
     const row=rows[record.rowIndex];assert.equal(row.n,record.rowN,'Reviewed body-link row moved');
     const cell=row.p[record.phraseIndex][record.languageIndex];
@@ -188,6 +245,8 @@ for (const entry of report.sections) {
   for (const [language,key] of [[0,'heSha256'],[1,'enSha256']]) {
     const normalized = rows.filter(row=>row.p).map(row=>[row.n,row.p.map(pair=>norm(pair[language]))]);
     assert.equal(hash(normalized), entry[key], `Body text changed: ${entry.file}, language ${language}`);
+    const restored=originalRows.filter(row=>row.p).map(row=>[row.n,row.p.map(pair=>norm(pair[language]))]);
+    assert.equal(hash(restored),baselineSection[key],`Text beyond verified repairs changed: ${entry.file}, language ${language}`);
   }
   const anchors = language => rows.filter(row=>row.p).flatMap(row=>row.p.map(pair=>pair[language])).reduce((count,text)=>count+(String(text).match(/data-ref=["']/gi)||[]).length,0);
   assert.equal(anchors(0),entry.heLinks, 'Hebrew link count '+entry.file);
@@ -206,10 +265,19 @@ for (const entry of report.sections) {
     assert.equal(source.paragraph, item.n, 'Wrong reader paragraph '+label);
     assert.equal(anchor.file, entry.file, 'Clean baseline chapter changed '+label);
     assert.equal(anchor.paragraph, item.n, 'Clean baseline paragraph changed '+label);
-    for (const key of ['phraseIndex','heWord','heCharOffset','heAnchorPrefix','sourceId','placementId'])
+    for (const key of ['phraseIndex','heWord','heWordText','heCharOffset','heAnchorPrefix','enCharOffset','enAnchorPrefix','sourceId','placementId'])
       assert.equal(note[key],source[key],`Changed ${key}: ${label}`);
-    for (const key of ['phraseIndex','heWord','heCharOffset','heAnchorPrefix'])
+    for (const key of ['phraseIndex','heWord','heWordText','heCharOffset','heAnchorPrefix'])
       assert.equal(note[key],old[key],`Clean Hebrew anchor changed ${key}: ${label}`);
+    const anchorUpdate=anchorUpdates.get(note.sourceId);
+    for(const key of ['enCharOffset','enAnchorPrefix']) {
+      if(anchorUpdate)assert.equal(anchorUpdate.before[key],old[key],'Original English repair anchor differs from the clean source '+label);
+      assert.equal(note[key],anchorUpdate?anchorUpdate.after[key]:old[key],'English anchor changed beyond the finite verified updates '+label);
+    }
+    if(anchorUpdate) {
+      assert.ok(correctionsByLocation.has(JSON.stringify([entry.file,item.n,note.phraseIndex])),'Updated English anchor has no declared phrase repair '+label);
+      assert.equal(visible(item.p[note.phraseIndex][1]).slice(0,note.enCharOffset),note.enAnchorPrefix,'Repaired English anchor misses its exact phrase '+label);
+    }
     assert.equal(note.sourceId, 'DT-'+String(note.number).padStart(4,'0'), 'Changed stable source ID '+label);
     assert.equal(note.placementId,note.sourceId+'-1', 'Changed stable placement ID '+label);
     assert.deepEqual(note.paragraphs,source.paragraphs, 'Incomplete published quotation '+label);
@@ -260,6 +328,7 @@ for (const entry of report.sections) {
     }
   }
 }
+assert.ok([...anchorUpdates.keys()].every(sourceId=>seen.has(+sourceId.slice(3))),'A declared English anchor correction was not published');
 const titleSection=sections.get('0.json');
 assert.equal(titleSection.rows.length,9,'Opening lost an original paragraph');
 for(const [index,row] of titleSection.rows.entries()) {
@@ -375,7 +444,7 @@ assert.equal(seen.size,finalNumbers.size,'Some clean or approved Dover footnotes
 assert.equal(retainedParagraphs,report.counts.retainedBaseParagraphs,'Lost retained baseline quotations');
 assert.equal(approvedParagraphs,approved.replacements.flatMap(expectedAdditions).length,'Lost approved English paragraphs');
 assert.equal(linksAdded,bodyLinkReview.counts.legacyHebrewLinksAddedAfter,'Missing verified Hebrew hyperlinks');
-console.log(`PASS Dover reviewed data${publicBase?' publicly verified':''}: ${seen.size} anchored notes, ${retainedParagraphs} retained quotation paragraphs, ${approved.replacements.length} distinct approved sources with verified Hebrew evidence and English-only additions; rejected historical paragraphs absent; all chapter bodies, opening and contents preserved (${quoteParagraphs} quotation paragraphs).`);
+console.log(`PASS Dover reviewed data${publicBase?' publicly verified':''}: ${seen.size} anchored notes, ${retainedParagraphs} retained quotation paragraphs, ${approved.replacements.length} distinct approved sources with verified Hebrew evidence and English-only additions; ${correctionPack.corrections.length} finite primary-verified phrase repairs; every other body/header field, opening and contents preserved (${quoteParagraphs} quotation paragraphs).`);
 if(!publicBase) await checkDoverSourceLinks();
 
 if (args.includes('--zips')) {

@@ -1,0 +1,860 @@
+{
+  "schemaVersion": 1,
+  "book": "Dover Tzedek",
+  "release": "20261018-dover-verified-text-corrections-v1",
+  "scope": "Finite primary-backed repairs to imported text; every other body field and all original footnote quotations remain unchanged.",
+  "corrections": [
+    {
+      "file": "1-4.json",
+      "rowN": 13,
+      "phraseIndex": 2,
+      "beforePair": [
+        "עַל יְדֵי זֶה הַהִתְפַּשְּׁטוּת בְּאֹרֶךְ וְרֹחַב נַעֲשָׂה מְרֻבָּע מֵעֲשָׂרָה, וְהוּא מֵאָה",
+        "through expansion in two dimensions (length and width), a planar square is formed from ten (), which equals one hundred;"
+      ],
+      "afterPair": [
+        "עַל יְדֵי זֶה הַהִתְפַּשְּׁטוּת בְּאֹרֶךְ וְרֹחַב נַעֲשָׂה מְרֻבָּע מֵעֲשָׂרָה, וְהוּא מֵאָה",
+        "through expansion in two dimensions (length and width), a planar square is formed from ten, which equals one hundred;"
+      ],
+      "reason": "Delete an empty parenthetical placeholder. The English immediately preceding it already states the number or scale confirmed by the Hebrew; no calculation is supplied or inferred.",
+      "primaryEvidence": {
+        "sourcePath": "sources/verified/dover/body-repair/sefaria-dover-eruvin-4.primary.json",
+        "sourceSha256": "bace38baa90ae8398c2926899658f4cbf21a796a6389c140f3cff3549abcfaa8",
+        "jsonPointer": "/versions/0/text/2",
+        "exactHebrewExcerpt": "ועל ידי זה ההתפשטות באורך ורוחב נעשה מרובע מעשרה והוא מאה"
+      },
+      "evidenceMetadata": {
+        "provider": "Sefaria",
+        "canonicalRef": "Dover Tzedek, Kuntres Dover Tzedek, Eruvin 4:3",
+        "canonicalUrl": "https://www.sefaria.org/Dover_Tzedek,_Kuntres_Dover_Tzedek,_Eruvin.4.3",
+        "versionTitle": "R' Zadok -- Dover Tzedek",
+        "exactHebrewExcerpt": "ועל ידי זה ההתפשטות באורך ורוחב נעשה מרובע מעשרה והוא מאה"
+      },
+      "id": "1-4.json:13:2"
+    },
+    {
+      "file": "1-4.json",
+      "rowN": 13,
+      "phraseIndex": 3,
+      "beforePair": [
+        "וּכְשֶׁמִּתְפַּשֵּׁט גַּם לַגֹּבַהּ, הוּא מְעֻקָּב עֲשָׂרָה, שֶׁהוּא מִסְפַּר אֶלֶף",
+        "and when it extends into the third dimension of height, it forms a cube of ten (), which is the number one thousand."
+      ],
+      "afterPair": [
+        "וּכְשֶׁמִּתְפַּשֵּׁט גַּם לַגֹּבַהּ, הוּא מְעֻקָּב עֲשָׂרָה, שֶׁהוּא מִסְפַּר אֶלֶף",
+        "and when it extends into the third dimension of height, it forms a cube of ten, which is the number one thousand."
+      ],
+      "reason": "Delete an empty parenthetical placeholder. The English immediately preceding it already states the number or scale confirmed by the Hebrew; no calculation is supplied or inferred.",
+      "primaryEvidence": {
+        "sourcePath": "sources/verified/dover/body-repair/sefaria-dover-eruvin-4.primary.json",
+        "sourceSha256": "bace38baa90ae8398c2926899658f4cbf21a796a6389c140f3cff3549abcfaa8",
+        "jsonPointer": "/versions/0/text/2",
+        "exactHebrewExcerpt": "וכשמתפשט גם לגובה הוא מעוקב עשרה שהוא מספר אלף"
+      },
+      "evidenceMetadata": {
+        "provider": "Sefaria",
+        "canonicalRef": "Dover Tzedek, Kuntres Dover Tzedek, Eruvin 4:3",
+        "canonicalUrl": "https://www.sefaria.org/Dover_Tzedek,_Kuntres_Dover_Tzedek,_Eruvin.4.3",
+        "versionTitle": "R' Zadok -- Dover Tzedek",
+        "exactHebrewExcerpt": "וכשמתפשט גם לגובה הוא מעוקב עשרה שהוא מספר אלף"
+      },
+      "id": "1-4.json:13:3"
+    },
+    {
+      "file": "1-4.json",
+      "rowN": 19,
+      "phraseIndex": 5,
+      "beforePair": [
+        "אֲבָל דְּבָרִים שֶׁאֵין דַּי בְּבִטּוּל הַטַּעַם, אָז בִּטּוּלָם אֶחָד מִמֵּאָה, שֶׁהוּא הַבִּטּוּל הַגָּמוּר מִצַּד טֶבַע הַבְּרִיאָה",
+        "However, for sanctified matters where mere loss of physical flavor is insufficient, their nullification requires one in one hundred (), which represents total nullification according to the planar laws of Creation."
+      ],
+      "afterPair": [
+        "אֲבָל דְּבָרִים שֶׁאֵין דַּי בְּבִטּוּל הַטַּעַם, אָז בִּטּוּלָם אֶחָד מִמֵּאָה, שֶׁהוּא הַבִּטּוּל הַגָּמוּר מִצַּד טֶבַע הַבְּרִיאָה",
+        "However, for sanctified matters where mere loss of physical flavor is insufficient, their nullification requires one in one hundred, which represents total nullification according to the planar laws of Creation."
+      ],
+      "reason": "Delete an empty parenthetical placeholder. The English immediately preceding it already states the number or scale confirmed by the Hebrew; no calculation is supplied or inferred.",
+      "primaryEvidence": {
+        "sourcePath": "sources/verified/dover/body-repair/sefaria-dover-eruvin-4.primary.json",
+        "sourceSha256": "bace38baa90ae8398c2926899658f4cbf21a796a6389c140f3cff3549abcfaa8",
+        "jsonPointer": "/versions/0/text/2",
+        "exactHebrewExcerpt": "אבל דברים שאין די בביטול הטעם אז ביטולם אחד ממאה שהוא הביטול הגמור מצד טבע הבריאה"
+      },
+      "evidenceMetadata": {
+        "provider": "Sefaria",
+        "canonicalRef": "Dover Tzedek, Kuntres Dover Tzedek, Eruvin 4:3",
+        "canonicalUrl": "https://www.sefaria.org/Dover_Tzedek,_Kuntres_Dover_Tzedek,_Eruvin.4.3",
+        "versionTitle": "R' Zadok -- Dover Tzedek",
+        "exactHebrewExcerpt": "אבל דברים שאין די בביטול הטעם אז ביטולם אחד ממאה שהוא הביטול הגמור מצד טבע הבריאה"
+      },
+      "id": "1-4.json:19:5"
+    },
+    {
+      "file": "1-4.json",
+      "rowN": 31,
+      "phraseIndex": 0,
+      "beforePair": [
+        "וּלְכָךְ בְּעִנְיַן הַטּוֹב וָרָע שֶׁבֵּין אָדָם לַחֲבֵרוֹ, הַשִּׁעוּר בַּעֲשָׂרוֹת",
+        "Therefore, regarding interpersonal good and evil, the measure of nullification is in tens ();"
+      ],
+      "afterPair": [
+        "וּלְכָךְ בְּעִנְיַן הַטּוֹב וָרָע שֶׁבֵּין אָדָם לַחֲבֵרוֹ, הַשִּׁעוּר בַּעֲשָׂרוֹת",
+        "Therefore, regarding interpersonal good and evil, the measure of nullification is in tens;"
+      ],
+      "reason": "Delete an empty parenthetical placeholder. The English immediately preceding it already states the number or scale confirmed by the Hebrew; no calculation is supplied or inferred.",
+      "primaryEvidence": {
+        "sourcePath": "sources/verified/dover/body-repair/sefaria-dover-eruvin-4.primary.json",
+        "sourceSha256": "bace38baa90ae8398c2926899658f4cbf21a796a6389c140f3cff3549abcfaa8",
+        "jsonPointer": "/versions/0/text/3",
+        "exactHebrewExcerpt": "ולכך בענין הטוב ורע שבין אדם לחבירו השיעור בעשרות"
+      },
+      "evidenceMetadata": {
+        "provider": "Sefaria",
+        "canonicalRef": "Dover Tzedek, Kuntres Dover Tzedek, Eruvin 4:4",
+        "canonicalUrl": "https://www.sefaria.org/Dover_Tzedek,_Kuntres_Dover_Tzedek,_Eruvin.4.4",
+        "versionTitle": "R' Zadok -- Dover Tzedek",
+        "exactHebrewExcerpt": "ולכך בענין הטוב ורע שבין אדם לחבירו השיעור בעשרות"
+      },
+      "id": "1-4.json:31:0"
+    },
+    {
+      "file": "1-4.json",
+      "rowN": 31,
+      "phraseIndex": 1,
+      "beforePair": [
+        "וּלְעִנְיַן אִסּוּר וְהֶתֵּר, הַשִּׁעוּר בְּמֵאוֹת",
+        "and regarding religious prohibitions and permissions (<i>issur v'heter</i>), the measure is in hundreds ();"
+      ],
+      "afterPair": [
+        "וּלְעִנְיַן אִסּוּר וְהֶתֵּר, הַשִּׁעוּר בְּמֵאוֹת",
+        "and regarding religious prohibitions and permissions (<i>issur v'heter</i>), the measure is in hundreds;"
+      ],
+      "reason": "Delete an empty parenthetical placeholder. The English immediately preceding it already states the number or scale confirmed by the Hebrew; no calculation is supplied or inferred.",
+      "primaryEvidence": {
+        "sourcePath": "sources/verified/dover/body-repair/sefaria-dover-eruvin-4.primary.json",
+        "sourceSha256": "bace38baa90ae8398c2926899658f4cbf21a796a6389c140f3cff3549abcfaa8",
+        "jsonPointer": "/versions/0/text/3",
+        "exactHebrewExcerpt": "ולענין איסור והיתר השיעור במאות"
+      },
+      "evidenceMetadata": {
+        "provider": "Sefaria",
+        "canonicalRef": "Dover Tzedek, Kuntres Dover Tzedek, Eruvin 4:4",
+        "canonicalUrl": "https://www.sefaria.org/Dover_Tzedek,_Kuntres_Dover_Tzedek,_Eruvin.4.4",
+        "versionTitle": "R' Zadok -- Dover Tzedek",
+        "exactHebrewExcerpt": "ולענין איסור והיתר השיעור במאות"
+      },
+      "id": "1-4.json:31:1"
+    },
+    {
+      "file": "1-4.json",
+      "rowN": 31,
+      "phraseIndex": 2,
+      "beforePair": [
+        "וּלְעִנְיַן בִּרְיָה וְדָבָר שֶׁהוּא חָשׁוּב, שֶׁבִּרְיָה הִיא קוֹמָה שְׁלֵמָה, וְהִיא שָׁלֵם מִכָּל צְדָדָיו וּבַעַל שְׁלֹשָׁה מֶרְחַקִּים, בִּטּוּלוֹ בִּשְׁלֵמוּת הַשְּׁלֹשָׁה מֶרְחַקִּים, שֶׁהוּא בְּאֶלֶף",
+        "and regarding an intact creature (<i>beriah</i>) or an item of standalone prominence, since a creature possesses complete three-dimensional stature, its theoretical nullification requires the fullness of three dimensions, which is in one thousand ()."
+      ],
+      "afterPair": [
+        "וּלְעִנְיַן בִּרְיָה וְדָבָר שֶׁהוּא חָשׁוּב, שֶׁבִּרְיָה הִיא קוֹמָה שְׁלֵמָה, וְהִיא שָׁלֵם מִכָּל צְדָדָיו וּבַעַל שְׁלֹשָׁה מֶרְחַקִּים, בִּטּוּלוֹ בִּשְׁלֵמוּת הַשְּׁלֹשָׁה מֶרְחַקִּים, שֶׁהוּא בְּאֶלֶף",
+        "and regarding an intact creature (<i>beriah</i>) or an item of standalone prominence, since a creature possesses complete three-dimensional stature, its theoretical nullification requires the fullness of three dimensions, which is in one thousand."
+      ],
+      "reason": "Delete an empty parenthetical placeholder. The English immediately preceding it already states the number or scale confirmed by the Hebrew; no calculation is supplied or inferred.",
+      "primaryEvidence": {
+        "sourcePath": "sources/verified/dover/body-repair/sefaria-dover-eruvin-4.primary.json",
+        "sourceSha256": "bace38baa90ae8398c2926899658f4cbf21a796a6389c140f3cff3549abcfaa8",
+        "jsonPointer": "/versions/0/text/3",
+        "exactHebrewExcerpt": "ולענין בריה ודבר שהוא חשוב שבריה היא קומה שלימה והיא שלם מכל צדדיו ובעל ג' מרחקים ביטולו בשלימות הג' מרחקים שהוא באלף"
+      },
+      "evidenceMetadata": {
+        "provider": "Sefaria",
+        "canonicalRef": "Dover Tzedek, Kuntres Dover Tzedek, Eruvin 4:4",
+        "canonicalUrl": "https://www.sefaria.org/Dover_Tzedek,_Kuntres_Dover_Tzedek,_Eruvin.4.4",
+        "versionTitle": "R' Zadok -- Dover Tzedek",
+        "exactHebrewExcerpt": "ולענין בריה ודבר שהוא חשוב שבריה היא קומה שלימה והיא שלם מכל צדדיו ובעל ג' מרחקים ביטולו בשלימות הג' מרחקים שהוא באלף"
+      },
+      "id": "1-4.json:31:2"
+    },
+    {
+      "file": "1-4.json",
+      "rowN": 32,
+      "phraseIndex": 4,
+      "beforePair": [
+        "בּוֹ בֶּאֱמֶת \"רֻבּוֹ כְּכֻלּוֹ\", וּלְכָךְ דַּי בִּתְשַׁע מֵאוֹת וְשִׁשִּׁים, וְהָבֵן זֶה הֵיטֵב",
+        "Within that final hundred, the principle of majority governs ( out of  being the majority), yielding ; and therefore 960 is sufficient; understand this well."
+      ],
+      "afterPair": [
+        "בּוֹ בֶּאֱמֶת \"רֻבּוֹ כְּכֻלּוֹ\", וּלְכָךְ דַּי בִּתְשַׁע מֵאוֹת וְשִׁשִּׁים, וְהָבֵן זֶה הֵיטֵב",
+        "Here, indeed, \"the majority is equivalent to the whole\"; therefore nine hundred and sixty suffice; understand this well."
+      ],
+      "reason": "Replace the visibly incomplete inserted calculation with a direct translation of the complete Hebrew phrase. Canonical Hebrew states majority-as-whole and 960 but supplies no intervening numerical calculation.",
+      "primaryEvidence": {
+        "sourcePath": "sources/verified/dover/body-repair/sefaria-dover-eruvin-4.primary.json",
+        "sourceSha256": "bace38baa90ae8398c2926899658f4cbf21a796a6389c140f3cff3549abcfaa8",
+        "jsonPointer": "/versions/0/text/3",
+        "exactHebrewExcerpt": "בו באמת רובו ככולו ולכך די בתתק\"ס והבן זה היטב"
+      },
+      "evidenceMetadata": {
+        "provider": "Sefaria",
+        "canonicalRef": "Dover Tzedek, Kuntres Dover Tzedek, Eruvin 4:4",
+        "canonicalUrl": "https://www.sefaria.org/Dover_Tzedek,_Kuntres_Dover_Tzedek,_Eruvin.4.4",
+        "versionTitle": "R' Zadok -- Dover Tzedek",
+        "exactHebrewExcerpt": "בו באמת רובו ככולו ולכך די בתתק\"ס והבן זה היטב"
+      },
+      "id": "1-4.json:32:4"
+    },
+    {
+      "file": "1-4.json",
+      "rowN": 36,
+      "phraseIndex": 1,
+      "beforePair": [
+        "שֶׁהוּא בְּגִימַטְרִיָּא חֲמֵשׁ עֶשְׂרֵה הַמַּעֲלוֹת",
+        "which equals numerically fifteen (), reflecting these fifteen ascents;"
+      ],
+      "afterPair": [
+        "שֶׁהוּא בְּגִימַטְרִיָּא חֲמֵשׁ עֶשְׂרֵה הַמַּעֲלוֹת",
+        "which equals numerically fifteen, reflecting these fifteen ascents;"
+      ],
+      "reason": "Delete an empty parenthetical placeholder. The English immediately preceding it already states the number or scale confirmed by the Hebrew; no calculation is supplied or inferred.",
+      "primaryEvidence": {
+        "sourcePath": "sources/verified/dover/body-repair/sefaria-dover-eruvin-4.primary.json",
+        "sourceSha256": "bace38baa90ae8398c2926899658f4cbf21a796a6389c140f3cff3549abcfaa8",
+        "jsonPointer": "/versions/0/text/4",
+        "exactHebrewExcerpt": "שהוא בגימ' ט\"ו המעלות"
+      },
+      "evidenceMetadata": {
+        "provider": "Sefaria",
+        "canonicalRef": "Dover Tzedek, Kuntres Dover Tzedek, Eruvin 4:5",
+        "canonicalUrl": "https://www.sefaria.org/Dover_Tzedek,_Kuntres_Dover_Tzedek,_Eruvin.4.5",
+        "versionTitle": "R' Zadok -- Dover Tzedek",
+        "exactHebrewExcerpt": "שהוא בגימ' ט\"ו המעלות"
+      },
+      "id": "1-4.json:36:1"
+    },
+    {
+      "file": "1-4.json",
+      "rowN": 38,
+      "phraseIndex": 6,
+      "beforePair": [
+        "וּלְכָךְ הֵם מֵאָה וַחֲמִשִּׁים מִקְוֵה טָהֳרָה",
+        "therefore, fifteen complete dimensions multiplied by ten yield exactly one hundred and fifty ritual baths of purification ()."
+      ],
+      "afterPair": [
+        "וּלְכָךְ הֵם מֵאָה וַחֲמִשִּׁים מִקְוֵה טָהֳרָה",
+        "therefore, fifteen complete dimensions multiplied by ten yield exactly one hundred and fifty ritual baths of purification."
+      ],
+      "reason": "Delete an empty parenthetical placeholder. The English immediately preceding it already states the number or scale confirmed by the Hebrew; no calculation is supplied or inferred.",
+      "primaryEvidence": {
+        "sourcePath": "sources/verified/dover/body-repair/sefaria-dover-eruvin-4.primary.json",
+        "sourceSha256": "bace38baa90ae8398c2926899658f4cbf21a796a6389c140f3cff3549abcfaa8",
+        "jsonPointer": "/versions/0/text/4",
+        "exactHebrewExcerpt": "ולכך הם ק\"נ מקוה טהרה"
+      },
+      "evidenceMetadata": {
+        "provider": "Sefaria",
+        "canonicalRef": "Dover Tzedek, Kuntres Dover Tzedek, Eruvin 4:5",
+        "canonicalUrl": "https://www.sefaria.org/Dover_Tzedek,_Kuntres_Dover_Tzedek,_Eruvin.4.5",
+        "versionTitle": "R' Zadok -- Dover Tzedek",
+        "exactHebrewExcerpt": "ולכך הם ק\"נ מקוה טהרה"
+      },
+      "id": "1-4.json:38:6"
+    },
+    {
+      "file": "5-4.json",
+      "rowN": 95,
+      "phraseIndex": 2,
+      "beforePair": [
+        "כִּי דָּוְד יָדוּעַ שֶׁעִקַּר מַה שֶׁאֵינוֹ יָכוֹל לְהוֹצִיא מִכֹּחַ לַפּוֹעַל הִיא הַשְּׁכֵחָה,",
+        "for it is known that the primary obstacle preventing one from actualizing potential into deed is forgetfulness,"
+      ],
+      "afterPair": [
+        "כַּיָּדוּעַ שֶׁעִקַּר מַה שֶׁאֵינוֹ יָכוֹל לְהוֹצִיא מִכֹּחַ לַפּוֹעַל הִיא הַשְּׁכֵחָה,",
+        "for it is known that the primary obstacle preventing one from actualizing potential into deed is forgetfulness,"
+      ],
+      "reason": "Restore the single word כידוע, mechanically corrupted into three words including an extraneous David.",
+      "primaryEvidence": {
+        "sourcePath": "sources/verified/dover/body-repair/sefaria-dover-miscellany-4-95-96.primary.json",
+        "sourceSha256": "34bfc50a5c892b43595da31e04ba24049ffedace501e939ca47f866113a87c28",
+        "jsonPointer": "/versions/0/text/0",
+        "exactHebrewExcerpt": "כידוע שעיקר מה שאינו יכול להוציא מכח לפועל היא השכחה"
+      },
+      "evidenceMetadata": {
+        "reference": "Dover Tzedek, Miscellany 4:95",
+        "versionTitle": "R' Zadok -- Dover Tzedek",
+        "vocalizationStatus": "Primary is unpointed; existing vocalization is retained except locally within repaired words."
+      },
+      "id": "5-4.json:95:2"
+    },
+    {
+      "file": "5-4.json",
+      "rowN": 95,
+      "phraseIndex": 4,
+      "beforePair": [
+        "שֶׁזֶּהוּ כָּל עִקַּר כֹּחַ הַיֵּצֶר אֶצְלָם הַשְּׁלֵמִים לְהַשְׁכִּיחָם בְּרֶגַע שֶׁיּוּכַל מֵהִתְקַשְּׁרוּתָם לְהַשֵּׁם יִתְבָּרַךְ.",
+        "which constitutes the primary weapon of the inclination even among the spiritually accomplished, making them momentarily forget their attachment to Hashem."
+      ],
+      "afterPair": [
+        "שֶׁזֶּהוּ כָּל עִקַּר כֹּחַ הַיֵּצֶר אֵצֶל הַשְּׁלֵמִים לְהַשְׁכִּיחָם בְּרֶגַע שֶׁיּוּכַל מֵהִתְקַשְּׁרוּתָם לְהַשֵּׁם יִתְבָּרַךְ.",
+        "which constitutes the primary weapon of the inclination even among the spiritually accomplished, making them momentarily forget their attachment to Hashem."
+      ],
+      "reason": "Remove the extraneous final mem from אצל; retain the following adjective and existing phrase boundary.",
+      "primaryEvidence": {
+        "sourcePath": "sources/verified/dover/body-repair/sefaria-dover-miscellany-4-95-96.primary.json",
+        "sourceSha256": "34bfc50a5c892b43595da31e04ba24049ffedace501e939ca47f866113a87c28",
+        "jsonPointer": "/versions/0/text/0",
+        "exactHebrewExcerpt": "שזהו כל עיקר כח היצר אצל השלימים להשכיחם"
+      },
+      "evidenceMetadata": {
+        "reference": "Dover Tzedek, Miscellany 4:95",
+        "versionTitle": "R' Zadok -- Dover Tzedek",
+        "vocalizationStatus": "Primary is unpointed; existing vocalization is retained except locally within repaired words."
+      },
+      "id": "5-4.json:95:4"
+    },
+    {
+      "file": "5-4.json",
+      "rowN": 95,
+      "phraseIndex": 9,
+      "beforePair": [
+        "כִּי דְּעַל שְׁלֹשָׁה מִדּוֹת חָכְמָה, בִּינָה, דַּעַת הֵם תְּלַת מוּחִין שֶׁבַּמֹּחַ.",
+        "for Chokhmah, Binah, and Da'at are the three intellectual centers within the brain."
+      ],
+      "afterPair": [
+        "כַּיָּדוּעַ דִּשְׁלֹשָׁה מִדּוֹת חָכְמָה, בִּינָה, דַּעַת הֵם תְּלַת מוּחִין שֶׁבַּמֹּחַ.",
+        "for Chokhmah, Binah, and Da'at are the three intellectual centers within the brain."
+      ],
+      "reason": "Restore כידוע דשלשה, mechanically corrupted into כי דעל שלשה.",
+      "primaryEvidence": {
+        "sourcePath": "sources/verified/dover/body-repair/sefaria-dover-miscellany-4-95-96.primary.json",
+        "sourceSha256": "34bfc50a5c892b43595da31e04ba24049ffedace501e939ca47f866113a87c28",
+        "jsonPointer": "/versions/0/text/0",
+        "exactHebrewExcerpt": "כידוע דשלשה מדות חכמה בינה דעת הם תלת מוחין שבמוח"
+      },
+      "evidenceMetadata": {
+        "reference": "Dover Tzedek, Miscellany 4:95",
+        "versionTitle": "R' Zadok -- Dover Tzedek",
+        "vocalizationStatus": "Primary is unpointed; existing vocalization is retained except locally within repaired words."
+      },
+      "id": "5-4.json:95:9"
+    },
+    {
+      "file": "5-4.json",
+      "rowN": 95,
+      "phraseIndex": 10,
+      "beforePair": [
+        "וְיָדוּעַ בְּחָכְמַת הַטֶּבַע כִּי אַרְבָּעָה חֲדָרִים יֵשׁ בַּמֹּחַ, וְהַשְּׁלֹשָׁה מֵהֶם: כֹּחַ הַזּוֹכֵר, וְכֹחַ הַשֵּׂכֶל וְהַشּוֹפֵט עַל כָּל דָּבָר, וְכֹחַ הַהַרְגָּשָׁה;",
+        "And it is known in natural science that the brain contains four chambers: three of them being memory, the analytical reasoning faculty that judges all matters, and emotional sensation;"
+      ],
+      "afterPair": [
+        "וְיָדוּעַ בְּחָכְמַת הַטֶּבַע כִּי אַרְבָּעָה חֲדָרִים יֵשׁ בַּמֹּחַ, וְהַשְּׁלֹשָׁה מֵהֶם: כֹּחַ הַזּוֹכֵר, וְכֹחַ הַשֵּׂכֶל וְהַשּׁוֹפֵט עַל כָּל דָּבָר, וְכֹחַ הַהַרְגָּשָׁה;",
+        "And it is known in natural science that the brain contains four chambers: three of them being memory, the analytical reasoning faculty that judges all matters, and emotional sensation;"
+      ],
+      "reason": "Replace Arabic sheen with Hebrew shin in השופט; no other wording change.",
+      "primaryEvidence": {
+        "sourcePath": "sources/verified/dover/body-repair/sefaria-dover-miscellany-4-95-96.primary.json",
+        "sourceSha256": "34bfc50a5c892b43595da31e04ba24049ffedace501e939ca47f866113a87c28",
+        "jsonPointer": "/versions/0/text/0",
+        "exactHebrewExcerpt": "וכח השכל והשופט על כל דבר וכח ההרגשה"
+      },
+      "evidenceMetadata": {
+        "reference": "Dover Tzedek, Miscellany 4:95",
+        "versionTitle": "R' Zadok -- Dover Tzedek",
+        "vocalizationStatus": "Primary is unpointed; existing vocalization is retained except locally within repaired words."
+      },
+      "id": "5-4.json:95:10"
+    },
+    {
+      "file": "5-4.json",
+      "rowN": 95,
+      "phraseIndex": 12,
+      "beforePair": [
+        "וְהַדְּבָרִים הַדָּבָר הַד׳ הוּא הַדִּמְיוֹן וְהוּא הַقּוֹף הַמִּתְדַּמֶּה לִבְנֵי אָדָם.",
+        "And the fourth chamber is the imagination, likened to the ape that mimics man."
+      ],
+      "afterPair": [
+        "וְהַד׳ הוּא הַדִּמְיוֹן וְהוּא הַקּוֹף הַמִּתְדַּמֶּה לִבְנֵי אָדָם.",
+        "And the fourth chamber is the imagination, likened to the ape that mimics man."
+      ],
+      "reason": "Remove duplicated intrusions before והד׳ and replace Arabic qaf with Hebrew qof in הקוף.",
+      "primaryEvidence": {
+        "sourcePath": "sources/verified/dover/body-repair/sefaria-dover-miscellany-4-95-96.primary.json",
+        "sourceSha256": "34bfc50a5c892b43595da31e04ba24049ffedace501e939ca47f866113a87c28",
+        "jsonPointer": "/versions/0/text/0",
+        "exactHebrewExcerpt": "והד' הוא הדמיון והוא הקוף המתדמה לבני אדם"
+      },
+      "evidenceMetadata": {
+        "reference": "Dover Tzedek, Miscellany 4:95",
+        "versionTitle": "R' Zadok -- Dover Tzedek",
+        "vocalizationStatus": "Primary is unpointed; existing vocalization is retained except locally within repaired words."
+      },
+      "id": "5-4.json:95:12"
+    },
+    {
+      "file": "5-4.json",
+      "rowN": 95,
+      "phraseIndex": 17,
+      "beforePair": [
+        "וּכְמוֹ שֶׁאָמְרוּ חֲכָמֵינוּ זִכְרוֹנָם לִבְרָכָה (<a data-ref=\"Berakhot 8b\">בְּרָכוֹת דַּף ח׳ עַמּוּד ב׳</a>): \"הִזָּהֲרוּ בִּזְקֵן שֶׁשָּׁכַח\" וְגוֹמֵר,",
+        "matching the rabbinic warning (<a data-ref=\"Berakhot 8b\">Berakhot 8b</a>): \"Be heedless of an elder who has forgotten his learning through lapse of memory\","
+      ],
+      "afterPair": [
+        "וּכְמוֹ שֶׁאָמְרוּ חֲכָמֵינוּ זִכְרוֹנָם לִבְרָכָה (<a data-ref=\"Berakhot 8b\">בְּרָכוֹת דַּף ח׳ עַמּוּד ב׳</a>): \"הִזָּהֲרוּ בִּזְקֵן שֶׁשָּׁכַח\" וְגוֹמֵר,",
+        "matching the rabbinic warning (<a data-ref=\"Berakhot 8b\">Berakhot 8b</a>): \"Be mindful of an elder who has forgotten his learning through lapse of memory\","
+      ],
+      "reason": "Correct a one-word English reversal: הזהרו requires regard/care, whereas heedless means the opposite. Preserve citation link and remaining translation.",
+      "primaryEvidence": {
+        "sourcePath": "sources/verified/dover/body-repair/sefaria-dover-miscellany-4-95-96.primary.json",
+        "sourceSha256": "34bfc50a5c892b43595da31e04ba24049ffedace501e939ca47f866113a87c28",
+        "jsonPointer": "/versions/0/text/0",
+        "exactHebrewExcerpt": "הזהרו בזקן ששכח"
+      },
+      "evidenceMetadata": {
+        "reference": "Dover Tzedek, Miscellany 4:95",
+        "versionTitle": "R' Zadok -- Dover Tzedek",
+        "vocalizationStatus": "Primary is unpointed; existing vocalization is retained except locally within repaired words."
+      },
+      "id": "5-4.json:95:17"
+    },
+    {
+      "file": "5-4.json",
+      "rowN": 95,
+      "phraseIndex": 24,
+      "beforePair": [
+        "רַק שֶׁלֹּא תִּקֵּן הַשֹּׁרֶשׁ הַנֶּעְלָם וּמִצַּד זֶה הִגִּיעַ לוֹ עָנְשׁוֹ שֶׁהוּא מַמָּשׁ כְּעִנְיַן שְׁבִירַת הַלוּחוֹת [וְכָךְ הִמְשִׁילוּ רַבּוֹתֵינוּ זִכְרוֹנָם לִבְרָכָה (<a data-ref=\"Shabbat 105b\">שַׁבָּת דַּף ק״ה עַמּוּד ב׳</a>): כָּל אָדָם שֶׁמֵּה כְּס",
+        "ֵE"
+      ],
+      "afterPair": [
+        "רַק שֶׁלֹּא תִּקֵּן הַשֹּׁרֶשׁ הַנֶּעְלָם וּמִצַּד זֶה הִגִּיעַ לוֹ עָנְשׁוֹ שֶׁהוּא מַמָּשׁ כְּעִנְיַן שְׁבִירַת הַלוּחוֹת [וְכָךְ הִמְשִׁילוּ רַבּוֹתֵינוּ זִכְרוֹנָם לִבְרָכָה (<a data-ref=\"Shabbat 105b\">שַׁבָּת דַּף ק״ה עַמּוּד ב׳</a>): כָּל אָדָם שֶׁמֵּת כְּסֵפֶר",
+        "save that he did not rectify the concealed Root, and on that account incurred punishment mirroring the breaking of the tablets [and so the Sages compared (<a data-ref=\"Shabbat 105b\">Shabbat 105b</a>) anyone who dies to a scroll"
+      ],
+      "reason": "Restore the truncated/malformed שמת כספר. Replace orphan English vowel/E with the matching portion of the translation formerly wholly in phrase25; retain the Shabbat105b link, now beside its Hebrew citation.",
+      "primaryEvidence": {
+        "sourcePath": "sources/verified/dover/body-repair/sefaria-dover-miscellany-4-95-96.primary.json",
+        "sourceSha256": "34bfc50a5c892b43595da31e04ba24049ffedace501e939ca47f866113a87c28",
+        "jsonPointer": "/versions/0/text/0",
+        "exactHebrewExcerpt": "כל אדם שמת כספר תורה שנשרף,"
+      },
+      "evidenceMetadata": {
+        "reference": "Dover Tzedek, Miscellany 4:95",
+        "versionTitle": "R' Zadok -- Dover Tzedek",
+        "vocalizationStatus": "Primary is unpointed; existing vocalization is retained except locally within repaired words."
+      },
+      "id": "5-4.json:95:24"
+    },
+    {
+      "file": "5-4.json",
+      "rowN": 95,
+      "phraseIndex": 25,
+      "beforePair": [
+        "תּוֹרָה שֶׁנִּשְׂרָף,",
+        "save that he did not rectify the concealed Root, and on that account incurred punishment mirroring the breaking of the tablets [and so the Sages compared anyone who dies to a Torah scroll consumed by fire (<a data-ref=\"Shabbat 105b\">Shabbat 105b</a>),"
+      ],
+      "afterPair": [
+        "תּוֹרָה שֶׁנִּשְׂרָף,",
+        "of Torah consumed by fire,"
+      ],
+      "reason": "Retain Hebrew phrase25 and leave only its English share after moving the preceding translation and existing citation link into phrase24. No duplicate translation.",
+      "primaryEvidence": {
+        "sourcePath": "sources/verified/dover/body-repair/sefaria-dover-miscellany-4-95-96.primary.json",
+        "sourceSha256": "34bfc50a5c892b43595da31e04ba24049ffedace501e939ca47f866113a87c28",
+        "jsonPointer": "/versions/0/text/0",
+        "exactHebrewExcerpt": "כל אדם שמת כספר תורה שנשרף,"
+      },
+      "evidenceMetadata": {
+        "reference": "Dover Tzedek, Miscellany 4:95",
+        "versionTitle": "R' Zadok -- Dover Tzedek",
+        "vocalizationStatus": "Primary is unpointed; existing vocalization is retained except locally within repaired words."
+      },
+      "id": "5-4.json:95:25"
+    },
+    {
+      "file": "5-4.json",
+      "rowN": 95,
+      "phraseIndex": 27,
+      "beforePair": [
+        "וְדָבָר זֶה יְתֻקַּן לְגַמְרֵי רַק לְעָתִיד עַל יְדֵי דַּרְגָּא דְּדָוִד שֶׁנֶּאֱמַר בּוֹ: \"חַיִּים שָׁאַלְתָּ מִמֶּנּוּ נָתַתָּה לּוֹ\"].",
+        "and this flaw will be completely rectified only in the Future through the spiritual rung of David, of whom it is said: \"He asked life of Thee, and Thou gavest it him\"]."
+      ],
+      "afterPair": [
+        "וְדָבָר זֶה יְתֻקַּן לְגַמְרֵי רַק לְעָתִיד עַל יְדֵי דַּרְגָּא דְּדָוִד שֶׁנֶּאֱמַר בּוֹ: \"חַיִּים שָׁאַל נָתַתָּ לוֹ\"].",
+        "and this flaw will be completely rectified only in the Future through the spiritual rung of David, of whom it is said: \"He asked life of Thee, and Thou gavest it him\"]."
+      ],
+      "reason": "Restore the primary abbreviated quotation חיים שאל נתת לו. The inherited שאלת ממנו changes person and direction; retain the existing English, which already conveys the intended quotation.",
+      "primaryEvidence": {
+        "sourcePath": "sources/verified/dover/body-repair/sefaria-dover-miscellany-4-95-96.primary.json",
+        "sourceSha256": "34bfc50a5c892b43595da31e04ba24049ffedace501e939ca47f866113a87c28",
+        "jsonPointer": "/versions/0/text/0",
+        "exactHebrewExcerpt": "שנאמר בו חיים שאל נתת לו]"
+      },
+      "evidenceMetadata": {
+        "reference": "Dover Tzedek, Miscellany 4:95",
+        "versionTitle": "R' Zadok -- Dover Tzedek",
+        "vocalizationStatus": "Primary is unpointed; existing vocalization is retained except locally within repaired words."
+      },
+      "id": "5-4.json:95:27"
+    },
+    {
+      "file": "5-4.json",
+      "rowN": 95,
+      "phraseIndex": 30,
+      "beforePair": [
+        "וְהֵם שְׁנֵי הַיְצָרִים הַנִּזְכָּרִים לְעֵיל: בְּרִית הַמָּאוֹר לְצַדִּיק שׁוֹמֵר הַבְּרִית, וְזֶהוּ הַלִּוְיָתָן וְהוּא בִּי״ז בְּתַמּוּז;",
+        "And these are the two inclinations mentioned earlier: the Covenant of Circumcision corresponding to the righteous guardian of the Covenant, which is Leviathan on the 17th of Tammuz;"
+      ],
+      "afterPair": [
+        "וְהֵם שְׁנֵי הַיְצָרִים הַנִּזְכָּרִים לְעֵיל: בְּרִית הַמָּעוֹר לְצַדִּיק שׁוֹמֵר הַבְּרִית, וְזֶהוּ הַלִּוְיָתָן וְהוּא בִּי״ז בְּתַמּוּז;",
+        "And these are the two inclinations mentioned earlier: the Covenant of Circumcision corresponding to the righteous guardian of the Covenant, which is Leviathan on the 17th of Tammuz;"
+      ],
+      "reason": "Restore המעור (the bodily covenant), corrupted into המאור (the light).",
+      "primaryEvidence": {
+        "sourcePath": "sources/verified/dover/body-repair/sefaria-dover-miscellany-4-95-96.primary.json",
+        "sourceSha256": "34bfc50a5c892b43595da31e04ba24049ffedace501e939ca47f866113a87c28",
+        "jsonPointer": "/versions/0/text/0",
+        "exactHebrewExcerpt": "ברית המעור לצ\"ג שומר הברית"
+      },
+      "evidenceMetadata": {
+        "reference": "Dover Tzedek, Miscellany 4:95",
+        "versionTitle": "R' Zadok -- Dover Tzedek",
+        "vocalizationStatus": "Primary is unpointed; existing vocalization is retained except locally within repaired words."
+      },
+      "id": "5-4.json:95:30"
+    },
+    {
+      "file": "5-4.json",
+      "rowN": 95,
+      "phraseIndex": 32,
+      "beforePair": [
+        "אֲבָל עַל כָּל פָּנִים יִהְיֶה דַּוְקָא יוֹם טוֹב, כִּי בֶּאֱמֶת הָעַגְמַת נֶפֶשׁ הוּא רַק בִּשְׁעַת מַעֲשֶׂה, אֲבָל אַחַר הַנִּצּוּחַ הֲרֵי אַדְּרַבָּא עַל יְדֵי זֶה הוּא יָשׁוּרַת כֹּחַ וְהִתְחַזְּקוּת כֹּחַ אֲמִיץ כָּזֶה שֶׁגַּם בְּהֶעְלֵם וּשְׁכֵחָה עִם כָּל זֶה הוּא חוֹזֵר וְנִזְכָּר וְלֹא נָפַל חַס וְשָׁלוֹם לְגַמְרֵי.",
+        "Yet in any case it will be a true festival, for the anguish is experienced only at the moment of struggle, whereas following victory, that very ordeal engenders a sturdy resilience and mighty inner strength so that even amidst concealment and forgetfulness one recovers his memory and does not fall away entirely."
+      ],
+      "afterPair": [
+        "אֲבָל עַל כָּל פָּנִים יִהְיֶה דַּוְקָא יוֹם טוֹב, כִּי בֶּאֱמֶת הָעַגְמַת נֶפֶשׁ הוּא רַק בִּשְׁעַת מַעֲשֶׂה, אֲבָל אַחַר הַנִּצּוּחַ הֲרֵי אַדְּרַבָּא עַל יְדֵי זֶה הוּא יַשְׁרוּת כֹּחַ וְהִתְחַזְּקוּת כֹּחַ אֲמִיץ כָּזֶה שֶׁגַּם בְּהֶעְלֵם וּשְׁכֵחָה עִם כָּל זֶה הוּא חוֹזֵר וְנִזְכָּר וְלֹא נָפַל חַס וְשָׁלוֹם לְגַמְרֵי.",
+        "Yet in any case it will be a true festival, for the anguish is experienced only at the moment of struggle, whereas following victory, that very ordeal engenders a sturdy resilience and mighty inner strength so that even amidst concealment and forgetfulness one recovers his memory and does not fall away entirely."
+      ],
+      "reason": "Restore ישרות from the transposed-vav ישורת; retain all other wording.",
+      "primaryEvidence": {
+        "sourcePath": "sources/verified/dover/body-repair/sefaria-dover-miscellany-4-95-96.primary.json",
+        "sourceSha256": "34bfc50a5c892b43595da31e04ba24049ffedace501e939ca47f866113a87c28",
+        "jsonPointer": "/versions/0/text/0",
+        "exactHebrewExcerpt": "על ידי זה הוא ישרות כח והתחזקות כח אמיץ כזה"
+      },
+      "evidenceMetadata": {
+        "reference": "Dover Tzedek, Miscellany 4:95",
+        "versionTitle": "R' Zadok -- Dover Tzedek",
+        "vocalizationStatus": "Primary is unpointed; existing vocalization is retained except locally within repaired words."
+      },
+      "id": "5-4.json:95:32"
+    },
+    {
+      "file": "5-4.json",
+      "rowN": 96,
+      "phraseIndex": 4,
+      "beforePair": [
+        "וְהַמַּשְׂכִּילִים יָבִינוּ מִן הַלְּבוּשׁ הַפְּנִימיּו",
+        "ּT,"
+      ],
+      "afterPair": [
+        "וְהַמַּשְׂכִּילִים יָבִינוּ מִן הַלְּבוּשׁ הַפְּנִימִיּוּת",
+        "And the wise will understand the interior dimension through the outer garment,"
+      ],
+      "reason": "Complete the truncated הפנימיות and replace the orphan English vowel/T with its translation, taken from the start of phrase5.",
+      "primaryEvidence": {
+        "sourcePath": "sources/verified/dover/body-repair/sefaria-dover-miscellany-4-95-96.primary.json",
+        "sourceSha256": "34bfc50a5c892b43595da31e04ba24049ffedace501e939ca47f866113a87c28",
+        "jsonPointer": "/versions/0/text/1",
+        "exactHebrewExcerpt": "והמשכילים יבינו מן הלבוש הפנימיות כידוע בזוהר"
+      },
+      "evidenceMetadata": {
+        "reference": "Dover Tzedek, Miscellany 4:96",
+        "versionTitle": "R' Zadok -- Dover Tzedek",
+        "vocalizationStatus": "Primary is unpointed; existing vocalization is retained except locally within repaired words."
+      },
+      "id": "5-4.json:96:4"
+    },
+    {
+      "file": "5-4.json",
+      "rowN": 96,
+      "phraseIndex": 5,
+      "beforePair": [
+        "כִּידוּעַ בַּזֹּהַר עַל פָּסוּק: \"וְאַתָּה תֶחֱזֶה\",",
+        "And the wise will understand the interior dimension through the outer garment, as known from the Zohar on \"And thou shalt look\"."
+      ],
+      "afterPair": [
+        "כִּידוּעַ בַּזֹּהַר עַל פָּסוּק: \"וְאַתָּה תֶחֱזֶה\",",
+        "as known from the Zohar on \"And thou shalt look\"."
+      ],
+      "reason": "Keep only the translation corresponding to Hebrew phrase5 after moving the preceding clause into phrase4.",
+      "primaryEvidence": {
+        "sourcePath": "sources/verified/dover/body-repair/sefaria-dover-miscellany-4-95-96.primary.json",
+        "sourceSha256": "34bfc50a5c892b43595da31e04ba24049ffedace501e939ca47f866113a87c28",
+        "jsonPointer": "/versions/0/text/1",
+        "exactHebrewExcerpt": "כידוע בזוהר על פסוק ואתה תחזה"
+      },
+      "evidenceMetadata": {
+        "reference": "Dover Tzedek, Miscellany 4:96",
+        "versionTitle": "R' Zadok -- Dover Tzedek",
+        "vocalizationStatus": "Primary is unpointed; existing vocalization is retained except locally within repaired words."
+      },
+      "id": "5-4.json:96:5"
+    },
+    {
+      "file": "5-4.json",
+      "rowN": 96,
+      "phraseIndex": 6,
+      "beforePair": [
+        "וּמִי שְׁמַזַּכֶּה גַּם הַלְּבוּשׁ זוֹכֶה לְקִרְוֹן עוֹר פָּנִים דְּמֹשֶׁה, כָּל חַד לְפוּם דַּרְגָּא דִּילֵיהּ וְאֵין כָּאן מְקוֹמוֹ בִּיאוּרוֹ.",
+        "And whoever purifies the garment as well merits the radiant skin of Moses' face, each according to his individual rung, and here is not the place to elaborate."
+      ],
+      "afterPair": [
+        "וּמִי שֶׁמְּזַכֵּךְ גַּם הַלְּבוּשׁ זוֹכֶה לְקִרְוֹן עוֹר פָּנִים דְּמֹשֶׁה, כָּל חַד לְפוּם דַּרְגָּא דִּילֵיהּ וְאֵין כָּאן מְקוֹמוֹ בִּיאוּרוֹ.",
+        "And whoever purifies the garment as well merits the radiant skin of Moses' face, each according to his individual rung, and here is not the place to elaborate."
+      ],
+      "reason": "Restore שמזכך (purifies), whose final kaf was corrupted into he. The existing English already says purifies.",
+      "primaryEvidence": {
+        "sourcePath": "sources/verified/dover/body-repair/sefaria-dover-miscellany-4-95-96.primary.json",
+        "sourceSha256": "34bfc50a5c892b43595da31e04ba24049ffedace501e939ca47f866113a87c28",
+        "jsonPointer": "/versions/0/text/1",
+        "exactHebrewExcerpt": "ומי שמזכך גם הלבוש זוכה לקירון עור פנים דמשה"
+      },
+      "evidenceMetadata": {
+        "reference": "Dover Tzedek, Miscellany 4:96",
+        "versionTitle": "R' Zadok -- Dover Tzedek",
+        "vocalizationStatus": "Primary is unpointed; existing vocalization is retained except locally within repaired words."
+      },
+      "id": "5-4.json:96:6"
+    },
+    {
+      "file": "5-4.json",
+      "rowN": 96,
+      "phraseIndex": 10,
+      "beforePair": [
+        "כָּךְ יֵשׁ לוֹ כֹּחַ הַמְּקַבֵּל גַּם כֵּן [כִּידוּעַ דְּעַיִן נִמְשָׁל לְיְסוֹד, בֵּין דְּدְכוּרָא בֵּין דִּנְקֵבָא, בְּרֵישׁ פֶּרֶק כָּל הַיָּד, וּבְפֶרֶק יוֹצֵא דֹפֶן, וּבְפֶרֶק הָאִשָּׁה] לְהַמְשִׁיךְ אֵלָיו ע",
+        "ַ_l"
+      ],
+      "afterPair": [
+        "כָּךְ יֵשׁ לוֹ כֹּחַ הַמְּקַבֵּל גַּם כֵּן [כִּידוּעַ דְּעַיִן נִמְשָׁל לְיְסוֹד, בֵּין דְּדְכוּרָא בֵּין דִּנְקֵבָא, בְּרֵישׁ פֶּרֶק כָּל הַיָּד, וּבְפֶרֶק יוֹצֵא דֹפֶן, וּבְפֶרֶק הָאִשָּׁה] לְהַמְשִׁיךְ אֵלָיו עַל",
+        "so too does it possess receptive power [the eye being allegorized to <i>Yesod</i>, whether male or feminine, in chapter <i>Kol HaYad</i>, <i>Yotze Dofen</i>, and <i>HaIshah</i>] to draw unto oneself through"
+      ],
+      "reason": "Replace Arabic dal with Hebrew dalet and complete the truncated על. Replace orphan English vowel/_l with its existing translation, split before the phrase11 continuation.",
+      "primaryEvidence": {
+        "sourcePath": "sources/verified/dover/body-repair/sefaria-dover-miscellany-4-95-96.primary.json",
+        "sourceSha256": "34bfc50a5c892b43595da31e04ba24049ffedace501e939ca47f866113a87c28",
+        "jsonPointer": "/versions/0/text/1",
+        "exactHebrewExcerpt": "כך יש לו כח המקבל גם כן [כידוע דעין נמשל ליסוד בין דדכורא בין דנקיבא בריש פרק כל היד ובפרק יוצא דופן ובפרק האשה] להמשיך אליו על ידי"
+      },
+      "evidenceMetadata": {
+        "reference": "Dover Tzedek, Miscellany 4:96",
+        "versionTitle": "R' Zadok -- Dover Tzedek",
+        "vocalizationStatus": "Primary is unpointed; existing vocalization is retained except locally within repaired words."
+      },
+      "id": "5-4.json:96:10"
+    },
+    {
+      "file": "5-4.json",
+      "rowN": 96,
+      "phraseIndex": 11,
+      "beforePair": [
+        "יְדֵי הָעַיִן רֹאָה וְלֵי חֹמֵד הֶבְלָא דְּגַרְמֵי שֶׁלּוֹ בֵּין לְטוֹב בֵּין לְהֵפֶךְ.",
+        "so too does it possess receptive power [the eye being allegorized to <i>Yesod</i>, whether male or feminine, in chapter <i>Kol HaYad</i>, <i>Yotze Dofen</i>, and <i>HaIshah</i>] to draw unto oneself through seeing eyes and a coveting heart that subtle breath, whether for good or its opposite."
+      ],
+      "afterPair": [
+        "יְדֵי הָעַיִן רֹאָה וְלֵב חֹמֵד הֶבְלָא דְּגַרְמֵי שֶׁלּוֹ בֵּין לְטוֹב בֵּין לְהֵפֶךְ.",
+        "seeing eyes and a coveting heart that subtle breath, whether for good or its opposite."
+      ],
+      "reason": "Replace the corrupted ולי with ולב, retaining the existing defective spelling/nikkud of חמד. Leave only phrase11 English after redistributing the preceding clause to phrase10.",
+      "primaryEvidence": {
+        "sourcePath": "sources/verified/dover/body-repair/sefaria-dover-miscellany-4-95-96.primary.json",
+        "sourceSha256": "34bfc50a5c892b43595da31e04ba24049ffedace501e939ca47f866113a87c28",
+        "jsonPointer": "/versions/0/text/1",
+        "exactHebrewExcerpt": "על ידי העין רואה ולב חומד ההבלא דגרמי שלו בין לטוב בין להיפך"
+      },
+      "evidenceMetadata": {
+        "reference": "Dover Tzedek, Miscellany 4:96",
+        "versionTitle": "R' Zadok -- Dover Tzedek",
+        "vocalizationStatus": "Primary is unpointed; existing vocalization is retained except locally within repaired words."
+      },
+      "id": "5-4.json:96:11"
+    },
+    {
+      "file": "5-4.json",
+      "rowN": 96,
+      "phraseIndex": 12,
+      "beforePair": [
+        "הָרוֹאֶה דָּוִד פּוֹעֵל כֹּחוֹ וְהֶבְלָא דְּגַרְמֵי שֶׁלּוֹ [שֶׁזֶּהוּ כָּล מַדְרֵגַת הָרְאִיָּה לְחַכְמֵי יִשְׂרָאֵל הָרְאוּיִים לְכָךְ: לִרְאוֹת נְפָשׁוֹת הַקַּדְמוֹנִים, שֶׁהוּא הַהִתְדַּבְּקוּת בְּשֹׁרֶשׁ כֹּחוֹ כְּמוֹ שֶׁכָּתַבְתִּי לְעֵיל;",
+        "One who beholds David actualizes his power and subtle breath [which constitutes the entire rung of vision for qualified sages of Israel: to perceive the souls of the ancients, which is cleaving to the root of his power as written above;"
+      ],
+      "afterPair": [
+        "הָרוֹאֶה דָּוִד פּוֹעֵל כֹּחוֹ וְהֶבְלָא דְּגַרְמֵי שֶׁלּוֹ [שֶׁזֶּהוּ כָּל מַדְרֵגַת הָרְאִיָּה לְחַכְמֵי יִשְׂרָאֵל הָרְאוּיִים לְכָךְ: לִרְאוֹת נְפָשׁוֹת הַקַּדְמוֹנִים, שֶׁהוּא הַהִתְדַּבְּקוּת בְּשֹׁרֶשׁ כֹּחוֹ כְּמוֹ שֶׁכָּתַבְתִּי לְעֵיל;",
+        "One who beholds David actualizes his power and subtle breath [which constitutes the entire rung of vision for qualified sages of Israel: to perceive the souls of the ancients, which is cleaving to the root of his power as written above;"
+      ],
+      "reason": "Replace Thai lo ling with Hebrew lamed in כל; no other wording change.",
+      "primaryEvidence": {
+        "sourcePath": "sources/verified/dover/body-repair/sefaria-dover-miscellany-4-95-96.primary.json",
+        "sourceSha256": "34bfc50a5c892b43595da31e04ba24049ffedace501e939ca47f866113a87c28",
+        "jsonPointer": "/versions/0/text/1",
+        "exactHebrewExcerpt": "הרואה דוד פועל כחו והבלא דגרמי שלו [שזהו כל מדרגת הראיתא"
+      },
+      "evidenceMetadata": {
+        "reference": "Dover Tzedek, Miscellany 4:96",
+        "versionTitle": "R' Zadok -- Dover Tzedek",
+        "vocalizationStatus": "Primary is unpointed; existing vocalization is retained except locally within repaired words."
+      },
+      "id": "5-4.json:96:12"
+    },
+    {
+      "file": "5-4.json",
+      "rowN": 96,
+      "phraseIndex": 13,
+      "beforePair": [
+        "וְהָרוֹאֶה דָּוִד יוֹדֵעַ שֶׁהוּא בִּשְׁלֵמוּת הָרָאוּי, כִּי הוּא תַּכְלִית הַשְּׁלֵמוּת שֶׁל כָּל יִשְׂרָאֵל].",
+        "and beholding David reveals that he stands in proper perfection, for he is the ultimate perfection of all Israel]."
+      ],
+      "afterPair": [
+        "וְהָרוֹאֶה דָּוִד יוֹדֵעַ שֶׁהוּא בִּשְׁלֵמוּת הָרָאוּי, כִּי הוּא תַּכְלִית הַשְּׁלֵמוּת שֶׁל כָּל יִשְׂרָאֵל.",
+        "and beholding David reveals that he stands in proper perfection, for he is the ultimate perfection of all Israel."
+      ],
+      "reason": "Remove the extraneous early closing bracket in both languages. The primary bracket continues through the dream discussion and closes in phrase15; preserve that original later bracket.",
+      "primaryEvidence": {
+        "sourcePath": "sources/verified/dover/body-repair/sefaria-dover-miscellany-4-95-96.primary.json",
+        "sourceSha256": "34bfc50a5c892b43595da31e04ba24049ffedace501e939ca47f866113a87c28",
+        "jsonPointer": "/versions/0/text/1",
+        "exactHebrewExcerpt": "כי הוא תכלית השלימות של כל ישראל. ואמנם יש רואה פניו בחלום"
+      },
+      "evidenceMetadata": {
+        "reference": "Dover Tzedek, Miscellany 4:96",
+        "versionTitle": "R' Zadok -- Dover Tzedek",
+        "vocalizationStatus": "Primary is unpointed; existing vocalization is retained except locally within repaired words."
+      },
+      "id": "5-4.json:96:13"
+    }
+  ],
+  "anchorUpdates": [
+    {
+      "file": "5-4.json",
+      "rowN": 95,
+      "sourceId": "DT-2305",
+      "placementId": "DT-2305-1",
+      "phraseIndex": 24,
+      "before": {
+        "enAnchorPrefix": "ֵE",
+        "enCharOffset": 2
+      },
+      "after": {
+        "enAnchorPrefix": "save that he did not rectify the concealed Root, and on that account incurred punishment mirroring the breaking of the tablets [and so the Sages compared (Shabbat 105b",
+        "enCharOffset": 167
+      },
+      "reason": "The repaired translation places the retained same Shabbat105b citation in phrase24 beside the unchanged Hebrew anchor. English anchor stops after the citation text using the existing reader convention.",
+      "retainedHebrewAnchor": {
+        "heWord": 25,
+        "heCharOffset": 208,
+        "heAnchorPrefix": "רַק שֶׁלֹּא תִּקֵּן הַשֹּׁרֶשׁ הַנֶּעְלָם וּמִצַּד זֶה הִגִּיעַ לוֹ עָנְשׁוֹ שֶׁהוּא מַמָּשׁ כְּעִנְיַן שְׁבִירַת הַלוּחוֹת [וְכָךְ הִמְשִׁילוּ רַבּוֹתֵינוּ זִכְרוֹנָם לִבְרָכָה (שַׁבָּת דַּף ק״ה עַמּוּד ב׳):"
+      }
+    },
+    {
+      "file": "1-4.json",
+      "rowN": 38,
+      "phraseIndex": 6,
+      "sourceId": "DT-0197",
+      "placementId": "DT-0197-1",
+      "before": {
+        "enAnchorPrefix": "therefore, fifteen complete dimensions multiplied by ten yield exactly one hundred and fifty ritual baths of purification ().",
+        "enCharOffset": 125
+      },
+      "after": {
+        "enAnchorPrefix": "therefore, fifteen complete dimensions multiplied by ten yield exactly one hundred and fifty ritual baths of purification.",
+        "enCharOffset": 122
+      },
+      "reason": "Keep the English marker at the end of the same translated phrase after deleting the empty parenthesis.",
+      "retainedHebrewAnchor": {
+        "heWord": 6,
+        "heCharOffset": 47,
+        "heAnchorPrefix": "וּלְכָךְ הֵם מֵאָה וַחֲמִשִּׁים מִקְוֵה טָהֳרָה"
+      }
+    }
+  ],
+  "sections": [
+    {
+      "file": "0.json",
+      "beforeNonNotesSha256": "623a8ea91b83456b6eb7669a3272c003f028f3513d2509714958103ce51c4026",
+      "afterNonNotesSha256": "623a8ea91b83456b6eb7669a3272c003f028f3513d2509714958103ce51c4026"
+    },
+    {
+      "file": "1-1.json",
+      "beforeNonNotesSha256": "11cb17733fef62cc4ab843dc84cf5260aafc73a03b9374d121cf0141668d5fe6",
+      "afterNonNotesSha256": "11cb17733fef62cc4ab843dc84cf5260aafc73a03b9374d121cf0141668d5fe6"
+    },
+    {
+      "file": "1-2.json",
+      "beforeNonNotesSha256": "813d736ad0007c8c5b15c867f9f2eecdc9745e112f6ae84660eed00e017034c1",
+      "afterNonNotesSha256": "813d736ad0007c8c5b15c867f9f2eecdc9745e112f6ae84660eed00e017034c1"
+    },
+    {
+      "file": "1-3.json",
+      "beforeNonNotesSha256": "9b152dbf26cee22aa2f165165ced81133d0ef14750626f3d08aba801b024a39a",
+      "afterNonNotesSha256": "9b152dbf26cee22aa2f165165ced81133d0ef14750626f3d08aba801b024a39a"
+    },
+    {
+      "file": "1-4.json",
+      "beforeNonNotesSha256": "9190e71516878e655357ca87e6468a85c0b2a79be8d527c228e8c129940e7f52",
+      "afterNonNotesSha256": "bb28bfede6f3d10c5b6f91bb0a5149523aae3008fc3ef5c57d725c167beb9179"
+    },
+    {
+      "file": "2-1.json",
+      "beforeNonNotesSha256": "3afbea16d2866d15e05f7111b2fd2bfd6f3a8dac08d2393d3c0e2ee2a4787be8",
+      "afterNonNotesSha256": "3afbea16d2866d15e05f7111b2fd2bfd6f3a8dac08d2393d3c0e2ee2a4787be8"
+    },
+    {
+      "file": "2-2.json",
+      "beforeNonNotesSha256": "a59b4d1d9963c8ff04ec891a5735ffb909236823e171970109527cb0f3923b73",
+      "afterNonNotesSha256": "a59b4d1d9963c8ff04ec891a5735ffb909236823e171970109527cb0f3923b73"
+    },
+    {
+      "file": "2-3.json",
+      "beforeNonNotesSha256": "3fca3b4b32eddad5f1806c1dc62b26f0b104179fb4f500fb18d99d49362e1c75",
+      "afterNonNotesSha256": "3fca3b4b32eddad5f1806c1dc62b26f0b104179fb4f500fb18d99d49362e1c75"
+    },
+    {
+      "file": "3-1.json",
+      "beforeNonNotesSha256": "82de3a972bc0086955c4d87b39a7c57a3e8f16ad299ed59018ad34026edfb4d2",
+      "afterNonNotesSha256": "82de3a972bc0086955c4d87b39a7c57a3e8f16ad299ed59018ad34026edfb4d2"
+    },
+    {
+      "file": "3-2.json",
+      "beforeNonNotesSha256": "a45b897ba2c2e82aacad51d0d555f0ec917ac9cd122dba075d0a380ae1c50bc4",
+      "afterNonNotesSha256": "a45b897ba2c2e82aacad51d0d555f0ec917ac9cd122dba075d0a380ae1c50bc4"
+    },
+    {
+      "file": "4-1.json",
+      "beforeNonNotesSha256": "94da0c976b8c47df4570f356d37ed6fcc34eb62f031a2a308f240cac6ddfae75",
+      "afterNonNotesSha256": "94da0c976b8c47df4570f356d37ed6fcc34eb62f031a2a308f240cac6ddfae75"
+    },
+    {
+      "file": "4-2.json",
+      "beforeNonNotesSha256": "9d5bf4705006ef9bf12e7dd65816fcfc7858f7f32a72bcb2d264da83eefed6f2",
+      "afterNonNotesSha256": "9d5bf4705006ef9bf12e7dd65816fcfc7858f7f32a72bcb2d264da83eefed6f2"
+    },
+    {
+      "file": "5-1.json",
+      "beforeNonNotesSha256": "2995b907cce4067aa37b36bd1640fb232ffa6a0223db4e5cc55b90e5e43e4c03",
+      "afterNonNotesSha256": "2995b907cce4067aa37b36bd1640fb232ffa6a0223db4e5cc55b90e5e43e4c03"
+    },
+    {
+      "file": "5-2.json",
+      "beforeNonNotesSha256": "5e746aeb07788d8a3f88a8c7334a0d31252106d59b5a4ac007f70e3b13140b9c",
+      "afterNonNotesSha256": "5e746aeb07788d8a3f88a8c7334a0d31252106d59b5a4ac007f70e3b13140b9c"
+    },
+    {
+      "file": "5-3.json",
+      "beforeNonNotesSha256": "b03a8fd843fc15ce4ca505de1f739a7f36ac7ce8e1af4447fc3604766c6805ec",
+      "afterNonNotesSha256": "b03a8fd843fc15ce4ca505de1f739a7f36ac7ce8e1af4447fc3604766c6805ec"
+    },
+    {
+      "file": "5-4.json",
+      "beforeNonNotesSha256": "ad41bdec543888df80649b6f461474e7ea5719c2d2eca25613a608ef6fc9024e",
+      "afterNonNotesSha256": "8a4f84e855c42fe3046455bc346b7b3f71b08e7f47ffdaadc0ce1cfedc80ba78"
+    }
+  ],
+  "counts": {
+    "pairs": 27,
+    "hebrewCells": 15,
+    "englishCells": 17,
+    "englishAnchors": 2
+  }
+}
