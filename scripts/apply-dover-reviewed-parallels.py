@@ -290,12 +290,16 @@ def main():
     index = ROOT / 'index.html'
     text = index.read_text()
     cache = '20261018-dover-elaboration-sources-revisions-v2-title-paragraphs-v1-headings-v1'
-    edition = re.search(r"^const editionDataUrl = url => url\.startsWith\('data/dover-tzedek/'\) \? url \+ '\?edition=([^']+)'", text, re.M)
+    # Other book publishers prepend their own branches during a fresh build.
+    # Match Dover's branch wherever it occurs in the URL resolver.
+    declaration = re.search(r'^const editionDataUrl = .+;$', text, re.M)
+    edition = re.search(r"url\.startsWith\('data/dover-tzedek/'\) \? url \+ '\?edition=([^']+)'", declaration.group(0) if declaration else '')
     if not edition or not edition.group(1).startswith(cache):
         raise ValueError('Dover edition cache key is missing')
     edition_key = reviewed_cache_key(edition.group(1), report['approvedSourcesSha256'])
     if edition_key != edition.group(1):
-        index.write_text(text[:edition.start(1)] + edition_key + text[edition.end(1):])
+        start, end = declaration.start() + edition.start(1), declaration.start() + edition.end(1)
+        index.write_text(text[:start] + edition_key + text[end:])
     worker = ROOT / 'sw.js'
     text = worker.read_text()
     shell = re.search(r'^const SHELL = `([^`]+)`;', text, re.M)
