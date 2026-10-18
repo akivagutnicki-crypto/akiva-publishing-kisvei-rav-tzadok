@@ -1,0 +1,2233 @@
+{
+  "schemaVersion": 1,
+  "book": "Dover Tzedek",
+  "status": "readonly_audit_and_exact_wrapper_removal_proposal",
+  "policy": "Remove only these finite editorial <a> wrappers, preserving literal inner HTML and all visible Hebrew/English byte for byte. Never retarget an unnamed authorial reference to an approved conceptual parallel. Approved conceptual parallels remain caption-linked footnote additions.",
+  "inputs": {
+    "dover_parallel_revision/context-worklist.json": "90b342069fda3f601a2ee364f966ea9d95a394914c481a6d03b1824071c3ff93",
+    "dover_parallel_revision/removal-manifest.json": "c7022e088a086ff0866b7ce2d10a2be1f925ea551e22865fc2100fcd3d318c52",
+    "reader-repo/sources/akiva/overlays/dover-clean-base-20261018.json.gz": "cd3e59e353da679ec817da8ab99ed6df0ff28201c540fb82f10c7cf2d9e642b6"
+  },
+  "sections": [
+    {
+      "file": "0.json",
+      "inputFileSha256Informational": "e52ecd0ee32c5cea57baaa286f18f1dc2566bf911968f7d3caf6466e01cf9d58",
+      "bodyHTMLBeforeSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "bodyHTMLAfterSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "visibleBodyBeforeSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "visibleBodyAfterSha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945",
+      "wrappersBefore": {},
+      "wrappersAfter": {},
+      "removeWrappers": 0
+    },
+    {
+      "file": "1-1.json",
+      "inputFileSha256Informational": "3f6b166997d70d645609c5259b409dd7990a40cde392341423e38481203a1542",
+      "bodyHTMLBeforeSha256": "4ded47ffb526b7fb490a0324b70d42e3d9bba193f8d5c66579259efa46db9105",
+      "bodyHTMLAfterSha256": "4ded47ffb526b7fb490a0324b70d42e3d9bba193f8d5c66579259efa46db9105",
+      "visibleBodyBeforeSha256": "06b5dbd90cb1d38220d56269ae3e072627a100249c0f168d172f371af4654026",
+      "visibleBodyAfterSha256": "06b5dbd90cb1d38220d56269ae3e072627a100249c0f168d172f371af4654026",
+      "wrappersBefore": {
+        "he": 26,
+        "en": 29
+      },
+      "wrappersAfter": {
+        "he": 26,
+        "en": 29
+      },
+      "removeWrappers": 0
+    },
+    {
+      "file": "1-2.json",
+      "inputFileSha256Informational": "4b02ffe7a2b615b6210536c67e86c4c33b23463cac34049431d3592c0a8439a8",
+      "bodyHTMLBeforeSha256": "1fab7d3542cf5e7a747c265fd1178b76fc90e18ebe8b11b42d9924ed7d5b0f27",
+      "bodyHTMLAfterSha256": "a2955d3b817a2b7aa6770f478dd17651f1c644a4958a3c81175bcf4f97dd1147",
+      "visibleBodyBeforeSha256": "707bb1aa281b645e65a383d8fa9ea893bb67888fd3db53ede3b9f2aaab0136dd",
+      "visibleBodyAfterSha256": "707bb1aa281b645e65a383d8fa9ea893bb67888fd3db53ede3b9f2aaab0136dd",
+      "wrappersBefore": {
+        "he": 39,
+        "en": 46
+      },
+      "wrappersAfter": {
+        "he": 38,
+        "en": 46
+      },
+      "removeWrappers": 1
+    },
+    {
+      "file": "1-3.json",
+      "inputFileSha256Informational": "6a8e7cb5d0f5e0a4ecd50fdc1858f4f0597bcbc4be684827a8ec7fc6ee6d05a1",
+      "bodyHTMLBeforeSha256": "62787e7f2d79e35632f8870590afabbbb20010ed063e6e3a3dea158897c44da1",
+      "bodyHTMLAfterSha256": "355c9a3c5997517640705ae3e07c91f25e8b0df5a2f3b36512d0f70930f494ee",
+      "visibleBodyBeforeSha256": "466dfd191a136c5eb557eb5b93b254f40b8ea6e3203fefaa8326431b31cbee0a",
+      "visibleBodyAfterSha256": "466dfd191a136c5eb557eb5b93b254f40b8ea6e3203fefaa8326431b31cbee0a",
+      "wrappersBefore": {
+        "he": 40,
+        "en": 39
+      },
+      "wrappersAfter": {
+        "he": 39,
+        "en": 39
+      },
+      "removeWrappers": 1
+    },
+    {
+      "file": "1-4.json",
+      "inputFileSha256Informational": "bd4ea48c8ea23605b6764affdd1830995b9e71abc4dfe2fc4f51ac38648777e5",
+      "bodyHTMLBeforeSha256": "315854f390b9a1a9007021502b3a823b7395383c76efb2c0b5f5d30d2bc96081",
+      "bodyHTMLAfterSha256": "ee36dc061b49d3960b08873e0f982d0b400acf424916c6c38895cc2630ab7da4",
+      "visibleBodyBeforeSha256": "6f402cbe35bd8e7a5dd09b8ead263fc0bbffb3e472550a78075dd31335abc19d",
+      "visibleBodyAfterSha256": "6f402cbe35bd8e7a5dd09b8ead263fc0bbffb3e472550a78075dd31335abc19d",
+      "wrappersBefore": {
+        "he": 39,
+        "en": 33
+      },
+      "wrappersAfter": {
+        "he": 36,
+        "en": 33
+      },
+      "removeWrappers": 3
+    },
+    {
+      "file": "2-1.json",
+      "inputFileSha256Informational": "8677bf1f6986d7dc15040fba18065473117604f21d22b3e04f3b4f764bbf2213",
+      "bodyHTMLBeforeSha256": "a04a294627c63a669c18d4c6987d88e3f694c57de84d8de1f793452a3c6eab30",
+      "bodyHTMLAfterSha256": "dc0ba93f61a9eaf0c356ca29168d98b62be51254591e42b6e172ce99e310aac6",
+      "visibleBodyBeforeSha256": "8cc3b642be4a164490bc39b1a5bf05b9b7d0641fe2f47b6b313ef79fe4ffe3ab",
+      "visibleBodyAfterSha256": "8cc3b642be4a164490bc39b1a5bf05b9b7d0641fe2f47b6b313ef79fe4ffe3ab",
+      "wrappersBefore": {
+        "he": 36,
+        "en": 32
+      },
+      "wrappersAfter": {
+        "he": 34,
+        "en": 32
+      },
+      "removeWrappers": 2
+    },
+    {
+      "file": "2-2.json",
+      "inputFileSha256Informational": "6473c8fe33cacf0d8873a22bec5299d4cedda100e2c3572e1606b83a62a57bd0",
+      "bodyHTMLBeforeSha256": "572a3b3ebf23297aeb30f499a1cf9c1a3f92c8c2365ffad40ecc4bff0f2274ff",
+      "bodyHTMLAfterSha256": "f761c960d23dceee0dd8aa3a7cf67fbbb7cf2adb4736e83c9e2d9ef87518bdbd",
+      "visibleBodyBeforeSha256": "c94be56052602722e9dfa897b1f680a570d61e9b2b078ce164857d554c789816",
+      "visibleBodyAfterSha256": "c94be56052602722e9dfa897b1f680a570d61e9b2b078ce164857d554c789816",
+      "wrappersBefore": {
+        "he": 13,
+        "en": 9
+      },
+      "wrappersAfter": {
+        "he": 12,
+        "en": 9
+      },
+      "removeWrappers": 1
+    },
+    {
+      "file": "2-3.json",
+      "inputFileSha256Informational": "9638f14bee5b888ac876e3890cef3a8d2365c77c76a802a2cf025508850f4717",
+      "bodyHTMLBeforeSha256": "cd94272461188550e73707468d8a9f45561d84fbf53bdb92735e06aeac3cc490",
+      "bodyHTMLAfterSha256": "f7727730f2a37947da08dc3d85eed8c4a87e1dda3db9b914a30118a27dee0a44",
+      "visibleBodyBeforeSha256": "5d1e53e7ce1103cfb1f46347c6c715dc0818989a4f8d0ff6cbb595664ab44fd2",
+      "visibleBodyAfterSha256": "5d1e53e7ce1103cfb1f46347c6c715dc0818989a4f8d0ff6cbb595664ab44fd2",
+      "wrappersBefore": {
+        "he": 144,
+        "en": 130
+      },
+      "wrappersAfter": {
+        "he": 143,
+        "en": 130
+      },
+      "removeWrappers": 1
+    },
+    {
+      "file": "3-1.json",
+      "inputFileSha256Informational": "ba8dd045dc6d217be4a6185901e4c5008685d678327f48671d1858649bbdc87a",
+      "bodyHTMLBeforeSha256": "e263eb106cbd36ac6599e52e7be965dc98f0d7bab66068ae34e8585537fa6bb1",
+      "bodyHTMLAfterSha256": "25caf51567b7508d3f3cdffb099c64c5a20d0076cae001ce9e96804993bef9bb",
+      "visibleBodyBeforeSha256": "5dd77d7bce83e14c7ef517d8d504d3bae351f4fd49852fed755467c1f737e190",
+      "visibleBodyAfterSha256": "5dd77d7bce83e14c7ef517d8d504d3bae351f4fd49852fed755467c1f737e190",
+      "wrappersBefore": {
+        "he": 58,
+        "en": 53
+      },
+      "wrappersAfter": {
+        "he": 54,
+        "en": 53
+      },
+      "removeWrappers": 4
+    },
+    {
+      "file": "3-2.json",
+      "inputFileSha256Informational": "c2424fea4f79c2b19eccd9d0b19e0cdffb04c2bb75903b63920609115268803c",
+      "bodyHTMLBeforeSha256": "c3c066dd26adb4bd1d5863a4afe45a3826802c6553d99036e40ca6fb4e06292a",
+      "bodyHTMLAfterSha256": "4ba49aa8b222d0a3c330d4811fc3a73b44a8b132d3fc15f1be9d970532da1e2d",
+      "visibleBodyBeforeSha256": "4acfb3ca2481c4522934fc4000992387f46a5eb90c73dc4531ba60b3589f9e6d",
+      "visibleBodyAfterSha256": "4acfb3ca2481c4522934fc4000992387f46a5eb90c73dc4531ba60b3589f9e6d",
+      "wrappersBefore": {
+        "he": 471,
+        "en": 556
+      },
+      "wrappersAfter": {
+        "he": 458,
+        "en": 556
+      },
+      "removeWrappers": 13
+    },
+    {
+      "file": "4-1.json",
+      "inputFileSha256Informational": "e9210051edcf4a1bdda80b1a02904e47d87ac9de20e5e9588c99700330f74033",
+      "bodyHTMLBeforeSha256": "7b65ee6913bfc15f5e6012b67e7a1c842b8a01fee47e95b91d3e32d835720729",
+      "bodyHTMLAfterSha256": "38da73ca59c8d8ddb9bd71396321db3f53017ca05d1984c9c4fd111ccc49d5a5",
+      "visibleBodyBeforeSha256": "08f43e51570601cb52fa5c21442174563d08a5527c177f9f8097cf5db28c4bfe",
+      "visibleBodyAfterSha256": "08f43e51570601cb52fa5c21442174563d08a5527c177f9f8097cf5db28c4bfe",
+      "wrappersBefore": {
+        "he": 56,
+        "en": 83
+      },
+      "wrappersAfter": {
+        "he": 50,
+        "en": 83
+      },
+      "removeWrappers": 6
+    },
+    {
+      "file": "4-2.json",
+      "inputFileSha256Informational": "6e8df9c07314591be419612b029801a370932a236385f18de8bad0e0abd588e2",
+      "bodyHTMLBeforeSha256": "64aee74251de0740b3fbd18bfc08369fb82a2574b540fc2e5cc9d07f209ae0ee",
+      "bodyHTMLAfterSha256": "52fff652e8f1c59aefd85d0fb5280aa585fa1650de76006df1a129fa5f7efe21",
+      "visibleBodyBeforeSha256": "2886d41e984839851354c8fc891620f9a528ab1185553ed0fed197baaba2b7e0",
+      "visibleBodyAfterSha256": "2886d41e984839851354c8fc891620f9a528ab1185553ed0fed197baaba2b7e0",
+      "wrappersBefore": {
+        "he": 24,
+        "en": 38
+      },
+      "wrappersAfter": {
+        "he": 23,
+        "en": 38
+      },
+      "removeWrappers": 1
+    },
+    {
+      "file": "5-1.json",
+      "inputFileSha256Informational": "918800a537e88a22612ce3bff94bd82e9b4b341a4f3d567cd4a146d73df0e1f6",
+      "bodyHTMLBeforeSha256": "a7ff69460f837bd4071095b1c9e701cf39f1586387d5a942f8bcd9512433ee81",
+      "bodyHTMLAfterSha256": "2e2260aa84f76ae9da39d1e06faf861ba83e4fafec552488a0a3e263aa107b83",
+      "visibleBodyBeforeSha256": "8bd27f532aacdc9c2125c644870487084aa037ac7e84e5649690284026474be8",
+      "visibleBodyAfterSha256": "8bd27f532aacdc9c2125c644870487084aa037ac7e84e5649690284026474be8",
+      "wrappersBefore": {
+        "he": 42,
+        "en": 95
+      },
+      "wrappersAfter": {
+        "he": 41,
+        "en": 95
+      },
+      "removeWrappers": 1
+    },
+    {
+      "file": "5-2.json",
+      "inputFileSha256Informational": "4bd56688f40cda3d40efa92446e6e9dc4ef7268e6feb7df401c3a74ab8ab13f2",
+      "bodyHTMLBeforeSha256": "51fb952959edb9eeb300dd32d6f066ce2902e75e5e9ab2c18e4c3ef0d5b644eb",
+      "bodyHTMLAfterSha256": "c0fa8390eb0a8e382fd7f62737f8541425280ff9a9da0ccbd4f0d61a4598dc9f",
+      "visibleBodyBeforeSha256": "24f52753315d3d9c5922dbf45835444cd2f62e278e42568b9142f458de85b88c",
+      "visibleBodyAfterSha256": "24f52753315d3d9c5922dbf45835444cd2f62e278e42568b9142f458de85b88c",
+      "wrappersBefore": {
+        "he": 47,
+        "en": 88
+      },
+      "wrappersAfter": {
+        "he": 46,
+        "en": 88
+      },
+      "removeWrappers": 1
+    },
+    {
+      "file": "5-3.json",
+      "inputFileSha256Informational": "4a91a88fc44f9aa89249a511c896328ea8f7d55a9f5d8287e695a18d24d9efec",
+      "bodyHTMLBeforeSha256": "124f09ac0a2d022573abae1e722194618449e4124765455b32fb9c6e5e1f3af4",
+      "bodyHTMLAfterSha256": "6571fb19693dfd1d2c20a72618161e8b50ba5dac322d741e0711f9f657dfb806",
+      "visibleBodyBeforeSha256": "f22605f33307ccd29aa3ad9041e6ccdb5d1418aa83deabd4eb41e4f72192bc9e",
+      "visibleBodyAfterSha256": "f22605f33307ccd29aa3ad9041e6ccdb5d1418aa83deabd4eb41e4f72192bc9e",
+      "wrappersBefore": {
+        "he": 46,
+        "en": 97
+      },
+      "wrappersAfter": {
+        "he": 44,
+        "en": 97
+      },
+      "removeWrappers": 2
+    },
+    {
+      "file": "5-4.json",
+      "inputFileSha256Informational": "5c8518cf4c0b96b5cf87dc2cde5d6a4862278a38dd361204c056d7418fcd3e68",
+      "bodyHTMLBeforeSha256": "d23bac2612c5d3afbb686a74aa24e59ebfe6767c697f2e288ad47f133218a936",
+      "bodyHTMLAfterSha256": "637ff5293551a714086a6e035dfe17384bfa271257aa0f072cd1f360b00087a8",
+      "visibleBodyBeforeSha256": "2e0a3939e0f1b1d03825f2c0fb1ef3995d5aaa21bc7bc94771a0509b03c4d17d",
+      "visibleBodyAfterSha256": "2e0a3939e0f1b1d03825f2c0fb1ef3995d5aaa21bc7bc94771a0509b03c4d17d",
+      "wrappersBefore": {
+        "he": 556,
+        "en": 769
+      },
+      "wrappersAfter": {
+        "he": 533,
+        "en": 769
+      },
+      "removeWrappers": 23
+    }
+  ],
+  "removeWrappers": [
+    {
+      "file": "1-2.json",
+      "rowIndex": 32,
+      "rowN": 29,
+      "phraseIndex": 2,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Kometz HaMinchah II, 79",
+      "outerHTML": "<a data-ref=\"Kometz HaMinchah II, 79\">הֵמָּה</a>",
+      "innerHTML": "הֵמָּה",
+      "sourceNoteNumbers": [
+        82
+      ],
+      "sourceEvidence": [
+        {
+          "number": 82,
+          "sourceId": "DT-0082",
+          "candidateId": "1-2/row32/note82/p0",
+          "status": "quarantined_unsupported_identity",
+          "citationLabel": "Kometz HaMinchah II, 79, p. 381, note 600",
+          "classification": "unmarked_added_concept_parallel_attached_to_different_primary_source"
+        }
+      ],
+      "inputCellSha256": "50f509538b2b6163807f07738962183c191b6743bdf2933a30b8649fc4144d20",
+      "reasonCode": "quarantined_unsupported_identity",
+      "reason": "An unnamed authorial self-reference was converted into a specific unverified historical source identification.",
+      "outputCellSha256": "987b035d33ee51d8612d42af4ee104c8aadfcaf5815def304360c8475f14342c"
+    },
+    {
+      "file": "1-3.json",
+      "rowIndex": 16,
+      "rowN": 16,
+      "phraseIndex": 4,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Mei HaShiloach, Volume I, Talmud, Bekhorot 8b:3",
+      "outerHTML": "<a data-ref=\"Mei HaShiloach, Volume I, Talmud, Bekhorot 8b:3\">דַּף ח׳ עַמּוּד ב׳</a>",
+      "innerHTML": "דַּף ח׳ עַמּוּד ב׳",
+      "sourceNoteNumbers": [
+        125,
+        2595
+      ],
+      "sourceEvidence": [
+        {
+          "number": 2595,
+          "sourceId": "DT-2595",
+          "candidateId": "1-3/row16/note2595/p0",
+          "status": "removed_unverified_parallel",
+          "citationLabel": "Mei HaShiloach, Volume I, Talmud, Bekhorot 8b:3",
+          "classification": null
+        }
+      ],
+      "inputCellSha256": "319fb5e67258bb7d800b4f419a9124c3eef4bf9e240fa38d5ee60e16fa5cf48e",
+      "reasonCode": "removed_unverified_parallel",
+      "reason": "An added conceptual parallel was promoted into a body-text citation without an authorial identification.",
+      "outputCellSha256": "b6cb8d64e0e6d9374c9f4403e66b6a250f9085ee6036e392ae7bc8190dabcf49"
+    },
+    {
+      "file": "1-4.json",
+      "rowIndex": 12,
+      "rowN": 12,
+      "phraseIndex": 2,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Yisrael Kedoshim 5:34",
+      "outerHTML": "<a data-ref=\"Yisrael Kedoshim 5:34\">וּמַה שֶּׁנִּמְצָא \"רִבּוֹא\" אֵינוֹ שֵׁם מִסְפָּר, רַק לְשׁוֹן רִבּוּי כְּמוֹ שֶׁכָּתַבְתִּי בְּמָקוֹם אַחֵר</a>",
+      "innerHTML": "וּמַה שֶּׁנִּמְצָא \"רִבּוֹא\" אֵינוֹ שֵׁם מִסְפָּר, רַק לְשׁוֹן רִבּוּי כְּמוֹ שֶׁכָּתַבְתִּי בְּמָקוֹם אַחֵר",
+      "sourceNoteNumbers": [
+        168
+      ],
+      "sourceEvidence": [
+        {
+          "number": 168,
+          "sourceId": "DT-0168",
+          "candidateId": "1-4/row12/note168/p0",
+          "status": "quarantined_unsupported_identity",
+          "citationLabel": "Yisrael Kedoshim 5:34, p. 27 in our edition",
+          "classification": "author_self_reference_present_but_specific_work_identification_unverified"
+        }
+      ],
+      "inputCellSha256": "481811ec95e728ca7dea6bdc42a7fbbf02fb1fd77277cbd504e985e42461b8cc",
+      "reasonCode": "quarantined_unsupported_identity",
+      "reason": "An unnamed authorial self-reference was converted into a specific unverified historical source identification.",
+      "outputCellSha256": "b9438280a99073d1be5128c5bc612a50b68894249ebed13f69455b5cd31e8252"
+    },
+    {
+      "file": "1-4.json",
+      "rowIndex": 24,
+      "rowN": 24,
+      "phraseIndex": 3,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Likkutei Maamarim, the discourse on Samson, section 19",
+      "outerHTML": "<a data-ref=\"Likkutei Maamarim, the discourse on Samson, section 19\">וְכָל דְּבָרִים אֵלּוּ עֲמֻקִּים מְאֹד וּמִתְבָּאֲרִים בְּמָקוֹם אַחֵר בַּאֲרֻכָּה</a>",
+      "innerHTML": "וְכָל דְּבָרִים אֵלּוּ עֲמֻקִּים מְאֹד וּמִתְבָּאֲרִים בְּמָקוֹם אַחֵר בַּאֲרֻכָּה",
+      "sourceNoteNumbers": [
+        177
+      ],
+      "sourceEvidence": [
+        {
+          "number": 177,
+          "sourceId": "DT-0177",
+          "candidateId": "1-4/row24/note177/p0",
+          "status": "quarantined_unsupported_identity",
+          "citationLabel": "Likkutei Maamarim, the discourse on Samson, section 19, p. 164 in our edition",
+          "classification": "author_self_reference_present_but_specific_work_identification_unverified"
+        }
+      ],
+      "inputCellSha256": "1f615577e6c4d94d73e550a1a263c5163ef0a08b1f4ed69eea852b6d2de97a61",
+      "reasonCode": "quarantined_unsupported_identity",
+      "reason": "An unnamed authorial self-reference was converted into a specific unverified historical source identification.",
+      "outputCellSha256": "c1ff0f5e70d31ad7288263a7f7a4a2d610c073a2bcf0b2f0a9a1cdc3d1769441"
+    },
+    {
+      "file": "1-4.json",
+      "rowIndex": 35,
+      "rowN": 35,
+      "phraseIndex": 2,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Sod Yesharim, Sukkot 59:1",
+      "outerHTML": "<a data-ref=\"Sod Yesharim, Sukkot 59:1\">וְכָךְ קִבַּלְתִּי</a>",
+      "innerHTML": "וְכָךְ קִבַּלְתִּי",
+      "sourceNoteNumbers": [
+        2600
+      ],
+      "sourceEvidence": [
+        {
+          "number": 2600,
+          "sourceId": "DT-2600",
+          "candidateId": "1-4/row35/note2600/p0",
+          "status": "removed_unverified_parallel",
+          "citationLabel": "Sod Yesharim, Sukkot 59:1",
+          "classification": null
+        }
+      ],
+      "inputCellSha256": "40467e9b6e3e9672142110d40e1bbb34b5854f0bc00e61e087b416b8fd068afd",
+      "reasonCode": "removed_unverified_parallel",
+      "reason": "An added conceptual parallel was promoted into a body-text citation without an authorial identification.",
+      "outputCellSha256": "b32063d9a2942d445d948a90c380320d3970bfe871deeca4ccb2dd7f842aae37"
+    },
+    {
+      "file": "2-1.json",
+      "rowIndex": 1,
+      "rowN": 1,
+      "phraseIndex": 2,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Sichat Malakhei HaSharet 4:6",
+      "outerHTML": "<a data-ref=\"Sichat Malakhei HaSharet 4:6\">עַיֵּן רַשִׁ״י סוֹף נִדָּה, וְקִדּוּשִׁין דַּף מ״ט עַמּוּד א׳</a>",
+      "innerHTML": "עַיֵּן רַשִׁ״י סוֹף נִדָּה, וְקִדּוּשִׁין דַּף מ״ט עַמּוּד א׳",
+      "sourceNoteNumbers": [
+        201,
+        202
+      ],
+      "sourceEvidence": [
+        {
+          "number": 201,
+          "sourceId": "DT-0201",
+          "candidateId": "2-1/row1/note201/p0",
+          "status": "quarantined_unsupported_identity",
+          "citationLabel": "Sichas Malachei HaShares 4:6, p. 204",
+          "classification": "author_self_reference_present_but_specific_work_identification_unverified"
+        }
+      ],
+      "inputCellSha256": "70347535bbd066b2619a3aab338dbb78a7dc93a6dc66d51a2fa227bdf7cd94bd",
+      "reasonCode": "quarantined_unsupported_identity",
+      "reason": "An unnamed authorial self-reference was converted into a specific unverified historical source identification.",
+      "outputCellSha256": "20975f7d37001987883215f30030a582c81f8953f6dd00f3e22e184263f7b75c"
+    },
+    {
+      "file": "2-1.json",
+      "rowIndex": 19,
+      "rowN": 19,
+      "phraseIndex": 3,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Divrei Soferim 21",
+      "outerHTML": "<a data-ref=\"Divrei Soferim 21\">הַמַּחֲשָׁבָה</a>",
+      "innerHTML": "הַמַּחֲשָׁבָה",
+      "sourceNoteNumbers": [
+        235
+      ],
+      "sourceEvidence": [
+        {
+          "number": 235,
+          "sourceId": "DT-0235",
+          "candidateId": "2-1/row19/note235/p0",
+          "status": "quarantined_unsupported_identity",
+          "citationLabel": "Divrei Sofrim 21, pp. 231–232",
+          "classification": "author_self_reference_present_but_specific_work_identification_unverified"
+        }
+      ],
+      "inputCellSha256": "e024ae2cc7db2e0a3dd87f2dda2708263651069ddc13bc893d30018d178521cb",
+      "reasonCode": "quarantined_unsupported_identity",
+      "reason": "An unnamed authorial self-reference was converted into a specific unverified historical source identification.",
+      "outputCellSha256": "de2dc129feb54215a3307864b118f57611ec3e309521511c82317d71c3967b80"
+    },
+    {
+      "file": "2-2.json",
+      "rowIndex": 4,
+      "rowN": 4,
+      "phraseIndex": 3,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Mei HaShiloach, Volume I, Writings, Proverbs 2:1",
+      "outerHTML": "<a data-ref=\"Mei HaShiloach, Volume I, Writings, Proverbs 2:1\">תָּבִין יִרְאַת הַשֵּׁם</a>",
+      "innerHTML": "תָּבִין יִרְאַת הַשֵּׁם",
+      "sourceNoteNumbers": [
+        2575
+      ],
+      "sourceEvidence": [
+        {
+          "number": 2575,
+          "sourceId": "DT-2575",
+          "candidateId": "2-2/row4/note2575/p0",
+          "status": "removed_unverified_parallel",
+          "citationLabel": "Mei HaShiloach, Volume I, Writings, Proverbs 2:1",
+          "classification": null
+        }
+      ],
+      "inputCellSha256": "d4c6c78bc63e04ea1f8c107b4aab18f6429b6644869b88c69b19e354285d6595",
+      "reasonCode": "removed_unverified_parallel",
+      "reason": "An added conceptual parallel was promoted into a body-text citation without an authorial identification.",
+      "outputCellSha256": "56a955430e65b6812a7855281e4d4c152a796f293d3bfec75fd688c20d35d33f"
+    },
+    {
+      "file": "2-3.json",
+      "rowIndex": 80,
+      "rowN": 70,
+      "phraseIndex": 2,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Or Zarua LaTzaddik, the discourse on the Egyptian exile, 4:1",
+      "outerHTML": "<a data-ref=\"Or Zarua LaTzaddik, the discourse on the Egyptian exile, 4:1\">אֲבָל \"תִּפְאֶרֶת בָּנִים\" רַק \"אֲבוֹתָם\", וְלֹא דּוֹר ג׳ לְמַעְלָה, וּכְמוֹ שֶׁכָּתַבְתִּי בְּמָקוֹם אַחֵר</a>",
+      "innerHTML": "אֲבָל \"תִּפְאֶרֶת בָּנִים\" רַק \"אֲבוֹתָם\", וְלֹא דּוֹר ג׳ לְמַעְלָה, וּכְמוֹ שֶׁכָּתַבְתִּי בְּמָקוֹם אַחֵר",
+      "sourceNoteNumbers": [
+        518
+      ],
+      "sourceEvidence": [
+        {
+          "number": 518,
+          "sourceId": "DT-0518",
+          "candidateId": "2-3/row80/note518/p0",
+          "status": "quarantined_unsupported_identity",
+          "citationLabel": "Or Zarua LaTzaddik, the discourse on the Egyptian exile, 4:1, p. 208 in our edition",
+          "classification": "author_self_reference_present_but_specific_work_identification_unverified"
+        }
+      ],
+      "inputCellSha256": "b9ee31497c23c5ecef076e643045be4b0abc4433b3ead949771c62a3fc09a39f",
+      "reasonCode": "quarantined_unsupported_identity",
+      "reason": "An unnamed authorial self-reference was converted into a specific unverified historical source identification.",
+      "outputCellSha256": "515bb32bea9f0afe0a97e5b9e2acacaadaadc3556dff2a9a3699a354fd49952c"
+    },
+    {
+      "file": "3-1.json",
+      "rowIndex": 2,
+      "rowN": 2,
+      "phraseIndex": 1,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 2,
+      "dataRef": "Tzidkat HaTzadik 17",
+      "outerHTML": "<a data-ref=\"Tzidkat HaTzadik 17\">דַּף פ״ט עַמּוּד ב׳</a>",
+      "innerHTML": "דַּף פ״ט עַמּוּד ב׳",
+      "sourceNoteNumbers": [
+        551,
+        552,
+        553
+      ],
+      "sourceEvidence": [
+        {
+          "number": 553,
+          "sourceId": "DT-0553",
+          "candidateId": "3-1/row2/note553/p0",
+          "status": "quarantined_unsupported_identity",
+          "citationLabel": "Tzidkas HaTzaddik 17",
+          "classification": "unmarked_added_concept_parallel_attached_to_different_primary_source"
+        }
+      ],
+      "inputCellSha256": "c46b6f1dc10773e34c24cc6db1f8f57853978d79533701502a0158980b00544f",
+      "reasonCode": "quarantined_unsupported_identity",
+      "reason": "An unnamed authorial self-reference was converted into a specific unverified historical source identification.",
+      "outputCellSha256": "3ca3e9a20b7bd692c8ec2f2bdb186883ea16fe15eb3680456624f90e073815b8"
+    },
+    {
+      "file": "3-1.json",
+      "rowIndex": 2,
+      "rowN": 2,
+      "phraseIndex": 4,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 1,
+      "dataRef": "Above, section 23",
+      "outerHTML": "<a data-ref=\"Above, section 23\">אֶלָּא בַּלַּיְלָה</a>",
+      "innerHTML": "אֶלָּא בַּלַּיְלָה",
+      "sourceNoteNumbers": [
+        555,
+        556
+      ],
+      "sourceEvidence": [],
+      "inputCellSha256": "6927f137241a8658ef17dc188909223e5acfe2ffb61e39096530030a4726abd9",
+      "reasonCode": "editorial_pseudo_target",
+      "reason": "A retained editorial cross-reference is attached to the quoted Shemot Rabbah words; the author names no target work here.",
+      "outputCellSha256": "56129b33897c2888a41b6d7566466aa711cec01cdff545fb7e90b5bba2ca1a91"
+    },
+    {
+      "file": "3-1.json",
+      "rowIndex": 24,
+      "rowN": 20,
+      "phraseIndex": 1,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 1,
+      "dataRef": "Divrei Soferim 26",
+      "outerHTML": "<a data-ref=\"Divrei Soferim 26\">בְּיִצְרָם</a>",
+      "innerHTML": "בְּיִצְרָם",
+      "sourceNoteNumbers": [
+        615,
+        616
+      ],
+      "sourceEvidence": [
+        {
+          "number": 616,
+          "sourceId": "DT-0616",
+          "candidateId": "3-1/row24/note616/p0",
+          "status": "quarantined_unsupported_identity",
+          "citationLabel": "Divrei Sofrim 26, p. 236 in our edition",
+          "classification": "author_self_reference_present_but_specific_work_identification_unverified"
+        }
+      ],
+      "inputCellSha256": "ef3a0c66e34b00cca8f2c8f602611f34ba31104f3e19ed62201a032fff82303d",
+      "reasonCode": "quarantined_unsupported_identity",
+      "reason": "An unnamed authorial self-reference was converted into a specific unverified historical source identification.",
+      "outputCellSha256": "4e238c093b17a41a949a88ea608e542e1b525185e3785ca7e407cf137d28251c"
+    },
+    {
+      "file": "3-1.json",
+      "rowIndex": 25,
+      "rowN": 21,
+      "phraseIndex": 2,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Tzidkat HaTzadik 137 and 139",
+      "outerHTML": "<a data-ref=\"Tzidkat HaTzadik 137 and 139\">אָבוֹת פֶּרֶק ב׳</a>",
+      "innerHTML": "אָבוֹת פֶּרֶק ב׳",
+      "sourceNoteNumbers": [
+        619,
+        620,
+        621
+      ],
+      "sourceEvidence": [
+        {
+          "number": 619,
+          "sourceId": "DT-0619",
+          "candidateId": "3-1/row25/note619/p0",
+          "status": "quarantined_unsupported_identity",
+          "citationLabel": "Tzidkas HaTzaddik 137 and 139, pp. 61–62 in our edition",
+          "classification": "author_self_reference_present_but_specific_work_identification_unverified"
+        }
+      ],
+      "inputCellSha256": "93d3685510b7c850850b56cd0c8fe5997b368558ae1d6ef4fafba6d74eea3373",
+      "reasonCode": "quarantined_unsupported_identity",
+      "reason": "An unnamed authorial self-reference was converted into a specific unverified historical source identification.",
+      "outputCellSha256": "e6c449deec8243e6da70f4d9aa35408575ac68b7393eb647cfac9c8884332a41"
+    },
+    {
+      "file": "3-2.json",
+      "rowIndex": 17,
+      "rowN": 14,
+      "phraseIndex": 6,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Tzidkat HaTzadik 225",
+      "outerHTML": "<a data-ref=\"Tzidkat HaTzadik 225\">כְּמוֹ שֶׁכָּתַבְנוּ בְּמָקוֹם אַחֵר בְּסוֹד מֹחַ וְלֵב</a>",
+      "innerHTML": "כְּמוֹ שֶׁכָּתַבְנוּ בְּמָקוֹם אַחֵר בְּסוֹד מֹחַ וְלֵב",
+      "sourceNoteNumbers": [
+        687
+      ],
+      "sourceEvidence": [
+        {
+          "number": 687,
+          "sourceId": "DT-0687",
+          "candidateId": "3-2/row17/note687/p0",
+          "status": "quarantined_unsupported_identity",
+          "citationLabel": "Tzidkas HaTzaddik 225, p. 135 in our edition",
+          "classification": "author_self_reference_present_but_specific_work_identification_unverified"
+        }
+      ],
+      "inputCellSha256": "04ae94a66126a39c05138be744eb5c0519a13a755f8555ef40d1cfe39a949ab4",
+      "reasonCode": "quarantined_unsupported_identity",
+      "reason": "An unnamed authorial self-reference was converted into a specific unverified historical source identification.",
+      "outputCellSha256": "b184be3358f5841be5bc4a21b7fe1ebed6992f1d0555d30e3b367f0cd30f69ca"
+    },
+    {
+      "file": "3-2.json",
+      "rowIndex": 23,
+      "rowN": 19,
+      "phraseIndex": 3,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Peri Tzadik, Korach 16:2",
+      "outerHTML": "<a data-ref=\"Peri Tzadik, Korach 16:2\">דַּף י׳ עַמּוּד ב׳</a>",
+      "innerHTML": "דַּף י׳ עַמּוּד ב׳",
+      "sourceNoteNumbers": [
+        702,
+        2607
+      ],
+      "sourceEvidence": [
+        {
+          "number": 2607,
+          "sourceId": "DT-2607",
+          "candidateId": "3-2/row23/note2607/p0",
+          "status": "removed_unverified_parallel",
+          "citationLabel": "Peri Tzadik, Korach 16:2",
+          "classification": null
+        }
+      ],
+      "inputCellSha256": "40cabede0fd2f40d427c7f324694de29cc8d6ff1feb9f38acf5bf8443706b418",
+      "reasonCode": "removed_unverified_parallel",
+      "reason": "An added conceptual parallel was promoted into a body-text citation without an authorial identification.",
+      "outputCellSha256": "0343b6da90be192fc553ade526d70947bc92aee930db22217fb29762f3e26972"
+    },
+    {
+      "file": "3-2.json",
+      "rowIndex": 106,
+      "rowN": 91,
+      "phraseIndex": 1,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Mei HaShiloach, Volume II, Writings, Proverbs 14:1",
+      "outerHTML": "<a data-ref=\"Mei HaShiloach, Volume II, Writings, Proverbs 14:1\">וּכְמוֹ שֶׁשָּׁמַעְתִּי בַּאֲרִיכוּת עַל פָּסוּק \"חַכְמוֹת נָשִׁים\"</a>",
+      "innerHTML": "וּכְמוֹ שֶׁשָּׁמַעְתִּי בַּאֲרִיכוּת עַל פָּסוּק \"חַכְמוֹת נָשִׁים\"",
+      "sourceNoteNumbers": [
+        880,
+        2613
+      ],
+      "sourceEvidence": [
+        {
+          "number": 2613,
+          "sourceId": "DT-2613",
+          "candidateId": "3-2/row106/note2613/p0",
+          "status": "removed_unverified_parallel",
+          "citationLabel": "Mei HaShiloach, Volume II, Writings, Proverbs 14:1",
+          "classification": null
+        }
+      ],
+      "inputCellSha256": "22bc34d0ca7111006ef2b5ff47619b611d63db0588a5cd2f72b44fad14ba2b23",
+      "reasonCode": "removed_unverified_parallel",
+      "reason": "An added conceptual parallel was promoted into a body-text citation without an authorial identification.",
+      "outputCellSha256": "d1a848d8b25cdeb4c2a0d878abf00413129370e5832325fe1d700f62b423fe74"
+    },
+    {
+      "file": "3-2.json",
+      "rowIndex": 138,
+      "rowN": 119,
+      "phraseIndex": 3,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Kometz HaMinchah II, 51",
+      "outerHTML": "<a data-ref=\"Kometz HaMinchah II, 51\">גִּטִּין דַּף ס״ח עַמּוּד ב׳</a>",
+      "innerHTML": "גִּטִּין דַּף ס״ח עַמּוּד ב׳",
+      "sourceNoteNumbers": [
+        949,
+        950
+      ],
+      "sourceEvidence": [
+        {
+          "number": 949,
+          "sourceId": "DT-0949",
+          "candidateId": "3-2/row138/note949/p0",
+          "status": "quarantined_unsupported_identity",
+          "citationLabel": "Kometz HaMinchah II, 51, p. 344, note 392",
+          "classification": "unmarked_added_concept_parallel_attached_to_different_primary_source"
+        }
+      ],
+      "inputCellSha256": "d849d047146ac9860f4eaa27854eb5de9e7523a1b575b623281664b46473d672",
+      "reasonCode": "quarantined_unsupported_identity",
+      "reason": "An unnamed authorial self-reference was converted into a specific unverified historical source identification.",
+      "outputCellSha256": "1969c028dab8bd4710f93343dc0a501ca51feabdb62a9f9c349f906569f8f923"
+    },
+    {
+      "file": "3-2.json",
+      "rowIndex": 150,
+      "rowN": 129,
+      "phraseIndex": 3,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Kometz HaMinchah II, 53",
+      "outerHTML": "<a data-ref=\"Kometz HaMinchah II, 53\">הַשֵּׁם לְנֶגְדִּי תָמִיד</a>",
+      "innerHTML": "הַשֵּׁם לְנֶגְדִּי תָמִיד",
+      "sourceNoteNumbers": [
+        967,
+        968
+      ],
+      "sourceEvidence": [
+        {
+          "number": 967,
+          "sourceId": "DT-0967",
+          "candidateId": "3-2/row150/note967/p0",
+          "status": "quarantined_unsupported_identity",
+          "citationLabel": "Kometz HaMinchah II, 53, p. 347, note 414",
+          "classification": "unmarked_added_concept_parallel_attached_to_different_primary_source"
+        }
+      ],
+      "inputCellSha256": "45e9d8aafce5a4e62266866cc331a90fed51693d99709af56f41b17525af3f9e",
+      "reasonCode": "quarantined_unsupported_identity",
+      "reason": "An unnamed authorial self-reference was converted into a specific unverified historical source identification.",
+      "outputCellSha256": "8269b3e7c322715c97fd60bd5e284e4bebd774d4333b161fbbfba093fea3e158"
+    },
+    {
+      "file": "3-2.json",
+      "rowIndex": 172,
+      "rowN": 148,
+      "phraseIndex": 1,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Tzidkat HaTzadik 2",
+      "outerHTML": "<a data-ref=\"Tzidkat HaTzadik 2\">וְעַיֵּן מַה שֶּׁכָּתַבְתִּי לְעֵיל דַּף ו׳ רֵישׁ עַמּוּד ב׳</a>",
+      "innerHTML": "וְעַיֵּן מַה שֶּׁכָּתַבְתִּי לְעֵיל דַּף ו׳ רֵישׁ עַמּוּד ב׳",
+      "sourceNoteNumbers": [
+        994
+      ],
+      "sourceEvidence": [
+        {
+          "number": 994,
+          "sourceId": "DT-0994",
+          "candidateId": "3-2/row172/note994/p0",
+          "status": "quarantined_unsupported_identity",
+          "citationLabel": "Tzidkas HaTzaddik 2, p. 7 in our edition",
+          "classification": "author_self_reference_present_but_specific_work_identification_unverified"
+        }
+      ],
+      "inputCellSha256": "8b5213c0ccc72629910b8d5a5e296afa61c9495fc3d626be93dd0013310be9a9",
+      "reasonCode": "quarantined_unsupported_identity",
+      "reason": "An unnamed authorial self-reference was converted into a specific unverified historical source identification.",
+      "outputCellSha256": "39b2a4fb907dc68e90a1968b6800f824b401bdae98c0f3f565f404170765418d"
+    },
+    {
+      "file": "3-2.json",
+      "rowIndex": 216,
+      "rowN": 187,
+      "phraseIndex": 4,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Mei HaShiloach, Volume I, Writings, Proverbs 11:1",
+      "outerHTML": "<a data-ref=\"Mei HaShiloach, Volume I, Writings, Proverbs 11:1\">וְגַם הָיָה מִזֶּרַע בֵּית דָּוִד כַּנּוֹדָע, וְשָׁמַעְתִּי בָּזֶה כִּי זֶהוּ מַדְרֵגַת בֵּית דָּוִד בְּיִחוּד</a>",
+      "innerHTML": "וְגַם הָיָה מִזֶּרַע בֵּית דָּוִד כַּנּוֹדָע, וְשָׁמַעְתִּי בָּזֶה כִּי זֶהוּ מַדְרֵגַת בֵּית דָּוִד בְּיִחוּד",
+      "sourceNoteNumbers": [
+        2622
+      ],
+      "sourceEvidence": [
+        {
+          "number": 2622,
+          "sourceId": "DT-2622",
+          "candidateId": "3-2/row216/note2622/p0",
+          "status": "removed_unverified_parallel",
+          "citationLabel": "Mei HaShiloach, Volume I, Writings, Proverbs 11:1",
+          "classification": null
+        }
+      ],
+      "inputCellSha256": "5f696feb9151d37da299130ec30f77609b91b851d4747b55b3cff89f48a463e9",
+      "reasonCode": "removed_unverified_parallel",
+      "reason": "An added conceptual parallel was promoted into a body-text citation without an authorial identification.",
+      "outputCellSha256": "4403f44c27fd22c514fe8ce7770afc34af09d2ba55f3782d822a9c024937150c"
+    },
+    {
+      "file": "3-2.json",
+      "rowIndex": 238,
+      "rowN": 205,
+      "phraseIndex": 1,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Mei HaShiloach, Volume II, Leviticus, Kedoshim 7",
+      "outerHTML": "<a data-ref=\"Mei HaShiloach, Volume II, Leviticus, Kedoshim 7\">וּפֵרוּשׁוֹ גַּם כֵּן שֶׁהוּא הַבְטָחָה שֶׁאָז יִהְיוּ קְדוֹשִׁים לְקַיֵּם כָּל הַכָּתוּב בַּפָּרָשָׁה</a>",
+      "innerHTML": "וּפֵרוּשׁוֹ גַּם כֵּן שֶׁהוּא הַבְטָחָה שֶׁאָז יִהְיוּ קְדוֹשִׁים לְקַיֵּם כָּל הַכָּתוּב בַּפָּרָשָׁה",
+      "sourceNoteNumbers": [
+        2625
+      ],
+      "sourceEvidence": [
+        {
+          "number": 2625,
+          "sourceId": "DT-2625",
+          "candidateId": "3-2/row238/note2625/p0",
+          "status": "removed_unverified_parallel",
+          "citationLabel": "Mei HaShiloach, Volume II, Leviticus, Kedoshim 7",
+          "classification": null
+        }
+      ],
+      "inputCellSha256": "13d47787656282828b7d57daaffecdd1db6dee471d497cf726dac9554b2ba6aa",
+      "reasonCode": "removed_unverified_parallel",
+      "reason": "An added conceptual parallel was promoted into a body-text citation without an authorial identification.",
+      "outputCellSha256": "eba2b447c66e0a1712de0cef21a5d7b78d02a94bc37dcfded462b029a0ab9042"
+    },
+    {
+      "file": "3-2.json",
+      "rowIndex": 261,
+      "rowN": 226,
+      "phraseIndex": 2,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Peri Tzadik, Beha'alotcha 12:2",
+      "outerHTML": "<a data-ref=\"Peri Tzadik, Beha&#x27;alotcha 12:2\">אֵין</a>",
+      "innerHTML": "אֵין",
+      "sourceNoteNumbers": [
+        2628
+      ],
+      "sourceEvidence": [
+        {
+          "number": 2628,
+          "sourceId": "DT-2628",
+          "candidateId": "3-2/row261/note2628/p0",
+          "status": "removed_unverified_parallel",
+          "citationLabel": "Peri Tzadik, Beha'alotcha 12:2",
+          "classification": null
+        }
+      ],
+      "inputCellSha256": "0b7890506e50a2707159ab21241089267def7e7c357ded9adf8071e8d2b22547",
+      "reasonCode": "removed_unverified_parallel",
+      "reason": "An added conceptual parallel was promoted into a body-text citation without an authorial identification.",
+      "outputCellSha256": "8b3d8b91dcf038e75406b4d75862bc3e96dfdb5b964003a44f27c0bb2bc215b5"
+    },
+    {
+      "file": "3-2.json",
+      "rowIndex": 264,
+      "rowN": 229,
+      "phraseIndex": 0,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Sefer HaZichronos, the shorter work, 3:7",
+      "outerHTML": "<a data-ref=\"Sefer HaZichronos, the shorter work, 3:7\">דַּף א׳ עַמּוּד א׳</a>",
+      "innerHTML": "דַּף א׳ עַמּוּד א׳",
+      "sourceNoteNumbers": [
+        1136
+      ],
+      "sourceEvidence": [
+        {
+          "number": 1136,
+          "sourceId": "DT-1136",
+          "candidateId": "3-2/row264/note1136/p0",
+          "status": "quarantined_unsupported_identity",
+          "citationLabel": "Sefer HaZichronos, the shorter work, 3:7, p. 164 in the volume on halachic topics, in our edition",
+          "classification": "author_self_reference_present_but_specific_work_identification_unverified"
+        }
+      ],
+      "inputCellSha256": "bdd50b11770fb43a110144e58e6f47b81f52f68625c59864103dc5ea2b88f83f",
+      "reasonCode": "quarantined_unsupported_identity",
+      "reason": "An unnamed authorial self-reference was converted into a specific unverified historical source identification.",
+      "outputCellSha256": "52577fba6f6743a55b8c26e852dc252381b487044900277c748e8e39ba98b4f4"
+    },
+    {
+      "file": "3-2.json",
+      "rowIndex": 291,
+      "rowN": 252,
+      "phraseIndex": 21,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Tzidkat HaTzadik 23",
+      "outerHTML": "<a data-ref=\"Tzidkat HaTzadik 23\">דַּף י״ג עַמּוּד א׳</a>",
+      "innerHTML": "דַּף י״ג עַמּוּד א׳",
+      "sourceNoteNumbers": [
+        1188
+      ],
+      "sourceEvidence": [
+        {
+          "number": 1188,
+          "sourceId": "DT-1188",
+          "candidateId": "3-2/row291/note1188/p0",
+          "status": "quarantined_unsupported_identity",
+          "citationLabel": "Tzidkas HaTzaddik 23",
+          "classification": "author_self_reference_present_but_specific_work_identification_unverified"
+        }
+      ],
+      "inputCellSha256": "aa529c1b22600845cbd0deb76013edb008d2bce770c33840afe25907b7231937",
+      "reasonCode": "quarantined_unsupported_identity",
+      "reason": "An unnamed authorial self-reference was converted into a specific unverified historical source identification.",
+      "outputCellSha256": "2cf34161d19e2e14a54cd68da1074c1b74f2061c2c0221da9c9fa69a407ea1d9"
+    },
+    {
+      "file": "3-2.json",
+      "rowIndex": 295,
+      "rowN": 254,
+      "phraseIndex": 9,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 1,
+      "dataRef": "Tzidkat HaTzadik 19",
+      "outerHTML": "<a data-ref=\"Tzidkat HaTzadik 19\">דַּף ג׳ עַמּוּד א׳</a>",
+      "innerHTML": "דַּף ג׳ עַמּוּד א׳",
+      "sourceNoteNumbers": [
+        1224,
+        1225,
+        1226
+      ],
+      "sourceEvidence": [
+        {
+          "number": 1225,
+          "sourceId": "DT-1225",
+          "candidateId": "3-2/row295/note1225/p0",
+          "status": "quarantined_unsupported_identity",
+          "citationLabel": "Tzidkas HaTzaddik 19, p. 7 in our edition",
+          "classification": "author_self_reference_present_but_specific_work_identification_unverified"
+        }
+      ],
+      "inputCellSha256": "f57e69c4da1f348daf8ea8bacbadfc26f5fb6a46942ccae05a18d9561104aab3",
+      "reasonCode": "quarantined_unsupported_identity",
+      "reason": "An unnamed authorial self-reference was converted into a specific unverified historical source identification.",
+      "outputCellSha256": "5ec0869454d9cc05b469439636bb76bcb558944cbf32c3318cb2ffea2a090ca7"
+    },
+    {
+      "file": "3-2.json",
+      "rowIndex": 297,
+      "rowN": 255,
+      "phraseIndex": 16,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 1,
+      "dataRef": "Beit Yaakov on Torah, Bereshit 19:1",
+      "outerHTML": "<a data-ref=\"Beit Yaakov on Torah, Bereshit 19:1\">דַּף י״ב עַמּוּד א׳</a>",
+      "innerHTML": "דַּף י״ב עַמּוּד א׳",
+      "sourceNoteNumbers": [
+        1250,
+        1251,
+        2631
+      ],
+      "sourceEvidence": [
+        {
+          "number": 2631,
+          "sourceId": "DT-2631",
+          "candidateId": "3-2/row297/note2631/p0",
+          "status": "removed_unverified_parallel",
+          "citationLabel": "Beit Yaakov on Torah, Bereshit 19:1",
+          "classification": null
+        }
+      ],
+      "inputCellSha256": "02305531081572010152d6e8056777084f4ca779dc5be8d8e98cc52a1de13e11",
+      "reasonCode": "removed_unverified_parallel",
+      "reason": "An added conceptual parallel was promoted into a body-text citation without an authorial identification.",
+      "outputCellSha256": "bbcc14dc8006788db0f0363ca62f0200d2255b3a911800b43ff4c8ca9f3dfafc"
+    },
+    {
+      "file": "4-1.json",
+      "rowIndex": 1,
+      "rowN": 1,
+      "phraseIndex": 0,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 1,
+      "dataRef": "Pri Tzadik, volume II",
+      "outerHTML": "<a data-ref=\"Pri Tzadik, volume II\">אֱלֹהִים אֶת</a>",
+      "innerHTML": "אֱלֹהִים אֶת",
+      "sourceNoteNumbers": [
+        1341,
+        1342,
+        1343
+      ],
+      "sourceEvidence": [
+        {
+          "number": 1341,
+          "sourceId": "DT-1341",
+          "candidateId": "4-1/row1/note1341/p0",
+          "status": "retained_primary_or_direct_source_excerpt",
+          "citationLabel": "Pri Tzadik, volume II",
+          "classification": null
+        }
+      ],
+      "inputCellSha256": "199a5ca4f11279b2b37791301114391a03733606a22e5d98235e87eaaabdcaea",
+      "reasonCode": "editorial_pseudo_target",
+      "reason": "Publication-history note is attached to words of Genesis 30:23; no textual citation to Pri Tzadik occurs in this body phrase.",
+      "outputCellSha256": "d1b15187a8ca90c90d51e2b49f32dcd458d11325173b724ef92d49fe0712115e"
+    },
+    {
+      "file": "4-1.json",
+      "rowIndex": 1,
+      "rowN": 1,
+      "phraseIndex": 7,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Pri Tzadik",
+      "outerHTML": "<a data-ref=\"Pri Tzadik\">כְּסִיל מִלְּשׁוֹן כֶּסֶל</a>",
+      "innerHTML": "כְּסִיל מִלְּשׁוֹן כֶּסֶל",
+      "sourceNoteNumbers": [
+        1350,
+        1351
+      ],
+      "sourceEvidence": [
+        {
+          "number": 1350,
+          "sourceId": "DT-1350",
+          "candidateId": "4-1/row1/note1350/p0",
+          "status": "retained_primary_or_direct_source_excerpt",
+          "citationLabel": "Pri Tzadik",
+          "classification": null
+        }
+      ],
+      "inputCellSha256": "578c64feefba5ef51e99b71819577d258f6aa802173c644e7eb6d9c8dce2e0b7",
+      "reasonCode": "editorial_pseudo_target",
+      "reason": "Textual-variant editorial note is attached to an etymological phrase; target is an unspecified work rather than a precise body citation.",
+      "outputCellSha256": "a5afb683ca12d2f9792b0ef7494056a11e2fa925addbe24fc503cdf67ae134f4"
+    },
+    {
+      "file": "4-1.json",
+      "rowIndex": 3,
+      "rowN": 2,
+      "phraseIndex": 2,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Peri Tzadik, Sefer Kedushat Shabbat 1:5",
+      "outerHTML": "<a data-ref=\"Peri Tzadik, Sefer Kedushat Shabbat 1:5\">דַּף ל״א עַמּוּד א׳</a>",
+      "innerHTML": "דַּף ל״א עַמּוּד א׳",
+      "sourceNoteNumbers": [
+        1359,
+        1360
+      ],
+      "sourceEvidence": [
+        {
+          "number": 1359,
+          "sourceId": "DT-1359",
+          "candidateId": "4-1/row3/note1359/p0",
+          "status": "quarantined_unsupported_identity",
+          "citationLabel": "Kedushas Shabbos 1:5, p. 263 in our edition",
+          "classification": "author_self_reference_present_but_specific_work_identification_unverified"
+        }
+      ],
+      "inputCellSha256": "83f4e7bf881f40795e8ea9708562c9ec3f77c81eb87a05631b6cca2dd418e422",
+      "reasonCode": "quarantined_unsupported_identity",
+      "reason": "An unnamed authorial self-reference was converted into a specific unverified historical source identification.",
+      "outputCellSha256": "cb2562c91d8d2304dd855f97b8d0319cfef4060149b8a63cc3f6064dda50f721"
+    },
+    {
+      "file": "4-1.json",
+      "rowIndex": 5,
+      "rowN": 3,
+      "phraseIndex": 5,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Kometz HaMinchah II, 48",
+      "outerHTML": "<a data-ref=\"Kometz HaMinchah II, 48\">מַדְרֵגַת דָּוִד הַמֶּלֶךְ עָלָיו הַשָּׁלוֹם כְּמוֹ שֶׁכָּתַבְתִּי בְּמָקוֹם אַחֵר</a>",
+      "innerHTML": "מַדְרֵגַת דָּוִד הַמֶּלֶךְ עָלָיו הַשָּׁלוֹם כְּמוֹ שֶׁכָּתַבְתִּי בְּמָקוֹם אַחֵר",
+      "sourceNoteNumbers": [
+        1377
+      ],
+      "sourceEvidence": [
+        {
+          "number": 1377,
+          "sourceId": "DT-1377",
+          "candidateId": "4-1/row5/note1377/p0",
+          "status": "quarantined_unsupported_identity",
+          "citationLabel": "Kometz HaMinchah II, 48, below, p. 341",
+          "classification": "author_self_reference_present_but_specific_work_identification_unverified"
+        }
+      ],
+      "inputCellSha256": "3d5e67b8e634a61ba7ca357b3c365bfca99f5048d0b3f6edb65354d108e9acc2",
+      "reasonCode": "quarantined_unsupported_identity",
+      "reason": "An unnamed authorial self-reference was converted into a specific unverified historical source identification.",
+      "outputCellSha256": "15afb774e1d43663cc12225bb13ebe35d11951658d395ec3055b18b96adf9c28"
+    },
+    {
+      "file": "4-1.json",
+      "rowIndex": 9,
+      "rowN": 5,
+      "phraseIndex": 8,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Tzidkat HaTzadik 199",
+      "outerHTML": "<a data-ref=\"Tzidkat HaTzadik 199\">וְזֶהוּ נֶגֶד מַה שֶּׁאָמַר עַל מַאֲמָר זֶה לְעֵיל דַּף ט״ז עַמּוּד ב׳, עַיֵּן שָׁם</a>",
+      "innerHTML": "וְזֶהוּ נֶגֶד מַה שֶּׁאָמַר עַל מַאֲמָר זֶה לְעֵיל דַּף ט״ז עַמּוּד ב׳, עַיֵּן שָׁם",
+      "sourceNoteNumbers": [
+        1399
+      ],
+      "sourceEvidence": [
+        {
+          "number": 1399,
+          "sourceId": "DT-1399",
+          "candidateId": "4-1/row9/note1399/p0",
+          "status": "quarantined_unsupported_identity",
+          "citationLabel": "Tzidkas HaTzaddik 199, p. 105 in our edition",
+          "classification": "author_self_reference_present_but_specific_work_identification_unverified"
+        }
+      ],
+      "inputCellSha256": "ec94598120e1b705472bd2733d9e94e747246a15d1cc026131ed16318ee4a6e2",
+      "reasonCode": "quarantined_unsupported_identity",
+      "reason": "An unnamed authorial self-reference was converted into a specific unverified historical source identification.",
+      "outputCellSha256": "e1743a0f3913c4196d4abc6da7b83ee1a3db409b72a1cb582bb1e6e9ccf5219d"
+    },
+    {
+      "file": "4-1.json",
+      "rowIndex": 13,
+      "rowN": 7,
+      "phraseIndex": 11,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Likkutei Maamarim 16:77",
+      "outerHTML": "<a data-ref=\"Likkutei Maamarim 16:77\">אֶלָּא בְּיַד בְּנֵי רָחֵל</a>",
+      "innerHTML": "אֶלָּא בְּיַד בְּנֵי רָחֵל",
+      "sourceNoteNumbers": [
+        1427,
+        1428
+      ],
+      "sourceEvidence": [
+        {
+          "number": 1427,
+          "sourceId": "DT-1427",
+          "candidateId": "4-1/row13/note1427/p0",
+          "status": "quarantined_unsupported_identity",
+          "citationLabel": "Likkutei Maamarim 16:77, p. 137 in our edition",
+          "classification": "author_self_reference_present_but_specific_work_identification_unverified"
+        },
+        {
+          "number": 1428,
+          "sourceId": "DT-1428",
+          "candidateId": "4-1/row13/note1428/p0",
+          "status": "quarantined_unsupported_identity",
+          "citationLabel": "Machshavos Charutz 5:5, p. 22 in our edition",
+          "classification": "author_self_reference_present_but_specific_work_identification_unverified"
+        }
+      ],
+      "inputCellSha256": "dc76cabd6fd91390d4059e101e38298b0d12287174e6b53a8a184dc53adc55dc",
+      "reasonCode": "quarantined_unsupported_identity",
+      "reason": "An unnamed authorial self-reference was converted into a specific unverified historical source identification.",
+      "outputCellSha256": "5d07a0a401b06a6b882940823743a9c8b93f58257927559f94bc0a9150197603"
+    },
+    {
+      "file": "4-2.json",
+      "rowIndex": 7,
+      "rowN": 4,
+      "phraseIndex": 23,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Below, Vayeishev 2:8",
+      "outerHTML": "<a data-ref=\"Below, Vayeishev 2:8\">דַּף קס״ד עַמּוּד ב׳</a>",
+      "innerHTML": "דַּף קס״ד עַמּוּד ב׳",
+      "sourceNoteNumbers": [
+        1478,
+        1479
+      ],
+      "sourceEvidence": [],
+      "inputCellSha256": "21a7ff692924ede2c662a8af73245a27696c3fd400a79853987bbdbdc8dd6b44",
+      "reasonCode": "editorial_pseudo_target",
+      "reason": "Editorial cross-reference is attached to an explicitly cited Bava Batra 164b folio, asserting a different target.",
+      "outputCellSha256": "20846eb58d4f5789bc8f8e601bef2ac606f0db16b8d525e07b1ad3def256000a"
+    },
+    {
+      "file": "5-1.json",
+      "rowIndex": 17,
+      "rowN": 10,
+      "phraseIndex": 6,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Likkutei Maamarim 16:74",
+      "outerHTML": "<a data-ref=\"Likkutei Maamarim 16:74\">שִׁיר הַשִּׁירִים רַבָּה</a>",
+      "innerHTML": "שִׁיר הַשִּׁירִים רַבָּה",
+      "sourceNoteNumbers": [
+        1557,
+        1558
+      ],
+      "sourceEvidence": [
+        {
+          "number": 1557,
+          "sourceId": "DT-1557",
+          "candidateId": "5-1/row17/note1557/p0",
+          "status": "quarantined_unsupported_identity",
+          "citationLabel": "Likkutei Maamarim 16:74, p. 136 in our edition",
+          "classification": "author_self_reference_present_but_specific_work_identification_unverified"
+        }
+      ],
+      "inputCellSha256": "f3e03c2df481fe2de36020aee7ff14f89baf669e42bf94ae0c34c502649daba3",
+      "reasonCode": "quarantined_unsupported_identity",
+      "reason": "An unnamed authorial self-reference was converted into a specific unverified historical source identification.",
+      "outputCellSha256": "558226ebdfb2f5dbf09d4a13d6ef47e52f21643dc8c92e27516cb190bdfc2109"
+    },
+    {
+      "file": "5-2.json",
+      "rowIndex": 5,
+      "rowN": 3,
+      "phraseIndex": 18,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 1,
+      "dataRef": "Tzidkat HaTzadik 80:1",
+      "outerHTML": "<a data-ref=\"Tzidkat HaTzadik 80:1\">הָעִזִּים שֶׁגָּלְשׁוּ</a>",
+      "innerHTML": "הָעִזִּים שֶׁגָּלְשׁוּ",
+      "sourceNoteNumbers": [
+        1617,
+        1618,
+        2639
+      ],
+      "sourceEvidence": [
+        {
+          "number": 2639,
+          "sourceId": "DT-2639",
+          "candidateId": "5-2/row5/note2639/p0",
+          "status": "removed_unverified_parallel",
+          "citationLabel": "Tzidkat HaTzadik 80:1",
+          "classification": null
+        }
+      ],
+      "inputCellSha256": "807185f28cb391b71c336537357e1a0a4ee9afff768f3cd1645633bd170369a1",
+      "reasonCode": "removed_unverified_parallel",
+      "reason": "An added conceptual parallel was promoted into a body-text citation without an authorial identification.",
+      "outputCellSha256": "11af5a3b31a04c9e5a74fef935b724962e54d7b472689f35bf1d748554a98490"
+    },
+    {
+      "file": "5-3.json",
+      "rowIndex": 5,
+      "rowN": 3,
+      "phraseIndex": 9,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Mei HaShiloach, Volume II, Talmud, Megillah 18a:1",
+      "outerHTML": "<a data-ref=\"Mei HaShiloach, Volume II, Talmud, Megillah 18a:1\">מְגִלָּה דַּף י״ח עַמּוּד א׳</a>",
+      "innerHTML": "מְגִלָּה דַּף י״ח עַמּוּד א׳",
+      "sourceNoteNumbers": [
+        1684,
+        2642
+      ],
+      "sourceEvidence": [
+        {
+          "number": 2642,
+          "sourceId": "DT-2642",
+          "candidateId": "5-3/row5/note2642/p0",
+          "status": "removed_unverified_parallel",
+          "citationLabel": "Mei HaShiloach, Volume II, Talmud, Megillah 18a:1",
+          "classification": null
+        }
+      ],
+      "inputCellSha256": "769bc29ad6885b45cf8e682df935583181faca85ec2b36aa686fa51649f074f9",
+      "reasonCode": "removed_unverified_parallel",
+      "reason": "An added conceptual parallel was promoted into a body-text citation without an authorial identification.",
+      "outputCellSha256": "3beb50daad0263868bfecaaea6c88afdbbf2621f3cb1b7c6b2ae53337d70dcb0"
+    },
+    {
+      "file": "5-3.json",
+      "rowIndex": 7,
+      "rowN": 4,
+      "phraseIndex": 3,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Machshavot Charutz 15:18",
+      "outerHTML": "<a data-ref=\"Machshavot Charutz 15:18\">וְתוֹרָה שֶׁבִּכְתָב וְשֶׁבְּעַל פֶּה, וּכְמוֹ שֶׁכָּתַבְתִּי בְּמָקוֹם אַחֵר</a>",
+      "innerHTML": "וְתוֹרָה שֶׁבִּכְתָב וְשֶׁבְּעַל פֶּה, וּכְמוֹ שֶׁכָּתַבְתִּי בְּמָקוֹם אַחֵר",
+      "sourceNoteNumbers": [
+        1692
+      ],
+      "sourceEvidence": [
+        {
+          "number": 1692,
+          "sourceId": "DT-1692",
+          "candidateId": "5-3/row7/note1692/p0",
+          "status": "quarantined_unsupported_identity",
+          "citationLabel": "Machshavos Charutz 15:18, p. 126 in our edition",
+          "classification": "author_self_reference_present_but_specific_work_identification_unverified"
+        }
+      ],
+      "inputCellSha256": "ce11688f3b0e386096ce1ce668050d94e7fadaf3f1132a127ae4762e5d40121d",
+      "reasonCode": "quarantined_unsupported_identity",
+      "reason": "An unnamed authorial self-reference was converted into a specific unverified historical source identification.",
+      "outputCellSha256": "d69e6509aea785827d68f3e311dedc65b232e24fffa3aef9a1c290007bdac2f4"
+    },
+    {
+      "file": "5-4.json",
+      "rowIndex": 23,
+      "rowN": 12,
+      "phraseIndex": 12,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Kometz HaMinchah II, 12",
+      "outerHTML": "<a data-ref=\"Kometz HaMinchah II, 12\">כְּמוֹ שֶׁכָּתַבְתִּי בְּמָקוֹם אַחֵר שֶׁעַמּוּד הַתּוֹרָה הוּא נֶגֶד הַתַּאֲוָה</a>",
+      "innerHTML": "כְּמוֹ שֶׁכָּתַבְתִּי בְּמָקוֹם אַחֵר שֶׁעַמּוּד הַתּוֹרָה הוּא נֶגֶד הַתַּאֲוָה",
+      "sourceNoteNumbers": [
+        1897
+      ],
+      "sourceEvidence": [
+        {
+          "number": 1897,
+          "sourceId": "DT-1897",
+          "candidateId": "5-4/row23/note1897/p0",
+          "status": "quarantined_unsupported_identity",
+          "citationLabel": "Kometz HaMinchah II, 12, below, p. 310",
+          "classification": "author_self_reference_present_but_specific_work_identification_unverified"
+        }
+      ],
+      "inputCellSha256": "7e1e27463fd0f7cff095a637a07434d0ffde878939b095b4b53ef4a2d064eeb6",
+      "reasonCode": "quarantined_unsupported_identity",
+      "reason": "An unnamed authorial self-reference was converted into a specific unverified historical source identification.",
+      "outputCellSha256": "7e3d20340ac56a964e1a3bc4bb9aca8211d13640cf1352b3f830e1b835c9fb83"
+    },
+    {
+      "file": "5-4.json",
+      "rowIndex": 27,
+      "rowN": 14,
+      "phraseIndex": 15,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 1,
+      "dataRef": "Machshavot Charutz 11:11",
+      "outerHTML": "<a data-ref=\"Machshavot Charutz 11:11\">וְהַזְּקֵנִים, לְפִי שֶׁקִּבְּלוּ מִמֶּנּוּ, לֹא הָיוּ יְכוֹלִים לְהִתְנַבְּאוֹת זֶה</a>",
+      "innerHTML": "וְהַזְּקֵנִים, לְפִי שֶׁקִּבְּלוּ מִמֶּנּוּ, לֹא הָיוּ יְכוֹלִים לְהִתְנַבְּאוֹת זֶה",
+      "sourceNoteNumbers": [
+        1924,
+        1925
+      ],
+      "sourceEvidence": [
+        {
+          "number": 1924,
+          "sourceId": "DT-1924",
+          "candidateId": "5-4/row27/note1924/p0",
+          "status": "quarantined_unsupported_identity",
+          "citationLabel": "Machshavos Charutz 11:11, p. 96 in our edition",
+          "classification": "unmarked_added_concept_parallel_attached_to_different_primary_source"
+        }
+      ],
+      "inputCellSha256": "c0c064fb67b2c79c9d347ea34c9b16713439fef8009bd46884a4a8f12f2b5a3c",
+      "reasonCode": "quarantined_unsupported_identity",
+      "reason": "An unnamed authorial self-reference was converted into a specific unverified historical source identification.",
+      "outputCellSha256": "5852c778414e6409c89bef3d7bbe9589968771b2e0b4dd10781040bed494e4a5"
+    },
+    {
+      "file": "5-4.json",
+      "rowIndex": 35,
+      "rowN": 18,
+      "phraseIndex": 2,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Yisrael Kedoshim 6:23",
+      "outerHTML": "<a data-ref=\"Yisrael Kedoshim 6:23\">דַּף ק״ד עַמּוּד א׳</a>",
+      "innerHTML": "דַּף ק״ד עַמּוּד א׳",
+      "sourceNoteNumbers": [
+        1952
+      ],
+      "sourceEvidence": [
+        {
+          "number": 1952,
+          "sourceId": "DT-1952",
+          "candidateId": "5-4/row35/note1952/p0",
+          "status": "quarantined_unsupported_identity",
+          "citationLabel": "Yisrael Kedoshim 6:23, p. 59 in our edition",
+          "classification": "author_self_reference_present_but_specific_work_identification_unverified"
+        }
+      ],
+      "inputCellSha256": "2c0efd9b05758a4c1ea3d335669c0e18cb35905c3cd5e901ab04d7f358e4bab5",
+      "reasonCode": "quarantined_unsupported_identity",
+      "reason": "An unnamed authorial self-reference was converted into a specific unverified historical source identification.",
+      "outputCellSha256": "64d0c64a3a33de74b829e8368afa0555ba0c8c4a09a669ce91ae42f941872d9e"
+    },
+    {
+      "file": "5-4.json",
+      "rowIndex": 45,
+      "rowN": 23,
+      "phraseIndex": 9,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Yisrael Kedoshim 6:29",
+      "outerHTML": "<a data-ref=\"Yisrael Kedoshim 6:29\">כִּי הַהַבְלָא דְּגַרְמֵי מִתְלַבֵּשׁ בְּהַבְלָא דְּגַרְמֵי שֶׁלּוֹ שֶׁהוּא בְּסֵדֶר אֵיבְרֵי גּוּפוֹ</a>",
+      "innerHTML": "כִּי הַהַבְלָא דְּגַרְמֵי מִתְלַבֵּשׁ בְּהַבְלָא דְּגַרְמֵי שֶׁלּוֹ שֶׁהוּא בְּסֵדֶר אֵיבְרֵי גּוּפוֹ",
+      "sourceNoteNumbers": [
+        2651
+      ],
+      "sourceEvidence": [
+        {
+          "number": 2651,
+          "sourceId": "DT-2651",
+          "candidateId": "5-4/row45/note2651/p0",
+          "status": "removed_unverified_parallel",
+          "citationLabel": "Yisrael Kedoshim 6:29",
+          "classification": null
+        }
+      ],
+      "inputCellSha256": "10b95875085a89ef59673e21972c451a3d3605acb23dbe1c8ab87ed6bbaa7004",
+      "reasonCode": "removed_unverified_parallel",
+      "reason": "An added conceptual parallel was promoted into a body-text citation without an authorial identification.",
+      "outputCellSha256": "bc5d05bb3dc06d7a6a59c09692a3f7487a761f42b492ca79900c6e2bc0d32d68"
+    },
+    {
+      "file": "5-4.json",
+      "rowIndex": 47,
+      "rowN": 24,
+      "phraseIndex": 1,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Peri Tzadik, Miketz 14:1",
+      "outerHTML": "<a data-ref=\"Peri Tzadik, Miketz 14:1\">שֶׁכָּל כֹּחוֹתָיו מִמֶּנּוּ</a>",
+      "innerHTML": "שֶׁכָּל כֹּחוֹתָיו מִמֶּנּוּ",
+      "sourceNoteNumbers": [
+        2652
+      ],
+      "sourceEvidence": [
+        {
+          "number": 2652,
+          "sourceId": "DT-2652",
+          "candidateId": "5-4/row47/note2652/p0",
+          "status": "removed_unverified_parallel",
+          "citationLabel": "Peri Tzadik, Miketz 14:1",
+          "classification": null
+        }
+      ],
+      "inputCellSha256": "aec7edcf8bf6166f64e8bc92af42eb53f0a9e76ea88c0d5b4690d18b03dcd177",
+      "reasonCode": "removed_unverified_parallel",
+      "reason": "An added conceptual parallel was promoted into a body-text citation without an authorial identification.",
+      "outputCellSha256": "4edd75ddfbed98a141979fee42401270c902d57c53c6e2f459eecdfc1bb33c20"
+    },
+    {
+      "file": "5-4.json",
+      "rowIndex": 49,
+      "rowN": 25,
+      "phraseIndex": 7,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Peri Tzadik, Rosh Chodesh Adar 7:1",
+      "outerHTML": "<a data-ref=\"Peri Tzadik, Rosh Chodesh Adar 7:1\">שֶׁהוּא הָאַחֲרוֹן גַּם כֵּן בַּדְּגָלִים</a>",
+      "innerHTML": "שֶׁהוּא הָאַחֲרוֹן גַּם כֵּן בַּדְּגָלִים",
+      "sourceNoteNumbers": [
+        2653
+      ],
+      "sourceEvidence": [
+        {
+          "number": 2653,
+          "sourceId": "DT-2653",
+          "candidateId": "5-4/row49/note2653/p0",
+          "status": "removed_unverified_parallel",
+          "citationLabel": "Peri Tzadik, Rosh Chodesh Adar 7:1",
+          "classification": null
+        }
+      ],
+      "inputCellSha256": "ffdc73bd05d3acc8e64ed81bad28b6427ae9360437f40c1311ef04351210e9a0",
+      "reasonCode": "removed_unverified_parallel",
+      "reason": "An added conceptual parallel was promoted into a body-text citation without an authorial identification.",
+      "outputCellSha256": "2b816774632b008ab2d17aecae35d0bf108767fd866b0137a652d03b8baa97f9"
+    },
+    {
+      "file": "5-4.json",
+      "rowIndex": 79,
+      "rowN": 40,
+      "phraseIndex": 11,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Mei HaShiloach, Volume I, Exodus, Ki Tisa 5",
+      "outerHTML": "<a data-ref=\"Mei HaShiloach, Volume I, Exodus, Ki Tisa 5\">וְהוּא בָּעֹרֶף, כְּמוֹ שֶׁשָּׁמַעְתִּי בְּפֵרוּשׁ \"קְשֵׁה עֹרֶף\", וְאֵין כָּאן מְקוֹמוֹ</a>",
+      "innerHTML": "וְהוּא בָּעֹרֶף, כְּמוֹ שֶׁשָּׁמַעְתִּי בְּפֵרוּשׁ \"קְשֵׁה עֹרֶף\", וְאֵין כָּאן מְקוֹמוֹ",
+      "sourceNoteNumbers": [
+        2657,
+        2658
+      ],
+      "sourceEvidence": [
+        {
+          "number": 2657,
+          "sourceId": "DT-2657",
+          "candidateId": "5-4/row79/note2657/p0",
+          "status": "removed_unverified_parallel",
+          "citationLabel": "Mei HaShiloach, Volume I, Exodus, Ki Tisa 5",
+          "classification": null
+        },
+        {
+          "number": 2658,
+          "sourceId": "DT-2658",
+          "candidateId": "5-4/row79/note2658/p0",
+          "status": "removed_unverified_parallel",
+          "citationLabel": "Likkutei Maamarim, Compositions on the Festivals 16:29",
+          "classification": null
+        }
+      ],
+      "inputCellSha256": "675ba3a6c2b450eff2b9a54703a9d75b988e692544cd04afbaf218bd2eff8a30",
+      "reasonCode": "removed_unverified_parallel",
+      "reason": "An added conceptual parallel was promoted into a body-text citation without an authorial identification.",
+      "outputCellSha256": "16ef034b7d786c4809005c802760a0680b2e8f330f5363314f07e6d9e60965ca"
+    },
+    {
+      "file": "5-4.json",
+      "rowIndex": 91,
+      "rowN": 47,
+      "phraseIndex": 5,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Likkutei Maamarim, Upon Completion of Talmud 3",
+      "outerHTML": "<a data-ref=\"Likkutei Maamarim, Upon Completion of Talmud 3\">רֵישׁ מַסֶּכֶת אָבוֹת</a>",
+      "innerHTML": "רֵישׁ מַסֶּכֶת אָבוֹת",
+      "sourceNoteNumbers": [
+        2663
+      ],
+      "sourceEvidence": [
+        {
+          "number": 2663,
+          "sourceId": "DT-2663",
+          "candidateId": "5-4/row91/note2663/p0",
+          "status": "removed_unverified_parallel",
+          "citationLabel": "Likkutei Maamarim, Upon Completion of Talmud 3",
+          "classification": null
+        }
+      ],
+      "inputCellSha256": "d9b3eafe233ea6d88244695410e05361ec8dead303cdaec9ca3ddd26f9dbab83",
+      "reasonCode": "removed_unverified_parallel",
+      "reason": "An added conceptual parallel was promoted into a body-text citation without an authorial identification.",
+      "outputCellSha256": "78fc12ca741327c4773148a1cad5532c398d203779bc88ccdf34f6cdca14c892"
+    },
+    {
+      "file": "5-4.json",
+      "rowIndex": 117,
+      "rowN": 62,
+      "phraseIndex": 7,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Kometz HaMinchah I, 29",
+      "outerHTML": "<a data-ref=\"Kometz HaMinchah I, 29\">דַּף ר׳ עַמּוּד א׳</a>",
+      "innerHTML": "דַּף ר׳ עַמּוּד א׳",
+      "sourceNoteNumbers": [
+        2125
+      ],
+      "sourceEvidence": [
+        {
+          "number": 2125,
+          "sourceId": "DT-2125",
+          "candidateId": "5-4/row117/note2125/p0",
+          "status": "quarantined_unsupported_identity",
+          "citationLabel": "Kometz HaMinchah I, 29, below, p. 284",
+          "classification": "author_self_reference_present_but_specific_work_identification_unverified"
+        }
+      ],
+      "inputCellSha256": "730068e75d0444ab6cc1b42f57d42e7a0a9f6a42e0a538c5d167a9e3ef434af1",
+      "reasonCode": "quarantined_unsupported_identity",
+      "reason": "An unnamed authorial self-reference was converted into a specific unverified historical source identification.",
+      "outputCellSha256": "be215eb98d92b773f1072f17583fc7c5dc213a537887ea3de483b71b8abb0263"
+    },
+    {
+      "file": "5-4.json",
+      "rowIndex": 119,
+      "rowN": 64,
+      "phraseIndex": 6,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 3,
+      "dataRef": "Above, section 11",
+      "outerHTML": "<a data-ref=\"Above, section 11\">דַּף ז׳ עַמּוּד א׳</a>",
+      "innerHTML": "דַּף ז׳ עַמּוּד א׳",
+      "sourceNoteNumbers": [
+        2132,
+        2133,
+        2134,
+        2135
+      ],
+      "sourceEvidence": [],
+      "inputCellSha256": "fb8f6ad2e15dcaa0b8af919da8ffadbae8ed46fc74c10a61700c94d0267066ae",
+      "reasonCode": "editorial_pseudo_target",
+      "reason": "Editorial cross-reference is attached to the explicitly cited Chullin 7a folio, asserting a different target.",
+      "outputCellSha256": "fbb50626ef9dd5337ac0c0bd520b03ce117980393ecdb6fc5e84292b020b404a"
+    },
+    {
+      "file": "5-4.json",
+      "rowIndex": 119,
+      "rowN": 64,
+      "phraseIndex": 10,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Mei HaShiloach, Volume I, Talmud, Megillah 12b:1",
+      "outerHTML": "<a data-ref=\"Mei HaShiloach, Volume I, Talmud, Megillah 12b:1\">כְּמוֹ שֶׁשָּׁמַעְתִּי עַל פָּסוּק: עֲרֻמָּה וְלֹא בָאָה, כִּי בָּעוֹלָם הַזֶּה אִי אֶפְשָׁר בְּלֹא לְבוּשׁ</a>",
+      "innerHTML": "כְּמוֹ שֶׁשָּׁמַעְתִּי עַל פָּסוּק: עֲרֻמָּה וְלֹא בָאָה, כִּי בָּעוֹלָם הַזֶּה אִי אֶפְשָׁר בְּלֹא לְבוּשׁ",
+      "sourceNoteNumbers": [
+        2137,
+        2666
+      ],
+      "sourceEvidence": [
+        {
+          "number": 2666,
+          "sourceId": "DT-2666",
+          "candidateId": "5-4/row119/note2666/p0",
+          "status": "removed_unverified_parallel",
+          "citationLabel": "Mei HaShiloach, Volume I, Talmud, Megillah 12b:1",
+          "classification": null
+        }
+      ],
+      "inputCellSha256": "50b40b2cea4bee21e3a1d0730d0f302c5eb2454b1f54fea15b207ea56524d813",
+      "reasonCode": "removed_unverified_parallel",
+      "reason": "An added conceptual parallel was promoted into a body-text citation without an authorial identification.",
+      "outputCellSha256": "0d5adcaddd0a8614bfd5819edd4fe496125c89fcf2b789536775197df1a5a6c1"
+    },
+    {
+      "file": "5-4.json",
+      "rowIndex": 119,
+      "rowN": 64,
+      "phraseIndex": 16,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Dover Tzedek, Miscellany 4:64 (Manuscript Note)",
+      "outerHTML": "<a data-ref=\"Dover Tzedek, Miscellany 4:64 (Manuscript Note)\">נִמְחַק אֵיזֶה תֵּבוֹת</a>",
+      "innerHTML": "נִמְחַק אֵיזֶה תֵּבוֹת",
+      "sourceNoteNumbers": [
+        2143,
+        2144
+      ],
+      "sourceEvidence": [],
+      "inputCellSha256": "4bd73845ca47bcad32d4f09960e11597ccbf6f147d598321b9d746f7053a35fe",
+      "reasonCode": "editorial_pseudo_target",
+      "reason": "Manuscript-erasure annotation is an editorial pseudo-target; preserve the annotation text and note without a corpus link.",
+      "outputCellSha256": "89bd3e6eeb83428f90fff6f9eab21238dab83c3b63b931b80f4ab513f527f0d4"
+    },
+    {
+      "file": "5-4.json",
+      "rowIndex": 127,
+      "rowN": 68,
+      "phraseIndex": 3,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 1,
+      "dataRef": "Kometz HaMinchah II, 79",
+      "outerHTML": "<a data-ref=\"Kometz HaMinchah II, 79\">שִׁיר הַשִּׁירִים רַבָּה פָּרָשָׁה ו׳ פִּסְקָא י׳</a>",
+      "innerHTML": "שִׁיר הַשִּׁירִים רַבָּה פָּרָשָׁה ו׳ פִּסְקָא י׳",
+      "sourceNoteNumbers": [
+        2154,
+        2155
+      ],
+      "sourceEvidence": [
+        {
+          "number": 2155,
+          "sourceId": "DT-2155",
+          "candidateId": "5-4/row127/note2155/p0",
+          "status": "quarantined_unsupported_identity",
+          "citationLabel": "Kometz HaMinchah II, 79, p. 382, note 609",
+          "classification": "unmarked_added_concept_parallel_attached_to_different_primary_source"
+        }
+      ],
+      "inputCellSha256": "8686d8ed1dc5e2e9463bc459a176d58b153f798264a72c8c353cf22888c2089f",
+      "reasonCode": "quarantined_unsupported_identity",
+      "reason": "An unnamed authorial self-reference was converted into a specific unverified historical source identification.",
+      "outputCellSha256": "95e4d346431a311d0d98dec1932145d39e3ca5069202e246514d82ea7b80a9c8"
+    },
+    {
+      "file": "5-4.json",
+      "rowIndex": 145,
+      "rowN": 77,
+      "phraseIndex": 16,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Takanat HaShavin 10:23",
+      "outerHTML": "<a data-ref=\"Takanat HaShavin 10:23\">דַּף נ׳ עַמּוּד א׳</a>",
+      "innerHTML": "דַּף נ׳ עַמּוּד א׳",
+      "sourceNoteNumbers": [
+        2200,
+        2201
+      ],
+      "sourceEvidence": [
+        {
+          "number": 2200,
+          "sourceId": "DT-2200",
+          "candidateId": "5-4/row145/note2200/p0",
+          "status": "quarantined_unsupported_identity",
+          "citationLabel": "Takanas HaShavin 10:23, p. 122 in our edition",
+          "classification": "author_self_reference_present_but_specific_work_identification_unverified"
+        }
+      ],
+      "inputCellSha256": "31237231b2b66665f1cd263b6621bb9153df85f3abb5da2cae638ea7ebf0007e",
+      "reasonCode": "quarantined_unsupported_identity",
+      "reason": "An unnamed authorial self-reference was converted into a specific unverified historical source identification.",
+      "outputCellSha256": "b5e07f559a5026133b2e28b18b9b222d755d55a5d09994e6b1720e61f0e13a5b"
+    },
+    {
+      "file": "5-4.json",
+      "rowIndex": 157,
+      "rowN": 83,
+      "phraseIndex": 0,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Takanat HaShavin 6:9",
+      "outerHTML": "<a data-ref=\"Takanat HaShavin 6:9\">דַּף כ׳ עַמּוּד ב׳</a>",
+      "innerHTML": "דַּף כ׳ עַמּוּד ב׳",
+      "sourceNoteNumbers": [
+        2240,
+        2241
+      ],
+      "sourceEvidence": [
+        {
+          "number": 2240,
+          "sourceId": "DT-2240",
+          "candidateId": "5-4/row157/note2240/p0",
+          "status": "quarantined_unsupported_identity",
+          "citationLabel": "Takanas HaShavin 6:9, p. 39 in our edition",
+          "classification": "author_self_reference_present_but_specific_work_identification_unverified"
+        }
+      ],
+      "inputCellSha256": "74fee1b415f8f2c2eca0c032e999ba9d1a8f3114aaece3732f5580a7f91ae816",
+      "reasonCode": "quarantined_unsupported_identity",
+      "reason": "An unnamed authorial self-reference was converted into a specific unverified historical source identification.",
+      "outputCellSha256": "8f1105c99ede03e65ece63d7dc1f8716d118bea071e6a558c8e14a708669ff97"
+    },
+    {
+      "file": "5-4.json",
+      "rowIndex": 175,
+      "rowN": 92,
+      "phraseIndex": 8,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Peri Tzadik, Motzei Yom Kippur 11:1",
+      "outerHTML": "<a data-ref=\"Peri Tzadik, Motzei Yom Kippur 11:1\">כְּמוֹ שֶׁשָּׁמַעְתִּי פֵּרוּשׁוֹ: \"אַלִּיבָּא\" בְּכָל מָקוֹם רַק עַל לֵב, וְרָצָה לוֹמַר עִם לֵב וְשֹׁרֶשׁ הַמַּעֲשֶׂה</a>",
+      "innerHTML": "כְּמוֹ שֶׁשָּׁמַעְתִּי פֵּרוּשׁוֹ: \"אַלִּיבָּא\" בְּכָל מָקוֹם רַק עַל לֵב, וְרָצָה לוֹמַר עִם לֵב וְשֹׁרֶשׁ הַמַּעֲשֶׂה",
+      "sourceNoteNumbers": [
+        2673
+      ],
+      "sourceEvidence": [
+        {
+          "number": 2673,
+          "sourceId": "DT-2673",
+          "candidateId": "5-4/row175/note2673/p0",
+          "status": "removed_unverified_parallel",
+          "citationLabel": "Peri Tzadik, Motzei Yom Kippur 11:1",
+          "classification": null
+        }
+      ],
+      "inputCellSha256": "057763b7caadff2ee0fd48e4fe42d029d2d2c0265f5a0b4d4ce85e6e4ee4a47a",
+      "reasonCode": "removed_unverified_parallel",
+      "reason": "An added conceptual parallel was promoted into a body-text citation without an authorial identification.",
+      "outputCellSha256": "0d7983f1f2205fd3364be996e02cb9bf44ce0fafde88bb0b45bf7183acb9a7f3"
+    },
+    {
+      "file": "5-4.json",
+      "rowIndex": 175,
+      "rowN": 92,
+      "phraseIndex": 19,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Resisei Layla 48:5",
+      "outerHTML": "<a data-ref=\"Resisei Layla 48:5\">וְכָל דָּבָר נִדּוֹן אַחַר עִקָּרוֹ</a>",
+      "innerHTML": "וְכָל דָּבָר נִדּוֹן אַחַר עִקָּרוֹ",
+      "sourceNoteNumbers": [
+        2294
+      ],
+      "sourceEvidence": [
+        {
+          "number": 2294,
+          "sourceId": "DT-2294",
+          "candidateId": "5-4/row175/note2294/p0",
+          "status": "quarantined_unsupported_identity",
+          "citationLabel": "Resisei Layla 48:5, p. 119 in our edition",
+          "classification": "author_self_reference_present_but_specific_work_identification_unverified"
+        }
+      ],
+      "inputCellSha256": "86d1bd5e944b81dd60c5a4f338cc16bda670fa0e677d28ad368b1a7d6e2b9a38",
+      "reasonCode": "quarantined_unsupported_identity",
+      "reason": "An unnamed authorial self-reference was converted into a specific unverified historical source identification.",
+      "outputCellSha256": "2d71e473365835446dc6c0b2a91c76df72cb7a51e330ca171f7641e571706dfe"
+    },
+    {
+      "file": "5-4.json",
+      "rowIndex": 207,
+      "rowN": 108,
+      "phraseIndex": 11,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Likkutei Maamarim, the address for completing the Talmud",
+      "outerHTML": "<a data-ref=\"Likkutei Maamarim, the address for completing the Talmud\">דַּף ג׳ עַמּוּד א׳</a>",
+      "innerHTML": "דַּף ג׳ עַמּוּד א׳",
+      "sourceNoteNumbers": [
+        2349
+      ],
+      "sourceEvidence": [
+        {
+          "number": 2349,
+          "sourceId": "DT-2349",
+          "candidateId": "5-4/row207/note2349/p0",
+          "status": "quarantined_unsupported_identity",
+          "citationLabel": "Likkutei Maamarim, the address for completing the Talmud, p. 429 in our edition",
+          "classification": "author_self_reference_present_but_specific_work_identification_unverified"
+        }
+      ],
+      "inputCellSha256": "d8fc649eb62edabe612ce78ab5a951aea981ff34ff78179692e4bcad11dc116b",
+      "reasonCode": "quarantined_unsupported_identity",
+      "reason": "An unnamed authorial self-reference was converted into a specific unverified historical source identification.",
+      "outputCellSha256": "33874f51484022a6fb17a62f0e81fd68c6143b57eecb47f52eb36a009c3dcae8"
+    },
+    {
+      "file": "5-4.json",
+      "rowIndex": 207,
+      "rowN": 108,
+      "phraseIndex": 45,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Tzidkat HaTzadik 263:1",
+      "outerHTML": "<a data-ref=\"Tzidkat HaTzadik 263:1\">דַּף ל״ג סוֹף עַמּוּד ב׳</a>",
+      "innerHTML": "דַּף ל״ג סוֹף עַמּוּד ב׳",
+      "sourceNoteNumbers": [
+        2680
+      ],
+      "sourceEvidence": [
+        {
+          "number": 2680,
+          "sourceId": "DT-2680",
+          "candidateId": "5-4/row207/note2680/p0",
+          "status": "removed_unverified_parallel",
+          "citationLabel": "Tzidkat HaTzadik 263:1",
+          "classification": null
+        }
+      ],
+      "inputCellSha256": "90a961da459826945bfa6e38c388d67cbe20b83639663a7dcb3828d8b720f33a",
+      "reasonCode": "removed_unverified_parallel",
+      "reason": "An added conceptual parallel was promoted into a body-text citation without an authorial identification.",
+      "outputCellSha256": "82c561ce020fe87bb026274d14ca855e67af0baeda5d057a618433bb0deb216c"
+    },
+    {
+      "file": "5-4.json",
+      "rowIndex": 261,
+      "rowN": 135,
+      "phraseIndex": 14,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Peri Tzadik, Vayetzei 3:3",
+      "outerHTML": "<a data-ref=\"Peri Tzadik, Vayetzei 3:3\">ט' ע\"ב</a>",
+      "innerHTML": "ט' ע\"ב",
+      "sourceNoteNumbers": [
+        2457,
+        2684
+      ],
+      "sourceEvidence": [
+        {
+          "number": 2684,
+          "sourceId": "DT-2684",
+          "candidateId": "5-4/row261/note2684/p0",
+          "status": "removed_unverified_parallel",
+          "citationLabel": "Peri Tzadik, Vayetzei 3:3",
+          "classification": null
+        }
+      ],
+      "inputCellSha256": "c6f9462d176694dbcc7e4093b57d56d0d76d1fd6425380167a2830f2a28141eb",
+      "reasonCode": "removed_unverified_parallel",
+      "reason": "An added conceptual parallel was promoted into a body-text citation without an authorial identification.",
+      "outputCellSha256": "d0f6c946753d72bd38ca4740c28db5ef68549596a8409ab7197911e8ead84b59"
+    },
+    {
+      "file": "5-4.json",
+      "rowIndex": 283,
+      "rowN": 146,
+      "phraseIndex": 12,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Likkutei Maamarim, the discourse on Samson, section 28",
+      "outerHTML": "<a data-ref=\"Likkutei Maamarim, the discourse on Samson, section 28\">בְּשָׁלֹשׁ</a>",
+      "innerHTML": "בְּשָׁלֹשׁ",
+      "sourceNoteNumbers": [
+        2509
+      ],
+      "sourceEvidence": [
+        {
+          "number": 2509,
+          "sourceId": "DT-2509",
+          "candidateId": "5-4/row283/note2509/p0",
+          "status": "quarantined_unsupported_identity",
+          "citationLabel": "Likkutei Maamarim, the discourse on Samson, section 28, p. 169 in our edition",
+          "classification": "author_self_reference_present_but_specific_work_identification_unverified"
+        }
+      ],
+      "inputCellSha256": "9b042ad515933182d721e1ba29e2657f05b15103702862ee30f69560bca205c3",
+      "reasonCode": "quarantined_unsupported_identity",
+      "reason": "An unnamed authorial self-reference was converted into a specific unverified historical source identification.",
+      "outputCellSha256": "fdb99ded70ce0687f5608c716043d0c475d9ba359432ef6950ac939edbaf8226"
+    },
+    {
+      "file": "5-4.json",
+      "rowIndex": 285,
+      "rowN": 147,
+      "phraseIndex": 33,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Poked Akarim 4:12",
+      "outerHTML": "<a data-ref=\"Poked Akarim 4:12\">וּלְכָךְ נִתְיַחֵד עַל יִצְחָק בְּחַיָּיו כִּי הוּא הַתְחָלַת עַמּוּד הַתּוֹרָה כְּמוֹ שֶׁכָּתַבְתִּי בְּמָקוֹם אַחֵר</a>",
+      "innerHTML": "וּלְכָךְ נִתְיַחֵד עַל יִצְחָק בְּחַיָּיו כִּי הוּא הַתְחָלַת עַמּוּד הַתּוֹרָה כְּמוֹ שֶׁכָּתַבְתִּי בְּמָקוֹם אַחֵר",
+      "sourceNoteNumbers": [
+        2522
+      ],
+      "sourceEvidence": [
+        {
+          "number": 2522,
+          "sourceId": "DT-2522",
+          "candidateId": "5-4/row285/note2522/p0",
+          "status": "quarantined_unsupported_identity",
+          "citationLabel": "Poked Akarim 4:12, p. 229 in our edition",
+          "classification": "author_self_reference_present_but_specific_work_identification_unverified"
+        }
+      ],
+      "inputCellSha256": "191dc43f1b0266e7559fb5eed802ece34353431b5343eeab57162912b4a1cf77",
+      "reasonCode": "quarantined_unsupported_identity",
+      "reason": "An unnamed authorial self-reference was converted into a specific unverified historical source identification.",
+      "outputCellSha256": "b1d3010a6551c1c3580b3144a11fbb9205153ecfc636674b76e99cfbcde07630"
+    },
+    {
+      "file": "5-4.json",
+      "rowIndex": 287,
+      "rowN": 148,
+      "phraseIndex": 4,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Machshavot Charutz 20, especially paragraph 16",
+      "outerHTML": "<a data-ref=\"Machshavot Charutz 20, especially paragraph 16\">דְּהִשְׁתַּדְּלוּת הַגּוּף</a>",
+      "innerHTML": "דְּהִשְׁתַּדְּלוּת הַגּוּף",
+      "sourceNoteNumbers": [
+        2523
+      ],
+      "sourceEvidence": [
+        {
+          "number": 2523,
+          "sourceId": "DT-2523",
+          "candidateId": "5-4/row287/note2523/p0",
+          "status": "quarantined_unsupported_identity",
+          "citationLabel": "Machshavos Charutz 20, especially paragraph 16, p. 185 in our edition",
+          "classification": "author_self_reference_present_but_specific_work_identification_unverified"
+        }
+      ],
+      "inputCellSha256": "1268bbb697d0c00da33d085c203746f0079011fc068fc4ca07cb47e143ba3f49",
+      "reasonCode": "quarantined_unsupported_identity",
+      "reason": "An unnamed authorial self-reference was converted into a specific unverified historical source identification.",
+      "outputCellSha256": "d581b9737ec9d5e73573cba8dc43dfccf77f90170fb8f3a9f059accc2790c8b9"
+    }
+  ],
+  "retainExplicitNamedWrappers": [
+    {
+      "file": "1-2.json",
+      "rowIndex": 32,
+      "rowN": 29,
+      "phraseIndex": 3,
+      "language": "he",
+      "languageIndex": 0,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Pri Tzaddik, Vol. 2, Parashat Parah, discourse 5, letter 7",
+      "outerHTML": "<a data-ref=\"Pri Tzaddik, Vol. 2, Parashat Parah, discourse 5, letter 7\">עַיֵּן פְּרִי צַדִּיק חֵלֶק ב׳, לְפָרָשַׁת פָּרָה, מַאֲמָר ה׳, אוֹת ז׳</a>",
+      "innerHTML": "עַיֵּן פְּרִי צַדִּיק חֵלֶק ב׳, לְפָרָשַׁת פָּרָה, מַאֲמָר ה׳, אוֹת ז׳",
+      "sourceNoteNumbers": [
+        2570
+      ],
+      "sourceEvidence": [
+        {
+          "number": 2570,
+          "sourceId": "DT-2570",
+          "candidateId": "1-2/row32/note2570/p0",
+          "status": "retained_primary_or_direct_source_excerpt",
+          "citationLabel": "Pri Tzaddik, Vol. 2, Parashat Parah, discourse 5, letter 7",
+          "classification": null
+        }
+      ],
+      "inputCellSha256": "7f5d0a52ac36cd519400dae85ac1bd44a80d04bdb00d8465efcb38db3ec345c4",
+      "reason": "The body explicitly names Pri Tzaddik, Parashat Parah, discourse 5, letter 7. Preserve the directly named citation and both pre-existing English wrappers."
+    },
+    {
+      "file": "1-2.json",
+      "rowIndex": 32,
+      "rowN": 29,
+      "phraseIndex": 3,
+      "language": "en",
+      "languageIndex": 1,
+      "anchorOrdinalInCell": 0,
+      "dataRef": "Peri Tzadik, Parshat Parah 5",
+      "outerHTML": "<a data-ref=\"Peri Tzadik, Parshat Parah 5\">Pri Tzaddik</a>",
+      "innerHTML": "Pri Tzaddik",
+      "sourceNoteNumbers": [
+        2570
+      ],
+      "sourceEvidence": [
+        {
+          "number": 2570,
+          "sourceId": "DT-2570",
+          "candidateId": "1-2/row32/note2570/p0",
+          "status": "retained_primary_or_direct_source_excerpt",
+          "citationLabel": "Pri Tzaddik, Vol. 2, Parashat Parah, discourse 5, letter 7",
+          "classification": null
+        }
+      ],
+      "inputCellSha256": "01d6275e1671b7ee34a201254ab8473e795a3ccd92cf6be915128a567aa4fbbc",
+      "reason": "The body explicitly names Pri Tzaddik, Parashat Parah, discourse 5, letter 7. Preserve the directly named citation and both pre-existing English wrappers."
+    },
+    {
+      "file": "1-2.json",
+      "rowIndex": 32,
+      "rowN": 29,
+      "phraseIndex": 3,
+      "language": "en",
+      "languageIndex": 1,
+      "anchorOrdinalInCell": 1,
+      "dataRef": "Peri Tzadik, Parshat Parah 5",
+      "outerHTML": "<a data-ref=\"Peri Tzadik, Parshat Parah 5\">, Vol. 2, Parashat Parah, discourse 5</a>",
+      "innerHTML": ", Vol. 2, Parashat Parah, discourse 5",
+      "sourceNoteNumbers": [
+        2570
+      ],
+      "sourceEvidence": [
+        {
+          "number": 2570,
+          "sourceId": "DT-2570",
+          "candidateId": "1-2/row32/note2570/p0",
+          "status": "retained_primary_or_direct_source_excerpt",
+          "citationLabel": "Pri Tzaddik, Vol. 2, Parashat Parah, discourse 5, letter 7",
+          "classification": null
+        }
+      ],
+      "inputCellSha256": "01d6275e1671b7ee34a201254ab8473e795a3ccd92cf6be915128a567aa4fbbc",
+      "reason": "The body explicitly names Pri Tzaddik, Parashat Parah, discourse 5, letter 7. Preserve the directly named citation and both pre-existing English wrappers."
+    }
+  ],
+  "retainOtherBodyWrapperCount": 3671,
+  "counts": {
+    "allBodyWrappersBefore": {
+      "he": 1637,
+      "en": 2097
+    },
+    "allBodyWrappersAfter": {
+      "he": 1577,
+      "en": 2097
+    },
+    "corpusOrLocalCrossReferenceWrappers": 63,
+    "removeWrappers": 60,
+    "removeByLanguage": {
+      "he": 60,
+      "en": 0
+    },
+    "removeByEvidence": {
+      "quarantined_unsupported_identity": 34,
+      "removed_unverified_parallel": 20,
+      "editorial_pseudo_target": 6
+    },
+    "retainExplicitNamedWrappers": 3,
+    "retainOtherBodyWrappers": 3671,
+    "legacyHebrewLinksAddedBefore": 944,
+    "legacyHebrewLinksAddedAfter": 884,
+    "removedHebrewLinks": 60,
+    "visibleTextChanges": 0
+  },
+  "graph": {
+    "existingV2EdgeUnsupportedAfterUnwrap": [
+      {
+        "sectionRef": "Dover Tzedek, Miscellany 4",
+        "edge": {
+          "a": "Dover Tzedek, Miscellany 4:77",
+          "r": "Takanat HaShavin 10:23",
+          "c": "Parallel Sources",
+          "kind": "Supplied translated source parallel",
+          "source": "20261018-dover-revisions-v2"
+        }
+      }
+    ],
+    "otherV2EdgesRetainIndependentPrimaryEvidence": [
+      {
+        "sectionRef": "Dover Tzedek, Miscellany 4",
+        "edge": {
+          "a": "Dover Tzedek, Miscellany 4:78",
+          "r": "Dover Tzedek, Kuntres Dover Tzedek, Eruvin 3:1",
+          "c": "Parallel Sources",
+          "kind": "Supplied translated source parallel",
+          "source": "20261018-dover-revisions-v2"
+        },
+        "independentPrimaryEvidence": {
+          "sourceId": "DT-2212",
+          "file": "5-4.json",
+          "paragraph": 78,
+          "sources": [
+            {
+              "ref": "Above, section 9",
+              "url": "https://www.sefaria.org/Dover_Tzedek%2C_Kuntres_Dover_Tzedek%2C_Eruvin.3.1",
+              "connectionsUrl": "https://www.sefaria.org/api/links/Above%2C%20section%209?with=all",
+              "role": "primary-source"
+            }
+          ],
+          "captionHrefs": [
+            "https://www.sefaria.org/Dover_Tzedek%2C_Kuntres_Dover_Tzedek%2C_Eruvin.3.1"
+          ]
+        }
+      },
+      {
+        "sectionRef": "Dover Tzedek, Miscellany 4",
+        "edge": {
+          "a": "Dover Tzedek, Miscellany 4:156",
+          "r": "Dover Tzedek, Miscellany 3:11",
+          "c": "Parallel Sources",
+          "kind": "Supplied translated source parallel",
+          "source": "20261018-dover-revisions-v2"
+        },
+        "independentPrimaryEvidence": {
+          "sourceId": "DT-2569",
+          "file": "5-4.json",
+          "paragraph": 156,
+          "sources": [
+            {
+              "ref": "Above, Avodah Zarah 3:13",
+              "url": "https://www.sefaria.org/Dover_Tzedek%2C_Miscellany.3.11",
+              "connectionsUrl": "https://www.sefaria.org/api/links/Above%2C%20Avodah%20Zarah%203%3A13?with=all",
+              "role": "primary-source"
+            }
+          ],
+          "captionHrefs": [
+            "https://www.sefaria.org/Dover_Tzedek%2C_Miscellany.3.11"
+          ]
+        }
+      }
+    ],
+    "rule": "Remove the exact impacted edge only if final post-unwrapping body/retained-primary metadata/visible retained-primary-caption evidence supplies no independent support. Newly approved conceptual parallels must not justify a historical-body identity."
+  },
+  "preservationProof": {
+    "worklistBodyRowsMatched": 723,
+    "literalInnerHTMLPreserved": true,
+    "visibleBodyBeforeEqualsAfter": true,
+    "englishBodyHTMLUnchanged": true,
+    "nonTargetBodyHTMLUnchanged": true,
+    "notesMetadataHeadingsUntouched": true,
+    "onlyAuditFilesWritten": true
+  },
+  "implementationNotes": {
+    "cellApplication": "For each target, require row.n===rowN. If cell SHA equals outputCellSha256, skip as already clean. Otherwise require exact inputCellSha256, require outerHTML to occur once, replace that occurrence with literal innerHTML, and require outputCellSha256. Never parse/re-serialize HTML or change other cells.",
+    "sourceBaseline": "Keep sourceManifestSha256 pointing to the unchanged quarantine-removal manifest. Record this wrapper audit as a separate editorial cleanup with its own checksum.",
+    "bodyHashes": "Existing normalized visible heSha256/enSha256 remain unchanged. Preserve original heLinks=1637/addedHebrewLinks=944 as historical pre-unwrapping evidence or recompute current section metrics with 60 explicit wrapper removals; do not claim 944 current extra links.",
+    "freshAndRepeat": "Apply the finite wrapper cleanup before collecting kept_by_anchor graph evidence, including on repeat apply. The script generating this report is a read-only initial-state audit, not the publication helper."
+  }
+}

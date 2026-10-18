@@ -14,6 +14,7 @@ from urllib.parse import urlparse
 RELEASE = '20261018-dover-reviewed-parallels-v3'
 BASE = Path('sources/akiva/overlays/dover-clean-base-20261018.json.gz')
 APPROVED = Path('sources/akiva/footnotes/Dover_Tzedek_Approved_Parallels.json')
+BODY_LINKS = Path('sources/akiva/overlays/dover-reviewed-body-links-20261018.json')
 ROOT = Path('dist/library')
 BOOK = ROOT / 'data/dover-tzedek'
 REPORT = ROOT / 'dover-revisions-report.json'
@@ -92,9 +93,11 @@ def validate_approved(pack):
         raise ValueError('No explicitly approved Dover replacements')
     if pack.get('presentation') != 'english-only':
         raise ValueError('Reviewed additions must be presented in English only')
+    if pack.get('quoteLayout') != 'one-paragraph-per-source':
+        raise ValueError('A reviewed source needs one citation and one quotation paragraph')
     ids, intervals, hebrew, english, whole_sources = set(), [], set(), set(), set()
     for record in records:
-        required = ('id', 'targetSourceId', 'targetPlacementId', 'corpus', 'sourceRef', 'sourceUrl', 'contextAssessment', 'evidence')
+        required = ('id', 'targetSourceId', 'targetPlacementId', 'corpus', 'sourceRef', 'sourceUrl', 'contextAssessment', 'explanatoryValue', 'evidence')
         if any(not record.get(key) for key in required):
             raise ValueError('Incomplete approved replacement: ' + str(record.get('id')))
         if record['id'] in ids:
@@ -152,25 +155,45 @@ def validate_approved(pack):
 def approved_paragraphs(record):
     label = record['corpus'] + ' — ' + (record.get('displayCitation') or record['sourceRef'])
     href = exact_href(record['sourceUrl'])
-    out = []
-    for index, excerpt in enumerate(record.get('excerpts') or [record]):
-        if index:
-            out.append({'text': '[…]', 'language': 'en', 'approvedParallelId': record['id']})
-        rich = [{'text': label, 'bold': True, 'href': href},
-                {'text': ': “' + excerpt['englishQuote'] + '”'}]
-        text = ''.join(run['text'] for run in rich)
-        if re.search(r'[\u0590-\u05ff\ufb1d-\ufb4f]', text):
-            raise ValueError('Hebrew is not allowed in a new English-only addition: ' + record['id'])
-        out.append({'text': text, 'rich': rich,
-                    'language': 'en', 'approvedParallelId': record['id']})
-    return out
+    quote = ' […] '.join(excerpt['englishQuote'] for excerpt in record.get('excerpts') or [record])
+    rich = [{'text': label, 'bold': True, 'href': href}, {'text': ': “' + quote + '”'}]
+    text = ''.join(run['text'] for run in rich)
+    if re.search(r'[\u0590-\u05ff\ufb1d-\ufb4f]', text):
+        raise ValueError('Hebrew is not allowed in a new English-only addition: ' + record['id'])
+    return [{'text': text, 'rich': rich, 'language': 'en', 'approvedParallelId': record['id']}]
+
+
+def remove_unsupported_body_links(rows, file, manifest):
+    """Unwrap only the finite audited guesses; leave the source words intact."""
+    for record in manifest['removeWrappers']:
+        if record['file'] != file:
+            continue
+        row = rows[record['rowIndex']]
+        if row['n'] != record['rowN']:
+            raise ValueError('Reviewed body-link paragraph changed: ' + file)
+        pair = row['p'][record['phraseIndex']]
+        language = record['languageIndex']
+        current = pair[language]
+        if sha(current) == record['outputCellSha256']:
+            continue
+        if sha(current) != record['inputCellSha256'] or current.count(record['outerHTML']) != 1:
+            raise ValueError('Reviewed body-link source changed: ' + file + ':' + str(row['n']))
+        cleaned = current.replace(record['outerHTML'], record['innerHTML'], 1)
+        if sha(cleaned) != record['outputCellSha256'] or visible(cleaned) != visible(current):
+            raise ValueError('Body-link cleanup changed the source words')
+        pair[language] = cleaned
 
 
 def main():
     raw_base = gzip.decompress(BASE.read_bytes())
     base = json.loads(raw_base)
     approved_raw = APPROVED.read_bytes()
-    approved = validate_approved(json.loads(approved_raw))
+    approved_pack = json.loads(approved_raw)
+    body_link_raw = BODY_LINKS.read_bytes()
+    body_links = json.loads(body_link_raw)
+    if approved_pack.get('bodyLinkReviewSha256') != sha(body_link_raw):
+        raise ValueError('Reviewed body-link manifest changed without a reader cache revision')
+    approved = validate_approved(approved_pack)
     legacy = json.loads(REPORT.read_text())
     helpers = runpy.run_path('scripts/publish-dover-revisions.py')
     ref_from_url, ref_key = helpers['reference_from_url'], helpers['ref_key']
@@ -194,6 +217,7 @@ def main():
         rows = json.loads((BOOK / file).read_text())
         if body_info(rows) != {key: section[key] for key in ('heSha256', 'enSha256')}:
             raise ValueError('Main Dover text changed before clean publication: ' + file)
+        remove_unsupported_body_links(rows, file, body_links)
         before_nonnotes = [{key: value for key, value in row.items() if key != 'footnotes'} if isinstance(row, dict) else row for row in rows]
         for row in rows:
             if not isinstance(row, dict) or 'p' not in row:
@@ -254,7 +278,13 @@ def main():
         after_nonnotes = [{key: value for key, value in row.items() if key != 'footnotes'} if isinstance(row, dict) else row for row in rows]
         if before_nonnotes != after_nonnotes:
             raise ValueError('Clean publication altered body/headings/non-note fields')
-        staged[file] = rows; sections.append(section)
+        updated_section = copy.deepcopy(section)
+        removed_he = sum(record['file'] == file and record['languageIndex'] == 0 for record in body_links['removeWrappers'])
+        removed_en = sum(record['file'] == file and record['languageIndex'] == 1 for record in body_links['removeWrappers'])
+        updated_section.update(heLinks=section['heLinks']-removed_he, enLinks=section['enLinks']-removed_en,
+            addedHebrewLinks=section['addedHebrewLinks']-removed_he,
+            removedUnsupportedHebrewLinks=removed_he, removedUnsupportedEnglishLinks=removed_en)
+        staged[file] = rows; sections.append(updated_section)
     links = json.loads((BOOK / 'links.json').read_text())
     removed_links = 0
     for section, records in links.items():
@@ -269,17 +299,20 @@ def main():
               'expectedNotes': sorted(expected, key=lambda note: note['number']),
               'cleanedSourceSha256': sha(raw_base), 'approvedSourcesSha256': sha(approved_raw),
               'reviewedParallels': approved, 'parallelPresentation': 'english-only',
+              'bodyLinkReviewSha256': sha(body_link_raw),
               'quarantinedNumbers': sorted(set(quarantine)-set(restored)),
               'sourceManifestSha256': base['sourceManifestSha256'],
               'counts': {**{key: value for key, value in legacy.get('counts', {}).items()
-                           if key in ('sections', 'contentSections', 'addedHebrewLinks', 'removedHebrewLinks')},
+                           if key in ('sections', 'contentSections', 'removedHebrewLinks')},
                          'notes': len(expected), 'retainedBaseNotes': len(bases),
                          'quarantinedNotes': len(quarantine)-len(restored), 'restoredNotes': len(restored),
                          'retainedBaseParagraphs': sum(len(entry['note']['paragraphs']) for entry in bases.values()),
                          'cleanBaseParagraphsPreserved': True,
                          'addedSourceParagraphs': sum(note['addedParagraphCount'] for note in expected),
                          'approvedReplacements': len(approved), 'rejectedParagraphsRemoved': base['removedParagraphCount'],
-                         'removedUnsupportedConnections': max(removed_links, legacy.get('counts', {}).get('removedUnsupportedConnections', 0)),
+                         'addedHebrewLinks': sum(section['addedHebrewLinks'] for section in sections),
+                         'removedUnsupportedBodyLinks': len(body_links['removeWrappers']),
+                         'removedUnsupportedConnections': removed_links + (legacy.get('counts', {}).get('removedUnsupportedConnections', 0) if legacy.get('release') == RELEASE else 0),
                          'bodyChanges': 0}}
     toc = json.loads((BOOK / 'toc.json').read_text())
     toc['revisedFootnotes'] = {'release': RELEASE, 'notes': len(expected), 'report': REPORT.name}
@@ -292,7 +325,7 @@ def main():
     cache = '20261018-dover-elaboration-sources-revisions-v2-title-paragraphs-v1-headings-v1'
     # Other book publishers prepend their own branches during a fresh build.
     # Match Dover's branch wherever it occurs in the URL resolver.
-    declaration = re.search(r'^const editionDataUrl = .+;$', text, re.M)
+    declaration = re.search(r'^const editionDataUrl = [\s\S]*?;\s*(?=const catalogReady)', text, re.M)
     edition = re.search(r"url\.startsWith\('data/dover-tzedek/'\) \? url \+ '\?edition=([^']+)'", declaration.group(0) if declaration else '')
     if not edition or not edition.group(1).startswith(cache):
         raise ValueError('Dover edition cache key is missing')

@@ -45,7 +45,12 @@ const approved = JSON.parse(approvedBytes.toString('utf8'));
 assert.equal(approved.book, 'Dover Tzedek');
 assert.equal(approved.release, release);
 assert.equal(approved.presentation,'english-only','New footnote additions must be English only');
+assert.equal(approved.quoteLayout,'one-paragraph-per-source','Reviewed source citations must not repeat between excerpts');
 assert.equal(report.parallelPresentation,'english-only','Published addition presentation changed');
+const bodyLinkBytes=fs.readFileSync('sources/akiva/overlays/dover-reviewed-body-links-20261018.json');
+const bodyLinkReview=JSON.parse(bodyLinkBytes.toString('utf8'));
+assert.equal(approved.bodyLinkReviewSha256,byteHash(bodyLinkBytes),'Body-link review requires a current edition revision');
+assert.equal(report.bodyLinkReviewSha256,byteHash(bodyLinkBytes),'Published body-link review changed');
 assert.ok(approved.replacements.length, 'No individually reviewed replacements supplied');
 assert.equal(report.cleanedSourceSha256, byteHash(cleanBytes), 'Clean source checksum changed');
 assert.equal(report.approvedSourcesSha256, byteHash(approvedBytes), 'Approved source checksum changed');
@@ -60,12 +65,7 @@ const refKey = value => String(value).normalize('NFC').toLowerCase().replace(/[\
 const expectedAdditions = replacement => {
   const label = `${replacement.corpus} — ${replacement.displayCitation || replacement.sourceRef}`;
   const passages = replacement.excerpts || [replacement];
-  const paragraphs = [];
-  for (const [index,passage] of passages.entries()) {
-    if (index) paragraphs.push({text:'[…]', language:'en', approvedParallelId:replacement.id});
-    paragraphs.push({text:`${label}: “${passage.englishQuote}”`, language:'en', approvedParallelId:replacement.id});
-  }
-  return paragraphs;
+  return [{text:`${label}: “${passages.map(passage=>passage.englishQuote).join(' […] ')}”`, language:'en', approvedParallelId:replacement.id}];
 };
 for (const replacement of approved.replacements) {
   assert.ok(replacement.id && !approvedIds.has(replacement.id), 'Duplicate approved replacement ID');
@@ -78,6 +78,7 @@ for (const replacement of approved.replacements) {
   assert.ok(key && !canonicalRefs.has(key), 'A canonical source passage is used more than once');
   canonicalRefs.add(key);
   assert.ok(replacement.contextAssessment?.trim(), 'Approved source has no contextual assessment');
+  assert.ok(replacement.explanatoryValue?.trim(),'Approved source does not explain what it adds');
   assert.ok(replacement.evidence?.sourceHebrew?.trim(), 'Approved source has no complete Hebrew context');
   assert.equal(hash(replacement.evidence.sourceHebrew), replacement.evidence.sourceHebrewSha256, 'Approved Hebrew context checksum changed');
   let cursor = 0;
@@ -109,10 +110,16 @@ assert.ok(clean.rejectedTextHashes.length > 5000, 'Historical rejected-paragraph
 assert.ok([...rejectedHashes].every(value=>/^[a-f0-9]{64}$/.test(value)), 'Invalid rejected paragraph checksum');
 assert.equal(report.counts.rejectedParagraphsRemoved, clean.removedParagraphCount);
 assert.equal(report.counts.contentSections, 15);
-assert.equal(report.counts.addedHebrewLinks, 944);
+assert.equal(report.counts.addedHebrewLinks,bodyLinkReview.counts.legacyHebrewLinksAddedAfter);
+assert.equal(report.counts.removedUnsupportedBodyLinks,bodyLinkReview.removeWrappers.length);
 assert.equal(report.counts.bodyChanges, 0);
 assert.equal(report.sections.length, 16);
 assert.equal(clean.sections.length, 16, 'Clean source must anchor every chapter body');
+const reviewedSourceGraph=await json('data/dover-tzedek/links.json');
+for(const {sectionRef,edge} of bodyLinkReview.graph.existingV2EdgeUnsupportedAfterUnwrap)
+  assert.ok(!(reviewedSourceGraph[sectionRef]||[]).some(item=>item.a===edge.a&&item.r===edge.r&&item.source===edge.source),'An unsupported body-link connection survived');
+for(const {sectionRef,edge} of bodyLinkReview.graph.otherV2EdgesRetainIndependentPrimaryEvidence)
+  assert.ok((reviewedSourceGraph[sectionRef]||[]).some(item=>item.a===edge.a&&item.r===edge.r&&item.source===edge.source),'A connection supported by a retained primary quotation was removed');
 const toc = await json('data/dover-tzedek/toc.json');
 assert.equal(toc.revisedFootnotes.release, release);
 assert.equal(toc.revisedFootnotes.notes, finalNumbers.size);
@@ -163,9 +170,20 @@ for (const entry of report.sections) {
   assert.ok(/^\d+(?:-\d+)?\.json$/.test(entry.file), 'Invalid Dover chapter path');
   const baselineSection = clean.sections.find(section=>section.file===entry.file);
   assert.ok(baselineSection, 'No independent body baseline for '+entry.file);
-  for (const key of ['ref','heSha256','enSha256','heLinks','enLinks'])
+  for (const key of ['ref','heSha256','enSha256'])
     assert.equal(entry[key], baselineSection[key], 'Clean body baseline changed '+entry.file+': '+key);
+  const removedBodyLinks=bodyLinkReview.removeWrappers.filter(record=>record.file===entry.file);
+  assert.equal(entry.heLinks,baselineSection.heLinks-removedBodyLinks.filter(record=>record.languageIndex===0).length,'Wrong reviewed Hebrew link count');
+  assert.equal(entry.enLinks,baselineSection.enLinks-removedBodyLinks.filter(record=>record.languageIndex===1).length,'Wrong reviewed English link count');
   const rows = await json('data/dover-tzedek/' + entry.file);
+  for(const record of removedBodyLinks) {
+    const row=rows[record.rowIndex];assert.equal(row.n,record.rowN,'Reviewed body-link row moved');
+    const cell=row.p[record.phraseIndex][record.languageIndex];
+    assert.equal(hash(cell),record.outputCellSha256,'Unsupported guessed body link remains');
+    assert.ok(cell.includes(record.innerHTML),'Source words lost when removing an unsupported link');
+  }
+  for(const record of bodyLinkReview.retainExplicitNamedWrappers.filter(record=>record.file===entry.file))
+    assert.ok(rows[record.rowIndex].p[record.phraseIndex][record.languageIndex].includes(record.outerHTML),'A directly named source link was removed');
   sections.set(entry.file, {entry,rows});
   for (const [language,key] of [[0,'heSha256'],[1,'enSha256']]) {
     const normalized = rows.filter(row=>row.p).map(row=>[row.n,row.p.map(pair=>norm(pair[language]))]);
@@ -313,7 +331,7 @@ assert.equal(outlineTopics,kdpParagraphHeadings+kdpInlineHeadings,'Lost or dupli
 assert.equal(outlineTopics,headingReview.counts.headingsAndSubheadings,'Contents do not cover the reviewed KDP headings and adaptations');
 assert.equal(headingReview.counts.kdpTopics,333,'Expected all KDP source headlines');
 const readerHtml=(await read('index.html')).toString();
-const editionUrlDeclaration=readerHtml.match(/^const editionDataUrl = .+;$/m)?.[0];
+const editionUrlDeclaration=readerHtml.match(/^const editionDataUrl = [\s\S]*?;\s*(?=const catalogReady)/m)?.[0];
 assert.ok(editionUrlDeclaration,'Reader edition URL resolver missing');
 const doverEditionUrl=vm.runInNewContext(editionUrlDeclaration+"\neditionDataUrl('data/dover-tzedek/toc.json')");
 const doverEditionKey=new URL(doverEditionUrl,'https://reader.example/library/').searchParams.get('edition');
@@ -356,7 +374,7 @@ for(const oldContents of [false,true]) {
 assert.equal(seen.size,finalNumbers.size,'Some clean or approved Dover footnotes are missing');
 assert.equal(retainedParagraphs,report.counts.retainedBaseParagraphs,'Lost retained baseline quotations');
 assert.equal(approvedParagraphs,approved.replacements.flatMap(expectedAdditions).length,'Lost approved English paragraphs');
-assert.equal(linksAdded,944,'Missing added Hebrew hyperlinks');
+assert.equal(linksAdded,bodyLinkReview.counts.legacyHebrewLinksAddedAfter,'Missing verified Hebrew hyperlinks');
 console.log(`PASS Dover reviewed data${publicBase?' publicly verified':''}: ${seen.size} anchored notes, ${retainedParagraphs} retained quotation paragraphs, ${approved.replacements.length} distinct approved sources with verified Hebrew evidence and English-only additions; rejected historical paragraphs absent; all chapter bodies, opening and contents preserved (${quoteParagraphs} quotation paragraphs).`);
 if(!publicBase) await checkDoverSourceLinks();
 
