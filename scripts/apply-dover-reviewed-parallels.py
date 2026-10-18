@@ -30,6 +30,12 @@ def sha(value):
     return hashlib.sha256(value if isinstance(value, bytes) else value.encode()).hexdigest()
 
 
+def reviewed_cache_key(value, approved_sha256):
+    suffix = '-dover-reviewed-parallels-v3-' + approved_sha256[:12]
+    previous = r'-dover-reviewed-parallels-v3(?:-[0-9a-f]{12})?(?=-|$)'
+    return re.sub(previous, suffix, value) if re.search(previous, value) else value + suffix
+
+
 def visible(value):
     return html.unescape(re.sub(r'<[^>]*>', '', str(value or '')))
 
@@ -84,6 +90,8 @@ def validate_approved(pack):
     records = pack.get('replacements', [])
     if pack.get('book') != 'Dover Tzedek' or not records:
         raise ValueError('No explicitly approved Dover replacements')
+    if pack.get('presentation') != 'english-only':
+        raise ValueError('Reviewed additions must be presented in English only')
     ids, intervals, hebrew, english, whole_sources = set(), [], set(), set(), set()
     for record in records:
         required = ('id', 'targetSourceId', 'targetPlacementId', 'corpus', 'sourceRef', 'sourceUrl', 'contextAssessment', 'evidence')
@@ -147,13 +155,14 @@ def approved_paragraphs(record):
     out = []
     for index, excerpt in enumerate(record.get('excerpts') or [record]):
         if index:
-            out.append({'text': '[…]', 'language': 'he', 'approvedParallelId': record['id']})
-        for language, prefix, quote in (('he', label + ': ', excerpt['hebrewQuote']),
-                                         ('en', 'English translation: ', excerpt['englishQuote'])):
-            rich = [{'text': prefix[:-2], 'bold': True, **({'href': href} if language == 'he' else {})},
-                    {'text': ': “' + quote + '”'}]
-            out.append({'text': ''.join(run['text'] for run in rich), 'rich': rich,
-                        'language': language, 'approvedParallelId': record['id']})
+            out.append({'text': '[…]', 'language': 'en', 'approvedParallelId': record['id']})
+        rich = [{'text': label, 'bold': True, 'href': href},
+                {'text': ': “' + excerpt['englishQuote'] + '”'}]
+        text = ''.join(run['text'] for run in rich)
+        if re.search(r'[\u0590-\u05ff\ufb1d-\ufb4f]', text):
+            raise ValueError('Hebrew is not allowed in a new English-only addition: ' + record['id'])
+        out.append({'text': text, 'rich': rich,
+                    'language': 'en', 'approvedParallelId': record['id']})
     return out
 
 
@@ -259,7 +268,8 @@ def main():
     report = {**legacy, 'release': RELEASE, 'notes': len(expected), 'sections': sections,
               'expectedNotes': sorted(expected, key=lambda note: note['number']),
               'cleanedSourceSha256': sha(raw_base), 'approvedSourcesSha256': sha(approved_raw),
-              'reviewedParallels': approved, 'quarantinedNumbers': sorted(set(quarantine)-set(restored)),
+              'reviewedParallels': approved, 'parallelPresentation': 'english-only',
+              'quarantinedNumbers': sorted(set(quarantine)-set(restored)),
               'sourceManifestSha256': base['sourceManifestSha256'],
               'counts': {**{key: value for key, value in legacy.get('counts', {}).items()
                            if key in ('sections', 'contentSections', 'addedHebrewLinks', 'removedHebrewLinks')},
@@ -280,17 +290,20 @@ def main():
     index = ROOT / 'index.html'
     text = index.read_text()
     cache = '20261018-dover-elaboration-sources-revisions-v2-title-paragraphs-v1-headings-v1'
-    if '-dover-reviewed-parallels-v3' not in text:
-        if cache not in text:
-            raise ValueError('Dover edition cache key is missing')
-        index.write_text(text.replace(cache, cache + '-dover-reviewed-parallels-v3'))
+    edition = re.search(r"^const editionDataUrl = url => url\.startsWith\('data/dover-tzedek/'\) \? url \+ '\?edition=([^']+)'", text, re.M)
+    if not edition or not edition.group(1).startswith(cache):
+        raise ValueError('Dover edition cache key is missing')
+    edition_key = reviewed_cache_key(edition.group(1), report['approvedSourcesSha256'])
+    if edition_key != edition.group(1):
+        index.write_text(text[:edition.start(1)] + edition_key + text[edition.end(1):])
     worker = ROOT / 'sw.js'
     text = worker.read_text()
     shell = re.search(r'^const SHELL = `([^`]+)`;', text, re.M)
     if not shell:
         raise ValueError('Reader shell cache key is missing')
-    if '-dover-reviewed-parallels-v3' not in shell.group(1):
-        worker.write_text(text[:shell.start(1)] + shell.group(1) + '-dover-reviewed-parallels-v3' + text[shell.end(1):])
+    shell_key = reviewed_cache_key(shell.group(1), report['approvedSourcesSha256'])
+    if shell_key != shell.group(1):
+        worker.write_text(text[:shell.start(1)] + shell_key + text[shell.end(1):])
     helpers['refresh_manifest']()
     print(f'Published clean Dover: {len(expected)} notes, {len(approved)} explicitly reviewed sources; {report["counts"]["quarantinedNotes"]} notes quarantined; no rejected parallel blocks.')
 

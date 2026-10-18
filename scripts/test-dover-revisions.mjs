@@ -44,6 +44,8 @@ const approvedBytes = fs.readFileSync('sources/akiva/footnotes/Dover_Tzedek_Appr
 const approved = JSON.parse(approvedBytes.toString('utf8'));
 assert.equal(approved.book, 'Dover Tzedek');
 assert.equal(approved.release, release);
+assert.equal(approved.presentation,'english-only','New footnote additions must be English only');
+assert.equal(report.parallelPresentation,'english-only','Published addition presentation changed');
 assert.ok(approved.replacements.length, 'No individually reviewed replacements supplied');
 assert.equal(report.cleanedSourceSha256, byteHash(cleanBytes), 'Clean source checksum changed');
 assert.equal(report.approvedSourcesSha256, byteHash(approvedBytes), 'Approved source checksum changed');
@@ -60,9 +62,8 @@ const expectedAdditions = replacement => {
   const passages = replacement.excerpts || [replacement];
   const paragraphs = [];
   for (const [index,passage] of passages.entries()) {
-    if (index) paragraphs.push({text:'[…]', language:'he', approvedParallelId:replacement.id});
-    paragraphs.push({text:`${label}: “${passage.hebrewQuote}”`, language:'he', approvedParallelId:replacement.id});
-    paragraphs.push({text:`English translation: “${passage.englishQuote}”`, language:'en', approvedParallelId:replacement.id});
+    if (index) paragraphs.push({text:'[…]', language:'en', approvedParallelId:replacement.id});
+    paragraphs.push({text:`${label}: “${passage.englishQuote}”`, language:'en', approvedParallelId:replacement.id});
   }
   return paragraphs;
 };
@@ -203,11 +204,13 @@ for (const entry of report.sections) {
     const approvedForNote = replacements.get(note.number) || [];
     assert.deepEqual(note.reviewedParallelIds || [], approvedForNote.map(replacement=>replacement.id), 'Wrong approved passage IDs '+label);
     assert.deepEqual(additions.map(({text,language,approvedParallelId})=>({text,language,approvedParallelId})),
-      approvedForNote.flatMap(expectedAdditions), 'Approved Hebrew, translation or context changed '+label);
+      approvedForNote.flatMap(expectedAdditions), 'Approved English translation or context changed '+label);
     approvedParagraphs += additions.length;
     for (const paragraph of additions) {
       assert.ok(approvedIds.has(paragraph.approvedParallelId), 'Unapproved paragraph '+label);
-      if (paragraph.language==='he' && paragraph.text!=='[…]') {
+      assert.equal(paragraph.language,'en','New additions must be English only '+label);
+      assert.ok(!/[\u0590-\u05ff\ufb1d-\ufb4f]/u.test(paragraph.text),'Added Hebrew remains in footnote '+label);
+      if (paragraph.text!=='[…]') {
         const replacement=approvedForNote.find(item=>item.id===paragraph.approvedParallelId);
         const labelText=`${replacement.corpus} — ${replacement.displayCitation || replacement.sourceRef}`;
         const url=new URL(replacement.sourceUrl);
@@ -309,14 +312,20 @@ assert.equal(outlineChapters,15,'All Dover content chapters need section content
 assert.equal(outlineTopics,kdpParagraphHeadings+kdpInlineHeadings,'Lost or duplicated contents heading');
 assert.equal(outlineTopics,headingReview.counts.headingsAndSubheadings,'Contents do not cover the reviewed KDP headings and adaptations');
 assert.equal(headingReview.counts.kdpTopics,333,'Expected all KDP source headlines');
-assert.ok((await read('index.html')).toString().includes('-dover-reviewed-parallels-v3'),'Reviewed Dover edition cache key missing');
+const readerHtml=(await read('index.html')).toString();
+const editionUrlDeclaration=readerHtml.match(/^const editionDataUrl = .+;$/m)?.[0];
+assert.ok(editionUrlDeclaration,'Reader edition URL resolver missing');
+const doverEditionUrl=vm.runInNewContext(editionUrlDeclaration+"\neditionDataUrl('data/dover-tzedek/toc.json')");
+const doverEditionKey=new URL(doverEditionUrl,'https://reader.example/library/').searchParams.get('edition');
+const approvedCacheRevision=report.approvedSourcesSha256.slice(0,12);
+const reviewedCacheRevisions=key=>[...(key||'').matchAll(/-dover-reviewed-parallels-v3(?:-([0-9a-f]{12}))?(?=-|$)/g)].map(match=>match[1]);
+assert.deepEqual(reviewedCacheRevisions(doverEditionKey),[approvedCacheRevision],'Dover edition URL must refresh for the current approved source content');
 const shellVersion=(await read('sw.js')).toString().match(/^const SHELL = `([^`]+)`;/m)?.[1];
 assert.ok(shellVersion?.includes('-dover-title-paragraphs-v1'),'Opening app refresh version missing');
 assert.ok(shellVersion?.includes('-dover-headings-v1'),'Dover headings app refresh version missing');
-assert.ok(shellVersion?.includes('-dover-reviewed-parallels-v3'),'Reviewed Dover shell version missing');
+assert.deepEqual(reviewedCacheRevisions(shellVersion),[approvedCacheRevision],'Dover shell cache must refresh for the current approved source content');
 // Installed readers may retain the old contents file while receiving new text.
 // The row flag must still select paragraph presentation in that mixed state.
-const readerHtml=(await read('index.html')).toString();
 const localResolver=readerHtml.slice(readerHtml.indexOf('let CATALOG = []'),readerHtml.indexOf('const CAT_COLORS'));
 for(const oldContents of [false,true]) {
   const contents=structuredClone(toc);
@@ -346,9 +355,9 @@ for(const oldContents of [false,true]) {
 }
 assert.equal(seen.size,finalNumbers.size,'Some clean or approved Dover footnotes are missing');
 assert.equal(retainedParagraphs,report.counts.retainedBaseParagraphs,'Lost retained baseline quotations');
-assert.equal(approvedParagraphs,approved.replacements.flatMap(expectedAdditions).length,'Lost approved Hebrew or English paragraphs');
+assert.equal(approvedParagraphs,approved.replacements.flatMap(expectedAdditions).length,'Lost approved English paragraphs');
 assert.equal(linksAdded,944,'Missing added Hebrew hyperlinks');
-console.log(`PASS Dover reviewed data${publicBase?' publicly verified':''}: ${seen.size} anchored notes, ${retainedParagraphs} retained quotation paragraphs, ${approved.replacements.length} distinct approved sources with exact Hebrew, English and context; rejected historical paragraphs absent; all chapter bodies, opening and contents preserved (${quoteParagraphs} quotation paragraphs).`);
+console.log(`PASS Dover reviewed data${publicBase?' publicly verified':''}: ${seen.size} anchored notes, ${retainedParagraphs} retained quotation paragraphs, ${approved.replacements.length} distinct approved sources with verified Hebrew evidence and English-only additions; rejected historical paragraphs absent; all chapter bodies, opening and contents preserved (${quoteParagraphs} quotation paragraphs).`);
 if(!publicBase) await checkDoverSourceLinks();
 
 if (args.includes('--zips')) {
