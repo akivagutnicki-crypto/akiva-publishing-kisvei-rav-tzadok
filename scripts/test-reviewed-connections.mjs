@@ -22,10 +22,15 @@ function runFixtures() {
   const mcpRoot = path.join(root, 'mcp');
   const output = path.join(root, 'reader', 'source-connections', 'catalog.json');
   const editorialFile = path.join(editorialDir, 'reviewed.json');
+  const sourceProofFile = path.join(editorialDir, 'evidence', 'deuteronomy-30-14.json');
   const options = {editorialDir, mcpRoot, output, date: '2026-10-19'};
   let checked = 0;
   const check = fn => { fn(); checked++; };
   const source = 'כי קרוב אליך הדבר מאד בפיך ובלבבך לעשותו';
+  const sourceProof = {ref: 'Deuteronomy 30:14',
+    apiUrl: 'https://www.sefaria.org/api/texts/Deuteronomy.30.14?context=0',
+    versionTitle: 'Synthetic primary-source fixture', verifiedAt: '2026-10-19',
+    hebrew: [source, 'דברי המקור ממשיכים מכאן ואילך.']};
   const target = 'כִּי קָרוֹב אֵלֶיךָ הַדָּבָר מְאֹד, בְּפִיךָ וּבִלְבָבְךָ לַעֲשֹׂתוֹ.';
   const record = {id: 'fixture-reviewed-nearness', sourceRefs: ['Deuteronomy 30:14'], sourceHebrew: source,
     sourceEnglish: 'The matter is very close to you, in your mouth and in your heart, to do it.',
@@ -40,6 +45,7 @@ function runFixtures() {
     {r: 'Fixture Tzadok 1:10', s: 0, n: 10, p: [['דרך אחרת וענין אחר לגמרי.', 'A different path and an entirely different matter.']]}
   ]};
   record.reviewedTargetHebrewSha256 = sha(engine.normalizedHebrew(document.paras[0].p.map(pair => pair[0]).join(' ')));
+  record.reviewedSourceHebrewSha256 = sha(engine.normalizedHebrew(sourceProof.hebrew.join(' ')));
   const stage = records => writeJSON(editorialFile, {schemaVersion: 1, records});
   const rejects = (mutate, pattern, start = [record]) => check(() => {
     const values = structuredClone(start);
@@ -49,9 +55,21 @@ function runFixtures() {
     assert.throws(() => buildReviewedConnections(options), pattern);
     assert.equal(fs.existsSync(output) ? sha(fs.readFileSync(output)) : null, before, 'An invalid record changed the published catalog');
   });
+  const rejectsProof = (mutate, pattern) => check(() => {
+    stage([record]);
+    const changed = structuredClone(sourceProof);
+    const before = fs.existsSync(output) ? sha(fs.readFileSync(output)) : null;
+    try {
+      if (mutate(changed) === null) fs.unlinkSync(sourceProofFile);
+      else writeJSON(sourceProofFile, changed);
+      assert.throws(() => buildReviewedConnections(options), pattern);
+      assert.equal(fs.existsSync(output) ? sha(fs.readFileSync(output)) : null, before, 'Invalid primary evidence changed the published catalog');
+    } finally { writeJSON(sourceProofFile, sourceProof); }
+  });
   try {
     writeJSON(path.join(mcpRoot, 'catalog.json'), catalog);
     writeJSON(path.join(mcpRoot, 'text/fixture-tzadok.json'), document);
+    writeJSON(sourceProofFile, sourceProof);
     const canonicalBefore = sha(fs.readFileSync(path.join(mcpRoot, 'text/fixture-tzadok.json')));
     stage([record]);
     const first = buildReviewedConnections(options);
@@ -59,6 +77,11 @@ function runFixtures() {
     check(() => assert.equal(first.catalog.records[0].evidence.canonicalParagraphRef, record.targetRef));
     check(() => assert.equal(first.catalog.records[0].evidence.normalizedQuoteStart, 0));
     check(() => assert.match(first.catalog.records[0].evidence.canonicalParagraphSha256, /^[a-f0-9]{64}$/));
+    check(() => assert.equal(first.catalog.records[0].evidence.sourceQuoteVerification, 'exact-contiguous-primary-hebrew'));
+    check(() => assert.equal(first.catalog.records[0].evidence.primarySources[0].ref, 'Deuteronomy 30:14'));
+    check(() => assert.equal(first.catalog.records[0].evidence.primarySources[0].fileSha256, sha(fs.readFileSync(sourceProofFile))));
+    check(() => assert.equal(first.catalog.records[0].evidence.primarySources[0].normalizedQuoteStart, 0));
+    check(() => assert.equal(first.catalog.records[0].evidence.primarySources[0].normalizedFullHebrewSha256, record.reviewedSourceHebrewSha256));
     check(() => assert.equal(buildReviewedConnections(options).written, false));
     check(() => assert.equal(sha(fs.readFileSync(path.join(mcpRoot, 'text/fixture-tzadok.json'))), canonicalBefore));
     check(() => assert.equal(engine.normalizedHebrew('<b>כִּי</b> קָרוֹב אֵלֶיךָ'), 'כי קרוב אליך'));
@@ -81,6 +104,18 @@ function runFixtures() {
     rejects(values => { values[0].targetEnglish = 'Fixture Tzadok 1:1'; }, /only a citation/);
     rejects(values => { values[0].targetEnglish = 'דברים קרובים אליך'; }, /must contain English/);
     rejects(values => { values[0].sourceHebrew = 'The matter is close.'; }, /must contain Hebrew/);
+    rejects(values => { values[0].sourceHebrew = 'כי קרב אליך הדבר מאד'; }, /Source Hebrew is not an exact contiguous quote/);
+    rejects(values => { values[0].sourceHebrew = 'אליך כי קרוב הדבר'; }, /Source Hebrew is not an exact contiguous quote/);
+    rejects(values => { values[0].sourceHebrew = 'קרוב אלי'; }, /Source Hebrew is not an exact contiguous quote/);
+    rejects(values => { values[0].sourceHebrew = 'כי קרוב הדבר מאד'; }, /Source Hebrew is not an exact contiguous quote/);
+    rejects(values => { delete values[0].reviewedSourceHebrewSha256; }, /Reviewed source Hebrew SHA-256/);
+    rejects(values => { values[0].reviewedSourceHebrewSha256 = 'not-a-hash'; }, /must pin the full normalized primary evidence/);
+    rejects(values => { values[0].reviewedSourceHebrewSha256 = '0'.repeat(64); }, /Reviewed source context changed or does not match/);
+    rejects(values => { values[0].sourceRefs = ['Deuteronomy 30:15']; values[0].sourceUrl = 'https://www.sefaria.org/Deuteronomy.30.15'; }, /Missing primary source evidence/);
+    rejectsProof(() => null, /Missing primary source evidence/);
+    rejectsProof(proof => { proof.ref = 'Deuteronomy 30:15'; }, /evidence URL does not match its canonical reference/);
+    rejectsProof(proof => { proof.hebrew = 'אלה דברים אחרים שאינם שייכים למקור המצוטט'; }, /Source Hebrew is not an exact contiguous quote/);
+    rejectsProof(proof => { proof.hebrew[1] = 'מסקנת המקור כעת הפוכה לגמרי.'; }, /Reviewed source context changed or does not match/);
     rejects(values => { values[0].targetHebrew = 'כי קרב אליך הדבר מאד'; }, /not an exact contiguous quote/);
     rejects(values => { values[0].targetHebrew = 'אליך כי קרוב הדבר'; }, /not an exact contiguous quote/);
     rejects(values => { values[0].targetHebrew = 'קרוב אלי'; }, /not an exact contiguous quote/);
@@ -174,7 +209,8 @@ async function main() {
       'The exact reviewed source does not retrieve its connection: ' + record.id);
   }
   const result = {ok: true, fixtures, version: published.version, counts: published.counts,
-    catalogSha256: sha(bytes), canonicalTargetQuotesVerified: published.records.length};
+    catalogSha256: sha(bytes), canonicalTargetQuotesVerified: published.records.length,
+    primarySourceQuotesVerified: published.records.length};
   if (publicUrl) {
     const base = new URL(publicUrl.endsWith('/') ? publicUrl : publicUrl + '/');
     assert(base.protocol === 'https:' || ['localhost', '127.0.0.1'].includes(base.hostname), 'Public verification requires HTTPS');

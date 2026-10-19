@@ -1,10 +1,12 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import vm from 'node:vm';
+import {createRequire} from 'node:module';
 
 const html = fs.readFileSync('dist/library/index.html', 'utf8');
 const resolver = html.slice(html.indexOf('let CATALOG = []'), html.indexOf('const CAT_COLORS'));
-const ctx = vm.createContext({gematria: String, fetch: async url => ({ok: true,
+const matcher = createRequire(import.meta.url)('../dist/library/source-connections.js');
+const ctx = vm.createContext({gematria: String, window:{AkivaSourceConnections:matcher}, fetch: async url => ({ok: true,
   json: async () => JSON.parse(fs.readFileSync('dist/library/' + url.split('?')[0], 'utf8'))})});
 vm.runInContext(resolver, ctx);
 const src = JSON.parse(fs.readFileSync('sources/akiva/Tzidkat_HaTzadik.json', 'utf8'));
@@ -13,8 +15,18 @@ const links = JSON.parse(fs.readFileSync('dist/library/data/tzidkat-hatzadik/lin
 const catalog = JSON.parse(fs.readFileSync('dist/library/data/catalog.json', 'utf8'));
 assert.equal(catalog.filter(b => b.title === src.title).length, 1);
 assert.equal(catalog.find(b => b.title === src.title).interlinear, true);
-const linkFunctions = html.slice(html.indexOf('const slugify = t =>'), html.indexOf('async function loadLinkCounts'));
+const linkStart = html.indexOf('const bookOfRef = ref =>');
+const linkEnd = html.indexOf('async function loadLinkCounts',linkStart);
+assert.ok(linkStart >= 0 && linkEnd > linkStart,'The shipped primary-source functions must be present');
+const linkFunctions = html.slice(linkStart,linkEnd);
 vm.runInContext(linkFunctions, ctx);
+assert.equal(typeof ctx.libraryLinks,'function','The shipped library source loader must be extracted');
+// This historical gate verifies the supplied edition and its primary citations.
+// Reviewed explanatory connections require the final catalog and author DOM
+// context, which are covered by the separate reviewed-connection suites.
+ctx.reviewedPassageLinks = async () => [];
+const legacyParallel = link => ['Rav Tzadok Library','Parallels by source','Parallel Sources'].includes(link.c || link.category)
+  || /parallel/i.test(link.kind || '');
 let paragraphs = 0, connections = 0;
 for (let siman = 1; siman <= 264; siman++) {
   const ref = `Tzidkat HaTzadik ${siman}`;
@@ -29,8 +41,9 @@ for (let siman = 1; siman <= 264; siman++) {
   for (let n = 1; n <= d.he.length; n++) {
     assert.equal((await ctx.resolveLocal(`${ref}:${n}`)).highlight, `${ref}:${n}`);
     const own = await ctx.libraryLinks(d, `${ref}:${n}`, false);
-    const expected = (links[ref] || []).filter(l => l.a === `${ref}:${n}`);
+    const expected = (links[ref] || []).filter(l => l.a === `${ref}:${n}` && !legacyParallel(l));
     for (const l of expected) assert.ok(own.some(o => o.sourceRef === l.r));
+    assert.ok(own.every(link => !legacyParallel(link)),'Unreviewed legacy parallels cannot re-enter the source sidebar');
     connections += expected.length;
   }
   paragraphs += d.he.length;

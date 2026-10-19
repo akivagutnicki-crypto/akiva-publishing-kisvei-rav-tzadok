@@ -10,7 +10,7 @@ import {createRequire} from 'node:module';
 import {fileURLToPath} from 'node:url';
 
 const require = createRequire(import.meta.url);
-const {VERSION, SCHOOLS, normalizeRef, sourceRefFromUrl, parseRef, normalizedHebrew} =
+const {VERSION, SCHOOLS, normalizeRef, sourceRefFromUrl, parseRef, refsOverlap, normalizedHebrew} =
   require('../dist/library/source-connections.js');
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const BIBLE = new Set(('Genesis|Exodus|Leviticus|Numbers|Deuteronomy|Joshua|Judges|I Samuel|II Samuel|I Kings|II Kings|Isaiah|Jeremiah|Ezekiel|Hosea|Joel|Amos|Obadiah|Jonah|Micah|Nahum|Habakkuk|Zephaniah|Haggai|Zechariah|Malachi|Psalms|Proverbs|Job|Song of Songs|Ruth|Lamentations|Ecclesiastes|Esther|Daniel|Ezra|Nehemiah|I Chronicles|II Chronicles').toLowerCase().split('|'));
@@ -91,6 +91,54 @@ function isWithin(filename, directory) {
   return relative === '' || (!relative.startsWith('..' + path.sep) && relative !== '..' && !path.isAbsolute(relative));
 }
 
+// A saved primary text is independent of the editorial quotation. Both its
+// exact reference and its entire reviewed context must survive every rebuild.
+function sourceReader(editorialDir) {
+  const directory = path.join(editorialDir, 'evidence');
+  assert(fs.existsSync(directory), 'Missing primary source evidence directory');
+  assert(fs.lstatSync(directory).isDirectory() && !fs.lstatSync(directory).isSymbolicLink(), 'Expected a regular primary source evidence directory');
+  const index = new Map();
+  for (const filename of fs.readdirSync(directory).filter(name => name.endsWith('.json')).sort()) {
+    const bytes = readRegular(path.join(directory, filename));
+    const proof = JSON.parse(bytes);
+    assert(plainObject(proof), 'Primary source evidence must be an object: ' + filename);
+    const ref = validateSourceRef(proof.ref);
+    assert(ref === proof.ref, 'Primary source evidence must use its exact canonical reference: ' + filename);
+    const key = ref.toLowerCase();
+    assert(!index.has(key), 'Duplicate primary source evidence for ' + ref);
+    const parts = Array.isArray(proof.hebrew) ? proof.hebrew.flat(Infinity) : [proof.hebrew];
+    assert(parts.length && parts.every(part => typeof part === 'string'), 'Primary source evidence has invalid Hebrew: ' + filename);
+    const content = hebrew(parts.join(' '), 'Primary source evidence Hebrew');
+    const normalized = normalizedHebrew(content);
+    const apiUrl = text(proof.apiUrl, 'Primary source evidence URL');
+    const url = new URL(apiUrl);
+    assert(url.protocol === 'https:' && !url.username && !url.password, 'Primary source evidence URL must use HTTPS');
+    if (['sefaria.org', 'www.sefaria.org'].includes(url.hostname.toLowerCase())) {
+      const route = url.pathname.match(/^\/api\/(?:v3\/)?texts\/(.+)$/);
+      const requestedRef = route && normalizeRef(route[1]);
+      assert(requestedRef && refsOverlap(requestedRef, ref), 'Primary source evidence URL does not match its canonical reference: ' + ref);
+    }
+    index.set(key, {ref, file: 'evidence/' + filename, fileSha256: SHA(bytes), apiUrl,
+      versionTitle: text(proof.versionTitle, 'Primary source evidence version'),
+      verifiedAt: text(proof.verifiedAt, 'Primary source evidence verification date'), content, normalized});
+  }
+  return (refs, quote, reviewedHash) => {
+    const matches = refs.map(ref => {
+      const proof = index.get(ref.toLowerCase());
+      assert(proof, 'Missing primary source evidence for ' + ref);
+      const start = (' ' + proof.normalized + ' ').indexOf(' ' + quote + ' ');
+      assert(start >= 0, 'Source Hebrew is not an exact contiguous quote in primary source evidence for ' + ref);
+      return {...proof, start};
+    });
+    const normalized = matches.map(proof => proof.normalized).join(' ');
+    assert(SHA(normalized) === reviewedHash, 'Reviewed source context changed or does not match the pinned primary evidence: ' + refs.join('; '));
+    return matches.map(proof => ({ref: proof.ref, file: proof.file, fileSha256: proof.fileSha256,
+      apiUrl: proof.apiUrl, versionTitle: proof.versionTitle, verifiedAt: proof.verifiedAt,
+      fullHebrewSha256: SHA(proof.content), normalizedFullHebrewSha256: SHA(proof.normalized),
+      normalizedQuoteStart: proof.start, normalizedQuoteEnd: proof.start + quote.length}));
+  };
+}
+
 function targetReader(catalog, mcpRoot) {
   const books = [...catalog.books].sort((left, right) => right.title.length - left.title.length);
   const cache = new Map();
@@ -144,6 +192,7 @@ export function buildReviewedConnections(options = {}) {
   assert(Array.isArray(catalog.books) && catalog.books.length && typeof catalog.version === 'string', 'Build the final MCP catalog before reviewed connections');
   const getTarget = targetReader(catalog, mcpRoot);
   assert(fs.lstatSync(editorialDir).isDirectory() && !fs.lstatSync(editorialDir).isSymbolicLink(), 'Expected a regular editorial directory');
+  const getSource = sourceReader(editorialDir);
   const filenames = fs.readdirSync(editorialDir).filter(name => name.endsWith('.json')).sort();
   assert(filenames.length, 'No reviewed connection files are staged');
   const ids = new Set(), pairs = new Set(), records = [], editorialFiles = [];
@@ -175,6 +224,9 @@ export function buildReviewedConnections(options = {}) {
         assert(focusTerms.some(term => normalizedHebrew(term).length >= 3), 'Context terms cannot be empty or punctuation-only');
         const translationProvenance = text(input.translationProvenance, 'Translation provenance');
         const sourceUrl = safeSourceUrl(input.sourceUrl, sourceRefs);
+        const reviewedSourceHebrewSha256 = text(input.reviewedSourceHebrewSha256, 'Reviewed source Hebrew SHA-256');
+        assert(/^[a-f0-9]{64}$/.test(reviewedSourceHebrewSha256), 'Reviewed source Hebrew SHA-256 must pin the full normalized primary evidence');
+        const primarySources = getSource(sourceRefs, normalizedHebrew(sourceHebrew), reviewedSourceHebrewSha256);
         const quote = normalizedHebrew(targetHebrew);
         const reviewedTargetHebrewSha256 = text(input.reviewedTargetHebrewSha256, 'Reviewed target Hebrew SHA-256');
         assert(/^[a-f0-9]{64}$/.test(reviewedTargetHebrewSha256), 'Reviewed target Hebrew SHA-256 must pin the full normalized paragraph');
@@ -196,8 +248,9 @@ export function buildReviewedConnections(options = {}) {
         }
         const record = {id, sourceRefs, sourceHebrew, sourceEnglish, sourceUrl, targetRef, targetHebrew, targetEnglish,
           school, explanation, focusTerms, ...(originRefs ? {originRefs} : {}), translationProvenance,
-          reviewedTargetHebrewSha256, reviewed: true,
+          reviewedTargetHebrewSha256, reviewedSourceHebrewSha256, reviewed: true,
           evidence: {editorialFile: filename, editorialFileSha256: SHA(bytes), canonicalBook: matched.book.slug,
+            primarySources, sourceQuoteVerification: 'exact-contiguous-primary-hebrew',
             canonicalTextSha256: matched.textSha256, canonicalParagraphRef: matched.paragraph.r,
             canonicalParagraphIndex: matched.paragraphIndex, canonicalSectionRef: matched.section.ref,
             canonicalEdition: matched.section.il ? 'interlinear' : 'hebrew',
@@ -219,7 +272,7 @@ export function buildReviewedConnections(options = {}) {
   records.sort((left, right) => left.id.localeCompare(right.id));
   const uniqueSources = new Set(records.flatMap(record => record.sourceRefs));
   const provenance = {editorialFiles, mcpCatalogSha256: SHA(catalogBytes), mcpDataVersion: catalog.version,
-    method: 'individually-reviewed-records-with-exact-canonical-target-quotations'};
+    method: 'individually-reviewed-records-with-pinned-primary-source-and-canonical-target-quotations'};
   const counts = {records: records.length, sources: uniqueSources.size, targets: new Set(records.map(record => record.targetRef)).size,
     schools: Object.fromEntries(SCHOOLS.map(school => [school, records.filter(record => record.school === school).length]))};
   const contentSha256 = SHA(canonical({release: VERSION, counts, provenance, records}));
