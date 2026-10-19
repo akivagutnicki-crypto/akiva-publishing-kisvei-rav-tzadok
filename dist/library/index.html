@@ -573,7 +573,7 @@ body.akiva-android-reader .akiva-support-embed{border-top-color:var(--ox)}
 
 <script src="shiur-player.js?v=20261016-compact-noach-audio"></script>
 <script src="sefaria-packs.js?v=20261012-source-zips-v3"></script>
-<script src="source-connections.js?v=20261019-reviewed-connections-v1"></script>
+<script src="source-connections.js?v=20261019-reviewed-connections-v2"></script>
 <script>
 (() => {
 'use strict';
@@ -1742,6 +1742,29 @@ function reviewedCatalog() {
     }).catch(error => { reviewedCatalogPromise = null; throw error; });
   return reviewedCatalogPromise;
 }
+let sourceTranslationsPromise = null;
+function sourceTranslations() {
+  if (!sourceTranslationsPromise) sourceTranslationsPromise = fetch('source-connections/translations.json?v=' + sourceConnections.VERSION)
+    .then(response => { if (!response.ok) throw new Error('Source translations HTTP ' + response.status); return response.json(); })
+    .then(data => {
+      if (data.schemaVersion !== 1 || data.release !== sourceConnections.VERSION || !Array.isArray(data.translations))
+        throw new Error('Incompatible source translation edition');
+      const entries = new Map();
+      for (const entry of data.translations) {
+        const key = sourceConnections.normalizeRef(entry.ref || '').toLowerCase();
+        if (!key || entries.has(key) || !/[\u05d0-\u05ea]/.test(entry.he || '') || !/[A-Za-z]/.test(entry.en || '')
+            || typeof entry.provenance !== 'string' || !entry.provenance.trim()
+            || !/^https:\/\/(?:www\.)?sefaria\.org\//.test(entry.sourceUrl || ''))
+          throw new Error('Invalid source translation evidence');
+        entries.set(key, entry);
+      }
+      return entries;
+    }).catch(error => { sourceTranslationsPromise = null; throw error; });
+  return sourceTranslationsPromise;
+}
+async function publishedSourceTranslation(ref) {
+  return (await sourceTranslations()).get(sourceConnections.normalizeRef(ref).toLowerCase()) || null;
+}
 // Read the author's nearby phrases, excluding footnote quotations and editorial
 // prose. A source mentioned elsewhere in a long ois is not the click's context.
 function sourceContext(element) {
@@ -1791,7 +1814,7 @@ function sourceContext(element) {
     return copy?.textContent || '';
   };
   const isLibrary = Boolean(localBook(sec?.book) || sec?.book === 'Mei HaShiloach');
-  return {originRef:isLibrary ? seg.dataset.ref : '', el:seg,
+  return {originRef:isLibrary ? seg.dataset.ref : '', el:seg, phraseIndex,
     he:selected ? selected.map(pair => authorPhrase(pair[0])).join(' ') : textOf('.seg-he'),
     en:selected ? selected.map(pair => authorPhrase(pair[1])).join(' ') : textOf('.seg-en')};
 }
@@ -1806,21 +1829,20 @@ function footnoteSourceQuote(anchor) {
   const sec = R.sections.find(item => item.sectionRef === seg.closest('.sec')?.dataset.ref);
   const note = (sec?.annotations?.[Number(seg.dataset.k)] || []).find(item => box.dataset.noteKey
     ? item.placementId === box.dataset.noteKey : String(item.number) === box.dataset.fn);
-  if (!note || note.verificationStatus !== 'verified') return null;
-  const href = anchor.getAttribute('href');
-  const source = (note.sources || []).find(item => item.url === href && (!item.role || /primary|source/.test(item.role)));
-  if (!source?.ref) return null;
-  const paragraphs = (note.paragraphs || []).filter(paragraph => paragraph.rich?.some(run => run.href === href));
-  if (paragraphs.length !== 1) return null;
-  const raw = paragraphs[0].text || paragraphs[0].rich.map(run => run.text || '').join('');
-  // Use only an actual delimited quotation, never the footnote's contextual
-  // commentary. Its original edition attribution accompanies the excerpt.
-  const match = raw.match(/^[^“‘"]+[:：]\s*(?:“([\s\S]+)”|‘([\s\S]+)’|"([\s\S]+)")\s*$/);
-  const translation = match && (match[1] || match[2] || match[3]);
-  if (!translation || !/[A-Za-z]/.test(translation)) return null;
-  const provenance = note.provenance?.sourceQuotationRelease;
-  return {ref:source.ref,en:translation,provenance:provenance?.versionTitle
-    ? `${provenance.versionTitle}${provenance.license ? ' · ' + provenance.license : ''}` : 'English source quotation from the published footnote'};
+  return sourceConnections.sourceQuotationFromNote(note, {sourceUrl:anchor.getAttribute('href') || ''});
+}
+function sourceFootnoteQuote(ref, context) {
+  const seg = context.el;
+  if (!seg) return null;
+  const sec = R.sections.find(item => item.sectionRef === seg.closest('.sec')?.dataset.ref);
+  const notes = sec?.annotations?.[Number(seg.dataset.k)] || [];
+  const quotes = notes.filter(note => !(context.phraseIndex >= 0)
+      || note.phraseIndex === context.phraseIndex)
+    .map(note => sourceConnections.sourceQuotationFromNote(note, {ref})).filter(Boolean);
+  // Several quotations from one broad reference may discuss different points.
+  // Reuse an existing note only when its exact source and quotation are unique.
+  const unique = new Map(quotes.map(quote => [quote.ref + '\n' + quote.en.replace(/\s+/g, ' ').trim(), quote]));
+  return unique.size === 1 ? [...unique.values()][0] : null;
 }
 async function reviewedPassageLinks(ref, primaryLinks) {
   const {records} = await reviewedCatalog();
@@ -1843,10 +1865,11 @@ async function openSourceStudy(ref, context = {}, sourceUrl = '') {
   catch { notice = 'Reviewed connections could not be loaded. Reopen this source to retry.'; }
   if (seq !== panelSeq || !c.isConnected) return;
   const primary = {sourceRef:ref, category:'Cited source', sourceUrl};
-  if (context.footnoteQuote && sourceConnections.refsOverlap(ref, context.footnoteQuote.ref)) {
-    primary.fallbackQuote = context.footnoteQuote;
-    primary.quoteRef = context.footnoteQuote.ref;
-    primary.translationProvenance = context.footnoteQuote.provenance;
+  const footnoteQuote = context.footnoteQuote || sourceFootnoteQuote(ref, context);
+  if (footnoteQuote && sourceConnections.refsOverlap(ref, footnoteQuote.ref)) {
+    primary.fallbackQuote = footnoteQuote;
+    primary.quoteRef = footnoteQuote.ref;
+    primary.translationProvenance = footnoteQuote.provenance;
   }
   // When the exact passage is known, open its complete reviewed excerpt rather
   // than a whole daf or an unrelated first paragraph of a local chapter.
@@ -1857,6 +1880,12 @@ async function openSourceStudy(ref, context = {}, sourceUrl = '') {
     primary.quoteRef = record.sourceRefs.join('; ');
     primary.sourceUrl = record.sourceUrl;
     primary.translationProvenance = record.translationProvenance;
+  }
+  if (context.sourceExcerpt && sourceConnections.normalizeRef(context.sourceExcerpt.ref) === ref) {
+    primary.quote = {he:context.sourceExcerpt.he,en:context.sourceExcerpt.en};
+    primary.quoteRef = ref;
+    primary.translationProvenance = context.sourceExcerpt.provenance;
+    primary.excerptLabel = 'Reviewed excerpt from this passage';
   }
   const connections = records.map(record => reviewedLink(record, context.originRef || ref));
   const list = [primary, ...connections];
@@ -2036,9 +2065,16 @@ async function sourceTextData(link) {
     } catch { return {ref:link.fallbackQuote.ref,he:[],en:[],footnoteExcerpt:link.fallbackQuote,fromFootnoteFallback:true}; }
   }
   const ref = sourceConnections.normalizeRef(link.sourceRef || link.ref);
+  let translationLookupFailed = false;
+  try {
+    const translated = await publishedSourceTranslation(ref);
+    if (translated) return {ref:translated.ref,he:[translated.he],en:[translated.en],
+      sourceTranslationUrl:translated.sourceUrl,publishedSourceTranslation:true,
+      versions:[{title:translated.provenance,lang:'English'}]};
+  } catch { translationLookupFailed = true; }
   const range = ref.match(/^(.*? \d+(?::\d+)*)(-\d+(?::\d+)*)$/);
   let d = await fetchText(range ? range[1] : ref);
-  if (!d.local && !d.meiStudy) return range ? fetchText(ref, {remoteOnly:true}) : d;
+  if (!d.local && !d.meiStudy) return {...(range ? await fetchText(ref, {remoteOnly:true}) : d),...(translationLookupFailed ? {translationLookupFailed:true} : {})};
   const pairs = [], visited = new Set();
   const requested = range && sourceConnections.parseRef(ref);
   let foundStart = false, foundEnd = false;
@@ -2063,7 +2099,7 @@ async function sourceTextData(link) {
   }
   if (!pairs.length) throw new Error('The exact requested local passage was not found');
   if (requested && (!foundStart || !foundEnd)) throw new Error('The complete requested local range could not be verified');
-  return {...d,ref,he:pairs.map(pair=>pair[0]),en:pairs.map(pair=>pair[1])};
+  return {...d,ref,he:pairs.map(pair=>pair[0]),en:pairs.map(pair=>pair[1]),...(translationLookupFailed ? {translationLookupFailed:true} : {})};
 }
 function alignedSourceRows(he, en) {
   if (!Array.isArray(he) && !Array.isArray(en)) return [[plain(he || ''),plain(en || '')]];
@@ -2091,13 +2127,15 @@ async function showLinkList(ref, label, list, c, {groups = [], selectedCategory 
     const target = l.sourceRef || l.ref;
     const quotedRef = l.quoteRef || target;
     const reviewed = Boolean(l.reviewedRecord);
+    const studyContext = reviewed ? {...origin,sourceExcerpt:{ref:target,he:l.quote.he,en:l.quote.en,
+      provenance:l.translationProvenance}} : origin;
     const div = document.createElement('div');
     div.className = 'link-item' + (reviewed ? ' reviewed-connection full' : sourceStudy ? ' source-head full' : '');
     div.dataset.sourceRef = target;
     if (reviewed) div.dataset.connectionId = l.reviewedRecord.id;
     div.innerHTML = `${reviewed ? `<div class="connection-school">${esc(l.category)}</div>` : ''}<div class="ref"><button class="ref-en" type="button" aria-label="Sources and connections for ${esc(quotedRef)}">${esc(quotedRef)}</button><span class="he" lang="he" dir="rtl">${esc(l.sourceHeRef || '')}</span></div><div class="loading" style="padding:6px 0">Loading…</div>`;
     box.appendChild(div);
-    div.querySelector('.ref-en').onclick = () => openSourceStudy(target, origin, l.sourceUrl || '');
+    div.querySelector('.ref-en').onclick = () => openSourceStudy(target, studyContext, l.sourceUrl || '');
     sourceTextData(l).then(d => {
       if (seq !== panelSeq || !div.isConnected) return;
       const pairs = alignedSourceRows(d.he,d.en).filter(([h,e])=>h.trim() || e.trim());
@@ -2109,19 +2147,20 @@ async function showLinkList(ref, label, list, c, {groups = [], selectedCategory 
       div.querySelector('.ref').classList.toggle('has-he', !!heRef);
       const rows = pairs.map(([h,e])=>`<div class="qp">${h.trim() ? `<p class="qh" lang="he" dir="rtl">${esc(h)}</p>` : ''}${e.trim() ? `<p class="qe" lang="en" dir="ltr">${esc(e)}</p>` : ''}</div>`).join('');
       const missing = (hes.length ? '' : '<div class="source-missing" data-missing="he">The Hebrew text could not be loaded.</div>')
-        + (completeEnglish ? '' : `<div class="source-missing" data-missing="en">${ens.length ? 'Some of this source has no published English translation.' : 'A checked English translation has not yet been added for this source.'}</div>`);
+        + (completeEnglish ? '' : `<div class="source-missing" data-missing="en">${d.translationLookupFailed ? 'The additional English source translations could not be checked. Reopen this source to retry.' : ens.length ? 'Some of this source has no published English translation.' : 'A checked English translation has not yet been added for this source.'}</div>`);
       const provenance = (!d.fromFootnoteFallback && l.translationProvenance) || (d.versions || []).filter(version=>version.lang !== 'Hebrew').map(version=>version.title).filter(Boolean).join('; ');
       const footnoteExcerpt = d.footnoteExcerpt ? `<section class="footnote-source-excerpt"><strong>English excerpt quoted in this footnote</strong><p class="qe" lang="en" dir="ltr">${esc(d.footnoteExcerpt.en)}</p><div class="connection-provenance">${esc(d.footnoteExcerpt.ref)} · ${esc(d.footnoteExcerpt.provenance)}</div><button class="btn copy-excerpt" type="button">Copy footnote excerpt</button></section>` : '';
       const explanation = reviewed ? `<div class="connection-explanation"><strong>How this explains the source</strong>${esc(l.reviewedRecord.explanation)}</div>` : '';
-      const originalUrl = l.sourceUrl && /^https:\/\/(?:www\.)?sefaria\.org\//.test(l.sourceUrl) ? l.sourceUrl
+      const sourceUrl = l.sourceUrl || d.sourceTranslationUrl;
+      const originalUrl = sourceUrl && /^https:\/\/(?:www\.)?sefaria\.org\//.test(sourceUrl) ? sourceUrl
         : !reviewed && !d.local && !d.meiStudy && !d.reviewedExcerpt ? sefariaUrl(target) : null;
-      div.querySelector('.loading').outerHTML = `<div class="quote">${rows}</div>${missing}${footnoteExcerpt}${explanation}${provenance ? `<div class="connection-provenance">${esc(provenance)}</div>` : ''}
+      div.querySelector('.loading').outerHTML = `${l.excerptLabel ? `<div class="eyebrow quote-label">${esc(l.excerptLabel)}</div>` : ''}<div class="quote">${rows}</div>${missing}${footnoteExcerpt}${explanation}${provenance ? `<div class="connection-provenance">${esc(provenance)}</div>` : ''}
         <div class="acts"><button type="button" class="more" hidden>Show full text</button><button type="button" class="copyq">Copy quote</button><button type="button" class="explore-source">Sources and connections</button><a href="#/read/${toHash(target)}">Open in reader</a>${originalUrl ? `<a href="${esc(originalUrl)}" target="_blank" rel="noopener">Sefaria ↗</a>` : ''}</div>`;
       if (list.length === 1 || reviewed || sourceStudy) div.classList.add('full');
       div.dataset.single = String(list.length === 1 || reviewed || sourceStudy);
       updateSourceQuote(div);
       div.querySelector('.more').onclick = () => { div.classList.toggle('full'); updateSourceQuote(div); };
-      div.querySelector('.explore-source').onclick = () => openSourceStudy(target, origin, originalUrl || '');
+      div.querySelector('.explore-source').onclick = () => openSourceStudy(target, studyContext, originalUrl || '');
       const excerptButton = div.querySelector('.copy-excerpt');
       if (excerptButton) excerptButton.onclick = async () => {
         try { await navigator.clipboard.writeText(d.footnoteExcerpt.en + '\n\n— ' + d.footnoteExcerpt.ref); toast('Excerpt copied'); }

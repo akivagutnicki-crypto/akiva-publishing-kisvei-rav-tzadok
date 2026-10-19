@@ -8,7 +8,7 @@
 })(typeof window === 'object' ? window : globalThis, function () {
   'use strict';
   const SCHOOLS = ['Kisvei Rav Tzadok', 'Ishbitz–Radzin'];
-  const VERSION = '20261019-reviewed-connections-v1';
+  const VERSION = '20261019-reviewed-connections-v2';
 
   function decode(value) {
     return String(value || '').replace(/&#(x[\da-f]+|\d+);/gi, (_, n) => {
@@ -45,6 +45,49 @@
     if (!path || path.includes('/')) return null;
     const ref = normalizeRef(path);
     return /\d/.test(ref) ? ref : null;
+  }
+  // Reuse only the published quotation itself. This returns an attributed
+  // English excerpt, never a claim that it translates a whole fetched page.
+  function sourceQuotationFromNote(note, {ref = '', sourceUrl = ''} = {}) {
+    if (note?.verificationStatus !== 'verified' || !Array.isArray(note.sources)) return null;
+    const sources = note.sources.filter(source => source && typeof source.ref === 'string'
+      && typeof source.url === 'string' && source.url
+      && (!source.role || /^(?:primary(?:-source)?|source)$/.test(source.role)));
+    if (sources.length !== 1) return null;
+    const source = sources[0], exactRef = normalizeRef(source.ref);
+    if (!exactRef || (ref && normalizeRef(ref).toLowerCase() !== exactRef.toLowerCase())
+        || (sourceUrl && sourceUrl !== source.url)) return null;
+    const paragraphs = (Array.isArray(note.paragraphs) ? note.paragraphs : [])
+      .filter(paragraph => Array.isArray(paragraph?.rich)
+        && paragraph.rich.some(run => run?.href === source.url));
+    if (paragraphs.length !== 1) return null;
+    const paragraph = paragraphs[0];
+    const raw = paragraph.text || paragraph.rich.map(run => run?.text || '').join('');
+    if (typeof raw !== 'string') return null;
+    const match = raw.match(/^[^“‘"]+[:：]\s*(?:“([\s\S]+)”|‘([\s\S]+)’|"([\s\S]+)")\s*$/);
+    const en = match && (match[1] || match[2] || match[3]);
+    if (!en || !/[A-Za-z]/.test(en)) return null;
+    // Curly double quotes may legitimately nest (for example, a quoted verse).
+    // A second top-level quotation or prose between quotations is ambiguous.
+    if (match[1] || match[2]) {
+      const opening = match[1] ? '“' : '‘', closing = match[1] ? '”' : '’';
+      let depth = 1;
+      for (let index = 0; index < en.length; index++) {
+        const character = en[index];
+        // A typographic apostrophe within a word is not a closing quotation.
+        if (closing === '’' && character === closing && /\p{L}/u.test(en[index - 1] || '')
+            && /\p{L}/u.test(en[index + 1] || '')) continue;
+        if (character === opening) depth++;
+        else if (character === closing) depth--;
+        if (depth < 1) return null;
+      }
+      if (depth !== 1) return null;
+    } else if (en.includes('"')) return null;
+    const provenance = note.provenance?.sourceQuotationRelease;
+    return {ref: exactRef, sourceUrl: source.url, en,
+      provenance: provenance?.versionTitle
+        ? `${provenance.versionTitle}${provenance.license ? ' · ' + provenance.license : ''}`
+        : 'English source quotation from the published footnote'};
   }
   function parseRef(value) {
     const ref = normalizeRef(value);
@@ -138,6 +181,6 @@
     }
     return out;
   }
-  return {VERSION, SCHOOLS, normalizeRef, sourceRefFromUrl, parseRef, refsOverlap,
+  return {VERSION, SCHOOLS, normalizeRef, sourceRefFromUrl, sourceQuotationFromNote, parseRef, refsOverlap,
     normalizedHebrew, validRecord, pickConnections, pickForPassage};
 });

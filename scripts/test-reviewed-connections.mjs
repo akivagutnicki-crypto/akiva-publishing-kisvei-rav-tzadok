@@ -158,6 +158,60 @@ function runFixtures() {
     check(() => assert.equal(engine.sourceRefFromUrl('https://www.sefaria.org/sheets/123'), null));
     check(() => assert.equal(engine.sourceRefFromUrl('https://www.sefaria.org/api/texts/Exodus.12.11'), null));
     check(() => assert.equal(engine.sourceRefFromUrl('https://example.org/Exodus.12.11'), null));
+    const quoteUrl = 'https://www.sefaria.org/Berakhot.6b.34';
+    const quoteEnglish = 'The words of a person who has fear of Heaven are heeded.';
+    const quotationParagraph = text => ({text, rich: [{text:'Berakhot 6b:34',href:quoteUrl},
+      {text:text.slice('Berakhot 6b:34'.length)}]});
+    const quoteNote = {verificationStatus:'verified',
+      sources:[{ref:'Berakhot 6b:34',url:quoteUrl,role:'primary-source'}],
+      paragraphs:[quotationParagraph(`Berakhot 6b:34: “${quoteEnglish}”`)],
+      provenance:{sourceQuotationRelease:{versionTitle:'Published fixture translation',license:'Fixture license'}}};
+    check(() => assert.deepEqual(engine.sourceQuotationFromNote(quoteNote),
+      {ref:'Berakhot 6b:34',sourceUrl:quoteUrl,en:quoteEnglish,
+        provenance:'Published fixture translation · Fixture license'}));
+    check(() => assert.equal(engine.sourceQuotationFromNote(quoteNote,
+      {ref:'berakhot_6b.34',sourceUrl:quoteUrl})?.en, quoteEnglish));
+    check(() => assert.equal(engine.sourceQuotationFromNote(quoteNote,{ref:'Berakhot 6b'}), null,
+      'An exact excerpt must not silently become a whole-daf translation'));
+    check(() => assert.equal(engine.sourceQuotationFromNote(quoteNote,{ref:'Berakhot 6b:35'}), null));
+    check(() => assert.equal(engine.sourceQuotationFromNote(quoteNote,{sourceUrl:'https://www.sefaria.org/Berakhot.6b.35'}), null));
+    check(() => assert.equal(engine.sourceQuotationFromNote({...quoteNote,verificationStatus:'unverified'}), null));
+    check(() => assert.equal(engine.sourceQuotationFromNote({...quoteNote,verificationStatus:'source text checked'}), null));
+    check(() => assert.equal(engine.sourceQuotationFromNote({...quoteNote,sources:[{...quoteNote.sources[0],role:'secondary-source'}]}), null));
+    check(() => assert.equal(engine.sourceQuotationFromNote({...quoteNote,sources:[quoteNote.sources[0],
+      {ref:'Berakhot 6b:35',url:'https://www.sefaria.org/Berakhot.6b.35',role:'primary-source'}]}), null));
+    check(() => assert.equal(engine.sourceQuotationFromNote({...quoteNote,
+      paragraphs:[...quoteNote.paragraphs,quotationParagraph('Berakhot 6b:34: “Another quotation.”')]}), null));
+    check(() => assert.equal(engine.sourceQuotationFromNote({...quoteNote,
+      paragraphs:[quotationParagraph('Berakhot 6b:34: The author means that the listener benefits.')] }), null));
+    check(() => assert.equal(engine.sourceQuotationFromNote({...quoteNote,
+      paragraphs:[quotationParagraph(`Berakhot 6b:34: “${quoteEnglish}” This is our explanation.`)]}), null));
+    check(() => assert.equal(engine.sourceQuotationFromNote({...quoteNote,
+      paragraphs:[quotationParagraph('Berakhot 6b:34: “A first quotation.” Our explanation. “A second quotation.”')]}), null));
+    check(() => assert.equal(engine.sourceQuotationFromNote({...quoteNote,
+      paragraphs:[quotationParagraph('Berakhot 6b:34: ‘A first quotation.’ Our explanation. ‘A second quotation.’')]}), null));
+    check(() => assert.equal(engine.sourceQuotationFromNote({...quoteNote,
+      paragraphs:[quotationParagraph('Berakhot 6b:34: "A first quotation." Our explanation. "A second quotation."')]}), null));
+    check(() => assert.equal(engine.sourceQuotationFromNote({...quoteNote,
+      paragraphs:[quotationParagraph('Berakhot 6b:34: “The verse says, “Fear God,” and the teaching follows.”')]} )?.en,
+      'The verse says, “Fear God,” and the teaching follows.'));
+    check(() => assert.equal(engine.sourceQuotationFromNote({...quoteNote,
+      paragraphs:[quotationParagraph(`Berakhot 6b:34: '${quoteEnglish}'`)]}), null,
+      'Apostrophes are not one of the established quotation delimiters'));
+    check(() => assert.equal(engine.sourceQuotationFromNote({...quoteNote,
+      paragraphs:[quotationParagraph(`Berakhot 6b:34: ‘${quoteEnglish}’`)]})?.en, quoteEnglish));
+    check(() => assert.equal(engine.sourceQuotationFromNote({...quoteNote,
+      paragraphs:[quotationParagraph('Berakhot 6b:34: ‘A person’s words are heeded.’')]})?.en,
+      'A person’s words are heeded.'));
+    check(() => assert.equal(engine.sourceQuotationFromNote({...quoteNote,
+      paragraphs:[quotationParagraph(`Berakhot 6b:34: "${quoteEnglish}"`)]})?.en, quoteEnglish));
+    check(() => assert.equal(engine.sourceQuotationFromNote({...quoteNote,
+      paragraphs:[{text:quoteNote.paragraphs[0].text,rich:[{text:'Berakhot 6b:34',href:'https://www.sefaria.org/Berakhot.6b.35'}]}]}), null));
+    check(() => assert.equal(engine.sourceQuotationFromNote({...quoteNote,provenance:{}})?.provenance,
+      'English source quotation from the published footnote'));
+    check(() => assert.equal(engine.sourceQuotationFromNote({...quoteNote,
+      paragraphs:[quotationParagraph('Berakhot 6b:34: “דברים אלה נשמעים.”')]}), null));
+    check(() => assert.equal(engine.sourceQuotationFromNote(null), null));
     check(() => assert.equal(engine.refsOverlap('Berakhot 6b:3', 'Berakhot 6b:30'), false));
     check(() => assert.equal(engine.refsOverlap('Berakhot 6b:3-8', 'Berakhot 6b:7'), true));
     check(() => assert.equal(engine.refsOverlap('Berakhot 6b:3-8', 'Berakhot 6b:9'), false));

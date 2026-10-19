@@ -40,6 +40,8 @@ const server = http.createServer((request,response)=>{
 await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
 const origin = 'http://127.0.0.1:' + server.address().port;
 const browser = await chromium.launch({headless:true});
+const screenshotDir = path.resolve('artifacts/source-connections');
+fs.mkdirSync(screenshotDir,{recursive:true});
 let routesChecked = 0;
 
 async function prepare(viewport, failCatalog = false) {
@@ -107,6 +109,21 @@ try {
     assert.equal(text(await page.locator('#panel .ttl').textContent()),'Exodus 12:11');
     const directIds = await page.locator('.reviewed-connection').evaluateAll(nodes=>nodes.map(node=>node.dataset.connectionId).sort());
     for (const school of engine.SCHOOLS) assert(await page.getByRole('button',{name:school + ' sources',exact:true}).isVisible());
+    await page.getByRole('button',{name:'English only',exact:true}).click();
+    await page.getByRole('button',{name:'Ishbitz–Radzin sources',exact:true}).click();
+    await checkedCards(page,expected.filter(record=>record.school === 'Ishbitz–Radzin'));
+    await page.screenshot({path:path.join(screenshotDir,viewport.width > 600 ? 'desktop-source-connection.jpg' : 'mobile-source-connection.jpg'),type:'jpeg',quality:90});
+    const ishbitz = expected.find(record=>record.school === 'Ishbitz–Radzin');
+    await page.locator(`[data-connection-id="${ishbitz.id}"] .explore-source`).click();
+    await page.locator('.source-head .qe').waitFor({state:'visible'});
+    assert.equal(text(await page.locator('.source-head .qe').textContent()),text(ishbitz.targetEnglish));
+    assert.equal(text(await page.locator('.quote-label').textContent()),'Reviewed excerpt from this passage');
+    await page.locator('#pClose').click();
+    await seg.locator('.seg-il .ph-he').getByRole('link',{name:'בְּחִפָּזוֹן',exact:true}).click();
+    await checkedCards(page,expected);
+    await page.getByRole('button',{name:'Hebrew and English',exact:true}).click();
+    await page.getByRole('button',{name:'All sources',exact:true}).click();
+    await checkedCards(page,expected);
     await page.locator('#pClose').click();
 
     // A linked footnote opens exactly the same source and reviewed connections.
@@ -141,6 +158,21 @@ try {
     assert.equal(await page.locator('.reviewed-connection').count(),0);
     assert.equal(await page.locator('.source-head .quote .qe').count(),0,'A partial footnote translation was paired with the full Hebrew');
     assert.match(await page.locator('.connection-status').textContent(),/No reviewed connection/);
+    const noteEnglish = text(await page.locator('.footnote-source-excerpt .qe').textContent());
+    await page.locator('#pClose').click();
+
+    // The same nearby verified footnote excerpt is also available when the
+    // reader opens that source from its inline citation or sidebar book button.
+    await title.locator('.seg-he').getByRole('link',{name:'צִדְקַת הַצַּדִּיק',exact:true}).click();
+    await page.locator('.footnote-source-excerpt').waitFor({state:'visible'});
+    assert.equal(text(await page.locator('.footnote-source-excerpt .qe').textContent()),noteEnglish);
+    assert.equal(await page.locator('.source-head .quote .qe').count(),0);
+    await page.locator('#pClose').click();
+    await title.locator('.seg-en').click();
+    await page.locator('#pContent button[data-cat="Tanakh"][data-book="Ezekiel"]').click();
+    await page.locator('.footnote-source-excerpt').waitFor({state:'visible'});
+    assert.equal(text(await page.locator('.footnote-source-excerpt .qe').textContent()),noteEnglish);
+    assert.equal(await page.locator('.reviewed-connection').count(),0);
     await page.locator('#pClose').click();
 
     // Exact direct source lookup works when the source is already in R.sections.
@@ -164,7 +196,8 @@ try {
   await unavailable.close();
   console.log(JSON.stringify({ok:true,viewports:2,reviewedViews:routesChecked,matchedSource:'Exodus 12:11',
     entryPoints:['inline citation','footnote source','sidebar source','direct source lookup'],
-    fullTranslations:true,unrelatedConnectionsSuppressed:true,partialFootnoteTranslationKeptSeparate:true,catalogFailureReported:true}));
+    fullTranslations:true,unrelatedConnectionsSuppressed:true,partialFootnoteTranslationKeptSeparate:true,
+    footnoteEnglishAvailableAcrossEntryPoints:true,reviewedEnglishRetainedWhenOpeningItsPassage:true,catalogFailureReported:true}));
 } finally {
   await browser.close();
   await new Promise(resolve=>server.close(resolve));

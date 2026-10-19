@@ -28,11 +28,15 @@ const plain = value => String(value || '').replace(/<[^>]*>/g, '')
 const serializable = value => JSON.parse(JSON.stringify(value));
 const passed = [];
 
-function harness(responses) {
+function harness(responses, translations = null) {
   const requests = [];
   const context = vm.createContext({
     sourceConnections: engine,
     plain,
+    publishedSourceTranslation: async ref => {
+      if (translations instanceof Error) throw translations;
+      return translations?.[ref] || null;
+    },
     flatten: value => Array.isArray(value) ? value.flat(Infinity) : value == null ? [] : [value],
     fetchText: async (ref, options = {}) => {
       requests.push({ref, options});
@@ -168,6 +172,42 @@ try {
     assert.equal(requests.length,0);
   });
 
+  await check('an exact published source translation is available independently of its footnote', async () => {
+    const translated = {ref:'Rashi on Ketubot 85b:8:1',he:'פירוש המקור השלם',en:'The complete translated explanation.',
+      sourceUrl:'https://www.sefaria.org/Rashi_on_Ketubot.85b.8.1',provenance:'Published source-footnote translation with retained primary evidence'};
+    const {loader,requests} = harness({}, {[translated.ref]:translated});
+    const result = await loader({sourceRef:translated.ref});
+    assert.deepEqual(serializable(result.he),[translated.he]);
+    assert.deepEqual(serializable(result.en),[translated.en]);
+    assert.equal(result.sourceTranslationUrl,translated.sourceUrl);
+    assert.equal(result.versions[0].title,translated.provenance);
+    assert.equal(result.publishedSourceTranslation,true);
+    assert.equal(requests.length,0);
+  });
+
+  await check('a translation for one exact source cannot substitute for a neighboring source', async () => {
+    const original = {ref:'Rashi on Ketubot 85b:8:2',he:['המקור הסמוך'],en:[]};
+    const {loader,requests} = harness({[original.ref]:original}, {'Rashi on Ketubot 85b:8:1':{he:'אחר',en:'Other.'}});
+    const result = await loader({sourceRef:original.ref});
+    assert.deepEqual(serializable(result.en),[]);
+    assert.deepEqual(requests.map(request=>request.ref),[original.ref]);
+  });
+
+  await check('source translation index failure is distinguished from a missing translation', async () => {
+    const ref = 'Ezekiel 18:20';
+    const {loader} = harness({[ref]:{ref,he:['המקור'],en:[]}},new Error('Index unavailable'));
+    const result = await loader({sourceRef:ref});
+    assert.equal(result.translationLookupFailed,true);
+    assert.deepEqual(serializable(result.en),[]);
+  });
+
+  await check('an unavailable supplementary index preserves complete existing English', async () => {
+    const ref = 'Ezekiel 18:20', en = ['The complete available English.'];
+    const {loader} = harness({[ref]:{ref,he:['המקור'],en}},new Error('Index unavailable'));
+    const result = await loader({sourceRef:ref});
+    assert.deepEqual(serializable(result.en),en);
+  });
+
   const excerpt = {ref:'Ezekiel 18:20',en:'The quoted excerpt covers only part of this source.',provenance:'Checked fixture footnote'};
   await check('complete original English is preserved instead of a shorter footnote excerpt', async () => {
     const original = {ref:excerpt.ref,sectionRef:'Ezekiel 18',he:['ראשון','שני'],
@@ -219,6 +259,37 @@ try {
       [['ראשון','First.'],['','English only.']]);
     assert.deepEqual(serializable(align(['<b>ראשון</b>','שני'],'First &amp; complete.')),
       [['ראשון','First & complete.'],['שני','']]);
+  });
+
+  const contextStart = html.indexOf('function sourceFootnoteQuote(ref, context) {');
+  const contextEnd = html.indexOf('async function reviewedPassageLinks(',contextStart);
+  assert(contextStart >= 0 && contextEnd > contextStart);
+  const quotedNote = {verificationStatus:'verified',phraseIndex:4,sources:[{ref:'Ezekiel 18:20',
+    url:'https://www.sefaria.org/Ezekiel.18.20',role:'primary'}],paragraphs:[{
+      text:'Ezekiel 18:20: “An exact English source excerpt.”',
+      rich:[{text:'Ezekiel 18:20',href:'https://www.sefaria.org/Ezekiel.18.20'},{text:': “An exact English source excerpt.”'}]}]};
+  const noteContext = vm.createContext({sourceConnections:engine,R:{sections:[{sectionRef:'Origin 1',annotations:[[quotedNote]]}]}});
+  vm.runInContext(html.slice(contextStart,contextEnd)+'\nglobalThis.pickNote = sourceFootnoteQuote;',noteContext);
+  const seg = {dataset:{k:'0'},closest:()=>({dataset:{ref:'Origin 1'}})};
+  await check('inline and paragraph lookups can reuse a unique verified note excerpt', async () => {
+    assert.equal(noteContext.pickNote('Ezekiel 18:20',{el:seg,phraseIndex:4}).en,'An exact English source excerpt.');
+    assert.equal(noteContext.pickNote('Ezekiel 18:20',{el:seg,phraseIndex:-1}).en,'An exact English source excerpt.');
+  });
+  await check('an inline lookup excludes a distant note from another discussion', async () => {
+    assert.equal(noteContext.pickNote('Ezekiel 18:20',{el:seg,phraseIndex:14}),null);
+  });
+  await check('an inline lookup does not borrow a quotation from the adjacent phrase', async () => {
+    assert.equal(noteContext.pickNote('Ezekiel 18:20',{el:seg,phraseIndex:5}),null);
+  });
+  await check('note excerpts do not broaden to an entire chapter', async () => {
+    assert.equal(noteContext.pickNote('Ezekiel 18',{el:seg,phraseIndex:4}),null);
+  });
+  await check('ambiguous different quotations of the same source are omitted', async () => {
+    const other = structuredClone(quotedNote);
+    other.paragraphs[0].text = 'Ezekiel 18:20: “A different part of the source.”';
+    other.paragraphs[0].rich[1].text = ': “A different part of the source.”';
+    noteContext.R.sections[0].annotations[0].push(other);
+    assert.equal(noteContext.pickNote('Ezekiel 18:20',{el:seg,phraseIndex:-1}),null);
   });
 
   console.log(JSON.stringify({ok:true,cases:passed.length,checks:passed}));

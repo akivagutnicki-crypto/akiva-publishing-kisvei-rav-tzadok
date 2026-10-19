@@ -44,11 +44,17 @@ The [editorial review workflow](sources/akiva/connections/README.md) governs new
 
 The generated `dist/library/source-connections/catalog.json` records SHA-256 evidence for the editorial file, each saved primary-source proof file, the full primary Hebrew, final canonical paragraph, selected Hebrew quotations, and both English translations. Its version changes when the reviewed contents or evidence changes. Re-read changed source or target context before updating either review pin; never refresh a failed pin automatically. This catalog sits outside `library/data`, preserving the existing chapter, footnote, offline-download, and source-quotation proof inventories. The reader's service worker stores the separate matcher and catalog for source lookups in the installed reader.
 
+The separate `source-connections/translations.json` makes eligible, already published source-footnote translations available by exact source reference throughout the same viewer. `scripts/build-source-translations.mjs` requires the retained Hebrew to match the complete primary source unit, verifies the saved raw primary response and English translation hashes, and locates the identical English in a verified final footnote. Shortened source units, ambiguous references, and unsupported evidence are excluded. The index preserves source and translation provenance and never creates a connection. Inline citations and sidebar lookups can also reuse a unique nearby verified footnote quotation; such an excerpt is displayed separately when it does not translate the complete fetched Hebrew.
+
+These are reviewed publication inputs and existing translations. The reader does not generate or semantically review unseen translations at lookup time. Sources outside the reviewed connection catalog can still be opened; an empty reviewed result does not assert that no relevant passage exists. Further editorial iterations must read the exact sources, prepare any missing English, and apply the same review requirements before adding records.
+
 After the normal final source-quotation build, run:
 
 ```sh
 node scripts/build-reviewed-connections.mjs
+node scripts/build-source-translations.mjs
 node scripts/test-reviewed-connections.mjs
+node scripts/test-source-translations.mjs
 node scripts/test-reviewed-connections-reader.mjs
 node scripts/test-reviewed-source-rendering.mjs
 ```
