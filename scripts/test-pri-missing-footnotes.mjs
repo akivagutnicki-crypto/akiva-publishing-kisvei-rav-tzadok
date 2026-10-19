@@ -39,6 +39,8 @@ export const plain = value => String(value).replace(/<[^>]*>/g,'').replace(/&(#x
 const body = rows => rows.map(row=>Object.fromEntries(Object.entries(row).filter(([key])=>key!=='footnotes')));
 const walk = node => [...(node?.ref ? [node] : []),...(node?.children || []).flatMap(walk)];
 const canonicalSource = ref => String(ref).replace(/\s*\(§\s*\d+\)$/u,'').trim();
+const sourceSlug = ref => canonicalSource(ref).replace(/\s+\d[\da-z:.\-–]*$/i,'')
+  .toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
 const isSafeSource = href => /^https:\/\/(?:www\.)?sefaria\.org\/[^<>\s"']+$/i.test(href)
   || /^#\/read\/Resisei_Layla_\d+:\d+$/.test(href);
 export const toHash = ref => encodeURIComponent(ref).replace(/%20/g,'_').replace(/%2C/g,',').replace(/%3A/g,':');
@@ -162,8 +164,11 @@ export async function verifyMissingFootnotes(options={}) {
   else assert.equal(sha(canonical(legacy)),report.existingNotesAfterSha256,'Existing pre-cleanup notes differ from the import snapshot');
   const newIds = allNotes.filter(([, ,note])=>note.number>3240).map(([, ,note])=>note.number).sort((a,b)=>a-b);
   assert.deepEqual(newIds,Array.from({length:2299},(_,i)=>i+3254),'Do not import the 13 out-of-scope additions');
+  // Pages omits the legacy empty-slug dotfile. Every new note must still have
+  // a nonempty source slug and its exact reverse connection, checked below.
+  const citedSlugs = [...new Set(citedIndex)].filter(slug=>slug!=='');
   const [reverseFiles,doverRecords] = await Promise.all([
-    parallelMap([...new Set(citedIndex)],async slug=>[slug,await read('data/cited/'+slug+'.json')]),
+    parallelMap(citedSlugs,async slug=>[slug,await read('data/cited/'+slug+'.json')]),
     parallelMap(DOVER_FILES,async file=>[file,sha(await bytes('data/dover-tzedek/'+file))]),
   ]);
   assert.equal(sha(canonical(doverRecords)),DOVER_FILES_SHA,'All 18 current Dover files must remain byte-for-byte unchanged');
@@ -207,6 +212,7 @@ export async function verifyMissingFootnotes(options={}) {
           for(const run of paragraph.rich) if(run.href) assert.ok(isSafeSource(run.href),'Renderable source URL '+note.sourceId);
         }
         const ref=canonicalSource(note.sources[0].ref),anchor=target.ref+target.separator+row.n;
+        assert.ok(sourceSlug(ref),'New note requires a nonempty cited-source slug: '+note.sourceId+' '+ref);
         assert.ok(isSafeSource(note.sources[0].url));
         assert.ok((links[target.ref] || []).some(link=>link.a===anchor&&link.r===ref),'Missing forward source connection '+note.sourceId);
         const reverse=(backlinks.get(ref) || []).filter(entry=>entry.anchors.includes(anchor));

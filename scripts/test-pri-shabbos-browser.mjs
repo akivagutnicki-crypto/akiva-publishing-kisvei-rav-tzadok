@@ -117,11 +117,15 @@ try{
       assert.equal(coverage.actual.at(-1).at(-1)[1].text.replace(/\s/gu,''),plain(lastPair[1]).replace(/\s/gu,''));
       const refs=await section.locator('.seg').evaluateAll(elements=>elements.map(element=>element.dataset.ref));
       assert.equal(new Set(refs).size,refs.length,'Duplicate canonical DOM anchors');
-      const styles=await section.locator('.ph-en').first().evaluate(element=>{const style=getComputedStyle(element);return {align:style.textAlign,weight:style.fontWeight,font:style.fontFamily};});
-      assert.equal(styles.align,'left');assert.equal(styles.weight,'700');assert.ok(styles.font.includes('Times New Roman'));
-      assert.equal(await section.locator('.ph-he').first().evaluate(element=>getComputedStyle(element).fontWeight),'400');
+      const styles=await section.locator('.ph-en').first().evaluate(element=>{const style=getComputedStyle(element);return {align:style.textAlign,direction:style.direction,weight:style.fontWeight,font:style.fontFamily};});
+      assert.equal(styles.align,'left');assert.equal(styles.direction,'ltr');assert.equal(styles.weight,'700');assert.ok(styles.font.includes('Times New Roman'));
+      const hebrewStyles=await section.locator('.ph-he').first().evaluate(element=>{const style=getComputedStyle(element);return {align:style.textAlign,direction:style.direction,weight:style.fontWeight,font:style.fontFamily};});
+      assert.equal(hebrewStyles.align,'right','Hebrew interlinear alignment '+ref);assert.equal(hebrewStyles.direction,'rtl');
+      assert.equal(hebrewStyles.weight,'400');assert.ok(hebrewStyles.font.includes('Times New Roman'));
+      const continuousHebrew=await section.locator('.seg-he').first().evaluate(element=>{const style=getComputedStyle(element);return {align:style.textAlign,direction:style.direction};});
+      assert.equal(continuousHebrew.align,'justify','Continuous Hebrew alignment '+ref);assert.equal(continuousHebrew.direction,'rtl');
       assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+2),false,'Reader overflow '+ref);
-      report.sections.push({ref,width,canonicalParagraphs:expected.length,phrasePairs:expected.reduce((n,item)=>n+item.p.length,0),sourceAnchors,renderedAnchorFragments,logicalCitationSpans,exactBodyText:true,exactCitationCoverage:true});
+      report.sections.push({ref,width,canonicalParagraphs:expected.length,phrasePairs:expected.reduce((n,item)=>n+item.p.length,0),sourceAnchors,renderedAnchorFragments,logicalCitationSpans,exactBodyText:true,exactCitationCoverage:true,interlinearHebrewAlign:hebrewStyles.align,continuousHebrewAlign:continuousHebrew.align,hebrewDirection:hebrewStyles.direction,englishAlign:styles.align,englishDirection:styles.direction});
       if(node.depth===2&&(chapter.number===1||(width===390&&chapter.number===7))){
         const screenshot=`${node.ref.includes('Kuntres')?'kuntres':'kedushas'}-${chapter.number}-${width}.png`;
         await page.screenshot({path:path.join(artifacts,screenshot)});report.screenshots.push(screenshot);
