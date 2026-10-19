@@ -385,6 +385,18 @@ i.footnote.open{display:block;direction:ltr;text-align:left;font-family:var(--en
 .link-item .qp:last-child{border-bottom:0}
 .link-item .qh{font:400 1.12rem/1.65 var(--he);direction:rtl;text-align:right;margin:0}
 .link-item .qe{font:400 1.04rem/1.5 var(--en);color:var(--muted);margin:4px 0 0}
+.link-item.reviewed-connection .qe{font-weight:700;color:var(--ink)}
+.link-item.reviewed-connection .quote{max-height:none}
+.connection-explanation{margin:14px 0 4px;padding:10px 12px;border-left:3px solid var(--brass);background:var(--soft);font:400 .98rem/1.55 var(--en)}
+.connection-explanation strong{display:block;font:600 .73rem/1.5 var(--ui);margin-bottom:5px;color:var(--forest)}
+.connection-provenance{font:400 .7rem/1.5 var(--ui);color:var(--muted);margin-top:8px}
+.footnote-source-excerpt{margin-top:14px;padding:12px;border:1px solid var(--line);border-radius:8px;font:400 .96rem/1.6 var(--en)}
+.footnote-source-excerpt>strong{font:600 .74rem/1.5 var(--ui);color:var(--forest)}
+.footnote-source-excerpt .copy-excerpt{margin-top:10px}
+#pContent[data-source-lang="he"] .footnote-source-excerpt{display:none}
+.connection-status{padding:10px 0;font:400 .86rem/1.5 var(--ui);color:var(--muted)}
+.link-item .ref button{border:0;padding:0;background:none;color:var(--link);font:inherit;text-align:left;text-decoration:underline;text-underline-offset:3px}
+.connection-school{margin-bottom:8px;font:600 .73rem/1.5 var(--ui);color:var(--forest)}
 .link-item:not(.full) .clipped{-webkit-mask-image:linear-gradient(#000 70%,transparent);mask-image:linear-gradient(#000 70%,transparent)}
 .link-item .acts{display:flex;gap:16px;margin-top:10px;font:600 .74rem var(--ui);color:var(--link)}
 .link-item .acts a:hover,.link-item .acts button:hover{text-decoration:underline}
@@ -561,6 +573,7 @@ body.akiva-android-reader .akiva-support-embed{border-top-color:var(--ox)}
 
 <script src="shiur-player.js?v=20261016-compact-noach-audio"></script>
 <script src="sefaria-packs.js?v=20261012-source-zips-v3"></script>
+<script src="source-connections.js?v=20261019-reviewed-connections-v1"></script>
 <script>
 (() => {
 'use strict';
@@ -776,7 +789,7 @@ function clean(html) {
       if (ch.nodeType === 1) {
         walk(ch);
         if (!ALLOWED.has(ch.tagName)) { ch.replaceWith(...ch.childNodes); return; }
-        const cls = ch.getAttribute('class') || '', dref = ch.getAttribute('data-ref');
+        const cls = ch.getAttribute('class') || '', dref = ch.getAttribute('data-ref') || (ch.tagName === 'A' && window.AkivaSourceConnections?.sourceRefFromUrl(ch.getAttribute('href')));
         const hebrewSpan = ch.tagName === 'SPAN' && ch.getAttribute('lang') === 'he';
         [...ch.attributes].forEach(a => ch.removeAttribute(a.name));
         if (hebrewSpan) { ch.lang = 'he'; ch.dir = 'rtl'; }
@@ -1336,14 +1349,22 @@ async function renderReader(ref, jump = new URLSearchParams()) {
       }
       e.stopPropagation(); return;
     }
-    if (e.target.closest('.reader-footnote')) { e.stopPropagation(); return; }
+    const footnote = e.target.closest('.reader-footnote');
+    const sourceAnchor = e.target.closest('a');
+    const linkedSource = sourceAnchor && !sourceAnchor.classList.contains('footnote-cross-reference')
+      && window.AkivaSourceConnections?.sourceRefFromUrl(sourceAnchor.getAttribute('href'));
+    if (footnote && linkedSource && !e.ctrlKey && !e.metaKey && !e.shiftKey && !e.altKey) {
+      e.preventDefault(); e.stopPropagation();
+      openSourceStudy(linkedSource, {...sourceContext(sourceAnchor),footnoteQuote:footnoteSourceQuote(sourceAnchor)}, sourceAnchor.getAttribute('href'));
+      return;
+    }
+    if (footnote) { e.stopPropagation(); return; }
     if (window.getSelection && String(window.getSelection()).length > 1) return;
     const seg = e.target.closest('.seg');
     const cite = e.target.closest('a.cite');
-    if (cite && seg) {
+    if (cite && seg && !e.ctrlKey && !e.metaKey && !e.shiftKey && !e.altKey) {
       e.preventDefault();
-      selectSegment(seg.dataset.ref, seg);
-      showLinkList(seg.dataset.ref, 'Cited source', [{sourceRef: cite.dataset.ref, category: 'Source'}], $('#pContent'));
+      openSourceStudy(cite.dataset.ref, sourceContext(cite));
       return;
     }
     if (seg) selectSegment(seg.dataset.ref, seg);
@@ -1703,12 +1724,150 @@ function segOf(anchorRef, sectionRef) {
 }
 /* Library connections (scripts/build-library.mjs): what our translated paragraphs
    cite (data/<slug>/links.json) and which of them cite a given book (data/cited). */
-const slugify = t => t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const bookOfRef = ref => ref.replace(/\s+\d[\dab:\-–]*$/, '');
 const localJSON = new Map();
 function dataJSON(path) {
   if (!localJSON.has(path)) localJSON.set(path, fetch(editionDataUrl('data/' + path)).then(r => r.ok ? r.json() : null).catch(() => null));
   return localJSON.get(path);
+}
+const sourceConnections = window.AkivaSourceConnections;
+let reviewedCatalogPromise = null;
+function reviewedCatalog() {
+  if (!reviewedCatalogPromise) reviewedCatalogPromise = fetch('source-connections/catalog.json?v=' + sourceConnections.VERSION)
+    .then(response => { if (!response.ok) throw new Error('Reviewed sources HTTP ' + response.status); return response.json(); })
+    .then(data => {
+      if (data.schemaVersion !== 1 || data.release !== sourceConnections.VERSION || !Array.isArray(data.records)
+          || data.records.some(record => !sourceConnections.validRecord(record))) throw new Error('Incompatible reviewed source edition');
+      return data;
+    }).catch(error => { reviewedCatalogPromise = null; throw error; });
+  return reviewedCatalogPromise;
+}
+// Read the author's nearby phrases, excluding footnote quotations and editorial
+// prose. A source mentioned elsewhere in a long ois is not the click's context.
+function sourceContext(element) {
+  const seg = element?.closest?.('.seg');
+  if (!seg) return {originRef:'', he:'', en:''};
+  const sec = R.sections.find(item => item.sectionRef === seg.closest('.sec')?.dataset.ref);
+  const index = Number(seg.dataset.k);
+  const pairs = sec?.phrases?.[index];
+  let phraseIndex = -1;
+  if (pairs) {
+    const phrase = element.closest('.ph');
+    if (phrase) phraseIndex = [...seg.querySelectorAll('.ph')].indexOf(phrase);
+    const note = element.closest('.reader-footnote');
+    if (phraseIndex < 0 && note) {
+      const model = (sec.annotations?.[index] || []).find(item => note.dataset.noteKey
+        ? item.placementId === note.dataset.noteKey : String(item.number) === note.dataset.fn);
+      if (model) phraseIndex = model.phraseIndex;
+    }
+    if (phraseIndex < 0 && element.closest('a.cite')) {
+      const anchor = element.closest('a.cite'), column = anchor.closest('.seg-he,.seg-en');
+      if (column) {
+        const range = document.createRange(); range.selectNodeContents(column); range.setEndBefore(anchor);
+        const prefix = range.cloneContents();
+        prefix.querySelectorAll('.footnote,.reader-footnote,.footnote-marker,.subhead').forEach(node => node.remove());
+        const before = sourceConnections.normalizedHebrew(prefix.textContent).replace(/\s/g, '').length;
+        const side = column.classList.contains('seg-he') ? 0 : 1;
+        let offset = 0;
+        phraseIndex = pairs.findIndex(pair => {
+          const fragment = document.createElement('div'); fragment.innerHTML = clean(pair[side]);
+          fragment.querySelectorAll('.footnote,.footnote-marker,.subhead').forEach(node => node.remove());
+          const length = sourceConnections.normalizedHebrew(fragment.textContent).replace(/\s/g, '').length;
+          const found = before >= offset && before < offset + length;
+          offset += length; return found;
+        });
+      }
+    }
+  }
+  const selected = pairs && phraseIndex >= 0 ? pairs.slice(Math.max(0, phraseIndex - 6), phraseIndex + 5) : pairs;
+  const authorPhrase = html => {
+    const fragment = document.createElement('div'); fragment.innerHTML = clean(html);
+    fragment.querySelectorAll('.footnote,.reader-footnote,.footnote-marker,.subhead').forEach(node => node.remove());
+    return fragment.textContent || '';
+  };
+  const textOf = selector => {
+    const copy = seg.querySelector(selector)?.cloneNode(true);
+    copy?.querySelectorAll('.footnote,.reader-footnote,.footnote-marker,.subhead').forEach(node => node.remove());
+    return copy?.textContent || '';
+  };
+  const isLibrary = Boolean(localBook(sec?.book) || sec?.book === 'Mei HaShiloach');
+  return {originRef:isLibrary ? seg.dataset.ref : '', el:seg,
+    he:selected ? selected.map(pair => authorPhrase(pair[0])).join(' ') : textOf('.seg-he'),
+    en:selected ? selected.map(pair => authorPhrase(pair[1])).join(' ') : textOf('.seg-en')};
+}
+function reviewedLink(record, originRef) {
+  return asLink(originRef, record.targetRef, record.school, {reviewedRecord:record,
+    kind:record.school, note:record.explanation, quote:{he:record.targetHebrew,en:record.targetEnglish},
+    quoteRef:record.targetRef, translationProvenance:record.translationProvenance});
+}
+function footnoteSourceQuote(anchor) {
+  const box = anchor.closest('.reader-footnote'), seg = anchor.closest('.seg');
+  if (!box || !seg) return null;
+  const sec = R.sections.find(item => item.sectionRef === seg.closest('.sec')?.dataset.ref);
+  const note = (sec?.annotations?.[Number(seg.dataset.k)] || []).find(item => box.dataset.noteKey
+    ? item.placementId === box.dataset.noteKey : String(item.number) === box.dataset.fn);
+  if (!note || note.verificationStatus !== 'verified') return null;
+  const href = anchor.getAttribute('href');
+  const source = (note.sources || []).find(item => item.url === href && (!item.role || /primary|source/.test(item.role)));
+  if (!source?.ref) return null;
+  const paragraphs = (note.paragraphs || []).filter(paragraph => paragraph.rich?.some(run => run.href === href));
+  if (paragraphs.length !== 1) return null;
+  const raw = paragraphs[0].text || paragraphs[0].rich.map(run => run.text || '').join('');
+  // Use only an actual delimited quotation, never the footnote's contextual
+  // commentary. Its original edition attribution accompanies the excerpt.
+  const match = raw.match(/^[^“‘"]+[:：]\s*(?:“([\s\S]+)”|‘([\s\S]+)’|"([\s\S]+)")\s*$/);
+  const translation = match && (match[1] || match[2] || match[3]);
+  if (!translation || !/[A-Za-z]/.test(translation)) return null;
+  const provenance = note.provenance?.sourceQuotationRelease;
+  return {ref:source.ref,en:translation,provenance:provenance?.versionTitle
+    ? `${provenance.versionTitle}${provenance.license ? ' · ' + provenance.license : ''}` : 'English source quotation from the published footnote'};
+}
+async function reviewedPassageLinks(ref, primaryLinks) {
+  const {records} = await reviewedCatalog();
+  const el = R.selected?.ref === ref ? R.selected.el : document.querySelector('.seg[data-ref="' + CSS.escape(ref) + '"]');
+  const context = sourceContext(el);
+  return sourceConnections.pickForPassage(records, primaryLinks.map(link => link.sourceRef || link.ref), context)
+    .map(record => reviewedLink(record, ref));
+}
+async function openSourceStudy(ref, context = {}, sourceUrl = '') {
+  ref = sourceConnections.normalizeRef(ref);
+  if (!ref) return;
+  if (context.el) selectSegment(context.originRef || context.el.dataset.ref, context.el, false);
+  else if (!context.originRef) { R.selected = null; document.querySelectorAll('.seg.on').forEach(element => element.classList.remove('on')); }
+  openPanel(context.originRef || ref, 'source');
+  $('#panel .panel-head .ttl').textContent = ref;
+  const c = $('#pContent'), seq = ++panelSeq;
+  c.innerHTML = '<div class="loading">Opening source and checking relevant connections…</div>';
+  let records = [], notice = '';
+  try { records = sourceConnections.pickConnections((await reviewedCatalog()).records, ref, context); }
+  catch { notice = 'Reviewed connections could not be loaded. Reopen this source to retry.'; }
+  if (seq !== panelSeq || !c.isConnected) return;
+  const primary = {sourceRef:ref, category:'Cited source', sourceUrl};
+  if (context.footnoteQuote && sourceConnections.refsOverlap(ref, context.footnoteQuote.ref)) {
+    primary.fallbackQuote = context.footnoteQuote;
+    primary.quoteRef = context.footnoteQuote.ref;
+    primary.translationProvenance = context.footnoteQuote.provenance;
+  }
+  // When the exact passage is known, open its complete reviewed excerpt rather
+  // than a whole daf or an unrelated first paragraph of a local chapter.
+  const sourcePassages = [...new Set(records.map(record => record.sourceRefs.join('|')))];
+  if (sourcePassages.length === 1 && records.length) {
+    const record = records[0];
+    primary.quote = {he:record.sourceHebrew,en:record.sourceEnglish};
+    primary.quoteRef = record.sourceRefs.join('; ');
+    primary.sourceUrl = record.sourceUrl;
+    primary.translationProvenance = record.translationProvenance;
+  }
+  const connections = records.map(record => reviewedLink(record, context.originRef || ref));
+  const list = [primary, ...connections];
+  const groups = [{label:'All',list}, {label:'Cited source',list:[primary]}];
+  for (const school of sourceConnections.SCHOOLS) {
+    const entries = connections.filter(link => link.category === school);
+    if (entries.length) groups.push({label:school,list:entries});
+  }
+  if (!records.length && !notice) notice = 'No reviewed connection matches this source and its present context yet.';
+  showLinkList(context.originRef || ref, 'Source and connections', list, c,
+    {groups,selectedCategory:'All',context,notice,sourceStudy:true});
 }
 const asLink = (anchorRef, sourceRef, category, extras = {}) => ({anchorRef, sourceRef, sourceHeRef: '', category,
   index_title: bookOfRef(sourceRef), collectiveTitle: {en: bookOfRef(sourceRef)}, local: true, ...extras});
@@ -1721,61 +1880,15 @@ async function libraryLinks(sec, ref, whole) {
     const links = (await dataJSON(`${dataSlug}/links.json`)) || {};
     for (const l of links[sec.sectionRef] || []) if (whole || l.a === ref) out.push(asLink(l.a, l.r, l.c, {note:l.note || '', kind:l.kind || ''}));
   }
-  const index = (await dataJSON('cited/index.json')) || [];
-  const slug = slugify(bookOfRef(sec.sectionRef));
-  if (index.includes(slug)) {
-    const cited = (await dataJSON(`cited/${slug}.json`)) || {};
-    for (const [k, anchors] of Object.entries(cited)) {
-      const base = k.split('-')[0];
-      const hit = whole ? (base === sec.sectionRef || base.startsWith(sec.sectionRef + ':') || base.startsWith(sec.sectionRef + ' '))
-        : (base === ref || base === sec.sectionRef);
-      if (hit) for (const a of anchors) out.push(asLink(whole ? (base === sec.sectionRef ? null : base) : ref, a, 'Rav Tzadok Library'));
-    }
+  // Reverse citations and word-overlap suggestions are not editorial relevance
+  // checks. Only reviewed passages may appear in the two Kisvei categories.
+  const primary = out.filter(link => !['Rav Tzadok Library', 'Parallels by source', 'Parallel Sources'].includes(link.category) && !/parallel/i.test(link.kind || ''));
+  if (!whole && ref) {
+    try { primary.push(...await reviewedPassageLinks(ref, primary)); }
+    catch { /* The primary sources remain readable; no candidate is promoted. */ }
   }
-  if (dataSlug && !whole && ref) {            // curated entries and direct citations take precedence
-    const have = new Set(out.map(l => l.sourceRef));
-    out.push(...(await parallelLinks(dataSlug, ref)).filter(l => l.grouped || !have.has(l.sourceRef)));
-  }
-  return out;
+  return primary;
 }
-/* Parallels (scripts/build-parallels.mjs): verses this paragraph quotes without naming them, and the passages
-   in Kisvei Rav Tzadok and the Ishbitz–Radzin works that draw on the same sources, strongest first. */
-const schoolOf = ref => {
-  const b = CATALOG.filter(x => ref.startsWith(x.title)).sort((x, y) => y.title.length - x.title.length)[0];
-  return (b ? b.group === 'Izhbitz' : ref.startsWith('Mei HaShiloach')) ? 'Ishbitz–Radzin' : 'Kisvei Rav Tzadok';
-};
-async function parallelLinks(dataSlug, ref) {
-  const index = (await dataJSON('parallels/index.json')) || [];
-  if (!index.includes(dataSlug)) return [];
-  const e = ((await dataJSON(`parallels/${dataSlug}.json`)) || {})[ref];
-  if (!e) return [];
-  const out = (e.q || []).map(v => asLink(ref, v, 'Tanakh', {kind: 'Verse quoted', note: 'The passage quotes this verse in its own words without naming it; found by matching the wording of the verse.'}));
-  const words = (e.p || []).some(x => x[3].length) ? ((await dataJSON('parallels/words.json')) || {}) : {};
-  // Grouped by source: each source this passage draws on, then the passages elsewhere that draw on it too.
-  const groups = new Map();
-  for (const [other, score, sources, ids] of e.p || []) {
-    for (const key of [...sources, ...ids.map(id => 'w:' + id)]) {
-      const g = groups.get(key) || {key, score: 0, list: []};
-      g.score += score; g.list.push(other); groups.set(key, g);
-    }
-  }
-  const ordered = [...groups.values()].sort((a, b) => b.score - a.score);
-  let n = 0;
-  for (const g of ordered) {
-    const w = g.key.startsWith('w:') ? words[g.key.slice(2)] : null;
-    if (g.key.startsWith('w:') && !w) continue;
-    const label = w ? `${w.w} (Biblical word)` : g.key;
-    const extra = {collectiveTitle: {en: label}, index_title: label};
-    out.push(asLink(ref, w ? w.v[0] : g.key, PARALLEL_CAT, {...extra, grouped: ++n,
-      kind: w ? `Source · the Biblical word ${w.w}` : 'Source',
-      note: w ? `The passage uses the word ${w.w}, found in Tanakh only in ${w.v.join('; ')}. Passages that use it too follow.`
-        : `This passage draws on ${g.key}. The passages below draw on it too.`}));
-    for (const other of g.list.slice(0, 6)) out.push(asLink(ref, other, PARALLEL_CAT, {...extra, grouped: ++n,
-      kind: 'Parallel · ' + schoolOf(other), note: w ? `Also uses the Biblical word ${w.w}.` : `Also draws on ${g.key}.`}));
-  }
-  return out;
-}
-const PARALLEL_CAT = 'Parallels by source';
 async function loadLinkCounts(sectionRef, secEl, d) {
   const counts = {};
   const bump = (anchor, n) => { const r = segOf(anchor, sectionRef); if (r) for (let i = r[0]; i <= r[1]; i++) counts[i] = (counts[i] || 0) + n; };
@@ -1788,10 +1901,19 @@ async function loadLinkCounts(sectionRef, secEl, d) {
 }
 async function linksFor(ref) {
   const sec = R.sections.find(s => ref === s.sectionRef || ref.startsWith(s.sectionRef + ':') || ref.startsWith(s.sectionRef + ' '));
-  if (!sec) return getJSON(`/api/links/${encodeURIComponent(ref)}?with_text=0`).catch(() => []);
+  const isKisveiLink = link => [...CATALOG,...REMOTE].some(book => (link.sourceRef || link.ref || '').startsWith(book.title + ' ') || (link.sourceRef || link.ref || '').startsWith(book.title + ','));
+  if (!sec) {
+    const links = await getJSON(`/api/links/${encodeURIComponent(ref)}?with_text=0`).catch(() => []);
+    const primary = Array.isArray(links) ? links.filter(link => !isKisveiLink(link)) : [];
+    try { primary.push(...sourceConnections.pickConnections((await reviewedCatalog()).records, ref).map(record => reviewedLink(record, ref))); } catch {}
+    return primary;
+  }
   const n = +ref.slice(sec.sectionRef.length + 1);
   const [all, ours] = await Promise.all([loadLinks(sec.sectionRef), libraryLinks(sec, ref, false)]);
-  const sefaria = sec.chapterLinks ? all : all.filter(l => { const r = segOf(l.anchorRef, sec.sectionRef); return r && n >= r[0] && n <= r[1]; });
+  if (!localBook(sec.book) && !sec.meiStudy) {
+    try { ours.push(...sourceConnections.pickConnections((await reviewedCatalog()).records, ref).map(record => reviewedLink(record, ref))); } catch {}
+  }
+  const sefaria = (sec.chapterLinks ? all : all.filter(l => { const r = segOf(l.anchorRef, sec.sectionRef); return r && n >= r[0] && n <= r[1]; })).filter(link => !isKisveiLink(link));
   const seen = new Set(), out = [];
   for (const l of [...ours, ...sefaria]) {
     const key = l.grouped ? 'G|' + l.grouped : (l.category === 'Rav Tzadok Library' ? 'L|' : '') + (l.sourceRef || l.ref);
@@ -1835,11 +1957,11 @@ function bindSourceLanguage(c) {
     sourceLang = b.dataset.sourceLang; store.set('sourceLang', sourceLang); syncSourceLanguage(c);
   };
 }
-function selectSegment(ref, el) {
+function selectSegment(ref, el, show = true) {
   document.querySelectorAll('.seg.on').forEach(s => s.classList.remove('on'));
   el.classList.add('on');
   R.selected = {ref, el};
-  openPanel(ref);
+  if (show) openPanel(ref);
 }
 function closePanel() {
   ++panelSeq;
@@ -1856,7 +1978,8 @@ async function openPanel(ref, tab = 'connections') {
       <div id="pContent"></div></div>`;
   $('#pClose').onclick = closePanel;
   p.querySelectorAll('.ptabs button').forEach(b => b.onclick = () => showTab(ref, b.dataset.tab));
-  showTab(ref, tab);
+  if (tab === 'source') p.querySelector('[data-tab="connections"]').setAttribute('aria-selected', 'true');
+  else showTab(ref, tab);
 }
 function showTab(ref, tab) {
   document.querySelectorAll('.ptabs button').forEach(b => b.setAttribute('aria-selected', b.dataset.tab === tab));
@@ -1872,14 +1995,14 @@ async function renderConnections(ref, c) {
   c.onclick = null;
   c.innerHTML = '<div class="loading">Finding connections…</div>';
   const links = await linksFor(ref);
-  if (seq !== panelSeq || (R.selected && R.selected.ref !== ref)) return;
+  if (seq !== panelSeq) return;
   if (!links.length && R.selected && R.selected.el && R.selected.el.querySelector('a.cite')) { c.innerHTML = `<div class="empty">Sefaria has no recorded connections here, but this passage cites its sources directly. Tap a highlighted citation in the text to read it.</div>`; return; }
   if (!links.length) { c.innerHTML = `<div class="empty">No connections are recorded for this passage yet. Rav Tzadok cites many sources inline; tap a citation’s book on Sefaria to explore it.</div>`; return; }
   const sec = R.sections.find(s => ref.startsWith(s.sectionRef));
   const note = sec && sec.chapterLinks ? `<p class="empty" style="padding:0 0 10px;font-size:.92rem">Sources this passage cites, the library passages that cite it, and Sefaria's connections for the whole section.</p>` : '';
   const byCat = {};
   links.forEach(l => { const k = l.category || 'Other'; (byCat[k] = byCat[k] || []).push(l); });
-  const FIRST = ['Parallel Sources', PARALLEL_CAT, 'Rav Tzadok Library'];
+  const FIRST = sourceConnections.SCHOOLS;
   const rank = k => (FIRST.includes(k) ? FIRST.indexOf(k) : FIRST.length);
   const cats = Object.keys(byCat).sort((a, b) => rank(a) - rank(b) || byCat[b].length - byCat[a].length);
   c.innerHTML = sourceLanguageControls() + note + cats.map(k => {
@@ -1896,58 +2019,123 @@ async function renderConnections(ref, c) {
     showLinkList(ref, b.dataset.book || b.dataset.cat, list, c, {groups, selectedCategory: b.dataset.cat});
   };
 }
-async function showLinkList(ref, label, list, c, {groups = [], selectedCategory = ''} = {}) {
+// Fetch exactly the requested local paragraph/range. Never preview the first
+// paragraph of a chapter merely because a range did not resolve.
+async function sourceTextData(link) {
+  if (link.quote) return {ref:link.quoteRef || link.sourceRef, he:[link.quote.he], en:[link.quote.en], reviewedExcerpt:true};
+  if (link.fallbackQuote) {
+    const plainLink = {...link,sourceRef:link.fallbackQuote.ref}; delete plainLink.fallbackQuote;
+    try {
+      const data = await sourceTextData(plainLink);
+      const rows = alignedSourceRows(data.he,data.en).filter(([he,en])=>he.trim() || en.trim());
+      const complete = rows.some(([,en])=>en.trim()) && rows.every(([he,en])=>!he.trim() || en.trim());
+      // A footnote can translate only an excerpt of a broad source reference.
+      // Never align that excerpt with all of the Hebrew or replace a complete
+      // published translation. Show it separately when it adds missing English.
+      return {...data,footnoteExcerpt:complete ? null : link.fallbackQuote,fromFootnoteFallback:true};
+    } catch { return {ref:link.fallbackQuote.ref,he:[],en:[],footnoteExcerpt:link.fallbackQuote,fromFootnoteFallback:true}; }
+  }
+  const ref = sourceConnections.normalizeRef(link.sourceRef || link.ref);
+  const range = ref.match(/^(.*? \d+(?::\d+)*)(-\d+(?::\d+)*)$/);
+  let d = await fetchText(range ? range[1] : ref);
+  if (!d.local && !d.meiStudy) return range ? fetchText(ref, {remoteOnly:true}) : d;
+  const pairs = [], visited = new Set();
+  const requested = range && sourceConnections.parseRef(ref);
+  let foundStart = false, foundEnd = false;
+  const matchesBoundary = (address, point) => point && address.every((value,index)=>point.from[index] === value);
+  while (d && !visited.has(d.sectionRef)) {
+    visited.add(d.sectionRef);
+    if (visited.size > 100) throw new Error('Requested range is too large to preview completely');
+    const hs = Array.isArray(d.he) ? d.he : [d.he], es = Array.isArray(d.en) ? d.en : [d.en];
+    for (let i = 0; i < Math.max(hs.length, es.length); i++) {
+      const itemRef = d.sectionRef + (d.sep || ':') + (d.nums?.[i] || i + 1);
+      if (ref === d.sectionRef || sourceConnections.refsOverlap(ref, itemRef)) {
+        pairs.push([hs[i] || '', es[i] || '']);
+        if (requested) {
+          const point = sourceConnections.parseRef(itemRef);
+          foundStart ||= matchesBoundary(requested.from,point);
+          foundEnd ||= matchesBoundary(requested.to,point);
+        }
+      }
+    }
+    if (!range || !d.next || !sourceConnections.refsOverlap(ref, d.next)) break;
+    d = await fetchText(d.next);
+  }
+  if (!pairs.length) throw new Error('The exact requested local passage was not found');
+  if (requested && (!foundStart || !foundEnd)) throw new Error('The complete requested local range could not be verified');
+  return {...d,ref,he:pairs.map(pair=>pair[0]),en:pairs.map(pair=>pair[1])};
+}
+function alignedSourceRows(he, en) {
+  if (!Array.isArray(he) && !Array.isArray(en)) return [[plain(he || ''),plain(en || '')]];
+  const hs = Array.isArray(he) ? he : he ? [he] : [], es = Array.isArray(en) ? en : en ? [en] : [];
+  return Array.from({length:Math.max(hs.length,es.length)},(_,i)=>alignedSourceRows(hs[i],es[i])).flat();
+}
+async function showLinkList(ref, label, list, c, {groups = [], selectedCategory = '', context = null, notice = '', sourceStudy = false} = {}) {
+  if (!sourceStudy && list.length === 1 && !list[0].reviewedRecord)
+    return openSourceStudy(list[0].sourceRef || list[0].ref, context || sourceContext(R.selected?.el), list[0].sourceUrl || '');
   const seq = ++panelSeq;
   c.onclick = null;
+  const origin = context || sourceContext(R.selected?.el);
+  const options = {groups, selectedCategory, context:origin, notice, sourceStudy};
   const nav = groups.length > 1 ? `<div class="source-tabs" role="group" aria-label="Source categories">${groups.map((g, i) => `<button type="button" data-source-category="${i}" aria-label="${esc(g.label)} sources" aria-pressed="${g.label === selectedCategory}" style="--source-color:var(${CAT_COLORS[g.label] || '--c-other'})">${esc(g.label)}<span class="ct" aria-hidden="true">${g.list.length}</span></button>`).join('')}</div>` : '';
-  c.innerHTML = sourceLanguageControls() + `<button class="back" id="pBack">← All connections</button>${nav}<div class="eyebrow" style="margin-bottom:4px">${esc(label)}</div><div id="lItems"></div>`;
+  c.innerHTML = sourceLanguageControls() + `<button class="back" id="pBack">← All connections</button>${nav}<div class="eyebrow" style="margin-bottom:4px">${esc(label)}</div>${notice ? `<div class="connection-status" role="status">${esc(notice)}</div>` : ''}<div id="lItems"></div>`;
   bindSourceLanguage(c);
   $('#pBack').onclick = () => renderConnections(ref, c);
   c.querySelectorAll('button[data-source-category]').forEach(b => b.onclick = () => {
     const g = groups[+b.dataset.sourceCategory];
-    showLinkList(ref, g.label, g.list, c, {groups, selectedCategory: g.label});
+    showLinkList(ref, g.label, g.list, c, {...options,selectedCategory:g.label});
   });
   const box = $('#lItems');
-  const cap = list.some(l => l.grouped) ? 120 : 40;
+  const cap = sourceStudy ? 80 : 40;
   list.slice(0, cap).forEach(l => {
-    const div = document.createElement('div'); div.className = 'link-item' + (l.grouped && String(l.kind).startsWith('Source') ? ' source-head' : l.grouped ? ' parallel-item' : '');
-    div.innerHTML = `<div class="ref"><span class="ref-en">${esc(l.sourceRef || l.ref)}</span><span class="he" lang="he" dir="rtl">${esc(l.sourceHeRef || '')}</span></div>${l.note ? `<div class="parallel-note"><strong>${esc(l.kind || 'Related passage')}</strong>${esc(l.note)}</div>` : ''}<div class="loading" style="padding:6px 0">Loading…</div>`;
+    const target = l.sourceRef || l.ref;
+    const quotedRef = l.quoteRef || target;
+    const reviewed = Boolean(l.reviewedRecord);
+    const div = document.createElement('div');
+    div.className = 'link-item' + (reviewed ? ' reviewed-connection full' : sourceStudy ? ' source-head full' : '');
+    div.dataset.sourceRef = target;
+    if (reviewed) div.dataset.connectionId = l.reviewedRecord.id;
+    div.innerHTML = `${reviewed ? `<div class="connection-school">${esc(l.category)}</div>` : ''}<div class="ref"><button class="ref-en" type="button" aria-label="Sources and connections for ${esc(quotedRef)}">${esc(quotedRef)}</button><span class="he" lang="he" dir="rtl">${esc(l.sourceHeRef || '')}</span></div><div class="loading" style="padding:6px 0">Loading…</div>`;
     box.appendChild(div);
-    fetchText(l.sourceRef || l.ref).then(d => {
+    div.querySelector('.ref-en').onclick = () => openSourceStudy(target, origin, l.sourceUrl || '');
+    sourceTextData(l).then(d => {
       if (seq !== panelSeq || !div.isConnected) return;
-      // A paragraph of one of our books: preview just that paragraph.
-      let k = -1;
-      if (d.highlight) { const n = +d.highlight.split(/[ :]/).pop(); k = d.nums ? d.nums.indexOf(n) : n - 1; }
-      const pick = a => k >= 0 ? [flatten(a)[k]] : flatten(a);
-      const he = pick(d.he).map(plain), en = pick(d.en).map(plain);
-      const hes = he.filter(x => x.trim()), ens = en.filter(x => x.trim());
-      const target = l.sourceRef || l.ref;
+      const pairs = alignedSourceRows(d.he,d.en).filter(([h,e])=>h.trim() || e.trim());
+      const hes = pairs.map(pair=>pair[0]).filter(text=>text.trim()), ens = pairs.map(pair=>pair[1]).filter(text=>text.trim());
+      const completeEnglish = pairs.length > 0 && pairs.every(([he,en])=>!he.trim() || en.trim());
       div.dataset.hasHe = String(hes.length > 0); div.dataset.hasEn = String(ens.length > 0);
       const heRef = l.sourceHeRef || d.heRef || '';
       div.querySelector('.ref .he').textContent = heRef;
       div.querySelector('.ref').classList.toggle('has-he', !!heRef);
-      // Hebrew and English paragraph by paragraph, so a long quote reads in pairs.
-      const rows = Array.from({length: Math.max(he.length, en.length)}, (_, i) => [he[i] || '', en[i] || ''])
-        .filter(([h, e]) => h.trim() || e.trim())
-        .map(([h, e]) => `<div class="qp">${h.trim() ? `<p class="qh" lang="he" dir="rtl">${esc(h)}</p>` : ''}${e.trim() ? `<p class="qe" lang="en" dir="ltr">${esc(e)}</p>` : ''}</div>`).join('');
-      const missing = (hes.length ? '' : '<div class="source-missing" data-missing="he">No Hebrew text is available for this source.</div>') + (ens.length ? '' : '<div class="source-missing" data-missing="en">No English translation is available for this source.</div>');
-      div.querySelector('.loading').outerHTML = `<div class="quote">${rows}</div>${missing}
-        <div class="acts"><button type="button" class="more" hidden>Show full text</button><button type="button" class="copyq">Copy quote</button><a href="#/read/${toHash(target)}">Open in reader</a><a href="${sefariaUrl(target)}" target="_blank" rel="noopener">Sefaria ↗</a></div>`;
-      // A single cited source opens in full; in a list, long quotes get a "Show full text" toggle.
-      if (list.length === 1) div.classList.add('full');
-      div.dataset.single = String(list.length === 1);
-      const more = div.querySelector('.more');
+      const rows = pairs.map(([h,e])=>`<div class="qp">${h.trim() ? `<p class="qh" lang="he" dir="rtl">${esc(h)}</p>` : ''}${e.trim() ? `<p class="qe" lang="en" dir="ltr">${esc(e)}</p>` : ''}</div>`).join('');
+      const missing = (hes.length ? '' : '<div class="source-missing" data-missing="he">The Hebrew text could not be loaded.</div>')
+        + (completeEnglish ? '' : `<div class="source-missing" data-missing="en">${ens.length ? 'Some of this source has no published English translation.' : 'A checked English translation has not yet been added for this source.'}</div>`);
+      const provenance = (!d.fromFootnoteFallback && l.translationProvenance) || (d.versions || []).filter(version=>version.lang !== 'Hebrew').map(version=>version.title).filter(Boolean).join('; ');
+      const footnoteExcerpt = d.footnoteExcerpt ? `<section class="footnote-source-excerpt"><strong>English excerpt quoted in this footnote</strong><p class="qe" lang="en" dir="ltr">${esc(d.footnoteExcerpt.en)}</p><div class="connection-provenance">${esc(d.footnoteExcerpt.ref)} · ${esc(d.footnoteExcerpt.provenance)}</div><button class="btn copy-excerpt" type="button">Copy footnote excerpt</button></section>` : '';
+      const explanation = reviewed ? `<div class="connection-explanation"><strong>How this explains the source</strong>${esc(l.reviewedRecord.explanation)}</div>` : '';
+      const originalUrl = l.sourceUrl && /^https:\/\/(?:www\.)?sefaria\.org\//.test(l.sourceUrl) ? l.sourceUrl
+        : !reviewed && !d.local && !d.meiStudy && !d.reviewedExcerpt ? sefariaUrl(target) : null;
+      div.querySelector('.loading').outerHTML = `<div class="quote">${rows}</div>${missing}${footnoteExcerpt}${explanation}${provenance ? `<div class="connection-provenance">${esc(provenance)}</div>` : ''}
+        <div class="acts"><button type="button" class="more" hidden>Show full text</button><button type="button" class="copyq">Copy quote</button><button type="button" class="explore-source">Sources and connections</button><a href="#/read/${toHash(target)}">Open in reader</a>${originalUrl ? `<a href="${esc(originalUrl)}" target="_blank" rel="noopener">Sefaria ↗</a>` : ''}</div>`;
+      if (list.length === 1 || reviewed || sourceStudy) div.classList.add('full');
+      div.dataset.single = String(list.length === 1 || reviewed || sourceStudy);
       updateSourceQuote(div);
-      more.onclick = () => { div.classList.toggle('full'); updateSourceQuote(div); };
+      div.querySelector('.more').onclick = () => { div.classList.toggle('full'); updateSourceQuote(div); };
+      div.querySelector('.explore-source').onclick = () => openSourceStudy(target, origin, originalUrl || '');
+      const excerptButton = div.querySelector('.copy-excerpt');
+      if (excerptButton) excerptButton.onclick = async () => {
+        try { await navigator.clipboard.writeText(d.footnoteExcerpt.en + '\n\n— ' + d.footnoteExcerpt.ref); toast('Excerpt copied'); }
+        catch { toast('Copy failed'); }
+      };
       div.querySelector('.copyq').onclick = async () => {
         const texts = sourceLang === 'he' ? [hes.join('\n')] : sourceLang === 'en' ? [ens.join('\n')] : [hes.join('\n'), ens.join('\n')];
-        const citation = sourceLang === 'he' && heRef ? heRef : target;
-        try { await navigator.clipboard.writeText([...texts, '— ' + citation].filter(Boolean).join('\n\n')); toast('Quote copied'); } catch { toast('Copy failed'); }
+        const citation = sourceLang === 'he' && heRef ? heRef : quotedRef;
+        try { await navigator.clipboard.writeText([...texts,'— ' + citation].filter(Boolean).join('\n\n')); toast('Quote copied'); } catch { toast('Copy failed'); }
       };
     }).catch(() => {
       if (seq !== panelSeq || !div.isConnected) return;
-      const target = l.sourceRef || l.ref;
-      div.querySelector('.loading').outerHTML = `<div class="acts"><a href="#/read/${toHash(target)}">Open in reader</a><a href="${sefariaUrl(target)}" target="_blank" rel="noopener">Sefaria ↗</a></div>`;
+      div.querySelector('.loading').outerHTML = `<p class="connection-status">The exact source text could not be loaded. Reopen this source to retry.</p><div class="acts"><button type="button" class="retry-source">Retry source</button><a href="#/read/${toHash(target)}">Open in reader</a></div>`;
+      div.querySelector('.retry-source').onclick = () => openSourceStudy(target, origin, l.sourceUrl || '');
     });
   });
   if (list.length > cap) box.insertAdjacentHTML('beforeend', `<div class="empty">Showing ${cap} of ${list.length}.</div>`);

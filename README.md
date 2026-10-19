@@ -32,6 +32,29 @@ The Downloads page and home-page offline panel offer ready-made **Tanach, Bavli,
 
 The **Sources cited in the library** ZIP exports the successfully saved citation texts even when a few sources could not be downloaded. An incomplete export is named `rav-tzadok-sources-partial-<date>.zip` and contains `manifest.json` and `missing-sources.txt` listing every missing or invalid response. Saved text and license metadata are copied unchanged. Tap Download to retry missing sources, then create another ZIP. Complete meforshim exports retain their strict coverage checks. Device ZIPs have an explicit `application/zip` MIME type, including the OPFS path used on phones and computers. Run `node scripts/test-source-zip-export.mjs` to reproduce the 8,915-saved/111-missing case.
 
+## Reviewed source connections
+
+The reader uses one shared matcher for source lookups, underlined source citations, and linked footnote sources. Connections to **Kisvei Rav Tzadok** and **Ishbitz–Radzin** come from individually reviewed records in `sources/akiva/connections/*.json`. Each record provides the cited source in Hebrew and English, an exact passage from the connected sefer with its English translation, an explanation of the specific relationship, and translation provenance. A shared word or a citation to the same daf does not approve a connection.
+
+Each editorial file has `schemaVersion: 1` and a `records` array. Required record fields are `id`, `sourceRefs`, `sourceHebrew`, `sourceEnglish`, `sourceUrl`, `targetRef`, `targetHebrew`, `targetEnglish`, `school`, `explanation`, `focusTerms`, `translationProvenance`, `reviewedTargetHebrewSha256`, and `reviewed: true`. The school is exactly `Kisvei Rav Tzadok` or `Ishbitz–Radzin`. `originRefs` may additionally identify exact reviewed originating paragraphs. References retain their full segment or range: for example, a Bavli source must identify a segment rather than an entire daf. Context terms narrow a connection to the relevant originating discussion; they do not create or approve it.
+
+The [editorial review workflow](sources/akiva/connections/README.md) governs new records and later corrections. Candidate searches stay separate from approved inputs; source co-occurrence, keyword scores, or a successful machine check never promote a candidate into the published catalog. Changed attributions, translations, or surrounding text require renewed contextual review.
+
+`scripts/build-reviewed-connections.mjs` runs after the final source-quotation publication, refreshed MCP indexes, and preservation checks. It requires every `targetRef` to exist as an exact canonical paragraph. The selected Hebrew must occur contiguously in that paragraph, allowing only HTML, nikkud, punctuation, and whitespace normalization; consonantal spelling, final letters, and word order remain exact. A hash of the full reviewed Hebrew paragraph prevents an unchanged excerpt from silently reapproving a changed surrounding argument. The builder rejects missing translations, placeholders, mismatched schools or source URLs, duplicate source-to-target records, and records without explicit editorial approval. Complete short quotations are accepted without an arbitrary minimum word count. Relevance and translation judgments are recorded as editorial review; their presence is not presented as an automatic scholarly assessment.
+
+The generated `dist/library/source-connections/catalog.json` records SHA-256 evidence for the editorial file, final canonical paragraph, selected Hebrew quotation, and both English translations. Its version changes when the reviewed contents or canonical evidence changes. This catalog sits outside `library/data`, preserving the existing chapter, footnote, offline-download, and source-quotation proof inventories. The reader's service worker stores the separate matcher and catalog for source lookups in the installed reader.
+
+After the normal final source-quotation build, run:
+
+```sh
+node scripts/build-reviewed-connections.mjs
+node scripts/test-reviewed-connections.mjs
+node scripts/test-reviewed-connections-reader.mjs
+node scripts/test-reviewed-source-rendering.mjs
+```
+
+`node scripts/test-reviewed-connections.mjs --fixtures-only` exercises incorrect references, noncontiguous or respelled quotations, missing translations, unreviewed records, duplicates, unrelated context, and exact segment/range matching without rebuilding the library. `test-reviewed-source-rendering.mjs` extracts the shipped source loader into an isolated Node VM and checks exact local paragraph selection, ranges across chapters, missing translations, and the separate treatment of footnote excerpts. The Pages workflow also compares the live catalog and matcher with the verified local release using `--url`. Reviewed connection output does not require a Cloudflare Worker change; the sidebar reads the static GitHub Pages resources directly.
+
 ## Legacy hosting retirement
 
 The old Netlify site's deployment connection needs to be stopped or removed separately in the Netlify dashboard. Removing the Netlify configuration from this repository does **not** automatically unlink or delete the old Netlify project. Once the replacement site and endpoint are checked, unlink the Git provider and pause builds or delete the old project there. Links ending in `.netlify.app` won't redirect after the project is deleted; replace bookmarks or links that still reference them.

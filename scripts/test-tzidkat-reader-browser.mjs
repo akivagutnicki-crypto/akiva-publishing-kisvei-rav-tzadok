@@ -82,8 +82,14 @@ try {
    assert.equal(await source.getAttribute('target'),'_blank');
    if(note.sourceId==='TZ-0001'){
     const expectedUrl=await source.getAttribute('href');
-    const popupPromise=page.waitForEvent('popup');await source.click();const popup=await popupPromise;
-    await popup.waitForLoadState('domcontentloaded');assert.equal(popup.url(),expectedUrl);await popup.close();
+    const expectedRef=note.sources.find(item=>item.url===expectedUrl)?.ref;
+    assert.ok(expectedRef,'The source hyperlink must retain its actual cited reference');
+    const readingUrl=page.url();await source.click();
+    await page.locator('#panel').waitFor({state:'visible'});
+    assert.equal(await page.locator('#panel .panel-head .ttl').textContent(),expectedRef,'A source click opens that exact source in the sidebar');
+    assert.equal(page.url(),readingUrl,'Source study preserves the citing passage');
+    await page.locator('#pClose').click();
+    await page.locator('#panel').waitFor({state:'hidden'});
    }
    // The original linked citations remain, but Tzidkat's redundant Sefaria
    // connections explorer must never be displayed inside a footnote.

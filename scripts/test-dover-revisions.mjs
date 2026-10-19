@@ -730,7 +730,8 @@ try {
       assert.equal(await trigger.getAttribute('aria-expanded'),'false','Footnote did not close');
       assert.ok(!(await card.isVisible()),'Closed source card still visible');
     }
-    // Exercise a real internal parallel link, including navigation back to Dover.
+    // An ordinary parallel-source link opens the shared source sidebar. Its
+    // explicit reader action still navigates to the text and back to Dover.
     const parallel=[...expected.values()].find(note=>note.paragraphs.slice(note.originalParagraphCount).some(p=>p.rich?.some(run=>run.href?.startsWith('#/read/'))));
     assert.ok(parallel,'No internal parallel-source link was published');
     const sourceSection=sections.get(parallel.file);
@@ -740,16 +741,18 @@ try {
     const card=page.locator(`.reader-footnote[data-note-key="${parallel.placementId}"]`).first();
     const link=card.locator('a[href^="#/read/"]').first();
     const href=await link.getAttribute('href');
-    const popupPromise=context.waitForEvent('page',{timeout:3000}).catch(()=>null);
+    assert.equal(await link.evaluate(element=>element.classList.contains('footnote-cross-reference')),false,'The parallel is a source link, not an explicit referenced-note navigation');
+    const readingUrl=page.url();
     await link.click();
-    const popup=await popupPromise;
-    const destination=popup||page;
-    await destination.waitForURL(url=>url.hash===href,{timeout:45000});
     const destinationRef=decodeURIComponent(href.slice('#/read/'.length)).replace(/_/g,' ');
-    await destination.waitForFunction(ref=>[...document.querySelectorAll('#text > .sec')].some(section=>ref===section.dataset.ref||ref.startsWith(section.dataset.ref+':')||ref.startsWith(section.dataset.ref+' ')),destinationRef,{timeout:45000});
-    await destination.locator('#text .sec .seg').first().waitFor({state:'visible',timeout:45000});
-    if(popup) await popup.close();
-    else {await page.goBack();await marker.waitFor({state:'visible',timeout:45000});}
+    await page.locator('#panel').waitFor({state:'visible'});
+    assert.equal(await page.locator('#panel .panel-head .ttl').textContent(),destinationRef,'Exact parallel source opens in the sidebar');
+    assert.equal(page.url(),readingUrl,'The source sidebar keeps the Dover passage open');
+    await page.locator('#panel .acts a').filter({hasText:'Open in reader'}).first().click();
+    await page.waitForURL(url=>url.hash===href,{timeout:45000});
+    await page.waitForFunction(ref=>[...document.querySelectorAll('#text > .sec')].some(section=>ref===section.dataset.ref||ref.startsWith(section.dataset.ref+':')||ref.startsWith(section.dataset.ref+' ')),destinationRef,{timeout:45000});
+    await page.locator('#text .sec .seg').first().waitFor({state:'visible',timeout:45000});
+    await page.goBack();await marker.waitFor({state:'visible',timeout:45000});
     assert.deepEqual(errors,[],'Reader JavaScript errors');
     await context.close();
     console.log(`PASS Dover ${mobile?'mobile':'desktop'} browser: nine complete Hebrew-then-English opening paragraphs; KDP English headings and all four named additional teachings at their original URLs; ${targets.length} chapters, exact Hebrew markers, complete expandable quotations, source typography and internal parallel navigation.`);

@@ -5,12 +5,13 @@
 //   with the last answer kept for offline use; web fonts are cache-first.
 const VERSION = 'v62-20261016-et-haochel-240-5468b7180d41-20261016-pri-vayera-chayei-footnotes-929';
 // Keep this layout refresh when a later publishing step updates the text edition version.
-const SHELL = `rtl-shell-${VERSION}-compact-noach-audio-20261016-beit-vayera-complete-20261016-pri-shevat-tubishvat-399c2228eea0-dover-elaboration-sources-20261018-dover-revisions-v1-dover-revisions-v2-dover-title-paragraphs-v1-dover-headings-v1-dover-reviewed-parallels-v3-805e8b67fc05-hebrew-alignment-20261019`;
+const SHELL = `rtl-shell-${VERSION}-compact-noach-audio-20261016-beit-vayera-complete-20261016-pri-shevat-tubishvat-399c2228eea0-dover-elaboration-sources-20261018-dover-revisions-v1-dover-revisions-v2-dover-title-paragraphs-v1-dover-headings-v1-dover-reviewed-parallels-v3-805e8b67fc05-hebrew-alignment-20261019-reviewed-connections-v1`;
 const DATA = 'rtl-data';
 const EXTERNAL = 'rtl-external';
 const SHELL_FILES = [
   './', './index.html', './manifest.webmanifest', './shiur-player.js?v=20261016-compact-noach-audio',
   './sefaria-packs.js?v=20261012-source-zips-v3', './data/packs/collections.json',
+  './source-connections.js?v=20261019-reviewed-connections-v1', './source-connections/catalog.json?v=20261019-reviewed-connections-v1',
   './icons/icon.svg', './icons/icon-192.png', './icons/icon-512.png', './icons/maskable-512.png',
   './icons/apple-touch-icon.png', './icons/favicon-32.png',
   './blog/', './blog/the-alchemy-of-the-soul/', './blog/the-alchemy-of-the-soul/read-pdf/', './blog/pdfs/the-alchemy-of-the-soul.pdf',
@@ -85,6 +86,8 @@ self.addEventListener('fetch', event => {
     } else if (rel.startsWith('downloads/') || rel.startsWith('audio/')) {
       return; // MP3 range requests and large downloads: straight from the network.
       // Never cache a partial audio response as if it were the whole recording.
+    } else if (rel.startsWith('source-connections/') || rel === 'source-connections.js') {
+      event.respondWith(networkFirst(request, DATA));
     } else if (rel.startsWith('data/et-haochel/') || rel === 'data/parallels/et-haochel.json' || /^data\/(?:catalog\.json|files\.json|cited\/index\.json|[^/]+\/toc\.json)$/.test(rel) || /^data\/(?:dover-tzedek|likkutei-maamarim|ohr-zarua-latzadik|peri-tzadik|tiferet-yosef|beit-yaakov-on-torah|mei-ha-shiloach|poked-akarim|sefer-hazikhronot|yisrael-kedoshim|machshavot-charutz|divrei-soferim|tzidkat-hatzadik|toldos-hakohen|meshiv-hata-anah|meshiv-tzedek)\//.test(rel)) {
       // Contents and manifests must reflect newly added editions immediately.
       event.respondWith(networkFirst(request, DATA));
