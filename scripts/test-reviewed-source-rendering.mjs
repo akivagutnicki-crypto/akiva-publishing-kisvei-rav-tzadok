@@ -11,9 +11,10 @@ import {fileURLToPath} from 'node:url';
 
 const require = createRequire(import.meta.url);
 const engine = require('../dist/library/source-connections.js');
+const editions = require('../dist/library/source-editions.js');
 const repo = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const html = fs.readFileSync(path.join(repo, 'dist/library/index.html'), 'utf8');
-const beginning = 'async function sourceTextData(link) {';
+const beginning = 'async function preferredSourceText(ref) {';
 const ending = 'async function showLinkList(';
 const first = html.indexOf(beginning), last = html.indexOf(ending, first);
 assert(first >= 0 && last > first, 'The shipped source-rendering functions were not found');
@@ -28,10 +29,19 @@ const plain = value => String(value || '').replace(/<[^>]*>/g, '')
 const serializable = value => JSON.parse(JSON.stringify(value));
 const passed = [];
 
-function harness(responses, translations = null) {
+function harness(responses, translations = null, preferredResponses = {}) {
   const requests = [];
   const context = vm.createContext({
     sourceConnections: engine,
+    window: {AkivaSourceEditions:editions},
+    cache:new Map(),
+    getJSON: async requestPath => {
+      requests.push({preferredRequest:requestPath});
+      const value=preferredResponses[requestPath];
+      assert(value,'Unexpected preferred source request: '+requestPath);
+      if(value instanceof Error)throw value;
+      return structuredClone(value);
+    },
     plain,
     publishedSourceTranslation: async ref => {
       if (translations instanceof Error) throw translations;
@@ -149,8 +159,8 @@ try {
   });
 
   await check('Mei study overlay obeys the same exact paragraph selection', async () => {
-    const overlay = {...chapterOne,local:false,meiStudy:true,sectionRef:'Mei HaShiloach, Volume I, Genesis, Bereshit',sep:':'};
-    const ref = overlay.sectionRef + ':2';
+    const overlay = {...chapterOne,local:false,meiStudy:true,sectionRef:'Mei HaShiloach, Volume I, Genesis, Bereshit',sep:' '};
+    const ref = overlay.sectionRef + ' 2';
     const {loader} = harness({[ref]:overlay});
     const result = await loader({sourceRef:ref});
     assert.deepEqual(serializable(result.he), [chapterOne.he[1]]);
@@ -158,10 +168,49 @@ try {
   });
 
   await check('remote range requests the exact range from the text API', async () => {
-    const precise = {ref:'Genesis 1:2-3',sectionRef:'Genesis 1',he:['שני','שלישי'],en:['Second.','Third.']};
-    const {loader,requests} = harness({'Genesis 1:2':{ref:'Genesis 1:2',he:'שני',en:'Second.'},'Genesis 1:2-3':precise});
-    assert.deepEqual(serializable(await loader({sourceRef:'Genesis 1:2-3'})), precise);
-    assert.deepEqual(serializable(requests), [{ref:'Genesis 1:2',options:{}},{ref:'Genesis 1:2-3',options:{remoteOnly:true}}]);
+    const precise = {ref:'Fixture Remote 1:2-3',sectionRef:'Fixture Remote 1',he:['שני','שלישי'],en:['Second.','Third.']};
+    const {loader,requests} = harness({'Fixture Remote 1:2':{ref:'Fixture Remote 1:2',he:'שני',en:'Second.'},'Fixture Remote 1:2-3':precise});
+    assert.deepEqual(serializable(await loader({sourceRef:'Fixture Remote 1:2-3'})), precise);
+    assert.deepEqual(serializable(requests), [{ref:'Fixture Remote 1:2',options:{}},{ref:'Fixture Remote 1:2-3',options:{remoteOnly:true}}]);
+  });
+
+  await check('preferred Chumash edition precedes saved quote and translation-index shortcuts', async () => {
+    const ref='Exodus 12:11', versionTitle=editions.EDITIONS.chumash;
+    const raw={ref,sectionRef:'Exodus 12',sections:[12,11],versions:[
+      {language:'he',versionTitle:'Primary Hebrew fixture',text:'המקור המבוקש'},
+      {language:'en',versionTitle,text:'Preferred edition interface fixture.'}]};
+    const {loader,requests}=harness({}, {[ref]:{he:'ישן',en:'Old indexed translation.'}},
+      {[editions.requestPath(ref)]:raw});
+    const result=await loader({sourceRef:ref,quote:{he:'ישן',en:'Old embedded English.'},translationProvenance:'Old provenance'});
+    assert.deepEqual(serializable(result.en),['Preferred edition interface fixture.']);
+    assert.equal(result.preferredEdition.actualVersionTitle,versionTitle);
+    assert.deepEqual(requests,[{preferredRequest:editions.requestPath(ref)}]);
+  });
+
+  await check('preferred Tanach failure cannot silently reuse a JPS quote or footnote', async () => {
+    const ref='Ezekiel 18:20';
+    const raw={ref,versions:[{language:'he',versionTitle:'Hebrew fixture',text:'המקור המבוקש'},
+      {language:'en',versionTitle:'The Contemporary Torah, Jewish Publication Society, 2006',text:'Wrong edition fixture.'}]};
+    const {loader,requests}=harness({},null,{[editions.requestPath(ref)]:raw});
+    const result=await loader({sourceRef:ref,quote:{he:'ישן',en:'Unapproved saved quote.'},
+      fallbackQuote:{ref,en:'Unapproved footnote excerpt.'}});
+    assert.equal(result.preferredEdition.status,'unavailable');
+    assert.equal(result.preferredEdition.requestedVersionTitle,editions.EDITIONS.koren);
+    assert.deepEqual(serializable(result.he),['המקור המבוקש']);
+    assert.deepEqual(serializable(result.en),[]);
+    assert.equal(result.footnoteExcerpt,undefined);
+    assert.equal(requests.length,1);
+  });
+
+  await check('Metsudah Rashi request preserves the exact commentary segment', async () => {
+    const ref='Rashi on Genesis 1:1:2';
+    const raw={ref,versions:[{language:'he',text:'פירוש מדויק'},
+      {language:'en',versionTitle:editions.EDITIONS.rashiChumash,text:'The exact commentary fixture.'}]};
+    const {loader,requests}=harness({},null,{[editions.requestPath(ref)]:raw});
+    const result=await loader({sourceRef:ref});
+    assert.equal(result.ref,ref);
+    assert.deepEqual(serializable(result.en),['The exact commentary fixture.']);
+    assert.deepEqual(requests,[{preferredRequest:editions.requestPath(ref)}]);
   });
 
   await check('reviewed excerpt remains exact and performs no source substitution', async () => {
@@ -194,7 +243,7 @@ try {
   });
 
   await check('source translation index failure is distinguished from a missing translation', async () => {
-    const ref = 'Ezekiel 18:20';
+    const ref = 'Fixture Commentary 18:20';
     const {loader} = harness({[ref]:{ref,he:['המקור'],en:[]}},new Error('Index unavailable'));
     const result = await loader({sourceRef:ref});
     assert.equal(result.translationLookupFailed,true);
@@ -202,15 +251,15 @@ try {
   });
 
   await check('an unavailable supplementary index preserves complete existing English', async () => {
-    const ref = 'Ezekiel 18:20', en = ['The complete available English.'];
+    const ref = 'Fixture Commentary 18:20', en = ['The complete available English.'];
     const {loader} = harness({[ref]:{ref,he:['המקור'],en}},new Error('Index unavailable'));
     const result = await loader({sourceRef:ref});
     assert.deepEqual(serializable(result.en),en);
   });
 
-  const excerpt = {ref:'Ezekiel 18:20',en:'The quoted excerpt covers only part of this source.',provenance:'Checked fixture footnote'};
+  const excerpt = {ref:'Fixture Commentary 18:20',en:'The quoted excerpt covers only part of this source.',provenance:'Checked fixture footnote'};
   await check('complete original English is preserved instead of a shorter footnote excerpt', async () => {
-    const original = {ref:excerpt.ref,sectionRef:'Ezekiel 18',he:['ראשון','שני'],
+    const original = {ref:excerpt.ref,sectionRef:'Fixture Commentary 18',he:['ראשון','שני'],
       en:['A full first sentence.','The full final sentence.'],versions:[{title:'Original published English',lang:'English'}]};
     const {loader} = harness({[excerpt.ref]:original});
     const result = await loader({sourceRef:excerpt.ref,fallbackQuote:excerpt});
@@ -264,32 +313,32 @@ try {
   const contextStart = html.indexOf('function sourceFootnoteQuote(ref, context) {');
   const contextEnd = html.indexOf('async function reviewedPassageLinks(',contextStart);
   assert(contextStart >= 0 && contextEnd > contextStart);
-  const quotedNote = {verificationStatus:'verified',phraseIndex:4,sources:[{ref:'Ezekiel 18:20',
+  const quotedNote = {verificationStatus:'verified',phraseIndex:4,sources:[{ref:'Fixture Commentary 18:20',
     url:'https://www.sefaria.org/Ezekiel.18.20',role:'primary'}],paragraphs:[{
-      text:'Ezekiel 18:20: “An exact English source excerpt.”',
-      rich:[{text:'Ezekiel 18:20',href:'https://www.sefaria.org/Ezekiel.18.20'},{text:': “An exact English source excerpt.”'}]}]};
+      text:'Fixture Commentary 18:20: “An exact English source excerpt.”',
+      rich:[{text:'Fixture Commentary 18:20',href:'https://www.sefaria.org/Ezekiel.18.20'},{text:': “An exact English source excerpt.”'}]}]};
   const noteContext = vm.createContext({sourceConnections:engine,R:{sections:[{sectionRef:'Origin 1',annotations:[[quotedNote]]}]}});
   vm.runInContext(html.slice(contextStart,contextEnd)+'\nglobalThis.pickNote = sourceFootnoteQuote;',noteContext);
   const seg = {dataset:{k:'0'},closest:()=>({dataset:{ref:'Origin 1'}})};
   await check('inline and paragraph lookups can reuse a unique verified note excerpt', async () => {
-    assert.equal(noteContext.pickNote('Ezekiel 18:20',{el:seg,phraseIndex:4}).en,'An exact English source excerpt.');
-    assert.equal(noteContext.pickNote('Ezekiel 18:20',{el:seg,phraseIndex:-1}).en,'An exact English source excerpt.');
+    assert.equal(noteContext.pickNote('Fixture Commentary 18:20',{el:seg,phraseIndex:4}).en,'An exact English source excerpt.');
+    assert.equal(noteContext.pickNote('Fixture Commentary 18:20',{el:seg,phraseIndex:-1}).en,'An exact English source excerpt.');
   });
   await check('an inline lookup excludes a distant note from another discussion', async () => {
-    assert.equal(noteContext.pickNote('Ezekiel 18:20',{el:seg,phraseIndex:14}),null);
+    assert.equal(noteContext.pickNote('Fixture Commentary 18:20',{el:seg,phraseIndex:14}),null);
   });
   await check('an inline lookup does not borrow a quotation from the adjacent phrase', async () => {
-    assert.equal(noteContext.pickNote('Ezekiel 18:20',{el:seg,phraseIndex:5}),null);
+    assert.equal(noteContext.pickNote('Fixture Commentary 18:20',{el:seg,phraseIndex:5}),null);
   });
   await check('note excerpts do not broaden to an entire chapter', async () => {
     assert.equal(noteContext.pickNote('Ezekiel 18',{el:seg,phraseIndex:4}),null);
   });
   await check('ambiguous different quotations of the same source are omitted', async () => {
     const other = structuredClone(quotedNote);
-    other.paragraphs[0].text = 'Ezekiel 18:20: “A different part of the source.”';
+    other.paragraphs[0].text = 'Fixture Commentary 18:20: “A different part of the source.”';
     other.paragraphs[0].rich[1].text = ': “A different part of the source.”';
     noteContext.R.sections[0].annotations[0].push(other);
-    assert.equal(noteContext.pickNote('Ezekiel 18:20',{el:seg,phraseIndex:-1}),null);
+    assert.equal(noteContext.pickNote('Fixture Commentary 18:20',{el:seg,phraseIndex:-1}),null);
   });
 
   console.log(JSON.stringify({ok:true,cases:passed.length,checks:passed}));

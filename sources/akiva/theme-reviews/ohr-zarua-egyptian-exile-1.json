@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "reviewedOn": "2026-10-19",
+  "method": "All three canonical paragraphs of the section were read in full, and candidate paragraphs from both schools were compared with each paragraph’s actual argument. The record states the finite comparisons performed, including deliberate non-repetition of a candidate when another paragraph is the precise place for it. The selected English is checked against its contiguous Hebrew quotation. Completed review means this documented editorial pass; it is not a claim that every possible parallel has been exhausted.",
+  "entries": [
+    {
+      "ref": "Ohr Zarua LaTzadik, The Egyptian Exile 1:1",
+      "sectionRef": "Ohr Zarua LaTzadik, The Egyptian Exile 1",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "78ecfb3317d719634032ffcc21cc69b866ed882a276c8b2c5266a5c593ad4e59",
+      "reviewedSectionHebrewSha256": "b112dd1eeca84303c62e2ce5366651323133fe6889a8b7a8d4f25917f8072c69",
+      "assessment": "The complete paragraph was read, including Torah as an unearned gift and inheritance, the purifying preparation of Egypt, and the defect that even personal righteousness cannot remove unaided. The selected anchor preserves gift and preparation together. Affliction is not silently translated into a wage, and the later paragraphs’ covenantal root remains the context of the paragraph.",
+      "candidatesReviewed": [
+        {
+          "ref": "Peri Tzadik, Lech Lecha 4:9",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved. The paragraph explicitly distinguishes Israel’s beneficial preparation for receiving Torah from Abraham’s punishment through foreknowledge of their affliction. This directly explains why the same exile can prepare for a gift. The complete Lech Lecha fourth ois was read and supports the reciprocal framing."
+        },
+        {
+          "ref": "Tiferet Yosef, Talmud Anthology, Pesachim 3",
+          "school": "Ishbitz–Radzin",
+          "reason": "The complete target paragraph was read. Its human clarification followed by divine completion provides a related structure of preparation and help, but the source paragraph here explicitly defines Torah as a gift without awakening from below. It was not used to turn this account into a simple effort-then-reward sequence. That target remains useful in the separate Et HaOchel washing thread."
+        }
+      ]
+    },
+    {
+      "ref": "Ohr Zarua LaTzadik, The Egyptian Exile 1:2",
+      "sectionRef": "Ohr Zarua LaTzadik, The Egyptian Exile 1",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "c9e8ad20900d20de236f2d906cd471105ea28e20fd44b33ad57b551cb018fd0f",
+      "reviewedSectionHebrewSha256": "b112dd1eeca84303c62e2ce5366651323133fe6889a8b7a8d4f25917f8072c69",
+      "assessment": "The complete paragraph was read through Isaac, Abraham’s question about future sin, the naming of divine lordship, and the completion of vision at the sea. The selected anchor addresses its first distinct argument: circumcision at eight days reveals a holiness preceding choice and an Israelite identity not annulled by later sin. The paragraph’s later explanation of Egypt as preparation was not repeated as a second generic gift connection.",
+      "candidatesReviewed": [
+        {
+          "ref": "Peri Tzadik, Lech Lecha 3:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved. The myrtle among thorns and circumcision without the infant’s conscious choice explicitly connect an enduring identity to its root in divine thought. This illuminates the inference drawn from Isaac’s circumcision. The complete third Lech Lecha ois was read before a reciprocal thread was approved."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Exodus, Bo 5",
+          "school": "Ishbitz–Radzin",
+          "reason": "The complete paragraph was read and compared. Its priority of Anokhi over complete cleansing supports a given bond, but its precise question is the ordering of divine utterances, not the holiness of the flesh before infant choice. It is therefore reserved for Ohr Zarua’s next paragraph, where Anokhi is the explicit subject, rather than repeated here as a generic parallel."
+        }
+      ]
+    },
+    {
+      "ref": "Ohr Zarua LaTzadik, The Egyptian Exile 1:3",
+      "sectionRef": "Ohr Zarua LaTzadik, The Egyptian Exile 1",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "9df128dea051879510165a621e81435be6d6b0fb27cb480bc898f973c5c9f5f6",
+      "reviewedSectionHebrewSha256": "b112dd1eeca84303c62e2ce5366651323133fe6889a8b7a8d4f25917f8072c69",
+      "assessment": "The complete paragraph was read, including the reversed correspondence of the plagues and the utterances, the root of Israel’s life in Anokhi, and the Passover/firstborn contrast. The selected argument explains why Anokhi is not an instruction to produce belief. The connection preserves the dependence of subsequent commanded service on this prior bond; it does not claim that later purification or mitzvot are unnecessary.",
+      "candidatesReviewed": [
+        {
+          "ref": "Mei HaShiloach, Volume I, Exodus, Bo 5",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved. It directly asks why Anokhi precedes complete purification from Lo Yihyeh and answers that otherwise no person could reach the relationship. This supplies the reason why the given bond can make subsequent clarification possible. Only the complete target paragraph, not every paragraph of Bo, was read; no reverse thread is published."
+        },
+        {
+          "ref": "Peri Tzadik, Lech Lecha 2:5",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "The complete paragraph and containing ois were read. Moses’ universal Torah inheritance, including the unlearned man’s share, supports a related inclusion but does not explain the grammatical and conceptual distinction between Anokhi and a command to believe. It was not added merely because inheritance appears in the surrounding Ohr Zarua section."
+        }
+      ]
+    }
+  ]
+}

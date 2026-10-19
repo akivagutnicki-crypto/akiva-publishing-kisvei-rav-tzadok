@@ -198,6 +198,13 @@
     if (!root.caches) return null;
     const match = path.match(/^\/api\/(v3\/texts|texts)\/(.+?)(?:\?|$)/);
     if (!match) return null;
+    const query = new URL(path, API).searchParams;
+    const explicitVersions = query.getAll('version').filter(version => !['source', 'translation', 'primary'].includes(version));
+    // Whole-book packs have one named translation. They can satisfy an exact
+    // English edition only when that same unmerged edition was downloaded.
+    if (query.has('ven') || query.has('vhe') || explicitVersions.length > 1
+        || explicitVersions.some(version => !version.startsWith('english|'))) return null;
+    const requestedEnglish = explicitVersions.length ? explicitVersions[0].slice(8) : null;
     const ref = decodeURIComponent(match[2]).replace(/_/g, ' ');
     const meta = await root.caches.open('rtl-meta'), cache = await root.caches.open('rtl-external');
     const candidates = [];
@@ -215,6 +222,8 @@
       if (!response) continue;
       const sliced = sliceText(await response.json(), ref);
       if (!sliced) continue;
+      if (requestedEnglish && (sliced.versionTitle !== requestedEnglish || sliced.isMerged === true
+          || [sliced.sources || []].flat(Infinity).some(title => title && title !== requestedEnglish))) continue;
       if (match[1] === 'texts') return sliced;
       const versions = [];
       if (hasText(sliced.he)) versions.push({ language: 'he', languageFamilyName: 'hebrew', direction: 'rtl',

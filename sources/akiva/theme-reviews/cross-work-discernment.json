@@ -1,0 +1,175 @@
+{
+  "schemaVersion": 1,
+  "reviewedOn": "2026-10-19",
+  "method": "Complete canonical origin sections were read before selecting exact paragraph anchors, with interlinear editions chosen where available. The entries below separately record only those paragraphs whose finite candidate set was actually assessed in both schools. Full target paragraphs were read; reciprocal interpretations additionally required the complete target catalog section and a distinct reverse framing. Direct Hebrew-English quotations and editorial explanations were assessed separately. These records document the candidates examined, including a non-selected candidate, and do not claim that every conceivable parallel has been discovered. Text hashes pin the reviewed edition and context rather than proving the scholarly judgment.",
+  "entries": [
+    {
+      "ref": "Dover Tzedek, Kuntres Dover Tzedek, Berakhot 2:3",
+      "sectionRef": "Dover Tzedek, Kuntres Dover Tzedek, Berakhot 2",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "cf0ee43181bf8fabef04018e805867e5cf85c438764cda670ac3287f18257fb6",
+      "reviewedSectionHebrewSha256": "4aac8fd9126726b4b474b47e41998a51b523a561529928daa506bd1e4ba3eae8",
+      "assessment": "All six paragraphs of Berakhot 2 were read in sequence. This paragraph moves through learning from teachers, colleagues, and students before interpreting guarding as preparation and waiting. Its distinction between an awakening that can disappear and a desire steadied by the earlier stages was assessed separately from the following paragraph’s permanent acquisition. The approved passage preserves both prompt initial action and later deliberation. This entry records the candidate assessment for paragraph 3; it does not mark the other five paragraphs as searched merely because their context was read.",
+      "candidatesReviewed": [
+        {
+          "ref": "Tzidkat HaTzadik 1:3",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after the full canonical section was read. The explicit comparison of the Passover offering in Egypt with that of later generations states the same temporal distinction: seize the first awakening while still bound to earlier desires, then proceed deliberately. The independently assessed reciprocal direction explains Tzidkat’s concluding later pace through Dover’s ordered stages."
+        },
+        {
+          "ref": "Sod Yesharim, Simchat Torah 56:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after the complete one-paragraph section was read. The image of securely possessed wealth explains why confidence permits restraint and waiting. The comparison is limited to the stability of possession and desire: Sod’s criticism of grasping worldly goods is not used to condemn Rav Tzadok’s necessary initial haste. Both directions explicitly preserve that difference."
+        }
+      ]
+    },
+    {
+      "ref": "Yisrael Kedoshim 1:4",
+      "sectionRef": "Yisrael Kedoshim 1",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "694ba395144c085df50df664fe1a72a05c922723c33508793cc13dcca8f0c510",
+      "reviewedSectionHebrewSha256": "5cf274317d24282c0d20fc0a775c985678aafe64caa6508f1a54ad0552830739",
+      "assessment": "All five paragraphs of Yisrael Kedoshim 1 were read. The selected paragraph distinguishes the outward evidence of Elisha’s holiness from a bodily occurrence that effort alone cannot always prevent. Its stated order—sanctification to the extent of human capacity, followed by sanctification from above—is retained. The two candidate paragraphs were compared with this actual limit of control, rather than approved from a general mention of holiness. The surrounding discussion of covenantal holiness and the preceding observations remains part of the reviewed section context.",
+      "candidatesReviewed": [
+        {
+          "ref": "Peri Tzadik, Lech Lecha 6:6",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after the entire sixth ois was read. Abraham’s refinement according to his capacity precedes a promised new creation bringing five organs under control. The five organs were checked against paragraph 6:3: two eyes, two ears, and circumcision. The connection therefore explains the same boundary of voluntary effort and received completion."
+        },
+        {
+          "ref": "Beit Yaakov on Torah, Lech Lecha 47:8",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after all eleven paragraphs of ois 47 were read. The appeal to the Craftsman explicitly follows restraint and strenuous service within one’s power. Only the domain beyond that power is entrusted to the Creator’s completion. This condition was preserved in translation and in the separately assessed reciprocal explanation."
+        }
+      ]
+    },
+    {
+      "ref": "Sefer HaZikhronot 9:2",
+      "sectionRef": "Sefer HaZikhronot 9",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "fd83bf42757066c891ae0750e2a5b05927640887f4d7b0233054dc5b6c2c6467",
+      "reviewedSectionHebrewSha256": "613e629fb12c5ef04db615eec8f6e711b61842ea5bf65c1fd2ceec8bfc4360a6",
+      "assessment": "Both paragraphs of section 9 were read in full. This paragraph defines the inquiry into Creation entrusted to everyone through its purpose: awakening a person to improve deeds and recognize Divine unity. It expressly leaves the depth and method proportional to the person’s understanding while requiring some dedicated reflection. The candidates were assessed against both the inquiry into the created world and its practical direction, rather than against a shared mention of Creation alone.",
+      "candidatesReviewed": [
+        {
+          "ref": "Peri Tzadik, Lech Lecha 6:4",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after the full sixth ois was read. Learning a way of serving God from what is seen and heard gives a concrete practice for the reflective duty. The connection preserves the practical direction of the recurring phrase learning the way of God."
+        },
+        {
+          "ref": "Beit Yaakov on Torah, Lech Lecha 3:10",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after all twelve paragraphs of ois 3 were read. Abraham’s recognition of limits and oppositions leads to the question about the One who created and governs them. This is a concrete inquiry into created particulars as a route to recognition of unity. The reciprocal explanation retains Sefer HaZikhronot’s purpose of improving conduct and its measure according to capacity."
+        }
+      ]
+    },
+    {
+      "ref": "Dover Tzedek, Kuntres Dover Tzedek, Berakhot 2:6",
+      "sectionRef": "Dover Tzedek, Kuntres Dover Tzedek, Berakhot 2",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "0109df8df6fa9e9db213b26cc85ddcb6fb9f8aa6bad6a0a76c8f2718c7e02899",
+      "reviewedSectionHebrewSha256": "4aac8fd9126726b4b474b47e41998a51b523a561529928daa506bd1e4ba3eae8",
+      "assessment": "The entire six-paragraph section and this complete concluding paragraph were read. The direct address of prayer follows redemption acquired in the heart and is explained through fatherhood and the Divine Name. The conclusion expressly retains serious reverence as a servant before the King because the complete level is not actualized in this world. Both translations and explanations retain this conclusion; the passage is not presented as a claim that ordinary present prayer already realizes permanent, unobscured recognition.",
+      "candidatesReviewed": [
+        {
+          "ref": "Sefer HaZikhronot 9:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after both paragraphs of section 9 were read. The obligation common to every person is awareness of the sole King with wholehearted supplication; contemplation is measured by capacity. This clarifies the accessible present duty within Dover’s account of a fuller recognition and supports an independently framed reciprocal placement."
+        },
+        {
+          "ref": "Sod Yesharim, The First Night of Pesach 44:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after the complete long one-paragraph ois was read, including its firstborn, choice, and judgment discussion. The selected local argument explicitly derives face-to-face prayer from removal of personal self-interest, attachment to the root of Divine will, and recognition of sonship. The Zohar reference, eight occurrences of truth, and quoted mnemonic remain in the direct translation; no new explanation of the mnemonic is invented. The reciprocal direction was assessed against the full Pesach ois and retains Dover’s added requirement of reverence."
+        }
+      ]
+    },
+    {
+      "ref": "Yisrael Kedoshim 2:3",
+      "sectionRef": "Yisrael Kedoshim 2",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "e589d6a5b95862a57a9d56cbfc449c7bd25c41f0a0ddebeb1a70ae274d441c39",
+      "reviewedSectionHebrewSha256": "4a5e871aa758aad536bc71b1a25633017b2f1c2d630ecf79455b4a72f096bd18",
+      "assessment": "All five paragraphs of section 2 were read, including the later explanation that holiness is relative to the level of those being compared. Within the Rashi/Ramban discussion, the selected passage explains the precise meaning of a fence: separation from the surroundings of an act beyond the prohibition itself. The vineyard image and its conclusion are translated as a continuous argument. The thread does not turn this local distinction into a denial of the later paragraph’s relative uses of holy.",
+      "candidatesReviewed": [
+        {
+          "ref": "Takanat HaShavin 4:3",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after the entire canonical paragraph was read. It distinguishes guarding the sinful act itself from adding safeguards around the things surrounding it, and links the latter extension to redemption. Its explicit possibility of later relapse was retained in the explanation. No reciprocal section interpretation is added in this batch."
+        },
+        {
+          "ref": "Beit Yaakov on Torah, Lech Lecha 3:7",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after the complete twelve-paragraph section was read. Shabbat is already holy, but its boundaries allow the person to feel that holiness. This gives a positive purpose to the additional restraint described in Yisrael Kedoshim. The full target quotation preserves its context of noticing another person’s share and not relying only on inherited holiness; the reciprocal direction is framed around this actual paragraph."
+        }
+      ]
+    },
+    {
+      "ref": "Yisrael Kedoshim 3:2",
+      "sectionRef": "Yisrael Kedoshim 3",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "95c42f36a6d484611fdb869c5592e3301e5628c28640231b381a0ce01f0c8eb4",
+      "reviewedSectionHebrewSha256": "865c107459f7023b4faf0f0d495cd5bff02dcd20fa15c2aac9ad9e9bc53aa521",
+      "assessment": "Both complete canonical paragraphs of section 3 were read. Paragraph 3:2 contains a discussion of textual variants in the ladder of spiritual qualities, divine assistance, and permitted enjoyments, followed by an unresolved difficulty about scholars’ marital practice. The inherited canonical paragraph also embeds bilingual headings labeled Chapter 3: Section 3 and Chapter 4: Section 1. This segmentation was preserved, and the selected continuous Hebrew quotation does not cross either heading. The approved argument is the explicit Torah-as-seasoning explanation with both conditions: protection through Torah and intention wholly for Heaven. Reading this paragraph does not silently resolve its textual questions or authorize an unrestricted appeal to personal holiness.",
+      "candidatesReviewed": [
+        {
+          "ref": "Et HaOchel 4:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after the whole one-paragraph section was read. Torah remedies desire, but a heart filled with worldly cravings cannot receive Torah; the two tasks depend upon each other. This supplies the necessary discipline behind Yisrael’s condition of being guarded through Torah. The identical reviewed English was retained, and the reciprocal relation explains the constructive goal of the remedy without dropping the warning."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Vayigash 4",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after the full canonical paragraph was read, including all four tests of desire and the concluding application to Jacob. Its Torah-as-seasoning argument redirects the desired good toward holiness when an abstract reminder of prohibition is insufficient. The selected quotation stops before the inherited irregular supplement brackets, as in the previously reviewed translation. The explanation expressly identifies Torah as one stage in repeated discernment; the persistence of a desire by itself is not treated as authorization. No reciprocal is published because the entire target parashah was not reviewed for this batch."
+        }
+      ]
+    },
+    {
+      "ref": "Sefer HaZikhronot 9:1",
+      "sectionRef": "Sefer HaZikhronot 9",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "09e54039b88c02f2f9b171b05c81d354b5f2bcfa93b6f31b2a0bf8686f88f327",
+      "reviewedSectionHebrewSha256": "613e629fb12c5ef04db615eec8f6e711b61842ea5bf65c1fd2ceec8bfc4360a6",
+      "assessment": "Both paragraphs of section 9 were read, and candidates from both schools were compared with this paragraph’s distinct definition of the prayer obligation. The approved reciprocal placement from Dover is limited to conscious standing before the sole King and wholehearted supplication. The paragraph’s obligation according to each person’s capacity remains visible; it is not recast as a requirement that everyone attain a visionary or esoteric state. Together with the separate paragraph-9:2 assessment, this completes the recorded finite candidate pass for both canonical paragraphs of section 9.",
+      "candidatesReviewed": [
+        {
+          "ref": "Dover Tzedek, Kuntres Dover Tzedek, Berakhot 2:6",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved as the independently reviewed reciprocal direction of dover-berakhot-2-prayer-zikhronot-9, after all six Dover paragraphs were read. Dover explains the liturgical direct address and filial bond, then retains the servant’s reverence before the King. This illuminates the posture Sefer HaZikhronot actually requires without equating it with Dover’s complete future recognition."
+        },
+        {
+          "ref": "Sod Yesharim, The First Night of Pesach 44:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Reviewed after the entire ois was read, but not added as a separate connection at this paragraph. Its explicit mechanism is redemption from self-interested concerns uncovering sonship before prayer; that precise sequence is approved at Dover Berakhot 2:6. Sefer HaZikhronot 9:1 instead defines the obligation common to every person and does not itself derive it from redemption. The more direct Dover relation was retained rather than multiplying a partly overlapping prayer connection."
+        }
+      ]
+    }
+  ]
+}

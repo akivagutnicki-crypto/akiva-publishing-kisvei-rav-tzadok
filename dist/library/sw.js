@@ -5,14 +5,16 @@
 //   with the last answer kept for offline use; web fonts are cache-first.
 const VERSION = 'v62-20261016-et-haochel-240-5468b7180d41-20261016-pri-vayera-chayei-footnotes-929';
 // Keep this layout refresh when a later publishing step updates the text edition version.
-const SHELL = `rtl-shell-${VERSION}-compact-noach-audio-20261016-beit-vayera-complete-20261016-pri-shevat-tubishvat-399c2228eea0-dover-elaboration-sources-20261018-dover-revisions-v1-dover-revisions-v2-dover-title-paragraphs-v1-dover-headings-v1-dover-reviewed-parallels-v3-805e8b67fc05-hebrew-alignment-20261019-reviewed-connections-v2`;
+const SHELL = `rtl-shell-${VERSION}-compact-noach-audio-20261016-beit-vayera-complete-20261016-pri-shevat-tubishvat-399c2228eea0-dover-elaboration-sources-20261018-dover-revisions-v1-dover-revisions-v2-dover-title-paragraphs-v1-dover-headings-v1-dover-reviewed-parallels-v3-805e8b67fc05-hebrew-alignment-20261019-reviewed-connections-v2-20261019-connected-ideas-v1-preferred-editions-v1`;
 const DATA = 'rtl-data';
 const EXTERNAL = 'rtl-external';
 const SHELL_FILES = [
   './', './index.html', './manifest.webmanifest', './shiur-player.js?v=20261016-compact-noach-audio',
-  './sefaria-packs.js?v=20261012-source-zips-v3', './data/packs/collections.json',
+  './sefaria-packs.js?v=20261019-preferred-edition-cache-v4', './data/packs/collections.json',
   './source-connections.js?v=20261019-reviewed-connections-v2', './source-connections/catalog.json?v=20261019-reviewed-connections-v2',
   './source-connections/translations.json?v=20261019-reviewed-connections-v2',
+  './source-editions.js?v=20261019-preferred-source-editions-v1',
+  './connected-ideas.js?v=20261019-connected-ideas-v1', './connected-ideas/catalog.json?v=20261019-connected-ideas-v1',
   './icons/icon.svg', './icons/icon-192.png', './icons/icon-512.png', './icons/maskable-512.png',
   './icons/apple-touch-icon.png', './icons/favicon-32.png',
   './blog/', './blog/the-alchemy-of-the-soul/', './blog/the-alchemy-of-the-soul/read-pdf/', './blog/pdfs/the-alchemy-of-the-soul.pdf',
@@ -43,6 +45,12 @@ self.addEventListener('activate', event => {
 
 const timeout = (ms, p) => Promise.race([p, new Promise((_, no) => setTimeout(() => no(new Error('timeout')), ms))]);
 
+function hasExplicitEdition(request) {
+  const url = new URL(request.url);
+  return url.pathname.startsWith('/api/') && (url.searchParams.has('ven') || url.searchParams.has('vhe')
+    || url.searchParams.getAll('version').some(version => !['source', 'translation', 'primary'].includes(version)));
+}
+
 async function networkFirst(request, cacheName, ms = 8000) {
   const cache = await caches.open(cacheName);
   try {
@@ -50,7 +58,9 @@ async function networkFirst(request, cacheName, ms = 8000) {
     if (res.ok) cache.put(request, res.clone());
     return res;
   } catch (e) {
-    const hit = (await cache.match(request, { ignoreVary: true })) || (await cache.match(request, { ignoreVary: true, ignoreSearch: true }));  // also texts saved by a download pack
+    // An exact edition request must never receive an older default translation.
+    const hit = (await cache.match(request, { ignoreVary: true }))
+      || (!hasExplicitEdition(request) && await cache.match(request, { ignoreVary: true, ignoreSearch: true }));
     if (hit) return hit;
     throw e;
   }
@@ -87,7 +97,9 @@ self.addEventListener('fetch', event => {
     } else if (rel.startsWith('downloads/') || rel.startsWith('audio/')) {
       return; // MP3 range requests and large downloads: straight from the network.
       // Never cache a partial audio response as if it were the whole recording.
-    } else if (rel.startsWith('source-connections/') || rel === 'source-connections.js') {
+    } else if (rel.startsWith('source-connections/') || rel === 'source-connections.js'
+        || rel.startsWith('connected-ideas/') || rel === 'connected-ideas.js' || rel === 'source-editions.js'
+        || rel === 'sefaria-packs.js') {
       event.respondWith(networkFirst(request, DATA));
     } else if (rel.startsWith('data/et-haochel/') || rel === 'data/parallels/et-haochel.json' || /^data\/(?:catalog\.json|files\.json|cited\/index\.json|[^/]+\/toc\.json)$/.test(rel) || /^data\/(?:dover-tzedek|likkutei-maamarim|ohr-zarua-latzadik|peri-tzadik|tiferet-yosef|beit-yaakov-on-torah|mei-ha-shiloach|poked-akarim|sefer-hazikhronot|yisrael-kedoshim|machshavot-charutz|divrei-soferim|tzidkat-hatzadik|toldos-hakohen|meshiv-hata-anah|meshiv-tzedek)\//.test(rel)) {
       // Contents and manifests must reflect newly added editions immediately.

@@ -1,0 +1,391 @@
+{
+  "schemaVersion": 1,
+  "reviewedOn": "2026-10-19",
+  "method": "Read both complete canonical sections of Sichat Shedim, comprising all 16 exact subsections, in sequence. Examined the full canonical paragraphs of the named candidate passages in both schools, using each candidate only for the claim it actually explains. Approved connections carry independent origin-paragraph, origin-section, and target-paragraph pins and newly checked translations in themes/. Reviewed-no-approved-connection records a completed comparison of the documented candidates, not a proof that no useful connection can ever be found. Editorial preface and copyist testimony are explicitly distinguished from substantive authorial arguments. No connection was approved from a score, shared source reference, or keyword alone.",
+  "entries": [
+    {
+      "ref": "Sichat Shedim 1:1",
+      "sectionRef": "Sichat Shedim 1",
+      "status": "reviewed-no-approved-connection",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "159f3b46be67aa839e51439ca0996bd8071d2004399fa5b373294bd0d205799d",
+      "reviewedSectionHebrewSha256": "b91d96ed800e2e15b4801d34e13422857e0464c1ebf2ec0dd73e40c8bb2575b7",
+      "assessment": "Read the entire introductory paragraph and both sections of the work. This paragraph names the booklet and its sources; it does not advance an explanatory argument. No doctrinal connection is approved merely from the title or the general subject of spirits.",
+      "candidatesReviewed": [
+        {
+          "ref": "Sichat Malakhei HaSharet 2:18",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "The complete paragraph explains the soul powers and is substantively connected to Sichat Shedim 1:13, but the introductory title contains none of that argument. A link here would rest only on the related subjects of the two booklets."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Lech Lecha 2",
+          "school": "Ishbitz–Radzin",
+          "reason": "The complete paragraph explains continuous divine sustenance, a useful comparison with Sichat Shedim 2:1. The introduction makes no claim about natural governance for that explanation to illuminate."
+        }
+      ]
+    },
+    {
+      "ref": "Sichat Shedim 1:2",
+      "sectionRef": "Sichat Shedim 1",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "3f1aac706b342410d446b53812d226335090131f7c9da5902dd970028bebf3a5",
+      "reviewedSectionHebrewSha256": "b91d96ed800e2e15b4801d34e13422857e0464c1ebf2ec0dd73e40c8bb2575b7",
+      "assessment": "Read the full discussion of particular harmful powers, its historical qualifications, and the distinction between nature and its Giver. Approved the explanation of different manifestations of one governing source; no botanical or medical identification has been added.",
+      "candidatesReviewed": [
+        {
+          "ref": "Sichat Malakhei HaSharet 4:22",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: the complete paragraph explains differentiated hidden powers as manifestations of one source, supplying the mechanism needed by the discussion of spiritual powers within natural processes."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Lech Lecha 2",
+          "school": "Ishbitz–Radzin",
+          "reason": "The complete paragraph directly supports continuous divine sustenance, but does not develop this paragraph’s distinct chain of hidden powers. Its more exact placement is approved at Sichat Shedim 2:1, where the same every-moment claim is explicit."
+        }
+      ]
+    },
+    {
+      "ref": "Sichat Shedim 1:3",
+      "sectionRef": "Sichat Shedim 1",
+      "status": "reviewed-no-approved-connection",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "d7442babe2defa5263e09bc3a11e9c85c0436187229bab1bff7e02b909bed162",
+      "reviewedSectionHebrewSha256": "b91d96ed800e2e15b4801d34e13422857e0464c1ebf2ec0dd73e40c8bb2575b7",
+      "assessment": "Read the entire distinction among ruchin, shedin, and lilin in the preceding and following argument. The named comparisons do not explain this paragraph’s particular Yesod/Malkhut and male/female identifications with sufficient precision, so no additional connection is approved.",
+      "candidatesReviewed": [
+        {
+          "ref": "Sichat Malakhei HaSharet 2:18",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "The complete paragraph explains brain, heart, liver, and the three soul powers. It does not supply the specific identification of shedin with Yesod or lilin with the female configuration; transferring its threefold map here would suggest more than it says."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Bereshit 3",
+          "school": "Ishbitz–Radzin",
+          "reason": "The complete paragraph explains the powers contributed to human life by other creatures, but has no corresponding Yesod/Malkhut or male/female account. Shared language of spiritual life is insufficient."
+        }
+      ]
+    },
+    {
+      "ref": "Sichat Shedim 1:4",
+      "sectionRef": "Sichat Shedim 1",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "abb6c38c7f84d3acb8031a92cb72014effb2b6534dbe47812f1a04de90894ba7",
+      "reviewedSectionHebrewSha256": "b91d96ed800e2e15b4801d34e13422857e0464c1ebf2ec0dd73e40c8bb2575b7",
+      "assessment": "Read the full paragraph, including naming the creatures, the role of human action, and the distinction between a divinely established root and its later extension. Approved the concrete account of creation’s powers being gathered into human service.",
+      "candidatesReviewed": [
+        {
+          "ref": "Machshavot Charutz 19:6",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "The complete paragraph also describes all creatures as limbs of the unified human stature. Its clearest additional argument concerns Abraham and the Tower, and it is approved at Sichat Shedim 1:11 rather than duplicating that relationship here."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Bereshit 3",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved: the complete paragraph traces mineral, plant, animal, and human powers and explains how service using those powers raises all of them toward Hashem. This clarifies the causal role assigned to human action."
+        }
+      ]
+    },
+    {
+      "ref": "Sichat Shedim 1:5",
+      "sectionRef": "Sichat Shedim 1",
+      "status": "reviewed-no-approved-connection",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "89e49ffe2464714cdc9b1ab2020bb0f8743d17e2f8f3784a89e41f888ad660be",
+      "reviewedSectionHebrewSha256": "b91d96ed800e2e15b4801d34e13422857e0464c1ebf2ec0dd73e40c8bb2575b7",
+      "assessment": "Read the full distinction between the root of the inclination, which precedes human sin, and the actual extension produced by sin, together with the Shabbat transition into the next paragraph. The recorded candidates concern related problems but do not explain this precise distinction without additional unresolved qualifications.",
+      "candidatesReviewed": [
+        {
+          "ref": "Tzidkat HaTzadik 110:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Read the complete paragraph and the following 111:1. It discusses the same kinds of offspring and insists that evil cannot proceed from the Most High, then develops repair through recognition of divine presence and fear. Reconciling that formulation with this paragraph’s designation of the divinely established root as evil requires more exposition than a direct reinforcing excerpt would provide."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Vayigash 4",
+          "school": "Ishbitz–Radzin",
+          "reason": "Read the full four-stage discernment argument. It tests whether a desire is from Hashem and teaches a practical repair, but does not distinguish the created Keter of evil from the humanly actualized sequence of ten sefirot. A link based only on divine will and desire would overstate its relevance."
+        }
+      ]
+    },
+    {
+      "ref": "Sichat Shedim 1:6",
+      "sectionRef": "Sichat Shedim 1",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "8e6cdef1f9489014218153798b98eb60705746ed8e3010203e090f53b1e67dfc",
+      "reviewedSectionHebrewSha256": "b91d96ed800e2e15b4801d34e13422857e0464c1ebf2ec0dd73e40c8bb2575b7",
+      "assessment": "Read the entire account of unfinished evil, Shabbat, Adam’s repentance, and final repair, including the qualifications about the continued existence of creatures. Approved a comparison in which repentance changes the root and direction of life.",
+      "candidatesReviewed": [
+        {
+          "ref": "Tzidkat HaTzadik 111:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: the complete paragraph describes repentance, the transformation of the root of evil, and the lowest end becoming the beginning of renewed illumination. It explains how repair can preserve the creature while changing its condition."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Vayigash 4",
+          "school": "Ishbitz–Radzin",
+          "reason": "The full paragraph explains discerning and transforming personal desire through Torah and further tests. It does not state the universal future repair or the continued existence of all creatures, so it has not been promoted to a parallel of the cosmological conclusion."
+        }
+      ]
+    },
+    {
+      "ref": "Sichat Shedim 1:7",
+      "sectionRef": "Sichat Shedim 1",
+      "status": "reviewed-no-approved-connection",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "835423c22db83bee1abd73b001b839db6eaa9eb7eb7430ad50201488fcb17eb5",
+      "reviewedSectionHebrewSha256": "b91d96ed800e2e15b4801d34e13422857e0464c1ebf2ec0dd73e40c8bb2575b7",
+      "assessment": "Read the whole difficult distinction between the enduring divine-willed possibility of likeness and its corrupt imitation, including the paragraph’s positive application to righteous imitation of God. The examined targets do not adequately explain why this root itself cannot disappear.",
+      "candidatesReviewed": [
+        {
+          "ref": "Machshavot Charutz 19:6",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "The complete paragraph uses the same ape-before-human image for the Tower’s unsuccessful imitation of Abraham. It clarifies that historical contrast, approved at 1:11, but does not resolve this paragraph’s positive, enduring root of creaturely likeness to God."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Bereshit 3",
+          "school": "Ishbitz–Radzin",
+          "reason": "The complete paragraph describes human participation in all creatures and their elevation through service. It does not explain the durable root of an apparent opposite or the specific distinction between true likeness and imitation. No link is approved from anthropological language alone."
+        }
+      ]
+    },
+    {
+      "ref": "Sichat Shedim 1:8",
+      "sectionRef": "Sichat Shedim 1",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "f20e387cb93b8a1587846cff172e592d7e63e6dcba0fa86876f0ef0697b15d2d",
+      "reviewedSectionHebrewSha256": "b91d96ed800e2e15b4801d34e13422857e0464c1ebf2ec0dd73e40c8bb2575b7",
+      "assessment": "Read the full account of the Tower group and the three lines, including both Talmudic paths from desire or anger toward idolatry. Approved a passage explaining the distinct forms of repair appropriate to those lines.",
+      "candidatesReviewed": [
+        {
+          "ref": "Resisei Layla 10:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: the complete paragraph and its continuation were read. It uses the same right/left/center structure to distinguish fear restraining desire, love rejecting violence, and Torah drawing desire toward holiness."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Vayigash 4",
+          "school": "Ishbitz–Radzin",
+          "reason": "The complete paragraph illuminates the Torah treatment of desire but does not explain the whole three-line arrangement. Its focused application is approved at Sichat Shedim 1:9 instead."
+        }
+      ]
+    },
+    {
+      "ref": "Sichat Shedim 1:9",
+      "sectionRef": "Sichat Shedim 1",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "0b49853e48b04bd996f8d04ab5785bab4528c572d177362bd66a40236e6305fc",
+      "reviewedSectionHebrewSha256": "b91d96ed800e2e15b4801d34e13422857e0464c1ebf2ec0dd73e40c8bb2575b7",
+      "assessment": "Read the full account of Jacob’s integrity, the two heart chambers, the qualification on repentance and Torah, and desire’s indispensable role in continued life. Approved the practical explanation of how Torah can reach a desire that a reminder of prohibition does not overcome.",
+      "candidatesReviewed": [
+        {
+          "ref": "Resisei Layla 10:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "The complete paragraph closely develops the difference between desire and anger and is approved at the preceding three-line argument. Repeating the same selection here adds less than the more focused practical account in Mei HaShiloach."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Vayigash 4",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved: the full paragraph explains finding the sought good in Torah and retains the subsequent Shema and remembrance-of-death tests. It clarifies the mechanism of transformation without granting immediate permission to act on a desire."
+        }
+      ]
+    },
+    {
+      "ref": "Sichat Shedim 1:10",
+      "sectionRef": "Sichat Shedim 1",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "4fe8417f50c79bb0a87bc301cd07a597cc17c5d676a065b8c6fb4154e974ae81",
+      "reviewedSectionHebrewSha256": "b91d96ed800e2e15b4801d34e13422857e0464c1ebf2ec0dd73e40c8bb2575b7",
+      "assessment": "Read the entire two-error account, including its Written/Oral Torah structure and the later covenantal application. Approved the positive statement of the unity of hidden source and revealed governance.",
+      "candidatesReviewed": [
+        {
+          "ref": "Divrei Chalomot 4:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: the full paragraph explicitly cites both separations and explains the Haggadah’s I/He unity through the Exodus as revelation flowing from the hidden root."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Lech Lecha 2",
+          "school": "Ishbitz–Radzin",
+          "reason": "The complete paragraph rejects treating ordinary nature as independent of Hashem, but does not distinguish the two contrary separations of nine sefirot and Malkhut. It supplies only one side of the needed explanation and is placed at 2:1."
+        }
+      ]
+    },
+    {
+      "ref": "Sichat Shedim 1:11",
+      "sectionRef": "Sichat Shedim 1",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "b18995ca409004af9a962b7564484ca465796974587c4c5d3ea8518d69699666",
+      "reviewedSectionHebrewSha256": "b91d96ed800e2e15b4801d34e13422857e0464c1ebf2ec0dd73e40c8bb2575b7",
+      "assessment": "Read the full paragraph, including Abraham, the Tower, the Temple, and the later account of memory. Approved the precise explanation of true and counterfeit unity; no separate memory connection has been inferred from the shared historical setting.",
+      "candidatesReviewed": [
+        {
+          "ref": "Machshavot Charutz 19:6",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: the complete paragraph explains why unity that separates itself from Hashem must fail, while Abraham’s love of creatures proceeds from their common divine source. It accounts for the difference between the two projects."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Lech Lecha 2",
+          "school": "Ishbitz–Radzin",
+          "reason": "The complete paragraph includes Abraham’s awakening through the Flood and Dispersion, but its explanatory concern is nature’s continuous dependence. The shared historical episode alone would not illuminate the Temple/Tower comparison sufficiently."
+        }
+      ]
+    },
+    {
+      "ref": "Sichat Shedim 1:12",
+      "sectionRef": "Sichat Shedim 1",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "795795c3f4d04c84526290354d0d52d829ebdbd915ecde4f93452ca1b2dc7281",
+      "reviewedSectionHebrewSha256": "b91d96ed800e2e15b4801d34e13422857e0464c1ebf2ec0dd73e40c8bb2575b7",
+      "assessment": "Read the entire development from Abraham and Lot to the Tower’s premature action, darkness before light, and the future establishment of truth. Approved a distinction that preserves the legitimate first moment of haste while clarifying patient construction.",
+      "candidatesReviewed": [
+        {
+          "ref": "Tzidkat HaTzadik 1:3",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: read the full opening section. The paragraph explicitly confines haste to detaching oneself at the moment of awakening and then requires slow, patient progress. It clarifies the scope of the criticism of hurried completion."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Lech Lecha 2",
+          "school": "Ishbitz–Radzin",
+          "reason": "The full paragraph explains Abraham’s awakening through historical disruption and recognition within ordinary nature. It does not develop the patience/haste distinction, so the common Abraham context does not justify a second link here."
+        }
+      ]
+    },
+    {
+      "ref": "Sichat Shedim 1:13",
+      "sectionRef": "Sichat Shedim 1",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "1bfcf0e95d4dd348b6eb4bf9cba3f9805f66ec024b0a5bc06a0a6b16f62da8b7",
+      "reviewedSectionHebrewSha256": "b91d96ed800e2e15b4801d34e13422857e0464c1ebf2ec0dd73e40c8bb2575b7",
+      "assessment": "Read the full paragraph, including the qualified as-if attribution of the root to a perfected person or sinner and the body/soul distinction. Located a substantive passage in the work explicitly cited by the author; its claim is limited to the three soul powers it actually explains.",
+      "candidatesReviewed": [
+        {
+          "ref": "Sichat Malakhei HaSharet 2:18",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: the entire paragraph explains thought, speech, and action through brain, heart, and liver, and explicitly maps neshamah, ruach, and nefesh. This illuminates the citation without pretending to settle the adjoining reference to four configurations."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Bereshit 3",
+          "school": "Ishbitz–Radzin",
+          "reason": "The complete paragraph distinguishes animal and speaking human stages in the chain of elevation, but does not explain the three internal soul powers or the transformation described here. The author’s own cited work is materially more precise."
+        }
+      ]
+    },
+    {
+      "ref": "Sichat Shedim 1:14",
+      "sectionRef": "Sichat Shedim 1",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "6f22410d8507ee383c29a2346fabe0cc7e3545cd78bf3f1812b8662bb2187433",
+      "reviewedSectionHebrewSha256": "b91d96ed800e2e15b4801d34e13422857e0464c1ebf2ec0dd73e40c8bb2575b7",
+      "assessment": "Read the full account of the transformed spiritual powers, covenantal action, and inner identity, including the closing qualification concerning choice. Approved the distinction between essential holiness and an impurity that must be removed, with the seriousness of the impurity preserved.",
+      "candidatesReviewed": [
+        {
+          "ref": "Divrei Chalomot 13:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: the whole paragraph distinguishes an essential covenantal identity from foreign refuse and stresses both the power to expel it and the offense of its presence. It explains what revealing the fruit beneath a covering means."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Vayigash 4",
+          "school": "Ishbitz–Radzin",
+          "reason": "The complete paragraph describes discerning and transforming desire, but does not address the covenant’s distinction between inherent identity and a removable covering. A practical desire connection would not explain the selected argument sufficiently."
+        }
+      ]
+    },
+    {
+      "ref": "Sichat Shedim 2:1",
+      "sectionRef": "Sichat Shedim 2",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "c98a8e4af203ac11814cd8186acb642563224ed78d78d713735bcc459fb29dd5",
+      "reviewedSectionHebrewSha256": "864e231aa17a44c9c0a0c9e30a4466a67d4bed2d56dca00f7f0d9c9f097b9216",
+      "assessment": "Read the full paragraph and the copyist’s closing note. Approved the exact every-moment dependence of ordinary nature on divine sustenance; the manuscript’s account of visible spiritual forms has not been reduced to a keyword connection.",
+      "candidatesReviewed": [
+        {
+          "ref": "Sichat Malakhei HaSharet 4:22",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "The complete paragraph explains the one source beneath differing manifestations and is approved at 1:2. The current paragraph’s particular emphasis on ordinary nature at every moment is more directly illuminated by Mei HaShiloach."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Lech Lecha 2",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved in divrei-chalomot-sichat-shedim.json: the complete paragraph requires recognition that ordinary nature is sustained at every moment, rather than reserving recognition of the Creator for unusual disruptions."
+        }
+      ]
+    },
+    {
+      "ref": "Sichat Shedim 2:2",
+      "sectionRef": "Sichat Shedim 2",
+      "status": "reviewed-no-approved-connection",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "2b09bedfb40194267fb7b3cfe686554092898fccc188452d08f9b36a988412a0",
+      "reviewedSectionHebrewSha256": "864e231aa17a44c9c0a0c9e30a4466a67d4bed2d56dca00f7f0d9c9f097b9216",
+      "assessment": "Read the complete copyist’s note. It reports the end of the autograph, the prepared blank leaves, and the intention to append further manuscript material. It is editorial testimony, not an additional teaching by Rav Tzadok to which a doctrinal parallel should be attached.",
+      "candidatesReviewed": [
+        {
+          "ref": "Sichat Malakhei HaSharet 2:18",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "The entire substantive paragraph was examined for the preceding authorial citation at 1:13. Its discussion of the soul powers does not illuminate the copyist’s report of the manuscript ending; attaching it here would conflate editorial testimony with authorial teaching."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Lech Lecha 2",
+          "school": "Ishbitz–Radzin",
+          "reason": "The entire paragraph is an approved comparison for the previous substantive teaching at 2:1. It gives no evidence concerning the copyist, blank leaves, or appended manuscript material, so that approved connection must not spill into this note."
+        }
+      ]
+    }
+  ]
+}

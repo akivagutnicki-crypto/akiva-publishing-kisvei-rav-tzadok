@@ -1,0 +1,1877 @@
+{
+  "schemaVersion": 1,
+  "release": "20261019-preferred-source-editions-v1",
+  "checkedAt": "2026-10-19",
+  "scope": "Book-level edition availability, not a claim that every segment is translated. Exact requested source responses are separately verified at runtime.",
+  "primaryDocumentation": [
+    "https://developers.sefaria.org/reference/get-versions",
+    "https://developers.sefaria.org/reference/get-v3-texts",
+    "https://github.com/Sefaria/Sefaria-Project/blob/master/reader/views.py"
+  ],
+  "counts": {
+    "metadataBooksVerified": 78,
+    "preferredMappingsVerified": 55,
+    "exactPassagesVerified": 11
+  },
+  "records": [
+    {
+      "book": "Genesis",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Genesis",
+      "responseSha256": "edaa2ce2c08ba2261bc7e1cdcdd1023cc586eb908b6450ee4631dffcc847725b",
+      "selectedVersionTitle": "Metsudah Chumash, Metsudah Publications, 2009",
+      "preferredVersions": [
+        {
+          "versionTitle": "The Koren Jerusalem Bible",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.korenpub.com/koren_en_usd/koren/tanakh-bible/the-koren-jerusalem-bible.html",
+          "license": "CC-BY-NC",
+          "firstSectionRef": "Genesis 1"
+        },
+        {
+          "versionTitle": "Metsudah Chumash, Metsudah Publications, 2009",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH002691623",
+          "license": "CC-BY",
+          "firstSectionRef": "Genesis 1"
+        },
+        {
+          "versionTitle": "Metsudah Chumash, Metsudah Publications, 2009 [with Onkelos translation]",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH002691623",
+          "license": "CC-BY-NC",
+          "firstSectionRef": "Genesis 1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "THE JPS TANAKH: Gender-Sensitive Edition",
+        "The Contemporary Torah, Jewish Publication Society, 2006",
+        "The Five Books of Moses, by Everett Fox. New York, Schocken Books, 1995",
+        "The Koren Jerusalem Bible",
+        "Metsudah Chumash, Metsudah Publications, 2009",
+        "The Kehot Chumash; Chabad House Publications, Los Angeles",
+        "Tanakh: The Holy Scriptures, published by JPS",
+        "The Rashi chumash by Rabbi Shraga Silverstein",
+        "The Holy Scriptures: A New Translation (JPS 1917)",
+        "Sefaria Community Translation",
+        "Jewish English Torah",
+        "Modernized Tanakh - Based on JPS 1917, Edited by Adam Cohn",
+        "Rabbi Mike Feuer, Jerusalem Anthology",
+        "Metsudah Chumash, Metsudah Publications, 2009 [with Onkelos translation]",
+        "Torah Yesharah, translated and edited by Chas. Kahane. New York, 1963",
+        "The Philosophical Tanakh ",
+        "Tora ve Aftara [tr]",
+        "Turkish Torah Translation by Moshe Farsi [tr]",
+        "Tora în română – tradusă de rabin Șlomo Sorin Rosen, 2023 [ro]"
+      ]
+    },
+    {
+      "book": "Exodus",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Exodus",
+      "responseSha256": "e8c644196c4575a7bfeb3aa8a09115d2f7f508d8a3a8214ecb6449b3f8cf921b",
+      "selectedVersionTitle": "Metsudah Chumash, Metsudah Publications, 2009",
+      "preferredVersions": [
+        {
+          "versionTitle": "The Koren Jerusalem Bible",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.korenpub.com/koren_en_usd/koren/tanakh-bible/the-koren-jerusalem-bible.html",
+          "license": "CC-BY-NC",
+          "firstSectionRef": "Exodus 1"
+        },
+        {
+          "versionTitle": "Metsudah Chumash, Metsudah Publications, 2009",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH002691623",
+          "license": "CC-BY",
+          "firstSectionRef": "Exodus 1"
+        },
+        {
+          "versionTitle": "Metsudah Chumash, Metsudah Publications, 2009 [with Onkelos translation]",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH002691623",
+          "license": "CC-BY-NC",
+          "firstSectionRef": "Exodus 1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "THE JPS TANAKH: Gender-Sensitive Edition",
+        "The Contemporary Torah, Jewish Publication Society, 2006",
+        "The Five Books of Moses, by Everett Fox. New York, Schocken Books, 1995",
+        "The Koren Jerusalem Bible",
+        "Metsudah Chumash, Metsudah Publications, 2009",
+        "The Kehot Chumash; Chabad House Publications, Los Angeles",
+        "Tanakh: The Holy Scriptures, published by JPS",
+        "The Rashi chumash by Rabbi Shraga Silverstein",
+        "The Holy Scriptures: A New Translation (JPS 1917)",
+        "Sefaria Community Translation",
+        "Rabbi Mike Feuer, Jerusalem Anthology",
+        "Metsudah Chumash, Metsudah Publications, 2009 [with Onkelos translation]",
+        "Torah Yesharah, translated and edited by Chas. Kahane. New York, 1963",
+        "Tora în română – tradusă de rabin Șlomo Sorin Rosen, 2023 [ro]"
+      ]
+    },
+    {
+      "book": "Leviticus",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Leviticus",
+      "responseSha256": "a324748516382d149a95c7f60fa009dd5148f02bb98adad530e77f3584c204a2",
+      "selectedVersionTitle": "Metsudah Chumash, Metsudah Publications, 2009",
+      "preferredVersions": [
+        {
+          "versionTitle": "The Koren Jerusalem Bible",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.korenpub.com/koren_en_usd/koren/tanakh-bible/the-koren-jerusalem-bible.html",
+          "license": "CC-BY-NC",
+          "firstSectionRef": "Leviticus 1"
+        },
+        {
+          "versionTitle": "Metsudah Chumash, Metsudah Publications, 2009",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH002691623",
+          "license": "CC-BY",
+          "firstSectionRef": "Leviticus 1"
+        },
+        {
+          "versionTitle": "Metsudah Chumash, Metsudah Publications, 2009 [with Onkelos translation]",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH002691623",
+          "license": "CC-BY-NC",
+          "firstSectionRef": "Leviticus 1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "THE JPS TANAKH: Gender-Sensitive Edition",
+        "The Contemporary Torah, Jewish Publication Society, 2006",
+        "The Five Books of Moses, by Everett Fox. New York, Schocken Books, 1995",
+        "The Koren Jerusalem Bible",
+        "Metsudah Chumash, Metsudah Publications, 2009",
+        "The Kehot Chumash; Chabad House Publications, Los Angeles",
+        "Tanakh: The Holy Scriptures, published by JPS",
+        "The Rashi chumash by Rabbi Shraga Silverstein",
+        "The Holy Scriptures: A New Translation (JPS 1917)",
+        "Sefaria Community Translation",
+        "Metsudah Chumash, Metsudah Publications, 2009 [with Onkelos translation]",
+        "Torah Yesharah, translated and edited by Chas. Kahane. New York, 1963",
+        "Tora în română – tradusă de rabin Șlomo Sorin Rosen, 2023 [ro]"
+      ]
+    },
+    {
+      "book": "Numbers",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Numbers",
+      "responseSha256": "149ffb34cafb48b0fca00d4443cb8bb51edcfe2ff922356c5f4d7f6c0748358b",
+      "selectedVersionTitle": "Metsudah Chumash, Metsudah Publications, 2009",
+      "preferredVersions": [
+        {
+          "versionTitle": "The Koren Jerusalem Bible",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.korenpub.com/koren_en_usd/koren/tanakh-bible/the-koren-jerusalem-bible.html",
+          "license": "CC-BY-NC",
+          "firstSectionRef": "Numbers 1"
+        },
+        {
+          "versionTitle": "Metsudah Chumash, Metsudah Publications, 2009",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH002691623",
+          "license": "CC-BY",
+          "firstSectionRef": "Numbers 1"
+        },
+        {
+          "versionTitle": "Metsudah Chumash, Metsudah Publications, 2009 [with Onkelos translation]",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH002691623",
+          "license": "CC-BY-NC",
+          "firstSectionRef": "Numbers 1"
+        },
+        {
+          "versionTitle": "Edited for shnayim mikrah Metsudah Chumash, Metsudah Publications, 2009 [with Onkelos translation]",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH002691623",
+          "license": "unknown",
+          "firstSectionRef": "Numbers 1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "THE JPS TANAKH: Gender-Sensitive Edition",
+        "The Contemporary Torah, Jewish Publication Society, 2006",
+        "The Five Books of Moses, by Everett Fox. New York, Schocken Books, 1995",
+        "The Koren Jerusalem Bible",
+        "Metsudah Chumash, Metsudah Publications, 2009",
+        "The Kehot Chumash; Chabad House Publications, Los Angeles",
+        "Tanakh: The Holy Scriptures, published by JPS",
+        "The Rashi chumash by Rabbi Shraga Silverstein",
+        "The Holy Scriptures: A New Translation (JPS 1917)",
+        "Sefaria Community Translation",
+        "Metsudah Chumash, Metsudah Publications, 2009 [with Onkelos translation]",
+        "Torah Yesharah, translated and edited by Chas. Kahane. New York, 1963",
+        "Edited for shnayim mikrah Metsudah Chumash, Metsudah Publications, 2009 [with Onkelos translation]",
+        "שְׁלַח־לְךָ֣ אֲנָשִׁ֗ים",
+        "Tora în română – tradusă de rabin Șlomo Sorin Rosen, 2023 [ro]"
+      ]
+    },
+    {
+      "book": "Deuteronomy",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Deuteronomy",
+      "responseSha256": "dcd392ae10df30e522be3994b30f3f819c9ffe1083a94ab280ea9ecafcaa7b3b",
+      "selectedVersionTitle": "Metsudah Chumash, Metsudah Publications, 2009",
+      "preferredVersions": [
+        {
+          "versionTitle": "The Koren Jerusalem Bible",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.korenpub.com/koren_en_usd/koren/tanakh-bible/the-koren-jerusalem-bible.html",
+          "license": "CC-BY-NC",
+          "firstSectionRef": "Deuteronomy 1"
+        },
+        {
+          "versionTitle": "Metsudah Chumash, Metsudah Publications, 2009",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH002691623",
+          "license": "CC-BY",
+          "firstSectionRef": "Deuteronomy 1"
+        },
+        {
+          "versionTitle": "Metsudah Chumash, Metsudah Publications, 2009 [with Onkelos translation]",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH002691623",
+          "license": "CC-BY-NC",
+          "firstSectionRef": "Deuteronomy 1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "THE JPS TANAKH: Gender-Sensitive Edition",
+        "The Contemporary Torah, Jewish Publication Society, 2006",
+        "The Five Books of Moses, by Everett Fox. New York, Schocken Books, 1995",
+        "The Koren Jerusalem Bible",
+        "Metsudah Chumash, Metsudah Publications, 2009",
+        "The Kehot Chumash; Chabad House Publications, Los Angeles",
+        "Tanakh: The Holy Scriptures, published by JPS",
+        "The Rashi chumash by Rabbi Shraga Silverstein",
+        "The Holy Scriptures: A New Translation (JPS 1917)",
+        "Sefaria Community Translation",
+        "Rabbi Mike Feuer, Jerusalem Anthology",
+        "Metsudah Chumash, Metsudah Publications, 2009 [with Onkelos translation]",
+        "Torah Yesharah, translated and edited by Chas. Kahane. New York, 1963",
+        "Tora în română – tradusă de rabin Șlomo Sorin Rosen, 2023 [ro]"
+      ]
+    },
+    {
+      "book": "Joshua",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Joshua",
+      "responseSha256": "f6555af350f04cb81564cd3b6d880c743ef37364ed60659ca1a5b07e4c737dea",
+      "selectedVersionTitle": "The Koren Jerusalem Bible",
+      "preferredVersions": [
+        {
+          "versionTitle": "The Koren Jerusalem Bible",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.korenpub.com/koren_en_usd/koren/tanakh-bible/the-koren-jerusalem-bible.html",
+          "license": "CC-BY-NC",
+          "firstSectionRef": "Joshua 1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "THE JPS TANAKH: Gender-Sensitive Edition",
+        "Tanakh: The Holy Scriptures, published by JPS",
+        "The Holy Scriptures: A New Translation (JPS 1917)",
+        "Sefaria Community Translation",
+        "Rabbi Mike Feuer, Jerusalem Anthology",
+        "The Koren Jerusalem Bible",
+        "The Early Prophets, by Everett Fox. New York, Schocken Books, 2014"
+      ]
+    },
+    {
+      "book": "Judges",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Judges",
+      "responseSha256": "a8516000abef7c32f7afffe405a199dae6527ab3d1ae47c0a2c7149877f7e357",
+      "selectedVersionTitle": "The Koren Jerusalem Bible",
+      "preferredVersions": [
+        {
+          "versionTitle": "The Metsudah Tanach series, Lakewood, N.J",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.judaicaplace.com/search/brand/Metsudah-Publications/",
+          "license": "CC-BY",
+          "firstSectionRef": "Judges 1"
+        },
+        {
+          "versionTitle": "The Koren Jerusalem Bible",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.korenpub.com/koren_en_usd/koren/tanakh-bible/the-koren-jerusalem-bible.html",
+          "license": "CC-BY-NC",
+          "firstSectionRef": "Judges 1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "THE JPS TANAKH: Gender-Sensitive Edition",
+        "Tanakh: The Holy Scriptures, published by JPS",
+        "The Metsudah Tanach series, Lakewood, N.J",
+        "The Holy Scriptures: A New Translation (JPS 1917)",
+        "Rabbi Mike Feuer, Jerusalem Anthology",
+        "The Koren Jerusalem Bible",
+        "Sefaria Community Translation",
+        "The Early Prophets, by Everett Fox. New York, Schocken Books, 2014"
+      ]
+    },
+    {
+      "book": "I Samuel",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/I%20Samuel",
+      "responseSha256": "2027ac5e4cdaa5573bc7d0f295a5a482df1cdf27f9143784853607305d96cbfb",
+      "selectedVersionTitle": "The Koren Jerusalem Bible",
+      "preferredVersions": [
+        {
+          "versionTitle": "The Metsudah Tanach series, Lakewood, N.J",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.judaicaplace.com/search/brand/Metsudah-Publications/",
+          "license": "CC-BY",
+          "firstSectionRef": "I Samuel 1"
+        },
+        {
+          "versionTitle": "The Koren Jerusalem Bible",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.korenpub.com/koren_en_usd/koren/tanakh-bible/the-koren-jerusalem-bible.html",
+          "license": "CC-BY-NC",
+          "firstSectionRef": "I Samuel 1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "THE JPS TANAKH: Gender-Sensitive Edition",
+        "Tanakh: The Holy Scriptures, published by JPS",
+        "The Metsudah Tanach series, Lakewood, N.J",
+        "The Holy Scriptures: A New Translation (JPS 1917)",
+        "Sefaria Community Translation",
+        "The Koren Jerusalem Bible",
+        "The Early Prophets, by Everett Fox. New York, Schocken Books, 2014"
+      ]
+    },
+    {
+      "book": "II Samuel",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/II%20Samuel",
+      "responseSha256": "16930c11b9a71d1b256d2bdf74e5ce2cf76507d6185787af2e775dc7d7716578",
+      "selectedVersionTitle": "The Koren Jerusalem Bible",
+      "preferredVersions": [
+        {
+          "versionTitle": "The Metsudah Tanach series, Lakewood, N.J",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.judaicaplace.com/search/brand/Metsudah-Publications/",
+          "license": "CC-BY",
+          "firstSectionRef": "II Samuel 1"
+        },
+        {
+          "versionTitle": "The Koren Jerusalem Bible",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.korenpub.com/koren_en_usd/koren/tanakh-bible/the-koren-jerusalem-bible.html",
+          "license": "CC-BY-NC",
+          "firstSectionRef": "II Samuel 1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "THE JPS TANAKH: Gender-Sensitive Edition",
+        "Tanakh: The Holy Scriptures, published by JPS",
+        "The Metsudah Tanach series, Lakewood, N.J",
+        "The Holy Scriptures: A New Translation (JPS 1917)",
+        "Rabbi Mike Feuer, Jerusalem Anthology",
+        "The Koren Jerusalem Bible",
+        "Sefaria Community Translation",
+        "The Early Prophets, by Everett Fox. New York, Schocken Books, 2014"
+      ]
+    },
+    {
+      "book": "I Kings",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/I%20Kings",
+      "responseSha256": "e1a385eb07e374db6360c4ccaf197d3b96a75c5cead1b2bb89e8719a41b1088b",
+      "selectedVersionTitle": "The Koren Jerusalem Bible",
+      "preferredVersions": [
+        {
+          "versionTitle": "The Koren Jerusalem Bible",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.korenpub.com/koren_en_usd/koren/tanakh-bible/the-koren-jerusalem-bible.html",
+          "license": "CC-BY-NC",
+          "firstSectionRef": "I Kings 1"
+        },
+        {
+          "versionTitle": "The Metsudah Tanach series, Lakewood, N.J",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.judaicaplace.com/metsudah-kings-i-hardcover/m143/",
+          "license": "CC-BY",
+          "firstSectionRef": "I Kings 1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "THE JPS TANAKH: Gender-Sensitive Edition",
+        "Tanakh: The Holy Scriptures, published by JPS",
+        "The Holy Scriptures: A New Translation (JPS 1917)",
+        "Sefaria Community Translation",
+        "Rabbi Mike Feuer, Jerusalem Anthology",
+        "The Koren Jerusalem Bible",
+        "The Metsudah Tanach series, Lakewood, N.J",
+        "The Early Prophets, by Everett Fox. New York, Schocken Books, 2014"
+      ]
+    },
+    {
+      "book": "II Kings",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/II%20Kings",
+      "responseSha256": "67d0edd7b21b688f25ee702476533840fbad2e94958d331f9de52055effba2fa",
+      "selectedVersionTitle": "The Koren Jerusalem Bible",
+      "preferredVersions": [
+        {
+          "versionTitle": "The Koren Jerusalem Bible",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.korenpub.com/koren_en_usd/koren/tanakh-bible/the-koren-jerusalem-bible.html",
+          "license": "CC-BY-NC",
+          "firstSectionRef": "II Kings 1"
+        },
+        {
+          "versionTitle": "The Metsudah Tanach series, Lakewood, N.J",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.judaicaplace.com/metsudah-kings-ii-hardcover/m154q/",
+          "license": "unknown",
+          "firstSectionRef": "II Kings 1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "THE JPS TANAKH: Gender-Sensitive Edition",
+        "Tanakh: The Holy Scriptures, published by JPS",
+        "The Holy Scriptures: A New Translation (JPS 1917)",
+        "Sefaria Community Translation",
+        "The Koren Jerusalem Bible",
+        "The Metsudah Tanach series, Lakewood, N.J",
+        "The Early Prophets, by Everett Fox. New York, Schocken Books, 2014"
+      ]
+    },
+    {
+      "book": "Isaiah",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Isaiah",
+      "responseSha256": "0702bcb9feebdf5a229d7b726f5f3bf2ecc3f2189f32496e6f9eb0bae42e3fb7",
+      "selectedVersionTitle": "The Koren Jerusalem Bible",
+      "preferredVersions": [
+        {
+          "versionTitle": "The Koren Jerusalem Bible",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.korenpub.com/koren_en_usd/koren/tanakh-bible/the-koren-jerusalem-bible.html",
+          "license": "CC-BY-NC",
+          "firstSectionRef": "Isaiah 1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "THE JPS TANAKH: Gender-Sensitive Edition",
+        "Tanakh: The Holy Scriptures, published by JPS",
+        "The Holy Scriptures: A New Translation (JPS 1917)",
+        "Rabbi Mike Feuer, Jerusalem Anthology",
+        "Sefaria Community Translation",
+        "The Koren Jerusalem Bible"
+      ]
+    },
+    {
+      "book": "Jeremiah",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Jeremiah",
+      "responseSha256": "76a9e17153326dc47a7be98611b63f3e4dd3ddbd9c77051fccd0f8a3ec27b1e5",
+      "selectedVersionTitle": "The Koren Jerusalem Bible",
+      "preferredVersions": [
+        {
+          "versionTitle": "The Koren Jerusalem Bible",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.korenpub.com/koren_en_usd/koren/tanakh-bible/the-koren-jerusalem-bible.html",
+          "license": "CC-BY-NC",
+          "firstSectionRef": "Jeremiah 1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "THE JPS TANAKH: Gender-Sensitive Edition",
+        "Tanakh: The Holy Scriptures, published by JPS",
+        "The Holy Scriptures: A New Translation (JPS 1917)",
+        "Rabbi Mike Feuer, Jerusalem Anthology",
+        "The Koren Jerusalem Bible",
+        "Sefaria Community Translation"
+      ]
+    },
+    {
+      "book": "Ezekiel",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Ezekiel",
+      "responseSha256": "da03d70e138adc326183a267e7386ccaa03880b3b2de3b2330ba80f226480ea9",
+      "selectedVersionTitle": "The Koren Jerusalem Bible",
+      "preferredVersions": [
+        {
+          "versionTitle": "The Koren Jerusalem Bible",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.korenpub.com/koren_en_usd/koren/tanakh-bible/the-koren-jerusalem-bible.html",
+          "license": "CC-BY-NC",
+          "firstSectionRef": "Ezekiel 1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "THE JPS TANAKH: Gender-Sensitive Edition",
+        "Tanakh: The Holy Scriptures, published by JPS",
+        "The Holy Scriptures: A New Translation (JPS 1917)",
+        "Sefaria Community Translation",
+        "Rabbi Mike Feuer, Jerusalem Anthology",
+        "The Koren Jerusalem Bible",
+        "Spanish - Reina Valera 1960"
+      ]
+    },
+    {
+      "book": "Hosea",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Hosea",
+      "responseSha256": "2b2b91308854ae904cada164d72b004a6c7013d60a8c829c0535718b8a80fada",
+      "selectedVersionTitle": "The Koren Jerusalem Bible",
+      "preferredVersions": [
+        {
+          "versionTitle": "The Koren Jerusalem Bible",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.korenpub.com/koren_en_usd/koren/tanakh-bible/the-koren-jerusalem-bible.html",
+          "license": "CC-BY-NC",
+          "firstSectionRef": "Hosea 1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "THE JPS TANAKH: Gender-Sensitive Edition",
+        "Tanakh: The Holy Scriptures, published by JPS",
+        "The Holy Scriptures: A New Translation (JPS 1917)",
+        "Rabbi Mike Feuer, Jerusalem Anthology",
+        "The Koren Jerusalem Bible"
+      ]
+    },
+    {
+      "book": "Joel",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Joel",
+      "responseSha256": "63def9bff09602f517878e71adc364c2732c3dead21ad41218432c65607a2722",
+      "selectedVersionTitle": "The Koren Jerusalem Bible",
+      "preferredVersions": [
+        {
+          "versionTitle": "The Koren Jerusalem Bible",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.korenpub.com/koren_en_usd/koren/tanakh-bible/the-koren-jerusalem-bible.html",
+          "license": "CC-BY-NC",
+          "firstSectionRef": "Joel 1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "THE JPS TANAKH: Gender-Sensitive Edition",
+        "Tanakh: The Holy Scriptures, published by JPS",
+        "The Holy Scriptures: A New Translation (JPS 1917)",
+        "Sefaria Community Translation",
+        "Rabbi Mike Feuer, Jerusalem Anthology",
+        "The Koren Jerusalem Bible"
+      ]
+    },
+    {
+      "book": "Amos",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Amos",
+      "responseSha256": "872cbe65f791ebd582aa75abc0fd3551df07d55857614f8f24b7b689bb2f0a74",
+      "selectedVersionTitle": "The Koren Jerusalem Bible",
+      "preferredVersions": [
+        {
+          "versionTitle": "The Koren Jerusalem Bible",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.korenpub.com/koren_en_usd/koren/tanakh-bible/the-koren-jerusalem-bible.html",
+          "license": "CC-BY-NC",
+          "firstSectionRef": "Amos 1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "THE JPS TANAKH: Gender-Sensitive Edition",
+        "Tanakh: The Holy Scriptures, published by JPS",
+        "The Holy Scriptures: A New Translation (JPS 1917)",
+        "Sefaria Community Translation",
+        "Rabbi Mike Feuer, Jerusalem Anthology",
+        "The Koren Jerusalem Bible"
+      ]
+    },
+    {
+      "book": "Obadiah",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Obadiah",
+      "responseSha256": "5ca504d2526e68ad4acd5d31d76b7af53aa41a83693cbd569d710bfbc222c13f",
+      "selectedVersionTitle": "The Koren Jerusalem Bible",
+      "preferredVersions": [
+        {
+          "versionTitle": "The Koren Jerusalem Bible",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.korenpub.com/koren_en_usd/koren/tanakh-bible/the-koren-jerusalem-bible.html",
+          "license": "CC-BY-NC",
+          "firstSectionRef": "Obadiah 1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "THE JPS TANAKH: Gender-Sensitive Edition",
+        "Tanakh: The Holy Scriptures, published by JPS",
+        "The Holy Scriptures: A New Translation (JPS 1917)",
+        "Rabbi Mike Feuer, Jerusalem Anthology",
+        "The Koren Jerusalem Bible"
+      ]
+    },
+    {
+      "book": "Jonah",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Jonah",
+      "responseSha256": "479bf383ac5466765f797040aaf69fbc790800af996df5a5c2e5cb572626ec76",
+      "selectedVersionTitle": "The Koren Jerusalem Bible",
+      "preferredVersions": [
+        {
+          "versionTitle": "The Koren Jerusalem Bible",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.korenpub.com/koren_en_usd/koren/tanakh-bible/the-koren-jerusalem-bible.html",
+          "license": "CC-BY-NC",
+          "firstSectionRef": "Jonah 1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "THE JPS TANAKH: Gender-Sensitive Edition",
+        "Tanakh: The Holy Scriptures, published by JPS",
+        "The Holy Scriptures: A New Translation (JPS 1917)",
+        "Modernized Tanakh - Based on JPS 1917, Edited by Adam Cohn",
+        "The Koren Jerusalem Bible",
+        "Sefaria Community Translation",
+        "Rosario-IT",
+        "Jonah; Based on Malbim. Trans. M Atlas, 2026"
+      ]
+    },
+    {
+      "book": "Micah",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Micah",
+      "responseSha256": "4341c5f149cc66efb158b95061a463a0481cf09fa52b250c4a6f136369fe30ad",
+      "selectedVersionTitle": "The Koren Jerusalem Bible",
+      "preferredVersions": [
+        {
+          "versionTitle": "The Koren Jerusalem Bible",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.korenpub.com/koren_en_usd/koren/tanakh-bible/the-koren-jerusalem-bible.html",
+          "license": "CC-BY-NC",
+          "firstSectionRef": "Micah 1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "THE JPS TANAKH: Gender-Sensitive Edition",
+        "Tanakh: The Holy Scriptures, published by JPS",
+        "The Holy Scriptures: A New Translation (JPS 1917)",
+        "Rabbi Mike Feuer, Jerusalem Anthology",
+        "The Koren Jerusalem Bible",
+        "Sefaria Community Translation"
+      ]
+    },
+    {
+      "book": "Nahum",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Nahum",
+      "responseSha256": "9cf25a0192cb1c47d002e2dfa6bbb1b73347be728450a68c7c51949a5fbbf6d6",
+      "selectedVersionTitle": "The Koren Jerusalem Bible",
+      "preferredVersions": [
+        {
+          "versionTitle": "The Koren Jerusalem Bible",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.korenpub.com/koren_en_usd/koren/tanakh-bible/the-koren-jerusalem-bible.html",
+          "license": "CC-BY-NC",
+          "firstSectionRef": "Nahum 1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "THE JPS TANAKH: Gender-Sensitive Edition",
+        "Tanakh: The Holy Scriptures, published by JPS",
+        "The Holy Scriptures: A New Translation (JPS 1917)",
+        "The Koren Jerusalem Bible"
+      ]
+    },
+    {
+      "book": "Habakkuk",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Habakkuk",
+      "responseSha256": "6be61ad73d2d78f81b67a9a69da4420d2901c1356661c9d8b2aa556853efa1b3",
+      "selectedVersionTitle": "The Koren Jerusalem Bible",
+      "preferredVersions": [
+        {
+          "versionTitle": "The Koren Jerusalem Bible",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.korenpub.com/koren_en_usd/koren/tanakh-bible/the-koren-jerusalem-bible.html",
+          "license": "CC-BY-NC",
+          "firstSectionRef": "Habakkuk 1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "THE JPS TANAKH: Gender-Sensitive Edition",
+        "Tanakh: The Holy Scriptures, published by JPS",
+        "The Holy Scriptures: A New Translation (JPS 1917)",
+        "The Koren Jerusalem Bible",
+        "Sefaria Community Translation"
+      ]
+    },
+    {
+      "book": "Zephaniah",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Zephaniah",
+      "responseSha256": "94b16ce47fb039b4ac78abd54e5b5f265c87902e3792f1820f20520a29d8993f",
+      "selectedVersionTitle": "The Koren Jerusalem Bible",
+      "preferredVersions": [
+        {
+          "versionTitle": "The Koren Jerusalem Bible",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.korenpub.com/koren_en_usd/koren/tanakh-bible/the-koren-jerusalem-bible.html",
+          "license": "CC-BY-NC",
+          "firstSectionRef": "Zephaniah 1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "THE JPS TANAKH: Gender-Sensitive Edition",
+        "Tanakh: The Holy Scriptures, published by JPS",
+        "The Holy Scriptures: A New Translation (JPS 1917)",
+        "Sefaria Community Translation",
+        "Rabbi Mike Feuer, Jerusalem Anthology",
+        "The Koren Jerusalem Bible"
+      ]
+    },
+    {
+      "book": "Haggai",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Haggai",
+      "responseSha256": "bb66e4d8d3a94e9d5e6abd28b3d283241986aa1c99f4c0e4dbe055ffa16b4974",
+      "selectedVersionTitle": "The Koren Jerusalem Bible",
+      "preferredVersions": [
+        {
+          "versionTitle": "The Koren Jerusalem Bible",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.korenpub.com/koren_en_usd/koren/tanakh-bible/the-koren-jerusalem-bible.html",
+          "license": "CC-BY-NC",
+          "firstSectionRef": "Haggai 1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "THE JPS TANAKH: Gender-Sensitive Edition",
+        "Tanakh: The Holy Scriptures, published by JPS",
+        "The Holy Scriptures: A New Translation (JPS 1917)",
+        "Rabbi Mike Feuer, Jerusalem Anthology",
+        "The Koren Jerusalem Bible"
+      ]
+    },
+    {
+      "book": "Zechariah",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Zechariah",
+      "responseSha256": "3820dfc38e6f647203a9c211b7f6720ed0c27e8c9507f9352b9abb2872e2fd07",
+      "selectedVersionTitle": "The Koren Jerusalem Bible",
+      "preferredVersions": [
+        {
+          "versionTitle": "The Koren Jerusalem Bible",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.korenpub.com/koren_en_usd/koren/tanakh-bible/the-koren-jerusalem-bible.html",
+          "license": "CC-BY-NC",
+          "firstSectionRef": "Zechariah 1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "THE JPS TANAKH: Gender-Sensitive Edition",
+        "Tanakh: The Holy Scriptures, published by JPS",
+        "The Holy Scriptures: A New Translation (JPS 1917)",
+        "Rabbi Mike Feuer, Jerusalem Anthology",
+        "The Koren Jerusalem Bible"
+      ]
+    },
+    {
+      "book": "Malachi",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Malachi",
+      "responseSha256": "e02595be196a2fa1d9b06da7416b074955f3a9e36522efa3330a7e4eec9fc6bc",
+      "selectedVersionTitle": "The Koren Jerusalem Bible",
+      "preferredVersions": [
+        {
+          "versionTitle": "The Koren Jerusalem Bible",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.korenpub.com/koren_en_usd/koren/tanakh-bible/the-koren-jerusalem-bible.html",
+          "license": "CC-BY-NC",
+          "firstSectionRef": "Malachi 1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "THE JPS TANAKH: Gender-Sensitive Edition",
+        "Tanakh: The Holy Scriptures, published by JPS",
+        "The Holy Scriptures: A New Translation (JPS 1917)",
+        "The Koren Jerusalem Bible"
+      ]
+    },
+    {
+      "book": "Psalms",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Psalms",
+      "responseSha256": "eecd6e6730b69068ae54366ab22744d88aa1d86b3ab7d2e1e8d90bc13dc06a2a",
+      "selectedVersionTitle": "The Koren Jerusalem Bible",
+      "preferredVersions": [
+        {
+          "versionTitle": "The Koren Jerusalem Bible",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.korenpub.com/koren_en_usd/koren/tanakh-bible/the-koren-jerusalem-bible.html",
+          "license": "CC-BY-NC",
+          "firstSectionRef": "Psalms 1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "THE JPS TANAKH: Gender-Sensitive Edition",
+        "Tanakh: The Holy Scriptures, published by JPS",
+        "The Holy Scriptures: A New Translation (JPS 1917)",
+        "Sefaria Community Translation",
+        "The Rashi Ketuvim by Rabbi Shraga Silverstein",
+        "Rabbi Mike Feuer, Jerusalem Anthology",
+        "The Koren Jerusalem Bible"
+      ]
+    },
+    {
+      "book": "Proverbs",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Proverbs",
+      "responseSha256": "5736b6ff90d1fcde4e8dff263646a0121c491da3a18f5a49c1730e924f34590e",
+      "selectedVersionTitle": "The Koren Jerusalem Bible",
+      "preferredVersions": [
+        {
+          "versionTitle": "The Koren Jerusalem Bible",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.korenpub.com/koren_en_usd/koren/tanakh-bible/the-koren-jerusalem-bible.html",
+          "license": "CC-BY-NC",
+          "firstSectionRef": "Proverbs 1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "THE JPS TANAKH: Gender-Sensitive Edition",
+        "Tanakh: The Holy Scriptures, published by JPS",
+        "The Holy Scriptures: A New Translation (JPS 1917)",
+        "Sefaria Community Translation",
+        "The Rashi Ketuvim by Rabbi Shraga Silverstein",
+        "The Koren Jerusalem Bible"
+      ]
+    },
+    {
+      "book": "Job",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Job",
+      "responseSha256": "d24bbe1b3d2d44d1ad893db6588ff27d90e5c71d3cb1b8a73930e42d6bc9cec5",
+      "selectedVersionTitle": "The Koren Jerusalem Bible",
+      "preferredVersions": [
+        {
+          "versionTitle": "The Koren Jerusalem Bible",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.korenpub.com/koren_en_usd/koren/tanakh-bible/the-koren-jerusalem-bible.html",
+          "license": "CC-BY-NC",
+          "firstSectionRef": "Job 1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "THE JPS TANAKH: Gender-Sensitive Edition",
+        "Tanakh: The Holy Scriptures, published by JPS",
+        "The Holy Scriptures: A New Translation (JPS 1917)",
+        "The Rashi Ketuvim by Rabbi Shraga Silverstein",
+        "Sefaria Community Translation",
+        "The Koren Jerusalem Bible"
+      ]
+    },
+    {
+      "book": "Song of Songs",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Song%20of%20Songs",
+      "responseSha256": "0bb8202503bc8814568ed6ff1fa28d8bfe99602431c20b290d32912173220e59",
+      "selectedVersionTitle": "The Koren Jerusalem Bible",
+      "preferredVersions": [
+        {
+          "versionTitle": "The Koren Jerusalem Bible",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.korenpub.com/koren_en_usd/koren/tanakh-bible/the-koren-jerusalem-bible.html",
+          "license": "CC-BY-NC",
+          "firstSectionRef": "Song of Songs 1"
+        },
+        {
+          "versionTitle": "The Metsudah Five Megillot, Lakewood, N.J., 2001",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.judaicaplace.com/search/brand/Metsudah-Publications/",
+          "license": "CC-BY",
+          "firstSectionRef": "Song of Songs 1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "THE JPS TANAKH: Gender-Sensitive Edition",
+        "Tanakh: The Holy Scriptures, published by JPS",
+        "The Holy Scriptures: A New Translation (JPS 1917)",
+        "The Rashi Ketuvim by Rabbi Shraga Silverstein",
+        "Rabbi Mike Feuer, Jerusalem Anthology",
+        "The Koren Jerusalem Bible",
+        "The Metsudah Five Megillot, Lakewood, N.J., 2001",
+        "Sefaria Community Translation",
+        "Song of Songs; Based on Malbim. Trans. M Atlas, 2026"
+      ]
+    },
+    {
+      "book": "Ruth",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Ruth",
+      "responseSha256": "e10bdc2d6a153c30da6d0b3332cb0fb4ac8ac44622187f7ddfa39a711e9e6b39",
+      "selectedVersionTitle": "The Koren Jerusalem Bible",
+      "preferredVersions": [
+        {
+          "versionTitle": "The Koren Jerusalem Bible",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.korenpub.com/koren_en_usd/koren/tanakh-bible/the-koren-jerusalem-bible.html",
+          "license": "CC-BY-NC",
+          "firstSectionRef": "Ruth 1"
+        },
+        {
+          "versionTitle": "The Metsudah Five Megillot, Lakewood, N.J., 2001",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.judaicaplace.com/search/brand/Metsudah-Publications/",
+          "license": "CC-BY",
+          "firstSectionRef": "Ruth 1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "THE JPS TANAKH: Gender-Sensitive Edition",
+        "Tanakh: The Holy Scriptures, published by JPS",
+        "The Holy Scriptures: A New Translation (JPS 1917)",
+        "The Rashi Ketuvim by Rabbi Shraga Silverstein",
+        "The Koren Jerusalem Bible",
+        "The Metsudah Five Megillot, Lakewood, N.J., 2001",
+        "Rut; Based on Malbim. Trans. M Atlas, 2026"
+      ]
+    },
+    {
+      "book": "Lamentations",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Lamentations",
+      "responseSha256": "51dc3ee9338696a97360866bdd4a5c1baeeba0d8ec50251895b450742e3e7e1c",
+      "selectedVersionTitle": "The Koren Jerusalem Bible",
+      "preferredVersions": [
+        {
+          "versionTitle": "The Koren Jerusalem Bible",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.korenpub.com/koren_en_usd/koren/tanakh-bible/the-koren-jerusalem-bible.html",
+          "license": "CC-BY-NC",
+          "firstSectionRef": "Lamentations 1"
+        },
+        {
+          "versionTitle": "The Metsudah Five Megillot, Lakewood, N.J., 2001",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.judaicaplace.com/search/brand/Metsudah-Publications/",
+          "license": "CC-BY",
+          "firstSectionRef": "Lamentations 1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "THE JPS TANAKH: Gender-Sensitive Edition",
+        "Tanakh: The Holy Scriptures, published by JPS",
+        "The Holy Scriptures: A New Translation (JPS 1917)",
+        "The Rashi Ketuvim by Rabbi Shraga Silverstein",
+        "The Koren Jerusalem Bible",
+        "The Metsudah Five Megillot, Lakewood, N.J., 2001",
+        "Lamentation; Trans. by M. Carte, 2026"
+      ]
+    },
+    {
+      "book": "Ecclesiastes",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Ecclesiastes",
+      "responseSha256": "33a535e7375cc5e491e82d8ab28825b7e9d261b412f77d0d9cb2a1424ad3d3d0",
+      "selectedVersionTitle": "The Koren Jerusalem Bible",
+      "preferredVersions": [
+        {
+          "versionTitle": "The Koren Jerusalem Bible",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.korenpub.com/koren_en_usd/koren/tanakh-bible/the-koren-jerusalem-bible.html",
+          "license": "CC-BY-NC",
+          "firstSectionRef": "Ecclesiastes 1"
+        },
+        {
+          "versionTitle": "The Metsudah Five Megillot, Lakewood, N.J., 2001",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.judaicaplace.com/search/brand/Metsudah-Publications/",
+          "license": "CC-BY",
+          "firstSectionRef": "Ecclesiastes 1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "THE JPS TANAKH: Gender-Sensitive Edition",
+        "Tanakh: The Holy Scriptures, published by JPS",
+        "The Holy Scriptures: A New Translation (JPS 1917)",
+        "The Rashi Ketuvim by Rabbi Shraga Silverstein",
+        "Kohelet by Bruce Heitler",
+        "Sefaria Community Translation",
+        "The Koren Jerusalem Bible",
+        "The Metsudah Five Megillot, Lakewood, N.J., 2001",
+        "Hevel"
+      ]
+    },
+    {
+      "book": "Esther",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Esther",
+      "responseSha256": "5237093c9fa153e5cc152793377542bf1370f71c8fad7818b1ff93a0de8703b0",
+      "selectedVersionTitle": "The Koren Jerusalem Bible",
+      "preferredVersions": [
+        {
+          "versionTitle": "The Koren Jerusalem Bible",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.korenpub.com/koren_en_usd/koren/tanakh-bible/the-koren-jerusalem-bible.html",
+          "license": "CC-BY-NC",
+          "firstSectionRef": "Esther 1"
+        },
+        {
+          "versionTitle": "The Metsudah Five Megillot, Lakewood, N.J., 2001",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.judaicaplace.com/search/brand/Metsudah-Publications/",
+          "license": "CC-BY",
+          "firstSectionRef": "Esther 1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "THE JPS TANAKH: Gender-Sensitive Edition",
+        "Tanakh: The Holy Scriptures, published by JPS",
+        "The Holy Scriptures: A New Translation (JPS 1917)",
+        "Sefaria Community Translation",
+        "The Rashi Ketuvim by Rabbi Shraga Silverstein",
+        "The Koren Jerusalem Bible",
+        "The Metsudah Five Megillot, Lakewood, N.J., 2001",
+        "Emoji Megillah",
+        "Esther; Based on Malbim. Trans. Moshe Atlas, 2026"
+      ]
+    },
+    {
+      "book": "Daniel",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Daniel",
+      "responseSha256": "a5cb34504f3d1141972d77bda04636f9a497cd828717af8d262ea6521aac1eef",
+      "selectedVersionTitle": "The Koren Jerusalem Bible",
+      "preferredVersions": [
+        {
+          "versionTitle": "The Koren Jerusalem Bible",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.korenpub.com/koren_en_usd/koren/tanakh-bible/the-koren-jerusalem-bible.html",
+          "license": "CC-BY-NC",
+          "firstSectionRef": "Daniel 1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "THE JPS TANAKH: Gender-Sensitive Edition",
+        "Tanakh: The Holy Scriptures, published by JPS",
+        "The Holy Scriptures: A New Translation (JPS 1917)",
+        "The Rashi Ketuvim by Rabbi Shraga Silverstein",
+        "Rabbi Mike Feuer, Jerusalem Anthology",
+        "Sefaria Community Translation",
+        "The Koren Jerusalem Bible",
+        "Bibel - Schlachter 2000"
+      ]
+    },
+    {
+      "book": "Ezra",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Ezra",
+      "responseSha256": "2d719c0168e77e9c19e4a9e39cb14fc45b234120d18816a8ee75a574157fe4d6",
+      "selectedVersionTitle": "The Koren Jerusalem Bible",
+      "preferredVersions": [
+        {
+          "versionTitle": "The Koren Jerusalem Bible",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.korenpub.com/koren_en_usd/koren/tanakh-bible/the-koren-jerusalem-bible.html",
+          "license": "CC-BY-NC",
+          "firstSectionRef": "Ezra 1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "THE JPS TANAKH: Gender-Sensitive Edition",
+        "Tanakh: The Holy Scriptures, published by JPS",
+        "The Holy Scriptures: A New Translation (JPS 1917)",
+        "The Rashi Ketuvim by Rabbi Shraga Silverstein",
+        "Rabbi Mike Feuer, Jerusalem Anthology",
+        "The Koren Jerusalem Bible"
+      ]
+    },
+    {
+      "book": "Nehemiah",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Nehemiah",
+      "responseSha256": "3c29bf702216472032da710063db601c30bf3960ec19e2cf6c5b8471a6054d9a",
+      "selectedVersionTitle": "The Koren Jerusalem Bible",
+      "preferredVersions": [
+        {
+          "versionTitle": "The Koren Jerusalem Bible",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.korenpub.com/koren_en_usd/koren/tanakh-bible/the-koren-jerusalem-bible.html",
+          "license": "CC-BY-NC",
+          "firstSectionRef": "Nehemiah 1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "THE JPS TANAKH: Gender-Sensitive Edition",
+        "Tanakh: The Holy Scriptures, published by JPS",
+        "The Holy Scriptures: A New Translation (JPS 1917)",
+        "The Rashi Ketuvim by Rabbi Shraga Silverstein",
+        "Sefaria Community Translation",
+        "The Koren Jerusalem Bible"
+      ]
+    },
+    {
+      "book": "I Chronicles",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/I%20Chronicles",
+      "responseSha256": "99a5ae4b0e1899c8bbd26606a173f371fd8466a9610e0c03c30856831aaf4c7f",
+      "selectedVersionTitle": "The Koren Jerusalem Bible",
+      "preferredVersions": [
+        {
+          "versionTitle": "The Koren Jerusalem Bible",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.korenpub.com/koren_en_usd/koren/tanakh-bible/the-koren-jerusalem-bible.html",
+          "license": "CC-BY-NC",
+          "firstSectionRef": "I Chronicles 1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "THE JPS TANAKH: Gender-Sensitive Edition",
+        "Tanakh: The Holy Scriptures, published by JPS",
+        "The Holy Scriptures: A New Translation (JPS 1917)",
+        "The Rashi Ketuvim by Rabbi Shraga Silverstein",
+        "Rabbi Mike Feuer, Jerusalem Anthology",
+        "The Koren Jerusalem Bible"
+      ]
+    },
+    {
+      "book": "II Chronicles",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/II%20Chronicles",
+      "responseSha256": "951f98981219ff95530a2f8106ee3607a11b29749853715be805a83426e01650",
+      "selectedVersionTitle": "The Koren Jerusalem Bible",
+      "preferredVersions": [
+        {
+          "versionTitle": "The Koren Jerusalem Bible",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.korenpub.com/koren_en_usd/koren/tanakh-bible/the-koren-jerusalem-bible.html",
+          "license": "CC-BY-NC",
+          "firstSectionRef": "II Chronicles 1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "THE JPS TANAKH: Gender-Sensitive Edition",
+        "Tanakh: The Holy Scriptures, published by JPS",
+        "The Holy Scriptures: A New Translation (JPS 1917)",
+        "The Rashi Ketuvim by Rabbi Shraga Silverstein",
+        "Rabbi Mike Feuer, Jerusalem Anthology",
+        "The Koren Jerusalem Bible",
+        "Portuguese II Chronicles: Chapter 13:5",
+        "Spanish II Chronicles: Chapter 13:5",
+        "Italian II Chronicles: Chapter 13:5"
+      ]
+    },
+    {
+      "book": "Rashi on Genesis",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Genesis",
+      "responseSha256": "d5005b4b1e6669d45f7b1d911758746b48f15034b74d7ef338c54684baf189bd",
+      "selectedVersionTitle": "Rashi Chumash, Metsudah Publications, 2009",
+      "preferredVersions": [
+        {
+          "versionTitle": "Rashi Chumash, Metsudah Publications, 2009",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH002691623",
+          "license": "CC-BY",
+          "firstSectionRef": "Rashi on Genesis 1:1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "Sefaria Edition",
+        "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+        "Rashi Chumash, Metsudah Publications, 2009",
+        "Wikisource Mikraot Gedolot",
+        "Sefaria Community Translation",
+        "Rabbi Mike Feuer, Jerusalem Anthology",
+        "Corrected Rashi (English) "
+      ]
+    },
+    {
+      "book": "Rashi on Exodus",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Exodus",
+      "responseSha256": "98e3c0f18df4d892b5b3afb398e62bd8bf4883925f7fd9331ba86551afe05ef7",
+      "selectedVersionTitle": "Rashi Chumash, Metsudah Publications, 2009",
+      "preferredVersions": [
+        {
+          "versionTitle": "Rashi Chumash, Metsudah Publications, 2009",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH002691623",
+          "license": "CC-BY",
+          "firstSectionRef": "Rashi on Exodus 1:1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+        "Rashi Chumash, Metsudah Publications, 2009",
+        "Sefaria Community Translation",
+        "Rabbi Mike Feuer, Jerusalem Anthology"
+      ]
+    },
+    {
+      "book": "Rashi on Leviticus",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Leviticus",
+      "responseSha256": "bcba7fab994b0fd9648396dae9751806f38af19e00b81c61554a879aafa29f29",
+      "selectedVersionTitle": "Rashi Chumash, Metsudah Publications, 2009",
+      "preferredVersions": [
+        {
+          "versionTitle": "Rashi Chumash, Metsudah Publications, 2009",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH002691623",
+          "license": "CC-BY",
+          "firstSectionRef": "Rashi on Leviticus 1:1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+        "Rashi Chumash, Metsudah Publications, 2009",
+        "Sefaria Community Translation"
+      ]
+    },
+    {
+      "book": "Rashi on Numbers",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Numbers",
+      "responseSha256": "126110a4fc926d473449d9682b597c0c5048c394dbb3626c4883a3ab80f0ed00",
+      "selectedVersionTitle": "Rashi Chumash, Metsudah Publications, 2009",
+      "preferredVersions": [
+        {
+          "versionTitle": "Rashi Chumash, Metsudah Publications, 2009",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH002691623",
+          "license": "CC-BY",
+          "firstSectionRef": "Rashi on Numbers 1:1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+        "Rashi Chumash, Metsudah Publications, 2009",
+        "Sefaria Community Translation"
+      ]
+    },
+    {
+      "book": "Rashi on Deuteronomy",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Deuteronomy",
+      "responseSha256": "6c79f8e4c17499dc32da181848d841867a2862eac81d868bfb79223bbd14acb1",
+      "selectedVersionTitle": "Rashi Chumash, Metsudah Publications, 2009",
+      "preferredVersions": [
+        {
+          "versionTitle": "Rashi Chumash, Metsudah Publications, 2009",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH002691623",
+          "license": "CC-BY",
+          "firstSectionRef": "Rashi on Deuteronomy 1:1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "Pentateuch with Rashi's commentary by M. Rosenbaum and A.M. Silbermann, 1929-1934",
+        "Rashi Chumash, Metsudah Publications, 2009",
+        "Sefaria Community Translation",
+        "Rabbi Mike Feuer, Jerusalem Anthology"
+      ]
+    },
+    {
+      "book": "Rashi on Joshua",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Joshua",
+      "responseSha256": "dbfd64932cb51a97e96e286211d91737c7bf6f0cc0c3155786b7248c408e68d8",
+      "selectedVersionTitle": "The Book of Joshua, Metsudah Publications, 1997",
+      "preferredVersions": [
+        {
+          "versionTitle": "The Book of Joshua, Metsudah Publications, 1997",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "http://www.judaicaplace.com/search/brand/Metsudah-Publications/",
+          "license": "CC-BY",
+          "firstSectionRef": "Rashi on Joshua 1:1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "The Book of Joshua, Metsudah Publications, 1997",
+        "Sefaria Community Translation",
+        "Rabbi Mike Feuer, Jerusalem Anthology"
+      ]
+    },
+    {
+      "book": "Rashi on Judges",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Judges",
+      "responseSha256": "0e945526640c07d66c7899ed5e61f19b822fa628486932b5a5f1ff114df138fb",
+      "selectedVersionTitle": "The Metsudah Tanach series, Lakewood, N.J",
+      "preferredVersions": [
+        {
+          "versionTitle": "The Metsudah Tanach series, Lakewood, N.J",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.judaicaplace.com/search/brand/Metsudah-Publications/",
+          "license": "CC-BY",
+          "firstSectionRef": "Rashi on Judges 1:1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "The Metsudah Tanach series, Lakewood, N.J",
+        "Sefaria Community Translation"
+      ]
+    },
+    {
+      "book": "Rashi on I Samuel",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20I%20Samuel",
+      "responseSha256": "f132ba20a96dba7de2324033837c46770f8254c8c9931672505997a2748df67e",
+      "selectedVersionTitle": "The Metsudah Tanach series, Lakewood, N.J",
+      "preferredVersions": [
+        {
+          "versionTitle": "The Metsudah Tanach series, Lakewood, N.J",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.judaicaplace.com/search/brand/Metsudah-Publications/",
+          "license": "CC-BY",
+          "firstSectionRef": "Rashi on I Samuel 1:1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "The Metsudah Tanach series, Lakewood, N.J",
+        "Sefaria Community Translation"
+      ]
+    },
+    {
+      "book": "Rashi on II Samuel",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20II%20Samuel",
+      "responseSha256": "4ee29eb10a31e959fb5677946ca05054061a3d1f26da25726d45340dfe1df886",
+      "selectedVersionTitle": "The Metsudah Tanach series, Lakewood, N.J",
+      "preferredVersions": [
+        {
+          "versionTitle": "The Metsudah Tanach series, Lakewood, N.J",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.judaicaplace.com/search/brand/Metsudah-Publications/",
+          "license": "CC-BY",
+          "firstSectionRef": "Rashi on II Samuel 1:2"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "The Metsudah Tanach series, Lakewood, N.J",
+        "Sefaria Community Translation",
+        "Rabbi Mike Feuer, Jerusalem Anthology"
+      ]
+    },
+    {
+      "book": "Rashi on I Kings",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20I%20Kings",
+      "responseSha256": "25e9c3abe98a03e462b51a990444e6a8a2ed5d03377acce050c9ed49e25f7892",
+      "selectedVersionTitle": "The Metsudah Tanach series, Lakewood, N.J",
+      "preferredVersions": [
+        {
+          "versionTitle": "The Metsudah Tanach series, Lakewood, N.J",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.judaicaplace.com/metsudah-kings-i-hardcover/m143/",
+          "license": "CC-BY",
+          "firstSectionRef": "Rashi on I Kings 1:1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "The Metsudah Tanach series, Lakewood, N.J",
+        "Sefaria Community Translation",
+        "Rabbi Mike Feuer, Jerusalem Anthology"
+      ]
+    },
+    {
+      "book": "Rashi on II Kings",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20II%20Kings",
+      "responseSha256": "bfd9c5419e9ec3234a4eb589d54f3b63591aad48da79f7747d7b6b0e89b1e5dc",
+      "selectedVersionTitle": "The Metsudah Tanach series, Lakewood, N.J",
+      "preferredVersions": [
+        {
+          "versionTitle": "The Metsudah Tanach series, Lakewood, N.J",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.judaicaplace.com/search/brand/Metsudah-Publications/",
+          "license": "CC-BY",
+          "firstSectionRef": "Rashi on II Kings 1:2"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "The Metsudah Tanach series, Lakewood, N.J",
+        "Sefaria Community Translation"
+      ]
+    },
+    {
+      "book": "Rashi on Isaiah",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Isaiah",
+      "responseSha256": "c1cf4f39213b29d40e4d60d24858c95d981e49ad3fdb5b7e22ddcf38b5b5b4c7",
+      "selectedVersionTitle": null,
+      "preferredVersions": [],
+      "allEnglishVersionTitles": [
+        "The Judaica Press complete Tanach with Rashi, translated by A. J. Rosenberg",
+        "Sefaria Community Translation",
+        "Rabbi Mike Feuer, Jerusalem Anthology"
+      ]
+    },
+    {
+      "book": "Rashi on Jeremiah",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Jeremiah",
+      "responseSha256": "1a08a5be96ef7d0447e092c3db98336db69a51ad82f4f380ce57d8a2dc8d85b2",
+      "selectedVersionTitle": null,
+      "preferredVersions": [],
+      "allEnglishVersionTitles": [
+        "The Judaica Press complete Tanach with Rashi, translated by A. J. Rosenberg",
+        "Sefaria Community Translation",
+        "Rashi Jeremiah 1:12"
+      ]
+    },
+    {
+      "book": "Rashi on Ezekiel",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Ezekiel",
+      "responseSha256": "2fb14018b204cfa6a71e09aff42e6aea0648cc56ce6d2e1eda011aa73a662344",
+      "selectedVersionTitle": null,
+      "preferredVersions": [],
+      "allEnglishVersionTitles": [
+        "The Judaica Press complete Tanach with Rashi, translated by A. J. Rosenberg",
+        "Sefaria Community Translation",
+        "Rabbi Mike Feuer, Jerusalem Anthology"
+      ]
+    },
+    {
+      "book": "Rashi on Hosea",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Hosea",
+      "responseSha256": "51d9eab1e41244f3fffd22ecbeea77064e337aeb717a77af82ad00dbcef64c82",
+      "selectedVersionTitle": null,
+      "preferredVersions": [],
+      "allEnglishVersionTitles": [
+        "The Judaica Press complete Tanach with Rashi, translated by A. J. Rosenberg",
+        "Rabbi Mike Feuer, Jerusalem Anthology",
+        "Sefaria Community Translation"
+      ]
+    },
+    {
+      "book": "Rashi on Joel",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Joel",
+      "responseSha256": "e34158feb0ba492b9aec61e4afd35e39cd28b01afe7a7b3ff53b4e48b562c22f",
+      "selectedVersionTitle": null,
+      "preferredVersions": [],
+      "allEnglishVersionTitles": [
+        "The Judaica Press complete Tanach with Rashi, translated by A. J. Rosenberg",
+        "Sefaria Community Translation"
+      ]
+    },
+    {
+      "book": "Rashi on Amos",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Amos",
+      "responseSha256": "6c148f44882eb9b361a445452a80eed3ccf0f7dc0d4748eb73dc8d2bd9e43e9c",
+      "selectedVersionTitle": null,
+      "preferredVersions": [],
+      "allEnglishVersionTitles": [
+        "The Judaica Press complete Tanach with Rashi, translated by A. J. Rosenberg",
+        "Sefaria Community Translation",
+        "Rabbi Mike Feuer, Jerusalem Anthology"
+      ]
+    },
+    {
+      "book": "Rashi on Obadiah",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Obadiah",
+      "responseSha256": "498055ed7d053df24b5f4869f34c8c086643907940ec1084951790be1e3753c5",
+      "selectedVersionTitle": null,
+      "preferredVersions": [],
+      "allEnglishVersionTitles": [
+        "The Judaica Press complete Tanach with Rashi, translated by A. J. Rosenberg"
+      ]
+    },
+    {
+      "book": "Rashi on Jonah",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Jonah",
+      "responseSha256": "cb5abbdb99d53916960199b614086f6190043d106a247d98aa88ddac2ccf8baf",
+      "selectedVersionTitle": null,
+      "preferredVersions": [],
+      "allEnglishVersionTitles": [
+        "The Judaica Press complete Tanach with Rashi, translated by A. J. Rosenberg",
+        "Sefaria Community Translation"
+      ]
+    },
+    {
+      "book": "Rashi on Micah",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Micah",
+      "responseSha256": "039ac07ebec3e1351d2d608363ca548545a08db3b0ad27ca46dc5f8416ebf49d",
+      "selectedVersionTitle": null,
+      "preferredVersions": [],
+      "allEnglishVersionTitles": [
+        "The Judaica Press complete Tanach with Rashi, translated by A. J. Rosenberg"
+      ]
+    },
+    {
+      "book": "Rashi on Nahum",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Nahum",
+      "responseSha256": "0b049f3fbae48ae94b9c90b6bb960410d6a165960e3bc3a45bc5e100489f2875",
+      "selectedVersionTitle": null,
+      "preferredVersions": [],
+      "allEnglishVersionTitles": [
+        "The Judaica Press complete Tanach with Rashi, translated by A. J. Rosenberg",
+        "Sefaria Community Translation"
+      ]
+    },
+    {
+      "book": "Rashi on Habakkuk",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Habakkuk",
+      "responseSha256": "7b8baed5c1250a740203a4fd84fb6362d8c2b8c4fa772ba2860a82c93d5b97b6",
+      "selectedVersionTitle": null,
+      "preferredVersions": [],
+      "allEnglishVersionTitles": [
+        "The Judaica Press complete Tanach with Rashi, translated by A. J. Rosenberg"
+      ]
+    },
+    {
+      "book": "Rashi on Zephaniah",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Zephaniah",
+      "responseSha256": "1fd254f21f1866279ae10664f51c779bc1e00eb75f23f8f5f3d4ed3f930eb83e",
+      "selectedVersionTitle": null,
+      "preferredVersions": [],
+      "allEnglishVersionTitles": [
+        "The Judaica Press complete Tanach with Rashi, translated by A. J. Rosenberg",
+        "Sefaria Community Translation"
+      ]
+    },
+    {
+      "book": "Rashi on Haggai",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Haggai",
+      "responseSha256": "84cdab0c5296e44811cc935e21911a6d9ff094c56ee2d8d5e5b40ae0dc08099c",
+      "selectedVersionTitle": null,
+      "preferredVersions": [],
+      "allEnglishVersionTitles": [
+        "The Judaica Press complete Tanach with Rashi, translated by A. J. Rosenberg",
+        "Sefaria Community Translation",
+        "Rabbi Mike Feuer, Jerusalem Anthology"
+      ]
+    },
+    {
+      "book": "Rashi on Zechariah",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Zechariah",
+      "responseSha256": "faf1d6ef288e3e5f1e6ed7768bebeafd925b5dc13884b9b6ac39350c3b8a0810",
+      "selectedVersionTitle": null,
+      "preferredVersions": [],
+      "allEnglishVersionTitles": [
+        "The Judaica Press complete Tanach with Rashi, translated by A. J. Rosenberg",
+        "Sefaria Community Translation",
+        "Rabbi Mike Feuer, Jerusalem Anthology"
+      ]
+    },
+    {
+      "book": "Rashi on Malachi",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Malachi",
+      "responseSha256": "df5110f2874cd6b17cd3821bef3ff50c340a4945fe67f508c132c938750f992c",
+      "selectedVersionTitle": null,
+      "preferredVersions": [],
+      "allEnglishVersionTitles": [
+        "The Judaica Press complete Tanach with Rashi, translated by A. J. Rosenberg",
+        "Sefaria Community Translation"
+      ]
+    },
+    {
+      "book": "Rashi on Psalms",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Psalms",
+      "responseSha256": "cb7c4353dfca05a93b63c652e8a0a74a5680a3e17b26bba2f25543d8269288ae",
+      "selectedVersionTitle": null,
+      "preferredVersions": [],
+      "allEnglishVersionTitles": [
+        "The Judaica Press complete Tanach with Rashi, translated by A. J. Rosenberg",
+        "Wikisource Mikraot Gedolot",
+        "Sefaria Community Translation",
+        "Rabbi Mike Feuer, Jerusalem Anthology"
+      ]
+    },
+    {
+      "book": "Rashi on Proverbs",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Proverbs",
+      "responseSha256": "2b3ef35debcadbb91692c857c34a95714cb74db116e20ac840150c20d1bb608b",
+      "selectedVersionTitle": null,
+      "preferredVersions": [],
+      "allEnglishVersionTitles": [
+        "The Judaica Press complete Tanach with Rashi, translated by A. J. Rosenberg",
+        "Sefaria Community Translation"
+      ]
+    },
+    {
+      "book": "Rashi on Job",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Job",
+      "responseSha256": "4e4777388addd3a4c425b4163758a10889a215f931b08f4eaba37ac7b3983c13",
+      "selectedVersionTitle": null,
+      "preferredVersions": [],
+      "allEnglishVersionTitles": [
+        "The Judaica Press complete Tanach with Rashi, translated by A. J. Rosenberg",
+        "Sefaria Community Translation"
+      ]
+    },
+    {
+      "book": "Rashi on Song of Songs",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Song%20of%20Songs",
+      "responseSha256": "001b6ba8828e2976b880f3d9ce44b298198b421e73e3c3b385744c58a6feccd2",
+      "selectedVersionTitle": "The Metsudah Five Megillot, Lakewood, N.J., 2001",
+      "preferredVersions": [
+        {
+          "versionTitle": "The Metsudah Five Megillot, Lakewood, N.J., 2001",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH002162036",
+          "license": "CC-BY",
+          "firstSectionRef": "Rashi on Song of Songs 1:1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "The Metsudah Five Megillot, Lakewood, N.J., 2001",
+        "Sefaria Community Translation",
+        "The Judaica Press complete Tanach with Rashi, translated by A. J. Rosenberg"
+      ]
+    },
+    {
+      "book": "Rashi on Ruth",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Ruth",
+      "responseSha256": "7a3c6e99b806cb0b398a9da3053a333eeab2225c3cabc8952f7be6484b0862b7",
+      "selectedVersionTitle": "The Metsudah Five Megillot, Lakewood, N.J., 2001",
+      "preferredVersions": [
+        {
+          "versionTitle": "The Metsudah Five Megillot, Lakewood, N.J., 2001",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH002162036",
+          "license": "CC-BY",
+          "firstSectionRef": "Rashi on Ruth 1:1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "The Metsudah Five Megillot, Lakewood, N.J., 2001",
+        "Sefaria Community Translation",
+        "The Judaica Press complete Tanach with Rashi, translated by A. J. Rosenberg"
+      ]
+    },
+    {
+      "book": "Rashi on Lamentations",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Lamentations",
+      "responseSha256": "6149bcbfb59ec0f6e6a3e0d026e9f29dc1aa306fe8e4a2b1625df84cfb46b0a5",
+      "selectedVersionTitle": "The Metsudah Five Megillot, Lakewood, N.J., 2001",
+      "preferredVersions": [
+        {
+          "versionTitle": "The Metsudah Five Megillot, Lakewood, N.J., 2001",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH002162036",
+          "license": "CC-BY",
+          "firstSectionRef": "Rashi on Lamentations 1:1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "The Metsudah Five Megillot, Lakewood, N.J., 2001",
+        "The Judaica Press complete Tanach with Rashi, translated by A. J. Rosenberg",
+        "Sefaria Community Translation"
+      ]
+    },
+    {
+      "book": "Rashi on Ecclesiastes",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Ecclesiastes",
+      "responseSha256": "eae5022531e240f2788a85716ff82f68d8cdc7c5b9b9820baa58c528307234b9",
+      "selectedVersionTitle": "The Metsudah Five Megillot, Lakewood, N.J., 2001",
+      "preferredVersions": [
+        {
+          "versionTitle": "The Metsudah Five Megillot, Lakewood, N.J., 2001",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH002162036",
+          "license": "CC-BY",
+          "firstSectionRef": "Rashi on Ecclesiastes 1:1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "The Metsudah Five Megillot, Lakewood, N.J., 2001",
+        "Sefaria Community Translation",
+        "The Judaica Press complete Tanach with Rashi, translated by A. J. Rosenberg"
+      ]
+    },
+    {
+      "book": "Rashi on Esther",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Esther",
+      "responseSha256": "51d6a73745f77b203af8389c463a1971b77345a33ddbe272ea9fa29ce589bcc7",
+      "selectedVersionTitle": "The Metsudah Five Megillot, Lakewood, N.J., 2001",
+      "preferredVersions": [
+        {
+          "versionTitle": "The Metsudah Five Megillot, Lakewood, N.J., 2001",
+          "language": "en",
+          "actualLanguage": "en",
+          "versionSource": "https://www.nli.org.il/he/books/NNL_ALEPH002162036",
+          "license": "CC-BY",
+          "firstSectionRef": "Rashi on Esther 1:1"
+        }
+      ],
+      "allEnglishVersionTitles": [
+        "The Metsudah Five Megillot, Lakewood, N.J., 2001",
+        "Sefaria Community Translation",
+        "The Judaica Press complete Tanach with Rashi, translated by A. J. Rosenberg"
+      ]
+    },
+    {
+      "book": "Rashi on Daniel",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Daniel",
+      "responseSha256": "3a8445ea38d8eff8ff58aed6b7e1dc1faac09e38d34329ab84ac5f9c837730b8",
+      "selectedVersionTitle": null,
+      "preferredVersions": [],
+      "allEnglishVersionTitles": [
+        "The Judaica Press complete Tanach with Rashi, translated by A. J. Rosenberg",
+        "Rabbi Mike Feuer, Jerusalem Anthology",
+        "Sefaria Community Translation"
+      ]
+    },
+    {
+      "book": "Rashi on Ezra",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Ezra",
+      "responseSha256": "a91f5e9a76fe04a16fd2a4c9a197921d2311c01e35bc2e29a56e07a0aa78a0a9",
+      "selectedVersionTitle": null,
+      "preferredVersions": [],
+      "allEnglishVersionTitles": [
+        "The Judaica Press complete Tanach with Rashi, translated by A. J. Rosenberg",
+        "Rabbi Mike Feuer, Jerusalem Anthology",
+        "Sefaria Community Translation"
+      ]
+    },
+    {
+      "book": "Rashi on Nehemiah",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20Nehemiah",
+      "responseSha256": "c114bb515c3a158d8eaef6ec00e1992db06f8e81c3f81f47362cac6d853b926c",
+      "selectedVersionTitle": null,
+      "preferredVersions": [],
+      "allEnglishVersionTitles": [
+        "The Judaica Press complete Tanach with Rashi, translated by A. J. Rosenberg"
+      ]
+    },
+    {
+      "book": "Rashi on I Chronicles",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20I%20Chronicles",
+      "responseSha256": "9dd300a07d777a0601abbf81b8dfc0951acbd0af276c0732e6e28ccee64cdb11",
+      "selectedVersionTitle": null,
+      "preferredVersions": [],
+      "allEnglishVersionTitles": [
+        "The Judaica Press complete Tanach with Rashi, translated by A. J. Rosenberg",
+        "Rabbi Mike Feuer, Jerusalem Anthology"
+      ]
+    },
+    {
+      "book": "Rashi on II Chronicles",
+      "requestUrl": "https://www.sefaria.org/api/texts/versions/Rashi%20on%20II%20Chronicles",
+      "responseSha256": "82dcd168e8d18a6dd6c6d9a8cea34f61a902d840972291a84a295b65c3d7a8b2",
+      "selectedVersionTitle": null,
+      "preferredVersions": [],
+      "allEnglishVersionTitles": [
+        "The Judaica Press complete Tanach with Rashi, translated by A. J. Rosenberg",
+        "Rabbi Mike Feuer, Jerusalem Anthology",
+        "Sefaria Community Translation"
+      ]
+    }
+  ],
+  "exactPassages": [
+    {
+      "ref": "Genesis 2:3",
+      "versionTitle": "Metsudah Chumash, Metsudah Publications, 2009",
+      "license": "CC-BY",
+      "requestUrl": "https://www.sefaria.org/api/v3/texts/Genesis%202%3A3?version=source&version=english%7CMetsudah%20Chumash%2C%20Metsudah%20Publications%2C%202009&fill_in_missing_segments=0",
+      "sourceUrl": "https://www.sefaria.org/Genesis.2.3?lang=bi&ven=english%7CMetsudah%20Chumash%2C%20Metsudah%20Publications%2C%202009",
+      "responseSha256": "4cf7660ff18d7e27e63181990ac8ca621a87de7830f3e23c6bf8983cc9043ebc"
+    },
+    {
+      "ref": "Exodus 12:11",
+      "versionTitle": "Metsudah Chumash, Metsudah Publications, 2009",
+      "license": "CC-BY",
+      "requestUrl": "https://www.sefaria.org/api/v3/texts/Exodus%2012%3A11?version=source&version=english%7CMetsudah%20Chumash%2C%20Metsudah%20Publications%2C%202009&fill_in_missing_segments=0",
+      "sourceUrl": "https://www.sefaria.org/Exodus.12.11?lang=bi&ven=english%7CMetsudah%20Chumash%2C%20Metsudah%20Publications%2C%202009",
+      "responseSha256": "9deb0889a8353c8a7d199e0a63847adf7b44542acf2878cd7b9ccd0cc2fcff59"
+    },
+    {
+      "ref": "Psalms 1:1",
+      "versionTitle": "The Koren Jerusalem Bible",
+      "license": "CC-BY-NC",
+      "requestUrl": "https://www.sefaria.org/api/v3/texts/Psalms%201%3A1?version=source&version=english%7CThe%20Koren%20Jerusalem%20Bible&fill_in_missing_segments=0",
+      "sourceUrl": "https://www.sefaria.org/Psalms.1.1?lang=bi&ven=english%7CThe%20Koren%20Jerusalem%20Bible",
+      "responseSha256": "bc78053b106ad019b09bd2ba5cd17f82d2ceb05cca7e07f151b4f006885b5fcc"
+    },
+    {
+      "ref": "Isaiah 55:1",
+      "versionTitle": "The Koren Jerusalem Bible",
+      "license": "CC-BY-NC",
+      "requestUrl": "https://www.sefaria.org/api/v3/texts/Isaiah%2055%3A1?version=source&version=english%7CThe%20Koren%20Jerusalem%20Bible&fill_in_missing_segments=0",
+      "sourceUrl": "https://www.sefaria.org/Isaiah.55.1?lang=bi&ven=english%7CThe%20Koren%20Jerusalem%20Bible",
+      "responseSha256": "80a26d4f637922f377facb39e40e579b6b6afdea2dca34570d46012d14b63dc0"
+    },
+    {
+      "ref": "Rashi on Genesis 1:1:1",
+      "versionTitle": "Rashi Chumash, Metsudah Publications, 2009",
+      "license": "CC-BY",
+      "requestUrl": "https://www.sefaria.org/api/v3/texts/Rashi%20on%20Genesis%201%3A1%3A1?version=source&version=english%7CRashi%20Chumash%2C%20Metsudah%20Publications%2C%202009&fill_in_missing_segments=0",
+      "sourceUrl": "https://www.sefaria.org/Rashi_on_Genesis.1.1.1?lang=bi&ven=english%7CRashi%20Chumash%2C%20Metsudah%20Publications%2C%202009",
+      "responseSha256": "60936308da8bdf61acb9de819a66ac9de1bead927c60a126185882b10b1f5ec3"
+    },
+    {
+      "ref": "Rashi on Joshua 1:1:1",
+      "versionTitle": "The Book of Joshua, Metsudah Publications, 1997",
+      "license": "CC-BY",
+      "requestUrl": "https://www.sefaria.org/api/v3/texts/Rashi%20on%20Joshua%201%3A1%3A1?version=source&version=english%7CThe%20Book%20of%20Joshua%2C%20Metsudah%20Publications%2C%201997&fill_in_missing_segments=0",
+      "sourceUrl": "https://www.sefaria.org/Rashi_on_Joshua.1.1.1?lang=bi&ven=english%7CThe%20Book%20of%20Joshua%2C%20Metsudah%20Publications%2C%201997",
+      "responseSha256": "e852241f9ea24439199235f5d2158d76f6bfecf776d4e0b5fc962861f44673b6"
+    },
+    {
+      "ref": "Rashi on Judges 1:1:1",
+      "versionTitle": "The Metsudah Tanach series, Lakewood, N.J",
+      "license": "CC-BY",
+      "requestUrl": "https://www.sefaria.org/api/v3/texts/Rashi%20on%20Judges%201%3A1%3A1?version=source&version=english%7CThe%20Metsudah%20Tanach%20series%2C%20Lakewood%2C%20N.J&fill_in_missing_segments=0",
+      "sourceUrl": "https://www.sefaria.org/Rashi_on_Judges.1.1.1?lang=bi&ven=english%7CThe%20Metsudah%20Tanach%20series%2C%20Lakewood%2C%20N.J",
+      "responseSha256": "c72187743efc28ad7bb12621cac791c300a70b543bfa93f275b9c1b865e28907"
+    },
+    {
+      "ref": "Rashi on I Samuel 1:1:1",
+      "versionTitle": "The Metsudah Tanach series, Lakewood, N.J",
+      "license": "CC-BY",
+      "requestUrl": "https://www.sefaria.org/api/v3/texts/Rashi%20on%20I%20Samuel%201%3A1%3A1?version=source&version=english%7CThe%20Metsudah%20Tanach%20series%2C%20Lakewood%2C%20N.J&fill_in_missing_segments=0",
+      "sourceUrl": "https://www.sefaria.org/Rashi_on_I_Samuel.1.1.1?lang=bi&ven=english%7CThe%20Metsudah%20Tanach%20series%2C%20Lakewood%2C%20N.J",
+      "responseSha256": "e2476e5163c89c36d2e93121467f914a8a419f7c03a6c4398a590a5d5b937aca"
+    },
+    {
+      "ref": "Rashi on Song of Songs 5:16:1",
+      "versionTitle": "The Metsudah Five Megillot, Lakewood, N.J., 2001",
+      "license": "CC-BY",
+      "requestUrl": "https://www.sefaria.org/api/v3/texts/Rashi%20on%20Song%20of%20Songs%205%3A16%3A1?version=source&version=english%7CThe%20Metsudah%20Five%20Megillot%2C%20Lakewood%2C%20N.J.%2C%202001&fill_in_missing_segments=0",
+      "sourceUrl": "https://www.sefaria.org/Rashi_on_Song_of_Songs.5.16.1?lang=bi&ven=english%7CThe%20Metsudah%20Five%20Megillot%2C%20Lakewood%2C%20N.J.%2C%202001",
+      "responseSha256": "c832b9eeb0b3e53e3753f06d0057d5d92be66c585cdd56b082964f02a9eda808"
+    },
+    {
+      "ref": "Rashi on Ruth 1:21:1",
+      "versionTitle": "The Metsudah Five Megillot, Lakewood, N.J., 2001",
+      "license": "CC-BY",
+      "requestUrl": "https://www.sefaria.org/api/v3/texts/Rashi%20on%20Ruth%201%3A21%3A1?version=source&version=english%7CThe%20Metsudah%20Five%20Megillot%2C%20Lakewood%2C%20N.J.%2C%202001&fill_in_missing_segments=0",
+      "sourceUrl": "https://www.sefaria.org/Rashi_on_Ruth.1.21.1?lang=bi&ven=english%7CThe%20Metsudah%20Five%20Megillot%2C%20Lakewood%2C%20N.J.%2C%202001",
+      "responseSha256": "160ef6f27928ff43a7802de8e33b69a96f0189d7418f67ea171c017028c33c8c"
+    },
+    {
+      "ref": "Rashi on Esther 1:1:1",
+      "versionTitle": "The Metsudah Five Megillot, Lakewood, N.J., 2001",
+      "license": "CC-BY",
+      "requestUrl": "https://www.sefaria.org/api/v3/texts/Rashi%20on%20Esther%201%3A1%3A1?version=source&version=english%7CThe%20Metsudah%20Five%20Megillot%2C%20Lakewood%2C%20N.J.%2C%202001&fill_in_missing_segments=0",
+      "sourceUrl": "https://www.sefaria.org/Rashi_on_Esther.1.1.1?lang=bi&ven=english%7CThe%20Metsudah%20Five%20Megillot%2C%20Lakewood%2C%20N.J.%2C%202001",
+      "responseSha256": "8ddddd10b75496e8836aad82d68ade03f84a05ea8b35c5d13d30abe4f349c623"
+    }
+  ]
+}

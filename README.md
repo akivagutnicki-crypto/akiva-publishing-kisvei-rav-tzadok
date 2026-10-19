@@ -61,6 +61,32 @@ node scripts/test-reviewed-source-rendering.mjs
 
 `node scripts/test-reviewed-connections.mjs --fixtures-only` exercises incorrect references, missing or mismatched primary proofs, noncontiguous or respelled source and target quotations, false source and target pins, unchanged excerpts within changed surrounding text, missing translations, unreviewed records, duplicates, unrelated context, and exact segment/range matching without rebuilding the library. `test-reviewed-source-rendering.mjs` extracts the shipped source loader into an isolated Node VM and checks exact local paragraph selection, ranges across chapters, missing translations, and the separate treatment of footnote excerpts. The Pages workflow also compares the live catalog and matcher with the verified local release using `--url`. Reviewed connection output does not require a Cloudflare Worker change; the sidebar reads the static GitHub Pages resources directly.
 
+## Connected Ideas throughout the library
+
+The whole-library reader now supports a section outline and exact-passage threads under **Connected Ideas · Kisvei Rav Tzadok** and **Connected Ideas · Ishbitz–Radzin**. The outline follows the section's actual reading order; its buttons and the buttons beside the relevant Hebrew phrases open the same reviewed bilingual passages and explanations as the sidebar. Underlined source links and footnote source links also include approved thematic connections for the originating passage, narrowed to the current phrase when it is known. A concept link is separately identified from a direct citation or a reviewed explanation of a cited source.
+
+The [whole-library editorial standard](sources/akiva/themes/README.md) applies to each new iteration. Records in `sources/akiva/themes/*.json` require a complete reading of the originating section, exact contiguous Hebrew, substantial faithful English, and an explanation of what the parallel adds. A reciprocal thread requires its own section review and direction-specific title, summary, and explanation. The builder rejects incorrect references, unreviewed context, ambiguous placement, inadequate translation evidence, and incomplete reciprocal metadata. Canonical bodies and existing footnotes remain outside this separate catalog.
+
+The reader also verifies the full current Hebrew paragraph and section before displaying a thread, preventing a saved catalog from being paired with a changed text edition. Following a connection retains the exact target phrase interval, so a different argument elsewhere in a long paragraph is not added accidentally. Mei HaShiloach uses its canonical paragraph references while accepting older saved colon links. Failed catalog loads offer a retry action.
+
+The generated catalog records actual reviewed coverage for all 24 works. The separate `connected-ideas/review-progress.json` inventories every canonical book, section, and exact subsection reference, with duplicate editions resolved consistently. Individual approved anchors, a full contextual reading, and a completed subsection search are counted separately. Only explicit reviews in `sources/akiva/theme-reviews/`, documenting actual candidate comparisons in both schools and the exact reviewed text, can complete a subsection. A section or book becomes complete only when all its subsections are reviewed. New canonical material enters as pending automatically. Unreviewed sections receive no manufactured matches; a documented unsuccessful candidate search never claims that no useful parallel exists.
+
+Source lookups select **Metsudah Chumash** in the five books of Torah, **The Koren Jerusalem Bible** elsewhere in Tanach, and **Metsudah Rashi** for the 16 Sefaria indexes where that edition was verified as available. Other Rashi works retain their available source editions. The [primary edition evidence](sources/akiva/source-editions/availability-20261019.json) records the exact titles, scope of checks, source URLs, licenses, and response hashes. The request forbids filling missing segments from another translation; both network responses and offline caches are checked against the named edition. Missing preferred English is reported explicitly.
+
+After the final canonical MCP index is built, run:
+
+```sh
+node scripts/build-connected-ideas.mjs
+node scripts/build-theme-review-progress.mjs
+node scripts/test-source-editions.mjs
+node scripts/test-source-edition-cache.mjs
+node scripts/test-connected-ideas.mjs
+node scripts/test-theme-review-progress.mjs
+node scripts/test-connected-ideas-reader.mjs
+```
+
+The browser test opens every section claimed in the coverage manifest, verifies exact phrase placement and complete bilingual quotations, and exercises the overview, phrase buttons, sidebar, stacked reading mode, and preferred source editions on desktop and mobile. The live check compares the published modules and catalog with the verified build. These static features use the existing GitHub Pages publication process and require no Netlify service or paid inference gateway.
+
 ## Legacy hosting retirement
 
 The old Netlify site's deployment connection needs to be stopped or removed separately in the Netlify dashboard. Removing the Netlify configuration from this repository does **not** automatically unlink or delete the old Netlify project. Once the replacement site and endpoint are checked, unlink the Git provider and pause builds or delete the old project there. Links ending in `.netlify.app` won't redirect after the project is deleted; replace bookmarks or links that still reference them.

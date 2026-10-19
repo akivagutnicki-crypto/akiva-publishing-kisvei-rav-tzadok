@@ -552,6 +552,26 @@ body.akiva-android-reader .akiva-support-embed{border-top-color:var(--ox)}
 .akiva-mini-support .btn{height:auto;min-height:43px;padding:9px 14px}
 @media(max-width:760px){.akiva-support-embed{padding:16px}.akiva-mini-support{margin:0 0 15px}.akiva-donate-home{margin:15px 0 22px}}
 
+/* Editorial concept threads remain outside the canonical text and footnotes. */
+.connected-outline{margin:22px 0 28px;padding:18px 20px;border:1px solid var(--line);border-left:3px solid var(--ox);background:var(--panel);border-radius:4px}
+.connected-outline summary{cursor:pointer;font-family:var(--ui);font-weight:700;font-size:.94rem;letter-spacing:.02em}
+.connected-outline p{margin:10px 0;color:var(--muted);font-family:var(--ui);font-size:.86rem;line-height:1.5}
+.connected-outline ol{margin:14px 0 0;padding-left:22px}
+.connected-outline li{margin:12px 0;padding-left:3px}
+.connected-outline button,.idea-anchor button{color:var(--ink);background:none;border:0;padding:0;text-align:left;cursor:pointer;font:inherit;text-decoration:underline;text-decoration-color:var(--ox);text-underline-offset:3px}
+.connected-outline button{font-family:var(--ui);font-weight:600;font-size:.9rem}
+.connected-outline .idea-summary{display:block;font-family:var(--ui);font-size:.82rem;line-height:1.45;color:var(--muted);margin-top:5px}
+.idea-schools{display:block;font-family:var(--ui);font-size:.74rem;color:var(--muted);margin-top:5px}
+.idea-anchor{padding:10px 12px;margin:12px 0;border-left:2px solid var(--ox);font-family:var(--ui);font-size:.8rem;line-height:1.5;direction:ltr;text-align:left;background:var(--panel)}
+.idea-anchor strong{font-size:.72rem;letter-spacing:.055em;text-transform:uppercase;display:block;margin-bottom:4px;color:var(--muted)}
+.idea-anchor.idea-paragraph{display:block;margin-left:34px}
+#text[data-layout="inter"][data-lang="bi"] .il .idea-paragraph.has-phrase-anchor{display:none}
+.theme-context{padding:14px 0 18px;border-bottom:1px solid var(--line);margin-bottom:12px}
+.theme-context h3{font-family:var(--ui);font-size:1rem;margin:0 0 9px}
+.theme-context p{font-family:var(--ui);font-size:.88rem;line-height:1.6;margin:0 0 8px}
+.theme-context a{font-family:var(--ui);font-size:.82rem}
+.link-item .theme-title{font-family:var(--ui);font-weight:600;font-size:.85rem;margin:0 0 9px;color:var(--muted)}
+@media(max-width:640px){.connected-outline{padding:15px;margin:18px 0}.idea-anchor.idea-paragraph{margin-left:0}.connected-outline ol{padding-left:18px}}
 </style>
 </head>
 <body>
@@ -572,8 +592,10 @@ body.akiva-android-reader .akiva-support-embed{border-top-color:var(--ox)}
 <div class="offline-pill" id="offlinePill" hidden>Offline · reading saved texts</div>
 
 <script src="shiur-player.js?v=20261016-compact-noach-audio"></script>
-<script src="sefaria-packs.js?v=20261012-source-zips-v3"></script>
+<script src="sefaria-packs.js?v=20261019-preferred-edition-cache-v4"></script>
 <script src="source-connections.js?v=20261019-reviewed-connections-v2"></script>
+<script src="source-editions.js?v=20261019-preferred-source-editions-v1"></script>
+<script src="connected-ideas.js?v=20261019-connected-ideas-v1"></script>
 <script>
 (() => {
 'use strict';
@@ -851,18 +873,33 @@ async function withMeiStudy(d) {
   const sequence=[...meiStudyRefs];
   const position=sequence.indexOf(ref);
   return {...d, book:'Mei HaShiloach', ref, sectionRef:ref, he, en,
-    phrases:overlay, meiStudy:true, segmentLevel:false, sep:':',
+    phrases:overlay, meiStudy:true, segmentLevel:false, sep:' ',
     ...(d.next ? {} : {next:sequence[position+1] || null}),
     ...(d.prev ? {} : {prev:sequence[position-1] || null}),
     versions:[{title:'Akiva Publishing reviewed interlinear edition',lang:'Hebrew and English',source:'Akiva Publishing',license:'© Akiva Publishing'}],
     ...(heads ? {heads, studyHeading:headingInfo.title, phraseHeads:headingInfo.phraseHeadings || {}} : {})};
 }
 async function fetchText(ref, {remoteOnly = false} = {}) {
+  const preferred = await preferredSourceText(ref);
+  if (preferred) return preferred;
   // All 21 study sections are bundled; do not let a stale Sefaria or app cache
   // replace the reviewed English. This also makes them available offline.
   if (!remoteOnly && meiStudyRefs.has(ref)) {
     const study = await withMeiStudy({ref, sectionRef:ref, he:[], en:[]});
     if (study.meiStudy) return study;
+  }
+  if (!remoteOnly) {
+    // Canonical Mei paragraph references use a space after the parashah name.
+    // Preserve older saved colon links while resolving both forms locally.
+    const section=[...meiStudyRefs].find(section=>ref.startsWith(section) && /^[ :][1-9]\d*$/.test(ref.slice(section.length)));
+    if(section) {
+      const study=await withMeiStudy({ref:section,sectionRef:section,he:[],en:[]});
+      const paragraph=Number(ref.slice(section.length+1));
+      if(study.meiStudy && paragraph<=study.he.length) {
+        const canonicalRef=section+' '+paragraph;
+        return {...study,ref:canonicalRef,highlight:canonicalRef};
+      }
+    }
   }
   if (!remoteOnly) { try { const loc = await resolveLocal(ref); if (loc) return loc; } catch (e) { console.warn('local text failed', e); } }
   try {
@@ -887,6 +924,8 @@ async function fetchText(ref, {remoteOnly = false} = {}) {
   }
 }
 async function fetchEnglish(sectionRef) {
+  const preferred = await preferredSourceText(sectionRef);
+  if (preferred) return {text:preferred.en,version:preferred.versions?.find(version=>version.lang!=='Hebrew') || {title:preferred.preferredEdition.requestedVersionTitle,lang:'English'}};
   const j = await getJSON(`/api/v3/texts/${encodeURIComponent(sectionRef)}?version=translation`);
   const v = (j.versions || []).find(v => v.languageFamilyName !== 'hebrew' && v.language !== 'he');
   return v ? {text: v.text, version: {title: v.versionTitle, lang: v.languageFamilyName || 'English', source: v.versionSource, license: v.license}} : null;
@@ -1536,7 +1575,10 @@ function appendSection(d) {
   const text = $('#text');
   // A chapter of a commentary arrives as verses of comments: label each "verse:comment".
   let refs = null, labels = null;
-  if (!d.local && [d.he, d.en].some(a => Array.isArray(a) && a.some(Array.isArray))) {
+  if (Array.isArray(d.sourceRows)) {
+    refs=d.sourceRows.map(row=>row.ref);labels=d.sourceRows.map(row=>d.sourceRowStatus==='whole-source'?'':row.label);
+    d={...d,he:d.sourceRows.map(row=>row.he),en:d.sourceRows.map(row=>row.en)};
+  } else if (!d.local && [d.he, d.en].some(a => Array.isArray(a) && a.some(Array.isArray))) {
     const nest = a => (Array.isArray(a) ? a : []).map(v => Array.isArray(v) ? v : [v]);
     const H = nest(d.he), E = nest(d.en), fh = [], fe = [];
     refs = []; labels = [];
@@ -1559,6 +1601,10 @@ function appendSection(d) {
     ? `<div class="sec-head"><span>${esc(d.title.ois ? d.title.parashah + ' · Ois ' + d.title.ois + ' — ' + (d.title.en || d.sectionRef) : d.title.he && /^סימן/.test(d.title.he) ? d.sectionRef : d.title.en || d.sectionRef)}</span></div><h2 class="sec-title he" lang="he">${esc(d.title.he)}</h2>${d.title.he && /^סימן/.test(d.title.he) && d.title.en ? `<div class="sec-sub">${esc(d.title.en)}</div>` : ''}`
     : `<div class="sec-head"><span>${esc(d.studyHeading || d.sectionRef)}</span>${d.heRef ? `<span class="he" lang="he">${esc(d.heRef)}</span>` : ''}</div>`;
   if (d.sourceUrl) html += `<div class="sec-sub"><a href="${esc(d.sourceUrl)}" target="_blank" rel="noopener noreferrer">View the original Hebrew on Sefaria ↗</a></div>`;
+  if (d.preferredEdition) {
+    if(d.preferredEdition.actualVersionTitle)html+=`<div class="sec-sub">${esc(d.preferredEdition.actualVersionTitle)}</div>`;
+    if(d.preferredEdition.message)html+=`<div class="connection-status" role="status">${esc(d.preferredEdition.message)}</div>`;
+  }
   const shiurMarkup = window.AkivaShiurPlayer?.render(d.sectionRef) || '';
   if (d.sectionRef === 'Peri Tzadik, Noach 6') {
     html += `<div class="noach6-media">${shiurMarkup}
@@ -1636,6 +1682,7 @@ function appendSection(d) {
   if (audioCleanup) cleanupFns.push(audioCleanup);
   R.sections.push(d);
   R.next = d.next;
+  mountConnectedIdeas(d,sec);
   loadLinkCounts(d.sectionRef, sec, d);
   sec.querySelectorAll('.seg').forEach(s => s.addEventListener('keydown', e => { if (e.key === 'Enter') selectSegment(s.dataset.ref, s); }));
   // Bundled texts are Hebrew only; add Sefaria's English translation when one exists.
@@ -1731,6 +1778,128 @@ function dataJSON(path) {
   return localJSON.get(path);
 }
 const sourceConnections = window.AkivaSourceConnections;
+const connectedIdeas = window.AkivaConnectedIdeas;
+let connectedIdeasPromise = null;
+function connectedIdeasCatalog() {
+  if (!connectedIdeasPromise) connectedIdeasPromise = fetch('connected-ideas/catalog.json?v=' + connectedIdeas.VERSION)
+    .then(response=>{if(!response.ok)throw new Error('Connected ideas HTTP '+response.status);return response.json();})
+    .then(data=>{
+      if(data.schemaVersion!==1 || data.release!==connectedIdeas.VERSION || !Array.isArray(data.records)
+        || data.records.some(record=>!connectedIdeas.validRecord(record))) throw new Error('Incompatible connected ideas edition');
+      return data;
+    }).catch(error=>{connectedIdeasPromise=null;throw error;});
+  return connectedIdeasPromise;
+}
+function themeLink(record) {
+  return asLink(record.originRef,record.targetRef,'Connected Ideas · '+record.school,{reviewedRecord:record,
+    reviewedTheme:true,kind:'reviewed-concept',note:record.explanation,quote:{he:record.targetHebrew,en:record.targetEnglish},
+    quoteRef:record.targetRef,translationProvenance:record.translationProvenance});
+}
+const themeContextPins=new WeakMap();
+function currentThemePins(data) {
+  if(!themeContextPins.has(data)) {
+    const he=flatten(data.he);
+    const hash=async value=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',
+      new TextEncoder().encode(sourceConnections.normalizedHebrew(value))))].map(byte=>byte.toString(16).padStart(2,'0')).join('');
+    themeContextPins.set(data,Promise.all([hash(he.join(' ')),Promise.all(he.map(hash))])
+      .then(([section,paragraphs])=>({section,paragraphs})));
+  }
+  return themeContextPins.get(data);
+}
+async function verifiedThemeRecords(data,records) {
+  if(!records.length)return [];
+  const pins=await currentThemePins(data);
+  return records.filter(record=>{
+    const index=record.paragraphOrder,number=data.nums?data.nums[index]:index+1;
+    const ref=data.sep?data.sectionRef+data.sep+number:segRef(data.sectionRef,number);
+    return connectedIdeas.matchesContext(record,{ref,sectionRef:data.sectionRef,
+      paragraphHebrewSha256:pins.paragraphs[index],sectionHebrewSha256:pins.section});
+  });
+}
+async function currentPassageIdeas(catalog,ref,context={}) {
+  const records=connectedIdeas.forPassage(catalog.records,ref,context);
+  if(!records.length)return [];
+  const sectionRef=records[0].sectionRef;
+  const data=R.sections.find(section=>section.sectionRef===sectionRef) || await fetchText(sectionRef);
+  return verifiedThemeRecords(data,records);
+}
+async function themeLinksFor(context) {
+  if(!context.originRef) return [];
+  const catalog=await connectedIdeasCatalog();
+  return (await currentPassageIdeas(catalog,context.originRef,context)).map(themeLink);
+}
+async function mountConnectedIdeas(data,sectionElement) {
+  if(!localBook(data.book) && !REMOTE.some(book=>book.title===data.book))return;
+  let catalog;
+  try{catalog=await connectedIdeasCatalog();}catch{
+    if(!sectionElement.isConnected || sectionElement.querySelector('.connected-ideas-load-error'))return;
+    const message=document.createElement('div');message.className='empty connected-ideas-load-error';
+    message.innerHTML='<p>Connected Ideas could not be loaded.</p><button type="button" class="btn">Retry Connected Ideas</button>';
+    message.querySelector('button').onclick=()=>{message.remove();mountConnectedIdeas(data,sectionElement);};
+    sectionElement.insertBefore(message,sectionElement.querySelector('.seg, .subhead') || null);return;
+  }
+  if(!sectionElement.isConnected) return;
+  sectionElement.querySelector('.connected-ideas-load-error')?.remove();
+  if(sectionElement.querySelector('.connected-outline'))return;
+  const proposed=connectedIdeas.forSection(catalog.records,data.sectionRef);
+  const checked=await verifiedThemeRecords(data,proposed);
+  if(!sectionElement.isConnected)return;
+  sectionElement.dataset.connectedIdeasStatus=checked.length===proposed.length?'checked':'context-mismatch';
+  if(checked.length!==proposed.length) {
+    const status=document.createElement('div');status.className='connection-status';
+    status.textContent='Some Connected Ideas do not match the text edition currently loaded.';
+    sectionElement.insertBefore(status,sectionElement.querySelector('.seg, .subhead') || null);
+  }
+  const records=checked.filter(record=>{
+    const seg=[...sectionElement.querySelectorAll('.seg')].find(seg=>seg.dataset.ref===record.originRef);
+    return seg && connectedIdeas.anchorMatches(record,data.he[Number(seg.dataset.k)]);
+  });
+  if(!records.length) return;
+  const groups=connectedIdeas.groups(records);
+  const outline=document.createElement('details'); outline.className='connected-outline';outline.open=true;
+  outline.innerHTML='<summary>Connected Ideas in this section</summary><p>Follow the ideas through the passages below. Each connection includes the Hebrew, an English translation, and an explanation of the relationship.</p><ol>'+groups.map((group,index)=>
+    `<li><button type="button" data-idea-group="${index}">${esc(group.title)}</button><span class="idea-summary">${esc(group.summary)}</span><span class="idea-schools">${esc([...new Set(group.records.map(record=>record.school))].join(' · '))}</span></li>`).join('')+'</ol>';
+  sectionElement.insertBefore(outline,sectionElement.querySelector('.seg, .subhead') || null);
+  const openGroup=group=>{
+    const seg=[...sectionElement.querySelectorAll('.seg')].find(seg=>seg.dataset.ref===group.originRef);
+    const phrase=seg?.querySelectorAll('.seg-il .ph')[group.phraseIndex];
+    (phrase?.getClientRects().length?phrase:seg)?.scrollIntoView({block:'center',behavior:'smooth'});
+    openConnectedIdeas(group.originRef,group.title,group.phraseIndex);
+  };
+  outline.querySelectorAll('button[data-idea-group]').forEach(button=>button.onclick=()=>openGroup(groups[+button.dataset.ideaGroup]));
+  const lastAnchor = new Map();
+  for(const group of groups) {
+    const seg=[...sectionElement.querySelectorAll('.seg')].find(seg=>seg.dataset.ref===group.originRef);
+    if(!seg)continue;
+    const makeAnchor=extra=>{
+      const node=document.createElement('div');node.className='idea-anchor '+extra;
+      node.dataset.ideaId=group.id;node.dataset.ideaOrigin=group.originRef;node.dataset.ideaPhrase=group.phraseIndex;
+      node.innerHTML=`<strong>Connected Ideas</strong><button type="button">${esc(group.title)}</button><span class="idea-schools">${esc([...new Set(group.records.map(record=>record.school))].join(' · '))}</span>`;
+      node.querySelector('button').onclick=event=>{event.stopPropagation();openGroup(group);};return node;
+    };
+    const phrase=seg.querySelectorAll('.seg-il .ph')[group.phraseIndex];
+    if(phrase)phrase.appendChild(makeAnchor('idea-phrase'));
+    const fallback=makeAnchor('idea-paragraph'+(phrase?' has-phrase-anchor':''));
+    (lastAnchor.get(seg)||seg).insertAdjacentElement('afterend',fallback);lastAnchor.set(seg,fallback);
+  }
+}
+async function openConnectedIdeas(ref,themeTitle=null,phraseIndex=null) {
+  const seg=[...document.querySelectorAll('.seg')].find(seg=>seg.dataset.ref===ref);
+  if(seg)selectSegment(ref,seg,false);
+  openPanel(ref,'source');$('#panel .panel-head .ttl').textContent='Connected Ideas';
+  const container=$('#pContent'),seq=++panelSeq;
+  container.innerHTML='<div class="loading">Opening reviewed connections…</div>';
+  try {
+    let records=await currentPassageIdeas(await connectedIdeasCatalog(),ref);
+    if(themeTitle)records=records.filter(record=>record.themeTitle===themeTitle && (phraseIndex===null || record.phraseIndex===phraseIndex));
+    if(seq!==panelSeq || !container.isConnected)return;
+    const links=records.map(themeLink), groups=[{label:'All',list:links},...connectedIdeas.SCHOOLS.map(school=>({label:school,list:links.filter(link=>link.reviewedRecord.school===school)})).filter(group=>group.list.length)];
+    const heading=records[0];
+    const introduction=heading?{title:themeTitle || 'Connected Ideas',summary:themeTitle?heading.themeSummary:'Reviewed conceptual connections at this passage.',ref}:null;
+    showLinkList(ref,'Connected Ideas',links,container,{groups,selectedCategory:'All',context:sourceContext(seg),sourceStudy:true,themeIntroduction:introduction,
+      notice:links.length?'':'This passage has no reviewed conceptual connection yet.'});
+  }catch{if(seq===panelSeq && container.isConnected)container.innerHTML='<div class="empty">Connected Ideas could not be loaded. Reopen this passage to retry.</div>';}
+}
 let reviewedCatalogPromise = null;
 function reviewedCatalog() {
   if (!reviewedCatalogPromise) reviewedCatalogPromise = fetch('source-connections/catalog.json?v=' + sourceConnections.VERSION)
@@ -1888,13 +2057,24 @@ async function openSourceStudy(ref, context = {}, sourceUrl = '') {
     primary.excerptLabel = 'Reviewed excerpt from this passage';
   }
   const connections = records.map(record => reviewedLink(record, context.originRef || ref));
+  let themes=[];
+  try{themes=await themeLinksFor(context);}catch{
+    notice+=(notice?' ':'')+'Connected Ideas could not be loaded. Reopen this source to retry.';
+  }
+  // A reviewed source explanation already supplies the same target passage.
+  // Do not repeat it as a second card merely because it also has a theme thread.
+  const sourceTargets=new Set(connections.map(link=>sourceConnections.normalizeRef(link.sourceRef || link.ref)));
+  themes=themes.filter(link=>!sourceTargets.has(sourceConnections.normalizeRef(link.sourceRef || link.ref)));
+  if(seq!==panelSeq || !c.isConnected)return;
   const list = [primary, ...connections];
+  list.push(...themes);
   const groups = [{label:'All',list}, {label:'Cited source',list:[primary]}];
   for (const school of sourceConnections.SCHOOLS) {
     const entries = connections.filter(link => link.category === school);
     if (entries.length) groups.push({label:school,list:entries});
   }
-  if (!records.length && !notice) notice = 'No reviewed connection matches this source and its present context yet.';
+  for(const school of connectedIdeas.SCHOOLS){const entries=themes.filter(link=>link.reviewedRecord.school===school);if(entries.length)groups.push({label:'Connected Ideas · '+school,list:entries});}
+  if (!records.length && !notice) notice = 'No reviewed source connection matches this source and its present context yet.';
   showLinkList(context.originRef || ref, 'Source and connections', list, c,
     {groups,selectedCategory:'All',context,notice,sourceStudy:true});
 }
@@ -1939,13 +2119,17 @@ async function linksFor(ref) {
   }
   const n = +ref.slice(sec.sectionRef.length + 1);
   const [all, ours] = await Promise.all([loadLinks(sec.sectionRef), libraryLinks(sec, ref, false)]);
+  try{ours.push(...await themeLinksFor({originRef:ref}));}catch{}
   if (!localBook(sec.book) && !sec.meiStudy) {
     try { ours.push(...sourceConnections.pickConnections((await reviewedCatalog()).records, ref).map(record => reviewedLink(record, ref))); } catch {}
   }
   const sefaria = (sec.chapterLinks ? all : all.filter(l => { const r = segOf(l.anchorRef, sec.sectionRef); return r && n >= r[0] && n <= r[1]; })).filter(link => !isKisveiLink(link));
+  const themeTargets=new Set(ours.filter(link=>link.reviewedTheme).map(link=>sourceConnections.normalizeRef(link.sourceRef || link.ref)));
+  const uniqueOurs=ours.filter(link=>link.reviewedTheme || !link.reviewedRecord
+    || !themeTargets.has(sourceConnections.normalizeRef(link.sourceRef || link.ref)));
   const seen = new Set(), out = [];
-  for (const l of [...ours, ...sefaria]) {
-    const key = l.grouped ? 'G|' + l.grouped : (l.category === 'Rav Tzadok Library' ? 'L|' : '') + (l.sourceRef || l.ref);
+  for (const l of [...uniqueOurs, ...sefaria]) {
+    const key = l.grouped ? 'G|' + l.grouped : (l.reviewedTheme?'T|':l.category === 'Rav Tzadok Library' ? 'L|' : '') + (l.sourceRef || l.ref);
     if (!seen.has(key)) { seen.add(key); out.push(l); }
   }
   return out;
@@ -2031,7 +2215,7 @@ async function renderConnections(ref, c) {
   const note = sec && sec.chapterLinks ? `<p class="empty" style="padding:0 0 10px;font-size:.92rem">Sources this passage cites, the library passages that cite it, and Sefaria's connections for the whole section.</p>` : '';
   const byCat = {};
   links.forEach(l => { const k = l.category || 'Other'; (byCat[k] = byCat[k] || []).push(l); });
-  const FIRST = sourceConnections.SCHOOLS;
+  const FIRST = [...connectedIdeas.SCHOOLS.map(school=>'Connected Ideas · '+school),...sourceConnections.SCHOOLS];
   const rank = k => (FIRST.includes(k) ? FIRST.indexOf(k) : FIRST.length);
   const cats = Object.keys(byCat).sort((a, b) => rank(a) - rank(b) || byCat[b].length - byCat[a].length);
   c.innerHTML = sourceLanguageControls() + note + cats.map(k => {
@@ -2050,7 +2234,16 @@ async function renderConnections(ref, c) {
 }
 // Fetch exactly the requested local paragraph/range. Never preview the first
 // paragraph of a chapter merely because a range did not resolve.
+async function preferredSourceText(ref) {
+  const preferred = await window.AkivaSourceEditions?.fetchPreferredText(ref,getJSON);
+  if(preferred?.preferredEdition?.status==='unavailable') cache.delete(window.AkivaSourceEditions.requestPath(ref));
+  return preferred;
+}
 async function sourceTextData(link) {
+  const preferredRef = [link.quoteRef,link.fallbackQuote?.ref,link.sourceRef,link.ref]
+    .find(ref=>window.AkivaSourceEditions?.policyFor(ref));
+  const preferred = await preferredSourceText(preferredRef);
+  if(preferred)return preferred;
   if (link.quote) return {ref:link.quoteRef || link.sourceRef, he:[link.quote.he], en:[link.quote.en], reviewedExcerpt:true};
   if (link.fallbackQuote) {
     const plainLink = {...link,sourceRef:link.fallbackQuote.ref}; delete plainLink.fallbackQuote;
@@ -2106,15 +2299,16 @@ function alignedSourceRows(he, en) {
   const hs = Array.isArray(he) ? he : he ? [he] : [], es = Array.isArray(en) ? en : en ? [en] : [];
   return Array.from({length:Math.max(hs.length,es.length)},(_,i)=>alignedSourceRows(hs[i],es[i])).flat();
 }
-async function showLinkList(ref, label, list, c, {groups = [], selectedCategory = '', context = null, notice = '', sourceStudy = false} = {}) {
+async function showLinkList(ref, label, list, c, {groups = [], selectedCategory = '', context = null, notice = '', sourceStudy = false,themeIntroduction = null} = {}) {
   if (!sourceStudy && list.length === 1 && !list[0].reviewedRecord)
     return openSourceStudy(list[0].sourceRef || list[0].ref, context || sourceContext(R.selected?.el), list[0].sourceUrl || '');
   const seq = ++panelSeq;
   c.onclick = null;
   const origin = context || sourceContext(R.selected?.el);
-  const options = {groups, selectedCategory, context:origin, notice, sourceStudy};
+  const options = {groups, selectedCategory, context:origin, notice, sourceStudy, themeIntroduction};
   const nav = groups.length > 1 ? `<div class="source-tabs" role="group" aria-label="Source categories">${groups.map((g, i) => `<button type="button" data-source-category="${i}" aria-label="${esc(g.label)} sources" aria-pressed="${g.label === selectedCategory}" style="--source-color:var(${CAT_COLORS[g.label] || '--c-other'})">${esc(g.label)}<span class="ct" aria-hidden="true">${g.list.length}</span></button>`).join('')}</div>` : '';
-  c.innerHTML = sourceLanguageControls() + `<button class="back" id="pBack">← All connections</button>${nav}<div class="eyebrow" style="margin-bottom:4px">${esc(label)}</div>${notice ? `<div class="connection-status" role="status">${esc(notice)}</div>` : ''}<div id="lItems"></div>`;
+  const introduction = themeIntroduction ? `<section class="theme-context"><h3>${esc(themeIntroduction.title)}</h3><p>${esc(themeIntroduction.summary)}</p><a href="#/read/${toHash(themeIntroduction.ref)}">${esc(themeIntroduction.ref)}</a></section>` : '';
+  c.innerHTML = sourceLanguageControls() + `<button class="back" id="pBack">← All connections</button>${introduction}${nav}<div class="eyebrow" style="margin-bottom:4px">${esc(label)}</div>${notice ? `<div class="connection-status" role="status">${esc(notice)}</div>` : ''}<div id="lItems"></div>`;
   bindSourceLanguage(c);
   $('#pBack').onclick = () => renderConnections(ref, c);
   c.querySelectorAll('button[data-source-category]').forEach(b => b.onclick = () => {
@@ -2127,13 +2321,15 @@ async function showLinkList(ref, label, list, c, {groups = [], selectedCategory 
     const target = l.sourceRef || l.ref;
     const quotedRef = l.quoteRef || target;
     const reviewed = Boolean(l.reviewedRecord);
-    const studyContext = reviewed ? {...origin,sourceExcerpt:{ref:target,he:l.quote.he,en:l.quote.en,
-      provenance:l.translationProvenance}} : origin;
+    const targetSide=l.reviewedRecord?.direction==='reverse'?'origin':'target';
+    const studyContext = reviewed ? {...(l.reviewedTheme ? {originRef:target,he:l.quote.he,en:l.quote.en,
+      phraseIndex:l.reviewedRecord.placement[targetSide+'PhraseIndex'],phraseEnd:l.reviewedRecord.placement[targetSide+'PhraseEnd']} : origin),
+      sourceExcerpt:{ref:target,he:l.quote.he,en:l.quote.en,provenance:l.translationProvenance}} : origin;
     const div = document.createElement('div');
-    div.className = 'link-item' + (reviewed ? ' reviewed-connection full' : sourceStudy ? ' source-head full' : '');
+    div.className = 'link-item' + (reviewed ? ' reviewed-connection full' + (l.reviewedTheme?' reviewed-theme':'') : sourceStudy ? ' source-head full' : '');
     div.dataset.sourceRef = target;
     if (reviewed) div.dataset.connectionId = l.reviewedRecord.id;
-    div.innerHTML = `${reviewed ? `<div class="connection-school">${esc(l.category)}</div>` : ''}<div class="ref"><button class="ref-en" type="button" aria-label="Sources and connections for ${esc(quotedRef)}">${esc(quotedRef)}</button><span class="he" lang="he" dir="rtl">${esc(l.sourceHeRef || '')}</span></div><div class="loading" style="padding:6px 0">Loading…</div>`;
+    div.innerHTML = `${reviewed ? `<div class="connection-school">${esc(l.category)}</div>` : ''}${l.reviewedTheme ? `<div class="theme-title">${esc(l.reviewedRecord.themeTitle)}</div>` : ''}<div class="ref"><button class="ref-en" type="button" aria-label="Sources and connections for ${esc(quotedRef)}">${esc(quotedRef)}</button><span class="he" lang="he" dir="rtl">${esc(l.sourceHeRef || '')}</span></div><div class="loading" style="padding:6px 0">Loading…</div>`;
     box.appendChild(div);
     div.querySelector('.ref-en').onclick = () => openSourceStudy(target, studyContext, l.sourceUrl || '');
     sourceTextData(l).then(d => {
@@ -2147,11 +2343,11 @@ async function showLinkList(ref, label, list, c, {groups = [], selectedCategory 
       div.querySelector('.ref').classList.toggle('has-he', !!heRef);
       const rows = pairs.map(([h,e])=>`<div class="qp">${h.trim() ? `<p class="qh" lang="he" dir="rtl">${esc(h)}</p>` : ''}${e.trim() ? `<p class="qe" lang="en" dir="ltr">${esc(e)}</p>` : ''}</div>`).join('');
       const missing = (hes.length ? '' : '<div class="source-missing" data-missing="he">The Hebrew text could not be loaded.</div>')
-        + (completeEnglish ? '' : `<div class="source-missing" data-missing="en">${d.translationLookupFailed ? 'The additional English source translations could not be checked. Reopen this source to retry.' : ens.length ? 'Some of this source has no published English translation.' : 'A checked English translation has not yet been added for this source.'}</div>`);
-      const provenance = (!d.fromFootnoteFallback && l.translationProvenance) || (d.versions || []).filter(version=>version.lang !== 'Hebrew').map(version=>version.title).filter(Boolean).join('; ');
+        + (completeEnglish ? '' : `<div class="source-missing" data-missing="en">${esc(d.preferredEdition?.message || (d.translationLookupFailed ? 'The additional English source translations could not be checked. Reopen this source to retry.' : ens.length ? 'Some of this source has no published English translation.' : 'A checked English translation has not yet been added for this source.'))}</div>`);
+      const provenance = d.preferredEdition ? (d.preferredEdition.actualVersionTitle || '') : (!d.fromFootnoteFallback && l.translationProvenance) || (d.versions || []).filter(version=>version.lang !== 'Hebrew').map(version=>version.title).filter(Boolean).join('; ');
       const footnoteExcerpt = d.footnoteExcerpt ? `<section class="footnote-source-excerpt"><strong>English excerpt quoted in this footnote</strong><p class="qe" lang="en" dir="ltr">${esc(d.footnoteExcerpt.en)}</p><div class="connection-provenance">${esc(d.footnoteExcerpt.ref)} · ${esc(d.footnoteExcerpt.provenance)}</div><button class="btn copy-excerpt" type="button">Copy footnote excerpt</button></section>` : '';
-      const explanation = reviewed ? `<div class="connection-explanation"><strong>How this explains the source</strong>${esc(l.reviewedRecord.explanation)}</div>` : '';
-      const sourceUrl = l.sourceUrl || d.sourceTranslationUrl;
+      const explanation = reviewed ? `<div class="connection-explanation"><strong>${l.reviewedTheme ? 'How this develops the idea' : 'How this explains the source'}</strong>${esc(l.reviewedRecord.explanation)}</div>` : '';
+      const sourceUrl = d.preferredEdition?.sourceUrl || l.sourceUrl || d.sourceTranslationUrl;
       const originalUrl = sourceUrl && /^https:\/\/(?:www\.)?sefaria\.org\//.test(sourceUrl) ? sourceUrl
         : !reviewed && !d.local && !d.meiStudy && !d.reviewedExcerpt ? sefariaUrl(target) : null;
       div.querySelector('.loading').outerHTML = `${l.excerptLabel ? `<div class="eyebrow quote-label">${esc(l.excerptLabel)}</div>` : ''}<div class="quote">${rows}</div>${missing}${footnoteExcerpt}${explanation}${provenance ? `<div class="connection-provenance">${esc(provenance)}</div>` : ''}

@@ -281,12 +281,25 @@ jobs:
         run: |
           node scripts/build-reviewed-connections.mjs
           node scripts/build-source-translations.mjs
+          node scripts/build-connected-ideas.mjs
+          node scripts/build-theme-review-progress.mjs
           node scripts/test-reviewed-connections.mjs > reviewed-source-connections-verification.json
           cat reviewed-source-connections-verification.json
           node scripts/test-source-translations.mjs > source-translations-verification.json
           cat source-translations-verification.json
           node scripts/test-reviewed-connections-reader.mjs
           node scripts/test-reviewed-source-rendering.mjs
+
+      - name: Verify exact source editions and reviewed section threads across the library
+        run: |
+          node scripts/test-source-editions.mjs > source-editions-verification.json
+          cat source-editions-verification.json
+          node scripts/test-source-edition-cache.mjs
+          node scripts/test-connected-ideas.mjs > connected-ideas-verification.json
+          cat connected-ideas-verification.json
+          node scripts/test-theme-review-progress.mjs > theme-review-progress-verification.json
+          cat theme-review-progress-verification.json
+          node scripts/test-connected-ideas-reader.mjs
 
       - name: Cache official Sefaria source exports
         uses: actions/cache@v4
@@ -338,6 +351,8 @@ jobs:
           cat reviewed-source-connections-live-verification.json
           node scripts/test-source-translations.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/' > source-translations-live-verification.json
           cat source-translations-live-verification.json
+          node scripts/test-connected-ideas.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/' > connected-ideas-live-verification.json
+          cat connected-ideas-live-verification.json
 
       - name: Verify revised Dover Tzedek notes and popups on the live reader
         run: |
@@ -416,6 +431,23 @@ jobs:
             source-translations-verification.json
             source-translations-live-verification.json
             artifacts/source-connections/
+          retention-days: 14
+
+      - name: Save preferred-edition and Connected Ideas review evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: connected-ideas-and-source-editions-verification
+          path: |
+            dist/library/connected-ideas/catalog.json
+            dist/library/connected-ideas/review-progress.json
+            connected-ideas-verification.json
+            connected-ideas-live-verification.json
+            theme-review-progress-verification.json
+            sources/akiva/theme-reviews/
+            source-editions-verification.json
+            sources/akiva/source-editions/availability-20261019.json
+            artifacts/connected-ideas/
           retention-days: 14
 
       - name: Save full source ZIPs to GitHub repository

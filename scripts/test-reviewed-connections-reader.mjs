@@ -11,6 +11,7 @@ import {chromium} from 'playwright';
 
 const require = createRequire(import.meta.url);
 const engine = require('../dist/library/source-connections.js');
+const editions = require('../dist/library/source-editions.js');
 const root = path.resolve('dist');
 const catalog = JSON.parse(fs.readFileSync(path.join(root, 'library/source-connections/catalog.json')));
 const toc = JSON.parse(fs.readFileSync(path.join(root, 'library/data/tzidkat-hatzadik/toc.json')));
@@ -62,6 +63,11 @@ async function prepare(viewport, failCatalog = false) {
     }
     if (!url.pathname.startsWith('/api/')) { await route.fulfill({body:'Source link destination'}); return; }
     const ref = decodeURIComponent(url.pathname.split('/texts/')[1] || '');
+    const policy=editions.policyFor(ref);
+    if(policy){
+      assert.deepEqual(url.searchParams.getAll('version'),['source','english|'+policy.versionTitle]);
+      assert.equal(url.searchParams.get('fill_in_missing_segments'),'0');
+    }
     let he = 'טקסט לבדיקת הממשק בלבד', en = 'Isolated source response for the interface test.',
       sectionRef = ref, sections = [1], book = ref.replace(/\s+\d.*$/,'');
     if (ref === 'Exodus 12:11') {
@@ -74,16 +80,16 @@ async function prepare(viewport, failCatalog = false) {
       // must remain separate; the excerpt cannot translate this whole fixture.
       he = ['טקסט ראשון לבדיקת הממשק','טקסט שני לבדיקת הממשק']; en = [];
     }
-    await route.fulfill({json:{ref,sectionRef,sections,book,heRef:ref,next:null,prev:null,
+    await route.fulfill({json:{ref,sectionRef,sections,toSections:sections,textDepth:2,book,heRef:ref,next:null,prev:null,
       versions:[{language:'he',versionTitle:'Isolated Hebrew fixture',text:he},
-        {language:'en',versionTitle:'Isolated English fixture',text:en}]}});
+        {language:'en',versionTitle:policy?.versionTitle || 'Isolated English fixture',text:en}]}});
   });
   if (failCatalog) await session.route('**/source-connections/catalog.json?*',route=>route.fulfill({status:503,body:'Unavailable fixture'}));
   return session;
 }
 
 async function checkedCards(page, records) {
-  const cards = page.locator('#lItems .reviewed-connection');
+  const cards = page.locator('#lItems .reviewed-connection:not(.reviewed-theme)');
   if (records.length) await cards.last().locator('.qe').waitFor({state:'visible'});
   assert.deepEqual((await cards.evaluateAll(nodes=>nodes.map(node=>node.dataset.connectionId))).sort(), ids(records), 'Wrong reviewed connections');
   for (const record of records) {
@@ -107,7 +113,10 @@ try {
     await seg.locator('.seg-il .ph-he').getByRole('link',{name:'בְּחִפָּזוֹן',exact:true}).click();
     await checkedCards(page,expected);
     assert.equal(text(await page.locator('#panel .ttl').textContent()),'Exodus 12:11');
-    const directIds = await page.locator('.reviewed-connection').evaluateAll(nodes=>nodes.map(node=>node.dataset.connectionId).sort());
+    const displayedTargets=await page.locator('.reviewed-connection').evaluateAll(nodes=>nodes.map(node=>node.dataset.sourceRef));
+    assert.equal(new Set(displayedTargets).size,displayedTargets.length,
+      'A thematic record must not repeat an already displayed source explanation for the same passage');
+    const directIds = await page.locator('.reviewed-connection:not(.reviewed-theme)').evaluateAll(nodes=>nodes.map(node=>node.dataset.connectionId).sort());
     for (const school of engine.SCHOOLS) assert(await page.getByRole('button',{name:school + ' sources',exact:true}).isVisible());
     await page.getByRole('button',{name:'English only',exact:true}).click();
     await page.getByRole('button',{name:'Ishbitz–Radzin sources',exact:true}).click();
@@ -130,7 +139,7 @@ try {
     await seg.locator('.seg-il button[data-note-key="TZ-0003-1"]').click();
     await seg.locator('.seg-il .reader-footnote[data-note-key="TZ-0003-1"] a').first().click();
     await checkedCards(page,expected);
-    assert.deepEqual(await page.locator('.reviewed-connection').evaluateAll(nodes=>nodes.map(node=>node.dataset.connectionId).sort()),directIds);
+    assert.deepEqual(await page.locator('.reviewed-connection:not(.reviewed-theme)').evaluateAll(nodes=>nodes.map(node=>node.dataset.connectionId).sort()),directIds);
     assert(page.url().endsWith(hash('Tzidkat HaTzadik 1')), 'Footnote source replaced the reading route');
     await page.locator('#pClose').click();
 
@@ -149,30 +158,30 @@ try {
     await checkedCards(page,expected);
     await page.locator('#pClose').click();
 
-    // The title's Ezekiel citation is unrelated to the haste discussion. Its
-    // original English note is an excerpt, never an aligned full translation.
+    // All three entry points obey the preferred Koren edition even when its
+    // English is missing. The existing canonical note remains in the reader.
     const title = page.locator('.seg[data-ref="Tzidkat HaTzadik 1:2"]');
     await title.locator('.seg-he button[data-note-key="TZ-0001-1"]').click();
     await title.locator('.segment-annotations .reader-footnote[data-note-key="TZ-0001-1"] a').first().click();
-    await page.locator('.footnote-source-excerpt').waitFor({state:'visible'});
-    assert.equal(await page.locator('.reviewed-connection').count(),0);
+    await page.locator('.source-head .source-missing[data-missing="en"]').waitFor({state:'visible'});
+    assert.equal(await page.locator('.reviewed-connection:not(.reviewed-theme)').count(),0);
     assert.equal(await page.locator('.source-head .quote .qe').count(),0,'A partial footnote translation was paired with the full Hebrew');
-    assert.match(await page.locator('.connection-status').textContent(),/No reviewed connection/);
-    const noteEnglish = text(await page.locator('.footnote-source-excerpt .qe').textContent());
+    assert.match(await page.locator('.connection-status').textContent(),/No reviewed source connection/);
+    assert.match(await page.locator('.source-head .source-missing[data-missing="en"]').textContent(),/The Koren Jerusalem Bible/);
+    assert.equal(await page.locator('.footnote-source-excerpt').count(),0,'An older footnote must not override the requested Tanach edition');
     await page.locator('#pClose').click();
 
-    // The same nearby verified footnote excerpt is also available when the
-    // reader opens that source from its inline citation or sidebar book button.
+    // Inline and sidebar source lookups retain the same exact edition policy.
     await title.locator('.seg-he').getByRole('link',{name:'צִדְקַת הַצַּדִּיק',exact:true}).click();
-    await page.locator('.footnote-source-excerpt').waitFor({state:'visible'});
-    assert.equal(text(await page.locator('.footnote-source-excerpt .qe').textContent()),noteEnglish);
+    await page.locator('.source-head .source-missing[data-missing="en"]').waitFor({state:'visible'});
+    assert.match(await page.locator('.source-head .source-missing[data-missing="en"]').textContent(),/The Koren Jerusalem Bible/);
     assert.equal(await page.locator('.source-head .quote .qe').count(),0);
     await page.locator('#pClose').click();
     await title.locator('.seg-en').click();
     await page.locator('#pContent button[data-cat="Tanakh"][data-book="Ezekiel"]').click();
-    await page.locator('.footnote-source-excerpt').waitFor({state:'visible'});
-    assert.equal(text(await page.locator('.footnote-source-excerpt .qe').textContent()),noteEnglish);
-    assert.equal(await page.locator('.reviewed-connection').count(),0);
+    await page.locator('.source-head .source-missing[data-missing="en"]').waitFor({state:'visible'});
+    assert.match(await page.locator('.source-head .source-missing[data-missing="en"]').textContent(),/The Koren Jerusalem Bible/);
+    assert.equal(await page.locator('.reviewed-connection:not(.reviewed-theme)').count(),0);
     await page.locator('#pClose').click();
 
     // Exact direct source lookup works when the source is already in R.sections.
@@ -192,12 +201,12 @@ try {
   await page.locator('.seg[data-ref="Tzidkat HaTzadik 1:3"] .seg-il .ph-he').getByRole('link',{name:'בְּחִפָּזוֹן',exact:true}).click();
   await page.locator('.connection-status').waitFor({state:'visible'});
   assert.match(await page.locator('.connection-status').first().textContent(),/could not be loaded/,'Failure must not masquerade as no matching source');
-  assert.equal(await page.locator('.reviewed-connection').count(),0);
+  assert.equal(await page.locator('.reviewed-connection:not(.reviewed-theme)').count(),0);
   await unavailable.close();
   console.log(JSON.stringify({ok:true,viewports:2,reviewedViews:routesChecked,matchedSource:'Exodus 12:11',
     entryPoints:['inline citation','footnote source','sidebar source','direct source lookup'],
-    fullTranslations:true,unrelatedConnectionsSuppressed:true,partialFootnoteTranslationKeptSeparate:true,
-    footnoteEnglishAvailableAcrossEntryPoints:true,reviewedEnglishRetainedWhenOpeningItsPassage:true,catalogFailureReported:true}));
+    fullTranslations:true,unrelatedConnectionsSuppressed:true,preferredEditionAcrossEntryPoints:true,
+    preferredEditionMissingReported:true,reviewedEnglishRetainedWhenOpeningItsPassage:true,catalogFailureReported:true}));
 } finally {
   await browser.close();
   await new Promise(resolve=>server.close(resolve));

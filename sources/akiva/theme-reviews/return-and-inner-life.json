@@ -1,0 +1,127 @@
+{
+  "schemaVersion": 1,
+  "reviewedOn": "2026-10-19",
+  "method": "The complete originating sections were read in canonical Hebrew, paragraph by paragraph, with interlinear variants selected consistently. Candidate passages from both schools were read and compared with each paragraph’s distinct argument; the assessments below record the finite candidates actually examined and why each was approved, rejected, or deferred. Selected English quotations were translated against the Hebrew and peer-checked separately. A completed editorial pass does not claim that every conceivable parallel has been discovered, and hashes certify the reviewed text version rather than the scholarly judgment.",
+  "entries": [
+    {
+      "ref": "Divrei Soferim 6:1",
+      "sectionRef": "Divrei Soferim 6",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "3a6e2c7721a732051a0b64a6340362d9c99dcc4b71ff924b382a4931c0f457dd",
+      "reviewedSectionHebrewSha256": "3a6e2c7721a732051a0b64a6340362d9c99dcc4b71ff924b382a4931c0f457dd",
+      "assessment": "The complete siman distinguishes years of actual life from suffering and then expressly qualifies the needed tranquility: its purpose is attachment to the Creator, not bodily pleasure alone. The selected thread explains that qualification through Abraham’s question about what life consists of after obstacles are removed. The preceding discussion of the accounting of years remains in its own context and is not equated with the target’s account of worldly pleasure.",
+      "candidatesReviewed": [
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Lech Lecha 1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved. Abraham expressly distinguishes the removal of worldly disturbance from true life in rejoicing in God. This gives the closest explanation of why Divrei Soferim both values rest and denies that comfort alone is life. The complete nine-paragraph Lech Lecha section was read before approving the reciprocal direction."
+        },
+        {
+          "ref": "Et HaOchel 6:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Reviewed and not selected for this paragraph. It explains true life through recognition of God in nourishment and contrasts the divine soul with an animal appetite. The argument concerns the inner power strengthened by eating; it does not specifically explain the rest and removal of mental disturbance on which this siman insists. A broad shared vocabulary of life did not warrant an additional connection."
+        }
+      ]
+    },
+    {
+      "ref": "Takanat HaShavin 4:1",
+      "sectionRef": "Takanat HaShavin 4",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "c6d6e70e26bee2668ecd022a15c62dd979f5b25cde40ad7658dacb87283c55dc",
+      "reviewedSectionHebrewSha256": "d7f614b5a53b9e2ffa9810d6c448904dacf32b5cca36d98532464399d1b7021f",
+      "assessment": "Read as the opening distinction between healing of the soul and the further release from subjugation, with a hidden good will beneath both obstructions. The paragraph also limits Sinai’s first freedom to the stage before subsequent sin and places the later unfolding of repentance in David’s line. The approved quotation retains that historical sequence; the explanatory connection addresses the explicitly hidden will, without claiming that present remorse already constitutes complete redemption.",
+      "candidatesReviewed": [
+        {
+          "ref": "Machshavot Charutz 11:2",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after reading the full canonical paragraph. The depth of good remains beneath actual sin, and remorse expresses it once the attraction has passed. This illuminates the opening paragraph’s distinction between the true will and the impediments around it. No reciprocal section interpretation is published because the entire Machshavot Charutz section 11 was not reviewed."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Exodus, Bo 5",
+          "school": "Ishbitz–Radzin",
+          "reason": "Reviewed and not selected here. The priority of Anokhi explains why a given bond to God can precede complete purification. That is useful in the separately approved Ohr Zarua thread, but it does not directly explain this paragraph’s two different obstructions, its healing/redemption distinction, or its transition from Sinai to repentance. It was not repeated merely because both texts discuss a prior bond."
+        }
+      ]
+    },
+    {
+      "ref": "Takanat HaShavin 4:2",
+      "sectionRef": "Takanat HaShavin 4",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "4ec96197362aa0a10bcf65a8923b5869fb05be55c1c2930e39a38b0c65aa858d",
+      "reviewedSectionHebrewSha256": "d7f614b5a53b9e2ffa9810d6c448904dacf32b5cca36d98532464399d1b7021f",
+      "assessment": "Read in full as a qualified beginning of redemption through Zerubbabel, after exile has done an atoning work. The record retains the distinction between this beginning and complete redemption prevented by sin. The canonical wording מגדולי מדינת הגלות is translated as a leading figure of the country of exile. The connection concerns the place of distance participating in return, not a general endorsement of political prominence.",
+      "candidatesReviewed": [
+        {
+          "ref": "Peri Tzadik, Lech Lecha 1:2",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved. The interpretation of “from there you shall seek” says that exile itself can generate wholehearted return. This illuminates the historical pattern of the redeemer arising within exile. The entire first ois of Lech Lecha was read, and the reciprocal summary is independently centered on its own interpretation."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Lech Lecha 6",
+          "school": "Ishbitz–Radzin",
+          "reason": "The complete paragraph and its surrounding parashah were reviewed. Its account of Abraham rescuing Lot despite the future Ammon and Moab, for the sake of the royal line through their permitted female descendants, supplies a related pattern of concealed good. It was not approved for this anchor because it does not explain the distinctive mechanism of exile atoning and thereby giving rise to Zerubbabel. The closer relation to this paragraph is the Peri Tzadik passage."
+        }
+      ]
+    },
+    {
+      "ref": "Takanat HaShavin 4:3",
+      "sectionRef": "Takanat HaShavin 4",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "8b7b26257f53e4de3ee90e644753360fa4c5c87e23f0c3143e677d7d6ebac0c1",
+      "reviewedSectionHebrewSha256": "d7f614b5a53b9e2ffa9810d6c448904dacf32b5cca36d98532464399d1b7021f",
+      "assessment": "The whole paragraph was read with both its effective present repentance and its explicit possibility of later relapse. Its distinct advance is from stopping the sinful act to guarding the surrounding conditions that draw one back to it. The quotation keeps the Babylonian/Egyptian distinction, the limits of the repair, and the separate judgment needed to emerge from the externally imposed condition. The two connections explain restraint before transformation and inward government before wider freedom.",
+      "candidatesReviewed": [
+        {
+          "ref": "Kometz HaMinchah 2:16:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved. The full one-paragraph section distinguishes opposing an enemy during the struggle from using the conquered power afterward. Its stated restriction of transformation to one who has already won prevents the connection from dispensing with safeguards too early. Full-section review supports a target-centered reciprocal thread."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Lech Lecha 6",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved. The paragraph explicitly places self-rule before kingship and explains Nisan’s restrained eating as preparation for the wider freedom associated with Torah in Sivan. This illuminates why inward boundaries matter to the widening release described here. The full parashah was read before approving the reverse direction."
+        }
+      ]
+    },
+    {
+      "ref": "Takanat HaShavin 4:4",
+      "sectionRef": "Takanat HaShavin 4",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "891baa941931af1f4bd563708cc4cb461f5e3ab6953bb2bfa9fe8fe17c2aa21e",
+      "reviewedSectionHebrewSha256": "d7f614b5a53b9e2ffa9810d6c448904dacf32b5cca36d98532464399d1b7021f",
+      "assessment": "Read in full as the concrete program of renewed Torah acceptance, self-encouragement, and safeguards under Nehemiah. The quotation retains temporary safeguards and their later relaxation, so the record does not turn a generation-specific measure into an unqualified permanent requirement. The final unquoted distinction between partial attachment of other nations and complete redemption was also read; no selected parallel is used to reinterpret that distinct eschatological claim.",
+      "candidatesReviewed": [
+        {
+          "ref": "Tiferet Yosef, Talmud Anthology, Taanit 10",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after the full canonical paragraph was read. Daniel’s boundaries under concealment make his connection with divine light clearly perceptible. The complete local argument beginning with his concealment was translated, supplying a positive purpose for practical restraint in exile. No reciprocal is published because all 24 paragraphs of the Taanit anthology section were not reviewed."
+        },
+        {
+          "ref": "Yisrael Kedoshim 4:2",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "The entire long canonical paragraph was read, including the discussion of oaths against a misleading appearance of permission and its later warnings about scholars misjudging their own degree of holiness. This is a useful candidate for Nehemiah’s added oath. Publication is deferred: the canonical unit around David and Boaz contains the unclear word אווסף, and its discussion of particular safeguards requires care with the qualifications concerning exceptional scholars. It was not silently corrected or reduced to a general rule."
+        }
+      ]
+    }
+  ]
+}
