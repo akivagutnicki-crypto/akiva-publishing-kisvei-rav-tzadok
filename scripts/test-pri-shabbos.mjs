@@ -3,6 +3,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {createRequire} from 'node:module';
 import {readShabbos,leavesOf,sectionRef,segmentRef,plain,digest,SOURCE_SHA,REPORT} from './publish-pri-shabbos.mjs';
+import {recoverOriginalItems,hasImportedNotes,importedSourceLinks} from './import-pri-missing-footnotes.mjs';
 
 const at=process.argv.indexOf('--url'),base=at>=0?process.argv[at+1]:null;
 const loadBytes=async file=>{
@@ -50,8 +51,12 @@ for(const sourceNode of pack.nodes){
         anchors++;expectedConnections.add(anchor+'\0'+plain(match[1]));
       }
     }
+    // The original Word edition remains fixed. The later source-note import
+    // must validate and remove its exact additions to recover that edition.
+    const originalItems=recoverOriginalItems(items,ref);
+    if(hasImportedNotes(items,ref))for(const link of importedSourceLinks(ref))expectedConnections.add(link.a+'\0'+link.r);
     assert.deepEqual(new Set((links[ref]||[]).map(link=>link.a+'\0'+link.r)),expectedConnections,'Exact canonical source connections for '+ref);
-    assert.equal(digest(JSON.stringify(items)),report.chapters.find(row=>row.ref===ref)?.sha256,'Published chapter checksum '+ref);
+    assert.equal(digest(JSON.stringify(originalItems)),report.chapters.find(row=>row.ref===ref)?.sha256,'Original published chapter checksum '+ref);
     const actualHeadings=items.filter(item=>item.h).map(item=>item.h);
     assert.deepEqual(actualHeadings,chapter.items.filter(item=>item.h).map(item=>item.h));headings+=actualHeadings.length;
     if(node.depth===2){

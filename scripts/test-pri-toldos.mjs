@@ -2,6 +2,7 @@
 import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import {readToldos,leavesOf,refOf,plain,digest} from './publish-pri-toldos.mjs';
+import {recoverOriginalItems,hasImportedNotes,importedSourceLinks} from './import-pri-missing-footnotes.mjs';
 
 const at=process.argv.indexOf('--url'),base=at>=0?process.argv[at+1]:null;
 const load=async file=>{
@@ -32,8 +33,12 @@ for(const section of pack.sections){
   for(const item of actual)for(const html of item.p.flat())for(const m of html.matchAll(/data-ref="([^"]+)"/g)){
     anchors++;expectedLinks.add(item.n+'\0'+plain(m[1]));
   }
+  // Preserve the original Word checksum while independently validating every
+  // later source-note addition before recovering the original item records.
+  const originalItems=recoverOriginalItems(items,ref);
+  if(hasImportedNotes(items,ref))for(const link of importedSourceLinks(ref))expectedLinks.add(link.a.split(':').at(-1)+'\0'+link.r);
   assert.deepEqual(new Set(links[ref].map(l=>l.a.split(':').at(-1)+'\0'+l.r)),expectedLinks,'Paragraph source connections');
-  assert.equal(digest(JSON.stringify(items)),report.chapters.find(c=>c.ref===ref).sha256);
+  assert.equal(digest(JSON.stringify(originalItems)),report.chapters.find(c=>c.ref===ref).sha256);
   paragraphs+=actual.length;pairs+=actual.reduce((n,i)=>n+i.p.length,0);
 }
 assert.equal(paragraphs,40);assert.equal(pairs,1266);assert.equal(anchors,report.sourceAnchors);

@@ -184,6 +184,14 @@ jobs:
           node scripts/test-mcp-server.mjs
           node scripts/test-pri-seasonal-footnotes.mjs
 
+      - name: Add supplied source notes to the 26 Pri Tzaddik interlinear sections without footnotes
+        run: |
+          node scripts/import-pri-missing-footnotes.mjs
+          python scripts/import-pri-seasonal-footnotes.py
+          node scripts/build-mcp-index.mjs
+          node scripts/test-pri-missing-footnotes.mjs
+          node scripts/test-pri-seasonal-footnotes.mjs --data-only
+
       - name: Verify complete Dover Tzedek quotations after all final imports
         run: node scripts/test-dover-footnotes.mjs
 
@@ -202,6 +210,11 @@ jobs:
           node scripts/test-pri-shabbos.mjs
           node scripts/test-pri-shabbos-browser.mjs
 
+      - name: Verify the newly added Pri Tzaddik notes and Hebrew footnote popups after final cleanup
+        run: |
+          node scripts/test-pri-missing-footnotes.mjs --after-parallel-cleanup
+          node scripts/test-pri-missing-footnotes-browser.mjs
+
       - name: Build and verify library ZIP downloads
         run: node scripts/build-library-zips.mjs && node scripts/test-library-zips.mjs && node scripts/test-sefaria-packs.mjs && node scripts/test-source-zip-export.mjs
 
@@ -210,6 +223,9 @@ jobs:
           node scripts/build-mcp-index.mjs
           node scripts/test-mcp-server.mjs
           node scripts/test-cloudflare-worker.mjs
+
+      - name: Verify all newly added Pri Tzaddik notes in the final reader and both ZIP downloads
+        run: node scripts/test-pri-missing-footnotes.mjs --after-parallel-cleanup --zips
 
       - name: Verify final cleanup proof protected editions and download consistency
         run: |
@@ -303,6 +319,19 @@ jobs:
 
       - name: Verify all ten Toldos teachings on the live reader
         run: node scripts/test-pri-toldos.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'
+
+      - name: Verify all newly added Pri Tzaddik notes on the live reader
+        run: |
+          for attempt in 1 2 3; do
+            if node scripts/test-pri-missing-footnotes.mjs --after-parallel-cleanup --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'; then
+              exit 0
+            fi
+            sleep 20
+          done
+          exit 1
+
+      - name: Verify the newly added Pri Tzaddik Hebrew footnote popups on the live reader
+        run: node scripts/test-pri-missing-footnotes-browser.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'
 
       - name: Verify Kedushas Shabbos and Kuntres Shevisas Shabbos on the live reader
         run: |

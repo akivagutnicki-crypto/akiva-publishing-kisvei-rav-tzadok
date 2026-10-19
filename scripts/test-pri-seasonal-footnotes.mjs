@@ -6,6 +6,7 @@ import http from 'node:http';
 import {createHash} from 'node:crypto';
 import {gunzipSync} from 'node:zlib';
 import {createRequire} from 'node:module';
+import {readMissingFootnotes,recoverOriginalItems,hasImportedNotes,MISSING_FOOTNOTE_COUNT} from './import-pri-missing-footnotes.mjs';
 
 const release='20261016-pri-seasonal-1407-v1';
 const rootAt=process.argv.indexOf('--root');
@@ -83,7 +84,21 @@ if(live){
   assert.ok(ready,'The live site did not publish the seasonal release');
 }
 const report=await read('pri-seasonal-footnotes-report.json'),toc=await read('data/peri-tzadik/toc.json');
-assert.equal(report.release,release);assert.equal(report.notes,1407);assert.equal(report.sections,42);assert.equal(report.totalBookNotes,3240);
+// The historic 3,240 notes remain fixed. Accept the later book-wide total
+// only after all 26 formerly empty chapters pass exact source-note validation.
+const missingPack=readMissingFootnotes();
+assert.equal(missingPack.noteCount,MISSING_FOOTNOTE_COUNT);assert.equal(missingPack.targets.length,26);
+let filledTargets=0,verifiedAddedNotes=0;
+for(const target of missingPack.targets){
+  const rows=await read('data/peri-tzadik/'+target.file),original=recoverOriginalItems(rows,target.ref);
+  if(hasImportedNotes(rows,target.ref)){
+    filledTargets++;
+    verifiedAddedNotes+=rows.flatMap(row=>row.footnotes||[]).length-original.flatMap(row=>row.footnotes||[]).length;
+  }
+}
+assert.ok(filledTargets===0||filledTargets===missingPack.targets.length,'The later source-note edition is incomplete');
+assert.equal(verifiedAddedNotes,filledTargets?MISSING_FOOTNOTE_COUNT:0,'Verified additional source-note count');
+assert.equal(report.release,release);assert.equal(report.notes,1407);assert.equal(report.sections,42);assert.equal(report.totalBookNotes,3240+verifiedAddedNotes);
 assert.equal(report.sourceSHA256,'52e53d19420823db61c6772770e84cd8e1719596b736ee7affd3b0540d020eba');
 const leaves=[];function walk(n){if(n.ref)leaves.push(n);for(const c of n.children||[])walk(c);}walk(toc.toc);
 const expectations=[],seenNumbers=new Set(),links=await read('data/peri-tzadik/links.json');
