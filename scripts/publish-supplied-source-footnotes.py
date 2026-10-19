@@ -141,15 +141,16 @@ def patch_shell(html, sw, revision, books, reviewed_urls):
         f"    }} else if (rel.startsWith('data/') && (url.searchParams.get('edition') === '{revision}' || {book_routes})) {{\n"
         "      // Supplied source quotation network refresh.\n"
         "      event.respondWith(networkFirst(request, DATA));\n" + route, 1)
-    original_fallback = "    const hit = (await cache.match(request, { ignoreVary: true })) || (await cache.match(request, { ignoreVary: true, ignoreSearch: true }));  // also texts saved by a download pack"
+    original_fallback = ("    const hit = (await cache.match(request, { ignoreVary: true }))\n"
+                         "      || (!hasExplicitEdition(request) && await cache.match(request, { ignoreVary: true, ignoreSearch: true }));")
     assert sw.count(original_fallback) == 1, 'Unrecognized downloaded-pack cache fallback'
     sw = sw.replace(original_fallback,
         "    // Prefer current ZIP-installed data before older edition-query entries.\n"
         "    const canonicalDataUrl = new URL(request.url);\n"
         "    canonicalDataUrl.search = '';\n"
         "    const hit = (await cache.match(request, { ignoreVary: true })) ||\n"
-        "      (cacheName === DATA ? await cache.match(canonicalDataUrl.href, { ignoreVary: true }) : null) ||\n"
-        "      (await cache.match(request, { ignoreVary: true, ignoreSearch: true }));  // also texts saved by a download pack", 1)
+        "      (!hasExplicitEdition(request) && cacheName === DATA ? await cache.match(canonicalDataUrl.href, { ignoreVary: true }) : null) ||\n"
+        "      (!hasExplicitEdition(request) && await cache.match(request, { ignoreVary: true, ignoreSearch: true }));  // also texts saved by a download pack", 1)
     return html, sw
 
 

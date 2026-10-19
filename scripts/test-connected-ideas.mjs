@@ -138,6 +138,14 @@ export function runFixtures() {
     check(() => assert.equal(ideas.forPassage(first.records,record.originRef,{phraseIndex:2,phraseEnd:4}).length,1,
       'A followed source excerpt includes only threads intersecting its exact phrase span'));
     check(() => assert.equal(ideas.forPassage(first.records,record.originRef,{phraseIndex:0,phraseEnd:2}).length,0));
+    check(() => assert.equal(ideas.authorText('ב<a data-ref="Midrash 1">תנחומא</a> נאמר'),'בתנחומא נאמר',
+      'Inline citation markup cannot split an authorial word'));
+    check(() => assert.equal(ideas.authorText('לפני<sup class="footnote-marker">1</sup><i class="footnote">הערה <i>פנימית</i> נוספת</i> אחרי'),'לפני אחרי',
+      'Nested note text is excluded exactly as in the canonical MCP projection'));
+    check(() => assert.equal(ideas.authorText('א&nbsp;&thinsp;ב<br>ג'),'א ב\nג'));
+    check(() => assert(ideas.anchorMatches({originHebrew:'בתנחומא נאמר'},'ב<a>תנחומא</a> נאמר')));
+    check(() => assert.equal(ideas.anchorMatches({originHebrew:'דברים אחרים'},'לפני<sup class="footnote-marker">1</sup><i class="footnote">דברים אחרים</i> אחרי'),false,
+      'A note cannot impersonate a quotation from the author’s paragraph'));
     check(() => {
       const extended = {...record, originHebrew:'מאיר אור חדש על הלב', originEnglish:'A new light shines upon the heart.'};
       const built = build([extended]);

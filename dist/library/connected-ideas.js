@@ -11,6 +11,30 @@
   const normalized = sources.normalizedHebrew;
   const refKey = ref => sources.normalizeRef(ref || '').toLowerCase();
   const required = ['id','themeTitle','themeSummary','originRef','originHebrew','originEnglish','targetRef','targetHebrew','targetEnglish','school','explanation','translationProvenance'];
+  // Match the canonical MCP author's-text projection exactly: inline note
+  // bodies are separate evidence, and an anchor inside a word adds no space.
+  function authorText(value) {
+    const input=String(value ?? '');let output='',cursor=0;
+    const mark=/<sup class="footnote-marker">([^<]*)<\/sup>\s*<i class="footnote">/g;
+    for(let match;(match=mark.exec(input));) {
+      output+=input.slice(cursor,match.index);
+      let depth=1,end=input.length;const tag=/<(\/?)i\b[^>]*>/g;tag.lastIndex=mark.lastIndex;
+      for(let nested;(nested=tag.exec(input));) {
+        depth+=nested[1]?-1:1;if(!depth){end=tag.lastIndex;break;}
+      }
+      cursor=end;mark.lastIndex=end;
+    }
+    output+=input.slice(cursor);
+    const entities={amp:'&',lt:'<',gt:'>',quot:'"',apos:"'",nbsp:' ',thinsp:' ',ensp:' ',emsp:' ',zwnj:'‌',zwj:'‍',lrm:'',rlm:''};
+    return output.replace(/<br\s*\/?>/gi,'\n').replace(/<[^>]*>/g,'')
+      .replace(/&(#x[0-9a-f]+|#\d+|[a-z]+);/gi,(match,entity)=>{
+        if(entity[0]==='#') {
+          const point=/^#x/i.test(entity)?parseInt(entity.slice(2),16):parseInt(entity.slice(1),10);
+          return Number.isFinite(point)?String.fromCodePoint(point):match;
+        }
+        return entities[entity.toLowerCase()] ?? match;
+      }).replace(/[ \t ]+/g,' ').replace(/ *\n */g,'\n').replace(/\n{3,}/g,'\n\n').trim();
+  }
   function validRecord(record) {
     const reverseKeys=['reverseExplanation','reverseThemeTitle','reverseThemeSummary','reviewedTargetSectionHebrewSha256'];
     const hasReverse=record && reverseKeys.some(key=>Boolean(record[key]));
@@ -75,7 +99,7 @@
     return [...grouped.values()];
   }
   function anchorMatches(record, hebrew) {
-    const whole = normalized(hebrew || ''), quote = normalized(record.originHebrew || '');
+    const whole = normalized(authorText(hebrew)), quote = normalized(record.originHebrew || '');
     return Boolean(whole && quote && (' ' + whole + ' ').includes(' ' + quote + ' '));
   }
   function matchesContext(record,context) {
@@ -87,5 +111,5 @@
       && /^[a-f0-9]{64}$/.test(paragraphPin || '') && /^[a-f0-9]{64}$/.test(sectionPin || '')
       && context.paragraphHebrewSha256===paragraphPin && context.sectionHebrewSha256===sectionPin);
   }
-  return {VERSION,SCHOOLS,validRecord,forPassage,forSection,groups,anchorMatches,matchesContext};
+  return {VERSION,SCHOOLS,validRecord,forPassage,forSection,groups,anchorMatches,matchesContext,authorText};
 });

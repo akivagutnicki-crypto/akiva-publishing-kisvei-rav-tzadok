@@ -8,7 +8,8 @@ import {createRequire} from 'node:module';
 const require=createRequire(import.meta.url);
 const editions=require('../dist/library/source-editions.js');
 const packs=require('../dist/library/sefaria-packs.js');
-const sw=fs.readFileSync('dist/library/sw.js','utf8');
+const workerPath=process.argv.find(arg=>arg.startsWith('--worker='))?.slice(9)||'dist/library/sw.js';
+const sw=fs.readFileSync(workerPath,'utf8');
 const checks=[];
 async function check(name,run){await run();checks.push(name);}
 
@@ -19,15 +20,16 @@ function serviceWorker(saved){
     fetch:async()=>{throw new Error('Offline fixture');},
     caches:{open:async()=>({
       match:async(request,options)=>{
-        matches.push({url:request.url,...options});
-        const key=options.ignoreSearch?new URL(request.url).pathname:request.url;
+        const url=typeof request==='string'?request:request.url;
+        matches.push({url,...options});
+        const key=options.ignoreSearch?new URL(url).pathname:url;
         return saved.get(key)?.clone();
       },
       put:async(request,response)=>writes.push({request,response})
     })},
     self:{addEventListener(){},registration:{scope:'https://reader.test/library/'}}
   });
-  vm.runInContext(sw+'\nglobalThis.swTest={networkFirst,hasExplicitEdition,SHELL_FILES};',context);
+  vm.runInContext(sw+'\nglobalThis.swTest={networkFirst,hasExplicitEdition,SHELL_FILES,DATA};',context);
   return {...context.swTest,matches,writes};
 }
 
@@ -46,6 +48,12 @@ await check('offline service worker retains a previously saved exact edition',as
   const worker=serviceWorker(new Map([[preferredRequest.url,Response.json(preferredPayload)]]));
   const response=await worker.networkFirst(preferredRequest,'rtl-external');
   assert.equal(editions.adaptResponse(ref,await response.json()).preferredEdition.status,'available');
+  assert.equal(worker.matches.length,1);
+});
+await check('an exact API edition cannot use a queryless entry even in the downloaded-data cache',async()=>{
+  const canonical=new URL(preferredRequest.url);canonical.search='';
+  const worker=serviceWorker(new Map([[canonical.href,new Response('Wrong default fixture')]]));
+  await assert.rejects(worker.networkFirst(preferredRequest,worker.DATA),/Offline fixture/);
   assert.equal(worker.matches.length,1);
 });
 await check('legacy ven and vhe requests cannot receive queryless editions',async()=>{

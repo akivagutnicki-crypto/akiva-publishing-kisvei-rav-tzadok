@@ -629,9 +629,10 @@ def verify_shell(reader, report, baseline, reviewed_urls):
                 "    const canonicalDataUrl = new URL(request.url);\n"
                 "    canonicalDataUrl.search = '';\n"
                 "    const hit = (await cache.match(request, { ignoreVary: true })) ||\n"
-                "      (cacheName === DATA ? await cache.match(canonicalDataUrl.href, { ignoreVary: true }) : null) ||\n"
-                "      (await cache.match(request, { ignoreVary: true, ignoreSearch: true }));  // also texts saved by a download pack")
-    original_fallback = "    const hit = (await cache.match(request, { ignoreVary: true })) || (await cache.match(request, { ignoreVary: true, ignoreSearch: true }));  // also texts saved by a download pack"
+                "      (!hasExplicitEdition(request) && cacheName === DATA ? await cache.match(canonicalDataUrl.href, { ignoreVary: true }) : null) ||\n"
+                "      (!hasExplicitEdition(request) && await cache.match(request, { ignoreVary: true, ignoreSearch: true }));  // also texts saved by a download pack")
+    original_fallback = ("    const hit = (await cache.match(request, { ignoreVary: true }))\n"
+                         "      || (!hasExplicitEdition(request) && await cache.match(request, { ignoreVary: true, ignoreSearch: true }));")
     check(previous_worker.count(fallback) == 1, 'Current ZIP-installed data is not preferred over older edition-query cache entries')
     previous_worker = previous_worker.replace(fallback, original_fallback, 1)
     suffix = '-source-quotations-' + PAYLOAD_SHA256[:16]

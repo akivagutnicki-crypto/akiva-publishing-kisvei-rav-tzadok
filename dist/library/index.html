@@ -1798,7 +1798,7 @@ function themeLink(record) {
 const themeContextPins=new WeakMap();
 function currentThemePins(data) {
   if(!themeContextPins.has(data)) {
-    const he=flatten(data.he);
+    const he=flatten(data.he).map(connectedIdeas.authorText);
     const hash=async value=>[...new Uint8Array(await crypto.subtle.digest('SHA-256',
       new TextEncoder().encode(sourceConnections.normalizedHebrew(value))))].map(byte=>byte.toString(16).padStart(2,'0')).join('');
     themeContextPins.set(data,Promise.all([hash(he.join(' ')),Promise.all(he.map(hash))])

@@ -297,6 +297,7 @@ jobs:
           node scripts/test-source-edition-cache.mjs
           node scripts/test-connected-ideas.mjs > connected-ideas-verification.json
           cat connected-ideas-verification.json
+          node scripts/test-connected-ideas-context.mjs --output=connected-ideas-context-verification.json
           node scripts/test-theme-review-progress.mjs > theme-review-progress-verification.json
           cat theme-review-progress-verification.json
           node scripts/test-connected-ideas-reader.mjs
@@ -442,6 +443,7 @@ jobs:
             dist/library/connected-ideas/catalog.json
             dist/library/connected-ideas/review-progress.json
             connected-ideas-verification.json
+            connected-ideas-context-verification.json
             connected-ideas-live-verification.json
             theme-review-progress-verification.json
             sources/akiva/theme-reviews/
