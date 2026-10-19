@@ -7,6 +7,7 @@ import path from 'node:path';
 import {createHash} from 'node:crypto';
 import {createRequire} from 'node:module';
 import {fileURLToPath} from 'node:url';
+import {studySections} from './study-editions.mjs';
 const require=createRequire(import.meta.url);
 const sources=require('../dist/library/source-connections.js');
 const ideas=require('../dist/library/connected-ideas.js');
@@ -25,15 +26,16 @@ export function readStudyCorpus(mcpRoot) {
     const bytes=fs.readFileSync(path.join(mcpRoot,'text',book.slug+'.json')), data=JSON.parse(bytes);
     assert(data.slug===book.slug && Array.isArray(data.paras),'Invalid canonical work '+book.slug);
     sourceFiles.push({book:book.slug,sha256:sha(bytes)});
-    const sections=new Map();
-    book.sections.forEach((section,index)=>{
-      if(!sections.has(section.ref)) sections.set(section.ref,{ref:section.ref,title:section.title || section.ref,
-        path:section.path || '',subsections:[],order:index});
-    });
+    const editions=studySections(book), sections=new Map();
+    for(const {section,order} of editions.values()) {
+      sections.set(section.ref,{ref:section.ref,title:section.title || section.ref,
+        path:section.path || '',subsections:[],order});
+    }
     const preferred=new Map();
     data.paras.forEach((paragraph,index)=>{
       const section=book.sections[paragraph.s];
       assert(section,'Invalid section pointer in '+paragraph.r);
+      if(editions.get(section.ref).index!==paragraph.s)return;
       const previous=preferred.get(paragraph.r);
       if(!previous || Number(section.il)>Number(previous.section.il)) preferred.set(paragraph.r,{paragraph,index,section});
     });

@@ -7,6 +7,7 @@ import {createHash} from 'node:crypto';
 import {createRequire} from 'node:module';
 import {fileURLToPath} from 'node:url';
 import {validateTranslation} from './build-reviewed-connections.mjs';
+import {studySections} from './study-editions.mjs';
 const require = createRequire(import.meta.url);
 const sources = require('../dist/library/source-connections.js');
 const ideas = require('../dist/library/connected-ideas.js');
@@ -31,11 +32,12 @@ function readCanonical(catalog,mcpRoot) {
     if (!texts.has(book.slug)) {
       const bytes=fs.readFileSync(path.join(mcpRoot,'text',book.slug+'.json'));
       const data=JSON.parse(bytes); assert(data.slug===book.slug && Array.isArray(data.paras),'Invalid canonical text');
-      texts.set(book.slug,{data,sha256:sha(bytes)});
+      texts.set(book.slug,{data,sha256:sha(bytes),editions:studySections(book)});
     }
-    const {data,sha256}=texts.get(book.slug);
+    const {data,sha256,editions}=texts.get(book.slug);
     const matches=data.paras.map((paragraph,index)=>({paragraph,index,section:book.sections[paragraph.s]}))
-      .filter(x=>x.paragraph.r===ref).sort((a,b)=>Number(b.section.il)-Number(a.section.il)||a.index-b.index);
+      .filter(x=>x.paragraph.r===ref && editions.get(x.section.ref).index===x.paragraph.s)
+      .sort((a,b)=>a.index-b.index);
     assert(matches.length,'Reference is not an exact paragraph: '+ref);
     // Select the reader's default edition before validating the quotation.
     // An old Hebrew-only duplicate must never rescue a stale study quotation.

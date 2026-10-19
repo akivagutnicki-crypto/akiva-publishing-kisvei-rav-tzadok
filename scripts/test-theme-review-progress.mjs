@@ -19,10 +19,12 @@ try {
   const a=['הידיעה בלב מולידה מעשה טוב','הדבר צריך להתקיים בכל יום'],b=['דרך הלב מביאה לעשיית הטוב','אין די בידיעה בלי קיום'];
   write(path.join(mcpRoot,'catalog.json'),{version:'fixture',books:[
     {title:'Fixture Tzadok',slug:'tzadok',group:"R' Tzadok HaKohen",sections:[
-      {ref:'Fixture Tzadok 1',first:0,count:1,il:false},{ref:'Fixture Tzadok 1',first:1,count:2,il:true}]},
+      {ref:'Fixture Tzadok 1',first:0,count:3,il:false},{ref:'Fixture Tzadok 1',first:3,count:2,il:true}]},
     {title:'Fixture Ishbitz',slug:'ishbitz',group:'Izhbitz',sections:[{ref:'Fixture Ishbitz 1',first:0,count:2,il:true}]}]});
   write(path.join(mcpRoot,'text/tzadok.json'),{slug:'tzadok',paras:[
     {r:'Fixture Tzadok 1:1',s:0,n:1,t:'המהדורה הישנה נושאת לשון אחרת'},
+    {r:'Fixture Tzadok 1 2',s:0,n:2,t:'סימן ההפרדה השתנה במהדורת הלימוד'},
+    {r:'Fixture Tzadok 1:3',s:0,n:3,t:'הפסקאות הישנות אוחדו במהדורה החדשה'},
     ...a.map((text,i)=>({r:'Fixture Tzadok 1:'+(i+1),s:1,n:i+1,p:[[text,'English fixture.']]}))]});
   write(path.join(mcpRoot,'text/ishbitz.json'),{slug:'ishbitz',paras:b.map((text,i)=>({r:'Fixture Ishbitz 1:'+(i+1),s:0,n:i+1,p:[[text,'English fixture.']]}))});
   write(path.join(editorialDir,'record.json'),{schemaVersion:1,records:[{
@@ -37,6 +39,22 @@ try {
   const first=buildThemeReviewProgress(options).progress;
   check(()=>assert.deepEqual([first.counts.books,first.counts.sections,first.counts.subsections],[2,2,4],
     'Older duplicate editions must not add a book, section or subsection'));
+  check(()=>{
+    const corpus=readStudyCorpus(mcpRoot);
+    assert(!corpus.paragraphs.has('Fixture Tzadok 1 2') && !corpus.paragraphs.has('Fixture Tzadok 1:3'),
+      'Changed separators and old segmentation cannot create additional canonical study paragraphs');
+  });
+  check(()=>{
+    const file=path.join(editorialDir,'record.json'), original=JSON.parse(fs.readFileSync(file));
+    const stale=structuredClone(original);
+    stale.records[0].originRef='Fixture Tzadok 1:3';
+    stale.records[0].originHebrew='הפסקאות הישנות אוחדו במהדורה החדשה';
+    stale.records[0].reviewedOriginHebrewSha256=pin(stale.records[0].originHebrew);
+    write(file,stale);
+    assert.throws(()=>buildConnectedIdeas({mcpRoot,editorialDir,write:false}),/not an exact paragraph/,
+      'An exact quotation from a superseded paragraph cannot be published for the default study edition');
+    write(file,original);
+  });
   check(()=>assert.deepEqual([first.counts.subsectionsWithApprovedIdeas,first.counts.subsectionsReviewed,
     first.counts.subsectionsPendingReview,first.counts.sectionsFullyReviewed,first.counts.booksFullyReviewed],[1,0,4,0,0],
     'One approved anchor cannot complete a subsection, section or book'));

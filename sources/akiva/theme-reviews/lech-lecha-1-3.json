@@ -1,0 +1,1007 @@
+{
+  "schemaVersion": 1,
+  "reviewedOn": "2026-10-19",
+  "method": "Complete canonical Lech Lecha 1–3 sections read before paragraph-level comparison. Each entry records the finite passages actually read in both schools, preserving rejected and deferred comparisons. Existing approvals are reassessed without duplication; new quotations and English are checked against the canonical text. Completion of this finite pass does not assert that every possible parallel has been found.",
+  "entries": [
+    {
+      "ref": "Peri Tzadik, Lech Lecha 1:1",
+      "sectionRef": "Peri Tzadik, Lech Lecha 1",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "59b6243c8a734e845f43ae0356925184bfdc94dc687797d6a78362a499917f93",
+      "reviewedSectionHebrewSha256": "0932d5c44f0db3ef2bac868f361f77641bdc7b1a8ed6575743e8c9fc433517db",
+      "assessment": "Read the opening wording problem within the full ten-paragraph argument. The approved Kometz comparison adds the limit that leaving inherited traits is not a flight to their opposite; it is not represented as a grammatical proof. The Ishbitz candidate concerns immediate obedience while still imperfect, not the go/depart distinction.",
+      "candidatesReviewed": [
+        {
+          "ref": "Kometz HaMinchah 2:30:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: its three sources of disposition and rejection of the opposite extreme give substantive content to the movement of rectification introduced by the question."
+        },
+        {
+          "ref": "Beit Yaakov on Torah, Lech Lecha 23:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected for this anchor after reading the full paragraph: Abraham follows the command before complete refinement, but this does not explain why go is used rather than depart."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Lech Lecha 3",
+          "school": "Ishbitz–Radzin",
+          "reason": "Read in full; deferred at this opening question. Its mapping of each command to later trials is rich, but adds several separate arguments rather than clarifying this particular wording distinction."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Lech Lecha 1:2",
+      "sectionRef": "Peri Tzadik, Lech Lecha 1",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "1a91bf07ee36cc1187ed692fa447ae169452e5ed0f0e86645880c8408ed66580",
+      "reviewedSectionHebrewSha256": "0932d5c44f0db3ef2bac868f361f77641bdc7b1a8ed6575743e8c9fc433517db",
+      "assessment": "Reassessed the existing Divrei Soferim comparison and the reciprocal Takanat comparison against their complete target paragraphs. Both remain appropriate: despair cannot establish impossibility, and redemption can grow within exile. The new Sod comparison clarifies why Terah’s causal role does not own Abraham’s light. The additional Resisei passage is useful but is not added as another repetitive card at this already supported anchor.",
+      "candidatesReviewed": [
+        {
+          "ref": "Divrei Soferim 16:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Retained existing approval after rereading the full paragraph and the selected English: Israel’s beginning after apparent impossibility grounds the rejection of spiritual despair."
+        },
+        {
+          "ref": "Takanat HaShavin 4:2",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Retained the existing reciprocal relation: the redeemer grows within the place of exile, which can itself bring about the change that begins redemption."
+        },
+        {
+          "ref": "Sod Yesharim, The First Night of Pesach 15:2",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved: distinguishes Terah as a causal instrument from a possessor of Abraham’s spiritual light, addressing the inherited-background difficulty."
+        },
+        {
+          "ref": "Beit Yaakov on Torah, Lech Lecha 15:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected: maps land, birthplace, and family to honor, famine, and Lot but does not explain rectification from an idolatrous background."
+        },
+        {
+          "ref": "Resisei Layla 17:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Read in full and deferred as an additional card: its from-darkness account genuinely supports the argument but would repeat the existing hope/exile emphasis at the same anchor."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Lech Lecha 1:3",
+      "sectionRef": "Peri Tzadik, Lech Lecha 1",
+      "status": "reviewed-no-approved-connection",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "5d7b369e783876270938ac5f8ba156a39bd1dbc1467b201a695d59ec1ef70d13",
+      "reviewedSectionHebrewSha256": "0932d5c44f0db3ef2bac868f361f77641bdc7b1a8ed6575743e8c9fc433517db",
+      "assessment": "This paragraph asks when the unnamed land was disclosed and reads the first altar in relation to divine appearance. The actual candidates examined do not add a sufficiently precise explanation to the Ramban discussion. No match is approved from lexical overlap alone.",
+      "candidatesReviewed": [
+        {
+          "ref": "Sefer HaZikhronot, Mitzvot, Positive Commandment 3, Chapter 3 6",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Rejected after full paragraph reading: visible and hidden halves of the sky and the horizon are astronomical geometry, not disclosure of the promised land."
+        },
+        {
+          "ref": "Beit Yaakov on Torah, Lech Lecha 24:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Read with the entire seven-paragraph section and rejected at this anchor: it opens a different account of Shechem and the eventual clarification of unintended actions. The quoted altar verse alone does not resolve the present question about when the land was identified."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Lech Lecha 1:4",
+      "sectionRef": "Peri Tzadik, Lech Lecha 1",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "826b5caf0e96dea4b84ab5577a440110908a3fa00c573269d0f95e4650d87963",
+      "reviewedSectionHebrewSha256": "0932d5c44f0db3ef2bac868f361f77641bdc7b1a8ed6575743e8c9fc433517db",
+      "assessment": "The actual distinction is between attained understanding and concealed guidance, not simply between two metaphysical names. Mei’s account of possible error even among prophets directly explains why prayer remains necessary. Other concealment discussions were rejected when they did not supply that function.",
+      "candidatesReviewed": [
+        {
+          "ref": "Mei HaShiloach, Volume II, Genesis, Bereshit 2",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after complete paragraph reading: profound concealment can mislead even prophets, hence the explicit need to ask for mercy against error."
+        },
+        {
+          "ref": "Peri Tzadik, Rosh Chodesh Kislev 5:4",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Rejected as an additional parallel: it applies the same confidence verse to sleep and surrounding divine support, but does not explain the Torah/prayer distinction or mistaken conscious intention."
+        },
+        {
+          "ref": "Sefer HaZikhronot 17:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Rejected: unity of natural governance with the transcendent divine Name is not the specific problem of a righteous person’s mistaken intention."
+        },
+        {
+          "ref": "Machshavot Charutz 8:3",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Read in full but not selected: hidden root and revealed Torah concern Israel’s divine attachment and the three crowns, rather than the necessity of prayer where understanding fails."
+        },
+        {
+          "ref": "Tiferet Yosef, Rosh Hashanah 19",
+          "school": "Ishbitz–Radzin",
+          "reason": "Read in full; not selected here because its principal argument is the later trial that clarifies an unrequested miracle. Its distinct lasting-holiness point is approved at 1:7."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Lech Lecha 1:5",
+      "sectionRef": "Peri Tzadik, Lech Lecha 1",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "b2c7a05fd3938b697d354070dd42c7d843eb121b34e47b45bbe9a23e19253991",
+      "reviewedSectionHebrewSha256": "0932d5c44f0db3ef2bac868f361f77641bdc7b1a8ed6575743e8c9fc433517db",
+      "assessment": "Both approved parallels illuminate purification rather than mere rejection of the world. Kometz distinguishes healthy kindness from self-directed appetite and the analogous distortion of strength. Beit Yaakov explains restraint as a means of discovering divine light even within an initially dark side.",
+      "candidatesReviewed": [
+        {
+          "ref": "Kometz HaMinchah 2:33:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after full paragraph reading: the good and distorted uses of kindness and strength explain why Abraham’s defining love still needs refinement."
+        },
+        {
+          "ref": "Beit Yaakov on Torah, Lech Lecha 1:3",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after reading the complete paragraph and its place in the section: negev as release from craving leads to illumination, including light concealed on the left side."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Lech Lecha 1:6",
+      "sectionRef": "Peri Tzadik, Lech Lecha 1",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "14e2a6a39141af867e9b7c7dec284b6cc1105d1f126ecfadae0634b9ed7cb651",
+      "reviewedSectionHebrewSha256": "0932d5c44f0db3ef2bac868f361f77641bdc7b1a8ed6575743e8c9fc433517db",
+      "assessment": "The question concerns a prayer whose apparent aim was not completely realized. Beit Yaakov’s full Vayera 29 discussion supplies a precise comparison: Abraham’s unsuccessful Sodom plea nevertheless moves Lot to pray for Zoar. This does not substitute that outcome for Rav Tzadok’s own answer concerning Abraham at Ai.",
+      "candidatesReviewed": [
+        {
+          "ref": "Beit Yaakov on Torah, Vayera 29:3",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after the entire five-paragraph section was read: the apparent failure of Abraham’s prayer does not mean it returned empty; pronoun antecedents are identified from 29:2."
+        },
+        {
+          "ref": "Peri Tzadik, Shmini 5:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Rejected after full paragraph reading: the ordering of rejoicing/prostration and temporary spiritual illumination at the altar does not explain why the Ai prayer is recalled."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Lech Lecha 1:7",
+      "sectionRef": "Peri Tzadik, Lech Lecha 1",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "9c7f9b49258ab1bdd32852ca47c03cbe5b859c5a118a6f32d0a4ba955757dd6b",
+      "reviewedSectionHebrewSha256": "0932d5c44f0db3ef2bac868f361f77641bdc7b1a8ed6575743e8c9fc433517db",
+      "assessment": "The paragraph contains two distinct developments, which receive separate anchors: inwardly acquired Torah and the enduring imprint of revelation in a place. Tzidkat’s required initial labor and contrast with Doeg protect the first comparison from equating mechanical fluency with internal Torah. Tiferet’s account of access to the Binding’s remaining holiness explains the second.",
+      "candidatesReviewed": [
+        {
+          "ref": "Tzidkat HaTzadik 183:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: Abraham’s inward teachers are explained through Torah becoming one’s own after heart-directed labor, with the contrary case of Doeg retained."
+        },
+        {
+          "ref": "Tiferet Yosef, Rosh Hashanah 19",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved: Abraham prays that the holiness remaining from the Binding can be awakened by later worshippers; this clarifies the practical force of a lasting sacred place."
+        },
+        {
+          "ref": "Beit Yaakov on Torah, Lech Lecha 24:7",
+          "school": "Ishbitz–Radzin",
+          "reason": "Read with its full section but rejected at this anchor: its revelation concerns the clarification of hidden actions at Shechem, not the enduring impression or inward acquisition that this paragraph develops."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Lech Lecha 1:8",
+      "sectionRef": "Peri Tzadik, Lech Lecha 1",
+      "status": "reviewed-no-approved-connection",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "2ba3b3132f4a398aa25e2ba40a961309188de150ec2b574ccb058ca83a01ac78",
+      "reviewedSectionHebrewSha256": "0932d5c44f0db3ef2bac868f361f77641bdc7b1a8ed6575743e8c9fc433517db",
+      "assessment": "The distinctive claim is that Abraham’s prayer for descendants in the place of their future danger also answered his own need first. The examined discussions of another’s prayer, judgment, and collective welfare did not give an adequately direct additional explanation of that sequence. They remain documented rejected candidates, not assertions that no parallel exists.",
+      "candidatesReviewed": [
+        {
+          "ref": "Tzidkat HaTzadik 87:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Rejected for this anchor after full reading: it cites being answered first as an analogy within a difficult account of a righteous person’s participation in punitive judgment, not an explanation of Abraham’s prayer for his descendants."
+        },
+        {
+          "ref": "Kometz HaMinchah 2:46:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Rejected after full reading: the Avimelech/Isaac prayer sequence belongs to preserving opposed forms of fear and room for choice. Importing it here would require a second, unsupported theory of the Ai episode."
+        },
+        {
+          "ref": "Sod Yesharim, Yom Kippur 43:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected after full reading: the high priest’s preference for lasting public welfare over a traveler’s immediate request, and for manifestly answered prayer, does not establish that the petitioner with the same need is answered first."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Lech Lecha 1:9",
+      "sectionRef": "Peri Tzadik, Lech Lecha 1",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "bd53407c644378c2db4e3e81c74a63b2d79d664630daf49dc676d12cd8b8b0ce",
+      "reviewedSectionHebrewSha256": "0932d5c44f0db3ef2bac868f361f77641bdc7b1a8ed6575743e8c9fc433517db",
+      "assessment": "The existing Mei quotation was reread in its complete canonical paragraph and its checked translation remains adequate. The new Likkutei comparison distinguishes Egyptian gifts from Sodom’s wealth by motive; it does not condemn every receipt of possessions. No unsupported identification of Rav Tzadok’s holy master is inserted into the translation.",
+      "candidatesReviewed": [
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Lech Lecha 5",
+          "school": "Ishbitz–Radzin",
+          "reason": "Retained existing approval: the complete passage develops successive trials of poverty and wealth and Abraham’s renewed return to prayer."
+        },
+        {
+          "ref": "Likkutei Maamarim, Compositions on the Festivals 10:8",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after complete paragraph reading: flexibility before God’s will permits the Egyptian gifts, while the seemingly obstinate battle requires refusal of personal gain; motive makes the difference."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Lech Lecha 1:10",
+      "sectionRef": "Peri Tzadik, Lech Lecha 1",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "526104062df66ae6d56cc7215b64a1a37442f8642c73abc64e11e9d507aa2247",
+      "reviewedSectionHebrewSha256": "0932d5c44f0db3ef2bac868f361f77641bdc7b1a8ed6575743e8c9fc433517db",
+      "assessment": "Poked Akarim gives a concrete communal application of the two voices, through the shofar and the extension of providence. The two Ishbitz passages were read but are not added merely because they share water, purification, or Torah/prayer terminology.",
+      "candidatesReviewed": [
+        {
+          "ref": "Poked Akarim 2:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after full paragraph reading: Jacob’s voices become the communal capacity evoked by the shofar, extending the biographical altars into the service of Israel."
+        },
+        {
+          "ref": "Sod Yesharim, Yom Kippur 34:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected at this anchor: the waters of the concealed future will and the surrender of bodily self-interest explain immersion and purity, not the complementary roles of Torah and prayer in this paragraph."
+        },
+        {
+          "ref": "Sod Yesharim, Hoshana Rabba 10:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected at this anchor after full reading: David’s physical acts becoming Torah and prayer serves the account of the willow rite and self-effacement. It does not explain why the two distinct voices repair the serpent’s corruption."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Lech Lecha 2:1",
+      "sectionRef": "Peri Tzadik, Lech Lecha 2",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "296f17f9250965228d4a36d096763801455eda7acae3e1832f382ebdddd9ffb1",
+      "reviewedSectionHebrewSha256": "d66eb19578b91b6cd7a1ad8c67aabf3e3d572c3e54ce9f9e0b10d94d76caa349",
+      "assessment": "The whole section’s sequence of seven blessings was read first. Tiferet Yosef gives a substantive account of the seven attributes as channels of receiving good. The compared numerical schemes are not themselves treated as proof of a new illuminating connection.",
+      "candidatesReviewed": [
+        {
+          "ref": "Kometz HaMinchah 1:59:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Read in full; not added at this anchor. Its seven/eight/ten harp strings distinguish stages of cosmic completeness but add mostly a second numerical scheme to the already explicit seven-day comparison."
+        },
+        {
+          "ref": "Resisei Layla 28:2",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Read in full; deferred. Its seven blessings to Jacob form a different detailed mapping, and placing the entire list here would obscure the present list rather than explain its distinctive order."
+        },
+        {
+          "ref": "Tiferet Yosef, Emor 3",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after full paragraph reading: the seven attributes are channels through which good is received while its divine source remains recognized. The later offering and property discussion was retained in the reviewed context."
+        },
+        {
+          "ref": "Sod Yesharim, Shemini Atzeret 30:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Read in full; not added. Its movement from seven garments to the eighth and the restoration of lost/displaced souls is a distinct festival argument, not an explanation of these seven individual blessings."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Lech Lecha 2:2",
+      "sectionRef": "Peri Tzadik, Lech Lecha 2",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "56bd05a87d9f8fb42ae552bb259290180079bdf3d2b31b99ea130690bd59c823",
+      "reviewedSectionHebrewSha256": "d66eb19578b91b6cd7a1ad8c67aabf3e3d572c3e54ce9f9e0b10d94d76caa349",
+      "assessment": "The same supernal-days phrase in Beit Yaakov supplies a real process of gradual attainment. Comparisons about communal grades of love and daily garments were considered without claiming that they prove the specific ascent to the first three sefirot.",
+      "candidatesReviewed": [
+        {
+          "ref": "Machshavot Charutz 19:2",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Read in full; rejected here. Its three loves and the continuing inner root of excluded members concern communal belonging, not Abraham’s love ascending to the supernal root."
+        },
+        {
+          "ref": "Beit Yaakov on Torah, Chayei Sara 24:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after full paragraph reading: successive trials and recognition of remaining lack explain how the supernal-days attainment becomes established."
+        },
+        {
+          "ref": "Sod Yesharim, Sukkot 9:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Read in full; deferred to avoid another overlapping account of successive days. Its emphasis is former labor becoming a stable inner garment and the contrast between Shem and Abraham, not the exact three-upper/seven-lower relation."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Lech Lecha 2:3",
+      "sectionRef": "Peri Tzadik, Lech Lecha 2",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "3e0aba9108478d99681fc8f26dd7eed124d10dec721c32955b74babf5ea91cbc",
+      "reviewedSectionHebrewSha256": "d66eb19578b91b6cd7a1ad8c67aabf3e3d572c3e54ce9f9e0b10d94d76caa349",
+      "assessment": "Two complementary mechanisms are approved: increased Torah wisdom addresses damage beyond the original pattern, and Isaac’s restraint reconnects branches to their source. Neither target is made to assert every element of the other argument.",
+      "candidatesReviewed": [
+        {
+          "ref": "Poked Akarim 2:5",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after full paragraph reading: Written Torah’s original pattern is distinguished from the additional wisdom needed after corruption. The quoted portion stops before the separate judgment concerning Hannah and Peninnah."
+        },
+        {
+          "ref": "Sefer HaZikhronot 12:2",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Read in full; rejected. Its account of the transmission and varieties of esoteric knowledge shares the Bahir citation but does not explain wisdom removing evil from the heart."
+        },
+        {
+          "ref": "Beit Yaakov on Torah, Lech Lecha 17:5",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after full section 17 reading: Isaac’s restraint is productive because it reunites worldly branches with their root; the layering-plant image makes blessing through restraint intelligible."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Exodus, Shemot 1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Read in full; rejected here. Settled fear of God as opposed to panic before people does not explain the specific Oral Torah repair in this paragraph."
+        },
+        {
+          "ref": "Tiferet Yosef, Sukkot 13",
+          "school": "Ishbitz–Radzin",
+          "reason": "Read in full; deferred. Isaac’s sowing and the concealed abundance of restriction are relevant, but Beit Yaakov gives the same productive-restraint relation directly on this blessing without importing the libation framework."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Lech Lecha 2:4",
+      "sectionRef": "Peri Tzadik, Lech Lecha 2",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "3008e9d04e1a229ce2a963b6f6315f5d1f9ba2b3df09917abd9582c8d7640d72",
+      "reviewedSectionHebrewSha256": "d66eb19578b91b6cd7a1ad8c67aabf3e3d572c3e54ce9f9e0b10d94d76caa349",
+      "assessment": "The reviewed pair explains retrospective ancestral completeness through Jacob. The new origin quotation stops before the inherited Pesachim locator and altered blessing formula, so no new translation silently endorses that formula; the complete Hebrew remains pinned.",
+      "candidatesReviewed": [
+        {
+          "ref": "Machshavot Charutz 15:11",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after complete paragraph reading: Joseph’s inherited root from Jacob explains why the earlier fathers’ holiness becomes enduring in the complete line. Subsequent repair, rather than innocence of every deed, remains explicit in context."
+        },
+        {
+          "ref": "Kometz HaMinchah 2:31:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Read in full; rejected here. It explains traits and the positive worldly blessings after their refinement, not why Jacob’s line clarifies Abraham’s and Isaac’s seed."
+        },
+        {
+          "ref": "Tiferet Yosef, Vayikra 1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after complete paragraph reading: the divine testimony concerning Isaac and Jacob explains why the fathers remain the fathers despite Ishmael and Esau. The final Adam/future distinction was also read."
+        },
+        {
+          "ref": "Tiferet Yosef, Talmud Anthology, Taanit 24",
+          "school": "Ishbitz–Radzin",
+          "reason": "Read in full; deferred. It explains how the meaning of “through Isaac” unfolds as apprehension grows; Vayikra more directly supports the present claim about the fathers and their intended line."
+        },
+        {
+          "ref": "Sod Yesharim, Rosh Hashanah 62:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Read in full; rejected here. Concealment awakening the longing that leads to Isaac’s birth does not establish Jacob’s complete line or retrospective naming of the fathers."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Lech Lecha 2:5",
+      "sectionRef": "Peri Tzadik, Lech Lecha 2",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "a06aa25cb6270264dda687ffae8a936770d319bec55bb055ac365d3de06576dc",
+      "reviewedSectionHebrewSha256": "d66eb19578b91b6cd7a1ad8c67aabf3e3d572c3e54ce9f9e0b10d94d76caa349",
+      "assessment": "Both existing approvals were reassessed without duplication. The complete Machshavot paragraph and complete two-paragraph Sod section were read, and their selected English remains faithful. The illiterate person’s own Torah point is not reduced to generic kindness.",
+      "candidatesReviewed": [
+        {
+          "ref": "Machshavot Charutz 9:14",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Retained existing approval after full reading: the inherited share in Torah extends the category of those sustained by heavenly food to all Israel, with the recognition of the Giver retained."
+        },
+        {
+          "ref": "Sod Yesharim, Simchat Torah 39:2",
+          "school": "Ishbitz–Radzin",
+          "reason": "Retained existing approval after reading 39:1–2: the Yannai story exposes a teacher’s duty to recognize the particular Torah point of an apparently unlearned person. Its distinction concerning proper conduct is preserved."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Lech Lecha 2:6",
+      "sectionRef": "Peri Tzadik, Lech Lecha 2",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "7407869523c391448963f2c75f94164f43c373af8b11a3c208b79741d4972808",
+      "reviewedSectionHebrewSha256": "d66eb19578b91b6cd7a1ad8c67aabf3e3d572c3e54ce9f9e0b10d94d76caa349",
+      "assessment": "The two approved targets answer different exact questions raised by this paragraph: how a particular tribe’s power can come from the whole ancestral community, and what Shem recognized when priesthood passed to Abraham. Full target paragraphs were read.",
+      "candidatesReviewed": [
+        {
+          "ref": "Divrei Soferim 24:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: the holiness of priests and Levites emanates from the belovedness of all Israel; selection does not imply that the rest of Israel were rejected."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Lech Lecha 6",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved: the full narrative explains Shem’s initial difficulty with rescuing Lot, the qualification concerning female converts, and his acknowledgment of Abraham’s greater responsiveness."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Lech Lecha 2:7",
+      "sectionRef": "Peri Tzadik, Lech Lecha 2",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "0e993d189010c48f526e90426af36e10a7b8e2fb3a45ebe6b84674a3942ef887",
+      "reviewedSectionHebrewSha256": "d66eb19578b91b6cd7a1ad8c67aabf3e3d572c3e54ce9f9e0b10d94d76caa349",
+      "assessment": "Divrei Soferim directly tests and explains the Midrash’s collective effect. The Ishbitz comparison was actually read but is not approved merely because it discusses Joseph’s covenant.",
+      "candidatesReviewed": [
+        {
+          "ref": "Divrei Soferim 23:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after full reading: Joseph is not the ancestor of all Israel, so his restraint strengthens others through the unity of the entire body. Later actual failures remain possible in the target’s own explanation."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Vayeshev 5",
+          "school": "Ishbitz–Radzin",
+          "reason": "Read in full; rejected for this anchor. The trial before Potiphar’s wife clarifies Joseph’s speech and the brothers’ judgment through the correspondence of bodily and verbal covenants. It does not explain how his restraint fences all males."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Lech Lecha 2:8",
+      "sectionRef": "Peri Tzadik, Lech Lecha 2",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "787364cf7d20d46fd7a00faac6d9e1a8d4f177cbe06efe227039360b2a24997f",
+      "reviewedSectionHebrewSha256": "d66eb19578b91b6cd7a1ad8c67aabf3e3d572c3e54ce9f9e0b10d94d76caa349",
+      "assessment": "The selected Tzidkat passage explains the actual dalet/hei image and receptive lack. The full long paragraph was read, including choice, Joseph/David, and the Adar/Nisan transformation; those later claims are not silently collapsed into the selected excerpt. No examined Ishbitz passage sufficiently explains the conversion conditions.",
+      "candidatesReviewed": [
+        {
+          "ref": "Tzidkat HaTzadik 257:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: its explanation of poverty, lack, and receiving along the straight line gives content to the identical Zohar letter image. The conversion requirements remain attributed to Peri Tzadik alone."
+        },
+        {
+          "ref": "Beit Yaakov on Torah, Lech Lecha 21:5",
+          "school": "Ishbitz–Radzin",
+          "reason": "Read in full; rejected here. Abraham remaining the root of later refinements does not explain admission through circumcision and acceptance of commandments."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Vayetzei 6",
+          "school": "Ishbitz–Radzin",
+          "reason": "Read in full; rejected here. Nations praising Israel’s Torah wisdom are not the same as converts becoming members of Israel."
+        },
+        {
+          "ref": "Sod Yesharim, Simchat Torah 70:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Read in full; rejected here. Blessing, guarded possession, and divine favor concerning a small meal do not explain the Yesod/kingship or conversion argument."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Lech Lecha 2:9",
+      "sectionRef": "Peri Tzadik, Lech Lecha 2",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "6b863158cf14bec6253b9aebc7eb1acfe54c7018e685f7bab5c0d520fd10820d",
+      "reviewedSectionHebrewSha256": "d66eb19578b91b6cd7a1ad8c67aabf3e3d572c3e54ce9f9e0b10d94d76caa349",
+      "assessment": "The full section was reread to preserve its reconciliation of four and seven rather than replace it with another scheme. Kometz supplies a beginning/end relation within blessing; Beit Yaakov explains the stable receiving quality of kingship. Both remain complementary explanations, with Moses’ role attributed to the origin.",
+      "candidatesReviewed": [
+        {
+          "ref": "Kometz HaMinchah 2:32:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after full paragraph reading: the conclusion with David expresses the first root in Abraham, giving a precise model of complementary positions in one blessing."
+        },
+        {
+          "ref": "Beit Yaakov on Torah, Lech Lecha 17:8",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after full section 17 reading: the seal’s enduring image explains the established quality of kingship named in the identical Zohar reading. It is not made to name Moses or to repeat the origin’s four/seven mapping."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Lech Lecha 3:1",
+      "sectionRef": "Peri Tzadik, Lech Lecha 3",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "20fadea400d1153883816f1b0b3854df17dea4a892c04cdc5b56928a5816a691",
+      "reviewedSectionHebrewSha256": "1aa25feef48c158420b8f09244799387036c7ce9d298fe8eba1ffef9996864ad",
+      "assessment": "The full section’s movement from covenantal identity to Shabbat restoration was read. Existing Machshavot and reciprocal Ohr Zarua approvals were reassessed in their full paragraphs and their checked English retained. Beit Yaakov’s exact blessing formula adds an independent Ishbitz explanation of holiness before conscious work.",
+      "candidatesReviewed": [
+        {
+          "ref": "Machshavot Charutz 11:2",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Retained existing approval after full reading: actual wrongdoing, remorse, the hidden good, and the later distinction of the residual impression remain differentiated."
+        },
+        {
+          "ref": "Ohr Zarua LaTzadik, The Egyptian Exile 1:2",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Retained existing reciprocal approval after full reading: Isaac’s covenant before knowing evil or choosing good explains sanctity prior to conscious choice."
+        },
+        {
+          "ref": "Beit Yaakov on Torah, Vayera 8:12",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after full paragraph reading with the adjacent covenant context in 8:9–11: the distinctive blessing reveals holiness from the womb beyond achieved service."
+        },
+        {
+          "ref": "Sod Yesharim, Parashat Parah 4:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Read in full; deferred. Its distinction between holiness through changing garments and purity disclosed in the same garment is relevant to the root, but the directly covenantal Beit Yaakov passage gives a more exact explanation at this anchor."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Lech Lecha 3:2",
+      "sectionRef": "Peri Tzadik, Lech Lecha 3",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "5eb6d721ae49374144b4426d5f4e292956a70885d5505243da9179533170e01b",
+      "reviewedSectionHebrewSha256": "1aa25feef48c158420b8f09244799387036c7ce9d298fe8eba1ffef9996864ad",
+      "assessment": "The approved target maintains the difference between an enduring name and judgment of acts. The actual Achan comparison in Sod was examined at length but is not inserted as an excuse for the very accusations whose severity is essential to the origin.",
+      "candidatesReviewed": [
+        {
+          "ref": "Divrei Soferim 38:3",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after full reading: Jacob’s seed cannot uproot the name Israel, whereas outward judgment still applies; Esau’s different root supplies the contrast."
+        },
+        {
+          "ref": "Sod Yesharim, Yom Kippur 27:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Read in full; not approved here. Its account of Achan’s motive and Jericho’s light concerns why a higher light has no place within present concealment. It would require substantial qualification to prevent it from appearing to cancel the origin’s deliberate attribution of severe wrongdoing."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Lech Lecha 3:3",
+      "sectionRef": "Peri Tzadik, Lech Lecha 3",
+      "status": "reviewed-no-approved-connection",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "2400854044ab0e0b1079051ecbb17f97bccc57a9bd8e9269d6062c15216172cb",
+      "reviewedSectionHebrewSha256": "1aa25feef48c158420b8f09244799387036c7ce9d298fe8eba1ffef9996864ad",
+      "assessment": "This paragraph sharpens the question of why one old man’s myrtles should answer the critique of widespread worldly work, including the possible identification with Elijah. The examined accounts explain the broader value of worldly or embodied service but do not answer that precise evidentiary question here. Their illuminating applications are placed at the later answers where justified.",
+      "candidatesReviewed": [
+        {
+          "ref": "Tzidkat HaTzadik 224:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Read in full; no separate approval at this question. Its demand to receive both modes of Shema and respect bodily capacity illuminates the subsequent 3:6 resolution rather than why a single observed old man settles the objection."
+        },
+        {
+          "ref": "Beit Yaakov on Torah, Lech Lecha 11:10",
+          "school": "Ishbitz–Radzin",
+          "reason": "Read in full and within the complete 15-paragraph section; no separate approval here. Finding divine words within temporary affairs belongs at 3:7, where the old man’s evidence is explained."
+        },
+        {
+          "ref": "Tiferet Yosef, The Eighth Day of Pesach 3",
+          "school": "Ishbitz–Radzin",
+          "reason": "Read in full; rejected at this question. Physical commandments making the body receptive to Torah do not establish that one observant individual represents the will of the working majority."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Lech Lecha 3:4",
+      "sectionRef": "Peri Tzadik, Lech Lecha 3",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "9da448680955c4b84978e93a5580b5e6a7de61a2e661892ac0de4a06b9fc5d27",
+      "reviewedSectionHebrewSha256": "1aa25feef48c158420b8f09244799387036c7ce9d298fe8eba1ffef9996864ad",
+      "assessment": "The distinction is between explicit commanded rest and a rare total availability for Torah, not between obedience and simple lawlessness. Dover supplies the difference between the manna setting and Torah within bodily provision; the Ishbitz candidate’s distinct instrument is not equated with this taxonomy.",
+      "candidatesReviewed": [
+        {
+          "ref": "Dover Tzedek, Miscellany 4:13",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after full paragraph reading: the transition from manna to the land joins Rabbi Shimon’s clarity to Rabbi Yishmael’s ordinary way of life, retaining the prior absorption of Torah."
+        },
+        {
+          "ref": "Tiferet Yosef, The Eighth Day of Pesach 3",
+          "school": "Ishbitz–Radzin",
+          "reason": "Read in full; not added here. Its distinction of practical commandments and Torah concerns sanctifying bodily organs through mitzvot, rather than the specific contrast between the commanded and the exceptional all-Torah vocation."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Lech Lecha 3:5",
+      "sectionRef": "Peri Tzadik, Lech Lecha 3",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "f2f361d31254d2483ba4491599dc43e996dda50d5e8a3d267c4664585146f892",
+      "reviewedSectionHebrewSha256": "1aa25feef48c158420b8f09244799387036c7ce9d298fe8eba1ffef9996864ad",
+      "assessment": "The exceptional sages’ lack of distraction is the controlling qualification, read together with the next paragraph. Two approved comparisons explain personal sufficiency and the communal generosity of Rabbi Chanina; neither converts the example into a universal dietary measure.",
+      "candidatesReviewed": [
+        {
+          "ref": "Divrei Soferim 30:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after full reading: the same kav is sufficient for Rabbi Chanina while another person’s greater provision can be necessary rather than excess."
+        },
+        {
+          "ref": "Sod Yesharim, Rosh Hashanah 7:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after full reading: Rabbi Chanina’s closeness permits generous self-restraint for the community’s abundance."
+        },
+        {
+          "ref": "Sod Yesharim, Rosh Hashanah 61:6",
+          "school": "Ishbitz–Radzin",
+          "reason": "Read in full; deferred. Its account of provision needed for the root of life supports individual need, but its Sarah/Abimelech narrative adds a second framework not required after the direct Rabbi Chanina passage."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Lech Lecha 3:6",
+      "sectionRef": "Peri Tzadik, Lech Lecha 3",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "9502f0720f5b9c693ca23f85ee1399274273fc8ef2e03a156e3170c6e065093a",
+      "reviewedSectionHebrewSha256": "1aa25feef48c158420b8f09244799387036c7ce9d298fe8eba1ffef9996864ad",
+      "assessment": "Both approved targets preserve ordinary embodied capacity and a distinct exceptional mode. The quotations retain the two Shema obligations and the Samuel/Jonah qualification, so the review does not merely choose whichever sentence favors moderation.",
+      "candidatesReviewed": [
+        {
+          "ref": "Tzidkat HaTzadik 224:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after full reading: everyone needs both complete willingness and bounded embodied conduct. The cave, world of chaos, and peaceful exit back into ordinary life were all reviewed."
+        },
+        {
+          "ref": "Sod Yesharim, Sukkot 70:2",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after full reading: Samuel’s composure is favored in ordinary service, while Jonah’s exceptional self-effacement is contextualized by the water-drawing celebration and communal love. The later account of Jonah’s limitation was also read."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Lech Lecha 3:7",
+      "sectionRef": "Peri Tzadik, Lech Lecha 3",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "ead5df94b2f5ccae7179fa27c495da8faa441e55c55f35065fe8f9f0b256ff41",
+      "reviewedSectionHebrewSha256": "1aa25feef48c158420b8f09244799387036c7ce9d298fe8eba1ffef9996864ad",
+      "assessment": "The section’s answer concerns the will disclosed by obedient Shabbat delight, not merely the presence of a pleasant ritual. Beit Yaakov supplies the distinction between engaging worldly affairs and choosing temporary distraction as an aim.",
+      "candidatesReviewed": [
+        {
+          "ref": "Tzidkat HaTzadik 224:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Read in full; not repeated as another card. Its daily initial willingness even while one follows the ordinary way supports the distinction, but its new connection is placed at the preceding capacity argument."
+        },
+        {
+          "ref": "Beit Yaakov on Torah, Lech Lecha 11:10",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after full section reading: Abraham’s refusal to make temporary life his aim permits God’s living will to be found in worldly affairs. This is not an assertion that every distraction is already holy."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Lech Lecha 3:8",
+      "sectionRef": "Peri Tzadik, Lech Lecha 3",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "6f78be2bf339319aef56701eccca10be9d281d163d552714702b5a7060a36629",
+      "reviewedSectionHebrewSha256": "1aa25feef48c158420b8f09244799387036c7ce9d298fe8eba1ffef9996864ad",
+      "assessment": "The phrase “as it were” is preserved in both interpretation and translation. The two approved passages distinguish divine essence from the manifested relationship and locate renewal in creaturely recognition.",
+      "candidatesReviewed": [
+        {
+          "ref": "Kometz HaMinchah 1:6:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after full reading: “what do you give Him” and “give strength” refer to essence and the extension of attributes respectively."
+        },
+        {
+          "ref": "Sod Yesharim, Rosh Hashanah 25:3",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after full reading: the creature’s recognition is renewed; God does not age or require renewal. The broader shofar, prayer, and hidden/revealed account was reviewed."
+        },
+        {
+          "ref": "Beit Yaakov on Torah, Vayera 8:3",
+          "school": "Ishbitz–Radzin",
+          "reason": "Read in full with 8:1–2; deferred. Revealed zachor and receiving shamor clarify the earlier pair, but the approved Sod passage more directly explains the strengthening language at the paragraph’s focal turn."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Lech Lecha 3:9",
+      "sectionRef": "Peri Tzadik, Lech Lecha 3",
+      "status": "reviewed-no-approved-connection",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "33a4a15cfcf796a5dfda06619e6b93e2ad8a31c56dc73df8958f07c7077dcc96",
+      "reviewedSectionHebrewSha256": "1aa25feef48c158420b8f09244799387036c7ce9d298fe8eba1ffef9996864ad",
+      "assessment": "This is the extended question about the apparently exclusive purpose of wine in the presence of its many holy uses. The actually read comparisons are placed at the precise later answers: consolation after damage and attention within the cup ritual. No extra card is added merely because wine occurs in both passages.",
+      "candidatesReviewed": [
+        {
+          "ref": "Machshavot Charutz 19:4",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Read in full; no separate approval at this question. Its account of original uprightness and later need for consolation supports the answer in 3:10."
+        },
+        {
+          "ref": "Machshavot Charutz 19:19",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Read in full; deferred. It moves from wine’s danger through Miriam’s well to repaired Purim joy, but the extended second narrative would distract from the origin’s still-open question."
+        },
+        {
+          "ref": "Sod Yesharim, Rosh Hashanah 47:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Read in full; no separate approval here. Its attention to the cup supplies a specific account of holy wine at 3:12 rather than resolving every listed use at this question."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Lech Lecha 3:10",
+      "sectionRef": "Peri Tzadik, Lech Lecha 3",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "62000444d777e08baaf76aed126fabc3bc770be6d9c23927002cc868aa65e6f2",
+      "reviewedSectionHebrewSha256": "1aa25feef48c158420b8f09244799387036c7ce9d298fe8eba1ffef9996864ad",
+      "assessment": "The mourners are the damaged person’s limbs, and joy belongs to the straightened heart. Machshavot’s account of original integrated joy and subsequent lack explains the restoration. The Ishbitz comparison was read but not equated with this account of bodily mourning.",
+      "candidatesReviewed": [
+        {
+          "ref": "Machshavot Charutz 19:4",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after full reading: original uprightness gives natural love, while pain creates the need to seek restorative joy; unnecessary added joy remains distinguished."
+        },
+        {
+          "ref": "Beit Yaakov on Torah, Lech Lecha 32:4",
+          "school": "Ishbitz–Radzin",
+          "reason": "Read in full with 32:5–6; rejected at this anchor. Wine as joy in recognizing God’s chosen servant does not explain the limbs mourning after sin or the post-damage necessity of consolation."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Lech Lecha 3:11",
+      "sectionRef": "Peri Tzadik, Lech Lecha 3",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "695cd14c7dec6e9e96cdbe09638e47e94ca1c9b981ab1567e17b53d39f9bc416",
+      "reviewedSectionHebrewSha256": "1aa25feef48c158420b8f09244799387036c7ce9d298fe8eba1ffef9996864ad",
+      "assessment": "The two approved targets explain the character and temporal reach of rest: a foretaste of repaired life, and an answer to the fear already suffered. Neither makes a merely future promise identical with present Shabbat consolation.",
+      "candidatesReviewed": [
+        {
+          "ref": "Machshavot Charutz 19:6",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after full reading: Joseph’s old wine and Jacob’s eventual tranquillity show rest attained at its proper time, including the distinction from the earlier premature request."
+        },
+        {
+          "ref": "Beit Yaakov on Torah, Chayei Sara 17:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after full paragraph reading: doubled good answers past fear as well as future need; the paragraph explicitly connects this with Shabbat’s restrictions and future rest."
+        },
+        {
+          "ref": "Sod Yesharim, The Night of Shabbat Chol HaMoed Pesach 2:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Read in full; deferred. Remembering Egyptian forgetfulness establishes Shabbat’s holiness in the heart, but the Beit Yaakov passage answers the precise problem of consolation concerning the past more directly."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Lech Lecha 3:12",
+      "sectionRef": "Peri Tzadik, Lech Lecha 3",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "4ecb424319377e42102ac5c91950b70b6a7b1c502bff152fb1c3953ba416b567",
+      "reviewedSectionHebrewSha256": "1aa25feef48c158420b8f09244799387036c7ce9d298fe8eba1ffef9996864ad",
+      "assessment": "The selected comparisons explain when bodily food or wine can aid clarity rather than obstruct it. The origin’s assertion about the pre-mixture state is not attributed to either target.",
+      "candidatesReviewed": [
+        {
+          "ref": "Et HaOchel 1:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after full reading: proper eating adds wisdom, while gross eating clouds the heart and mind; the beef example gives an actual parallel to bodily support for understanding."
+        },
+        {
+          "ref": "Sod Yesharim, Rosh Hashanah 47:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after full reading: deliberate attention in the cup counters its forgetfulness and finds the joy of a commandment in the wine itself."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Lech Lecha 3:13",
+      "sectionRef": "Peri Tzadik, Lech Lecha 3",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "d4025a7457ac168091bfd90752bd3a5b9edbc5a24e03dbe0943b4ff7cb2c84db",
+      "reviewedSectionHebrewSha256": "1aa25feef48c158420b8f09244799387036c7ce9d298fe8eba1ffef9996864ad",
+      "assessment": "The two existing Et HaOchel directions were reassessed in full Hebrew and selected English, retaining the distinction between clear recognition and self-deceiving passing thought. The new Ishbitz passage precisely explains the Giver’s continuing domain after human reception.",
+      "candidatesReviewed": [
+        {
+          "ref": "Et HaOchel 9:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Retained existing approval after full reading: thanksgiving when satisfied completes the extraction of nourishment into holiness, within the Torah/prayer account."
+        },
+        {
+          "ref": "Et HaOchel 6:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Retained existing reciprocal approval after full reading: the divine side is strengthened only through clear recognition, not a superficial imagined acknowledgment."
+        },
+        {
+          "ref": "Tiferet Yosef, Emor 3",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after full reading: blessing recognizes that the good remains in God’s hand and thereby makes human acquisition truthful. The selected passage focuses on this mechanism, not the sevenfold scheme used at 2:1."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Lech Lecha 3:14",
+      "sectionRef": "Peri Tzadik, Lech Lecha 3",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "7392e2e971ac614ee95ea7eb0f5455cdba2f18eb905f751b848d5add6aac885a",
+      "reviewedSectionHebrewSha256": "1aa25feef48c158420b8f09244799387036c7ce9d298fe8eba1ffef9996864ad",
+      "assessment": "The approved Tzidkat excerpt retains repentance and atonement for real missteps while explaining the use of both inclinations. Candidate passages with only the one-heart image or an independent test of joy are not added as interchangeable explanations.",
+      "candidatesReviewed": [
+        {
+          "ref": "Tzidkat HaTzadik 102:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after full reading: bringing holiness into bodily desire differs from merely subduing it; the target explicitly still calls missteps sin requiring repentance."
+        },
+        {
+          "ref": "Kometz HaMinchah 2:16:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Read in full; deferred in favor of Tzidkat’s self-contained formulation. Its warfare analogy is useful, but the inherited Sanhedrin locator for the bedding story would need separate citation clarification before quoting that formulation."
+        },
+        {
+          "ref": "Sod Yesharim, Sukkot 40:3",
+          "school": "Ishbitz–Radzin",
+          "reason": "Read in full; rejected as insufficiently explanatory here. It maps the palm’s single heart to Israel’s single heart without explaining how the powers of both inclinations enter service."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Vayigash 4",
+          "school": "Ishbitz–Radzin",
+          "reason": "Read in full; not repeated. Its four tests of desire and Jacob’s joy concern distinguishing true joy, rather than the precise two-inclination transformation selected here."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Lech Lecha 3:15",
+      "sectionRef": "Peri Tzadik, Lech Lecha 3",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "a3f5534a33bceca6d97423f0f15c41a474544721dc9dbe891103d918864d92aa",
+      "reviewedSectionHebrewSha256": "1aa25feef48c158420b8f09244799387036c7ce9d298fe8eba1ffef9996864ad",
+      "assessment": "The paragraph’s two questions receive distinct explanations: why gratitude remains after repair, and in what sense God receives satisfaction from offerings. The origin’s statement about pre-sin offerings is preserved as its own claim.",
+      "candidatesReviewed": [
+        {
+          "ref": "Kometz HaMinchah 2:61:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after full reading: future thanksgiving is for the slaying of the evil inclination, an exact instance of the deliverance for which gratitude remains."
+        },
+        {
+          "ref": "Sod Yesharim, The First Day of Pesach 1:2",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after full paragraph reading: service gives satisfaction within the chosen will for creation while the Infinite does not need its garments."
+        },
+        {
+          "ref": "Sod Yesharim, Sukkot 70:2",
+          "school": "Ishbitz–Radzin",
+          "reason": "Read in full; deferred at this anchor. The reconnection of revealed and hidden waters explains water-libation joy, but it is less direct than the chosen target for the origin’s statement about divine satisfaction."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Lech Lecha 3:16",
+      "sectionRef": "Peri Tzadik, Lech Lecha 3",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "5ef75a2c5a459d5439285c7c598e860929718286b045a8ef2a2dee8ed67ca9f8",
+      "reviewedSectionHebrewSha256": "1aa25feef48c158420b8f09244799387036c7ce9d298fe8eba1ffef9996864ad",
+      "assessment": "The conclusion was reviewed together with the opening covenant argument and the wine discussion. Tiferet’s myrtle interpretation adds the indispensable distinction between promised good and its still-unfinished manifestation. No second copy of the opening’s Rav Tzadok comparison is added.",
+      "candidatesReviewed": [
+        {
+          "ref": "Machshavot Charutz 11:2",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Read in full and retained at the section’s opening; not duplicated here. The distinctions between actual sin, remorse, and enduring root continue to govern the concluding reassurance."
+        },
+        {
+          "ref": "Tiferet Yosef, Hoshana Rabba 2",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after full paragraph reading: myrtle’s fragrance without taste marks the soul’s promise of future clarification while explicitly denying that all is already clarified for good."
+        }
+      ]
+    }
+  ]
+}
