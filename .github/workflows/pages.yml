@@ -300,6 +300,8 @@ jobs:
           node scripts/test-connected-ideas-context.mjs --output=connected-ideas-context-verification.json
           node scripts/test-theme-review-progress.mjs > theme-review-progress-verification.json
           cat theme-review-progress-verification.json
+          node scripts/test-theme-candidates.mjs > theme-candidate-verification.txt
+          cat theme-candidate-verification.txt
           node scripts/test-connected-ideas-reader.mjs
 
       - name: Cache official Sefaria source exports
@@ -446,6 +448,7 @@ jobs:
             connected-ideas-context-verification.json
             connected-ideas-live-verification.json
             theme-review-progress-verification.json
+            theme-candidate-verification.txt
             sources/akiva/theme-reviews/
             source-editions-verification.json
             sources/akiva/source-editions/availability-20261019.json

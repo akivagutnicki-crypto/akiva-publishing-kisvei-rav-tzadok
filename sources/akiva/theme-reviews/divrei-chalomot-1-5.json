@@ -1,0 +1,132 @@
+{
+  "schemaVersion": 1,
+  "reviewedOn": "2026-10-19",
+  "method": "Read the first five complete sections in canonical order, then compare actual full passages from both schools. Record only these five completed finite searches; the rest of the book remains pending. Verify quoted Hebrew, translate enough of each target to carry its qualification, and review relevance independently of source-integrity checks.",
+  "entries": [
+    {
+      "ref": "Divrei Chalomot 1:1",
+      "status": "reviewed-no-approved-connection",
+      "assessment": "The entire section was read, including the prefatory account of recording dreams and the distinction between the serpent’s effect on flesh and bone. The examined candidates do not sufficiently explain the specific interpretation of “her seed.” A related ethical use of flesh and bones and a separate interpretation of the serpent are retained as rejected comparisons, not as evidence that no better parallel exists.",
+      "candidatesReviewed": [
+        {
+          "ref": "Takanat HaShavin 10:39",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Read in full. Its distinction between the bodily garment and Israel’s enduring essence concerns jealousy, shame, and repentance. It does not establish or explain this dream’s particular maternal/paternal interpretation of the verse, so this comparison is deferred."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume II, Genesis, Bereshit 8",
+          "school": "Ishbitz–Radzin",
+          "reason": "Read in full. Its serpent seeks a livelihood without dependence on the Giver, with a warning against anticipating a future light. The occurrence of “flesh and blood” does not connect its argument to the dream’s flesh/bone distinction. Rejected."
+        }
+      ],
+      "sectionRef": "Divrei Chalomot 1",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "348619216b44bf493294c655d2325c37ec34a96851da7cf153623052fd0441ab",
+      "reviewedSectionHebrewSha256": "348619216b44bf493294c655d2325c37ec34a96851da7cf153623052fd0441ab"
+    },
+    {
+      "ref": "Divrei Chalomot 2:1",
+      "status": "reviewed-with-connections",
+      "assessment": "The full section distinguishes useful controversy from the shared completeness of peace, while retaining the author’s bracketed qualification from Shemot Rabbah. The existing Tzidkat comparison explains complementary Torah portions; the Beit Yaakov comparison qualifies the kind of unity that can bear this completeness.",
+      "candidatesReviewed": [
+        {
+          "ref": "Tzidkat HaTzadik 231:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Read the complete paragraph, including its later distinction between necessary leadership in this world and the future disclosure of every Torah portion. Retain the existing selected passage about complementary portions; it does not deny the present need for teachers or leadership."
+        },
+        {
+          "ref": "Beit Yaakov on Torah, Lech Lecha 9:6",
+          "school": "Ishbitz–Radzin",
+          "reason": "Read all 13 paragraphs of this section. Approve the selected paragraph’s explicit distinction between choosing good together and a merely instrumental alliance; its qualification is kept in full."
+        }
+      ],
+      "sectionRef": "Divrei Chalomot 2",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "01c56de479d7e99ac81867b6fa722cccde6bdee5c1d7fc8500333fa7e8f05c80",
+      "reviewedSectionHebrewSha256": "01c56de479d7e99ac81867b6fa722cccde6bdee5c1d7fc8500333fa7e8f05c80"
+    },
+    {
+      "ref": "Divrei Chalomot 3:1",
+      "status": "reviewed-with-connections",
+      "assessment": "The complete dream record traces the same souls through three generations. Tzidkat supplies the psychological transformation of youthful desire and the additional work of the final renewal. Both examined Sod Yesharim passages are documented below but not approved: their different arguments do not sufficiently illuminate this subsection’s specific progression from the sin of youth to kindness and renewed youth.",
+      "candidatesReviewed": [
+        {
+          "ref": "Tzidkat HaTzadik 95:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Read the full section. Approve the continuous opening through the explicit transformation of evil into good, retaining all three generations and the difference of the final repair."
+        },
+        {
+          "ref": "Sod Yesharim, The Seventh Day of Pesach 13:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Read the full section and independently peer-reviewed the proposed comparison. Its reincarnation clause confirms a fact already explicit in the dream, while its added argument contrasts the Flood’s absence of an enduring earthly song with Egypt’s judgment becoming a lasting expression of mercy. That distinction does not sufficiently explain the dream’s progression from youthful corruption to kindness and final renewed youth. Rejected as insufficiently illuminating; this is a finding about the examined passage, not a claim that no stronger Ishbitz–Radzin comparison exists."
+        },
+        {
+          "ref": "Sod Yesharim, Shabbat Chol HaMoed Sukkot 23:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Read the full section. Its contrast of Flood and wilderness centers on whether creation compels God and on the concealment of divine action. That contrast alone does not explain the dream’s renewal of youth, so it is not approved for this subsection."
+        }
+      ],
+      "sectionRef": "Divrei Chalomot 3",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "7f0556fd3b73463a2a767218ab7544cbc80358f8225d866a47043554e93a41e9",
+      "reviewedSectionHebrewSha256": "7f0556fd3b73463a2a767218ab7544cbc80358f8225d866a47043554e93a41e9"
+    },
+    {
+      "ref": "Divrei Chalomot 4:1",
+      "status": "reviewed-with-connections",
+      "assessment": "Read the complete dream account, including the unity of “I” and “He,” the two errors, the Exodus, and Moses’ glimpse of the tefillin knot. A separately written reverse direction now explains the technical errors from Sichat Shedim. Sod Yesharim illuminates the difference between unity at the source and its availability to human knowledge.",
+      "candidatesReviewed": [
+        {
+          "ref": "Sichat Shedim 1:10",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Read the complete target paragraph and the existing reviewed bilingual excerpt. Approve the distinct reverse explanation of the two theological errors; the origin section in Divrei Chalomot was read in full before adding that direction."
+        },
+        {
+          "ref": "Sod Yesharim, Shabbat Chol HaMoed Sukkot 23:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Read the full section. Approve its closing account of Moses’ request and the hidden continuous connection, preserving the decisive qualification that explicit recognition is after the deed, not an advance authorization of every act."
+        }
+      ],
+      "sectionRef": "Divrei Chalomot 4",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "1fffbc10b67ca9832df395e42f9fe4de067854ad427d879a09ae345fa833e70f",
+      "reviewedSectionHebrewSha256": "1fffbc10b67ca9832df395e42f9fe4de067854ad427d879a09ae345fa833e70f"
+    },
+    {
+      "ref": "Divrei Chalomot 5:1",
+      "status": "reviewed-with-connections",
+      "assessment": "Read the complete section with the differences between the Tosafot and Tanna Devei Eliyahu formulations, the example of Rabbi’s holy enjoyment, and the warning that unholy satiety draws the heart away. The previously reviewed Et HaOchel reverse explains linked appetites; Beit Yaakov adds how the food’s strength is used and why preparation and prayer matter.",
+      "candidatesReviewed": [
+        {
+          "ref": "Et HaOchel 2:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Read the full subsection. Retain the separately reviewed reverse direction concerning the connection of appetites and guarding against their mutual influence."
+        },
+        {
+          "ref": "Beit Yaakov on Torah, Chayei Sara 5:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Read the full paragraph, including the larger account of intention entering action. Approve the complete eating comparison through the prayer for protection from bodily desire; retain both possible directions in which food’s strength can be used."
+        }
+      ],
+      "sectionRef": "Divrei Chalomot 5",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "f638b7c58d144727b8372e470bb2a302a99577600b47ee43d619e657d50ca055",
+      "reviewedSectionHebrewSha256": "f638b7c58d144727b8372e470bb2a302a99577600b47ee43d619e657d50ca055"
+    }
+  ]
+}

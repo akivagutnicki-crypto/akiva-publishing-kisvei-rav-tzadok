@@ -71,6 +71,8 @@ The reader also verifies the full current Hebrew paragraph and section before di
 
 The generated catalog records actual reviewed coverage for all 24 works. The separate `connected-ideas/review-progress.json` inventories every canonical book, section, and exact subsection reference, with duplicate editions resolved consistently. Individual approved anchors, a full contextual reading, and a completed subsection search are counted separately. Only explicit reviews in `sources/akiva/theme-reviews/`, documenting actual candidate comparisons in both schools and the exact reviewed text, can complete a subsection. A section or book becomes complete only when all its subsections are reviewed. New canonical material enters as pending automatically. Unreviewed sections receive no manufactured matches; a documented unsuccessful candidate search never claims that no useful parallel exists.
 
+The [candidate discovery and review-packet workflow](sources/akiva/theme-reviews/README.md) searches every canonical subsection and prepares bounded editorial batches with the complete Hebrew and existing English of the origin and proposed parallels. It also includes the actual preceding and following sections so an editor can assess a developing thread. Proposed continuity statements remain empty until exact passages support them. Citation and lexical ranking find leads; they do not approve connections, write translations, or count as completed editorial reviews. Candidate files and review packets remain outside the published reader.
+
 Source lookups select **Metsudah Chumash** in the five books of Torah, **The Koren Jerusalem Bible** elsewhere in Tanach, and **Metsudah Rashi** for the 16 Sefaria indexes where that edition was verified as available. Other Rashi works retain their available source editions. The [primary edition evidence](sources/akiva/source-editions/availability-20261019.json) records the exact titles, scope of checks, source URLs, licenses, and response hashes. The request forbids filling missing segments from another translation; both network responses and offline caches are checked against the named edition. Missing preferred English is reported explicitly.
 
 After the final canonical MCP index is built, run:
@@ -81,7 +83,9 @@ node scripts/build-theme-review-progress.mjs
 node scripts/test-source-editions.mjs
 node scripts/test-source-edition-cache.mjs
 node scripts/test-connected-ideas.mjs
+node scripts/test-connected-ideas-context.mjs
 node scripts/test-theme-review-progress.mjs
+node scripts/test-theme-candidates.mjs
 node scripts/test-connected-ideas-reader.mjs
 ```
 

@@ -1,0 +1,450 @@
+{
+  "schemaVersion": 1,
+  "reviewedOn": "2026-10-19",
+  "method": "Complete-book editorial pass: all seventeen canonical paragraphs of Et HaOchel, across all sixteen catalog sections, were read in order in the interlinear edition. Every paragraph then received an explicit finite comparison with actually read target paragraphs from both Kisvei Rav Tzadok and Ishbitz–Radzin. Strong previously published connections were retained; additional distinct anchors were written and independently checked in Hebrew and English. Candidate lists include selected and rejected comparisons and are not approvals by themselves. Reciprocal directions require separately reviewed full target sections and their own framing. This ledger records a completed bounded pass through this book; it does not claim that every possible parallel has been discovered. Full paragraph and section hashes identify the reviewed text and context and do not prove semantic judgment.",
+  "entries": [
+    {
+      "ref": "Et HaOchel 1:1",
+      "sectionRef": "Et HaOchel 1",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "5324d4cc04472113e61fdf9d259bf6996e505ed46c86985e8dcba57d73842fef",
+      "reviewedSectionHebrewSha256": "5324d4cc04472113e61fdf9d259bf6996e505ed46c86985e8dcba57d73842fef",
+      "assessment": "The complete opening section was read in the ordered pass through all seventeen canonical paragraphs. It moves from preparation through water and Torah, to human sanctification followed by completion from above, and finally to oil as clear recognition of God. The previous connection on doing what is within human power was retained; a separate new anchor addresses the actual effect of rightly directed nourishment on understanding. Gross eating and the need for proper direction remain explicit. The complete target paragraphs were compared with these distinct stages.",
+      "candidatesReviewed": [
+        {
+          "ref": "Tzidkat HaTzadik 216:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved for the concluding nourishment-and-wisdom anchor. The ox-meat example and the account of manna explain spiritual vitality entering the heart and making Torah understanding possible. The full one-paragraph target section was read and the reciprocal direction separately framed."
+        },
+        {
+          "ref": "Tiferet Yosef, Talmud Anthology, Pesachim 3",
+          "school": "Ishbitz–Radzin",
+          "reason": "Existing connection retained after rereading the complete target paragraph. Divine completion explicitly follows purification to the extent of one’s power; relying on God while withholding that work is expressly rejected. This explains the earlier stage in Et1, not its distinct concluding oil-and-knowledge point."
+        }
+      ]
+    },
+    {
+      "ref": "Et HaOchel 2:1",
+      "sectionRef": "Et HaOchel 2",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "7f166dd64fb5c55630dad5b3cc4bb0fa686ac5155d5e258a819d611492c0011d",
+      "reviewedSectionHebrewSha256": "7f166dd64fb5c55630dad5b3cc4bb0fa686ac5155d5e258a819d611492c0011d",
+      "assessment": "The entire paragraph was read, including the chain of food, wine, and sexual appetite and the concluding instruction to the observer of a sotah. The candidate comparison concerns the causal relation between appetites and the observer’s own present capacity. It does not infer that a shared food reference alone establishes a parallel. The Ishbitz quotation preserves temporary abstention and the later possibility of receiving the thing in service.",
+      "candidatesReviewed": [
+        {
+          "ref": "Divrei Chalomot 5:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved. The full dream paragraph explains how satisfaction without holiness can draw the heart into further failure, specifying the causal concern in Et2. Both directions were independently assessed after the complete single-paragraph section was read."
+        },
+        {
+          "ref": "Tiferet Yosef, Nasso 4",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved. The full paragraph reads the sotah-and-wine instruction through what the person can currently receive without being diverted from service. The temporary boundary and the later return to wine are both retained; the entire Nasso catalog section was not claimed as reviewed."
+        }
+      ]
+    },
+    {
+      "ref": "Et HaOchel 3:1",
+      "sectionRef": "Et HaOchel 3",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "0d230351d07c0c9eaaf5ceeb6e886a494c4317a1c867f9f0116bf4c2178f6874",
+      "reviewedSectionHebrewSha256": "0d230351d07c0c9eaaf5ceeb6e886a494c4317a1c867f9f0116bf4c2178f6874",
+      "assessment": "The full paragraph, including both Elisha signs and its concluding attribution of opinions, was read. Its clear opening distinguishes the ranking of perfected qualities from the order by which a person reaches them. The final allocation of first and second opinions to the compared orders is not sufficiently transparent to improve through an unmarked editorial interpretation; no canonical wording was changed. The approved quotation therefore uses the complete clear opening and a target explaining the limit of voluntary control. The other-school comparison was actually assessed and rejected for this precise ordering question.",
+      "candidatesReviewed": [
+        {
+          "ref": "Yisrael Kedoshim 1:4",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved. The full paragraph distinguishes an observable refinement in eating from a condition that human effort alone cannot always prevent, followed by sanctification from above. This illuminates Et3’s difference between accessible progress and higher attainment."
+        },
+        {
+          "ref": "Tiferet Yosef, Nasso 4",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not selected here. The fully read passage is excellent for Et2’s assessment of present capacity and temporary abstention, but it does not explain the particular Torah-versus-Mishnah ordering or the competing Elisha signs in Et3. Repeating it here would obscure that difference."
+        }
+      ]
+    },
+    {
+      "ref": "Et HaOchel 4:1",
+      "sectionRef": "Et HaOchel 4",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "cb4622a032779b9fe46555c81de550e3fbb4f503ebffff4065d47c960587de23",
+      "reviewedSectionHebrewSha256": "cb4622a032779b9fe46555c81de550e3fbb4f503ebffff4065d47c960587de23",
+      "assessment": "The entire section was read with its reciprocal conditions: a heart empty of Torah is occupied by cravings, while unrestrained cravings obstruct Torah. Existing substantive connections in both schools were retained rather than duplicated. The Hebrew places the restriction on an unlearned person eating meat under the Pesachim reference and then separately introduces the saying about joy with כי אמרו. The two existing English excerpt fields were narrowly corrected to separate those attributions; all Hebrew, references, and pins were preserved.",
+      "candidatesReviewed": [
+        {
+          "ref": "Yisrael Kedoshim 3:2",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Existing reciprocal connection retained after rereading the complete long canonical paragraph. Torah as seasoning makes enjoyment usable in holiness only with the stated direction and protection; it does not dispense with striving or purify intention merely by name. Inherited headings embedded within this target paragraph remain unchanged."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Vayigash 4",
+          "school": "Ishbitz–Radzin",
+          "reason": "Existing connection retained after rereading the complete paragraph. Torah offers the sought good in holiness, explaining how it can address an appetite when prohibition alone does not stop it. The later tests of Shema and mortality remain part of the context; the earlier selected quotation ends before the malformed supplement brackets."
+        }
+      ]
+    },
+    {
+      "ref": "Et HaOchel 5:1",
+      "sectionRef": "Et HaOchel 5",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "1fc28103aab2fcb084e4ecac866df24bf1ca1671e24f81ab98a6194ab9bbbb13",
+      "reviewedSectionHebrewSha256": "1fc28103aab2fcb084e4ecac866df24bf1ca1671e24f81ab98a6194ab9bbbb13",
+      "assessment": "The complete section was read, with the initial counsel of deliberation, the examples of entering into a meal, and the final Eruvin exception. Two distinct anchors were required: haste driven by appetite, and quick eating incidental to an already established occupation with Torah. The latter condition was preserved explicitly; no general license for hurried gratification was inferred.",
+      "candidatesReviewed": [
+        {
+          "ref": "Takanat HaShavin 10:46",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved for the exception. The full target paragraph explains Reish Lakish’s consumption through his certainty that his enjoyments were in holiness and cites the same Eruvin counsel. Its exceptional confidence is not generalized to every eater."
+        },
+        {
+          "ref": "Sod Yesharim, Simchat Torah 56:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved for deliberation. The complete paragraph explains grasping through fear that the good will disappear, and waiting through secure possession. This illuminates the first counsel without confusing its worldly haste with the carefully conditioned exception at the end of Et5."
+        }
+      ]
+    },
+    {
+      "ref": "Et HaOchel 6:1",
+      "sectionRef": "Et HaOchel 6",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "c7ce1144ca7011acf438610f0953af7726469ba8004268641b577195e9ba22d9",
+      "reviewedSectionHebrewSha256": "c7ce1144ca7011acf438610f0953af7726469ba8004268641b577195e9ba22d9",
+      "assessment": "The full argument was read: the table as altar, the contrast with sacrifices of the dead, food and appetite as received powers, the difference between clear knowledge and an incidental imagined thought, and Torah and blessing at the meal. The existing two connections already address distinct parts of the actual argument and were retained. No duplicate new Et6 record was added merely to increase the count.",
+      "candidatesReviewed": [
+        {
+          "ref": "Peri Tzadik, Lech Lecha 3:13",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Existing connection retained after rereading the complete target paragraph in its previously reviewed ois. Its two possible meanings of one heart and its recognition of the giver in Grace after Meals explain why the meal’s direction matters. The negative possibility of eating for desire remains explicit."
+        },
+        {
+          "ref": "Beit Yaakov on Torah, Bereshit 58:22",
+          "school": "Ishbitz–Radzin",
+          "reason": "Existing connection retained after rereading the complete paragraph. The food and other received necessities are raised when their strength becomes praise and service, giving a concrete destination for the nourishment described in Et6."
+        }
+      ]
+    },
+    {
+      "ref": "Et HaOchel 7:1",
+      "sectionRef": "Et HaOchel 7",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "500e5e4f8b6089f4c7a55fb08fef9e5ac20f6a1ac0af11a637d99baadee20015",
+      "reviewedSectionHebrewSha256": "500e5e4f8b6089f4c7a55fb08fef9e5ac20f6a1ac0af11a637d99baadee20015",
+      "assessment": "The whole paragraph was read, including the relation of plant food to practical mitzvot and blessings, meat to Torah and the altar, and the raising of both the food’s vitality and the eater’s desire. The selected Rav passage preserves a scholar’s actual immersion in Torah without falsely requiring an already perfect heart. The Ishbitz passage specifies prayer as the use made of received vitality and retains די, translated as the sufficiency of the speech placed within the human being.",
+      "candidatesReviewed": [
+        {
+          "ref": "Tzidkat HaTzadik 240:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after the complete one-paragraph section was read. It explains why animal power involving thought and desire requires Torah’s wisdom, while plant nourishment can be raised through practical mitzvot. Its condition of actual Torah immersion is included in the quotation and explanation."
+        },
+        {
+          "ref": "Beit Yaakov on Torah, Vayera 16:4",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after the full paragraph was read. Food becomes human speech and prayer through the person’s service with its strength, explaining the ascent concretely. The English was refined after peer review to retain the Hebrew word די."
+        }
+      ]
+    },
+    {
+      "ref": "Et HaOchel 8:1",
+      "sectionRef": "Et HaOchel 8",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "2d5f4c482610fcb3fadc20d4330452fe6a27a353af5907111fe327d0832d412e",
+      "reviewedSectionHebrewSha256": "2d5f4c482610fcb3fadc20d4330452fe6a27a353af5907111fe327d0832d412e",
+      "assessment": "The entire section was read, from one proper meal raising other meals through the prayer analogy and the sleep-and-awakening account to the concluding same-kind mechanism. Its express exclusion of actual prohibitions is present in the selected Hebrew and English. The candidates explain how later living intention can clarify earlier permitted acts; neither was treated as a license to retroactively authorize a forbidden act.",
+      "candidatesReviewed": [
+        {
+          "ref": "Dover Tzedek, Kuntres Ner HaMitzvot 2:140",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after the complete paragraph and its immediate neighbors were read. One fitting prayer or wise mitzvah gives vitality to earlier acts that lacked it. The bracketed analogy in the selected Hebrew was retained in English rather than silently removed."
+        },
+        {
+          "ref": "Sod Yesharim, Sukkot 18:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after the complete long one-paragraph section was read. Later service for its own sake retrospectively clarifies earlier self-directed work and bodily needs. The reciprocal direction has its own target-centered theme and full-section pin."
+        }
+      ]
+    },
+    {
+      "ref": "Et HaOchel 9:1",
+      "sectionRef": "Et HaOchel 9",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "dc44a486b4ca272fc487c01a8801a10a366bab52e9f7326436e8e42e3eb9ab81",
+      "reviewedSectionHebrewSha256": "dc44a486b4ca272fc487c01a8801a10a366bab52e9f7326436e8e42e3eb9ab81",
+      "assessment": "The complete paragraph was read, including all three names for food, the contested destination of the food’s spark, allotted bread, the danger of excessive deprivation, the Eruvin wedding image, and the concluding Grace after Meals. New anchors separately cover personal measure and the meal’s battle; the earlier blessing connection remains available. Seizing here means recovering the spark while eating a measured portion, not ravenous haste. The new battle excerpt contains the complete local mechanism without importing an unnecessary uncertain technical phrase earlier in the paragraph.",
+      "candidatesReviewed": [
+        {
+          "ref": "Divrei Soferim 30:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after the complete one-paragraph section was read. Solomon’s meal and Rabbi Chanina’s kav show that allotted bread is measured by personal need rather than one universal quantity. The independently reviewed reciprocal direction retains the target’s larger account of need opening provision for others."
+        },
+        {
+          "ref": "Peri Tzadik, Lech Lecha 3:13",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Existing reciprocal thread retained for the concluding blessing point. Recognition of the giver explains how Grace after Meals determines the direction of nourishment; it was not duplicated as a new record."
+        },
+        {
+          "ref": "Tiferet Yosef, Nasso 5",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after the full paragraph was read. The same meal-as-battle image is explained through choice under concealment, allowing the person a share in the good. The target’s later counsel of abstention for someone currently unable to return the food toward God remains part of the reviewed context."
+        }
+      ]
+    },
+    {
+      "ref": "Et HaOchel 10:1",
+      "sectionRef": "Et HaOchel 10",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "b613bdfa68b535fafcb3a245b25bc344748b175d5b125790c71df5eb3dcb74b8",
+      "reviewedSectionHebrewSha256": "b613bdfa68b535fafcb3a245b25bc344748b175d5b125790c71df5eb3dcb74b8",
+      "assessment": "The entire long section was read: sanctification of the eating faculty, repair through the Seder foods, the initial removal of chametz, the distinction between suppression and transformation, Joseph and David, and the final limitation of suppression alone. Two anchors explain the formation of later reception and the use of a power after actual victory. Peer review identified inherited citation errors in the canonical context. The new Et10 quotation stops before the misleading chapter expansion for Berakhot17a; the Kometz quotation uses only the complete battle analogy, omitting its inherited Tanya27 and Sanhedrin citations. The original paragraphs and full context hashes remain unchanged.",
+      "candidatesReviewed": [
+        {
+          "ref": "Kometz HaMinchah 2:16:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after the complete target section was read. Countering an opponent during battle differs from using the captured equipment after victory. The quotation and both directions preserve the temporal condition. The peer verified the omitted Tanya material in chapter28; the new quotation does not repeat the inherited wrong chapter or the misattributed bedding reference."
+        },
+        {
+          "ref": "Sod Yesharim, Shabbat Chol HaMoed Sukkot 20:3",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after the complete paragraph was read. Matzah trains clarified reception at the root before the season of growth, explaining how the particular mitzvah forms later conduct. The whole multi-paragraph target section was not claimed as reviewed, and no reverse was added."
+        }
+      ]
+    },
+    {
+      "ref": "Et HaOchel 11:1",
+      "sectionRef": "Et HaOchel 11",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "3ed2833c31fb904080cb0b8cbcac2fb432cfa2967893178833476a2d80af6a24",
+      "reviewedSectionHebrewSha256": "3ed2833c31fb904080cb0b8cbcac2fb432cfa2967893178833476a2d80af6a24",
+      "assessment": "The full section was read, including Rebbi’s rich table, the blessing’s recognition of Divine vitality within clothing, manna, the serpent, and the distinction between the Written and Oral Torah. Separate anchors address recognition and the transformation of earthly understanding. The first quotation begins after an inherited misleading chapter expansion for the Berakhot17a statement, with the World-to-Come antecedent marked in English. The Machshavot quotation ends at the cessation of manna and does not speculate about the inherited unclear phrase ספין ורקיע at the paragraph’s end.",
+      "candidatesReviewed": [
+        {
+          "ref": "Sod Yesharim, Simchat Torah 1:2",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after the complete paragraph was read. Blessing draws out the will within the food; the food sustains the person; subsequent service determines its ascent. The quotation stops before an inherited attribution of the first Grace-after-Meals blessing to Joshua, which is not needed for this argument."
+        },
+        {
+          "ref": "Machshavot Charutz 9:14",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after the complete paragraph was read. The parallel explicitly compares revealed manna and later earthly bread with Written and Oral Torah, locating the transition at entry into the land. It clarifies Et11’s account of recognition under concealment without equating it with mere abstention."
+        }
+      ]
+    },
+    {
+      "ref": "Et HaOchel 12:1",
+      "sectionRef": "Et HaOchel 12",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "61e0d717dd9f30fad6ee2ceba072b11e5deedf45433154735d5ec640bdba30a1",
+      "reviewedSectionHebrewSha256": "61e0d717dd9f30fad6ee2ceba072b11e5deedf45433154735d5ec640bdba30a1",
+      "assessment": "The full section was read, including the intended life carried by food, Adam’s wound, matzah as healing, the remaining serpent impurity, Sinai’s further repair, and the qualification concerning later sin. The passage is treated as the author’s theological account, not a contemporary medical claim. The new Rav connection makes the incremental repair of successive Pesachs explicit; the Ishbitz connection retains three distinct stages. Peer review clarified the terse antecedent שהוא מארבעה through the fully read Peri Amalah3, which explicitly identifies Jesse; the English marks that supplied name in brackets.",
+      "candidatesReviewed": [
+        {
+          "ref": "Peri Tzadik, Kuntres Amalah shel Torah 3:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after the entire long paragraph was read, including its later account of appetites and Torah. The selected opening says that each Pesach repairs a little until the wound is completely healed. It preserves the serpent’s distinct role and avoids implying immediate universal completion."
+        },
+        {
+          "ref": "Sod Yesharim, The First Night of Pesach 58:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after the complete paragraph was read. Matzah still containing waste, manna clarified of waste, and wisdom sweetening waste are separate stages. The explanation relates this ordered development to Et12 without pretending the two texts use an identical set of categories."
+        }
+      ]
+    },
+    {
+      "ref": "Et HaOchel 13:1",
+      "sectionRef": "Et HaOchel 13",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "4303ffc431cc69c95785bbf1a9438f866d1566406ff15e31f96118076fa37ff6",
+      "reviewedSectionHebrewSha256": "4303ffc431cc69c95785bbf1a9438f866d1566406ff15e31f96118076fa37ff6",
+      "assessment": "The whole section was read, including the seven species, dates and Oral Torah in Babylon, the palm at the entrance to Gehinnom, olive and oil, memory, descendants, incense, and measures of attainment. Two substantial distinct connections were approved for the dates and palm arguments. The remaining olive-and-measure material was not reduced to a generic wisdom connection. The date symbolism retains the author’s presumptive language, and the palm’s eventual repair is qualified by its possible long duration in the parallel.",
+      "candidatesReviewed": [
+        {
+          "ref": "Peri Tzadik, Vaetchanan 21:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after the complete paragraph was read. It unpacks both latter end as Oral Torah and hope as the continuing refinement of the heart under exile, illuminating the specific dates/Babylon argument."
+        },
+        {
+          "ref": "Tzidkat HaTzadik 216:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added for the later olive-and-measure material. Its complete paragraph was already read and supports Et1’s general effect of nourishment on Torah understanding, but it does not explain the particular memory, covenant, and measure sequence here. A generic repetition would add little."
+        },
+        {
+          "ref": "Sod Yesharim, Sukkot 38:3",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after the full paragraph was read. Its explicit palm/Korach interpretation states return to the root while allowing a long wait for repair, directly explaining the good ending from the depths in Et13."
+        }
+      ]
+    },
+    {
+      "ref": "Et HaOchel 14:1",
+      "sectionRef": "Et HaOchel 14",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "4135cefadad43f7adb1a938d886a1f825e1ab6810059a4c5736185a58b78cd8e",
+      "reviewedSectionHebrewSha256": "4135cefadad43f7adb1a938d886a1f825e1ab6810059a4c5736185a58b78cd8e",
+      "assessment": "The entire section was read in order, from poverty as the beginning of birth through thirst for Torah, the question and loud response, expanded life, speech in exile, joining redemption to prayer, and the first opening of the lips. Poverty is not presented as the permanent end. The two new parallels explain the mechanism of a lived question and its cry within an incomplete redemption; the theme is placed at the complete local question-and-answer argument rather than attached to the word prayer alone.",
+      "candidatesReviewed": [
+        {
+          "ref": "Peri Tzadik, Pesach 2:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after the complete paragraph was read. Seder changes interrupt habit and awaken a newly experienced departure from the inclination. The question therefore expresses an actual need to understand, explaining why it can precede fuller speech in Et14."
+        },
+        {
+          "ref": "Sod Yesharim, The First Night of Pesach 3:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after the complete long paragraph was read. The question and cry can awaken salvation before all clarification is finished. The quotation retains the unfinished process and the explanation distinguishes this redemptive mechanism from Et14’s account of expanding vitality."
+        }
+      ]
+    },
+    {
+      "ref": "Et HaOchel 15:1",
+      "sectionRef": "Et HaOchel 15",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "d16898148c492689fb34c632b823651485e511489cf4dfadf7dc1e8d73070e0a",
+      "reviewedSectionHebrewSha256": "d16898148c492689fb34c632b823651485e511489cf4dfadf7dc1e8d73070e0a",
+      "assessment": "The entire section was read, including maror as an awakener of appetite and life, the Passover offering as the subsequent expansion, all four cups as distinct redemptive movements, the optional fifth cup, and the concluding evening-prayer analogy. The fifth-cup connection preserves the Rif attribution and the author’s condition that not everyone can yet live from an unseen inheritance. Its explanatory frame is not conflated with Machshavot’s account of sustenance and the hidden root of life. Two Arvit candidates were fully read and rejected for the precise fifth-cup question before a stronger future-giving passage was selected.",
+      "candidatesReviewed": [
+        {
+          "ref": "Machshavot Charutz 9:13",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after the complete paragraph was read. The final quotation retains the explicit rejection of God desiring sin followed by repentance, as well as the incomplete heart and the added joy that brings concealed life into reception. Its nourishment-after-redemption frame remains distinct from Et15’s inheritance frame."
+        },
+        {
+          "ref": "Sod Yesharim, The First Night of Pesach 27:4",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved for a separate maror anchor after the complete paragraph was read. Restraint under concealment makes a bond first given from above recognizable through one’s own service. Pain alone is not equated with completed repair."
+        },
+        {
+          "ref": "Sod Yesharim, Sukkot 3:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after the complete paragraph was read. Joy in what God has yet to give is contrasted with the bounded good already possessed. This illuminates the recognition of future inheritance but does not claim to establish the fifth cup’s law or optionality."
+        },
+        {
+          "ref": "Sod Yesharim, Rosh Hashanah 75:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected for the precise concealed-inheritance thread. The full paragraph treats Arvit as an additional clarification of the middle point after two extremes, extending embodied life; it does not explain joy in a future promise not yet visible."
+        },
+        {
+          "ref": "Sod Yesharim, The Eighth Day of Pesach 14:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected for the fifth-cup thread after the complete paragraph was read. Its optionality concerns freely owned service following restraint and the clarification of earlier days. That is a different mechanism from Et15’s present capacity to rejoice in an unseen inheritance."
+        }
+      ]
+    },
+    {
+      "ref": "Et HaOchel 16:1",
+      "sectionRef": "Et HaOchel 16",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "77c6f404d5cfc24649e45c560a6d93dd7594a63502b62c5019feed68911344a0",
+      "reviewedSectionHebrewSha256": "b3facdd9a08f89f974d57e891077b9e4def14165b5bf8edba9956077270802ae",
+      "assessment": "Both canonical paragraphs of the final section were read. The substantive paragraph has two distinct movements: enough initial understanding to ask, and positive holiness received before subsequent discrimination of evil. Two specific Ishbitz connections were placed at those actual arguments; the two examined Rav Tzadok comparisons were not approved for this precise chain. The vegetable/meat discussion and the conclusion about Shemini were retained in the full context; בשנים פשוטות is rendered precisely as non-leap years. The following colophon is separately assessed below and is not treated as another doctrinal subsection.",
+      "candidatesReviewed": [
+        {
+          "ref": "Sefer HaZikhronot 10:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Rejected after the complete paragraph was read and the complete Et16 context was independently reconsidered in peer review. Sefer HaZikhronot teaches the sufficiency and boundary of inquiry according to intellectual capacity. It does not explain Et16’s actual chain in which nourishment awakens the desire to know, small knowledge permits a question, and the answer expands understanding. Its general affirmation of an incomplete beginning adds too little here; the drafted record was removed rather than kept to fill a school quota."
+        },
+        {
+          "ref": "Sod Yesharim, The First Night of Pesach 12:6",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after the entire paragraph was read. The first real difficulty marks an encounter with Torah’s understanding, and opening a path for the child makes questioning possible. This directly illuminates Et16’s initial consciousness."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Exodus, Bo 5",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved for the second anchor after the complete paragraph was read. The mercy of giving I am before complete purification explains why prior received holiness makes the later work possible. The target’s continuation concerning Moses, Rabbi Akiva, and safeguards remains part of the reviewed context."
+        },
+        {
+          "ref": "Ohr Zarua LaTzadik, The Egyptian Exile 1:3",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not selected for the precise ordering argument. The full paragraph affirms I am as a gift rooted prior to effort, but the explicit reason that the gift must precede the later purification is developed more directly in Mei Bo5. No additional link was made from the shared phrase alone."
+        }
+      ]
+    },
+    {
+      "ref": "Et HaOchel 16:2",
+      "sectionRef": "Et HaOchel 16",
+      "status": "reviewed-no-approved-connection",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "804c6dca34dd753cad224fbaa6594cf3269111de9f67f6c09ba393f4a6cd31d8",
+      "reviewedSectionHebrewSha256": "b3facdd9a08f89f974d57e891077b9e4def14165b5bf8edba9956077270802ae",
+      "assessment": "The entire final canonical paragraph reads תם ונשלם, שבח לאל בורא עולם. It is a conventional closing formula, not an argument about nourishment or the Seder. It was read after the full substantive paragraph and compared with an actual Rav Tzadok ending and an Ishbitz liturgical praise passage. Neither supplies a concept expressed by this colophon that would be illuminated by a substantive parallel. Its reviewed-no-approved-connection status records this finite assessment and preserves the inherited segmentation.",
+      "candidatesReviewed": [
+        {
+          "ref": "Kometz HaMinchah 1:115:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Rejected after the complete paragraph was read. It ends with the same conventional completion-and-praise formula, but its preceding argument concerns Jacob’s requested provisions and judgment becoming mercy. The shared ending does not make that argument a connection to Et’s colophon."
+        },
+        {
+          "ref": "Sod Yesharim, The First Night of Pesach 13:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected after the complete paragraph was read. Its Haggadah praise introduces the four sons and the wise son’s question; it has a distinct liturgical role. Shared praise of God is insufficient to establish a conceptual relation to the book’s closing formula."
+        }
+      ]
+    }
+  ]
+}
