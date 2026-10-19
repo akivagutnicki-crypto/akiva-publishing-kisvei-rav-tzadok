@@ -102,7 +102,7 @@ try {
     page.on('pageerror',error=>errors.push(error.message));
     await page.goto(origin + '/library/#/read/' + hash('Tzidkat HaTzadik 1'));
     const seg = page.locator('.seg[data-ref="Tzidkat HaTzadik 1:3"]');
-    await seg.locator('.seg-il .ph-he a.cite[data-ref="Exodus 12:11"]').first().click();
+    await seg.locator('.seg-il .ph-he').getByRole('link',{name:'בְּחִפָּזוֹן',exact:true}).click();
     await checkedCards(page,expected);
     assert.equal(text(await page.locator('#panel .ttl').textContent()),'Exodus 12:11');
     const directIds = await page.locator('.reviewed-connection').evaluateAll(nodes=>nodes.map(node=>node.dataset.connectionId).sort());
@@ -128,7 +128,7 @@ try {
     await page.locator('#setBtn').click();
     await page.locator('[data-pref="layout"] button[data-v="stack"]').click();
     await page.locator('#setBtn').click();
-    await seg.locator('.seg-he a.cite[data-ref="Exodus 12:11"]').first().click();
+    await seg.locator('.seg-he').getByRole('link',{name:'בְּחִפָּזוֹן',exact:true}).click();
     await checkedCards(page,expected);
     await page.locator('#pClose').click();
 
@@ -157,7 +157,7 @@ try {
   }
   const unavailable = await prepare({width:1280,height:900},true), page = await unavailable.newPage();
   await page.goto(origin + '/library/#/read/' + hash('Tzidkat HaTzadik 1'));
-  await page.locator('.seg[data-ref="Tzidkat HaTzadik 1:3"] .seg-il a.cite[data-ref="Exodus 12:11"]').first().click();
+  await page.locator('.seg[data-ref="Tzidkat HaTzadik 1:3"] .seg-il .ph-he').getByRole('link',{name:'בְּחִפָּזוֹן',exact:true}).click();
   await page.locator('.connection-status').waitFor({state:'visible'});
   assert.match(await page.locator('.connection-status').first().textContent(),/could not be loaded/,'Failure must not masquerade as no matching source');
   assert.equal(await page.locator('.reviewed-connection').count(),0);
