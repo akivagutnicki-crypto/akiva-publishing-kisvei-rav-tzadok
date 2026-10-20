@@ -301,6 +301,15 @@ jobs:
           python scripts/verify-supplied-source-footnotes.py --zips --mcp --browser > supplied-source-footnotes-final-verification.json
           node scripts/test-pri-chanukah25.mjs --zips
 
+      # This proof also compares the complete historical catalog bytes. Run it
+      # before the authorized Dover successor changes that catalog; the Dover
+      # verifier then proves all other sefarim remain byte-for-byte unchanged.
+      - name: Verify complete Chanukah 25 in final reader source popups and offline downloads
+        run: |
+          node scripts/test-pri-chanukah25.mjs --zips > chanukah25-final-verification.json
+          cat chanukah25-final-verification.json
+          node scripts/test-pri-chanukah25-browser.mjs
+
       - name: Publish the latest two Dover Tzedek KDP Word manuscripts after historical edition checks
         run: |
           node scripts/publish-dover-kdp.mjs
@@ -338,12 +347,6 @@ jobs:
           node scripts/test-connected-ideas-reader.mjs
           node scripts/test-seasonal-connections-release.mjs > seasonal-connections-final-verification.json
           cat seasonal-connections-final-verification.json
-
-      - name: Verify complete Chanukah 25 in final reader source popups and offline downloads
-        run: |
-          node scripts/test-pri-chanukah25.mjs --zips > chanukah25-final-verification.json
-          cat chanukah25-final-verification.json
-          node scripts/test-pri-chanukah25-browser.mjs
 
       - name: Cache official Sefaria source exports
         uses: actions/cache@v4
