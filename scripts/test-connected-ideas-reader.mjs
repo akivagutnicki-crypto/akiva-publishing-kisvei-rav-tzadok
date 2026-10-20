@@ -7,6 +7,7 @@ import path from 'node:path';
 import http from 'node:http';
 import {createRequire} from 'node:module';
 import {chromium} from 'playwright';
+import {checkConnectionFootnotes} from './reader-connection-footnote-checks.mjs';
 const require=createRequire(import.meta.url);
 const ideas=require('../dist/library/connected-ideas.js');
 const editions=require('../dist/library/source-editions.js');
@@ -35,7 +36,9 @@ const server=http.createServer((request,response)=>{
 });
 await new Promise(resolve=>server.listen(0,'127.0.0.1',resolve));
 const origin='http://127.0.0.1:'+server.address().port;
-const browser=await chromium.launch({headless:true});
+const urlAt=process.argv.indexOf('--url');
+const base=urlAt>=0?process.argv[urlAt+1].replace(/\/?$/,'/'):origin+'/library/';
+const browser=await chromium.launch({headless:true,...(process.env.AKIVA_CHROMIUM_EXECUTABLE?{executablePath:process.env.AKIVA_CHROMIUM_EXECUTABLE}:{})});
 const report={ok:false,sections:[],views:[],sourceRoutes:[]};
 async function prepare(viewport,{catalogFailure=false,wrongEdition=false,staleContext=false}={}){
   const session=await browser.newContext({viewport,serviceWorkers:'block'});
@@ -45,6 +48,7 @@ async function prepare(viewport,{catalogFailure=false,wrongEdition=false,staleCo
   });
   await session.route('https://**/*',async route=>{
     const url=new URL(route.request().url());
+    if(url.origin===new URL(base).origin){await route.continue();return;}
     if(!/^(?:www\.)?sefaria\.org$/.test(url.hostname)){await route.abort();return;}
     if(url.pathname.startsWith('/api/links/')){await route.fulfill({json:[]});return;}
     const ref=decodeURIComponent(url.pathname.split('/texts/')[1] || '');
@@ -69,19 +73,6 @@ async function prepare(viewport,{catalogFailure=false,wrongEdition=false,staleCo
   }
   return session;
 }
-async function cards(page,records){
-  const list=page.locator('#lItems .reviewed-theme');
-  await list.last().locator('.quote .qe').waitFor({state:'visible'});
-  assert.deepEqual((await list.evaluateAll(nodes=>nodes.map(node=>node.dataset.connectionId))).sort(),ids(records));
-  for(const record of records){
-    const card=page.locator('[data-connection-id="'+record.id+'"]');
-    assert.equal(plain(await card.locator('.quote .qh').textContent()),plain(record.targetHebrew));
-    assert.equal(plain(await card.locator('.quote .qe').textContent()),plain(record.targetEnglish));
-    assert.equal(plain(await card.locator('.connection-explanation').textContent()),'How this develops the idea'+record.explanation);
-    assert.equal(await card.locator('.quote').evaluate(node=>node.scrollHeight<=node.clientHeight+2),true,'The full thought is clipped');
-    assert.equal(await card.locator('.source-missing').count(),0,'Reviewed bilingual source is incomplete');
-  }
-}
 async function openFixtureCitation(page,ref){
   // The actual underlined-citation event opens the source viewer. The clearly
   // marked fixture exists only in this isolated browser document, never in a
@@ -95,73 +86,41 @@ async function openFixtureCitation(page,ref){
   await page.locator('#source-edition-interface-fixture').click();
 }
 try{
-  // Every section claimed in the coverage manifest must actually display its
-  // exact approved anchors in the shipped reader, including reviewed reverses.
+  // Every reviewed forward and reciprocal placement must become a normal note.
   const audit=await prepare({width:1280,height:900}),page=await audit.newPage(),errors=[];
   page.on('pageerror',error=>errors.push(error.message));
   for(const book of catalog.coverage)for(const ref of book.reviewedSections){
-    await page.goto(origin+'/library/#/read/'+hash(ref));
+    await page.goto(base+'#/read/'+hash(ref));
     const section=page.locator('.sec[data-ref="'+ref+'"]');
-    await section.locator('.connected-outline').waitFor({state:'visible'});
-    const expected=ideas.groups(ideas.forSection(catalog.records,ref));
-    assert.equal(await section.locator('.connected-outline [data-idea-group]').count(),expected.length,'Wrong section outline: '+ref);
-    for(const group of expected){
-      const anchors=section.locator('.idea-anchor[data-idea-id="'+group.id+'"]');
-      assert(await anchors.count()>=1,'Missing passage anchor: '+group.id);
-      const inline=section.locator('.idea-phrase[data-idea-id="'+group.id+'"]');
-      if(await inline.count()){
-        const placement=await inline.evaluate(node=>({ref:node.closest('.seg').dataset.ref,
-          index:[...node.closest('.seg').querySelectorAll('.seg-il .ph')].indexOf(node.closest('.ph'))}));
-        assert.equal(placement.ref,group.originRef);assert.equal(placement.index,group.phraseIndex);
-      }
-    }
-    report.sections.push({ref,anchors:expected.length});
+    report.sections.push(await checkConnectionFootnotes(page,section,ideas.forSection(catalog.records,ref)));
   }
   assert.deepEqual(errors,[]);await audit.close();
-
   for(const viewport of [{width:1280,height:900},{width:390,height:844}]){
     const session=await prepare(viewport),page=await session.newPage(),errors=[];
     page.on('pageerror',error=>errors.push(error.message));
-    await page.goto(origin+'/library/#/read/'+hash('Peri Tzadik, Lech Lecha 6'));
-    const outline=page.locator('.connected-outline');await outline.waitFor({state:'visible'});
-    await outline.getByRole('button',{name:selectedGroup.title,exact:true}).click();
-    await cards(page,selectedGroup.records);
-    assert.equal(await page.locator('.theme-context h3').textContent(),selectedGroup.title);
-    assert.equal(await page.locator('.theme-context p').textContent(),selectedGroup.summary);
-    for(const school of ideas.SCHOOLS)assert(await page.getByRole('button',{name:school+' sources',exact:true}).isVisible());
-    await page.screenshot({path:path.join(artifacts,viewport.width>600?'desktop-connected-ideas.jpg':'mobile-connected-ideas.jpg'),type:'jpeg',quality:90});
-    await page.getByRole('button',{name:'English only',exact:true}).click();
-    await page.getByRole('button',{name:'Ishbitz–Radzin sources',exact:true}).click();
-    await cards(page,selectedGroup.records.filter(record=>record.school===ideas.SCHOOLS[1]));
-    assert.equal(await page.locator('.quote .qh').first().isVisible(),false);
-    await page.getByRole('button',{name:'Hebrew and English',exact:true}).click();
-    await page.locator('#pClose').click();
-
-    // The exact phrase anchor and section outline open the same reviewed set.
-    const seg=page.locator('.seg[data-ref="'+targetOrigin+'"]');
-    await seg.locator('.idea-phrase[data-idea-id="'+selectedGroup.id+'"] button').click();
-    await cards(page,selectedGroup.records);await page.locator('#pClose').click();
-    // Sidebar grouping is available to all works and displays the same text.
-    await seg.locator('.seg-il .ph-en').first().click();
-    await page.locator('#pContent .cat[data-cat="Connected Ideas · Kisvei Rav Tzadok"]').click();
-    await cards(page,selected.filter(record=>record.school===ideas.SCHOOLS[0]));await page.locator('#pClose').click();
-    // In stacked layout, the passage button stays next to its paragraph.
-    await page.locator('#setBtn').click();await page.locator('[data-pref="layout"] button[data-v="stack"]').click();await page.locator('#setBtn').click();
-    const fallback=page.locator('.idea-paragraph[data-idea-id="'+selectedGroup.id+'"] button');
-    assert(await fallback.isVisible());await fallback.click();await cards(page,selectedGroup.records);
-    const first=selectedGroup.records[0];
-    await page.locator('[data-connection-id="'+first.id+'"] .explore-source').click();
-    await page.locator('.source-head .qe').waitFor({state:'visible'});
-    assert.equal(plain(await page.locator('.source-head .qe').textContent()),plain(first.targetEnglish),'Opening a parallel lost its reviewed translation');
-    report.views.push({viewport,entryPoints:['section outline','exact phrase','sidebar','stacked paragraph','connected source']});
+    for(const ref of ['Peri Tzadik, Rosh Chodesh Kislev 1','Peri Tzadik, Lech Lecha 6']){
+      await page.goto(base+'#/read/'+hash(ref));
+      const section=page.locator('.sec[data-ref="'+ref+'"]'),records=ideas.forSection(catalog.records,ref);
+      await checkConnectionFootnotes(page,section,records,{screenshot:path.join(artifacts,viewport.width+'-'+(ref.includes('Kislev')?'kislev':'lech-lecha')+'-footnotes.jpg')});
+      for(const layout of ['stack','side']){
+        await page.locator('#setBtn').click();await page.locator('[data-pref="layout"] button[data-v="'+layout+'"]').click();await page.locator('#setBtn').click();
+        await checkConnectionFootnotes(page,section,records);
+      }
+      await section.locator('.seg').first().locator('.num').click();
+      await page.locator('#pContent .cat').first().waitFor();
+      assert.equal(await page.locator('[data-cat^="Connected Ideas"],.reviewed-theme').count(),0,'The converted material remains in a popup');
+      await page.locator('#pClose').click();
+      await page.locator('#setBtn').click();await page.locator('[data-pref="layout"] button[data-v="inter"]').click();await page.locator('#setBtn').click();
+    }
+    report.views.push({viewport,layouts:['interlinear','stacked','side by side'],hebrewFootnotes:true});
     assert.deepEqual(errors,[]);await session.close();
   }
 
   // Exercise the shared live source-opening function for every preference
   // family. Separate integration tests cover actual citation/footnote clicks.
   const editionSession=await prepare({width:1280,height:900}),editionPage=await editionSession.newPage();
-  await editionPage.goto(origin+'/library/#/read/'+hash('Peri Tzadik, Lech Lecha 6'));
-  await editionPage.locator('.connected-outline').waitFor({state:'visible'});
+  await editionPage.goto(base+'#/read/'+hash('Peri Tzadik, Lech Lecha 6'));
+  await editionPage.locator('.connection-idea-marker').first().waitFor();
   for(const ref of ['Genesis 12:1','Psalms 1:1','Rashi on Genesis 1:1:1','Rashi on Joshua 1:1:1','Rashi on Judges 1:1:1','Rashi on Ruth 1:1:1']){
     await openFixtureCitation(editionPage,ref);
     await editionPage.locator('.source-head .qe').waitFor({state:'visible'});
@@ -173,26 +132,26 @@ try{
   }
   await editionSession.close();
   const rejected=await prepare({width:1280,height:900},{wrongEdition:true}),rejectedPage=await rejected.newPage();
-  await rejectedPage.goto(origin+'/library/#/read/'+hash('Peri Tzadik, Lech Lecha 6'));
-  await rejectedPage.locator('.connected-outline').waitFor({state:'visible'});
+  await rejectedPage.goto(base+'#/read/'+hash('Peri Tzadik, Lech Lecha 6'));
+  await rejectedPage.locator('.connection-idea-marker').first().waitFor();
   await openFixtureCitation(rejectedPage,'Genesis 12:1');
   await rejectedPage.locator('.source-head .source-missing[data-missing="en"]').waitFor({state:'visible'});
   assert.equal(await rejectedPage.locator('.source-head .qe').count(),0);
   assert.match(await rejectedPage.locator('.source-head .source-missing[data-missing="en"]').textContent(),/Metsudah Chumash/);
   await rejected.close();
   const failed=await prepare({width:1280,height:900},{catalogFailure:true}),failedPage=await failed.newPage();
-  await failedPage.goto(origin+'/library/#/read/'+hash('Peri Tzadik, Lech Lecha 6'));
+  await failedPage.goto(base+'#/read/'+hash('Peri Tzadik, Lech Lecha 6'));
   await failedPage.locator('.sec').waitFor({state:'visible'});
-  await failedPage.getByText('Connected Ideas could not be loaded.',{exact:true}).waitFor({state:'visible'});
-  assert.equal(await failedPage.locator('.connected-outline,.reviewed-theme').count(),0);
+  await failedPage.getByText('Additional source footnotes could not be loaded.',{exact:true}).waitFor({state:'visible'});
+  assert.equal(await failedPage.locator('.connected-outline,.reviewed-theme,.connection-idea-marker').count(),0);
   await failed.unroute('**/connected-ideas/catalog.json?*');
-  await failedPage.getByRole('button',{name:'Retry Connected Ideas',exact:true}).click();
-  await failedPage.locator('.connected-outline').waitFor({state:'visible'});
+  await failedPage.getByRole('button',{name:'Retry source footnotes',exact:true}).click();
+  await failedPage.locator('.connection-idea-marker').first().waitFor();
   assert.equal(await failedPage.locator('.connected-ideas-load-error').count(),0);await failed.close();
   const stale=await prepare({width:1280,height:900},{staleContext:true}),stalePage=await stale.newPage();
-  await stalePage.goto(origin+'/library/#/read/'+hash('Peri Tzadik, Lech Lecha 6'));
+  await stalePage.goto(base+'#/read/'+hash('Peri Tzadik, Lech Lecha 6'));
   await stalePage.locator('.sec[data-connected-ideas-status="context-mismatch"]').waitFor({state:'visible'});
-  assert.equal(await stalePage.locator('.connected-outline,.idea-anchor').count(),0,
+  assert.equal(await stalePage.locator('.connected-outline,.idea-anchor,.connection-idea-marker').count(),0,
     'An unchanged opening quotation must not approve a changed section');
   await stalePage.locator('.seg[data-ref="'+targetOrigin+'"] .seg-il .ph-en').first().click();
   await stalePage.locator('#pContent .cat').first().waitFor({state:'visible'});

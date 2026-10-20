@@ -6,7 +6,7 @@
   else root.AkivaConnectedIdeas = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this, function (sources) {
   'use strict';
-  const VERSION = '20261019-connected-ideas-v1';
+  const VERSION = '20261020-connected-idea-footnotes-v1';
   const SCHOOLS = ['Kisvei Rav Tzadok', 'Ishbitz–Radzin'];
   const normalized = sources.normalizedHebrew;
   const refKey = ref => sources.normalizeRef(ref || '').toLowerCase();
@@ -111,5 +111,39 @@
       && /^[a-f0-9]{64}$/.test(paragraphPin || '') && /^[a-f0-9]{64}$/.test(sectionPin || '')
       && context.paragraphHebrewSha256===paragraphPin && context.sectionHebrewSha256===sectionPin);
   }
-  return {VERSION,SCHOOLS,validRecord,forPassage,forSection,groups,anchorMatches,matchesContext,authorText};
+  // The reviewed catalog is also the source for ordinary reader footnotes.
+  // Keep manuscript note numbers intact and allocate additional numbers in
+  // the section's own note scope. Each independently selected source is a note.
+  function footnotesForSection(data, records) {
+    let number = 0;
+    const existing = Object.values(data.annotations || {}).flat();
+    for (const note of existing) if (Number.isSafeInteger(Number(note.number)))
+      number = Math.max(number, Number(note.number));
+    for (const html of [...(data.he || []), ...(data.en || [])])
+      for (const match of String(html).matchAll(/<sup\b[^>]*class=["'][^"']*footnote-marker[^"']*["'][^>]*>\s*(\d+)\s*<\/sup>/g))
+        number = Math.max(number, Number(match[1]));
+    const present = new Set(existing.filter(note => note.connectionIdeaId).map(note => note.connectionIdeaId));
+    return unique(records).filter(record => !present.has(record.id)).map(record => {
+      const url = '#/read/' + encodeURIComponent(record.targetRef).replace(/%20/g,'_').replace(/%2C/g,',').replace(/%3A/g,':');
+      const quote = record.targetRef + ': “' + record.targetEnglish + '”';
+      return {
+        number: ++number, sourceId: 'IDEA-' + record.id, placementId: 'IDEA-' + record.id,
+        connectionIdeaId: record.id, paragraphOrder: record.paragraphOrder,
+        phraseIndex: record.phraseIndex, originRef: record.originRef,
+        verificationStatus: 'verified',
+        paragraphs: [
+          {language:'en', text:record.themeTitle, rich:[{text:record.themeTitle,bold:true}]},
+          {language:'en', text:record.themeSummary, rich:[{text:record.themeSummary}]},
+          {language:'en', text:quote, rich:[{text:record.targetRef,bold:true,href:url},{text:': “'+record.targetEnglish+'”'}]},
+          {language:'en', text:'Explanation: '+record.explanation,
+            rich:[{text:'Explanation: ',bold:true},{text:record.explanation}]}
+        ],
+        sources:[{ref:record.targetRef,url,role:'primary'}],
+        sourceExcerpt:{ref:record.targetRef,he:record.targetHebrew,en:record.targetEnglish,
+          provenance:record.translationProvenance,coverage:'excerpt'},
+        provenance:{connectionRecordId:record.id,sourceQuotationRelease:{versionTitle:record.translationProvenance}}
+      };
+    });
+  }
+  return {VERSION,SCHOOLS,validRecord,forPassage,forSection,groups,anchorMatches,matchesContext,authorText,footnotesForSection};
 });

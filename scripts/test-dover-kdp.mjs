@@ -96,7 +96,7 @@ if(!args.includes('--data-only')){
     const sec=page.locator('#text > .sec').filter({has:page.locator('.seg[data-ref="'+ref+':1"]')}).first();
     await sec.locator('.seg-il .ph-he .footnote-marker').first().waitFor({state:'visible',timeout:45000});
     assert.equal(await sec.locator('.seg-il .ph').count(),proof.phrases,'Reader loses phrase pairs');
-    assert.equal(await sec.locator('.seg-il .ph-he .footnote-marker').count(),proof.notes,'A numbered marker is invisible or missing');
+    assert.equal(await sec.locator('.seg-il .ph-he .footnote-marker:not(.connection-idea-marker)').count(),proof.notes,'A numbered marker is invisible or missing');
     assert.equal(await sec.locator('.seg-il .ph-en .footnote-marker').count(),0,'A numbered marker moved onto English');
     const boxes=await sec.locator('.seg-il .reader-footnote').evaluateAll(elements=>elements.map(e=>({key:e.dataset.noteKey,number:+e.dataset.fn,text:[...e.querySelectorAll('.annotation-text')].map(p=>p.textContent)})));
     const byKey=new Map(boxes.map(b=>[b.key,b]));

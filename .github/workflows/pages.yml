@@ -109,7 +109,7 @@ jobs:
 
       - name: Verify Hebrew-word footnotes in a mobile browser
         run: |
-          npm install --no-save --package-lock=false playwright@1.62.1
+          npm install --no-save --package-lock=false playwright@1.62.1 jsdom@26.1.0
           npx playwright install --with-deps chromium
           node scripts/test-pri-word-footnote-browser.mjs
           node scripts/test-pri-full-coverage-browser.mjs
@@ -343,6 +343,7 @@ jobs:
           cat theme-review-progress-verification.json
           node scripts/test-theme-candidates.mjs > theme-candidate-verification.txt
           cat theme-candidate-verification.txt
+          node scripts/test-connection-footnotes-dom.mjs
           node scripts/test-connected-ideas-reader.mjs
           node scripts/test-seasonal-connections-release.mjs > seasonal-connections-final-verification.json
           cat seasonal-connections-final-verification.json
@@ -412,6 +413,7 @@ jobs:
           cat source-translations-live-verification.json
           node scripts/test-connected-ideas.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/' > connected-ideas-live-verification.json
           cat connected-ideas-live-verification.json
+          node scripts/test-connected-ideas-reader.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/' > connection-footnotes-live-verification.json
           node scripts/test-seasonal-connections-release.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/' > seasonal-connections-live-verification.json
           cat seasonal-connections-live-verification.json
 
@@ -532,6 +534,7 @@ jobs:
             connected-ideas-verification.json
             connected-ideas-context-verification.json
             connected-ideas-live-verification.json
+            connection-footnotes-live-verification.json
             theme-review-progress-verification.json
             theme-candidate-verification.txt
             sources/akiva/theme-reviews/

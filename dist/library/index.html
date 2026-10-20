@@ -264,9 +264,10 @@ body.panel-open .text{max-width:860px}
 .section-docx-link{display:block;text-align:center;margin:9px auto 18px;font:600 .83rem/1.6 var(--ui)}
 .reader-footnote .annotation-links{display:flex;gap:8px 16px;flex-wrap:wrap;font:600 .78rem/1.5 var(--ui);margin-top:7px}
 .reader-footnote a{color:var(--link);text-decoration:underline;text-underline-offset:3px}
-.segment-annotations{grid-column:1/-1;width:100%;min-width:0;border-top:1px solid var(--line);padding:8px 0 2px;line-height:1.9}
+.segment-annotations{grid-column:1/-1;order:3;width:100%;min-width:0;border-top:1px solid var(--line);padding:8px 0 2px;line-height:1.9}
 .segment-annotations-label{font:600 .77rem/1.4 var(--ui);color:var(--muted);margin-inline-end:10px}
 .text[data-lang="bi"][data-layout="inter"] .segment-annotations{display:none}
+.text[data-lang="bi"][data-layout="inter"] .sec:not(.il) .segment-annotations{display:block}
 /* English-only mode shows its full annotated notes without English-side number markers. */
 .text[data-lang="en"] .segment-annotations .reader-footnote{display:block}
 .note-discovery{font:500 .86rem/1.5 var(--ui);color:var(--muted);text-align:center;margin:0 0 18px}
@@ -598,7 +599,7 @@ body.akiva-android-reader .akiva-support-embed{border-top-color:var(--ox)}
 <script src="sefaria-packs.js?v=20261019-preferred-edition-cache-v4"></script>
 <script src="source-connections.js?v=20261020-reviewed-connections-v4"></script>
 <script src="source-editions.js?v=20261019-preferred-source-editions-v1"></script>
-<script src="connected-ideas.js?v=20261019-connected-ideas-v1"></script>
+<script src="connected-ideas.js?v=20261020-connected-idea-footnotes-v1"></script>
 <script>
 (() => {
 'use strict';
@@ -1506,13 +1507,13 @@ function readingFootnote(note, part) {
   // available in the source JSON but are not reader-facing footnote content.
   const warning = /requires collation/.test(note.verificationStatus || '') ? '<div class="footnote-edition-warning">Exact named-edition verification remains pending. Verified passages and parallels are linked below.</div>' : '';
   const cross = note.crossReference ? `<p><a href="#/read/${toHash(note.crossReference.ref)}" class="footnote-cross-reference">Open referenced note · reader footnote ${note.crossReference.number}, ${esc(note.crossReference.ref.split(':')[0])} →</a></p>` : '';
-  const box = `<div class="footnote reader-footnote" lang="en" data-fn="${note.number}"${reviewed ? ' data-source-note="true" data-note-key="'+esc(note.placementId)+'"' : ''}><div class="annotated-title">Footnote ${note.number} · Sources and commentary</div>${warning}${content}${cross}</div>`;
+  const box = `<div class="footnote reader-footnote${note.connectionIdeaId ? ' connection-idea-footnote' : ''}"${note.connectionIdeaId ? ' data-connection-id="'+esc(note.connectionIdeaId)+'"' : ''} lang="en" data-fn="${note.number}"${reviewed ? ' data-source-note="true" data-note-key="'+esc(note.placementId)+'"' : ''}><div class="annotated-title">Footnote ${note.number} · Sources and commentary</div>${warning}${content}${cross}</div>`;
   return box;
 }
 /* A footnote marker placed inside the Hebrew, beside the word it annotates (as in the Word edition).
    It opens the matching footnote box of the same phrase, or of the paragraph's footnote tray. */
 const safeFootnoteUrl = url => /^#\/read\/[^<>\s]+$/.test(String(url || '')) || /^https:\/\/(?:(?:www\.)?sefaria\.org|voices\.sefaria\.org|(?:www\.)?chabad\.org|(?:www\.)?nli\.org\.il|(?:www\.)?hebrewbooks\.org|he\.wikisource\.org)\//i.test(String(url || ''));
-const inlineFootnoteMarker = (note, scope) => `<button type="button" class="footnote-marker annotated-trigger he-note${note.sourceId ? ' source-note-trigger' : ''}" data-fn="${note.number}" data-scope="${scope}"${note.sourceId ? ' data-note-key="'+esc(note.placementId)+'"' : ''} aria-label="Open annotated footnote ${note.number}" aria-expanded="false">${note.number}</button>`;
+const inlineFootnoteMarker = (note, scope) => `<button type="button" class="footnote-marker annotated-trigger he-note${note.sourceId ? ' source-note-trigger' : ''}${note.connectionIdeaId ? ' connection-idea-marker' : ''}" data-fn="${note.number}"${note.connectionIdeaId ? ' data-connection-id="'+esc(note.connectionIdeaId)+'"' : ''} data-scope="${scope}"${note.sourceId ? ' data-note-key="'+esc(note.placementId)+'"' : ''} aria-label="Open annotated footnote ${note.number}" aria-expanded="false">${note.number}</button>`;
 /* Exact character anchors count decoded visible text, preserving nikkud and links.
    Splitting a citation link keeps the button outside any other interactive element. */
 function insertAtTextOffsets(html, marks) {
@@ -1793,11 +1794,6 @@ function connectedIdeasCatalog() {
     }).catch(error=>{connectedIdeasPromise=null;throw error;});
   return connectedIdeasPromise;
 }
-function themeLink(record) {
-  return asLink(record.originRef,record.targetRef,'Connected Ideas · '+record.school,{reviewedRecord:record,
-    reviewedTheme:true,kind:'reviewed-concept',note:record.explanation,quote:{he:record.targetHebrew,en:record.targetEnglish},
-    quoteRef:record.targetRef,translationProvenance:record.translationProvenance});
-}
 const themeContextPins=new WeakMap();
 function currentThemePins(data) {
   if(!themeContextPins.has(data)) {
@@ -1826,83 +1822,94 @@ async function currentPassageIdeas(catalog,ref,context={}) {
   const data=R.sections.find(section=>section.sectionRef===sectionRef) || await fetchText(sectionRef);
   return verifiedThemeRecords(data,records);
 }
-async function themeLinksFor(context) {
-  if(!context.originRef) return [];
-  const catalog=await connectedIdeasCatalog();
-  return (await currentPassageIdeas(catalog,context.originRef,context)).map(themeLink);
+/* Add a normal footnote marker without counting existing note text or headings
+   as part of the author's Hebrew. Letter offsets also preserve all nikkud. */
+function connectionNoteMarkerAt(element, letters, marker) {
+  const walker=document.createTreeWalker(element,NodeFilter.SHOW_TEXT,{
+    acceptNode:node=>node.parentElement?.closest('.footnote-marker,.footnote,.reader-footnote,.subhead')
+      ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT
+  });
+  let node,seen=0;
+  while((node=walker.nextNode())) {
+    let offset=0;
+    for(const character of node.data) {
+      offset+=character.length;
+      seen+=sourceConnections.normalizedHebrew(character).replace(/\s/g,'').length;
+      if(seen>=letters) {
+        while(offset<node.data.length && /[\p{M}״׳'".,;:!?…\u200b-\u200f]/u.test(node.data[offset]))offset++;
+        const range=document.createRange();range.setStart(node,offset);range.collapse(true);
+        const fragment=document.createElement('template');fragment.innerHTML=marker;
+        const link=node.parentElement?.closest('a');
+        if(link) {range.setEndAfter(link);const tail=range.extractContents();link.after(fragment.content,tail);}
+        else range.insertNode(fragment.content);
+        return true;
+      }
+    }
+  }
+  return false;
 }
 async function mountConnectedIdeas(data,sectionElement) {
   if(!localBook(data.book) && !REMOTE.some(book=>book.title===data.book))return;
+  if(sectionElement.dataset.connectionFootnotesMounted==='true')return;
   let catalog;
   try{catalog=await connectedIdeasCatalog();}catch{
     if(!sectionElement.isConnected || sectionElement.querySelector('.connected-ideas-load-error'))return;
     const message=document.createElement('div');message.className='empty connected-ideas-load-error';
-    message.innerHTML='<p>Connected Ideas could not be loaded.</p><button type="button" class="btn">Retry Connected Ideas</button>';
+    message.innerHTML='<p>Additional source footnotes could not be loaded.</p><button type="button" class="btn">Retry source footnotes</button>';
     message.querySelector('button').onclick=()=>{message.remove();mountConnectedIdeas(data,sectionElement);};
     sectionElement.insertBefore(message,sectionElement.querySelector('.seg, .subhead') || null);return;
   }
-  if(!sectionElement.isConnected) return;
+  if(!sectionElement.isConnected || sectionElement.dataset.connectionFootnotesMounted==='true')return;
   sectionElement.querySelector('.connected-ideas-load-error')?.remove();
-  if(sectionElement.querySelector('.connected-outline'))return;
   const proposed=connectedIdeas.forSection(catalog.records,data.sectionRef);
   const checked=await verifiedThemeRecords(data,proposed);
-  if(!sectionElement.isConnected)return;
+  if(!sectionElement.isConnected || sectionElement.dataset.connectionFootnotesMounted==='true')return;
   sectionElement.dataset.connectedIdeasStatus=checked.length===proposed.length?'checked':'context-mismatch';
   if(checked.length!==proposed.length) {
     const status=document.createElement('div');status.className='connection-status';
-    status.textContent='Some Connected Ideas do not match the text edition currently loaded.';
+    status.textContent='Some additional source footnotes do not match the text edition currently loaded.';
     sectionElement.insertBefore(status,sectionElement.querySelector('.seg, .subhead') || null);
   }
+  const segments=new Map([...sectionElement.querySelectorAll('.seg')].map(seg=>[seg.dataset.ref,seg]));
   const records=checked.filter(record=>{
-    const seg=[...sectionElement.querySelectorAll('.seg')].find(seg=>seg.dataset.ref===record.originRef);
-    return seg && connectedIdeas.anchorMatches(record,data.he[Number(seg.dataset.k)]);
+    const seg=segments.get(record.originRef);
+    return seg && connectedIdeas.anchorMatches(record,flatten(data.he)[Number(seg.dataset.k)]);
   });
-  if(!records.length) return;
-  const groups=connectedIdeas.groups(records);
-  const outline=document.createElement('details'); outline.className='connected-outline';outline.open=true;
-  outline.innerHTML='<summary>Connected Ideas in this section</summary><p>Follow the ideas through the passages below. Each connection includes the Hebrew, an English translation, and an explanation of the relationship.</p><ol>'+groups.map((group,index)=>
-    `<li><button type="button" data-idea-group="${index}">${esc(group.title)}</button><span class="idea-summary">${esc(group.summary)}</span><span class="idea-schools">${esc([...new Set(group.records.map(record=>record.school))].join(' · '))}</span></li>`).join('')+'</ol>';
-  sectionElement.insertBefore(outline,sectionElement.querySelector('.seg, .subhead') || null);
-  const openGroup=group=>{
-    const seg=[...sectionElement.querySelectorAll('.seg')].find(seg=>seg.dataset.ref===group.originRef);
-    const phrase=seg?.querySelectorAll('.seg-il .ph')[group.phraseIndex];
-    (phrase?.getClientRects().length?phrase:seg)?.scrollIntoView({block:'center',behavior:'smooth'});
-    openConnectedIdeas(group.originRef,group.title,group.phraseIndex);
-  };
-  outline.querySelectorAll('button[data-idea-group]').forEach(button=>button.onclick=()=>openGroup(groups[+button.dataset.ideaGroup]));
-  const lastAnchor = new Map();
-  for(const group of groups) {
-    const seg=[...sectionElement.querySelectorAll('.seg')].find(seg=>seg.dataset.ref===group.originRef);
-    if(!seg)continue;
-    const makeAnchor=extra=>{
-      const node=document.createElement('div');node.className='idea-anchor '+extra;
-      node.dataset.ideaId=group.id;node.dataset.ideaOrigin=group.originRef;node.dataset.ideaPhrase=group.phraseIndex;
-      node.innerHTML=`<strong>Connected Ideas</strong><button type="button">${esc(group.title)}</button><span class="idea-schools">${esc([...new Set(group.records.map(record=>record.school))].join(' · '))}</span>`;
-      node.querySelector('button').onclick=event=>{event.stopPropagation();openGroup(group);};return node;
-    };
-    const phrase=seg.querySelectorAll('.seg-il .ph')[group.phraseIndex];
-    if(phrase)phrase.appendChild(makeAnchor('idea-phrase'));
-    const fallback=makeAnchor('idea-paragraph'+(phrase?' has-phrase-anchor':''));
-    (lastAnchor.get(seg)||seg).insertAdjacentElement('afterend',fallback);lastAnchor.set(seg,fallback);
+  const notes=connectedIdeas.footnotesForSection({...data,he:flatten(data.he),en:flatten(data.en)},records);
+  const byId=new Map(records.map(record=>[record.id,record]));
+  data.annotations ||= {};
+  let mounted=0;
+  for(const note of notes) {
+    const record=byId.get(note.connectionIdeaId),seg=segments.get(note.originRef),i=Number(seg.dataset.k);
+    const author=value=>sourceConnections.normalizedHebrew(connectedIdeas.authorText(value));
+    const pairs=data.phrases?.[i];
+    let letters;
+    if(pairs)letters=author(pairs.slice(0,note.phraseIndex+1).map(pair=>pair[0]).join(' ')).replace(/\s/g,'').length;
+    else {
+      const whole=author(flatten(data.he)[i]),quote=author(record.originHebrew);
+      const start=(' '+whole+' ').indexOf(' '+quote+' ');
+      if(start<0)continue;
+      letters=whole.slice(0,start+quote.length).replace(/\s/g,'').length;
+    }
+    if(!letters || !connectionNoteMarkerAt(seg.querySelector('.seg-he'),letters,inlineFootnoteMarker(note,'tray')))continue;
+    const phrase=seg.querySelectorAll('.seg-il .ph')[note.phraseIndex];
+    if(phrase) {
+      phrase.querySelector('.ph-he').insertAdjacentHTML('beforeend',inlineFootnoteMarker(note,'ph'));
+      phrase.querySelector('.ph-en').insertAdjacentHTML('beforeend',readingFootnote(note,'box'));
+    }
+    let tray=seg.querySelector('.segment-annotations');
+    if(!tray){tray=document.createElement('div');tray.className='segment-annotations';seg.appendChild(tray);}
+    tray.insertAdjacentHTML('beforeend',readingFootnote(note,'box'));
+    data.annotations[i]=[...(data.annotations[i] || []),note];mounted++;
   }
+  sectionElement.dataset.connectionFootnotesMounted='true';
+  sectionElement.dataset.connectionFootnotesCount=String(mounted);
+  const count=Object.values(data.annotations).reduce((sum,notes)=>sum+notes.length,0);
+  let discovery=sectionElement.querySelector('.note-discovery');
+  if(count && !discovery){discovery=document.createElement('div');discovery.className='note-discovery';sectionElement.insertBefore(discovery,sectionElement.querySelector('.seg, .subhead') || null);}
+  if(discovery)discovery.textContent=count+' annotated source footnotes · Tap a numbered marker beside its Hebrew word to read the full note and sources.';
 }
-async function openConnectedIdeas(ref,themeTitle=null,phraseIndex=null) {
-  const seg=[...document.querySelectorAll('.seg')].find(seg=>seg.dataset.ref===ref);
-  if(seg)selectSegment(ref,seg,false);
-  openPanel(ref,'source');$('#panel .panel-head .ttl').textContent='Connected Ideas';
-  const container=$('#pContent'),seq=++panelSeq;
-  container.innerHTML='<div class="loading">Opening reviewed connections…</div>';
-  try {
-    let records=await currentPassageIdeas(await connectedIdeasCatalog(),ref);
-    if(themeTitle)records=records.filter(record=>record.themeTitle===themeTitle && (phraseIndex===null || record.phraseIndex===phraseIndex));
-    if(seq!==panelSeq || !container.isConnected)return;
-    const links=records.map(themeLink), groups=[{label:'All',list:links},...connectedIdeas.SCHOOLS.map(school=>({label:school,list:links.filter(link=>link.reviewedRecord.school===school)})).filter(group=>group.list.length)];
-    const heading=records[0];
-    const introduction=heading?{title:themeTitle || 'Connected Ideas',summary:themeTitle?heading.themeSummary:'Reviewed conceptual connections at this passage.',ref}:null;
-    showLinkList(ref,'Connected Ideas',links,container,{groups,selectedCategory:'All',context:sourceContext(seg),sourceStudy:true,themeIntroduction:introduction,
-      notice:links.length?'':'This passage has no reviewed conceptual connection yet.'});
-  }catch{if(seq===panelSeq && container.isConnected)container.innerHTML='<div class="empty">Connected Ideas could not be loaded. Reopen this passage to retry.</div>';}
-}
+
 let reviewedCatalogPromise = null;
 function reviewedCatalog() {
   if (!reviewedCatalogPromise) reviewedCatalogPromise = fetch('source-connections/catalog.json?v=' + sourceConnections.VERSION)
@@ -2060,23 +2067,13 @@ async function openSourceStudy(ref, context = {}, sourceUrl = '') {
     primary.excerptLabel = 'Reviewed excerpt from this passage';
   }
   const connections = records.map(record => reviewedLink(record, context.originRef || ref));
-  let themes=[];
-  try{themes=await themeLinksFor(context);}catch{
-    notice+=(notice?' ':'')+'Connected Ideas could not be loaded. Reopen this source to retry.';
-  }
-  // A reviewed source explanation already supplies the same target passage.
-  // Do not repeat it as a second card merely because it also has a theme thread.
-  const sourceTargets=new Set(connections.map(link=>sourceConnections.normalizeRef(link.sourceRef || link.ref)));
-  themes=themes.filter(link=>!sourceTargets.has(sourceConnections.normalizeRef(link.sourceRef || link.ref)));
   if(seq!==panelSeq || !c.isConnected)return;
   const list = [primary, ...connections];
-  list.push(...themes);
   const groups = [{label:'All',list}, {label:'Cited source',list:[primary]}];
   for (const school of sourceConnections.SCHOOLS) {
     const entries = connections.filter(link => link.category === school);
     if (entries.length) groups.push({label:school,list:entries});
   }
-  for(const school of connectedIdeas.SCHOOLS){const entries=themes.filter(link=>link.reviewedRecord.school===school);if(entries.length)groups.push({label:'Connected Ideas · '+school,list:entries});}
   if (!records.length && !notice) notice = 'No reviewed source connection matches this source and its present context yet.';
   showLinkList(context.originRef || ref, 'Source and connections', list, c,
     {groups,selectedCategory:'All',context,notice,sourceStudy:true});
@@ -2122,14 +2119,11 @@ async function linksFor(ref) {
   }
   const n = +ref.slice(sec.sectionRef.length + 1);
   const [all, ours] = await Promise.all([loadLinks(sec.sectionRef), libraryLinks(sec, ref, false)]);
-  try{ours.push(...await themeLinksFor({originRef:ref}));}catch{}
   if (!localBook(sec.book) && !sec.meiStudy) {
     try { ours.push(...sourceConnections.pickConnections((await reviewedCatalog()).records, ref).map(record => reviewedLink(record, ref))); } catch {}
   }
   const sefaria = (sec.chapterLinks ? all : all.filter(l => { const r = segOf(l.anchorRef, sec.sectionRef); return r && n >= r[0] && n <= r[1]; })).filter(link => !isKisveiLink(link));
-  const themeTargets=new Set(ours.filter(link=>link.reviewedTheme).map(link=>sourceConnections.normalizeRef(link.sourceRef || link.ref)));
-  const uniqueOurs=ours.filter(link=>link.reviewedTheme || !link.reviewedRecord
-    || !themeTargets.has(sourceConnections.normalizeRef(link.sourceRef || link.ref)));
+  const uniqueOurs=ours;
   const seen = new Set(), out = [];
   for (const l of [...uniqueOurs, ...sefaria]) {
     const key = l.grouped ? 'G|' + l.grouped : (l.reviewedTheme?'T|':l.category === 'Rav Tzadok Library' ? 'L|' : '') + (l.sourceRef || l.ref);
@@ -2218,7 +2212,7 @@ async function renderConnections(ref, c) {
   const note = sec && sec.chapterLinks ? `<p class="empty" style="padding:0 0 10px;font-size:.92rem">Sources this passage cites, the library passages that cite it, and Sefaria's connections for the whole section.</p>` : '';
   const byCat = {};
   links.forEach(l => { const k = l.category || 'Other'; (byCat[k] = byCat[k] || []).push(l); });
-  const FIRST = [...connectedIdeas.SCHOOLS.map(school=>'Connected Ideas · '+school),...sourceConnections.SCHOOLS];
+  const FIRST = sourceConnections.SCHOOLS;
   const rank = k => (FIRST.includes(k) ? FIRST.indexOf(k) : FIRST.length);
   const cats = Object.keys(byCat).sort((a, b) => rank(a) - rank(b) || byCat[b].length - byCat[a].length);
   c.innerHTML = sourceLanguageControls() + note + cats.map(k => {

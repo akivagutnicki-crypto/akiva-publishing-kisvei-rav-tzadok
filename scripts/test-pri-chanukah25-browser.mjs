@@ -7,6 +7,7 @@ import path from 'node:path';
 import http from 'node:http';
 import {createRequire} from 'node:module';
 import {chromium} from 'playwright';
+import {checkConnectionFootnotes} from './reader-connection-footnote-checks.mjs';
 import {CHANUKAH25_REF,readChanukah25,publishedChanukah25} from './pri-chanukah25.mjs';
 
 const rootAt=process.argv.indexOf('--root'),root=path.resolve(rootAt>=0?process.argv[rootAt+1]:'dist/library');
@@ -64,63 +65,8 @@ const output=path.resolve('chanukah25-verification',remote?'live':'local');fs.mk
 const checks=[];
 const ideaChecks=[];
 async function verifyConnectedIdeas(page,section,viewport){
-  const outline=section.locator('.connected-outline');
-  await outline.waitFor({state:'visible'});
-  assert.equal(await section.getAttribute('data-connected-ideas-status'),'checked',
-    'Every Chanukah25 connection must match the current full section');
-  const buttons=outline.locator('button[data-idea-group]');
-  assert.deepEqual(await buttons.allTextContents(),ideaGroups.map(group=>group.title),
-    'The outline must display every exact reviewed group in order');
-  assert.deepEqual(await outline.locator('.idea-summary').allTextContents(),ideaGroups.map(group=>group.summary));
-  for(const [index,group]of ideaGroups.entries()){
-    const anchor=section.locator(`.idea-phrase[data-idea-id="${group.id}"]`);
-    assert.equal(await anchor.count(),1,'Missing or duplicated exact phrase anchor: '+group.id);
-    const placement=await anchor.evaluate(node=>({ref:node.closest('.seg').dataset.ref,
-      phrase:[...node.closest('.seg').querySelectorAll('.seg-il .ph')].indexOf(node.closest('.ph'))}));
-    assert.deepEqual(placement,{ref:group.originRef,phrase:group.phraseIndex},
-      'Connected Idea is attached to the wrong canonical phrase: '+group.id);
-    assert.equal(await anchor.locator('button').textContent(),group.title);
-    await buttons.nth(index).click();
-    const cards=page.locator('#pContent #lItems .reviewed-theme');
-    await cards.last().locator('.quote .qe').last().waitFor({state:'visible'});
-    assert.deepEqual((await cards.evaluateAll(nodes=>nodes.map(node=>node.dataset.connectionId))).sort(),ideaIds(group.records),
-      'The opened outline group must contain exactly its reviewed targets: '+group.id);
-    assert.equal(plain(await page.locator('#pContent .theme-context h3').textContent()),plain(group.title));
-    assert.equal(plain(await page.locator('#pContent .theme-context p').textContent()),plain(group.summary));
-    for(const record of group.records){
-      const card=page.locator(`#pContent #lItems .reviewed-theme[data-connection-id="${record.id}"]`);
-      await card.locator('.quote .qe').last().waitFor({state:'visible'});
-      assert.equal(await card.getAttribute('data-source-ref'),record.targetRef);
-      assert.equal(plain((await card.locator('.quote .qh').allTextContents()).join(' ')),plain(record.targetHebrew),
-        'The complete reviewed Hebrew must be displayed: '+record.id);
-      assert.equal(plain((await card.locator('.quote .qe').allTextContents()).join(' ')),plain(record.targetEnglish),
-        'The complete reviewed English must be displayed: '+record.id);
-      assert.equal(await card.locator('.connection-explanation strong').textContent(),'How this develops the idea');
-      const explanation=await card.locator('.connection-explanation').evaluate(node=>{
-        const copy=node.cloneNode(true);copy.querySelector('strong').remove();return copy.textContent;
-      });
-      assert.equal(plain(explanation),plain(record.explanation),'The explanation must remain complete and separate: '+record.id);
-      assert.equal(await card.locator('.source-missing').count(),0,'A reviewed source must retain both languages: '+record.id);
-      for(const [language,weight]of [['qh','400'],['qe','700']]){
-        const quote=card.locator('.quote .'+language);
-        assert(await quote.first().isVisible(),'The reviewed quotation must show both languages: '+record.id);
-        assert.deepEqual(await quote.evaluateAll(nodes=>[...new Set(nodes.map(node=>getComputedStyle(node).fontWeight))]),[weight],
-          'Connection quotes require regular Hebrew and bold English: '+record.id);
-      }
-      assert(await card.locator('.quote,.connection-explanation').evaluateAll(nodes=>nodes.every(node=>
-        node.scrollHeight<=node.clientHeight+2&&node.scrollWidth<=node.clientWidth+2)),
-        'A reviewed quotation or explanation is clipped: '+record.id);
-    }
-    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+2),false,
-      'Connected Ideas overflow the viewport');
-    if(index===0){
-      await cards.first().locator('.quote .qe').first().scrollIntoViewIfNeeded();
-      await page.screenshot({path:path.join(output,`connected-ideas-${viewport.width}.png`)});
-    }
-    ideaChecks.push({viewport:viewport.width,group:group.id,originRef:group.originRef,phraseIndex:group.phraseIndex,
-      records:ideaIds(group.records),completeBilingualQuotes:true,completeExplanations:true,unclipped:true});
-    await page.locator('#pClose').click();
-  }
+  const check=await checkConnectionFootnotes(page,section,ideaRecords,{screenshot:path.join(output,`connection-footnotes-${viewport.width}.jpg`)});
+  ideaChecks.push({viewport:viewport.width,...check});
 }
 
 try{
@@ -157,7 +103,7 @@ try{
       }
     }
     const allNotes=published.items.flatMap(row=>row.footnotes||[]);
-    assert.equal(await section.locator('.seg-il .ph-he .footnote-marker').count(),allNotes.length);
+    assert.equal(await section.locator('.seg-il .ph-he .footnote-marker:not(.connection-idea-marker)').count(),allNotes.length);
     assert.equal(await section.locator('.seg-il .ph-en .footnote-marker').count(),0,'No duplicated English note numbering');
     for(const note of allNotes){
       const marker=section.locator(`.seg-il .ph-he button[data-note-key="${note.placementId}"]`);
