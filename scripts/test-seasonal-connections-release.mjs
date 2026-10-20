@@ -39,6 +39,7 @@ assert(book, 'The review inventory must include Peri Tzadik');
 const numbered = (name, count) => Array.from({length: count}, (_, index) => `Peri Tzadik, ${name} ${index + 1}`);
 const areas = [
   {name: 'Chanukah 1–24', refs: numbered('Chanukah', 24), paragraphs: 146, newRelease: true},
+  {name: 'Chanukah 25', refs: ['Peri Tzadik, Chanukah 25'], paragraphs: 6, connections: 18, newRelease: true},
   {name: 'Rosh Chodesh Shevat 1–6', refs: numbered('Rosh Chodesh Shvat', 6), paragraphs: 8, connections: 13, newRelease: true},
   {name: 'Tu BiShvat 1–5', refs: numbered('Tu BiShvat', 5), paragraphs: 7, connections: 12, newRelease: true},
   {name: 'Lech Lecha 1–10', refs: numbered('Lech Lecha', 10), paragraphs: 101},

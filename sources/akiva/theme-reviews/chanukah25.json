@@ -1,0 +1,226 @@
+{
+  "schemaVersion": 1,
+  "reviewedOn": "2026-10-20",
+  "method": "Full sequential reading of the six paragraphs of the newly staged Chanukah 25 interlinear edition, including all 506 phrase pairs and their explicit source qualifications; the exact default edition and its full paragraph/section hashes are pinned. Candidate passages in both schools were actually read in full, with their complete argument and relevant conditions considered. The entries below record finite approved and rejected comparisons; no score, common citation, keyword, school quota, or automatic reverse direction confers approval. Each retained quotation is contiguous and has a new faithful target translation; the already independently reviewed origin phrase translation is reused. Thematic records remain separately subject to independent bilingual and relevance review before publication.",
+  "entries": [
+    {
+      "ref": "Peri Tzadik, Chanukah 25:1",
+      "sectionRef": "Peri Tzadik, Chanukah 25",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "9685340d5d919d7939dda39af2ac56ac894168ca6924e4b616e15c605b3b0c81",
+      "reviewedSectionHebrewSha256": "c7cd89247db1a8b7d994759097ea94167e97ea7e3954afcf14db1dcbd67d33a1",
+      "assessment": "Read the complete paragraph and its place in the full six-paragraph argument: Yaakov’s reversal of the brothers; Yosef’s preference for holiness won through struggle; one personally earned measure versus nine received; Shabbat and Israel’s sanctification of time; Yaakov’s acknowledgment that God has always shepherded him; the spies’ discouragement; and the sincere desire for awe. Three distinct comparisons explain returning the apparently personal acquisition, the prior gift within human sanctification, and an awakening that permits rather than compels the human response. The relative holiness comparison remains distinct from the actual precedence of Shabbat’s offering. The contextual qualifications and explicit editorial readings in the new interlinear edition remain intact. These are finite conceptual comparisons, not assertions of direct citation between the works.",
+      "candidatesReviewed": [
+        {
+          "ref": "Sod Yesharim, Shemini Atzeret 31:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after reading the complete target: its explicit one-to-nine and tithe argument explains returning even one’s acquired measure to God and thereby receiving the remaining measures. The selected passage includes the return, divine gift, and trust that follow."
+        },
+        {
+          "ref": "Tiferet Yosef, Shavuot 8",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after reading the complete target: Israel’s power to sanctify time flows from Shabbat’s already given holiness, while an intervening concealment makes personal preparation possible. Both chronological views and their common source are retained."
+        },
+        {
+          "ref": "Takanat HaShavin 5:7",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after reading the complete target: an event supplied by God can awaken awe without ensuring the correct response. The desire to seek awe thus remains a real human responsibility; the contrasting possible response of rebellion is visible."
+        },
+        {
+          "ref": "Beit Yaakov on Torah, Chayei Sara 25:4",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not newly approved: its account of Avraham, Yitzchak, and Yaakov also reads the shepherding verse across high and low states, but the selected effort/gift and non-compulsion passages explain this paragraph’s particular questions more directly. No additional card was created from the shared verse alone."
+        },
+        {
+          "ref": "Resisei Layla 43:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not newly approved: the complete paragraph distinguishes soul-root destiny from individual judgment and supplies an elaborate account of differing measures. That framework does not directly resolve this paragraph’s preference for labor or its distinction between desiring awe and already possessing it."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 25:2",
+      "sectionRef": "Peri Tzadik, Chanukah 25",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "4044f98c58de9693123721d30c77f2e8b229a327a8e753df4b98b5439409c4c5",
+      "reviewedSectionHebrewSha256": "c7cd89247db1a8b7d994759097ea94167e97ea7e3954afcf14db1dcbd67d33a1",
+      "assessment": "Read the complete pure-oil discussion, including the willing heart, the halakhic fallback, the three forms of the first-night answer, Pri Tzadik’s thin-wick proposal, the distinction between obedience and voluntary willingness to face danger, and the extended Mattityahu/Yochanan interpretation. Two lamp comparisons were retained: human work reaching its limit before divine completion, and the oil miracle disclosing acceptance of Israel’s service. The former keeps the explicit requirement of restraint and service. The latter preserves the difference between deliverance itself and the divine sign of favor. The name and priesthood discussion was assessed in context; a name-root parallel was not promoted merely because it uses the same vocabulary.",
+      "candidatesReviewed": [
+        {
+          "ref": "Tiferet Yosef, Beha'alotcha 2",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after reading the complete target: the menorah’s lighting distinguishes the person’s required effort from completion that only God can supply. The selected quotation preserves the rejection of unrestrained conduct and its repentance context."
+        },
+        {
+          "ref": "Resisei Layla 57:2",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after reading the complete target: the oil miracle shows acceptance and a restored capacity to make God’s presence known, following Israel’s self-sacrifice to sanctify God’s name. Its treatment of Al HaNissim’s lamps is used for this spiritual purpose and is not silently equated with the separate courtyard-lighting proposal in Chanukah 25:6."
+        },
+        {
+          "ref": "Machshavot Charutz 8:6",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not newly approved: the complete target explains the penitent’s eternal name at the soul’s root in contrast with continuity through descendants. Although it also mentions Yosef and recognition of divine help, this would introduce a separate repentance-and-descendants argument into the Yochanan/priestly-name discussion. It does not add a comparably direct explanation to the two retained lamp connections."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 25:3",
+      "sectionRef": "Peri Tzadik, Chanukah 25",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "a0896ff2133cae1126456598d6c19f22360415ada89bb267688856045f9915d1",
+      "reviewedSectionHebrewSha256": "c7cd89247db1a8b7d994759097ea94167e97ea7e3954afcf14db1dcbd67d33a1",
+      "assessment": "Read the whole paragraph on the princes’ reading, completion of the Mishkan on 25 Kislev, successive dedications, creation’s purpose as a lower dwelling, Chanukah’s dwelling in each heart in exile, the enduring lamps, simultaneous inclusion of the tribes, and Eliyahu’s twelve-stone altar with its exceptional setting. Four comparisons clarify two actual anchors: yearning that makes a dwelling, and shared holiness that preserves distinct leading qualities. The Shekalim passage’s warning against relying on an assured root in place of work is retained. The Mei HaShiloach passage presents Gad’s claim about suffering as Gad’s particular perspective, alongside a compensating divine gift; it is not made into a uniform law for all tribes.",
+      "candidatesReviewed": [
+        {
+          "ref": "Tzidkat HaTzadik 251:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after reading the complete target: generosity and yearning form the heart’s vessel for a divine dwelling. The selected context distinguishes different measures of attained good from the shared capacity to turn away from evil."
+        },
+        {
+          "ref": "Sod Yesharim, Parashat Shekalim 3:2",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after reading the complete target: Binyamin’s continuing longing becomes a concrete model of hosting the Divine Presence. The closing Amalek warning makes continuing service a necessary qualification of the enduring bond."
+        },
+        {
+          "ref": "Machshavot Charutz 8:10",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after reading the complete target: the selected complete distinction says that each tribe’s holiness is shared by all, while that tribe remains the head of its particular strength. This directly explains mutual inclusion without erasing difference."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Vayechi 7",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after reading the complete target: the diagonal tribal boundaries represent differing lights of love and fear, whose one divine source remains. Gad’s particular difficulty and corresponding blessing show how an apparently different emphasis can be completed rather than excluded."
+        },
+        {
+          "ref": "Divrei Chalomot 25:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not newly approved: the complete paragraph develops a thirteen-tribe/twenty-six-quality structure and paired roots. The retained Machshavot distinction supplies the needed mechanism of inclusion and leading strength more directly; a second numerical mapping would not add enough at this anchor."
+        },
+        {
+          "ref": "Sod Yesharim, Shemini Atzeret 20:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not newly approved: the complete paragraph’s temporary sukkah trains a person to carry flexibility into a permanent home. That is a meaningful teaching, but the present anchor asks how yearning makes a dwelling in every heart, for which the retained Shekalim passage is more exact. No additional dwelling card was forced."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 25:4",
+      "sectionRef": "Peri Tzadik, Chanukah 25",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "ea2f6035f6f4f5c0ae8589bace653d6fda3598f4915297ce29946283a9a57886",
+      "reviewedSectionHebrewSha256": "c7cd89247db1a8b7d994759097ea94167e97ea7e3954afcf14db1dcbd67d33a1",
+      "assessment": "Read the whole bodily and sanctuary account: Hod, Moshe and Aharon’s humility, the two legs, Yehudah and Dan in the Mishkan and Temple, the future Danite helper, Kislev/Binyamin and Tevet/Dan, Yaakov’s rebuke followed by blessing, and repair of both legs. Three comparisons explain the actual partnership of highest and lowest, the indispensability of smaller participation in a completed sanctuary, and the meaning of carrying inner attributes into deeds. Takanat’s different proposed month correspondence is explicitly distinguished from Pri Tzadik’s. Tiferet Pekudei 3’s עששית is translated narrowly as a glass lantern, following Rashi on Rosh Hashanah 24a: עששית—קנדיל״ה בלע״ז; the wording does not decide the separate reflection-versus-transmission question. Primary witness: https://he.wikisource.org/wiki/ראש_השנה_כד_א.",
+      "candidatesReviewed": [
+        {
+          "ref": "Takanat HaShavin 6:35",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after reading the complete target: the circular structure joins beginning and end, explaining Dan’s recurring partnership with Yehudah in sanctuary and redemption. The quotation is confined to this structural explanation, and the preceding alternative calendar is disclosed as different."
+        },
+        {
+          "ref": "Tiferet Yosef, Pekudei 3",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after reading the complete target: the completed Mishkan shows that neither the greater nor the smaller donor can be omitted. This adds a reason why including the lowly participant is essential, beyond merely expressing goodwill."
+        },
+        {
+          "ref": "Sod Yesharim, Purim 37:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after reading the complete target: Netzach and Hod as legs signify inner attributes emerging in action; after serving through the attributes, Yaakov’s path recognizes their unity in the source beyond them. The initial service condition is part of the displayed quotation."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 25:5",
+      "sectionRef": "Peri Tzadik, Chanukah 25",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "9c440393df49a3cd20b24c82ae0ebdce5f2ffef4aff54a66aa36d1eac2f85d22",
+      "reviewedSectionHebrewSha256": "c7cd89247db1a8b7d994759097ea94167e97ea7e3954afcf14db1dcbd67d33a1",
+      "assessment": "Read the complete account of Arnon, the excluded lepers who reveal the miracle, Torah’s wars ending in love, manna and the well, Moshe/Aharon/Miriam, the generous transmission of Torah reasoning, wilderness-like humility, the book of Yehoshua and each person’s place in Torah, the court’s instruction, and Chanukah’s concealed light. Three comparisons supply distinct mechanisms: a mediating understanding joining opponents, questions and answers penetrating concealment, and study disclosing the Torah’s light while repairing sin. The full Tzidkat 188 continuation explicitly warns of pride and requires truth, humility, and righteousness; this qualification is stated in the explanation. The selected contiguous quotation ends before the inherited expansion וכדברי שמאי. The primary Tzidkat witness reads וכד״ש at Shabbat 145b, referring to the Talmud’s statement, not Shammai: https://wiki.jewishbooks.org.il/mediawiki/wiki/צדקת_הצדיק/קפח. The canonical text and its pin are preserved.",
+      "candidatesReviewed": [
+        {
+          "ref": "Tzidkat HaTzadik 188:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after reading the complete target: opposing positions create a need for a mediating understanding and can establish students. The visible excerpt first describes two gentle partners who share awe, then distinguishes the sharp Babylonian inquiry. The explanation also carries the later warning against pride and the explicit truth/humility/righteousness condition."
+        },
+        {
+          "ref": "Sod Yesharim, Simchat Torah 5:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after reading the complete target: Moshe’s gift of incisive reasoning is explained through questions and resolutions removing screens until the teaching’s depth is reached. Its extension to receiving worldly benefit is retained as part of the section’s effort/gift argument."
+        },
+        {
+          "ref": "Takanat HaShavin 6:88",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after reading the complete target: the Written Torah’s original light would have made everything accessible; sin conceals it, and Oral Torah study both reveals the light and repairs the obstruction. The time/soul/place distinction also explains the particular role of Yehoshua’s book."
+        },
+        {
+          "ref": "Beit Yaakov on Torah, Lech Lecha 14:6",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not newly approved: the full target’s third element unifies cosmological opposites and supports Avraham’s recognition beyond nature. It does not explain the actual work of Torah companions as directly as Tzidkat 188’s mediating understanding."
+        },
+        {
+          "ref": "Sod Yesharim, Simchat Torah 14:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not newly approved: its full discussion links Moshe’s gift of reasoning to awareness of infinite value and spiritual acquisition. At this paragraph it would repeat the already retained Simchat Torah 5 account of questions revealing the source; no additional card was created for the common citation alone."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 25:6",
+      "sectionRef": "Peri Tzadik, Chanukah 25",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "a03d201fdf32385e0ff609d6a16c6f5996e0a1aa25363612d1360431906faa6e",
+      "reviewedSectionHebrewSha256": "c7cd89247db1a8b7d994759097ea94167e97ea7e3954afcf14db1dcbd67d33a1",
+      "assessment": "Read all contrasting study methods, the Yosef/Yochanan name examples, the explicitly unresolved composer chronology of Al HaNissim, the three statutes and their prior divine bond, the courtyard-lighting proposal, the historical lamp examples, and the annual renewal of the inner sanctuary. Three comparisons explain two methods of study as carriers of hidden Torah, bodily covenant beyond present awareness, and joy generated by perceiving an unbroken divine relation. The last two targets discuss Purim and Sukkot respectively; their conceptual use does not equate festival laws or establish Chanukah history. The uncertain Yochanan identification and the source’s unresolved abbreviation remain explicitly unresolved. The Eikhah story remains an accusation against Jews continuing their festival practice; it is not recast as approval of rejoicing at an infant’s death.",
+      "candidatesReviewed": [
+        {
+          "ref": "Poked Akarim 6:5",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after reading the complete target: the differing valuations of Mishnah and analytical Talmud reflect the Israel/Babylonia study traditions, yet both contain the Torah’s hidden wine. The target keeps the two opinions distinct rather than reducing them to one method."
+        },
+        {
+          "ref": "Sod Yesharim, Purim 30:3",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after reading the complete target: circumcision signifies Torah engraved in the physical body even without present conscious awareness, including sleep and the bathhouse. This directly illuminates the infant-covenant argument while retaining the separate Purim setting."
+        },
+        {
+          "ref": "Sod Yesharim, Sukkot 70:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after reading the complete target: the water-drawing celebration’s abundant light expresses joy at recognizing an enduring relation to God. This explains the inward significance of joy expressed through lighting; it is not presented as evidence for the origin of the Chanukah custom."
+        },
+        {
+          "ref": "Sichat Malakhei HaSharet 1:8",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not newly approved: the complete target contrasts halakhic analysis with aggadic apprehension and its generation of awe. That is a different axis from Pri Tzadik’s mapping of Yosef’s awe and Hillel’s gentleness; the shared Israel/Babylonia terms alone do not establish the proposed equivalence."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Vayeshev 2",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not newly approved: the full target contrasts Yosef’s legal determination with Yehudah’s fresh discernment of God’s will, including an exceptional suspension-of-law question. That would introduce a different and much more qualified problem into the present analysis of the two study methods."
+        }
+      ]
+    }
+  ]
+}
