@@ -120,7 +120,7 @@ try{
   // family. Separate integration tests cover actual citation/footnote clicks.
   const editionSession=await prepare({width:1280,height:900}),editionPage=await editionSession.newPage();
   await editionPage.goto(base+'#/read/'+hash('Peri Tzadik, Lech Lecha 6'));
-  await editionPage.locator('.connection-idea-marker').first().waitFor();
+  await editionPage.locator('.seg-il .connection-idea-marker').first().waitFor();
   for(const ref of ['Genesis 12:1','Psalms 1:1','Rashi on Genesis 1:1:1','Rashi on Joshua 1:1:1','Rashi on Judges 1:1:1','Rashi on Ruth 1:1:1']){
     await openFixtureCitation(editionPage,ref);
     await editionPage.locator('.source-head .qe').waitFor({state:'visible'});
@@ -133,7 +133,7 @@ try{
   await editionSession.close();
   const rejected=await prepare({width:1280,height:900},{wrongEdition:true}),rejectedPage=await rejected.newPage();
   await rejectedPage.goto(base+'#/read/'+hash('Peri Tzadik, Lech Lecha 6'));
-  await rejectedPage.locator('.connection-idea-marker').first().waitFor();
+  await rejectedPage.locator('.seg-il .connection-idea-marker').first().waitFor();
   await openFixtureCitation(rejectedPage,'Genesis 12:1');
   await rejectedPage.locator('.source-head .source-missing[data-missing="en"]').waitFor({state:'visible'});
   assert.equal(await rejectedPage.locator('.source-head .qe').count(),0);
@@ -146,7 +146,7 @@ try{
   assert.equal(await failedPage.locator('.connected-outline,.reviewed-theme,.connection-idea-marker').count(),0);
   await failed.unroute('**/connected-ideas/catalog.json?*');
   await failedPage.getByRole('button',{name:'Retry source footnotes',exact:true}).click();
-  await failedPage.locator('.connection-idea-marker').first().waitFor();
+  await failedPage.locator('.seg-il .connection-idea-marker').first().waitFor();
   assert.equal(await failedPage.locator('.connected-ideas-load-error').count(),0);await failed.close();
   const stale=await prepare({width:1280,height:900},{staleContext:true}),stalePage=await stale.newPage();
   await stalePage.goto(base+'#/read/'+hash('Peri Tzadik, Lech Lecha 6'));

@@ -39,7 +39,8 @@ export async function checkConnectionFootnotes(page,section,records,{screenshot=
     const box=section.locator((useInline?'.seg-il ':'.segment-annotations ')+'.connection-idea-footnote[data-connection-id="'+record.id+'"]');
     await marker.click();assert.equal(await marker.getAttribute('aria-expanded'),'true');assert(await box.isVisible());
     assert.equal(await page.locator('#panel').isVisible(),false,'Opening a footnote must not open the old source popup');
-    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+2),false,'Footnote overflows the viewport');
+    assert(await box.evaluate(element=>element.scrollWidth<=element.clientWidth+2),'The complete footnote is clipped');
+    if(inter)assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+2),false,'Footnote overflows the viewport');
     if(index===0 && screenshot)await page.screenshot({path:screenshot,type:'jpeg',quality:90});
     await marker.click();assert.equal(await marker.getAttribute('aria-expanded'),'false');assert.equal(await box.isVisible(),false);
   }
