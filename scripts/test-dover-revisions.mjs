@@ -41,6 +41,13 @@ const read = async file => {
   return Buffer.from(await response.arrayBuffer());
 };
 const json = async file => JSON.parse((await read(file)).toString('utf8'));
+// The user-authorized two-volume Word replacement supersedes the historical
+// fixed prose and note numbers. Keep testing that older edition during its
+// build stage; verify the current reader directly against Word after publish.
+if ((await json('data/dover-tzedek/toc.json')).manuscriptEdition?.release === '20261020-dover-kdp-manuscripts-v1') {
+  await import('./test-dover-kdp.mjs');
+  process.exit(0);
+}
 const report = await json('dover-revisions-report.json');
 assert.equal(report.release, release, 'Unexpected Dover revisions release');
 const cleanBytes = gunzipSync(fs.readFileSync('sources/akiva/overlays/dover-clean-base-20261018.json.gz'));

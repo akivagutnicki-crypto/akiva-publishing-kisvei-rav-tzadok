@@ -1,0 +1,659 @@
+{
+  "provider": "Sefaria name API and checked-in folio reference map",
+  "corrections": {
+    "Asarah Maamarot, Maamar Chikur Din, III:11": [],
+    "Bnei Chayei, Likkutim, cited by Chida in Ge’ulas Olam on the Pesach Haggadah, Maggid, “We Were Slaves in Egypt” 2": [],
+    "Avodah Zarah 44b, Mishnah": [
+      {
+        "ref": "Avodah Zarah 44b",
+        "url": "https://www.sefaria.org/Avodah_Zarah.44b"
+      }
+    ],
+    "Berakhot 26a, opening Mishnah of Tefillas HaShachar": [
+      {
+        "ref": "Berakhot 26a",
+        "url": "https://www.sefaria.org/Berakhot.26a"
+      }
+    ],
+    "Berakhot 4b, joining redemption to the evening prayer": [
+      {
+        "ref": "Berakhot 4b",
+        "url": "https://www.sefaria.org/Berakhot.4b"
+      }
+    ],
+    "Bereshit Rabbah 11:5, the account of Turnus Rufus": [
+      {
+        "ref": "Bereshit Rabbah 11:5",
+        "url": "https://www.sefaria.org/Bereshit_Rabbah.11.5"
+      }
+    ],
+    "Eliyahu Rabbah 8": [
+      {
+        "ref": "Tanna DeBei Eliyahu Rabbah 8",
+        "url": "https://www.sefaria.org/Tanna_DeBei_Eliyahu_Rabbah.8"
+      }
+    ],
+    "Bava Batra 16a; Kiddushin 30b": [
+      {
+        "ref": "Bava Batra 16a",
+        "url": "https://www.sefaria.org/Bava_Batra.16a"
+      },
+      {
+        "ref": "Kiddushin 30b",
+        "url": "https://www.sefaria.org/Kiddushin.30b"
+      }
+    ],
+    "Introduction to the Zohar 2a, Sulam translation": [
+      {
+        "ref": "Zohar, Introduction 4:12-5:21",
+        "url": "https://www.sefaria.org/Zohar,_Introduction.4.12-5.21"
+      }
+    ],
+    "Jerusalem Talmud, Berachos 5:2": [
+      {
+        "ref": "Jerusalem Talmud Berakhot 5:2",
+        "url": "https://www.sefaria.org/Jerusalem_Talmud_Berakhot.5.2"
+      }
+    ],
+    "Jerusalem Talmud, Berachos 1:2": [
+      {
+        "ref": "Jerusalem Talmud Berakhot 1:2",
+        "url": "https://www.sefaria.org/Jerusalem_Talmud_Berakhot.1.2"
+      }
+    ],
+    "Ecclesiastes 2:14; Tamid 32a": [
+      {
+        "ref": "Ecclesiastes 2:14",
+        "url": "https://www.sefaria.org/Ecclesiastes.2.14"
+      },
+      {
+        "ref": "Tamid 32a",
+        "url": "https://www.sefaria.org/Tamid.32a"
+      }
+    ],
+    "Jerusalem Talmud, Kesubos 1:2": [
+      {
+        "ref": "Jerusalem Talmud Ketubot 1:2",
+        "url": "https://www.sefaria.org/Jerusalem_Talmud_Ketubot.1.2"
+      }
+    ],
+    "Jerusalem Talmud, Makkos 2:6": [
+      {
+        "ref": "Jerusalem Talmud Makkot 2:6",
+        "url": "https://www.sefaria.org/Jerusalem_Talmud_Makkot.2.6"
+      }
+    ],
+    "Mechilta, Beshalach, Shirah 3": [],
+    "Jerusalem Talmud, Yoma 1:1": [
+      {
+        "ref": "Jerusalem Talmud Yoma 1:1",
+        "url": "https://www.sefaria.org/Jerusalem_Talmud_Yoma.1.1"
+      }
+    ],
+    "Mishnah Berakhot 11:2": [],
+    "Ketubot 59b, Mishnah": [
+      {
+        "ref": "Ketubot 59b",
+        "url": "https://www.sefaria.org/Ketubot.59b"
+      }
+    ],
+    "Peri HaAretz, Lech Lecha, paragraph beginning “Our Sages said: Circumcision in that place”": [],
+    "Ketubot 59b (Mishnah)": [
+      {
+        "ref": "Ketubot 59b",
+        "url": "https://www.sefaria.org/Ketubot.59b"
+      }
+    ],
+    "Maimonides, Mishneh Torah, Laws of Mikvaot 11:12": [
+      {
+        "ref": "Mishneh Torah, Immersion Pools 11:12",
+        "url": "https://www.sefaria.org/Mishneh_Torah,_Immersion_Pools.11.12"
+      }
+    ],
+    "Middos 2:5": [
+      {
+        "ref": "Mishnah Middot 2:5",
+        "url": "https://www.sefaria.org/Mishnah_Middot.2.5"
+      }
+    ],
+    "Job 37:22; Bava Basra 25b": [
+      {
+        "ref": "Job 37:22",
+        "url": "https://www.sefaria.org/Job.37.22"
+      },
+      {
+        "ref": "Bava Batra 25b",
+        "url": "https://www.sefaria.org/Bava_Batra.25b"
+      }
+    ],
+    "Pirkei Avot DeRabbi Nassan 29": [
+      {
+        "ref": "Avot DeRabbi Natan 29",
+        "url": "https://www.sefaria.org/Avot_DeRabbi_Natan.29"
+      }
+    ],
+    "Rambam, Sefer HaMitzvos, positive commandment 212": [],
+    "Rambam, Hilchos Teshuvah 5:5": [
+      {
+        "ref": "Mishneh Torah, Repentance 5:5",
+        "url": "https://www.sefaria.org/Mishneh_Torah,_Repentance.5.5"
+      }
+    ],
+    "Rambam, Hilchos Issurei Biah 22:21": [
+      {
+        "ref": "Mishneh Torah, Forbidden Intercourse 22:21",
+        "url": "https://www.sefaria.org/Mishneh_Torah,_Forbidden_Intercourse.22.21"
+      }
+    ],
+    "Nedarim 22a; Deuteronomy 28:65": [
+      {
+        "ref": "Nedarim 22a",
+        "url": "https://www.sefaria.org/Nedarim.22a"
+      },
+      {
+        "ref": "Deuteronomy 28:65",
+        "url": "https://www.sefaria.org/Deuteronomy.28.65"
+      }
+    ],
+    "Shir HaShirim Rabbah, Introduction 8": [],
+    "Shir HaShirim Rabbah, Introduction 9": [],
+    "Sifra, Bechukosai, chapter 1, paragraph 7": [],
+    "Rabbeinu Yonah on Berachos, Rif 6a, first comment": [
+      {
+        "ref": "Rabbeinu Yonah on Berakhot 6a:1",
+        "url": "https://www.sefaria.org/Rabbeinu_Yonah_on_Berakhot.6a.1"
+      }
+    ],
+    "Rambam, Hilchos Talmud Torah 1:2": [
+      {
+        "ref": "Mishneh Torah, Torah Study 1:2",
+        "url": "https://www.sefaria.org/Mishneh_Torah,_Torah_Study.1.2"
+      }
+    ],
+    "Rashi on Berachos 25a, “But for prayer”": [
+      {
+        "ref": "Rashi on Berakhot 25a",
+        "url": "https://www.sefaria.org/Rashi_on_Berakhot.25a"
+      }
+    ],
+    "Rema on Shulchan Aruch, Orach Chaim 656:1": [
+      {
+        "ref": "Shulchan Arukh, Orach Chayim 656:1",
+        "url": "https://www.sefaria.org/Shulchan_Arukh,_Orach_Chayim.656.1"
+      }
+    ],
+    "Sotah 20a (Mishnah)": [
+      {
+        "ref": "Sotah 20a",
+        "url": "https://www.sefaria.org/Sotah.20a"
+      }
+    ],
+    "Sotah 44a (Mishnah)": [
+      {
+        "ref": "Sotah 44a",
+        "url": "https://www.sefaria.org/Sotah.44a"
+      }
+    ],
+    "Tanchuma, Va’eira 9": [
+      {
+        "ref": "Midrash Tanchuma, Vaera 9",
+        "url": "https://www.sefaria.org/Midrash_Tanchuma,_Vaera.9"
+      }
+    ],
+    "Targum Yonassan to Bereishis 50:13": [
+      {
+        "ref": "Targum Jonathan on Genesis 50:13",
+        "url": "https://www.sefaria.org/Targum_Jonathan_on_Genesis.50.13"
+      }
+    ],
+    "Sotah 21a; Proverbs 6:23": [
+      {
+        "ref": "Sotah 21a",
+        "url": "https://www.sefaria.org/Sotah.21a"
+      },
+      {
+        "ref": "Proverbs 6:23",
+        "url": "https://www.sefaria.org/Proverbs.6.23"
+      }
+    ],
+    "Tikkunei Zohar, Second Introduction, “Patach Eliyahu,” 17a": [
+      {
+        "ref": "Tikkunei Zohar 17a",
+        "url": "https://www.sefaria.org/Tikkunei_Zohar.17a"
+      }
+    ],
+    "Taanit 31a; Kesubos 59b": [
+      {
+        "ref": "Taanit 31a",
+        "url": "https://www.sefaria.org/Taanit.31a"
+      },
+      {
+        "ref": "Ketubot 59b",
+        "url": "https://www.sefaria.org/Ketubot.59b"
+      }
+    ],
+    "Tikkunei Zohar, Tikkun 10, 25b": [
+      {
+        "ref": "Tikkunei Zohar 25b",
+        "url": "https://www.sefaria.org/Tikkunei_Zohar.25b"
+      }
+    ],
+    "Tikkunei Zohar, Tikkun 13, 29a": [
+      {
+        "ref": "Tikkunei Zohar 29a",
+        "url": "https://www.sefaria.org/Tikkunei_Zohar.29a"
+      }
+    ],
+    "Tosafos, Pesachim 91b": [
+      {
+        "ref": "Tosafot on Pesachim 91b",
+        "url": "https://www.sefaria.org/Tosafot_on_Pesachim.91b"
+      }
+    ],
+    "Tosafos on Berachos 17a": [
+      {
+        "ref": "Tosafot on Berakhot 17a",
+        "url": "https://www.sefaria.org/Tosafot_on_Berakhot.17a"
+      }
+    ],
+    "Tosafos, Sanhedrin 11a": [
+      {
+        "ref": "Tosafot on Sanhedrin 11a",
+        "url": "https://www.sefaria.org/Tosafot_on_Sanhedrin.11a"
+      }
+    ],
+    "Tosafos on Shabbos 12b, “Rabbi Natan Says: He Read and Tilted”": [
+      {
+        "ref": "Tosafot on Shabbat 12b",
+        "url": "https://www.sefaria.org/Tosafot_on_Shabbat.12b"
+      }
+    ],
+    "Tosafot Yom Tov, Opening to the Mishnah, “Six orders of Mishnah”": [
+      {
+        "ref": "Tosafot Yom Tov Introduction to the Mishnah",
+        "url": "https://www.sefaria.org/Tosafot_Yom_Tov_Introduction_to_the_Mishnah"
+      }
+    ],
+    "Tosafot on Sukkah 13a, “With three it is called a bundle”": [
+      {
+        "ref": "Tosafot on Sukkah 13a",
+        "url": "https://www.sefaria.org/Tosafot_on_Sukkah.13a"
+      }
+    ],
+    "Yerushalmi Berachos 1:5": [
+      {
+        "ref": "Jerusalem Talmud Berakhot 1:5",
+        "url": "https://www.sefaria.org/Jerusalem_Talmud_Berakhot.1.5"
+      }
+    ],
+    "Yerushalmi Berachos 2:4": [
+      {
+        "ref": "Jerusalem Talmud Berakhot 2:4",
+        "url": "https://www.sefaria.org/Jerusalem_Talmud_Berakhot.2.4"
+      }
+    ],
+    "Yerushalmi Berachos 9:5": [
+      {
+        "ref": "Jerusalem Talmud Berakhot 9:5",
+        "url": "https://www.sefaria.org/Jerusalem_Talmud_Berakhot.9.5"
+      }
+    ],
+    "Yerushalmi Shekalim 6:1": [
+      {
+        "ref": "Jerusalem Talmud Shekalim 6:1",
+        "url": "https://www.sefaria.org/Jerusalem_Talmud_Shekalim.6.1"
+      }
+    ],
+    "Yerushalmi, Makkos 2:6": [
+      {
+        "ref": "Jerusalem Talmud Makkot 2:6",
+        "url": "https://www.sefaria.org/Jerusalem_Talmud_Makkot.2.6"
+      }
+    ],
+    "Zohar I 11a, Introduction": [
+      {
+        "ref": "Zohar, Introduction 18:178-20:188",
+        "url": "https://www.sefaria.org/Zohar,_Introduction.18.178-20.188"
+      }
+    ],
+    "Zohar II 85a, Yisro": [
+      {
+        "ref": "Zohar, Yitro 21:378-22:389",
+        "url": "https://www.sefaria.org/Zohar,_Yitro.21.378-22.389"
+      }
+    ],
+    "Zohar II 88b, Yisro": [
+      {
+        "ref": "Zohar, Yitro 27:453-464",
+        "url": "https://www.sefaria.org/Zohar,_Yitro.27.453-464"
+      }
+    ],
+    "Yoma 72b; Shabbos 88b": [
+      {
+        "ref": "Yoma 72b",
+        "url": "https://www.sefaria.org/Yoma.72b"
+      },
+      {
+        "ref": "Shabbat 88b",
+        "url": "https://www.sefaria.org/Shabbat.88b"
+      }
+    ],
+    "Zohar III 110b, Behar": [
+      {
+        "ref": "Zohar, Behar 7:49-9:59",
+        "url": "https://www.sefaria.org/Zohar,_Behar.7.49-9.59"
+      }
+    ],
+    "Zohar III 175a, Shelach": [
+      {
+        "ref": "Zohar, Sh'lach 46:322-323",
+        "url": "https://www.sefaria.org/Zohar,_Sh'lach.46.322-323"
+      }
+    ],
+    "Zohar III 192b, Balak": [
+      {
+        "ref": "Zohar, Balak 8:140-148",
+        "url": "https://www.sefaria.org/Zohar,_Balak.8.140-148"
+      }
+    ],
+    "Zohar III 215a, Pinchas": [
+      {
+        "ref": "Zohar, Pinchas 9:34-35",
+        "url": "https://www.sefaria.org/Zohar,_Pinchas.9.34-35"
+      }
+    ],
+    "Zohar III 222b, Pinchas": [
+      {
+        "ref": "Zohar, Pinchas 30:170-32:178",
+        "url": "https://www.sefaria.org/Zohar,_Pinchas.30.170-32.178"
+      }
+    ],
+    "Zohar III 224a, Pinchas": [
+      {
+        "ref": "Zohar, Pinchas 37:202-40:217",
+        "url": "https://www.sefaria.org/Zohar,_Pinchas.37.202-40.217"
+      }
+    ],
+    "Zohar II 192b, Ki Sisa": [
+      {
+        "ref": "Zohar, Ki Tisa 11:78-88",
+        "url": "https://www.sefaria.org/Zohar,_Ki_Tisa.11.78-88"
+      }
+    ],
+    "Zohar I 35b, Bereishis": [
+      {
+        "ref": "Zohar, Bereshit 42:429-44:441",
+        "url": "https://www.sefaria.org/Zohar,_Bereshit.42.429-44.441"
+      }
+    ],
+    "Zohar III 281a, Ki Seitzei (Ra’aya Mehemna)": [
+      {
+        "ref": "Zohar, Ki Teitzei 20:98-22:108",
+        "url": "https://www.sefaria.org/Zohar,_Ki_Teitzei.20.98-22.108"
+      }
+    ],
+    "Zohar I 1b, Introduction": [
+      {
+        "ref": "Zohar, Introduction 2:4-4:12",
+        "url": "https://www.sefaria.org/Zohar,_Introduction.2.4-4.12"
+      }
+    ],
+    "Zohar II 193a, Ki Sisa": [
+      {
+        "ref": "Zohar, Ki Tisa 11:88-99",
+        "url": "https://www.sefaria.org/Zohar,_Ki_Tisa.11.88-99"
+      }
+    ],
+    "Zohar III 89a, Emor": [
+      {
+        "ref": "Zohar, Emor 3:12-6:22",
+        "url": "https://www.sefaria.org/Zohar,_Emor.3.12-6.22"
+      }
+    ],
+    "Zohar, Acharei Mos 57b": [
+      {
+        "ref": "Zohar, Achrei Mot 3:21-4:30",
+        "url": "https://www.sefaria.org/Zohar,_Achrei_Mot.3.21-4.30"
+      }
+    ],
+    "Zohar III 8b, Vayikra, alternative reading": [
+      {
+        "ref": "Zohar, Vayikra 18:111-20:119",
+        "url": "https://www.sefaria.org/Zohar,_Vayikra.18.111-20.119"
+      }
+    ],
+    "Zohar, Balak 208a, Sulam translation": [
+      {
+        "ref": "Zohar, Balak 43:416-424",
+        "url": "https://www.sefaria.org/Zohar,_Balak.43.416-424"
+      }
+    ],
+    "Zohar, Balak 194b, Sulam translation": [
+      {
+        "ref": "Zohar, Balak 13:176-185",
+        "url": "https://www.sefaria.org/Zohar,_Balak.13.176-185"
+      }
+    ],
+    "Zohar, Bamidbar 120b, Sulam translation": [
+      {
+        "ref": "Zohar, Bamidbar 7:65-8:73",
+        "url": "https://www.sefaria.org/Zohar,_Bamidbar.7.65-8.73"
+      }
+    ],
+    "Zohar, Behar 108b, Sulam translation": [
+      {
+        "ref": "Zohar, Behar 4:13-15",
+        "url": "https://www.sefaria.org/Zohar,_Behar.4.13-15"
+      }
+    ],
+    "Zohar, Behar 110b, continuation of the Sulam translation": [
+      {
+        "ref": "Zohar, Behar 7:49-9:59",
+        "url": "https://www.sefaria.org/Zohar,_Behar.7.49-9.59"
+      }
+    ],
+    "Zohar, Beshalach 64b, Sulam translation": [
+      {
+        "ref": "Zohar, Beshalach 30:429-32:441",
+        "url": "https://www.sefaria.org/Zohar,_Beshalach.30.429-32.441"
+      }
+    ],
+    "Zohar, Beshalach 64a": [
+      {
+        "ref": "Zohar, Beshalach 28:418-30:429",
+        "url": "https://www.sefaria.org/Zohar,_Beshalach.28.418-30.429"
+      }
+    ],
+    "Zohar, Emor 105a, Sulam translation": [
+      {
+        "ref": "Zohar, Emor 45:290-47:300",
+        "url": "https://www.sefaria.org/Zohar,_Emor.45.290-47.300"
+      }
+    ],
+    "Zohar, Bo 34a, Sulam translation": [
+      {
+        "ref": "Zohar, Bo 2:28-3:39",
+        "url": "https://www.sefaria.org/Zohar,_Bo.2.28-3.39"
+      }
+    ],
+    "Zohar, Bo 40a, Sulam translation": [
+      {
+        "ref": "Zohar, Bo 8:164-10:173",
+        "url": "https://www.sefaria.org/Zohar,_Bo.8.164-10.173"
+      }
+    ],
+    "Zohar, Mishpatim 111a": [
+      {
+        "ref": "Zohar, Mishpatim 3:310-320",
+        "url": "https://www.sefaria.org/Zohar,_Mishpatim.3.310-320"
+      }
+    ],
+    "Zohar, Mishpatim 103a": [
+      {
+        "ref": "Zohar, Mishpatim 3:161-172",
+        "url": "https://www.sefaria.org/Zohar,_Mishpatim.3.161-172"
+      }
+    ],
+    "Zohar, Mishpatim 112b, Sulam translation": [
+      {
+        "ref": "Zohar, Mishpatim 3:336-345",
+        "url": "https://www.sefaria.org/Zohar,_Mishpatim.3.336-345"
+      }
+    ],
+    "Zohar, Pinchas 233b, Sulam translation": [
+      {
+        "ref": "Zohar, Pinchas 67:390-69:402",
+        "url": "https://www.sefaria.org/Zohar,_Pinchas.67.390-69.402"
+      }
+    ],
+    "Zohar, Pinchas 240b, Sulam translation": [
+      {
+        "ref": "Zohar, Pinchas 84:527-537",
+        "url": "https://www.sefaria.org/Zohar,_Pinchas.84.527-537"
+      }
+    ],
+    "Zohar, Raaya Mehemna, Kedoshim 83b": [
+      {
+        "ref": "Zohar, Kedoshim 8:63-10:71",
+        "url": "https://www.sefaria.org/Zohar,_Kedoshim.8.63-10.71"
+      }
+    ],
+    "Zohar, Shelach Lecha 168b, Sulam translation": [
+      {
+        "ref": "Zohar, Sh'lach 26:210-28:218",
+        "url": "https://www.sefaria.org/Zohar,_Sh'lach.26.210-28.218"
+      }
+    ],
+    "Zohar, Shelach 158b, Sulam translation": [
+      {
+        "ref": "Zohar, Sh'lach 6:31-39",
+        "url": "https://www.sefaria.org/Zohar,_Sh'lach.6.31-39"
+      }
+    ],
+    "Zohar, Sitrei Torah, Vayeitzei 146b": [
+      {
+        "ref": "Zohar, Vayetzei",
+        "url": "https://www.sefaria.org/Zohar,_Vayetzei"
+      }
+    ],
+    "Zohar, Terumah 131a": [
+      {
+        "ref": "Zohar, Terumah 10:81-88",
+        "url": "https://www.sefaria.org/Zohar,_Terumah.10.81-88"
+      }
+    ],
+    "Zohar, Tetzaveh 184b, Sulam translation": [
+      {
+        "ref": "Zohar, Tetzaveh 11:92-13:101",
+        "url": "https://www.sefaria.org/Zohar,_Tetzaveh.11.92-13.101"
+      }
+    ],
+    "Zohar, Vayechi 243b, Sulam translation": [
+      {
+        "ref": "Zohar, Vayechi 69:703-714",
+        "url": "https://www.sefaria.org/Zohar,_Vayechi.69.703-714"
+      }
+    ],
+    "Zohar, Vayechi 250a, Sulam translation": [
+      {
+        "ref": "Zohar, Vayechi 82:836-83:846",
+        "url": "https://www.sefaria.org/Zohar,_Vayechi.82.836-83.846"
+      }
+    ],
+    "Zohar, Vayikra 19a, Sulam commentary": [
+      {
+        "ref": "Zohar, Vayikra 44:315-47:325",
+        "url": "https://www.sefaria.org/Zohar,_Vayikra.44.315-47.325"
+      }
+    ],
+    "Pri Tzaddik, Vol. 2, Parashat Parah, discourse 5, letter 7": [],
+    "Tosafos, Yevamos 22b, ‘He has no son—examine his descendants’": [
+      {
+        "ref": "Tosafot on Yevamot 22b",
+        "url": "https://www.sefaria.org/Tosafot_on_Yevamot.22b"
+      }
+    ],
+    "Peri Tzadik, Parah 5:7": [
+      {
+        "ref": "Mishnah Parah 5:7",
+        "url": "https://www.sefaria.org/Mishnah_Parah.5.7"
+      },
+      {
+        "ref": "Peri Tzadik, Parshat Parah 5:7",
+        "url": "https://www.sefaria.org/Peri_Tzadik,_Parshat_Parah.5.7"
+      }
+    ],
+    "Mei HaShiloach, Volume I, Genesis, Vayigash 1": [
+      {
+        "ref": "Mei HaShiloach, Volume I, Genesis, Vayigash 1",
+        "url": "https://www.sefaria.org/Mei_HaShiloach,_Volume_I,_Genesis,_Vayigash.1"
+      }
+    ],
+    "Beit Yaakov on Torah, Vayigash 2:5": [
+      {
+        "ref": "Beit Yaakov on Torah, Vayigash 2:5",
+        "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Vayigash.2.5"
+      }
+    ],
+    "Beit Yaakov on Torah, Vayishlach 5:6": [
+      {
+        "ref": "Beit Yaakov on Torah, Vayishlach 5:6",
+        "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Vayishlach.5.6"
+      }
+    ],
+    "Beit Yaakov on Torah, Vayigash 9:3": [
+      {
+        "ref": "Beit Yaakov on Torah, Vayigash 9:3",
+        "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Vayigash.9.3"
+      }
+    ],
+    "Beit Yaakov on Torah, Vayigash 12:1": [
+      {
+        "ref": "Beit Yaakov on Torah, Vayigash 12:1",
+        "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Vayigash.12.1"
+      }
+    ]
+  },
+  "unlinked": [
+    {
+      "ref": "Asarah Maamarot, Maamar Chikur Din, III:11",
+      "reason": "No exact supported Sefaria target was established; preserve the complete citation and quotation as text."
+    },
+    {
+      "ref": "Bnei Chayei, Likkutim, cited by Chida in Ge’ulas Olam on the Pesach Haggadah, Maggid, “We Were Slaves in Egypt” 2",
+      "reason": "No exact supported Sefaria target was established; preserve the complete citation and quotation as text."
+    },
+    {
+      "ref": "Mechilta, Beshalach, Shirah 3",
+      "reason": "No exact supported Sefaria target was established; preserve the complete citation and quotation as text."
+    },
+    {
+      "ref": "Mishnah Berakhot 11:2",
+      "reason": "No exact supported Sefaria target was established; preserve the complete citation and quotation as text."
+    },
+    {
+      "ref": "Peri HaAretz, Lech Lecha, paragraph beginning “Our Sages said: Circumcision in that place”",
+      "reason": "No exact supported Sefaria target was established; preserve the complete citation and quotation as text."
+    },
+    {
+      "ref": "Rambam, Sefer HaMitzvos, positive commandment 212",
+      "reason": "No exact supported Sefaria target was established; preserve the complete citation and quotation as text."
+    },
+    {
+      "ref": "Shir HaShirim Rabbah, Introduction 8",
+      "reason": "No exact supported Sefaria target was established; preserve the complete citation and quotation as text."
+    },
+    {
+      "ref": "Shir HaShirim Rabbah, Introduction 9",
+      "reason": "No exact supported Sefaria target was established; preserve the complete citation and quotation as text."
+    },
+    {
+      "ref": "Sifra, Bechukosai, chapter 1, paragraph 7",
+      "reason": "No exact supported Sefaria target was established; preserve the complete citation and quotation as text."
+    },
+    {
+      "ref": "Pri Tzaddik, Vol. 2, Parashat Parah, discourse 5, letter 7",
+      "reason": "No exact supported Sefaria target was established; preserve the complete citation and quotation as text."
+    }
+  ]
+}

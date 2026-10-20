@@ -301,6 +301,15 @@ jobs:
           python scripts/verify-supplied-source-footnotes.py --zips --mcp --browser > supplied-source-footnotes-final-verification.json
           node scripts/test-pri-chanukah25.mjs --zips
 
+      - name: Publish the latest two Dover Tzedek KDP Word manuscripts after historical edition checks
+        run: |
+          node scripts/publish-dover-kdp.mjs
+          node scripts/build-mcp-index.mjs
+          node scripts/build-parallels.mjs
+          node scripts/check-dover-source-links.mjs
+          node scripts/build-library-zips.mjs
+          node scripts/test-dover-kdp.mjs --zips
+
       - name: Build and verify reviewed connections against the final canonical source edition
         run: |
           node scripts/build-reviewed-connections.mjs
@@ -366,10 +375,14 @@ jobs:
       # before checking all final data, source links and browser note boxes. Its
       # Pri coverage supersedes the old exact-prose seasonal/Vayera assertions;
       # those historical assertions still run unchanged before the successor.
-      - name: Verify the complete source-quotation successor and excluded editions on the live reader
+      # The old source-quotation proof protects the former Dover edition. It is
+      # checked unchanged before the authorized KDP successor above. The new
+      # verifier checks both Word manuscripts and every other sefer's unchanged
+      # text against the final archive on the public site.
+      - name: Verify the latest Dover manuscripts and preserved other sefarim on the live reader
         run: |
           for attempt in 1 2 3; do
-            if python scripts/verify-supplied-source-footnotes.py --zips --mcp --browser --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/' > supplied-source-footnotes-live-verification.json; then
+            if node scripts/test-dover-kdp.mjs --zips --data-only --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/' > supplied-source-footnotes-live-verification.json; then
               cat supplied-source-footnotes-live-verification.json
               exit 0
             fi

@@ -144,7 +144,14 @@ function paragraphsOf(items, where) {
     }
     const para = { n: it.n || paras.length + 1, p: pairs };
     if (notes.length) para.f = notes;
-    const places = citationPlaces(parts);
+    let places = citationPlaces(parts);
+    // The current Dover Word edition stores its full quotations beside their
+    // Hebrew anchors. Include those exact note sources in citation searches.
+    if (it.sourceVolume) for (const note of it.footnotes || []) for (const source of note.sources || []) {
+      if (!source.ref) continue;
+      places ??= {};
+      places[source.ref] ??= ['n', String(note.number)];
+    }
     if (places) para.a = places;
     if (it.transcriptionNotes?.length) para.x = it.transcriptionNotes.map(plain);
     if (pending.length) { para.h = pending; pending = []; }
