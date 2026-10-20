@@ -55,8 +55,11 @@ try{
     const page=await context.newPage(),errors=[];
     page.on('pageerror',error=>errors.push(error.message));
     await page.goto(base+'#/book/Peri_Tzadik');
-    const tocLink=page.locator(`#toc a[href="#/read/${hash(CHANUKAH25_REF)}"]`);
-    await tocLink.waitFor();assert.equal(await tocLink.count(),1,'Exactly one canonical interlinear TOC route');
+    // The retained Hebrew contents also link to this stable ref. Select the
+    // dedicated interlinear card, whose label identifies the new edition.
+    const tocLink=page.locator(`#toc a.btn.single[href="#/read/${hash(CHANUKAH25_REF)}"]`);
+    await tocLink.waitFor();assert.equal(await tocLink.count(),1,'Exactly one dedicated interlinear TOC card');
+    assert.equal(await tocLink.textContent(),'Read · 6 paragraphs · interlinear English');
     await tocLink.click();
     const section=page.locator(`#text > .sec[data-ref="${CHANUKAH25_REF}"]`);
     await section.locator('.seg-il .ph-he').first().waitFor({state:'visible'});
