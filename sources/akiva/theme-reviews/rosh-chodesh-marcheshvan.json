@@ -1,0 +1,177 @@
+{
+  "schemaVersion": 1,
+  "reviewedOn": "2026-10-19",
+  "method": "The complete canonical Rosh Chodesh manuscript and all four numbered Mar Cheshvan arguments were read in the reader’s preferred interlinear edition. These five paragraph references are the five actual reader units; alternate Hebrew numbering is not counted again. The finite candidate comparisons below were individually read in both schools, with sufficient surrounding context to assess the relation. New English was checked against exact Hebrew; accepted relations and rejected comparisons are distinguished. This records completion of this documented review pass, not an exhaustive proof that no further illuminating parallel exists.",
+  "entries": [
+    {
+      "ref": "Peri Tzadik, Rosh Chodesh (manuscript):1",
+      "sectionRef": "Peri Tzadik, Rosh Chodesh (manuscript)",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "cebaff87d1357d48baf70d645c00466181a2b004f05ce22708dbf64c3178027f",
+      "reviewedSectionHebrewSha256": "cebaff87d1357d48baf70d645c00466181a2b004f05ce22708dbf64c3178027f",
+      "assessment": "Read the whole manuscript introduction, including the calendar entrusted to Moses and Aaron, Israel’s sanctification, the sun/moon and Written/Oral Torah relation, and the final distinction between universal holiness and its graded transmission. Three approved passages explain the sanctification paradox, why individualized Oral Torah remains divine teaching, and why Aaron’s special role belongs within the holiness of one people. The comparison was made to the full target paragraphs and relevant neighboring context; no reverse or claim of a complete target-book review is made.",
+      "candidatesReviewed": [
+        {
+          "ref": "Sod Yesharim, Rosh Hashanah 61:2",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved: Sod Yesharim explains the apparent reversal in Rav Tzadok’s reading. Israel receive holiness from its source, yet their surrender and service disclose a holiness rooted above their present understanding. God chooses to describe the manifestation of heavenly honor as completed through that service. The passage’s ‘as it were’ is essential to the way it speaks of God’s holiness being established through Israel. This supplies the conceptual basis for entrusting sanctification to people."
+        },
+        {
+          "ref": "Sichat Malakhei HaSharet 1:10",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: Sichat Malakhei HaSharet explains what the human contribution can add: the common principles of Torah take particular forms suited to different souls and circumstances. This illuminates how the Sages’ own analysis can be both their distinctive contribution and divine teaching. The surrounding discussion concerns the discernment of qualified Torah teachers; the comparison does not turn every private opinion into an equally authoritative ruling."
+        },
+        {
+          "ref": "Yisrael Kedoshim 5:4",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: Yisrael Kedoshim gives Rav Tzadok’s distinction an organic form: Israel constitute one living whole, while its members have different capacities to receive and transmit holiness. Aaron’s special role belongs within that shared life. This helps explain why the holiness of the entire people is compatible with the need for Aaron to establish Torah in their hearts."
+        },
+        {
+          "ref": "Divrei Soferim 1:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Rejected here: its discussion of an individual’s distinctive joy and special spiritual aptitude does not establish the collective authority to sanctify the calendar or innovate Oral Torah."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume II, Genesis, Noach 1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected at this anchor: the discussion of Noah, the tower and unity under God is less precise than the selected account of holiness attributed to Israel’s service."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Rosh Chodesh Cheshvan:1",
+      "sectionRef": "Peri Tzadik, Rosh Chodesh Cheshvan",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "b3d0f64edd8b3b6395bb717e1fa00a930a87177494defd1a1ba847aa9f66f609",
+      "reviewedSectionHebrewSha256": "d6a08c99af1c3e205952e4d73f8da778e66f9b6b5aa60eae8ac0e3b6da574ad5",
+      "assessment": "Read the whole first ois from nun, Malchut and judgment through the Flood, the Temple’s enduring Presence, David’s fallen sukkah, the distinction between lazy and restorative sleep, and the transition toward Kislev. The three approvals address distinct movements: awe accompanying fuller revelation, Torah giving the first strength to rise, and Torah in the heart qualifying restorative rest. Shared references to awe or judgment alone were not sufficient.",
+      "candidatesReviewed": [
+        {
+          "ref": "Tzidkat HaTzadik 204:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: Tzidkat HaTzadik supplies a criterion for the distinction between restorative rest and abandonment. The Torah already rooted in a person continues to shape even the interval of diminished attention. This explains how the interruption itself can serve renewed life in Torah, while preserving Rav Tzadok’s requirement that it actually lead to renewed effort."
+        },
+        {
+          "ref": "Tzidkat HaTzadik 236:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: Tzidkat HaTzadik describes how the first support can reach someone who cannot yet produce a feeling of closeness or even a brokenhearted appeal. Truthful Torah speech can precede that emotional renewal and restore the capacity to rise. This gives a concrete path to the support and renewed beginning urged in Mar Cheshvan. The contrast describes spiritual capacity in this condition; it is not a ruling that such a person should stop praying."
+        },
+        {
+          "ref": "Sod Yesharim, Sukkot 8:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved: Sod Yesharim explains why a greater revelation produces a greater need for awe. Being entrusted with service that contributes to heavenly honor can itself invite self-importance; awe keeps the recipient aware of the Giver. This develops Rav Tzadok’s distinction between fear of punishment and the humility that accompanies awareness of the Divine Presence."
+        },
+        {
+          "ref": "Kometz HaMinchah 2:49:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Read in full; not added here. Judgment leading through awe and repentance to healing is related, but the selected passages more directly illuminate this ois’s Temple, falling and sleep arguments."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Rosh Chodesh Cheshvan:2",
+      "sectionRef": "Peri Tzadik, Rosh Chodesh Cheshvan",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "2030d56080060adbb4447ae1342181477be3550f0da3e4043331378142549816",
+      "reviewedSectionHebrewSha256": "d6a08c99af1c3e205952e4d73f8da778e66f9b6b5aa60eae8ac0e3b6da574ad5",
+      "assessment": "Read the whole second ois: the harsh-decree season, the Flood generation’s possibility of receiving Torah, the deep and heavenly waters, forty days of reception after the Tishrei renewal, the Temple, and the concluding yoke of Oral Torah. The approved Tzidkat passage preserves the conditional character of a time being suited to good; Sod Yesharim explains restraint and acknowledgment as the vessel that makes the same flow useful. Neither comparison presents seasonal potential as a guaranteed outcome.",
+      "candidatesReviewed": [
+        {
+          "ref": "Tzidkat HaTzadik 76:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: Tzidkat HaTzadik extends the Flood’s unrealized possibility to the individual: a powerful desire can be redirected toward a corresponding good. It also explains the condition in Rav Tzadok’s seasonal reading. A time being suited to blessing does not guarantee the result; the final example explicitly identifies the mistake of treating potential as a promise. Accepting the yoke of Torah is the response that the Mar Cheshvan passage calls for."
+        },
+        {
+          "ref": "Sod Yesharim, Sukkot 55:2",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved: Sod Yesharim supplies a mechanism for the change from destructive waters to useful rain. Restraint and recognition of the Giver make the recipient capable of receiving abundance within a fitting measure. This illuminates why Rav Tzadok joins the promise of rain to the yoke and exertion of Torah: disciplined reception gives the flow a form in which it can become blessing."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Vayeshev 2",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected here after reading the Vayeshev discussion: Ephraim and Judah’s different relations to halakhic precision and divine depth do not supply the mechanism of the season’s rain becoming blessing."
+        },
+        {
+          "ref": "Tiferet Yosef, Talmud Anthology, Taanit 13",
+          "school": "Ishbitz–Radzin",
+          "reason": "Read but not selected here: the passage about wine, clear awareness and the future circle is more directly useful for Lech Lecha5 than this ois’s rain and Torah-yoke argument."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Rosh Chodesh Cheshvan:3",
+      "sectionRef": "Peri Tzadik, Rosh Chodesh Cheshvan",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "ffda9690937a33719fa53299eeb5fdf06edbea6545f3acabfef27903e13a6ef0",
+      "reviewedSectionHebrewSha256": "d6a08c99af1c3e205952e4d73f8da778e66f9b6b5aa60eae8ac0e3b6da574ad5",
+      "assessment": "Read the whole third ois, including the letter nun, smell, Joseph’s temptation, fear as the permanence of Torah, performance for its own sake, the covenant, the brothers’ suspicion, and servitude. Approvals explain awe through conduct and preservation, then distinguish the brothers’ suspicion from Joseph’s proven purity. The Kometz excerpt retains canonical Hebrew but supplies the directly verified Shabbat88b locator for the dew at Sinai. Rejected fragrance comparisons were not promoted on the basis of a shared verse.",
+      "candidatesReviewed": [
+        {
+          "ref": "Kometz HaMinchah 2:57:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: Kometz gives the awe described in Mar Cheshvan a practical meaning: accepting Torah’s authority places limits on conduct. This connects the heart’s enduring wisdom with the earlier requirement to perform Torah for its own sake. Citation clarification: the displayed Hebrew edition places a Ta’anit 5a locator beside the dew at Sinai; the passage describing that revival is Shabbat 88b. The Hebrew quotation is preserved, and the clarified source is distinguished from that inherited locator."
+        },
+        {
+          "ref": "Beit Yaakov on Torah, Vayera 12:5",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved: Beit Yaakov explains permanence through the image of grain and its preservative. Restraint does not produce the grain, yet it enables the good already received to endure. The passage then connects that restraint to circumcision and the capacity to receive holiness without being swallowed into another power. It therefore illuminates both Rav Tzadok’s claim that awe preserves Torah and the adjoining discussion of covenant and servitude."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Vayeshev 5",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved: Mei HaShiloach keeps the brothers’ judgment explicitly uncertain and reads the later trial as the clarification of Joseph’s innocence. This helps the reader preserve Rav Tzadok’s distinction between what the brothers suspected and what was true of Joseph. It also explains how the trial involving the covenant addresses the earlier accusation involving speech, joining the section’s opening account of purity to its account of the sale."
+        },
+        {
+          "ref": "Sod Yesharim, Yom Kippur 46:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected here: the full incense passage explains gathering hidden holy sparks and their fragrance; a shared fragrance image does not by itself explain Joseph’s purity in his sexual trial or awe making Torah permanent."
+        },
+        {
+          "ref": "Tzidkat HaTzadik 150:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Read in full; rejected at the awe/permanence anchor because the opposition of spiritual powers does not explain the specific preserving work of awe."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Rosh Chodesh Cheshvan:4",
+      "sectionRef": "Peri Tzadik, Rosh Chodesh Cheshvan",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "6bc4c9a0e78f63c15260e37925272ee26d6db389a773859fabba47c37d4ee111",
+      "reviewedSectionHebrewSha256": "d6a08c99af1c3e205952e4d73f8da778e66f9b6b5aa60eae8ac0e3b6da574ad5",
+      "assessment": "Read the whole fourth ois from the serpent’s enticement through eating and bodily desire to the task of the month, the study house, future joy in Torah, and receiving the yoke of Torah. The approvals explain why communal study with a formed teacher can redirect the inclination, and distinguish desire’s retained capacity for joy from the evil form that is annulled. Complete selected target passages and their argument were read; the qualification about evil’s annulment remains visible in the excerpt.",
+      "candidatesReviewed": [
+        {
+          "ref": "Divrei Soferim 26:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: Divrei Soferim develops the precise setting of Rav Tzadok’s counsel. The study house adds communal learning and the speech of a teacher whose Torah has worked upon his own inclinations. This explains why bringing desire into that setting can be more effective than relying on isolated effort, and gives practical content to the paragraph’s final emphasis on the renewal of Oral Torah."
+        },
+        {
+          "ref": "Sod Yesharim, Rosh Hashanah 61:7",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved: Sod Yesharim explains the distinction within the claim that the inclination will remain. Its capacity can become a garment through which the joy of Torah appears, while the evil that treats itself as independent is annulled. This sharpens the work described in Mar Cheshvan: retain and redirect the power of desire, with its purpose and allegiance changed. The full excerpt preserves the explicit qualification that evil itself disappears."
+        }
+      ]
+    }
+  ]
+}
