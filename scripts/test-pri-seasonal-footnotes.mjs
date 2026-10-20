@@ -7,6 +7,7 @@ import {createHash} from 'node:crypto';
 import {gunzipSync} from 'node:zlib';
 import {createRequire} from 'node:module';
 import {readMissingFootnotes,recoverOriginalItems,hasImportedNotes,MISSING_FOOTNOTE_COUNT} from './import-pri-missing-footnotes.mjs';
+import {CHANUKAH25_REF,validatePublishedChanukah25} from './pri-chanukah25.mjs';
 
 const release='20261016-pri-seasonal-1407-v1';
 const rootAt=process.argv.indexOf('--root');
@@ -98,7 +99,11 @@ for(const target of missingPack.targets){
 }
 assert.ok(filledTargets===0||filledTargets===missingPack.targets.length,'The later source-note edition is incomplete');
 assert.equal(verifiedAddedNotes,filledTargets?MISSING_FOOTNOTE_COUNT:0,'Verified additional source-note count');
-assert.equal(report.release,release);assert.equal(report.notes,1407);assert.equal(report.sections,42);assert.equal(report.totalBookNotes,3240+verifiedAddedNotes);
+const additionalLeaves=[];function findAdditional(n){if(n.interlinear&&n.ref===CHANUKAH25_REF)additionalLeaves.push(n);for(const c of n.children||[])findAdditional(c);}findAdditional(toc.toc);
+assert.ok(additionalLeaves.length<=1,'Duplicate new Chanukah edition');
+const newChanukah=additionalLeaves.length?validatePublishedChanukah25(additionalLeaves[0],await read('data/peri-tzadik/'+additionalLeaves[0].id+'.json')):null;
+assert.equal(report.release,release);assert.equal(report.notes,1407);assert.equal(report.sections,42);
+assert.equal(report.totalBookNotes,3240+verifiedAddedNotes+(newChanukah?.noteCount||0));
 assert.equal(report.sourceSHA256,'52e53d19420823db61c6772770e84cd8e1719596b736ee7affd3b0540d020eba');
 const leaves=[];function walk(n){if(n.ref)leaves.push(n);for(const c of n.children||[])walk(c);}walk(toc.toc);
 const expectations=[],seenNumbers=new Set(),links=await read('data/peri-tzadik/links.json');

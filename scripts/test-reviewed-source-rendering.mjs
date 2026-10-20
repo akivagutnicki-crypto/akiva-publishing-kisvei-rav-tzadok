@@ -80,6 +80,27 @@ const chapterTwo = {
 };
 
 try {
+  await check('bilingual source note reuses the quoted pair and excludes editorial prose', async () => {
+    const ref='Fixture Midrash 1:1',url='https://www.sefaria.org/Fixture_Midrash.1.1';
+    const paragraph=(text,language)=>({text,language,rich:[{text}]});
+    const note={verificationStatus:'verified',sources:[{ref,url,role:'primary-source'}],
+      paragraphs:[paragraph('Hebrew quotation','en'),paragraph('מקור עברי מדויק','he'),
+        paragraph('The exact translated source excerpt.','en'),paragraph('Editorial explanation must remain separate.','en')],
+      reviewedSourceExcerpt:{schemaVersion:1,ref,hebrewParagraph:1,englishParagraph:2,he:'מקור עברי מדויק',
+        en:'The exact translated source excerpt.',provenance:'Independently reviewed test fixture',coverage:'excerpt'}};
+    const quote=engine.sourceQuotationFromNote(note,{ref,sourceUrl:url});
+    assert.equal(quote.he,note.paragraphs[1].text);assert.equal(quote.en,note.paragraphs[2].text);
+    assert.equal(quote.coverage,'excerpt');assert.ok(!quote.en.includes('Editorial'));
+    const {loader}=harness({[ref]:{ref,he:['Complete primary Hebrew context.'],en:[]}});
+    const result=await loader({sourceRef:ref,fallbackQuote:quote});
+    assert.deepEqual(serializable(result.footnoteExcerpt),quote);
+    assert.deepEqual(serializable(result.en),[],'An excerpt must not masquerade as a complete source translation');
+    for(const mutate of [n=>n.paragraphs[2].text='Different wording',n=>n.reviewedSourceExcerpt.englishParagraph=3,
+      n=>n.reviewedSourceExcerpt.coverage='complete',n=>n.reviewedSourceExcerpt.ref='Fixture Midrash 1:2',
+      n=>n.verificationStatus='draft']){
+      const changed=structuredClone(note);mutate(changed);assert.equal(engine.sourceQuotationFromNote(changed,{ref}),null);
+    }
+  });
   await check('exact local paragraph excludes neighboring paragraphs', async () => {
     const {loader,requests} = harness({'Fixture Tzadok 1:2':chapterOne});
     const result = await loader({sourceRef:'Fixture Tzadok 1:2'});

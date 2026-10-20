@@ -10,6 +10,7 @@ import {gunzipSync} from 'node:zlib';
 import {createRequire} from 'node:module';
 import {fileURLToPath} from 'node:url';
 import {spawnSync} from 'node:child_process';
+import {CHANUKAH25_REF,validatePublishedChanukah25} from './pri-chanukah25.mjs';
 
 export const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const RELEASE = '20261019-pri-missing-footnotes-v1';
@@ -146,7 +147,11 @@ export async function verifyMissingFootnotes(options={}) {
   assert.equal(report.existingNoteMetadataSha256,ORIGINAL_NOTE_METADATA_SHA);
   assert.equal(report.sections.length,26);
   const leaves = walk(toc.toc).filter(leaf=>leaf.interlinear);
-  const interlinearFiles = leaves.flatMap(leaf=>leaf.depth===1 ? [String(leaf.id)+'.json']
+  const successors = leaves.filter(leaf=>leaf.ref===CHANUKAH25_REF);
+  assert.ok(successors.length<=1,'Duplicate Chanukah 25 successor');
+  const successor = successors.length ? validatePublishedChanukah25(successors[0],
+    await read('data/peri-tzadik/'+successors[0].id+'.json')) : null;
+  const interlinearFiles = leaves.filter(leaf=>leaf.ref!==CHANUKAH25_REF).flatMap(leaf=>leaf.depth===1 ? [String(leaf.id)+'.json']
     : (leaf.ilch || []).map(chapter=>leaf.id+'-'+chapter+'.json')).sort();
   assert.equal(interlinearFiles.length,124); assert.equal(new Set(interlinearFiles).size,124);
   const records = await parallelMap(interlinearFiles,async file=>({file,rows:await read('data/peri-tzadik/'+file)}));
@@ -156,6 +161,12 @@ export async function verifyMissingFootnotes(options={}) {
   assert.ok(records.every(({rows})=>rows.some(row=>row.footnotes?.length)),'An interlinear section still has no notes');
   for(const field of ['number','sourceId','placementId'])
     assert.equal(new Set(allNotes.map(([, ,note])=>note[field])).size,5539,'Duplicate book-wide '+field);
+  if(successor){
+    const combined=[...allNotes.map(([, ,note])=>note),...successor.items.flatMap(row=>row.footnotes||[])];
+    assert.equal(combined.length,5539+successor.noteCount);
+    for(const field of ['number','sourceId','placementId'])assert.equal(new Set(combined.map(note=>note[field])).size,combined.length,
+      'Historical and new Chanukah source notes collide: '+field);
+  }
   const legacy = allNotes.filter(([, ,note])=>note.number<=3240);
   assert.equal(legacy.length,3240);
   const legacyMetadata = legacy.map(([file,n,note])=>[file,n,Object.fromEntries(Object.entries(note).filter(([key])=>!['paragraphs','sources'].includes(key)))]);

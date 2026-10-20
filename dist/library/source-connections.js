@@ -8,7 +8,7 @@
 })(typeof window === 'object' ? window : globalThis, function () {
   'use strict';
   const SCHOOLS = ['Kisvei Rav Tzadok', 'Ishbitz–Radzin'];
-  const VERSION = '20261019-reviewed-connections-v2';
+  const VERSION = '20261020-reviewed-connections-v3';
 
   function decode(value) {
     return String(value || '').replace(/&#(x[\da-f]+|\d+);/gi, (_, n) => {
@@ -57,6 +57,24 @@
     const source = sources[0], exactRef = normalizeRef(source.ref);
     if (!exactRef || (ref && normalizeRef(ref).toLowerCase() !== exactRef.toLowerCase())
         || (sourceUrl && sourceUrl !== source.url)) return null;
+    // New bilingual notes keep the quotation and the editorial explanation in
+    // distinct paragraphs. Reuse only the explicitly identified, exact pair.
+    const excerpt = note.reviewedSourceExcerpt;
+    if (excerpt) {
+      if (excerpt.schemaVersion !== 1 || excerpt.coverage !== 'excerpt'
+          || normalizeRef(excerpt.ref).toLowerCase() !== exactRef.toLowerCase()
+          || !Number.isSafeInteger(excerpt.hebrewParagraph) || !Number.isSafeInteger(excerpt.englishParagraph)
+          || excerpt.hebrewParagraph < 0 || excerpt.englishParagraph < 0 || excerpt.hebrewParagraph === excerpt.englishParagraph
+          || !/[א-ת]/.test(excerpt.he || '') || !/[A-Za-z]/.test(excerpt.en || '')
+          || typeof excerpt.provenance !== 'string' || !excerpt.provenance.trim()) return null;
+      const he = note.paragraphs?.[excerpt.hebrewParagraph], en = note.paragraphs?.[excerpt.englishParagraph];
+      if (he?.language !== 'he' || en?.language !== 'en' || he.text !== excerpt.he || en.text !== excerpt.en
+          || !Array.isArray(he.rich) || !Array.isArray(en.rich)
+          || he.rich.map(run=>run.text || '').join('') !== excerpt.he
+          || en.rich.map(run=>run.text || '').join('') !== excerpt.en) return null;
+      return {ref:exactRef,sourceUrl:source.url,he:excerpt.he,en:excerpt.en,
+        provenance:excerpt.provenance,coverage:'excerpt'};
+    }
     const paragraphs = (Array.isArray(note.paragraphs) ? note.paragraphs : [])
       .filter(paragraph => Array.isArray(paragraph?.rich)
         && paragraph.rich.some(run => run?.href === source.url));

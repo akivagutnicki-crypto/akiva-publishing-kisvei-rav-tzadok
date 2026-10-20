@@ -195,6 +195,15 @@ jobs:
       - name: Verify complete Dover Tzedek quotations after all final imports
         run: node scripts/test-dover-footnotes.mjs
 
+      - name: Publish independently reviewed Chanukah 25 after the historical note numbers are fixed
+        run: |
+          node scripts/pri-chanukah25.mjs
+          python scripts/import-pri-seasonal-footnotes.py
+          node scripts/build-mcp-index.mjs
+          node scripts/test-pri-chanukah25.mjs
+          node scripts/test-pri-missing-footnotes.mjs
+          node scripts/test-pri-seasonal-footnotes.mjs --data-only
+
       - name: Remove appended footnote parallels after all source imports
         run: |
           node scripts/test-strip-appended-parallels.mjs
@@ -304,6 +313,12 @@ jobs:
           cat theme-candidate-verification.txt
           node scripts/test-connected-ideas-reader.mjs
 
+      - name: Verify complete Chanukah 25 in final reader source popups and offline downloads
+        run: |
+          node scripts/test-pri-chanukah25.mjs --zips > chanukah25-final-verification.json
+          cat chanukah25-final-verification.json
+          node scripts/test-pri-chanukah25-browser.mjs
+
       - name: Cache official Sefaria source exports
         uses: actions/cache@v4
         with:
@@ -348,6 +363,12 @@ jobs:
       - name: Verify complete Dover Tzedek quotations on the published reader
         run: node scripts/test-dover-footnotes.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'
 
+      - name: Verify Chanukah 25 and all three source entry points on the published reader
+        run: |
+          node scripts/test-pri-chanukah25.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/' > chanukah25-live-verification.json
+          cat chanukah25-live-verification.json
+          node scripts/test-pri-chanukah25-browser.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'
+
       - name: Verify reviewed connections and the shared source matcher on the live reader
         run: |
           node scripts/test-reviewed-connections.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/' > reviewed-source-connections-live-verification.json
@@ -385,6 +406,19 @@ jobs:
           path: |
             seasonal-verification
             dist/library/pri-seasonal-footnotes-report.json
+          retention-days: 14
+
+      - name: Save Chanukah 25 independent review and live reader verification
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pri-chanukah25-reader-verification
+          path: |
+            sources/akiva/chanukah25/independent-review.json
+            dist/library/pri-chanukah25-publication.json
+            chanukah25-final-verification.json
+            chanukah25-live-verification.json
+            chanukah25-verification
           retention-days: 14
 
       - name: Save final parallel cleanup preservation report

@@ -7,6 +7,7 @@ import {createHash} from 'node:crypto';
 import {gunzipSync} from 'node:zlib';
 import {fileURLToPath} from 'node:url';
 import {categoryOf} from './citations.mjs';
+import {publishedChanukah25} from './pri-chanukah25.mjs';
 
 export const PACK = 'sources/akiva/overlays/pri-missing-footnotes-20261019.json.gz.b64';
 export const PACK_SHA = '5fb370969f43a3dbcace775eb6217b117313b3c40d1c8fe91752f1762a5c7c6f';
@@ -171,7 +172,11 @@ export function importMissingFootnotes(library = 'dist/library') {
   assert.equal(Object.keys(pack.correctionsBySourceId).length, 47, 'All source-reference corrections must be completed before importing');
   const toc = read(path.join(directory,'toc.json')), allLeaves = leaves(toc.toc);
   const excluded = new Set(pack.targets.map(target => target.file));
-  const originals = existingRecords(directory, excluded);
+  // Preserve the exact historical upload scope. The only allowed successor is
+  // independently validated in full; it remains in beforeFiles protection.
+  const successor = publishedChanukah25(root);
+  const historicalExcluded = new Set([...excluded,...(successor?[successor.file]:[])]);
+  const originals = existingRecords(directory, historicalExcluded);
   assert.equal(originals.length, 3240, 'Run the original seasonal importer before adding these notes');
   assert.equal(new Set(originals.map(record => record[2].number)).size, 3240);
   assert.ok(originals.every(record => record[2].number < 3254), 'A supplied note number would collide with an existing note');
@@ -285,7 +290,7 @@ export function importMissingFootnotes(library = 'dist/library') {
     assert.deepEqual(previousReport.sections,summaries);
     assert.deepEqual(previousReport.protectedDoverFiles,protectedDoverFiles);
   } else stageJSON(staged,reportFile,report,true);
-  assert.equal(canonicalHash(existingRecords(directory,excluded)),oldDigest,'Existing source notes changed during preparation');
+  assert.equal(canonicalHash(existingRecords(directory,historicalExcluded)),oldDigest,'Existing source notes changed during preparation');
   for (const [file,digest] of beforeFiles) assert.equal(sha(fs.readFileSync(file)),digest,'Unrelated data changed during preparation: '+file);
   // Prepare every output and check the preimage before the first replacement.
   const prepared = [];
@@ -304,7 +309,7 @@ export function importMissingFootnotes(library = 'dist/library') {
     try {
       for (const entry of prepared) {fs.renameSync(entry.temporary,entry.file);committed.push(entry);}
       for (const [file,digest] of beforeFiles) assert.equal(sha(fs.readFileSync(file)),digest,'Unrelated file changed: '+file);
-      assert.equal(canonicalHash(existingRecords(directory,excluded)),oldDigest,'Existing annotations were changed');
+      assert.equal(canonicalHash(existingRecords(directory,historicalExcluded)),oldDigest,'Existing annotations were changed');
       for (const target of pack.targets) recoverOriginalItems(read(path.join(directory,target.file)),target.ref);
     } catch (error) {
       for (const entry of committed.reverse()) {

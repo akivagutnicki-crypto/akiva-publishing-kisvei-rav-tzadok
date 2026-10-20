@@ -1,0 +1,64 @@
+{
+  "schemaVersion": 1,
+  "ref": "Peri Tzadik, Chanukah 25",
+  "status": "independently-reviewed",
+  "reviewedOn": "2026-10-20",
+  "reviewer": "Independent AI editorial review by the coordinating reviewer, separate from the translation author",
+  "reviewedWholeSection": true,
+  "printedScanVerified": false,
+  "verificationBasis": "The complete six-paragraph Hebrew text in the identified Sefaria edition, the preserved original source snapshots, and the cited primary evidence. The printed-page scan could not be retrieved; this review does not certify collation against a printed copy.",
+  "editorialSha256": "0dfc22ee3c725c41d67fff6cb1e189cd5f1b410aa1ac2bbf503caa417e594890",
+  "sourceNotesReviewed": 31,
+  "primaryEvidenceRecordsReviewed": 32,
+  "authoringSnapshots": "The six immutable authoring files retain their original pre-peer-review status. This hash-bound independent review is the subsequent publication authority.",
+  "paragraphs": [
+    {
+      "ref": "Peri Tzadik, Chanukah 25:1",
+      "sha256": "6f597b165d0ccd461013f955f7ceba18eafe08d8f6e17379257b1ce53a21d0cc",
+      "phraseCount": 123,
+      "completeSemanticReview": true,
+      "completeSourceReview": true,
+      "assessment": "All 123 phrase pairs read against the complete original paragraph and its argument. Reviewed the six notes in full primary context, including Pesikta Rabbati, Yoma, Rashi on Bava Metzia, Zevachim with Rashi, and the complete cited Zohar sequence. Preserved the distinction between relative holiness and practical offering precedence; the homiletic vocalization of cheifetz and supplied Yaakov antecedent are disclosed."
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 25:2",
+      "sha256": "ada8a66df11eee7a48b409aef0bba5bb1f21eab9aef741656600242dba2fa6aa",
+      "phraseCount": 84,
+      "completeSemanticReview": true,
+      "completeSourceReview": true,
+      "assessment": "All 84 phrase pairs read against the complete original paragraph. The four full primary notes preserve Pnei Yehoshua’s explanation, all three Beit Yosef oil-miracle resolutions, the two Sanhedrin answers concerning Esther, and the dream context of the names in Berakhot. The corrected expansion and vocalization of ba-Elohi are accounted for."
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 25:3",
+      "sha256": "dc52fae3d770ca7a249eaec1535db5f705b3abc2b5d053c67ec7f18d73e49509",
+      "phraseCount": 53,
+      "completeSemanticReview": true,
+      "completeSourceReview": true,
+      "assessment": "All 53 phrase pairs read against the complete original paragraph. The four primary notes were read with their creation-and-sanctuary, seven dedications, Ramban menorah, and tribes-and-Elijah context. The proposed OCR correction to the tribes is explicit and the original reading remains visible; verse-locator discrepancies are disclosed instead of silently harmonized."
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 25:4",
+      "sha256": "714fabf74c30d68baadf9b12e22841512ca10606ff25868493850b52f05b1ad7",
+      "phraseCount": 46,
+      "completeSemanticReview": true,
+      "completeSourceReview": true,
+      "assessment": "All 46 phrase pairs read against the complete original paragraph. Both notes were read with their full primary texts: the Netzach/Jerusalem and Hod/Temple distinction in Berakhot, and the equal standing of Betzalel from Judah and Oholiab from Dan in Shemot Rabbah. The translation retains the paragraph’s unfolding comparison."
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 25:5",
+      "sha256": "a7cc94fe40b59947868c682c3a470084973f11c588e66edb673ef07e7031f9b5",
+      "phraseCount": 105,
+      "completeSemanticReview": true,
+      "completeSourceReview": true,
+      "assessment": "All 105 phrase pairs read against the complete original paragraph. All six primary notes were read, including the complete Arnon narrative, debate culminating in love, the Nedarim qualification that Moshe gave pilpul, the full humility/gift/elevation/fall/return sequence, Torah becoming the learner’s own, and the limited statement about Yehoshua’s arrangement of the Land. The Maharsha paragraph was read in full to verify the stated rendering of nechalo El; the Avot commentary’s uncertain attribution is retained. The corrected translation says that the disputants love one another."
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 25:6",
+      "sha256": "6acb92ce2c079d18999b3d264c1d477d3543f1fb640b2a1c94d0905b40089724",
+      "phraseCount": 95,
+      "completeSemanticReview": true,
+      "completeSourceReview": true,
+      "assessment": "All 95 phrase pairs read against the complete original paragraph. All nine full primary contexts were read, retaining both Sanhedrin metaphors, Rashi’s interpretation of Rabbi Yochanan, the complete Sukkah sequence, Beit Hillel’s concrete conduct, the legal context of the two names, the limited Yochanan chronology, and both narratives of celebratory lighting. Read back the corrections to craftsmen and smiths and the mil measured from the city. The unresolved abbreviation לק״ל remains visible without an invented expansion; the proposed nusach OCR reading is disclosed, and the malicious report in Eikhah Rabbah is distinguished from the Jews’ actual observance."
+    }
+  ]
+}

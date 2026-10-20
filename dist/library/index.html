@@ -393,7 +393,7 @@ i.footnote.open{display:block;direction:ltr;text-align:left;font-family:var(--en
 .footnote-source-excerpt{margin-top:14px;padding:12px;border:1px solid var(--line);border-radius:8px;font:400 .96rem/1.6 var(--en)}
 .footnote-source-excerpt>strong{font:600 .74rem/1.5 var(--ui);color:var(--forest)}
 .footnote-source-excerpt .copy-excerpt{margin-top:10px}
-#pContent[data-source-lang="he"] .footnote-source-excerpt{display:none}
+#pContent[data-source-lang="he"] .footnote-source-excerpt:not(.bilingual-source-excerpt){display:none}
 .connection-status{padding:10px 0;font:400 .86rem/1.5 var(--ui);color:var(--muted)}
 .link-item .ref button{border:0;padding:0;background:none;color:var(--link);font:inherit;text-align:left;text-decoration:underline;text-underline-offset:3px}
 .connection-school{margin-bottom:8px;font:600 .73rem/1.5 var(--ui);color:var(--forest)}
@@ -593,7 +593,7 @@ body.akiva-android-reader .akiva-support-embed{border-top-color:var(--ox)}
 
 <script src="shiur-player.js?v=20261016-compact-noach-audio"></script>
 <script src="sefaria-packs.js?v=20261019-preferred-edition-cache-v4"></script>
-<script src="source-connections.js?v=20261019-reviewed-connections-v2"></script>
+<script src="source-connections.js?v=20261020-reviewed-connections-v3"></script>
 <script src="source-editions.js?v=20261019-preferred-source-editions-v1"></script>
 <script src="connected-ideas.js?v=20261019-connected-ideas-v1"></script>
 <script>
@@ -2345,7 +2345,7 @@ async function showLinkList(ref, label, list, c, {groups = [], selectedCategory 
       const missing = (hes.length ? '' : '<div class="source-missing" data-missing="he">The Hebrew text could not be loaded.</div>')
         + (completeEnglish ? '' : `<div class="source-missing" data-missing="en">${esc(d.preferredEdition?.message || (d.translationLookupFailed ? 'The additional English source translations could not be checked. Reopen this source to retry.' : ens.length ? 'Some of this source has no published English translation.' : 'A checked English translation has not yet been added for this source.'))}</div>`);
       const provenance = d.preferredEdition ? (d.preferredEdition.actualVersionTitle || '') : (!d.fromFootnoteFallback && l.translationProvenance) || (d.versions || []).filter(version=>version.lang !== 'Hebrew').map(version=>version.title).filter(Boolean).join('; ');
-      const footnoteExcerpt = d.footnoteExcerpt ? `<section class="footnote-source-excerpt"><strong>English excerpt quoted in this footnote</strong><p class="qe" lang="en" dir="ltr">${esc(d.footnoteExcerpt.en)}</p><div class="connection-provenance">${esc(d.footnoteExcerpt.ref)} · ${esc(d.footnoteExcerpt.provenance)}</div><button class="btn copy-excerpt" type="button">Copy footnote excerpt</button></section>` : '';
+      const footnoteExcerpt = d.footnoteExcerpt ? `<section class="footnote-source-excerpt${d.footnoteExcerpt.he ? ' bilingual-source-excerpt' : ''}"><strong>${d.footnoteExcerpt.he ? 'Reviewed Hebrew–English excerpt from this footnote' : 'English excerpt quoted in this footnote'}</strong>${d.footnoteExcerpt.he ? `<p class="qh" lang="he" dir="rtl">${esc(d.footnoteExcerpt.he)}</p>` : ''}<p class="qe" lang="en" dir="ltr">${esc(d.footnoteExcerpt.en)}</p><div class="connection-provenance">${esc(d.footnoteExcerpt.ref)} · ${esc(d.footnoteExcerpt.provenance)}</div><button class="btn copy-excerpt" type="button">Copy footnote excerpt</button></section>` : '';
       const explanation = reviewed ? `<div class="connection-explanation"><strong>${l.reviewedTheme ? 'How this develops the idea' : 'How this explains the source'}</strong>${esc(l.reviewedRecord.explanation)}</div>` : '';
       const sourceUrl = d.preferredEdition?.sourceUrl || l.sourceUrl || d.sourceTranslationUrl;
       const originalUrl = sourceUrl && /^https:\/\/(?:www\.)?sefaria\.org\//.test(sourceUrl) ? sourceUrl
@@ -2359,7 +2359,9 @@ async function showLinkList(ref, label, list, c, {groups = [], selectedCategory 
       div.querySelector('.explore-source').onclick = () => openSourceStudy(target, studyContext, originalUrl || '');
       const excerptButton = div.querySelector('.copy-excerpt');
       if (excerptButton) excerptButton.onclick = async () => {
-        try { await navigator.clipboard.writeText(d.footnoteExcerpt.en + '\n\n— ' + d.footnoteExcerpt.ref); toast('Excerpt copied'); }
+        const excerpt = d.footnoteExcerpt;
+        const texts = sourceLang === 'he' && excerpt.he ? [excerpt.he] : sourceLang === 'en' ? [excerpt.en] : [excerpt.he,excerpt.en];
+        try { await navigator.clipboard.writeText([...texts,'— ' + excerpt.ref].filter(Boolean).join('\n\n')); toast('Excerpt copied'); }
         catch { toast('Copy failed'); }
       };
       div.querySelector('.copyq').onclick = async () => {
@@ -2951,4 +2953,3 @@ route();
 </script>
 </body>
 </html>
-
