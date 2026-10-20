@@ -8,7 +8,7 @@
 })(typeof window === 'object' ? window : globalThis, function () {
   'use strict';
   const SCHOOLS = ['Kisvei Rav Tzadok', 'Ishbitz–Radzin'];
-  const VERSION = '20261020-reviewed-connections-v3';
+  const VERSION = '20261020-reviewed-connections-v4';
 
   function decode(value) {
     return String(value || '').replace(/&#(x[\da-f]+|\d+);/gi, (_, n) => {
@@ -57,16 +57,28 @@
     const source = sources[0], exactRef = normalizeRef(source.ref);
     if (!exactRef || (ref && normalizeRef(ref).toLowerCase() !== exactRef.toLowerCase())
         || (sourceUrl && sourceUrl !== source.url)) return null;
-    // New bilingual notes keep the quotation and the editorial explanation in
-    // distinct paragraphs. Reuse only the explicitly identified, exact pair.
+    // Reviewed metadata identifies the exact displayed quotation. Hebrew kept
+    // only as source evidence must not be inserted into an English-only note.
     const excerpt = note.reviewedSourceExcerpt;
     if (excerpt) {
       if (excerpt.schemaVersion !== 1 || excerpt.coverage !== 'excerpt'
           || normalizeRef(excerpt.ref).toLowerCase() !== exactRef.toLowerCase()
-          || !Number.isSafeInteger(excerpt.hebrewParagraph) || !Number.isSafeInteger(excerpt.englishParagraph)
-          || excerpt.hebrewParagraph < 0 || excerpt.englishParagraph < 0 || excerpt.hebrewParagraph === excerpt.englishParagraph
-          || !/[א-ת]/.test(excerpt.he || '') || !/[A-Za-z]/.test(excerpt.en || '')
+          || !/[A-Za-z]/.test(excerpt.en || '')
           || typeof excerpt.provenance !== 'string' || !excerpt.provenance.trim()) return null;
+      if (note.paragraphs?.length === 1 && excerpt.hebrewParagraph === undefined
+          && excerpt.englishParagraph === undefined) {
+        const paragraph = note.paragraphs[0], expected = `${source.ref}: “${excerpt.en}”`;
+        if (paragraph.language !== 'en' || paragraph.text !== expected || !Array.isArray(paragraph.rich)
+            || paragraph.rich.map(run=>run.text || '').join('') !== expected
+            || paragraph.rich[0]?.text !== source.ref || paragraph.rich[0]?.href !== source.url
+            || paragraph.rich[0]?.bold !== true) return null;
+        return {ref:exactRef,sourceUrl:source.url,en:excerpt.en,
+          provenance:excerpt.provenance,coverage:'excerpt'};
+      }
+      // Earlier bilingual notes identify two distinct displayed paragraphs.
+      if (!Number.isSafeInteger(excerpt.hebrewParagraph) || !Number.isSafeInteger(excerpt.englishParagraph)
+          || excerpt.hebrewParagraph < 0 || excerpt.englishParagraph < 0 || excerpt.hebrewParagraph === excerpt.englishParagraph
+          || !/[א-ת]/.test(excerpt.he || '')) return null;
       const he = note.paragraphs?.[excerpt.hebrewParagraph], en = note.paragraphs?.[excerpt.englishParagraph];
       if (he?.language !== 'he' || en?.language !== 'en' || he.text !== excerpt.he || en.text !== excerpt.en
           || !Array.isArray(he.rich) || !Array.isArray(en.rich)

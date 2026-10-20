@@ -8,6 +8,7 @@ import path from 'node:path';
 import vm from 'node:vm';
 import {createRequire} from 'node:module';
 import {fileURLToPath} from 'node:url';
+import {compileChanukah25} from './pri-chanukah25.mjs';
 
 const require = createRequire(import.meta.url);
 const engine = require('../dist/library/source-connections.js');
@@ -80,6 +81,24 @@ const chapterTwo = {
 };
 
 try {
+  await check('all published Chanukah25 notes reuse their English quotations without displaying audit Hebrew', async () => {
+    const {items}=compileChanukah25(202),notes=items.flatMap(item=>item.footnotes||[]);
+    assert.equal(notes.length,36);
+    for(const note of notes){
+      const source=note.sources[0],quote=engine.sourceQuotationFromNote(note,{ref:source.ref,sourceUrl:source.url});
+      assert.ok(quote,'Reviewed source note must supply its exact popup quotation: '+source.ref);
+      assert.equal(quote.en,note.reviewedSourceExcerpt.en);assert.equal(quote.he,undefined);
+      assert.equal(quote.coverage,'excerpt');assert.equal(quote.provenance,note.reviewedSourceExcerpt.provenance);
+      const changed=structuredClone(note);changed.paragraphs[0].text+=' Added editorial prose.';
+      assert.equal(engine.sourceQuotationFromNote(changed,{ref:source.ref}),null);
+    }
+    const note=notes.find(note=>note.sources[0].ref==='Pesikta Rabbati 6:1'),ref=note.sources[0].ref;
+    const quote=engine.sourceQuotationFromNote(note,{ref});
+    const {loader}=harness({[ref]:{ref,he:[note.reviewedSourceExcerpt.he],en:[]}});
+    const result=await loader({sourceRef:ref,fallbackQuote:quote});
+    assert.deepEqual(serializable(result.footnoteExcerpt),quote);
+    assert.deepEqual(serializable(result.en),[],'A selected quotation must not be presented as the full fetched source');
+  });
   await check('bilingual source note reuses the quoted pair and excludes editorial prose', async () => {
     const ref='Fixture Midrash 1:1',url='https://www.sefaria.org/Fixture_Midrash.1.1';
     const paragraph=(text,language)=>({text,language,rich:[{text}]});

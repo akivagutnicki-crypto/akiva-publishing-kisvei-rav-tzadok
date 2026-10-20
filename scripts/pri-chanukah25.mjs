@@ -52,6 +52,7 @@ export function readChanukah25() {
       assert.equal(phrase.source,p.source.originalText.slice(offset,phrase.sourceEnd));offset=phrase.sourceEnd;
       assert.match(phrase.he,/[א-ת]/);assert.match(phrase.he,/[\u05b0-\u05bc\u05c1\u05c2\u05c7]/);
       assert.match(phrase.en,/[A-Za-z]/);assert.doesNotMatch(phrase.he+phrase.en,/<[^>]*>|[\ufffd\u0600-\u06ff]/);
+      assert.doesNotMatch(phrase.en,/[\[\]]/,'English body brackets must be removed without losing meaning');
       let expected='',cursor=phrase.sourceStart;
       for (const adjustment of phrase.adjustments || []) {
         assert.ok(['abbreviation-expansion','proposed-ocr-correction','source-spacing-repair'].includes(adjustment.type));
@@ -88,7 +89,7 @@ export function readChanukah25() {
     assert.ok(source.verified && source.versionTitle && source.hebrew && source.verification);
     assert.equal(source.hebrewSha256,sha256(source.hebrew));evidence.set(source.id,source);
   }
-  const noteIds=new Set();
+  const noteIds=new Set(),legacyNumbers=new Set();
   for (const [i,entry] of editorial.paragraphs.entries()) {
     const p=paragraphs[i],ids=new Map(p.phrases.map((phrase,index)=>[phrase.id,index]));
     let last=-1;
@@ -108,11 +109,27 @@ export function readChanukah25() {
       const witness=evidence.get(note.evidenceId);assert.ok(witness && witness.ref===note.ref);safeSource(note);
       assert.ok(note.reviewed && note.translationProvenance && note.explanation);
       assert.match(note.hebrew,/[א-ת]/);assert.match(note.english,/[A-Za-z]/);
+      assert.doesNotMatch(note.english,/[\[\]]/,'English source quotations must retain the reviewed readable presentation');
       assert.ok(letters(witness.hebrew).includes(letters(note.hebrew)),'Noncontiguous or invented primary quotation: '+note.id);
       assert.doesNotMatch(note.hebrew,/\.\.\.|…/,'Source notes use contiguous excerpts');
+      if (note.legacyIdentity) {
+        const legacy=note.legacyIdentity;
+        assert.equal(i,5,'Misplaced Chanukah24 notes belong to the sixth original paragraph of Chanukah25');
+        assert.ok(Number.isInteger(legacy.number)&&legacy.number>=1658&&legacy.number<=1664,
+          'Only the seven explicitly reconciled source notes may retain a legacy identity');
+        assert.ok(!legacyNumbers.has(legacy.number),'A misplaced note may be reconciled only once');
+        legacyNumbers.add(legacy.number);
+        assert.equal(legacy.sourceId,`PT-${legacy.number}`);
+        assert.equal(legacy.placementId,`PT-${legacy.number}-1`);
+        assert.equal(legacy.uploadedNumber,legacy.number+11);
+        assert.match(legacy.fromRef,/^Peri Tzadik, Chanukah 24:[3-6]$/);
+      }
     }
     assert.ok(entry.notes?.length,'Every original paragraph must have its verified supporting sources');
   }
+  assert.deepEqual([...legacyNumbers].sort((a,b)=>a-b),[1658,1659,1660,1661,1662,1663,1664],
+    'All seven distinct misplaced source notes must have an explicit reviewed successor');
+  assert.equal(noteIds.size,36,'The complete reviewed edition contains 31 core notes and five distinct migrated sources');
   return {paragraphs,editorial,review,editionSha256:sha256(paragraphs.map(p=>p.fileSha256).join('\n')+'\n'+sha256(editorialBytes))};
 }
 
@@ -133,19 +150,22 @@ export function compileChanukah25(storageId) {
     const footnotes=(entry.notes || []).map(note=>{
       record(note);const phraseIndex=p.phrases.findIndex(phrase=>phrase.id===note.phraseId),phrase=p.phrases[phraseIndex];
       const sourceId=`PT-CH25-${String(++noteIndex).padStart(4,'0')}`,number=CHANUKAH25_FIRST_NOTE+noteIndex-1;
-      const para=(text,language,bold=false,href=null)=>({text,language,rich:[{text,...(bold?{bold:true}:{}),...(href?{href}:{})}]});
+      const quotation={text:`${note.ref}: “${note.english}”`,language:'en',rich:[
+        {text:note.ref,bold:true,href:note.url},{text:`: “${note.english}”`}]};
       return {sourceId,placementId:sourceId+'-1',number,phraseIndex,
         heCharOffset:phrase.he.length,enCharOffset:phrase.en.length,heAnchorPrefix:phrase.he,enAnchorPrefix:phrase.en,
         heWord:phrase.he.trim().split(/\s+/u).length,
-        paragraphs:[para(note.ref,'en',true,note.url),para(note.hebrew,'he'),para(note.english,'en'),
-          para(note.explanation,'en'),para(note.translationProvenance,'en')],
+        paragraphs:[quotation],
         sources:[{ref:note.ref,url:note.url,role:'primary-source'}],nativeConnections:[],verificationStatus:'verified',
-        reviewedSourceExcerpt:{schemaVersion:1,ref:note.ref,hebrewParagraph:1,englishParagraph:2,
+        reviewedSourceExcerpt:{schemaVersion:1,ref:note.ref,
           he:note.hebrew,en:note.english,provenance:note.translationProvenance,coverage:'excerpt'},
         provenance:{edition:'Akiva Publishing · Chanukah 25 interlinear edition',importRelease:CHANUKAH25_RELEASE,
           section:CHANUKAH25_REF,item:i+1,sourceFile:`${storageId}.json`,sourceId,
           primaryEvidenceId:note.evidenceId,reviewedNoteId:note.id,editionSha256:pack.editionSha256,
-          method:'Original bilingual translation checked against the complete cited primary context; explanation separately identified.'}};
+          sourceQuotationRelease:{versionTitle:note.translationProvenance,license:'© Akiva Publishing'},
+          explanation:note.explanation,
+          ...(note.legacyIdentity?{legacyIdentity:note.legacyIdentity}:{}),
+          method:'Original English source quotation checked against the cited primary context. Hebrew evidence and editorial explanation retained in metadata only.'}};
     });
     items.push({n:i+1,p:pairs,keepPairs:true,...(entry.headings?.length?{inlineHeadings:entry.headings}:{}),
       connections:[...connections.values()],footnotes});
@@ -258,7 +278,7 @@ export function publishChanukah25(library='dist/library') {
     for(const [file,old]of backups)if(old===null){if(fs.existsSync(file))fs.unlinkSync(file);}else fs.writeFileSync(file,old);
     throw error;
   } finally {for(const {temporary}of prepared)if(fs.existsSync(temporary))fs.unlinkSync(temporary);}
-  console.log(`PASS Chanukah25: six complete original paragraphs, ${report.phrasePairs} reviewed phrase pairs, ${report.sourceNotes} bilingual source notes; prior editions and all 5,539 historical notes preserved.`);
+  console.log(`PASS Chanukah25: six complete original paragraphs, ${report.phrasePairs} reviewed phrase pairs, ${report.sourceNotes} English source notes; prior editions and all 5,539 historical notes preserved.`);
   return priorReport || report;
 }
 

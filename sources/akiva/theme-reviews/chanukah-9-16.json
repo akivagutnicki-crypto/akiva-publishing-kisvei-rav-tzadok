@@ -1,0 +1,1514 @@
+{
+  "schemaVersion": 1,
+  "reviewedOn": "2026-10-19",
+  "method": "The complete eight canonical interlinear discourses Chanukah 9–16 were read in order. Each listed paragraph was then compared with the explicitly named, actually read candidates from both schools, using complete target paragraphs and necessary surrounding context. The entries record finite editorial decisions, not an exhaustive claim about every possible parallel. Retrieval rankings and matching quotations did not establish relevance. Hebrew and canonical annotation text were preserved; translated excerpts and directional explanations were reviewed separately. No reverse direction is approved in this batch.",
+  "entries": [
+    {
+      "ref": "Peri Tzadik, Chanukah 9:1",
+      "sectionRef": "Peri Tzadik, Chanukah 9",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "5a1253bcb2ec1a584c88ecad8bec569744a52391cff410fe51810470442fc85d",
+      "reviewedSectionHebrewSha256": "d0fe575415214a6d491df55eb3087ef7fe2fbac6875071b581b507b734a24671",
+      "assessment": "Read the complete opening in the seven-paragraph ois, including the restriction of festival status to Hallel and thanksgiving and the Levush/Taz problem answered in 9:2. Approved two different explanatory contributions: how recurrence was recognized, and what praise changes in perception. Neither establishes a feast or a work prohibition.",
+      "candidatesReviewed": [
+        {
+          "ref": "Peri Tzadik, Chanukah 8:5",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: the returning light in the following year explains the permanent establishment, and praise has the stated inward task of removing evil. The full target paragraph, including its Beit Shammai conclusion, was read."
+        },
+        {
+          "ref": "Sod Yesharim, Shabbat Chol HaMoed Sukkot 36:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved: praise transforms the perceived separation of lower and upper waters; continued service refines the concealment. The entire target, including its restraint before settled acquisition, was read."
+        },
+        {
+          "ref": "Dover Tzedek, Miscellany 2:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not approved at this anchor: the Modim/serpent discussion and the distinction between patriarchal qualities do not explain the act of making these days festive."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 9:2",
+      "sectionRef": "Peri Tzadik, Chanukah 9",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "285300403864fcf2e3479433916770387db81e40da034dc30b12db3e02987f48",
+      "reviewedSectionHebrewSha256": "d0fe575415214a6d491df55eb3087ef7fe2fbac6875071b581b507b734a24671",
+      "assessment": "Read all arguments: bodily rescue, toil in Oral Torah, second tablets and Yom Kippur, Solomon’s table versus acquired spiritual nourishment, and the concluding Chanukah application. The shared anchor is the second-tablet joy amid fasting; the explanations preserve the different laws of Chanukah and Yom Kippur. The larger Yisrael canonical paragraph includes inherited internal headings; the selected exact excerpt avoids them.",
+      "candidatesReviewed": [
+        {
+          "ref": "Yisrael Kedoshim 10:26",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: the voluntary approach, fasting, and acquisition of Oral Torah explain the inward meaning of the second tablets. Full canonical paragraph read, including the later contrast with Purim and the holy sparks discussion."
+        },
+        {
+          "ref": "Sod Yesharim, Yom Kippur 18:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved: the five afflictions allow reception of the spiritual nourishment not yet clothed in bodily food. The target’s full rebuilding, integrated qualities, and garment argument were read; no Chanukah fast is inferred."
+        },
+        {
+          "ref": "Machshavot Charutz 19:5",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not selected here: its bread/feast distinction includes the unfinished condition of collective joy, but the more exact new contribution concerns Jacob and his descendants at 10:3."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 9:3",
+      "sectionRef": "Peri Tzadik, Chanukah 9",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "81d74220b9aea39f067265ee719664733be6969b255fe5384716efa8c10d8d66",
+      "reviewedSectionHebrewSha256": "d0fe575415214a6d491df55eb3087ef7fe2fbac6875071b581b507b734a24671",
+      "assessment": "Read the entire paragraph: Hallel as Torah of kindness, patriarchal opening blessings, twelve tribes, Joseph’s division, and the additional blessing against division. Approved the exact account of why each tribe corresponds to a petition. The Ishbitz candidates do not explain that mapping closely enough.",
+      "candidatesReviewed": [
+        {
+          "ref": "Dover Tzedek, Miscellany 4:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: each tribe has a distinct excellence and lack; the twelve petitions gather those needs into dependence on God. The full paragraph’s contrast between prayer in deficiency and offerings in fullness was read."
+        },
+        {
+          "ref": "Tzidkat HaTzadik 186:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not selected at this anchor: its fellowship and threefold intellectual structure illuminate the threefold cord at 11:1, but not the twelvefold petitions."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Vayetzei 9",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected for this precise thread: it explains redemption for God’s name beyond ancestral merit, not the twelve needs or the added blessing."
+        },
+        {
+          "ref": "Sod Yesharim, The First Night of Pesach 3:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected for this precise thread: patriarchs and tribes appear within an account of questioning and premature rescue, but do not explain the blessing/tribe structure."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 9:4",
+      "sectionRef": "Peri Tzadik, Chanukah 9",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "a3f51cfd1735421c9d88d889ffdfd3acf329a4caba6ff4a65bf4741a49da2ecf",
+      "reviewedSectionHebrewSha256": "d0fe575415214a6d491df55eb3087ef7fe2fbac6875071b581b507b734a24671",
+      "assessment": "Read the complete progression from tribal inclusion to healing and food, then Moses/Aaron and the question about daily miracles. Approved the food-to-conduct argument and the blessing-to-chosen-service mechanism. Et HaOchel’s Aramaic was corrected after primary Berakhot 32a:12/Rashi review: filling the belly is an evil form of conduct; the causal connection that follows belongs to Rav Tzadok’s argument. Sod Simchat Torah 1:2 has an inherited attribution of Birkat HaZan to Joshua later in the paragraph; that wording is outside the selected quotation and is not repeated as accurate bibliography.",
+      "candidatesReviewed": [
+        {
+          "ref": "Et HaOchel 12:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: the specifically staged repair of eating and the sexual inclination through Torah explains the requested effect of food on the heart. Full origin book and complete target paragraph reviewed."
+        },
+        {
+          "ref": "Sod Yesharim, Simchat Torah 1:2",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved: blessing, eating, and the later use of the food’s strength are distinct stages, with the last dependent on choice. Full paragraph read; selected text stops before the inherited Joshua attribution."
+        },
+        {
+          "ref": "Sod Yesharim, Yom Kippur 15:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not selected here: its interior establishment of mitzvot is substantive, but does not explain the blessing on food as directly as the selected Simchat Torah passage."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 9:5",
+      "sectionRef": "Peri Tzadik, Chanukah 9",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "582dbd1cbd9d69f1d8ab87e26870f71325067ecf48d01b0961ef711f158ef747",
+      "reviewedSectionHebrewSha256": "d0fe575415214a6d491df55eb3087ef7fe2fbac6875071b581b507b734a24671",
+      "assessment": "Read the full account of Amalek’s cooling, Jabez, daily assistance, the incomplete divine name/throne, Torah, and prayer for those unable to attain Torah learning. Selected a sufficient opening that includes the problem and daily assistance. Both targets retain the role of actual human service. The Tiferet comparison explicitly does not replace the origin’s separate prayer counsel for someone unable to attain Torah learning.",
+      "candidatesReviewed": [
+        {
+          "ref": "Tzidkat HaTzadik 187:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: the illuminated Torah itself is the divine assistance named in the shared Talmudic statement. Full target read, including its later treatment of human authorship and attribution to God."
+        },
+        {
+          "ref": "Tiferet Yosef, Talmud Anthology, Taanit 1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved: finite human preparation remains necessary and remains insufficient by itself; prayer is the divinely given power to receive further help. Full target read."
+        },
+        {
+          "ref": "Sod Yesharim, Hoshana Rabba 5:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not selected: self-surrender and David’s automatically playing harp illuminate attribution of action to the person, but the particular battle with the renewed inclination is less direct here."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 9:6",
+      "sectionRef": "Peri Tzadik, Chanukah 9",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "87f9746a6e2017b5debdc56821508b047cf30528e8e72fff381a2c152ae0c8a2",
+      "reviewedSectionHebrewSha256": "d0fe575415214a6d491df55eb3087ef7fe2fbac6875071b581b507b734a24671",
+      "assessment": "Read both the annual dedication/compensation argument and the full Modim explanation. The canonical origin names Rabbi Meir; primary Yerushalmi Berakhot 2:4, 17b (https://mechon-mamre.org/b/r/r1102.htm) attributes the spontaneous bow to Rabbi Matanya. English marks this inherited attribution correction explicitly; Hebrew and pins remain unchanged. The selected anchor preserves the distinction between an individual soul’s answered prayer and communal redemption still unfulfilled. Both targets explain spontaneous bowing through an established inward relation, rather than using the visible gesture as automatic evidence of perfection.",
+      "candidatesReviewed": [
+        {
+          "ref": "Tzidkat HaTzadik 233:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: the head’s bow expresses a root not identical with intrusive mental garments; the full text’s qualifications about desire, envy, and honor were retained in the assessment."
+        },
+        {
+          "ref": "Sod Yesharim, The First Night of Pesach 26:5",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved: chosen Torah and spoken expression establish an awareness in the outermost bodily garment, directly answering why this is more than routine habit."
+        },
+        {
+          "ref": "Dover Tzedek, Miscellany 2:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added: its spine/Modim transformation is relevant but adds less than the selected exact accounts of root, thought, and embodied acquisition."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 9:7",
+      "sectionRef": "Peri Tzadik, Chanukah 9",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "f12b27d67c26c475a8cfd2e788f406e204e069124ccc3a2fe7d486572c4032a0",
+      "reviewedSectionHebrewSha256": "d0fe575415214a6d491df55eb3087ef7fe2fbac6875071b581b507b734a24671",
+      "assessment": "Read the complete comparison: Aaron’s Torah, the miracles’ inward illumination, Purim’s voluntary acceptance, its bodily rescue, and the limited support for increased Chanukah meals without an obligatory feast. Approved the target that explains renewed acceptance after concealment. No quoted comparison is used to decide festival meal law.",
+      "candidatesReviewed": [
+        {
+          "ref": "Tiferet Yosef, Purim 3",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved: the earlier compulsion, later concealment, and recognition of an enduring bond explain the renewed voluntary acceptance. Full target read, including the qualification that Israel recognized its outward act only afterward."
+        },
+        {
+          "ref": "Yisrael Kedoshim 10:26",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added at this anchor: its voluntary Oral-Torah acceptance substantially repeats material already used specifically at 9:2, while Tiferet adds the distinct argument about concealment making service possible."
+        },
+        {
+          "ref": "Peri Tzadik, Chanukah 8:5",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not repeated: recurrence and Hallel already have their proper specific anchor at 9:1; they add little to the Purim comparison here."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 10:1",
+      "sectionRef": "Peri Tzadik, Chanukah 10",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "d0a4ce61283bf755926c691dce346fdd03558e7f285217fcc26b7c3632c485ee",
+      "reviewedSectionHebrewSha256": "77acb4ea92f7c876b1fa8f222745d5a584d415486e11467baaff813f5a38a7a2",
+      "assessment": "Read this opening within all five paragraphs of ois 10. Its particular assertion is the continuation of Temple-lamp holiness after destruction. The Resisei passage explains the inward/outward form of that continuation; the other examined lamp passage addresses a different question and was not used to fill a school slot.",
+      "candidatesReviewed": [
+        {
+          "ref": "Resisei Layla 57:2",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: the Temple’s outward illumination continues in the household and inwardly through concealment after destruction. Full target read, including later exile and sparks qualifications."
+        },
+        {
+          "ref": "Tiferet Yosef, Beha'alotcha 3",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected at this anchor: its account of the middle lamp and Shabbat explains human preparation for a greater light, but not the persistence of the Temple lamp after destruction. Reserved for a more exact time/place comparison."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 10:2",
+      "sectionRef": "Peri Tzadik, Chanukah 10",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "40a5653e06670d48799c02fe9d29468725395d1773f369420e97a96e3424264f",
+      "reviewedSectionHebrewSha256": "77acb4ea92f7c876b1fa8f222745d5a584d415486e11467baaff813f5a38a7a2",
+      "assessment": "Read the full distinction between Written Torah/mezuzah and human renewal in Oral Torah, including the heavenly repetition of the sages’ words and the opposition of Greek wisdom. Approved two contributions to the tension between human discovery and a divine source. Neither treats inspiration or apparent novelty by itself as semantic proof.",
+      "candidatesReviewed": [
+        {
+          "ref": "Tzidkat HaTzadik 187:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved with a separate, non-repeated excerpt from the one at 9:5: recognizing the gift permits God to attribute the new Torah and its assistance to human initiative."
+        },
+        {
+          "ref": "Tiferet Yosef, Nitzavim 10",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved: the human contribution is the receptive vessel of humility and prayer, while the Torah bestowed remains lofty and divine."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Bereshit 2",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not approved: the five stages culminating in human generation are substantive, but the link to the particular claim about Oral Torah would be too general."
+        },
+        {
+          "ref": "Beit Yaakov on Torah, Bereshit 29:39",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected: the isolated qualification about increasingly clothed light supplies no sufficient argument about human discovery."
+        },
+        {
+          "ref": "Sod Yesharim, The First Night of Pesach 10:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not approved at this anchor: its account of learning the meaning of prior election through work addresses a different question from the sages’ new Torah."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 10:3",
+      "sectionRef": "Peri Tzadik, Chanukah 10",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "502bc1b2e555b1d0c5a915c869a5cc7e1b9b5d58b189de13f817079477192722",
+      "reviewedSectionHebrewSha256": "77acb4ea92f7c876b1fa8f222745d5a584d415486e11467baaff813f5a38a7a2",
+      "assessment": "Read the complete paragraph’s two movements: Oral Torah illuminating the left/foolish heart, then Jacob’s requested security for every generation and the Zohar’s severe wording qualified by final universal clarification. The records focus on that second, easily misunderstood movement and preserve the availability of repentance now. No interpretation licenses deliberate transgression before repentance.",
+      "candidatesReviewed": [
+        {
+          "ref": "Machshavot Charutz 19:5",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: the brothers’ divided hearts make concrete the difference between Jacob’s own attainment and the collective repair not yet completed."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Vayigash 1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved: the warning before failure and the strength required to return afterward are expressly distinguished; future removal of sin does not cancel the prior warning."
+        },
+        {
+          "ref": "Tzidkat HaTzadik 122:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added: it supplies a different, technical account of present repair through associated atonement; the selected distinction is clearer for this anchor and avoids accumulating different mechanisms without need."
+        },
+        {
+          "ref": "Kometz HaMinchah 1:94:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added: the warning against treating oneself as a permanent resident is genuine but lacks the origin’s precise all-generations covenantal scope."
+        },
+        {
+          "ref": "Sod Yesharim, Sukkot 6:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not added: Abraham’s inability to transmit his exact awareness to every later generation is relevant to a broader transmission question, but its resolution through unbounded desire is less exact than the selected repentance comparison."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 10:4",
+      "sectionRef": "Peri Tzadik, Chanukah 10",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "a53a0e263746590644f6f617cc5ef64f53e3cfb3718f966078366a6a224059ef",
+      "reviewedSectionHebrewSha256": "77acb4ea92f7c876b1fa8f222745d5a584d415486e11467baaff813f5a38a7a2",
+      "assessment": "Read the complete argument about Torah filling the heart, the Tree of Life, death’s origin, and guidance/guarding/revival. Both selected targets explain continuity through the apparent interruption and place complete disclosure in the future. The earlier Divrei Chalomot comparison was rejected as too slight for the particular Torah mechanism.",
+      "candidatesReviewed": [
+        {
+          "ref": "Yisrael Kedoshim 7:16",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: the growth and continuity of Torah’s strength explain the dew and renewed power upon awakening, with the comparison to transient physical strength intact."
+        },
+        {
+          "ref": "Tiferet Yosef, Talmud Anthology, Taanit 2",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved: the good desire that remains in the grave gives a concrete account of the bond disclosed at resurrection. Full target read, including the three keys and the distinction between remembrance now and revealed fulfillment in its time."
+        },
+        {
+          "ref": "Divrei Chalomot 17:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Rejected: death as lodging is a shared image, but this paragraph principally tests whether worldly honor endures; it does not sufficiently explain Torah as the continuing source of life."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 10:5",
+      "sectionRef": "Peri Tzadik, Chanukah 10",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "e2aa355d3e1c6c1537534e5fffb67fa9aeeab7db3bfc38ea7b4c006c683ca38c",
+      "reviewedSectionHebrewSha256": "77acb4ea92f7c876b1fa8f222745d5a584d415486e11467baaff813f5a38a7a2",
+      "assessment": "Read the full conclusion, including repair through Torah, the language of evil in God’s eyes, and the menorah’s witness to a restored Presence. The paired sources explain the particular obstruction and the constant point enabling actual repair. None equates every current act with a completed restoration.",
+      "candidatesReviewed": [
+        {
+          "ref": "Takanat HaShavin 15:11",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: careful reading of the same Zohar passages identifies the particular severity as obstructed sight of the Presence, clarifying what restoration means here."
+        },
+        {
+          "ref": "Tiferet Yosef, Beha'alotcha 1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved: the central point whose light continually reaches gives power to illuminate places with intermittent reception; the full paragraph retains gratitude for the power of the person’s own work."
+        },
+        {
+          "ref": "Tzidkat HaTzadik 107:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not selected: its immersion/Torah account is relevant to covenantal repair but supplies a distinct set of halakhic and symbolic questions, less exact for the eyes/Presence argument."
+        },
+        {
+          "ref": "Dover Tzedek, Kuntres Ner HaMitzvot 2:152",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Rejected at this anchor: a fixed place for prayer does not by itself explain the menorah’s testimony or the specified obstruction."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 11:1",
+      "sectionRef": "Peri Tzadik, Chanukah 11",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "421568f3427f714f70573917c33535acb43e36d69d39a124f61bd26b71c83624",
+      "reviewedSectionHebrewSha256": "4a067c78101f4adfc3081a21cf22362299e9513811de4113385c33660ac7255b",
+      "assessment": "Read the complete opening, its distinction between continuing protective mitzvot and brief nighttime lighting, the Maharil’s middle tzitzit thread, and Abraham’s love. Approved the account of a middle joining distinct ends. The numerical/legal tzitzit candidate was not treated as an explanation of a spiritual threefold bond. Independent peer verified the rope image against Bereishit Rabbah 68:12 and corrected the English. The Tzidkat186 comparison discloses an inherited expansion error: official Hebrew has כד״ש, not an attribution to Shammai; Chullin4b confirms the anonymous source. Hebrew anchor preserved.",
+      "candidatesReviewed": [
+        {
+          "ref": "Tzidkat HaTzadik 186:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: three distinct opinions require an actual joining of the two ends through a middle, illustrated through zimmun and preparation for the souls’ inclusion."
+        },
+        {
+          "ref": "Beit Yaakov on Torah, Lech Lecha 57:13",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected for the specific thread: exact numerical performance of tzitzit does not explain the three patriarchal qualities or the middle’s joining role."
+        },
+        {
+          "ref": "Tiferet Yosef, Korach 2",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not selected here: its corners and concealment argument has its proper anchor in remembrance at 11:4, rather than the threefold cord."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 11:2",
+      "sectionRef": "Peri Tzadik, Chanukah 11",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "f804988e291c44ee17070a65b6a261905a474debb3ea806839a4bcdffd4859b8",
+      "reviewedSectionHebrewSha256": "4a067c78101f4adfc3081a21cf22362299e9513811de4113385c33660ac7255b",
+      "assessment": "Read the complete transition from Abraham’s unretained converts and misplaced loves to Isaac’s awe and Oral Torah as consuming fire. The shared selected anchor contains initial kindling and God’s help. The targets develop the small beginning and the warmth that makes a mitzvah supportive, without substituting unbounded enthusiasm for the origin’s awe.",
+      "candidatesReviewed": [
+        {
+          "ref": "Divrei Soferim 13:2",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: God values the small earthly awe and develops it into a capacity for wisdom; full target read, including its grain/preservative analogy."
+        },
+        {
+          "ref": "Sod Yesharim, The Eighth Day of Pesach 20:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved: the desire is received from God and turns a cold burden into a mitzvah that supports the person. Full target paragraph read, including the subsequent blessings and vessel qualifications."
+        },
+        {
+          "ref": "Tzidkat HaTzadik 261:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not used here: its warning about unbounded burning without a vessel is substantive, but the selected 11:2 thought concerns a small beginning grown through help. The fuller lamp/vessel account is considered at 12:3."
+        },
+        {
+          "ref": "Beit Yaakov on Torah, Lech Lecha 9:11",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not added: Abraham’s physical rescue from fire is a different manifestation from the inward fire restraining appetite."
+        },
+        {
+          "ref": "Tiferet Yosef, Erev Yom Kippur 1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not added: the warning to retain embodied life under intense self-surrender concerns a different danger, rather than the specific beginning of awe against the inclination."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 11:3",
+      "sectionRef": "Peri Tzadik, Chanukah 11",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "7102079a146dffdd7137bfb1a9779e37488d20fa6afbb251f3aa9c2366fd4f75",
+      "reviewedSectionHebrewSha256": "4a067c78101f4adfc3081a21cf22362299e9513811de4113385c33660ac7255b",
+      "assessment": "Read all of Jacob’s mediation and the interpretation of God’s withdrawal, together with Esau’s preceding example and the final application to the three mitzvot. The approved sources distinguish momentary clarity from enduring establishment and specify the inherited bond. The exact same-verse Mei HaShiloach reading is genuinely different and is explicitly rejected as an agreement parallel.",
+      "candidatesReviewed": [
+        {
+          "ref": "Yisrael Kedoshim 8:2",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: Jacob’s third strand explains why the inherited name Israel persists even where conduct requires repair; the full target’s beginning and later qualifications were read."
+        },
+        {
+          "ref": "Sod Yesharim, Sukkot 15:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved: it distinguishes a moment’s Shema clarity from a clarity established through the patriarchal root. Entire target read, including the continued need for protection after acquisition."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Vayishlach 2",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected as agreement: it reads the same withdrawal verse as showing that Jacob still needed further clarification, especially in the same matter; Chanukah reads his soul as remaining in the prior revealed state. The inherited bracketed editorial text was also read and not silently treated as authorial Hebrew."
+        },
+        {
+          "ref": "Peri Tzadik, Sefer Kedushat Shabbat 4:4",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added: it is a real comparison, but substantially overlaps the selected Yisrael account of the third strand and the inseverable root."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 11:4",
+      "sectionRef": "Peri Tzadik, Chanukah 11",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "dc184f6cf0ca91226485a1ece9eec13e6a6075a75540e1f8ffcdc6b31723f092",
+      "reviewedSectionHebrewSha256": "4a067c78101f4adfc3081a21cf22362299e9513811de4113385c33660ac7255b",
+      "assessment": "Read the entire account of the four tzitzit, forgetting, the mitzvot as divine messengers, and the single surrounding angel. Approved visual awe as the content of the reminder and the return of an apparently distant place through chosen service. The roots/garments distinction does not imply that current conduct is already perfected.",
+      "candidatesReviewed": [
+        {
+          "ref": "Kometz HaMinchah 1:75:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: tekhelet’s sky/awe association explains the reminder, and the single strand rejects the claim that the entire person is already holy."
+        },
+        {
+          "ref": "Tiferet Yosef, Korach 2",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved: four corners signify apparent distance, and tzitzit calls for actual return; the full argument rejects Korach’s inference that an encompassing root removes the need for service."
+        },
+        {
+          "ref": "Tzidkat HaTzadik 41:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added: the distinction between an angelic guard and the direct awareness of Anokhi is related but supplies a different structure from the selected visual-remembrance mechanism."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 11:5",
+      "sectionRef": "Peri Tzadik, Chanukah 11",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "d4fed8d37e155cf08cc45f328b4b0b9480f8336f6ed870228ef8404ca0700adb",
+      "reviewedSectionHebrewSha256": "4a067c78101f4adfc3081a21cf22362299e9513811de4113385c33660ac7255b",
+      "assessment": "Read the complete paragraph, including self-sacrifice, the lasting Chanukah and Purim rescues, the Megillat Taanit discussion, and the distinction between a promise and the fear that remains before its illumination. Selected the target that explains how permanent Torah remains fresh in the heart. The full Sod paragraph contains an inherited tekhelet comparison sequence earlier; the selected passage begins after it and does not repeat it as accurate source wording.",
+      "candidatesReviewed": [
+        {
+          "ref": "Sod Yesharim, Simchat Torah 6:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved: the blessing after Torah establishes counsel for repeatedly awakening a permanently planted Torah so it does not become stale. Full target read."
+        },
+        {
+          "ref": "Divrei Soferim 32:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not repeated here: its specific explanation of Oral Torah arising through concealment is better anchored in 11:6, which expressly makes concealment the condition of renewal."
+        },
+        {
+          "ref": "Yisrael Kedoshim 8:2",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not repeated: the enduring inherited root already has its proper argument and quotation at 11:3."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 11:6",
+      "sectionRef": "Peri Tzadik, Chanukah 11",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "c7c0db2528010e6b49654f3525b7e2f349b9689d96126cc07ad3c72968f8f3ad",
+      "reviewedSectionHebrewSha256": "4a067c78101f4adfc3081a21cf22362299e9513811de4113385c33660ac7255b",
+      "assessment": "Read the whole conclusion, including renewal specifically after concealment, the differing views about a day garment at night, and the lamp’s support of daytime remembrance. The selected opening’s claim is explained through the inner mode of Oral Torah and repeated actual study. The halakhic debate is preserved in the canonical origin and no new practical ruling is inferred.",
+      "candidatesReviewed": [
+        {
+          "ref": "Divrei Soferim 32:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: Oral Torah reveals God’s wisdom from within the sages’ hearts amid darkness; the same promise of non-forgetting therefore survives concealed conditions."
+        },
+        {
+          "ref": "Sod Yesharim, Shemini Atzeret 17:2",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved: study must reveal the light hidden in mitzvah actions, and regular Torah reading continually reawakens that light after its further clothing in Babylonia. Full target read."
+        },
+        {
+          "ref": "Dover Tzedek, Kuntres Ner HaMitzvot 1:3",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Rejected at this anchor: night/day and tefillin are shared subjects, but the short paragraph does not explain renewal of Oral Torah through concealment."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 12:1",
+      "sectionRef": "Peri Tzadik, Chanukah 12",
+      "status": "reviewed-no-approved-connection",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "af9359e65e35b121d22d0ab832e0090d855b3e07919b03a1bf10e94f884a612d",
+      "reviewedSectionHebrewSha256": "28cdc55a962b0e32d673424a091c377ea5fa23476f46aea79d0a1783267b756b",
+      "assessment": "Read the complete opening question in the five-paragraph ois: the specific beauty and pleasantness of mezuzah and Chanukah lamp, and the right/left placement, require more than two generic mitzvot. The examined candidates give distinct accounts of right and left or of an exceptional act; none explains this precise question sufficiently. The answer at 12:4 has its own substantive anchors.",
+      "candidatesReviewed": [
+        {
+          "ref": "Kometz HaMinchah 2:34:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Rejected at this anchor: its tightly qualified account of an apparent violation for God’s sake does not explain beauty and pleasantness. Full paragraph read, including the prerequisite established righteousness and Elijah’s divine instruction."
+        },
+        {
+          "ref": "Sod Yesharim, Shemini Atzeret 18:3",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected as the same directional explanation: its prayer account makes the human left God’s right after peace and face-to-face relation; Chanukah’s particular description and purpose are different. Shared right/left imagery is insufficient."
+        },
+        {
+          "ref": "Beit Yaakov on Torah, Lech Lecha 14:15",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected at this anchor: Lot’s outward adherence without a receptive heart and the Abraham/Lot directions concern a different inquiry from the distinct qualities of these two mitzvot."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 12:2",
+      "sectionRef": "Peri Tzadik, Chanukah 12",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "eb3bc4c95cce9ec71521e0f84b8ddf505767068fd4553d7439fae35651edf081",
+      "reviewedSectionHebrewSha256": "28cdc55a962b0e32d673424a091c377ea5fa23476f46aea79d0a1783267b756b",
+      "assessment": "Read the full Midrashic comparison to Elijah, David, and Daniel. The chosen passage retains the discourse’s question, with its answer about the preciousness of a person’s own awakening read in 12:3. The Tetzaveh comparison supplies Daniel’s actual danger and chosen restraint, while its full surrounding warning against deliberately entering a test is explicitly preserved in the explanation.",
+      "candidatesReviewed": [
+        {
+          "ref": "Peri Tzadik, Tetzaveh 2:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: Daniel’s descent into the Babylonian palace led to added restraint against assimilation; this gives concrete content to the selected comparison. Entire long target paragraph read, including its explicit rejection of deliberately entering danger in order to rise afterward."
+        },
+        {
+          "ref": "Takanat HaShavin 10:28",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added: David’s enemies and the abiding Temple explain a different part of the Midrash, and do not answer why Daniel is the particular comparison at this anchor."
+        },
+        {
+          "ref": "Sod Yesharim, Hoshana Rabba 4:4",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected for this precise question: the account of action when thought has lost hope is substantive but does not explain Daniel’s particular comparison or his chosen additional restraint."
+        },
+        {
+          "ref": "Beit Yaakov on Torah, Noach 19:64",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected: the brief qualification about choosing the necessary act does not supply a sufficient enhancing argument for Daniel’s example."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 12:3",
+      "sectionRef": "Peri Tzadik, Chanukah 12",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "e5ef4adfe3b5fbf68259f46c3a22aa3ba4008389ffb074702b2dcc9ff62d35d4",
+      "reviewedSectionHebrewSha256": "28cdc55a962b0e32d673424a091c377ea5fa23476f46aea79d0a1783267b756b",
+      "assessment": "Read the full account of Hasmonean sacrifice, the divine gift of power, the lowly person’s dear awakening, and the unusual formulation of Moses’ command. The two comparisons explain different aspects: attribution of divinely given illumination to a person, and the hidden effort that makes equally righteous conduct especially dear. Neither confuses autonomous power or suffering alone with chosen service.",
+      "candidatesReviewed": [
+        {
+          "ref": "Tzidkat HaTzadik 261:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: God supplies the heart’s illumination and nevertheless credits Israel with illuminating before Him; the command as a vessel for Abraham’s blaze preserves the form of that service. Complete target read."
+        },
+        {
+          "ref": "Tiferet Yosef, Talmud Anthology, Taanit 19",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved: equally righteous outward conduct may involve different amounts of inward struggle, and the chosen effort is precious. Complete paragraph read, including the explicit equality in conduct and the differing natural disposition."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 12:4",
+      "sectionRef": "Peri Tzadik, Chanukah 12",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "8d650e6745fa357291e4a0d9108cc52c72afdad92aaba7788629fe12ceabd431",
+      "reviewedSectionHebrewSha256": "28cdc55a962b0e32d673424a091c377ea5fa23476f46aea79d0a1783267b756b",
+      "assessment": "Read the whole answer, including the body shaped by the mitzvot, the mezuzah as received Torah and guardianship, and the renewed Oral Torah illuminating the foolish heart. Two separately placed anchors keep the distinct mechanisms clear: protection beyond present strength and the valued chosen work through resistance. The different geometry in Sod Shemini Atzeret was not forced into an agreement.",
+      "candidatesReviewed": [
+        {
+          "ref": "Resisei Layla 29:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved at the guardianship anchor: the same psalm’s right-hand care is explained through dozing, sleep, and the inner heart that remains guarded when a person’s own energy recedes. Full target read."
+        },
+        {
+          "ref": "Tiferet Yosef, Talmud Anthology, Shabbat 1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved at the new-light anchor: the resistance of the human inclination makes a chosen work possible that God can credit to Israel. Entire target read, including its account of the early giving of Torah and the angels’ eventual acknowledgment."
+        },
+        {
+          "ref": "Sod Yesharim, Shemini Atzeret 18:3",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not approved as an equivalent direction scheme: its right/left explanation serves a different argument about prayer and peace, while the chosen target explains the actual valued human contribution."
+        },
+        {
+          "ref": "Likkutei Maamarim, On Book of Joshua 4",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added: its distinction between inner Torah and external wisdom is real, but it does not explain this particular beauty/pleasantness and guardianship mechanism as precisely."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 12:5",
+      "sectionRef": "Peri Tzadik, Chanukah 12",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "22c5610522c0fbcea088e395a4c63f3bc422ae31f671509b739243a3b69d5dcb",
+      "reviewedSectionHebrewSha256": "28cdc55a962b0e32d673424a091c377ea5fa23476f46aea79d0a1783267b756b",
+      "assessment": "Read the complete closing paragraph and its place/time correspondence between the Temple and Shabbat, with Chanukah drawing on the Temple lamp. The approved target explains how human preparation and recognition permit reception of the greater light; bare corresponding locations or merely shared lamp law were not sufficient.",
+      "candidatesReviewed": [
+        {
+          "ref": "Tiferet Yosef, Beha'alotcha 3",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved: the six lamps and central lamp give an operative explanation of the weekday preparation and the person’s enduring place in Shabbat’s greater divine light. Entire target read."
+        },
+        {
+          "ref": "Dover Tzedek, Miscellany 4:124",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Rejected for this precise thread: Tarmod, lineage, and the root of rabbinic law are a different argument from the Temple/Shabbat correspondence."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Vayetzei 3",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not added: the world/time/person correspondence states the symbolic relation but adds less explanatory content to this anchor than the selected Tiferet account of preparation."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 13:1",
+      "sectionRef": "Peri Tzadik, Chanukah 13",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "0a2c08248d9dea6d61c00bbf162ed5ded1ca02c9aefd68f87e0ea6164c075418",
+      "reviewedSectionHebrewSha256": "6b204e5bb1796ddcf207d017d5af6181b1988d825f6ef044fc0de52250fff543",
+      "assessment": "Read the entire seven-paragraph ois before comparing this opening. Two distinct anchors preserve the prophetic-exception question and the later faith/knowledge distinction. The origin expressly says the ultimate unity is not presently grasped, and the Kometz comparison retains an established prophet, prior fidelity, and actual divine will rather than an imagined holy purpose.",
+      "candidatesReviewed": [
+        {
+          "ref": "Kometz HaMinchah 2:34:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved at the Mount Carmel anchor: it gives the indispensable prior conditions for the exceptional act and explicitly rejects imagined heavenly intent where God does not in truth will the act. Complete paragraph read."
+        },
+        {
+          "ref": "Tiferet Yosef, Rosh Hashanah 8",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved at the knowledge anchor: actual mitzvah service begins with certain obedience despite a felt burden, and deepening attention discovers the light within its garments. Its full servant/son and ark argument were read; service before inward recognition remains valued."
+        },
+        {
+          "ref": "Tzidkat HaTzadik 40:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added: its carefully separated knowledge and choice is a real comparison, but its main mechanism is retrospective repentance, and the selected pair already treats both the prophetic boundary and acquired knowledge without another general statement."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 13:2",
+      "sectionRef": "Peri Tzadik, Chanukah 13",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "aafea036ee9bffe9236166bf58933beacf1d9a6e62678c284f6522e5fcc7e0d1",
+      "reviewedSectionHebrewSha256": "6b204e5bb1796ddcf207d017d5af6181b1988d825f6ef044fc0de52250fff543",
+      "assessment": "Read the complete Elohim/nature, Mount Carmel, loving repentance, and final redemption argument. The selected origin keeps the decisive condition of repentance from love. The comparisons distinguish transformation from erasure and retrospective knowledge from current responsibility. Tiferet’s repeated clauses are retained in the new English because they are present in the unchanged canonical paragraph.",
+      "candidatesReviewed": [
+        {
+          "ref": "Divrei Soferim 38:13",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: the burning love that consumes the heart’s waste explains the additional value of transformation beyond a clean slate. Entire long target paragraph read, including Isaac versus erasure for the divine name and the enduring Israelite root."
+        },
+        {
+          "ref": "Tiferet Yosef, Vayeilech and Shabbat Shuvah 5",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved: the final complete thought expressly distinguishes present limited understanding and required service from what is shown after repentance concerning the past. Full paragraph read, including its criticism of presumptuous assurance, total self-erasure, and attempting to force a divine answer."
+        },
+        {
+          "ref": "Tzidkat HaTzadik 40:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added as a third record: it supports the knowledge/choice qualification, but repeats the particular function supplied more explicitly by Tiferet’s present/past distinction at this anchor."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 13:3",
+      "sectionRef": "Peri Tzadik, Chanukah 13",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "76d1a20b7972aa5acb96d8a4117c365cdf03627f01939c20d39a53d9e3912dd7",
+      "reviewedSectionHebrewSha256": "6b204e5bb1796ddcf207d017d5af6181b1988d825f6ef044fc0de52250fff543",
+      "assessment": "Read the whole progression: inner peace, repentance as revival, the Holy Spirit, Oral Torah’s dew and hidden first light, and Elijah’s future explanation of Torah. Two exact anchors distinguish inner repair from the abiding life that can be awakened. Takanat’s full context describes a real but reversible redemption; its comparison is not represented as the final elimination of all inward conflict.",
+      "candidatesReviewed": [
+        {
+          "ref": "Takanat HaShavin 4:3",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved at the peace anchor: extending repentance into safeguards explains the practical connection between the inward repair and outward deliverance. Complete paragraph and its provisional-repair qualification read."
+        },
+        {
+          "ref": "Sod Yesharim, Rosh Hashanah 88:2",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved at the revival anchor: the abiding measure of life of the individual and the collective explains Elijah’s association with renewed life. Full Minchah, surrender, wilderness, and Mount Carmel argument read; the quoted prophetic act retains “By Your word.”"
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 13:4",
+      "sectionRef": "Peri Tzadik, Chanukah 13",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "bcc5975c02b19806fad779a3434f0ade4794a2cb0cb26ff80b95ee953eb27c04",
+      "reviewedSectionHebrewSha256": "6b204e5bb1796ddcf207d017d5af6181b1988d825f6ef044fc0de52250fff543",
+      "assessment": "Read the complete first utterance, repentance, present dedication, Moses/Aaron and future Moses/Elijah, and the application beyond the physical Temple. The shared anchor is the continuing inner sanctuary through Oral Torah. Both comparisons supply concrete human work and its relation to the divine gift, rather than treating any feeling as proof of a completed sanctuary.",
+      "candidatesReviewed": [
+        {
+          "ref": "Peri Tzadik, Terumah 2:2",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: the writings and teaching of sages address the damaged heart through added Oral Torah wisdom, love, and fear, specifying how the continuing inner sanctuary is built. Complete target paragraph, including the preceding overcoming of the inclination and heartfelt desire, read."
+        },
+        {
+          "ref": "Tiferet Yosef, Talmud Anthology, Sukkah 1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved: bounded mitzvah work clears room in the heart, while the received divine gift exceeds that measure. Full target read, including the later Sukkah test of yielding one’s fixed understanding."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 13:5",
+      "sectionRef": "Peri Tzadik, Chanukah 13",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "2c9602b12bfb722f89a448d2a837bacfa172ffa1debc4b02f953167fdd9dd38e",
+      "reviewedSectionHebrewSha256": "6b204e5bb1796ddcf207d017d5af6181b1988d825f6ef044fc0de52250fff543",
+      "assessment": "Read the whole argument, including ordinary mitzvah reward versus extra piety, the inward knowledge/spirit/life sequence, and Chanukah’s completion of the life petitions. The retained comparison explains why prepared inspiration endures; it is expressly not an independent promise of a fixed earthly lifespan.",
+      "candidatesReviewed": [
+        {
+          "ref": "Tiferet Yosef, Talmud Anthology, Megillah 3",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved: the same piety-to-spirit preparation makes inspiration an enduring acquisition, contrasted in the full paragraph with inspiration given for a moment without preparation. Entire target, including Esther, Amasai, Zechariah, and the argument about writing for generations, read."
+        },
+        {
+          "ref": "Likkutei Maamarim, Compositions on the Festivals 11:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Rejected for this precise thread: it cites the longevity questions to discuss the life of distinct Hebrew letters, but does not explain the origin’s additional piety or the prepared acquisition of spirit. Entire paragraph, including the speech, creature-names, and divine-name argument, read."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 13:6",
+      "sectionRef": "Peri Tzadik, Chanukah 13",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "c0ae977c2199429898640b5ed4fd182225dd36cde345b1bad4ac35cef5754b6a",
+      "reviewedSectionHebrewSha256": "6b204e5bb1796ddcf207d017d5af6181b1988d825f6ef044fc0de52250fff543",
+      "assessment": "Read the entire paragraph’s multiple soul roots of Elijah, tribes/months, Benjamin/Kislev, first sunlight and future restoration, and the final return through Elijah. The selected anchor concerns later light reached through darkness sharing the primordial source. The canonical interlinear Tiferet paragraph 1:9 is used, after reading its complete 1:1–9 context and the corresponding older full paragraph; the shorter heading/definition units alone were not used as connections.",
+      "candidatesReviewed": [
+        {
+          "ref": "Tiferet Yosef, Bereshit 1:9",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved: after actual work breaks the screens, God grants a share in the first utterance and even Bereshit. This explains how recovered light can reach the primordial source, without claiming the target describes the Greek persecution."
+        },
+        {
+          "ref": "Tzidkat HaTzadik 52:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added here: its transformation of a guilty generation is a substantive alternative for the paragraph’s last movement, but the precise new contribution about the immediate opening of repentance is given its own proper anchor at 13:7."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 13:7",
+      "sectionRef": "Peri Tzadik, Chanukah 13",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "c1861c6cd7f6d48678b1bb4a98249af9911e57ea0d676c4c204521224a125447",
+      "reviewedSectionHebrewSha256": "6b204e5bb1796ddcf207d017d5af6181b1988d825f6ef044fc0de52250fff543",
+      "assessment": "Read the complete conclusion in the context of all seven paragraphs. The two comparisons explain the possibility of a present beginning and the content of the declaration after repentance. The origin’s own awakening remains explicit; no record declares a particular person’s completed transformation on the basis of the text alone.",
+      "candidatesReviewed": [
+        {
+          "ref": "Tzidkat HaTzadik 52:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: repentance can begin in a moment, with “Bring us back” and “Return” holding the divine and human sides together; full vineyard, guilty generation, and rose/thorns context read."
+        },
+        {
+          "ref": "Sod Yesharim, Yom Kippur 44:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved: it explains the order of the divine names and the explicit recognition of the light within previously distant garments after the day’s service. Complete paragraph read."
+        },
+        {
+          "ref": "Sod Yesharim, Yom Kippur 7:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not added: the extended five-afflictions and loud-Baruch-Shem account is relevant but brings a distinct larger construction; the concise complete 44:1 argument explains the precise declaration without duplicating the thread. Entire 7:1 paragraph was read before selection."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 14:1",
+      "sectionRef": "Peri Tzadik, Chanukah 14",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "0aecaaa22d94cfcd86ef17b6254f8302bb2efe28ae3a75e873e2bc9a4f46a74d",
+      "reviewedSectionHebrewSha256": "98b271aee0694d6523e3f4c3640f2438f95b23bff45c540b9b2164e2d83de59b",
+      "assessment": "Read the entire opening argument within the complete six-paragraph ois: the named human beginning after prophecy, Mordekhai’s fragrance/covenant, and the feast revealing what outward refinement can conceal. The records use the concrete feast anchor. The restrictive conditions of holy wine are preserved, and Beit Yaakov’s preceding paragraph was read for its continuing work/prayer qualification.",
+      "candidatesReviewed": [
+        {
+          "ref": "Peri Tzadik, Lech Lecha 5:8",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: Noah’s mistaken generalization is corrected by specifying mitzvah wine or settled understanding for Torah. This qualifies why Torah and praise at the feast indicate a prepared heart. Full Lech 5 previously reviewed and reread as relevant."
+        },
+        {
+          "ref": "Beit Yaakov on Torah, Lech Lecha 12:10",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved: the same cup/purse/anger criterion tests the inward character through ordinary action under concealment, rather than religious appearance alone. Complete target and preceding 12:9 read."
+        },
+        {
+          "ref": "Resisei Layla 47:3",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added at this anchor: its Purim/cup discussion locates the root beyond ordinary cognition, but the two selected texts more precisely explain the conduct criterion and its conditions without adding another large theoretical frame. Entire target read."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 14:2",
+      "sectionRef": "Peri Tzadik, Chanukah 14",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "bf1622f659ac015c9499cbdeee84f0ec1f030eff8a126adcafec4e38cb45c9fd",
+      "reviewedSectionHebrewSha256": "98b271aee0694d6523e3f4c3640f2438f95b23bff45c540b9b2164e2d83de59b",
+      "assessment": "Read the complete contrast of written and unwritten miracles, the dew analogy, and the daily Hanina announcement despite the later speaker’s generation. Two distinct origin anchors separate reasoned Oral Torah from Hanina’s modest sufficiency and communal role. No new scholarly discovery is called valid merely because it feels inspired, and no insufficient food intake is promoted.",
+      "candidatesReviewed": [
+        {
+          "ref": "Peri Tzadik, Ki Teitzei 15:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved at the dew anchor: the Ramban/reason-giving account specifies how the sage’s understanding participates in a divine teaching. Entire Moses/Rabbi Akiva and second-tablet paragraph read."
+        },
+        {
+          "ref": "Dover Tzedek, Kuntres Ner HaMitzvot 2:35",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved at the Hanina anchor: the small portion must actually suffice; the full paragraph prohibits self-affliction and requires sustaining the entrusted life. The selected contiguous thought avoids an inherited open-bracket fragment at the paragraph’s beginning."
+        },
+        {
+          "ref": "Sod Yesharim, Rosh Hashanah 7:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved at the Hanina anchor: his nearness becomes generosity toward the community, explaining the relation between his little portion and the world’s abundance. Entire Rosh Hashanah/Shofar and miracle context read."
+        },
+        {
+          "ref": "Tiferet Yosef, Ha'azinu and Shabbat Shuvah 7",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected as an equivalent dew/rain explanation: it distinguishes an initially unwelcome obligation from subsequently tasted sweetness, while this Chanukah anchor distinguishes visible descent from concealed divine authorship. Shared verse and images alone do not establish the requested relation."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 14:3",
+      "sectionRef": "Peri Tzadik, Chanukah 14",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "31509844025c133d1d539735d69cb9a5e13e4da2b41edbd03b87292137a47ad7",
+      "reviewedSectionHebrewSha256": "98b271aee0694d6523e3f4c3640f2438f95b23bff45c540b9b2164e2d83de59b",
+      "assessment": "Read the full Jacob/name, Hanina/oil-vinegar, benefit-from-miracles, farming-faith, and daily-thanksgiving argument. Two selected passages add an actual mechanism: recollection of the divine word within the ordinary property and the role of habit in hiding continuous creation. The exceptional perception and the problem of requesting miracles remain explicit.",
+      "candidatesReviewed": [
+        {
+          "ref": "Peri Tzadik, Pesach 32:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: it explains why Hanina expressly recalls oil and compares Elisha’s enacted recollection through wood; the same divine command grounds both familiar and unusual properties. Entire long target, including matzah, covenant, and later gathering of Torah wisdom, read."
+        },
+        {
+          "ref": "Sod Yesharim, The Seventh Day of Pesach 4:2",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved: the Adam-on-the-first-day comparison and life renewed each moment explain the disappearance of the nature/miracle distinction under greater recognition. Full target read, including choice, the sea/Jordan distinction, and Rabbi Pinchas’s uncertain chosen service."
+        },
+        {
+          "ref": "Resisei Layla 47:3",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added: it gives the real shared recognition of natural providence through Purim, but the selected targets add more precise accounts of recollection and habituation rather than repeating the conclusion."
+        },
+        {
+          "ref": "Tzidkat HaTzadik 184:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not selected: its names/angels and human-choice discussion is substantive, but introduces a further classification theory unnecessary to the specific recognition in this anchor. Entire paragraph read."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 14:4",
+      "sectionRef": "Peri Tzadik, Chanukah 14",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "70e149c385ff076c0db0f13a88d157aa23af536d4d126ec86e6efddee21fc221",
+      "reviewedSectionHebrewSha256": "98b271aee0694d6523e3f4c3640f2438f95b23bff45c540b9b2164e2d83de59b",
+      "assessment": "Read the complete comparison of Hasmonean courage, prayer for knowledge, the lowly vessel of Oral Torah, grace toward the unworthy, and the three gifts with Jacob’s children. The shared selected thought explains favor and the gifts. Machshavot retains divine judgment and the prior root; Tiferet applies humility even to actual spiritual attainments.",
+      "candidatesReviewed": [
+        {
+          "ref": "Machshavot Charutz 8:16",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: the deeper wonder is deliverance beyond apparent desert, not merely altered nature; its root and judgment qualification explain unearned grace. Entire target read, including its explicitly tentative redemption-date and legal discussion, neither of which is imported into this connection."
+        },
+        {
+          "ref": "Tiferet Yosef, Talmud Anthology, Chagigah 5",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved: wisdom, strength, and wealth are applied to Torah, self-mastery, and contentment, which also must be recognized as gifts for further service. Complete festival joy, generosity, and continuing life argument read."
+        },
+        {
+          "ref": "Divrei Soferim 11:2",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added: the lowly wine/water vessel is shared, but its developed causal argument concerns illness, healing, and the broken vessels, bringing a different question into this precise gift/knowledge anchor. Entire paragraph read."
+        },
+        {
+          "ref": "Beit Yaakov on Torah, Bereshit 44:14",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not approved as a standalone enhancing quotation: after the entire short-unit section was read, this exact canonical paragraph remains a concise statement about inner heavenly glory, without enough of its preceding food/garment argument to add a substantial independent explanation here."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 14:5",
+      "sectionRef": "Peri Tzadik, Chanukah 14",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "279e4ab66074b57757a2eebd82c1b82f11a9b00a10822b8eeffb4efd24fa788d",
+      "reviewedSectionHebrewSha256": "98b271aee0694d6523e3f4c3640f2438f95b23bff45c540b9b2164e2d83de59b",
+      "assessment": "Read the whole daily Horeb announcement, Joseph/Yohanan names, Torah/covenant, and the transmitted historical account of the Hasmonean wedding. The selected anchor is Joseph’s combination of recognizing God’s power and chosen restraint through new Torah. The historical narration is preserved in the origin but is not restated as independently verified history by a connection.",
+      "candidatesReviewed": [
+        {
+          "ref": "Peri Tzadik, Sukkot 51:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: Torah supplies both strength against a known wrong and light to expose a wrong disguised as a mitzvah. Full target read, including the value of effort before successful understanding and the later rain/dew illustration."
+        },
+        {
+          "ref": "Sod Yesharim, The Seventh Night of Pesach 23:2",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved: Joseph’s coffin signifies chosen restraint even where the inclination makes choice seem absent; the complete river dialogue contrasts this with relying on direction beyond one’s choice. The new English identifies Rabbi Pinchas ben Yair in brackets. The explanation expressly does not attribute the origin’s separate Oral Torah argument to this target."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 14:6",
+      "sectionRef": "Peri Tzadik, Chanukah 14",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "6d19ffb654f431d85934bcd06a36366a43627841cb24bd9991d0afa9b0965fc4",
+      "reviewedSectionHebrewSha256": "98b271aee0694d6523e3f4c3640f2438f95b23bff45c540b9b2164e2d83de59b",
+      "assessment": "Read the complete Purim/Chanukah, Adar/Nisan, and four-craftsmen conclusion. The two comparisons explain present participation in both righteous and returning modes, and why forceful preparation differs from receiving the final time. No calendrical speculation is presented as a dated prediction.",
+      "candidatesReviewed": [
+        {
+          "ref": "Machshavot Charutz 7:18",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: each generation and each soul requires both the righteous and penitent gates; a person may be upright in some particulars while needing repair in others. Entire monthly renewal, widened line, Adar/Nisan, and divine awakening argument read."
+        },
+        {
+          "ref": "Sod Yesharim, Shabbat Chol HaMoed Pesach 13:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved: Joseph’s forceful advance and David’s waiting for the divine time explain why preparatory work does not itself complete deliverance. Full target read, including the later four-winds, embodiment, and gradual resurrection argument."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Vayeshev 1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not added: its major distinction between a humanly secured achievement and an enduring divine building is relevant, but the selected two paragraphs already explain the needed present modes and final sequence more directly. The entire difficult target, including the limits and its exceptional Judah/Joseph accounts, was read before declining it."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 15:1",
+      "sectionRef": "Peri Tzadik, Chanukah 15",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "3878e7527021db40bdd79378a0c979e87881a9d12308de7b838271568840955e",
+      "reviewedSectionHebrewSha256": "fd2e2052b2cbe4b09575468ac43d5006f020eeaf47cd25bcd66f0c96917ff527",
+      "assessment": "Read the entire seven-paragraph ois and the complete opening question about Rosh Chodesh Musaf versus Shabbat Musaf. The selected anchor contains the twenty-four-letter lower unity, costly chosen service, and the establishment on the day of rest. Approved explanations of what rest enables and why recognition of upper unity still requires actual service. “Risked their lives” retains the intended self-exposure without asserting that every participant died.",
+      "candidatesReviewed": [
+        {
+          "ref": "Divrei Soferim 6:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: the full paragraph distinguishes mere bodily pleasure from rest that allows attachment to the Maker. The selected complete bracketed argument makes the purpose of rest explicit."
+        },
+        {
+          "ref": "Tiferet Yosef, Talmud Anthology, Pesachim 5",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved: the entire long paragraph was read, including Moses versus Jacob, Sinai, the quiet declaration, and the withholding of the final revelation so that human service remains possible. The excerpt expressly rejects reliance on the inherited root without ongoing work."
+        },
+        {
+          "ref": "Sod Yesharim, Rosh Hashanah 22:2",
+          "school": "Ishbitz–Radzin",
+          "reason": "Read but not added here: its account of interrupted light and acquired ownership is substantive, but the selected Pesachim paragraph explains the identical lower/upper-unity vocabulary more directly. Its shofar-specific argument is not presented as an account of the Chanukah calendar."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 15:2",
+      "sectionRef": "Peri Tzadik, Chanukah 15",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "88af4c6642b79851e8b965cd8293bc90ac7cec8fb48da07160aaf58cf422e17f",
+      "reviewedSectionHebrewSha256": "fd2e2052b2cbe4b09575468ac43d5006f020eeaf47cd25bcd66f0c96917ff527",
+      "assessment": "Read the whole paragraph, including the historical interpretation of the Hasmonean decree, rest amid hard service, resurrection and first light, and the final restriction of Rosh Chodesh illumination to Musaf. Selected the sustained first-light argument. The Tiferet translation retains its express limit: present understanding can recognize divine purpose but cannot grasp the greater future claim that the people themselves never suffered.",
+      "candidatesReviewed": [
+        {
+          "ref": "Resisei Layla 53:2",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: the entire paragraph was reread. The selected service-with-joy passage retains awe and present distress, explaining recognition of corrective purpose without saying that hardship is pleasant."
+        },
+        {
+          "ref": "Tiferet Yosef, Talmud Anthology, Megillah 7",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved: the full repentance, Purim, future deliverance, Joseph analogy, and continuing acceptance of divine kingship argument was read. The sufficient excerpt starts with the distinction between what can and cannot be grasped now and includes the analogy and cure-before-affliction conclusion."
+        },
+        {
+          "ref": "Divrei Soferim 6:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not repeated at this second anchor: it explains the purpose of relief from disturbance, while this paragraph specifically asks how rest can be present within continuing hardship. The Resisei target addresses that additional question."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 15:3",
+      "sectionRef": "Peri Tzadik, Chanukah 15",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "0b8a2b7d9741d784d9e22c9e8184028094f7d2c76f8957f59ebd1c9e2b9a4e34",
+      "reviewedSectionHebrewSha256": "fd2e2052b2cbe4b09575468ac43d5006f020eeaf47cd25bcd66f0c96917ff527",
+      "assessment": "Read the complete progression from all-day Chanukah illumination to the heart’s dwelling, Elijah and Sinai, the three verses, loving repentance, Greek opposition to Oral Torah, and the goat bearing Jacob’s sins. Two distinct anchors are approved: continuing inward illumination, and retrospective repentance. The Chanukah quotation retains permitted work and the unequal degree of Shabbat holiness; the Tzidkat quotation retains choice and the requirement of an actual command in the Azazel example.",
+      "candidatesReviewed": [
+        {
+          "ref": "Sod Yesharim, Yom Kippur 15:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved at the lasting-light anchor: the full paragraph was read through the final demand for greater restraint despite the unbounded root. The quote retains fulfillment of the commandments as the condition for their establishment within the heart and explicitly identifies Yom Kippur."
+        },
+        {
+          "ref": "Tzidkat HaTzadik 40:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved at the repentance anchor: the complete target explains the very same three verses and goat symbolism, expressly distinguishing the places of knowledge and choice and independent idolatry from the commanded act."
+        },
+        {
+          "ref": "Resisei Layla 53:2",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added to the repentance anchor: its enduring root and joy are relevant to the preceding paragraph, but do not explain the specific knowledge/choice qualification as directly as Tzidkat 40."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 15:4",
+      "sectionRef": "Peri Tzadik, Chanukah 15",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "29b0d9be45260d27a2e169573fd5de460384ff79098aa7840cc38611fdaf1099",
+      "reviewedSectionHebrewSha256": "fd2e2052b2cbe4b09575468ac43d5006f020eeaf47cd25bcd66f0c96917ff527",
+      "assessment": "Read the complete paragraph, including the transmitted Joseph Meshita/Yakum narratives, Greek darkness, Moses and Elijah, the liver/Tevet correspondence, and the command-focused answer to the organ question. The selected final argument is treated as a discussion of the cited command, not a private authorization of anger. Approved two precise criteria: continuing compassion under Torah judgment and limitation of corrective force to its actual purpose.",
+      "candidatesReviewed": [
+        {
+          "ref": "Tzidkat HaTzadik 199:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: the full paragraph was read. Its account of judges who remain full of mercy and seek grounds of merit gives a substantive criterion for the anger of sages. The quotation ends before an inherited expansion of an abbreviation into Shammai’s name."
+        },
+        {
+          "ref": "Tiferet Yosef, Pesach 6",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved: the whole paragraph was read, including anger from imagined ownership, the captain analogy, and following God at the Exodus. The selected passage explicitly condemns even a hair’s breadth beyond the necessary corrective measure."
+        },
+        {
+          "ref": "Machshavot Charutz 13:2",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Read but not selected: it repeats upright creation and commanded anger, while Tzidkat 199 adds the more useful criterion of mercy and the search for merit. Its inherited Taanit 4a locator accompanies the formula “the anger of sages is good on all sides”; the formula was verified in the primary Zohar II 182b text at https://he.wikisource.org/wiki/זהר_חלק_ב_קפב_ב. No canonical wording was changed or incorrect locator republished in new English."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 15:5",
+      "sectionRef": "Peri Tzadik, Chanukah 15",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "72adf9d7a6fff643b7e4b0e99da72cc0140f46dd10c288c78be311d114fabc5c",
+      "reviewedSectionHebrewSha256": "fd2e2052b2cbe4b09575468ac43d5006f020eeaf47cd25bcd66f0c96917ff527",
+      "assessment": "Read the full anger/return/Oral-Torah argument and the final Beit Shammai/Beit Hillel account. Selected the complete latter argument, preserving that both conceptual movements are true while the target explicitly names Beit Hillel as the halakhic ruling. The inherited assertion that all last three Chanukah days are always in Tevet is outside the quotation: the sixth day can be 30 Kislev, the first day of Rosh Chodesh Tevet. No literal calendar generalization is silently reproduced as a new factual claim.",
+      "candidatesReviewed": [
+        {
+          "ref": "Resisei Layla 56:27",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: the full circumcision, sealed oil, Written/Oral Torah, and lamp-count paragraph was read. The selected section explains why outgoing attainments remain with the learner while incoming darkness still requires removal."
+        },
+        {
+          "ref": "Sod Yesharim, Simchat Torah 33:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved: the entire paragraph was read through the eventual disappearance of the need for anger. The selected exact argument explains why extracting the good point removes the evil domain’s source of persistence; it is not mislabeled a discussion of Chanukah lamp law."
+        },
+        {
+          "ref": "Tiferet Yosef, Talmud Anthology, Megillah 2",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not selected for the lamp-count anchor: the complete paragraph contrasts anger’s corrective use with the future transformation of desire, but does not explain the interdependent increasing/decreasing movements as directly as the selected Sod paragraph."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 15:6",
+      "sectionRef": "Peri Tzadik, Chanukah 15",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "e7be5e00e7fdb62442158a08bbaed3974a1357cba87ca3e71a9cf0610d115f2f",
+      "reviewedSectionHebrewSha256": "fd2e2052b2cbe4b09575468ac43d5006f020eeaf47cd25bcd66f0c96917ff527",
+      "assessment": "Read the whole paragraph, including its continuation of the lamp-count dispute, Rosh Chodesh as the head of the month, Gad/Elijah, Joseph’s descendants, the two messianic figures, and the final distinction between anger and enduring holy fire. The selected last thought excludes the inherited literal calendar generalization also present in 15:5. Approved the sequence from victory to repurposing and the distinction between strength within kindness and cruel anger.",
+      "candidatesReviewed": [
+        {
+          "ref": "Kometz HaMinchah 2:16:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: the full paragraph was reread. The contiguous battle analogy preserves the requirement that victory precede appropriation. It avoids inherited inaccurate Tanya 27 and Sanhedrin 16 locators, already documented during the Et HaOchel peer review."
+        },
+        {
+          "ref": "Beit Yaakov on Torah, Chayei Sara 28:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved: the full target was read. The English correctly renders strength as included within kindness, and retains the condemnation of the cruel form as only evil."
+        },
+        {
+          "ref": "Tiferet Yosef, Talmud Anthology, Megillah 2",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not substituted as a statement that anger remains: its full argument says anger becomes unnecessary while desire can be retained for Torah joy. This difference was preserved; the selected Beit Yaakov passage more exactly distinguishes holy strength from cruel anger."
+        },
+        {
+          "ref": "Sod Yesharim, Simchat Torah 33:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not repeated as another record here: the passage already explains the previous paragraph’s extraction mechanism, and the two chosen targets supply more distinct explanations of the remaining force after victory."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 15:7",
+      "sectionRef": "Peri Tzadik, Chanukah 15",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "77c08848161bfc26dfc0eebbf882072395ae8e78e20e03f9cd6451aa9d56f619",
+      "reviewedSectionHebrewSha256": "fd2e2052b2cbe4b09575468ac43d5006f020eeaf47cd25bcd66f0c96917ff527",
+      "assessment": "Read the entire conclusion in its preceding future-fire context. The origin explicitly distinguishes the furnace’s “all your soul” from the Akeidah’s dearer-than-self “all your might,” and calls the resulting love fear because it acts with strength. Approved acquired love through awe and the clarification of paternal self-interest in the specific Akeidah narrative. The outcome “Do not stretch out your hand against the boy” remains in the target quotation.",
+      "candidatesReviewed": [
+        {
+          "ref": "Takanat HaShavin 5:8",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: the complete paragraph was read, including its later messianic retrospective account. The selected complete present-service argument explains the addition of effort and fear to love first awakened from above."
+        },
+        {
+          "ref": "Tiferet Yosef, Rosh Hashanah 19",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved: the complete miracle-as-loan, Akeidah clarification, ongoing holiness, and ram-substitution argument was read. The excerpt retains the two apparently conflicting statements, the possible interested interpretation, and Isaac’s life from the command not to harm him."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Vayera 9",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected as an explanation of this particular love/fear relation: the complete short target differentiates personal incompleteness from bearing a general prohibition for another person’s sake. It interprets the same verse but does not explain the force of love developed in this conclusion."
+        },
+        {
+          "ref": "Sod Yesharim, Rosh Hashanah 22:2",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not added: its full treatment of Abraham’s surrender, Isaac’s differentiation, and Jacob’s union concerns the acquisition of ownership through interrupted light. The selected Takanat paragraph explains the origin’s exact “fear completes love” question more directly."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 16:1",
+      "sectionRef": "Peri Tzadik, Chanukah 16",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "127c90cb32f992aa787a3e0f0767ce458c66320e55695384cc28eaed9293fba2",
+      "reviewedSectionHebrewSha256": "f03c4bd9f1837dd6b6f58b925f43efefbb16a5999096e2e257aaa1ddffbc9156",
+      "assessment": "Read the entire five-paragraph ois and the full opening: winter eyes, the covenant, the specific condition of refusing regret, the heart not yet refined, fear and hope for future conduct, Daniel’s first day, accepted servanthood, and the Shovavim setting. Both selected targets explain a genuine beginning without presuming finished repair. The full Tzidkat argument is retained so that its opening severe Zohar statement is not separated from the effective Torah, prayer, and broken-heart counsels that follow.",
+      "candidatesReviewed": [
+        {
+          "ref": "Tzidkat HaTzadik 108:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: the complete paragraph explains distinct modes of repair and the particular efficacy of a broken heart for closeness, using the same Psalm 34 progression. Inherited bracket placement remains in the Hebrew; the English follows the complete argument."
+        },
+        {
+          "ref": "Tiferet Yosef, Talmud Anthology, Taanit 10",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved: the full target was read. The selected first argument explains the same Daniel verse through God’s raising of finite perception when repentance is genuinely accepted. The accepted fast is still to be observed afterward. The later Daniel-vessels and Moses arguments are not blended into this quotation."
+        },
+        {
+          "ref": "Tiferet Yosef, Talmud Anthology, Berakhot 3",
+          "school": "Ishbitz–Radzin",
+          "reason": "Read and considered, not added as a third record: its divine awakening before complete outward clarification supports the issue, but the Taanit paragraph offers the more specific new explanation of the finite person’s accepted resolve through the identical Daniel verse."
+        },
+        {
+          "ref": "Kometz HaMinchah 1:11:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Rejected despite the identical psalm wording: the complete target concerns culpability for failing to rebuke and when rebuke is no longer required. It does not explain the origin’s distinction between refusing regret and accepting renewed servanthood."
+        },
+        {
+          "ref": "Yisrael Kedoshim 10:19",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Read but not selected: its detailed involuntary-emission and ransom argument distinguishes an event received from Heaven from deliberate failure. It does not directly explain why the newly broken heart in this paragraph is already accepted."
+        },
+        {
+          "ref": "Takanat HaShavin 10:29",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Read but not selected here: its ransom and eventual collective clarification argument is substantive, but the selected Tzidkat paragraph gives the clearer account of brokenness restoring closeness."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 16:2",
+      "sectionRef": "Peri Tzadik, Chanukah 16",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "4e8e2dea449e9254de559fe86ed8d4fb8d05b4c9da36baa3832de13f10b9c5b2",
+      "reviewedSectionHebrewSha256": "f03c4bd9f1837dd6b6f58b925f43efefbb16a5999096e2e257aaa1ddffbc9156",
+      "assessment": "Read the entire paragraph: the sixth-day Rosh Chodesh frame, the right eye and kindness, priestly guardianship and instruction, Torah taught to others, and the lowly vessel in which Oral Torah endures. The new connection selects the final receptive-heart argument. The sixth day is Rosh Chodesh Tevet, which can be its first day on 30 Kislev; this is distinguished from the broader literal last-three-days-in-Tevet statement at 15:5–6. No repeated Ishbitz record was added merely to fill a school slot.",
+      "candidatesReviewed": [
+        {
+          "ref": "Tzidkat HaTzadik 225:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: the entire paragraph was read through its final alternative of intense living desire for Torah. The selected opening explains fear, experienced lack, and Torah gladdening the heart rather than preserving sadness as the goal. It stops before an inherited abbreviation expansion into Shammai’s name."
+        },
+        {
+          "ref": "Divrei Soferim 11:2",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Read but not selected: the water/wine humility passage is relevant, yet the full target develops bodily healing and meal preparation. Tzidkat 225 more exactly explains how the heart itself receives and retains Torah."
+        },
+        {
+          "ref": "Takanat HaShavin 11:10",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Read but not selected: it connects David’s brokenness and Torah with the later degrees of repentance and a newly created heart. The shorter selected Tzidkat argument isolates the inward-learning mechanism without requiring that larger debate; the inherited Taanit locator in the target was not republished."
+        },
+        {
+          "ref": "Tiferet Yosef, Nitzavim 10",
+          "school": "Ishbitz–Radzin",
+          "reason": "Relevant after a fresh full-paragraph comparison, but not republished at a second origin in this batch: its complete humble-vessel argument is already quoted at 10:2. A further identical quotation would add less here than Tzidkat 225’s specific account of fear and the heart’s living response to Torah."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Bereshit 10",
+          "school": "Ishbitz–Radzin",
+          "reason": "Read and declined for this precise thread: Torah as restoration of an inborn lack is relevant background, but the paragraph principally develops the serpent’s targeting of a weakness and the wrong of exposing another’s shame. It does not explain the enduring lowly receptacle closely enough."
+        },
+        {
+          "ref": "Tiferet Yosef, Sukkot 13",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected for this anchor after full reading: sowing, restraint, and recognition of unbounded light concern the hidden yield of service. They do not explain humility as the condition for Oral Torah to remain in the heart."
+        },
+        {
+          "ref": "Sod Yesharim, Yom Kippur 39:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Read and considered, not selected here: the full hyssop, ash, water, and Torah argument includes real humility and required exertion, but its distinctive conclusion is retrospective clarification beyond the limit of choice. It would shift this anchor away from the more precise question of retaining Torah in the receptive heart."
+        },
+        {
+          "ref": "Sod Yesharim, The First Night of Pesach 19:2",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected: the complete short paragraph poses the right-hand/kindness versus Exodus-strength question but provides no explanation of a humble heart receiving Torah."
+        },
+        {
+          "ref": "Beit Yaakov on Torah, Bereshit 17:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected: the complete short paragraph is a Zohar citation identifying Abraham with Torah of kindness. It supplies no additional mechanism for the claim under review."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 16:3",
+      "sectionRef": "Peri Tzadik, Chanukah 16",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "d214daea9a51a21e44717b20c72df7c79d66e910572e45924f618db8c0c1f923",
+      "reviewedSectionHebrewSha256": "f03c4bd9f1837dd6b6f58b925f43efefbb16a5999096e2e257aaa1ddffbc9156",
+      "assessment": "Read the whole paragraph, including its eighth-degree, received-wisdom/derived-understanding distinction and the later divine-name numerology. The selected continuous opening ends before the inherited malformed “חנה (כו” text. Approved concrete explanations of understanding as practical judgment and inward reading of a garment, with the latter’s express limit when concealment becomes too great.",
+      "candidatesReviewed": [
+        {
+          "ref": "Resisei Layla 12:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: the whole paragraph was read, including the later distinction between the value of speech and the heart’s reception. The selected complete argument explains understanding as instruction for actual action and the central purpose of absorption within the heart."
+        },
+        {
+          "ref": "Sod Yesharim, Shabbat Chol HaMoed Sukkot 24:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved: the full before/after-sin, Moses’s prayer, wisdom/understanding, and thirteen-attributes argument was read. The quote retains the danger of becoming unable to infer the inner light and the need for direct help."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Bereshit 7",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected as an explanation of this distinction: the full paragraph’s Temple symbolism and final discussion of blessing within binah concern a different question, and the transmitted supplement brackets are not suitable material for silently reconstructed English. No numerological match was promoted to an approved connection."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 16:4",
+      "sectionRef": "Peri Tzadik, Chanukah 16",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "5ffa2af5f861fd09f2859239adf1bf806fa1b1a0819cd6887ee2e363578c995e",
+      "reviewedSectionHebrewSha256": "f03c4bd9f1837dd6b6f58b925f43efefbb16a5999096e2e257aaa1ddffbc9156",
+      "assessment": "Read the complete Judah, Rabbi Meir, Issachar, Zebulun, and Reuben argument in the context of the princes’ dedication readings. Two distinct anchors were selected: revealed depth versus the halakhic way of conduct, and restoration of Reuben’s lost capacity. The first does not turn a private claim of depth into a legal ruling; the second explains the effect of repair rather than repeating the chronology of first repentance.",
+      "candidatesReviewed": [
+        {
+          "ref": "Tzidkat HaTzadik 198:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved at the Judah anchor: the complete long target was read, including love of Torah/Israel/God, Issachar’s particular judgment, and its final exceptional David/Solomon account. The selected clear argument distinguishes revealed statutes from the way of worldly conduct and explicitly retains “not in Heaven.”"
+        },
+        {
+          "ref": "Sod Yesharim, Simchat Torah 44:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved at the Reuben anchor: the complete paragraph was read, including its later Judah and Solomon developments. The chosen opening explains the receiving vessel lost through haste and restored by Moses’s blessing, with each individual soul counted rather than deemed superfluous."
+        },
+        {
+          "ref": "Peri Tzadik, Bo 11:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Read but not added at the first-repentance statement: its complete weekly-reading, Judah/Joseph, Reuben, and Shovavim argument develops the broader national completion. It would repeat much of the present ois’s frame, while the selected Sod passage gives a more specific account of what Reuben’s restoration accomplishes."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Vayishlach 22",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected: the complete canonical paragraph is a list of the four banners and their directions. It verifies names but supplies no conceptual enhancement of Torah or repentance."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 16:5",
+      "sectionRef": "Peri Tzadik, Chanukah 16",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "c2fc2c961ce862003371717fc601fa2d7d56741b41a66000a92443644dddc77c",
+      "reviewedSectionHebrewSha256": "f03c4bd9f1837dd6b6f58b925f43efefbb16a5999096e2e257aaa1ddffbc9156",
+      "assessment": "Read the entire closing paragraph, including Simeon’s failure and repentance, the traditions placing Elijah in Gad and Benjamin, peace among the tribes, future repair of every defect, and Joseph’s sons completing the days. The selected later argument is illuminated by collective righteousness that still requires individual repentance, and by future recognition of opposed tribes’ intentions. The Mei quotation retains its difficult exceptional-halakhah claim as the author’s attributed Judah account, and the explanation does not convert it into a general permission.",
+      "candidatesReviewed": [
+        {
+          "ref": "Resisei Layla 48:5",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: the complete long sixth-day, collective unity, kingship, Shabbat rest, and blessing argument was read. The selected passage expressly retains atonement and repentance for the individual alongside righteousness through union with the whole."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Vayeshev 2",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved: the whole paragraph distinguishes Ephraim’s rule-oriented fidelity from Judah’s search for particular truth, then explains future peace through God’s revealing an intention directed to Heaven rather than personal pleasure. All qualifications and the exceptional claim remain in the English."
+        },
+        {
+          "ref": "Tzidkat HaTzadik 96:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Read but not selected: its full Og/Moses and circumcised/uncircumcised comparison supports the enduring covenantal designation, but the selected Resisei paragraph more directly explains collective union while retaining the individual need for repair."
+        },
+        {
+          "ref": "Resisei Layla 49:2",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Read but not added: its complete Adar/Joseph, inborn covenantal seal, choice, and Purim argument supports the common root. The collective-versus-individual distinction in Resisei 48:5 is more precise for the origin’s peace-between-tribes claim."
+        },
+        {
+          "ref": "Tiferet Yosef, Noach 1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected for this precise thread: the complete account of primordial destruction, prayer after concealed light, and Noah’s world of repair does not explain reconciliation among the tribes or the covenantal claim."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Vayishlach 18",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected: the full canonical paragraph is only a list of the twelve tribes. Shared names supply no enhancing explanation."
+        },
+        {
+          "ref": "Sod Yesharim, The Seventh Day of Pesach 9:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Read and declined here: Moses reveals the ancestral covenant without a garment at the sea, but the paragraph does not explain the origin’s future resolution of differences or the relation between collective righteousness and individual defects."
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,185 @@
+{
+  "schemaVersion": 1,
+  "reviewedOn": "2026-10-20",
+  "method": "Individual full-context curation followed by an independent bilingual review of all seven origin paragraphs, all twelve accepted target paragraphs and the three additional unique rejected candidate paragraphs (sixteen origin–candidate comparisons). Additional surrounding contexts and primary Talmudic/Midrash sources were read where they resolved an antecedent or quotation. The finite set of comparisons is documented per paragraph; a rejection at one anchor is not a claim that no useful parallel exists.",
+  "entries": [
+    {
+      "ref": "Peri Tzadik, Tu BiShvat 1:1",
+      "sectionRef": "Peri Tzadik, Tu BiShvat 1",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "c90859463549edf5189a1529460af18b8bcd1785afdf95c22a0156129a60441a",
+      "reviewedSectionHebrewSha256": "e8dd4c22a9da44a11e5ea85f79c0598ef8442a0188be33181e5dd1290d4d1494",
+      "assessment": "Read the complete paragraph, including its comparison of the weekly and year-long accounts of the plagues. The approved sources clarify inward purification and the paired displacement of evil by good; neither connection turns the homiletic chronology into a resolved historical dispute. Independent review confirmed the full paragraph, accepted-source translations and specific fit, and the stated reasons for the candidates not added.",
+      "candidatesReviewed": [
+        {
+          "ref": "Peri Tzadik, Bo 1:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after independent full-context and bilingual review: This is the Bo teaching explicitly cited by the origin. It explains why the last three plagues are inward: the seven lower qualities concern the visible domain, while the final three reach concealed roots. Its continuation identifies a particularly hidden danger, evil presenting itself as a guide to greater holiness; the transition is therefore more than a numerical correspondence."
+        },
+        {
+          "ref": "Beit Yaakov on Torah, Vayera 35:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after independent full-context and bilingual review: Beit Yaakov explains the linked process behind the origin’s “one opposite the other”: establishing a particular good displaces its opposing evil, with effects beyond the individual. Its application to Abraham and Sodom differs from the origin’s sequence of plagues; the comparison concerns the mechanism of striking and healing, not an identification of the events."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Tu BiShvat 1:2",
+      "sectionRef": "Peri Tzadik, Tu BiShvat 1",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "d7e75ee0f5479f014963531c75805f73f5f4bca21e86da291b8fee02363f8695",
+      "reviewedSectionHebrewSha256": "e8dd4c22a9da44a11e5ea85f79c0598ef8442a0188be33181e5dd1290d4d1494",
+      "assessment": "Read the full progression from Eden and the trees through labor, Egypt, the heart, Shevat–Adar–Nisan, Shavuot, and purity of smell. The explicit Bereshit continuation adds the lasting effect of the mixture and distinguishes it from forgiveness for the first act. Independent review confirmed the full paragraph, accepted-source translations and specific fit, and the stated reasons for the candidates not added.",
+      "candidatesReviewed": [
+        {
+          "ref": "Peri Tzadik, Bereshit 8:2",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after independent full-context and bilingual review: Following the origin’s explicit reference to Bereshit 8, this continuation reads Adam’s “and I ate” as anticipating “I will eat again.” It distinguishes repentance for the original act from the still-present mixture affecting later eating. That distinction explains the origin’s extended account of labor, purification, Torah, and eventual restoration rather than treating one past act as the entire problem."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Bereshit 6",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected at this anchor: its four trees describe spiritual types and halakhic uncertainty, not the lingering effect of the original eating or the origin’s historical sequence. It is separately useful for the two-tree discussion in Tu BiShvat 2:1."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Tu BiShvat 2:1",
+      "sectionRef": "Peri Tzadik, Tu BiShvat 2",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "ca5888c8ee759d26bf5f31b5a33cee1b2fbe55edf4650c5f962e01c049bf965c",
+      "reviewedSectionHebrewSha256": "8407a6f0efb7f46ac9630c3b4e1b13a4497ddd4f3bbfb90140ebfa055cdd81a9",
+      "assessment": "Read the complete long teaching: the singular tree and planting, divine source and Israel as fruit, both trees within each tree, Moses and Rabbi Akiva, the two tablets, creation in thought and action, two loaves, and Deuteronomy beginning in Shevat. Approved comparisons preserve the difference between divine origin, human clarification, and restoration; they do not collapse the two authors’ symbolic systems. Independent review confirmed the full paragraph, accepted-source translations and specific fit, and the stated reasons for the candidates not added.",
+      "candidatesReviewed": [
+        {
+          "ref": "Machshavot Charutz 15:8",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after independent full-context and bilingual review: Machshavot Charutz develops the same relationship between Written and Oral Torah and the two trees through the two loaves. Its explicit statement that the Oral Torah is also bread from Heaven clarifies how the origin can describe human halakhic understanding as a response to damage while still tracing it to Sinai."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Bereshit 6",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after independent full-context and bilingual review: Mei HaShiloach distinguishes halakhic searching under uncertainty from repentance reaching back to heal the root. Its full teaching develops these as different trees and their nourishing rivers. This clarifies the origin’s contrast between working through a mixture and restored life; it is a comparison of the two accounts, not a claim that their symbols have identical meanings throughout."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Tu BiShvat 2:2",
+      "sectionRef": "Peri Tzadik, Tu BiShvat 2",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "6877b659a507c0261352e3574dda33a6ac66f2de77f83cd3e2dc67eea2b66110",
+      "reviewedSectionHebrewSha256": "8407a6f0efb7f46ac9630c3b4e1b13a4497ddd4f3bbfb90140ebfa055cdd81a9",
+      "assessment": "Read the whole explanation of rain and dew, Hillel and Shammai, fear and love, holy eating, the fullness of the moon, and the authority of Jewish custom. Et HaOchel supplies the mechanism explicitly requested by the text; Dover Tzedek adds the consequence of freedom from personal interest for Torah judgment. Independent review confirmed the full paragraph, accepted-source translations and specific fit, and the stated reasons for the candidates not added.",
+      "candidatesReviewed": [
+        {
+          "ref": "Et HaOchel 8:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after independent full-context and bilingual review: This is the exact Et HaOchel passage cited by the origin. It explains the custom’s wider effect through an earlier act awakened by a later one, borrowing the image of a dormant intention becoming active again in Zevachim 31a. Here the later holy act awakens a connection that earlier permitted acts left unrecognized. The paragraph’s continuation specifies permitted activity; it does not describe an actual prohibition as becoming permitted."
+        },
+        {
+          "ref": "Dover Tzedek, Kuntres Dover Tzedek, Eruvin 3:2",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after independent full-context and bilingual review: Dover Tzedek uses the same Hillel–Shammai distinction within its explanation of why truthful halakhic judgment requires freedom from personal interest. This adds a consequence to the origin’s account of holy eating: the quality expressed in caring for the soul also affects the clarity with which Torah is understood. The surrounding discussion requires actual purification of character, not merely a claim to selflessness."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Bereshit 1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected for this batch: the wedding-food analogy is relevant to the subordination of taste to a higher joy, but it is already used in the immediately preceding Shevat review. The exact Et HaOchel reference and the specific Hillel–Shammai comparison add more at this location."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Tu BiShvat 3:1",
+      "sectionRef": "Peri Tzadik, Tu BiShvat 3",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "34641b755fbfba9f43ff71bc1676dfef1f7e47cb6fece4d306dbf638bf3f6af3",
+      "reviewedSectionHebrewSha256": "34641b755fbfba9f43ff71bc1676dfef1f7e47cb6fece4d306dbf638bf3f6af3",
+      "assessment": "Read the complete question about fruit and rainfall abroad, the blessing for the Land, Jacob, Shabbat, covenant, Torah scholars, and the extension of holiness. The two accepted targets distinguish Jacob’s presence in exile from the holy environment of Torah study. Neither changes the text’s starting distinction between the agricultural laws of the Land and the spiritual reach of its holiness. Independent review confirmed the full paragraph, accepted-source translations and specific fit, and the stated reasons for the candidates not added.",
+      "candidatesReviewed": [
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Vayigash 7",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after independent full-context and bilingual review: The origin asks why a custom tied to the Land of Israel matters abroad and answers through Jacob’s accompanying holiness. Mei HaShiloach offers a concrete instance in Goshen: closeness to Hashem sustains that connection in exile. This supports the spiritual explanation without changing the geographical rules of tithes that prompted the origin’s question."
+        },
+        {
+          "ref": "Tzidkat HaTzadik 223:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after independent full-context and bilingual review: Tzidkat HaTzadik specifies the mechanism behind the origin’s reference to scholars as Shabbatot: active Torah study establishes a holy spiritual environment even amid distracting surroundings. Its larger paragraph distinguishes Torah’s immediate clearing of that environment from prayer’s deeper work in the heart, giving this comparison a specific role within the origin’s account of covenant, Torah, and the Land."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Tu BiShvat 4:1",
+      "sectionRef": "Peri Tzadik, Tu BiShvat 4",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "f70f62f75acb66406f2c41dc308cd9943c5a1fa655e245ce19403cb7f7c15875",
+      "reviewedSectionHebrewSha256": "f70f62f75acb66406f2c41dc308cd9943c5a1fa655e245ce19403cb7f7c15875",
+      "assessment": "Read all four opening questions and the complete argument about the holy tree, twelve bounds, water and Torah, command and divine will, rain, and eating abroad. Read the full sixteen-paragraph Lech Lecha 3 section to identify the precise paragraph answering the text’s explicit self-reference and its limiting condition. Independent review confirmed the full paragraph, accepted-source translations and specific fit, and the stated reasons for the candidates not added.",
+      "candidatesReviewed": [
+        {
+          "ref": "Peri Tzadik, Lech Lecha 3:6",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after independent full-context and bilingual review: The origin explicitly directs the reader to Lech Lecha 3. This paragraph provides the practical qualification: Rava instructed even his learned students to attend to their livelihood when need would disturb their learning. It explains why “not fulfilling His will” in this special discussion does not mean violating the commanded pattern of work and Shabbat rest."
+        },
+        {
+          "ref": "Beit Yaakov on Torah, Chayei Sara 6:10",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected: nourishment gathered from apparent darkness through the rejected cornerstone does not resolve the origin’s distinction between God’s command and the highest ideal of uninterrupted Torah study."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Tu BiShvat 5:1",
+      "sectionRef": "Peri Tzadik, Tu BiShvat 5",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "d9c3b30f01b8e19c5b3b725029ca988131444c4c119de1bb219ada51d008eb31",
+      "reviewedSectionHebrewSha256": "d9c3b30f01b8e19c5b3b725029ca988131444c4c119de1bb219ada51d008eb31",
+      "assessment": "Read the complete closing teaching, including the distinction between the beginning and completion of the month, Shevat–Adar–Nisan, the two messianic roles, Sukkot, the restored trees, blessings, and the closing prayer. The connections explain recognition of the divine giver and the link from holy eating to removal of Amalek’s obstruction. Independent review confirmed the full paragraph, accepted-source translations and specific fit, and the stated reasons for the candidates not added.",
+      "candidatesReviewed": [
+        {
+          "ref": "Tiferet Yosef, Pesach 7",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after independent full-context and bilingual review: Pri Tzadik moves from blessed eating in Shevat to deliverance in Nisan. Tiferet Yosef’s Pesach teaching explains a recognition joining those acts: the material channel of a gift does not have independent power. Its account of the moon’s fullness concerns receiving the divine light; it adds content to the origin’s language of completion without equating Tu BiShvat with the Pesach obligation."
+        },
+        {
+          "ref": "Peri Tzadik, The Fifteenth of Av 6:3",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after independent full-context and bilingual review: The full Tu BeAv teaching identifies Amalek’s obstruction here as coldness and slackening in Torah, distinct from the heated impulses of jealousy, desire, and pride. Its conclusion links holy eating with repairing that root. This gives a further explanation for the origin’s progression from repairing appetite in Shevat to overcoming Amalek in Adar; the festival dates remain distinct."
+        },
+        {
+          "ref": "Sod Yesharim, Parashat Parah 6:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected at this anchor: the full-moon language concerns Solomon’s receptive wisdom and the limits of revealing the red-heifer mystery. Its shared lunar image is less explanatory here than the Pesach source’s explicit treatment of gifts and the Tu BeAv source’s link between eating and Amalek."
+        }
+      ]
+    }
+  ]
+}

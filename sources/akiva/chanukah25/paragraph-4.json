@@ -48,7 +48,7 @@
       "sourceEnd": 67,
       "source": " והענין כידוע מלך בעשרה לבושים",
       "he": "וְהָעִנְיָן כַּיָּדוּעַ מֶלֶךְ בַּעֲשָׂרָה לְבוּשִׁים",
-      "en": "The meaning is the familiar teaching of the [divine] King in ten garments:",
+      "en": "The meaning is the familiar teaching of the divine King in ten garments:",
       "adjustments": []
     },
     {
@@ -435,7 +435,7 @@
       "sourceEnd": 723,
       "source": " ואין לך ירוד משבט דן כו' אמר הקב\"ה יבא ויזדווג לו כו'",
       "he": "וְאֵין לְךָ יָרוּד מִשֵּׁבֶט דָּן כּוּלֵּי אָמַר הַקָּדוֹשׁ בָּרוּךְ הוּא יָבֹא וְיִזְדַּוֵּוג לוֹ כּוּלֵּי",
-      "en": "and none is lowlier than Dan … The Holy One, blessed be He, said, ‘Let [the latter] come and join him’ …",
+      "en": "and none is lowlier than Dan … The Holy One, blessed be He, said, ‘Let the latter come and join him’ …",
       "adjustments": [
         {
           "source": "כו'",
@@ -564,7 +564,7 @@
       "sourceEnd": 953,
       "source": " דן ונפתלי גד ואשר בירכא שמאלא דן עד פרקא דרגלא כו'",
       "he": "דָּן וְנַפְתָּלִי גָּד וְאָשֵׁר בְּיַרְכָא שְׂמָאלָא דָּן עַד פִּרְקָא דְּרַגְלָא כּוּלֵּי",
-      "en": "“Dan, Naftali, Gad, and Asher [correspond to] the left leg; Dan extends as far as the joint of the leg …”",
+      "en": "“Dan, Naftali, Gad, and Asher correspond to the left leg; Dan extends as far as the joint of the leg …”",
       "adjustments": [
         {
           "source": "כו'",
@@ -891,7 +891,7 @@
       "sourceEnd": 1639,
       "source": " ואי' (חולין צא.) ורבנן מאחוריה אתא ונשייה בתרוייהו.",
       "he": "וְאִיתָא (חוּלִּין צא.) וְרַבָּנַן מֵאֲחוֹרֵיהּ אֲתָא וְנַשְּׁיֵיהּ בְּתַרְוַיְיהוּ.",
-      "en": "The Gemara (Chullin 91a) states, “The Rabbis [hold that the angel] came from behind him and struck him in both thighs.”",
+      "en": "The Gemara (Chullin 91a) states that the Rabbis hold that the angel “came from behind him and struck him in both thighs.”",
       "adjustments": [
         {
           "source": "ואי'",
@@ -1033,5 +1033,14 @@
       "purpose": "Primary vocalized Aramaic and the Rabbis’ both-thighs interpretation",
       "hebrew": "וְרַבָּנַן, מֵאֲחוֹרֵיהּ אֲתָא, וְנַשְּׁיֵיהּ בְּתַרְוַיְיהוּ."
     }
-  ]
+  ],
+  "continuationReview": {
+    "date": "2026-10-20",
+    "reviewer": "Independent continuation reviewer, separate from the recovered translation author",
+    "completePhraseReview": true,
+    "sourceConsonantsUnchanged": true,
+    "englishBodyBrackets": false,
+    "ocrDisclosuresVisible": true,
+    "priorAuthoringNotes": "References above to English brackets describe the original authoring snapshot. In this reviewed publication, contextual clarifications are integrated into the English; textual uncertainties remain explicit in parentheses."
+  }
 }

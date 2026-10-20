@@ -66,6 +66,12 @@ try{
     assert.equal(await page.locator('#text').getAttribute('data-layout'),'inter');
     assert.equal(await page.locator('#text').getAttribute('data-lang'),'bi');
     assert.equal(await section.locator('.seg').count(),6);
+    for(const [language,weight]of [['he','400'],['en','700']]){
+      const weights=await section.locator('.seg-il .ph-'+language).evaluateAll(nodes=>[...new Set(nodes.map(node=>getComputedStyle(node).fontWeight))]);
+      assert.deepEqual(weights,[weight],'Chanukah25 requires regular Hebrew and bold English');
+      assert.equal(await section.locator('.seg-'+language).first().evaluate(node=>getComputedStyle(node).fontWeight),weight,
+        'The requested type weight must also hold in paragraph reading layouts');
+    }
     for(const [index,paragraph]of pack.paragraphs.entries()){
       const seg=section.locator('.seg').nth(index);
       for(const [language,key]of [['he','he'],['en','en']]){
@@ -95,20 +101,20 @@ try{
     const segment=section.locator(`.seg[data-ref="${paragraphRef}"]`);
     const verifySource=async entry=>{
       const card=page.locator('#pContent .source-head').filter({has:page.locator(`button[aria-label="Sources and connections for ${sourceRef}"]`)});
-      const excerpt=card.locator('.bilingual-source-excerpt');
+      const excerpt=card.locator('.footnote-source-excerpt');
       await excerpt.waitFor({state:'visible'});
-      assert.equal(await excerpt.locator('.qh').textContent(),sample.note.hebrew);
+      assert.equal(await excerpt.locator('.qh').count(),0,'Footnote excerpts remain English-only');
       assert.equal(await excerpt.locator('.qe').textContent(),sample.note.english);
       assert.equal(await card.locator('.quote .qe').count(),0,'An excerpt must not be presented as the complete source translation');
       assert.ok((await excerpt.locator('.connection-provenance').textContent()).includes(sample.note.translationProvenance));
       await page.locator('#pContent button[data-source-lang="he"]').click();
-      assert.ok(await excerpt.locator('.qh').isVisible());assert.equal(await excerpt.locator('.qe').isVisible(),false);
+      assert.equal(await excerpt.locator('.qe').isVisible(),false);
       await page.locator('#pContent button[data-source-lang="en"]').click();
-      assert.ok(await excerpt.locator('.qe').isVisible());assert.equal(await excerpt.locator('.qh').isVisible(),false);
+      assert.ok(await excerpt.locator('.qe').isVisible());
       await page.locator('#pContent button[data-source-lang="bi"]').click();
-      assert.ok(await excerpt.locator('.qh').isVisible());assert.ok(await excerpt.locator('.qe').isVisible());
+      assert.ok(await excerpt.locator('.qe').isVisible());
       assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+2),false,'Source popup overflows viewport');
-      checks.push({viewport:viewport.width,entry,sourceRef,bilingual:true});
+      checks.push({viewport:viewport.width,entry,sourceRef,englishSourceQuotation:true});
       await page.screenshot({path:path.join(output,`${entry}-${viewport.width}.png`)});
       await page.locator('#pClose').click();
     };
@@ -148,5 +154,5 @@ try{
   }
 }finally{await browser.close();await new Promise(resolve=>server.close(resolve));}
 const report={ok:true,live:Boolean(remote),ref:CHANUKAH25_REF,paragraphs:6,phrasePairs:pack.paragraphs.reduce((sum,p)=>sum+p.phrases.length,0),sourceNotes:published.noteCount,
-  sourceTransportFixture:'English unavailable; actual published bilingual note data are displayed without treating the excerpt as a complete translation',checks};
+  sourceTransportFixture:'English unavailable; the actual published English quotation is displayed without treating the excerpt as a complete source translation',checks};
 fs.writeFileSync(path.join(output,'report.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report));

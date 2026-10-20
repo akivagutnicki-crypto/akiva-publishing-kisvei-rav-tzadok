@@ -286,6 +286,21 @@ jobs:
           cat supplied-source-footnotes-final-verification.json
           node scripts/test-dover-revisions.mjs --zips --data-only
 
+      - name: Restore the authoritative Chanukah 24 boundary and preserve displaced source-note history
+        run: |
+          node scripts/pri-chanukah24-boundary.mjs
+          node scripts/pri-chanukah24-boundary.mjs --verify > chanukah24-boundary-verification.json
+          node scripts/build-library-zips.mjs
+          node scripts/test-library-zips.mjs
+          node scripts/test-sefaria-packs.mjs
+          node scripts/test-source-zip-export.mjs
+          node scripts/build-mcp-index.mjs
+          node scripts/refresh-source-quotation-mcp.mjs
+          node scripts/test-mcp-server.mjs
+          node scripts/test-cloudflare-worker.mjs
+          python scripts/verify-supplied-source-footnotes.py --zips --mcp --browser > supplied-source-footnotes-final-verification.json
+          node scripts/test-pri-chanukah25.mjs --zips
+
       - name: Build and verify reviewed connections against the final canonical source edition
         run: |
           node scripts/build-reviewed-connections.mjs
@@ -312,6 +327,8 @@ jobs:
           node scripts/test-theme-candidates.mjs > theme-candidate-verification.txt
           cat theme-candidate-verification.txt
           node scripts/test-connected-ideas-reader.mjs
+          node scripts/test-seasonal-connections-release.mjs > seasonal-connections-final-verification.json
+          cat seasonal-connections-final-verification.json
 
       - name: Verify complete Chanukah 25 in final reader source popups and offline downloads
         run: |
@@ -377,6 +394,8 @@ jobs:
           cat source-translations-live-verification.json
           node scripts/test-connected-ideas.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/' > connected-ideas-live-verification.json
           cat connected-ideas-live-verification.json
+          node scripts/test-seasonal-connections-release.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/' > seasonal-connections-live-verification.json
+          cat seasonal-connections-live-verification.json
 
       - name: Verify revised Dover Tzedek notes and popups on the live reader
         run: |
@@ -406,6 +425,20 @@ jobs:
           path: |
             seasonal-verification
             dist/library/pri-seasonal-footnotes-report.json
+          retention-days: 14
+
+      - name: Save the Chanukah boundary correction and completed seasonal review evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pri-seasonal-completed-review-and-boundary
+          path: |
+            sources/akiva/chanukah24/boundary.json
+            sources/akiva/chanukah25/legacy-note-migration.json
+            dist/library/pri-chanukah24-boundary.json
+            chanukah24-boundary-verification.json
+            seasonal-connections-final-verification.json
+            seasonal-connections-live-verification.json
           retention-days: 14
 
       - name: Save Chanukah 25 independent review and live reader verification

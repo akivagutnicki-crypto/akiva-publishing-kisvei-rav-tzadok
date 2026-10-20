@@ -1,0 +1,127 @@
+{
+  "reviewedOn": "2026-10-20",
+  "decision": "Approve all 12 after the recorded English and explanatory repairs; retain all four documented candidate rejections. No canonical Hebrew or book body changed.",
+  "counts": {
+    "originParagraphsRead": 7,
+    "acceptedConnections": 12,
+    "acceptedTargetParagraphsRead": 12,
+    "candidateComparisons": 16,
+    "uniqueCandidateParagraphsRead": 15,
+    "notAddedCandidateComparisons": 4
+  },
+  "fullOriginsRead": [
+    "Peri Tzadik, Tu BiShvat 1:1",
+    "Peri Tzadik, Tu BiShvat 1:2",
+    "Peri Tzadik, Tu BiShvat 2:1",
+    "Peri Tzadik, Tu BiShvat 2:2",
+    "Peri Tzadik, Tu BiShvat 3:1",
+    "Peri Tzadik, Tu BiShvat 4:1",
+    "Peri Tzadik, Tu BiShvat 5:1"
+  ],
+  "fullCandidateParagraphsRead": [
+    "Beit Yaakov on Torah, Chayei Sara 6:10",
+    "Beit Yaakov on Torah, Vayera 35:1",
+    "Dover Tzedek, Kuntres Dover Tzedek, Eruvin 3:2",
+    "Et HaOchel 8:1",
+    "Machshavot Charutz 15:8",
+    "Mei HaShiloach, Volume I, Genesis, Bereshit 1",
+    "Mei HaShiloach, Volume I, Genesis, Bereshit 6",
+    "Mei HaShiloach, Volume I, Genesis, Vayigash 7",
+    "Peri Tzadik, Bereshit 8:2",
+    "Peri Tzadik, Bo 1:1",
+    "Peri Tzadik, Lech Lecha 3:6",
+    "Peri Tzadik, The Fifteenth of Av 6:3",
+    "Sod Yesharim, Parashat Parah 6:1",
+    "Tiferet Yosef, Pesach 7",
+    "Tzidkat HaTzadik 223:1"
+  ],
+  "additionalContextsRead": [
+    "Peri Tzadik, Bereshit 8:1",
+    "Peri Tzadik, Lech Lecha 3:4",
+    "Peri Tzadik, Lech Lecha 3:5",
+    "Peri Tzadik, Lech Lecha 3:7",
+    "Peri Tzadik, The Fifteenth of Av 6:1",
+    "Peri Tzadik, The Fifteenth of Av 6:2",
+    "Machshavot Charutz 15:9",
+    "Beit Yaakov on Torah, Vayera 35:2",
+    "Dover Tzedek, Kuntres Dover Tzedek, Eruvin 3:1",
+    "Dover Tzedek, Kuntres Dover Tzedek, Eruvin 3:3"
+  ],
+  "corrections": [
+    {
+      "id": "tubishvat-1-lasting-mixture",
+      "field": "targetEnglish",
+      "reason": "Translate the biblical clause in its ordinary past sense; the source then explicitly rereads the form as anticipating later eating.",
+      "before": "This is what is meant by “She gave me from the tree, and I eat.” He spoke in the bitterness of his heart and pleaded his case: What can I do? Now that I have tasted the Tree of Knowledge of good and evil, from now on, whatever I eat, I will feel bodily enjoyment in it, which is this mixture of good and evil. What can I do? Even overcoming the inclination requires the Holy One’s help, for without His help one cannot overcome it; and, as explained, entirely nullifying the inclination is as it will be in the future, when the Holy One slaughters it. This is his saying, “And I will eat again”: he would certainly eat again. Therefore, although Adam and Eve’s repentance was effective in extending their days to nearly a thousand years, the Holy One’s day, the decree could not be entirely canceled. As long as the mixture remained and bodily enjoyment would be felt, death was needed to separate good from evil so that only good would remain.",
+      "after": "This is what is meant by “She gave me from the tree, and I ate.” He spoke in the bitterness of his heart and pleaded his case: What can I do? Now that I have tasted the Tree of Knowledge of good and evil, from now on, whatever I eat, I will feel bodily enjoyment in it, which is this mixture of good and evil. What can I do? Even overcoming the inclination requires the Holy One’s help, for without His help one cannot overcome it; and, as explained, entirely nullifying the inclination is as it will be in the future, when the Holy One slaughters it. This is his saying, “And I will eat again”: he would certainly eat again. Therefore, although Adam and Eve’s repentance was effective in extending their days to nearly a thousand years, the Holy One’s day, the decree could not be entirely canceled. As long as the mixture remained and bodily enjoyment would be felt, death was needed to separate good from evil so that only good would remain."
+    },
+    {
+      "id": "tubishvat-1-lasting-mixture",
+      "field": "explanation",
+      "reason": "The preceding Bereshit 8:1 explicitly frames the past/future reading; make the homiletic transition intelligible in English.",
+      "before": "The origin explicitly sends the reader to Bereshit 8 when explaining the mixture within the trees. The continuation there distinguishes repentance for the original act from the still-present mixture affecting later eating. That distinction explains the origin’s extended account of labor, purification, Torah, and eventual restoration rather than treating one past act as the entire problem.",
+      "after": "Following the origin’s explicit reference to Bereshit 8, this continuation reads Adam’s “and I ate” as anticipating “I will eat again.” It distinguishes repentance for the original act from the still-present mixture affecting later eating. That distinction explains the origin’s extended account of labor, purification, Torah, and eventual restoration rather than treating one past act as the entire problem."
+    },
+    {
+      "id": "tubishvat-2-two-torahs-one-source",
+      "field": "explanation",
+      "reason": "The actual target speaks of the two Torahs and the loaves; avoid attributing a direct first/second-tablet pair to its wording.",
+      "before": "Machshavot Charutz develops the same two-tablet and two-tree structure through the two loaves. Its explicit statement that the Oral Torah is also bread from Heaven clarifies how the origin can describe human halakhic understanding as a response to damage while still tracing it to Sinai.",
+      "after": "Machshavot Charutz develops the same relationship between Written and Oral Torah and the two trees through the two loaves. Its explicit statement that the Oral Torah is also bread from Heaven clarifies how the origin can describe human halakhic understanding as a response to damage while still tracing it to Sinai."
+    },
+    {
+      "id": "tubishvat-2-doubt-and-return",
+      "field": "targetEnglish",
+      "reason": "איבעיות means inquiries; the selected wording does not assert that all such inquiries remain unresolved.",
+      "before": "The Tree of Knowledge refers to one who is continually in doubt as to what Hashem’s will is; it corresponds to all the unresolved inquiries in the Gemara. The Tree of Life is true repentance, which heals what came before.",
+      "after": "The Tree of Knowledge refers to one who is continually in doubt as to what Hashem’s will is; it corresponds to all the inquiries in the Gemara. The Tree of Life is true repentance, which heals what came before."
+    },
+    {
+      "id": "tubishvat-2-one-meal-elevates-others",
+      "field": "targetEnglish",
+      "reason": "Zevachim 31a and Rashi identify ויקץ כישן הפיגול as reactivation of an earlier piggul intention. The subject is the intention’s legal effect, not an offering restored from disqualification.",
+      "before": "Through one food and one meal in a week, or a Shabbat meal, eaten with the proper intention for Heaven’s honor and to elevate the animal soul’s powers to Hashem, all one’s foods and meals are elevated. This resembles what the masters of the inner wisdom said about prayer: one prayer can elevate all the defective prayers of the year. Prayer resembles the offerings, and so does eating. Indeed, eating in holy purity has a greater quality than prayer, as I heard from the sages’ statement concerning Isaac: if the Holy One provided for your offering, how much more so for your meal? It follows the pattern of “he awoke as one asleep”: the disqualified offering finds its own kind and is aroused. For in absolute truth, all of an Israelite’s eating resembles the offerings; only when this is not made clear to the person through the intention of heart and mind is it like sleep, as in “When Hashem restores,” and so forth, “we were like dreamers.”",
+      "after": "Through one food and one meal in a week, or a Shabbat meal, eaten with the proper intention for Heaven’s honor and to elevate the animal soul’s powers to Hashem, all one’s foods and meals are elevated. This resembles what the masters of the inner wisdom said about prayer: one prayer can elevate all the defective prayers of the year. Prayer resembles the offerings, and so does eating. Indeed, eating in holy purity has a greater quality than prayer, as I heard from the sages’ statement concerning Isaac: if the Holy One provided for your offering, how much more so for your meal? It follows the saying, “The piggul intention (which disqualifies an offering) awoke like a sleeper”: one kind finds its own kind and is reawakened. For in absolute truth, all of an Israelite’s eating resembles the offerings; only when this is not made clear to the person through the intention of heart and mind is it like sleep, as in “When Hashem restores,” and so forth, “we were like dreamers.”"
+    },
+    {
+      "id": "tubishvat-2-one-meal-elevates-others",
+      "field": "explanation",
+      "reason": "Clarify the verified Talmudic allusion and retain the full paragraph’s boundary concerning permitted activity.",
+      "before": "This is the exact Et HaOchel passage cited by the origin. It supplies the explanation behind the custom’s wider effect: the later holy act awakens a connection that earlier permitted acts left unrecognized. The paragraph’s continuation specifies permitted activity, so the comparison does not turn this into an erasure of an actual prohibition.",
+      "after": "This is the exact Et HaOchel passage cited by the origin. It explains the custom’s wider effect through an earlier act awakened by a later one, borrowing the image of a dormant intention becoming active again in Zevachim 31a. Here the later holy act awakens a connection that earlier permitted acts left unrecognized. The paragraph’s continuation specifies permitted activity; it does not describe an actual prohibition as becoming permitted."
+    },
+    {
+      "id": "tubishvat-5-holy-delight-against-amalek",
+      "field": "originEnglish",
+      "reason": "והוא נגד continues the Shevat–Adar–Nisan correspondence, not a claim that the positive attribute itself belongs to Amalek. The mistaken canonical expansion מדברי תורה is rendered as the cited midrash and disclosed in provenance.",
+      "before": "This is also the order of these three months: in Shevat, eating is repaired so that it becomes holy, as we explained from Sefer Yetzirah, where the month is formed with the letter tzadi in swallowing, so that the righteous person eats to satisfy his soul. Next comes Adar, when Amalek is erased. Amalek opposes the quality of the righteous foundation of the world, which establishes of all Israel, “Your people are all righteous.” Amalek accuses them, saying that even among Israel some damage this holiness, as Tanchuma, Ki Tetzei, describes him cutting off Israel’s circumcisions and saying, “Take what You chose.” Therefore Amalek falls into Joseph’s descendants’ hands, as stated in Bereshit Rabbah, chapter 99. This corresponds to Mashiach ben Yosef, who will establish, “Your people are all,” and so forth.",
+      "after": "This is also the order of these three months: in Shevat, eating is repaired so that it becomes holy, as we explained from Sefer Yetzirah, where the month is formed with the letter tzadi in swallowing, so that the righteous person eats to satisfy his soul. Next comes Adar, when Amalek is erased. Adar corresponds to the attribute of the righteous one, the foundation of the world, which establishes concerning all Israel, “Your people are all righteous.” Amalek accuses them, saying that even among Israel some damage this holiness, as the cited midrash on Ki Tetzei describes him cutting off Israel’s circumcisions and saying, “Take what You chose.” Therefore Amalek falls into Joseph’s descendants’ hands, as stated in Bereshit Rabbah, chapter 99. This corresponds to Mashiach ben Yosef, who will establish, “Your people are all,” and so forth."
+    },
+    {
+      "id": "tubishvat-5-holy-delight-against-amalek",
+      "field": "targetEnglish",
+      "reason": "תולעת שני names the scarlet color/dye; the selected Hebrew does not specify a thread.",
+      "before": "It is written there, “Those who ate delicacies.” This certainly does not refer to eating for bodily enjoyment, since it speaks of supremely holy people. Rather, its meaning follows the Zohar’s teaching about Shabbat eating, which is holy and belongs to the mystery of delight, oneg, whose initials are Eden, river, and garden. “Those who ate delicacies” is an expression of Eden: their eating is continually holy, and they repair the root of the kelippah that lay in eating. Of them it is written, “Those brought up in scarlet,” meaning the scarlet thread; and it says of them, “All her household is clothed in scarlet.” They repair the beginning of the kelippah, “who cooled you,” as explained above.",
+      "after": "It is written there, “Those who ate delicacies.” This certainly does not refer to eating for bodily enjoyment, since it speaks of supremely holy people. Rather, its meaning follows the Zohar’s teaching about Shabbat eating, which is holy and belongs to the mystery of delight, oneg, whose initials are Eden, river, and garden. “Those who ate delicacies” is an expression of Eden: their eating is continually holy, and they repair the root of the kelippah that lay in eating. Of them it is written, “Those brought up in scarlet,” meaning scarlet dye; and it says of them, “All her household is clothed in scarlet.” They repair the beginning of the kelippah, “who cooled you,” as explained above."
+    }
+  ],
+  "sourceClarifications": [
+    {
+      "ref": "Zevachim 31a and Rashi, ויקץ כישן פיגול",
+      "url": "https://he.wikisource.org/wiki/זבחים_לא_א",
+      "webRef": "turn5view0",
+      "finding": "The dormant first half-olive intention concerning consumption outside its time joins the later matching half-olive intention and regains piggul force. Et HaOchel applies the structural image of reawakening to earlier permitted activity. Its Hebrew word is not an error needing deletion or emendation."
+    },
+    {
+      "ref": "Midrash Tanchuma, Ki Tetzei, circumcision passage",
+      "url": "https://he.wikisource.org/wiki/ביאור:מדרשי_אגדה/מדרש_תנחומא_(ורשה)/פרשת_כי_תצא",
+      "webRef": "turn4search0",
+      "finding": "The primary Midrash text reproduced on this page contains the circumcision/Take what You chose passage. The title Tanchuma is correct; the inherited expansion מדברי תורה in the Akiva canonical text remains untouched and is disclosed in provenance."
+    }
+  ],
+  "checks": {
+    "noEnglishSquareBrackets": true,
+    "canonicalHebrewUnchanged": true,
+    "newAcceptedTargetsUnique": true
+  }
+}

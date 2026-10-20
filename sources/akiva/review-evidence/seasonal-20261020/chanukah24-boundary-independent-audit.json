@@ -1,0 +1,59 @@
+{
+  "status": "PASS",
+  "fixture": "/tmp/akiva-resume-chanukah25/boundary-audit-fixture",
+  "retainedPairCounts": [
+    48,
+    26,
+    15
+  ],
+  "retainedPairs": 89,
+  "removedPairs": 73,
+  "retainedNotes": [
+    1656,
+    1657
+  ],
+  "migratedLegacyNumbers": [
+    1658,
+    1659,
+    1660,
+    1661,
+    1662,
+    1663,
+    1664
+  ],
+  "archivedNotes": 8,
+  "superseded": {
+    "number": 1665,
+    "supersededBy": 1664
+  },
+  "compiledNotes": 36,
+  "changedFiles": [
+    "data/catalog.json",
+    "data/cited/bava-batra.json",
+    "data/cited/eikhah-rabbah.json",
+    "data/cited/gittin.json",
+    "data/cited/lamentations.json",
+    "data/cited/mishnah-maaser-sheni.json",
+    "data/cited/mishnah-parah.json",
+    "data/cited/mishneh-torah-tithes.json",
+    "data/cited/zohar-achrei-mot.json",
+    "data/files.json",
+    "data/packs/sources.json",
+    "data/peri-tzadik/158.json",
+    "data/peri-tzadik/links.json",
+    "data/peri-tzadik/toc.json",
+    "pri-chanukah24-boundary.json"
+  ],
+  "unrelatedFilesUnchanged": true,
+  "archiveMatchesActualBefore": true,
+  "idempotent": true,
+  "negativeChecks": [
+    "retained body mutation rejected",
+    "migrated source anchor mutation rejected",
+    "unrelated data mutation rejected through complete data inventory",
+    "false chapter24 report metadata rejected"
+  ],
+  "tightenedVerifierRechecked": true,
+  "fixturePredecessorManifestRebuilt": true,
+  "fixturePredecessorManifestVerified": true
+}

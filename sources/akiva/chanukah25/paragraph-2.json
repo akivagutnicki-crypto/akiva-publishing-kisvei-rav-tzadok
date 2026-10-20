@@ -559,7 +559,7 @@
       "sourceEnd": 1300,
       "source": " הא אף בדידה אמרו אסתר קרקע עולם היתה (כמ\"ש סנהדרין עד)",
       "he": "הָא אַף בְּדִידָהּ אָמְרוּ אֶסְתֵּר קַרְקַע עוֹלָם הָיְתָה (כְּמוֹ שֶׁאָמְרוּ סַנְהֶדְרִין עד)",
-      "en": "Even concerning the woman herself, the Sages said, “Esther was entirely passive [in the coerced act]” (Sanhedrin 74).",
+      "en": "Even concerning the woman herself, the Sages said, “Esther was entirely passive in the coerced act” (Sanhedrin 74).",
       "adjustments": [
         {
           "source": "כמ\"ש סנהדרין",
@@ -577,7 +577,7 @@
       "sourceEnd": 1332,
       "source": " וכש\"כ האחים שלא היו מחויבים כלל",
       "he": "וְכָל שֶׁכֵּן הָאַחִים שֶׁלֹּא הָיוּ מְחוּיָבִים כְּלָל",
-      "en": "All the more so the brothers, who were not obligated at all [to initiate such a life-threatening confrontation].",
+      "en": "All the more so the brothers, who were not obligated at all to initiate such a life-threatening confrontation.",
       "adjustments": [
         {
           "source": "וכש\"כ",
@@ -728,7 +728,7 @@
       "sourceEnd": 1674,
       "source": " ולא מצינו בשום נם שיזכירו בימי",
       "he": "וְלֹא מָצִינוּ בְּשׁוּם נֵס שֶׁיַּזְכִּירוּ בִּימֵי",
-      "en": "We do not find “in the days of” mentioned for any other miracle [the source reads נם; the intended reading is נס],",
+      "en": "We do not find “in the days of” mentioned for any other miracle (the source reads נם; the intended reading is נס),",
       "adjustments": [
         {
           "source": "נם",
@@ -783,7 +783,7 @@
       "sourceEnd": 1826,
       "source": " ואיתא בהאריז\"ל סודות על שמותם ששייך להנם.",
       "he": "וְאִיתָא בָּאֱלֹהִי רַבִּי יִצְחָק זִכְרוֹנוֹ לִבְרָכָה סוֹדוֹת עַל שְׁמוֹתָם שֶׁשַּׁיָּיךְ לְהַנֵּס.",
-      "en": "The teachings of the Ari, of blessed memory, contain mysteries concerning their names that relate to the miracle [the source reads להנם; the intended reading is להנס].",
+      "en": "The teachings of the Ari, of blessed memory, contain mysteries concerning their names that relate to the miracle (the source reads להנם; the intended reading is להנס).",
       "adjustments": [
         {
           "source": "בהאריז\"ל",
@@ -1259,7 +1259,7 @@
       "sourceEnd": 2793,
       "source": " וכמו שמצינו שדרשו (מגילה יב:) במרדכי כולן על שמו נקראו",
       "he": "וּכְמוֹ שֶׁמָּצִינוּ שֶׁדָּרְשׁוּ (מְגִילָּה יב:) בְּמָרְדְּכַי כּוּלָּן עַל שְׁמוֹ נִקְרְאוּ",
-      "en": "Similarly, the Sages expounded concerning Mordechai (Megillah 12b), “All [the names in his genealogy] were applied to him.”",
+      "en": "Similarly, the Sages expounded concerning Mordechai (Megillah 12b), “All the names in his genealogy were applied to him.”",
       "adjustments": []
     },
     {
@@ -1340,7 +1340,7 @@
       "sourceEnd": 3059,
       "source": " ועד\"ש (ברכות נז.) חנינא חנניה יוחנן נסי נסים נעשה לו.",
       "he": "וְעַל דֶּרֶךְ שֶׁאָמְרוּ (בְּרָכוֹת נז.) חֲנִינָא חֲנַנְיָה יוֹחָנָן נִסֵּי נִסִּים נַעֲשֶׂה לוֹ.",
-      "en": "This accords with the saying (Berakhot 57a): “[One who sees] Chanina, Chananya, or Yochanan [in a dream]—miracles upon miracles are performed for him.”",
+      "en": "This accords with the saying (Berakhot 57a) concerning one who sees Chanina, Chananya, or Yochanan in a dream: “Miracles upon miracles are performed for him.”",
       "adjustments": [
         {
           "source": "ועד\"ש",
@@ -1518,5 +1518,14 @@
       "purpose": "Dream context and vocalization of the names in the quoted saying",
       "hebrew": "הָרוֹאֶה הוּנָא בַּחֲלוֹם — נֵס נַעֲשֶׂה לוֹ. חֲנִינָא, חֲנַנְיָא, יוֹחָנָן — נִסֵּי נִסִּים נַעֲשׂוּ לוֹ."
     }
-  ]
+  ],
+  "continuationReview": {
+    "date": "2026-10-20",
+    "reviewer": "Independent continuation reviewer, separate from the recovered translation author",
+    "completePhraseReview": true,
+    "sourceConsonantsUnchanged": true,
+    "englishBodyBrackets": false,
+    "ocrDisclosuresVisible": true,
+    "priorAuthoringNotes": "References above to English brackets describe the original authoring snapshot. In this reviewed publication, contextual clarifications are integrated into the English; textual uncertainties remain explicit in parentheses."
+  }
 }

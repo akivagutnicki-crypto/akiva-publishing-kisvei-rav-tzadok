@@ -1,0 +1,219 @@
+{
+  "schemaVersion": 1,
+  "status": "independently-reviewed",
+  "reviewedOn": "2026-10-20",
+  "reviewer": "Independent Chanukah continuation reviewer, separate from the connection author",
+  "scope": "The corrected Chanukah 24 section only: three paragraphs and 89 phrase pairs, ending with Job 22:28. The displaced material belongs to the separate complete Chanukah 25 edition.",
+  "authorPacketSha256": "5aef34c91b546c738ac5dbd49d10e16c58740d53fa39e1652b65eac138dd0276",
+  "reviewedThemesFile": "chanukah-24-reviewed-themes.json",
+  "reviewedThemesSha256": "36176060b799023ab8bfed025fd5e8e8578456612de4e33b75bdd11aaafa94f0",
+  "reviewedLedgerFile": "chanukah-24-reviewed-ledger.json",
+  "reviewedLedgerSha256": "44ad9f10a9c1fbea9e159bae031d330ed24e038df26ebeb753eb17ee012a59e7",
+  "correctedSectionHebrewSha256": "92088093a8111f52cf097e8a094deb811c079053efdd052c58fbf7891a767fc3",
+  "counts": {
+    "origins": 3,
+    "connections": 5,
+    "namedCandidateComparisons": 13,
+    "notAdded": 8,
+    "ravTzadokConnections": 3,
+    "ishbitzRadzinConnections": 2,
+    "fullContextsRead": 23
+  },
+  "completeOriginReview": true,
+  "completeCandidateContextReview": true,
+  "allEnglishQuotationsCheckedAgainstHebrew": true,
+  "allHebrewSpansUnchanged": true,
+  "allParagraphAndSectionPinsUnchanged": true,
+  "noEnglishSquareBrackets": true,
+  "bothSchoolsComparedAtEveryOrigin": true,
+  "finiteSearchOnly": true,
+  "assessments": [
+    {
+      "ref": "Peri Tzadik, Chanukah 24:1",
+      "assessment": "The complete paragraph distinguishes continuing personal benefit from the Exodus, physical place as a basis for a miracle blessing, annual holiness revealed in Torah, Purim during prophecy, and the Sages’ perception of enduring Chanukah holiness. Resisei 56:26 directly explains the enduring spiritual deliverance and the unwritten Oral Torah dimension. Resisei 57:1 provides strong but overlapping corroboration; the two Ishbitz–Radzin candidates instead examine Esther’s written status or preparation for festival holiness. All four candidate decisions are supported."
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 24:2",
+      "assessment": "The complete discussion grants ordinary legal and protective enactments before addressing the harder claim about establishing sanctity in time. Takanat 12:14–15 grounds the heavenly effectiveness of a ruling in Torah entrusted below and explicitly gives a calendar example; its Aher context remains visible in the English. Sod Yesharim makes the grant of human authority depend on recognizing prior divine holiness and voluntary divine accommodation. The comparisons are analogies, not assertions that calendar sanctification and Chanukah are one legal institution. Beit Yaakov’s prayer context and Mei HaShiloach’s personal-perfection context are accurately declined at this anchor."
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 24:3",
+      "assessment": "Only the genuine 15 final phrase pairs are included. Nasso 6:1–3 develops safeguards, individual Oral Torah innovation and inward intention, and the whole community’s contribution. Its princes’ offerings give a specific account of human initiative. Tiferet Yosef Pekudei 6 directly explains both work by human hands and divine completion credited to the worker. The Bereshit, Peri Tzadik Pekudei, and Miketz candidates are relevant but introduce different organizing arguments; their stated non-addition reasons are accurate. Neither approved comparison attributes holiness independent of God to human action."
+    }
+  ],
+  "fullContextsRead": [
+    {
+      "ref": "Peri Tzadik, Chanukah 24:1",
+      "paragraphHebrewSha256": "247d1cb4ff659c23ab396989fd23dd5f4423151b13d870b5e74453ee80ef7430",
+      "rawHebrewSha256": "4630758aebcd86c372483e0b8077693a45edb0180bac238e49265881b8829d24",
+      "completeContextRead": true
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 24:2",
+      "paragraphHebrewSha256": "9912e96ef9d6f6c2c29599e49a19fa8de06eb83b51241a178f8c0ff5c45ddc1e",
+      "rawHebrewSha256": "3cd3e8234848d6df3ac96220b454cf894c5ca65e757975946e1f07641eaeaf0e",
+      "completeContextRead": true
+    },
+    {
+      "ref": "Peri Tzadik, Chanukah 24:3",
+      "paragraphHebrewSha256": "f3150fbb0fbc7cbd5011857f714fb3ae70e01f5ddfb2c1f970c9e63490f48801",
+      "rawHebrewSha256": "d96ff6af9ec42ca7bac7f4f2f62e5fa456452827557a6a41a960dd3b32fa45a2",
+      "completeContextRead": true
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayera 4:10",
+      "paragraphHebrewSha256": "934f909c57f974d014f62fee90d9f66e80ec04eecfa81071cc739014d443b741",
+      "rawHebrewSha256": "6581dea301250bf6396012371b69c59ec8a0db9571849df2af8cb00ed495c39b",
+      "completeContextRead": true
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Genesis, Miketz 4",
+      "paragraphHebrewSha256": "d696cac4143e19d45f6e56bdd2b6bee6494eba1d6afc9dcd4419583ff4466a9d",
+      "rawHebrewSha256": "b3c76a7e340b97a878268177ddf02e005336a0a4dac8a17fb9f160aefd0af0cf",
+      "completeContextRead": true
+    },
+    {
+      "ref": "Peri Tzadik, Miketz 9:1",
+      "paragraphHebrewSha256": "14c54dd5d20233fd0ed942c6f3c6cfe6a7dabc9d1236cb25db5bce951c3f08d1",
+      "rawHebrewSha256": "8eb5919f6eed7234d6caaeda088da5568398938b7e9c7dc308ab2b3351fe470d",
+      "completeContextRead": true
+    },
+    {
+      "ref": "Peri Tzadik, Nasso 6:2",
+      "paragraphHebrewSha256": "730ddd6eabbb6c61b9bc37112a6c81fce5f85dc1ffcc608a29af985feea8eeb5",
+      "rawHebrewSha256": "3095691ffa10f561231ba0f63923b8df2ed7ad05b5ff5c00d612946b0a053aa3",
+      "completeContextRead": true
+    },
+    {
+      "ref": "Peri Tzadik, Pekudei 2:1",
+      "paragraphHebrewSha256": "9f4b7e24c0729cebf6fd1c52ac2eef5b01235d79b505dfe0089221fbaf1a123a",
+      "rawHebrewSha256": "b7d51f76b49dfa27d2a338673010b9fbab39e05f9565cc5ec90eb30d8a4bd96f",
+      "completeContextRead": true
+    },
+    {
+      "ref": "Resisei Layla 56:26",
+      "paragraphHebrewSha256": "3bfe421a09b1ef9535641702ce9dfdf9320f7f8c88ea2248ce60974ed8e22bdb",
+      "rawHebrewSha256": "59650884f142d7f98bae2eacf810ef4b42a5ab5679c7e8f6704724b7cc490431",
+      "completeContextRead": true
+    },
+    {
+      "ref": "Resisei Layla 57:1",
+      "paragraphHebrewSha256": "08bba9896b960d8e033c68aa232efd233e0a70b46456f623fb375d4e8adc185d",
+      "rawHebrewSha256": "a6df105bcee9e0312937d8bca1b0a907c1babafba5fd1d42a9e5192c18247ad5",
+      "completeContextRead": true
+    },
+    {
+      "ref": "Sod Yesharim, Parashat Parah 5:1",
+      "paragraphHebrewSha256": "e4eac523809498597d747cf7bcac340d20faf1032a9cd99e8a777b2d75322e74",
+      "rawHebrewSha256": "94c6c3254648097b350a599ef06acdccf9fa737fb5206cabb9d9b9a4c523bede",
+      "completeContextRead": true
+    },
+    {
+      "ref": "Sod Yesharim, Purim 41:2",
+      "paragraphHebrewSha256": "645bd45bc51642cfccc18be7850938838ee3c58fef7b63c72d69dd2efdef0204",
+      "rawHebrewSha256": "fae0ed9dd7d371c8e53eaf9cfa39af487faa27dfec8f551a27f17ea23706c9cb",
+      "completeContextRead": true
+    },
+    {
+      "ref": "Sod Yesharim, The Second Day of Pesach 14:1",
+      "paragraphHebrewSha256": "12227fb5ecc10ca0326002522417bd8971b68c71920002a40b833a6b9db56726",
+      "rawHebrewSha256": "2b3df7ff48a0de1695621a9f69ab775882fc010635e269260b8331027269cebe",
+      "completeContextRead": true
+    },
+    {
+      "ref": "Takanat HaShavin 12:15",
+      "paragraphHebrewSha256": "e1da3b58a3d1dffc36ace180a87a167f0ed0a3a88c069d6fc946ef32c39fcca5",
+      "rawHebrewSha256": "9e6ef9a32c38c43800053191f9811c00f1db3fc5902451fcaa2207e56ff210ea",
+      "completeContextRead": true
+    },
+    {
+      "ref": "Tiferet Yosef, Bereshit 4",
+      "paragraphHebrewSha256": "0a6bee68b5d5404a311693b8e9ba1df082bf1e2ab36d15c2d8abea3a7d2c026b",
+      "rawHebrewSha256": "ad80d9879baf1596e9d475b30e2bac1320897485d03612cedf979a8938f8782f",
+      "completeContextRead": true
+    },
+    {
+      "ref": "Tiferet Yosef, Pekudei 6",
+      "paragraphHebrewSha256": "b9e6a8cc3691d16dd782ade2e942ae3a7960d40e1af4b8cb0611e3917c4c7c42",
+      "rawHebrewSha256": "8f3892c5447d4fcb75d84cac5a530bf732d0781350c2071067f0922484e7f939",
+      "completeContextRead": true
+    },
+    {
+      "ref": "Takanat HaShavin 12:14",
+      "paragraphHebrewSha256": "b3e9213f7342b19cf224310132bf3394e2722014e3d9844c6f0bb4af77964712",
+      "rawHebrewSha256": "2a4d9d276c0ff4f794e3eab730238ebd2969f5c5f1b87769df558ce4fef3b6ae",
+      "completeContextRead": true
+    },
+    {
+      "ref": "Sod Yesharim, Purim 41:1",
+      "paragraphHebrewSha256": "75e78b396f9bdf665328e67af09c56a206cfcab4103666f662ed9c66acc7638f",
+      "rawHebrewSha256": "a283ce35466573817fb16c0b41f69d84abf93d62ae9b98655132be69daee1f28",
+      "completeContextRead": true
+    },
+    {
+      "ref": "Sod Yesharim, Purim 41:3",
+      "paragraphHebrewSha256": "99de0553661499921c8734e21001d92ff7f45c7174f94dd47cac91edf6bfadf2",
+      "rawHebrewSha256": "4d50b8806d76e0d93938bfe478a65503fc6d0aeca8daba93c80c6725146db9b2",
+      "completeContextRead": true
+    },
+    {
+      "ref": "Peri Tzadik, Nasso 6:1",
+      "paragraphHebrewSha256": "099ebcb4e93699704e83ef43a88734027d75ec29a221d9e209b3b9c99b3701d9",
+      "rawHebrewSha256": "34e560edc95868753d1091680fb31a4e44435972bd830d8130271e142e37a23f",
+      "completeContextRead": true
+    },
+    {
+      "ref": "Peri Tzadik, Nasso 6:3",
+      "paragraphHebrewSha256": "13e1fac08b9d497fa2205af678c04b8d015316333f7c7520ddc76c8f094c22fb",
+      "rawHebrewSha256": "d05cf4612c15d908b2792ed1a30121cc0b6f0b73ec2240e85245e9a5c8464e3f",
+      "completeContextRead": true
+    },
+    {
+      "ref": "Resisei Layla 57:3",
+      "paragraphHebrewSha256": "fd5529a28efa55014e31636a233fc9fa4a638d2f46170d5dd057167eb7402dc4",
+      "rawHebrewSha256": "07c4716746dd5ece9523b28bb4f75670aab0a59fd74518dc71ed545ffc641a13",
+      "completeContextRead": true
+    },
+    {
+      "ref": "Peri Tzadik, Sefer Kedushat Shabbat 2:3",
+      "paragraphHebrewSha256": "40e76d189f793d3a8d3073d7e5cd3fcf30960722263e76b2143c0db02994f7e3",
+      "rawHebrewSha256": "77dd3dc6ca66dfd8cb5a1a7b98ab873f6931aeff82faf726bdd50f8a5c53aaf9",
+      "completeContextRead": true
+    }
+  ],
+  "changes": [
+    {
+      "id": "chanukah-complete-24-enduring-spiritual-deliverance-resisei56",
+      "field": "targetEnglish",
+      "before": "But the miracle of Chanukah, which was deliverance from forced abandonment of the faith alone, was established only for praise and thanksgiving, without any bodily pleasure, because it was not a deliverance of bodies. Its commandment is the lighting of the lamp, for this is the essential deliverance: “Light” is Torah. It was therefore not given to be written, because it has no embodiment in a bodily garment in this world. It is like all Oral Torah, of which “you are not permitted to recite these matters in writing.” This deliverance remained fixed and enduring for generations, like every holiness of the appointed times that remains in that time forever. This holiness is solely the deliverance of the soul and intellect, so that they will not be defiled by the wisdom of foreigners, which opposes the wisdom of Israel’s Sages in Oral Torah.",
+      "after": "But the miracle of Chanukah was deliverance from forced abandonment of the faith alone. Its days were established only for praise and thanksgiving, without any bodily pleasure, because it was not a deliverance of bodies. Its commandment is the lighting of the lamp, for this is the essential deliverance: “Light” is Torah. It was therefore not given to be written, because it has no embodiment in a bodily garment in this world. It is like all Oral Torah, of which “you are not permitted to put these matters in writing.” This deliverance remained fixed and enduring for generations, like every holiness of the appointed times that remains in that time forever. This holiness is solely the deliverance of the soul and intellect, so that they will not be defiled by the wisdom of foreigners, which opposes the wisdom of Israel’s Sages in Oral Torah.",
+      "reason": "The plural nikbeu concerns the commemorative days. The prohibition on writing Oral Torah is expressed in ordinary English. The complete soul-and-intellect sentence and its final Oral Torah clause remain present."
+    },
+    {
+      "id": "chanukah-complete-24-earthly-ruling-heavenly-calendar-takanat12",
+      "field": "originEnglish",
+      "before": "It concludes that one may not say this even about this commandment, which indicates the appearance of holiness in time. Why? “For I agree also to their words”—even to what they decree concerning the indwelling of the miracle’s holiness in time. As it says, “You shall decree a word, and it shall be established for you”; that is, even a mere utterance.",
+      "after": "The Midrash concludes that one may not refuse to fulfill the elders’ commandment even in this case, where the commandment signifies the manifestation of holiness in time. Why? Because God says, “I agree also to their words”—including what they decree concerning the indwelling of the miracle’s holiness in time. As it says, “You shall decree a word, and it shall be established for you”; that is, even a mere utterance.",
+      "reason": "The complete origin identifies the Midrash as the speaker, the rejected statement as refusal to fulfill the elders’ commandment, and God as the speaker who agrees. These antecedents are integrated into the translation without square brackets."
+    },
+    {
+      "id": "chanukah-complete-24-granted-power-to-sanctify-time-sodyesharim",
+      "field": "originEnglish",
+      "before": "It concludes that one may not say this even about this commandment, which indicates the appearance of holiness in time. Why? “For I agree also to their words”—even to what they decree concerning the indwelling of the miracle’s holiness in time. As it says, “You shall decree a word, and it shall be established for you”; that is, even a mere utterance.",
+      "after": "The Midrash concludes that one may not refuse to fulfill the elders’ commandment even in this case, where the commandment signifies the manifestation of holiness in time. Why? Because God says, “I agree also to their words”—including what they decree concerning the indwelling of the miracle’s holiness in time. As it says, “You shall decree a word, and it shall be established for you”; that is, even a mere utterance.",
+      "reason": "The complete origin identifies the Midrash as the speaker, the rejected statement as refusal to fulfill the elders’ commandment, and God as the speaker who agrees. These antecedents are integrated into the translation without square brackets."
+    },
+    {
+      "id": "chanukah-complete-24-princes-initiative-oral-torah-nasso6",
+      "field": "targetEnglish",
+      "before": "After this comes the account of the princes’ dedication offerings. This alludes to the essential power of renewal in Oral Torah: what a person originates from the heart. Each prince himself conceived in his heart the bringing of these quantities of offerings. As Midrash Rabbah, chapter 12, explains on “They brought their offering,” they all brought their entire offering on their own initiative on the first day; afterwards, by the divine word, each offered on his own appointed day. Scripture details for each individual prince the number of offerings and their meal offerings, and the weight of the vessels, although all offered equally. This appears superfluous, for it could have written that on the second day a particular prince offered the same number as the first, and similarly for all of them. From this Midrash Rabbah demonstrates that each had different intentions in his offering, and therefore Scripture details each separately. From this we can understand the power of renewal in Oral Torah: even if two people perform an act of identical form, each nevertheless has a distinct meaning and level according to the preparation of the heart in the inner matter. The words concern, above all, the intention of the heart.",
+      "after": "After this comes the account of the princes’ dedication offerings. This alludes to the essential power of renewal in Oral Torah: what a person originates from the heart. Each prince himself conceived in his heart the bringing of these quantities of offerings. As Midrash Rabbah, chapter 12, explains on “They brought their offering,” they all brought their entire offering on their own initiative on the first day; afterwards, by the divine word, each offered on his own appointed day. Scripture details for each individual prince the number of offerings and their meal offerings, and the weight of the vessels, although all offered equally. This appears superfluous, for it could have written that on the second day a particular prince offered the same number as the first, and similarly for all of them. From this Midrash Rabbah demonstrates that each had different intentions in his offering, and therefore Scripture details each separately. From this we can understand the power of renewal in Oral Torah: even if two people perform an act of identical form, each nevertheless has a distinct meaning and level according to the preparation of the heart in the inner matter. The essential consideration is the intention of the heart.",
+      "reason": "Clarifies the Hebrew idiom while preserving the distinction between identical outward acts and the different inward intentions."
+    }
+  ],
+  "qualifications": [
+    "The quoted Hebrew and fingerprints are the supplied canonical local editions; no new printed-edition collation is asserted.",
+    "Existing interlinear body wording remains outside these connection edits. The final connection quotations themselves are free of English square brackets.",
+    "The full Resisei 56:26 soul-and-intellect sentence remains intact. The spiritual-versus-bodily distinction is presented as the author’s account of the commemoration, not as a claim that the war involved no physical danger."
+  ]
+}

@@ -1,0 +1,219 @@
+{
+  "schemaVersion": 1,
+  "reviewedOn": "2026-10-20",
+  "method": "Completed independent bilingual review of a recovered draft. Every current default Hebrew paragraph in each of the six originating teachings was read in full and sequence. All listed candidate paragraphs were compared in full; surrounding context was read when needed, including all three paragraphs of Sod Yesharim, Shabbat Chol HaMoed Sukkot 3. Accepted source excerpts are contiguous and unchanged. Source pins were checked against the current build corpus. The ledger records finite scholarly comparisons in both schools, not every possible parallel.",
+  "entries": [
+    {
+      "ref": "Peri Tzadik, Rosh Chodesh Shvat 1:1",
+      "sectionRef": "Peri Tzadik, Rosh Chodesh Shvat 1",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "d4fa9fd9cca4421cff413e0c4a276e60ffc3a53e999f0cc9aa57d38d4cdb5c62",
+      "reviewedSectionHebrewSha256": "d4fa9fd9cca4421cff413e0c4a276e60ffc3a53e999f0cc9aa57d38d4cdb5c62",
+      "assessment": "The entire long teaching was read through its final account of Asher, Gad, Elijah, and the restoration of exiles. The selected connections address three distinct steps in its argument: desire’s original purpose, prayer after disciplined Torah study, and repair through the heart’s cry. None turns a particular spiritual remedy into an automatic formula.",
+      "candidatesReviewed": [
+        {
+          "ref": "Beit Yaakov on Torah, Chayei Sara 3:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after independent bilingual and contextual review: Pri Tzadik places prayer after Torah and the disciplined struggle with desire. Beit Yaakov explains why effort cannot make prayer unnecessary: the person’s very capacity to refine himself is a divine gift. The full section continues to insist on preparation and refinement, so this comparison does not replace effort with passivity."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Bereshit 15",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after independent bilingual and contextual review: Pri Tzadik identifies the original purpose of desire as delight in Torah. Mei HaShiloach supplies a developmental account: an initial gift of Torah becomes living growth through renewed longing, just as a child’s appetite supports bodily growth. Its interpretation of “serving Torah” is the author’s own homiletic reading."
+        },
+        {
+          "ref": "Tzidkat HaTzadik 108:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after independent bilingual and contextual review: Both passages confront the Zohar’s apparent exclusion of repentance for damage to the covenant. Tzidkat HaTzadik distinguishes the protection afforded by prayer from the renewed closeness associated with a broken heart, and places Torah, repentance, and contrition at different spiritual levels. This adds precision to Pri Tzadik’s assurance that the heart’s cry remains effective."
+        },
+        {
+          "ref": "Kometz HaMinchah 1:61:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Rejected for this anchor: the full passage explains prayer when the inclination obstructs entering Torah study itself, especially the Torah blessing. The approved Beit Yaakov passage more directly explains the origin’s prayer after substantial refinement."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Rosh Chodesh Shvat 2:1",
+      "sectionRef": "Peri Tzadik, Rosh Chodesh Shvat 2",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "1756f5ab7325839e6e828ce4c4dd491c8cbd83ff1002278c19bfd87ea666271c",
+      "reviewedSectionHebrewSha256": "189be993399d347d06fe6a695c26f74758b4bc03e9b6a2d4243a69009656467e",
+      "assessment": "Read the whole argument from Sefer Yetzirah and the rejected Talmudic derivation of two inclinations through the bent and upright tzadi. Both connections preserve its distinction between one original capacity for desire and the two domains of its exercise; the second does not erase the passage’s demand for disciplined intention.",
+      "candidatesReviewed": [
+        {
+          "ref": "Likkutei Maamarim, Compositions on the Festivals 9:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after independent bilingual and contextual review: Pri Tzadik reconciles one originally good power of longing with two chambers of the heart, corresponding to Torah and worldly life. Likkutei Maamarim explains the spiritual danger behind the division: worldly life can be perceived as detached from its divine source. The connection supplies a conceptual account of the split without equating bodily activity itself with evil."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Bereshit 1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after independent bilingual and contextual review: Mei HaShiloach’s wedding analogy makes Pri Tzadik’s account of holy worldly activity concrete. The father still tastes the food, but its significance comes from his greater joy in his son. This explains a reordering of delight within divine service, rather than requiring that every physical sensation disappear."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Rosh Chodesh Shvat 2:2",
+      "sectionRef": "Peri Tzadik, Rosh Chodesh Shvat 2",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "2656598b30ffb3270a28a367a56536a1c2690f77ec0136d99bd2181775d44b4d",
+      "reviewedSectionHebrewSha256": "189be993399d347d06fe6a695c26f74758b4bc03e9b6a2d4243a69009656467e",
+      "assessment": "Read the full sequence of doubled letters, the patriarchs, concealed and revealed Torah, Moses, and the progression from Shevat through Adar to Nisan. The approved explicit cross-reference resolves the text’s own question about recognizing redemption; no generic letter or month resemblance was approved.",
+      "candidatesReviewed": [
+        {
+          "ref": "Peri Tzadik, Shemot 6:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after independent bilingual and contextual review: This is the earlier teaching Pri Tzadik explicitly directs the reader to. Its added step is that divine help initiates even the apparently human awakening needed for redemption. The doubled wording therefore expresses an inward event and its divine source, rather than a password that an impostor could repeat."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Vayetzei 3",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected: the full passage unites sanctuary, Shabbat, and Jacob as place, time, and soul. Its shared Jacob symbolism does not clarify the doubled letters, the sign of the redeemer, or the stages of this argument."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Rosh Chodesh Shvat 3:1",
+      "sectionRef": "Peri Tzadik, Rosh Chodesh Shvat 3",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "0d9174c4c932e6f315b13ee77b52384a59062e2b078d5ef97bece0d9f53905e8",
+      "reviewedSectionHebrewSha256": "0d9174c4c932e6f315b13ee77b52384a59062e2b078d5ef97bece0d9f53905e8",
+      "assessment": "Read the entire discussion of Eden, wheat and ready-made bread, le’itah as being fed, Jacob’s request, the sages’ substantial meals, and Shabbat. The connections distinguish receiving holy nourishment from mere quantity of food. All three paragraphs of the Sod Yesharim target section were read so its concluding balance is retained.",
+      "candidatesReviewed": [
+        {
+          "ref": "Peri Tzadik, Vayechi 15:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after independent bilingual and contextual review: Vayechi develops the shepherd image used in this Shevat teaching. The same divine provision nourishes the body and directs the soul; properly allotted food engraves Torah in the heart. This explains why Jacob requests the holy act of eating itself in addition to possession of bread."
+        },
+        {
+          "ref": "Sod Yesharim, Shabbat Chol HaMoed Sukkot 3:3",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after independent bilingual and contextual review: The surrounding Sod Yesharim paragraphs distinguish God’s broad provision from the person’s need to avoid unmeasured enjoyment. The selected conclusion joins the two in Shabbat: bodily delight is commanded, and prior preparation bounds it. It therefore sharpens the Shevat passage without turning its praise of holy enjoyment into unrestricted consumption."
+        },
+        {
+          "ref": "Kometz HaMinchah 2:62:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Rejected: although its full discussion includes Esau’s le’itah and the sale of the birthright, it chiefly diagnoses deceptive outward piety and denial of resurrection. Reusing the feeding word would not explain Jacob’s holy reception here."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Rosh Chodesh Shvat 4:1",
+      "sectionRef": "Peri Tzadik, Rosh Chodesh Shvat 4",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "a907be79f608ad2a22d7ffc4cdfb60326665551daf2c7333cacd399200e56d0b",
+      "reviewedSectionHebrewSha256": "a907be79f608ad2a22d7ffc4cdfb60326665551daf2c7333cacd399200e56d0b",
+      "assessment": "Read the complete comparison of the Sefer Yetzirah variants, Esau’s appetite, ascetic swallowing, the altar and wolf, allotted bread, and Asher’s Torah-rich oil. Et HaOchel is retained because it adds the essential limitation on excessive restraint; the Ishbitz–Radzin candidate below was read and rejected for insufficient conceptual addition.",
+      "candidatesReviewed": [
+        {
+          "ref": "Et HaOchel 9:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after independent bilingual and contextual review: Et HaOchel develops the same linked expressions, “prey” and “allotted bread,” but explicitly supplies the balancing condition: a person can also obstruct the task by excessive abstinence. This keeps the Shevat passage’s account of ascetic practices in its larger spiritual context."
+        },
+        {
+          "ref": "Beit Yaakov on Torah, Chayei Sara 6:10",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected: the complete paragraph interprets provision gathered out of apparent darkness through the rejected cornerstone. Its shared words “prey” and “allotment” do not explain this origin’s account of eating, appetite, or the altar."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Rosh Chodesh Shvat 5:1",
+      "sectionRef": "Peri Tzadik, Rosh Chodesh Shvat 5",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "8a44f32da563317f196cc16c7ef7940648873741e9927469e131df036bd7cc9b",
+      "reviewedSectionHebrewSha256": "8a44f32da563317f196cc16c7ef7940648873741e9927469e131df036bd7cc9b",
+      "assessment": "Read the complete treatment of the fly, Torah and anger, Joshua, Mashiach ben Yosef and Mashiach ben David, apparent fear after actual repair, and the variants “removal” and “joy” of the heart. Divrei Soferim clarifies the quality of joy without conflating the two messianic stages. The superficially related fly image in Tiferet Yosef was rejected after independent comparison.",
+      "candidatesReviewed": [
+        {
+          "ref": "Tiferet Yosef, Vayakhel 1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected on independent review: the fly image is shared, but Tiferet Yosef explains communal exclusion and mutual responsibility. That does not directly explain the origin’s distortion of Torah and worldly desire inside the two chambers of the heart. Retain the stronger Divrei Soferim connection on the quality of upright joy."
+        },
+        {
+          "ref": "Divrei Soferim 38:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after independent bilingual and contextual review: The origin distinguishes an actual repair of the heart from the later recognition of that repair in the messianic sequence. Divrei Soferim explains the quality of joy itself: it comes with awe and removal of an inner screen, unlike transient gratification. It adds a criterion for understanding “joy of the heart” without importing its separate Esau narrative into Pri Tzadik’s chronology."
+        },
+        {
+          "ref": "Tzidkat HaTzadik 259:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Rejected for this comparison: the full Purim discussion does treat Amalek, illusion, and concealed deliverance, but its account of Haman’s decree, Moses’ Adar birth, and faith would require importing a separate festival argument to explain the particular Yosef–David sequence here."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Rosh Chodesh Shvat 6:1",
+      "sectionRef": "Peri Tzadik, Rosh Chodesh Shvat 6",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "502434b52c3922974b20de914371c2335393c1a41e9d1d71b4279cf05aa3525e",
+      "reviewedSectionHebrewSha256": "601ab6106f8f3421ac00d8ca947f2354bfbbebacc01383faf7356f53c9b2a30d",
+      "assessment": "Read the entire movement from the letter tzadi and its yud–nun form to wisdom, Malchut, Shabbat speech, Adam, repentance, and the world’s dependence on Torah. The approved comparison explains the heart–mind link; the calendar-based Ishbitz–Radzin comparison below was read and declined.",
+      "candidatesReviewed": [
+        {
+          "ref": "Sichat Malakhei HaSharet 2:32",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after independent bilingual and contextual review: Pri Tzadik presents mind, heart, and speech as divine gifts joined through the tzadi. Sichat Malakhei HaSharet supplies the inner account of that joining: the heart’s felt recognition grows from knowledge and takes form in speech. Its full paragraph goes on to distinguish Moses’ and Isaiah’s prophetic qualities, so the connection concerns the mechanism of joining rather than asserting that all forms of inspired speech are identical."
+        },
+        {
+          "ref": "Beit Yaakov on Torah, Lech Lecha 14:39",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected: the complete paragraph explains why the eighth-day offering must include a Shabbat and how the six days receive holiness. It does not explain the origin’s specific account of mouth, speech, or the joining of wisdom and the heart."
+        }
+      ]
+    },
+    {
+      "ref": "Peri Tzadik, Rosh Chodesh Shvat 6:2",
+      "sectionRef": "Peri Tzadik, Rosh Chodesh Shvat 6",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "67a7ca0e536877b9dbbdc54d2658e245832045c553e17584faa38d65a762353b",
+      "reviewedSectionHebrewSha256": "601ab6106f8f3421ac00d8ca947f2354bfbbebacc01383faf7356f53c9b2a30d",
+      "assessment": "Read the whole paragraph from Moses’ protest through Deuteronomy on Rosh Chodesh Shevat, the final plagues, Sinai, and gifted halakhic understanding. The comparisons retain their differing accounts and timing: Tzidkat treats inward acquisition before free speech, while Sod Yesharim treats the inclusion of Moses’ light in all Israel at his departure.",
+      "candidatesReviewed": [
+        {
+          "ref": "Tzidkat HaTzadik 183:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after independent bilingual and contextual review: The full Tzidkat passage itself proceeds to “These are the words” and Moses speaking Deuteronomy from his own mouth. Its added condition is crucial: spontaneous or outward speech becomes Torah only after an inward, laborious beginning; Doeg is the counterexample. This explains the origin’s transformation of Moses’ speech without making every unconsidered utterance inspired."
+        },
+        {
+          "ref": "Sod Yesharim, Simchat Torah 18:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after independent bilingual and contextual review: Both teachings refuse to treat Moses’ “heavy mouth” as a simple absence of spiritual capacity. Sod Yesharim interprets it through a higher light not yet fully brought into embodied life, whose completion reaches every Israelite soul. This offers a distinct perspective on Torah’s becoming a shared gift; its completion at Moses’ death is not identified with the origin’s earlier Rosh Chodesh Shevat event."
+        }
+      ]
+    }
+  ]
+}

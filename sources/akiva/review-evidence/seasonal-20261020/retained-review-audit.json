@@ -1,0 +1,57 @@
+{
+  "scope": "Recovered completed Chanukah records for 1–7 and 9–23, plus separate newly authored 8 draft; corrected 24 pending separate peer packet.",
+  "recoveredRecords": 253,
+  "original237RecordsPreserved": 237,
+  "recoveredCompletedParagraphs": 136,
+  "candidateComparisons": 547,
+  "acceptedCandidatePairs": 253,
+  "notAddedCandidateComparisons": 294,
+  "allApprovedPairsInCandidateLedger": true,
+  "independentBilingualCheckThisTurn": {
+    "ois": 7,
+    "originParagraphs": 7,
+    "acceptedFullTargetParagraphs": 16,
+    "acceptedRecords": 16,
+    "englishRepairs": 4
+  },
+  "priorEditorialEvidence": "The 237 previously reviewed records retain the previous detailed section/paragraph and candidate decisions. This audit verifies their stored fingerprints and exact anchors; it does not represent a new independent rereading of all 237.",
+  "adjacentOriginDuplicateTargets": [],
+  "canonicalBuilderVerification": {
+    "ok": true,
+    "engine": "reader/scripts/build-connected-ideas.mjs + build-theme-review-progress.mjs",
+    "recordsChecked": 264,
+    "paragraphsReviewed": 143,
+    "sectionsComplete": 23,
+    "pendingSections": [
+      "Peri Tzadik, Chanukah 24"
+    ],
+    "checks": [
+      "Every origin and target exact canonical reference resolves in the default study edition.",
+      "Every selected Hebrew quotation is unique, contiguous, whole-word anchored and maps to exact reader phrases.",
+      "Every origin paragraph, full origin section and target paragraph SHA-256 matches.",
+      "All IDs and origin-target pairs are unique; target schools match the catalog.",
+      "Every completed paragraph documents an actual candidate in both schools, uses exact canonical refs, and agrees with the accepted catalog."
+    ],
+    "newOis8IncludedAsDraftForMechanicalChecks": true
+  },
+  "files": {
+    "themes/chanukah-1-8-complete-review.json": {
+      "sha256": "e4e1fd92d4895e0e55b644ba535caa88c611469f2afb2eb4ea8ff76ebca1f7a7"
+    },
+    "themes/chanukah-17-24-complete-review.json": {
+      "sha256": "c54b0ae1d019080639837b762256974f3d6a865f052706d8bdf70b185f2323a4"
+    },
+    "themes/chanukah-9-16-complete-review.json": {
+      "sha256": "94df8d53c43966b9a47884928ca009babdfd2d594a54e71d765d0dcd33cb3de0"
+    },
+    "theme-reviews/chanukah-1-8.json": {
+      "sha256": "db26095c83cc2ca8722dffba630035a464cbcf9438069e5dc71ff584593dc477"
+    },
+    "theme-reviews/chanukah-17-24.json": {
+      "sha256": "7095c3c000fffc9b34194a833c424ae0e4f432d5841116997bddc956647ce2bb"
+    },
+    "theme-reviews/chanukah-9-16.json": {
+      "sha256": "6557ad83003ac66680a655635b537358652ea9ad6317b47e45d6f96431d9cf7e"
+    }
+  }
+}

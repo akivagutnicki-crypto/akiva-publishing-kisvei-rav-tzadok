@@ -3,62 +3,156 @@
   "ref": "Peri Tzadik, Chanukah 25",
   "status": "independently-reviewed",
   "reviewedOn": "2026-10-20",
-  "reviewer": "Independent AI editorial review by the coordinating reviewer, separate from the translation author",
+  "reviewer": "Independent continuation reviewer, separate from the recovered translation author; original full-context independent review preserved below",
   "reviewedWholeSection": true,
   "printedScanVerified": false,
-  "verificationBasis": "The complete six-paragraph Hebrew text in the identified Sefaria edition, the preserved original source snapshots, and the cited primary evidence. The printed-page scan could not be retrieved; this review does not certify collation against a printed copy.",
-  "editorialSha256": "0dfc22ee3c725c41d67fff6cb1e189cd5f1b410aa1ac2bbf503caa417e594890",
-  "sourceNotesReviewed": 31,
-  "primaryEvidenceRecordsReviewed": 32,
+  "verificationBasis": "All 506 Hebrew–English phrase pairs and all 36 source quotation translations were read in this continuation against the complete six-paragraph argument and the preserved source excerpts. The prior independent full-context review of 32 primary records is retained in priorFullContextReview. Pesikta Rabbati 6:1 was read in full and the note now quotes its actual 25 Kislev passage. All consonantal source changes remain accounted for; original Hebrew snapshots are unchanged. The printed scan could not be retrieved and is not certified. Five additional primary texts displaced into the former Chanukah 24 edition were retrieved and reviewed directly in this continuation; their complete relevant passages and the exact source locators are recorded in the migration review.",
+  "editorialSha256": "2d86aade942bd32a36f75297819732df42a3d9476da76c247bbb3546613b72c7",
+  "sourceNotesReviewed": 36,
+  "primaryEvidenceRecordsReviewed": 37,
   "authoringSnapshots": "The six immutable authoring files retain their original pre-peer-review status. This hash-bound independent review is the subsequent publication authority.",
   "paragraphs": [
     {
       "ref": "Peri Tzadik, Chanukah 25:1",
-      "sha256": "6f597b165d0ccd461013f955f7ceba18eafe08d8f6e17379257b1ce53a21d0cc",
+      "sha256": "5fd7da165a6ce7822c32a19958e7b80b359e88d8d525bccd45f4ef66f52c0cbd",
       "phraseCount": 123,
       "completeSemanticReview": true,
       "completeSourceReview": true,
-      "assessment": "All 123 phrase pairs read against the complete original paragraph and its argument. Reviewed the six notes in full primary context, including Pesikta Rabbati, Yoma, Rashi on Bava Metzia, Zevachim with Rashi, and the complete cited Zohar sequence. Preserved the distinction between relative holiness and practical offering precedence; the homiletic vocalization of cheifetz and supplied Yaakov antecedent are disclosed."
+      "assessment": "All 123 phrase pairs read against the complete original paragraph and its argument. Reviewed the six notes in full primary context, including Pesikta Rabbati, Yoma, Rashi on Bava Metzia, Zevachim with Rashi, and the complete cited Zohar sequence. Preserved the distinction between relative holiness and practical offering precedence; the homiletic vocalization of cheifetz and supplied Yaakov antecedent are disclosed. Continuation review: every phrase and note translation read; English bracket conventions removed without deleting meaning; all Hebrew and original snapshots preserved. Textual uncertainties remain explicitly disclosed."
     },
     {
       "ref": "Peri Tzadik, Chanukah 25:2",
-      "sha256": "ada8a66df11eee7a48b409aef0bba5bb1f21eab9aef741656600242dba2fa6aa",
+      "sha256": "32eceea671eb2652ce9e403b2ec384edb422b0fc0c8ceb719ffb12804dae6b67",
       "phraseCount": 84,
       "completeSemanticReview": true,
       "completeSourceReview": true,
-      "assessment": "All 84 phrase pairs read against the complete original paragraph. The four full primary notes preserve Pnei Yehoshua’s explanation, all three Beit Yosef oil-miracle resolutions, the two Sanhedrin answers concerning Esther, and the dream context of the names in Berakhot. The corrected expansion and vocalization of ba-Elohi are accounted for."
+      "assessment": "All 84 phrase pairs read against the complete original paragraph. The four full primary notes preserve Pnei Yehoshua’s explanation, all three Beit Yosef oil-miracle resolutions, the two Sanhedrin answers concerning Esther, and the dream context of the names in Berakhot. The corrected expansion and vocalization of ba-Elohi are accounted for. Continuation review: every phrase and note translation read; English bracket conventions removed without deleting meaning; all Hebrew and original snapshots preserved. Textual uncertainties remain explicitly disclosed."
     },
     {
       "ref": "Peri Tzadik, Chanukah 25:3",
-      "sha256": "dc52fae3d770ca7a249eaec1535db5f705b3abc2b5d053c67ec7f18d73e49509",
+      "sha256": "303397d65ef96af4405b335373162de2414021142cb09c5f93f969591fcde1ef",
       "phraseCount": 53,
       "completeSemanticReview": true,
       "completeSourceReview": true,
-      "assessment": "All 53 phrase pairs read against the complete original paragraph. The four primary notes were read with their creation-and-sanctuary, seven dedications, Ramban menorah, and tribes-and-Elijah context. The proposed OCR correction to the tribes is explicit and the original reading remains visible; verse-locator discrepancies are disclosed instead of silently harmonized."
+      "assessment": "All 53 phrase pairs read against the complete original paragraph. The four primary notes were read with their creation-and-sanctuary, seven dedications, Ramban menorah, and tribes-and-Elijah context. The proposed OCR correction to the tribes is explicit and the original reading remains visible; verse-locator discrepancies are disclosed instead of silently harmonized. Continuation review: every phrase and note translation read; English bracket conventions removed without deleting meaning; all Hebrew and original snapshots preserved. Textual uncertainties remain explicitly disclosed. The Pesikta 6:1 excerpt was corrected to the actual 25 Kislev completion and Hasmonean repayment passage, translated in full."
     },
     {
       "ref": "Peri Tzadik, Chanukah 25:4",
-      "sha256": "714fabf74c30d68baadf9b12e22841512ca10606ff25868493850b52f05b1ad7",
+      "sha256": "62f16ca12e9425cff61f8913de25eebf07b1b2e0c8235d8f73814fe8c128a772",
       "phraseCount": 46,
       "completeSemanticReview": true,
       "completeSourceReview": true,
-      "assessment": "All 46 phrase pairs read against the complete original paragraph. Both notes were read with their full primary texts: the Netzach/Jerusalem and Hod/Temple distinction in Berakhot, and the equal standing of Betzalel from Judah and Oholiab from Dan in Shemot Rabbah. The translation retains the paragraph’s unfolding comparison."
+      "assessment": "All 46 phrase pairs read against the complete original paragraph. Both notes were read with their full primary texts: the Netzach/Jerusalem and Hod/Temple distinction in Berakhot, and the equal standing of Betzalel from Judah and Oholiab from Dan in Shemot Rabbah. The translation retains the paragraph’s unfolding comparison. Continuation review: every phrase and note translation read; English bracket conventions removed without deleting meaning; all Hebrew and original snapshots preserved. Textual uncertainties remain explicitly disclosed."
     },
     {
       "ref": "Peri Tzadik, Chanukah 25:5",
-      "sha256": "a7cc94fe40b59947868c682c3a470084973f11c588e66edb673ef07e7031f9b5",
+      "sha256": "135d4d1ee25e613969ebdb5fcb31e01afcdbdd59427e6a9b4c8c4c069f5ea28b",
       "phraseCount": 105,
       "completeSemanticReview": true,
       "completeSourceReview": true,
-      "assessment": "All 105 phrase pairs read against the complete original paragraph. All six primary notes were read, including the complete Arnon narrative, debate culminating in love, the Nedarim qualification that Moshe gave pilpul, the full humility/gift/elevation/fall/return sequence, Torah becoming the learner’s own, and the limited statement about Yehoshua’s arrangement of the Land. The Maharsha paragraph was read in full to verify the stated rendering of nechalo El; the Avot commentary’s uncertain attribution is retained. The corrected translation says that the disputants love one another."
+      "assessment": "All 105 phrase pairs read against the complete original paragraph. All six primary notes were read, including the complete Arnon narrative, debate culminating in love, the Nedarim qualification that Moshe gave pilpul, the full humility/gift/elevation/fall/return sequence, Torah becoming the learner’s own, and the limited statement about Yehoshua’s arrangement of the Land. The Maharsha paragraph was read in full to verify the stated rendering of nechalo El; the Avot commentary’s uncertain attribution is retained. The corrected translation says that the disputants love one another. Continuation review: every phrase and note translation read; English bracket conventions removed without deleting meaning; all Hebrew and original snapshots preserved. Textual uncertainties remain explicitly disclosed."
     },
     {
       "ref": "Peri Tzadik, Chanukah 25:6",
-      "sha256": "6acb92ce2c079d18999b3d264c1d477d3543f1fb640b2a1c94d0905b40089724",
+      "sha256": "4e0faa71a25a1eb7b5bc981ee1af96f214a2dec066929cb9c47fe265429b542d",
       "phraseCount": 95,
       "completeSemanticReview": true,
       "completeSourceReview": true,
-      "assessment": "All 95 phrase pairs read against the complete original paragraph. All nine full primary contexts were read, retaining both Sanhedrin metaphors, Rashi’s interpretation of Rabbi Yochanan, the complete Sukkah sequence, Beit Hillel’s concrete conduct, the legal context of the two names, the limited Yochanan chronology, and both narratives of celebratory lighting. Read back the corrections to craftsmen and smiths and the mil measured from the city. The unresolved abbreviation לק״ל remains visible without an invented expansion; the proposed nusach OCR reading is disclosed, and the malicious report in Eikhah Rabbah is distinguished from the Jews’ actual observance."
+      "assessment": "All 95 phrase pairs read against the complete original paragraph. All nine full primary contexts were read, retaining both Sanhedrin metaphors, Rashi’s interpretation of Rabbi Yochanan, the complete Sukkah sequence, Beit Hillel’s concrete conduct, the legal context of the two names, the limited Yochanan chronology, and both narratives of celebratory lighting. Read back the corrections to craftsmen and smiths and the mil measured from the city. The unresolved abbreviation לק״ל remains visible without an invented expansion; the proposed nusach OCR reading is disclosed, and the malicious report in Eikhah Rabbah is distinguished from the Jews’ actual observance. Continuation review: every phrase and note translation read; English bracket conventions removed without deleting meaning; all Hebrew and original snapshots preserved. Textual uncertainties remain explicitly disclosed. The malicious-report qualification remains explicit in English at phrase 87; לק״ל remains unexpanded and openly marked unresolved. The five recovered notes were independently checked against the direct primary responses: Bava Batra 172a:11–13, Mishnah Maaser Sheni 5:15, Mishneh Torah Tithes 9:1, the chronological gloss in Rash MiShantz on Mishnah Parah 3:8:2, and Zohar Achrei Mot 74:409. Seven legacy identities are accounted for once and the impossible Lamentations 4:100 duplicate is explicitly retired."
     }
-  ]
+  ],
+  "priorFullContextReview": {
+    "fileSha256": "579abda21659763898ddef3b33f4fecb3e16d8b3e490c64fd8c48a6c5ceca76e",
+    "editorialSha256": "0dfc22ee3c725c41d67fff6cb1e189cd5f1b410aa1ac2bbf503caa417e594890",
+    "reviewer": "Independent AI editorial review by the coordinating reviewer, separate from the translation author",
+    "paragraphs": [
+      {
+        "ref": "Peri Tzadik, Chanukah 25:1",
+        "sha256": "5fd7da165a6ce7822c32a19958e7b80b359e88d8d525bccd45f4ef66f52c0cbd",
+        "phraseCount": 123,
+        "completeSemanticReview": true,
+        "completeSourceReview": true,
+        "assessment": "All 123 phrase pairs read against the complete original paragraph and its argument. Reviewed the six notes in full primary context, including Pesikta Rabbati, Yoma, Rashi on Bava Metzia, Zevachim with Rashi, and the complete cited Zohar sequence. Preserved the distinction between relative holiness and practical offering precedence; the homiletic vocalization of cheifetz and supplied Yaakov antecedent are disclosed. Continuation review: every phrase and note translation read; English bracket conventions removed without deleting meaning; all Hebrew and original snapshots preserved. Textual uncertainties remain explicitly disclosed."
+      },
+      {
+        "ref": "Peri Tzadik, Chanukah 25:2",
+        "sha256": "32eceea671eb2652ce9e403b2ec384edb422b0fc0c8ceb719ffb12804dae6b67",
+        "phraseCount": 84,
+        "completeSemanticReview": true,
+        "completeSourceReview": true,
+        "assessment": "All 84 phrase pairs read against the complete original paragraph. The four full primary notes preserve Pnei Yehoshua’s explanation, all three Beit Yosef oil-miracle resolutions, the two Sanhedrin answers concerning Esther, and the dream context of the names in Berakhot. The corrected expansion and vocalization of ba-Elohi are accounted for. Continuation review: every phrase and note translation read; English bracket conventions removed without deleting meaning; all Hebrew and original snapshots preserved. Textual uncertainties remain explicitly disclosed."
+      },
+      {
+        "ref": "Peri Tzadik, Chanukah 25:3",
+        "sha256": "303397d65ef96af4405b335373162de2414021142cb09c5f93f969591fcde1ef",
+        "phraseCount": 53,
+        "completeSemanticReview": true,
+        "completeSourceReview": true,
+        "assessment": "All 53 phrase pairs read against the complete original paragraph. The four primary notes were read with their creation-and-sanctuary, seven dedications, Ramban menorah, and tribes-and-Elijah context. The proposed OCR correction to the tribes is explicit and the original reading remains visible; verse-locator discrepancies are disclosed instead of silently harmonized. Continuation review: every phrase and note translation read; English bracket conventions removed without deleting meaning; all Hebrew and original snapshots preserved. Textual uncertainties remain explicitly disclosed. The Pesikta 6:1 excerpt was corrected to the actual 25 Kislev completion and Hasmonean repayment passage, translated in full."
+      },
+      {
+        "ref": "Peri Tzadik, Chanukah 25:4",
+        "sha256": "62f16ca12e9425cff61f8913de25eebf07b1b2e0c8235d8f73814fe8c128a772",
+        "phraseCount": 46,
+        "completeSemanticReview": true,
+        "completeSourceReview": true,
+        "assessment": "All 46 phrase pairs read against the complete original paragraph. Both notes were read with their full primary texts: the Netzach/Jerusalem and Hod/Temple distinction in Berakhot, and the equal standing of Betzalel from Judah and Oholiab from Dan in Shemot Rabbah. The translation retains the paragraph’s unfolding comparison. Continuation review: every phrase and note translation read; English bracket conventions removed without deleting meaning; all Hebrew and original snapshots preserved. Textual uncertainties remain explicitly disclosed."
+      },
+      {
+        "ref": "Peri Tzadik, Chanukah 25:5",
+        "sha256": "135d4d1ee25e613969ebdb5fcb31e01afcdbdd59427e6a9b4c8c4c069f5ea28b",
+        "phraseCount": 105,
+        "completeSemanticReview": true,
+        "completeSourceReview": true,
+        "assessment": "All 105 phrase pairs read against the complete original paragraph. All six primary notes were read, including the complete Arnon narrative, debate culminating in love, the Nedarim qualification that Moshe gave pilpul, the full humility/gift/elevation/fall/return sequence, Torah becoming the learner’s own, and the limited statement about Yehoshua’s arrangement of the Land. The Maharsha paragraph was read in full to verify the stated rendering of nechalo El; the Avot commentary’s uncertain attribution is retained. The corrected translation says that the disputants love one another. Continuation review: every phrase and note translation read; English bracket conventions removed without deleting meaning; all Hebrew and original snapshots preserved. Textual uncertainties remain explicitly disclosed."
+      },
+      {
+        "ref": "Peri Tzadik, Chanukah 25:6",
+        "sha256": "4e0faa71a25a1eb7b5bc981ee1af96f214a2dec066929cb9c47fe265429b542d",
+        "phraseCount": 95,
+        "completeSemanticReview": true,
+        "completeSourceReview": true,
+        "assessment": "All 95 phrase pairs read against the complete original paragraph. All nine full primary contexts were read, retaining both Sanhedrin metaphors, Rashi’s interpretation of Rabbi Yochanan, the complete Sukkah sequence, Beit Hillel’s concrete conduct, the legal context of the two names, the limited Yochanan chronology, and both narratives of celebratory lighting. Read back the corrections to craftsmen and smiths and the mil measured from the city. The unresolved abbreviation לק״ל remains visible without an invented expansion; the proposed nusach OCR reading is disclosed, and the malicious report in Eikhah Rabbah is distinguished from the Jews’ actual observance. Continuation review: every phrase and note translation read; English bracket conventions removed without deleting meaning; all Hebrew and original snapshots preserved. Textual uncertainties remain explicitly disclosed. The malicious-report qualification remains explicit in English at phrase 87; לק״ל remains unexpanded and openly marked unresolved."
+      }
+    ],
+    "primaryEvidenceRecordsReviewed": 32
+  },
+  "continuationEnglishBodyRevisions": 40,
+  "continuationEnglishSourceRevisions": 13,
+  "readerFootnotesEnglishOnly": true,
+  "englishBracketsRemoved": true,
+  "legacyMigrationReview": {
+    "status": "independently-reviewed",
+    "reviewedOn": "2026-10-20",
+    "newSourceNotes": 5,
+    "preservedLegacyIdentities": [
+      1658,
+      1659,
+      1660,
+      1661,
+      1662,
+      1663,
+      1664
+    ],
+    "retiredLegacyIdentity": 1665,
+    "supersededBy": 1664,
+    "noteIds": [
+      "chanukah25-source-6-030",
+      "chanukah25-source-6-052",
+      "chanukah25-source-6-054",
+      "chanukah25-source-6-056",
+      "chanukah25-source-6-071"
+    ],
+    "primaryRefs": [
+      "Bava Batra 172a:11-13",
+      "Mishnah Maaser Sheni 5:15",
+      "Mishneh Torah, Tithes 9:1",
+      "Rash MiShantz on Mishnah Parah 3:8:2",
+      "Zohar, Achrei Mot 74:409"
+    ],
+    "completeContextRead": true,
+    "allTranslationsOriginal": true,
+    "displayRule": "English source quotation and linked source title only; Hebrew and explanation retained as evidence metadata.",
+    "qualification": "The Rash excerpt is explicitly part of the gloss printed with the commentary; authorship of that gloss is not asserted. Its chronological inference is not silently harmonized with Bartenura or Rambam. No printed edition of Peri Tzadik has been newly collated."
+  }
 }

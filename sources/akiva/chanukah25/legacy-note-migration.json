@@ -1,0 +1,132 @@
+{
+  "schemaVersion": 1,
+  "sourceSection": "Peri Tzadik, Chanukah 24",
+  "targetSection": "Peri Tzadik, Chanukah 25",
+  "sourceArchiveSha256": "1fcf0d8299460d16d3507f443e912e9aa79bd48d5daa6a5ad1a6101ae4998905",
+  "identityPolicy": "All 36 compiled notes retain fresh PT-CH25 source IDs and fresh numbers. Seven former Chanukah 24 identities are preserved once each in note legacyIdentity and compiled provenance. Boundary correction retires the eight originals after historical checks.",
+  "dispositions": [
+    {
+      "legacyNumber": 1658,
+      "legacyIdentity": {
+        "sourceId": "PT-1658",
+        "placementId": "PT-1658-1",
+        "number": 1658,
+        "uploadedNumber": 1669,
+        "fromRef": "Peri Tzadik, Chanukah 24:3"
+      },
+      "disposition": "migrated-with-correct-primary-source-and-translation",
+      "targetRef": "Peri Tzadik, Chanukah 25:6",
+      "targetNoteId": "chanukah25-source-6-030",
+      "targetPhraseId": "chanukah-25-6-030",
+      "targetSourceRef": "Bava Batra 172a:11-13",
+      "originalNoteSha256": "5e9eb7951c1cebd975c10f8c4ae9f61aa01ecd0a2130457a71e511015f9f5bf5"
+    },
+    {
+      "legacyNumber": 1659,
+      "legacyIdentity": {
+        "sourceId": "PT-1659",
+        "placementId": "PT-1659-1",
+        "number": 1659,
+        "uploadedNumber": 1670,
+        "fromRef": "Peri Tzadik, Chanukah 24:4"
+      },
+      "disposition": "migrated-with-correct-primary-source-and-translation",
+      "targetRef": "Peri Tzadik, Chanukah 25:6",
+      "targetNoteId": "chanukah25-source-6-052",
+      "targetPhraseId": "chanukah-25-6-052",
+      "targetSourceRef": "Mishnah Maaser Sheni 5:15",
+      "originalNoteSha256": "f2f559adc8736ef5c01925c0246d1b37a4fb1f52ff7b5a03e72ac27cbf698b5d"
+    },
+    {
+      "legacyNumber": 1660,
+      "legacyIdentity": {
+        "sourceId": "PT-1660",
+        "placementId": "PT-1660-1",
+        "number": 1660,
+        "uploadedNumber": 1671,
+        "fromRef": "Peri Tzadik, Chanukah 24:4"
+      },
+      "disposition": "migrated-with-correct-primary-source-and-translation",
+      "targetRef": "Peri Tzadik, Chanukah 25:6",
+      "targetNoteId": "chanukah25-source-6-054",
+      "targetPhraseId": "chanukah-25-6-054",
+      "targetSourceRef": "Mishneh Torah, Tithes 9:1",
+      "originalNoteSha256": "664da922b76fc9e127d150ad57b6ced415c63bc5b789eff2658db57d3854d90c"
+    },
+    {
+      "legacyNumber": 1661,
+      "legacyIdentity": {
+        "sourceId": "PT-1661",
+        "placementId": "PT-1661-1",
+        "number": 1661,
+        "uploadedNumber": 1672,
+        "fromRef": "Peri Tzadik, Chanukah 24:4"
+      },
+      "disposition": "migrated-with-correct-primary-source-and-translation",
+      "targetRef": "Peri Tzadik, Chanukah 25:6",
+      "targetNoteId": "chanukah25-source-6-056",
+      "targetPhraseId": "chanukah-25-6-056",
+      "targetSourceRef": "Rash MiShantz on Mishnah Parah 3:8:2",
+      "originalNoteSha256": "574e59c8f036085ab7d060070d7ebe388522d8c42172bb78174be5b688cb6cd2"
+    },
+    {
+      "legacyNumber": 1662,
+      "legacyIdentity": {
+        "sourceId": "PT-1662",
+        "placementId": "PT-1662-1",
+        "number": 1662,
+        "uploadedNumber": 1673,
+        "fromRef": "Peri Tzadik, Chanukah 24:5"
+      },
+      "disposition": "migrated-with-correct-primary-source-and-translation",
+      "targetRef": "Peri Tzadik, Chanukah 25:6",
+      "targetNoteId": "chanukah25-source-6-071",
+      "targetPhraseId": "chanukah-25-6-071",
+      "targetSourceRef": "Zohar, Achrei Mot 74:409",
+      "originalNoteSha256": "911438703d154fb2c4d49512aed6b5c76df567a6dfba654692903ca5bbd90b71"
+    },
+    {
+      "legacyNumber": 1663,
+      "legacyIdentity": {
+        "sourceId": "PT-1663",
+        "placementId": "PT-1663-1",
+        "number": 1663,
+        "uploadedNumber": 1674,
+        "fromRef": "Peri Tzadik, Chanukah 24:5"
+      },
+      "disposition": "migrated-with-correct-primary-source-and-translation",
+      "targetRef": "Peri Tzadik, Chanukah 25:6",
+      "targetNoteId": "chanukah25-source-6-085",
+      "targetPhraseId": "chanukah-25-6-085",
+      "targetSourceRef": "Gittin 57a:9",
+      "originalNoteSha256": "86215ce47ecb9c3b551f45d233b2cde822cc03ec4103d13ead9cdfa3943d499f"
+    },
+    {
+      "legacyNumber": 1664,
+      "legacyIdentity": {
+        "sourceId": "PT-1664",
+        "placementId": "PT-1664-1",
+        "number": 1664,
+        "uploadedNumber": 1675,
+        "fromRef": "Peri Tzadik, Chanukah 24:5"
+      },
+      "disposition": "migrated-with-correct-primary-source-and-translation",
+      "targetRef": "Peri Tzadik, Chanukah 25:6",
+      "targetNoteId": "chanukah25-source-6-086",
+      "targetPhraseId": "chanukah-25-6-086",
+      "targetSourceRef": "Eikhah Rabbah 4:22",
+      "originalNoteSha256": "5b4ccf099b4815ce6abbd0276d661ea90975f2d37cb528f425ee2da48eb5e2f0"
+    },
+    {
+      "legacyNumber": 1665,
+      "sourceId": "PT-1665",
+      "placementId": "PT-1665-1",
+      "fromRef": "Peri Tzadik, Chanukah 24:5",
+      "disposition": "archived-as-invalid-duplicate",
+      "supersededBy": 1664,
+      "targetNoteId": "chanukah25-source-6-086",
+      "reason": "Lamentations 4:100 is not a valid biblical reference. The old note misread Rav Tzadok’s midrashic entry marker as a biblical verse and duplicated the same citation. The verified successor is Eikhah Rabbah 4:22, retained under legacy identity 1664.",
+      "originalNoteSha256": "7b701d512e05457a0c07446a6e4df5ad362bd3ab9eaff13d9cfc1da5544bac80"
+    }
+  ]
+}

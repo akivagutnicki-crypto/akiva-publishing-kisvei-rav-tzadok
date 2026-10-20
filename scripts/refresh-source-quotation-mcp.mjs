@@ -6,6 +6,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {createHash} from 'node:crypto';
 import {gunzipSync} from 'node:zlib';
+import {readChanukah24Boundary} from './pri-chanukah24-boundary.mjs';
 
 const options = process.argv.slice(2);
 const option = (name, fallback) => {
@@ -23,6 +24,7 @@ const read = filename => JSON.parse(fs.readFileSync(filename, 'utf8'));
 const serial = value => JSON.stringify(value);
 const RELEASE = '20261019-source-quotations';
 const report = read(path.join(root, 'supplied-source-footnotes-report.json'));
+const boundary = readChanukah24Boundary(root);
 const compressed = fs.readFileSync(payloadPath);
 const payload = JSON.parse(gunzipSync(compressed));
 assert.equal(report.release, RELEASE);
@@ -41,7 +43,10 @@ const excludedBookTextSha256 = Object.fromEntries(payload.excludedBooks.map(slug
   [slug, sha(fs.readFileSync(path.join(out, 'text', slug + '.json')))]));
 const beforeBlocks = new Map();
 for (const entry of payload.files) {
-  assert.equal(sha(fs.readFileSync(path.join(root, entry.path))), entry.afterSha256, 'MCP refresh received a different source chapter');
+  // Reconstruct the sealed source edition only for the independently verified
+  // later boundary correction. All indexed paragraphs below use actual data.
+  const historical = boundary?.historicalFiles.get(entry.path) || fs.readFileSync(path.join(root, entry.path));
+  assert.equal(sha(historical), entry.afterSha256, 'MCP refresh received a different source chapter');
   for (const block of entry.blocks) beforeBlocks.set(entry.path + '\0' + block.path.join('/'), block.before);
 }
 
@@ -70,6 +75,8 @@ const addPair = (map, source, owner) => {
 };
 const audit = {schemaVersion: 1, release: RELEASE, payloadSha256: report.payloadSha256,
   dataVersion: manifest.version, sourceNotesVerified: 0, sourceCitationsVerified: 0, books: {}, excludedBookTextSha256};
+if (boundary) audit.chanukah24Boundary = {release: boundary.report.release,
+  sourceManifestSha256: boundary.report.sourceManifestSha256, removedHistoricalNotes: boundary.removedNoteCount};
 
 for (const slug of payload.books) {
   const filename = path.join(out, 'text', slug + '.json');
@@ -141,7 +148,8 @@ for (const slug of payload.books) {
       stats.paragraphs++;
     }
   }
-  assert.equal(stats.sourceNotes, report.books[slug].notesAfter, 'Final MCP source-note coverage is incomplete: ' + slug);
+  const movedNotes = slug === 'peri-tzadik' ? boundary?.removedNoteCount || 0 : 0;
+  assert.equal(stats.sourceNotes, report.books[slug].notesAfter - movedNotes, 'Final MCP source-note coverage is incomplete: ' + slug);
   affected.set(slug, {filename, document});
   audit.sourceNotesVerified += stats.sourceNotes;
   audit.sourceCitationsVerified += stats.sourceCitations;

@@ -1,0 +1,28 @@
+{
+  "reviewedOn": "2026-10-20",
+  "scope": "All six Rosh Chodesh Shevat teachings, eight current reader paragraphs",
+  "draftAuthor": "Recovered prior-session draft",
+  "reviewer": "Independent continuation reviewer, separate from the draft author",
+  "acceptedConnections": 13,
+  "reviewedParagraphs": 8,
+  "removedRecords": [
+    {
+      "id": "shevat-5-fly-and-exclusion",
+      "reason": "Shared fly imagery did not sufficiently clarify the specific two-chamber argument."
+    }
+  ],
+  "translationCorrections": [
+    {
+      "id": "shevat-1-longing-grows-torah",
+      "change": "Preserved the source’s abbreviated biblical quotation without supplying its omitted verb."
+    },
+    {
+      "id": "shevat-2-worldly-delight-in-service",
+      "change": "Kept the author’s shortened quotation without supplying the omitted subject."
+    }
+  ],
+  "files": {
+    "rosh-chodesh-shevat.json": "0392f374e2db58b3b88b35b91563433e9648a0678da2b535bed13dac18e8be1e",
+    "rosh-chodesh-shevat-complete-review.json": "45b76b99848159f3e89c32e505baf099393ad014f77030f6218acf6c14ac3fdf"
+  }
+}

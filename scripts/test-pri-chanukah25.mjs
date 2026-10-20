@@ -4,6 +4,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {createRequire} from 'node:module';
 import {CHANUKAH25_REF,CHANUKAH25_REPORT,CHANUKAH25_RELEASE,validatePublishedChanukah25,sha256,canonical} from './pri-chanukah25.mjs';
+import {readChanukah24Boundary} from './pri-chanukah24-boundary.mjs';
 const rootAt=process.argv.indexOf('--root'),root=path.resolve(rootAt>=0?process.argv[rootAt+1]:'dist/library');
 const urlAt=process.argv.indexOf('--url'),base=urlAt>=0?process.argv[urlAt+1].replace(/\/?$/,'/'):null;
 const cache=new Map();
@@ -39,7 +40,9 @@ for(const [i,row]of rows.filter(row=>row.p).entries()){
   for(const note of row.footnotes){assert.ok(!noteIds.has(note.sourceId));noteIds.add(note.sourceId);
     assert.equal(note.heAnchorPrefix,clean(row.p[note.phraseIndex][0]));assert.equal(note.enAnchorPrefix,clean(row.p[note.phraseIndex][1]));
     assert.equal(note.heCharOffset,note.heAnchorPrefix.length);assert.equal(note.enCharOffset,note.enAnchorPrefix.length);
-    assert.ok(note.paragraphs.some(p=>p.language==='he'));assert.ok(note.paragraphs.some(p=>p.language==='en'));
+    assert.equal(note.paragraphs.length,1);assert.ok(note.paragraphs.every(p=>p.language==='en'));
+    assert.equal(note.paragraphs[0].text,`${note.sources[0].ref}: “${note.reviewedSourceExcerpt.en}”`);
+    assert.match(note.reviewedSourceExcerpt.he,/[א-ת]/,'Primary Hebrew is retained in evidence metadata');
     for(const p of note.paragraphs)assert.equal(p.text,p.rich.map(run=>run.text).join(''));
   }pairs+=row.p.length;
 }
@@ -50,9 +53,12 @@ await Promise.all([...new Set(verified.links.map(link=>sourceSlug(link.r)))].map
   for(const link of verified.links.filter(link=>sourceSlug(link.r)===slug))assert.ok(reverse[link.r]?.includes(link.a),'Missing exact reverse source location');
 }));
 if(!base){
-  // Later approved footnote passes may change notes, never the old sefer text.
+  const boundary=readChanukah24Boundary(root);
+  // Verify every body preserved at publication. The separate, exact boundary
+  // proof verifies the later 24 correction and reconstructs its prior bytes.
   for(const [oldFile,digest]of Object.entries(report.protectedBodies)){
-    const oldRows=JSON.parse(fs.readFileSync(path.join(root,'data/peri-tzadik',oldFile)));
+    const relative='data/peri-tzadik/'+oldFile;
+    const oldRows=JSON.parse(boundary?.historicalFiles.get(relative)||fs.readFileSync(path.join(root,relative)));
     const body=oldRows.map(row=>Object.fromEntries(Object.entries(row).filter(([key])=>key!=='footnotes')));
     assert.equal(sha256(canonical(body)),digest,'An earlier Pri Tzadik body changed: '+oldFile);
   }

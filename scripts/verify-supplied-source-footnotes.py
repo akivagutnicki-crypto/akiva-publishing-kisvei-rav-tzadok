@@ -23,6 +23,7 @@ import stat
 import subprocess
 import tempfile
 import urllib.parse
+import urllib.error
 import urllib.request
 import zipfile
 
@@ -35,6 +36,10 @@ PAYLOAD_SHA256 = '55503757abcd26c07ddc42a1454b0e50269f85766e0eb712b931cdd2cd60bc
 SOURCE_ARCHIVE_SHA256 = 'b5e8dbb8ab612980f523b65d3d38534672f7110dfb0504cdf8826c8e076c1689'
 REPORT = 'supplied-source-footnotes-report.json'
 BASELINE_REPORT = 'parallel-cleanup-report.json'
+BOUNDARY_REPORT = 'pri-chanukah24-boundary.json'
+BOUNDARY_RELEASE = '20261020-chanukah24-authoritative-boundary-v1'
+BOUNDARY_MANIFEST = REPO / 'sources/akiva/chanukah24/boundary.json'
+BOUNDARY_MANIFEST_SHA256 = '0e7df29b7ff69361e247e267d14bc4aeaa16282386c16eb543bd5959e90b920f'
 EXCLUDED = {'resisei-layla', 'takanat-hashavin', 'dover-tzedek'}
 BOOKS = {
     'sefer-hazikhronot', 'tzidkat-hatzadik', 'peri-tzadik',
@@ -318,6 +323,220 @@ class Reader:
         self.archive_bytes = self.direct(safe_relative(library['file']))
         check(len(self.archive_bytes) == library['bytes'], 'Complete-library ZIP size differs from its index')
         self.archive = open_zip(self.archive_bytes)
+
+
+def verify_chanukah24_boundary(reader, historical_inventory):
+    """Independently replay the one reviewed later body correction.
+
+    Archived bytes are used only to prove the historical source publication.
+    Reader, source, browser, and download checks continue to use actual bytes.
+    Every allowed successor change is reconstructed here, independently of the
+    JavaScript publisher, and is tied to the full sealed historical inventory.
+    """
+    empty = {'historicalFiles': {}, 'finalInventory': dict(historical_inventory),
+             'removedNoteCount': 0, 'changedPaths': [], 'verification': None}
+    if not reader.url and not (reader.root / BOUNDARY_REPORT).exists():
+        return empty
+    try:
+        raw_report = reader.direct(BOUNDARY_REPORT)
+    except urllib.error.HTTPError as error:
+        if error.code == 404:
+            return empty
+        raise
+    report = json.loads(raw_report)
+    manifest_raw = BOUNDARY_MANIFEST.read_bytes()
+    check(sha(manifest_raw) == BOUNDARY_MANIFEST_SHA256, 'Reviewed Chanukah24 boundary evidence changed')
+    pack = json.loads(manifest_raw)
+    check(report.get('schemaVersion') == 1 and report.get('release') == pack['release'] == BOUNDARY_RELEASE,
+          'Unknown Chanukah24 boundary correction')
+    check(report.get('sourceManifestSha256') == BOUNDARY_MANIFEST_SHA256,
+          'Boundary correction uses different editorial evidence')
+    check(object_sha(pack['beforeBody']) == pack['beforeBodySha256']
+          and object_sha(pack['afterBody']) == pack['afterBodySha256'], 'Boundary body evidence is inconsistent')
+    fixed_paths = {'data/peri-tzadik/158.json', 'data/peri-tzadik/toc.json', 'data/peri-tzadik/links.json',
+                   'data/catalog.json', 'data/files.json', 'data/packs/sources.json'}
+    entries = report.get('files', [])
+    check(isinstance(entries, list) and 5 <= len(entries) < 30, 'Invalid boundary correction inventory')
+    historical = {}
+    final_inventory = dict(historical_inventory)
+    for entry in entries:
+        relative = safe_relative(entry['path'])
+        check(relative not in historical and (relative in fixed_paths
+              or re.fullmatch(r'data/cited/[a-z0-9-]+\.json', relative)), 'Unapproved boundary correction path: ' + relative)
+        check(relative != 'data/files.json' or relative not in historical_inventory, 'Historical manifest scope changed')
+        check(isinstance(entry['beforeUtf8'], str) and isinstance(entry['afterUtf8'], str), 'Missing exact boundary preimage')
+        before_bytes, after_bytes = entry['beforeUtf8'].encode('utf-8'), entry['afterUtf8'].encode('utf-8')
+        check(sha(before_bytes) == entry['beforeSha256'] and sha(after_bytes) == entry['afterSha256'],
+              'Boundary evidence bytes do not match their hashes: ' + relative)
+        check(reader.data(relative) == after_bytes, 'Actual boundary successor changed: ' + relative)
+        if relative != 'data/files.json':
+            check(historical_inventory.get(relative) == entry['beforeSha256'],
+                  'Boundary does not start from the sealed source edition: ' + relative)
+            final_inventory[relative] = entry['afterSha256']
+        historical[relative] = before_bytes
+
+    def previous(relative):
+        return historical[relative] if relative in historical else reader.data(relative)
+
+    def previous_json(relative):
+        return json.loads(previous(relative))
+
+    planned = {}
+
+    def stage(relative, value):
+        contents = compact(value, False)
+        if contents != previous(relative):
+            planned[relative] = contents
+
+    for name in ('raw24', 'raw25'):
+        evidence = pack['sourceEvidence']
+        check(sha(reader.data(evidence[name + 'File'])) == evidence[name + 'Sha256'],
+              'Original Hebrew boundary witness changed: ' + name)
+    chapter_path = pack['path']
+    check(chapter_path == 'data/peri-tzadik/158.json', 'Boundary chapter path changed')
+    prior = previous_json(chapter_path)
+    check(body_of(prior) == pack['beforeBody'], 'Boundary predecessor differs from the exact reviewed body')
+    rows = [row for row in prior if isinstance(row.get('p'), list)]
+    check([len(row['p']) for row in rows] == [48, 26, 35, 22, 24, 7], 'Boundary predecessor phrase counts differ')
+    check(rows[2]['p'][14][0] == pack['boundary']['lastRetainedHebrew']
+          and rows[2]['p'][15][0] == pack['boundary']['firstDisplacedHebrew'], 'Reviewed boundary anchor moved')
+    retained = []
+    for row in prior:
+        item = copy.deepcopy(row)
+        if item.get('n') == 3:
+            item['p'] = item['p'][:15]
+            item['footnotes'] = [note for note in item.get('footnotes', []) if note['phraseIndex'] < 15]
+            retained.append(item)
+            break
+        retained.append(item)
+    retained.extend(copy.deepcopy(row) for row in prior if row.get('related'))
+    check(body_of(retained) == pack['afterBody'], 'Boundary correction differs from the reviewed 89 pairs')
+    check([note['number'] for row in retained for note in row.get('footnotes', [])] == [1656, 1657],
+          'Genuine Chanukah24 source notes were changed or displaced')
+    stage(chapter_path, retained)
+
+    def walk(node):
+        yield node
+        for child in node.get('children', []):
+            yield from walk(child)
+
+    ref = 'Peri Tzadik, Chanukah 24'
+    toc = previous_json('data/peri-tzadik/toc.json')
+    leaves = list(walk(toc['toc']))
+    matches = [leaf for leaf in leaves if leaf.get('ref') == ref and leaf.get('interlinear')]
+    check(len(matches) == 1, 'Chanukah24 preferred edition is missing or ambiguous')
+    leaf = matches[0]
+    check(leaf['id'] == 158 and leaf['shape'] == 6 and not leaf.get('chanukah24Boundary'), 'Unexpected prior Chanukah24 TOC')
+    matches25 = [leaf for leaf in leaves if leaf.get('ref') == 'Peri Tzadik, Chanukah 25' and leaf.get('interlinear')]
+    check(len(matches25) == 1 and matches25[0]['id'] > 201 and matches25[0]['shape'] == 6
+          and matches25[0].get('chanukah25Edition'), 'Complete Chanukah25 edition is required before correcting24')
+    chapter25_path = 'data/peri-tzadik/' + str(matches25[0]['id']) + '.json'
+    chapter25_raw = reader.data(chapter25_path)
+    check(sha(chapter25_raw) == historical_inventory[chapter25_path], 'Boundary operation changed Chanukah25')
+    check(report['chapter25'] == {'path': chapter25_path, 'sha256': sha(chapter25_raw)}, 'Boundary destination proof changed')
+    chapter25 = json.loads(chapter25_raw)
+    notes25 = [note for row in chapter25 for note in row.get('footnotes', [])]
+    check(len(notes25) == len({note['number'] for note in notes25}) == 36
+          and all(note['number'] >= 5553 for note in notes25), 'Boundary destination must contain all36 fresh source notes')
+    displaced = []
+    for row in prior:
+        for note in row.get('footnotes', []):
+            if 1658 <= note['number'] <= 1665:
+                identity = {'sourceId': note['sourceId'], 'placementId': note['placementId'], 'number': note['number'],
+                            'uploadedNumber': note['provenance']['uploadedNumber'], 'fromRef': ref + ':' + str(row['n'])}
+                displaced.append({'originRef': identity['fromRef'], 'note': note, 'legacyIdentity': identity})
+    check([item['note']['number'] for item in displaced] == list(range(1658, 1666)), 'Misplaced source archive is incomplete')
+    migrations = []
+    for item in displaced[:7]:
+        matches = [note for note in notes25 if note.get('provenance', {}).get('legacyIdentity', {}).get('number') == item['note']['number']]
+        check(len(matches) == 1, 'A migrated source lacks one destination: ' + str(item['note']['number']))
+        target = matches[0]
+        check(target['provenance']['legacyIdentity'] == item['legacyIdentity']
+              and target['provenance']['section'] == 'Peri Tzadik, Chanukah 25'
+              and target['provenance']['item'] == 6, 'Migrated source identity or destination changed')
+        check(target['verificationStatus'] == 'verified' and target.get('reviewedSourceExcerpt', {}).get('en')
+              and len(target['paragraphs']) == 1 and target['paragraphs'][0]['language'] == 'en',
+              'Migrated source lacks its verified English quotation')
+        migrations.append({'legacyIdentity': item['legacyIdentity'], 'destinationSourceId': target['sourceId'],
+                           'destinationNumber': target['number'], 'destinationRef': 'Peri Tzadik, Chanukah 25:6',
+                           'destinationSourceRef': target['sources'][0]['ref'], 'destinationPhraseIndex': target['phraseIndex']})
+    check(not any(note.get('provenance', {}).get('legacyIdentity', {}).get('number') == 1665 for note in notes25),
+          'The invalid duplicate Lamentations4:100 source was repeated')
+    check(report['archivedNotes'] == displaced and report['migrations'] == migrations
+          and report['supersededNotes'] == pack['supersededNotes'], 'Boundary source disposition evidence differs')
+    check(report['removedNoteCount'] == 8 and report['removedPhrasePairs'] == 73, 'Boundary correction counts differ')
+    check(report['chapter24'] == {'path': chapter_path, 'beforeBodySha256': pack['beforeBodySha256'],
+          'afterBodySha256': pack['afterBodySha256'], 'retainedPairCounts': [48, 26, 15],
+          'retainedNoteNumbers': [1656, 1657]}, 'Boundary chapter evidence differs')
+    leaf['shape'] = 3
+    leaf['chanukah24Boundary'] = BOUNDARY_RELEASE
+    stage('data/peri-tzadik/toc.json', toc)
+
+    def invalid_anchor(anchor, source):
+        if not anchor.startswith(ref + ':'):
+            return False
+        suffix = anchor[len(ref) + 1:]
+        return (suffix.isdigit() and int(suffix) >= 4
+                or anchor == ref + ':3' and re.match(r'^Bava Batra 172a(?::|$)', source) is not None)
+
+    links = previous_json('data/peri-tzadik/links.json')
+    check(isinstance(links.get(ref), list), 'Missing historical Chanukah24 sources')
+    links[ref] = [link for link in links[ref] if not invalid_anchor(link['a'], link['r'])]
+    stage('data/peri-tzadik/links.json', links)
+    catalog = previous_json('data/catalog.json')
+    book = next(item for item in catalog if item['slug'] == 'peri-tzadik')
+    check(isinstance(book['segments'], int) and book['segments'] > 3, 'Invalid Pri Tzadik catalog count')
+    book['segments'] -= 3
+    stage('data/catalog.json', catalog)
+    invalid_verse_still_cited = False
+    for relative in sorted(historical_inventory):
+        if not relative.startswith('data/cited/') or relative in ('data/cited/index.json', 'data/cited/search.json'):
+            continue
+        refs = previous_json(relative)
+        if not isinstance(refs, dict):
+            continue
+        modified = False
+        for source, anchors in list(refs.items()):
+            if not isinstance(anchors, list):
+                continue
+            kept = [anchor for anchor in anchors if not invalid_anchor(anchor, source)]
+            if kept != anchors:
+                modified = True
+                if kept:
+                    refs[source] = kept
+                else:
+                    del refs[source]
+        invalid_verse_still_cited |= bool(refs.get('Lamentations 4:100'))
+        if modified:
+            stage(relative, refs)
+    source_pack = previous_json('data/packs/sources.json')
+    if not invalid_verse_still_cited and 'Lamentations 4:100' in source_pack['refs']:
+        source_pack['refs'] = [source for source in source_pack['refs'] if source != 'Lamentations 4:100']
+        stage('data/packs/sources.json', source_pack)
+    names = sorted(relative[5:] for relative in historical_inventory)
+    digest, before_digest = hashlib.sha256(), hashlib.sha256()
+    total = before_total = 0
+    for name in names:
+        relative = 'data/' + name
+        prior_bytes = previous(relative)
+        actual_bytes = planned.get(relative, prior_bytes)
+        for value, accumulator in ((prior_bytes, before_digest), (actual_bytes, digest)):
+            accumulator.update(name.encode('utf-8'))
+            accumulator.update(b'\0')
+            accumulator.update(value)
+        before_total += len(prior_bytes)
+        total += len(actual_bytes)
+    check(previous_json('data/files.json') == {'version': before_digest.hexdigest()[:16], 'bytes': before_total, 'files': names},
+          'Boundary predecessor offline manifest does not identify the full historical data')
+    stage('data/files.json', {'version': digest.hexdigest()[:16], 'bytes': total, 'files': names})
+    check(set(planned) == set(historical), 'Boundary changed a file outside the exact independent reconstruction')
+    for relative, contents in planned.items():
+        check(reader.data(relative) == contents, 'Boundary successor differs from independent reconstruction: ' + relative)
+    return {'historicalFiles': historical, 'finalInventory': final_inventory, 'removedNoteCount': 8,
+            'changedPaths': sorted(planned), 'verification': {'ok': True, 'release': BOUNDARY_RELEASE,
+                'sourceManifestSha256': BOUNDARY_MANIFEST_SHA256, 'changedDataFiles': len(planned),
+                'retainedPhrasePairs': 89, 'relocatedPhrasePairs': 73, 'migratedSources': 7,
+                'archivedSourceNotes': 8, 'supersededInvalidSource': 1665}}
 
 
 def open_zip(data):
@@ -715,6 +934,9 @@ def verify(args):
         actual_paths = sorted(path.relative_to(reader.root).as_posix() for path in (reader.root / 'data').rglob('*')
                               if path.is_file() and path.name != 'files.json')
         check(actual_paths == sorted(after), 'Actual reader inventory differs from publication proof')
+    boundary = verify_chanukah24_boundary(reader, after)
+    historical_files = boundary['historicalFiles']
+    final_after = boundary['finalInventory']
     protected = record_map(payload['protectedFiles'])
     check(record_map(report['protectedFiles']) == protected, 'Excluded-book preservation evidence changed')
     expected_protected = {path: digest for path, digest in before.items() if path.split('/')[1] in EXCLUDED}
@@ -733,7 +955,7 @@ def verify(args):
         check(entry['beforeSha256'] == before[path] and entry['afterSha256'] == after[path], 'Payload/report hashes differ: ' + path)
         for field in ('beforeSha256', 'afterSha256', 'bodySha256', 'notesBefore', 'notesAfter'):
             check(report_changes[path][field] == entry[field], 'Publication summary differs from immutable payload: ' + path + ' ' + field)
-        raw = reader.data(path)
+        raw = historical_files[path] if path in historical_files else reader.data(path)
         check(sha(raw) == entry['afterSha256'], 'Published footnote file differs from the approved payload: ' + path)
         current = json.loads(raw)
         check(isinstance(current, list), 'Chapter is not a reader array: ' + path)
@@ -798,8 +1020,8 @@ def verify(args):
             if not path.startswith(prefix) or not CHAPTER.fullmatch(path[len(prefix):]):
                 continue
             contents = reader.data(path)
-            check(sha(contents) == after[path], 'Chapter changed after the publication report: ' + path)
-            rows = patched_files.get(path) or json.loads(contents)
+            check(sha(contents) == final_after[path], 'Chapter changed after the publication report: ' + path)
+            rows = json.loads(contents) if path in historical_files else patched_files.get(path) or json.loads(contents)
             notes = [(item_path, item, note) for item_path, item in note_rows(rows) for note in item['footnotes']]
             count += len(notes)
             chapters += 1
@@ -837,10 +1059,11 @@ def verify(args):
                 browser_candidates.append(sample)
         original_count = baseline['books'][book]['footnotesAfter']
         difference = sum(entry['notesBefore'] - entry['notesAfter'] for path, entry in payload_files.items() if path.startswith(prefix))
-        check(count == original_count - difference, 'The book lost annotations outside the approved removals: ' + book)
+        relocated_notes = boundary['removedNoteCount'] if book == 'peri-tzadik' else 0
+        check(count == original_count - difference - relocated_notes, 'The book lost annotations outside the approved removals: ' + book)
         if book == 'divrei-soferim':
             check(sorted(ds_numbers) == list(range(1, 718)), 'Divrei Soferim must contain 717 consecutively numbered usable notes')
-        check(report['books'][book]['notesBefore'] == original_count and report['books'][book]['notesAfter'] == count,
+        check(report['books'][book]['notesBefore'] == original_count and report['books'][book]['notesAfter'] == count + relocated_notes,
               'Published book annotation totals differ: ' + book)
         check(report['books'][book]['chapters'] == sum(path.startswith(prefix) for path in payload_files),
               'Published changed-chapter count differs: ' + book)
@@ -851,7 +1074,7 @@ def verify(args):
     internal_link_result = verify_internal_source_links(reader, internal_source_targets)
     mcp_result = verify_mcp_sources(reader, mcp_expectations) if args.mcp else None
     # Every unrelated file, source index and book remains tied to the baseline.
-    for path, digest in after.items():
+    for path, digest in final_after.items():
         check(sha(reader.data(path)) == digest, 'Final reader inventory hash differs: ' + path)
     revision = verify_shell(reader, report, baseline, reviewed_urls)
     cache_result = verify_cache_behavior(reader, revision)
@@ -862,15 +1085,16 @@ def verify(args):
             book = path.split('/')[1]
             if book in selected:
                 representatives.setdefault(book, path)
-        direct_paths = sorted(set(protected) | set(representatives.values()))
+        direct_paths = sorted(set(protected) | set(representatives.values())
+                              | (set(boundary['changedPaths']) - {'data/files.json'}))
 
         def direct_verify(path):
-            check(sha(reader.direct(path)) == after[path], 'Direct live reader data differs from the complete download: ' + path)
+            check(sha(reader.direct(path)) == final_after[path], 'Direct live reader data differs from the complete download: ' + path)
             return path
 
         with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool:
             direct_verified = list(pool.map(direct_verify, direct_paths))
-    zip_result = verify_zips(reader, after, selected) if reader.archive else None
+    zip_result = verify_zips(reader, final_after, selected) if reader.archive else None
     browser_samples = select_browser_samples(browser_candidates, selected, changed)
     browser_result = run_browser(reader, browser_samples, args.artifacts) if args.browser else None
     return {'ok': True, 'release': RELEASE, 'mode': 'public' if reader.url else 'local',
@@ -884,6 +1108,7 @@ def verify(args):
             'cacheRevision': revision, 'directPublicFilesVerified': len(direct_verified),
             'offlineCacheVerification': cache_result,
             'internalSourceLinkVerification': internal_link_result,
+            'chanukah24BoundaryVerification': boundary['verification'],
             'mcpSourceVerification': mcp_result,
             'browserSampleChapters': len(browser_samples),
             'zipVerification': zip_result, 'browserVerification': browser_result}

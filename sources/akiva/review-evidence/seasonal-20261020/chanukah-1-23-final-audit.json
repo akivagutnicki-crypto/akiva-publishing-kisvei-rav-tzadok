@@ -1,0 +1,33 @@
+{
+  "scope": "Final consolidated Chanukah 1–23 after 7 peer corrections, 8 independent review and 113-field English presentation review. Corrected Chanukah 24 will be supplied separately. Unreviewed 25 connections excluded.",
+  "records": 264,
+  "exactParagraphReviews": 143,
+  "sections": 23,
+  "paragraphsWithConnections": 139,
+  "paragraphsWithNoApprovedConnection": 4,
+  "candidateComparisons": 568,
+  "approvedPairs": 264,
+  "notAddedComparisons": 304,
+  "issues": [],
+  "adjacentOriginDuplicateTargets": [],
+  "canonicalHebrewPinCount": 792,
+  "canonicalHebrewPinErrors": 0,
+  "schoolCounts": {
+    "Kisvei Rav Tzadok": 135,
+    "Ishbitz–Radzin": 129
+  },
+  "evidence": [
+    "retained-review-audit.json",
+    "chanukah-7-peer-corrections.json",
+    "chanukah-8-independent-review.json",
+    "chanukah-presentation-review.json"
+  ],
+  "files": {
+    "themes/chanukah-1-8-complete-review.json": "ed834fdcdffed9972a8c571f09216943a1ac2358a4f6c1297928d7f17899e78c",
+    "themes/chanukah-17-24-complete-review.json": "3a39354f23f9dc6de7c8720363161440ab3a2ccdca50b38116596218f1032a95",
+    "themes/chanukah-9-16-complete-review.json": "b13bf6b384918730e5afb3cf31aaa8460de9d842ec145e76f2a55abced8eb304",
+    "theme-reviews/chanukah-1-8.json": "232a89b2a76f66d15c675cf5c3f34e836dee0a45f151a9f2a40002935fdd2728",
+    "theme-reviews/chanukah-17-24.json": "7095c3c000fffc9b34194a833c424ae0e4f432d5841116997bddc956647ce2bb",
+    "theme-reviews/chanukah-9-16.json": "6557ad83003ac66680a655635b537358652ea9ad6317b47e45d6f96431d9cf7e"
+  }
+}
