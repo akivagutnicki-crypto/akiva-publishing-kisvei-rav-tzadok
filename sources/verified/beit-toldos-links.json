@@ -1,0 +1,6520 @@
+{
+  "method": "Sefaria v3 texts API",
+  "references": {
+    "Arakhin 13b": {
+      "ref": "Arakhin 13b",
+      "url": "https://www.sefaria.org/Arakhin.13b",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Arakhin%2013b"
+    },
+    "Arakhin 16b": {
+      "ref": "Arakhin 16b",
+      "url": "https://www.sefaria.org/Arakhin.16b",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Arakhin%2016b"
+    },
+    "Arakhin 29a": {
+      "ref": "Arakhin 29a",
+      "url": "https://www.sefaria.org/Arakhin.29a",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Arakhin%2029a"
+    },
+    "Avodah Zarah 55a": {
+      "ref": "Avodah Zarah 55a",
+      "url": "https://www.sefaria.org/Avodah_Zarah.55a",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Avodah%20Zarah%2055a"
+    },
+    "Avot DeRabbi Natan 5": {
+      "ref": "Avot DeRabbi Natan 5",
+      "url": "https://www.sefaria.org/Avot_DeRabbi_Natan.5",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Avot%20DeRabbi%20Natan%205"
+    },
+    "Bava Batra 75a": {
+      "ref": "Bava Batra 75a",
+      "url": "https://www.sefaria.org/Bava_Batra.75a",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Bava%20Batra%2075a"
+    },
+    "Bava Metzia 44a": {
+      "ref": "Bava Metzia 44a",
+      "url": "https://www.sefaria.org/Bava_Metzia.44a",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Bava%20Metzia%2044a"
+    },
+    "Bava Metzia 47b": {
+      "ref": "Bava Metzia 47b",
+      "url": "https://www.sefaria.org/Bava_Metzia.47b",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Bava%20Metzia%2047b"
+    },
+    "Beit Yaakov on Torah, Toldot 1": {
+      "ref": "Beit Yaakov on Torah, Toldot 1",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.1",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%201"
+    },
+    "Beit Yaakov on Torah, Toldot 10": {
+      "ref": "Beit Yaakov on Torah, Toldot 10",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.10",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%2010"
+    },
+    "Beit Yaakov on Torah, Toldot 11": {
+      "ref": "Beit Yaakov on Torah, Toldot 11",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.11",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%2011"
+    },
+    "Beit Yaakov on Torah, Toldot 12": {
+      "ref": "Beit Yaakov on Torah, Toldot 12",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.12",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%2012"
+    },
+    "Beit Yaakov on Torah, Toldot 13": {
+      "ref": "Beit Yaakov on Torah, Toldot 13",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.13",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%2013"
+    },
+    "Beit Yaakov on Torah, Toldot 14": {
+      "ref": "Beit Yaakov on Torah, Toldot 14",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.14",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%2014"
+    },
+    "Beit Yaakov on Torah, Toldot 15": {
+      "ref": "Beit Yaakov on Torah, Toldot 15",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.15",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%2015"
+    },
+    "Beit Yaakov on Torah, Toldot 16": {
+      "ref": "Beit Yaakov on Torah, Toldot 16",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.16",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%2016"
+    },
+    "Beit Yaakov on Torah, Toldot 17": {
+      "ref": "Beit Yaakov on Torah, Toldot 17",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.17",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%2017"
+    },
+    "Beit Yaakov on Torah, Toldot 18": {
+      "ref": "Beit Yaakov on Torah, Toldot 18",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.18",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%2018"
+    },
+    "Beit Yaakov on Torah, Toldot 19": {
+      "ref": "Beit Yaakov on Torah, Toldot 19",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.19",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%2019"
+    },
+    "Beit Yaakov on Torah, Toldot 2": {
+      "ref": "Beit Yaakov on Torah, Toldot 2",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.2",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%202"
+    },
+    "Beit Yaakov on Torah, Toldot 20": {
+      "ref": "Beit Yaakov on Torah, Toldot 20",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.20",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%2020"
+    },
+    "Beit Yaakov on Torah, Toldot 21": {
+      "ref": "Beit Yaakov on Torah, Toldot 21",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.21",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%2021"
+    },
+    "Beit Yaakov on Torah, Toldot 22": {
+      "ref": "Beit Yaakov on Torah, Toldot 22",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.22",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%2022"
+    },
+    "Beit Yaakov on Torah, Toldot 23": {
+      "ref": "Beit Yaakov on Torah, Toldot 23",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.23",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%2023"
+    },
+    "Beit Yaakov on Torah, Toldot 24": {
+      "ref": "Beit Yaakov on Torah, Toldot 24",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.24",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%2024"
+    },
+    "Beit Yaakov on Torah, Toldot 25": {
+      "ref": "Beit Yaakov on Torah, Toldot 25",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.25",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%2025"
+    },
+    "Beit Yaakov on Torah, Toldot 26": {
+      "ref": "Beit Yaakov on Torah, Toldot 26",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.26",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%2026"
+    },
+    "Beit Yaakov on Torah, Toldot 27": {
+      "ref": "Beit Yaakov on Torah, Toldot 27",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.27",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%2027"
+    },
+    "Beit Yaakov on Torah, Toldot 28": {
+      "ref": "Beit Yaakov on Torah, Toldot 28",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.28",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%2028"
+    },
+    "Beit Yaakov on Torah, Toldot 29": {
+      "ref": "Beit Yaakov on Torah, Toldot 29",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.29",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%2029"
+    },
+    "Beit Yaakov on Torah, Toldot 3": {
+      "ref": "Beit Yaakov on Torah, Toldot 3",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.3",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%203"
+    },
+    "Beit Yaakov on Torah, Toldot 30": {
+      "ref": "Beit Yaakov on Torah, Toldot 30",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.30",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%2030"
+    },
+    "Beit Yaakov on Torah, Toldot 31": {
+      "ref": "Beit Yaakov on Torah, Toldot 31",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.31",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%2031"
+    },
+    "Beit Yaakov on Torah, Toldot 32": {
+      "ref": "Beit Yaakov on Torah, Toldot 32",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.32",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%2032"
+    },
+    "Beit Yaakov on Torah, Toldot 33": {
+      "ref": "Beit Yaakov on Torah, Toldot 33",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.33",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%2033"
+    },
+    "Beit Yaakov on Torah, Toldot 34": {
+      "ref": "Beit Yaakov on Torah, Toldot 34",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.34",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%2034"
+    },
+    "Beit Yaakov on Torah, Toldot 35": {
+      "ref": "Beit Yaakov on Torah, Toldot 35",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.35",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%2035"
+    },
+    "Beit Yaakov on Torah, Toldot 36": {
+      "ref": "Beit Yaakov on Torah, Toldot 36",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.36",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%2036"
+    },
+    "Beit Yaakov on Torah, Toldot 37": {
+      "ref": "Beit Yaakov on Torah, Toldot 37",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.37",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%2037"
+    },
+    "Beit Yaakov on Torah, Toldot 38": {
+      "ref": "Beit Yaakov on Torah, Toldot 38",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.38",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%2038"
+    },
+    "Beit Yaakov on Torah, Toldot 39": {
+      "ref": "Beit Yaakov on Torah, Toldot 39",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.39",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%2039"
+    },
+    "Beit Yaakov on Torah, Toldot 4": {
+      "ref": "Beit Yaakov on Torah, Toldot 4",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.4",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%204"
+    },
+    "Beit Yaakov on Torah, Toldot 40": {
+      "ref": "Beit Yaakov on Torah, Toldot 40",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.40",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%2040"
+    },
+    "Beit Yaakov on Torah, Toldot 41": {
+      "ref": "Beit Yaakov on Torah, Toldot 41",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.41",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%2041"
+    },
+    "Beit Yaakov on Torah, Toldot 42": {
+      "ref": "Beit Yaakov on Torah, Toldot 42",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.42",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%2042"
+    },
+    "Beit Yaakov on Torah, Toldot 43": {
+      "ref": "Beit Yaakov on Torah, Toldot 43",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.43",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%2043"
+    },
+    "Beit Yaakov on Torah, Toldot 44": {
+      "ref": "Beit Yaakov on Torah, Toldot 44",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.44",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%2044"
+    },
+    "Beit Yaakov on Torah, Toldot 45": {
+      "ref": "Beit Yaakov on Torah, Toldot 45",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.45",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%2045"
+    },
+    "Beit Yaakov on Torah, Toldot 46": {
+      "ref": "Beit Yaakov on Torah, Toldot 46",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.46",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%2046"
+    },
+    "Beit Yaakov on Torah, Toldot 47": {
+      "ref": "Beit Yaakov on Torah, Toldot 47",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.47",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%2047"
+    },
+    "Beit Yaakov on Torah, Toldot 48": {
+      "ref": "Beit Yaakov on Torah, Toldot 48",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.48",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%2048"
+    },
+    "Beit Yaakov on Torah, Toldot 49": {
+      "ref": "Beit Yaakov on Torah, Toldot 49",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.49",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%2049"
+    },
+    "Beit Yaakov on Torah, Toldot 5": {
+      "ref": "Beit Yaakov on Torah, Toldot 5",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.5",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%205"
+    },
+    "Beit Yaakov on Torah, Toldot 50": {
+      "ref": "Beit Yaakov on Torah, Toldot 50",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.50",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%2050"
+    },
+    "Beit Yaakov on Torah, Toldot 51": {
+      "ref": "Beit Yaakov on Torah, Toldot 51",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.51",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%2051"
+    },
+    "Beit Yaakov on Torah, Toldot 52": {
+      "ref": "Beit Yaakov on Torah, Toldot 52",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.52",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%2052"
+    },
+    "Beit Yaakov on Torah, Toldot 6": {
+      "ref": "Beit Yaakov on Torah, Toldot 6",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.6",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%206"
+    },
+    "Beit Yaakov on Torah, Toldot 7": {
+      "ref": "Beit Yaakov on Torah, Toldot 7",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.7",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%207"
+    },
+    "Beit Yaakov on Torah, Toldot 8": {
+      "ref": "Beit Yaakov on Torah, Toldot 8",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.8",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%208"
+    },
+    "Beit Yaakov on Torah, Toldot 9": {
+      "ref": "Beit Yaakov on Torah, Toldot 9",
+      "url": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Toldot.9",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Beit%20Yaakov%20on%20Torah%2C%20Toldot%209"
+    },
+    "Berakhot 16b": {
+      "ref": "Berakhot 16b",
+      "url": "https://www.sefaria.org/Berakhot.16b",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Berakhot%2016b"
+    },
+    "Berakhot 17a": {
+      "ref": "Berakhot 17a",
+      "url": "https://www.sefaria.org/Berakhot.17a",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Berakhot%2017a"
+    },
+    "Berakhot 23a": {
+      "ref": "Berakhot 23a",
+      "url": "https://www.sefaria.org/Berakhot.23a",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Berakhot%2023a"
+    },
+    "Berakhot 26b": {
+      "ref": "Berakhot 26b",
+      "url": "https://www.sefaria.org/Berakhot.26b",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Berakhot%2026b"
+    },
+    "Berakhot 30b": {
+      "ref": "Berakhot 30b",
+      "url": "https://www.sefaria.org/Berakhot.30b",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Berakhot%2030b"
+    },
+    "Berakhot 31a": {
+      "ref": "Berakhot 31a",
+      "url": "https://www.sefaria.org/Berakhot.31a",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Berakhot%2031a"
+    },
+    "Berakhot 32b": {
+      "ref": "Berakhot 32b",
+      "url": "https://www.sefaria.org/Berakhot.32b",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Berakhot%2032b"
+    },
+    "Berakhot 33b": {
+      "ref": "Berakhot 33b",
+      "url": "https://www.sefaria.org/Berakhot.33b",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Berakhot%2033b"
+    },
+    "Berakhot 34b": {
+      "ref": "Berakhot 34b",
+      "url": "https://www.sefaria.org/Berakhot.34b",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Berakhot%2034b"
+    },
+    "Berakhot 47b": {
+      "ref": "Berakhot 47b",
+      "url": "https://www.sefaria.org/Berakhot.47b",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Berakhot%2047b"
+    },
+    "Berakhot 48b": {
+      "ref": "Berakhot 48b",
+      "url": "https://www.sefaria.org/Berakhot.48b",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Berakhot%2048b"
+    },
+    "Berakhot 51a": {
+      "ref": "Berakhot 51a",
+      "url": "https://www.sefaria.org/Berakhot.51a",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Berakhot%2051a"
+    },
+    "Berakhot 56b": {
+      "ref": "Berakhot 56b",
+      "url": "https://www.sefaria.org/Berakhot.56b",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Berakhot%2056b"
+    },
+    "Berakhot 57a": {
+      "ref": "Berakhot 57a",
+      "url": "https://www.sefaria.org/Berakhot.57a",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Berakhot%2057a"
+    },
+    "Berakhot 58a": {
+      "ref": "Berakhot 58a",
+      "url": "https://www.sefaria.org/Berakhot.58a",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Berakhot%2058a"
+    },
+    "Berakhot 5b": {
+      "ref": "Berakhot 5b",
+      "url": "https://www.sefaria.org/Berakhot.5b",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Berakhot%205b"
+    },
+    "Berakhot 9b": {
+      "ref": "Berakhot 9b",
+      "url": "https://www.sefaria.org/Berakhot.9b",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Berakhot%209b"
+    },
+    "Bereshit Rabbah 10:6": {
+      "ref": "Bereshit Rabbah 10:6",
+      "url": "https://www.sefaria.org/Bereshit_Rabbah.10.6",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Bereshit%20Rabbah%2010%3A6"
+    },
+    "Bereshit Rabbah 14:7": {
+      "ref": "Bereshit Rabbah 14:7",
+      "url": "https://www.sefaria.org/Bereshit_Rabbah.14.7",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Bereshit%20Rabbah%2014%3A7"
+    },
+    "Bereshit Rabbah 1:4": {
+      "ref": "Bereshit Rabbah 1:4",
+      "url": "https://www.sefaria.org/Bereshit_Rabbah.1.4",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Bereshit%20Rabbah%201%3A4"
+    },
+    "Bereshit Rabbah 39:8": {
+      "ref": "Bereshit Rabbah 39:8",
+      "url": "https://www.sefaria.org/Bereshit_Rabbah.39.8",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Bereshit%20Rabbah%2039%3A8"
+    },
+    "Bereshit Rabbah 51:5": {
+      "ref": "Bereshit Rabbah 51:5",
+      "url": "https://www.sefaria.org/Bereshit_Rabbah.51.5",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Bereshit%20Rabbah%2051%3A5"
+    },
+    "Chagigah 12b": {
+      "ref": "Chagigah 12b",
+      "url": "https://www.sefaria.org/Chagigah.12b",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Chagigah%2012b"
+    },
+    "Chullin 60b": {
+      "ref": "Chullin 60b",
+      "url": "https://www.sefaria.org/Chullin.60b",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Chullin%2060b"
+    },
+    "Chullin 63a": {
+      "ref": "Chullin 63a",
+      "url": "https://www.sefaria.org/Chullin.63a",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Chullin%2063a"
+    },
+    "Chullin 7b": {
+      "ref": "Chullin 7b",
+      "url": "https://www.sefaria.org/Chullin.7b",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Chullin%207b"
+    },
+    "Daniel 12:2": {
+      "ref": "Daniel 12:2",
+      "url": "https://www.sefaria.org/Daniel.12.2",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Daniel%2012%3A2"
+    },
+    "Daniel 6:11": {
+      "ref": "Daniel 6:11",
+      "url": "https://www.sefaria.org/Daniel.6.11",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Daniel%206%3A11"
+    },
+    "Deuteronomy 12:31": {
+      "ref": "Deuteronomy 12:31",
+      "url": "https://www.sefaria.org/Deuteronomy.12.31",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Deuteronomy%2012%3A31"
+    },
+    "Deuteronomy 14:23": {
+      "ref": "Deuteronomy 14:23",
+      "url": "https://www.sefaria.org/Deuteronomy.14.23",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Deuteronomy%2014%3A23"
+    },
+    "Deuteronomy 15:7": {
+      "ref": "Deuteronomy 15:7",
+      "url": "https://www.sefaria.org/Deuteronomy.15.7",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Deuteronomy%2015%3A7"
+    },
+    "Deuteronomy 23:25": {
+      "ref": "Deuteronomy 23:25",
+      "url": "https://www.sefaria.org/Deuteronomy.23.25",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Deuteronomy%2023%3A25"
+    },
+    "Deuteronomy 23:26": {
+      "ref": "Deuteronomy 23:26",
+      "url": "https://www.sefaria.org/Deuteronomy.23.26",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Deuteronomy%2023%3A26"
+    },
+    "Deuteronomy 32:30": {
+      "ref": "Deuteronomy 32:30",
+      "url": "https://www.sefaria.org/Deuteronomy.32.30",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Deuteronomy%2032%3A30"
+    },
+    "Deuteronomy 32:37": {
+      "ref": "Deuteronomy 32:37",
+      "url": "https://www.sefaria.org/Deuteronomy.32.37",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Deuteronomy%2032%3A37"
+    },
+    "Deuteronomy 4:24": {
+      "ref": "Deuteronomy 4:24",
+      "url": "https://www.sefaria.org/Deuteronomy.4.24",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Deuteronomy%204%3A24"
+    },
+    "Ecclesiastes 1:9": {
+      "ref": "Ecclesiastes 1:9",
+      "url": "https://www.sefaria.org/Ecclesiastes.1.9",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Ecclesiastes%201%3A9"
+    },
+    "Ecclesiastes 3:9": {
+      "ref": "Ecclesiastes 3:9",
+      "url": "https://www.sefaria.org/Ecclesiastes.3.9",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Ecclesiastes%203%3A9"
+    },
+    "Ecclesiastes 7:23": {
+      "ref": "Ecclesiastes 7:23",
+      "url": "https://www.sefaria.org/Ecclesiastes.7.23",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Ecclesiastes%207%3A23"
+    },
+    "Eruvin 100b": {
+      "ref": "Eruvin 100b",
+      "url": "https://www.sefaria.org/Eruvin.100b",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Eruvin%20100b"
+    },
+    "Eruvin 13b": {
+      "ref": "Eruvin 13b",
+      "url": "https://www.sefaria.org/Eruvin.13b",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Eruvin%2013b"
+    },
+    "Eruvin 65b": {
+      "ref": "Eruvin 65b",
+      "url": "https://www.sefaria.org/Eruvin.65b",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Eruvin%2065b"
+    },
+    "Esther 9:1": {
+      "ref": "Esther 9:1",
+      "url": "https://www.sefaria.org/Esther.9.1",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Esther%209%3A1"
+    },
+    "Exodus 12:36": {
+      "ref": "Exodus 12:36",
+      "url": "https://www.sefaria.org/Exodus.12.36",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Exodus%2012%3A36"
+    },
+    "Exodus 12:46": {
+      "ref": "Exodus 12:46",
+      "url": "https://www.sefaria.org/Exodus.12.46",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Exodus%2012%3A46"
+    },
+    "Exodus 1:22": {
+      "ref": "Exodus 1:22",
+      "url": "https://www.sefaria.org/Exodus.1.22",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Exodus%201%3A22"
+    },
+    "Exodus 23:15": {
+      "ref": "Exodus 23:15",
+      "url": "https://www.sefaria.org/Exodus.23.15",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Exodus%2023%3A15"
+    },
+    "Exodus 24:10": {
+      "ref": "Exodus 24:10",
+      "url": "https://www.sefaria.org/Exodus.24.10",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Exodus%2024%3A10"
+    },
+    "Exodus 25:9": {
+      "ref": "Exodus 25:9",
+      "url": "https://www.sefaria.org/Exodus.25.9",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Exodus%2025%3A9"
+    },
+    "Exodus 31:13": {
+      "ref": "Exodus 31:13",
+      "url": "https://www.sefaria.org/Exodus.31.13",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Exodus%2031%3A13"
+    },
+    "Exodus 33:22": {
+      "ref": "Exodus 33:22",
+      "url": "https://www.sefaria.org/Exodus.33.22",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Exodus%2033%3A22"
+    },
+    "Ezekiel 17:24": {
+      "ref": "Ezekiel 17:24",
+      "url": "https://www.sefaria.org/Ezekiel.17.24",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Ezekiel%2017%3A24"
+    },
+    "Genesis 12:13": {
+      "ref": "Genesis 12:13",
+      "url": "https://www.sefaria.org/Genesis.12.13",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2012%3A13"
+    },
+    "Genesis 12:9": {
+      "ref": "Genesis 12:9",
+      "url": "https://www.sefaria.org/Genesis.12.9",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2012%3A9"
+    },
+    "Genesis 14:23": {
+      "ref": "Genesis 14:23",
+      "url": "https://www.sefaria.org/Genesis.14.23",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2014%3A23"
+    },
+    "Genesis 14:7": {
+      "ref": "Genesis 14:7",
+      "url": "https://www.sefaria.org/Genesis.14.7",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2014%3A7"
+    },
+    "Genesis 15:13": {
+      "ref": "Genesis 15:13",
+      "url": "https://www.sefaria.org/Genesis.15.13",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2015%3A13"
+    },
+    "Genesis 15:6": {
+      "ref": "Genesis 15:6",
+      "url": "https://www.sefaria.org/Genesis.15.6",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2015%3A6"
+    },
+    "Genesis 16:12": {
+      "ref": "Genesis 16:12",
+      "url": "https://www.sefaria.org/Genesis.16.12",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2016%3A12"
+    },
+    "Genesis 17:1": {
+      "ref": "Genesis 17:1",
+      "url": "https://www.sefaria.org/Genesis.17.1",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2017%3A1"
+    },
+    "Genesis 17:18": {
+      "ref": "Genesis 17:18",
+      "url": "https://www.sefaria.org/Genesis.17.18",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2017%3A18"
+    },
+    "Genesis 17:21": {
+      "ref": "Genesis 17:21",
+      "url": "https://www.sefaria.org/Genesis.17.21",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2017%3A21"
+    },
+    "Genesis 19:26": {
+      "ref": "Genesis 19:26",
+      "url": "https://www.sefaria.org/Genesis.19.26",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2019%3A26"
+    },
+    "Genesis 1:11": {
+      "ref": "Genesis 1:11",
+      "url": "https://www.sefaria.org/Genesis.1.11",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%201%3A11"
+    },
+    "Genesis 1:5": {
+      "ref": "Genesis 1:5",
+      "url": "https://www.sefaria.org/Genesis.1.5",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%201%3A5"
+    },
+    "Genesis 1:6": {
+      "ref": "Genesis 1:6",
+      "url": "https://www.sefaria.org/Genesis.1.6",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%201%3A6"
+    },
+    "Genesis 1:7": {
+      "ref": "Genesis 1:7",
+      "url": "https://www.sefaria.org/Genesis.1.7",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%201%3A7"
+    },
+    "Genesis 20:1": {
+      "ref": "Genesis 20:1",
+      "url": "https://www.sefaria.org/Genesis.20.1",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2020%3A1"
+    },
+    "Genesis 20:9": {
+      "ref": "Genesis 20:9",
+      "url": "https://www.sefaria.org/Genesis.20.9",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2020%3A9"
+    },
+    "Genesis 21:22": {
+      "ref": "Genesis 21:22",
+      "url": "https://www.sefaria.org/Genesis.21.22",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2021%3A22"
+    },
+    "Genesis 21:7": {
+      "ref": "Genesis 21:7",
+      "url": "https://www.sefaria.org/Genesis.21.7",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2021%3A7"
+    },
+    "Genesis 22:14": {
+      "ref": "Genesis 22:14",
+      "url": "https://www.sefaria.org/Genesis.22.14",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2022%3A14"
+    },
+    "Genesis 22:17": {
+      "ref": "Genesis 22:17",
+      "url": "https://www.sefaria.org/Genesis.22.17",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2022%3A17"
+    },
+    "Genesis 22:20": {
+      "ref": "Genesis 22:20",
+      "url": "https://www.sefaria.org/Genesis.22.20",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2022%3A20"
+    },
+    "Genesis 22:7": {
+      "ref": "Genesis 22:7",
+      "url": "https://www.sefaria.org/Genesis.22.7",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2022%3A7"
+    },
+    "Genesis 24:1": {
+      "ref": "Genesis 24:1",
+      "url": "https://www.sefaria.org/Genesis.24.1",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2024%3A1"
+    },
+    "Genesis 24:62": {
+      "ref": "Genesis 24:62",
+      "url": "https://www.sefaria.org/Genesis.24.62",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2024%3A62"
+    },
+    "Genesis 24:63": {
+      "ref": "Genesis 24:63",
+      "url": "https://www.sefaria.org/Genesis.24.63",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2024%3A63"
+    },
+    "Genesis 25:11": {
+      "ref": "Genesis 25:11",
+      "url": "https://www.sefaria.org/Genesis.25.11",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2025%3A11"
+    },
+    "Genesis 25:21": {
+      "ref": "Genesis 25:21",
+      "url": "https://www.sefaria.org/Genesis.25.21",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2025%3A21"
+    },
+    "Genesis 25:22": {
+      "ref": "Genesis 25:22",
+      "url": "https://www.sefaria.org/Genesis.25.22",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2025%3A22"
+    },
+    "Genesis 25:23": {
+      "ref": "Genesis 25:23",
+      "url": "https://www.sefaria.org/Genesis.25.23",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2025%3A23"
+    },
+    "Genesis 25:24": {
+      "ref": "Genesis 25:24",
+      "url": "https://www.sefaria.org/Genesis.25.24",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2025%3A24"
+    },
+    "Genesis 25:27": {
+      "ref": "Genesis 25:27",
+      "url": "https://www.sefaria.org/Genesis.25.27",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2025%3A27"
+    },
+    "Genesis 25:28": {
+      "ref": "Genesis 25:28",
+      "url": "https://www.sefaria.org/Genesis.25.28",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2025%3A28"
+    },
+    "Genesis 25:32": {
+      "ref": "Genesis 25:32",
+      "url": "https://www.sefaria.org/Genesis.25.32",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2025%3A32"
+    },
+    "Genesis 25:34": {
+      "ref": "Genesis 25:34",
+      "url": "https://www.sefaria.org/Genesis.25.34",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2025%3A34"
+    },
+    "Genesis 26:1": {
+      "ref": "Genesis 26:1",
+      "url": "https://www.sefaria.org/Genesis.26.1",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2026%3A1"
+    },
+    "Genesis 26:10": {
+      "ref": "Genesis 26:10",
+      "url": "https://www.sefaria.org/Genesis.26.10",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2026%3A10"
+    },
+    "Genesis 26:11": {
+      "ref": "Genesis 26:11",
+      "url": "https://www.sefaria.org/Genesis.26.11",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2026%3A11"
+    },
+    "Genesis 26:12": {
+      "ref": "Genesis 26:12",
+      "url": "https://www.sefaria.org/Genesis.26.12",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2026%3A12"
+    },
+    "Genesis 26:13": {
+      "ref": "Genesis 26:13",
+      "url": "https://www.sefaria.org/Genesis.26.13",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2026%3A13"
+    },
+    "Genesis 26:15": {
+      "ref": "Genesis 26:15",
+      "url": "https://www.sefaria.org/Genesis.26.15",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2026%3A15"
+    },
+    "Genesis 26:20": {
+      "ref": "Genesis 26:20",
+      "url": "https://www.sefaria.org/Genesis.26.20",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2026%3A20"
+    },
+    "Genesis 26:21": {
+      "ref": "Genesis 26:21",
+      "url": "https://www.sefaria.org/Genesis.26.21",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2026%3A21"
+    },
+    "Genesis 26:28": {
+      "ref": "Genesis 26:28",
+      "url": "https://www.sefaria.org/Genesis.26.28",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2026%3A28"
+    },
+    "Genesis 26:35": {
+      "ref": "Genesis 26:35",
+      "url": "https://www.sefaria.org/Genesis.26.35",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2026%3A35"
+    },
+    "Genesis 26:7": {
+      "ref": "Genesis 26:7",
+      "url": "https://www.sefaria.org/Genesis.26.7",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2026%3A7"
+    },
+    "Genesis 27:1": {
+      "ref": "Genesis 27:1",
+      "url": "https://www.sefaria.org/Genesis.27.1",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2027%3A1"
+    },
+    "Genesis 27:11": {
+      "ref": "Genesis 27:11",
+      "url": "https://www.sefaria.org/Genesis.27.11",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2027%3A11"
+    },
+    "Genesis 27:20": {
+      "ref": "Genesis 27:20",
+      "url": "https://www.sefaria.org/Genesis.27.20",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2027%3A20"
+    },
+    "Genesis 27:22": {
+      "ref": "Genesis 27:22",
+      "url": "https://www.sefaria.org/Genesis.27.22",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2027%3A22"
+    },
+    "Genesis 27:27": {
+      "ref": "Genesis 27:27",
+      "url": "https://www.sefaria.org/Genesis.27.27",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2027%3A27"
+    },
+    "Genesis 27:28": {
+      "ref": "Genesis 27:28",
+      "url": "https://www.sefaria.org/Genesis.27.28",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2027%3A28"
+    },
+    "Genesis 27:29": {
+      "ref": "Genesis 27:29",
+      "url": "https://www.sefaria.org/Genesis.27.29",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2027%3A29"
+    },
+    "Genesis 27:33": {
+      "ref": "Genesis 27:33",
+      "url": "https://www.sefaria.org/Genesis.27.33",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2027%3A33"
+    },
+    "Genesis 27:34": {
+      "ref": "Genesis 27:34",
+      "url": "https://www.sefaria.org/Genesis.27.34",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2027%3A34"
+    },
+    "Genesis 27:36": {
+      "ref": "Genesis 27:36",
+      "url": "https://www.sefaria.org/Genesis.27.36",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2027%3A36"
+    },
+    "Genesis 27:39": {
+      "ref": "Genesis 27:39",
+      "url": "https://www.sefaria.org/Genesis.27.39",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2027%3A39"
+    },
+    "Genesis 27:6": {
+      "ref": "Genesis 27:6",
+      "url": "https://www.sefaria.org/Genesis.27.6",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2027%3A6"
+    },
+    "Genesis 27:7": {
+      "ref": "Genesis 27:7",
+      "url": "https://www.sefaria.org/Genesis.27.7",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2027%3A7"
+    },
+    "Genesis 28:3": {
+      "ref": "Genesis 28:3",
+      "url": "https://www.sefaria.org/Genesis.28.3",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2028%3A3"
+    },
+    "Genesis 28:4": {
+      "ref": "Genesis 28:4",
+      "url": "https://www.sefaria.org/Genesis.28.4",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2028%3A4"
+    },
+    "Genesis 28:9": {
+      "ref": "Genesis 28:9",
+      "url": "https://www.sefaria.org/Genesis.28.9",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2028%3A9"
+    },
+    "Genesis 2:17": {
+      "ref": "Genesis 2:17",
+      "url": "https://www.sefaria.org/Genesis.2.17",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%202%3A17"
+    },
+    "Genesis 2:18": {
+      "ref": "Genesis 2:18",
+      "url": "https://www.sefaria.org/Genesis.2.18",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%202%3A18"
+    },
+    "Genesis 2:7": {
+      "ref": "Genesis 2:7",
+      "url": "https://www.sefaria.org/Genesis.2.7",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%202%3A7"
+    },
+    "Genesis 33:11": {
+      "ref": "Genesis 33:11",
+      "url": "https://www.sefaria.org/Genesis.33.11",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2033%3A11"
+    },
+    "Genesis 33:14": {
+      "ref": "Genesis 33:14",
+      "url": "https://www.sefaria.org/Genesis.33.14",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2033%3A14"
+    },
+    "Genesis 36:24": {
+      "ref": "Genesis 36:24",
+      "url": "https://www.sefaria.org/Genesis.36.24",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2036%3A24"
+    },
+    "Genesis 43:10": {
+      "ref": "Genesis 43:10",
+      "url": "https://www.sefaria.org/Genesis.43.10",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2043%3A10"
+    },
+    "Genesis 43:14": {
+      "ref": "Genesis 43:14",
+      "url": "https://www.sefaria.org/Genesis.43.14",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2043%3A14"
+    },
+    "Genesis 47:29": {
+      "ref": "Genesis 47:29",
+      "url": "https://www.sefaria.org/Genesis.47.29",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2047%3A29"
+    },
+    "Genesis 48:10": {
+      "ref": "Genesis 48:10",
+      "url": "https://www.sefaria.org/Genesis.48.10",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2048%3A10"
+    },
+    "Genesis 48:15": {
+      "ref": "Genesis 48:15",
+      "url": "https://www.sefaria.org/Genesis.48.15",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2048%3A15"
+    },
+    "Genesis 49:28": {
+      "ref": "Genesis 49:28",
+      "url": "https://www.sefaria.org/Genesis.49.28",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2049%3A28"
+    },
+    "Genesis 50:13": {
+      "ref": "Genesis 50:13",
+      "url": "https://www.sefaria.org/Genesis.50.13",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%2050%3A13"
+    },
+    "Genesis 5:9": {
+      "ref": "Genesis 5:9",
+      "url": "https://www.sefaria.org/Genesis.5.9",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Genesis%205%3A9"
+    },
+    "Gittin 70a": {
+      "ref": "Gittin 70a",
+      "url": "https://www.sefaria.org/Gittin.70a",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Gittin%2070a"
+    },
+    "Haggai 2:5": {
+      "ref": "Haggai 2:5",
+      "url": "https://www.sefaria.org/Haggai.2.5",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Haggai%202%3A5"
+    },
+    "Horayot 13b": {
+      "ref": "Horayot 13b",
+      "url": "https://www.sefaria.org/Horayot.13b",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Horayot%2013b"
+    },
+    "Hosea 10:12": {
+      "ref": "Hosea 10:12",
+      "url": "https://www.sefaria.org/Hosea.10.12",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Hosea%2010%3A12"
+    },
+    "Hosea 9:10": {
+      "ref": "Hosea 9:10",
+      "url": "https://www.sefaria.org/Hosea.9.10",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Hosea%209%3A10"
+    },
+    "I Kings 2:26": {
+      "ref": "I Kings 2:26",
+      "url": "https://www.sefaria.org/I_Kings.2.26",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/I%20Kings%202%3A26"
+    },
+    "I Kings 5:12": {
+      "ref": "I Kings 5:12",
+      "url": "https://www.sefaria.org/I_Kings.5.12",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/I%20Kings%205%3A12"
+    },
+    "I Samuel 21:7": {
+      "ref": "I Samuel 21:7",
+      "url": "https://www.sefaria.org/I_Samuel.21.7",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/I%20Samuel%2021%3A7"
+    },
+    "I Samuel 25:26": {
+      "ref": "I Samuel 25:26",
+      "url": "https://www.sefaria.org/I_Samuel.25.26",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/I%20Samuel%2025%3A26"
+    },
+    "II Kings 3:27": {
+      "ref": "II Kings 3:27",
+      "url": "https://www.sefaria.org/II_Kings.3.27",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/II%20Kings%203%3A27"
+    },
+    "II Samuel 3:3": {
+      "ref": "II Samuel 3:3",
+      "url": "https://www.sefaria.org/II_Samuel.3.3",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/II%20Samuel%203%3A3"
+    },
+    "Isaiah 25:5": {
+      "ref": "Isaiah 25:5",
+      "url": "https://www.sefaria.org/Isaiah.25.5",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Isaiah%2025%3A5"
+    },
+    "Isaiah 26:10": {
+      "ref": "Isaiah 26:10",
+      "url": "https://www.sefaria.org/Isaiah.26.10",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Isaiah%2026%3A10"
+    },
+    "Isaiah 33:6": {
+      "ref": "Isaiah 33:6",
+      "url": "https://www.sefaria.org/Isaiah.33.6",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Isaiah%2033%3A6"
+    },
+    "Isaiah 40:17": {
+      "ref": "Isaiah 40:17",
+      "url": "https://www.sefaria.org/Isaiah.40.17",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Isaiah%2040%3A17"
+    },
+    "Isaiah 41:17": {
+      "ref": "Isaiah 41:17",
+      "url": "https://www.sefaria.org/Isaiah.41.17",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Isaiah%2041%3A17"
+    },
+    "Isaiah 42:19": {
+      "ref": "Isaiah 42:19",
+      "url": "https://www.sefaria.org/Isaiah.42.19",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Isaiah%2042%3A19"
+    },
+    "Isaiah 43:1": {
+      "ref": "Isaiah 43:1",
+      "url": "https://www.sefaria.org/Isaiah.43.1",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Isaiah%2043%3A1"
+    },
+    "Isaiah 43:10": {
+      "ref": "Isaiah 43:10",
+      "url": "https://www.sefaria.org/Isaiah.43.10",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Isaiah%2043%3A10"
+    },
+    "Isaiah 43:6": {
+      "ref": "Isaiah 43:6",
+      "url": "https://www.sefaria.org/Isaiah.43.6",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Isaiah%2043%3A6"
+    },
+    "Isaiah 43:7": {
+      "ref": "Isaiah 43:7",
+      "url": "https://www.sefaria.org/Isaiah.43.7",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Isaiah%2043%3A7"
+    },
+    "Isaiah 45:19": {
+      "ref": "Isaiah 45:19",
+      "url": "https://www.sefaria.org/Isaiah.45.19",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Isaiah%2045%3A19"
+    },
+    "Isaiah 45:7": {
+      "ref": "Isaiah 45:7",
+      "url": "https://www.sefaria.org/Isaiah.45.7",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Isaiah%2045%3A7"
+    },
+    "Isaiah 53:9": {
+      "ref": "Isaiah 53:9",
+      "url": "https://www.sefaria.org/Isaiah.53.9",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Isaiah%2053%3A9"
+    },
+    "Isaiah 54:17": {
+      "ref": "Isaiah 54:17",
+      "url": "https://www.sefaria.org/Isaiah.54.17",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Isaiah%2054%3A17"
+    },
+    "Isaiah 55:3": {
+      "ref": "Isaiah 55:3",
+      "url": "https://www.sefaria.org/Isaiah.55.3",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Isaiah%2055%3A3"
+    },
+    "Isaiah 55:8": {
+      "ref": "Isaiah 55:8",
+      "url": "https://www.sefaria.org/Isaiah.55.8",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Isaiah%2055%3A8"
+    },
+    "Isaiah 57:16": {
+      "ref": "Isaiah 57:16",
+      "url": "https://www.sefaria.org/Isaiah.57.16",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Isaiah%2057%3A16"
+    },
+    "Isaiah 58:11": {
+      "ref": "Isaiah 58:11",
+      "url": "https://www.sefaria.org/Isaiah.58.11",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Isaiah%2058%3A11"
+    },
+    "Isaiah 63:2": {
+      "ref": "Isaiah 63:2",
+      "url": "https://www.sefaria.org/Isaiah.63.2",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Isaiah%2063%3A2"
+    },
+    "Isaiah 65:16": {
+      "ref": "Isaiah 65:16",
+      "url": "https://www.sefaria.org/Isaiah.65.16",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Isaiah%2065%3A16"
+    },
+    "Isaiah 66:1": {
+      "ref": "Isaiah 66:1",
+      "url": "https://www.sefaria.org/Isaiah.66.1",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Isaiah%2066%3A1"
+    },
+    "Isaiah 6:3": {
+      "ref": "Isaiah 6:3",
+      "url": "https://www.sefaria.org/Isaiah.6.3",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Isaiah%206%3A3"
+    },
+    "Isaiah 8:21": {
+      "ref": "Isaiah 8:21",
+      "url": "https://www.sefaria.org/Isaiah.8.21",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Isaiah%208%3A21"
+    },
+    "Jeremiah 17:6": {
+      "ref": "Jeremiah 17:6",
+      "url": "https://www.sefaria.org/Jeremiah.17.6",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Jeremiah%2017%3A6"
+    },
+    "Jeremiah 19:5": {
+      "ref": "Jeremiah 19:5",
+      "url": "https://www.sefaria.org/Jeremiah.19.5",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Jeremiah%2019%3A5"
+    },
+    "Jeremiah 29:11": {
+      "ref": "Jeremiah 29:11",
+      "url": "https://www.sefaria.org/Jeremiah.29.11",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Jeremiah%2029%3A11"
+    },
+    "Jeremiah 31:20": {
+      "ref": "Jeremiah 31:20",
+      "url": "https://www.sefaria.org/Jeremiah.31.20",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Jeremiah%2031%3A20"
+    },
+    "Jeremiah 33:25": {
+      "ref": "Jeremiah 33:25",
+      "url": "https://www.sefaria.org/Jeremiah.33.25",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Jeremiah%2033%3A25"
+    },
+    "Jeremiah 46:28": {
+      "ref": "Jeremiah 46:28",
+      "url": "https://www.sefaria.org/Jeremiah.46.28",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Jeremiah%2046%3A28"
+    },
+    "Jerusalem Talmud Bikkurim 3:3": {
+      "ref": "Jerusalem Talmud Bikkurim 3:3",
+      "url": "https://www.sefaria.org/Jerusalem_Talmud_Bikkurim.3.3",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Jerusalem%20Talmud%20Bikkurim%203%3A3"
+    },
+    "Job 15:15": {
+      "ref": "Job 15:15",
+      "url": "https://www.sefaria.org/Job.15.15",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Job%2015%3A15"
+    },
+    "Job 28:12": {
+      "ref": "Job 28:12",
+      "url": "https://www.sefaria.org/Job.28.12",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Job%2028%3A12"
+    },
+    "Job 35:11": {
+      "ref": "Job 35:11",
+      "url": "https://www.sefaria.org/Job.35.11",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Job%2035%3A11"
+    },
+    "Job 37:23": {
+      "ref": "Job 37:23",
+      "url": "https://www.sefaria.org/Job.37.23",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Job%2037%3A23"
+    },
+    "Job 41:10": {
+      "ref": "Job 41:10",
+      "url": "https://www.sefaria.org/Job.41.10",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Job%2041%3A10"
+    },
+    "Jonah 1:3": {
+      "ref": "Jonah 1:3",
+      "url": "https://www.sefaria.org/Jonah.1.3",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Jonah%201%3A3"
+    },
+    "Judges 3:1": {
+      "ref": "Judges 3:1",
+      "url": "https://www.sefaria.org/Judges.3.1",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Judges%203%3A1"
+    },
+    "Ketubot 111b": {
+      "ref": "Ketubot 111b",
+      "url": "https://www.sefaria.org/Ketubot.111b",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Ketubot%20111b"
+    },
+    "Ketubot 30b": {
+      "ref": "Ketubot 30b",
+      "url": "https://www.sefaria.org/Ketubot.30b",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Ketubot%2030b"
+    },
+    "Ketubot 33b": {
+      "ref": "Ketubot 33b",
+      "url": "https://www.sefaria.org/Ketubot.33b",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Ketubot%2033b"
+    },
+    "Kiddushin 2a": {
+      "ref": "Kiddushin 2a",
+      "url": "https://www.sefaria.org/Kiddushin.2a",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Kiddushin%202a"
+    },
+    "Kiddushin 9a": {
+      "ref": "Kiddushin 9a",
+      "url": "https://www.sefaria.org/Kiddushin.9a",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Kiddushin%209a"
+    },
+    "Kohelet Rabbah 4:1": {
+      "ref": "Kohelet Rabbah 4:1",
+      "url": "https://www.sefaria.org/Kohelet_Rabbah.4.1",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Kohelet%20Rabbah%204%3A1"
+    },
+    "Lamentations 3:37": {
+      "ref": "Lamentations 3:37",
+      "url": "https://www.sefaria.org/Lamentations.3.37",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Lamentations%203%3A37"
+    },
+    "Lamentations 3:63": {
+      "ref": "Lamentations 3:63",
+      "url": "https://www.sefaria.org/Lamentations.3.63",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Lamentations%203%3A63"
+    },
+    "Leviticus 23:22": {
+      "ref": "Leviticus 23:22",
+      "url": "https://www.sefaria.org/Leviticus.23.22",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Leviticus%2023%3A22"
+    },
+    "Leviticus 25:4": {
+      "ref": "Leviticus 25:4",
+      "url": "https://www.sefaria.org/Leviticus.25.4",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Leviticus%2025%3A4"
+    },
+    "Leviticus 26:4": {
+      "ref": "Leviticus 26:4",
+      "url": "https://www.sefaria.org/Leviticus.26.4",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Leviticus%2026%3A4"
+    },
+    "Leviticus 26:5": {
+      "ref": "Leviticus 26:5",
+      "url": "https://www.sefaria.org/Leviticus.26.5",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Leviticus%2026%3A5"
+    },
+    "Leviticus 2:13": {
+      "ref": "Leviticus 2:13",
+      "url": "https://www.sefaria.org/Leviticus.2.13",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Leviticus%202%3A13"
+    },
+    "Makkot 10b": {
+      "ref": "Makkot 10b",
+      "url": "https://www.sefaria.org/Makkot.10b",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Makkot%2010b"
+    },
+    "Makkot 24a": {
+      "ref": "Makkot 24a",
+      "url": "https://www.sefaria.org/Makkot.24a",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Makkot%2024a"
+    },
+    "Malachi 1:11": {
+      "ref": "Malachi 1:11",
+      "url": "https://www.sefaria.org/Malachi.1.11",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Malachi%201%3A11"
+    },
+    "Malachi 2:5": {
+      "ref": "Malachi 2:5",
+      "url": "https://www.sefaria.org/Malachi.2.5",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Malachi%202%3A5"
+    },
+    "Mei HaShiloach, Volume I, Genesis, Toldot": {
+      "ref": "Mei HaShiloach, Volume I, Genesis, Toldot",
+      "url": "https://www.sefaria.org/Mei_HaShiloach,_Volume_I,_Genesis,_Toldot",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Mei%20HaShiloach%2C%20Volume%20I%2C%20Genesis%2C%20Toldot"
+    },
+    "Mei HaShiloach, Volume II, Genesis, Toldot": {
+      "ref": "Mei HaShiloach, Volume II, Genesis, Toldot",
+      "url": "https://www.sefaria.org/Mei_HaShiloach,_Volume_II,_Genesis,_Toldot",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Mei%20HaShiloach%2C%20Volume%20II%2C%20Genesis%2C%20Toldot"
+    },
+    "Menachot 53b": {
+      "ref": "Menachot 53b",
+      "url": "https://www.sefaria.org/Menachot.53b",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Menachot%2053b"
+    },
+    "Midrash Tanchuma, Beha'alotcha 7": {
+      "ref": "Midrash Tanchuma, Beha'alotcha 7",
+      "url": "https://www.sefaria.org/Midrash_Tanchuma,_Beha%27alotcha.7",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Midrash%20Tanchuma%2C%20Beha%27alotcha%207"
+    },
+    "Midrash Tanchuma, Chayei Sara 3": {
+      "ref": "Midrash Tanchuma, Chayei Sara 3",
+      "url": "https://www.sefaria.org/Midrash_Tanchuma,_Chayei_Sara.3",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Midrash%20Tanchuma%2C%20Chayei%20Sara%203"
+    },
+    "Midrash Tanchuma, Kedoshim 9": {
+      "ref": "Midrash Tanchuma, Kedoshim 9",
+      "url": "https://www.sefaria.org/Midrash_Tanchuma,_Kedoshim.9",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Midrash%20Tanchuma%2C%20Kedoshim%209"
+    },
+    "Midrash Tanchuma, Ki Tisa 33": {
+      "ref": "Midrash Tanchuma, Ki Tisa 33",
+      "url": "https://www.sefaria.org/Midrash_Tanchuma,_Ki_Tisa.33",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Midrash%20Tanchuma%2C%20Ki%20Tisa%2033"
+    },
+    "Midrash Tanchuma, Miketz 10": {
+      "ref": "Midrash Tanchuma, Miketz 10",
+      "url": "https://www.sefaria.org/Midrash_Tanchuma,_Miketz.10",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Midrash%20Tanchuma%2C%20Miketz%2010"
+    },
+    "Midrash Tanchuma, Miketz 5": {
+      "ref": "Midrash Tanchuma, Miketz 5",
+      "url": "https://www.sefaria.org/Midrash_Tanchuma,_Miketz.5",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Midrash%20Tanchuma%2C%20Miketz%205"
+    },
+    "Midrash Tanchuma, Tazria 4": {
+      "ref": "Midrash Tanchuma, Tazria 4",
+      "url": "https://www.sefaria.org/Midrash_Tanchuma,_Tazria.4",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Midrash%20Tanchuma%2C%20Tazria%204"
+    },
+    "Midrash Tanchuma, Toldot 1": {
+      "ref": "Midrash Tanchuma, Toldot 1",
+      "url": "https://www.sefaria.org/Midrash_Tanchuma,_Toldot.1",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Midrash%20Tanchuma%2C%20Toldot%201"
+    },
+    "Midrash Tanchuma, Toldot 2": {
+      "ref": "Midrash Tanchuma, Toldot 2",
+      "url": "https://www.sefaria.org/Midrash_Tanchuma,_Toldot.2",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Midrash%20Tanchuma%2C%20Toldot%202"
+    },
+    "Midrash Tanchuma, Toldot 3": {
+      "ref": "Midrash Tanchuma, Toldot 3",
+      "url": "https://www.sefaria.org/Midrash_Tanchuma,_Toldot.3",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Midrash%20Tanchuma%2C%20Toldot%203"
+    },
+    "Midrash Tanchuma, Toldot 5": {
+      "ref": "Midrash Tanchuma, Toldot 5",
+      "url": "https://www.sefaria.org/Midrash_Tanchuma,_Toldot.5",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Midrash%20Tanchuma%2C%20Toldot%205"
+    },
+    "Midrash Tanchuma, Toldot 6": {
+      "ref": "Midrash Tanchuma, Toldot 6",
+      "url": "https://www.sefaria.org/Midrash_Tanchuma,_Toldot.6",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Midrash%20Tanchuma%2C%20Toldot%206"
+    },
+    "Midrash Tanchuma, Vaetchanan 1": {
+      "ref": "Midrash Tanchuma, Vaetchanan 1",
+      "url": "https://www.sefaria.org/Midrash_Tanchuma,_Vaetchanan.1",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Midrash%20Tanchuma%2C%20Vaetchanan%201"
+    },
+    "Midrash Tanchuma, Vayechi 15": {
+      "ref": "Midrash Tanchuma, Vayechi 15",
+      "url": "https://www.sefaria.org/Midrash_Tanchuma,_Vayechi.15",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Midrash%20Tanchuma%2C%20Vayechi%2015"
+    },
+    "Midrash Tanchuma, Vayera 15": {
+      "ref": "Midrash Tanchuma, Vayera 15",
+      "url": "https://www.sefaria.org/Midrash_Tanchuma,_Vayera.15",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Midrash%20Tanchuma%2C%20Vayera%2015"
+    },
+    "Midrash Tehillim 104": {
+      "ref": "Midrash Tehillim 104",
+      "url": "https://www.sefaria.org/Midrash_Tehillim.104",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Midrash%20Tehillim%20104"
+    },
+    "Midrash Tehillim 19": {
+      "ref": "Midrash Tehillim 19",
+      "url": "https://www.sefaria.org/Midrash_Tehillim.19",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Midrash%20Tehillim%2019"
+    },
+    "Mishnah Avot 2:4": {
+      "ref": "Pirkei Avot 2:4",
+      "url": "https://www.sefaria.org/Pirkei_Avot.2.4",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Mishnah%20Avot%202%3A4"
+    },
+    "Mishnah Avot 4:15": {
+      "ref": "Pirkei Avot 4:15",
+      "url": "https://www.sefaria.org/Pirkei_Avot.4.15",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Mishnah%20Avot%204%3A15"
+    },
+    "Mishnah Eduyot 4:1": {
+      "ref": "Mishnah Eduyot 4:1",
+      "url": "https://www.sefaria.org/Mishnah_Eduyot.4.1",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Mishnah%20Eduyot%204%3A1"
+    },
+    "Mishnah Maasrot 1:1": {
+      "ref": "Mishnah Maasrot 1:1",
+      "url": "https://www.sefaria.org/Mishnah_Maasrot.1.1",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Mishnah%20Maasrot%201%3A1"
+    },
+    "Mishneh Torah, Repentance 5:5": {
+      "ref": "Mishneh Torah, Repentance 5:5",
+      "url": "https://www.sefaria.org/Mishneh_Torah,_Repentance.5.5",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Mishneh%20Torah%2C%20Repentance%205%3A5"
+    },
+    "Nedarim 38b": {
+      "ref": "Nedarim 38b",
+      "url": "https://www.sefaria.org/Nedarim.38b",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Nedarim%2038b"
+    },
+    "Nedarim 65a": {
+      "ref": "Nedarim 65a",
+      "url": "https://www.sefaria.org/Nedarim.65a",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Nedarim%2065a"
+    },
+    "Numbers 11:16": {
+      "ref": "Numbers 11:16",
+      "url": "https://www.sefaria.org/Numbers.11.16",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Numbers%2011%3A16"
+    },
+    "Numbers 6:23": {
+      "ref": "Numbers 6:23",
+      "url": "https://www.sefaria.org/Numbers.6.23",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Numbers%206%3A23"
+    },
+    "Obadiah 1:18": {
+      "ref": "Obadiah 1:18",
+      "url": "https://www.sefaria.org/Obadiah.1.18",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Obadiah%201%3A18"
+    },
+    "Obadiah 1:21": {
+      "ref": "Obadiah 1:21",
+      "url": "https://www.sefaria.org/Obadiah.1.21",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Obadiah%201%3A21"
+    },
+    "Pesachim 118a": {
+      "ref": "Pesachim 118a",
+      "url": "https://www.sefaria.org/Pesachim.118a",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Pesachim%20118a"
+    },
+    "Pesachim 119b": {
+      "ref": "Pesachim 119b",
+      "url": "https://www.sefaria.org/Pesachim.119b",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Pesachim%20119b"
+    },
+    "Pesachim 68a": {
+      "ref": "Pesachim 68a",
+      "url": "https://www.sefaria.org/Pesachim.68a",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Pesachim%2068a"
+    },
+    "Pesachim 87b": {
+      "ref": "Pesachim 87b",
+      "url": "https://www.sefaria.org/Pesachim.87b",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Pesachim%2087b"
+    },
+    "Pesachim 88a": {
+      "ref": "Pesachim 88a",
+      "url": "https://www.sefaria.org/Pesachim.88a",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Pesachim%2088a"
+    },
+    "Pirkei Avot 1:3": {
+      "ref": "Pirkei Avot 1:3",
+      "url": "https://www.sefaria.org/Pirkei_Avot.1.3",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Pirkei%20Avot%201%3A3"
+    },
+    "Pirkei Avot 2:4": {
+      "ref": "Pirkei Avot 2:4",
+      "url": "https://www.sefaria.org/Pirkei_Avot.2.4",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Pirkei%20Avot%202%3A4"
+    },
+    "Pirkei Avot 4:15": {
+      "ref": "Pirkei Avot 4:15",
+      "url": "https://www.sefaria.org/Pirkei_Avot.4.15",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Pirkei%20Avot%204%3A15"
+    },
+    "Pirkei DeRabbi Eliezer 32": {
+      "ref": "Pirkei DeRabbi Eliezer 32",
+      "url": "https://www.sefaria.org/Pirkei_DeRabbi_Eliezer.32",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Pirkei%20DeRabbi%20Eliezer%2032"
+    },
+    "Proverbs 16:15": {
+      "ref": "Proverbs 16:15",
+      "url": "https://www.sefaria.org/Proverbs.16.15",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Proverbs%2016%3A15"
+    },
+    "Proverbs 16:4": {
+      "ref": "Proverbs 16:4",
+      "url": "https://www.sefaria.org/Proverbs.16.4",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Proverbs%2016%3A4"
+    },
+    "Proverbs 23:24": {
+      "ref": "Proverbs 23:24",
+      "url": "https://www.sefaria.org/Proverbs.23.24",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Proverbs%2023%3A24"
+    },
+    "Proverbs 25:27": {
+      "ref": "Proverbs 25:27",
+      "url": "https://www.sefaria.org/Proverbs.25.27",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Proverbs%2025%3A27"
+    },
+    "Proverbs 28:28": {
+      "ref": "Proverbs 28:28",
+      "url": "https://www.sefaria.org/Proverbs.28.28",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Proverbs%2028%3A28"
+    },
+    "Proverbs 29:4": {
+      "ref": "Proverbs 29:4",
+      "url": "https://www.sefaria.org/Proverbs.29.4",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Proverbs%2029%3A4"
+    },
+    "Proverbs 30:16": {
+      "ref": "Proverbs 30:16",
+      "url": "https://www.sefaria.org/Proverbs.30.16",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Proverbs%2030%3A16"
+    },
+    "Proverbs 31:23": {
+      "ref": "Proverbs 31:23",
+      "url": "https://www.sefaria.org/Proverbs.31.23",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Proverbs%2031%3A23"
+    },
+    "Proverbs 3:14": {
+      "ref": "Proverbs 3:14",
+      "url": "https://www.sefaria.org/Proverbs.3.14",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Proverbs%203%3A14"
+    },
+    "Proverbs 3:19": {
+      "ref": "Proverbs 3:19",
+      "url": "https://www.sefaria.org/Proverbs.3.19",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Proverbs%203%3A19"
+    },
+    "Proverbs 4:18": {
+      "ref": "Proverbs 4:18",
+      "url": "https://www.sefaria.org/Proverbs.4.18",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Proverbs%204%3A18"
+    },
+    "Proverbs 7:4": {
+      "ref": "Proverbs 7:4",
+      "url": "https://www.sefaria.org/Proverbs.7.4",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Proverbs%207%3A4"
+    },
+    "Proverbs 8:35": {
+      "ref": "Proverbs 8:35",
+      "url": "https://www.sefaria.org/Proverbs.8.35",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Proverbs%208%3A35"
+    },
+    "Psalms 104:14": {
+      "ref": "Psalms 104:14",
+      "url": "https://www.sefaria.org/Psalms.104.14",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Psalms%20104%3A14"
+    },
+    "Psalms 104:24": {
+      "ref": "Psalms 104:24",
+      "url": "https://www.sefaria.org/Psalms.104.24",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Psalms%20104%3A24"
+    },
+    "Psalms 105:8": {
+      "ref": "Psalms 105:8",
+      "url": "https://www.sefaria.org/Psalms.105.8",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Psalms%20105%3A8"
+    },
+    "Psalms 106:2": {
+      "ref": "Psalms 106:2",
+      "url": "https://www.sefaria.org/Psalms.106.2",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Psalms%20106%3A2"
+    },
+    "Psalms 10:17": {
+      "ref": "Psalms 10:17",
+      "url": "https://www.sefaria.org/Psalms.10.17",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Psalms%2010%3A17"
+    },
+    "Psalms 112:2": {
+      "ref": "Psalms 112:2",
+      "url": "https://www.sefaria.org/Psalms.112.2",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Psalms%20112%3A2"
+    },
+    "Psalms 115:16": {
+      "ref": "Psalms 115:16",
+      "url": "https://www.sefaria.org/Psalms.115.16",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Psalms%20115%3A16"
+    },
+    "Psalms 118:10": {
+      "ref": "Psalms 118:10",
+      "url": "https://www.sefaria.org/Psalms.118.10",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Psalms%20118%3A10"
+    },
+    "Psalms 119:18": {
+      "ref": "Psalms 119:18",
+      "url": "https://www.sefaria.org/Psalms.119.18",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Psalms%20119%3A18"
+    },
+    "Psalms 126:1": {
+      "ref": "Psalms 126:1",
+      "url": "https://www.sefaria.org/Psalms.126.1",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Psalms%20126%3A1"
+    },
+    "Psalms 126:2": {
+      "ref": "Psalms 126:2",
+      "url": "https://www.sefaria.org/Psalms.126.2",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Psalms%20126%3A2"
+    },
+    "Psalms 128:2": {
+      "ref": "Psalms 128:2",
+      "url": "https://www.sefaria.org/Psalms.128.2",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Psalms%20128%3A2"
+    },
+    "Psalms 145:11": {
+      "ref": "Psalms 145:11",
+      "url": "https://www.sefaria.org/Psalms.145.11",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Psalms%20145%3A11"
+    },
+    "Psalms 147:2": {
+      "ref": "Psalms 147:2",
+      "url": "https://www.sefaria.org/Psalms.147.2",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Psalms%20147%3A2"
+    },
+    "Psalms 14:7": {
+      "ref": "Psalms 14:7",
+      "url": "https://www.sefaria.org/Psalms.14.7",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Psalms%2014%3A7"
+    },
+    "Psalms 16:3": {
+      "ref": "Psalms 16:3",
+      "url": "https://www.sefaria.org/Psalms.16.3",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Psalms%2016%3A3"
+    },
+    "Psalms 18:12": {
+      "ref": "Psalms 18:12",
+      "url": "https://www.sefaria.org/Psalms.18.12",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Psalms%2018%3A12"
+    },
+    "Psalms 24:7": {
+      "ref": "Psalms 24:7",
+      "url": "https://www.sefaria.org/Psalms.24.7",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Psalms%2024%3A7"
+    },
+    "Psalms 25:6": {
+      "ref": "Psalms 25:6",
+      "url": "https://www.sefaria.org/Psalms.25.6",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Psalms%2025%3A6"
+    },
+    "Psalms 27:4": {
+      "ref": "Psalms 27:4",
+      "url": "https://www.sefaria.org/Psalms.27.4",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Psalms%2027%3A4"
+    },
+    "Psalms 2:4": {
+      "ref": "Psalms 2:4",
+      "url": "https://www.sefaria.org/Psalms.2.4",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Psalms%202%3A4"
+    },
+    "Psalms 51:7": {
+      "ref": "Psalms 51:7",
+      "url": "https://www.sefaria.org/Psalms.51.7",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Psalms%2051%3A7"
+    },
+    "Psalms 55:18": {
+      "ref": "Psalms 55:18",
+      "url": "https://www.sefaria.org/Psalms.55.18",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Psalms%2055%3A18"
+    },
+    "Psalms 84:6": {
+      "ref": "Psalms 84:6",
+      "url": "https://www.sefaria.org/Psalms.84.6",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Psalms%2084%3A6"
+    },
+    "Psalms 89:28": {
+      "ref": "Psalms 89:28",
+      "url": "https://www.sefaria.org/Psalms.89.28",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Psalms%2089%3A28"
+    },
+    "Psalms 89:3": {
+      "ref": "Psalms 89:3",
+      "url": "https://www.sefaria.org/Psalms.89.3",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Psalms%2089%3A3"
+    },
+    "Psalms 8:5": {
+      "ref": "Psalms 8:5",
+      "url": "https://www.sefaria.org/Psalms.8.5",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Psalms%208%3A5"
+    },
+    "Psalms 92:1": {
+      "ref": "Psalms 92:1",
+      "url": "https://www.sefaria.org/Psalms.92.1",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Psalms%2092%3A1"
+    },
+    "Rosh Hashanah 11a": {
+      "ref": "Rosh Hashanah 11a",
+      "url": "https://www.sefaria.org/Rosh_Hashanah.11a",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Rosh%20Hashanah%2011a"
+    },
+    "Rosh Hashanah 17a": {
+      "ref": "Rosh Hashanah 17a",
+      "url": "https://www.sefaria.org/Rosh_Hashanah.17a",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Rosh%20Hashanah%2017a"
+    },
+    "Rosh Hashanah 17b": {
+      "ref": "Rosh Hashanah 17b",
+      "url": "https://www.sefaria.org/Rosh_Hashanah.17b",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Rosh%20Hashanah%2017b"
+    },
+    "Rosh Hashanah 25a": {
+      "ref": "Rosh Hashanah 25a",
+      "url": "https://www.sefaria.org/Rosh_Hashanah.25a",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Rosh%20Hashanah%2025a"
+    },
+    "Rosh Hashanah 4a": {
+      "ref": "Rosh Hashanah 4a",
+      "url": "https://www.sefaria.org/Rosh_Hashanah.4a",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Rosh%20Hashanah%204a"
+    },
+    "Sanhedrin 20b": {
+      "ref": "Sanhedrin 20b",
+      "url": "https://www.sefaria.org/Sanhedrin.20b",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Sanhedrin%2020b"
+    },
+    "Sanhedrin 39a": {
+      "ref": "Sanhedrin 39a",
+      "url": "https://www.sefaria.org/Sanhedrin.39a",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Sanhedrin%2039a"
+    },
+    "Sanhedrin 58b": {
+      "ref": "Sanhedrin 58b",
+      "url": "https://www.sefaria.org/Sanhedrin.58b",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Sanhedrin%2058b"
+    },
+    "Sanhedrin 63a": {
+      "ref": "Sanhedrin 63a",
+      "url": "https://www.sefaria.org/Sanhedrin.63a",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Sanhedrin%2063a"
+    },
+    "Sanhedrin 96a": {
+      "ref": "Sanhedrin 96a",
+      "url": "https://www.sefaria.org/Sanhedrin.96a",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Sanhedrin%2096a"
+    },
+    "Shabbat 10a": {
+      "ref": "Shabbat 10a",
+      "url": "https://www.sefaria.org/Shabbat.10a",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Shabbat%2010a"
+    },
+    "Shabbat 10b": {
+      "ref": "Shabbat 10b",
+      "url": "https://www.sefaria.org/Shabbat.10b",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Shabbat%2010b"
+    },
+    "Shabbat 128b": {
+      "ref": "Shabbat 128b",
+      "url": "https://www.sefaria.org/Shabbat.128b",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Shabbat%20128b"
+    },
+    "Shabbat 30b": {
+      "ref": "Shabbat 30b",
+      "url": "https://www.sefaria.org/Shabbat.30b",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Shabbat%2030b"
+    },
+    "Shabbat 31a": {
+      "ref": "Shabbat 31a",
+      "url": "https://www.sefaria.org/Shabbat.31a",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Shabbat%2031a"
+    },
+    "Shabbat 73a": {
+      "ref": "Shabbat 73a",
+      "url": "https://www.sefaria.org/Shabbat.73a",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Shabbat%2073a"
+    },
+    "Shabbat 89b": {
+      "ref": "Shabbat 89b",
+      "url": "https://www.sefaria.org/Shabbat.89b",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Shabbat%2089b"
+    },
+    "Song of Songs 2:3": {
+      "ref": "Song of Songs 2:3",
+      "url": "https://www.sefaria.org/Song_of_Songs.2.3",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Song%20of%20Songs%202%3A3"
+    },
+    "Song of Songs 4:15": {
+      "ref": "Song of Songs 4:15",
+      "url": "https://www.sefaria.org/Song_of_Songs.4.15",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Song%20of%20Songs%204%3A15"
+    },
+    "Sukkah 14a": {
+      "ref": "Sukkah 14a",
+      "url": "https://www.sefaria.org/Sukkah.14a",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Sukkah%2014a"
+    },
+    "Sukkah 49b": {
+      "ref": "Sukkah 49b",
+      "url": "https://www.sefaria.org/Sukkah.49b",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Sukkah%2049b"
+    },
+    "Sukkah 52b": {
+      "ref": "Sukkah 52b",
+      "url": "https://www.sefaria.org/Sukkah.52b",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Sukkah%2052b"
+    },
+    "Taanit 15a": {
+      "ref": "Taanit 15a",
+      "url": "https://www.sefaria.org/Taanit.15a",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Taanit%2015a"
+    },
+    "Taanit 16a": {
+      "ref": "Taanit 16a",
+      "url": "https://www.sefaria.org/Taanit.16a",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Taanit%2016a"
+    },
+    "Taanit 22b": {
+      "ref": "Taanit 22b",
+      "url": "https://www.sefaria.org/Taanit.22b",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Taanit%2022b"
+    },
+    "Taanit 29b": {
+      "ref": "Taanit 29b",
+      "url": "https://www.sefaria.org/Taanit.29b",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Taanit%2029b"
+    },
+    "Taanit 2a": {
+      "ref": "Taanit 2a",
+      "url": "https://www.sefaria.org/Taanit.2a",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Taanit%202a"
+    },
+    "Taanit 4a": {
+      "ref": "Taanit 4a",
+      "url": "https://www.sefaria.org/Taanit.4a",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Taanit%204a"
+    },
+    "Zechariah 10:9": {
+      "ref": "Zechariah 10:9",
+      "url": "https://www.sefaria.org/Zechariah.10.9",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zechariah%2010%3A9"
+    },
+    "Zechariah 12:5": {
+      "ref": "Zechariah 12:5",
+      "url": "https://www.sefaria.org/Zechariah.12.5",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zechariah%2012%3A5"
+    },
+    "Zechariah 8:4": {
+      "ref": "Zechariah 8:4",
+      "url": "https://www.sefaria.org/Zechariah.8.4",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zechariah%208%3A4"
+    },
+    "Zechariah 9:7": {
+      "ref": "Zechariah 9:7",
+      "url": "https://www.sefaria.org/Zechariah.9.7",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zechariah%209%3A7"
+    },
+    "Zohar, Acharei Mot": {
+      "verified": false,
+      "error": "HTTP Error 400: Bad Request",
+      "api": "https://www.sefaria.org/api/v3/texts/Zohar%2C%20Acharei%20Mot"
+    },
+    "Zohar, Balak": {
+      "ref": "Zohar, Balak",
+      "url": "https://www.sefaria.org/Zohar,_Balak",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zohar%2C%20Balak"
+    },
+    "Zohar, Bereshit": {
+      "ref": "Zohar, Bereshit",
+      "url": "https://www.sefaria.org/Zohar,_Bereshit",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zohar%2C%20Bereshit"
+    },
+    "Zohar, Beshalach": {
+      "ref": "Zohar, Beshalach",
+      "url": "https://www.sefaria.org/Zohar,_Beshalach",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zohar%2C%20Beshalach"
+    },
+    "Zohar, Beshalach 23:326-24:331": {
+      "ref": "Zohar, Beshalach 23:326-24:331",
+      "url": "https://www.sefaria.org/Zohar,_Beshalach.23.326-24.331",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zohar%2C%20Beshalach%2023%3A326-24%3A331"
+    },
+    "Zohar, Beshalach 25:339-26:348": {
+      "ref": "Zohar, Beshalach 25:339-26:348",
+      "url": "https://www.sefaria.org/Zohar,_Beshalach.25.339-26.348",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zohar%2C%20Beshalach%2025%3A339-26%3A348"
+    },
+    "Zohar, Bo": {
+      "ref": "Zohar, Bo",
+      "url": "https://www.sefaria.org/Zohar,_Bo",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zohar%2C%20Bo"
+    },
+    "Zohar, Bo 7:151-8:164": {
+      "ref": "Zohar, Bo 7:151-8:164",
+      "url": "https://www.sefaria.org/Zohar,_Bo.7.151-8.164",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zohar%2C%20Bo%207%3A151-8%3A164"
+    },
+    "Zohar, Chayei Sara 23:232-243": {
+      "ref": "Zohar, Chayei Sara 23:232-243",
+      "url": "https://www.sefaria.org/Zohar,_Chayei_Sara.23.232-243",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zohar%2C%20Chayei%20Sara%2023%3A232-243"
+    },
+    "Zohar, Emor": {
+      "ref": "Zohar, Emor",
+      "url": "https://www.sefaria.org/Zohar,_Emor",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zohar%2C%20Emor"
+    },
+    "Zohar, Kedoshim": {
+      "ref": "Zohar, Kedoshim",
+      "url": "https://www.sefaria.org/Zohar,_Kedoshim",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zohar%2C%20Kedoshim"
+    },
+    "Zohar, Ki Teitzei 20:98-22:108": {
+      "ref": "Zohar, Ki Teitzei 20:98-22:108",
+      "url": "https://www.sefaria.org/Zohar,_Ki_Teitzei.20.98-22.108",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zohar%2C%20Ki%20Teitzei%2020%3A98-22%3A108"
+    },
+    "Zohar, Lech Lecha 17:152-18:165": {
+      "ref": "Zohar, Lech Lecha 17:152-18:165",
+      "url": "https://www.sefaria.org/Zohar,_Lech_Lecha.17.152-18.165",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zohar%2C%20Lech%20Lecha%2017%3A152-18%3A165"
+    },
+    "Zohar, Metzora": {
+      "ref": "Zohar, Metzora",
+      "url": "https://www.sefaria.org/Zohar,_Metzora",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zohar%2C%20Metzora"
+    },
+    "Zohar, Mishpatim 22:528-536": {
+      "ref": "Zohar, Mishpatim 22:528-536",
+      "url": "https://www.sefaria.org/Zohar,_Mishpatim.22.528-536",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zohar%2C%20Mishpatim%2022%3A528-536"
+    },
+    "Zohar, Mishpatim 3:101-110": {
+      "ref": "Zohar, Mishpatim 3:101-110",
+      "url": "https://www.sefaria.org/Zohar,_Mishpatim.3.101-110",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zohar%2C%20Mishpatim%203%3A101-110"
+    },
+    "Zohar, Mishpatim 3:14-23": {
+      "ref": "Zohar, Mishpatim 3:14-23",
+      "url": "https://www.sefaria.org/Zohar,_Mishpatim.3.14-23",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zohar%2C%20Mishpatim%203%3A14-23"
+    },
+    "Zohar, Mishpatim 3:23-34": {
+      "ref": "Zohar, Mishpatim 3:23-34",
+      "url": "https://www.sefaria.org/Zohar,_Mishpatim.3.23-34",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zohar%2C%20Mishpatim%203%3A23-34"
+    },
+    "Zohar, Mishpatim 3:264-275": {
+      "ref": "Zohar, Mishpatim 3:264-275",
+      "url": "https://www.sefaria.org/Zohar,_Mishpatim.3.264-275",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zohar%2C%20Mishpatim%203%3A264-275"
+    },
+    "Zohar, Mishpatim 3:293-301": {
+      "ref": "Zohar, Mishpatim 3:293-301",
+      "url": "https://www.sefaria.org/Zohar,_Mishpatim.3.293-301",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zohar%2C%20Mishpatim%203%3A293-301"
+    },
+    "Zohar, Naso": {
+      "verified": false,
+      "error": "HTTP Error 400: Bad Request",
+      "api": "https://www.sefaria.org/api/v3/texts/Zohar%2C%20Naso"
+    },
+    "Zohar, Noach": {
+      "ref": "Zohar, Noach",
+      "url": "https://www.sefaria.org/Zohar,_Noach",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zohar%2C%20Noach"
+    },
+    "Zohar, Pekudei 51:714-724": {
+      "ref": "Zohar, Pekudei 51:714-724",
+      "url": "https://www.sefaria.org/Zohar,_Pekudei.51.714-724",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zohar%2C%20Pekudei%2051%3A714-724"
+    },
+    "Zohar, Pekudei 51:734-743": {
+      "ref": "Zohar, Pekudei 51:734-743",
+      "url": "https://www.sefaria.org/Zohar,_Pekudei.51.734-743",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zohar%2C%20Pekudei%2051%3A734-743"
+    },
+    "Zohar, Sh'lach 10:75-11:84": {
+      "ref": "Zohar, Sh'lach 10:75-11:84",
+      "url": "https://www.sefaria.org/Zohar,_Sh%27lach.10.75-11.84",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zohar%2C%20Sh%27lach%2010%3A75-11%3A84"
+    },
+    "Zohar, Sh'lach 43:298-306": {
+      "ref": "Zohar, Sh'lach 43:298-306",
+      "url": "https://www.sefaria.org/Zohar,_Sh%27lach.43.298-306",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zohar%2C%20Sh%27lach%2043%3A298-306"
+    },
+    "Zohar, Shmini 9:87-13:96": {
+      "ref": "Zohar, Shmini 9:87-13:96",
+      "url": "https://www.sefaria.org/Zohar,_Shmini.9.87-13.96",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zohar%2C%20Shmini%209%3A87-13%3A96"
+    },
+    "Zohar, Terumah": {
+      "ref": "Zohar, Terumah",
+      "url": "https://www.sefaria.org/Zohar,_Terumah",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zohar%2C%20Terumah"
+    },
+    "Zohar, Toldot": {
+      "ref": "Zohar, Toldot",
+      "url": "https://www.sefaria.org/Zohar,_Toldot",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zohar%2C%20Toldot"
+    },
+    "Zohar, Toldot 11:89-12:99": {
+      "ref": "Zohar, Toldot 11:89-12:99",
+      "url": "https://www.sefaria.org/Zohar,_Toldot.11.89-12.99",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zohar%2C%20Toldot%2011%3A89-12%3A99"
+    },
+    "Zohar, Toldot 14:108-15:119": {
+      "ref": "Zohar, Toldot 14:108-15:119",
+      "url": "https://www.sefaria.org/Zohar,_Toldot.14.108-15.119",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zohar%2C%20Toldot%2014%3A108-15%3A119"
+    },
+    "Zohar, Toldot 15:119-16:128": {
+      "ref": "Zohar, Toldot 15:119-16:128",
+      "url": "https://www.sefaria.org/Zohar,_Toldot.15.119-16.128",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zohar%2C%20Toldot%2015%3A119-16%3A128"
+    },
+    "Zohar, Toldot 16:128-18:137": {
+      "ref": "Zohar, Toldot 16:128-18:137",
+      "url": "https://www.sefaria.org/Zohar,_Toldot.16.128-18.137",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zohar%2C%20Toldot%2016%3A128-18%3A137"
+    },
+    "Zohar, Toldot 19:176-184": {
+      "ref": "Zohar, Toldot 19:176-184",
+      "url": "https://www.sefaria.org/Zohar,_Toldot.19.176-184",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zohar%2C%20Toldot%2019%3A176-184"
+    },
+    "Zohar, Toldot 19:193-202": {
+      "ref": "Zohar, Toldot 19:193-202",
+      "url": "https://www.sefaria.org/Zohar,_Toldot.19.193-202",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zohar%2C%20Toldot%2019%3A193-202"
+    },
+    "Zohar, Toldot 1:1-4": {
+      "ref": "Zohar, Toldot 1:1-4",
+      "url": "https://www.sefaria.org/Zohar,_Toldot.1.1-4",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zohar%2C%20Toldot%201%3A1-4"
+    },
+    "Zohar, Toldot 1:11-14": {
+      "ref": "Zohar, Toldot 1:11-14",
+      "url": "https://www.sefaria.org/Zohar,_Toldot.1.11-14",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zohar%2C%20Toldot%201%3A11-14"
+    },
+    "Zohar, Toldot 1:4-8": {
+      "ref": "Zohar, Toldot 1:4-8",
+      "url": "https://www.sefaria.org/Zohar,_Toldot.1.4-8",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zohar%2C%20Toldot%201%3A4-8"
+    },
+    "Zohar, Toldot 1:8-11": {
+      "ref": "Zohar, Toldot 1:8-11",
+      "url": "https://www.sefaria.org/Zohar,_Toldot.1.8-11",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zohar%2C%20Toldot%201%3A8-11"
+    },
+    "Zohar, Toldot 2:18-3:21": {
+      "ref": "Zohar, Toldot 2:18-3:21",
+      "url": "https://www.sefaria.org/Zohar,_Toldot.2.18-3.21",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zohar%2C%20Toldot%202%3A18-3%3A21"
+    },
+    "Zohar, Toldot 9:73-10:79": {
+      "ref": "Zohar, Toldot 9:73-10:79",
+      "url": "https://www.sefaria.org/Zohar,_Toldot.9.73-10.79",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zohar%2C%20Toldot%209%3A73-10%3A79"
+    },
+    "Zohar, Vaera 2:26-3:34": {
+      "ref": "Zohar, Vaera 2:26-3:34",
+      "url": "https://www.sefaria.org/Zohar,_Vaera.2.26-3.34",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zohar%2C%20Vaera%202%3A26-3%3A34"
+    },
+    "Zohar, Vayechi": {
+      "ref": "Zohar, Vayechi",
+      "url": "https://www.sefaria.org/Zohar,_Vayechi",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zohar%2C%20Vayechi"
+    },
+    "Zohar, Vayeilech 2:9-3:17": {
+      "ref": "Zohar, Vayeilech 2:9-3:17",
+      "url": "https://www.sefaria.org/Zohar,_Vayeilech.2.9-3.17",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zohar%2C%20Vayeilech%202%3A9-3%3A17"
+    },
+    "Zohar, Vayera 33:494-35:506": {
+      "ref": "Zohar, Vayera 33:494-35:506",
+      "url": "https://www.sefaria.org/Zohar,_Vayera.33.494-35.506",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zohar%2C%20Vayera%2033%3A494-35%3A506"
+    },
+    "Zohar, Vayera 9:153-164": {
+      "ref": "Zohar, Vayera 9:153-164",
+      "url": "https://www.sefaria.org/Zohar,_Vayera.9.153-164",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zohar%2C%20Vayera%209%3A153-164"
+    },
+    "Zohar, Vayetzei 30:294-31:305": {
+      "ref": "Zohar, Vayetzei 30:294-31:305",
+      "url": "https://www.sefaria.org/Zohar,_Vayetzei.30.294-31.305",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zohar%2C%20Vayetzei%2030%3A294-31%3A305"
+    },
+    "Zohar, Vayigash 5:36-46": {
+      "ref": "Zohar, Vayigash 5:36-46",
+      "url": "https://www.sefaria.org/Zohar,_Vayigash.5.36-46",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zohar%2C%20Vayigash%205%3A36-46"
+    },
+    "Zohar, Vayishlach 4:86-6:94": {
+      "ref": "Zohar, Vayishlach 4:86-6:94",
+      "url": "https://www.sefaria.org/Zohar,_Vayishlach.4.86-6.94",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zohar%2C%20Vayishlach%204%3A86-6%3A94"
+    },
+    "Zohar, Yitro 23:421-24:431": {
+      "ref": "Zohar, Yitro 23:421-24:431",
+      "url": "https://www.sefaria.org/Zohar,_Yitro.23.421-24.431",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zohar%2C%20Yitro%2023%3A421-24%3A431"
+    },
+    "Zohar, Yitro 26:441-27:453": {
+      "ref": "Zohar, Yitro 26:441-27:453",
+      "url": "https://www.sefaria.org/Zohar,_Yitro.26.441-27.453",
+      "verified": true,
+      "api": "https://www.sefaria.org/api/v3/texts/Zohar%2C%20Yitro%2026%3A441-27%3A453"
+    }
+  },
+  "paragraphAnchors": [
+    [
+      {
+        "ref": "Psalms 92:1",
+        "start": 165,
+        "end": 181
+      },
+      {
+        "ref": "Psalms 92:1",
+        "start": 201,
+        "end": 212
+      },
+      {
+        "ref": "Leviticus 25:4",
+        "start": 798,
+        "end": 814
+      },
+      {
+        "ref": "Leviticus 25:4",
+        "start": 873,
+        "end": 887
+      },
+      {
+        "ref": "Zohar, Vayeilech 2:9-3:17",
+        "start": 993,
+        "end": 1007
+      },
+      {
+        "ref": "Isaiah 25:5",
+        "start": 1125,
+        "end": 1141
+      },
+      {
+        "ref": "Pesachim 118a",
+        "start": 2526,
+        "end": 2554
+      },
+      {
+        "ref": "Pesachim 118a",
+        "start": 2617,
+        "end": 2630
+      },
+      {
+        "ref": "Psalms 115:16",
+        "start": 2692,
+        "end": 2710
+      },
+      {
+        "ref": "Psalms 115:16",
+        "start": 2802,
+        "end": 2815
+      },
+      {
+        "ref": "Zohar, Emor",
+        "start": 3550,
+        "end": 3571
+      },
+      {
+        "ref": "Midrash Tanchuma, Ki Tisa 33",
+        "start": 4539,
+        "end": 4562
+      },
+      {
+        "ref": "Midrash Tanchuma, Ki Tisa 33",
+        "start": 4632,
+        "end": 4653
+      },
+      {
+        "ref": "Shabbat 30b",
+        "start": 7132,
+        "end": 7151
+      },
+      {
+        "ref": "Ketubot 111b",
+        "start": 7153,
+        "end": 7178
+      },
+      {
+        "ref": "Shabbat 30b",
+        "start": 7209,
+        "end": 7220
+      },
+      {
+        "ref": "Ketubot 111b",
+        "start": 7222,
+        "end": 7234
+      },
+      {
+        "ref": "Shabbat 73a",
+        "start": 7710,
+        "end": 7723
+      }
+    ],
+    [
+      {
+        "ref": "Makkot 24a",
+        "start": 1418,
+        "end": 1438
+      },
+      {
+        "ref": "Makkot 24a",
+        "start": 1509,
+        "end": 1519
+      },
+      {
+        "ref": "Taanit 2a",
+        "start": 1816,
+        "end": 1842
+      },
+      {
+        "ref": "Taanit 2a",
+        "start": 1970,
+        "end": 1980
+      },
+      {
+        "ref": "Zohar, Toldot 1:4-8",
+        "start": 2535,
+        "end": 2546
+      },
+      {
+        "ref": "Berakhot 33b",
+        "start": 2732,
+        "end": 2754
+      },
+      {
+        "ref": "Berakhot 33b",
+        "start": 2790,
+        "end": 2802
+      },
+      {
+        "ref": "Midrash Tanchuma, Toldot 1",
+        "start": 6255,
+        "end": 6279
+      },
+      {
+        "ref": "Midrash Tanchuma, Toldot 1",
+        "start": 6313,
+        "end": 6332
+      },
+      {
+        "ref": "Zohar, Toldot 1:4-8",
+        "start": 8108,
+        "end": 8119
+      }
+    ],
+    [
+      {
+        "ref": "Zohar, Toldot",
+        "start": 259,
+        "end": 270
+      },
+      {
+        "ref": "Psalms 106:2",
+        "start": 360,
+        "end": 376
+      },
+      {
+        "ref": "Psalms 106:2",
+        "start": 458,
+        "end": 470
+      },
+      {
+        "ref": "Zohar, Vayechi",
+        "start": 760,
+        "end": 785
+      },
+      {
+        "ref": "Deuteronomy 23:25",
+        "start": 984,
+        "end": 1000
+      },
+      {
+        "ref": "Deuteronomy 23:25",
+        "start": 1089,
+        "end": 1106
+      },
+      {
+        "ref": "I Kings 5:12",
+        "start": 1319,
+        "end": 1335
+      },
+      {
+        "ref": "I Kings 5:12",
+        "start": 1435,
+        "end": 1447
+      },
+      {
+        "ref": "Zohar, Toldot 1:1-4",
+        "start": 2704,
+        "end": 2715
+      },
+      {
+        "ref": "Job 35:11",
+        "start": 3294,
+        "end": 3308
+      },
+      {
+        "ref": "Job 35:11",
+        "start": 3395,
+        "end": 3404
+      },
+      {
+        "ref": "Eruvin 100b",
+        "start": 3532,
+        "end": 3554
+      },
+      {
+        "ref": "Eruvin 100b",
+        "start": 3598,
+        "end": 3609
+      },
+      {
+        "ref": "Genesis 1:6",
+        "start": 4923,
+        "end": 4939
+      },
+      {
+        "ref": "Genesis 1:6",
+        "start": 4990,
+        "end": 5001
+      },
+      {
+        "ref": "Zohar, Sh'lach 10:75-11:84",
+        "start": 5245,
+        "end": 5257
+      },
+      {
+        "ref": "Song of Songs 4:15",
+        "start": 5889,
+        "end": 5912
+      },
+      {
+        "ref": "Zohar, Toldot 1:8-11",
+        "start": 5962,
+        "end": 5973
+      },
+      {
+        "ref": "Song of Songs 4:15",
+        "start": 5989,
+        "end": 6007
+      },
+      {
+        "ref": "Genesis 25:11",
+        "start": 6411,
+        "end": 6429
+      },
+      {
+        "ref": "Genesis 25:11",
+        "start": 6549,
+        "end": 6562
+      },
+      {
+        "ref": "Isaiah 43:7",
+        "start": 7089,
+        "end": 7105
+      },
+      {
+        "ref": "Isaiah 43:7",
+        "start": 7187,
+        "end": 7198
+      },
+      {
+        "ref": "Pesachim 87b",
+        "start": 8314,
+        "end": 8336
+      },
+      {
+        "ref": "Pesachim 87b",
+        "start": 8451,
+        "end": 8463
+      }
+    ],
+    [
+      {
+        "ref": "Genesis 25:28",
+        "start": 667,
+        "end": 685
+      },
+      {
+        "ref": "Genesis 25:28",
+        "start": 746,
+        "end": 759
+      },
+      {
+        "ref": "Horayot 13b",
+        "start": 1277,
+        "end": 1299
+      },
+      {
+        "ref": "Horayot 13b",
+        "start": 1330,
+        "end": 1341
+      },
+      {
+        "ref": "Zohar, Vaera 2:26-3:34",
+        "start": 1759,
+        "end": 1769
+      },
+      {
+        "ref": "Genesis 27:1",
+        "start": 1934,
+        "end": 1951
+      },
+      {
+        "ref": "Genesis 27:1",
+        "start": 2024,
+        "end": 2036
+      },
+      {
+        "ref": "Zohar, Toldot 15:119-16:128",
+        "start": 2320,
+        "end": 2331
+      },
+      {
+        "ref": "Genesis 1:5",
+        "start": 2535,
+        "end": 2551
+      },
+      {
+        "ref": "Sukkah 14a",
+        "start": 3101,
+        "end": 3111
+      },
+      {
+        "ref": "Isaiah 42:19",
+        "start": 3204,
+        "end": 3221
+      },
+      {
+        "ref": "Isaiah 42:19",
+        "start": 3259,
+        "end": 3271
+      },
+      {
+        "ref": "Genesis 24:62",
+        "start": 3817,
+        "end": 3835
+      },
+      {
+        "ref": "Genesis 24:62",
+        "start": 3946,
+        "end": 3959
+      },
+      {
+        "ref": "Mei HaShiloach, Volume II, Genesis, Toldot",
+        "start": 5189,
+        "end": 5220
+      },
+      {
+        "ref": "Zohar, Mishpatim 3:14-23",
+        "start": 6994,
+        "end": 7007
+      },
+      {
+        "ref": "Proverbs 16:4",
+        "start": 7543,
+        "end": 7557
+      },
+      {
+        "ref": "Proverbs 16:4",
+        "start": 7635,
+        "end": 7648
+      }
+    ],
+    [
+      {
+        "ref": "Shabbat 89b",
+        "start": 471,
+        "end": 491
+      },
+      {
+        "ref": "Shabbat 89b",
+        "start": 554,
+        "end": 565
+      },
+      {
+        "ref": "Proverbs 31:23",
+        "start": 2362,
+        "end": 2377
+      },
+      {
+        "ref": "Zohar, Vayera 9:153-164",
+        "start": 2449,
+        "end": 2461
+      },
+      {
+        "ref": "Proverbs 31:23",
+        "start": 2477,
+        "end": 2491
+      },
+      {
+        "ref": "Psalms 24:7",
+        "start": 2929,
+        "end": 2945
+      },
+      {
+        "ref": "Zohar, Mishpatim 3:264-275",
+        "start": 3539,
+        "end": 3560
+      },
+      {
+        "ref": "Zohar, Shmini 9:87-13:96",
+        "start": 3904,
+        "end": 3915
+      },
+      {
+        "ref": "Proverbs 29:4",
+        "start": 3956,
+        "end": 3970
+      },
+      {
+        "ref": "Proverbs 29:4",
+        "start": 4018,
+        "end": 4031
+      },
+      {
+        "ref": "Isaiah 55:3",
+        "start": 4716,
+        "end": 4732
+      },
+      {
+        "ref": "Sanhedrin 63a",
+        "start": 6437,
+        "end": 6450
+      },
+      {
+        "ref": "Berakhot 51a",
+        "start": 7796,
+        "end": 7818
+      },
+      {
+        "ref": "Berakhot 51a",
+        "start": 7922,
+        "end": 7934
+      },
+      {
+        "ref": "Zohar, Vayechi",
+        "start": 8099,
+        "end": 8124
+      },
+      {
+        "ref": "Berakhot 57a",
+        "start": 8728,
+        "end": 8750
+      },
+      {
+        "ref": "Berakhot 57a",
+        "start": 8883,
+        "end": 8895
+      }
+    ],
+    [
+      {
+        "ref": "Psalms 106:2",
+        "start": 228,
+        "end": 244
+      },
+      {
+        "ref": "Zohar, Toldot",
+        "start": 266,
+        "end": 277
+      },
+      {
+        "ref": "Psalms 106:2",
+        "start": 301,
+        "end": 313
+      },
+      {
+        "ref": "Zohar, Vayechi",
+        "start": 760,
+        "end": 785
+      },
+      {
+        "ref": "Deuteronomy 23:25",
+        "start": 814,
+        "end": 830
+      },
+      {
+        "ref": "Deuteronomy 23:25",
+        "start": 885,
+        "end": 902
+      },
+      {
+        "ref": "Zohar, Toldot 1:1-4",
+        "start": 2387,
+        "end": 2398
+      }
+    ],
+    [
+      {
+        "ref": "Zohar, Toldot 14:108-15:119",
+        "start": 128,
+        "end": 139
+      },
+      {
+        "ref": "Genesis 1:5",
+        "start": 182,
+        "end": 198
+      },
+      {
+        "ref": "Genesis 1:5",
+        "start": 234,
+        "end": 245
+      },
+      {
+        "ref": "Genesis 24:1",
+        "start": 526,
+        "end": 543
+      },
+      {
+        "ref": "Genesis 24:1",
+        "start": 620,
+        "end": 632
+      },
+      {
+        "ref": "Proverbs 4:18",
+        "start": 748,
+        "end": 762
+      },
+      {
+        "ref": "Proverbs 4:18",
+        "start": 868,
+        "end": 881
+      },
+      {
+        "ref": "Chullin 60b",
+        "start": 2083,
+        "end": 2094
+      },
+      {
+        "ref": "Zohar, Mishpatim 3:293-301",
+        "start": 4906,
+        "end": 4920
+      },
+      {
+        "ref": "Genesis 24:1",
+        "start": 5448,
+        "end": 5465
+      },
+      {
+        "ref": "Genesis 24:1",
+        "start": 5523,
+        "end": 5535
+      },
+      {
+        "ref": "Zohar, Vayechi",
+        "start": 5660,
+        "end": 5685
+      },
+      {
+        "ref": "Genesis 47:29",
+        "start": 6046,
+        "end": 6064
+      },
+      {
+        "ref": "Proverbs 4:18",
+        "start": 6492,
+        "end": 6506
+      },
+      {
+        "ref": "Proverbs 4:18",
+        "start": 6595,
+        "end": 6608
+      },
+      {
+        "ref": "Zohar, Toldot 15:119-16:128",
+        "start": 7316,
+        "end": 7348
+      },
+      {
+        "ref": "Zohar, Toldot 15:119-16:128",
+        "start": 7454,
+        "end": 7465
+      },
+      {
+        "ref": "Psalms 18:12",
+        "start": 7767,
+        "end": 7784
+      }
+    ],
+    [
+      {
+        "ref": "Zohar, Toldot 1:11-14",
+        "start": 1809,
+        "end": 1855
+      },
+      {
+        "ref": "Zohar, Toldot 1:11-14",
+        "start": 1975,
+        "end": 1986
+      },
+      {
+        "ref": "Pesachim 88a",
+        "start": 2121,
+        "end": 2143
+      },
+      {
+        "ref": "Pesachim 88a",
+        "start": 2239,
+        "end": 2251
+      },
+      {
+        "ref": "Zohar, Bereshit",
+        "start": 5104,
+        "end": 5130
+      },
+      {
+        "ref": "Zohar, Toldot 14:108-15:119",
+        "start": 6142,
+        "end": 6153
+      },
+      {
+        "ref": "Genesis 25:21",
+        "start": 6516,
+        "end": 6534
+      },
+      {
+        "ref": "Sukkah 14a",
+        "start": 6872,
+        "end": 6882
+      }
+    ],
+    [
+      {
+        "ref": "Genesis 22:7",
+        "start": 3685,
+        "end": 3702
+      },
+      {
+        "ref": "Zohar, Vayera 33:494-35:506",
+        "start": 3785,
+        "end": 3797
+      },
+      {
+        "ref": "Mishnah Avot 2:4",
+        "start": 5952,
+        "end": 5979
+      },
+      {
+        "ref": "Pirkei Avot 2:4",
+        "start": 6029,
+        "end": 6037
+      },
+      {
+        "ref": "Pesachim 119b",
+        "start": 6799,
+        "end": 6822
+      },
+      {
+        "ref": "Pesachim 119b",
+        "start": 6973,
+        "end": 6986
+      }
+    ],
+    [
+      {
+        "ref": "Psalms 106:2",
+        "start": 236,
+        "end": 252
+      },
+      {
+        "ref": "Zohar, Toldot",
+        "start": 274,
+        "end": 285
+      },
+      {
+        "ref": "Psalms 106:2",
+        "start": 318,
+        "end": 330
+      },
+      {
+        "ref": "I Kings 5:12",
+        "start": 1446,
+        "end": 1462
+      },
+      {
+        "ref": "I Kings 5:12",
+        "start": 1588,
+        "end": 1600
+      },
+      {
+        "ref": "Bereshit Rabbah 1:4",
+        "start": 2751,
+        "end": 2781
+      },
+      {
+        "ref": "Hosea 9:10",
+        "start": 2834,
+        "end": 2847
+      },
+      {
+        "ref": "Hosea 9:10",
+        "start": 2916,
+        "end": 2926
+      },
+      {
+        "ref": "Zohar, Balak",
+        "start": 4178,
+        "end": 4201
+      },
+      {
+        "ref": "Zohar, Mishpatim 22:528-536",
+        "start": 4572,
+        "end": 4586
+      },
+      {
+        "ref": "Genesis 25:11",
+        "start": 4948,
+        "end": 4966
+      },
+      {
+        "ref": "Genesis 25:11",
+        "start": 5031,
+        "end": 5044
+      },
+      {
+        "ref": "Zohar, Acharei Mot",
+        "start": 5418,
+        "end": 5446
+      },
+      {
+        "ref": "Mishnah Avot 4:15",
+        "start": 5794,
+        "end": 5822
+      },
+      {
+        "ref": "Pirkei Avot 4:15",
+        "start": 5926,
+        "end": 5935
+      },
+      {
+        "ref": "Zohar, Toldot 1:4-8",
+        "start": 6389,
+        "end": 6419
+      },
+      {
+        "ref": "Zohar, Toldot 1:4-8",
+        "start": 6486,
+        "end": 6503
+      },
+      {
+        "ref": "Zohar, Toldot 15:119-16:128",
+        "start": 6618,
+        "end": 6629
+      },
+      {
+        "ref": "Shabbat 89b",
+        "start": 7606,
+        "end": 7626
+      },
+      {
+        "ref": "Zohar, Toldot 1:11-14",
+        "start": 7696,
+        "end": 7707
+      },
+      {
+        "ref": "Shabbat 89b",
+        "start": 7796,
+        "end": 7807
+      },
+      {
+        "ref": "Zohar, Beshalach",
+        "start": 8418,
+        "end": 8444
+      },
+      {
+        "ref": "Rosh Hashanah 11a",
+        "start": 8905,
+        "end": 8933
+      },
+      {
+        "ref": "Rosh Hashanah 11a",
+        "start": 9047,
+        "end": 9064
+      },
+      {
+        "ref": "Psalms 27:4",
+        "start": 10502,
+        "end": 10518
+      },
+      {
+        "ref": "Eruvin 13b",
+        "start": 11109,
+        "end": 11132
+      },
+      {
+        "ref": "Eruvin 13b",
+        "start": 11263,
+        "end": 11273
+      }
+    ],
+    [
+      {
+        "ref": "Psalms 106:2",
+        "start": 236,
+        "end": 252
+      },
+      {
+        "ref": "Zohar, Toldot",
+        "start": 332,
+        "end": 343
+      },
+      {
+        "ref": "Psalms 106:2",
+        "start": 376,
+        "end": 388
+      },
+      {
+        "ref": "Psalms 104:24",
+        "start": 5627,
+        "end": 5644
+      },
+      {
+        "ref": "Psalms 104:24",
+        "start": 5748,
+        "end": 5761
+      },
+      {
+        "ref": "Ecclesiastes 7:23",
+        "start": 6320,
+        "end": 6333
+      },
+      {
+        "ref": "Ecclesiastes 7:23",
+        "start": 6396,
+        "end": 6413
+      },
+      {
+        "ref": "Psalms 119:18",
+        "start": 6482,
+        "end": 6500
+      },
+      {
+        "ref": "Psalms 119:18",
+        "start": 6551,
+        "end": 6564
+      },
+      {
+        "ref": "I Kings 5:12",
+        "start": 6718,
+        "end": 6734
+      },
+      {
+        "ref": "Makkot 10b",
+        "start": 8163,
+        "end": 8182
+      },
+      {
+        "ref": "Makkot 10b",
+        "start": 8247,
+        "end": 8257
+      }
+    ],
+    [
+      {
+        "ref": "Zohar, Metzora",
+        "start": 464,
+        "end": 475
+      },
+      {
+        "ref": "Shabbat 10b",
+        "start": 1717,
+        "end": 1736
+      },
+      {
+        "ref": "Shabbat 10b",
+        "start": 1797,
+        "end": 1808
+      },
+      {
+        "ref": "Shabbat 30b",
+        "start": 2145,
+        "end": 2164
+      },
+      {
+        "ref": "Shabbat 30b",
+        "start": 2262,
+        "end": 2273
+      },
+      {
+        "ref": "Genesis 24:1",
+        "start": 3309,
+        "end": 3326
+      },
+      {
+        "ref": "Genesis 24:1",
+        "start": 3415,
+        "end": 3427
+      },
+      {
+        "ref": "Proverbs 4:18",
+        "start": 4739,
+        "end": 4753
+      },
+      {
+        "ref": "Genesis 27:33",
+        "start": 5126,
+        "end": 5144
+      },
+      {
+        "ref": "Genesis 27:33",
+        "start": 5206,
+        "end": 5219
+      },
+      {
+        "ref": "Zohar, Toldot 15:119-16:128",
+        "start": 6034,
+        "end": 6045
+      },
+      {
+        "ref": "Zohar, Vaera 2:26-3:34",
+        "start": 6507,
+        "end": 6517
+      },
+      {
+        "ref": "Genesis 33:11",
+        "start": 6864,
+        "end": 6882
+      },
+      {
+        "ref": "Genesis 33:11",
+        "start": 6939,
+        "end": 6952
+      },
+      {
+        "ref": "Genesis 48:10",
+        "start": 7653,
+        "end": 7670
+      },
+      {
+        "ref": "Zohar, Toldot 15:119-16:128",
+        "start": 7983,
+        "end": 7994
+      }
+    ],
+    [
+      {
+        "ref": "Psalms 106:2",
+        "start": 236,
+        "end": 252
+      },
+      {
+        "ref": "Zohar, Toldot",
+        "start": 274,
+        "end": 285
+      },
+      {
+        "ref": "Psalms 106:2",
+        "start": 318,
+        "end": 330
+      },
+      {
+        "ref": "Zohar, Vayechi",
+        "start": 598,
+        "end": 623
+      },
+      {
+        "ref": "Deuteronomy 23:26",
+        "start": 652,
+        "end": 668
+      },
+      {
+        "ref": "Deuteronomy 23:26",
+        "start": 723,
+        "end": 740
+      },
+      {
+        "ref": "Job 41:10",
+        "start": 1439,
+        "end": 1452
+      },
+      {
+        "ref": "Job 41:10",
+        "start": 1560,
+        "end": 1569
+      },
+      {
+        "ref": "Genesis 15:6",
+        "start": 2020,
+        "end": 2037
+      },
+      {
+        "ref": "Genesis 15:6",
+        "start": 2095,
+        "end": 2107
+      },
+      {
+        "ref": "Berakhot 33b",
+        "start": 3699,
+        "end": 3721
+      },
+      {
+        "ref": "Berakhot 33b",
+        "start": 3752,
+        "end": 3764
+      }
+    ],
+    [
+      {
+        "ref": "Psalms 106:2",
+        "start": 236,
+        "end": 252
+      },
+      {
+        "ref": "Zohar, Toldot",
+        "start": 332,
+        "end": 343
+      },
+      {
+        "ref": "Psalms 106:2",
+        "start": 376,
+        "end": 388
+      },
+      {
+        "ref": "Zohar, Bereshit",
+        "start": 2881,
+        "end": 2907
+      },
+      {
+        "ref": "Zohar, Toldot 1:4-8",
+        "start": 3923,
+        "end": 3934
+      },
+      {
+        "ref": "Psalms 104:24",
+        "start": 6296,
+        "end": 6313
+      },
+      {
+        "ref": "Psalms 104:24",
+        "start": 6445,
+        "end": 6458
+      }
+    ],
+    [
+      {
+        "ref": "Isaiah 65:16",
+        "start": 3829,
+        "end": 3846
+      },
+      {
+        "ref": "Isaiah 65:16",
+        "start": 3984,
+        "end": 3996
+      }
+    ],
+    [
+      {
+        "ref": "Genesis 22:20",
+        "start": 73,
+        "end": 90
+      },
+      {
+        "ref": "Genesis 22:20",
+        "start": 247,
+        "end": 260
+      },
+      {
+        "ref": "Midrash Tanchuma, Vayechi 15",
+        "start": 679,
+        "end": 701
+      },
+      {
+        "ref": "Genesis 49:28",
+        "start": 716,
+        "end": 734
+      },
+      {
+        "ref": "Midrash Tanchuma, Vayechi 15",
+        "start": 802,
+        "end": 823
+      },
+      {
+        "ref": "Genesis 49:28",
+        "start": 838,
+        "end": 851
+      },
+      {
+        "ref": "Genesis 16:12",
+        "start": 2201,
+        "end": 2219
+      },
+      {
+        "ref": "Genesis 16:12",
+        "start": 2294,
+        "end": 2307
+      },
+      {
+        "ref": "Zohar, Yitro 23:421-24:431",
+        "start": 2603,
+        "end": 2612
+      },
+      {
+        "ref": "Isaiah 43:7",
+        "start": 6041,
+        "end": 6057
+      },
+      {
+        "ref": "Isaiah 43:7",
+        "start": 6184,
+        "end": 6195
+      }
+    ],
+    [
+      {
+        "ref": "Zohar, Vayechi",
+        "start": 101,
+        "end": 126
+      },
+      {
+        "ref": "Deuteronomy 23:26",
+        "start": 186,
+        "end": 202
+      },
+      {
+        "ref": "Deuteronomy 23:26",
+        "start": 299,
+        "end": 316
+      },
+      {
+        "ref": "Psalms 145:11",
+        "start": 3191,
+        "end": 3209
+      },
+      {
+        "ref": "Psalms 145:11",
+        "start": 3372,
+        "end": 3385
+      },
+      {
+        "ref": "Isaiah 43:1",
+        "start": 4243,
+        "end": 4259
+      },
+      {
+        "ref": "Isaiah 43:1",
+        "start": 4359,
+        "end": 4370
+      },
+      {
+        "ref": "Zohar, Toldot 1:4-8",
+        "start": 4861,
+        "end": 4872
+      },
+      {
+        "ref": "Zohar, Yitro 23:421-24:431",
+        "start": 6641,
+        "end": 6650
+      },
+      {
+        "ref": "Bereshit Rabbah 39:8",
+        "start": 7020,
+        "end": 7051
+      }
+    ],
+    [
+      {
+        "ref": "Shabbat 128b",
+        "start": 1264,
+        "end": 1285
+      },
+      {
+        "ref": "Shabbat 128b",
+        "start": 1396,
+        "end": 1408
+      },
+      {
+        "ref": "Genesis 22:17",
+        "start": 4749,
+        "end": 4767
+      },
+      {
+        "ref": "Genesis 22:17",
+        "start": 4870,
+        "end": 4883
+      }
+    ],
+    [
+      {
+        "ref": "Hosea 10:12",
+        "start": 165,
+        "end": 179
+      },
+      {
+        "ref": "Hosea 10:12",
+        "start": 244,
+        "end": 255
+      },
+      {
+        "ref": "Sukkah 49b",
+        "start": 495,
+        "end": 505
+      },
+      {
+        "ref": "Berakhot 32b",
+        "start": 1981,
+        "end": 2003
+      },
+      {
+        "ref": "Berakhot 32b",
+        "start": 2103,
+        "end": 2115
+      },
+      {
+        "ref": "Mishnah Avot 2:4",
+        "start": 2417,
+        "end": 2444
+      },
+      {
+        "ref": "Pirkei Avot 2:4",
+        "start": 2520,
+        "end": 2528
+      },
+      {
+        "ref": "Pirkei Avot 1:3",
+        "start": 3119,
+        "end": 3127
+      },
+      {
+        "ref": "Ecclesiastes 3:9",
+        "start": 4051,
+        "end": 4063
+      },
+      {
+        "ref": "Ecclesiastes 3:9",
+        "start": 4172,
+        "end": 4188
+      },
+      {
+        "ref": "Shabbat 31a",
+        "start": 4669,
+        "end": 4689
+      },
+      {
+        "ref": "Shabbat 31a",
+        "start": 4754,
+        "end": 4765
+      },
+      {
+        "ref": "Psalms 104:14",
+        "start": 5332,
+        "end": 5349
+      },
+      {
+        "ref": "Psalms 104:14",
+        "start": 5428,
+        "end": 5441
+      }
+    ],
+    [
+      {
+        "ref": "Midrash Tanchuma, Miketz 5",
+        "start": 143,
+        "end": 163
+      },
+      {
+        "ref": "Genesis 26:12",
+        "start": 194,
+        "end": 212
+      },
+      {
+        "ref": "Midrash Tanchuma, Miketz 5",
+        "start": 254,
+        "end": 273
+      },
+      {
+        "ref": "Genesis 26:12",
+        "start": 306,
+        "end": 319
+      },
+      {
+        "ref": "Arakhin 29a",
+        "start": 1211,
+        "end": 1232
+      },
+      {
+        "ref": "Arakhin 29a",
+        "start": 1380,
+        "end": 1391
+      },
+      {
+        "ref": "Isaiah 43:7",
+        "start": 1846,
+        "end": 1862
+      },
+      {
+        "ref": "Shabbat 89b",
+        "start": 2363,
+        "end": 2383
+      },
+      {
+        "ref": "Shabbat 89b",
+        "start": 2488,
+        "end": 2499
+      },
+      {
+        "ref": "Genesis 26:12",
+        "start": 2842,
+        "end": 2860
+      },
+      {
+        "ref": "Genesis 26:12",
+        "start": 2947,
+        "end": 2960
+      },
+      {
+        "ref": "Midrash Tanchuma, Tazria 4",
+        "start": 3407,
+        "end": 3431
+      },
+      {
+        "ref": "Midrash Tanchuma, Tazria 4",
+        "start": 3553,
+        "end": 3571
+      },
+      {
+        "ref": "Avot DeRabbi Natan 5",
+        "start": 4155,
+        "end": 4181
+      },
+      {
+        "ref": "Isaiah 45:19",
+        "start": 4583,
+        "end": 4600
+      },
+      {
+        "ref": "Isaiah 45:19",
+        "start": 4703,
+        "end": 4715
+      },
+      {
+        "ref": "Jeremiah 19:5",
+        "start": 4956,
+        "end": 4971
+      },
+      {
+        "ref": "Jeremiah 19:5",
+        "start": 5041,
+        "end": 5054
+      },
+      {
+        "ref": "Taanit 4a",
+        "start": 5154,
+        "end": 5175
+      },
+      {
+        "ref": "Taanit 4a",
+        "start": 5246,
+        "end": 5256
+      },
+      {
+        "ref": "Job 37:23",
+        "start": 5956,
+        "end": 5970
+      },
+      {
+        "ref": "Job 37:23",
+        "start": 6082,
+        "end": 6091
+      }
+    ],
+    [
+      {
+        "ref": "Genesis 24:63",
+        "start": 521,
+        "end": 539
+      },
+      {
+        "ref": "Berakhot 26b",
+        "start": 607,
+        "end": 629
+      },
+      {
+        "ref": "Genesis 24:63",
+        "start": 707,
+        "end": 720
+      },
+      {
+        "ref": "Berakhot 26b",
+        "start": 810,
+        "end": 822
+      },
+      {
+        "ref": "Berakhot 34b",
+        "start": 897,
+        "end": 919
+      },
+      {
+        "ref": "Berakhot 34b",
+        "start": 1007,
+        "end": 1019
+      },
+      {
+        "ref": "Zohar, Bo 7:151-8:164",
+        "start": 1241,
+        "end": 1247
+      },
+      {
+        "ref": "Zohar, Beshalach 23:326-24:331",
+        "start": 1249,
+        "end": 1262
+      },
+      {
+        "ref": "Zohar, Beshalach 25:339-26:348",
+        "start": 1264,
+        "end": 1267
+      },
+      {
+        "ref": "Daniel 6:11",
+        "start": 1667,
+        "end": 1683
+      },
+      {
+        "ref": "Daniel 6:11",
+        "start": 1786,
+        "end": 1797
+      },
+      {
+        "ref": "Psalms 8:5",
+        "start": 2670,
+        "end": 2685
+      },
+      {
+        "ref": "Mishnah Avot 2:4",
+        "start": 4207,
+        "end": 4234
+      },
+      {
+        "ref": "Pirkei Avot 2:4",
+        "start": 4412,
+        "end": 4420
+      },
+      {
+        "ref": "Zohar, Beshalach 25:339-26:348",
+        "start": 4942,
+        "end": 4970
+      },
+      {
+        "ref": "Zohar, Beshalach 25:339-26:348",
+        "start": 5033,
+        "end": 5052
+      },
+      {
+        "ref": "Taanit 22b",
+        "start": 6147,
+        "end": 6169
+      },
+      {
+        "ref": "Taanit 22b",
+        "start": 6257,
+        "end": 6268
+      },
+      {
+        "ref": "Zohar, Toldot 1:11-14",
+        "start": 7704,
+        "end": 7715
+      },
+      {
+        "ref": "Berakhot 16b",
+        "start": 7874,
+        "end": 7896
+      },
+      {
+        "ref": "Berakhot 16b",
+        "start": 8032,
+        "end": 8044
+      },
+      {
+        "ref": "Zohar, Terumah",
+        "start": 8512,
+        "end": 8537
+      },
+      {
+        "ref": "Leviticus 26:5",
+        "start": 8958,
+        "end": 8974
+      },
+      {
+        "ref": "Leviticus 26:5",
+        "start": 9080,
+        "end": 9094
+      }
+    ],
+    [
+      {
+        "ref": "Midrash Tanchuma, Toldot 5",
+        "start": 159,
+        "end": 184
+      },
+      {
+        "ref": "Isaiah 54:17",
+        "start": 211,
+        "end": 228
+      },
+      {
+        "ref": "Midrash Tanchuma, Toldot 5",
+        "start": 342,
+        "end": 361
+      },
+      {
+        "ref": "Isaiah 54:17",
+        "start": 394,
+        "end": 406
+      },
+      {
+        "ref": "Lamentations 3:63",
+        "start": 908,
+        "end": 920
+      },
+      {
+        "ref": "Lamentations 3:63",
+        "start": 994,
+        "end": 1011
+      },
+      {
+        "ref": "Exodus 1:22",
+        "start": 1315,
+        "end": 1328
+      },
+      {
+        "ref": "Exodus 1:22",
+        "start": 1416,
+        "end": 1427
+      },
+      {
+        "ref": "Lamentations 3:37",
+        "start": 1458,
+        "end": 1470
+      },
+      {
+        "ref": "Lamentations 3:37",
+        "start": 1544,
+        "end": 1561
+      },
+      {
+        "ref": "Deuteronomy 32:30",
+        "start": 1986,
+        "end": 2001
+      },
+      {
+        "ref": "Deuteronomy 32:30",
+        "start": 2069,
+        "end": 2086
+      },
+      {
+        "ref": "Genesis 15:13",
+        "start": 3332,
+        "end": 3350
+      },
+      {
+        "ref": "Esther 9:1",
+        "start": 5296,
+        "end": 5309
+      },
+      {
+        "ref": "Esther 9:1",
+        "start": 5472,
+        "end": 5482
+      },
+      {
+        "ref": "Zohar, Emor",
+        "start": 5579,
+        "end": 5601
+      },
+      {
+        "ref": "Psalms 112:2",
+        "start": 6110,
+        "end": 6127
+      }
+    ],
+    [
+      {
+        "ref": "Midrash Tanchuma, Toldot 1",
+        "start": 57,
+        "end": 82
+      },
+      {
+        "ref": "Midrash Tanchuma, Toldot 1",
+        "start": 157,
+        "end": 176
+      },
+      {
+        "ref": "Zohar, Mishpatim 3:101-110",
+        "start": 1253,
+        "end": 1266
+      },
+      {
+        "ref": "Zohar, Acharei Mot",
+        "start": 2196,
+        "end": 2224
+      },
+      {
+        "ref": "Midrash Tanchuma, Vayera 15",
+        "start": 4208,
+        "end": 4231
+      },
+      {
+        "ref": "Ezekiel 17:24",
+        "start": 4246,
+        "end": 4263
+      },
+      {
+        "ref": "Midrash Tanchuma, Vayera 15",
+        "start": 4377,
+        "end": 4398
+      },
+      {
+        "ref": "Ezekiel 17:24",
+        "start": 4413,
+        "end": 4426
+      },
+      {
+        "ref": "Proverbs 29:4",
+        "start": 4941,
+        "end": 4955
+      },
+      {
+        "ref": "Proverbs 29:4",
+        "start": 5111,
+        "end": 5124
+      },
+      {
+        "ref": "Zohar, Shmini 9:87-13:96",
+        "start": 5323,
+        "end": 5334
+      }
+    ],
+    [
+      {
+        "ref": "Midrash Tanchuma, Toldot 1",
+        "start": 10,
+        "end": 34
+      },
+      {
+        "ref": "Midrash Tanchuma, Toldot 1",
+        "start": 113,
+        "end": 132
+      },
+      {
+        "ref": "Isaiah 43:6",
+        "start": 1663,
+        "end": 1679
+      },
+      {
+        "ref": "Isaiah 43:6",
+        "start": 1775,
+        "end": 1786
+      },
+      {
+        "ref": "Zohar, Sh'lach 43:298-306",
+        "start": 1959,
+        "end": 1971
+      },
+      {
+        "ref": "Genesis 20:1",
+        "start": 2475,
+        "end": 2491
+      },
+      {
+        "ref": "Zohar, Toldot 1:11-14",
+        "start": 3276,
+        "end": 3322
+      },
+      {
+        "ref": "Zohar, Toldot 1:11-14",
+        "start": 3433,
+        "end": 3444
+      },
+      {
+        "ref": "Zohar, Toldot 1:11-14",
+        "start": 5654,
+        "end": 5700
+      },
+      {
+        "ref": "Zohar, Toldot 1:11-14",
+        "start": 5816,
+        "end": 5827
+      },
+      {
+        "ref": "Midrash Tanchuma, Toldot 2",
+        "start": 5936,
+        "end": 5961
+      },
+      {
+        "ref": "Proverbs 23:24",
+        "start": 5994,
+        "end": 6009
+      },
+      {
+        "ref": "Proverbs 23:24",
+        "start": 6120,
+        "end": 6134
+      },
+      {
+        "ref": "Jeremiah 33:25",
+        "start": 6291,
+        "end": 6307
+      },
+      {
+        "ref": "Jeremiah 33:25",
+        "start": 6403,
+        "end": 6417
+      },
+      {
+        "ref": "Genesis 17:21",
+        "start": 6564,
+        "end": 6582
+      },
+      {
+        "ref": "Genesis 17:21",
+        "start": 6680,
+        "end": 6693
+      },
+      {
+        "ref": "Zohar, Toldot 1:1-4",
+        "start": 7330,
+        "end": 7341
+      }
+    ],
+    [
+      {
+        "ref": "Midrash Tanchuma, Toldot 1",
+        "start": 57,
+        "end": 82
+      },
+      {
+        "ref": "Midrash Tanchuma, Toldot 1",
+        "start": 169,
+        "end": 188
+      },
+      {
+        "ref": "I Samuel 25:26",
+        "start": 1640,
+        "end": 1658
+      },
+      {
+        "ref": "I Samuel 25:26",
+        "start": 1706,
+        "end": 1720
+      },
+      {
+        "ref": "Ecclesiastes 3:9",
+        "start": 2434,
+        "end": 2446
+      },
+      {
+        "ref": "Ecclesiastes 3:9",
+        "start": 2575,
+        "end": 2591
+      },
+      {
+        "ref": "Genesis 21:7",
+        "start": 2741,
+        "end": 2758
+      },
+      {
+        "ref": "Midrash Tanchuma, Toldot 3",
+        "start": 3014,
+        "end": 3038
+      },
+      {
+        "ref": "Midrash Tanchuma, Toldot 3",
+        "start": 3103,
+        "end": 3121
+      },
+      {
+        "ref": "Daniel 12:2",
+        "start": 7080,
+        "end": 7096
+      },
+      {
+        "ref": "Daniel 12:2",
+        "start": 7217,
+        "end": 7228
+      },
+      {
+        "ref": "Deuteronomy 32:37",
+        "start": 7397,
+        "end": 7413
+      },
+      {
+        "ref": "Pesachim 68a",
+        "start": 7921,
+        "end": 7943
+      },
+      {
+        "ref": "Pesachim 68a",
+        "start": 8005,
+        "end": 8017
+      }
+    ],
+    [
+      {
+        "ref": "Midrash Tanchuma, Toldot 6",
+        "start": 20,
+        "end": 45
+      },
+      {
+        "ref": "Midrash Tanchuma, Toldot 6",
+        "start": 127,
+        "end": 154
+      },
+      {
+        "ref": "II Samuel 3:3",
+        "start": 410,
+        "end": 426
+      },
+      {
+        "ref": "II Samuel 3:3",
+        "start": 548,
+        "end": 561
+      },
+      {
+        "ref": "Berakhot 33b",
+        "start": 2969,
+        "end": 2991
+      },
+      {
+        "ref": "Berakhot 33b",
+        "start": 3083,
+        "end": 3095
+      },
+      {
+        "ref": "Proverbs 3:14",
+        "start": 3508,
+        "end": 3522
+      },
+      {
+        "ref": "Isaiah 43:10",
+        "start": 4126,
+        "end": 4142
+      },
+      {
+        "ref": "Isaiah 43:10",
+        "start": 4276,
+        "end": 4288
+      },
+      {
+        "ref": "Zohar, Kedoshim",
+        "start": 4418,
+        "end": 4443
+      },
+      {
+        "ref": "Genesis 48:15",
+        "start": 4728,
+        "end": 4746
+      },
+      {
+        "ref": "Psalms 10:17",
+        "start": 5509,
+        "end": 5525
+      },
+      {
+        "ref": "Leviticus 26:4",
+        "start": 5994,
+        "end": 6010
+      }
+    ],
+    [
+      {
+        "ref": "Midrash Tanchuma, Toldot 1",
+        "start": 64,
+        "end": 89
+      },
+      {
+        "ref": "Midrash Tanchuma, Toldot 1",
+        "start": 222,
+        "end": 241
+      },
+      {
+        "ref": "Psalms 2:4",
+        "start": 445,
+        "end": 460
+      },
+      {
+        "ref": "Psalms 2:4",
+        "start": 594,
+        "end": 604
+      },
+      {
+        "ref": "Berakhot 31a",
+        "start": 680,
+        "end": 702
+      },
+      {
+        "ref": "Psalms 126:2",
+        "start": 787,
+        "end": 804
+      },
+      {
+        "ref": "Berakhot 31a",
+        "start": 871,
+        "end": 883
+      },
+      {
+        "ref": "Berakhot 30b",
+        "start": 1221,
+        "end": 1242
+      },
+      {
+        "ref": "Berakhot 30b",
+        "start": 1342,
+        "end": 1354
+      },
+      {
+        "ref": "Isaiah 43:6",
+        "start": 1925,
+        "end": 1941
+      },
+      {
+        "ref": "Zohar, Sh'lach 43:298-306",
+        "start": 2054,
+        "end": 2066
+      },
+      {
+        "ref": "Genesis 12:9",
+        "start": 2528,
+        "end": 2545
+      }
+    ],
+    [
+      {
+        "ref": "Shabbat 30b",
+        "start": 137,
+        "end": 156
+      },
+      {
+        "ref": "Shabbat 30b",
+        "start": 304,
+        "end": 315
+      },
+      {
+        "ref": "Zohar, Yitro 26:441-27:453",
+        "start": 607,
+        "end": 616
+      },
+      {
+        "ref": "Shabbat 73a",
+        "start": 882,
+        "end": 902
+      },
+      {
+        "ref": "Shabbat 73a",
+        "start": 953,
+        "end": 964
+      },
+      {
+        "ref": "Psalms 126:1",
+        "start": 3183,
+        "end": 3200
+      },
+      {
+        "ref": "Berakhot 56b",
+        "start": 3422,
+        "end": 3444
+      },
+      {
+        "ref": "Berakhot 56b",
+        "start": 3598,
+        "end": 3610
+      },
+      {
+        "ref": "Exodus 25:9",
+        "start": 6766,
+        "end": 6779
+      }
+    ],
+    [
+      {
+        "ref": "Genesis 12:9",
+        "start": 313,
+        "end": 330
+      },
+      {
+        "ref": "Ecclesiastes 3:9",
+        "start": 2914,
+        "end": 2926
+      },
+      {
+        "ref": "Psalms 14:7",
+        "start": 3062,
+        "end": 3078
+      },
+      {
+        "ref": "Midrash Tanchuma, Kedoshim 9",
+        "start": 3369,
+        "end": 3393
+      },
+      {
+        "ref": "Midrash Tanchuma, Kedoshim 9",
+        "start": 3457,
+        "end": 3478
+      },
+      {
+        "ref": "Midrash Tanchuma, Toldot 3",
+        "start": 5152,
+        "end": 5177
+      },
+      {
+        "ref": "Midrash Tanchuma, Toldot 3",
+        "start": 5288,
+        "end": 5307
+      }
+    ],
+    [
+      {
+        "ref": "Numbers 6:23",
+        "start": 2094,
+        "end": 2112
+      },
+      {
+        "ref": "Numbers 6:23",
+        "start": 2189,
+        "end": 2201
+      },
+      {
+        "ref": "Shabbat 89b",
+        "start": 4704,
+        "end": 4724
+      },
+      {
+        "ref": "Shabbat 89b",
+        "start": 4904,
+        "end": 4915
+      },
+      {
+        "ref": "Shabbat 89b",
+        "start": 5355,
+        "end": 5375
+      },
+      {
+        "ref": "Shabbat 89b",
+        "start": 5541,
+        "end": 5552
+      }
+    ],
+    [
+      {
+        "ref": "Eruvin 65b",
+        "start": 1943,
+        "end": 1966
+      },
+      {
+        "ref": "Eruvin 65b",
+        "start": 2097,
+        "end": 2107
+      },
+      {
+        "ref": "Ketubot 33b",
+        "start": 3276,
+        "end": 3300
+      },
+      {
+        "ref": "Ketubot 33b",
+        "start": 3426,
+        "end": 3437
+      },
+      {
+        "ref": "Job 37:23",
+        "start": 4143,
+        "end": 4157
+      },
+      {
+        "ref": "Job 37:23",
+        "start": 4277,
+        "end": 4286
+      },
+      {
+        "ref": "Kohelet Rabbah 4:1",
+        "start": 4871,
+        "end": 4889
+      }
+    ],
+    [
+      {
+        "ref": "Bava Metzia 44a",
+        "start": 39,
+        "end": 67
+      },
+      {
+        "ref": "Bava Metzia 44a",
+        "start": 118,
+        "end": 133
+      },
+      {
+        "ref": "Mei HaShiloach, Volume I, Genesis, Toldot",
+        "start": 1537,
+        "end": 1576
+      },
+      {
+        "ref": "Bava Metzia 47b",
+        "start": 1623,
+        "end": 1651
+      },
+      {
+        "ref": "Bava Metzia 47b",
+        "start": 1727,
+        "end": 1742
+      },
+      {
+        "ref": "Jeremiah 31:20",
+        "start": 2117,
+        "end": 2132
+      },
+      {
+        "ref": "Deuteronomy 4:24",
+        "start": 2852,
+        "end": 2867
+      },
+      {
+        "ref": "Proverbs 30:16",
+        "start": 3004,
+        "end": 3018
+      },
+      {
+        "ref": "Proverbs 8:35",
+        "start": 4323,
+        "end": 4337
+      },
+      {
+        "ref": "Proverbs 8:35",
+        "start": 4442,
+        "end": 4455
+      }
+    ],
+    [
+      {
+        "ref": "Zohar, Toldot 15:119-16:128",
+        "start": 538,
+        "end": 573
+      },
+      {
+        "ref": "Zohar, Toldot 15:119-16:128",
+        "start": 602,
+        "end": 620
+      }
+    ],
+    [
+      {
+        "ref": "Zohar, Toldot 1:4-8",
+        "start": 10,
+        "end": 56
+      },
+      {
+        "ref": "Zohar, Toldot 1:4-8",
+        "start": 94,
+        "end": 105
+      },
+      {
+        "ref": "Ecclesiastes 1:9",
+        "start": 592,
+        "end": 604
+      },
+      {
+        "ref": "Ecclesiastes 1:9",
+        "start": 706,
+        "end": 722
+      },
+      {
+        "ref": "Zechariah 8:4",
+        "start": 1196,
+        "end": 1210
+      },
+      {
+        "ref": "Zechariah 8:4",
+        "start": 1386,
+        "end": 1399
+      },
+      {
+        "ref": "Isaiah 55:8",
+        "start": 3903,
+        "end": 3919
+      },
+      {
+        "ref": "Mishneh Torah, Repentance 5:5",
+        "start": 4132,
+        "end": 4171
+      },
+      {
+        "ref": "Mishneh Torah, Repentance 5:5",
+        "start": 4288,
+        "end": 4310
+      },
+      {
+        "ref": "I Samuel 21:7",
+        "start": 5341,
+        "end": 5358
+      },
+      {
+        "ref": "I Samuel 21:7",
+        "start": 5411,
+        "end": 5424
+      },
+      {
+        "ref": "Zechariah 8:4",
+        "start": 6479,
+        "end": 6493
+      },
+      {
+        "ref": "Pesachim 68a",
+        "start": 7002,
+        "end": 7024
+      },
+      {
+        "ref": "Pesachim 68a",
+        "start": 7096,
+        "end": 7108
+      },
+      {
+        "ref": "Zohar, Ki Teitzei 20:98-22:108",
+        "start": 7985,
+        "end": 8000
+      },
+      {
+        "ref": "Zechariah 8:4",
+        "start": 10202,
+        "end": 10216
+      },
+      {
+        "ref": "Pesachim 68a",
+        "start": 10306,
+        "end": 10328
+      },
+      {
+        "ref": "Pesachim 68a",
+        "start": 10449,
+        "end": 10461
+      }
+    ],
+    [
+      {
+        "ref": "Genesis 25:21",
+        "start": 44,
+        "end": 62
+      },
+      {
+        "ref": "Genesis 25:21",
+        "start": 107,
+        "end": 120
+      },
+      {
+        "ref": "Sukkah 14a",
+        "start": 247,
+        "end": 257
+      },
+      {
+        "ref": "Psalms 55:18",
+        "start": 945,
+        "end": 962
+      },
+      {
+        "ref": "Zohar, Chayei Sara 23:232-243",
+        "start": 1045,
+        "end": 1062
+      },
+      {
+        "ref": "Berakhot 26b",
+        "start": 1378,
+        "end": 1400
+      },
+      {
+        "ref": "Berakhot 26b",
+        "start": 1492,
+        "end": 1504
+      },
+      {
+        "ref": "Taanit 15a",
+        "start": 3438,
+        "end": 3460
+      },
+      {
+        "ref": "Taanit 15a",
+        "start": 3551,
+        "end": 3562
+      },
+      {
+        "ref": "Genesis 22:14",
+        "start": 4687,
+        "end": 4705
+      },
+      {
+        "ref": "Haggai 2:5",
+        "start": 5238,
+        "end": 5249
+      },
+      {
+        "ref": "Haggai 2:5",
+        "start": 5312,
+        "end": 5322
+      },
+      {
+        "ref": "Genesis 14:23",
+        "start": 5649,
+        "end": 5667
+      },
+      {
+        "ref": "Exodus 23:15",
+        "start": 6500,
+        "end": 6514
+      },
+      {
+        "ref": "Menachot 53b",
+        "start": 7283,
+        "end": 7304
+      },
+      {
+        "ref": "Menachot 53b",
+        "start": 7378,
+        "end": 7390
+      },
+      {
+        "ref": "Psalms 16:3",
+        "start": 7661,
+        "end": 7677
+      },
+      {
+        "ref": "Psalms 16:3",
+        "start": 7736,
+        "end": 7747
+      }
+    ],
+    [
+      {
+        "ref": "Taanit 16a",
+        "start": 441,
+        "end": 463
+      },
+      {
+        "ref": "Taanit 16a",
+        "start": 569,
+        "end": 580
+      },
+      {
+        "ref": "Bereshit Rabbah 10:6",
+        "start": 2212,
+        "end": 2235
+      },
+      {
+        "ref": "Genesis 25:28",
+        "start": 2339,
+        "end": 2357
+      }
+    ],
+    [
+      {
+        "ref": "Sukkah 14a",
+        "start": 409,
+        "end": 419
+      },
+      {
+        "ref": "Shabbat 89b",
+        "start": 923,
+        "end": 943
+      },
+      {
+        "ref": "Shabbat 89b",
+        "start": 1109,
+        "end": 1120
+      },
+      {
+        "ref": "Hosea 10:12",
+        "start": 1800,
+        "end": 1814
+      },
+      {
+        "ref": "Isaiah 43:6",
+        "start": 3373,
+        "end": 3389
+      },
+      {
+        "ref": "Zohar, Sh'lach 43:298-306",
+        "start": 3531,
+        "end": 3543
+      },
+      {
+        "ref": "Zohar, Pekudei 51:714-724",
+        "start": 4917,
+        "end": 4929
+      }
+    ],
+    [
+      {
+        "ref": "Zohar, Toldot 2:18-3:21",
+        "start": 254,
+        "end": 265
+      },
+      {
+        "ref": "Psalms 8:5",
+        "start": 1678,
+        "end": 1693
+      },
+      {
+        "ref": "Psalms 8:5",
+        "start": 1768,
+        "end": 1778
+      },
+      {
+        "ref": "Job 15:15",
+        "start": 2553,
+        "end": 2567
+      },
+      {
+        "ref": "Job 15:15",
+        "start": 2648,
+        "end": 2657
+      },
+      {
+        "ref": "Kiddushin 2a",
+        "start": 3220,
+        "end": 3232
+      },
+      {
+        "ref": "Isaiah 6:3",
+        "start": 3672,
+        "end": 3687
+      },
+      {
+        "ref": "Ecclesiastes 3:9",
+        "start": 4637,
+        "end": 4649
+      },
+      {
+        "ref": "Ecclesiastes 3:9",
+        "start": 4729,
+        "end": 4745
+      },
+      {
+        "ref": "Zohar, Lech Lecha 17:152-18:165",
+        "start": 6049,
+        "end": 6063
+      },
+      {
+        "ref": "Berakhot 17a",
+        "start": 7072,
+        "end": 7094
+      },
+      {
+        "ref": "Berakhot 17a",
+        "start": 7174,
+        "end": 7186
+      },
+      {
+        "ref": "Kiddushin 9a",
+        "start": 7767,
+        "end": 7779
+      }
+    ],
+    [
+      {
+        "ref": "Sukkah 14a",
+        "start": 210,
+        "end": 220
+      },
+      {
+        "ref": "Genesis 26:7",
+        "start": 1934,
+        "end": 1951
+      },
+      {
+        "ref": "Genesis 25:22",
+        "start": 4699,
+        "end": 4717
+      }
+    ],
+    [
+      {
+        "ref": "Sukkah 14a",
+        "start": 371,
+        "end": 381
+      },
+      {
+        "ref": "Rosh Hashanah 17b",
+        "start": 1315,
+        "end": 1343
+      },
+      {
+        "ref": "Rosh Hashanah 17b",
+        "start": 1392,
+        "end": 1409
+      }
+    ],
+    [
+      {
+        "ref": "Mishnah Eduyot 4:1",
+        "start": 1373,
+        "end": 1383
+      },
+      {
+        "ref": "Rosh Hashanah 11a",
+        "start": 2676,
+        "end": 2704
+      },
+      {
+        "ref": "Rosh Hashanah 11a",
+        "start": 2816,
+        "end": 2833
+      },
+      {
+        "ref": "Eruvin 13b",
+        "start": 2928,
+        "end": 2951
+      },
+      {
+        "ref": "Eruvin 13b",
+        "start": 3045,
+        "end": 3055
+      }
+    ],
+    [
+      {
+        "ref": "Midrash Tehillim 104",
+        "start": 3060,
+        "end": 3092
+      },
+      {
+        "ref": "Midrash Tanchuma, Chayei Sara 3",
+        "start": 3098,
+        "end": 3125
+      },
+      {
+        "ref": "Midrash Tehillim 104",
+        "start": 3244,
+        "end": 3264
+      },
+      {
+        "ref": "Isaiah 43:7",
+        "start": 3631,
+        "end": 3647
+      }
+    ],
+    [
+      {
+        "ref": "Genesis 25:23",
+        "start": 65,
+        "end": 83
+      },
+      {
+        "ref": "Proverbs 16:4",
+        "start": 167,
+        "end": 181
+      },
+      {
+        "ref": "Proverbs 16:4",
+        "start": 261,
+        "end": 274
+      },
+      {
+        "ref": "Proverbs 28:28",
+        "start": 2109,
+        "end": 2124
+      },
+      {
+        "ref": "Genesis 27:29",
+        "start": 2745,
+        "end": 2763
+      },
+      {
+        "ref": "Judges 3:1",
+        "start": 3203,
+        "end": 3218
+      },
+      {
+        "ref": "Judges 3:1",
+        "start": 3304,
+        "end": 3314
+      },
+      {
+        "ref": "Zohar, Pekudei 51:734-743",
+        "start": 5728,
+        "end": 5740
+      },
+      {
+        "ref": "Rosh Hashanah 17a",
+        "start": 7027,
+        "end": 7055
+      },
+      {
+        "ref": "Rosh Hashanah 17a",
+        "start": 7178,
+        "end": 7195
+      },
+      {
+        "ref": "Zohar, Vayishlach 4:86-6:94",
+        "start": 7970,
+        "end": 7985
+      }
+    ],
+    [
+      {
+        "ref": "Genesis 25:24",
+        "start": 58,
+        "end": 76
+      },
+      {
+        "ref": "Sanhedrin 20b",
+        "start": 2519,
+        "end": 2543
+      },
+      {
+        "ref": "Sanhedrin 20b",
+        "start": 2635,
+        "end": 2648
+      },
+      {
+        "ref": "Genesis 33:14",
+        "start": 3090,
+        "end": 3108
+      },
+      {
+        "ref": "Genesis 33:14",
+        "start": 3169,
+        "end": 3182
+      }
+    ],
+    [
+      {
+        "ref": "Genesis 25:28",
+        "start": 50,
+        "end": 68
+      },
+      {
+        "ref": "Leviticus 2:13",
+        "start": 591,
+        "end": 607
+      },
+      {
+        "ref": "Leviticus 2:13",
+        "start": 700,
+        "end": 714
+      },
+      {
+        "ref": "Proverbs 25:27",
+        "start": 1372,
+        "end": 1387
+      },
+      {
+        "ref": "Gittin 70a",
+        "start": 1450,
+        "end": 1471
+      },
+      {
+        "ref": "Proverbs 25:27",
+        "start": 1486,
+        "end": 1500
+      },
+      {
+        "ref": "Gittin 70a",
+        "start": 1556,
+        "end": 1566
+      },
+      {
+        "ref": "Deuteronomy 14:23",
+        "start": 2030,
+        "end": 2046
+      },
+      {
+        "ref": "Bereshit Rabbah 51:5",
+        "start": 5126,
+        "end": 5147
+      },
+      {
+        "ref": "Genesis 19:26",
+        "start": 5223,
+        "end": 5241
+      }
+    ],
+    [
+      {
+        "ref": "Genesis 25:28",
+        "start": 50,
+        "end": 68
+      },
+      {
+        "ref": "Zechariah 9:7",
+        "start": 441,
+        "end": 455
+      },
+      {
+        "ref": "Zechariah 9:7",
+        "start": 577,
+        "end": 590
+      },
+      {
+        "ref": "Obadiah 1:18",
+        "start": 885,
+        "end": 897
+      },
+      {
+        "ref": "Zohar, Mishpatim 3:23-34",
+        "start": 1208,
+        "end": 1221
+      },
+      {
+        "ref": "Obadiah 1:21",
+        "start": 1414,
+        "end": 1426
+      }
+    ],
+    [
+      {
+        "ref": "Shabbat 89b",
+        "start": 2033,
+        "end": 2053
+      },
+      {
+        "ref": "Shabbat 89b",
+        "start": 2170,
+        "end": 2181
+      },
+      {
+        "ref": "Isaiah 45:19",
+        "start": 2427,
+        "end": 2444
+      },
+      {
+        "ref": "Isaiah 45:19",
+        "start": 2518,
+        "end": 2530
+      },
+      {
+        "ref": "Deuteronomy 12:31",
+        "start": 2602,
+        "end": 2618
+      },
+      {
+        "ref": "Deuteronomy 12:31",
+        "start": 2763,
+        "end": 2780
+      }
+    ],
+    [
+      {
+        "ref": "Sukkah 52b",
+        "start": 1163,
+        "end": 1173
+      },
+      {
+        "ref": "Isaiah 63:2",
+        "start": 1391,
+        "end": 1407
+      },
+      {
+        "ref": "Isaiah 63:2",
+        "start": 1509,
+        "end": 1520
+      }
+    ],
+    [
+      {
+        "ref": "Genesis 26:1",
+        "start": 52,
+        "end": 69
+      },
+      {
+        "ref": "Genesis 12:13",
+        "start": 1616,
+        "end": 1634
+      },
+      {
+        "ref": "Genesis 12:13",
+        "start": 1692,
+        "end": 1705
+      },
+      {
+        "ref": "Sanhedrin 58b",
+        "start": 1949,
+        "end": 1974
+      },
+      {
+        "ref": "Psalms 89:3",
+        "start": 2019,
+        "end": 2035
+      },
+      {
+        "ref": "Sanhedrin 58b",
+        "start": 2109,
+        "end": 2122
+      },
+      {
+        "ref": "Psalms 25:6",
+        "start": 3672,
+        "end": 3688
+      },
+      {
+        "ref": "Psalms 25:6",
+        "start": 3764,
+        "end": 3775
+      },
+      {
+        "ref": "Berakhot 48b",
+        "start": 5357,
+        "end": 5379
+      },
+      {
+        "ref": "Berakhot 48b",
+        "start": 5428,
+        "end": 5440
+      },
+      {
+        "ref": "Zohar, Toldot 11:89-12:99",
+        "start": 7726,
+        "end": 7737
+      },
+      {
+        "ref": "Proverbs 7:4",
+        "start": 7839,
+        "end": 7852
+      },
+      {
+        "ref": "Proverbs 7:4",
+        "start": 7948,
+        "end": 7960
+      },
+      {
+        "ref": "Genesis 26:11",
+        "start": 8214,
+        "end": 8232
+      },
+      {
+        "ref": "Genesis 26:11",
+        "start": 8328,
+        "end": 8341
+      },
+      {
+        "ref": "Genesis 20:9",
+        "start": 9214,
+        "end": 9230
+      },
+      {
+        "ref": "Genesis 20:9",
+        "start": 9335,
+        "end": 9347
+      },
+      {
+        "ref": "Genesis 26:10",
+        "start": 9507,
+        "end": 9520
+      },
+      {
+        "ref": "Genesis 26:28",
+        "start": 10365,
+        "end": 10383
+      }
+    ],
+    [
+      {
+        "ref": "Genesis 26:12",
+        "start": 91,
+        "end": 109
+      },
+      {
+        "ref": "Zohar, Vayetzei 30:294-31:305",
+        "start": 355,
+        "end": 369
+      },
+      {
+        "ref": "Sanhedrin 39a",
+        "start": 561,
+        "end": 586
+      },
+      {
+        "ref": "Sanhedrin 39a",
+        "start": 644,
+        "end": 657
+      },
+      {
+        "ref": "Isaiah 6:3",
+        "start": 1231,
+        "end": 1246
+      },
+      {
+        "ref": "Genesis 2:17",
+        "start": 1454,
+        "end": 1471
+      }
+    ],
+    [
+      {
+        "ref": "Genesis 26:13",
+        "start": 51,
+        "end": 69
+      },
+      {
+        "ref": "Genesis 36:24",
+        "start": 937,
+        "end": 955
+      },
+      {
+        "ref": "Chullin 7b",
+        "start": 1175,
+        "end": 1185
+      }
+    ],
+    [
+      {
+        "ref": "Genesis 26:15",
+        "start": 116,
+        "end": 134
+      },
+      {
+        "ref": "Avodah Zarah 55a",
+        "start": 591,
+        "end": 618
+      },
+      {
+        "ref": "Avodah Zarah 55a",
+        "start": 738,
+        "end": 754
+      },
+      {
+        "ref": "Genesis 1:7",
+        "start": 1430,
+        "end": 1446
+      },
+      {
+        "ref": "Zohar, Bo",
+        "start": 2197,
+        "end": 2216
+      },
+      {
+        "ref": "Nedarim 65a",
+        "start": 3422,
+        "end": 3443
+      },
+      {
+        "ref": "Nedarim 65a",
+        "start": 3511,
+        "end": 3522
+      },
+      {
+        "ref": "Sanhedrin 96a",
+        "start": 3789,
+        "end": 3814
+      },
+      {
+        "ref": "Sanhedrin 96a",
+        "start": 3906,
+        "end": 3919
+      },
+      {
+        "ref": "Midrash Tanchuma, Vaetchanan 1",
+        "start": 4548,
+        "end": 4574
+      },
+      {
+        "ref": "Mei HaShiloach, Volume I, Genesis, Toldot",
+        "start": 5494,
+        "end": 5524
+      },
+      {
+        "ref": "Genesis 26:20",
+        "start": 5593,
+        "end": 5610
+      },
+      {
+        "ref": "II Kings 3:27",
+        "start": 6151,
+        "end": 6167
+      },
+      {
+        "ref": "II Kings 3:27",
+        "start": 6316,
+        "end": 6329
+      },
+      {
+        "ref": "Genesis 26:21",
+        "start": 6455,
+        "end": 6473
+      },
+      {
+        "ref": "Isaiah 8:21",
+        "start": 7139,
+        "end": 7155
+      },
+      {
+        "ref": "Isaiah 8:21",
+        "start": 7236,
+        "end": 7247
+      },
+      {
+        "ref": "Arakhin 16b",
+        "start": 7498,
+        "end": 7519
+      },
+      {
+        "ref": "Arakhin 16b",
+        "start": 7618,
+        "end": 7629
+      }
+    ],
+    [
+      {
+        "ref": "Genesis 26:28",
+        "start": 38,
+        "end": 56
+      },
+      {
+        "ref": "Genesis 21:22",
+        "start": 272,
+        "end": 285
+      },
+      {
+        "ref": "Chullin 63a",
+        "start": 1116,
+        "end": 1127
+      }
+    ],
+    [
+      {
+        "ref": "Genesis 27:1",
+        "start": 37,
+        "end": 54
+      },
+      {
+        "ref": "Genesis 1:5",
+        "start": 493,
+        "end": 509
+      },
+      {
+        "ref": "Zohar, Toldot 15:119-16:128",
+        "start": 548,
+        "end": 559
+      },
+      {
+        "ref": "Zohar, Bereshit",
+        "start": 1261,
+        "end": 1287
+      },
+      {
+        "ref": "Isaiah 45:7",
+        "start": 1372,
+        "end": 1388
+      },
+      {
+        "ref": "Isaiah 45:7",
+        "start": 1445,
+        "end": 1456
+      },
+      {
+        "ref": "Zohar, Terumah",
+        "start": 1659,
+        "end": 1684
+      },
+      {
+        "ref": "Job 15:15",
+        "start": 2980,
+        "end": 2994
+      },
+      {
+        "ref": "Isaiah 26:10",
+        "start": 4146,
+        "end": 4162
+      },
+      {
+        "ref": "Isaiah 26:10",
+        "start": 4262,
+        "end": 4274
+      },
+      {
+        "ref": "Berakhot 23a",
+        "start": 4561,
+        "end": 4583
+      },
+      {
+        "ref": "Berakhot 23a",
+        "start": 4660,
+        "end": 4672
+      },
+      {
+        "ref": "Kohelet Rabbah 4:1",
+        "start": 5416,
+        "end": 5434
+      },
+      {
+        "ref": "Isaiah 66:1",
+        "start": 5865,
+        "end": 5881
+      },
+      {
+        "ref": "Isaiah 66:1",
+        "start": 5932,
+        "end": 5943
+      },
+      {
+        "ref": "Zohar, Vayigash 5:36-46",
+        "start": 6386,
+        "end": 6399
+      }
+    ],
+    [
+      {
+        "ref": "Zohar, Toldot 9:73-10:79",
+        "start": 617,
+        "end": 628
+      },
+      {
+        "ref": "Genesis 27:11",
+        "start": 3497,
+        "end": 3515
+      },
+      {
+        "ref": "Isaiah 53:9",
+        "start": 5028,
+        "end": 5044
+      },
+      {
+        "ref": "Isaiah 53:9",
+        "start": 5183,
+        "end": 5194
+      },
+      {
+        "ref": "Genesis 27:34",
+        "start": 7029,
+        "end": 7047
+      },
+      {
+        "ref": "Genesis 27:34",
+        "start": 7100,
+        "end": 7113
+      }
+    ],
+    [],
+    [
+      {
+        "ref": "Ketubot 30b",
+        "start": 1942,
+        "end": 1965
+      },
+      {
+        "ref": "Ketubot 30b",
+        "start": 2070,
+        "end": 2081
+      },
+      {
+        "ref": "Rosh Hashanah 4a",
+        "start": 3901,
+        "end": 3928
+      },
+      {
+        "ref": "Rosh Hashanah 4a",
+        "start": 4056,
+        "end": 4072
+      }
+    ],
+    [
+      {
+        "ref": "Zohar, Toldot 15:119-16:128",
+        "start": 317,
+        "end": 328
+      },
+      {
+        "ref": "Nedarim 38b",
+        "start": 2553,
+        "end": 2574
+      },
+      {
+        "ref": "Nedarim 38b",
+        "start": 2702,
+        "end": 2713
+      },
+      {
+        "ref": "Genesis 27:1",
+        "start": 3397,
+        "end": 3414
+      },
+      {
+        "ref": "Zohar, Toldot 16:128-18:137",
+        "start": 3834,
+        "end": 3845
+      },
+      {
+        "ref": "Jeremiah 17:6",
+        "start": 5022,
+        "end": 5037
+      },
+      {
+        "ref": "Leviticus 2:13",
+        "start": 5925,
+        "end": 5941
+      }
+    ],
+    [
+      {
+        "ref": "Deuteronomy 14:23",
+        "start": 254,
+        "end": 270
+      },
+      {
+        "ref": "Berakhot 33b",
+        "start": 771,
+        "end": 793
+      },
+      {
+        "ref": "Berakhot 33b",
+        "start": 931,
+        "end": 943
+      },
+      {
+        "ref": "Mishnah Avot 4:15",
+        "start": 2031,
+        "end": 2059
+      },
+      {
+        "ref": "Genesis 25:27",
+        "start": 4626,
+        "end": 4644
+      }
+    ],
+    [
+      {
+        "ref": "Genesis 27:1",
+        "start": 39,
+        "end": 56
+      },
+      {
+        "ref": "Psalms 84:6",
+        "start": 167,
+        "end": 183
+      },
+      {
+        "ref": "Zohar, Toldot 16:128-18:137",
+        "start": 246,
+        "end": 257
+      },
+      {
+        "ref": "Psalms 84:6",
+        "start": 288,
+        "end": 299
+      },
+      {
+        "ref": "Genesis 27:7",
+        "start": 2984,
+        "end": 3001
+      },
+      {
+        "ref": "Malachi 1:11",
+        "start": 3967,
+        "end": 3982
+      },
+      {
+        "ref": "Jonah 1:3",
+        "start": 4811,
+        "end": 4822
+      }
+    ],
+    [
+      {
+        "ref": "Genesis 27:28",
+        "start": 56,
+        "end": 74
+      },
+      {
+        "ref": "Berakhot 47b",
+        "start": 1743,
+        "end": 1765
+      },
+      {
+        "ref": "Berakhot 47b",
+        "start": 1848,
+        "end": 1860
+      },
+      {
+        "ref": "Genesis 27:29",
+        "start": 1960,
+        "end": 1978
+      }
+    ],
+    [
+      {
+        "ref": "Genesis 27:20",
+        "start": 108,
+        "end": 125
+      },
+      {
+        "ref": "Pirkei DeRabbi Eliezer 32",
+        "start": 1088,
+        "end": 1119
+      },
+      {
+        "ref": "Isaiah 33:6",
+        "start": 1549,
+        "end": 1565
+      },
+      {
+        "ref": "Shabbat 31a",
+        "start": 1626,
+        "end": 1646
+      },
+      {
+        "ref": "Isaiah 33:6",
+        "start": 1694,
+        "end": 1705
+      },
+      {
+        "ref": "Shabbat 31a",
+        "start": 1772,
+        "end": 1783
+      },
+      {
+        "ref": "Midrash Tehillim 19",
+        "start": 1851,
+        "end": 1883
+      },
+      {
+        "ref": "Midrash Tehillim 19",
+        "start": 1950,
+        "end": 1971
+      },
+      {
+        "ref": "Isaiah 43:7",
+        "start": 2279,
+        "end": 2295
+      },
+      {
+        "ref": "Isaiah 43:7",
+        "start": 2430,
+        "end": 2441
+      },
+      {
+        "ref": "Zechariah 10:9",
+        "start": 3285,
+        "end": 3299
+      },
+      {
+        "ref": "Zechariah 10:9",
+        "start": 3374,
+        "end": 3388
+      },
+      {
+        "ref": "Isaiah 45:19",
+        "start": 5385,
+        "end": 5402
+      },
+      {
+        "ref": "Isaiah 45:19",
+        "start": 5521,
+        "end": 5533
+      },
+      {
+        "ref": "Job 37:23",
+        "start": 6392,
+        "end": 6406
+      },
+      {
+        "ref": "Job 37:23",
+        "start": 6528,
+        "end": 6537
+      },
+      {
+        "ref": "Chagigah 12b",
+        "start": 6891,
+        "end": 6912
+      },
+      {
+        "ref": "Chagigah 12b",
+        "start": 7029,
+        "end": 7041
+      },
+      {
+        "ref": "Exodus 12:36",
+        "start": 7676,
+        "end": 7690
+      },
+      {
+        "ref": "Berakhot 9b",
+        "start": 7743,
+        "end": 7764
+      },
+      {
+        "ref": "Exodus 12:36",
+        "start": 7872,
+        "end": 7884
+      },
+      {
+        "ref": "Berakhot 9b",
+        "start": 7929,
+        "end": 7940
+      },
+      {
+        "ref": "Exodus 12:46",
+        "start": 8668,
+        "end": 8682
+      },
+      {
+        "ref": "Genesis 27:28",
+        "start": 10331,
+        "end": 10349
+      }
+    ],
+    [
+      {
+        "ref": "Genesis 27:22",
+        "start": 47,
+        "end": 65
+      }
+    ],
+    [
+      {
+        "ref": "Genesis 27:27",
+        "start": 134,
+        "end": 152
+      },
+      {
+        "ref": "Genesis 27:6",
+        "start": 937,
+        "end": 954
+      },
+      {
+        "ref": "Genesis 26:35",
+        "start": 4161,
+        "end": 4179
+      },
+      {
+        "ref": "Genesis 26:35",
+        "start": 4299,
+        "end": 4312
+      }
+    ],
+    [
+      {
+        "ref": "Genesis 17:18",
+        "start": 211,
+        "end": 229
+      }
+    ],
+    [
+      {
+        "ref": "Mishnah Maasrot 1:1",
+        "start": 171,
+        "end": 203
+      },
+      {
+        "ref": "Mishnah Maasrot 1:1",
+        "start": 329,
+        "end": 341
+      },
+      {
+        "ref": "Malachi 2:5",
+        "start": 778,
+        "end": 792
+      },
+      {
+        "ref": "Genesis 1:11",
+        "start": 2593,
+        "end": 2610
+      },
+      {
+        "ref": "Genesis 5:9",
+        "start": 2643,
+        "end": 2659
+      }
+    ],
+    [
+      {
+        "ref": "Isaiah 40:17",
+        "start": 1545,
+        "end": 1561
+      },
+      {
+        "ref": "Job 28:12",
+        "start": 2088,
+        "end": 2102
+      },
+      {
+        "ref": "Job 28:12",
+        "start": 2156,
+        "end": 2165
+      },
+      {
+        "ref": "Shabbat 10b",
+        "start": 2245,
+        "end": 2264
+      },
+      {
+        "ref": "Shabbat 10b",
+        "start": 2376,
+        "end": 2387
+      },
+      {
+        "ref": "Exodus 31:13",
+        "start": 2554,
+        "end": 2568
+      },
+      {
+        "ref": "Isaiah 41:17",
+        "start": 3294,
+        "end": 3311
+      },
+      {
+        "ref": "Isaiah 41:17",
+        "start": 3401,
+        "end": 3413
+      }
+    ],
+    [
+      {
+        "ref": "Genesis 27:27",
+        "start": 55,
+        "end": 73
+      },
+      {
+        "ref": "Taanit 29b",
+        "start": 216,
+        "end": 238
+      },
+      {
+        "ref": "Taanit 29b",
+        "start": 316,
+        "end": 327
+      },
+      {
+        "ref": "Song of Songs 2:3",
+        "start": 610,
+        "end": 632
+      },
+      {
+        "ref": "Proverbs 16:15",
+        "start": 1326,
+        "end": 1341
+      },
+      {
+        "ref": "Zohar, Naso",
+        "start": 1388,
+        "end": 1410
+      },
+      {
+        "ref": "Zohar, Noach",
+        "start": 2120,
+        "end": 2142
+      },
+      {
+        "ref": "I Kings 2:26",
+        "start": 2239,
+        "end": 2255
+      }
+    ],
+    [
+      {
+        "ref": "Genesis 27:28",
+        "start": 90,
+        "end": 108
+      },
+      {
+        "ref": "Zohar, Vayishlach 4:86-6:94",
+        "start": 930,
+        "end": 945
+      },
+      {
+        "ref": "Berakhot 58a",
+        "start": 1023,
+        "end": 1045
+      },
+      {
+        "ref": "Berakhot 58a",
+        "start": 1086,
+        "end": 1098
+      },
+      {
+        "ref": "Genesis 14:7",
+        "start": 2109,
+        "end": 2126
+      },
+      {
+        "ref": "Bereshit Rabbah 14:7",
+        "start": 2150,
+        "end": 2181
+      },
+      {
+        "ref": "Genesis 2:7",
+        "start": 2576,
+        "end": 2592
+      }
+    ],
+    [
+      {
+        "ref": "Leviticus 23:22",
+        "start": 1291,
+        "end": 1308
+      },
+      {
+        "ref": "Leviticus 23:22",
+        "start": 1392,
+        "end": 1407
+      },
+      {
+        "ref": "Deuteronomy 15:7",
+        "start": 1685,
+        "end": 1700
+      },
+      {
+        "ref": "Jeremiah 46:28",
+        "start": 4656,
+        "end": 4672
+      }
+    ],
+    [
+      {
+        "ref": "Berakhot 47b",
+        "start": 1041,
+        "end": 1063
+      },
+      {
+        "ref": "Berakhot 47b",
+        "start": 1194,
+        "end": 1206
+      }
+    ],
+    [
+      {
+        "ref": "Ecclesiastes 3:9",
+        "start": 815,
+        "end": 827
+      },
+      {
+        "ref": "Psalms 128:2",
+        "start": 861,
+        "end": 878
+      },
+      {
+        "ref": "Shabbat 30b",
+        "start": 1369,
+        "end": 1388
+      },
+      {
+        "ref": "Shabbat 30b",
+        "start": 1504,
+        "end": 1515
+      },
+      {
+        "ref": "I Samuel 21:7",
+        "start": 3299,
+        "end": 3316
+      },
+      {
+        "ref": "Genesis 27:39",
+        "start": 3610,
+        "end": 3628
+      }
+    ],
+    [
+      {
+        "ref": "Proverbs 3:19",
+        "start": 1269,
+        "end": 1283
+      },
+      {
+        "ref": "Exodus 24:10",
+        "start": 1536,
+        "end": 1549
+      },
+      {
+        "ref": "Psalms 14:7",
+        "start": 2946,
+        "end": 2962
+      },
+      {
+        "ref": "Genesis 27:36",
+        "start": 3504,
+        "end": 3522
+      },
+      {
+        "ref": "Arakhin 13b",
+        "start": 4935,
+        "end": 4956
+      },
+      {
+        "ref": "Midrash Tanchuma, Beha'alotcha 7",
+        "start": 5004,
+        "end": 5031
+      },
+      {
+        "ref": "Arakhin 13b",
+        "start": 5047,
+        "end": 5058
+      },
+      {
+        "ref": "Berakhot 47b",
+        "start": 6416,
+        "end": 6438
+      },
+      {
+        "ref": "Berakhot 47b",
+        "start": 6546,
+        "end": 6558
+      },
+      {
+        "ref": "Psalms 128:2",
+        "start": 7020,
+        "end": 7037
+      },
+      {
+        "ref": "Judges 3:1",
+        "start": 7245,
+        "end": 7260
+      }
+    ],
+    [
+      {
+        "ref": "Genesis 27:36",
+        "start": 55,
+        "end": 73
+      },
+      {
+        "ref": "Zohar, Toldot 19:176-184",
+        "start": 344,
+        "end": 355
+      },
+      {
+        "ref": "Genesis 43:10",
+        "start": 502,
+        "end": 519
+      },
+      {
+        "ref": "Psalms 89:28",
+        "start": 2084,
+        "end": 2101
+      },
+      {
+        "ref": "Psalms 51:7",
+        "start": 2405,
+        "end": 2421
+      },
+      {
+        "ref": "Isaiah 58:11",
+        "start": 4086,
+        "end": 4103
+      },
+      {
+        "ref": "Shabbat 30b",
+        "start": 4863,
+        "end": 4882
+      },
+      {
+        "ref": "Shabbat 30b",
+        "start": 5018,
+        "end": 5029
+      },
+      {
+        "ref": "Berakhot 56b",
+        "start": 5287,
+        "end": 5309
+      },
+      {
+        "ref": "Berakhot 56b",
+        "start": 5438,
+        "end": 5450
+      },
+      {
+        "ref": "Isaiah 57:16",
+        "start": 5965,
+        "end": 5982
+      }
+    ],
+    [
+      {
+        "ref": "Genesis 27:36",
+        "start": 55,
+        "end": 73
+      },
+      {
+        "ref": "Zohar, Toldot 19:176-184",
+        "start": 312,
+        "end": 323
+      },
+      {
+        "ref": "Genesis 25:32",
+        "start": 1056,
+        "end": 1074
+      },
+      {
+        "ref": "Genesis 27:29",
+        "start": 1826,
+        "end": 1844
+      },
+      {
+        "ref": "Zohar, Balak",
+        "start": 2267,
+        "end": 2290
+      },
+      {
+        "ref": "Shabbat 10a",
+        "start": 2766,
+        "end": 2785
+      },
+      {
+        "ref": "Shabbat 10a",
+        "start": 2892,
+        "end": 2903
+      },
+      {
+        "ref": "Genesis 25:34",
+        "start": 2964,
+        "end": 2982
+      }
+    ],
+    [
+      {
+        "ref": "Genesis 28:3",
+        "start": 80,
+        "end": 97
+      },
+      {
+        "ref": "Pesachim 87b",
+        "start": 796,
+        "end": 818
+      },
+      {
+        "ref": "Pesachim 87b",
+        "start": 896,
+        "end": 908
+      },
+      {
+        "ref": "Genesis 17:1",
+        "start": 2032,
+        "end": 2049
+      },
+      {
+        "ref": "Genesis 17:1",
+        "start": 2162,
+        "end": 2174
+      },
+      {
+        "ref": "Taanit 22b",
+        "start": 2504,
+        "end": 2526
+      },
+      {
+        "ref": "Taanit 22b",
+        "start": 2611,
+        "end": 2622
+      },
+      {
+        "ref": "Genesis 43:14",
+        "start": 4055,
+        "end": 4073
+      }
+    ],
+    [
+      {
+        "ref": "Zohar, Toldot 19:193-202",
+        "start": 328,
+        "end": 339
+      },
+      {
+        "ref": "Genesis 27:28",
+        "start": 413,
+        "end": 431
+      },
+      {
+        "ref": "Psalms 118:10",
+        "start": 1364,
+        "end": 1381
+      },
+      {
+        "ref": "Psalms 118:10",
+        "start": 1507,
+        "end": 1520
+      },
+      {
+        "ref": "Numbers 11:16",
+        "start": 3046,
+        "end": 3064
+      },
+      {
+        "ref": "Genesis 43:14",
+        "start": 3582,
+        "end": 3600
+      },
+      {
+        "ref": "Midrash Tanchuma, Miketz 10",
+        "start": 3744,
+        "end": 3765
+      },
+      {
+        "ref": "Berakhot 5b",
+        "start": 4005,
+        "end": 4026
+      },
+      {
+        "ref": "Berakhot 5b",
+        "start": 4186,
+        "end": 4197
+      }
+    ],
+    [
+      {
+        "ref": "Genesis 17:1",
+        "start": 306,
+        "end": 323
+      },
+      {
+        "ref": "Jeremiah 29:11",
+        "start": 744,
+        "end": 760
+      },
+      {
+        "ref": "Jeremiah 29:11",
+        "start": 815,
+        "end": 829
+      }
+    ],
+    [
+      {
+        "ref": "Genesis 28:4",
+        "start": 34,
+        "end": 51
+      },
+      {
+        "ref": "Psalms 147:2",
+        "start": 874,
+        "end": 891
+      },
+      {
+        "ref": "Psalms 147:2",
+        "start": 979,
+        "end": 991
+      },
+      {
+        "ref": "Bava Batra 75a",
+        "start": 1544,
+        "end": 1572
+      },
+      {
+        "ref": "Bava Batra 75a",
+        "start": 1688,
+        "end": 1702
+      },
+      {
+        "ref": "Isaiah 58:11",
+        "start": 2437,
+        "end": 2454
+      },
+      {
+        "ref": "Zechariah 12:5",
+        "start": 3603,
+        "end": 3618
+      }
+    ],
+    [
+      {
+        "ref": "Job 37:23",
+        "start": 168,
+        "end": 182
+      },
+      {
+        "ref": "Isaiah 45:19",
+        "start": 235,
+        "end": 252
+      },
+      {
+        "ref": "Job 37:23",
+        "start": 354,
+        "end": 363
+      },
+      {
+        "ref": "Isaiah 45:19",
+        "start": 455,
+        "end": 467
+      },
+      {
+        "ref": "Psalms 105:8",
+        "start": 1159,
+        "end": 1175
+      }
+    ],
+    [
+      {
+        "ref": "Isaiah 65:16",
+        "start": 1791,
+        "end": 1808
+      },
+      {
+        "ref": "Rosh Hashanah 25a",
+        "start": 4042,
+        "end": 4070
+      },
+      {
+        "ref": "Rosh Hashanah 25a",
+        "start": 4215,
+        "end": 4232
+      },
+      {
+        "ref": "Exodus 33:22",
+        "start": 4895,
+        "end": 4909
+      },
+      {
+        "ref": "Genesis 50:13",
+        "start": 5969,
+        "end": 5986
+      },
+      {
+        "ref": "Genesis 50:13",
+        "start": 6079,
+        "end": 6092
+      }
+    ],
+    [
+      {
+        "ref": "Genesis 28:9",
+        "start": 40,
+        "end": 57
+      },
+      {
+        "ref": "Jerusalem Talmud Bikkurim 3:3",
+        "start": 259,
+        "end": 271
+      },
+      {
+        "ref": "Genesis 2:18",
+        "start": 3001,
+        "end": 3018
+      }
+    ]
+  ]
+}

@@ -309,6 +309,12 @@ jobs:
           node scripts/test-pri-chanukah25.mjs --zips > chanukah25-final-verification.json
           cat chanukah25-final-verification.json
 
+      - name: Publish the supplied Bais Yaakov Toldos document after historical edition checks
+        run: |
+          node scripts/publish-beit-toldos.mjs
+          node scripts/test-beit-toldos.mjs
+          node scripts/test-beit-toldos-browser.mjs
+
       - name: Publish the latest two Dover Tzedek KDP Word manuscripts after historical edition checks
         run: |
           node scripts/publish-dover-kdp.mjs
@@ -317,6 +323,7 @@ jobs:
           node scripts/check-dover-source-links.mjs
           node scripts/build-library-zips.mjs
           node scripts/test-dover-kdp.mjs --zips
+          node scripts/test-beit-toldos.mjs --zips --mcp
 
       - name: Build and verify reviewed connections against the final canonical source edition
         run: |
@@ -400,6 +407,11 @@ jobs:
 
       - name: Verify complete Dover Tzedek quotations on the published reader
         run: node scripts/test-dover-footnotes.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'
+
+      - name: Verify every supplied Bais Yaakov Toldos phrase and Word download on the published reader
+        run: |
+          node scripts/test-beit-toldos.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'
+          AKIVA_READER_URL='https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/' node scripts/test-beit-toldos-browser.mjs
 
       - name: Verify Chanukah 25 and all three source entry points on the published reader
         run: |
