@@ -67,8 +67,9 @@ try{
         tzidkatAdditionalNumbers.push(+marker.dataset.fn);
       }
       assert.equal(seg.querySelectorAll('.seg-en .connection-idea-marker,.ph-en .connection-idea-marker').length,0);
+      const schoolLabel=record.school==='Ishbitz–Radzin'?'Kisvei Ishbitz–Radzin':'Kisvei Rav Tzadok';
       assert.deepEqual([...tray.querySelectorAll('.annotation-text')].map(element=>clean(element.textContent)),
-        [record.themeTitle,record.themeSummary,record.targetRef+': “'+record.targetEnglish+'”','Explanation: '+record.explanation].map(clean));
+        [record.themeTitle,record.themeSummary,schoolLabel+' · '+record.targetRef+': “'+record.targetEnglish+'”','Explanation: '+record.explanation].map(clean));
       assert.equal(tray.querySelector('.annotation-text a').textContent,record.targetRef);
       assert.equal(tray.querySelector('.annotation-text a').getAttribute('href'),'#/read/'+encodeURIComponent(record.targetRef).replace(/%20/g,'_').replace(/%2C/g,',').replace(/%3A/g,':'));
       assert.equal(tray.querySelectorAll('[lang="he"]').length,0,'Footnotes should remain English');

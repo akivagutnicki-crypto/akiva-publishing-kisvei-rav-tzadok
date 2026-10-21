@@ -21,8 +21,9 @@ export async function checkConnectionFootnotes(page,section,records,{screenshot=
     const box=boxes.find(box=>box.id===record.id);
     assert.equal(box.ref,record.originRef);
     if(record.footnoteNumber)assert.equal(box.number,record.footnoteNumber,'The book-wide supplementary number was lost');
+    const schoolLabel=record.school==='Ishbitz–Radzin'?'Kisvei Ishbitz–Radzin':'Kisvei Rav Tzadok';
     assert.deepEqual(box.paragraphs.map(normalized),[record.themeTitle,record.themeSummary,
-      record.targetRef+': “'+record.targetEnglish+'”','Explanation: '+record.explanation].map(normalized));
+      schoolLabel+' · '+record.targetRef+': “'+record.targetEnglish+'”','Explanation: '+record.explanation].map(normalized));
     assert.equal(box.source,record.targetRef);assert(box.sourceBold);assert.equal(box.hebrewParagraphs,0);
     assert.equal(box.href,'#/read/'+encodeURIComponent(record.targetRef).replace(/%20/g,'_').replace(/%2C/g,',').replace(/%3A/g,':'));
     const inline=section.locator('.seg-il .connection-idea-marker[data-connection-id="'+record.id+'"]');
