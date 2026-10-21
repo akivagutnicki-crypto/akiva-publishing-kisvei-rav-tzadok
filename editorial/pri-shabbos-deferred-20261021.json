@@ -1,0 +1,1772 @@
+{
+  "schemaVersion": 1,
+  "reviewedOn": "2026-10-21",
+  "title": "Focused deferred-discussion and oral-report audit: Kedushat Shabbat and Kuntres Shvitat Shabbat",
+  "editorialInput": "sources/akiva/themes/pri-shabbos-deferred-20261021.json",
+  "editorialInputSha256": "ea883b47f020db6af5bb3cf49aea084e8d1a8fb51b4dbc024934d7cdf6a1eafb",
+  "editorialInputHashStatus": "Final 18-record repository input verified after assembly, including all reviewed K7 explanation qualifications and canonical context pins.",
+  "status": "All 18 records editorially approved; local build, anchor, integrity and preservation checks passed. Full CI and live reader verification execute with publication.",
+  "scope": {
+    "works": [
+      "Peri Tzadik, Sefer Kedushat Shabbat 1–7",
+      "Peri Tzadik, Kuntres Shvitat Shabbat 1–7"
+    ],
+    "sectionsScanned": 14,
+    "paragraphsScanned": 138,
+    "description": "Finite scan of the specified oral-report and deferred-discussion marker families, followed by contextual classification and focused source research. This is not an exhaustive idea-by-idea ledger and does not certify every potential parallel or inherited footnote.",
+    "relationshipToPriorReview": "The preceding selected-connections review is documented separately in editorial/pri-shabbos-reviewed-20261021.json. Its complete-section readings do not turn this focused marker audit into a new exhaustive subsection review.",
+    "newFullContextReadingClaims": "Authors read complete originating sections relevant to their assigned markers; the Shevisa author explicitly read full sections 1 and 7 and scanned all 50 Shevisa paragraphs. Independent reviewers read full origin and target paragraphs and necessary adjacent contexts as specified below, without claiming a second full reading of every section."
+  },
+  "counts": {
+    "broadCandidates": 31,
+    "actualMarkers": 15,
+    "actualMarkerParagraphs": 13,
+    "excludedContextualHomonyms": 16,
+    "proposedNewNotes": 18,
+    "newNoteOriginParagraphs": 11,
+    "actualMarkersWithNewNotes": 13,
+    "markersWithoutNewNotes": 2,
+    "newNotesBySchool": {
+      "Kisvei Rav Tzadok": 10,
+      "Ishbitz–Radzin": 8
+    },
+    "supplementalCasesOutsideMarkerCount": 1,
+    "approvedNewNotes": 18
+  },
+  "method": {
+    "scan": "Consonant-normalized scan of every preferred canonical paragraph, followed by reading the context of each broad hit. Expanded checks included שמעתי/שמענו, קבלתי/קיבלתי, deferment abbreviations, להאריך, ארוכים, במקום אחר, and self-reference wording.",
+    "offsets": "Inventory offsets refer to the normalized scan text; they are audit locators, not reader phrase indices.",
+    "requestedPriorities": {
+      "deferredDiscussion": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "oralTransmission": [
+        "Ishbitz",
+        "Radzin",
+        "Kisvei Rav Tzadok"
+      ]
+    },
+    "approvalStandard": "Exact contiguous Hebrew, faithful English with editorial additions visibly bracketed, a precise source reference, enough quotation to complete the relevant thought, full target context, a separate explanation that adds value at the actual marker, and independent bilingual review.",
+    "attributionRule": "An unnamed teacher is not identified from context alone. Explicit attribution, later explanatory parallels, and modern editorial source suggestions remain distinct.",
+    "rejectionRule": "No fixed school quota. Weak thematic matches, circular anthology reprints, and conflicting legal formulations are not promoted as exact corroboration.",
+    "footnotePlacement": "Forward Hebrew footnote anchors use the existing English Sources and commentary presentation. Multiple lexical markers covered by one substantive note are not counted as multiple notes. No reciprocal note is implied."
+  },
+  "sectionScan": [
+    {
+      "ref": "Peri Tzadik, Sefer Kedushat Shabbat 1",
+      "paragraphsScanned": 8,
+      "actualMarkers": 1,
+      "actualMarkerParagraphs": 1
+    },
+    {
+      "ref": "Peri Tzadik, Sefer Kedushat Shabbat 2",
+      "paragraphsScanned": 8,
+      "actualMarkers": 0,
+      "actualMarkerParagraphs": 0
+    },
+    {
+      "ref": "Peri Tzadik, Sefer Kedushat Shabbat 3",
+      "paragraphsScanned": 9,
+      "actualMarkers": 1,
+      "actualMarkerParagraphs": 1
+    },
+    {
+      "ref": "Peri Tzadik, Sefer Kedushat Shabbat 4",
+      "paragraphsScanned": 12,
+      "actualMarkers": 0,
+      "actualMarkerParagraphs": 0
+    },
+    {
+      "ref": "Peri Tzadik, Sefer Kedushat Shabbat 5",
+      "paragraphsScanned": 9,
+      "actualMarkers": 1,
+      "actualMarkerParagraphs": 1
+    },
+    {
+      "ref": "Peri Tzadik, Sefer Kedushat Shabbat 6",
+      "paragraphsScanned": 9,
+      "actualMarkers": 3,
+      "actualMarkerParagraphs": 3
+    },
+    {
+      "ref": "Peri Tzadik, Sefer Kedushat Shabbat 7",
+      "paragraphsScanned": 33,
+      "actualMarkers": 7,
+      "actualMarkerParagraphs": 5
+    },
+    {
+      "ref": "Peri Tzadik, Kuntres Shvitat Shabbat 1",
+      "paragraphsScanned": 14,
+      "actualMarkers": 1,
+      "actualMarkerParagraphs": 1
+    },
+    {
+      "ref": "Peri Tzadik, Kuntres Shvitat Shabbat 2",
+      "paragraphsScanned": 7,
+      "actualMarkers": 0,
+      "actualMarkerParagraphs": 0
+    },
+    {
+      "ref": "Peri Tzadik, Kuntres Shvitat Shabbat 3",
+      "paragraphsScanned": 1,
+      "actualMarkers": 0,
+      "actualMarkerParagraphs": 0
+    },
+    {
+      "ref": "Peri Tzadik, Kuntres Shvitat Shabbat 4",
+      "paragraphsScanned": 2,
+      "actualMarkers": 0,
+      "actualMarkerParagraphs": 0
+    },
+    {
+      "ref": "Peri Tzadik, Kuntres Shvitat Shabbat 5",
+      "paragraphsScanned": 11,
+      "actualMarkers": 0,
+      "actualMarkerParagraphs": 0
+    },
+    {
+      "ref": "Peri Tzadik, Kuntres Shvitat Shabbat 6",
+      "paragraphsScanned": 9,
+      "actualMarkers": 0,
+      "actualMarkerParagraphs": 0
+    },
+    {
+      "ref": "Peri Tzadik, Kuntres Shvitat Shabbat 7",
+      "paragraphsScanned": 6,
+      "actualMarkers": 1,
+      "actualMarkerParagraphs": 1
+    }
+  ],
+  "markerDispositions": [
+    {
+      "inventoryId": "deferred-1",
+      "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 1:4",
+      "sectionRef": "Peri Tzadik, Sefer Kedushat Shabbat 1",
+      "kind": "deferred",
+      "normalizedMatch": "אין להאריך",
+      "normalizedOffset": 633,
+      "marker": "ואין להאריך כאן",
+      "subject": "The toil of speech, prayer, and Torah, and the criticisms deferred by Rav Tzadok.",
+      "newRecordIds": [
+        "shabbos-deferred-k1-4-amalah-torah-2",
+        "shabbos-deferred-k1-4-beit-yaakov-toldot-8"
+      ],
+      "disposition": "two explanatory parallels approved",
+      "assessment": "Amalah shel Torah explicitly refers back to Kedushat Shabbat 1 and explains why prayer can be proposed as the principal toil before Torah takes precedence. Beit Yaakov explains prayer as restraint and repair of self and world. These illuminate the constructive continuation; neither is claimed to reconstruct every unprinted objection.",
+      "preservedQualifications": [
+        "The tentative retrospective wording is retained.",
+        "The Beit Yaakov quotation retains the Yitzchak/prayer-in-the-field exception."
+      ],
+      "notSelected": [
+        {
+          "ref": "Peri Tzadik, Nasso 1:1",
+          "reason": "Less direct than the explicit retrospective self-reference."
+        },
+        {
+          "ref": "Peri Tzadik, Bechukotai 8:1",
+          "reason": "Not selected over the explicit retrospective explanation."
+        }
+      ],
+      "attribution": "Own-author cross-reference and an explanatory Radzin parallel; no reconstructed oral attribution.",
+      "searchPriority": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "newConnections": [
+        {
+          "recordId": "shabbos-deferred-k1-4-amalah-torah-2",
+          "targetRef": "Peri Tzadik, Kuntres Amalah shel Torah 2:1",
+          "school": "Kisvei Rav Tzadok"
+        },
+        {
+          "recordId": "shabbos-deferred-k1-4-beit-yaakov-toldot-8",
+          "targetRef": "Beit Yaakov on Torah, Toldot 8:3",
+          "school": "Ishbitz–Radzin"
+        }
+      ],
+      "preservedExistingConnections": []
+    },
+    {
+      "inventoryId": "oral-2",
+      "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 3:3",
+      "sectionRef": "Peri Tzadik, Sefer Kedushat Shabbat 3",
+      "kind": "oral",
+      "normalizedMatch": "שמעתי",
+      "normalizedOffset": 2007,
+      "marker": "כענין ששמעתי",
+      "subject": "Yaakov did not die: the relation between peshat/derash and the mode in which a truth appears in the world.",
+      "newRecordIds": [
+        "shabbos-oral-k3-3-takanat-hashavin-6",
+        "shabbos-oral-k3-3-sod-yesharim-pesach-33"
+      ],
+      "disposition": "two explanatory parallels approved; oral transmitter not identified",
+      "assessment": "Takanat HaShavin supplies the exact hidden/visible and peshat/derash distinction. Sod Yesharim develops the coexistence of visible death and life at the root.",
+      "notSelected": [
+        {
+          "ref": "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Taanit 5b:1",
+          "reason": "Explicitly reproduces Kedushat Shabbat 3; circular as independent corroboration or historical identification."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Vayechi 9",
+          "reason": "Related future life and garments, but does not establish the precise peshat/derash distinction."
+        }
+      ],
+      "attribution": "Unnamed transmitter remains unidentified. The later Radzin text is an explanatory parallel.",
+      "searchPriority": [
+        "Ishbitz",
+        "Radzin",
+        "Kisvei Rav Tzadok"
+      ],
+      "newConnections": [
+        {
+          "recordId": "shabbos-oral-k3-3-takanat-hashavin-6",
+          "targetRef": "Takanat HaShavin 6:1",
+          "school": "Kisvei Rav Tzadok"
+        },
+        {
+          "recordId": "shabbos-oral-k3-3-sod-yesharim-pesach-33",
+          "targetRef": "Sod Yesharim, The Seventh Night of Pesach 33:5",
+          "school": "Ishbitz–Radzin"
+        }
+      ],
+      "preservedExistingConnections": []
+    },
+    {
+      "inventoryId": "oral-7",
+      "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 5:1",
+      "sectionRef": "Peri Tzadik, Sefer Kedushat Shabbat 5",
+      "kind": "oral",
+      "normalizedMatch": "שמעתי",
+      "normalizedOffset": 2242,
+      "marker": "וכן שמעתי על לשון הכתוב ממרים הייתם עם ה",
+      "subject": "Even rebellion remains within the enduring attachment to God; divine purpose and present moral responsibility.",
+      "newRecordIds": [
+        "kedusha-deferred-5-1-oral-mei-eikev",
+        "kedusha-deferred-5-1-oral-izhbitz-rosh-chodesh-av",
+        "kedusha-deferred-5-1-shaar-divine-purpose"
+      ],
+      "disposition": "exact Ishbitz parallel, explicitly attributed own-author report, and Radzin qualification approved",
+      "assessment": "Mei HaShiloach II, Eikev 6 gives the identical verse and interpretation. Rosh Chodesh Av 1:1 explicitly names the Izhbitz teacher and retains repentance from love. Shaar Entrance 18:4 distinguishes fulfillment of divine purpose from merit and reward for willing service.",
+      "preservedQualifications": [
+        "Repentance from love qualifies the retrospective disclosure.",
+        "An unwilling agent does not acquire the merit and reward of deliberate service.",
+        "Enduring attachment is not permission for sinful conduct."
+      ],
+      "notSelected": [
+        {
+          "ref": "Beit Yaakov on Torah, Vayera 15:4",
+          "reason": "Lexical overlap does not establish the exact teaching or transmission."
+        },
+        {
+          "ref": "Sha'ar HaEmunah VeYesod HaChasidut, Entrance to the Gate of Beit Yaakov 18:6",
+          "reason": "Primary 18:4 states the required distinction more directly; footnote 421 at 18:6 served as an editorial lead."
+        }
+      ],
+      "attribution": "The Izhbitz identification is supported by the explicit wording in Rosh Chodesh Av, not inferred merely from an unnamed holy teacher.",
+      "searchPriority": [
+        "Ishbitz",
+        "Radzin",
+        "Kisvei Rav Tzadok"
+      ],
+      "newConnections": [
+        {
+          "recordId": "kedusha-deferred-5-1-oral-mei-eikev",
+          "targetRef": "Mei HaShiloach, Volume II, Deuteronomy, Eikev 6",
+          "school": "Ishbitz–Radzin"
+        },
+        {
+          "recordId": "kedusha-deferred-5-1-oral-izhbitz-rosh-chodesh-av",
+          "targetRef": "Peri Tzadik, Rosh Chodesh Av 1:1",
+          "school": "Kisvei Rav Tzadok"
+        },
+        {
+          "recordId": "kedusha-deferred-5-1-shaar-divine-purpose",
+          "targetRef": "Sha'ar HaEmunah VeYesod HaChasidut, Entrance to the Gate of Beit Yaakov 18:4",
+          "school": "Ishbitz–Radzin"
+        }
+      ],
+      "preservedExistingConnections": []
+    },
+    {
+      "inventoryId": "deferred-8",
+      "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 6:3",
+      "sectionRef": "Peri Tzadik, Sefer Kedushat Shabbat 6",
+      "kind": "deferred",
+      "normalizedMatch": "במקום אחר",
+      "normalizedOffset": 2053,
+      "marker": "כמו שכתבתי במקום אחר בישי",
+      "subject": "Jesse, death through the serpent, and the inherited residue of self-directed desire after Sinai.",
+      "newRecordIds": [
+        "kedusha-deferred-6-3-jesse-serpent-ohr-zarua"
+      ],
+      "disposition": "one precise own-author expansion approved; no second-school note forced",
+      "assessment": "Ohr Zarua LaTzadik explains the Jesse/serpent distinction with Sinai, inherited desire, the limits of personal effort, and divine purification. It illuminates concealment after the second tablets.",
+      "notSelected": [
+        {
+          "ref": "Mei HaShiloach, Volume II, Genesis, Bereshit 2",
+          "reason": "The serpent deceives Adam; it does not explain inherited residue in a sinless Jesse."
+        },
+        {
+          "ref": "Sod Yesharim, Parashat Zakhor 19:1",
+          "reason": "Human effort and divine completion are relevant but insufficiently specific."
+        },
+        {
+          "ref": "Beit Yaakov on Torah, Chayei Sara 16:1",
+          "reason": "Sanctifying eating does not establish this particular Jesse/residual-mortality distinction."
+        }
+      ],
+      "attribution": "Not asserted to be the unique passage intended by במקום אחר. No corpus-wide absence claim is made.",
+      "searchPriority": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "newConnections": [
+        {
+          "recordId": "kedusha-deferred-6-3-jesse-serpent-ohr-zarua",
+          "targetRef": "Ohr Zarua LaTzadik, The Egyptian Exile 1:1",
+          "school": "Kisvei Rav Tzadok"
+        }
+      ],
+      "preservedExistingConnections": []
+    },
+    {
+      "inventoryId": "oral-9",
+      "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 6:5",
+      "sectionRef": "Peri Tzadik, Sefer Kedushat Shabbat 6",
+      "kind": "oral",
+      "normalizedMatch": "וקבלתי",
+      "normalizedOffset": 390,
+      "marker": "וקבלתי ממי שנגלה לו מסוד ה ליראיו דשם מת נחשון",
+      "subject": "Nachshon died at Kivrot HaTaavah and is identified by מכה רבה.",
+      "newRecordIds": [
+        "kedusha-deferred-6-5-nachshon-mei-behaalotcha"
+      ],
+      "disposition": "exact printed Ishbitz parallel approved; no additional source forced",
+      "assessment": "Mei HaShiloach II, Behaalotcha 7 supplies the specific person, event, verse, Avishai analogy, and Zohar support. The whole entry is quoted.",
+      "preservedQualifications": [
+        "The source’s tentative ונראה is translated “it appears.”",
+        "Rav Tzadok’s following serpent/name interpretation is distinguished from what the printed Ishbitz entry actually says."
+      ],
+      "notSelected": [
+        {
+          "ref": "Peri Tzadik, Chukat 16:1",
+          "reason": "A Nachshon/left-arm search lead does not establish death at Kivrot HaTaavah."
+        }
+      ],
+      "attribution": "The precise printed parallel is identified; the unnamed oral transmitter is not automatically identified with its author.",
+      "searchPriority": [
+        "Ishbitz",
+        "Radzin",
+        "Kisvei Rav Tzadok"
+      ],
+      "newConnections": [
+        {
+          "recordId": "kedusha-deferred-6-5-nachshon-mei-behaalotcha",
+          "targetRef": "Mei HaShiloach, Volume II, Numbers, Beha'alotcha 7",
+          "school": "Ishbitz–Radzin"
+        }
+      ],
+      "preservedExistingConnections": []
+    },
+    {
+      "inventoryId": "oral-10",
+      "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 6:7",
+      "sectionRef": "Peri Tzadik, Sefer Kedushat Shabbat 6",
+      "kind": "oral",
+      "normalizedMatch": "וקבלתי",
+      "normalizedOffset": 1383,
+      "marker": "וקבלתי כי ירדן בעולם נגד כבד בנפש",
+      "subject": "Jordan/liver correspondence and the distinction between corrupt anger and holy judgment.",
+      "newRecordIds": [
+        "kedusha-deferred-6-7-jordan-tiferet-yosef",
+        "kedusha-deferred-6-7-jordan-likkutei-maamarim"
+      ],
+      "disposition": "exact Radzin and own-author parallels approved",
+      "assessment": "Tiferet Yosef gives the exact correspondence and explains possessive anger. Likkutei Maamarim repeats the received correspondence and Bekhorot juxtaposition, adding the transformation of anger through holy laughter.",
+      "preservedQualifications": [
+        "The distinction involving the ardor of Torah scholars remains.",
+        "The Nedarim episode spans 22a:11–12 and 22b:1, supporting the sources’ respective page locators.",
+        "Tiferet Yosef’s Sefer Yetzirah parenthesis is retained as that author’s citation; no exact primary locator is invented."
+      ],
+      "notSelected": [
+        {
+          "ref": "Dover Tzedek, Miscellany 4:136",
+          "reason": "Exact related report, but Likkutei supplies the fuller explanatory mechanism."
+        }
+      ],
+      "attribution": "The sources do not identify Rav Tzadok’s oral transmitter.",
+      "searchPriority": [
+        "Ishbitz",
+        "Radzin",
+        "Kisvei Rav Tzadok"
+      ],
+      "newConnections": [
+        {
+          "recordId": "kedusha-deferred-6-7-jordan-tiferet-yosef",
+          "targetRef": "Tiferet Yosef, Vayeilech and Shabbat Shuvah 1",
+          "school": "Ishbitz–Radzin"
+        },
+        {
+          "recordId": "kedusha-deferred-6-7-jordan-likkutei-maamarim",
+          "targetRef": "Likkutei Maamarim, Compositions on the Festivals 16:5",
+          "school": "Kisvei Rav Tzadok"
+        }
+      ],
+      "preservedExistingConnections": []
+    },
+    {
+      "inventoryId": "oral-12",
+      "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 7:15",
+      "sectionRef": "Peri Tzadik, Sefer Kedushat Shabbat 7",
+      "kind": "oral",
+      "normalizedMatch": "ושמעתי",
+      "normalizedOffset": 1998,
+      "marker": "ושמעתי פירוש כתב לך היינו כתוב את עצמך",
+      "subject": "“Write for yourself” as “write yourself.”",
+      "newRecordIds": [],
+      "existingRecordIds": [
+        "kedusha-7-moses-gift-sod-simchat-torah-41"
+      ],
+      "disposition": "existing adjacent conceptual note preserved; exact oral report remains unattributed",
+      "assessment": "The existing Sod Yesharim, Simchat Torah 41:1 note is anchored to the earlier Nedarim/Moses gift argument and explains the learner’s personal portion. It is not relabeled as an exact identification of the later “write yourself” oral teaching.",
+      "attribution": "No independent evidence establishes the unnamed speaker. No duplicate or weak replacement is added.",
+      "searchPriority": [
+        "Ishbitz",
+        "Radzin",
+        "Kisvei Rav Tzadok"
+      ],
+      "newConnections": [],
+      "preservedExistingConnections": [
+        {
+          "recordId": "kedusha-7-moses-gift-sod-simchat-torah-41",
+          "targetRef": "Sod Yesharim, Simchat Torah 41:1",
+          "scope": "Preserved existing note; see the disposition before treating it as exact marker coverage."
+        }
+      ]
+    },
+    {
+      "inventoryId": "oral-15",
+      "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 7:18",
+      "sectionRef": "Peri Tzadik, Sefer Kedushat Shabbat 7",
+      "kind": "oral",
+      "normalizedMatch": "שמעתי",
+      "normalizedOffset": 2365,
+      "marker": "וכן שמעתי דעל כן אין מעלות מעזרת ישראל לעזרת כהנים",
+      "subject": "Priestly holiness, the step between the courts, and the missing daily kohen blessing.",
+      "newRecordIds": [
+        "deferred-k7-18-priestly-sanctity-emor-7"
+      ],
+      "disposition": "precise own-author oral-report expansion approved",
+      "assessment": "Emor 7:1 preserves the unusual combination of the blessing question and the two courts, Rav Tzadok’s own free-choice answer, the holy rabbi’s different answer, both Middot opinions, and their reconciliation.",
+      "preservedQualifications": [
+        "Distinct priestly service is not erased.",
+        "Both architectural opinions remain visible.",
+        "The repeated Hebrew clause is retained in English.",
+        "English follows the author’s quoted order: supporting peg, then cornerstone."
+      ],
+      "attribution": "The quoted wording says only “the holy rabbi”; no personal identity is inferred.",
+      "searchPriority": [
+        "Ishbitz",
+        "Radzin",
+        "Kisvei Rav Tzadok"
+      ],
+      "newConnections": [
+        {
+          "recordId": "deferred-k7-18-priestly-sanctity-emor-7",
+          "targetRef": "Peri Tzadik, Emor 7:1",
+          "school": "Kisvei Rav Tzadok"
+        }
+      ],
+      "preservedExistingConnections": []
+    },
+    {
+      "inventoryId": "oral-16",
+      "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 7:20",
+      "sectionRef": "Peri Tzadik, Sefer Kedushat Shabbat 7",
+      "kind": "oral",
+      "normalizedMatch": "ושמעתי",
+      "normalizedOffset": 3121,
+      "marker": "ושמעתי דעיקר ההתגלות היה בקריעת ים סוף",
+      "subject": "The Sea’s vision, Rephidim, and making illumination a lasting acquisition at Sinai.",
+      "newRecordIds": [
+        "deferred-k7-20-sea-vision-iyar-5",
+        "deferred-k7-20-sea-rephidim-sod-purim-15"
+      ],
+      "disposition": "own-author and Radzin explanatory parallels approved",
+      "assessment": "Iyar 5:2 explains the interval between the first gifted vision and inward acquisition through the image of a loan and Iyar’s connecting role. Sod Yesharim, Purim 15:1 explains Rephidim’s mistaken inference from withdrawn clarity and the continuing need for prayer and service.",
+      "preservedQualifications": [
+        "Rabbi Bunim’s nested quotation is distinguished from the surrounding unnamed teacher.",
+        "The explanation states that acquisition at Sinai is relative to the Sea; higher levels repeat faith, vision, and acquisition.",
+        "Genuine attachment does not remove the need for prayer and service."
+      ],
+      "attribution": "The later Radzin discourse is not identified as the historical oral source.",
+      "searchPriority": [
+        "Ishbitz",
+        "Radzin",
+        "Kisvei Rav Tzadok"
+      ],
+      "newConnections": [
+        {
+          "recordId": "deferred-k7-20-sea-vision-iyar-5",
+          "targetRef": "Peri Tzadik, Rosh Chodesh Iyar 5:2",
+          "school": "Kisvei Rav Tzadok"
+        },
+        {
+          "recordId": "deferred-k7-20-sea-rephidim-sod-purim-15",
+          "targetRef": "Sod Yesharim, Purim 15:1",
+          "school": "Ishbitz–Radzin"
+        }
+      ],
+      "preservedExistingConnections": []
+    },
+    {
+      "inventoryId": "deferred-17",
+      "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 7:23",
+      "sectionRef": "Peri Tzadik, Sefer Kedushat Shabbat 7",
+      "kind": "deferred",
+      "normalizedMatch": "כאן מקומ",
+      "normalizedOffset": 1605,
+      "marker": "ואין כאן מקומו",
+      "subject": "Deferred explanations of particular verses in the Amos passage.",
+      "newRecordIds": [
+        "deferred-k7-23-amos-verses-vayigash-5"
+      ],
+      "disposition": "approved verse exposition shared with the immediately preceding oral marker",
+      "assessment": "Vayigash 5:1 supplies a sustained sequence: sifting without losing a soul, Yehudah and Yosef, and restoration of David’s fallen sukkah. This same record covers oral-19; it is counted as one new footnote, not two.",
+      "preservedQualifications": [
+        "The explanation expressly retains the later repentance condition: Mashiach introduces a thought of repentance, and forgiveness is not granted for nothing.",
+        "The bracketed “the reaper” is an editorial completion supported by the full target context."
+      ],
+      "attribution": "A documented own-author expansion; not a reconstruction of every word of the oral explanation.",
+      "searchPriority": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "newConnections": [
+        {
+          "recordId": "deferred-k7-23-amos-verses-vayigash-5",
+          "targetRef": "Peri Tzadik, Vayigash 5:1",
+          "school": "Kisvei Rav Tzadok"
+        }
+      ],
+      "preservedExistingConnections": []
+    },
+    {
+      "inventoryId": "oral-18",
+      "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 7:23",
+      "sectionRef": "Peri Tzadik, Sefer Kedushat Shabbat 7",
+      "kind": "oral",
+      "normalizedMatch": "ושמעתי",
+      "normalizedOffset": 1500,
+      "marker": "ושמעתי דפרשה זו נאמרה על פגם הברית",
+      "subject": "The subject of Amos’s concluding passage and its accompanying consolation.",
+      "newRecordIds": [
+        "deferred-k7-23-amos-consolation-chanukah-21"
+      ],
+      "disposition": "precise own-author oral-report parallel approved",
+      "assessment": "Chanukah 21:3 preserves the reported teaching and its essential movement from rebuke to consolation: no individual is discarded from the work of repair.",
+      "preservedQualifications": [
+        "The author’s biblical wording is presented as figurative.",
+        "The bracket explaining the desire’s antecedent is visibly editorial."
+      ],
+      "notSelected": [
+        {
+          "ref": "Later Mei HaShiloach anthology reproduction of Peri Tzadik’s Amos teaching",
+          "reason": "A useful locator, not an independent witness."
+        }
+      ],
+      "attribution": "“Our holy teacher” remains unnamed in this source.",
+      "searchPriority": [
+        "Ishbitz",
+        "Radzin",
+        "Kisvei Rav Tzadok"
+      ],
+      "newConnections": [
+        {
+          "recordId": "deferred-k7-23-amos-consolation-chanukah-21",
+          "targetRef": "Peri Tzadik, Chanukah 21:3",
+          "school": "Kisvei Rav Tzadok"
+        }
+      ],
+      "preservedExistingConnections": []
+    },
+    {
+      "inventoryId": "oral-19",
+      "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 7:23",
+      "sectionRef": "Peri Tzadik, Sefer Kedushat Shabbat 7",
+      "kind": "oral",
+      "normalizedMatch": "שמעתי",
+      "normalizedOffset": 1582,
+      "marker": "וכמו ששמעתי ביאור מקצתם",
+      "subject": "The heard explanations of particular Amos verses.",
+      "newRecordIds": [
+        "deferred-k7-23-amos-verses-vayigash-5"
+      ],
+      "disposition": "approved verse exposition shared with deferred-17",
+      "assessment": "The Vayigash note belongs at this second oral marker and its adjoining deferral, distinct from the Chanukah note attached to oral-18. The three lexical markers in 7:23 are individually audited but receive two substantive footnotes.",
+      "preservedQualifications": [
+        "Retain the explicit repentance condition from the full target continuation."
+      ],
+      "attribution": "The exact original speaker is not identified.",
+      "searchPriority": [
+        "Ishbitz",
+        "Radzin",
+        "Kisvei Rav Tzadok"
+      ],
+      "newConnections": [
+        {
+          "recordId": "deferred-k7-23-amos-verses-vayigash-5",
+          "targetRef": "Peri Tzadik, Vayigash 5:1",
+          "school": "Kisvei Rav Tzadok"
+        }
+      ],
+      "preservedExistingConnections": []
+    },
+    {
+      "inventoryId": "oral-22",
+      "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 7:28",
+      "sectionRef": "Peri Tzadik, Sefer Kedushat Shabbat 7",
+      "kind": "oral",
+      "normalizedMatch": "שקבלתי",
+      "normalizedOffset": 339,
+      "marker": "וכמדומה שקבלתי כן",
+      "subject": "A word’s first scriptural occurrence reveals the root of its meaning.",
+      "newRecordIds": [
+        "kedusha-deferred-7-28-first-occurrence-tammuz"
+      ],
+      "disposition": "one precise own-author parallel approved after independent second bilingual review",
+      "assessment": "Rosh Chodesh Tammuz 1:1 states the same rule, applies it to sight and the light of Torah, and supplies the Bava Kamma precedent of tet’s first occurrence in tov. The helper read the full origin section and target paragraph.",
+      "preservedQualifications": [
+        "“It seems to me that I received this teaching” retains the tentative memory.",
+        "The source does not identify the transmitter."
+      ],
+      "notSelected": [
+        {
+          "ref": "Sod Yesharim, Rosh Hashanah 45:1",
+          "reason": "Its first-mention discussion of remembrance does not sufficiently explain this precise rule and sight/honor argument."
+        },
+        {
+          "ref": "Yisrael Kedoshim 7:1",
+          "reason": "Related exact principle, but an apparent faulty abbreviation expansion in the preferred reader led to selecting the clearer verified Tammuz source without editing canonical text."
+        }
+      ],
+      "attribution": "Unknown transmitter remains unknown.",
+      "searchPriority": [
+        "Ishbitz",
+        "Radzin",
+        "Kisvei Rav Tzadok"
+      ],
+      "newConnections": [
+        {
+          "recordId": "kedusha-deferred-7-28-first-occurrence-tammuz",
+          "targetRef": "Peri Tzadik, Rosh Chodesh Tammuz 1:1",
+          "school": "Kisvei Rav Tzadok"
+        }
+      ],
+      "preservedExistingConnections": [],
+      "independentReview": "Root read the complete origin paragraph and target paragraph and approved the exact selected Hebrew, English fidelity, tentative wording, contextual connection, and attribution limit."
+    },
+    {
+      "inventoryId": "oral-25",
+      "originRef": "Peri Tzadik, Kuntres Shvitat Shabbat 1:7",
+      "sectionRef": "Peri Tzadik, Kuntres Shvitat Shabbat 1",
+      "kind": "oral",
+      "normalizedMatch": "שמעתי",
+      "normalizedOffset": 9,
+      "marker": "ונהירנא דשמעתי ממורי הקדוש",
+      "subject": "Fixed Shabbat holiness versus festivals sanctified by Israel, and the disputed additional positive command of rest.",
+      "newRecordIds": [
+        "shabbos-oral-s1-7-mei-vayetzei-4"
+      ],
+      "existingRecordIds": [
+        "shevisa-complete-1-fixed-shabbat-mishpatim-6"
+      ],
+      "disposition": "one Ishbitz conceptual parallel approved; exact existing own-author note preserved",
+      "assessment": "Mei HaShiloach I, Vayetzei 4 explains the fixed-holiness premise through Yaakov’s permanent bond. The existing Mishpatim 6:2 note already supplies the exact legal report and remains in place.",
+      "preservedQualifications": [
+        "The new note does not claim to prove the disputed absence of an additional positive command.",
+        "The Rambam/Tosafot disagreement and the unanswered explicit-verse questions remain.",
+        "Shabbat labor prohibitions are not negated."
+      ],
+      "notSelected": [
+        {
+          "ref": "Beit Yaakov on Torah, Lech Lecha 11:9",
+          "reason": "Would repeat the premise with less specific additional explanation."
+        },
+        {
+          "ref": "Sod Yesharim, Rosh Hashanah 11:2",
+          "reason": "Calls Sabbath restraint a positive commandment and cannot corroborate the opposite legal conclusion."
+        },
+        {
+          "ref": "Tiferet Yosef, Rosh Hashanah 9",
+          "reason": "Similarly treats restraint as a positive command; no speculative harmonization is offered."
+        }
+      ],
+      "attribution": "The conceptual parallel is not an identification of the specific oral occasion.",
+      "searchPriority": [
+        "Ishbitz",
+        "Radzin",
+        "Kisvei Rav Tzadok"
+      ],
+      "newConnections": [
+        {
+          "recordId": "shabbos-oral-s1-7-mei-vayetzei-4",
+          "targetRef": "Mei HaShiloach, Volume I, Genesis, Vayetzei 4",
+          "school": "Ishbitz–Radzin"
+        }
+      ],
+      "preservedExistingConnections": [
+        {
+          "recordId": "shevisa-complete-1-fixed-shabbat-mishpatim-6",
+          "targetRef": "Peri Tzadik, Mishpatim 6:2",
+          "scope": "Preserved existing note; see the disposition before treating it as exact marker coverage."
+        }
+      ]
+    },
+    {
+      "inventoryId": "oral-31",
+      "originRef": "Peri Tzadik, Kuntres Shvitat Shabbat 7:6",
+      "sectionRef": "Peri Tzadik, Kuntres Shvitat Shabbat 7",
+      "kind": "oral",
+      "normalizedMatch": "ושמעתי",
+      "normalizedOffset": 27,
+      "marker": "ושמעתי בילדותי בשם גדול אחד",
+      "subject": "The female neighbor’s cow and women’s obligation in their animals’ Shabbat rest.",
+      "newRecordIds": [],
+      "disposition": "unmatched in examined sources; no footnote added",
+      "assessment": "The report is a specific halakhic proof involving Rabbi Elazar ben Azarya’s neighbor. No examined Ishbitz, Radzin, or Rav Tzadok source established this proof or the unnamed authority. Generic animal holiness and personal rest do not meet the required specificity.",
+      "searchTerms": [
+        "שביתת בהמתו",
+        "שביתת בהמה",
+        "שכנתו",
+        "פרתו של רבי",
+        "נשים שבת",
+        "נשים שביתה",
+        "animal rest",
+        "cattle",
+        "cow",
+        "positive commandment"
+      ],
+      "attribution": "The childhood report is not silently assigned to the Ishbitzer or any Radzin teacher.",
+      "searchPriority": [
+        "Ishbitz",
+        "Radzin",
+        "Kisvei Rav Tzadok"
+      ],
+      "newConnections": [],
+      "preservedExistingConnections": []
+    }
+  ],
+  "excludedBroadMatches": [
+    {
+      "id": "deferred-3",
+      "ref": "Peri Tzadik, Sefer Kedushat Shabbat 3:7",
+      "kind": "deferred",
+      "match": "אין יראת אלהים במקום",
+      "offset": 1322,
+      "reason": "Biblical quotation: absence of fear of God in a place; not a deferred explanation."
+    },
+    {
+      "id": "deferred-4",
+      "ref": "Peri Tzadik, Sefer Kedushat Shabbat 4:7",
+      "kind": "deferred",
+      "match": "אין מקום",
+      "offset": 715,
+      "reason": "No room for choice at the transcendent level; not an authorial deferral."
+    },
+    {
+      "id": "deferred-5",
+      "ref": "Peri Tzadik, Sefer Kedushat Shabbat 4:9",
+      "kind": "deferred",
+      "match": "אין צריך מקום",
+      "offset": 126,
+      "reason": "Yitzchak does not require a specially delimited prayer location; not an authorial deferral."
+    },
+    {
+      "id": "deferred-6",
+      "ref": "Peri Tzadik, Sefer Kedushat Shabbat 4:9",
+      "kind": "deferred",
+      "match": "אין מקום לרע אין מקום",
+      "offset": 1056,
+      "reason": "Absence of evil in the future; not an authorial deferral."
+    },
+    {
+      "id": "deferred-11",
+      "ref": "Peri Tzadik, Sefer Kedushat Shabbat 7:14",
+      "kind": "deferred",
+      "match": "אין בה מקום",
+      "offset": 658,
+      "reason": "An attained spiritual level has no place for sin; not an authorial deferral."
+    },
+    {
+      "id": "deferred-13",
+      "ref": "Peri Tzadik, Sefer Kedushat Shabbat 7:18",
+      "kind": "deferred",
+      "match": "אין סוף מכל מקום",
+      "offset": 3263,
+      "reason": "Regex spans אין סוף and מכל מקום; not an authorial deferral."
+    },
+    {
+      "id": "deferred-14",
+      "ref": "Peri Tzadik, Sefer Kedushat Shabbat 7:18",
+      "kind": "deferred",
+      "match": "אין עוד מלבדו דגם המקום",
+      "offset": 3422,
+      "reason": "God is present in every location; not an authorial deferral."
+    },
+    {
+      "id": "deferred-20",
+      "ref": "Peri Tzadik, Sefer Kedushat Shabbat 7:25",
+      "kind": "deferred",
+      "match": "במקום אחר",
+      "offset": 9576,
+      "reason": "The moon is visible in another physical location; not a reference to another written treatment."
+    },
+    {
+      "id": "deferred-21",
+      "ref": "Peri Tzadik, Sefer Kedushat Shabbat 7:26",
+      "kind": "deferred",
+      "match": "אין דאינם ממקום",
+      "offset": 4725,
+      "reason": "Souls arise from different roots/places; not an authorial deferral."
+    },
+    {
+      "id": "deferred-23",
+      "ref": "Peri Tzadik, Kuntres Shvitat Shabbat 1:1",
+      "kind": "deferred",
+      "match": "במקום אחר",
+      "offset": 575,
+      "reason": "The Torah prohibition is stated in another Biblical passage; not an unspecified authorial treatment."
+    },
+    {
+      "id": "deferred-24",
+      "ref": "Peri Tzadik, Kuntres Shvitat Shabbat 1:6",
+      "kind": "deferred",
+      "match": "במקום אחר",
+      "offset": 499,
+      "reason": "A positive commandment is written in another Biblical passage; not an authorial deferral."
+    },
+    {
+      "id": "deferred-26",
+      "ref": "Peri Tzadik, Kuntres Shvitat Shabbat 1:11",
+      "kind": "deferred",
+      "match": "אין מלאכה אבל מכל מקום",
+      "offset": 1830,
+      "reason": "Regex spans אין מלאכה and מכל מקום; not an authorial deferral."
+    },
+    {
+      "id": "deferred-27",
+      "ref": "Peri Tzadik, Kuntres Shvitat Shabbat 6:1",
+      "kind": "deferred",
+      "match": "במקום אחר",
+      "offset": 3288,
+      "reason": "A prohibition or commandment already imposed elsewhere; not a deferred authorial discussion."
+    },
+    {
+      "id": "deferred-28",
+      "ref": "Peri Tzadik, Kuntres Shvitat Shabbat 6:5",
+      "kind": "deferred",
+      "match": "כאן שלא במקומ",
+      "offset": 172,
+      "reason": "A textual passage in Sefer Yereim appears out of place and corrupt; not a deferral to another teaching."
+    },
+    {
+      "id": "deferred-29",
+      "ref": "Peri Tzadik, Kuntres Shvitat Shabbat 7:2",
+      "kind": "deferred",
+      "match": "במקום אחר",
+      "offset": 109,
+      "reason": "A commandment is written for Yom Kippur rather than elsewhere; not an authorial deferral."
+    },
+    {
+      "id": "deferred-30",
+      "ref": "Peri Tzadik, Kuntres Shvitat Shabbat 7:6",
+      "kind": "deferred",
+      "match": "במקום אחר",
+      "offset": 543,
+      "reason": "A commandment is written in another Biblical passage; not an authorial deferral."
+    }
+  ],
+  "supplementalCases": [
+    {
+      "sourceRef": "Peri Tzadik, Sefer Kedushat Shabbat 7:32",
+      "marker": "כמו שכתבתי ... ולא זכיתי ... לא נצחתי",
+      "classification": "supplemental self-reference",
+      "status": "unmatched-in-examined-sources",
+      "searchOrder": [
+        "Rav Tzadok canonical corpus",
+        "Ishbitz local indexed subset",
+        "Radzin primary texts and Beit Yaakov/Shaar annotations"
+      ],
+      "queries": [
+        "לא נצחתי",
+        "לא זכיתי",
+        "זכה לשון",
+        "זכיתי לשון",
+        "לשון נצוח",
+        "לשון נצחון",
+        "ניצחתי",
+        "זכה/זכי near נצח/ניצח"
+      ],
+      "candidatesReadAndRejected": [
+        {
+          "ref": "Sod Yesharim, The First Night of Pesach 6:2",
+          "reason": "Explains redemption beyond human apprehension; does not interpret זכיתי as victory."
+        },
+        {
+          "ref": "Sod Yesharim, The First Night of Pesach 7:1",
+          "reason": "Explains acquisition of a share in unearned redemption and Ben Zoma; not the victory gloss."
+        },
+        {
+          "ref": "Tiferet Yosef, Pesach 5",
+          "reason": "Explains regaining unearned illumination through subsequent effort; no exact conquest interpretation."
+        },
+        {
+          "ref": "Tiferet Yosef, Talmud Anthology, Berakhot 6",
+          "reason": "Explains human participation in redemption and removal of accusations; no exact gloss לא נצחתי."
+        }
+      ],
+      "toolEvidence": "Torah LM query \"לא זכיתי\" \"נצחתי\", scoped Chasidut, returned no results. This is not a proof of absence.",
+      "includedInMarkerCounts": false,
+      "newRecordIds": [],
+      "existingAdjacentRecord": {
+        "recordId": "pri-shabbos-kedusha-7-32-rest-and-ascent-yisrael-7",
+        "targetRef": "Yisrael Kedoshim 7:13",
+        "scope": "Existing rest/ascent note is preserved; it does not establish the victory gloss."
+      }
+    }
+  ],
+  "annotationLeads": {
+    "BeitYaakov": {
+      "edition": "Beit Yaakov al HaTorah, Sifrei Izhbitza Radzin, Bnei Brak, 2006",
+      "paragraphs": 1290,
+      "footnotes": 2492,
+      "coverage": "Targeted searches across the supplied annotations of all twelve Genesis parashiyot; relevant hits read in context. This is not a claim that every annotation was critically reviewed.",
+      "numbering": "Sefaria paragraph numbering can differ from expanded reader paragraphs; retained locators use exact siman and footnote label.",
+      "selectedLeads": [
+        {
+          "location": "Toldot 8:1–3, notes נד–סב",
+          "use": "Prayer, sowing, and the divine response; supports context of the selected Toldot 8:3 primary passage."
+        },
+        {
+          "location": "Vayechi 11:6, note נח",
+          "use": "Points to Mei HaShiloach II, Vayechi; related Yaakov life material, less precise for the peshat/derash marker."
+        },
+        {
+          "location": "Bereshit 36:1, note קטז; Vayeshev 1:1, note ג",
+          "use": "Cite Sod Yesharim, Rosh Hashanah 11:2 on Sabbath restraint as a positive command; not evidence for the opposite legal proposal in Shevisa 1:7."
+        },
+        {
+          "location": "Vayera 15:1, note סד; Vayechi 81:1, note רטז",
+          "use": "Examined for K5–6 oral reports; did not establish the assigned transmission."
+        },
+        {
+          "location": "Vayechi 45:1, note קסג",
+          "use": "Purity sense of זכותא, not the supplemental victory gloss."
+        }
+      ]
+    },
+    "ShaarHaEmunah": {
+      "englishEdition": "The Introduction to the Beit Yaakov, Translated and Annotated by Betzalel Edwards",
+      "hebrewEdition": "Shaar HaEmunah Ve'Yesod HaChassidut, 1996.",
+      "paragraphs": 336,
+      "englishFootnotes": 511,
+      "coverage": "The user specifically requested the English footnotes. These were searched as an editorial lead set, and relevant results were read separately from the original Hebrew.",
+      "selectedLeads": [
+        {
+          "location": "Entrance to the Gate of Beit Yaakov 18, footnotes 413–426, especially 419 at 18:4 and 421 at 18:6",
+          "use": "Led to the divine-purpose/human-intention distinction; the published note quotes primary Hebrew 18:4 with a new English translation."
+        },
+        {
+          "location": "Introduction to Beit Yaakov 1:9, footnote 18; Entrance 2:4, footnotes 203, 204, 207, 212, 215; Entrance 24:2, footnote 462",
+          "use": "Relevant prayer and interpretation context, but no more precise independent attribution for K1/K3."
+        }
+      ],
+      "negativeSearchLimits": "Animal rest, the neighbor’s cow, first occurrence, and the victory gloss yielded no applicable source in the examined annotations; this is not a proof of absence elsewhere."
+    },
+    "editorialBoundary": "Modern footnotes are leads and must be attributed as editorial material. No modern English annotation is silently recast as an original teaching or copied as the newly prepared translation."
+  },
+  "researchEvidenceAndLimits": {
+    "connectorsUsed": [
+      "Kisvei Rav Tzadok Bais Ishbitz–Radzin Library MCP",
+      "Sefaria texts MCP",
+      "Torah LM MCP"
+    ],
+    "successfulExamples": [
+      "Kisvei MCP confirmed selected primary paragraphs including Emor 7:1, Iyar 5:2, Sod Yesharim Purim 15:1, Chanukah 21:3, Vayigash 5:1, and Rosh Chodesh Tammuz 1:1.",
+      "Sefaria direct primary retrieval supplied complete Mei HaShiloach II Eikev and Behaalotcha sections and the full Shaar and Beit Yaakov annotation sets.",
+      "Torah LM independently located the later Taanit anthology reproduction used to recognize circular evidence; a supplemental victory-gloss query returned no result."
+    ],
+    "localCorpusLimit": "The starting local Mei HaShiloach index contained only 21 sections and 178 paragraphs. A local negative is not a complete-work negative. Relevant additional primary sections were fetched and read.",
+    "searchWrapperLimit": "Sefaria search_in_book could remove the book filter when no result was found; such responses were not accepted as reliable book-specific negatives. Correctly filtered primary text search and direct text retrieval were used where available.",
+    "timeouts": "Interrupted or timed-out connector batches provide no positive evidence and no reliable absence result. Agents’ bounded searches are not presented as comprehensive searches of every edition or whole school.",
+    "sourceVersusAttribution": "A precise printed parallel can illuminate a heard teaching without proving who the oral transmitter was. A later anthology that reprints the origin does not become an independent witness.",
+    "K7RecordedSearchSequence": {
+      "scope": "Local preferred source corpus and separately supplied annotation sets. The incomplete local Mei subset cannot supply complete-work negative evidence. This entry records the existing author search log, not a new exhaustive search.",
+      "topics": {
+        "write_self": {
+          "stagesInRecordedOrder": [
+            "Ishbitz",
+            "Radzin"
+          ],
+          "queriesByStage": {
+            "Ishbitz": [
+              "כתב לך",
+              "כתוב עצמ",
+              "כותב עצמ"
+            ],
+            "Radzin": [
+              "כתב לך",
+              "כתוב עצמ",
+              "כותב עצמ"
+            ]
+          },
+          "status": "Search leads only; the approved and rejected full-context dispositions are recorded separately."
+        },
+        "kohanim": {
+          "stagesInRecordedOrder": [
+            "Ishbitz",
+            "Radzin"
+          ],
+          "queriesByStage": {
+            "Ishbitz": [
+              "שעשני כהן",
+              "עזרת כהנים",
+              "עזרת ישראל",
+              "כל העדה כלם",
+              "כל העדה כולם"
+            ],
+            "Radzin": [
+              "שעשני כהן",
+              "עזרת כהנים",
+              "עזרת ישראל",
+              "מעלה יתירה"
+            ]
+          },
+          "status": "Search leads only; the approved and rejected full-context dispositions are recorded separately."
+        },
+        "sea_acquisition": {
+          "stagesInRecordedOrder": [
+            "Ishbitz",
+            "Radzin"
+          ],
+          "queriesByStage": {
+            "Ishbitz": [
+              "ראיה",
+              "ראייה",
+              "ראתה שפחה",
+              "קנין"
+            ],
+            "Radzin": [
+              "בראיה",
+              "בראי",
+              "ראתה שפחה"
+            ]
+          },
+          "status": "Search leads only; the approved and rejected full-context dispositions are recorded separately."
+        },
+        "amos": {
+          "stagesInRecordedOrder": [
+            "Ishbitz",
+            "Radzin"
+          ],
+          "queriesByStage": {
+            "Ishbitz": [
+              "כושיים",
+              "כשיים",
+              "עמוס",
+              "הפטרת קדושים"
+            ],
+            "Radzin": [
+              "כושיים",
+              "כשיים",
+              "הפטרת קדושים"
+            ]
+          },
+          "status": "Search leads only; the approved and rejected full-context dispositions are recorded separately."
+        },
+        "first_mention": {
+          "stagesInRecordedOrder": [
+            "Ishbitz",
+            "Radzin"
+          ],
+          "queriesByStage": {
+            "Ishbitz": [
+              "פעם הראשון",
+              "בפעם ראשון",
+              "נזכר ראשונה",
+              "שורש ענינ",
+              "שורש עניינ"
+            ],
+            "Radzin": [
+              "פעם הראשון",
+              "בפעם ראשון",
+              "נזכר ראשונה",
+              "שורש ענינ",
+              "שורש עניינ"
+            ]
+          },
+          "status": "Search leads only; the approved and rejected full-context dispositions are recorded separately."
+        },
+        "write_self_or_kohanim": {
+          "stagesInRecordedOrder": [
+            "Rav Tzadok"
+          ],
+          "queriesByStage": {
+            "Rav Tzadok": [
+              "כתב לך",
+              "כתוב את עצמ",
+              "שעשני כהן",
+              "עזרת כהנים",
+              "עזרת ישראל",
+              "כהנים מעלה",
+              "מאשר קדשנו"
+            ]
+          },
+          "status": "Search leads only; the approved and rejected full-context dispositions are recorded separately."
+        }
+      }
+    }
+  },
+  "independentPeerReviews": [
+    {
+      "scope": "Kedushat Shabbat 1 and 3",
+      "reviewer": "reference_images",
+      "recordIds": [
+        "shabbos-deferred-k1-4-amalah-torah-2",
+        "shabbos-deferred-k1-4-beit-yaakov-toldot-8",
+        "shabbos-oral-k3-3-takanat-hashavin-6",
+        "shabbos-oral-k3-3-sod-yesharim-pesach-33"
+      ],
+      "verdict": "approve-all-four",
+      "reviewExtent": "Independent second bilingual review of the four records in deferred-root-draft.json. Read complete originating paragraphs and adjacent argument, complete quoted target paragraphs, Beit Yaakov Toldot 8:1–3, Takanat HaShavin 6:1–3, and Sod Yesharim Seventh Night of Pesach 33:4–6. Every selected Hebrew excerpt was independently checked as a unique raw contiguous span of the preferred local canonical paragraph. No claim is made here to a fresh full-section reading of Kedushat Shabbat 1 and 3; the author performed that reading.",
+      "blockingIssues": [],
+      "recordAssessments": [
+        {
+          "id": "shabbos-deferred-k1-4-amalah-torah-2",
+          "verdict": "approve",
+          "exactHebrew": "Unique contiguous match; the excerpt is the complete parenthetical retrospective discussion, omitting only outer parentheses.",
+          "translation": "Faithful. The tentative וכמדומה is retained. The first abbreviated ר״י is correctly expanded Rabbi Yochanan from Berakhot21a, and the last as Rav Yehudah from the ending of Rosh Hashanah; the translation does not silently conflate them.",
+          "connection": "An unusually strong self-cross-reference: the target explicitly names Kedushat Shabbat, discourse1. It explains why prayer is a serious candidate for human life's principal toil before Torah takes precedence. The note appropriately refuses to reconstruct omitted criticisms of Maharsha/Rif.",
+          "placement": "The selected last phrase of1:4 ends at ואין להאריך כאן. This connects the forward-looking constructive explanation to the actual deferral marker."
+        },
+        {
+          "id": "shabbos-deferred-k1-4-beit-yaakov-toldot-8",
+          "verdict": "approve",
+          "exactHebrew": "Unique contiguous selection from Toldot8:3, beginning at והענין בזה and ending after the qualification explaining Yitzchak's prayer in the field.",
+          "translation": "Faithful across the selected passage, including the microcosm/world correspondence, suppression of destructive inclination, prayer's constriction, and the Yitzchak exception. The spelling מדוגל בזריעה is rendered interpretively but reasonably as a characteristic of sowing; 'his distinguishing quality was sowing' would be a slightly closer optional rendering.",
+          "connection": "The source gives an actual mechanism for prayer as constructive human labor: self-restraint turns a person into a dwelling for the Divine Presence and repairs the world. This adds content beyond repeating 'speech means prayer.' The explanation limits its claim to the constructive reading, and retaining Yitzchak prevents the excerpt from misleadingly presenting prayer in the field as an unexplained exception.",
+          "placement": "The shared1:4 deferred marker and theme are defensible because this is preparation for the solution developed in the succeeding argument, not a claim to identify its unprinted objections."
+        },
+        {
+          "id": "shabbos-oral-k3-3-takanat-hashavin-6",
+          "verdict": "approve",
+          "exactHebrew": "Unique contiguous full thought corresponding to Takanat HaShavin6:1 excluding its paragraph label. No qualification is removed within the paragraph.",
+          "translation": "Faithful. The bracketed subject [repentance] is transparently supplied from context. The distinctions between visible death, hidden derash, and the continued life of descendants are preserved.",
+          "connection": "Directly corroborates the specific peshat/derash and visibility distinction of the oral teaching. The note correctly states that it does not identify the unnamed original speaker. Takanat HaShavin6:3 confirms that continued life is not yet manifest to ordinary observation and does not undermine the excerpt.",
+          "placement": "The anchor begins כענין ששמעתי at the actual oral-transmission marker and includes the complete transmitted argument."
+        },
+        {
+          "id": "shabbos-oral-k3-3-sod-yesharim-pesach-33",
+          "verdict": "approve",
+          "exactHebrew": "Unique contiguous opening passage of33:5, ending at an intelligible completed explanation. The unquoted remainder further supports the distinction and supplies no omitted restriction that changes it.",
+          "translation": "Faithful, including the embedded Aramaic Zohar, the analogy to inanimate creation, and death as concealment at the lower level. No physical immortality visible to every observer is asserted.",
+          "connection": "This is a substantive later Radzin development of how the two descriptions of Yaakov can coexist, not a merely topical Yaakov quotation. Its role as a later explanatory parallel rather than identification of the oral speaker is explicit.",
+          "placement": "The oral marker at3:3 is the right place for this explanatory qualification."
+        }
+      ]
+    },
+    {
+      "scope": "Kedushat Shabbat 5 and 6",
+      "reviewer": "root",
+      "recordIds": [
+        "kedusha-deferred-5-1-oral-mei-eikev",
+        "kedusha-deferred-5-1-oral-izhbitz-rosh-chodesh-av",
+        "kedusha-deferred-5-1-shaar-divine-purpose",
+        "kedusha-deferred-6-3-jesse-serpent-ohr-zarua",
+        "kedusha-deferred-6-7-jordan-tiferet-yosef",
+        "kedusha-deferred-6-7-jordan-likkutei-maamarim",
+        "kedusha-deferred-6-5-nachshon-mei-behaalotcha"
+      ],
+      "verdict": "approve-all-seven-with-English-refinements",
+      "reviewExtent": "Independent bilingual review of the seven K5–6 records: selected Hebrew and English, source references, originating paragraphs, necessary qualifications, historical attribution, and value of the connection. The author read the complete originating sections and complete target paragraphs; this review does not claim a second full reading of every originating section.",
+      "blockingIssues": [],
+      "recordAssessments": [
+        {
+          "id": "kedusha-deferred-5-1-oral-mei-eikev",
+          "verdict": "approve",
+          "assessment": "The complete short Eikev II entry gives the identical verse and interpretation. The explanation preserves the distinction between enduring attachment and correction of moral faults. Its short length is appropriate because the entire primary entry is quoted."
+        },
+        {
+          "id": "kedusha-deferred-5-1-oral-izhbitz-rosh-chodesh-av",
+          "verdict": "approve-with-refinement",
+          "assessment": "Explicit מאיזביצא attribution is present. The English condition of repentance from love was moved before the disclosure clause to make its scope unambiguous. No condition was removed. The explanation accurately separates retrospective disclosure from present moral responsibility."
+        },
+        {
+          "id": "kedusha-deferred-5-1-shaar-divine-purpose",
+          "verdict": "approve",
+          "assessment": "The substantial primary paragraph distinguishes divine governance from an unwilling agent's merit. English notes419 at18:4 and421 at18:6 were independently located and checked. The new translation is of the original Hebrew, not the modern annotated English edition."
+        },
+        {
+          "id": "kedusha-deferred-6-3-jesse-serpent-ohr-zarua",
+          "verdict": "approve",
+          "assessment": "The selected contiguous thought includes Sinai, Jesse, inherited desire, limitations of personal effort, and divine purification. The originating paragraph explicitly uses this distinction to explain concealment after the second tablets. The note does not claim to identify the unique intended elsewhere."
+        },
+        {
+          "id": "kedusha-deferred-6-7-jordan-tiferet-yosef",
+          "verdict": "approve-with-refinement",
+          "assessment": "The exact correspondence and the possessive-anger explanation are both present; the distinction involving the ardor of Torah scholars remains. Removed the redundant English phrase whenever we sometimes. Direct Sefaria verification confirms the Jordan episode spans Nedarim22a:11–12 and22b:1, so the printed22b citation is retained. The unlocated Sefer Yetzirah parenthesis is expressly attributed to Tiferet Yosef and is not converted into an invented exact primary locator."
+        },
+        {
+          "id": "kedusha-deferred-6-7-jordan-likkutei-maamarim",
+          "verdict": "approve",
+          "assessment": "The repeated received correspondence and Bekhorot juxtaposition are exact. The continuation adds the transformation of anger through laughter and Leviathan. Its native Nedarim22a citation is defensible because the episode begins there and ends on22b."
+        },
+        {
+          "id": "kedusha-deferred-6-5-nachshon-mei-behaalotcha",
+          "verdict": "approve",
+          "assessment": "The whole entry supplies the specific person, event, verse, Avishai analogy and Zohar support. The tentative ונראה is translated it appears. Rav Tzadok's following serpent/name interpretation is clearly distinguished from the printed Ishbitz entry. No unnamed oral transmitter is identified without evidence."
+        }
+      ]
+    },
+    {
+      "scope": "Kuntres Shvitat Shabbat 1:7",
+      "reviewer": "root",
+      "recordIds": [
+        "shabbos-oral-s1-7-mei-vayetzei-4"
+      ],
+      "verdict": "approve",
+      "reviewExtent": "Independent second bilingual review of the one Shevisa draft, with the complete originating paragraph and complete target paragraph read directly from the preferred canonical corpus.",
+      "blockingIssues": [],
+      "recordAssessments": [
+        {
+          "id": "shabbos-oral-s1-7-mei-vayetzei-4",
+          "verdict": "approve",
+          "assessment": "The entire Mei HaShiloach entry is quoted and faithfully translated. Its Shabbat/festivals distinction is the precise premise of the reported teaching, and its application to Yaakov clarifies holiness preceding personal awakening. The note expressly declines to use this as proof of the disputed legal conclusion or identity of the oral transmitter. Rav Tzadok’s subsequent qualifications are present in the originating paragraph and are not contradicted. The shared title and summary match the already published Mishpatim note at this exact anchor. Corrected reference spacing only."
+        }
+      ]
+    },
+    {
+      "scope": "Kedushat Shabbat 7:18, 7:20, and 7:23",
+      "reviewer": "reference_images",
+      "recordIds": [
+        "deferred-k7-18-priestly-sanctity-emor-7",
+        "deferred-k7-20-sea-vision-iyar-5",
+        "deferred-k7-20-sea-rephidim-sod-purim-15",
+        "deferred-k7-23-amos-consolation-chanukah-21",
+        "deferred-k7-23-amos-verses-vayigash-5"
+      ],
+      "verdict": "approve-all-five",
+      "reviewExtent": "Independent bilingual peer review of five K7 records. Read full originating paragraphs 7:18, 7:20, and 7:23; complete five target paragraphs; and Rosh Chodesh Iyar 5:1 as adjacent context. Independently checked all selected origin/target Hebrew as unique raw contiguous canonical substrings. This review does not claim a new independent reading of the entire Kedushat Shabbat 7 section; the author and root performed that full-section reading. No connector calls were made for this peer review.",
+      "blockingIssues": [],
+      "recordAssessments": [
+        {
+          "id": "deferred-k7-18-priestly-sanctity-emor-7",
+          "verdict": "approve",
+          "exactHebrew": "The origin and target are each one unique raw contiguous span of their preferred canonical paragraphs. The target preserves the duplicated Hebrew clause concerning the holiness of Israel instead of silently emending it.",
+          "bilingualFidelity": "Faithful. Both of the reported answers are retained: Rav Tzadok's answer about free choice and the holy rabbi's explanation of priestly holiness. The repeated Hebrew clause is also repeated in English. The previously reversed biblical fragment has been corrected to the author's actual quoted order, “From him the supporting peg, from him the cornerstone.”",
+          "contextAndQualifications": "The long quotation is justified because it retains both Middot opinions and their reconciliation. The fuller origin and target preserve distinct priestly service while deriving priestly holiness from Israel. No unsupported personal identity is assigned to the unnamed holy rabbi.",
+          "connection": "Unusually strong: the same two details occur together—the absence of a daily kohen blessing and the first tanna's absence of a raised step between the two courts. The target also gives the substantive discussion recalled by the origin.",
+          "placement": "The selected origin begins with וכן שמעתי and includes both recalled details. This is the relevant oral-transmission marker.",
+          "correctionsResolved": [
+            "English now preserves the nonstandard quoted order ממנו יתד ממנו פינה."
+          ]
+        },
+        {
+          "id": "deferred-k7-20-sea-vision-iyar-5",
+          "verdict": "approve",
+          "exactHebrew": "Both selected excerpts are unique raw contiguous canonical spans. The target ends after the completed explanation of Iyar, vav, and hearing as acceptance in the heart.",
+          "bilingualFidelity": "Faithful across the Exodus and Sea revelations, withdrawal, borrowed initial devotion, work toward acquisition, and the connecting vav. The nested Rabbi Bunim attribution remains distinct from the surrounding unnamed holy rabbi. The English explains the Hebrew loan/asking wordplay without substituting a different argument.",
+          "contextAndQualifications": "The selected origin describes Sinai as acquisition relative to the Sea. Its continuation then explains repeated higher cycles of faith, sight, and acquisition. The explanation now expressly preserves that relative scope and the higher recurring cycle. The target's remainder develops Iyar's preparatory work and does not contradict the selected passage.",
+          "connection": "Adds a precise intermediate mechanism, rather than merely repeating the topic: Iyar joins the first gift of sight to inward acquisition in Sivan, and the loan image explains the light's withdrawal.",
+          "placement": "The shared origin begins at ושמעתי and preserves the Sea-to-Rephidim-to-Sinai reasoning. It properly anchors this close parallel to the oral teaching.",
+          "correctionsResolved": [
+            "Explanation now explicitly preserves the relative scope of acquisition and the repeated cycle at higher levels."
+          ]
+        },
+        {
+          "id": "deferred-k7-20-sea-rephidim-sod-purim-15",
+          "verdict": "approve",
+          "exactHebrew": "Origin and target each match exactly once as contiguous canonical passages. The target opens with the explanatory body following the quoted Rephidim/Zohar introduction and ends with a complete account of the continuing need for prayer and service.",
+          "bilingualFidelity": "Faithful, including the embedded Zohar, the distinction between permitted self-examination and putting God to the test, the despair after the light disappears, and the coexistence of attachment above with necessary work below.",
+          "contextAndQualifications": "The remaining source paragraph explicitly returns to Amalek and the need for human clarification where it is possible; it supports the selected explanation. The note explicitly identifies this as a developed Radzin parallel rather than an identification of Rav Tzadok's oral source.",
+          "connection": "Explains the exact failure at Rephidim used in the origin to show that seeing was not yet acquisition: the disappearance of experienced clarity was mistaken for possible absence of the underlying bond.",
+          "placement": "The same ושמעתי origin span at 7:20 is appropriate. It includes Rephidim and Amalek, which this later source directly illuminates."
+        },
+        {
+          "id": "deferred-k7-23-amos-consolation-chanukah-21",
+          "verdict": "approve",
+          "exactHebrew": "Both excerpts match their canonical paragraphs uniquely and contiguously. The target is the complete selected oral report, including consolation and eventual repair.",
+          "bilingualFidelity": "Faithful. The bracketed identification of the desire as the sexual desire under discussion is supported by the full target paragraph and is visibly editorial. The source's figurative biblical wording, emotional distress, consolation, and promise of repair remain in the translation.",
+          "contextAndQualifications": "No named identity is invented for “our holy teacher.” The explanation correctly treats the later Mei HaShiloach anthology reproduction as a locator, not an independent witness. The full source context supports the sexual-conduct antecedent.",
+          "connection": "Provides the indispensable consoling content alongside the rebuke: Amos 9:7 is read together with 9:9, so the quotation does not leave distressed young people with condemnation alone.",
+          "placement": "Anchors the first oral marker ושמעתי דפרשה זו at 7:23, addressing the report about the subject of the Amos passage. This differs from the subsequent verse-explanation marker used by the Vayigash note."
+        },
+        {
+          "id": "deferred-k7-23-amos-verses-vayigash-5",
+          "verdict": "approve",
+          "exactHebrew": "Both excerpts are unique raw contiguous matches. The Vayigash selection preserves the sequence of verse interpretation, the need for further exiles despite an earlier refinement, and the concluding Bar Nafli reference.",
+          "bilingualFidelity": "Faithful. The supplied “the reaper” is marked with brackets and is supported by the full paragraph's explicit earlier quotation; it is not passed off as a word present in the selected Hebrew span. The literal seed-drawing image, Egyptian descent, guarding against forbidden relations, seven falls, and David's fallen sukkah are retained.",
+          "contextAndQualifications": "The full target begins with an oral teaching about this same Amos passage. Its later continuation distinguishes Yosef's unblemished righteousness from David's work of repentance, explains that Mashiach brings a thought of repentance into the community, and explicitly says that the world is not forgiven for nothing. Following root's observation, this condition is now expressly retained in the note's explanation without changing the contiguous quote. The explanation avoids reconstructing every word of the oral source.",
+          "connection": "Provides the actual sequence of verse interpretations deferred at the origin: sifting without losing a soul, Yehudah and Yosef, and restoration of David's sukkah. This is distinct from the shorter Chanukah note's consoling oral report.",
+          "placement": "Begins at the second marker וכמו ששמעתי ביאור מקצתם ואין כאן מקומו and continues into the Kedoshim connection. The distinct intended anchor should be retained when generating the footnote.",
+          "correctionsResolved": [
+            "Explanation now names the necessary repentance condition in the later continuation, including the thought of repentance and the rejection of forgiveness for nothing."
+          ]
+        }
+      ]
+    },
+    {
+      "scope": "Kedushat Shabbat 7:28 helper note",
+      "reviewer": "root",
+      "recordIds": [
+        "kedusha-deferred-7-28-first-occurrence-tammuz"
+      ],
+      "verdict": "approve",
+      "reviewExtent": "Independent bilingual review of the one K7:28 note. Complete origin paragraph and complete Rosh Chodesh Tammuz 1:1 were read, along with the selected source and origin quotations. The full origin section was read by the author and the K7 reviewer.",
+      "blockingIssues": [],
+      "recordAssessments": [
+        {
+          "id": "kedusha-deferred-7-28-first-occurrence-tammuz",
+          "verdict": "approve",
+          "bilingualFidelity": "The English follows the Hebrew first-occurrence rule, sight/light argument, tet/tov precedent, five Torah books, and cited page sides. The origin preserves the tentative wording וכמדומה שקבלתי כן.",
+          "contextAndQualifications": "The note distinguishes corroboration of a received principle from identification of an unnamed teacher. The complete target continues the sight/light/darkness argument and does not qualify away the quoted principle. The origin applies the principle to יקר and prophetic apprehension; the explanation connects the demonstration to that actual context.",
+          "connection": "The same author explicitly formulates the same interpretive rule, supplies its Talmudic precedent, and demonstrates it through sight and light, which directly illuminates the surrounding original argument.",
+          "correctionsResolved": [
+            "An initial template carryover was corrected by the author before this review. The saved fields and both canonical span checks concern K7:28."
+          ]
+        }
+      ]
+    }
+  ],
+  "resolvedEditorialFindings": [
+    "Emor English preserves the source’s peg/cornerstone order and repeated clause.",
+    "Iyar explanation preserves relative acquisition and the higher recurring cycle.",
+    "Vayigash explanation explicitly preserves repentance and the rejection of forgiveness for nothing.",
+    "K7:28 copied origin fields were corrected and both canonical quote matches rechecked before final assembly.",
+    "K5:1 repentance-from-love clause and K6:7 translation clarity refinements were retained after root review."
+  ],
+  "sourceImportAndPreservation": {
+    "reviewedFiles": [
+      "scripts/build-mcp-index.mjs",
+      "sources/akiva/remote-source-texts/mei-shiloach-volume-ii-eikev-behaalotcha.json",
+      "sources/akiva/remote-source-texts/shaar-haemunah-1996.json",
+      "cloudflare/mcp.mjs",
+      "scripts/test-mcp-server.mjs"
+    ],
+    "purpose": "Make the additional primary source quotations addressable while preserving existing interlinear editions and the remote reader’s separately available English annotation content.",
+    "independentChecksCompleted": [
+      "All 178 baseline Mei paragraph objects were preserved exactly, including phrases, notes, headings, and citation metadata.",
+      "All 21 baseline Mei section objects and offsets were preserved exactly.",
+      "The resulting 196 Mei paragraph references were unique.",
+      "An isolated overlapping-section fixture was rejected rather than replacing an existing interlinear section.",
+      "Four focused calls through the actual local JSON-RPC handler passed: retained Vayetzei 4, new Eikev 6, new Behaalotcha 7, and Shaar Entrance 18:4."
+    ],
+    "metadataCorrections": [
+      "Non-interlinear snapshot passages use their section’s source edition; old Akiva interlinear material retains its copyright and translation label.",
+      "The fallback message says English is not included in the indexed text, without falsely saying the remote reader has no English translation."
+    ],
+    "preservationLimits": "The supplied bytewise baseline covered Mei, not every book. Full generic MCP tests were left for the final integration/CI pass. The reader’s remote Shaar English route and footnotes are not rewritten by the snapshot importer.",
+    "baselineConnections": "Root reported the baseline 996 existing connection records passed canonical quote checks before additions; post-integration preservation remains a final gate.",
+    "deploymentDistinction": "Publishing static Pages data does not by itself deploy the Cloudflare worker code changes; worker deployment and live metadata verification are separate gates."
+  },
+  "recordEvidence": [
+    {
+      "id": "shabbos-deferred-k1-4-amalah-torah-2",
+      "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 1:4",
+      "targetRef": "Peri Tzadik, Kuntres Amalah shel Torah 2:1",
+      "school": "Kisvei Rav Tzadok",
+      "originQuoteId": "shabbos-deferred-k1-4-amalah-torah-2:origin",
+      "targetQuoteId": "shabbos-deferred-k1-4-amalah-torah-2:target",
+      "originQuoteSha256": "2057b1fa25ae281ad5327561188a0b64a880cd58fcf0f4f5ac46040814aa4b5d",
+      "targetQuoteSha256": "d772b3279e8b9f3c4cc0f969f9fae2cf5f83d3aae0f7fb7f18af21b28bea269e",
+      "originEnglishSha256": "2a777a537d3b716507f724aa30b71976bbe63d5256091ed943c2900930434ba2",
+      "targetEnglishSha256": "79a2c99c4782b95165a34b6abec3aaf6801e6f33c8345b423b62ffa0e15b152a",
+      "explanationSha256": "353a002011732205ec0a394ce4c361e75f8ffad58d5704a8bb442b2743bb3ebf",
+      "independentReview": "approved",
+      "reviewedOriginHebrewSha256": "bcca7cec794cc1b10129fec120003ce0ecc7863724c9045200c72cabd66b557b",
+      "reviewedOriginSectionHebrewSha256": "0bab683ad4aa905ea4c94079773fd412388415dbf789679b895294d04e894893",
+      "reviewedTargetHebrewSha256": "99b140fc8de95ae7d2de38233220c4be0ddd08e61564bd3e99d70adbe277dc4e"
+    },
+    {
+      "id": "shabbos-deferred-k1-4-beit-yaakov-toldot-8",
+      "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 1:4",
+      "targetRef": "Beit Yaakov on Torah, Toldot 8:3",
+      "school": "Ishbitz–Radzin",
+      "originQuoteId": "shabbos-deferred-k1-4-beit-yaakov-toldot-8:origin",
+      "targetQuoteId": "shabbos-deferred-k1-4-beit-yaakov-toldot-8:target",
+      "originQuoteSha256": "2057b1fa25ae281ad5327561188a0b64a880cd58fcf0f4f5ac46040814aa4b5d",
+      "targetQuoteSha256": "85ffd518d0fc0d67eb620275bc0005bb5dcdb49d8f5e25d5ef0f3188aa5014f1",
+      "originEnglishSha256": "2a777a537d3b716507f724aa30b71976bbe63d5256091ed943c2900930434ba2",
+      "targetEnglishSha256": "76207f5dbef71ddc86e00785da7df6b8a989cc9e1d99827021c4478f22acafb5",
+      "explanationSha256": "254057ca4309d8bb47a3f9a5af7e2d4e4a82eeed0c501b122263649e510f59df",
+      "independentReview": "approved",
+      "reviewedOriginHebrewSha256": "bcca7cec794cc1b10129fec120003ce0ecc7863724c9045200c72cabd66b557b",
+      "reviewedOriginSectionHebrewSha256": "0bab683ad4aa905ea4c94079773fd412388415dbf789679b895294d04e894893",
+      "reviewedTargetHebrewSha256": "550afed07695eba573a9013bafd82f9f4b667891e3c35a212051e77e22974dd1"
+    },
+    {
+      "id": "shabbos-oral-k3-3-takanat-hashavin-6",
+      "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 3:3",
+      "targetRef": "Takanat HaShavin 6:1",
+      "school": "Kisvei Rav Tzadok",
+      "originQuoteId": "shabbos-oral-k3-3-takanat-hashavin-6:origin",
+      "targetQuoteId": "shabbos-oral-k3-3-takanat-hashavin-6:target",
+      "originQuoteSha256": "e77599e81988b897cb0d86829d8a18bf220d2a676f0bd40f50089bee063895a9",
+      "targetQuoteSha256": "1e87a3c6c82047413670cfceba1cdb746d76c79f138f7cee4578e823e1032bd2",
+      "originEnglishSha256": "92d1c5a301efefe011c39ab2ff20102feb37f49d56db9b86fa7880228ef34400",
+      "targetEnglishSha256": "779a38a70d8063510c4044631b605cffe973596edc495ea4cd79a3b9cc08471d",
+      "explanationSha256": "ea4c6f24693f138c0866b45b08f46144eb14e425843250f1368af885d20e1149",
+      "independentReview": "approved",
+      "reviewedOriginHebrewSha256": "f35de11aebb8f9361c75aefda70dc216211d4ad5f54900fc3ace989640293447",
+      "reviewedOriginSectionHebrewSha256": "7f9256358fa2e4b8e9371c74a1af58786937c0666509daf36358f2968e3ef90a",
+      "reviewedTargetHebrewSha256": "21cde29ffe23559d8116d0015b61c4f3cb4ebf1461015e16179c6e44c70f6afc"
+    },
+    {
+      "id": "shabbos-oral-k3-3-sod-yesharim-pesach-33",
+      "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 3:3",
+      "targetRef": "Sod Yesharim, The Seventh Night of Pesach 33:5",
+      "school": "Ishbitz–Radzin",
+      "originQuoteId": "shabbos-oral-k3-3-sod-yesharim-pesach-33:origin",
+      "targetQuoteId": "shabbos-oral-k3-3-sod-yesharim-pesach-33:target",
+      "originQuoteSha256": "e77599e81988b897cb0d86829d8a18bf220d2a676f0bd40f50089bee063895a9",
+      "targetQuoteSha256": "70932384c888ebe54e1de4eb8930594d2ef796da7292fb1cc94cefd9dec0ea66",
+      "originEnglishSha256": "92d1c5a301efefe011c39ab2ff20102feb37f49d56db9b86fa7880228ef34400",
+      "targetEnglishSha256": "52c4449fc9eee4de64d5a0ee7bdb074719a6eaadc75397121bed573833ced324",
+      "explanationSha256": "cc28dbe5d089fc6a9f57923fab8996fd520fc5733c17452a95ecc7768f67c716",
+      "independentReview": "approved",
+      "reviewedOriginHebrewSha256": "f35de11aebb8f9361c75aefda70dc216211d4ad5f54900fc3ace989640293447",
+      "reviewedOriginSectionHebrewSha256": "7f9256358fa2e4b8e9371c74a1af58786937c0666509daf36358f2968e3ef90a",
+      "reviewedTargetHebrewSha256": "25c83043580ce4c025dd644f7e86ce4bb02fb30ab4a46ce55e482de8f1659215"
+    },
+    {
+      "id": "kedusha-deferred-5-1-oral-mei-eikev",
+      "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 5:1",
+      "targetRef": "Mei HaShiloach, Volume II, Deuteronomy, Eikev 6",
+      "school": "Ishbitz–Radzin",
+      "originQuoteId": "kedusha-deferred-5-1-oral-mei-eikev:origin",
+      "targetQuoteId": "kedusha-deferred-5-1-oral-mei-eikev:target",
+      "originQuoteSha256": "e7c9fef7b482b15781e7a2cc36fc55eaecdc15333a5f36f7fdb524f936a4f0d5",
+      "targetQuoteSha256": "5188c1c1d6818de45e53d988998a5658bd32fb352ec2a2508fd42a530e2941cf",
+      "originEnglishSha256": "4d0a69f1d395f0cb4358e9d83335e7b321c779d6adb458412c2e37638ed6755b",
+      "targetEnglishSha256": "d73e47b15bbae9aa92b2e21f3a8cb9458f3721353489661eaf52331ae0842036",
+      "explanationSha256": "5e517885bad836d2fe14f5941e62cf565badc87c9873229b82fca15bfa7694f0",
+      "independentReview": "approved",
+      "reviewedOriginHebrewSha256": "d636b9c86b3b2abd665862bb30bff04a04973fa3dcde939de6648add057a4007",
+      "reviewedOriginSectionHebrewSha256": "6a6d3a28cb8300ebd2c0e919899e663c07f5515b62ddfdf0fd261613d83b9dc0",
+      "reviewedTargetHebrewSha256": "4b8b2cf248d994f474fd016b4fed870a81fb7086aaffbc9801e437d5e96467de"
+    },
+    {
+      "id": "kedusha-deferred-5-1-oral-izhbitz-rosh-chodesh-av",
+      "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 5:1",
+      "targetRef": "Peri Tzadik, Rosh Chodesh Av 1:1",
+      "school": "Kisvei Rav Tzadok",
+      "originQuoteId": "kedusha-deferred-5-1-oral-izhbitz-rosh-chodesh-av:origin",
+      "targetQuoteId": "kedusha-deferred-5-1-oral-izhbitz-rosh-chodesh-av:target",
+      "originQuoteSha256": "e7c9fef7b482b15781e7a2cc36fc55eaecdc15333a5f36f7fdb524f936a4f0d5",
+      "targetQuoteSha256": "2c842258fa6e28ceb2a88db33d205341f3d9c4ae799dc1dba08d2a7673b3fa8f",
+      "originEnglishSha256": "4d0a69f1d395f0cb4358e9d83335e7b321c779d6adb458412c2e37638ed6755b",
+      "targetEnglishSha256": "e943bda4b6d34c018c808909a1f43cf391f214b057d48e401dee23c489ba2ada",
+      "explanationSha256": "a87eba41be331ca6b243c9c253644b69405cfd471b1c2df6b95fa6770c9d3ca1",
+      "independentReview": "approved",
+      "reviewedOriginHebrewSha256": "d636b9c86b3b2abd665862bb30bff04a04973fa3dcde939de6648add057a4007",
+      "reviewedOriginSectionHebrewSha256": "6a6d3a28cb8300ebd2c0e919899e663c07f5515b62ddfdf0fd261613d83b9dc0",
+      "reviewedTargetHebrewSha256": "64d58c98480ad6c0d23f1fa03faf10aab7aa6c0168e4bb852bffa8d3dbc9eec8"
+    },
+    {
+      "id": "kedusha-deferred-5-1-shaar-divine-purpose",
+      "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 5:1",
+      "targetRef": "Sha'ar HaEmunah VeYesod HaChasidut, Entrance to the Gate of Beit Yaakov 18:4",
+      "school": "Ishbitz–Radzin",
+      "originQuoteId": "kedusha-deferred-5-1-shaar-divine-purpose:origin",
+      "targetQuoteId": "kedusha-deferred-5-1-shaar-divine-purpose:target",
+      "originQuoteSha256": "e7c9fef7b482b15781e7a2cc36fc55eaecdc15333a5f36f7fdb524f936a4f0d5",
+      "targetQuoteSha256": "19bcde999e0848c6a2ca799210f57f6e5ff5bd2fa27e42cd09d3487ae49dccd4",
+      "originEnglishSha256": "4d0a69f1d395f0cb4358e9d83335e7b321c779d6adb458412c2e37638ed6755b",
+      "targetEnglishSha256": "2942e2d24e8682229d44d87c7c2f4f760dbb7dcc7e2d4172cf9bcafe4d0b9913",
+      "explanationSha256": "ade250742bd7610d49b5730fa7137ae69a3151b348d7318689c266ea1e2c3bf5",
+      "independentReview": "approved",
+      "reviewedOriginHebrewSha256": "d636b9c86b3b2abd665862bb30bff04a04973fa3dcde939de6648add057a4007",
+      "reviewedOriginSectionHebrewSha256": "6a6d3a28cb8300ebd2c0e919899e663c07f5515b62ddfdf0fd261613d83b9dc0",
+      "reviewedTargetHebrewSha256": "bd2e5fedb0a3edbaa2f47337275a31ba515bcabe59f38053abbdc7f2e78f7583"
+    },
+    {
+      "id": "kedusha-deferred-6-3-jesse-serpent-ohr-zarua",
+      "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 6:3",
+      "targetRef": "Ohr Zarua LaTzadik, The Egyptian Exile 1:1",
+      "school": "Kisvei Rav Tzadok",
+      "originQuoteId": "kedusha-deferred-6-3-jesse-serpent-ohr-zarua:origin",
+      "targetQuoteId": "kedusha-deferred-6-3-jesse-serpent-ohr-zarua:target",
+      "originQuoteSha256": "6438dca52c7a94bc3c29b7b11fdfacc10c02893d1349bc3b231db18b66954c4c",
+      "targetQuoteSha256": "a6f3da0404aec916a39b76eb6da0bbecdc5cb70139592d7808280e0059966c0c",
+      "originEnglishSha256": "d34c44e93668e8d3bae2612d6d361cda8c73ee37e9b10e0a402e746fee2d0196",
+      "targetEnglishSha256": "dc6ddef4e90ceb16d730547db91a09026a7cb7e96c053ed56ef4bb558fba85e8",
+      "explanationSha256": "1e8d4a33341aa61b29afcf1f3a53ec61411b042b06e4f0bf12dff3485cbf7e31",
+      "independentReview": "approved",
+      "reviewedOriginHebrewSha256": "a2ad1e500358be6c7eee24233feca73bd76f9e48d676e645a97148ff66ac746b",
+      "reviewedOriginSectionHebrewSha256": "313b9716d90fc5cd60bb870e6fef42ec8cd601920d88f1f8d00fd429b71ba9ac",
+      "reviewedTargetHebrewSha256": "78ecfb3317d719634032ffcc21cc69b866ed882a276c8b2c5266a5c593ad4e59"
+    },
+    {
+      "id": "kedusha-deferred-6-7-jordan-tiferet-yosef",
+      "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 6:7",
+      "targetRef": "Tiferet Yosef, Vayeilech and Shabbat Shuvah 1",
+      "school": "Ishbitz–Radzin",
+      "originQuoteId": "kedusha-deferred-6-7-jordan-tiferet-yosef:origin",
+      "targetQuoteId": "kedusha-deferred-6-7-jordan-tiferet-yosef:target",
+      "originQuoteSha256": "6540eac3f188ddcfd1d94089809d145537e0096e67eaf242fcbcd35e32681748",
+      "targetQuoteSha256": "51e4c7bd4e06065b1c529a76641f12a97a6c0a7fb6095999818b4e16948f60e0",
+      "originEnglishSha256": "60d9dba5d1d55802ac771fa4b79b8d213ab12c127751a500246b8c8dc4a4cdb5",
+      "targetEnglishSha256": "6ae3e04dab9ba504366fd47495de5492db35957b9738c4c51bf7aac89d1626dc",
+      "explanationSha256": "04e31b44bbfcd424b6372884fbdfadcd4e453f0ed277386664a5fd82b072e272",
+      "independentReview": "approved",
+      "reviewedOriginHebrewSha256": "ad7b1172dfb81f7e936ce5cd749098474adf6b6f7bd161ff91826bd9e04baad5",
+      "reviewedOriginSectionHebrewSha256": "313b9716d90fc5cd60bb870e6fef42ec8cd601920d88f1f8d00fd429b71ba9ac",
+      "reviewedTargetHebrewSha256": "e4b16754abc8c0bce80a2a3f2ea968244b6a52662dcf71e93bce653868893fe6"
+    },
+    {
+      "id": "kedusha-deferred-6-7-jordan-likkutei-maamarim",
+      "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 6:7",
+      "targetRef": "Likkutei Maamarim, Compositions on the Festivals 16:5",
+      "school": "Kisvei Rav Tzadok",
+      "originQuoteId": "kedusha-deferred-6-7-jordan-likkutei-maamarim:origin",
+      "targetQuoteId": "kedusha-deferred-6-7-jordan-likkutei-maamarim:target",
+      "originQuoteSha256": "6540eac3f188ddcfd1d94089809d145537e0096e67eaf242fcbcd35e32681748",
+      "targetQuoteSha256": "0244f3d3a694088b87104101272870d575bc50e3440ce5af6f8d9d3e2f1c052a",
+      "originEnglishSha256": "60d9dba5d1d55802ac771fa4b79b8d213ab12c127751a500246b8c8dc4a4cdb5",
+      "targetEnglishSha256": "5ecfe7b2654d356fb9adbec6e9aeefd409f2f88bf438b8162e6912dd3016c341",
+      "explanationSha256": "c0eb060188254ebbfa5d3d0c062d1d40b9851dc7eb87d19a5d53438e106429b8",
+      "independentReview": "approved",
+      "reviewedOriginHebrewSha256": "ad7b1172dfb81f7e936ce5cd749098474adf6b6f7bd161ff91826bd9e04baad5",
+      "reviewedOriginSectionHebrewSha256": "313b9716d90fc5cd60bb870e6fef42ec8cd601920d88f1f8d00fd429b71ba9ac",
+      "reviewedTargetHebrewSha256": "473dca15781dee6c9c28ab2ed85e53ea64e99616b1b71be6fa658e684bd8fc89"
+    },
+    {
+      "id": "kedusha-deferred-6-5-nachshon-mei-behaalotcha",
+      "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 6:5",
+      "targetRef": "Mei HaShiloach, Volume II, Numbers, Beha'alotcha 7",
+      "school": "Ishbitz–Radzin",
+      "originQuoteId": "kedusha-deferred-6-5-nachshon-mei-behaalotcha:origin",
+      "targetQuoteId": "kedusha-deferred-6-5-nachshon-mei-behaalotcha:target",
+      "originQuoteSha256": "5fbbdb3c76b7eff62c1742acb9b0ce8ba67a74e4f4ab7d1fa230064c5d193145",
+      "targetQuoteSha256": "258f50616554349b30adc036922d0aa734dbb2e8bb56ffbb9924347d26e7f795",
+      "originEnglishSha256": "5d2b9095a429d09eb6e72490fbf5de7f60642aa98e23886c150aa6ef76b30ce0",
+      "targetEnglishSha256": "53b3b2cd40ec6662c0a75fede5b93d9fa8a4396d707dd151963c38a15bcd3888",
+      "explanationSha256": "6079242b6769746ca64492b0599e8b94ae80371976e2fea05937faee7601e0b9",
+      "independentReview": "approved",
+      "reviewedOriginHebrewSha256": "22680538583277b0800362693cc5eaa8395c3bdcde708c3c0b88bf00840cb913",
+      "reviewedOriginSectionHebrewSha256": "313b9716d90fc5cd60bb870e6fef42ec8cd601920d88f1f8d00fd429b71ba9ac",
+      "reviewedTargetHebrewSha256": "1de7fd539790ea5d88b5d114a67e8d1b9924e4f02fff3cc172495e569b2e9c22"
+    },
+    {
+      "id": "shabbos-oral-s1-7-mei-vayetzei-4",
+      "originRef": "Peri Tzadik, Kuntres Shvitat Shabbat 1:7",
+      "targetRef": "Mei HaShiloach, Volume I, Genesis, Vayetzei 4",
+      "school": "Ishbitz–Radzin",
+      "originQuoteId": "shabbos-oral-s1-7-mei-vayetzei-4:origin",
+      "targetQuoteId": "shabbos-oral-s1-7-mei-vayetzei-4:target",
+      "originQuoteSha256": "250865d23b260b1a0142a61d20e452e402ba3def184ebfd1dd90741d2859c5e6",
+      "targetQuoteSha256": "59976aeb128d33cb10475de9e56ef35faab5f65ba5116ce1133118461e761c2d",
+      "originEnglishSha256": "bc3d70c9dd6a32862c2138236c4e02ef6529009dadd8ec561054bc04fc61468e",
+      "targetEnglishSha256": "2f4ab698b40748b6939450fdb8dc8b0032de57ed5c45cfa8ba27eed0d64d6b26",
+      "explanationSha256": "d1979efa1af63de333a244783e3c1ca7d8a0e153b21076313ed2fe45e807d9f6",
+      "independentReview": "approved",
+      "reviewedOriginHebrewSha256": "19bddcd754d1205cc4b5b3a766fc85b49def3624c6af0731845d327f401d01fa",
+      "reviewedOriginSectionHebrewSha256": "f5c0997d9305e738ce9f1d14e1ac2a180005d209a3e978efc91b356f7028c8a0",
+      "reviewedTargetHebrewSha256": "91b0f86007ae03e47490501586eb11f6ec345ea50dc878155bb2866432194c9d"
+    },
+    {
+      "id": "deferred-k7-18-priestly-sanctity-emor-7",
+      "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 7:18",
+      "targetRef": "Peri Tzadik, Emor 7:1",
+      "school": "Kisvei Rav Tzadok",
+      "originQuoteId": "deferred-k7-18-priestly-sanctity-emor-7:origin",
+      "targetQuoteId": "deferred-k7-18-priestly-sanctity-emor-7:target",
+      "originQuoteSha256": "75f249fbbeeab4faf43696e544a1a50aed2fb810ee2ac17bfef5f15d0263c60d",
+      "targetQuoteSha256": "981dc27734de787b7d380aa34ccd2fb5e4e2a2cad5f5acef4c6649a40fc38ead",
+      "originEnglishSha256": "263121a2b3e4eadd993b379214089a55b6b64a20e8a41fadaf0c8d13756e62e6",
+      "targetEnglishSha256": "2703c433087a3c78eb09002dd2c06c211c14c7a45549713686e7ac8db3e7583e",
+      "explanationSha256": "d3c4281ff6ab9babdd795f3be812ea0a1c399d5418a448d9c387e22724e9a345",
+      "independentReview": "approved",
+      "reviewedOriginHebrewSha256": "7d105e303e30cb49b241cb03e8e9e82914d22a2a1d738debdf9993617f9fa1d1",
+      "reviewedOriginSectionHebrewSha256": "bbe10c1fa4dbacab7eeb5a9fa2eb9e988a1f3d99495a1b8ea4c7ef4d6e8a20c1",
+      "reviewedTargetHebrewSha256": "0ade082d0dd7fc7fd91e84b04db5153c092669c7ec62b3da41b687b4da6e4dab"
+    },
+    {
+      "id": "deferred-k7-20-sea-vision-iyar-5",
+      "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 7:20",
+      "targetRef": "Peri Tzadik, Rosh Chodesh Iyar 5:2",
+      "school": "Kisvei Rav Tzadok",
+      "originQuoteId": "deferred-k7-20-sea-vision-iyar-5:origin",
+      "targetQuoteId": "deferred-k7-20-sea-vision-iyar-5:target",
+      "originQuoteSha256": "ae165e174d190fc7682a3a49babe39e25bb6f34d3102b2efdd5ccc10c05b7e6c",
+      "targetQuoteSha256": "6242442b35ed7e6ec1b915e44d4f6f53e182362db1dfc6f67a77d52e7057d3a8",
+      "originEnglishSha256": "70b69642bdd3ffb4be224650e06d3fc66949e7e4a883945c81caedeb1b8c414a",
+      "targetEnglishSha256": "a409cd635b638fa087d33ccd16d8257d21a9fe23be60ecbfa23cfd1002fa9d11",
+      "explanationSha256": "5467d049e61f16474810aa8d7b1ee66d6eac9533e0750b7fac2e66a706b941f5",
+      "independentReview": "approved",
+      "reviewedOriginHebrewSha256": "722759aa920c1b16256f48886e4ddfec096bb0611b1a6a7b263453c20c7f2d3c",
+      "reviewedOriginSectionHebrewSha256": "bbe10c1fa4dbacab7eeb5a9fa2eb9e988a1f3d99495a1b8ea4c7ef4d6e8a20c1",
+      "reviewedTargetHebrewSha256": "22fec0599029bdac0ac2d7996717352e16a19b3676e53ee7d95f609ea93a239e"
+    },
+    {
+      "id": "deferred-k7-20-sea-rephidim-sod-purim-15",
+      "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 7:20",
+      "targetRef": "Sod Yesharim, Purim 15:1",
+      "school": "Ishbitz–Radzin",
+      "originQuoteId": "deferred-k7-20-sea-rephidim-sod-purim-15:origin",
+      "targetQuoteId": "deferred-k7-20-sea-rephidim-sod-purim-15:target",
+      "originQuoteSha256": "ae165e174d190fc7682a3a49babe39e25bb6f34d3102b2efdd5ccc10c05b7e6c",
+      "targetQuoteSha256": "2f4233d85907550e953b42e1f733e64fbef775632e91ca04f73adc9d33f860fc",
+      "originEnglishSha256": "70b69642bdd3ffb4be224650e06d3fc66949e7e4a883945c81caedeb1b8c414a",
+      "targetEnglishSha256": "df06545ca8ac81d2c355a2e42119c3683e25f75a5927bdc0cb6015586350ff60",
+      "explanationSha256": "73acaa1b823b77d4200402d1f0392cd8c9e71d56fa7ba3760cec694fab8c542f",
+      "independentReview": "approved",
+      "reviewedOriginHebrewSha256": "722759aa920c1b16256f48886e4ddfec096bb0611b1a6a7b263453c20c7f2d3c",
+      "reviewedOriginSectionHebrewSha256": "bbe10c1fa4dbacab7eeb5a9fa2eb9e988a1f3d99495a1b8ea4c7ef4d6e8a20c1",
+      "reviewedTargetHebrewSha256": "28ebdfce949f3ecb642968b790e8f82946d2098641828646e29d8a737924a418"
+    },
+    {
+      "id": "deferred-k7-23-amos-consolation-chanukah-21",
+      "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 7:23",
+      "targetRef": "Peri Tzadik, Chanukah 21:3",
+      "school": "Kisvei Rav Tzadok",
+      "originQuoteId": "deferred-k7-23-amos-consolation-chanukah-21:origin",
+      "targetQuoteId": "deferred-k7-23-amos-consolation-chanukah-21:target",
+      "originQuoteSha256": "cf301703f8250eda4d2d9b95dc3a2c08c2d009c2bafa6424b4c86b476bc113c2",
+      "targetQuoteSha256": "b769c0cc4bd6b56c7e567bbb05d37b254e7b1cfcf9b03078ba7872813a6fe2df",
+      "originEnglishSha256": "08bfca02afe0d842b4392f04e264fd8caf654d3b6bf3cd0c1e25190751fbad71",
+      "targetEnglishSha256": "0884971b67365049e1961df8c071be3f680c4c7377c695c057c8ad8885147039",
+      "explanationSha256": "c16f0909e51ceb9377a5a4f34baa4552e9409698bb8e8eac3dbb31bf328ba79d",
+      "independentReview": "approved",
+      "reviewedOriginHebrewSha256": "31b2528cb56c81efc0aad23f0638ab5d0aeae2c42bc8858784b375b78c9b34db",
+      "reviewedOriginSectionHebrewSha256": "bbe10c1fa4dbacab7eeb5a9fa2eb9e988a1f3d99495a1b8ea4c7ef4d6e8a20c1",
+      "reviewedTargetHebrewSha256": "b8c78b1acdfe809ce85c432c1ece1a5f9e9f468a74517c7c22a0da30d169f01a"
+    },
+    {
+      "id": "deferred-k7-23-amos-verses-vayigash-5",
+      "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 7:23",
+      "targetRef": "Peri Tzadik, Vayigash 5:1",
+      "school": "Kisvei Rav Tzadok",
+      "originQuoteId": "deferred-k7-23-amos-verses-vayigash-5:origin",
+      "targetQuoteId": "deferred-k7-23-amos-verses-vayigash-5:target",
+      "originQuoteSha256": "6e619243e41616d90c03218007ea7de04cdd89d8e2af2511f61d4fcdfb0cbd89",
+      "targetQuoteSha256": "8f1f94073a3277fa195c4f277d390ea00da181891816ad6e859c0cb57cd10d29",
+      "originEnglishSha256": "b344d49602acf2bae7f68fb3224bc38a527ec1dd7e3afcbf5080f38631bfe1b5",
+      "targetEnglishSha256": "e49493931dbc4e1dbd826b5f7546d55b759715963da1e0ef93c170e1fa9b016d",
+      "explanationSha256": "2ba8853cf81c216b58fb0917779e313ee499fac735d6f4c6969227c006ee772f",
+      "independentReview": "approved",
+      "reviewedOriginHebrewSha256": "31b2528cb56c81efc0aad23f0638ab5d0aeae2c42bc8858784b375b78c9b34db",
+      "reviewedOriginSectionHebrewSha256": "bbe10c1fa4dbacab7eeb5a9fa2eb9e988a1f3d99495a1b8ea4c7ef4d6e8a20c1",
+      "reviewedTargetHebrewSha256": "b10361645027c4ff2b7ddd261b12f39333ad1f7b4c49d57fcb175c5b0bca184f"
+    },
+    {
+      "id": "kedusha-deferred-7-28-first-occurrence-tammuz",
+      "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 7:28",
+      "targetRef": "Peri Tzadik, Rosh Chodesh Tammuz 1:1",
+      "school": "Kisvei Rav Tzadok",
+      "originQuoteId": "kedusha-deferred-7-28-first-occurrence-tammuz:origin",
+      "targetQuoteId": "kedusha-deferred-7-28-first-occurrence-tammuz:target",
+      "originQuoteSha256": "9917bd5c0165a6e08803ef3334e9001b6b49697143c772e4f3fbe2e7103ba79d",
+      "targetQuoteSha256": "722b0ed74df24d34e4c4abb3cb95ae78273c5a2ab4482c5660c505e6e0a07c30",
+      "originEnglishSha256": "724b569d092b33f4112162ce4a68da6d098d4f70c60620a3a4e6c7417fe37ea1",
+      "targetEnglishSha256": "39bc2120e0eac2df569d37a6e28a0188e3f552f2d9acf89e4cb440c961901adc",
+      "explanationSha256": "bbb809cd02ecd31f7f66adb716023db5cf2fa8986e576cd984449b31cdb7ce76",
+      "independentReview": "approved",
+      "reviewedOriginHebrewSha256": "acfcb7b55b25ac3e6acaa8f77779e4cce81534a6fec9cd7795f9b8e297d5b0f6",
+      "reviewedOriginSectionHebrewSha256": "bbe10c1fa4dbacab7eeb5a9fa2eb9e988a1f3d99495a1b8ea4c7ef4d6e8a20c1",
+      "reviewedTargetHebrewSha256": "06d20d5e64b2f2ddc56810ac740e080626587961b5cbd7ecb42a3cb5dcc23272"
+    }
+  ],
+  "publicationScope": {
+    "canonicalText": "These additions are reviewed connection records; canonical body text and inherited notes are not rewritten. Additional primary snapshots extend source availability.",
+    "noExhaustiveLedgerMutation": "No entries are created in the separate exhaustive-subsection-review ledger.",
+    "priorEditorialAudit": "editorial/pri-shabbos-reviewed-20261021.json"
+  },
+  "pendingGatesForRoot": [
+    {
+      "gate": "Helper K7:28 independent bilingual/context review",
+      "status": "passed",
+      "evidence": "Root independent second review approved the corrected final record."
+    },
+    {
+      "gate": "Assemble the final 18 records with final K7 explanation qualifications and compute editorialInputSha256",
+      "status": "passed",
+      "evidence": "Final input contains 18 unique record IDs, final Iyar/Vayigash qualifications, and all canonical context pins; SHA-256 recorded above."
+    },
+    {
+      "gate": "Final exact canonical quote matches, reviewed paragraph/section hashes, marker placement, and pair deduplication",
+      "status": "passed",
+      "result": "All 18 records have unique contiguous canonical quotations, full-context pins, correct school labels and no repeated origin-target pairs; all 2028 generated quotation anchors passed."
+    },
+    {
+      "gate": "Post-integration preservation of all 996 existing connection records and inherited reader notes",
+      "status": "passed",
+      "result": "All 996 existing records retain their content, placement and reviewed context pins. Source input records and inherited reader note files are unchanged. Only 95 generated Mei target text-file hashes refresh after append-only indexing."
+    },
+    {
+      "gate": "Connected-ideas build/validation and Pri Shabbos reader tests",
+      "status": "local-connected-ideas-checks-passed; full-reader-suite-runs-in-CI",
+      "result": "Connected-ideas build, 90 fixtures, exact anchors, review-progress build and 20 review-progress checks passed. Pri Shabbos production reader tests remain in the existing deployment gate."
+    },
+    {
+      "gate": "Generic MCP integration tests and CI, including imported source edition checks",
+      "status": "production-CI-gate",
+      "result": "Four focused local JSON-RPC tests passed. Existing generic MCP and worker tests run during the full Pages build before deployment."
+    },
+    {
+      "gate": "Reader/browser verification of Hebrew markers, school/source labels, English quotations, and explanations",
+      "status": "publication-gate-to-be-verified-against-deployed-commit"
+    },
+    {
+      "gate": "GitHub Pages publication and live verification of the final static data",
+      "status": "publication-gate-to-be-verified-against-deployed-commit"
+    },
+    {
+      "gate": "Cloudflare worker deployment and live source-metadata/fallback-wording verification if included in release",
+      "status": "not-part-of-Pages-deployment",
+      "result": "The handler source and four regression cases are included for consistent future worker deployment. This release publishes reader data through GitHub Pages; it does not claim a separate Cloudflare worker deployment."
+    }
+  ],
+  "release": "20261021-pri-shabbos-oral-deferred-v1",
+  "localValidation": {
+    "completedOn": "2026-10-21",
+    "connectedIdeasBuild": {
+      "ok": true,
+      "version": "20261021-pri-shabbos-oral-deferred-v1-709ab8d61e0f0e7f",
+      "records": 1014,
+      "origins": 620,
+      "schools": {
+        "Kisvei Rav Tzadok": 545,
+        "Ishbitz–Radzin": 469
+      }
+    },
+    "connectedIdeasTests": {
+      "ok": true,
+      "fixtures": 90,
+      "exactCanonicalAnchorsVerified": 2028,
+      "reciprocalReviewsVerified": 45
+    },
+    "themeReviewProgress": {
+      "ok": true,
+      "checks": 20,
+      "contentSha256": "899bb0e82ff896683742a5a01efa9a51a185080d88d61ec3d6044174013d5a32"
+    },
+    "preservation": {
+      "existingRecordsPresent": 996,
+      "existingRecordContentPlacementAndContextPinsUnchanged": true,
+      "generatedMetadataChange": "The only changed field in existing records is evidence.target.textSha256 for 95 Mei HaShiloach targets, because the indexed work gained two appended sections. Every previous paragraph and section remains unchanged.",
+      "previousMeiParagraphsPreservedExactly": 178,
+      "previousMeiSectionsPreservedExactly": 21
+    },
+    "sourceImporter": {
+      "isolatedBuild": "passed: 354 paragraphs across the two snapshot files",
+      "overlapRejection": "passed: a snapshot cannot replace an existing interlinear section",
+      "focusedJsonRpcTests": "4/4 passed"
+    },
+    "syntaxAndWhitespace": "node --check passed for the importer, MCP handler and MCP tests; git diff --check passed.",
+    "runtimeScope": "This checkout lacks the complete reader build inputs and local parallel artifacts. The complete production build, generic MCP tests and browser suite are run by the existing unchanged Pages workflow."
+  },
+  "publicationEvidenceLocation": "The GitHub Pages workflow attached to the publication commit supplies the complete production-build results. Live data and UI are verified after that workflow succeeds."
+}

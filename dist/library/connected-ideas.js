@@ -6,7 +6,7 @@
   else root.AkivaConnectedIdeas = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this, function (sources) {
   'use strict';
-  const VERSION = '20261021-pri-shabbos-reviewed-v1';
+  const VERSION = '20261021-pri-shabbos-oral-deferred-v1';
   const SCHOOLS = ['Kisvei Rav Tzadok', 'Ishbitz–Radzin'];
   const normalized = sources.normalizedHebrew;
   const refKey = ref => sources.normalizeRef(ref || '').toLowerCase();

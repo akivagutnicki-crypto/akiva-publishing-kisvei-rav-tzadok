@@ -1,5 +1,7 @@
 // Builds the data the Kisvei Rav Tzadok MCP server (cloudflare/mcp.mjs) serves.
-// Run after scripts/build-library.mjs; it reads only what the library reader publishes.
+// Run after scripts/build-library.mjs. Bundled works use the reader's published text;
+// remote works can also have a checked Hebrew snapshot for exact source verification.
+// These snapshots do not replace the reader's live bilingual Sefaria editions.
 //
 // Input:  dist/library/data   (catalog, contents, texts, citations; see build-library.mjs)
 // Output: dist/mcp-data/catalog.json       books and their sections (refs, titles, paragraph counts)
@@ -11,6 +13,8 @@
 // Nothing is rewritten: the text is the reader's text with the HTML markup removed.
 import fs from 'node:fs';
 import path from 'node:path';
+import assert from 'node:assert/strict';
+import { createHash } from 'node:crypto';
 
 const DATA = 'dist/library/data';
 const OUT = 'dist/mcp-data';
@@ -266,6 +270,66 @@ if (exists('mei-ha-shiloach/interlinear.json')) {
       akiva: true, interlinear: true, paragraphs: paras.length, sections });
     fs.writeFileSync(path.join(OUT, 'text', 'mei-hashiloach.json'), JSON.stringify({ slug: 'mei-hashiloach', paras }));
     totalParas += paras.length;
+  }
+}
+
+// Preserve exact, complete Hebrew contexts for works that the reader already opens
+// remotely. In particular, retaining Sha'ar HaEmunah's live reader edition keeps
+// its existing English translation and English footnotes available to the reader.
+const remoteSourceDir = 'sources/akiva/remote-source-texts';
+if (fs.existsSync(remoteSourceDir)) {
+  for (const file of fs.readdirSync(remoteSourceDir).filter(x => x.endsWith('.json')).sort()) {
+    const sourcePath = path.join(remoteSourceDir, file);
+    const bytes = fs.readFileSync(sourcePath);
+    const doc = JSON.parse(bytes);
+    assert(doc.schemaVersion === 1 && typeof doc.title === 'string' && doc.title.trim()
+      && typeof doc.he === 'string' && typeof doc.edition === 'string'
+      && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(doc.slug)
+      && ['Izhbitz', "R' Tzadok HaKohen"].includes(doc.group)
+      && /^https:\/\/www\.sefaria\.org\//.test(doc.source)
+      && Array.isArray(doc.sections) && doc.sections.length,
+    'Invalid remote Hebrew source snapshot: ' + sourcePath);
+    const existing = books.find(b => b.title === doc.title || b.slug === doc.slug);
+    assert(!existing || (doc.extendsExisting === true && doc.title === 'Mei HaShiloach'
+      && existing.title === doc.title && existing.slug === doc.slug && existing.group === doc.group),
+      'A remote source snapshot cannot replace a bundled edition: ' + doc.title);
+    const sections = existing ? [...existing.sections] : [];
+    const paras = existing ? JSON.parse(fs.readFileSync(path.join(OUT, 'text', doc.slug + '.json'))).paras : [];
+    const previousCount = paras.length;
+    const seen = new Set(sections.map(s => s.ref));
+    for (const sec of doc.sections) {
+      assert(typeof sec.ref === 'string' && sec.ref.startsWith(doc.title + ', ')
+        && !seen.has(sec.ref) && [':', ' '].includes(sec.separator)
+        && Array.isArray(sec.paragraphs) && sec.paragraphs.length
+        && sec.paragraphs.every(p => typeof p === 'string' && /[א-ת]/.test(p)),
+      'Invalid or repeated remote source section: ' + sec.ref);
+      seen.add(sec.ref);
+      const list = paragraphsOf(sec.paragraphs, sec.ref);
+      assert(list.length === sec.paragraphs.length, 'Remote source paragraphs were lost: ' + sec.ref);
+      const s = sections.length;
+      sections.push({ref: sec.ref, he: sec.heRef || '', title: sec.title || sec.ref,
+        heTitle: sec.heTitle || '', path: sec.path || '', il: false,
+        first: paras.length, count: list.length, sourceEdition: doc.edition, sourceUrl: doc.source});
+      for (const p of list) paras.push({r: sec.ref + sec.separator + p.n, s, ...p});
+    }
+    const sourceSnapshot = {path: sourcePath, retrievedOn: doc.retrievedOn,
+      sha256: createHash('sha256').update(bytes).digest('hex')};
+    if (existing) {
+      existing.sections = sections;
+      existing.paragraphs = paras.length;
+      existing.sourceSnapshots = [...(existing.sourceSnapshots || []), sourceSnapshot];
+      // The MCP's existing section-aware labeling still identifies the Akiva
+      // interlinear text separately; do not attribute its copyright to new Hebrew.
+      existing.edition = `Mei HaShiloach, ${doc.edition} (Hebrew); Akiva Publishing interlinear translation (selected parashiyos)`;
+      existing.license = '';
+      existing.source = doc.source;
+    } else {
+      books.push({slug: doc.slug, title: doc.title, he: doc.he, group: doc.group,
+        edition: doc.edition, license: '', source: doc.source, akiva: false, interlinear: false,
+        paragraphs: paras.length, sections, sourceSnapshot});
+    }
+    fs.writeFileSync(path.join(OUT, 'text', doc.slug + '.json'), JSON.stringify({slug: doc.slug, paras}));
+    totalParas += paras.length - previousCount;
   }
 }
 

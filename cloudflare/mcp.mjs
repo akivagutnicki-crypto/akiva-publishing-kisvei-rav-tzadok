@@ -168,6 +168,7 @@ const clip = (s, n) => (s.length > n ? s.slice(0, n - 1).trimEnd() + '…' : s);
 function editionLabel(book, sec) {
   if (sec.il && !book.akiva) return 'Akiva Publishing interlinear study edition (© Akiva Publishing)';
   if (sec.il && book.akiva && book.license !== '© Akiva Publishing') return 'Akiva Publishing interlinear study edition (© Akiva Publishing)';
+  if (!sec.il && sec.sourceEdition) return sec.sourceEdition;
   if (!sec.il && book.akiva && book.license === '© Akiva Publishing') return book.edition;
   return `${sec.edition === 'hebrew' ? 'original Hebrew: ' : ''}${book.edition}${book.license && book.license !== '© Akiva Publishing' ? ` (${book.license})` : ''}`;
 }
@@ -528,7 +529,7 @@ async function getText({ ref, view, include_notes, include_citations, edition, m
   const label = editionLabel(book, sec);
   out.push(`Edition: ${label}${label.includes('©') || !book.license || label.includes(book.license) ? '' : ` (${book.license})`}${sec.path && !/Study Edition/i.test(sec.path) ? ` · ${sec.path}` : ''}`);
   if (r.alternatives?.length) out.push(`Also in the ${r.alternatives.map(a => editionLabel(book, a)).join(', ')}: ask again with edition "${sec.il ? 'hebrew' : 'interlinear'}".`);
-  if (!interlinear && (view === 'english' || view === 'both')) out.push('This text has no English translation in the library; the Hebrew follows.');
+  if (!interlinear && (view === 'english' || view === 'both')) out.push('No English translation is included in this indexed text; the Hebrew follows.');
   out.push(`Reader: ${readerLink(r.from != null && r.from === r.to ? paras[0].r : sec.ref)}`, '');
   let used = out.join('\n').length, stopped = null;
   for (const p of paras) {

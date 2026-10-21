@@ -107,6 +107,27 @@ check(t.isError && t.text.includes('Try:'), 'get_text unknown ref suggests refs'
 t = await tool('kisvei_get_text', { ref: 'Resisei Layla 1:1', include_citations: true });
 check(t.text.includes('Cites:') && t.text.includes('Berakhot 6b'), 'get_text with citations');
 
+// Checked Hebrew snapshots must not relabel the retained interlinear edition or
+// imply that the remote reader lacks its separately supplied English edition.
+t = await tool('kisvei_get_text', { ref: 'Mei HaShiloach, Volume I, Genesis, Vayetzei 4', view: 'both' });
+check(!t.isError && t.text.includes('holiness of Shabbat')
+  && t.text.includes('Edition: Akiva Publishing interlinear study edition (© Akiva Publishing)'),
+  'get_text retains Mei HaShiloach interlinear translation and edition label');
+t = await tool('kisvei_get_text', { ref: 'Mei HaShiloach, Volume II, Deuteronomy, Eikev 6', view: 'both' });
+check(!t.isError && t.text.includes('[Mei HaShiloach, Volume II, Deuteronomy, Eikev 6]')
+  && t.text.includes('מַמְרִים הֱיִיתֶם') && t.text.includes('Edition: Vocalized Edition')
+  && !t.text.includes('© Akiva Publishing'), 'get_text resolves the Eikev Hebrew snapshot with its source edition');
+t = await tool('kisvei_get_text', { ref: "Mei HaShiloach, Volume II, Numbers, Beha'alotcha 7", view: 'hebrew' });
+check(!t.isError && t.text.includes("[Mei HaShiloach, Volume II, Numbers, Beha'alotcha 7]")
+  && t.text.includes('נֶפֶשׁ יָקָר לִמְאֹד') && t.text.includes('Edition: Vocalized Edition')
+  && !t.text.includes('© Akiva Publishing'), 'get_text resolves the Behaalotcha Hebrew snapshot with its source edition');
+t = await tool('kisvei_get_text', { ref: "Sha'ar HaEmunah VeYesod HaChasidut, Entrance to the Gate of Beit Yaakov 18:4", view: 'english' });
+check(!t.isError && t.text.includes('וזה מאמר צופר הנעמתי')
+  && t.text.includes("Edition: Shaar HaEmunah Ve'Yesod HaChassidut, 1996.")
+  && t.text.includes('No English translation is included in this indexed text; the Hebrew follows.')
+  && !t.text.includes('no English translation in the library'),
+  'get_text distinguishes the Shaar Hebrew index from the remote English reader edition');
+
 const t0 = Date.now();
 t = await tool('kisvei_search', { query: 'צוותא' });
 const ms = Date.now() - t0;
