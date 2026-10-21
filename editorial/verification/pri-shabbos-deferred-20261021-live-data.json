@@ -1,0 +1,1531 @@
+{
+  "schemaVersion": 1,
+  "title": "Independent live-data verification: Pri Shabbos deferred discussions and oral reports",
+  "verifiedAt": "2026-10-21T19:39:27.415127+00:00",
+  "status": "passed",
+  "scope": "Public HTTP downloads of the production connected-ideas catalog, index HTML and connected-ideas.js; complete field comparison against the 18 approved source input records and all 996 saved baseline generated records. No browser interaction.",
+  "publicationContext": {
+    "release": "20261021-pri-shabbos-oral-deferred-v2",
+    "workflowRunIdProvidedByCoordinatingAgent": 39660417201,
+    "workflowRunUrl": "https://github.com/akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok/actions/runs/39660417201",
+    "workflowStatusVerifiedHere": false,
+    "note": "This report independently verifies the served release and bytes. Workflow completion, commit binding and rendered browser checks are documented separately."
+  },
+  "checks": {
+    "expectedRelease": true,
+    "versionMatchesRelease": true,
+    "all1014RecordIdsUnique": true,
+    "exactBaselinePlusNewRecordSet": true,
+    "all18SourceRecordsMatchEveryProvidedField": true,
+    "allNewRecordsCarryExpectedInputHash": true,
+    "all996BaselineRecordsPresent": true,
+    "onlyAllowedMeiTextFileHashesChanged": true,
+    "exactly95AllowedGeneratedHashChanges": true,
+    "catalogCountsMatchComputed": true,
+    "publicReaderAssetsAdvertiseV2AndSchoolLabels": true
+  },
+  "catalog": {
+    "url": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/connected-ideas/catalog.json",
+    "finalUrl": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/connected-ideas/catalog.json",
+    "httpStatus": 200,
+    "retrievedAt": "2026-10-21T19:37:50.148614+00:00",
+    "sha256": "7be8338525f201dda643c440914a2e4955deaeb9f77b259ee9e11f2f52705fa8",
+    "byteLength": 8521014,
+    "release": "20261021-pri-shabbos-oral-deferred-v2",
+    "version": "20261021-pri-shabbos-oral-deferred-v2-20e521562570eedd",
+    "contentSha256": "20e521562570eeddf80be140b390f1c05e1790f45f5fd1b8061378e1cafc290d",
+    "date": "2026-10-21",
+    "declaredCounts": {
+      "records": 1014,
+      "origins": 620,
+      "sectionsWithReviewedIdeas": 349,
+      "worksWithReviewedIdeas": 18,
+      "schools": {
+        "Kisvei Rav Tzadok": 545,
+        "Ishbitz–Radzin": 469
+      }
+    },
+    "computedCounts": {
+      "records": 1014,
+      "uniqueRecordIds": 1014,
+      "origins": 620,
+      "schools": {
+        "Kisvei Rav Tzadok": 545,
+        "Ishbitz–Radzin": 469
+      }
+    },
+    "etag": "\"6ad91443-820536\"",
+    "lastModified": "Wed, 21 Oct 2026 19:36:35 GMT",
+    "downloadFilename": "deferred-live-catalog-20261021.json",
+    "successfulFetchAttempts": 1
+  },
+  "inputs": {
+    "approvedSource": {
+      "repositoryPath": "sources/akiva/themes/pri-shabbos-deferred-20261021.json",
+      "sha256": "ea883b47f020db6af5bb3cf49aea084e8d1a8fb51b4dbc024934d7cdf6a1eafb",
+      "recordCount": 18
+    },
+    "baselineGeneratedRecords": {
+      "providedFilename": "deferred-existing-records.json",
+      "sha256": "a38b1e52ca69492fadf24ca540decf266e735be0d9902f5451c4c49641115982",
+      "recordCount": 996,
+      "description": "Pre-addition snapshot supplied for independent comparison; compared as complete parsed JSON objects, including placement, evidence and reviewed context pins."
+    }
+  },
+  "newRecords": {
+    "recordCount": 18,
+    "providedFieldsCompared": 288,
+    "matchingProvidedFields": 288,
+    "missingOrDifferingFields": [],
+    "bySchool": {
+      "Kisvei Rav Tzadok": 10,
+      "Ishbitz–Radzin": 8
+    },
+    "originParagraphs": 11,
+    "sourceProjectionHashMethod": "SHA-256 of UTF-8 JSON with sorted object keys, compact separators and unescaped Unicode, restricted to exactly the fields provided in the approved source record.",
+    "records": [
+      {
+        "id": "shabbos-deferred-k1-4-amalah-torah-2",
+        "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 1:4",
+        "targetRef": "Peri Tzadik, Kuntres Amalah shel Torah 2:1",
+        "school": "Kisvei Rav Tzadok",
+        "fieldsCompared": [
+          "explanation",
+          "id",
+          "originEnglish",
+          "originHebrew",
+          "originRef",
+          "reviewed",
+          "reviewedOriginHebrewSha256",
+          "reviewedOriginSectionHebrewSha256",
+          "reviewedTargetHebrewSha256",
+          "school",
+          "targetEnglish",
+          "targetHebrew",
+          "targetRef",
+          "themeSummary",
+          "themeTitle",
+          "translationProvenance"
+        ],
+        "allProvidedFieldsMatch": true,
+        "expectedSourceProjectionSha256": "9e9279545f34a4f0d63717c697b244687871fcb671b06ca2c213bfd14d493de8",
+        "liveSourceProjectionSha256": "9e9279545f34a4f0d63717c697b244687871fcb671b06ca2c213bfd14d493de8",
+        "generatedEditorialInputHashMatches": true,
+        "mismatches": []
+      },
+      {
+        "id": "shabbos-deferred-k1-4-beit-yaakov-toldot-8",
+        "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 1:4",
+        "targetRef": "Beit Yaakov on Torah, Toldot 8:3",
+        "school": "Ishbitz–Radzin",
+        "fieldsCompared": [
+          "explanation",
+          "id",
+          "originEnglish",
+          "originHebrew",
+          "originRef",
+          "reviewed",
+          "reviewedOriginHebrewSha256",
+          "reviewedOriginSectionHebrewSha256",
+          "reviewedTargetHebrewSha256",
+          "school",
+          "targetEnglish",
+          "targetHebrew",
+          "targetRef",
+          "themeSummary",
+          "themeTitle",
+          "translationProvenance"
+        ],
+        "allProvidedFieldsMatch": true,
+        "expectedSourceProjectionSha256": "641cce5ea197ba262418baae39ac01acd43ba79126e0e527ecf9c3250a21d104",
+        "liveSourceProjectionSha256": "641cce5ea197ba262418baae39ac01acd43ba79126e0e527ecf9c3250a21d104",
+        "generatedEditorialInputHashMatches": true,
+        "mismatches": []
+      },
+      {
+        "id": "shabbos-oral-k3-3-takanat-hashavin-6",
+        "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 3:3",
+        "targetRef": "Takanat HaShavin 6:1",
+        "school": "Kisvei Rav Tzadok",
+        "fieldsCompared": [
+          "explanation",
+          "id",
+          "originEnglish",
+          "originHebrew",
+          "originRef",
+          "reviewed",
+          "reviewedOriginHebrewSha256",
+          "reviewedOriginSectionHebrewSha256",
+          "reviewedTargetHebrewSha256",
+          "school",
+          "targetEnglish",
+          "targetHebrew",
+          "targetRef",
+          "themeSummary",
+          "themeTitle",
+          "translationProvenance"
+        ],
+        "allProvidedFieldsMatch": true,
+        "expectedSourceProjectionSha256": "f106383f63769cfc12883da215abc4ec3761fe8d81521d2111d5246df63d42be",
+        "liveSourceProjectionSha256": "f106383f63769cfc12883da215abc4ec3761fe8d81521d2111d5246df63d42be",
+        "generatedEditorialInputHashMatches": true,
+        "mismatches": []
+      },
+      {
+        "id": "shabbos-oral-k3-3-sod-yesharim-pesach-33",
+        "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 3:3",
+        "targetRef": "Sod Yesharim, The Seventh Night of Pesach 33:5",
+        "school": "Ishbitz–Radzin",
+        "fieldsCompared": [
+          "explanation",
+          "id",
+          "originEnglish",
+          "originHebrew",
+          "originRef",
+          "reviewed",
+          "reviewedOriginHebrewSha256",
+          "reviewedOriginSectionHebrewSha256",
+          "reviewedTargetHebrewSha256",
+          "school",
+          "targetEnglish",
+          "targetHebrew",
+          "targetRef",
+          "themeSummary",
+          "themeTitle",
+          "translationProvenance"
+        ],
+        "allProvidedFieldsMatch": true,
+        "expectedSourceProjectionSha256": "f0405d22b41f60b52b1050249e72365cc263c7bb4072755536869b152e8802c2",
+        "liveSourceProjectionSha256": "f0405d22b41f60b52b1050249e72365cc263c7bb4072755536869b152e8802c2",
+        "generatedEditorialInputHashMatches": true,
+        "mismatches": []
+      },
+      {
+        "id": "kedusha-deferred-5-1-oral-mei-eikev",
+        "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 5:1",
+        "targetRef": "Mei HaShiloach, Volume II, Deuteronomy, Eikev 6",
+        "school": "Ishbitz–Radzin",
+        "fieldsCompared": [
+          "explanation",
+          "id",
+          "originEnglish",
+          "originHebrew",
+          "originRef",
+          "reviewed",
+          "reviewedOriginHebrewSha256",
+          "reviewedOriginSectionHebrewSha256",
+          "reviewedTargetHebrewSha256",
+          "school",
+          "targetEnglish",
+          "targetHebrew",
+          "targetRef",
+          "themeSummary",
+          "themeTitle",
+          "translationProvenance"
+        ],
+        "allProvidedFieldsMatch": true,
+        "expectedSourceProjectionSha256": "249dc1d9eecc6848e5cd362e1fffe29cfac5d05e83d16adc1c8f48be10f76a36",
+        "liveSourceProjectionSha256": "249dc1d9eecc6848e5cd362e1fffe29cfac5d05e83d16adc1c8f48be10f76a36",
+        "generatedEditorialInputHashMatches": true,
+        "mismatches": []
+      },
+      {
+        "id": "kedusha-deferred-5-1-oral-izhbitz-rosh-chodesh-av",
+        "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 5:1",
+        "targetRef": "Peri Tzadik, Rosh Chodesh Av 1:1",
+        "school": "Kisvei Rav Tzadok",
+        "fieldsCompared": [
+          "explanation",
+          "id",
+          "originEnglish",
+          "originHebrew",
+          "originRef",
+          "reviewed",
+          "reviewedOriginHebrewSha256",
+          "reviewedOriginSectionHebrewSha256",
+          "reviewedTargetHebrewSha256",
+          "school",
+          "targetEnglish",
+          "targetHebrew",
+          "targetRef",
+          "themeSummary",
+          "themeTitle",
+          "translationProvenance"
+        ],
+        "allProvidedFieldsMatch": true,
+        "expectedSourceProjectionSha256": "c0b84646dc7618008e264e736150322879ded856172435b0227b59d05d209854",
+        "liveSourceProjectionSha256": "c0b84646dc7618008e264e736150322879ded856172435b0227b59d05d209854",
+        "generatedEditorialInputHashMatches": true,
+        "mismatches": []
+      },
+      {
+        "id": "kedusha-deferred-5-1-shaar-divine-purpose",
+        "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 5:1",
+        "targetRef": "Sha'ar HaEmunah VeYesod HaChasidut, Entrance to the Gate of Beit Yaakov 18:4",
+        "school": "Ishbitz–Radzin",
+        "fieldsCompared": [
+          "explanation",
+          "id",
+          "originEnglish",
+          "originHebrew",
+          "originRef",
+          "reviewed",
+          "reviewedOriginHebrewSha256",
+          "reviewedOriginSectionHebrewSha256",
+          "reviewedTargetHebrewSha256",
+          "school",
+          "targetEnglish",
+          "targetHebrew",
+          "targetRef",
+          "themeSummary",
+          "themeTitle",
+          "translationProvenance"
+        ],
+        "allProvidedFieldsMatch": true,
+        "expectedSourceProjectionSha256": "b076207d77e5f0701493376c9d26db8456372d80ee4be4ed499bc877ac548235",
+        "liveSourceProjectionSha256": "b076207d77e5f0701493376c9d26db8456372d80ee4be4ed499bc877ac548235",
+        "generatedEditorialInputHashMatches": true,
+        "mismatches": []
+      },
+      {
+        "id": "kedusha-deferred-6-3-jesse-serpent-ohr-zarua",
+        "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 6:3",
+        "targetRef": "Ohr Zarua LaTzadik, The Egyptian Exile 1:1",
+        "school": "Kisvei Rav Tzadok",
+        "fieldsCompared": [
+          "explanation",
+          "id",
+          "originEnglish",
+          "originHebrew",
+          "originRef",
+          "reviewed",
+          "reviewedOriginHebrewSha256",
+          "reviewedOriginSectionHebrewSha256",
+          "reviewedTargetHebrewSha256",
+          "school",
+          "targetEnglish",
+          "targetHebrew",
+          "targetRef",
+          "themeSummary",
+          "themeTitle",
+          "translationProvenance"
+        ],
+        "allProvidedFieldsMatch": true,
+        "expectedSourceProjectionSha256": "5679fef7ce7931ad1d4b4333b6b1a66a559a69d3c3d4f984562263a4a50666cf",
+        "liveSourceProjectionSha256": "5679fef7ce7931ad1d4b4333b6b1a66a559a69d3c3d4f984562263a4a50666cf",
+        "generatedEditorialInputHashMatches": true,
+        "mismatches": []
+      },
+      {
+        "id": "kedusha-deferred-6-7-jordan-tiferet-yosef",
+        "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 6:7",
+        "targetRef": "Tiferet Yosef, Vayeilech and Shabbat Shuvah 1",
+        "school": "Ishbitz–Radzin",
+        "fieldsCompared": [
+          "explanation",
+          "id",
+          "originEnglish",
+          "originHebrew",
+          "originRef",
+          "reviewed",
+          "reviewedOriginHebrewSha256",
+          "reviewedOriginSectionHebrewSha256",
+          "reviewedTargetHebrewSha256",
+          "school",
+          "targetEnglish",
+          "targetHebrew",
+          "targetRef",
+          "themeSummary",
+          "themeTitle",
+          "translationProvenance"
+        ],
+        "allProvidedFieldsMatch": true,
+        "expectedSourceProjectionSha256": "648fd58740bf739b1e8f85948867a4d65c7402e0e1c13c85a4efb5776a772cf5",
+        "liveSourceProjectionSha256": "648fd58740bf739b1e8f85948867a4d65c7402e0e1c13c85a4efb5776a772cf5",
+        "generatedEditorialInputHashMatches": true,
+        "mismatches": []
+      },
+      {
+        "id": "kedusha-deferred-6-7-jordan-likkutei-maamarim",
+        "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 6:7",
+        "targetRef": "Likkutei Maamarim, Compositions on the Festivals 16:5",
+        "school": "Kisvei Rav Tzadok",
+        "fieldsCompared": [
+          "explanation",
+          "id",
+          "originEnglish",
+          "originHebrew",
+          "originRef",
+          "reviewed",
+          "reviewedOriginHebrewSha256",
+          "reviewedOriginSectionHebrewSha256",
+          "reviewedTargetHebrewSha256",
+          "school",
+          "targetEnglish",
+          "targetHebrew",
+          "targetRef",
+          "themeSummary",
+          "themeTitle",
+          "translationProvenance"
+        ],
+        "allProvidedFieldsMatch": true,
+        "expectedSourceProjectionSha256": "5412cf629c74d8344751ebb73d13e521a4f70dd2bc6a4b7c33039c3189de41ff",
+        "liveSourceProjectionSha256": "5412cf629c74d8344751ebb73d13e521a4f70dd2bc6a4b7c33039c3189de41ff",
+        "generatedEditorialInputHashMatches": true,
+        "mismatches": []
+      },
+      {
+        "id": "kedusha-deferred-6-5-nachshon-mei-behaalotcha",
+        "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 6:5",
+        "targetRef": "Mei HaShiloach, Volume II, Numbers, Beha'alotcha 7",
+        "school": "Ishbitz–Radzin",
+        "fieldsCompared": [
+          "explanation",
+          "id",
+          "originEnglish",
+          "originHebrew",
+          "originRef",
+          "reviewed",
+          "reviewedOriginHebrewSha256",
+          "reviewedOriginSectionHebrewSha256",
+          "reviewedTargetHebrewSha256",
+          "school",
+          "targetEnglish",
+          "targetHebrew",
+          "targetRef",
+          "themeSummary",
+          "themeTitle",
+          "translationProvenance"
+        ],
+        "allProvidedFieldsMatch": true,
+        "expectedSourceProjectionSha256": "666be2016aa894f58d8e6578c85658d93caaa385dac3326b10e2f644bdc2c1d4",
+        "liveSourceProjectionSha256": "666be2016aa894f58d8e6578c85658d93caaa385dac3326b10e2f644bdc2c1d4",
+        "generatedEditorialInputHashMatches": true,
+        "mismatches": []
+      },
+      {
+        "id": "shabbos-oral-s1-7-mei-vayetzei-4",
+        "originRef": "Peri Tzadik, Kuntres Shvitat Shabbat 1:7",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Vayetzei 4",
+        "school": "Ishbitz–Radzin",
+        "fieldsCompared": [
+          "explanation",
+          "id",
+          "originEnglish",
+          "originHebrew",
+          "originRef",
+          "reviewed",
+          "reviewedOriginHebrewSha256",
+          "reviewedOriginSectionHebrewSha256",
+          "reviewedTargetHebrewSha256",
+          "school",
+          "targetEnglish",
+          "targetHebrew",
+          "targetRef",
+          "themeSummary",
+          "themeTitle",
+          "translationProvenance"
+        ],
+        "allProvidedFieldsMatch": true,
+        "expectedSourceProjectionSha256": "c38cc3e67aaac7be2e7c4a6d007efa018c91dfc37e81da60868b71ae4551da08",
+        "liveSourceProjectionSha256": "c38cc3e67aaac7be2e7c4a6d007efa018c91dfc37e81da60868b71ae4551da08",
+        "generatedEditorialInputHashMatches": true,
+        "mismatches": []
+      },
+      {
+        "id": "deferred-k7-18-priestly-sanctity-emor-7",
+        "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 7:18",
+        "targetRef": "Peri Tzadik, Emor 7:1",
+        "school": "Kisvei Rav Tzadok",
+        "fieldsCompared": [
+          "explanation",
+          "id",
+          "originEnglish",
+          "originHebrew",
+          "originRef",
+          "reviewed",
+          "reviewedOriginHebrewSha256",
+          "reviewedOriginSectionHebrewSha256",
+          "reviewedTargetHebrewSha256",
+          "school",
+          "targetEnglish",
+          "targetHebrew",
+          "targetRef",
+          "themeSummary",
+          "themeTitle",
+          "translationProvenance"
+        ],
+        "allProvidedFieldsMatch": true,
+        "expectedSourceProjectionSha256": "c80acab78d8b41176dcafcd5d54354c3a83832eba4644b8e413756679a6ba495",
+        "liveSourceProjectionSha256": "c80acab78d8b41176dcafcd5d54354c3a83832eba4644b8e413756679a6ba495",
+        "generatedEditorialInputHashMatches": true,
+        "mismatches": []
+      },
+      {
+        "id": "deferred-k7-20-sea-vision-iyar-5",
+        "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 7:20",
+        "targetRef": "Peri Tzadik, Rosh Chodesh Iyar 5:2",
+        "school": "Kisvei Rav Tzadok",
+        "fieldsCompared": [
+          "explanation",
+          "id",
+          "originEnglish",
+          "originHebrew",
+          "originRef",
+          "reviewed",
+          "reviewedOriginHebrewSha256",
+          "reviewedOriginSectionHebrewSha256",
+          "reviewedTargetHebrewSha256",
+          "school",
+          "targetEnglish",
+          "targetHebrew",
+          "targetRef",
+          "themeSummary",
+          "themeTitle",
+          "translationProvenance"
+        ],
+        "allProvidedFieldsMatch": true,
+        "expectedSourceProjectionSha256": "6f87275af1031ad20c83fef521e5f41accf9b66acc02a350beac61ae7a155351",
+        "liveSourceProjectionSha256": "6f87275af1031ad20c83fef521e5f41accf9b66acc02a350beac61ae7a155351",
+        "generatedEditorialInputHashMatches": true,
+        "mismatches": []
+      },
+      {
+        "id": "deferred-k7-20-sea-rephidim-sod-purim-15",
+        "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 7:20",
+        "targetRef": "Sod Yesharim, Purim 15:1",
+        "school": "Ishbitz–Radzin",
+        "fieldsCompared": [
+          "explanation",
+          "id",
+          "originEnglish",
+          "originHebrew",
+          "originRef",
+          "reviewed",
+          "reviewedOriginHebrewSha256",
+          "reviewedOriginSectionHebrewSha256",
+          "reviewedTargetHebrewSha256",
+          "school",
+          "targetEnglish",
+          "targetHebrew",
+          "targetRef",
+          "themeSummary",
+          "themeTitle",
+          "translationProvenance"
+        ],
+        "allProvidedFieldsMatch": true,
+        "expectedSourceProjectionSha256": "30b7fd4cda5acf0b6bf35c46309115692fdb472cea4d6a1ce1c303deb9cc5c84",
+        "liveSourceProjectionSha256": "30b7fd4cda5acf0b6bf35c46309115692fdb472cea4d6a1ce1c303deb9cc5c84",
+        "generatedEditorialInputHashMatches": true,
+        "mismatches": []
+      },
+      {
+        "id": "deferred-k7-23-amos-consolation-chanukah-21",
+        "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 7:23",
+        "targetRef": "Peri Tzadik, Chanukah 21:3",
+        "school": "Kisvei Rav Tzadok",
+        "fieldsCompared": [
+          "explanation",
+          "id",
+          "originEnglish",
+          "originHebrew",
+          "originRef",
+          "reviewed",
+          "reviewedOriginHebrewSha256",
+          "reviewedOriginSectionHebrewSha256",
+          "reviewedTargetHebrewSha256",
+          "school",
+          "targetEnglish",
+          "targetHebrew",
+          "targetRef",
+          "themeSummary",
+          "themeTitle",
+          "translationProvenance"
+        ],
+        "allProvidedFieldsMatch": true,
+        "expectedSourceProjectionSha256": "ac1eafbdf141ab17c9d0b575ac58bcf82fd49a7825d708c9af01d24c7c034339",
+        "liveSourceProjectionSha256": "ac1eafbdf141ab17c9d0b575ac58bcf82fd49a7825d708c9af01d24c7c034339",
+        "generatedEditorialInputHashMatches": true,
+        "mismatches": []
+      },
+      {
+        "id": "deferred-k7-23-amos-verses-vayigash-5",
+        "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 7:23",
+        "targetRef": "Peri Tzadik, Vayigash 5:1",
+        "school": "Kisvei Rav Tzadok",
+        "fieldsCompared": [
+          "explanation",
+          "id",
+          "originEnglish",
+          "originHebrew",
+          "originRef",
+          "reviewed",
+          "reviewedOriginHebrewSha256",
+          "reviewedOriginSectionHebrewSha256",
+          "reviewedTargetHebrewSha256",
+          "school",
+          "targetEnglish",
+          "targetHebrew",
+          "targetRef",
+          "themeSummary",
+          "themeTitle",
+          "translationProvenance"
+        ],
+        "allProvidedFieldsMatch": true,
+        "expectedSourceProjectionSha256": "090d440f54df10d2cd8015d8b6193b209a6a4185e9fcf5cd24ad69be34a8b09e",
+        "liveSourceProjectionSha256": "090d440f54df10d2cd8015d8b6193b209a6a4185e9fcf5cd24ad69be34a8b09e",
+        "generatedEditorialInputHashMatches": true,
+        "mismatches": []
+      },
+      {
+        "id": "kedusha-deferred-7-28-first-occurrence-tammuz",
+        "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 7:28",
+        "targetRef": "Peri Tzadik, Rosh Chodesh Tammuz 1:1",
+        "school": "Kisvei Rav Tzadok",
+        "fieldsCompared": [
+          "explanation",
+          "id",
+          "originEnglish",
+          "originHebrew",
+          "originRef",
+          "reviewed",
+          "reviewedOriginHebrewSha256",
+          "reviewedOriginSectionHebrewSha256",
+          "reviewedTargetHebrewSha256",
+          "school",
+          "targetEnglish",
+          "targetHebrew",
+          "targetRef",
+          "themeSummary",
+          "themeTitle",
+          "translationProvenance"
+        ],
+        "allProvidedFieldsMatch": true,
+        "expectedSourceProjectionSha256": "95ec3975c791cf9154d10ff8d7f2c74ec959b057691665ec7313db27297605cd",
+        "liveSourceProjectionSha256": "95ec3975c791cf9154d10ff8d7f2c74ec959b057691665ec7313db27297605cd",
+        "generatedEditorialInputHashMatches": true,
+        "mismatches": []
+      }
+    ]
+  },
+  "baselinePreservation": {
+    "recordsCompared": 996,
+    "recordsMissing": [],
+    "recordsExactlyEqual": 901,
+    "recordsWithOnlyAllowedGeneratedHashRefresh": 95,
+    "changedFieldCount": 95,
+    "changedFieldPaths": {
+      "evidence.target.textSha256": 95
+    },
+    "permittedDifference": "Only evidence.target.textSha256, and only when both the baseline and live record identify the Mei HaShiloach target text file. No additions, removals, content changes, placement changes or context-pin changes are permitted.",
+    "contentPlacementAndReviewedContextPinsUnchanged": true,
+    "unexpectedDifferences": [],
+    "allowedGeneratedHashChanges": [
+      {
+        "id": "chanukah-10-repentance-after-warning-mei-vayigash-1",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Vayigash 1",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "chanukah-16-peace-through-recognized-intent-mei-vayeshev-2",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Vayeshev 2",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "chanukah-complete-1-judah-darkness-mei-vayeshev",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Vayeshev 7",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "chanukah-complete-1-kingship-mei-lech",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Lech Lecha 6",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "chanukah-complete-17-circle-equality",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Vayigash 4",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "chanukah-complete-17-longing-revelation",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Vayera 1",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "chanukah-complete-18-anger-temporary",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Noach 2",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "chanukah-complete-18-joseph-prison",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Miketz 3",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "chanukah-complete-19-different-disciplines-mei-toldot-2",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Toldot 2",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "chanukah-complete-19-joy-tested-mei-vayigash-4",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Vayigash 4",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "chanukah-complete-20-judgment-during-test-mei-vayeshev-4",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Vayeshev 4",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "chanukah-complete-20-refinement-and-cry-mei-miketz-1",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Miketz 1",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "chanukah-complete-21-holy-expansion-mei-toldot-9",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Toldot 9",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "chanukah-complete-22-human-guarding-and-enduring-building-mei-vayeshev-1",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Vayeshev 1",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "chanukah-complete-23-jacob-includes-blessings-mei-vayechi-4",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Vayechi 4",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "chanukah-complete-23-portable-heart-fixed-action-mei-bo-6",
+        "targetRef": "Mei HaShiloach, Volume I, Exodus, Bo 6",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "chanukah-complete-3-sage-and-prophet-mei",
+        "targetRef": "Mei HaShiloach, Volume I, Exodus, Bo 5",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "chanukah-complete-5-words-and-inward-torah-mei",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Noach 6",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "chanukah-complete-6-judah-courage-after-failure-mei",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Vayechi 5",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "chanukah-complete-6-providence-is-not-permission-mei",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Bereshit 11",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "chanukah-complete-6-shepherd-and-attentive-agency-mei",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Vayechi 3",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "chanukah-complete-7-desire-develops-the-first-drop-mei",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Bereshit 15",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "chanukah-complete-7-hardship-transformed-into-joy-and-bond-mei",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Vayechi 7",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "chanukah-complete-7-torah-in-trouble-as-inner-counsel-mei",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Noach 1",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "chanukah-complete-8-five-lights-become-action-mei",
+        "targetRef": "Mei HaShiloach, Volume II, Genesis, Bereshit 3",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "chanukah25-3-tribal-opposites-and-complement-mei-vayechi-7",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Vayechi 7",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "divrei-chalomot-12-manna-food-divine-life",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Miketz 6",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "divrei-soferim-6-rest-and-life-mei-hashiloach",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Lech Lecha 1",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "et-haochel-16-gift-before-purification-mei-bo-5",
+        "targetRef": "Mei HaShiloach, Volume I, Exodus, Bo 5",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "et-haochel-4-torah-and-desire-mei-hashiloach",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Vayigash 4",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "kislev-1-5-desire-redirected-through-torah-mei-vayigash-4",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Vayigash 4",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "kislev-3-5-love-becomes-a-hunger-for-torah-mei-toldot-1",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Toldot 1",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "kislev-4-3-concealment-makes-earned-work-possible-mei-bereshit-ii-7",
+        "targetRef": "Mei HaShiloach, Volume II, Genesis, Bereshit 7",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "kislev-4-6-divine-presence-within-distress-mei-shemot-4",
+        "targetRef": "Mei HaShiloach, Volume I, Exodus, Shemot 4",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "kislev-7-5-different-souls-require-different-disciplines-mei-toldot-2",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Toldot 2",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "lech-lecha-1-wealth-mei-hashiloach-5",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Lech Lecha 5",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "lech-lecha-10-2-continuing-shepherd-mei-vayechi-3",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Vayechi 3",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "lech-lecha-10-5-torah-conceit-and-shema-mei-vayigash-4",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Vayigash 4",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "lech-lecha-5-flood-restraint-mei-noach-3",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Noach 3",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "lech-lecha-5-joy-mei-hashiloach-vayigash-4",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Vayigash 4",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "lech-lecha-6-command-repair-creation-mei-lech-3",
+        "targetRef": "Mei HaShiloach, Volume II, Genesis, Lech Lecha 3",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "lech-lecha-8-2-uncommanded-service-mei-lech-ii-3",
+        "targetRef": "Mei HaShiloach, Volume II, Genesis, Lech Lecha 3",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "lech-lecha-8-3-war-and-purified-purpose-mei-lech-7",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Lech Lecha 7",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "lech-lecha-9-7-jacob-life-continuity-mei-vayechi-9",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Vayechi 9",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "lech-lecha-complete-1-hidden-guidance-mei-bereshit",
+        "targetRef": "Mei HaShiloach, Volume II, Genesis, Bereshit 2",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "lech-lecha-complete-2-shem-priesthood-mei",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Lech Lecha 6",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "likkutei-festivals-1-question-mei-hashiloach",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Lech Lecha 1",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "marcheshvan-complete-cheshvan-3-joseph",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Vayeshev 5",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "ohr-zarua-exile-1-anochi-mei-hashiloach",
+        "targetRef": "Mei HaShiloach, Volume I, Exodus, Bo 5",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "resisei-10-seasoning-mei-vayigash",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Vayigash 4",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "shevat-1-longing-grows-torah",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Bereshit 15",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "shevat-2-worldly-delight-in-service",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Bereshit 1",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "sichat-shedim-1-4-human-action-connects-creation",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Bereshit 3",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "sichat-shedim-1-9-torah-transforms-desire",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Vayigash 4",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "sichat-shedim-2-natural-order-continuously-sustained",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Lech Lecha 2",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "takanat-4-self-rule-mei-hashiloach",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Lech Lecha 6",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "tubishvat-2-doubt-and-return",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Bereshit 6",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "tubishvat-3-jacob-carries-holiness",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Vayigash 7",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "tzidkat-1-64-21-mercy-below-and-mercy-above",
+        "targetRef": "Mei HaShiloach, Volume II, Genesis, Bereshit 5",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "tzidkat-1-64-37-field-expansion-and-direction",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Toldot 9",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "tzidkat-1-64-48-association-and-its-visible-meaning",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Lech Lecha 7",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "tzidkat-1-64-49-stumbling-and-a-deeper-return",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Vayetzei 6",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "tzidkat-1-64-50-provision-before-the-petition",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Chayei Sarah 4",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "tzidkat-1-64-59-sweetness-renews-desire-for-torah",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Toldot 1",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "tzidkat-60-end-117-the-help-of-disagreement",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Bereshit 9",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "tzidkat-60-end-179-shema-and-independent-power",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Vayigash 4",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "tzidkat-60-end-189-creation-and-a-personal-call",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Lech Lecha 1",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "tzidkat-60-end-211-bread-and-living-dependence",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Miketz 6",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "tzidkat-comprehensive-101-clarification-and-personal-interest",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Lech Lecha 7",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "tzidkat-comprehensive-106-favorable-judgment-and-avoiding-ambiguity",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Vayechi 10",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "tzidkat-comprehensive-116-returning-a-lost-understanding",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Vayetzei 6",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "tzidkat-comprehensive-140-interpreting-the-world-through-its-divine-life",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Miketz 6",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "tzidkat-comprehensive-153-the-healing-wings-of-confidence",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Vayera 1",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "tzidkat-comprehensive-154-trust-in-the-one-who-gives-the-task",
+        "targetRef": "Mei HaShiloach, Volume I, Exodus, Shemot 3",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "tzidkat-comprehensive-164-leahs-thirst-for-salvation",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Vayetzei 7",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "tzidkat-comprehensive-166-anokhi-enables-purification",
+        "targetRef": "Mei HaShiloach, Volume I, Exodus, Bo 5",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "tzidkat-comprehensive-169-the-cry-before-the-deliverance",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Miketz 1",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "tzidkat-comprehensive-175-self-rule-before-authority",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Lech Lecha 6",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "tzidkat-comprehensive-178-rule-over-oneself",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Lech Lecha 6",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "tzidkat-comprehensive-183-language-rooted-in-the-heart",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Noach 6",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "tzidkat-comprehensive-184-desire-that-expands-torah",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Bereshit 15",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "tzidkat-comprehensive-190-envy-and-recognizing-intent",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Vayeshev 2",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "tzidkat-comprehensive-203-the-interpretation-behind-the-dream",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Miketz 6",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "tzidkat-comprehensive-214-a-larger-gift-brings-a-new-task",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Lech Lecha 5",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "tzidkat-comprehensive-218-an-emptied-heart-needs-a-good-direction",
+        "targetRef": "Mei HaShiloach, Volume I, Exodus, Bo 4",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "tzidkat-comprehensive-232-recognition-becomes-thanks",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Vayechi 8",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "tzidkat-comprehensive-243-yaakov-studies-the-dream",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Vayeshev 1",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "tzidkat-comprehensive-249-torah-renews-the-desire-that-seeks-it",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Toldot 1",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "tzidkat-comprehensive-254-yosef-and-judah-are-distinct-cases",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Vayeshev 1",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "tzidkat-comprehensive-261-the-awakened-question-is-itself-an-answer",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Lech Lecha 1",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "tzidkat-comprehensive-78-lot-and-a-hidden-royal-line",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Lech Lecha 6",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "tzidkat-comprehensive-86-humanity-and-the-creatures-powers",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Bereshit 3",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "tzidkat-comprehensive-88-love-in-a-cleared-heart",
+        "targetRef": "Mei HaShiloach, Volume I, Exodus, Bo 4",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "tzidkat-comprehensive-95-the-rainbow-as-assurance",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Noach 5",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      },
+      {
+        "id": "yisrael-3-seasoning-mei-vayigash-4",
+        "targetRef": "Mei HaShiloach, Volume I, Genesis, Vayigash 4",
+        "targetBook": "mei-hashiloach",
+        "path": "evidence.target.textSha256",
+        "before": "032cbb40d0a40f68abc0f370b2a20f3fe50dc859c9c7569361a7e9ad30b8830e",
+        "after": "a2ec66b4db9bf32481b462cd27013f2ee7f53cd35003a07965c693f8531859c4",
+        "allowedSourceIndexHashRefresh": true
+      }
+    ]
+  },
+  "publicReaderAssets": {
+    "verificationMethod": "Inspection of downloaded public source bytes; this confirms the shipped version and rendering code, not a rendered DOM or browser interaction.",
+    "checks": {
+      "indexLoadsV2Script": true,
+      "scriptAdvertisesV2": true,
+      "schoolMappingPresent": true,
+      "completeReferenceAndEnglishQuotationPreserved": true,
+      "visibleSchoolLabelAndLinkedExactReferencePresent": true
+    },
+    "displaySchoolMapping": {
+      "Kisvei Rav Tzadok": "Kisvei Rav Tzadok",
+      "Ishbitz–Radzin": "Kisvei Ishbitz–Radzin"
+    },
+    "exactEvidence": {
+      "indexScriptElement": "<script src=\"connected-ideas.js?v=20261021-pri-shabbos-oral-deferred-v2\"></script>",
+      "scriptVersionDeclaration": "const VERSION = '20261021-pri-shabbos-oral-deferred-v2';",
+      "schoolMapping": "const schoolLabel = record.school === 'Ishbitz–Radzin' ? 'Kisvei Ishbitz–Radzin' : record.school;",
+      "fullCitationAndEnglishQuoteExpression": "const quote = schoolLabel + ' · ' + record.targetRef + ': “' + record.targetEnglish + '”';",
+      "richCitationExpression": "{language:'en', text:quote, rich:[{text:schoolLabel+' · ',bold:true},{text:record.targetRef,bold:true,href:url},{text:': “'+record.targetEnglish+'”'}]}"
+    },
+    "assets": [
+      {
+        "kind": "index",
+        "url": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/index.html",
+        "finalUrl": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/index.html",
+        "status": 200,
+        "retrievedAt": "2026-10-21T19:37:49.651876+00:00",
+        "bytes": 228951,
+        "sha256": "d4c652073c6180010e1ca79fc6d379c1141727497e90ad74fcfaf70817657f74",
+        "downloadFilename": "deferred-live-index-20261021.html"
+      },
+      {
+        "kind": "script",
+        "url": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/connected-ideas.js",
+        "finalUrl": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/connected-ideas.js",
+        "status": 200,
+        "retrievedAt": "2026-10-21T19:37:49.658107+00:00",
+        "bytes": 10563,
+        "sha256": "7dd53d6eff1fd04749d51e6ee59c9640c32231be9e7c393c2b9a0316a6db4cae",
+        "downloadFilename": "deferred-live-connected-ideas-20261021.js"
+      }
+    ]
+  },
+  "limitations": [
+    "The production catalog is compared semantically by record fields; identical bytes or the same generated content hash as a local rebuild are not required. Production-only generated metadata outside the approved-input projection does not count as a new-note content difference.",
+    "The full 996-record baseline comparison does examine every generated field; its only permitted difference is the explicitly listed 95 Mei target text-file hash refreshes.",
+    "This report does not independently re-fetch every canonical source paragraph or repeat the bilingual editorial review; those checks are documented in the editorial audit and production gates.",
+    "This report does not perform rendered reader/browser checks, verify every CDN edge, verify workflow completion, or establish a separate Cloudflare worker deployment.",
+    "The failed initial sandbox network attempt occurred before any download; the first permitted public HTTP retrieval returned the expected v2 release, so no propagation retry was needed."
+  ]
+}

@@ -5,7 +5,7 @@
   "editorialInput": "sources/akiva/themes/pri-shabbos-deferred-20261021.json",
   "editorialInputSha256": "ea883b47f020db6af5bb3cf49aea084e8d1a8fb51b4dbc024934d7cdf6a1eafb",
   "editorialInputHashStatus": "Final 18-record repository input verified after assembly, including all reviewed K7 explanation qualifications and canonical context pins.",
-  "status": "All 18 records editorially approved; local build, anchor, integrity and preservation checks passed. Full CI and live reader verification execute with publication.",
+  "status": "Published on GitHub Pages. Production CI and automated live-browser checks passed; independent public-data comparison confirms all 18 approved additions and preservation of the 996 existing records.",
   "scope": {
     "works": [
       "Peri Tzadik, Sefer Kedushat Shabbat 1–7",
@@ -1367,8 +1367,8 @@
       "Non-interlinear snapshot passages use their section’s source edition; old Akiva interlinear material retains its copyright and translation label.",
       "The fallback message says English is not included in the indexed text, without falsely saying the remote reader has no English translation."
     ],
-    "preservationLimits": "The supplied bytewise baseline covered Mei, not every book. Full generic MCP tests were left for the final integration/CI pass. The reader’s remote Shaar English route and footnotes are not rewritten by the snapshot importer.",
-    "baselineConnections": "Root reported the baseline 996 existing connection records passed canonical quote checks before additions; post-integration preservation remains a final gate.",
+    "preservationLimits": "The bytewise source-text baseline covered Mei, not every book. The full generic production MCP and source-edition integration tests passed in the completed workflow. The snapshot importer does not rewrite the reader’s remote Shaar English route or its annotations.",
+    "baselineConnections": "Post-integration comparison passed: all 996 existing connection records retain their content, placement and reviewed context pins. Only evidence.target.textSha256 changes for 95 Mei HaShiloach targets because two source sections were appended; no existing source paragraph or section was replaced.",
     "deploymentDistinction": "Publishing static Pages data does not by itself deploy the Cloudflare worker code changes; worker deployment and live metadata verification are separate gates."
   },
   "recordEvidence": [
@@ -1707,21 +1707,23 @@
     },
     {
       "gate": "Connected-ideas build/validation and Pri Shabbos reader tests",
-      "status": "local-connected-ideas-checks-passed; full-reader-suite-runs-in-CI",
-      "result": "Connected-ideas build, 90 fixtures, exact anchors, review-progress build and 20 review-progress checks passed. Pri Shabbos production reader tests remain in the existing deployment gate."
+      "status": "passed",
+      "result": "Full production build and reader suite passed: 90 fixtures, 2028 canonical anchors, 45 reciprocal reviews, 349 rendered sections and 1059 directed footnotes. https://github.com/akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok/actions/runs/39660417201"
     },
     {
       "gate": "Generic MCP integration tests and CI, including imported source edition checks",
-      "status": "production-CI-gate",
-      "result": "Four focused local JSON-RPC tests passed. Existing generic MCP and worker tests run during the full Pages build before deployment."
+      "status": "passed",
+      "result": "Existing complete production MCP and source-edition integration checks passed before publication. https://github.com/akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok/actions/runs/39660417201"
     },
     {
       "gate": "Reader/browser verification of Hebrew markers, school/source labels, English quotations, and explanations",
-      "status": "publication-gate-to-be-verified-against-deployed-commit"
+      "status": "passed-by-automated-live-browser",
+      "result": "All 349 reviewed sections, including all fourteen Shabbos sections and the six receiving these additions, passed the exact note-content, school/source label, Hebrew-marker and interaction checks. The direct connected-browser attempt timed out and is separately recorded; no manual source-popup check is claimed."
     },
     {
       "gate": "GitHub Pages publication and live verification of the final static data",
-      "status": "publication-gate-to-be-verified-against-deployed-commit"
+      "status": "passed",
+      "result": "Pages deployment succeeded for e12c52e76a378deb8b1094a16a28540844bae70e; all 288 supplied fields of the 18 approved notes match the published catalog. All 996 baseline records retain content, placement and reviewed context pins."
     },
     {
       "gate": "Cloudflare worker deployment and live source-metadata/fallback-wording verification if included in release",
@@ -1751,7 +1753,7 @@
     "themeReviewProgress": {
       "ok": true,
       "checks": 20,
-      "contentSha256": "899bb0e82ff896683742a5a01efa9a51a185080d88d61ec3d6044174013d5a32"
+      "contentSha256": "170d74e013fc54152a69d44a9ec6c12d7c7e264e5c723bf31a4320e02c1ad325"
     },
     "preservation": {
       "existingRecordsPresent": 996,
@@ -1776,8 +1778,53 @@
         "Kisvei Ishbitz–Radzin"
       ],
       "checks": "Labels precede the exact linked target reference; the complete translated quotation and link are preserved."
+    },
+    "completeFootnoteParagraphsAndSourceExcerpts": {
+      "ok": true,
+      "records": 1014,
+      "checks": "The actual footnotesForSection output matches all four complete expected English paragraphs including school label, exact linked reference, complete translation and explanation. The source excerpt retains exact Hebrew and English. Both DOM/browser expectations now include the intentional school label while preserving their full-text equality and interaction assertions."
     }
   },
-  "publicationEvidenceLocation": "The GitHub Pages workflow attached to the publication commit supplies the complete production-build results. Live data and UI are verified after that workflow succeeds.",
-  "readerSchoolLabels": "Every reviewed connection footnote displays Kisvei Rav Tzadok or Kisvei Ishbitz–Radzin directly beside its exact source reference. The label uses the independently validated target school; quotation, translation and explanation are unchanged."
+  "publicationEvidenceLocation": "editorial/verification/pri-shabbos-deferred-20261021-publication.json; https://github.com/akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok/actions/runs/39660417201",
+  "readerSchoolLabels": "Every reviewed connection footnote displays Kisvei Rav Tzadok or Kisvei Ishbitz–Radzin directly beside its exact source reference. The label uses the independently validated target school; quotation, translation and explanation are unchanged.",
+  "finalIndependentAuditReview": {
+    "completedOn": "2026-10-21",
+    "reviewer": "Independent editorial audit reviewer",
+    "result": "approved without further source-note corrections",
+    "records": 18,
+    "inputSha256": "ea883b47f020db6af5bb3cf49aea084e8d1a8fb51b4dbc024934d7cdf6a1eafb",
+    "checked": [
+      "All final English translation and explanation hashes match the audit.",
+      "Every record has independent approval.",
+      "The actual marker inventory and separately identified supplemental case are accurately counted.",
+      "Shaar English notes 419 and 421 are credited as research leads; their modern English is not substituted for primary Hebrew.",
+      "Unnamed oral transmitters remain unnamed except where a primary source explicitly identifies them.",
+      "Iyar and Vayigash context qualifications remain in the final explanations."
+    ]
+  },
+  "publication": {
+    "release": "20261021-pri-shabbos-oral-deferred-v2",
+    "deployedCommit": "e12c52e76a378deb8b1094a16a28540844bae70e",
+    "workflow": {
+      "id": 39660417201,
+      "jobId": 119431638803,
+      "url": "https://github.com/akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok/actions/runs/39660417201",
+      "status": "completed",
+      "conclusion": "success",
+      "completedAt": "2026-10-21T19:41:38Z",
+      "failedSteps": []
+    },
+    "liveCatalogVersion": "20261021-pri-shabbos-oral-deferred-v2-20e521562570eedd",
+    "liveCatalogFileSha256": "7be8338525f201dda643c440914a2e4955deaeb9f77b259ee9e11f2f52705fa8",
+    "liveCatalogContentSha256": "20e521562570eeddf80be140b390f1c05e1790f45f5fd1b8061378e1cafc290d",
+    "productionThemeReviewProgressContentSha256": "63bc3b2a9239164f37fdda70e1617cb96e1c345cba9095c5c502e99b4431621a",
+    "liveDataEvidence": "editorial/verification/pri-shabbos-deferred-20261021-live-data.json",
+    "liveBrowserEvidence": "editorial/verification/pri-shabbos-deferred-20261021-live-reader.json",
+    "newCanonicalPlacementChecks": 18,
+    "connectedBrowserLimitation": {
+      "status": "not-completed",
+      "reason": "The connected browser repeatedly timed out before navigation and screenshot capture. A fresh tab and the documented alternate DOM interface did not resolve the timeout. No direct manual live-note or source-popup verification is claimed. The successful production CI live-browser report supplies rendered verification."
+    },
+    "cloudflareWorkerDeployment": "not part of this Pages release"
+  }
 }

@@ -1,0 +1,430 @@
+{
+  "schemaVersion": 1,
+  "title": "Publication and live-reader verification for Pri Shabbos deferred discussions and oral reports",
+  "verifiedAt": "2026-10-21T19:44:36.956231+00:00",
+  "status": "passed",
+  "release": "20261021-pri-shabbos-oral-deferred-v2",
+  "deployedCommit": "e12c52e76a378deb8b1094a16a28540844bae70e",
+  "baselineCommit": "92c2fd522646f53dabae5ad2805d2d5383f00c38",
+  "workflow": {
+    "id": 39660417201,
+    "jobId": 119431638803,
+    "url": "https://github.com/akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok/actions/runs/39660417201",
+    "status": "completed",
+    "conclusion": "success",
+    "completedAt": "2026-10-21T19:41:38Z",
+    "failedSteps": []
+  },
+  "approvedInput": {
+    "path": "sources/akiva/themes/pri-shabbos-deferred-20261021.json",
+    "sha256": "ea883b47f020db6af5bb3cf49aea084e8d1a8fb51b4dbc024934d7cdf6a1eafb",
+    "records": 18,
+    "originParagraphs": 11
+  },
+  "liveData": {
+    "report": "editorial/verification/pri-shabbos-deferred-20261021-live-data.json",
+    "catalogFileSha256": "7be8338525f201dda643c440914a2e4955deaeb9f77b259ee9e11f2f52705fa8",
+    "catalogContentSha256": "20e521562570eeddf80be140b390f1c05e1790f45f5fd1b8061378e1cafc290d",
+    "version": "20261021-pri-shabbos-oral-deferred-v2-20e521562570eedd",
+    "records": 1014,
+    "newRecordsMatched": 18,
+    "providedFieldsMatched": 288,
+    "existingRecordsPreserved": 996,
+    "existingRecordsCompletelyIdentical": 901,
+    "existingRecordsWithOnlyPermittedMeiFileHashRefresh": 95,
+    "unexpectedChanges": 0
+  },
+  "automatedLiveBrowser": {
+    "report": "editorial/verification/pri-shabbos-deferred-20261021-live-reader.json",
+    "allSections": 349,
+    "allDirectedFootnotes": 1059,
+    "affectedSections": [
+      {
+        "ref": "Peri Tzadik, Sefer Kedushat Shabbat 1",
+        "footnotes": 6,
+        "completeEnglishQuotes": true,
+        "hebrewAnchors": true,
+        "ordinaryFootnotes": true
+      },
+      {
+        "ref": "Peri Tzadik, Sefer Kedushat Shabbat 3",
+        "footnotes": 6,
+        "completeEnglishQuotes": true,
+        "hebrewAnchors": true,
+        "ordinaryFootnotes": true
+      },
+      {
+        "ref": "Peri Tzadik, Sefer Kedushat Shabbat 5",
+        "footnotes": 6,
+        "completeEnglishQuotes": true,
+        "hebrewAnchors": true,
+        "ordinaryFootnotes": true
+      },
+      {
+        "ref": "Peri Tzadik, Sefer Kedushat Shabbat 6",
+        "footnotes": 7,
+        "completeEnglishQuotes": true,
+        "hebrewAnchors": true,
+        "ordinaryFootnotes": true
+      },
+      {
+        "ref": "Peri Tzadik, Sefer Kedushat Shabbat 7",
+        "footnotes": 14,
+        "completeEnglishQuotes": true,
+        "hebrewAnchors": true,
+        "ordinaryFootnotes": true
+      },
+      {
+        "ref": "Peri Tzadik, Kuntres Shvitat Shabbat 1",
+        "footnotes": 3,
+        "completeEnglishQuotes": true,
+        "hebrewAnchors": true,
+        "ordinaryFootnotes": true
+      }
+    ],
+    "allFourteenShabbosSections": [
+      {
+        "ref": "Peri Tzadik, Sefer Kedushat Shabbat 1",
+        "footnotes": 6,
+        "completeEnglishQuotes": true,
+        "hebrewAnchors": true,
+        "ordinaryFootnotes": true
+      },
+      {
+        "ref": "Peri Tzadik, Sefer Kedushat Shabbat 2",
+        "footnotes": 4,
+        "completeEnglishQuotes": true,
+        "hebrewAnchors": true,
+        "ordinaryFootnotes": true
+      },
+      {
+        "ref": "Peri Tzadik, Sefer Kedushat Shabbat 3",
+        "footnotes": 6,
+        "completeEnglishQuotes": true,
+        "hebrewAnchors": true,
+        "ordinaryFootnotes": true
+      },
+      {
+        "ref": "Peri Tzadik, Sefer Kedushat Shabbat 4",
+        "footnotes": 3,
+        "completeEnglishQuotes": true,
+        "hebrewAnchors": true,
+        "ordinaryFootnotes": true
+      },
+      {
+        "ref": "Peri Tzadik, Sefer Kedushat Shabbat 5",
+        "footnotes": 6,
+        "completeEnglishQuotes": true,
+        "hebrewAnchors": true,
+        "ordinaryFootnotes": true
+      },
+      {
+        "ref": "Peri Tzadik, Sefer Kedushat Shabbat 6",
+        "footnotes": 7,
+        "completeEnglishQuotes": true,
+        "hebrewAnchors": true,
+        "ordinaryFootnotes": true
+      },
+      {
+        "ref": "Peri Tzadik, Sefer Kedushat Shabbat 7",
+        "footnotes": 14,
+        "completeEnglishQuotes": true,
+        "hebrewAnchors": true,
+        "ordinaryFootnotes": true
+      },
+      {
+        "ref": "Peri Tzadik, Kuntres Shvitat Shabbat 1",
+        "footnotes": 3,
+        "completeEnglishQuotes": true,
+        "hebrewAnchors": true,
+        "ordinaryFootnotes": true
+      },
+      {
+        "ref": "Peri Tzadik, Kuntres Shvitat Shabbat 2",
+        "footnotes": 1,
+        "completeEnglishQuotes": true,
+        "hebrewAnchors": true,
+        "ordinaryFootnotes": true
+      },
+      {
+        "ref": "Peri Tzadik, Kuntres Shvitat Shabbat 3",
+        "footnotes": 1,
+        "completeEnglishQuotes": true,
+        "hebrewAnchors": true,
+        "ordinaryFootnotes": true
+      },
+      {
+        "ref": "Peri Tzadik, Kuntres Shvitat Shabbat 4",
+        "footnotes": 1,
+        "completeEnglishQuotes": true,
+        "hebrewAnchors": true,
+        "ordinaryFootnotes": true
+      },
+      {
+        "ref": "Peri Tzadik, Kuntres Shvitat Shabbat 5",
+        "footnotes": 2,
+        "completeEnglishQuotes": true,
+        "hebrewAnchors": true,
+        "ordinaryFootnotes": true
+      },
+      {
+        "ref": "Peri Tzadik, Kuntres Shvitat Shabbat 6",
+        "footnotes": 1,
+        "completeEnglishQuotes": true,
+        "hebrewAnchors": true,
+        "ordinaryFootnotes": true
+      },
+      {
+        "ref": "Peri Tzadik, Kuntres Shvitat Shabbat 7",
+        "footnotes": 1,
+        "completeEnglishQuotes": true,
+        "hebrewAnchors": true,
+        "ordinaryFootnotes": true
+      }
+    ],
+    "assertionScope": "Every reviewed record is checked for its full four English footnote paragraphs, school label, exact linked source reference and URL, paragraph placement, and Hebrew-only markers. Opening/closing interactions are sampled with the first and last record of each section. Additional selected sections test desktop/mobile layouts, source routes, retry recovery and changed-context rejection. This does not claim every new source popup was manually opened.",
+    "views": [
+      {
+        "viewport": {
+          "width": 1280,
+          "height": 900
+        },
+        "layouts": [
+          "interlinear",
+          "stacked",
+          "side by side"
+        ],
+        "hebrewFootnotes": true
+      },
+      {
+        "viewport": {
+          "width": 390,
+          "height": 844
+        },
+        "layouts": [
+          "interlinear",
+          "stacked",
+          "side by side"
+        ],
+        "hebrewFootnotes": true
+      }
+    ],
+    "changedContextRejected": true,
+    "catalogRetryRecovered": true
+  },
+  "newRecordCanonicalPlacements": [
+    {
+      "id": "shabbos-oral-s1-7-mei-vayetzei-4",
+      "direction": "forward",
+      "ref": "Peri Tzadik, Kuntres Shvitat Shabbat 1:7",
+      "paragraphOrder": 6,
+      "phraseIndex": 0,
+      "phraseEnd": 5,
+      "sectionRef": "Peri Tzadik, Kuntres Shvitat Shabbat 1",
+      "sectionHebrewSha256": "f5c0997d9305e738ce9f1d14e1ac2a180005d209a3e978efc91b356f7028c8a0"
+    },
+    {
+      "id": "shabbos-deferred-k1-4-amalah-torah-2",
+      "direction": "forward",
+      "ref": "Peri Tzadik, Sefer Kedushat Shabbat 1:4",
+      "paragraphOrder": 3,
+      "phraseIndex": 7,
+      "phraseEnd": 7,
+      "sectionRef": "Peri Tzadik, Sefer Kedushat Shabbat 1",
+      "sectionHebrewSha256": "0bab683ad4aa905ea4c94079773fd412388415dbf789679b895294d04e894893"
+    },
+    {
+      "id": "shabbos-deferred-k1-4-beit-yaakov-toldot-8",
+      "direction": "forward",
+      "ref": "Peri Tzadik, Sefer Kedushat Shabbat 1:4",
+      "paragraphOrder": 3,
+      "phraseIndex": 7,
+      "phraseEnd": 7,
+      "sectionRef": "Peri Tzadik, Sefer Kedushat Shabbat 1",
+      "sectionHebrewSha256": "0bab683ad4aa905ea4c94079773fd412388415dbf789679b895294d04e894893"
+    },
+    {
+      "id": "shabbos-oral-k3-3-takanat-hashavin-6",
+      "direction": "forward",
+      "ref": "Peri Tzadik, Sefer Kedushat Shabbat 3:3",
+      "paragraphOrder": 2,
+      "phraseIndex": 33,
+      "phraseEnd": 35,
+      "sectionRef": "Peri Tzadik, Sefer Kedushat Shabbat 3",
+      "sectionHebrewSha256": "7f9256358fa2e4b8e9371c74a1af58786937c0666509daf36358f2968e3ef90a"
+    },
+    {
+      "id": "shabbos-oral-k3-3-sod-yesharim-pesach-33",
+      "direction": "forward",
+      "ref": "Peri Tzadik, Sefer Kedushat Shabbat 3:3",
+      "paragraphOrder": 2,
+      "phraseIndex": 33,
+      "phraseEnd": 35,
+      "sectionRef": "Peri Tzadik, Sefer Kedushat Shabbat 3",
+      "sectionHebrewSha256": "7f9256358fa2e4b8e9371c74a1af58786937c0666509daf36358f2968e3ef90a"
+    },
+    {
+      "id": "kedusha-deferred-5-1-oral-izhbitz-rosh-chodesh-av",
+      "direction": "forward",
+      "ref": "Peri Tzadik, Sefer Kedushat Shabbat 5:1",
+      "paragraphOrder": 0,
+      "phraseIndex": 53,
+      "phraseEnd": 57,
+      "sectionRef": "Peri Tzadik, Sefer Kedushat Shabbat 5",
+      "sectionHebrewSha256": "6a6d3a28cb8300ebd2c0e919899e663c07f5515b62ddfdf0fd261613d83b9dc0"
+    },
+    {
+      "id": "kedusha-deferred-5-1-oral-mei-eikev",
+      "direction": "forward",
+      "ref": "Peri Tzadik, Sefer Kedushat Shabbat 5:1",
+      "paragraphOrder": 0,
+      "phraseIndex": 53,
+      "phraseEnd": 57,
+      "sectionRef": "Peri Tzadik, Sefer Kedushat Shabbat 5",
+      "sectionHebrewSha256": "6a6d3a28cb8300ebd2c0e919899e663c07f5515b62ddfdf0fd261613d83b9dc0"
+    },
+    {
+      "id": "kedusha-deferred-5-1-shaar-divine-purpose",
+      "direction": "forward",
+      "ref": "Peri Tzadik, Sefer Kedushat Shabbat 5:1",
+      "paragraphOrder": 0,
+      "phraseIndex": 53,
+      "phraseEnd": 57,
+      "sectionRef": "Peri Tzadik, Sefer Kedushat Shabbat 5",
+      "sectionHebrewSha256": "6a6d3a28cb8300ebd2c0e919899e663c07f5515b62ddfdf0fd261613d83b9dc0"
+    },
+    {
+      "id": "kedusha-deferred-6-3-jesse-serpent-ohr-zarua",
+      "direction": "forward",
+      "ref": "Peri Tzadik, Sefer Kedushat Shabbat 6:3",
+      "paragraphOrder": 2,
+      "phraseIndex": 41,
+      "phraseEnd": 43,
+      "sectionRef": "Peri Tzadik, Sefer Kedushat Shabbat 6",
+      "sectionHebrewSha256": "313b9716d90fc5cd60bb870e6fef42ec8cd601920d88f1f8d00fd429b71ba9ac"
+    },
+    {
+      "id": "kedusha-deferred-6-5-nachshon-mei-behaalotcha",
+      "direction": "forward",
+      "ref": "Peri Tzadik, Sefer Kedushat Shabbat 6:5",
+      "paragraphOrder": 4,
+      "phraseIndex": 10,
+      "phraseEnd": 13,
+      "sectionRef": "Peri Tzadik, Sefer Kedushat Shabbat 6",
+      "sectionHebrewSha256": "313b9716d90fc5cd60bb870e6fef42ec8cd601920d88f1f8d00fd429b71ba9ac"
+    },
+    {
+      "id": "kedusha-deferred-6-7-jordan-likkutei-maamarim",
+      "direction": "forward",
+      "ref": "Peri Tzadik, Sefer Kedushat Shabbat 6:7",
+      "paragraphOrder": 6,
+      "phraseIndex": 28,
+      "phraseEnd": 31,
+      "sectionRef": "Peri Tzadik, Sefer Kedushat Shabbat 6",
+      "sectionHebrewSha256": "313b9716d90fc5cd60bb870e6fef42ec8cd601920d88f1f8d00fd429b71ba9ac"
+    },
+    {
+      "id": "kedusha-deferred-6-7-jordan-tiferet-yosef",
+      "direction": "forward",
+      "ref": "Peri Tzadik, Sefer Kedushat Shabbat 6:7",
+      "paragraphOrder": 6,
+      "phraseIndex": 28,
+      "phraseEnd": 31,
+      "sectionRef": "Peri Tzadik, Sefer Kedushat Shabbat 6",
+      "sectionHebrewSha256": "313b9716d90fc5cd60bb870e6fef42ec8cd601920d88f1f8d00fd429b71ba9ac"
+    },
+    {
+      "id": "deferred-k7-18-priestly-sanctity-emor-7",
+      "direction": "forward",
+      "ref": "Peri Tzadik, Sefer Kedushat Shabbat 7:18",
+      "paragraphOrder": 17,
+      "phraseIndex": 45,
+      "phraseEnd": 47,
+      "sectionRef": "Peri Tzadik, Sefer Kedushat Shabbat 7",
+      "sectionHebrewSha256": "bbe10c1fa4dbacab7eeb5a9fa2eb9e988a1f3d99495a1b8ea4c7ef4d6e8a20c1"
+    },
+    {
+      "id": "deferred-k7-20-sea-vision-iyar-5",
+      "direction": "forward",
+      "ref": "Peri Tzadik, Sefer Kedushat Shabbat 7:20",
+      "paragraphOrder": 19,
+      "phraseIndex": 85,
+      "phraseEnd": 95,
+      "sectionRef": "Peri Tzadik, Sefer Kedushat Shabbat 7",
+      "sectionHebrewSha256": "bbe10c1fa4dbacab7eeb5a9fa2eb9e988a1f3d99495a1b8ea4c7ef4d6e8a20c1"
+    },
+    {
+      "id": "deferred-k7-20-sea-rephidim-sod-purim-15",
+      "direction": "forward",
+      "ref": "Peri Tzadik, Sefer Kedushat Shabbat 7:20",
+      "paragraphOrder": 19,
+      "phraseIndex": 85,
+      "phraseEnd": 95,
+      "sectionRef": "Peri Tzadik, Sefer Kedushat Shabbat 7",
+      "sectionHebrewSha256": "bbe10c1fa4dbacab7eeb5a9fa2eb9e988a1f3d99495a1b8ea4c7ef4d6e8a20c1"
+    },
+    {
+      "id": "deferred-k7-23-amos-consolation-chanukah-21",
+      "direction": "forward",
+      "ref": "Peri Tzadik, Sefer Kedushat Shabbat 7:23",
+      "paragraphOrder": 22,
+      "phraseIndex": 36,
+      "phraseEnd": 38,
+      "sectionRef": "Peri Tzadik, Sefer Kedushat Shabbat 7",
+      "sectionHebrewSha256": "bbe10c1fa4dbacab7eeb5a9fa2eb9e988a1f3d99495a1b8ea4c7ef4d6e8a20c1"
+    },
+    {
+      "id": "deferred-k7-23-amos-verses-vayigash-5",
+      "direction": "forward",
+      "ref": "Peri Tzadik, Sefer Kedushat Shabbat 7:23",
+      "paragraphOrder": 22,
+      "phraseIndex": 38,
+      "phraseEnd": 40,
+      "sectionRef": "Peri Tzadik, Sefer Kedushat Shabbat 7",
+      "sectionHebrewSha256": "bbe10c1fa4dbacab7eeb5a9fa2eb9e988a1f3d99495a1b8ea4c7ef4d6e8a20c1"
+    },
+    {
+      "id": "kedusha-deferred-7-28-first-occurrence-tammuz",
+      "direction": "forward",
+      "ref": "Peri Tzadik, Sefer Kedushat Shabbat 7:28",
+      "paragraphOrder": 27,
+      "phraseIndex": 5,
+      "phraseEnd": 6,
+      "sectionRef": "Peri Tzadik, Sefer Kedushat Shabbat 7",
+      "sectionHebrewSha256": "bbe10c1fa4dbacab7eeb5a9fa2eb9e988a1f3d99495a1b8ea4c7ef4d6e8a20c1"
+    }
+  ],
+  "productionValidation": {
+    "fixtures": 90,
+    "exactCanonicalAnchorsVerified": 2028,
+    "reciprocalReviewsVerified": 45,
+    "contextSections": 349,
+    "contextDirectedChecks": 1059,
+    "changedSectionChecks": 82,
+    "unexpectedExternalContextLookups": [],
+    "themeReviewProgressContentSha256": "63bc3b2a9239164f37fdda70e1617cb96e1c345cba9095c5c502e99b4431621a"
+  },
+  "artifactProvenance": {
+    "id": 12377135799,
+    "name": "connected-ideas-and-source-editions-verification",
+    "sha256": "9ced5bfc121cef9a1e32c4f02133a35d650722157f78b749020008b541ba109d",
+    "sourceCommit": "e12c52e76a378deb8b1094a16a28540844bae70e",
+    "sourcePathForLiveReport": "connection-footnotes-live-verification.json",
+    "sourcePathForScreenshot": "artifacts/connected-ideas/1280-kislev-footnotes.jpg"
+  },
+  "screenshot": {
+    "path": "editorial/verification/pri-shabbos-deferred-20261021-live-label-format.jpg",
+    "sha256": "4603347760cce0424e7da9fcff60f45bbf0397f042e159496c9ae5572624fa79",
+    "caption": "Live automated browser screenshot demonstrating the newly displayed school label, exact linked reference, English quotation and explanation. The pictured passage is an existing Kislev note, not one of the 18 new Shabbos notes.",
+    "notUsed": "The earlier Shabbos-specific screenshots were captured before the final connection-catalog build and are not used as evidence of the newly deployed footnotes."
+  },
+  "directConnectedBrowserAttempt": {
+    "status": "not-completed",
+    "reason": "The connected browser repeatedly timed out before navigation and screenshot capture. A fresh tab and the documented alternate DOM interface did not resolve the timeout. No direct manual live-note or source-popup verification is claimed. The successful production CI live-browser report supplies rendered verification."
+  },
+  "scopeLimits": [
+    "This is the finite marker review recorded in the editorial audit, not an exhaustive review of every idea or inherited footnote.",
+    "No Cloudflare worker deployment is claimed.",
+    "No new notes were forced into the unresolved cases."
+  ]
+}

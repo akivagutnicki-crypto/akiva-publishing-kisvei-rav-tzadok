@@ -1,0 +1,41 @@
+{
+  "ok": true,
+  "fixtures": 90,
+  "release": "20261021-pri-shabbos-oral-deferred-v2",
+  "catalogSha256": "7be8338525f201dda643c440914a2e4955deaeb9f77b259ee9e11f2f52705fa8",
+  "version": "20261021-pri-shabbos-oral-deferred-v2-20e521562570eedd",
+  "counts": {
+    "records": 1014,
+    "origins": 620,
+    "sectionsWithReviewedIdeas": 349,
+    "worksWithReviewedIdeas": 18,
+    "schools": {
+      "Kisvei Rav Tzadok": 545,
+      "Ishbitz–Radzin": 469
+    }
+  },
+  "exactCanonicalAnchorsVerified": 2028,
+  "reciprocalReviewsVerified": 45,
+  "public": {
+    "connected-ideas.js": {
+      "url": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/connected-ideas.js?verify=20261021-pri-shabbos-oral-deferred-v2",
+      "bytes": 10563,
+      "sha256": "7dd53d6eff1fd04749d51e6ee59c9640c32231be9e7c393c2b9a0316a6db4cae"
+    },
+    "source-editions.js": {
+      "url": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/source-editions.js?verify=20261021-pri-shabbos-oral-deferred-v2",
+      "bytes": 17616,
+      "sha256": "bb614333c74b8ad6aa13fa1b2422bf40ea1f2e19b8b2500e2193bcb8d01c98f6"
+    },
+    "connected-ideas/catalog.json": {
+      "url": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/connected-ideas/catalog.json?verify=20261021-pri-shabbos-oral-deferred-v2",
+      "bytes": 8521014,
+      "sha256": "7be8338525f201dda643c440914a2e4955deaeb9f77b259ee9e11f2f52705fa8"
+    },
+    "connected-ideas/review-progress.json": {
+      "url": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/connected-ideas/review-progress.json?verify=20261021-pri-shabbos-oral-deferred-v2",
+      "bytes": 10217672,
+      "sha256": "9a267f6d29ceebe52421c122c4921bb0ea57985b1196057013b66c211e0bcd90"
+    }
+  }
+}
