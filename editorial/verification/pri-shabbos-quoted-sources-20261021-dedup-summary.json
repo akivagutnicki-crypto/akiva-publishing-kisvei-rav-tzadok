@@ -1,0 +1,170 @@
+{
+  "schemaVersion": 1,
+  "release": "20261021-pri-shabbos-pdf-quotations-v1",
+  "date": "2026-10-21",
+  "reviewer": "independent quotation and code review agent",
+  "reviewType": "Summary of completed local review; no new source research or verification run performed for this evidence file.",
+  "packageSha256": "f0304d909e679558cc93ef27293af3e7ecc32dc0b29e96c7c597d744ea933c3c",
+  "scope": [
+    "Peri Tzadik, Introduction",
+    "Peri Tzadik, Sefer Kedushat Shabbat 1–7",
+    "Peri Tzadik, Kuntres Shvitat Shabbat 1–7"
+  ],
+  "releaseCounts": {
+    "added": 19,
+    "replaced": 5,
+    "removed": 1,
+    "displayedQuotations": 24,
+    "modifiedSections": 11,
+    "byWork": {
+      "Introduction": {
+        "add": 0,
+        "replace": 1,
+        "remove": 1
+      },
+      "Sefer Kedushat Shabbat": {
+        "add": 16,
+        "replace": 3,
+        "remove": 0
+      },
+      "Kuntres Shvitat Shabbat": {
+        "add": 3,
+        "replace": 1,
+        "remove": 0
+      }
+    }
+  },
+  "comparisonCounts": {
+    "candidateQuotations": 24,
+    "inheritedNotes": 2104,
+    "targetReviewedConnectionRecords": 56,
+    "liveBaselineChapterFiles": 16
+  },
+  "criteria": [
+    "Compared each candidate with inherited target notes and the target reviewed-connection records; an existing note being replaced was excluded as its own predecessor.",
+    "Checked normalized Hebrew and English quotation containment, exact and overlapping source references, same-source-work candidates, and five-word English sequence overlap.",
+    "Reviewed flagged overlaps in context to distinguish a repeated source quotation from a brief scriptural citation embedded in a distinct passage.",
+    "Confirmed all24 source URLs resolve to the cited references through the actual reader URL-to-reference helper.",
+    "Confirmed all24 marker prefixes against the unchanged live Hebrew baseline and confirmed the nineteen new note numbers are unique."
+  ],
+  "results": {
+    "accidentalDuplicateSourceQuotations": 0,
+    "blockingFindings": 0,
+    "allSourceUrlsConsistent": true,
+    "allHebrewAnchorsConsistent": true,
+    "newFootnoteNumbersUnique": true,
+    "editorialPackageHashConsistent": true
+  },
+  "overlapDisposition": [
+    {
+      "candidatePlacementId": "PTQ-20261021-010-1",
+      "candidateSourceRef": "Yisrael Kedoshim 6:1",
+      "existingPlacementId": "PT-3515-1",
+      "existingSourceRef": "Psalms 147:20",
+      "fiveWordOverlapRatio": 0.308,
+      "disposition": "Retained: the shared material is a brief scriptural citation within a distinct, longer primary-source argument. The existing verse-only note does not duplicate the new Yisrael Kedoshim quotation."
+    }
+  ],
+  "demaiExcerptDisposition": {
+    "sourceRef": "Jerusalem Talmud Demai 4:1:1-2",
+    "disposition": "Two exact source excerpts are separated by an explicit ellipsis in both Hebrew evidence and English display. The metadata records the two source spans; the quotation is not represented as continuous."
+  },
+  "codeReviewDisposition": {
+    "blockingFindings": 0,
+    "hardeningResolved": "Supported source URL validation, internal reference/URL equality and bounded numeric Hebrew/English offsets are enforced."
+  },
+  "auditInputs": {
+    "package": {
+      "path": "sources/akiva/overlays/pri-shabbos-quoted-sources-20261021.json",
+      "sha256": "f0304d909e679558cc93ef27293af3e7ecc32dc0b29e96c7c597d744ea933c3c"
+    },
+    "editorialAudit": {
+      "path": "editorial/pri-shabbos-quoted-sources-20261021.json",
+      "sha256": "10b5326a0ff75d261d8e045f2a2d8a789ded745e1ad69f1c5de7484d2210aa5a"
+    },
+    "completedIndependentComparison": {
+      "path": "tmp/pdfs/final-independent-dedup.json",
+      "sha256": "b3bba2a92121f173899521c790271e3452f033e7ce6f77cdfee95442e0461ea0"
+    },
+    "completedIndependentCodeReview": {
+      "path": "tmp/pdfs/quoted-sources-code-review.json",
+      "sha256": "eb6db2d231a905c831da7a1de895cd9b89dd50b59812ba8a86aeec0865fbf2c8"
+    },
+    "reviewedConnections": {
+      "path": "deferred-live-catalog-20261021.json",
+      "sha256": "7be8338525f201dda643c440914a2e4955deaeb9f77b259ee9e11f2f52705fa8"
+    },
+    "liveBaselineManifest": {
+      "path": "tmp/pdfs/live-reader/manifest.json",
+      "sha256": "f4113389a64e6d4ae1cf16bc2afb64a5cfeb0bc0293a69bdb265f41311743c4d"
+    }
+  },
+  "liveBaselineChapterHashes": [
+    {
+      "path": "data/peri-tzadik/187.json",
+      "sha256": "adb816b0f93fd302fe224ac2ff0075bd802b0243ee63658769ca3f7f1975b01c"
+    },
+    {
+      "path": "data/peri-tzadik/188.json",
+      "sha256": "f5087c2449323b2cba94d4a15c20831ed330a7b9aca34fabd72867679674895d"
+    },
+    {
+      "path": "data/peri-tzadik/189-1.json",
+      "sha256": "0d0dc2c67d1ee1cab3ec6b25386085d0df37510640dd249bc33219ed84f3da6f"
+    },
+    {
+      "path": "data/peri-tzadik/189-2.json",
+      "sha256": "cd60e9c381304551d9f430957c0bfa2d3fa4b150fbd591f992bff7faf16babdd"
+    },
+    {
+      "path": "data/peri-tzadik/189-3.json",
+      "sha256": "e8ab80eb28769191c509066a12537b35abb5dc43bbd3a1ba0e0d6da4a2cddbc1"
+    },
+    {
+      "path": "data/peri-tzadik/189-4.json",
+      "sha256": "f6eab6e6f16983ce809a2011528aa4224b9f1187e1b8aa663946eafadd6b3f4c"
+    },
+    {
+      "path": "data/peri-tzadik/189-5.json",
+      "sha256": "1f1585935d34797ed50da05a137c8e3e7c810e10d46186fd51abe0c06fe389ab"
+    },
+    {
+      "path": "data/peri-tzadik/189-6.json",
+      "sha256": "3d0d51fe985ce4723555f34c62cf4e0bfda2317463efb43734691496dca5a00c"
+    },
+    {
+      "path": "data/peri-tzadik/189-7.json",
+      "sha256": "a407b3a07a7d3c7282c15d2305428512fac1663f8487055003358b20f4ed2e8b"
+    },
+    {
+      "path": "data/peri-tzadik/190-1.json",
+      "sha256": "d802a114f4cce447a4f31e8ec8348c6cdf8c2c5f61c19a636d6c42f37e117b51"
+    },
+    {
+      "path": "data/peri-tzadik/190-2.json",
+      "sha256": "5e062c79ac96cb4339e53a09a3b453f438f67a5d1e57fde18c77067cefe04eba"
+    },
+    {
+      "path": "data/peri-tzadik/190-3.json",
+      "sha256": "96cd88501d008cff7c1978a6ac4d36b589c4cfd85c1c641059bd6e58b9ea8d6e"
+    },
+    {
+      "path": "data/peri-tzadik/190-4.json",
+      "sha256": "35f04171772e75a2be4d28a00ba43b20c70dc4bed3c03dd39739681909854bf0"
+    },
+    {
+      "path": "data/peri-tzadik/190-5.json",
+      "sha256": "1f46e842b5d2f548e2f9628e8d4fb4520253f1b1b8cbda49f6d586805da546c8"
+    },
+    {
+      "path": "data/peri-tzadik/190-6.json",
+      "sha256": "04d98c5dd8f846aeb3b0c7999a810dd748d43cc51159b90a70f398a34da5e7b4"
+    },
+    {
+      "path": "data/peri-tzadik/190-7.json",
+      "sha256": "bbd1c8c697c2c9d0634ae8de96eada123975cfda81bf19e1341c398e61dde2ad"
+    }
+  ],
+  "privacyAndPublication": "This summary contains review metadata and source references only. It does not reproduce full inherited notes, fetched translations, or uploaded PDF contents.",
+  "limits": "This is a duplicate and integration review of the selected release quotations against the stated corpus, not a claim that every inherited note or every printed PDF footnote was independently reverified."
+}

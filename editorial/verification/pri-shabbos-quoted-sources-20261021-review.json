@@ -1,0 +1,78 @@
+{
+  "reviewer": "review_quotes_and_code",
+  "scope": "Independent local final review of the immutable release package, editorial audit, source URLs, placement anchors, inherited notes, target reviewed connections and publishing pipeline.",
+  "blockingFindings": [],
+  "verifiedDesign": [
+    "Exact immutable note preimages and after-file hashes prevent applying onto a changed baseline.",
+    "Author-body hashing excludes only footnotes; reverse reconstruction proves all unreviewed notes and fields retain their exact prior structure.",
+    "New quotation notes have one English paragraph, a bold exact source link, original Hebrew evidence, no explanatory paragraphs, and stable inherited IDs/numbers on replacements.",
+    "The quotation publication stage runs after historical edition checks and before Beit Toldos/Dover baseline capture; final ZIP/MCP checks therefore protect the new Shabbos edition.",
+    "Browser assertions check each marker against the actual Hebrew DOM prefix, each full quotation box, one source link, no duplicate English-side marker, and both desktop/mobile widths.",
+    "Only quotationOnly or existing Dover notes receive newly indexed note-source anchors in the MCP build."
+  ],
+  "nonBlockingHardening": [],
+  "reviewedFiles": [
+    {
+      "path": "akiva-reader/scripts/publish-pri-shabbos-quoted-sources.mjs",
+      "sha256": "403f81996f5dd094a6951e2b7d5450a6c581cbbf67fcb1a23fdec8140c66b4b4"
+    },
+    {
+      "path": "akiva-reader/scripts/test-pri-shabbos-quoted-sources.mjs",
+      "sha256": "924b146360d0c8b1080e9f444b0b1034b1ed53c33830856d12d4db1a89322b3a"
+    },
+    {
+      "path": "akiva-reader/scripts/test-pri-shabbos-quoted-sources-browser.mjs",
+      "sha256": "143e974d6db8d0baf6b775021dac60fa5fe963493d8d2b752b3132d09fe7ac1e"
+    },
+    {
+      "path": "akiva-reader/.github/workflows/pages.yml",
+      "sha256": "9c93b871863aab6b04a0acbee4b7c4b6076cc6383ae85a888440d2216368ddeb"
+    },
+    {
+      "path": "akiva-reader/scripts/build-mcp-index.mjs",
+      "sha256": "5d0e84f0881caf33ed2d200ee922c4d2aecd6c01d4ba9f5482db48cf4228f062"
+    },
+    {
+      "path": "akiva-reader/dist/library/index.html",
+      "sha256": "b8fb2c5726aa88f00ac7d065a992655daa81feb3c8bbf23e5a106debc7898be5"
+    }
+  ],
+  "hardeningResolved": "The publisher now enforces supported source URLs, internal ref/URL equality, and bounded numeric Hebrew/English offsets.",
+  "finalReleaseReview": {
+    "packageSha256": "f0304d909e679558cc93ef27293af3e7ecc32dc0b29e96c7c597d744ea933c3c",
+    "counts": {
+      "added": 19,
+      "replaced": 5,
+      "removed": 1,
+      "displayedQuotations": 24,
+      "modifiedSections": 11,
+      "byWork": {
+        "Introduction": {
+          "add": 0,
+          "replace": 1,
+          "remove": 1
+        },
+        "Sefer Kedushat Shabbat": {
+          "add": 16,
+          "replace": 3,
+          "remove": 0
+        },
+        "Kuntres Shvitat Shabbat": {
+          "add": 3,
+          "replace": 1,
+          "remove": 0
+        }
+      }
+    },
+    "editorialPackageShaMatches": true,
+    "inheritedNotesCompared": 2104,
+    "targetReviewedConnectionsCompared": 56,
+    "accidentalDuplicateQuotations": 0,
+    "allSourceUrlsParsedByActualReaderHelper": true,
+    "allHebrewPrefixesMatchBaseline": true,
+    "newFootnoteNumbersUnique": true,
+    "overlapReview": "A short quotation of Psalms147:20 embedded in YisraelKedoshim6 was the only material five-word overlap flag. The larger YisraelKedoshim quotation is distinct from the existing verse-only note; no same-source excerpt was repeated.",
+    "demaiReview": "The source metadata correctly records two excerpts from Demai4:1:1–2 and an explicit ellipsis. The source quotation includes the Mishnah’s purchase/tithing context and the discussion of awe of Shabbat; no concealed splice or editorial paragraph.",
+    "status": "No blocking findings."
+  }
+}

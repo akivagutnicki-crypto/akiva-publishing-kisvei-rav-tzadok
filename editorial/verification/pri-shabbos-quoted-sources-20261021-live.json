@@ -1,0 +1,872 @@
+{
+  "schemaVersion": 1,
+  "reviewedAt": "2026-10-21T22:04:30.687094+00:00",
+  "release": "20261021-pri-shabbos-pdf-quotations-v1",
+  "packageSha256": "f0304d909e679558cc93ef27293af3e7ecc32dc0b29e96c7c597d744ea933c3c",
+  "publicationUrl": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/",
+  "ci": {
+    "repository": "akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok",
+    "runId": 39680524747,
+    "jobId": 119501508054,
+    "releaseCommit": "37250e9e6adc0374ad1639be392eddd037e4596b",
+    "status": "completed",
+    "conclusion": "success",
+    "completedSteps": 101,
+    "failedSteps": [],
+    "quotationAndDeploymentSteps": [
+      {
+        "name": "Import collated English parallels into Tzidkat footnotes",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 7
+      },
+      {
+        "name": "Publish collated quotation-only Shabbos source notes after historical edition checks",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 68
+      },
+      {
+        "name": "Publish the latest two Dover Tzedek KDP Word manuscripts after historical edition checks",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 70
+      },
+      {
+        "name": "Verify all collated Shabbos quotations and Hebrew markers on desktop and mobile",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 74
+      },
+      {
+        "name": "Deploy to GitHub Pages",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 79
+      },
+      {
+        "name": "Verify collated Shabbos quotation notes and offline downloads on the published reader",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 82
+      },
+      {
+        "name": "Save collated Shabbos quotation publication and reader verification",
+        "status": "completed",
+        "conclusion": "success",
+        "number": 92
+      }
+    ],
+    "artifact": {
+      "id": 12385641428,
+      "name": "pri-shabbos-quoted-sources-verification",
+      "digest": "sha256:7f2c87a577dc7d8b91d1a1c11ed0feb6a141c30ef6e83bd71956de01140b8e45",
+      "size": 5381766,
+      "createdAt": "2026-10-21T22:01:29Z"
+    },
+    "workflowUrl": "https://github.com/akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok/actions/runs/39680524747"
+  },
+  "publicPublicationReport": {
+    "schemaVersion": 1,
+    "release": "20261021-pri-shabbos-pdf-quotations-v1",
+    "revision": "20261021-pri-shabbos-pdf-quotations-v1-f0304d909e67",
+    "packageSha256": "f0304d909e679558cc93ef27293af3e7ecc32dc0b29e96c7c597d744ea933c3c",
+    "counts": {
+      "added": 19,
+      "replaced": 5,
+      "removed": 1,
+      "displayedQuotations": 24,
+      "modifiedSections": 11,
+      "byWork": {
+        "Introduction": {
+          "add": 0,
+          "replace": 1,
+          "remove": 1
+        },
+        "Sefer Kedushat Shabbat": {
+          "add": 16,
+          "replace": 3,
+          "remove": 0
+        },
+        "Kuntres Shvitat Shabbat": {
+          "add": 3,
+          "replace": 1,
+          "remove": 0
+        }
+      }
+    },
+    "files": [
+      {
+        "path": "data/peri-tzadik/188.json",
+        "sectionRef": "Peri Tzadik, Introduction",
+        "beforeSha256": "f5087c2449323b2cba94d4a15c20831ed330a7b9aca34fabd72867679674895d",
+        "afterSha256": "4fbc1036e524a2d2bad20c39c97c50b1bc921a1f485db73cfd789ac1ffb6892c",
+        "bodySha256": "36ff518d5c01a4fc306e314d41142f5b75aaa18220459c9b37025ac3f9d272a5",
+        "beforeObjectSha256": "7ef2cf608bf0f49395c24f8d36c57d2588ebfbe4d982d154331aeb37a187f704",
+        "notesBefore": 4,
+        "notesAfter": 3
+      },
+      {
+        "path": "data/peri-tzadik/189-3.json",
+        "sectionRef": "Peri Tzadik, Sefer Kedushat Shabbat 3",
+        "beforeSha256": "e8ab80eb28769191c509066a12537b35abb5dc43bbd3a1ba0e0d6da4a2cddbc1",
+        "afterSha256": "eddc8e5a5ae3f2b994fcd4bcb49550e9cc627366bf4333a72a386dd7cc139334",
+        "bodySha256": "b0aaa3e5a238575ec7d79651f093c5df5cf2772d504040d38f90c3d0c0cea839",
+        "beforeObjectSha256": "35f322150e4a749ca08882add8358b676b01d47519480a5e70d6880e8deba7d4",
+        "notesBefore": 148,
+        "notesAfter": 149
+      },
+      {
+        "path": "data/peri-tzadik/189-5.json",
+        "sectionRef": "Peri Tzadik, Sefer Kedushat Shabbat 5",
+        "beforeSha256": "1f1585935d34797ed50da05a137c8e3e7c810e10d46186fd51abe0c06fe389ab",
+        "afterSha256": "4111aa70831fd647141010eb06bbccfd19c43cef21fbbd2cdba28245eac8d72e",
+        "bodySha256": "571bc2fd24aa031ee26acb798df67d7acc2a56bfea72489b3641564766f90531",
+        "beforeObjectSha256": "39c474e7415d7b76996b2d4641e5fcc9fbb350ff76353679c330dd92d8f5552e",
+        "notesBefore": 127,
+        "notesAfter": 130
+      },
+      {
+        "path": "data/peri-tzadik/189-6.json",
+        "sectionRef": "Peri Tzadik, Sefer Kedushat Shabbat 6",
+        "beforeSha256": "3d0d51fe985ce4723555f34c62cf4e0bfda2317463efb43734691496dca5a00c",
+        "afterSha256": "9d0fa4931a597d8ccd86fc070fd36b5cf5f741b4c58793b2b942f9548c32ee80",
+        "bodySha256": "04ca7471326977b85ae65b263dc0096bbc875f3966f395dad7efef8532ff7490",
+        "beforeObjectSha256": "6da324b1a22e4606ab29e1a77fbb4c1fb02a31f8b4e53fd2def44ce7a07ebc20",
+        "notesBefore": 168,
+        "notesAfter": 170
+      },
+      {
+        "path": "data/peri-tzadik/189-7.json",
+        "sectionRef": "Peri Tzadik, Sefer Kedushat Shabbat 7",
+        "beforeSha256": "a407b3a07a7d3c7282c15d2305428512fac1663f8487055003358b20f4ed2e8b",
+        "afterSha256": "4f425d481165712cca25567fc903f7407dba00ad04fe5fee84538589e4641124",
+        "bodySha256": "e30b6e3c0942b3d0d40e748694b08aa9b8a05b38aaa3b788b9e161471c6aedec",
+        "beforeObjectSha256": "7df6c96429c0f122278378b95283f42176da7069dbe17ca48ce5dff990ef27d8",
+        "notesBefore": 925,
+        "notesAfter": 931
+      },
+      {
+        "path": "data/peri-tzadik/189-1.json",
+        "sectionRef": "Peri Tzadik, Sefer Kedushat Shabbat 1",
+        "beforeSha256": "0d0dc2c67d1ee1cab3ec6b25386085d0df37510640dd249bc33219ed84f3da6f",
+        "afterSha256": "2da9b193ee12c9a449a54e6e33bed0bf9ec9eeea875c0546776294185f46b862",
+        "bodySha256": "1eb888021f50d817fc65356ad9863d3ea6c83e44de09118586171148f2a5c3b8",
+        "beforeObjectSha256": "9f41d3609b8bb54b53932dd008d6ecdf90368af266a56b71460a5a9df16fc9c9",
+        "notesBefore": 96,
+        "notesAfter": 98
+      },
+      {
+        "path": "data/peri-tzadik/189-2.json",
+        "sectionRef": "Peri Tzadik, Sefer Kedushat Shabbat 2",
+        "beforeSha256": "cd60e9c381304551d9f430957c0bfa2d3fa4b150fbd591f992bff7faf16babdd",
+        "afterSha256": "48e3d25adc8fe10f56c08fb42c7d49c5c06c569e511a9d187e0fb89719a3d36e",
+        "bodySha256": "5db3ec08214c4ba6e9a6444ee2cd4fcd19fc0ad53acd93944d71aca867386c65",
+        "beforeObjectSha256": "4f942fb24e315b04179f63b10a62dcd2faa9418c01ad8199f224a412e0219dc9",
+        "notesBefore": 102,
+        "notesAfter": 104
+      },
+      {
+        "path": "data/peri-tzadik/190-1.json",
+        "sectionRef": "Peri Tzadik, Kuntres Shvitat Shabbat 1",
+        "beforeSha256": "d802a114f4cce447a4f31e8ec8348c6cdf8c2c5f61c19a636d6c42f37e117b51",
+        "afterSha256": "040b1a4b6a51a9be57feb35b85a3328bec378b53819b896d805ece61944fa50e",
+        "bodySha256": "646141f8dc965d4d501d8c4c3d65be41ef236bd4e0fa540c79b9074ade81631d",
+        "beforeObjectSha256": "8af6e71ecfa1fd0588c89b63f834f959dabf226d28438a59c2cac097183b12e0",
+        "notesBefore": 91,
+        "notesAfter": 92
+      },
+      {
+        "path": "data/peri-tzadik/190-3.json",
+        "sectionRef": "Peri Tzadik, Kuntres Shvitat Shabbat 3",
+        "beforeSha256": "96cd88501d008cff7c1978a6ac4d36b589c4cfd85c1c641059bd6e58b9ea8d6e",
+        "afterSha256": "5bc75a3b5f6c0c8cb733be1a8c8ca0bc4fcdaeb6b86cb899b04ea686943fe3ab",
+        "bodySha256": "60e173e3b0ab89c0f2cdb64fde9078dc71b29030f598fd95514560cb29bbabbb",
+        "beforeObjectSha256": "d7ca2c63cada7e7eff2797c4d6f35e40853e249c4b15f48822a0807d01fb2a9d",
+        "notesBefore": 4,
+        "notesAfter": 5
+      },
+      {
+        "path": "data/peri-tzadik/190-4.json",
+        "sectionRef": "Peri Tzadik, Kuntres Shvitat Shabbat 4",
+        "beforeSha256": "35f04171772e75a2be4d28a00ba43b20c70dc4bed3c03dd39739681909854bf0",
+        "afterSha256": "c68122273fa5665a57d9840db901775ad386e2fa7746c4e195d52e4df6b3aff0",
+        "bodySha256": "2451142c9dc9ae3acb66241a3890eeea3b86072ed3b728097e0247584680f144",
+        "beforeObjectSha256": "4d48fb2f3bb2cf78fd4b2058c0702b198933a72d252efbd879575c2f71e0396f",
+        "notesBefore": 23,
+        "notesAfter": 24
+      },
+      {
+        "path": "data/peri-tzadik/190-7.json",
+        "sectionRef": "Peri Tzadik, Kuntres Shvitat Shabbat 7",
+        "beforeSha256": "bbd1c8c697c2c9d0634ae8de96eada123975cfda81bf19e1341c398e61dde2ad",
+        "afterSha256": "a0e3b72b91be4d37b990dc13c23d5678fdc28ab07d9d3d2590b0e1888d5b0dec",
+        "bodySha256": "870dbfa8fe3caea0ee1cd8f6d53afb659f3c7ef2f6abb508e89113ce8d0a6e10",
+        "beforeObjectSha256": "fd2a07e1e59bdc952288d236d510fd4ab67c856baf413e604fa9e7d95c59c1df",
+        "notesBefore": 30,
+        "notesAfter": 30
+      }
+    ],
+    "protectedDataFiles": 4689,
+    "protectedDataSha256": "fce27712bb857947aa70764b4ca97f6f95375619a5d7b944439d8605fe3dc3cd",
+    "authorTextPreserved": true,
+    "existingNotesPreservedExceptReviewedOperations": true,
+    "exactSourceLinksAdded": [
+      {
+        "a": "Peri Tzadik, Introduction 2",
+        "r": "Pesachim 119a:2",
+        "c": "Talmud"
+      },
+      {
+        "a": "Peri Tzadik, Sefer Kedushat Shabbat 1:2",
+        "r": "Peri Tzadik, Mishpatim 6:1",
+        "c": "Rav Tzadok"
+      },
+      {
+        "a": "Peri Tzadik, Sefer Kedushat Shabbat 1:2",
+        "r": "Midrash Tanchuma, Bereshit 2:1",
+        "c": "Midrash"
+      },
+      {
+        "a": "Peri Tzadik, Sefer Kedushat Shabbat 1:2",
+        "r": "Pirkei DeRabbi Eliezer 3:11",
+        "c": "Midrash"
+      },
+      {
+        "a": "Peri Tzadik, Sefer Kedushat Shabbat 1:2",
+        "r": "Berakhot 33b:23-25",
+        "c": "Talmud"
+      },
+      {
+        "a": "Peri Tzadik, Sefer Kedushat Shabbat 1:8",
+        "r": "Likkutei Maamarim, Compositions on the Festivals 9:1",
+        "c": "Rav Tzadok"
+      },
+      {
+        "a": "Peri Tzadik, Sefer Kedushat Shabbat 2:1",
+        "r": "Resisei Layla 42:1",
+        "c": "Rav Tzadok"
+      },
+      {
+        "a": "Peri Tzadik, Sefer Kedushat Shabbat 2:8",
+        "r": "Machshavot Charutz 8:1",
+        "c": "Rav Tzadok"
+      },
+      {
+        "a": "Peri Tzadik, Sefer Kedushat Shabbat 3:4",
+        "r": "Yisrael Kedoshim 8:20",
+        "c": "Rav Tzadok"
+      },
+      {
+        "a": "Peri Tzadik, Sefer Kedushat Shabbat 5:2",
+        "r": "Peri Tzadik, Vayishlach 1:4",
+        "c": "Rav Tzadok"
+      },
+      {
+        "a": "Peri Tzadik, Sefer Kedushat Shabbat 5:4",
+        "r": "Resisei Layla 54:2",
+        "c": "Rav Tzadok"
+      },
+      {
+        "a": "Peri Tzadik, Sefer Kedushat Shabbat 5:5",
+        "r": "Tzidkat HaTzadik 149:1",
+        "c": "Rav Tzadok"
+      },
+      {
+        "a": "Peri Tzadik, Sefer Kedushat Shabbat 6:1",
+        "r": "Machshavot Charutz 3:4",
+        "c": "Rav Tzadok"
+      },
+      {
+        "a": "Peri Tzadik, Sefer Kedushat Shabbat 6:7",
+        "r": "Yisrael Kedoshim 6:1",
+        "c": "Rav Tzadok"
+      },
+      {
+        "a": "Peri Tzadik, Sefer Kedushat Shabbat 7:3",
+        "r": "Peri Tzadik, Purim 2:1",
+        "c": "Rav Tzadok"
+      },
+      {
+        "a": "Peri Tzadik, Sefer Kedushat Shabbat 7:11",
+        "r": "Peri Tzadik, Bereshit 3:2",
+        "c": "Rav Tzadok"
+      },
+      {
+        "a": "Peri Tzadik, Sefer Kedushat Shabbat 7:16",
+        "r": "Peri Tzadik, Motzei Yom Kippur 4:1",
+        "c": "Rav Tzadok"
+      },
+      {
+        "a": "Peri Tzadik, Sefer Kedushat Shabbat 7:20",
+        "r": "Peri Tzadik, Purim 1:2",
+        "c": "Rav Tzadok"
+      },
+      {
+        "a": "Peri Tzadik, Sefer Kedushat Shabbat 7:25",
+        "r": "Peri Tzadik, Rosh Hashanah 14:2",
+        "c": "Rav Tzadok"
+      },
+      {
+        "a": "Peri Tzadik, Sefer Kedushat Shabbat 7:28",
+        "r": "Peri Tzadik, Vayechi 10:1",
+        "c": "Rav Tzadok"
+      },
+      {
+        "a": "Peri Tzadik, Kuntres Shvitat Shabbat 1:12",
+        "r": "Ramban on Leviticus 23:24:1",
+        "c": "Commentary"
+      },
+      {
+        "a": "Peri Tzadik, Kuntres Shvitat Shabbat 3:1",
+        "r": "Jerusalem Talmud Demai 4:1:1-2",
+        "c": "Talmud"
+      },
+      {
+        "a": "Peri Tzadik, Kuntres Shvitat Shabbat 4:2",
+        "r": "Meiri on Shabbat 118b:1",
+        "c": "Other"
+      },
+      {
+        "a": "Peri Tzadik, Kuntres Shvitat Shabbat 7:6",
+        "r": "Shabbat 54b:18-19",
+        "c": "Talmud"
+      }
+    ],
+    "originalSourceManuscriptsPreserved": true
+  },
+  "independentPublicReportMatchesArtifact": true,
+  "publicReportSha256": "3de19fb5d0d263306e11250c858f099f8d7aab2fa2a12b25819687e376ae3980",
+  "assembledDataAndDownloads": {
+    "ok": true,
+    "release": "20261021-pri-shabbos-pdf-quotations-v1",
+    "publiclyVerified": false,
+    "files": 11,
+    "quotations": 24,
+    "exactHebrewAnchors": 24,
+    "counts": {
+      "added": 19,
+      "replaced": 5,
+      "removed": 1,
+      "displayedQuotations": 24,
+      "modifiedSections": 11,
+      "byWork": {
+        "Introduction": {
+          "add": 0,
+          "replace": 1,
+          "remove": 1
+        },
+        "Sefer Kedushat Shabbat": {
+          "add": 16,
+          "replace": 3,
+          "remove": 0
+        },
+        "Kuntres Shvitat Shabbat": {
+          "add": 3,
+          "replace": 1,
+          "remove": 0
+        }
+      }
+    },
+    "allPredecessorNotesReconstructed": true,
+    "authorTextPreserved": true,
+    "englishQuotationOnly": true,
+    "exactSourcePopupQuotations": true,
+    "mcpVerified": true,
+    "offlineDownloadsVerified": true
+  },
+  "publicDataAndDownloads": {
+    "ok": true,
+    "release": "20261021-pri-shabbos-pdf-quotations-v1",
+    "publiclyVerified": true,
+    "files": 11,
+    "quotations": 24,
+    "exactHebrewAnchors": 24,
+    "counts": {
+      "added": 19,
+      "replaced": 5,
+      "removed": 1,
+      "displayedQuotations": 24,
+      "modifiedSections": 11,
+      "byWork": {
+        "Introduction": {
+          "add": 0,
+          "replace": 1,
+          "remove": 1
+        },
+        "Sefer Kedushat Shabbat": {
+          "add": 16,
+          "replace": 3,
+          "remove": 0
+        },
+        "Kuntres Shvitat Shabbat": {
+          "add": 3,
+          "replace": 1,
+          "remove": 0
+        }
+      }
+    },
+    "allPredecessorNotesReconstructed": true,
+    "authorTextPreserved": true,
+    "englishQuotationOnly": true,
+    "exactSourcePopupQuotations": true,
+    "mcpVerified": false,
+    "offlineDownloadsVerified": true
+  },
+  "localBrowser": {
+    "release": "20261021-pri-shabbos-pdf-quotations-v1",
+    "publiclyVerified": false,
+    "ok": true,
+    "sections": [
+      {
+        "ref": "Peri Tzadik, Introduction",
+        "width": 1280,
+        "completeQuotations": 1,
+        "preciseHebrewMarkers": 1,
+        "everyNoteOpened": true,
+        "removed": 1
+      },
+      {
+        "ref": "Peri Tzadik, Sefer Kedushat Shabbat 1",
+        "width": 1280,
+        "completeQuotations": 5,
+        "preciseHebrewMarkers": 5,
+        "everyNoteOpened": true,
+        "removed": 0
+      },
+      {
+        "ref": "Peri Tzadik, Sefer Kedushat Shabbat 2",
+        "width": 1280,
+        "completeQuotations": 2,
+        "preciseHebrewMarkers": 2,
+        "everyNoteOpened": true,
+        "removed": 0
+      },
+      {
+        "ref": "Peri Tzadik, Sefer Kedushat Shabbat 3",
+        "width": 1280,
+        "completeQuotations": 1,
+        "preciseHebrewMarkers": 1,
+        "everyNoteOpened": true,
+        "removed": 0
+      },
+      {
+        "ref": "Peri Tzadik, Sefer Kedushat Shabbat 5",
+        "width": 1280,
+        "completeQuotations": 3,
+        "preciseHebrewMarkers": 3,
+        "everyNoteOpened": true,
+        "removed": 0
+      },
+      {
+        "ref": "Peri Tzadik, Sefer Kedushat Shabbat 6",
+        "width": 1280,
+        "completeQuotations": 2,
+        "preciseHebrewMarkers": 2,
+        "everyNoteOpened": true,
+        "removed": 0
+      },
+      {
+        "ref": "Peri Tzadik, Sefer Kedushat Shabbat 7",
+        "width": 1280,
+        "completeQuotations": 6,
+        "preciseHebrewMarkers": 6,
+        "everyNoteOpened": true,
+        "removed": 0
+      },
+      {
+        "ref": "Peri Tzadik, Kuntres Shvitat Shabbat 1",
+        "width": 1280,
+        "completeQuotations": 1,
+        "preciseHebrewMarkers": 1,
+        "everyNoteOpened": true,
+        "removed": 0
+      },
+      {
+        "ref": "Peri Tzadik, Kuntres Shvitat Shabbat 3",
+        "width": 1280,
+        "completeQuotations": 1,
+        "preciseHebrewMarkers": 1,
+        "everyNoteOpened": true,
+        "removed": 0
+      },
+      {
+        "ref": "Peri Tzadik, Kuntres Shvitat Shabbat 4",
+        "width": 1280,
+        "completeQuotations": 1,
+        "preciseHebrewMarkers": 1,
+        "everyNoteOpened": true,
+        "removed": 0
+      },
+      {
+        "ref": "Peri Tzadik, Kuntres Shvitat Shabbat 7",
+        "width": 1280,
+        "completeQuotations": 1,
+        "preciseHebrewMarkers": 1,
+        "everyNoteOpened": true,
+        "removed": 0
+      },
+      {
+        "ref": "Peri Tzadik, Introduction",
+        "width": 390,
+        "completeQuotations": 1,
+        "preciseHebrewMarkers": 1,
+        "everyNoteOpened": true,
+        "removed": 1
+      },
+      {
+        "ref": "Peri Tzadik, Sefer Kedushat Shabbat 1",
+        "width": 390,
+        "completeQuotations": 5,
+        "preciseHebrewMarkers": 5,
+        "everyNoteOpened": true,
+        "removed": 0
+      },
+      {
+        "ref": "Peri Tzadik, Sefer Kedushat Shabbat 2",
+        "width": 390,
+        "completeQuotations": 2,
+        "preciseHebrewMarkers": 2,
+        "everyNoteOpened": true,
+        "removed": 0
+      },
+      {
+        "ref": "Peri Tzadik, Sefer Kedushat Shabbat 3",
+        "width": 390,
+        "completeQuotations": 1,
+        "preciseHebrewMarkers": 1,
+        "everyNoteOpened": true,
+        "removed": 0
+      },
+      {
+        "ref": "Peri Tzadik, Sefer Kedushat Shabbat 5",
+        "width": 390,
+        "completeQuotations": 3,
+        "preciseHebrewMarkers": 3,
+        "everyNoteOpened": true,
+        "removed": 0
+      },
+      {
+        "ref": "Peri Tzadik, Sefer Kedushat Shabbat 6",
+        "width": 390,
+        "completeQuotations": 2,
+        "preciseHebrewMarkers": 2,
+        "everyNoteOpened": true,
+        "removed": 0
+      },
+      {
+        "ref": "Peri Tzadik, Sefer Kedushat Shabbat 7",
+        "width": 390,
+        "completeQuotations": 6,
+        "preciseHebrewMarkers": 6,
+        "everyNoteOpened": true,
+        "removed": 0
+      },
+      {
+        "ref": "Peri Tzadik, Kuntres Shvitat Shabbat 1",
+        "width": 390,
+        "completeQuotations": 1,
+        "preciseHebrewMarkers": 1,
+        "everyNoteOpened": true,
+        "removed": 0
+      },
+      {
+        "ref": "Peri Tzadik, Kuntres Shvitat Shabbat 3",
+        "width": 390,
+        "completeQuotations": 1,
+        "preciseHebrewMarkers": 1,
+        "everyNoteOpened": true,
+        "removed": 0
+      },
+      {
+        "ref": "Peri Tzadik, Kuntres Shvitat Shabbat 4",
+        "width": 390,
+        "completeQuotations": 1,
+        "preciseHebrewMarkers": 1,
+        "everyNoteOpened": true,
+        "removed": 0
+      },
+      {
+        "ref": "Peri Tzadik, Kuntres Shvitat Shabbat 7",
+        "width": 390,
+        "completeQuotations": 1,
+        "preciseHebrewMarkers": 1,
+        "everyNoteOpened": true,
+        "removed": 0
+      }
+    ],
+    "screenshots": [
+      "local-188-1280.png",
+      "local-189-1-1280.png",
+      "local-189-2-1280.png",
+      "local-189-3-1280.png",
+      "local-189-5-1280.png",
+      "local-189-6-1280.png",
+      "local-189-7-1280.png",
+      "local-190-1-1280.png",
+      "local-190-3-1280.png",
+      "local-190-4-1280.png",
+      "local-190-7-1280.png",
+      "local-188-390.png",
+      "local-189-1-390.png",
+      "local-189-2-390.png",
+      "local-189-3-390.png",
+      "local-189-5-390.png",
+      "local-189-6-390.png",
+      "local-189-7-390.png",
+      "local-190-1-390.png",
+      "local-190-3-390.png",
+      "local-190-4-390.png",
+      "local-190-7-390.png"
+    ],
+    "errors": []
+  },
+  "publicBrowser": {
+    "release": "20261021-pri-shabbos-pdf-quotations-v1",
+    "publiclyVerified": true,
+    "ok": true,
+    "sections": [
+      {
+        "ref": "Peri Tzadik, Introduction",
+        "width": 1280,
+        "completeQuotations": 1,
+        "preciseHebrewMarkers": 1,
+        "everyNoteOpened": true,
+        "removed": 1
+      },
+      {
+        "ref": "Peri Tzadik, Sefer Kedushat Shabbat 1",
+        "width": 1280,
+        "completeQuotations": 5,
+        "preciseHebrewMarkers": 5,
+        "everyNoteOpened": true,
+        "removed": 0
+      },
+      {
+        "ref": "Peri Tzadik, Sefer Kedushat Shabbat 2",
+        "width": 1280,
+        "completeQuotations": 2,
+        "preciseHebrewMarkers": 2,
+        "everyNoteOpened": true,
+        "removed": 0
+      },
+      {
+        "ref": "Peri Tzadik, Sefer Kedushat Shabbat 3",
+        "width": 1280,
+        "completeQuotations": 1,
+        "preciseHebrewMarkers": 1,
+        "everyNoteOpened": true,
+        "removed": 0
+      },
+      {
+        "ref": "Peri Tzadik, Sefer Kedushat Shabbat 5",
+        "width": 1280,
+        "completeQuotations": 3,
+        "preciseHebrewMarkers": 3,
+        "everyNoteOpened": true,
+        "removed": 0
+      },
+      {
+        "ref": "Peri Tzadik, Sefer Kedushat Shabbat 6",
+        "width": 1280,
+        "completeQuotations": 2,
+        "preciseHebrewMarkers": 2,
+        "everyNoteOpened": true,
+        "removed": 0
+      },
+      {
+        "ref": "Peri Tzadik, Sefer Kedushat Shabbat 7",
+        "width": 1280,
+        "completeQuotations": 6,
+        "preciseHebrewMarkers": 6,
+        "everyNoteOpened": true,
+        "removed": 0
+      },
+      {
+        "ref": "Peri Tzadik, Kuntres Shvitat Shabbat 1",
+        "width": 1280,
+        "completeQuotations": 1,
+        "preciseHebrewMarkers": 1,
+        "everyNoteOpened": true,
+        "removed": 0
+      },
+      {
+        "ref": "Peri Tzadik, Kuntres Shvitat Shabbat 3",
+        "width": 1280,
+        "completeQuotations": 1,
+        "preciseHebrewMarkers": 1,
+        "everyNoteOpened": true,
+        "removed": 0
+      },
+      {
+        "ref": "Peri Tzadik, Kuntres Shvitat Shabbat 4",
+        "width": 1280,
+        "completeQuotations": 1,
+        "preciseHebrewMarkers": 1,
+        "everyNoteOpened": true,
+        "removed": 0
+      },
+      {
+        "ref": "Peri Tzadik, Kuntres Shvitat Shabbat 7",
+        "width": 1280,
+        "completeQuotations": 1,
+        "preciseHebrewMarkers": 1,
+        "everyNoteOpened": true,
+        "removed": 0
+      },
+      {
+        "ref": "Peri Tzadik, Introduction",
+        "width": 390,
+        "completeQuotations": 1,
+        "preciseHebrewMarkers": 1,
+        "everyNoteOpened": true,
+        "removed": 1
+      },
+      {
+        "ref": "Peri Tzadik, Sefer Kedushat Shabbat 1",
+        "width": 390,
+        "completeQuotations": 5,
+        "preciseHebrewMarkers": 5,
+        "everyNoteOpened": true,
+        "removed": 0
+      },
+      {
+        "ref": "Peri Tzadik, Sefer Kedushat Shabbat 2",
+        "width": 390,
+        "completeQuotations": 2,
+        "preciseHebrewMarkers": 2,
+        "everyNoteOpened": true,
+        "removed": 0
+      },
+      {
+        "ref": "Peri Tzadik, Sefer Kedushat Shabbat 3",
+        "width": 390,
+        "completeQuotations": 1,
+        "preciseHebrewMarkers": 1,
+        "everyNoteOpened": true,
+        "removed": 0
+      },
+      {
+        "ref": "Peri Tzadik, Sefer Kedushat Shabbat 5",
+        "width": 390,
+        "completeQuotations": 3,
+        "preciseHebrewMarkers": 3,
+        "everyNoteOpened": true,
+        "removed": 0
+      },
+      {
+        "ref": "Peri Tzadik, Sefer Kedushat Shabbat 6",
+        "width": 390,
+        "completeQuotations": 2,
+        "preciseHebrewMarkers": 2,
+        "everyNoteOpened": true,
+        "removed": 0
+      },
+      {
+        "ref": "Peri Tzadik, Sefer Kedushat Shabbat 7",
+        "width": 390,
+        "completeQuotations": 6,
+        "preciseHebrewMarkers": 6,
+        "everyNoteOpened": true,
+        "removed": 0
+      },
+      {
+        "ref": "Peri Tzadik, Kuntres Shvitat Shabbat 1",
+        "width": 390,
+        "completeQuotations": 1,
+        "preciseHebrewMarkers": 1,
+        "everyNoteOpened": true,
+        "removed": 0
+      },
+      {
+        "ref": "Peri Tzadik, Kuntres Shvitat Shabbat 3",
+        "width": 390,
+        "completeQuotations": 1,
+        "preciseHebrewMarkers": 1,
+        "everyNoteOpened": true,
+        "removed": 0
+      },
+      {
+        "ref": "Peri Tzadik, Kuntres Shvitat Shabbat 4",
+        "width": 390,
+        "completeQuotations": 1,
+        "preciseHebrewMarkers": 1,
+        "everyNoteOpened": true,
+        "removed": 0
+      },
+      {
+        "ref": "Peri Tzadik, Kuntres Shvitat Shabbat 7",
+        "width": 390,
+        "completeQuotations": 1,
+        "preciseHebrewMarkers": 1,
+        "everyNoteOpened": true,
+        "removed": 0
+      }
+    ],
+    "screenshots": [
+      "live-188-1280.png",
+      "live-189-1-1280.png",
+      "live-189-2-1280.png",
+      "live-189-3-1280.png",
+      "live-189-5-1280.png",
+      "live-189-6-1280.png",
+      "live-189-7-1280.png",
+      "live-190-1-1280.png",
+      "live-190-3-1280.png",
+      "live-190-4-1280.png",
+      "live-190-7-1280.png",
+      "live-188-390.png",
+      "live-189-1-390.png",
+      "live-189-2-390.png",
+      "live-189-3-390.png",
+      "live-189-5-390.png",
+      "live-189-6-390.png",
+      "live-189-7-390.png",
+      "live-190-1-390.png",
+      "live-190-3-390.png",
+      "live-190-4-390.png",
+      "live-190-7-390.png"
+    ],
+    "errors": []
+  },
+  "repeatPublicationMode": "already-applied",
+  "reviewEvidence": [
+    "editorial/verification/pri-shabbos-quoted-sources-20261021-review.json",
+    "editorial/verification/pri-shabbos-quoted-sources-20261021-dedup-summary.json",
+    "editorial/verification/pri-shabbos-quoted-sources-20261021-visual-review.json"
+  ],
+  "artifactReportHashes": [
+    {
+      "path": "artifacts/pri-shabbos-quoted-sources/live-report.json",
+      "sha256": "9d198ee1ed895a154c1db453e524902875744d49c4441da0f31ecb951c13478e"
+    },
+    {
+      "path": "artifacts/pri-shabbos-quoted-sources/local-report.json",
+      "sha256": "2ba54533095c05dde0ef56cc9f99cb18d0cd94a7c81d64e8d4993a724bba1809"
+    },
+    {
+      "path": "dist/library/pri-shabbos-quoted-sources-publication.json",
+      "sha256": "3de19fb5d0d263306e11250c858f099f8d7aab2fa2a12b25819687e376ae3980"
+    },
+    {
+      "path": "pri-shabbos-quoted-sources-data-verification.json",
+      "sha256": "7adc5b3e85564042d820fc03ca560f77db945687d914d4864c455d3e981ae430"
+    },
+    {
+      "path": "pri-shabbos-quoted-sources-final-verification.json",
+      "sha256": "a74b678c5c3dbeb1f59afb1898a08af9081e6d5bba038ae7f20f76a284b2cb88"
+    },
+    {
+      "path": "pri-shabbos-quoted-sources-live-verification.json",
+      "sha256": "09f967855d045dc9c7dd093fd1a85433b176a30579c76d3b0a27c0eed7811251"
+    },
+    {
+      "path": "pri-shabbos-quoted-sources-publication-verification.json",
+      "sha256": "09e30050cad4212162e172801b04acd26b6d7e2cb37a96cf10f23d58e8d1a42e"
+    },
+    {
+      "path": "pri-shabbos-quoted-sources-repeat-verification.json",
+      "sha256": "6cdda6f19c6cf62dc75d8158d5d1ad20bf385d0b7984fed3eb3e8270082f5112"
+    }
+  ]
+}

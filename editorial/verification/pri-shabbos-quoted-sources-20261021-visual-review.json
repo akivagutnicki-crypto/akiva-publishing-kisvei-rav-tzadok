@@ -1,0 +1,147 @@
+{
+  "reviewedAt": "2026-10-21T22:04:30.686812+00:00",
+  "release": "20261021-pri-shabbos-pdf-quotations-v1",
+  "blockingFindings": [],
+  "rootReview": {
+    "screenshots": [
+      "live-188-1280.png",
+      "live-188-390.png",
+      "live-189-1-390.png",
+      "live-189-7-390.png"
+    ],
+    "findings": "Readably sized English text, clear bold linked citations and Quoted source headings, coherent Hebrew-English page spacing, no overlap or horizontal clipping. The long Mishpatim quotation continues below the phone viewport as normal vertical page content. Exact text and marker positions are covered by the automated DOM checks."
+  },
+  "independentShevisasReview": {
+    "schemaVersion": 1,
+    "reviewer": "independent quotation and code review agent",
+    "method": "Visual inspection of the five saved live screenshot images using view_image; no browser automation or new tests.",
+    "ciRunId": "39680524747",
+    "overallConclusion": "Pass: all five screenshots show readable English source quotations, clear titles and exact source citations, coherent spacing, and no visible overlap or horizontal clipping.",
+    "materialIssues": [],
+    "examined": [
+      {
+        "file": "live-190-1-1280.png",
+        "sha256": "cfd958647d0f651f743ed3ab99de42b29f8fdcf7c31a169797dcb0af693ff56a",
+        "viewportWidth": 1280,
+        "footnoteNumber": 5605,
+        "visibleSourceCitation": "Ramban on Leviticus 23:24:1",
+        "quotedSourceTitleVisible": true,
+        "completeEnglishQuotationVisible": true,
+        "quotationUsesAvailableReaderWidth": true,
+        "textReadable": true,
+        "noVisibleHorizontalClipping": true,
+        "noVisibleOverlap": true,
+        "surroundingInterlinearLayoutCoherent": true,
+        "conclusion": "Pass"
+      },
+      {
+        "file": "live-190-1-390.png",
+        "sha256": "37772fff7328abf0ab82847aab51e2d1f84ba56fe353932169df854722d81275",
+        "viewportWidth": 390,
+        "footnoteNumber": 5605,
+        "visibleSourceCitation": "Ramban on Leviticus 23:24:1",
+        "quotedSourceTitleVisible": true,
+        "completeEnglishQuotationVisible": true,
+        "quotationUsesAvailableReaderWidth": true,
+        "textReadable": true,
+        "noVisibleHorizontalClipping": true,
+        "noVisibleOverlap": true,
+        "surroundingInterlinearLayoutCoherent": true,
+        "conclusion": "Pass"
+      },
+      {
+        "file": "live-190-3-390.png",
+        "sha256": "f09fe0ab653f293582dce130e697d7cc3a553b91fb76ec08a11309298e3d86c1",
+        "viewportWidth": 390,
+        "footnoteNumber": 5606,
+        "visibleSourceCitation": "Jerusalem Talmud Demai 4:1:1-2",
+        "quotedSourceTitleVisible": true,
+        "completeEnglishQuotationVisible": true,
+        "quotationUsesAvailableReaderWidth": true,
+        "textReadable": true,
+        "noVisibleHorizontalClipping": true,
+        "noVisibleOverlap": true,
+        "surroundingInterlinearLayoutCoherent": true,
+        "conclusion": "Pass"
+      },
+      {
+        "file": "live-190-4-1280.png",
+        "sha256": "07195a8e0ee7922d0f19c1b58a3afa4635e96915e91559dc82f06f3be66229ac",
+        "viewportWidth": 1280,
+        "footnoteNumber": 5607,
+        "visibleSourceCitation": "Meiri on Shabbat 118b:1",
+        "quotedSourceTitleVisible": true,
+        "completeEnglishQuotationVisible": true,
+        "quotationUsesAvailableReaderWidth": true,
+        "textReadable": true,
+        "noVisibleHorizontalClipping": true,
+        "noVisibleOverlap": true,
+        "surroundingInterlinearLayoutCoherent": true,
+        "conclusion": "Pass"
+      },
+      {
+        "file": "live-190-4-390.png",
+        "sha256": "3c436b392d0b725dd4208976cd887fa6a6c4978c982bdf388091391705b14e37",
+        "viewportWidth": 390,
+        "footnoteNumber": 5607,
+        "visibleSourceCitation": "Meiri on Shabbat 118b:1",
+        "quotedSourceTitleVisible": true,
+        "completeEnglishQuotationVisible": true,
+        "quotationUsesAvailableReaderWidth": true,
+        "textReadable": true,
+        "noVisibleHorizontalClipping": true,
+        "noVisibleOverlap": true,
+        "surroundingInterlinearLayoutCoherent": true,
+        "conclusion": "Pass"
+      }
+    ],
+    "limits": "Review is limited to the visible saved screenshots. Quotation contents and exact Hebrew anchors were separately checked in the completed data/browser verification; this review makes no new interaction or offscreen behavior claim."
+  },
+  "preservedScreenshots": [
+    {
+      "path": "editorial/verification/pri-shabbos-quoted-sources-20261021/live-188-1280.png",
+      "sha256": "513d7d5306455bf5772d414bace2ecd170d97e8fd62f7c4f2621b1df24dd32ab",
+      "bytes": 178065
+    },
+    {
+      "path": "editorial/verification/pri-shabbos-quoted-sources-20261021/live-188-390.png",
+      "sha256": "b484d1e5307364217536539acf8668454d03218df52c0be6423c278a9eef0397",
+      "bytes": 74274
+    },
+    {
+      "path": "editorial/verification/pri-shabbos-quoted-sources-20261021/live-189-1-390.png",
+      "sha256": "c17196c29baaef6f70333512ac7c227cc6deff14d86e6d21415c7f54aa72e164",
+      "bytes": 82256
+    },
+    {
+      "path": "editorial/verification/pri-shabbos-quoted-sources-20261021/live-189-7-390.png",
+      "sha256": "efb4a308551713baef5f61061fb219481f9ed0c314b215c8a826a861861210e3",
+      "bytes": 78193
+    },
+    {
+      "path": "editorial/verification/pri-shabbos-quoted-sources-20261021/live-190-1-1280.png",
+      "sha256": "cfd958647d0f651f743ed3ab99de42b29f8fdcf7c31a169797dcb0af693ff56a",
+      "bytes": 169130
+    },
+    {
+      "path": "editorial/verification/pri-shabbos-quoted-sources-20261021/live-190-1-390.png",
+      "sha256": "37772fff7328abf0ab82847aab51e2d1f84ba56fe353932169df854722d81275",
+      "bytes": 71317
+    },
+    {
+      "path": "editorial/verification/pri-shabbos-quoted-sources-20261021/live-190-3-390.png",
+      "sha256": "f09fe0ab653f293582dce130e697d7cc3a553b91fb76ec08a11309298e3d86c1",
+      "bytes": 71758
+    },
+    {
+      "path": "editorial/verification/pri-shabbos-quoted-sources-20261021/live-190-4-1280.png",
+      "sha256": "07195a8e0ee7922d0f19c1b58a3afa4635e96915e91559dc82f06f3be66229ac",
+      "bytes": 176560
+    },
+    {
+      "path": "editorial/verification/pri-shabbos-quoted-sources-20261021/live-190-4-390.png",
+      "sha256": "3c436b392d0b725dd4208976cd887fa6a6c4978c982bdf388091391705b14e37",
+      "bytes": 74077
+    }
+  ]
+}
