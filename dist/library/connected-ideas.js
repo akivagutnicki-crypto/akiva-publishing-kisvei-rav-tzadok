@@ -6,7 +6,7 @@
   else root.AkivaConnectedIdeas = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this, function (sources) {
   'use strict';
-  const VERSION = '20261020-tzidkat-60-end-v1';
+  const VERSION = '20261021-tzidkat-comprehensive-v1';
   const SCHOOLS = ['Kisvei Rav Tzadok', 'Ishbitz–Radzin'];
   const normalized = sources.normalizedHebrew;
   const refKey = ref => sources.normalizeRef(ref || '').toLowerCase();
