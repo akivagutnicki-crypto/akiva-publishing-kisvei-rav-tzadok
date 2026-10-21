@@ -1507,7 +1507,7 @@ function readingFootnote(note, part) {
   // available in the source JSON but are not reader-facing footnote content.
   const warning = /requires collation/.test(note.verificationStatus || '') ? '<div class="footnote-edition-warning">Exact named-edition verification remains pending. Verified passages and parallels are linked below.</div>' : '';
   const cross = note.crossReference ? `<p><a href="#/read/${toHash(note.crossReference.ref)}" class="footnote-cross-reference">Open referenced note · reader footnote ${note.crossReference.number}, ${esc(note.crossReference.ref.split(':')[0])} →</a></p>` : '';
-  const box = `<div class="footnote reader-footnote${note.connectionIdeaId ? ' connection-idea-footnote' : ''}"${note.connectionIdeaId ? ' data-connection-id="'+esc(note.connectionIdeaId)+'"' : ''} lang="en" data-fn="${note.number}"${reviewed ? ' data-source-note="true" data-note-key="'+esc(note.placementId)+'"' : ''}><div class="annotated-title">Footnote ${note.number} · Sources and commentary</div>${warning}${content}${cross}</div>`;
+  const box = `<div class="footnote reader-footnote${note.connectionIdeaId ? ' connection-idea-footnote' : ''}"${note.connectionIdeaId ? ' data-connection-id="'+esc(note.connectionIdeaId)+'"' : ''} lang="en" data-fn="${note.number}"${reviewed ? ' data-source-note="true" data-note-key="'+esc(note.placementId)+'"' : ''}><div class="annotated-title">Footnote ${note.number} · ${note.quotationOnly ? 'Quoted source' : 'Sources and commentary'}</div>${warning}${content}${cross}</div>`;
   return box;
 }
 /* A footnote marker placed inside the Hebrew, beside the word it annotates (as in the Word edition).

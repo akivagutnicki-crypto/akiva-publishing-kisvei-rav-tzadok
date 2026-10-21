@@ -149,9 +149,9 @@ function paragraphsOf(items, where) {
     const para = { n: it.n || paras.length + 1, p: pairs };
     if (notes.length) para.f = notes;
     let places = citationPlaces(parts);
-    // The current Dover Word edition stores its full quotations beside their
-    // Hebrew anchors. Include those exact note sources in citation searches.
-    if (it.sourceVolume) for (const note of it.footnotes || []) for (const source of note.sources || []) {
+    // The Dover manuscript and collated Shabbos quotations keep exact source
+    // excerpts beside Hebrew anchors. Include these note sources in searches.
+    for (const note of it.footnotes || []) if (it.sourceVolume || note.quotationOnly) for (const source of note.sources || []) {
       if (!source.ref) continue;
       places ??= {};
       places[source.ref] ??= ['n', String(note.number)];

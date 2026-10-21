@@ -1,0 +1,1781 @@
+{
+  "schemaVersion": 1,
+  "release": "20261021-pri-shabbos-pdf-quotations-v1",
+  "date": "2026-10-21",
+  "packageSha256": "f0304d909e679558cc93ef27293af3e7ecc32dc0b29e96c7c597d744ea933c3c",
+  "counts": {
+    "added": 19,
+    "replaced": 5,
+    "removed": 1,
+    "displayedQuotations": 24,
+    "modifiedSections": 11,
+    "byWork": {
+      "Introduction": {
+        "add": 0,
+        "replace": 1,
+        "remove": 1
+      },
+      "Sefer Kedushat Shabbat": {
+        "add": 16,
+        "replace": 3,
+        "remove": 0
+      },
+      "Kuntres Shvitat Shabbat": {
+        "add": 3,
+        "replace": 1,
+        "remove": 0
+      }
+    }
+  },
+  "evidenceBundle": {
+    "path": "editorial/source-evidence/pri-shabbos-quoted-sources-20261021.json.gz",
+    "sha256": "5959fe83d77d35991725b45f15eae1d3fa69178ed8691ff40eef188a02623569",
+    "entries": 17
+  },
+  "scope": [
+    "Peri Tzadik, Introduction",
+    "Peri Tzadik, Sefer Kedushat Shabbat 1",
+    "Peri Tzadik, Sefer Kedushat Shabbat 2",
+    "Peri Tzadik, Sefer Kedushat Shabbat 3",
+    "Peri Tzadik, Sefer Kedushat Shabbat 4",
+    "Peri Tzadik, Sefer Kedushat Shabbat 5",
+    "Peri Tzadik, Sefer Kedushat Shabbat 6",
+    "Peri Tzadik, Sefer Kedushat Shabbat 7",
+    "Peri Tzadik, Kuntres Shvitat Shabbat 1",
+    "Peri Tzadik, Kuntres Shvitat Shabbat 2",
+    "Peri Tzadik, Kuntres Shvitat Shabbat 3",
+    "Peri Tzadik, Kuntres Shvitat Shabbat 4",
+    "Peri Tzadik, Kuntres Shvitat Shabbat 5",
+    "Peri Tzadik, Kuntres Shvitat Shabbat 6",
+    "Peri Tzadik, Kuntres Shvitat Shabbat 7"
+  ],
+  "pdfPolicy": "The uploaded editions are discovery and collation sources. Only selected quotations from the underlying seforim and newly prepared English translations are published. Modern editorial explanations and full PDF files are not republished.",
+  "duplicationCorpus": {
+    "liveChapterManifest": "16 live Peri Tzadik opening sections, including Title, Introduction, Kedushat Shabbat 1–7 and Shevitat Shabbat 1–7",
+    "reviewedConnectionsRelease": "20261021-pri-shabbos-oral-deferred-v2",
+    "reviewedConnectionsSha256": "7be8338525f201dda643c440914a2e4955deaeb9f77b259ee9e11f2f52705fa8"
+  },
+  "selections": [
+    {
+      "id": "PT-3456-1",
+      "placementId": "PT-3456-1",
+      "originRef": "Peri Tzadik, Introduction 2",
+      "sourceRef": "Pesachim 119a:2",
+      "action": "replace",
+      "sourceClass": "Primary rabbinic source",
+      "phraseIndex": 4,
+      "heAnchorPrefix": " בְּטַעֲמֵי תּוֹרָה, דְּבָרִים שֶׁכִּסָּה עַתִּיק יוֹמִין",
+      "sourceURL": "https://www.sefaria.org/Pesachim.119a.2",
+      "pdfEvidence": null,
+      "verification": {
+        "source": "Sefaria get_text and TorahLM get_text",
+        "ref": "Pesachim 119a:2",
+        "versionTitle": "William Davidson Edition - Vocalized Aramaic",
+        "snapshot": "tmp/pdfs/pesachim119a2-source.json",
+        "matchingTorahLMSnapshot": "tmp/pdfs/pesachim119a-source.json",
+        "evidenceBundle": {
+          "path": "editorial/source-evidence/pri-shabbos-quoted-sources-20261021.json.gz",
+          "sha256": "5959fe83d77d35991725b45f15eae1d3fa69178ed8691ff40eef188a02623569",
+          "entries": 17
+        }
+      },
+      "reviewInput": "intro-candidates.json",
+      "duplicationAssessment": null
+    },
+    {
+      "id": "kedusha1992-k1-mishpatim6",
+      "placementId": "PTQ-20261021-001-1",
+      "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 1:2",
+      "sourceRef": "Peri Tzadik, Mishpatim 6:1",
+      "action": "add",
+      "sourceClass": "Kisvei Rav Tzadok",
+      "phraseIndex": 4,
+      "heAnchorPrefix": " וּבְפָרָשַׁת מִשְׁפָּטִים: \"שֵׁשֶׁת יָמִים תַּעֲשֶׂה מַעֲשֶׂיךָ וּבַיּוֹם הַשְּׁבִיעִי וְגוֹמֵר\".",
+      "sourceURL": "#/read/Peri_Tzadik,_Mishpatim_6:1",
+      "pdfEvidence": {
+        "filename": "פרי_צדיק_קדושת_שבת_צדוק_בן_יעקב_הכהן_ראבינאוויטש_@Sifreikodesh_בחיפוש (2).pdf",
+        "pdfPage": 7,
+        "printedPage": "א",
+        "footnoteNumber": "א",
+        "sha256": "4b218679cb65f3d294480382342f2e84e255f52d3a6347471de9a9954fbb2660"
+      },
+      "verification": {
+        "verified": true,
+        "provider": "Kisvei Rav Tzadok MCP saved response",
+        "fetchRef": "Peri Tzadik, Mishpatim 6:1",
+        "view": "hebrew",
+        "sourceSnapshot": "tmp/pdfs/kedusha-editions/Peri-Tzadik-Mishpatim-6.json",
+        "sourceTranscriptSha256": "4899924f7f68a05c46c1ec78b3b376a385ee54202d9afd20c8b3523380abc365",
+        "normalizedTranscriptSha256": "4899924f7f68a05c46c1ec78b3b376a385ee54202d9afd20c8b3523380abc365",
+        "quoteSha256": "5697c65231bb62f3349f9fec559289de79e1d9fbd6418601887f1ea0538647e6",
+        "quoteStart": 2338,
+        "quoteEnd": 3131,
+        "normalization": "Nikkud removed; quotation selected as an exact contiguous substring. Reader-expanded abbreviations and citation references retained.",
+        "pdfPageImage": "tmp/pdfs/kedusha-editions/1992-7.png",
+        "visualChecked": true,
+        "editionNote": "Primary transcript used for exact wording; supplied PDF independently identifies and quotes the same passage. The saved primary response reads עבודתכם where the printed PDF reads עבודתם; the exact Hebrew evidence preserves the response wording, while the English follows the unambiguous third-person context (their principal work).",
+        "catalogEdition": {
+          "title": "Pri Tzaddik, Lublin, 1901",
+          "source": "https://www.nli.org.il/he/books/NNL_ALEPH001986677",
+          "license": "Public Domain"
+        },
+        "quotationEdition": "Original Hebrew edition, Pri Tzaddik, Lublin, 1901",
+        "evidenceBundle": {
+          "path": "editorial/source-evidence/pri-shabbos-quoted-sources-20261021.json.gz",
+          "sha256": "5959fe83d77d35991725b45f15eae1d3fa69178ed8691ff40eef188a02623569",
+          "entries": 17
+        }
+      },
+      "reviewInput": "kedusha-editions-candidates.json",
+      "duplicationAssessment": "No same quotation or exact source reference among the target chapters’ inherited source notes or reviewed connection quotations. Other references to the same chapter were compared separately."
+    },
+    {
+      "id": "kedusha1992-k1-house-completion",
+      "placementId": "PT-3465-1",
+      "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 1:2",
+      "sourceRef": "Midrash Tanchuma, Bereshit 2:1",
+      "action": "replace",
+      "sourceClass": "Chazal",
+      "phraseIndex": 17,
+      "heAnchorPrefix": " כְּמַאן דִּבְנֵי בֵּיתָא וְגָמַר לַעֲבִידְתֵּיהּ וְעָבִיד יוֹם טוֹב, עַיֵּין שָׁם.",
+      "sourceURL": "https://www.sefaria.org/Midrash_Tanchuma,_Bereshit_2:1",
+      "pdfEvidence": {
+        "filename": "פרי_צדיק_קדושת_שבת_צדוק_בן_יעקב_הכהן_ראבינאוויטש_@Sifreikodesh_בחיפוש (2).pdf",
+        "pdfPage": 8,
+        "printedPage": "ב",
+        "footnoteNumber": "ג",
+        "sha256": "4b218679cb65f3d294480382342f2e84e255f52d3a6347471de9a9954fbb2660"
+      },
+      "verification": {
+        "verified": true,
+        "provider": "Sefaria Text API (downloaded by Root)",
+        "fetchRef": "Midrash Tanchuma, Bereshit 2",
+        "exactSourceRef": "Midrash Tanchuma, Bereshit 2:1",
+        "versionTitle": "Midrash Tanchuma -- Torat Emet",
+        "versionSource": "http://www.toratemetfreeware.com/online/a_root.html",
+        "sourceSnapshot": "tmp/pdfs/direct-sefaria/Midrash_Tanchuma_Bereshit_2.json",
+        "sourceTranscriptSha256": "34b39e429d55db0f103542cbcf511617e40aeaf66417569eeabc1ee4f915f4eb",
+        "quoteSha256": "34b39e429d55db0f103542cbcf511617e40aeaf66417569eeabc1ee4f915f4eb",
+        "quoteStart": 0,
+        "quoteEnd": 526,
+        "normalization": "HTML removed and Unicode directional mark removed; pointed source text otherwise exact. Consecutive source segments joined with one space.",
+        "pdfPageImage": "tmp/pdfs/kedusha-editions/1992-8.png",
+        "visualChecked": true,
+        "evidenceBundle": {
+          "path": "editorial/source-evidence/pri-shabbos-quoted-sources-20261021.json.gz",
+          "sha256": "5959fe83d77d35991725b45f15eae1d3fa69178ed8691ff40eef188a02623569",
+          "entries": 17
+        }
+      },
+      "reviewInput": "kedusha-editions-candidates.json",
+      "duplicationAssessment": "An in-place correction of an unrelated quotation. No additional marker is introduced. No same exact source quotation is present at this origin."
+    },
+    {
+      "id": "kedusha2020-k1-open-north",
+      "placementId": "PT-3468-1",
+      "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 1:2",
+      "sourceRef": "Pirkei DeRabbi Eliezer 3:11",
+      "action": "replace",
+      "sourceClass": "Chazal",
+      "phraseIndex": 27,
+      "heAnchorPrefix": "וְזֶהוּ צַד צָפוֹן הַפָּתוּחַ כְּמַאֲמַר רַבּוֹתֵינוּ זִכְרוֹנָם לִבְרָכָה,",
+      "sourceURL": "https://www.sefaria.org/Pirkei_DeRabbi_Eliezer_3:11",
+      "pdfEvidence": {
+        "filename": "פרי_צדיק_המבואר_•_קדושת_שבת_•_צדוק_בן_יעקב_הכהן_ראבינאוויטש_מלובלין (1).pdf",
+        "pdfPage": 13,
+        "printedPage": "יא",
+        "footnoteNumber": "יט",
+        "sha256": "bb62bd38ff257c1f1b62c2905a54a9cfb05551acd25ec99e952b4f7dfff7fc9a"
+      },
+      "verification": {
+        "verified": true,
+        "provider": "Sefaria Text API (downloaded by Root)",
+        "fetchRef": "Pirkei DeRabbi Eliezer 3",
+        "exactSourceRef": "Pirkei DeRabbi Eliezer 3:11",
+        "versionTitle": "Pirke DeRabbi Eliezer, Sefaria Vocalized Edition",
+        "versionSource": "http://sefaria.org.il",
+        "sourceSnapshot": "tmp/pdfs/direct-sefaria/Pirkei_DeRabbi_Eliezer_3.json",
+        "sourceTranscriptSha256": "7b1b4468866035562256cd214575b16418da56d8cd53d8f6dc455e74b7d59b89",
+        "quoteSha256": "9f7c1ed5390c86f8691bdd62314d6527b54acd1f16018af09a4626ba60465740",
+        "quoteStart": 457,
+        "quoteEnd": 653,
+        "normalization": "HTML removed and Unicode directional mark removed; pointed source text otherwise exact. Consecutive source segments joined with one space.",
+        "pdfPageImage": "tmp/pdfs/kedusha-editions/2020-13.png",
+        "visualChecked": true,
+        "evidenceBundle": {
+          "path": "editorial/source-evidence/pri-shabbos-quoted-sources-20261021.json.gz",
+          "sha256": "5959fe83d77d35991725b45f15eae1d3fa69178ed8691ff40eef188a02623569",
+          "entries": 17
+        }
+      },
+      "reviewInput": "kedusha-editions-candidates.json",
+      "duplicationAssessment": "An in-place correction of an unrelated quotation. No additional marker is introduced. No same exact source quotation is present at this origin."
+    },
+    {
+      "id": "kedusha1992-k1-fear-of-heaven",
+      "placementId": "PT-3471-1",
+      "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 1:2",
+      "sourceRef": "Berakhot 33b:23-25",
+      "action": "replace",
+      "sourceClass": "Chazal",
+      "phraseIndex": 31,
+      "heAnchorPrefix": " וְהוּא הָאוֹצָר שֶׁל יִרְאַת שָׁמַיִם שֶׁאֵין לוֹ לְהַקָּדוֹשׁ בָּרוּךְ הוּא בְּעוֹלָמוֹ אֶלָּא זֶה בִּלְבַד,",
+      "sourceURL": "https://www.sefaria.org/Berakhot_33b:23-25",
+      "pdfEvidence": {
+        "filename": "פרי_צדיק_קדושת_שבת_צדוק_בן_יעקב_הכהן_ראבינאוויטש_@Sifreikodesh_בחיפוש (2).pdf",
+        "pdfPage": 9,
+        "printedPage": "ג",
+        "footnoteNumber": "ו",
+        "sha256": "4b218679cb65f3d294480382342f2e84e255f52d3a6347471de9a9954fbb2660"
+      },
+      "verification": {
+        "verified": true,
+        "provider": "Sefaria Text API (downloaded by Root)",
+        "fetchRef": "Berakhot 33b",
+        "exactSourceRef": "Berakhot 33b:23-25",
+        "versionTitle": "William Davidson Edition - Vocalized Aramaic",
+        "versionSource": "http://sefaria.org",
+        "sourceSnapshot": "tmp/pdfs/direct-sefaria/Berakhot_33b.json",
+        "sourceTranscriptSha256": "bdb0a3c1a57f454eec0c502507e6a58aaa87d57049d14403f7064f0a51fd42a9",
+        "quoteSha256": "bdb0a3c1a57f454eec0c502507e6a58aaa87d57049d14403f7064f0a51fd42a9",
+        "quoteStart": 0,
+        "quoteEnd": 643,
+        "normalization": "HTML removed and Unicode directional mark removed; pointed source text otherwise exact. Consecutive source segments joined with one space.",
+        "pdfPageImage": "tmp/pdfs/kedusha-editions/1992-9.png",
+        "visualChecked": true,
+        "evidenceBundle": {
+          "path": "editorial/source-evidence/pri-shabbos-quoted-sources-20261021.json.gz",
+          "sha256": "5959fe83d77d35991725b45f15eae1d3fa69178ed8691ff40eef188a02623569",
+          "entries": 17
+        }
+      },
+      "reviewInput": "kedusha-editions-candidates.json",
+      "duplicationAssessment": "An in-place correction of an unrelated quotation. No additional marker is introduced. No same exact source quotation is present at this origin."
+    },
+    {
+      "id": "kedusha2020-k1-sod-likkutei9",
+      "placementId": "PTQ-20261021-002-1",
+      "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 1:8",
+      "sourceRef": "Likkutei Maamarim, Compositions on the Festivals 9:1",
+      "action": "add",
+      "sourceClass": "Kisvei Rav Tzadok",
+      "phraseIndex": 36,
+      "heAnchorPrefix": " שֶׁהַהִתְגַּלּוּת אֵצֶל כָּל אֶחָד הוּא סוֹד שֶׁאִי אֶפְשָׁר לְגַלּוֹתוֹ לְזוּלָתוֹ כְּלָל.",
+      "sourceURL": "#/read/Likkutei_Maamarim,_Compositions_on_the_Festivals_9:1",
+      "pdfEvidence": {
+        "filename": "פרי_צדיק_המבואר_•_קדושת_שבת_•_צדוק_בן_יעקב_הכהן_ראבינאוויטש_מלובלין (1).pdf",
+        "pdfPage": 69,
+        "printedPage": "סז",
+        "footnoteNumber": "שסט",
+        "sha256": "bb62bd38ff257c1f1b62c2905a54a9cfb05551acd25ec99e952b4f7dfff7fc9a"
+      },
+      "verification": {
+        "verified": true,
+        "provider": "Kisvei Rav Tzadok MCP saved corpus",
+        "fetchRef": "Likkutei Maamarim, Compositions on the Festivals 9:1",
+        "view": "hebrew",
+        "sourceSnapshot": "tmp/pdfs/kedusha-editions/likkutei-maamarim-likkutei-maamarim-compositions-on-the-festivals-9-1-snapshot.json",
+        "sourceTranscriptSha256": "5f59402832ca584c455a6a07217ef9143d5d31fbb753f40c5c815b3c77e31f6c",
+        "normalizedTranscriptSha256": "5f59402832ca584c455a6a07217ef9143d5d31fbb753f40c5c815b3c77e31f6c",
+        "quoteSha256": "79e3b5142d35ef4d440d5c68f860158d4909d5e6620ed1bea2dc4e6140b7ebb3",
+        "quoteStart": 3330,
+        "quoteEnd": 3706,
+        "normalization": "Nikkud removed; quotation selected as an exact contiguous substring. Reader-expanded abbreviations and citation references retained.",
+        "pdfPageImage": "tmp/pdfs/kedusha-editions/2020-69.png",
+        "visualChecked": true,
+        "editionNote": "Primary transcript used for exact wording; supplied PDF independently identifies and quotes the same passage.",
+        "catalogEdition": {
+          "title": "R' Zadok -- Likutei Maamarim",
+          "source": "https://www.nli.org.il/he/books/NNL_ARCHIVE_AL001986661",
+          "license": "Public Domain"
+        },
+        "quotationEdition": "Akiva Publishing interlinear text as represented in the saved MCP corpus; expanded abbreviations and supplied citation references retained.",
+        "evidenceBundle": {
+          "path": "editorial/source-evidence/pri-shabbos-quoted-sources-20261021.json.gz",
+          "sha256": "5959fe83d77d35991725b45f15eae1d3fa69178ed8691ff40eef188a02623569",
+          "entries": 17
+        }
+      },
+      "reviewInput": "kedusha-editions-candidates.json",
+      "duplicationAssessment": "No same quotation or exact source reference among the target chapters’ inherited source notes or reviewed connection quotations. Other references to the same chapter were compared separately."
+    },
+    {
+      "id": "kedusha1992-k2-remembrance-resisei42",
+      "placementId": "PTQ-20261021-003-1",
+      "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 2:1",
+      "sourceRef": "Resisei Layla 42:1",
+      "action": "add",
+      "sourceClass": "Kisvei Rav Tzadok",
+      "phraseIndex": 85,
+      "heAnchorPrefix": " הַיְינוּ: זוֹ הַזְּכִירָה – לְקַבָּלַת תּוֹסֶפֶת קְדוּשָּׁה;",
+      "sourceURL": "#/read/Resisei_Layla_42:1",
+      "pdfEvidence": {
+        "filename": "פרי_צדיק_קדושת_שבת_צדוק_בן_יעקב_הכהן_ראבינאוויטש_@Sifreikodesh_בחיפוש (2).pdf",
+        "pdfPage": 27,
+        "printedPage": "כא",
+        "footnoteNumber": "ט",
+        "sha256": "4b218679cb65f3d294480382342f2e84e255f52d3a6347471de9a9954fbb2660"
+      },
+      "verification": {
+        "verified": true,
+        "provider": "Kisvei Rav Tzadok MCP saved corpus",
+        "fetchRef": "Resisei Layla 42:1",
+        "view": "hebrew",
+        "sourceSnapshot": "tmp/pdfs/kedusha-editions/resisei-layla-resisei-layla-42-1-snapshot.json",
+        "sourceTranscriptSha256": "d91913eeb6d28133a8d3f5f33f8d9604e34c8f10ea5e125ba9f368c9bc941f48",
+        "normalizedTranscriptSha256": "d91913eeb6d28133a8d3f5f33f8d9604e34c8f10ea5e125ba9f368c9bc941f48",
+        "quoteSha256": "847aebaf8207897ec14cf228db090b2a2ccf95e3579642421fd121c193dea0c4",
+        "quoteStart": 0,
+        "quoteEnd": 292,
+        "normalization": "Nikkud removed; quotation selected as an exact contiguous substring. Reader-expanded abbreviations and citation references retained.",
+        "pdfPageImage": "tmp/pdfs/kedusha-editions/1992-27.png",
+        "visualChecked": true,
+        "editionNote": "Primary transcript used for exact wording; supplied PDF independently identifies and quotes the same passage.",
+        "catalogEdition": {
+          "title": "Akiva Publishing interlinear edition",
+          "source": "",
+          "license": "© Akiva Publishing"
+        },
+        "quotationEdition": "Akiva Publishing interlinear text as represented in the saved MCP corpus; expanded abbreviations and supplied citation references retained.",
+        "evidenceBundle": {
+          "path": "editorial/source-evidence/pri-shabbos-quoted-sources-20261021.json.gz",
+          "sha256": "5959fe83d77d35991725b45f15eae1d3fa69178ed8691ff40eef188a02623569",
+          "entries": 17
+        }
+      },
+      "reviewInput": "kedusha-editions-candidates.json",
+      "duplicationAssessment": "No same quotation or exact source reference among the target chapters’ inherited source notes or reviewed connection quotations. Other references to the same chapter were compared separately."
+    },
+    {
+      "id": "kedusha2020-k2-knowledge-choice-machshavot8",
+      "placementId": "PTQ-20261021-004-1",
+      "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 2:8",
+      "sourceRef": "Machshavot Charutz 8:1",
+      "action": "add",
+      "sourceClass": "Kisvei Rav Tzadok",
+      "phraseIndex": 35,
+      "heAnchorPrefix": " וּקְדָמֵי שְׁמַיָּא גַּלְיָא הַכֹּל בִּידִיעָה שֶׁלְּמַעְלָה מִן הַבְּחִירָה.",
+      "sourceURL": "#/read/Machshavot_Charutz_8:1",
+      "pdfEvidence": {
+        "filename": "פרי_צדיק_המבואר_•_קדושת_שבת_•_צדוק_בן_יעקב_הכהן_ראבינאוויטש_מלובלין (1).pdf",
+        "pdfPage": 147,
+        "printedPage": "קמה",
+        "footnoteNumber": "תטו",
+        "sha256": "bb62bd38ff257c1f1b62c2905a54a9cfb05551acd25ec99e952b4f7dfff7fc9a"
+      },
+      "verification": {
+        "verified": true,
+        "provider": "Kisvei Rav Tzadok MCP saved corpus",
+        "fetchRef": "Machshavot Charutz 8:1",
+        "view": "hebrew",
+        "sourceSnapshot": "tmp/pdfs/kedusha-editions/machshavot-charutz-machshavot-charutz-8-1-snapshot.json",
+        "sourceTranscriptSha256": "cca358276a0fc3e5de3d44970bd8ce3e0a949140ef61233d485cd1fb7665d7d6",
+        "normalizedTranscriptSha256": "cca358276a0fc3e5de3d44970bd8ce3e0a949140ef61233d485cd1fb7665d7d6",
+        "quoteSha256": "0096fa109f50942f4e532afea08da878cadbdbb1b2d98122cd4df2550dd8fc8e",
+        "quoteStart": 801,
+        "quoteEnd": 1341,
+        "normalization": "Nikkud removed; quotation selected as an exact contiguous substring. Reader-expanded abbreviations and citation references retained.",
+        "pdfPageImage": "tmp/pdfs/kedusha-editions/2020-147.png",
+        "visualChecked": true,
+        "editionNote": "Primary transcript used for exact wording; supplied PDF independently identifies and quotes the same passage.",
+        "catalogEdition": {
+          "title": "Akiva Publishing — Interlinear Study Edition with Expanded English Source Footnotes",
+          "source": "Akiva Publishing editorial source expansion, 2026",
+          "license": ""
+        },
+        "quotationEdition": "Akiva Publishing interlinear text as represented in the saved MCP corpus; expanded abbreviations and supplied citation references retained.",
+        "evidenceBundle": {
+          "path": "editorial/source-evidence/pri-shabbos-quoted-sources-20261021.json.gz",
+          "sha256": "5959fe83d77d35991725b45f15eae1d3fa69178ed8691ff40eef188a02623569",
+          "entries": 17
+        }
+      },
+      "reviewInput": "kedusha-editions-candidates.json",
+      "duplicationAssessment": "No same quotation or exact source reference among the target chapters’ inherited source notes or reviewed connection quotations. Other references to the same chapter were compared separately. Existing KedushatShabbat4:7 cites TzidkatHaTzadik40 on knowledge and choice; this new passage adds the explicit distinction between the future removal of choice in the Messianic era and the present realm of choice, and directly addresses K2:8’s sequence of Creation, sin, and future rectification."
+    },
+    {
+      "id": "oretzion-k3-taste-yisrael8",
+      "placementId": "PTQ-20261021-005-1",
+      "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 3:4",
+      "sourceRef": "Yisrael Kedoshim 8:20",
+      "action": "add",
+      "sourceClass": "Kisvei Rav Tzadok",
+      "phraseIndex": 69,
+      "heAnchorPrefix": " וּלְאָדָם שֶׁטּוֹב מַטְעִימִין מִפְּרִי מַעֲשָׂיו שֶׁבָּעוֹלָם הַבָּא בָּעוֹלָם הַזֶּה:",
+      "sourceURL": "#/read/Yisrael_Kedoshim_8:20",
+      "pdfEvidence": {
+        "filename": "פרי_צדיק_קדושת_שבת_שביתת_שבת_צדוק_בן_יעקב_הכהן_רבינוביץ_@SifreiKodesh (1).pdf",
+        "pdfPage": 60,
+        "printedPage": "62",
+        "footnoteNumber": "צג",
+        "sha256": "aae9fee8253b9624482851c7542ead39d0dbbc7303a80aaa18e0b4f583c6170f"
+      },
+      "verification": {
+        "verified": true,
+        "provider": "Kisvei Rav Tzadok MCP",
+        "fetchRef": "Yisrael Kedoshim 8:20",
+        "view": "hebrew",
+        "requestedEdition": "hebrew",
+        "actualEdition": "Akiva Publishing interlinear study edition (© Akiva Publishing)",
+        "editionDisclosure": "Expanded Hebrew from the served Akiva Publishing interlinear edition, not the requested original Hebrew edition; normalization removes vocalization and numerical footnote markers only.",
+        "sourceSnapshot": "tmp/pdfs/oretzion-primary-sources.json",
+        "sourceTranscriptSha256": "952b8cd0d482db4e9bac390c805c043182c1ee40850667373af00cc51826ba8b",
+        "normalizedTranscriptSha256": "7b8a7d3b9463c77c50316e1bc0762f419fdbdde5517bfd033637d18128e5584d",
+        "quoteSha256": "695f2ac050abb686b795514fe2223194bd2a960eef4a60a99a1143b8c237f535",
+        "quoteStart": 3362,
+        "quoteEnd": 3597,
+        "normalization": "Nikkud and numerical reader footnote markers removed; all other words/punctuation preserved.",
+        "pdfPageImage": "tmp/pdfs/oretzion-60.png",
+        "visualChecked": true,
+        "editionNote": null,
+        "evidenceBundle": {
+          "path": "editorial/source-evidence/pri-shabbos-quoted-sources-20261021.json.gz",
+          "sha256": "5959fe83d77d35991725b45f15eae1d3fa69178ed8691ff40eef188a02623569",
+          "entries": 17
+        }
+      },
+      "reviewInput": "oretzion-candidates.json",
+      "duplicationAssessment": "No same-source quotation at this origin in the live manuscript notes or reviewed connections. Within-PDF repeated citations are represented by this one selected placement."
+    },
+    {
+      "id": "oretzion-k5-meir-vayishlach1",
+      "placementId": "PTQ-20261021-006-1",
+      "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 5:2",
+      "sourceRef": "Peri Tzadik, Vayishlach 1:4",
+      "action": "add",
+      "sourceClass": "Kisvei Rav Tzadok",
+      "phraseIndex": 74,
+      "heAnchorPrefix": "וְרַבִּי מֵאִיר, דִּסְתָם מִשְׁנָה כְּוָותֵיהּ (סַנְהֶדְרִין פו.), שֶׁהוּא שׁוֹרֶשׁ תּוֹרָה שֶׁבְּעַל פֶּה,",
+      "sourceURL": "#/read/Peri_Tzadik,_Vayishlach_1:4",
+      "pdfEvidence": {
+        "filename": "פרי_צדיק_קדושת_שבת_שביתת_שבת_צדוק_בן_יעקב_הכהן_רבינוביץ_@SifreiKodesh (1).pdf",
+        "pdfPage": 110,
+        "printedPage": "112",
+        "footnoteNumber": "נח",
+        "sha256": "aae9fee8253b9624482851c7542ead39d0dbbc7303a80aaa18e0b4f583c6170f"
+      },
+      "verification": {
+        "verified": true,
+        "provider": "Kisvei Rav Tzadok MCP",
+        "fetchRef": "Peri Tzadik, Vayishlach 1",
+        "view": "hebrew",
+        "requestedEdition": "hebrew",
+        "actualEdition": "Pri Tzaddik, Lublin, 1901 (Public Domain)",
+        "editionDisclosure": "Original Hebrew Pri Tzaddik, Lublin, 1901, as identified by the served source header.",
+        "sourceSnapshot": "tmp/pdfs/oretzion-primary-sources.json",
+        "sourceTranscriptSha256": "5c72f912fae451cbf6992b7b47b1f8f127fe33e943b29f0cd466296ac81e79e5",
+        "normalizedTranscriptSha256": "5c72f912fae451cbf6992b7b47b1f8f127fe33e943b29f0cd466296ac81e79e5",
+        "quoteSha256": "ac0c79d586ede01f0e38394717a9280041bb6a998f2dc2cc00f931575fc7f0f2",
+        "quoteStart": 10184,
+        "quoteEnd": 10355,
+        "normalization": "Nikkud and numerical reader footnote markers removed; all other words/punctuation preserved.",
+        "pdfPageImage": "tmp/pdfs/oretzion-110.png",
+        "visualChecked": true,
+        "editionNote": null,
+        "evidenceBundle": {
+          "path": "editorial/source-evidence/pri-shabbos-quoted-sources-20261021.json.gz",
+          "sha256": "5959fe83d77d35991725b45f15eae1d3fa69178ed8691ff40eef188a02623569",
+          "entries": 17
+        }
+      },
+      "reviewInput": "oretzion-candidates.json",
+      "duplicationAssessment": "No same-source quotation at this origin in the live manuscript notes or reviewed connections. Within-PDF repeated citations are represented by this one selected placement."
+    },
+    {
+      "id": "oretzion-k5-intention-resisei54",
+      "placementId": "PTQ-20261021-007-1",
+      "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 5:4",
+      "sourceRef": "Resisei Layla 54:2",
+      "action": "add",
+      "sourceClass": "Kisvei Rav Tzadok",
+      "phraseIndex": 33,
+      "heAnchorPrefix": " וְהַכֹּל הוֹלֵךְ אַחַר כַּוָּנַת הַלֵּב כַּיָּדוּעַ.",
+      "sourceURL": "#/read/Resisei_Layla_54:2",
+      "pdfEvidence": {
+        "filename": "פרי_צדיק_קדושת_שבת_שביתת_שבת_צדוק_בן_יעקב_הכהן_רבינוביץ_@SifreiKodesh (1).pdf",
+        "pdfPage": 116,
+        "printedPage": "118",
+        "footnoteNumber": "צו",
+        "sha256": "aae9fee8253b9624482851c7542ead39d0dbbc7303a80aaa18e0b4f583c6170f"
+      },
+      "verification": {
+        "verified": true,
+        "provider": "Kisvei Rav Tzadok MCP",
+        "fetchRef": "Resisei Layla 54:2",
+        "view": "hebrew",
+        "requestedEdition": "hebrew",
+        "actualEdition": "Akiva Publishing interlinear edition (© Akiva Publishing)",
+        "editionDisclosure": "Expanded Hebrew from the served Akiva Publishing interlinear edition, not the requested original Hebrew edition; normalization removes vocalization and numerical footnote markers only.",
+        "sourceSnapshot": "tmp/pdfs/oretzion-primary-sources.json",
+        "sourceTranscriptSha256": "2925bb37581e2d0ee96e2be9ccd2e6ebf091ea8cb24fdf3e7cc9ec1a0633f540",
+        "normalizedTranscriptSha256": "cde978f98aa9695decef4768a2b64e27f1fe339cd086f487105462d79c2490b9",
+        "quoteSha256": "ba3e22cbfae7cf1a63eb661ee72016c6be13fec640897f11ea4e265caf22dd02",
+        "quoteStart": 10255,
+        "quoteEnd": 10775,
+        "normalization": "Nikkud and numerical reader footnote markers removed; all other words/punctuation preserved.",
+        "pdfPageImage": "tmp/pdfs/oretzion-116.png",
+        "visualChecked": true,
+        "editionNote": null,
+        "evidenceBundle": {
+          "path": "editorial/source-evidence/pri-shabbos-quoted-sources-20261021.json.gz",
+          "sha256": "5959fe83d77d35991725b45f15eae1d3fa69178ed8691ff40eef188a02623569",
+          "entries": 17
+        }
+      },
+      "reviewInput": "oretzion-candidates.json",
+      "duplicationAssessment": "No same-source quotation at this origin in the live manuscript notes or reviewed connections. Within-PDF repeated citations are represented by this one selected placement."
+    },
+    {
+      "id": "oretzion-k5-personal-root-tzidkat149",
+      "placementId": "PTQ-20261021-008-1",
+      "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 5:5",
+      "sourceRef": "Tzidkat HaTzadik 149:1",
+      "action": "add",
+      "sourceClass": "Kisvei Rav Tzadok",
+      "phraseIndex": 7,
+      "heAnchorPrefix": " כִּי כָּל מַה שֶּׁאָדָם מַשִּׂיג בַּתּוֹרָה הוּא מַה שֶּׁשַּׁיָּיךְ לְשׁוֹרֶשׁ נִשְׁמָתוֹ,",
+      "sourceURL": "#/read/Tzidkat_HaTzadik_149:1",
+      "pdfEvidence": {
+        "filename": "פרי_צדיק_קדושת_שבת_שביתת_שבת_צדוק_בן_יעקב_הכהן_רבינוביץ_@SifreiKodesh (1).pdf",
+        "pdfPage": 118,
+        "printedPage": "120",
+        "footnoteNumber": "קו",
+        "sha256": "aae9fee8253b9624482851c7542ead39d0dbbc7303a80aaa18e0b4f583c6170f"
+      },
+      "verification": {
+        "verified": true,
+        "provider": "Kisvei Rav Tzadok MCP",
+        "fetchRef": "Tzidkat HaTzadik 149:1",
+        "view": "hebrew",
+        "requestedEdition": "hebrew",
+        "actualEdition": "Akiva Publishing interlinear edition (© Akiva Publishing)",
+        "editionDisclosure": "Expanded Hebrew from the served Akiva Publishing interlinear edition, not the requested original Hebrew edition; normalization removes vocalization and numerical footnote markers only.",
+        "sourceSnapshot": "tmp/pdfs/oretzion-primary-sources.json",
+        "sourceTranscriptSha256": "9ee17741f3eb5777b43c2ca444ccae3372400b43fcb759348b389d3ccac15b6f",
+        "normalizedTranscriptSha256": "a98e9b592a07ae1416ecd291e4a9f7bca4e75f6aa99b85b76510171357a655af",
+        "quoteSha256": "8d57e404eea1dc9d50a27643768d6e807f197c743ba8ecf0cd80a0132abf310d",
+        "quoteStart": 581,
+        "quoteEnd": 917,
+        "normalization": "Nikkud and numerical reader footnote markers removed; all other words/punctuation preserved.",
+        "pdfPageImage": "tmp/pdfs/oretzion-118.png",
+        "visualChecked": true,
+        "editionNote": null,
+        "evidenceBundle": {
+          "path": "editorial/source-evidence/pri-shabbos-quoted-sources-20261021.json.gz",
+          "sha256": "5959fe83d77d35991725b45f15eae1d3fa69178ed8691ff40eef188a02623569",
+          "entries": 17
+        }
+      },
+      "reviewInput": "oretzion-candidates.json",
+      "duplicationAssessment": "No same-source quotation at this origin in the live manuscript notes or reviewed connections. Within-PDF repeated citations are represented by this one selected placement."
+    },
+    {
+      "id": "oretzion-k6-jacob-machshavot3",
+      "placementId": "PTQ-20261021-009-1",
+      "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 6:1",
+      "sourceRef": "Machshavot Charutz 3:4",
+      "action": "add",
+      "sourceClass": "Kisvei Rav Tzadok",
+      "phraseIndex": 51,
+      "heAnchorPrefix": " כִּי הֵם וְהוּא הַכֹּל אֶחָד, וְחַיּוּתָם הוּא חַיּוּת דְּיַעֲקֹב אָבִינוּ עָלָיו הַשָּׁלוֹם,",
+      "sourceURL": "#/read/Machshavot_Charutz_3:4",
+      "pdfEvidence": {
+        "filename": "פרי_צדיק_קדושת_שבת_שביתת_שבת_צדוק_בן_יעקב_הכהן_רבינוביץ_@SifreiKodesh (1).pdf",
+        "pdfPage": 131,
+        "printedPage": "133",
+        "footnoteNumber": "כו",
+        "sha256": "aae9fee8253b9624482851c7542ead39d0dbbc7303a80aaa18e0b4f583c6170f"
+      },
+      "verification": {
+        "verified": true,
+        "provider": "Kisvei Rav Tzadok MCP",
+        "fetchRef": "Machshavot Charutz 3:4",
+        "view": "hebrew",
+        "requestedEdition": "hebrew",
+        "actualEdition": "Akiva Publishing interlinear study edition (© Akiva Publishing)",
+        "editionDisclosure": "Expanded Hebrew from the served Akiva Publishing interlinear edition, not the requested original Hebrew edition; normalization removes vocalization and numerical footnote markers only.",
+        "sourceSnapshot": "tmp/pdfs/oretzion-primary-sources.json",
+        "sourceTranscriptSha256": "3a3c9d09c072dd685f244bd3a5f730486dec1cc6e892da550af4c32ef061ebe5",
+        "normalizedTranscriptSha256": "c833624b5ec515889240ac6d1e1781c68939345aecdc5d2b5c71f08bb2c872e6",
+        "quoteSha256": "05fb16ffb44967e36f724ed045efd0961e9f30f799fc4089b5fb4c36ef9488b7",
+        "quoteStart": 5815,
+        "quoteEnd": 6067,
+        "normalization": "Nikkud and numerical reader footnote markers removed; all other words/punctuation preserved.",
+        "pdfPageImage": "tmp/pdfs/oretzion-131.png",
+        "visualChecked": true,
+        "editionNote": null,
+        "evidenceBundle": {
+          "path": "editorial/source-evidence/pri-shabbos-quoted-sources-20261021.json.gz",
+          "sha256": "5959fe83d77d35991725b45f15eae1d3fa69178ed8691ff40eef188a02623569",
+          "entries": 17
+        }
+      },
+      "reviewInput": "oretzion-candidates.json",
+      "duplicationAssessment": "No same-source quotation at this origin in the live manuscript notes or reviewed connections. Within-PDF repeated citations are represented by this one selected placement."
+    },
+    {
+      "id": "oretzion-k6-oral-root-yisrael6",
+      "placementId": "PTQ-20261021-010-1",
+      "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 6:7",
+      "sourceRef": "Yisrael Kedoshim 6:1",
+      "action": "add",
+      "sourceClass": "Kisvei Rav Tzadok",
+      "phraseIndex": 61,
+      "heAnchorPrefix": " וּלְלַגְלֵג עַל דִּבְרֵי חֲכָמִים בַּתּוֹרָה שֶׁבְּעַל פֶּה שֶׁהוּא שׁוֹרֶשׁ הַכְּנֶסֶת יִשְׂרָאֵל,",
+      "sourceURL": "#/read/Yisrael_Kedoshim_6:1",
+      "pdfEvidence": {
+        "filename": "פרי_צדיק_קדושת_שבת_שביתת_שבת_צדוק_בן_יעקב_הכהן_רבינוביץ_@SifreiKodesh (1).pdf",
+        "pdfPage": 145,
+        "printedPage": "147",
+        "footnoteNumber": "קנ",
+        "sha256": "aae9fee8253b9624482851c7542ead39d0dbbc7303a80aaa18e0b4f583c6170f"
+      },
+      "verification": {
+        "verified": true,
+        "provider": "Kisvei Rav Tzadok MCP",
+        "fetchRef": "Yisrael Kedoshim 6:1",
+        "view": "hebrew",
+        "requestedEdition": "hebrew",
+        "actualEdition": "Akiva Publishing interlinear study edition (© Akiva Publishing)",
+        "editionDisclosure": "Expanded Hebrew from the served Akiva Publishing interlinear edition, not the requested original Hebrew edition; normalization removes vocalization and numerical footnote markers only.",
+        "sourceSnapshot": "tmp/pdfs/oretzion-primary-sources.json",
+        "sourceTranscriptSha256": "28ae49a9bb1fe6ea01fdd0dd4e532065650db07e477556427df8130dd4f7239e",
+        "normalizedTranscriptSha256": "4a21193b277b04919cdbc89e0b9b9d1ea784ee70564c3714a9ab06ec647a193e",
+        "quoteSha256": "7ae0dddcc1401b92359f7f3c18318282b627ed01042ccde5f90a99543df597d5",
+        "quoteStart": 2920,
+        "quoteEnd": 3759,
+        "normalization": "Nikkud and numerical reader footnote markers removed; all other words/punctuation preserved.",
+        "pdfPageImage": "tmp/pdfs/oretzion-145.png",
+        "visualChecked": true,
+        "editionNote": null,
+        "evidenceBundle": {
+          "path": "editorial/source-evidence/pri-shabbos-quoted-sources-20261021.json.gz",
+          "sha256": "5959fe83d77d35991725b45f15eae1d3fa69178ed8691ff40eef188a02623569",
+          "entries": 17
+        }
+      },
+      "reviewInput": "oretzion-candidates.json",
+      "duplicationAssessment": "No same-source quotation at this origin in the live manuscript notes or reviewed connections. Within-PDF repeated citations are represented by this one selected placement."
+    },
+    {
+      "id": "oretzion-k7-concealment-purim2",
+      "placementId": "PTQ-20261021-011-1",
+      "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 7:3",
+      "sourceRef": "Peri Tzadik, Purim 2:1",
+      "action": "add",
+      "sourceClass": "Kisvei Rav Tzadok",
+      "phraseIndex": 41,
+      "heAnchorPrefix": " וְהַהִתְגַּלּוּת דְּ\"אָנֹכִי\" שֶׁבְּהַסְתָּרַת פָּנִים,",
+      "sourceURL": "#/read/Peri_Tzadik,_Purim_2:1",
+      "pdfEvidence": {
+        "filename": "פרי_צדיק_קדושת_שבת_שביתת_שבת_צדוק_בן_יעקב_הכהן_רבינוביץ_@SifreiKodesh (1).pdf",
+        "pdfPage": 161,
+        "printedPage": "163",
+        "footnoteNumber": "נה",
+        "sha256": "aae9fee8253b9624482851c7542ead39d0dbbc7303a80aaa18e0b4f583c6170f"
+      },
+      "verification": {
+        "verified": true,
+        "provider": "Kisvei Rav Tzadok MCP",
+        "fetchRef": "Peri Tzadik, Purim 2",
+        "view": "hebrew",
+        "requestedEdition": "hebrew",
+        "actualEdition": "Pri Tzaddik, Lublin, 1901 (Public Domain)",
+        "editionDisclosure": "Original Hebrew Pri Tzaddik, Lublin, 1901, as identified by the served source header.",
+        "sourceSnapshot": "tmp/pdfs/oretzion-primary-sources.json",
+        "sourceTranscriptSha256": "86511f2f138ce3d4937014023d56980c1c511eea8438d8fd4b05c96fc789a46c",
+        "normalizedTranscriptSha256": "86511f2f138ce3d4937014023d56980c1c511eea8438d8fd4b05c96fc789a46c",
+        "quoteSha256": "8e6a1ac56fca341abeda86e90173778116817ddb2ab8a5f2f50ade3b32483a9d",
+        "quoteStart": 4429,
+        "quoteEnd": 4844,
+        "normalization": "Nikkud and numerical reader footnote markers removed; all other words/punctuation preserved.",
+        "pdfPageImage": "tmp/pdfs/oretzion-161.png",
+        "visualChecked": true,
+        "editionNote": null,
+        "evidenceBundle": {
+          "path": "editorial/source-evidence/pri-shabbos-quoted-sources-20261021.json.gz",
+          "sha256": "5959fe83d77d35991725b45f15eae1d3fa69178ed8691ff40eef188a02623569",
+          "entries": 17
+        }
+      },
+      "reviewInput": "oretzion-candidates.json",
+      "duplicationAssessment": "No same-source quotation at this origin in the live manuscript notes or reviewed connections. Within-PDF repeated citations are represented by this one selected placement."
+    },
+    {
+      "id": "oretzion-k7-rest-bereshit3",
+      "placementId": "PTQ-20261021-012-1",
+      "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 7:11",
+      "sourceRef": "Peri Tzadik, Bereshit 3:2",
+      "action": "add",
+      "sourceClass": "Kisvei Rav Tzadok",
+      "phraseIndex": 120,
+      "heAnchorPrefix": "וּקְדֻשַּׁת שַׁבָּת דִּקְבִיעָא וְקַיָּימָא מִצַּד הַשֵּׁם יִתְבָּרַךְ שֶׁמּוֹצֵא נַיָּיחָא בְּעוֹלָמוֹ שֶׁבָּרָא,",
+      "sourceURL": "#/read/Peri_Tzadik,_Bereshit_3:2",
+      "pdfEvidence": {
+        "filename": "פרי_צדיק_קדושת_שבת_שביתת_שבת_צדוק_בן_יעקב_הכהן_רבינוביץ_@SifreiKodesh (1).pdf",
+        "pdfPage": 188,
+        "printedPage": "190",
+        "footnoteNumber": "רנא",
+        "sha256": "aae9fee8253b9624482851c7542ead39d0dbbc7303a80aaa18e0b4f583c6170f"
+      },
+      "verification": {
+        "verified": true,
+        "provider": "Kisvei Rav Tzadok MCP",
+        "fetchRef": "Peri Tzadik, Bereshit 3",
+        "view": "hebrew",
+        "requestedEdition": "hebrew",
+        "actualEdition": "original Hebrew: Pri Tzaddik, Lublin, 1901 (Public Domain)",
+        "editionDisclosure": "Original Hebrew Pri Tzaddik, Lublin, 1901, as identified by the served source header.",
+        "sourceSnapshot": "tmp/pdfs/oretzion-primary-sources.json",
+        "sourceTranscriptSha256": "09e87089d2bd68e13f270c4ccf915d154081c23a9f91a50982e3310a8728a574",
+        "normalizedTranscriptSha256": "09e87089d2bd68e13f270c4ccf915d154081c23a9f91a50982e3310a8728a574",
+        "quoteSha256": "06dd5714f6ebf1f96bf8b731cde67a40b681520ebdeca19a9316915bd870514b",
+        "quoteStart": 903,
+        "quoteEnd": 1129,
+        "normalization": "Nikkud and numerical reader footnote markers removed; all other words/punctuation preserved.",
+        "pdfPageImage": "tmp/pdfs/oretzion-188.png",
+        "visualChecked": true,
+        "editionNote": "The original Hebrew edition groups this in Bereshit 3:1; the live interlinear reader places the passage in Bereshit 3:2. Canonical source citation and link use the live-reader paragraph.",
+        "evidenceBundle": {
+          "path": "editorial/source-evidence/pri-shabbos-quoted-sources-20261021.json.gz",
+          "sha256": "5959fe83d77d35991725b45f15eae1d3fa69178ed8691ff40eef188a02623569",
+          "entries": 17
+        }
+      },
+      "reviewInput": "oretzion-candidates.json",
+      "duplicationAssessment": "No same-source quotation at this origin in the live manuscript notes or reviewed connections. Within-PDF repeated citations are represented by this one selected placement."
+    },
+    {
+      "id": "oretzion-k7-fear-motzei-yom-kippur4",
+      "placementId": "PTQ-20261021-013-1",
+      "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 7:16",
+      "sourceRef": "Peri Tzadik, Motzei Yom Kippur 4:1",
+      "action": "add",
+      "sourceClass": "Kisvei Rav Tzadok",
+      "phraseIndex": 31,
+      "heAnchorPrefix": " וְהוּא יוֹשֵׁב בְּאֶרֶץ הַנֶּגֶב, מְנוּגָּב מִכָּל תַּאֲווֹת וְחֶמְדוֹת עוֹלָם הַזֶּה הַמַּחְשִׁיכוֹת הָעֵינַיִם.",
+      "sourceURL": "#/read/Peri_Tzadik,_Motzei_Yom_Kippur_4:1",
+      "pdfEvidence": {
+        "filename": "פרי_צדיק_קדושת_שבת_שביתת_שבת_צדוק_בן_יעקב_הכהן_רבינוביץ_@SifreiKodesh (1).pdf",
+        "pdfPage": 205,
+        "printedPage": "207",
+        "footnoteNumber": "שצא",
+        "sha256": "aae9fee8253b9624482851c7542ead39d0dbbc7303a80aaa18e0b4f583c6170f"
+      },
+      "verification": {
+        "verified": true,
+        "provider": "Kisvei Rav Tzadok MCP",
+        "fetchRef": "Peri Tzadik, Motzaei Yom Kippur 4",
+        "view": "hebrew",
+        "requestedEdition": "hebrew",
+        "actualEdition": "Pri Tzaddik, Lublin, 1901 (Public Domain)",
+        "editionDisclosure": "Original Hebrew Pri Tzaddik, Lublin, 1901, as identified by the served source header.",
+        "sourceSnapshot": "tmp/pdfs/oretzion-primary-sources.json",
+        "sourceTranscriptSha256": "eda6c9d5d123c29e83eb4a83ce96331d8cf2609808ccd5bd0338d4323e3c4037",
+        "normalizedTranscriptSha256": "eda6c9d5d123c29e83eb4a83ce96331d8cf2609808ccd5bd0338d4323e3c4037",
+        "quoteSha256": "8cffa204dbb1f8495cdf9c47057fe9e2dfc2a7cc582321980b44a97d676d1001",
+        "quoteStart": 1188,
+        "quoteEnd": 1400,
+        "normalization": "Nikkud and numerical reader footnote markers removed; all other words/punctuation preserved.",
+        "pdfPageImage": "tmp/pdfs/oretzion-205.png",
+        "visualChecked": true,
+        "editionNote": null,
+        "evidenceBundle": {
+          "path": "editorial/source-evidence/pri-shabbos-quoted-sources-20261021.json.gz",
+          "sha256": "5959fe83d77d35991725b45f15eae1d3fa69178ed8691ff40eef188a02623569",
+          "entries": 17
+        }
+      },
+      "reviewInput": "oretzion-candidates.json",
+      "duplicationAssessment": "No same-source quotation at this origin in the live manuscript notes or reviewed connections. Within-PDF repeated citations are represented by this one selected placement."
+    },
+    {
+      "id": "oretzion-k7-mind-heart-action-purim1",
+      "placementId": "PTQ-20261021-014-1",
+      "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 7:20",
+      "sourceRef": "Peri Tzadik, Purim 1:2",
+      "action": "add",
+      "sourceClass": "Kisvei Rav Tzadok",
+      "phraseIndex": 32,
+      "heAnchorPrefix": " וְזֶהוּ שֶׁאֵין הַשֵּׁם שָׁלֵם וְאֵין הַכִּסֵּא שָׁלֵם (תַּנְחוּמָא כִּי תֵצֵא יח),",
+      "sourceURL": "#/read/Peri_Tzadik,_Purim_1:2",
+      "pdfEvidence": {
+        "filename": "פרי_צדיק_קדושת_שבת_שביתת_שבת_צדוק_בן_יעקב_הכהן_רבינוביץ_@SifreiKodesh (1).pdf",
+        "pdfPage": 220,
+        "printedPage": "222",
+        "footnoteNumber": "תקיט",
+        "sha256": "aae9fee8253b9624482851c7542ead39d0dbbc7303a80aaa18e0b4f583c6170f"
+      },
+      "verification": {
+        "verified": true,
+        "provider": "Kisvei Rav Tzadok MCP",
+        "fetchRef": "Peri Tzadik, Purim 1",
+        "view": "hebrew",
+        "requestedEdition": "hebrew",
+        "actualEdition": "Pri Tzaddik, Lublin, 1901 (Public Domain)",
+        "editionDisclosure": "Original Hebrew Pri Tzaddik, Lublin, 1901, as identified by the served source header.",
+        "sourceSnapshot": "tmp/pdfs/oretzion-primary-sources.json",
+        "sourceTranscriptSha256": "7cb32d41439fed6ff3c8e495c93947982cc3152e82edb84f8c0e0e1ee5b41452",
+        "normalizedTranscriptSha256": "7cb32d41439fed6ff3c8e495c93947982cc3152e82edb84f8c0e0e1ee5b41452",
+        "quoteSha256": "036b1bc1659f815ffc7e9a168cd1856e6df2f40d5af1106c49c478f6425d7e8d",
+        "quoteStart": 7675,
+        "quoteEnd": 8445,
+        "normalization": "Nikkud and numerical reader footnote markers removed; all other words/punctuation preserved.",
+        "pdfPageImage": "tmp/pdfs/oretzion-220.png",
+        "visualChecked": true,
+        "editionNote": null,
+        "evidenceBundle": {
+          "path": "editorial/source-evidence/pri-shabbos-quoted-sources-20261021.json.gz",
+          "sha256": "5959fe83d77d35991725b45f15eae1d3fa69178ed8691ff40eef188a02623569",
+          "entries": 17
+        }
+      },
+      "reviewInput": "oretzion-candidates.json",
+      "duplicationAssessment": "No same-source quotation at this origin in the live manuscript notes or reviewed connections. Within-PDF repeated citations are represented by this one selected placement."
+    },
+    {
+      "id": "oretzion-k7-babel-rosh-hashanah14",
+      "placementId": "PTQ-20261021-015-1",
+      "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 7:25",
+      "sourceRef": "Peri Tzadik, Rosh Hashanah 14:2",
+      "action": "add",
+      "sourceClass": "Kisvei Rav Tzadok",
+      "phraseIndex": 6,
+      "heAnchorPrefix": " לִבְנוֹת עִיר וּמִגְדָּל שֶׁהוּא מִצַּד הַסִּטְרָא אָחֳרָא,",
+      "sourceURL": "#/read/Peri_Tzadik,_Rosh_Hashanah_14:2",
+      "pdfEvidence": {
+        "filename": "פרי_צדיק_קדושת_שבת_שביתת_שבת_צדוק_בן_יעקב_הכהן_רבינוביץ_@SifreiKodesh (1).pdf",
+        "pdfPage": 236,
+        "printedPage": "238",
+        "footnoteNumber": "תרמב",
+        "sha256": "aae9fee8253b9624482851c7542ead39d0dbbc7303a80aaa18e0b4f583c6170f"
+      },
+      "verification": {
+        "verified": true,
+        "provider": "Kisvei Rav Tzadok MCP",
+        "fetchRef": "Peri Tzadik, Rosh Hashanah 14",
+        "view": "hebrew",
+        "requestedEdition": "hebrew",
+        "actualEdition": "Pri Tzaddik, Lublin, 1901 (Public Domain)",
+        "editionDisclosure": "Original Hebrew Pri Tzaddik, Lublin, 1901, as identified by the served source header.",
+        "sourceSnapshot": "tmp/pdfs/oretzion-primary-sources.json",
+        "sourceTranscriptSha256": "a689310ee866279a553033b688e32f9f3cc6a8ec661ebb57c8afb082b8d9a30d",
+        "normalizedTranscriptSha256": "a689310ee866279a553033b688e32f9f3cc6a8ec661ebb57c8afb082b8d9a30d",
+        "quoteSha256": "d678360549385ffc75778605f5ba3cac7a15d6d9ff9550c7470fb26d5bd95d89",
+        "quoteStart": 3539,
+        "quoteEnd": 3781,
+        "normalization": "Nikkud and numerical reader footnote markers removed; all other words/punctuation preserved.",
+        "pdfPageImage": "tmp/pdfs/oretzion-236.png",
+        "visualChecked": true,
+        "editionNote": null,
+        "evidenceBundle": {
+          "path": "editorial/source-evidence/pri-shabbos-quoted-sources-20261021.json.gz",
+          "sha256": "5959fe83d77d35991725b45f15eae1d3fa69178ed8691ff40eef188a02623569",
+          "entries": 17
+        }
+      },
+      "reviewInput": "oretzion-candidates.json",
+      "duplicationAssessment": "No same-source quotation at this origin in the live manuscript notes or reviewed connections. Within-PDF repeated citations are represented by this one selected placement."
+    },
+    {
+      "id": "oretzion-k7-wisdom-vayechi10",
+      "placementId": "PTQ-20261021-016-1",
+      "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 7:28",
+      "sourceRef": "Peri Tzadik, Vayechi 10:1",
+      "action": "add",
+      "sourceClass": "Kisvei Rav Tzadok",
+      "phraseIndex": 14,
+      "heAnchorPrefix": "וְאֵצֶל רַבִּי עֲקִיבָא נֶאֱמַר: \"כָּל יְקָר\",",
+      "sourceURL": "#/read/Peri_Tzadik,_Vayechi_10:1",
+      "pdfEvidence": {
+        "filename": "פרי_צדיק_קדושת_שבת_שביתת_שבת_צדוק_בן_יעקב_הכהן_רבינוביץ_@SifreiKodesh (1).pdf",
+        "pdfPage": 252,
+        "printedPage": "254",
+        "footnoteNumber": "תשפז",
+        "sha256": "aae9fee8253b9624482851c7542ead39d0dbbc7303a80aaa18e0b4f583c6170f"
+      },
+      "verification": {
+        "verified": true,
+        "provider": "Kisvei Rav Tzadok MCP",
+        "fetchRef": "Peri Tzadik, Vayechi 10",
+        "view": "hebrew",
+        "requestedEdition": "hebrew",
+        "actualEdition": "Pri Tzaddik, Lublin, 1901 (Public Domain)",
+        "editionDisclosure": "Original Hebrew Pri Tzaddik, Lublin, 1901, as identified by the served source header.",
+        "sourceSnapshot": "tmp/pdfs/oretzion-primary-sources.json",
+        "sourceTranscriptSha256": "ab3a2b3e02756aafa8dc374d4858c1c93644628d61bb42d3a78195457921e231",
+        "normalizedTranscriptSha256": "ab3a2b3e02756aafa8dc374d4858c1c93644628d61bb42d3a78195457921e231",
+        "quoteSha256": "be71ed0133beed254d847a312577e17517ff5b7598a8813749e5dba7267a7262",
+        "quoteStart": 3924,
+        "quoteEnd": 4537,
+        "normalization": "Nikkud and numerical reader footnote markers removed; all other words/punctuation preserved.",
+        "pdfPageImage": "tmp/pdfs/oretzion-252.png",
+        "visualChecked": true,
+        "editionNote": "The primary MCP transcript has the OCR spelling דעתיחא; the uploaded printed footnote reads דעתיקא. The English renders the identifiable term Ancient One. The saved Hebrew quotation preserves the fetched transcript exactly. One continuous primary-source quotation combines the fuller note on PDF252 with the same-source fragments in PDF235 and251; no additional duplicate note is proposed.",
+        "evidenceBundle": {
+          "path": "editorial/source-evidence/pri-shabbos-quoted-sources-20261021.json.gz",
+          "sha256": "5959fe83d77d35991725b45f15eae1d3fa69178ed8691ff40eef188a02623569",
+          "entries": 17
+        }
+      },
+      "reviewInput": "oretzion-candidates.json",
+      "duplicationAssessment": "No same-source quotation at this origin in the live manuscript notes or reviewed connections. Within-PDF repeated citations are represented by this one selected placement."
+    },
+    {
+      "id": "hamevoar-s1-ramban-rest",
+      "placementId": "PTQ-20261021-017-1",
+      "originRef": "Peri Tzadik, Kuntres Shvitat Shabbat 1:12",
+      "sourceRef": "Ramban on Leviticus 23:24:1",
+      "action": "add",
+      "sourceClass": "Primary source",
+      "phraseIndex": 26,
+      "heAnchorPrefix": " אֶלָּא מִצְוָה מִדְּאוֹרַיְיתָא לָנוּחַ מִן הַטְּרָחִים שֶׁאֵינָם מְלָאכָה,",
+      "sourceURL": "https://www.sefaria.org/Ramban_on_Leviticus_23.24.1",
+      "pdfEvidence": {
+        "filename": "פרי_צדיק_המבואר_•_שבת_•_קדושת_שבת_•_שביתת_שבת_•_צדוק_בן_יעקב_הכהן (1).pdf",
+        "pdfPage": 555,
+        "printedPage": "תצג",
+        "footnoteNumber": "קמ",
+        "sha256": "45554f854b7e139c38b532d3a2034a6d8da951fec1786827d9097e03ee0a8e7d"
+      },
+      "verification": {
+        "verified": true,
+        "provider": "Sefaria public text API",
+        "fetchRef": "Ramban on Leviticus 23:24",
+        "versionTitle": "Vocalized Edition",
+        "sourceSnapshot": "tmp/pdfs/direct-sefaria/Ramban_on_Leviticus_23-24.json",
+        "sourceSnapshotSha256": "c075c02926b0d153d0621baae34ac90743d6972f1e67c95e2553824c2e62443b",
+        "sourceTranscriptSha256": "57c8e9af3fdd9fd58d1b24913afea10c34003632365e8b4fa5d1ca4f03c2f5bf",
+        "normalizedTranscriptSha256": "8e58aa838667e1142410127630c5861cb0e6d2b933de7f07e9d61cfa0b8a430f",
+        "quoteSha256": "6f98df430e3e4a3bf78c851b9cc174365517533c3d0db7392e7224292eb20922",
+        "quoteStart": 3395,
+        "quoteEnd": 4062,
+        "sourceSegmentRefs": [
+          "Ramban on Leviticus 23:24:1"
+        ],
+        "normalization": "HTML tags removed and HTML entities decoded; all Hebrew words, vowels, punctuation and parenthetical references preserved.",
+        "pdfPageImage": "tmp/pdfs/hamevoar-555.png",
+        "visualChecked": true,
+        "evidenceBundle": {
+          "path": "editorial/source-evidence/pri-shabbos-quoted-sources-20261021.json.gz",
+          "sha256": "5959fe83d77d35991725b45f15eae1d3fa69178ed8691ff40eef188a02623569",
+          "entries": 17
+        }
+      },
+      "reviewInput": "hamevoar-candidates.json",
+      "duplicationAssessment": "Absent from all fifteen target inherited footnotes and their reviewed connections; related citations reviewed separately."
+    },
+    {
+      "id": "hamevoar-s3-demaiawe",
+      "placementId": "PTQ-20261021-018-1",
+      "originRef": "Peri Tzadik, Kuntres Shvitat Shabbat 3:1",
+      "sourceRef": "Jerusalem Talmud Demai 4:1:1-2",
+      "action": "add",
+      "sourceClass": "Primary source",
+      "phraseIndex": 71,
+      "heAnchorPrefix": " דְּעַם הָאָרֶץ אֵימַת שַׁבָּת עָלָיו וְאוֹמֵר אֱמֶת;",
+      "sourceURL": "https://www.sefaria.org/Jerusalem_Talmud_Demai.4.1.1-2",
+      "pdfEvidence": {
+        "filename": "פרי_צדיק_המבואר_•_שבת_•_קדושת_שבת_•_שביתת_שבת_•_צדוק_בן_יעקב_הכהן (1).pdf",
+        "pdfPage": 593,
+        "printedPage": "תקלא",
+        "footnoteNumber": "י",
+        "sha256": "45554f854b7e139c38b532d3a2034a6d8da951fec1786827d9097e03ee0a8e7d"
+      },
+      "verification": {
+        "verified": true,
+        "provider": "Sefaria public text API",
+        "fetchRef": "Jerusalem Talmud Demai 4:1",
+        "versionTitle": "The Jerusalem Talmud, edition by Heinrich W. Guggenheimer. Berlin, De Gruyter, 1999-2015",
+        "sourceSnapshot": "tmp/pdfs/direct-sefaria/Jerusalem_Talmud_Demai_4-1.json",
+        "sourceSnapshotSha256": "c7396466cf92c36c0b27de0912769d3bc5b2e46d75218ee95a8d31a42421a359",
+        "sourceTranscriptSha256": "e8aabaa02fd9fa6fe3f6543326f6edad62c930943d98617f6739eed72d43a922",
+        "normalizedTranscriptSha256": "7de0dfed3c0508ec791683d2030eecb6d733261ac4020d619b6ef92ed9216f7c",
+        "quoteSha256": "68ae9bad238948fa58925c898a58364f2f3955a212e33c80c35a2e2c067e2af6",
+        "sourceSegmentRefs": [
+          "Jerusalem Talmud Demai 4:1:1",
+          "Jerusalem Talmud Demai 4:1:2"
+        ],
+        "normalization": "HTML tags removed and HTML entities decoded; all Hebrew words, vowels, punctuation and parenthetical references preserved.",
+        "pdfPageImage": "tmp/pdfs/hamevoar-593.png",
+        "visualChecked": true,
+        "coverage": "Two exact excerpts, with an explicit ellipsis marking the omitted source text; not one continuous quotation.",
+        "omissionMarker": " … ",
+        "quoteSpans": [
+          {
+            "sourceRef": "Jerusalem Talmud Demai 4:1:1",
+            "hebrewQuote": "הַלּוֹקֵחַ פֵּירוֹת מִמִּי שֶׁאֵינוֹ נֶאֱמָן עַל הַמַּעְשְׂרוֹת וְשָׁכַח לְעַשְּׂרָן שׁוֹאֲלוֹ בְשַׁבָּת וְאוֹכֵל עַל פִּיו. חֲשֵׁיכָה מוֹצָאֵי שַׁבָּת לֹא יֹאכַל עַד שֶׁיְּעַשֵּׂר.",
+            "quoteSha256": "4259f96167b2ac2fb17f14b7d7fb0570e3dc8b95a5780a37f6f54d6073e1d84c",
+            "sourceTranscriptSha256": "2122056b46ad7a34f9a5f53981567cbaae2669c60449b23309fdaf16bcb26f10",
+            "quoteStart": 6,
+            "quoteEnd": 187
+          },
+          {
+            "sourceRef": "Jerusalem Talmud Demai 4:1:2",
+            "hebrewQuote": "רִבִּי בִּיבִי בְשֵׁם רִבִּי חֲנִינָא אֵימַת שַׁבָּת עָלָיו וְהוּא אוֹמֵר אֱמֶת. וְאִם אֵימַת שַׁבָּת עָלָיו בְּדָה תַנֵּינָן חֲשֵׁיכָה מוֹצָאֵי שַׁבָּת לֹא יֹאכַל עַד שֶׁיְּעַשֵּׂר. מִפְּנֵי אֶחָד שֶׁאֵין אֵימַת שַׁבָּת עָלָיו.",
+            "quoteSha256": "7f61305d4c7a98a832e5a71dcbf37b68e12da16e30b730fac974082feab3d567",
+            "sourceTranscriptSha256": "e4caaf50b24bbba90928b9d6fbc2add703072097cf8af1a0193ba29e272fe461",
+            "quoteStart": 151,
+            "quoteEnd": 379
+          }
+        ],
+        "evidenceBundle": {
+          "path": "editorial/source-evidence/pri-shabbos-quoted-sources-20261021.json.gz",
+          "sha256": "5959fe83d77d35991725b45f15eae1d3fa69178ed8691ff40eef188a02623569",
+          "entries": 17
+        }
+      },
+      "reviewInput": "hamevoar-candidates.json",
+      "duplicationAssessment": "Absent from all fifteen target inherited footnotes and their reviewed connections; related citations reviewed separately."
+    },
+    {
+      "id": "hamevoar-s4-meiri-delight",
+      "placementId": "PTQ-20261021-019-1",
+      "originRef": "Peri Tzadik, Kuntres Shvitat Shabbat 4:2",
+      "sourceRef": "Meiri on Shabbat 118b:1",
+      "action": "add",
+      "sourceClass": "Primary source",
+      "phraseIndex": 83,
+      "heAnchorPrefix": " וַאֲנִי אוֹמֵר בְּהֵיפֶךְ וְכוּלֵי\", יְעֻיַּין שָׁם בְּבֵיאוּרוֹ;",
+      "sourceURL": "https://www.sefaria.org/Meiri_on_Shabbat_118b.1",
+      "pdfEvidence": {
+        "filename": "פרי_צדיק_המבואר_•_שבת_•_קדושת_שבת_•_שביתת_שבת_•_צדוק_בן_יעקב_הכהן (1).pdf",
+        "pdfPage": 601,
+        "printedPage": "תקלט",
+        "footnoteNumber": "לא",
+        "sha256": "45554f854b7e139c38b532d3a2034a6d8da951fec1786827d9097e03ee0a8e7d"
+      },
+      "verification": {
+        "verified": true,
+        "provider": "Sefaria public text API",
+        "fetchRef": "Meiri on Shabbat 118b",
+        "versionTitle": "Meiri on Shas",
+        "sourceSnapshot": "tmp/pdfs/direct-sefaria/Meiri_on_Shabbat_118b.json",
+        "sourceSnapshotSha256": "2bf0d911a293be83bb3d04ce1b04c511f585bc9643c71a5f304a0f327a8a2a01",
+        "sourceTranscriptSha256": "41a1153649069cb06eba22325d4d40cc887925409f8b178576a3ed216defdb32",
+        "normalizedTranscriptSha256": "41a1153649069cb06eba22325d4d40cc887925409f8b178576a3ed216defdb32",
+        "quoteSha256": "d0999c670c1540c29b8119dcfd3b81954ef35389c208253cb3128c710cb56d69",
+        "quoteStart": 183,
+        "quoteEnd": 515,
+        "sourceSegmentRefs": [
+          "Meiri on Shabbat 118b:1"
+        ],
+        "normalization": "HTML tags removed and HTML entities decoded; all Hebrew words, vowels, punctuation and parenthetical references preserved.",
+        "pdfPageImage": "tmp/pdfs/hamevoar-601.png",
+        "visualChecked": true,
+        "evidenceBundle": {
+          "path": "editorial/source-evidence/pri-shabbos-quoted-sources-20261021.json.gz",
+          "sha256": "5959fe83d77d35991725b45f15eae1d3fa69178ed8691ff40eef188a02623569",
+          "entries": 17
+        }
+      },
+      "reviewInput": "hamevoar-candidates.json",
+      "duplicationAssessment": "Absent from all fifteen target inherited footnotes and their reviewed connections; related citations reviewed separately."
+    },
+    {
+      "id": "hamevoar-s7-neighborscow",
+      "placementId": "PT-5551-1",
+      "originRef": "Peri Tzadik, Kuntres Shvitat Shabbat 7:6",
+      "sourceRef": "Shabbat 54b:18-19",
+      "action": "replace",
+      "sourceClass": "Primary source",
+      "phraseIndex": 5,
+      "heAnchorPrefix": " דְּאִיתָא בַּגְּמָרָא שָׁם: שֶׁל שְׁכֶנְתּוֹ הָיְתָה,",
+      "sourceURL": "https://www.sefaria.org/Shabbat_54b.18-19",
+      "pdfEvidence": {
+        "filename": "פרי_צדיק_המבואר_•_שבת_•_קדושת_שבת_•_שביתת_שבת_•_צדוק_בן_יעקב_הכהן (1).pdf",
+        "pdfPage": 702,
+        "printedPage": "תרמ",
+        "footnoteNumber": "לז",
+        "sha256": "45554f854b7e139c38b532d3a2034a6d8da951fec1786827d9097e03ee0a8e7d"
+      },
+      "verification": {
+        "verified": true,
+        "provider": "Sefaria public text API",
+        "fetchRef": "Shabbat 54b",
+        "versionTitle": "William Davidson Edition - Vocalized Aramaic",
+        "sourceSnapshot": "tmp/pdfs/direct-sefaria/Shabbat_54b.json",
+        "sourceSnapshotSha256": "8dcb183bf745c7d2acccdec62ee16f8b259d62f744c58e542d2095e73b51acbe",
+        "sourceTranscriptSha256": "e81fd3d7e24ea37c38b58fbe760f19058f7c42ea28d2e24f9cd5ea6594e105d2",
+        "normalizedTranscriptSha256": "a11447a0901a6da76f52664b8f5d790c2aa66ba1f74ed2cf3cac167ffe895363",
+        "quoteSha256": "e81fd3d7e24ea37c38b58fbe760f19058f7c42ea28d2e24f9cd5ea6594e105d2",
+        "quoteStart": 0,
+        "quoteEnd": 363,
+        "sourceSegmentRefs": [
+          "Shabbat 54b:18",
+          "Shabbat 54b:19"
+        ],
+        "normalization": "HTML tags removed and HTML entities decoded; all Hebrew words, vowels, punctuation and parenthetical references preserved.",
+        "pdfPageImage": "tmp/pdfs/hamevoar-702.png",
+        "visualChecked": true,
+        "evidenceBundle": {
+          "path": "editorial/source-evidence/pri-shabbos-quoted-sources-20261021.json.gz",
+          "sha256": "5959fe83d77d35991725b45f15eae1d3fa69178ed8691ff40eef188a02623569",
+          "entries": 17
+        }
+      },
+      "reviewInput": "hamevoar-candidates.json",
+      "duplicationAssessment": "Absent from all fifteen target inherited footnotes and their reviewed connections; related citations reviewed separately."
+    }
+  ],
+  "sourceReviews": [
+    {
+      "filename": "intro-audit.json",
+      "review": {
+        "scope": "Peri Tzadik, Introduction 1–3",
+        "existingNotes": 4,
+        "sourceChecks": [
+          {
+            "ref": "Midrash Tanchuma, Noach 2:1",
+            "status": "Existing correct quotation retained; no duplicate addition",
+            "placementId": "PT-3454-1"
+          },
+          {
+            "ref": "Proverbs 11:30",
+            "status": "Existing quotation retained; no duplicate addition",
+            "placementId": "PT-3455-1"
+          }
+        ],
+        "remove": [
+          {
+            "originRef": "Peri Tzadik, Introduction 1",
+            "placementId": "PT-3453-1",
+            "reason": "The first Tanchuma footnote quotes an unrelated passage about childbirth rather than the fruit of the righteous. The immediately following footnote PT-3454-1 already quotes the correct Tanchuma Noach2:1 in full. Retain that correct note and remove the unrelated competing quotation."
+          }
+        ],
+        "pdfScope": "The four supplied editions contain Kedushat Shabbat and/or Shevitat Shabbat; no original Peri Tzadik publishers Introduction was identified. Introduction corrections are independently checked against the directly cited primary texts, not attributed to a PDF.",
+        "peerReview": {
+          "reviewer": "review_quotes_and_code",
+          "status": "Approved exact Pesachim119a:2 correction and removal of the unrelated Noach1 quote while retaining the existing correct Noach2 quote. English opening lemma tightened to literal translation; no explanatory prose added."
+        }
+      }
+    },
+    {
+      "filename": "oretzion-audit.json",
+      "review": {
+        "edition": "Or Etzion, 5776/2016; chief editor R. Yair Yifrach",
+        "pdf": "upload/פרי_צדיק_קדושת_שבת_שביתת_שבת_צדוק_בן_יעקב_הכהן_רבינוביץ_@SifreiKodesh (1).pdf",
+        "pdfSha256": "aae9fee8253b9624482851c7542ead39d0dbbc7303a80aaa18e0b4f583c6170f",
+        "pdfPages": 356,
+        "scope": "Whole PDF text scanned for source quotation leads; deep review and new candidate selection concentrated on Kedushat Shabbat3–7 to avoid overlap with the other agents. Introduction is absent. K1–2 and Shevitat handled by parallel reviews. This is a strategic selection, not a claim that every printed footnote was individually verified.",
+        "pageMap": {
+          "frontMatter": "1–6",
+          "KedushatShabbat": {
+            "1": [
+              7,
+              25
+            ],
+            "2": [
+              26,
+              47
+            ],
+            "3": [
+              48,
+              73
+            ],
+            "4": [
+              74,
+              102
+            ],
+            "5": [
+              103,
+              127
+            ],
+            "6": [
+              128,
+              153
+            ],
+            "7": [
+              154,
+              266
+            ]
+          },
+          "ShevitatShabbat": {
+            "1": [
+              268,
+              286
+            ],
+            "2": [
+              287,
+              299
+            ],
+            "3": [
+              300,
+              302
+            ],
+            "4": [
+              303,
+              311
+            ],
+            "5": [
+              312,
+              328
+            ],
+            "6": [
+              329,
+              348
+            ],
+            "7": [
+              349,
+              356
+            ]
+          }
+        },
+        "selected": 12,
+        "readerOutput": "Exact bold source citation plus fresh English translation of source quotation only. No editorial explanation.",
+        "candidateFile": "tmp/pdfs/oretzion-candidates.json",
+        "sourceSnapshots": "tmp/pdfs/oretzion-primary-sources.json",
+        "dedupBaseline": "tmp/pdfs/live-reader/data/peri-tzadik and deferred-live-catalog-20261021.json",
+        "selectedRepeatedQuotePolicy": "Tzidkat149 occurs twice in PDF and is used once; Vayechi10 appears in three printed notes and is merged as one continuous source excerpt at the best anchor.",
+        "sourceRefReusedElsewhereInCatalog": [
+          {
+            "sourceRef": "Machshavot Charutz 3:4",
+            "origin": "Tzidkat HaTzadik204:1",
+            "assessment": "Existing quote concerns Joseph’s temporary kingship, not the selected Jacob-soul paragraph; no overlapping excerpt."
+          },
+          {
+            "sourceRef": "Peri Tzadik, Purim 2:3",
+            "origin": "Peri Tzadik, Lech Lecha4:3",
+            "assessment": "Existing quote concerns the future feast; selected quote is Purim2:1 about Anokhi concealed in Oral Torah."
+          }
+        ],
+        "checks": [
+          {
+            "id": "oretzion-k3-taste-yisrael8",
+            "exactNormalizedSourceSubstring": true,
+            "sameOriginSourceDuplicates": [],
+            "sameParagraphManuscriptSourceDuplicates": []
+          },
+          {
+            "id": "oretzion-k5-meir-vayishlach1",
+            "exactNormalizedSourceSubstring": true,
+            "sameOriginSourceDuplicates": [],
+            "sameParagraphManuscriptSourceDuplicates": []
+          },
+          {
+            "id": "oretzion-k5-intention-resisei54",
+            "exactNormalizedSourceSubstring": true,
+            "sameOriginSourceDuplicates": [],
+            "sameParagraphManuscriptSourceDuplicates": []
+          },
+          {
+            "id": "oretzion-k5-personal-root-tzidkat149",
+            "exactNormalizedSourceSubstring": true,
+            "sameOriginSourceDuplicates": [],
+            "sameParagraphManuscriptSourceDuplicates": []
+          },
+          {
+            "id": "oretzion-k6-jacob-machshavot3",
+            "exactNormalizedSourceSubstring": true,
+            "sameOriginSourceDuplicates": [],
+            "sameParagraphManuscriptSourceDuplicates": []
+          },
+          {
+            "id": "oretzion-k6-oral-root-yisrael6",
+            "exactNormalizedSourceSubstring": true,
+            "sameOriginSourceDuplicates": [],
+            "sameParagraphManuscriptSourceDuplicates": []
+          },
+          {
+            "id": "oretzion-k7-concealment-purim2",
+            "exactNormalizedSourceSubstring": true,
+            "sameOriginSourceDuplicates": [],
+            "sameParagraphManuscriptSourceDuplicates": []
+          },
+          {
+            "id": "oretzion-k7-rest-bereshit3",
+            "exactNormalizedSourceSubstring": true,
+            "sameOriginSourceDuplicates": [],
+            "sameParagraphManuscriptSourceDuplicates": []
+          },
+          {
+            "id": "oretzion-k7-fear-motzei-yom-kippur4",
+            "exactNormalizedSourceSubstring": true,
+            "sameOriginSourceDuplicates": [],
+            "sameParagraphManuscriptSourceDuplicates": []
+          },
+          {
+            "id": "oretzion-k7-mind-heart-action-purim1",
+            "exactNormalizedSourceSubstring": true,
+            "sameOriginSourceDuplicates": [],
+            "sameParagraphManuscriptSourceDuplicates": []
+          },
+          {
+            "id": "oretzion-k7-babel-rosh-hashanah14",
+            "exactNormalizedSourceSubstring": true,
+            "sameOriginSourceDuplicates": [],
+            "sameParagraphManuscriptSourceDuplicates": []
+          },
+          {
+            "id": "oretzion-k7-wisdom-vayechi10",
+            "exactNormalizedSourceSubstring": true,
+            "sameOriginSourceDuplicates": [],
+            "sameParagraphManuscriptSourceDuplicates": []
+          }
+        ],
+        "withheldOrCombined": [
+          {
+            "pdfPage": 77,
+            "note": "לו",
+            "source": "Peri Tzadik, Ki Tisa 6:1",
+            "reason": "The stronger quotation from Motzei Yom Kippur4, used once at K7:16, gives fuller context for the same Negev/fear/desire teaching; avoid repeating it at K4:3."
+          },
+          {
+            "pdfPages": [
+              87,
+              88
+            ],
+            "notes": [
+              "קיד",
+              "קטו"
+            ],
+            "sources": [
+              "Likkutei Maamarim, printed p.171",
+              "Peri Tzadik, Vayeshev 11"
+            ],
+            "reason": "The K4 retrospective knowledge/choice discussion already has a reviewed Tzidkat HaTzadik40 quotation with the necessary distinction; additional versions would repeat the same teaching."
+          },
+          {
+            "pdfPage": 105,
+            "notes": [
+              "כב",
+              "כג"
+            ],
+            "source": "Peri Tzadik, Rosh Chodesh Av 1",
+            "reason": "Already published at K5:1 in the previous reviewed batch."
+          },
+          {
+            "pdfPage": 105,
+            "note": "כו",
+            "source": "Resisei Layla 58",
+            "reason": "The general creation-for-Israel passage would repeat the existing contextual teaching; not selected for this strategic batch."
+          },
+          {
+            "pdfPage": 121,
+            "note": "קכח",
+            "source": "Peri Tzadik, Seudah for Pidyon HaBen 2",
+            "reason": "Guessed English reference did not resolve; no verified exact canonical source for this passage, so withheld."
+          },
+          {
+            "pdfPage": 126,
+            "note": "קנח",
+            "source": "Peri Tzadik, Mishpatim 4:1",
+            "reason": "Verified, but overlapping love/fear and distorted-offshoot scheme already has a reviewed Tzidkat HaTzadik215 parallel in K5:8; omitted to avoid thematic repetition."
+          },
+          {
+            "pdfPage": 137,
+            "note": "פא",
+            "source": "Peri Tzadik, Pesach 18",
+            "reason": "Existing reviewed notes in K6:3 cover Jacob/Jesse and the serpent’s residual defilement; no further same-theme addition selected."
+          },
+          {
+            "pdfPage": 138,
+            "note": "צא",
+            "source": "Mei HaShiloach II, Beha’alotcha",
+            "reason": "The exact Nachshon teaching was already added in the previous reviewed batch at K6:5."
+          },
+          {
+            "pdfPage": 214,
+            "note": "תעו",
+            "source": "Peri Tzadik, Emor 7",
+            "reason": "Already published at K7:18 in the previous reviewed batch."
+          },
+          {
+            "pdfPage": 222,
+            "note": "תקכד",
+            "source": "Peri Tzadik, Shekalim 10",
+            "reason": "Exact English reference did not resolve; the initial-illumination/acquisition idea is also already represented by Resisei Layla52 at the adjacent K7:20 discussion. Withheld."
+          },
+          {
+            "pdfPage": 231,
+            "note": "תרג",
+            "source": "Peri Tzadik, Vayigash 5",
+            "reason": "Already published at K7:23 in the previous reviewed batch."
+          },
+          {
+            "pdfPage": 235,
+            "note": "תרלז",
+            "source": "Peri Tzadik, Vayechi 10:1",
+            "reason": "The same primary passage is incorporated into one fuller selected note at K7:28; no repeat at K7:24."
+          },
+          {
+            "pdfPage": 250,
+            "note": "תשסט",
+            "source": "Tzidkat HaTzadik 149:1",
+            "reason": "Same quotation appears in PDF118; choose one placement at K5:5 where the exact phrase explicitly concerns the person’s unique Torah root."
+          },
+          {
+            "pdfPage": 251,
+            "note": "תשפא",
+            "source": "Peri Tzadik, Vayechi 10:1",
+            "reason": "Short fragment combined with fuller continuous primary quotation from the same source at K7:28; no second note."
+          },
+          {
+            "pdfPage": 252,
+            "note": "תשפג",
+            "source": "Peri Tzadik, Rosh Chodesh Tammuz 1",
+            "reason": "Already published at K7:28 in the previous reviewed batch."
+          }
+        ],
+        "peerReview": {
+          "reviewer": "review_quotes_and_code",
+          "status": "All twelve selected quotations checked against saved source snapshots and English references preserved.",
+          "contextExtensions": [
+            {
+              "source": "Yisrael Kedoshim 6:1",
+              "scope": "Extended through Oral Torah explaining Written Torah, entrustment to sages of Israel, future novel teaching, and Shemot Rabbah47:1. The PDF quotes the root sentence; the fuller uninterrupted context is verified in the primary source transcript."
+            },
+            {
+              "source": "Peri Tzadik, Purim 1:2",
+              "scope": "Extended through the explicit Amalek obstacle to completed union and the four expressions corresponding to four letters of the Name; PDF220 visually confirms this direct connection."
+            }
+          ],
+          "englishReferences": "Preserved all specific parenthetical primary-source locations embedded in the twelve Hebrew excerpts; retained the source’s references without silently omitting them.",
+          "actualEditions": "Every candidate records the exact Edition header actually served. Five excerpts are expanded Hebrew from the Akiva Publishing interlinear editions; seven are from Pri Tzaddik,Lublin1901. requestedEdition does not imply the server served it.",
+          "normalization": "The generator now removes only Hebrew combining vocalization/cantillation and numerical reader markers, preserving maqaf and other punctuation. Existing snapshots contain no affected punctuation, so this refinement changes no quotation."
+        }
+      }
+    },
+    {
+      "filename": "kedusha-editions-audit.json",
+      "review": {
+        "scope": "Selected quoted-source footnotes from the supplied 1992 and 2020 Kedushat Shabbat editions, for reader chapters1–2. Existing complete notes are preserved; this is not a blanket recertification of every inherited note.",
+        "counts": {
+          "added": 4,
+          "replaced": 3,
+          "newMarkers": 4
+        },
+        "selected": [
+          {
+            "id": "kedusha1992-k1-mishpatim6",
+            "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 1:2",
+            "sourceRef": "Peri Tzadik, Mishpatim 6:1",
+            "exactAnchorVerified": true,
+            "matchingInheritedSourceRefs": [],
+            "matchingReviewedSourceRefs": [],
+            "matchingInheritedEnglishQuotations": [],
+            "matchingReviewedHebrewQuotations": []
+          },
+          {
+            "id": "kedusha2020-k1-sod-likkutei9",
+            "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 1:8",
+            "sourceRef": "Likkutei Maamarim, Compositions on the Festivals 9:1",
+            "exactAnchorVerified": true,
+            "matchingInheritedSourceRefs": [],
+            "matchingReviewedSourceRefs": [],
+            "matchingInheritedEnglishQuotations": [],
+            "matchingReviewedHebrewQuotations": []
+          },
+          {
+            "id": "kedusha1992-k2-remembrance-resisei42",
+            "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 2:1",
+            "sourceRef": "Resisei Layla 42:1",
+            "exactAnchorVerified": true,
+            "matchingInheritedSourceRefs": [],
+            "matchingReviewedSourceRefs": [],
+            "matchingInheritedEnglishQuotations": [],
+            "matchingReviewedHebrewQuotations": []
+          },
+          {
+            "id": "kedusha2020-k2-knowledge-choice-machshavot8",
+            "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 2:8",
+            "sourceRef": "Machshavot Charutz 8:1",
+            "exactAnchorVerified": true,
+            "matchingInheritedSourceRefs": [],
+            "matchingReviewedSourceRefs": [],
+            "matchingInheritedEnglishQuotations": [],
+            "matchingReviewedHebrewQuotations": []
+          },
+          {
+            "id": "kedusha1992-k1-house-completion",
+            "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 1:2",
+            "sourceRef": "Midrash Tanchuma, Bereshit 2:1",
+            "exactAnchorVerified": true,
+            "matchingInheritedSourceRefs": [],
+            "matchingReviewedSourceRefs": [],
+            "matchingInheritedEnglishQuotations": [],
+            "matchingReviewedHebrewQuotations": []
+          },
+          {
+            "id": "kedusha2020-k1-open-north",
+            "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 1:2",
+            "sourceRef": "Pirkei DeRabbi Eliezer 3:11",
+            "exactAnchorVerified": true,
+            "matchingInheritedSourceRefs": [],
+            "matchingReviewedSourceRefs": [],
+            "matchingInheritedEnglishQuotations": [],
+            "matchingReviewedHebrewQuotations": []
+          },
+          {
+            "id": "kedusha1992-k1-fear-of-heaven",
+            "originRef": "Peri Tzadik, Sefer Kedushat Shabbat 1:2",
+            "sourceRef": "Berakhot 33b:23-25",
+            "exactAnchorVerified": true,
+            "matchingInheritedSourceRefs": [],
+            "matchingReviewedSourceRefs": [],
+            "matchingInheritedEnglishQuotations": [],
+            "matchingReviewedHebrewQuotations": []
+          }
+        ],
+        "pdfs": [
+          {
+            "name": "פרי_צדיק_המבואר_•_קדושת_שבת_•_צדוק_בן_יעקב_הכהן_ראבינאוויטש_מלובלין (1).pdf",
+            "size": 4443776,
+            "sha256": "bb62bd38ff257c1f1b62c2905a54a9cfb05551acd25ec99e952b4f7dfff7fc9a"
+          },
+          {
+            "name": "פרי_צדיק_קדושת_שבת_צדוק_בן_יעקב_הכהן_ראבינאוויטש_@Sifreikodesh_בחיפוש (2).pdf",
+            "size": 7949551,
+            "sha256": "4b218679cb65f3d294480382342f2e84e255f52d3a6347471de9a9954fbb2660"
+          }
+        ],
+        "visualReview": [
+          "tmp/pdfs/kedusha-editions/1992-27.png",
+          "tmp/pdfs/kedusha-editions/1992-7.png",
+          "tmp/pdfs/kedusha-editions/1992-8.png",
+          "tmp/pdfs/kedusha-editions/1992-9.png",
+          "tmp/pdfs/kedusha-editions/2020-13.png",
+          "tmp/pdfs/kedusha-editions/2020-147.png",
+          "tmp/pdfs/kedusha-editions/2020-69.png"
+        ],
+        "primaryEvidence": [
+          "tmp/pdfs/direct-sefaria/Berakhot_33b.json",
+          "tmp/pdfs/direct-sefaria/Midrash_Tanchuma_Bereshit_2.json",
+          "tmp/pdfs/direct-sefaria/Pirkei_DeRabbi_Eliezer_3.json",
+          "tmp/pdfs/kedusha-editions/Peri-Tzadik-Mishpatim-6.json",
+          "tmp/pdfs/kedusha-editions/likkutei-maamarim-likkutei-maamarim-compositions-on-the-festivals-9-1-snapshot.json",
+          "tmp/pdfs/kedusha-editions/machshavot-charutz-machshavot-charutz-8-1-snapshot.json",
+          "tmp/pdfs/kedusha-editions/resisei-layla-resisei-layla-42-1-snapshot.json"
+        ],
+        "selectionDecisions": [
+          {
+            "candidate": "Resisei Layla passage cited by page73b in the 1992 edition, PDF23",
+            "decision": "Not added from an imprecise page-only locator; the separate Resisei42:1 quotation on remembrance has an exact paragraph reference and direct Hebrew anchor."
+          },
+          {
+            "candidate": "Multiple mystical-secret quotations in Hamevoar PDF69: Yosher Divrei Emet, Likkutei Maamarim and Maor VaShemesh",
+            "decision": "Selected the exact RavTzadok parallel LikkuteiMaamarim, Compositions on the Festivals9:1, which supplies the complete definition. Did not stack multiple quotations repeating the same definition at the same phrase."
+          },
+          {
+            "candidate": "Machshavot Charutz8:1 and existing TzidkatHaTzadik40 at KedushatShabbat4:7",
+            "decision": "Kept the new quotation because it explicitly distinguishes present free choice from the future Messianic disclosure, directly matching the Creation/sin/rectification argument at K2:8; it is not the same quotation."
+          },
+          {
+            "candidate": "PeriTzadik Mishpatim6:1 and existing Mishpatim6:2 at ShvitatShabbat1:7",
+            "decision": "Distinct paragraphs and claims: 6:1 explains why Shabbat retains a separate sanctity even in the Sabbatical year or during Tabernacle work; existing6:2 concerns Ishbitz’s position on the positive commandment of resting. No quotation overlap."
+          }
+        ],
+        "sourcePolicy": "Only primary sefer quotations with exact Hebrew and a fresh faithful English translation; no modern editorial explanation in reader output. Original PDF citations locate selections; primary Hebrew editions determine exact wording.",
+        "lookupLimitation": "One parallel MCP batch stalled and was aborted. Its unreturned results were not used. Saved MCP corpus snapshots and previously saved successful Mishpatim6 response provide RavTzadok evidence; Root downloaded precise SefariaAPI responses for the three classical corrections.",
+        "allSelectedQuotesReviewed": true
+      }
+    },
+    {
+      "filename": "hamevoar-audit.json",
+      "review": {
+        "status": "Complete: four verified quotation-only operations selected; duplicate Rav Tzadok quotations withheld.",
+        "reviewedPdfPages": [
+          523,
+          703
+        ],
+        "duplicatesWithheld": [
+          {
+            "source": "Peri Tzadik, Mishpatim 6:2",
+            "pdfPage": 539,
+            "note": "עה",
+            "reason": "Already published at Shevisas1:7 as reviewed oral-teaching parallel."
+          },
+          {
+            "source": "Tzidkat HaTzadik 216:1",
+            "pdfPage": 562,
+            "note": "קסג",
+            "reason": "Same Shabbos-rest quotation already published in Kedushas1 reviewed connections."
+          }
+        ],
+        "candidates": [
+          {
+            "source": "Ramban on Leviticus 23:24",
+            "originRef": "Peri Tzadik, Kuntres Shvitat Shabbat 1:12",
+            "phraseIndex": 26,
+            "pdfPage": 555,
+            "note": "קמ",
+            "action": "add",
+            "rationale": "Direct primary discussion of resting from exertions that do not constitute forbidden labor; existing5350 onlyquotesverse."
+          },
+          {
+            "source": "Jerusalem Talmud Demai 4:1",
+            "originRef": "Peri Tzadik, Kuntres Shvitat Shabbat 3:1",
+            "phraseIndex": 71,
+            "pdfPage": 593,
+            "note": "י",
+            "action": "add",
+            "rationale": "Exact source for the awe of Shabbos causing an amhaaretz to tell truth; existing5397quotesMishnahonly."
+          },
+          {
+            "source": "Meiri on Shabbat 118a",
+            "originRef": "Peri Tzadik, Kuntres Shvitat Shabbat 4:2",
+            "phraseIndex": 83,
+            "pdfPage": 601,
+            "note": "לא",
+            "action": "add",
+            "rationale": "Quotes both interpretations of Torah study and sleep for scholars and workers; no118anoteexists."
+          },
+          {
+            "source": "Shabbat 54b",
+            "originRef": "Peri Tzadik, Kuntres Shvitat Shabbat 7:6",
+            "phraseIndex": 5,
+            "pdfPage": 702,
+            "note": "לז",
+            "action": "replace",
+            "oldNumber": 5551,
+            "rationale": "Existing broad54b quotation omits essential statement that the cow belonged to his female neighbor, which drives Rav Tzadok’s argument."
+          }
+        ],
+        "scope": {
+          "primaryPdf": "Combined Hamevoar703p",
+          "shevisasPages": [
+            523,
+            703
+          ],
+          "secondaryPdf": "Or Etzion356p",
+          "secondaryShevisasPages": [
+            268,
+            356
+          ],
+          "method": "Searched extracted text throughout both Shevisas sections for primary sefer citations and oral/deferred-topic indicators. Reviewed selected primary-source quotations against live matching phrases and visually inspected each selected PDF page. This audit does not claim every incidental citation in181pages received independent primary-text verification."
+        },
+        "selectionCount": {
+          "add": 3,
+          "replace": 1,
+          "remove": 0
+        },
+        "verifiedOperations": [
+          {
+            "id": "hamevoar-s1-ramban-rest",
+            "originRef": "Peri Tzadik, Kuntres Shvitat Shabbat 1:12",
+            "sourceRef": "Ramban on Leviticus 23:24:1",
+            "action": "add",
+            "pdfPage": 555,
+            "footnote": "קמ",
+            "quoteSha256": "6f98df430e3e4a3bf78c851b9cc174365517533c3d0db7392e7224292eb20922",
+            "sourceSnapshot": "tmp/pdfs/direct-sefaria/Ramban_on_Leviticus_23-24.json"
+          },
+          {
+            "id": "hamevoar-s3-demaiawe",
+            "originRef": "Peri Tzadik, Kuntres Shvitat Shabbat 3:1",
+            "sourceRef": "Jerusalem Talmud Demai 4:1:1-2",
+            "action": "add",
+            "pdfPage": 593,
+            "footnote": "י",
+            "quoteSha256": "68ae9bad238948fa58925c898a58364f2f3955a212e33c80c35a2e2c067e2af6",
+            "sourceSnapshot": "tmp/pdfs/direct-sefaria/Jerusalem_Talmud_Demai_4-1.json"
+          },
+          {
+            "id": "hamevoar-s4-meiri-delight",
+            "originRef": "Peri Tzadik, Kuntres Shvitat Shabbat 4:2",
+            "sourceRef": "Meiri on Shabbat 118b:1",
+            "action": "add",
+            "pdfPage": 601,
+            "footnote": "לא",
+            "quoteSha256": "d0999c670c1540c29b8119dcfd3b81954ef35389c208253cb3128c710cb56d69",
+            "sourceSnapshot": "tmp/pdfs/direct-sefaria/Meiri_on_Shabbat_118b.json"
+          },
+          {
+            "id": "hamevoar-s7-neighborscow",
+            "originRef": "Peri Tzadik, Kuntres Shvitat Shabbat 7:6",
+            "sourceRef": "Shabbat 54b:18-19",
+            "action": "replace",
+            "pdfPage": 702,
+            "footnote": "לז",
+            "quoteSha256": "e81fd3d7e24ea37c38b58fbe760f19058f7c42ea28d2e24f9cd5ea6594e105d2",
+            "sourceSnapshot": "tmp/pdfs/direct-sefaria/Shabbat_54b.json"
+          }
+        ],
+        "preservation": {
+          "Meiri113a": "ExistingPT-5417-1 preserved because it belongs to a distinct textual discussion;118b excerpt is anchored at “I say the reverse” in the preceding discussion.",
+          "RambanVerse": "Existing5350 verse citation preserved; newnotequotesRamban’sactualargument.",
+          "UnidentifiedOralReport": "No Ishbitz or Radzin attribution inferred from Shevisas7:6 “heard in childhood in the name of a great person.” Shabbat54b source verifies the proof, not the speaker’s identity."
+        },
+        "editionMapping": [
+          {
+            "source": "Meiri on Shabbat118b:1",
+            "note": "Rav Tzadok/PDF reference118a, but actual source text resides at118b:1 in the verified Sefaria Meiri onShas edition; use exactverifiedref."
+          },
+          {
+            "source": "Ramban onLeviticus23:24:1",
+            "note": "Exact Hebrew follows SefariaVocalizedEdition; PDFquotes a slightly different unvocalized printing (e.g. “בעשה הזה” versus fetched “בעשה”). No blending of editions."
+          }
+        ],
+        "retrieval": {
+          "mcp": "Four-reference SefariaMCP batch timedout and wasaborted withoutresults.",
+          "fallback": "Root retrieved publicSefariaAPIexactresponses with30secondHTTPtimeouts. Allselectedsources checkedagainstthese snapshots."
+        },
+        "deduplication": {
+          "inheritedTargetFiles": 15,
+          "reviewedCatalog": "deferred-live-catalog-20261021.json",
+          "method": "Compared source references and selected quotations against inheritednotes in all targetsections and publishedreviewedconnections. Existing Mishpatim6:2 andTzidkat216 parallels withheld rather than repeated."
+        },
+        "contextReview": {
+          "JerusalemTalmudDemai": "Root requested addition of Mishnah4:1:1 openingcase before RabbiBibi4:1:2 so the quotation itself identifies the person and produce. Added two exact primary spans, explicit ellipsis in Hebrew and English, separate offsets/hashes; no continuous-excerpt claim."
+        }
+      }
+    },
+    {
+      "filename": "quoted-sources-code-review.json",
+      "review": {
+        "reviewer": "review_quotes_and_code",
+        "scope": "Local independent review of new quotation publication pipeline and current partial pack; final integration remains root responsibility.",
+        "blockingFindings": [],
+        "verifiedDesign": [
+          "Exact immutable note preimages and after-file hashes prevent applying onto a changed baseline.",
+          "Author-body hashing excludes only footnotes; reverse reconstruction proves all unreviewed notes and fields retain their exact prior structure.",
+          "New quotation notes have one English paragraph, a bold exact source link, original Hebrew evidence, no explanatory paragraphs, and stable inherited IDs/numbers on replacements.",
+          "The quotation publication stage runs after historical edition checks and before Beit Toldos/Dover baseline capture; final ZIP/MCP checks therefore protect the new Shabbos edition.",
+          "Browser assertions check each marker against the actual Hebrew DOM prefix, each full quotation box, one source link, no duplicate English-side marker, and both desktop/mobile widths.",
+          "Only quotationOnly or existing Dover notes receive newly indexed note-source anchors in the MCP build."
+        ],
+        "nonBlockingHardening": [
+          "readPack could additionally enforce a safe source URL pattern and positive bounded Hebrew/English character offsets; current compile output and browser assertions cover the concrete release values."
+        ],
+        "reviewedFiles": [
+          {
+            "path": "akiva-reader/scripts/publish-pri-shabbos-quoted-sources.mjs",
+            "sha256": "09d73dff7bd7c1324e1f609fbec58fde5ef1b4aab91c9afbacac993abd0157d2"
+          },
+          {
+            "path": "akiva-reader/scripts/test-pri-shabbos-quoted-sources.mjs",
+            "sha256": "924b146360d0c8b1080e9f444b0b1034b1ed53c33830856d12d4db1a89322b3a"
+          },
+          {
+            "path": "akiva-reader/scripts/test-pri-shabbos-quoted-sources-browser.mjs",
+            "sha256": "143e974d6db8d0baf6b775021dac60fa5fe963493d8d2b752b3132d09fe7ac1e"
+          },
+          {
+            "path": "akiva-reader/.github/workflows/pages.yml",
+            "sha256": "9c93b871863aab6b04a0acbee4b7c4b6076cc6383ae85a888440d2216368ddeb"
+          },
+          {
+            "path": "akiva-reader/scripts/build-mcp-index.mjs",
+            "sha256": "5d0e84f0881caf33ed2d200ee922c4d2aecd6c01d4ba9f5482db48cf4228f062"
+          },
+          {
+            "path": "akiva-reader/dist/library/index.html",
+            "sha256": "b8fb2c5726aa88f00ac7d065a992655daa81feb3c8bbf23e5a106debc7898be5"
+          }
+        ]
+      }
+    }
+  ],
+  "removals": [
+    {
+      "originRef": "Peri Tzadik, Introduction 1",
+      "placementId": "PT-3453-1",
+      "reason": "The first Tanchuma footnote quotes an unrelated passage about childbirth rather than the fruit of the righteous. The immediately following footnote PT-3454-1 already quotes the correct Tanchuma Noach2:1 in full. Retain that correct note and remove the unrelated competing quotation."
+    }
+  ],
+  "quotationOnly": true,
+  "existingNotesRetainedExceptListedReplacementsAndRemovals": true,
+  "exactHebrewAnchorChecks": true,
+  "authorTextUnchanged": true,
+  "partialPreparation": false
+}

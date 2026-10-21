@@ -309,6 +309,13 @@ jobs:
           node scripts/test-pri-chanukah25.mjs --zips > chanukah25-final-verification.json
           cat chanukah25-final-verification.json
 
+      - name: Publish collated quotation-only Shabbos source notes after historical edition checks
+        run: |
+          node scripts/publish-pri-shabbos-quoted-sources.mjs > pri-shabbos-quoted-sources-publication-verification.json
+          node scripts/publish-pri-shabbos-quoted-sources.mjs > pri-shabbos-quoted-sources-repeat-verification.json
+          node --input-type=module -e "import fs from 'node:fs'; import assert from 'node:assert/strict'; assert.equal(JSON.parse(fs.readFileSync('pri-shabbos-quoted-sources-repeat-verification.json')).mode, 'already-applied');"
+          node scripts/test-pri-shabbos-quoted-sources.mjs > pri-shabbos-quoted-sources-data-verification.json
+
       - name: Publish the supplied Bais Yaakov Toldos document after historical edition checks
         run: |
           node scripts/publish-beit-toldos.mjs
@@ -324,6 +331,7 @@ jobs:
           node scripts/build-library-zips.mjs
           node scripts/test-dover-kdp.mjs --zips
           node scripts/test-beit-toldos.mjs --zips --mcp
+          node scripts/test-pri-shabbos-quoted-sources.mjs --zips --mcp > pri-shabbos-quoted-sources-final-verification.json
 
       - name: Build and verify reviewed connections against the final canonical source edition
         run: |
@@ -359,6 +367,9 @@ jobs:
 
       - name: Verify Chanukah 25 source popups after the connection catalogs are built
         run: node scripts/test-pri-chanukah25-browser.mjs
+
+      - name: Verify all collated Shabbos quotations and Hebrew markers on desktop and mobile
+        run: node scripts/test-pri-shabbos-quoted-sources-browser.mjs
 
       - name: Cache official Sefaria source exports
         uses: actions/cache@v4
@@ -407,6 +418,11 @@ jobs:
 
       - name: Verify complete Dover Tzedek quotations on the published reader
         run: node scripts/test-dover-footnotes.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'
+
+      - name: Verify collated Shabbos quotation notes and offline downloads on the published reader
+        run: |
+          node scripts/test-pri-shabbos-quoted-sources.mjs --zips --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/' > pri-shabbos-quoted-sources-live-verification.json
+          node scripts/test-pri-shabbos-quoted-sources-browser.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'
 
       - name: Verify every supplied Bais Yaakov Toldos phrase and Word download on the published reader
         run: |
@@ -497,6 +513,16 @@ jobs:
             dist/library/parallel-cleanup-report.json
             parallel-cleanup-final-verification.json
           retention-days: 14
+
+      - name: Save collated Shabbos quotation publication and reader verification
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pri-shabbos-quoted-sources-verification
+          path: |
+            dist/library/pri-shabbos-quoted-sources-publication.json
+            pri-shabbos-quoted-sources-*-verification.json
+            artifacts/pri-shabbos-quoted-sources/
 
       - name: Save the supplied source-quotation publication and complete verification evidence
         if: always()
