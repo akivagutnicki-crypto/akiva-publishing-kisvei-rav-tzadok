@@ -6,7 +6,7 @@
   else root.AkivaConnectedIdeas = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this, function (sources) {
   'use strict';
-  const VERSION = '20261021-pri-shabbos-oral-deferred-v1';
+  const VERSION = '20261021-pri-shabbos-oral-deferred-v2';
   const SCHOOLS = ['Kisvei Rav Tzadok', 'Ishbitz–Radzin'];
   const normalized = sources.normalizedHebrew;
   const refKey = ref => sources.normalizeRef(ref || '').toLowerCase();
@@ -126,7 +126,8 @@
     const present = new Set(existing.filter(note => note.connectionIdeaId).map(note => note.connectionIdeaId));
     return unique(records).filter(record => !present.has(record.id)).map(record => {
       const url = '#/read/' + encodeURIComponent(record.targetRef).replace(/%20/g,'_').replace(/%2C/g,',').replace(/%3A/g,':');
-      const quote = record.targetRef + ': “' + record.targetEnglish + '”';
+      const schoolLabel = record.school === 'Ishbitz–Radzin' ? 'Kisvei Ishbitz–Radzin' : record.school;
+      const quote = schoolLabel + ' · ' + record.targetRef + ': “' + record.targetEnglish + '”';
       const noteNumber=Number.isSafeInteger(record.footnoteNumber) && record.footnoteNumber>0
         ? record.footnoteNumber : number+1;
       number=Math.max(number,noteNumber);
@@ -138,7 +139,7 @@
         paragraphs: [
           {language:'en', text:record.themeTitle, rich:[{text:record.themeTitle,bold:true}]},
           {language:'en', text:record.themeSummary, rich:[{text:record.themeSummary}]},
-          {language:'en', text:quote, rich:[{text:record.targetRef,bold:true,href:url},{text:': “'+record.targetEnglish+'”'}]},
+          {language:'en', text:quote, rich:[{text:schoolLabel+' · ',bold:true},{text:record.targetRef,bold:true,href:url},{text:': “'+record.targetEnglish+'”'}]},
           {language:'en', text:'Explanation: '+record.explanation,
             rich:[{text:'Explanation: ',bold:true},{text:record.explanation}]}
         ],

@@ -1729,12 +1729,12 @@
       "result": "The handler source and four regression cases are included for consistent future worker deployment. This release publishes reader data through GitHub Pages; it does not claim a separate Cloudflare worker deployment."
     }
   ],
-  "release": "20261021-pri-shabbos-oral-deferred-v1",
+  "release": "20261021-pri-shabbos-oral-deferred-v2",
   "localValidation": {
     "completedOn": "2026-10-21",
     "connectedIdeasBuild": {
       "ok": true,
-      "version": "20261021-pri-shabbos-oral-deferred-v1-709ab8d61e0f0e7f",
+      "version": "20261021-pri-shabbos-oral-deferred-v2-ba00bba8d22a4b85",
       "records": 1014,
       "origins": 620,
       "schools": {
@@ -1766,7 +1766,18 @@
       "focusedJsonRpcTests": "4/4 passed"
     },
     "syntaxAndWhitespace": "node --check passed for the importer, MCP handler and MCP tests; git diff --check passed.",
-    "runtimeScope": "This checkout lacks the complete reader build inputs and local parallel artifacts. The complete production build, generic MCP tests and browser suite are run by the existing unchanged Pages workflow."
+    "runtimeScope": "This checkout lacks the complete reader build inputs and local parallel artifacts. The complete production build, generic MCP tests and browser suite are run by the existing unchanged Pages workflow.",
+    "visibleSchoolLabels": {
+      "ok": true,
+      "section": "Peri Tzadik, Sefer Kedushat Shabbat 5",
+      "notesVerified": 6,
+      "labels": [
+        "Kisvei Rav Tzadok",
+        "Kisvei Ishbitz–Radzin"
+      ],
+      "checks": "Labels precede the exact linked target reference; the complete translated quotation and link are preserved."
+    }
   },
-  "publicationEvidenceLocation": "The GitHub Pages workflow attached to the publication commit supplies the complete production-build results. Live data and UI are verified after that workflow succeeds."
+  "publicationEvidenceLocation": "The GitHub Pages workflow attached to the publication commit supplies the complete production-build results. Live data and UI are verified after that workflow succeeds.",
+  "readerSchoolLabels": "Every reviewed connection footnote displays Kisvei Rav Tzadok or Kisvei Ishbitz–Radzin directly beside its exact source reference. The label uses the independently validated target school; quotation, translation and explanation are unchanged."
 }
