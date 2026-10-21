@@ -1,0 +1,1519 @@
+{
+  "schemaVersion": 1,
+  "reviewedOn": "2026-10-21",
+  "method": "Finite ordered review requested for Simanim 1–64. This file records all 63 canonical subsections in Simanim 1–59; the five overlapping Simanim 60–64 remain in their already published ledger and are not counted twice. Read complete originating Hebrew sections, classify opening invocation/title separately, compare actual primary texts in both schools, and record individual approvals and rejections. New translations, exact quotations, interpretation, placement, and duplication are separately checked. Retrieval scores never constitute approval.",
+  "entries": [
+    {
+      "ref": "Tzidkat HaTzadik 1:1",
+      "sectionRef": "Tzidkat HaTzadik 1",
+      "status": "reviewed-no-approved-connection",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "72fdeb9ae9c32964362925caf08a28248548a4eefdfb1a574e63dac015ffb699",
+      "reviewedSectionHebrewSha256": "2b3a280e6aed1be43ed1baded5ace6d1ad1acde09b134b4ccb64cc110d5371c2",
+      "assessment": "Read as an invocation for heavenly help, followed by the title and authorial Siman 1. It is not an independent conceptual assertion needing a Torah parallel. The comparisons below were examined with the full opening context; no note is placed on the invocation.",
+      "candidatesReviewed": [
+        {
+          "ref": "Dover Tzedek, Kuntres Dover Tzedek, Berakhot 2:3",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Retained as a close internal comparison already represented in the existing connected notes: early desire needs prompt action, whereas established service can sustain preparation."
+        },
+        {
+          "ref": "Sod Yesharim, The First Day of Pesach 10:2",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not added: the four-day examination of the Egyptian offering concerns preparation and the clarification of Israel's distinct standing, rather than the siman's transition from initial escape to steady service."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 1:2",
+      "sectionRef": "Tzidkat HaTzadik 1",
+      "status": "reviewed-no-approved-connection",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "ee8adf0376c5b2fc4b2883a79185d0b54965fb8527f3aabf4ac3ed9d9d35b68d",
+      "reviewedSectionHebrewSha256": "2b3a280e6aed1be43ed1baded5ace6d1ad1acde09b134b4ccb64cc110d5371c2",
+      "assessment": "Read as the bibliographic heading, distinct from the following authorial opening. A title does not warrant a conceptual footnote. The following comparisons concern the opening argument and do not explain this bibliographic heading.",
+      "candidatesReviewed": [
+        {
+          "ref": "Dover Tzedek, Kuntres Dover Tzedek, Berakhot 2:3",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Retained as a close internal comparison already represented in the existing connected notes: early desire needs prompt action, whereas established service can sustain preparation."
+        },
+        {
+          "ref": "Sod Yesharim, The First Day of Pesach 10:2",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not added: the four-day examination of the Egyptian offering concerns preparation and the clarification of Israel's distinct standing, rather than the siman's transition from initial escape to steady service."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 1:3",
+      "sectionRef": "Tzidkat HaTzadik 1",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "78b0e83e8e375f4f682b691caa9cf6cee8a0fec5f12b1f88031930c75ff19866",
+      "reviewedSectionHebrewSha256": "2b3a280e6aed1be43ed1baded5ace6d1ad1acde09b134b4ccb64cc110d5371c2",
+      "assessment": "Read the invocation, bibliographic title, and first authorial argument separately. Retain the existing initial-haste and later-patience notes; the further candidates do not add a distinct explanation.",
+      "candidatesReviewed": [
+        {
+          "ref": "Dover Tzedek, Kuntres Dover Tzedek, Berakhot 2:3",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Retained as a close internal comparison already represented in the existing connected notes: early desire needs prompt action, whereas established service can sustain preparation."
+        },
+        {
+          "ref": "Sod Yesharim, The First Day of Pesach 10:2",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not added: the four-day examination of the Egyptian offering concerns preparation and the clarification of Israel's distinct standing, rather than the siman's transition from initial escape to steady service."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 2:1",
+      "sectionRef": "Tzidkat HaTzadik 2",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "a6370fa01ea2444fff98caeba07fbb47fa22073207fb194fc85d0721df878b62",
+      "reviewedSectionHebrewSha256": "a6370fa01ea2444fff98caeba07fbb47fa22073207fb194fc85d0721df878b62",
+      "assessment": "Read the whole progression from knowing Whom one serves to the blessing's direct and concealed forms. Preserve the existing food-blessing note and add the distinct account of opening recognition versus an enduring acquisition of the heart.",
+      "candidatesReviewed": [
+        {
+          "ref": "Dover Tzedek, Kuntres Dover Tzedek, Berakhot 2:5",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: the same grammatical movement is connected to initial intention and the as-yet-incomplete lasting possession of the heart."
+        },
+        {
+          "ref": "Tiferet Yosef, Talmud Anthology, Berakhot 7",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not added here: the priority of Anokhi leaves room for mitzvot after failure, a different use of the order of service; it is approved at Siman 41 instead."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 3:1",
+      "sectionRef": "Tzidkat HaTzadik 3",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "9133bbcd1334b088241845bd81283fce3c59236644e0e605babe979ad8a2610c",
+      "reviewedSectionHebrewSha256": "9133bbcd1334b088241845bd81283fce3c59236644e0e605babe979ad8a2610c",
+      "assessment": "Read the contrast between cosmic sunset and human lying down, the greater difficulty of night acceptance, and the concluding dream test. Keep the existing night-faith note.",
+      "candidatesReviewed": [
+        {
+          "ref": "Dover Tzedek, Kuntres Dover Tzedek, Berakhot 3:5",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added: its waking-to-dream continuity closely restates the siman's final point without a new qualification."
+        },
+        {
+          "ref": "Tiferet Yosef, Nitzavim 1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not added: the location of completed service in the divine source does not explain the particular human criterion for Shema's time or the dream test."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 4:1",
+      "sectionRef": "Tzidkat HaTzadik 4",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "2c5cc4c823aa3a8f6d1697d569218ef29486c5e2410294e2f79ad64e3f4adf6a",
+      "reviewedSectionHebrewSha256": "2c5cc4c823aa3a8f6d1697d569218ef29486c5e2410294e2f79ad64e3f4adf6a",
+      "assessment": "Read the first obligated night of a bar mitzvah as an entrance through darkness into clearer service. The existing acceptance-before-understanding note is sufficient.",
+      "candidatesReviewed": [
+        {
+          "ref": "Meshiv Tzedek, Talks for Bar Mitzvah 49",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added: the same explanation of why evening Shema begins the Mishnah directly corroborates the opening but supplies no further conceptual distinction."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume II, Genesis, Lech Lecha 3",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not added: Avraham's waiting for the command of circumcision concerns repairing created deficiency, rather than first-night acceptance of the yoke."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 5:1",
+      "sectionRef": "Tzidkat HaTzadik 5",
+      "status": "reviewed-no-approved-connection",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "7758b2524cd91893ef1ae67920cb5310b3050023b7cb235a6439d66fb9f0b321",
+      "reviewedSectionHebrewSha256": "7758b2524cd91893ef1ae67920cb5310b3050023b7cb235a6439d66fb9f0b321",
+      "assessment": "Read the continuous obligation, initial intention, continuing holiness of the act, and the differing morning and evening time spans. Avoid duplicating the adjacent new blessing note.",
+      "candidatesReviewed": [
+        {
+          "ref": "Dover Tzedek, Kuntres Ner HaMitzvot 1:9",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added: this exact initial-intention and night/day parallel repeats the distinction already fully stated in the siman; the related blessing note is placed at 2."
+        },
+        {
+          "ref": "Tiferet Yosef, Shmini 1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not added here: accepting Heaven's kingship before distraction is a useful contextual comparison, but its prayer-preparation argument is covered by the existing note at 6."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 6:1",
+      "sectionRef": "Tzidkat HaTzadik 6",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "d611cae08bae756445f3ba773ced26bd5ff3ae808da47e6726091a7724d2ea42",
+      "reviewedSectionHebrewSha256": "d611cae08bae756445f3ba773ced26bd5ff3ae808da47e6726091a7724d2ea42",
+      "assessment": "Read the whole preparation sequence from removing personal bias and cleansing the hands through tefillin, Shema, and direct prayer. Retain the existing note on receptivity.",
+      "candidatesReviewed": [
+        {
+          "ref": "Dover Tzedek, Kuntres Dover Tzedek, Berakhot 3:7",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added: the waters of knowledge and the meal analogy provide a close authorial restatement, without a distinct advance over this siman's explanation."
+        },
+        {
+          "ref": "Tiferet Yosef, Shmini 1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not added: its full sequence explains removing bias and subordinating action to the mind, but would substantially duplicate the existing Tiferet Yosef note on becoming a vessel for prayer."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 7:1",
+      "sectionRef": "Tzidkat HaTzadik 7",
+      "status": "reviewed-no-approved-connection",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "10ac65ffd2cad4d071fac2e767811a2fa9f6d4a94ccb2590048e591630bc1e74",
+      "reviewedSectionHebrewSha256": "10ac65ffd2cad4d071fac2e767811a2fa9f6d4a94ccb2590048e591630bc1e74",
+      "assessment": "Read the poor person's meal, the majority's meal, Shabbat readiness, and priestly purity as distinct starting levels. Do not replace those distinctions with a generic food metaphor.",
+      "candidatesReviewed": [
+        {
+          "ref": "Dover Tzedek, Kuntres Dover Tzedek, Berakhot 3:7",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added: the broad correspondence of Shema and food does not explain the particular differences among the meal times."
+        },
+        {
+          "ref": "Tiferet Yosef, Talmud Anthology, Pesachim 2",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected for this anchor: candlelight and the hidden crevices of chametz concern a different use of darkness; approved for that precise topic at 13."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 8:1",
+      "sectionRef": "Tzidkat HaTzadik 8",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "c5ebd03cbf1cb4edb96719c03cc606bcf1d64388bcaf1a7e60b99269c8452fce",
+      "reviewedSectionHebrewSha256": "c5ebd03cbf1cb4edb96719c03cc606bcf1d64388bcaf1a7e60b99269c8452fce",
+      "assessment": "Read variable preparation, evening faith and morning clarity, the originally optional evening prayer, its accepted obligation, and make-up prayer. Preserve the existing preparation-and-gift note.",
+      "candidatesReviewed": [
+        {
+          "ref": "Resisei Layla 5:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added: its world-as-night account and blessing before enjoyment do not clarify the specific transition in the obligation of evening prayer."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Bereshit 2",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not added: its five stages of emergence illustrate gradual revelation, but do not account for the siman's particular prayer distinctions."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 9:1",
+      "sectionRef": "Tzidkat HaTzadik 9",
+      "status": "reviewed-no-approved-connection",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "0b4eb8829ee5180fe904f2619883947a215fffcdf884ec2ec96c75f2aba07fd5",
+      "reviewedSectionHebrewSha256": "0b4eb8829ee5180fe904f2619883947a215fffcdf884ec2ec96c75f2aba07fd5",
+      "assessment": "Read the argument that failure to fulfill an obligated positive command is also an offense, including the tefillin example. No further source warrants a new note.",
+      "candidatesReviewed": [
+        {
+          "ref": "Takanat HaShavin 15:64",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added: the particular Tosafot discussion of a Torah scholar's tefillin exemption belongs to a larger inquiry about Gehinnom; it is not a general explanation of the present claim about an existing obligation."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Exodus, Bo 2",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not added: the souls that refused to leave Egypt are explained through Avraham's earlier thoughts, not through the precise distinction between omission of a required act and other inactivity."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 10:1",
+      "sectionRef": "Tzidkat HaTzadik 10",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "b19029ccea443b4aefa410f78b8d3e4d3d65ae765ff96c2ea3bbbe7928cdedd5",
+      "reviewedSectionHebrewSha256": "b19029ccea443b4aefa410f78b8d3e4d3d65ae765ff96c2ea3bbbe7928cdedd5",
+      "assessment": "Read the requirement that Oral Torah remain rooted in the Written Torah and divine command rather than ordinary intellectual skill. Keep the existing Written/Oral Torah note.",
+      "candidatesReviewed": [
+        {
+          "ref": "Dover Tzedek, Kuntres Ner HaMitzvot 1:27",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Rejected: recognition in blessings grounds doing good, but does not explain the specific scriptural foundation of Oral Torah."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Lech Lecha 6",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not added: self-mastery before kingship and Melchizedek's clarification are distinct from studying a received command as Torah."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 11:1",
+      "sectionRef": "Tzidkat HaTzadik 11",
+      "status": "reviewed-no-approved-connection",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "053f037349f574de4647cc1b914f84b9f1c0a74fbe6d8fdd3324b4af34908afa",
+      "reviewedSectionHebrewSha256": "053f037349f574de4647cc1b914f84b9f1c0a74fbe6d8fdd3324b4af34908afa",
+      "assessment": "Read absence before existence, night before day, and the deliberate reversal for sacred offerings as peel and fruit. No additional note improves the author's own explanation.",
+      "candidatesReviewed": [
+        {
+          "ref": "Dover Tzedek, Kuntres Ner HaMitzvot 1:25",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added: it states the same sacred-day reversal and extends it to Torah study, but does not add a necessary distinction to the present explanation."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume II, Genesis, Lech Lecha 3",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected for this placement: the intentionally incomplete creation repaired through circumcision is not an explanation of the day/night order in sacred offerings."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 12:1",
+      "sectionRef": "Tzidkat HaTzadik 12",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "c78dc1a6005fac8e66de99a10e2e40236c907f1ded76731ea930bf7983aa2a36",
+      "reviewedSectionHebrewSha256": "c78dc1a6005fac8e66de99a10e2e40236c907f1ded76731ea930bf7983aa2a36",
+      "assessment": "Read prospective protection and retrospective atonement, then the differing requirements for terumah and sacred food. Retain the existing note about an accepted resolve before all repair is complete.",
+      "candidatesReviewed": [
+        {
+          "ref": "Kometz HaMinchah 1:28:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added: its threefold scheme distinguishes Torah's preventive light and the Temple's atonement, closely repeating the distinction stated here."
+        },
+        {
+          "ref": "Tiferet Yosef, Talmud Anthology, Berakhot 3",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not added: the full exposition of sunset and incomplete clarification supports the existing acceptance-before-completion note rather than providing a separate needed note."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 13:1",
+      "sectionRef": "Tzidkat HaTzadik 13",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "5604f9ff6dd445e0da93e9ecc89007aae730b12aafa1c856fd90f8bbd7fc3096",
+      "reviewedSectionHebrewSha256": "5604f9ff6dd445e0da93e9ecc89007aae730b12aafa1c856fd90f8bbd7fc3096",
+      "assessment": "Read all levels of light, the search within the heart, effort to the limit of one's reach, nullification of what remains, and sunset purification. Add the precise explanation of why the smaller light suits hidden crevices.",
+      "candidatesReviewed": [
+        {
+          "ref": "Kometz HaMinchah 1:88:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Rejected: the quality of bodily versus spiritual luminosity concerns the enduring results of different kinds of teaching, not the candle's suitability for searching."
+        },
+        {
+          "ref": "Tiferet Yosef, Talmud Anthology, Pesachim 2",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after reading the full discourse: the candle is human work within concealment, while the torch's complete illumination would leave no perceived place for that work."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 14:1",
+      "sectionRef": "Tzidkat HaTzadik 14",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "8b0c3b1628fe2254f9c5e43e32923148eac9d4c9007b82b07892ee1924c8be15",
+      "reviewedSectionHebrewSha256": "8b0c3b1628fe2254f9c5e43e32923148eac9d4c9007b82b07892ee1924c8be15",
+      "assessment": "Read the protective cloud, the cloud that prepares rain, and the qualification that rain must be timely. Add the later author's explanation of the cry through which descent prepares ascent.",
+      "candidatesReviewed": [
+        {
+          "ref": "Tzidkat HaTzadik 151:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: the full paragraph repeats the cloud teaching and specifies recognition of decline and a cry to Hashem as the response leading toward renewed Torah."
+        },
+        {
+          "ref": "Beit Yaakov on Torah, Noach 47:2",
+          "school": "Ishbitz–Radzin",
+          "reason": "Read all five subsections of the discourse. Not separately added: the concealment-to-covenant parallel confirms the cloud image; Siman 151 supplies the more specific account of the human response without claiming to identify the unnamed teacher."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 15:1",
+      "sectionRef": "Tzidkat HaTzadik 15",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "2869c089209fad649298de6ef2d8b52cd87254e922b079105b1ac02398f36dfd",
+      "reviewedSectionHebrewSha256": "2869c089209fad649298de6ef2d8b52cd87254e922b079105b1ac02398f36dfd",
+      "assessment": "Read mitzvah opportunity as a gift and the subsequent distinction between immediately entering preparation and eating immediately. Preserve the existing privilege note and fulfill the explicit Et HaOchel cross-reference with a separate note.",
+      "candidatesReviewed": [
+        {
+          "ref": "Et HaOchel 5:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved in full, including its closing qualification about someone already absorbed in Torah: deliberate preparation counters appetite, while promptness begins the preparation itself."
+        },
+        {
+          "ref": "Sod Yesharim, The First Night of Pesach 2:4",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not added: kiddush as the emergence of Israel's holy point explains the four cups, not the siman's specific entry and food-preparation distinction."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 16:1",
+      "sectionRef": "Tzidkat HaTzadik 16",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "64fbd116a4c0ac587b1d58cd743727726319fb6ff0baf5cc8465aab09e2123de",
+      "reviewedSectionHebrewSha256": "64fbd116a4c0ac587b1d58cd743727726319fb6ff0baf5cc8465aab09e2123de",
+      "assessment": "Read obligatory observance arising from doubt, the cited blessing discussion, and twilight as an added sanctity. Add the specific second-festival-day explanation while leaving the halakhic cases distinct.",
+      "candidatesReviewed": [
+        {
+          "ref": "Ohr Zarua LaTzadik, Novellae, Rambam, Mamrim, Kuntres Acharon 1:8",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Rejected for a conceptual note: the disputed application of disciplinary lashes in doubtful cases does not establish the positive spiritual content of the observance."
+        },
+        {
+          "ref": "Sod Yesharim, The Eighth Day of Pesach 3:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after the complete discourse: willing service amid doubt gives a share in certain holiness, with the same example of the second festival day."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 17:1",
+      "sectionRef": "Tzidkat HaTzadik 17",
+      "status": "reviewed-no-approved-connection",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "ece7193ddd42f0c61d10e21be7facea70cde6f4a07ec14fb305a678ab432ece4",
+      "reviewedSectionHebrewSha256": "ece7193ddd42f0c61d10e21be7facea70cde6f4a07ec14fb305a678ab432ece4",
+      "assessment": "Read daytime labor and nighttime guarding, including why the Temple's night work belongs to a different role. No new note is needed.",
+      "candidatesReviewed": [
+        {
+          "ref": "Dover Tzedek, Kuntres Ner HaMitzvot 1:2",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added: its day/positive action and night/turning from evil distinction restates the present thesis."
+        },
+        {
+          "ref": "Sod Yesharim, The First Night of Pesach 7:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not added: its main distinction is between divine nocturnal redemption and acquired human service, rather than the Temple's division between work and guarding."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 18:1",
+      "sectionRef": "Tzidkat HaTzadik 18",
+      "status": "reviewed-no-approved-connection",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "9b8bbbc0acca1e97b01ea7333591c2dbe0b375a67c65f149c448bfd93255e173",
+      "reviewedSectionHebrewSha256": "9b8bbbc0acca1e97b01ea7333591c2dbe0b375a67c65f149c448bfd93255e173",
+      "assessment": "Read the entire technical inquiry about night, lying down, twilight, and the extension of Shabbat. Preserve the author's distinctions and uncertainties.",
+      "candidatesReviewed": [
+        {
+          "ref": "Ohr Zarua LaTzadik, Novellae, Rambam, Kriat Shema 1:9",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added: its contrasting opinions about the duration of twilight address a specific doubt about having read Shema, not the whole set of criteria examined here."
+        },
+        {
+          "ref": "Sod Yesharim, Rosh Hashanah 85:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not added: twilight as an unresolved meaning clarified at its appointed time is a symbolic use and does not decide the technical timing questions."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 19:1",
+      "sectionRef": "Tzidkat HaTzadik 19",
+      "status": "reviewed-no-approved-connection",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "d4776a9f856793a709bfb2f693b7fdf2c1a408f3c063e0766ec9d6444e536bef",
+      "reviewedSectionHebrewSha256": "d4776a9f856793a709bfb2f693b7fdf2c1a408f3c063e0766ec9d6444e536bef",
+      "assessment": "Read the correspondence of earthly and heavenly watches and the demand for an appropriate response to each time, especially lament in exile. No further note is warranted.",
+      "candidatesReviewed": [
+        {
+          "ref": "Dover Tzedek, Kuntres Ner HaMitzvot 2:254",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added: the extended Issachar discussion expressly returns to the watches and correspondence of times, but substantially restates that correspondence without clarifying the particular signs here."
+        },
+        {
+          "ref": "Tiferet Yosef, Talmud Anthology, Taanit 13",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected for this anchor: Temple clarity, the answer of Amen, and sobriety in service do not explain the watches' earthly signs."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 20:1",
+      "sectionRef": "Tzidkat HaTzadik 20",
+      "status": "reviewed-no-approved-connection",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "4100bb931811a43ee2806eab496c3aa696a544747f4787a0764793cb0c1b85ed",
+      "reviewedSectionHebrewSha256": "4100bb931811a43ee2806eab496c3aa696a544747f4787a0764793cb0c1b85ed",
+      "assessment": "Read all three signs and the reversed nocturnal order of action, prayer, and Torah. The siman already explains the mechanism at length.",
+      "candidatesReviewed": [
+        {
+          "ref": "Dover Tzedek, Kuntres Ner HaMitzvot 2:252",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added: the full paragraph repeats all three signs and their night/day ordering; its separate distinction between practical study and study as an act would distract from this anchor."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Toldot 5",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected: Yitzchak's wells distinguish Torah, offerings, and suffering rather than the nocturnal arrangement of thought, speech, and action."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 21:1",
+      "sectionRef": "Tzidkat HaTzadik 21",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "f52ee266ea52724a7938ba133ab0c0720ee06f0c6d9a036276b3c1c731292d75",
+      "reviewedSectionHebrewSha256": "f52ee266ea52724a7938ba133ab0c0720ee06f0c6d9a036276b3c1c731292d75",
+      "assessment": "Read reciprocal awakening and both examples of Torah spoken below and Above. Add a concrete ethical application through parental compassion.",
+      "candidatesReviewed": [
+        {
+          "ref": "Ohr Zarua LaTzadik, Novellae, Rif, Shabbat 6:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Rejected: the occurrence of Rabbi Meir belongs to a technical discussion of whether a baraita means Torah law, not the correspondence of human and heavenly service."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume II, Genesis, Bereshit 5",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved in its context of creation and human parenthood: merciful conduct below awakens corresponding mercy Above through measure for measure."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 22:1",
+      "sectionRef": "Tzidkat HaTzadik 22",
+      "status": "reviewed-no-approved-connection",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "a0b5c6c7618aa80ba28b409ff35d7ff62949189d0bab288cdb5e9e5e643401dc",
+      "reviewedSectionHebrewSha256": "a0b5c6c7618aa80ba28b409ff35d7ff62949189d0bab288cdb5e9e5e643401dc",
+      "assessment": "Read the three- and four-watch schemes and the historical stages of exile. Do not force an unrelated threefold scheme into this chronology.",
+      "candidatesReviewed": [
+        {
+          "ref": "Dover Tzedek, Kuntres Dover Tzedek, Berakhot 3:9",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added: three parts of every night and guarding during exile do not explain the particular three/four-stage historical distinction."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Exodus, Bo 3",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected: the three final plagues oppose three distinct faults; they do not establish stages of the night watches or exile."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 23:1",
+      "sectionRef": "Tzidkat HaTzadik 23",
+      "status": "reviewed-no-approved-connection",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "604e9967a0db0897684f0b84d0b658cbff28141aa15e3705b3c5d2a6d80d8f86",
+      "reviewedSectionHebrewSha256": "604e9967a0db0897684f0b84d0b658cbff28141aa15e3705b3c5d2a6d80d8f86",
+      "assessment": "Read the lowest sign, holy boldness, midnight favor, and the final awakening through leaders and children. No candidate supplies a distinct necessary clarification.",
+      "candidatesReviewed": [
+        {
+          "ref": "Kometz HaMinchah 2:22:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added here: attention to the divine will at each time is more general than the concrete watch signs and prayer image; its precise ritual-purpose argument is added at 42."
+        },
+        {
+          "ref": "Beit Yaakov on Torah, Chayei Sara 6:5",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected for this anchor: collecting good through involuntary concealment does not explain why these lower signs reflect the upper service."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 24:1",
+      "sectionRef": "Tzidkat HaTzadik 24",
+      "status": "reviewed-no-approved-connection",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "f4bae39866fed7b0e9bcaf30805e00321d22421904ff02433347a4c1cc46d79e",
+      "reviewedSectionHebrewSha256": "f4bae39866fed7b0e9bcaf30805e00321d22421904ff02433347a4c1cc46d79e",
+      "assessment": "Read the four/eight-hour calculations, seasonal nights, and their Talmudic premises. No conceptual addition should replace the actual calculation.",
+      "candidatesReviewed": [
+        {
+          "ref": "Dover Tzedek, Kuntres Dover Tzedek, Berakhot 3:11",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added: the donkey's coldness in Tammuz is interpreted as spiritual inertia, rather than evidence resolving these sleep durations."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Vayigash 4",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected: four spiritual tests before trusting joy do not explain a four- or eight-hour sleep calculation."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 25:1",
+      "sectionRef": "Tzidkat HaTzadik 25",
+      "status": "reviewed-no-approved-connection",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "3eec4ba49322e9fd2750f71e5653079f42bbc28be16a620f7dfd81e91103aaf1",
+      "reviewedSectionHebrewSha256": "3eec4ba49322e9fd2750f71e5653079f42bbc28be16a620f7dfd81e91103aaf1",
+      "assessment": "Read undistracted prayer, the congregation's shared attention, imagined solitude, and the contrast with waking worldly desires. Leave the passage without an additional general prayer note.",
+      "candidatesReviewed": [
+        {
+          "ref": "Dover Tzedek, Kuntres Dover Tzedek, Berakhot 3:14",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Rejected: the paired infant and wife concern the third watch's transmission of Torah, not the mental concentration of the individual praying here."
+        },
+        {
+          "ref": "Tiferet Yosef, Bamidbar 3",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not added: unique service and voluntary union across different qualities concern Israel's particular providence, not the particular solitude-in-prayer discipline."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 26:1",
+      "sectionRef": "Tzidkat HaTzadik 26",
+      "status": "reviewed-no-approved-connection",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "91795891e8d624f9acefaf84f75f6eadf0a8cc59dd248254cf94d9bdcc1394f4",
+      "reviewedSectionHebrewSha256": "91795891e8d624f9acefaf84f75f6eadf0a8cc59dd248254cf94d9bdcc1394f4",
+      "assessment": "Read the distinction between what awakens first in fact and what an observer hears first, and its application to the generation and its leaders. The explanation is already complete.",
+      "candidatesReviewed": [
+        {
+          "ref": "Dover Tzedek, Kuntres Dover Tzedek, Berakhot 3:15",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added: this is a close restatement of the same infant/wife and generation/teacher reversal, without an additional distinction."
+        },
+        {
+          "ref": "Tiferet Yosef, Rosh Hashanah 1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected for this anchor: the shofar raising human action beyond its apparent measure is not the reciprocal awakening of the generation and its leader."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 27:1",
+      "sectionRef": "Tzidkat HaTzadik 27",
+      "status": "reviewed-no-approved-connection",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "537ee216a0f6a2b1d3845cf7d9aef3a8cad250585a29b9fad768cfa4af171b64",
+      "reviewedSectionHebrewSha256": "537ee216a0f6a2b1d3845cf7d9aef3a8cad250585a29b9fad768cfa4af171b64",
+      "assessment": "Read the watches as signs for lament over exile rather than only timekeeping, including the yeast and the still-unredeemed present. No new note is warranted.",
+      "candidatesReviewed": [
+        {
+          "ref": "Dover Tzedek, Kuntres Dover Tzedek, Berakhot 3:15",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Rejected for this placement: its particular discussion explains the preceding siman's generation/teacher reversal, not the reason for lament at the transition of times."
+        },
+        {
+          "ref": "Sod Yesharim, Purim 7:2",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not added: preparation before Shabbat acquiring a share in fixed holiness is distinct from lament at the night's beginning and dawn."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 28:1",
+      "sectionRef": "Tzidkat HaTzadik 28",
+      "status": "reviewed-no-approved-connection",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "91d4dc76e5a7ae846026434985e8c3f6b8c4909355144d0809c48eaca3185c58",
+      "reviewedSectionHebrewSha256": "91d4dc76e5a7ae846026434985e8c3f6b8c4909355144d0809c48eaca3185c58",
+      "assessment": "Read the dark-house image with its explicit limit: join the collective only after one's own available effort, rather than substituting passivity for a possible examination. No added note improves that qualification.",
+      "candidatesReviewed": [
+        {
+          "ref": "Peri Tzadik, Parshat Shekalim 1:5",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added: the dark-house rule illustrates a renewed judgment at elevation and the protection of atonement, not joining a community after exhausted personal effort."
+        },
+        {
+          "ref": "Beit Yaakov on Torah, Noach 36:9",
+          "school": "Ishbitz–Radzin",
+          "reason": "Read the whole eleven-subsection discourse. Not added: the requirement to clarify where possible forms part of interpreting conditional and repeated divine statements, rather than the particular communal remedy here."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 29:1",
+      "sectionRef": "Tzidkat HaTzadik 29",
+      "status": "reviewed-no-approved-connection",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "0c5475f282c0c9bd574d8fc82a08dd9da27f3b7f954da53bb11906d64ad8425c",
+      "reviewedSectionHebrewSha256": "0c5475f282c0c9bd574d8fc82a08dd9da27f3b7f954da53bb11906d64ad8425c",
+      "assessment": "Read the repair of the ruined inner sanctuary in the order of fear, wisdom, and actions. Keep that order distinct from a general promise of comfort.",
+      "candidatesReviewed": [
+        {
+          "ref": "Peri Tzadik, Miketz 5:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added: rebuilding Jerusalem as healing broken hearts provides consolation, but does not explain the siman's precise order of rebuilding the faculties."
+        },
+        {
+          "ref": "Tiferet Yosef, Ki Teitzei 1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not added: building Jerusalem through gathering dispersed good concerns exile and return, rather than the order of inner repair."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 30:1",
+      "sectionRef": "Tzidkat HaTzadik 30",
+      "status": "reviewed-no-approved-connection",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "43f7a3bb6ae32a2797a9475da28852d3ffae887fc7c012c171b18beaf38612f6",
+      "reviewedSectionHebrewSha256": "43f7a3bb6ae32a2797a9475da28852d3ffae887fc7c012c171b18beaf38612f6",
+      "assessment": "Read why Eliyahu waited until the prayer was complete, including the author's tentative explanations. Do not turn these into permission to enter a forbidden ruin.",
+      "candidatesReviewed": [
+        {
+          "ref": "Dover Tzedek, Kuntres Ner HaMitzvot 2:245",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Rejected: the heart as the source of an intentional act does not settle why an ongoing prayer was not interrupted."
+        },
+        {
+          "ref": "Tiferet Yosef, Talmud Anthology, Berakhot 4",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not added here: the same narrative is explained through clarifying requests under distraction; it does not answer this siman's timing question and is placed instead at 31."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 31:1",
+      "sectionRef": "Tzidkat HaTzadik 31",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "c403ccbf32d34b59347533839b6463a513c63ff8ab0ea92d74e95f1f73c34f03",
+      "reviewedSectionHebrewSha256": "c403ccbf32d34b59347533839b6463a513c63ff8ab0ea92d74e95f1f73c34f03",
+      "assessment": "Read the preference for an attentive short prayer and the protected road over a distracting alternative. Add the source explaining the positive content of the short prayer.",
+      "candidatesReviewed": [
+        {
+          "ref": "Kometz HaMinchah 1:84:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Rejected: the royal road and water concern the route through Edom, not the petitioner's limited attention."
+        },
+        {
+          "ref": "Tiferet Yosef, Talmud Anthology, Berakhot 4",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after the whole discourse: when one cannot fully examine a specific request, the short prayer asks for an elevation of limited understanding."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 32:1",
+      "sectionRef": "Tzidkat HaTzadik 32",
+      "status": "reviewed-no-approved-connection",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "c845ea943b46d7ac3e3f480c199b6d190fc77598d18b7ab5c874274f47cb3756",
+      "reviewedSectionHebrewSha256": "c845ea943b46d7ac3e3f480c199b6d190fc77598d18b7ab5c874274f47cb3756",
+      "assessment": "Read the ruin as vacant thought, self-suspicion, and harmful forces, with the author's qualified cases. Avoid duplicating the note just added to the preceding short-prayer discussion.",
+      "candidatesReviewed": [
+        {
+          "ref": "Ohr Zarua LaTzadik, Novellae, Mordechai, Shabbat 16:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added: the open technical questions about field synagogues and harmful forces do not supply a settled conceptual explanation of vacant thought."
+        },
+        {
+          "ref": "Tiferet Yosef, Talmud Anthology, Berakhot 4",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not added at a second anchor: its request-clarification argument is placed at 31; it does not specifically explain this siman's different use of the ruin."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 33:1",
+      "sectionRef": "Tzidkat HaTzadik 33",
+      "status": "reviewed-no-approved-connection",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "36077299f0593c772b062f513396b34715bad10030e9cef6eb156511d53abd13",
+      "reviewedSectionHebrewSha256": "36077299f0593c772b062f513396b34715bad10030e9cef6eb156511d53abd13",
+      "assessment": "Read the distinction between general alacrity and an urgency exceeding it, together with the Temple-night qualification. No new parallel is sufficiently specific.",
+      "candidatesReviewed": [
+        {
+          "ref": "Dover Tzedek, Kuntres Dover Tzedek, Berakhot 3:9",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Rejected for this anchor: guarding through the night's parts does not explain why the urgency here exceeds ordinary morning alacrity."
+        },
+        {
+          "ref": "Sod Yesharim, Purim 41:2",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not added: the dawn boundary of miracles and the question of Esther's written status do not explain the degree of haste in performing an act."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 34:1",
+      "sectionRef": "Tzidkat HaTzadik 34",
+      "status": "reviewed-no-approved-connection",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "e9942d396d4011ed592bb328ef4401316a3c8ca024bdaf283cb51cd89d0ff0fb",
+      "reviewedSectionHebrewSha256": "e9942d396d4011ed592bb328ef4401316a3c8ca024bdaf283cb51cd89d0ff0fb",
+      "assessment": "Read the repeated sleep calculation with its distinct textual readings and unresolved Tosafot questions. Retain those uncertainties.",
+      "candidatesReviewed": [
+        {
+          "ref": "Tzidkat HaTzadik 24:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Internal cross-check, not an added note: it supplies the related seasonal calculation but does not resolve the alternate readings examined here."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Vayigash 4",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected: the four tests of a desire's source are not a source for four hours of sleep or its competing calculation."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 35:1",
+      "sectionRef": "Tzidkat HaTzadik 35",
+      "status": "reviewed-no-approved-connection",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "26b7b471b2892ec4dfd3917895d1e172c8157844bbc98a131be376d813525c75",
+      "reviewedSectionHebrewSha256": "26b7b471b2892ec4dfd3917895d1e172c8157844bbc98a131be376d813525c75",
+      "assessment": "Read the contrast between habitation and ruin and the protective effect of even ordinary use. No new note meets the specific argument.",
+      "candidatesReviewed": [
+        {
+          "ref": "Likkutei Maamarim, On Book of Joshua 11",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added: natural cultivation joined to faith in the source of livelihood is distinct from the ruin's capacity to cause harm."
+        },
+        {
+          "ref": "Tiferet Yosef, Ha'azinu and Shabbat Shuvah 13",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not added: spiritual settlement versus what lies beyond human perception does not establish the practical protection produced by a minimally inhabited place."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 36:1",
+      "sectionRef": "Tzidkat HaTzadik 36",
+      "status": "reviewed-no-approved-connection",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "2a8b9671c9dd935af18b93c26141d5a5a769d0bb3cf4ddf22997e642e178eade",
+      "reviewedSectionHebrewSha256": "2a8b9671c9dd935af18b93c26141d5a5a769d0bb3cf4ddf22997e642e178eade",
+      "assessment": "Read the complete technical discussion of waiting for another worshipper, including city/field, day/night, danger, and distraction. Preserve its disagreements.",
+      "candidatesReviewed": [
+        {
+          "ref": "Ohr Zarua LaTzadik, Novellae, Mordechai, Shabbat 16:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added: the author raises related difficulties about field synagogues and danger but leaves them as questions; no settled resolution is supplied for a new note."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Chayei Sarah 1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected for this anchor: prayer before several kinds of uncertainty is not an account of the obligation to wait for another person."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 37:1",
+      "sectionRef": "Tzidkat HaTzadik 37",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "0401baa12e304ace1c70b8fb1f61c168be777ff68d7c0922165bdf945c87eeb3",
+      "reviewedSectionHebrewSha256": "0401baa12e304ace1c70b8fb1f61c168be777ff68d7c0922165bdf945c87eeb3",
+      "assessment": "Read the particular expansive state called a field and its claimed freedom from common bodily desires. Add the distinction between expansion's possible directions.",
+      "candidatesReviewed": [
+        {
+          "ref": "Likkutei Maamarim, On Shimshon 15",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Rejected: length and breadth in mental forms and letters do not clarify the spiritual character of the field here."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Toldot 9",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved: the compact discourse expressly contrasts Esav's expansion into desire with Yaakov's expansion in holiness, preventing a fixed meaning from being assigned to the symbol alone."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 38:1",
+      "sectionRef": "Tzidkat HaTzadik 38",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "2e7f5b51b4fb3867da581ea71b4502e8e1a9c3ae6704aa445b1098d01efb16dc",
+      "reviewedSectionHebrewSha256": "2e7f5b51b4fb3867da581ea71b4502e8e1a9c3ae6704aa445b1098d01efb16dc",
+      "assessment": "Read the movement from inward conviction to public speech and action, including fallibility and what cannot be disclosed from the heart. Add the account of inward taste and its verbal impression.",
+      "candidatesReviewed": [
+        {
+          "ref": "Resisei Layla 16:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved after the full paragraph: communicated reasons and inward taste are distinguished without denying that the heart's understanding leaves an impression in speech."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Toldot 10",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not added: different individual portions of Torah and their future clarification do not establish a present speaker's private certainty as public proof."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 39:1",
+      "sectionRef": "Tzidkat HaTzadik 39",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "db206d20b2868c4893a674f9c4413da98e2ebe6398e78c9bfe94a6cb0ffac8dd",
+      "reviewedSectionHebrewSha256": "db206d20b2868c4893a674f9c4413da98e2ebe6398e78c9bfe94a6cb0ffac8dd",
+      "assessment": "Read the warning that assistance does not prove righteousness, the difficulty of knowing one's root, and the concluding prayer for a newly created heart. Add the concrete recreation parallel.",
+      "candidatesReviewed": [
+        {
+          "ref": "Ohr Zarua LaTzadik, The Egyptian Exile 5:8",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved with the surrounding paragraphs about Rabbi Akiva: effort, Torah, and mercy are linked to new birth and the same creation-from-nothing verse. The matching cross-reference is not asserted as a proven identification."
+        },
+        {
+          "ref": "Beit Yaakov on Torah, Vayera 8:4",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected for this anchor: distancing a permitted outer layer from a tainted association is not the same as the prayer to transform the root itself."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 40:1",
+      "sectionRef": "Tzidkat HaTzadik 40",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "6d262c773efc74a170d1b2f5ca9bf1a2d81a59ebd274235ca6fe8ba464d60ba2",
+      "reviewedSectionHebrewSha256": "6d262c773efc74a170d1b2f5ca9bf1a2d81a59ebd274235ca6fe8ba464d60ba2",
+      "assessment": "Read retrospective providence and prospective choice in their separate places, including the commanded and uncommanded scapegoat contrast. Keep the existing note explaining that boundary.",
+      "candidatesReviewed": [
+        {
+          "ref": "Poked Akarim 4:14",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added: its distinction among rooted, inherited, and chosen deficiencies addresses Shimshon's naziritism, not a license to act on retrospective providence."
+        },
+        {
+          "ref": "Sod Yesharim, Yom Kippur 21:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not added: the complete discourse locates different clarifications within the ordered Yom Kippur service; it cannot be flattened into a general prospective permission."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 41:1",
+      "sectionRef": "Tzidkat HaTzadik 41",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "1f215b4698bb21caf243015a7de6d8b442f89d04009b2586a32f695ad6ae8b97",
+      "reviewedSectionHebrewSha256": "1f215b4698bb21caf243015a7de6d8b442f89d04009b2586a32f695ad6ae8b97",
+      "assessment": "Read the priority of Anokhi, angelic and direct protection, and the opening created by a small awakening. Add the complementary implication for beginning repair.",
+      "candidatesReviewed": [
+        {
+          "ref": "Dover Tzedek, Kuntres Ner HaMitzvot 1:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added: it states the ordering problem whose context was examined, but adds no further account of protection beyond the siman."
+        },
+        {
+          "ref": "Tiferet Yosef, Talmud Anthology, Berakhot 7",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved: Anokhi first leaves a beginning for repentance and mitzvot before purification is complete; the full discourse construes even the phrase about transgression as return after failure."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 42:1",
+      "sectionRef": "Tzidkat HaTzadik 42",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "4652f7fb103203348ee6eeae3d4412a96476dffd428f0add19b9f86c7a871973",
+      "reviewedSectionHebrewSha256": "4652f7fb103203348ee6eeae3d4412a96476dffd428f0add19b9f86c7a871973",
+      "assessment": "Read prayer as desire, the sacrificial analogy, divine lack of need, and the conclusion that the desire to pray itself is His will. Add the precise distinction between a command and its intended refinement.",
+      "candidatesReviewed": [
+        {
+          "ref": "Kometz HaMinchah 2:22:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved: it explicitly answers how sacrifices can be commanded while the prophets criticize them, distinguishing the isolated physical act from the intended purpose."
+        },
+        {
+          "ref": "Tiferet Yosef, Tzav 3",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not added: offerings after the concealment of a previously clear light are another explanation of the same prophetic verse, rather than the present siman's emphasis on the petitioner's desire."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 43:1",
+      "sectionRef": "Tzidkat HaTzadik 43",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "56e4dfeec8bd153093522748a8795364f9d1775da32d13ac70825cea37dd3e15",
+      "reviewedSectionHebrewSha256": "56e4dfeec8bd153093522748a8795364f9d1775da32d13ac70825cea37dd3e15",
+      "assessment": "Read genuine overwhelming compulsion together with the author's explicit inability of a person to certify it for himself and the Zimri warning. Add the related distinction concerning the beginning of the course of conduct.",
+      "candidatesReviewed": [
+        {
+          "ref": "Kometz HaMinchah 1:34:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved in full, including its alternative reading: the same Talmudic case distinguishes later overpowering inclination from the beginning; it does not provide a person's self-issued exemption."
+        },
+        {
+          "ref": "Tiferet Yosef, Simchat Torah 5",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not added: the need for divine confirmation after all purification does not give criteria for identifying compulsion in one's own particular case."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 44:1",
+      "sectionRef": "Tzidkat HaTzadik 44",
+      "status": "reviewed-no-approved-connection",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "fa4ec5884cfc8aa12f328e3aec9815eb9b10f3474e0b03bdaf2f4c6490539237",
+      "reviewedSectionHebrewSha256": "fa4ec5884cfc8aa12f328e3aec9815eb9b10f3474e0b03bdaf2f4c6490539237",
+      "assessment": "Read the capacity of strong desire to become strong Torah and love, including Abaye and the mountain/thread contrast. Do not add a source merely because it also mentions the evil inclination.",
+      "candidatesReviewed": [
+        {
+          "ref": "Kometz HaMinchah 2:61:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added: its main scheme concerns successive stages toward eliminating the inclination, rather than the conversion of an intense personal capacity described here."
+        },
+        {
+          "ref": "Tiferet Yosef, Shavuot 20",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected for this anchor: proximity to the source changes perception of bounty, but does not explain the particular connection between powerful appetite and powerful Torah."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 45:1",
+      "sectionRef": "Tzidkat HaTzadik 45",
+      "status": "reviewed-no-approved-connection",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "88b8142801bc118b7af06c820849b0c2e97bae2782f3ad319d86de184bb3be76",
+      "reviewedSectionHebrewSha256": "88b8142801bc118b7af06c820849b0c2e97bae2782f3ad319d86de184bb3be76",
+      "assessment": "Read the whole Isaiah passage and the promise of a newly created opening after a sealed heart. No new source improves the siman's own specific argument.",
+      "candidatesReviewed": [
+        {
+          "ref": "Peri Tzadik, Lech Lecha 3:11",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Read with 3:10–12. Not added: the Sabbath's consolation for the limbs and relief from the struggle with inclination do not explain creation of the new mouth through humbled nothingness."
+        },
+        {
+          "ref": "Tiferet Yosef, Shemini Atzeret 5",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected for this anchor: giving the acquired tenth back to Hashem opens a receptacle for blessing, not the repentant person's apparently closed capacity to speak."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 46:1",
+      "sectionRef": "Tzidkat HaTzadik 46",
+      "status": "reviewed-no-approved-connection",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "6b97ad0f26becf4f886805d097af9b872e21c67f5b265d8ae6a2ab35f350b275",
+      "reviewedSectionHebrewSha256": "6b97ad0f26becf4f886805d097af9b872e21c67f5b265d8ae6a2ab35f350b275",
+      "assessment": "Read the banished person's refusal to abandon return, the failed maapilim, and the author's particular claim about the time of audacity. Preserve the argument without supplying an unrelated permission or correction.",
+      "candidatesReviewed": [
+        {
+          "ref": "Resisei Layla 7:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added: the reciprocal beginning and end of fear and Torah does not explain refusal of expulsion or the specific maapilim claim."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Miketz 8",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not added: the patriarchs' prayers at a divinely fitting time are a useful contrast but do not resolve the siman's particular claim about audacity in its own time."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 47:1",
+      "sectionRef": "Tzidkat HaTzadik 47",
+      "status": "reviewed-no-approved-connection",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "459866c330104edb9d197eed579d60d664f28e2f1cffd3ecd22d2153b2edbd8f",
+      "reviewedSectionHebrewSha256": "459866c330104edb9d197eed579d60d664f28e2f1cffd3ecd22d2153b2edbd8f",
+      "assessment": "Read the proper use of every quality and the danger of misplaced gentleness, together with mourning the loss of spiritual capacities. No additional note is needed.",
+      "candidatesReviewed": [
+        {
+          "ref": "Divrei Soferim 15:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Rejected for this anchor: wisdom becoming an inward possession is not the argument that each character trait has its proper task."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Vayechi 4",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not added: Yaakov's prayer-led passage from rebuke to mercy is a particular example, but supplies no additional general criterion beyond the siman's existing examples and qualifications."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 48:1",
+      "sectionRef": "Tzidkat HaTzadik 48",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "a1d2ef3acf49263e7576d2f9af0a65e467c0e2f58e7877caaca503673c4a860d",
+      "reviewedSectionHebrewSha256": "a1d2ef3acf49263e7576d2f9af0a65e467c0e2f58e7877caaca503673c4a860d",
+      "assessment": "Read the partner's character, the same Proverbs warning, and the contrasting Yosef and Yehudah cases. Add the outward meaning of association even when intention differs.",
+      "candidatesReviewed": [
+        {
+          "ref": "Kometz HaMinchah 1:46:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added: the narrative of residence abroad and attachment to the local society concerns a different chain of consequences from the siman's partner distinction."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Lech Lecha 7",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved in the full discourse, preserving its different cases: David's association is tested not only by intention but by the appearance of participation. The selected complete thought addresses that distinct issue."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 49:1",
+      "sectionRef": "Tzidkat HaTzadik 49",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "ebb451f14944cfd340627c6c60b63f7d1616b475b7fb202349e8075ce4b4927e",
+      "reviewedSectionHebrewSha256": "ebb451f14944cfd340627c6c60b63f7d1616b475b7fb202349e8075ce4b4927e",
+      "assessment": "Read intense temptation, the particular task of the soul, the same-limb repair, and Ahaz/Chizkiyahu. Add the account of Torah entering the heart more deeply through return.",
+      "candidatesReviewed": [
+        {
+          "ref": "Et HaOchel 10:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added: sanctity in the limb performing the mitzvah corroborates repair through the same power; the more distinct addition explains the increased desire produced by the return."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Vayetzei 6",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved: the promise to return Yaakov is read as restoration and teshuvah, specifying how the Torah in which one stumbled becomes more deeply desired."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 50:1",
+      "sectionRef": "Tzidkat HaTzadik 50",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "4f3722c598065641e0b39f303d2546f15d48573525422b1d4be7a1179aea50d9",
+      "reviewedSectionHebrewSha256": "4f3722c598065641e0b39f303d2546f15d48573525422b1d4be7a1179aea50d9",
+      "assessment": "Read the two timings of deliverance, felt necessity, and Rav Ilish. Add a biblical narrative illustrating help being arranged before the petition.",
+      "candidatesReviewed": [
+        {
+          "ref": "Peri Tzadik, Sefer Kedushat Shabbat 2:8",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added: the full discussion concerns the ordered cosmic eras and earlier redemption, not the particular experience of a needed answer described here."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Chayei Sarah 4",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved: the servant's prior mission and Yitzchak's newly awakened prayer meet in the same verse about answering before a call."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 51:1",
+      "sectionRef": "Tzidkat HaTzadik 51",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "b6dcf952f344f2904d983fd8bea460c8a7e86afc4d16a9377c8a8d8f1990c130",
+      "reviewedSectionHebrewSha256": "b6dcf952f344f2904d983fd8bea460c8a7e86afc4d16a9377c8a8d8f1990c130",
+      "assessment": "Read temporary self-restraint versus dependable help and the Yosef, Boaz, and Palti contrasts. Retain the existing note about prayer and dependence.",
+      "candidatesReviewed": [
+        {
+          "ref": "Yisrael Kedoshim 6:15",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added: the extended grace-and-beauty discussion shares these figures but does not improve the existing distinction between exertion and enduring help."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Lech Lecha 5",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not added: Avraham's prayers through poverty and wealth give an application of dependence, substantially covered by the existing prayer note."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 52:1",
+      "sectionRef": "Tzidkat HaTzadik 52",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "cfce991bf87b10b81d68787fd65a7a5fcd5a86fa70ca4d86461d1d7aaeee0da0",
+      "reviewedSectionHebrewSha256": "cfce991bf87b10b81d68787fd65a7a5fcd5a86fa70ca4d86461d1d7aaeee0da0",
+      "assessment": "Read the Owner of the vineyard, the culpable generation's possible transformation, the thorn image, and the instant of return. Retain the existing note on an opening of repentance and divine completion.",
+      "candidatesReviewed": [
+        {
+          "ref": "Takanat HaShavin 10:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added: the whole paragraph supplies the same thorn and inner-heart explanation through loving repentance; it does not add a distinct clarification beyond the existing note's limits."
+        },
+        {
+          "ref": "Tiferet Yosef, Talmud Anthology, Sanhedrin 1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected for this anchor: Avraham receiving earlier generations' reward concerns the comprehensive purpose of creation and his victory, not the instantaneous communal return discussed here."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 53:1",
+      "sectionRef": "Tzidkat HaTzadik 53",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "8fb9c1b8bc4f25046f7890b8fa895b6f0767cd2c662d7030e95bb08b511591b1",
+      "reviewedSectionHebrewSha256": "8fb9c1b8bc4f25046f7890b8fa895b6f0767cd2c662d7030e95bb08b511591b1",
+      "assessment": "Read habitual speech as a soul's particular Torah-root and the examples from folk sayings. Keep the existing specific application to the popular name Zot Chanukah.",
+      "candidatesReviewed": [
+        {
+          "ref": "Peri Tzadik, Tetzaveh 1:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added: the full passage repeats the same folk-sayings and shared Torah-root argument; the existing note supplies the more useful concrete application."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Bereshit 7",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected for this anchor: the symbolic details of the Temple entrance concern love and fear, not the Torah content of habitual popular speech."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 54:1",
+      "sectionRef": "Tzidkat HaTzadik 54",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "1dfd2e7e84a30e86f2d1e9c44bc33f74a05a053e744ba265451db406230a6f41",
+      "reviewedSectionHebrewSha256": "67ddf7d308e62ec4a34743e6c623dacf4f168c598e7cb7f6bef4941c16a3246b",
+      "assessment": "Read all three subsections: belonging through the name, the conversion/apostasy contrast, and the concluding communal bond. Add one foundation note, leaving the subsequent historical and legal examples in their own terms.",
+      "candidatesReviewed": [
+        {
+          "ref": "Ohr Zarua LaTzadik, The Egyptian Exile 6:11",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved for 54:1: the same name argument ends with Torah knowledge hidden and forgotten in the heart that needs to be recalled."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Lech Lecha 1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not added for 54:1: Avraham's awakened search for true life does not account for the name's role in established belonging."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 54:2",
+      "sectionRef": "Tzidkat HaTzadik 54",
+      "status": "reviewed-no-approved-connection",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "66d16e9750f2e5b1ecd3008ec25448f543a7d6e7fbfe241756c7564f41631a02",
+      "reviewedSectionHebrewSha256": "67ddf7d308e62ec4a34743e6c623dacf4f168c598e7cb7f6bef4941c16a3246b",
+      "assessment": "Read the comparison of changing the name of Israel with the three cardinal prohibitions as the author's specific argument. Add no new practical legal ruling.",
+      "candidatesReviewed": [
+        {
+          "ref": "Ohr Zarua LaTzadik, Novellae, Rambam, Melachim 5:9",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added: the inquiry into self-sacrifice for Torah versus other commandments does not settle this subsection's distinct case of changing religious identity."
+        },
+        {
+          "ref": "Tiferet Yosef, Ki Tavo 7",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected for this anchor: inward and outward faults in the two Temple periods and consolation through curses are not a source for the identity-change ruling."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 54:3",
+      "sectionRef": "Tzidkat HaTzadik 54",
+      "status": "reviewed-no-approved-connection",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "78f882d174557a29f33f206186d911a332047dc0fc7bc150464bc6cb3ff248b6",
+      "reviewedSectionHebrewSha256": "67ddf7d308e62ec4a34743e6c623dacf4f168c598e7cb7f6bef4941c16a3246b",
+      "assessment": "Read the concluding contrast between remaining within the people despite grave wrongdoing and separating from its communal name. The foundation note belongs to 54:1 and is not duplicated here.",
+      "candidatesReviewed": [
+        {
+          "ref": "Dover Tzedek, Mishlei Commentary 1:7",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Contextual confirmation, not a second note: the closing application of the same Hosea verse distinguishes Israel's enduring bond, without explaining the particular family-stigma example."
+        },
+        {
+          "ref": "Tiferet Yosef, Achrei Mot 3",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not added: the hidden bond of Israel despite outward impurity concerns the land's discernment, not the subsection's particular family and communal-name contrast."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 55:1",
+      "sectionRef": "Tzidkat HaTzadik 55",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "1ed0aa0b6bba3173bc6ef7eb802c99b0c537aaa3e5d3148abb251e7d723c7157",
+      "reviewedSectionHebrewSha256": "1ed0aa0b6bba3173bc6ef7eb802c99b0c537aaa3e5d3148abb251e7d723c7157",
+      "assessment": "Read forgetting in the heart despite intellectual knowledge, the tzitzit incident, the wood gatherer, and the oath that prompts action. Add the practical reminder's role despite a connection already present at the root.",
+      "candidatesReviewed": [
+        {
+          "ref": "Likkutei Maamarim, Compositions on the Festivals 6:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added: its two Sabbaths and the danger of forgetting through bounty concern a different two-stage account, rather than the precise mind-to-heart renewal here."
+        },
+        {
+          "ref": "Tiferet Yosef, Korach 2",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after the full discourse: the same wood-gatherer Midrash rebuts reliance on root holiness without the concrete mitzvah that awakens conscious service."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 56:1",
+      "sectionRef": "Tzidkat HaTzadik 56",
+      "status": "reviewed-no-approved-connection",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "c7fd51dd91252345138e79af4cc4a126e41a70b10777b10be9d862586410a18d",
+      "reviewedSectionHebrewSha256": "c7fd51dd91252345138e79af4cc4a126e41a70b10777b10be9d862586410a18d",
+      "assessment": "Read imposed Torah, involuntary thoughts of return, suffering as preparation, and fear as the awakening that brings guidance. No new note meets the particular argument.",
+      "candidatesReviewed": [
+        {
+          "ref": "Likkutei Maamarim, Compositions on the Festivals 10:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added: inherited connection before effort is distinct from the siman's specific account of fear awakening imposed divine guidance."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Exodus, Vaera 2",
+          "school": "Ishbitz–Radzin",
+          "reason": "Not added: fear and unfinished clarification explain the delayed Exodus, but not the particular compulsion and remembering-through-tzitzit mechanism."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 57:1",
+      "sectionRef": "Tzidkat HaTzadik 57",
+      "status": "reviewed-no-approved-connection",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "1fb5fdf8412cecd1ef2a35e9ce99fe61d1f676900a5cb218038365d70fdf5e01",
+      "reviewedSectionHebrewSha256": "1fb5fdf8412cecd1ef2a35e9ce99fe61d1f676900a5cb218038365d70fdf5e01",
+      "assessment": "Read remorse as a form of purgation, the separate laws of material suffering, and the final distinction between Shechinah and the presence called Atah during sadness. No candidate adds an adequate account of those distinctions.",
+      "candidatesReviewed": [
+        {
+          "ref": "Takanat HaShavin 2:7",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added: the same Psalm is applied to Shlomo's exceptional level and final correction, rather than the particular experience of remorse and sadness described here."
+        },
+        {
+          "ref": "Tiferet Yosef, Talmud Anthology, Chagigah 7",
+          "school": "Ishbitz–Radzin",
+          "reason": "Rejected for this anchor: inward certainty in vows and another person's power to release them do not explain remorse as purgation."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 58:1",
+      "sectionRef": "Tzidkat HaTzadik 58",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "4484ee7edc44d558ee7535ac679bb559c60e8659a48cf88df56c2ed781da342a",
+      "reviewedSectionHebrewSha256": "4484ee7edc44d558ee7535ac679bb559c60e8659a48cf88df56c2ed781da342a",
+      "assessment": "Read relative righteousness in a particular matter, accidental stumbling, cleansing before testing another, and the purpose of awakening return. Add the distinction between present examination and final clarification.",
+      "candidatesReviewed": [
+        {
+          "ref": "Kometz HaMinchah 2:35:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added: Lot's desire and separation before the promise of the land do not explain the unsettling accidental obstruction of a sincere undertaking."
+        },
+        {
+          "ref": "Tiferet Yosef, Talmud Anthology, Pesachim 4",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved after the full discourse, including the unexpectedly defiled nazir: the fear of a mistaken beginning prompts examination, while ultimate clarification can reveal the sincere service within the obstruction."
+        }
+      ]
+    },
+    {
+      "ref": "Tzidkat HaTzadik 59:1",
+      "sectionRef": "Tzidkat HaTzadik 59",
+      "status": "reviewed-with-connections",
+      "schoolSearch": [
+        "Kisvei Rav Tzadok",
+        "Ishbitz–Radzin"
+      ],
+      "reviewedParagraphHebrewSha256": "ec30d86743c4a8c87bdf73facd19176b3a3c98db132a5c9cb90ad55d31477a9f",
+      "reviewedSectionHebrewSha256": "ec30d86743c4a8c87bdf73facd19176b3a3c98db132a5c9cb90ad55d31477a9f",
+      "assessment": "Read Torah's guiding light, the value that remains in imperfectly motivated study, the blessing's wording, and the request for sweetness leading toward lishmah. Add the reciprocal growth of desire and Torah.",
+      "candidatesReviewed": [
+        {
+          "ref": "Divrei Soferim 15:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Not added: the full account of wisdom becoming the person's own through inward absorption reinforces the siman but supplies no more precise explanation of its concluding prayer."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Toldot 1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved in full context: silver/desire acquires gold/Torah, while acquired Torah must renew desire; the same Veha'arev na prayer gives the particular mechanism."
+        }
+      ]
+    }
+  ]
+}
