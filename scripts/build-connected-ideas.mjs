@@ -124,6 +124,26 @@ export function buildConnectedIdeas(options={}) {
   }
   assert(records.length,'No reviewed thematic connections');
   records.sort((a,b)=>a.id.localeCompare(b.id));
+  // Tzidkat's manuscript notes run continuously through the whole book.
+  // Its supplementary reader notes must continue after them, including
+  // existing reciprocal notes, rather than borrowing a later siman's number.
+  const numberedBook=catalog.books.find(book=>book.title==='Tzidkat HaTzadik');
+  if(numberedBook) {
+    const data=JSON.parse(fs.readFileSync(path.join(mcpRoot,'text',numberedBook.slug+'.json')));
+    let number=0;
+    for(const paragraph of data.paras) {
+      for(const note of paragraph.f || []) if(/^\d+$/.test(String(note[0]))) number=Math.max(number,Number(note[0]));
+      for(const pair of paragraph.p || []) for(const html of pair)
+        for(const match of String(html).matchAll(/<sup\b[^>]*class=["'][^"']*footnote-marker[^"']*["'][^>]*>\s*(\d+)\s*<\/sup>/g))
+          number=Math.max(number,Number(match[1]));
+    }
+    const byId=new Map(records.map(record=>[record.id,record]));
+    for(const {section} of studySections(numberedBook).values())
+      for(const note of ideas.forSection(records,section.ref)) {
+        const record=byId.get(note.originalId || note.id);
+        record[note.direction==='reverse'?'reverseFootnoteNumber':'footnoteNumber']=++number;
+      }
+  }
   const coverage=catalog.books.map(book=>{
     const sections=[...new Set(book.sections.map(section=>section.ref))];
     const reviewed=sections.filter(ref=>ideas.forSection(records,ref).length);

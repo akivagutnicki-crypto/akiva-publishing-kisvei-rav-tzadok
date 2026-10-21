@@ -20,6 +20,7 @@ export async function checkConnectionFootnotes(page,section,records,{screenshot=
   for(const record of records){
     const box=boxes.find(box=>box.id===record.id);
     assert.equal(box.ref,record.originRef);
+    if(record.footnoteNumber)assert.equal(box.number,record.footnoteNumber,'The book-wide supplementary number was lost');
     assert.deepEqual(box.paragraphs.map(normalized),[record.themeTitle,record.themeSummary,
       record.targetRef+': “'+record.targetEnglish+'”','Explanation: '+record.explanation].map(normalized));
     assert.equal(box.source,record.targetRef);assert(box.sourceBold);assert.equal(box.hebrewParagraphs,0);

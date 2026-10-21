@@ -48,7 +48,8 @@ try {
     const walker=document.createTreeWalker(container,NodeFilter.SHOW_TEXT);let node,prefix='';
     while((node=walker.nextNode())){
      const marker=node.parentElement?.closest('.source-note-trigger');
-     if(marker)found.push({key:marker.dataset.noteKey,prefix,nested:Boolean(marker.closest('a')),number:marker.textContent});
+     if(marker && !marker.classList.contains('connection-idea-marker'))found.push({key:marker.dataset.noteKey,prefix,nested:Boolean(marker.closest('a')),number:marker.textContent});
+     else if(marker)continue;
      else prefix+=node.textContent;
     }
    });return found;
@@ -62,7 +63,7 @@ try {
    assert.equal(mark.nested,false,'Footnote marker inside source hyperlink');
    assert.equal(+mark.number,Number(note.sourceId.slice(3)),'Book-wide numbering');
   }
-  const literal=await section.evaluate(root=>[...root.querySelectorAll('.seg-il .reader-footnote[data-source-note]')].map(box=>({key:box.dataset.noteKey,paragraphs:[...box.querySelectorAll('.annotation-text')].map(p=>p.textContent)})));
+  const literal=await section.evaluate(root=>[...root.querySelectorAll('.seg-il .reader-footnote[data-source-note]:not(.connection-idea-footnote)')].map(box=>({key:box.dataset.noteKey,paragraphs:[...box.querySelectorAll('.annotation-text')].map(p=>p.textContent)})));
   assert.equal(literal.length,sectionNotes.length,'One complete inline box per footnote');
   assert.equal(await section.locator('.seg-il .reader-footnote summary').filter({hasText:'Explore Sefaria connections'}).count(),0,'Redundant Tzidkat connection sections must be absent');
   assert.equal(await section.locator('.seg-il .reader-footnote summary').filter({hasText:'Source review'}).count(),0,'Editorial verification controls must not clutter the Tzidkat footnotes');

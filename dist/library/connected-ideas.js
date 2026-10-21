@@ -6,7 +6,7 @@
   else root.AkivaConnectedIdeas = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this, function (sources) {
   'use strict';
-  const VERSION = '20261020-connected-idea-footnotes-v1';
+  const VERSION = '20261020-tzidkat-explanatory-footnotes-v1';
   const SCHOOLS = ['Kisvei Rav Tzadok', 'Ishbitz–Radzin'];
   const normalized = sources.normalizedHebrew;
   const refKey = ref => sources.normalizeRef(ref || '').toLowerCase();
@@ -59,7 +59,7 @@
       originRef:record.targetRef, originHebrew:record.targetHebrew, originEnglish:record.targetEnglish,
       targetRef:record.originRef, targetHebrew:record.originHebrew, targetEnglish:record.originEnglish,
       themeTitle:record.reverseThemeTitle, themeSummary:record.reverseThemeSummary,
-      school:record.placement.originSchool, explanation:record.reverseExplanation,
+      school:record.placement.originSchool, explanation:record.reverseExplanation,footnoteNumber:record.reverseFootnoteNumber,
       anchorRef:record.targetRef, sectionRef:record.placement.targetSectionRef,
       phraseIndex:record.placement.targetPhraseIndex, phraseEnd:record.placement.targetPhraseEnd,
       paragraphOrder:record.placement.targetParagraphOrder};
@@ -113,7 +113,8 @@
   }
   // The reviewed catalog is also the source for ordinary reader footnotes.
   // Keep manuscript note numbers intact and allocate additional numbers in
-  // the section's own note scope. Each independently selected source is a note.
+  // the section's own note scope, or its published book-wide scope where the
+  // original manuscript has continuous numbering. Each selected source is a note.
   function footnotesForSection(data, records) {
     let number = 0;
     const existing = Object.values(data.annotations || {}).flat();
@@ -126,8 +127,11 @@
     return unique(records).filter(record => !present.has(record.id)).map(record => {
       const url = '#/read/' + encodeURIComponent(record.targetRef).replace(/%20/g,'_').replace(/%2C/g,',').replace(/%3A/g,':');
       const quote = record.targetRef + ': “' + record.targetEnglish + '”';
+      const noteNumber=Number.isSafeInteger(record.footnoteNumber) && record.footnoteNumber>0
+        ? record.footnoteNumber : number+1;
+      number=Math.max(number,noteNumber);
       return {
-        number: ++number, sourceId: 'IDEA-' + record.id, placementId: 'IDEA-' + record.id,
+        number: noteNumber, sourceId: 'IDEA-' + record.id, placementId: 'IDEA-' + record.id,
         connectionIdeaId: record.id, paragraphOrder: record.paragraphOrder,
         phraseIndex: record.phraseIndex, originRef: record.originRef,
         verificationStatus: 'verified',

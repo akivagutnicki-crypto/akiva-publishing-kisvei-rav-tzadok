@@ -11,6 +11,9 @@ const root=path.resolve('dist/library'),html=fs.readFileSync(path.join(root,'ind
 const ideas=require('../dist/library/connected-ideas.js');
 const sources=require('../dist/library/source-connections.js');
 const catalog=JSON.parse(fs.readFileSync(path.join(root,'connected-ideas/catalog.json')));
+const tzidkatSource=JSON.parse(fs.readFileSync('dist/mcp-data/text/tzidkat-hatzadik.json'));
+const tzidkatOriginalMaximum=Math.max(0,...tzidkatSource.paras.flatMap(paragraph=>(paragraph.f||[]).map(note=>Number(note[0])||0)));
+const tzidkatAdditionalNumbers=[];
 const virtualConsole=new VirtualConsole(),errors=[];
 virtualConsole.on('jsdomError',error=>errors.push(error.message));
 const dom=new JSDOM(html,{url:'https://reader.test/library/',runScripts:'outside-only',pretendToBeVisual:true,virtualConsole});
@@ -58,6 +61,11 @@ try{
       assert(sources.normalizedHebrew(preceding.textContent).endsWith(sources.normalizedHebrew(ideas.authorText(original))),
         'The stacked marker is not beside its reviewed Hebrew phrase: '+record.id);
       assert(!baseNumbers.includes(+marker.dataset.fn),'Original Word footnote number was reused');
+      if(coverage.book==='Tzidkat HaTzadik'){
+        assert(+marker.dataset.fn>tzidkatOriginalMaximum,'A supplementary note reuses an original number from another siman');
+        assert.equal(+marker.dataset.fn,record.footnoteNumber,'Published book-wide number was lost');
+        tzidkatAdditionalNumbers.push(+marker.dataset.fn);
+      }
       assert.equal(seg.querySelectorAll('.seg-en .connection-idea-marker,.ph-en .connection-idea-marker').length,0);
       assert.deepEqual([...tray.querySelectorAll('.annotation-text')].map(element=>clean(element.textContent)),
         [record.themeTitle,record.themeSummary,record.targetRef+': “'+record.targetEnglish+'”','Explanation: '+record.explanation].map(clean));
@@ -81,7 +89,11 @@ try{
     assert.equal(section.querySelectorAll('.connection-idea-marker').length,before,'Repeated mounting duplicated notes');
   }
   assert.deepEqual(errors,[],'Reader DOM errors');
+  assert.deepEqual([...tzidkatAdditionalNumbers].sort((a,b)=>a-b),
+    Array.from({length:tzidkatAdditionalNumbers.length},(_,index)=>tzidkatOriginalMaximum+index+1),
+    'Tzidkat supplementary notes must remain unique and continuous across all simanim');
   assert.equal(total,catalog.coverage.reduce((sum,work)=>sum+work.reviewedSections.reduce((count,ref)=>count+ideas.forSection(catalog.records,ref).length,0),0));
   console.log(JSON.stringify({ok:true,records:catalog.records.length,footnotes:total,sections:catalog.counts.sectionsWithReviewedIdeas,works:catalog.counts.worksWithReviewedIdeas,
-    completeEnglishQuotes:true,hebrewMarkersOnly:true,normalFootnoteInteraction:true,originalNumbersPreserved:true}));
+    completeEnglishQuotes:true,hebrewMarkersOnly:true,normalFootnoteInteraction:true,originalNumbersPreserved:true,
+    tzidkatBookWideNumbers:{originalMaximum:tzidkatOriginalMaximum,additionalNotes:tzidkatAdditionalNumbers.length}}));
 }finally{window.close();}

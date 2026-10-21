@@ -98,10 +98,11 @@ try{
   for(const viewport of [{width:1280,height:900},{width:390,height:844}]){
     const session=await prepare(viewport),page=await session.newPage(),errors=[];
     page.on('pageerror',error=>errors.push(error.message));
-    for(const ref of ['Peri Tzadik, Rosh Chodesh Kislev 1','Peri Tzadik, Lech Lecha 6']){
+    for(const ref of ['Peri Tzadik, Rosh Chodesh Kislev 1','Peri Tzadik, Lech Lecha 6','Tzidkat HaTzadik 2','Tzidkat HaTzadik 261']){
       await page.goto(base+'#/read/'+hash(ref));
       const section=page.locator('.sec[data-ref="'+ref+'"]'),records=ideas.forSection(catalog.records,ref);
-      await checkConnectionFootnotes(page,section,records,{screenshot:path.join(artifacts,viewport.width+'-'+(ref.includes('Kislev')?'kislev':'lech-lecha')+'-footnotes.jpg')});
+      const example=ref.startsWith('Tzidkat')?'tzidkat-'+ref.split(' ').at(-1):(ref.includes('Kislev')?'kislev':'lech-lecha');
+      await checkConnectionFootnotes(page,section,records,{screenshot:path.join(artifacts,viewport.width+'-'+example+'-footnotes.jpg')});
       for(const layout of ['stack','side']){
         await page.locator('#setBtn').click();await page.locator('[data-pref="layout"] button[data-v="'+layout+'"]').click();await page.locator('#setBtn').click();
         await checkConnectionFootnotes(page,section,records);
