@@ -102,7 +102,7 @@ try{
         assert.deepEqual(actual,paragraph.phrases.map(phrase=>phrase[key]),'Visible phrase text differs from independent review');
       }
     }
-    const allNotes=published.items.flatMap(row=>row.footnotes||[]);
+    const allNotes=(published.publishedItems || published.items).flatMap(row=>row.footnotes||[]);
     assert.equal(await section.locator('.seg-il .ph-he .footnote-marker:not(.connection-idea-marker)').count(),allNotes.length);
     assert.equal(await section.locator('.seg-il .ph-en .footnote-marker').count(),0,'No duplicated English note numbering');
     for(const note of allNotes){
@@ -176,7 +176,7 @@ try{
     assert.deepEqual(errors,[]);await context.close();
   }
 }finally{await browser.close();await new Promise(resolve=>server.close(resolve));}
-const report={ok:true,live:Boolean(remote),ref:CHANUKAH25_REF,paragraphs:6,phrasePairs:pack.paragraphs.reduce((sum,p)=>sum+p.phrases.length,0),sourceNotes:published.noteCount,
+const report={ok:true,live:Boolean(remote),ref:CHANUKAH25_REF,paragraphs:6,phrasePairs:pack.paragraphs.reduce((sum,p)=>sum+p.phrases.length,0),sourceNotes:published.publishedNoteCount ?? published.noteCount,
   sourceTransportFixture:'English unavailable; the actual published English quotation is displayed without treating the excerpt as a complete source translation',checks,
   connectedIdeas:{records:ideaRecords.length,paragraphs:ideaOrigins.length,groups:ideaGroups.length,checks:ideaChecks}};
 fs.writeFileSync(path.join(output,'report.json'),JSON.stringify(report,null,2)+'\n');console.log(JSON.stringify(report));

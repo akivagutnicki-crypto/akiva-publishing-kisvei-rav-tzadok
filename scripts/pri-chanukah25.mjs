@@ -7,6 +7,7 @@ import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 import {categoryOf, normalizeRef} from './citations.mjs';
 import {linkedText} from './pri-shevat-tubishvat.mjs';
+import {PACK as SEASONAL_QUOTATIONS_PACK,restoreHistoricalRows} from './publish-pri-seasonal-quoted-sources.mjs';
 
 export const CHANUKAH25_REF = 'Peri Tzadik, Chanukah 25';
 export const CHANUKAH25_RELEASE = '20261020-chanukah25-interlinear-v1';
@@ -181,8 +182,9 @@ export function validatePublishedChanukah25(leaf,rows) {
   assert.ok(Number.isSafeInteger(leaf.id)&&leaf.id>201);
   const compiled=compileChanukah25(leaf.id);
   assert.equal(leaf.editionSha256,compiled.pack.editionSha256);
-  assert.deepEqual(rows,compiled.items,'The new Chanukah edition differs from independently reviewed content');
-  return {...compiled,file:`${leaf.id}.json`,leaf};
+  const historical=fs.existsSync(SEASONAL_QUOTATIONS_PACK)?restoreHistoricalRows(`data/peri-tzadik/${leaf.id}.json`,rows):rows;
+  assert.deepEqual(historical,compiled.items,'The new Chanukah edition differs from independently reviewed content');
+  return {...compiled,file:`${leaf.id}.json`,leaf,publishedItems:rows,publishedNoteCount:rows.flatMap(row=>row.footnotes || []).length};
 }
 
 export function publishedChanukah25(library='dist/library') {

@@ -5,6 +5,8 @@ import path from 'node:path';
 import {createRequire} from 'node:module';
 import {CHANUKAH25_REF,CHANUKAH25_REPORT,CHANUKAH25_RELEASE,validatePublishedChanukah25,sha256,canonical} from './pri-chanukah25.mjs';
 import {readChanukah24Boundary} from './pri-chanukah24-boundary.mjs';
+import {PACK as SEASONAL_PACK,readPack as readSeasonalPack,restoreHistoricalRows} from './publish-pri-seasonal-quoted-sources.mjs';
+import {categoryOf} from './citations.mjs';
 const rootAt=process.argv.indexOf('--root'),root=path.resolve(rootAt>=0?process.argv[rootAt+1]:'dist/library');
 const urlAt=process.argv.indexOf('--url'),base=urlAt>=0?process.argv[urlAt+1].replace(/\/?$/,'/'):null;
 const cache=new Map();
@@ -22,17 +24,24 @@ const [toc,report,links,manifest,html,sw]=await Promise.all([
   read('data/peri-tzadik/toc.json'),read(CHANUKAH25_REPORT),read('data/peri-tzadik/links.json'),read('data/files.json'),bytes('index.html'),bytes('sw.js')]);
 const study=toc.toc.children[0],leaves=walk(study).filter(node=>node.interlinear&&node.ref);
 const matches=leaves.filter(leaf=>leaf.ref===CHANUKAH25_REF);assert.equal(matches.length,1);
-const leaf=matches[0],file='data/peri-tzadik/'+leaf.id+'.json',rows=await read(file);
+const leaf=matches[0],file='data/peri-tzadik/'+leaf.id+'.json',publishedRows=await read(file);
+const seasonalPack=fs.existsSync(SEASONAL_PACK)?readSeasonalPack():null;
+const rows=seasonalPack?restoreHistoricalRows(file,publishedRows,seasonalPack):publishedRows;
+const hasReviewedSuccessor=JSON.stringify(rows)!==JSON.stringify(publishedRows);
 const verified=validatePublishedChanukah25(leaf,rows),position=leaves.indexOf(leaf);
 assert.equal(leaves[position-1].ref,'Peri Tzadik, Chanukah 24','Ois25 must directly follow24');
 assert.deepEqual(leaves.filter(node=>node.parashah==='Chanukah').map(node=>node.ois),Array.from({length:25},(_,i)=>i+1));
 assert.equal(report.release,CHANUKAH25_RELEASE);assert.equal(report.editionSha256,verified.pack.editionSha256);
 assert.equal(report.paragraphs,6);assert.equal(report.sourceNotes,verified.noteCount);assert.equal(report.priorNoteCount,5539);
-assert.equal(report.chapterSha256,sha256(await bytes(file)));assert.equal(report.originalNotesPreservedAtPublication,true);
+assert.equal(report.chapterSha256,sha256(hasReviewedSuccessor?JSON.stringify(rows):await bytes(file)));assert.equal(report.originalNotesPreservedAtPublication,true);
 assert.equal(report.originalHebrewSha256,sha256(await bytes('data/peri-tzadik/'+report.originalHebrewFile)));
 assert.ok(manifest.files.includes('peri-tzadik/'+leaf.id+'.json'));assert.ok(html.toString().includes(report.edition));
 assert.ok(sw.toString().includes('-chanukah25-'+verified.pack.editionSha256.slice(0,12)));
-assert.deepEqual(links[CHANUKAH25_REF],verified.links);
+const expectedLinks=structuredClone(verified.links);
+if(hasReviewedSuccessor)for(const op of seasonalPack.operations.filter(op=>op.sectionRef===CHANUKAH25_REF&&op.after)){
+  if(!expectedLinks.some(link=>link.a===op.originRef&&link.r===op.quotation.ref))expectedLinks.push({a:op.originRef,r:op.quotation.ref,c:categoryOf(op.quotation.ref)});
+}
+assert.deepEqual(links[CHANUKAH25_REF],expectedLinks);
 const noteIds=new Set();let pairs=0;
 for(const [i,row]of rows.filter(row=>row.p).entries()){
   assert.equal(row.n,i+1);assert.ok(row.keepPairs);assert.ok(row.footnotes.length);

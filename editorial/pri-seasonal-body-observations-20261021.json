@@ -1,0 +1,118 @@
+{
+  "schemaVersion": 1,
+  "release": "20261021-pri-seasonal-pdf-quotations-v1",
+  "status": "Recorded for a separate main-text collation; not introduced as footnotes.",
+  "months": [
+    {
+      "oldNoteId": "PT-2646-1",
+      "readerPath": "data/peri-tzadik/191.json",
+      "paragraphNumber": 1,
+      "phraseIndex": 78,
+      "currentHebrewHTML": "וְיֵשׁ לְהָבִין הֵיכָן נִרְמָז זֶה בַּפָּסוּק, שֶׁנּוֹחֵל עוֹלָם הַזֶּה וְעוֹלָם הַבָּא (וְעַיֵּן <a data-ref=\"Peri Tzadik, Shemot 10\" href=\"https://www.sefaria.org/Peri_Tzadik,_Shemot_10\">שְׁמוֹת מַאֲמָר י</a>).",
+      "currentEnglishHTML": "Where does this verse indicate that one inherits this world and the World to Come? See <a data-ref=\"Peri Tzadik, Shemot 10\" href=\"https://www.sefaria.org/Peri_Tzadik,_Shemot_10\">Shemot, teaching 10</a>.",
+      "recommendation": {
+        "currentRef": "Peri Tzadik, Shemot 10",
+        "correctRef": "Peri Tzadik, Shemot 8:1",
+        "recommendation": "Correct the source hyperlink and footnote citation to Shemot 8:1. Retain authorial historical numeral י with an explicit bracketed correction [ח] if editing body wording; supplied PDF p.309 itself prints (י) [ח]."
+      },
+      "evidenceImage": "tmp/seasonal-quotes/months/page-309.png",
+      "sourceRef": "Peri Tzadik, Shemot 8:1",
+      "sourceURL": "https://www.sefaria.org/Peri_Tzadik,_Shemot_8:1",
+      "minimumHyperlinkChanges": [
+        {
+          "from": "data-ref=\"Peri Tzadik, Shemot 10\"",
+          "to": "data-ref=\"Peri Tzadik, Shemot 8:1\""
+        },
+        {
+          "from": "href=\"https://www.sefaria.org/Peri_Tzadik,_Shemot_10\"",
+          "to": "href=\"https://www.sefaria.org/Peri_Tzadik,_Shemot_8:1\""
+        }
+      ],
+      "optionalPrintedNumeralCorrection": {
+        "heFrom": "שְׁמוֹת מַאֲמָר י",
+        "heTo": "שְׁמוֹת מַאֲמָר י [ח]",
+        "enFrom": "Shemot, teaching 10",
+        "enTo": "Shemot, teaching 10 [8]",
+        "basis": "Supplied printed PDF309 / רצט explicitly prints (י) [ח]. Retain original numeral rather than silently replacing the historical wording."
+      }
+    },
+    {
+      "oldNoteId": "PT-2732-1",
+      "readerPath": "data/peri-tzadik/192.json",
+      "paragraphNumber": 2,
+      "phraseIndex": 30,
+      "currentHebrewHTML": "וּבְרַעְיָא מְהֵימְנָא <a data-ref=\"Zohar, Pinchas 123:841\" href=\"https://www.sefaria.org/Zohar,_Pinchas.123.841\">(זֹהַר חֵלֶק ג רנו עַמּוּד ב)</a>: אָנֹכִי, בֵּיהּ כַּף כָּתַב וּבֵיהּ אַיִן.",
+      "currentEnglishHTML": "and in Ra’aya Mehemna (<a data-ref=\"Zohar, Pinchas 123:841\" href=\"https://www.sefaria.org/Zohar,_Pinchas.123.841\">Zohar III, 256b</a>): “Anokhi contains Kaf—Keter—and within it is Ayin.”",
+      "recommendation": {
+        "currentHebrew": "אָנֹכִי, בֵּיהּ כַּף כָּתַב וּבֵיהּ אַיִן",
+        "correctHebrew": "אָנֹכִי, בֵּיהּ כַּף כֶּתֶר וּבֵיהּ אַיִן",
+        "recommendation": "The body expansion כתב is a transcription error for כתר. Both supplied PDF p.321 and exact Zohar read כתר (Keter)."
+      },
+      "evidenceImage": "tmp/seasonal-quotes/months/page-321.png",
+      "sourceRef": "Zohar, Pinchas 123:841",
+      "sourceURL": "https://www.sefaria.org/Zohar,_Pinchas_123:841",
+      "exactTextCorrection": {
+        "heFrom": "כַּף כָּתַב",
+        "heTo": "כַּף כֶּתֶר",
+        "reason": "Both primary Zohar and supplied PDF321 print Keter; כתב is a demonstrable transcription/expansion error."
+      }
+    },
+    {
+      "oldNoteId": "PT-0990-1",
+      "readerPath": "data/peri-tzadik/132.json",
+      "paragraphNumber": 2,
+      "phraseIndex": 20,
+      "currentHebrewHTML": "וְכֵן הוּא בַּמִּדְרָשׁ רַבָּה (סוֹף אֵיכָה);",
+      "currentEnglishHTML": "and so it is in Midrash Rabbah (end of Eichah);",
+      "recommendation": {
+        "oldHebrewPhrase": "וְכֵן הוּא בַּמִּדְרָשׁ רַבָּה (סוֹף אֵיכָה);",
+        "recommendedSourceRef": "Eikhah Rabbah 2:3",
+        "recommendedSourceURL": "https://www.sefaria.org/Eikhah_Rabbah.2.3",
+        "printedEvidence": "PDF261, printedרמט: (איכה רבה ב, ג).",
+        "instruction": "Preserve the author’s historical phrase סוף איכה if required; correct the footnote and hyperlink to the precise passage, or record the supplied edition’s bracketed correction."
+      },
+      "evidenceImage": "tmp/seasonal-quotes/months/page-261.png",
+      "sourceRef": "Eikhah Rabbah 2:3",
+      "sourceURL": "https://www.sefaria.org/Eikhah_Rabbah_2:3"
+    }
+  ],
+  "lateChanukahAndTu": [
+    {
+      "id": "seasonal-ch21-remove-unsupported-teacher-name",
+      "action": "replacePhraseEnglish",
+      "originRef": "Peri Tzadik, Chanukah 21:3",
+      "readerPath": "data/peri-tzadik/155.json",
+      "paragraphNumber": 3,
+      "phraseIndex": 6,
+      "originalHebrew": "וּכְמוֹ שֶׁשָּׁמַעְתִּי מֵרַבֵּנוּ הַקָּדוֹשׁ זְכַר צַדִּיק וְקָדוֹשׁ לִבְרָכָה לְחַיֵּי הָעוֹלָם הַבָּא:",
+      "originalEnglish": "and as I heard from our holy master [Rabbi Simchah Bunim of Peshischa], memory of the holy righteous be blessed:",
+      "replacementEnglish": "and as I heard from our holy master, memory of the holy righteous be blessed:",
+      "preserveHebrew": true,
+      "approvedByParent": true,
+      "reason": "Neither the author’s Hebrew here, the printed PDF182, nor the matching report in PeriTzadik Kedoshim12 names Rabbi Simchah Bunim. Remove only the unsupported bracket; do not assign another teacher.",
+      "primaryEvidence": [
+        "tmp/seasonal-quotes/chanukah-late-tu/visual-182.png",
+        "tmp/seasonal-quotes/chanukah-late-tu/primary-sources-initial.json#kedoshim12"
+      ]
+    },
+    {
+      "id": "seasonal-tu3-restore-thirteen-covenants",
+      "action": "proposedReplacePhraseBoth",
+      "originRef": "Peri Tzadik, Tu BiShvat 3:1",
+      "readerPath": "data/peri-tzadik/199.json",
+      "paragraphNumber": 1,
+      "phraseIndex": 66,
+      "originalHebrew": "שֶׁזּוֹ נִיתְּנָה בְּג׳ בְּרִיתוֹת וְזוֹ נִיתְּנָה נֶגֶד כָּל הַשְּׁבָטִים אַחַר שֶׁנִּתְחַלֵּק יוֹסֵף לְב׳.",
+      "originalEnglish": "for one was given with three covenants, and the other was given corresponding to all the tribes after Joseph was divided into two.”",
+      "printedHebrew": "שזו ניתנה בשלש בריתות וזו ניתנה בשלש עשרה בריתות. והמכוון במילה שניתנה בשלש עשרה בריתות נגד כל השבטים אחר שנתחלק יוסף לשנים.",
+      "proposedHebrew": "שֶׁזּוֹ נִיתְּנָה בְּשָׁלֹשׁ בְּרִיתוֹת וְזוֹ נִיתְּנָה בִּשְׁלֹשׁ עֶשְׂרֵה בְּרִיתוֹת. וְהַמְכֻוָּן בַּמִּילָה שֶׁנִּיתְּנָה בִּשְׁלֹשׁ עֶשְׂרֵה בְּרִיתוֹת נֶגֶד כָּל הַשְּׁבָטִים אַחַר שֶׁנִּתְחַלֵּק יוֹסֵף לִשְׁנַיִם.",
+      "proposedEnglish": "for one was given with three covenants and the other with thirteen covenants. The meaning of circumcision being given with thirteen covenants is that they correspond to all the tribes, after Joseph was divided into two.",
+      "approvedByParent": false,
+      "reason": "Printed PDF365 (שעג), main text right column, has the thirteen-covenants clause and the explanation about circumcision. Both the current reader and the served original Hebrew have dropped this span, leaving an incomplete statement. This is a proposed narrow restoration, not an executed edit.",
+      "primaryEvidence": [
+        "tmp/seasonal-quotes/chanukah-late-tu/visual-365.png"
+      ],
+      "notes": "The source’s order of three then thirteen is preserved. The continuation explicitly identifies thirteen with circumcision."
+    }
+  ]
+}

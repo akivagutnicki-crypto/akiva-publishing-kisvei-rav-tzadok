@@ -322,6 +322,14 @@ jobs:
           node scripts/test-beit-toldos.mjs
           node scripts/test-beit-toldos-browser.mjs
 
+      - name: Publish reviewed seasonal quotations and matching KDP print editions
+        run: |
+          python scripts/test-pri-seasonal-print.py > pri-seasonal-print-verification.json
+          node scripts/publish-pri-seasonal-quoted-sources.mjs > pri-seasonal-quoted-sources-publication-verification.json
+          node scripts/publish-pri-seasonal-quoted-sources.mjs > pri-seasonal-quoted-sources-repeat-verification.json
+          node --input-type=module -e "import fs from 'node:fs'; import assert from 'node:assert/strict'; assert.equal(JSON.parse(fs.readFileSync('pri-seasonal-quoted-sources-repeat-verification.json')).mode, 'already-applied');"
+          node scripts/test-pri-seasonal-quoted-sources.mjs > pri-seasonal-quoted-sources-data-verification.json
+
       - name: Publish the latest two Dover Tzedek KDP Word manuscripts after historical edition checks
         run: |
           node scripts/publish-dover-kdp.mjs
@@ -332,6 +340,7 @@ jobs:
           node scripts/test-dover-kdp.mjs --zips
           node scripts/test-beit-toldos.mjs --zips --mcp
           node scripts/test-pri-shabbos-quoted-sources.mjs --zips --mcp > pri-shabbos-quoted-sources-final-verification.json
+          node scripts/test-pri-seasonal-quoted-sources.mjs --zips --mcp > pri-seasonal-quoted-sources-final-verification.json
 
       - name: Build and verify reviewed connections against the final canonical source edition
         run: |
@@ -370,6 +379,9 @@ jobs:
 
       - name: Verify all collated Shabbos quotations and Hebrew markers on desktop and mobile
         run: node scripts/test-pri-shabbos-quoted-sources-browser.mjs
+
+      - name: Verify seasonal quotations, Hebrew markers and print links on desktop and mobile
+        run: node scripts/test-pri-seasonal-quoted-sources-browser.mjs
 
       - name: Cache official Sefaria source exports
         uses: actions/cache@v4
@@ -428,6 +440,11 @@ jobs:
         run: |
           node scripts/test-beit-toldos.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'
           AKIVA_READER_URL='https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/' node scripts/test-beit-toldos-browser.mjs
+
+      - name: Verify seasonal quotations and matching print downloads on the published reader
+        run: |
+          node scripts/test-pri-seasonal-quoted-sources.mjs --zips --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/' > pri-seasonal-quoted-sources-live-verification.json
+          node scripts/test-pri-seasonal-quoted-sources-browser.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'
 
       - name: Verify Chanukah 25 and all three source entry points on the published reader
         run: |
@@ -523,6 +540,18 @@ jobs:
             dist/library/pri-shabbos-quoted-sources-publication.json
             pri-shabbos-quoted-sources-*-verification.json
             artifacts/pri-shabbos-quoted-sources/
+
+      - name: Save seasonal quotation and print-edition verification
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pri-seasonal-quoted-sources-verification
+          path: |
+            dist/library/pri-seasonal-quoted-sources-publication.json
+            pri-seasonal-quoted-sources-*-verification.json
+            pri-seasonal-print-verification.json
+            artifacts/pri-seasonal-quoted-sources/
+            editorial/pri-seasonal-print-verification-20261021.json
 
       - name: Save the supplied source-quotation publication and complete verification evidence
         if: always()

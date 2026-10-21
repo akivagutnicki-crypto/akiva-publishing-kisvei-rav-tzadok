@@ -67,10 +67,12 @@
           || typeof excerpt.provenance !== 'string' || !excerpt.provenance.trim()) return null;
       if (note.paragraphs?.length === 1 && excerpt.hebrewParagraph === undefined
           && excerpt.englishParagraph === undefined) {
-        const paragraph = note.paragraphs[0], expected = `${source.ref}: “${excerpt.en}”`;
+        const citation = source.citation || source.ref;
+        if (source.citation && (!citation.startsWith(source.ref + ' (') || excerpt.citation !== citation)) return null;
+        const paragraph = note.paragraphs[0], expected = `${citation}: “${excerpt.en}”`;
         if (paragraph.language !== 'en' || paragraph.text !== expected || !Array.isArray(paragraph.rich)
             || paragraph.rich.map(run=>run.text || '').join('') !== expected
-            || paragraph.rich[0]?.text !== source.ref || paragraph.rich[0]?.href !== source.url
+            || paragraph.rich[0]?.text !== citation || paragraph.rich[0]?.href !== source.url
             || paragraph.rich[0]?.bold !== true) return null;
         return {ref:exactRef,sourceUrl:source.url,en:excerpt.en,
           provenance:excerpt.provenance,coverage:'excerpt'};
