@@ -98,7 +98,7 @@ try{
   for(const viewport of [{width:1280,height:900},{width:390,height:844}]){
     const session=await prepare(viewport),page=await session.newPage(),errors=[];
     page.on('pageerror',error=>errors.push(error.message));
-    for(const ref of ['Peri Tzadik, Rosh Chodesh Kislev 1','Peri Tzadik, Lech Lecha 6','Tzidkat HaTzadik 2','Tzidkat HaTzadik 261']){
+    for(const ref of ['Peri Tzadik, Rosh Chodesh Kislev 1','Peri Tzadik, Lech Lecha 6','Tzidkat HaTzadik 2','Tzidkat HaTzadik 60','Tzidkat HaTzadik 252','Tzidkat HaTzadik 261','Tzidkat HaTzadik 264']){
       await page.goto(base+'#/read/'+hash(ref));
       const section=page.locator('.sec[data-ref="'+ref+'"]'),records=ideas.forSection(catalog.records,ref);
       const example=ref.startsWith('Tzidkat')?'tzidkat-'+ref.split(' ').at(-1):(ref.includes('Kislev')?'kislev':'lech-lecha');
