@@ -1,7 +1,7 @@
 {
   "schemaVersion": 1,
   "reviewedOn": "2026-10-21",
-  "method": "Ordered finite two-school review of every available subsection in Tzidkat HaTzadik 60–264. Each entry records its actual comparisons, including rejections; completion of the full range is reported only when all available references have an entry. The missing Siman 74 is an unavailable source, never a completed conceptual review.",
+  "method": "Ordered finite two-school review of every available subsection in Tzidkat HaTzadik 60–264. Each entry records its actual comparisons, including rejections; completion of the full range is reported only when all available references have an entry. The missing Siman 74 is an unavailable source, never a completed conceptual review. The saved comprehensive checkpoint is reconciled additively with the existing ledger, preserving earlier assessments and adding the recovered candidate comparisons.",
   "entries": [
     {
       "ref": "Tzidkat HaTzadik 60:1",
@@ -2788,20 +2788,25 @@
           "ref": "Tiferet Yosef, Ki Tavo 2",
           "school": "Ishbitz–Radzin",
           "reason": "Read in full: returning the first fruits and accepting the yoke before distraction prepares later remembrance. Related preparedness, but not the reciprocal fear/wisdom sequence; no additional note."
+        },
+        {
+          "ref": "Sod Yesharim, The First Night of Pesach 30:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Read in full: the first wisdom is the inherited covenantal bond, illuminated despite concealment; distinct from this siman's immediate succession of awe and wisdom."
         }
       ]
     },
     {
       "ref": "Tzidkat HaTzadik 153:1",
       "sectionRef": "Tzidkat HaTzadik 153",
-      "status": "reviewed-no-approved-connection",
+      "status": "reviewed-with-connections",
       "schoolSearch": [
         "Kisvei Rav Tzadok",
         "Ishbitz–Radzin"
       ],
       "reviewedParagraphHebrewSha256": "43715bce6dbb28eba7049e122141e62970e0c82613a074fb7d81c8b1c73002b5",
       "reviewedSectionHebrewSha256": "43715bce6dbb28eba7049e122141e62970e0c82613a074fb7d81c8b1c73002b5",
-      "assessment": "Read the whole account of anguish for sins as a substitute for suffering, the leader and the Messiah as comprehensive souls, the messianic point in each person, Torah awakening grief, and the sign of accepted grief in subsequent delight. The compared sun/fire texts illuminate fear and healing but do not supply a sufficiently distinct explanation of this specific movement through grief to the messianic point. Record them without approving a generic parallel.",
+      "assessment": "Read the whole account of anguish for sins as a substitute for suffering, the leader and the Messiah as comprehensive souls, the messianic point in each person, Torah awakening grief, and the sign of accepted grief in subsequent delight. The recovered Machshavot Charutz comparison clarifies remorse reaching the hidden root, while the precisely anchored Mei HaShiloach quotation explains the healing and confidence of the concluding verse. These distinct contributions are approved without identifying pain itself as the final attainment. The reconciled checkpoint also retains the additional note: Remorse and the gradual repair of the hidden root. The reconciled checkpoint also retains the additional note: The healing wings of confidence.",
       "candidatesReviewed": [
         {
           "ref": "Sichat Malakhei HaSharet 2:30",
@@ -2811,7 +2816,12 @@
         {
           "ref": "Mei HaShiloach, Volume I, Genesis, Vayera 1",
           "school": "Ishbitz–Radzin",
-          "reason": "Read in full: the sun of Torah gives clear understanding and confidence to those who fear Hashem. Shared healing verse alone is insufficient to equate its Avraham argument with the present account of suffering for sins."
+          "reason": "Approved at the exact Hebrew anchor after checking the complete selected thought and translation. Mei HaShiloach explains the siman's closing sun-and-healing verse as a promise of clarified Torah and confidence in Hashem. The wings support the person as a bird's wings support it. This supplies a positive description of the movement from the fire of awe toward delight and strength, without identifying the pain itself as the final attainment."
+        },
+        {
+          "ref": "Machshavot Charutz 7:13",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved at the exact Hebrew anchor after checking the complete selected thought and translation. Machshavot Charutz distinguishes repair of an openly expressed fault from the gradual repair of its hidden root. The latter involves sorrow in the heart and Torah that gradually makes a person aware of that root, in preparation for renewed life. This explains why the present siman places the significance of remorse in the point directed toward ultimate completion. The comparison concerns the spiritually productive movement of teshuvah described by these texts; the paragraph does not equate every experience of distress with completed repair."
         }
       ]
     },
@@ -2836,6 +2846,11 @@
           "ref": "Mei HaShiloach, Volume I, Exodus, Shemot 3",
           "school": "Ishbitz–Radzin",
           "reason": "Approved after reading in full: questions Moshe's demand for the power to compel belief, then returns his trust to the One who sends him and governs hearts. The later signs also anticipate particular failures, so this is not an assurance that no failures occur."
+        },
+        {
+          "ref": "Dover Tzedek, Miscellany 4:95",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Read the complete paragraph, including its future repair and present limitation. Retain the existing quotation without treating failure as a reason to abandon service."
         }
       ]
     },
@@ -2849,7 +2864,7 @@
       ],
       "reviewedParagraphHebrewSha256": "f3761356e3071a63b775930cd6a649cd56e98864e577cdb66f61e10889341de6",
       "reviewedSectionHebrewSha256": "f3761356e3071a63b775930cd6a649cd56e98864e577cdb66f61e10889341de6",
-      "assessment": "Read the complete changing relation of body and garment in this world, Gan Eden, higher intention and the final return to the soul's root, including the leaves/clusters image and Rashbi's exceptional state. Add Sichat Malakhei HaSharet on casual speech flowing from Torah. Sod Yesharim's description of place as following divine will does not explain the specific hierarchy of garments and should not replace it.",
+      "assessment": "Read the complete changing relation of body and garment in this world, Gan Eden, higher intention and the final return to the soul's root, including the leaves/clusters image and Rashbi's exceptional state. Add Sichat Malakhei HaSharet on casual speech flowing from Torah. Sod Yesharim's description of place as following divine will does not explain the specific hierarchy of garments and should not replace it. The reconciled checkpoint also retains the additional note: Outward distinctions away from one’s own place. The reconciled checkpoint also retains the additional note: Leaves and fruit describe a relationship.",
       "candidatesReviewed": [
         {
           "ref": "Sichat Malakhei HaSharet 1:4",
@@ -2860,6 +2875,16 @@
           "ref": "Sod Yesharim, Sukkot 24:3",
           "school": "Ishbitz–Radzin",
           "reason": "Read in full: Avraham rests through obedient travel, and apparent communal disagreements share a root. Related to place and root but not an explanation of the successive body/garment relations here."
+        },
+        {
+          "ref": "Likkutei Maamarim, Compositions on the Festivals 12:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved at the exact Hebrew anchor after checking the complete selected thought and translation. Likkutei Maamarim explicitly applies the scholars/common people and leaves/fruit images within one person. In that discussion, mitzvah action protects the wisdom cultivated through deliberate effort. Here Rav Tzadok places ordinary worldly work around Torah and mitzvos together, then changes the meaning of clothing again at higher levels. The comparison helps keep the imagery relational: it describes what sustains or clothes what at a particular level, rather than assigning one fixed meaning to “leaf” throughout all the teachings."
+        },
+        {
+          "ref": "Sod Yesharim, Hoshana Rabba 13:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved at the exact Hebrew anchor after checking the complete selected thought and translation. Sod Yesharim explains the same saying about name and garment through the lack of a settled place. Away from that place, outward boundaries answer the opposition confronting the person; recognizing Hashem as the world's place supplies a deeper protection. This develops the siman's hierarchy of garments and its contrast with being at home, where the person's own name expresses him."
         }
       ]
     },
@@ -2873,7 +2898,7 @@
       ],
       "reviewedParagraphHebrewSha256": "2a59d14a3a3f1a9dd9efa84aa235ad164cb84077875b8a5fcf3d663c05d6eef3",
       "reviewedSectionHebrewSha256": "2a59d14a3a3f1a9dd9efa84aa235ad164cb84077875b8a5fcf3d663c05d6eef3",
-      "assessment": "Read the whole radical account of chance, the counsel of mitzvot, apparent disorder and retrospective repair. Compare the equally direct Likkutei Maamarim festival teaching and add the author's explicit distinction between divine forgiveness and the human recognition of sin. A self-declaration that every act was arranged is not substituted for return or correction.",
+      "assessment": "Read the whole radical account of chance, the counsel of mitzvot, apparent disorder and retrospective repair. Compare the equally direct Likkutei Maamarim festival teaching and add the author's explicit distinction between divine forgiveness and the human recognition of sin. A self-declaration that every act was arranged is not substituted for return or correction. The reconciled checkpoint also retains the additional note: Knowledge and choice each have their place. The reconciled checkpoint also retains the additional note: Providence and the misuse of assurance.",
       "candidatesReviewed": [
         {
           "ref": "Likkutei Maamarim, Compositions on the Festivals 5:1",
@@ -2889,6 +2914,16 @@
           "ref": "Tiferet Yosef, Ha'azinu and Shabbat Shuvah 10",
           "school": "Ishbitz–Radzin",
           "reason": "Read in full: stable ordered service distinguishes its love/fear account; it is not an instant verbal assertion that an unexamined act was right. Keep the distinct taxonomy rather than equating all uses of these terms."
+        },
+        {
+          "ref": "Tzidkat HaTzadik 40:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved at the exact Hebrew anchor after checking the complete selected thought and translation. Siman 40 is an especially precise counterpart to the retrospective claim here. It states explicitly that knowledge and choice are both true in their respective places, then uses the scapegoat to distinguish a commanded act from the same act undertaken independently. Read together, these passages describe the illumination of teshuvah without making the human standpoint of choice disappear or converting an uncommanded act into a mitzvah by personal assertion."
+        },
+        {
+          "ref": "Sod Yesharim, Rosh Hashanah 18:2",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved at the exact Hebrew anchor after checking the complete selected thought and translation. Sod Yesharim distinguishes Israel's acknowledgment that everything is in Heaven's hands from taking that acknowledgment as encouragement to pursue one's desires. It places the latter fault at the root even when an outwardly fine garment hides it. This is an essential qualification when reading the siman's retrospective restoration of order. The same source later describes the great shofar bringing even those called lost back into recognition and repair."
         }
       ]
     },
@@ -2902,7 +2937,7 @@
       ],
       "reviewedParagraphHebrewSha256": "cf6079f525791360789fcf1b26569e41e5a5151bb28159613e0a62948eb9a987",
       "reviewedSectionHebrewSha256": "cf6079f525791360789fcf1b26569e41e5a5151bb28159613e0a62948eb9a987",
-      "assessment": "Read all the examples of covenant and mortality, Eliahu, the widow's child, the two messianic roles, the hidden root of desire and the carefully qualified concluding acceptance. Add Tiferet Yosef on the Psalm's condition of no deceit in the spirit: it requires using one's available power of clarification, not merely declaring oneself pure. The Eliahu text also distinguishes divine taking from an accomplishment one can mechanically reproduce.",
+      "assessment": "Read all the examples of covenant and mortality, Eliahu, the widow's child, the two messianic roles, the hidden root of desire and the carefully qualified concluding acceptance. Add Tiferet Yosef on the Psalm's condition of no deceit in the spirit: it requires using one's available power of clarification, not merely declaring oneself pure. The Eliahu text also distinguishes divine taking from an accomplishment one can mechanically reproduce. The reconciled checkpoint also retains the additional note: Repair as a sanctification that gives life. The reconciled checkpoint also retains the additional note: The two messianic roles and the removal of death.",
       "candidatesReviewed": [
         {
           "ref": "Sichat Malakhei HaSharet 1:22",
@@ -2913,6 +2948,21 @@
           "ref": "Tiferet Yosef, Nasso 1",
           "school": "Ishbitz–Radzin",
           "reason": "Approved after reading in full: the same Zohar/Psalm condition requires genuinely clarifying heart, mind and action to the limit available, while distinguishing the pristine soul from the person's work with choice."
+        },
+        {
+          "ref": "Dover Tzedek, Miscellany 2:4",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved at the exact Hebrew anchor after checking the complete selected thought and translation. Dover Tzedek expands the very interpretation signaled here by “as I have written elsewhere.” Yosef's role in opposing a destructive force belongs to the period when that force is present. Its cessation and renewal under Mashiach ben David are therefore connected to the removal of death itself. This supplies context for the deliberately compressed association of the deaths of Mashiach ben Yosef and the evil inclination, rather than treating the two expressions as an unexplained verbal equivalence."
+        },
+        {
+          "ref": "Sod Yesharim, Shabbat Chol HaMoed Pesach 12:2",
+          "school": "Ishbitz–Radzin",
+          "reason": "Read in full: matzah, the dew and the unifying spirit of resurrection. A distinct framework, not a direct explanation of this siman's Yosef/David contrast."
+        },
+        {
+          "ref": "Takanat HaShavin 11:7",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved at the exact Hebrew anchor after checking the complete selected thought and translation. Takanat HaShavin explains the positive counterpart of the siman's atonement language. Through David's repentance and its consequences, the Name is sanctified; the former desecration becomes part of that sanctification. The source therefore speaks of gaining enduring life. This clarifies why Rav Tzadok locates the life of the Davidic repair in transformed failure rather than in an untouched outward record alone."
         }
       ]
     },
@@ -2926,7 +2976,7 @@
       ],
       "reviewedParagraphHebrewSha256": "dfedc32b08cb48956dd7022f680b50f35edac0b0ca0bf9aafd73d117b384c718",
       "reviewedSectionHebrewSha256": "dfedc32b08cb48956dd7022f680b50f35edac0b0ca0bf9aafd73d117b384c718",
-      "assessment": "Read the whole account of sincere acceptance within prayer, renewal as a second life, redemption from every sin, the two impulses and the contrast of Yosef and David, and Pinchas/Eliahu at the end. Add Sichat Malakhei HaSharet on the price of abolishing the impulse to idolatry: its corresponding open revelation also withdrew. Compare the distinct retrospective clarification of Judah in Ishbitz without turning it into a universal exemption from effort.",
+      "assessment": "Read the whole account of sincere acceptance within prayer, renewal as a second life, redemption from every sin, the two impulses and the contrast of Yosef and David, and Pinchas/Eliahu at the end. Add Sichat Malakhei HaSharet on the price of abolishing the impulse to idolatry: its corresponding open revelation also withdrew. Compare the distinct retrospective clarification of Judah in Ishbitz without turning it into a universal exemption from effort. The reconciled checkpoint also retains the additional note: Life restored through a bond hidden even from angels.",
       "candidatesReviewed": [
         {
           "ref": "Sichat Malakhei HaSharet, From Yerushalmi 16",
@@ -2937,6 +2987,11 @@
           "ref": "Mei HaShiloach, Volume I, Genesis, Vayechi 5",
           "school": "Ishbitz–Radzin",
           "reason": "Read in full: distinguishes the already clarified idolatrous impulse from the desire still needing clarification in Judah, through the external/internal readings of Yaakov and Moshe. No generic identity of all the two-impulse maps is assumed."
+        },
+        {
+          "ref": "Sod Yesharim, Shabbat Chol HaMoed Sukkot 33:1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved at the exact Hebrew anchor after checking the complete selected thought and translation. Sod Yesharim makes the same prayer comparison and explains what lies behind the renewed life: a connection sustained by Hashem even where an angel cannot perceive its continuity through the sin. This adds a precise dimension to the siman's image of beginning again with knowledge of what requires repair. The cited passage is about the inward act of Nefilas Apayim and the divine restoration that makes teshuvah possible."
         }
       ]
     },
@@ -2961,6 +3016,11 @@
           "ref": "Beit Yaakov on Torah, Vayera 34:2",
           "school": "Ishbitz–Radzin",
           "reason": "Read in full: even lower shame can leave a point from which a person returns. Related to hope for return, but it does not establish the leader's soul connection or a transfer of forgiveness; no extra note."
+        },
+        {
+          "ref": "Peri Tzadik, Chanukah 6:2",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Read the full paragraph: the words reach the heart and the hidden bond becomes manifest. Retain the existing note and the limits made explicit in this siman."
         }
       ]
     },
@@ -2974,7 +3034,7 @@
       ],
       "reviewedParagraphHebrewSha256": "7bcb88fc8c33dbdb273796a94f37b93d9c8b5c26826722172478258b68fc5d2e",
       "reviewedSectionHebrewSha256": "7bcb88fc8c33dbdb273796a94f37b93d9c8b5c26826722172478258b68fc5d2e",
-      "assessment": "Read the entire differentiated relation of a ruler and servants, including Ovadiah within Achav's generosity, extension into objects and food, and the distinct prohibited nerve, blood and fat. Add Kometz HaMinchah's account of property and the related levels of life, preserving its explicit distinction between human and object powers. The candidate sharing the nerve citation concerns another argument and is not forced into this one.",
+      "assessment": "Read the entire differentiated relation of a ruler and servants, including Ovadiah within Achav's generosity, extension into objects and food, and the distinct prohibited nerve, blood and fat. Add Kometz HaMinchah's account of property and the related levels of life, preserving its explicit distinction between human and object powers. The candidate sharing the nerve citation concerns another argument and is not forced into this one. The reconciled checkpoint also retains the additional note: Why possessions can belong to the root of a person's life.",
       "candidatesReviewed": [
         {
           "ref": "Likkutei Maamarim, On Book of Joshua 12",
@@ -2995,6 +3055,11 @@
           "ref": "Beit Yaakov on Torah, Vayera 45:3",
           "school": "Ishbitz–Radzin",
           "reason": "Read in full: recognizing a lack prepares further reception. It does not develop the servant/possession account here."
+        },
+        {
+          "ref": "Peri Tzadik, Vayishlach 10:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved at the exact Hebrew anchor after checking the complete selected thought and translation. Vayishlach directly explains why a righteous person's money can be dearer than his body: he recognizes it as what Hashem has given him, belonging to the root of his life. This illuminates the particular claim about possessions as extensions of a soul. It does not make every possession or every use of it holy automatically; the present siman explicitly differentiates the good and bad powers of a mixed person."
         }
       ]
     },
@@ -3019,6 +3084,11 @@
           "ref": "Tiferet Yosef, Bamidbar 1",
           "school": "Ishbitz–Radzin",
           "reason": "Read in full: the same Hosea verse discloses a way of return even when no connection is felt. Closely relevant, but no redundant second note on the already explained ending."
+        },
+        {
+          "ref": "Takanat HaShavin 15:86",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Read in full: distinguishes the present revealed judgment from the enduring root and future recognition; retain the existing note."
         }
       ]
     },
@@ -3032,7 +3102,7 @@
       ],
       "reviewedParagraphHebrewSha256": "fa860aa9a4c0c4a93b3ba05699ed4746b58924d2bf4a5f4e2da863ab5295a21a",
       "reviewedSectionHebrewSha256": "fa860aa9a4c0c4a93b3ba05699ed4746b58924d2bf4a5f4e2da863ab5295a21a",
-      "assessment": "Read every stage from the bad angel and remembered sin to remorse, the greater general repentance, the difference of prayer and Torah, the Zohar's covering-all-deeds expression, and the completion still beyond this world. Add 242's explicit distinction between nullifying the angel and transforming it through love. Preserve the manuscript boundary notice at the end without inventing another subsection.",
+      "assessment": "Read every stage from the bad angel and remembered sin to remorse, the greater general repentance, the difference of prayer and Torah, the Zohar's covering-all-deeds expression, and the completion still beyond this world. Add 242's explicit distinction between nullifying the angel and transforming it through love. Preserve the manuscript boundary notice at the end without inventing another subsection. The reconciled checkpoint also retains the additional note: What it means for teshuvah to cover the deeds.",
       "candidatesReviewed": [
         {
           "ref": "Tzidkat HaTzadik 242:1",
@@ -3048,6 +3118,11 @@
           "ref": "Sod Yesharim, Parashat Zakhor 23:2",
           "school": "Ishbitz–Radzin",
           "reason": "Read in full: clarifies the different fates of Amalek and Yisro and the danger of an attractive outward form. It does not directly explain the personal bad angel awakening remorse, so no extra note."
+        },
+        {
+          "ref": "Likkutei Maamarim, On Shimshon 20",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved at the exact Hebrew anchor after checking the complete selected thought and translation. Likkutei Maamarim quotes the same Zohar expression and explains the particular force of “covering.” In the surrounding argument, ordinary remorse displaces the earlier thought, while this further account addresses the deed through the unity proclaimed in Shema. This clarifies why the siman introduces “great teshuvah” at this exact point rather than using the phrase as a general adjective for strong remorse."
         }
       ]
     },
@@ -3072,6 +3147,11 @@
           "ref": "Tiferet Yosef, Bamidbar 2",
           "school": "Ishbitz–Radzin",
           "reason": "Approved after reading in full: the count gives each individual a distinct important service while the total is included in divine unity. It explicitly preserves required individual work."
+        },
+        {
+          "ref": "Takanat HaShavin 15:79",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Read the complete paragraph, including the objections and the eventual removal of the surrounding faults; retain the precise existing note."
         }
       ]
     },
@@ -3085,7 +3165,7 @@
       ],
       "reviewedParagraphHebrewSha256": "d6b48502b984735292f655ed68ebac8dc155539f9d432fd08398cf3ed130e2f7",
       "reviewedSectionHebrewSha256": "d6b48502b984735292f655ed68ebac8dc155539f9d432fd08398cf3ed130e2f7",
-      "assessment": "Read all the distinctions of prophetic apprehension, the hidden worth of repentance, Leah's tears and births, Rachel's visible beauty and jealousy, and the division of David's kingship. Add Takanat HaShavin's account of why the outward association with Esav does not describe Leah's inward will. Ishbitz's three-names exposition illuminates acquired repair but is not equated with the whole Leah/Rachel structure.",
+      "assessment": "Read all the distinctions of prophetic apprehension, the hidden worth of repentance, Leah's tears and births, Rachel's visible beauty and jealousy, and the division of David's kingship. Add Takanat HaShavin's account of why the outward association with Esav does not describe Leah's inward will. Ishbitz's three-names exposition illuminates acquired repair but is not equated with the whole Leah/Rachel structure. The reconciled checkpoint also retains the additional note: Leah's continual thirst for salvation.",
       "candidatesReviewed": [
         {
           "ref": "Takanat HaShavin 6:7",
@@ -3095,7 +3175,7 @@
         {
           "ref": "Mei HaShiloach, Volume I, Genesis, Vayetzei 7",
           "school": "Ishbitz–Radzin",
-          "reason": "Read in full: distinguishes innate name, observed name and the name acquired by repairing a congenital lack. Relevant to Leah's longing, but no additional note merely from the shared names."
+          "reason": "Approved at the exact Hebrew anchor after checking the complete selected thought and translation. Mei HaShiloach reads Leah's name as continual weariness and thirst for Hashem's salvation. That supplies a further description of the inward yearning expressed by her tears here. Its contrast with Rachel keeps the source's qualification: Rachel's jealousy was for Heaven. The comparison concerns inward traits and yearning, without making every difference between the sisters identical across the two works."
         }
       ]
     },
@@ -3109,7 +3189,7 @@
       ],
       "reviewedParagraphHebrewSha256": "edb2491012786f35c6d0baf69703dbc3cb4b289e0366000cb231c66e9b2d2ab4",
       "reviewedSectionHebrewSha256": "edb2491012786f35c6d0baf69703dbc3cb4b289e0366000cb231c66e9b2d2ab4",
-      "assessment": "Read the entire one-stature/many-souls account, the work to reach one's own place, aid from earlier souls and their remaining effort, the later generation's specific task and the matching weight of temptation. Add Sod Yesharim on what leaving habit requires. Reject Dover Tzedek's account of forbidden necromantic inquiry: the presence of hevel de-garmei vocabulary does not make it an account of holy assistance from preceding souls.",
+      "assessment": "Read the entire one-stature/many-souls account, the work to reach one's own place, aid from earlier souls and their remaining effort, the later generation's specific task and the matching weight of temptation. Add Sod Yesharim on what leaving habit requires. Reject Dover Tzedek's account of forbidden necromantic inquiry: the presence of hevel de-garmei vocabulary does not make it an account of holy assistance from preceding souls. The reconciled checkpoint also retains the additional note: Each soul has a particular task.",
       "candidatesReviewed": [
         {
           "ref": "Dover Tzedek, Miscellany 4:23",
@@ -3120,6 +3200,16 @@
           "ref": "Sod Yesharim, The First Night of Pesach 26:5",
           "school": "Ishbitz–Radzin",
           "reason": "Approved after reading in full: the personal bondage of fixed habit is overcome through Torah impressed into speech, action and even bodily response. This makes the present generation's task concrete."
+        },
+        {
+          "ref": "Tzidkat HaTzadik 134:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Read in full: renewed repentance at successive levels. It does not establish the prior generations' assistance."
+        },
+        {
+          "ref": "Tiferet Yosef, Bamidbar 2",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved at the exact Hebrew anchor after checking the complete selected thought and translation. Tiferet Yosef explains the individual number of each soul through the particular service assigned to that person, while the whole is included in divine unity beyond number. This gives content to the siman's claim that two souls are not interchangeable. The quotation supports that first claim; it is not offered as proof of the later, more specific account of assistance from earlier generations."
         }
       ]
     },
@@ -3133,7 +3223,7 @@
       ],
       "reviewedParagraphHebrewSha256": "ab65608246b45b7bb045b5db665e158a21bd55fb9c96550b292520230af45fc1",
       "reviewedSectionHebrewSha256": "ab65608246b45b7bb045b5db665e158a21bd55fb9c96550b292520230af45fc1",
-      "assessment": "Read the entire demand for an honest full commitment, Esav's addition without leaving his prior wives, the precedence of Anochi, and the real tension between warnings about motives and continuing study. Retain Resisei Layla's distinction by the direction of the result. Add Toldot on why the future movement toward lishmah justifies beginning before purity of motive is complete, while the other severe formulations still require their own distinction.",
+      "assessment": "Read the entire demand for an honest full commitment, Esav's addition without leaving his prior wives, the precedence of Anochi, and the real tension between warnings about motives and continuing study. Retain Resisei Layla's distinction by the direction of the result. Add Toldot on why the future movement toward lishmah justifies beginning before purity of motive is complete, while the other severe formulations still require their own distinction. The reconciled checkpoint also retains the additional note: The opening that enables purification.",
       "candidatesReviewed": [
         {
           "ref": "Resisei Layla 6:2",
@@ -3154,6 +3244,11 @@
           "ref": "Tiferet Yosef, Talmud Anthology, Taanit 16",
           "school": "Ishbitz–Radzin",
           "reason": "Retain the full reading made at 185: the arrogant scholar requires self-examination rather than judging another. It supports care against intellectual pride, but no redundant extra note here."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Exodus, Bo 5",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved at the exact Hebrew anchor after checking the complete selected thought and translation. Mei HaShiloach poses the same apparent reversal of the normal order of turning from evil before doing good. The first encounter with Anokhi makes the subsequent purification possible. This explains the siman's encouragement to begin Torah with mixed motives while intending to leave the desires opposed to it. It does not support retaining those desires as Esav retained his earlier wives."
         }
       ]
     },
@@ -3178,6 +3273,11 @@
           "ref": "Beit Yaakov on Torah, Vayera 4:10",
           "school": "Ishbitz–Radzin",
           "reason": "Read in full: speech joins people and prayer turns the disclosed relation toward mercy. It does not establish the specific diffusion into slander at the end of 167."
+        },
+        {
+          "ref": "Peri Tzadik, Rosh Chodesh Kislev 7:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Read the full paragraph, including the variant Sefer Yetzirah mappings and the final distinction of holy fire from anger; retain."
         }
       ]
     },
@@ -3207,6 +3307,11 @@
           "ref": "Sod Yesharim, The First Night of Pesach 8:4",
           "school": "Ishbitz–Radzin",
           "reason": "Read in full: the Exodus precedes Israel's later understanding through forty-nine clarifications. This does not make every present feeling of fear identical to attained comprehension."
+        },
+        {
+          "ref": "Kometz HaMinchah 2:46:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Read in full: the contrast between Avimelech and Yitzchak, mockery, choice and the different sources of fear; retain the existing note with its stated limits."
         }
       ]
     },
@@ -3220,7 +3325,7 @@
       ],
       "reviewedParagraphHebrewSha256": "568501f6e8bb17e0262047092c1e2a3cc42008893c2436fefc4566fc4ff089d6",
       "reviewedSectionHebrewSha256": "568501f6e8bb17e0262047092c1e2a3cc42008893c2436fefc4566fc4ff089d6",
-      "assessment": "Read the whole account of prayer before trouble, fear as an awakening while judgment is at its root, Elul as thirty-day preparation, thought before thought, and the yud/he distinction. Add Ishbitz's account of the cry placed in Yosef's heart before deliverance. Keep the Eruvin vocabulary of hidden primordial thought and Tiferet Yosef's rain discussion as qualified comparisons rather than claiming that either specifically establishes the Elul calendar argument.",
+      "assessment": "Read the whole account of prayer before trouble, fear as an awakening while judgment is at its root, Elul as thirty-day preparation, thought before thought, and the yud/he distinction. Add Ishbitz's account of the cry placed in Yosef's heart before deliverance. Keep the Eruvin vocabulary of hidden primordial thought and Tiferet Yosef's rain discussion as qualified comparisons rather than claiming that either specifically establishes the Elul calendar argument. The reconciled checkpoint also retains the additional note: Awakening prayer before trouble.",
       "candidatesReviewed": [
         {
           "ref": "Dover Tzedek, Kuntres Dover Tzedek, Eruvin 2:13",
@@ -3236,6 +3341,21 @@
           "ref": "Tiferet Yosef, Talmud Anthology, Taanit 1",
           "school": "Ishbitz–Radzin",
           "reason": "Read in full: rain and prayer join received blessing to human work, and the world is not yet fully clarified. It is not an explanation of praying thirty days before Rosh Hashanah."
+        },
+        {
+          "ref": "Beit Yaakov on Torah, Lech Lecha 55:10",
+          "school": "Ishbitz–Radzin",
+          "reason": "Read in full: prior covenant enables circumcision, distinct from the particular Elul prayer argument."
+        },
+        {
+          "ref": "Sod Yesharim, Rosh Hashanah 88:2",
+          "school": "Ishbitz–Radzin",
+          "reason": "Read in full: Minchah entrusts the work of the day before concealment. A bounded related pattern, preserved in the reconciliation archive; the exact Resisei Layla explanation is selected for the reader instead."
+        },
+        {
+          "ref": "Resisei Layla 11:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved at the exact Hebrew anchor after checking the complete selected thought and translation. Resisei Layla develops the same instruction to pray before trouble. Feeling the lack awakens the voice of prayer; praying earlier means that a crisis need not perform that awakening. This explains the siman's practical first step when fear arises, before its discussion of Elul and judgment at the root."
         }
       ]
     },
@@ -3249,12 +3369,12 @@
       ],
       "reviewedParagraphHebrewSha256": "df3236b701fc3a639e5d3d588c4640bdc4ced3aeef29c0bf716c18ace85e472f",
       "reviewedSectionHebrewSha256": "df3236b701fc3a639e5d3d588c4640bdc4ced3aeef29c0bf716c18ace85e472f",
-      "assessment": "Read every stage of fear and pain preceding the intended gift, praying upon another's distress, the opposite tendencies in one awakening, the pattern of beginnings and consolations, and the specific blessings hidden in flight and fear for one's life. Add Sod Yesharim on the same narrowness/breadth verse: the chosen limitation makes room for Israel's active connection. Do not turn the metaphysical pattern into a rule that any feared outcome must be literally predicted.",
+      "assessment": "Read every stage of fear and pain preceding the intended gift, praying upon another's distress, the opposite tendencies in one awakening, the pattern of beginnings and consolations, and the specific blessings hidden in flight and fear for one's life. Add Sod Yesharim on the same narrowness/breadth verse: the chosen limitation makes room for Israel's active connection. Do not turn the metaphysical pattern into a rule that any feared outcome must be literally predicted. The reconciled checkpoint also retains the additional note: From the lack expressed in a question to the expansive answer.",
       "candidatesReviewed": [
         {
           "ref": "Et HaOchel 14:1",
           "school": "Kisvei Rav Tzadok",
-          "reason": "Reread the complete source: the felt lack raises the question and opens the expanded answer, with divine aid needed for the beginning. A valid comparison, but the selected Ishbitz passage gives a more distinct explanation of the purpose of the narrowness."
+          "reason": "Approved at the exact Hebrew anchor after checking the complete selected thought and translation. Et HaOchel interprets the same verse through the Seder's ordered movement: matzah makes need felt, the Pesach offering expresses expansion, and the answer emerges from a real question. This makes precise the siman's statement that the beginning of an action arises from a lack and that comfort is an answer to that lack. The source illustrates the movement within a mitzvah practice rather than asserting that any particular distress proves which benefit must follow."
         },
         {
           "ref": "Sod Yesharim, The Seventh Day of Pesach 25:4",
@@ -3284,6 +3404,11 @@
           "ref": "Beit Yaakov on Torah, Lech Lecha 24:2",
           "school": "Ishbitz–Radzin",
           "reason": "Read in full: Shechem concentrates concealment and unknowing failure, using the same Sanhedrin examples. It does not supply the siman's repayment/overflow explanation, so no second note."
+        },
+        {
+          "ref": "Tiferet Yosef, Emor 1",
+          "school": "Ishbitz–Radzin",
+          "reason": "Read in full: hidden and visible goodness, apparent loss and continuity toward resurrection. It does not independently establish the exact twenty-two-day/forty-nine-day mapping."
         }
       ]
     },
@@ -3313,6 +3438,11 @@
           "ref": "Sod Yesharim, Purim 17:3",
           "school": "Ishbitz–Radzin",
           "reason": "Read in full: Shimei's temporary life bears an enduring consequence through Mordechai. It does not explain the specific teacher/root protection asserted in 172."
+        },
+        {
+          "ref": "Peri Tzadik, Chanukah 8:6",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Read in full: the two attendants and the priest's union of right and left; retain the existing explanatory note."
         }
       ]
     },
@@ -3326,7 +3456,7 @@
       ],
       "reviewedParagraphHebrewSha256": "3f93a6c340233dfe9cd5896bce11004b84e6501599c1d0dd1ff2fbb83eaa829a",
       "reviewedSectionHebrewSha256": "3f93a6c340233dfe9cd5896bce11004b84e6501599c1d0dd1ff2fbb83eaa829a",
-      "assessment": "Read every distinction of natural necessary acts, acting consciously for the Creator, the frog's praise, the lesson for chosen service, ordinary preservation of the body and the specific sanctification of the Name. Retain Lech Lecha on learning service from creatures. Add Tiferet Yosef on the valuable particular powers distributed among creatures: a creature's excellence supplies a lesson, not the complete measure of a human being's service.",
+      "assessment": "Read every distinction of natural necessary acts, acting consciously for the Creator, the frog's praise, the lesson for chosen service, ordinary preservation of the body and the specific sanctification of the Name. Retain Lech Lecha on learning service from creatures. Add Tiferet Yosef on the valuable particular powers distributed among creatures: a creature's excellence supplies a lesson, not the complete measure of a human being's service. The reconciled checkpoint also retains the additional note: Natural necessity and surplus desire.",
       "candidatesReviewed": [
         {
           "ref": "Machshavot Charutz 19:11",
@@ -3337,6 +3467,16 @@
           "ref": "Tiferet Yosef, Ha'azinu and Shabbat Shuvah 11",
           "school": "Ishbitz–Radzin",
           "reason": "Approved after reading in full: cites the same animal-learning verse and names particular virtues found in different creatures, while distinguishing the overarching relation of Israel."
+        },
+        {
+          "ref": "Peri Tzadik, Lech Lecha 6:7",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Read in full: the knowing heart gives eyes and ears their capacity to learn avodah from encounters; retain."
+        },
+        {
+          "ref": "Dover Tzedek, Miscellany 4:64",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved at the exact Hebrew anchor after checking the complete selected thought and translation. Dover Tzedek uses the same encounter with the river to explain why meeting a genuine natural need can fulfill the Creator's will. It then explicitly distinguishes surplus desire, which requires a further clarification through mitzvot. This keeps the siman's restriction to what is necessary beside its broad statement about natural service."
         }
       ]
     },
@@ -3361,6 +3501,16 @@
           "ref": "Tiferet Yosef, Rosh Hashanah 4",
           "school": "Ishbitz–Radzin",
           "reason": "Read in full: lasting Torah illumination is acquired through actual mitzvah service and must not become an excuse to stop serving. Its primary distinction is enduring illumination and temporary action, not the same darkness-and-repentance argument."
+        },
+        {
+          "ref": "Peri Tzadik, Chanukah 2:10",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Read in full: ninth plague, light for Israel, covenantal level, Torah and awe. Retain the exact existing note."
+        },
+        {
+          "ref": "Beit Yaakov on Torah, Noach 17:19",
+          "school": "Ishbitz–Radzin",
+          "reason": "Read with 17:16–21: public wrongdoing and others' inability to perceive the later repentance. Do not equate that context with this siman's rejection of deliberately choosing sin as a means to light."
         }
       ]
     },
@@ -3385,6 +3535,11 @@
           "ref": "Mei HaShiloach, Volume I, Genesis, Lech Lecha 6",
           "school": "Ishbitz–Radzin",
           "reason": "Approved after reading in full: interprets the same kingship verse through self-rule preceding rule of others. The later account of Malki-Tzedek is kept in its own context."
+        },
+        {
+          "ref": "Takanat HaShavin 8:4",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Read in full: separates divine acceptance of repentance from court punishment, witnesses/warning, temporary judicial need and the rarity of capital punishment. Not treated as a license for private punishment."
         }
       ]
     },
@@ -3398,7 +3553,7 @@
       ],
       "reviewedParagraphHebrewSha256": "fbe65f71e738eecbf4ea12bc66620e3fff2888d97ae7229ad70f2388a75da872",
       "reviewedSectionHebrewSha256": "fbe65f71e738eecbf4ea12bc66620e3fff2888d97ae7229ad70f2388a75da872",
-      "assessment": "Read the whole local synagogue/beit-midrash analogy, the removal of Amalek, sacred place and restricted elevation, the different present and future orders of kingship, and the resulting permanence. Add Divrei Chalomot's Adar/Nissan sequence as an exact future counterpart. Do not make any local founder a messianic claimant or collapse the symbolic local order into the historical national commands.",
+      "assessment": "Read the whole local synagogue/beit-midrash analogy, the removal of Amalek, sacred place and restricted elevation, the different present and future orders of kingship, and the resulting permanence. Add Divrei Chalomot's Adar/Nissan sequence as an exact future counterpart. Do not make any local founder a messianic claimant or collapse the symbolic local order into the historical national commands. The reconciled checkpoint also retains the additional note: Clear knowledge and an acquisition from the root. The reconciled checkpoint also retains the additional note: Shaul and the completion that did not yet occur.",
       "candidatesReviewed": [
         {
           "ref": "Divrei Chalomot 15:1",
@@ -3408,12 +3563,17 @@
         {
           "ref": "Peri Tzadik, Rosh Chodesh Kislev 1:8",
           "school": "Kisvei Rav Tzadok",
-          "reason": "Read in full: Shaul could have reached completion through fulfilling the command against Amalek; confirms the conditional historical structure, not an automatic result of office."
+          "reason": "Approved at the exact Hebrew anchor after checking the complete selected thought and translation. Kislev explains that Shaul, the first king, could have reached the completion associated with Mashiach ben Yosef by fulfilling the Amalek command. This supplies a concrete counterpart to the siman's distinction between the first, interrupted kingship and the later completion after the root of opposition is removed. The quotation addresses that national order; the siman itself makes the further, limited application to the leadership of a new mikdash me'at."
         },
         {
           "ref": "Mei HaShiloach, Volume II, Genesis, Bereshit 8",
           "school": "Ishbitz–Radzin",
           "reason": "Read in full: the error of seeking the future light before its time can omit required work. Useful qualification of premature claims, but not an independent explanation of synagogue sanctity."
+        },
+        {
+          "ref": "Sod Yesharim, Purim 12:4",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved at the exact Hebrew anchor after checking the complete selected thought and translation. Sod Yesharim explains the order at entry to the land through the knowledge needed for a complete acquisition. Amalek covers the face; removing that concealment permits a clarified connection with the root. This develops why the siman connects the prior removal of the root of evil with the permanence of sacred place."
         }
       ]
     },
@@ -3438,6 +3598,11 @@
           "ref": "Sod Yesharim, Shemini Atzeret 14:2",
           "school": "Ishbitz–Radzin",
           "reason": "Read in full: the eventual disclosure concerns the very place where a person established service. It does not specifically explain the incommunicability of individual taste."
+        },
+        {
+          "ref": "Divrei Chalomot 12:1",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Read the full dream record, including the distinction between indirect taste and the varying tastes of the manna; retain."
         }
       ]
     },
@@ -3462,6 +3627,11 @@
           "ref": "Mei HaShiloach, Volume I, Genesis, Lech Lecha 6",
           "school": "Ishbitz–Radzin",
           "reason": "Read in full: kingship follows mastery over one's own impulse, with a specific Malki-Tzedek/Avraham account. It does not establish the siman's account of an unknowing wicked speaker's words becoming Torah."
+        },
+        {
+          "ref": "Peri Tzadik, Chanukah 5:6",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Read in full: outward wisdom, inward Torah, acceptance of divine kingship and the heart's deeper point. Retain the existing explanation."
         }
       ]
     },
@@ -3475,7 +3645,7 @@
       ],
       "reviewedParagraphHebrewSha256": "74d589d245ce6635de0278aee6a769d79b2d9ca98025621e8f41630ce06e2c2a",
       "reviewedSectionHebrewSha256": "74d589d245ce6635de0278aee6a769d79b2d9ca98025621e8f41630ce06e2c2a",
-      "assessment": "Read the entire recognition that every power comes from Hashem, the present weakening of the urge to disobey, Shema, and retrospective straightening of side paths. Retain Ishbitz on Shema and add 128's explicit statement that even a deed interpreted through this same verse can still require atonement. Tiferet Yosef's reading of the verse emphasizes the ever-open return rather than advance permission to sin.",
+      "assessment": "Read the entire recognition that every power comes from Hashem, the present weakening of the urge to disobey, Shema, and retrospective straightening of side paths. Retain Ishbitz on Shema and add 128's explicit statement that even a deed interpreted through this same verse can still require atonement. Tiferet Yosef's reading of the verse emphasizes the ever-open return rather than advance permission to sin. The reconciled checkpoint also retains the additional note: The same verse as a refusal to despair after failure.",
       "candidatesReviewed": [
         {
           "ref": "Tzidkat HaTzadik 128:1",
@@ -3485,7 +3655,7 @@
         {
           "ref": "Tiferet Yosef, Talmud Anthology, Berakhot 7",
           "school": "Ishbitz–Radzin",
-          "reason": "Read in full: Anochi precedes the negative command so that a person can still do good and return after stumbling; the verse is read against despair, not as permission to choose a transgression."
+          "reason": "Approved at the exact Hebrew anchor after checking the complete selected thought and translation. Tiferet Yosef discusses the same Berakhot statement and explains its application after a failure: a person must not despair of return. The surrounding teaching explains why “Anochi” precedes “You shall have no other gods”: a person who is not yet free of wrongdoing must still have a place to do mitzvos. This complements the existing Shema note, which addresses temptation as it arises, with a source focused on the already-diverted path at the end of the siman."
         }
       ]
     },
@@ -3528,7 +3698,7 @@
       ],
       "reviewedParagraphHebrewSha256": "f40e5816842b7236c17987ce6ac839676066ffa8a672c0aadb1d9b5886b98020",
       "reviewedSectionHebrewSha256": "f40e5816842b7236c17987ce6ac839676066ffa8a672c0aadb1d9b5886b98020",
-      "assessment": "Read the entire Shuvuel discussion, including his later relapse and the final insistence that Hashem judges according to a person's particular disposition. Retain the existing explanation of money as a root desire. The Akedah comparison concerns surrender of attachment rather than appointment to a matching responsibility, so it is not added.",
+      "assessment": "Read the entire Shuvuel discussion, including his later relapse and the final insistence that Hashem judges according to a person's particular disposition. Retain the existing explanation of money as a root desire. The Akedah comparison concerns surrender of attachment rather than appointment to a matching responsibility, so it is not added. The reconciled checkpoint also retains the additional note: The effort behind the same outward act.",
       "candidatesReviewed": [
         {
           "ref": "Yisrael Kedoshim 5:15",
@@ -3539,6 +3709,11 @@
           "ref": "Sod Yesharim, Rosh Hashanah 76:1",
           "school": "Ishbitz–Radzin",
           "reason": "Read in full: Avraham's surrender changes the meaning of offering Yitzchak. It does not explain why a repaired desire becomes a fitness for overseeing a particular treasury."
+        },
+        {
+          "ref": "Tiferet Yosef, Talmud Anthology, Taanit 19",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved at the exact Hebrew anchor after checking the complete selected thought and translation. Tiferet Yosef explains why the Talmud's account of Rabbi Eliezer and Rabbi Akiva need not mean that their outward righteousness differed. One may need to labor against a trait that costs the other no struggle. This directly develops the siman's closing statement that Hashem judges each person according to his particular qualities."
         }
       ]
     },
@@ -3552,7 +3727,7 @@
       ],
       "reviewedParagraphHebrewSha256": "26ee7b77933ff9a5c0e07d0ed3177bf0ff4b2087a7cdd312764fcbb0ed81689a",
       "reviewedSectionHebrewSha256": "26ee7b77933ff9a5c0e07d0ed3177bf0ff4b2087a7cdd312764fcbb0ed81689a",
-      "assessment": "Read the complete account of Torah as a call to Hashem, names as revealed attributes, learning toward practice, the relation to prayer and awe, and the Egyptian labor symbolism. Add Sichat Malakhei HaSharet's explanation that diverse names describe revealed powers while their source remains one. The Ishbitz division of general principles and details is a different question.",
+      "assessment": "Read the complete account of Torah as a call to Hashem, names as revealed attributes, learning toward practice, the relation to prayer and awe, and the Egyptian labor symbolism. Add Sichat Malakhei HaSharet's explanation that diverse names describe revealed powers while their source remains one. The Ishbitz division of general principles and details is a different question. The reconciled checkpoint also retains the additional note: Calling in truth through Torah.",
       "candidatesReviewed": [
         {
           "ref": "Sichat Malakhei HaSharet, From Tanchuma 1",
@@ -3563,6 +3738,11 @@
           "ref": "Mei HaShiloach, Volume I, Genesis, Vayechi 1",
           "school": "Ishbitz–Radzin",
           "reason": "Read in full: the interdependence of principles and particulars concerns how Torah is understood; it does not explain calling through divine names or the conjunction of Torah and prayer."
+        },
+        {
+          "ref": "Machshavot Charutz 15:7",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved at the exact Hebrew anchor after checking the complete selected thought and translation. Machshavot Charutz uses the same verse and the same identification of truth with Torah. It distinguishes prayer's favorable time from the connection through Torah described as having no barrier. This explains why the siman calls Torah joined with prayer a cry that rises beyond prayer alone, while preserving the surrounding requirement of awe and actual inward connection."
         }
       ]
     },
@@ -3576,7 +3756,7 @@
       ],
       "reviewedParagraphHebrewSha256": "db2ef819d7fe3878e4c816f6983777c87d35fdc95c6590fd173403c6b69d533b",
       "reviewedSectionHebrewSha256": "db2ef819d7fe3878e4c816f6983777c87d35fdc95c6590fd173403c6b69d533b",
-      "assessment": "Read the full hierarchy of speech, recitation, inward learning, and ordinary conversation, including the contrast with Doeg and the requirement of an inward beginning. Retain the Shvat account of Moshe's healed speech. The Taanit comparison explains reward for overcoming temperament, not when readily emerging speech becomes Torah.",
+      "assessment": "Read the full hierarchy of speech, recitation, inward learning, and ordinary conversation, including the contrast with Doeg and the requirement of an inward beginning. Retain the Shvat account of Moshe's healed speech. The Taanit comparison explains reward for overcoming temperament, not when readily emerging speech becomes Torah. The reconciled checkpoint also retains the additional note: Holy words and a living root in the heart.",
       "candidatesReviewed": [
         {
           "ref": "Peri Tzadik, Rosh Chodesh Shvat 6:2",
@@ -3587,6 +3767,11 @@
           "ref": "Tiferet Yosef, Talmud Anthology, Taanit 19",
           "school": "Ishbitz–Radzin",
           "reason": "Read in full: distinguishes equal outward righteousness from different inward effort in overcoming a trait. Rejected as an additional explanation of this siman's attained forms of Torah speech."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Noach 6",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved at the exact Hebrew anchor after checking the complete selected thought and translation. Mei HaShiloach contrasts holy language rooted in the heart with outward use of the same words by the generation of the dispersion. Its final harmful-speech example also matches the siman's qualification concerning Doeg. This helps distinguish superficial recitation without an inward beginning from the speech that remains Torah after such a beginning has been acquired."
         }
       ]
     },
@@ -3600,7 +3785,7 @@
       ],
       "reviewedParagraphHebrewSha256": "5e28b9ed17b4cf870117285261a998334672093b371ed9f9e2307ea7bb8f9e2f",
       "reviewedSectionHebrewSha256": "5e28b9ed17b4cf870117285261a998334672093b371ed9f9e2307ea7bb8f9e2f",
-      "assessment": "Read every stage of the praise of youthful desire and mature wisdom, names, choice, blessing, and Torah becoming one's own. Retain Chanukah's precise explanation of youthful desire established as a lasting habit. Beit Yaakov confirms the blessing-and-possession analogy but would restate an analogy already explicit in the siman.",
+      "assessment": "Read every stage of the praise of youthful desire and mature wisdom, names, choice, blessing, and Torah becoming one's own. Retain Chanukah's precise explanation of youthful desire established as a lasting habit. Beit Yaakov confirms the blessing-and-possession analogy but would restate an analogy already explicit in the siman. The reconciled checkpoint also retains the additional note: Desire as the growth of the first point.",
       "candidatesReviewed": [
         {
           "ref": "Peri Tzadik, Chanukah 7:1",
@@ -3611,6 +3796,11 @@
           "ref": "Beit Yaakov on Torah, Lech Lecha 14:37",
           "school": "Ishbitz–Radzin",
           "reason": "Read in full: blessing acknowledges Hashem's kingship and permits enjoyment from the divine table. No new note because the present siman already expressly uses this exact analogy."
+        },
+        {
+          "ref": "Mei HaShiloach, Volume I, Genesis, Bereshit 15",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved at the exact Hebrew anchor after checking the complete selected thought and translation. Mei HaShiloach explains the same saying about serving Torah being greater than its study through the image of a living body growing by desire. The first point of Torah is the image; longing brings its expansion. This adds a mechanism for the siman's valuation of early desire while its later discussion preserves the value of mature attainment."
         }
       ]
     },
@@ -3624,7 +3814,7 @@
       ],
       "reviewedParagraphHebrewSha256": "4767b185d38d31bcfa12b0d9a195161562d7ff9a1adbb9d79a3069843c579900",
       "reviewedSectionHebrewSha256": "4767b185d38d31bcfa12b0d9a195161562d7ff9a1adbb9d79a3069843c579900",
-      "assessment": "Read the complete treatment of teacher, friend, student, the providential establishment of Torah, the difference between making an effort and receiving a fitting companion, and the warning against excessive suspicion. Add the Radzin distinction between owning one's own shortcomings and judging another favorably. The trust passage is useful background but not a substitute for choosing and seeking companions.",
+      "assessment": "Read the complete treatment of teacher, friend, student, the providential establishment of Torah, the difference between making an effort and receiving a fitting companion, and the warning against excessive suspicion. Add the Radzin distinction between owning one's own shortcomings and judging another favorably. The trust passage is useful background but not a substitute for choosing and seeking companions. The reconciled checkpoint also retains the additional note: The remembrance is fixed in the learner.",
       "candidatesReviewed": [
         {
           "ref": "Sefer HaZikhronot 1:8",
@@ -3635,6 +3825,11 @@
           "ref": "Tiferet Yosef, Talmud Anthology, Taanit 16",
           "school": "Ishbitz–Radzin",
           "reason": "Approved after reading the whole discussion: sharply distinguishes the responsibility a person applies to himself from his obligation when interpreting a deficiency seen in another."
+        },
+        {
+          "ref": "Tiferet Yosef, Rosh Hashanah 5",
+          "school": "Ishbitz–Radzin",
+          "reason": "Approved at the exact Hebrew anchor after checking the complete selected thought and translation. Tiferet Yosef asks how remembrance can apply to Hashem, before Whom nothing is forgotten. It explicitly interprets the same book of remembrance as Hashem establishing Torah permanently within the person. This directly explains the siman's account of the writing as an engraving in the souls that preserves their learning."
         }
       ]
     },
@@ -3672,7 +3867,7 @@
       ],
       "reviewedParagraphHebrewSha256": "fde998f9ce8ce78ed2a3f46297970d14c3f8de82078632cb33e418b74e4230a2",
       "reviewedSectionHebrewSha256": "fde998f9ce8ce78ed2a3f46297970d14c3f8de82078632cb33e418b74e4230a2",
-      "assessment": "Read all stages from Torah as strength through teacher, friend, student, the daughter-sister-mother image, and humble acknowledgment of the gift. Retain both existing Chanukah notes: one explains continual help and the other genuine innovation attributed to the learner. The Radzin 'give strength' passage addresses a related reciprocity but does not warrant a third note.",
+      "assessment": "Read all stages from Torah as strength through teacher, friend, student, the daughter-sister-mother image, and humble acknowledgment of the gift. Retain both existing Chanukah notes: one explains continual help and the other genuine innovation attributed to the learner. The Radzin 'give strength' passage addresses a related reciprocity but does not warrant a third note. The reconciled checkpoint also retains the additional note: The awakening that is called a mother.",
       "candidatesReviewed": [
         {
           "ref": "Peri Tzadik, Chanukah 10:2",
@@ -3688,6 +3883,11 @@
           "ref": "Sod Yesharim, Rosh Hashanah 1:1",
           "school": "Ishbitz–Radzin",
           "reason": "Read in full: human service supplies strength amid the garments of creation while divine life remains their source. Not added because the existing notes already distinguish the learner's contribution and Hashem's help."
+        },
+        {
+          "ref": "Resisei Layla 53:3",
+          "school": "Kisvei Rav Tzadok",
+          "reason": "Approved at the exact Hebrew anchor after checking the complete selected thought and translation. Resisei Layla directly explains the mother image and the same verse ‘Give strength to God.’ Hashem wills that human awakening bring forth an answering awakening above, so the person is spoken of as its beginning and mother. This clarifies the siman's claim about bringing new Torah into the world without positing an independent source outside Hashem."
         }
       ]
     },
