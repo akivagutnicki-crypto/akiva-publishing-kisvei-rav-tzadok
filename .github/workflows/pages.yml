@@ -338,7 +338,7 @@ jobs:
           node scripts/check-dover-source-links.mjs
           node scripts/build-library-zips.mjs
           node scripts/test-dover-kdp.mjs --zips
-          node scripts/test-beit-toldos.mjs --zips --mcp
+          node scripts/test-beit-toldos.mjs --zips --mcp --after-seasonal-quotes
           node scripts/test-pri-shabbos-quoted-sources.mjs --zips --mcp > pri-shabbos-quoted-sources-final-verification.json
           node scripts/test-pri-seasonal-quoted-sources.mjs --zips --mcp > pri-seasonal-quoted-sources-final-verification.json
 

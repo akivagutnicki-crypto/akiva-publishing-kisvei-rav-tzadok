@@ -4,6 +4,7 @@ import path from 'node:path';
 import assert from 'node:assert/strict';
 import {createRequire} from 'node:module';
 import {readPack, BOOK, SLUG, RELEASE, digest, leaves, visible} from './publish-beit-toldos.mjs';
+import {readPack as readSeasonalPack, restoreHistoricalRows} from './publish-pri-seasonal-quoted-sources.mjs';
 const args=process.argv.slice(2),ui=args.indexOf('--url'),base=ui<0?null:new URL(args[ui+1]);
 const root='dist/library',pack=readPack();
 async function bytes(file){
@@ -45,9 +46,21 @@ for(const [index,leaf]of targets.entries()){
 assert.equal(paragraphs,82);assert.equal(pairs,2407);
 assert.deepEqual(pack.source.absentSectionNumbers,[]);
 if(!base){
-  // Dover's separately authorized successor runs after this append; every other
-  // pre-existing text must retain the bytes captured by the Toldos publisher.
-  for(const [f,sha]of Object.entries(report.protectedTextSha256))if(!f.startsWith('dover-tzedek/'))assert.equal(digest(fs.readFileSync(path.join(root,'data',f))),sha,'An earlier text changed: '+f);
+  // Historical checks remain byte-exact. After the seasonal publication gate,
+  // only its exact reviewed successor may reconstruct the earlier bytes.
+  const seasonalPack=args.includes('--after-seasonal-quotes')?readSeasonalPack():null;
+  for(const [f,sha]of Object.entries(report.protectedTextSha256))if(!f.startsWith('dover-tzedek/')){
+    let raw=fs.readFileSync(path.join(root,'data',f));
+    if(seasonalPack && digest(raw)!==sha){
+      const relative='data/'+f,reviewed=seasonalPack.files.find(file=>file.path===relative);
+      assert(reviewed && reviewed.beforeSha256===sha && reviewed.afterSha256===digest(raw),'An earlier text changed: '+f);
+      const restored=JSON.stringify(restoreHistoricalRows(relative,JSON.parse(raw),seasonalPack));
+      // Older imports end in a newline; Chanukah 25 uses compact JSON only.
+      // The original byte hash selects the exact historical serialization.
+      raw=Buffer.from(digest(restored)===sha?restored:restored+'\n');
+    }
+    assert.equal(digest(raw),sha,'An earlier text changed: '+f);
+  }
 }
 if(args.includes('--mcp')){
   const mcp=JSON.parse(fs.readFileSync('dist/mcp-data/catalog.json'));
