@@ -242,7 +242,8 @@ for (const b of catalog) {
   totalParas += paras.length;
 }
 
-// Mei HaShiloach: the reader shows Akiva Publishing's interlinear translation of these parashiyos.
+// Mei HaShiloach: retain the reader's complete checked section addresses,
+// including Writings, Talmud and colophons alongside the Torah selections.
 if (exists('mei-ha-shiloach/interlinear.json')) {
   const overlay = read('mei-ha-shiloach/interlinear.json');
   const heads = exists('mei-ha-shiloach/headings.json') ? read('mei-ha-shiloach/headings.json') : {};
@@ -254,19 +255,25 @@ if (exists('mei-ha-shiloach/interlinear.json')) {
     const items = [];
     passages.forEach((pairs, i) => {
       if (titles && titles[i]) items.push({ h: String(titles[i]) });
-      items.push({ n: i + 1, p: pairs });
+      items.push({ n: i + 1, p: pairs,
+        ...(info?.transcriptionNotes?.[i]?.length ? {transcriptionNotes:info.transcriptionNotes[i]} : {}) });
     });
     const list = paragraphsOf(items, ref);
     const parts = ref.split(', ');
-    sections.push({ ref, he: '', title: parts.slice(1).join(', '), heTitle: '', path: parts.slice(1, -1).join(' › '), il: true,
+    sections.push({ ref, he: info?.he || '', title: parts.slice(1).join(', '), heTitle: info?.he || '', path: parts.slice(1, -1).join(' › '), il: true,
       first: paras.length, count: list.length, ...(info?.title ? { heading: info.title } : {}) });
-    for (const p of list) paras.push({ r: `${ref} ${p.n}`, s: sections.length - 1, ...p });
+    // Torah sections use a space before their paragraph number. The later
+    // uploaded Prophets, Writings and Talmud sections already have an address
+    // (for example Joshua 4:1), so their next level uses a colon.
+    const separator = info?.sep || ' ';
+    for (const p of list) paras.push({ r: `${ref}${separator}${p.n}`, s: sections.length - 1, ...p,
+      ...(info?.paratextParagraphs?.includes(p.n) ? {kind:'colophon'} : {}) });
   }
   if (paras.length) {
     const byRef = new Map(paras.map(p => [p.r, p]));
     addLinks('mei-ha-shiloach/links.json', byRef);
     books.push({ slug: 'mei-hashiloach', title: 'Mei HaShiloach', he: 'מי השילוח', group: 'Izhbitz',
-      edition: 'Akiva Publishing interlinear translation (selected parashiyos)', license: '© Akiva Publishing', source: '',
+      edition: 'Akiva Publishing interlinear translation (published sections)', license: '© Akiva Publishing', source: '',
       akiva: true, interlinear: true, paragraphs: paras.length, sections });
     fs.writeFileSync(path.join(OUT, 'text', 'mei-hashiloach.json'), JSON.stringify({ slug: 'mei-hashiloach', paras }));
     totalParas += paras.length;
@@ -320,7 +327,7 @@ if (fs.existsSync(remoteSourceDir)) {
       existing.sourceSnapshots = [...(existing.sourceSnapshots || []), sourceSnapshot];
       // The MCP's existing section-aware labeling still identifies the Akiva
       // interlinear text separately; do not attribute its copyright to new Hebrew.
-      existing.edition = `Mei HaShiloach, ${doc.edition} (Hebrew); Akiva Publishing interlinear translation (selected parashiyos)`;
+      existing.edition = `Mei HaShiloach, ${doc.edition} (Hebrew); Akiva Publishing interlinear translation (published sections)`;
       existing.license = '';
       existing.source = doc.source;
     } else {

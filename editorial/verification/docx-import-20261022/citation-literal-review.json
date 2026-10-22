@@ -1,0 +1,17 @@
+{
+  "schemaVersion": 1,
+  "overrides": [
+    {
+      "literal": "בְּפֶרֶק חֲמִישִׁי מֵהִלְכוֹת תְּשׁוּבָה הֲלָכָה ה׳",
+      "to": "Mishneh Torah, Repentance 5:5",
+      "sectionRef": "Mei HaShiloach, Volume I, Writings, Psalms 92"
+    },
+    {
+      "literal": "chapter five of the Laws of Repentance, halakhah five",
+      "to": "Mishneh Torah, Repentance 5:5",
+      "sectionRef": "Mei HaShiloach, Volume I, Writings, Psalms 92"
+    }
+  ],
+  "reason": "Chapter and halakhah are written out in words; preserve exact visible citation and add its verified source target.",
+  "sourceCheck": "TorahLM.get_text Mishneh Torah, Repentance 5:5 recorded by the Psalms translator."
+}

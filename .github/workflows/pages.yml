@@ -351,6 +351,20 @@ jobs:
           node scripts/test-pri-seasonal-quoted-sources.mjs --zips --mcp > pri-seasonal-quoted-sources-final-verification.json
           node scripts/test-tzidkat-quoted-sources.mjs --zips --mcp > tzidkat-quoted-sources-final-verification.json
 
+      - name: Publish complete Vayeitzei and remaining Mei HaShiloach after predecessor preservation checks
+        run: |
+          node scripts/publish-reader-docx-import.mjs
+          node scripts/publish-reader-docx-import.mjs > reader-docx-import-repeat-verification.json
+          node --input-type=module -e "import fs from 'node:fs'; import assert from 'node:assert/strict'; assert.equal(JSON.parse(fs.readFileSync('reader-docx-import-repeat-verification.json')).mode, 'already-applied');"
+          node scripts/build-mcp-index.mjs
+          node scripts/build-parallels.mjs
+          node scripts/build-library-zips.mjs
+          node scripts/build-mcp-index.mjs
+          node scripts/test-reader-docx-import.mjs --zips --mcp > reader-docx-import-verification.json
+          cat reader-docx-import-verification.json
+          node scripts/test-beit-toldos.mjs --zips --mcp --after-seasonal-quotes --after-tzidkat-quotes --after-docx-import
+          node scripts/test-dover-kdp.mjs --zips
+
       - name: Build and verify reviewed connections against the final canonical source edition
         run: |
           node scripts/build-reviewed-connections.mjs
@@ -396,6 +410,9 @@ jobs:
         run: |
           node scripts/test-tzidkat-quoted-sources.mjs --zips --mcp --connections > tzidkat-quoted-sources-connections-verification.json
           node scripts/test-tzidkat-quoted-sources-browser.mjs
+
+      - name: Verify Vayeitzei and Mei HaShiloach text navigation and source links on desktop and mobile
+        run: node scripts/test-reader-docx-import-browser.mjs
 
       - name: Cache official Sefaria source exports
         uses: actions/cache@v4
@@ -452,8 +469,14 @@ jobs:
 
       - name: Verify every supplied Bais Yaakov Toldos phrase and Word download on the published reader
         run: |
-          node scripts/test-beit-toldos.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'
+          node scripts/test-beit-toldos.mjs --after-docx-import --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'
           AKIVA_READER_URL='https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/' node scripts/test-beit-toldos-browser.mjs
+
+      - name: Verify the complete Vayeitzei and Mei HaShiloach import on the published reader
+        run: |
+          node scripts/test-reader-docx-import.mjs --zips --mcp --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/' > reader-docx-import-live-verification.json
+          cat reader-docx-import-live-verification.json
+          node scripts/test-reader-docx-import-browser.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'
 
       - name: Verify seasonal quotations and matching print downloads on the published reader
         run: |
@@ -492,6 +515,19 @@ jobs:
             sleep 20
           done
           exit 1
+
+      - name: Save complete Vayeitzei and Mei HaShiloach publication evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reader-docx-import-verification
+          path: |
+            dist/library/reader-docx-import-20261022.json
+            reader-docx-import-*-verification.json
+            reader-docx-import-verification.json
+            editorial/verification/docx-import-20261022/
+            artifacts/reader-docx-import/
+          retention-days: 14
 
       - name: Save Shabbos reader verification and screenshots
         if: always()

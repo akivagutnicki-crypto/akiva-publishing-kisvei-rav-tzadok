@@ -1,0 +1,2419 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS",
+  "provenance": {
+    "head": {
+      "kind": "newly authored completion supplement",
+      "source": "Verified Sefaria vocalized Hebrew, checked against the user-supplied Bnei Brak 2005 export.",
+      "english": "New phrase-by-phrase translation authored for this reader completion; not copied from a Sefaria English edition.",
+      "scope": "First 15 missing Proverbs paragraphs, chapters 1–13. Chapters 15 onward are a separate supplement.",
+      "skill": "hebrew-english-interlinear",
+      "sourceLedger": "mei-missing-volume-i.json",
+      "editionAudit": "mei-2005-edition-audit.json",
+      "connectorCheckStatus": "Connector calls for Proverbs checks stalled and were aborted; this supplement uses the verified local primary-source ledger."
+    },
+    "tail": "Original English interlinear translation of the ten supplied canonical Volume I Proverbs paragraphs from chapters 15–20; source Hebrew sliced without omissions after the documented expansions and nikkud additions.",
+    "independentReview": "All ten tail paragraphs reviewed independently; citation nikkud preserves full source spelling."
+  },
+  "counts": {
+    "paragraphs": 15,
+    "expectedParagraphs": 15,
+    "phrasePairs": 187,
+    "sourceWords": 1190
+  },
+  "paragraphs": [
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 1:1",
+      "sectionRef": "Mei HaShiloach, Volume I, Writings, Proverbs 1",
+      "n": 1,
+      "sourceHebrew": "עַד מָתַי פְּתָיִם תְּאֵהֲבוּ פֶתִי וְלֵצִים לָצוֹן חָמְדוּ לָהֶם. פֶּתִי מוֹרֶה עַל אִישׁ שֶׁהוּא נָקֵל בְּדַעְתּוֹ לְהִתְפַּתּוֹת, וְהִנֵּה זֶה נֶאֱמַר אַף בְּדִבְרֵי תּוֹרָה שֶׁהֵם נִתְפַּתִּים כְּפִי הֵרָאוֹת לָהֶם לָעַיִן וְלֹא יִרְצוּ לַעֲמוֹק יוֹתֵר, וְלָזֶה נֶאֱמַר \"וְלֵצִים לָצוֹן חָמְדוּ לָהֶם\" הַיְינוּ בְּאִם הָאָדָם לֹא יַשְׁגִּיחַ כְּלָל עַל הַמִּקְרָא כְּפִי פְּשׁוּטוֹ אָז יִקָּרֵא לֵץ, כִּי זֶה דֶּרֶךְ לֵצִים אֲשֶׁר לָצוֹן חָמְדוּ לָהֶם.",
+      "normalizedHebrew": "עַד מָתַי פְּתָיִם תְּאֵהֲבוּ פֶתִי וְלֵצִים לָצוֹן חָמְדוּ לָהֶם. פֶּתִי מוֹרֶה עַל אִישׁ שֶׁהוּא נָקֵל בְּדַעְתּוֹ לְהִתְפַּתּוֹת, וְהִנֵּה זֶה נֶאֱמַר אַף בְּדִבְרֵי תּוֹרָה שֶׁהֵם נִתְפַּתִּים כְּפִי הֵרָאוֹת לָהֶם לָעַיִן וְלֹא יִרְצוּ לַעֲמוֹק יוֹתֵר, וְלָזֶה נֶאֱמַר \"וְלֵצִים לָצוֹן חָמְדוּ לָהֶם\" הַיְינוּ בְּאִם הָאָדָם לֹא יַשְׁגִּיחַ כְּלָל עַל הַמִּקְרָא כְּפִי פְּשׁוּטוֹ אָז יִקָּרֵא לֵץ, כִּי זֶה דֶּרֶךְ לֵצִים אֲשֶׁר לָצוֹן חָמְדוּ לָהֶם.",
+      "p": [
+        [
+          "עַד מָתַי פְּתָיִם תְּאֵהֲבוּ פֶתִי וְלֵצִים לָצוֹן חָמְדוּ לָהֶם.",
+          "How long, simple ones, will you love simplicity, and scoffers delight in scoffing?"
+        ],
+        [
+          "פֶּתִי מוֹרֶה עַל אִישׁ שֶׁהוּא נָקֵל בְּדַעְתּוֹ לְהִתְפַּתּוֹת,",
+          "“Simple” denotes a person whose mind is easily persuaded."
+        ],
+        [
+          "וְהִנֵּה זֶה נֶאֱמַר אַף בְּדִבְרֵי תּוֹרָה",
+          "This is said even concerning words of Torah:"
+        ],
+        [
+          "שֶׁהֵם נִתְפַּתִּים כְּפִי הֵרָאוֹת לָהֶם לָעַיִן",
+          "they are persuaded by what appears before their eyes"
+        ],
+        [
+          "וְלֹא יִרְצוּ לַעֲמוֹק יוֹתֵר,",
+          "and do not wish to probe more deeply."
+        ],
+        [
+          "וְלָזֶה נֶאֱמַר \"וְלֵצִים לָצוֹן חָמְדוּ לָהֶם\"",
+          "Concerning this it says, “And scoffers delight in scoffing”:"
+        ],
+        [
+          "הַיְינוּ בְּאִם הָאָדָם לֹא יַשְׁגִּיחַ כְּלָל עַל הַמִּקְרָא כְּפִי פְּשׁוּטוֹ",
+          "that is, if a person pays no attention at all to Scripture’s plain meaning,"
+        ],
+        [
+          "אָז יִקָּרֵא לֵץ,",
+          "he is then called a scoffer,"
+        ],
+        [
+          "כִּי זֶה דֶּרֶךְ לֵצִים אֲשֶׁר לָצוֹן חָמְדוּ לָהֶם.",
+          "for this is the way of scoffers who delight in scoffing."
+        ]
+      ],
+      "expansions": [],
+      "transformations": [],
+      "reviewNotes": [],
+      "sourceUrl": "https://www.sefaria.org/Mei_HaShiloach,_Volume_I,_Writings,_Proverbs.1.1",
+      "sortKey": [
+        65,
+        1,
+        1
+      ],
+      "sourceLetterAccounting": {
+        "status": "PASS",
+        "sourceHebrewLetters": 219,
+        "normalizedHebrewLetters": 219,
+        "expectedAfterReviewedExpansionsSha256": "08ec8bce7b0838e28124fd360b273926baa0fb6bfb0e4592f269d26cd1c5fab6",
+        "pairedHebrewLettersSha256": "08ec8bce7b0838e28124fd360b273926baa0fb6bfb0e4592f269d26cd1c5fab6",
+        "unaccountedConsonantalChanges": 0
+      }
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 2:1",
+      "sectionRef": "Mei HaShiloach, Volume I, Writings, Proverbs 2",
+      "n": 1,
+      "sourceHebrew": "בְּנִי אִם תִּקַּח אֲמָרָי וּמִצְוֹתַי תִּצְפֹּן אִתָּךְ לְהַקְשִׁיב לַחָכְמָה אָזְנֶךָ כוּ' אִם תְּבַקְשֶׁנָּה כַכֶּסֶף וְכַמַּטְמוֹנִים כוּ' אָז תָּבִין כוּ' וְדַעַת אֱלֹקִים תִּמְצָא. מַה שֶּׁנֶּאֱמַר תְּחִילָּה \"לְהַקְשִׁיב לַחָכְמָה אָזְנֶךָ\" לְשׁוֹן צִוּוּי וְאַחַר כָּךְ נֶאֱמַר \"אִם תְּבַקְשֶׁנָּה\" כוּ', כִּי לְהַקְשִׁיב אֹזֶן לַחָכְמָה וּלְהַטּוֹת לִבּוֹ לַתְּבוּנָה זֶה הוּא בְּכֹחַ הָאָדָם, אֲבָל לְבַקְשָׁהּ כַּכֶּסֶף הַיְינוּ שֶׁדִּבְרֵי תּוֹרָה יִהְיוּ כָּל כָּךְ יְקָרִים אֵצֶל הָאָדָם בְּדַעְתּוֹ שֶׁיִּרְדּוֹף אַחֲרֵיהֶם כְּאָדָם הָרוֹדֵף אַחַר כֶּסֶף וּמַטְמוֹנִים, זֶה אֵינוֹ בְּיַד הָאָדָם רַק בְּסִיַּעַת הַש\"י, וְאִם יִהְיוּ דִּבְרֵי תּוֹרָה בְּלִבּוֹ חֲשׁוּבִים כָּל כָּךְ אָז יֵדַע כִּי לִבּוֹ מְזֻכָּךְ וְיִרְאַת ה' נִמְצָא בּוֹ.",
+      "normalizedHebrew": "בְּנִי אִם תִּקַּח אֲמָרָי וּמִצְוֹתַי תִּצְפֹּן אִתָּךְ לְהַקְשִׁיב לַחָכְמָה אָזְנֶךָ כּוּלֵי אִם תְּבַקְשֶׁנָּה כַכֶּסֶף וְכַמַּטְמוֹנִים כּוּלֵי אָז תָּבִין כּוּלֵי וְדַעַת אֱלֹקִים תִּמְצָא. מַה שֶּׁנֶּאֱמַר תְּחִילָּה \"לְהַקְשִׁיב לַחָכְמָה אָזְנֶךָ\" לְשׁוֹן צִוּוּי וְאַחַר כָּךְ נֶאֱמַר \"אִם תְּבַקְשֶׁנָּה\" כּוּלֵי, כִּי לְהַקְשִׁיב אֹזֶן לַחָכְמָה וּלְהַטּוֹת לִבּוֹ לַתְּבוּנָה זֶה הוּא בְּכֹחַ הָאָדָם, אֲבָל לְבַקְשָׁהּ כַּכֶּסֶף הַיְינוּ שֶׁדִּבְרֵי תּוֹרָה יִהְיוּ כָּל כָּךְ יְקָרִים אֵצֶל הָאָדָם בְּדַעְתּוֹ שֶׁיִּרְדּוֹף אַחֲרֵיהֶם כְּאָדָם הָרוֹדֵף אַחַר כֶּסֶף וּמַטְמוֹנִים, זֶה אֵינוֹ בְּיַד הָאָדָם רַק בְּסִיַּעַת הַשֵּׁם יִתְבָּרַךְ, וְאִם יִהְיוּ דִּבְרֵי תּוֹרָה בְּלִבּוֹ חֲשׁוּבִים כָּל כָּךְ אָז יֵדַע כִּי לִבּוֹ מְזֻכָּךְ וְיִרְאַת הַשֵּׁם נִמְצָא בּוֹ.",
+      "p": [
+        [
+          "בְּנִי אִם תִּקַּח אֲמָרָי וּמִצְוֹתַי תִּצְפֹּן אִתָּךְ",
+          "My son, if you receive my words and treasure my commandments within you,"
+        ],
+        [
+          "לְהַקְשִׁיב לַחָכְמָה אָזְנֶךָ כּוּלֵי",
+          "inclining your ear to wisdom, etc.;"
+        ],
+        [
+          "אִם תְּבַקְשֶׁנָּה כַכֶּסֶף וְכַמַּטְמוֹנִים כּוּלֵי",
+          "if you seek it like silver and like hidden treasures, etc.,"
+        ],
+        [
+          "אָז תָּבִין כּוּלֵי וְדַעַת אֱלֹקִים תִּמְצָא.",
+          "then you will understand, etc., and find knowledge of God."
+        ],
+        [
+          "מַה שֶּׁנֶּאֱמַר תְּחִילָּה \"לְהַקְשִׁיב לַחָכְמָה אָזְנֶךָ\" לְשׁוֹן צִוּוּי",
+          "The initial statement, “Inclining your ear to wisdom,” is phrased as a command,"
+        ],
+        [
+          "וְאַחַר כָּךְ נֶאֱמַר \"אִם תְּבַקְשֶׁנָּה\" כּוּלֵי,",
+          "whereas afterward it says, “If you seek it,” etc."
+        ],
+        [
+          "כִּי לְהַקְשִׁיב אֹזֶן לַחָכְמָה וּלְהַטּוֹת לִבּוֹ לַתְּבוּנָה זֶה הוּא בְּכֹחַ הָאָדָם,",
+          "For inclining one’s ear to wisdom and directing one’s heart toward understanding lie within a person’s power."
+        ],
+        [
+          "אֲבָל לְבַקְשָׁהּ כַּכֶּסֶף",
+          "But seeking it like silver—"
+        ],
+        [
+          "הַיְינוּ שֶׁדִּבְרֵי תּוֹרָה יִהְיוּ כָּל כָּךְ יְקָרִים אֵצֶל הָאָדָם בְּדַעְתּוֹ",
+          "meaning that words of Torah become so precious in a person’s estimation"
+        ],
+        [
+          "שֶׁיִּרְדּוֹף אַחֲרֵיהֶם כְּאָדָם הָרוֹדֵף אַחַר כֶּסֶף וּמַטְמוֹנִים,",
+          "that he pursues them as someone pursues silver and hidden treasures—"
+        ],
+        [
+          "זֶה אֵינוֹ בְּיַד הָאָדָם רַק בְּסִיַּעַת הַשֵּׁם יִתְבָּרַךְ,",
+          "this does not lie in a person’s hands; it requires Hashem’s assistance."
+        ],
+        [
+          "וְאִם יִהְיוּ דִּבְרֵי תּוֹרָה בְּלִבּוֹ חֲשׁוּבִים כָּל כָּךְ",
+          "If words of Torah are held so dearly in his heart,"
+        ],
+        [
+          "אָז יֵדַע כִּי לִבּוֹ מְזֻכָּךְ וְיִרְאַת הַשֵּׁם נִמְצָא בּוֹ.",
+          "he will then know that his heart is purified and that fear of Hashem is found within him."
+        ]
+      ],
+      "expansions": [
+        {
+          "from": "כו'",
+          "to": "כּוּלֵי",
+          "occurrences": 4,
+          "contextReviewed": true
+        },
+        {
+          "from": "הש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "occurrences": 1,
+          "contextReviewed": true
+        },
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "occurrences": 1,
+          "contextReviewed": true
+        }
+      ],
+      "transformations": [
+        {
+          "from": "כוּ'",
+          "to": "כּוּלֵי",
+          "count": 4,
+          "reason": "Context-reviewed abbreviation expansion; preserve grammatical prefixes."
+        },
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "count": 1,
+          "reason": "Context-reviewed abbreviation expansion; preserve grammatical prefixes."
+        },
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "count": 1,
+          "reason": "Context-reviewed abbreviation expansion; preserve grammatical prefixes."
+        }
+      ],
+      "reviewNotes": [],
+      "sourceUrl": "https://www.sefaria.org/Mei_HaShiloach,_Volume_I,_Writings,_Proverbs.2.1",
+      "sortKey": [
+        65,
+        2,
+        1
+      ],
+      "sourceLetterAccounting": {
+        "status": "PASS",
+        "sourceHebrewLetters": 348,
+        "normalizedHebrewLetters": 363,
+        "expectedAfterReviewedExpansionsSha256": "7be6c15aad5008ed7ce224ca048764fc7010a546ce8efb00152b828f84bae28c",
+        "pairedHebrewLettersSha256": "7be6c15aad5008ed7ce224ca048764fc7010a546ce8efb00152b828f84bae28c",
+        "unaccountedConsonantalChanges": 0
+      }
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 3:1",
+      "sectionRef": "Mei HaShiloach, Volume I, Writings, Proverbs 3",
+      "n": 1,
+      "sourceHebrew": "חֶסֶד וֶאֱמֶת אַל יַעַזְבֻךָ. וְלֹא כְּתִיב אַל תַּעֲזֹב, כִּי בֶּאֱמֶת הַשְׁפָּעוֹת הַש\"י יוֹרֶדֶת תָּמִיד בְּלִי הֶפְסֵק וְרַק הָאָדָם מִצִּדּוֹ צָרִיךְ לְזַכֵּךְ אֶת לִבּוֹ וְלַעֲמוֹד מוּכָן לְקַבֵּל שֶׁלֹּא יִפְנֶה עוֹרֶף חַס וְשָׁלוֹם, אֲבָל הַש\"י מַשְׁפִּיעַ תָּמִיד בְּטוּבוֹ וְלֹא יַעֲזֹב אֶת הָאָדָם הַמְחַכֶּה לְחַסְדּוֹ.",
+      "normalizedHebrew": "חֶסֶד וֶאֱמֶת אַל יַעַזְבֻךָ. וְלֹא כְּתִיב אַל תַּעֲזֹב, כִּי בֶּאֱמֶת הַשְׁפָּעוֹת הַשֵּׁם יִתְבָּרַךְ יוֹרֶדֶת תָּמִיד בְּלִי הֶפְסֵק וְרַק הָאָדָם מִצִּדּוֹ צָרִיךְ לְזַכֵּךְ אֶת לִבּוֹ וְלַעֲמוֹד מוּכָן לְקַבֵּל שֶׁלֹּא יִפְנֶה עוֹרֶף חַס וְשָׁלוֹם, אֲבָל הַשֵּׁם יִתְבָּרַךְ מַשְׁפִּיעַ תָּמִיד בְּטוּבוֹ וְלֹא יַעֲזֹב אֶת הָאָדָם הַמְחַכֶּה לְחַסְדּוֹ.",
+      "p": [
+        [
+          "חֶסֶד וֶאֱמֶת אַל יַעַזְבֻךָ.",
+          "Let kindness and truth not forsake you."
+        ],
+        [
+          "וְלֹא כְּתִיב אַל תַּעֲזֹב,",
+          "It does not say, “Do not forsake them,”"
+        ],
+        [
+          "כִּי בֶּאֱמֶת הַשְׁפָּעוֹת הַשֵּׁם יִתְבָּרַךְ יוֹרֶדֶת תָּמִיד בְּלִי הֶפְסֵק",
+          "for in truth Hashem’s beneficence descends continually, without interruption."
+        ],
+        [
+          "וְרַק הָאָדָם מִצִּדּוֹ צָרִיךְ לְזַכֵּךְ אֶת לִבּוֹ",
+          "A person, for his part, need only purify his heart"
+        ],
+        [
+          "וְלַעֲמוֹד מוּכָן לְקַבֵּל שֶׁלֹּא יִפְנֶה עוֹרֶף חַס וְשָׁלוֹם,",
+          "and stand ready to receive, without turning his back, Heaven forbid."
+        ],
+        [
+          "אֲבָל הַשֵּׁם יִתְבָּרַךְ מַשְׁפִּיעַ תָּמִיד בְּטוּבוֹ",
+          "Hashem, however, continually bestows His goodness"
+        ],
+        [
+          "וְלֹא יַעֲזֹב אֶת הָאָדָם הַמְחַכֶּה לְחַסְדּוֹ.",
+          "and will not forsake the person who awaits His kindness."
+        ]
+      ],
+      "expansions": [
+        {
+          "from": "הש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "occurrences": 2,
+          "contextReviewed": true
+        }
+      ],
+      "transformations": [
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "count": 2,
+          "reason": "Context-reviewed abbreviation expansion; preserve grammatical prefixes."
+        }
+      ],
+      "reviewNotes": [],
+      "sourceUrl": "https://www.sefaria.org/Mei_HaShiloach,_Volume_I,_Writings,_Proverbs.3.1",
+      "sortKey": [
+        65,
+        3,
+        1
+      ],
+      "sourceLetterAccounting": {
+        "status": "PASS",
+        "sourceHebrewLetters": 157,
+        "normalizedHebrewLetters": 167,
+        "expectedAfterReviewedExpansionsSha256": "9387b9faa4ab2edbcb877233d272ad0ee4db1bee0171f98604ff54086cb2e4e1",
+        "pairedHebrewLettersSha256": "9387b9faa4ab2edbcb877233d272ad0ee4db1bee0171f98604ff54086cb2e4e1",
+        "unaccountedConsonantalChanges": 0
+      }
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 3:2",
+      "sectionRef": "Mei HaShiloach, Volume I, Writings, Proverbs 3",
+      "n": 2,
+      "sourceHebrew": "וּמְצָא חֵן וְשֵׂכֶל טוֹב בְּעֵינֵי אֱלֹקִים וְאָדָם. בְּטַח אֶל ה' בְּכָל לִבֶּךָ וְאֶל בִּינָתְךָ אַל תִּשָּׁעֵן בְּכָל דְּרָכֶיךָ דָעֵהוּ כוּ', אַל תְּהִי חָכָם בְּעֵינֶיךָ. הִנֵּה עִנְיַן סְמִיכוּת הַפְּסוּקִים הָאֵלּוּ \"וּמְצָא חֵן וְשֵׂכֶל טוֹב\" כוּ', הַיְינוּ שֶׁיִּרְאֶה הָאָדָם שֶׁמַּעֲשָׂיו יַעֲלוּ חֵן וְתִפְאֶרֶת לְעֵינֵי בְּנֵי אָדָם, אַךְ אִם יִרְצֶה לְהִשְׁתַּדֵּל בְּכֹחוֹתָיו שֶׁיִּהְיֶה מְיֻפֶּה וּמְהֻדָּר בְּעֵינֵי בְּנֵי אָדָם, נֶגֶד זֶה אָמַר \"בְּטַח בַּה' בְּכָל לְבָבֶךָ וְאֶל בִּינָתְךָ אַל תִּשָּׁעֵן\", פֵּירוּשׁ אַל תִּסְמוֹךְ עַל בִּינַת לִבְּךָ כִּי תָבִין מַה שֶּׁיַּעֲלֶה חֵן וּמַה שֶּׁלֹּא יַעֲלֶה, רַק \"בְּכָל דְּרָכֶיךָ דָעֵהוּ\" שֶׁתַּטֶּה כַּוָּנָתְךָ רַק לְשֵׁם שָׁמַיִם בְּכָל דַּרְכְּךָ שֶׁיִּהְיוּ לִרְצוֹן הַש\"י. \"וְהוּא יְיַשֵּׁר אֹרְחוֹתֶיךָ\", הַיְינוּ אִם תֵּלֵךְ בְּדֶרֶךְ טוֹבִים מַה שֶּׁיִּצְטָרֵךְ שֶׁיִּהְיֶה טוֹב בְּעֵינֵי בְּנֵי אָדָם, הַש\"י יְיַשֵּׁר שֶׁיַּעֲלֶה חֵן, וְאַף עַל פִּי כֵן לֹא תִסְמוֹךְ גַּם עַל זֶה מִכֹּל וָכֹל וְלַעֲשׂוֹת מַעֲשֶׂה שֶׁהוּא הֵיפֶךְ דַּעַת בְּנֵי אָדָם, וְיִסְמוֹךְ עַל זֶה מֵחֲמַת שֶׁיֵּדַע כִּי בָּעוֹמֶק הוּא צַדִּיק, עַל זֶה נֶאֱמַר \"אַל תְּהִי חָכָם כוּ' יְרָא אֶת ה' וְסוּר מֵרָע\".",
+      "normalizedHebrew": "וּמְצָא חֵן וְשֵׂכֶל טוֹב בְּעֵינֵי אֱלֹקִים וְאָדָם. בְּטַח אֶל הַשֵּׁם בְּכָל לִבֶּךָ וְאֶל בִּינָתְךָ אַל תִּשָּׁעֵן בְּכָל דְּרָכֶיךָ דָעֵהוּ כּוּלֵי, אַל תְּהִי חָכָם בְּעֵינֶיךָ. הִנֵּה עִנְיַן סְמִיכוּת הַפְּסוּקִים הָאֵלּוּ \"וּמְצָא חֵן וְשֵׂכֶל טוֹב\" כּוּלֵי, הַיְינוּ שֶׁיִּרְאֶה הָאָדָם שֶׁמַּעֲשָׂיו יַעֲלוּ חֵן וְתִפְאֶרֶת לְעֵינֵי בְּנֵי אָדָם, אַךְ אִם יִרְצֶה לְהִשְׁתַּדֵּל בְּכֹחוֹתָיו שֶׁיִּהְיֶה מְיֻפֶּה וּמְהֻדָּר בְּעֵינֵי בְּנֵי אָדָם, נֶגֶד זֶה אָמַר \"בְּטַח בְּהַשֵּׁם בְּכָל לְבָבֶךָ וְאֶל בִּינָתְךָ אַל תִּשָּׁעֵן\", פֵּירוּשׁ אַל תִּסְמוֹךְ עַל בִּינַת לִבְּךָ כִּי תָבִין מַה שֶּׁיַּעֲלֶה חֵן וּמַה שֶּׁלֹּא יַעֲלֶה, רַק \"בְּכָל דְּרָכֶיךָ דָעֵהוּ\" שֶׁתַּטֶּה כַּוָּנָתְךָ רַק לְשֵׁם שָׁמַיִם בְּכָל דַּרְכְּךָ שֶׁיִּהְיוּ לִרְצוֹן הַשֵּׁם יִתְבָּרַךְ. \"וְהוּא יְיַשֵּׁר אֹרְחוֹתֶיךָ\", הַיְינוּ אִם תֵּלֵךְ בְּדֶרֶךְ טוֹבִים מַה שֶּׁיִּצְטָרֵךְ שֶׁיִּהְיֶה טוֹב בְּעֵינֵי בְּנֵי אָדָם, הַשֵּׁם יִתְבָּרַךְ יְיַשֵּׁר שֶׁיַּעֲלֶה חֵן, וְאַף עַל פִּי כֵן לֹא תִסְמוֹךְ גַּם עַל זֶה מִכֹּל וָכֹל וְלַעֲשׂוֹת מַעֲשֶׂה שֶׁהוּא הֵיפֶךְ דַּעַת בְּנֵי אָדָם, וְיִסְמוֹךְ עַל זֶה מֵחֲמַת שֶׁיֵּדַע כִּי בָּעוֹמֶק הוּא צַדִּיק, עַל זֶה נֶאֱמַר \"אַל תְּהִי חָכָם כּוּלֵי יְרָא אֶת הַשֵּׁם וְסוּר מֵרָע\".",
+      "p": [
+        [
+          "וּמְצָא חֵן וְשֵׂכֶל טוֹב בְּעֵינֵי אֱלֹקִים וְאָדָם.",
+          "Find favor and good understanding in the eyes of God and man."
+        ],
+        [
+          "בְּטַח אֶל הַשֵּׁם בְּכָל לִבֶּךָ וְאֶל בִּינָתְךָ אַל תִּשָּׁעֵן",
+          "Trust in Hashem with all your heart, and do not rely upon your own understanding."
+        ],
+        [
+          "בְּכָל דְּרָכֶיךָ דָעֵהוּ כּוּלֵי, אַל תְּהִי חָכָם בְּעֵינֶיךָ.",
+          "Know Him in all your ways, etc.; do not be wise in your own eyes."
+        ],
+        [
+          "הִנֵּה עִנְיַן סְמִיכוּת הַפְּסוּקִים הָאֵלּוּ",
+          "The meaning of the juxtaposition of these verses is as follows."
+        ],
+        [
+          "\"וּמְצָא חֵן וְשֵׂכֶל טוֹב\" כּוּלֵי,",
+          "“Find favor and good understanding,” etc.,"
+        ],
+        [
+          "הַיְינוּ שֶׁיִּרְאֶה הָאָדָם שֶׁמַּעֲשָׂיו יַעֲלוּ חֵן וְתִפְאֶרֶת לְעֵינֵי בְּנֵי אָדָם,",
+          "means that a person should see to it that his deeds appear gracious and admirable to others."
+        ],
+        [
+          "אַךְ אִם יִרְצֶה לְהִשְׁתַּדֵּל בְּכֹחוֹתָיו שֶׁיִּהְיֶה מְיֻפֶּה וּמְהֻדָּר בְּעֵינֵי בְּנֵי אָדָם,",
+          "Yet if he wishes to strive by his own powers to appear attractive and distinguished in people’s eyes,"
+        ],
+        [
+          "נֶגֶד זֶה אָמַר \"בְּטַח בְּהַשֵּׁם בְּכָל לְבָבֶךָ וְאֶל בִּינָתְךָ אַל תִּשָּׁעֵן\",",
+          "against this it says, “Trust in Hashem with all your heart, and do not rely upon your own understanding.”"
+        ],
+        [
+          "פֵּירוּשׁ אַל תִּסְמוֹךְ עַל בִּינַת לִבְּךָ",
+          "This means: do not rely on your heart’s understanding,"
+        ],
+        [
+          "כִּי תָבִין מַה שֶּׁיַּעֲלֶה חֵן וּמַה שֶּׁלֹּא יַעֲלֶה,",
+          "assuming that you can discern what will find favor and what will not."
+        ],
+        [
+          "רַק \"בְּכָל דְּרָכֶיךָ דָעֵהוּ\"",
+          "Instead, “Know Him in all your ways”:"
+        ],
+        [
+          "שֶׁתַּטֶּה כַּוָּנָתְךָ רַק לְשֵׁם שָׁמַיִם",
+          "direct your intention solely for the sake of Heaven,"
+        ],
+        [
+          "בְּכָל דַּרְכְּךָ שֶׁיִּהְיוּ לִרְצוֹן הַשֵּׁם יִתְבָּרַךְ.",
+          "so that all your ways may accord with Hashem’s will."
+        ],
+        [
+          "\"וְהוּא יְיַשֵּׁר אֹרְחוֹתֶיךָ\",",
+          "“And He will make your paths straight”:"
+        ],
+        [
+          "הַיְינוּ אִם תֵּלֵךְ בְּדֶרֶךְ טוֹבִים",
+          "that is, if you walk in the way of the good,"
+        ],
+        [
+          "מַה שֶּׁיִּצְטָרֵךְ שֶׁיִּהְיֶה טוֹב בְּעֵינֵי בְּנֵי אָדָם,",
+          "whatever needs to appear good in people’s eyes,"
+        ],
+        [
+          "הַשֵּׁם יִתְבָּרַךְ יְיַשֵּׁר שֶׁיַּעֲלֶה חֵן,",
+          "Hashem will arrange so that it finds favor."
+        ],
+        [
+          "וְאַף עַל פִּי כֵן לֹא תִסְמוֹךְ גַּם עַל זֶה מִכֹּל וָכֹל",
+          "Nevertheless, do not rely entirely even upon this,"
+        ],
+        [
+          "וְלַעֲשׂוֹת מַעֲשֶׂה שֶׁהוּא הֵיפֶךְ דַּעַת בְּנֵי אָדָם,",
+          "undertaking an action contrary to people’s judgment"
+        ],
+        [
+          "וְיִסְמוֹךְ עַל זֶה מֵחֲמַת שֶׁיֵּדַע כִּי בָּעוֹמֶק הוּא צַדִּיק,",
+          "and relying on this because you know yourself, deep down, to be righteous."
+        ],
+        [
+          "עַל זֶה נֶאֱמַר \"אַל תְּהִי חָכָם כּוּלֵי יְרָא אֶת הַשֵּׁם וְסוּר מֵרָע\".",
+          "Concerning this it says, “Do not be wise, etc.; fear Hashem and turn away from evil.”"
+        ]
+      ],
+      "expansions": [
+        {
+          "from": "כו'",
+          "to": "כּוּלֵי",
+          "occurrences": 3,
+          "contextReviewed": true
+        },
+        {
+          "from": "הש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "occurrences": 2,
+          "contextReviewed": true
+        },
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "occurrences": 3,
+          "contextReviewed": true
+        }
+      ],
+      "transformations": [
+        {
+          "from": "כוּ'",
+          "to": "כּוּלֵי",
+          "count": 3,
+          "reason": "Context-reviewed abbreviation expansion; preserve grammatical prefixes."
+        },
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "count": 2,
+          "reason": "Context-reviewed abbreviation expansion; preserve grammatical prefixes."
+        },
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "count": 3,
+          "reason": "Context-reviewed abbreviation expansion; preserve grammatical prefixes."
+        }
+      ],
+      "reviewNotes": [],
+      "sourceUrl": "https://www.sefaria.org/Mei_HaShiloach,_Volume_I,_Writings,_Proverbs.3.2",
+      "sortKey": [
+        65,
+        3,
+        2
+      ],
+      "sourceLetterAccounting": {
+        "status": "PASS",
+        "sourceHebrewLetters": 534,
+        "normalizedHebrewLetters": 556,
+        "expectedAfterReviewedExpansionsSha256": "101b10527d239aa108be60c9c81ae73aed1073186f8c38d8e284f2848d4df849",
+        "pairedHebrewLettersSha256": "101b10527d239aa108be60c9c81ae73aed1073186f8c38d8e284f2848d4df849",
+        "unaccountedConsonantalChanges": 0
+      }
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 3:3",
+      "sectionRef": "Mei HaShiloach, Volume I, Writings, Proverbs 3",
+      "n": 3,
+      "sourceHebrew": "רִפְאוּת תְּהִי לְשָׁרֶּךָ. הַיְינוּ לְשׁוֹרֶשׁ הַחֶסְרוֹן הַנִּמְצָא בְּלֵב הָאָדָם שֶׁמִּמֶּנּוּ בָּא הִתְפַּשְּׁטוּת לְכָל צַד, וְעַל יְדֵי דִּבְרֵי תּוֹרָה יִתְרַפֵּא הַשּׁוֹרֶשׁ וּמִמֵּילָא גַּם מִמַּה שֶּׁנִּסְתָּעֵף מִמֶּנּוּ גַּם כֵּן לֹא יִשָּׁאֵר רוֹשֶׁם, כִּי עִיקַּר בְּרִיאוּת הָאָדָם הוּא מִטַּבּוּרוֹ כִּדְאִיתָא בַּגְּמָרָא (סוטה מ\"ה:).",
+      "normalizedHebrew": "רִפְאוּת תְּהִי לְשָׁרֶּךָ. הַיְינוּ לְשׁוֹרֶשׁ הַחֶסְרוֹן הַנִּמְצָא בְּלֵב הָאָדָם שֶׁמִּמֶּנּוּ בָּא הִתְפַּשְּׁטוּת לְכָל צַד, וְעַל יְדֵי דִּבְרֵי תּוֹרָה יִתְרַפֵּא הַשּׁוֹרֶשׁ וּמִמֵּילָא גַּם מִמַּה שֶּׁנִּסְתָּעֵף מִמֶּנּוּ גַּם כֵּן לֹא יִשָּׁאֵר רוֹשֶׁם, כִּי עִיקַּר בְּרִיאוּת הָאָדָם הוּא מִטַּבּוּרוֹ כִּדְאִיתָא בַּגְּמָרָא (סוֹטָה מ\"ה:).",
+      "p": [
+        [
+          "רִפְאוּת תְּהִי לְשָׁרֶּךָ.",
+          "It will be healing for your navel."
+        ],
+        [
+          "הַיְינוּ לְשׁוֹרֶשׁ הַחֶסְרוֹן הַנִּמְצָא בְּלֵב הָאָדָם",
+          "This refers to the root of the deficiency found in a person’s heart,"
+        ],
+        [
+          "שֶׁמִּמֶּנּוּ בָּא הִתְפַּשְּׁטוּת לְכָל צַד,",
+          "from which it spreads in every direction."
+        ],
+        [
+          "וְעַל יְדֵי דִּבְרֵי תּוֹרָה יִתְרַפֵּא הַשּׁוֹרֶשׁ",
+          "Through words of Torah, the root is healed,"
+        ],
+        [
+          "וּמִמֵּילָא גַּם מִמַּה שֶּׁנִּסְתָּעֵף מִמֶּנּוּ גַּם כֵּן לֹא יִשָּׁאֵר רוֹשֶׁם,",
+          "and consequently no trace remains of what branched out from it either."
+        ],
+        [
+          "כִּי עִיקַּר בְּרִיאוּת הָאָדָם הוּא מִטַּבּוּרוֹ",
+          "For a person’s essential vitality derives from the navel,"
+        ],
+        [
+          "כִּדְאִיתָא בַּגְּמָרָא (סוֹטָה מ\"ה:).",
+          "as stated in the Gemara (Sotah 45b)."
+        ]
+      ],
+      "expansions": [],
+      "transformations": [],
+      "reviewNotes": [],
+      "sourceUrl": "https://www.sefaria.org/Mei_HaShiloach,_Volume_I,_Writings,_Proverbs.3.3",
+      "sortKey": [
+        65,
+        3,
+        3
+      ],
+      "sourceLetterAccounting": {
+        "status": "PASS",
+        "sourceHebrewLetters": 160,
+        "normalizedHebrewLetters": 160,
+        "expectedAfterReviewedExpansionsSha256": "883be6491091666a10e24221e5d14e2a1fdf53b66232ba3a0726b036b9cc8b97",
+        "pairedHebrewLettersSha256": "883be6491091666a10e24221e5d14e2a1fdf53b66232ba3a0726b036b9cc8b97",
+        "unaccountedConsonantalChanges": 0
+      }
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 6:1",
+      "sectionRef": "Mei HaShiloach, Volume I, Writings, Proverbs 6",
+      "n": 1,
+      "sourceHebrew": "כִּי נֵר מִצְוָה וְתוֹרָה אוֹר. הַתּוֹרָה נִמְשְׁלָה לְאוֹר לְפִי שֶׁאוֹרָהּ גָּדוֹל מְאֹד, וְהַמִּצְוָה לְנֵר כִּי נֵר אוֹרוֹ קָטָן מֵאוֹר, אֲבָל יֵשׁ מַעֲלָה בְּנֵר יוֹתֵר מֵאוֹר כִּי נֵר יָכוֹל לְהַכְנִיסוֹ לְחוֹרִין וּסְדָקִין מַה שֶּׁאֵין כֵּן בָּאוֹר, וְהִנֵּה הַתּוֹרָה מְזַכֶּכֶת אֶת כָּל הָאָדָם אַךְ בְּמָקוֹם שֶׁיּוֹדֵעַ בְּעַצְמוֹ שֶׁיֵּשׁ לוֹ חֶסְרוֹן, שָׁם צָרִיךְ לְמִצְוָה מְיוּחֶדֶת שֶׁיַּחֲזִיק בָּהּ כְּמוֹ שֶׁמָּצִינוּ בַּגְּמָרָא (שבת קי\"ח:) אָבִיךָ בְּמָה זָהִיר טְפֵי אָמַר לֵיהּ בְּמִצְוַת צִיצִית, כִּי הָיָה צָרִיךְ לְזֹאת הַמִּצְוָה עַל פִּי בִּינָתוֹ, וְעַל יְדֵי זֶה נִשְׁלַם הַחֶסְרוֹן.",
+      "normalizedHebrew": "כִּי נֵר מִצְוָה וְתוֹרָה אוֹר. הַתּוֹרָה נִמְשְׁלָה לְאוֹר לְפִי שֶׁאוֹרָהּ גָּדוֹל מְאֹד, וְהַמִּצְוָה לְנֵר כִּי נֵר אוֹרוֹ קָטָן מֵאוֹר, אֲבָל יֵשׁ מַעֲלָה בְּנֵר יוֹתֵר מֵאוֹר כִּי נֵר יָכוֹל לְהַכְנִיסוֹ לְחוֹרִין וּסְדָקִין מַה שֶּׁאֵין כֵּן בָּאוֹר, וְהִנֵּה הַתּוֹרָה מְזַכֶּכֶת אֶת כָּל הָאָדָם אַךְ בְּמָקוֹם שֶׁיּוֹדֵעַ בְּעַצְמוֹ שֶׁיֵּשׁ לוֹ חֶסְרוֹן, שָׁם צָרִיךְ לְמִצְוָה מְיוּחֶדֶת שֶׁיַּחֲזִיק בָּהּ כְּמוֹ שֶׁמָּצִינוּ בַּגְּמָרָא (שַׁבָּת קי\"ח:) אָבִיךָ בְּמָה זָהִיר טְפֵי אָמַר לֵיהּ בְּמִצְוַת צִיצִית, כִּי הָיָה צָרִיךְ לְזֹאת הַמִּצְוָה עַל פִּי בִּינָתוֹ, וְעַל יְדֵי זֶה נִשְׁלַם הַחֶסְרוֹן.",
+      "p": [
+        [
+          "כִּי נֵר מִצְוָה וְתוֹרָה אוֹר.",
+          "For a commandment is a lamp, and Torah is light."
+        ],
+        [
+          "הַתּוֹרָה נִמְשְׁלָה לְאוֹר לְפִי שֶׁאוֹרָהּ גָּדוֹל מְאֹד,",
+          "The Torah is compared to light because its illumination is very great,"
+        ],
+        [
+          "וְהַמִּצְוָה לְנֵר כִּי נֵר אוֹרוֹ קָטָן מֵאוֹר,",
+          "and a commandment to a lamp, because a lamp’s illumination is smaller than that of light."
+        ],
+        [
+          "אֲבָל יֵשׁ מַעֲלָה בְּנֵר יוֹתֵר מֵאוֹר",
+          "Yet a lamp has an advantage over light:"
+        ],
+        [
+          "כִּי נֵר יָכוֹל לְהַכְנִיסוֹ לְחוֹרִין וּסְדָקִין מַה שֶּׁאֵין כֵּן בָּאוֹר,",
+          "one can bring a lamp into holes and crevices, which is not so with light."
+        ],
+        [
+          "וְהִנֵּה הַתּוֹרָה מְזַכֶּכֶת אֶת כָּל הָאָדָם",
+          "The Torah purifies the whole person,"
+        ],
+        [
+          "אַךְ בְּמָקוֹם שֶׁיּוֹדֵעַ בְּעַצְמוֹ שֶׁיֵּשׁ לוֹ חֶסְרוֹן,",
+          "but where he knows that he has a particular deficiency,"
+        ],
+        [
+          "שָׁם צָרִיךְ לְמִצְוָה מְיוּחֶדֶת שֶׁיַּחֲזִיק בָּהּ",
+          "he needs a particular commandment to which he can hold fast."
+        ],
+        [
+          "כְּמוֹ שֶׁמָּצִינוּ בַּגְּמָרָא (שַׁבָּת קי\"ח:)",
+          "As we find in the Gemara (Shabbat 118b):"
+        ],
+        [
+          "אָבִיךָ בְּמָה זָהִיר טְפֵי אָמַר לֵיהּ בְּמִצְוַת צִיצִית,",
+          "“In what was your father especially careful?” He answered, “In the commandment of tzitzit.”"
+        ],
+        [
+          "כִּי הָיָה צָרִיךְ לְזֹאת הַמִּצְוָה עַל פִּי בִּינָתוֹ,",
+          "For, according to his understanding, he needed this particular commandment,"
+        ],
+        [
+          "וְעַל יְדֵי זֶה נִשְׁלַם הַחֶסְרוֹן.",
+          "and through it the deficiency was made whole."
+        ]
+      ],
+      "expansions": [],
+      "transformations": [],
+      "reviewNotes": [],
+      "sourceUrl": "https://www.sefaria.org/Mei_HaShiloach,_Volume_I,_Writings,_Proverbs.6.1",
+      "sortKey": [
+        65,
+        6,
+        1
+      ],
+      "sourceLetterAccounting": {
+        "status": "PASS",
+        "sourceHebrewLetters": 297,
+        "normalizedHebrewLetters": 297,
+        "expectedAfterReviewedExpansionsSha256": "c95252178c78e3c54583db38a60f2e005fdeb693e4aa107491bdf7ffd04eadce",
+        "pairedHebrewLettersSha256": "c95252178c78e3c54583db38a60f2e005fdeb693e4aa107491bdf7ffd04eadce",
+        "unaccountedConsonantalChanges": 0
+      }
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 8:1",
+      "sectionRef": "Mei HaShiloach, Volume I, Writings, Proverbs 8",
+      "n": 1,
+      "sourceHebrew": "הֲלֹא חָכְמָה תִקְרָא כוּ׳ בְּרֹאשׁ מְרוֹמִים עֲלֵי דָרֶךְ בֵּית נְתִיבוֹת נִצָּבָה. \"בְּרֹאשׁ מְרוֹמִים\" הַיְינוּ בְּעוֹד שֶׁהָאָדָם מְרוֹמָם וּמְנוּשָּׂא עַל כָּל הַחֶמְדּוֹת אָז הַחָכְמָה תְּעוֹרֵר אוֹתוֹ, כִּי בְּעִידָּנָא דְּיֵצֶר הָרָע לֵית מַאן דְּמַדְכַּר לְיֵצֶר הַטּוֹב (נדרים ל\"ב:), רַק קוֹדֶם שֶׁיִּתְגַּבֵּר עָלָיו אָז תִּקְרָא אֵלָיו, וְזֶהוּ \"בְּרֹאשׁ מְרוֹמִים\". וַ\"עֲלֵי דָרֶךְ\" הַיְינוּ אַחֲרֵי אֲשֶׁר תַּסִּיעוֹ מִדָּבָר רַע, \"בֵּית נְתִיבוֹת נִצָּבָה\" הוּא בְּאִם יִזְדַּכֵּךְ לֵב הָאָדָם שֶׁלֹּא יִתְאַוֶּה בִּלְתִּי מַה שֶּׁהוּא רְצוֹן הַש\"י. \"לְיַד שְׁעָרִים\", כִּי הַש\"י בָּרָא אֶת הָאָדָם יָשָׁר בָּעוֹלָם וּכְמָה שֶׁנָּתַן בּוֹ כֹּחַ הַתַּאֲוָה לְכָל דָּבָר, כֵּן נָתַן בּוֹ כֹּחַ הַחָכְמָה לְהִתְגַּבֵּר עָלֶיהָ, \"לְפִי קָרֶת\", הַיְינוּ כְּמָה שֶׁיְּכַוֵּין הָאָדָם לִרְצוֹן הַש\"י, \"מְבוֹא פְתָחִים תָּרֹנָּה\".",
+      "normalizedHebrew": "הֲלֹא חָכְמָה תִקְרָא כּוּלֵי בְּרֹאשׁ מְרוֹמִים עֲלֵי דָרֶךְ בֵּית נְתִיבוֹת נִצָּבָה. \"בְּרֹאשׁ מְרוֹמִים\" הַיְינוּ בְּעוֹד שֶׁהָאָדָם מְרוֹמָם וּמְנוּשָּׂא עַל כָּל הַחֶמְדּוֹת אָז הַחָכְמָה תְּעוֹרֵר אוֹתוֹ, כִּי בְּעִידָּנָא דְּיֵצֶר הָרָע לֵית מַאן דְּמַדְכַּר לְיֵצֶר הַטּוֹב (נְדָרִים ל\"ב:), רַק קוֹדֶם שֶׁיִּתְגַּבֵּר עָלָיו אָז תִּקְרָא אֵלָיו, וְזֶהוּ \"בְּרֹאשׁ מְרוֹמִים\". וַ\"עֲלֵי דָרֶךְ\" הַיְינוּ אַחֲרֵי אֲשֶׁר תַּסִּיעוֹ מִדָּבָר רַע, \"בֵּית נְתִיבוֹת נִצָּבָה\" הוּא בְּאִם יִזְדַּכֵּךְ לֵב הָאָדָם שֶׁלֹּא יִתְאַוֶּה בִּלְתִּי מַה שֶּׁהוּא רְצוֹן הַשֵּׁם יִתְבָּרַךְ. \"לְיַד שְׁעָרִים\", כִּי הַשֵּׁם יִתְבָּרַךְ בָּרָא אֶת הָאָדָם יָשָׁר בָּעוֹלָם וּכְמָה שֶׁנָּתַן בּוֹ כֹּחַ הַתַּאֲוָה לְכָל דָּבָר, כֵּן נָתַן בּוֹ כֹּחַ הַחָכְמָה לְהִתְגַּבֵּר עָלֶיהָ, \"לְפִי קָרֶת\", הַיְינוּ כְּמָה שֶׁיְּכַוֵּין הָאָדָם לִרְצוֹן הַשֵּׁם יִתְבָּרַךְ, \"מְבוֹא פְתָחִים תָּרֹנָּה\".",
+      "p": [
+        [
+          "הֲלֹא חָכְמָה תִקְרָא כּוּלֵי",
+          "Does not wisdom call, etc.?"
+        ],
+        [
+          "בְּרֹאשׁ מְרוֹמִים עֲלֵי דָרֶךְ בֵּית נְתִיבוֹת נִצָּבָה.",
+          "At the top of the heights, along the way, at the crossroads she stands."
+        ],
+        [
+          "\"בְּרֹאשׁ מְרוֹמִים\" הַיְינוּ בְּעוֹד שֶׁהָאָדָם מְרוֹמָם וּמְנוּשָּׂא עַל כָּל הַחֶמְדּוֹת",
+          "“At the top of the heights” means while a person is elevated and raised above all cravings,"
+        ],
+        [
+          "אָז הַחָכְמָה תְּעוֹרֵר אוֹתוֹ,",
+          "wisdom then awakens him."
+        ],
+        [
+          "כִּי בְּעִידָּנָא דְּיֵצֶר הָרָע לֵית מַאן דְּמַדְכַּר לְיֵצֶר הַטּוֹב (נְדָרִים ל\"ב:),",
+          "For when the evil inclination prevails, no one recalls the good inclination (Nedarim 32b)."
+        ],
+        [
+          "רַק קוֹדֶם שֶׁיִּתְגַּבֵּר עָלָיו אָז תִּקְרָא אֵלָיו,",
+          "Rather, before it overpowers him, wisdom calls to him;"
+        ],
+        [
+          "וְזֶהוּ \"בְּרֹאשׁ מְרוֹמִים\".",
+          "this is “at the top of the heights.”"
+        ],
+        [
+          "וַ\"עֲלֵי דָרֶךְ\" הַיְינוּ אַחֲרֵי אֲשֶׁר תַּסִּיעוֹ מִדָּבָר רַע,",
+          "And “along the way” means after wisdom has turned him away from something evil."
+        ],
+        [
+          "\"בֵּית נְתִיבוֹת נִצָּבָה\" הוּא בְּאִם יִזְדַּכֵּךְ לֵב הָאָדָם",
+          "“At the crossroads she stands” applies when a person’s heart becomes purified"
+        ],
+        [
+          "שֶׁלֹּא יִתְאַוֶּה בִּלְתִּי מַה שֶּׁהוּא רְצוֹן הַשֵּׁם יִתְבָּרַךְ.",
+          "so that he desires only what accords with Hashem’s will."
+        ],
+        [
+          "\"לְיַד שְׁעָרִים\",",
+          "“Beside the gates”:"
+        ],
+        [
+          "כִּי הַשֵּׁם יִתְבָּרַךְ בָּרָא אֶת הָאָדָם יָשָׁר בָּעוֹלָם",
+          "for Hashem created the human being upright in this world."
+        ],
+        [
+          "וּכְמָה שֶׁנָּתַן בּוֹ כֹּחַ הַתַּאֲוָה לְכָל דָּבָר,",
+          "To the same extent that He gave him the power to desire everything,"
+        ],
+        [
+          "כֵּן נָתַן בּוֹ כֹּחַ הַחָכְמָה לְהִתְגַּבֵּר עָלֶיהָ,",
+          "He gave him the power of wisdom to overcome that desire."
+        ],
+        [
+          "\"לְפִי קָרֶת\", הַיְינוּ כְּמָה שֶׁיְּכַוֵּין הָאָדָם לִרְצוֹן הַשֵּׁם יִתְבָּרַךְ,",
+          "“At the city’s entrance” means according to the degree that a person directs himself toward Hashem’s will:"
+        ],
+        [
+          "\"מְבוֹא פְתָחִים תָּרֹנָּה\".",
+          "“At the entrance to the doorways she cries out.”"
+        ]
+      ],
+      "expansions": [
+        {
+          "from": "כו'",
+          "to": "כּוּלֵי",
+          "occurrences": 1,
+          "contextReviewed": true
+        },
+        {
+          "from": "הש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "occurrences": 3,
+          "contextReviewed": true
+        }
+      ],
+      "transformations": [
+        {
+          "from": "כוּ׳",
+          "to": "כּוּלֵי",
+          "count": 1,
+          "reason": "Context-reviewed abbreviation expansion; preserve grammatical prefixes."
+        },
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "count": 3,
+          "reason": "Context-reviewed abbreviation expansion; preserve grammatical prefixes."
+        }
+      ],
+      "reviewNotes": [],
+      "sourceUrl": "https://www.sefaria.org/Mei_HaShiloach,_Volume_I,_Writings,_Proverbs.8.1",
+      "sortKey": [
+        65,
+        8,
+        1
+      ],
+      "sourceLetterAccounting": {
+        "status": "PASS",
+        "sourceHebrewLetters": 391,
+        "normalizedHebrewLetters": 408,
+        "expectedAfterReviewedExpansionsSha256": "d78ae40e2ceeb940dfbda61235a00354e07cf5b0cb54a8f0d663343da269578b",
+        "pairedHebrewLettersSha256": "d78ae40e2ceeb940dfbda61235a00354e07cf5b0cb54a8f0d663343da269578b",
+        "unaccountedConsonantalChanges": 0
+      }
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 8:2",
+      "sectionRef": "Mei HaShiloach, Volume I, Writings, Proverbs 8",
+      "n": 2,
+      "sourceHebrew": "כִּי מֹצְאִי מָצָא חַיִּים וַיָּפֶק רָצוֹן מֵה'. הַכָּתוּב הוּא \"מֹצְאִי\" הַיְינוּ שֶׁמַּכִּיר כִּי אֵצֶל הַש\"י נִמְצָא חַיִּים, וְתִקְּנוּ הַקְּרִי \"מָצָא\" הַיְינוּ שֶׁגַּם לְאָדָם הַמַּכִּיר זֹאת יִמְצָא לוֹ לְעַצְמוֹ גַּם כֵּן חַיִּים וְטַעַם בְּדִבְרֵי תּוֹרָה.",
+      "normalizedHebrew": "כִּי מֹצְאִי מָצָא חַיִּים וַיָּפֶק רָצוֹן מֵהַשֵּׁם. הַכָּתוּב הוּא \"מֹצְאִי\" הַיְינוּ שֶׁמַּכִּיר כִּי אֵצֶל הַשֵּׁם יִתְבָּרַךְ נִמְצָא חַיִּים, וְתִקְּנוּ הַקְּרִי \"מָצָא\" הַיְינוּ שֶׁגַּם לְאָדָם הַמַּכִּיר זֹאת יִמְצָא לוֹ לְעַצְמוֹ גַּם כֵּן חַיִּים וְטַעַם בְּדִבְרֵי תּוֹרָה.",
+      "p": [
+        [
+          "כִּי מֹצְאִי מָצָא חַיִּים וַיָּפֶק רָצוֹן מֵהַשֵּׁם.",
+          "For whoever finds me finds life and obtains favor from Hashem."
+        ],
+        [
+          "הַכָּתוּב הוּא \"מֹצְאִי\"",
+          "The written form is “motz’i,” “one who finds me”:"
+        ],
+        [
+          "הַיְינוּ שֶׁמַּכִּיר כִּי אֵצֶל הַשֵּׁם יִתְבָּרַךְ נִמְצָא חַיִּים,",
+          "that is, one who recognizes that life is found with Hashem."
+        ],
+        [
+          "וְתִקְּנוּ הַקְּרִי \"מָצָא\"",
+          "The reading was established as “matza,” “has found”:"
+        ],
+        [
+          "הַיְינוּ שֶׁגַּם לְאָדָם הַמַּכִּיר זֹאת",
+          "meaning that the person who recognizes this"
+        ],
+        [
+          "יִמְצָא לוֹ לְעַצְמוֹ גַּם כֵּן חַיִּים וְטַעַם בְּדִבְרֵי תּוֹרָה.",
+          "will also find, for himself, life and savor in words of Torah."
+        ]
+      ],
+      "expansions": [
+        {
+          "from": "הש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "occurrences": 1,
+          "contextReviewed": true
+        },
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "occurrences": 1,
+          "contextReviewed": true
+        }
+      ],
+      "transformations": [
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "count": 1,
+          "reason": "Context-reviewed abbreviation expansion; preserve grammatical prefixes."
+        },
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "count": 1,
+          "reason": "Context-reviewed abbreviation expansion; preserve grammatical prefixes."
+        }
+      ],
+      "reviewNotes": [
+        "The author’s written-form/reading homily is translated as printed; its wording is not silently harmonized to another biblical edition."
+      ],
+      "sourceUrl": "https://www.sefaria.org/Mei_HaShiloach,_Volume_I,_Writings,_Proverbs.8.2",
+      "sortKey": [
+        65,
+        8,
+        2
+      ],
+      "sourceLetterAccounting": {
+        "status": "PASS",
+        "sourceHebrewLetters": 125,
+        "normalizedHebrewLetters": 132,
+        "expectedAfterReviewedExpansionsSha256": "eab2ece194c0ebdfca5d8b7fc2012accaab46d88dd09c3269961d1b132cf46c3",
+        "pairedHebrewLettersSha256": "eab2ece194c0ebdfca5d8b7fc2012accaab46d88dd09c3269961d1b132cf46c3",
+        "unaccountedConsonantalChanges": 0
+      }
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 10:1",
+      "sectionRef": "Mei HaShiloach, Volume I, Writings, Proverbs 10",
+      "n": 1,
+      "sourceHebrew": "שִׂפְתֵי צַדִּיק יֵדְעוּן רָצוֹן. הַיְינוּ עַל דֶּרֶךְ שֶׁאָמְרוּ חֲזַ\"ל (ראש השנה ו'.) כּוֹפִין אוֹתוֹ עַד שֶׁיֹּאמַר רוֹצֶה אֲנִי, פֵּירוּשׁ עַל יְדֵי דִּבּוּרוֹ מַכְנִיס הָרָצוֹן גַּם כֵּן בְּלִבּוֹ. וְזֶהוּ \"שִׂפְתֵי צַדִּיק\" פֵּירוּשׁ מַה שֶּׁמְּדַבֵּר מִשָּׂפָה וְלַחוּץ בַּעֲבוּר שֶׁלִּבּוֹ עֲדַיִין אֵינוֹ מְבֹרָר, לָזֶה מוֹעִיל לוֹ לְבָרֵר אֶת לִבּוֹ לְרָצוֹן בְּלֵב שָׁלֵם, לְמָשָׁל כְּשֶׁצּוֹמֵחַ כַּעַס בְּלִבּוֹ עַל חֲבֵירוֹ וְהוּא יוֹדֵעַ וּמַכִּיר זֶה לְחֶסְרוֹן אָז עֲצָתוֹ קוֹדֶם לְדַבֵּר טוֹב עִם חֲבֵירוֹ וְאַף שֶׁאֵין זֶה בְּלֵב שָׁלֵם רַק עַל יְדֵי זֶה פּוֹעֵל בְּעַצְמוֹ מְעַט מְעַט עַד שֶׁמַּכְנִיס בְּלִבּוֹ אַהֲבָה בִּמְקוֹם שִׂנְאָה. וְזֶהוּ \"יֵדְעוּן רָצוֹן\" לְשׁוֹן יֵדַע פֵּירוּשׁ סֵדֶר, שֶׁעַל יְדֵי דִּבּוּרוֹ מְסַדֵּר הָרָצוֹן עַד שֶׁמַּכְנִיס וְקוֹבֵעַ כֵּן בְּלֵב שָׁלֵם, כְּמוֹ שֶׁכָּתוּב (תהלים ק\"ד,י\"ח) \"שֶׁמֶשׁ יָדַע מְבוֹאוֹ\", פֵּירוּשׁ שֶׁיֵּשׁ לָהּ סֵדֶר וּקְבִיעוּת בַּהֲלִיכָתָהּ מַה שֶּׁאֵין כֵּן בַּלְּבָנָה פְּעָמִים בָּא בַּאֲרוּכָּה כוּ׳ כִּדְאִיתָא בְּרֹאשׁ הַשָּׁנָה [כ\"ה.] עַיֵּין שָׁם.",
+      "normalizedHebrew": "שִׂפְתֵי צַדִּיק יֵדְעוּן רָצוֹן. הַיְינוּ עַל דֶּרֶךְ שֶׁאָמְרוּ חֲכָמֵינוּ זִכְרוֹנָם לִבְרָכָה (רֹאשׁ הַשָּׁנָה ו'.) כּוֹפִין אוֹתוֹ עַד שֶׁיֹּאמַר רוֹצֶה אֲנִי, פֵּירוּשׁ עַל יְדֵי דִּבּוּרוֹ מַכְנִיס הָרָצוֹן גַּם כֵּן בְּלִבּוֹ. וְזֶהוּ \"שִׂפְתֵי צַדִּיק\" פֵּירוּשׁ מַה שֶּׁמְּדַבֵּר מִשָּׂפָה וְלַחוּץ בַּעֲבוּר שֶׁלִּבּוֹ עֲדַיִין אֵינוֹ מְבֹרָר, לָזֶה מוֹעִיל לוֹ לְבָרֵר אֶת לִבּוֹ לְרָצוֹן בְּלֵב שָׁלֵם, לְמָשָׁל כְּשֶׁצּוֹמֵחַ כַּעַס בְּלִבּוֹ עַל חֲבֵירוֹ וְהוּא יוֹדֵעַ וּמַכִּיר זֶה לְחֶסְרוֹן אָז עֲצָתוֹ קוֹדֶם לְדַבֵּר טוֹב עִם חֲבֵירוֹ וְאַף שֶׁאֵין זֶה בְּלֵב שָׁלֵם רַק עַל יְדֵי זֶה פּוֹעֵל בְּעַצְמוֹ מְעַט מְעַט עַד שֶׁמַּכְנִיס בְּלִבּוֹ אַהֲבָה בִּמְקוֹם שִׂנְאָה. וְזֶהוּ \"יֵדְעוּן רָצוֹן\" לְשׁוֹן יֵדַע פֵּירוּשׁ סֵדֶר, שֶׁעַל יְדֵי דִּבּוּרוֹ מְסַדֵּר הָרָצוֹן עַד שֶׁמַּכְנִיס וְקוֹבֵעַ כֵּן בְּלֵב שָׁלֵם, כְּמוֹ שֶׁכָּתוּב (תְּהִלִּים ק\"ד,י\"ח) \"שֶׁמֶשׁ יָדַע מְבוֹאוֹ\", פֵּירוּשׁ שֶׁיֵּשׁ לָהּ סֵדֶר וּקְבִיעוּת בַּהֲלִיכָתָהּ מַה שֶּׁאֵין כֵּן בַּלְּבָנָה פְּעָמִים בָּא בַּאֲרוּכָּה כּוּלֵי כִּדְאִיתָא בְּרֹאשׁ הַשָּׁנָה [כ\"ה.] עַיֵּין שָׁם.",
+      "p": [
+        [
+          "שִׂפְתֵי צַדִּיק יֵדְעוּן רָצוֹן.",
+          "The lips of the righteous know the will."
+        ],
+        [
+          "הַיְינוּ עַל דֶּרֶךְ שֶׁאָמְרוּ חֲכָמֵינוּ זִכְרוֹנָם לִבְרָכָה (רֹאשׁ הַשָּׁנָה ו'.)",
+          "This follows what our Sages, of blessed memory, said (Rosh Hashanah 6a):"
+        ],
+        [
+          "כּוֹפִין אוֹתוֹ עַד שֶׁיֹּאמַר רוֹצֶה אֲנִי,",
+          "“They compel him until he says, ‘I am willing.’”"
+        ],
+        [
+          "פֵּירוּשׁ עַל יְדֵי דִּבּוּרוֹ מַכְנִיס הָרָצוֹן גַּם כֵּן בְּלִבּוֹ.",
+          "This means that through his speech he brings willingness into his heart as well."
+        ],
+        [
+          "וְזֶהוּ \"שִׂפְתֵי צַדִּיק\"",
+          "This is “the lips of the righteous”:"
+        ],
+        [
+          "פֵּירוּשׁ מַה שֶּׁמְּדַבֵּר מִשָּׂפָה וְלַחוּץ בַּעֲבוּר שֶׁלִּבּוֹ עֲדַיִין אֵינוֹ מְבֹרָר,",
+          "what he says merely with his lips, because his heart is not yet clarified,"
+        ],
+        [
+          "לָזֶה מוֹעִיל לוֹ לְבָרֵר אֶת לִבּוֹ לְרָצוֹן בְּלֵב שָׁלֵם,",
+          "helps him clarify his heart toward wholehearted willingness."
+        ],
+        [
+          "לְמָשָׁל כְּשֶׁצּוֹמֵחַ כַּעַס בְּלִבּוֹ עַל חֲבֵירוֹ",
+          "For example, when anger toward his fellow arises in his heart,"
+        ],
+        [
+          "וְהוּא יוֹדֵעַ וּמַכִּיר זֶה לְחֶסְרוֹן",
+          "and he knows and recognizes this as a deficiency,"
+        ],
+        [
+          "אָז עֲצָתוֹ קוֹדֶם לְדַבֵּר טוֹב עִם חֲבֵירוֹ",
+          "his remedy is first to speak kindly with his fellow."
+        ],
+        [
+          "וְאַף שֶׁאֵין זֶה בְּלֵב שָׁלֵם",
+          "Even though this is not wholehearted,"
+        ],
+        [
+          "רַק עַל יְדֵי זֶה פּוֹעֵל בְּעַצְמוֹ מְעַט מְעַט",
+          "through it he works upon himself, little by little,"
+        ],
+        [
+          "עַד שֶׁמַּכְנִיס בְּלִבּוֹ אַהֲבָה בִּמְקוֹם שִׂנְאָה.",
+          "until he brings love into his heart in place of hatred."
+        ],
+        [
+          "וְזֶהוּ \"יֵדְעוּן רָצוֹן\"",
+          "This is “know the will.”"
+        ],
+        [
+          "לְשׁוֹן יֵדַע פֵּירוּשׁ סֵדֶר,",
+          "The expression “know” signifies order:"
+        ],
+        [
+          "שֶׁעַל יְדֵי דִּבּוּרוֹ מְסַדֵּר הָרָצוֹן",
+          "through his speech he orders his will,"
+        ],
+        [
+          "עַד שֶׁמַּכְנִיס וְקוֹבֵעַ כֵּן בְּלֵב שָׁלֵם,",
+          "until he brings it into his heart and establishes it there wholeheartedly."
+        ],
+        [
+          "כְּמוֹ שֶׁכָּתוּב (תְּהִלִּים ק\"ד,י\"ח) \"שֶׁמֶשׁ יָדַע מְבוֹאוֹ\",",
+          "As it is written (Psalms 104:18), “The sun knows its setting”:"
+        ],
+        [
+          "פֵּירוּשׁ שֶׁיֵּשׁ לָהּ סֵדֶר וּקְבִיעוּת בַּהֲלִיכָתָהּ",
+          "that is, its course has order and regularity."
+        ],
+        [
+          "מַה שֶּׁאֵין כֵּן בַּלְּבָנָה פְּעָמִים בָּא בַּאֲרוּכָּה כּוּלֵי",
+          "The moon, by contrast, sometimes takes a longer course, etc.,"
+        ],
+        [
+          "כִּדְאִיתָא בְּרֹאשׁ הַשָּׁנָה [כ\"ה.] עַיֵּין שָׁם.",
+          "as stated in Rosh Hashanah 25a; see there."
+        ]
+      ],
+      "expansions": [
+        {
+          "from": "חז\"ל",
+          "to": "חֲכָמֵינוּ זִכְרוֹנָם לִבְרָכָה",
+          "occurrences": 1,
+          "contextReviewed": true
+        },
+        {
+          "from": "כו'",
+          "to": "כּוּלֵי",
+          "occurrences": 1,
+          "contextReviewed": true
+        }
+      ],
+      "transformations": [
+        {
+          "from": "חֲזַ\"ל",
+          "to": "חֲכָמֵינוּ זִכְרוֹנָם לִבְרָכָה",
+          "count": 1,
+          "reason": "Context-reviewed abbreviation expansion; preserve grammatical prefixes."
+        },
+        {
+          "from": "כוּ׳",
+          "to": "כּוּלֵי",
+          "count": 1,
+          "reason": "Context-reviewed abbreviation expansion; preserve grammatical prefixes."
+        }
+      ],
+      "reviewNotes": [
+        "The supplied canonical source cites Psalms 104:18 for “the sun knows its setting”; the quoted clause is Psalms 104:19. The printed citation is preserved, and the discrepancy is recorded for link review."
+      ],
+      "sourceUrl": "https://www.sefaria.org/Mei_HaShiloach,_Volume_I,_Writings,_Proverbs.10.1",
+      "sortKey": [
+        65,
+        10,
+        1
+      ],
+      "sourceLetterAccounting": {
+        "status": "PASS",
+        "sourceHebrewLetters": 491,
+        "normalizedHebrewLetters": 507,
+        "expectedAfterReviewedExpansionsSha256": "5d4fbf4b30dea6f9538abc39db620430bba688573b541aeebfa60110c0bc08bc",
+        "pairedHebrewLettersSha256": "5d4fbf4b30dea6f9538abc39db620430bba688573b541aeebfa60110c0bc08bc",
+        "unaccountedConsonantalChanges": 0
+      }
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 11:1",
+      "sectionRef": "Mei HaShiloach, Volume I, Writings, Proverbs 11",
+      "n": 1,
+      "sourceHebrew": "גּוֹמֵל נַפְשׁוֹ אִישׁ חָסֶד. הַיְינוּ לִגְמוֹל חֶסֶד וְלַעֲשׂוֹת מַה שֶּׁטּוֹב לְגוּפוֹ כְּמַאֲמַר הִלֵּל (ויקרא רבה פרשה ל\"ד,ג') כְּשֶׁנִּכְנַס לַמֶּרְחָץ נֵיזִיל וְנִגְמוֹל חֶסֶד לַהֲדָא עֲלוּבְתָּא וְהוּא מִדַּת חֲסִידוּת, אַךְ כָּל זֶה הוּא אַחַר שֶׁזִּיכֵּךְ אֶת עַצְמוֹ שֶׁלֹּא לִטְעוֹם לְמַר מָתוֹק, וְאָז אִם נִמְצָא מוֹנֵעַ טוֹבָה מִגּוּפוֹ בִּהְיוֹת לְאֵל יָדוֹ עַל זֶה נֶאֱמַר (משלי י\"א,י\"ז) \"עוֹכֵר שְׁאֵרוֹ אַכְזָרִי\", אֲבָל אִם אֵינוֹ מְבֹרָר עֲדַיִין בָּזֶה וְחִשְׁקוֹ לְעַדֵּן גּוּפוֹ, עַל זֶה נֶאֱמַר \"רָשָׁע עוֹשֶׂה פְעֻלַּת שָׁקֶר\", הַיְינוּ לֹא דַי שֶׁאֵינוֹ נִקְרָא גּוֹמֵל חֶסֶד עִם גּוּפוֹ, אֶלָּא אַדְּרַבָּה נַהֲפוֹךְ הוּא שֶׁמַּשְׁחִית אֶת גּוּפוֹ בְּתַפְנוּקֵי מַעֲדַנָּיו, וְזֶהוּ פְּעֻלַּת שָׁקֶר וְזֶהוּ שֶׁמְּרַמֵּז בַּזוה\"ק (שמות ר.) תְּלַת נִקּוּדִין לְאוֹרַיְיתָא, הַיְינוּ בְּכָל דָּבָר קָטָן וְגָדוֹל יִשְׁקוֹל הָאָדָם בְּפֶלֶס לִמְצוֹא בַּמַּעֲשֶׂה הַזֶּה ג' דְּבָרִים שֶׁיִּהְיֶה טוֹב לְגוּפוֹ כְּמַאֲמַר חֲזַ\"ל (פסחים ס\"ח:) מֵעִיקָּרָא כִּי עָבֵיד אִינִישׁ לְגַרְמֵיהּ הוּא עָבֵיד, וְשֶׁיִּהְיֶה טוֹב וְיָשָׁר בְּדַרְכֵי ה', וְשֶׁלֹּא יִצְמַח מִזֶּה שׁוּם רֵיעוּתָא לַאֲחֵרִים, וְאָז כְּשֶׁיִּהְיֶה לוֹ חֶשְׁבּוֹן הַזֶּה יָכוֹל לַעֲשׂוֹת הַמַּעֲשֶׂה, וְיִקָּרֵא \"גּוֹמֵל נַפְשׁוֹ\" כוּ׳.",
+      "normalizedHebrew": "גּוֹמֵל נַפְשׁוֹ אִישׁ חָסֶד. הַיְינוּ לִגְמוֹל חֶסֶד וְלַעֲשׂוֹת מַה שֶּׁטּוֹב לְגוּפוֹ כְּמַאֲמַר הִלֵּל (וַיִּקְרָא רַבָּה פָּרָשָׁה ל\"ד,ג') כְּשֶׁנִּכְנַס לַמֶּרְחָץ נֵיזִיל וְנִגְמוֹל חֶסֶד לַהֲדָא עֲלוּבְתָּא וְהוּא מִדַּת חֲסִידוּת, אַךְ כָּל זֶה הוּא אַחַר שֶׁזִּיכֵּךְ אֶת עַצְמוֹ שֶׁלֹּא לִטְעוֹם לְמַר מָתוֹק, וְאָז אִם נִמְצָא מוֹנֵעַ טוֹבָה מִגּוּפוֹ בִּהְיוֹת לְאֵל יָדוֹ עַל זֶה נֶאֱמַר (מִשְׁלֵי י\"א,י\"ז) \"עוֹכֵר שְׁאֵרוֹ אַכְזָרִי\", אֲבָל אִם אֵינוֹ מְבֹרָר עֲדַיִין בָּזֶה וְחִשְׁקוֹ לְעַדֵּן גּוּפוֹ, עַל זֶה נֶאֱמַר \"רָשָׁע עוֹשֶׂה פְעֻלַּת שָׁקֶר\", הַיְינוּ לֹא דַי שֶׁאֵינוֹ נִקְרָא גּוֹמֵל חֶסֶד עִם גּוּפוֹ, אֶלָּא אַדְּרַבָּה נַהֲפוֹךְ הוּא שֶׁמַּשְׁחִית אֶת גּוּפוֹ בְּתַפְנוּקֵי מַעֲדַנָּיו, וְזֶהוּ פְּעֻלַּת שָׁקֶר וְזֶהוּ שֶׁמְּרַמֵּז בַּזֹּהַר הַקָּדוֹשׁ (שְׁמוֹת ר.) תְּלַת נִקּוּדִין לְאוֹרַיְיתָא, הַיְינוּ בְּכָל דָּבָר קָטָן וְגָדוֹל יִשְׁקוֹל הָאָדָם בְּפֶלֶס לִמְצוֹא בַּמַּעֲשֶׂה הַזֶּה ג' דְּבָרִים שֶׁיִּהְיֶה טוֹב לְגוּפוֹ כְּמַאֲמַר חֲכָמֵינוּ זִכְרוֹנָם לִבְרָכָה (פְּסָחִים ס\"ח:) מֵעִיקָּרָא כִּי עָבֵיד אִינִישׁ לְגַרְמֵיהּ הוּא עָבֵיד, וְשֶׁיִּהְיֶה טוֹב וְיָשָׁר בְּדַרְכֵי הַשֵּׁם, וְשֶׁלֹּא יִצְמַח מִזֶּה שׁוּם רֵיעוּתָא לַאֲחֵרִים, וְאָז כְּשֶׁיִּהְיֶה לוֹ חֶשְׁבּוֹן הַזֶּה יָכוֹל לַעֲשׂוֹת הַמַּעֲשֶׂה, וְיִקָּרֵא \"גּוֹמֵל נַפְשׁוֹ\" כּוּלֵי.",
+      "p": [
+        [
+          "גּוֹמֵל נַפְשׁוֹ אִישׁ חָסֶד.",
+          "A kind person bestows goodness upon himself."
+        ],
+        [
+          "הַיְינוּ לִגְמוֹל חֶסֶד וְלַעֲשׂוֹת מַה שֶּׁטּוֹב לְגוּפוֹ",
+          "This means showing kindness and doing what is good for one’s body,"
+        ],
+        [
+          "כְּמַאֲמַר הִלֵּל (וַיִּקְרָא רַבָּה פָּרָשָׁה ל\"ד,ג')",
+          "as in Hillel’s statement (Vayikra Rabbah, chapter 34:3)"
+        ],
+        [
+          "כְּשֶׁנִּכְנַס לַמֶּרְחָץ נֵיזִיל וְנִגְמוֹל חֶסֶד לַהֲדָא עֲלוּבְתָּא",
+          "when he entered the bathhouse: “Let us go and show kindness to this poor one.”"
+        ],
+        [
+          "וְהוּא מִדַּת חֲסִידוּת,",
+          "This is a trait of piety."
+        ],
+        [
+          "אַךְ כָּל זֶה הוּא אַחַר שֶׁזִּיכֵּךְ אֶת עַצְמוֹ שֶׁלֹּא לִטְעוֹם לְמַר מָתוֹק,",
+          "Yet all this applies after he has purified himself so that he no longer tastes the bitter as sweet."
+        ],
+        [
+          "וְאָז אִם נִמְצָא מוֹנֵעַ טוֹבָה מִגּוּפוֹ בִּהְיוֹת לְאֵל יָדוֹ",
+          "If he then withholds good from his body when it is within his power to provide it,"
+        ],
+        [
+          "עַל זֶה נֶאֱמַר (מִשְׁלֵי י\"א,י\"ז) \"עוֹכֵר שְׁאֵרוֹ אַכְזָרִי\",",
+          "of this it says (Proverbs 11:17), “A cruel person troubles his own flesh.”"
+        ],
+        [
+          "אֲבָל אִם אֵינוֹ מְבֹרָר עֲדַיִין בָּזֶה וְחִשְׁקוֹ לְעַדֵּן גּוּפוֹ,",
+          "But if he is not yet clarified in this matter and desires to pamper his body,"
+        ],
+        [
+          "עַל זֶה נֶאֱמַר \"רָשָׁע עוֹשֶׂה פְעֻלַּת שָׁקֶר\",",
+          "of this it says, “The wicked person does deceptive work.”"
+        ],
+        [
+          "הַיְינוּ לֹא דַי שֶׁאֵינוֹ נִקְרָא גּוֹמֵל חֶסֶד עִם גּוּפוֹ,",
+          "That is, not only is he not called one who shows kindness to his body;"
+        ],
+        [
+          "אֶלָּא אַדְּרַבָּה נַהֲפוֹךְ הוּא",
+          "on the contrary, the reverse is true:"
+        ],
+        [
+          "שֶׁמַּשְׁחִית אֶת גּוּפוֹ בְּתַפְנוּקֵי מַעֲדַנָּיו,",
+          "he damages his body through indulgence in delicacies."
+        ],
+        [
+          "וְזֶהוּ פְּעֻלַּת שָׁקֶר",
+          "This is “deceptive work.”"
+        ],
+        [
+          "וְזֶהוּ שֶׁמְּרַמֵּז בַּזֹּהַר הַקָּדוֹשׁ (שְׁמוֹת ר.) תְּלַת נִקּוּדִין לְאוֹרַיְיתָא,",
+          "This is what the holy Zohar hints at (Exodus 200a): “There are three vowel-points for the Torah.”"
+        ],
+        [
+          "הַיְינוּ בְּכָל דָּבָר קָטָן וְגָדוֹל יִשְׁקוֹל הָאָדָם בְּפֶלֶס",
+          "That is, in every matter, small or great, a person should weigh carefully"
+        ],
+        [
+          "לִמְצוֹא בַּמַּעֲשֶׂה הַזֶּה ג' דְּבָרִים",
+          "whether this action possesses three qualities:"
+        ],
+        [
+          "שֶׁיִּהְיֶה טוֹב לְגוּפוֹ",
+          "that it be good for his body,"
+        ],
+        [
+          "כְּמַאֲמַר חֲכָמֵינוּ זִכְרוֹנָם לִבְרָכָה (פְּסָחִים ס\"ח:)",
+          "as our Sages, of blessed memory, said (Pesachim 68b),"
+        ],
+        [
+          "מֵעִיקָּרָא כִּי עָבֵיד אִינִישׁ לְגַרְמֵיהּ הוּא עָבֵיד,",
+          "“At first, when a person acts, he acts for himself”;"
+        ],
+        [
+          "וְשֶׁיִּהְיֶה טוֹב וְיָשָׁר בְּדַרְכֵי הַשֵּׁם,",
+          "that it be good and upright in Hashem’s ways;"
+        ],
+        [
+          "וְשֶׁלֹּא יִצְמַח מִזֶּה שׁוּם רֵיעוּתָא לַאֲחֵרִים,",
+          "and that no harm to others arise from it."
+        ],
+        [
+          "וְאָז כְּשֶׁיִּהְיֶה לוֹ חֶשְׁבּוֹן הַזֶּה יָכוֹל לַעֲשׂוֹת הַמַּעֲשֶׂה,",
+          "Then, when he has made this reckoning, he may perform the action"
+        ],
+        [
+          "וְיִקָּרֵא \"גּוֹמֵל נַפְשׁוֹ\" כּוּלֵי.",
+          "and be called one who “bestows goodness upon himself,” etc."
+        ]
+      ],
+      "expansions": [
+        {
+          "from": "בזוה\"ק",
+          "to": "בַּזֹּהַר הַקָּדוֹשׁ",
+          "occurrences": 1,
+          "contextReviewed": true
+        },
+        {
+          "from": "חז\"ל",
+          "to": "חֲכָמֵינוּ זִכְרוֹנָם לִבְרָכָה",
+          "occurrences": 1,
+          "contextReviewed": true
+        },
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "occurrences": 1,
+          "contextReviewed": true
+        },
+        {
+          "from": "כו'",
+          "to": "כּוּלֵי",
+          "occurrences": 1,
+          "contextReviewed": true
+        }
+      ],
+      "transformations": [
+        {
+          "from": "בַּזוה\"ק",
+          "to": "בַּזֹּהַר הַקָּדוֹשׁ",
+          "count": 1,
+          "reason": "Context-reviewed abbreviation expansion; preserve grammatical prefixes."
+        },
+        {
+          "from": "חֲזַ\"ל",
+          "to": "חֲכָמֵינוּ זִכְרוֹנָם לִבְרָכָה",
+          "count": 1,
+          "reason": "Context-reviewed abbreviation expansion; preserve grammatical prefixes."
+        },
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "count": 1,
+          "reason": "Context-reviewed abbreviation expansion; preserve grammatical prefixes."
+        },
+        {
+          "from": "כוּ׳",
+          "to": "כּוּלֵי",
+          "count": 1,
+          "reason": "Context-reviewed abbreviation expansion; preserve grammatical prefixes."
+        }
+      ],
+      "reviewNotes": [
+        "The source’s application of Hillel’s expression to caring for the body is preserved. Aramaic remains Aramaic in the Hebrew."
+      ],
+      "sourceUrl": "https://www.sefaria.org/Mei_HaShiloach,_Volume_I,_Writings,_Proverbs.11.1",
+      "sortKey": [
+        65,
+        11,
+        1
+      ],
+      "sourceLetterAccounting": {
+        "status": "PASS",
+        "sourceHebrewLetters": 592,
+        "normalizedHebrewLetters": 614,
+        "expectedAfterReviewedExpansionsSha256": "a6ec3adb70f00cc1cba723e9aad3e5ca6edb75f66a62bdc9860558c98f5075b3",
+        "pairedHebrewLettersSha256": "a6ec3adb70f00cc1cba723e9aad3e5ca6edb75f66a62bdc9860558c98f5075b3",
+        "unaccountedConsonantalChanges": 0
+      }
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 12:1",
+      "sectionRef": "Mei HaShiloach, Volume I, Writings, Proverbs 12",
+      "n": 1,
+      "sourceHebrew": "לֹא יַחֲרֹךְ רְמִיָּה צֵידוֹ. הַיְינוּ בְּעֵת שֶׁהָרַמַּאי מְרַמֶּה אֶת חֲבֵירוֹ אֵין לוֹ שׁוּם חֲרִיכָה וְעִיכּוּב מִלְּרַמּוֹת אוֹתוֹ, הַיְינוּ שֶׁיָּבִין שֶׁהַצֶּדֶק עִם חֲבֵירוֹ, וְרַק יִדְמֶה לוֹ שֶׁהַצֶּדֶק אִתּוֹ בַּכֹּל וְאֵינוֹ נוֹתֵן שׁוּם זְכוּת לַחֲבֵירוֹ, וְלָכֵן אֵינוֹ מַכִּיר בְּעַצְמוֹ שֶׁרְצוֹנוֹ לְרַמּוֹת אוֹתוֹ. \"וְהוֹן אָדָם יָקָר חָרוּץ\", הַיְינוּ הַהוֹן שֶׁל אָדָם יָקָר, הוּא פָּגוּם בְּעֵינָיו כִּי חָרוּץ הוּא מִלְּשׁוֹן חָרִיץ, הַיְינוּ שֶׁהוּא פָּגוּם בְּעֵינָיו אַף שֶׁהוֹנוֹ הוּא בְּכַשְׁרוּת וְאַף כְּשֶׁיָּדִין עִם חֲבֵירוֹ יֵצֵא מִבֵּית דִּין זַכַּאי, אַף עַל פִּי כֵן אֵינוֹ בְּנַיְיחָא מִצַּד עַצְמוֹ וְחוֹשֵׁשׁ תָּמִיד שֶׁלֹּא בָּא עֲדַיִן לִשְׁלֵמוּת וּפֶן נִמְצָא בּוֹ רְמִיָּה.",
+      "normalizedHebrew": "לֹא יַחֲרֹךְ רְמִיָּה צֵידוֹ. הַיְינוּ בְּעֵת שֶׁהָרַמַּאי מְרַמֶּה אֶת חֲבֵירוֹ אֵין לוֹ שׁוּם חֲרִיכָה וְעִיכּוּב מִלְּרַמּוֹת אוֹתוֹ, הַיְינוּ שֶׁיָּבִין שֶׁהַצֶּדֶק עִם חֲבֵירוֹ, וְרַק יִדְמֶה לוֹ שֶׁהַצֶּדֶק אִתּוֹ בַּכֹּל וְאֵינוֹ נוֹתֵן שׁוּם זְכוּת לַחֲבֵירוֹ, וְלָכֵן אֵינוֹ מַכִּיר בְּעַצְמוֹ שֶׁרְצוֹנוֹ לְרַמּוֹת אוֹתוֹ. \"וְהוֹן אָדָם יָקָר חָרוּץ\", הַיְינוּ הַהוֹן שֶׁל אָדָם יָקָר, הוּא פָּגוּם בְּעֵינָיו כִּי חָרוּץ הוּא מִלְּשׁוֹן חָרִיץ, הַיְינוּ שֶׁהוּא פָּגוּם בְּעֵינָיו אַף שֶׁהוֹנוֹ הוּא בְּכַשְׁרוּת וְאַף כְּשֶׁיָּדִין עִם חֲבֵירוֹ יֵצֵא מִבֵּית דִּין זַכַּאי, אַף עַל פִּי כֵן אֵינוֹ בְּנַיְיחָא מִצַּד עַצְמוֹ וְחוֹשֵׁשׁ תָּמִיד שֶׁלֹּא בָּא עֲדַיִן לִשְׁלֵמוּת וּפֶן נִמְצָא בּוֹ רְמִיָּה.",
+      "p": [
+        [
+          "לֹא יַחֲרֹךְ רְמִיָּה צֵידוֹ.",
+          "The deceitful man does not roast his game."
+        ],
+        [
+          "הַיְינוּ בְּעֵת שֶׁהָרַמַּאי מְרַמֶּה אֶת חֲבֵירוֹ",
+          "This means that when a deceiver deceives his fellow,"
+        ],
+        [
+          "אֵין לוֹ שׁוּם חֲרִיכָה וְעִיכּוּב מִלְּרַמּוֹת אוֹתוֹ,",
+          "he has no scruple or restraint holding him back from deceiving him:"
+        ],
+        [
+          "הַיְינוּ שֶׁיָּבִין שֶׁהַצֶּדֶק עִם חֲבֵירוֹ,",
+          "namely, recognizing that his fellow is in the right."
+        ],
+        [
+          "וְרַק יִדְמֶה לוֹ שֶׁהַצֶּדֶק אִתּוֹ בַּכֹּל",
+          "Instead, he imagines that he himself is right in everything,"
+        ],
+        [
+          "וְאֵינוֹ נוֹתֵן שׁוּם זְכוּת לַחֲבֵירוֹ,",
+          "and grants his fellow no merit at all."
+        ],
+        [
+          "וְלָכֵן אֵינוֹ מַכִּיר בְּעַצְמוֹ שֶׁרְצוֹנוֹ לְרַמּוֹת אוֹתוֹ.",
+          "He therefore does not recognize within himself the desire to deceive him."
+        ],
+        [
+          "\"וְהוֹן אָדָם יָקָר חָרוּץ\",",
+          "“But the wealth of a precious person is charutz”:"
+        ],
+        [
+          "הַיְינוּ הַהוֹן שֶׁל אָדָם יָקָר, הוּא פָּגוּם בְּעֵינָיו",
+          "this means that the wealth of a worthy person appears flawed in his own eyes,"
+        ],
+        [
+          "כִּי חָרוּץ הוּא מִלְּשׁוֹן חָרִיץ,",
+          "for charutz is related to charitz, a notch."
+        ],
+        [
+          "הַיְינוּ שֶׁהוּא פָּגוּם בְּעֵינָיו אַף שֶׁהוֹנוֹ הוּא בְּכַשְׁרוּת",
+          "That is, it appears flawed to him even though his wealth was acquired legitimately,"
+        ],
+        [
+          "וְאַף כְּשֶׁיָּדִין עִם חֲבֵירוֹ יֵצֵא מִבֵּית דִּין זַכַּאי,",
+          "and even if he litigates with his fellow, he will leave the court vindicated."
+        ],
+        [
+          "אַף עַל פִּי כֵן אֵינוֹ בְּנַיְיחָא מִצַּד עַצְמוֹ",
+          "Nevertheless, he is not at ease within himself,"
+        ],
+        [
+          "וְחוֹשֵׁשׁ תָּמִיד שֶׁלֹּא בָּא עֲדַיִן לִשְׁלֵמוּת",
+          "and constantly fears that he has not yet attained completeness"
+        ],
+        [
+          "וּפֶן נִמְצָא בּוֹ רְמִיָּה.",
+          "and that some deceit may be found within him."
+        ]
+      ],
+      "expansions": [],
+      "transformations": [],
+      "reviewNotes": [
+        "The author reads the verse through charikhah, hesitation or restraint, and charutz/charitz, a notch or flaw. The English preserves these wordplays without silently replacing the source."
+      ],
+      "sourceUrl": "https://www.sefaria.org/Mei_HaShiloach,_Volume_I,_Writings,_Proverbs.12.1",
+      "sortKey": [
+        65,
+        12,
+        1
+      ],
+      "sourceLetterAccounting": {
+        "status": "PASS",
+        "sourceHebrewLetters": 353,
+        "normalizedHebrewLetters": 353,
+        "expectedAfterReviewedExpansionsSha256": "912a82980749e1eb3b9ab939e25fc7fb99a698d256d01f2ca3eeecc7ea917651",
+        "pairedHebrewLettersSha256": "912a82980749e1eb3b9ab939e25fc7fb99a698d256d01f2ca3eeecc7ea917651",
+        "unaccountedConsonantalChanges": 0
+      }
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 13:1",
+      "sectionRef": "Mei HaShiloach, Volume I, Writings, Proverbs 13",
+      "n": 1,
+      "sourceHebrew": "תּוֹחֶלֶת מְמֻשָּׁכָה מַחֲלָה לֵב וְעֵץ חַיִּים תַּאֲוָה בָאָה. \"עֵץ חַיִּים\" מוֹרֶה לְמִי שֶׁעוֹסֵק בַּתּוֹרָה לִשְׁמָהּ, הַיְינוּ מִי שֶׁעוֹסֵק בַּתּוֹרָה לִשְׁמָהּ רוֹאֶה שֶׁאֵין לוֹ שׁוּם מְמֻשָּׁכָה לַאֲשֶׁר יָחִיל, רַק יָבֹא תֵּיכֶף וּמִיָּד, וּ\"בָאָה\" לְשׁוֹן הוֹוֶה שֶׁתָּמִיד יָבֹא אֵלָיו מִיָּד, כְּמוֹ שֶׁכָּתוּב (בראשית כ\"ט,ו') \"וְרָחֵל בִּתּוֹ בָּאָה\" כוּ׳.",
+      "normalizedHebrew": "תּוֹחֶלֶת מְמֻשָּׁכָה מַחֲלָה לֵב וְעֵץ חַיִּים תַּאֲוָה בָאָה. \"עֵץ חַיִּים\" מוֹרֶה לְמִי שֶׁעוֹסֵק בַּתּוֹרָה לִשְׁמָהּ, הַיְינוּ מִי שֶׁעוֹסֵק בַּתּוֹרָה לִשְׁמָהּ רוֹאֶה שֶׁאֵין לוֹ שׁוּם מְמֻשָּׁכָה לַאֲשֶׁר יָחִיל, רַק יָבֹא תֵּיכֶף וּמִיָּד, וּ\"בָאָה\" לְשׁוֹן הוֹוֶה שֶׁתָּמִיד יָבֹא אֵלָיו מִיָּד, כְּמוֹ שֶׁכָּתוּב (בְּרֵאשִׁית כ\"ט,ו') \"וְרָחֵל בִּתּוֹ בָּאָה\" כּוּלֵי.",
+      "p": [
+        [
+          "תּוֹחֶלֶת מְמֻשָּׁכָה מַחֲלָה לֵב וְעֵץ חַיִּים תַּאֲוָה בָאָה.",
+          "Hope deferred makes the heart sick, but desire fulfilled is a tree of life."
+        ],
+        [
+          "\"עֵץ חַיִּים\" מוֹרֶה לְמִי שֶׁעוֹסֵק בַּתּוֹרָה לִשְׁמָהּ,",
+          "“A tree of life” points to one who occupies himself with Torah for its own sake."
+        ],
+        [
+          "הַיְינוּ מִי שֶׁעוֹסֵק בַּתּוֹרָה לִשְׁמָהּ רוֹאֶה",
+          "That is, one who studies Torah for its own sake sees"
+        ],
+        [
+          "שֶׁאֵין לוֹ שׁוּם מְמֻשָּׁכָה לַאֲשֶׁר יָחִיל,",
+          "that there is no delay in what he awaits;"
+        ],
+        [
+          "רַק יָבֹא תֵּיכֶף וּמִיָּד,",
+          "rather, it comes at once, immediately."
+        ],
+        [
+          "וּ\"בָאָה\" לְשׁוֹן הוֹוֶה שֶׁתָּמִיד יָבֹא אֵלָיו מִיָּד,",
+          "“Comes” is in the present tense: it continually comes to him immediately,"
+        ],
+        [
+          "כְּמוֹ שֶׁכָּתוּב (בְּרֵאשִׁית כ\"ט,ו') \"וְרָחֵל בִּתּוֹ בָּאָה\" כּוּלֵי.",
+          "as it is written (Genesis 29:6), “And his daughter Rachel is coming,” etc."
+        ]
+      ],
+      "expansions": [
+        {
+          "from": "כו'",
+          "to": "כּוּלֵי",
+          "occurrences": 1,
+          "contextReviewed": true
+        }
+      ],
+      "transformations": [
+        {
+          "from": "כוּ׳",
+          "to": "כּוּלֵי",
+          "count": 1,
+          "reason": "Context-reviewed abbreviation expansion; preserve grammatical prefixes."
+        }
+      ],
+      "reviewNotes": [],
+      "sourceUrl": "https://www.sefaria.org/Mei_HaShiloach,_Volume_I,_Writings,_Proverbs.13.1",
+      "sortKey": [
+        65,
+        13,
+        1
+      ],
+      "sourceLetterAccounting": {
+        "status": "PASS",
+        "sourceHebrewLetters": 173,
+        "normalizedHebrewLetters": 175,
+        "expectedAfterReviewedExpansionsSha256": "06d82b3a0cc20c53a32b28de466c9c5fb11fe11419f749a3a02d26121bea5f6a",
+        "pairedHebrewLettersSha256": "06d82b3a0cc20c53a32b28de466c9c5fb11fe11419f749a3a02d26121bea5f6a",
+        "unaccountedConsonantalChanges": 0
+      }
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 13:2",
+      "sectionRef": "Mei HaShiloach, Volume I, Writings, Proverbs 13",
+      "n": 2,
+      "sourceHebrew": "שֵׂכֶל טוֹב יִתֶּן חֵן. הָאָמְנָם שֶׁשֵּׂכֶל הַיְינוּ בְּמָקוֹם שֶׁמִּשְׁפַּט הַשֵּׂכֶל יְחַיֵּיב לַעֲשׂוֹת, וְאִם כֵּן מַה חֵן שַׁיָּיךְ בָּזֶה כִּי עִיקַּר הַחֵן הוּא רַק בְּמָקוֹם שֶׁהָאָדָם יַעֲבֹר עַל מִדּוֹתָיו, אַךְ \"שֵׂכֶל טוֹב יִתֶּן חֵן\" הוּא, שֶׁבַּשֵּׂכֶל הַטּוֹב יוּכַל הָאָדָם לְהַטּוֹת אֶת דַּעַת חֲבֵירוֹ אַף כִּי נֶגֶד דַּעַת חֲבֵירוֹ יִרְאֶה לְהֵיפֶךְ, וּבְאִם אֵין הָאָדָם טוֹב בְּדַעְתּוֹ אָז כְּשֶׁיִּרְאֶה שֶׁחֲבֵירוֹ מִתְנַגֵּד לְשִׂכְלוֹ לֹא יַטֶּה לִבּוֹ לְהָבִין לַחֲבֵירוֹ וּמִמֵּילָא גַּם חֲבֵירוֹ לֹא יֹאבֶה לוֹ.",
+      "normalizedHebrew": "שֵׂכֶל טוֹב יִתֶּן חֵן. הָאָמְנָם שֶׁשֵּׂכֶל הַיְינוּ בְּמָקוֹם שֶׁמִּשְׁפַּט הַשֵּׂכֶל יְחַיֵּיב לַעֲשׂוֹת, וְאִם כֵּן מַה חֵן שַׁיָּיךְ בָּזֶה כִּי עִיקַּר הַחֵן הוּא רַק בְּמָקוֹם שֶׁהָאָדָם יַעֲבֹר עַל מִדּוֹתָיו, אַךְ \"שֵׂכֶל טוֹב יִתֶּן חֵן\" הוּא, שֶׁבַּשֵּׂכֶל הַטּוֹב יוּכַל הָאָדָם לְהַטּוֹת אֶת דַּעַת חֲבֵירוֹ אַף כִּי נֶגֶד דַּעַת חֲבֵירוֹ יִרְאֶה לְהֵיפֶךְ, וּבְאִם אֵין הָאָדָם טוֹב בְּדַעְתּוֹ אָז כְּשֶׁיִּרְאֶה שֶׁחֲבֵירוֹ מִתְנַגֵּד לְשִׂכְלוֹ לֹא יַטֶּה לִבּוֹ לְהָבִין לַחֲבֵירוֹ וּמִמֵּילָא גַּם חֲבֵירוֹ לֹא יֹאבֶה לוֹ.",
+      "p": [
+        [
+          "שֵׂכֶל טוֹב יִתֶּן חֵן.",
+          "Good understanding grants favor."
+        ],
+        [
+          "הָאָמְנָם שֶׁשֵּׂכֶל הַיְינוּ בְּמָקוֹם שֶׁמִּשְׁפַּט הַשֵּׂכֶל יְחַיֵּיב לַעֲשׂוֹת,",
+          "Yet understanding concerns a case in which the judgment of reason dictates what one must do."
+        ],
+        [
+          "וְאִם כֵּן מַה חֵן שַׁיָּיךְ בָּזֶה",
+          "If so, what place is there for favor here?"
+        ],
+        [
+          "כִּי עִיקַּר הַחֵן הוּא רַק בְּמָקוֹם שֶׁהָאָדָם יַעֲבֹר עַל מִדּוֹתָיו,",
+          "For favor chiefly applies where a person sets aside his own strict standards."
+        ],
+        [
+          "אַךְ \"שֵׂכֶל טוֹב יִתֶּן חֵן\" הוּא,",
+          "Rather, “Good understanding grants favor” means"
+        ],
+        [
+          "שֶׁבַּשֵּׂכֶל הַטּוֹב יוּכַל הָאָדָם לְהַטּוֹת אֶת דַּעַת חֲבֵירוֹ",
+          "that through good understanding a person can incline his fellow’s opinion,"
+        ],
+        [
+          "אַף כִּי נֶגֶד דַּעַת חֲבֵירוֹ יִרְאֶה לְהֵיפֶךְ,",
+          "even though, from his fellow’s perspective, the opposite appears right."
+        ],
+        [
+          "וּבְאִם אֵין הָאָדָם טוֹב בְּדַעְתּוֹ",
+          "But if a person is not well disposed in his thinking,"
+        ],
+        [
+          "אָז כְּשֶׁיִּרְאֶה שֶׁחֲבֵירוֹ מִתְנַגֵּד לְשִׂכְלוֹ",
+          "then, on seeing that his fellow opposes his reasoning,"
+        ],
+        [
+          "לֹא יַטֶּה לִבּוֹ לְהָבִין לַחֲבֵירוֹ",
+          "he will not set his heart on making his fellow understand,"
+        ],
+        [
+          "וּמִמֵּילָא גַּם חֲבֵירוֹ לֹא יֹאבֶה לוֹ.",
+          "and consequently his fellow will not assent to him either."
+        ]
+      ],
+      "expansions": [],
+      "transformations": [],
+      "reviewNotes": [],
+      "sourceUrl": "https://www.sefaria.org/Mei_HaShiloach,_Volume_I,_Writings,_Proverbs.13.2",
+      "sortKey": [
+        65,
+        13,
+        2
+      ],
+      "sourceLetterAccounting": {
+        "status": "PASS",
+        "sourceHebrewLetters": 256,
+        "normalizedHebrewLetters": 256,
+        "expectedAfterReviewedExpansionsSha256": "bc7a0fb58c7d44e61c552749d2794c2f0eb1631193dac9173be7b5969bece70e",
+        "pairedHebrewLettersSha256": "bc7a0fb58c7d44e61c552749d2794c2f0eb1631193dac9173be7b5969bece70e",
+        "unaccountedConsonantalChanges": 0
+      }
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 13:3",
+      "sectionRef": "Mei HaShiloach, Volume I, Writings, Proverbs 13",
+      "n": 3,
+      "sourceHebrew": "וְדֶרֶךְ בּוֹגְדִים אֵיתָן. אֵיתָן הוּא לְשׁוֹן תַּקּוּפוּת וְעִקְּשׁוּת הֵיפֶךְ מִמִּדּוֹת הַטּוֹב, מֵחֲמַת שֶׁהַשֵּׂכֶל שֶׁלּוֹ מִתְנַגֵּד לְמִדּוֹת הָאֱמֶת וְהוּא מִתְחַזֵּק עַצְמוֹ בְּתַקּוּפוּת וּמִתְעַקֵּשׁ לְנַצֵּחַ אֶת חֲבֵירוֹ.",
+      "normalizedHebrew": "וְדֶרֶךְ בּוֹגְדִים אֵיתָן. אֵיתָן הוּא לְשׁוֹן תַּקּוּפוּת וְעִקְּשׁוּת הֵיפֶךְ מִמִּדּוֹת הַטּוֹב, מֵחֲמַת שֶׁהַשֵּׂכֶל שֶׁלּוֹ מִתְנַגֵּד לְמִדּוֹת הָאֱמֶת וְהוּא מִתְחַזֵּק עַצְמוֹ בְּתַקּוּפוּת וּמִתְעַקֵּשׁ לְנַצֵּחַ אֶת חֲבֵירוֹ.",
+      "p": [
+        [
+          "וְדֶרֶךְ בּוֹגְדִים אֵיתָן.",
+          "The way of the treacherous is unyielding."
+        ],
+        [
+          "אֵיתָן הוּא לְשׁוֹן תַּקּוּפוּת וְעִקְּשׁוּת",
+          "“Unyielding” expresses forcefulness and obstinacy,"
+        ],
+        [
+          "הֵיפֶךְ מִמִּדּוֹת הַטּוֹב,",
+          "the opposite of good qualities,"
+        ],
+        [
+          "מֵחֲמַת שֶׁהַשֵּׂכֶל שֶׁלּוֹ מִתְנַגֵּד לְמִדּוֹת הָאֱמֶת",
+          "because his reasoning opposes the qualities of truth."
+        ],
+        [
+          "וְהוּא מִתְחַזֵּק עַצְמוֹ בְּתַקּוּפוּת וּמִתְעַקֵּשׁ לְנַצֵּחַ אֶת חֲבֵירוֹ.",
+          "He therefore fortifies himself with forcefulness and stubbornly insists on defeating his fellow."
+        ]
+      ],
+      "expansions": [],
+      "transformations": [],
+      "reviewNotes": [],
+      "sourceUrl": "https://www.sefaria.org/Mei_HaShiloach,_Volume_I,_Writings,_Proverbs.13.3",
+      "sortKey": [
+        65,
+        13,
+        3
+      ],
+      "sourceLetterAccounting": {
+        "status": "PASS",
+        "sourceHebrewLetters": 113,
+        "normalizedHebrewLetters": 113,
+        "expectedAfterReviewedExpansionsSha256": "62d79a669d74b5fd9fac29e093358ddc9fe1b14f33b0fdb4b3d9f4de48455ac0",
+        "pairedHebrewLettersSha256": "62d79a669d74b5fd9fac29e093358ddc9fe1b14f33b0fdb4b3d9f4de48455ac0",
+        "unaccountedConsonantalChanges": 0
+      }
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 13:4",
+      "sectionRef": "Mei HaShiloach, Volume I, Writings, Proverbs 13",
+      "n": 4,
+      "sourceHebrew": "צַדִּיק אֹכֵל לְשֹׂבַע נַפְשׁוֹ. לְשׁוֹן יָחִיד \"וּבֶטֶן רְשָׁעִים\" כוּ׳ לְשׁוֹן רַבִּים, הַיְינוּ שֶׁהַצַּדִּיק זָהִיר בָּאֲכִילָה וְקָשֶׁה אֶצְלוֹ לֶאֱכוֹל בַּחֲבוּרָה שֶׁאֵינוֹ שֶׁל מִצְוָה כְּמַאֲמַר חֲזַ\"ל (סנהדרין כ\"ג.) נְקִיֵּי הַדַּעַת שֶׁבִּירוּשָׁלַיִם לֹא הָיוּ אוֹכְלִים כוּ׳. \"וּבֶטֶן רְשָׁעִים\" כוּ׳ הַיְינוּ תַּאֲוַת רָשָׁע הוּא רַק לֶאֱכוֹל בַּחֲבוּרַת רְשָׁעִים, לֹא בְּשֶׁל מִצְוָה, לָכֵן נֶאֱמַר אַחַר כָּךְ \"יָתֵר מֵרֵעֵהוּ צַדִּיק\". הַיְינוּ אִם הוּא חֲבוּרָה שֶׁל מִצְוָה וְאָז הַצַּדִּיק מְיַתֵּר הַרְבֵּה מֵרֵעֵהוּ כְּמַאֲמַר חֲזַ\"ל (ברכות ס\"ג:) שְׁנַיִם שֶׁשּׁוֹנִים וְלֹא בַּד בְּבַד.",
+      "normalizedHebrew": "צַדִּיק אֹכֵל לְשֹׂבַע נַפְשׁוֹ. לְשׁוֹן יָחִיד \"וּבֶטֶן רְשָׁעִים\" כּוּלֵי לְשׁוֹן רַבִּים, הַיְינוּ שֶׁהַצַּדִּיק זָהִיר בָּאֲכִילָה וְקָשֶׁה אֶצְלוֹ לֶאֱכוֹל בַּחֲבוּרָה שֶׁאֵינוֹ שֶׁל מִצְוָה כְּמַאֲמַר חֲכָמֵינוּ זִכְרוֹנָם לִבְרָכָה (סַנְהֶדְרִין כ\"ג.) נְקִיֵּי הַדַּעַת שֶׁבִּירוּשָׁלַיִם לֹא הָיוּ אוֹכְלִים כּוּלֵי. \"וּבֶטֶן רְשָׁעִים\" כּוּלֵי הַיְינוּ תַּאֲוַת רָשָׁע הוּא רַק לֶאֱכוֹל בַּחֲבוּרַת רְשָׁעִים, לֹא בְּשֶׁל מִצְוָה, לָכֵן נֶאֱמַר אַחַר כָּךְ \"יָתֵר מֵרֵעֵהוּ צַדִּיק\". הַיְינוּ אִם הוּא חֲבוּרָה שֶׁל מִצְוָה וְאָז הַצַּדִּיק מְיַתֵּר הַרְבֵּה מֵרֵעֵהוּ כְּמַאֲמַר חֲכָמֵינוּ זִכְרוֹנָם לִבְרָכָה (בְּרָכוֹת ס\"ג:) שְׁנַיִם שֶׁשּׁוֹנִים וְלֹא בַּד בְּבַד.",
+      "p": [
+        [
+          "צַדִּיק אֹכֵל לְשֹׂבַע נַפְשׁוֹ.",
+          "A righteous person eats to satisfy his soul."
+        ],
+        [
+          "לְשׁוֹן יָחִיד \"וּבֶטֶן רְשָׁעִים\" כּוּלֵי לְשׁוֹן רַבִּים,",
+          "This is in the singular, whereas “the belly of the wicked,” etc., refers to the plural."
+        ],
+        [
+          "הַיְינוּ שֶׁהַצַּדִּיק זָהִיר בָּאֲכִילָה",
+          "This means that the righteous person is careful concerning eating,"
+        ],
+        [
+          "וְקָשֶׁה אֶצְלוֹ לֶאֱכוֹל בַּחֲבוּרָה שֶׁאֵינוֹ שֶׁל מִצְוָה",
+          "and finds it difficult to eat in a company that is not gathered for a mitzvah."
+        ],
+        [
+          "כְּמַאֲמַר חֲכָמֵינוּ זִכְרוֹנָם לִבְרָכָה (סַנְהֶדְרִין כ\"ג.)",
+          "As our Sages, of blessed memory, said (Sanhedrin 23a):"
+        ],
+        [
+          "נְקִיֵּי הַדַּעַת שֶׁבִּירוּשָׁלַיִם לֹא הָיוּ אוֹכְלִים כּוּלֵי.",
+          "“The discerning people of Jerusalem would not eat,” etc."
+        ],
+        [
+          "\"וּבֶטֶן רְשָׁעִים\" כּוּלֵי",
+          "“The belly of the wicked,” etc.,"
+        ],
+        [
+          "הַיְינוּ תַּאֲוַת רָשָׁע הוּא רַק לֶאֱכוֹל בַּחֲבוּרַת רְשָׁעִים, לֹא בְּשֶׁל מִצְוָה,",
+          "means that a wicked person’s desire is only to eat in the company of the wicked, not in a gathering for a mitzvah."
+        ],
+        [
+          "לָכֵן נֶאֱמַר אַחַר כָּךְ \"יָתֵר מֵרֵעֵהוּ צַדִּיק\".",
+          "Therefore it is stated afterward, “A righteous person gains more through his fellow.”"
+        ],
+        [
+          "הַיְינוּ אִם הוּא חֲבוּרָה שֶׁל מִצְוָה",
+          "That is, if the company is gathered for a mitzvah,"
+        ],
+        [
+          "וְאָז הַצַּדִּיק מְיַתֵּר הַרְבֵּה מֵרֵעֵהוּ",
+          "the righteous person then gains much additional benefit from his fellow,"
+        ],
+        [
+          "כְּמַאֲמַר חֲכָמֵינוּ זִכְרוֹנָם לִבְרָכָה (בְּרָכוֹת ס\"ג:)",
+          "as our Sages, of blessed memory, said (Berakhot 63b):"
+        ],
+        [
+          "שְׁנַיִם שֶׁשּׁוֹנִים וְלֹא בַּד בְּבַד.",
+          "“Two who study, and not each separately.”"
+        ]
+      ],
+      "expansions": [
+        {
+          "from": "חז\"ל",
+          "to": "חֲכָמֵינוּ זִכְרוֹנָם לִבְרָכָה",
+          "occurrences": 2,
+          "contextReviewed": true
+        },
+        {
+          "from": "כו'",
+          "to": "כּוּלֵי",
+          "occurrences": 3,
+          "contextReviewed": true
+        }
+      ],
+      "transformations": [
+        {
+          "from": "חֲזַ\"ל",
+          "to": "חֲכָמֵינוּ זִכְרוֹנָם לִבְרָכָה",
+          "count": 2,
+          "reason": "Context-reviewed abbreviation expansion; preserve grammatical prefixes."
+        },
+        {
+          "from": "כוּ׳",
+          "to": "כּוּלֵי",
+          "count": 3,
+          "reason": "Context-reviewed abbreviation expansion; preserve grammatical prefixes."
+        }
+      ],
+      "reviewNotes": [
+        "The phrase “יתר מרעהו צדיק” is Proverbs 12:26; the author’s sequencing language is retained as printed."
+      ],
+      "sourceUrl": "https://www.sefaria.org/Mei_HaShiloach,_Volume_I,_Writings,_Proverbs.13.4",
+      "sortKey": [
+        65,
+        13,
+        4
+      ],
+      "sourceLetterAccounting": {
+        "status": "PASS",
+        "sourceHebrewLetters": 292,
+        "normalizedHebrewLetters": 326,
+        "expectedAfterReviewedExpansionsSha256": "7bfd7a4d109610efaf816283589c4d0392d6d54ff3bceeac471e08730bdfc30f",
+        "pairedHebrewLettersSha256": "7bfd7a4d109610efaf816283589c4d0392d6d54ff3bceeac471e08730bdfc30f",
+        "unaccountedConsonantalChanges": 0
+      }
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 15:1",
+      "sectionRef": "Mei HaShiloach, Volume I, Writings, Proverbs 15",
+      "n": 1,
+      "sourceHebrew": "מַרְפֵּא לָשׁוֹן עֵץ חַיִּים וְסֶלֶף בָּהּ שֶׁבֶר בְּרוּחַ. בֵּיאֵר זֶה עַל פִּי מָשָׁל לִשְׁנֵי סוֹחֲרִים שֶׁנָּסְעוּ בִּסְחוֹרָה לִמְקוֹם הַשּׁוּק וּמָכְרוּ שְׁנֵיהֶם הַסְּחוֹרָה בְּכָךְ וְכָךְ, וּפָגְעוּ זֶה בָּזֶה וְשָׁאַל אֶחָד לַחֲבֵירוֹ כַּמָּה נָטַלְתָּ בִּסְחוֹרָתְךָ אָמַר לוֹ כָּךְ וְכָךְ וְהִרְוַחְתִּי הַרְבֵּה, אָמַר לוֹ חֲבֵירוֹ וַהֲלֹא אֲנִי לָקַחְתִּי יוֹתֵר מִמְּךָ וְהִפְסַדְתִּי אָמַר לוֹ שׁוֹטֶה כָּאן לֹא טָעִיתָ בְּמִקָּחֲךָ רַק בְּבֵיתְךָ הָיְתָה הַטָּעוּת שֶׁנָּתַתָּ בְּבֵיתְךָ בְּעַד הַסְּחוֹרָה הַרְבֵּה יוֹתֵר מִמֶּנִּי, וְהוֹנֵיתָה אוֹתְךָ בְּבֵיתְךָ. כֵּן הוּא הָעִנְיָן בְּד\"ת גַּם כֵּן, שֶׁבֶּאֱמֶת הַד\"ת הוּא \"מַרְפֵּא לָשׁוֹן עֵץ חַיִּים\", הַיְינוּ שֶׁמְּרַפֵּא כָּל הַחֶסְרוֹנוֹת שֶׁיֵּשׁ לָאָדָם, אַךְ \"וְסֶלֶף בָּהּ שֶׁבֶר בְּרוּחַ\" הַיְינוּ הֲלֹא לִפְעָמִים לוֹמֵד הָאָדָם הַרְבֵּה וְאֵין לוֹ שׁוּם רֶוַח מִמֶּנָּה וְהוּא מְעֻוָּת כְּמִקֶּדֶם, הוּא מֵחֲמַת שֶׁהוּא \"שֶׁבֶר בְּרוּחַ\" הַיְינוּ שֶׁבְּרוּחַ חַיִּים שֶׁלּוֹ בְּמוֹחוֹ וְלִבּוֹ שָׁם יֵשׁ לוֹ חֶסְרוֹנוֹת בְּתוֹלָדָה וְאֵינוֹ מְתַקְּנָם, עַל כֵּן לֹא יוֹעִיל לוֹ הַד\"ת, וְצָרִיךְ לִרְאוֹת לְתַקֵּן מִקֶּדֶם הַחֶסְרוֹן הַזֶּה אֲשֶׁר לוֹ בְּתוֹלָדָה וְאָז יוּכַל לְהִתְקָרֵב אֶל לִבּוֹ הַד\"ת.",
+      "normalizedHebrew": "מַרְפֵּא לָשׁוֹן עֵץ חַיִּים וְסֶלֶף בָּהּ שֶׁבֶר בְּרוּחַ. בֵּיאֵר זֶה עַל פִּי מָשָׁל לִשְׁנֵי סוֹחֲרִים שֶׁנָּסְעוּ בִּסְחוֹרָה לִמְקוֹם הַשּׁוּק וּמָכְרוּ שְׁנֵיהֶם הַסְּחוֹרָה בְּכָךְ וְכָךְ, וּפָגְעוּ זֶה בָּזֶה וְשָׁאַל אֶחָד לַחֲבֵירוֹ כַּמָּה נָטַלְתָּ בִּסְחוֹרָתְךָ אָמַר לוֹ כָּךְ וְכָךְ וְהִרְוַחְתִּי הַרְבֵּה, אָמַר לוֹ חֲבֵירוֹ וַהֲלֹא אֲנִי לָקַחְתִּי יוֹתֵר מִמְּךָ וְהִפְסַדְתִּי אָמַר לוֹ שׁוֹטֶה כָּאן לֹא טָעִיתָ בְּמִקָּחֲךָ רַק בְּבֵיתְךָ הָיְתָה הַטָּעוּת שֶׁנָּתַתָּ בְּבֵיתְךָ בְּעַד הַסְּחוֹרָה הַרְבֵּה יוֹתֵר מִמֶּנִּי, וְהוֹנֵיתָה אוֹתְךָ בְּבֵיתְךָ. כֵּן הוּא הָעִנְיָן בְּדִּבְרֵי תוֹרָה גַּם כֵּן, שֶׁבֶּאֱמֶת הַדִּבְרֵי תוֹרָה הוּא \"מַרְפֵּא לָשׁוֹן עֵץ חַיִּים\", הַיְינוּ שֶׁמְּרַפֵּא כָּל הַחֶסְרוֹנוֹת שֶׁיֵּשׁ לָאָדָם, אַךְ \"וְסֶלֶף בָּהּ שֶׁבֶר בְּרוּחַ\" הַיְינוּ הֲלֹא לִפְעָמִים לוֹמֵד הָאָדָם הַרְבֵּה וְאֵין לוֹ שׁוּם רֶוַח מִמֶּנָּה וְהוּא מְעֻוָּת כְּמִקֶּדֶם, הוּא מֵחֲמַת שֶׁהוּא \"שֶׁבֶר בְּרוּחַ\" הַיְינוּ שֶׁבְּרוּחַ חַיִּים שֶׁלּוֹ בְּמוֹחוֹ וְלִבּוֹ שָׁם יֵשׁ לוֹ חֶסְרוֹנוֹת בְּתוֹלָדָה וְאֵינוֹ מְתַקְּנָם, עַל כֵּן לֹא יוֹעִיל לוֹ הַדִּבְרֵי תוֹרָה, וְצָרִיךְ לִרְאוֹת לְתַקֵּן מִקֶּדֶם הַחֶסְרוֹן הַזֶּה אֲשֶׁר לוֹ בְּתוֹלָדָה וְאָז יוּכַל לְהִתְקָרֵב אֶל לִבּוֹ הַדִּבְרֵי תוֹרָה.",
+      "p": [
+        [
+          "מַרְפֵּא לָשׁוֹן עֵץ חַיִּים",
+          "A healing tongue is a tree of life,"
+        ],
+        [
+          "וְסֶלֶף בָּהּ שֶׁבֶר בְּרוּחַ.",
+          "but perverseness in it breaks the spirit."
+        ],
+        [
+          "בֵּיאֵר זֶה עַל פִּי מָשָׁל לִשְׁנֵי סוֹחֲרִים",
+          "He explained this through a parable of two merchants"
+        ],
+        [
+          "שֶׁנָּסְעוּ בִּסְחוֹרָה לִמְקוֹם הַשּׁוּק",
+          "who traveled with merchandise to the marketplace."
+        ],
+        [
+          "וּמָכְרוּ שְׁנֵיהֶם הַסְּחוֹרָה בְּכָךְ וְכָךְ,",
+          "Both sold their merchandise for a certain amount."
+        ],
+        [
+          "וּפָגְעוּ זֶה בָּזֶה וְשָׁאַל אֶחָד לַחֲבֵירוֹ",
+          "They met, and one asked the other,"
+        ],
+        [
+          "כַּמָּה נָטַלְתָּ בִּסְחוֹרָתְךָ",
+          "“How much did you receive for your merchandise?”"
+        ],
+        [
+          "אָמַר לוֹ כָּךְ וְכָךְ וְהִרְוַחְתִּי הַרְבֵּה,",
+          "He replied, “Such and such an amount, and I made a large profit.”"
+        ],
+        [
+          "אָמַר לוֹ חֲבֵירוֹ וַהֲלֹא אֲנִי לָקַחְתִּי יוֹתֵר מִמְּךָ וְהִפְסַדְתִּי",
+          "His fellow said, “But I received more than you, and I suffered a loss!”"
+        ],
+        [
+          "אָמַר לוֹ שׁוֹטֶה כָּאן לֹא טָעִיתָ בְּמִקָּחֲךָ",
+          "He replied, “Fool! Your mistake in the transaction was not made here;"
+        ],
+        [
+          "רַק בְּבֵיתְךָ הָיְתָה הַטָּעוּת",
+          "it was at home that the mistake occurred,"
+        ],
+        [
+          "שֶׁנָּתַתָּ בְּבֵיתְךָ בְּעַד הַסְּחוֹרָה הַרְבֵּה יוֹתֵר מִמֶּנִּי,",
+          "when you paid far more for the merchandise than I did."
+        ],
+        [
+          "וְהוֹנֵיתָה אוֹתְךָ בְּבֵיתְךָ.",
+          "You misled yourself at home.”"
+        ],
+        [
+          "כֵּן הוּא הָעִנְיָן בְּדִּבְרֵי תוֹרָה גַּם כֵּן,",
+          "The same applies to words of Torah."
+        ],
+        [
+          "שֶׁבֶּאֱמֶת הַדִּבְרֵי תוֹרָה הוּא \"מַרְפֵּא לָשׁוֹן עֵץ חַיִּים\",",
+          "For the Torah’s words truly are “a healing tongue, a tree of life”:"
+        ],
+        [
+          "הַיְינוּ שֶׁמְּרַפֵּא כָּל הַחֶסְרוֹנוֹת שֶׁיֵּשׁ לָאָדָם,",
+          "they heal all of a person’s deficiencies."
+        ],
+        [
+          "אַךְ \"וְסֶלֶף בָּהּ שֶׁבֶר בְּרוּחַ\"",
+          "Yet “perverseness in it breaks the spirit”:"
+        ],
+        [
+          "הַיְינוּ הֲלֹא לִפְעָמִים לוֹמֵד הָאָדָם הַרְבֵּה",
+          "sometimes a person studies a great deal"
+        ],
+        [
+          "וְאֵין לוֹ שׁוּם רֶוַח מִמֶּנָּה וְהוּא מְעֻוָּת כְּמִקֶּדֶם,",
+          "but gains nothing from it and remains as distorted as before."
+        ],
+        [
+          "הוּא מֵחֲמַת שֶׁהוּא \"שֶׁבֶר בְּרוּחַ\"",
+          "This is because there is a “break in the spirit”:"
+        ],
+        [
+          "הַיְינוּ שֶׁבְּרוּחַ חַיִּים שֶׁלּוֹ בְּמוֹחוֹ וְלִבּוֹ",
+          "in his vital spirit, in his mind and heart,"
+        ],
+        [
+          "שָׁם יֵשׁ לוֹ חֶסְרוֹנוֹת בְּתוֹלָדָה וְאֵינוֹ מְתַקְּנָם,",
+          "there are inborn deficiencies that he does not correct."
+        ],
+        [
+          "עַל כֵּן לֹא יוֹעִיל לוֹ הַדִּבְרֵי תוֹרָה,",
+          "The Torah’s words therefore do not benefit him."
+        ],
+        [
+          "וְצָרִיךְ לִרְאוֹת לְתַקֵּן מִקֶּדֶם הַחֶסְרוֹן הַזֶּה אֲשֶׁר לוֹ בְּתוֹלָדָה",
+          "He must first attend to correcting this inborn deficiency;"
+        ],
+        [
+          "וְאָז יוּכַל לְהִתְקָרֵב אֶל לִבּוֹ הַדִּבְרֵי תוֹרָה.",
+          "then the words of Torah can draw near to his heart."
+        ]
+      ],
+      "transformations": [
+        {
+          "from": "ד\"ת",
+          "to": "דִּבְרֵי תוֹרָה",
+          "count": 4,
+          "reason": "Expand divrei Torah; retain source prefixes."
+        }
+      ],
+      "expansions": [
+        {
+          "from": "ד\"ת",
+          "to": "דִּבְרֵי תוֹרָה",
+          "count": 4,
+          "reason": "Expand divrei Torah; retain source prefixes."
+        }
+      ],
+      "reviewNotes": [
+        "All source words, in their original order, are included in the phrase pairs. Printed citation wording and numbering are retained; hyperlink targets are reviewed separately."
+      ],
+      "sourceUrl": "https://www.sefaria.org/Mei_HaShiloach,_Volume_I,_Writings,_Proverbs.15.1",
+      "sortKey": [
+        65,
+        15,
+        1
+      ]
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 15:2",
+      "sectionRef": "Mei HaShiloach, Volume I, Writings, Proverbs 15",
+      "n": 2,
+      "sourceHebrew": "שְׁאוֹל וַאֲבַדּוֹן נֶגֶד ה' אַף כִּי לִבּוֹת בְּנֵי אָדָם כוּ'. הַיְינוּ כִּי \"שְׁאוֹל\" מוֹרֶה עַל דָּבָר שֶׁאֵין לוֹ יְדִיעָה בַּתְּחִילָּה אֲבָל יֵשׁ לוֹ יְדִיעָה בַּסּוֹף, \"וַאֲבַדּוֹן\" הוּא שֶׁאֵין לוֹ יְדִיעָה בַּתְּחִילָּה וְלֹא בַּסּוֹף. וּמַה אִם ב' דְּבָרִים הָאֵלּוּ שֶׁהֵם נֶעֱלָמִים מִלִּבּוֹת בְּנֵי אָדָם גְּלוּיִים הֵם נֶגֶד הַקָּדוֹשׁ בָּרוּךְ הוּא, \"אַף כִּי לִיבּוֹת בְּנֵי אָדָם\", הַיְינוּ מִכָּל שֶׁכֵּן דְּבָרִים שֶׁהֵם גְּלוּיִים לְלִבּוֹת בְּנֵי אָדָם שֶׁהֵם גְּלוּיִים וִידוּעִים לְהַקָּדוֹשׁ בָּרוּךְ הוּא.",
+      "normalizedHebrew": "שְׁאוֹל וַאֲבַדּוֹן נֶגֶד הַשֵּׁם אַף כִּי לִבּוֹת בְּנֵי אָדָם כּוּלֵי. הַיְינוּ כִּי \"שְׁאוֹל\" מוֹרֶה עַל דָּבָר שֶׁאֵין לוֹ יְדִיעָה בַּתְּחִילָּה אֲבָל יֵשׁ לוֹ יְדִיעָה בַּסּוֹף, \"וַאֲבַדּוֹן\" הוּא שֶׁאֵין לוֹ יְדִיעָה בַּתְּחִילָּה וְלֹא בַּסּוֹף. וּמַה אִם ב' דְּבָרִים הָאֵלּוּ שֶׁהֵם נֶעֱלָמִים מִלִּבּוֹת בְּנֵי אָדָם גְּלוּיִים הֵם נֶגֶד הַקָּדוֹשׁ בָּרוּךְ הוּא, \"אַף כִּי לִיבּוֹת בְּנֵי אָדָם\", הַיְינוּ מִכָּל שֶׁכֵּן דְּבָרִים שֶׁהֵם גְּלוּיִים לְלִבּוֹת בְּנֵי אָדָם שֶׁהֵם גְּלוּיִים וִידוּעִים לְהַקָּדוֹשׁ בָּרוּךְ הוּא.",
+      "p": [
+        [
+          "שְׁאוֹל וַאֲבַדּוֹן נֶגֶד הַשֵּׁם",
+          "Sheol and Abaddon lie open before Hashem;"
+        ],
+        [
+          "אַף כִּי לִבּוֹת בְּנֵי אָדָם כּוּלֵי.",
+          "how much more the hearts of human beings, etc."
+        ],
+        [
+          "הַיְינוּ כִּי \"שְׁאוֹל\" מוֹרֶה עַל דָּבָר",
+          "“Sheol” indicates something"
+        ],
+        [
+          "שֶׁאֵין לוֹ יְדִיעָה בַּתְּחִילָּה אֲבָל יֵשׁ לוֹ יְדִיעָה בַּסּוֹף,",
+          "that is unknown at first but becomes known in the end."
+        ],
+        [
+          "\"וַאֲבַדּוֹן\" הוּא שֶׁאֵין לוֹ יְדִיעָה בַּתְּחִילָּה וְלֹא בַּסּוֹף.",
+          "“Abaddon” is something unknown both at the beginning and at the end."
+        ],
+        [
+          "וּמַה אִם ב' דְּבָרִים הָאֵלּוּ שֶׁהֵם נֶעֱלָמִים מִלִּבּוֹת בְּנֵי אָדָם",
+          "If these two things, hidden from human hearts,"
+        ],
+        [
+          "גְּלוּיִים הֵם נֶגֶד הַקָּדוֹשׁ בָּרוּךְ הוּא,",
+          "are revealed before the Holy One, blessed be He,"
+        ],
+        [
+          "\"אַף כִּי לִיבּוֹת בְּנֵי אָדָם\",",
+          "“how much more the hearts of human beings”:"
+        ],
+        [
+          "הַיְינוּ מִכָּל שֶׁכֵּן דְּבָרִים שֶׁהֵם גְּלוּיִים לְלִבּוֹת בְּנֵי אָדָם",
+          "all the more so, things revealed to human hearts"
+        ],
+        [
+          "שֶׁהֵם גְּלוּיִים וִידוּעִים לְהַקָּדוֹשׁ בָּרוּךְ הוּא.",
+          "are revealed and known to the Holy One, blessed be He."
+        ]
+      ],
+      "transformations": [
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "count": 1,
+          "reason": "Expand the Divine-Name abbreviation."
+        },
+        {
+          "from": "כוּ'",
+          "to": "כּוּלֵי",
+          "count": 1,
+          "reason": "Expand the source abbreviation for etcetera."
+        }
+      ],
+      "expansions": [
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "count": 1,
+          "reason": "Expand the Divine-Name abbreviation."
+        },
+        {
+          "from": "כוּ'",
+          "to": "כּוּלֵי",
+          "count": 1,
+          "reason": "Expand the source abbreviation for etcetera."
+        }
+      ],
+      "reviewNotes": [
+        "All source words, in their original order, are included in the phrase pairs. Printed citation wording and numbering are retained; hyperlink targets are reviewed separately."
+      ],
+      "sourceUrl": "https://www.sefaria.org/Mei_HaShiloach,_Volume_I,_Writings,_Proverbs.15.2",
+      "sortKey": [
+        65,
+        15,
+        2
+      ]
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 15:3",
+      "sectionRef": "Mei HaShiloach, Volume I, Writings, Proverbs 15",
+      "n": 3,
+      "sourceHebrew": "הָפֵר מַחֲשָׁבוֹת בְּאֵין סוֹד וּבְרֹב יוֹעֲצִים תָּקוּם. פֵּירוּשׁ כִּי יֵשׁ לִפְעָמִים שֶׁיָּבֹא לְאָדָם בְּמַחְשַׁבְתּוֹ לַעֲשׂוֹת דָּבָר טוֹב וּכְשֶׁיָּבֹא לְהַמַּעֲשֶׂה אָז נֶעֱלָם מִמֶּנּוּ מַה שֶּׁחָשַׁב, הוּא מֵחֲמַת \"בְּאֵין סוֹד\" הַיְינוּ שֶׁלֹּא נִקְבַּע עֲדַיִין הַדָּבָר הַזֶּה בְּלִבּוֹ גַּם כֵּן, כִּי רַק הָיָה הַמַּחְשָׁבָה מִשָּׂפָה וְלַחוּץ, \"וּבְרֹב יוֹעֲצִים\" הַיְינוּ אַחַר רֹב הִשְׁתַּדְּלוּת וְעֵצוֹת שֶׁיִּקָּבַע הַדָּבָר הַזֶּה בְּלִבּוֹ גַּם כֵּן וְאָז \"תָּקוּם\" הַיְינוּ לִפְעוֹל בְּמַעֲשֶׂה גַּם כֵּן.",
+      "normalizedHebrew": "הָפֵר מַחֲשָׁבוֹת בְּאֵין סוֹד וּבְרֹב יוֹעֲצִים תָּקוּם. פֵּירוּשׁ כִּי יֵשׁ לִפְעָמִים שֶׁיָּבֹא לְאָדָם בְּמַחְשַׁבְתּוֹ לַעֲשׂוֹת דָּבָר טוֹב וּכְשֶׁיָּבֹא לְהַמַּעֲשֶׂה אָז נֶעֱלָם מִמֶּנּוּ מַה שֶּׁחָשַׁב, הוּא מֵחֲמַת \"בְּאֵין סוֹד\" הַיְינוּ שֶׁלֹּא נִקְבַּע עֲדַיִין הַדָּבָר הַזֶּה בְּלִבּוֹ גַּם כֵּן, כִּי רַק הָיָה הַמַּחְשָׁבָה מִשָּׂפָה וְלַחוּץ, \"וּבְרֹב יוֹעֲצִים\" הַיְינוּ אַחַר רֹב הִשְׁתַּדְּלוּת וְעֵצוֹת שֶׁיִּקָּבַע הַדָּבָר הַזֶּה בְּלִבּוֹ גַּם כֵּן וְאָז \"תָּקוּם\" הַיְינוּ לִפְעוֹל בְּמַעֲשֶׂה גַּם כֵּן.",
+      "p": [
+        [
+          "הָפֵר מַחֲשָׁבוֹת בְּאֵין סוֹד",
+          "Plans fail for lack of counsel,"
+        ],
+        [
+          "וּבְרֹב יוֹעֲצִים תָּקוּם.",
+          "but through many advisers they are established."
+        ],
+        [
+          "פֵּירוּשׁ כִּי יֵשׁ לִפְעָמִים שֶׁיָּבֹא לְאָדָם בְּמַחְשַׁבְתּוֹ לַעֲשׂוֹת דָּבָר טוֹב",
+          "Sometimes a person thinks of doing something good,"
+        ],
+        [
+          "וּכְשֶׁיָּבֹא לְהַמַּעֲשֶׂה אָז נֶעֱלָם מִמֶּנּוּ מַה שֶּׁחָשַׁב,",
+          "but when it comes to action, what he had intended slips away."
+        ],
+        [
+          "הוּא מֵחֲמַת \"בְּאֵין סוֹד\"",
+          "This is because of “a lack of counsel”:"
+        ],
+        [
+          "הַיְינוּ שֶׁלֹּא נִקְבַּע עֲדַיִין הַדָּבָר הַזֶּה בְּלִבּוֹ גַּם כֵּן,",
+          "the matter has not yet become firmly established in his heart as well."
+        ],
+        [
+          "כִּי רַק הָיָה הַמַּחְשָׁבָה מִשָּׂפָה וְלַחוּץ,",
+          "His thought remained merely on the surface, from the lips outward."
+        ],
+        [
+          "\"וּבְרֹב יוֹעֲצִים\" הַיְינוּ אַחַר רֹב הִשְׁתַּדְּלוּת וְעֵצוֹת",
+          "“Through many advisers” means through much effort and counsel,"
+        ],
+        [
+          "שֶׁיִּקָּבַע הַדָּבָר הַזֶּה בְּלִבּוֹ גַּם כֵּן",
+          "so that the matter becomes established in his heart as well."
+        ],
+        [
+          "וְאָז \"תָּקוּם\" הַיְינוּ לִפְעוֹל בְּמַעֲשֶׂה גַּם כֵּן.",
+          "Then “they are established”: he brings it into action too."
+        ]
+      ],
+      "transformations": [],
+      "expansions": [],
+      "reviewNotes": [
+        "All source words, in their original order, are included in the phrase pairs. Printed citation wording and numbering are retained; hyperlink targets are reviewed separately."
+      ],
+      "sourceUrl": "https://www.sefaria.org/Mei_HaShiloach,_Volume_I,_Writings,_Proverbs.15.3",
+      "sortKey": [
+        65,
+        15,
+        3
+      ]
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 15:4",
+      "sectionRef": "Mei HaShiloach, Volume I, Writings, Proverbs 15",
+      "n": 4,
+      "sourceHebrew": "תּוֹעֲבַת ה' מַחְשְׁבוֹת רָע וּטְהוֹרִים אִמְרֵי נֹעַם. פֵּירוּשׁ אוֹתָן מַחְשָׁבוֹת שֶׁהֵם רָעִים וְתוֹעֲבַת הַש\"י, יוּכְלוּ לְהִמָּצֵא לִפְעָמִים כַּאֲשֶׁר לֵב הָאָדָם נָקִי וְטָהוֹר, אַף אִם אוֹמֵר דְּבָרִים שֶׁנִּרְאִים כְּמַחְשָׁבוֹת רָעִים, מִכָּל מָקוֹם כְּשֶׁאוֹמְרָם בְּאִמְרֵי נֹעַם וּמוֹכִיחַ בִּלְשׁוֹנוֹ כִּי אֵין בְּמַחְשַׁבְתּוֹ שׁוּם רָע, כַּמָּשָׁל שֶׁאָמְרָה בַּת שֶׁבַע לַמֶּלֶךְ דָּוִד (מלכים א א׳:ט״ו) בְּבַקָּשָׁתָהּ מַלְכוּת לִשְׁלֹמֹה בְּנָהּ, אַף כִּי זֹאת הוּא מַחְשְׁבוֹת רָע לִירַשׁ אֶת מוֹרִישׁוֹ וְלַחְשׁוֹב מָתַי יִהְיֶה, אַךְ כִּי הָיוּ דְּבָרֶיהָ טְהוֹרִים בְּאָמְרָהּ \"יְחִי הַמֶּלֶךְ לְעוֹלָם\", וְיָדוּעַ כִּי לֹא צָפְתָה חַס וְשָׁלוֹם מָתַי יָבֹא הַזְּמַן רַק כְּמַאֲמָרָהּ \"וְהָיִיתִי אֲנִי וּבְנִי חַטָּאִים\" וּבָזֶה נִתְבָּרֵר כִּי מַחְשְׁבוֹתֶיהָ הָיוּ טְהוֹרִים וְעַל יְדֵי זֶה אָמְרָה דְּבָרִים נְעִימִים.",
+      "normalizedHebrew": "תּוֹעֲבַת הַשֵּׁם מַחְשְׁבוֹת רָע וּטְהוֹרִים אִמְרֵי נֹעַם. פֵּירוּשׁ אוֹתָן מַחְשָׁבוֹת שֶׁהֵם רָעִים וְתוֹעֲבַת הַשֵּׁם יִתְבָּרַךְ, יוּכְלוּ לְהִמָּצֵא לִפְעָמִים כַּאֲשֶׁר לֵב הָאָדָם נָקִי וְטָהוֹר, אַף אִם אוֹמֵר דְּבָרִים שֶׁנִּרְאִים כְּמַחְשָׁבוֹת רָעִים, מִכָּל מָקוֹם כְּשֶׁאוֹמְרָם בְּאִמְרֵי נֹעַם וּמוֹכִיחַ בִּלְשׁוֹנוֹ כִּי אֵין בְּמַחְשַׁבְתּוֹ שׁוּם רָע, כַּמָּשָׁל שֶׁאָמְרָה בַּת שֶׁבַע לַמֶּלֶךְ דָּוִד (מְלָכִים א א׳:ט״ו) בְּבַקָּשָׁתָהּ מַלְכוּת לִשְׁלֹמֹה בְּנָהּ, אַף כִּי זֹאת הוּא מַחְשְׁבוֹת רָע לִירַשׁ אֶת מוֹרִישׁוֹ וְלַחְשׁוֹב מָתַי יִהְיֶה, אַךְ כִּי הָיוּ דְּבָרֶיהָ טְהוֹרִים בְּאָמְרָהּ \"יְחִי הַמֶּלֶךְ לְעוֹלָם\", וְיָדוּעַ כִּי לֹא צָפְתָה חַס וְשָׁלוֹם מָתַי יָבֹא הַזְּמַן רַק כְּמַאֲמָרָהּ \"וְהָיִיתִי אֲנִי וּבְנִי חַטָּאִים\" וּבָזֶה נִתְבָּרֵר כִּי מַחְשְׁבוֹתֶיהָ הָיוּ טְהוֹרִים וְעַל יְדֵי זֶה אָמְרָה דְּבָרִים נְעִימִים.",
+      "p": [
+        [
+          "תּוֹעֲבַת הַשֵּׁם מַחְשְׁבוֹת רָע",
+          "Evil thoughts are an abomination to Hashem,"
+        ],
+        [
+          "וּטְהוֹרִים אִמְרֵי נֹעַם.",
+          "but pleasant words are pure."
+        ],
+        [
+          "פֵּירוּשׁ אוֹתָן מַחְשָׁבוֹת שֶׁהֵם רָעִים וְתוֹעֲבַת הַשֵּׁם יִתְבָּרַךְ,",
+          "Such thoughts, which are evil and abhorrent to Hashem, blessed be He,"
+        ],
+        [
+          "יוּכְלוּ לְהִמָּצֵא לִפְעָמִים כַּאֲשֶׁר לֵב הָאָדָם נָקִי וְטָהוֹר,",
+          "can sometimes occur when a person’s heart is clean and pure."
+        ],
+        [
+          "אַף אִם אוֹמֵר דְּבָרִים שֶׁנִּרְאִים כְּמַחְשָׁבוֹת רָעִים,",
+          "Although he says things that seem to express evil thoughts,"
+        ],
+        [
+          "מִכָּל מָקוֹם כְּשֶׁאוֹמְרָם בְּאִמְרֵי נֹעַם",
+          "nevertheless, when he says them pleasantly,"
+        ],
+        [
+          "וּמוֹכִיחַ בִּלְשׁוֹנוֹ כִּי אֵין בְּמַחְשַׁבְתּוֹ שׁוּם רָע,",
+          "his manner of speaking shows that he has no evil intention."
+        ],
+        [
+          "כַּמָּשָׁל שֶׁאָמְרָה בַּת שֶׁבַע לַמֶּלֶךְ דָּוִד (מְלָכִים א א׳:ט״ו)",
+          "For example, Bathsheba spoke to King David (I Kings 1:15)"
+        ],
+        [
+          "בְּבַקָּשָׁתָהּ מַלְכוּת לִשְׁלֹמֹה בְּנָהּ,",
+          "when requesting the kingship for her son Solomon."
+        ],
+        [
+          "אַף כִּי זֹאת הוּא מַחְשְׁבוֹת רָע לִירַשׁ אֶת מוֹרִישׁוֹ",
+          "Although it is an evil thought to look forward to inheriting from someone"
+        ],
+        [
+          "וְלַחְשׁוֹב מָתַי יִהְיֶה,",
+          "and to wonder when that will happen,"
+        ],
+        [
+          "אַךְ כִּי הָיוּ דְּבָרֶיהָ טְהוֹרִים בְּאָמְרָהּ \"יְחִי הַמֶּלֶךְ לְעוֹלָם\",",
+          "her words were pure when she said, “May the king live forever!”"
+        ],
+        [
+          "וְיָדוּעַ כִּי לֹא צָפְתָה חַס וְשָׁלוֹם מָתַי יָבֹא הַזְּמַן",
+          "It is evident that, Heaven forbid, she was not looking forward to that time,"
+        ],
+        [
+          "רַק כְּמַאֲמָרָהּ \"וְהָיִיתִי אֲנִי וּבְנִי חַטָּאִים\"",
+          "but meant what she said: “My son and I will be deemed offenders.”"
+        ],
+        [
+          "וּבָזֶה נִתְבָּרֵר כִּי מַחְשְׁבוֹתֶיהָ הָיוּ טְהוֹרִים",
+          "This made it clear that her thoughts were pure,"
+        ],
+        [
+          "וְעַל יְדֵי זֶה אָמְרָה דְּבָרִים נְעִימִים.",
+          "and therefore she spoke pleasant words."
+        ]
+      ],
+      "transformations": [
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "count": 1,
+          "reason": "Expand the Divine-Name abbreviation."
+        },
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "count": 1,
+          "reason": "Expand the conventional Divine honorific."
+        },
+        {
+          "from": "מלכים",
+          "to": "מְלָכִים",
+          "count": 1,
+          "reason": "Add nikkud to the source citation without changing consonants."
+        }
+      ],
+      "expansions": [
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "count": 1,
+          "reason": "Expand the Divine-Name abbreviation."
+        },
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "count": 1,
+          "reason": "Expand the conventional Divine honorific."
+        },
+        {
+          "from": "מלכים",
+          "to": "מְלָכִים",
+          "count": 1,
+          "reason": "Add nikkud to the source citation without changing consonants."
+        }
+      ],
+      "reviewNotes": [
+        "All source words, in their original order, are included in the phrase pairs. Printed citation wording and numbering are retained; hyperlink targets are reviewed separately."
+      ],
+      "sourceUrl": "https://www.sefaria.org/Mei_HaShiloach,_Volume_I,_Writings,_Proverbs.15.4",
+      "sortKey": [
+        65,
+        15,
+        4
+      ]
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 16:1",
+      "sectionRef": "Mei HaShiloach, Volume I, Writings, Proverbs 16",
+      "n": 1,
+      "sourceHebrew": "גֹּל אֶל ה' מַעֲשֶׂיךָ וְיִכֹּנוּ מַחְשְׁבֹתֶיךָ. הַיְינוּ שֶׁהָאָדָם יְגַלְגֵּל כָּל מַעֲשָׂיו אֶל ה' וְהוּא שֶׁכָּל כַּוָּנָתוֹ בְּמַעֲשָׂיו לֹא יִהְיֶה רַק לִכְבוֹד שָׁמַיִם וְאָז יִכּוֹנוּ מַחְשְׁבוֹתָיו. וְהוּא, כִּי אַף שֶׁלֹּא יוּכְלוּ לָצֵאת לַפֹּעַל עַל הַמַּעֲשֶׂה, מִכָּל מָקוֹם יִתְחַזְּקוּ מֵאֵת הַש\"י וְיִתְקַיְּמוּ לְעוֹלָם, וְכֵן מָצִינוּ בְּדָוִד הַמֶּלֶךְ עָלָיו הַשָּׁלוֹם שֶׁחָשַׁב לִבְנוֹת אֶת בֵּית הַמִּקְדָּשׁ וְאַף שֶׁנֶּאֱמַר לוֹ שֶׁאֵין זֶה שַׁיָּךְ לְחֶלְקוֹ רַק לִבְנוֹ שְׁלֹמֹה, וּלְפִי רְאוּת עַיִן יִתְרָאֶה כִּי הַמַּחְשָׁבָה הַזֹּאת הָיְתָה דָּבָר בָּטֵל, וְעִם כָּל זֶה הֵאִיר לוֹ הַש\"י כִּי הֵיטִיב אֲשֶׁר הָיָה עִם לְבָבוֹ, כִּי כָּךְ הָיָה רְצוֹן הַש\"י שֶׁרֵאשִׁית הַמַּחְשָׁבָה עַל בִּנְיַן בֵּית הַמִּקְדָּשׁ יִהְיֶה לְדָוִד הַמֶּלֶךְ עָלָיו הַשָּׁלוֹם וְהַמַּעֲשֶׂה יִגָּמֵר עַל יְדֵי שְׁלֹמֹה.",
+      "normalizedHebrew": "גֹּל אֶל הַשֵּׁם מַעֲשֶׂיךָ וְיִכֹּנוּ מַחְשְׁבֹתֶיךָ. הַיְינוּ שֶׁהָאָדָם יְגַלְגֵּל כָּל מַעֲשָׂיו אֶל הַשֵּׁם וְהוּא שֶׁכָּל כַּוָּנָתוֹ בְּמַעֲשָׂיו לֹא יִהְיֶה רַק לִכְבוֹד שָׁמַיִם וְאָז יִכּוֹנוּ מַחְשְׁבוֹתָיו. וְהוּא, כִּי אַף שֶׁלֹּא יוּכְלוּ לָצֵאת לַפֹּעַל עַל הַמַּעֲשֶׂה, מִכָּל מָקוֹם יִתְחַזְּקוּ מֵאֵת הַשֵּׁם יִתְבָּרַךְ וְיִתְקַיְּמוּ לְעוֹלָם, וְכֵן מָצִינוּ בְּדָוִד הַמֶּלֶךְ עָלָיו הַשָּׁלוֹם שֶׁחָשַׁב לִבְנוֹת אֶת בֵּית הַמִּקְדָּשׁ וְאַף שֶׁנֶּאֱמַר לוֹ שֶׁאֵין זֶה שַׁיָּךְ לְחֶלְקוֹ רַק לִבְנוֹ שְׁלֹמֹה, וּלְפִי רְאוּת עַיִן יִתְרָאֶה כִּי הַמַּחְשָׁבָה הַזֹּאת הָיְתָה דָּבָר בָּטֵל, וְעִם כָּל זֶה הֵאִיר לוֹ הַשֵּׁם יִתְבָּרַךְ כִּי הֵיטִיב אֲשֶׁר הָיָה עִם לְבָבוֹ, כִּי כָּךְ הָיָה רְצוֹן הַשֵּׁם יִתְבָּרַךְ שֶׁרֵאשִׁית הַמַּחְשָׁבָה עַל בִּנְיַן בֵּית הַמִּקְדָּשׁ יִהְיֶה לְדָוִד הַמֶּלֶךְ עָלָיו הַשָּׁלוֹם וְהַמַּעֲשֶׂה יִגָּמֵר עַל יְדֵי שְׁלֹמֹה.",
+      "p": [
+        [
+          "גֹּל אֶל הַשֵּׁם מַעֲשֶׂיךָ",
+          "Commit your deeds to Hashem,"
+        ],
+        [
+          "וְיִכֹּנוּ מַחְשְׁבֹתֶיךָ.",
+          "and your thoughts will be established."
+        ],
+        [
+          "הַיְינוּ שֶׁהָאָדָם יְגַלְגֵּל כָּל מַעֲשָׂיו אֶל הַשֵּׁם",
+          "A person should direct all his deeds toward Hashem:"
+        ],
+        [
+          "וְהוּא שֶׁכָּל כַּוָּנָתוֹ בְּמַעֲשָׂיו לֹא יִהְיֶה רַק לִכְבוֹד שָׁמַיִם",
+          "his entire intention in his deeds should be solely for Heaven’s honor."
+        ],
+        [
+          "וְאָז יִכּוֹנוּ מַחְשְׁבוֹתָיו.",
+          "Then his thoughts will be established."
+        ],
+        [
+          "וְהוּא, כִּי אַף שֶׁלֹּא יוּכְלוּ לָצֵאת לַפֹּעַל עַל הַמַּעֲשֶׂה,",
+          "Even if they cannot be brought into actual practice,"
+        ],
+        [
+          "מִכָּל מָקוֹם יִתְחַזְּקוּ מֵאֵת הַשֵּׁם יִתְבָּרַךְ וְיִתְקַיְּמוּ לְעוֹלָם,",
+          "they will nevertheless be strengthened by Hashem, blessed be He, and endure forever."
+        ],
+        [
+          "וְכֵן מָצִינוּ בְּדָוִד הַמֶּלֶךְ עָלָיו הַשָּׁלוֹם",
+          "We find this with King David, peace be upon him,"
+        ],
+        [
+          "שֶׁחָשַׁב לִבְנוֹת אֶת בֵּית הַמִּקְדָּשׁ",
+          "who intended to build the Temple."
+        ],
+        [
+          "וְאַף שֶׁנֶּאֱמַר לוֹ שֶׁאֵין זֶה שַׁיָּךְ לְחֶלְקוֹ רַק לִבְנוֹ שְׁלֹמֹה,",
+          "Although he was told that this was not his task, but his son Solomon’s,"
+        ],
+        [
+          "וּלְפִי רְאוּת עַיִן יִתְרָאֶה כִּי הַמַּחְשָׁבָה הַזֹּאת הָיְתָה דָּבָר בָּטֵל,",
+          "to outward appearances this thought might seem to have been in vain."
+        ],
+        [
+          "וְעִם כָּל זֶה הֵאִיר לוֹ הַשֵּׁם יִתְבָּרַךְ כִּי הֵיטִיב אֲשֶׁר הָיָה עִם לְבָבוֹ,",
+          "Yet Hashem, blessed be He, illuminated for him that he had done well to hold it in his heart."
+        ],
+        [
+          "כִּי כָּךְ הָיָה רְצוֹן הַשֵּׁם יִתְבָּרַךְ",
+          "For this was Hashem’s will:"
+        ],
+        [
+          "שֶׁרֵאשִׁית הַמַּחְשָׁבָה עַל בִּנְיַן בֵּית הַמִּקְדָּשׁ",
+          "that the initial thought of building the Temple"
+        ],
+        [
+          "יִהְיֶה לְדָוִד הַמֶּלֶךְ עָלָיו הַשָּׁלוֹם",
+          "should belong to King David, peace be upon him,"
+        ],
+        [
+          "וְהַמַּעֲשֶׂה יִגָּמֵר עַל יְדֵי שְׁלֹמֹה.",
+          "and the actual work be completed through Solomon."
+        ]
+      ],
+      "transformations": [
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "count": 2,
+          "reason": "Expand the Divine-Name abbreviation."
+        },
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "count": 3,
+          "reason": "Expand the conventional Divine honorific."
+        }
+      ],
+      "expansions": [
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "count": 2,
+          "reason": "Expand the Divine-Name abbreviation."
+        },
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "count": 3,
+          "reason": "Expand the conventional Divine honorific."
+        }
+      ],
+      "reviewNotes": [
+        "All source words, in their original order, are included in the phrase pairs. Printed citation wording and numbering are retained; hyperlink targets are reviewed separately."
+      ],
+      "sourceUrl": "https://www.sefaria.org/Mei_HaShiloach,_Volume_I,_Writings,_Proverbs.16.1",
+      "sortKey": [
+        65,
+        16,
+        1
+      ]
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 16:2",
+      "sectionRef": "Mei HaShiloach, Volume I, Writings, Proverbs 16",
+      "n": 2,
+      "sourceHebrew": "פֶּלֶס וּמֹאזְנֵי מִשְׁפָּט לַה' מַעֲשֵׂהוּ כָּל אַבְנֵי כִיס. \"פֶּלֶס וּמֹאזְנֵי מִשְׁפָּט לַה'\" הַיְינוּ כִּי כָל הַמִּצְוֹת וּמַעֲשִׂים טוֹבִים הֵם מְאֹד יְקָרִים בְּעֵינֵי הַש\"י, אַךְ \"מַעֲשֵׂהוּ\" הַיְינוּ בְּמִי בּוֹחֵר הַש\"י, \"כָּל אַבְנֵי כִיס\" הַיְינוּ מַעֲשֵׂה טוֹבָה הַבָּאָה לָאָדָם עַל יְדֵי שֶׁיּוֹצִיא עַל זֶה מָה, וְזֶהוּ \"כָּל אַבְנֵי כִיס\" הַיְינוּ בְּמָקוֹם שֶׁיּוֹצִיא עַל זֶה יְגִיעָה וּכְמוֹ שֶׁפֵּירֵשׁ רַשִׁ\"י בְּפֶרֶק מִי שֶׁהֶחְשִׁיךְ (שבת קנ\"ג.) עַל מַאֲמַר הַגְּמָרָא פְּשִׁיטָא כִּסוֹ תְּנַן וּפֵי' שֶׁבָּא בִּיגִיעָה, כִּי לְמַעֲשֶׂה טוֹב שֶׁאֵין בָּהּ חֶסְרוֹן כִּיס וִיגִיעָה, לָזֶה מוּכָנִים כָּל יִשְׂרָאֵל לַעֲשׂוֹתוֹ אַף הַקָּטָן שֶׁבַּקְּטַנִּים, אַךְ בְּמָקוֹם שֶׁיָּבֹא לָאָדָם בִּיגִיעָה וְחֶסְרוֹן כִּיס בָּזֶה יִמָּצְאוּ כָּל הַמַּדְרֵגוֹת שֶׁבָּעוֹלָם.",
+      "normalizedHebrew": "פֶּלֶס וּמֹאזְנֵי מִשְׁפָּט לַשֵּׁם מַעֲשֵׂהוּ כָּל אַבְנֵי כִיס. \"פֶּלֶס וּמֹאזְנֵי מִשְׁפָּט לַשֵּׁם\" הַיְינוּ כִּי כָל הַמִּצְוֹת וּמַעֲשִׂים טוֹבִים הֵם מְאֹד יְקָרִים בְּעֵינֵי הַשֵּׁם יִתְבָּרַךְ, אַךְ \"מַעֲשֵׂהוּ\" הַיְינוּ בְּמִי בּוֹחֵר הַשֵּׁם יִתְבָּרַךְ, \"כָּל אַבְנֵי כִיס\" הַיְינוּ מַעֲשֵׂה טוֹבָה הַבָּאָה לָאָדָם עַל יְדֵי שֶׁיּוֹצִיא עַל זֶה מָה, וְזֶהוּ \"כָּל אַבְנֵי כִיס\" הַיְינוּ בְּמָקוֹם שֶׁיּוֹצִיא עַל זֶה יְגִיעָה וּכְמוֹ שֶׁפֵּירֵשׁ רַבִּי שְׁלֹמֹה יִצְחָקִי בְּפֶרֶק מִי שֶׁהֶחְשִׁיךְ (שַׁבָּת קנ\"ג.) עַל מַאֲמַר הַגְּמָרָא פְּשִׁיטָא כִּסוֹ תְּנַן וּפֵרֵשׁ שֶׁבָּא בִּיגִיעָה, כִּי לְמַעֲשֶׂה טוֹב שֶׁאֵין בָּהּ חֶסְרוֹן כִּיס וִיגִיעָה, לָזֶה מוּכָנִים כָּל יִשְׂרָאֵל לַעֲשׂוֹתוֹ אַף הַקָּטָן שֶׁבַּקְּטַנִּים, אַךְ בְּמָקוֹם שֶׁיָּבֹא לָאָדָם בִּיגִיעָה וְחֶסְרוֹן כִּיס בָּזֶה יִמָּצְאוּ כָּל הַמַּדְרֵגוֹת שֶׁבָּעוֹלָם.",
+      "p": [
+        [
+          "פֶּלֶס וּמֹאזְנֵי מִשְׁפָּט לַשֵּׁם",
+          "A just balance and scales belong to Hashem;"
+        ],
+        [
+          "מַעֲשֵׂהוּ כָּל אַבְנֵי כִיס.",
+          "all the weights in the pouch are His work."
+        ],
+        [
+          "\"פֶּלֶס וּמֹאזְנֵי מִשְׁפָּט לַשֵּׁם\"",
+          "“A just balance and scales belong to Hashem”:"
+        ],
+        [
+          "הַיְינוּ כִּי כָל הַמִּצְוֹת וּמַעֲשִׂים טוֹבִים",
+          "all the commandments and good deeds"
+        ],
+        [
+          "הֵם מְאֹד יְקָרִים בְּעֵינֵי הַשֵּׁם יִתְבָּרַךְ,",
+          "are very precious in Hashem’s eyes."
+        ],
+        [
+          "אַךְ \"מַעֲשֵׂהוּ\" הַיְינוּ בְּמִי בּוֹחֵר הַשֵּׁם יִתְבָּרַךְ,",
+          "But “His work” asks: whom does Hashem choose?"
+        ],
+        [
+          "\"כָּל אַבְנֵי כִיס\"",
+          "“All the weights in the pouch”:"
+        ],
+        [
+          "הַיְינוּ מַעֲשֵׂה טוֹבָה הַבָּאָה לָאָדָם עַל יְדֵי שֶׁיּוֹצִיא עַל זֶה מָה,",
+          "a good deed that requires a person to expend something on it."
+        ],
+        [
+          "וְזֶהוּ \"כָּל אַבְנֵי כִיס\"",
+          "This is the meaning of “all the weights in the pouch”:"
+        ],
+        [
+          "הַיְינוּ בְּמָקוֹם שֶׁיּוֹצִיא עַל זֶה יְגִיעָה",
+          "where he must expend effort on it."
+        ],
+        [
+          "וּכְמוֹ שֶׁפֵּירֵשׁ רַבִּי שְׁלֹמֹה יִצְחָקִי בְּפֶרֶק מִי שֶׁהֶחְשִׁיךְ (שַׁבָּת קנ\"ג.)",
+          "As Rabbi Shlomo Yitzchaki, Rashi, explains in the chapter Mi Shehechshikh (Shabbat 153a),"
+        ],
+        [
+          "עַל מַאֲמַר הַגְּמָרָא פְּשִׁיטָא כִּסוֹ תְּנַן",
+          "on the Gemara’s statement, “Is this not obvious? We learned ‘his purse’”:"
+        ],
+        [
+          "וּפֵרֵשׁ שֶׁבָּא בִּיגִיעָה,",
+          "he explains that it came through toil."
+        ],
+        [
+          "כִּי לְמַעֲשֶׂה טוֹב שֶׁאֵין בָּהּ חֶסְרוֹן כִּיס וִיגִיעָה,",
+          "For a good deed involving neither expense nor effort"
+        ],
+        [
+          "לָזֶה מוּכָנִים כָּל יִשְׂרָאֵל לַעֲשׂוֹתוֹ",
+          "is something all Israel are prepared to do,"
+        ],
+        [
+          "אַף הַקָּטָן שֶׁבַּקְּטַנִּים,",
+          "even the least among them."
+        ],
+        [
+          "אַךְ בְּמָקוֹם שֶׁיָּבֹא לָאָדָם בִּיגִיעָה וְחֶסְרוֹן כִּיס",
+          "But where a person must exert effort and incur expense,"
+        ],
+        [
+          "בָּזֶה יִמָּצְאוּ כָּל הַמַּדְרֵגוֹת שֶׁבָּעוֹלָם.",
+          "there all the different spiritual levels become evident."
+        ]
+      ],
+      "transformations": [
+        {
+          "from": "לַה'",
+          "to": "לַשֵּׁם",
+          "count": 2,
+          "reason": "Expand the Divine-Name abbreviation with its prefixed preposition."
+        },
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "count": 2,
+          "reason": "Expand the conventional Divine honorific."
+        },
+        {
+          "from": "רַשִׁ\"י",
+          "to": "רַבִּי שְׁלֹמֹה יִצְחָקִי",
+          "count": 1,
+          "reason": "Expand Rashi as the commentator’s name."
+        },
+        {
+          "from": "וּפֵי'",
+          "to": "וּפֵרֵשׁ",
+          "count": 1,
+          "reason": "The subject is Rashi, who explained the preceding Gemara quotation."
+        },
+        {
+          "from": "שבת",
+          "to": "שַׁבָּת",
+          "count": 1,
+          "reason": "Add nikkud to the source citation without changing consonants."
+        }
+      ],
+      "expansions": [
+        {
+          "from": "לַה'",
+          "to": "לַשֵּׁם",
+          "count": 2,
+          "reason": "Expand the Divine-Name abbreviation with its prefixed preposition."
+        },
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "count": 2,
+          "reason": "Expand the conventional Divine honorific."
+        },
+        {
+          "from": "רַשִׁ\"י",
+          "to": "רַבִּי שְׁלֹמֹה יִצְחָקִי",
+          "count": 1,
+          "reason": "Expand Rashi as the commentator’s name."
+        },
+        {
+          "from": "וּפֵי'",
+          "to": "וּפֵרֵשׁ",
+          "count": 1,
+          "reason": "The subject is Rashi, who explained the preceding Gemara quotation."
+        },
+        {
+          "from": "שבת",
+          "to": "שַׁבָּת",
+          "count": 1,
+          "reason": "Add nikkud to the source citation without changing consonants."
+        }
+      ],
+      "reviewNotes": [
+        "All source words, in their original order, are included in the phrase pairs. Printed citation wording and numbering are retained; hyperlink targets are reviewed separately."
+      ],
+      "sourceUrl": "https://www.sefaria.org/Mei_HaShiloach,_Volume_I,_Writings,_Proverbs.16.2",
+      "sortKey": [
+        65,
+        16,
+        2
+      ]
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 17:1",
+      "sectionRef": "Mei HaShiloach, Volume I, Writings, Proverbs 17",
+      "n": 1,
+      "sourceHebrew": "אֶת פְּנֵי מֵבִין חָכְמָה וְעֵינֵי כְסִיל בִּקְצֵה אָרֶץ. פֵּירוּשׁ הֶחָכָם וְהַנָּבוֹן אַף כִּי יָפִיק חָכְמָה וּתְבוּנָה אֲמִיתִּיּוֹת אֵינוֹ מִתְפָּאֵר בָּזֶה, כִּי זֶה נִרְאֶה בְּעֵינוֹ לְדָבָר פָּשׁוּט, מֵאַחַר שֶׁכָּל תְּשׁוּקוֹתָיו הוּא בְּכָל פַּעַם לְהוֹסָפוֹת חָכְמָה, אֲבָל עֵינֵי כְסִיל בִּקְצֵה הָאָרֶץ, הַיְינוּ כִּי כְּסִילוּתוֹ יֵרָאֶה בְּעֵינוֹ לְחָכְמָה עַד שֶׁיְּדַמֶּה כִּי כְּבָר הִשִּׂיג כָּל מַדְרֵגוֹת הַחָכְמָה עַד הַקָּצֶה.",
+      "normalizedHebrew": "אֶת פְּנֵי מֵבִין חָכְמָה וְעֵינֵי כְסִיל בִּקְצֵה אָרֶץ. פֵּירוּשׁ הֶחָכָם וְהַנָּבוֹן אַף כִּי יָפִיק חָכְמָה וּתְבוּנָה אֲמִיתִּיּוֹת אֵינוֹ מִתְפָּאֵר בָּזֶה, כִּי זֶה נִרְאֶה בְּעֵינוֹ לְדָבָר פָּשׁוּט, מֵאַחַר שֶׁכָּל תְּשׁוּקוֹתָיו הוּא בְּכָל פַּעַם לְהוֹסָפוֹת חָכְמָה, אֲבָל עֵינֵי כְסִיל בִּקְצֵה הָאָרֶץ, הַיְינוּ כִּי כְּסִילוּתוֹ יֵרָאֶה בְּעֵינוֹ לְחָכְמָה עַד שֶׁיְּדַמֶּה כִּי כְּבָר הִשִּׂיג כָּל מַדְרֵגוֹת הַחָכְמָה עַד הַקָּצֶה.",
+      "p": [
+        [
+          "אֶת פְּנֵי מֵבִין חָכְמָה",
+          "Wisdom is before the discerning person,"
+        ],
+        [
+          "וְעֵינֵי כְסִיל בִּקְצֵה אָרֶץ.",
+          "but the fool’s eyes are at the end of the earth."
+        ],
+        [
+          "פֵּירוּשׁ הֶחָכָם וְהַנָּבוֹן אַף כִּי יָפִיק חָכְמָה וּתְבוּנָה אֲמִיתִּיּוֹת",
+          "Even when the wise and discerning person acquires genuine wisdom and understanding,"
+        ],
+        [
+          "אֵינוֹ מִתְפָּאֵר בָּזֶה,",
+          "he does not boast of it."
+        ],
+        [
+          "כִּי זֶה נִרְאֶה בְּעֵינוֹ לְדָבָר פָּשׁוּט,",
+          "For it seems to him something elementary,"
+        ],
+        [
+          "מֵאַחַר שֶׁכָּל תְּשׁוּקוֹתָיו הוּא בְּכָל פַּעַם לְהוֹסָפוֹת חָכְמָה,",
+          "since his entire longing is always to add to his wisdom."
+        ],
+        [
+          "אֲבָל עֵינֵי כְסִיל בִּקְצֵה הָאָרֶץ,",
+          "But “the fool’s eyes are at the end of the earth”:"
+        ],
+        [
+          "הַיְינוּ כִּי כְּסִילוּתוֹ יֵרָאֶה בְּעֵינוֹ לְחָכְמָה",
+          "his foolishness seems to him to be wisdom,"
+        ],
+        [
+          "עַד שֶׁיְּדַמֶּה כִּי כְּבָר הִשִּׂיג כָּל מַדְרֵגוֹת הַחָכְמָה עַד הַקָּצֶה.",
+          "until he imagines that he has already attained every level of wisdom, to its furthest limit."
+        ]
+      ],
+      "transformations": [],
+      "expansions": [],
+      "reviewNotes": [
+        "All source words, in their original order, are included in the phrase pairs. Printed citation wording and numbering are retained; hyperlink targets are reviewed separately."
+      ],
+      "sourceUrl": "https://www.sefaria.org/Mei_HaShiloach,_Volume_I,_Writings,_Proverbs.17.1",
+      "sortKey": [
+        65,
+        17,
+        1
+      ]
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 19:1",
+      "sectionRef": "Mei HaShiloach, Volume I, Writings, Proverbs 19",
+      "n": 1,
+      "sourceHebrew": "גְּדָל חֵמָה נֹשֵׂא עֹנֶשׁ. הַכָּתוּב הוּא \"גְּרָל חֵמָה\" וְהוּא מוֹרֶה שֶׁאֲפִילּוּ נִזְרַק חֵמָה מִפִּיו שֶׁלֹּא בְּכַוָּנָה הוּא גַּם כֵּן נוֹשֵׂא עוֹנֶשׁ, וּבָזֶה הִמְתִּיקוּ חֲזַ\"ל מִפְּנֵי שֶׁחָפְצוּ בְּטוֹבַת יִשְׂרָאֵל וְתִקְּנוּ \"גְּדָל חֵמָה\" הַיְינוּ מִי שֶׁהוּא מַגְדִּיל הַחֵמָה בְּדַעְתּוֹ וְכֵן בְּכָל מָקוֹם הַקְּרִי מַמְתִּיק אֶת הַכָּתוּב.",
+      "normalizedHebrew": "גְּדָל חֵמָה נֹשֵׂא עֹנֶשׁ. הַכָּתוּב הוּא \"גְּרָל חֵמָה\" וְהוּא מוֹרֶה שֶׁאֲפִילּוּ נִזְרַק חֵמָה מִפִּיו שֶׁלֹּא בְּכַוָּנָה הוּא גַּם כֵּן נוֹשֵׂא עוֹנֶשׁ, וּבָזֶה הִמְתִּיקוּ חֲכָמֵינוּ זִכְרוֹנָם לִבְרָכָה מִפְּנֵי שֶׁחָפְצוּ בְּטוֹבַת יִשְׂרָאֵל וְתִקְּנוּ \"גְּדָל חֵמָה\" הַיְינוּ מִי שֶׁהוּא מַגְדִּיל הַחֵמָה בְּדַעְתּוֹ וְכֵן בְּכָל מָקוֹם הַקְּרִי מַמְתִּיק אֶת הַכָּתוּב.",
+      "p": [
+        [
+          "גְּדָל חֵמָה נֹשֵׂא עֹנֶשׁ.",
+          "A man of great anger bears punishment."
+        ],
+        [
+          "הַכָּתוּב הוּא \"גְּרָל חֵמָה\"",
+          "The written form is “geral cheimah.”"
+        ],
+        [
+          "וְהוּא מוֹרֶה שֶׁאֲפִילּוּ נִזְרַק חֵמָה מִפִּיו שֶׁלֹּא בְּכַוָּנָה",
+          "This indicates that even if anger is cast from his mouth unintentionally,"
+        ],
+        [
+          "הוּא גַּם כֵּן נוֹשֵׂא עוֹנֶשׁ,",
+          "he still bears punishment."
+        ],
+        [
+          "וּבָזֶה הִמְתִּיקוּ חֲכָמֵינוּ זִכְרוֹנָם לִבְרָכָה מִפְּנֵי שֶׁחָפְצוּ בְּטוֹבַת יִשְׂרָאֵל",
+          "Our Sages, of blessed memory, softened this because they desired Israel’s well-being,"
+        ],
+        [
+          "וְתִקְּנוּ \"גְּדָל חֵמָה\"",
+          "establishing the reading “gedal cheimah”:"
+        ],
+        [
+          "הַיְינוּ מִי שֶׁהוּא מַגְדִּיל הַחֵמָה בְּדַעְתּוֹ",
+          "one who deliberately intensifies his anger."
+        ],
+        [
+          "וְכֵן בְּכָל מָקוֹם הַקְּרִי מַמְתִּיק אֶת הַכָּתוּב.",
+          "So too, everywhere, the prescribed reading softens the written form."
+        ]
+      ],
+      "transformations": [
+        {
+          "from": "חֲזַ\"ל",
+          "to": "חֲכָמֵינוּ זִכְרוֹנָם לִבְרָכָה",
+          "count": 1,
+          "reason": "Expand the conventional designation of the Sages."
+        }
+      ],
+      "expansions": [
+        {
+          "from": "חֲזַ\"ל",
+          "to": "חֲכָמֵינוּ זִכְרוֹנָם לִבְרָכָה",
+          "count": 1,
+          "reason": "Expand the conventional designation of the Sages."
+        }
+      ],
+      "reviewNotes": [
+        "All source words, in their original order, are included in the phrase pairs. Printed citation wording and numbering are retained; hyperlink targets are reviewed separately."
+      ],
+      "sourceUrl": "https://www.sefaria.org/Mei_HaShiloach,_Volume_I,_Writings,_Proverbs.19.1",
+      "sortKey": [
+        65,
+        19,
+        1
+      ]
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 19:2",
+      "sectionRef": "Mei HaShiloach, Volume I, Writings, Proverbs 19",
+      "n": 2,
+      "sourceHebrew": "תַּאֲוַת אָדָם חַסְדּוֹ וְטוֹב רָשׁ מֵאִישׁ כָּזָב. תַּאֲוַת אָדָם הוּא הַתַּאֲוָה שֶׁנִּמְצָא בְּלֵב הָאָדָם גַּם זֶה חֶסֶד מֵהַש\"י כִּי כָל הַגָּדוֹל מֵחֲבֵירוֹ יִצְרוֹ גָּדוֹל מִמֶּנּוּ (סוכה נ\"ב.), וְאִם יַכְנִיס אֶת כֹּחַ חִשְׁקוֹ וְתַאֲוָתוֹ לְתוֹךְ הַקְּדוּשָּׁה אָז יִגְדַּל מַעֲלָתוֹ בְּיוֹתֵר, אַךְ \"טוֹב רָשׁ מֵאִישׁ כָּזָב\" הַיְינוּ אִם מוֹצִיא אֶת הַתַּאֲוָה לַפּוֹעַל בְּמָקוֹם זָר זֶה נִקְרָא \"אִישׁ כָּזָב\", הַיְינוּ שֶׁמְּכַזֵּב בָּהּ, אָז טוֹב מִמֶּנּוּ הָרָשׁ שֶׁלֹּא נִבְרָא בְּכֹחַ תַּאֲוָה כָּזֶה, מֵאַחַר שֶׁאֵינוֹ מִשְׁתַּמֵּשׁ בָּהּ כְּפִי הַצּוֹרֶךְ.",
+      "normalizedHebrew": "תַּאֲוַת אָדָם חַסְדּוֹ וְטוֹב רָשׁ מֵאִישׁ כָּזָב. תַּאֲוַת אָדָם הוּא הַתַּאֲוָה שֶׁנִּמְצָא בְּלֵב הָאָדָם גַּם זֶה חֶסֶד מֵהַשֵּׁם יִתְבָּרַךְ כִּי כָל הַגָּדוֹל מֵחֲבֵירוֹ יִצְרוֹ גָּדוֹל מִמֶּנּוּ (סוּכָּה נ\"ב.), וְאִם יַכְנִיס אֶת כֹּחַ חִשְׁקוֹ וְתַאֲוָתוֹ לְתוֹךְ הַקְּדוּשָּׁה אָז יִגְדַּל מַעֲלָתוֹ בְּיוֹתֵר, אַךְ \"טוֹב רָשׁ מֵאִישׁ כָּזָב\" הַיְינוּ אִם מוֹצִיא אֶת הַתַּאֲוָה לַפּוֹעַל בְּמָקוֹם זָר זֶה נִקְרָא \"אִישׁ כָּזָב\", הַיְינוּ שֶׁמְּכַזֵּב בָּהּ, אָז טוֹב מִמֶּנּוּ הָרָשׁ שֶׁלֹּא נִבְרָא בְּכֹחַ תַּאֲוָה כָּזֶה, מֵאַחַר שֶׁאֵינוֹ מִשְׁתַּמֵּשׁ בָּהּ כְּפִי הַצּוֹרֶךְ.",
+      "p": [
+        [
+          "תַּאֲוַת אָדָם חַסְדּוֹ",
+          "A person’s desire is his kindness,"
+        ],
+        [
+          "וְטוֹב רָשׁ מֵאִישׁ כָּזָב.",
+          "and a poor man is better than a liar."
+        ],
+        [
+          "תַּאֲוַת אָדָם הוּא הַתַּאֲוָה שֶׁנִּמְצָא בְּלֵב הָאָדָם",
+          "“A person’s desire” is the desire found in the human heart;"
+        ],
+        [
+          "גַּם זֶה חֶסֶד מֵהַשֵּׁם יִתְבָּרַךְ",
+          "this too is kindness from Hashem, blessed be He."
+        ],
+        [
+          "כִּי כָל הַגָּדוֹל מֵחֲבֵירוֹ יִצְרוֹ גָּדוֹל מִמֶּנּוּ (סוּכָּה נ\"ב.),",
+          "For “whoever is greater than his fellow has a greater evil inclination” (Sukkah 52a)."
+        ],
+        [
+          "וְאִם יַכְנִיס אֶת כֹּחַ חִשְׁקוֹ וְתַאֲוָתוֹ לְתוֹךְ הַקְּדוּשָּׁה",
+          "If he brings the force of his longing and desire into holiness,"
+        ],
+        [
+          "אָז יִגְדַּל מַעֲלָתוֹ בְּיוֹתֵר,",
+          "his spiritual stature will grow all the more."
+        ],
+        [
+          "אַךְ \"טוֹב רָשׁ מֵאִישׁ כָּזָב\"",
+          "Yet “a poor man is better than a liar”:"
+        ],
+        [
+          "הַיְינוּ אִם מוֹצִיא אֶת הַתַּאֲוָה לַפּוֹעַל בְּמָקוֹם זָר",
+          "if he gives expression to his desire in an alien place,"
+        ],
+        [
+          "זֶה נִקְרָא \"אִישׁ כָּזָב\",",
+          "he is called “a liar,”"
+        ],
+        [
+          "הַיְינוּ שֶׁמְּכַזֵּב בָּהּ,",
+          "for he betrays that desire."
+        ],
+        [
+          "אָז טוֹב מִמֶּנּוּ הָרָשׁ שֶׁלֹּא נִבְרָא בְּכֹחַ תַּאֲוָה כָּזֶה,",
+          "Then better than he is the poor man who was not created with such a force of desire,"
+        ],
+        [
+          "מֵאַחַר שֶׁאֵינוֹ מִשְׁתַּמֵּשׁ בָּהּ כְּפִי הַצּוֹרֶךְ.",
+          "since he is not using it as he should."
+        ]
+      ],
+      "transformations": [
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "count": 1,
+          "reason": "Expand the conventional Divine honorific."
+        },
+        {
+          "from": "סוכה",
+          "to": "סוּכָּה",
+          "count": 1,
+          "reason": "Add nikkud to the source citation without changing consonants."
+        }
+      ],
+      "expansions": [
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "count": 1,
+          "reason": "Expand the conventional Divine honorific."
+        },
+        {
+          "from": "סוכה",
+          "to": "סוּכָּה",
+          "count": 1,
+          "reason": "Add nikkud to the source citation without changing consonants."
+        }
+      ],
+      "reviewNotes": [
+        "All source words, in their original order, are included in the phrase pairs. Printed citation wording and numbering are retained; hyperlink targets are reviewed separately."
+      ],
+      "sourceUrl": "https://www.sefaria.org/Mei_HaShiloach,_Volume_I,_Writings,_Proverbs.19.2",
+      "sortKey": [
+        65,
+        19,
+        2
+      ]
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 20:1",
+      "sectionRef": "Mei HaShiloach, Volume I, Writings, Proverbs 20",
+      "n": 1,
+      "sourceHebrew": "מַיִם עֲמֻקִּים עֵצָה בְלֶב אִישׁ וְאִישׁ תְּבוּנָה יִדְלֶנָּה. הִנֵּה בְּכָל נֶפֶשׁ מִיִּשְׂרָאֵל נִמְצָא יַקְרוּת טָמוּן בְּלִבּוֹ וְיֵשׁ בּוֹ עֵצוֹת אֵיךְ לַעֲמוֹד נֶגֶד חֶסְרוֹנוֹ וּלְהִתְגַּבֵּר עַל יִצְרוֹ, \"וְאִישׁ תְּבוּנוֹת\" הַיְינוּ שֶׁהוּא מֵבִין כִּי הוּא נִצְרָךְ לְהַשְׁלִים נַפְשׁוֹ בַּמָּקוֹם הֶחָסֵר, זֶה יִדְלֶה אֶת יַקְרוּתוֹ מֵעוּמְקוֹ עַד שֶׁיּוּכַל לַעֲמוֹד נֶגֶד יִצְרוֹ כְּמוֹ דְּאִיתָא בַּמִּדְרָשׁ (שיר השירים רבה פרשה א',ח') עַל שְׁלֹמֹה הַמֶּלֶךְ עָלָיו הַשָּׁלוֹם קָשַׁר חֶבֶל בְּחֶבֶל וְנִימָא בְּנִימָא כוּ׳.",
+      "normalizedHebrew": "מַיִם עֲמֻקִּים עֵצָה בְלֶב אִישׁ וְאִישׁ תְּבוּנָה יִדְלֶנָּה. הִנֵּה בְּכָל נֶפֶשׁ מִיִּשְׂרָאֵל נִמְצָא יַקְרוּת טָמוּן בְּלִבּוֹ וְיֵשׁ בּוֹ עֵצוֹת אֵיךְ לַעֲמוֹד נֶגֶד חֶסְרוֹנוֹ וּלְהִתְגַּבֵּר עַל יִצְרוֹ, \"וְאִישׁ תְּבוּנוֹת\" הַיְינוּ שֶׁהוּא מֵבִין כִּי הוּא נִצְרָךְ לְהַשְׁלִים נַפְשׁוֹ בַּמָּקוֹם הֶחָסֵר, זֶה יִדְלֶה אֶת יַקְרוּתוֹ מֵעוּמְקוֹ עַד שֶׁיּוּכַל לַעֲמוֹד נֶגֶד יִצְרוֹ כְּמוֹ דְּאִיתָא בַּמִּדְרָשׁ (שִׁיר הַשִּׁירִים רַבָּה פָּרָשָׁה א',ח') עַל שְׁלֹמֹה הַמֶּלֶךְ עָלָיו הַשָּׁלוֹם קָשַׁר חֶבֶל בְּחֶבֶל וְנִימָא בְּנִימָא כּוּלֵי.",
+      "p": [
+        [
+          "מַיִם עֲמֻקִּים עֵצָה בְלֶב אִישׁ",
+          "Counsel in a person’s heart is like deep water,"
+        ],
+        [
+          "וְאִישׁ תְּבוּנָה יִדְלֶנָּה.",
+          "but a person of understanding draws it out."
+        ],
+        [
+          "הִנֵּה בְּכָל נֶפֶשׁ מִיִּשְׂרָאֵל נִמְצָא יַקְרוּת טָמוּן בְּלִבּוֹ",
+          "Every soul of Israel has precious worth hidden in the heart,"
+        ],
+        [
+          "וְיֵשׁ בּוֹ עֵצוֹת אֵיךְ לַעֲמוֹד נֶגֶד חֶסְרוֹנוֹ",
+          "and has within it the counsel needed to confront its deficiencies"
+        ],
+        [
+          "וּלְהִתְגַּבֵּר עַל יִצְרוֹ,",
+          "and overcome its evil inclination."
+        ],
+        [
+          "\"וְאִישׁ תְּבוּנוֹת\"",
+          "“A person of understanding”:"
+        ],
+        [
+          "הַיְינוּ שֶׁהוּא מֵבִין כִּי הוּא נִצְרָךְ לְהַשְׁלִים נַפְשׁוֹ בַּמָּקוֹם הֶחָסֵר,",
+          "one who understands that he needs to perfect his soul where it is deficient"
+        ],
+        [
+          "זֶה יִדְלֶה אֶת יַקְרוּתוֹ מֵעוּמְקוֹ",
+          "draws out his precious worth from his depths,"
+        ],
+        [
+          "עַד שֶׁיּוּכַל לַעֲמוֹד נֶגֶד יִצְרוֹ",
+          "until he can withstand his evil inclination."
+        ],
+        [
+          "כְּמוֹ דְּאִיתָא בַּמִּדְרָשׁ (שִׁיר הַשִּׁירִים רַבָּה פָּרָשָׁה א',ח')",
+          "As the Midrash states (Shir HaShirim Rabbah 1:8)"
+        ],
+        [
+          "עַל שְׁלֹמֹה הַמֶּלֶךְ עָלָיו הַשָּׁלוֹם",
+          "concerning King Solomon, peace be upon him:"
+        ],
+        [
+          "קָשַׁר חֶבֶל בְּחֶבֶל וְנִימָא בְּנִימָא כּוּלֵי.",
+          "“He tied one rope to another, and one thread to another,” etc."
+        ]
+      ],
+      "transformations": [
+        {
+          "from": "כוּ׳",
+          "to": "כּוּלֵי",
+          "count": 1,
+          "reason": "Expand the source abbreviation for etcetera."
+        },
+        {
+          "from": "שיר השירים רבה פרשה",
+          "to": "שִׁיר הַשִּׁירִים רַבָּה פָּרָשָׁה",
+          "count": 1,
+          "reason": "Add nikkud to the source citation without changing consonants."
+        }
+      ],
+      "expansions": [
+        {
+          "from": "כוּ׳",
+          "to": "כּוּלֵי",
+          "count": 1,
+          "reason": "Expand the source abbreviation for etcetera."
+        },
+        {
+          "from": "שיר השירים רבה פרשה",
+          "to": "שִׁיר הַשִּׁירִים רַבָּה פָּרָשָׁה",
+          "count": 1,
+          "reason": "Add nikkud to the source citation without changing consonants."
+        }
+      ],
+      "reviewNotes": [
+        "All source words, in their original order, are included in the phrase pairs. Printed citation wording and numbering are retained; hyperlink targets are reviewed separately."
+      ],
+      "sourceUrl": "https://www.sefaria.org/Mei_HaShiloach,_Volume_I,_Writings,_Proverbs.20.1",
+      "sortKey": [
+        65,
+        20,
+        1
+      ]
+    }
+  ],
+  "audit": {
+    "paragraphs": 25,
+    "phrasePairs": 324,
+    "sourceWords": 2013,
+    "allSourceWordsAccountedFor": true,
+    "englishSquareBrackets": 0
+  }
+}

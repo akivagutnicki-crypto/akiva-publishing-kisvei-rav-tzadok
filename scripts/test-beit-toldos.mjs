@@ -17,7 +17,29 @@ const json=async file=>JSON.parse((await bytes(file)).toString());
 const [toc,catalog,report,links]=await Promise.all([json(`data/${SLUG}/toc.json`),json('data/catalog.json'),json('beit-toldos-publication.json'),json(`data/${SLUG}/links.json`)]);
 assert.equal(toc.toldosEdition.release,RELEASE);assert.equal(report.release,RELEASE);
 const all=leaves(toc.toc),targets=all.filter(l=>l.ref?.startsWith(BOOK+', Toldot '));
-assert.equal(all.length,338);assert.equal(targets.length,52);
+if(args.includes('--after-docx-import')){
+  const successor=await json('reader-docx-import-20261022.json');
+  assert.equal(successor.schemaVersion,1);
+  assert.equal(successor.release,'20261022-reader-docx-import-v1');
+  assert.equal(successor.previousBeitSections,338);
+  assert.equal(successor.retainedToldosSections,52);
+  assert.deepEqual(toc.documentImportEdition,{release:successor.release,sections:76});
+  const expected=Array.from({length:76},(_,i)=>`${BOOK}, Vayetzei ${i+1}`);
+  const added=successor.sections.filter(section=>section.book===BOOK);
+  assert.deepEqual(added.map(section=>section.ref),expected,'Unexpected successor sections');
+  const restored=structuredClone(toc),group=restored.toc.children.pop();
+  assert.equal(group.en,'Vayetzei · 76 Osiyos');assert.equal(group.he,'ויצא');
+  assert.deepEqual(leaves(group).map(leaf=>leaf.ref),expected,'Successor TOC group differs');
+  for(const [i,leaf]of leaves(group).entries()){
+    assert.equal(added[i].file,`data/${SLUG}/${leaf.id}.json`);
+    assert.equal(added[i].paragraphs,leaf.shape);
+  }
+  delete restored.documentImportEdition;
+  assert.equal(digest(JSON.stringify(restored)),successor.beforeTocSha256,'Historical TOC changed');
+  assert.equal(leaves(restored.toc).length,338);
+  assert.equal(all.length,414);
+}else assert.equal(all.length,338);
+assert.equal(targets.length,52);
 assert.deepEqual(targets.map(l=>l.ois),pack.sections.map(s=>s.chapter));
 assert.equal(new Set(all.map(l=>l.ref)).size,all.length,'Duplicate references');
 const book=catalog.find(b=>b.slug===SLUG);

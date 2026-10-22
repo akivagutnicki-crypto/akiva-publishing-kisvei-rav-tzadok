@@ -1,0 +1,1991 @@
+{
+  "schemaVersion": 1,
+  "provenance": {
+    "source": "Verified Sefaria Hebrew; original English interlinear translation prepared for this reader completion",
+    "sourceLedger": "editorial/verification/docx-import-20261022/mei-missing-volume-i.json",
+    "sourceLedgerSha256": "5558ba64a68338de2bd17acacebe2f416713c7d4ff978bb6835eb1504a4ac57d",
+    "canonicalResponseSha256": "8de80157796c9190e54f80c924af7c6a0e16316baa0e2eea88c4e3e4c2b5dea3",
+    "canonicalApiUrl": "https://www.sefaria.org/api/texts/Mei_HaShiloach%2C_Volume_I%2C_Writings%2C_Psalms?context=0&commentary=0&pad=0",
+    "translationMethod": "Each canonical paragraph retained once; manually translated short phrases; all Hebrew sliced directly from the verified source after reversible, context-reviewed acronym and nikkud changes.",
+    "externalContextChecks": [
+      {
+        "provider": "TorahLM",
+        "ref": "Beitzah 11a:6-7",
+        "url": "https://torahapp.org/share/book/Beitzah/r/11a",
+        "purpose": "מדדה and returning sight toward the nest in Psalms 131"
+      },
+      {
+        "provider": "TorahLM",
+        "ref": "Mishneh Torah, Repentance 5:5",
+        "url": "https://torahapp.org/share/book/Mishneh%20Torah%2C%20Repentance/r/5:5",
+        "purpose": "Divine foreknowledge and choice; preserve the Mei HaShiloach excerpt as supplied"
+      }
+    ]
+  },
+  "paragraphs": [
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Psalms 81:1",
+      "sectionRef": "Mei HaShiloach, Volume I, Writings, Psalms 81",
+      "n": 1,
+      "sourceHebrew": "תִּקְעוּ בַחֹדֶשׁ שׁוֹפָר בַּכֵּסֶה לְיוֹם חַגֵּנוּ כִּי חֹק לְיִשְׂרָאֵל הוּא מִשְׁפָּט לֵאלֹקֵי יַעֲקֹב. בַּגְּמָרָא (ראש השנה כ\"ה:) מֵאֵימָתַי נִקְרָא חוֹק בִּגְמַר דִּין. הַיְינוּ שֶׁבָּזֶה הַחֹדֶשׁ נִמְצָא עוֹמֶק יִרְאָה שֶׁאֵין לְשַׁעֵר, כִּי חוֹק מוֹרֶה עַל דָּבָר שֶׁנִּגְמַר הַיְינוּ כִּי בְּשׁוֹרֶשׁ הַדָּבָר לֵית דִּין כִּי הוּא חוֹק וְחָקוּק, וְזֶה הוּא אֵצֶל הַש\"י עוֹד בְּמִשְׁפָּט לְמָשָׁל כָּל דִּין שֶׁבָּעוֹלָם הוּא מִי יִחְיֶה וּמִי בְקִצּוֹ וְכַדּוֹמֶה וְכֵן כָּל הָרְצוֹנוֹת שֶׁבָּעוֹלָם, רַק שֶׁזֶּה בּוֹחֵר בַּחַיִּים בְּגָוֶן זֶה וְזֶה בּוֹחֵר בְּגָוֶן אַחֵר, אֲבָל גּוּף הַחַיִּים הוּא דָּבָר חָקוּק שֶׁאֵין מִי שֶׁלֹּא יִבְחַר בָּזֶה, וְעַל זֶה הַחוֹק עוֹד הוּא בְּמִשְׁפָּט אֵצֶל הַש\"י כְּמוֹ שֶׁכָּתוּב (ירמיה ל\"ג,כ\"ה) \"אִם לֹא בְרִיתִי יוֹמָם וָלָיְלָה חֻקּוֹת שָׁמַיִם\" כוּ׳, וְכֵן הוּא בְּכָל הָעִנְיָנִים.",
+      "normalizedHebrew": "תִּקְעוּ בַחֹדֶשׁ שׁוֹפָר בַּכֵּסֶה לְיוֹם חַגֵּנוּ כִּי חֹק לְיִשְׂרָאֵל הוּא מִשְׁפָּט לֵאלֹקֵי יַעֲקֹב. בַּגְּמָרָא (רֹאשׁ הַשָּׁנָה כ\"ה:) מֵאֵימָתַי נִקְרָא חוֹק בִּגְמַר דִּין. הַיְינוּ שֶׁבָּזֶה הַחֹדֶשׁ נִמְצָא עוֹמֶק יִרְאָה שֶׁאֵין לְשַׁעֵר, כִּי חוֹק מוֹרֶה עַל דָּבָר שֶׁנִּגְמַר הַיְינוּ כִּי בְּשׁוֹרֶשׁ הַדָּבָר לֵית דִּין כִּי הוּא חוֹק וְחָקוּק, וְזֶה הוּא אֵצֶל הַשֵּׁם יִתְבָּרַךְ עוֹד בְּמִשְׁפָּט לְמָשָׁל כָּל דִּין שֶׁבָּעוֹלָם הוּא מִי יִחְיֶה וּמִי בְקִצּוֹ וְכַדּוֹמֶה וְכֵן כָּל הָרְצוֹנוֹת שֶׁבָּעוֹלָם, רַק שֶׁזֶּה בּוֹחֵר בַּחַיִּים בְּגָוֶן זֶה וְזֶה בּוֹחֵר בְּגָוֶן אַחֵר, אֲבָל גּוּף הַחַיִּים הוּא דָּבָר חָקוּק שֶׁאֵין מִי שֶׁלֹּא יִבְחַר בָּזֶה, וְעַל זֶה הַחוֹק עוֹד הוּא בְּמִשְׁפָּט אֵצֶל הַשֵּׁם יִתְבָּרַךְ כְּמוֹ שֶׁכָּתוּב (יִרְמְיָה ל\"ג,כ\"ה) \"אִם לֹא בְרִיתִי יוֹמָם וָלָיְלָה חֻקּוֹת שָׁמַיִם\" כּוּלֵי, וְכֵן הוּא בְּכָל הָעִנְיָנִים.",
+      "p": [
+        [
+          "תִּקְעוּ בַחֹדֶשׁ שׁוֹפָר בַּכֵּסֶה לְיוֹם חַגֵּנוּ",
+          "Sound the shofar at the new moon, when the moon is concealed, for the day of our festival;"
+        ],
+        [
+          "כִּי חֹק לְיִשְׂרָאֵל הוּא מִשְׁפָּט לֵאלֹקֵי יַעֲקֹב.",
+          "for it is a statute for Israel, a judgment of the God of Yaakov."
+        ],
+        [
+          "בַּגְּמָרָא (רֹאשׁ הַשָּׁנָה כ\"ה:)",
+          "In the Gemara (Rosh Hashanah 25b):"
+        ],
+        [
+          "מֵאֵימָתַי נִקְרָא חוֹק בִּגְמַר דִּין.",
+          "When is it called a statute? At the conclusion of judgment."
+        ],
+        [
+          "הַיְינוּ שֶׁבָּזֶה הַחֹדֶשׁ נִמְצָא עוֹמֶק יִרְאָה שֶׁאֵין לְשַׁעֵר,",
+          "This means that this month contains an immeasurable depth of awe."
+        ],
+        [
+          "כִּי חוֹק מוֹרֶה עַל דָּבָר שֶׁנִּגְמַר",
+          "For a statute indicates something that has been settled;"
+        ],
+        [
+          "הַיְינוּ כִּי בְּשׁוֹרֶשׁ הַדָּבָר לֵית דִּין כִּי הוּא חוֹק וְחָקוּק,",
+          "that is, at the root of the matter there is no further judgment, for it is a statute, fixed and engraved."
+        ],
+        [
+          "וְזֶה הוּא אֵצֶל הַשֵּׁם יִתְבָּרַךְ עוֹד בְּמִשְׁפָּט",
+          "Yet before Hashem, blessed be He, even this remains subject to judgment."
+        ],
+        [
+          "לְמָשָׁל כָּל דִּין שֶׁבָּעוֹלָם הוּא מִי יִחְיֶה וּמִי בְקִצּוֹ וְכַדּוֹמֶה",
+          "For example, every judgment in the world concerns who will live and who will reach his end, and the like,"
+        ],
+        [
+          "וְכֵן כָּל הָרְצוֹנוֹת שֶׁבָּעוֹלָם,",
+          "and the same applies to all the desires in the world."
+        ],
+        [
+          "רַק שֶׁזֶּה בּוֹחֵר בַּחַיִּים בְּגָוֶן זֶה וְזֶה בּוֹחֵר בְּגָוֶן אַחֵר,",
+          "It is only that one person chooses life in one form, while another chooses it in a different form."
+        ],
+        [
+          "אֲבָל גּוּף הַחַיִּים הוּא דָּבָר חָקוּק שֶׁאֵין מִי שֶׁלֹּא יִבְחַר בָּזֶה,",
+          "But life itself is something firmly engraved: there is no one who would not choose it."
+        ],
+        [
+          "וְעַל זֶה הַחוֹק עוֹד הוּא בְּמִשְׁפָּט אֵצֶל הַשֵּׁם יִתְבָּרַךְ",
+          "Even this fixed statute is still subject to judgment before Hashem, blessed be He,"
+        ],
+        [
+          "כְּמוֹ שֶׁכָּתוּב (יִרְמְיָה ל\"ג,כ\"ה)",
+          "as it is written (Jeremiah 33:25):"
+        ],
+        [
+          "\"אִם לֹא בְרִיתִי יוֹמָם וָלָיְלָה חֻקּוֹת שָׁמַיִם\" כּוּלֵי,",
+          "“If not for My covenant by day and night, the statutes of heaven,” etc."
+        ],
+        [
+          "וְכֵן הוּא בְּכָל הָעִנְיָנִים.",
+          "And so it is with every matter."
+        ]
+      ],
+      "expansions": [
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "at": 372,
+          "kind": "acronymExpansion"
+        },
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "at": 721,
+          "kind": "acronymExpansion"
+        },
+        {
+          "from": "כוּ׳",
+          "to": "כּוּלֵי",
+          "at": 828,
+          "kind": "acronymExpansion"
+        }
+      ],
+      "vocalizationChanges": [
+        {
+          "from": "ראש השנה",
+          "to": "רֹאשׁ הַשָּׁנָה",
+          "at": 120,
+          "kind": "vocalization"
+        },
+        {
+          "from": "ירמיה",
+          "to": "יִרְמְיָה",
+          "at": 767,
+          "kind": "vocalization"
+        }
+      ],
+      "reviewNotes": [
+        "The source’s מי בקצו is retained verbatim and rendered “who will reach his end”; no missing verb is inserted into the Hebrew.",
+        "The TorahLM/Sefaria check of Rosh Hashanah 25b supplied by the coordinating editor confirms that statute denotes the conclusion of judgment."
+      ],
+      "sourceUrl": "https://www.sefaria.org/Mei_HaShiloach,_Volume_I,_Writings,_Psalms.81.1",
+      "sortKey": [
+        64,
+        81,
+        1
+      ],
+      "sourceLetterAccounting": {
+        "pass": true,
+        "sourceHebrewSha256": "d31a9ccf79e8dd3da52f3a620005ab5fcdcac1b2e5b769e3484fa6d3482e8b03",
+        "normalizedHebrewSha256": "220eb516fbb15c7ed7a1da6bc1c1248b7c8d8fded1df6fe8baa1d2e19638d256",
+        "sourceLetterCount": 404,
+        "sourceLettersSha256": "33993f916a4bfd6d7491a5f73a8a641bf9e063bcecd8a5072727749dde9bdadd",
+        "restoredLettersSha256": "33993f916a4bfd6d7491a5f73a8a641bf9e063bcecd8a5072727749dde9bdadd",
+        "normalizedLettersSha256": "cd8451d1b0667422d7895b7becc4be236ff51edeb524446a5bc7a701d439e244",
+        "everySourceCharacterRecoveredAfterReversingDocumentedChanges": true,
+        "allNormalizedCharactersPresentExactlyOnceInOrderedPairsIgnoringWhitespace": true,
+        "operationsInApplicationOrder": [
+          {
+            "from": "הַש\"י",
+            "to": "הַשֵּׁם יִתְבָּרַךְ",
+            "at": 372,
+            "kind": "acronymExpansion"
+          },
+          {
+            "from": "הַש\"י",
+            "to": "הַשֵּׁם יִתְבָּרַךְ",
+            "at": 721,
+            "kind": "acronymExpansion"
+          },
+          {
+            "from": "כוּ׳",
+            "to": "כּוּלֵי",
+            "at": 828,
+            "kind": "acronymExpansion"
+          },
+          {
+            "from": "ראש השנה",
+            "to": "רֹאשׁ הַשָּׁנָה",
+            "at": 120,
+            "kind": "vocalization"
+          },
+          {
+            "from": "ירמיה",
+            "to": "יִרְמְיָה",
+            "at": 767,
+            "kind": "vocalization"
+          }
+        ]
+      }
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Psalms 85:1",
+      "sectionRef": "Mei HaShiloach, Volume I, Writings, Psalms 85",
+      "n": 1,
+      "sourceHebrew": "אֶשְׁמְעָה מַה יְּדַבֵּר הָאֵל ה׳ כִּי יְדַבֵּר שָׁלוֹם אֶל עַמּוֹ וְאֶל חֲסִידָיו. הַיְינוּ שֶׁדָּוִד הַמֶּלֶךְ עָלָיו הַשָּׁלוֹם הִטָּה אָזְנוֹ לִשְׁמֹעַ בַּמֶּה עוֹסֵק הַש\"י בֵּינוֹ לְבֵין עַצְמוֹ, וְשָׁמַע כִּי אֵין רְצוֹנוֹ רַק לְהֵיטִיב לְיִשְׂרָאֵל, כִּי בְּעֵת שֶׁדִּבֵּר עִמּוֹ אָז דִּבֵּר עִמּוֹ מִטּוֹבַת יִשְׂרָאֵל, אֲבָל הוּא רָצָה לָדַעַת בַּמֶּה יַעֲסֹק ה׳ בֵּינוֹ לְבֵין עַצְמוֹ, וְשָׁמַע כִּי גַם שָׁם יְדַבֵּר שָׁלוֹם אֶל עַמּוֹ וְאֶל חֲסִידָיו.",
+      "normalizedHebrew": "אֶשְׁמְעָה מַה יְּדַבֵּר הָאֵל הַשֵּׁם כִּי יְדַבֵּר שָׁלוֹם אֶל עַמּוֹ וְאֶל חֲסִידָיו. הַיְינוּ שֶׁדָּוִד הַמֶּלֶךְ עָלָיו הַשָּׁלוֹם הִטָּה אָזְנוֹ לִשְׁמֹעַ בַּמֶּה עוֹסֵק הַשֵּׁם יִתְבָּרַךְ בֵּינוֹ לְבֵין עַצְמוֹ, וְשָׁמַע כִּי אֵין רְצוֹנוֹ רַק לְהֵיטִיב לְיִשְׂרָאֵל, כִּי בְּעֵת שֶׁדִּבֵּר עִמּוֹ אָז דִּבֵּר עִמּוֹ מִטּוֹבַת יִשְׂרָאֵל, אֲבָל הוּא רָצָה לָדַעַת בַּמֶּה יַעֲסֹק הַשֵּׁם בֵּינוֹ לְבֵין עַצְמוֹ, וְשָׁמַע כִּי גַם שָׁם יְדַבֵּר שָׁלוֹם אֶל עַמּוֹ וְאֶל חֲסִידָיו.",
+      "p": [
+        [
+          "אֶשְׁמְעָה מַה יְּדַבֵּר הָאֵל הַשֵּׁם כִּי יְדַבֵּר שָׁלוֹם אֶל עַמּוֹ וְאֶל חֲסִידָיו.",
+          "I will hear what God, Hashem, will speak, for He will speak peace to His people and to His faithful ones."
+        ],
+        [
+          "הַיְינוּ שֶׁדָּוִד הַמֶּלֶךְ עָלָיו הַשָּׁלוֹם הִטָּה אָזְנוֹ לִשְׁמֹעַ",
+          "This means that King David, peace be upon him, inclined his ear to hear"
+        ],
+        [
+          "בַּמֶּה עוֹסֵק הַשֵּׁם יִתְבָּרַךְ בֵּינוֹ לְבֵין עַצְמוֹ,",
+          "what Hashem, blessed be He, occupies Himself with in His own counsel."
+        ],
+        [
+          "וְשָׁמַע כִּי אֵין רְצוֹנוֹ רַק לְהֵיטִיב לְיִשְׂרָאֵל,",
+          "He heard that His only desire is to do good to Israel."
+        ],
+        [
+          "כִּי בְּעֵת שֶׁדִּבֵּר עִמּוֹ אָז דִּבֵּר עִמּוֹ מִטּוֹבַת יִשְׂרָאֵל,",
+          "For when He spoke with David, He spoke to him of Israel’s welfare."
+        ],
+        [
+          "אֲבָל הוּא רָצָה לָדַעַת בַּמֶּה יַעֲסֹק הַשֵּׁם בֵּינוֹ לְבֵין עַצְמוֹ,",
+          "But David wanted to know what Hashem occupies Himself with in His own counsel;"
+        ],
+        [
+          "וְשָׁמַע כִּי גַם שָׁם יְדַבֵּר שָׁלוֹם אֶל עַמּוֹ וְאֶל חֲסִידָיו.",
+          "and he heard that there, too, He speaks peace to His people and to His faithful ones."
+        ]
+      ],
+      "expansions": [
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "at": 171,
+          "kind": "acronymExpansion"
+        },
+        {
+          "from": "ה׳",
+          "to": "הַשֵּׁם",
+          "at": 31,
+          "kind": "divineNameExpansion"
+        },
+        {
+          "from": "ה׳",
+          "to": "הַשֵּׁם",
+          "at": 388,
+          "kind": "divineNameExpansion"
+        }
+      ],
+      "vocalizationChanges": [],
+      "reviewNotes": [],
+      "sourceUrl": "https://www.sefaria.org/Mei_HaShiloach,_Volume_I,_Writings,_Psalms.85.1",
+      "sortKey": [
+        64,
+        85,
+        1
+      ],
+      "sourceLetterAccounting": {
+        "pass": true,
+        "sourceHebrewSha256": "617b6a1789664692e89fae161d54ccda440e1d1aaa9f0ae3324510d9f140ff78",
+        "normalizedHebrewSha256": "1df3a7e8e9729e63c0f9c92038230881f6b0d21350a1f3bbd126361b998e240b",
+        "sourceLetterCount": 217,
+        "sourceLettersSha256": "b06b3e53dc52917c7b7efecb2e55662bb1ca2aef24abb19f318abe67c3fb799b",
+        "restoredLettersSha256": "b06b3e53dc52917c7b7efecb2e55662bb1ca2aef24abb19f318abe67c3fb799b",
+        "normalizedLettersSha256": "3d8cca0a788ff8f8087768cc5238c7a1b5631a4fedb583f903f531371c665026",
+        "everySourceCharacterRecoveredAfterReversingDocumentedChanges": true,
+        "allNormalizedCharactersPresentExactlyOnceInOrderedPairsIgnoringWhitespace": true,
+        "operationsInApplicationOrder": [
+          {
+            "from": "הַש\"י",
+            "to": "הַשֵּׁם יִתְבָּרַךְ",
+            "at": 171,
+            "kind": "acronymExpansion"
+          },
+          {
+            "from": "ה׳",
+            "to": "הַשֵּׁם",
+            "at": 31,
+            "kind": "divineNameExpansion"
+          },
+          {
+            "from": "ה׳",
+            "to": "הַשֵּׁם",
+            "at": 388,
+            "kind": "divineNameExpansion"
+          }
+        ]
+      }
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Psalms 92:1",
+      "sectionRef": "Mei HaShiloach, Volume I, Writings, Psalms 92",
+      "n": 1,
+      "sourceHebrew": "מִזְמוֹר שִׁיר לְיוֹם הַשַּׁבָּת טוֹב כוּ׳, מַה גָּדְלוּ מַעֲשֶׂיךָ ה׳ כוּ׳, אִישׁ בַּעַר לֹא יֵדָע וּכְסִיל לֹא יָבִין אֶת זֹאת. הִנֵּה בַּמִּזְמוֹר הַזֶּה יִתְבָּאֵר אֵיךְ שֶׁאֵין לְשׁוּם אָדָם שׁוּם צַד טַעֲנָה נֶגֶד הַש\"י, וּכְמוֹ שֶׁמְּבָאֵר הָרַמְבַּ\"ם הַקָּדוֹשׁ בְּפֶרֶק חֲמִישִׁי מֵהִלְכוֹת תְּשׁוּבָה הֲלָכָה ה׳, וְזֶה לְשׁוֹנוֹ הַטָּהוֹר, שֶׁמָּא תֹּאמַר וַהֲלֹא הַקָּדוֹשׁ בָּרוּךְ הוּא יוֹדֵעַ כָּל מַה שֶּׁיִּהְיֶה וְקוֹדֶם שֶׁיִּהְיֶה יָדַע שֶׁזֶּה יִהְיֶה צַדִּיק אוֹ רָשָׁע, אִם תֹּאמַר, אִם יָדַע שֶׁהוּא יִהְיֶה צַדִּיק אִי אֶפְשָׁר שֶׁלֹּא יִהְיֶה צַדִּיק, וְאִם תֹּאמַר שֶׁיָּדַע שֶׁיִּהְיֶה צַדִּיק וְאֶפְשָׁר שֶׁיִּהְיֶה רָשָׁע הֲרֵי לֹא יָדַע הַדָּבָר עַל בּוּרְיוֹ, וּכְפִי הַנֶּאֱמָר יֵשׁ בְּיַד אָדָם רָשָׁע לִפְטוֹר עַצְמוֹ מִן הַדִּין וְגַם אֵין כָּל כָּךְ זְכוּת לַצַּדִּיק אוֹ שֶׁלֹּא יְאוּמַּן חַס וְשָׁלוֹם עַל הַש\"י שֶׁיּוֹדֵעַ כֹּל, אָכֵן לָזֹאת בֵּיאֵר דָּוִד הַמֶּלֶךְ עָלָיו הַשָּׁלוֹם בַּמִּזְמוֹר הַזֶּה וְאָמַר \"מַה גָּדְלוּ מַעֲשֶׂיךָ ה׳ מְאֹד עָמְקוּ מַחְשְׁבוֹתֶיךָ אִישׁ בַּעַר לֹא\" כוּ׳, וְאַף כִּי לִרְאוּת עַיִן אֱנוֹשִׁי נִפְלְאוּ דְבָרָיו הַיְתוֹאַר הַש\"י כִּבְיָכוֹל בִּגְדוּלָּתוֹ וּבְעַמְקוּת מַחְשְׁבוֹתָיו אִם כְּסִיל לֹא יַשִּׂיגֵם וּבַעַר לֹא יְבִינֵם, אֲשֶׁר מֵהָרָאוּי הָיָה לְתָאֵר כִּי אַף חַכְמֵי הָעוֹלָם וּנְבוֹנֶיהָ לֹא יְדָעוּם, כִּי הוּא שֵׂכֶל הַנֶּעֱלָם מִכָּל רַעְיוֹן, וּכְמוֹ שֶׁכָּתוּב (ישעיה נ\"ה,ח׳) \"כִּי לֹא מַחְשְׁבוֹתַי מַחְשְׁבוֹתֵיכֶם\" וּכְמוֹ שֶׁמְּתָאֵר אֵלִיָּהוּ הַנָּבִיא זצ\"ל בִּתְפִלָּתוֹ [תיקוני זהר הקדמה אחרת] אַנְתְּ הוּא חַכִּים וְלֹא בְּחָכְמָה יְדִיעָא, לֵית מַחְשָׁבָה תְּפִיסָא בָּךְ כְּלָל. אַךְ זֹאת הוּא כַּוָּנַת דָּוִד הַמֶּלֶךְ עָלָיו הַשָּׁלוֹם בְּמַאֲמָרוֹ זֶה, כִּי בֶּאֱמֶת הַחֲכָמִים הַמַּאֲמִינִים לֹא יֵלְכוּ בִּדְרָכִים כָּאֵלֶּה לְהַרְהֵר אַחַר הַש\"י חָלִילָה, כִּי יָדְעוּ כִּי אֵין לְהַשִּׂיג יִקְרַת עָמְקוֹ וְהֵם יָדְעוּ כִּי מַה מְּאֹד מַחְשְׁבוֹתָיו גָּדְלוּ וּמַה מַּעֲשָׂיו רַבּוּ, וְרַק עַל זֶה אָמַר \"אִישׁ בַּעַר לֹא יֵדָע\", יִרְצֶה בָּזֶה כִּי אִישׁ בַּעַר לֹא יֵדַע אֶת עַמְקוּת מַחְשְׁבוֹתָיו לָכֵן יִקְשֶׁה לוֹ עַל דַּרְכֵי הַש\"י כְּמוֹ שֶׁבֵּיאַרְנוּ. וְזֶה בֵּיאֵר בְּמַאֲמָרוֹ \"בִּפְרֹחַ רְשָׁעִים כְּמוֹ עֵשֶׂב וַיָּצִיצוּ כָּל פֹּעֲלֵי אָוֶן לְהִשָּׁמְדָם עֲדֵי עַד וְאַתָּה מָרוֹם\" כוּ׳, וְהוּא כִּי כָל אֲשֶׁר פָּרְחוּ הָרְשָׁעִים כְּמוֹ עֵשֶׂב וּפוֹעֲלֵי אָוֶן הֶעֱלוּ צִיץ לֹא הָיָה תְּחִלַּת בְּרִיּוֹתָם רַק כְּדֵי לְהִשָּׁמְדָם עֲדֵי עַד, וְלֹא הָיָה בְּרִיאָתָם רַק בִּכְדֵי שֶׁיּוּטַב לַצַּדִּיקִים וְאִם כֵּן אֵין לָהֶם שׁוּם טַעֲנָה, כִּי מֵאַחַר שֶׁעִיקַּר חִיּוּתָם לֹא הָיָה רַק עַל זֶה וְלֹא הָיָה בְּשׁוֹרְשָׁם חַיִּים בְּיוֹתֵר, וּכְמוֹ שֶׁלֶּעָתִיד אֻמּוֹת הָעוֹלָם יִטְעֲנוּ נֶגֶד הַש\"י, מֵאַחַר שֶׁלְּפָנֶיךָ נִגְלוּ תַּעֲלוּמוֹת וְיָדַעְתָּ כִּי עַל יְדֵי הַהַשְׁפָּעָה שֶׁהִשְׁפַּעְתָּ לָנוּ רוּחַ טוֹבָה בָּעוֹלָם הַזֶּה וְהִשְׁפַּלְתָּ אֶת עַמְּךָ יִשְׂרָאֵל לְהַגְלוֹתָם תַּחַת יָדֵינוּ, יִגְרֹם לָנוּ שֶׁיַּעֲלֶה בְּלִבֵּנוּ לְהַשְׁמִיד אֶת עַמְּךָ וְעַל יְדֵי זֶה יֵעָשֶׂה לָנוּ כַּאֲשֶׁר זָמַמְנוּ וּלְהָרֵם קֶרֶן יִשְׂרָאֵל וַהֲלֹא מָה אָנוּ חַיָּבִים בָּזֶה וְלֹא עָלֵינוּ הָאָשָׁם, וְזֶה שֶׁנֶּאֱמַר \"בִּפְרֹחַ רְשָׁעִים כוּ׳, לְהִשָּׁמְדָם\" כוּ׳, וְנֶגֶד זֶה אָמַר \"וְאַתָּה מָרוֹם לְעוֹלָם ה׳\" הַיְינוּ שֶׁבֶּאֱמֶת תָּמִיד אַתָּה לְמַעְלָה וְאֵין לְשׁוּם בְּרִיָּה צַד טַעֲנָה עָלֶיךָ וּבְצֶדֶק כָּל מִשְׁפָּטֶיךָ נֶגְדֵּנוּ.",
+      "normalizedHebrew": "מִזְמוֹר שִׁיר לְיוֹם הַשַּׁבָּת טוֹב כּוּלֵי, מַה גָּדְלוּ מַעֲשֶׂיךָ הַשֵּׁם כּוּלֵי, אִישׁ בַּעַר לֹא יֵדָע וּכְסִיל לֹא יָבִין אֶת זֹאת. הִנֵּה בַּמִּזְמוֹר הַזֶּה יִתְבָּאֵר אֵיךְ שֶׁאֵין לְשׁוּם אָדָם שׁוּם צַד טַעֲנָה נֶגֶד הַשֵּׁם יִתְבָּרַךְ, וּכְמוֹ שֶׁמְּבָאֵר רַבֵּנוּ מֹשֶׁה בֶּן מַיְמוֹן הַקָּדוֹשׁ בְּפֶרֶק חֲמִישִׁי מֵהִלְכוֹת תְּשׁוּבָה הֲלָכָה ה׳, וְזֶה לְשׁוֹנוֹ הַטָּהוֹר, שֶׁמָּא תֹּאמַר וַהֲלֹא הַקָּדוֹשׁ בָּרוּךְ הוּא יוֹדֵעַ כָּל מַה שֶּׁיִּהְיֶה וְקוֹדֶם שֶׁיִּהְיֶה יָדַע שֶׁזֶּה יִהְיֶה צַדִּיק אוֹ רָשָׁע, אִם תֹּאמַר, אִם יָדַע שֶׁהוּא יִהְיֶה צַדִּיק אִי אֶפְשָׁר שֶׁלֹּא יִהְיֶה צַדִּיק, וְאִם תֹּאמַר שֶׁיָּדַע שֶׁיִּהְיֶה צַדִּיק וְאֶפְשָׁר שֶׁיִּהְיֶה רָשָׁע הֲרֵי לֹא יָדַע הַדָּבָר עַל בּוּרְיוֹ, וּכְפִי הַנֶּאֱמָר יֵשׁ בְּיַד אָדָם רָשָׁע לִפְטוֹר עַצְמוֹ מִן הַדִּין וְגַם אֵין כָּל כָּךְ זְכוּת לַצַּדִּיק אוֹ שֶׁלֹּא יְאוּמַּן חַס וְשָׁלוֹם עַל הַשֵּׁם יִתְבָּרַךְ שֶׁיּוֹדֵעַ כֹּל, אָכֵן לָזֹאת בֵּיאֵר דָּוִד הַמֶּלֶךְ עָלָיו הַשָּׁלוֹם בַּמִּזְמוֹר הַזֶּה וְאָמַר \"מַה גָּדְלוּ מַעֲשֶׂיךָ הַשֵּׁם מְאֹד עָמְקוּ מַחְשְׁבוֹתֶיךָ אִישׁ בַּעַר לֹא\" כּוּלֵי, וְאַף כִּי לִרְאוּת עַיִן אֱנוֹשִׁי נִפְלְאוּ דְבָרָיו הַיְתוֹאַר הַשֵּׁם יִתְבָּרַךְ כִּבְיָכוֹל בִּגְדוּלָּתוֹ וּבְעַמְקוּת מַחְשְׁבוֹתָיו אִם כְּסִיל לֹא יַשִּׂיגֵם וּבַעַר לֹא יְבִינֵם, אֲשֶׁר מֵהָרָאוּי הָיָה לְתָאֵר כִּי אַף חַכְמֵי הָעוֹלָם וּנְבוֹנֶיהָ לֹא יְדָעוּם, כִּי הוּא שֵׂכֶל הַנֶּעֱלָם מִכָּל רַעְיוֹן, וּכְמוֹ שֶׁכָּתוּב (יְשַׁעְיָה נ\"ה,ח׳) \"כִּי לֹא מַחְשְׁבוֹתַי מַחְשְׁבוֹתֵיכֶם\" וּכְמוֹ שֶׁמְּתָאֵר אֵלִיָּהוּ הַנָּבִיא זֵכֶר צַדִּיק לִבְרָכָה בִּתְפִלָּתוֹ [תִּיקּוּנֵי זֹהַר הַקְדָּמָה אַחֶרֶת] אַנְתְּ הוּא חַכִּים וְלֹא בְּחָכְמָה יְדִיעָא, לֵית מַחְשָׁבָה תְּפִיסָא בָּךְ כְּלָל. אַךְ זֹאת הוּא כַּוָּנַת דָּוִד הַמֶּלֶךְ עָלָיו הַשָּׁלוֹם בְּמַאֲמָרוֹ זֶה, כִּי בֶּאֱמֶת הַחֲכָמִים הַמַּאֲמִינִים לֹא יֵלְכוּ בִּדְרָכִים כָּאֵלֶּה לְהַרְהֵר אַחַר הַשֵּׁם יִתְבָּרַךְ חָלִילָה, כִּי יָדְעוּ כִּי אֵין לְהַשִּׂיג יִקְרַת עָמְקוֹ וְהֵם יָדְעוּ כִּי מַה מְּאֹד מַחְשְׁבוֹתָיו גָּדְלוּ וּמַה מַּעֲשָׂיו רַבּוּ, וְרַק עַל זֶה אָמַר \"אִישׁ בַּעַר לֹא יֵדָע\", יִרְצֶה בָּזֶה כִּי אִישׁ בַּעַר לֹא יֵדַע אֶת עַמְקוּת מַחְשְׁבוֹתָיו לָכֵן יִקְשֶׁה לוֹ עַל דַּרְכֵי הַשֵּׁם יִתְבָּרַךְ כְּמוֹ שֶׁבֵּיאַרְנוּ. וְזֶה בֵּיאֵר בְּמַאֲמָרוֹ \"בִּפְרֹחַ רְשָׁעִים כְּמוֹ עֵשֶׂב וַיָּצִיצוּ כָּל פֹּעֲלֵי אָוֶן לְהִשָּׁמְדָם עֲדֵי עַד וְאַתָּה מָרוֹם\" כּוּלֵי, וְהוּא כִּי כָל אֲשֶׁר פָּרְחוּ הָרְשָׁעִים כְּמוֹ עֵשֶׂב וּפוֹעֲלֵי אָוֶן הֶעֱלוּ צִיץ לֹא הָיָה תְּחִלַּת בְּרִיּוֹתָם רַק כְּדֵי לְהִשָּׁמְדָם עֲדֵי עַד, וְלֹא הָיָה בְּרִיאָתָם רַק בִּכְדֵי שֶׁיּוּטַב לַצַּדִּיקִים וְאִם כֵּן אֵין לָהֶם שׁוּם טַעֲנָה, כִּי מֵאַחַר שֶׁעִיקַּר חִיּוּתָם לֹא הָיָה רַק עַל זֶה וְלֹא הָיָה בְּשׁוֹרְשָׁם חַיִּים בְּיוֹתֵר, וּכְמוֹ שֶׁלֶּעָתִיד אֻמּוֹת הָעוֹלָם יִטְעֲנוּ נֶגֶד הַשֵּׁם יִתְבָּרַךְ, מֵאַחַר שֶׁלְּפָנֶיךָ נִגְלוּ תַּעֲלוּמוֹת וְיָדַעְתָּ כִּי עַל יְדֵי הַהַשְׁפָּעָה שֶׁהִשְׁפַּעְתָּ לָנוּ רוּחַ טוֹבָה בָּעוֹלָם הַזֶּה וְהִשְׁפַּלְתָּ אֶת עַמְּךָ יִשְׂרָאֵל לְהַגְלוֹתָם תַּחַת יָדֵינוּ, יִגְרֹם לָנוּ שֶׁיַּעֲלֶה בְּלִבֵּנוּ לְהַשְׁמִיד אֶת עַמְּךָ וְעַל יְדֵי זֶה יֵעָשֶׂה לָנוּ כַּאֲשֶׁר זָמַמְנוּ וּלְהָרֵם קֶרֶן יִשְׂרָאֵל וַהֲלֹא מָה אָנוּ חַיָּבִים בָּזֶה וְלֹא עָלֵינוּ הָאָשָׁם, וְזֶה שֶׁנֶּאֱמַר \"בִּפְרֹחַ רְשָׁעִים כּוּלֵי, לְהִשָּׁמְדָם\" כּוּלֵי, וְנֶגֶד זֶה אָמַר \"וְאַתָּה מָרוֹם לְעוֹלָם הַשֵּׁם\" הַיְינוּ שֶׁבֶּאֱמֶת תָּמִיד אַתָּה לְמַעְלָה וְאֵין לְשׁוּם בְּרִיָּה צַד טַעֲנָה עָלֶיךָ וּבְצֶדֶק כָּל מִשְׁפָּטֶיךָ נֶגְדֵּנוּ.",
+      "p": [
+        [
+          "מִזְמוֹר שִׁיר לְיוֹם הַשַּׁבָּת טוֹב כּוּלֵי,",
+          "A psalm, a song for the day of Shabbos; it is good, etc.;"
+        ],
+        [
+          "מַה גָּדְלוּ מַעֲשֶׂיךָ הַשֵּׁם כּוּלֵי,",
+          "how great are Your works, Hashem, etc.;"
+        ],
+        [
+          "אִישׁ בַּעַר לֹא יֵדָע וּכְסִיל לֹא יָבִין אֶת זֹאת.",
+          "a brutish man does not know, and a fool does not understand this."
+        ],
+        [
+          "הִנֵּה בַּמִּזְמוֹר הַזֶּה יִתְבָּאֵר",
+          "Now, this psalm explains"
+        ],
+        [
+          "אֵיךְ שֶׁאֵין לְשׁוּם אָדָם שׁוּם צַד טַעֲנָה נֶגֶד הַשֵּׁם יִתְבָּרַךְ,",
+          "that no person has any grounds for a claim against Hashem, blessed be He."
+        ],
+        [
+          "וּכְמוֹ שֶׁמְּבָאֵר רַבֵּנוּ מֹשֶׁה בֶּן מַיְמוֹן הַקָּדוֹשׁ בְּפֶרֶק חֲמִישִׁי מֵהִלְכוֹת תְּשׁוּבָה הֲלָכָה ה׳,",
+          "As the holy Rabbeinu Moshe ben Maimon explains in chapter five of the Laws of Repentance, halakhah five,"
+        ],
+        [
+          "וְזֶה לְשׁוֹנוֹ הַטָּהוֹר,",
+          "these are his pure words:"
+        ],
+        [
+          "שֶׁמָּא תֹּאמַר וַהֲלֹא הַקָּדוֹשׁ בָּרוּךְ הוּא יוֹדֵעַ כָּל מַה שֶּׁיִּהְיֶה",
+          "Perhaps you will say: Does the Holy One, blessed be He, not know all that will happen?"
+        ],
+        [
+          "וְקוֹדֶם שֶׁיִּהְיֶה יָדַע שֶׁזֶּה יִהְיֶה צַדִּיק אוֹ רָשָׁע,",
+          "And before it happens, He knew that this person would be righteous or wicked."
+        ],
+        [
+          "אִם תֹּאמַר, אִם יָדַע שֶׁהוּא יִהְיֶה צַדִּיק אִי אֶפְשָׁר שֶׁלֹּא יִהְיֶה צַדִּיק,",
+          "If you say: If He knew that the person would be righteous, it is impossible for him not to be righteous;"
+        ],
+        [
+          "וְאִם תֹּאמַר שֶׁיָּדַע שֶׁיִּהְיֶה צַדִּיק וְאֶפְשָׁר שֶׁיִּהְיֶה רָשָׁע",
+          "and if you say that He knew the person would be righteous, yet he could be wicked,"
+        ],
+        [
+          "הֲרֵי לֹא יָדַע הַדָּבָר עַל בּוּרְיוֹ,",
+          "then He did not know the matter with complete clarity."
+        ],
+        [
+          "וּכְפִי הַנֶּאֱמָר יֵשׁ בְּיַד אָדָם רָשָׁע לִפְטוֹר עַצְמוֹ מִן הַדִּין",
+          "According to this argument, a wicked person could exempt himself from judgment,"
+        ],
+        [
+          "וְגַם אֵין כָּל כָּךְ זְכוּת לַצַּדִּיק",
+          "and the righteous person, too, would have less merit;"
+        ],
+        [
+          "אוֹ שֶׁלֹּא יְאוּמַּן חַס וְשָׁלוֹם עַל הַשֵּׁם יִתְבָּרַךְ שֶׁיּוֹדֵעַ כֹּל,",
+          "or else, Heaven forbid, one would not believe that Hashem, blessed be He, knows everything."
+        ],
+        [
+          "אָכֵן לָזֹאת בֵּיאֵר דָּוִד הַמֶּלֶךְ עָלָיו הַשָּׁלוֹם בַּמִּזְמוֹר הַזֶּה וְאָמַר",
+          "To address this, King David, peace be upon him, explained in this psalm and said:"
+        ],
+        [
+          "\"מַה גָּדְלוּ מַעֲשֶׂיךָ הַשֵּׁם מְאֹד עָמְקוּ מַחְשְׁבוֹתֶיךָ",
+          "“How great are Your works, Hashem; Your thoughts are exceedingly deep."
+        ],
+        [
+          "אִישׁ בַּעַר לֹא\" כּוּלֵי,",
+          "A brutish man does not,” etc."
+        ],
+        [
+          "וְאַף כִּי לִרְאוּת עַיִן אֱנוֹשִׁי נִפְלְאוּ דְבָרָיו",
+          "Yet to human eyes his words appear puzzling:"
+        ],
+        [
+          "הַיְתוֹאַר הַשֵּׁם יִתְבָּרַךְ כִּבְיָכוֹל בִּגְדוּלָּתוֹ וּבְעַמְקוּת מַחְשְׁבוֹתָיו",
+          "Can Hashem, blessed be He, so to speak, be described in terms of His greatness and the depth of His thoughts"
+        ],
+        [
+          "אִם כְּסִיל לֹא יַשִּׂיגֵם וּבַעַר לֹא יְבִינֵם,",
+          "merely because a fool cannot grasp them and a brutish man cannot understand them?"
+        ],
+        [
+          "אֲשֶׁר מֵהָרָאוּי הָיָה לְתָאֵר כִּי אַף חַכְמֵי הָעוֹלָם וּנְבוֹנֶיהָ לֹא יְדָעוּם,",
+          "It would have been more fitting to say that even the world’s wise and discerning people do not know them,"
+        ],
+        [
+          "כִּי הוּא שֵׂכֶל הַנֶּעֱלָם מִכָּל רַעְיוֹן,",
+          "for this is an understanding concealed from every thought."
+        ],
+        [
+          "וּכְמוֹ שֶׁכָּתוּב (יְשַׁעְיָה נ\"ה,ח׳) \"כִּי לֹא מַחְשְׁבוֹתַי מַחְשְׁבוֹתֵיכֶם\"",
+          "As it is written (Isaiah 55:8): “For My thoughts are not your thoughts,”"
+        ],
+        [
+          "וּכְמוֹ שֶׁמְּתָאֵר אֵלִיָּהוּ הַנָּבִיא זֵכֶר צַדִּיק לִבְרָכָה בִּתְפִלָּתוֹ [תִּיקּוּנֵי זֹהַר הַקְדָּמָה אַחֶרֶת]",
+          "and as Eliyahu the prophet, of blessed memory, describes in his prayer (Tikkunei Zohar, Another Introduction):"
+        ],
+        [
+          "אַנְתְּ הוּא חַכִּים וְלֹא בְּחָכְמָה יְדִיעָא,",
+          "You are wise, but not with a knowable wisdom;"
+        ],
+        [
+          "לֵית מַחְשָׁבָה תְּפִיסָא בָּךְ כְּלָל.",
+          "no thought grasps You at all."
+        ],
+        [
+          "אַךְ זֹאת הוּא כַּוָּנַת דָּוִד הַמֶּלֶךְ עָלָיו הַשָּׁלוֹם בְּמַאֲמָרוֹ זֶה,",
+          "But this is what King David, peace be upon him, means by this statement:"
+        ],
+        [
+          "כִּי בֶּאֱמֶת הַחֲכָמִים הַמַּאֲמִינִים לֹא יֵלְכוּ בִּדְרָכִים כָּאֵלֶּה לְהַרְהֵר אַחַר הַשֵּׁם יִתְבָּרַךְ חָלִילָה,",
+          "In truth, wise people of faith will not follow such paths of questioning Hashem, blessed be He, Heaven forbid."
+        ],
+        [
+          "כִּי יָדְעוּ כִּי אֵין לְהַשִּׂיג יִקְרַת עָמְקוֹ",
+          "For they know that His precious depth cannot be grasped,"
+        ],
+        [
+          "וְהֵם יָדְעוּ כִּי מַה מְּאֹד מַחְשְׁבוֹתָיו גָּדְלוּ וּמַה מַּעֲשָׂיו רַבּוּ,",
+          "and they know how very great His thoughts are and how manifold His works."
+        ],
+        [
+          "וְרַק עַל זֶה אָמַר \"אִישׁ בַּעַר לֹא יֵדָע\",",
+          "It is only concerning this that he said: “A brutish man does not know.”"
+        ],
+        [
+          "יִרְצֶה בָּזֶה כִּי אִישׁ בַּעַר לֹא יֵדַע אֶת עַמְקוּת מַחְשְׁבוֹתָיו",
+          "He means that a brutish man does not know the depth of His thoughts;"
+        ],
+        [
+          "לָכֵן יִקְשֶׁה לוֹ עַל דַּרְכֵי הַשֵּׁם יִתְבָּרַךְ כְּמוֹ שֶׁבֵּיאַרְנוּ.",
+          "therefore, Hashem’s ways raise difficulties for him, as we have explained."
+        ],
+        [
+          "וְזֶה בֵּיאֵר בְּמַאֲמָרוֹ",
+          "He explained this in his statement:"
+        ],
+        [
+          "\"בִּפְרֹחַ רְשָׁעִים כְּמוֹ עֵשֶׂב וַיָּצִיצוּ כָּל פֹּעֲלֵי אָוֶן",
+          "“When the wicked sprout like grass, and all workers of iniquity blossom,"
+        ],
+        [
+          "לְהִשָּׁמְדָם עֲדֵי עַד וְאַתָּה מָרוֹם\" כּוּלֵי,",
+          "it is that they may be destroyed forever; but You are exalted,” etc."
+        ],
+        [
+          "וְהוּא כִּי כָל אֲשֶׁר פָּרְחוּ הָרְשָׁעִים כְּמוֹ עֵשֶׂב וּפוֹעֲלֵי אָוֶן הֶעֱלוּ צִיץ",
+          "For all the wicked who sprouted like grass, and the workers of iniquity who put forth blossoms,"
+        ],
+        [
+          "לֹא הָיָה תְּחִלַּת בְּרִיּוֹתָם רַק כְּדֵי לְהִשָּׁמְדָם עֲדֵי עַד,",
+          "were brought into being from the outset only to be destroyed forever."
+        ],
+        [
+          "וְלֹא הָיָה בְּרִיאָתָם רַק בִּכְדֵי שֶׁיּוּטַב לַצַּדִּיקִים",
+          "They were created only so that the righteous would benefit."
+        ],
+        [
+          "וְאִם כֵּן אֵין לָהֶם שׁוּם טַעֲנָה,",
+          "If so, they have no claim,"
+        ],
+        [
+          "כִּי מֵאַחַר שֶׁעִיקַּר חִיּוּתָם לֹא הָיָה רַק עַל זֶה וְלֹא הָיָה בְּשׁוֹרְשָׁם חַיִּים בְּיוֹתֵר,",
+          "since their essential vitality existed only for this purpose, and at their root they had no life beyond it."
+        ],
+        [
+          "וּכְמוֹ שֶׁלֶּעָתִיד אֻמּוֹת הָעוֹלָם יִטְעֲנוּ נֶגֶד הַשֵּׁם יִתְבָּרַךְ,",
+          "Similarly, in the future the nations of the world will argue against Hashem, blessed be He:"
+        ],
+        [
+          "מֵאַחַר שֶׁלְּפָנֶיךָ נִגְלוּ תַּעֲלוּמוֹת",
+          "Since hidden things are revealed before You,"
+        ],
+        [
+          "וְיָדַעְתָּ כִּי עַל יְדֵי הַהַשְׁפָּעָה שֶׁהִשְׁפַּעְתָּ לָנוּ רוּחַ טוֹבָה בָּעוֹלָם הַזֶּה",
+          "and You knew that, through the bounty You bestowed upon us, giving us favorable circumstances in this world,"
+        ],
+        [
+          "וְהִשְׁפַּלְתָּ אֶת עַמְּךָ יִשְׂרָאֵל לְהַגְלוֹתָם תַּחַת יָדֵינוּ,",
+          "while You brought Your people Israel low by exiling them under our rule,"
+        ],
+        [
+          "יִגְרֹם לָנוּ שֶׁיַּעֲלֶה בְּלִבֵּנוּ לְהַשְׁמִיד אֶת עַמְּךָ",
+          "this would cause the thought of destroying Your people to arise in our hearts,"
+        ],
+        [
+          "וְעַל יְדֵי זֶה יֵעָשֶׂה לָנוּ כַּאֲשֶׁר זָמַמְנוּ וּלְהָרֵם קֶרֶן יִשְׂרָאֵל",
+          "and through this we would suffer what we had plotted, while Israel’s strength would be exalted,"
+        ],
+        [
+          "וַהֲלֹא מָה אָנוּ חַיָּבִים בָּזֶה וְלֹא עָלֵינוּ הָאָשָׁם,",
+          "what guilt do we bear in this? The blame does not rest upon us."
+        ],
+        [
+          "וְזֶה שֶׁנֶּאֱמַר \"בִּפְרֹחַ רְשָׁעִים כּוּלֵי, לְהִשָּׁמְדָם\" כּוּלֵי,",
+          "This is what is meant by “When the wicked sprout,” etc., “that they may be destroyed,” etc."
+        ],
+        [
+          "וְנֶגֶד זֶה אָמַר \"וְאַתָּה מָרוֹם לְעוֹלָם הַשֵּׁם\"",
+          "Against this he said: “But You are exalted forever, Hashem.”"
+        ],
+        [
+          "הַיְינוּ שֶׁבֶּאֱמֶת תָּמִיד אַתָּה לְמַעְלָה",
+          "This means that, in truth, You are always above,"
+        ],
+        [
+          "וְאֵין לְשׁוּם בְּרִיָּה צַד טַעֲנָה עָלֶיךָ",
+          "and no created being has grounds for a claim against You;"
+        ],
+        [
+          "וּבְצֶדֶק כָּל מִשְׁפָּטֶיךָ נֶגְדֵּנוּ.",
+          "all Your judgments concerning us are just."
+        ]
+      ],
+      "expansions": [
+        {
+          "from": "הָרַמְבַּ\"ם",
+          "to": "רַבֵּנוּ מֹשֶׁה בֶּן מַיְמוֹן",
+          "at": 247,
+          "kind": "acronymExpansion"
+        },
+        {
+          "from": "זצ\"ל",
+          "to": "זֵכֶר צַדִּיק לִבְרָכָה",
+          "at": 1475,
+          "kind": "acronymExpansion"
+        },
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "at": 220,
+          "kind": "acronymExpansion"
+        },
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "at": 876,
+          "kind": "acronymExpansion"
+        },
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "at": 1146,
+          "kind": "acronymExpansion"
+        },
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "at": 1835,
+          "kind": "acronymExpansion"
+        },
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "at": 2143,
+          "kind": "acronymExpansion"
+        },
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "at": 2738,
+          "kind": "acronymExpansion"
+        },
+        {
+          "from": "כוּ׳",
+          "to": "כּוּלֵי",
+          "at": 38,
+          "kind": "acronymExpansion"
+        },
+        {
+          "from": "כוּ׳",
+          "to": "כּוּלֵי",
+          "at": 74,
+          "kind": "acronymExpansion"
+        },
+        {
+          "from": "כוּ׳",
+          "to": "כּוּלֵי",
+          "at": 1080,
+          "kind": "acronymExpansion"
+        },
+        {
+          "from": "כוּ׳",
+          "to": "כּוּלֵי",
+          "at": 2330,
+          "kind": "acronymExpansion"
+        },
+        {
+          "from": "כוּ׳",
+          "to": "כּוּלֵי",
+          "at": 3216,
+          "kind": "acronymExpansion"
+        },
+        {
+          "from": "כוּ׳",
+          "to": "כּוּלֵי",
+          "at": 3240,
+          "kind": "acronymExpansion"
+        },
+        {
+          "from": "ה׳",
+          "to": "הַשֵּׁם",
+          "at": 71,
+          "kind": "divineNameExpansion"
+        },
+        {
+          "from": "ה׳",
+          "to": "הַשֵּׁם",
+          "at": 1034,
+          "kind": "divineNameExpansion"
+        },
+        {
+          "from": "ה׳",
+          "to": "הַשֵּׁם",
+          "at": 3303,
+          "kind": "divineNameExpansion"
+        }
+      ],
+      "vocalizationChanges": [
+        {
+          "from": "ישעיה",
+          "to": "יְשַׁעְיָה",
+          "at": 1439,
+          "kind": "vocalization"
+        },
+        {
+          "from": "תיקוני זהר הקדמה אחרת",
+          "to": "תִּיקּוּנֵי זֹהַר הַקְדָּמָה אַחֶרֶת",
+          "at": 1580,
+          "kind": "vocalization"
+        }
+      ],
+      "reviewNotes": [
+        "The source’s abbreviated quotation of Mishneh Torah, Repentance 5:5 is preserved rather than replaced with the longer original; its citation and argument were checked using TorahLM.",
+        "הלכה ה׳ is the numeral 5 and is not expanded as a Divine Name.",
+        "The paragraph’s claims about the nations are translated as the historical author’s argument without omission or modernization."
+      ],
+      "sourceUrl": "https://www.sefaria.org/Mei_HaShiloach,_Volume_I,_Writings,_Psalms.92.1",
+      "sortKey": [
+        64,
+        92,
+        1
+      ],
+      "sourceLetterAccounting": {
+        "pass": true,
+        "sourceHebrewSha256": "bd0a48a75aa70aa1a448183357010c36ac68e21508438ef7a37eec82b092df23",
+        "normalizedHebrewSha256": "5d5b78e44c6347517599536d2793346c45bebddf7e78ec6dbdeecb6e1f67ed9e",
+        "sourceLetterCount": 1556,
+        "sourceLettersSha256": "f9f5e0b1bc08552af163ecf982ac6e2e2de18d38df08c8ca722f58f7b31013cb",
+        "restoredLettersSha256": "f9f5e0b1bc08552af163ecf982ac6e2e2de18d38df08c8ca722f58f7b31013cb",
+        "normalizedLettersSha256": "9cd249f3187e8f989ee0f15d3f6fb646f0d88c6c212729f0296e1c11dbf22c44",
+        "everySourceCharacterRecoveredAfterReversingDocumentedChanges": true,
+        "allNormalizedCharactersPresentExactlyOnceInOrderedPairsIgnoringWhitespace": true,
+        "operationsInApplicationOrder": [
+          {
+            "from": "הָרַמְבַּ\"ם",
+            "to": "רַבֵּנוּ מֹשֶׁה בֶּן מַיְמוֹן",
+            "at": 247,
+            "kind": "acronymExpansion"
+          },
+          {
+            "from": "זצ\"ל",
+            "to": "זֵכֶר צַדִּיק לִבְרָכָה",
+            "at": 1475,
+            "kind": "acronymExpansion"
+          },
+          {
+            "from": "הַש\"י",
+            "to": "הַשֵּׁם יִתְבָּרַךְ",
+            "at": 220,
+            "kind": "acronymExpansion"
+          },
+          {
+            "from": "הַש\"י",
+            "to": "הַשֵּׁם יִתְבָּרַךְ",
+            "at": 876,
+            "kind": "acronymExpansion"
+          },
+          {
+            "from": "הַש\"י",
+            "to": "הַשֵּׁם יִתְבָּרַךְ",
+            "at": 1146,
+            "kind": "acronymExpansion"
+          },
+          {
+            "from": "הַש\"י",
+            "to": "הַשֵּׁם יִתְבָּרַךְ",
+            "at": 1835,
+            "kind": "acronymExpansion"
+          },
+          {
+            "from": "הַש\"י",
+            "to": "הַשֵּׁם יִתְבָּרַךְ",
+            "at": 2143,
+            "kind": "acronymExpansion"
+          },
+          {
+            "from": "הַש\"י",
+            "to": "הַשֵּׁם יִתְבָּרַךְ",
+            "at": 2738,
+            "kind": "acronymExpansion"
+          },
+          {
+            "from": "כוּ׳",
+            "to": "כּוּלֵי",
+            "at": 38,
+            "kind": "acronymExpansion"
+          },
+          {
+            "from": "כוּ׳",
+            "to": "כּוּלֵי",
+            "at": 74,
+            "kind": "acronymExpansion"
+          },
+          {
+            "from": "כוּ׳",
+            "to": "כּוּלֵי",
+            "at": 1080,
+            "kind": "acronymExpansion"
+          },
+          {
+            "from": "כוּ׳",
+            "to": "כּוּלֵי",
+            "at": 2330,
+            "kind": "acronymExpansion"
+          },
+          {
+            "from": "כוּ׳",
+            "to": "כּוּלֵי",
+            "at": 3216,
+            "kind": "acronymExpansion"
+          },
+          {
+            "from": "כוּ׳",
+            "to": "כּוּלֵי",
+            "at": 3240,
+            "kind": "acronymExpansion"
+          },
+          {
+            "from": "ה׳",
+            "to": "הַשֵּׁם",
+            "at": 71,
+            "kind": "divineNameExpansion"
+          },
+          {
+            "from": "ה׳",
+            "to": "הַשֵּׁם",
+            "at": 1034,
+            "kind": "divineNameExpansion"
+          },
+          {
+            "from": "ה׳",
+            "to": "הַשֵּׁם",
+            "at": 3303,
+            "kind": "divineNameExpansion"
+          },
+          {
+            "from": "ישעיה",
+            "to": "יְשַׁעְיָה",
+            "at": 1439,
+            "kind": "vocalization"
+          },
+          {
+            "from": "תיקוני זהר הקדמה אחרת",
+            "to": "תִּיקּוּנֵי זֹהַר הַקְדָּמָה אַחֶרֶת",
+            "at": 1580,
+            "kind": "vocalization"
+          }
+        ]
+      }
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Psalms 92:2",
+      "sectionRef": "Mei HaShiloach, Volume I, Writings, Psalms 92",
+      "n": 2,
+      "sourceHebrew": "כִּי הִנֵּה אֹיְבֶיךָ ה' כִּי הִנֵּה אֹיְבֶיךָ יֹאבֵדוּ יִתְפָּרְדוּ כָּל כוּ׳, וַתָּרֶם כִּרְאֵים קַרְנִי. וְהוּא מֵחֲמַת כִּי כָל אוּמּוֹת הָעוֹלָם הֵם אוֹיְבֶיךָ וְלָכֵן אֵין לָהֶם שׁוּם צַד חַיִּים בְּשׁוֹרְשָׁם, כִּי בֶּאֱמֶת רַק רְצוֹן הַש\"י הוּא הַנִּמְצָא וְאֵין נִמְצָא אַחֵר זוּלָתוֹ, וּמֵאַחַר שֶׁהֵם מִתְנַגְּדִים לִרְצוֹנוֹ אֵין לָהֶם חַיִּים בְּשׁוֹרְשָׁם, אַךְ לְעֵת עַתָּה עוֹד הוּא רְצוֹן הַש\"י בְּקִיּוּמָם בִּכְדֵי שֶׁעַל יָדָם יִתְנַשֵּׂא יִשְׂרָאֵל בְּיוֹתֵר, אֲבָל מִצַּד עַצְמוּתָם אֵין בָּהֶם שׁוּם תּוֹעֶלֶת לְהַש\"י, וְאִם כֵּן כַּאֲשֶׁר יֹאבֵדוּ לֹא יִהְיֶה לָהֶם שׁוּם טַעֲנָה מַה שֶּׁהֵם הוֹלְכִים לַאֲבַדּוֹן וְיִשְׂרָאֵל יוֹרְשִׁים כָּל טוּבָם, כִּי מֶה עָשָׂה לָהֶם, הֲלֹא הֵיטִיב לָהֶם כָּל יְמֵיהֶם וְהָיָה לָהֶם כָּל הַשְׁפָּעוֹת טוֹבָה, וּמַה שֶּׁלֹּא יִשָּׁאֵר מֵהֶם הַשְׁאָרָה, זֶה לֹא הָיָה לָהֶם מֵעוֹלָם שׁוּם חַיִּים שֶׁהוּא לָעַד, כִּי מֵאַחַר שֶׁלֹּא נִבְרְאוּ אֶלָּא לְטוֹבַת יִשְׂרָאֵל, וּבְעִתָּם וּבִזְמַנָּם יֹאבֵדוּ כִּי הֵם שׂוֹנְאִים לְיִשְׂרָאֵל וּלְהַש\"י, וְכָל טוּבָם יִרְשׁוּ יִשְׂרָאֵל.",
+      "normalizedHebrew": "כִּי הִנֵּה אֹיְבֶיךָ הַשֵּׁם כִּי הִנֵּה אֹיְבֶיךָ יֹאבֵדוּ יִתְפָּרְדוּ כָּל כּוּלֵי, וַתָּרֶם כִּרְאֵים קַרְנִי. וְהוּא מֵחֲמַת כִּי כָל אוּמּוֹת הָעוֹלָם הֵם אוֹיְבֶיךָ וְלָכֵן אֵין לָהֶם שׁוּם צַד חַיִּים בְּשׁוֹרְשָׁם, כִּי בֶּאֱמֶת רַק רְצוֹן הַשֵּׁם יִתְבָּרַךְ הוּא הַנִּמְצָא וְאֵין נִמְצָא אַחֵר זוּלָתוֹ, וּמֵאַחַר שֶׁהֵם מִתְנַגְּדִים לִרְצוֹנוֹ אֵין לָהֶם חַיִּים בְּשׁוֹרְשָׁם, אַךְ לְעֵת עַתָּה עוֹד הוּא רְצוֹן הַשֵּׁם יִתְבָּרַךְ בְּקִיּוּמָם בִּכְדֵי שֶׁעַל יָדָם יִתְנַשֵּׂא יִשְׂרָאֵל בְּיוֹתֵר, אֲבָל מִצַּד עַצְמוּתָם אֵין בָּהֶם שׁוּם תּוֹעֶלֶת לְהַשֵּׁם יִתְבָּרַךְ, וְאִם כֵּן כַּאֲשֶׁר יֹאבֵדוּ לֹא יִהְיֶה לָהֶם שׁוּם טַעֲנָה מַה שֶּׁהֵם הוֹלְכִים לַאֲבַדּוֹן וְיִשְׂרָאֵל יוֹרְשִׁים כָּל טוּבָם, כִּי מֶה עָשָׂה לָהֶם, הֲלֹא הֵיטִיב לָהֶם כָּל יְמֵיהֶם וְהָיָה לָהֶם כָּל הַשְׁפָּעוֹת טוֹבָה, וּמַה שֶּׁלֹּא יִשָּׁאֵר מֵהֶם הַשְׁאָרָה, זֶה לֹא הָיָה לָהֶם מֵעוֹלָם שׁוּם חַיִּים שֶׁהוּא לָעַד, כִּי מֵאַחַר שֶׁלֹּא נִבְרְאוּ אֶלָּא לְטוֹבַת יִשְׂרָאֵל, וּבְעִתָּם וּבִזְמַנָּם יֹאבֵדוּ כִּי הֵם שׂוֹנְאִים לְיִשְׂרָאֵל וּלְהַשֵּׁם יִתְבָּרַךְ, וְכָל טוּבָם יִרְשׁוּ יִשְׂרָאֵל.",
+      "p": [
+        [
+          "כִּי הִנֵּה אֹיְבֶיךָ הַשֵּׁם כִּי הִנֵּה אֹיְבֶיךָ יֹאבֵדוּ יִתְפָּרְדוּ כָּל כּוּלֵי,",
+          "For behold, Your enemies, Hashem; for behold, Your enemies will perish; all will be scattered, etc.;"
+        ],
+        [
+          "וַתָּרֶם כִּרְאֵים קַרְנִי.",
+          "but You have raised my horn like that of a wild ox."
+        ],
+        [
+          "וְהוּא מֵחֲמַת כִּי כָל אוּמּוֹת הָעוֹלָם הֵם אוֹיְבֶיךָ",
+          "This is because all the nations of the world are Your enemies,"
+        ],
+        [
+          "וְלָכֵן אֵין לָהֶם שׁוּם צַד חַיִּים בְּשׁוֹרְשָׁם,",
+          "and therefore they have no independent basis of life at their root."
+        ],
+        [
+          "כִּי בֶּאֱמֶת רַק רְצוֹן הַשֵּׁם יִתְבָּרַךְ הוּא הַנִּמְצָא וְאֵין נִמְצָא אַחֵר זוּלָתוֹ,",
+          "For in truth, only the will of Hashem, blessed be He, has existence, and nothing else exists apart from Him."
+        ],
+        [
+          "וּמֵאַחַר שֶׁהֵם מִתְנַגְּדִים לִרְצוֹנוֹ",
+          "Since they oppose His will,"
+        ],
+        [
+          "אֵין לָהֶם חַיִּים בְּשׁוֹרְשָׁם,",
+          "they have no life at their root."
+        ],
+        [
+          "אַךְ לְעֵת עַתָּה עוֹד הוּא רְצוֹן הַשֵּׁם יִתְבָּרַךְ בְּקִיּוּמָם",
+          "For the present, however, Hashem, blessed be He, still desires their continued existence,"
+        ],
+        [
+          "בִּכְדֵי שֶׁעַל יָדָם יִתְנַשֵּׂא יִשְׂרָאֵל בְּיוֹתֵר,",
+          "so that through them Israel may be exalted all the more."
+        ],
+        [
+          "אֲבָל מִצַּד עַצְמוּתָם אֵין בָּהֶם שׁוּם תּוֹעֶלֶת לְהַשֵּׁם יִתְבָּרַךְ,",
+          "But in themselves they serve no purpose for Hashem, blessed be He."
+        ],
+        [
+          "וְאִם כֵּן כַּאֲשֶׁר יֹאבֵדוּ לֹא יִהְיֶה לָהֶם שׁוּם טַעֲנָה",
+          "If so, when they perish, they will have no claim"
+        ],
+        [
+          "מַה שֶּׁהֵם הוֹלְכִים לַאֲבַדּוֹן וְיִשְׂרָאֵל יוֹרְשִׁים כָּל טוּבָם,",
+          "concerning their going to destruction while Israel inherits all their good."
+        ],
+        [
+          "כִּי מֶה עָשָׂה לָהֶם,",
+          "For what has He done to them?"
+        ],
+        [
+          "הֲלֹא הֵיטִיב לָהֶם כָּל יְמֵיהֶם וְהָיָה לָהֶם כָּל הַשְׁפָּעוֹת טוֹבָה,",
+          "Did He not do good to them throughout their lives, giving them every flow of blessing?"
+        ],
+        [
+          "וּמַה שֶּׁלֹּא יִשָּׁאֵר מֵהֶם הַשְׁאָרָה,",
+          "As for their leaving no enduring remnant,"
+        ],
+        [
+          "זֶה לֹא הָיָה לָהֶם מֵעוֹלָם שׁוּם חַיִּים שֶׁהוּא לָעַד,",
+          "they never possessed any life that endures forever."
+        ],
+        [
+          "כִּי מֵאַחַר שֶׁלֹּא נִבְרְאוּ אֶלָּא לְטוֹבַת יִשְׂרָאֵל,",
+          "For they were created only for Israel’s benefit;"
+        ],
+        [
+          "וּבְעִתָּם וּבִזְמַנָּם יֹאבֵדוּ",
+          "at their appointed time and season they will perish,"
+        ],
+        [
+          "כִּי הֵם שׂוֹנְאִים לְיִשְׂרָאֵל וּלְהַשֵּׁם יִתְבָּרַךְ,",
+          "because they hate Israel and Hashem, blessed be He,"
+        ],
+        [
+          "וְכָל טוּבָם יִרְשׁוּ יִשְׂרָאֵל.",
+          "and Israel will inherit all their good."
+        ]
+      ],
+      "expansions": [
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "at": 242,
+          "kind": "acronymExpansion"
+        },
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "at": 420,
+          "kind": "acronymExpansion"
+        },
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "at": 563,
+          "kind": "acronymExpansion"
+        },
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "at": 1044,
+          "kind": "acronymExpansion"
+        },
+        {
+          "from": "כוּ׳",
+          "to": "כּוּלֵי",
+          "at": 74,
+          "kind": "acronymExpansion"
+        },
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "at": 22,
+          "kind": "divineNameExpansion"
+        }
+      ],
+      "vocalizationChanges": [],
+      "reviewNotes": [],
+      "sourceUrl": "https://www.sefaria.org/Mei_HaShiloach,_Volume_I,_Writings,_Psalms.92.2",
+      "sortKey": [
+        64,
+        92,
+        2
+      ],
+      "sourceLetterAccounting": {
+        "pass": true,
+        "sourceHebrewSha256": "28d9e76f0ba0cb52764e0387fe5e112d6112305df3edd7fef22d4f0665b06bbf",
+        "normalizedHebrewSha256": "35a1cc26e2fa2bf4373242394b3861cf5d47a9bf96495fff10c8f09a4518eeef",
+        "sourceLetterCount": 501,
+        "sourceLettersSha256": "245311755e696879e2deafdb7804caa5f13c2264f542745e9d4cfa6bbc4d1215",
+        "restoredLettersSha256": "245311755e696879e2deafdb7804caa5f13c2264f542745e9d4cfa6bbc4d1215",
+        "normalizedLettersSha256": "3ad8378c7e8c41e717b4d1a2a7a1ead1078de6be4e9a7e6d74df7e2cdcff30a2",
+        "everySourceCharacterRecoveredAfterReversingDocumentedChanges": true,
+        "allNormalizedCharactersPresentExactlyOnceInOrderedPairsIgnoringWhitespace": true,
+        "operationsInApplicationOrder": [
+          {
+            "from": "הַש\"י",
+            "to": "הַשֵּׁם יִתְבָּרַךְ",
+            "at": 242,
+            "kind": "acronymExpansion"
+          },
+          {
+            "from": "הַש\"י",
+            "to": "הַשֵּׁם יִתְבָּרַךְ",
+            "at": 420,
+            "kind": "acronymExpansion"
+          },
+          {
+            "from": "הַש\"י",
+            "to": "הַשֵּׁם יִתְבָּרַךְ",
+            "at": 563,
+            "kind": "acronymExpansion"
+          },
+          {
+            "from": "הַש\"י",
+            "to": "הַשֵּׁם יִתְבָּרַךְ",
+            "at": 1044,
+            "kind": "acronymExpansion"
+          },
+          {
+            "from": "כוּ׳",
+            "to": "כּוּלֵי",
+            "at": 74,
+            "kind": "acronymExpansion"
+          },
+          {
+            "from": "ה'",
+            "to": "הַשֵּׁם",
+            "at": 22,
+            "kind": "divineNameExpansion"
+          }
+        ]
+      }
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Psalms 95:1",
+      "sectionRef": "Mei HaShiloach, Volume I, Writings, Psalms 95",
+      "n": 1,
+      "sourceHebrew": "לְכוּ נְרַנְּנָה לַה' נָרִיעָה לְצוּר יִשְׁעֵנוּ. \"לְכוּ נְרַנְּנָה\" הַיְינוּ בְּצֵירוּף אוּמּוֹת הָעוֹלָם כִּי עַל כָּל פָּנִים הַש\"י מְחַיֶּה וּמְהַוֶּה אוֹתָם, לָזֹאת צְרִיכִים גַּם הֵם לְרַנֵּן. אֲבָל אֲנַחְנוּ יִשְׂרָאֵל עַמּוֹ, נָרִיעָה לְצוּר יִשְׁעֵנוּ בַּחֲצוֹצְרוֹת וְקוֹל שׁוֹפָר, מִשִּׂמְחַת לֵבָב הַנּוֹבֵעַ מֵעִמְקֵי הַלֵּב, מָשָׁל לְמֶלֶךְ שֶׁעָשָׂה סְעוּדַת נִשּׂוּאִין לִבְנוֹ וְזִימֵּן קְרוּאִים לִסְעוּדָתוֹ וְכִיבְּדָם בְּמַאֲכָל וּמִשְׁתֶּה, הִנֵּה שִׂמְחַת הַקְּרוּאִים הוּא בַּעֲבוּר הַסְּעוּדָה שֶׁעָשָׂה לָהֶם וְכִיבְּדָם, אֲבָל שִׂמְחַת בְּנוֹ הוּא שִׂמְחָה עַצְמִיּוּת.",
+      "normalizedHebrew": "לְכוּ נְרַנְּנָה לְהַשֵּׁם נָרִיעָה לְצוּר יִשְׁעֵנוּ. \"לְכוּ נְרַנְּנָה\" הַיְינוּ בְּצֵירוּף אוּמּוֹת הָעוֹלָם כִּי עַל כָּל פָּנִים הַשֵּׁם יִתְבָּרַךְ מְחַיֶּה וּמְהַוֶּה אוֹתָם, לָזֹאת צְרִיכִים גַּם הֵם לְרַנֵּן. אֲבָל אֲנַחְנוּ יִשְׂרָאֵל עַמּוֹ, נָרִיעָה לְצוּר יִשְׁעֵנוּ בַּחֲצוֹצְרוֹת וְקוֹל שׁוֹפָר, מִשִּׂמְחַת לֵבָב הַנּוֹבֵעַ מֵעִמְקֵי הַלֵּב, מָשָׁל לְמֶלֶךְ שֶׁעָשָׂה סְעוּדַת נִשּׂוּאִין לִבְנוֹ וְזִימֵּן קְרוּאִים לִסְעוּדָתוֹ וְכִיבְּדָם בְּמַאֲכָל וּמִשְׁתֶּה, הִנֵּה שִׂמְחַת הַקְּרוּאִים הוּא בַּעֲבוּר הַסְּעוּדָה שֶׁעָשָׂה לָהֶם וְכִיבְּדָם, אֲבָל שִׂמְחַת בְּנוֹ הוּא שִׂמְחָה עַצְמִיּוּת.",
+      "p": [
+        [
+          "לְכוּ נְרַנְּנָה לְהַשֵּׁם",
+          "Come, let us sing joyfully to Hashem;"
+        ],
+        [
+          "נָרִיעָה לְצוּר יִשְׁעֵנוּ.",
+          "let us raise a joyful shout to the Rock of our salvation."
+        ],
+        [
+          "\"לְכוּ נְרַנְּנָה\" הַיְינוּ בְּצֵירוּף אוּמּוֹת הָעוֹלָם",
+          "“Come, let us sing joyfully” means together with the nations of the world,"
+        ],
+        [
+          "כִּי עַל כָּל פָּנִים הַשֵּׁם יִתְבָּרַךְ מְחַיֶּה וּמְהַוֶּה אוֹתָם,",
+          "for, in any event, Hashem, blessed be He, sustains them and brings them into being."
+        ],
+        [
+          "לָזֹאת צְרִיכִים גַּם הֵם לְרַנֵּן.",
+          "They, too, must therefore sing joyfully."
+        ],
+        [
+          "אֲבָל אֲנַחְנוּ יִשְׂרָאֵל עַמּוֹ,",
+          "But we, Israel, His people,"
+        ],
+        [
+          "נָרִיעָה לְצוּר יִשְׁעֵנוּ בַּחֲצוֹצְרוֹת וְקוֹל שׁוֹפָר,",
+          "raise a joyful shout to the Rock of our salvation with trumpets and the sound of a shofar,"
+        ],
+        [
+          "מִשִּׂמְחַת לֵבָב הַנּוֹבֵעַ מֵעִמְקֵי הַלֵּב,",
+          "out of heartfelt joy welling up from the depths of the heart."
+        ],
+        [
+          "מָשָׁל לְמֶלֶךְ שֶׁעָשָׂה סְעוּדַת נִשּׂוּאִין לִבְנוֹ",
+          "This is like a king who prepared a wedding feast for his son,"
+        ],
+        [
+          "וְזִימֵּן קְרוּאִים לִסְעוּדָתוֹ וְכִיבְּדָם בְּמַאֲכָל וּמִשְׁתֶּה,",
+          "invited guests to his feast, and honored them with food and drink."
+        ],
+        [
+          "הִנֵּה שִׂמְחַת הַקְּרוּאִים הוּא בַּעֲבוּר הַסְּעוּדָה שֶׁעָשָׂה לָהֶם וְכִיבְּדָם,",
+          "The guests’ joy is over the feast he made for them and the honor he showed them;"
+        ],
+        [
+          "אֲבָל שִׂמְחַת בְּנוֹ הוּא שִׂמְחָה עַצְמִיּוּת.",
+          "but his son’s joy is intrinsic to his own being."
+        ]
+      ],
+      "expansions": [
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "at": 129,
+          "kind": "acronymExpansion"
+        },
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "at": 19,
+          "kind": "divineNameExpansion"
+        }
+      ],
+      "vocalizationChanges": [
+        {
+          "from": "לַהַשֵּׁם",
+          "to": "לְהַשֵּׁם",
+          "at": 17,
+          "kind": "vocalization"
+        }
+      ],
+      "reviewNotes": [],
+      "sourceUrl": "https://www.sefaria.org/Mei_HaShiloach,_Volume_I,_Writings,_Psalms.95.1",
+      "sortKey": [
+        64,
+        95,
+        1
+      ],
+      "sourceLetterAccounting": {
+        "pass": true,
+        "sourceHebrewSha256": "77d636472849cb6985581d073eff637e28bdb12730d21daa10ba421e4b474d74",
+        "normalizedHebrewSha256": "a3ec937279085ebe0f8abe8b56ab2ba5ca0a2e5faa374793b18746b36c734c12",
+        "sourceLetterCount": 288,
+        "sourceLettersSha256": "e63ea294d4d2a43c51cb80a9782f227c6802a96a9d42b45d276083dea069f7ae",
+        "restoredLettersSha256": "e63ea294d4d2a43c51cb80a9782f227c6802a96a9d42b45d276083dea069f7ae",
+        "normalizedLettersSha256": "3a26bb4d927d387f531b7a028af9bb27e25d2500a056f7d58697aa66069f1f51",
+        "everySourceCharacterRecoveredAfterReversingDocumentedChanges": true,
+        "allNormalizedCharactersPresentExactlyOnceInOrderedPairsIgnoringWhitespace": true,
+        "operationsInApplicationOrder": [
+          {
+            "from": "הַש\"י",
+            "to": "הַשֵּׁם יִתְבָּרַךְ",
+            "at": 129,
+            "kind": "acronymExpansion"
+          },
+          {
+            "from": "ה'",
+            "to": "הַשֵּׁם",
+            "at": 19,
+            "kind": "divineNameExpansion"
+          },
+          {
+            "from": "לַהַשֵּׁם",
+            "to": "לְהַשֵּׁם",
+            "at": 17,
+            "kind": "vocalization"
+          }
+        ]
+      }
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Psalms 99:1",
+      "sectionRef": "Mei HaShiloach, Volume I, Writings, Psalms 99",
+      "n": 1,
+      "sourceHebrew": "ה' מָלָךְ יִרְגְּזוּ עַמִּים. הַיְינוּ כְּשֶׁרְצוֹן הַש\"י לְגַלּוֹת כְּבוֹד מַלְכוּתוֹ לְהוֹשִׁיעַ אֶת יִשְׂרָאֵל בַּאֲשֶׁר הוּא מַלְכָּם וְהֵם עַמּוֹ, אָז הָאוּמּוֹת מַרְגִּישִׁים וּמִתְמַלְּאִים רָגְזָה וְחַלְחָלָה עַל יִשְׂרָאֵל וְגוֹזְרִין עֲלֵיהֶם גְּזֵירוֹת.",
+      "normalizedHebrew": "הַשֵּׁם מָלָךְ יִרְגְּזוּ עַמִּים. הַיְינוּ כְּשֶׁרְצוֹן הַשֵּׁם יִתְבָּרַךְ לְגַלּוֹת כְּבוֹד מַלְכוּתוֹ לְהוֹשִׁיעַ אֶת יִשְׂרָאֵל בַּאֲשֶׁר הוּא מַלְכָּם וְהֵם עַמּוֹ, אָז הָאוּמּוֹת מַרְגִּישִׁים וּמִתְמַלְּאִים רָגְזָה וְחַלְחָלָה עַל יִשְׂרָאֵל וְגוֹזְרִין עֲלֵיהֶם גְּזֵירוֹת.",
+      "p": [
+        [
+          "הַשֵּׁם מָלָךְ יִרְגְּזוּ עַמִּים.",
+          "Hashem reigns; the peoples tremble."
+        ],
+        [
+          "הַיְינוּ כְּשֶׁרְצוֹן הַשֵּׁם יִתְבָּרַךְ לְגַלּוֹת כְּבוֹד מַלְכוּתוֹ",
+          "This means that when Hashem, blessed be He, wishes to reveal the glory of His kingship"
+        ],
+        [
+          "לְהוֹשִׁיעַ אֶת יִשְׂרָאֵל",
+          "by saving Israel,"
+        ],
+        [
+          "בַּאֲשֶׁר הוּא מַלְכָּם וְהֵם עַמּוֹ,",
+          "since He is their King and they are His people,"
+        ],
+        [
+          "אָז הָאוּמּוֹת מַרְגִּישִׁים",
+          "the nations then sense this"
+        ],
+        [
+          "וּמִתְמַלְּאִים רָגְזָה וְחַלְחָלָה עַל יִשְׂרָאֵל",
+          "and become filled with agitation and dread concerning Israel,"
+        ],
+        [
+          "וְגוֹזְרִין עֲלֵיהֶם גְּזֵירוֹת.",
+          "and impose decrees against them."
+        ]
+      ],
+      "expansions": [
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "at": 52,
+          "kind": "acronymExpansion"
+        },
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "at": 0,
+          "kind": "divineNameExpansion"
+        }
+      ],
+      "vocalizationChanges": [],
+      "reviewNotes": [],
+      "sourceUrl": "https://www.sefaria.org/Mei_HaShiloach,_Volume_I,_Writings,_Psalms.99.1",
+      "sortKey": [
+        64,
+        99,
+        1
+      ],
+      "sourceLetterAccounting": {
+        "pass": true,
+        "sourceHebrewSha256": "bd203c4827774b6bf546c23047a2c0ff0af5ec98dbad6509086c23ab5649c0d3",
+        "normalizedHebrewSha256": "ad794819012c55e7c8e79bb6b685fc64e5ef1d5d402f733a5b7d974cf18c0273",
+        "sourceLetterCount": 130,
+        "sourceLettersSha256": "bc003249c77a18027b34c1709116251c9592e9d66d8c3d18d44c18eed26211b6",
+        "restoredLettersSha256": "bc003249c77a18027b34c1709116251c9592e9d66d8c3d18d44c18eed26211b6",
+        "normalizedLettersSha256": "25fc1514b65b10506b49acf5963cde3b2a19aa59b9ba43dcdfad3917857c8610",
+        "everySourceCharacterRecoveredAfterReversingDocumentedChanges": true,
+        "allNormalizedCharactersPresentExactlyOnceInOrderedPairsIgnoringWhitespace": true,
+        "operationsInApplicationOrder": [
+          {
+            "from": "הַש\"י",
+            "to": "הַשֵּׁם יִתְבָּרַךְ",
+            "at": 52,
+            "kind": "acronymExpansion"
+          },
+          {
+            "from": "ה'",
+            "to": "הַשֵּׁם",
+            "at": 0,
+            "kind": "divineNameExpansion"
+          }
+        ]
+      }
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Psalms 112:1",
+      "sectionRef": "Mei HaShiloach, Volume I, Writings, Psalms 112",
+      "n": 1,
+      "sourceHebrew": "אַשְׁרֵי אִישׁ יָרֵא אֶת ה' בְּמִצְוֹתָיו חָפֵץ מְאֹד. פֵּירוּשׁ שֶׁהַש\"י חָפֵץ מְאוֹד בְּמִצְוֹת וּמַעֲשִׂים טוֹבִים שֶׁל יְרֵא ה'.",
+      "normalizedHebrew": "אַשְׁרֵי אִישׁ יָרֵא אֶת הַשֵּׁם בְּמִצְוֹתָיו חָפֵץ מְאֹד. פֵּירוּשׁ שֶׁהַשֵּׁם יִתְבָּרַךְ חָפֵץ מְאוֹד בְּמִצְוֹת וּמַעֲשִׂים טוֹבִים שֶׁל יְרֵא הַשֵּׁם.",
+      "p": [
+        [
+          "אַשְׁרֵי אִישׁ יָרֵא אֶת הַשֵּׁם",
+          "Fortunate is the man who fears Hashem;"
+        ],
+        [
+          "בְּמִצְוֹתָיו חָפֵץ מְאֹד.",
+          "he greatly desires His commandments."
+        ],
+        [
+          "פֵּירוּשׁ שֶׁהַשֵּׁם יִתְבָּרַךְ חָפֵץ מְאוֹד",
+          "The interpretation is that Hashem, blessed be He, greatly desires"
+        ],
+        [
+          "בְּמִצְוֹת וּמַעֲשִׂים טוֹבִים שֶׁל יְרֵא הַשֵּׁם.",
+          "the commandments and good deeds of the person who fears Hashem."
+        ]
+      ],
+      "expansions": [
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "at": 68,
+          "kind": "acronymExpansion"
+        },
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "at": 25,
+          "kind": "divineNameExpansion"
+        },
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "at": 148,
+          "kind": "divineNameExpansion"
+        }
+      ],
+      "vocalizationChanges": [],
+      "reviewNotes": [
+        "The opening verse is translated in its ordinary grammatical reading; the following explicit interpretation then identifies Hashem as the subject of חפץ, as the author does."
+      ],
+      "sourceUrl": "https://www.sefaria.org/Mei_HaShiloach,_Volume_I,_Writings,_Psalms.112.1",
+      "sortKey": [
+        64,
+        112,
+        1
+      ],
+      "sourceLetterAccounting": {
+        "pass": true,
+        "sourceHebrewSha256": "093064d9e1e38651798a4c4f05e1c3f4e1734f1236fb9888a8e6422b581ec50f",
+        "normalizedHebrewSha256": "6d294e4311b3923f3f1b2116f5a6d3aa49bf180c545375426413fe0c19829b48",
+        "sourceLetterCount": 64,
+        "sourceLettersSha256": "bbb05cc92c04dcfc29f989a568d0a9cc855d6b72fa8b00468786ff8e88a1284e",
+        "restoredLettersSha256": "bbb05cc92c04dcfc29f989a568d0a9cc855d6b72fa8b00468786ff8e88a1284e",
+        "normalizedLettersSha256": "9e6b6259529428704b7515618468ed42b981e97fc70529d7784c36aa42200214",
+        "everySourceCharacterRecoveredAfterReversingDocumentedChanges": true,
+        "allNormalizedCharactersPresentExactlyOnceInOrderedPairsIgnoringWhitespace": true,
+        "operationsInApplicationOrder": [
+          {
+            "from": "הַש\"י",
+            "to": "הַשֵּׁם יִתְבָּרַךְ",
+            "at": 68,
+            "kind": "acronymExpansion"
+          },
+          {
+            "from": "ה'",
+            "to": "הַשֵּׁם",
+            "at": 25,
+            "kind": "divineNameExpansion"
+          },
+          {
+            "from": "ה'",
+            "to": "הַשֵּׁם",
+            "at": 148,
+            "kind": "divineNameExpansion"
+          }
+        ]
+      }
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Psalms 119:1",
+      "sectionRef": "Mei HaShiloach, Volume I, Writings, Psalms 119",
+      "n": 1,
+      "sourceHebrew": "חֲצוֹת לַיְלָה אָקוּם לְהוֹדוֹת לָךְ. אִיתָא בַּזוה\"ק (ויקרא כ\"ג:) מִי שֶׁעוֹסֵק בַּתּוֹרָה בַּחֲצוֹת לַיְלָה אָז אוֹרַיְיתָא מוֹדַעַת לֵיהּ חֶטְאוֹ וְלֹא בְּאוֹרַח דִּינָא. חֲצוֹת לַיְלָה הַיְינוּ בְּעוֹד הַיֵּצֶר גָּבַר עַל הָאָדָם וְיָקוּם לַעֲבוֹד אֶת ה', אַף כִּי חֶשְׁקַת הַיֵּצֶר גָּבְרָה עָלָיו יִתְגַּבֵּר נֶגְדּוֹ וְיִבְטַח בַּה', אָז אוֹרַיְיתָא מוֹדַעַת לֵיהּ חֶטְאוֹ וְלֹא בְּאוֹרַח דִּינָא.",
+      "normalizedHebrew": "חֲצוֹת לַיְלָה אָקוּם לְהוֹדוֹת לָךְ. אִיתָא בַּזֹּהַר הַקָּדוֹשׁ (וַיִּקְרָא כ\"ג:) מִי שֶׁעוֹסֵק בַּתּוֹרָה בַּחֲצוֹת לַיְלָה אָז אוֹרַיְיתָא מוֹדַעַת לֵיהּ חֶטְאוֹ וְלֹא בְּאוֹרַח דִּינָא. חֲצוֹת לַיְלָה הַיְינוּ בְּעוֹד הַיֵּצֶר גָּבַר עַל הָאָדָם וְיָקוּם לַעֲבוֹד אֶת הַשֵּׁם, אַף כִּי חֶשְׁקַת הַיֵּצֶר גָּבְרָה עָלָיו יִתְגַּבֵּר נֶגְדּוֹ וְיִבְטַח בְּהַשֵּׁם, אָז אוֹרַיְיתָא מוֹדַעַת לֵיהּ חֶטְאוֹ וְלֹא בְּאוֹרַח דִּינָא.",
+      "p": [
+        [
+          "חֲצוֹת לַיְלָה אָקוּם לְהוֹדוֹת לָךְ.",
+          "At midnight I rise to give thanks to You."
+        ],
+        [
+          "אִיתָא בַּזֹּהַר הַקָּדוֹשׁ (וַיִּקְרָא כ\"ג:)",
+          "It is stated in the holy Zohar (Vayikra 23b):"
+        ],
+        [
+          "מִי שֶׁעוֹסֵק בַּתּוֹרָה בַּחֲצוֹת לַיְלָה",
+          "When a person engages in Torah at midnight,"
+        ],
+        [
+          "אָז אוֹרַיְיתָא מוֹדַעַת לֵיהּ חֶטְאוֹ",
+          "the Torah then makes his sin known to him,"
+        ],
+        [
+          "וְלֹא בְּאוֹרַח דִּינָא.",
+          "but not by way of judgment."
+        ],
+        [
+          "חֲצוֹת לַיְלָה הַיְינוּ בְּעוֹד הַיֵּצֶר גָּבַר עַל הָאָדָם",
+          "“Midnight” means while the evil inclination still has the upper hand over a person,"
+        ],
+        [
+          "וְיָקוּם לַעֲבוֹד אֶת הַשֵּׁם,",
+          "yet he rises to serve Hashem."
+        ],
+        [
+          "אַף כִּי חֶשְׁקַת הַיֵּצֶר גָּבְרָה עָלָיו",
+          "Although the inclination’s desire has overpowered him,"
+        ],
+        [
+          "יִתְגַּבֵּר נֶגְדּוֹ וְיִבְטַח בְּהַשֵּׁם,",
+          "he must strengthen himself against it and trust in Hashem."
+        ],
+        [
+          "אָז אוֹרַיְיתָא מוֹדַעַת לֵיהּ חֶטְאוֹ",
+          "Then the Torah makes his sin known to him,"
+        ],
+        [
+          "וְלֹא בְּאוֹרַח דִּינָא.",
+          "but not by way of judgment."
+        ]
+      ],
+      "expansions": [
+        {
+          "from": "בַּזוה\"ק",
+          "to": "בַּזֹּהַר הַקָּדוֹשׁ",
+          "at": 45,
+          "kind": "acronymExpansion"
+        },
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "at": 268,
+          "kind": "divineNameExpansion"
+        },
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "at": 354,
+          "kind": "divineNameExpansion"
+        }
+      ],
+      "vocalizationChanges": [
+        {
+          "from": "בַּהַשֵּׁם",
+          "to": "בְּהַשֵּׁם",
+          "at": 351,
+          "kind": "vocalization"
+        },
+        {
+          "from": "ויקרא",
+          "to": "וַיִּקְרָא",
+          "at": 67,
+          "kind": "vocalization"
+        }
+      ],
+      "reviewNotes": [
+        "The repeated Aramaic statement is translated both times; the author’s excerpt of Zohar is not silently extended."
+      ],
+      "sourceUrl": "https://www.sefaria.org/Mei_HaShiloach,_Volume_I,_Writings,_Psalms.119.1",
+      "sortKey": [
+        64,
+        119,
+        1
+      ],
+      "sourceLetterAccounting": {
+        "pass": true,
+        "sourceHebrewSha256": "003256e65e0fc4c3c91c149afc1191b4a223a2b195d104acfb8016870f1fae17",
+        "normalizedHebrewSha256": "f5c92a115037aa1782be80c113917d8e713bdf16c9c4e22aec92e3fc401debd1",
+        "sourceLetterCount": 202,
+        "sourceLettersSha256": "92e9a9b3699438a34756a941bde0a29cb7cabf68fa2caeaf542b950b99268b69",
+        "restoredLettersSha256": "92e9a9b3699438a34756a941bde0a29cb7cabf68fa2caeaf542b950b99268b69",
+        "normalizedLettersSha256": "eb8e0dee210f6befafc90b7626c4a508e612da78c9fbd2025cf795e7c55ee036",
+        "everySourceCharacterRecoveredAfterReversingDocumentedChanges": true,
+        "allNormalizedCharactersPresentExactlyOnceInOrderedPairsIgnoringWhitespace": true,
+        "operationsInApplicationOrder": [
+          {
+            "from": "בַּזוה\"ק",
+            "to": "בַּזֹּהַר הַקָּדוֹשׁ",
+            "at": 45,
+            "kind": "acronymExpansion"
+          },
+          {
+            "from": "ה'",
+            "to": "הַשֵּׁם",
+            "at": 268,
+            "kind": "divineNameExpansion"
+          },
+          {
+            "from": "ה'",
+            "to": "הַשֵּׁם",
+            "at": 354,
+            "kind": "divineNameExpansion"
+          },
+          {
+            "from": "בַּהַשֵּׁם",
+            "to": "בְּהַשֵּׁם",
+            "at": 351,
+            "kind": "vocalization"
+          },
+          {
+            "from": "ויקרא",
+            "to": "וַיִּקְרָא",
+            "at": 67,
+            "kind": "vocalization"
+          }
+        ]
+      }
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Psalms 126:1",
+      "sectionRef": "Mei HaShiloach, Volume I, Writings, Psalms 126",
+      "n": 1,
+      "sourceHebrew": "שִׁיר הַמַּעֲלוֹת בְּשׁוּב ה' כוּ' אָז יֹאמְרוּ בַגּוֹיִם הִגְדִּיל ה' כוּ' הִגְדִּיל ה' לַעֲשׂוֹת עִמָּנוּ הָיִינוּ שְׂמֵחִים. בֵּאוּר זֶה, הִנֵּה אִיתָא בַּמִּדְרָשׁ [שוחר טוב פ' ט'] כָּל מָקוֹם שֶׁנֶּאֱמַר עָנִי וְאֶבְיוֹן אֵינוֹ מְדַבֵּר אֶלָּא בְּיִשְׂרָאֵל, כִּי בֶּאֱמֶת עַם יִשְׂרָאֵל בָּעוֹלָם הַזֶּה בְּכָל הַכֹּחוֹת הֵם הַקְּטַנִּים, הֵן בְּחָכְמָה הֵן בְּעוֹשֶׁר הֵן בִּגְבוּרָה וְאֵין לָהֶם רַק חַיִּים פְּשׁוּטִים וּתְשׁוּקָה לְהוֹסָפַת חַיִּים פְּשׁוּטִים מֵאֵת הַש\"י בְּלִי שׁוּם גָּוֶון, וְזֶה שֶׁיֹּאמְרוּ הָאוּמּוֹת הָעוֹלָם לֶעָתִיד, \"הִגְדִּיל ה' לַעֲשׂוֹת עִם אֵלֶּה\" הַיְינוּ שֶׁכָּל כֹּחַ הַשְׁפָּעָה נָתַן הַש\"י לְיִשְׂרָאֵל. \"הִגְדִּיל ה' לַעֲשׂוֹת עִמָּנוּ הָיִינוּ שְׂמֵחִים\", הַיְינוּ אֲפִילּוּ אֲנַחְנוּ שֶׁאָנוּ מְמוּלָּאִים מִנְּעוּרֵינוּ בְּכָל טוּב וְכֹחוֹתֵינוּ גְּדוֹלִים בְּכָל דָּבָר, אַף עַל פִּי כֵן אִם הָיָה הַקָּדוֹשׁ בָּרוּךְ הוּא עוֹשֶׂה עִמָּנוּ זֹאת הָיִינוּ שְׂמֵחִים גַּם כֵּן, כִּי אֵין דִּמְיוֹן וְעֵרֶךְ לְהַטּוֹבָה שֶׁיֵּשׁ לָהֶם עַתָּה עִם מַה שֶּׁיַּעֲשֶׂה הַקָּדוֹשׁ בָּרוּךְ הוּא לֶעָתִיד עִם יִשְׂרָאֵל, וּמִכָּל שֶׁכֵּן שֶׁבְּנֵי יִשְׂרָאֵל צְרִיכִין לִשְׂמוֹחַ.",
+      "normalizedHebrew": "שִׁיר הַמַּעֲלוֹת בְּשׁוּב הַשֵּׁם כּוּלֵי אָז יֹאמְרוּ בַגּוֹיִם הִגְדִּיל הַשֵּׁם כּוּלֵי הִגְדִּיל הַשֵּׁם לַעֲשׂוֹת עִמָּנוּ הָיִינוּ שְׂמֵחִים. בֵּאוּר זֶה, הִנֵּה אִיתָא בַּמִּדְרָשׁ [שׁוֹחֵר טוֹב פָּרָשָׁה ט'] כָּל מָקוֹם שֶׁנֶּאֱמַר עָנִי וְאֶבְיוֹן אֵינוֹ מְדַבֵּר אֶלָּא בְּיִשְׂרָאֵל, כִּי בֶּאֱמֶת עַם יִשְׂרָאֵל בָּעוֹלָם הַזֶּה בְּכָל הַכֹּחוֹת הֵם הַקְּטַנִּים, הֵן בְּחָכְמָה הֵן בְּעוֹשֶׁר הֵן בִּגְבוּרָה וְאֵין לָהֶם רַק חַיִּים פְּשׁוּטִים וּתְשׁוּקָה לְהוֹסָפַת חַיִּים פְּשׁוּטִים מֵאֵת הַשֵּׁם יִתְבָּרַךְ בְּלִי שׁוּם גָּוֶון, וְזֶה שֶׁיֹּאמְרוּ הָאוּמּוֹת הָעוֹלָם לֶעָתִיד, \"הִגְדִּיל הַשֵּׁם לַעֲשׂוֹת עִם אֵלֶּה\" הַיְינוּ שֶׁכָּל כֹּחַ הַשְׁפָּעָה נָתַן הַשֵּׁם יִתְבָּרַךְ לְיִשְׂרָאֵל. \"הִגְדִּיל הַשֵּׁם לַעֲשׂוֹת עִמָּנוּ הָיִינוּ שְׂמֵחִים\", הַיְינוּ אֲפִילּוּ אֲנַחְנוּ שֶׁאָנוּ מְמוּלָּאִים מִנְּעוּרֵינוּ בְּכָל טוּב וְכֹחוֹתֵינוּ גְּדוֹלִים בְּכָל דָּבָר, אַף עַל פִּי כֵן אִם הָיָה הַקָּדוֹשׁ בָּרוּךְ הוּא עוֹשֶׂה עִמָּנוּ זֹאת הָיִינוּ שְׂמֵחִים גַּם כֵּן, כִּי אֵין דִּמְיוֹן וְעֵרֶךְ לְהַטּוֹבָה שֶׁיֵּשׁ לָהֶם עַתָּה עִם מַה שֶּׁיַּעֲשֶׂה הַקָּדוֹשׁ בָּרוּךְ הוּא לֶעָתִיד עִם יִשְׂרָאֵל, וּמִכָּל שֶׁכֵּן שֶׁבְּנֵי יִשְׂרָאֵל צְרִיכִין לִשְׂמוֹחַ.",
+      "p": [
+        [
+          "שִׁיר הַמַּעֲלוֹת בְּשׁוּב הַשֵּׁם כּוּלֵי",
+          "A song of ascents: when Hashem returns, etc.;"
+        ],
+        [
+          "אָז יֹאמְרוּ בַגּוֹיִם הִגְדִּיל הַשֵּׁם כּוּלֵי",
+          "then they will say among the nations: Hashem has done great things, etc.;"
+        ],
+        [
+          "הִגְדִּיל הַשֵּׁם לַעֲשׂוֹת עִמָּנוּ הָיִינוּ שְׂמֵחִים.",
+          "Hashem has done great things for us; we were rejoicing."
+        ],
+        [
+          "בֵּאוּר זֶה,",
+          "The explanation is as follows:"
+        ],
+        [
+          "הִנֵּה אִיתָא בַּמִּדְרָשׁ [שׁוֹחֵר טוֹב פָּרָשָׁה ט']",
+          "It is stated in the Midrash (Shocher Tov, section 9):"
+        ],
+        [
+          "כָּל מָקוֹם שֶׁנֶּאֱמַר עָנִי וְאֶבְיוֹן",
+          "Wherever “poor and needy” is said,"
+        ],
+        [
+          "אֵינוֹ מְדַבֵּר אֶלָּא בְּיִשְׂרָאֵל,",
+          "it speaks only of Israel."
+        ],
+        [
+          "כִּי בֶּאֱמֶת עַם יִשְׂרָאֵל בָּעוֹלָם הַזֶּה",
+          "For in truth, the people of Israel in this world"
+        ],
+        [
+          "בְּכָל הַכֹּחוֹת הֵם הַקְּטַנִּים,",
+          "are the least in every kind of power:"
+        ],
+        [
+          "הֵן בְּחָכְמָה הֵן בְּעוֹשֶׁר הֵן בִּגְבוּרָה",
+          "whether in wisdom, wealth, or might."
+        ],
+        [
+          "וְאֵין לָהֶם רַק חַיִּים פְּשׁוּטִים",
+          "They have only simple life itself,"
+        ],
+        [
+          "וּתְשׁוּקָה לְהוֹסָפַת חַיִּים פְּשׁוּטִים",
+          "and a yearning for an increase of simple life"
+        ],
+        [
+          "מֵאֵת הַשֵּׁם יִתְבָּרַךְ בְּלִי שׁוּם גָּוֶון,",
+          "from Hashem, blessed be He, without any particular form."
+        ],
+        [
+          "וְזֶה שֶׁיֹּאמְרוּ הָאוּמּוֹת הָעוֹלָם לֶעָתִיד,",
+          "This is what the nations of the world will say in the future:"
+        ],
+        [
+          "\"הִגְדִּיל הַשֵּׁם לַעֲשׂוֹת עִם אֵלֶּה\"",
+          "“Hashem has done great things for these people.”"
+        ],
+        [
+          "הַיְינוּ שֶׁכָּל כֹּחַ הַשְׁפָּעָה נָתַן הַשֵּׁם יִתְבָּרַךְ לְיִשְׂרָאֵל.",
+          "That is, Hashem, blessed be He, has given Israel every power through which blessing flows."
+        ],
+        [
+          "\"הִגְדִּיל הַשֵּׁם לַעֲשׂוֹת עִמָּנוּ הָיִינוּ שְׂמֵחִים\",",
+          "“Had Hashem done great things for us, we would have rejoiced.”"
+        ],
+        [
+          "הַיְינוּ אֲפִילּוּ אֲנַחְנוּ שֶׁאָנוּ מְמוּלָּאִים מִנְּעוּרֵינוּ בְּכָל טוּב",
+          "That is: Even we, who have been filled with every good thing from our youth,"
+        ],
+        [
+          "וְכֹחוֹתֵינוּ גְּדוֹלִים בְּכָל דָּבָר,",
+          "and whose powers are great in every respect,"
+        ],
+        [
+          "אַף עַל פִּי כֵן אִם הָיָה הַקָּדוֹשׁ בָּרוּךְ הוּא עוֹשֶׂה עִמָּנוּ זֹאת",
+          "nevertheless, had the Holy One, blessed be He, done this for us,"
+        ],
+        [
+          "הָיִינוּ שְׂמֵחִים גַּם כֵּן,",
+          "we, too, would have rejoiced."
+        ],
+        [
+          "כִּי אֵין דִּמְיוֹן וְעֵרֶךְ לְהַטּוֹבָה שֶׁיֵּשׁ לָהֶם עַתָּה",
+          "For the goodness they now possess cannot be compared or measured"
+        ],
+        [
+          "עִם מַה שֶּׁיַּעֲשֶׂה הַקָּדוֹשׁ בָּרוּךְ הוּא לֶעָתִיד עִם יִשְׂרָאֵל,",
+          "against what the Holy One, blessed be He, will do for Israel in the future."
+        ],
+        [
+          "וּמִכָּל שֶׁכֵּן שֶׁבְּנֵי יִשְׂרָאֵל צְרִיכִין לִשְׂמוֹחַ.",
+          "All the more, then, must the children of Israel rejoice."
+        ]
+      ],
+      "expansions": [
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "at": 477,
+          "kind": "acronymExpansion"
+        },
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "at": 645,
+          "kind": "acronymExpansion"
+        },
+        {
+          "from": "כוּ'",
+          "to": "כּוּלֵי",
+          "at": 30,
+          "kind": "acronymExpansion"
+        },
+        {
+          "from": "כוּ'",
+          "to": "כּוּלֵי",
+          "at": 74,
+          "kind": "acronymExpansion"
+        },
+        {
+          "from": "פ'",
+          "to": "פָּרָשָׁה",
+          "at": 184,
+          "kind": "acronymExpansion"
+        },
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "at": 27,
+          "kind": "divineNameExpansion"
+        },
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "at": 76,
+          "kind": "divineNameExpansion"
+        },
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "at": 102,
+          "kind": "divineNameExpansion"
+        },
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "at": 607,
+          "kind": "divineNameExpansion"
+        },
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "at": 723,
+          "kind": "divineNameExpansion"
+        }
+      ],
+      "vocalizationChanges": [
+        {
+          "from": "שוחר טוב",
+          "to": "שׁוֹחֵר טוֹב",
+          "at": 190,
+          "kind": "vocalization"
+        }
+      ],
+      "reviewNotes": [
+        "The repeated verse is rendered conditionally in its second occurrence to express the author’s immediately following interpretation. The speaker there remains the nations; the concluding inference concerns Israel."
+      ],
+      "sourceUrl": "https://www.sefaria.org/Mei_HaShiloach,_Volume_I,_Writings,_Psalms.126.1",
+      "sortKey": [
+        64,
+        126,
+        1
+      ],
+      "sourceLetterAccounting": {
+        "pass": true,
+        "sourceHebrewSha256": "3b20be1dd0952a8424af4238e5be20f7bc54589c5f04dfa0128311ee172e84d9",
+        "normalizedHebrewSha256": "905842351fe437b896456f717ddad00d1104ce2096b489bdf50af8b8c711fe16",
+        "sourceLetterCount": 533,
+        "sourceLettersSha256": "55ead7b70e66a40a75a3ef3ee1c52ff9a86b07d5a86f8e7c4e2d556d51ee8c36",
+        "restoredLettersSha256": "55ead7b70e66a40a75a3ef3ee1c52ff9a86b07d5a86f8e7c4e2d556d51ee8c36",
+        "normalizedLettersSha256": "0fb649a7da92bd61f711b96899812fc254e965494bafb0c12a54a7175e5f3146",
+        "everySourceCharacterRecoveredAfterReversingDocumentedChanges": true,
+        "allNormalizedCharactersPresentExactlyOnceInOrderedPairsIgnoringWhitespace": true,
+        "operationsInApplicationOrder": [
+          {
+            "from": "הַש\"י",
+            "to": "הַשֵּׁם יִתְבָּרַךְ",
+            "at": 477,
+            "kind": "acronymExpansion"
+          },
+          {
+            "from": "הַש\"י",
+            "to": "הַשֵּׁם יִתְבָּרַךְ",
+            "at": 645,
+            "kind": "acronymExpansion"
+          },
+          {
+            "from": "כוּ'",
+            "to": "כּוּלֵי",
+            "at": 30,
+            "kind": "acronymExpansion"
+          },
+          {
+            "from": "כוּ'",
+            "to": "כּוּלֵי",
+            "at": 74,
+            "kind": "acronymExpansion"
+          },
+          {
+            "from": "פ'",
+            "to": "פָּרָשָׁה",
+            "at": 184,
+            "kind": "acronymExpansion"
+          },
+          {
+            "from": "ה'",
+            "to": "הַשֵּׁם",
+            "at": 27,
+            "kind": "divineNameExpansion"
+          },
+          {
+            "from": "ה'",
+            "to": "הַשֵּׁם",
+            "at": 76,
+            "kind": "divineNameExpansion"
+          },
+          {
+            "from": "ה'",
+            "to": "הַשֵּׁם",
+            "at": 102,
+            "kind": "divineNameExpansion"
+          },
+          {
+            "from": "ה'",
+            "to": "הַשֵּׁם",
+            "at": 607,
+            "kind": "divineNameExpansion"
+          },
+          {
+            "from": "ה'",
+            "to": "הַשֵּׁם",
+            "at": 723,
+            "kind": "divineNameExpansion"
+          },
+          {
+            "from": "שוחר טוב",
+            "to": "שׁוֹחֵר טוֹב",
+            "at": 190,
+            "kind": "vocalization"
+          }
+        ]
+      }
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Psalms 131:1",
+      "sectionRef": "Mei HaShiloach, Volume I, Writings, Psalms 131",
+      "n": 1,
+      "sourceHebrew": "שִׁיר הַמַּעֲלוֹת ה' לֹא גָבַהּ לִבִּי וְכוּ' כְּגָמֻל עֲלֵי אִמּוֹ כַּגָּמֻל עָלַי נַפְשִׁי. הַיְינוּ שֶׁדָּוִד הַמֶּלֶךְ עָלָיו הַשָּׁלוֹם אָמַר לִפְנֵי הַש\"י כִּי בְּכָל חֶטְאֵי יִשְׂרָאֵל לֹא נֶעְתְּקוּ מֵהַש\"י, וְרַק כְּתִינוֹק הַנֶּעְתָּק מִשְּׁדֵי אִמּוֹ, אַף שֶׁמֵּסֵיב פָּנָיו מֵאִמּוֹ לִיקַּח דְּבַר מָה, מַחְזִיר פָּנָיו לְאִמּוֹ שֶׁלֹּא תֵּלֵךְ מִמֶּנּוּ, כֵּן בְּכָל מָקוֹם שֶׁיִּשְׂרָאֵל יִרְצוּ בְּטוֹבָה יַבִּיטוּ אִם הַש\"י לֹא יָסוֹב מֵהֶם כִּדְאִיתָא בַּגְּמָרָא (ביצה י\"א.) גַּבֵּי יוֹנָה כֹּל דִּמְדַדָּה כוּ' וּכְנֶסֶת יִשְׂרָאֵל נִמְשָׁלִין לְיוֹנָה כַּיָּדוּעַ (שבת מ\"ט.)",
+      "normalizedHebrew": "שִׁיר הַמַּעֲלוֹת הַשֵּׁם לֹא גָבַהּ לִבִּי וְכּוּלֵי כְּגָמֻל עֲלֵי אִמּוֹ כַּגָּמֻל עָלַי נַפְשִׁי. הַיְינוּ שֶׁדָּוִד הַמֶּלֶךְ עָלָיו הַשָּׁלוֹם אָמַר לִפְנֵי הַשֵּׁם יִתְבָּרַךְ כִּי בְּכָל חֶטְאֵי יִשְׂרָאֵל לֹא נֶעְתְּקוּ מֵהַשֵּׁם יִתְבָּרַךְ, וְרַק כְּתִינוֹק הַנֶּעְתָּק מִשְּׁדֵי אִמּוֹ, אַף שֶׁמֵּסֵיב פָּנָיו מֵאִמּוֹ לִיקַּח דְּבַר מָה, מַחְזִיר פָּנָיו לְאִמּוֹ שֶׁלֹּא תֵּלֵךְ מִמֶּנּוּ, כֵּן בְּכָל מָקוֹם שֶׁיִּשְׂרָאֵל יִרְצוּ בְּטוֹבָה יַבִּיטוּ אִם הַשֵּׁם יִתְבָּרַךְ לֹא יָסוֹב מֵהֶם כִּדְאִיתָא בַּגְּמָרָא (בֵּיצָה י\"א.) גַּבֵּי יוֹנָה כֹּל דִּמְדַדָּה כּוּלֵי וּכְנֶסֶת יִשְׂרָאֵל נִמְשָׁלִין לְיוֹנָה כַּיָּדוּעַ (שַׁבָּת מ\"ט.)",
+      "p": [
+        [
+          "שִׁיר הַמַּעֲלוֹת הַשֵּׁם לֹא גָבַהּ לִבִּי וְכּוּלֵי",
+          "A song of ascents: Hashem, my heart was not haughty, etc.;"
+        ],
+        [
+          "כְּגָמֻל עֲלֵי אִמּוֹ כַּגָּמֻל עָלַי נַפְשִׁי.",
+          "like a weaned child beside its mother, like a weaned child is my soul within me."
+        ],
+        [
+          "הַיְינוּ שֶׁדָּוִד הַמֶּלֶךְ עָלָיו הַשָּׁלוֹם אָמַר לִפְנֵי הַשֵּׁם יִתְבָּרַךְ",
+          "This means that King David, peace be upon him, said before Hashem, blessed be He,"
+        ],
+        [
+          "כִּי בְּכָל חֶטְאֵי יִשְׂרָאֵל לֹא נֶעְתְּקוּ מֵהַשֵּׁם יִתְבָּרַךְ,",
+          "that throughout all Israel’s sins they have not broken away from Hashem, blessed be He."
+        ],
+        [
+          "וְרַק כְּתִינוֹק הַנֶּעְתָּק מִשְּׁדֵי אִמּוֹ,",
+          "They are only like a child who draws away from its mother’s breast:"
+        ],
+        [
+          "אַף שֶׁמֵּסֵיב פָּנָיו מֵאִמּוֹ לִיקַּח דְּבַר מָה,",
+          "although it turns its face away from its mother to take something,"
+        ],
+        [
+          "מַחְזִיר פָּנָיו לְאִמּוֹ שֶׁלֹּא תֵּלֵךְ מִמֶּנּוּ,",
+          "it turns its face back toward its mother, lest she go away from it."
+        ],
+        [
+          "כֵּן בְּכָל מָקוֹם שֶׁיִּשְׂרָאֵל יִרְצוּ בְּטוֹבָה",
+          "Likewise, whenever Israel desires some good,"
+        ],
+        [
+          "יַבִּיטוּ אִם הַשֵּׁם יִתְבָּרַךְ לֹא יָסוֹב מֵהֶם",
+          "they look to see that Hashem, blessed be He, has not turned away from them,"
+        ],
+        [
+          "כִּדְאִיתָא בַּגְּמָרָא (בֵּיצָה י\"א.) גַּבֵּי יוֹנָה",
+          "as is stated in the Gemara (Beitzah 11a) concerning a dove:"
+        ],
+        [
+          "כֹּל דִּמְדַדָּה כּוּלֵי",
+          "Wherever it hops along, etc."
+        ],
+        [
+          "וּכְנֶסֶת יִשְׂרָאֵל נִמְשָׁלִין לְיוֹנָה",
+          "And the congregation of Israel is likened to a dove,"
+        ],
+        [
+          "כַּיָּדוּעַ (שַׁבָּת מ\"ט.)",
+          "as is known (Shabbat 49a)."
+        ]
+      ],
+      "expansions": [
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "at": 155,
+          "kind": "acronymExpansion"
+        },
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "at": 223,
+          "kind": "acronymExpansion"
+        },
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "at": 462,
+          "kind": "acronymExpansion"
+        },
+        {
+          "from": "כוּ'",
+          "to": "כּוּלֵי",
+          "at": 41,
+          "kind": "acronymExpansion"
+        },
+        {
+          "from": "כוּ'",
+          "to": "כּוּלֵי",
+          "at": 570,
+          "kind": "acronymExpansion"
+        },
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "at": 18,
+          "kind": "divineNameExpansion"
+        }
+      ],
+      "vocalizationChanges": [
+        {
+          "from": "ביצה",
+          "to": "בֵּיצָה",
+          "at": 532,
+          "kind": "vocalization"
+        },
+        {
+          "from": "שבת",
+          "to": "שַׁבָּת",
+          "at": 641,
+          "kind": "vocalization"
+        }
+      ],
+      "reviewNotes": [
+        "TorahLM Beitzah 11a:6–7 verifies מדדה as a young bird hopping along and looking back toward its nest. The author’s abbreviated quotation is retained without silently completing it."
+      ],
+      "sourceUrl": "https://www.sefaria.org/Mei_HaShiloach,_Volume_I,_Writings,_Psalms.131.1",
+      "sortKey": [
+        64,
+        131,
+        1
+      ],
+      "sourceLetterAccounting": {
+        "pass": true,
+        "sourceHebrewSha256": "af92efb00af1fea1022309c3be0d23e032620a9248024ad356695ab48f18b92c",
+        "normalizedHebrewSha256": "6b07c75086b5c0a61341e45fd1c2fe5727afae228c37e040421ab3d75179aab9",
+        "sourceLetterCount": 274,
+        "sourceLettersSha256": "6ca8f1b02d7936a5aafbff1268241d4617c4f06e0c32687e47cbaa3bc0cd6782",
+        "restoredLettersSha256": "6ca8f1b02d7936a5aafbff1268241d4617c4f06e0c32687e47cbaa3bc0cd6782",
+        "normalizedLettersSha256": "e4a77b26c22076cb72d30cd42e746f17afbb738a557ce15f28317db6d61bf473",
+        "everySourceCharacterRecoveredAfterReversingDocumentedChanges": true,
+        "allNormalizedCharactersPresentExactlyOnceInOrderedPairsIgnoringWhitespace": true,
+        "operationsInApplicationOrder": [
+          {
+            "from": "הַש\"י",
+            "to": "הַשֵּׁם יִתְבָּרַךְ",
+            "at": 155,
+            "kind": "acronymExpansion"
+          },
+          {
+            "from": "הַש\"י",
+            "to": "הַשֵּׁם יִתְבָּרַךְ",
+            "at": 223,
+            "kind": "acronymExpansion"
+          },
+          {
+            "from": "הַש\"י",
+            "to": "הַשֵּׁם יִתְבָּרַךְ",
+            "at": 462,
+            "kind": "acronymExpansion"
+          },
+          {
+            "from": "כוּ'",
+            "to": "כּוּלֵי",
+            "at": 41,
+            "kind": "acronymExpansion"
+          },
+          {
+            "from": "כוּ'",
+            "to": "כּוּלֵי",
+            "at": 570,
+            "kind": "acronymExpansion"
+          },
+          {
+            "from": "ה'",
+            "to": "הַשֵּׁם",
+            "at": 18,
+            "kind": "divineNameExpansion"
+          },
+          {
+            "from": "ביצה",
+            "to": "בֵּיצָה",
+            "at": 532,
+            "kind": "vocalization"
+          },
+          {
+            "from": "שבת",
+            "to": "שַׁבָּת",
+            "at": 641,
+            "kind": "vocalization"
+          }
+        ]
+      }
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Psalms 139:1",
+      "sectionRef": "Mei HaShiloach, Volume I, Writings, Psalms 139",
+      "n": 1,
+      "sourceHebrew": "אִם אֶסַּק שָׁמַיִם שָׁם אָתָּה וְאַצִּיעָה שְּׁאוֹל הִנֶּךָּ. \"אִם אֶסַּק שָׁמַיִם\" מוֹרֶה בְּעֵת שֶׁאַתָּה מַעֲלֶה וּמְנַשֵּׂא אוֹתִי בְּשֶׁפַע טוֹבָה וְהַשֵּׂכֶל מוֹשֵׁל עָלַי, \"שָׁם אָתָּה\" זֶה בָּרוּר לִי כְּמוֹ שֶׁכָּתוּב (דברי הימים א' כ\"ט,י\"ד) \"כִּי מִמְּךָ הַכֹּל וּמִיָּדְךָ נָתַנּוּ לָךְ\", \"וְאַצִּיעָה שְּׁאוֹל\" הַיְינוּ, אַף בְּעֵת אֲשֶׁר נִקְטַן שִׂכְלִי גַּם אָז תְּשׁוּקָתִי לְהַכִּיר כִּי אַתָּה הוּא וְהַיְכוֹלֶת בְּיָדְךָ, וְזֶהוּ \"הִנֶּךָּ\".",
+      "normalizedHebrew": "אִם אֶסַּק שָׁמַיִם שָׁם אָתָּה וְאַצִּיעָה שְּׁאוֹל הִנֶּךָּ. \"אִם אֶסַּק שָׁמַיִם\" מוֹרֶה בְּעֵת שֶׁאַתָּה מַעֲלֶה וּמְנַשֵּׂא אוֹתִי בְּשֶׁפַע טוֹבָה וְהַשֵּׂכֶל מוֹשֵׁל עָלַי, \"שָׁם אָתָּה\" זֶה בָּרוּר לִי כְּמוֹ שֶׁכָּתוּב (דִּבְרֵי הַיָּמִים א' כ\"ט,י\"ד) \"כִּי מִמְּךָ הַכֹּל וּמִיָּדְךָ נָתַנּוּ לָךְ\", \"וְאַצִּיעָה שְּׁאוֹל\" הַיְינוּ, אַף בְּעֵת אֲשֶׁר נִקְטַן שִׂכְלִי גַּם אָז תְּשׁוּקָתִי לְהַכִּיר כִּי אַתָּה הוּא וְהַיְכוֹלֶת בְּיָדְךָ, וְזֶהוּ \"הִנֶּךָּ\".",
+      "p": [
+        [
+          "אִם אֶסַּק שָׁמַיִם שָׁם אָתָּה",
+          "If I ascend to heaven, You are there;"
+        ],
+        [
+          "וְאַצִּיעָה שְּׁאוֹל הִנֶּךָּ.",
+          "if I make my bed in the netherworld, behold, You are there."
+        ],
+        [
+          "\"אִם אֶסַּק שָׁמַיִם\" מוֹרֶה בְּעֵת שֶׁאַתָּה מַעֲלֶה וּמְנַשֵּׂא אוֹתִי בְּשֶׁפַע טוֹבָה",
+          "“If I ascend to heaven” refers to the time when You raise and exalt me with an abundance of goodness,"
+        ],
+        [
+          "וְהַשֵּׂכֶל מוֹשֵׁל עָלַי,",
+          "and understanding governs me."
+        ],
+        [
+          "\"שָׁם אָתָּה\" זֶה בָּרוּר לִי",
+          "“You are there”: this is clear to me,"
+        ],
+        [
+          "כְּמוֹ שֶׁכָּתוּב (דִּבְרֵי הַיָּמִים א' כ\"ט,י\"ד)",
+          "as it is written (I Chronicles 29:14):"
+        ],
+        [
+          "\"כִּי מִמְּךָ הַכֹּל וּמִיָּדְךָ נָתַנּוּ לָךְ\",",
+          "“For everything comes from You, and from Your own hand we have given to You.”"
+        ],
+        [
+          "\"וְאַצִּיעָה שְּׁאוֹל\" הַיְינוּ,",
+          "“If I make my bed in the netherworld” means:"
+        ],
+        [
+          "אַף בְּעֵת אֲשֶׁר נִקְטַן שִׂכְלִי",
+          "even when my understanding is diminished,"
+        ],
+        [
+          "גַּם אָז תְּשׁוּקָתִי לְהַכִּיר כִּי אַתָּה הוּא וְהַיְכוֹלֶת בְּיָדְךָ,",
+          "even then I yearn to recognize that You are the One, and that the power is in Your hand."
+        ],
+        [
+          "וְזֶהוּ \"הִנֶּךָּ\".",
+          "This is the meaning of “behold, You are there.”"
+        ]
+      ],
+      "expansions": [],
+      "vocalizationChanges": [
+        {
+          "from": "דברי הימים",
+          "to": "דִּבְרֵי הַיָּמִים",
+          "at": 229,
+          "kind": "vocalization"
+        }
+      ],
+      "reviewNotes": [],
+      "sourceUrl": "https://www.sefaria.org/Mei_HaShiloach,_Volume_I,_Writings,_Psalms.139.1",
+      "sortKey": [
+        64,
+        139,
+        1
+      ],
+      "sourceLetterAccounting": {
+        "pass": true,
+        "sourceHebrewSha256": "e7366e29dc6c7c212844185f7608f9533bdbc8de2a13dbd6cfedd7ef8ef88a11",
+        "normalizedHebrewSha256": "d326e8d31e1419139ba788b70deefeda3300e2fbd8e75e9c6b419d71bc02d234",
+        "sourceLetterCount": 206,
+        "sourceLettersSha256": "d8ac02328fbbe8252cc711291480b5aaa0655fcd746661d7cddb26e8861445a0",
+        "restoredLettersSha256": "d8ac02328fbbe8252cc711291480b5aaa0655fcd746661d7cddb26e8861445a0",
+        "normalizedLettersSha256": "d8ac02328fbbe8252cc711291480b5aaa0655fcd746661d7cddb26e8861445a0",
+        "everySourceCharacterRecoveredAfterReversingDocumentedChanges": true,
+        "allNormalizedCharactersPresentExactlyOnceInOrderedPairsIgnoringWhitespace": true,
+        "operationsInApplicationOrder": [
+          {
+            "from": "דברי הימים",
+            "to": "דִּבְרֵי הַיָּמִים",
+            "at": 229,
+            "kind": "vocalization"
+          }
+        ]
+      }
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Psalms 149:1",
+      "sectionRef": "Mei HaShiloach, Volume I, Writings, Psalms 149",
+      "n": 1,
+      "sourceHebrew": "יְפָאֵר עֲנָוִים בִּישׁוּעָה כוּ'. פֵּירוּשׁ הֶעָנָיו אֵין לוֹ שׁוּם הִתְפָּאֲרוּת, וְהַהִתְפָּאֲרוּת שֶׁלּוֹ הִיא רַק בְּעֵת שֶׁהַש\"י מוֹשִׁיעַ לוֹ.",
+      "normalizedHebrew": "יְפָאֵר עֲנָוִים בִּישׁוּעָה כּוּלֵי. פֵּירוּשׁ הֶעָנָיו אֵין לוֹ שׁוּם הִתְפָּאֲרוּת, וְהַהִתְפָּאֲרוּת שֶׁלּוֹ הִיא רַק בְּעֵת שֶׁהַשֵּׁם יִתְבָּרַךְ מוֹשִׁיעַ לוֹ.",
+      "p": [
+        [
+          "יְפָאֵר עֲנָוִים בִּישׁוּעָה כּוּלֵי.",
+          "He adorns the humble with salvation, etc."
+        ],
+        [
+          "פֵּירוּשׁ הֶעָנָיו אֵין לוֹ שׁוּם הִתְפָּאֲרוּת,",
+          "This means that a humble person takes no pride in himself."
+        ],
+        [
+          "וְהַהִתְפָּאֲרוּת שֶׁלּוֹ הִיא רַק בְּעֵת שֶׁהַשֵּׁם יִתְבָּרַךְ מוֹשִׁיעַ לוֹ.",
+          "The only glory he takes is when Hashem, blessed be He, saves him."
+        ]
+      ],
+      "expansions": [
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "at": 129,
+          "kind": "acronymExpansion"
+        },
+        {
+          "from": "כוּ'",
+          "to": "כּוּלֵי",
+          "at": 29,
+          "kind": "acronymExpansion"
+        }
+      ],
+      "vocalizationChanges": [],
+      "reviewNotes": [],
+      "sourceUrl": "https://www.sefaria.org/Mei_HaShiloach,_Volume_I,_Writings,_Psalms.149.1",
+      "sortKey": [
+        64,
+        149,
+        1
+      ],
+      "sourceLetterAccounting": {
+        "pass": true,
+        "sourceHebrewSha256": "a650476f9c90a66ee0faae481c0779656d78a62661f0ad5b01c62236d7066c6c",
+        "normalizedHebrewSha256": "8c92c8f0c19d13df0a0e77c561def623e3a3f8978c7d354a42f7e30544283c51",
+        "sourceLetterCount": 73,
+        "sourceLettersSha256": "f9f1b86247769eb7d47ad2b5fa39c638678258280d106cb65cc9d7a597ad8289",
+        "restoredLettersSha256": "f9f1b86247769eb7d47ad2b5fa39c638678258280d106cb65cc9d7a597ad8289",
+        "normalizedLettersSha256": "1f158dbe9b3c2be7aebeaaaca8054a3e8d492370d43df23de461f5f57dfdd72d",
+        "everySourceCharacterRecoveredAfterReversingDocumentedChanges": true,
+        "allNormalizedCharactersPresentExactlyOnceInOrderedPairsIgnoringWhitespace": true,
+        "operationsInApplicationOrder": [
+          {
+            "from": "הַש\"י",
+            "to": "הַשֵּׁם יִתְבָּרַךְ",
+            "at": 129,
+            "kind": "acronymExpansion"
+          },
+          {
+            "from": "כוּ'",
+            "to": "כּוּלֵי",
+            "at": 29,
+            "kind": "acronymExpansion"
+          }
+        ]
+      }
+    }
+  ],
+  "audit": {
+    "pass": true,
+    "paragraphs": 12,
+    "sections": 11,
+    "phrasePairs": 182,
+    "sourceHebrewWords": 1177,
+    "sourceHebrewLetters": 4448,
+    "missingParagraphRefs": [],
+    "duplicateParagraphRefs": [],
+    "unpairedHebrew": [],
+    "englishSquareBrackets": 0,
+    "sourceOrderPreserved": true,
+    "everySourceLetterAccountedAfterDocumentedExpansions": true,
+    "scope": "Completion of the 12 Psalms paragraphs listed as missing in the verified ledger; all prior reader translations remain untouched."
+  }
+}

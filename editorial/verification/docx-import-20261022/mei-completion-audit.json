@@ -1,0 +1,1707 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS",
+  "scope": "The 50 source-file gaps in the main Volume I text from Bereshit through Miscellany.",
+  "counts": {
+    "sections": 36,
+    "paragraphs": 50,
+    "phrasePairs": 738,
+    "sourceHebrewWords": 5244
+  },
+  "sourceLedger": "editorial/verification/docx-import-20261022/mei-missing-volume-i.json",
+  "sourceLedgerSha256": "5558ba64a68338de2bd17acacebe2f416713c7d4ff978bb6835eb1504a4ac57d",
+  "translationFiles": [
+    {
+      "file": "editorial/verification/docx-import-20261022/mei-supplement-psalms.json",
+      "sha256": "f2a2dccf5351861ce1169dacac40b415eafa909898caac4d9d176e2cca284a35",
+      "paragraphs": 12,
+      "provenance": {
+        "source": "Verified Sefaria Hebrew; original English interlinear translation prepared for this reader completion",
+        "sourceLedger": "editorial/verification/docx-import-20261022/mei-missing-volume-i.json",
+        "sourceLedgerSha256": "5558ba64a68338de2bd17acacebe2f416713c7d4ff978bb6835eb1504a4ac57d",
+        "canonicalResponseSha256": "8de80157796c9190e54f80c924af7c6a0e16316baa0e2eea88c4e3e4c2b5dea3",
+        "canonicalApiUrl": "https://www.sefaria.org/api/texts/Mei_HaShiloach%2C_Volume_I%2C_Writings%2C_Psalms?context=0&commentary=0&pad=0",
+        "translationMethod": "Each canonical paragraph retained once; manually translated short phrases; all Hebrew sliced directly from the verified source after reversible, context-reviewed acronym and nikkud changes.",
+        "externalContextChecks": [
+          {
+            "provider": "TorahLM",
+            "ref": "Beitzah 11a:6-7",
+            "url": "https://torahapp.org/share/book/Beitzah/r/11a",
+            "purpose": "מדדה and returning sight toward the nest in Psalms 131"
+          },
+          {
+            "provider": "TorahLM",
+            "ref": "Mishneh Torah, Repentance 5:5",
+            "url": "https://torahapp.org/share/book/Mishneh%20Torah%2C%20Repentance/r/5:5",
+            "purpose": "Divine foreknowledge and choice; preserve the Mei HaShiloach excerpt as supplied"
+          }
+        ]
+      }
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/mei-supplement-proverbs.json",
+      "sha256": "84f511ba0085f7735cd10b24e90659472509543664fcf47a384780a1c4fd77fb",
+      "paragraphs": 25,
+      "provenance": {
+        "head": {
+          "kind": "newly authored completion supplement",
+          "source": "Verified Sefaria vocalized Hebrew, checked against the user-supplied Bnei Brak 2005 export.",
+          "english": "New phrase-by-phrase translation authored for this reader completion; not copied from a Sefaria English edition.",
+          "scope": "First 15 missing Proverbs paragraphs, chapters 1–13. Chapters 15 onward are a separate supplement.",
+          "skill": "hebrew-english-interlinear",
+          "sourceLedger": "mei-missing-volume-i.json",
+          "editionAudit": "mei-2005-edition-audit.json",
+          "connectorCheckStatus": "Connector calls for Proverbs checks stalled and were aborted; this supplement uses the verified local primary-source ledger."
+        },
+        "tail": "Original English interlinear translation of the ten supplied canonical Volume I Proverbs paragraphs from chapters 15–20; source Hebrew sliced without omissions after the documented expansions and nikkud additions.",
+        "independentReview": "All ten tail paragraphs reviewed independently; citation nikkud preserves full source spelling."
+      }
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/mei-supplement-talmud.json",
+      "sha256": "af61c548bc5e65e02b04471a9f804c21f80c5ba10fc127e11db8537eaef19662",
+      "paragraphs": 13,
+      "provenance": {
+        "status": "COMPLETE",
+        "sourceLedger": "editorial/verification/docx-import-20261022/mei-missing-volume-i.json",
+        "sourceLedgerSha256": "5558ba64a68338de2bd17acacebe2f416713c7d4ff978bb6835eb1504a4ac57d",
+        "expectedParagraphs": 13,
+        "includedParagraphs": 13,
+        "sourceEdition": "Canonical Sefaria Hebrew snapshot documented in the ledger",
+        "translation": "Original English translation; no parallel English version copied",
+        "method": "Every Hebrew character is extracted sequentially from the canonical source. Only documented abbreviation expansions and added nikkud are allowed.",
+        "canonicalApiEvidence": [
+          "https://www.sefaria.org/api/texts/Mei_HaShiloach%2C_Volume_I%2C_Talmud%2C_Megillah?context=0&commentary=0&pad=0",
+          "https://www.sefaria.org/api/texts/Mei_HaShiloach%2C_Volume_I%2C_Talmud%2C_Rosh_Hashanah?context=0&commentary=0&pad=0"
+        ]
+      }
+    }
+  ],
+  "packFile": "sources/akiva/overlays/mei-completion-20261022.json.gz.b64",
+  "packSha256": "c8c7f43de61419e32a5b20447fc6636c24633691216d1598502663374645e549",
+  "all50CanonicalParagraphsPresent": true,
+  "noHebrewLettersLost": true,
+  "noMissingEnglishPhrases": true,
+  "englishSquareBrackets": 0,
+  "paragraphChecks": [
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Psalms 81:1",
+      "sourceSha256": "d31a9ccf79e8dd3da52f3a620005ab5fcdcac1b2e5b769e3484fa6d3482e8b03",
+      "phrasePairs": 16,
+      "sourceHebrewLetters": 404,
+      "normalizedHebrewLetters": 416,
+      "expansions": [
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "at": 372,
+          "kind": "acronymExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "at": 721,
+          "kind": "acronymExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "כוּ׳",
+          "to": "כּוּלֵי",
+          "at": 828,
+          "kind": "acronymExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "ראש השנה",
+          "to": "רֹאשׁ הַשָּׁנָה",
+          "at": 120,
+          "kind": "vocalization",
+          "countApplied": 1
+        },
+        {
+          "from": "ירמיה",
+          "to": "יִרְמְיָה",
+          "at": 767,
+          "kind": "vocalization",
+          "countApplied": 1
+        }
+      ],
+      "allSourceLettersAccountedFor": true,
+      "missingEnglishPhrases": 0,
+      "reviewNotes": [
+        "The source’s מי בקצו is retained verbatim and rendered “who will reach his end”; no missing verb is inserted into the Hebrew.",
+        "The TorahLM/Sefaria check of Rosh Hashanah 25b supplied by the coordinating editor confirms that statute denotes the conclusion of judgment."
+      ]
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Psalms 85:1",
+      "sourceSha256": "617b6a1789664692e89fae161d54ccda440e1d1aaa9f0ae3324510d9f140ff78",
+      "phrasePairs": 7,
+      "sourceHebrewLetters": 217,
+      "normalizedHebrewLetters": 226,
+      "expansions": [
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "at": 171,
+          "kind": "acronymExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "ה׳",
+          "to": "הַשֵּׁם",
+          "at": 31,
+          "kind": "divineNameExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "ה׳",
+          "to": "הַשֵּׁם",
+          "at": 388,
+          "kind": "divineNameExpansion",
+          "countApplied": 1
+        }
+      ],
+      "allSourceLettersAccountedFor": true,
+      "missingEnglishPhrases": 0,
+      "reviewNotes": []
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Psalms 92:1",
+      "sourceSha256": "bd0a48a75aa70aa1a448183357010c36ac68e21508438ef7a37eec82b092df23",
+      "phrasePairs": 54,
+      "sourceHebrewLetters": 1556,
+      "normalizedHebrewLetters": 1622,
+      "expansions": [
+        {
+          "from": "הָרַמְבַּ\"ם",
+          "to": "רַבֵּנוּ מֹשֶׁה בֶּן מַיְמוֹן",
+          "at": 247,
+          "kind": "acronymExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "זצ\"ל",
+          "to": "זֵכֶר צַדִּיק לִבְרָכָה",
+          "at": 1475,
+          "kind": "acronymExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "at": 220,
+          "kind": "acronymExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "at": 876,
+          "kind": "acronymExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "at": 1146,
+          "kind": "acronymExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "at": 1835,
+          "kind": "acronymExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "at": 2143,
+          "kind": "acronymExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "at": 2738,
+          "kind": "acronymExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "כוּ׳",
+          "to": "כּוּלֵי",
+          "at": 38,
+          "kind": "acronymExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "כוּ׳",
+          "to": "כּוּלֵי",
+          "at": 74,
+          "kind": "acronymExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "כוּ׳",
+          "to": "כּוּלֵי",
+          "at": 1080,
+          "kind": "acronymExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "כוּ׳",
+          "to": "כּוּלֵי",
+          "at": 2330,
+          "kind": "acronymExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "כוּ׳",
+          "to": "כּוּלֵי",
+          "at": 3216,
+          "kind": "acronymExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "כוּ׳",
+          "to": "כּוּלֵי",
+          "at": 3240,
+          "kind": "acronymExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "ה׳",
+          "to": "הַשֵּׁם",
+          "at": 71,
+          "kind": "divineNameExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "ה׳",
+          "to": "הַשֵּׁם",
+          "at": 1034,
+          "kind": "divineNameExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "ה׳",
+          "to": "הַשֵּׁם",
+          "at": 3303,
+          "kind": "divineNameExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "ישעיה",
+          "to": "יְשַׁעְיָה",
+          "at": 1439,
+          "kind": "vocalization",
+          "countApplied": 1
+        },
+        {
+          "from": "תיקוני זהר הקדמה אחרת",
+          "to": "תִּיקּוּנֵי זֹהַר הַקְדָּמָה אַחֶרֶת",
+          "at": 1580,
+          "kind": "vocalization",
+          "countApplied": 1
+        }
+      ],
+      "allSourceLettersAccountedFor": true,
+      "missingEnglishPhrases": 0,
+      "reviewNotes": [
+        "The source’s abbreviated quotation of Mishneh Torah, Repentance 5:5 is preserved rather than replaced with the longer original; its citation and argument were checked using TorahLM.",
+        "הלכה ה׳ is the numeral 5 and is not expanded as a Divine Name.",
+        "The paragraph’s claims about the nations are translated as the historical author’s argument without omission or modernization."
+      ]
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Psalms 92:2",
+      "sourceSha256": "28d9e76f0ba0cb52764e0387fe5e112d6112305df3edd7fef22d4f0665b06bbf",
+      "phrasePairs": 20,
+      "sourceHebrewLetters": 501,
+      "normalizedHebrewLetters": 525,
+      "expansions": [
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "at": 242,
+          "kind": "acronymExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "at": 420,
+          "kind": "acronymExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "at": 563,
+          "kind": "acronymExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "at": 1044,
+          "kind": "acronymExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "כוּ׳",
+          "to": "כּוּלֵי",
+          "at": 74,
+          "kind": "acronymExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "at": 22,
+          "kind": "divineNameExpansion",
+          "countApplied": 1
+        }
+      ],
+      "allSourceLettersAccountedFor": true,
+      "missingEnglishPhrases": 0,
+      "reviewNotes": []
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Psalms 95:1",
+      "sourceSha256": "77d636472849cb6985581d073eff637e28bdb12730d21daa10ba421e4b474d74",
+      "phrasePairs": 12,
+      "sourceHebrewLetters": 288,
+      "normalizedHebrewLetters": 295,
+      "expansions": [
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "at": 129,
+          "kind": "acronymExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "at": 19,
+          "kind": "divineNameExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "לַהַשֵּׁם",
+          "to": "לְהַשֵּׁם",
+          "at": 17,
+          "kind": "vocalization",
+          "countApplied": 1
+        }
+      ],
+      "allSourceLettersAccountedFor": true,
+      "missingEnglishPhrases": 0,
+      "reviewNotes": []
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Psalms 99:1",
+      "sourceSha256": "bd203c4827774b6bf546c23047a2c0ff0af5ec98dbad6509086c23ab5649c0d3",
+      "phrasePairs": 7,
+      "sourceHebrewLetters": 130,
+      "normalizedHebrewLetters": 137,
+      "expansions": [
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "at": 52,
+          "kind": "acronymExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "at": 0,
+          "kind": "divineNameExpansion",
+          "countApplied": 1
+        }
+      ],
+      "allSourceLettersAccountedFor": true,
+      "missingEnglishPhrases": 0,
+      "reviewNotes": []
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Psalms 112:1",
+      "sourceSha256": "093064d9e1e38651798a4c4f05e1c3f4e1734f1236fb9888a8e6422b581ec50f",
+      "phrasePairs": 4,
+      "sourceHebrewLetters": 64,
+      "normalizedHebrewLetters": 73,
+      "expansions": [
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "at": 68,
+          "kind": "acronymExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "at": 25,
+          "kind": "divineNameExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "at": 148,
+          "kind": "divineNameExpansion",
+          "countApplied": 1
+        }
+      ],
+      "allSourceLettersAccountedFor": true,
+      "missingEnglishPhrases": 0,
+      "reviewNotes": [
+        "The opening verse is translated in its ordinary grammatical reading; the following explicit interpretation then identifies Hashem as the subject of חפץ, as the author does."
+      ]
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Psalms 119:1",
+      "sourceSha256": "003256e65e0fc4c3c91c149afc1191b4a223a2b195d104acfb8016870f1fae17",
+      "phrasePairs": 11,
+      "sourceHebrewLetters": 202,
+      "normalizedHebrewLetters": 210,
+      "expansions": [
+        {
+          "from": "בַּזוה\"ק",
+          "to": "בַּזֹּהַר הַקָּדוֹשׁ",
+          "at": 45,
+          "kind": "acronymExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "at": 268,
+          "kind": "divineNameExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "at": 354,
+          "kind": "divineNameExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "בַּהַשֵּׁם",
+          "to": "בְּהַשֵּׁם",
+          "at": 351,
+          "kind": "vocalization",
+          "countApplied": 1
+        },
+        {
+          "from": "ויקרא",
+          "to": "וַיִּקְרָא",
+          "at": 67,
+          "kind": "vocalization",
+          "countApplied": 1
+        }
+      ],
+      "allSourceLettersAccountedFor": true,
+      "missingEnglishPhrases": 0,
+      "reviewNotes": [
+        "The repeated Aramaic statement is translated both times; the author’s excerpt of Zohar is not silently extended."
+      ]
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Psalms 126:1",
+      "sourceSha256": "3b20be1dd0952a8424af4238e5be20f7bc54589c5f04dfa0128311ee172e84d9",
+      "phrasePairs": 24,
+      "sourceHebrewLetters": 533,
+      "normalizedHebrewLetters": 560,
+      "expansions": [
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "at": 477,
+          "kind": "acronymExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "at": 645,
+          "kind": "acronymExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "כוּ'",
+          "to": "כּוּלֵי",
+          "at": 30,
+          "kind": "acronymExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "כוּ'",
+          "to": "כּוּלֵי",
+          "at": 74,
+          "kind": "acronymExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "פ'",
+          "to": "פָּרָשָׁה",
+          "at": 184,
+          "kind": "acronymExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "at": 27,
+          "kind": "divineNameExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "at": 76,
+          "kind": "divineNameExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "at": 102,
+          "kind": "divineNameExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "at": 607,
+          "kind": "divineNameExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "at": 723,
+          "kind": "divineNameExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "שוחר טוב",
+          "to": "שׁוֹחֵר טוֹב",
+          "at": 190,
+          "kind": "vocalization",
+          "countApplied": 1
+        }
+      ],
+      "allSourceLettersAccountedFor": true,
+      "missingEnglishPhrases": 0,
+      "reviewNotes": [
+        "The repeated verse is rendered conditionally in its second occurrence to express the author’s immediately following interpretation. The speaker there remains the nations; the concluding inference concerns Israel."
+      ]
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Psalms 131:1",
+      "sourceSha256": "af92efb00af1fea1022309c3be0d23e032620a9248024ad356695ab48f18b92c",
+      "phrasePairs": 13,
+      "sourceHebrewLetters": 274,
+      "normalizedHebrewLetters": 295,
+      "expansions": [
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "at": 155,
+          "kind": "acronymExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "at": 223,
+          "kind": "acronymExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "at": 462,
+          "kind": "acronymExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "כוּ'",
+          "to": "כּוּלֵי",
+          "at": 41,
+          "kind": "acronymExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "כוּ'",
+          "to": "כּוּלֵי",
+          "at": 570,
+          "kind": "acronymExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "at": 18,
+          "kind": "divineNameExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "ביצה",
+          "to": "בֵּיצָה",
+          "at": 532,
+          "kind": "vocalization",
+          "countApplied": 1
+        },
+        {
+          "from": "שבת",
+          "to": "שַׁבָּת",
+          "at": 641,
+          "kind": "vocalization",
+          "countApplied": 1
+        }
+      ],
+      "allSourceLettersAccountedFor": true,
+      "missingEnglishPhrases": 0,
+      "reviewNotes": [
+        "TorahLM Beitzah 11a:6–7 verifies מדדה as a young bird hopping along and looking back toward its nest. The author’s abbreviated quotation is retained without silently completing it."
+      ]
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Psalms 139:1",
+      "sourceSha256": "e7366e29dc6c7c212844185f7608f9533bdbc8de2a13dbd6cfedd7ef8ef88a11",
+      "phrasePairs": 11,
+      "sourceHebrewLetters": 206,
+      "normalizedHebrewLetters": 206,
+      "expansions": [
+        {
+          "from": "דברי הימים",
+          "to": "דִּבְרֵי הַיָּמִים",
+          "at": 229,
+          "kind": "vocalization",
+          "countApplied": 1
+        }
+      ],
+      "allSourceLettersAccountedFor": true,
+      "missingEnglishPhrases": 0,
+      "reviewNotes": []
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Psalms 149:1",
+      "sourceSha256": "a650476f9c90a66ee0faae481c0779656d78a62661f0ad5b01c62236d7066c6c",
+      "phrasePairs": 3,
+      "sourceHebrewLetters": 73,
+      "normalizedHebrewLetters": 80,
+      "expansions": [
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "at": 129,
+          "kind": "acronymExpansion",
+          "countApplied": 1
+        },
+        {
+          "from": "כוּ'",
+          "to": "כּוּלֵי",
+          "at": 29,
+          "kind": "acronymExpansion",
+          "countApplied": 1
+        }
+      ],
+      "allSourceLettersAccountedFor": true,
+      "missingEnglishPhrases": 0,
+      "reviewNotes": []
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 1:1",
+      "sourceSha256": "5463cb124a3a85f0e4f8c9a4b4ca14699915d37dae1288ae5c0c1930b63d6cfd",
+      "phrasePairs": 9,
+      "sourceHebrewLetters": 219,
+      "normalizedHebrewLetters": 219,
+      "expansions": [],
+      "allSourceLettersAccountedFor": true,
+      "missingEnglishPhrases": 0,
+      "reviewNotes": []
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 2:1",
+      "sourceSha256": "f6ac70503310b0b7706fe3b037466707023b9b27078a20eea2194eda7560ad0b",
+      "phrasePairs": 13,
+      "sourceHebrewLetters": 348,
+      "normalizedHebrewLetters": 363,
+      "expansions": [
+        {
+          "from": "כוּ'",
+          "to": "כּוּלֵי",
+          "count": 4,
+          "reason": "Context-reviewed abbreviation expansion; preserve grammatical prefixes.",
+          "countApplied": 4
+        },
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "count": 1,
+          "reason": "Context-reviewed abbreviation expansion; preserve grammatical prefixes.",
+          "countApplied": 1
+        },
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "count": 1,
+          "reason": "Context-reviewed abbreviation expansion; preserve grammatical prefixes.",
+          "countApplied": 1
+        }
+      ],
+      "allSourceLettersAccountedFor": true,
+      "missingEnglishPhrases": 0,
+      "reviewNotes": []
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 3:1",
+      "sourceSha256": "7ccae56a822d06dd0494aaa745a7b6c32f8edc5b7daafcd86f9cd70f75e43f9a",
+      "phrasePairs": 7,
+      "sourceHebrewLetters": 157,
+      "normalizedHebrewLetters": 167,
+      "expansions": [
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "count": 2,
+          "reason": "Context-reviewed abbreviation expansion; preserve grammatical prefixes.",
+          "countApplied": 2
+        }
+      ],
+      "allSourceLettersAccountedFor": true,
+      "missingEnglishPhrases": 0,
+      "reviewNotes": []
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 3:2",
+      "sourceSha256": "77b4fb57fb097af99c26a5f2a4b1ef557c19bd9cb9b11bea64ae4b6cf0426112",
+      "phrasePairs": 21,
+      "sourceHebrewLetters": 534,
+      "normalizedHebrewLetters": 556,
+      "expansions": [
+        {
+          "from": "כוּ'",
+          "to": "כּוּלֵי",
+          "count": 3,
+          "reason": "Context-reviewed abbreviation expansion; preserve grammatical prefixes.",
+          "countApplied": 3
+        },
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "count": 2,
+          "reason": "Context-reviewed abbreviation expansion; preserve grammatical prefixes.",
+          "countApplied": 2
+        },
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "count": 3,
+          "reason": "Context-reviewed abbreviation expansion; preserve grammatical prefixes.",
+          "countApplied": 3
+        }
+      ],
+      "allSourceLettersAccountedFor": true,
+      "missingEnglishPhrases": 0,
+      "reviewNotes": []
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 3:3",
+      "sourceSha256": "43cfd41217e01c96e757c8d7f5a2f928d7c96a30e0fa180266b34f4d073ce354",
+      "phrasePairs": 7,
+      "sourceHebrewLetters": 160,
+      "normalizedHebrewLetters": 160,
+      "expansions": [],
+      "allSourceLettersAccountedFor": true,
+      "missingEnglishPhrases": 0,
+      "reviewNotes": []
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 6:1",
+      "sourceSha256": "00ac64f664c0462bc9fdf778587eee8ba2626e33e7617fe68592fadbd353a1d3",
+      "phrasePairs": 12,
+      "sourceHebrewLetters": 297,
+      "normalizedHebrewLetters": 297,
+      "expansions": [],
+      "allSourceLettersAccountedFor": true,
+      "missingEnglishPhrases": 0,
+      "reviewNotes": []
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 8:1",
+      "sourceSha256": "8bab9530fba9f4767d14025a9b613cc302dac79147827a38f59e3bff43e252a5",
+      "phrasePairs": 16,
+      "sourceHebrewLetters": 391,
+      "normalizedHebrewLetters": 408,
+      "expansions": [
+        {
+          "from": "כוּ׳",
+          "to": "כּוּלֵי",
+          "count": 1,
+          "reason": "Context-reviewed abbreviation expansion; preserve grammatical prefixes.",
+          "countApplied": 1
+        },
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "count": 3,
+          "reason": "Context-reviewed abbreviation expansion; preserve grammatical prefixes.",
+          "countApplied": 3
+        }
+      ],
+      "allSourceLettersAccountedFor": true,
+      "missingEnglishPhrases": 0,
+      "reviewNotes": []
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 8:2",
+      "sourceSha256": "5f312e228c11b4faaa19b69e61283d58fb5ae9e15febb32bcd948c6efe4f1333",
+      "phrasePairs": 6,
+      "sourceHebrewLetters": 125,
+      "normalizedHebrewLetters": 132,
+      "expansions": [
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "count": 1,
+          "reason": "Context-reviewed abbreviation expansion; preserve grammatical prefixes.",
+          "countApplied": 1
+        },
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "count": 1,
+          "reason": "Context-reviewed abbreviation expansion; preserve grammatical prefixes.",
+          "countApplied": 1
+        }
+      ],
+      "allSourceLettersAccountedFor": true,
+      "missingEnglishPhrases": 0,
+      "reviewNotes": [
+        "The author’s written-form/reading homily is translated as printed; its wording is not silently harmonized to another biblical edition."
+      ]
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 10:1",
+      "sourceSha256": "a65cad297e2f460d0de34cdd700203953ff74b62f8593542b4d7ff0202961709",
+      "phrasePairs": 21,
+      "sourceHebrewLetters": 491,
+      "normalizedHebrewLetters": 507,
+      "expansions": [
+        {
+          "from": "חֲזַ\"ל",
+          "to": "חֲכָמֵינוּ זִכְרוֹנָם לִבְרָכָה",
+          "count": 1,
+          "reason": "Context-reviewed abbreviation expansion; preserve grammatical prefixes.",
+          "countApplied": 1
+        },
+        {
+          "from": "כוּ׳",
+          "to": "כּוּלֵי",
+          "count": 1,
+          "reason": "Context-reviewed abbreviation expansion; preserve grammatical prefixes.",
+          "countApplied": 1
+        }
+      ],
+      "allSourceLettersAccountedFor": true,
+      "missingEnglishPhrases": 0,
+      "reviewNotes": [
+        "The supplied canonical source cites Psalms 104:18 for “the sun knows its setting”; the quoted clause is Psalms 104:19. The printed citation is preserved, and the discrepancy is recorded for link review."
+      ]
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 11:1",
+      "sourceSha256": "79b4eae60784d86dc523e3ac68227716c24eb80a0d79f46ca53fa1afc90a7a10",
+      "phrasePairs": 24,
+      "sourceHebrewLetters": 592,
+      "normalizedHebrewLetters": 614,
+      "expansions": [
+        {
+          "from": "בַּזוה\"ק",
+          "to": "בַּזֹּהַר הַקָּדוֹשׁ",
+          "count": 1,
+          "reason": "Context-reviewed abbreviation expansion; preserve grammatical prefixes.",
+          "countApplied": 1
+        },
+        {
+          "from": "חֲזַ\"ל",
+          "to": "חֲכָמֵינוּ זִכְרוֹנָם לִבְרָכָה",
+          "count": 1,
+          "reason": "Context-reviewed abbreviation expansion; preserve grammatical prefixes.",
+          "countApplied": 1
+        },
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "count": 1,
+          "reason": "Context-reviewed abbreviation expansion; preserve grammatical prefixes.",
+          "countApplied": 1
+        },
+        {
+          "from": "כוּ׳",
+          "to": "כּוּלֵי",
+          "count": 1,
+          "reason": "Context-reviewed abbreviation expansion; preserve grammatical prefixes.",
+          "countApplied": 1
+        }
+      ],
+      "allSourceLettersAccountedFor": true,
+      "missingEnglishPhrases": 0,
+      "reviewNotes": [
+        "The source’s application of Hillel’s expression to caring for the body is preserved. Aramaic remains Aramaic in the Hebrew."
+      ]
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 12:1",
+      "sourceSha256": "9519bef7d03cc719e451befb876a04bcb34001c8db5ab6b8def4556ca6b8b05f",
+      "phrasePairs": 15,
+      "sourceHebrewLetters": 353,
+      "normalizedHebrewLetters": 353,
+      "expansions": [],
+      "allSourceLettersAccountedFor": true,
+      "missingEnglishPhrases": 0,
+      "reviewNotes": [
+        "The author reads the verse through charikhah, hesitation or restraint, and charutz/charitz, a notch or flaw. The English preserves these wordplays without silently replacing the source."
+      ]
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 13:1",
+      "sourceSha256": "32aab21f49ad5043cfbae723218b3166bda9bda5efe1fa5477cd01cbf23adbe5",
+      "phrasePairs": 7,
+      "sourceHebrewLetters": 173,
+      "normalizedHebrewLetters": 175,
+      "expansions": [
+        {
+          "from": "כוּ׳",
+          "to": "כּוּלֵי",
+          "count": 1,
+          "reason": "Context-reviewed abbreviation expansion; preserve grammatical prefixes.",
+          "countApplied": 1
+        }
+      ],
+      "allSourceLettersAccountedFor": true,
+      "missingEnglishPhrases": 0,
+      "reviewNotes": []
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 13:2",
+      "sourceSha256": "5553ec4fc93bd138ace040e54b95f20c30924d87c63a2705cbf321ed7b3db6c6",
+      "phrasePairs": 11,
+      "sourceHebrewLetters": 256,
+      "normalizedHebrewLetters": 256,
+      "expansions": [],
+      "allSourceLettersAccountedFor": true,
+      "missingEnglishPhrases": 0,
+      "reviewNotes": []
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 13:3",
+      "sourceSha256": "081266f26d5604bdc4c34342a9ab58a4e22841f2ae36cac7f45ba942bcc07dfe",
+      "phrasePairs": 5,
+      "sourceHebrewLetters": 113,
+      "normalizedHebrewLetters": 113,
+      "expansions": [],
+      "allSourceLettersAccountedFor": true,
+      "missingEnglishPhrases": 0,
+      "reviewNotes": []
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 13:4",
+      "sourceSha256": "e10e0c855530b53c6e2e49cf66f616dd4beaf06b8ba30cab164961e8ee38ce34",
+      "phrasePairs": 13,
+      "sourceHebrewLetters": 292,
+      "normalizedHebrewLetters": 326,
+      "expansions": [
+        {
+          "from": "חֲזַ\"ל",
+          "to": "חֲכָמֵינוּ זִכְרוֹנָם לִבְרָכָה",
+          "count": 2,
+          "reason": "Context-reviewed abbreviation expansion; preserve grammatical prefixes.",
+          "countApplied": 2
+        },
+        {
+          "from": "כוּ׳",
+          "to": "כּוּלֵי",
+          "count": 3,
+          "reason": "Context-reviewed abbreviation expansion; preserve grammatical prefixes.",
+          "countApplied": 3
+        }
+      ],
+      "allSourceLettersAccountedFor": true,
+      "missingEnglishPhrases": 0,
+      "reviewNotes": [
+        "The phrase “יתר מרעהו צדיק” is Proverbs 12:26; the author’s sequencing language is retained as printed."
+      ]
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 15:1",
+      "sourceSha256": "6e4f10074b0ef94e4f78416e682bf084b047f8923f6cbc24c81dbcbfab54a7ef",
+      "phrasePairs": 25,
+      "sourceHebrewLetters": 558,
+      "normalizedHebrewLetters": 582,
+      "expansions": [
+        {
+          "from": "ד\"ת",
+          "to": "דִּבְרֵי תוֹרָה",
+          "count": 4,
+          "reason": "Expand divrei Torah; retain source prefixes.",
+          "countApplied": 4
+        }
+      ],
+      "allSourceLettersAccountedFor": true,
+      "missingEnglishPhrases": 0,
+      "reviewNotes": [
+        "All source words, in their original order, are included in the phrase pairs. Printed citation wording and numbering are retained; hyperlink targets are reviewed separately."
+      ]
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 15:2",
+      "sourceSha256": "f292d997efb0b9f1e1771229b03ebdb1c29b14e3b178be1bfdcf300108e42d9c",
+      "phrasePairs": 10,
+      "sourceHebrewLetters": 254,
+      "normalizedHebrewLetters": 258,
+      "expansions": [
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "count": 1,
+          "reason": "Expand the Divine-Name abbreviation.",
+          "countApplied": 1
+        },
+        {
+          "from": "כוּ'",
+          "to": "כּוּלֵי",
+          "count": 1,
+          "reason": "Expand the source abbreviation for etcetera.",
+          "countApplied": 1
+        }
+      ],
+      "allSourceLettersAccountedFor": true,
+      "missingEnglishPhrases": 0,
+      "reviewNotes": [
+        "All source words, in their original order, are included in the phrase pairs. Printed citation wording and numbering are retained; hyperlink targets are reviewed separately."
+      ]
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 15:3",
+      "sourceSha256": "3e07f2a3501261ea94603c4af641a035736b3f81a5ea59e4bdf1ca0ab6496678",
+      "phrasePairs": 10,
+      "sourceHebrewLetters": 245,
+      "normalizedHebrewLetters": 245,
+      "expansions": [],
+      "allSourceLettersAccountedFor": true,
+      "missingEnglishPhrases": 0,
+      "reviewNotes": [
+        "All source words, in their original order, are included in the phrase pairs. Printed citation wording and numbering are retained; hyperlink targets are reviewed separately."
+      ]
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 15:4",
+      "sourceSha256": "c43bb7997cd745ee29b963310090001209ddf835b636f01729f1440b5edf4114",
+      "phrasePairs": 16,
+      "sourceHebrewLetters": 408,
+      "normalizedHebrewLetters": 415,
+      "expansions": [
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "count": 1,
+          "reason": "Expand the Divine-Name abbreviation.",
+          "countApplied": 1
+        },
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "count": 1,
+          "reason": "Expand the conventional Divine honorific.",
+          "countApplied": 1
+        },
+        {
+          "from": "מלכים",
+          "to": "מְלָכִים",
+          "count": 1,
+          "reason": "Add nikkud to the source citation without changing consonants.",
+          "countApplied": 1
+        }
+      ],
+      "allSourceLettersAccountedFor": true,
+      "missingEnglishPhrases": 0,
+      "reviewNotes": [
+        "All source words, in their original order, are included in the phrase pairs. Printed citation wording and numbering are retained; hyperlink targets are reviewed separately."
+      ]
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 16:1",
+      "sourceSha256": "68897cd84f67849b8f3387ded4b2fce2213dbc4e8e5a067a464048253c5d5a4a",
+      "phrasePairs": 16,
+      "sourceHebrewLetters": 391,
+      "normalizedHebrewLetters": 410,
+      "expansions": [
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "count": 2,
+          "reason": "Expand the Divine-Name abbreviation.",
+          "countApplied": 2
+        },
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "count": 3,
+          "reason": "Expand the conventional Divine honorific.",
+          "countApplied": 3
+        }
+      ],
+      "allSourceLettersAccountedFor": true,
+      "missingEnglishPhrases": 0,
+      "reviewNotes": [
+        "All source words, in their original order, are included in the phrase pairs. Printed citation wording and numbering are retained; hyperlink targets are reviewed separately."
+      ]
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 16:2",
+      "sourceSha256": "8cf0e0536b84ab9448c1f54eae064554a0b6b6fd0b94a165ab9680e9b2cb7326",
+      "phrasePairs": 18,
+      "sourceHebrewLetters": 376,
+      "normalizedHebrewLetters": 398,
+      "expansions": [
+        {
+          "from": "לַה'",
+          "to": "לַשֵּׁם",
+          "count": 2,
+          "reason": "Expand the Divine-Name abbreviation with its prefixed preposition.",
+          "countApplied": 2
+        },
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "count": 2,
+          "reason": "Expand the conventional Divine honorific.",
+          "countApplied": 2
+        },
+        {
+          "from": "רַשִׁ\"י",
+          "to": "רַבִּי שְׁלֹמֹה יִצְחָקִי",
+          "count": 1,
+          "reason": "Expand Rashi as the commentator’s name.",
+          "countApplied": 1
+        },
+        {
+          "from": "וּפֵי'",
+          "to": "וּפֵרֵשׁ",
+          "count": 1,
+          "reason": "The subject is Rashi, who explained the preceding Gemara quotation.",
+          "countApplied": 1
+        },
+        {
+          "from": "שבת",
+          "to": "שַׁבָּת",
+          "count": 1,
+          "reason": "Add nikkud to the source citation without changing consonants.",
+          "countApplied": 1
+        }
+      ],
+      "allSourceLettersAccountedFor": true,
+      "missingEnglishPhrases": 0,
+      "reviewNotes": [
+        "All source words, in their original order, are included in the phrase pairs. Printed citation wording and numbering are retained; hyperlink targets are reviewed separately."
+      ]
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 17:1",
+      "sourceSha256": "4c4d7668d072cf2faf199ce7c44a3a214cb75852be857253f157782f430da013",
+      "phrasePairs": 9,
+      "sourceHebrewLetters": 219,
+      "normalizedHebrewLetters": 219,
+      "expansions": [],
+      "allSourceLettersAccountedFor": true,
+      "missingEnglishPhrases": 0,
+      "reviewNotes": [
+        "All source words, in their original order, are included in the phrase pairs. Printed citation wording and numbering are retained; hyperlink targets are reviewed separately."
+      ]
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 19:1",
+      "sourceSha256": "d21548471f18fce8112e76d1091c787b99d36f6f834d7db87c1b4bd44696f00a",
+      "phrasePairs": 8,
+      "sourceHebrewLetters": 168,
+      "normalizedHebrewLetters": 182,
+      "expansions": [
+        {
+          "from": "חֲזַ\"ל",
+          "to": "חֲכָמֵינוּ זִכְרוֹנָם לִבְרָכָה",
+          "count": 1,
+          "reason": "Expand the conventional designation of the Sages.",
+          "countApplied": 1
+        }
+      ],
+      "allSourceLettersAccountedFor": true,
+      "missingEnglishPhrases": 0,
+      "reviewNotes": [
+        "All source words, in their original order, are included in the phrase pairs. Printed citation wording and numbering are retained; hyperlink targets are reviewed separately."
+      ]
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 19:2",
+      "sourceSha256": "706acfd884dc8b06e0a17c8a2a75b312dbd3a49afe7aaf11c278f7d6c2eff9fd",
+      "phrasePairs": 13,
+      "sourceHebrewLetters": 265,
+      "normalizedHebrewLetters": 270,
+      "expansions": [
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "count": 1,
+          "reason": "Expand the conventional Divine honorific.",
+          "countApplied": 1
+        },
+        {
+          "from": "סוכה",
+          "to": "סוּכָּה",
+          "count": 1,
+          "reason": "Add nikkud to the source citation without changing consonants.",
+          "countApplied": 1
+        }
+      ],
+      "allSourceLettersAccountedFor": true,
+      "missingEnglishPhrases": 0,
+      "reviewNotes": [
+        "All source words, in their original order, are included in the phrase pairs. Printed citation wording and numbering are retained; hyperlink targets are reviewed separately."
+      ]
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 20:1",
+      "sourceSha256": "0b2ed5a18be1932fecaf24c41e01571abac7f9b52cc83d68e1e5c2b9d7cf6c7a",
+      "phrasePairs": 12,
+      "sourceHebrewLetters": 264,
+      "normalizedHebrewLetters": 266,
+      "expansions": [
+        {
+          "from": "כוּ׳",
+          "to": "כּוּלֵי",
+          "count": 1,
+          "reason": "Expand the source abbreviation for etcetera.",
+          "countApplied": 1
+        },
+        {
+          "from": "שיר השירים רבה פרשה",
+          "to": "שִׁיר הַשִּׁירִים רַבָּה פָּרָשָׁה",
+          "count": 1,
+          "reason": "Add nikkud to the source citation without changing consonants.",
+          "countApplied": 1
+        }
+      ],
+      "allSourceLettersAccountedFor": true,
+      "missingEnglishPhrases": 0,
+      "reviewNotes": [
+        "All source words, in their original order, are included in the phrase pairs. Printed citation wording and numbering are retained; hyperlink targets are reviewed separately."
+      ]
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Talmud, Rosh Hashanah 27a:1",
+      "sourceSha256": "f0c2992ef473d07752a898ad175649a646be97a05e3662b27d4aba40eaf0a094",
+      "phrasePairs": 9,
+      "sourceHebrewLetters": 287,
+      "normalizedHebrewLetters": 294,
+      "expansions": [
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "occurrences": 1,
+          "reason": "Contextually reviewed abbreviation expansion; Divine Names remain respectful.",
+          "countApplied": 1
+        },
+        {
+          "from": "כוּ׳",
+          "to": "כּוּלֵי",
+          "occurrences": 1,
+          "reason": "Contextually reviewed abbreviation expansion; Divine Names remain respectful.",
+          "countApplied": 1
+        }
+      ],
+      "allSourceLettersAccountedFor": true,
+      "missingEnglishPhrases": 0,
+      "reviewNotes": [
+        "Original English translation prepared directly from the complete canonical Hebrew paragraph. Existing source nikkud is retained; expanded words and unpointed biblical-book names are vocalized. Hebrew numerals, citation notation, and Hebrew square brackets are retained.",
+        "The source wording ידותיהם, literally their handles, is retained without silently changing the source noun."
+      ]
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Talmud, Rosh Hashanah 29b:1",
+      "sourceSha256": "c2424c2866308f752d8d2e906a572cc0fb5c82053fffc2ffef03a740a492d32f",
+      "phrasePairs": 20,
+      "sourceHebrewLetters": 700,
+      "normalizedHebrewLetters": 715,
+      "expansions": [
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "occurrences": 3,
+          "reason": "Contextually reviewed abbreviation expansion; Divine Names remain respectful.",
+          "countApplied": 3
+        }
+      ],
+      "allSourceLettersAccountedFor": true,
+      "missingEnglishPhrases": 0,
+      "reviewNotes": [
+        "Original English translation prepared directly from the complete canonical Hebrew paragraph. Existing source nikkud is retained; expanded words and unpointed biblical-book names are vocalized. Hebrew numerals, citation notation, and Hebrew square brackets are retained."
+      ]
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Talmud, Megillah 4a:1",
+      "sourceSha256": "99cb58fd3b439144bb0f31a4ed0fd049d22abb425e15adcf2881e5e9fb8f787c",
+      "phrasePairs": 24,
+      "sourceHebrewLetters": 730,
+      "normalizedHebrewLetters": 749,
+      "expansions": [
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "occurrences": 2,
+          "reason": "Contextually reviewed abbreviation expansion; Divine Names remain respectful.",
+          "countApplied": 2
+        },
+        {
+          "from": "לַה׳",
+          "to": "לַשֵּׁם",
+          "occurrences": 1,
+          "reason": "Contextually reviewed abbreviation expansion; Divine Names remain respectful.",
+          "countApplied": 1
+        },
+        {
+          "from": "כוּ׳",
+          "to": "כּוּלֵי",
+          "occurrences": 4,
+          "reason": "Contextually reviewed abbreviation expansion; Divine Names remain respectful.",
+          "countApplied": 4
+        }
+      ],
+      "allSourceLettersAccountedFor": true,
+      "missingEnglishPhrases": 0,
+      "reviewNotes": [
+        "Original English translation prepared directly from the complete canonical Hebrew paragraph. Existing source nikkud is retained; expanded words and unpointed biblical-book names are vocalized. Hebrew numerals, citation notation, and Hebrew square brackets are retained.",
+        "The thirteenth-day phrase זמן קריאה לכל is rendered as the time for summoning everyone, preserving the source word קריאה rather than silently substituting קהילה. The numeral ה׳ in Deuteronomy 26:5 is preserved and is not expanded as a Divine Name."
+      ]
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Talmud, Megillah 5a:1",
+      "sourceSha256": "4059cfd2f5f27b3eb2facc0325df4caf9e4cd725af04480ee3f218e75a689a1f",
+      "phrasePairs": 12,
+      "sourceHebrewLetters": 420,
+      "normalizedHebrewLetters": 424,
+      "expansions": [
+        {
+          "from": "כוּ'",
+          "to": "כּוּלֵי",
+          "occurrences": 2,
+          "reason": "Contextually reviewed abbreviation expansion; Divine Names remain respectful.",
+          "countApplied": 2
+        }
+      ],
+      "allSourceLettersAccountedFor": true,
+      "missingEnglishPhrases": 0,
+      "reviewNotes": [
+        "Original English translation prepared directly from the complete canonical Hebrew paragraph. Existing source nikkud is retained; expanded words and unpointed biblical-book names are vocalized. Hebrew numerals, citation notation, and Hebrew square brackets are retained."
+      ]
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Talmud, Megillah 6a:1",
+      "sourceSha256": "220eeea93211df2a1efda41cc03e6fe62b1d502aca3b30b65b0132077a190088",
+      "phrasePairs": 13,
+      "sourceHebrewLetters": 333,
+      "normalizedHebrewLetters": 349,
+      "expansions": [
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "occurrences": 2,
+          "reason": "Contextually reviewed abbreviation expansion; Divine Names remain respectful.",
+          "countApplied": 2
+        },
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "occurrences": 1,
+          "reason": "Contextually reviewed abbreviation expansion; Divine Names remain respectful.",
+          "countApplied": 1
+        },
+        {
+          "from": "כוּ'",
+          "to": "כּוּלֵי",
+          "occurrences": 2,
+          "reason": "Contextually reviewed abbreviation expansion; Divine Names remain respectful.",
+          "countApplied": 2
+        }
+      ],
+      "allSourceLettersAccountedFor": true,
+      "missingEnglishPhrases": 0,
+      "reviewNotes": [
+        "Original English translation prepared directly from the complete canonical Hebrew paragraph. Existing source nikkud is retained; expanded words and unpointed biblical-book names are vocalized. Hebrew numerals, citation notation, and Hebrew square brackets are retained."
+      ]
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Talmud, Megillah 7a:1",
+      "sourceSha256": "486b8fad4658268c97441e49068e03eebbe20fa8a8e8919013dc5ceed0623d03",
+      "phrasePairs": 44,
+      "sourceHebrewLetters": 1778,
+      "normalizedHebrewLetters": 1799,
+      "expansions": [
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "occurrences": 3,
+          "reason": "Contextually reviewed abbreviation expansion; Divine Names remain respectful.",
+          "countApplied": 3
+        },
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "occurrences": 1,
+          "reason": "Contextually reviewed abbreviation expansion; Divine Names remain respectful.",
+          "countApplied": 1
+        },
+        {
+          "from": "כוּ'",
+          "to": "כּוּלֵי",
+          "occurrences": 2,
+          "reason": "Contextually reviewed abbreviation expansion; Divine Names remain respectful.",
+          "countApplied": 2
+        }
+      ],
+      "allSourceLettersAccountedFor": true,
+      "missingEnglishPhrases": 0,
+      "reviewNotes": [
+        "Original English translation prepared directly from the complete canonical Hebrew paragraph. Existing source nikkud is retained; expanded words and unpointed biblical-book names are vocalized. Hebrew numerals, citation notation, and Hebrew square brackets are retained."
+      ]
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Talmud, Megillah 7b:1",
+      "sourceSha256": "92f1d4703253826764f478f80c1c48206bb8f309ed69f5b496ae0a3f39a3d1d7",
+      "phrasePairs": 8,
+      "sourceHebrewLetters": 310,
+      "normalizedHebrewLetters": 316,
+      "expansions": [
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "occurrences": 1,
+          "reason": "Contextually reviewed abbreviation expansion; Divine Names remain respectful.",
+          "countApplied": 1
+        },
+        {
+          "from": "כוּ'",
+          "to": "כּוּלֵי",
+          "occurrences": 2,
+          "reason": "Contextually reviewed abbreviation expansion; Divine Names remain respectful.",
+          "countApplied": 2
+        }
+      ],
+      "allSourceLettersAccountedFor": true,
+      "missingEnglishPhrases": 0,
+      "reviewNotes": [
+        "Original English translation prepared directly from the complete canonical Hebrew paragraph. Existing source nikkud is retained; expanded words and unpointed biblical-book names are vocalized. Hebrew numerals, citation notation, and Hebrew square brackets are retained."
+      ]
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Talmud, Megillah 10b:1",
+      "sourceSha256": "293f5cb29f76581900f442d0019d54a6c845fc5873c7580bdda822996ace7f38",
+      "phrasePairs": 9,
+      "sourceHebrewLetters": 358,
+      "normalizedHebrewLetters": 360,
+      "expansions": [
+        {
+          "from": "כוּ'",
+          "to": "כּוּלֵי",
+          "occurrences": 1,
+          "reason": "Contextually reviewed abbreviation expansion; Divine Names remain respectful.",
+          "countApplied": 1
+        }
+      ],
+      "allSourceLettersAccountedFor": true,
+      "missingEnglishPhrases": 0,
+      "reviewNotes": [
+        "Original English translation prepared directly from the complete canonical Hebrew paragraph. Existing source nikkud is retained; expanded words and unpointed biblical-book names are vocalized. Hebrew numerals, citation notation, and Hebrew square brackets are retained."
+      ]
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Talmud, Megillah 11a:1",
+      "sourceSha256": "b891776a1584bf61e184bd8c72f5b14015b04ce07920b38caef97aba0ce4ffe9",
+      "phrasePairs": 14,
+      "sourceHebrewLetters": 529,
+      "normalizedHebrewLetters": 533,
+      "expansions": [
+        {
+          "from": "כוּ'",
+          "to": "כּוּלֵי",
+          "occurrences": 2,
+          "reason": "Contextually reviewed abbreviation expansion; Divine Names remain respectful.",
+          "countApplied": 2
+        }
+      ],
+      "allSourceLettersAccountedFor": true,
+      "missingEnglishPhrases": 0,
+      "reviewNotes": [
+        "Original English translation prepared directly from the complete canonical Hebrew paragraph. Existing source nikkud is retained; expanded words and unpointed biblical-book names are vocalized. Hebrew numerals, citation notation, and Hebrew square brackets are retained."
+      ]
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Talmud, Megillah 12b:1",
+      "sourceSha256": "6d54a4833bf6fd69b8cd28ca9dd0f077294de49183ed14243eec998cc154535a",
+      "phrasePairs": 35,
+      "sourceHebrewLetters": 1226,
+      "normalizedHebrewLetters": 1278,
+      "expansions": [
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "occurrences": 4,
+          "reason": "Contextually reviewed abbreviation expansion; Divine Names remain respectful.",
+          "countApplied": 4
+        },
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "occurrences": 3,
+          "reason": "Contextually reviewed abbreviation expansion; Divine Names remain respectful.",
+          "countApplied": 3
+        },
+        {
+          "from": "כוּ'",
+          "to": "כּוּלֵי",
+          "occurrences": 3,
+          "reason": "Contextually reviewed abbreviation expansion; Divine Names remain respectful.",
+          "countApplied": 3
+        },
+        {
+          "from": "הַבֶּעשְׁ\"ט",
+          "to": "הַבַּעַל שֵׁם טוֹב",
+          "occurrences": 1,
+          "reason": "Contextually reviewed abbreviation expansion; Divine Names remain respectful.",
+          "countApplied": 1
+        },
+        {
+          "from": "ז״ל",
+          "to": "זִכְרוֹ לִבְרָכָה",
+          "occurrences": 1,
+          "reason": "Contextually reviewed abbreviation expansion; Divine Names remain respectful.",
+          "countApplied": 1
+        },
+        {
+          "from": "עכ\"ל",
+          "to": "עַד כָּאן לְשׁוֹנוֹ",
+          "occurrences": 1,
+          "reason": "Contextually reviewed abbreviation expansion; Divine Names remain respectful.",
+          "countApplied": 1
+        },
+        {
+          "from": "ר'",
+          "to": "רַבִּי",
+          "occurrences": 1,
+          "reason": "Contextually reviewed abbreviation expansion; Divine Names remain respectful.",
+          "countApplied": 1
+        }
+      ],
+      "allSourceLettersAccountedFor": true,
+      "missingEnglishPhrases": 0,
+      "reviewNotes": [
+        "Original English translation prepared directly from the complete canonical Hebrew paragraph. Existing source nikkud is retained; expanded words and unpointed biblical-book names are vocalized. Hebrew numerals, citation notation, and Hebrew square brackets are retained.",
+        "The pronoun להם in the clause about intensified desire remains them; the source does not state its antecedent explicitly in that clause. The Baal Shem Tov, memorial formula, quotation-end formula, and Rabbi abbreviation are expanded individually."
+      ]
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Talmud, Megillah 12b:2",
+      "sourceSha256": "74e7ac46a0b0fa951bbce21a757799a686b2561fd1b143469020601a8207e0d2",
+      "phrasePairs": 11,
+      "sourceHebrewLetters": 299,
+      "normalizedHebrewLetters": 305,
+      "expansions": [
+        {
+          "from": "כוּ'",
+          "to": "כּוּלֵי",
+          "occurrences": 3,
+          "reason": "Contextually reviewed abbreviation expansion; Divine Names remain respectful.",
+          "countApplied": 3
+        }
+      ],
+      "allSourceLettersAccountedFor": true,
+      "missingEnglishPhrases": 0,
+      "reviewNotes": [
+        "Original English translation prepared directly from the complete canonical Hebrew paragraph. Existing source nikkud is retained; expanded words and unpointed biblical-book names are vocalized. Hebrew numerals, citation notation, and Hebrew square brackets are retained."
+      ]
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Talmud, Megillah 18a:1",
+      "sourceSha256": "6c65de6d66b5b25fd196dd9c18d9b0be3d142c3a5e59ff66d6298c0e276f7491",
+      "phrasePairs": 8,
+      "sourceHebrewLetters": 284,
+      "normalizedHebrewLetters": 290,
+      "expansions": [
+        {
+          "from": "ה'",
+          "to": "הַשֵּׁם",
+          "occurrences": 1,
+          "reason": "Contextually reviewed abbreviation expansion; Divine Names remain respectful.",
+          "countApplied": 1
+        },
+        {
+          "from": "כוּ׳",
+          "to": "כּוּלֵי",
+          "occurrences": 2,
+          "reason": "Contextually reviewed abbreviation expansion; Divine Names remain respectful.",
+          "countApplied": 2
+        }
+      ],
+      "allSourceLettersAccountedFor": true,
+      "missingEnglishPhrases": 0,
+      "reviewNotes": [
+        "Original English translation prepared directly from the complete canonical Hebrew paragraph. Existing source nikkud is retained; expanded words and unpointed biblical-book names are vocalized. Hebrew numerals, citation notation, and Hebrew square brackets are retained."
+      ]
+    },
+    {
+      "ref": "Mei HaShiloach, Volume I, Talmud, Megillah 18a:2",
+      "sourceSha256": "d61228aa38298116b35b5b0604bdf79f80b0d8e9b5774f8cb269da2163d7cdd0",
+      "phrasePairs": 25,
+      "sourceHebrewLetters": 764,
+      "normalizedHebrewLetters": 799,
+      "expansions": [
+        {
+          "from": "הַש\"י",
+          "to": "הַשֵּׁם יִתְבָּרַךְ",
+          "occurrences": 5,
+          "reason": "Contextually reviewed abbreviation expansion; Divine Names remain respectful.",
+          "countApplied": 5
+        },
+        {
+          "from": "ה׳",
+          "to": "הַשֵּׁם",
+          "occurrences": 1,
+          "reason": "Contextually reviewed abbreviation expansion; Divine Names remain respectful.",
+          "countApplied": 1
+        },
+        {
+          "from": "כוּ׳",
+          "to": "כּוּלֵי",
+          "occurrences": 4,
+          "reason": "Contextually reviewed abbreviation expansion; Divine Names remain respectful.",
+          "countApplied": 4
+        }
+      ],
+      "allSourceLettersAccountedFor": true,
+      "missingEnglishPhrases": 0,
+      "reviewNotes": [
+        "Original English translation prepared directly from the complete canonical Hebrew paragraph. Existing source nikkud is retained; expanded words and unpointed biblical-book names are vocalized. Hebrew numerals, citation notation, and Hebrew square brackets are retained.",
+        "יחוס לחיים is translated as a claim to life in the immediate context of salvation without merit and the attribute of judgment; this conveys the author’s theological argument. The Aramaic טייעא is rendered Arab, and the gamal / gam li wordplay is retained."
+      ]
+    }
+  ]
+}

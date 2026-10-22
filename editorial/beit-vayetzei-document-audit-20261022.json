@@ -1,0 +1,3198 @@
+{
+  "schemaVersion": 1,
+  "book": "Beit Yaakov on Torah",
+  "parashah": "Vayetzei",
+  "source": {
+    "name": "בית יעקב על התורה, וישלח.docx",
+    "sha256": "a0e1be90d287338d07af41c0dae7483a07c30a86c7265a8ecc477a35cb0b0d40",
+    "materializedFilename": "02-docx",
+    "priorReviewedSourceSha256": "9ed2ed33d9c959138b7852e5fdefe65b898d3e57022802dafd9f9289fccce68f",
+    "textEquivalentSourceSha256": "a0e1be90d287338d07af41c0dae7483a07c30a86c7265a8ecc477a35cb0b0d40",
+    "textEquivalenceProof": {
+      "method": "Exact SHA-256 of the ordered, newline-joined text of all 253 DOCX paragraphs",
+      "originalDocumentTextSha256": "4d92a45f2c5fb68c7657662fef95ebf36ca5210c6c109339cd835d19454de259",
+      "currentDocumentTextSha256": "4d92a45f2c5fb68c7657662fef95ebf36ca5210c6c109339cd835d19454de259",
+      "identical": true,
+      "scope": "Different DOCX container bytes; all paragraph texts and their order are identical. The four previously reviewed Hebrew repairs are unchanged."
+    },
+    "filenameParashah": "Vayishlach",
+    "detectedParashah": "Vayetzei",
+    "filenameMismatchExplanation": "Every supplied heading says Vayetzei; all 76 osiyos and 96 paragraph positions match canonical Vayetzei.",
+    "docxParagraphs": 253,
+    "nonemptyDocxParagraphs": 173,
+    "blankDocxParagraphs": 80,
+    "headingParagraphs": 77,
+    "sections": 76,
+    "paragraphs": 96,
+    "phrasePairs": 3467,
+    "bracketCharactersRemoved": 6942,
+    "englishBracketCharactersRemoved": 6942,
+    "hebrewLiteralBracketCharactersPreserved": 4,
+    "restoredHebrewCitationBracketCharacters": 2,
+    "absentSectionNumbers": [],
+    "excludedChatIntroductions": [],
+    "unmatchedHebrew": [],
+    "unmatchedEnglish": [],
+    "originalDocumentTextSha256": "4d92a45f2c5fb68c7657662fef95ebf36ca5210c6c109339cd835d19454de259",
+    "originalBodyTextSha256": "885d2df9b0edd2cf7ba791e6c6650ca1820be584691f4c88b4f3823325835da0",
+    "bracketCleanedBodyTextSha256": "1bab01d8e33947d5b01d86e586cf4a48c56d71c816c3139cfd2b5e745b78b5fd",
+    "bodyTextSha256": "13f66762b857ebcfd61bcdec5831bf1cc1a5d7227a4c7704f2eee173c71522ff",
+    "reviewedSourceCorrections": 4,
+    "sourceParagraphIndexBase": 0
+  },
+  "packFile": "sources/akiva/overlays/beit-vayetzei-document-20261022.json.gz.b64",
+  "packSha256": "63fbac11c05cb955618078ceab910d8eea381930e8fbb5af62a5cff57ceae836",
+  "decodedPackSha256": "60be6ac5885433f7621b64ffc38816781a5d1fa2ddefa48a57d25c41e78c553f",
+  "canonicalVerification": {
+    "provider": "Sefaria",
+    "apiUrl": "https://www.sefaria.org/api/texts/Beit_Yaakov_on_Torah,_Vayetzei?context=0&commentary=0&pad=0",
+    "sourceUrl": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Vayetzei",
+    "responseSha256": "504c40d999c575666b8da70a96b8cc73a8b8e9e4f3cf4a8c5712935d03e07eb0",
+    "versionTitle": "Beit Yaakov al HaTorah, Sifrei Izhbitza Radzin, Bnei Brak, 2006",
+    "canonicalRef": "Beit Yaakov on Torah, Vayetzei",
+    "checkedOn": "2026-10-22",
+    "sectionCount": 76,
+    "paragraphCount": 96,
+    "shape": [
+      3,
+      1,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1,
+      2,
+      3,
+      3,
+      1,
+      1,
+      1,
+      2,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      2,
+      1,
+      1,
+      1,
+      1,
+      3,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      2,
+      1,
+      1,
+      1,
+      3,
+      1,
+      1,
+      1,
+      1,
+      2,
+      3,
+      1,
+      1,
+      1,
+      3,
+      1,
+      1,
+      1,
+      1,
+      1
+    ],
+    "absentSectionNumbers": [],
+    "editorialFootnotesExcludedFromBaseComparison": 206,
+    "baseTextComparison": "Vocalized, abbreviation-expanded supplied Hebrew compared to canonical body; editorial footnotes excluded.",
+    "suppliedCitationVariations": [
+      {
+        "section": 28,
+        "paragraph": 1,
+        "detail": "The canonical Mei HaShiloach parenthesis supplied only in English has been restored in Hebrew with an exact reversible audit."
+      },
+      {
+        "section": 45,
+        "paragraph": 1,
+        "detail": "The canonical Mei HaShiloach / Berakhot parenthesis supplied only in English has been restored in Hebrew with an exact reversible audit."
+      },
+      {
+        "section": 67,
+        "paragraph": 3,
+        "detail": "The supplied Hebrew additionally names Shir HaShirim Rabbah 4:16 beside the supplied Bereishit Rabbah locator."
+      },
+      {
+        "section": 72,
+        "paragraph": 1,
+        "detail": "Both canonical Mei HaShiloach locators supplied only in English have been restored in Hebrew with an exact reversible audit."
+      }
+    ],
+    "minimumNormalizedCharacterSimilarity": 0.920666
+  },
+  "checks": {
+    "allNonemptySourceParagraphsAccounted": true,
+    "allSuppliedWordsPreservedExceptReviewedTypo": true,
+    "originalParagraphOrderPreserved": true,
+    "originalPhraseOrderPreserved": true,
+    "allEnglishBracketsRemoved": true,
+    "hebrewLiteralBracketsPreserved": true,
+    "allCanonicalSectionsAndParagraphsPresent": true,
+    "reversibleCorrectionProofPassed": true,
+    "canonicalSideDifferencesReviewed": true,
+    "missingCanonicalNarrativeSentences": 0,
+    "missingCanonicalHebrewCitationParenthesesRestored": 3
+  },
+  "editorialCorrections": [
+    {
+      "section": 9,
+      "paragraph": 2,
+      "sourceParagraph": 35,
+      "phraseIndex": 26,
+      "language": "he",
+      "before": "מִפְּנֵי שֶׁאָמְרוּ: אayה הֵן נוֹרְאוֹתָיו וְאַיֵּה הֵן גְּבוּרוֹתָיו וְכוּלֵי?",
+      "after": "מִפְּנֵי שֶׁאָמְרוּ: אַיֵּה הֵן נוֹרְאוֹתָיו וְאַיֵּה הֵן גְּבוּרוֹתָיו וְכוּלֵי?",
+      "originalToken": "אayה",
+      "correctedToken": "אַיֵּה",
+      "reason": "Repair the mixed Hebrew/Latin corruption using canonical איה and the adjoining pointed וְאַיֵּה.",
+      "canonicalRef": "Beit Yaakov on Torah, Vayetzei 9:2",
+      "canonicalUrl": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Vayetzei.9.2",
+      "canonicalQuote": "מפני שאמרו איה הן נוראותיו ואיה הן גבורותיו",
+      "originalEnglishPreserved": "because they said: \"Where are His awesome deeds, and where are His mighty deeds?\" etc.,"
+    },
+    {
+      "section": 28,
+      "paragraph": 1,
+      "sourceParagraph": 103,
+      "phraseIndex": 17,
+      "language": "he",
+      "before": "אָכֵן הָעִנְיָן הוּא כְּמוֹ שֶׁאָמַר אֲדוֹנִי אָבִי מוֹרִי וְרַבִּי הַגָּאוֹן הַקָּדוֹשׁ זֵכֶר צַדִּיק וְקָדוֹשׁ לִבְרָכָה לְחַיֵּי הָעוֹלָם הַבָּא",
+      "after": "אָכֵן הָעִנְיָן הוּא כְּמוֹ שֶׁאָמַר אֲדוֹנִי אָבִי מוֹרִי וְרַבִּי הַגָּאוֹן הַקָּדוֹשׁ זֵכֶר צַדִּיק וְקָדוֹשׁ לִבְרָכָה לְחַיֵּי הָעוֹלָם הַבָּא (מֵי הַשִּׁלֹחַ חֵלֶק א וַיֵּצֵא דִּבּוּר הַמַּתְחִיל וַיֹּאמֶר וּבַגִּלָּיוֹן אוֹת ד)",
+      "addedHebrew": " (מֵי הַשִּׁלֹחַ חֵלֶק א וַיֵּצֵא דִּבּוּר הַמַּתְחִיל וַיֹּאמֶר וּבַגִּלָּיוֹן אוֹת ד)",
+      "kind": "restoredCanonicalHebrewCitation",
+      "reason": "Restore the canonical Hebrew source parenthesis already translated in the supplied English; expand its abbreviations and add nikkud.",
+      "canonicalRef": "Beit Yaakov on Torah, Vayetzei 28:1",
+      "canonicalUrl": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Vayetzei.28.1",
+      "canonicalQuote": "(מי השלוח ח\"א ויצא ד\"ה ויאמר ובגליון אות ד)",
+      "originalEnglishPreserved": "However, the matter is as stated by my master, father, teacher, and rabbi, the holy Gaon (Mei HaShiloach, Part I, Vayeitzei s.v. Vayomer, and in the margin note 4)"
+    },
+    {
+      "section": 45,
+      "paragraph": 1,
+      "sourceParagraph": 150,
+      "phraseIndex": 1,
+      "language": "he",
+      "before": "אָמַר כְּבוֹד אֲדוֹנִי אָבִי מוֹרִי וְרַבִּי הַגָּאוֹן הַקָּדוֹשׁ זֵכֶר צַדִּיק וְקָדוֹשׁ לִבְרָכָה לְחַיֵּי הָעוֹלָם הַבָּא",
+      "after": "אָמַר כְּבוֹד אֲדוֹנִי אָבִי מוֹרִי וְרַבִּי הַגָּאוֹן הַקָּדוֹשׁ זֵכֶר צַדִּיק וְקָדוֹשׁ לִבְרָכָה לְחַיֵּי הָעוֹלָם הַבָּא (מֵי הַשִּׁלֹחַ חֵלֶק א מַסֶּכֶת בְּרָכוֹת (לה.) דִּבּוּר הַמַּתְחִיל עַל פֵּירוֹת)",
+      "addedHebrew": " (מֵי הַשִּׁלֹחַ חֵלֶק א מַסֶּכֶת בְּרָכוֹת (לה.) דִּבּוּר הַמַּתְחִיל עַל פֵּירוֹת)",
+      "kind": "restoredCanonicalHebrewCitation",
+      "reason": "Restore the canonical Hebrew source parenthesis already translated in the supplied English; expand its abbreviations and add nikkud.",
+      "canonicalRef": "Beit Yaakov on Torah, Vayetzei 45:1",
+      "canonicalUrl": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Vayetzei.45.1",
+      "canonicalQuote": "(מי השלוח ח\"א מסכת ברכות (לה.) ד\"ה על פירות)",
+      "originalEnglishPreserved": "My revered master, father, teacher, and rabbi, the holy Gaon, of blessed memory (Mei HaShiloach, Part I, Berakhot 35a, s.v. Al Peirot) said:"
+    },
+    {
+      "section": 72,
+      "paragraph": 1,
+      "sourceParagraph": 241,
+      "phraseIndex": 40,
+      "language": "he",
+      "before": "וְאָמַר כְּבוֹד אֲדוֹנִי אָבִי מוֹרִי וְרַבִּי הַגָּאוֹן הַקָּדוֹשׁ זֵכֶר צַדִּיק וְקָדוֹשׁ לִבְרָכָה לְחַיֵּי הָעוֹלָם הַבָּא",
+      "after": "וְאָמַר כְּבוֹד אֲדוֹנִי אָבִי מוֹרִי וְרַבִּי הַגָּאוֹן הַקָּדוֹשׁ זֵכֶר צַדִּיק וְקָדוֹשׁ לִבְרָכָה לְחַיֵּי הָעוֹלָם הַבָּא (מֵי הַשִּׁלֹחַ חֵלֶק א בְּרֵאשִׁית דִּבּוּר הַמַּתְחִיל וַיֹּאמֶר הָאָדָם, חֵלֶק ב בְּרֵאשִׁית דִּבּוּר הַמַּתְחִיל בְּרֵאשִׁית [ב])",
+      "addedHebrew": " (מֵי הַשִּׁלֹחַ חֵלֶק א בְּרֵאשִׁית דִּבּוּר הַמַּתְחִיל וַיֹּאמֶר הָאָדָם, חֵלֶק ב בְּרֵאשִׁית דִּבּוּר הַמַּתְחִיל בְּרֵאשִׁית [ב])",
+      "kind": "restoredCanonicalHebrewCitation",
+      "reason": "Restore the canonical Hebrew source parenthesis already translated in the supplied English; expand its abbreviations and add nikkud.",
+      "canonicalRef": "Beit Yaakov on Torah, Vayetzei 72:1",
+      "canonicalUrl": "https://www.sefaria.org/Beit_Yaakov_on_Torah,_Vayetzei.72.1",
+      "canonicalQuote": "(מי השלוח ח\"א בראשית ד\"ה ויאמר האדם, ח\"ב בראשית ד\"ה בראשית [ב])",
+      "originalEnglishPreserved": "and my master, father, teacher, and rabbi, the holy Gaon (Mei HaShiloach, Part I, Bereishit, s.v. Vayomer HaAdam; Part II, Bereishit, s.v. Bereishit 2) said:"
+    }
+  ],
+  "sourceParagraphAccounting": [
+    {
+      "sourceParagraph": 0,
+      "originalTextSha256": "c442a059a0f457a16433f0d19cd8ea8d234ca66dfae0b0680462460eb8a4a729",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 1
+    },
+    {
+      "sourceParagraph": 1,
+      "originalTextSha256": "d58e627e031e0e2d072c59e63251dfa600d239eeb01b44124ab978656ab4fc9c",
+      "characters": 7198,
+      "kind": "body",
+      "section": 1,
+      "paragraph": 1,
+      "phrasePairs": 53,
+      "englishBracketCharactersRemoved": 106,
+      "bracketCleanedTextSha256": "0a4a9dcd2883941a63739c2470dff228b625d0bb8a2b6f9e33fac99147dd7da6",
+      "importedTextSha256": "0a4a9dcd2883941a63739c2470dff228b625d0bb8a2b6f9e33fac99147dd7da6",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 3,
+      "originalTextSha256": "34e1d1e2c2d2c5c2cba23378e4dfac5e883d19dcceda52536c518b5e23ecd4f4",
+      "characters": 6126,
+      "kind": "body",
+      "section": 1,
+      "paragraph": 2,
+      "phrasePairs": 42,
+      "englishBracketCharactersRemoved": 84,
+      "bracketCleanedTextSha256": "53bce61a900eb065c41de3c2b3ac21e8d9935d4a1922fff61c3f6c68709d8ec1",
+      "importedTextSha256": "53bce61a900eb065c41de3c2b3ac21e8d9935d4a1922fff61c3f6c68709d8ec1",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 5,
+      "originalTextSha256": "6d0cb1a1fa58c97f4d1dbc903b49788537c7062521f038670e729c6446f565c1",
+      "characters": 9239,
+      "kind": "body",
+      "section": 1,
+      "paragraph": 3,
+      "phrasePairs": 63,
+      "englishBracketCharactersRemoved": 126,
+      "bracketCleanedTextSha256": "508b027814ef774f98942af4fe4f24ca4ab135bbf68da40c09ddcb8070a2de5a",
+      "importedTextSha256": "508b027814ef774f98942af4fe4f24ca4ab135bbf68da40c09ddcb8070a2de5a",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 7,
+      "originalTextSha256": "adef3142563a4484eff6fe3b10b1fd82756f16cf2288727aa255478a0df4d2a2",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 2
+    },
+    {
+      "sourceParagraph": 8,
+      "originalTextSha256": "73092ae931b4a8c9a005ec178be623ced251e82fb6afa2c2c47db36ea3e3909f",
+      "characters": 12195,
+      "kind": "body",
+      "section": 2,
+      "paragraph": 1,
+      "phrasePairs": 86,
+      "englishBracketCharactersRemoved": 172,
+      "bracketCleanedTextSha256": "52ec78fb8ef9c86cde1c36ecff0fc2372c95e1a1e87bef1bf307e4555d92df60",
+      "importedTextSha256": "52ec78fb8ef9c86cde1c36ecff0fc2372c95e1a1e87bef1bf307e4555d92df60",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 10,
+      "originalTextSha256": "2e34f7cb6ac4fd8947308bde3595068323695f3ad87fdaf62e5504ef22f1efdc",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 3
+    },
+    {
+      "sourceParagraph": 11,
+      "originalTextSha256": "8cec75b673ca42aef0394610098def1166736a5a3a9894215573d7d2ca7870a0",
+      "characters": 17171,
+      "kind": "body",
+      "section": 3,
+      "paragraph": 1,
+      "phrasePairs": 113,
+      "englishBracketCharactersRemoved": 226,
+      "bracketCleanedTextSha256": "0e712b7ea6250aea22694e79f5f5ef312e576c7ad476e985833b190c66e1d1a4",
+      "importedTextSha256": "0e712b7ea6250aea22694e79f5f5ef312e576c7ad476e985833b190c66e1d1a4",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 13,
+      "originalTextSha256": "fc7155ccfc2f947ca8d2a8a6d65771c6c961ab2100857d1dee686d3444f05d08",
+      "characters": 29,
+      "kind": "continuationHeading",
+      "section": 3
+    },
+    {
+      "sourceParagraph": 14,
+      "originalTextSha256": "447266b0685ee72b8a517a6cd3655d8da5e0071de0e74e994752367e25cc4928",
+      "characters": 2835,
+      "kind": "body",
+      "section": 3,
+      "paragraph": 2,
+      "phrasePairs": 21,
+      "englishBracketCharactersRemoved": 42,
+      "bracketCleanedTextSha256": "3407548893aeae7f5c3d51c93ef66521e4273adf345940aaed8d598e600f7f4a",
+      "importedTextSha256": "3407548893aeae7f5c3d51c93ef66521e4273adf345940aaed8d598e600f7f4a",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 17,
+      "originalTextSha256": "2c366462d2fa1714c1c86f9143be2e8fddd4150b4e6e689430953a7bdd0bc9af",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 4
+    },
+    {
+      "sourceParagraph": 18,
+      "originalTextSha256": "35d94bb2e32adc5aec758f5576337102d1787dc42f159e8dd47693d00b272a70",
+      "characters": 11777,
+      "kind": "body",
+      "section": 4,
+      "paragraph": 1,
+      "phrasePairs": 92,
+      "englishBracketCharactersRemoved": 184,
+      "bracketCleanedTextSha256": "17be739af9b61eefada408999e9d9726be667d21213f1aa5b5d81585fff0fd84",
+      "importedTextSha256": "17be739af9b61eefada408999e9d9726be667d21213f1aa5b5d81585fff0fd84",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 20,
+      "originalTextSha256": "804b3756dc31a474624518c0dbc61e32c9ed84629faa03f4e69c5b72407a2d48",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 5
+    },
+    {
+      "sourceParagraph": 21,
+      "originalTextSha256": "7226b29b7b302dff017aabb6541ffc5d96e8667cff228cf053720e9e2f87c1eb",
+      "characters": 7169,
+      "kind": "body",
+      "section": 5,
+      "paragraph": 1,
+      "phrasePairs": 55,
+      "englishBracketCharactersRemoved": 110,
+      "bracketCleanedTextSha256": "dc3a9d61be211a45024b3256e06585a83463e44b3750fc0b8428a10c47a6432f",
+      "importedTextSha256": "dc3a9d61be211a45024b3256e06585a83463e44b3750fc0b8428a10c47a6432f",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 23,
+      "originalTextSha256": "efecd4d7712583852983a276579833993a6ef81321b5de8fbfd1f880dccd5045",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 6
+    },
+    {
+      "sourceParagraph": 24,
+      "originalTextSha256": "a9ff46846f6cf64e5c607e98c93b0c833e531067280e0185a6accaabf2ca1601",
+      "characters": 9276,
+      "kind": "body",
+      "section": 6,
+      "paragraph": 1,
+      "phrasePairs": 61,
+      "englishBracketCharactersRemoved": 122,
+      "bracketCleanedTextSha256": "1d83c12b880b4a549a26b61b8617c87bebef13a320742dfc7e07b3dd98f6c7c4",
+      "importedTextSha256": "1d83c12b880b4a549a26b61b8617c87bebef13a320742dfc7e07b3dd98f6c7c4",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 26,
+      "originalTextSha256": "4f2ddec2b09c73737c855e6deb4065db21da6019ed075b2db73b9a2b1d04e017",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 7
+    },
+    {
+      "sourceParagraph": 27,
+      "originalTextSha256": "e105bdccaab57bc57613a85e0747b12da0743ae0b367e0a9268d3b09473f34c0",
+      "characters": 7894,
+      "kind": "body",
+      "section": 7,
+      "paragraph": 1,
+      "phrasePairs": 48,
+      "englishBracketCharactersRemoved": 96,
+      "bracketCleanedTextSha256": "26e2d351b26960045748f3a45c51dcad736560227faddeb0942edaaf2f1da16d",
+      "importedTextSha256": "26e2d351b26960045748f3a45c51dcad736560227faddeb0942edaaf2f1da16d",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 29,
+      "originalTextSha256": "b6886b0668d37e76ba9f31d4d7074f9749bd83f73bf071042691560bfae80751",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 8
+    },
+    {
+      "sourceParagraph": 30,
+      "originalTextSha256": "2b244689795fa4e44e1f38fdb3ba245fd7aca49392a67c1c6b19b876f2b26e14",
+      "characters": 4964,
+      "kind": "body",
+      "section": 8,
+      "paragraph": 1,
+      "phrasePairs": 27,
+      "englishBracketCharactersRemoved": 54,
+      "bracketCleanedTextSha256": "a149b65b384ad16d212f35fec3f0b8240a69bff82eeaaf79ee950f38f72bf146",
+      "importedTextSha256": "a149b65b384ad16d212f35fec3f0b8240a69bff82eeaaf79ee950f38f72bf146",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 32,
+      "originalTextSha256": "a9c5ab0f343fef47baa984963dd0617f6f6d312acce2ed5ff30d8a5391afa60f",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 9
+    },
+    {
+      "sourceParagraph": 33,
+      "originalTextSha256": "fb473a839ea57a54924a86c15266c4e10dcf79f7a123ddd03f44e26a8633c620",
+      "characters": 3137,
+      "kind": "body",
+      "section": 9,
+      "paragraph": 1,
+      "phrasePairs": 17,
+      "englishBracketCharactersRemoved": 34,
+      "bracketCleanedTextSha256": "b9898e7896dbde0bc956c941f2af6da7443f90bcef5b5fddf3c8ba65fddfbd3a",
+      "importedTextSha256": "b9898e7896dbde0bc956c941f2af6da7443f90bcef5b5fddf3c8ba65fddfbd3a",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 35,
+      "originalTextSha256": "4ffb054804b7dc2a4a312296d05a8ac353d01756888be20135d43fbfdee34770",
+      "characters": 7540,
+      "kind": "body",
+      "section": 9,
+      "paragraph": 2,
+      "phrasePairs": 37,
+      "englishBracketCharactersRemoved": 74,
+      "bracketCleanedTextSha256": "a6f6085f8b1912c701e785cfad88f6f94153540fdfe6b66aecf46cf6090c556d",
+      "importedTextSha256": "9ed99afac1257fd5ccc57abe9d69496d29eff0109a78f993bd24250dccc0290a",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 37,
+      "originalTextSha256": "3fa32d157e42053c06bca13a5f1c9637c8ce8e488a511dacf2aa22c0e1da1772",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 10
+    },
+    {
+      "sourceParagraph": 38,
+      "originalTextSha256": "8c009c09f6205bb1325bb0b035100939fa3170fb2c1d027350e2e75a70898557",
+      "characters": 11162,
+      "kind": "body",
+      "section": 10,
+      "paragraph": 1,
+      "phrasePairs": 55,
+      "englishBracketCharactersRemoved": 110,
+      "bracketCleanedTextSha256": "dae2b17e777ec85c0a41f22e20212e15d1c485e890771890ed397f9f28d38158",
+      "importedTextSha256": "dae2b17e777ec85c0a41f22e20212e15d1c485e890771890ed397f9f28d38158",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 40,
+      "originalTextSha256": "aed3f3c1628804846ca9b04179066e88b56ab238a95368f914002067b43af5c3",
+      "characters": 7448,
+      "kind": "body",
+      "section": 10,
+      "paragraph": 2,
+      "phrasePairs": 36,
+      "englishBracketCharactersRemoved": 72,
+      "bracketCleanedTextSha256": "1528cf64e8c6552b86b07455a48e737007ec3a2b2072534ff93a9646696b8afc",
+      "importedTextSha256": "1528cf64e8c6552b86b07455a48e737007ec3a2b2072534ff93a9646696b8afc",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 42,
+      "originalTextSha256": "ff76fb8abf3a3baef7677e254a7c4bf3401a289db16b606ff902287ef2614a3c",
+      "characters": 2301,
+      "kind": "body",
+      "section": 10,
+      "paragraph": 3,
+      "phrasePairs": 13,
+      "englishBracketCharactersRemoved": 26,
+      "bracketCleanedTextSha256": "67604d960b19e85efd49958cfd93d72979ca71e70a93b8a83075e5ac9b28bef0",
+      "importedTextSha256": "67604d960b19e85efd49958cfd93d72979ca71e70a93b8a83075e5ac9b28bef0",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 44,
+      "originalTextSha256": "22bfc70a7af32c5957c6f98b60a3c4f44e9107317d1d338b30998d0f6160bf5a",
+      "characters": 19,
+      "kind": "sectionHeading",
+      "section": 11
+    },
+    {
+      "sourceParagraph": 45,
+      "originalTextSha256": "b80ae94dddae959f0ef556b2eaf8e351337364ace08baccd12a7848ca21bff6e",
+      "characters": 4340,
+      "kind": "body",
+      "section": 11,
+      "paragraph": 1,
+      "phrasePairs": 28,
+      "englishBracketCharactersRemoved": 56,
+      "bracketCleanedTextSha256": "dd65297dd797039f560af141dcf8125ab5e72667870951f722e99e5ecbbd0460",
+      "importedTextSha256": "dd65297dd797039f560af141dcf8125ab5e72667870951f722e99e5ecbbd0460",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 47,
+      "originalTextSha256": "61e283fb1028565e9ec6c35520606c6f99de2718ed932e6f8a630aa28667ac9e",
+      "characters": 4028,
+      "kind": "body",
+      "section": 11,
+      "paragraph": 2,
+      "phrasePairs": 18,
+      "englishBracketCharactersRemoved": 36,
+      "bracketCleanedTextSha256": "9e0685f1de6ff3f774056c04bd3b22ca1e89c4facf0fa50fe95d41a783e814c0",
+      "importedTextSha256": "9e0685f1de6ff3f774056c04bd3b22ca1e89c4facf0fa50fe95d41a783e814c0",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 49,
+      "originalTextSha256": "e697923eee16240f4957fd7f65b953e95c7a338312730c1099d762a09e7884f0",
+      "characters": 7606,
+      "kind": "body",
+      "section": 11,
+      "paragraph": 3,
+      "phrasePairs": 35,
+      "englishBracketCharactersRemoved": 70,
+      "bracketCleanedTextSha256": "cf3993697c12303429f3672d15d4aea9fc46c1b3b50700878afa02e002f036d1",
+      "importedTextSha256": "cf3993697c12303429f3672d15d4aea9fc46c1b3b50700878afa02e002f036d1",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 51,
+      "originalTextSha256": "bc566248d77bf3055a43ed217f44e133e2722d92a3dbbe51a622e6018fe7a33b",
+      "characters": 19,
+      "kind": "sectionHeading",
+      "section": 12
+    },
+    {
+      "sourceParagraph": 52,
+      "originalTextSha256": "60e2d866020ae313664ea1b878bdcca1fea3d46362523e12782a4810e373fb06",
+      "characters": 7405,
+      "kind": "body",
+      "section": 12,
+      "paragraph": 1,
+      "phrasePairs": 32,
+      "englishBracketCharactersRemoved": 64,
+      "bracketCleanedTextSha256": "8b088e7bc55e6a2954d3278bd9d9530f3589669f34bbcaa13c9f8d81bac6ce3b",
+      "importedTextSha256": "8b088e7bc55e6a2954d3278bd9d9530f3589669f34bbcaa13c9f8d81bac6ce3b",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 54,
+      "originalTextSha256": "39f13c2f12bdfd72e239d43c45ede5302b266076fd7649057cd2bf89c7238141",
+      "characters": 19,
+      "kind": "sectionHeading",
+      "section": 13
+    },
+    {
+      "sourceParagraph": 55,
+      "originalTextSha256": "74ec5d3e2f4c0418650a12e1502d2bd59c5b1a67ee69a90a081e596c0459a4cd",
+      "characters": 6647,
+      "kind": "body",
+      "section": 13,
+      "paragraph": 1,
+      "phrasePairs": 23,
+      "englishBracketCharactersRemoved": 46,
+      "bracketCleanedTextSha256": "6c2302290087a477353bd17750f862f0684293ec37720a8bb76259de2bca42cd",
+      "importedTextSha256": "6c2302290087a477353bd17750f862f0684293ec37720a8bb76259de2bca42cd",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 57,
+      "originalTextSha256": "3780c05b6cd4c8ad06225923e6f391a092fe003df645e3fbb14c5b3c26ab788d",
+      "characters": 19,
+      "kind": "sectionHeading",
+      "section": 14
+    },
+    {
+      "sourceParagraph": 58,
+      "originalTextSha256": "a401b642394e3a4397672101854fd539b2276b2837a3db57b46c575ed1394048",
+      "characters": 7833,
+      "kind": "body",
+      "section": 14,
+      "paragraph": 1,
+      "phrasePairs": 31,
+      "englishBracketCharactersRemoved": 62,
+      "bracketCleanedTextSha256": "ed368caf528a43b7e5bc2d64d4c6e050033ff66e771c45598452e433e37374d7",
+      "importedTextSha256": "ed368caf528a43b7e5bc2d64d4c6e050033ff66e771c45598452e433e37374d7",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 60,
+      "originalTextSha256": "eaa2eb392e7e666b142b1a550a2aeccb5487fdf21cb66fdb7082cd3537967842",
+      "characters": 19,
+      "kind": "sectionHeading",
+      "section": 15
+    },
+    {
+      "sourceParagraph": 61,
+      "originalTextSha256": "f0717a21ad68010c45470c6f88c08ed7a6796c5c2c38e9d0f345a76ec60902c3",
+      "characters": 2450,
+      "kind": "body",
+      "section": 15,
+      "paragraph": 1,
+      "phrasePairs": 10,
+      "englishBracketCharactersRemoved": 20,
+      "bracketCleanedTextSha256": "0e4d3c9ec083497f55c8fb67c07e983c7747d205fe57099b317dca1d5ffc93c3",
+      "importedTextSha256": "0e4d3c9ec083497f55c8fb67c07e983c7747d205fe57099b317dca1d5ffc93c3",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 63,
+      "originalTextSha256": "67354a966ca5f026071f2a25cdd565c24b3c569eca18dddd5c23e877ea606d15",
+      "characters": 6149,
+      "kind": "body",
+      "section": 15,
+      "paragraph": 2,
+      "phrasePairs": 25,
+      "englishBracketCharactersRemoved": 50,
+      "bracketCleanedTextSha256": "2dc0e9743912e9ddd3d50638c05cd46584bf24c51c5fc31276d8bc9393ea464a",
+      "importedTextSha256": "2dc0e9743912e9ddd3d50638c05cd46584bf24c51c5fc31276d8bc9393ea464a",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 65,
+      "originalTextSha256": "072449701abc97461e3cb49d06f1827a4fb31093e54464c1f32d16ae95420913",
+      "characters": 19,
+      "kind": "sectionHeading",
+      "section": 16
+    },
+    {
+      "sourceParagraph": 66,
+      "originalTextSha256": "38b96439cc558b3e0d632d545f9fe2469825af40ecc4aa7f45c17fd577458d41",
+      "characters": 6672,
+      "kind": "body",
+      "section": 16,
+      "paragraph": 1,
+      "phrasePairs": 28,
+      "englishBracketCharactersRemoved": 56,
+      "bracketCleanedTextSha256": "732e3a7489d3ffa6861b34649b576b86d5001253dcec643dcc187ee45ef63528",
+      "importedTextSha256": "732e3a7489d3ffa6861b34649b576b86d5001253dcec643dcc187ee45ef63528",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 68,
+      "originalTextSha256": "c02c05bd21cb3bb7f8318de31c93c2f1ee67cdbae719319f349c00f7566b8b0b",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 17
+    },
+    {
+      "sourceParagraph": 69,
+      "originalTextSha256": "dbd0fcbb449d5ba89119c69f1626ebf3c01a24e558ba1ee6a21a135e906ab2ad",
+      "characters": 2867,
+      "kind": "body",
+      "section": 17,
+      "paragraph": 1,
+      "phrasePairs": 29,
+      "englishBracketCharactersRemoved": 58,
+      "bracketCleanedTextSha256": "627e9460bc5b2ae9f285404b8e3a730e4bd10e75ea3a4a1f8e2240e689d21959",
+      "importedTextSha256": "627e9460bc5b2ae9f285404b8e3a730e4bd10e75ea3a4a1f8e2240e689d21959",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 71,
+      "originalTextSha256": "c2ad37c4151d4ab907034d412d3a0371c6d731960a011f26eff3e949d4822849",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 18
+    },
+    {
+      "sourceParagraph": 72,
+      "originalTextSha256": "070c733ab35e43a17865d183d06c50e849372c0e79c1e64eae934fa17bccbf58",
+      "characters": 4411,
+      "kind": "body",
+      "section": 18,
+      "paragraph": 1,
+      "phrasePairs": 34,
+      "englishBracketCharactersRemoved": 68,
+      "bracketCleanedTextSha256": "c37e4cca3ce16bf63b706c7eb6412436fc06ca322af1558e96b1f7be4ef80a16",
+      "importedTextSha256": "c37e4cca3ce16bf63b706c7eb6412436fc06ca322af1558e96b1f7be4ef80a16",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 74,
+      "originalTextSha256": "eea3dba45235be159f8217f02d147e29d5cec67607073de7a2552bf5095d37c5",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 19
+    },
+    {
+      "sourceParagraph": 75,
+      "originalTextSha256": "9a43c6a8694f7c873651815eaf0245502bee0fe86580bbb27b4d080d358de52a",
+      "characters": 12550,
+      "kind": "body",
+      "section": 19,
+      "paragraph": 1,
+      "phrasePairs": 88,
+      "englishBracketCharactersRemoved": 176,
+      "bracketCleanedTextSha256": "5facd49f4d7ab53ef5e3abbafa8dc70077146e09b42b48f4a6c4fff0dc807838",
+      "importedTextSha256": "5facd49f4d7ab53ef5e3abbafa8dc70077146e09b42b48f4a6c4fff0dc807838",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 77,
+      "originalTextSha256": "8425aba44cc2ed98cdcff78f66a9272dd9e7df8f6d688c3d138a00438f100554",
+      "characters": 17,
+      "kind": "sectionHeading",
+      "section": 20
+    },
+    {
+      "sourceParagraph": 78,
+      "originalTextSha256": "2506d231893412738a2519e09b81dc04a03407d3fc29029f1fcc2e901d347001",
+      "characters": 8066,
+      "kind": "body",
+      "section": 20,
+      "paragraph": 1,
+      "phrasePairs": 54,
+      "englishBracketCharactersRemoved": 108,
+      "bracketCleanedTextSha256": "ea4d20242eff1d6c34e33e918c4a88632fb026ecaf25d6a8b67413065f05fbfe",
+      "importedTextSha256": "ea4d20242eff1d6c34e33e918c4a88632fb026ecaf25d6a8b67413065f05fbfe",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 80,
+      "originalTextSha256": "46d33b757dc4e64a42e0d0a83f44f49af0d799a7e850b5b05147b746ef528d8a",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 21
+    },
+    {
+      "sourceParagraph": 81,
+      "originalTextSha256": "ffb45217aae24f81b3e67d2afd6083d7cac7d291e99e268b621956891544beb7",
+      "characters": 1931,
+      "kind": "body",
+      "section": 21,
+      "paragraph": 1,
+      "phrasePairs": 16,
+      "englishBracketCharactersRemoved": 32,
+      "bracketCleanedTextSha256": "07ca2cebf4ef490903f355d7044027cd3b62b681950330661587d0c4ef926230",
+      "importedTextSha256": "07ca2cebf4ef490903f355d7044027cd3b62b681950330661587d0c4ef926230",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 83,
+      "originalTextSha256": "188360564b2626a68b87a646365c776360bdaec5556493e4113a9829295d29d7",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 22
+    },
+    {
+      "sourceParagraph": 84,
+      "originalTextSha256": "41459c35b946ea9304ae8a0ca8fa7328d595a53f6bf657cde79bd9725140b20e",
+      "characters": 5634,
+      "kind": "body",
+      "section": 22,
+      "paragraph": 1,
+      "phrasePairs": 42,
+      "englishBracketCharactersRemoved": 84,
+      "bracketCleanedTextSha256": "6c2e36bab6e1f8d9c25bce8e1eeccede9b4493beb7cc224f5e46a5abad908632",
+      "importedTextSha256": "6c2e36bab6e1f8d9c25bce8e1eeccede9b4493beb7cc224f5e46a5abad908632",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 86,
+      "originalTextSha256": "626752bb54d9869c5a79a180e0c87833ba62a1cde46a33b9801d7cd827c7d49a",
+      "characters": 6140,
+      "kind": "body",
+      "section": 22,
+      "paragraph": 2,
+      "phrasePairs": 48,
+      "englishBracketCharactersRemoved": 96,
+      "bracketCleanedTextSha256": "216f2779dd8bcee0a329d67e91c3d67c82f38b8ca2c7d448a1e154d378425f19",
+      "importedTextSha256": "216f2779dd8bcee0a329d67e91c3d67c82f38b8ca2c7d448a1e154d378425f19",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 88,
+      "originalTextSha256": "b20c84dae39e08f5ec3a34f5b540ed691bbd3f6f43b644fa5634b97697f377c8",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 23
+    },
+    {
+      "sourceParagraph": 89,
+      "originalTextSha256": "28bd291dd709ae70086d9765622c378c83fee2b5b704d7eb17c77bd77bd18818",
+      "characters": 2447,
+      "kind": "body",
+      "section": 23,
+      "paragraph": 1,
+      "phrasePairs": 20,
+      "englishBracketCharactersRemoved": 40,
+      "bracketCleanedTextSha256": "9ce4fc5bf65a2bff866ed9b9e4d83e3112f9ef677e2cbb36527ab4e5e6c4123b",
+      "importedTextSha256": "9ce4fc5bf65a2bff866ed9b9e4d83e3112f9ef677e2cbb36527ab4e5e6c4123b",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 91,
+      "originalTextSha256": "92b3cea2bbac9eed4c001bc0f069c4b1d76241c33525d2c26a763351f3cf6bff",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 24
+    },
+    {
+      "sourceParagraph": 92,
+      "originalTextSha256": "4517238fa8d518397362fd1153475fb835608720c61f0c530dc84c46173c5db7",
+      "characters": 4145,
+      "kind": "body",
+      "section": 24,
+      "paragraph": 1,
+      "phrasePairs": 34,
+      "englishBracketCharactersRemoved": 68,
+      "bracketCleanedTextSha256": "48a1a52f77970ccc23d5f8460d02ee72b1e9bc7226ac28ef7499b70fa777f0f5",
+      "importedTextSha256": "48a1a52f77970ccc23d5f8460d02ee72b1e9bc7226ac28ef7499b70fa777f0f5",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 94,
+      "originalTextSha256": "073642f5ae3532f646dc7f9865a56ab27ef8e4792ad69a0ef553177dc54829a5",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 25
+    },
+    {
+      "sourceParagraph": 95,
+      "originalTextSha256": "4d820666a085a85c7db88a6ff491824ddcffd26c5ed7bbb55a899252191444b2",
+      "characters": 6558,
+      "kind": "body",
+      "section": 25,
+      "paragraph": 1,
+      "phrasePairs": 47,
+      "englishBracketCharactersRemoved": 96,
+      "bracketCleanedTextSha256": "a85d858e7c797ad32c3dc22a7cefc53282217b5aa7c1406879bfb8df2deddb2f",
+      "importedTextSha256": "a85d858e7c797ad32c3dc22a7cefc53282217b5aa7c1406879bfb8df2deddb2f",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 96,
+      "originalTextSha256": "4040a2b3041e48f8c293bdb2ddaf64e47b07b61f5979d79fc479ab03af7e2415",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 26
+    },
+    {
+      "sourceParagraph": 97,
+      "originalTextSha256": "4bd2a2f5eed28b529e652fa48718d35756a74c5f15b52bb099a6e5d11cd31af7",
+      "characters": 1958,
+      "kind": "body",
+      "section": 26,
+      "paragraph": 1,
+      "phrasePairs": 14,
+      "englishBracketCharactersRemoved": 28,
+      "bracketCleanedTextSha256": "845fa4f99665b0059e21d45ce31e9b7270557e549f3ecfd38edef82f715d9b18",
+      "importedTextSha256": "845fa4f99665b0059e21d45ce31e9b7270557e549f3ecfd38edef82f715d9b18",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 98,
+      "originalTextSha256": "89da302234dc69d17ff2d13032b537492ec18df3314556cf59cf41a3eaa46adc",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 27
+    },
+    {
+      "sourceParagraph": 99,
+      "originalTextSha256": "e4ff95340dd6a729e613626bfdd2c125b22c067d8be485a63df05b26bd57f7dd",
+      "characters": 5759,
+      "kind": "body",
+      "section": 27,
+      "paragraph": 1,
+      "phrasePairs": 41,
+      "englishBracketCharactersRemoved": 82,
+      "bracketCleanedTextSha256": "0cef324fe9d78e9bfecda62b58e272fefcb1604e6de6fb3b8895e1a649fb5ce9",
+      "importedTextSha256": "0cef324fe9d78e9bfecda62b58e272fefcb1604e6de6fb3b8895e1a649fb5ce9",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 100,
+      "originalTextSha256": "42e13c5dcce0574a646ee5f9a35893ecfebd7e6499832b9609210852e17abf61",
+      "characters": 4079,
+      "kind": "body",
+      "section": 27,
+      "paragraph": 2,
+      "phrasePairs": 28,
+      "englishBracketCharactersRemoved": 56,
+      "bracketCleanedTextSha256": "eecb3ecbb96d88aeac687fe147321275e9d4f68884374965b264852420ae6dc5",
+      "importedTextSha256": "eecb3ecbb96d88aeac687fe147321275e9d4f68884374965b264852420ae6dc5",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 101,
+      "originalTextSha256": "596c9d729c89dcd0c598e6a5455786ebeb749c0b4f5974ebfef47c800a87fe9a",
+      "characters": 8337,
+      "kind": "body",
+      "section": 27,
+      "paragraph": 3,
+      "phrasePairs": 59,
+      "englishBracketCharactersRemoved": 118,
+      "bracketCleanedTextSha256": "28404945939cfc92ef1aae41d8dafd6c37bc74ddea8607064dfaa372a5789b47",
+      "importedTextSha256": "28404945939cfc92ef1aae41d8dafd6c37bc74ddea8607064dfaa372a5789b47",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 102,
+      "originalTextSha256": "b45c7d93f9a3d0b3770e682f7a823a45362f023611721d403e71fcbf14a78bc1",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 28
+    },
+    {
+      "sourceParagraph": 103,
+      "originalTextSha256": "bdb76c0f0c583507fa038b34bf7f43b1dcf2a53842bca20cac1ea02d64f0c98d",
+      "characters": 3063,
+      "kind": "body",
+      "section": 28,
+      "paragraph": 1,
+      "phrasePairs": 20,
+      "englishBracketCharactersRemoved": 40,
+      "bracketCleanedTextSha256": "3186be4e616b8173766f86847d7cca10b4173943ecd76eb8b59369568a89ae65",
+      "importedTextSha256": "60c71f2f069282df7dfa9af09252a3fac59eab0547bc6450679316085ac2bfc7",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 104,
+      "originalTextSha256": "a90a89943a63c800423cfb3e4d3d439b2b51d327c0c554f0ff4a668c4ccfcd44",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 29
+    },
+    {
+      "sourceParagraph": 105,
+      "originalTextSha256": "d7208e0309dacb14e1f6df97d46442d5afa8ed97afe0e70fda84b68fcb614cfb",
+      "characters": 4554,
+      "kind": "body",
+      "section": 29,
+      "paragraph": 1,
+      "phrasePairs": 30,
+      "englishBracketCharactersRemoved": 60,
+      "bracketCleanedTextSha256": "17b800257a01dfe380ad1c752afaecd1e9a78b73bb45e791421fa3fc7e246d24",
+      "importedTextSha256": "17b800257a01dfe380ad1c752afaecd1e9a78b73bb45e791421fa3fc7e246d24",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 106,
+      "originalTextSha256": "f8dd251ab68d0ec932c58a6464a14ad57e898b85f83cbcd2cf4c57a4564beb93",
+      "characters": 17,
+      "kind": "sectionHeading",
+      "section": 30
+    },
+    {
+      "sourceParagraph": 107,
+      "originalTextSha256": "5e53726622994bee0a6e299da6ccbf995920d52af6e0f9aceccda4533b6ea13d",
+      "characters": 1638,
+      "kind": "body",
+      "section": 30,
+      "paragraph": 1,
+      "phrasePairs": 13,
+      "englishBracketCharactersRemoved": 26,
+      "bracketCleanedTextSha256": "e35dc327cc2f866e1583feee5f26f084b0703b49406f435fe10df6a204d8af46",
+      "importedTextSha256": "e35dc327cc2f866e1583feee5f26f084b0703b49406f435fe10df6a204d8af46",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 108,
+      "originalTextSha256": "bb824f3396c61e83681d414a7d86bafa0b60c1adf454d051c063f861a63215a3",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 31
+    },
+    {
+      "sourceParagraph": 109,
+      "originalTextSha256": "1277651db0cffbee8bfea47c8065aba54b9d69a5ee83d9dbdc265126a76ec93b",
+      "characters": 4936,
+      "kind": "body",
+      "section": 31,
+      "paragraph": 1,
+      "phrasePairs": 34,
+      "englishBracketCharactersRemoved": 68,
+      "bracketCleanedTextSha256": "b059fd352a7186553a39361d8bda68509749d970cc7c714ac1563aced6577e69",
+      "importedTextSha256": "b059fd352a7186553a39361d8bda68509749d970cc7c714ac1563aced6577e69",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 110,
+      "originalTextSha256": "589def68e06b739870cdb034d85156afbc55ea3bf10bf218a9511ef88bea6f3f",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 32
+    },
+    {
+      "sourceParagraph": 111,
+      "originalTextSha256": "e2115e1cf6561679fcb328cf9abf199ee146af968970d1bf84fae2db6e327c62",
+      "characters": 1917,
+      "kind": "body",
+      "section": 32,
+      "paragraph": 1,
+      "phrasePairs": 14,
+      "englishBracketCharactersRemoved": 28,
+      "bracketCleanedTextSha256": "3c396afb90edbb71e283447653d1e8226d57fcbf9b00b123fe35a0479db9a077",
+      "importedTextSha256": "3c396afb90edbb71e283447653d1e8226d57fcbf9b00b123fe35a0479db9a077",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 113,
+      "originalTextSha256": "5d79e406f75eccc6b6bfe21bed08b95960de7dd1dcf8ced582854fd13eccf8d8",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 33
+    },
+    {
+      "sourceParagraph": 114,
+      "originalTextSha256": "33d9addf046200ad0b4b3475fe02416c1e8e673633a70c41d464747d0a46948a",
+      "characters": 1487,
+      "kind": "body",
+      "section": 33,
+      "paragraph": 1,
+      "phrasePairs": 8,
+      "englishBracketCharactersRemoved": 16,
+      "bracketCleanedTextSha256": "8032b95caba5b96f57afc559d6cb945190de4e16c5ed286138950de233a2e184",
+      "importedTextSha256": "8032b95caba5b96f57afc559d6cb945190de4e16c5ed286138950de233a2e184",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 116,
+      "originalTextSha256": "1db895830aa89d6a43219d21e3f95eab3e6936b18fe846d2203cced9662b775f",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 34
+    },
+    {
+      "sourceParagraph": 117,
+      "originalTextSha256": "e376c7cb76510b1a2a95d1c6f76ae977815fb517221baeaa21519f6df18fbea1",
+      "characters": 3184,
+      "kind": "body",
+      "section": 34,
+      "paragraph": 1,
+      "phrasePairs": 22,
+      "englishBracketCharactersRemoved": 44,
+      "bracketCleanedTextSha256": "8ea0d6fe093dc4207a80f0e667fe98d7ef58829ae6ea86d64d9d70d0c3144f8b",
+      "importedTextSha256": "8ea0d6fe093dc4207a80f0e667fe98d7ef58829ae6ea86d64d9d70d0c3144f8b",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 119,
+      "originalTextSha256": "973bda7ef5ab1d1e677af268fc0316b75436980896645c26381339d7d05a2aba",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 35
+    },
+    {
+      "sourceParagraph": 120,
+      "originalTextSha256": "8bb166523d45c6bad28f85eb237a9a779df9bdee31efcaa3752fdbf2ac0564b1",
+      "characters": 3389,
+      "kind": "body",
+      "section": 35,
+      "paragraph": 1,
+      "phrasePairs": 23,
+      "englishBracketCharactersRemoved": 46,
+      "bracketCleanedTextSha256": "d2dbeee47cd57b97e5c22a50840d095344dbc0c323a3b373b2e6960605258a10",
+      "importedTextSha256": "d2dbeee47cd57b97e5c22a50840d095344dbc0c323a3b373b2e6960605258a10",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 122,
+      "originalTextSha256": "96745e64fb8097e97e251d378f2291237a2cab151aecac31432e9aa505c82271",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 36
+    },
+    {
+      "sourceParagraph": 123,
+      "originalTextSha256": "e0b583ea18a9abd7fa56cb473ae67f682d8332567e9b503c2643aebdf6a8a683",
+      "characters": 2108,
+      "kind": "body",
+      "section": 36,
+      "paragraph": 1,
+      "phrasePairs": 16,
+      "englishBracketCharactersRemoved": 32,
+      "bracketCleanedTextSha256": "8866339cf51de613588a070d28eb36ea06222a01187c2d79bcf5893f155df646",
+      "importedTextSha256": "8866339cf51de613588a070d28eb36ea06222a01187c2d79bcf5893f155df646",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 125,
+      "originalTextSha256": "d1a67ead7a922070d844baef14d1f997057b8f62fc9cb00b604d8bf38403386d",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 37
+    },
+    {
+      "sourceParagraph": 126,
+      "originalTextSha256": "96dd30b08089788657f2620918596a2eaf6db70b1c8a06fd9f0d935f0818e5c8",
+      "characters": 3554,
+      "kind": "body",
+      "section": 37,
+      "paragraph": 1,
+      "phrasePairs": 27,
+      "englishBracketCharactersRemoved": 54,
+      "bracketCleanedTextSha256": "b60325bab4d6d97010e04ba363064fc50c93b36f0aceb310f577565f06ba58f6",
+      "importedTextSha256": "b60325bab4d6d97010e04ba363064fc50c93b36f0aceb310f577565f06ba58f6",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 128,
+      "originalTextSha256": "40e0728a415ecf6ef3dcdbdec8df53daede78a5285a0d5246383377c5248a067",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 38
+    },
+    {
+      "sourceParagraph": 129,
+      "originalTextSha256": "cf880da2f80e2fe2f37b25081ad1df2b14c7cbe0ee08873bdbd88da2202d6a2f",
+      "characters": 2471,
+      "kind": "body",
+      "section": 38,
+      "paragraph": 1,
+      "phrasePairs": 20,
+      "englishBracketCharactersRemoved": 40,
+      "bracketCleanedTextSha256": "da801cfd080f845bcd45516d43d29320a65095de7997de8024ddc85e1cf48836",
+      "importedTextSha256": "da801cfd080f845bcd45516d43d29320a65095de7997de8024ddc85e1cf48836",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 131,
+      "originalTextSha256": "8c474170ce8e48b29ad27c37dfdc1279db717cb1e61763cebbe31ae4a6108987",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 39
+    },
+    {
+      "sourceParagraph": 132,
+      "originalTextSha256": "5dbf9e274e78937903842f1b8fb039ebbb4fedcf2b599bf0d473c7dbcf7cb0bf",
+      "characters": 2002,
+      "kind": "body",
+      "section": 39,
+      "paragraph": 1,
+      "phrasePairs": 15,
+      "englishBracketCharactersRemoved": 30,
+      "bracketCleanedTextSha256": "c4c10063adb25a14c18f246c5223d6568aa7dbfa0ecebc69054ca6e43c3c6e69",
+      "importedTextSha256": "c4c10063adb25a14c18f246c5223d6568aa7dbfa0ecebc69054ca6e43c3c6e69",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 134,
+      "originalTextSha256": "e98fd6a34aa591c9b724be4c11c0c0df3a309650e785a5464f8408a47a0ebf72",
+      "characters": 17,
+      "kind": "sectionHeading",
+      "section": 40
+    },
+    {
+      "sourceParagraph": 135,
+      "originalTextSha256": "49a4d75b1947f99947a54c7d5db65fb8cf5197c2caaea6f0c0b47557ef5f1c5d",
+      "characters": 4509,
+      "kind": "body",
+      "section": 40,
+      "paragraph": 1,
+      "phrasePairs": 30,
+      "englishBracketCharactersRemoved": 60,
+      "bracketCleanedTextSha256": "553f4f1f9430cbe43fa4b75502938f6ac7c8e98437bb65a3df6e89660b0ecae2",
+      "importedTextSha256": "553f4f1f9430cbe43fa4b75502938f6ac7c8e98437bb65a3df6e89660b0ecae2",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 137,
+      "originalTextSha256": "98f0a4d4dedad6bbdfdc577c10da2e499b9adee6211dc1bbce96a0be3b6dad5d",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 41
+    },
+    {
+      "sourceParagraph": 138,
+      "originalTextSha256": "e9fa51b3b38401f9d9441aaf753f00dc2becce7fb2931d802c6d8450d0d8f24e",
+      "characters": 2159,
+      "kind": "body",
+      "section": 41,
+      "paragraph": 1,
+      "phrasePairs": 15,
+      "englishBracketCharactersRemoved": 30,
+      "bracketCleanedTextSha256": "bdc209b103330a1f66185e062c6be62bed3fd14dc18e1da317f0cf6cbdd64aae",
+      "importedTextSha256": "bdc209b103330a1f66185e062c6be62bed3fd14dc18e1da317f0cf6cbdd64aae",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 140,
+      "originalTextSha256": "d4ac2d7b12cb28ba2e6a6f5d022600a1c4fcfc8bb622b8e42cac948ca02d9e15",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 42
+    },
+    {
+      "sourceParagraph": 141,
+      "originalTextSha256": "f0b5ba0eda87d827be3bdbb39012d71d2e27cb2d2f7185166332383183e4aed2",
+      "characters": 2544,
+      "kind": "body",
+      "section": 42,
+      "paragraph": 1,
+      "phrasePairs": 18,
+      "englishBracketCharactersRemoved": 36,
+      "bracketCleanedTextSha256": "ed40bf954c92e5b01d2845ed4e87aa960c92447db48003fa510812ef07b94f1c",
+      "importedTextSha256": "ed40bf954c92e5b01d2845ed4e87aa960c92447db48003fa510812ef07b94f1c",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 143,
+      "originalTextSha256": "936d1a59d8550fe7eb08c0813157a48428b97aea45366a4cf67510e668c3c4b4",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 43
+    },
+    {
+      "sourceParagraph": 144,
+      "originalTextSha256": "84c63758d10745e73db4dd36327adb3d7046070890d2aec8bbb98e95848bf6d7",
+      "characters": 3235,
+      "kind": "body",
+      "section": 43,
+      "paragraph": 1,
+      "phrasePairs": 24,
+      "englishBracketCharactersRemoved": 50,
+      "bracketCleanedTextSha256": "3a8bc796d75bbff64753e8cd297e95b7ee67c3211f1eeb24df2eec999c9f3993",
+      "importedTextSha256": "3a8bc796d75bbff64753e8cd297e95b7ee67c3211f1eeb24df2eec999c9f3993",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 146,
+      "originalTextSha256": "287fcf9725173ac92648bfd00f9f70252c302f70745761cc25417c7ddec94560",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 44
+    },
+    {
+      "sourceParagraph": 147,
+      "originalTextSha256": "0b0806a64a35648031b833461b55d528294331e98fbf2e2876443d798f010301",
+      "characters": 1392,
+      "kind": "body",
+      "section": 44,
+      "paragraph": 1,
+      "phrasePairs": 11,
+      "englishBracketCharactersRemoved": 22,
+      "bracketCleanedTextSha256": "95a092ca75a279e034d6d5bd9051a61125b813a17ed93869ed3ec414ed5f4dbb",
+      "importedTextSha256": "95a092ca75a279e034d6d5bd9051a61125b813a17ed93869ed3ec414ed5f4dbb",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 149,
+      "originalTextSha256": "d1971b295133c1ce81b7ca9fdef3aa7e5e3f662aa046aa1b9f5160a2a8d8642c",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 45
+    },
+    {
+      "sourceParagraph": 150,
+      "originalTextSha256": "fe7b1d545639d7ceecc36403ee999de400f0c7766791173cc73b73b811a77732",
+      "characters": 2354,
+      "kind": "body",
+      "section": 45,
+      "paragraph": 1,
+      "phrasePairs": 19,
+      "englishBracketCharactersRemoved": 38,
+      "bracketCleanedTextSha256": "0f4e69b18f5db934237e62d9432f8c7b3a86d893b9a60d0ad6e5c319ec2ed8a7",
+      "importedTextSha256": "a4c654e40097129c2e76a33e6e87554f777325d40fa2024900945d46ad9ab5ba",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 152,
+      "originalTextSha256": "99dd9b6001a7fbc147db7aeeb2879c188e9870b466162be88ebc35e92ee60db1",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 46
+    },
+    {
+      "sourceParagraph": 153,
+      "originalTextSha256": "bbb569c8c3361e1e317156f25337eadd9fb5772558ea748b48a2b63fee6218db",
+      "characters": 5576,
+      "kind": "body",
+      "section": 46,
+      "paragraph": 1,
+      "phrasePairs": 40,
+      "englishBracketCharactersRemoved": 80,
+      "bracketCleanedTextSha256": "3d17f2a1123405ce77ff8bb63fa63c1781bc4d1fb98fbf49cf60eff20eebe934",
+      "importedTextSha256": "3d17f2a1123405ce77ff8bb63fa63c1781bc4d1fb98fbf49cf60eff20eebe934",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 155,
+      "originalTextSha256": "a419124f118d5b792d46796ba8e0a0aa11fc883af0e09e34f24471b652e0571c",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 47
+    },
+    {
+      "sourceParagraph": 156,
+      "originalTextSha256": "6d5579d63202588a7a4a57b0570bd67d47776341cf0340e8c0edb43b59da1691",
+      "characters": 7796,
+      "kind": "body",
+      "section": 47,
+      "paragraph": 1,
+      "phrasePairs": 48,
+      "englishBracketCharactersRemoved": 96,
+      "bracketCleanedTextSha256": "9a22ffdcef4d407b0cacb9892b869489487938e270844e517cb85deca35d68a1",
+      "importedTextSha256": "9a22ffdcef4d407b0cacb9892b869489487938e270844e517cb85deca35d68a1",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 158,
+      "originalTextSha256": "1a753f9b3766788c65258b4287e4ebfb2c16830054e09177ea9281128d545f67",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 48
+    },
+    {
+      "sourceParagraph": 159,
+      "originalTextSha256": "03512cf83f3ac13a38614cafbd3fee180aee16dc40553f22e726c1f6e59c12f9",
+      "characters": 7562,
+      "kind": "body",
+      "section": 48,
+      "paragraph": 1,
+      "phrasePairs": 49,
+      "englishBracketCharactersRemoved": 98,
+      "bracketCleanedTextSha256": "123aa08e39d905a2cd90bfd2390a07d639bbe9a8d08cdc0ef2206cb9a005aa6c",
+      "importedTextSha256": "123aa08e39d905a2cd90bfd2390a07d639bbe9a8d08cdc0ef2206cb9a005aa6c",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 161,
+      "originalTextSha256": "a782a900d1a558105ed6740d1deb9360fce8a5e16c314d95619ab7fdb68935f3",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 49
+    },
+    {
+      "sourceParagraph": 162,
+      "originalTextSha256": "008d3ae6bc0868cc06b7ea8dccbc4fa58224391815c0aaef6b8d13ef8bd81ebe",
+      "characters": 7012,
+      "kind": "body",
+      "section": 49,
+      "paragraph": 1,
+      "phrasePairs": 52,
+      "englishBracketCharactersRemoved": 104,
+      "bracketCleanedTextSha256": "96d81d63e5aa30dc3d30188c52ec02293e928c72a568c7c64172c6479e554950",
+      "importedTextSha256": "96d81d63e5aa30dc3d30188c52ec02293e928c72a568c7c64172c6479e554950",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 164,
+      "originalTextSha256": "212a54a11c6aceccb092907cb4ed2cd4c3d078b84b4984051a4ec9adf550602a",
+      "characters": 17,
+      "kind": "sectionHeading",
+      "section": 50
+    },
+    {
+      "sourceParagraph": 165,
+      "originalTextSha256": "7f37b2b4c8339dcacf5141343c73b8284e85c8f672a0d633a5f3121eb262feaa",
+      "characters": 3884,
+      "kind": "body",
+      "section": 50,
+      "paragraph": 1,
+      "phrasePairs": 28,
+      "englishBracketCharactersRemoved": 56,
+      "bracketCleanedTextSha256": "30510591d5e1bc73e860cb1b108ae33c5c9698bc0ec3127de0b4605b4b60f31b",
+      "importedTextSha256": "30510591d5e1bc73e860cb1b108ae33c5c9698bc0ec3127de0b4605b4b60f31b",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 167,
+      "originalTextSha256": "d0d67565d9c81003c95d500f353b2dad908a0904ddc79a7749a4776e53d80bc6",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 51
+    },
+    {
+      "sourceParagraph": 168,
+      "originalTextSha256": "d8ef0562ad51429c1391b3e066ad400773cdb80e5e89d3b51a3528873dd5e25a",
+      "characters": 4083,
+      "kind": "body",
+      "section": 51,
+      "paragraph": 1,
+      "phrasePairs": 27,
+      "englishBracketCharactersRemoved": 54,
+      "bracketCleanedTextSha256": "5d46c62a9d18e64608fa510b4c83a2a4375d3ab950b9fd5560c49ac54ca8698c",
+      "importedTextSha256": "5d46c62a9d18e64608fa510b4c83a2a4375d3ab950b9fd5560c49ac54ca8698c",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 170,
+      "originalTextSha256": "218c1405b6e16870d7e06b9cdc837b9afc498caed4be6d1d5a4d4d3a28fd21f4",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 52
+    },
+    {
+      "sourceParagraph": 171,
+      "originalTextSha256": "c6491c270a70b547a0678b69783dce9dfc2548914beebe3badb9a5810725b787",
+      "characters": 3205,
+      "kind": "body",
+      "section": 52,
+      "paragraph": 1,
+      "phrasePairs": 21,
+      "englishBracketCharactersRemoved": 42,
+      "bracketCleanedTextSha256": "0ab8339fd31b0fb77cbe536c75d7090e21ecc9e3d8b52b6b0423e74823fa717b",
+      "importedTextSha256": "0ab8339fd31b0fb77cbe536c75d7090e21ecc9e3d8b52b6b0423e74823fa717b",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 173,
+      "originalTextSha256": "266546710d56ed7a4ec27b4494b8ef25809f491de341373335206e13c14bc85a",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 53
+    },
+    {
+      "sourceParagraph": 174,
+      "originalTextSha256": "3c2f459c69e5dcdd295fedbf1a40cb8e96db5ba9fff0e01613d47162a5756137",
+      "characters": 4628,
+      "kind": "body",
+      "section": 53,
+      "paragraph": 1,
+      "phrasePairs": 32,
+      "englishBracketCharactersRemoved": 64,
+      "bracketCleanedTextSha256": "c22aeb1c484084831bd282ed2f5e2ac7a5fb9b9d0e8813b12510820598058c50",
+      "importedTextSha256": "c22aeb1c484084831bd282ed2f5e2ac7a5fb9b9d0e8813b12510820598058c50",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 176,
+      "originalTextSha256": "6ee5116d6851444d574e9171bd7141ecf0b4fc25737e74495624f66e724dc84e",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 54
+    },
+    {
+      "sourceParagraph": 177,
+      "originalTextSha256": "ba080864c26acb5edcbf71df7074195832f8f92a515d59a74ddd294194ad960b",
+      "characters": 1922,
+      "kind": "body",
+      "section": 54,
+      "paragraph": 1,
+      "phrasePairs": 14,
+      "englishBracketCharactersRemoved": 28,
+      "bracketCleanedTextSha256": "bea202c66387e4ed81586deb1657f673b59e1ed89f8dae82836d026b7ab6886a",
+      "importedTextSha256": "bea202c66387e4ed81586deb1657f673b59e1ed89f8dae82836d026b7ab6886a",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 179,
+      "originalTextSha256": "36d735c807b1c965b9a89573c863a8f1545a3bb639d31b1aea4f12562359ac63",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 55
+    },
+    {
+      "sourceParagraph": 180,
+      "originalTextSha256": "90547d69324cc5cde029c5a5a0ef7f6b3b9f4e8df33e11d8b4b8fb2d08b5a85c",
+      "characters": 4135,
+      "kind": "body",
+      "section": 55,
+      "paragraph": 1,
+      "phrasePairs": 30,
+      "englishBracketCharactersRemoved": 60,
+      "bracketCleanedTextSha256": "118b4ac093b59e0acbf023be72a2e91bf1d7572951604ab2a5c640dd4cf0fe63",
+      "importedTextSha256": "118b4ac093b59e0acbf023be72a2e91bf1d7572951604ab2a5c640dd4cf0fe63",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 182,
+      "originalTextSha256": "c285b524fec5f171b71c29e79333112a66e3b2302516b8978a2c174e504090a0",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 56
+    },
+    {
+      "sourceParagraph": 183,
+      "originalTextSha256": "e2b36c9a0aa8069a70e724c366c95039a312d97a27083080b66060c3aca57db6",
+      "characters": 3657,
+      "kind": "body",
+      "section": 56,
+      "paragraph": 1,
+      "phrasePairs": 26,
+      "englishBracketCharactersRemoved": 52,
+      "bracketCleanedTextSha256": "301e68a409d1ac19aedf8ec42a14ebddbc43d9cca4537903444cd79d510349f4",
+      "importedTextSha256": "301e68a409d1ac19aedf8ec42a14ebddbc43d9cca4537903444cd79d510349f4",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 185,
+      "originalTextSha256": "0237f4dc02ea6473904a4151bcc0537a0730cdb9ce35e04414b0bbca8a64b964",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 57
+    },
+    {
+      "sourceParagraph": 186,
+      "originalTextSha256": "64fe0acffe2e8b824da8e5bb4e8862069a78b4bdf17111b8b58605f8788eec54",
+      "characters": 8992,
+      "kind": "body",
+      "section": 57,
+      "paragraph": 1,
+      "phrasePairs": 65,
+      "englishBracketCharactersRemoved": 130,
+      "bracketCleanedTextSha256": "93ffa133d8e4fb7d596d18c3075eb757a40b1263d43eb8ce9bb966f4108473a5",
+      "importedTextSha256": "93ffa133d8e4fb7d596d18c3075eb757a40b1263d43eb8ce9bb966f4108473a5",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 188,
+      "originalTextSha256": "e618fa2ceb7b62180dde80301b1fef3055a301deda82793b5382d406f1cf5894",
+      "characters": 5374,
+      "kind": "body",
+      "section": 57,
+      "paragraph": 2,
+      "phrasePairs": 42,
+      "englishBracketCharactersRemoved": 84,
+      "bracketCleanedTextSha256": "fa85f93db083a037f3e81da7a71ec119e34541f0ebc52aaaf902caeb406c70e0",
+      "importedTextSha256": "fa85f93db083a037f3e81da7a71ec119e34541f0ebc52aaaf902caeb406c70e0",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 190,
+      "originalTextSha256": "d9a494ff46d11f800d749fff31e1d508bb50cc4100c5e7a623cfd057bee3886a",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 58
+    },
+    {
+      "sourceParagraph": 191,
+      "originalTextSha256": "b0d7dba81275b58fd91153e9a3425a99c6597cca696a12ec6aba4b69187e7c78",
+      "characters": 1874,
+      "kind": "body",
+      "section": 58,
+      "paragraph": 1,
+      "phrasePairs": 13,
+      "englishBracketCharactersRemoved": 26,
+      "bracketCleanedTextSha256": "ce859a54ef92b8f6585ce5ef49691d8a0c78bec97514e793726a66ddddce1c9b",
+      "importedTextSha256": "ce859a54ef92b8f6585ce5ef49691d8a0c78bec97514e793726a66ddddce1c9b",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 193,
+      "originalTextSha256": "501a4120583f0f15ac808b4cf1a8ae2ec4b2ccca84e7d8dbac01024a32e8f708",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 59
+    },
+    {
+      "sourceParagraph": 194,
+      "originalTextSha256": "afc5dc76b229255f6fec860db686c9fa2525a7a6f762ef942a9529192fbb457f",
+      "characters": 1467,
+      "kind": "body",
+      "section": 59,
+      "paragraph": 1,
+      "phrasePairs": 13,
+      "englishBracketCharactersRemoved": 26,
+      "bracketCleanedTextSha256": "826974bd454483f4374efab39101d82da14635a68d6efcd4aa01538126a7ade9",
+      "importedTextSha256": "826974bd454483f4374efab39101d82da14635a68d6efcd4aa01538126a7ade9",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 196,
+      "originalTextSha256": "ae9e3c6f59e7bc08477f2f886676873aec4ab99cdd3a8c43d6523e7085a8deea",
+      "characters": 17,
+      "kind": "sectionHeading",
+      "section": 60
+    },
+    {
+      "sourceParagraph": 197,
+      "originalTextSha256": "4ba5cb6a3c49abf6389020a8ac7762ed27364d1fdb670c103aec5b271f5755fc",
+      "characters": 4317,
+      "kind": "body",
+      "section": 60,
+      "paragraph": 1,
+      "phrasePairs": 27,
+      "englishBracketCharactersRemoved": 54,
+      "bracketCleanedTextSha256": "a3dfedf5c033166c7cb994d0c0073ce8d0905524c8d81fb904d496a098e9ad97",
+      "importedTextSha256": "a3dfedf5c033166c7cb994d0c0073ce8d0905524c8d81fb904d496a098e9ad97",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 199,
+      "originalTextSha256": "76fae9cb2269c7c2b995a13bb210f1370144885021d1ade7827c6a495fa72722",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 61
+    },
+    {
+      "sourceParagraph": 200,
+      "originalTextSha256": "c0e21d0cb6f6fe364984310be8f5865f55ab30f23c4b7e2b1f7c820b9ddbb41f",
+      "characters": 7629,
+      "kind": "body",
+      "section": 61,
+      "paragraph": 1,
+      "phrasePairs": 48,
+      "englishBracketCharactersRemoved": 96,
+      "bracketCleanedTextSha256": "bd9a533af9ffa547e9745fe12f6aca0c62bd3cc9401cf8c373992180af4c7c95",
+      "importedTextSha256": "bd9a533af9ffa547e9745fe12f6aca0c62bd3cc9401cf8c373992180af4c7c95",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 202,
+      "originalTextSha256": "46cdfcb778b5284b80b6ac6d462f41f9f4b7867165ab6cb80513bd9e6bab9686",
+      "characters": 4072,
+      "kind": "body",
+      "section": 61,
+      "paragraph": 2,
+      "phrasePairs": 29,
+      "englishBracketCharactersRemoved": 58,
+      "bracketCleanedTextSha256": "90d1e8da67d8eb6619af2ca095f445136773b30ad0fec2dd677101a02670e079",
+      "importedTextSha256": "90d1e8da67d8eb6619af2ca095f445136773b30ad0fec2dd677101a02670e079",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 204,
+      "originalTextSha256": "be820d7e75d3fb27b308ee384f3a2fcf2dc40af082ae50ce42c7266362ca04be",
+      "characters": 5469,
+      "kind": "body",
+      "section": 61,
+      "paragraph": 3,
+      "phrasePairs": 39,
+      "englishBracketCharactersRemoved": 78,
+      "bracketCleanedTextSha256": "b99770b11a696ebbe28c8b5d8c805dfe3497f74891d2673b04c726e09ce03537",
+      "importedTextSha256": "b99770b11a696ebbe28c8b5d8c805dfe3497f74891d2673b04c726e09ce03537",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 206,
+      "originalTextSha256": "167f5ccda396fc0b95a03f45f7a84ee22d39f4999d8281144c1083abc4ea3d1b",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 62
+    },
+    {
+      "sourceParagraph": 207,
+      "originalTextSha256": "9e989927fd9527765ea24efdd704e574a4de3e22345cdff01fc3797c106329be",
+      "characters": 933,
+      "kind": "body",
+      "section": 62,
+      "paragraph": 1,
+      "phrasePairs": 7,
+      "englishBracketCharactersRemoved": 14,
+      "bracketCleanedTextSha256": "5f0d946cdecccece7c44df5589993e609a733c26b1986051f121697575130a19",
+      "importedTextSha256": "5f0d946cdecccece7c44df5589993e609a733c26b1986051f121697575130a19",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 209,
+      "originalTextSha256": "561f3211e5b53d945cf3a8c54367f45ce7ebb8365da836c0e04d5a0538eadfd4",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 63
+    },
+    {
+      "sourceParagraph": 210,
+      "originalTextSha256": "e60a4f362442e35c660fae3ac97ffa5ad467fb82cee4c35e630ed5ba93495af3",
+      "characters": 9611,
+      "kind": "body",
+      "section": 63,
+      "paragraph": 1,
+      "phrasePairs": 72,
+      "englishBracketCharactersRemoved": 144,
+      "bracketCleanedTextSha256": "17727fc6fc9e8b190f5e166783b59726927075becc05dcca5679541c2426e38e",
+      "importedTextSha256": "17727fc6fc9e8b190f5e166783b59726927075becc05dcca5679541c2426e38e",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 212,
+      "originalTextSha256": "49ee9d161b5fbe9f778947ae0b0945af6982c1db85f3cb7695ecdde17b0c1ab7",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 64
+    },
+    {
+      "sourceParagraph": 213,
+      "originalTextSha256": "215dfdd1c7b8cc956cc8dcedd0f06ceb39834d4804300f71c927aac8357088d8",
+      "characters": 2084,
+      "kind": "body",
+      "section": 64,
+      "paragraph": 1,
+      "phrasePairs": 16,
+      "englishBracketCharactersRemoved": 32,
+      "bracketCleanedTextSha256": "f106d2acda92d67111d213f5106029a45015b7398f140093cd61ff7067918cab",
+      "importedTextSha256": "f106d2acda92d67111d213f5106029a45015b7398f140093cd61ff7067918cab",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 215,
+      "originalTextSha256": "e96c4a0badc6732d1df24bdeae78b67b19ff9e0c3ff60349914c1a2cdb3abcf2",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 65
+    },
+    {
+      "sourceParagraph": 216,
+      "originalTextSha256": "a44d718d0e543ec531fb1a458df08a7773628926056debeafc60efbe9ee68e43",
+      "characters": 9634,
+      "kind": "body",
+      "section": 65,
+      "paragraph": 1,
+      "phrasePairs": 65,
+      "englishBracketCharactersRemoved": 130,
+      "bracketCleanedTextSha256": "191c54c12ec36bf18a8140f3a558109cbb689582136f400c7c7b17a2f29158c5",
+      "importedTextSha256": "191c54c12ec36bf18a8140f3a558109cbb689582136f400c7c7b17a2f29158c5",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 218,
+      "originalTextSha256": "e6bb57bb2dc11efa183ac83fe9eb64a0c4f94c5cb73f5584c608de2564299af7",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 66
+    },
+    {
+      "sourceParagraph": 219,
+      "originalTextSha256": "ca5cde5a25e141b91de0bc74c667ffd9d50f70bb33a4b550341733d16b4d1ea7",
+      "characters": 7544,
+      "kind": "body",
+      "section": 66,
+      "paragraph": 1,
+      "phrasePairs": 52,
+      "englishBracketCharactersRemoved": 104,
+      "bracketCleanedTextSha256": "4d0b4def199e1971cfc44e2e7e2e7bfe2fb7f2022af6edf402767cd1c19c3c44",
+      "importedTextSha256": "4d0b4def199e1971cfc44e2e7e2e7bfe2fb7f2022af6edf402767cd1c19c3c44",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 221,
+      "originalTextSha256": "ca2a03fdd01a7f239bdd88fc91f5a3e56cf33f907de4ca37f6b26a0aab84d4e6",
+      "characters": 5736,
+      "kind": "body",
+      "section": 66,
+      "paragraph": 2,
+      "phrasePairs": 41,
+      "englishBracketCharactersRemoved": 82,
+      "bracketCleanedTextSha256": "f6baadd8de97c7cfbf0a7578af9565a57464c60cc80a12a0253111bf486e55ea",
+      "importedTextSha256": "f6baadd8de97c7cfbf0a7578af9565a57464c60cc80a12a0253111bf486e55ea",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 223,
+      "originalTextSha256": "dc22a99f76cb1cc63eed9279c14821013e2a85d30ef2500080c67e4b51dcc209",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 67
+    },
+    {
+      "sourceParagraph": 224,
+      "originalTextSha256": "184b724924b406adfb0a06c8e89bd0eeabeb5fb3ef4d0609f6da61a3c6515048",
+      "characters": 6234,
+      "kind": "body",
+      "section": 67,
+      "paragraph": 1,
+      "phrasePairs": 40,
+      "englishBracketCharactersRemoved": 80,
+      "bracketCleanedTextSha256": "145f67348a631ae76f5df8d934372b5b155f49f556ad6f93532538825ba0a33d",
+      "importedTextSha256": "145f67348a631ae76f5df8d934372b5b155f49f556ad6f93532538825ba0a33d",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 226,
+      "originalTextSha256": "acb67cefe9db1e8fe12391e04eaa77425b6a1e2ce1bb497200ca35cd3bdd88fc",
+      "characters": 6107,
+      "kind": "body",
+      "section": 67,
+      "paragraph": 2,
+      "phrasePairs": 42,
+      "englishBracketCharactersRemoved": 84,
+      "bracketCleanedTextSha256": "cc12c3c0b023471cb7db8d9ad54307881f6639f423a86cd7ae999370e39a0d69",
+      "importedTextSha256": "cc12c3c0b023471cb7db8d9ad54307881f6639f423a86cd7ae999370e39a0d69",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 228,
+      "originalTextSha256": "488c467b91a3496a0f31e46e324cf467cd924fd62518f55e6c990cdaa48e5b80",
+      "characters": 9286,
+      "kind": "body",
+      "section": 67,
+      "paragraph": 3,
+      "phrasePairs": 67,
+      "englishBracketCharactersRemoved": 134,
+      "bracketCleanedTextSha256": "4793984feb86d55cd6633811c96d7b20da40bc238f7a0ad39b5f1c00622f08a4",
+      "importedTextSha256": "4793984feb86d55cd6633811c96d7b20da40bc238f7a0ad39b5f1c00622f08a4",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 230,
+      "originalTextSha256": "130c9720efdb75ab1fca68d14bd217159226275c7e31c9145b606a1958f8b7ce",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 68
+    },
+    {
+      "sourceParagraph": 231,
+      "originalTextSha256": "846dd96e341c6ebe2a4381359f715b43cc33bb89b4ddeec1ed5ebfef224f4eaa",
+      "characters": 5020,
+      "kind": "body",
+      "section": 68,
+      "paragraph": 1,
+      "phrasePairs": 40,
+      "englishBracketCharactersRemoved": 80,
+      "bracketCleanedTextSha256": "58bb6094b8e0ba3f63648e62e991ee439b8d856618de5955c9e66fd882d1779f",
+      "importedTextSha256": "58bb6094b8e0ba3f63648e62e991ee439b8d856618de5955c9e66fd882d1779f",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 232,
+      "originalTextSha256": "81b5a5394e116806543f9671917f6f4d9225ed163024115d2a85f5bfb4f9d807",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 69
+    },
+    {
+      "sourceParagraph": 233,
+      "originalTextSha256": "84b35254b0418483d172671f905ad074c4d8d24ad707e81ae44fcd75c32c7005",
+      "characters": 11247,
+      "kind": "body",
+      "section": 69,
+      "paragraph": 1,
+      "phrasePairs": 76,
+      "englishBracketCharactersRemoved": 154,
+      "bracketCleanedTextSha256": "99196ca230106250274cba0ffb2da1f64b9c148c07d47d08f813a7411674fa6c",
+      "importedTextSha256": "99196ca230106250274cba0ffb2da1f64b9c148c07d47d08f813a7411674fa6c",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 234,
+      "originalTextSha256": "e72c252060f97698bd5075be18f3a8a2128f6f1151b56e4fc4fe65fee0f3740f",
+      "characters": 17,
+      "kind": "sectionHeading",
+      "section": 70
+    },
+    {
+      "sourceParagraph": 235,
+      "originalTextSha256": "f487041870b70ea0b6cb0bb0a59ce7db941886478ed555b1126900b6e1872eb6",
+      "characters": 5694,
+      "kind": "body",
+      "section": 70,
+      "paragraph": 1,
+      "phrasePairs": 39,
+      "englishBracketCharactersRemoved": 78,
+      "bracketCleanedTextSha256": "895d239f08c12be0a66c1823662dbe7e74f337f3f089929db9f909423f838ce9",
+      "importedTextSha256": "895d239f08c12be0a66c1823662dbe7e74f337f3f089929db9f909423f838ce9",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 236,
+      "originalTextSha256": "866f3842cbf751060aeaef2cc0d3ad459349d98d94342a2ab00b14615b49772e",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 71
+    },
+    {
+      "sourceParagraph": 237,
+      "originalTextSha256": "2d4a152da540bd2b4f737fe71481e27466f36d17fb77b79dd7b2baaeb7173240",
+      "characters": 7347,
+      "kind": "body",
+      "section": 71,
+      "paragraph": 1,
+      "phrasePairs": 53,
+      "englishBracketCharactersRemoved": 106,
+      "bracketCleanedTextSha256": "c3d42dd919aa54e03b464274238bb882d2959fde62fd3c7e680e44c5fc03ed83",
+      "importedTextSha256": "c3d42dd919aa54e03b464274238bb882d2959fde62fd3c7e680e44c5fc03ed83",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 238,
+      "originalTextSha256": "a18e56f4f17363be279bdb749bd2880e2e632f7206f8a1b82883408cacb70bcf",
+      "characters": 391,
+      "kind": "body",
+      "section": 71,
+      "paragraph": 2,
+      "phrasePairs": 4,
+      "englishBracketCharactersRemoved": 8,
+      "bracketCleanedTextSha256": "850524d2c425fc976783f606417632c054d95de9a163b17b495829e963ce5b81",
+      "importedTextSha256": "850524d2c425fc976783f606417632c054d95de9a163b17b495829e963ce5b81",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 239,
+      "originalTextSha256": "602ffe0d5f45f0e831e332ded36e7ccb4517011e77061d8c8975c2ff6bd91d3c",
+      "characters": 6382,
+      "kind": "body",
+      "section": 71,
+      "paragraph": 3,
+      "phrasePairs": 45,
+      "englishBracketCharactersRemoved": 90,
+      "bracketCleanedTextSha256": "11f7c542fb89d486602ecd6ca8161c2e4c185135a782478751cbc16233f04483",
+      "importedTextSha256": "11f7c542fb89d486602ecd6ca8161c2e4c185135a782478751cbc16233f04483",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 240,
+      "originalTextSha256": "dd67a630a783917d8620955648eb22901ba728d6f98dac736094935b13871865",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 72
+    },
+    {
+      "sourceParagraph": 241,
+      "originalTextSha256": "b0d4a296d6a6f7e3cec9ee216a02e00bd45bbc6b9a4344524439e05b2d54fa84",
+      "characters": 7996,
+      "kind": "body",
+      "section": 72,
+      "paragraph": 1,
+      "phrasePairs": 53,
+      "englishBracketCharactersRemoved": 108,
+      "bracketCleanedTextSha256": "b5ea9fd6402f64e35d396632a544b8b0f77b56fbe01a9ee5b2cf6b170eb7b06f",
+      "importedTextSha256": "01e574228e31bcbc99600d3da088568844a8f9c6c9fd7609700101a5e4983cda",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 242,
+      "originalTextSha256": "438e895ac5ce43ed724a77d03eaceb016be398bb9e4fecfbafdbb33cf8c89e45",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 73
+    },
+    {
+      "sourceParagraph": 243,
+      "originalTextSha256": "c344404375003682b2ba8e5f0942d4f9675f7cad6b94433444a196c85f530d93",
+      "characters": 6340,
+      "kind": "body",
+      "section": 73,
+      "paragraph": 1,
+      "phrasePairs": 52,
+      "englishBracketCharactersRemoved": 104,
+      "bracketCleanedTextSha256": "974a537c28f1d2f3e403d852d1157ad38299e9b489ebe6e29a50d1b626722445",
+      "importedTextSha256": "974a537c28f1d2f3e403d852d1157ad38299e9b489ebe6e29a50d1b626722445",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 244,
+      "originalTextSha256": "d21b83e492d31b5ea4c9c4fc9cab10f61e87aebf1f8205b28a86722b6d08429f",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 74
+    },
+    {
+      "sourceParagraph": 245,
+      "originalTextSha256": "6b44eec95655a5993eae833ae7bce660c0e439f0af30fe00fae7ef5461a15886",
+      "characters": 6086,
+      "kind": "body",
+      "section": 74,
+      "paragraph": 1,
+      "phrasePairs": 40,
+      "englishBracketCharactersRemoved": 80,
+      "bracketCleanedTextSha256": "bb6952697495b1ef36f1032a1d4cda056dc374d53070ff316bb9b4405239b7fd",
+      "importedTextSha256": "bb6952697495b1ef36f1032a1d4cda056dc374d53070ff316bb9b4405239b7fd",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 246,
+      "originalTextSha256": "0bcddd8109ee9d319a0971ef3a82c2da54a1d4106ab745295e74f236ec803850",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 75
+    },
+    {
+      "sourceParagraph": 247,
+      "originalTextSha256": "f11c3b78b5fab9c6dfbf093e19326e688f7055f5c1c042aa7ad388a0fe92c76d",
+      "characters": 2622,
+      "kind": "body",
+      "section": 75,
+      "paragraph": 1,
+      "phrasePairs": 17,
+      "englishBracketCharactersRemoved": 34,
+      "bracketCleanedTextSha256": "4be7660894a2a82ac8de0b4a67f6bb0e8f2cf66b5b8a89530a64ab0f288cf18a",
+      "importedTextSha256": "4be7660894a2a82ac8de0b4a67f6bb0e8f2cf66b5b8a89530a64ab0f288cf18a",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    },
+    {
+      "sourceParagraph": 248,
+      "originalTextSha256": "586069da7c4d3193a1a26ce5a081e9f0ea262e8f2ab62a7d44c6a0edd33f7aa3",
+      "characters": 18,
+      "kind": "sectionHeading",
+      "section": 76
+    },
+    {
+      "sourceParagraph": 249,
+      "originalTextSha256": "fe123f85d8a7b08f36d02e69a409e43eb8de948bf57428545c47b2b53e2059b4",
+      "characters": 6726,
+      "kind": "body",
+      "section": 76,
+      "paragraph": 1,
+      "phrasePairs": 41,
+      "englishBracketCharactersRemoved": 82,
+      "bracketCleanedTextSha256": "f3ca3013e3dbd11fa923c266d3031ca2cf349f32a804ecf0dcea59a13b2fa594",
+      "importedTextSha256": "f3ca3013e3dbd11fa923c266d3031ca2cf349f32a804ecf0dcea59a13b2fa594",
+      "sourceContentPreservedAfterReversingReviewedCorrection": true
+    }
+  ],
+  "blankSourceParagraphs": [
+    2,
+    4,
+    6,
+    9,
+    12,
+    15,
+    16,
+    19,
+    22,
+    25,
+    28,
+    31,
+    34,
+    36,
+    39,
+    41,
+    43,
+    46,
+    48,
+    50,
+    53,
+    56,
+    59,
+    62,
+    64,
+    67,
+    70,
+    73,
+    76,
+    79,
+    82,
+    85,
+    87,
+    90,
+    93,
+    112,
+    115,
+    118,
+    121,
+    124,
+    127,
+    130,
+    133,
+    136,
+    139,
+    142,
+    145,
+    148,
+    151,
+    154,
+    157,
+    160,
+    163,
+    166,
+    169,
+    172,
+    175,
+    178,
+    181,
+    184,
+    187,
+    189,
+    192,
+    195,
+    198,
+    201,
+    203,
+    205,
+    208,
+    211,
+    214,
+    217,
+    220,
+    222,
+    225,
+    227,
+    229,
+    250,
+    251,
+    252
+  ],
+  "hebrewLiteralBracketsPreserved": [
+    {
+      "sourceParagraph": 95,
+      "section": 25,
+      "start": 142,
+      "text": "[ב]"
+    },
+    {
+      "sourceParagraph": 144,
+      "section": 43,
+      "start": 1662,
+      "text": "[א]"
+    }
+  ],
+  "nestedEnglishBracketDelimitersRemoved": [
+    {
+      "sourceParagraph": 95,
+      "section": 25,
+      "start": 147,
+      "text": "It is stated in Mei HaShiloach (Part I, s.v. V'hinei [2])"
+    },
+    {
+      "sourceParagraph": 144,
+      "section": 43,
+      "start": 1668,
+      "text": "and as explained in Mei HaShiloach (Part I, Parashat Yitro, s.v. Anokhi [1])."
+    },
+    {
+      "sourceParagraph": 233,
+      "section": 69,
+      "start": 2187,
+      "text": "And through the Patriarchs alone it would not be fully clarified how Hashem declared 'for in Isaac [shall seed be called to you]'—and not all of Isaac."
+    },
+    {
+      "sourceParagraph": 241,
+      "section": 72,
+      "start": 6157,
+      "text": "and my master, father, teacher, and rabbi, the holy Gaon (Mei HaShiloach, Part I, Bereishit, s.v. Vayomer HaAdam; Part II, Bereishit, s.v. Bereishit [2]) said:"
+    }
+  ],
+  "canonicalParagraphComparisons": [
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 1:1",
+      "sourceParagraph": 1,
+      "canonicalBaseTextSha256": "930fe295f7e84011b903da1c4e3b7e1222bcfbe76872db584432d3b880a94a9b",
+      "suppliedHebrewTextSha256": "42218b7e5227e9506c6077213e3011de43ac90c759b13cf9819ae266362b1a33",
+      "normalizedCharacterSimilarity": 0.978738,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 1:2",
+      "sourceParagraph": 3,
+      "canonicalBaseTextSha256": "efab82874c3729a4121c8099aa15e9f3a6160a3bd1bf18083676300dfe2a59a7",
+      "suppliedHebrewTextSha256": "b75dabc7375aa06ec8572cb922e30259c6855fe986705ba7a56d755ec7ae6e49",
+      "normalizedCharacterSimilarity": 0.982632,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 1:3",
+      "sourceParagraph": 5,
+      "canonicalBaseTextSha256": "30c7480afe40df65c9f6e13ab347ceb57d79e0948e91977de2b1f19e0f0e4cd2",
+      "suppliedHebrewTextSha256": "0d3436b1a6c807841e1722c18e79b25a632ac9267b4df2d32499f5212f0a9375",
+      "normalizedCharacterSimilarity": 0.968203,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 2:1",
+      "sourceParagraph": 8,
+      "canonicalBaseTextSha256": "14ddb1f4cf004aa74067980b8ffc1707b0c58400986992a89a489212b9c309dc",
+      "suppliedHebrewTextSha256": "f76978ddd8166cd572025a0635f615a607a29d19065cdb18dd71d64c03dc1ffe",
+      "normalizedCharacterSimilarity": 0.974135,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 3:1",
+      "sourceParagraph": 11,
+      "canonicalBaseTextSha256": "592627ca7d00c0826c0a951b553cc34b0ed991fe167d0cc2d602ecace44ec276",
+      "suppliedHebrewTextSha256": "ab3b2ef6bf616d833b615a976cf8cd898541d456bf542251ab7e7d3728120584",
+      "normalizedCharacterSimilarity": 0.978315,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 3:2",
+      "sourceParagraph": 14,
+      "canonicalBaseTextSha256": "53af5044fff96b141bb4b5e352b2d1db2964aeae991f772e7c910a28db0e55b5",
+      "suppliedHebrewTextSha256": "4094eb40907f30fa24b1a45eee8c4a147ee6230fab6eed30a351117fc6b2c2b0",
+      "normalizedCharacterSimilarity": 0.961106,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 4:1",
+      "sourceParagraph": 18,
+      "canonicalBaseTextSha256": "5e03c21d964442d57374fcf9ca367015b4b0ff488280f67f3d71f60648ef1eab",
+      "suppliedHebrewTextSha256": "89ad1bec6ae2e59d8365169581237830ef36be8fc82e750c44e7f8e36bfec8fd",
+      "normalizedCharacterSimilarity": 0.976978,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 5:1",
+      "sourceParagraph": 21,
+      "canonicalBaseTextSha256": "2f944e6c61d709f133d2b5e51d7aa28640289107ea1a409c1602d1ed26557ad3",
+      "suppliedHebrewTextSha256": "551a4a8e9fa8fff348b8432eaec51f021eb0c59becf8ddce7b578c4b1ed381fc",
+      "normalizedCharacterSimilarity": 0.961658,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 6:1",
+      "sourceParagraph": 24,
+      "canonicalBaseTextSha256": "84e5484f2db8f6effa01d984a55127b7730d5041e9ecb5ad85d59fceb10a9acc",
+      "suppliedHebrewTextSha256": "ab45bd8c5ea404227a63b661f22ce5c987db284820a86cd9dc56e9966b013182",
+      "normalizedCharacterSimilarity": 0.973773,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 7:1",
+      "sourceParagraph": 27,
+      "canonicalBaseTextSha256": "6b709a32d385b578b4be7648ba4c34caebff070e81e9c6346e7623a4ffb39a43",
+      "suppliedHebrewTextSha256": "1936598c984336f2aef0c3154512011e389a968e65a64fa569f3b155ca386f60",
+      "normalizedCharacterSimilarity": 0.948686,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 8:1",
+      "sourceParagraph": 30,
+      "canonicalBaseTextSha256": "916a5d85e6df321267da8633b56bb5d84d5717198d632fc62d2192fcd334439a",
+      "suppliedHebrewTextSha256": "1c75858fb0220bf021df09fe5ae7dbb89e4ca90d8f0d5bd0dfb6197c3ed42a25",
+      "normalizedCharacterSimilarity": 0.942758,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 9:1",
+      "sourceParagraph": 33,
+      "canonicalBaseTextSha256": "596db71f16ae30a16f659fce4d014c67f41555f71b8a3b3879b0d89475a45869",
+      "suppliedHebrewTextSha256": "8bf066c8e648e1cff6583f2cfb1ce461e7338b6b54bcf57c52f1b5c45471fd70",
+      "normalizedCharacterSimilarity": 0.973098,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 9:2",
+      "sourceParagraph": 35,
+      "canonicalBaseTextSha256": "8048262fda6a1067cb26a01f537e566ee4573c8568645c06c1b54ff430d86378",
+      "suppliedHebrewTextSha256": "96c32c521982d9de64109cd8a46258fc6ea5cc515d1a3d9505a60cad98ebb9b8",
+      "normalizedCharacterSimilarity": 0.963472,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 10:1",
+      "sourceParagraph": 38,
+      "canonicalBaseTextSha256": "1f6450120d4eb4b4f14612c24795fd39a40b07a7b6496b66f44d07b93a9235f4",
+      "suppliedHebrewTextSha256": "6e7c7bdb80295f4c611f14d22c80fe79ab6e36b3a592f453c245d28246897921",
+      "normalizedCharacterSimilarity": 0.961716,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 10:2",
+      "sourceParagraph": 40,
+      "canonicalBaseTextSha256": "eb34eaf38845e0b1d29a50f78d217381c00eddc0893ab703a33714677018fae1",
+      "suppliedHebrewTextSha256": "863dbc544da9a27eb42ea084ceb17498490fb2138ee2c073f93bdfe597c5eb47",
+      "normalizedCharacterSimilarity": 0.977201,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 10:3",
+      "sourceParagraph": 42,
+      "canonicalBaseTextSha256": "8486e1fd0d07ff35adb8e4c0d449acc27023593f8b314704d8e0dc1ce5c4b7ad",
+      "suppliedHebrewTextSha256": "961cf7074e38a424139c414ebcd4fea6317597d4960d6756c444111b73d24238",
+      "normalizedCharacterSimilarity": 0.978056,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 11:1",
+      "sourceParagraph": 45,
+      "canonicalBaseTextSha256": "80eba2bc406f81e2d805678392ad8357fca3ffd6fd4a2fe1c7857eae5e569d47",
+      "suppliedHebrewTextSha256": "f195fe96bf487cc6ee23ea38ed0ba8c5c27b7f77a592ec9ff95a1c734d0ddf5b",
+      "normalizedCharacterSimilarity": 0.963607,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 11:2",
+      "sourceParagraph": 47,
+      "canonicalBaseTextSha256": "9f0d2df5e9dabd5fbd91b85ede0571eac25678706a5f5f08dc512755d6c3ab94",
+      "suppliedHebrewTextSha256": "40b9536cd652f64576b101e753fcf1a47cce91d5bf77e973c15c8061305e9151",
+      "normalizedCharacterSimilarity": 0.959292,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 11:3",
+      "sourceParagraph": 49,
+      "canonicalBaseTextSha256": "1dc6d8577823af412046c6060151d08b995b1520d66140470f8e078c806bad56",
+      "suppliedHebrewTextSha256": "7c25d2aa32a0da52b12cd4711e48b02da82f33cfa28ea173c95ce881bc124adf",
+      "normalizedCharacterSimilarity": 0.974311,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 12:1",
+      "sourceParagraph": 52,
+      "canonicalBaseTextSha256": "b0bec6e18cc120ad0cc56912b44584077f5b774a5d0a98e2604f80669138e36d",
+      "suppliedHebrewTextSha256": "7d8b22802c23800192cf29d8fc38d943725fe6a9de04068c3d2dd45f93f8e24d",
+      "normalizedCharacterSimilarity": 0.96013,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 13:1",
+      "sourceParagraph": 55,
+      "canonicalBaseTextSha256": "026825ccc11c35884a8c8ae41715f7eff238e8d5e2e80ebb44c38387d8c2ddc9",
+      "suppliedHebrewTextSha256": "9fafdf1e1afcd2e0ab24890d3a995c7405635d0f1e69ed1da257fd0fbe209dd1",
+      "normalizedCharacterSimilarity": 0.972212,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 14:1",
+      "sourceParagraph": 58,
+      "canonicalBaseTextSha256": "108666b9b6f656404ee7813b68fd27b1f2fa8161904725fa74fdca4b5fbbe897",
+      "suppliedHebrewTextSha256": "5d156ee22471590111e4876114c10230e0fb8cdd714fb192664c9f3c00c86f1a",
+      "normalizedCharacterSimilarity": 0.970256,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 15:1",
+      "sourceParagraph": 61,
+      "canonicalBaseTextSha256": "5cda7093a90966f3d1ac7588b150db728007c8c5923431c2e2bd5a66ad35c8c7",
+      "suppliedHebrewTextSha256": "6760333064f13779c2550dcbf8c0385cdb1c40cebc7e7c4411ded4da37b8da4e",
+      "normalizedCharacterSimilarity": 0.965909,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 15:2",
+      "sourceParagraph": 63,
+      "canonicalBaseTextSha256": "a08a5f5870e383e82be3e25a0238d20a88e2bef3571afbbd5f46c40e30fa9ba7",
+      "suppliedHebrewTextSha256": "45e8d5cf356c2df6451d56152867e23640d4c59f0adfb0435cf5172fcae85221",
+      "normalizedCharacterSimilarity": 0.959569,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 16:1",
+      "sourceParagraph": 66,
+      "canonicalBaseTextSha256": "eb9985c845811bc4a28823efd8f8c225857d02488b80dfa245400b44e4e5182b",
+      "suppliedHebrewTextSha256": "46ee672a9ed63e0950c5c29cde9917eef11f7642b0f7d087332f6bdb6ddac3e5",
+      "normalizedCharacterSimilarity": 0.951843,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 17:1",
+      "sourceParagraph": 69,
+      "canonicalBaseTextSha256": "ffd2d90f5db4d8cd49f3a6b629cc33b93884f08075f39098793c4393faddfada",
+      "suppliedHebrewTextSha256": "28a3cfcd5f27846d32a062d1d597b081c93a3909e713149f3ec0bc1eb8d285f5",
+      "normalizedCharacterSimilarity": 0.979021,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 18:1",
+      "sourceParagraph": 72,
+      "canonicalBaseTextSha256": "a4335df3aee7e44c7ad951623c79d3f8aafa49e67505432f4985fab5005f4cdc",
+      "suppliedHebrewTextSha256": "865a4fb1b05d4e49827d59c898d84a4e9e04197e6868cde215ed164a1a42153d",
+      "normalizedCharacterSimilarity": 0.975923,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 19:1",
+      "sourceParagraph": 75,
+      "canonicalBaseTextSha256": "29af8f1cd2006667da74a8c02c5624a27221e72a53f70807e53a149aef4c4346",
+      "suppliedHebrewTextSha256": "580022ba74596ad1c424c89285ff861118e959a139ba24951a66760d25f0068c",
+      "normalizedCharacterSimilarity": 0.970058,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 20:1",
+      "sourceParagraph": 78,
+      "canonicalBaseTextSha256": "d53de8ef2c4ceb2ea55d04e18f23151d70eb1c2a49ea9e550bdc62480c60ff01",
+      "suppliedHebrewTextSha256": "97f8369805beafc7218da87301c65cc27fb7be0ab41aa24b0aa032ba8e71a5a6",
+      "normalizedCharacterSimilarity": 0.97735,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 21:1",
+      "sourceParagraph": 81,
+      "canonicalBaseTextSha256": "9463f869a5b5e91a683ae205f7073d027335e6cd036d593e206a04cfa75177ee",
+      "suppliedHebrewTextSha256": "47391b109d868444466583718e51d9e3833e0bd3cbb9235d7f7c24fada861f65",
+      "normalizedCharacterSimilarity": 0.978454,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 22:1",
+      "sourceParagraph": 84,
+      "canonicalBaseTextSha256": "02e92120c7aae4d3377159609dbd3ca3fca212cdeb8ba57a645bcb3422ad7aab",
+      "suppliedHebrewTextSha256": "fdddc8d207627d0b50f0f492a0af5ad78b58a68904120cfd3e939411cc831f10",
+      "normalizedCharacterSimilarity": 0.986777,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 22:2",
+      "sourceParagraph": 86,
+      "canonicalBaseTextSha256": "68c42127b63963802d211d14ad9ed6c33c6225050de739f491386258e9b69d7a",
+      "suppliedHebrewTextSha256": "da2b0a324553adb92e4c297cfa11e178272ef430ae7ae71e947d18be0d9df203",
+      "normalizedCharacterSimilarity": 0.98105,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 23:1",
+      "sourceParagraph": 89,
+      "canonicalBaseTextSha256": "f12c3de8c0c7a58ccf7f585f12c4dff9a73debe0e4518f69bd641094fb4dcfb6",
+      "suppliedHebrewTextSha256": "870fb4cfc54482b293b5dbd59f47ab256293b2be7ccfa224b1a1aafa6adf4a48",
+      "normalizedCharacterSimilarity": 0.977486,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 24:1",
+      "sourceParagraph": 92,
+      "canonicalBaseTextSha256": "41f816d7d3aab3f2fa5668e2f56aa94f25529018e073714c84abe39955f7f218",
+      "suppliedHebrewTextSha256": "a9a7dbca2fe44ee67f29c7354d26fbd2d56034afaf91bbc8bb319b8488d3c831",
+      "normalizedCharacterSimilarity": 0.987104,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 25:1",
+      "sourceParagraph": 95,
+      "canonicalBaseTextSha256": "e8cee06816ac6bc9f4f9ddf25e5c036d75006672fd16d00cd967ef0cc09789a8",
+      "suppliedHebrewTextSha256": "f3300339284eb59fb464808add65ef62a0f8c4db5e5503e7d858918259d19774",
+      "normalizedCharacterSimilarity": 0.970105,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 26:1",
+      "sourceParagraph": 97,
+      "canonicalBaseTextSha256": "a84791d5912a77a9d658abd94b8d7f082f9b3834518f34c1992db215a3253dd5",
+      "suppliedHebrewTextSha256": "e367f412f8f6f3543ceeb49a5326cce9f9c53c4eba7d4f279003cb7840b250d7",
+      "normalizedCharacterSimilarity": 0.961905,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 27:1",
+      "sourceParagraph": 99,
+      "canonicalBaseTextSha256": "dcafc8e085f8b3dff4b0db0daff819191717e7cda0f44f788ef3588064d837f3",
+      "suppliedHebrewTextSha256": "b016a185218c3fddd2d8ddd863bae89dbc13c6a0040ceaa9be6a9ed6dcfd6adf",
+      "normalizedCharacterSimilarity": 0.947883,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 27:2",
+      "sourceParagraph": 100,
+      "canonicalBaseTextSha256": "6ffb5dac3298f1682108b3fc816dac70da6c5d51150362baee1ab878509ce7a2",
+      "suppliedHebrewTextSha256": "891cc71a44acc8baf84e4996dd7191c144e726f1cea52ff2828108ae181feb75",
+      "normalizedCharacterSimilarity": 0.975856,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 27:3",
+      "sourceParagraph": 101,
+      "canonicalBaseTextSha256": "c6e613e8ad9693c78857b063f1e18778ddeccef597ac56a95e02cfc3ab8ea8f0",
+      "suppliedHebrewTextSha256": "ee66dd2ec82cdffbb234fedcd567c97f7cb9d12567feb5e10ae48df2c701a4ef",
+      "normalizedCharacterSimilarity": 0.976968,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 28:1",
+      "sourceParagraph": 103,
+      "canonicalBaseTextSha256": "60e58c4a807bb0bc1b9a8266384df153bf89b6550c91123ef3c4fe2d5fb19db2",
+      "suppliedHebrewTextSha256": "3e674af3ba1e6e4b05147cc857e5b4f7e4ef5e200affb1253032ad2d980d908b",
+      "normalizedCharacterSimilarity": 0.942815,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 29:1",
+      "sourceParagraph": 105,
+      "canonicalBaseTextSha256": "e6839f500a8a535262380ba2c36c53fb1e7e02e5d0d22d760d4ce535988d0d55",
+      "suppliedHebrewTextSha256": "d7a3eea8382b98c08516a1108217645523d73f9345e6c935c7698328249dae9a",
+      "normalizedCharacterSimilarity": 0.979757,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 30:1",
+      "sourceParagraph": 107,
+      "canonicalBaseTextSha256": "f165d91497181a8b68451f8a3d492c8fbe5284c414e6d7dbb4450d7078556015",
+      "suppliedHebrewTextSha256": "5ec478335312c47b80db88857bfc25e652578ec7cdd5b21e4f27fbf7885da628",
+      "normalizedCharacterSimilarity": 0.971514,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 31:1",
+      "sourceParagraph": 109,
+      "canonicalBaseTextSha256": "3df579b9b0fa642e7d75a85d9156661b7be418b03a2907ce480a7764052cf98f",
+      "suppliedHebrewTextSha256": "3f3edfcf185ec80ba84f0651da0dc29677b90bca38aa0a0114107cddb96f3ed4",
+      "normalizedCharacterSimilarity": 0.988078,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 32:1",
+      "sourceParagraph": 111,
+      "canonicalBaseTextSha256": "486ad724fdfcb1c987c523556877328b6e7f7ae0e438c0ffc1ca4e7de4c9906e",
+      "suppliedHebrewTextSha256": "4da187aea38b82dcb49ce4fb78c8761af0fca5772286d5a28e6cd2f0676dd2f8",
+      "normalizedCharacterSimilarity": 0.989873,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 33:1",
+      "sourceParagraph": 114,
+      "canonicalBaseTextSha256": "28d27d1abc8cf0a51d2a4ae9a719a2cde7838554eef1176f6cf69dfd7d625491",
+      "suppliedHebrewTextSha256": "a392e4402c7d8d70dd215113e171609587ca727c6fb10dfc617f64afda0ece80",
+      "normalizedCharacterSimilarity": 0.965964,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 34:1",
+      "sourceParagraph": 117,
+      "canonicalBaseTextSha256": "d6f6557262b71cc7f157783fcd29c6c15da660758617af8593e57026b27a19f7",
+      "suppliedHebrewTextSha256": "e30e67b07042f5c23feb56e83b1d6a85ca9a5f5af0603a4c70f41b6bc7839c69",
+      "normalizedCharacterSimilarity": 0.977075,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 35:1",
+      "sourceParagraph": 120,
+      "canonicalBaseTextSha256": "9433aa5e547aa31965ac67e46d8eccb8f065b219d91b06256c13b08657a98bbe",
+      "suppliedHebrewTextSha256": "f661682451ec776bd0a0866f16af213242e1d76c3b79af8e12b29f48f259d29f",
+      "normalizedCharacterSimilarity": 0.962963,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 36:1",
+      "sourceParagraph": 123,
+      "canonicalBaseTextSha256": "0bcd6d4e48cf42a7230c8f28823a5fc38f59c8594db7514878c103f611a3a04d",
+      "suppliedHebrewTextSha256": "12df42ac295d21902e3a678a73e3dc17c381333620a7d8ebf328cb320b0b9c0f",
+      "normalizedCharacterSimilarity": 0.988789,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 37:1",
+      "sourceParagraph": 126,
+      "canonicalBaseTextSha256": "b897ed63799089005a627fbfdafae8440a83df138e2008ca5ab0a0cbd5bd2b15",
+      "suppliedHebrewTextSha256": "cc003c04bdd2ee5e1a0e50563ad0e34c6b09a5484bcfef50ae2e936ba8c27da2",
+      "normalizedCharacterSimilarity": 0.977841,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 38:1",
+      "sourceParagraph": 129,
+      "canonicalBaseTextSha256": "086543c220de9d6495efe3b8480c4dd57f8daa94e34c1b1084303c280005c3d9",
+      "suppliedHebrewTextSha256": "e1421e6c9bae88111d487852059f8cfb2ab4598ffde293acf4c2b0f9e934838c",
+      "normalizedCharacterSimilarity": 0.978599,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 39:1",
+      "sourceParagraph": 132,
+      "canonicalBaseTextSha256": "c24ac864879b658ac10417604bc5d10244ab5c2643ed0051df11e68f9713dd96",
+      "suppliedHebrewTextSha256": "e91042a3aa834426a12e52d3c8f8e815ada3efb9e489e0dd7ab50f9bcd54038e",
+      "normalizedCharacterSimilarity": 0.962877,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 40:1",
+      "sourceParagraph": 135,
+      "canonicalBaseTextSha256": "f7ddb91dd22884ea49a75197c6aab3d6421888c39f2d8f28dcc1c82038ee60bd",
+      "suppliedHebrewTextSha256": "25e98d76eaef626b01177ed797573364418ab7898c50be3809c9ca680b53aa28",
+      "normalizedCharacterSimilarity": 0.962284,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 41:1",
+      "sourceParagraph": 138,
+      "canonicalBaseTextSha256": "cb8c844c1037572e27565c579a7bd615d959e752df3e2a56bb0dea7228dc3256",
+      "suppliedHebrewTextSha256": "789512c895f175414bb73fba4146d0132431f97a54a961a2ba8a6ec5344329aa",
+      "normalizedCharacterSimilarity": 0.976325,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 42:1",
+      "sourceParagraph": 141,
+      "canonicalBaseTextSha256": "bffbee855ca15eea6d11cb6d83c695dc6a0e40cbe2b156db23bc4688ab0114c9",
+      "suppliedHebrewTextSha256": "5473562f00169afdf73d83c9df0aa9dee8a970f982e75ffcb179c8097986b6f2",
+      "normalizedCharacterSimilarity": 0.981168,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 43:1",
+      "sourceParagraph": 144,
+      "canonicalBaseTextSha256": "a510f97c3c3eeaf96d7c03262237085473b133572f7db9feab3cc6ed9d974b83",
+      "suppliedHebrewTextSha256": "d99f5a83a9a9d522c2afa84fabea12185182d45a3ce1a714304c075097f21f20",
+      "normalizedCharacterSimilarity": 0.980938,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 44:1",
+      "sourceParagraph": 147,
+      "canonicalBaseTextSha256": "a027436d57b2e027520b7116835a54578c950c0f8304c0e012869685774db27e",
+      "suppliedHebrewTextSha256": "1f90b9cf4a4be121a6f75563e6b2553a5cc0bd65d83db869dac0fde68a826afe",
+      "normalizedCharacterSimilarity": 0.989324,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 45:1",
+      "sourceParagraph": 150,
+      "canonicalBaseTextSha256": "a9f5ab97ee9c35cb0f07861f97945f6106508a17da702ced3ff759b57f9fb621",
+      "suppliedHebrewTextSha256": "e59b65e3ab36072a98b6e05d4d97417b172a5382ffab02eb26d0e9da29496975",
+      "normalizedCharacterSimilarity": 0.920666,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 46:1",
+      "sourceParagraph": 153,
+      "canonicalBaseTextSha256": "0c1b822bf6f3205839620d4e4ea27dd930396e8d4d2b41639f89aa1da9ec4569",
+      "suppliedHebrewTextSha256": "8dab346a1ff77f77bb8c443408dadeeca75d4ee40d343aeb739ae1b622b452d1",
+      "normalizedCharacterSimilarity": 0.975672,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 47:1",
+      "sourceParagraph": 156,
+      "canonicalBaseTextSha256": "8c22c767ab1d21d033a974a571aa1a36c86c3a2f454e6f7966508f770f9aef1d",
+      "suppliedHebrewTextSha256": "731f9ece51162a7437f4ec6b007ec2798d9fbc1a9207e91fc48ceeb6e09eb101",
+      "normalizedCharacterSimilarity": 0.972654,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 48:1",
+      "sourceParagraph": 159,
+      "canonicalBaseTextSha256": "eb686a07749df746c1b96ebee03de2deb17672a9809cdde9808e8666a7235c26",
+      "suppliedHebrewTextSha256": "56220ffbf77d12b28e2d5885c3e03b675290a3d0fa25d9305e288c92c4c1c7c8",
+      "normalizedCharacterSimilarity": 0.964483,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 49:1",
+      "sourceParagraph": 162,
+      "canonicalBaseTextSha256": "8afbb77dea14743efb44e99d5664debee07017c19f9b2561b7431c32ba6efb3a",
+      "suppliedHebrewTextSha256": "1845a37588a0d6c31359540258fa0d2830b8da7b2a9e1a7b9ae95dead8eb4e6d",
+      "normalizedCharacterSimilarity": 0.965495,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 50:1",
+      "sourceParagraph": 165,
+      "canonicalBaseTextSha256": "86beaebd83581228732b1d2360e63b4390ac1bcaba9283ea52bd814a52d2f709",
+      "suppliedHebrewTextSha256": "ba469de26e317e45a868d8023b03feb424e1a967438baf9870dc1fa6b82f1e1c",
+      "normalizedCharacterSimilarity": 0.972877,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 51:1",
+      "sourceParagraph": 168,
+      "canonicalBaseTextSha256": "b1627fa4835556ab971e9c1bf2f32a494374c8eee7f772f278771880eb9ec71e",
+      "suppliedHebrewTextSha256": "a8cb33841c241f807127339068070173265c611ae021f04ca4a2e81b1a82611f",
+      "normalizedCharacterSimilarity": 0.962338,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 52:1",
+      "sourceParagraph": 171,
+      "canonicalBaseTextSha256": "c9ce5c7a2760af102e7a0386dbb7297448c760fae9aa6d9f8af760055ce38935",
+      "suppliedHebrewTextSha256": "baaa0c02d4638db0bbf831cb6a16d3f469a91dc6a507931bd899f2af8e19b2f6",
+      "normalizedCharacterSimilarity": 0.967456,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 53:1",
+      "sourceParagraph": 174,
+      "canonicalBaseTextSha256": "6f259db29e78df8420942286259f0a878509a2cf4783427a0bb85cc6e6a97e12",
+      "suppliedHebrewTextSha256": "a9c6fe510e8fa93d18027c55fc4edaeaab0a7623f64b658454609a561269016a",
+      "normalizedCharacterSimilarity": 0.980789,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 54:1",
+      "sourceParagraph": 177,
+      "canonicalBaseTextSha256": "43161a94476b8ad2b7f2de22381448ed362a4792c47cbe903e357432d70e1b30",
+      "suppliedHebrewTextSha256": "ce95f2849b6185a52c45aee4e7b8d0b799944302d1e08f78eac264dfd28eeeeb",
+      "normalizedCharacterSimilarity": 0.96,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 55:1",
+      "sourceParagraph": 180,
+      "canonicalBaseTextSha256": "52db1f74a94082516775853fab63b01b57f7de0dd23ae8b790975b9632902ee7",
+      "suppliedHebrewTextSha256": "ef1ea817d34be01b92ae0aa780e042eb142f5d18035257abeda7cafe81e6922c",
+      "normalizedCharacterSimilarity": 0.964286,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 56:1",
+      "sourceParagraph": 183,
+      "canonicalBaseTextSha256": "39029db0cd740df0d67c315b6542857a842fa16345bc5f2b2a14b73881c628fb",
+      "suppliedHebrewTextSha256": "7a37e30b74ea0af4e284dc08faa73fba24b25d4d70503c0ce2c5bf010afb8891",
+      "normalizedCharacterSimilarity": 0.973878,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 57:1",
+      "sourceParagraph": 186,
+      "canonicalBaseTextSha256": "036d1c5c7767f6518f1d67fbe3246f5a030f1ea7f20720e90f0fa58a4a4d233f",
+      "suppliedHebrewTextSha256": "75ac63d9005126691e8a27da7b6bb86d97f504042788cbc0ba950bc94a14e825",
+      "normalizedCharacterSimilarity": 0.967742,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 57:2",
+      "sourceParagraph": 188,
+      "canonicalBaseTextSha256": "769eb24ed1dcb97d1bc3c79747a44bb8c38196396ee57bbb2f504474ea78be4c",
+      "suppliedHebrewTextSha256": "02d9aae7ab6e5f7f48f9610b51e36d0debb58cd7fe6c9d19d229a9446431d82c",
+      "normalizedCharacterSimilarity": 0.966812,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 58:1",
+      "sourceParagraph": 191,
+      "canonicalBaseTextSha256": "681f23a4696c00253dafde5c8ce4fb232ac215550080901735f8560a7b6ba4a0",
+      "suppliedHebrewTextSha256": "6b1a2686063815d05d36d1900cc37c43621e85ad4cb9a71bb4d44324fbf7b68a",
+      "normalizedCharacterSimilarity": 0.981273,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 59:1",
+      "sourceParagraph": 194,
+      "canonicalBaseTextSha256": "aa1a9b6020320f3c0dd4dec6c844982e8530555bc05f1e553a1294d13de9ca7c",
+      "suppliedHebrewTextSha256": "6d0ccb925f0b8e7119e8b41f4f5e6c81739bf9a1b97bdb17c397170263b7597b",
+      "normalizedCharacterSimilarity": 0.987382,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 60:1",
+      "sourceParagraph": 197,
+      "canonicalBaseTextSha256": "874f18450f82d434e9b851072cb8cf07719c79b6f5d1820c2b188a417ad744cc",
+      "suppliedHebrewTextSha256": "4a624ac8ed5aefec1b8694c2a475eae52f139d441d1b8ac4cc42e5e0cb43aa35",
+      "normalizedCharacterSimilarity": 0.976968,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 61:1",
+      "sourceParagraph": 200,
+      "canonicalBaseTextSha256": "7df293251032885dbc1862622026b3771f15913295a6f1eb269cdfe19059abf8",
+      "suppliedHebrewTextSha256": "2361d37ea059a8ca5042e5464db9031aabcfa5484c995470984e85aee5371221",
+      "normalizedCharacterSimilarity": 0.981011,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 61:2",
+      "sourceParagraph": 202,
+      "canonicalBaseTextSha256": "8f5a3f1ecd46d6bef7e41985c75883cda8bcaa94a9236d0c9596cf88651cc710",
+      "suppliedHebrewTextSha256": "1ace4ffe72aedf6ba35f6d6f8af038aac1951915aaca37ad3e17e885027f1b8a",
+      "normalizedCharacterSimilarity": 0.977752,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 61:3",
+      "sourceParagraph": 204,
+      "canonicalBaseTextSha256": "3092df6dd74d81be5462b3c4d3061fb1e919b25618833ebc05623d5e6472a325",
+      "suppliedHebrewTextSha256": "3c329a2d5aabb741fe18e93e18cf8973a6170a95f34dbbc607781dd18d0bf00d",
+      "normalizedCharacterSimilarity": 0.986347,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 62:1",
+      "sourceParagraph": 207,
+      "canonicalBaseTextSha256": "49840958cd476c198f26bf102a2c74cab3d97d2fa6c31696a5e3214b7e300738",
+      "suppliedHebrewTextSha256": "2900dc7cf523e5ffa82c15e0d0c9532b95573bf3df5e13610028bff82c8a08c0",
+      "normalizedCharacterSimilarity": 0.992126,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 63:1",
+      "sourceParagraph": 210,
+      "canonicalBaseTextSha256": "928d64d722ff2f7ef1d2c52a98252bad0598725e7d0864c9905d9acc87755666",
+      "suppliedHebrewTextSha256": "c1ab5c897af039d20eb1aa1de5a1ec3faba2b5cee26603fc0e7be5d3f375d019",
+      "normalizedCharacterSimilarity": 0.974268,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 64:1",
+      "sourceParagraph": 213,
+      "canonicalBaseTextSha256": "fce6f3b2e90f681d33696f83a65843c5a81e869689266c7b31d599d0cc0f73f6",
+      "suppliedHebrewTextSha256": "dde40cca7f61e5d109e9fbcf5957960db4f528b36bb186f25ff54d0183954846",
+      "normalizedCharacterSimilarity": 0.997773,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 65:1",
+      "sourceParagraph": 216,
+      "canonicalBaseTextSha256": "571e18b076665d4cbe650fb38a8f8b813b65382c4a8b268c544019d459aedebc",
+      "suppliedHebrewTextSha256": "1e4359b6a4037022cb8a5381fcb15d88c04177e046c43bd9d6a419d4bdfc3612",
+      "normalizedCharacterSimilarity": 0.967383,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 66:1",
+      "sourceParagraph": 219,
+      "canonicalBaseTextSha256": "7526c8d0ecb27f6b886fb116ae1e5b30610b52388c50d1585ba4398f24ff09b5",
+      "suppliedHebrewTextSha256": "87d9f8d6d185de67297d45b1a1c464a825deaa3153b5f6fa120a34beeed0747d",
+      "normalizedCharacterSimilarity": 0.973435,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 66:2",
+      "sourceParagraph": 221,
+      "canonicalBaseTextSha256": "23e4691ba9e7750a985e0ff5dc3ad6e33ac962143fcbb696821e5bef9fa4b3e2",
+      "suppliedHebrewTextSha256": "6470b1cd05fbbc2ab8edee3170733592d6de34759ec4bbcbd609ef37048d05e3",
+      "normalizedCharacterSimilarity": 0.964069,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 67:1",
+      "sourceParagraph": 224,
+      "canonicalBaseTextSha256": "540205f5f0b7625ceab281943b3b4eaecd616191a0deb40d703afc985f06da53",
+      "suppliedHebrewTextSha256": "98c359d6b483ae60764dda211cd8b27d7fa80464f51714b96820a2f16e340e1a",
+      "normalizedCharacterSimilarity": 0.968616,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 67:2",
+      "sourceParagraph": 226,
+      "canonicalBaseTextSha256": "fecf1cff46a501de12d1d46a9be8ca092566ce75782f5d06657816c2ebf4e493",
+      "suppliedHebrewTextSha256": "c0f25f1983fe5a69f43cce2e88b8ccbd89008b99f739fa1cd93698a80a69741e",
+      "normalizedCharacterSimilarity": 0.986432,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 67:3",
+      "sourceParagraph": 228,
+      "canonicalBaseTextSha256": "217c07275fc041356e5c0e984cdbd01f50f566c43fa121c2e215d747e615fce5",
+      "suppliedHebrewTextSha256": "f309aeac79e6f9b841a99ca1ac74e84a9260631c69af42bd2b6a4cdf49d7edbb",
+      "normalizedCharacterSimilarity": 0.967665,
+      "largeCharacterDifferences": [
+        {
+          "canonical": "",
+          "supplied": "שירהשיריםרבהדטז"
+        }
+      ]
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 68:1",
+      "sourceParagraph": 231,
+      "canonicalBaseTextSha256": "b6001b9ff3fec919ee54dde5ee4cf1d673736dd00a557c87518686cd47b5db94",
+      "suppliedHebrewTextSha256": "4ccbdbff96d4ff899b81130de3675bac4e6b106938d7fecd7a22a2b6c5ed82ab",
+      "normalizedCharacterSimilarity": 0.96994,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 69:1",
+      "sourceParagraph": 233,
+      "canonicalBaseTextSha256": "04fc8f00779af0dbe5c6c5a3e074e40bdf4e7d722172e274e0684114326ce3c6",
+      "suppliedHebrewTextSha256": "f42b7436d9e96a94700b82862c9b158f15a6b6329382635b59b31b6853e2dde3",
+      "normalizedCharacterSimilarity": 0.969076,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 70:1",
+      "sourceParagraph": 235,
+      "canonicalBaseTextSha256": "fd4a140c4c6b30642b87e20a6baf23337177c4a2b266b23b2a29bd5c976d2c17",
+      "suppliedHebrewTextSha256": "f934a92206da51c9abdb4319941082a5e26dcb475a3522c36d7fb1c087584fbd",
+      "normalizedCharacterSimilarity": 0.976744,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 71:1",
+      "sourceParagraph": 237,
+      "canonicalBaseTextSha256": "b2560be517fd4c2ba94e06e3830123c331a3065b77be221cccc0907856b3926a",
+      "suppliedHebrewTextSha256": "0df93b981f21fdac269cec13c135328216057ca127f448316ea215515e341be8",
+      "normalizedCharacterSimilarity": 0.962637,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 71:2",
+      "sourceParagraph": 238,
+      "canonicalBaseTextSha256": "67b5657b1a816ad2d3dd331fec83f74823cede2e875019cf593af5d31873ec69",
+      "suppliedHebrewTextSha256": "7492333d3cf8501febfee8c46992df4bc783ab8c5e94926b045217c3bb9a1969",
+      "normalizedCharacterSimilarity": 1.0,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 71:3",
+      "sourceParagraph": 239,
+      "canonicalBaseTextSha256": "57f198ffecbfb83fec5e1dccaf1f3138a9f6f4a0cd62cbdcd4efbd79eba66c19",
+      "suppliedHebrewTextSha256": "29d9f5e2dce12f498a2e493094ea61f4aae7ea3624f4b2340cdfcfa78b0e01de",
+      "normalizedCharacterSimilarity": 0.970007,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 72:1",
+      "sourceParagraph": 241,
+      "canonicalBaseTextSha256": "f6c809ce8d9b72beedf193eb6f872f1b7ca2d3c0a9cbf0670562794497e46b75",
+      "suppliedHebrewTextSha256": "48d60585b250617dffc68de8219e407c7129ce57fb302aefe49cf860d3e47ecf",
+      "normalizedCharacterSimilarity": 0.956308,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 73:1",
+      "sourceParagraph": 243,
+      "canonicalBaseTextSha256": "a138b8b918cdf5f89faa341c1c90e33ff3ba3bcc427dda355f1d81d6b9c4cdd3",
+      "suppliedHebrewTextSha256": "6aff15c0897c8237d8ccefee1c92a81efad6db1ff60cb9f3f6e87da15bf21930",
+      "normalizedCharacterSimilarity": 0.987552,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 74:1",
+      "sourceParagraph": 245,
+      "canonicalBaseTextSha256": "e52aa77ac73143eba25ab4fe4b84f7ea7650e9ac7893e9d5ce8c6d0761fe92ab",
+      "suppliedHebrewTextSha256": "a28273419421fb51c881f4a2b6f93ad427893fcd12b86a73788d24ad220111e9",
+      "normalizedCharacterSimilarity": 0.980754,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 75:1",
+      "sourceParagraph": 247,
+      "canonicalBaseTextSha256": "d11ef5331163d41a5ad8e9bc77547cfee1169e2e1bbfc78980ae8b4539c044cf",
+      "suppliedHebrewTextSha256": "f4cc9770b5e37612403264f5348a9024e0593ef23d1a8b5a59b7c7d66c4f5f5d",
+      "normalizedCharacterSimilarity": 0.974761,
+      "largeCharacterDifferences": []
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 76:1",
+      "sourceParagraph": 249,
+      "canonicalBaseTextSha256": "b2c02b99473d66e65556d65ee111fcc435fed88b742dd103a6ff471b446aae6d",
+      "suppliedHebrewTextSha256": "0c0f7873c3add2552f0af4526a2e2c3f2df764440eeddd7619b92633d77338cb",
+      "normalizedCharacterSimilarity": 0.970044,
+      "largeCharacterDifferences": []
+    }
+  ],
+  "reviewedCanonicalSideDifferences": [
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 1:3",
+      "review": "Supplied Kiddushin 40a versus canonical 41a; Turnus Rufus spelling; תיבות versus תיבין; supplied respectful Divine-Name notation and Aramaic expansion preserved.",
+      "differences": [
+        {
+          "canonical": "א",
+          "supplied": "",
+          "before": "ומפרימעשיובעולםהזהקדושיןמ",
+          "after": "גםכןואףבעניניעולםהזהיבואו"
+        },
+        {
+          "canonical": "פ",
+          "supplied": "",
+          "before": "יתוזהוכונתהמדרשששאלטורנוס",
+          "after": "רופוסאתרביעקיבאאםכדבריךשה"
+        },
+        {
+          "canonical": "ין",
+          "supplied": "ות",
+          "before": "אשםמייעלהלנוהשמימהראשיתיב",
+          "after": "מילהוסופיתיביןיקוקוכןבכלמ"
+        },
+        {
+          "canonical": "ןיק",
+          "supplied": "ה",
+          "before": "ימהראשיתיביןמילהוסופיתיבי",
+          "after": "וקוכןבכלמעשיהמצותאומריםמק"
+        },
+        {
+          "canonical": "בה",
+          "supplied": "א",
+          "before": "המצותאומריםמקודםלשםיחודקו",
+          "after": "ושכינתיהשבפעולההגשמייתשעו"
+        }
+      ]
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 2:1",
+      "review": "The canonical spelling אחיורא and supplied חוורא are the same quoted Aramaic white-fire term.",
+      "differences": [
+        {
+          "canonical": "יו",
+          "supplied": "",
+          "before": "הקבראשיתנאשישאשאתכלאואשאח",
+          "after": "וראאשאחווראהיינושאינונתפס"
+        }
+      ]
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 3:2",
+      "review": "Canonical [ג/ב] is accounted for by the supplied Ois 3 Part 2 continuation heading.",
+      "differences": [
+        {
+          "canonical": "גב",
+          "supplied": "",
+          "before": "",
+          "after": "ויצאיעקבמבארשבעכתיבמשליגי"
+        }
+      ]
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 4:1",
+      "review": "מכבודתי / מכבדותי is a spelling variant in the quoted garment passage, not a word omission.",
+      "differences": [
+        {
+          "canonical": "ד",
+          "supplied": "",
+          "before": "תקיגרבייוחנןקרילמאניהמכבו",
+          "after": "תיכיבהלבושמהמצוהגםכןנמצאק"
+        }
+      ]
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 8:1",
+      "review": "Supplied Aramaic קודשא בריך הוא expands canonical קוב״ה.",
+      "differences": [
+        {
+          "canonical": "בה",
+          "supplied": "א",
+          "before": "תהכמודאיתאבזוהקקדושיםפוקו",
+          "after": "קראליעקבאלההדלפנילאנוצראל"
+        }
+      ]
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 11:3",
+      "review": "The supplied Deuteronomy 14:23 locator is more precise than canonical ראה טו; preserve the upload.",
+      "differences": [
+        {
+          "canonical": "טו",
+          "supplied": "ידכג",
+          "before": "כחומעשררומזליראהכדכתיבראה",
+          "after": "למעןתלמדליראהולכןנדריעקבא"
+        }
+      ]
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 12:1",
+      "review": "Canonical איתה ע״ז is supplied as איתא על זה; no words are missing.",
+      "differences": [
+        {
+          "canonical": "עז",
+          "supplied": "",
+          "before": "ויפגעבמקוםוילןשםוגואיתה",
+          "after": "ברבהויצאסחלמהמכניןשמושלהק"
+        }
+      ]
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 13:1",
+      "review": "The supplied grammar lacks canonical redundant ש before מכנין; בריה / בריאה spelling preserved.",
+      "differences": [
+        {
+          "canonical": "ש",
+          "supplied": "",
+          "before": "במקוםוגובמדרשרבהויצאסחלמה",
+          "after": "מכניןשמושלהקבהוקוראיןאותו"
+        },
+        {
+          "canonical": "א",
+          "supplied": "",
+          "before": "בהעדשיכוללהתדמותלעיניהברי",
+          "after": "השהטבעמתנהגבעצמוכמושנדמהל"
+        }
+      ]
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 15:1",
+      "review": "Canonical להוייתו and pointed supplied לַהֲוָיָתוֹ have different vowel-letter spelling; the complete existence wording is retained.",
+      "differences": [
+        {
+          "canonical": "וי",
+          "supplied": "",
+          "before": "וטובהגלויהשהואעילהוסבהלהו",
+          "after": "יתו"
+        }
+      ]
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 15:2",
+      "review": "Supplied מקרב versus canonical מתקרב and בריה / בריאה are grammar/spelling variants; the full sentence is present.",
+      "differences": [
+        {
+          "canonical": "ת",
+          "supplied": "",
+          "before": "אךכלמישרוצהלדעתרצוןהשיתומ",
+          "after": "קרבעצמוועובדלהשיתורוצהלהכ"
+        },
+        {
+          "canonical": "א",
+          "supplied": "",
+          "before": "צרךישראלוהיינושהואהיההברי",
+          "after": "ההיותרקרובלהרצוןיתברךוהמכ"
+        }
+      ]
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 48:1",
+      "review": "Canonical ולחונן אותי is supplied as ולחנני; equivalent pronominal morphology, not an omission.",
+      "differences": [
+        {
+          "canonical": "ןאות",
+          "supplied": "נ",
+          "before": "תבמקומועומדלהיטיבעמיולחונ",
+          "after": "יחסדחנםמוכחמזהשאהבתהשיאלי"
+        }
+      ]
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 51:1",
+      "review": "Supplied Aramaic קודשא בריך הוא expands canonical קוב״ה.",
+      "differences": [
+        {
+          "canonical": "בה",
+          "supplied": "א",
+          "before": "הלאהותארעאחולקיהועדביהדקו",
+          "after": "וכןמקוםהמקדששהיהמתחלהתחתי"
+        }
+      ]
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 52:1",
+      "review": "Canonical ומשם והלאה is supplied as וּמִשָּׁם וָהֵילָךְ, meaning from then onward; supplied wording retained.",
+      "differences": [
+        {
+          "canonical": "אה",
+          "supplied": "ך",
+          "before": "הואההתחלהמרצוןהשיתומשםוהל",
+          "after": "מתחילכחעבודהולזהאמראיןזהכ"
+        }
+      ]
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 57:1",
+      "review": "Supplied Aramaic קודשא בריך הוא expands canonical קוב״ה.",
+      "differences": [
+        {
+          "canonical": "בה",
+          "supplied": "א",
+          "before": "תקןההואאתרלקיומאכוכדבראקו",
+          "after": "עלמאבראליהברזאדאתווןואתגל"
+        },
+        {
+          "canonical": "בה",
+          "supplied": "א",
+          "before": "למאבגלופידשמאקדישאכואמרקו",
+          "after": "דייסתייםביאשתארתאותטבההוא"
+        }
+      ]
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 57:2",
+      "review": "Canonical שמאז והלאה is supplied as שֶׁמֵּאָז וָהֵילָךְ, meaning from then onward; supplied wording retained.",
+      "differences": [
+        {
+          "canonical": "אה",
+          "supplied": "ך",
+          "before": "יעקבפעלכלזאתבתפלתושמאזוהל",
+          "after": "אםיפנהאדםלהשיתלעבדואזלאיצ"
+        }
+      ]
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 65:1",
+      "review": "Supplied Aramaic סטר versus canonical סטרא is a spelling/inflection variant in the same quoted phrase.",
+      "differences": [
+        {
+          "canonical": "א",
+          "supplied": "",
+          "before": "קיסטראקדישאדדרוםואסחרוסטר",
+          "after": "עלמאוכוובדרוםתקיעודוכתאות"
+        }
+      ]
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 67:1",
+      "review": "Supplied אתקף versus canonical אתתקף represents the same Aramaic verb with assimilation.",
+      "differences": [
+        {
+          "canonical": "ת",
+          "supplied": "",
+          "before": "מאונהוראדיליהאזילונהירואת",
+          "after": "קףבתיקונאדיומאוכוהיינושכל"
+        }
+      ]
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 68:1",
+      "review": "Supplied Aramaic קודשא בריך הוא expands canonical קוב״ה.",
+      "differences": [
+        {
+          "canonical": "בה",
+          "supplied": "א",
+          "before": "אודודאיםאולידולהלרחלאלאקו",
+          "after": "קאגלגלמלהעידאינוןדודאיםבג"
+        }
+      ]
+    },
+    {
+      "ref": "Beit Yaakov on Torah, Vayetzei 72:1",
+      "review": "Canonical citations restored in Hebrew; supplied Aramaic expansion of קוב״ה retained.",
+      "differences": [
+        {
+          "canonical": "בה",
+          "supplied": "א",
+          "before": "םהםמלאיםדתכיבאורייתאבראקו",
+          "after": "עלמאכדאיתאבהקדמתזוהקובפרש"
+        }
+      ]
+    }
+  ]
+}

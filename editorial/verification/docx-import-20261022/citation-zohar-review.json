@@ -1,0 +1,108 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS",
+  "scope": "Five broad English Acharei Mot / Naso source links",
+  "overrides": [
+    {
+      "from": "Zohar, Acharei Mot",
+      "to": "Zohar, Achrei Mot 24:153-26:164",
+      "label": "holy Zohar (Acharei Mot 65a)",
+      "sectionRef": "Mei HaShiloach, Volume II, Writings, Proverbs 14",
+      "sourceParagraphIndices": [
+        813
+      ],
+      "reason": "Resolve the printed Volume III folio through the primary Sefaria Daf alternate structure; preserve the supplied citation wording.",
+      "printedVolume": "III",
+      "printedFolio": "65a",
+      "status": "verified",
+      "evidence": {
+        "file": "editorial/verification/docx-import-20261022/citation-evidence/zohar-index.json",
+        "sha256": "799dda16edd3cbb4e4352c63995928266e70e29284e7ce6dc3c72d1962a9a3c1",
+        "url": "https://www.sefaria.org/api/v2/raw/index/Zohar",
+        "canonicalTarget": "Zohar, Achrei Mot 24:153-26:164",
+        "targetUrl": "https://www.sefaria.org/Zohar,_Achrei_Mot.24.153-26.164"
+      }
+    },
+    {
+      "from": "Zohar, Acharei Mot",
+      "to": "Zohar, Achrei Mot 26:165-28:175",
+      "label": "holy Zohar (Acharei Mot 65b)",
+      "sectionRef": "Beit Yaakov on Torah, Vayetzei 58",
+      "sourceParagraphIndices": [
+        191
+      ],
+      "reason": "Resolve the printed Volume III folio through the primary Sefaria Daf alternate structure; preserve the supplied citation wording.",
+      "printedVolume": "III",
+      "printedFolio": "65b",
+      "status": "verified",
+      "evidence": {
+        "file": "editorial/verification/docx-import-20261022/citation-evidence/zohar-index.json",
+        "sha256": "799dda16edd3cbb4e4352c63995928266e70e29284e7ce6dc3c72d1962a9a3c1",
+        "url": "https://www.sefaria.org/api/v2/raw/index/Zohar",
+        "canonicalTarget": "Zohar, Achrei Mot 26:165-28:175",
+        "targetUrl": "https://www.sefaria.org/Zohar,_Achrei_Mot.26.165-28.175"
+      }
+    },
+    {
+      "from": "Zohar, Naso",
+      "to": "Zohar, Nasso 4:38-49",
+      "label": "holy Zohar (Naso 123a)",
+      "sectionRef": "Beit Yaakov on Torah, Vayetzei 2",
+      "sourceParagraphIndices": [
+        8
+      ],
+      "reason": "Resolve the printed Volume III folio through the primary Sefaria Daf alternate structure; preserve the supplied citation wording.",
+      "printedVolume": "III",
+      "printedFolio": "123a",
+      "status": "verified",
+      "evidence": {
+        "file": "editorial/verification/docx-import-20261022/citation-evidence/zohar-index.json",
+        "sha256": "799dda16edd3cbb4e4352c63995928266e70e29284e7ce6dc3c72d1962a9a3c1",
+        "url": "https://www.sefaria.org/api/v2/raw/index/Zohar",
+        "canonicalTarget": "Zohar, Nasso 4:38-49",
+        "targetUrl": "https://www.sefaria.org/Zohar,_Nasso.4.38-49"
+      }
+    },
+    {
+      "from": "Zohar, Naso",
+      "to": "Zohar, Idra Rabba 6:25-7:37",
+      "label": "holy Zohar (Naso 129a)",
+      "sectionRef": "Beit Yaakov on Torah, Vayetzei 18",
+      "sourceParagraphIndices": [
+        72
+      ],
+      "reason": "Resolve the printed Volume III folio through the primary Sefaria Daf alternate structure; preserve the supplied citation wording.",
+      "printedVolume": "III",
+      "printedFolio": "129a",
+      "status": "verified",
+      "evidence": {
+        "file": "editorial/verification/docx-import-20261022/citation-evidence/zohar-index.json",
+        "sha256": "799dda16edd3cbb4e4352c63995928266e70e29284e7ce6dc3c72d1962a9a3c1",
+        "url": "https://www.sefaria.org/api/v2/raw/index/Zohar",
+        "canonicalTarget": "Zohar, Idra Rabba 6:25-7:37",
+        "targetUrl": "https://www.sefaria.org/Zohar,_Idra_Rabba.6.25-7.37"
+      }
+    },
+    {
+      "from": "Zohar, Naso",
+      "to": "Zohar, Idra Rabba 7:37-8:50",
+      "label": "holy Zohar (Naso 129b)",
+      "sectionRef": "Beit Yaakov on Torah, Vayetzei 9",
+      "sourceParagraphIndices": [
+        35
+      ],
+      "reason": "Resolve the printed Volume III folio through the primary Sefaria Daf alternate structure; preserve the supplied citation wording.",
+      "printedVolume": "III",
+      "printedFolio": "129b",
+      "status": "verified",
+      "evidence": {
+        "file": "editorial/verification/docx-import-20261022/citation-evidence/zohar-index.json",
+        "sha256": "799dda16edd3cbb4e4352c63995928266e70e29284e7ce6dc3c72d1962a9a3c1",
+        "url": "https://www.sefaria.org/api/v2/raw/index/Zohar",
+        "canonicalTarget": "Zohar, Idra Rabba 7:37-8:50",
+        "targetUrl": "https://www.sefaria.org/Zohar,_Idra_Rabba.7.37-8.50"
+      }
+    }
+  ],
+  "unresolved": []
+}

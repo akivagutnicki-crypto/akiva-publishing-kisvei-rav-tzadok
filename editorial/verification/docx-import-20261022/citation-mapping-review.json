@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "status": "six resolved; two Zohar citation groups unresolved",
+  "checkedOn": "2026-10-22",
+  "method": "Context checked against complete Hebrew text returned by the primary Sefaria texts API, preserved in citation-evidence. Stalled MCP requests returned no evidence.",
+  "verifiedMappings": [
+    {
+      "from": "Pirkei Avot 3:21",
+      "to": "Pirkei Avot 3:17",
+      "resolvedRef": "Pirkei Avot 3:17",
+      "url": "https://www.sefaria.org/Pirkei_Avot_3.17",
+      "verified": true,
+      "printedCitationPreserved": true,
+      "sourceDocument": "מי השלוח, חלק א the rest.docx",
+      "sourceParagraph": 4,
+      "evidenceFile": "editorial/verification/docx-import-20261022/citation-evidence/Pirkei-Avot-3-17.json",
+      "evidenceSha256": "cf39abdd6e3f7d33139bf4e5a268b59f5d9a66603b96dbd9b24e328f83884416",
+      "evidenceContainingRef": "Pirkei Avot 3:17",
+      "evidenceParagraphIndex": null,
+      "exactUnpointedQuote": "אם אין חכמה, אין יראה. אם אין יראה, אין חכמה",
+      "reason": "The supplied quoted wording matches this exact source passage; the manuscript uses a different printed numbering."
+    },
+    {
+      "from": "Bereshit Rabbah 53:19",
+      "to": "Bereshit Rabbah 53:14",
+      "resolvedRef": "Bereshit Rabbah 53:14",
+      "url": "https://www.sefaria.org/Bereshit_Rabbah_53.14",
+      "verified": true,
+      "printedCitationPreserved": true,
+      "sourceDocument": "מי השלוח, חלק א the rest.docx",
+      "sourceParagraph": 254,
+      "evidenceFile": "editorial/verification/docx-import-20261022/citation-evidence/Bereshit-Rabbah-53-14.json",
+      "evidenceSha256": "2eb0fa8565b2cec9256fe0776ab790ad9c55ea7f8aaab21fc4ec82dc64d60a85",
+      "evidenceContainingRef": "Bereshit Rabbah 53:14",
+      "evidenceParagraphIndex": null,
+      "exactUnpointedQuote": "הכל בחזקת סומין עד שהקדוש ברוך הוא מאיר את עיניהם",
+      "reason": "The supplied quoted wording matches this exact source passage; the manuscript uses a different printed numbering."
+    },
+    {
+      "from": "Bamidbar Rabbah 12:23",
+      "to": "Bamidbar Rabbah 12:18",
+      "resolvedRef": "Bamidbar Rabbah 12:18",
+      "url": "https://www.sefaria.org/Bamidbar_Rabbah_12.18",
+      "verified": true,
+      "printedCitationPreserved": true,
+      "sourceDocument": "מי השלוח, חלק א the rest.docx",
+      "sourceParagraph": 659,
+      "evidenceFile": "editorial/verification/docx-import-20261022/citation-evidence/Bamidbar-Rabbah-12.json",
+      "evidenceSha256": "d83ebda7785bf3b4d1b5a65d8490a64731b3d764a7745c548bb327e8e7628156",
+      "evidenceContainingRef": "Bamidbar Rabbah 12",
+      "evidenceParagraphIndex": 17,
+      "exactUnpointedQuote": "קח מאתם, מאתם היה הדבר",
+      "reason": "The supplied quoted wording matches this exact source passage; the manuscript uses a different printed numbering."
+    },
+    {
+      "from": "Shir HaShirim Rabbah 3:21",
+      "to": "Shir HaShirim Rabbah 3:11:2",
+      "resolvedRef": "Shir HaShirim Rabbah 3:11:2",
+      "url": "https://www.sefaria.org/Shir_HaShirim_Rabbah_3.11.2",
+      "verified": true,
+      "printedCitationPreserved": true,
+      "sourceDocument": "מי השלוח, חלק א the rest.docx",
+      "sourceParagraph": 659,
+      "evidenceFile": "editorial/verification/docx-import-20261022/citation-evidence/Shir-HaShirim-Rabbah-3-11.json",
+      "evidenceSha256": "c42a4f2f7c52d03398ac42a144aa703b6d952bb6cf9ff6df9eab4ee66c4585b4",
+      "evidenceContainingRef": "Shir HaShirim Rabbah 3:11",
+      "evidenceParagraphIndex": 1,
+      "exactUnpointedQuote": "ולא זז מחבבה עד שקרא אותה אמי",
+      "reason": "The supplied quoted wording matches this exact source passage; the manuscript uses a different printed numbering."
+    },
+    {
+      "from": "Kohelet Rabbah 11:13",
+      "to": "Kohelet Rabbah 11:9:1",
+      "resolvedRef": "Kohelet Rabbah 11:9:1",
+      "url": "https://www.sefaria.org/Kohelet_Rabbah_11.9.1",
+      "verified": true,
+      "printedCitationPreserved": true,
+      "sourceDocument": "מי השלוח, חלק א the rest.docx",
+      "sourceParagraph": 665,
+      "evidenceFile": "editorial/verification/docx-import-20261022/citation-evidence/Kohelet-Rabbah-11-9.json",
+      "evidenceSha256": "930582253474f3644b1e328329c80afe7cbf89dd4d6420371d3897c6c9fbecbd",
+      "evidenceContainingRef": "Kohelet Rabbah 11:9",
+      "evidenceParagraphIndex": 0,
+      "exactUnpointedQuote": "לאחד שהיה שט על פני הנהר",
+      "reason": "The supplied quoted wording matches this exact source passage; the manuscript uses a different printed numbering."
+    },
+    {
+      "from": "Shir HaShirim Rabbah 1:21",
+      "to": "Shir HaShirim Rabbah 1:3:2",
+      "resolvedRef": "Shir HaShirim Rabbah 1:3:2",
+      "url": "https://www.sefaria.org/Shir_HaShirim_Rabbah_1.3.2",
+      "verified": true,
+      "printedCitationPreserved": true,
+      "sourceDocument": "מי השלוח, חלק א the rest.docx",
+      "sourceParagraph": 810,
+      "evidenceFile": "editorial/verification/docx-import-20261022/citation-evidence/Shir-HaShirim-Rabbah-1-3.json",
+      "evidenceSha256": "ecb582912fa15aa3243c7ac9b426c657e3319477809ff2134625db99f747ae2a",
+      "evidenceContainingRef": "Shir HaShirim Rabbah 1:3",
+      "evidenceParagraphIndex": 1,
+      "exactUnpointedQuote": "נכנס ללב דבר של ליצנות, יצא כנגדו דבר של תורה",
+      "reason": "The supplied quoted wording matches this exact source passage; the manuscript uses a different printed numbering."
+    }
+  ],
+  "unresolved": [
+    {
+      "from": "Zohar, Acharei Mot",
+      "printedFolios": [
+        "65a",
+        "65b"
+      ],
+      "action": "Preserve printed citation; do not link section-only candidate. Classical folio API request returned HTTP400; exact modern-node mapping not verified."
+    },
+    {
+      "from": "Zohar, Naso",
+      "printedFolios": [
+        "123a",
+        "129a",
+        "129b"
+      ],
+      "action": "Preserve printed citation; do not link section-only candidate. Classical folio API request returned HTTP400; exact modern-node mapping not verified."
+    }
+  ],
+  "notes": "No shared registry or publisher edits. All six mappings require supplied-context matching; a global replacement of valid printed edition numbering is unnecessary."
+}

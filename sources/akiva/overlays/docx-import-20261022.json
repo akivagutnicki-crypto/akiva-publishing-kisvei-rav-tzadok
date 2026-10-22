@@ -1,0 +1,2993 @@
+{
+  "schemaVersion": 1,
+  "release": "20261022-reader-docx-import-v1",
+  "packs": [
+    {
+      "file": "sources/akiva/overlays/beit-vayetzei-document-20261022.json.gz.b64",
+      "sha256": "63fbac11c05cb955618078ceab910d8eea381930e8fbb5af62a5cff57ceae836",
+      "sections": 76,
+      "book": "Beit Yaakov on Torah"
+    },
+    {
+      "file": "sources/akiva/overlays/mei-rest-document-20261022.json.gz.b64",
+      "sha256": "5ad06d849dfc6e1ab7a5fa08211f2806fc4cddbdb3f0344d08242f36632aed56",
+      "sections": 183,
+      "book": "Mei HaShiloach"
+    },
+    {
+      "file": "sources/akiva/overlays/mei-completion-20261022.json.gz.b64",
+      "sha256": "c8c7f43de61419e32a5b20447fc6636c24633691216d1598502663374645e549",
+      "sections": 36,
+      "book": "Mei HaShiloach"
+    },
+    {
+      "file": "sources/akiva/overlays/mei-introduction-20261022.json.gz.b64",
+      "sha256": "42fd4dd0bf5aa1259070b8d24a08a6e7b2116b4cc4c3eff1a98f54af1e2f7d10",
+      "sections": 1,
+      "book": "Mei HaShiloach"
+    }
+  ],
+  "citations": {
+    "file": "sources/verified/docx-import-links-20261022.json",
+    "sha256": "dbb70e7897fd5bbae703ab49ad1e01508ebcc1fdffac6aac24112419165ef74c"
+  },
+  "citationReview": {
+    "file": "editorial/verification/docx-import-20261022/citation-final-review.json",
+    "sha256": "ee7ab71b81aa7a647136f019dec625643495b8725dce6aef75d7f2a287606f21"
+  },
+  "citationOverrides": [
+    {
+      "from": "Pirkei Avot 3:21",
+      "to": "Pirkei Avot 3:17",
+      "sectionRef": "Mei HaShiloach, Volume I, Exodus, Beshalach",
+      "sourceParagraphIndices": [
+        4
+      ],
+      "reason": "The supplied quoted wording matches this exact source passage; the manuscript uses a different printed numbering.",
+      "evidence": {
+        "evidenceFile": "editorial/verification/docx-import-20261022/citation-evidence/Pirkei-Avot-3-17.json",
+        "evidenceSha256": "cf39abdd6e3f7d33139bf4e5a268b59f5d9a66603b96dbd9b24e328f83884416",
+        "evidenceContainingRef": "Pirkei Avot 3:17",
+        "exactUnpointedQuote": "אם אין חכמה, אין יראה. אם אין יראה, אין חכמה"
+      }
+    },
+    {
+      "from": "Bereshit Rabbah 53:19",
+      "to": "Bereshit Rabbah 53:14",
+      "sectionRef": "Mei HaShiloach, Volume I, Leviticus, Behar",
+      "sourceParagraphIndices": [
+        254
+      ],
+      "reason": "The supplied quoted wording matches this exact source passage; the manuscript uses a different printed numbering.",
+      "evidence": {
+        "evidenceFile": "editorial/verification/docx-import-20261022/citation-evidence/Bereshit-Rabbah-53-14.json",
+        "evidenceSha256": "2eb0fa8565b2cec9256fe0776ab790ad9c55ea7f8aaab21fc4ec82dc64d60a85",
+        "evidenceContainingRef": "Bereshit Rabbah 53:14",
+        "exactUnpointedQuote": "הכל בחזקת סומין עד שהקדוש ברוך הוא מאיר את עיניהם"
+      }
+    },
+    {
+      "from": "Bamidbar Rabbah 12:23",
+      "to": "Bamidbar Rabbah 12:18",
+      "sectionRef": "Mei HaShiloach, Volume I, Five Scrolls, Ruth 2",
+      "sourceParagraphIndices": [
+        659
+      ],
+      "reason": "The supplied quoted wording matches this exact source passage; the manuscript uses a different printed numbering.",
+      "evidence": {
+        "evidenceFile": "editorial/verification/docx-import-20261022/citation-evidence/Bamidbar-Rabbah-12.json",
+        "evidenceSha256": "d83ebda7785bf3b4d1b5a65d8490a64731b3d764a7745c548bb327e8e7628156",
+        "evidenceContainingRef": "Bamidbar Rabbah 12",
+        "exactUnpointedQuote": "קח מאתם, מאתם היה הדבר"
+      }
+    },
+    {
+      "from": "Shir HaShirim Rabbah 3:21",
+      "to": "Shir HaShirim Rabbah 3:11:2",
+      "sectionRef": "Mei HaShiloach, Volume I, Five Scrolls, Ruth 2",
+      "sourceParagraphIndices": [
+        659
+      ],
+      "reason": "The supplied quoted wording matches this exact source passage; the manuscript uses a different printed numbering.",
+      "evidence": {
+        "evidenceFile": "editorial/verification/docx-import-20261022/citation-evidence/Shir-HaShirim-Rabbah-3-11.json",
+        "evidenceSha256": "c42a4f2f7c52d03398ac42a144aa703b6d952bb6cf9ff6df9eab4ee66c4585b4",
+        "evidenceContainingRef": "Shir HaShirim Rabbah 3:11",
+        "exactUnpointedQuote": "ולא זז מחבבה עד שקרא אותה אמי"
+      }
+    },
+    {
+      "from": "Kohelet Rabbah 11:13",
+      "to": "Kohelet Rabbah 11:9:1",
+      "sectionRef": "Mei HaShiloach, Volume I, Five Scrolls, Ecclesiastes 11",
+      "sourceParagraphIndices": [
+        665
+      ],
+      "reason": "The supplied quoted wording matches this exact source passage; the manuscript uses a different printed numbering.",
+      "evidence": {
+        "evidenceFile": "editorial/verification/docx-import-20261022/citation-evidence/Kohelet-Rabbah-11-9.json",
+        "evidenceSha256": "930582253474f3644b1e328329c80afe7cbf89dd4d6420371d3897c6c9fbecbd",
+        "evidenceContainingRef": "Kohelet Rabbah 11:9",
+        "exactUnpointedQuote": "לאחד שהיה שט על פני הנהר"
+      }
+    },
+    {
+      "from": "Shir HaShirim Rabbah 1:21",
+      "to": "Shir HaShirim Rabbah 1:3:2",
+      "sectionRef": "Mei HaShiloach, Volume II, Writings, Proverbs 13",
+      "sourceParagraphIndices": [
+        810
+      ],
+      "reason": "The supplied quoted wording matches this exact source passage; the manuscript uses a different printed numbering.",
+      "evidence": {
+        "evidenceFile": "editorial/verification/docx-import-20261022/citation-evidence/Shir-HaShirim-Rabbah-1-3.json",
+        "evidenceSha256": "ecb582912fa15aa3243c7ac9b426c657e3319477809ff2134625db99f747ae2a",
+        "evidenceContainingRef": "Shir HaShirim Rabbah 1:3",
+        "exactUnpointedQuote": "נכנס ללב דבר של ליצנות, יצא כנגדו דבר של תורה"
+      }
+    },
+    {
+      "from": "Midrash Tehillim 9",
+      "to": "Midrash Tehillim 9:12",
+      "label": "Shocher Tov, section 9",
+      "sectionRef": "Mei HaShiloach, Volume I, Writings, Psalms 126",
+      "reason": "The actual English phrase identifies section 9. Resolve the exact quoted paragraph within that section.",
+      "evidence": {
+        "provider": "TorahLM primary text",
+        "ref": "Midrash Tehillim 9:12",
+        "url": "https://torahapp.org/share/book/Midrash%20Tehillim/r/9:12",
+        "excerpt": "כל מקום שנאמר דך עני ואביון מך בישראל הכתוב מדבר",
+        "matchedToSurroundingQuotation": true
+      },
+      "status": "verified",
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Mishnah Avot 3:11",
+      "to": "Pirkei Avot 3:9",
+      "label": "אָבוֹת פֶּרֶק ג' מִשְׁנָה י\"א",
+      "sectionRef": "Mei HaShiloach, Volume I, Exodus, Beshalach",
+      "reason": "The printed edition numbers this teaching 3:11; Sefaria numbers the quoted teaching about fear of sin preceding wisdom 3:9. Preserve the printed label and correct only its target.",
+      "evidence": {
+        "provider": "TorahLM primary text",
+        "ref": "Pirkei Avot 3:9",
+        "url": "https://torahapp.org/share/book/Pirkei%20Avot/r/3:9",
+        "excerpt": "כל שיראת חטאו קודמת לחכמתו חכמתו מתקימת",
+        "matchedToSurroundingQuotation": true
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        2
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Pirkei Avot 3:11",
+      "to": "Pirkei Avot 3:9",
+      "label": "Avot 3:11",
+      "sectionRef": "Mei HaShiloach, Volume I, Exodus, Beshalach",
+      "reason": "The printed edition numbers this teaching 3:11; Sefaria numbers the quoted teaching about fear of sin preceding wisdom 3:9. Preserve the printed label and correct only its target.",
+      "evidence": {
+        "provider": "TorahLM primary text",
+        "ref": "Pirkei Avot 3:9",
+        "url": "https://torahapp.org/share/book/Pirkei%20Avot/r/3:9",
+        "excerpt": "כל שיראת חטאו קודמת לחכמתו חכמתו מתקימת",
+        "matchedToSurroundingQuotation": true
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        2
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Exodus 3:1",
+      "to": "Shemot Rabbah 3:1",
+      "label": "שְׁמוֹת ג׳:א׳",
+      "sectionRef": "Mei HaShiloach, Volume II, Writings, Proverbs 1",
+      "reason": "The visible Hebrew says מדרש (רבה שמות ג׳:א׳). The parser ignores the preceding reversed-order רבה and treats the source as the biblical book; the passage is the Midrash opening פתי יאמין לכל דבר.",
+      "evidence": {
+        "provider": "TorahLM primary text",
+        "ref": "Shemot Rabbah 3:1",
+        "url": "https://torahapp.org/share/book/Shemot%20Rabbah/r/3:1",
+        "excerpt": "הדא הוא דכתיב (משלי יד, טו): פתי יאמין לכל דבר",
+        "matchedToSurroundingQuotation": true
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        782
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "II Chronicles 6:31",
+      "to": "II Chronicles 6:33",
+      "label": "דִּבְרֵי הַיָּמִים ב׳ ו׳, ל״א",
+      "sectionRef": "Mei HaShiloach, Volume I, Talmud, Berakhot 6a",
+      "reason": "The quoted prayer concerns the foreigner and is explicitly corrected to 6:33 in the parallel English. The canonical verse confirms the quoted words.",
+      "evidence": {
+        "provider": "TorahLM primary text",
+        "ref": "II Chronicles 6:33",
+        "url": "https://torahapp.org/share/book/II%20Chronicles/r/6:33",
+        "excerpt": "ועשית ככל אשר יקרא אליך הנכרי",
+        "matchedToSurroundingQuotation": true
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        870
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Judges 17:8",
+      "to": "Deuteronomy 17:8",
+      "label": "שׁוֹפְטִים יז, ח",
+      "sectionRef": "Beit Yaakov on Torah, Vayetzei 11",
+      "reason": "Shoftim is the Torah portion name in this citation. The quoted וקמת ועלית אל המקום belongs to Deuteronomy 17:8, not the Book of Judges.",
+      "evidence": {
+        "provider": "TorahLM primary text",
+        "ref": "Deuteronomy 17:8",
+        "url": "https://torahapp.org/share/book/Deuteronomy/r/17:8",
+        "excerpt": "וקמת ועלית אל המקום אשר יבחר יהוה אלהיך בו",
+        "matchedToSurroundingQuotation": true
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        45
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Psalms 49:2",
+      "to": "Psalms 89:7",
+      "label": "תְּהִלִּים מ״ט:ב׳",
+      "sectionRef": "Beit Yaakov on Torah, Vayetzei 19",
+      "reason": "The Hebrew phrase retains the old citation followed by an explicit correction תהילים פט:ז, and the English agrees with that correction. The quoted בני אלים phrase is in 89:7.",
+      "evidence": {
+        "provider": "TorahLM primary text",
+        "ref": "Psalms 89:7",
+        "url": "https://torahapp.org/share/book/Psalms/r/89:7",
+        "excerpt": "כי מי בשחק יערך ליהוה ידמה ליהוה בבני אלים",
+        "matchedToSurroundingQuotation": true
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        75
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Psalms 19:8",
+      "to": "Psalms 19:8-10",
+      "label": "Psalms (19:8–10)",
+      "sectionRef": "Mei HaShiloach, Volume I, Numbers, Sh'lach",
+      "reason": "Retain the full verse range explicitly printed in the visible label; the parser retained only its first verse.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Psalms 19:8-10",
+        "url": "https://www.sefaria.org/api/texts/Psalms_19%3A8-10?context=0&commentary=0&pad=0",
+        "responseSha256": "7a68012f9ee0b3960c568128eaf738ed48b8827a6ec987f3d08a8630b13997b9",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/f8e17bec02a484faf6.json",
+        "nonemptyHebrewVerified": true
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        341
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Psalms 86:1",
+      "to": "Psalms 86:1-2",
+      "label": "Psalms (86:1–2)",
+      "sectionRef": "Mei HaShiloach, Volume I, Exodus, Tetzaveh",
+      "reason": "Retain the full verse range explicitly printed in the visible label; the parser retained only its first verse.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Psalms 86:1-2",
+        "url": "https://www.sefaria.org/api/texts/Psalms_86%3A1-2?context=0&commentary=0&pad=0",
+        "responseSha256": "5eb1f35d1bbbed88b95e64e5e4e67cb500a32e11e77b88dcd9a9a8a3a7485bb5",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/df8aa3c30863c2b52b.json",
+        "nonemptyHebrewVerified": true
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        92
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Balak",
+      "to": "Zohar, Balak 13:185-15:194",
+      "label": "holy Zohar (Balak 195a)",
+      "sectionRef": "Mei HaShiloach, Volume II, Writings, Psalms 145",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Balak 13:185-15:194",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Balak_13%3A185-15%3A194?context=0&commentary=0&pad=0",
+        "responseSha256": "b55dce399eed9b465ba73efd0af038b4be1e085d71772dbb32cbaf12ff52088a",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/0049a72cf89aafba94.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "195a",
+          "195b"
+        ],
+        "longestSharedConsonantRunsByContext": [
+          93
+        ],
+        "matchingConsonantExcerpts": [
+          "כיוןדצליצלותיהפתחכלכוירקיעיןוכלשארצלותיןדקאסלקיןלעילאדחילוןההואמסכנאתבירלבאדכתיבתפלהלעניכייעט"
+        ]
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        775
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Balak",
+      "to": "Zohar, Balak 33:354-34:363",
+      "label": "holy Zohar (Balak 204b)",
+      "sectionRef": "Beit Yaakov on Torah, Vayetzei 14",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Balak 33:354-34:363",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Balak_33%3A354-34%3A363?context=0&commentary=0&pad=0",
+        "responseSha256": "df3e01430bb10cb91c51204dc7cef3fc8daca7e82bf2d409a06ebf1d9b7b63cb",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/e6542b63468e8f79bd.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "204b",
+          "205a"
+        ],
+        "longestSharedConsonantRunsByContext": [
+          91
+        ],
+        "matchingConsonantExcerpts": [
+          "דשאבריךהואעבדנהוראלנהוריהלאתלבשאדאבדאוכןכלשארנהוריןעדדעלמיןכלהואתקיימובקיומייהוויכליןלמסבלו"
+        ]
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        58
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Bamidbar",
+      "to": "Zohar, Beha'alotcha 9:49-12:56",
+      "label": "זֹהַר בַּמִּדְבָּר דַּף קנ\"א עַמּוּד ב'",
+      "sectionRef": "Mei HaShiloach, Volume I, Numbers, Beha'alotcha",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Beha'alotcha 9:49-12:56",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Beha%27alotcha_9%3A49-12%3A56?context=0&commentary=0&pad=0",
+        "responseSha256": "bfb19b01f4b9c605575fa9ff3e125ce274e94d87cbcf71ee5fea855148a7fda0",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/439600458654e0ec61.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "151b",
+          "152a"
+        ],
+        "longestSharedConsonantRunsByContext": [
+          10
+        ],
+        "matchingConsonantExcerpts": []
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        320
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Bamidbar",
+      "to": "Zohar, Nasso 1:4-3:17",
+      "label": "זוֹהַר הַקָּדוֹשׁ (בַּמִּדְבָּר דַּף קכ\"א עַמּוּד ב'",
+      "sectionRef": "Mei HaShiloach, Volume I, Exodus, Terumah",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Nasso 1:4-3:17",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Nasso_1%3A4-3%3A17?context=0&commentary=0&pad=0",
+        "responseSha256": "a39e6be009ae0f8712faa19042fed327863d0657255f600498b509a8b262d56c",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/87da8704dddfdf9b97.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "121b",
+          "122a"
+        ],
+        "longestSharedConsonantRunsByContext": [
+          12
+        ],
+        "matchingConsonantExcerpts": []
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        78
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Bamidbar",
+      "to": "Zohar, Beha'alotcha 9:49-12:56",
+      "label": "זוֹהַר הַקָּדוֹשׁ (בַּמִּדְבָּר דַּף קנ\"א עַמּוּד ב'",
+      "sectionRef": "Mei HaShiloach, Volume I, Exodus, Tetzaveh",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Beha'alotcha 9:49-12:56",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Beha%27alotcha_9%3A49-12%3A56?context=0&commentary=0&pad=0",
+        "responseSha256": "bfb19b01f4b9c605575fa9ff3e125ce274e94d87cbcf71ee5fea855148a7fda0",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/439600458654e0ec61.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "151b",
+          "152a"
+        ],
+        "longestSharedConsonantRunsByContext": [
+          5
+        ],
+        "matchingConsonantExcerpts": []
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        94
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Bamidbar",
+      "to": "Zohar, Idra Rabba 6:25-7:37",
+      "label": "זוֹהַר הַקָּדוֹשׁ (בַּמִּדְבָּר דַּף קנ\"ט עַמּוּד א'",
+      "sectionRef": "Mei HaShiloach, Volume I, Exodus, Tetzaveh",
+      "reason": "The printed159a is a source-reference error in this paragraph. The quoted forehead of favor and Shabbat Minchah teaching occurs onIII129a, as confirmed directly in the text. Preserve159a visibly and target the quoted teaching.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Idra Rabba 6:25-7:37",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Idra_Rabba_6%3A25-7%3A37?context=0&commentary=0&pad=0",
+        "responseSha256": "357f34724b1081cc744bff88d27ff6511089c5f23674546bea84633d5b615c40",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/b834b3be4fbfde5b5d.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "129a",
+          "129b"
+        ],
+        "excerpt": "בשעתא דצלותא",
+        "excerptFoundInRetrievedPrimaryText": true
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        88
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Behar",
+      "to": "Zohar, Behar 7:31-40",
+      "label": "holy Zohar (Behar 109b)",
+      "sectionRef": "Beit Yaakov on Torah, Vayetzei 14",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Behar 7:31-40",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Behar_7%3A31-40?context=0&commentary=0&pad=0",
+        "responseSha256": "7411d6a444695041456e708cdd1774147ba7c99800e4ef4b007bd7daa37043fa",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/20cc4dbdd55c1aaf91.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "109b",
+          "110a"
+        ],
+        "indexDisagreement": {
+          "freshDefaultDafTarget": "Zohar, Behar 9:59-62",
+          "decision": "Retain the in-text Vilna page mapping. Its actual page marker and surrounding quotation take precedence over the differing default alternate-structure entry."
+        },
+        "longestSharedConsonantRunsByContext": [
+          144
+        ],
+        "matchingConsonantExcerpts": [
+          "וליתאלהאאחראעילאותתאומכלסטראומלגודעשרספירןדמנהוןכלאובהוןכלאתליאואנתבכלספירהבארכהורחבהעילאותתאוביןכלספירהוספירהובעובידכלספירהוספירהואנתהואדמקרבלק"
+        ]
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        58
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Bereshit",
+      "to": "Zohar, Bereshit 86:248-263",
+      "label": "holy Zohar (Bereishit 51a)",
+      "sectionRef": "Beit Yaakov on Torah, Vayetzei 2",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Bereshit 86:248-263",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Bereshit_86%3A248-263?context=0&commentary=0&pad=0",
+        "responseSha256": "54163d067c8531e85329d40cc9839e88e66b03a087648c5ed0a8bfcaf97df85e",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/7edf55e389a67834ed.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "51a",
+          "51b"
+        ],
+        "longestSharedConsonantRunsByContext": [
+          6,
+          7,
+          50
+        ],
+        "matchingConsonantExcerpts": [
+          "תכלאאשתנילגווניןאליןלזמניןתכלאאואוכמאולזמניןסומקאו"
+        ]
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        8
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Bereshit",
+      "to": "Zohar, Bereshit 86:248-263",
+      "label": "holy Zohar (Bereishit 51a)",
+      "sectionRef": "Beit Yaakov on Torah, Vayetzei 27",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Bereshit 86:248-263",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Bereshit_86%3A248-263?context=0&commentary=0&pad=0",
+        "responseSha256": "54163d067c8531e85329d40cc9839e88e66b03a087648c5ed0a8bfcaf97df85e",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/7edf55e389a67834ed.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "51a",
+          "51b"
+        ],
+        "longestSharedConsonantRunsByContext": [
+          6,
+          7,
+          50
+        ],
+        "matchingConsonantExcerpts": [
+          "תכלאאשתנילגווניןאליןלזמניןתכלאאואוכמאולזמניןסומקאו"
+        ]
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        100
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Bereshit",
+      "to": "Zohar, Bereshit 86:248-263",
+      "label": "holy Zohar (Bereishit 51a)",
+      "sectionRef": "Beit Yaakov on Torah, Vayetzei 70",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Bereshit 86:248-263",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Bereshit_86%3A248-263?context=0&commentary=0&pad=0",
+        "responseSha256": "54163d067c8531e85329d40cc9839e88e66b03a087648c5ed0a8bfcaf97df85e",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/7edf55e389a67834ed.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "51a",
+          "51b"
+        ],
+        "longestSharedConsonantRunsByContext": [
+          6,
+          7,
+          50
+        ],
+        "matchingConsonantExcerpts": [
+          "תכלאאשתנילגווניןאליןלזמניןתכלאאואוכמאולזמניןסומקאו"
+        ]
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        235
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Bereshit",
+      "to": "Zohar, Vayechi 64:651-65:661",
+      "label": "Zohar Bereishit 241a",
+      "sectionRef": "Mei HaShiloach, Volume I, Deuteronomy, V'Zot HaBerachah",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Vayechi 64:651-65:661",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Vayechi_64%3A651-65%3A661?context=0&commentary=0&pad=0",
+        "responseSha256": "43f1c361603813ace546890981e80dca343b8c2e958ee566ea1e87b78c146f57",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/11617ea468b1b6378d.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "241a",
+          "241b"
+        ],
+        "longestSharedConsonantRunsByContext": [
+          8
+        ],
+        "matchingConsonantExcerpts": []
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        647
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Bereshit",
+      "to": "Zohar, Chayei Sara 18:142-147",
+      "label": "זוֹהַר הַקָּדוֹשׁ (בְּרֵאשִׁית דַּף קכ\"ה עַמּוּד א'",
+      "sectionRef": "Mei HaShiloach, Volume I, Leviticus, Vayikra",
+      "reason": "The forty-eight drops passage is in the Midrash HaNeelam subsection on this same folio. The main Chayei Sara subsection does not contain the quotation.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Chayei Sara 18:142-147",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Chayei_Sara_18%3A142-147?context=0&commentary=0&pad=0",
+        "responseSha256": "b33cdd0992676ec35d9181baf519550e47c25d61cfea94a8d49d1ff02e4c5548",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/7bfd7ee421b266452f.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "125a",
+          "125b"
+        ],
+        "excerpt": "ושמנה וארבעים טפות מנטף בכל יום",
+        "excerptFoundInRetrievedPrimaryText": true
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        142
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Beshalach",
+      "to": "Zohar, Beshalach 5:63-7:71",
+      "label": "holy Zohar (Beshalach 47a)",
+      "sectionRef": "Beit Yaakov on Torah, Vayetzei 1",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Beshalach 5:63-7:71",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Beshalach_5%3A63-7%3A71?context=0&commentary=0&pad=0",
+        "responseSha256": "7ee63b327c6512ef8c4b8cbe5c9f3dc9ff8ed4e76efed62d0e5e6a630efbe13e",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/58132e03095ea2cabd.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "47a",
+          "47b"
+        ],
+        "longestSharedConsonantRunsByContext": [
+          14,
+          14
+        ],
+        "matchingConsonantExcerpts": []
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        1
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Beshalach",
+      "to": "Zohar, Beshalach 5:63-7:71",
+      "label": "holy Zohar (Beshalach 47a)",
+      "sectionRef": "Beit Yaakov on Torah, Vayetzei 2",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Beshalach 5:63-7:71",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Beshalach_5%3A63-7%3A71?context=0&commentary=0&pad=0",
+        "responseSha256": "7ee63b327c6512ef8c4b8cbe5c9f3dc9ff8ed4e76efed62d0e5e6a630efbe13e",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/58132e03095ea2cabd.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "47a",
+          "47b"
+        ],
+        "longestSharedConsonantRunsByContext": [
+          14,
+          14
+        ],
+        "matchingConsonantExcerpts": []
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        8
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Beshalach",
+      "to": "Zohar, Beshalach 7:71-8:83",
+      "label": "holy Zohar (Beshalach 47b)",
+      "sectionRef": "Beit Yaakov on Torah, Vayetzei 1",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Beshalach 7:71-8:83",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Beshalach_7%3A71-8%3A83?context=0&commentary=0&pad=0",
+        "responseSha256": "b5960e140e6fe968c7a53be06915437f6b1f8837c14df430602451fe0f05eb23",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/779ee6f4eb5d0adfd1.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "47b",
+          "48a"
+        ],
+        "longestSharedConsonantRunsByContext": [
+          13,
+          37
+        ],
+        "matchingConsonantExcerpts": [
+          "מאןדמזמיןאושפיזאביהבעילאשתדלאולאבאחרא"
+        ]
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        1
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Beshalach",
+      "to": "Zohar, Beshalach 7:71-8:83",
+      "label": "holy Zohar (Beshalach 47b)",
+      "sectionRef": "Beit Yaakov on Torah, Vayetzei 3",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Beshalach 7:71-8:83",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Beshalach_7%3A71-8%3A83?context=0&commentary=0&pad=0",
+        "responseSha256": "b5960e140e6fe968c7a53be06915437f6b1f8837c14df430602451fe0f05eb23",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/779ee6f4eb5d0adfd1.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "47b",
+          "48a"
+        ],
+        "longestSharedConsonantRunsByContext": [
+          13,
+          37
+        ],
+        "matchingConsonantExcerpts": [
+          "מאןדמזמיןאושפיזאביהבעילאשתדלאולאבאחרא"
+        ]
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        11
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Beshalach",
+      "to": "Zohar, Beshalach 8:83-9:94",
+      "label": "holy Zohar (Beshalach 48a)",
+      "sectionRef": "Beit Yaakov on Torah, Vayetzei 67",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Beshalach 8:83-9:94",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Beshalach_8%3A83-9%3A94?context=0&commentary=0&pad=0",
+        "responseSha256": "a125969b2b0bfe01296ca20d67d0682c8a6143a64024901663779b697689e70d",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/8907f8c987ff6744d5.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "48a"
+        ],
+        "longestSharedConsonantRunsByContext": [
+          15
+        ],
+        "matchingConsonantExcerpts": [
+          "לאתרדהוהקשירביה"
+        ]
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        224
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Beshalach",
+      "to": "Zohar, Beshalach 8:83-9:94",
+      "label": "holy Zohar (Beshalach 48b)",
+      "sectionRef": "Beit Yaakov on Torah, Vayetzei 25",
+      "reason": "The printed48b points to a neighboring folio. The explicit מה תצעק אלי / בעתיקא quotation occurs in the primary48a passage; preserve the printed label and link the quoted passage.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Beshalach 8:83-9:94",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Beshalach_8%3A83-9%3A94?context=0&commentary=0&pad=0",
+        "responseSha256": "a125969b2b0bfe01296ca20d67d0682c8a6143a64024901663779b697689e70d",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/8907f8c987ff6744d5.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "48a"
+        ],
+        "excerpt": "אלא בעתיקא תלייא מלתא",
+        "excerptFoundInRetrievedPrimaryText": true
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        95
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Beshalach",
+      "to": "Zohar, Beshalach 15:209-219",
+      "label": "holy Zohar (Beshalach 54a)",
+      "sectionRef": "Beit Yaakov on Torah, Vayetzei 6",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Beshalach 15:209-219",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Beshalach_15%3A209-219?context=0&commentary=0&pad=0",
+        "responseSha256": "e29692d3ab200b5c95a4b7f791d0b74467e7b05295e0d94855777a475eae9b47",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/cc60d6e034923d0e73.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "54a",
+          "54b"
+        ],
+        "longestSharedConsonantRunsByContext": [
+          24
+        ],
+        "matchingConsonantExcerpts": [
+          "וכדאתחברנהירודאלףומטילזי"
+        ]
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        24
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Beshalach",
+      "to": "Zohar, Beshalach 28:377-388",
+      "label": "holy Zohar (Beshalach 62a)",
+      "sectionRef": "Mei HaShiloach, Volume II, Writings, Psalms 145",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Beshalach 28:377-388",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Beshalach_28%3A377-388?context=0&commentary=0&pad=0",
+        "responseSha256": "044e6031cfd1a9b469cd8ce29f646725d0f0023590c3955e5bca387c6fb2f84a",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/ed57e63f9e9dc840fd.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "62a",
+          "62b"
+        ],
+        "longestSharedConsonantRunsByContext": [
+          103
+        ],
+        "matchingConsonantExcerpts": [
+          "ואףעלגבדאשתכחעמיהבעילמשאלקמיקודשאבריךהואולצלאהצלותאעלמזונאכליומאבגיןדישתכחועלידויברכאןכליומאויומאלעילאו"
+        ]
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        775
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Bo",
+      "to": "Zohar, Bo 2:8-18",
+      "label": "holy Zohar (Bo 33a)",
+      "sectionRef": "Beit Yaakov on Torah, Vayetzei 55",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Bo 2:8-18",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Bo_2%3A8-18?context=0&commentary=0&pad=0",
+        "responseSha256": "07e1788a8002290e18112776403dc7a42ce266eb9532ad245eec5a42dcea0353",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/557a37b1dfec558d45.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "33a"
+        ],
+        "longestSharedConsonantRunsByContext": [
+          42
+        ],
+        "matchingConsonantExcerpts": [
+          "ותסיתניבוביהקיימאבדעתיהדאיהוחשיבדהאתסיתניכ"
+        ]
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        180
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Bo",
+      "to": "Zohar, Bo 4:80-92",
+      "label": "holy Zohar (Bo 36a)",
+      "sectionRef": "Beit Yaakov on Torah, Vayetzei 61",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Bo 4:80-92",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Bo_4%3A80-92?context=0&commentary=0&pad=0",
+        "responseSha256": "77196667d07f6b46cd87adbfe1f0fdc3fed56c93649705ed10b0bbc8a0d6f035",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/0f76999b5d935d734d.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "36a",
+          "36b"
+        ],
+        "longestSharedConsonantRunsByContext": [
+          9
+        ],
+        "matchingConsonantExcerpts": []
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        202
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Bo",
+      "to": "Zohar, Bo 5:120-129",
+      "label": "holy Zohar (Bo 38a)",
+      "sectionRef": "Beit Yaakov on Torah, Vayetzei 22",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Bo 5:120-129",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Bo_5%3A120-129?context=0&commentary=0&pad=0",
+        "responseSha256": "4429f72b94b919afa115df7c3201f11da13eb370fa0a3822012ef3b7b11c74f1",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/5994a8510717122037.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "38a",
+          "38b"
+        ],
+        "longestSharedConsonantRunsByContext": [
+          17
+        ],
+        "matchingConsonantExcerpts": [
+          "דארבישמעוןבןיוחאי"
+        ]
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        84
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Bo",
+      "to": "Zohar, Bo 15:214-225",
+      "label": "holy Zohar (Bo 42b)",
+      "sectionRef": "Mei HaShiloach, Volume II, Writings, Proverbs 14",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Bo 15:214-225",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Bo_15%3A214-225?context=0&commentary=0&pad=0",
+        "responseSha256": "196d024b16488e539ef5b60f15a4919a54936ab42c8b76523622d0a95f5b67c7",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/8f18584717d7682692.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "42b",
+          "43a"
+        ],
+        "longestSharedConsonantRunsByContext": [
+          5,
+          19
+        ],
+        "matchingConsonantExcerpts": [
+          "לבתרוהכהולשבעהנחלים"
+        ]
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        813
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Bo",
+      "to": "Zohar, Bo 15:214-225",
+      "label": "holy Zohar (Bo 42b)",
+      "sectionRef": "Beit Yaakov on Torah, Vayetzei 68",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Bo 15:214-225",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Bo_15%3A214-225?context=0&commentary=0&pad=0",
+        "responseSha256": "196d024b16488e539ef5b60f15a4919a54936ab42c8b76523622d0a95f5b67c7",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/8f18584717d7682692.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "42b",
+          "43a"
+        ],
+        "longestSharedConsonantRunsByContext": [
+          5,
+          19
+        ],
+        "matchingConsonantExcerpts": [
+          "לבתרוהכהולשבעהנחלים"
+        ]
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        231
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Emor",
+      "to": "Zohar, Emor 45:290-47:300",
+      "label": "holy Zohar (Emor 105a)",
+      "sectionRef": "Beit Yaakov on Torah, Vayetzei 1",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Emor 45:290-47:300",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Emor_45%3A290-47%3A300?context=0&commentary=0&pad=0",
+        "responseSha256": "eb3e09497aa539ab6c216088cf46990ee4f0bcec979fb3cc5bad85c5c2e20f06",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/bcc548b21217c04dc6.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "105a",
+          "105b"
+        ],
+        "longestSharedConsonantRunsByContext": [
+          12
+        ],
+        "matchingConsonantExcerpts": []
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        1
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Emor",
+      "to": "Zohar, Emor 2:6-3:12",
+      "label": "holy Zohar (Emor 88b)",
+      "sectionRef": "Beit Yaakov on Torah, Vayetzei 31",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Emor 2:6-3:12",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Emor_2%3A6-3%3A12?context=0&commentary=0&pad=0",
+        "responseSha256": "980c46cb458eb8167122f7b810eba882b0613bd738089683e526aba5a7b8795e",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/0b03eb1d0e707bcac7.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "88b",
+          "89a"
+        ],
+        "longestSharedConsonantRunsByContext": [
+          18
+        ],
+        "matchingConsonantExcerpts": [
+          "אמוראלהכהניםבלחישו"
+        ]
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        109
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Emor",
+      "to": "Zohar, Emor 9:29-11:36",
+      "label": "holy Zohar (Emor 90a)",
+      "sectionRef": "Beit Yaakov on Torah, Vayetzei 35",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Emor 9:29-11:36",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Emor_9%3A29-11%3A36?context=0&commentary=0&pad=0",
+        "responseSha256": "cfc950229ba87943cccf9958044dd3488076784246c14aec629a9745a34343bd",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/c1f010dac8a601e701.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "90a",
+          "90b"
+        ],
+        "longestSharedConsonantRunsByContext": [
+          32
+        ],
+        "matchingConsonantExcerpts": [
+          "משלילאטוותקםבעודלילהותתןטרףלביתה"
+        ]
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        120
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Ha'Azinu",
+      "to": "Zohar, Idra Zuta 36:172-39:183",
+      "label": "Ha'azinu 296a",
+      "sectionRef": "Beit Yaakov on Torah, Vayetzei 67",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Idra Zuta 36:172-39:183",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Idra_Zuta_36%3A172-39%3A183?context=0&commentary=0&pad=0",
+        "responseSha256": "8018313ff1e373b232c64c02494a7f5067e559a09d335a573430b9c64e94b9b4",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/d8ee8901a9a1d04be6.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "רצה:",
+          "רצו."
+        ],
+        "longestSharedConsonantRunsByContext": [
+          7
+        ],
+        "matchingConsonantExcerpts": []
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        228
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Kedoshim",
+      "to": "Zohar, Kedoshim 17:100-18:108",
+      "label": "holy Zohar (Kedoshim 86a)",
+      "sectionRef": "Beit Yaakov on Torah, Vayetzei 8",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Kedoshim 17:100-18:108",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Kedoshim_17%3A100-18%3A108?context=0&commentary=0&pad=0",
+        "responseSha256": "5a39e2c33e0424fe49eb0ea8de6eae441aa9b936e6ce16b015ba04eda08829cb",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/76be4bf37e960dde6d.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "86a",
+          "86b"
+        ],
+        "indexDisagreement": {
+          "freshDefaultDafTarget": "Zohar, Kedoshim 18:118-19:127",
+          "decision": "Retain the in-text Vilna page mapping. Its actual page marker and surrounding quotation take precedence over the differing default alternate-structure entry."
+        },
+        "longestSharedConsonantRunsByContext": [
+          43,
+          25,
+          13
+        ],
+        "matchingConsonantExcerpts": [
+          "דשאבריךהואקראליעקבאלהדאהואדכתיבלפנילאנוצראל",
+          "ואחרילאיהיהדהאדודהכיאקריו"
+        ]
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        30
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Kedoshim",
+      "to": "Zohar, Kedoshim 17:100-18:108",
+      "label": "holy Zohar (Kedoshim 86a)",
+      "sectionRef": "Beit Yaakov on Torah, Vayetzei 67",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Kedoshim 17:100-18:108",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Kedoshim_17%3A100-18%3A108?context=0&commentary=0&pad=0",
+        "responseSha256": "5a39e2c33e0424fe49eb0ea8de6eae441aa9b936e6ce16b015ba04eda08829cb",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/76be4bf37e960dde6d.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "86a",
+          "86b"
+        ],
+        "indexDisagreement": {
+          "freshDefaultDafTarget": "Zohar, Kedoshim 18:118-19:127",
+          "decision": "Retain the in-text Vilna page mapping. Its actual page marker and surrounding quotation take precedence over the differing default alternate-structure entry."
+        },
+        "longestSharedConsonantRunsByContext": [
+          43,
+          25,
+          13
+        ],
+        "matchingConsonantExcerpts": [
+          "דשאבריךהואקראליעקבאלהדאהואדכתיבלפנילאנוצראל",
+          "ואחרילאיהיהדהאדודהכיאקריו"
+        ]
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        224
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Kedoshim",
+      "to": "Zohar, Kedoshim 17:100-18:108",
+      "label": "holy Zohar (Kedoshim 86a)",
+      "sectionRef": "Beit Yaakov on Torah, Vayetzei 69",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Kedoshim 17:100-18:108",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Kedoshim_17%3A100-18%3A108?context=0&commentary=0&pad=0",
+        "responseSha256": "5a39e2c33e0424fe49eb0ea8de6eae441aa9b936e6ce16b015ba04eda08829cb",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/76be4bf37e960dde6d.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "86a",
+          "86b"
+        ],
+        "indexDisagreement": {
+          "freshDefaultDafTarget": "Zohar, Kedoshim 18:118-19:127",
+          "decision": "Retain the in-text Vilna page mapping. Its actual page marker and surrounding quotation take precedence over the differing default alternate-structure entry."
+        },
+        "longestSharedConsonantRunsByContext": [
+          43,
+          25,
+          13
+        ],
+        "matchingConsonantExcerpts": [
+          "דשאבריךהואקראליעקבאלהדאהואדכתיבלפנילאנוצראל",
+          "ואחרילאיהיהדהאדודהכיאקריו"
+        ]
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        233
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Noach",
+      "to": "Zohar, Noach 7:45-9:56",
+      "label": "holy Zohar (Noach 61b)",
+      "sectionRef": "Beit Yaakov on Torah, Vayetzei 10",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Noach 7:45-9:56",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Noach_7%3A45-9%3A56?context=0&commentary=0&pad=0",
+        "responseSha256": "f1c15f85286355c0315d5c6889e4c7c3605ed9c9ebd5932ed24c2baddd6b1e9a",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/2ee4ccf942f2ec0095.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "61b",
+          "62a"
+        ],
+        "longestSharedConsonantRunsByContext": [
+          5
+        ],
+        "matchingConsonantExcerpts": []
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        38
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Noach",
+      "to": "Zohar, Noach 14:110-15:121",
+      "label": "holy Zohar (Noach 64b)",
+      "sectionRef": "Beit Yaakov on Torah, Vayetzei 10",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Noach 14:110-15:121",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Noach_14%3A110-15%3A121?context=0&commentary=0&pad=0",
+        "responseSha256": "07306cb9fca137a8fbc98b5d1edfe4bb30f579a720ce3da319f875f1ad217b54",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/e4f361ae1ba08f695c.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "64b",
+          "65a"
+        ],
+        "longestSharedConsonantRunsByContext": [
+          15
+        ],
+        "matchingConsonantExcerpts": [
+          "ציעלמאונחרוגזיה"
+        ]
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        38
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Noach",
+      "to": "Zohar, Noach 35:283-36:297",
+      "label": "holy Zohar (Noach 72b)",
+      "sectionRef": "Beit Yaakov on Torah, Vayetzei 61",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Noach 35:283-36:297",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Noach_35%3A283-36%3A297?context=0&commentary=0&pad=0",
+        "responseSha256": "6b22eb59d74b00d60698fa172aacea8fa946110f6bb022bfc49395014c43eaad",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/27b4924c0a71dab000.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "72b",
+          "73a"
+        ],
+        "longestSharedConsonantRunsByContext": [
+          20
+        ],
+        "matchingConsonantExcerpts": [
+          "והאבןהזאתאשרשמתימצבה"
+        ]
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        202
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Pinchas",
+      "to": "Zohar, Pinchas 42:237-57:348",
+      "label": "holy Zohar (Pinchas 226a)",
+      "sectionRef": "Mei HaShiloach, Volume II, Writings, Psalms 145",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Pinchas 42:237-57:348",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Pinchas_42%3A237-57%3A348?context=0&commentary=0&pad=0",
+        "responseSha256": "d14d5a9d605155b915d226d085941dd70bb7ee7c7f88fb49dd2e9ec3eba5ebdb",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/ca1d09b2b9a7fe85a1.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "226a",
+          "225b",
+          "226b",
+          "227a",
+          "227b",
+          "228a",
+          "228b",
+          "229a",
+          "229b",
+          "230a",
+          "230b",
+          "231a"
+        ],
+        "indexDisagreement": {
+          "freshDefaultDafTarget": "Zohar, Pinchas 67:390-69:399",
+          "decision": "Retain the in-text Vilna page mapping. Its actual page marker and surrounding quotation take precedence over the differing default alternate-structure entry."
+        },
+        "longestSharedConsonantRunsByContext": [
+          92
+        ],
+        "matchingConsonantExcerpts": [
+          "ואתהנותןלהםאתאכלםבעתודאמזונאדעתירידיהיבמיכלאסגיבעתוהאחדתריןדכתיבומשביעלכלחירצוןדאמזונאדמסכני"
+        ]
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        775
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Pinchas",
+      "to": "Zohar, Pinchas 84:537-545",
+      "label": "holy Zohar (Pinchas 241a)",
+      "sectionRef": "Beit Yaakov on Torah, Vayetzei 20",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Pinchas 84:537-545",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Pinchas_84%3A537-545?context=0&commentary=0&pad=0",
+        "responseSha256": "157426fc46bf4aba3e6eb22732c6d20c7bc28ff1d273f7fe2074768fe3000d36",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/3a01cc2b52ff7f8943.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "241a",
+          "241b"
+        ],
+        "indexDisagreement": {
+          "freshDefaultDafTarget": "Zohar, Pinchas 105:722-727",
+          "decision": "Retain the in-text Vilna page mapping. Its actual page marker and surrounding quotation take precedence over the differing default alternate-structure entry."
+        },
+        "longestSharedConsonantRunsByContext": [
+          40
+        ],
+        "matchingConsonantExcerpts": [
+          "ובגיןכךהויקרבנאשליםוכדאתהנוןמעקראויסודאד"
+        ]
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        78
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Pinchas",
+      "to": "Zohar, Pinchas 120:811-121:822",
+      "label": "holy Zohar (Pinchas 255b)",
+      "sectionRef": "Beit Yaakov on Torah, Vayetzei 49",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Pinchas 120:811-121:822",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Pinchas_120%3A811-121%3A822?context=0&commentary=0&pad=0",
+        "responseSha256": "0462198fd2bb8673355b998a67b54e0a3bb5208feeff0aca497aab8ff717e722",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/57f7a4552d0396c22c.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "255b",
+          "256a"
+        ],
+        "indexDisagreement": {
+          "freshDefaultDafTarget": null,
+          "decision": "Retain the in-text Vilna page mapping. Its actual page marker and surrounding quotation take precedence over the differing default alternate-structure entry."
+        },
+        "longestSharedConsonantRunsByContext": [
+          11
+        ],
+        "matchingConsonantExcerpts": []
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        162
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Shemot",
+      "to": "Zohar, Tetzaveh 6:55-7:64",
+      "label": "Zohar Shemos 182b",
+      "sectionRef": "Mei HaShiloach, Volume I, Prophets, Joshua 4",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Tetzaveh 6:55-7:64",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Tetzaveh_6%3A55-7%3A64?context=0&commentary=0&pad=0",
+        "responseSha256": "2e85b3a9a5d6a4b2c52b4540d7401f40a07b66c118ae94754632f8f4b6c8a2bd",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/bd5713b2e72091926b.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "182b",
+          "183a"
+        ],
+        "longestSharedConsonantRunsByContext": [
+          7
+        ],
+        "matchingConsonantExcerpts": []
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        668
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Shemot",
+      "to": "Zohar, Tetzaveh 6:55-7:64",
+      "label": "זֹהַר שְׁמוֹת דַּף קפ\"ב עַמּוּד ב'",
+      "sectionRef": "Mei HaShiloach, Volume I, Prophets, Joshua 4",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Tetzaveh 6:55-7:64",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Tetzaveh_6%3A55-7%3A64?context=0&commentary=0&pad=0",
+        "responseSha256": "2e85b3a9a5d6a4b2c52b4540d7401f40a07b66c118ae94754632f8f4b6c8a2bd",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/bd5713b2e72091926b.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "182b",
+          "183a"
+        ],
+        "longestSharedConsonantRunsByContext": [
+          7
+        ],
+        "matchingConsonantExcerpts": []
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        668
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Shemot",
+      "to": "Zohar, Vayakhel 7:98-10:107",
+      "label": "זֹהַר שְׁמוֹת דַּף ר' עַמּוּד אָ",
+      "sectionRef": "Mei HaShiloach, Volume I, Deuteronomy, Ki Teitzei",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Vayakhel 7:98-10:107",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Vayakhel_7%3A98-10%3A107?context=0&commentary=0&pad=0",
+        "responseSha256": "a052aeee4941f5eee322b4b61072f4ab5d27fab8c021a6dc67e56082c9b4ca65",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/3b69c99ab8f159eb21.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "200a",
+          "200b"
+        ],
+        "longestSharedConsonantRunsByContext": [
+          8
+        ],
+        "matchingConsonantExcerpts": []
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        572
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Shemot",
+      "to": "Zohar, Vayakhel 7:98-10:107",
+      "label": "זֹהַר שְׁמוֹת דַּף ר׳ עַמּוּד א",
+      "sectionRef": "Mei HaShiloach, Volume I, Talmud, Pesachim 2a",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Vayakhel 7:98-10:107",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Vayakhel_7%3A98-10%3A107?context=0&commentary=0&pad=0",
+        "responseSha256": "a052aeee4941f5eee322b4b61072f4ab5d27fab8c021a6dc67e56082c9b4ca65",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/3b69c99ab8f159eb21.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "200a",
+          "200b"
+        ],
+        "longestSharedConsonantRunsByContext": [
+          6
+        ],
+        "matchingConsonantExcerpts": []
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        1018
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Shemot",
+      "to": "Zohar, Beshalach 26:348-27:358",
+      "label": "זוֹהַר הַקָּדוֹשׁ (שְׁמוֹת דַּף ס' עַמּוּד ב'",
+      "sectionRef": "Mei HaShiloach, Volume I, Exodus, Beshalach",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Beshalach 26:348-27:358",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Beshalach_26%3A348-27%3A358?context=0&commentary=0&pad=0",
+        "responseSha256": "f43b6b90a9c16615bebf156866b977dcb693d7b37f3dc3b6fa312256a18aa6bf",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/09675a2c6dce38490c.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "60b",
+          "61a"
+        ],
+        "longestSharedConsonantRunsByContext": [
+          40
+        ],
+        "matchingConsonantExcerpts": [
+          "דאצדיקוהאזנתלמצותיודאנצחושמרתכלחקיודאהוד"
+        ]
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        28
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Shemot",
+      "to": "Zohar, Yitro 24:431-26:441",
+      "label": "זוֹהַר הַקָּדוֹשׁ (שְׁמוֹת דַּף פ\"ז עַמּוּד ב'",
+      "sectionRef": "Mei HaShiloach, Volume I, Exodus, Yitro",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Yitro 24:431-26:441",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Yitro_24%3A431-26%3A441?context=0&commentary=0&pad=0",
+        "responseSha256": "2ae9611746b61f63d3af0e7f4be1fd8d68c1a10c38a5c1825ce6b603f2dad62c",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/3fea9ba3da07741009.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "87b",
+          "88a"
+        ],
+        "longestSharedConsonantRunsByContext": [
+          13
+        ],
+        "matchingConsonantExcerpts": []
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        46
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Shemot",
+      "to": "Zohar, Yitro 27:453-464",
+      "label": "זוֹהַר הַקָּדוֹשׁ (שְׁמוֹת דַּף פ\"ח עַמּוּד ב'",
+      "sectionRef": "Mei HaShiloach, Volume I, Exodus, Yitro",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Yitro 27:453-464",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Yitro_27%3A453-464?context=0&commentary=0&pad=0",
+        "responseSha256": "aaebc60768a59c8338ff4eab95baab63a0a43b85e93935e53801ea33983fc867",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/8bcece20e12de47e93.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "88b",
+          "89a"
+        ],
+        "longestSharedConsonantRunsByContext": [
+          11
+        ],
+        "matchingConsonantExcerpts": []
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        54
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Shemot",
+      "to": "Zohar, Terumah 40:440-41:452",
+      "label": "זוֹהַר הַקָּדוֹשׁ (שְׁמוֹת דַּף ק\"נ עַמּוּד ב'",
+      "sectionRef": "Mei HaShiloach, Volume I, Exodus, Mishpatim",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Terumah 40:440-41:452",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Terumah_40%3A440-41%3A452?context=0&commentary=0&pad=0",
+        "responseSha256": "12665f7ad53dff9253e7bd65f02565cc4d023c7398c67c0b5cd5aa31a541c843",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/f905dc1532cd7d7577.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "150b",
+          "151a"
+        ],
+        "longestSharedConsonantRunsByContext": [
+          9
+        ],
+        "matchingConsonantExcerpts": []
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        62
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Shemot",
+      "to": "Zohar, Terumah 34:396-35:406",
+      "label": "זוֹהַר הַקָּדוֹשׁ (שְׁמוֹת דַּף קמ\"ח עַמּוּד א'",
+      "sectionRef": "Mei HaShiloach, Volume I, Exodus, Terumah",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Terumah 34:396-35:406",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Terumah_34%3A396-35%3A406?context=0&commentary=0&pad=0",
+        "responseSha256": "c9c2c023375aee8800450d989e610bef61d2984a44aa8241a68f29bd392b38ee",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/3818bfaad8d5ed9d14.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "148a",
+          "148b"
+        ],
+        "longestSharedConsonantRunsByContext": [
+          5
+        ],
+        "matchingConsonantExcerpts": []
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        78
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Shemot",
+      "to": "Zohar, Terumah 84:813-85:821",
+      "label": "זוֹהַר שְׁמוֹת דַּף ק\"ע עַמּוּד ב'",
+      "sectionRef": "Mei HaShiloach, Volume I, Exodus, Ki Tisa",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Terumah 84:813-85:821",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Terumah_84%3A813-85%3A821?context=0&commentary=0&pad=0",
+        "responseSha256": "a1974ef85ef64ba2a9d696ff129dfdd5cdce154dd85a9288d7f6532f69ca9f48",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/0e5f29e8b098fb8364.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "170b",
+          "171a"
+        ],
+        "indexDisagreement": {
+          "freshDefaultDafTarget": "Zohar, Terumah 86:832-840",
+          "decision": "Retain the in-text Vilna page mapping. Its actual page marker and surrounding quotation take precedence over the differing default alternate-structure entry."
+        },
+        "longestSharedConsonantRunsByContext": [
+          6
+        ],
+        "matchingConsonantExcerpts": []
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        102
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Shmini",
+      "to": "Zohar, Shmini 1:1-4",
+      "label": "Shemini 35b",
+      "sectionRef": "Beit Yaakov on Torah, Vayetzei 3",
+      "reason": "The creation-through-Torah passage begins in Shmini on the shared boundary folio35b. The preceding Tzav end paragraph is a different passage.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Shmini 1:1-4",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Shmini_1%3A1-4?context=0&commentary=0&pad=0",
+        "responseSha256": "8a87529b1ab1bca02aaab325337ddd955c241e698f6842a92cf2ea8f14f57680",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/b3e1aede7801f39553.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "36a"
+        ],
+        "excerpt": "ובאורייתא אתברי עלמא",
+        "excerptFoundInRetrievedPrimaryText": true,
+        "longestSharedConsonantRunsByContext": [
+          10
+        ],
+        "matchingConsonantExcerpts": []
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        11
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Terumah",
+      "to": "Zohar, Terumah 7:45-54",
+      "label": "holy Zohar (Terumah 129a)",
+      "sectionRef": "Beit Yaakov on Torah, Vayetzei 19",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Terumah 7:45-54",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Terumah_7%3A45-54?context=0&commentary=0&pad=0",
+        "responseSha256": "17695154928a29551515224b624a623302ed17559a066644c8f0fa66c0d5066a",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/1b74ed52caaaffeda4.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "129a",
+          "129b"
+        ],
+        "longestSharedConsonantRunsByContext": [
+          40
+        ],
+        "matchingConsonantExcerpts": [
+          "ובגיןכךאנןנטליןקדושןיתירועאליןתרעיןעלאין"
+        ]
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        75
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Terumah",
+      "to": "Zohar, Terumah 10:81-88",
+      "label": "holy Zohar (Terumah 131a)",
+      "sectionRef": "Beit Yaakov on Torah, Vayetzei 61",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Terumah 10:81-88",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Terumah_10%3A81-88?context=0&commentary=0&pad=0",
+        "responseSha256": "5f64bddc767b3df0490f55d31bca1ac97b1ef659ceb5a79ad7687bfc55d667eb",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/45179bcfd3145498b6.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "131a",
+          "131b"
+        ],
+        "longestSharedConsonantRunsByContext": [
+          81
+        ],
+        "matchingConsonantExcerpts": [
+          "לשעירבגיןדרזאדמהימנותאהכיאיהודרגיןמגודרגיןאליןפנימאיןמאליןקליפהגוקליפהומוחאגומוחא"
+        ]
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        200
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Terumah",
+      "to": "Zohar, Terumah 24:230-242",
+      "label": "holy Zohar (Terumah 139a)",
+      "sectionRef": "Beit Yaakov on Torah, Vayetzei 72",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Terumah 24:230-242",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Terumah_24%3A230-242?context=0&commentary=0&pad=0",
+        "responseSha256": "4e07af182464fe565b7fe46d7eee8b03b6229e2da66c3ad510fae86c65f8a570",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/aec6b4bf57ce7c0116.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "139a",
+          "139b"
+        ],
+        "longestSharedConsonantRunsByContext": [
+          17
+        ],
+        "matchingConsonantExcerpts": [
+          "בגיןדעבדיןביהכריכ"
+        ]
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        241
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Terumah",
+      "to": "Zohar, Terumah 40:440-41:452",
+      "label": "holy Zohar (Terumah 150b)",
+      "sectionRef": "Mei HaShiloach, Volume II, Writings, Proverbs 3",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Terumah 40:440-41:452",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Terumah_40%3A440-41%3A452?context=0&commentary=0&pad=0",
+        "responseSha256": "12665f7ad53dff9253e7bd65f02565cc4d023c7398c67c0b5cd5aa31a541c843",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/f905dc1532cd7d7577.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "150b",
+          "151a"
+        ],
+        "longestSharedConsonantRunsByContext": [
+          33
+        ],
+        "matchingConsonantExcerpts": [
+          "וליתרעותאטבאדיתאבידמקמימלכאקדישאו"
+        ]
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        789
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Terumah",
+      "to": "Zohar, Terumah 41:462-42:470",
+      "label": "holy Zohar (Terumah 151b)",
+      "sectionRef": "Beit Yaakov on Torah, Vayetzei 57",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Terumah 41:462-42:470",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Terumah_41%3A462-42%3A470?context=0&commentary=0&pad=0",
+        "responseSha256": "24549ed3ce2b3b26292f12da200f49b319f4d7666a44aec5a63eb54299988d04",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/738c47e0cd7d3805c6.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "151b",
+          "152a"
+        ],
+        "longestSharedConsonantRunsByContext": [
+          50
+        ],
+        "matchingConsonantExcerpts": [
+          "איתימאבגיןקדושהליתאתרבקדושהבכלישובאכגוונאדארץישראל"
+        ]
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        186
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Terumah",
+      "to": "Zohar, Terumah 81:803-84:813",
+      "label": "holy Zohar (Terumah 170a)",
+      "sectionRef": "Beit Yaakov on Torah, Vayetzei 20",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Terumah 81:803-84:813",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Terumah_81%3A803-84%3A813?context=0&commentary=0&pad=0",
+        "responseSha256": "4030d9e63cafa16919935b62cef286e530639ba6fe2635b462376688b5323f6c",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/1c26d66f8f592d0ab7.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "170a",
+          "170b"
+        ],
+        "indexDisagreement": {
+          "freshDefaultDafTarget": "Zohar, Terumah 85:821-86:832",
+          "decision": "Retain the in-text Vilna page mapping. Its actual page marker and surrounding quotation take precedence over the differing default alternate-structure entry."
+        },
+        "longestSharedConsonantRunsByContext": [
+          7,
+          17
+        ],
+        "matchingConsonantExcerpts": [
+          "משרייןעלאיןליתלהו"
+        ]
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        78
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Terumah",
+      "to": "Zohar, Terumah 81:803-84:813",
+      "label": "holy Zohar (Terumah 170a)",
+      "sectionRef": "Beit Yaakov on Torah, Vayetzei 35",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Terumah 81:803-84:813",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Terumah_81%3A803-84%3A813?context=0&commentary=0&pad=0",
+        "responseSha256": "4030d9e63cafa16919935b62cef286e530639ba6fe2635b462376688b5323f6c",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/1c26d66f8f592d0ab7.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "170a",
+          "170b"
+        ],
+        "indexDisagreement": {
+          "freshDefaultDafTarget": "Zohar, Terumah 85:821-86:832",
+          "decision": "Retain the in-text Vilna page mapping. Its actual page marker and surrounding quotation take precedence over the differing default alternate-structure entry."
+        },
+        "longestSharedConsonantRunsByContext": [
+          7,
+          17
+        ],
+        "matchingConsonantExcerpts": [
+          "משרייןעלאיןליתלהו"
+        ]
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        120
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Terumah",
+      "to": "Zohar, Terumah 87:862-873",
+      "label": "holy Zohar (Terumah 173a)",
+      "sectionRef": "Beit Yaakov on Torah, Vayetzei 19",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Terumah 87:862-873",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Terumah_87%3A862-873?context=0&commentary=0&pad=0",
+        "responseSha256": "bdc70ad67b09e3037d30a24e1722a7a62c4ad337a753948890ecfddd08c3ad7d",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/65fccbafddfa4f35c9.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "173a",
+          "173b"
+        ],
+        "indexDisagreement": {
+          "freshDefaultDafTarget": "Zohar, Terumah 88:882-90:892",
+          "decision": "Retain the in-text Vilna page mapping. Its actual page marker and surrounding quotation take precedence over the differing default alternate-structure entry."
+        },
+        "longestSharedConsonantRunsByContext": [
+          47
+        ],
+        "matchingConsonantExcerpts": [
+          "נחתיןשיתיןרבואדמלאכיקדישיואפילושינתאעלכלבניעלמא"
+        ]
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        75
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Terumah",
+      "to": "Zohar, Terumah 26:261-28:270",
+      "label": "Zohar (Terumah 140b)",
+      "sectionRef": "Beit Yaakov on Torah, Vayetzei 61",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Terumah 26:261-28:270",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Terumah_26%3A261-28%3A270?context=0&commentary=0&pad=0",
+        "responseSha256": "47ffc63432d9e180dbafc2f24481dc6b202ef141d36372f0658e27a4f59a4abc",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/95246d02064fe02a61.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "140b",
+          "141a"
+        ],
+        "longestSharedConsonantRunsByContext": [
+          39
+        ],
+        "matchingConsonantExcerpts": [
+          "דהאיקליפהדלברלאואיהיתקיפאקליפהדאיהילגומ"
+        ]
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        200
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Vayechi",
+      "to": "Zohar, Vayechi 9:64-11:75",
+      "label": "holy Zohar (Vayechi 214b)",
+      "sectionRef": "Beit Yaakov on Torah, Vayetzei 57",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Vayechi 9:64-11:75",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Vayechi_9%3A64-11%3A75?context=0&commentary=0&pad=0",
+        "responseSha256": "f5b7b3c7e4731213e1e780c68a112f3e57e82a0ceb330a41bda8ebb466df8d95",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/3bed663e05d5631c35.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "214b",
+          "215a"
+        ],
+        "longestSharedConsonantRunsByContext": [
+          10
+        ],
+        "matchingConsonantExcerpts": []
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        188
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Vayetzei",
+      "to": "Zohar, Vayetzei 2:13-14",
+      "label": "Vayeitzei 146b",
+      "sectionRef": "Beit Yaakov on Torah, Vayetzei 1",
+      "reason": "The seven vapors supporting the world are in the Sitrei Torah subsection on146b. The ending of Toldot and the default Vayetzei first paragraph on this shared folio do not contain the quotation.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Vayetzei 2:13-14",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Vayetzei_2%3A13-14?context=0&commentary=0&pad=0",
+        "responseSha256": "f56f0c3d639e6a5e661dd4ab963a6d89e31b4124fe62007799888bbb411fd845",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/704b17aaf8b8d07c47.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "146b",
+          "147a"
+        ],
+        "excerpt": "על שבע הבלים, ועלמא קאים עלייהו",
+        "excerptFoundInRetrievedPrimaryText": true
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        1
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Vayikra",
+      "to": "Zohar, Vayikra 60:396-61:406",
+      "label": "holy Zohar (Vayikra 23b)",
+      "sectionRef": "Mei HaShiloach, Volume I, Writings, Psalms 119",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Vayikra 60:396-61:406",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Vayikra_60%3A396-61%3A406?context=0&commentary=0&pad=0",
+        "responseSha256": "98ea74058eb40e6c854d14b42b13b874b6f2d9f907f9bed130c27ec4f3e808e2",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/0330128314af703d19.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "23b",
+          "24a"
+        ],
+        "longestSharedConsonantRunsByContext": [
+          12
+        ],
+        "matchingConsonantExcerpts": []
+      },
+      "status": "verified",
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Vayikra",
+      "to": "Zohar, Vayikra 25:191-27:200",
+      "label": "Zohar (Vayikra 12b)",
+      "sectionRef": "Beit Yaakov on Torah, Vayetzei 67",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Vayikra 25:191-27:200",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Vayikra_25%3A191-27%3A200?context=0&commentary=0&pad=0",
+        "responseSha256": "2a96303c0f2c0b592bb934903c557bf761fa379fb699c960254bfdb610f0ed20",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/539a511ce4f2911a41.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "12b",
+          "13a"
+        ],
+        "longestSharedConsonantRunsByContext": [
+          6
+        ],
+        "matchingConsonantExcerpts": []
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        228
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Vayikra",
+      "to": "Zohar, Metzora 4:18-7:25",
+      "label": "Zohar, Vayikra 53b",
+      "sectionRef": "Mei HaShiloach, Volume I, Numbers, Bamidbar",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Metzora 4:18-7:25",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Metzora_4%3A18-7%3A25?context=0&commentary=0&pad=0",
+        "responseSha256": "e083333f34b4b41dc658a30e382f5315205c6d786f13026cce42bef80bc974fd",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/c8698502328288ac6b.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "53b",
+          "54a"
+        ],
+        "longestSharedConsonantRunsByContext": [
+          16
+        ],
+        "matchingConsonantExcerpts": [
+          "שושבינאדמטרוניתא"
+        ]
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        286
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Vayikra",
+      "to": "Zohar, Emor 2:6-3:12",
+      "label": "Zohar, Vayikra 88b",
+      "sectionRef": "Mei HaShiloach, Volume I, Leviticus, Emor",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Emor 2:6-3:12",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Emor_2%3A6-3%3A12?context=0&commentary=0&pad=0",
+        "responseSha256": "980c46cb458eb8167122f7b810eba882b0613bd738089683e526aba5a7b8795e",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/0b03eb1d0e707bcac7.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "88b",
+          "89a"
+        ],
+        "longestSharedConsonantRunsByContext": [
+          9
+        ],
+        "matchingConsonantExcerpts": []
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        220
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Vayikra",
+      "to": "Zohar, Metzora 4:18-7:25",
+      "label": "זֹהַר וַיִּקְרָא דַּף נ\"ג עַמּוּד ב'",
+      "sectionRef": "Mei HaShiloach, Volume I, Numbers, Bamidbar",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Metzora 4:18-7:25",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Metzora_4%3A18-7%3A25?context=0&commentary=0&pad=0",
+        "responseSha256": "e083333f34b4b41dc658a30e382f5315205c6d786f13026cce42bef80bc974fd",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/c8698502328288ac6b.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "53b",
+          "54a"
+        ],
+        "longestSharedConsonantRunsByContext": [
+          16
+        ],
+        "matchingConsonantExcerpts": [
+          "שושבינאדמטרוניתא"
+        ]
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        286
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Vayikra",
+      "to": "Zohar, Achrei Mot 49:296-50:305",
+      "label": "זֹהַר וַיִּקְרָא דַּף ע״ג עַמּוּד א",
+      "sectionRef": "Mei HaShiloach, Volume I, Talmud, Chullin 29b",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Achrei Mot 49:296-50:305",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Achrei_Mot_49%3A296-50%3A305?context=0&commentary=0&pad=0",
+        "responseSha256": "1d42fec78b2189a656ef07a040e104959db709916535777c30a51110f06ad6fe",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/f322f3e9c9dea35c8c.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "73a",
+          "73b"
+        ],
+        "longestSharedConsonantRunsByContext": [
+          13
+        ],
+        "matchingConsonantExcerpts": []
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        1210
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Vayikra",
+      "to": "Zohar, Emor 2:6-3:12",
+      "label": "זֹהַר וַיִּקְרָא דַּף פ\"ח עַמּוּד ב'",
+      "sectionRef": "Mei HaShiloach, Volume I, Leviticus, Emor",
+      "reason": "Resolve the explicitly printed volume and folio to its exact canonical range, preserving the visible label. A Torah volume name such as Shemot or Bamidbar is not automatically the named parashah in the Zohar.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Emor 2:6-3:12",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Emor_2%3A6-3%3A12?context=0&commentary=0&pad=0",
+        "responseSha256": "980c46cb458eb8167122f7b810eba882b0613bd738089683e526aba5a7b8795e",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/0b03eb1d0e707bcac7.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "88b",
+          "89a"
+        ],
+        "longestSharedConsonantRunsByContext": [
+          9
+        ],
+        "matchingConsonantExcerpts": []
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        220
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Nasso",
+      "to": "Zohar, Idra Rabba 46:325-50:335",
+      "label": "Naso 143a",
+      "sectionRef": "Beit Yaakov on Torah, Vayetzei 3",
+      "reason": "The printed Naso143a is in Idra Rabba, with the lower extremities described as outside the body; resolve that folio precisely instead of the whole Nasso node.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Zohar, Idra Rabba 46:325-50:335",
+        "url": "https://www.sefaria.org/api/texts/Zohar%2C_Idra_Rabba_46%3A325-50%3A335?context=0&commentary=0&pad=0",
+        "responseSha256": "7ffda111e26d94e5cf5dd48a6de79394c5a33686b3cade570ef3ca2cff4fc607",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/3a1616b1a5607196a0.json",
+        "nonemptyHebrewVerified": true,
+        "printedPageMarkersInText": [
+          "143a",
+          "143b"
+        ],
+        "excerpt": "דאינון לבר מגופא",
+        "excerptFoundInRetrievedPrimaryText": true
+      },
+      "status": "verified",
+      "sourceParagraphIndices": [
+        11
+      ],
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Psalms 104:18",
+      "to": "Psalms 104:19",
+      "label": "תְּהִלִּים ק\"ד,י\"ח",
+      "sectionRef": "Mei HaShiloach, Volume I, Writings, Proverbs 10",
+      "reason": "The quotation שמש ידע מבואו belongs to104:19. Retain the supplied104:18 wording and correct the hyperlink target only.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Psalms 104:19",
+        "url": "https://www.sefaria.org/api/texts/Psalms_104%3A19?context=0&commentary=0&pad=0",
+        "responseSha256": "b4e5517b149e3aade842c19ed8311d3ca93915bb22c4e8a1d6b0c67a2914cb15",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/79243e173ffdc1cb42.json",
+        "nonemptyHebrewVerified": true,
+        "excerpt": "שמש ידע מבואו",
+        "excerptFoundInRetrievedPrimaryText": true
+      },
+      "status": "verified",
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Psalms 104:18",
+      "to": "Psalms 104:19",
+      "label": "Psalms 104:18",
+      "sectionRef": "Mei HaShiloach, Volume I, Writings, Proverbs 10",
+      "reason": "The quotation שמש ידע מבואו belongs to104:19. Retain the supplied104:18 wording and correct the hyperlink target only.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Psalms 104:19",
+        "url": "https://www.sefaria.org/api/texts/Psalms_104%3A19?context=0&commentary=0&pad=0",
+        "responseSha256": "b4e5517b149e3aade842c19ed8311d3ca93915bb22c4e8a1d6b0c67a2914cb15",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/79243e173ffdc1cb42.json",
+        "nonemptyHebrewVerified": true,
+        "excerpt": "שמש ידע מבואו",
+        "excerptFoundInRetrievedPrimaryText": true
+      },
+      "status": "verified",
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Shir HaShirim Rabbah 1:8",
+      "to": "Shir HaShirim Rabbah 1:1:8",
+      "label": "Shir HaShirim Rabbah 1:8",
+      "sectionRef": "Mei HaShiloach, Volume I, Writings, Proverbs 20",
+      "reason": "The old edition section1:8 corresponds to the eighth unit under1:1 in the canonical schema. The well, joined ropes, and Solomon parable occur there, not under the biblical verse1:8.",
+      "evidence": {
+        "provider": "Sefaria primary text API",
+        "ref": "Shir HaShirim Rabbah 1:1:8",
+        "url": "https://www.sefaria.org/api/texts/Shir_HaShirim_Rabbah_1%3A1%3A8?context=0&commentary=0&pad=0",
+        "responseSha256": "916f4ada4ca373b489e65762c0e3cb6482d8f224c8a953accb0642b920edc2d9",
+        "responseFile": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/348ce6927161277979.json",
+        "nonemptyHebrewVerified": true,
+        "excerpt": "חבל בחבל, משיחא במשיחא",
+        "excerptFoundInRetrievedPrimaryText": true
+      },
+      "status": "verified",
+      "expectedOccurrencesBeforePublication": 1
+    },
+    {
+      "from": "Zohar, Acharei Mot",
+      "to": "Zohar, Achrei Mot 24:153-26:164",
+      "label": "holy Zohar (Acharei Mot 65a)",
+      "sectionRef": "Mei HaShiloach, Volume II, Writings, Proverbs 14",
+      "sourceParagraphIndices": [
+        813
+      ],
+      "reason": "Resolve the printed Volume III folio through the primary Sefaria Daf alternate structure; preserve the supplied citation wording.",
+      "printedVolume": "III",
+      "printedFolio": "65a",
+      "status": "verified",
+      "evidence": {
+        "file": "editorial/verification/docx-import-20261022/citation-evidence/zohar-index.json",
+        "sha256": "799dda16edd3cbb4e4352c63995928266e70e29284e7ce6dc3c72d1962a9a3c1",
+        "url": "https://www.sefaria.org/api/v2/raw/index/Zohar",
+        "canonicalTarget": "Zohar, Achrei Mot 24:153-26:164",
+        "targetUrl": "https://www.sefaria.org/Zohar,_Achrei_Mot.24.153-26.164"
+      }
+    },
+    {
+      "from": "Zohar, Acharei Mot",
+      "to": "Zohar, Achrei Mot 26:165-28:175",
+      "label": "holy Zohar (Acharei Mot 65b)",
+      "sectionRef": "Beit Yaakov on Torah, Vayetzei 58",
+      "sourceParagraphIndices": [
+        191
+      ],
+      "reason": "Resolve the printed Volume III folio through the primary Sefaria Daf alternate structure; preserve the supplied citation wording.",
+      "printedVolume": "III",
+      "printedFolio": "65b",
+      "status": "verified",
+      "evidence": {
+        "file": "editorial/verification/docx-import-20261022/citation-evidence/zohar-index.json",
+        "sha256": "799dda16edd3cbb4e4352c63995928266e70e29284e7ce6dc3c72d1962a9a3c1",
+        "url": "https://www.sefaria.org/api/v2/raw/index/Zohar",
+        "canonicalTarget": "Zohar, Achrei Mot 26:165-28:175",
+        "targetUrl": "https://www.sefaria.org/Zohar,_Achrei_Mot.26.165-28.175"
+      }
+    },
+    {
+      "from": "Zohar, Naso",
+      "to": "Zohar, Nasso 4:38-49",
+      "label": "holy Zohar (Naso 123a)",
+      "sectionRef": "Beit Yaakov on Torah, Vayetzei 2",
+      "sourceParagraphIndices": [
+        8
+      ],
+      "reason": "Resolve the printed Volume III folio through the primary Sefaria Daf alternate structure; preserve the supplied citation wording.",
+      "printedVolume": "III",
+      "printedFolio": "123a",
+      "status": "verified",
+      "evidence": {
+        "file": "editorial/verification/docx-import-20261022/citation-evidence/zohar-index.json",
+        "sha256": "799dda16edd3cbb4e4352c63995928266e70e29284e7ce6dc3c72d1962a9a3c1",
+        "url": "https://www.sefaria.org/api/v2/raw/index/Zohar",
+        "canonicalTarget": "Zohar, Nasso 4:38-49",
+        "targetUrl": "https://www.sefaria.org/Zohar,_Nasso.4.38-49"
+      }
+    },
+    {
+      "from": "Zohar, Naso",
+      "to": "Zohar, Idra Rabba 6:25-7:37",
+      "label": "holy Zohar (Naso 129a)",
+      "sectionRef": "Beit Yaakov on Torah, Vayetzei 18",
+      "sourceParagraphIndices": [
+        72
+      ],
+      "reason": "Resolve the printed Volume III folio through the primary Sefaria Daf alternate structure; preserve the supplied citation wording.",
+      "printedVolume": "III",
+      "printedFolio": "129a",
+      "status": "verified",
+      "evidence": {
+        "file": "editorial/verification/docx-import-20261022/citation-evidence/zohar-index.json",
+        "sha256": "799dda16edd3cbb4e4352c63995928266e70e29284e7ce6dc3c72d1962a9a3c1",
+        "url": "https://www.sefaria.org/api/v2/raw/index/Zohar",
+        "canonicalTarget": "Zohar, Idra Rabba 6:25-7:37",
+        "targetUrl": "https://www.sefaria.org/Zohar,_Idra_Rabba.6.25-7.37"
+      }
+    },
+    {
+      "from": "Zohar, Naso",
+      "to": "Zohar, Idra Rabba 7:37-8:50",
+      "label": "holy Zohar (Naso 129b)",
+      "sectionRef": "Beit Yaakov on Torah, Vayetzei 9",
+      "sourceParagraphIndices": [
+        35
+      ],
+      "reason": "Resolve the printed Volume III folio through the primary Sefaria Daf alternate structure; preserve the supplied citation wording.",
+      "printedVolume": "III",
+      "printedFolio": "129b",
+      "status": "verified",
+      "evidence": {
+        "file": "editorial/verification/docx-import-20261022/citation-evidence/zohar-index.json",
+        "sha256": "799dda16edd3cbb4e4352c63995928266e70e29284e7ce6dc3c72d1962a9a3c1",
+        "url": "https://www.sefaria.org/api/v2/raw/index/Zohar",
+        "canonicalTarget": "Zohar, Idra Rabba 7:37-8:50",
+        "targetUrl": "https://www.sefaria.org/Zohar,_Idra_Rabba.7.37-8.50"
+      }
+    },
+    {
+      "literal": "בְּפֶרֶק חֲמִישִׁי מֵהִלְכוֹת תְּשׁוּבָה הֲלָכָה ה׳",
+      "to": "Mishneh Torah, Repentance 5:5",
+      "sectionRef": "Mei HaShiloach, Volume I, Writings, Psalms 92"
+    },
+    {
+      "literal": "chapter five of the Laws of Repentance, halakhah five",
+      "to": "Mishneh Torah, Repentance 5:5",
+      "sectionRef": "Mei HaShiloach, Volume I, Writings, Psalms 92"
+    }
+  ],
+  "audits": [
+    {
+      "file": "editorial/beit-vayetzei-document-audit-20261022.json",
+      "sha256": "4e984ffaa68b46ae5bbed4a9d027f5c40143a1b72d3048be32d381b7ab045d86"
+    },
+    {
+      "file": "editorial/mei-rest-document-audit-20261022.json",
+      "sha256": "644cd3eea99778fb4022fc62fa9f7479b95dbbe712ccbb2229804cc77b131c56"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/toldos-completeness.json",
+      "sha256": "b3cb1ee5bde541cf5043c135fc0dfc6b9a5ac302c20836c4bca549e637e78a39"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/mei-2005-edition-audit.json",
+      "sha256": "1f2daf55224a2ecaba7e2c0af74e9374bb4e414d034f3ec05007499ba79be027"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/mei-completion-audit.json",
+      "sha256": "24503c130a604beff72eeb587dbda20786bedb0903704332515047b9a5d20776"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/mei-completion-language-review.json",
+      "sha256": "6bccd13f7ec1eb6e3f4d45acd539c0a9db44fe5b605b103b75d96065e18d07ae"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/mei-supplement-talmud-audit.json",
+      "sha256": "945f106a4bba080962975a8e373e659293a1c15b3c7c556c88789fd25558939b"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/mei-introduction-audit.json",
+      "sha256": "a0bfc62751b630c8bfb4a48bf00a00c3a130dfaf4b7a0dff980aee945d1ed3cc"
+    }
+  ],
+  "evidence": [
+    {
+      "file": "editorial/verification/docx-import-20261022/mei-canonical-api-snapshot.json.gz.b64",
+      "sha256": "86578809eda8b09f5ba19bd7daa8a7041a1510101f2c48ded936b70f31c527e3"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/mei-canonical-references.json",
+      "sha256": "59d469b999d097d4de387702788d917c7418c1a978fd09cea8b29215901e1bb1"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/mei-missing-volume-i.json",
+      "sha256": "5558ba64a68338de2bd17acacebe2f416713c7d4ff978bb6835eb1504a4ac57d"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/mei-supplement-psalms.json",
+      "sha256": "f2a2dccf5351861ce1169dacac40b415eafa909898caac4d9d176e2cca284a35"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/mei-supplement-proverbs.json",
+      "sha256": "84f511ba0085f7735cd10b24e90659472509543664fcf47a384780a1c4fd77fb"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/mei-supplement-talmud.json",
+      "sha256": "af61c548bc5e65e02b04471a9f804c21f80c5ba10fc127e11db8537eaef19662"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/mei-introduction-source.json",
+      "sha256": "a384e182838e0985b2ebb357ca7be21cf0f7d0471ef32c0bca681ee140df2870"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/connected-torah-source-checks.json",
+      "sha256": "a0c268a39a5bef34ff3a1bb4b2435f3ff3fd9a2f9529ee7e68db70c5734e1f81"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-mapping-review.json",
+      "sha256": "de250a0983930901b70b9b47dc2aea97348c458cedd1da43c3b6ec109eebda0b"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-label-review.json",
+      "sha256": "4dbd42a6a9eff026c9c6d2f068b5b34f63b63fc43d9331a009f4ff5019fbdc99"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-zohar-review.json",
+      "sha256": "7b85de93fe4f107bde0bd2c98b29f450f5f480873937222fd22ec61b269b7dd5"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-literal-review.json",
+      "sha256": "36badc295973085304013f5fa31ec1f78de18c3e9fe2e28416d1713a80f53a1e"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/Bamidbar-Rabbah-12.json",
+      "sha256": "d83ebda7785bf3b4d1b5a65d8490a64731b3d764a7745c548bb327e8e7628156"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/Bereshit-Rabbah-53-14.json",
+      "sha256": "2eb0fa8565b2cec9256fe0776ab790ad9c55ea7f8aaab21fc4ec82dc64d60a85"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/Kohelet-Rabbah-11-9.json",
+      "sha256": "930582253474f3644b1e328329c80afe7cbf89dd4d6420371d3897c6c9fbecbd"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/Pirkei-Avot-3-17.json",
+      "sha256": "cf39abdd6e3f7d33139bf4e5a268b59f5d9a66603b96dbd9b24e328f83884416"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/Shir-HaShirim-Rabbah-1-3.json",
+      "sha256": "ecb582912fa15aa3243c7ac9b426c657e3319477809ff2134625db99f747ae2a"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/Shir-HaShirim-Rabbah-3-11.json",
+      "sha256": "c42a4f2f7c52d03398ac42a144aa703b6d952bb6cf9ff6df9eab4ee66c4585b4"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/0049a72cf89aafba94.json",
+      "sha256": "b55dce399eed9b465ba73efd0af038b4be1e085d71772dbb32cbaf12ff52088a"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/0330128314af703d19.json",
+      "sha256": "98ea74058eb40e6c854d14b42b13b874b6f2d9f907f9bed130c27ec4f3e808e2"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/03f199704b57836e58.json",
+      "sha256": "4db3843e616678570415f61b06954404e3f98752a07ce752f4cd6066f5f1ce18"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/09675a2c6dce38490c.json",
+      "sha256": "f43b6b90a9c16615bebf156866b977dcb693d7b37f3dc3b6fa312256a18aa6bf"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/0b03eb1d0e707bcac7.json",
+      "sha256": "980c46cb458eb8167122f7b810eba882b0613bd738089683e526aba5a7b8795e"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/0e5f29e8b098fb8364.json",
+      "sha256": "a1974ef85ef64ba2a9d696ff129dfdd5cdce154dd85a9288d7f6532f69ca9f48"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/0f76999b5d935d734d.json",
+      "sha256": "77196667d07f6b46cd87adbfe1f0fdc3fed56c93649705ed10b0bbc8a0d6f035"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/11617ea468b1b6378d.json",
+      "sha256": "43f1c361603813ace546890981e80dca343b8c2e958ee566ea1e87b78c146f57"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/193ac9894db041e82a.json",
+      "sha256": "c32f43c387c76d3d2c89c100584d16ff2592397aa8c38f282330101e7601d629"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/1b74ed52caaaffeda4.json",
+      "sha256": "17695154928a29551515224b624a623302ed17559a066644c8f0fa66c0d5066a"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/1c26d66f8f592d0ab7.json",
+      "sha256": "4030d9e63cafa16919935b62cef286e530639ba6fe2635b462376688b5323f6c"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/20cc4dbdd55c1aaf91.json",
+      "sha256": "7411d6a444695041456e708cdd1774147ba7c99800e4ef4b007bd7daa37043fa"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/27b4924c0a71dab000.json",
+      "sha256": "6b22eb59d74b00d60698fa172aacea8fa946110f6bb022bfc49395014c43eaad"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/299398254c0ebbe5de.json",
+      "sha256": "688a2e67044fd33293a76647ebe62ab78890b7415546c815b55602cbf082b135"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/2cadc8ad3a182cfdfd.json",
+      "sha256": "9a4b80d8d4e124e47e9bf864384ee1c2802988f335ddae3b9fddacf96394c0a8"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/2d9e1cf95121221bc7.json",
+      "sha256": "a91b3c6c32570954c4c88dfd7ed6b1bcea492361cad7e5d98df24ea6d0404501"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/2ee4ccf942f2ec0095.json",
+      "sha256": "f1c15f85286355c0315d5c6889e4c7c3605ed9c9ebd5932ed24c2baddd6b1e9a"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/348ce6927161277979.json",
+      "sha256": "916f4ada4ca373b489e65762c0e3cb6482d8f224c8a953accb0642b920edc2d9"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/3818bfaad8d5ed9d14.json",
+      "sha256": "c9c2c023375aee8800450d989e610bef61d2984a44aa8241a68f29bd392b38ee"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/3a01cc2b52ff7f8943.json",
+      "sha256": "157426fc46bf4aba3e6eb22732c6d20c7bc28ff1d273f7fe2074768fe3000d36"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/3a1616b1a5607196a0.json",
+      "sha256": "7ffda111e26d94e5cf5dd48a6de79394c5a33686b3cade570ef3ca2cff4fc607"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/3a96bf437ac6053e74.json",
+      "sha256": "96ce22dc9abb03636fb0ac7eb5b5533c515586181790c5ae46c0848ce8a38581"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/3b69c99ab8f159eb21.json",
+      "sha256": "a052aeee4941f5eee322b4b61072f4ab5d27fab8c021a6dc67e56082c9b4ca65"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/3bed663e05d5631c35.json",
+      "sha256": "f5b7b3c7e4731213e1e780c68a112f3e57e82a0ceb330a41bda8ebb466df8d95"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/3f99ac404f82371b8f.json",
+      "sha256": "8b4f3576808deac1d0243a0290632a26c507e705644027427a77e8223b0c8872"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/3fea9ba3da07741009.json",
+      "sha256": "2ae9611746b61f63d3af0e7f4be1fd8d68c1a10c38a5c1825ce6b603f2dad62c"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/431e0e37340229a188.json",
+      "sha256": "53b52ad17083c4bf639dbd1982d1e1cefca8d5cea3394559666cd20a3d10d148"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/439600458654e0ec61.json",
+      "sha256": "bfb19b01f4b9c605575fa9ff3e125ce274e94d87cbcf71ee5fea855148a7fda0"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/45179bcfd3145498b6.json",
+      "sha256": "5f64bddc767b3df0490f55d31bca1ac97b1ef659ceb5a79ad7687bfc55d667eb"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/4eb1f2bddab0ceceab.json",
+      "sha256": "1afef4678a59f87c0f512a05e9100f1ef7db489842cdc8d3d86361faa2e6ad18"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/539a511ce4f2911a41.json",
+      "sha256": "2a96303c0f2c0b592bb934903c557bf761fa379fb699c960254bfdb610f0ed20"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/557a37b1dfec558d45.json",
+      "sha256": "07e1788a8002290e18112776403dc7a42ce266eb9532ad245eec5a42dcea0353"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/570f8ba7bcd8ee8424.json",
+      "sha256": "8e68a76edbdd74fb10cd292cb784d3af95c2e4c645476c0140c024db3ebbaf3d"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/57f7a4552d0396c22c.json",
+      "sha256": "0462198fd2bb8673355b998a67b54e0a3bb5208feeff0aca497aab8ff717e722"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/58132e03095ea2cabd.json",
+      "sha256": "7ee63b327c6512ef8c4b8cbe5c9f3dc9ff8ed4e76efed62d0e5e6a630efbe13e"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/583ffaeaad0d47b89c.json",
+      "sha256": "6a20d09000bddf539f528f6e0dc2f9ee7813e1eab92e159dc3d79c30b8edd6e9"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/5994a8510717122037.json",
+      "sha256": "4429f72b94b919afa115df7c3201f11da13eb370fa0a3822012ef3b7b11c74f1"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/5fb327f0fd29e988cf.json",
+      "sha256": "9739f25b8ce1adf52e91d4035341dc5bbff9f6915a50284b2e2de7978b958f7a"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/63a8c4b8c3f40a1f11.json",
+      "sha256": "7f6aee34a4e6dd1acc585bb39b768819356e918dbf32a711add523ccbabe50c5"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/65fccbafddfa4f35c9.json",
+      "sha256": "bdc70ad67b09e3037d30a24e1722a7a62c4ad337a753948890ecfddd08c3ad7d"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/6f7e4cc513adeb5cc6.json",
+      "sha256": "76b0f70c2553b12764a10ac5264ecdcce3764c0cf9b2c53c612fd3d135a6c2bd"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/704b17aaf8b8d07c47.json",
+      "sha256": "f56f0c3d639e6a5e661dd4ab963a6d89e31b4124fe62007799888bbb411fd845"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/738c47e0cd7d3805c6.json",
+      "sha256": "24549ed3ce2b3b26292f12da200f49b319f4d7666a44aec5a63eb54299988d04"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/73b1fef1a311fa295e.json",
+      "sha256": "ba7be47967723e422e29b8c7b50ef6b75254dcb3db9fc34665d208fdd9d5293a"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/76be4bf37e960dde6d.json",
+      "sha256": "5a39e2c33e0424fe49eb0ea8de6eae441aa9b936e6ce16b015ba04eda08829cb"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/7765d7aabdfa74138b.json",
+      "sha256": "d27d2cc20b738f9b46ee572c117407bad2d9224c65181700328f3ad3b94724dd"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/779ee6f4eb5d0adfd1.json",
+      "sha256": "b5960e140e6fe968c7a53be06915437f6b1f8837c14df430602451fe0f05eb23"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/79243e173ffdc1cb42.json",
+      "sha256": "b4e5517b149e3aade842c19ed8311d3ca93915bb22c4e8a1d6b0c67a2914cb15"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/7bfd7ee421b266452f.json",
+      "sha256": "b33cdd0992676ec35d9181baf519550e47c25d61cfea94a8d49d1ff02e4c5548"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/7edf55e389a67834ed.json",
+      "sha256": "54163d067c8531e85329d40cc9839e88e66b03a087648c5ed0a8bfcaf97df85e"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/819c07c53032bf1a41.json",
+      "sha256": "71244263d92a1014f769756ec86b8490275919d36a885f4c0313075dc463e163"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/827f7d6c718df321fa.json",
+      "sha256": "a3f45b81bdaa8dcc07cc5503af43a4774d42febf266cb85c8949b3f8ba98d4f4"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/87da8704dddfdf9b97.json",
+      "sha256": "a39e6be009ae0f8712faa19042fed327863d0657255f600498b509a8b262d56c"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/8907f8c987ff6744d5.json",
+      "sha256": "a125969b2b0bfe01296ca20d67d0682c8a6143a64024901663779b697689e70d"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/8bcece20e12de47e93.json",
+      "sha256": "aaebc60768a59c8338ff4eab95baab63a0a43b85e93935e53801ea33983fc867"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/8f18584717d7682692.json",
+      "sha256": "196d024b16488e539ef5b60f15a4919a54936ab42c8b76523622d0a95f5b67c7"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/912e7a95086c408737.json",
+      "sha256": "7902cb631717d5f0585760eca963213ef681cff86289501c4cd24b8ffc01bb77"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/95246d02064fe02a61.json",
+      "sha256": "47ffc63432d9e180dbafc2f24481dc6b202ef141d36372f0658e27a4f59a4abc"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/a2ac5afa298408d423.json",
+      "sha256": "ce6c2768efb8afdf6714a2048ba1797f3ad8677c9a243f9aebb4affe5df2d9ce"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/a582a3580621b9bc0d.json",
+      "sha256": "c14a476ea319c2a6fc20148407f7526793c455e4e75392594b034e6cfc656aff"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/ad2094a8f7910ddba3.json",
+      "sha256": "ae50c4e5cee23e3aea885ca07a8dce9d4289f19cd8a2ac9fa0f2d901037f0319"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/aec6b4bf57ce7c0116.json",
+      "sha256": "4e07af182464fe565b7fe46d7eee8b03b6229e2da66c3ad510fae86c65f8a570"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/b3e1aede7801f39553.json",
+      "sha256": "8a87529b1ab1bca02aaab325337ddd955c241e698f6842a92cf2ea8f14f57680"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/b834b3be4fbfde5b5d.json",
+      "sha256": "357f34724b1081cc744bff88d27ff6511089c5f23674546bea84633d5b615c40"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/bcc548b21217c04dc6.json",
+      "sha256": "eb3e09497aa539ab6c216088cf46990ee4f0bcec979fb3cc5bad85c5c2e20f06"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/bd5713b2e72091926b.json",
+      "sha256": "2e85b3a9a5d6a4b2c52b4540d7401f40a07b66c118ae94754632f8f4b6c8a2bd"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/bdbc8270f27c05b0e5.json",
+      "sha256": "87b01eecd0ee7a91dd78ac5e891dbcdc5f5de422a8678c328569d5296db2ddfa"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/bfe84a002f0c1790a4.json",
+      "sha256": "356b89c49a1e113d3240b94141e05e5170cc572fa45ccc1a9d0375447b3d2fa8"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/c1f010dac8a601e701.json",
+      "sha256": "cfc950229ba87943cccf9958044dd3488076784246c14aec629a9745a34343bd"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/c464f33d6d7869ee04.json",
+      "sha256": "eb5978d6b5e3069956ad71c578d606d5345a9c69084655927af421ec35530f0b"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/c8698502328288ac6b.json",
+      "sha256": "e083333f34b4b41dc658a30e382f5315205c6d786f13026cce42bef80bc974fd"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/c8efc575a6be36c860.json",
+      "sha256": "0767e523cb3fb709dadf53db638a506def0b9b66785e2749d16e04413aa5b1cb"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/c923354c4ada0db8b1.json",
+      "sha256": "4e00d76859b20ab65e97672b94030076ca288b7276d86006defa4bc7e8048763"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/ca1d09b2b9a7fe85a1.json",
+      "sha256": "d14d5a9d605155b915d226d085941dd70bb7ee7c7f88fb49dd2e9ec3eba5ebdb"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/cbdfa7af350ac1c39f.json",
+      "sha256": "396bc115a90924694daa5d860085cd0967e17e7291af94a24c5148694c9ee0f9"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/cc529056e29750dd1f.json",
+      "sha256": "5e19100545360e685a4ee2d5fa8ff78deb092d739f0070608b66eeff47e01928"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/cc60d6e034923d0e73.json",
+      "sha256": "e29692d3ab200b5c95a4b7f791d0b74467e7b05295e0d94855777a475eae9b47"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/d8ee8901a9a1d04be6.json",
+      "sha256": "8018313ff1e373b232c64c02494a7f5067e559a09d335a573430b9c64e94b9b4"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/df3cabd5b668cdc905.json",
+      "sha256": "6f199c6c95d3fc1334518898d9b7b8902b317bb4e17e4acb2411aeeacef736bd"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/df8aa3c30863c2b52b.json",
+      "sha256": "5eb1f35d1bbbed88b95e64e5e4e67cb500a32e11e77b88dcd9a9a8a3a7485bb5"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/e4f361ae1ba08f695c.json",
+      "sha256": "07306cb9fca137a8fbc98b5d1edfe4bb30f579a720ce3da319f875f1ad217b54"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/e6542b63468e8f79bd.json",
+      "sha256": "df3e01430bb10cb91c51204dc7cef3fc8daca7e82bf2d409a06ebf1d9b7b63cb"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/ec797c94a8ce3fcd70.json",
+      "sha256": "7c77489f20e962ad128aab3b3f21d37f8321e12f9159d30612492891ec12652e"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/ed57e63f9e9dc840fd.json",
+      "sha256": "044e6031cfd1a9b469cd8ce29f646725d0f0023590c3955e5bca387c6fb2f84a"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/f0d9ff2683a494560a.json",
+      "sha256": "38d94bb4fb9b9d4af16e4afeb9e8e3f6782d31d2c4e804a9d600c4cc33269b41"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/f322f3e9c9dea35c8c.json",
+      "sha256": "1d42fec78b2189a656ef07a040e104959db709916535777c30a51110f06ad6fe"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/f8e17bec02a484faf6.json",
+      "sha256": "7a68012f9ee0b3960c568128eaf738ed48b8827a6ec987f3d08a8630b13997b9"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/f905dc1532cd7d7577.json",
+      "sha256": "12665f7ad53dff9253e7bd65f02565cc4d023c7398c67c0b5cd5aa31a541c843"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/label-review-texts/faa960b1e59dfbe77d.json",
+      "sha256": "4c42eb7b54eb5313955153db4d818b5705422cb7608506552acdc162328b6556"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/retrieval-index.json",
+      "sha256": "10be060705177daf2a2c4eb20abb410f664300b243bf6961ab491c486b4a092c"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/citation-evidence/zohar-index.json",
+      "sha256": "799dda16edd3cbb4e4352c63995928266e70e29284e7ce6dc3c72d1962a9a3c1"
+    }
+  ],
+  "completion": {
+    "scope": "Complete Volume I including the compiler’s introduction",
+    "expectedVolumeISections": 208,
+    "expectedVolumeIParagraphs": 693,
+    "completedParagraphs": 50,
+    "completedSections": 36,
+    "introductionParagraphs": 5,
+    "mainTextSections": 207,
+    "mainTextParagraphs": 688,
+    "missingLedger": "editorial/verification/docx-import-20261022/mei-missing-volume-i.json",
+    "uploadedEdition": "Mei HaShiloach, Publication of Sifrei Izhbitza Radzin, Bnei Brak 2005.",
+    "uploadedFormatsAgreeOn": 1469,
+    "comparisonScope": "The four supplied exports are formats of one 2005 edition; source variants remain recorded.",
+    "retainedToldosOsiyos": 52,
+    "retainedToldosDocxSha256": "50e59ec8a0762225d5ba7434aa32c03264addfc654e9a7cee23b1a1d432861a5"
+  }
+}

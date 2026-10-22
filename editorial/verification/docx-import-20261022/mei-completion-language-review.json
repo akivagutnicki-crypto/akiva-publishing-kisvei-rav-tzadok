@@ -1,0 +1,38 @@
+{
+  "schemaVersion": 1,
+  "status": "PASS",
+  "scope": "Independent substantive language review of the 50 restored Volume I paragraphs and five introduction paragraphs",
+  "files": [
+    {
+      "file": "editorial/verification/docx-import-20261022/mei-supplement-psalms.json",
+      "sha256": "f2a2dccf5351861ce1169dacac40b415eafa909898caac4d9d176e2cca284a35"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/mei-supplement-proverbs.json",
+      "sha256": "84f511ba0085f7735cd10b24e90659472509543664fcf47a384780a1c4fd77fb"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/mei-supplement-talmud.json",
+      "sha256": "af61c548bc5e65e02b04471a9f804c21f80c5ba10fc127e11db8537eaef19662"
+    },
+    {
+      "file": "editorial/verification/docx-import-20261022/mei-introduction-audit.json",
+      "sha256": "a0bfc62751b630c8bfb4a48bf00a00c3a130dfaf4b7a0dff980aee945d1ed3cc"
+    }
+  ],
+  "checks": [
+    "All 50 restoration paragraphs match the canonical ledger references and original sourceHebrew exactly.",
+    "The assembler replays every source transformation and checks all resulting Hebrew letters against the paired text.",
+    "All English phrases are populated and contain no square brackets.",
+    "Psalms, both Proverbs subsets, Talmud, and the Introduction received a separate substantive reading after drafting."
+  ],
+  "reviewCorrections": [
+    "Proverbs 19:2: preserve the source vav when adding nikkud to סוכה.",
+    "Proverbs 15:4: render מורישו in its inheritance context.",
+    "Megillah 4a: translate זמן קריאה לכל as the time for summoning everyone, retaining the source קריאה."
+  ],
+  "preservedUncertainty": [
+    "Two nonstandard introductory life-wish honorifics remain in the Hebrew with a visible transcription note.",
+    "The introductory year chronogram is retained without assigning an inferred historical year."
+  ]
+}

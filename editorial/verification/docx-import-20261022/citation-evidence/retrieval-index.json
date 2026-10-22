@@ -1,0 +1,82 @@
+[
+  {
+    "requestedRef": "Pirkei Avot 3:17",
+    "resolvedRef": "Pirkei Avot 3:17",
+    "file": "/workspace/scratch/9db926ab12c4/reader-docx-import/editorial/verification/docx-import-20261022/citation-evidence/Pirkei-Avot-3-17.json",
+    "sha256": "cf39abdd6e3f7d33139bf4e5a268b59f5d9a66603b96dbd9b24e328f83884416",
+    "apiUrl": "https://www.sefaria.org/api/texts/Pirkei_Avot_3:17?context=0&commentary=0&pad=0",
+    "error": null,
+    "heType": "str",
+    "heLen": 1063
+  },
+  {
+    "requestedRef": "Bereshit Rabbah 53:14",
+    "resolvedRef": "Bereshit Rabbah 53:14",
+    "file": "/workspace/scratch/9db926ab12c4/reader-docx-import/editorial/verification/docx-import-20261022/citation-evidence/Bereshit-Rabbah-53-14.json",
+    "sha256": "2eb0fa8565b2cec9256fe0776ab790ad9c55ea7f8aaab21fc4ec82dc64d60a85",
+    "apiUrl": "https://www.sefaria.org/api/texts/Bereshit_Rabbah_53:14?context=0&commentary=0&pad=0",
+    "error": null,
+    "heType": "str",
+    "heLen": 1429
+  },
+  {
+    "requestedRef": "Bamidbar Rabbah 12",
+    "resolvedRef": "Bamidbar Rabbah 12",
+    "file": "/workspace/scratch/9db926ab12c4/reader-docx-import/editorial/verification/docx-import-20261022/citation-evidence/Bamidbar-Rabbah-12.json",
+    "sha256": "d83ebda7785bf3b4d1b5a65d8490a64731b3d764a7745c548bb327e8e7628156",
+    "apiUrl": "https://www.sefaria.org/api/texts/Bamidbar_Rabbah_12?context=0&commentary=0&pad=0",
+    "error": null,
+    "heType": "list",
+    "heLen": 74732
+  },
+  {
+    "requestedRef": "Shir HaShirim Rabbah 3:11",
+    "resolvedRef": "Shir HaShirim Rabbah 3:11",
+    "file": "/workspace/scratch/9db926ab12c4/reader-docx-import/editorial/verification/docx-import-20261022/citation-evidence/Shir-HaShirim-Rabbah-3-11.json",
+    "sha256": "c42a4f2f7c52d03398ac42a144aa703b6d952bb6cf9ff6df9eab4ee66c4585b4",
+    "apiUrl": "https://www.sefaria.org/api/texts/Shir_HaShirim_Rabbah_3:11?context=0&commentary=0&pad=0",
+    "error": null,
+    "heType": "list",
+    "heLen": 7653
+  },
+  {
+    "requestedRef": "Shir HaShirim Rabbah 1:3",
+    "resolvedRef": "Shir HaShirim Rabbah 1:3",
+    "file": "/workspace/scratch/9db926ab12c4/reader-docx-import/editorial/verification/docx-import-20261022/citation-evidence/Shir-HaShirim-Rabbah-1-3.json",
+    "sha256": "ecb582912fa15aa3243c7ac9b426c657e3319477809ff2134625db99f747ae2a",
+    "apiUrl": "https://www.sefaria.org/api/texts/Shir_HaShirim_Rabbah_1:3?context=0&commentary=0&pad=0",
+    "error": null,
+    "heType": "list",
+    "heLen": 8683
+  },
+  {
+    "requestedRef": "Kohelet Rabbah 11:9",
+    "resolvedRef": "Kohelet Rabbah 11:9",
+    "file": "/workspace/scratch/9db926ab12c4/reader-docx-import/editorial/verification/docx-import-20261022/citation-evidence/Kohelet-Rabbah-11-9.json",
+    "sha256": "930582253474f3644b1e328329c80afe7cbf89dd4d6420371d3897c6c9fbecbd",
+    "apiUrl": "https://www.sefaria.org/api/texts/Kohelet_Rabbah_11:9?context=0&commentary=0&pad=0",
+    "error": null,
+    "heType": "list",
+    "heLen": 4207
+  },
+  {
+    "requestedRef": "Zohar 3:65a",
+    "error": "HTTP Error 400: Bad Request"
+  },
+  {
+    "requestedRef": "Zohar 3:65b",
+    "error": "HTTP Error 400: Bad Request"
+  },
+  {
+    "requestedRef": "Zohar 3:123a",
+    "error": "HTTP Error 400: Bad Request"
+  },
+  {
+    "requestedRef": "Zohar 3:129a",
+    "error": "HTTP Error 400: Bad Request"
+  },
+  {
+    "requestedRef": "Zohar 3:129b",
+    "error": "HTTP Error 400: Bad Request"
+  }
+]
