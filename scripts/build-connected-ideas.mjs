@@ -8,6 +8,7 @@ import {createRequire} from 'node:module';
 import {fileURLToPath} from 'node:url';
 import {validateTranslation} from './build-reviewed-connections.mjs';
 import {studySections} from './study-editions.mjs';
+import {publishedNumbering, stableNumberAllocator} from './publish-tzidkat-quoted-sources.mjs';
 const require = createRequire(import.meta.url);
 const sources = require('../dist/library/source-connections.js');
 const ideas = require('../dist/library/connected-ideas.js');
@@ -130,19 +131,25 @@ export function buildConnectedIdeas(options={}) {
   const numberedBook=catalog.books.find(book=>book.title==='Tzidkat HaTzadik');
   if(numberedBook) {
     const data=JSON.parse(fs.readFileSync(path.join(mcpRoot,'text',numberedBook.slug+'.json')));
-    let number=0;
+    const nativeNumbers=[];
     for(const paragraph of data.paras) {
-      for(const note of paragraph.f || []) if(/^\d+$/.test(String(note[0]))) number=Math.max(number,Number(note[0]));
+      for(const note of paragraph.f || []) if(/^\d+$/.test(String(note[0]))) nativeNumbers.push(Number(note[0]));
       for(const pair of paragraph.p || []) for(const html of pair)
         for(const match of String(html).matchAll(/<sup\b[^>]*class=["'][^"']*footnote-marker[^"']*["'][^>]*>\s*(\d+)\s*<\/sup>/g))
-          number=Math.max(number,Number(match[1]));
+          nativeNumbers.push(Number(match[1]));
     }
+    // The PDF quotation successor continues after both the manuscript and the
+    // already published supplementary notes. Do not renumber those older notes.
+    const numbering=publishedNumbering(path.resolve(mcpRoot,'../library'));
+    const allocator=stableNumberAllocator(nativeNumbers,numbering);
     const byId=new Map(records.map(record=>[record.id,record]));
     for(const {section} of studySections(numberedBook).values())
       for(const note of ideas.forSection(records,section.ref)) {
         const record=byId.get(note.originalId || note.id);
-        record[note.direction==='reverse'?'reverseFootnoteNumber':'footnoteNumber']=++number;
+        const field=note.direction==='reverse'?'reverseFootnoteNumber':'footnoteNumber';
+        record[field]=allocator.take(record.id,field,note.originRef,note.targetRef);
       }
+    allocator.verify();
   }
   const coverage=catalog.books.map(book=>{
     const sections=[...new Set(book.sections.map(section=>section.ref))];

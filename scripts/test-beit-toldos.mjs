@@ -5,6 +5,7 @@ import assert from 'node:assert/strict';
 import {createRequire} from 'node:module';
 import {readPack, BOOK, SLUG, RELEASE, digest, leaves, visible} from './publish-beit-toldos.mjs';
 import {readPack as readSeasonalPack, restoreHistoricalRows} from './publish-pri-seasonal-quoted-sources.mjs';
+import {readPack as readTzidkatPack, historicalBytes as tzidkatHistoricalBytes} from './publish-tzidkat-quoted-sources.mjs';
 const args=process.argv.slice(2),ui=args.indexOf('--url'),base=ui<0?null:new URL(args[ui+1]);
 const root='dist/library',pack=readPack();
 async function bytes(file){
@@ -49,8 +50,11 @@ if(!base){
   // Historical checks remain byte-exact. After the seasonal publication gate,
   // only its exact reviewed successor may reconstruct the earlier bytes.
   const seasonalPack=args.includes('--after-seasonal-quotes')?readSeasonalPack():null;
+  const tzidkatPack=args.includes('--after-tzidkat-quotes')?readTzidkatPack():null;
   for(const [f,sha]of Object.entries(report.protectedTextSha256))if(!f.startsWith('dover-tzedek/')){
     let raw=fs.readFileSync(path.join(root,'data',f));
+    if(tzidkatPack && f.startsWith('tzidkat-hatzadik/') && digest(raw)!==sha)
+      raw=tzidkatHistoricalBytes('data/'+f,raw,tzidkatPack);
     if(seasonalPack && digest(raw)!==sha){
       const relative='data/'+f,reviewed=seasonalPack.files.find(file=>file.path===relative);
       assert(reviewed && reviewed.beforeSha256===sha && reviewed.afterSha256===digest(raw),'An earlier text changed: '+f);

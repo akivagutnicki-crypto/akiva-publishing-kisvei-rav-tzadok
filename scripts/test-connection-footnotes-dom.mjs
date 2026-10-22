@@ -4,6 +4,7 @@ import path from 'node:path';
 import assert from 'node:assert/strict';
 import crypto from 'node:crypto';
 import {createRequire} from 'node:module';
+import {publishedNumbering} from './publish-tzidkat-quoted-sources.mjs';
 const require=createRequire(import.meta.url);
 const {JSDOM,VirtualConsole}=process.env.AKIVA_JSDOM_ROOT
   ? createRequire(path.join(process.env.AKIVA_JSDOM_ROOT,'package.json'))('jsdom') : require('jsdom');
@@ -12,7 +13,15 @@ const ideas=require('../dist/library/connected-ideas.js');
 const sources=require('../dist/library/source-connections.js');
 const catalog=JSON.parse(fs.readFileSync(path.join(root,'connected-ideas/catalog.json')));
 const tzidkatSource=JSON.parse(fs.readFileSync('dist/mcp-data/text/tzidkat-hatzadik.json'));
-const tzidkatOriginalMaximum=Math.max(0,...tzidkatSource.paras.flatMap(paragraph=>(paragraph.f||[]).map(note=>Number(note[0])||0)));
+const tzidkatNativeNumbers=new Set(tzidkatSource.paras.flatMap(paragraph=>(paragraph.f||[]).map(note=>Number(note[0])||0)));
+const tzidkatOriginalMaximum=Math.max(0,...tzidkatNativeNumbers);
+const tzidkatPublishedNumbering=publishedNumbering(root);
+const pinnedNumbers=new Set(tzidkatPublishedNumbering?.connectionNotes.map(note=>note.number) || []);
+if(tzidkatPublishedNumbering){
+  const byId=new Map(catalog.records.map(record=>[record.id,record]));
+  for(const pinned of tzidkatPublishedNumbering.connectionNotes)
+    assert.equal(byId.get(pinned.id)?.[pinned.field],pinned.number,'A previously published Tzidkat number changed');
+}
 const tzidkatAdditionalNumbers=[];
 const virtualConsole=new VirtualConsole(),errors=[];
 virtualConsole.on('jsdomError',error=>errors.push(error.message));
@@ -62,7 +71,9 @@ try{
         'The stacked marker is not beside its reviewed Hebrew phrase: '+record.id);
       assert(!baseNumbers.includes(+marker.dataset.fn),'Original Word footnote number was reused');
       if(coverage.book==='Tzidkat HaTzadik'){
-        assert(+marker.dataset.fn>tzidkatOriginalMaximum,'A supplementary note reuses an original number from another siman');
+        assert(!tzidkatNativeNumbers.has(+marker.dataset.fn),'A supplementary note reuses a native number from another siman');
+        assert(pinnedNumbers.has(+marker.dataset.fn) || +marker.dataset.fn>tzidkatOriginalMaximum,
+          'A new supplementary note must follow the native notes');
         assert.equal(+marker.dataset.fn,record.footnoteNumber,'Published book-wide number was lost');
         tzidkatAdditionalNumbers.push(+marker.dataset.fn);
       }
@@ -90,11 +101,16 @@ try{
     assert.equal(section.querySelectorAll('.connection-idea-marker').length,before,'Repeated mounting duplicated notes');
   }
   assert.deepEqual(errors,[],'Reader DOM errors');
-  assert.deepEqual([...tzidkatAdditionalNumbers].sort((a,b)=>a-b),
-    Array.from({length:tzidkatAdditionalNumbers.length},(_,index)=>tzidkatOriginalMaximum+index+1),
-    'Tzidkat supplementary notes must remain unique and continuous across all simanim');
+  assert.equal(new Set(tzidkatAdditionalNumbers).size,tzidkatAdditionalNumbers.length,'A book-wide supplementary number repeats');
+  if(tzidkatPublishedNumbering){
+    for(const number of pinnedNumbers)assert(tzidkatAdditionalNumbers.includes(number),'A previously published supplemental note disappeared');
+  }else{
+    assert.deepEqual([...tzidkatAdditionalNumbers].sort((a,b)=>a-b),
+      Array.from({length:tzidkatAdditionalNumbers.length},(_,index)=>tzidkatOriginalMaximum+index+1),
+      'The initial Tzidkat supplementary sequence must follow the manuscript');
+  }
   assert.equal(total,catalog.coverage.reduce((sum,work)=>sum+work.reviewedSections.reduce((count,ref)=>count+ideas.forSection(catalog.records,ref).length,0),0));
   console.log(JSON.stringify({ok:true,records:catalog.records.length,footnotes:total,sections:catalog.counts.sectionsWithReviewedIdeas,works:catalog.counts.worksWithReviewedIdeas,
     completeEnglishQuotes:true,hebrewMarkersOnly:true,normalFootnoteInteraction:true,originalNumbersPreserved:true,
-    tzidkatBookWideNumbers:{originalMaximum:tzidkatOriginalMaximum,additionalNotes:tzidkatAdditionalNumbers.length}}));
+    tzidkatBookWideNumbers:{originalMaximum:tzidkatOriginalMaximum,additionalNotes:tzidkatAdditionalNumbers.length,preservedPublishedNumbers:pinnedNumbers.size}}));
 }finally{window.close();}

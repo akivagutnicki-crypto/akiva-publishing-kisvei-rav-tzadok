@@ -330,6 +330,14 @@ jobs:
           node --input-type=module -e "import fs from 'node:fs'; import assert from 'node:assert/strict'; assert.equal(JSON.parse(fs.readFileSync('pri-seasonal-quoted-sources-repeat-verification.json')).mode, 'already-applied');"
           node scripts/test-pri-seasonal-quoted-sources.mjs > pri-seasonal-quoted-sources-data-verification.json
 
+      - name: Publish reviewed quotations from all four supplied Tzidkat source editions
+        run: |
+          node scripts/test-tzidkat-publication-guards.mjs
+          node scripts/publish-tzidkat-quoted-sources.mjs > tzidkat-quoted-sources-publication-verification.json
+          node scripts/publish-tzidkat-quoted-sources.mjs > tzidkat-quoted-sources-repeat-verification.json
+          node --input-type=module -e "import fs from 'node:fs'; import assert from 'node:assert/strict'; assert.equal(JSON.parse(fs.readFileSync('tzidkat-quoted-sources-repeat-verification.json')).mode, 'already-applied');"
+          node scripts/test-tzidkat-quoted-sources.mjs > tzidkat-quoted-sources-data-verification.json
+
       - name: Publish the latest two Dover Tzedek KDP Word manuscripts after historical edition checks
         run: |
           node scripts/publish-dover-kdp.mjs
@@ -338,9 +346,10 @@ jobs:
           node scripts/check-dover-source-links.mjs
           node scripts/build-library-zips.mjs
           node scripts/test-dover-kdp.mjs --zips
-          node scripts/test-beit-toldos.mjs --zips --mcp --after-seasonal-quotes
+          node scripts/test-beit-toldos.mjs --zips --mcp --after-seasonal-quotes --after-tzidkat-quotes
           node scripts/test-pri-shabbos-quoted-sources.mjs --zips --mcp > pri-shabbos-quoted-sources-final-verification.json
           node scripts/test-pri-seasonal-quoted-sources.mjs --zips --mcp > pri-seasonal-quoted-sources-final-verification.json
+          node scripts/test-tzidkat-quoted-sources.mjs --zips --mcp > tzidkat-quoted-sources-final-verification.json
 
       - name: Build and verify reviewed connections against the final canonical source edition
         run: |
@@ -382,6 +391,11 @@ jobs:
 
       - name: Verify seasonal quotations, Hebrew markers and print links on desktop and mobile
         run: node scripts/test-pri-seasonal-quoted-sources-browser.mjs
+
+      - name: Verify Tzidkat quotations and preserved supplemental numbering on desktop and mobile
+        run: |
+          node scripts/test-tzidkat-quoted-sources.mjs --zips --mcp --connections > tzidkat-quoted-sources-connections-verification.json
+          node scripts/test-tzidkat-quoted-sources-browser.mjs
 
       - name: Cache official Sefaria source exports
         uses: actions/cache@v4
@@ -445,6 +459,11 @@ jobs:
         run: |
           node scripts/test-pri-seasonal-quoted-sources.mjs --zips --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/' > pri-seasonal-quoted-sources-live-verification.json
           node scripts/test-pri-seasonal-quoted-sources-browser.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'
+
+      - name: Verify Tzidkat quotations and source footnote popups on the published reader
+        run: |
+          node scripts/test-tzidkat-quoted-sources.mjs --zips --connections --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/' > tzidkat-quoted-sources-live-verification.json
+          node scripts/test-tzidkat-quoted-sources-browser.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'
 
       - name: Verify Chanukah 25 and all three source entry points on the published reader
         run: |
@@ -552,6 +571,17 @@ jobs:
             pri-seasonal-print-verification.json
             artifacts/pri-seasonal-quoted-sources/
             editorial/pri-seasonal-print-verification-20261021.json
+
+      - name: Save Tzidkat source quotation publication and desktop and mobile verification
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tzidkat-quoted-sources-verification
+          path: |
+            dist/library/tzidkat-quoted-sources-publication.json
+            tzidkat-quoted-sources-*-verification.json
+            artifacts/tzidkat-quoted-sources/
+            editorial/tzidkat-pdf-quotations-20261022.json
 
       - name: Save the supplied source-quotation publication and complete verification evidence
         if: always()

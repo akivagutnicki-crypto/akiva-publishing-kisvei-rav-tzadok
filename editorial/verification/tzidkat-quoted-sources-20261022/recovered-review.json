@@ -1,0 +1,31 @@
+{
+  "scope": "Recovered quotation batch before the final Siman 15 inline locator correction",
+  "release": "20261022-tzidkat-pdf-quotations-v1",
+  "prepared": true,
+  "publiclyVerified": false,
+  "quotations": 103,
+  "additions": 100,
+  "replacements": 3,
+  "affectedSimanim": 99,
+  "reviewedAvailableSimanim": 263,
+  "missingSimanim": [
+    74
+  ],
+  "desktopMobileCheck": {
+    "ok": true,
+    "sections": 198,
+    "notesOpened": 206,
+    "widths": [
+      390,
+      1280
+    ],
+    "errors": []
+  },
+  "recoveredAcceptedSha256": "39426c095bb4e4c5f515abe9ea1bc5abeacce8f41fd8578b497985fa991c8835",
+  "editorialReview": "Every accepted candidate agrees with the compiled quotation, exact Hebrew anchor, source reference and PDF evidence. All 264 simanim are represented exactly once in the combined audit; 74 is an existing missing-source placeholder. Replacements preserve notes46,202,246. The original103 quotations passed the prior independent source/translation/duplicate review. Repeated paragraph refs Resisei Layla43:1 and17:1 quote nonoverlapping passages.",
+  "correctedPeerReviewWording": {
+    "siman136": "In truth, every person has both merit and guilt.",
+    "siman195": "At first there must be fear and love."
+  },
+  "currentRecoveryReview": "No material quotation discrepancy found. An inherited inline Mishnah Peah3:8 target adjacent to corrected Tosefta note46 was identified for an explicit reviewed locator correction before publication."
+}
