@@ -12,7 +12,8 @@ permissions:
   id-token: write
 
 concurrency:
-  group: "pages"
+  # Skipped workflows must not displace a pending publisher in the shared queue.
+  group: ${{ (github.repository == 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok' && github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[divrei-media-release]'))) && 'pages' || format('pages-skipped-{0}', github.run_id) }}
   cancel-in-progress: false
 
 jobs:
