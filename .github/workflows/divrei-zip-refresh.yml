@@ -1,0 +1,93 @@
+name: Refresh the Divrei Soferim download ZIP
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: ${{ (github.repository == 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok' && github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[divrei-zip-refresh]'))) && 'pages' || format('divrei-zip-skipped-{0}', github.run_id) }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: ${{ github.repository == 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok' && github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[divrei-zip-refresh]')) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout the narrow download refresh
+        uses: actions/checkout@v6
+
+      - name: Identify the actual current complete publication
+        id: baseline
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/refresh-divrei-zip.py metadata
+
+      - name: Download the current Pages publication
+        uses: actions/download-artifact@v4
+        with:
+          artifact-ids: ${{ steps.baseline.outputs.artifact }}
+          run-id: ${{ steps.baseline.outputs.run }}
+          repository: akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/divrei-zip-baseline
+          merge-multiple: true
+
+      - name: Restore and capture every original published file
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/refresh-divrei-zip.py restore "$RUNNER_TEMP/divrei-zip-baseline/artifact.tar"
+
+      - name: Refresh the existing Divrei ZIP and verify preservation
+        run: |
+          python3 scripts/refresh-divrei-zip.py apply
+          python3 scripts/refresh-divrei-zip.py verify
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Recheck main and current publication before upload
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/refresh-divrei-zip.py guard
+
+      - name: Upload the complete preserved site
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: .divrei-zip-site
+          retention-days: 14
+
+      - name: Recheck main and current publication before publishing
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/refresh-divrei-zip.py guard
+
+      - name: Publish the refreshed Divrei Soferim ZIP
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Verify exact public ZIP and index bytes
+        run: python3 scripts/refresh-divrei-zip.py published
+
+      - name: Save source artifact and preservation evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: divrei-zip-refresh-verification
+          retention-days: 90
+          if-no-files-found: warn
+          path: |
+            divrei-zip-publication.json
+            divrei-zip-baseline.json
+            divrei-zip-verification.json
+            divrei-zip-live-verification.json
