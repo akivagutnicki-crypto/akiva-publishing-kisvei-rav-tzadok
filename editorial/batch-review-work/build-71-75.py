@@ -1,0 +1,149 @@
+import json,re,html,hashlib
+from pathlib import Path
+W=Path(__file__).parent
+B=Path('/tmp/tzidkat-current-batch2/mcp-data/text')
+D=json.loads((W/'primary-71-75.json').read_text())
+R=json.loads((W/'rashi-71-75.json').read_text())
+def plain(t):
+    if isinstance(t,list):t=' '.join(plain(x) for x in t)
+    return ' '.join(html.unescape(re.sub('<[^>]*>','',t)).replace('\u200e','').replace('\u200f','').split())
+def bare(t):return re.sub('[\u0591-\u05c7]','',plain(t))
+def src(ref,*inds):
+    t=D[ref]['data']['he']
+    for i in inds:t=t[i-1]
+    return bare(t)
+def local(book,ref,lo=0,hi=None):
+    r=next(r for r in json.loads((B/f'{book}.json').read_text())['paras'] if r['r']==ref)
+    return plain([x[0] for x in r['p'][lo:hi]]) if 'p' in r else plain(r['t'])
+def cut(t,a,b=None):
+    i=t.index(a)
+    return t[i:] if b is None else t[i:t.index(b,i)+len(b)]
+P={71:([198,199,200,201],[238,239,240]),72:([201,202,203],[240,241,242]),73:([203,204,205,206,207],[242,243,244]),74:([],[]),75:([207,208,209,210],[245,246,247])}
+E=[]
+def add(s,id,pi,ref,he,en,ctx,book=None,url=None,anchorEnd=None):
+    rows=json.loads((W.parent/'live-baseline'/f'{s-1}.json').read_text());r=next(r for r in rows if r.get('n')==1)
+    prefix=plain(r['p'][pi][0]);prefix=prefix if anchorEnd is None else prefix[:prefix.index(anchorEnd)+len(anchorEnd)]
+    url=url or ('#/read/'+ref.replace(' ','_') if book else 'https://www.sefaria.org/'+ref.replace(' ','_'))
+    ev={'ref':ref,'url':url,'he':plain(he),'en':en,'heSha256':hashlib.sha256(plain(he).encode()).hexdigest(),'translation':'Original English translation prepared directly from the original Hebrew or Aramaic source.','coverage':'Complete selected source unit with all qualifications necessary to its meaning.'}
+    if book:ev.update(canonicalReaderRef=ref,canonicalSourceFile=f'mcp-data/text/{book}.json')
+    e={'section':s,'id':id,'rowN':1,'phraseIndex':pi,'heAnchorPrefix':prefix,'heCharOffset':len(prefix),'ref':ref,'url':url,'he':plain(he),'en':en,'context':ctx,'sourceEvidence':[ev],'reviewEvidence':{'pdfPages':{'neimosA':P[s][0],'integratedA':P[s][1]},'preserveExisting':True,'status':'verified','dedup':'All destination native and connected quotations compared; no existing complete source passage is replaced or duplicated.','method':'Both supplied editions reviewed; original sources read in context; exact canonical Hebrew prefix checked.'}}
+    if book:e['readerRef']=ref
+    else:e['openExternal']=True
+    E.append(e)
+
+add(71,'kiddushin-heaven-and-people',2,'Kiddushin 40a:8-9',src('Kiddushin 40a',8)+' '+src('Kiddushin 40a',9),
+    'Rava said: Rav Idi explained to me: “Say of the righteous that he is good, for they shall eat the fruit of their deeds.” Is there a righteous person who is good and one who is not good? Rather, one who is good toward Heaven and toward people is a good righteous person; one who is good toward Heaven but bad toward people is a righteous person who is not good. Similarly: “Woe to the wicked who is bad, for the recompense of his hands shall be done to him.” Is there a wicked person who is bad and one who is not bad? Rather, one who is bad toward Heaven and toward people is a bad wicked person; one who is bad toward Heaven but is not bad toward people is a wicked person who is not bad.',
+    'This is the Talmudic distinction between conduct toward Heaven and conduct toward other people. Rav Tzadok applies that distinction here, then expressly limits personal judgment by noting Elisha’s punishment and the danger of self-interest.',anchorEnd='אֲבָל רַע לַבְּרִיּוֹת')
+add(71,'radak-background-of-psalm109',4,'Radak on Psalms 109:1',src('Radak on Psalms 109:1'),
+    '“For the conductor.” David composed this psalm while fleeing from Shaul, when many Israelites were speaking about him to Shaul. He said, “God of my praise, do not be silent”: that is, I glory in You, unlike those people who glory in their own understanding. I call to You not to remain silent at what the wicked are doing to me.',
+    'Radak places the psalm in the setting of David’s flight from Shaul and the reports being made against him. This explains the personal harm referred to in the Hebrew sentence.')
+add(71,'sotah-elishas-vision-of-descendants',8,'Sotah 46b:23',cut(src('Sotah 46b',23),'ורבי יוחנן'),
+    'Rabbi Yochanan said: He saw that there was no moisture of a mitzvah in them. But perhaps there would be some in their offspring? Rabbi Elazar said: Neither in them nor in their offspring, to the end of all generations.',
+    'The Gemara describes a perception extending even to future descendants. This supplies the source for Rav Tzadok’s warning that an ordinary person, whose judgment may be distorted by self-interest, cannot assume Elisha’s authority.')
+add(71,'sefer-hasidim-do-not-curse',9,'Sefer Chasidim 483',src('Sefer Chasidim 483'),
+    'The Sages taught: Elisha suffered three illnesses: one because he pushed Gehazi away with both hands, one because he incited bears against the children, and one from which he died. If this happened to Elisha, who knew that they were wicked and that no righteous person would come from them, all the more so should another person not curse people.',
+    'Sefer Chasidim draws the explicit practical inference from Elisha’s punishment. The illness passages are already quoted in the existing notes; this passage adds the conclusion concerning other people.')
+add(71,'jerusalem-talmud-davids-inclination',10,'Jerusalem Talmud Berakhot 9:5:8',cut(src('Jerusalem Talmud Berakhot 9:5',8),'אבל דוד'),
+    'But David could not withstand it, and he killed it within his heart. What is the scriptural basis? “My heart is empty within me.”',
+    'The preceding sentence describes Avraham as transforming the evil inclination into good. This sentence gives the contrasting description of David, explaining the reading of “my heart is empty within me” used here.')
+add(71,'rashi-gilead-ultimate-merit',12,'Rashi on Sanhedrin 104b:15:2',src('Rashi on Sanhedrin 104b:15',2),
+    '“Gilead is Mine and Manasseh is Mine”—It is for Me to bear their iniquity so that they may merit.',
+    'Rashi explains the divine assurance underlying the interpretation of the psalm. This adds the meaning of the words to the Talmudic passage already quoted in the existing note.')
+
+r=bare(R['Rashi on Megillah 14a']['versions'][0]['text'][10][0]);r=r[:r.index('ובהלכות')].strip()
+add(72,'rashi-prophecy-needed-for-generations',4,'Rashi on Megillah 14a:11:1',r,
+    '“Prophecy needed for the generations”—to learn repentance or instruction; all of those forty-eight were needed.',
+    'Rashi specifies what makes a prophecy necessary for later generations: its teaching of repentance or instruction. This supports the ois’s inference that the recorded miracles continue to teach.')
+add(72,'midrash-elijahs-altar-and-jacob',7,'Midrash Aggadah, Deuteronomy 12:13',cut(src('Midrash Aggadah, Deuteronomy 12:13'),'השמר','ואני מקבלו'),
+    '“Take care lest you offer your burnt offerings.” You are not permitted to do so after it [the Temple] has been built. But one can build an altar as Elijah did on Mount Carmel. From where did Elijah learn to do this on Mount Carmel? From what the Holy One, blessed be He, said to Yaakov: “A nation and an assembly of nations shall come from you.” A descendant of Binyamin would arise who would act before an assembly of nations: he would build an altar during the prohibition of private altars, and I would accept it.',
+    'The Midrash traces Elijah’s exceptional act on Mount Carmel to the words spoken to Yaakov. It begins with the prohibition of private altars; the passage concerns the particular prophetic act, rather than a general permission.')
+add(72,'aggadat-bereshit-elishas-double-miracles',9,'Aggadat Bereshit 70:3',cut(src('Aggadat Bereshit 70',3),'אף אלישע'),
+    'Elisha too was a great man. You find that all the miracles Elijah performed, Elisha performed twice over, as it is stated: “Let there be a double portion of your spirit upon me.” Yet a time came when he knew nothing. When was this? When he saw the Shunammite woman coming to him, he said to Gehazi, “Run now to meet her,” and he did not know that the child had died. In the end he understood and said to Gehazi, “Let her be, for her soul is bitter, and Hashem has hidden it from me and has not told me.” You have learned that everything comes from the Holy One, blessed be He: if He wishes, people see; if He wishes, they hear. As it is written, “The hearing ear and the seeing eye—Hashem made them both.” Therefore it says, “Who commands the sun, and it does not shine.”',
+    'The Midrash explicitly states that Elisha’s miracles were doubled. It also retains the essential qualification that prophetic knowledge and power depend entirely on God; Elisha was not independently all-knowing.')
+ref='Likkutei Maamarim, Compositions on the Festivals 11:8'
+add(72,'likkutei-two-kinds-of-life',10,ref,local('likkutei-maamarim',ref,0,14),
+    'The first is the vitality clothed in the body, to which death applies when the body dies. These lives have a limit in the measure of one’s days: throughout one’s life, one has this vitality of the soul flowing into the body. This is the life of this world, in which there is the effort of mitzvot and good deeds. There is also the soul’s eternal vitality in itself, apart from its clothing in the body. In itself it lacks nothing that would require the service of prayer; rather, the voice of Torah is “eternal life that He planted within us,” which is the occupation of the righteous in this world. The World to Come was created with the letter yod, the essence of wisdom, as is known; this world with the letter heh, the lower heh that alludes to prayer. The principal thing is certainly Torah, as it is said: “They leave eternal life and occupy themselves with temporal life!” Nevertheless, the view stated there that words of Torah have their own time and words of prayer their own time is also true. For “the beginning of wisdom is fear of Hashem,” and “if fear of Hashem is his treasure—yes.” The effort of temporal life prepares one to merit eternal life, as it is said: “Prepare yourself in the antechamber,” and “One who did not toil before Shabbat,” and so forth.',
+    'Rav Tzadok explains the terms “eternal life” and “temporal life,” while affirming the need for both Torah and prayer. The closing qualification makes prayer and fear of Heaven a preparation for Torah’s eternal life.',book='likkutei-maamarim')
+E[-1]['sourceEvidence'][0]['translationNote']='The canonical reader prints an expanded abbreviation followed by [עצם] at the yod/wisdom phrase; the English follows the bracketed reading “essence.”'
+ref='Likkutei Maamarim, Compositions on the Festivals 11:9'
+add(72,'likkutei-prayer-tastes-eternal-life',9,ref,local('likkutei-maamarim',ref,2,18),
+    'Shabbat corresponds to David the king, peace be upon him, as is known, and it is the level of prayer, called “temporal life,” for it is only for a time. Nevertheless it is life: the holiness of Shabbat is a temporary taste of eternal life. This taste of eternal life within the body in this world comes through prayer, the service of the heart. One draws eternal life into temporal life, so that even its moment is called vitality. They said: “One hour of repentance and good deeds in this world is better than all the life of the World to Come.” This life of one hour of repentance and good deeds is David’s level, for he established the yoke of repentance, as our Sages said in Avodah Zarah. This is the aspect of the feminine, which is lacking: “Three things are never satisfied.” It has no satiety or contentment; its contentment and pleasure lie in longing—“your longing shall be for your husband”—in seeking completion. This is David’s level, as he said, “Seek His face always,” and many similar verses: one continually seeks and searches, for one never attains the satiety of finding. Rather, “Let the heart of those who seek Hashem rejoice”: there is joy in the seeking itself, and it is better for him than all the life of the World to Come. Then there will no longer be room for effort and petition, for “today is for performing them and tomorrow for receiving their reward.” That is the hour of contentment which is better than all the life of this world: one will have contentment and rest in exchange for having given pleasure to God in this world. This is through Torah, which “restores the soul”; its study contains pleasure and contentment. Therefore it is actual eternal life, for it is itself the vitality of the World to Come.',
+    'This parallel explains prayer’s distinctive power without reversing the ois’s concluding priority of Torah. It describes the value of present longing and effort alongside the lasting contentment associated with Torah.',book='likkutei-maamarim')
+add(72,'rashi-temporal-needs-in-prayer',10,'Rashi on Shabbat 10a:3:1',bare(R['Rashi on Shabbat 10a']['versions'][0]['text'][2][0]),
+    '“Eternal life”—Torah. Prayer concerns the needs of temporal life: healing, peace, and sustenance.',
+    'Rashi gives concrete examples of “temporal life.” The existing Gemara quotation also preserves Rav Hamnuna’s view that prayer and Torah each have their proper time.')
+
+add(73,'sefer-hasidim-do-not-seek-temptation',1,'Sefer Chasidim 167',cut(src('Sefer Chasidim 167'),'אל יאמר הרי','ולא אמרו שיביא אדם עצמו לידי עון.'),
+    'One should not say: Rav Yehuda said, “With the same woman, in the same place, at the same stage”; I will fulfill this. For perhaps the woman will wish to join him, and he will incur sin. They did not say that a person should bring himself into a situation of transgression.',
+    'The source explicitly rejects deliberately recreating a temptation. This matches Rav Tzadok’s qualification that the encounter he describes is arranged by providence; the person does not arrange a forbidden situation.')
+ref='Divrei Soferim 19:1'
+add(73,'divrei-soferim-gehazis-original-potential',7,ref,local('divrei-soferim',ref,8,9),
+    'Gehazi too, whom Elisha chose to serve him and sent to revive the dead—presumably this was not without reason. He recognized that Gehazi was prepared for this, more than all his other disciples, the prophets of that generation.',
+    'Rav Tzadok explains the great spiritual potential underlying Gehazi’s appointment. The opening of the same passage states that the person’s choice remains in his own hands; potential does not remove responsibility for wrongdoing.',book='divrei-soferim')
+ref='Peri Tzadik, Metzora 7:1';t=local('peri-tzadik',ref)
+add(73,'peri-tzadik-salvation-through-gehazi',9,ref,cut(t,'ומפטירין וארבע מצורעים'),
+    'We read as the haftarah, “Four men were lepers.” The Gemara says that these were Gehazi and his three sons. Since it is written, “Upon you and your offspring forever,” this implies that his offspring were never healed. Nevertheless, this great salvation came about through them, and merit is brought about only through one who is meritorious. This proves that at their root they have a remedy, as the interpreters of scriptural hints said about all six who descend from Yaakov: they have a share in the World to Come. For everyone descended from Yaakov is bound at the root to the blessed God: “Your people are all righteous.”',
+    'The parallel draws its conclusion from the salvation brought about through Gehazi and his sons. It distinguishes the lasting appearance of their affliction from the possibility of repair at the spiritual root.',book='peri-tzadik')
+add(73,'sanhedrin-elishas-attempt-to-reconcile',12,'Sanhedrin 107b:5',src('Sanhedrin 107b',5),
+    'Gehazi—as it is written, “Elisha went to Damascus.” Where did he go? Rabbi Yochanan said: He went to bring Gehazi back in repentance, but he did not return. He said to him, “Return.” He answered him: “This is what I received from you: One who sins and causes the many to sin is not given the opportunity to repent.”',
+    'The Gemara records both Elisha’s effort to draw Gehazi back and Gehazi’s refusal. Rav Tzadok expressly acknowledges that refusal later in the ois; it remains part of the source quotation.')
+add(73,'middot-prayer-for-reconciliation',13,'Mishnah Middot 2:2',src('Mishnah Middot 2:2'),
+    'All who enter the Temple Mount enter by the right, go around, and leave by the left, except someone to whom something has happened, who goes around by the left. “Why do you go around by the left?” “Because I am a mourner.” “May He who dwells in this House comfort you.” “Because I am under a ban.” “May He who dwells in this House put it into their hearts to draw you near”—these are Rabbi Meir’s words. Rabbi Yosei said to him: You make it appear as though they treated him unjustly. Rather: “May He who dwells in this House put it into your heart to heed your colleagues’ words, and may they draw you near.”',
+    'The phrase quoted in the ois is Rabbi Meir’s formulation. The Mishnah also records Rabbi Yosei’s qualification, which makes the person’s own response part of reconciliation.')
+add(73,'mishnah-gehazi-among-four-commoners',15,'Mishnah Sanhedrin 10:2',src('Mishnah Sanhedrin 10:2'),
+    'Three kings and four commoners have no share in the World to Come. The three kings are Yerovam, Achav, and Menashe. Rabbi Yehuda says: Menashe has a share in the World to Come, as it is stated, “He prayed to Him, and He was entreated by him and heard his supplication, and restored him to Jerusalem to his kingdom.” They said to him: He restored him to his kingdom, but did not restore him to the life of the World to Come. The four commoners are Bilam, Doeg, Achitofel, and Gehazi.',
+    'This is the Mishnah’s list that Rav Tzadok acknowledges. Its dispute concerns Menashe; Gehazi appears in the list of four commoners. The following source gives the interpretation invoked at the end of the ois.',anchorEnd='שֶׁאֵין לָהֶם חֵלֶק לָעוֹלָם הַבָּא')
+h105=bare(json.loads((W/'sanhedrin-105a-1.json').read_text())['versions'][0]['text'])
+add(73,'sanhedrin-scriptural-hints-include-gehazi',16,'Sanhedrin 104b:15-105a:1',src('Sanhedrin 104b:15')+' '+h105,
+    'The interpreters of scriptural hints used to say: All of them come to the World to Come, as it is stated: “Gilead is Mine, and Manasseh is Mine; Ephraim is the strength of My head; Judah is My lawgiver. Moab is My washbasin; upon Edom I cast My shoe; over Philistia, shout in triumph.” “Gilead is Mine” is Achav, who fell at Ramot Gilead. “Manasseh” is literal. “Ephraim is the strength of My head” is Yerovam, who came from Ephraim. “Judah is My lawgiver” is Achitofel, who came from Judah. “Moab is My washbasin” is Gehazi, who was afflicted over the matter of washing. “Upon Edom I cast My shoe” is Doeg the Edomite. “Over Philistia, shout in triumph”—the ministering angels said before the Holy One, blessed be He: Master of the universe, if David comes, who killed the Philistine and caused Your children to inherit Gat, what will You do for him? He said to them: It is for Me to make them friends with one another.',
+    'The original discussion continues across the page boundary into 105a, where Gehazi is named explicitly. The final exchange also explains the reconciliation with David alluded to in the parallel passages.')
+ref='Tzidkat HaTzadik 263:1'
+add(73,'tzidkat-scriptural-hints-and-souls-root',16,ref,local('tzidkat-hatzadik',ref,163,171),
+    'The meaning of “hints” is the imprint of the soul itself, revealed through the power of the agent within the action. Its interpreters are those who grasp the revelation and uncovering of the secret of Hashem within it. Through the revelation of the depth of the Israelite soul’s root and its attachment to the living God, they understand that it has no complete severance at the final end, when all the garments of choice, which are all garments of this world, fall away. From the essence of the soul as a portion of God above, each individual soul of Israel is wholly bound to the blessed God. This also brings atonement for the cutting off of the root, God forbid.',
+    'This is Rav Tzadok’s explanation elsewhere of “interpreters of hints.” He distinguishes conduct and its consequences in this world from the final revelation of the soul’s underlying root.',book='tzidkat-hatzadik')
+
+ref='Resisei Layla 10:2'
+add(75,'resisei-sin-as-surrounding-thorns',0,ref,local('resisei-layla',ref,51,59),
+    'As they said in Sanhedrin: “It is like a myrtle standing among reeds; it is still called a myrtle,” and so forth. They compared the sins surrounding a person to thorns surrounding a rose. They do not come from the person’s essence, but surround and encompass him on the side of his outward extension. From the essence of the Israelite soul, however, there is no sin at all. Differences in the levels of attachment are differences in the souls themselves, for in the upright arrangement there are degrees among souls.',
+    'Rav Tzadok explains “incidental” through the image of thorns surrounding a plant. The selected passage distinguishes the soul’s essence from its outward conduct and also preserves the qualification that levels of attachment differ.',book='resisei-layla')
+add(75,'bereshit-rabbah-goat-and-innocent-one',9,'Bereshit Rabbah 65:15',cut(src('Bereshit Rabbah 65',15),'אלא (ויקרא טז, כב): ונשא','ויעקב איש תם.'),
+    'Rather, “The goat shall bear upon itself”—this is Esav, as it is stated, “Esav my brother is a hairy man.” “All their iniquities”—the iniquities of the innocent one, as it is stated, “Yaakov was an innocent man.”',
+    'Rabbi Yitzchak’s interpretation links se’ir, the goat, with se’ar, hair, and reads avonotam as “the iniquities of the tam.” This is the Midrashic source behind the ois’s allusion to Esav.')
+maharam_url='https://wiki.jewishbooks.org.il/mediawiki/index.php?mobileaction=toggle_view_mobile&title=%D7%A9%D7%95%22%D7%AA_%D7%9E%D7%94%D7%A8%22%D7%9D_%D7%90%D7%9C%D7%A9%D7%A7%D7%A8/%D7%A7%D7%90'
+maharam='אבל ודאי מי שנותן שכר למלמד ללמד מה שהם צריכין ומלמדן יש לו שכר גדול בכך והמלמד עצמו פעמים יש לו שכר פעמים אין לו שכר וכן מי שמאכיל עני או חכם לברכו יש לו שכר על כך ויש לו הנאה בכך כברכת אותו עני או אותו חכם: וכן המסעד מקיימי מצות כדי שיוכלו לקיים יש לו שכר על כך ולהם וביותר מי שעוזר עסוקין בתורה ובמצות להפנות לבותם לעסוק בה יש לו שכר והשכ\' שיש לו על פעלתו הוא: ומי שמשיא עצמו לקנות שכר חברו בדמים או במתנה לבוז הוא ולעג וכל הון יקר וחמודות אין אדם קונה בו שכר חברו וכן כתוב אם יתן איש כל הון ביתו באהבה בוז יבוזו לו ואמרו חכמים מאי בוז יבוזו לו אמר עולא לא כשמעון אחי עזריה ולא כיוחנן דבי נשיאה אלא כהלל ושבנא דכי אתא רב דימי אמר הלל ושבנא אחי הוו מר עבד פרקמטיא ומר עסק בתורה אמר ליה פלוג דאיפלוג יצאת בת קול ואמרה אם יתן איש את כל הון ביתו באהבה בוז יבוזו לו עכ"ל:'
+add(75,'rav-hai-earned-reward-and-support',13,'Rav Hai Gaon, quoted in Responsa Maharam Alashkar 101',maharam,
+    'Certainly, one who pays a teacher to teach what they need, and the teacher teaches them, receives great reward for this. The teacher himself sometimes receives reward and sometimes does not. Likewise, one who feeds a poor person or a sage so that he will bless him receives reward for this and benefits through that poor person’s or sage’s blessing. One who supports people fulfilling mitzvot so that they can fulfill them receives reward for this, as do they. Especially one who helps those occupied with Torah and mitzvot to free their hearts to engage in them receives reward; the reward he receives is for his own action. But one who persuades himself that he can acquire his fellow’s reward with money or as a gift deserves scorn and ridicule. No precious wealth or treasures enable a person to acquire his fellow’s reward. Thus it is written: “If a man gave all the wealth of his house for love, they would utterly scorn him.” The Sages asked: What is meant by “they would utterly scorn him”? Ulla said: Not like Shimon, the brother of Azaryah, nor like Rabbi Yochanan of the house of the Nasi, but like Hillel and Shevna. For when Rav Dimi came, he said: Hillel and Shevna were brothers. One engaged in business and the other in Torah. He said to him, “Share with me and I will share with you.” A heavenly voice went forth and said: “If a man gave all the wealth of his house for love, they would utterly scorn him.”',
+    'Maharam Alashkar quotes Rav Hai’s response to the proposed transfer or sale of another person’s religious reward. The passage distinguishes that attempted purchase from the reward a person earns through actually enabling Torah study and mitzvot; both sides of the distinction are retained.',url=maharam_url)
+E[-1]['sourceEvidence'][0].update(webRef='turn58view0',sourceLocation='Full final paragraph of the quoted responsum, through עכ"ל; the following sentence is Maharam Alashkar’s conclusion.',supportingPrimaryUrl=maharam_url)
+add(75,'rashi-firstborn-and-sacrificial-service',14,'Rashi on Genesis 25:31:2',src('Rashi on Genesis 25:31',2),
+    '“Your birthright”—Because the sacrificial service belonged to the firstborn, Yaakov said: This wicked person is not fit to offer sacrifices to the Holy One, blessed be He.',
+    'Rashi supplies the connection between the birthright and offering sacrifices that the Hebrew assumes.',anchorEnd='לְהַקְרִיב קָרְבָּנוֹת')
+ref='Yisrael Kedoshim 7:11'
+add(75,'yisrael-jacobs-hidden-firstborn-status',15,ref,local('yisrael-kedoshim',ref,22,25),
+    'Yaakov was the firstborn in formation, that is, from the side of the truth concealed in this world. But from the manifestation in this world at birth, Esav was the firstborn to outward appearance. For the service is in action and the power of activity, and Esav is the root of the power of deeds.',
+    'This parallel states the distinction between the concealed order of formation and the visible order of birth. It explains the ois’s phrase “firstborn in appearance.”',book='yisrael-kedoshim')
+ref='Yisrael Kedoshim 7:1'
+add(75,'yisrael-birthright-preparation-for-holiness',16,ref,local('yisrael-kedoshim',ref,30,37),
+    'He [Yitzchak] considered him [Esav] a vessel prepared for holiness, since he had been formed as a firstborn. Although the firstborn had not yet been sanctified, the forefathers fulfilled the whole Torah and he knew that the firstborn would be sanctified in the future. In truth, however, Yaakov took the birthright and the blessings from him, for everything truly belonged to Yaakov. The birthright came first, even though holiness follows blessing, because the birthright at that time was not holiness itself but a preparation for holiness. He had to take all this from Esav indirectly, because from the appearance of this world everything initially seemed to belong to Esav. For this is the order of the world: first darkness and then light, as they said at the beginning of Berakhot.',
+    'Rav Tzadok distinguishes a preparation for holiness from holiness already acquired in one’s essence. This explains how the earlier transfer of the birthright fits the ois’s argument about what can and cannot be sold.',book='yisrael-kedoshim')
+ref='Resisei Layla 57:2'
+add(75,'resisei-exile-and-holy-sparks',26,ref,local('resisei-layla',ref,57,63),
+    'All their association with the nations, in its deepest truth, is only to absorb holy sparks from them. As the Sages said: Israel went into exile only so that converts would be added to them. This does not mean only actual converts, but the additional absorption of the nations’ powers, returning them little by little to holiness, until the final time when everything returns to holiness. Although this is not yet revealed outwardly, in the inward heart this light is revealed and shines clearly, and nevertheless accomplishes its work.',
+    'This parallel explains the closing phrase about Israel’s gathering of good during exile. It explicitly extends “converts” beyond literal conversion and distinguishes hidden spiritual work from what is presently visible.',book='resisei-layla')
+
+assert len(E)==27
+for e in E:
+    assert e['he'] and e['en'] and e['sourceEvidence'][0]['he']==e['he']
+    if e.get('readerRef'):
+        slug=e['sourceEvidence'][0]['canonicalSourceFile'].split('/')[-1][:-5]
+        assert bare(e['he']) in bare(local(slug,e['readerRef'])),e['id']
+coverage=[{'section':s,'status':'absent-preserved' if s==74 else 'reviewed-additions','pdfPages':{'neimosA':P[s][0],'integratedA':P[s][1]},'additions':[e['id'] for e in E if e['section']==s],'existingNotes':'All native and connected quotations preserved. No new note added to absent ois74.'} for s in range(71,76)]
+out={'schemaVersion':1,'reviewedSections':list(range(71,76)),'entries':E,'coverage':coverage,'omissions':[
+    {'section':71,'reason':'Existing Berakhot10a, Sotah47a, Sanhedrin107b, Avodah Zarah4b, Psalms, and Megillah13b quotations retained rather than duplicated.'},
+    {'section':72,'reason':'Existing Megillah14a/27a and Shabbat10a quotations retained; new notes supply Rashi and distinct original explanatory passages.'},
+    {'section':73,'reason':'Existing Shaarei Teshuvah1:49 already quotes both the full test and the case where the opportunity does not recur; Yoma wording within it is not duplicated. Sanhedrin25a and Gehazi’s camp/properties passages remain unchanged.'},
+    {'section':74,'reason':'Absent in the supplied text; exact placeholder preserved.'},
+    {'section':75,'reason':'Biblical and Yevamot quotations already present are retained. Yisrael Kedoshim7:20 substantially overlaps the selected explicit birthright explanations and is not repeated. Shir HaShirim Rabbah8:7:1 is not attributed the broader paraphrase in a secondary note; Rav Hai’s actual responsum supplies the precise reward-transfer distinction.'}
+]}
+(W/'ois-71-75.json').write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n')
+print(json.dumps({'notes':len(E),'counts':{s:sum(e['section']==s for e in E) for s in range(71,76)}},indent=2))
