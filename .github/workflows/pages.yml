@@ -12,12 +12,12 @@ permissions:
 
 concurrency:
   # Skipped workflows must not displace a pending publisher in the shared queue.
-  group: ${{ (github.event_name != 'push' || (!contains(github.event.head_commit.message, '[divrei-source-release]') && !contains(github.event.head_commit.message, '[divrei-media-release]') && !contains(github.event.head_commit.message, '[reader-ui-release]') && !contains(github.event.head_commit.message, '[share-release]') && !contains(github.event.head_commit.message, '[mei-volume-ii-release]') && !contains(github.event.head_commit.message, '[mei-likutei-release]') && !contains(github.event.head_commit.message, '[tzidkat-accuracy-release]') && !contains(github.event.head_commit.message, '[tzidkat-source-attribution]') && !contains(github.event.head_commit.message, '[tzidkat-accuracy-rebuild-integration]'))) && 'pages' || format('pages-skipped-{0}', github.run_id) }}
+  group: ${{ (github.event_name != 'push' || (!contains(github.event.head_commit.message, '[divrei-source-release]') && !contains(github.event.head_commit.message, '[divrei-media-release]') && !contains(github.event.head_commit.message, '[reader-ui-release]') && !contains(github.event.head_commit.message, '[share-release]') && !contains(github.event.head_commit.message, '[mei-volume-ii-release]') && !contains(github.event.head_commit.message, '[mei-likutei-release]') && !contains(github.event.head_commit.message, '[tzidkat-accuracy-release]') && !contains(github.event.head_commit.message, '[tzidkat-source-attribution]') && !contains(github.event.head_commit.message, '[tzidkat-accuracy-rebuild-integration]') && !contains(github.event.head_commit.message, '[new-books-release]'))) && 'pages' || format('pages-skipped-{0}', github.run_id) }}
   cancel-in-progress: false
 
 jobs:
   deploy:
-    if: ${{ github.event_name != 'push' || (!contains(github.event.head_commit.message, '[divrei-source-release]') && !contains(github.event.head_commit.message, '[divrei-media-release]') && !contains(github.event.head_commit.message, '[reader-ui-release]') && !contains(github.event.head_commit.message, '[share-release]') && !contains(github.event.head_commit.message, '[mei-volume-ii-release]') && !contains(github.event.head_commit.message, '[mei-likutei-release]') && !contains(github.event.head_commit.message, '[tzidkat-accuracy-release]') && !contains(github.event.head_commit.message, '[tzidkat-source-attribution]') && !contains(github.event.head_commit.message, '[tzidkat-accuracy-rebuild-integration]')) }}
+    if: ${{ github.event_name != 'push' || (!contains(github.event.head_commit.message, '[divrei-source-release]') && !contains(github.event.head_commit.message, '[divrei-media-release]') && !contains(github.event.head_commit.message, '[reader-ui-release]') && !contains(github.event.head_commit.message, '[share-release]') && !contains(github.event.head_commit.message, '[mei-volume-ii-release]') && !contains(github.event.head_commit.message, '[mei-likutei-release]') && !contains(github.event.head_commit.message, '[tzidkat-accuracy-release]') && !contains(github.event.head_commit.message, '[tzidkat-source-attribution]') && !contains(github.event.head_commit.message, '[tzidkat-accuracy-rebuild-integration]') && !contains(github.event.head_commit.message, '[new-books-release]')) }}
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -484,6 +484,9 @@ jobs:
           node scripts/test-connected-ideas.mjs --after-mei-volume-ii --after-mei-likutei --after-tzidkat-source-accuracy
           node scripts/test-reader-docx-import.mjs --after-divrei-source-audit --after-mei-volume-ii --after-mei-likutei --after-tzidkat-source-accuracy --zips --mcp
           node scripts/test-dover-kdp.mjs --after-divrei-source-audit --after-tzidkat-source-accuracy --zips --data-only
+
+      - name: Keep the latest printed editions and original samples
+        run: node scripts/apply-new-books.mjs dist
 
       - name: Upload site
         uses: actions/upload-pages-artifact@v4

@@ -1,0 +1,41 @@
+{
+  "version": "20261023-new-books-v1",
+  "series": {
+    "hardcover": "https://www.amazon.com/dp/B0HNRSTB8L?binding=hardcover",
+    "paperback": "https://www.amazon.com/dp/B0HNRSTB8L?binding=paperback"
+  },
+  "books": [
+    {
+      "slug": "pri-tzaddik-rosh-chodesh",
+      "title": "Pri Tzaddik",
+      "subtitle": "Rosh Chodesh to Tu BiShvat",
+      "scope": "Rosh Chodesh · Mar Cheshvan · Kislev · Chanukah · Shevat · Tu BiShvat",
+      "description": "Follow Rav Tzadok HaKohen of Lublin through the renewal of Rosh Chodesh, the hidden light of Chanukah, and the growth of Shevat and Tu BiShvat. Original Hebrew and phrase-by-phrase English appear together, with annotated sources and illuminating parallels.",
+      "shortDescription": "Renewal, hidden light, and spiritual growth through the months and moadim.",
+      "amazon": "https://www.amazon.com/dp/B0HNS3LB5J",
+      "samplePages": 20,
+      "pageCount": 494,
+      "front": "pri-tzaddik-rosh-chodesh-front.webp",
+      "back": "pri-tzaddik-rosh-chodesh-back.webp",
+      "scene": "pri-tzaddik-rosh-chodesh-shtender.webp",
+      "pdf": "pri-tzaddik-rosh-chodesh-sample.pdf",
+      "pageDirectory": "pri-tzaddik-rosh-chodesh-pages"
+    },
+    {
+      "slug": "pri-tzaddik-shabbos",
+      "title": "Pri Tzaddik",
+      "subtitle": "Kedushas Shabbos & Shevisas Shabbos",
+      "scope": "Opening Teachings · Kedushas Shabbos · Shevisas Shabbos",
+      "description": "Enter Rav Tzadok’s opening teachings and his exploration of the kedushah and menuchah of Shabbos. This interlinear edition keeps the original Hebrew beside a close English translation, with source notes and parallels that help the learner follow each teaching.",
+      "shortDescription": "The opening teachings and Rav Tzadok’s exploration of Shabbos, kedushah, and menuchah.",
+      "amazon": "https://www.amazon.com/dp/B0HP11WKQC",
+      "samplePages": 20,
+      "pageCount": 536,
+      "front": "pri-tzaddik-shabbos-front.webp",
+      "back": "pri-tzaddik-shabbos-back.webp",
+      "scene": "pri-tzaddik-shabbos-shtender.webp",
+      "pdf": "pri-tzaddik-shabbos-sample.pdf",
+      "pageDirectory": "pri-tzaddik-shabbos-pages"
+    }
+  ]
+}

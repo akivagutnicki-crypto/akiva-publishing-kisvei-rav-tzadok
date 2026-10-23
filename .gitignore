@@ -27,3 +27,11 @@ theme-candidate-verification.txt
 artifacts/connected-ideas/
 # Generated comparison of the latest Dover Word manuscripts with reader data
 dist/library/dover-kdp-reader-report.json
+
+# Temporary verification for the focused print-edition release.
+/.new-books-site/
+/new-books-publication.json
+/new-books-baseline.json
+/new-books-verification.json
+/new-books-live-verification.json
+/artifacts/new-books/

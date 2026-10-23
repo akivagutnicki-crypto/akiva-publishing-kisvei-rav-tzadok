@@ -1,0 +1,141 @@
+name: Publish the new Pri Tzaddik print editions
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: ${{ (github.repository == 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok' && github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[new-books-release]'))) && 'pages' || format('new-books-skipped-{0}', github.run_id) }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: ${{ github.repository == 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok' && github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[new-books-release]')) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout the new book presentation and original samples
+        uses: actions/checkout@v6
+
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+
+      - name: Identify the actual current complete publication
+        id: baseline
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/new-books-release.py metadata
+
+      - name: Download the current Pages publication
+        uses: actions/download-artifact@v4
+        with:
+          artifact-ids: ${{ steps.baseline.outputs.artifact }}
+          run-id: ${{ steps.baseline.outputs.run }}
+          repository: akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/new-books-baseline
+          merge-multiple: true
+
+      - name: Restore every original published file
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PY'
+          import os, pathlib, tarfile
+          root = pathlib.Path('.new-books-site').resolve()
+          root.mkdir()
+          archive = pathlib.Path(os.environ['RUNNER_TEMP']) / 'new-books-baseline/artifact.tar'
+          with tarfile.open(archive, 'r:') as source:
+              members = source.getmembers()
+              for member in members:
+                  target = (root / member.name).resolve()
+                  assert target == root or root in target.parents, 'Unsafe archive path'
+                  assert member.isdir() or member.isfile(), 'Unexpected archive link or special file'
+              source.extractall(root, members=members, filter='data')
+          PY
+          python3 scripts/new-books-release.py capture
+
+      - name: Apply only the new print features and sample viewer
+        run: |
+          node scripts/apply-new-books.mjs .new-books-site
+          node scripts/apply-new-books.mjs .new-books-site
+          node --check .new-books-site/library/sw.js
+          node --check .new-books-site/editions/sample.js
+          python3 scripts/new-books-release.py verify
+
+      - name: Install focused visual and PDF verification
+        run: |
+          npm install --no-save --package-lock=false playwright@1.62.1
+          npx playwright install --with-deps chromium
+          python3 -m pip install pypdf
+
+      - name: Check sample page counts and source hashes
+        run: |
+          python3 - <<'PY'
+          import hashlib, json, pathlib
+          from pypdf import PdfReader
+          root = pathlib.Path('.new-books-site/editions')
+          proof = json.loads((root / 'sample-provenance.json').read_text())
+          for item in proof['samples']:
+              path = root / (item['slug'] + '-sample.pdf')
+              assert len(PdfReader(path).pages) == 20
+              assert hashlib.sha256(path.read_bytes()).hexdigest() == item['sample_sha256']
+              assert item['all_pages_pixel_identical']
+          PY
+
+      - name: Verify homepage reader and samples in portrait and landscape
+        run: node scripts/test-new-books-browser.mjs --root .new-books-site
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Recheck current main and publication before upload
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/new-books-release.py guard
+
+      - name: Upload the complete preserved site with the new books
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: .new-books-site
+          retention-days: 14
+
+      - name: Recheck current main and publication before publishing
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/new-books-release.py guard
+
+      - name: Publish the new Pri Tzaddik editions
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Verify the public book features samples and unchanged catalogs
+        run: |
+          python3 scripts/new-books-release.py published
+          node scripts/test-new-books-browser.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/'
+
+      - name: Save publication and browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: new-books-verification
+          retention-days: 90
+          if-no-files-found: warn
+          path: |
+            new-books-publication.json
+            new-books-baseline.json
+            new-books-verification.json
+            new-books-live-verification.json
+            artifacts/new-books/

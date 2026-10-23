@@ -594,6 +594,9 @@ body.akiva-android-reader .akiva-support-embed{border-top-color:var(--ox)}
 <link rel="stylesheet" href="share.css?v=20261022-share-v1">
 <script defer src="share.js?v=20261022-share-v1"></script>
 <!-- akiva-share-end -->
+<!-- akiva-new-books-style-start -->
+<link rel="stylesheet" href="../editions/new-books.css?v=20261023-new-books-v1">
+<!-- akiva-new-books-style-end -->
 </head>
 <body>
 <header class="top">
@@ -676,7 +679,21 @@ const info = t => INFO[t] || {};
 let CATALOG = [];
 // Edition URLs keep older installed app caches from mixing Hebrew-only data
 // with the new interlinear contents. The service worker also accepts saved packs.
-const editionDataUrl = url => url.startsWith('data/dover-tzedek/') ? url + '?edition=20261018-dover-elaboration-sources-revisions-v2-title-paragraphs-v1-headings-v1-dover-reviewed-parallels-v3-805e8b67fc05-dover-kdp-v1-9802990330fd' : (url.startsWith('data/peri-tzadik/') || url === 'data/catalog.json' || url.startsWith('data/cited/') || url === 'data/packs/sources.json' || url === 'data/files.json') ? url + '?edition=20261016-pri-shevat-tubishvat-399c2228eea0' : (url.startsWith('data/et-haochel/') || url === 'data/parallels/et-haochel.json') ? url + '?edition=20261016-et-haochel-240-5468b7180d41' : url.startsWith('data/') ? url + ((url === 'data/catalog.json' || url.startsWith('data/beit-yaakov-on-torah/') || url.startsWith('data/cited/')) ? '?edition=20261016-beit-vayera-complete-v2' : (url.startsWith('data/tzidkat-hatzadik/') || url.startsWith('data/dover-tzedek/') || url === 'data/catalog.json' || url.startsWith('data/cited/')) ? '?edition=20261014-collated-tzidkat-parallels-v2-97' : url.startsWith('data/mei-ha-shiloach/') ? '?edition=20261014-mei-vayera-bo-reader-fix-v1' : url.startsWith('data/meshiv-tzedek/') ? '?edition=20261012-meshiv-tzedek-interlinear-v1' : url.startsWith('data/meshiv-hata-anah/') ? '?edition=20261012-meshiv-interlinear-v3' : /^data\/(?:peri-tzadik\/|tiferet-yosef\/|beit-yaakov-on-torah\/|mei-ha-shiloach\/|files\.json)/.test(url) ? '?edition=20261016-pri-thematic-headings-v3-footnotes929' : url.startsWith('data/et-haochel/') ? '?edition=20261016-et-haochel-headings-v2' : url.startsWith('data/yisrael-kedoshim/') ? '?edition=20261006-yisrael-4-opening' : url.startsWith('data/divrei-soferim/') ? '?edition=20261014-divrei-491-footnotes-v1' : url.startsWith('data/machshavot-charutz/') ? '?edition=20261006-machshavot-format' : '?edition=20261006-resisei-complete') : url;
+const editionDataUrl = url => /* Tzidkat source attribution */ (url.startsWith('data/tzidkat-hatzadik/') || url === 'data/files.json') ? url + '?attribution=20261023-tzidkat-source-accuracy-v2-ba0242471e1b' :
+/* Tzidkat source accuracy */ (url.startsWith('data/tzidkat-hatzadik/') || url.startsWith('data/cited/') || url === 'data/files.json' || url === 'data/packs/sources.json') ? url + '?edition=20261023-tzidkat-source-accuracy-v1-aec0a541c2a0' :
+(url.startsWith('data/mei-ha-shiloach/') || url.startsWith('data/cited/') || url === 'data/files.json' || url === 'data/packs/sources.json') ? url + '?edition=20261023-mei-likutei-v1' :
+(url.startsWith('data/mei-ha-shiloach/') || url.startsWith('data/cited/') || url === 'data/files.json' || url === 'data/packs/sources.json') ? url + '?edition=20261023-mei-volume-ii-v1' :
+/* Divrei source audit revision */ (url.startsWith('data/divrei-soferim/') || url.startsWith('data/cited/') || url === 'data/files.json' || url === 'data/packs/sources.json' || url === 'source-connections/translations.json') ? url + '?edition=20261022-divrei-source-audit-v1-584ae0be455e' :
+/* Complete supplied manuscript import */ (url.startsWith('data/mei-ha-shiloach/') || url.startsWith('data/beit-yaakov-on-torah/') || url.startsWith('data/cited/') || url.startsWith('data/parallels/') || url === 'data/catalog.json' || url === 'data/files.json' || url === 'data/packs/sources.json') ? url + '?edition=20261022-reader-docx-import-v1' :
+/* Tzidkat quoted sources revision */ (url.startsWith('data/tzidkat-hatzadik/') || url.startsWith('data/cited/') || url === 'data/files.json' || url === 'data/packs/sources.json') ? url + '?edition=20261022-tzidkat-pdf-quotations-v1-b8489bff7bf3' :
+/* Pri seasonal quoted sources revision */ (url.startsWith('data/peri-tzadik/') || url.startsWith('data/cited/') || url === 'data/catalog.json' || url === 'data/files.json' || url === 'data/packs/sources.json') ? url + '?edition=20261021-pri-seasonal-pdf-quotations-v1-92abce2ff13b' :
+/* Bais Yaakov Toldos data revision */ (url.startsWith('data/beit-yaakov-on-torah/') || url === 'data/catalog.json' || url.startsWith('data/cited/') || url === 'data/packs/sources.json' || url === 'data/files.json') ? url + '?edition=20261021-beit-yaakov-toldos-0dac5af7d07e' :
+/* Pri Shabbos quoted sources revision */ (url.startsWith('data/peri-tzadik/') || url.startsWith('data/cited/') || url === 'data/files.json' || url === 'data/packs/sources.json') ? url + '?edition=20261021-pri-shabbos-pdf-quotations-v1-f0304d909e67' :
+/* Supplied source quotation revision */ (url.startsWith('data/divrei-chalomot/') || url.startsWith('data/divrei-soferim/') || url.startsWith('data/et-haochel/') || url.startsWith('data/kometz-haminchah/') || url.startsWith('data/likkutei-maamarim/') || url.startsWith('data/machshavot-charutz/') || url.startsWith('data/meshiv-hata-anah/') || url.startsWith('data/meshiv-tzedek/') || url.startsWith('data/ohr-zarua-latzadik/') || url.startsWith('data/peri-tzadik/') || url.startsWith('data/poked-akarim/') || url.startsWith('data/sefer-hazikhronot/') || url.startsWith('data/sichat-malakhei-hasharet/') || url.startsWith('data/sichat-shedim/') || url.startsWith('data/tzidkat-hatzadik/') || url.startsWith('data/yisrael-kedoshim/') || url === 'data/files.json') ? url + (url.includes('?') ? '&' : '?') + 'edition=20261019-source-quotations-55503757abcd26c0' :
+/* Appended parallel cleanup revision */ (url.startsWith('data/divrei-chalomot/') || url.startsWith('data/divrei-soferim/') || url.startsWith('data/kometz-haminchah/') || url.startsWith('data/likkutei-maamarim/') || url.startsWith('data/machshavot-charutz/') || url.startsWith('data/meshiv-hata-anah/') || url.startsWith('data/meshiv-tzedek/') || url.startsWith('data/ohr-zarua-latzadik/') || url.startsWith('data/peri-tzadik/') || url.startsWith('data/poked-akarim/') || url.startsWith('data/sefer-hazikhronot/') || url.startsWith('data/sichat-malakhei-hasharet/') || url.startsWith('data/sichat-shedim/') || url.startsWith('data/tzidkat-hatzadik/') || url.startsWith('data/yisrael-kedoshim/') || url.startsWith('data/cited/') || url === 'data/files.json') ? url + (url.includes('?') ? '&' : '?') + 'edition=20261018-appended-parallels-cleanup-3e016f592d716c7b' :
+/* Pri Shabbos final data revision */ (url.startsWith('data/peri-tzadik/') || url.startsWith('data/cited/') || url === 'data/catalog.json' || url === 'data/files.json' || url === 'data/packs/sources.json' || url.startsWith('data/parallels/')) ? url + '?edition=20261018-pri-shabbos-37b00c90ec6dbdbb' :
+(url.startsWith('data/peri-tzadik/') || url.startsWith('data/cited/') || url === 'data/catalog.json' || url === 'data/files.json' || url === 'data/packs/sources.json') ? url + '?edition=20261020-chanukah25-interlinear-v1-4f938282f3f2' : (url.startsWith('data/peri-tzadik/') || url.startsWith('data/cited/') || url === 'data/catalog.json' || url === 'data/files.json' || url === 'data/packs/sources.json') ? url + '?edition=20261016-pri-seasonal-1407-v1' : (url.startsWith('data/peri-tzadik/') || url === 'data/catalog.json' || url.startsWith('data/cited/') || url === 'data/packs/sources.json' || url === 'data/files.json') ? url + '?edition=20261016-pri-shevat-tubishvat-399c2228eea0' : /* Toldos data revision */ (url.startsWith('data/peri-tzadik/') || url === 'data/catalog.json' || url.startsWith('data/cited/') || url === 'data/packs/sources.json' || url === 'data/files.json') ? url + '?edition=20261016-pri-toldos-51f1f9d4ea47' :
+url.startsWith('data/dover-tzedek/') ? url + '?edition=20261018-dover-elaboration-sources-revisions-v2-title-paragraphs-v1-headings-v1-dover-reviewed-parallels-v3-063a9c0009bc-dover-kdp-v1-9802990330fd' : (url.startsWith('data/et-haochel/') || url === 'data/parallels/et-haochel.json') ? url + '?edition=20261016-et-haochel-240-5468b7180d41' : url.startsWith('data/') ? url + ((url === 'data/catalog.json' || url.startsWith('data/beit-yaakov-on-torah/') || url.startsWith('data/cited/')) ? '?edition=20261016-beit-vayera-complete-v2' : (url.startsWith('data/tzidkat-hatzadik/') || url.startsWith('data/dover-tzedek/') || url === 'data/catalog.json' || url.startsWith('data/cited/')) ? '?edition=20261014-collated-tzidkat-parallels-v2-97' : url.startsWith('data/mei-ha-shiloach/') ? '?edition=20261014-mei-vayera-bo-reader-fix-v1' : url.startsWith('data/meshiv-tzedek/') ? '?edition=20261012-meshiv-tzedek-interlinear-v1' : url.startsWith('data/meshiv-hata-anah/') ? '?edition=20261012-meshiv-interlinear-v3' : /^data\/(?:peri-tzadik\/|tiferet-yosef\/|beit-yaakov-on-torah\/|mei-ha-shiloach\/|files\.json)/.test(url) ? '?edition=20261016-pri-thematic-headings-v3-footnotes929' : url.startsWith('data/et-haochel/') ? '?edition=20261016-et-haochel-headings-v2' : url.startsWith('data/yisrael-kedoshim/') ? '?edition=20261006-yisrael-4-opening' : url.startsWith('data/divrei-soferim/') ? '?edition=20261014-divrei-491-footnotes-v1' : url.startsWith('data/machshavot-charutz/') ? '?edition=20261006-machshavot-format' : '?edition=20261006-resisei-complete') : url;
 const catalogReady = fetch(editionDataUrl('data/catalog.json')).then(r => r.ok ? r.json() : []).catch(() => []).then(c => { CATALOG = c; return c; });
 const localBook = t => CATALOG.find(b => b.title === t);
 const tocCache = new Map();
@@ -777,7 +794,7 @@ async function resolveLocal(ref) {
     he, en, phrases, heads, phraseHeads, paragraphBreaks, tables, nums, transcriptionNotes, annotations, related, paragraphTranslation,
     displayTitle: chapterDisplayTitle ? `${book.title} — ${chapterDisplayTitle}` : null, studyHeading: chapterDisplayTitle || null,
     chapterLinks: !!il, title: leaf.interlinear ? {en: chapterDisplayTitle || leaf.en, he: leaf.he, ois: leaf.ois, parashah: leaf.parashah} : null,
-    sourceUrl: leaf.sourceUrls?.[addr[0] - 1] || leaf.sourceUrl || null, downloadDocx: leaf.downloadDocx || null, downloadDocxLabel: leaf.downloadDocxLabel || null,
+    sourceUrl: leaf.sourceUrls?.[addr[0] - 1] || leaf.sourceUrl || null, downloadDocx: leaf.downloadDocx || null, downloadDocxLabel: leaf.downloadDocxLabel || null, downloadPdf: leaf.downloadPdf || null, downloadPdfLabel: leaf.downloadPdfLabel || null,
     segmentLevel: false, sep, highlight: segment ? `${sectionRef}${sep}${segment}` : null,
     next: all[k + 1] || null, prev: k > 0 ? all[k - 1] : null,
     versions: [paragraphTranslation ? {title: 'Akiva Publishing paragraph translation', lang: 'Hebrew with English translation', source: '', license: '© Akiva Publishing'} : il && !leaf.interlinear ? {title: 'Akiva Publishing interlinear edition', lang: 'Hebrew with interlinear English', source: '', license: '© Akiva Publishing'}
@@ -856,27 +873,586 @@ const flatten = t => Array.isArray(t) ? t.flat(Infinity) : (t == null ? [] : [t]
 // the older Sefaria translation or requiring an external API request.
 // Keep the canonical paragraph refs for Sefaria hyperlinks and connections.
 const meiStudyRefs = new Set([
-  'Mei HaShiloach, Volume I, Genesis, Bereshit',
-  'Mei HaShiloach, Volume I, Genesis, Noach',
-  'Mei HaShiloach, Volume II, Genesis, Bereshit',
-  'Mei HaShiloach, Volume II, Genesis, Noach',
-  'Mei HaShiloach, Mei HaShiloach Anthology, Genesis, Bereshit',
-  'Mei HaShiloach, Mei HaShiloach Anthology, Genesis, Noach',
-  'Mei HaShiloach, Volume I, Genesis, Lech Lecha',
-  'Mei HaShiloach, Volume II, Genesis, Lech Lecha',
-  'Mei HaShiloach, Mei HaShiloach Anthology, Genesis, Lech Lecha',
-  'Mei HaShiloach, Volume I, Genesis, Vayera',
-  'Mei HaShiloach, Volume I, Genesis, Chayei Sarah',
-  'Mei HaShiloach, Volume I, Genesis, Toldot',
-  'Mei HaShiloach, Volume I, Genesis, Vayetzei',
-  'Mei HaShiloach, Volume I, Genesis, Vayishlach',
-  'Mei HaShiloach, Volume I, Genesis, Vayeshev',
-  'Mei HaShiloach, Volume I, Genesis, Miketz',
-  'Mei HaShiloach, Volume I, Genesis, Vayigash',
-  'Mei HaShiloach, Volume I, Genesis, Vayechi',
-  'Mei HaShiloach, Volume I, Exodus, Shemot',
-  'Mei HaShiloach, Volume I, Exodus, Vaera',
-  'Mei HaShiloach, Volume I, Exodus, Bo'
+  "Mei HaShiloach, Volume I, Introduction",
+  "Mei HaShiloach, Volume I, Genesis, Bereshit",
+  "Mei HaShiloach, Volume I, Genesis, Noach",
+  "Mei HaShiloach, Volume I, Genesis, Lech Lecha",
+  "Mei HaShiloach, Volume I, Genesis, Vayera",
+  "Mei HaShiloach, Volume I, Genesis, Chayei Sarah",
+  "Mei HaShiloach, Volume I, Genesis, Toldot",
+  "Mei HaShiloach, Volume I, Genesis, Vayetzei",
+  "Mei HaShiloach, Volume I, Genesis, Vayishlach",
+  "Mei HaShiloach, Volume I, Genesis, Vayeshev",
+  "Mei HaShiloach, Volume I, Genesis, Miketz",
+  "Mei HaShiloach, Volume I, Genesis, Vayigash",
+  "Mei HaShiloach, Volume I, Genesis, Vayechi",
+  "Mei HaShiloach, Volume I, Exodus, Shemot",
+  "Mei HaShiloach, Volume I, Exodus, Vaera",
+  "Mei HaShiloach, Volume I, Exodus, Bo",
+  "Mei HaShiloach, Volume I, Exodus, Beshalach",
+  "Mei HaShiloach, Volume I, Exodus, Yitro",
+  "Mei HaShiloach, Volume I, Exodus, Mishpatim",
+  "Mei HaShiloach, Volume I, Exodus, Terumah",
+  "Mei HaShiloach, Volume I, Exodus, Tetzaveh",
+  "Mei HaShiloach, Volume I, Exodus, Ki Tisa",
+  "Mei HaShiloach, Volume I, Exodus, Vayakhel",
+  "Mei HaShiloach, Volume I, Exodus, Pekudei",
+  "Mei HaShiloach, Volume I, Leviticus, Vayikra",
+  "Mei HaShiloach, Volume I, Leviticus, Tzav",
+  "Mei HaShiloach, Volume I, Leviticus, Shmini",
+  "Mei HaShiloach, Volume I, Leviticus, Tazria",
+  "Mei HaShiloach, Volume I, Leviticus, Metzora",
+  "Mei HaShiloach, Volume I, Leviticus, Achrei Mot",
+  "Mei HaShiloach, Volume I, Leviticus, Kedoshim",
+  "Mei HaShiloach, Volume I, Leviticus, Emor",
+  "Mei HaShiloach, Volume I, Leviticus, Behar",
+  "Mei HaShiloach, Volume I, Leviticus, Bechukotai",
+  "Mei HaShiloach, Volume I, Numbers, Bamidbar",
+  "Mei HaShiloach, Volume I, Numbers, Nasso",
+  "Mei HaShiloach, Volume I, Numbers, Beha'alotcha",
+  "Mei HaShiloach, Volume I, Numbers, Sh'lach",
+  "Mei HaShiloach, Volume I, Numbers, Korach",
+  "Mei HaShiloach, Volume I, Numbers, Chukat",
+  "Mei HaShiloach, Volume I, Numbers, Balak",
+  "Mei HaShiloach, Volume I, Numbers, Pinchas",
+  "Mei HaShiloach, Volume I, Numbers, Matot",
+  "Mei HaShiloach, Volume I, Numbers, Masei",
+  "Mei HaShiloach, Volume I, Deuteronomy, Devarim",
+  "Mei HaShiloach, Volume I, Deuteronomy, Vaetchanan",
+  "Mei HaShiloach, Volume I, Deuteronomy, Eikev",
+  "Mei HaShiloach, Volume I, Deuteronomy, Re'eh",
+  "Mei HaShiloach, Volume I, Deuteronomy, Shoftim",
+  "Mei HaShiloach, Volume I, Deuteronomy, Ki Teitzei",
+  "Mei HaShiloach, Volume I, Deuteronomy, Ki Tavo",
+  "Mei HaShiloach, Volume I, Deuteronomy, Nitzavim",
+  "Mei HaShiloach, Volume I, Deuteronomy, Vayeilech",
+  "Mei HaShiloach, Volume I, Deuteronomy, Ha'Azinu",
+  "Mei HaShiloach, Volume I, Deuteronomy, V'Zot HaBerachah",
+  "Mei HaShiloach, Volume I, Five Scrolls, Ruth 2",
+  "Mei HaShiloach, Volume I, Five Scrolls, Ecclesiastes 7",
+  "Mei HaShiloach, Volume I, Five Scrolls, Ecclesiastes 11",
+  "Mei HaShiloach, Volume I, Prophets, Joshua 4",
+  "Mei HaShiloach, Volume I, Prophets, Joshua 10",
+  "Mei HaShiloach, Volume I, Prophets, Joshua 20",
+  "Mei HaShiloach, Volume I, Prophets, I Samuel 20",
+  "Mei HaShiloach, Volume I, Prophets, II Samuel 17",
+  "Mei HaShiloach, Volume I, Prophets, I Kings 1",
+  "Mei HaShiloach, Volume I, Prophets, I Kings 8",
+  "Mei HaShiloach, Volume I, Prophets, I Kings 11",
+  "Mei HaShiloach, Volume I, Prophets, I Kings 12",
+  "Mei HaShiloach, Volume I, Prophets, II Kings 21",
+  "Mei HaShiloach, Volume I, Prophets, Isaiah 52",
+  "Mei HaShiloach, Volume I, Prophets, Hosea 14",
+  "Mei HaShiloach, Volume I, Writings, Psalms 1",
+  "Mei HaShiloach, Volume I, Writings, Psalms 5",
+  "Mei HaShiloach, Volume I, Writings, Psalms 16",
+  "Mei HaShiloach, Volume I, Writings, Psalms 17",
+  "Mei HaShiloach, Volume I, Writings, Psalms 21",
+  "Mei HaShiloach, Volume I, Writings, Psalms 23",
+  "Mei HaShiloach, Volume I, Writings, Psalms 39",
+  "Mei HaShiloach, Volume I, Writings, Psalms 68",
+  "Mei HaShiloach, Volume I, Writings, Psalms 69",
+  "Mei HaShiloach, Volume I, Writings, Psalms 71",
+  "Mei HaShiloach, Volume I, Writings, Psalms 72",
+  "Mei HaShiloach, Volume I, Writings, Psalms 81",
+  "Mei HaShiloach, Volume I, Writings, Psalms 85",
+  "Mei HaShiloach, Volume I, Writings, Psalms 92",
+  "Mei HaShiloach, Volume I, Writings, Psalms 95",
+  "Mei HaShiloach, Volume I, Writings, Psalms 99",
+  "Mei HaShiloach, Volume I, Writings, Psalms 112",
+  "Mei HaShiloach, Volume I, Writings, Psalms 119",
+  "Mei HaShiloach, Volume I, Writings, Psalms 126",
+  "Mei HaShiloach, Volume I, Writings, Psalms 131",
+  "Mei HaShiloach, Volume I, Writings, Psalms 139",
+  "Mei HaShiloach, Volume I, Writings, Psalms 149",
+  "Mei HaShiloach, Volume I, Writings, Proverbs 1",
+  "Mei HaShiloach, Volume I, Writings, Proverbs 2",
+  "Mei HaShiloach, Volume I, Writings, Proverbs 3",
+  "Mei HaShiloach, Volume I, Writings, Proverbs 6",
+  "Mei HaShiloach, Volume I, Writings, Proverbs 8",
+  "Mei HaShiloach, Volume I, Writings, Proverbs 10",
+  "Mei HaShiloach, Volume I, Writings, Proverbs 11",
+  "Mei HaShiloach, Volume I, Writings, Proverbs 12",
+  "Mei HaShiloach, Volume I, Writings, Proverbs 13",
+  "Mei HaShiloach, Volume I, Writings, Proverbs 15",
+  "Mei HaShiloach, Volume I, Writings, Proverbs 16",
+  "Mei HaShiloach, Volume I, Writings, Proverbs 17",
+  "Mei HaShiloach, Volume I, Writings, Proverbs 19",
+  "Mei HaShiloach, Volume I, Writings, Proverbs 20",
+  "Mei HaShiloach, Volume I, Writings, Proverbs 21",
+  "Mei HaShiloach, Volume I, Writings, Proverbs 24",
+  "Mei HaShiloach, Volume I, Writings, Proverbs 27",
+  "Mei HaShiloach, Volume I, Writings, Proverbs 30",
+  "Mei HaShiloach, Volume I, Talmud, Berakhot 2a",
+  "Mei HaShiloach, Volume I, Talmud, Berakhot 2b",
+  "Mei HaShiloach, Volume I, Talmud, Berakhot 5a",
+  "Mei HaShiloach, Volume I, Talmud, Berakhot 6a",
+  "Mei HaShiloach, Volume I, Talmud, Berakhot 6b",
+  "Mei HaShiloach, Volume I, Talmud, Berakhot 7b",
+  "Mei HaShiloach, Volume I, Talmud, Berakhot 8a",
+  "Mei HaShiloach, Volume I, Talmud, Berakhot 9b",
+  "Mei HaShiloach, Volume I, Talmud, Berakhot 10a",
+  "Mei HaShiloach, Volume I, Talmud, Berakhot 10b",
+  "Mei HaShiloach, Volume I, Talmud, Berakhot 11b",
+  "Mei HaShiloach, Volume I, Talmud, Berakhot 12b",
+  "Mei HaShiloach, Volume I, Talmud, Berakhot 14b",
+  "Mei HaShiloach, Volume I, Talmud, Berakhot 15b",
+  "Mei HaShiloach, Volume I, Talmud, Berakhot 26a",
+  "Mei HaShiloach, Volume I, Talmud, Berakhot 27b",
+  "Mei HaShiloach, Volume I, Talmud, Berakhot 28b",
+  "Mei HaShiloach, Volume I, Talmud, Berakhot 29b",
+  "Mei HaShiloach, Volume I, Talmud, Berakhot 30b",
+  "Mei HaShiloach, Volume I, Talmud, Berakhot 31a",
+  "Mei HaShiloach, Volume I, Talmud, Berakhot 31b",
+  "Mei HaShiloach, Volume I, Talmud, Berakhot 32a",
+  "Mei HaShiloach, Volume I, Talmud, Berakhot 34b",
+  "Mei HaShiloach, Volume I, Talmud, Berakhot 35a",
+  "Mei HaShiloach, Volume I, Talmud, Berakhot 39b",
+  "Mei HaShiloach, Volume I, Talmud, Berakhot 40b",
+  "Mei HaShiloach, Volume I, Talmud, Berakhot 54a",
+  "Mei HaShiloach, Volume I, Talmud, Shabbat 21b",
+  "Mei HaShiloach, Volume I, Talmud, Shabbat 22b",
+  "Mei HaShiloach, Volume I, Talmud, Shabbat 49a",
+  "Mei HaShiloach, Volume I, Talmud, Shabbat 77b",
+  "Mei HaShiloach, Volume I, Talmud, Shabbat 86b",
+  "Mei HaShiloach, Volume I, Talmud, Shabbat 88a",
+  "Mei HaShiloach, Volume I, Talmud, Shabbat 88b",
+  "Mei HaShiloach, Volume I, Talmud, Shabbat 138b",
+  "Mei HaShiloach, Volume I, Talmud, Pesachim 2a",
+  "Mei HaShiloach, Volume I, Talmud, Pesachim 4a",
+  "Mei HaShiloach, Volume I, Talmud, Pesachim 22b",
+  "Mei HaShiloach, Volume I, Talmud, Pesachim 50a",
+  "Mei HaShiloach, Volume I, Talmud, Pesachim 52b",
+  "Mei HaShiloach, Volume I, Talmud, Pesachim 87a",
+  "Mei HaShiloach, Volume I, Talmud, Pesachim 88a",
+  "Mei HaShiloach, Volume I, Talmud, Pesachim 104a",
+  "Mei HaShiloach, Volume I, Talmud, Pesachim 112a",
+  "Mei HaShiloach, Volume I, Talmud, Pesachim 112b",
+  "Mei HaShiloach, Volume I, Talmud, Yoma 26a",
+  "Mei HaShiloach, Volume I, Talmud, Sukkah 2a",
+  "Mei HaShiloach, Volume I, Talmud, Sukkah 2b",
+  "Mei HaShiloach, Volume I, Talmud, Sukkah 13a",
+  "Mei HaShiloach, Volume I, Talmud, Sukkah 27b",
+  "Mei HaShiloach, Volume I, Talmud, Beitzah 12a",
+  "Mei HaShiloach, Volume I, Talmud, Beitzah 15b",
+  "Mei HaShiloach, Volume I, Talmud, Rosh Hashanah 2a",
+  "Mei HaShiloach, Volume I, Talmud, Rosh Hashanah 3b",
+  "Mei HaShiloach, Volume I, Talmud, Rosh Hashanah 8b",
+  "Mei HaShiloach, Volume I, Talmud, Rosh Hashanah 9b",
+  "Mei HaShiloach, Volume I, Talmud, Rosh Hashanah 10b",
+  "Mei HaShiloach, Volume I, Talmud, Rosh Hashanah 16a",
+  "Mei HaShiloach, Volume I, Talmud, Rosh Hashanah 16b",
+  "Mei HaShiloach, Volume I, Talmud, Rosh Hashanah 17a",
+  "Mei HaShiloach, Volume I, Talmud, Rosh Hashanah 17b",
+  "Mei HaShiloach, Volume I, Talmud, Rosh Hashanah 18a",
+  "Mei HaShiloach, Volume I, Talmud, Rosh Hashanah 25a",
+  "Mei HaShiloach, Volume I, Talmud, Rosh Hashanah 26a",
+  "Mei HaShiloach, Volume I, Talmud, Rosh Hashanah 27a",
+  "Mei HaShiloach, Volume I, Talmud, Rosh Hashanah 29b",
+  "Mei HaShiloach, Volume I, Talmud, Megillah 4a",
+  "Mei HaShiloach, Volume I, Talmud, Megillah 5a",
+  "Mei HaShiloach, Volume I, Talmud, Megillah 6a",
+  "Mei HaShiloach, Volume I, Talmud, Megillah 7a",
+  "Mei HaShiloach, Volume I, Talmud, Megillah 7b",
+  "Mei HaShiloach, Volume I, Talmud, Megillah 10b",
+  "Mei HaShiloach, Volume I, Talmud, Megillah 11a",
+  "Mei HaShiloach, Volume I, Talmud, Megillah 12b",
+  "Mei HaShiloach, Volume I, Talmud, Megillah 18a",
+  "Mei HaShiloach, Volume I, Talmud, Megillah 31a",
+  "Mei HaShiloach, Volume I, Talmud, Taanit 30b",
+  "Mei HaShiloach, Volume I, Talmud, Chagigah 3a",
+  "Mei HaShiloach, Volume I, Talmud, Chagigah 12a",
+  "Mei HaShiloach, Volume I, Talmud, Yevamot 49b",
+  "Mei HaShiloach, Volume I, Talmud, Ketubot 69a",
+  "Mei HaShiloach, Volume I, Talmud, Nedarim 81a",
+  "Mei HaShiloach, Volume I, Talmud, Nazir 34b",
+  "Mei HaShiloach, Volume I, Talmud, Bava Batra 12b",
+  "Mei HaShiloach, Volume I, Talmud, Avodah Zarah 65a",
+  "Mei HaShiloach, Volume I, Talmud, Sanhedrin 104b",
+  "Mei HaShiloach, Volume I, Talmud, Eduyot",
+  "Mei HaShiloach, Volume I, Talmud, Avot",
+  "Mei HaShiloach, Volume I, Talmud, Menachot 53a",
+  "Mei HaShiloach, Volume I, Talmud, Menachot 85a",
+  "Mei HaShiloach, Volume I, Talmud, Bekhorot 8b",
+  "Mei HaShiloach, Volume I, Talmud, Chullin 26b",
+  "Mei HaShiloach, Volume I, Talmud, Chullin 29b",
+  "Mei HaShiloach, Volume I, Talmud, Chullin 80a",
+  "Mei HaShiloach, Volume I, Talmud, Chullin 133a",
+  "Mei HaShiloach, Volume I, Talmud, Chullin 137b",
+  "Mei HaShiloach, Volume I, Talmud, Oktzin",
+  "Mei HaShiloach, Volume I, Miscellany",
+  "Mei HaShiloach, Volume II, Introduction",
+  "Mei HaShiloach, Volume II, Genesis, Bereshit",
+  "Mei HaShiloach, Volume II, Genesis, Noach",
+  "Mei HaShiloach, Volume II, Genesis, Lech Lecha",
+  "Mei HaShiloach, Volume II, Genesis, Vayera",
+  "Mei HaShiloach, Volume II, Genesis, Chayei Sara",
+  "Mei HaShiloach, Volume II, Genesis, Toldot",
+  "Mei HaShiloach, Volume II, Genesis, Vayetzei",
+  "Mei HaShiloach, Volume II, Genesis, Vayishlach",
+  "Mei HaShiloach, Volume II, Genesis, Vayeshev",
+  "Mei HaShiloach, Volume II, Genesis, Miketz",
+  "Mei HaShiloach, Volume II, Genesis, Vayigash",
+  "Mei HaShiloach, Volume II, Genesis, Vayechi",
+  "Mei HaShiloach, Volume II, Exodus, Shemot",
+  "Mei HaShiloach, Volume II, Exodus, Vaera",
+  "Mei HaShiloach, Volume II, Exodus, Bo",
+  "Mei HaShiloach, Volume II, Exodus, Beshalach",
+  "Mei HaShiloach, Volume II, Exodus, Yitro",
+  "Mei HaShiloach, Volume II, Exodus, Mishpatim",
+  "Mei HaShiloach, Volume II, Exodus, Terumah",
+  "Mei HaShiloach, Volume II, Exodus, Tetzaveh",
+  "Mei HaShiloach, Volume II, Exodus, Ki Tisa",
+  "Mei HaShiloach, Volume II, Exodus, Vayakhel",
+  "Mei HaShiloach, Volume II, Exodus, Pekudei",
+  "Mei HaShiloach, Volume II, Leviticus, Vayikra",
+  "Mei HaShiloach, Volume II, Leviticus, Tzav",
+  "Mei HaShiloach, Volume II, Leviticus, Shmini",
+  "Mei HaShiloach, Volume II, Leviticus, Tazria",
+  "Mei HaShiloach, Volume II, Leviticus, Metzora",
+  "Mei HaShiloach, Volume II, Leviticus, Achrei Mot",
+  "Mei HaShiloach, Volume II, Leviticus, Kedoshim",
+  "Mei HaShiloach, Volume II, Leviticus, Emor",
+  "Mei HaShiloach, Volume II, Leviticus, Behar",
+  "Mei HaShiloach, Volume II, Leviticus, Bechukotai",
+  "Mei HaShiloach, Volume II, Numbers, Bamidbar",
+  "Mei HaShiloach, Volume II, Numbers, Nasso",
+  "Mei HaShiloach, Volume II, Numbers, Beha'alotcha",
+  "Mei HaShiloach, Volume II, Numbers, Sh'lach",
+  "Mei HaShiloach, Volume II, Numbers, Korach",
+  "Mei HaShiloach, Volume II, Numbers, Chukat",
+  "Mei HaShiloach, Volume II, Numbers, Balak",
+  "Mei HaShiloach, Volume II, Numbers, Pinchas",
+  "Mei HaShiloach, Volume II, Numbers, Matot",
+  "Mei HaShiloach, Volume II, Numbers, Masei",
+  "Mei HaShiloach, Volume II, Deuteronomy, Devarim",
+  "Mei HaShiloach, Volume II, Deuteronomy, Vaetchanan",
+  "Mei HaShiloach, Volume II, Deuteronomy, Eikev",
+  "Mei HaShiloach, Volume II, Deuteronomy, Re'eh",
+  "Mei HaShiloach, Volume II, Deuteronomy, Shoftim",
+  "Mei HaShiloach, Volume II, Deuteronomy, Ki Teitzei",
+  "Mei HaShiloach, Volume II, Deuteronomy, Ki Tavo",
+  "Mei HaShiloach, Volume II, Deuteronomy, Nitzavim",
+  "Mei HaShiloach, Volume II, Deuteronomy, Vayeilech",
+  "Mei HaShiloach, Volume II, Deuteronomy, Ha'Azinu",
+  "Mei HaShiloach, Volume II, Deuteronomy, V'Zot HaBerachah",
+  "Mei HaShiloach, Volume II, Five Scrolls, Song of Songs",
+  "Mei HaShiloach, Volume II, Five Scrolls, Ecclesiastes",
+  "Mei HaShiloach, Volume II, Prophets, Joshua 2",
+  "Mei HaShiloach, Volume II, Prophets, Joshua 4",
+  "Mei HaShiloach, Volume II, Prophets, Judges 5",
+  "Mei HaShiloach, Volume II, Prophets, I Samuel 15",
+  "Mei HaShiloach, Volume II, Prophets, II Samuel 6",
+  "Mei HaShiloach, Volume II, Prophets, II Samuel 7",
+  "Mei HaShiloach, Volume II, Prophets, I Kings 8",
+  "Mei HaShiloach, Volume II, Prophets, Isaiah 25",
+  "Mei HaShiloach, Volume II, Prophets, Isaiah 26",
+  "Mei HaShiloach, Volume II, Prophets, Isaiah 33",
+  "Mei HaShiloach, Volume II, Prophets, Isaiah 40",
+  "Mei HaShiloach, Volume II, Prophets, Isaiah 41",
+  "Mei HaShiloach, Volume II, Prophets, Isaiah 48",
+  "Mei HaShiloach, Volume II, Prophets, Isaiah 51",
+  "Mei HaShiloach, Volume II, Prophets, Isaiah 52",
+  "Mei HaShiloach, Volume II, Prophets, Isaiah 54",
+  "Mei HaShiloach, Volume II, Prophets, Isaiah 55",
+  "Mei HaShiloach, Volume II, Prophets, Isaiah 56",
+  "Mei HaShiloach, Volume II, Prophets, Isaiah 58",
+  "Mei HaShiloach, Volume II, Prophets, Isaiah 63",
+  "Mei HaShiloach, Volume II, Prophets, Isaiah 66",
+  "Mei HaShiloach, Volume II, Prophets, Hosea 14",
+  "Mei HaShiloach, Volume II, Prophets, Joel 4",
+  "Mei HaShiloach, Volume II, Prophets, Jonah 4",
+  "Mei HaShiloach, Volume II, Prophets, Micah 6",
+  "Mei HaShiloach, Volume II, Prophets, Habakkuk 2",
+  "Mei HaShiloach, Volume II, Prophets, Zechariah 4",
+  "Mei HaShiloach, Volume II, Prophets, Malachi 1",
+  "Mei HaShiloach, Volume II, Writings, Psalms 1",
+  "Mei HaShiloach, Volume II, Writings, Psalms 4",
+  "Mei HaShiloach, Volume II, Writings, Psalms 5",
+  "Mei HaShiloach, Volume II, Writings, Psalms 16",
+  "Mei HaShiloach, Volume II, Writings, Psalms 19",
+  "Mei HaShiloach, Volume II, Writings, Psalms 24",
+  "Mei HaShiloach, Volume II, Writings, Psalms 27",
+  "Mei HaShiloach, Volume II, Writings, Psalms 32",
+  "Mei HaShiloach, Volume II, Writings, Psalms 33",
+  "Mei HaShiloach, Volume II, Writings, Psalms 34",
+  "Mei HaShiloach, Volume II, Writings, Psalms 36",
+  "Mei HaShiloach, Volume II, Writings, Psalms 38",
+  "Mei HaShiloach, Volume II, Writings, Psalms 42",
+  "Mei HaShiloach, Volume II, Writings, Psalms 47",
+  "Mei HaShiloach, Volume II, Writings, Psalms 51",
+  "Mei HaShiloach, Volume II, Writings, Psalms 57",
+  "Mei HaShiloach, Volume II, Writings, Psalms 68",
+  "Mei HaShiloach, Volume II, Writings, Psalms 72",
+  "Mei HaShiloach, Volume II, Writings, Psalms 78",
+  "Mei HaShiloach, Volume II, Writings, Psalms 81",
+  "Mei HaShiloach, Volume II, Writings, Psalms 87",
+  "Mei HaShiloach, Volume II, Writings, Psalms 92",
+  "Mei HaShiloach, Volume II, Writings, Psalms 95",
+  "Mei HaShiloach, Volume II, Writings, Psalms 104",
+  "Mei HaShiloach, Volume II, Writings, Psalms 105",
+  "Mei HaShiloach, Volume II, Writings, Psalms 109",
+  "Mei HaShiloach, Volume II, Writings, Psalms 119",
+  "Mei HaShiloach, Volume II, Writings, Psalms 121",
+  "Mei HaShiloach, Volume II, Writings, Psalms 128",
+  "Mei HaShiloach, Volume II, Writings, Psalms 139",
+  "Mei HaShiloach, Volume II, Writings, Psalms 145",
+  "Mei HaShiloach, Volume II, Writings, Psalms 147",
+  "Mei HaShiloach, Volume II, Writings, Proverbs 1",
+  "Mei HaShiloach, Volume II, Writings, Proverbs 3",
+  "Mei HaShiloach, Volume II, Writings, Proverbs 8",
+  "Mei HaShiloach, Volume II, Writings, Proverbs 9",
+  "Mei HaShiloach, Volume II, Writings, Proverbs 10",
+  "Mei HaShiloach, Volume II, Writings, Proverbs 12",
+  "Mei HaShiloach, Volume II, Writings, Proverbs 13",
+  "Mei HaShiloach, Volume II, Writings, Proverbs 14",
+  "Mei HaShiloach, Volume II, Writings, Proverbs 15",
+  "Mei HaShiloach, Volume II, Writings, Proverbs 16",
+  "Mei HaShiloach, Volume II, Writings, Proverbs 17",
+  "Mei HaShiloach, Volume II, Writings, Proverbs 19",
+  "Mei HaShiloach, Volume II, Writings, Proverbs 20",
+  "Mei HaShiloach, Volume II, Writings, Proverbs 21",
+  "Mei HaShiloach, Volume II, Writings, Proverbs 22",
+  "Mei HaShiloach, Volume II, Writings, Proverbs 25",
+  "Mei HaShiloach, Volume II, Writings, Proverbs 30",
+  "Mei HaShiloach, Volume II, Writings, Proverbs 31",
+  "Mei HaShiloach, Volume II, Writings, II Chronicles 24",
+  "Mei HaShiloach, Volume II, Talmud, Berakhot 2a",
+  "Mei HaShiloach, Volume II, Talmud, Berakhot 4a",
+  "Mei HaShiloach, Volume II, Talmud, Berakhot 5b",
+  "Mei HaShiloach, Volume II, Talmud, Berakhot 6b",
+  "Mei HaShiloach, Volume II, Talmud, Berakhot 8a",
+  "Mei HaShiloach, Volume II, Talmud, Berakhot 8b",
+  "Mei HaShiloach, Volume II, Talmud, Berakhot 9b",
+  "Mei HaShiloach, Volume II, Talmud, Berakhot 10a",
+  "Mei HaShiloach, Volume II, Talmud, Berakhot 14b",
+  "Mei HaShiloach, Volume II, Talmud, Berakhot 15b",
+  "Mei HaShiloach, Volume II, Talmud, Berakhot 20a",
+  "Mei HaShiloach, Volume II, Talmud, Berakhot 20b",
+  "Mei HaShiloach, Volume II, Talmud, Berakhot 26b",
+  "Mei HaShiloach, Volume II, Talmud, Berakhot 32b",
+  "Mei HaShiloach, Volume II, Talmud, Berakhot 34b",
+  "Mei HaShiloach, Volume II, Talmud, Berakhot 38a",
+  "Mei HaShiloach, Volume II, Talmud, Berakhot 40a",
+  "Mei HaShiloach, Volume II, Talmud, Berakhot 44a",
+  "Mei HaShiloach, Volume II, Talmud, Berakhot 45a",
+  "Mei HaShiloach, Volume II, Talmud, Berakhot 54a",
+  "Mei HaShiloach, Volume II, Talmud, Berakhot 55a",
+  "Mei HaShiloach, Volume II, Talmud, Berakhot 58a",
+  "Mei HaShiloach, Volume II, Talmud, Berakhot 61b",
+  "Mei HaShiloach, Volume II, Talmud, Eruvin 65a",
+  "Mei HaShiloach, Volume II, Talmud, Pesachim 2a",
+  "Mei HaShiloach, Volume II, Talmud, Pesachim 7b",
+  "Mei HaShiloach, Volume II, Talmud, Pesachim 50a",
+  "Mei HaShiloach, Volume II, Talmud, Pesachim 54b",
+  "Mei HaShiloach, Volume II, Talmud, Pesachim 88a",
+  "Mei HaShiloach, Volume II, Talmud, Pesachim 106a",
+  "Mei HaShiloach, Volume II, Talmud, Pesachim 107b",
+  "Mei HaShiloach, Volume II, Talmud, Pesachim 118b",
+  "Mei HaShiloach, Volume II, Talmud, Yoma 75a",
+  "Mei HaShiloach, Volume II, Talmud, Sukkah 2a",
+  "Mei HaShiloach, Volume II, Talmud, Sukkah 4b",
+  "Mei HaShiloach, Volume II, Talmud, Sukkah 5a",
+  "Mei HaShiloach, Volume II, Talmud, Sukkah 5b",
+  "Mei HaShiloach, Volume II, Talmud, Sukkah 6b",
+  "Mei HaShiloach, Volume II, Talmud, Sukkah 52a",
+  "Mei HaShiloach, Volume II, Talmud, Rosh hashanah 2a",
+  "Mei HaShiloach, Volume II, Talmud, Rosh hashanah 11a",
+  "Mei HaShiloach, Volume II, Talmud, Rosh hashanah 15a",
+  "Mei HaShiloach, Volume II, Talmud, Rosh hashanah 16a",
+  "Mei HaShiloach, Volume II, Talmud, Rosh hashanah 26b",
+  "Mei HaShiloach, Volume II, Talmud, Rosh hashanah 27a",
+  "Mei HaShiloach, Volume II, Talmud, Rosh hashanah 29b",
+  "Mei HaShiloach, Volume II, Talmud, Megillah 10b",
+  "Mei HaShiloach, Volume II, Talmud, Megillah 12b",
+  "Mei HaShiloach, Volume II, Talmud, Megillah 15a",
+  "Mei HaShiloach, Volume II, Talmud, Megillah 18a",
+  "Mei HaShiloach, Volume II, Talmud, Megillah 25a",
+  "Mei HaShiloach, Volume II, Talmud, Megillah 27b",
+  "Mei HaShiloach, Volume II, Talmud, Megillah 28a",
+  "Mei HaShiloach, Volume II, Talmud, Megillah 32b",
+  "Mei HaShiloach, Volume II, Talmud, Taanit 20a",
+  "Mei HaShiloach, Volume II, Talmud, Taanit 30b",
+  "Mei HaShiloach, Volume II, Talmud, Chagigah 5b",
+  "Mei HaShiloach, Volume II, Talmud, Chagigah 9b",
+  "Mei HaShiloach, Volume II, Talmud, Yevamot 72a",
+  "Mei HaShiloach, Volume II, Talmud, Yevamot 75b",
+  "Mei HaShiloach, Volume II, Talmud, Ketubot 5a",
+  "Mei HaShiloach, Volume II, Talmud, Ketubot 10b",
+  "Mei HaShiloach, Volume II, Talmud, Ketubot 17a",
+  "Mei HaShiloach, Volume II, Talmud, Ketubot 69a",
+  "Mei HaShiloach, Volume II, Talmud, Kiddushin 2a",
+  "Mei HaShiloach, Volume II, Talmud, Bava Metzia 2a",
+  "Mei HaShiloach, Volume II, Talmud, Bava Metzia 13a",
+  "Mei HaShiloach, Volume II, Talmud, Bava Metzia (Yerushalmi)",
+  "Mei HaShiloach, Volume II, Talmud, Bava Batra 8a",
+  "Mei HaShiloach, Volume II, Talmud, Sanhedrin 99a",
+  "Mei HaShiloach, Volume II, Talmud, Sanhedrin 111a",
+  "Mei HaShiloach, Volume II, Talmud, Avot",
+  "Mei HaShiloach, Volume II, Talmud, Zevachim 2a",
+  "Mei HaShiloach, Volume II, Talmud, Zevachim 102b",
+  "Mei HaShiloach, Volume II, Talmud, Menachot 35b",
+  "Mei HaShiloach, Volume II, Talmud, Menachot 76b",
+  "Mei HaShiloach, Volume II, Talmud, Tahorot",
+  "Mei HaShiloach, Volume II, Anthology, For Shabbat Chanuka and Rosh Chodesh",
+  "Mei HaShiloach, Volume II, Anthology, For the Month of Elul",
+  "Mei HaShiloach, Volume II, Anthology, For Rosh Hashanah Prayers",
+  "Mei HaShiloach, Volume II, Anthology, For Shabbat",
+  "Mei HaShiloach, Volume II, Anthology, In Zohar",
+  "Mei HaShiloach, Volume II, Anthology, For Haggadah",
+  "Mei HaShiloach, Volume II, Anthology, Birkat HaMazon",
+  "Mei HaShiloach, Volume II, Anthology, Midrah Rabbah and Tanchuma",
+  "Mei HaShiloach, Volume II, Anthology, Miscellany",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Genesis, Bereshit",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Genesis, Noach",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Genesis, Lech Lecha",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Genesis, Vayera",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Genesis, Chayei Sara",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Genesis, Toldot",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Genesis, Vayetzei",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Genesis, Vayeshev",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Genesis, Vayigash",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Genesis, Vayechi",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Exodus, Shemot",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Exodus, Bo",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Exodus, Beshalach",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Exodus, Yitro",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Exodus, Mishpatim",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Exodus, Ki Tisa",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Exodus, Pekudei",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Leviticus, Metzora",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Leviticus, Achrei Mot",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Leviticus, Kedoshim",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Leviticus, Emor",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Leviticus, Behar",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Numbers, Nasso",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Numbers, Beha'alotcha",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Numbers, Korach",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Numbers, Chukat",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Numbers, Balak",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Numbers, Pinchas",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Deuteronomy, Devarim",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Deuteronomy, Vaetchanan",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Deuteronomy, Eikev",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Deuteronomy, Re'eh",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Deuteronomy, Shoftim",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Deuteronomy, Ki Teitzei",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Deuteronomy, Ki Tavo",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Deuteronomy, Nitzavim",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Deuteronomy, Ha'Azinu",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Deuteronomy, V'Zot HaBerachah",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Five Scrolls, Ruth 3",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Five Scrolls, Ecclesiastes",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Five Scrolls, Lamentations 1",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Five Scrolls, Lamentations 2",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Prophets, Joshua 6",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Prophets, I Samuel 15",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Prophets, II Samuel 7",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Prophets, I Kings 6",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Prophets, I Kings 22",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Prophets, II Kings 6",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Prophets, Isaiah 26",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Prophets, Isaiah 32",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Prophets, Isaiah 43",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Prophets, Isaiah 44",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Prophets, Isaiah 45",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Prophets, Isaiah 55",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Prophets, Isaiah 59",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Prophets, Jeremiah 2",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Prophets, Jeremiah 9",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Prophets, Jeremiah 23",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Prophets, Ezekiel 33",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Prophets, Amos 9",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Prophets, Micah 4",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Prophets, Habakkuk 2",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Prophets, Zechariah 14",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Prophets, Malachi 3",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Writings, Psalms 2",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Writings, Psalms 23",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Writings, Psalms 24",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Writings, Psalms 25",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Writings, Psalms 27",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Writings, Psalms 31",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Writings, Psalms 34",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Writings, Psalms 40",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Writings, Psalms 94",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Writings, Psalms 98",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Writings, Psalms 104",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Writings, Psalms 145",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Writings, Psalms 147",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Writings, Proverbs 3",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Writings, Proverbs 9",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Writings, Proverbs 10",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Writings, Proverbs 14",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Writings, Proverbs 17",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Writings, Proverbs 22",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Writings, Proverbs 23",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Writings, Proverbs 24",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Writings, Job 26",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Writings, Job 28",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Writings, I Chronicles 12",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Writings, I Chronicles 28",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Writings, II Chronicles 6",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Berakhot 2a",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Berakhot 4b",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Berakhot 8a",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Berakhot 10b",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Berakhot 28a",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Berakhot 62b",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Shabbat 86b",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Shabbat 89b",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Eruvin 13b",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Pesachim 8a",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Pesachim 49b",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Pesachim 118a",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Pesachim 119b",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Pesachim (Yerushalmi)",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Yoma 78b",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Yoma 85b",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Yoma 86b",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Sukkah 51a",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Sukkah 52a",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Rosh Hashanah 11a",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Rosh Hashanah 16a",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Rosh Hashanah 32b",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Taanit 5b",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Taanit 7a",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Taanit 8b",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Taanit 15a",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Megillah 2a",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Megillah 9b",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Megillah 12a",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Megillah 25a",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Megillah 25b",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Chagigah 4b",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Chagigah 26b",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Yevamot 63a",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Ketubot 3b",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Nedarim 25a",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Sotah 10b",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Sotah 47a",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Gittin 43a",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Bava Kamma 80a",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Bava Metzia 29b",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Bava Metzia 58b",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Bava Batra 14b",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Bava Batra 16a",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Sanhedrin 7a",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Sanhedrin 90a",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Sanhedrin 91b",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Avodah Zarah 2b",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Avot",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Zevachim 46b",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Chullin 139b",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Arakhin 13b",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Keritot 6a",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Collectanea, Zohar Bereshit",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Collectanea, Zohar Shemot",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Collectanea, Zohar Devarim",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Collectanea, Tikkunei Zohar",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Collectanea, Sefer Yetzirah",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Collectanea, Siddur",
+  "Mei HaShiloach, Mei HaShiloach Anthology, Collectanea, Miscellany"
 ]);
 async function withMeiStudy(d) {
   const ref = d.sectionRef || d.ref;
@@ -895,30 +1471,30 @@ async function withMeiStudy(d) {
   const sequence=[...meiStudyRefs];
   const position=sequence.indexOf(ref);
   return {...d, book:'Mei HaShiloach', ref, sectionRef:ref, he, en,
-    phrases:overlay, meiStudy:true, segmentLevel:false, sep:' ',
+    phrases:overlay, meiStudy:true, segmentLevel:false, sep:headingInfo?.sep || ' ',
     ...(d.next ? {} : {next:sequence[position+1] || null}),
     ...(d.prev ? {} : {prev:sequence[position-1] || null}),
     versions:[{title:'Akiva Publishing reviewed interlinear edition',lang:'Hebrew and English',source:'Akiva Publishing',license:'© Akiva Publishing'}],
-    ...(heads ? {heads, studyHeading:headingInfo.title, phraseHeads:headingInfo.phraseHeadings || {}} : {})};
+    heRef:headingInfo?.he || d.heRef, sourceUrl:headingInfo?.sourceUrl || d.sourceUrl, transcriptionNotes:headingInfo?.transcriptionNotes || {}, sourceNotes:headingInfo?.sourceNotes || {}, paragraphBreaks:headingInfo?.paragraphBreaks || d.paragraphBreaks, heRefHtml:headingInfo?.heHtml || null, ...(heads ? {heads, studyHeading:headingInfo.title, phraseHeads:headingInfo.phraseHeadings || {}} : {})};
 }
 async function fetchText(ref, {remoteOnly = false} = {}) {
   const preferred = await preferredSourceText(ref);
   if (preferred) return preferred;
-  // All 21 study sections are bundled; do not let a stale Sefaria or app cache
+  // All published study sections are bundled; do not let a stale Sefaria or app cache
   // replace the reviewed English. This also makes them available offline.
   if (!remoteOnly && meiStudyRefs.has(ref)) {
     const study = await withMeiStudy({ref, sectionRef:ref, he:[], en:[]});
     if (study.meiStudy) return study;
   }
   if (!remoteOnly) {
-    // Canonical Mei paragraph references use a space after the parashah name.
+    // Canonical Mei paragraphs use a space after a parashah name and a colon after a chapter or daf.
     // Preserve older saved colon links while resolving both forms locally.
     const section=[...meiStudyRefs].find(section=>ref.startsWith(section) && /^[ :][1-9]\d*$/.test(ref.slice(section.length)));
     if(section) {
       const study=await withMeiStudy({ref:section,sectionRef:section,he:[],en:[]});
       const paragraph=Number(ref.slice(section.length+1));
       if(study.meiStudy && paragraph<=study.he.length) {
-        const canonicalRef=section+' '+paragraph;
+        const canonicalRef=section+(study.sep || ' ')+paragraph;
         return {...study,ref:canonicalRef,highlight:canonicalRef};
       }
     }
@@ -1065,7 +1641,11 @@ async function renderHome() {
         <p>Support the printed sefarim and the developing digital reader.</p>
         <a class="btn primary akiva-donate-direct" href="https://thechesedfund.com/kisveiravtzadokhakohen/bringing-the-wisdom-of-rav-tzadok-hakohen-of-lublin-kisvei-ishbitz-radzin-to-the-english-speaking-world/donate" rel="noreferrer">Donate securely ↗</a>
       </section>
-<section class="library-bookshop" id="libraryBookshop" aria-label="Purchase the published Akiva Publishing editions"><div class="eyebrow">Akiva Publishing</div><h2>Explore the books</h2><p class="shop-intro">Continue your learning with the printed editions. Choose a volume and format.</p>
+<section class="library-bookshop" id="libraryBookshop" aria-label="Purchase the published Akiva Publishing editions"><div class="eyebrow">Akiva Publishing</div><h2>Explore the books</h2><p class="shop-intro">Start with our two new Pri Tzaddik editions, then explore the collection.</p><div class="shop-series-links"><a href="https://www.amazon.com/dp/B0HNRSTB8L?binding=hardcover" target="_blank" rel="noopener noreferrer">Pri Tzaddik · Hardcover ↗</a><a href="https://www.amazon.com/dp/B0HNRSTB8L?binding=paperback" target="_blank" rel="noopener noreferrer">Paperback ↗</a></div>
+<!-- akiva-new-book-cards-start -->
+<section class="shop-group shop-new" data-edition="pri-tzaddik-rosh-chodesh"><h3><span class="shop-new-badge">Newly published</span><br>Pri Tzaddik</h3><div class="shop-book"><img loading="eager" decoding="async" src="../editions/pri-tzaddik-rosh-chodesh-front.webp" alt="Pri Tzaddik: Rosh Chodesh to Tu BiShvat · original front cover"><div><div class="book-name">Rosh Chodesh to Tu BiShvat</div><div class="formats"><a href="https://www.amazon.com/dp/B0HNS3LB5J" target="_blank" rel="noopener noreferrer">View on Amazon ↗</a><a class="sample-link" href="editions/sample.html?book=pri-tzaddik-rosh-chodesh">Read 20-page sample →</a><a href="../editions/pri-tzaddik-rosh-chodesh-sample.pdf" download>Download sample PDF ↓</a></div><p class="book-format-note">Hardcover &amp; paperback</p></div></div><p class="shop-description">Renewal, hidden light, and spiritual growth through the months and moadim.</p></section>
+<section class="shop-group shop-new" data-edition="pri-tzaddik-shabbos"><h3><span class="shop-new-badge">Newly published</span><br>Pri Tzaddik</h3><div class="shop-book"><img loading="eager" decoding="async" src="../editions/pri-tzaddik-shabbos-front.webp" alt="Pri Tzaddik: Kedushas Shabbos &amp; Shevisas Shabbos · original front cover"><div><div class="book-name">Kedushas Shabbos &amp; Shevisas Shabbos</div><div class="formats"><a href="https://www.amazon.com/dp/B0HP11WKQC" target="_blank" rel="noopener noreferrer">View on Amazon ↗</a><a class="sample-link" href="editions/sample.html?book=pri-tzaddik-shabbos">Read 20-page sample →</a><a href="../editions/pri-tzaddik-shabbos-sample.pdf" download>Download sample PDF ↓</a></div><p class="book-format-note">Hardcover &amp; paperback</p></div></div><p class="shop-description">The opening teachings and Rav Tzadok’s exploration of Shabbos, kedushah, and menuchah.</p></section>
+<!-- akiva-new-book-cards-end -->
 <section class="shop-group"><h3>Resisei Layla · Two Volumes</h3>
 <div class="shop-book"><img loading="lazy" alt="Volume I · Simanim 1–42 cover" src="../resisei-volume-i-front-original.webp"><div><div class="book-name">Volume I · Simanim 1–42</div><div class="formats"><a href="https://www.amazon.com/dp/B0HM7GT85X" target="_blank" rel="noopener noreferrer">Paperback ↗</a><a href="https://www.amazon.com/dp/B0HM6TX1S9" target="_blank" rel="noopener noreferrer">Hardcover ↗</a></div></div></div>
 <div class="shop-book"><img loading="lazy" alt="Volume II · Simanim 43–58 cover" src="../resisei-volume-ii-front-original.webp"><div><div class="book-name">Volume II · Simanim 43–58</div><div class="formats"><a href="https://www.amazon.com/dp/B0HM795W5M" target="_blank" rel="noopener noreferrer">Paperback ↗</a><a href="https://www.amazon.com/dp/B0HMFJ9DJV" target="_blank" rel="noopener noreferrer">Hardcover ↗</a></div></div></div>
@@ -1223,6 +1803,25 @@ async function renderBook(title) {
           + renderLocalNode(study, true) + '</div>'
           + (originals ? '<details class="original-edition"><summary>Original Hebrew text · additional sections</summary>' + originals + '</details>' : '');
       } else $('#toc').innerHTML = renderLocalNode(toc.toc, true);
+      $('#saveBook').onclick = () => saveBook(title);
+      return;
+    }
+    if (title === 'Mei HaShiloach') {
+      const study = await dataJSON('mei-ha-shiloach/study-contents.json');
+      $('#bookHe').textContent = study.he;
+      $('#tocActions').innerHTML = actions([...meiStudyRefs][0]);
+      $('#toc').innerHTML = '<div class="study-entry"><h2>Hebrew–English Interlinear</h2><p>Volumes I and II, with the Mei HaShiloach Anthology. Select a passage for its Hebrew, English, sources and connections.</p>'
+        + renderLocalNode(study.toc, true) + '</div><details id="meiOriginalContents" class="original-edition"><summary>Additional source sections · complete Hebrew contents</summary><div class="original-contents"></div></details>';
+      $('#meiOriginalContents').addEventListener('toggle', async event => {
+        const details = event.currentTarget, target = details.querySelector('.original-contents');
+        if (!details.open || target.dataset.loaded) return;
+        target.innerHTML = '<div class="loading">Loading contents…</div>';
+        try {
+          const response = await getJSON('/api/shape/Mei%20HaShiloach');
+          const root = Array.isArray(response) ? response[0] : response;
+          target.innerHTML = renderNode(root, root.book || title, true); target.dataset.loaded = 'true';
+        } catch (error) { target.innerHTML = errorBox('The additional source contents could not be loaded.', title, error); }
+      });
       $('#saveBook').onclick = () => saveBook(title);
       return;
     }
@@ -1419,7 +2018,8 @@ async function renderReader(ref, jump = new URLSearchParams()) {
     const footnote = e.target.closest('.reader-footnote');
     const sourceAnchor = e.target.closest('a');
     const linkedSource = sourceAnchor && !sourceAnchor.classList.contains('footnote-cross-reference')
-      && window.AkivaSourceConnections?.sourceRefFromUrl(sourceAnchor.getAttribute('href'));
+      && !sourceAnchor.hasAttribute('data-source-external')
+      && (sourceAnchor.dataset.readerRef || window.AkivaSourceConnections?.sourceRefFromUrl(sourceAnchor.getAttribute('href')));
     if (footnote && linkedSource && !e.ctrlKey && !e.metaKey && !e.shiftKey && !e.altKey) {
       e.preventDefault(); e.stopPropagation();
       openSourceStudy(linkedSource, {...sourceContext(sourceAnchor),footnoteQuote:footnoteSourceQuote(sourceAnchor)}, sourceAnchor.getAttribute('href'));
@@ -1431,7 +2031,9 @@ async function renderReader(ref, jump = new URLSearchParams()) {
     const cite = e.target.closest('a.cite');
     if (cite && seg && !e.ctrlKey && !e.metaKey && !e.shiftKey && !e.altKey) {
       e.preventDefault();
-      openSourceStudy(cite.dataset.ref, sourceContext(cite));
+      const target = readerCitationTarget(cite.dataset.ref, cite);
+      if (target.openExternal) window.open(target.sourceUrl, '_blank', 'noopener');
+      else openSourceStudy(target.ref, sourceContext(cite), target.sourceUrl);
       return;
     }
     if (seg) selectSegment(seg.dataset.ref, seg);
@@ -1513,7 +2115,10 @@ function readingFootnote(note, part) {
       let segment = esc(run.text || '');
       if (run.bold) segment = '<strong>' + segment + '</strong>';
       if (run.italic) segment = '<em>' + segment + '</em>';
-      if (isSefaria(run.href)) segment = '<a href="' + esc(run.href) + '"' + (String(run.href).startsWith('#/read/') ? '' : ' target="_blank" rel="noopener noreferrer"') + '>' + segment + '</a>';
+      const source = (note.sources || []).find(item => item.url === run.href);
+      const readerRef = run.readerRef || source?.readerRef;
+      const external = run.openExternal || source?.openExternal;
+      if (isSefaria(run.href)) segment = '<a href="' + esc(run.href) + '"' + (readerRef ? ' data-reader-ref="' + esc(readerRef) + '"' : '') + (external ? ' data-source-external="true"' : '') + (String(run.href).startsWith('#/read/') ? '' : ' target="_blank" rel="noopener noreferrer"') + '>' + segment + '</a>';
       return segment;
     }).join('') : esc(p.text || '');
     const unique = new Set();
@@ -1536,7 +2141,8 @@ function readingFootnote(note, part) {
 }
 /* A footnote marker placed inside the Hebrew, beside the word it annotates (as in the Word edition).
    It opens the matching footnote box of the same phrase, or of the paragraph's footnote tray. */
-const safeFootnoteUrl = url => /^#\/read\/[^<>\s]+$/.test(String(url || '')) || /^https:\/\/(?:(?:www\.)?sefaria\.org|voices\.sefaria\.org|(?:www\.)?chabad\.org|(?:www\.)?nli\.org\.il|(?:www\.)?hebrewbooks\.org|he\.wikisource\.org)\//i.test(String(url || ''));
+const safeFootnoteUrl = url => /* Reviewed source image witnesses */ ["library/data/tzidkat-hatzadik/source-evidence/tzidkat40-arba-meot-shekel-kesef-neimot2-502-503.pdf","https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/data/tzidkat-hatzadik/source-evidence/tzidkat40-arba-meot-shekel-kesef-neimot2-502-503.pdf","library/data/tzidkat-hatzadik/source-evidence/tzidkat154-takanat-hashavin10-printed-excerpt.pdf","https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/data/tzidkat-hatzadik/source-evidence/tzidkat154-takanat-hashavin10-printed-excerpt.pdf"].includes(String(url || '')) || /* Tzidkat reviewed source URLs */ ["https://wiki.jewishbooks.org.il/mediawiki/wiki/יערות_דבש/ב/ב"].includes(String(url || '')) ||
+/* Verified primary source URLs */ ["https://archive.org/details/seferyesodolamib01isra/page/n105/mode/1up","https://download.hebrewbooks.org/downloadhandler.ashx?req=14308#page=556","https://download.hebrewbooks.org/downloadhandler.ashx?req=14314#page=672","https://download.hebrewbooks.org/downloadhandler.ashx?req=14314#page=676","https://download.hebrewbooks.org/downloadhandler.ashx?req=14314#page=689","https://download.hebrewbooks.org/downloadhandler.ashx?req=14314#page=690","https://download.hebrewbooks.org/downloadhandler.ashx?req=32673#page=124","https://download.hebrewbooks.org/downloadhandler.ashx?req=32674#page=58","https://download.hebrewbooks.org/downloadhandler.ashx?req=42536#page=228","https://download.hebrewbooks.org/downloadhandler.ashx?req=42536#page=304","https://download.hebrewbooks.org/downloadhandler.ashx?req=440#page=282","https://download.hebrewbooks.org/downloadhandler.ashx?req=8920#page=99","https://download.hebrewbooks.org/downloadhandler.ashx?req=9453#page=8","https://www.beureihatefila.com/files/HaPardes.pdf#page=264"].includes(String(url || '')) || /^#\/read\/[^<>\s]+$/.test(String(url || '')) || /^https:\/\/(?:(?:www\.)?sefaria\.org|voices\.sefaria\.org|(?:www\.)?chabad\.org|(?:www\.)?nli\.org\.il|(?:www\.)?hebrewbooks\.org|he\.wikisource\.org)\//i.test(String(url || ''));
 const inlineFootnoteMarker = (note, scope) => `<button type="button" class="footnote-marker annotated-trigger he-note${note.sourceId ? ' source-note-trigger' : ''}${note.connectionIdeaId ? ' connection-idea-marker' : ''}" data-fn="${note.number}"${note.connectionIdeaId ? ' data-connection-id="'+esc(note.connectionIdeaId)+'"' : ''} data-scope="${scope}"${note.sourceId ? ' data-note-key="'+esc(note.placementId)+'"' : ''} aria-label="Open annotated footnote ${note.number}" aria-expanded="false">${note.number}</button>`;
 /* Exact character anchors count decoded visible text, preserving nikkud and links.
    Splitting a citation link keeps the button outside any other interactive element. */
@@ -1626,8 +2232,8 @@ function appendSection(d) {
   if (d.local && d.phrases && isPriShabbosEdition(d.sectionRef)) sec.classList.add('pri-shabbos-study');
   sec.dataset.ref = d.sectionRef;
   let html = d.title
-    ? `<div class="sec-head"><span>${esc(d.title.ois ? d.title.parashah + ' · Ois ' + d.title.ois + ' — ' + (d.title.en || d.sectionRef) : d.title.he && /^סימן/.test(d.title.he) ? d.sectionRef : d.title.en || d.sectionRef)}</span></div><h2 class="sec-title he" lang="he">${esc(d.title.he)}</h2>${d.title.he && /^סימן/.test(d.title.he) && d.title.en ? `<div class="sec-sub">${esc(d.title.en)}</div>` : ''}`
-    : `<div class="sec-head"><span>${esc(d.studyHeading || d.sectionRef)}</span>${d.heRef ? `<span class="he" lang="he">${esc(d.heRef)}</span>` : ''}</div>`;
+    ? `<div class="sec-head"><span>${esc(d.title.ois ? d.title.parashah + ' · Ois ' + d.title.ois + (d.title.en === d.title.parashah + ' · Ois ' + d.title.ois ? '' : ' — ' + (d.title.en || d.sectionRef)) : d.title.he && /^סימן/.test(d.title.he) ? d.sectionRef : d.title.en || d.sectionRef)}</span></div><h2 class="sec-title he" lang="he">${esc(d.title.he)}</h2>${d.title.he && /^סימן/.test(d.title.he) && d.title.en ? `<div class="sec-sub">${esc(d.title.en)}</div>` : ''}`
+    : `<div class="sec-head"><span>${esc(d.studyHeading || d.sectionRef)}</span>${d.heRef ? `<span class="he" lang="he">${d.heRefHtml ? clean(d.heRefHtml) : esc(d.heRef)}</span>` : ''}</div>`;
   if (d.sourceUrl) html += `<div class="sec-sub"><a href="${esc(d.sourceUrl)}" target="_blank" rel="noopener noreferrer">View the original Hebrew on Sefaria ↗</a></div>`;
   if (d.preferredEdition) {
     if(d.preferredEdition.actualVersionTitle)html+=`<div class="sec-sub">${esc(d.preferredEdition.actualVersionTitle)}</div>`;
@@ -1677,6 +2283,7 @@ function appendSection(d) {
       ? 'mei-hashiloach-lech-lecha-interlinear.docx' : null;
   if (lechDownloads) html += `<div class="section-docx-link"><a href="downloads/${lechDownloads}" download>Download the complete Lech Lecha interlinear Word edition ↓</a></div>`;
   if (d.downloadDocx) html += `<div class="section-docx-link"><a href="${esc(d.downloadDocx)}" download>${esc(d.downloadDocxLabel || (d.sectionRef.startsWith('Beit Yaakov on Torah,') ? 'Download the supplied interlinear Word edition (DOCX)' : 'Download the complete annotated Word edition (DOCX)'))} ↓</a></div>`;
+  if (d.downloadPdf) html += `<div class="section-docx-link"><a href="${esc(d.downloadPdf)}" target="_blank" rel="noopener">${esc(d.downloadPdfLabel || "Download the print PDF")} ↗</a></div>`;
   const numberOfNotes = Object.values(d.annotations || {}).reduce((sum, arr) => sum + arr.length, 0);
   if (numberOfNotes) html += `<div class="note-discovery">${numberOfNotes} annotated source footnotes · Tap a numbered marker beside its Hebrew word to read the full note and sources.</div>`;
   if (!n) html += `<div class="empty" style="text-align:center">This section has no text yet.</div>`;
@@ -1724,6 +2331,7 @@ function appendSection(d) {
       <div class="seg-he" lang="he" dir="rtl">${h}</div>
       <div class="seg-en" lang="en">${e}</div>${il}${noteTray}
     </div>`;
+    if (d.sourceNotes?.[i]?.length) html += `<details class="transcription-note source-reference-note"><summary><span class="note-en">Source reference notes</span><span class="note-he" lang="he">הֶעָרוֹת לַמְּקוֹרוֹת</span></summary>${d.sourceNotes[i].map(note=>`<p>${esc(note)}</p>`).join("")}</details>`;
     if (d.transcriptionNotes?.[i]) html += `<details class="transcription-note"><summary><span class="note-en">Source transcription notes</span><span class="note-he" lang="he">הֶעָרוֹת לַנּוּסָח</span></summary><p class="note-en">${esc(d.transcriptionNotes[i].join(' '))}</p><p class="note-he" lang="he">הַנּוּסָח נִשְׁמַר כַּתַּעֲתִיק. קְרִיאוֹת אוֹ רָאשֵׁי תֵּבוֹת שֶׁאֵינָם בְּרוּרִים נִשְׁמְרוּ, וְהַמַּשְׁמָעוּת בַּתַּרְגּוּם נִקְבְּעָה לְפִי הַהֶקְשֵׁר.</p></details>`;
   }
   if (d.heads && d.heads[n]) html += d.heads[n].map(subhead).join('');
@@ -1837,7 +2445,7 @@ const sourceConnections = window.AkivaSourceConnections;
 const connectedIdeas = window.AkivaConnectedIdeas;
 let connectedIdeasPromise = null;
 function connectedIdeasCatalog() {
-  if (!connectedIdeasPromise) connectedIdeasPromise = fetch('connected-ideas/catalog.json?v=' + connectedIdeas.VERSION)
+  if (!connectedIdeasPromise) connectedIdeasPromise = fetch('connected-ideas/catalog.json?v=' + connectedIdeas.VERSION + '&accuracy=20261023-tzidkat-source-accuracy-v1-aec0a541c2a0')
     .then(response=>{if(!response.ok)throw new Error('Connected ideas HTTP '+response.status);return response.json();})
     .then(data=>{
       if(data.schemaVersion!==1 || data.release!==connectedIdeas.VERSION || !Array.isArray(data.records)
@@ -2054,6 +2662,18 @@ function reviewedLink(record, originRef) {
     kind:record.school, note:record.explanation, quote:{he:record.targetHebrew,en:record.targetEnglish},
     quoteRef:record.targetRef, translationProvenance:record.translationProvenance});
 }
+function readerCitationTarget(ref, element) {
+  const seg = element?.closest('.seg');
+  if (!seg?.dataset.ref?.startsWith('Tzidkat HaTzadik ')) return {ref, sourceUrl:''};
+  const section = R.sections.find(item => item.sectionRef === seg.closest('.sec')?.dataset.ref);
+  const matches = (section?.annotations?.[Number(seg.dataset.k)] || []).flatMap(note => note.sources || [])
+    .filter(source => (source.readerRef || source.openExternal)
+      && sourceConnections.normalizeRef(source.ref) === sourceConnections.normalizeRef(ref));
+  const unique = new Map(matches.map(source => [(source.readerRef || '') + '|' + (source.openExternal ? source.url : ''), source]));
+  if (unique.size !== 1) return {ref, sourceUrl:''};
+  const source = [...unique.values()][0];
+  return {ref:source.readerRef || source.ref, sourceUrl:source.url, openExternal:source.openExternal === true};
+}
 function footnoteSourceQuote(anchor) {
   const box = anchor.closest('.reader-footnote'), seg = anchor.closest('.seg');
   if (!box || !seg) return null;
@@ -2139,7 +2759,7 @@ async function libraryLinks(sec, ref, whole) {
   const dataSlug = lb?.slug || (sec.book === 'Mei HaShiloach' ? 'mei-ha-shiloach' : null);
   if (dataSlug) {
     const links = (await dataJSON(`${dataSlug}/links.json`)) || {};
-    for (const l of links[sec.sectionRef] || []) if (whole || l.a === ref) out.push(asLink(l.a, l.r, l.c, {note:l.note || '', kind:l.kind || ''}));
+    for (const l of links[sec.sectionRef] || []) if (whole || l.a === ref) out.push(asLink(l.a, l.r, l.c, {note:l.note || '', kind:l.kind || '', canonicalRef:l.canonicalRef || '', sourceUrl:l.sourceUrl || ''}));
   }
   // Reverse citations and word-overlap suggestions are not editorial relevance
   // checks. Only reviewed passages may appear in the two Kisvei categories.
