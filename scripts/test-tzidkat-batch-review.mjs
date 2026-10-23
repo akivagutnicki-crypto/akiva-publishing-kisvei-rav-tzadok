@@ -5,7 +5,7 @@ import path from 'node:path';
 import http from 'node:http';
 import {pathToFileURL,fileURLToPath} from 'node:url';
 import {spawnSync} from 'node:child_process';
-import {loadPack,validatePack,verifyBatchSuccessor,verifyBatchChain,hasPublishedBatches,registeredPacks,batchNames,DEFAULT_PACK,notesOf,sectionOf,plain,verifyDivreiZipRefresh,DIVREI_ZIP_REFRESH} from './publish-tzidkat-batch-review.mjs';
+import {loadPack,validatePack,verifyBatchSuccessor,verifyBatchChain,hasPublishedBatches,registeredPacks,batchNames,DEFAULT_PACK,notesOf,sectionOf,plain,verifyDivreiZipRefresh,DIVREI_ZIP_REFRESH,addVerifiedSourceUrls} from './publish-tzidkat-batch-review.mjs';
 
 const args = process.argv.slice(2), option = (key,fallback) => { const at = args.indexOf(key); return at < 0 ? fallback : args[at+1]; };
 if (args.includes('--all')) {
@@ -53,6 +53,19 @@ const guards = [
   rejected('unrequested section', copy => { copy.linksBefore['Tzidkat HaTzadik ' + (copy.reviewedSections[0] === 1 ? 264 : 1)] = []; }, /exactly the reviewed batch/),
   rejected('secondary-edition attribution', copy => { const p = findNew(copy).note.paragraphs[0]; p.text += ' Biur Meshulav'; if (p.rich) p.rich.push({text:' Biur Meshulav'}); }, /Secondary commentary/),
 ];
+if (pack.verifiedExternalUrls?.length) {
+  guards.push(
+    rejected('undeclared primary URL', copy => { copy.verifiedExternalUrls = []; }, /exact reviewed declaration/),
+    rejected('unrequested external URL', copy => { copy.verifiedExternalUrls[0].url += '?unrequested'; }, /not a declared new original source/),
+    rejected('different external-source evidence', copy => { copy.verifiedExternalUrls[0].evidenceSha256 = '0'.repeat(64); }, /source evidence changed/),
+    rejected('unreviewed external source', copy => { const item = copy.verifiedExternalUrls[0]; copy.audit.entries.find(entry => entry.placementId === item.placementId).sourceEvidence[0].url += '?different'; }, /matching reviewed bilingual source evidence/),
+  );
+  const original = 'before /* Verified primary source URLs */ ["https://existing.example/source"].includes(String(url || \'\')) after';
+  const next = addVerifiedSourceUrls(original,pack.verifiedExternalUrls);
+  const expectedList = '["https://existing.example/source",' + pack.verifiedExternalUrls.map(item => JSON.stringify(item.url)).join(',') + ']';
+  assert.equal(next,original.replace('["https://existing.example/source"]',() => expectedList),'Exact source list must preserve every existing reader byte');
+  assert.equal(addVerifiedSourceUrls(next,pack.verifiedExternalUrls),next,'Repeated exact URLs must not duplicate or alter the list');
+}
 if (args.includes('--guards-only')) {
   fs.writeFileSync(path.join(artifacts,'guard-report.json'),JSON.stringify({ok:true,guards},null,2));
   console.log(JSON.stringify({ok:true,guards})); process.exit(0);
@@ -82,7 +95,7 @@ try {
     await context.addInitScript(() => { localStorage.setItem('rtl.lang',JSON.stringify('bi')); localStorage.setItem('rtl.layout',JSON.stringify('inter')); window.IntersectionObserver = class { observe(){} unobserve(){} disconnect(){} }; });
     await context.route(url => url.origin !== new URL(base).origin,route => route.fulfill({status:200,contentType:'application/json',body:'[]'}));
     const page = await context.newPage(); page.on('pageerror',error => report.errors.push({width,error:error.message}));
-    let preserved = 0, opened = 0, originalLinks = 0, internalSourcesOpened = 0, exactSourceExcerptsOpened = 0;
+    let preserved = 0, opened = 0, originalLinks = 0, internalSourcesOpened = 0, exactSourceExcerptsOpened = 0, exactExternalUrlsOpened = 0;
     for (const file of pack.chapters) {
       const ref = sectionOf(file.path), hash = encodeURIComponent(ref).replace(/%20/g,'_').replace(/%2C/g,',').replace(/%3A/g,':');
       await page.goto(base + '#/read/' + hash,{waitUntil:'domcontentloaded'});
@@ -118,7 +131,16 @@ try {
         await marker.click(); assert(await box.isVisible()); assert.equal(await marker.getAttribute('aria-expanded'),'true'); assert(await box.evaluate(element => element.scrollWidth <= element.clientWidth + 2),'New footnote clipped');
         for (const source of note.sources) if (source.url) {
           const link = box.locator('a').filter({hasText:source.ref}).first(); originalLinks++;
-          if (source.openExternal) { assert.equal(await link.getAttribute('data-source-external'),'true','Original-source link was incorrectly intercepted'); continue; }
+          if (source.openExternal) {
+            assert.equal(await link.getAttribute('data-source-external'),'true','Original-source link was incorrectly intercepted');
+            if (pack.verifiedExternalUrls?.some(item => item.url === source.url)) {
+              const [external] = await Promise.all([page.waitForEvent('popup'),link.click()]);
+              await external.waitForLoadState('domcontentloaded');
+              assert.equal(new URL(external.url()).href,new URL(source.url).href,'External source opened a different original destination');
+              await external.close(); exactExternalUrlsOpened++;
+            }
+            continue;
+          }
           if (!source.url.startsWith('#/read/')) continue;
           const target = source.readerRef || source.ref;
           if (source.readerRef) assert.equal(await link.getAttribute('data-reader-ref'),source.readerRef,'Wrong canonical source mapping');
@@ -148,7 +170,7 @@ try {
       }
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 2),false,'Reader overflows horizontally');
     }
-    assert.equal(opened,additions.length); report.viewports.push({width,reviewedSections:pack.reviewedSections.length,newNotesOpened:opened,exactHebrewAnchors:opened,existingNotesPreserved:preserved,originalSourceLinks:originalLinks,internalSourcesOpened,exactSourceExcerptsOpened}); await context.close();
+    assert.equal(opened,additions.length); report.viewports.push({width,reviewedSections:pack.reviewedSections.length,newNotesOpened:opened,exactHebrewAnchors:opened,existingNotesPreserved:preserved,originalSourceLinks:originalLinks,internalSourcesOpened,exactSourceExcerptsOpened,exactExternalUrlsOpened}); await context.close();
   }
   assert.deepEqual(report.errors,[]); report.ok = true;
 } catch (error) { report.failure = error.message; throw error; }

@@ -155,7 +155,42 @@ export function validatePack(pack) {
     assert(Array.isArray(beforeLinks) && beforeLinks.every(edge => edge.a?.startsWith(sectionOf(file.path) + ':') && edge.r), 'Missing exact source-link preimage');
   }
   assert(additions.length, 'No new notes in batch');
+  validateExternalSourceUrls(pack,additions);
   return additions;
+}
+
+// Some original works are available only on this primary-text site. Enable
+// individual reviewed destinations, never a domain-wide runtime permission.
+export function validateExternalSourceUrls(pack,additions) {
+  const declared = pack.verifiedExternalUrls || [];
+  assert(Array.isArray(declared),'Verified external URLs must be an exact list');
+  const seen = new Set();
+  for (const item of declared) {
+    assert(typeof item.url === 'string' && /^https:\/\/wiki\.jewishbooks\.org\.il\/mediawiki\/(?:wiki\/|index\.php\?)/.test(item.url)
+      && !/[<>\s\\]/.test(item.url),'Unsupported exact primary-source URL');
+    assert(!seen.has(item.url),'Repeated exact primary-source URL'); seen.add(item.url);
+    const added = additions.find(entry => entry.note.placementId === item.placementId);
+    assert(added?.note.sources.some(source => source.url === item.url && source.ref === item.ref && source.openExternal === true),'Exact URL is not a declared new original source');
+    const audit = pack.audit.entries.find(entry => entry.placementId === item.placementId);
+    const evidence = audit?.sourceEvidence.find(entry => entry.ref === item.ref && entry.url === item.url
+      && entry.he === added.note.reviewedSourceExcerpt?.he && entry.en === added.note.reviewedSourceExcerpt?.en);
+    assert(evidence && audit.status === 'verified','Exact URL lacks matching reviewed bilingual source evidence');
+    assert.equal(item.evidenceSha256,digest({ref:evidence.ref,url:evidence.url,he:evidence.he,en:evidence.en}),'Exact URL source evidence changed');
+  }
+  for (const {note} of additions) for (const source of note.sources) if (/^https:\/\/wiki\.jewishbooks\.org\.il\//.test(source.url || '')) {
+    assert(seen.has(source.url),'Primary-source URL needs its exact reviewed declaration');
+  }
+  return declared;
+}
+const externalSourceList = /\/\* Verified primary source URLs \*\/ (\[[^\n]*\])\.includes\(String\(url \|\| ''\)\)/g;
+export function addVerifiedSourceUrls(html,declared) {
+  if (!declared.length) return html;
+  const matches = [...html.matchAll(externalSourceList)]; assert.equal(matches.length,1,'Reader exact source-URL list is missing or ambiguous');
+  const original = JSON.parse(matches[0][1]); assert(Array.isArray(original) && original.every(url => typeof url === 'string'));
+  const added = declared.map(item => item.url).filter(url => !original.includes(url));
+  if (!added.length) return html;
+  const list = matches[0][1].slice(0,-1) + (original.length ? ',' : '') + added.map(url => JSON.stringify(url)).join(',') + ']';
+  return html.replace(externalSourceList,() => "/* Verified primary source URLs */ " + list + ".includes(String(url || ''))");
 }
 
 export function loadPack(filename = packFile) {
@@ -308,6 +343,7 @@ export function planPublication(directory, prepared) {
   put(MCP,mcp);
   const revision = pack.release + '-' + packSha256.slice(0,12), marker = 'const editionDataUrl = url => ';
   let html = fs.readFileSync(localFile(directory,'library/index.html'),'utf8'); assert.equal(html.split(marker).length,2); assert(!html.includes('/* ' + pack.release + ' */'));
+  html = addVerifiedSourceUrls(html,pack.verifiedExternalUrls || []);
   html = html.replace(marker,marker + "/* " + pack.release + " */ (url.startsWith('data/tzidkat-hatzadik/') || url.startsWith('data/cited/') || url === 'data/files.json' || url === 'data/packs/sources.json') ? url + '?batch=" + revision + "' :\n");
   put('library/index.html',Buffer.from(html));
   let sw = fs.readFileSync(localFile(directory,'library/sw.js'),'utf8'); assert.equal((sw.match(/const SHELL = `[^`]+`;/g)||[]).length,1);
