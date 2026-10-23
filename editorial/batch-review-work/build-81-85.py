@@ -125,8 +125,14 @@ add(81, 'berakhot-praying-toward-the-land', 9, 'Berakhot 30a:9',
     'The baraita supplies both the verse about prayer toward the Land and the progression toward the Temple. Rav Tzadok relates that shared orientation to each person’s spiritual place in the Land and the Temple.',
     anchor_end='דֶּרֶךְ אַרְצָם",')
 
+deuteronomy_11_21 = primary('Deuteronomy 11:21')
+# Keep Sefaria's full source capture above, but quote only the biblical verse:
+# the API embeds its Masoretic annotation and section marker in the Hebrew HTML.
+masoretic_annotation = '*(בספרי תימן הארץ בצד״י גדולה)'
+assert masoretic_annotation in deuteronomy_11_21
+deuteronomy_11_21 = deuteronomy_11_21.replace(masoretic_annotation, '').replace(' {ס}', '')
 add(81, 'deuteronomy-length-of-days-parents-children', 11, 'Deuteronomy 11:21',
-    primary('Deuteronomy 11:21'),
+    deuteronomy_11_21,
     'So that your days and the days of your children may be many on the land that the Lord swore to your ancestors to give them, like the days of the heavens above the earth.',
     'The full verse joins the longevity of parents and children, life on the Land, and the enduring heavens. These are the three features Rav Tzadok brings together in the interpretation that follows.')
 

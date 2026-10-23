@@ -1,0 +1,907 @@
+{
+  "status": "passed",
+  "reviewedAt": "2026-10-23",
+  "reviewedSections": [
+    76,
+    77,
+    78,
+    79,
+    80,
+    81,
+    82,
+    83,
+    84,
+    85
+  ],
+  "entries": 59,
+  "counts": {
+    "76": 5,
+    "77": 8,
+    "78": 4,
+    "79": 5,
+    "80": 10,
+    "81": 9,
+    "82": 2,
+    "83": 5,
+    "84": 6,
+    "85": 5
+  },
+  "internalCanonicalQuotations": 15,
+  "proposalSha256": {
+    "76-80": "1c181fbf4c56600f8a32211ee9a554560367a493e67ed43f180b732f7bcf5290",
+    "81-85": "12432f783d327a9e0b761c457dea0ebc39f7a5e075e782029460d794d847469d"
+  },
+  "independentEditorialFindings": [
+    "Read every new Hebrew/Aramaic quotation, English translation, explanatory context, source reference, and destination anchor.",
+    "Ois 76 preserves repentance and recognition of sin as the human obligation; the Likkutei Maamarim quotation does not omit its limiting continuation.",
+    "Ois 78 preserves the distinction between the patriarchal stages, the enduring Israelite identity of Yaakov’s descendants, and the ten tribes passage’s limitation to offspring of gentile mothers.",
+    "Ois 79 preserves the distinction between accessible divine attributes and infinite divine essence, and the first complete fourfold analogy is labeled as such.",
+    "Ois 80 preserves the two explanations of Torah’s protection, the alternate explanation of Avraham’s change of place, Ahab’s unsuccessful attempt at justification, and the stated limits of holy severity.",
+    "Ois 81 distinguishes the two Midrashic accounts of Moshe and the spiritual four-cubits teaching from Tosafot’s rejection of universal actual landownership.",
+    "Ois 82 distinguishes partial relief through verbal confession from complete abandonment of sin.",
+    "Ois 83 Nedarim translation checked additionally against Rashi and Ran: guvza is a chest; marana aleih means that the master should wait with it.",
+    "Ois 84 study-house prayer follows the explicitly supplied Rashi interpretation, and the Tikkunei Zohar context does not attribute Rav Tzadok’s envy application to the earlier source.",
+    "Ois 85 preserves inward pride as distinct from public domination and the Tanchuma’s two descriptions of Cain’s offering."
+  ],
+  "overlappingSourceReferencesManuallyResolved": [
+    {
+      "section": 79,
+      "existingNumber": 2254,
+      "existingRef": "Kometz HaMinchah 1:18:1",
+      "newRef": "Kometz HaMinchah 1:19:1",
+      "finding": "Different paragraphs and quotations; existing source/recipient analogy preserved."
+    },
+    {
+      "section": 80,
+      "existingNumber": 324,
+      "existingRef": "Makkot 10a:3",
+      "newRef": "Makkot 10a:11-13",
+      "finding": "Existing geographical explanation is distinct from the new Torah-as-refuge discussion."
+    },
+    {
+      "section": 83,
+      "existingNumber": 336,
+      "existingRef": "Megillah 6b:3",
+      "newRef": "Megillah 6b:4",
+      "finding": "Existing maxim is retained; new note quotes the subsequent qualification, which old context mentions but does not quote."
+    }
+  ],
+  "correction": {
+    "section": 81,
+    "id": "deuteronomy-length-of-days-parents-children",
+    "change": "Removed an embedded Sefaria Masoretic footnote marker/comment and section marker from the new biblical quotation; verse words and English are unchanged.",
+    "rawPrimaryCapturePreserved": true,
+    "reproducibleGenerator": "review-work/build-81-85.py"
+  },
+  "checks": [
+    {
+      "section": 76,
+      "id": "likkutei-repentance-and-preparatory-failure",
+      "ref": "Likkutei Maamarim, On Book of Joshua 23",
+      "source": {
+        "kind": "canonical-reader",
+        "file": "mcp-data/text/likkutei-maamarim.json",
+        "ref": "Likkutei Maamarim, On Book of Joshua 23"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 76,
+      "id": "likkutei-the-greater-attainment-and-trial",
+      "ref": "Likkutei Maamarim, On Book of Joshua 16",
+      "source": {
+        "kind": "canonical-reader",
+        "file": "mcp-data/text/likkutei-maamarim.json",
+        "ref": "Likkutei Maamarim, On Book of Joshua 16"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 76,
+      "id": "pesachim-torah-sustains-heaven-and-earth",
+      "ref": "Pesachim 68b:13",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "ois76-primary.json",
+        "ref": "Pesachim 68b"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 76,
+      "id": "tzidkat-abundant-light-at-the-destruction",
+      "ref": "Tzidkat HaTzadik 171:1",
+      "source": {
+        "kind": "canonical-reader",
+        "file": "mcp-data/text/tzidkat-hatzadik.json",
+        "ref": "Tzidkat HaTzadik 171:1"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 76,
+      "id": "midrash-tehillim-the-enduring-future-temple",
+      "ref": "Midrash Tehillim 90:19",
+      "source": {
+        "kind": "independently-opened-primary-text",
+        "url": "https://he.wikisource.org/wiki/מדרש_תהלים_צ",
+        "retrievalRef": "turn87view0",
+        "line": 125,
+        "verification": "Exact complete final paragraph; only printed annotation marker (צא) omitted."
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 77,
+      "id": "taz-the-comparison-with-moshe",
+      "ref": "Turei Zahav on Shulchan Arukh, Yoreh De'ah 242:20",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "ois76-primary.json",
+        "ref": "Turei Zahav on Shulchan Arukh, Yoreh De'ah 242:20"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 77,
+      "id": "yoma-the-crown-available-to-everyone",
+      "ref": "Yoma 72b:6",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "ois76-primary.json",
+        "ref": "Yoma 72b"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 77,
+      "id": "shemot-rabbah-moshe-and-the-mixed-multitude",
+      "ref": "Shemot Rabbah 42:6",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "ois76-primary.json",
+        "ref": "Shemot Rabbah 42:6"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 77,
+      "id": "rashi-a-generations-teacher-called-moshe",
+      "ref": "Rashi on Shabbat 101b:3:1",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "ois76-primary.json",
+        "ref": "Rashi on Shabbat 101b"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 77,
+      "id": "ran-the-humility-of-poor-scholars",
+      "ref": "Ran on Nedarim 81a:2:3",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "ois76-primary.json",
+        "ref": "Ran on Nedarim 81a"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 77,
+      "id": "zohar-the-king-dwells-in-broken-vessels",
+      "ref": "Zohar, Yitro 23:11-13",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "ois76-primary.json",
+        "ref": "Zohar, Yitro 23"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 77,
+      "id": "gittin-rabbi-meirs-descent-from-a-convert",
+      "ref": "Gittin 56a:6-7",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "ois76-primary.json",
+        "ref": "Gittin 56a"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 77,
+      "id": "rashi-the-kenites-left-jericho-to-study",
+      "ref": "Rashi on Judges 1:16:1-2",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "ois76-primary.json",
+        "ref": "Rashi on Judges 1:16"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 78,
+      "id": "sifrei-the-patriarchs-and-the-removal-of-dross",
+      "ref": "Sifrei Devarim 312:1",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "ois76-primary.json",
+        "ref": "Sifrei Devarim 312"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 78,
+      "id": "divrei-soferim-the-completion-in-yaakov",
+      "ref": "Divrei Soferim 38:3",
+      "source": {
+        "kind": "canonical-reader",
+        "file": "mcp-data/text/divrei-soferim.json",
+        "ref": "Divrei Soferim 38:3"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 78,
+      "id": "takanat-the-ten-tribes-and-maternal-descent",
+      "ref": "Takanat HaShavin 15:97",
+      "source": {
+        "kind": "canonical-reader",
+        "file": "mcp-data/text/takanat-hashavin.json",
+        "ref": "Takanat HaShavin 15:97"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 78,
+      "id": "meiri-hezekiahs-concern-and-the-mitzvah",
+      "ref": "Meiri on Berakhot 10a:3",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "ois76-primary.json",
+        "ref": "Meiri on Berakhot 10a"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 79,
+      "id": "kometz-four-forms-of-obscured-sunlight",
+      "ref": "Kometz HaMinchah 1:19:1",
+      "source": {
+        "kind": "canonical-reader",
+        "file": "mcp-data/text/kometz-haminchah.json",
+        "ref": "Kometz HaMinchah 1:19:1"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 79,
+      "id": "machshavot-giving-receiving-and-the-divine-attributes",
+      "ref": "Machshavot Charutz 9:1",
+      "source": {
+        "kind": "canonical-reader",
+        "file": "mcp-data/text/machshavot-charutz.json",
+        "ref": "Machshavot Charutz 9:1"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 79,
+      "id": "eikhah-rabbah-strengthening-and-weakening-above",
+      "ref": "Eikhah Rabbah 1:33",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "ois76-primary.json",
+        "ref": "Eikhah Rabbah 1:33"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 79,
+      "id": "taanit-the-two-jerusalems",
+      "ref": "Taanit 5a:11-12",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "ois76-primary.json",
+        "ref": "Taanit 5a"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 79,
+      "id": "berakhot-moshes-request-about-the-shekhinah",
+      "ref": "Berakhot 7a:24",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "ois76-primary.json",
+        "ref": "Berakhot 7a"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 80,
+      "id": "rosh-hashanah-the-changes-that-tear-up-a-decree",
+      "ref": "Rosh Hashanah 16b:6-7",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "ois76-primary.json",
+        "ref": "Rosh Hashanah 16b"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 80,
+      "id": "machshavot-holy-severity-is-directed-against-evil",
+      "ref": "Machshavot Charutz 13:2",
+      "source": {
+        "kind": "canonical-reader",
+        "file": "mcp-data/text/machshavot-charutz.json",
+        "ref": "Machshavot Charutz 13:2"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 80,
+      "id": "makkot-the-protection-of-words-of-torah",
+      "ref": "Makkot 10a:11-13",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "ois76-primary.json",
+        "ref": "Makkot 10a"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 80,
+      "id": "avodah-zarah-no-tyranny-toward-created-beings",
+      "ref": "Avodah Zarah 3a:12",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "ois76-primary.json",
+        "ref": "Avodah Zarah 3a"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 80,
+      "id": "mei-hashiloach-the-raven-and-anger",
+      "ref": "Mei HaShiloach, Volume I, Genesis, Noach 2",
+      "source": {
+        "kind": "canonical-reader",
+        "file": "mcp-data/text/mei-hashiloach.json",
+        "ref": "Mei HaShiloach, Volume I, Genesis, Noach 2"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 80,
+      "id": "dover-ahabs-attempt-to-justify-the-killing",
+      "ref": "Dover Tzedek, Miscellany 2:3",
+      "source": {
+        "kind": "canonical-reader",
+        "file": "mcp-data/text/dover-tzedek.json",
+        "ref": "Dover Tzedek, Miscellany 2:3"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 80,
+      "id": "yoma-repentance-when-the-opportunity-returns",
+      "ref": "Yoma 86b:8",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "ois76-primary.json",
+        "ref": "Yoma 86b"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 80,
+      "id": "taanit-shmuel-and-the-arrival-of-davids-kingship",
+      "ref": "Taanit 5b:3-7",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "ois76-primary.json",
+        "ref": "Taanit 5b"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 80,
+      "id": "shabbat-all-israel-are-children-of-kings",
+      "ref": "Shabbat 111a:3",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "ois76-primary.json",
+        "ref": "Shabbat 111a"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 80,
+      "id": "rambam-a-change-of-name-and-a-change-of-self",
+      "ref": "Mishneh Torah, Repentance 2:4",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "ois76-primary.json",
+        "ref": "Mishneh Torah, Repentance 2:4"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 81,
+      "id": "shabbat-david-solomon-succession",
+      "ref": "Shabbat 30a:9",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "ois81-primary.json",
+        "ref": "Shabbat 30a"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 81,
+      "id": "tanchuma-moses-becomes-student",
+      "ref": "Midrash Tanchuma, Vaetchanan 6:1",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "ois81-primary.json",
+        "ref": "Midrash Tanchuma, Vaetchanan 6"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 81,
+      "id": "rashi-moses-wisdom-withdrawn",
+      "ref": "Rashi on Deuteronomy 31:2:2",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "ois81-primary.json",
+        "ref": "Rashi on Deuteronomy 31:2"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 81,
+      "id": "devarim-rabbah-moses-envy",
+      "ref": "Devarim Rabbah 9:9",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "ois81-primary.json",
+        "ref": "Devarim Rabbah 9:9"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 81,
+      "id": "sichat-shedim-land-and-anger",
+      "ref": "Sichat Shedim 1:9",
+      "source": {
+        "kind": "canonical-reader",
+        "file": "mcp-data/text/sichat-shedim.json",
+        "ref": "Sichat Shedim 1:9"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 81,
+      "id": "dover-tzedek-four-cubits-holiness",
+      "ref": "Dover Tzedek, Miscellany 1:5",
+      "source": {
+        "kind": "canonical-reader",
+        "file": "mcp-data/text/dover-tzedek.json",
+        "ref": "Dover Tzedek, Miscellany 1:5"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 81,
+      "id": "tosafot-four-cubits-property-distinction",
+      "ref": "Tosafot on Bava Batra 44b:7:1",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "ois81-primary.json",
+        "ref": "Tosafot on Bava Batra 44b"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 81,
+      "id": "berakhot-praying-toward-the-land",
+      "ref": "Berakhot 30a:9",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "ois81-primary.json",
+        "ref": "Berakhot 30a"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 81,
+      "id": "deuteronomy-length-of-days-parents-children",
+      "ref": "Deuteronomy 11:21",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "ois81-primary.json",
+        "ref": "Deuteronomy 11:21"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 82,
+      "id": "devarim-rabbah-prayer-cain-half-decree",
+      "ref": "Devarim Rabbah 8:1",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "ois81-primary.json",
+        "ref": "Devarim Rabbah 8:1"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 82,
+      "id": "peri-tzadik-cain-verbal-confession",
+      "ref": "Peri Tzadik, Vayeilech and Shabbat Shuvah 8:1",
+      "source": {
+        "kind": "canonical-reader",
+        "file": "mcp-data/text/peri-tzadik.json",
+        "ref": "Peri Tzadik, Vayeilech and Shabbat Shuvah 8:1"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 83,
+      "id": "megillah-retaining-learning-heavenly-help",
+      "ref": "Megillah 6b:4",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "ois81-primary.json",
+        "ref": "Megillah 6b"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 83,
+      "id": "shelah-noah-awakening-from-above",
+      "ref": "Shenei Luchot HaBerit, Torah Shebikhtav, Noach, Torah Ohr 20",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "ois81-primary.json",
+        "ref": "Shenei Luchot HaBerit, Torah Shebikhtav, Noach, Torah Ohr"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 83,
+      "id": "pesachim-cow-calf-teaching",
+      "ref": "Pesachim 112a:12",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "ois81-primary.json",
+        "ref": "Pesachim 112a"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 83,
+      "id": "netzeich-finding-outside-ordinary-order",
+      "ref": "Netzach Yisrael 40:1",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "ois81-primary.json",
+        "ref": "Netzach Yisrael 40"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 83,
+      "id": "nedarim-akiva-chest",
+      "ref": "Nedarim 50a:7",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "ois81-primary.json",
+        "ref": "Nedarim 50a"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 84,
+      "id": "metzudat-david-death-without-sentence",
+      "ref": "Metzudat David on Proverbs 13:23:1",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "ois81-primary.json",
+        "ref": "Metzudat David on Proverbs 13:23"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 84,
+      "id": "ibn-ezra-perishes-through-righteousness",
+      "ref": "Ibn Ezra on Ecclesiastes 7:15:1",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "ois81-primary.json",
+        "ref": "Ibn Ezra on Ecclesiastes 7:15"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 84,
+      "id": "machshavot-thought-concealed-from-self",
+      "ref": "Machshavot Charutz 1:6",
+      "source": {
+        "kind": "canonical-reader",
+        "file": "mcp-data/text/machshavot-charutz.json",
+        "ref": "Machshavot Charutz 1:6"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 84,
+      "id": "berakhot-study-house-prayer",
+      "ref": "Berakhot 28b:3-4",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "ois81-primary.json",
+        "ref": "Berakhot 28b"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 84,
+      "id": "rashi-study-house-mutual-harm",
+      "ref": "Rashi on Berakhot 28b:4:1",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "ois81-primary.json",
+        "ref": "Rashi on Berakhot 28b"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 84,
+      "id": "tikkunei-zohar-abel-moses",
+      "ref": "Tikkunei Zohar 99b:7",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "ois81-primary.json",
+        "ref": "Tikkunei Zohar 99b"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 85,
+      "id": "bava-metzia-coin-in-jug",
+      "ref": "Bava Metzia 85b:2",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "ois81-primary.json",
+        "ref": "Bava Metzia 85b"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 85,
+      "id": "rashi-empty-full-vessel",
+      "ref": "Rashi on Bava Metzia 85b:2:3-4",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "ois81-primary.json",
+        "ref": "Rashi on Bava Metzia 85b"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 85,
+      "id": "shaarei-teshuvah-private-pride",
+      "ref": "Sha'arei Teshuvah 3:163",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "ois81-primary.json",
+        "ref": "Shaarei Teshuvah 3:163"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 85,
+      "id": "tanchuma-cain-inferior-offering",
+      "ref": "Midrash Tanchuma, Bereshit 9:1",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "ois81-primary.json",
+        "ref": "Midrash Tanchuma, Bereshit 9"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    },
+    {
+      "section": 85,
+      "id": "peri-tzadik-inclination-disguised-as-guide",
+      "ref": "Peri Tzadik, Beshalach 14:1",
+      "source": {
+        "kind": "canonical-reader",
+        "file": "mcp-data/text/peri-tzadik.json",
+        "ref": "Peri Tzadik, Beshalach 14:1"
+      },
+      "exactAnchor": true,
+      "bilingualEvidenceHash": true,
+      "existingNativeOrConnectedDuplicate": false,
+      "translationAndContextIndependentlyRead": true
+    }
+  ],
+  "issues": []
+}

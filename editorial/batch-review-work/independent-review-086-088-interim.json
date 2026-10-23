@@ -1,0 +1,331 @@
+{
+  "status": "passed",
+  "reviewedAt": "2026-10-23",
+  "entries": 24,
+  "checks": [
+    {
+      "section": 86,
+      "id": "maharal-possessions-and-life",
+      "source": {
+        "kind": "independently-opened-primary-text",
+        "url": "https://he.wikisource.org/wiki/נתיבות_עולם/נתיב_גמילות_חסדים/ה",
+        "retrievalRef": "turn89view0",
+        "line": 123
+      },
+      "anchorVerified": true,
+      "sourceEvidenceVerified": true,
+      "nativeAndConnectedDuplicates": [],
+      "translationAndContextRead": true
+    },
+    {
+      "section": 86,
+      "id": "rabbeinu-bahya-four-orders-of-creatures",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "primary-86-90.json",
+        "ref": "Rabbeinu Bahya, Shemot 35:1"
+      },
+      "anchorVerified": true,
+      "sourceEvidenceVerified": true,
+      "nativeAndConnectedDuplicates": [],
+      "translationAndContextRead": true
+    },
+    {
+      "section": 86,
+      "id": "shaarei-kedusha-humanity-includes-worlds",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "primary-86-90.json",
+        "ref": "Shaarei Kedusha, Part 3 2"
+      },
+      "anchorVerified": true,
+      "sourceEvidenceVerified": true,
+      "nativeAndConnectedDuplicates": [],
+      "translationAndContextRead": true
+    },
+    {
+      "section": 86,
+      "id": "machshavot-letters-and-the-human-microcosm",
+      "source": {
+        "kind": "canonical-reader",
+        "file": "mcp-data/text/machshavot-charutz.json",
+        "ref": "Machshavot Charutz 11:1"
+      },
+      "anchorVerified": true,
+      "sourceEvidenceVerified": true,
+      "nativeAndConnectedDuplicates": [],
+      "translationAndContextRead": true
+    },
+    {
+      "section": 86,
+      "id": "tzidkat-relations-to-possessions-and-their-repair",
+      "source": {
+        "kind": "canonical-reader",
+        "file": "mcp-data/text/tzidkat-hatzadik.json",
+        "ref": "Tzidkat HaTzadik 91:1"
+      },
+      "anchorVerified": true,
+      "sourceEvidenceVerified": true,
+      "nativeAndConnectedDuplicates": [],
+      "translationAndContextRead": true
+    },
+    {
+      "section": 86,
+      "id": "tzidkat-divine-love-in-possessions",
+      "source": {
+        "kind": "canonical-reader",
+        "file": "mcp-data/text/tzidkat-hatzadik.json",
+        "ref": "Tzidkat HaTzadik 197:1"
+      },
+      "anchorVerified": true,
+      "sourceEvidenceVerified": true,
+      "nativeAndConnectedDuplicates": [],
+      "translationAndContextRead": true
+    },
+    {
+      "section": 86,
+      "id": "rambam-knowledge-and-the-end-of-hostility",
+      "source": {
+        "kind": "independently-opened-primary-text",
+        "url": "https://he.wikisource.org/wiki/מורה_נבוכים_(אבן_תיבון)/חלק_ג/פרק_יא",
+        "retrievalRef": "turn88view1",
+        "line": 113
+      },
+      "anchorVerified": true,
+      "sourceEvidenceVerified": true,
+      "nativeAndConnectedDuplicates": [],
+      "translationAndContextRead": true
+    },
+    {
+      "section": 86,
+      "id": "sanhedrin-uncorrupted-animals-in-the-ark",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "primary-86-90.json",
+        "ref": "Sanhedrin 108b"
+      },
+      "anchorVerified": true,
+      "sourceEvidenceVerified": true,
+      "nativeAndConnectedDuplicates": [],
+      "translationAndContextRead": true
+    },
+    {
+      "section": 87,
+      "id": "avodat-yisrael-noachs-resistance-to-judgment",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "extra-primary-86-90.json",
+        "ref": "Avodat Yisrael, Sefer Bereshit, Noach"
+      },
+      "anchorVerified": true,
+      "sourceEvidenceVerified": true,
+      "nativeAndConnectedDuplicates": [],
+      "translationAndContextRead": true
+    },
+    {
+      "section": 87,
+      "id": "nathans-parable-and-davids-verdict",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "primary-86-90.json",
+        "ref": "II Samuel 12:1-7"
+      },
+      "anchorVerified": true,
+      "sourceEvidenceVerified": true,
+      "nativeAndConnectedDuplicates": [],
+      "translationAndContextRead": true
+    },
+    {
+      "section": 87,
+      "id": "jeremiah-anathoths-threat-and-judgment",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "primary-86-90.json",
+        "ref": "Jeremiah 11:21-23"
+      },
+      "anchorVerified": true,
+      "sourceEvidenceVerified": true,
+      "nativeAndConnectedDuplicates": [],
+      "translationAndContextRead": true
+    },
+    {
+      "section": 87,
+      "id": "jeremiahs-prior-intercession-and-later-prayer",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "primary-86-90.json",
+        "ref": "Jeremiah 18:18-23"
+      },
+      "anchorVerified": true,
+      "sourceEvidenceVerified": true,
+      "nativeAndConnectedDuplicates": [],
+      "translationAndContextRead": true
+    },
+    {
+      "section": 87,
+      "id": "sanhedrin-shevna-and-chizkiyahu",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "primary-86-90.json",
+        "ref": "Sanhedrin 26a"
+      },
+      "anchorVerified": true,
+      "sourceEvidenceVerified": true,
+      "nativeAndConnectedDuplicates": [],
+      "translationAndContextRead": true
+    },
+    {
+      "section": 87,
+      "id": "avraham-and-lots-separation",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "primary-86-90.json",
+        "ref": "Genesis 13:8-9"
+      },
+      "anchorVerified": true,
+      "sourceEvidenceVerified": true,
+      "nativeAndConnectedDuplicates": [],
+      "translationAndContextRead": true
+    },
+    {
+      "section": 87,
+      "id": "shabbat-righteous-bear-the-generation",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "primary-86-90.json",
+        "ref": "Shabbat 33b"
+      },
+      "anchorVerified": true,
+      "sourceEvidenceVerified": true,
+      "nativeAndConnectedDuplicates": [],
+      "translationAndContextRead": true
+    },
+    {
+      "section": 87,
+      "id": "bava-kamma-calamity-begins-with-righteous",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "primary-86-90.json",
+        "ref": "Bava Kamma 60a"
+      },
+      "anchorVerified": true,
+      "sourceEvidenceVerified": true,
+      "nativeAndConnectedDuplicates": [],
+      "translationAndContextRead": true
+    },
+    {
+      "section": 87,
+      "id": "mashiachs-defense-leading-to-repentance",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "extra-primary-86-90.json",
+        "ref": "Mekor Mayim Chayim on Baal Shem Tov, Bereshit 100:1"
+      },
+      "anchorVerified": true,
+      "sourceEvidenceVerified": true,
+      "nativeAndConnectedDuplicates": [],
+      "translationAndContextRead": true
+    },
+    {
+      "section": 88,
+      "id": "rashi-no-road-without-bends",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "primary-86-90.json",
+        "ref": "Rashi on Deuteronomy 1:22"
+      },
+      "anchorVerified": true,
+      "sourceEvidenceVerified": true,
+      "nativeAndConnectedDuplicates": [],
+      "translationAndContextRead": true
+    },
+    {
+      "section": 88,
+      "id": "noam-elimelech-repairing-a-path",
+      "source": {
+        "kind": "independently-opened-primary-text",
+        "url": "https://he.wikisource.org/wiki/נועם_אלימלך/פרשת_דברים",
+        "retrievalRef": "turn89view1",
+        "line": 145
+      },
+      "anchorVerified": true,
+      "sourceEvidenceVerified": true,
+      "nativeAndConnectedDuplicates": [],
+      "translationAndContextRead": true
+    },
+    {
+      "section": 88,
+      "id": "metzudot-self-judgment-and-gods-knowledge",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "primary-86-90.json",
+        "ref": "Metzudat David on Proverbs 21:2"
+      },
+      "anchorVerified": true,
+      "sourceEvidenceVerified": true,
+      "nativeAndConnectedDuplicates": [],
+      "translationAndContextRead": true
+    },
+    {
+      "section": 88,
+      "id": "rabbeinu-yonah-purifying-the-heart-with-help",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "extra-primary-86-90.json",
+        "ref": "Rabbeinu Yonah on Berakhot 21a"
+      },
+      "anchorVerified": true,
+      "sourceEvidenceVerified": true,
+      "nativeAndConnectedDuplicates": [],
+      "translationAndContextRead": true
+    },
+    {
+      "section": 88,
+      "id": "rabbeinu-bahya-preparation-and-assistance",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "primary-86-90.json",
+        "ref": "Rabbeinu Bahya, Devarim 29:18"
+      },
+      "anchorVerified": true,
+      "sourceEvidenceVerified": true,
+      "nativeAndConnectedDuplicates": [],
+      "translationAndContextRead": true
+    },
+    {
+      "section": 88,
+      "id": "avodah-zarah-no-arbitrary-demand",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "primary-86-90.json",
+        "ref": "Avodah Zarah 3a"
+      },
+      "anchorVerified": true,
+      "sourceEvidenceVerified": true,
+      "nativeAndConnectedDuplicates": [],
+      "translationAndContextRead": true
+    },
+    {
+      "section": 88,
+      "id": "berakhot-straightening-the-heart",
+      "source": {
+        "kind": "cached-primary-Hebrew",
+        "file": "primary-86-90.json",
+        "ref": "Berakhot 59a"
+      },
+      "anchorVerified": true,
+      "sourceEvidenceVerified": true,
+      "nativeAndConnectedDuplicates": [],
+      "translationAndContextRead": true
+    }
+  ],
+  "issues": [],
+  "qualificationReview": [
+    "Tzidkat 197 includes the present limitation to individuals and future universal realization.",
+    "Avodat Yisrael includes Noach’s inability to save the generation and is presented as an earlier quotation of the additional Idra wording.",
+    "Sanhedrin 26a context distinguishes Jerusalem siege from Rav Tzadok’s application.",
+    "Mekor Mayim Chayim preserves the stated chain of transmission and repentance leading to redemption.",
+    "Rabbeinu Bahya 29:18 includes the involuntary-thought question, sustained preparation, and response to thoughts; context acknowledges additional interpretations."
+  ],
+  "proposalSha256": "72361e057247706306126bca1d92028bdd95cc9510a76062be51e049f52915a4"
+}

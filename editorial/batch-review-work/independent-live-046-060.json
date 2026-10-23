@@ -1,0 +1,111 @@
+{
+  "ok": true,
+  "verifiedAt": "2026-10-23T20:35:05.433579+00:00",
+  "release": "20261023-tzidkat-batch-046-060-v1",
+  "packSha256": "931f22856b5634d2722df0b4e3a738c17667223274e432ef68e09a833343d500",
+  "independentLiveChapterComparison": [
+    {
+      "path": "library/data/tzidkat-hatzadik/45.json",
+      "bytes": 55912,
+      "sha256": "aeb257385d06b0bfbdd6cfe89c217158db10f295db9f4fbae1d4d9fe27eef65e"
+    },
+    {
+      "path": "library/data/tzidkat-hatzadik/46.json",
+      "bytes": 83442,
+      "sha256": "c7d9f5d23ab818496385fbf20a644441cf2c25dfe830dd5b33c72130870e6104"
+    },
+    {
+      "path": "library/data/tzidkat-hatzadik/47.json",
+      "bytes": 26457,
+      "sha256": "9b68a30edae8b2448aed4dbbafd6065e0b863f6c0c558c2cc823407b0a44e6f0"
+    },
+    {
+      "path": "library/data/tzidkat-hatzadik/48.json",
+      "bytes": 61913,
+      "sha256": "9e73cff928ff9e5cc9ac364910c6f4fdb6453c4336d8f5afe6bafe6170aac61c"
+    },
+    {
+      "path": "library/data/tzidkat-hatzadik/49.json",
+      "bytes": 20871,
+      "sha256": "c9e412857e47d239a541df7b12c351ed841e5fa4ed893470b62a379676edfb62"
+    },
+    {
+      "path": "library/data/tzidkat-hatzadik/50.json",
+      "bytes": 15903,
+      "sha256": "4278455557fb3ac03ca96fcbaae0d253864a122eaeb76a13fc23519e680a5be8"
+    },
+    {
+      "path": "library/data/tzidkat-hatzadik/51.json",
+      "bytes": 50183,
+      "sha256": "c91514fed62bd55e91e7681b94d364cb111f4dadeffc78377dfc5dcc649eeeb5"
+    },
+    {
+      "path": "library/data/tzidkat-hatzadik/52.json",
+      "bytes": 27584,
+      "sha256": "d12121495635e74dc87ccd19cb685d75973070fd960d91eb0d9b3616cefd8c00"
+    },
+    {
+      "path": "library/data/tzidkat-hatzadik/53.json",
+      "bytes": 28636,
+      "sha256": "7287b854c32b6cfc6b96204ddda9df74ec84519647153478ccbec0e1a4cb6034"
+    },
+    {
+      "path": "library/data/tzidkat-hatzadik/54.json",
+      "bytes": 42058,
+      "sha256": "826bbd9adae12763ae103c436d157ce0d56e81b470e4c43d0204ae1071aa21cf"
+    },
+    {
+      "path": "library/data/tzidkat-hatzadik/55.json",
+      "bytes": 53248,
+      "sha256": "f55c5939cd0a181d571bbb355f2491b7d6911f32242db141445f4352726dec1a"
+    },
+    {
+      "path": "library/data/tzidkat-hatzadik/56.json",
+      "bytes": 45861,
+      "sha256": "fa012ee9c5f2570608895b284edf98ba7741c16aa2105242e62dcf6322e045fe"
+    },
+    {
+      "path": "library/data/tzidkat-hatzadik/57.json",
+      "bytes": 29529,
+      "sha256": "7747d66b8cfd0b35291f91e1ec8a427ccd2b8a7f85f2b6dc3fdb55801c28b669"
+    },
+    {
+      "path": "library/data/tzidkat-hatzadik/58.json",
+      "bytes": 41581,
+      "sha256": "22ff362e8e4018a16b42b9cb49df83e22d7ba316d001b23782e7a7eb8909b471"
+    },
+    {
+      "path": "library/data/tzidkat-hatzadik/59.json",
+      "bytes": 27251,
+      "sha256": "1207fdd23082dc7d5842dbf17e4672da88f0e669f6efe27349e3f57a08ed8c9a"
+    }
+  ],
+  "protectedOisAndDivreiSoferim": [
+    {
+      "path": "library/data/tzidkat-hatzadik/39.json",
+      "bytes": 171002,
+      "sha256": "7cef7c7be32907c5cedc52d26de65b24f7f9a10c060f470934b8609c64f038b4"
+    },
+    {
+      "path": "library/data/tzidkat-hatzadik/153.json",
+      "bytes": 168063,
+      "sha256": "b6898cb29d8db31d2722138f3f48d783ccad764848e0662f529bbad14b41fc93"
+    },
+    {
+      "path": "library/downloads/books/divrei-soferim.zip",
+      "bytes": 678319,
+      "sha256": "d4fea290699fd871ade6635ba069526f60a86f74e42e53cb451a592e8ec75df0"
+    },
+    {
+      "path": "library/data/cited/divrei-soferim.json",
+      "bytes": 10849,
+      "sha256": "4a9bb7d313e4d959a6ba60db09bcea7e4c88a31e185a0c0a68f6bf534e0403f3"
+    },
+    {
+      "path": "mcp-data/text/divrei-soferim.json",
+      "bytes": 1094236,
+      "sha256": "7c13082415c3d750dd268a136edc39af9a1cf0c6e47c929e28db21c57daa79a6"
+    }
+  ],
+  "scope": "Exact public bytes and immutable pack chapters; protected ois 40/154 and Divrei Soferim reader, canonical MCP text, and refreshed ZIP."
+}
