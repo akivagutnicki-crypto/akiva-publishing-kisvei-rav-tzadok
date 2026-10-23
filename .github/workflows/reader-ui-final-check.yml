@@ -1,0 +1,50 @@
+name: Check reader layout and safe book navigation
+on:
+  push:
+    branches: [codex/reader-ui-final-check-20261022]
+permissions:
+  contents: write
+  actions: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - name: Prepare narrowly scoped navigation and verification changes
+        run: |
+          node scripts/refine-reader-ui.mjs
+          node --check scripts/apply-reader-ui.mjs
+          node --check scripts/test-reader-ui-browser.mjs
+      - name: Restore and verify the already deployed reader
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python scripts/reader-ui-baseline.py restore
+      - name: Apply only route guards and cache refresh
+        run: |
+          node scripts/apply-reader-ui.mjs dist --source
+          node scripts/apply-reader-ui.mjs .ui-site
+          python scripts/reader-ui-baseline.py verify
+      - name: Install focused browser runtime
+        run: |
+          npm install --no-save --package-lock=false playwright@1.62.1
+          npx playwright install --with-deps chromium
+      - name: Check all layouts and deliberately delayed success and failure responses
+        run: node scripts/test-reader-ui-browser.mjs
+      - name: Prepare verified immutable source blobs
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python scripts/reader-ui-baseline.py blobs
+      - name: Save screenshots and preservation evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reader-ui-final-check
+          path: |
+            reader-ui-evidence/
+            reader-ui-patch-blobs.json
+            reader-ui-preservation.json
+            reader-ui-baseline.json
