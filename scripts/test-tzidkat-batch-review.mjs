@@ -65,7 +65,7 @@ try {
     await context.addInitScript(() => { localStorage.setItem('rtl.lang',JSON.stringify('bi')); localStorage.setItem('rtl.layout',JSON.stringify('inter')); window.IntersectionObserver = class { observe(){} unobserve(){} disconnect(){} }; });
     await context.route(url => url.origin !== new URL(base).origin,route => route.fulfill({status:200,contentType:'application/json',body:'[]'}));
     const page = await context.newPage(); page.on('pageerror',error => report.errors.push({width,error:error.message}));
-    let preserved = 0, opened = 0, originalLinks = 0, internalSourcesOpened = 0;
+    let preserved = 0, opened = 0, originalLinks = 0, internalSourcesOpened = 0, exactSourceExcerptsOpened = 0;
     for (const file of pack.chapters) {
       const ref = sectionOf(file.path), hash = encodeURIComponent(ref).replace(/%20/g,'_').replace(/%2C/g,',').replace(/%3A/g,':');
       await page.goto(base + '#/read/' + hash,{waitUntil:'domcontentloaded'});
@@ -112,7 +112,17 @@ try {
           const he = (await panel.locator('.quote .qh').allTextContents()).join(' ').replace(/[^א-ת]/g,'');
           const evidence = note.reviewedSourceExcerpt?.he?.replace(/[^א-ת]/g,'').slice(0,28);
           assert(evidence && he.includes(evidence),'Original-source navigation did not show the checked Hebrew passage: ' + target);
-          assert((await panel.locator('.quote .qe').allTextContents()).join(' ').trim(),'Original-source panel lacks English');
+          const primaryEnglish = (await panel.locator('.quote .qe').allTextContents()).join(' ').trim();
+          const fallbackEnglish = await panel.locator('.footnote-source-excerpt .qe').allTextContents();
+          if (fallbackEnglish.length || !primaryEnglish) {
+            const excerpt = note.reviewedSourceExcerpts?.find(item => item.ref === source.ref);
+            assert(excerpt && excerpt.scope === 'selected-source-excerpt','Missing reviewed source-excerpt metadata: ' + note.placementId);
+            assert.deepEqual(fallbackEnglish,[excerpt.en],'Source panel must display the exact approved English quotation: ' + note.placementId);
+            assert.equal(excerpt.en,note.reviewedSourceExcerpt.en,'Source panel quotation differs from the checked source translation');
+            const exactHebrew = note.reviewedSourceExcerpt.he.replace(/[^א-ת]/g,'');
+            assert(exactHebrew && he.includes(exactHebrew),'Source panel must display the complete checked Hebrew excerpt: ' + target);
+            exactSourceExcerptsOpened++;
+          } else assert(primaryEnglish,'Original-source panel lacks English: ' + target + ' / ' + note.placementId);
           internalSourcesOpened++; await page.locator('#pClose').click();
         }
 
@@ -121,7 +131,7 @@ try {
       }
       assert.equal(await page.evaluate(() => document.documentElement.scrollWidth > innerWidth + 2),false,'Reader overflows horizontally');
     }
-    assert.equal(opened,additions.length); report.viewports.push({width,reviewedSections:pack.reviewedSections.length,newNotesOpened:opened,exactHebrewAnchors:opened,existingNotesPreserved:preserved,originalSourceLinks:originalLinks,internalSourcesOpened}); await context.close();
+    assert.equal(opened,additions.length); report.viewports.push({width,reviewedSections:pack.reviewedSections.length,newNotesOpened:opened,exactHebrewAnchors:opened,existingNotesPreserved:preserved,originalSourceLinks:originalLinks,internalSourcesOpened,exactSourceExcerptsOpened}); await context.close();
   }
   assert.deepEqual(report.errors,[]); report.ok = true;
 } catch (error) { report.failure = error.message; throw error; }
