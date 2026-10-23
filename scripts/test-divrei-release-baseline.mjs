@@ -23,12 +23,12 @@ const derived=new Set(['data/files.json','data/cited/index.json','data/packs/sou
   'source-connections/translations.json','source-connections/catalog.json','connected-ideas/catalog.json',
   'connected-ideas/review-progress.json','downloads/index.json','index.html','sw.js','source-connections.js',
   REPORT,'divrei-source-audit-ledger.json']);
-const isDerived=file=>derived.has(file)||/^data\/cited\/[^/]+\.json$/.test(file)||/^downloads\/(?:books\/)?[a-z0-9-]+\.zip$/.test(file);
+const isDerived=file=>derived.has(file)||/^data\/cited\/[^/]*\.json$/.test(file)||/^downloads\/(?:books\/)?[a-z0-9-]+\.zip$/.test(file);
 
 export function captureBaseline(root,pack){
   const files=Object.fromEntries(relativeFiles(root).map(file=>[file,sha(fs.readFileSync(path.join(root,file)))]));
   const cited={};
-  for(const file of Object.keys(files).filter(file=>/^data\/cited\/[^/]+\.json$/.test(file)&&file!=='data/cited/index.json'))
+  for(const file of Object.keys(files).filter(file=>/^data\/cited\/[^/]*\.json$/.test(file)&&file!=='data/cited/index.json'))
     cited[file]=read(path.join(root,file));
   for(const f of pack.files){
     assert.equal(files[f.path],f.beforeSha256,'Wrong baseline chapter: '+f.path);
@@ -64,7 +64,7 @@ export function verifyPreservedData(root,baseline,pack){
     const file='data/cited/'+name+'.json',index=expected[file]||(expected[file]={}),owners=index[edge.r]||(index[edge.r]=[]);
     if(!owners.includes(edge.a))owners.push(edge.a);
   }
-  const actualCited=actualNames.filter(file=>/^data\/cited\/[^/]+\.json$/.test(file)&&file!=='data/cited/index.json');
+  const actualCited=actualNames.filter(file=>/^data\/cited\/[^/]*\.json$/.test(file)&&file!=='data/cited/index.json');
   assert.deepEqual(actualCited,Object.keys(expected).sort(),'Unexpected added or omitted citation index');
   for(const[file,index]of Object.entries(expected))assert.deepEqual(read(path.join(root,file)),index,'Unrelated source owner or reviewed edge changed: '+file);
   assert.deepEqual(read(path.join(root,'data/cited/index.json')),[...names].sort(),'Source title index differs');

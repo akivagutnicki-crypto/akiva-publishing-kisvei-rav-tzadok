@@ -83,7 +83,7 @@ jobs:
           fs.mkdirSync('dist');
           NODE
           python3 - <<'PY'
-          import os, pathlib, tarfile
+          import os, pathlib, tarfile, json, zipfile, hashlib
           archive=pathlib.Path(os.environ['RUNNER_TEMP'])/'divrei-baseline-artifact/artifact.tar'
           destination=pathlib.Path('dist').resolve()
           with tarfile.open(archive,'r:') as source:
@@ -95,6 +95,18 @@ jobs:
               source.extractall(destination,members=members)
           assert (destination/'library/data/files.json').is_file()
           assert (destination/'mcp-data/text/divrei-soferim.json').is_file()
+          # Pages artifact packaging omits dotfiles. Recover the one declared
+          # empty-name index from the same trusted artifact's complete data archive.
+          library=destination/'library'
+          manifest=json.loads((library/'data/files.json').read_text())
+          missing=[name for name in manifest['files'] if not (library/'data'/name).is_file()]
+          assert missing==['cited/.json'], 'Unexpected missing baseline data files'
+          with zipfile.ZipFile(library/'downloads/rav-tzadok-library.zip') as archive:
+              original=archive.read('data/cited/.json')
+          assert hashlib.sha256(original).hexdigest()=='c7d910319d7f79d29c3fe216a154749bfba2521dc10c5a8a63fe60e921f216d7'
+          owners=json.loads(original)
+          assert owners and all(isinstance(values,list) and values and all(value.startswith('Divrei Soferim ') for value in values) for values in owners.values())
+          (library/'data/cited/.json').write_bytes(original)
           PY
           node scripts/test-divrei-release-baseline.mjs --capture --baseline-record divrei-release-baseline.json
 
