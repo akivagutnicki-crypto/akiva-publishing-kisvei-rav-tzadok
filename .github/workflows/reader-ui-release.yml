@@ -1,0 +1,106 @@
+name: Verify and publish responsive reader layout
+on:
+  push:
+    branches: [main, codex/reader-ui-layout-20261022]
+permissions:
+  contents: write
+  actions: read
+  pages: write
+  id-token: write
+concurrency:
+  group: ${{ (github.ref == 'refs/heads/main' && contains(github.event.head_commit.message, '[reader-ui-release]')) && 'pages' || format('reader-ui-preview-{0}', github.run_id) }}
+  cancel-in-progress: false
+jobs:
+  layout:
+    if: ${{ github.ref == 'refs/heads/codex/reader-ui-layout-20261022' || (github.ref == 'refs/heads/main' && contains(github.event.head_commit.message, '[reader-ui-release]')) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - name: Restore the latest successful live publication without rebuilding any text
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python scripts/reader-ui-baseline.py restore
+      - name: Apply only the responsive shell and stage the same source change
+        run: |
+          node scripts/apply-reader-ui.mjs dist --source
+          node scripts/apply-reader-ui.mjs .ui-site
+          node --check .ui-site/library/sw.js
+          node --check .ui-site/library/responsive-ui.js
+          python scripts/reader-ui-baseline.py verify
+      - name: Install focused browser tests
+        run: |
+          npm install --no-save --package-lock=false playwright@1.62.1
+          npx playwright install --with-deps chromium
+      - name: Test portrait and landscape layouts and actual existing covers
+        run: node scripts/test-reader-ui-browser.mjs
+      - name: Prepare tested source blobs without moving any branch
+        if: github.ref != 'refs/heads/main'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python scripts/reader-ui-baseline.py blobs
+      - name: Configure Pages
+        if: github.ref == 'refs/heads/main'
+        uses: actions/configure-pages@v5
+      - name: Recheck production immediately before uploading
+        if: github.ref == 'refs/heads/main'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python scripts/reader-ui-baseline.py guard
+      - name: Upload preserved site with only four UI files changed
+        if: github.ref == 'refs/heads/main'
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: .ui-site
+      - name: Save screenshots and preservation evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reader-ui-evidence
+          path: |
+            reader-ui-evidence/
+            reader-ui-patch-blobs.json
+            reader-ui-preservation.json
+            reader-ui-baseline.json
+          if-no-files-found: warn
+  publish:
+    needs: layout
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - uses: actions/download-artifact@v4
+        with:
+          name: reader-ui-evidence
+          path: .
+      - name: Recheck production immediately before publishing
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python scripts/reader-ui-baseline.py guard
+      - name: Publish responsive reader
+        id: deployment
+        uses: actions/deploy-pages@v4
+      - name: Verify the exact live shell
+        run: python scripts/reader-ui-baseline.py published
+      - name: Install public browser verification
+        run: |
+          npm install --no-save --package-lock=false playwright@1.62.1
+          npx playwright install --with-deps chromium
+      - name: Repeat all browser tests on the public reader
+        run: node scripts/test-reader-ui-browser.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'
+      - name: Save live browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: reader-ui-live-evidence
+          path: reader-ui-evidence/

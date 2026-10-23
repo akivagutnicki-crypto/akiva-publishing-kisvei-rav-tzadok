@@ -1,0 +1,90 @@
+/* Akiva Publishing: responsive chrome only. Canonical reader typography is untouched. */
+:root{--head-h:124px}
+.top{height:auto;min-height:0;display:grid;grid-template-columns:minmax(200px,auto) minmax(150px,1fr) auto auto auto;gap:8px 14px;padding:10px max(22px,env(safe-area-inset-right)) 8px max(22px,env(safe-area-inset-left));box-shadow:0 3px 18px rgba(16,40,31,.035)}
+.top .brand{grid-column:1;grid-row:1;min-width:0;gap:10px;white-space:normal}
+.top .mark{display:block;flex:0 0 46px;width:46px;height:46px;border:0;border-radius:10px;overflow:hidden;background:#17372d}
+.top .mark img{display:block;width:100%;height:100%;object-fit:contain}
+.top .brand strong{display:block;font:600 .94rem/1.18 var(--ui)}
+.top .brand small{display:block;font:600 .61rem/1.3 var(--ui);letter-spacing:.1em;margin-top:4px}
+.top .search{grid-column:2;grid-row:1;width:100%;margin:0;min-width:0;max-width:520px;justify-self:end}
+.top .search input{height:44px;font-size:16px;border-radius:9px}
+.top .search svg{top:14px}
+.top .suggest{top:49px}
+.top .zip-nav{grid-column:3;grid-row:1}
+.top .donate-nav{grid-column:4;grid-row:1}
+.top #installBtn{grid-column:5;grid-row:1}
+.top .zip-nav,.top .donate-nav,.top #installBtn{height:auto;min-height:44px;justify-content:center;padding:9px 12px;border-radius:8px;line-height:1.25}
+.top .topnav{display:flex;grid-column:1/-1;grid-row:2;align-items:stretch;gap:6px;min-width:0;border-top:1px solid var(--line);padding-top:5px;font:600 .8rem/1.3 var(--ui)}
+.top .topnav a{display:flex;align-items:center;justify-content:center;min-height:44px;padding:9px 17px;border-radius:7px;text-align:center;white-space:normal}
+.top .topnav a:hover,.top .topnav a[aria-current="page"]{color:var(--forest);background:var(--soft)}
+.top a:focus-visible,.top button:focus-visible,#libraryBookshop a:focus-visible,#libraryBookshop button:focus-visible,#libraryBookshop .shop-shelf:focus-visible{outline:2px solid var(--brass);outline-offset:3px}
+.home-grid{max-width:1240px;grid-template-columns:minmax(0,1fr) 300px;gap:42px}
+.home-grid>div,.home-grid>.side{min-width:0}
+#libraryBookshop{padding:21px 17px;background:var(--panel);border:1px solid var(--line);border-top:3px solid var(--forest);border-radius:12px;box-shadow:0 8px 28px rgba(16,40,31,.045);margin:0 0 30px}
+#libraryBookshop h2{font:500 1.8rem/1.15 var(--en);margin:8px 0 10px;color:var(--forest)}
+#libraryBookshop .shop-intro{font:400 1rem/1.45 var(--en);color:var(--muted);margin:0 0 14px}
+#libraryBookshop .shop-shelf{min-width:0}
+#libraryBookshop .shop-group{margin:18px 0 0;padding:17px 0 0;border-top:1px solid var(--line)}
+#libraryBookshop .shop-group h3{font:600 .84rem/1.45 var(--ui);color:var(--ink);letter-spacing:0;text-transform:none;margin:0 0 13px;padding:0;border:0}
+#libraryBookshop .shop-book{display:grid;grid-template-columns:84px minmax(0,1fr);gap:12px;align-items:start;margin:0 0 16px;min-width:0}
+#libraryBookshop .shop-book img{width:84px;height:122px;object-fit:contain;background:var(--soft);border:1px solid var(--line);border-radius:3px;box-shadow:3px 5px 10px rgba(0,0,0,.09)}
+#libraryBookshop .book-name{font:600 .78rem/1.45 var(--ui);margin:0 0 7px;overflow-wrap:break-word}
+#libraryBookshop .formats{display:flex;flex-direction:column;gap:5px}
+#libraryBookshop .formats a{display:flex;align-items:center;min-height:44px;padding:8px 9px;background:var(--soft);border:1px solid var(--line);border-radius:6px;color:var(--link);font:600 .73rem/1.4 var(--ui);overflow-wrap:anywhere}
+#libraryBookshop .formats a:hover{border-color:var(--brass);background:var(--hl)}
+#libraryBookshop .store-link,#libraryBookshop .sidebar-foot a{display:inline-flex;align-items:center;min-height:44px;font:600 .77rem/1.5 var(--ui);color:var(--link)}
+#libraryBookshop .note{font:400 .74rem/1.5 var(--ui);color:var(--muted);margin:8px 0 0}
+#libraryBookshop .sidebar-foot{border-top:1px solid var(--line);padding-top:10px;margin-top:16px}
+#libraryBookshop .shop-controls{display:none}
+@media(min-width:1440px){
+ :root{--head-h:76px}
+ .top{grid-template-columns:auto minmax(0,1fr) auto auto auto minmax(200px,300px);padding-top:10px;padding-bottom:10px;gap:12px}
+ .top .topnav{grid-column:2;grid-row:1;border:0;padding:0;justify-content:center;gap:2px}
+ .top .topnav a{padding:9px 12px}
+ .top .search{grid-column:6}.top .zip-nav{grid-column:3}.top .donate-nav{grid-column:4}.top #installBtn{grid-column:5}
+}
+@media(max-width:1100px){
+ .home-grid{grid-template-columns:minmax(0,1fr);gap:24px}
+ #libraryBookshop.compact-bookshop{margin:25px 0 28px;padding:19px 17px 13px;background:linear-gradient(125deg,var(--panel),var(--bg))}
+ #libraryBookshop.compact-bookshop .shop-intro{max-width:58ch;margin-bottom:8px}
+ #libraryBookshop.compact-bookshop .shop-controls{display:flex;align-items:center;gap:7px;margin:0 0 10px}
+ #libraryBookshop .shop-controls span{margin-right:auto;color:var(--muted);font:500 .73rem/1.45 var(--ui)}
+ #libraryBookshop .shop-controls button{display:grid;place-items:center;width:44px;height:44px;flex:0 0 44px;border:1px solid var(--line);border-radius:50%;background:var(--panel);color:var(--forest);font:400 1.3rem/1 var(--ui)}
+ #libraryBookshop .shop-controls button:disabled{opacity:.35;cursor:default}
+ #libraryBookshop.compact-bookshop .shop-shelf{display:grid;grid-auto-flow:column;grid-auto-columns:calc((100% - 16px)/2);gap:16px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-padding-inline:2px;overscroll-behavior-x:contain;scrollbar-width:thin;scrollbar-color:var(--brass) var(--soft);padding:4px 2px 13px;-webkit-overflow-scrolling:touch}
+ #libraryBookshop.compact-bookshop .shop-group{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));align-content:start;gap:12px;margin:0;padding:16px 14px;border:1px solid var(--line);border-radius:10px;background:var(--panel);scroll-snap-align:start;min-width:0}
+ #libraryBookshop.compact-bookshop .shop-group h3{grid-column:1/-1;margin:0;min-height:24px}
+ #libraryBookshop.compact-bookshop .shop-book{display:flex;flex-direction:column;align-items:stretch;gap:10px;margin:0}
+ #libraryBookshop.compact-bookshop .shop-book img{width:100%;height:160px;object-fit:contain;align-self:center;background:var(--soft);border:0;box-shadow:none}
+ #libraryBookshop.compact-bookshop .shop-book>div{display:flex;flex-direction:column;flex:1;min-width:0}
+ #libraryBookshop.compact-bookshop .book-name{min-height:35px}
+ #libraryBookshop.compact-bookshop .formats{margin-top:auto}
+ #libraryBookshop.compact-bookshop .formats a{justify-content:center;text-align:center}
+ #libraryBookshop.compact-bookshop .shop-group>.store-link,#libraryBookshop.compact-bookshop .shop-group>.note{grid-column:1/-1;margin:0}
+ #libraryBookshop.compact-bookshop .shop-group:last-child .shop-book{grid-column:1/-1;max-width:190px;justify-self:center;width:100%}
+ #libraryBookshop.compact-bookshop .sidebar-foot{margin-top:6px}
+}
+@media(max-width:700px){
+ :root{--head-h:0px}
+ .top{position:relative;grid-template-columns:minmax(0,1fr) auto auto;gap:8px;padding:10px max(14px,env(safe-area-inset-right)) 8px max(14px,env(safe-area-inset-left))}
+ .top .brand{grid-column:1;grid-row:1;gap:8px}
+ .top .mark{width:42px;height:42px;flex-basis:42px;border-radius:9px}
+ .top .brand strong{font-size:.83rem;line-height:1.2}
+ .top .brand small{font-size:.52rem;letter-spacing:.07em}
+ .top .zip-nav{grid-column:2;grid-row:1;min-width:44px;padding:8px 9px;font-size:.72rem}
+ .top .donate-nav{grid-column:3;grid-row:1;padding:8px 9px;font-size:.72rem}
+ .top .search{grid-column:1/-1;grid-row:2;max-width:none}
+ .top .topnav{grid-column:1/-1;grid-row:3;display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:3px;padding-top:4px;font-size:.72rem}
+ .top .topnav a{padding:7px 2px;min-height:44px}
+ .top #installBtn{grid-column:1/-1;grid-row:4;justify-self:start}
+ .home-grid{padding-top:25px}
+ #libraryBookshop.compact-bookshop{padding:17px 12px 12px}
+ #libraryBookshop.compact-bookshop .shop-shelf{grid-auto-columns:minmax(245px,88%);gap:12px}
+ #libraryBookshop.compact-bookshop .shop-group{padding:14px 12px;gap:11px}
+ #libraryBookshop.compact-bookshop .shop-book img{height:148px}
+}
+@media(max-width:360px){.top{padding-left:10px;padding-right:10px;column-gap:6px}.top .brand strong{font-size:.76rem}.top .brand small{font-size:.48rem}.top .mark{width:38px;height:38px;flex-basis:38px}.top .zip-nav,.top .donate-nav{padding-left:7px;padding-right:7px}#libraryBookshop.compact-bookshop .shop-shelf{grid-auto-columns:100%}}
+@media(max-height:540px){:root{--head-h:0px}.top{position:relative}}
+@media(display-mode:standalone){.top{height:auto;padding-top:max(10px,env(safe-area-inset-top))}}
+@media(prefers-reduced-motion:reduce){#libraryBookshop .shop-shelf{scroll-behavior:auto}.top *,#libraryBookshop *{transition:none!important}}
+@media print{.top,#libraryBookshop{display:none}}
