@@ -1,4 +1,4 @@
-/* Direct MP3 playback for the Akiva Publishing reader. */
+/* Direct audio playback for the Akiva Publishing reader. */
 (() => {
   'use strict';
 
@@ -7,22 +7,34 @@
     'Peri Tzadik, Noach 2': {
       key: 'teitelbaum-noach-2',
       label: 'Noach · Ois Beis (2) · אות ב׳',
+      collection: 'Pri Tzaddik, Parshas Noach',
       src: 'audio/rabbi-moshe-teitelbaum-noach-ois-2.mp3',
       duration: '35:36', bytes: '12.7 MB'
     },
     'Peri Tzadik, Noach 4': {
       key: 'teitelbaum-noach-4',
       label: 'Noach · Ois Daled (4) · אות ד׳',
+      collection: 'Pri Tzaddik, Parshas Noach',
       src: 'audio/rabbi-moshe-teitelbaum-noach-ois-4.mp3',
       duration: '27:01', bytes: '9.7 MB'
     },
     'Peri Tzadik, Noach 6': {
       key: 'noach-ois-vav-6',
       label: 'Noach · Ois Vav (6) · אות ו׳',
+      collection: 'Pri Tzaddik, Parshas Noach',
       speaker: 'Pri Tzaddik shiur recording',
       src: 'audio/pri-tzaddik-noach-ois-6.m4a',
       format: 'M4A',
       duration: '55:15', bytes: '20.8 MB'
+    },
+    'Divrei Soferim 16': {
+      key: 'divrei-soferim-16-lech-lecha',
+      label: 'Divrei Soferim · Ois 16 · Lech Lecha',
+      collection: 'Divrei Soferim, Lech Lecha',
+      speaker: 'Shiur on Rav Tzadok HaKohen',
+      src: 'audio/divrei-soferim-ois-16-lech-lecha.m4a',
+      format: 'M4A',
+      duration: '36:57', bytes: '13.9 MB'
     }
   };
   const escape = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;'}[c]));
@@ -40,9 +52,9 @@
   function render(ref) {
     const track = TRACKS[ref];
     if (!track) return '';
-    return `<aside class="shiur-audio" data-shiur-key="${track.key}" aria-label="Listen to the Noach shiur">
+    return `<aside class="shiur-audio" data-shiur-key="${track.key}" aria-label="Listen to the shiur · ${escape(track.label)}">
       <h3>🎧 Listen to the Shiur · ${escape(track.label)}</h3>
-      <p class="shiur-audio-meta">${escape(track.speaker || 'Rabbi Moshe Teitelbaum')} · Pri Tzaddik, Parshas Noach · ${track.duration} · ${track.format || 'MP3'} (${track.bytes})</p>
+      <p class="shiur-audio-meta">${escape(track.speaker || 'Rabbi Moshe Teitelbaum')} · ${escape(track.collection)} · ${track.duration} · ${track.format || 'MP3'} (${track.bytes})</p>
       <audio controls preload="none" src="${escape(track.src)}" aria-label="${escape(track.speaker || 'Rabbi Moshe Teitelbaum')}, ${escape(track.label)}"></audio>
       <div class="shiur-audio-controls">
         <label>Speed <select class="shiur-speed" aria-label="Playback speed">${SPEEDS.map(speed => `<option value="${speed}"${speed === 1 ? ' selected' : ''}>${speed}×${speed === 1 ? ' (normal)' : ''}</option>`).join('')}</select></label>
@@ -149,7 +161,7 @@
       play();
     });
     on(audio, 'error', () => {
-      status.textContent = 'Audio could not load. Retry or download the MP3.';
+      status.textContent = 'Audio could not load. Retry or download the recording.';
       retry.hidden = false;
     });
     on(audio, 'canplay', () => { retry.hidden = true; });

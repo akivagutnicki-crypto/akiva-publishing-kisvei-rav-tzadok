@@ -506,6 +506,17 @@ i.footnote.open{display:block;direction:ltr;text-align:left;font-family:var(--en
 .noach6-pdf summary:focus-visible{outline:2px solid var(--brass);outline-offset:3px}
 .noach6-pdf iframe{width:100%;height:360px;margin-top:10px;background:var(--paper);border:1px solid var(--line);border-radius:5px;display:block}
 .noach6-pdf .btn{display:inline-flex;margin-top:8px;min-height:36px;padding:6px 10px;justify-content:center}
+/* Divrei Soferim Ois 16 transcript page preview */
+.divrei16-preview{margin-top:10px;min-width:0;color:var(--ink);font:400 .85rem/1.4 var(--ui)}
+.divrei16-preview-toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px}
+.divrei16-preview-toolbar .btn{margin:0;min-height:40px;min-width:40px}
+.divrei16-preview-toolbar .btn:disabled{opacity:.45;cursor:default}
+.divrei16-page-count,.divrei16-zoom-label{font-variant-numeric:tabular-nums;white-space:nowrap}
+.divrei16-preview-hint,.divrei16-preview-status{margin:8px 0;font-size:.78rem;color:var(--muted)}
+.divrei16-page-viewport{overflow:auto;max-height:min(70vh,680px);min-height:180px;margin-top:8px;border:1px solid var(--line);border-radius:5px;background:#fff;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;direction:ltr}
+.divrei16-page-image{display:block;width:100%;max-width:none!important;height:auto;margin:0}
+.divrei16-page-image[hidden],.divrei16-preview [hidden]{display:none!important}
+.divrei16-preview :focus-visible{outline:2px solid var(--brass);outline-offset:2px}
 .shiur-host-note{display:block;max-width:390px;font:.78rem/1.5 var(--ui);color:var(--muted)}
 .shiur-audio-status{font:400 .75rem/1.4 var(--ui);color:var(--muted);margin:6px 0 0}
 .shiur-audio :focus-visible{outline:2px solid var(--brass);outline-offset:3px}
@@ -595,7 +606,8 @@ body.akiva-android-reader .akiva-support-embed{border-top-color:var(--ox)}
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 <div class="offline-pill" id="offlinePill" hidden>Offline · reading saved texts</div>
 
-<script src="shiur-player.js?v=20261016-compact-noach-audio"></script>
+<script src="shiur-player.js?v=20261022-divrei16-media"></script>
+<script src="divrei16-preview.js?v=20261022-divrei16-page-preview-v1"></script>
 <script src="sefaria-packs.js?v=20261019-preferred-edition-cache-v4"></script>
 <script src="source-connections.js?v=20261022-reviewed-connections-v5"></script>
 <script src="source-editions.js?v=20261019-preferred-source-editions-v1"></script>
@@ -1620,6 +1632,32 @@ function appendSection(d) {
           href="downloads/pri-tzaddik-noach-ois-6-shiur.pdf">Open or download PDF ↗</a>
       </details>
     </div>`;
+  } else if (d.sectionRef === 'Divrei Soferim 16') {
+    html += `<div class="noach6-media divrei16-media">${shiurMarkup}
+      <details class="noach6-pdf divrei16-pdf">
+        <summary>📄 Preview the shiur transcript · 9 pages</summary>
+        <div class="divrei16-preview" aria-label="Divrei Soferim Ois 16 transcript preview">
+          <div class="divrei16-preview-toolbar" role="group" aria-label="Transcript page controls">
+            <button class="btn" type="button" data-preview-action="previous" aria-label="Previous transcript page" disabled>← Previous</button>
+            <span class="divrei16-page-count" role="status" aria-live="polite">Page 1 of 9</span>
+            <button class="btn" type="button" data-preview-action="next" aria-label="Next transcript page">Next →</button>
+            <button class="btn" type="button" data-preview-action="zoom-out" aria-label="Zoom out transcript" disabled>−</button>
+            <span class="divrei16-zoom-label" aria-label="Zoom relative to fit width">100%</span>
+            <button class="btn" type="button" data-preview-action="zoom-in" aria-label="Zoom in transcript">+</button>
+            <button class="btn" type="button" data-preview-action="fit">Fit width</button>
+          </div>
+          <p class="divrei16-preview-hint">Enlarge the page with zoom, then scroll within the preview to read.</p>
+          <p class="divrei16-preview-status" role="status" aria-live="polite">The preview loads when opened.</p>
+          <button class="btn" type="button" data-preview-action="retry" hidden>Retry preview</button>
+          <div class="divrei16-page-viewport" role="region" tabindex="0" aria-label="Transcript page; scroll to read the enlarged page">
+            <img class="divrei16-page-image" alt="Divrei Soferim Ois 16 shiur transcript, page 1 of 9" decoding="async" hidden>
+          </div>
+        </div>
+        <a class="btn" target="_blank" rel="noopener noreferrer"
+          href="downloads/divrei-soferim-ois-16-lech-lecha-shiur.pdf">Open or download PDF ↗</a>
+        <a class="btn" href="downloads/divrei-soferim-ois-16-lech-lecha-shiur.docx" download>Download Word transcript ↓</a>
+      </details>
+    </div>`;
   } else html += shiurMarkup;
   const lechDownloads = d.sectionRef.startsWith('Peri Tzadik, Lech Lecha ') ? 'pri-tzaddik-lech-lecha-interlinear.docx'
     : d.sectionRef.startsWith('Beit Yaakov on Torah, Lech Lecha ') ? 'beit-yaakov-lech-lecha-interlinear.docx'
@@ -1684,6 +1722,8 @@ function appendSection(d) {
   text.insertBefore(sec, sentinel || null);
   const audioCleanup = window.AkivaShiurPlayer?.mount(sec);
   if (audioCleanup) cleanupFns.push(audioCleanup);
+  const transcriptCleanup = window.AkivaDivrei16Preview?.mount(sec);
+  if (transcriptCleanup) cleanupFns.push(transcriptCleanup);
   R.sections.push(d);
   R.next = d.next;
   mountConnectedIdeas(d,sec);

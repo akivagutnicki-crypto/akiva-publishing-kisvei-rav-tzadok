@@ -1,0 +1,140 @@
+name: Add Divrei Soferim Ois 16 shiur to the reader
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: ${{ github.repository == 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok' && github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[divrei-media-release]')) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout the Ois 16 media addition
+        uses: actions/checkout@v6
+
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+
+      - name: Verify the successful current publication and branch head
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/verify-divrei16-media-release.mjs --metadata
+
+      - name: Download the verified publication
+        uses: actions/download-artifact@v4
+        with:
+          artifact-ids: '12472516539'
+          run-id: '39885179226'
+          repository: akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/divrei16-baseline-artifact
+          merge-multiple: true
+
+      - name: Restore the publication and record every original file
+        run: |
+          python3 - <<'PY'
+          import os, pathlib, shutil, tarfile
+          inputs = pathlib.Path(os.environ['RUNNER_TEMP']) / 'divrei16-media-inputs'
+          inputs.mkdir()
+          media_files = ['library/shiur-player.js', 'library/divrei16-preview.js', 'library/downloads/divrei-soferim-ois-16-lech-lecha-shiur.pdf', 'library/downloads/divrei-soferim-ois-16-lech-lecha-shiur.docx']
+          media_files += [f'library/downloads/divrei-soferim-ois-16-lech-lecha-preview/page-{page:02d}.webp' for page in range(1, 10)]
+          for name in media_files:
+              source = pathlib.Path('dist') / name
+              assert source.is_file(), 'Missing new media input: ' + name
+              destination = inputs / name
+              destination.parent.mkdir(parents=True, exist_ok=True)
+              shutil.copyfile(source, destination)
+          destination = pathlib.Path('dist').resolve()
+          shutil.rmtree(destination)
+          destination.mkdir()
+          archive = pathlib.Path(os.environ['RUNNER_TEMP']) / 'divrei16-baseline-artifact/artifact.tar'
+          with tarfile.open(archive, 'r:') as source:
+              members = source.getmembers()
+              for member in members:
+                  target = (destination / member.name).resolve()
+                  assert target == destination or destination in target.parents, 'Unsafe publication archive path'
+                  assert member.isdir() or member.isfile(), 'Unexpected archive link or special file'
+              source.extractall(destination, members=members)
+          PY
+          node scripts/verify-divrei16-media-release.mjs --capture
+
+      - name: Attach only the new recording and transcript
+        run: |
+          python3 - <<'PY'
+          import os, pathlib, shutil
+          inputs = pathlib.Path(os.environ['RUNNER_TEMP']) / 'divrei16-media-inputs'
+          for source in inputs.rglob('*'):
+              if source.is_file():
+                  destination = pathlib.Path('dist') / source.relative_to(inputs)
+                  destination.parent.mkdir(parents=True, exist_ok=True)
+                  shutil.copyfile(source, destination)
+          PY
+          node scripts/build-shiur-audio.mjs
+          node scripts/apply-divrei16-media.mjs
+          node --check dist/library/divrei16-preview.js
+          node scripts/test-shiur-player.mjs
+          node scripts/verify-divrei16-media-release.mjs --verify
+
+      - name: Install the focused browser verification runtime
+        run: |
+          npm install --no-save --package-lock=false playwright@1.62.1
+          npx playwright install --with-deps chromium
+
+      - name: Verify Ois 16 controls on desktop and mobile
+        run: node scripts/test-divrei16-media-browser.mjs
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Check the live publication immediately before uploading
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/verify-divrei16-media-release.mjs --live-baseline
+
+      - name: Upload the preserved site with Ois 16 media
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ./dist
+
+      - name: Check the live publication immediately before deployment
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/verify-divrei16-media-release.mjs --live-baseline
+
+      - name: Publish the Ois 16 media addition
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Verify the public recording, transcript, and reader
+        run: |
+          node scripts/verify-divrei16-media-release.mjs --live
+          node scripts/test-divrei16-media-browser.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'
+
+      - name: Save the publication verification
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: divrei16-media-verification
+          if-no-files-found: warn
+          path: |
+            divrei16-media-baseline-artifact.json
+            divrei16-media-baseline.json
+            divrei16-media-verification.json
+            divrei16-media-live-verification.json
