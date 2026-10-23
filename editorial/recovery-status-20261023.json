@@ -1,0 +1,76 @@
+{
+  "task": "Tzidkas HaTzadik original-source footnote review",
+  "recoveredFrom": "Conversation lost after source review106–120; working files recovered from f85ae98f1669 and /tmp/tzidkat-batch8-candidate",
+  "confirmedLiveThrough": 105,
+  "publicationInProgress": {
+    "sections": [
+      106,
+      120
+    ],
+    "newNotes": 115,
+    "commit": "c282902427ca4b699e269997aa6dfb1a661264eb",
+    "run": 40029321489
+  },
+  "protectedSections": [
+    40,
+    154
+  ],
+  "absentSections": [
+    74
+  ],
+  "scopeThrough": 264,
+  "rules": [
+    "Original-source attribution only",
+    "Preserve all existing notes and author text",
+    "New markers at exact Hebrew prefixes",
+    "Publish batches of15 after source and desktop/mobile verification"
+  ],
+  "researchAssignments": {
+    "review_121_135": [
+      [
+        121,
+        135
+      ],
+      [
+        166,
+        180
+      ],
+      [
+        211,
+        225
+      ],
+      [
+        256,
+        264
+      ]
+    ],
+    "review_136_150": [
+      [
+        136,
+        150
+      ],
+      [
+        181,
+        195
+      ],
+      [
+        226,
+        240
+      ]
+    ],
+    "verify_release_state": [
+      [
+        151,
+        165
+      ],
+      [
+        196,
+        210
+      ],
+      [
+        241,
+        255
+      ]
+    ]
+  }
+}
