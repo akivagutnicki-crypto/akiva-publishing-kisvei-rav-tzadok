@@ -7,6 +7,7 @@ import path from 'node:path';
 import {createHash} from 'node:crypto';
 import {gunzipSync} from 'node:zlib';
 import {fileURLToPath} from 'node:url';
+import {verifyBatchChain, hasPublishedBatches} from './publish-tzidkat-batch-review.mjs';
 
 const REPO = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const ACCURACY_PACK = 'sources/akiva/overlays/tzidkat-source-accuracy-20261023.json.gz';
@@ -139,10 +140,31 @@ export function verifyTzidkatSourceAccuracySuccessor({directory=path.join(REPO, 
     assert.deepEqual(original.report.successor.chapters.slice().sort(),
       attribution.pack.chapters.map(file => file.path).sort());
   }
+  // Each immutable review batch is strictly additive: its validator reconstructs
+  // every exact predecessor by removing only declared new note identities.
+  // Authenticate it before allowing it to replace any historical file seal.
+  const batch = hasPublishedBatches(directory) ? verifyBatchChain({directory}) : null;
+  if (batch) {
+    const previousChapters = new Map(pack.chapters.map(file => [file.path, file]));
+    const previousLinks = new Map(pack.linkChanges.map(item => [item.sectionRef, item]));
+    for (const file of attribution?.pack.chapters || []) previousChapters.set(file.path, file);
+    for (const item of attribution?.pack.linkChanges || []) previousLinks.set(item.sectionRef, item);
+    for (const file of batch.pack.chapters) {
+      const previous = previousChapters.get(file.path);
+      if (previous) assert.equal(file.beforeSha256, hashObject(previous.after),
+        'Additive batch does not descend from the exact reviewed predecessor: ' + file.path);
+    }
+    for (const [sectionRef, before] of Object.entries(batch.pack.linksBefore)) {
+      const previous = previousLinks.get(sectionRef);
+      if (previous) assert.equal(hashObject(before), hashObject(previous.after),
+        'Additive source links do not descend from the reviewed predecessor: ' + sectionRef);
+    }
+  }
   // The terminal seal may replace only the explicitly sealed overlap. Both
   // reports remain authenticated by their own immutable source pack.
   const filesByPath = new Map(original.files);
   if (attribution) for (const [name, info] of attribution.files) filesByPath.set(name, info);
+  if (batch) for (const [name, info] of batch.files) filesByPath.set(name, info);
   filesByPath.delete(ACCURACY_REPORT); filesByPath.delete(ATTRIBUTION_REPORT);
   for (const [name, expected] of filesByPath) {
     const actual = fileInfo(localFile(directory, name));
@@ -150,6 +172,7 @@ export function verifyTzidkatSourceAccuracySuccessor({directory=path.join(REPO, 
     assert.equal(actual.sha256, expected.sha256, 'Sealed successor file changed: ' + name);
   }
   const nextChapters = new Map((attribution?.pack.chapters || []).map(item => [item.path, item]));
+  if (batch) for (const file of batch.pack.chapters) nextChapters.set(file.path, file);
   for (const file of pack.chapters) {
     const expected = nextChapters.get(file.path) || file;
     assert.equal(hashObject(read(localFile(directory, file.path))), hashObject(expected.after),
@@ -157,6 +180,7 @@ export function verifyTzidkatSourceAccuracySuccessor({directory=path.join(REPO, 
   }
   const links = read(localFile(directory, LINKS));
   const nextLinks = new Map((attribution?.pack.linkChanges || []).map(item => [item.sectionRef, item]));
+  if (batch) for (const item of batch.report.linkChanges) nextLinks.set(item.sectionRef, item);
   for (const change of pack.linkChanges) {
     const expected = nextLinks.get(change.sectionRef) || change;
     assert.equal(hashObject(links[change.sectionRef]), hashObject(expected.after),
@@ -169,11 +193,12 @@ export function verifyTzidkatSourceAccuracySuccessor({directory=path.join(REPO, 
     assert.equal(found.length, 1, 'Missing or duplicate reviewed idea: ' + change.id);
     assert.equal(hashObject(found[0]), hashObject(change.after), 'Reviewed Tzidkat idea changed: ' + change.id);
   }
-  return {pack, packSha256, report:original.report, filesByPath, catalog,
+  return {pack, packSha256, report:original.report, filesByPath, catalog, batch,
     attribution:attribution ? {release:attribution.pack.release, packSha256:attribution.packSha256, report:attribution.report} : null,
     proof:{release:pack.release, packSha256, sealedFilesVerified:filesByPath.size,
       terminalChaptersVerified:pack.chapters.length, terminalLinkListsVerified:pack.linkChanges.length,
       reviewedIdeaRecords:pack.ideaChanges.length,
+      ...(batch ? {additiveBatch:batch.proof} : {}),
       ...(attribution ? {attributionRelease:attribution.pack.release, attributionPackSha256:attribution.packSha256} : {})}};
 }
 
@@ -224,6 +249,9 @@ export function verifyTzidkatIdeasSuccessor({directory=path.join(REPO, 'dist'),
 export function createProtectedTzidkatSuccessorHash(options={}) {
   const verified = verifyTzidkatSourceAccuracySuccessor(options);
   const targets = new Map(verified.pack.chapters.map(file => [file.path, file]));
+  // Chapters unaffected by the original accuracy release can still receive a
+  // new quotation. Their own exact preimage supplies the preservation chain.
+  for (const file of verified.batch?.pack.chapters || []) if (!targets.has(file.path) && verified.batch.files.has(file.path)) targets.set(file.path,file);
   return (file, expected) => {
     assert.equal(typeof file, 'string');
     const relative = file.startsWith('library/data/') ? file

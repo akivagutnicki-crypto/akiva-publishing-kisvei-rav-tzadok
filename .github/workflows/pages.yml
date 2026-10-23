@@ -12,12 +12,12 @@ permissions:
 
 concurrency:
   # Skipped workflows must not displace a pending publisher in the shared queue.
-  group: ${{ (github.event_name != 'push' || (!contains(github.event.head_commit.message, '[divrei-source-release]') && !contains(github.event.head_commit.message, '[divrei-media-release]') && !contains(github.event.head_commit.message, '[reader-ui-release]') && !contains(github.event.head_commit.message, '[share-release]') && !contains(github.event.head_commit.message, '[mei-volume-ii-release]') && !contains(github.event.head_commit.message, '[mei-likutei-release]') && !contains(github.event.head_commit.message, '[tzidkat-accuracy-release]') && !contains(github.event.head_commit.message, '[tzidkat-source-attribution]') && !contains(github.event.head_commit.message, '[tzidkat-accuracy-rebuild-integration]') && !contains(github.event.head_commit.message, '[new-books-release]'))) && 'pages' || format('pages-skipped-{0}', github.run_id) }}
+  group: ${{ (github.event_name != 'push' || (!contains(github.event.head_commit.message, '[divrei-source-release]') && !contains(github.event.head_commit.message, '[divrei-media-release]') && !contains(github.event.head_commit.message, '[reader-ui-release]') && !contains(github.event.head_commit.message, '[share-release]') && !contains(github.event.head_commit.message, '[mei-volume-ii-release]') && !contains(github.event.head_commit.message, '[mei-likutei-release]') && !contains(github.event.head_commit.message, '[tzidkat-accuracy-release]') && !contains(github.event.head_commit.message, '[tzidkat-source-attribution]') && !contains(github.event.head_commit.message, '[tzidkat-accuracy-rebuild-integration]') && !contains(github.event.head_commit.message, '[new-books-release]') && !contains(github.event.head_commit.message, '[tzidkat-batch-review]'))) && 'pages' || format('pages-skipped-{0}', github.run_id) }}
   cancel-in-progress: false
 
 jobs:
   deploy:
-    if: ${{ github.event_name != 'push' || (!contains(github.event.head_commit.message, '[divrei-source-release]') && !contains(github.event.head_commit.message, '[divrei-media-release]') && !contains(github.event.head_commit.message, '[reader-ui-release]') && !contains(github.event.head_commit.message, '[share-release]') && !contains(github.event.head_commit.message, '[mei-volume-ii-release]') && !contains(github.event.head_commit.message, '[mei-likutei-release]') && !contains(github.event.head_commit.message, '[tzidkat-accuracy-release]') && !contains(github.event.head_commit.message, '[tzidkat-source-attribution]') && !contains(github.event.head_commit.message, '[tzidkat-accuracy-rebuild-integration]') && !contains(github.event.head_commit.message, '[new-books-release]')) }}
+    if: ${{ github.event_name != 'push' || (!contains(github.event.head_commit.message, '[divrei-source-release]') && !contains(github.event.head_commit.message, '[divrei-media-release]') && !contains(github.event.head_commit.message, '[reader-ui-release]') && !contains(github.event.head_commit.message, '[share-release]') && !contains(github.event.head_commit.message, '[mei-volume-ii-release]') && !contains(github.event.head_commit.message, '[mei-likutei-release]') && !contains(github.event.head_commit.message, '[tzidkat-accuracy-release]') && !contains(github.event.head_commit.message, '[tzidkat-source-attribution]') && !contains(github.event.head_commit.message, '[tzidkat-accuracy-rebuild-integration]') && !contains(github.event.head_commit.message, '[new-books-release]') && !contains(github.event.head_commit.message, '[tzidkat-batch-review]')) }}
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -488,6 +488,12 @@ jobs:
       - name: Keep the latest printed editions and original samples
         run: node scripts/apply-new-books.mjs dist
 
+      - name: Add each reviewed Tzidkat source batch after predecessor gates
+        run: |
+          node scripts/publish-tzidkat-batch-review.mjs --rebuild-all
+          node scripts/test-tzidkat-batch-review.mjs --all
+          node scripts/publish-tzidkat-source-accuracy.mjs --verify-successor --successor-pack sources/akiva/overlays/tzidkat-source-attribution-20261023.json.gz
+
       - name: Upload site
         uses: actions/upload-pages-artifact@v4
         with:
@@ -555,6 +561,8 @@ jobs:
           node scripts/publish-tzidkat-source-accuracy.mjs --live --successor-pack sources/akiva/overlays/tzidkat-source-attribution-20261023.json.gz
           node scripts/test-tzidkat-source-accuracy-browser.mjs --successor-pack sources/akiva/overlays/tzidkat-source-attribution-20261023.json.gz --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'
           node scripts/test-tzidkat-source-attribution-browser.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'
+          node scripts/publish-tzidkat-batch-review.mjs --live
+          node scripts/test-tzidkat-batch-review.mjs --all --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'
 
       - name: Verify Chanukah 25 and all three source entry points on the published reader
         run: |
@@ -786,5 +794,8 @@ jobs:
             tzidkat-source-attribution-baseline.json
             dist/library/tzidkat-source-accuracy-20261023.json
             dist/library/tzidkat-source-attribution-20261023.json
+            dist/library/tzidkat-batch-review-*.json
+            tzidkat-batch-live-verification.json
             artifacts/tzidkat-source-accuracy/
             artifacts/tzidkat-source-attribution/
+            artifacts/tzidkat-batch-*/

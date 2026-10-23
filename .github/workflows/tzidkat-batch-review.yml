@@ -1,0 +1,130 @@
+name: Publish Tzidkat batch original-source additions
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: ${{ (github.repository == 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok' && github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[tzidkat-batch-review]'))) && 'pages' || format('tzidkat-batch-skipped-{0}', github.run_id) }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: ${{ github.repository == 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok' && github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[tzidkat-batch-review]')) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout reviewed original-source additions
+        uses: actions/checkout@v6
+
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+
+      - name: Verify add-only content and identify the current publication
+        id: baseline
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          node scripts/publish-tzidkat-batch-review.mjs --prepare
+          node scripts/test-tzidkat-batch-review.mjs --guards-only
+          node scripts/publish-tzidkat-batch-review.mjs --metadata
+
+      - name: Download the actual current complete Pages artifact
+        uses: actions/download-artifact@v4
+        with:
+          artifact-ids: ${{ steps.baseline.outputs.artifact }}
+          run-id: ${{ steps.baseline.outputs.run }}
+          repository: akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/tzidkat-batch-baseline
+          merge-multiple: true
+
+      - name: Restore every published file and verify current preimages
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PY'
+          import os, pathlib, shutil, tarfile
+          root = pathlib.Path('dist').resolve()
+          if root.exists(): shutil.rmtree(root)
+          root.mkdir()
+          archive = pathlib.Path(os.environ['RUNNER_TEMP']) / 'tzidkat-batch-baseline/artifact.tar'
+          with tarfile.open(archive, 'r:') as source:
+              members = source.getmembers()
+              for member in members:
+                  target = (root / member.name).resolve()
+                  assert target == root or root in target.parents, 'Unsafe artifact path'
+                  assert member.isdir() or member.isfile(), 'Unexpected archive link'
+              source.extractall(root, members=members, filter='data')
+          PY
+          node scripts/publish-tzidkat-batch-review.mjs --capture
+
+      - name: Add missing notes and refresh only their references and exports
+        run: |
+          node scripts/publish-tzidkat-batch-review.mjs --apply
+          node scripts/publish-tzidkat-batch-review.mjs --verify
+          node scripts/publish-tzidkat-batch-review.mjs --rebuild
+          node --check dist/library/sw.js
+          node scripts/publish-tzidkat-source-accuracy.mjs --verify-successor --successor-pack sources/akiva/overlays/tzidkat-source-attribution-20261023.json.gz
+
+      - name: Install browser verification
+        run: |
+          npm install --no-save --package-lock=false playwright@1.62.1
+          npx playwright install --with-deps chromium
+
+      - name: Verify all new Hebrew markers and all existing notes on desktop and mobile
+        run: node scripts/test-tzidkat-batch-review.mjs --all
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Check current main and publication before upload
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/publish-tzidkat-batch-review.mjs --guard
+
+      - name: Upload the complete preserved publication with the new notes
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ./dist
+          retention-days: 14
+
+      - name: Check current main and publication before deployment
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/publish-tzidkat-batch-review.mjs --guard
+
+      - name: Publish Tzidkat batch source additions
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Verify exact public bytes notes markers and protected ois
+        run: |
+          node scripts/publish-tzidkat-batch-review.mjs --live
+          node scripts/test-tzidkat-batch-review.mjs --all --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'
+
+      - name: Save source review and publication evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tzidkat-batch-verification
+          retention-days: 90
+          if-no-files-found: warn
+          path: |
+            tzidkat-batch-publication.json
+            tzidkat-batch-baseline.json
+            tzidkat-batch-live-verification.json
+            dist/library/tzidkat-batch-review-*.json
+            artifacts/tzidkat-batch-*/
