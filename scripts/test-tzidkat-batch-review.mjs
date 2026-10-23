@@ -56,7 +56,8 @@ const guards = [
 if (pack.verifiedExternalUrls?.length) {
   guards.push(
     rejected('undeclared primary URL', copy => { copy.verifiedExternalUrls = []; }, /exact reviewed declaration/),
-    rejected('unrequested external URL', copy => { copy.verifiedExternalUrls[0].url += '?unrequested'; }, /not a declared new original source/),
+    rejected('unrequested external URL', copy => { copy.verifiedExternalUrls[0].url += '?unrequested'; }, /Unsupported exact primary-source URL|not a declared new original source/),
+    rejected('unapproved primary-text page', copy => { copy.verifiedExternalUrls[0].url = 'https://mobile.tora.ws/html/15061-999.html'; }, /Unsupported exact primary-source URL/),
     rejected('different external-source evidence', copy => { copy.verifiedExternalUrls[0].evidenceSha256 = '0'.repeat(64); }, /source evidence changed/),
     rejected('unreviewed external source', copy => { const item = copy.verifiedExternalUrls[0]; copy.audit.entries.find(entry => entry.placementId === item.placementId).sourceEvidence[0].url += '?different'; }, /matching reviewed bilingual source evidence/),
   );

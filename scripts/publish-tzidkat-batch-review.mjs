@@ -159,14 +159,18 @@ export function validatePack(pack) {
   return additions;
 }
 
-// Some original works are available only on this primary-text site. Enable
+// Some original works are available only on these primary-text sites. Enable
 // individual reviewed destinations, never a domain-wide runtime permission.
+const additionalExactPrimaryUrls = new Set([
+  'https://mobile.tora.ws/html/15061-27.html',
+  'https://mobile.tora.ws/html/15061-30.html',
+]);
 export function validateExternalSourceUrls(pack,additions) {
   const declared = pack.verifiedExternalUrls || [];
   assert(Array.isArray(declared),'Verified external URLs must be an exact list');
   const seen = new Set();
   for (const item of declared) {
-    assert(typeof item.url === 'string' && /^https:\/\/wiki\.jewishbooks\.org\.il\/mediawiki\/(?:wiki\/|index\.php\?)/.test(item.url)
+    assert(typeof item.url === 'string' && (/^https:\/\/wiki\.jewishbooks\.org\.il\/mediawiki\/(?:wiki\/|index\.php\?)/.test(item.url) || additionalExactPrimaryUrls.has(item.url))
       && !/[<>\s\\]/.test(item.url),'Unsupported exact primary-source URL');
     assert(!seen.has(item.url),'Repeated exact primary-source URL'); seen.add(item.url);
     const added = additions.find(entry => entry.note.placementId === item.placementId);
@@ -177,7 +181,7 @@ export function validateExternalSourceUrls(pack,additions) {
     assert(evidence && audit.status === 'verified','Exact URL lacks matching reviewed bilingual source evidence');
     assert.equal(item.evidenceSha256,digest({ref:evidence.ref,url:evidence.url,he:evidence.he,en:evidence.en}),'Exact URL source evidence changed');
   }
-  for (const {note} of additions) for (const source of note.sources) if (/^https:\/\/wiki\.jewishbooks\.org\.il\//.test(source.url || '')) {
+  for (const {note} of additions) for (const source of note.sources) if (/^https:\/\/(?:wiki\.jewishbooks\.org\.il|mobile\.tora\.ws)\//.test(source.url || '')) {
     assert(seen.has(source.url),'Primary-source URL needs its exact reviewed declaration');
   }
   return declared;
