@@ -18,6 +18,9 @@ const root = path.resolve(options['--root'] || 'dist/library');
 const pack = readPack(options['--pack']);
 const sections = [1, 8, 9, 16];
 const chapterData = new Map(sections.map(section => [section, JSON.parse(pack.files.find(file => file.path === `data/divrei-soferim/${section}.json`).afterText)]));
+// This existing reciprocal parallel is outside the regular-source audit. Keep
+// it visible and verify its identity separately from the sealed source notes.
+const preservedParallelIds = new Map([[16, ['IDEA-lech-lecha-1-despair-divrei-soferim-16-reverse']]]);
 let server, origin;
 if (options['--url']) {
   const url = new URL(options['--url'].replace(/\/?$/, '/'));
@@ -57,26 +60,33 @@ try {
       if (url.origin === new URL(origin).origin || ['data:', 'blob:'].includes(url.protocol)) return route.continue();
       return route.fulfill({status: 200, contentType: 'application/json', body: '{}'});
     });
-    let markersChecked = 0, paragraphsChecked = 0, expanded = 0;
+    let markersChecked = 0, paragraphsChecked = 0, expanded = 0, preservedParallelsChecked = 0;
     for (const sectionNumber of sections) {
       const ref = 'Divrei Soferim ' + sectionNumber;
       const expected = chapterData.get(sectionNumber).flatMap(row => row.footnotes || []);
       await page.goto(origin + '#/read/' + encodeURIComponent(ref).replace(/%20/g, '_'), {waitUntil: 'domcontentloaded'});
       const section = page.locator('#text > .sec[data-ref="' + ref + '"]');
       await section.locator('.seg-il .ph-he button.source-note-trigger').first().waitFor({state: 'visible', timeout: 30000});
-      const markers = await section.evaluate(element => {
+      await page.waitForFunction(ref => document.querySelector('#text > .sec[data-ref="' + ref + '"]')?.dataset.connectionFootnotesMounted === 'true', ref, {timeout: 30000});
+      const allMarkers = await section.evaluate(element => {
         const found = [];
         for (const he of element.querySelectorAll('.seg-il .ph-he')) {
           const walker = document.createTreeWalker(he, NodeFilter.SHOW_TEXT);
           let node, prefix = '';
           while ((node = walker.nextNode())) {
             const marker = node.parentElement?.closest('.source-note-trigger');
-            if (marker) found.push({id: marker.dataset.noteKey, prefix, number: marker.textContent, nested: !!marker.closest('a')});
+            if (marker) found.push({id: marker.dataset.noteKey, prefix, number: marker.textContent, nested: !!marker.closest('a'), connectionId: marker.dataset.connectionId || null});
             else prefix += node.textContent;
           }
         }
         return found;
       });
+      const markers = allMarkers.filter(marker => !marker.connectionId);
+      const parallelMarkers = allMarkers.filter(marker => marker.connectionId);
+      const expectedParallelIds = preservedParallelIds.get(sectionNumber) || [];
+      assert.deepEqual(parallelMarkers.map(marker => marker.id).sort(), expectedParallelIds, 'Existing parallel markers changed in ' + ref);
+      for (const marker of parallelMarkers) assert.equal(marker.id, 'IDEA-' + marker.connectionId, 'Unexpected non-source marker');
+      preservedParallelsChecked += parallelMarkers.length;
       assert.equal(markers.length, expected.length, device.name + ': wrong marker count in ' + ref);
       assert.equal(await section.locator('.seg-il .ph-en .source-note-trigger').count(), 0, 'Source markers must remain Hebrew-only');
       for (const note of expected) {
@@ -87,10 +97,13 @@ try {
         assert.equal(matches[0].nested, false, 'Marker must not be nested inside a source link');
       }
       markersChecked += markers.length;
-      const cards = await section.evaluate(element => [...element.querySelectorAll('.seg-il .reader-footnote[data-source-note]')].map(node => ({
+      const allCards = await section.evaluate(element => [...element.querySelectorAll('.seg-il .reader-footnote[data-source-note]')].map(node => ({
         id: node.dataset.noteKey,
+        connectionId: node.dataset.connectionId || null,
         paragraphs: [...node.querySelectorAll('.annotation-text')].map(paragraph => paragraph.textContent)
       })));
+      const cards = allCards.filter(card => !card.connectionId);
+      assert.deepEqual(allCards.filter(card => card.connectionId).map(card => card.id).sort(), expectedParallelIds, 'Existing parallel note bodies changed in ' + ref);
       assert.equal(cards.length, expected.length, 'Missing or extra note bodies');
       for (const note of expected) {
         assert.deepEqual(cards.find(card => card.id === note.placementId)?.paragraphs, note.paragraphs.map(paragraph => paragraph.text), 'DOM shortened or changed a quotation');
@@ -136,7 +149,7 @@ try {
     }
     assert.equal(expanded, 5, 'All selected source controls must be exercised');
     assert.deepEqual(errors, [], 'Browser JavaScript errors');
-    checks.push({device: device.name, sections: sections.length, exactVisibleMarkers: markersChecked, exactRenderedParagraphs: paragraphsChecked, sourceNotesOpenedAndClosed: expanded});
+    checks.push({device: device.name, sections: sections.length, exactVisibleMarkers: markersChecked, exactRenderedParagraphs: paragraphsChecked, sourceNotesOpenedAndClosed: expanded, preservedParallelsChecked});
     await context.close();
   }
   console.log(JSON.stringify({ok: true, release: RELEASE, publiclyVerified: !!options['--url'], checks}, null, 2));
