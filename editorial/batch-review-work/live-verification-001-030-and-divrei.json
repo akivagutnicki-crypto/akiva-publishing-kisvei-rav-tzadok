@@ -1,0 +1,283 @@
+{
+  "verifiedAt": "2026-10-23",
+  "publication": "b70f39d119d1766b8f4e800365de5a6986fee856",
+  "firstRun": 40005306892,
+  "secondRun": 40012481524,
+  "reports": {
+    "akiva-repo/artifacts/tzidkat-batch-001-015/live-report.json": {
+      "sha256": "102b0d0bc0135dd75ee90df954f1723f1e71c0ce7883c7d25876d8e3b384491e",
+      "report": {
+        "ok": true,
+        "release": "20261023-tzidkat-batch-001-015-v1",
+        "publiclyVerified": true,
+        "guards": [
+          {
+            "name": "changed existing quotation",
+            "rejected": true
+          },
+          {
+            "name": "removed existing note",
+            "rejected": true
+          },
+          {
+            "name": "changed author text",
+            "rejected": true
+          },
+          {
+            "name": "incorrect Hebrew anchor",
+            "rejected": true
+          },
+          {
+            "name": "colliding note number",
+            "rejected": true
+          },
+          {
+            "name": "incorrect predecessor",
+            "rejected": true
+          },
+          {
+            "name": "unrequested section",
+            "rejected": true
+          },
+          {
+            "name": "secondary-edition attribution",
+            "rejected": true
+          }
+        ],
+        "proof": {
+          "batches": [
+            {
+              "release": "20261023-tzidkat-batch-001-015-v1",
+              "packSha256": "af0b3ac4c469386973fc038bc813602b4fa2138a0e0e0d886356a50562f89674",
+              "newNotes": 27,
+              "reviewedSections": 15,
+              "existingNotesUnchanged": true,
+              "authorTextUnchanged": true
+            },
+            {
+              "release": "20261023-tzidkat-batch-016-030-v1",
+              "packSha256": "593d55d12e2917b7aff02f8649dd4ed09343c7c2dfda943a31b4cdce6c4e329a",
+              "newNotes": 43,
+              "reviewedSections": 15,
+              "existingNotesUnchanged": true,
+              "authorTextUnchanged": true
+            }
+          ],
+          "reviewedSections": 30,
+          "newNotes": 70,
+          "existingNotesUnchanged": true,
+          "authorTextUnchanged": true
+        },
+        "viewports": [
+          {
+            "width": 1280,
+            "reviewedSections": 15,
+            "newNotesOpened": 27,
+            "exactHebrewAnchors": 27,
+            "existingNotesPreserved": 61,
+            "originalSourceLinks": 27,
+            "internalSourcesOpened": 8,
+            "exactSourceExcerptsOpened": 0
+          },
+          {
+            "width": 390,
+            "reviewedSections": 15,
+            "newNotesOpened": 27,
+            "exactHebrewAnchors": 27,
+            "existingNotesPreserved": 61,
+            "originalSourceLinks": 27,
+            "internalSourcesOpened": 8,
+            "exactSourceExcerptsOpened": 0
+          }
+        ],
+        "errors": []
+      }
+    },
+    "akiva-repo/artifacts/tzidkat-batch-016-030/live-report.json": {
+      "sha256": "ab22d3fe1e2d33415bf6d9dcbf8da65620424bb9b9ff17916c369994c1290ebb",
+      "report": {
+        "ok": true,
+        "release": "20261023-tzidkat-batch-016-030-v1",
+        "publiclyVerified": true,
+        "guards": [
+          {
+            "name": "changed existing quotation",
+            "rejected": true
+          },
+          {
+            "name": "removed existing note",
+            "rejected": true
+          },
+          {
+            "name": "changed author text",
+            "rejected": true
+          },
+          {
+            "name": "incorrect Hebrew anchor",
+            "rejected": true
+          },
+          {
+            "name": "colliding note number",
+            "rejected": true
+          },
+          {
+            "name": "incorrect predecessor",
+            "rejected": true
+          },
+          {
+            "name": "unrequested section",
+            "rejected": true
+          },
+          {
+            "name": "secondary-edition attribution",
+            "rejected": true
+          }
+        ],
+        "proof": {
+          "batches": [
+            {
+              "release": "20261023-tzidkat-batch-001-015-v1",
+              "packSha256": "af0b3ac4c469386973fc038bc813602b4fa2138a0e0e0d886356a50562f89674",
+              "newNotes": 27,
+              "reviewedSections": 15,
+              "existingNotesUnchanged": true,
+              "authorTextUnchanged": true
+            },
+            {
+              "release": "20261023-tzidkat-batch-016-030-v1",
+              "packSha256": "593d55d12e2917b7aff02f8649dd4ed09343c7c2dfda943a31b4cdce6c4e329a",
+              "newNotes": 43,
+              "reviewedSections": 15,
+              "existingNotesUnchanged": true,
+              "authorTextUnchanged": true
+            }
+          ],
+          "reviewedSections": 30,
+          "newNotes": 70,
+          "existingNotesUnchanged": true,
+          "authorTextUnchanged": true
+        },
+        "viewports": [
+          {
+            "width": 1280,
+            "reviewedSections": 15,
+            "newNotesOpened": 43,
+            "exactHebrewAnchors": 43,
+            "existingNotesPreserved": 52,
+            "originalSourceLinks": 43,
+            "internalSourcesOpened": 12,
+            "exactSourceExcerptsOpened": 1
+          },
+          {
+            "width": 390,
+            "reviewedSections": 15,
+            "newNotesOpened": 43,
+            "exactHebrewAnchors": 43,
+            "existingNotesPreserved": 52,
+            "originalSourceLinks": 43,
+            "internalSourcesOpened": 12,
+            "exactSourceExcerptsOpened": 1
+          }
+        ],
+        "errors": []
+      }
+    },
+    "tmp/batch-engineering/divrei-live-verification.json": {
+      "sha256": "f5fd84580a77fa2e4f07fd3ad0efb421972180f93afcb34919201960fe0fe19b",
+      "report": {
+        "ok": true,
+        "publicBytesUnchanged": 43,
+        "files": [
+          "library/data/divrei-soferim/0.json",
+          "library/data/divrei-soferim/1.json",
+          "library/data/divrei-soferim/10.json",
+          "library/data/divrei-soferim/11.json",
+          "library/data/divrei-soferim/12.json",
+          "library/data/divrei-soferim/13.json",
+          "library/data/divrei-soferim/14.json",
+          "library/data/divrei-soferim/15.json",
+          "library/data/divrei-soferim/16.json",
+          "library/data/divrei-soferim/17.json",
+          "library/data/divrei-soferim/18.json",
+          "library/data/divrei-soferim/19.json",
+          "library/data/divrei-soferim/2.json",
+          "library/data/divrei-soferim/20.json",
+          "library/data/divrei-soferim/21.json",
+          "library/data/divrei-soferim/22.json",
+          "library/data/divrei-soferim/23.json",
+          "library/data/divrei-soferim/24.json",
+          "library/data/divrei-soferim/25.json",
+          "library/data/divrei-soferim/26.json",
+          "library/data/divrei-soferim/27.json",
+          "library/data/divrei-soferim/28.json",
+          "library/data/divrei-soferim/29.json",
+          "library/data/divrei-soferim/3.json",
+          "library/data/divrei-soferim/30.json",
+          "library/data/divrei-soferim/31.json",
+          "library/data/divrei-soferim/32.json",
+          "library/data/divrei-soferim/33.json",
+          "library/data/divrei-soferim/34.json",
+          "library/data/divrei-soferim/35.json",
+          "library/data/divrei-soferim/36.json",
+          "library/data/divrei-soferim/37.json",
+          "library/data/divrei-soferim/38.json",
+          "library/data/divrei-soferim/4.json",
+          "library/data/divrei-soferim/5.json",
+          "library/data/divrei-soferim/6.json",
+          "library/data/divrei-soferim/7.json",
+          "library/data/divrei-soferim/8.json",
+          "library/data/divrei-soferim/9.json",
+          "library/data/divrei-soferim/links.json",
+          "library/data/divrei-soferim/toc.json",
+          "library/downloads/books/divrei-soferim.zip",
+          "mcp-data/text/divrei-soferim.json"
+        ],
+        "views": [
+          {
+            "width": 1280,
+            "ref": "Divrei Soferim 1",
+            "existingNotesVerified": 3
+          },
+          {
+            "width": 1280,
+            "ref": "Divrei Soferim 16",
+            "existingNotesVerified": 10
+          },
+          {
+            "width": 1280,
+            "ref": "Divrei Soferim 38",
+            "existingNotesVerified": 202
+          },
+          {
+            "width": 390,
+            "ref": "Divrei Soferim 1",
+            "existingNotesVerified": 3
+          },
+          {
+            "width": 390,
+            "ref": "Divrei Soferim 16",
+            "existingNotesVerified": 10
+          },
+          {
+            "width": 390,
+            "ref": "Divrei Soferim 38",
+            "existingNotesVerified": 202
+          }
+        ],
+        "errors": []
+      }
+    },
+    "tmp/batch-engineering/current-site-verification.json": {
+      "sha256": "8ab2a6814dd323286b693769f2595dd2d122cc57a01fc23f5f034a62899a79b7",
+      "report": {
+        "ok": true,
+        "files": 5218,
+        "allHashesMatch": true,
+        "root": "/tmp/tzidkat-current-batch2",
+        "publication": "b70f39d119d1766b8f4e800365de5a6986fee856",
+        "run": 40012481524,
+        "archiveReportVerified": true
+      }
+    }
+  }
+}
