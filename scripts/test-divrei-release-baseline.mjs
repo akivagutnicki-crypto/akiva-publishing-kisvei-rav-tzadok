@@ -105,7 +105,7 @@ function verifyManifestAndArchives(root,baseline,pack){
 function verifyReaderShell(root,baseline,pack){
   assert.equal(sha(fs.readFileSync(path.join(root,'source-connections.js'))),ENGINE_SHA256,'Unexpected source-popup engine');
   let html=baseline.html;assert.equal(typeof html,'string');
-  const oldQuery='source-connections.js?v=20261020-reviewed-connections-v4';
+  const oldQuery='source-connections.js?v=20261021-pri-seasonal-pdf-quotations-v1-92abce2ff13b';
   assert.equal(html.split(oldQuery).length,2,'Baseline source-popup version differs');
   html=html.replace(oldQuery,'source-connections.js?v=20261022-reviewed-connections-v5');
   const marker='const editionDataUrl = url => ',revision=RELEASE+'-'+pack.packageSha256.slice(0,12);

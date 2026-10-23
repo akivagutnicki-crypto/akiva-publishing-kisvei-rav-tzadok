@@ -130,7 +130,7 @@ jobs:
           import path from 'node:path';
           import assert from 'node:assert/strict';
           fs.copyFileSync(path.join(process.env.RUNNER_TEMP,'divrei-reviewed-source-connections.js'),'dist/library/source-connections.js');
-          const file='dist/library/index.html',old='source-connections.js?v=20261020-reviewed-connections-v4';
+          const file='dist/library/index.html',old='source-connections.js?v=20261021-pri-seasonal-pdf-quotations-v1-92abce2ff13b';
           const html=fs.readFileSync(file,'utf8');
           assert.equal(html.split(old).length,2,'Unexpected baseline source-engine query');
           fs.writeFileSync(file,html.replace(old,'source-connections.js?v=20261022-reviewed-connections-v5'));
