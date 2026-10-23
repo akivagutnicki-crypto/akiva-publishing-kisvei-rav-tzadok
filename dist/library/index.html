@@ -1188,6 +1188,8 @@ async function renderBook(title) {
     ${title === 'Toldos HaKohen' ? '<p>Original Hebrew and complete English translation are available in the reader. Hebrew and English are synchronized passage by passage, including the corresponding notes. Open a chapter and select Side by side for paired reading, or use Language to choose Hebrew, English, or Both.</p>' : ''}
     <div class="toc-actions" id="tocActions"></div></div>
     <div id="toc"><div class="loading">Loading contents…</div></div></div>${credit()}`;
+  const bookView = document.getElementById('toc');
+  const stillOnBookView = () => bookView?.isConnected && document.getElementById('toc') === bookView;
   const actions = (first, downloads = []) => `${first ? `<a class="btn primary" href="#/read/${toHash(first)}">Start reading →</a>` : ''}
       ${localBook(title) ? `<a class="btn" href="${bookZipFile(localBook(title).slug)}" download>Download sefer ZIP ↓</a>` : ''}
       ${downloads.map(d => `<a class="btn" href="${esc(d.file)}" download>${esc(d.label)}</a>`).join('')}
@@ -1199,9 +1201,11 @@ async function renderBook(title) {
       <button class="btn" type="button" id="saveBook">Save this sefer offline</button><span class="status" id="saveBookStatus" style="align-self:center;font:500 .8rem var(--ui);color:var(--muted)"></span>`;
   try {
     await catalogReady;
+    if (!stillOnBookView()) return;
     const lb = localBook(title);
     if (lb) {
       const toc = await loadToc(lb.slug);
+      if (!stillOnBookView()) return;
       $('#bookHe').textContent = lb.he;
       const g = GROUPS.find(G => G.id === lb.group); $('#bookGroup').textContent = g ? g.en : lb.group;
       const first = leavesOf(toc.toc).map(l => sectionsOf(l)[0] && secRefOf(l, sectionsOf(l)[0])).find(Boolean);
@@ -1219,6 +1223,7 @@ async function renderBook(title) {
       return;
     }
     const shape = await getJSON(`/api/shape/${encodeURIComponent(title)}`);
+    if (!stillOnBookView()) return;
     const root = Array.isArray(shape) ? shape[0] : shape;
     if (!root) throw new Error('No contents found');
     if (root.heBook) $('#bookHe').textContent = root.heBook;
@@ -1231,6 +1236,7 @@ async function renderBook(title) {
     $('#toc').innerHTML = studyLinks + renderNode(root, root.book || title, true);
     $('#saveBook').onclick = () => saveBook(title);
   } catch (e) {
+    if (!stillOnBookView()) return;
     $('#toc').innerHTML = errorBox('The table of contents could not be loaded.', title, e);
   }
 }

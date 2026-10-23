@@ -21,6 +21,27 @@ if(!sw.includes('-reader-ui-'+version)){
   assert(sw.includes('const SHELL_FILES = ['));
   sw=sw.replace('const SHELL_FILES = [',`const SHELL_FILES = [\n  './responsive-ui.css?v=${version}', './responsive-ui.js?v=${version}',`);
 }
+
+// Do not let a delayed contents request write into a newer route.
+if(!html.includes('const stillOnBookView =')){
+  const start=html.indexOf('async function renderBook(title) {');
+  const end=html.indexOf('function renderLocalNode(',start);
+  assert(start>=0 && end>start,'Expected the existing book contents renderer');
+  let block=html.slice(start,end);
+  const edit=(from,to)=>{assert.equal(block.split(from).length,2,'Unexpected book renderer: '+from);block=block.replace(from,to);};
+  edit('  const actions =', "  const bookView = document.getElementById('toc');\n  const stillOnBookView = () => bookView?.isConnected && document.getElementById('toc') === bookView;\n  const actions =");
+  edit('    await catalogReady;', '    await catalogReady;\n    if (!stillOnBookView()) return;');
+  edit('      const toc = await loadToc(lb.slug);', '      const toc = await loadToc(lb.slug);\n      if (!stillOnBookView()) return;');
+  edit('    const root = Array.isArray(shape) ? shape[0] : shape;', '    if (!stillOnBookView()) return;\n    const root = Array.isArray(shape) ? shape[0] : shape;');
+  edit('  } catch (e) {', '  } catch (e) {\n    if (!stillOnBookView()) return;');
+  html=html.slice(0,start)+block+html.slice(end);
+}
+if(!sw.includes('-reader-ui-route-safe-v2')){
+  const shell=/const SHELL = `([^`]+)`;/;
+  assert(shell.test(sw));
+  sw=sw.replace(shell,(_,value)=>'const SHELL = `'+value+'-reader-ui-route-safe-v2`;');
+}
+
 fs.writeFileSync(htmlPath,html);fs.writeFileSync(swPath,sw);
 for(const name of ['responsive-ui.css','responsive-ui.js']){
   const source=path.resolve('dist/library',name),destination=path.resolve(root,'library',name);

@@ -19,9 +19,17 @@ def digest(path):
 def inventory():
     return {p.relative_to(ROOT).as_posix():digest(p) for p in sorted(ROOT.rglob('*')) if p.is_file()}
 def latest():
-    runs=api('/actions/runs?branch=main&status=success&per_page=100')['workflow_runs']
+    runs=api('/actions/runs?branch=main&per_page=100')['workflow_runs']
     for run in sorted(runs,key=lambda r:r['updated_at'],reverse=True):
-        if run['path'] not in PUBLISHERS or run['conclusion']!='success':continue
+        if run['path'] not in PUBLISHERS:continue
+        deployed = run['conclusion']=='success'
+        # Post-deployment browser checks may fail after Pages has already published.
+        # Preserve the actual deployed artifact; the live hash guard still applies.
+        if not deployed and run['path']=='.github/workflows/reader-ui-release.yml' and run['conclusion']=='failure':
+            jobs=api('/actions/runs/'+str(run['id'])+'/jobs')['jobs']
+            deployed=any(step['name']=='Publish responsive reader' and step['conclusion']=='success'
+                         for job in jobs for step in job.get('steps',[]))
+        if not deployed:continue
         artifacts=api('/actions/runs/'+str(run['id'])+'/artifacts')['artifacts']
         for artifact in artifacts:
             if artifact['name']=='github-pages' and not artifact['expired']:
@@ -82,7 +90,7 @@ elif mode=='published':
 elif mode=='blobs':
     # Prepare immutable blobs only. Moving a branch or publishing requires a separate guarded connector action.
     entries=[]
-    for name in ['dist/library/index.html','dist/library/sw.js','.github/workflows/pages.yml']:
+    for name in ['dist/library/index.html','dist/library/sw.js','.github/workflows/pages.yml','scripts/reader-ui-baseline.py','scripts/apply-reader-ui.mjs','scripts/test-reader-ui-browser.mjs']:
         result=api('/git/blobs',{'content':pathlib.Path(name).read_text(),'encoding':'utf-8'})
         entries.append({'path':name,'mode':'100644','type':'blob','sha':result['sha']})
     parent=subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip()

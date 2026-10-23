@@ -27,7 +27,7 @@ const sizes=[[320,740],[360,800],[390,844],[430,932],[600,960],[768,1024],[820,1
 const snapshots=new Set(['390x844','820x1180','960x1536','1440x900','844x390']);
 try{
  const context=await browser.newContext({serviceWorkers:'block'});
- const page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));
+ const page=await context.newPage();page.on('pageerror',e=>errors.push({message:e.message,stack:e.stack,url:page.url()}));
  for(const [width,height] of sizes){
   await page.setViewportSize({width,height});await page.goto(base,{waitUntil:'domcontentloaded'});
   await page.waitForSelector('#libraryBookshop .shop-shelf',{timeout:60000});
@@ -75,7 +75,41 @@ try{
  const app=await android.newPage();await app.goto(base);await app.waitForSelector('#libraryBookshop.compact-bookshop');
  assert(await app.locator('body').evaluate(e=>e.classList.contains('akiva-android-reader')));
  assert(await app.locator('.topnav').isVisible());await app.screenshot({path:`${out}/android-wrapper-412.png`});await android.close();
- assert.equal(errors.length,0,'Unexpected JavaScript errors: '+errors.join('; '));
- fs.writeFileSync(`${out}/browser-report.json`,JSON.stringify({base,viewports:results,rotation:true,shelfButtons:true,keyboard:true,spaReturn:true,androidUserAgent:true,errors,physicalDevicesTested:false},null,2));
+
+ // Hold a real TOC response until after navigation. Late success, late failure,
+ // and a second book with the same DOM IDs must not write into another page.
+ for(const scenario of ['home-success','home-error','different-book']){
+  const ctx=await browser.newContext({serviceWorkers:'block'});
+  const p=await ctx.newPage();
+  p.on('pageerror',e=>errors.push({scenario,message:e.message,stack:e.stack,url:p.url()}));
+  let release,started,finished;
+  const gate=new Promise(resolve=>release=resolve);
+  const requested=new Promise(resolve=>started=resolve);
+  const completed=new Promise(resolve=>finished=resolve);
+  await p.route('**/data/resisei-layla/toc.json*',async route=>{
+   const response=await route.fetch(); started(); await gate;
+   if(scenario==='home-error')await route.fulfill({status:500,contentType:'text/plain',body:'Deliberate failure after navigation'});
+   else await route.fulfill({response});
+   finished();
+  });
+  await p.goto(base);await p.waitForSelector('#libraryBookshop .shop-shelf');
+  await p.evaluate(()=>{location.hash='#/book/Resisei_Layla';});
+  await p.waitForSelector('.toc-head');
+  await Promise.race([requested,new Promise((_,reject)=>setTimeout(()=>reject(Error('TOC request was not intercepted')),30000))]);
+  if(scenario==='different-book'){
+   await p.evaluate(()=>{location.hash='#/book/Dover_Tzedek';});
+   await p.waitForSelector('#tocActions .btn');
+  }else{
+   await p.evaluate(()=>{location.hash='#/';});
+   await p.waitForSelector('#libraryBookshop .shop-shelf');
+  }
+  const before=await p.locator('#app').textContent();
+  release();await completed;await p.waitForTimeout(600);
+  assert.equal(await p.locator('#app').textContent(),before,'Late TOC request changed the newer page: '+scenario);
+  await ctx.close();
+ }
+
+ assert.equal(errors.length,0,'Unexpected JavaScript errors: '+JSON.stringify(errors));
+ fs.writeFileSync(`${out}/browser-report.json`,JSON.stringify({base,viewports:results,rotation:true,shelfButtons:true,keyboard:true,spaReturn:true,androidUserAgent:true,lateTocSuccess:true,lateTocFailure:true,lateTocOtherBook:true,errors,physicalDevicesTested:false},null,2));
  console.log('PASS: 16 viewport layouts, rotation, real cover loading, navigation, shelf controls, themes, SPA return and Android-wrapper user agent.');
-}catch(e){fs.writeFileSync(`${out}/failure.txt`,String(e.stack||e));throw e;}finally{await browser.close();if(server)server.close();}
+}catch(e){fs.writeFileSync(`${out}/failure.txt`,String(e.stack||e));fs.writeFileSync(`${out}/browser-report.json`,JSON.stringify({base,passed:false,viewports:results,errors,failure:String(e.stack||e),physicalDevicesTested:false},null,2));throw e;}finally{await browser.close();if(server)server.close();}
