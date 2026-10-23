@@ -1,4 +1,4 @@
-import json,re,hashlib,html
+import json,re,hashlib,html,copy
 from pathlib import Path
 W=Path(__file__).parent
 BASE=Path('/tmp/tzidkat-current-batch2/mcp-data/text')
@@ -110,6 +110,39 @@ assert len(entries)==19
 for e in entries:
     for v in e['sourceEvidence']:
         assert v['he']==e['he'] and v['en']==e['en']
+
+# The reader expands the abbreviations in these two Sefaria passages.
+# Keep the approved quotation and both editions' evidence, while checking
+# source navigation against the exact Hebrew that the reader displays.
+canonical_paras={p['r']:p for p in json.loads((BASE/'tzidkat-hatzadik.json').read_text())['paras']}
+for ref,start in [('Tzidkat HaTzadik 152:1',12),('Tzidkat HaTzadik 108:1',0)]:
+    e=next(e for e in entries if e['ref']==ref)
+    old_he=e['he']
+    before={k:copy.deepcopy(v) for k,v in e.items() if k not in ['he','sourceEvidence','reviewEvidence']}
+    he=' '.join(plain(pair[0]) for pair in canonical_paras[ref]['p'][start:])
+    if ref.endswith('108:1'):
+        assert he.startswith('קח] ')
+        he=he[len('קח] '):]
+    original=copy.deepcopy(e['sourceEvidence'])
+    for evidence in original:
+        evidence['editionRelationship']='Original Sefaria Hebrew retained; the canonical app reader expands abbreviations and some cited verses.'
+    e['he']=he
+    e['sourceEvidence']=[{
+        'ref':ref,
+        'url':'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/#/read/'+ref.replace(' ','_'),
+        'he':he,'en':e['en'],
+        'heSha256':hashlib.sha256(he.encode()).hexdigest(),
+        'translation':'Approved English quotation from the original source; canonical reader spelling expands abbreviations and some cited verses. The original Sefaria Hebrew is retained as additional evidence.',
+        'coverage':'Corresponding complete selected source passage in the current canonical reader.',
+        'canonicalReaderRef':ref,'canonicalSourceFile':'mcp-data/text/tzidkat-hatzadik.json',
+    }]+original
+    e['reviewEvidence']['readerHebrewAlignment']={
+        'reason':'Canonical reader expands abbreviations used by the independently verified Sefaria source.',
+        'canonicalRef':ref,'previousHebrewSha256':hashlib.sha256(old_he.encode()).hexdigest(),
+        'canonicalHebrewSha256':hashlib.sha256(he.encode()).hexdigest(),
+        'englishContextAnchorUnchanged':True,'existingSourceTextUnchanged':True,
+    }
+    assert before=={k:copy.deepcopy(v) for k,v in e.items() if k not in ['he','sourceEvidence','reviewEvidence']}
 coverage=[{'section':n,'status':'reviewed-additions','pdfPages':{'neimosA':PAGES[n][0],'integratedA':PAGES[n][1]},'additions':[e['id'] for e in entries if e['section']==n],'existingNotes':'All existing native and connected quotations preserved.'} for n in range(41,46)]
 out={'schemaVersion':1,'reviewedSections':list(range(41,46)),'entries':entries,'coverage':coverage,'recovery':'Original passages rechecked after reset; the prior accepted Peri Tzadik entries retained exactly. Nedarim 27a added as an explicit original source named by both source editions.'}
 (W/'ois-41-45.json').write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n')
