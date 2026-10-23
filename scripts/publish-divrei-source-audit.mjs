@@ -56,6 +56,10 @@ export function readPack(filename=PACK) {
     const before=JSON.parse(f.beforeText),remaining={};
     assert(before&&typeof before==='object'&&!Array.isArray(before));
     assert(Object.keys(before).length,'Empty source-index predecessor');
+    for(const alternative of f.equivalentPredecessors||[]){
+      assert.equal(sha(alternative.text),alternative.sha256,'Corrupt equivalent source-index predecessor');
+      assert.deepEqual(canonical(JSON.parse(alternative.text)),canonical(before),'Source-index alternative changes content');
+    }
     for(const[ref,owners]of Object.entries(before)){
       assert(Array.isArray(owners)&&owners.length&&owners.every(owner=>typeof owner==='string'&&ownerIsDivrei(owner)),
         'Source-index cleanup includes a protected owner');
@@ -76,7 +80,8 @@ export function protectedSuccessorHash(file,expected,pack) {
   const relative=file.startsWith('data/')?file:'data/'+file;
   const reviewed=[...pack.files,...pack.sourceIndexSuccessors].find(f=>f.path===relative);
   if(!reviewed)return expected;
-  assert.equal(reviewed.beforeSha256,expected,'Audit does not descend from protected edition: '+file);
+  assert([reviewed.beforeSha256,...(reviewed.equivalentPredecessors||[]).map(f=>f.sha256)].includes(expected),
+    'Audit does not descend from protected edition: '+file);
   return reviewed.afterSha256;
 }
 
@@ -103,7 +108,8 @@ export function publish(library='dist/library',filename=PACK) {
     if(f.bodySha256)assert.equal(bodyDigest(JSON.parse(raw)),f.bodySha256,'Author text or structure changed: '+f.path);
   }
   for(const f of pack.sourceIndexSuccessors)
-    assert.equal(sha(fs.readFileSync(path.join(library,f.path))),f.beforeSha256,'Source index changed since review: '+f.path);
+    assert([f.beforeSha256,...(f.equivalentPredecessors||[]).map(p=>p.sha256)].includes(sha(fs.readFileSync(path.join(library,f.path)))),
+      'Source index changed since review: '+f.path);
   for(const f of pack.files)fs.writeFileSync(path.join(library,f.path),f.afterText);
   assert.equal(snapshot(),beforeProtected,'An unrelated reader data file changed');
 

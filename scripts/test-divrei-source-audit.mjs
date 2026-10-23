@@ -24,6 +24,8 @@ if (base) assert(base.protocol === 'https:' || ['localhost', '127.0.0.1'].includ
 const pack = readPack(options['--pack']);
 for(const file of pack.sourceIndexSuccessors){
   assert.equal(protectedSuccessorHash(file.path.slice(5),file.beforeSha256,pack),file.afterSha256);
+  for(const alternative of file.equivalentPredecessors||[])
+    assert.equal(protectedSuccessorHash(file.path.slice(5),alternative.sha256,pack),file.afterSha256);
   assert.throws(()=>protectedSuccessorHash(file.path,'0'.repeat(64),pack),/does not descend from protected edition/);
 }
 const require = createRequire(import.meta.url);

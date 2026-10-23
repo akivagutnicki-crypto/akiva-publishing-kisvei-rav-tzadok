@@ -1,0 +1,212 @@
+name: Publish reviewed Divrei Soferim sources
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: ${{ github.repository == 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok' && github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[divrei-source-release]')) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 25
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout the sealed Divrei revision
+        uses: actions/checkout@v6
+
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+
+      - name: Verify the exact successful baseline artifact
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          node --input-type=module <<'NODE'
+          import assert from 'node:assert/strict';
+          import fs from 'node:fs';
+          const repo='akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok';
+          const get=async route=>{
+            const response=await fetch('https://api.github.com/repos/'+repo+route,{headers:{Authorization:'Bearer '+process.env.GITHUB_TOKEN,Accept:'application/vnd.github+json','X-GitHub-Api-Version':'2022-11-28'},signal:AbortSignal.timeout(30000)});
+            assert(response.ok,'Baseline metadata request failed: '+response.status);
+            return response.json();
+          };
+          const [artifact,run]=await Promise.all([get('/actions/artifacts/12442493549'),get('/actions/runs/39813984451')]);
+          assert.equal(artifact.id,12442493549);
+          assert.equal(artifact.name,'github-pages');
+          assert.equal(artifact.expired,false);
+          assert.equal(artifact.size_in_bytes,702307019);
+          assert.equal(artifact.digest,'sha256:c8e6486829c024163b19cef06915ddecf896046eb51452f89e13e7a7a789f59a');
+          assert.equal(artifact.workflow_run.id,39813984451);
+          assert.equal(artifact.workflow_run.head_sha,'4e06821c4e9d098871ca974716a44d4659f1bc84');
+          assert.equal(run.head_sha,artifact.workflow_run.head_sha);
+          assert.equal(run.status,'completed');
+          assert.equal(run.conclusion,'success');
+          fs.writeFileSync('divrei-release-baseline-artifact.json',JSON.stringify({artifact,run:{id:run.id,head_sha:run.head_sha,conclusion:run.conclusion}}));
+          console.log('Verified the pinned successful baseline artifact.');
+          NODE
+
+      - name: Download the verified complete site
+        uses: actions/download-artifact@v4
+        with:
+          artifact-ids: '12442493549'
+          run-id: '39813984451'
+          repository: akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/divrei-baseline-artifact
+          merge-multiple: true
+
+      - name: Restore the baseline without rebuilding published books
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          import path from 'node:path';
+          import assert from 'node:assert/strict';
+          const engine=fs.readFileSync('dist/library/source-connections.js');
+          assert(engine.toString().includes('20261022-reviewed-connections-v5'));
+          fs.writeFileSync(path.join(process.env.RUNNER_TEMP,'divrei-reviewed-source-connections.js'),engine);
+          fs.rmSync('dist',{recursive:true,force:true});
+          fs.mkdirSync('dist');
+          NODE
+          python3 - <<'PY'
+          import os, pathlib, tarfile
+          archive=pathlib.Path(os.environ['RUNNER_TEMP'])/'divrei-baseline-artifact/artifact.tar'
+          destination=pathlib.Path('dist').resolve()
+          with tarfile.open(archive,'r:') as source:
+              members=source.getmembers()
+              for member in members:
+                  target=(destination/member.name).resolve()
+                  assert target==destination or destination in target.parents, 'Unsafe baseline archive path'
+                  assert member.isdir() or member.isfile(), 'Unexpected baseline archive link or special file'
+              source.extractall(destination,members=members)
+          assert (destination/'library/data/files.json').is_file()
+          assert (destination/'mcp-data/text/divrei-soferim.json').is_file()
+          PY
+          node scripts/test-divrei-release-baseline.mjs --capture --baseline-record divrei-release-baseline.json
+
+      - name: Refuse a stale baseline before applying the revision
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          import assert from 'node:assert/strict';
+          import {createHash} from 'node:crypto';
+          const sha256=createHash('sha256').update(fs.readFileSync('dist/library/data/files.json')).digest('hex');
+          assert.equal(sha256,'582f871e7eb2f86851c3d5a23f710e39d132b755e85ae3d2975343b87470308f','The restored data manifest differs from the verified live baseline');
+          fs.writeFileSync('divrei-live-baseline-sha256.json',JSON.stringify({sha256,artifactId:12442493549,runId:39813984451,headSha:'4e06821c4e9d098871ca974716a44d4659f1bc84'}));
+          NODE
+          cat > "$RUNNER_TEMP/divrei-live-baseline-check.mjs" <<'NODE'
+          import fs from 'node:fs';
+          import assert from 'node:assert/strict';
+          import {createHash} from 'node:crypto';
+          const expected=JSON.parse(fs.readFileSync('divrei-live-baseline-sha256.json'));
+          const url=new URL('https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/data/files.json');
+          url.searchParams.set('divrei-baseline-check',String(Date.now()));
+          const response=await fetch(url,{cache:'no-store',headers:{'Cache-Control':'no-cache'},signal:AbortSignal.timeout(30000)});
+          assert(response.ok,'Cannot verify the current live baseline: '+response.status);
+          const actual=createHash('sha256').update(Buffer.from(await response.arrayBuffer())).digest('hex');
+          assert.equal(actual,expected.sha256,'The live site changed after the pinned baseline; refuse to overwrite an intervening publication');
+          console.log('Current live data manifest exactly matches the pinned baseline.');
+          NODE
+          node "$RUNNER_TEMP/divrei-live-baseline-check.mjs"
+
+      - name: Install the reviewed source-popup engine
+        run: |
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          import path from 'node:path';
+          import assert from 'node:assert/strict';
+          fs.copyFileSync(path.join(process.env.RUNNER_TEMP,'divrei-reviewed-source-connections.js'),'dist/library/source-connections.js');
+          const file='dist/library/index.html',old='source-connections.js?v=20261020-reviewed-connections-v4';
+          const html=fs.readFileSync(file,'utf8');
+          assert.equal(html.split(old).length,2,'Unexpected baseline source-engine query');
+          fs.writeFileSync(file,html.replace(old,'source-connections.js?v=20261022-reviewed-connections-v5'));
+          NODE
+
+      - name: Apply and package the sealed Divrei revision
+        run: |
+          node scripts/publish-divrei-source-audit.mjs > divrei-source-audit-publication.json
+          node scripts/publish-divrei-source-audit.mjs > divrei-source-audit-repeat.json
+          node --input-type=module -e "import fs from 'node:fs'; import assert from 'node:assert/strict'; assert.equal(JSON.parse(fs.readFileSync('divrei-source-audit-repeat.json')).mode,'already-applied');"
+          node scripts/build-source-translations.mjs
+          node scripts/build-library-zips.mjs
+          node scripts/build-mcp-index.mjs
+          node scripts/build-reviewed-connections.mjs
+          node scripts/build-connected-ideas.mjs
+          node scripts/build-theme-review-progress.mjs
+
+      - name: Verify every revised note and preserve the published baseline
+        run: |
+          node scripts/test-reviewed-source-excerpt-arrays.mjs
+          node scripts/test-reviewed-connections.mjs
+          node scripts/test-connected-ideas.mjs
+          node scripts/test-theme-review-progress.mjs
+          node scripts/test-source-translations.mjs
+          node scripts/test-divrei-source-audit.mjs --zips --mcp > divrei-source-audit-verification.json
+          node scripts/test-divrei-release-baseline.mjs --verify --baseline-record divrei-release-baseline.json > divrei-release-baseline-verification.json
+          cat divrei-source-audit-verification.json
+          cat divrei-release-baseline-verification.json
+
+      - name: Install the browser verification runtime
+        run: |
+          npm install --no-save --package-lock=false playwright@1.62.1 jsdom@26.1.0
+          npx playwright install --with-deps chromium
+
+      - name: Verify Divrei footnotes on desktop and mobile
+        run: node scripts/test-divrei-source-audit-browser.mjs --screenshots divrei-source-audit-screenshots
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+        with:
+          enablement: true
+
+      - name: Verify the live baseline immediately before upload
+        run: node "$RUNNER_TEMP/divrei-live-baseline-check.mjs"
+
+      - name: Upload the verified complete site
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ./dist
+
+      - name: Verify the live baseline immediately before deployment
+        run: node "$RUNNER_TEMP/divrei-live-baseline-check.mjs"
+
+      - name: Deploy the Divrei revision
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Verify the live Divrei reader and downloads
+        run: |
+          node scripts/test-divrei-source-audit.mjs --zips --mcp --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/' > divrei-source-audit-live-verification.json
+          node scripts/test-divrei-source-audit-browser.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'
+          cat divrei-source-audit-live-verification.json
+
+      - name: Save the Divrei publication evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: divrei-source-release-verification
+          if-no-files-found: warn
+          path: |
+            divrei-release-baseline-artifact.json
+            divrei-release-baseline.json
+            divrei-release-baseline-verification.json
+            divrei-live-baseline-sha256.json
+            divrei-source-audit-publication.json
+            divrei-source-audit-repeat.json
+            divrei-source-audit-verification.json
+            divrei-source-audit-live-verification.json
+            divrei-source-audit-screenshots
