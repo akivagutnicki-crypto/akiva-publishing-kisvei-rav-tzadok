@@ -82,7 +82,25 @@ jobs:
       - name: Install browser verification
         run: |
           npm install --no-save --package-lock=false playwright@1.62.1
-          npx playwright install --with-deps chromium
+          browser_candidate="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || true)"
+          if [ -n "$browser_candidate" ] && AKIVA_BROWSER_CANDIDATE="$browser_candidate" node <<'JS'
+          const { chromium } = require('playwright');
+          (async () => {
+            const browser = await chromium.launch({ headless: true, executablePath: process.env.AKIVA_BROWSER_CANDIDATE, timeout: 30000 });
+            try {
+              const page = await browser.newPage();
+              await page.goto('about:blank', { timeout: 10000 });
+              console.log(`Verified installed browser: ${browser.version()}`);
+            } finally {
+              await browser.close();
+            }
+          })().catch(error => { console.error(error); process.exitCode = 1; });
+          JS
+          then
+            printf 'AKIVA_CHROMIUM_EXECUTABLE=%s\n' "$browser_candidate" >> "$GITHUB_ENV"
+          else
+            npx playwright install --with-deps chromium
+          fi
 
       - name: Verify all new Hebrew markers and all existing notes on desktop and mobile
         run: node scripts/test-tzidkat-batch-review.mjs --all
