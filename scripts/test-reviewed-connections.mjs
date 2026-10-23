@@ -10,6 +10,7 @@ import {createRequire} from 'node:module';
 import {fileURLToPath} from 'node:url';
 import {buildReviewedConnections, validateTranslation, validateSourceRef} from './build-reviewed-connections.mjs';
 import {verifySourceConnectionsPreserved} from './publish-mei-volume-ii.mjs';
+import {verifyReviewedConnectionsPreserved} from './publish-mei-likutei.mjs';
 
 const require = createRequire(import.meta.url);
 const engine = require('../dist/library/source-connections.js');
@@ -240,12 +241,13 @@ function runFixtures() {
 
 async function main() {
   const options = {};
-  let publicUrl = null, fixturesOnly = false, afterMeiVolumeII = false;
+  let publicUrl = null, fixturesOnly = false, afterMeiVolumeII = false, afterMeiLikutei = false;
   const args = process.argv.slice(2);
   for (let index = 0; index < args.length; index++) {
     const flag = args[index];
     if (flag === '--fixtures-only') { fixturesOnly = true; continue; }
     if (flag === '--after-mei-volume-ii') { afterMeiVolumeII = true; continue; }
+    if (flag === '--after-mei-likutei') { afterMeiLikutei = true; continue; }
     assert(args[index + 1] && !args[index + 1].startsWith('--'), 'Incomplete option: ' + flag);
     if (flag === '--url') { publicUrl = args[++index]; continue; }
     const key = {'--editorial-dir': 'editorialDir', '--mcp-root': 'mcpRoot', '--catalog': 'output'}[flag];
@@ -258,9 +260,9 @@ async function main() {
   const bytes = fs.readFileSync(filename);
   const published = JSON.parse(bytes);
   let successor = null;
-  if (afterMeiVolumeII) {
+  if (afterMeiVolumeII || afterMeiLikutei) {
     assert.equal(Object.keys(options).length,0,'Scoped successor verification requires the published default catalog');
-    successor = verifySourceConnectionsPreserved({directory:path.join(REPO,'dist')});
+    successor = afterMeiLikutei ? verifyReviewedConnectionsPreserved({directory:path.join(REPO,'dist')}) : verifySourceConnectionsPreserved({directory:path.join(REPO,'dist')});
   } else {
     const checked = buildReviewedConnections({...options, date: published.date, write: false});
     assert.deepEqual(published, checked.catalog, 'Published catalog differs from reviewed inputs or the exact final canonical text');
@@ -273,7 +275,7 @@ async function main() {
   const result = {ok: true, fixtures, version: published.version, counts: published.counts,
     catalogSha256: sha(bytes), canonicalTargetQuotesVerified: published.records.length,
     primarySourceQuotesVerified: published.records.length,
-    ...(successor?{meiVolumeIISuccessor:successor}:{})};
+    ...(successor?{[afterMeiLikutei?'meiLikuteiSuccessor':'meiVolumeIISuccessor']:successor}:{})};
   if (publicUrl) {
     const base = new URL(publicUrl.endsWith('/') ? publicUrl : publicUrl + '/');
     assert(base.protocol === 'https:' || ['localhost', '127.0.0.1'].includes(base.hostname), 'Public verification requires HTTPS');

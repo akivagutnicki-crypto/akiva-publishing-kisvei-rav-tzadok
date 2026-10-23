@@ -10,6 +10,7 @@ import {createRequire} from 'node:module';
 import {fileURLToPath} from 'node:url';
 import {buildConnectedIdeas} from './build-connected-ideas.mjs';
 import {verifyConnectedIdeasSuccessor} from './publish-mei-volume-ii.mjs';
+import {verifyReviewedConnectionsPreserved} from './publish-mei-likutei.mjs';
 
 const require = createRequire(import.meta.url);
 const ideas = require('../dist/library/connected-ideas.js');
@@ -287,13 +288,13 @@ export function runFixtures() {
   } finally { fs.rmSync(temporary, {recursive:true, force:true}); }
 }
 
-export function verifyCatalog({afterMeiVolumeII=false}={}) {
+export function verifyCatalog({afterMeiVolumeII=false,afterMeiLikutei=false}={}) {
   const filename = path.join(REPO, 'dist/library/connected-ideas/catalog.json');
   const bytes = fs.readFileSync(filename);
   const published = JSON.parse(bytes);
   assert.equal(published.schemaVersion, 1);
   assert.equal(published.release, ideas.VERSION);
-  const successor = afterMeiVolumeII ? verifyConnectedIdeasSuccessor({directory:path.join(REPO,'dist')}) : null;
+  const successor = afterMeiLikutei ? verifyReviewedConnectionsPreserved({directory:path.join(REPO,'dist')}) : afterMeiVolumeII ? verifyConnectedIdeasSuccessor({directory:path.join(REPO,'dist')}) : null;
   if (!successor) {
     const rebuilt = buildConnectedIdeas({write:false, date:published.date}).catalog;
     assert.equal(sha(bytes), sha(JSON.stringify(rebuilt, null, 2) + '\n'),
@@ -323,7 +324,7 @@ export function verifyCatalog({afterMeiVolumeII=false}={}) {
     published.coverage.reduce((sum, work) => sum + work.reviewedSections.length, 0));
   return {catalogSha256:sha(bytes), version:published.version, counts:published.counts,
     exactCanonicalAnchorsVerified:quoteAnchors, reciprocalReviewsVerified:reciprocal,
-    ...(successor?{meiVolumeIISuccessor:successor}:{})};
+    ...(successor?{[afterMeiLikutei?'meiLikuteiSuccessor':'meiVolumeIISuccessor']:successor}:{})};
 }
 
 async function verifyPublic(base) {
@@ -344,15 +345,16 @@ async function verifyPublic(base) {
 
 async function main() {
   const args = process.argv.slice(2);
-  let fixturesOnly = false, publicUrl = null, afterMeiVolumeII = false;
+  let fixturesOnly = false, publicUrl = null, afterMeiVolumeII = false, afterMeiLikutei = false;
   for (let i = 0; i < args.length; i++) {
     if (args[i] === '--fixtures-only') fixturesOnly = true;
     else if (args[i] === '--after-mei-volume-ii') afterMeiVolumeII = true;
+    else if (args[i] === '--after-mei-likutei') afterMeiLikutei = true;
     else if (args[i] === '--url') { publicUrl = args[++i]; assert(publicUrl, '--url requires a library base URL'); }
     else throw new Error('Unknown argument: ' + args[i]);
   }
   const report = {ok:true, fixtures:runFixtures(), release:ideas.VERSION};
-  if (!fixturesOnly) Object.assign(report, verifyCatalog({afterMeiVolumeII}));
+  if (!fixturesOnly) Object.assign(report, verifyCatalog({afterMeiVolumeII,afterMeiLikutei}));
   if (publicUrl) report.public = await verifyPublic(publicUrl);
   console.log(JSON.stringify(report, null, 2));
 }

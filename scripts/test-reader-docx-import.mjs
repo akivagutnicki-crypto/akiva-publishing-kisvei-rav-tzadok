@@ -6,12 +6,15 @@ import assert from 'node:assert/strict';
 import {createRequire} from 'node:module';
 import {loadRelease, normalizedSections, MANIFEST, REPORT, MEI, BEIT, sha, visible, paragraphRef, leaves, linkPhrase} from './publish-reader-docx-import.mjs';
 import {loadPack as loadMeiVolumeII, REPORT as MEI_VOLUME_II_REPORT} from './publish-mei-volume-ii.mjs';
+import {loadPack as loadMeiLikutei, REPORT as MEI_LIKUTEI_REPORT, TARGET as MEI_ANTHOLOGY} from './publish-mei-likutei.mjs';
 import {readPack as readDivreiAudit, protectedSuccessorHash} from './publish-divrei-source-audit.mjs';
 
 const args = process.argv.slice(2), urlIndex = args.indexOf('--url');
 const divreiAudit = args.includes('--after-divrei-source-audit') ? readDivreiAudit() : null;
-const meiSuccessor = args.includes('--after-mei-volume-ii') ? loadMeiVolumeII() : null;
+const likuteiSuccessor = args.includes('--after-mei-likutei') ? loadMeiLikutei() : null;
+const meiSuccessor = args.includes('--after-mei-volume-ii') || likuteiSuccessor ? loadMeiVolumeII() : null;
 const isVolumeII = ref => ref.startsWith('Mei HaShiloach, Volume II, ');
+const superseded = ref => (meiSuccessor && isVolumeII(ref)) || (likuteiSuccessor && ref.startsWith(MEI_ANTHOLOGY));
 const base = urlIndex >= 0 ? args[urlIndex + 1].replace(/\/?$/, '/') : null;
 const release = loadRelease(), {manifest, registry} = release;
 const normalized = text => visible(text).replace(/\s+/g, ' ').trim();
@@ -29,7 +32,7 @@ assert.equal(report.release, manifest.release);
 assert.equal(report.manifestSha256, sha(fs.readFileSync(MANIFEST)));
 assert.equal(report.retainedToldosSections, 52);
 const originalSections = release.packs.flatMap(({pack}) => normalizedSections(pack).map(section => ({...section, book:pack.book})));
-const sections = meiSuccessor ? originalSections.filter(section => !isVolumeII(section.ref)) : originalSections;
+const sections = originalSections.filter(section => !superseded(section.ref));
 const paratext = release.packs.flatMap(({pack}) => pack.paratext || []);
 const mei = await libraryJSON(`data/${MEI}/interlinear.json`);
 const headings = await libraryJSON(`data/${MEI}/headings.json`);
@@ -55,8 +58,24 @@ if (meiSuccessor) {
     assert.equal(sha(JSON.stringify(expected)), successorReport.sectionHashes[section.ref]);
   }
 }
-assert.deepEqual(leaves(studyToc.toc).map(leaf => leaf.ref), (successorReport || report).canonicalOrder);
-assert.deepEqual(Object.keys(mei), (successorReport || report).canonicalOrder);
+const likuteiReport = likuteiSuccessor ? await json(MEI_LIKUTEI_REPORT) : null;
+if (likuteiSuccessor) {
+  assert.equal(likuteiReport.packSha256, likuteiSuccessor.packSha256, 'Unrecognized Likutei successor');
+  assert.equal(likuteiReport.editorialStage, 'reviewed'); assert.equal(likuteiReport.preview, false);
+  assert.deepEqual(likuteiReport.counts, likuteiSuccessor.counts);
+  assert.deepEqual(likuteiReport.canonicalOrder.filter(ref => !ref.startsWith(MEI_ANTHOLOGY)), successorReport.canonicalOrder.filter(ref => !ref.startsWith(MEI_ANTHOLOGY)), 'Earlier Mei section order changed');
+  for (const section of likuteiSuccessor.sections) {
+    const expected = section.items.map(item => item.p);
+    assert.deepEqual(mei[section.ref], expected, 'Reviewed Likutei successor differs: ' + section.ref);
+    assert.equal(sha(JSON.stringify(expected)), likuteiReport.sectionHashes[section.ref]);
+    assert.equal(headings[section.ref].he, section.he, 'Supplied Likutei heading changed');
+    assert.equal(headings[section.ref].heHtml, section.heHtml, 'Supplied heading links changed');
+    assert.deepEqual(links[MEI][section.ref], section.edges, 'Likutei source links changed');
+    for (const [i,item] of section.items.entries()) assert.deepEqual(headings[section.ref].paragraphBreaks[i] || [], item.paragraphBreaks, 'Likutei source paragraph boundary changed');
+  }
+}
+assert.deepEqual(leaves(studyToc.toc).map(leaf => leaf.ref), (likuteiReport || successorReport || report).canonicalOrder);
+assert.deepEqual(Object.keys(mei), (likuteiReport || successorReport || report).canonicalOrder);
 assert.equal(paratext.length, report.colophonParagraphs);
 const canonicalProof = new Map(Object.values(registry).filter(item => item.verified).map(item => [item.ref, item]));
 let pairs = 0, paragraphs = 0, anchors = 0, expectedConnections = 0;
@@ -118,15 +137,15 @@ for (const section of sections) {
     assert.ok(canonicalProof.has(edge.r), 'Unverified source connection ' + edge.r);
   }
 }
-const replacedImportAnchors = meiSuccessor ? originalSections.filter(section => isVolumeII(section.ref)).reduce((sum, section) => sum + section.items.reduce((total, item) => total + item.p.flat().reduce((count, text) => count + linkPhrase(text, registry, manifest.citationOverrides || [], {sectionRef:section.ref, sourceParagraphIndex:item.sourceParagraphIndex ?? item.sourceParagraph}).anchors, 0), 0), 0) : 0;
+const replacedImportAnchors = originalSections.filter(section => superseded(section.ref)).reduce((sum, section) => sum + section.items.reduce((total, item) => total + item.p.flat().reduce((count, text) => count + linkPhrase(text, registry, manifest.citationOverrides || [], {sectionRef:section.ref, sourceParagraphIndex:item.sourceParagraphIndex ?? item.sourceParagraph}).anchors, 0), 0), 0);
 assert.equal(anchors, report.sourceAnchors - replacedImportAnchors);
 assert.ok(report.sourceConnections >= expectedConnections);
-assert.equal(paragraphs, report.sections.filter(section => !meiSuccessor || !isVolumeII(section.ref)).reduce((sum, section) => sum + section.paragraphs, 0));
-assert.equal(pairs, report.sections.filter(section => !meiSuccessor || !isVolumeII(section.ref)).reduce((sum, section) => sum + section.phrasePairs, 0));
+assert.equal(paragraphs, report.sections.filter(section => !superseded(section.ref)).reduce((sum, section) => sum + section.paragraphs, 0));
+assert.equal(pairs, report.sections.filter(section => !superseded(section.ref)).reduce((sum, section) => sum + section.phrasePairs, 0));
 assert.equal(report.unresolvedExplicitConnections.length, 0);
-for (const [ref, hash] of Object.entries(report.previousMeiSectionSha256)) if (!meiSuccessor || !isVolumeII(ref)) assert.equal(sha(JSON.stringify(mei[ref])), hash, 'Earlier Mei translation altered: ' + ref);
-for (const [ref, hash] of Object.entries(report.previousMeiHeadingSha256)) if (!meiSuccessor || !isVolumeII(ref)) assert.equal(sha(JSON.stringify(headings[ref])), hash, 'Earlier Mei heading altered: ' + ref);
-for (const [slug, entries] of Object.entries(report.previousLinksSha256)) for (const [ref, hash] of Object.entries(entries)) if (!meiSuccessor || slug !== MEI || !isVolumeII(ref)) assert.equal(sha(JSON.stringify(links[slug][ref])), hash, 'Earlier connections altered: ' + ref);
+for (const [ref, hash] of Object.entries(report.previousMeiSectionSha256)) if (!superseded(ref)) assert.equal(sha(JSON.stringify(mei[ref])), hash, 'Earlier Mei translation altered: ' + ref);
+for (const [ref, hash] of Object.entries(report.previousMeiHeadingSha256)) if (!superseded(ref)) assert.equal(sha(JSON.stringify(headings[ref])), hash, 'Earlier Mei heading altered: ' + ref);
+for (const [slug, entries] of Object.entries(report.previousLinksSha256)) for (const [ref, hash] of Object.entries(entries)) if (slug !== MEI || !superseded(ref)) assert.equal(sha(JSON.stringify(links[slug][ref])), hash, 'Earlier connections altered: ' + ref);
 
 const volumeI = Object.entries(mei).filter(([ref]) => ref.startsWith('Mei HaShiloach, Volume I,'));
 assert.equal(volumeI.length, manifest.completion.expectedVolumeISections);
@@ -139,6 +158,8 @@ const missingLedger = JSON.parse(fs.readFileSync(manifest.completion.missingLedg
 for (const item of missingLedger.missingParagraphs) assert.ok(expectedParagraphs.has(item.ref), 'Canonical gap still present: ' + item.ref);
 
 if (args.includes('--mcp')) {
+  for (const section of [...(meiSuccessor?.sections || []), ...(likuteiSuccessor?.sections || [])]) for (const item of section.items)
+    expectedParagraphs.set(paragraphRef(section,item.n), item.p.map(pair => pair.map(normalized)));
   const [mcpCatalog, fileManifest] = await Promise.all([
     json('mcp-data/catalog.json'), libraryJSON('data/files.json')
   ]);
