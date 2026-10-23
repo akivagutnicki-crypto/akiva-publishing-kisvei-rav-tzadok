@@ -1,0 +1,1359 @@
+{
+  "schemaVersion": 1,
+  "reviewedSections": [
+    81,
+    82,
+    83,
+    84,
+    85
+  ],
+  "reviewMode": "Add only missing original-source quotations; preserve every existing note and all body text.",
+  "entries": [
+    {
+      "section": 81,
+      "id": "shabbat-david-solomon-succession",
+      "rowN": 1,
+      "phraseIndex": 0,
+      "heAnchorPrefix": "[פא] פְּעָמִים נִגְזַר עַל אָדָם לָמוּת חַס וְשָׁלוֹם מִשּׁוּם \"אֵין מַלְכוּת וְכוּלֵי\", כְּמוֹ שֶׁכָּתוּב בְּדָוִד הַמֶּלֶךְ עָלָיו הַשָּׁלוֹם",
+      "heCharOffset": 143,
+      "ref": "Shabbat 30a:9",
+      "url": "https://www.sefaria.org/Shabbat_30a:9",
+      "he": "אמר לו: בשבת תמות. אמות באחד בשבת? אמר לו: כבר הגיעה מלכות שלמה בנך, ואין מלכות נוגעת בחברתה אפילו כמלא נימא.",
+      "en": "He said to him: “You will die on Shabbat.” David asked: “May I die on the first day of the week?” He replied: “The time for the kingship of your son Solomon has already arrived, and one reign does not encroach upon another even by a hair’s breadth.”",
+      "context": "God’s answer to David supplies the rule abbreviated at the opening of the ois. Rav Tzadok then considers whether a predecessor can remain alive while willingly relinquishing the prominence that belongs to his successor.",
+      "sourceEvidence": [
+        {
+          "ref": "Shabbat 30a:9",
+          "url": "https://www.sefaria.org/Shabbat_30a:9",
+          "he": "אמר לו: בשבת תמות. אמות באחד בשבת? אמר לו: כבר הגיעה מלכות שלמה בנך, ואין מלכות נוגעת בחברתה אפילו כמלא נימא.",
+          "en": "He said to him: “You will die on Shabbat.” David asked: “May I die on the first day of the week?” He replied: “The time for the kingship of your son Solomon has already arrived, and one reign does not encroach upon another even by a hair’s breadth.”",
+          "translation": "Original English translation prepared from the cited Hebrew or Aramaic.",
+          "coverage": "excerpt",
+          "heSha256": "2aeabc167df4932a94dbabdee8d49648e3f97b244a143f88f937b18ad4f05fa2"
+        }
+      ],
+      "reviewEvidence": {
+        "pdfPages": {
+          "neimosA": [
+            224,
+            225,
+            226,
+            227,
+            228
+          ],
+          "integratedA": [
+            263,
+            264,
+            265,
+            266
+          ]
+        },
+        "preserveExisting": true,
+        "status": "verified",
+        "dedup": "All existing native and connected quotations in the destination ois were read; the selected source passage is absent.",
+        "primaryTextFile": "review-work/ois81-selected-primary.json"
+      },
+      "openExternal": true
+    },
+    {
+      "section": 81,
+      "id": "tanchuma-moses-becomes-student",
+      "rowN": 1,
+      "phraseIndex": 2,
+      "heAnchorPrefix": "וּכְמוֹ שֶׁכָּתוּב (מִדְרַשׁ תַּנְחוּמָא וָאֶתְחַנַּן וּמִדְרַשׁ רַבָּה וַיֵּלֶךְ, עַיֵּין שָׁם) בְּמֹשֶׁה רַבֵּינוּ עָלָיו הַשָּׁלוֹם,",
+      "heCharOffset": 135,
+      "ref": "Midrash Tanchuma, Vaetchanan 6:1",
+      "url": "https://www.sefaria.org/Midrash_Tanchuma,_Vaetchanan_6:1",
+      "he": "עד עכשו היה חלקך לשרת לפני, ועכשו אבד חלקך והגיע שעה של יהושע תלמידך לשרת. אמר לפניו, רבוני, אם מפני יהושע אני מת, אלך ואהיה לו תלמיד. אמר לו: אם אתה רוצה לעשות כך, לך עשה. … ישב יהושע בראש, ומשה בימינו, ובני אהרן משמאלו, והיה יהושע יושב ודורש בפני משה. אומר רבי שמואל בר נחמני אמר רבי יונתן, בשעה שאמר יהושע, ברוך אשר בחר בצדיקים, נטלו מסורות חכמה ממשה ונתנו ליהושע, ולא היה יודע משה מה היה יהושע דורש. אחר שעמדו ישראל מישיבה, אמרו למשה, פרש לנו את התורה. אמר להם: איני יודע מה אשיב לכם. והיה משה רבינו נכשל ונפל. באותה שעה אמר משה, רבון העולמים, עד עכשו בקשתי חיים, ועכשו הרי נפשי נתונה לך.",
+      "en": "“Until now it was your portion to serve before Me. Now your portion has passed, and the time has come for Joshua your disciple to serve.” Moses said before Him: “My Master, if I am to die because of Joshua, I will go and become his disciple.” He said to him: “If you wish to do this, go and do it.” … Joshua sat at the head, with Moses at his right and Aaron’s sons at his left, and Joshua expounded before Moses. Rabbi Shmuel bar Nachmani said in the name of Rabbi Yonatan: When Joshua said, “Blessed is He who chooses the righteous,” the traditions of wisdom were taken from Moses and given to Joshua, and Moses did not know what Joshua was expounding. After Israel rose from the session, they said to Moses, “Explain the Torah to us.” He told them, “I do not know what to answer you.” Moses faltered and fell. At that moment he said: “Master of the worlds, until now I asked for life; now my soul is given to You.”",
+      "context": "The Tanchuma presents Moses’ proposal to live as Joshua’s student and the ensuing transfer of wisdom. This gives the narrative behind the reference here; Devarim Rabbah supplies the separate formulation about envy quoted next.",
+      "sourceEvidence": [
+        {
+          "ref": "Midrash Tanchuma, Vaetchanan 6:1",
+          "url": "https://www.sefaria.org/Midrash_Tanchuma,_Vaetchanan_6:1",
+          "he": "עד עכשו היה חלקך לשרת לפני, ועכשו אבד חלקך והגיע שעה של יהושע תלמידך לשרת. אמר לפניו, רבוני, אם מפני יהושע אני מת, אלך ואהיה לו תלמיד. אמר לו: אם אתה רוצה לעשות כך, לך עשה. … ישב יהושע בראש, ומשה בימינו, ובני אהרן משמאלו, והיה יהושע יושב ודורש בפני משה. אומר רבי שמואל בר נחמני אמר רבי יונתן, בשעה שאמר יהושע, ברוך אשר בחר בצדיקים, נטלו מסורות חכמה ממשה ונתנו ליהושע, ולא היה יודע משה מה היה יהושע דורש. אחר שעמדו ישראל מישיבה, אמרו למשה, פרש לנו את התורה. אמר להם: איני יודע מה אשיב לכם. והיה משה רבינו נכשל ונפל. באותה שעה אמר משה, רבון העולמים, עד עכשו בקשתי חיים, ועכשו הרי נפשי נתונה לך.",
+          "en": "“Until now it was your portion to serve before Me. Now your portion has passed, and the time has come for Joshua your disciple to serve.” Moses said before Him: “My Master, if I am to die because of Joshua, I will go and become his disciple.” He said to him: “If you wish to do this, go and do it.” … Joshua sat at the head, with Moses at his right and Aaron’s sons at his left, and Joshua expounded before Moses. Rabbi Shmuel bar Nachmani said in the name of Rabbi Yonatan: When Joshua said, “Blessed is He who chooses the righteous,” the traditions of wisdom were taken from Moses and given to Joshua, and Moses did not know what Joshua was expounding. After Israel rose from the session, they said to Moses, “Explain the Torah to us.” He told them, “I do not know what to answer you.” Moses faltered and fell. At that moment he said: “Master of the worlds, until now I asked for life; now my soul is given to You.”",
+          "translation": "Original English translation prepared from the cited Hebrew or Aramaic.",
+          "coverage": "excerpt",
+          "heSha256": "32c536ca345030bcd58d997df7c2ac212016680cf63f9145439bb8a3a5497325"
+        }
+      ],
+      "reviewEvidence": {
+        "pdfPages": {
+          "neimosA": [
+            224,
+            225,
+            226,
+            227,
+            228
+          ],
+          "integratedA": [
+            263,
+            264,
+            265,
+            266
+          ]
+        },
+        "preserveExisting": true,
+        "status": "verified",
+        "dedup": "All existing native and connected quotations in the destination ois were read; the selected source passage is absent.",
+        "primaryTextFile": "review-work/ois81-selected-primary.json"
+      },
+      "openExternal": true
+    },
+    {
+      "section": 81,
+      "id": "rashi-moses-wisdom-withdrawn",
+      "rowN": 1,
+      "phraseIndex": 3,
+      "heAnchorPrefix": "שֶׁנִּסְתַּמּוּ מִמֶּנּוּ מַעְיְנוֹת הַחָכְמָה",
+      "heCharOffset": 46,
+      "ref": "Rashi on Deuteronomy 31:2:2",
+      "url": "https://www.sefaria.org/Rashi_on_Deuteronomy_31:2:2",
+      "he": "לא אוכל עוד לצאת ולבוא. יכול שתשש כחו, תלמוד לומר \"לא כהתה עינו ולא נס לחה\", אלא מהו לא אוכל? איני רשאי, שנטלה ממני הרשות ונתנה ליהושע. ד\"א — לצאת ולבוא. בדברי תורה, מלמד שנסתמו ממנו מסורות ומעינות החכמה (סוטה י\"ג):",
+      "en": "“I can no longer go out and come in.” Could it mean that his strength had failed? Scripture says, “His eye had not dimmed and his freshness had not departed.” What, then, does “I cannot” mean? I am not permitted: authority has been taken from me and given to Joshua. Another explanation: “To go out and come in” in words of Torah. This teaches that the traditions and wellsprings of wisdom were closed off from him.",
+      "context": "Rashi supplies the exact image of the closed wellsprings of wisdom. He distinguishes loss of authority or access to Torah wisdom from physical weakness.",
+      "sourceEvidence": [
+        {
+          "ref": "Rashi on Deuteronomy 31:2:2",
+          "url": "https://www.sefaria.org/Rashi_on_Deuteronomy_31:2:2",
+          "he": "לא אוכל עוד לצאת ולבוא. יכול שתשש כחו, תלמוד לומר \"לא כהתה עינו ולא נס לחה\", אלא מהו לא אוכל? איני רשאי, שנטלה ממני הרשות ונתנה ליהושע. ד\"א — לצאת ולבוא. בדברי תורה, מלמד שנסתמו ממנו מסורות ומעינות החכמה (סוטה י\"ג):",
+          "en": "“I can no longer go out and come in.” Could it mean that his strength had failed? Scripture says, “His eye had not dimmed and his freshness had not departed.” What, then, does “I cannot” mean? I am not permitted: authority has been taken from me and given to Joshua. Another explanation: “To go out and come in” in words of Torah. This teaches that the traditions and wellsprings of wisdom were closed off from him.",
+          "translation": "Original English translation prepared from the cited Hebrew or Aramaic.",
+          "coverage": "excerpt",
+          "heSha256": "3f776901684086eb5add0ecb6b9107f147fcb8896bfae249a3c277ffe9145da2"
+        }
+      ],
+      "reviewEvidence": {
+        "pdfPages": {
+          "neimosA": [
+            224,
+            225,
+            226,
+            227,
+            228
+          ],
+          "integratedA": [
+            263,
+            264,
+            265,
+            266
+          ]
+        },
+        "preserveExisting": true,
+        "status": "verified",
+        "dedup": "All existing native and connected quotations in the destination ois were read; the selected source passage is absent.",
+        "primaryTextFile": "review-work/ois81-selected-primary.json"
+      },
+      "openExternal": true
+    },
+    {
+      "section": 81,
+      "id": "devarim-rabbah-moses-envy",
+      "rowN": 1,
+      "phraseIndex": 4,
+      "heAnchorPrefix": "אֶלָּא שֶׁהוּא אָמַר: מֵאָה מִיתוֹת וְלֹא קִנְאָה אַחַת",
+      "heCharOffset": 55,
+      "ref": "Devarim Rabbah 9:9",
+      "url": "https://www.sefaria.org/Devarim_Rabbah_9:9",
+      "he": "(דברים לא, יד): קרא את יהושע, אמר לפניו רבונו של עולם, יטל יהושע ארכי שלי ואהא חי, אמר הקדוש ברוך הוא עשה לו כדרך שהוא עושה לך, מיד השכים משה והלך לביתו של יהושע, נתירא יהושע ואמר משה רבי בוא אצלי, יצאו להלך, הלך משה לשמאלו של יהושע, נכנסו לאהל מועד, ירד עמוד הענן והפסיק ביניהם, משנסתלק עמוד הענן הלך משה אצל יהושע ואמר מה אמר לך הדבור, אמר לו יהושע כשהיה הדבור נגלה עליך יודע הייתי מה מדבר עמך, אותה שעה צעק משה ואמר מאה מיתות ולא קנאה אחת, ושלמה מפרשה (שיר השירים ח, ו): כי עזה כמות אהבה קשה כשאול קנאה, אהבה שאהב משה ליהושע, ומה שקנא משה ביהושע.",
+      "en": "“Call Joshua.” Moses said before Him: “Master of the world, let Joshua take my office, and let me remain alive.” The Holy One, blessed be He, said: “Do for him as he does for you.” Moses immediately rose early and went to Joshua’s house. Joshua was afraid and said, “Moses, my teacher, come to me.” They went out to walk, and Moses walked at Joshua’s left. They entered the Tent of Meeting; the pillar of cloud descended and separated them. When the pillar of cloud withdrew, Moses went to Joshua and asked, “What did the divine utterance say to you?” Joshua replied: “When the divine utterance was revealed to you, did I know what it said to you?” At that moment Moses cried out: “A hundred deaths, but not one experience of envy!” Solomon explains it: “For love is strong as death; jealousy is hard as the grave”—the love Moses had for Joshua, and the envy Moses felt toward Joshua.",
+      "context": "This is the Midrash’s full setting for “a hundred deaths, but not one envy.” Rav Tzadok takes its contrast between the transfer of leadership and the predecessor’s inner response as the starting point of his teaching.",
+      "sourceEvidence": [
+        {
+          "ref": "Devarim Rabbah 9:9",
+          "url": "https://www.sefaria.org/Devarim_Rabbah_9:9",
+          "he": "(דברים לא, יד): קרא את יהושע, אמר לפניו רבונו של עולם, יטל יהושע ארכי שלי ואהא חי, אמר הקדוש ברוך הוא עשה לו כדרך שהוא עושה לך, מיד השכים משה והלך לביתו של יהושע, נתירא יהושע ואמר משה רבי בוא אצלי, יצאו להלך, הלך משה לשמאלו של יהושע, נכנסו לאהל מועד, ירד עמוד הענן והפסיק ביניהם, משנסתלק עמוד הענן הלך משה אצל יהושע ואמר מה אמר לך הדבור, אמר לו יהושע כשהיה הדבור נגלה עליך יודע הייתי מה מדבר עמך, אותה שעה צעק משה ואמר מאה מיתות ולא קנאה אחת, ושלמה מפרשה (שיר השירים ח, ו): כי עזה כמות אהבה קשה כשאול קנאה, אהבה שאהב משה ליהושע, ומה שקנא משה ביהושע.",
+          "en": "“Call Joshua.” Moses said before Him: “Master of the world, let Joshua take my office, and let me remain alive.” The Holy One, blessed be He, said: “Do for him as he does for you.” Moses immediately rose early and went to Joshua’s house. Joshua was afraid and said, “Moses, my teacher, come to me.” They went out to walk, and Moses walked at Joshua’s left. They entered the Tent of Meeting; the pillar of cloud descended and separated them. When the pillar of cloud withdrew, Moses went to Joshua and asked, “What did the divine utterance say to you?” Joshua replied: “When the divine utterance was revealed to you, did I know what it said to you?” At that moment Moses cried out: “A hundred deaths, but not one experience of envy!” Solomon explains it: “For love is strong as death; jealousy is hard as the grave”—the love Moses had for Joshua, and the envy Moses felt toward Joshua.",
+          "translation": "Original English translation prepared from the cited Hebrew or Aramaic.",
+          "coverage": "excerpt",
+          "heSha256": "ae4b517609d744769c4922febebac2dcdebfe81b156eae0aa44cdf0f9c9a1e59"
+        }
+      ],
+      "reviewEvidence": {
+        "pdfPages": {
+          "neimosA": [
+            224,
+            225,
+            226,
+            227,
+            228
+          ],
+          "integratedA": [
+            263,
+            264,
+            265,
+            266
+          ]
+        },
+        "preserveExisting": true,
+        "status": "verified",
+        "dedup": "All existing native and connected quotations in the destination ois were read; the selected source passage is absent.",
+        "primaryTextFile": "review-work/ois81-selected-primary.json"
+      },
+      "openExternal": true
+    },
+    {
+      "section": 81,
+      "id": "sichat-shedim-land-and-anger",
+      "rowN": 1,
+      "phraseIndex": 8,
+      "heAnchorPrefix": "אֲבָל כְּשֶׁמִּדַּבֵּק עַצְמוֹ בִּקְדוּשַׁת אֶרֶץ יִשְׂרָאֵל הָאִידְנָא,",
+      "heCharOffset": 72,
+      "ref": "Sichat Shedim 1:9",
+      "url": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/#/read/Sichat_Shedim_1",
+      "he": "ולבטל יצר רע הצרך זכותא דארץ ישראל כדאיתא בערכין, דלכך לא בטל משה, ובארץ ישראל שהוא שרש ישראל שם אין שליטה כל כך ליצרא דלב רגז שהוא ממש ההיפך",
+      "en": "To annul the evil inclination, the merit of the Land of Israel was needed, as stated in Arakhin; that is why Moses did not annul it. In the Land of Israel, which is Israel’s root, the inclination of the angry heart does not have such great sway, for the angry heart is the very opposite of that root.",
+      "context": "This parallel links the Land’s spiritual character with diminished dominion of anger. It helps explain why the ois makes attachment to the holiness of the Land relevant to overcoming envy.",
+      "sourceEvidence": [
+        {
+          "ref": "Sichat Shedim 1:9",
+          "url": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/#/read/Sichat_Shedim_1",
+          "he": "ולבטל יצר רע הצרך זכותא דארץ ישראל כדאיתא בערכין, דלכך לא בטל משה, ובארץ ישראל שהוא שרש ישראל שם אין שליטה כל כך ליצרא דלב רגז שהוא ממש ההיפך",
+          "en": "To annul the evil inclination, the merit of the Land of Israel was needed, as stated in Arakhin; that is why Moses did not annul it. In the Land of Israel, which is Israel’s root, the inclination of the angry heart does not have such great sway, for the angry heart is the very opposite of that root.",
+          "translation": "Original English translation prepared from the cited Hebrew or Aramaic.",
+          "coverage": "excerpt",
+          "heSha256": "3a1de9044f010c1a662170cbaab593417dda0ffd3e2a72be47328b95ee5c3867"
+        }
+      ],
+      "reviewEvidence": {
+        "pdfPages": {
+          "neimosA": [
+            224,
+            225,
+            226,
+            227,
+            228
+          ],
+          "integratedA": [
+            263,
+            264,
+            265,
+            266
+          ]
+        },
+        "preserveExisting": true,
+        "status": "verified",
+        "dedup": "All existing native and connected quotations in the destination ois were read; the selected source passage is absent.",
+        "primaryTextFile": "review-work/ois81-selected-primary.json"
+      },
+      "readerRef": "Sichat Shedim 1:9"
+    },
+    {
+      "section": 81,
+      "id": "dover-tzedek-four-cubits-holiness",
+      "rowN": 1,
+      "phraseIndex": 8,
+      "heAnchorPrefix": "אֲבָל כְּשֶׁמִּדַּבֵּק עַצְמוֹ בִּקְדוּשַׁת אֶרֶץ יִשְׂרָאֵל הָאִידְנָא, שֶׁכָּל אֶחָד יֵשׁ לוֹ אַרְבַּע אַמּוֹת שָׁם",
+      "heCharOffset": 117,
+      "ref": "Dover Tzedek, Miscellany 1:5",
+      "url": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/#/read/Dover_Tzedek,_Miscellany_1",
+      "he": "שאין לך אחד מישראל שאין לו ארבע אמות בארץ ישראל. וארבע אמות הוא שעור מקום השיך לאדם בכל מקום, ורצה לומר: שמכיר שמה ששיך לו בעולם הזה מתקדש בקדשת הארץ. שהוא קדשה מצד הידיעה, שהוא ארץ אשר השם יתברך נתנה לנו ולאבותינו, ולא בכחנו ועצם ידנו והשתדלותנו הגיעה לנו, זהו כל תכלית קדשת הארץ כמו שכתוב לעיל. וישנו לכל אחד מישראל חלק בה,",
+      "en": "There is no member of Israel who does not have four cubits in the Land of Israel. Four cubits are the measure of the space belonging to a person wherever he is. This means that he recognizes that what belongs to him in this world is sanctified with the holiness of the Land. Its holiness comes from knowing that it is a land the blessed God gave to us and our ancestors, and that it did not come to us through our own power, the strength of our hand, or our efforts. This is the whole purpose of the Land’s holiness, as explained above. Every member of Israel has a portion in it.",
+      "context": "Rav Tzadok explicitly explains the four cubits as a spiritual relation to one’s place and possessions: recognizing them as God’s gift. That explanation clarifies how the ois speaks of attachment to the Land even in the present.",
+      "sourceEvidence": [
+        {
+          "ref": "Dover Tzedek, Miscellany 1:5",
+          "url": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/#/read/Dover_Tzedek,_Miscellany_1",
+          "he": "שאין לך אחד מישראל שאין לו ארבע אמות בארץ ישראל. וארבע אמות הוא שעור מקום השיך לאדם בכל מקום, ורצה לומר: שמכיר שמה ששיך לו בעולם הזה מתקדש בקדשת הארץ. שהוא קדשה מצד הידיעה, שהוא ארץ אשר השם יתברך נתנה לנו ולאבותינו, ולא בכחנו ועצם ידנו והשתדלותנו הגיעה לנו, זהו כל תכלית קדשת הארץ כמו שכתוב לעיל. וישנו לכל אחד מישראל חלק בה,",
+          "en": "There is no member of Israel who does not have four cubits in the Land of Israel. Four cubits are the measure of the space belonging to a person wherever he is. This means that he recognizes that what belongs to him in this world is sanctified with the holiness of the Land. Its holiness comes from knowing that it is a land the blessed God gave to us and our ancestors, and that it did not come to us through our own power, the strength of our hand, or our efforts. This is the whole purpose of the Land’s holiness, as explained above. Every member of Israel has a portion in it.",
+          "translation": "Original English translation prepared from the cited Hebrew or Aramaic.",
+          "coverage": "excerpt",
+          "heSha256": "2d1783a851909b5426f733b0604df4b2dcfa5bef059a8584a179fa0089ec3ea9"
+        }
+      ],
+      "reviewEvidence": {
+        "pdfPages": {
+          "neimosA": [
+            224,
+            225,
+            226,
+            227,
+            228
+          ],
+          "integratedA": [
+            263,
+            264,
+            265,
+            266
+          ]
+        },
+        "preserveExisting": true,
+        "status": "verified",
+        "dedup": "All existing native and connected quotations in the destination ois were read; the selected source passage is absent.",
+        "primaryTextFile": "review-work/ois81-selected-primary.json"
+      },
+      "readerRef": "Dover Tzedek, Miscellany 1:5"
+    },
+    {
+      "section": 81,
+      "id": "tosafot-four-cubits-property-distinction",
+      "rowN": 1,
+      "phraseIndex": 8,
+      "heAnchorPrefix": "אֲבָל כְּשֶׁמִּדַּבֵּק עַצְמוֹ בִּקְדוּשַׁת אֶרֶץ יִשְׂרָאֵל הָאִידְנָא, שֶׁכָּל אֶחָד יֵשׁ לוֹ אַרְבַּע אַמּוֹת שָׁם",
+      "heCharOffset": 117,
+      "ref": "Tosafot on Bava Batra 44b:7:1",
+      "url": "https://www.sefaria.org/Tosafot_on_Bava_Batra_44b:7:1",
+      "he": "דלא הוה ליה ארעא מעולם. מכאן תשובה לאומרים דמה שנהגו לכתוב בהרשאות ונתתי לו ארבע אמות בחצרי אע\"ג דלית ליה קרקע משום דאין לך אדם שאין לו ארבע אמות בארץ ישראל דקרקע אינה נגזלת אי נמי דאין לך אדם שאין לו ד' אמות לקברו דהכא משמע דאפשר שאין לו קרקע",
+      "en": "“He never had land.” From here there is an answer to those who say that the practice of writing in authorizations, “I have given him four cubits in my courtyard,” even when the person has no land, rests on the claim that everyone has four cubits in the Land of Israel, since land cannot be acquired through robbery—or alternatively, that everyone has four cubits for his grave. For here it is evident that it is possible for a person to have no land.",
+      "context": "Tosafot rejects the claim as a universal rule of actual landownership. The spiritual explanation in Dover Tzedek is therefore the relevant parallel for Rav Tzadok’s use of “four cubits” here; this passage should not be read as asserting a property right for every individual.",
+      "sourceEvidence": [
+        {
+          "ref": "Tosafot on Bava Batra 44b:7:1",
+          "url": "https://www.sefaria.org/Tosafot_on_Bava_Batra_44b:7:1",
+          "he": "דלא הוה ליה ארעא מעולם. מכאן תשובה לאומרים דמה שנהגו לכתוב בהרשאות ונתתי לו ארבע אמות בחצרי אע\"ג דלית ליה קרקע משום דאין לך אדם שאין לו ארבע אמות בארץ ישראל דקרקע אינה נגזלת אי נמי דאין לך אדם שאין לו ד' אמות לקברו דהכא משמע דאפשר שאין לו קרקע",
+          "en": "“He never had land.” From here there is an answer to those who say that the practice of writing in authorizations, “I have given him four cubits in my courtyard,” even when the person has no land, rests on the claim that everyone has four cubits in the Land of Israel, since land cannot be acquired through robbery—or alternatively, that everyone has four cubits for his grave. For here it is evident that it is possible for a person to have no land.",
+          "translation": "Original English translation prepared from the cited Hebrew or Aramaic.",
+          "coverage": "excerpt",
+          "heSha256": "af3ee7ac8f54776ed45e653bb0ebe8b15bdebb61c07cc28e2ff50cd6f64b2413"
+        }
+      ],
+      "reviewEvidence": {
+        "pdfPages": {
+          "neimosA": [
+            224,
+            225,
+            226,
+            227,
+            228
+          ],
+          "integratedA": [
+            263,
+            264,
+            265,
+            266
+          ]
+        },
+        "preserveExisting": true,
+        "status": "verified",
+        "dedup": "All existing native and connected quotations in the destination ois were read; the selected source passage is absent.",
+        "primaryTextFile": "review-work/ois81-selected-primary.json"
+      },
+      "openExternal": true
+    },
+    {
+      "section": 81,
+      "id": "berakhot-praying-toward-the-land",
+      "rowN": 1,
+      "phraseIndex": 9,
+      "heAnchorPrefix": "וְכֵן מְקוֹם רַגְלָיו בְּבֵית הַמִּקְדָּשׁ, וְזֶהוּ \"וְהִתְפַּלְלוּ אֵלֶיךָ דֶּרֶךְ אַרְצָם\",",
+      "heCharOffset": 93,
+      "ref": "Berakhot 30a:9",
+      "url": "https://www.sefaria.org/Berakhot_30a:9",
+      "he": "היה עומד בחוץ לארץ — יכוין את לבו כנגד ארץ ישראל, שנאמר: ״והתפללו אליך דרך ארצם״. היה עומד בארץ ישראל — יכוין את לבו כנגד ירושלים, שנאמר: ״והתפללו אל ה׳ דרך העיר אשר בחרת״. היה עומד בירושלים — יכוין את לבו כנגד בית המקדש, שנאמר: ״והתפללו אל הבית הזה״. היה עומד בבית המקדש — יכוין את לבו כנגד בית קדשי הקדשים, שנאמר: ״והתפללו אל המקום הזה״. היה עומד בבית קדשי הקדשים — יכוין את לבו כנגד בית הכפורת. היה עומד אחורי בית הכפורת — יראה עצמו כאילו לפני הכפורת. נמצא עומד במזרח מחזיר פניו למערב. במערב מחזיר פניו למזרח. בדרום — מחזיר פניו לצפון. בצפון — מחזיר פניו לדרום. נמצאו כל ישראל מכוונין את לבם למקום אחד.",
+      "en": "If one is standing outside the Land, one should direct one’s heart toward the Land of Israel, as it is said, “They shall pray to You toward their land.” If one is standing in the Land of Israel, one should direct one’s heart toward Jerusalem, as it is said, “They shall pray to the Lord toward the city You have chosen.” If one is standing in Jerusalem, one should direct one’s heart toward the Temple, as it is said, “They shall pray toward this house.” If one is standing in the Temple, one should direct one’s heart toward the Holy of Holies, as it is said, “They shall pray toward this place.” If one is standing in the Holy of Holies, one should direct one’s heart toward the place of the Ark-cover. If one is standing behind the place of the Ark-cover, one should view oneself as though standing before the Ark-cover. Thus, one standing in the east turns west; in the west, east; in the south, north; and in the north, south. All Israel therefore direct their hearts toward one place.",
+      "context": "The baraita supplies both the verse about prayer toward the Land and the progression toward the Temple. Rav Tzadok relates that shared orientation to each person’s spiritual place in the Land and the Temple.",
+      "sourceEvidence": [
+        {
+          "ref": "Berakhot 30a:9",
+          "url": "https://www.sefaria.org/Berakhot_30a:9",
+          "he": "היה עומד בחוץ לארץ — יכוין את לבו כנגד ארץ ישראל, שנאמר: ״והתפללו אליך דרך ארצם״. היה עומד בארץ ישראל — יכוין את לבו כנגד ירושלים, שנאמר: ״והתפללו אל ה׳ דרך העיר אשר בחרת״. היה עומד בירושלים — יכוין את לבו כנגד בית המקדש, שנאמר: ״והתפללו אל הבית הזה״. היה עומד בבית המקדש — יכוין את לבו כנגד בית קדשי הקדשים, שנאמר: ״והתפללו אל המקום הזה״. היה עומד בבית קדשי הקדשים — יכוין את לבו כנגד בית הכפורת. היה עומד אחורי בית הכפורת — יראה עצמו כאילו לפני הכפורת. נמצא עומד במזרח מחזיר פניו למערב. במערב מחזיר פניו למזרח. בדרום — מחזיר פניו לצפון. בצפון — מחזיר פניו לדרום. נמצאו כל ישראל מכוונין את לבם למקום אחד.",
+          "en": "If one is standing outside the Land, one should direct one’s heart toward the Land of Israel, as it is said, “They shall pray to You toward their land.” If one is standing in the Land of Israel, one should direct one’s heart toward Jerusalem, as it is said, “They shall pray to the Lord toward the city You have chosen.” If one is standing in Jerusalem, one should direct one’s heart toward the Temple, as it is said, “They shall pray toward this house.” If one is standing in the Temple, one should direct one’s heart toward the Holy of Holies, as it is said, “They shall pray toward this place.” If one is standing in the Holy of Holies, one should direct one’s heart toward the place of the Ark-cover. If one is standing behind the place of the Ark-cover, one should view oneself as though standing before the Ark-cover. Thus, one standing in the east turns west; in the west, east; in the south, north; and in the north, south. All Israel therefore direct their hearts toward one place.",
+          "translation": "Original English translation prepared from the cited Hebrew or Aramaic.",
+          "coverage": "excerpt",
+          "heSha256": "10e89719b437a47e0650016be837be671dd294dc81d47077e1b0e1cf171f48a2"
+        }
+      ],
+      "reviewEvidence": {
+        "pdfPages": {
+          "neimosA": [
+            224,
+            225,
+            226,
+            227,
+            228
+          ],
+          "integratedA": [
+            263,
+            264,
+            265,
+            266
+          ]
+        },
+        "preserveExisting": true,
+        "status": "verified",
+        "dedup": "All existing native and connected quotations in the destination ois were read; the selected source passage is absent.",
+        "primaryTextFile": "review-work/ois81-selected-primary.json"
+      },
+      "openExternal": true
+    },
+    {
+      "section": 81,
+      "id": "deuteronomy-length-of-days-parents-children",
+      "rowN": 1,
+      "phraseIndex": 11,
+      "heAnchorPrefix": "וּכְמוֹ שֶׁנִּגְלָה אֵלַי בַּחֲלוֹם (אוֹר לְיוֹם ב' רְאֵה כ\"ה מְנַחֵם) פֵּירוּשׁ \"לְמַעַן יִרְבּוּ וְגוֹמֵר\",",
+      "heCharOffset": 109,
+      "ref": "Deuteronomy 11:21",
+      "url": "https://www.sefaria.org/Deuteronomy_11:21",
+      "he": "למען ירבו ימיכם וימי בניכם על האדמה אשר נשבע יהוה לאבתיכם לתת להם כימי השמים על־הארץ*(בספרי תימן הארץ בצד״י גדולה)׃ {ס}",
+      "en": "So that your days and the days of your children may be many on the land that the Lord swore to your ancestors to give them, like the days of the heavens above the earth.",
+      "context": "The full verse joins the longevity of parents and children, life on the Land, and the enduring heavens. These are the three features Rav Tzadok brings together in the interpretation that follows.",
+      "sourceEvidence": [
+        {
+          "ref": "Deuteronomy 11:21",
+          "url": "https://www.sefaria.org/Deuteronomy_11:21",
+          "he": "למען ירבו ימיכם וימי בניכם על האדמה אשר נשבע יהוה לאבתיכם לתת להם כימי השמים על־הארץ*(בספרי תימן הארץ בצד״י גדולה)׃ {ס}",
+          "en": "So that your days and the days of your children may be many on the land that the Lord swore to your ancestors to give them, like the days of the heavens above the earth.",
+          "translation": "Original English translation prepared from the cited Hebrew or Aramaic.",
+          "coverage": "excerpt",
+          "heSha256": "c8d22e2b2223fef65feeb90354a8e63e2e4ce242f79aebb01e1cd2794ac38012"
+        }
+      ],
+      "reviewEvidence": {
+        "pdfPages": {
+          "neimosA": [
+            224,
+            225,
+            226,
+            227,
+            228
+          ],
+          "integratedA": [
+            263,
+            264,
+            265,
+            266
+          ]
+        },
+        "preserveExisting": true,
+        "status": "verified",
+        "dedup": "All existing native and connected quotations in the destination ois were read; the selected source passage is absent.",
+        "primaryTextFile": "review-work/ois81-selected-primary.json"
+      },
+      "openExternal": true
+    },
+    {
+      "section": 82,
+      "id": "devarim-rabbah-prayer-cain-half-decree",
+      "rowN": 1,
+      "phraseIndex": 6,
+      "heAnchorPrefix": "וְלִפְעָמִים תְּפִלָּה מְכַפֶּרֶת מֶחֱצָה,",
+      "heCharOffset": 42,
+      "ref": "Devarim Rabbah 8:1",
+      "url": "https://www.sefaria.org/Devarim_Rabbah_8:1",
+      "he": "גדולה היא התפלה לפני הקדוש ברוך הוא, אמר רבי אלעזר רצונך לידע כחה של תפלה, אם אינה עושה כלה חציה היא עושה, קין עמד על הבל אחיו והרגו, יצאה גזרה (בראשית ד, יב): נע ונד תהיה בארץ, מיד עמד ונתודה לפני הקדוש ברוך הוא, שנאמר (בראשית ד, יג): גדול עוני מנשוא, אמר לפניו רבונו של עולם כל העולם אתה סובל ולעוני אי אתה סובל, כתבת (מיכה ז, יח): נשא עון ועבר על פשע, סלח לעוני שהוא גדול, מיד מצא חסד לפני הקדוש ברוך הוא ונמנע ממנו נע חצי הגזרה, שכן כתיב (בראשית ד, טז): וישב בארץ נוד, מכאן אתה למד שגדולה התפלה לפני הקדוש ברוך הוא.",
+      "en": "Great is prayer before the Holy One, blessed be He. Rabbi Elazar said: Do you wish to know the power of prayer? If it does not accomplish the whole, it accomplishes half. Cain rose against his brother Abel and killed him, and the decree was issued: “You shall be restless and wandering in the land.” He immediately stood and confessed before the Holy One, blessed be He, as it is said, “My iniquity is too great to bear.” He said before Him: “Master of the world, You bear the whole world, but You cannot bear my iniquity? You have written, ‘Bearing iniquity and passing over transgression’; forgive my iniquity, which is great.” He immediately found favor before the Holy One, blessed be He, and “restless,” half the decree, was withheld from him, as it is written, “He settled in the land of Nod.” From here you learn how great prayer is before the Holy One, blessed be He.",
+      "context": "Unlike the formulation in Vayikra Rabbah quoted in the existing note, this parallel expressly introduces Cain’s confession as an illustration of the power of prayer to accomplish half. It directly illuminates the wording used here without changing the citation in Rav Tzadok’s text.",
+      "sourceEvidence": [
+        {
+          "ref": "Devarim Rabbah 8:1",
+          "url": "https://www.sefaria.org/Devarim_Rabbah_8:1",
+          "he": "גדולה היא התפלה לפני הקדוש ברוך הוא, אמר רבי אלעזר רצונך לידע כחה של תפלה, אם אינה עושה כלה חציה היא עושה, קין עמד על הבל אחיו והרגו, יצאה גזרה (בראשית ד, יב): נע ונד תהיה בארץ, מיד עמד ונתודה לפני הקדוש ברוך הוא, שנאמר (בראשית ד, יג): גדול עוני מנשוא, אמר לפניו רבונו של עולם כל העולם אתה סובל ולעוני אי אתה סובל, כתבת (מיכה ז, יח): נשא עון ועבר על פשע, סלח לעוני שהוא גדול, מיד מצא חסד לפני הקדוש ברוך הוא ונמנע ממנו נע חצי הגזרה, שכן כתיב (בראשית ד, טז): וישב בארץ נוד, מכאן אתה למד שגדולה התפלה לפני הקדוש ברוך הוא.",
+          "en": "Great is prayer before the Holy One, blessed be He. Rabbi Elazar said: Do you wish to know the power of prayer? If it does not accomplish the whole, it accomplishes half. Cain rose against his brother Abel and killed him, and the decree was issued: “You shall be restless and wandering in the land.” He immediately stood and confessed before the Holy One, blessed be He, as it is said, “My iniquity is too great to bear.” He said before Him: “Master of the world, You bear the whole world, but You cannot bear my iniquity? You have written, ‘Bearing iniquity and passing over transgression’; forgive my iniquity, which is great.” He immediately found favor before the Holy One, blessed be He, and “restless,” half the decree, was withheld from him, as it is written, “He settled in the land of Nod.” From here you learn how great prayer is before the Holy One, blessed be He.",
+          "translation": "Original English translation prepared from the cited Hebrew or Aramaic.",
+          "coverage": "excerpt",
+          "heSha256": "94157f42d8a2be284ba8005d930bc3a471322f4cf09bdb5e6b216ca4286c2ea8"
+        }
+      ],
+      "reviewEvidence": {
+        "pdfPages": {
+          "neimosA": [
+            228,
+            229
+          ],
+          "integratedA": [
+            266,
+            267
+          ]
+        },
+        "preserveExisting": true,
+        "status": "verified",
+        "dedup": "All existing native and connected quotations in the destination ois were read; the selected source passage is absent.",
+        "primaryTextFile": "review-work/ois81-selected-primary.json"
+      },
+      "openExternal": true
+    },
+    {
+      "section": 82,
+      "id": "peri-tzadik-cain-verbal-confession",
+      "rowN": 1,
+      "phraseIndex": 6,
+      "heAnchorPrefix": "וְלִפְעָמִים תְּפִלָּה מְכַפֶּרֶת מֶחֱצָה, כְּמוֹ שֶׁכָּתוּב בְּקַיִן: \"וַיֵּשֶׁב בְּאֶרֶץ נוֹד\"",
+      "heCharOffset": 96,
+      "ref": "Peri Tzadik, Vayeilech and Shabbat Shuvah 8:1",
+      "url": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/#/read/Peri_Tzadik,_Vayeilech_and_Shabbat_Shuvah_8",
+      "he": "אך אחר ששמע מקין שאמר לו עשיתי תשובה ונתפשרתי אף דאי' (בר\"ר שם) שיצא כגונב דעת העליונה ע\"ז אמר כך הוא כחה של תשובה שמועיל גם בוידוי דברים לבד אף שאינו עוזב עוד העזיבה הראוי' עד שיעיד עליו וכו' כנ\"ל. והוא ע\"ד שא' (תענית ח'.) ויפתוהו בפיהם ובלשונם יכזבו לו וגו' ואעפ\"כ והוא רחום יכפר עון. ואני לא הייתי יודע מיד עמד ואמר מזמור שיר ליום השבת היינו דשם כתיב טוב להודות לה' ולא כתיב ועוזב כמו שנא' ומודה ועוזב ירוחם. רק שזה הוא כח השבת שיועיל הדברים לבד ג\"כ.",
+      "en": "But after Adam heard Cain tell him, “I repented and reached a compromise,” even though the Midrash says that Cain went out as one deceiving the divine mind, Adam said: “Such is the power of repentance”—that even verbal confession alone is effective, although the person has not yet abandoned the sin with the proper abandonment, to the point that the One who knows hidden things can testify about him, as explained above. This accords with the teaching in Taanit: “They enticed Him with their mouths and lied to Him with their tongues,” and so forth, and nevertheless, “He, being merciful, forgives iniquity.” “And I did not know!” Adam immediately stood and said, “A psalm, a song for the day of Shabbat”: there it says, “It is good to give thanks to the Lord,” without adding “and abandons,” as in “One who confesses and abandons will find mercy.” This is the power of Shabbat—that words alone can also be effective.",
+      "context": "Rav Tzadok distinguishes the benefit of an incomplete confession from the full abandonment of sin required for complete repentance. In this Shabbat teaching he reads Cain’s partial relief as evidence that the process can begin before its inner completion.",
+      "sourceEvidence": [
+        {
+          "ref": "Peri Tzadik, Vayeilech and Shabbat Shuvah 8:1",
+          "url": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/#/read/Peri_Tzadik,_Vayeilech_and_Shabbat_Shuvah_8",
+          "he": "אך אחר ששמע מקין שאמר לו עשיתי תשובה ונתפשרתי אף דאי' (בר\"ר שם) שיצא כגונב דעת העליונה ע\"ז אמר כך הוא כחה של תשובה שמועיל גם בוידוי דברים לבד אף שאינו עוזב עוד העזיבה הראוי' עד שיעיד עליו וכו' כנ\"ל. והוא ע\"ד שא' (תענית ח'.) ויפתוהו בפיהם ובלשונם יכזבו לו וגו' ואעפ\"כ והוא רחום יכפר עון. ואני לא הייתי יודע מיד עמד ואמר מזמור שיר ליום השבת היינו דשם כתיב טוב להודות לה' ולא כתיב ועוזב כמו שנא' ומודה ועוזב ירוחם. רק שזה הוא כח השבת שיועיל הדברים לבד ג\"כ.",
+          "en": "But after Adam heard Cain tell him, “I repented and reached a compromise,” even though the Midrash says that Cain went out as one deceiving the divine mind, Adam said: “Such is the power of repentance”—that even verbal confession alone is effective, although the person has not yet abandoned the sin with the proper abandonment, to the point that the One who knows hidden things can testify about him, as explained above. This accords with the teaching in Taanit: “They enticed Him with their mouths and lied to Him with their tongues,” and so forth, and nevertheless, “He, being merciful, forgives iniquity.” “And I did not know!” Adam immediately stood and said, “A psalm, a song for the day of Shabbat”: there it says, “It is good to give thanks to the Lord,” without adding “and abandons,” as in “One who confesses and abandons will find mercy.” This is the power of Shabbat—that words alone can also be effective.",
+          "translation": "Original English translation prepared from the cited Hebrew or Aramaic.",
+          "coverage": "excerpt",
+          "heSha256": "ad47cb1840bebdc0b693eb053255efc5dd0ab306fa188ad4478e52a8c8ff503a"
+        }
+      ],
+      "reviewEvidence": {
+        "pdfPages": {
+          "neimosA": [
+            228,
+            229
+          ],
+          "integratedA": [
+            266,
+            267
+          ]
+        },
+        "preserveExisting": true,
+        "status": "verified",
+        "dedup": "All existing native and connected quotations in the destination ois were read; the selected source passage is absent.",
+        "primaryTextFile": "review-work/ois81-selected-primary.json"
+      },
+      "readerRef": "Peri Tzadik, Vayeilech and Shabbat Shuvah 8:1"
+    },
+    {
+      "section": 83,
+      "id": "megillah-retaining-learning-heavenly-help",
+      "rowN": 1,
+      "phraseIndex": 3,
+      "heAnchorPrefix": "הָא אַסְקֵיהּ שָׁם: הָנֵי מִילֵּי וְכוּלֵי, אֲבָל לְאוֹקְמֵי גִּירְסָא – סִיַּעְתָּא מִן שְׁמַיָּא;",
+      "heCharOffset": 99,
+      "ref": "Megillah 6b:4",
+      "url": "https://www.sefaria.org/Megillah_6b:4",
+      "he": "הני מילי בדברי תורה, אבל במשא ומתן — סייעתא הוא מן שמיא. ולדברי תורה לא אמרן אלא לחדודי, אבל לאוקמי גירסא — סייעתא מן שמיא היא.",
+      "en": "These words apply to Torah, but in business success is help from Heaven. Even concerning Torah, we said this only about sharpening one’s understanding; preserving one’s learning, however, depends on help from Heaven.",
+      "context": "This is the qualification following the maxim quoted in the earlier note. Rav Tzadok focuses on its distinction between sharpening understanding through effort and maintaining one’s learning through divine assistance.",
+      "sourceEvidence": [
+        {
+          "ref": "Megillah 6b:4",
+          "url": "https://www.sefaria.org/Megillah_6b:4",
+          "he": "הני מילי בדברי תורה, אבל במשא ומתן — סייעתא הוא מן שמיא. ולדברי תורה לא אמרן אלא לחדודי, אבל לאוקמי גירסא — סייעתא מן שמיא היא.",
+          "en": "These words apply to Torah, but in business success is help from Heaven. Even concerning Torah, we said this only about sharpening one’s understanding; preserving one’s learning, however, depends on help from Heaven.",
+          "translation": "Original English translation prepared from the cited Hebrew or Aramaic.",
+          "coverage": "excerpt",
+          "heSha256": "17951b378f9195a1978e4f138213fd256303c65b2aa72df4da3622a57e009f4e"
+        }
+      ],
+      "reviewEvidence": {
+        "pdfPages": {
+          "neimosA": [
+            229,
+            230,
+            231,
+            232,
+            233
+          ],
+          "integratedA": [
+            267,
+            268,
+            269,
+            270
+          ]
+        },
+        "preserveExisting": true,
+        "status": "verified",
+        "dedup": "All existing native and connected quotations in the destination ois were read; the selected source passage is absent.",
+        "primaryTextFile": "review-work/ois81-selected-primary.json"
+      },
+      "openExternal": true
+    },
+    {
+      "section": 83,
+      "id": "shelah-noah-awakening-from-above",
+      "rowN": 1,
+      "phraseIndex": 8,
+      "heAnchorPrefix": "הַיְינוּ כִּי פְּעָמִים אָדָם זוֹכֶה בְּלֹא שׁוּם יְגִיעָה שֶׁהוּא שָׁמוּר מִן הָעֲבֵירָה וְנִקְרָא צַדִּיק, וְזֶהוּ מַדְרֵגַת נֹחַ",
+      "heCharOffset": 131,
+      "ref": "Shenei Luchot HaBerit, Torah Shebikhtav, Noach, Torah Ohr 20",
+      "url": "https://www.sefaria.org/Shenei_Luchot_HaBerit,_Torah_Shebikhtav,_Noach,_Torah_Ohr_20",
+      "he": "ונח מצא חן, הוא מצא, והקב\"ה לא מצא (בר\"ר כט, ג). רצה לומר, הוא מצא מהקב\"ה שהיה מעורר אותו. אבל הקב\"ה לא מצא ממנו, כי לא היה לו התעוררות מלמטה למעלה. משא\"כ באברהם שאמר אשר התהלכתי לפניו, כלומר התעוררותי קודם לו, וכן כתיב (נחמיה ט, ח) ומצאת את לבבו נאמן לפניך:",
+      "en": "“Noah found favor”: he found, but the Holy One, blessed be He, did not find. This means that Noah found from the Holy One, blessed be He, who was awakening him. But the Holy One, blessed be He, did not find this from Noah, for Noah had no awakening from below to above. This differs from Abraham, who said, “Before whom I walked”—meaning, my awakening preceded His. Likewise it is written, “You found his heart faithful before You.”",
+      "context": "Shelah explains the Midrash’s distinction in terms of who initiates the awakening. This illuminates Rav Tzadok’s description of Noah being protected through an unearned awakening from above.",
+      "sourceEvidence": [
+        {
+          "ref": "Shenei Luchot HaBerit, Torah Shebikhtav, Noach, Torah Ohr 20",
+          "url": "https://www.sefaria.org/Shenei_Luchot_HaBerit,_Torah_Shebikhtav,_Noach,_Torah_Ohr_20",
+          "he": "ונח מצא חן, הוא מצא, והקב\"ה לא מצא (בר\"ר כט, ג). רצה לומר, הוא מצא מהקב\"ה שהיה מעורר אותו. אבל הקב\"ה לא מצא ממנו, כי לא היה לו התעוררות מלמטה למעלה. משא\"כ באברהם שאמר אשר התהלכתי לפניו, כלומר התעוררותי קודם לו, וכן כתיב (נחמיה ט, ח) ומצאת את לבבו נאמן לפניך:",
+          "en": "“Noah found favor”: he found, but the Holy One, blessed be He, did not find. This means that Noah found from the Holy One, blessed be He, who was awakening him. But the Holy One, blessed be He, did not find this from Noah, for Noah had no awakening from below to above. This differs from Abraham, who said, “Before whom I walked”—meaning, my awakening preceded His. Likewise it is written, “You found his heart faithful before You.”",
+          "translation": "Original English translation prepared from the cited Hebrew or Aramaic.",
+          "coverage": "excerpt",
+          "heSha256": "7c3994e9113fa6fec1a8671c6b73bad36c0491035b7e8ce3b8ae7126c00ea0db"
+        }
+      ],
+      "reviewEvidence": {
+        "pdfPages": {
+          "neimosA": [
+            229,
+            230,
+            231,
+            232,
+            233
+          ],
+          "integratedA": [
+            267,
+            268,
+            269,
+            270
+          ]
+        },
+        "preserveExisting": true,
+        "status": "verified",
+        "dedup": "All existing native and connected quotations in the destination ois were read; the selected source passage is absent.",
+        "primaryTextFile": "review-work/ois81-selected-primary.json"
+      },
+      "openExternal": true
+    },
+    {
+      "section": 83,
+      "id": "pesachim-cow-calf-teaching",
+      "rowN": 1,
+      "phraseIndex": 11,
+      "heAnchorPrefix": "שֶׁבָּזֶה מְיוּחָס גַּם כֵּן הַמְּצִיאָה לְמַעְלָה, כִּי יוֹתֵר מִמַּה שֶּׁעֵגֶל וְכוּלֵי",
+      "heCharOffset": 89,
+      "ref": "Pesachim 112a:12",
+      "url": "https://www.sefaria.org/Pesachim_112a:12",
+      "he": "חמשה דברים צוה רבי עקיבא את רבי שמעון בן יוחי כשהיה חבוש בבית האסורין. אמר לו: רבי, למדני תורה, אמר: איני מלמדך. אמר לו: אם אין אתה מלמדני אני אומר ליוחי אבא ומוסרך למלכות. אמר לו: בני, יותר ממה שהעגל רוצה לינק פרה רוצה להניק. אמר לו: ומי בסכנה? והלא עגל בסכנה.",
+      "en": "Rabbi Akiva instructed Rabbi Shimon ben Yochai in five matters when he was confined in prison. Rabbi Shimon said to him, “My teacher, teach me Torah.” He replied, “I will not teach you.” Rabbi Shimon said, “If you do not teach me, I will tell my father Yochai and have you handed over to the authorities.” Rabbi Akiva said: “My son, more than the calf wants to suckle, the cow wants to nurse.” Rabbi Shimon replied: “And who is in danger? Surely the calf is in danger.”",
+      "context": "The comparison originally expresses the teacher’s desire to teach, even while danger obstructs the lesson. Rav Tzadok applies that relation to God’s desire to impart His light and Israel’s desire to receive it.",
+      "sourceEvidence": [
+        {
+          "ref": "Pesachim 112a:12",
+          "url": "https://www.sefaria.org/Pesachim_112a:12",
+          "he": "חמשה דברים צוה רבי עקיבא את רבי שמעון בן יוחי כשהיה חבוש בבית האסורין. אמר לו: רבי, למדני תורה, אמר: איני מלמדך. אמר לו: אם אין אתה מלמדני אני אומר ליוחי אבא ומוסרך למלכות. אמר לו: בני, יותר ממה שהעגל רוצה לינק פרה רוצה להניק. אמר לו: ומי בסכנה? והלא עגל בסכנה.",
+          "en": "Rabbi Akiva instructed Rabbi Shimon ben Yochai in five matters when he was confined in prison. Rabbi Shimon said to him, “My teacher, teach me Torah.” He replied, “I will not teach you.” Rabbi Shimon said, “If you do not teach me, I will tell my father Yochai and have you handed over to the authorities.” Rabbi Akiva said: “My son, more than the calf wants to suckle, the cow wants to nurse.” Rabbi Shimon replied: “And who is in danger? Surely the calf is in danger.”",
+          "translation": "Original English translation prepared from the cited Hebrew or Aramaic.",
+          "coverage": "excerpt",
+          "heSha256": "084dc5a95046db7719a3de00d50db70cbd6ce4da68df8d175e4cbe60775df801"
+        }
+      ],
+      "reviewEvidence": {
+        "pdfPages": {
+          "neimosA": [
+            229,
+            230,
+            231,
+            232,
+            233
+          ],
+          "integratedA": [
+            267,
+            268,
+            269,
+            270
+          ]
+        },
+        "preserveExisting": true,
+        "status": "verified",
+        "dedup": "All existing native and connected quotations in the destination ois were read; the selected source passage is absent.",
+        "primaryTextFile": "review-work/ois81-selected-primary.json"
+      },
+      "openExternal": true
+    },
+    {
+      "section": 83,
+      "id": "netzeich-finding-outside-ordinary-order",
+      "rowN": 1,
+      "phraseIndex": 13,
+      "heAnchorPrefix": "אֲבָל מִי שֶׁיּוֹשֵׁב וּמְצַפֶּה לְכָךְ, לֹא יִמְצָא לְעוֹלָם.",
+      "heCharOffset": 62,
+      "ref": "Netzach Yisrael 40:1",
+      "url": "https://www.sefaria.org/Netzach_Yisrael_40:1",
+      "he": "וביאור זה, כי הדברים אשר הם מסדר הנהגת העולם, באים בסדר ובמחשבה עליהם, לפי שהם קרובים אל העולם. אבל הדברים אשר הם רחוקים מן העולם, יש בהם היסח הדעת, שהרי הם רחוקים מן סדר העולם, ולכך אינם באים רק בהיסח הדעת. … האחד - הוא המציאה, שלא בא לידו רק במקרה, ולא כן שאר פרנסתו ומחייתו של אדם, שהוא כסדר העולם. אבל המציאה אינה כסדר העולם, רק במקרה קרה, והוא לטוב.",
+      "en": "The explanation is that things belonging to the order by which the world is governed arrive in an orderly way and with thought directed toward them, because they are close to the world. But things far from the world involve a diversion of attention: they are far from the world’s order, and therefore arrive only when attention is diverted. … The first is a find, which comes into one’s hand only by chance. This differs from a person’s other livelihood and sustenance, which follow the world’s order. A find does not follow that order; it happens by chance, and it is for good.",
+      "context": "Maharal distinguishes an unexpected find from the ordinary course of earning a livelihood. This explains why “finding,” as used in the ois, cannot be produced simply by sitting and anticipating it.",
+      "sourceEvidence": [
+        {
+          "ref": "Netzach Yisrael 40:1",
+          "url": "https://www.sefaria.org/Netzach_Yisrael_40:1",
+          "he": "וביאור זה, כי הדברים אשר הם מסדר הנהגת העולם, באים בסדר ובמחשבה עליהם, לפי שהם קרובים אל העולם. אבל הדברים אשר הם רחוקים מן העולם, יש בהם היסח הדעת, שהרי הם רחוקים מן סדר העולם, ולכך אינם באים רק בהיסח הדעת. … האחד - הוא המציאה, שלא בא לידו רק במקרה, ולא כן שאר פרנסתו ומחייתו של אדם, שהוא כסדר העולם. אבל המציאה אינה כסדר העולם, רק במקרה קרה, והוא לטוב.",
+          "en": "The explanation is that things belonging to the order by which the world is governed arrive in an orderly way and with thought directed toward them, because they are close to the world. But things far from the world involve a diversion of attention: they are far from the world’s order, and therefore arrive only when attention is diverted. … The first is a find, which comes into one’s hand only by chance. This differs from a person’s other livelihood and sustenance, which follow the world’s order. A find does not follow that order; it happens by chance, and it is for good.",
+          "translation": "Original English translation prepared from the cited Hebrew or Aramaic.",
+          "coverage": "excerpt",
+          "heSha256": "d934e3e7b1bd29de41d424982b1822b4b11366ca6640bbfd52e0d26cfe34bb78"
+        }
+      ],
+      "reviewEvidence": {
+        "pdfPages": {
+          "neimosA": [
+            229,
+            230,
+            231,
+            232,
+            233
+          ],
+          "integratedA": [
+            267,
+            268,
+            269,
+            270
+          ]
+        },
+        "preserveExisting": true,
+        "status": "verified",
+        "dedup": "All existing native and connected quotations in the destination ois were read; the selected source passage is absent.",
+        "primaryTextFile": "review-work/ois81-selected-primary.json"
+      },
+      "openExternal": true
+    },
+    {
+      "section": 83,
+      "id": "nedarim-akiva-chest",
+      "rowN": 1,
+      "phraseIndex": 16,
+      "heAnchorPrefix": "כְּמוֹ יְהֵיב אַרְבַּע זוּזֵי לְסַפְּוָונָאֵי בְּרַבִּי עֲקִיבָא",
+      "heCharOffset": 64,
+      "ref": "Nedarim 50a:7",
+      "url": "https://www.sefaria.org/Nedarim_50a:7",
+      "he": "ומן גווזא, דזימנא חדא יהיב ארבעה זוזי לספונאי, אמר להו: אייתי לי מדעם, ולא אשכחו אלא גווזא על כיף ימא. אתיוה ליה. אמרו ליה: עביד מרנא עליה, אישתכח דהוה מלי דינרי. דזימנא חדא טבעת ספינתא, וכולי עיסקא הוה מחית בההוא גווזא, ואישתכח בההוא זימנא.",
+      "en": "And from a chest: once Rabbi Akiva gave four zuz to sailors and said to them, “Bring me something.” They found only a chest on the seashore and brought it to him. They said, “Let our master wait with this.” It turned out to be full of dinars. A ship had once sunk, and all its business funds had been placed in that chest; it was found on this occasion.",
+      "context": "This is Rabbi Akiva’s episode, distinct from Rav Gamda’s monkey-and-pearls episode already quoted. The small payment prepared the way for the discovery, while the valuable contents remained unexpected. Rashi and Ran explain the Aramaic guvza here as a chest.",
+      "sourceEvidence": [
+        {
+          "ref": "Nedarim 50a:7",
+          "url": "https://www.sefaria.org/Nedarim_50a:7",
+          "he": "ומן גווזא, דזימנא חדא יהיב ארבעה זוזי לספונאי, אמר להו: אייתי לי מדעם, ולא אשכחו אלא גווזא על כיף ימא. אתיוה ליה. אמרו ליה: עביד מרנא עליה, אישתכח דהוה מלי דינרי. דזימנא חדא טבעת ספינתא, וכולי עיסקא הוה מחית בההוא גווזא, ואישתכח בההוא זימנא.",
+          "en": "And from a chest: once Rabbi Akiva gave four zuz to sailors and said to them, “Bring me something.” They found only a chest on the seashore and brought it to him. They said, “Let our master wait with this.” It turned out to be full of dinars. A ship had once sunk, and all its business funds had been placed in that chest; it was found on this occasion.",
+          "translation": "Original English translation prepared from the cited Hebrew or Aramaic.",
+          "coverage": "excerpt",
+          "heSha256": "f7673507ff4e50f9346a1b310d19f5a87ad45b9add97238bd999d021ff00152d"
+        }
+      ],
+      "reviewEvidence": {
+        "pdfPages": {
+          "neimosA": [
+            229,
+            230,
+            231,
+            232,
+            233
+          ],
+          "integratedA": [
+            267,
+            268,
+            269,
+            270
+          ]
+        },
+        "preserveExisting": true,
+        "status": "verified",
+        "dedup": "All existing native and connected quotations in the destination ois were read; the selected source passage is absent.",
+        "primaryTextFile": "review-work/ois81-selected-primary.json"
+      },
+      "openExternal": true
+    },
+    {
+      "section": 84,
+      "id": "metzudat-david-death-without-sentence",
+      "rowN": 1,
+      "phraseIndex": 0,
+      "heAnchorPrefix": "[פד] פְּעָמִים יֵשׁ \"נִסְפֶּה בְּלֹא מִשְׁפָּט\" (מִשְׁלֵי יג, כג),",
+      "heCharOffset": 66,
+      "ref": "Metzudat David on Proverbs 13:23:1",
+      "url": "https://www.sefaria.org/Metzudat_David_on_Proverbs_13:23:1",
+      "he": "רב אוכל. הרבה מאכל בא לעולם ע״י חרישת העניים החורשים בשדה תבואה והנה העשירים אשר לא עמלו בו יאכלום וכ״כ יש מי אשר נאסף מכל העולם בלא משפט מות כי לא עשה דבר אשר יומת בעבורו ונתפס הוא בעון אחר:",
+      "en": "“Much food.” Much food comes into the world through the plowing of the poor, who plow a field of grain, yet the wealthy, who did not labor at it, eat it. Likewise, there is someone who is gathered away from the world without a sentence of death, for he did nothing for which he should be put to death, but is caught up in another’s sin.",
+      "context": "Metzudat David reads the verse’s two parts as cases in which a person’s outcome does not correspond to his own visible labor or deed. Rav Tzadok’s discussion asks how such an appearance relates to the divine judgment concealed beneath it.",
+      "sourceEvidence": [
+        {
+          "ref": "Metzudat David on Proverbs 13:23:1",
+          "url": "https://www.sefaria.org/Metzudat_David_on_Proverbs_13:23:1",
+          "he": "רב אוכל. הרבה מאכל בא לעולם ע״י חרישת העניים החורשים בשדה תבואה והנה העשירים אשר לא עמלו בו יאכלום וכ״כ יש מי אשר נאסף מכל העולם בלא משפט מות כי לא עשה דבר אשר יומת בעבורו ונתפס הוא בעון אחר:",
+          "en": "“Much food.” Much food comes into the world through the plowing of the poor, who plow a field of grain, yet the wealthy, who did not labor at it, eat it. Likewise, there is someone who is gathered away from the world without a sentence of death, for he did nothing for which he should be put to death, but is caught up in another’s sin.",
+          "translation": "Original English translation prepared from the cited Hebrew or Aramaic.",
+          "coverage": "excerpt",
+          "heSha256": "5ac31a611df810c51cdbfa57903547c26bd278ccac8e5f1445acbd41a374cc04"
+        }
+      ],
+      "reviewEvidence": {
+        "pdfPages": {
+          "neimosA": [
+            233,
+            234,
+            235
+          ],
+          "integratedA": [
+            270,
+            271,
+            272
+          ]
+        },
+        "preserveExisting": true,
+        "status": "verified",
+        "dedup": "All existing native and connected quotations in the destination ois were read; the selected source passage is absent.",
+        "primaryTextFile": "review-work/ois81-selected-primary.json"
+      },
+      "openExternal": true
+    },
+    {
+      "section": 84,
+      "id": "ibn-ezra-perishes-through-righteousness",
+      "rowN": 1,
+      "phraseIndex": 0,
+      "heAnchorPrefix": "[פד] פְּעָמִים יֵשׁ \"נִסְפֶּה בְּלֹא מִשְׁפָּט\" (מִשְׁלֵי יג, כג), הַיְינוּ עַל דֶּרֶךְ שֶׁאָמְרוּ: \"יֵשׁ צַדִּיק אֹבֵד בְּצִדְקוֹ\" (קֹהֶלֶת ז, טו) – עַל יְדֵי צִדְקוּתוֹ,",
+      "heCharOffset": 171,
+      "ref": "Ibn Ezra on Ecclesiastes 7:15:1",
+      "url": "https://www.sefaria.org/Ibn_Ezra_on_Ecclesiastes_7:15:1",
+      "he": "את הכל. יש הוא הנמצא לפרקים מעטים, וענין אובד בצדקו שצדקו יאבידנו כמו המתענה תמיד ומאריך ענינו מאריך ימים ברשעתו שיאכל וישתה וישמח ויעשה תענוגים לגוף:",
+      "en": "“All of this.” The word “there is” refers to something found on rare occasions. The meaning of “perishes through his righteousness” is that his righteousness brings about his loss, as with someone who fasts constantly. “Prolongs” means that he prolongs his days through his wickedness, eating, drinking, rejoicing, and providing pleasures for the body.",
+      "context": "Ibn Ezra explicitly reads the phrase as “through his righteousness” and illustrates it with excessive fasting. Rav Tzadok applies that grammatical reading to another case: righteousness that becomes the occasion for another person’s envy.",
+      "sourceEvidence": [
+        {
+          "ref": "Ibn Ezra on Ecclesiastes 7:15:1",
+          "url": "https://www.sefaria.org/Ibn_Ezra_on_Ecclesiastes_7:15:1",
+          "he": "את הכל. יש הוא הנמצא לפרקים מעטים, וענין אובד בצדקו שצדקו יאבידנו כמו המתענה תמיד ומאריך ענינו מאריך ימים ברשעתו שיאכל וישתה וישמח ויעשה תענוגים לגוף:",
+          "en": "“All of this.” The word “there is” refers to something found on rare occasions. The meaning of “perishes through his righteousness” is that his righteousness brings about his loss, as with someone who fasts constantly. “Prolongs” means that he prolongs his days through his wickedness, eating, drinking, rejoicing, and providing pleasures for the body.",
+          "translation": "Original English translation prepared from the cited Hebrew or Aramaic.",
+          "coverage": "excerpt",
+          "heSha256": "6262f85ebc4336bf993fbf6bbbee6b1fe477549823b3fa102838f78eb48e3d15"
+        }
+      ],
+      "reviewEvidence": {
+        "pdfPages": {
+          "neimosA": [
+            233,
+            234,
+            235
+          ],
+          "integratedA": [
+            270,
+            271,
+            272
+          ]
+        },
+        "preserveExisting": true,
+        "status": "verified",
+        "dedup": "All existing native and connected quotations in the destination ois were read; the selected source passage is absent.",
+        "primaryTextFile": "review-work/ois81-selected-primary.json"
+      },
+      "openExternal": true
+    },
+    {
+      "section": 84,
+      "id": "machshavot-thought-concealed-from-self",
+      "rowN": 1,
+      "phraseIndex": 11,
+      "heAnchorPrefix": "כִּי יֵשׁ נִסְתָּרוֹת שֶׁנִּסְתָּר גַּם לָאָדָם עַצְמוֹ,",
+      "heCharOffset": 56,
+      "ref": "Machshavot Charutz 1:6",
+      "url": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/#/read/Machshavot_Charutz_1",
+      "he": "וגם במחשבת האדם יש כמה מדרגות ויש עמק ראשית דמחשבה שממנו המשכת כל המחשבות הסתום ונעלם מהאדם וזהו המחשבה סתימאה,",
+      "en": "Human thought also has several levels. There is a depth at the beginning of thought, from which all thoughts are drawn, that is closed off and hidden from the person. This is the concealed thought.",
+      "context": "This parallel distinguishes the thought a person can observe from a deeper source that remains hidden even from that person. It directly explains the ois’s statement that some concealed matters escape one’s own awareness.",
+      "sourceEvidence": [
+        {
+          "ref": "Machshavot Charutz 1:6",
+          "url": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/#/read/Machshavot_Charutz_1",
+          "he": "וגם במחשבת האדם יש כמה מדרגות ויש עמק ראשית דמחשבה שממנו המשכת כל המחשבות הסתום ונעלם מהאדם וזהו המחשבה סתימאה,",
+          "en": "Human thought also has several levels. There is a depth at the beginning of thought, from which all thoughts are drawn, that is closed off and hidden from the person. This is the concealed thought.",
+          "translation": "Original English translation prepared from the cited Hebrew or Aramaic.",
+          "coverage": "excerpt",
+          "heSha256": "3b38396562d56c64203cce3a9d67a174c2b50cb0172d52f763f70c697b31ff84"
+        }
+      ],
+      "reviewEvidence": {
+        "pdfPages": {
+          "neimosA": [
+            233,
+            234,
+            235
+          ],
+          "integratedA": [
+            270,
+            271,
+            272
+          ]
+        },
+        "preserveExisting": true,
+        "status": "verified",
+        "dedup": "All existing native and connected quotations in the destination ois were read; the selected source passage is absent.",
+        "primaryTextFile": "review-work/ois81-selected-primary.json"
+      },
+      "readerRef": "Machshavot Charutz 1:6"
+    },
+    {
+      "section": 84,
+      "id": "berakhot-study-house-prayer",
+      "rowN": 1,
+      "phraseIndex": 14,
+      "heAnchorPrefix": "[וּלְכָךְ תְּפִלַּת רַבִּי נְחוּנְיָא בֶּן הַקָּנֶה כְּשֶׁנִּכְנַס לַתּוֹרָה,",
+      "heCharOffset": 77,
+      "ref": "Berakhot 28b:3-4",
+      "url": "https://www.sefaria.org/Berakhot_28b:3-4",
+      "he": "מתני׳ רבי נחוניא בן הקנה היה מתפלל בכניסתו לבית המדרש וביציאתו תפלה קצרה. אמרו לו: מה מקום לתפלה זו? אמר להם: בכניסתי אני מתפלל שלא יארע דבר תקלה על ידי. וביציאתי אני נותן הודאה על חלקי. גמ׳ תנו רבנן: בכניסתו מהו אומר? ״יהי רצון מלפניך ה׳ אלהי שלא יארע דבר תקלה על ידי, ולא אכשל בדבר הלכה, וישמחו בי חברי, ולא אומר על טמא טהור, ולא על טהור טמא. ולא יכשלו חברי בדבר הלכה, ואשמח בהם״.",
+      "en": "Rabbi Nechunya ben HaKanah would offer a short prayer on entering the study house and on leaving it. They asked him: “What occasion is there for this prayer?” He told them: “On entering I pray that no mishap occur through me; on leaving I give thanks for my portion.” The Sages taught: What does he say on entering? “May it be Your will, Lord my God, that no mishap occur through me; that I not stumble in a matter of law and have my colleagues rejoice over me; that I not call the impure pure or the pure impure; and that my colleagues not stumble in a matter of law and have me rejoice over them.”",
+      "context": "This is the prayer cited in the closing bracket. Following Rashi’s explanation, the request includes protection from the mutual harm of error and rejoicing at another scholar’s failure.",
+      "sourceEvidence": [
+        {
+          "ref": "Berakhot 28b:3-4",
+          "url": "https://www.sefaria.org/Berakhot_28b:3-4",
+          "he": "מתני׳ רבי נחוניא בן הקנה היה מתפלל בכניסתו לבית המדרש וביציאתו תפלה קצרה. אמרו לו: מה מקום לתפלה זו? אמר להם: בכניסתי אני מתפלל שלא יארע דבר תקלה על ידי. וביציאתי אני נותן הודאה על חלקי. גמ׳ תנו רבנן: בכניסתו מהו אומר? ״יהי רצון מלפניך ה׳ אלהי שלא יארע דבר תקלה על ידי, ולא אכשל בדבר הלכה, וישמחו בי חברי, ולא אומר על טמא טהור, ולא על טהור טמא. ולא יכשלו חברי בדבר הלכה, ואשמח בהם״.",
+          "en": "Rabbi Nechunya ben HaKanah would offer a short prayer on entering the study house and on leaving it. They asked him: “What occasion is there for this prayer?” He told them: “On entering I pray that no mishap occur through me; on leaving I give thanks for my portion.” The Sages taught: What does he say on entering? “May it be Your will, Lord my God, that no mishap occur through me; that I not stumble in a matter of law and have my colleagues rejoice over me; that I not call the impure pure or the pure impure; and that my colleagues not stumble in a matter of law and have me rejoice over them.”",
+          "translation": "Original English translation prepared from the cited Hebrew or Aramaic.",
+          "coverage": "excerpt",
+          "heSha256": "0480376fff5146453f927e3eeb0e170afd806a9872aa1ebc016bcbca9dc6a0d2"
+        }
+      ],
+      "reviewEvidence": {
+        "pdfPages": {
+          "neimosA": [
+            233,
+            234,
+            235
+          ],
+          "integratedA": [
+            270,
+            271,
+            272
+          ]
+        },
+        "preserveExisting": true,
+        "status": "verified",
+        "dedup": "All existing native and connected quotations in the destination ois were read; the selected source passage is absent.",
+        "primaryTextFile": "review-work/ois81-selected-primary.json"
+      },
+      "openExternal": true
+    },
+    {
+      "section": 84,
+      "id": "rashi-study-house-mutual-harm",
+      "rowN": 1,
+      "phraseIndex": 14,
+      "heAnchorPrefix": "[וּלְכָךְ תְּפִלַּת רַבִּי נְחוּנְיָא בֶּן הַקָּנֶה כְּשֶׁנִּכְנַס לַתּוֹרָה, דְּשָׁם הוּא בְּיוֹתֵר כַּנּוֹדָע,",
+      "heCharOffset": 112,
+      "ref": "Rashi on Berakhot 28b:4:1",
+      "url": "https://www.sefaria.org/Rashi_on_Berakhot_28b:4:1",
+      "he": "ולא אכשל – וישמחו חברי על כשלוני הרי רעות שתים שיבאו על ידי שאגרום להם שיענשו:",
+      "en": "“And that I not stumble”—and have my colleagues rejoice over my failure. There would then be two evils occurring through me, because I would cause them to be punished.",
+      "context": "Rashi explains why the prayer concerns more than the learner’s own mistake: another person’s pleasure in that mistake creates a second harm. This is the specific connection between the study-house prayer and the subject of this ois.",
+      "sourceEvidence": [
+        {
+          "ref": "Rashi on Berakhot 28b:4:1",
+          "url": "https://www.sefaria.org/Rashi_on_Berakhot_28b:4:1",
+          "he": "ולא אכשל – וישמחו חברי על כשלוני הרי רעות שתים שיבאו על ידי שאגרום להם שיענשו:",
+          "en": "“And that I not stumble”—and have my colleagues rejoice over my failure. There would then be two evils occurring through me, because I would cause them to be punished.",
+          "translation": "Original English translation prepared from the cited Hebrew or Aramaic.",
+          "coverage": "excerpt",
+          "heSha256": "79ba293dfa4ea3349627d0596bdac30a139ddbbdce7756f1f78bd6c312d585f8"
+        }
+      ],
+      "reviewEvidence": {
+        "pdfPages": {
+          "neimosA": [
+            233,
+            234,
+            235
+          ],
+          "integratedA": [
+            270,
+            271,
+            272
+          ]
+        },
+        "preserveExisting": true,
+        "status": "verified",
+        "dedup": "All existing native and connected quotations in the destination ois were read; the selected source passage is absent.",
+        "primaryTextFile": "review-work/ois81-selected-primary.json"
+      },
+      "openExternal": true
+    },
+    {
+      "section": 84,
+      "id": "tikkunei-zohar-abel-moses",
+      "rowN": 1,
+      "phraseIndex": 14,
+      "heAnchorPrefix": "[וּלְכָךְ תְּפִלַּת רַבִּי נְחוּנְיָא בֶּן הַקָּנֶה כְּשֶׁנִּכְנַס לַתּוֹרָה, דְּשָׁם הוּא בְּיוֹתֵר כַּנּוֹדָע, דְּמֹשֶׁה רַבֵּינוּ עָלָיו הַשָּׁלוֹם תִּיקּוּן הֶבֶל",
+      "heCharOffset": 166,
+      "ref": "Tikkunei Zohar 99b:7",
+      "url": "https://www.sefaria.org/Tikkunei_Zohar_99b:7",
+      "he": "ותוסף ללדת את אחיו את הבל, … הכא רמיז גלגולא דצדיקיא, ואחזי ליה קודשא בריך הוא גלגולא דיליה בכל דרא ודרא, איך הוה אזיל מצדיק לצדיק, עד שתין רבוא, עד דמטי לההוא דאתמר ביה (בראשית ו ג) בשגם הוא בשר, בשגם זה הבל, ואוקמוה קדמאי בשגם דא משה,",
+      "en": "“She again bore his brother Abel.” … Here the reincarnation of the righteous is hinted at. The Holy One, blessed be He, showed him the course of his reincarnation in every generation: how it passed from one righteous person to another, up to six hundred thousand, until it reached the one of whom it is said, “In that he too is flesh.” “In that he too” refers to Abel; and the early sages explained that “in that he too” refers to Moses.",
+      "context": "In its exposition of Abel’s birth, Tikkunei Zohar connects Abel with Moses through the verse containing beshagam. This supplies the kabbalistic identification presupposed by the phrase “Moses is the rectification of Abel”; its application to the repair of envy is developed here by Rav Tzadok.",
+      "sourceEvidence": [
+        {
+          "ref": "Tikkunei Zohar 99b:7",
+          "url": "https://www.sefaria.org/Tikkunei_Zohar_99b:7",
+          "he": "ותוסף ללדת את אחיו את הבל, … הכא רמיז גלגולא דצדיקיא, ואחזי ליה קודשא בריך הוא גלגולא דיליה בכל דרא ודרא, איך הוה אזיל מצדיק לצדיק, עד שתין רבוא, עד דמטי לההוא דאתמר ביה (בראשית ו ג) בשגם הוא בשר, בשגם זה הבל, ואוקמוה קדמאי בשגם דא משה,",
+          "en": "“She again bore his brother Abel.” … Here the reincarnation of the righteous is hinted at. The Holy One, blessed be He, showed him the course of his reincarnation in every generation: how it passed from one righteous person to another, up to six hundred thousand, until it reached the one of whom it is said, “In that he too is flesh.” “In that he too” refers to Abel; and the early sages explained that “in that he too” refers to Moses.",
+          "translation": "Original English translation prepared from the cited Hebrew or Aramaic.",
+          "coverage": "excerpt",
+          "heSha256": "bac98290f4aead7413fb77062f20c78653c0cc2ef6518e00e4be703382c265fc"
+        }
+      ],
+      "reviewEvidence": {
+        "pdfPages": {
+          "neimosA": [
+            233,
+            234,
+            235
+          ],
+          "integratedA": [
+            270,
+            271,
+            272
+          ]
+        },
+        "preserveExisting": true,
+        "status": "verified",
+        "dedup": "All existing native and connected quotations in the destination ois were read; the selected source passage is absent.",
+        "primaryTextFile": "review-work/ois81-selected-primary.json"
+      },
+      "openExternal": true
+    },
+    {
+      "section": 85,
+      "id": "bava-metzia-coin-in-jug",
+      "rowN": 1,
+      "phraseIndex": 2,
+      "heAnchorPrefix": "כִּי \"אִסְטִירָא בִּלְגִינָא קִישׁ קִישׁ קָרְיָא\",",
+      "heCharOffset": 50,
+      "ref": "Bava Metzia 85b:2",
+      "url": "https://www.sefaria.org/Bava_Metzia_85b:2",
+      "he": "אמר רב חמא: מאי דכתיב ״בלב נבון תנוח חכמה ובקרב כסילים תודע״, ״בלב נבון תנוח חכמה״ – זה תלמיד חכם בן תלמיד חכם, ״ובקרב כסילים תודע״ – זה תלמיד חכם בן עם הארץ. אמר עולא: היינו דאמרי אינשי: אסתירא בלגינא קיש קיש קריא.",
+      "en": "Rav Chama said: What is meant by the verse, “Wisdom rests in the heart of one who understands, but among fools it makes itself known”? “Wisdom rests in the heart of one who understands” refers to a Torah scholar who is the son of a Torah scholar. “Among fools it makes itself known” refers to a Torah scholar who is the son of an unlearned man. Ulla said: This is what people say, “A coin in a jug cries, ‘Clink, clink.’”",
+      "context": "The Gemara applies the proverb to the conspicuous display of learning. Rav Tzadok extends the image to self-satisfaction about one’s spiritual achievements.",
+      "sourceEvidence": [
+        {
+          "ref": "Bava Metzia 85b:2",
+          "url": "https://www.sefaria.org/Bava_Metzia_85b:2",
+          "he": "אמר רב חמא: מאי דכתיב ״בלב נבון תנוח חכמה ובקרב כסילים תודע״, ״בלב נבון תנוח חכמה״ – זה תלמיד חכם בן תלמיד חכם, ״ובקרב כסילים תודע״ – זה תלמיד חכם בן עם הארץ. אמר עולא: היינו דאמרי אינשי: אסתירא בלגינא קיש קיש קריא.",
+          "en": "Rav Chama said: What is meant by the verse, “Wisdom rests in the heart of one who understands, but among fools it makes itself known”? “Wisdom rests in the heart of one who understands” refers to a Torah scholar who is the son of a Torah scholar. “Among fools it makes itself known” refers to a Torah scholar who is the son of an unlearned man. Ulla said: This is what people say, “A coin in a jug cries, ‘Clink, clink.’”",
+          "translation": "Original English translation prepared from the cited Hebrew or Aramaic.",
+          "coverage": "excerpt",
+          "heSha256": "1ea8bd3ce107ab132b83a1b2b5fd69740da375900e6779c49a0444533d835dfa"
+        }
+      ],
+      "reviewEvidence": {
+        "pdfPages": {
+          "neimosA": [
+            236,
+            237
+          ],
+          "integratedA": [
+            272,
+            273
+          ]
+        },
+        "preserveExisting": true,
+        "status": "verified",
+        "dedup": "All existing native and connected quotations in the destination ois were read; the selected source passage is absent.",
+        "primaryTextFile": "review-work/ois81-selected-primary.json"
+      },
+      "openExternal": true
+    },
+    {
+      "section": 85,
+      "id": "rashi-empty-full-vessel",
+      "rowN": 1,
+      "phraseIndex": 2,
+      "heAnchorPrefix": "כִּי \"אִסְטִירָא בִּלְגִינָא קִישׁ קִישׁ קָרְיָא\", מַה שֶּׁאֵין כֵּן כִּיס מָלֵא.",
+      "heCharOffset": 81,
+      "ref": "Rashi on Bava Metzia 85b:2:3-4",
+      "url": "https://www.sefaria.org/Rashi_on_Bava_Metzia_85b:2:3-4",
+      "he": "איסתירא בלגינא - סלע אחד בלגינא: קיש קיש קריא - מתקשקש ומשמיע קול ואם היה מלא סלעים לא היה משמיע קול:",
+      "en": "“A coin in a jug”—a single sela in a jug. “It cries, ‘Clink, clink’”—it rattles and makes a sound. If it were full of sela-coins, it would not make a sound.",
+      "context": "Rashi gives the precise contrast assumed here: the lone coin rattles, while the full container is quiet. Rav Tzadok uses that contrast to test whether perceived spiritual abundance is real.",
+      "sourceEvidence": [
+        {
+          "ref": "Rashi on Bava Metzia 85b:2:3-4",
+          "url": "https://www.sefaria.org/Rashi_on_Bava_Metzia_85b:2:3-4",
+          "he": "איסתירא בלגינא - סלע אחד בלגינא: קיש קיש קריא - מתקשקש ומשמיע קול ואם היה מלא סלעים לא היה משמיע קול:",
+          "en": "“A coin in a jug”—a single sela in a jug. “It cries, ‘Clink, clink’”—it rattles and makes a sound. If it were full of sela-coins, it would not make a sound.",
+          "translation": "Original English translation prepared from the cited Hebrew or Aramaic.",
+          "coverage": "excerpt",
+          "heSha256": "c69a321a7e312fd790e622077520020f86ca97d59935f2c5b3ef9deb28d5e143"
+        }
+      ],
+      "reviewEvidence": {
+        "pdfPages": {
+          "neimosA": [
+            236,
+            237
+          ],
+          "integratedA": [
+            272,
+            273
+          ]
+        },
+        "preserveExisting": true,
+        "status": "verified",
+        "dedup": "All existing native and connected quotations in the destination ois were read; the selected source passage is absent.",
+        "primaryTextFile": "review-work/ois81-selected-primary.json"
+      },
+      "openExternal": true
+    },
+    {
+      "section": 85,
+      "id": "shaarei-teshuvah-private-pride",
+      "rowN": 1,
+      "phraseIndex": 4,
+      "heAnchorPrefix": "וְלָאו דַּוְקָא שְׁבוּחֵי וְגַסּוּת בִּפְנֵי הַבְּרִיּוֹת, רַק גַּם בֵּינוֹ לְבֵין עַצְמוֹ וּבְלִבּוֹ בִּלְבַד",
+      "heCharOffset": 110,
+      "ref": "Sha'arei Teshuvah 3:163",
+      "url": "https://www.sefaria.org/Sha'arei_Teshuvah_3:163",
+      "he": "וגם במחשבת הגאוה מבלי השתרר נפסד האדם. שנאמר (משלי ט\"ז:ה'), תועבת ה' כל גבה לב.",
+      "en": "A person is also corrupted by the thought of pride even without exercising domination, as it is said: “Every haughty heart is an abomination to the Lord.”",
+      "context": "Rabbeinu Yonah distinguishes inward pride from the outward act of lording over other people. The harm therefore does not depend on public boasting, exactly as Rav Tzadok states here.",
+      "sourceEvidence": [
+        {
+          "ref": "Sha'arei Teshuvah 3:163",
+          "url": "https://www.sefaria.org/Sha'arei_Teshuvah_3:163",
+          "he": "וגם במחשבת הגאוה מבלי השתרר נפסד האדם. שנאמר (משלי ט\"ז:ה'), תועבת ה' כל גבה לב.",
+          "en": "A person is also corrupted by the thought of pride even without exercising domination, as it is said: “Every haughty heart is an abomination to the Lord.”",
+          "translation": "Original English translation prepared from the cited Hebrew or Aramaic.",
+          "coverage": "excerpt",
+          "heSha256": "6631d23d3fa7305dc51ab17bd996ab98125215d54699e57c3f08892cf17fd086"
+        }
+      ],
+      "reviewEvidence": {
+        "pdfPages": {
+          "neimosA": [
+            236,
+            237
+          ],
+          "integratedA": [
+            272,
+            273
+          ]
+        },
+        "preserveExisting": true,
+        "status": "verified",
+        "dedup": "All existing native and connected quotations in the destination ois were read; the selected source passage is absent.",
+        "primaryTextFile": "review-work/ois81-selected-primary.json"
+      },
+      "openExternal": true
+    },
+    {
+      "section": 85,
+      "id": "tanchuma-cain-inferior-offering",
+      "rowN": 1,
+      "phraseIndex": 6,
+      "heAnchorPrefix": "וְקַיִן הִקְרִיב דָּבָר גָּרוּעַ",
+      "heCharOffset": 32,
+      "ref": "Midrash Tanchuma, Bereshit 9:1",
+      "url": "https://www.sefaria.org/Midrash_Tanchuma,_Bereshit_9:1",
+      "he": "ויבא קין מפרי האדמה, מהו? מן מותר מאכלו. ורבנן אמרי, זרע פשתן היה, והבל הביא גם הוא מבכורות צאנו ומחלבהן",
+      "en": "“Cain brought from the fruit of the ground”—what does this mean? From the leftovers of his food. The Rabbis say that it was flaxseed. “Abel also brought from the firstborn of his flock and their fat portions.”",
+      "context": "The Midrash contrasts Cain’s offering with Abel’s choice offering and records the alternative identification as flaxseed. Rav Tzadok asks how Cain could nevertheless regard his own offering as a great act of service.",
+      "sourceEvidence": [
+        {
+          "ref": "Midrash Tanchuma, Bereshit 9:1",
+          "url": "https://www.sefaria.org/Midrash_Tanchuma,_Bereshit_9:1",
+          "he": "ויבא קין מפרי האדמה, מהו? מן מותר מאכלו. ורבנן אמרי, זרע פשתן היה, והבל הביא גם הוא מבכורות צאנו ומחלבהן",
+          "en": "“Cain brought from the fruit of the ground”—what does this mean? From the leftovers of his food. The Rabbis say that it was flaxseed. “Abel also brought from the firstborn of his flock and their fat portions.”",
+          "translation": "Original English translation prepared from the cited Hebrew or Aramaic.",
+          "coverage": "excerpt",
+          "heSha256": "d1f36edd55b609a507bebff84b5dd042bfa162447aecde571120cce2877eb330"
+        }
+      ],
+      "reviewEvidence": {
+        "pdfPages": {
+          "neimosA": [
+            236,
+            237
+          ],
+          "integratedA": [
+            272,
+            273
+          ]
+        },
+        "preserveExisting": true,
+        "status": "verified",
+        "dedup": "All existing native and connected quotations in the destination ois were read; the selected source passage is absent.",
+        "primaryTextFile": "review-work/ois81-selected-primary.json"
+      },
+      "openExternal": true
+    },
+    {
+      "section": 85,
+      "id": "peri-tzadik-inclination-disguised-as-guide",
+      "rowN": 1,
+      "phraseIndex": 7,
+      "heAnchorPrefix": "וְטָעוּת זֶה נִמְשָׁךְ מִצַּד שֶׁשּׁוֹכֵחַ עִנְיַן הַיֵּצֶר וְכֹחוֹ, וְחוֹשֵׁב שֶׁכָּל מַחְשְׁבוֹת לִבּוֹ רַק טוֹב וְאֵין לוֹ נְטִיָּה לְרָע;",
+      "heCharOffset": 141,
+      "ref": "Peri Tzadik, Beshalach 14:1",
+      "url": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/#/read/Peri_Tzadik,_Beshalach_14",
+      "he": "וכענין מה שאמרנו במ\"ש (ברכות סא.) יצר הרע דומה לזבוב ויושב בין שני מפתחי הלב היינו דלפעמים היצר הרע נוטה ללב חכם לימינו ומסתיר עצמו כרב המלמדו להועיל והאדם עובר עבירה ונדמה לו שעושה מצוה.",
+      "en": "This is like what we explained concerning the teaching in Berakhot that the evil inclination resembles a fly and sits between the two openings of the heart. Sometimes the evil inclination turns toward “the heart of the wise at his right” and conceals itself as a teacher guiding the person for his benefit. The person then commits a transgression while imagining that he is performing a mitzvah.",
+      "context": "This parallel explains the specific deception described here: a person can mistake an impulse of the inclination for a wholly good intention. It supplies the reason for examining the inner motives of an apparently good deed.",
+      "sourceEvidence": [
+        {
+          "ref": "Peri Tzadik, Beshalach 14:1",
+          "url": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/#/read/Peri_Tzadik,_Beshalach_14",
+          "he": "וכענין מה שאמרנו במ\"ש (ברכות סא.) יצר הרע דומה לזבוב ויושב בין שני מפתחי הלב היינו דלפעמים היצר הרע נוטה ללב חכם לימינו ומסתיר עצמו כרב המלמדו להועיל והאדם עובר עבירה ונדמה לו שעושה מצוה.",
+          "en": "This is like what we explained concerning the teaching in Berakhot that the evil inclination resembles a fly and sits between the two openings of the heart. Sometimes the evil inclination turns toward “the heart of the wise at his right” and conceals itself as a teacher guiding the person for his benefit. The person then commits a transgression while imagining that he is performing a mitzvah.",
+          "translation": "Original English translation prepared from the cited Hebrew or Aramaic.",
+          "coverage": "excerpt",
+          "heSha256": "94989e6255c7ab13687a3e3fe4644af26e70abba518325d2d6988e2be2b5f1d8"
+        }
+      ],
+      "reviewEvidence": {
+        "pdfPages": {
+          "neimosA": [
+            236,
+            237
+          ],
+          "integratedA": [
+            272,
+            273
+          ]
+        },
+        "preserveExisting": true,
+        "status": "verified",
+        "dedup": "All existing native and connected quotations in the destination ois were read; the selected source passage is absent.",
+        "primaryTextFile": "review-work/ois81-selected-primary.json"
+      },
+      "readerRef": "Peri Tzadik, Beshalach 14:1"
+    }
+  ],
+  "coverage": [
+    {
+      "section": 81,
+      "status": "complete-add-only-review",
+      "bothSuppliedEditionsRead": true,
+      "pdfPages": {
+        "neimosA": [
+          224,
+          225,
+          226,
+          227,
+          228
+        ],
+        "integratedA": [
+          263,
+          264,
+          265,
+          266
+        ]
+      },
+      "existingNativeNumbersPreserved": [
+        328,
+        329,
+        330,
+        331
+      ],
+      "existingConnectedSourcesPreserved": [
+        "Tiferet Yosef, Vayakhel 1"
+      ],
+      "baselineSha256": "d9be3d90ca797ac1bdda7cb9435ac6471a59fa75e3243014af2da0b48733c1a3",
+      "additions": 9,
+      "decisions": "Preserved the existing Sanhedrin 105b, Nedarim 22a–b, Megillah 28a, Avodah Zarah 5a, and Tiferet Yosef quotations. Selected distinct sources for succession, the two Moses narratives, the exact wellspring wording, spiritual attachment to the Land, the legal qualification about actual landownership, prayer orientation, and the complete scriptural verse. The broader parallel passages in Likkutei Maamarim repeat the four-cubit explanation supplied by Dover Tzedek."
+    },
+    {
+      "section": 82,
+      "status": "complete-add-only-review",
+      "bothSuppliedEditionsRead": true,
+      "pdfPages": {
+        "neimosA": [
+          228,
+          229
+        ],
+        "integratedA": [
+          266,
+          267
+        ]
+      },
+      "existingNativeNumbersPreserved": [
+        332,
+        333,
+        334,
+        335
+      ],
+      "existingConnectedSourcesPreserved": [],
+      "baselineSha256": "7467f9a0e967578ec7065d23d92bed7323c9672dc790d6508bbad1fac6c625ea",
+      "additions": 2,
+      "decisions": "Preserved all four existing native notes. Devarim Rabbah supplies the prayer-specific formulation absent from the existing Vayikra Rabbah quotation; Peri Tzadik explains the incompleteness of the confession. The decree from Genesis is already included within the selected Devarim Rabbah quotation, so no separate repetition of that verse is added."
+    },
+    {
+      "section": 83,
+      "status": "complete-add-only-review",
+      "bothSuppliedEditionsRead": true,
+      "pdfPages": {
+        "neimosA": [
+          229,
+          230,
+          231,
+          232,
+          233
+        ],
+        "integratedA": [
+          267,
+          268,
+          269,
+          270
+        ]
+      },
+      "existingNativeNumbersPreserved": [
+        336,
+        337,
+        338,
+        339,
+        340,
+        341,
+        342,
+        2587
+      ],
+      "existingConnectedSourcesPreserved": [
+        "Peri Tzadik, Sefer Kedushat Shabbat 7:2"
+      ],
+      "baselineSha256": "e97c9169b136775d7c54819e885bd9c54188e77f121e9ef8e035fb375fdf724f",
+      "additions": 5,
+      "decisions": "Preserved all existing notes, including the full actual Machshavot Charutz 10:3 quotation and the connected Peri Tzadik quotation about effort. Added only the unquoted Megillah qualification, Shelah’s distinction in who initiates awakening, the cow/calf passage, Maharal’s account of an unexpected find, and Rabbi Akiva’s separate episode. The existing Nedarim note supplies Rav Gamda only."
+    },
+    {
+      "section": 84,
+      "status": "complete-add-only-review",
+      "bothSuppliedEditionsRead": true,
+      "pdfPages": {
+        "neimosA": [
+          233,
+          234,
+          235
+        ],
+        "integratedA": [
+          270,
+          271,
+          272
+        ]
+      },
+      "existingNativeNumbersPreserved": [
+        343,
+        344,
+        345,
+        346,
+        347,
+        348,
+        349
+      ],
+      "existingConnectedSourcesPreserved": [
+        "Yisrael Kedoshim 8:10"
+      ],
+      "baselineSha256": "3cdabdcafee2552df307eb96acd5c4f263ad2ccfd41c304ebc1386f4380bf41b",
+      "additions": 6,
+      "decisions": "Preserved the existing biblical, Taanit, Sotah, Shabbat, Yerushalmi, and Yisrael Kedoshim quotations. Selected the two original commentaries underlying the opening wording, the canonical Machshavot Charutz passage on thought hidden from oneself, the unquoted study-house prayer with Rashi’s explanation, and the original Tikkunei Zohar identification. Bereshit Rabbah 9:3 and Sefat Emet are related parallels; the precise hidden-from-self formulation is supplied here by Machshavot Charutz."
+    },
+    {
+      "section": 85,
+      "status": "complete-add-only-review",
+      "bothSuppliedEditionsRead": true,
+      "pdfPages": {
+        "neimosA": [
+          236,
+          237
+        ],
+        "integratedA": [
+          272,
+          273
+        ]
+      },
+      "existingNativeNumbersPreserved": [
+        350,
+        351,
+        352,
+        353
+      ],
+      "existingConnectedSourcesPreserved": [
+        "Peri Tzadik, Chanukah 2:4"
+      ],
+      "baselineSha256": "08cbd26e224f60a20152415621272a070dd2d680ff7190fa75875dd4e4bc9974",
+      "additions": 5,
+      "decisions": "Preserved the existing Kiddushin, Zohar, Proverbs, Genesis, and connected Peri Tzadik Chanukah quotation. Added the unquoted Bava Metzia proverb and its exact Rashi explanation, Rabbeinu Yonah on private pride, the original Tanchuma on Cain’s offering, and the distinct canonical Peri Tzadik passage about the inclination masquerading as a teacher. The Chanukah quotation concerns humility and Torah, not that latter deception."
+    }
+  ],
+  "observationsNotApplied": [],
+  "sourceVerification": "External quotations checked against retrieved original Hebrew/Aramaic. Internal quotations checked against the canonical reader wording, including its expansions and paragraph references. No commentary compilation is credited or linked in public note content.",
+  "reproducibleBuilder": "review-work/build-81-85.py"
+}
