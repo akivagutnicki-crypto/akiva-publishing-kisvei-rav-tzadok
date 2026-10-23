@@ -224,10 +224,25 @@ async function github(route) {
   const response = await fetch('https://api.github.com/repos/' + REPO + route, {headers,signal:AbortSignal.timeout(60000)});
   assert(response.ok, 'GitHub metadata ' + response.status + ' ' + route); return response.json();
 }
-async function bytesPublic(name, base = SITE) {
-  const url = new URL(name, base); url.searchParams.set('tzidkat_batch_verify', String(Date.now()));
-  const response = await fetch(url, {cache:'no-store',headers:{'Cache-Control':'no-cache'},signal:AbortSignal.timeout(60000)});
-  assert(response.ok, 'Public file ' + response.status + ' ' + name); return Buffer.from(await response.arrayBuffer());
+export async function bytesPublic(name, base = SITE) {
+  for (let attempt = 0; attempt < 4; attempt++) {
+    const url = new URL(name, base); url.searchParams.set('tzidkat_batch_verify', String(Date.now()));
+    let response;
+    try {
+      response = await fetch(url, {cache:'no-store',headers:{'Cache-Control':'no-cache'},signal:AbortSignal.timeout(60000)});
+    } catch (error) {
+      if (attempt === 3) throw error;
+      await new Promise(resolve => setTimeout(resolve, 500 * 2 ** attempt));
+      continue;
+    }
+    if (!response.ok && (response.status === 429 || response.status >= 500) && attempt < 3) {
+      await response.body?.cancel();
+      await new Promise(resolve => setTimeout(resolve, 500 * 2 ** attempt));
+      continue;
+    }
+    assert(response.ok, 'Public file ' + response.status + ' ' + name);
+    return Buffer.from(await response.arrayBuffer());
+  }
 }
 async function mapLimited(items, callback, concurrency = 4) {
   const results = []; let next = 0;
@@ -244,16 +259,19 @@ async function currentPublication() {
   const candidates = [];
   for (let page = 1; page <= 3 && !candidates.length; page++) {
     const runs = (await github('/actions/runs?branch=main&per_page=100&page=' + page)).workflow_runs;
-    await mapLimited(runs.filter(run => String(run.id) !== process.env.GITHUB_RUN_ID && run.status === 'completed' && run.conclusion !== 'skipped' && publishers.has(run.path)), async run => {
-      const jobs = (await github('/actions/runs/' + run.id + '/jobs?per_page=100')).jobs;
-      const steps = jobs.flatMap(job => job.steps || []).filter(step => publishers.get(run.path).includes(step.name) && step.conclusion === 'success');
+    await mapLimited(runs.filter(run => ((String(run.id) !== process.env.GITHUB_RUN_ID && run.status === 'completed') || (String(run.id) === process.env.GITHUB_RUN_ID && Number(process.env.GITHUB_RUN_ATTEMPT) > 1)) && run.conclusion !== 'skipped' && publishers.has(run.path)), async run => {
+      // A deployment remains live when a later verification step or rerun fails.
+      // Include old attempts, while excluding this attempt's own deployment.
+      const jobs = (await github('/actions/runs/' + run.id + '/jobs?filter=all&per_page=100')).jobs;
+      const priorJobs = jobs.filter(job => String(run.id) !== process.env.GITHUB_RUN_ID || job.run_attempt < Number(process.env.GITHUB_RUN_ATTEMPT));
+      const steps = priorJobs.flatMap(job => job.steps || []).filter(step => publishers.get(run.path).includes(step.name) && step.conclusion === 'success');
       if (steps.length) candidates.push({run,completedAt:steps.map(s => s.completed_at).sort().at(-1)});
     });
   }
   assert(candidates.length, 'No actual completed Pages deployment found; refusing an old rebuild');
   candidates.sort((a,b) => b.completedAt.localeCompare(a.completedAt)); const {run,completedAt} = candidates[0];
   const artifacts = (await github('/actions/runs/' + run.id + '/artifacts?per_page=100')).artifacts;
-  const artifact = artifacts.find(a => a.name === 'github-pages' && !a.expired);
+  const artifact = artifacts.filter(a => a.name === 'github-pages' && !a.expired && a.created_at <= completedAt).sort((a,b) => b.created_at.localeCompare(a.created_at))[0];
   assert(artifact, 'Current publication artifact unavailable');
   return {runId:run.id,headSha:run.head_sha,artifactId:artifact.id,digest:artifact.digest,bytes:artifact.size_in_bytes,deployedAt:completedAt};
 }
@@ -301,9 +319,15 @@ async function guard(state) {
 }
 async function capture() {
   const prepared = loadPack(), state = read(REPO_ROOT,META); assert.equal(state.packSha256,prepared.packSha256);
-  requirePriorBatches(root,prepared); checkPreimages(root,prepared); assert(!fs.existsSync(localFile(root,prepared.names.report)),'This batch is already published');
+  requirePriorBatches(root,prepared);
+  state.alreadyPublished = fs.existsSync(localFile(root,prepared.names.report));
+  if (state.alreadyPublished) {
+    const verified = verifyBatchChain({directory:root,verifyAllBaseline:true});
+    assert.equal(verified.batches.at(-1).packSha256,prepared.packSha256,'A different batch is already published');
+    checkPreimages(root,prepared,true);
+  } else checkPreimages(root,prepared);
   state.files = inventory(root); await guard(state); write(REPO_ROOT,STATE,state);
-  console.log(JSON.stringify({capturedFiles:Object.keys(state.files).length,newNotes:prepared.additions.length}));
+  console.log(JSON.stringify({capturedFiles:Object.keys(state.files).length,newNotes:prepared.additions.length,alreadyPublished:state.alreadyPublished}));
 }
 
 function dataManifest(entries) {
@@ -513,7 +537,17 @@ if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.me
   else if (mode === '--metadata') await metadata();
   else if (mode === '--capture') await capture();
   else if (mode === '--guard') await guard(read(REPO_ROOT,STATE));
-  else if (mode === '--apply') { const state = read(REPO_ROOT,STATE); assert.equal(state.packSha256,loadPack().packSha256); const report = applyPublication(root,loadPack(),state); console.log(JSON.stringify({ok:true,newNotes:report.newNotes,changedFiles:report.changedFiles.length})); }
+  else if (mode === '--apply') {
+    const state = read(REPO_ROOT,STATE), prepared = loadPack(); assert.equal(state.packSha256,prepared.packSha256);
+    if (state.alreadyPublished) {
+      const verified = verifyBatchChain({directory:root,verifyAllBaseline:true});
+      assert.equal(verified.batches.at(-1).packSha256,prepared.packSha256,'Already-published batch differs');
+      assert.deepEqual(inventory(root),state.files,'Captured publication changed before re-verification');
+      console.log(JSON.stringify({ok:true,mode:'already-published',newNotes:prepared.additions.length,siteBytesWritten:0}));
+    } else {
+      const report = applyPublication(root,prepared,state); console.log(JSON.stringify({ok:true,newNotes:report.newNotes,changedFiles:report.changedFiles.length}));
+    }
+  }
   else if (mode === '--rebuild') rebuild();
   else if (mode === '--rebuild-all') { for (const filename of registeredPacks()) rebuild(loadPack(filename)); }
   else if (mode === '--verify') console.log(JSON.stringify((path.dirname(packFile) === PACK_DIRECTORY ? verifyBatchChain({directory:root,verifyAllBaseline:true}) : verifyBatchSuccessor({directory:root,prepared:loadPack(),verifyAllBaseline:true})).proof));
