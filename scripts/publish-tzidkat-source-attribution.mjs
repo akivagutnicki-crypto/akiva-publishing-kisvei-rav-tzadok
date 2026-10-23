@@ -12,7 +12,7 @@ export const REPO='akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok';
 export const SITE='https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/';
 export const DEFAULT_PACK='sources/akiva/overlays/tzidkat-source-attribution-20261023.json.gz';
 export const RELEASE='20261023-tzidkat-source-accuracy-v2';
-export const PACK_SHA256='5d1aaa6e3e62629131d3038b1d09dece37fe6a7528b401ed560bc6bd8cff9a6b';
+export const PACK_SHA256='ba0242471e1b8ff47042342dbe031aa6ea5bc1e99934ecf3c796af40f3856c88';
 const ACCURACY_PACK_SHA256='aec0a541c2a094262f6f9e66215d89ca2ccb4e0048cc8672e12ba79d96d5192a';
 export const REPORT='library/tzidkat-source-attribution-20261023.json';
 const LEDGER='library/tzidkat-source-attribution-ledger.json';
@@ -62,7 +62,7 @@ function validateNote(row,note){
   for(const p of note.paragraphs)if(p.rich)assert.equal(p.rich.map(x=>x.text).join(''),p.text,'Rich note text differs '+note.placementId);
   assert(note.sources?.length&&note.sources.every(s=>s.ref&&(s.url||s.citationOnly===true)),'Missing primary-source citation '+note.placementId);
   for(const source of note.sources)if(source.citationOnly){assert.equal(source.citationOnly,true);for(const key of['url','readerRef','openExternal','connectionsUrl'])assert(!Object.hasOwn(source,key),'Citation-only source must not navigate: '+key);const headings=note.paragraphs.flatMap(p=>p.rich||[]).filter(run=>run.text===source.ref);assert(headings.length&&headings.every(run=>run.bold&&!run.href),'Citation-only heading must remain bold plain text');}
-  for(const p of note.paragraphs){assert.doesNotMatch(p.text,/Biur\s+Meshulav|Neimot\s+HaTzedek|Neimos\s+Tzedek|linked\s+(?:PDF|scan)|source\s+attachment/i,'Secondary edition attribution remains visible');for(const run of p.rich||[])assert(!/\.pdf(?:[?#]|$)/i.test(run.href||''),'Public PDF source link remains');}
+  for(const p of note.paragraphs){assert.doesNotMatch(p.text,/Biur\s*(?:Me|Mi)shulav|Neim(?:ot|os|us|ut)(?:\s*HaTzedek)?|linked\s+(?:PDF|scan)|source\s+attachment/i,'Secondary edition attribution remains visible');for(const run of p.rich||[])assert(!/\.pdf(?:[?#]|$)/i.test(run.href||''),'Public PDF source link remains');}
   for(const source of note.sources){assert(!source.readerRef||typeof source.readerRef==='string'&&/\s\d/.test(source.readerRef),'Invalid local source reference '+note.placementId);assert(!(source.readerRef&&source.openExternal),'Ambiguous source navigation '+note.placementId);}
   const q=excerpts(note);assert(q.length&&q.every(s=>s.ref&&/[א-ת]/.test(s.he||'')&&/[A-Za-z]/.test(s.en||'')),'Missing checked bilingual source excerpt '+note.placementId);
 }
