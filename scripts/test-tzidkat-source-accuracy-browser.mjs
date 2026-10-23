@@ -3,9 +3,9 @@ import fs from 'node:fs';
 import path from 'node:path';
 import http from 'node:http';
 import {pathToFileURL} from 'node:url';
-import {loadPack,REPORT,plain,DEFAULT_PACK} from './publish-tzidkat-source-accuracy.mjs';
+import {loadPack,composeRebuildSuccessor,REPORT,plain,DEFAULT_PACK} from './publish-tzidkat-source-accuracy.mjs';
 const args=process.argv.slice(2),option=(key,fallback)=>{const i=args.indexOf(key);return i<0?fallback:args[i+1];};
-const root=path.resolve(option('--root','dist')),live=option('--url',null),{pack}=loadPack(option('--pack',DEFAULT_PACK));
+const root=path.resolve(option('--root','dist')),live=option('--url',null),prepared=loadPack(option('--pack',DEFAULT_PACK)),{effective:pack,successor}=composeRebuildSuccessor(prepared.pack,prepared.packSha256);
 const publication=JSON.parse(fs.readFileSync(path.join(root,REPORT))),revised=new Set(publication.operations.map(x=>x.placementId));
 const sections=[...new Set([...pack.chapters.map(f=>'Tzidkat HaTzadik '+(Number(f.path.match(/\/(\d+)\.json$/)[1])+1)),...(pack.ideaChanges||[]).map(x=>x.after.placement.originSectionRef)])];
 assert(sections.length);let browserModule;try{browserModule=await import('playwright');}catch{assert(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES);browserModule=await import(pathToFileURL(path.join(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES,'playwright/index.mjs')).href);}
@@ -15,7 +15,7 @@ if(!base){server=http.createServer((request,response)=>{try{const pathname=decod
 const refHash=ref=>encodeURIComponent(ref).replace(/%20/g,'_').replace(/%2C/g,',').replace(/%3A/g,':');
 const normalizedHebrew=value=>String(value).replace(/[^א-ת]/g,'');
 const navigationByNote=new Map(pack.audit.entries.filter(entry=>entry.navigationReview?.length).map(entry=>[entry.placementId,entry.navigationReview]));
-const report={ok:false,release:pack.release,publiclyVerified:!!live,viewports:[],errors:[]};
+const report={ok:false,release:pack.release,successor:successor?.packSha256??null,publiclyVerified:!!live,viewports:[],errors:[]};
 const browser=await browserModule.chromium.launch({headless:true,...(process.env.AKIVA_CHROMIUM_EXECUTABLE?{executablePath:process.env.AKIVA_CHROMIUM_EXECUTABLE}:{})});
 try{
  for(const width of[1280,390]){
@@ -36,9 +36,14 @@ try{
     const anchor=await marker.evaluate(element=>{const seg=element.closest('.seg'),phrase=element.closest('.ph'),range=document.createRange();range.selectNodeContents(element.closest('.ph-he'));range.setEndBefore(element);const before=range.cloneContents();before.querySelectorAll('button.footnote-marker').forEach(n=>n.remove());return{ref:seg.dataset.ref,phraseIndex:[...seg.querySelectorAll('.seg-il .ph')].indexOf(phrase),prefix:before.textContent};});
     assert.equal(anchor.ref,originRef);assert.equal(anchor.phraseIndex,note.phraseIndex);assert.equal(anchor.prefix,note.heAnchorPrefix??plain(hebrew).slice(0,note.heCharOffset),'Marker beside wrong Hebrew words '+note.placementId);anchored++;
     assert.deepEqual(await box.locator('.annotation-text').allTextContents(),note.paragraphs.map(p=>p.text),'Quotation/context differs '+note.placementId);
-    for(const source of note.sources||[])if((pack.assets||[]).some(a=>source.url.endsWith('/'+a.path)||source.url===a.path)){assert(await box.locator('a').evaluateAll((links,url)=>links.some(a=>a.getAttribute('href')===url),source.url),'Missing source PDF link '+note.placementId);assert(!source.connectionsUrl,'Printed source has a fabricated Sefaria connection URL');sourceDocumentLinks++;}
+    for(const source of note.sources||[])if(source.url&&(pack.assets||[]).some(a=>source.url.endsWith('/'+a.path)||source.url===a.path)){assert(await box.locator('a').evaluateAll((links,url)=>links.some(a=>a.getAttribute('href')===url),source.url),'Missing source PDF link '+note.placementId);assert(!source.connectionsUrl,'Printed source has a fabricated Sefaria connection URL');sourceDocumentLinks++;}
     await marker.click();assert.equal(await marker.getAttribute('aria-expanded'),'true');assert(await box.isVisible());assert.equal(await section.locator('.seg-il .reader-footnote.open').count(),1);assert(await box.evaluate(e=>e.scrollWidth<=e.clientWidth+2),'Footnote clipped on '+width);if(Number(note.number)===2642||Number(note.number)===2658)await page.screenshot({path:path.join(artifacts,(live?'live':'local')+'-ois'+(Number(note.number)===2642?'40':'154')+'-source-'+width+'.png'),fullPage:false});
     for(const mapping of navigationByNote.get(note.placementId)||[]){
+     if(!(note.sources||[]).some(source=>source.url===mapping.sourceUrl)){
+      assert(successor&&successor.chapters.includes(file.path)&&mapping.openExternal&&(note.sources||[]).some(source=>source.citationOnly===true),'Unreviewed source navigation disappeared '+note.placementId);
+      assert.equal(await box.locator('a').evaluateAll((links,url)=>links.filter(a=>a.getAttribute('href')===url).length,mapping.sourceUrl),0,'Removed attachment link remains in the note');
+      sourceNavigationChecks.push({number:note.number,citationOnly:true,attachmentLinkRemoved:true});continue;
+     }
      const matched=box.locator('a[href="'+mapping.sourceUrl+'"]');assert(await matched.count(),'Missing original source URL '+mapping.canonicalRef);
      const link=matched.first();assert.equal(await link.getAttribute('href'),mapping.sourceUrl);
      if(mapping.openExternal){assert.equal(await link.getAttribute('data-source-external'),'true','Printed witness was intercepted');assert.equal(await link.getAttribute('data-reader-ref'),null);sourceNavigationChecks.push({number:note.number,canonicalRef:mapping.canonicalRef,openExternal:true,originalUrlPreserved:true});continue;}

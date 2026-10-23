@@ -11,6 +11,7 @@ import {gunzipSync} from 'node:zlib';
 export const REPO='akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok';
 export const SITE='https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/';
 export const DEFAULT_PACK='sources/akiva/overlays/tzidkat-source-accuracy-20261023.json.gz';
+export const DEFAULT_PREIMAGES='sources/akiva/overlays/tzidkat-source-accuracy-preimages-20261023.json.gz';
 export const REPORT='library/tzidkat-source-accuracy-20261023.json';
 const TARGET='Tzidkat HaTzadik ',SLUG='tzidkat-hatzadik';
 const argv=process.argv.slice(2),option=(name,fallback)=>{const i=argv.indexOf(name);return i<0?fallback:argv[i+1];};
@@ -18,8 +19,11 @@ const root=path.resolve(option('--root','dist')),packFile=option('--pack',DEFAUL
 const sha=value=>createHash('sha256').update(value).digest('hex');
 const jbytes=value=>Buffer.from(JSON.stringify(value));
 const digest=value=>sha(jbytes(value));
-const read=name=>JSON.parse(fs.readFileSync(path.join(root,name),'utf8'));
-const write=(name,value)=>{const f=path.join(root,name);fs.mkdirSync(path.dirname(f),{recursive:true});fs.writeFileSync(f,jbytes(value));};
+let plannedWrites=null;
+const readBytes=name=>plannedWrites?.get(name)??fs.readFileSync(path.join(root,name));
+const writeBytes=(name,value)=>{const bytes=Buffer.from(value);if(plannedWrites){plannedWrites.set(name,bytes);return;}const f=path.join(root,name);fs.mkdirSync(path.dirname(f),{recursive:true});fs.writeFileSync(f,bytes);};
+const read=name=>JSON.parse(readBytes(name));
+const write=(name,value)=>writeBytes(name,jbytes(value));
 const entities={amp:'&',lt:'<',gt:'>',quot:'"',apos:"'",nbsp:' ',thinsp:' ',ensp:' ',emsp:' ',zwnj:'‌',zwj:'‍',lrm:'',rlm:''};
 export const decode=s=>String(s??'').replace(/&(#x[0-9a-f]+|#\d+|[a-z]+);/gi,(m,e)=>e[0]==='#'?String.fromCodePoint(parseInt(e.slice(e[1]?.toLowerCase()==='x'?2:1),e[1]?.toLowerCase()==='x'?16:10)):entities[e.toLowerCase()]??m);
 export const plain=s=>decode(String(s??'').replace(/<br\s*\/?>/gi,'\n').replace(/<[^>]*>/g,'')).replace(/[ \t ]+/g,' ').replace(/ *\n */g,'\n').replace(/\n{3,}/g,'\n\n').trim();
@@ -42,7 +46,7 @@ function checkIdentities(before,after,additions,scope){
 function assetFile(filename,asset){assert(typeof asset.sourcePath==='string'&&!path.isAbsolute(asset.sourcePath)&&!asset.sourcePath.split(/[\\/]/).includes('..'),'Invalid evidence asset source');return path.resolve(path.dirname(filename),asset.sourcePath);}
 function isEvidenceAssetSource(source,pack){return (pack.assets||[]).some(asset=>source.url===asset.path||source.url===new URL(asset.path,SITE).href);}
 const readerRefOf=source=>source.readerRef||source.ref;
-const localNavigationSource=(source,pack)=>!source.openExternal&&!isEvidenceAssetSource(source,pack);
+const localNavigationSource=(source,pack)=>!source.citationOnly&&!source.openExternal&&!isEvidenceAssetSource(source,pack);
 function projectedIdentities(pack){const changes=new Map(pack.chapters.map(f=>[f.path,f.after]));return Array.from({length:264},(_,i)=>notesOf(changes.get(chapterPath(i))||read(chapterPath(i))).map(({note})=>identity(note))).flat();}
 
 const sourceSlug=ref=>ref.replace(/\s+\d[\dab:\-–]*$/,'').toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');
@@ -56,7 +60,8 @@ function validateNote(row,note){
   else assert(Number.isInteger(note.heCharOffset)&&note.heCharOffset>=0&&note.heCharOffset<=text.length,'Invalid Hebrew offset: '+note.placementId);
   assert(note.paragraphs?.length&&note.paragraphs.every(p=>typeof p.text==='string'&&p.text.trim()),'Incomplete note text '+note.placementId);
   for(const p of note.paragraphs)if(p.rich)assert.equal(p.rich.map(x=>x.text).join(''),p.text,'Rich note text differs '+note.placementId);
-  assert(note.sources?.length&&note.sources.every(s=>s.ref&&s.url),'Missing exact source link '+note.placementId);
+  assert(note.sources?.length&&note.sources.every(s=>s.ref&&(s.url||s.citationOnly===true)),'Missing exact primary source citation '+note.placementId);
+  for(const source of note.sources)if(source.citationOnly)assert(!source.url&&!source.readerRef&&!source.openExternal,'Citation-only source cannot create navigation '+note.placementId);
   for(const source of note.sources){assert(!source.readerRef||typeof source.readerRef==='string'&&/\s\d/.test(source.readerRef),'Invalid local source reference '+note.placementId);assert(!(source.readerRef&&source.openExternal),'Ambiguous source navigation '+note.placementId);}
   const q=excerpts(note);assert(q.length&&q.every(s=>s.ref&&/[א-ת]/.test(s.he||'')&&/[A-Za-z]/.test(s.en||'')),'Missing checked bilingual source excerpt '+note.placementId);
 }
@@ -109,7 +114,7 @@ function updateMcp(pack,links,priorChapters){
   const affected=new Set(pack.chapters.map(f=>sectionFor(f.path)));
   for(const file of pack.chapters)for(const row of rowsOf(file.after)){
     const ref=sectionFor(file.path)+':'+row.n,para=paras.get(ref);assert(para,'Missing MCP paragraph '+ref);assert.deepEqual(para.p,row.p.map(pair=>pair.map(plain)),'MCP author text differs '+ref);
-    const old=priorChapters.find(f=>f.path===file.path).rows.find(p=>p.n===row.n),oldNumbers=new Set((old.footnotes||[]).map(n=>String(n.number)));
+    const old=priorChapters.find(f=>f.path===file.path).rows.find(p=>p.n===row.n),oldNumbers=new Set([...(old.footnotes||[]),...(row.footnotes||[])].map(n=>String(n.number)));
     const preserved=(para.f||[]).filter(f=>!oldNumbers.has(String(f[0])));
     const notes=(row.footnotes||[]).map(n=>{const sources=n.sources||[],locations=sources.flatMap(s=>isEvidenceAssetSource(s,pack)?['Source document: '+s.url]:s.readerRef?['Reader location: '+s.readerRef+'; original source citation: '+s.ref+' — '+s.url]:s.openExternal?['Original source: '+s.url]:[]);const sourceText=n.paragraphs.map(p=>plain(p.text)).concat(locations).join('\n');return[String(n.number),sourceText,n.phraseIndex,'h',n.heCharOffset];});
     if(preserved.length||notes.length)para.f=[...preserved,...notes];else delete para.f;
@@ -125,7 +130,7 @@ function updateMcp(pack,links,priorChapters){
 function updateIdeas(pack){if(!(pack.ideaChanges||[]).length)return;const file='library/connected-ideas/catalog.json',catalog=read(file);for(const change of pack.ideaChanges){const at=catalog.records.findIndex(r=>r.id===change.id);assert(at>=0,'Missing supplemental record '+change.id);const old=catalog.records[at],next=change.after;assert.equal(digest(old),change.beforeSha256,'Supplemental record changed '+change.id);assert(old.originRef.startsWith(TARGET),'Only forward Tzidkat records may be modified by this interface; reverse records need explicit scope review');for(const field of['id','footnoteNumber','reverseFootnoteNumber'])assert.equal(next[field],old[field],'Supplemental identity/number changed '+change.id);assert(next.originRef.startsWith(TARGET)&&next.reviewed===true);for(const field of['originHebrew','originEnglish','targetRef','targetHebrew','targetEnglish','explanation','translationProvenance'])assert(next[field]?.trim(),'Incomplete supplemental record '+field);catalog.records[at]=next;}catalog.contentSha256=digest(catalog.records);catalog.version=catalog.contentSha256.slice(0,16);catalog.accuracyReview=pack.release;write(file,catalog);}
 function sourceNavigationHtml(html,pack){
   if(!pack.chapters.some(f=>notesOf(f.after).some(({note})=>(note.sources||[]).some(s=>s.readerRef||s.openExternal))))return html;
-  const replace=(needle,replacement)=>{assert.equal(html.split(needle).length,2,'Reader source navigation baseline differs');html=html.replace(needle,replacement);};
+  const replace=(needle,replacement)=>{if(html.includes(replacement)){assert.equal(html.split(replacement).length,2,'Duplicate reviewed reader source navigation');return;}assert.equal(html.split(needle).length,2,'Reader source navigation baseline differs');html=html.replace(needle,replacement);};
   const rich=`if (isSefaria(run.href)) segment = '<a href="' + esc(run.href) + '"'`;
   replace(rich,`const source = (note.sources || []).find(item => item.url === run.href);
       const readerRef = run.readerRef || source?.readerRef;
@@ -152,12 +157,17 @@ function sourceNavigationHtml(html,pack){
 function footnoteSourceQuote(anchor) {`);
   return html;
 }
-function refreshReader(pack,packSha256){
-  const htmlFile=path.join(root,'library/index.html'),marker='const editionDataUrl = url => ';let html=fs.readFileSync(htmlFile,'utf8');assert.equal(html.split(marker).length,2);const revision=pack.release+'-'+packSha256.slice(0,12);html=html.replace(marker,marker+`/* Tzidkat source accuracy */ (url.startsWith('data/tzidkat-hatzadik/') || url.startsWith('data/cited/') || url === 'data/files.json' || url === 'data/packs/sources.json') ? url + '?edition=${revision}' :\n`);
-  if((pack.assets||[]).length){const allowed=(pack.assets||[]).flatMap(a=>[a.path,new URL(a.path,SITE).href]),needle='const safeFootnoteUrl = url => ';assert.equal(html.split(needle).length,2);html=html.replace(needle,needle+'/* Reviewed source image witnesses */ '+JSON.stringify(allowed)+".includes(String(url || '')) || ");}
+function refreshReader(pack,packSha256,successor=null){
+  const htmlFile='library/index.html',marker='const editionDataUrl = url => ';let html=readBytes(htmlFile).toString('utf8');assert.equal(html.split(marker).length,2);const revision=pack.release+'-'+packSha256.slice(0,12);
+  const attribution=successor?`/* Tzidkat source attribution */ (url.startsWith('data/tzidkat-hatzadik/') || url === 'data/files.json') ? url + '?attribution=${successor.release}-${successor.packSha256.slice(0,12)}' :\n`:null;
+  let preserveAttribution=false;if(html.includes('/* Tzidkat source attribution */')){assert(attribution&&html.includes(marker+attribution)&&html.split(attribution).length===2,'Unrecognized attribution cache hook');html=html.replace(marker+attribution,marker);preserveAttribution=true;}
+  const insert=(needle,replacement,label)=>{if(html.includes(replacement)){assert.equal(html.split(replacement).length,2,'Duplicate '+label);return;}assert.equal(html.split(needle).length,2,'Reader baseline differs: '+label);html=html.replace(needle,replacement);};
+  const accuracy=marker+`/* Tzidkat source accuracy */ (url.startsWith('data/tzidkat-hatzadik/') || url.startsWith('data/cited/') || url === 'data/files.json' || url === 'data/packs/sources.json') ? url + '?edition=${revision}' :\n`;
+  assert(!html.includes('/* Tzidkat source accuracy */')||html.includes(accuracy),'Unrecognized later accuracy cache hook');insert(marker,accuracy,'Tzidkat cache hook');
+  if((pack.assets||[]).length){const allowed=(pack.assets||[]).flatMap(a=>[a.path,new URL(a.path,SITE).href]),needle='const safeFootnoteUrl = url => ',replacement=needle+'/* Reviewed source image witnesses */ '+JSON.stringify(allowed)+".includes(String(url || '')) || ";assert(!html.includes('/* Reviewed source image witnesses */')||html.includes(replacement),'Unrecognized source witness allowlist');insert(needle,replacement,'source witness allowlist');}
   html=sourceNavigationHtml(html,pack);
-  if((pack.ideaChanges||[]).length){const needle="fetch('connected-ideas/catalog.json?v=' + connectedIdeas.VERSION)";assert.equal(html.split(needle).length,2);html=html.replace(needle,`fetch('connected-ideas/catalog.json?v=' + connectedIdeas.VERSION + '&accuracy=${revision}')`);}
-  fs.writeFileSync(htmlFile,html);const swFile=path.join(root,'library/sw.js');let sw=fs.readFileSync(swFile,'utf8');assert.equal((sw.match(/const SHELL = `[^`]+`;/g)||[]).length,1);sw=sw.replace(/const SHELL = `([^`]+)`;/,`const SHELL = \`$1-tzidkat-source-accuracy-${packSha256.slice(0,12)}\`;`);fs.writeFileSync(swFile,sw);
+  if((pack.ideaChanges||[]).length){const needle="fetch('connected-ideas/catalog.json?v=' + connectedIdeas.VERSION)";insert(needle,`fetch('connected-ideas/catalog.json?v=' + connectedIdeas.VERSION + '&accuracy=${revision}')`,'connected ideas cache hook');}
+  if(preserveAttribution)html=html.replace(marker,marker+attribution);writeBytes(htmlFile,html);const swFile='library/sw.js';let sw=readBytes(swFile).toString('utf8');assert.equal((sw.match(/const SHELL = `[^`]+`;/g)||[]).length,1);const suffix='-tzidkat-source-accuracy-'+packSha256.slice(0,12),attributionSuffix=successor?'-tzidkat-source-attribution-'+successor.packSha256.slice(0,12):null;let shell=sw.match(/const SHELL = `([^`]+)`;/)[1],preserveSuffix='';if(shell.includes('-tzidkat-source-attribution-')){assert(attributionSuffix&&shell.endsWith(attributionSuffix)&&shell.split(attributionSuffix).length===2,'Unrecognized attribution service worker revision');preserveSuffix=attributionSuffix;shell=shell.slice(0,-attributionSuffix.length);}assert(!shell.includes('-tzidkat-source-accuracy-')||shell.endsWith(suffix)&&shell.split(suffix).length===2,'Unrecognized or duplicated service worker revision');if(!shell.endsWith(suffix))shell+=suffix;sw=sw.replace(/const SHELL = `[^`]+`;/,`const SHELL = \`${shell}${preserveSuffix}\`;`);writeBytes(swFile,sw);
 }
 function publish(){
   const {pack,packSha256}=loadPack(),baseline=JSON.parse(fs.readFileSync(baselineFile));assert.equal(baseline.packSha256,packSha256);
@@ -194,7 +204,7 @@ function offline(){
 function allowed(name,pack){return (pack.assets||[]).some(a=>a.path===name)||pack.chapters.some(f=>f.path===name)||[REPORT,'library/tzidkat-source-accuracy-ledger.json','library/data/'+SLUG+'/links.json','library/index.html','library/sw.js','library/data/files.json','library/data/packs/sources.json','library/data/cited/index.json','mcp-data/catalog.json','mcp-data/cited.json','mcp-data/text/'+SLUG+'.json','library/downloads/index.json','library/downloads/rav-tzadok-library.zip','library/downloads/books/'+SLUG+'.zip'].includes(name)||(/^library\/data\/cited\/[^/]+\.json$/.test(name))||((pack.ideaChanges||[]).length&&name==='library/connected-ideas/catalog.json');}
 function verify(seal=false){const {pack,packSha256}=loadPack(),baseline=JSON.parse(fs.readFileSync(baselineFile)),current=inventory(),report=read(REPORT);assert.equal(packSha256,report.packSha256);const changed=[];for(const[name,info]of Object.entries(baseline.files)){assert(current[name],'Published file disappeared '+name);if(current[name].sha256!==info.sha256){assert(allowed(name,pack),'Unrelated published file changed '+name);changed.push({path:name,...current[name]});}}for(const[name,info]of Object.entries(current))if(!baseline.files[name]){assert(allowed(name,pack),'Unexpected published file '+name);changed.push({path:name,...info});}
   for(let i=0;i<264;i++){const name=chapterPath(i);assert.equal(digest(authorProjection(read(name))),baseline.chapterAuthorHashes[name],'Canonical text changed '+name);}
-  const numbers=Array.from({length:264},(_,i)=>notesOf(read(chapterPath(i))).map(({note})=>identity(note))).flat();checkIdentities(baseline.nativeNoteIdentities,numbers,pack.addedNotes||[],'all published notes');for(const a of pack.assets||[])assert.equal(current[a.path]?.sha256,a.sha256,'Published evidence asset differs '+a.path);
+  const numbers=Array.from({length:264},(_,i)=>notesOf(read(chapterPath(i))).map(({note})=>identity(note))).flat();checkIdentities(baseline.nativeNoteIdentities,numbers,baseline.pendingAdditions??pack.addedNotes??[],'all published notes');for(const a of pack.assets||[])assert.equal(current[a.path]?.sha256,a.sha256,'Published evidence asset differs '+a.path);
   assert.deepEqual(read('mcp-data/text/'+SLUG+'.json').paras.map(p=>[p.r,p.p||p.t]),baseline.protectedBookText,'MCP author words changed');
   const ideas=read('library/connected-ideas/catalog.json').records;for(const old of baseline.ideas){const now=ideas.find(r=>r.id===old.id);assert(now,'Existing supplemental footnote disappeared');assert.equal(now.footnoteNumber,old.footnoteNumber);assert.equal(now.reverseFootnoteNumber,old.reverseFootnoteNumber);}
   const result={ok:true,release:pack.release,packSha256,protectedFiles:Object.keys(baseline.files).length-changed.length,changedFiles:changed.length,nativePlacements:numbers.length,supplementalRecords:ideas.length,all264AuthorTextsPreserved:true,allNativeAndSupplementalNumbersPreserved:true};if(seal){report.changedFiles=changed;report.verification=result;write(REPORT,report);}else if(report.changedFiles){for(const f of report.changedFiles.filter(f=>f.path!==REPORT))assert.equal(current[f.path]?.sha256,f.sha256,'Sealed file changed '+f.path);}console.log(JSON.stringify(result));return {changed,result};}
@@ -202,9 +212,112 @@ async function github(route){const headers={Accept:'application/vnd.github+json'
 async function liveBytes(name){const url=new URL(name,SITE);url.searchParams.set('tzidkat-source-accuracy',String(Date.now()));const r=await fetch(url,{cache:'no-store',headers:{'Cache-Control':'no-cache'},signal:AbortSignal.timeout(60000)});assert(r.ok,'Public file '+r.status+' '+name);return Buffer.from(await r.arrayBuffer());}
 async function liveBaseline(){const {pack}=loadPack();if(process.env.GITHUB_SHA){assert.equal(process.env.GITHUB_REF,'refs/heads/main');assert.equal((await github('/git/ref/heads/main')).object.sha,process.env.GITHUB_SHA,'Main advanced: preserve the intervening publication');}for(const[name,hash]of Object.entries(pack.baseline.pins))assert.equal(sha(await liveBytes(name)),hash,'Live publication changed '+name);console.log('Exact current live publication verified.');}
 async function metadata(){const {pack}=loadPack();assert.equal(pack.audit.completeReview,true,'Publication requires the complete sealed source review');const p=pack.baseline,[artifact,run]=await Promise.all([github('/actions/artifacts/'+p.artifactId),github('/actions/runs/'+p.runId)]);assert.equal(artifact.expired,false);assert.equal(artifact.name,'github-pages');assert.equal(artifact.size_in_bytes,p.bytes);assert.equal(artifact.digest,p.digest);assert.equal(artifact.workflow_run.head_sha,p.commit);assert.equal(artifact.workflow_run.id,p.runId);assert.equal(run.head_sha,p.commit);assert.equal(run.conclusion,'success');await liveBaseline();fs.writeFileSync('tzidkat-source-accuracy-artifact.json',jbytes({artifact,run:{id:run.id,head_sha:run.head_sha,conclusion:run.conclusion}}));}
-async function live(){const report=read(REPORT);assert(report.verification?.ok&&report.changedFiles?.length,'Publication must be sealed');for(const file of report.changedFiles){if(file.path===REPORT)continue;assert.equal(sha(await liveBytes(file.path)),file.sha256,'Published file differs '+file.path);}assert.equal(sha(await liveBytes(REPORT)),sha(fs.readFileSync(path.join(root,REPORT))));fs.writeFileSync('tzidkat-source-accuracy-live.json',jbytes({ok:true,release:report.release,verifiedFiles:report.changedFiles.length,verifiedAt:new Date().toISOString()}));console.log('All changed public files match the sealed release.');}
+async function verifySuccessor(){const {verifyTzidkatSourceAccuracySuccessor}=await import('./tzidkat-source-accuracy-successor.mjs');return verifyTzidkatSourceAccuracySuccessor({directory:root,packFile:path.resolve(packFile),attributionPackFile:path.resolve(option('--successor-pack','sources/akiva/overlays/tzidkat-source-attribution-20261023.json.gz'))});}
+async function live(){
+  if(argv.includes('--successor-pack')){const verified=await verifySuccessor(),files=[...verified.filesByPath.values(),...[REPORT,'library/tzidkat-source-attribution-20261023.json'].map(name=>({path:name,sha256:sha(fs.readFileSync(path.join(root,name)))}))];for(let at=0;at<files.length;at+=4)await Promise.all(files.slice(at,at+4).map(async file=>assert.equal(sha(await liveBytes(file.path)),file.sha256,'Terminal published file differs '+file.path)));fs.writeFileSync('tzidkat-source-accuracy-live.json',jbytes({ok:true,release:verified.report.release,successor:verified.attribution,verifiedFiles:files.length,verifiedAt:new Date().toISOString()}));console.log('All terminal successor files match their sealed release chain.');return;}
+  const report=read(REPORT);assert(report.verification?.ok&&report.changedFiles?.length,'Publication must be sealed');for(const file of report.changedFiles){if(file.path===REPORT)continue;assert.equal(sha(await liveBytes(file.path)),file.sha256,'Published file differs '+file.path);}assert.equal(sha(await liveBytes(REPORT)),sha(fs.readFileSync(path.join(root,REPORT))));fs.writeFileSync('tzidkat-source-accuracy-live.json',jbytes({ok:true,release:report.release,verifiedFiles:report.changedFiles.length,verifiedAt:new Date().toISOString()}));console.log('All changed public files match the sealed release.');
+}
+
+// A rebuild uses this build's tree as its preservation boundary. Historical pins
+// authenticate only the frozen per-target fixture, never the current whole site.
+export function loadRebuildPreimages(pack,packSha256,filename=option('--preimages',DEFAULT_PREIMAGES)){
+  const bytes=fs.readFileSync(filename),fixture=JSON.parse(gunzipSync(bytes));assert.equal(fixture.schemaVersion,1);assert.equal(fixture.packSha256,packSha256);
+  assert.deepEqual(Object.keys(fixture.chapters).sort(),pack.chapters.map(f=>f.path).sort());
+  assert.deepEqual(Object.keys(fixture.links).sort(),(pack.linkChanges||[]).map(f=>f.sectionRef).sort());
+  assert.deepEqual(Object.keys(fixture.ideas).sort(),(pack.ideaChanges||[]).map(f=>f.id).sort());
+  for(const f of pack.chapters)assert.equal(sha(fixture.chapters[f.path]),f.beforeSha256,'Unauthenticated chapter preimage '+f.path);
+  for(const f of pack.linkChanges||[])assert.equal(digest(fixture.links[f.sectionRef]),f.beforeSha256,'Unauthenticated link preimage '+f.sectionRef);
+  for(const f of pack.ideaChanges||[])assert.equal(digest(fixture.ideas[f.id]),f.beforeSha256,'Unauthenticated idea preimage '+f.id);
+  for(const f of['library/index.html','library/sw.js'])assert.equal(sha(fixture[f]),pack.baseline.pins[f],'Unauthenticated renderer test fixture '+f);
+  return fixture;
+}
+export function composeRebuildSuccessor(pack,packSha256){
+  const filename=option('--successor-pack','');if(!filename)return {effective:pack,successor:null};
+  const next=loadPack(filename);assert.equal(next.pack.audit.completeReview,true,'Successor source review is incomplete');assert.notEqual(next.packSha256,packSha256);
+  assert.equal((next.pack.addedNotes||[]).length,0,'This explicitly reviewed successor may not renumber or add notes');
+  const effective=structuredClone(pack),prior=new Map(pack.chapters.map(f=>[f.path,f]));
+  for(const f of next.pack.chapters){const old=prior.get(f.path);assert(old,'Successor is outside the reviewed target scope '+f.path);assert.equal(f.beforeSha256,digest(old.after),'Successor chapter does not follow the reviewed release '+f.path);compareChapters(old.after,f.after,f.path,next.pack);effective.chapters.find(x=>x.path===f.path).after=f.after;}
+  for(const f of next.pack.linkChanges||[]){const old=effective.linkChanges.find(x=>x.sectionRef===f.sectionRef);assert(old,'Successor citation scope is not explicitly covered '+f.sectionRef);assert.equal(f.beforeSha256,digest(old.after),'Successor citations do not follow the reviewed release');old.after=f.after;}
+  assert.equal((next.pack.ideaChanges||[]).length,0,'Supplemental successor needs a separate explicit review');
+  for(const f of next.pack.assets||[]){const old=effective.assets.find(x=>x.path===f.path);assert(old&&old.sha256===f.sha256,'New successor evidence assets require explicit scope');}
+  return {effective,successor:{release:next.pack.release,packSha256:next.packSha256,packPath:filename,chapters:next.pack.chapters.map(f=>f.path)}};
+}
+function planOffline(pack){
+  const require=createRequire(import.meta.url),{zipSync,unzipSync}=require(path.resolve(root,'library/vendor/fflate.min.js')),data={};
+  const walk=(dir,prefix)=>{for(const item of fs.readdirSync(dir,{withFileTypes:true})){const f=path.join(dir,item.name),name=prefix+item.name;if(item.isDirectory())walk(f,name+'/');else if(name!=='data/files.json')data[name]=readBytes('library/'+name);}};
+  walk(path.join(root,'library/data'),'data/');for(const[name,bytes]of plannedWrites)if(name.startsWith('library/data/')&&name!=='library/data/files.json')data[name.slice(8)]=bytes;
+  const liveManifest=manifest(data);write('library/data/files.json',liveManifest);data['data/files.json']=jbytes(liveManifest);
+  const results=[];for(const name of['library/downloads/rav-tzadok-library.zip','library/downloads/books/'+SLUG+'.zip']){
+    const raw=fs.readFileSync(path.join(root,name)),old=unzipSync(raw),next={...old},book=name.includes('/books/');
+    for(const[file,bytes]of Object.entries(data))if(!book||file.startsWith('data/'+SLUG+'/'))next[file]=bytes;
+    if(!book)next['data/files.json']=jbytes(manifest(next));
+    if((pack.ideaChanges||[]).length)next['connected-ideas/catalog.json']=readBytes('library/connected-ideas/catalog.json');
+    const different=Object.keys(next).length!==Object.keys(old).length||Object.entries(next).some(([file,bytes])=>!old[file]||!Buffer.from(old[file]).equals(bytes));
+    const output=different?Buffer.from(zipSync(next,{level:6})):raw;
+    if(different){const check=unzipSync(output);assert.deepEqual(Object.keys(check).sort(),Object.keys(next).sort());for(const[file,bytes]of Object.entries(next))assert.equal(sha(check[file]),sha(bytes),'Offline archive differs '+file);writeBytes(name,output);}
+    results.push({path:name,bytes:output.length,sha256:sha(output),dataFiles:Object.keys(next).filter(n=>n.startsWith('data/')).length,archiveOnlyPreserved:Object.keys(old).filter(n=>n.startsWith('data/')&&!Object.hasOwn(data,n)).length});
+  }
+  const index=read('library/downloads/index.json');index.version=liveManifest.version;index.library.bytes=results[0].bytes;index.library.dataFiles=results[0].dataFiles;const book=index.books.find(b=>b.slug===SLUG);assert(book);book.bytes=results[1].bytes;book.dataFiles=results[1].dataFiles;write('library/downloads/index.json',index);
+  const catalog=read('mcp-data/catalog.json');catalog.version=liveManifest.version;write('mcp-data/catalog.json',catalog);return results;
+}
+function rebuild(){
+  const {pack,packSha256}=loadPack(),fixture=loadRebuildPreimages(pack,packSha256),{effective,successor}=composeRebuildSuccessor(pack,packSha256);
+  assert.equal(pack.audit.completeReview,true);const currentFiles=inventory(),currentIdeas=read('library/connected-ideas/catalog.json'),currentLinks=read('library/data/'+SLUG+'/links.json');
+  const originalIdentities=Array.from({length:264},(_,i)=>notesOf(read(chapterPath(i))).map(({note})=>identity(note))).flat(),existingIds=new Set(originalIdentities.map(n=>n[0])),pendingAdditions=(pack.addedNotes||[]).filter(n=>!existingIds.has(n.placementId));
+  assert.equal(new Set(originalIdentities.map(n=>n[2])).size,originalIdentities.length,'Duplicate current native footnote number');
+  for(const n of pack.addedNotes||[])for(const r of currentIdeas.records){if(r.originRef?.startsWith(TARGET))assert.notEqual(n.number,r.footnoteNumber,'Reviewed native number collides with a supplemental note');if(r.targetRef?.startsWith(TARGET))assert.notEqual(n.number,r.reverseFootnoteNumber,'Reviewed native number collides with a reverse supplemental note');}
+  const beforeChapters=pack.chapters.map(f=>({path:f.path,rows:JSON.parse(fixture.chapters[f.path])})),operations=beforeChapters.flatMap(f=>compareChapters(f.rows,pack.chapters.find(x=>x.path===f.path).after,f.path,pack)).map(({before,after,...op})=>op);
+  const states={chapters:{},links:{},ideas:{}};
+  // No site writes occur until every target, renderer, asset and derived archive
+  // has been planned and checked. Unknown subsequent edits are never overwritten.
+  for(const f of effective.chapters){const now=read(f.path),original=pack.chapters.find(x=>x.path===f.path),before=JSON.parse(fixture.chapters[f.path]),hash=digest(now);const state=hash===digest(f.after)?'after':hash===digest(original.after)?'reviewed-before-successor':hash===digest(before)?'before':null;assert(state,'Unrecognized later Tzidkat chapter edit: '+f.path);states.chapters[f.path]=state;}
+  for(const f of effective.linkChanges||[]){const now=currentLinks[f.sectionRef]||[],original=pack.linkChanges.find(x=>x.sectionRef===f.sectionRef),hash=digest(now);const state=hash===digest(f.after)?'after':hash===digest(original.after)?'reviewed-before-successor':hash===original.beforeSha256?'before':null;assert(state,'Unrecognized later Tzidkat citation edit: '+f.sectionRef);states.links[f.sectionRef]=state;}
+  for(const f of pack.ideaChanges||[]){const now=currentIdeas.records.find(r=>r.id===f.id),hash=now&&digest(now),state=hash===digest(f.after)?'after':hash===f.beforeSha256?'before':null;assert(state,'Unrecognized later supplemental edit: '+f.id);states.ideas[f.id]=state;}
+  for(const a of pack.assets||[])assert(!currentFiles[a.path]||currentFiles[a.path].sha256===a.sha256,'Unrecognized source asset edit: '+a.path);
+  checkIdentities(originalIdentities,projectedIdentities(effective),pendingAdditions,'rebuild target identities');
+  const baseline={mode:'target-preimages-rebuild-v1',packSha256,files:currentFiles,pendingAdditions,protectedBookText:read('mcp-data/text/'+SLUG+'.json').paras.map(p=>[p.r,p.p||p.t]),chapterAuthorHashes:Object.fromEntries(Array.from({length:264},(_,i)=>[chapterPath(i),digest(authorProjection(read(chapterPath(i))))])),nativeNoteIdentities:originalIdentities,ideas:currentIdeas.records.map(r=>({id:r.id,originRef:r.originRef,targetRef:r.targetRef,footnoteNumber:r.footnoteNumber,reverseFootnoteNumber:r.reverseFootnoteNumber})),states,successor};
+  const priorReport=currentFiles[REPORT]?read(REPORT):null;
+  if(priorReport){assert.equal(priorReport.packSha256,packSha256,'Unrecognized accuracy release report');assert.deepEqual(priorReport.operations,operations,'Accuracy report operation identities changed');}
+  const terminalReportPath='library/tzidkat-source-attribution-20261023.json',terminalReport=successor&&currentFiles[terminalReportPath]?read(terminalReportPath):null;
+  if(terminalReport)assert.equal(terminalReport.packSha256,successor.packSha256,'Unrecognized terminal attribution report');
+  const ledger='library/tzidkat-source-accuracy-ledger.json';if(currentFiles[ledger])assert.equal(digest(read(ledger)),digest(pack.audit),'Unrecognized later source audit ledger');
+  plannedWrites=new Map();try{
+    for(const f of effective.chapters)write(f.path,f.after);
+    for(const a of pack.assets||[])writeBytes(a.path,fs.readFileSync(assetFile(packFile,a)));
+    const linkedPack={...effective,linkChanges:effective.linkChanges.map(f=>({...f,beforeSha256:digest(currentLinks[f.sectionRef]||[])}))};
+    const links=updateLinks(linkedPack,beforeChapters);updateMcp(effective,links,beforeChapters);
+    const ideasPack={...pack,ideaChanges:(pack.ideaChanges||[]).map(f=>({...f,beforeSha256:digest(currentIdeas.records.find(r=>r.id===f.id))}))};updateIdeas(ideasPack);
+    refreshReader(pack,packSha256,successor);write(ledger,pack.audit);const offline=planOffline(pack);
+    for(const f of effective.chapters)assert.equal(digest(read(f.path)),digest(f.after));
+    const numbers=Array.from({length:264},(_,i)=>notesOf(read(chapterPath(i))).map(({note})=>identity(note))).flat();checkIdentities(originalIdentities,numbers,pendingAdditions,'all rebuilt notes');
+    for(let i=0;i<264;i++){const name=chapterPath(i);assert.equal(digest(authorProjection(read(name))),baseline.chapterAuthorHashes[name],'Rebuild changed canonical author text '+name);}
+    assert.deepEqual(read('mcp-data/text/'+SLUG+'.json').paras.map(p=>[p.r,p.p||p.t]),baseline.protectedBookText,'Rebuild changed MCP author words');
+    const changes=()=>[...plannedWrites].filter(([name,bytes])=>!currentFiles[name]||currentFiles[name].sha256!==sha(bytes));
+    const projectedHash=name=>plannedWrites.has(name)?sha(plannedWrites.get(name)):currentFiles[name]?.sha256;
+    const terminalFiles=new Map((terminalReport?.changedFiles||[]).map(f=>[f.path,f]));
+    const terminalSealValid=terminalReport?.completeReview===true&&terminalReport.verification?.ok===true&&terminalReport.verification?.packSha256===successor?.packSha256&&terminalReport.verification?.release===successor?.release&&terminalFiles.size>0&&[...terminalFiles.values()].every(f=>f.path===terminalReportPath||projectedHash(f.path)===f.sha256);
+    const staleSeal=priorReport?.changedFiles?.some(f=>f.path!==REPORT&&projectedHash(f.path)!==(terminalSealValid?terminalFiles.get(f.path)?.sha256??f.sha256:f.sha256));
+    const requiredSealPaths=[...effective.chapters.map(f=>f.path),...(pack.assets||[]).map(f=>f.path),'library/data/'+SLUG+'/links.json','library/data/packs/sources.json','library/data/cited/index.json','mcp-data/text/'+SLUG+'.json','mcp-data/catalog.json','mcp-data/cited.json','library/connected-ideas/catalog.json','library/index.html','library/sw.js','library/data/files.json','library/downloads/index.json','library/downloads/rav-tzadok-library.zip','library/downloads/books/'+SLUG+'.zip',ledger];
+    const sealedPaths=new Set((priorReport?.changedFiles||[]).map(f=>f.path));
+    const incompleteSeal=!priorReport?.completeReview||priorReport.verification?.ok!==true||priorReport.verification?.packSha256!==packSha256||priorReport.verification?.release!==pack.release||requiredSealPaths.some(name=>!sealedPaths.has(name));
+    const needsReport=!priorReport||changes().length>0||staleSeal||incompleteSeal||successor&&!terminalSealValid&&priorReport.successor?.packSha256!==successor.packSha256;
+    if(needsReport){
+      const report={...(priorReport||{}),schemaVersion:1,release:pack.release,packSha256,changedChapters:pack.chapters.length,changedNativeNotes:operations.length,addedNativeNotes:operations.filter(o=>o.addition).length,sourceEvidenceAssets:(pack.assets||[]).length,changedSupplementalNotes:(pack.ideaChanges||[]).length,operations,completeReview:true,auditSummary:pack.audit.summary||null,baselineArtifact:pack.baseline,offline,rebuild:{scope:'target-preimages-v1',currentTreeSha256:digest(currentFiles),recognizedChapters:Object.values(states.chapters).reduce((out,state)=>(out[state]=(out[state]||0)+1,out),{}),predecessorIdeasSha256:currentFiles['library/connected-ideas/catalog.json'].sha256}};
+      if(successor)report.successor=successor;
+      const paths=new Set([...(priorReport?.changedFiles||[]).map(f=>f.path),...requiredSealPaths,...changes().map(([name])=>name),REPORT]);
+      report.changedFiles=[...paths].sort().map(name=>({path:name,sha256:projectedHash(name)||sha(jbytes(report)),bytes:plannedWrites.get(name)?.length??currentFiles[name]?.bytes??0}));
+      report.verification={ok:true,release:pack.release,packSha256,protectedFiles:Object.keys(currentFiles).length-changes().length,changedFiles:report.changedFiles.length,nativePlacements:numbers.length,supplementalRecords:read('library/connected-ideas/catalog.json').records.length,all264AuthorTextsPreserved:true,allNativeAndSupplementalNumbersPreserved:true,rebuildScope:'target-preimages-v1'};write(REPORT,report);
+    }
+    const actual=changes();for(const[name]of actual)assert(allowed(name,pack),'Unrelated rebuild output planned: '+name);
+    // Persist the capture outside the published tree only after all preflight checks.
+    fs.writeFileSync(baselineFile,jbytes(baseline));
+    const result={ok:true,mode:actual.length?'rebuilt':'already-applied',release:pack.release,packSha256,successor:successor?.packSha256??null,plannedFiles:actual.length,protectedFiles:Object.keys(currentFiles).length-actual.filter(([name])=>currentFiles[name]).length,operations:operations.length,pendingAdditions:pendingAdditions.length,recognizedChapters:states.chapters};
+    if(!argv.includes('--check-only'))for(const[name,bytes]of actual){const target=path.join(root,name);fs.mkdirSync(path.dirname(target),{recursive:true});fs.writeFileSync(target,bytes);}
+    fs.writeFileSync(option('--rebuild-receipt','tzidkat-source-accuracy-rebuild.json'),jbytes(result));console.log(JSON.stringify({...result,recognizedChapters:Object.values(states.chapters).reduce((out,state)=>(out[state]=(out[state]||0)+1,out),{})}));return result;
+  }finally{plannedWrites=null;}
+}
 
 if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)){
   const mode=argv[0]||'--prepare';if(mode==='--prepare'){const {pack,packSha256}=loadPack();assert.equal(pack.audit.completeReview,true,'Publication requires the complete sealed source review');console.log(JSON.stringify({ok:true,release:pack.release,packSha256,chapters:pack.chapters.length,ideas:(pack.ideaChanges||[]).length}));}
-  else if(mode==='--metadata')await metadata();else if(mode==='--capture')capture();else if(mode==='--publish')publish();else if(mode==='--offline')offline();else if(mode==='--seal')verify(true);else if(mode==='--verify')verify();else if(mode==='--live-baseline')await liveBaseline();else if(mode==='--live')await live();else throw Error('Unknown mode '+mode);
+  else if(mode==='--verify-successor')console.log(JSON.stringify((await verifySuccessor()).proof));else if(mode==='--rebuild')rebuild();else if(mode==='--metadata')await metadata();else if(mode==='--capture')capture();else if(mode==='--publish')publish();else if(mode==='--offline')offline();else if(mode==='--seal')verify(true);else if(mode==='--verify')verify();else if(mode==='--live-baseline')await liveBaseline();else if(mode==='--live')await live();else throw Error('Unknown mode '+mode);
 }

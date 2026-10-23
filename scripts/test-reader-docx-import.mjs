@@ -8,9 +8,14 @@ import {loadRelease, normalizedSections, MANIFEST, REPORT, MEI, BEIT, sha, visib
 import {loadPack as loadMeiVolumeII, REPORT as MEI_VOLUME_II_REPORT} from './publish-mei-volume-ii.mjs';
 import {loadPack as loadMeiLikutei, REPORT as MEI_LIKUTEI_REPORT, TARGET as MEI_ANTHOLOGY} from './publish-mei-likutei.mjs';
 import {readPack as readDivreiAudit, protectedSuccessorHash} from './publish-divrei-source-audit.mjs';
+import {createProtectedTzidkatSuccessorHash} from './tzidkat-source-accuracy-successor.mjs';
 
 const args = process.argv.slice(2), urlIndex = args.indexOf('--url');
 const divreiAudit = args.includes('--after-divrei-source-audit') ? readDivreiAudit() : null;
+const tzidkatProtectedHash = args.includes('--after-tzidkat-source-accuracy')
+  ? createProtectedTzidkatSuccessorHash({directory:path.resolve('dist')}) : (_file, expected) => expected;
+const protectedExpectedHash = (file, expected) =>
+  tzidkatProtectedHash(file, protectedSuccessorHash(file, expected, divreiAudit));
 const likuteiSuccessor = args.includes('--after-mei-likutei') ? loadMeiLikutei() : null;
 const meiSuccessor = args.includes('--after-mei-volume-ii') || likuteiSuccessor ? loadMeiVolumeII() : null;
 const isVolumeII = ref => ref.startsWith('Mei HaShiloach, Volume II, ');
@@ -182,7 +187,7 @@ if (args.includes('--zips')) {
   const archive = unzipSync(await bytes('library/downloads/rav-tzadok-library.zip'));
   for (const [file, hash] of Object.entries(report.protectedTextSha256)) {
     assert.ok(archive['data/' + file], 'Protected section absent from offline archive: ' + file);
-    assert.equal(sha(archive['data/' + file]), protectedSuccessorHash(file,hash,divreiAudit), 'Earlier Hebrew or English changed: ' + file); protectedFiles++;
+    assert.equal(sha(archive['data/' + file]), protectedExpectedHash(file,hash), 'Earlier Hebrew or English changed: ' + file); protectedFiles++;
   }
   for (const [file, expected] of readbackFiles) assert.deepEqual(JSON.parse(Buffer.from(archive[file])), expected);
   for (const [file, expected] of [[`data/${MEI}/interlinear.json`, mei], [`data/${MEI}/headings.json`, headings], [`data/${MEI}/study-contents.json`, studyToc]]) {
@@ -192,7 +197,7 @@ if (args.includes('--zips')) {
   for (const [file, expected] of readbackFiles) assert.deepEqual(JSON.parse(Buffer.from(beitZip[file])), expected);
 } else if (!base) {
   for (const [file, hash] of Object.entries(report.protectedTextSha256)) {
-    assert.equal(sha(await bytes('library/data/' + file)), protectedSuccessorHash(file,hash,divreiAudit), 'Earlier Hebrew or English changed: ' + file); protectedFiles++;
+    assert.equal(sha(await bytes('library/data/' + file)), protectedExpectedHash(file,hash), 'Earlier Hebrew or English changed: ' + file); protectedFiles++;
   }
 }
 

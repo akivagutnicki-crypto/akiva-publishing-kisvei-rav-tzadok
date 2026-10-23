@@ -288,13 +288,13 @@ export function runFixtures() {
   } finally { fs.rmSync(temporary, {recursive:true, force:true}); }
 }
 
-export function verifyCatalog({afterMeiVolumeII=false,afterMeiLikutei=false}={}) {
+export function verifyCatalog({afterMeiVolumeII=false,afterMeiLikutei=false,afterTzidkatSourceAccuracy=false}={}) {
   const filename = path.join(REPO, 'dist/library/connected-ideas/catalog.json');
   const bytes = fs.readFileSync(filename);
   const published = JSON.parse(bytes);
   assert.equal(published.schemaVersion, 1);
   assert.equal(published.release, ideas.VERSION);
-  const successor = afterMeiLikutei ? verifyReviewedConnectionsPreserved({directory:path.join(REPO,'dist')}) : afterMeiVolumeII ? verifyConnectedIdeasSuccessor({directory:path.join(REPO,'dist')}) : null;
+  const successor = afterMeiLikutei || afterTzidkatSourceAccuracy ? verifyReviewedConnectionsPreserved({directory:path.join(REPO,'dist'),afterTzidkatSourceAccuracy}) : afterMeiVolumeII ? verifyConnectedIdeasSuccessor({directory:path.join(REPO,'dist')}) : null;
   if (!successor) {
     const rebuilt = buildConnectedIdeas({write:false, date:published.date}).catalog;
     assert.equal(sha(bytes), sha(JSON.stringify(rebuilt, null, 2) + '\n'),
@@ -324,7 +324,7 @@ export function verifyCatalog({afterMeiVolumeII=false,afterMeiLikutei=false}={})
     published.coverage.reduce((sum, work) => sum + work.reviewedSections.length, 0));
   return {catalogSha256:sha(bytes), version:published.version, counts:published.counts,
     exactCanonicalAnchorsVerified:quoteAnchors, reciprocalReviewsVerified:reciprocal,
-    ...(successor?{[afterMeiLikutei?'meiLikuteiSuccessor':'meiVolumeIISuccessor']:successor}:{})};
+    ...(successor?{[afterTzidkatSourceAccuracy?'tzidkatSourceAccuracySuccessor':afterMeiLikutei?'meiLikuteiSuccessor':'meiVolumeIISuccessor']:successor}:{})};
 }
 
 async function verifyPublic(base) {
@@ -345,19 +345,21 @@ async function verifyPublic(base) {
 
 async function main() {
   const args = process.argv.slice(2);
-  let fixturesOnly = false, publicUrl = null, afterMeiVolumeII = false, afterMeiLikutei = false;
+  let fixturesOnly = false, publicUrl = null, afterMeiVolumeII = false, afterMeiLikutei = false, afterTzidkatSourceAccuracy = false;
   for (let i = 0; i < args.length; i++) {
     if (args[i] === '--fixtures-only') fixturesOnly = true;
     else if (args[i] === '--after-mei-volume-ii') afterMeiVolumeII = true;
     else if (args[i] === '--after-mei-likutei') afterMeiLikutei = true;
+    else if (args[i] === '--after-tzidkat-source-accuracy') afterTzidkatSourceAccuracy = true;
     else if (args[i] === '--url') { publicUrl = args[++i]; assert(publicUrl, '--url requires a library base URL'); }
     else throw new Error('Unknown argument: ' + args[i]);
   }
   const report = {ok:true, fixtures:runFixtures(), release:ideas.VERSION};
-  if (!fixturesOnly) Object.assign(report, verifyCatalog({afterMeiVolumeII,afterMeiLikutei}));
+  if (!fixturesOnly) Object.assign(report, verifyCatalog({afterMeiVolumeII,afterMeiLikutei,afterTzidkatSourceAccuracy}));
   if (publicUrl) report.public = await verifyPublic(publicUrl);
   console.log(JSON.stringify(report, null, 2));
 }
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   main().catch(error => { console.error(error.stack || error); process.exitCode = 1; });
 }
+

@@ -241,13 +241,14 @@ function runFixtures() {
 
 async function main() {
   const options = {};
-  let publicUrl = null, fixturesOnly = false, afterMeiVolumeII = false, afterMeiLikutei = false;
+  let publicUrl = null, fixturesOnly = false, afterMeiVolumeII = false, afterMeiLikutei = false, afterTzidkatSourceAccuracy = false;
   const args = process.argv.slice(2);
   for (let index = 0; index < args.length; index++) {
     const flag = args[index];
     if (flag === '--fixtures-only') { fixturesOnly = true; continue; }
     if (flag === '--after-mei-volume-ii') { afterMeiVolumeII = true; continue; }
     if (flag === '--after-mei-likutei') { afterMeiLikutei = true; continue; }
+    if (flag === '--after-tzidkat-source-accuracy') { afterTzidkatSourceAccuracy = true; continue; }
     assert(args[index + 1] && !args[index + 1].startsWith('--'), 'Incomplete option: ' + flag);
     if (flag === '--url') { publicUrl = args[++index]; continue; }
     const key = {'--editorial-dir': 'editorialDir', '--mcp-root': 'mcpRoot', '--catalog': 'output'}[flag];
@@ -260,9 +261,9 @@ async function main() {
   const bytes = fs.readFileSync(filename);
   const published = JSON.parse(bytes);
   let successor = null;
-  if (afterMeiVolumeII || afterMeiLikutei) {
+  if (afterMeiVolumeII || afterMeiLikutei || afterTzidkatSourceAccuracy) {
     assert.equal(Object.keys(options).length,0,'Scoped successor verification requires the published default catalog');
-    successor = afterMeiLikutei ? verifyReviewedConnectionsPreserved({directory:path.join(REPO,'dist')}) : verifySourceConnectionsPreserved({directory:path.join(REPO,'dist')});
+    successor = afterMeiLikutei || afterTzidkatSourceAccuracy ? verifyReviewedConnectionsPreserved({directory:path.join(REPO,'dist'),afterTzidkatSourceAccuracy}) : verifySourceConnectionsPreserved({directory:path.join(REPO,'dist')});
   } else {
     const checked = buildReviewedConnections({...options, date: published.date, write: false});
     assert.deepEqual(published, checked.catalog, 'Published catalog differs from reviewed inputs or the exact final canonical text');
@@ -275,7 +276,7 @@ async function main() {
   const result = {ok: true, fixtures, version: published.version, counts: published.counts,
     catalogSha256: sha(bytes), canonicalTargetQuotesVerified: published.records.length,
     primarySourceQuotesVerified: published.records.length,
-    ...(successor?{[afterMeiLikutei?'meiLikuteiSuccessor':'meiVolumeIISuccessor']:successor}:{})};
+    ...(successor?{[afterTzidkatSourceAccuracy?'tzidkatSourceAccuracySuccessor':afterMeiLikutei?'meiLikuteiSuccessor':'meiVolumeIISuccessor']:successor}:{})};
   if (publicUrl) {
     const base = new URL(publicUrl.endsWith('/') ? publicUrl : publicUrl + '/');
     assert(base.protocol === 'https:' || ['localhost', '127.0.0.1'].includes(base.hostname), 'Public verification requires HTTPS');
@@ -296,3 +297,4 @@ async function main() {
 
 try { await main(); }
 catch (error) { console.error('Reviewed source connections verification failed: ' + error.message); process.exitCode = 1; }
+

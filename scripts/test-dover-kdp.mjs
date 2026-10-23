@@ -9,8 +9,12 @@ import {execFileSync} from 'node:child_process';
 import {createRequire} from 'node:module';
 import {pathToFileURL} from 'node:url';
 import {readPack as readDivreiAudit, protectedSuccessorHash} from './publish-divrei-source-audit.mjs';
+import {createProtectedTzidkatSuccessorHash} from './tzidkat-source-accuracy-successor.mjs';
 const args=process.argv.slice(2),ui=args.indexOf('--url');
 const divreiAudit=args.includes('--after-divrei-source-audit')?readDivreiAudit():null;
+const tzidkatProtectedHash=args.includes('--after-tzidkat-source-accuracy')
+ ?createProtectedTzidkatSuccessorHash({directory:path.resolve('dist')}):(_file,expected)=>expected;
+const protectedExpectedHash=(file,expected)=>tzidkatProtectedHash(file,protectedSuccessorHash(file,expected,divreiAudit));
 const publicBase=ui<0?null:new URL(args[ui+1]);
 if(publicBase){publicBase.hash='';if(!publicBase.pathname.endsWith('/'))publicBase.pathname+='/';}
 const root=path.resolve('dist/library'),hash=x=>createHash('sha256').update(x).digest('hex');
@@ -78,7 +82,7 @@ if(args.includes('--zips')){
  // The historical verification runs before this authorized replacement. The
  // successor proves every other sefer's final text remains exactly unchanged.
  const whole=unzipSync(await read(index.library.file));
- for(const [f,digest]of Object.entries(report.protectedTextSha256))assert.equal(hash(whole['data/'+f]),protectedSuccessorHash(f,digest,divreiAudit),'Another sefer changed during the Dover replacement: '+f);
+ for(const [f,digest]of Object.entries(report.protectedTextSha256))assert.equal(hash(whole['data/'+f]),protectedExpectedHash(f,digest),'Another sefer changed during the Dover replacement: '+f);
  console.log('PASS both ZIPs contain the current Dover text and Word files; all '+Object.keys(report.protectedTextSha256).length+' other text files preserved.');
 }
 if(!args.includes('--data-only')){

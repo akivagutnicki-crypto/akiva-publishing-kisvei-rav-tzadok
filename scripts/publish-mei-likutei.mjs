@@ -11,6 +11,7 @@ import {fileURLToPath, pathToFileURL} from 'node:url';
 import {visible} from './publish-reader-docx-import.mjs';
 import {categoryOf} from './citations.mjs';
 import {loadPack as loadVolumeII, REPORT as VOLUME_II_REPORT} from './publish-mei-volume-ii.mjs';
+import {verifyTzidkatIdeasSuccessor, verifyTzidkatSourceAccuracySuccessor} from './tzidkat-source-accuracy-successor.mjs';
 
 export const RELEASE = '20261023-mei-likutei-v1';
 export const PACK = 'sources/akiva/overlays/mei-likutei-20261023.json.gz.b64';
@@ -199,16 +200,17 @@ function targetEvidence(record,context) {
       textSha256,paragraphSha256:sha(canonical(match.paragraph)),fullHebrewSha256:sha(norm),sectionHebrewSha256:sectionHash,quoteStart:start}};
 }
 
-export function verifyReviewedConnectionsPreserved({directory=root}={}){
-  const prior=read(path.join(directory,VOLUME_II_REPORT)),proof=prior.connectedIdeas,context=connectionContext(directory),catalog=read(path.join(directory,IDEAS));
-  assert.equal(prior.packSha256,loadVolumeII().packSha256);assert.equal(sha(fs.readFileSync(path.join(directory,IDEAS))),proof.afterSha256,'Reviewed idea catalog changed');
+export function verifyReviewedConnectionsPreserved({directory=root,afterTzidkatSourceAccuracy=false}={}){
+  const successor=afterTzidkatSourceAccuracy?verifyTzidkatIdeasSuccessor({directory}):null;
+  const prior=read(path.join(directory,VOLUME_II_REPORT)),proof=prior.connectedIdeas,context=connectionContext(directory),catalog=successor?.predecessorCatalog||read(path.join(directory,IDEAS));
+  assert.equal(prior.packSha256,loadVolumeII().packSha256);assert.equal(sha(successor?.predecessorBytes||fs.readFileSync(path.join(directory,IDEAS))),proof.afterSha256,'Reviewed idea catalog changed');
   assert.deepEqual(catalog.records.map(row=>row.id),proof.recordIds);const amended=new Set(proof.amendedRecords.map(row=>row.id));assert.equal(hashObject(catalog.records.filter(row=>!amended.has(row.id))),proof.preservedRecordsSha256);
   const predecessorTextSha256=prior.changedFiles.find(file=>file.path==='mcp-data/text/mei-hashiloach.json')?.sha256;assert(predecessorTextSha256);
   for(const entry of proof.amendedRecords){const row=catalog.records.find(row=>row.id===entry.id);assert.equal(hashObject(row),entry.afterSha256);assert.equal(row.evidence.target.textSha256,predecessorTextSha256);const derived=targetEvidence(row,context);assert.deepEqual({...row.evidence.target,textSha256:context.textSha256},derived.evidence,'Previously reviewed context changed '+row.id);for(const[key,value]of Object.entries(derived.placement))assert.equal(row.placement[key],value);assert.equal(row.reviewedTargetHebrewSha256,derived.evidence.fullHebrewSha256);if(row.reverseExplanation)assert.equal(row.reviewedTargetSectionHebrewSha256,derived.evidence.sectionHebrewSha256);assert.equal(row.evidence.targetEnglishSha256,sha(row.targetEnglish));}
   for(const[name,hash]of Object.entries(prior.preservedConnectionFiles))assert.equal(sha(fs.readFileSync(path.join(directory,name))),hash,'Prior reviewed-source metadata changed '+name);
   let affected=0;for(const file of[IDEAS,SOURCE_CONNECTIONS])for(const row of read(path.join(directory,file)).records){if([row.originRef,row.targetRef].some(ref=>ref?.startsWith(TARGET)))affected++;if(file===SOURCE_CONNECTIONS&&row.targetRef.startsWith('Mei HaShiloach,')){const match=context.paragraphs.get(row.targetRef);assert(match);const full=context.normalize(paragraphHebrew(match.paragraph));assert.equal(sha(full),row.reviewedTargetHebrewSha256);assert((' '+full+' ').includes(' '+context.normalize(row.targetHebrew)+' '));}}
   assert.equal(affected,0,'Existing reviewed records target the Anthology and require explicit contextual review');
-  return {unchanged:true,records:catalog.records.length,priorVolumeIIReviews:proof.amendedRecords.length,affectedAnthologyRecords:affected,predecessorTextSha256,currentTextSha256:context.textSha256,catalogSha256:proof.afterSha256};
+  return {unchanged:!successor,records:catalog.records.length,priorVolumeIIReviews:proof.amendedRecords.length,affectedAnthologyRecords:affected,predecessorTextSha256,currentTextSha256:context.textSha256,catalogSha256:successor?.proof.currentCatalogSha256||proof.afterSha256,...(successor?{tzidkatSourceAccuracySuccessor:successor.proof}:{})};
 }
 function verifyVolumeII(directory=root){
   const prepared=loadVolumeII(),prior=read(path.join(directory,VOLUME_II_REPORT)),mei=read(path.join(directory,MEI+'interlinear.json')),heads=read(path.join(directory,MEI+'headings.json'));
@@ -283,12 +285,18 @@ async function liveBytes(name){const url=new URL(name,SITE);url.searchParams.set
 async function liveBaseline(){await verifyHead();for(const [name,hash] of Object.entries(PINS))assert.equal(sha(await liveBytes(name)),hash,'Live publication changed: '+name);}
 async function verifyPublished(){
   const report=read(path.join(root,REPORT));assert.equal(report.editorialStage,'reviewed');assert.equal(report.preview,false);assert(report.changedFiles?.length,'Publication was not sealed');
-  const files=[...report.changedFiles,{path:REPORT,sha256:sha(fs.readFileSync(path.join(root,REPORT)))}];
+  assert.equal(report.release,RELEASE);assert.equal(report.packSha256,loadPack().packSha256);
+  const successor=process.argv.includes('--after-tzidkat-source-accuracy')?verifyTzidkatSourceAccuracySuccessor({directory:root}):null;
+  let successorOverlaps=0;
+  const files=[...report.changedFiles.map(file=>{
+    const replacement=file.path!==REPORT&&successor?.filesByPath.get(file.path);
+    if(!replacement)return file;successorOverlaps++;return {...file,sha256:replacement.sha256,bytes:replacement.bytes};
+  }),{path:REPORT,sha256:sha(fs.readFileSync(path.join(root,REPORT)))}];
   for(let first=0;first<files.length;first+=4)await Promise.all(files.slice(first,first+4).map(async file=>{
     for(let attempt=1;attempt<=6;attempt++)try{assert.equal(sha(await liveBytes(file.path)),file.sha256,'Published bytes differ '+file.path);return;}
     catch(error){if(attempt===6)throw error;console.log('Waiting for public asset refresh ('+attempt+'/6): '+file.path);await new Promise(resolve=>setTimeout(resolve,10000));}
   }));
-  write('mei-likutei-live-verification.json',{ok:true,release:RELEASE,files:files.length});console.log('Verified all published changed files against the checked release.');
+  write('mei-likutei-live-verification.json',{ok:true,release:RELEASE,files:files.length,...(successor?{successorOverlaps,tzidkatSourceAccuracySuccessor:successor.proof}:{})});console.log('Verified all published changed files against the checked release.');
 }
 
 async function verify(){
@@ -396,7 +404,7 @@ if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.ur
     write(baselineFile,{release:RELEASE,mode,packSha256,files,semantic:captureSemanticState(sections)});console.log(JSON.stringify({ok:true,baselineFiles:Object.keys(files).length}));
   }
   else if(mode==='--prepare'){const {counts,anchors}=loadPack(option('--pack',PACK));console.log(JSON.stringify({ok:true,...counts,anchors}));}
-  else if(mode==='--check-connections')console.log(JSON.stringify(verifyReviewedConnectionsPreserved()));
+  else if(mode==='--check-connections')console.log(JSON.stringify(verifyReviewedConnectionsPreserved({afterTzidkatSourceAccuracy:process.argv.includes('--after-tzidkat-source-accuracy')})));
   else if(mode==='--publish')publish();
   else if(mode==='--preview')publish({preview:true});
   else if(mode==='--offline')rebuildOffline();
@@ -407,3 +415,4 @@ if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.ur
   else if(mode==='--live')await verifyPublished();
   else throw new Error('Unknown mode '+mode);
 }
+

@@ -134,3 +134,89 @@ jobs:
             dist/library/tzidkat-source-accuracy-20261023.json
             dist/library/tzidkat-source-accuracy-ledger.json
             artifacts/tzidkat-source-accuracy/
+
+  verify-rebuild-integration:
+    if: ${{ github.repository == 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok' && github.ref == 'refs/heads/main' && github.event_name == 'push' && contains(github.event.head_commit.message, '[tzidkat-accuracy-rebuild-integration]') }}
+    permissions:
+      contents: read
+      actions: read
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    steps:
+      - name: Checkout the reviewed durable publication integration
+        uses: actions/checkout@v6
+
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+
+      - name: Authenticate the latest published attribution artifact
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          node --input-type=module <<'NODE'
+          import assert from 'node:assert/strict';
+          import fs from 'node:fs';
+          const pin = JSON.parse(fs.readFileSync('sources/akiva/overlays/tzidkat-rebuild-verification-baseline-20261023.json'));
+          const headers = {Accept:'application/vnd.github+json', Authorization:'Bearer '+process.env.GITHUB_TOKEN};
+          const api = async route => {const r=await fetch('https://api.github.com/repos/akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok'+route,{headers});assert(r.ok);return r.json();};
+          const [artifact,run] = await Promise.all([api('/actions/artifacts/'+pin.artifactId),api('/actions/runs/'+pin.runId)]);
+          assert.equal(artifact.expired,false);assert.equal(artifact.name,'github-pages');assert.equal(artifact.size_in_bytes,pin.bytes);assert.equal(artifact.digest,pin.digest);assert.equal(artifact.workflow_run.head_sha,pin.commit);assert.equal(run.head_sha,pin.commit);assert.equal(run.conclusion,'success');
+          fs.appendFileSync(process.env.GITHUB_ENV,`TZIDKAT_REBUILD_ARTIFACT=${pin.artifactId}\nTZIDKAT_REBUILD_RUN=${pin.runId}\n`);
+          NODE
+
+      - name: Download the exact current complete publication for verification only
+        uses: actions/download-artifact@v4
+        with:
+          artifact-ids: ${{ env.TZIDKAT_REBUILD_ARTIFACT }}
+          run-id: ${{ env.TZIDKAT_REBUILD_RUN }}
+          repository: akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/tzidkat-rebuild-current
+          merge-multiple: true
+
+      - name: Restore current publication and prove scoped rebuild behavior
+        run: |
+          python3 - <<'PY'
+          import os,pathlib,shutil,tarfile
+          destination=pathlib.Path('dist').resolve()
+          if destination.exists(): shutil.rmtree(destination)
+          destination.mkdir()
+          archive=pathlib.Path(os.environ['RUNNER_TEMP'])/'tzidkat-rebuild-current/artifact.tar'
+          with tarfile.open(archive,'r:') as source:
+              members=source.getmembers()
+              for member in members:
+                  target=(destination/member.name).resolve()
+                  assert target==destination or destination in target.parents,'Unsafe archive path'
+                  assert member.isdir() or member.isfile(),'Unexpected archive link or special file'
+              source.extractall(destination,members=members)
+          PY
+          node scripts/test-tzidkat-source-accuracy-rebuild.mjs --successor-pack sources/akiva/overlays/tzidkat-source-attribution-20261023.json.gz
+          node scripts/publish-tzidkat-source-accuracy.mjs --verify-successor --successor-pack sources/akiva/overlays/tzidkat-source-attribution-20261023.json.gz
+          node scripts/test-reviewed-connections.mjs --after-mei-volume-ii --after-mei-likutei --after-tzidkat-source-accuracy
+          node scripts/test-connected-ideas.mjs --after-mei-volume-ii --after-mei-likutei --after-tzidkat-source-accuracy
+          node scripts/test-reader-docx-import.mjs --after-divrei-source-audit --after-mei-volume-ii --after-mei-likutei --after-tzidkat-source-accuracy --zips --mcp
+          node scripts/test-dover-kdp.mjs --after-divrei-source-audit --after-tzidkat-source-accuracy --zips --data-only
+
+      - name: Install the focused desktop and mobile reader checks
+        run: |
+          npm install --no-save --package-lock=false playwright@1.62.1
+          npx playwright install --with-deps chromium
+
+      - name: Verify every reviewed native and supplemental popup with final primary citations
+        run: |
+          node scripts/test-tzidkat-source-accuracy-browser.mjs --successor-pack sources/akiva/overlays/tzidkat-source-attribution-20261023.json.gz
+          node scripts/test-tzidkat-source-attribution-browser.mjs
+
+      - name: Save durable integration verification without deploying
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tzidkat-durable-integration-verification
+          retention-days: 90
+          if-no-files-found: warn
+          path: |
+            tzidkat-source-accuracy-rebuild-tests.json
+            artifacts/tzidkat-source-accuracy/
+            artifacts/tzidkat-source-attribution/
