@@ -10,8 +10,10 @@
     "notes": 77,
     "firstNote": 3450,
     "lastNote": 3526,
-    "stage": "local browser checks",
-    "packSha256": "8ed849bedf20c8c4a94bf1355bd2919ea2f040f47425f464628f73022c80156b"
+    "stage": "166–180 deployed; recovering final verification after HTTP503 and rerun selected stale baseline",
+    "packSha256": "8ed849bedf20c8c4a94bf1355bd2919ea2f040f47425f464628f73022c80156b",
+    "commit": "39f40d1f38dc0e070d8f96321dd7e1ddc61c1613",
+    "priorDeploymentRun": 40040818693
   },
   "protectedSections": [
     40,
@@ -101,12 +103,31 @@
     "176-180": 28,
     "186-190": 24,
     "191-195": 29,
-    "196-200": 42
+    "196-200": 42,
+    "256": 8,
+    "257": 18,
+    "258": 11,
+    "259": 16,
+    "226-230": 40,
+    "256-260": 70,
+    "201-205": 43
   },
   "rootDraftsAwaitingIndependentReview": {
     "256": 8,
     "257": 18,
     "258": 11,
     "259": 16
-  }
+  },
+  "localReadyBatch": {
+    "sections": [
+      181,
+      195
+    ],
+    "notes": 78,
+    "firstNote": 3527,
+    "lastNote": 3604,
+    "packSha256": "d007449eff89a1fbe118dbd221bfcaab3ab7b47b2db0afde6c2a9a29892c9288",
+    "desktopAndMobilePassed": true
+  },
+  "awaitingIndependentReview": {}
 }
