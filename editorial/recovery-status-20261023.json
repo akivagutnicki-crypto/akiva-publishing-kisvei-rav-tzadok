@@ -1,7 +1,7 @@
 {
   "task": "Tzidkas HaTzadik original-source footnote review",
   "recoveredFrom": "Conversation lost after source review106–120; working files recovered from f85ae98f1669 and /tmp/tzidkat-batch8-candidate",
-  "confirmedLiveThrough": 150,
+  "confirmedLiveThrough": 165,
   "publicationInProgress": null,
   "protectedSections": [
     40,
@@ -67,30 +67,31 @@
       ]
     ]
   },
-  "totalPublishedAdditions": 705,
+  "totalPublishedAdditions": 790,
   "lastSuccessfulPublication": {
     "sections": [
-      136,
-      150
+      151,
+      165
     ],
-    "newNotes": 61,
-    "commit": "36188201589462d6f6c05be5deefa61cfb812c38",
-    "run": 40036965965,
-    "pagesArtifactId": 12536699166,
-    "verificationArtifactId": 12537876671,
-    "completedAt": "2026-10-23T23:03:27Z"
+    "newNotes": 85,
+    "commit": "64fa33e8cab55397426dbca8e0ebc98d217a4413",
+    "run": 40038420449,
+    "pagesArtifactId": 12538142156,
+    "verificationArtifactId": 12538542087,
+    "completedAt": "2026-10-23T23:19:29Z"
   },
   "researchRecoveryNotes": [
     "Old integratedB text cache duplicated integratedA; re-extracted actual525-page volumeB before review beyond180. See integratedB-cache-correction.json.",
     "Original temporary workspace expired. Uploaded source PDFs restored into current source-files; prepared proposals and publication evidence remain in current workspace and GitHub checkpoint branch."
   ],
   "acceptedUnpublishedReviews": {
-    "151-155": 20,
-    "156-160": 33,
-    "166-170": 20
+    "166-170": 20,
+    "171-175": 29,
+    "181-185": 25
   },
   "rootDraftsAwaitingIndependentReview": {
     "256": 8,
-    "257": 18
+    "257": 18,
+    "258": 11
   }
 }
