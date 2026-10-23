@@ -5,7 +5,7 @@ import assert from 'node:assert/strict';
 import fs from 'node:fs';
 import path from 'node:path';
 import {createRequire} from 'node:module';
-import {RELEASE, REPORT, readPack, sha, bodyDigest, plain} from './publish-divrei-source-audit.mjs';
+import {RELEASE, REPORT, readPack, sha, bodyDigest, plain, protectedSuccessorHash} from './publish-divrei-source-audit.mjs';
 
 const args = process.argv.slice(2);
 const valueOptions = new Set(['--root', '--url', '--pack', '--mcp-root']);
@@ -22,6 +22,10 @@ const root = path.resolve(options['--root'] || 'dist/library');
 const base = options['--url'] ? new URL(options['--url'].replace(/\/?$/, '/')) : null;
 if (base) assert(base.protocol === 'https:' || ['localhost', '127.0.0.1'].includes(base.hostname), 'Public verification requires HTTPS');
 const pack = readPack(options['--pack']);
+for(const file of pack.sourceIndexSuccessors){
+  assert.equal(protectedSuccessorHash(file.path.slice(5),file.beforeSha256,pack),file.afterSha256);
+  assert.throws(()=>protectedSuccessorHash(file.path,'0'.repeat(64),pack),/does not descend from protected edition/);
+}
 const require = createRequire(import.meta.url);
 const engine = require(path.join(root, 'source-connections.js'));
 const cache = new Map();
@@ -55,7 +59,13 @@ assert.equal(report.authorTextPreserved, true);
 assert.equal(report.existingNoteIdentitiesPreserved, true);
 assert.equal(report.excludedParallelDataPreserved, true);
 assert.deepEqual(report.counts, pack.counts);
+assert.deepEqual(report.sourceIndexSuccessors,pack.sourceIndexSuccessors.map(({beforeText,afterText,...file})=>file));
 assert.deepEqual(await json('divrei-source-audit-ledger.json'), pack.audit, 'Public audit ledger differs from sealed review');
+await eachLimited(pack.sourceIndexSuccessors,async file=>{
+  const raw=await bytes(file.path);
+  assert.equal(sha(raw),file.afterSha256,'Retired source index differs from exact cleanup: '+file.path);
+  assert.equal(raw.toString('utf8'),file.afterText);
+});
 
 const chapters = new Map(), finalFiles = new Map();
 await eachLimited(pack.files, async file => {
@@ -246,6 +256,7 @@ assert((await bytes('sw.js')).toString().includes('-divrei-source-audit-' + pack
 console.log(JSON.stringify({ok: true, release: RELEASE, publiclyVerified: !!base, reviewedExistingNotes: 717, newNotes: 1,
   exactNotes: markers, exactQuotations: quotations, exactPopupQuotations: popupQuotations, checkedPostimages: finalFiles.size,
   authorTextPreserved: true, exactMarkerPrefixes: true, reviewedMoves: pack.audit.moves.length,
+  exactDerivedSourceIndexSuccessors:pack.sourceIndexSuccessors.length,
   reviewedInlineLinkChanges: pack.audit.inlineLinkChanges.length, sourceEdges: actualEdges.size,
   reverseSourceIndexes: inspectNames.length, noStaleDivreiTranslationEvidence: true,
   mcpVerified: args.includes('--mcp'), offlineDownloadsVerified: args.includes('--zips')}, null, 2));

@@ -46,6 +46,26 @@ export function readPack(filename=PACK) {
     if(f.bodySha256)assert.equal(bodyDigest(JSON.parse(f.afterText)),f.bodySha256,'Audited text differs');
   }
   assert.equal(pack.files.length,39); //38 sections and their exact connections.
+  // Two malformed numeric citation indexes were included by earlier chapter
+  // preservation guards. Seal their exact Divrei-only cleanup as well.
+  assert.deepEqual(pack.sourceIndexSuccessors?.map(f=>f.path).sort(),['data/cited/213-8.json','data/cited/80.json']);
+  const edges=Object.values(JSON.parse(pack.files.find(f=>f.path==='data/divrei-soferim/links.json').afterText)).flat();
+  for(const f of pack.sourceIndexSuccessors){
+    assert.equal(sha(f.beforeText),f.beforeSha256,'Corrupt source-index predecessor');
+    assert.equal(sha(f.afterText),f.afterSha256,'Corrupt source-index successor');
+    const before=JSON.parse(f.beforeText),remaining={};
+    assert(before&&typeof before==='object'&&!Array.isArray(before));
+    assert(Object.keys(before).length,'Empty source-index predecessor');
+    for(const[ref,owners]of Object.entries(before)){
+      assert(Array.isArray(owners)&&owners.length&&owners.every(owner=>typeof owner==='string'&&ownerIsDivrei(owner)),
+        'Source-index cleanup includes a protected owner');
+      const retained=owners.filter(owner=>!ownerIsDivrei(owner));
+      if(retained.length)remaining[ref]=retained;
+    }
+    assert(!edges.some(edge=>sourceSlug(edge.r)===path.basename(f.path,'.json')),'Reviewed source still uses retired index');
+    assert.equal(f.afterText,JSON.stringify(remaining),'Source-index successor differs from Divrei-only cleanup');
+    assert.equal(f.afterText,'{}');
+  }
   return {...pack,manifest,packageSha256:sha(bytes)};
 }
 
@@ -54,7 +74,7 @@ export function readPack(filename=PACK) {
 export function protectedSuccessorHash(file,expected,pack) {
   if(!pack)return expected;
   const relative=file.startsWith('data/')?file:'data/'+file;
-  const reviewed=pack.files.find(f=>f.path===relative);
+  const reviewed=[...pack.files,...pack.sourceIndexSuccessors].find(f=>f.path===relative);
   if(!reviewed)return expected;
   assert.equal(reviewed.beforeSha256,expected,'Audit does not descend from protected edition: '+file);
   return reviewed.afterSha256;
@@ -65,7 +85,7 @@ export function readPublishedAudit(library='dist/library',filename=PACK) {
   if(!fs.existsSync(reportFile))return null;
   const pack=readPack(filename),report=read(reportFile);
   assert.equal(report.release,RELEASE);assert.equal(report.packageSha256,pack.packageSha256);
-  for(const file of pack.files)assert.equal(sha(fs.readFileSync(path.join(library,file.path))),file.afterSha256,'Published audit file changed: '+file.path);
+  for(const file of [...pack.files,...pack.sourceIndexSuccessors])assert.equal(sha(fs.readFileSync(path.join(library,file.path))),file.afterSha256,'Published audit file changed: '+file.path);
   return pack;
 }
 
@@ -82,6 +102,8 @@ export function publish(library='dist/library',filename=PACK) {
     assert.equal(sha(raw),f.beforeSha256,'Reader changed since source review: '+f.path);
     if(f.bodySha256)assert.equal(bodyDigest(JSON.parse(raw)),f.bodySha256,'Author text or structure changed: '+f.path);
   }
+  for(const f of pack.sourceIndexSuccessors)
+    assert.equal(sha(fs.readFileSync(path.join(library,f.path))),f.beforeSha256,'Source index changed since review: '+f.path);
   for(const f of pack.files)fs.writeFileSync(path.join(library,f.path),f.afterText);
   assert.equal(snapshot(),beforeProtected,'An unrelated reader data file changed');
 
@@ -108,6 +130,8 @@ export function publish(library='dist/library',filename=PACK) {
     if(!owners.includes(edge.a))owners.push(edge.a);sourceNames.add(name);
   }
   for(const[name,index]of reverse)fs.writeFileSync(path.join(citedDir,name+'.json'),JSON.stringify(index));
+  for(const f of pack.sourceIndexSuccessors)
+    assert.equal(sha(fs.readFileSync(path.join(library,f.path))),f.afterSha256,'Source-index cleanup differs from sealed proof: '+f.path);
   fs.writeFileSync(path.join(citedDir,'index.json'),JSON.stringify([...sourceNames].sort()));
   const sourceFile=path.join(data,'packs/sources.json');
   if(fs.existsSync(sourceFile)){
@@ -125,7 +149,9 @@ export function publish(library='dist/library',filename=PACK) {
   sw=sw.replace(/-divrei-source-audit-[a-f0-9]+/g,'').replace(/const SHELL = `([^`]+)`;/,`const SHELL = \`$1-divrei-source-audit-${pack.packageSha256.slice(0,12)}\`;`);
   fs.writeFileSync(swFile,sw);
   const report={schemaVersion:1,release:RELEASE,revision,packageSha256:pack.packageSha256,payloadSha256:pack.manifest.payloadSha256,
-    counts:pack.counts,files:pack.files.map(({afterText,...f})=>f),protectedDataFiles:protectedFiles.length,protectedDataSha256:beforeProtected,
+    counts:pack.counts,files:pack.files.map(({afterText,...f})=>f),
+    sourceIndexSuccessors:pack.sourceIndexSuccessors.map(({beforeText,afterText,...f})=>f),
+    protectedDataFiles:protectedFiles.length,protectedDataSha256:beforeProtected,
     authorTextPreserved:true,existingNoteIdentitiesPreserved:true,excludedParallelDataPreserved:true,
     sourceConnections:edges.length,replacedReverseConnectionOwners:removedOwners};
   fs.writeFileSync(path.join(library,REPORT),JSON.stringify(report));
