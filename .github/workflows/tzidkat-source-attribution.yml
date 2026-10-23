@@ -13,7 +13,8 @@ permissions:
 
 concurrency:
   group: ${{ (github.repository == 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok' && github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[tzidkat-source-attribution]'))) && 'pages' || format('tzidkat-attribution-skipped-{0}', github.run_id) }}
-  cancel-in-progress: false
+  # Explicitly replacing an obsolete run is opt-in; routine publications stay serialized.
+  cancel-in-progress: ${{ contains(github.event.head_commit.message, '[tzidkat-attribution-supersede]') }}
 
 jobs:
   deploy:
