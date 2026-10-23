@@ -1,0 +1,136 @@
+name: Publish Tzidkat primary-source attributions
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: ${{ (github.repository == 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok' && github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[tzidkat-source-attribution]'))) && 'pages' || format('tzidkat-attribution-skipped-{0}', github.run_id) }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: ${{ github.repository == 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok' && github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[tzidkat-source-attribution]')) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout the sealed source review
+        uses: actions/checkout@v6
+
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+
+      - name: Check source review and exact current publication
+        id: baseline
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          node scripts/publish-tzidkat-source-attribution.mjs --prepare
+          node scripts/publish-tzidkat-source-attribution.mjs --metadata
+          node --input-type=module <<'NODE'
+          import fs from 'node:fs';
+          import {loadPack} from './scripts/publish-tzidkat-source-attribution.mjs';
+          const pin=loadPack().pack.baseline;
+          fs.appendFileSync(process.env.GITHUB_OUTPUT,`artifact=${pin.artifactId}\nrun=${pin.runId}\n`);
+          NODE
+
+      - name: Download the latest verified complete publication
+        uses: actions/download-artifact@v4
+        with:
+          artifact-ids: ${{ steps.baseline.outputs.artifact }}
+          run-id: ${{ steps.baseline.outputs.run }}
+          repository: akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/tzidkat-attribution-baseline
+          merge-multiple: true
+
+      - name: Restore and capture the complete published site
+        run: |
+          python3 - <<'PY'
+          import os,pathlib,shutil,tarfile
+          destination=pathlib.Path('dist').resolve()
+          if destination.exists(): shutil.rmtree(destination)
+          destination.mkdir()
+          archive=pathlib.Path(os.environ['RUNNER_TEMP'])/'tzidkat-attribution-baseline/artifact.tar'
+          with tarfile.open(archive,'r:') as source:
+              members=source.getmembers()
+              for member in members:
+                  target=(destination/member.name).resolve()
+                  assert target==destination or destination in target.parents,'Unsafe archive path'
+                  assert member.isdir() or member.isfile(),'Unexpected archive link or special file'
+              source.extractall(destination,members=members)
+          PY
+          node scripts/publish-tzidkat-source-attribution.mjs --capture
+
+      - name: Apply source-only citations and update the reader and downloads
+        run: |
+          node scripts/publish-tzidkat-source-attribution.mjs --publish
+          node scripts/publish-tzidkat-source-attribution.mjs --offline
+          node scripts/publish-tzidkat-source-attribution.mjs --seal
+          node scripts/publish-tzidkat-source-attribution.mjs --rebuild
+          node --check dist/library/sw.js
+
+      - name: Install focused browser verification
+        run: |
+          npm install --no-save --package-lock=false playwright@1.62.1
+          npx playwright install --with-deps chromium
+
+      - name: Verify source-only labels and complete quotations on desktop and mobile
+        run: |
+          node scripts/test-tzidkat-source-attribution-browser.mjs
+          node scripts/publish-tzidkat-source-attribution.mjs --verify
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Recheck current publication before upload
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/publish-tzidkat-source-attribution.mjs --live-baseline
+
+      - name: Upload the checked complete publication
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ./dist
+          retention-days: 7
+
+      - name: Recheck current publication before deployment
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/publish-tzidkat-source-attribution.mjs --live-baseline
+
+      - name: Publish the corrected original-source citations
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Read back all changed public files and reader popups
+        run: |
+          node scripts/publish-tzidkat-source-attribution.mjs --live
+          node scripts/test-tzidkat-source-attribution-browser.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'
+
+      - name: Save source review and publication evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tzidkat-source-attribution-verification
+          retention-days: 90
+          if-no-files-found: warn
+          path: |
+            tzidkat-source-attribution-artifact.json
+            tzidkat-source-attribution-baseline.json
+            tzidkat-source-attribution-live.json
+            dist/library/tzidkat-source-attribution-20261023.json
+            dist/library/tzidkat-source-attribution-ledger.json
+            artifacts/tzidkat-source-attribution/
