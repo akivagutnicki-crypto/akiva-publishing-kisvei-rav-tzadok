@@ -1,0 +1,779 @@
+{
+  "schemaVersion": 1,
+  "reviewedSections": [
+    36,
+    37,
+    38,
+    39,
+    40
+  ],
+  "recovery": {
+    "status": "reconstructed-and-reverified",
+    "reason": "Original proposal lost in workspace refresh. Source pages, selected original sources, translations and exact anchors were checked anew. Ois 38 was recovered exactly from engineering’s saved original tool output; other entries were reconstructed. The original proposal had 13 entries and the recovered selection again has 13; byte-for-byte recovery of the full proposal is not claimed."
+  },
+  "entries": [
+    {
+      "section": 36,
+      "id": "berakhot-two-are-not-harmed",
+      "rowN": 1,
+      "phraseIndex": 3,
+      "heAnchorPrefix": "וּבַהַמְתָּנָה סַגִּי כְּמַה שֶּׁכָּתוּב שָׁם מ\"ג עַמּוּד ב' דִּלִשְׁנַיִם אֵין מַזִּיק,",
+      "heCharOffset": 88,
+      "ref": "Berakhot 43b:7",
+      "url": "https://www.sefaria.org/Berakhot_43b:7",
+      "he": "וְאָמַר רַב זוּטְרָא בַּר טוֹבִיָּה אָמַר רַב: אֲבוּקָה כִּשְׁנַיִם, וְיָרֵחַ כִּשְׁלֹשָׁה. אִיבַּעְיָא לְהוּ: אֲבוּקָה כִּשְׁנַיִם בַּהֲדֵי דִידֵיהּ, אוֹ דִילְמָא אֲבוּקָה כִּשְׁנַיִם לְבַר מִדִּידֵיהּ? תָּא שְׁמַע: וְיָרֵחַ כִּשְׁלֹשָׁה, אִי אָמְרַתְּ בִּשְׁלָמָא בַּהֲדֵי דִידֵיהּ — שַׁפִּיר. אֶלָּא אִי אָמְרַתְּ לְבַר מִדִּידֵיהּ, אַרְבָּעָה לְמָה לִי? וְהָאָמַר מָר: לְאֶחָד נִרְאֶה וּמַזִּיק, לִשְׁנַיִם נִרְאֶה וְאֵינוֹ מַזִּיק, לִשְׁלֹשָׁה אֵינוֹ נִרְאֶה כׇּל עִיקָּר. אֶלָּא לָאו שְׁמַע מִינַּהּ אֲבוּקָה כִּשְׁנַיִם — בַּהֲדֵי דִידֵיהּ. שְׁמַע מִינַּהּ.",
+      "en": "Rav Zutra bar Toviya also said in the name of Rav: A torch is like two people, and moonlight is like three. They asked: Is a torch like two including the person carrying it, or is a torch like two besides him? Come and hear: “Moonlight is like three.” If you say that this includes him, that is understandable. But if you say that it means three besides him, why would four be needed? Has not the Master said: To one person a harmful spirit appears and causes harm; to two it appears but does not cause harm; to three it does not appear at all? Rather, must we not conclude that a torch is like two including the person himself? Indeed, conclude this.",
+      "context": "The discussion distinguishes appearance from actual harm: two people are protected from harm, while three are protected even from the spirit’s appearance. Rav Tzadok cites the rule about two people to explain why waiting for one’s fellow is sufficient.",
+      "sourceEvidence": [
+        {
+          "ref": "Berakhot 43b:7",
+          "url": "https://www.sefaria.org/Berakhot_43b:7",
+          "he": "וְאָמַר רַב זוּטְרָא בַּר טוֹבִיָּה אָמַר רַב: אֲבוּקָה כִּשְׁנַיִם, וְיָרֵחַ כִּשְׁלֹשָׁה. אִיבַּעְיָא לְהוּ: אֲבוּקָה כִּשְׁנַיִם בַּהֲדֵי דִידֵיהּ, אוֹ דִילְמָא אֲבוּקָה כִּשְׁנַיִם לְבַר מִדִּידֵיהּ? תָּא שְׁמַע: וְיָרֵחַ כִּשְׁלֹשָׁה, אִי אָמְרַתְּ בִּשְׁלָמָא בַּהֲדֵי דִידֵיהּ — שַׁפִּיר. אֶלָּא אִי אָמְרַתְּ לְבַר מִדִּידֵיהּ, אַרְבָּעָה לְמָה לִי? וְהָאָמַר מָר: לְאֶחָד נִרְאֶה וּמַזִּיק, לִשְׁנַיִם נִרְאֶה וְאֵינוֹ מַזִּיק, לִשְׁלֹשָׁה אֵינוֹ נִרְאֶה כׇּל עִיקָּר. אֶלָּא לָאו שְׁמַע מִינַּהּ אֲבוּקָה כִּשְׁנַיִם — בַּהֲדֵי דִידֵיהּ. שְׁמַע מִינַּהּ.",
+          "en": "Rav Zutra bar Toviya also said in the name of Rav: A torch is like two people, and moonlight is like three. They asked: Is a torch like two including the person carrying it, or is a torch like two besides him? Come and hear: “Moonlight is like three.” If you say that this includes him, that is understandable. But if you say that it means three besides him, why would four be needed? Has not the Master said: To one person a harmful spirit appears and causes harm; to two it appears but does not cause harm; to three it does not appear at all? Rather, must we not conclude that a torch is like two including the person himself? Indeed, conclude this.",
+          "translation": "Original English translation prepared from the cited Hebrew or Aramaic.",
+          "coverage": "Complete source unit, including its qualifications and conclusion.",
+          "heSha256": "2b52143292a02f0d6249eb7613b42fbd12e50d2667c78f922800d51f666cd541"
+        }
+      ],
+      "reviewEvidence": {
+        "pdfPages": {
+          "neimosA": [
+            103,
+            104,
+            105,
+            106,
+            107,
+            108
+          ],
+          "integratedA": [
+            149,
+            150,
+            151,
+            152
+          ]
+        },
+        "preserveExisting": true,
+        "status": "verified",
+        "dedup": "All eight existing native notes and the empty connected-note set in ois 36 checked; this quoted source passage is absent.",
+        "primaryTextFile": "review-work/review-36-restored-primary.json",
+        "recovery": "Restored after independent review identified the missing source explicitly cited in the author text; all six other additions retained."
+      }
+    },
+    {
+      "section": 36,
+      "id": "rif-evening-wait",
+      "rowN": 1,
+      "phraseIndex": 10,
+      "heAnchorPrefix": "וּבָרִי\"ף אַהָא דִּשְׁנַיִם שֶׁנִּכְנְסוּ וְכוּלֵי מַשְׁמָע גַּם בִּזְמַנָּם דַּוְקָא בַּלַּיְלָה,",
+      "heCharOffset": 98,
+      "ref": "Rif Berakhot 3a:7",
+      "url": "https://www.sefaria.org/Rif_Berakhot_3a:7",
+      "he": "הא פירשוה רבנן ואוקמוה בתפלת ערבית שאם הניחו יחידי ויצא חוששין שמא יבא לידי סכנה לפיכך צריך להמתין לחבירו עד שמסיים את תפלתו:",
+      "en": "The rabbis have explained this and established that it concerns the evening prayer. If he leaves the other person alone and departs, there is concern that the other may come into danger. He must therefore wait for his fellow until he finishes his prayer.",
+      "context": "Rif expressly limits this application to the evening prayer. Rav Tzadok examines how that limitation relates to the distinctions between a synagogue in the fields and one in town.",
+      "sourceEvidence": [
+        {
+          "ref": "Rif Berakhot 3a:7",
+          "url": "https://www.sefaria.org/Rif_Berakhot_3a:7",
+          "he": "הא פירשוה רבנן ואוקמוה בתפלת ערבית שאם הניחו יחידי ויצא חוששין שמא יבא לידי סכנה לפיכך צריך להמתין לחבירו עד שמסיים את תפלתו:",
+          "en": "The rabbis have explained this and established that it concerns the evening prayer. If he leaves the other person alone and departs, there is concern that the other may come into danger. He must therefore wait for his fellow until he finishes his prayer.",
+          "translation": "Original English translation prepared from the cited Hebrew or Aramaic.",
+          "coverage": "excerpt",
+          "heSha256": "e981bf91f55945641a65393bd3d4dfb2f265e622ef1db27c3d6fe3fec48c5cd2"
+        }
+      ],
+      "reviewEvidence": {
+        "pdfPages": {
+          "neimosA": [
+            103,
+            104,
+            105,
+            106,
+            107,
+            108
+          ],
+          "integratedA": [
+            149,
+            150,
+            151,
+            152
+          ]
+        },
+        "preserveExisting": true,
+        "status": "verified",
+        "dedup": "Destination native and connected notes checked; selected source quotation is not already supplied.",
+        "primaryTextFile": "review-work/recover36-primary.json"
+      }
+    },
+    {
+      "section": 36,
+      "id": "rabbeinu-yonah-distraction",
+      "rowN": 1,
+      "phraseIndex": 14,
+      "heAnchorPrefix": "וְנִרְאֶה דְּסָבְרֵי דִּ\"יִתְבַּלְבֵּל\" שַׁיָּיךְ גַּם בָּעִיר כְּמוֹ שֶׁכָּתוּב בְּתַלְמִידֵי רַבֵּנוּ יוֹנָה,",
+      "heCharOffset": 111,
+      "ref": "Rabbeinu Yonah on Berakhot 3a:11",
+      "url": "https://www.sefaria.org/Rabbeinu_Yonah_on_Berakhot_3a:11",
+      "he": "הא פרשוה רבנן ואוקמוה בתפלת ערבית וכו'. כתב רבינו חננאל שבימיהם היו הבתי כנסיות חוץ לעיר ומתוך כך אם מניחו יחידי שמא יסתכן מהמזיקים שמצויין שם יותר ונראה דאפילו בבתי כנסיות שבעיר יש זה הדין שדרך העולם כשאדם עומד יחידי בתפלה תפלתו מתבלבלת:",
+      "en": "“The rabbis have explained this and established that it concerns the evening prayer,” and so forth. Rabbeinu Ḥananel wrote that in their days the synagogues were outside the city; consequently, leaving someone alone might expose him to danger from the harmful forces more commonly found there. It appears that this rule applies even to synagogues in the city, for it is common that when a person stands alone in prayer, his prayer becomes confused.",
+      "context": "Rabbeinu Yonah adds a distinct concern: leaving a person alone can disturb his concentration even in town. Rav Tzadok asks whether this extension still presupposes Rif’s reference to the evening prayer.",
+      "sourceEvidence": [
+        {
+          "ref": "Rabbeinu Yonah on Berakhot 3a:11",
+          "url": "https://www.sefaria.org/Rabbeinu_Yonah_on_Berakhot_3a:11",
+          "he": "הא פרשוה רבנן ואוקמוה בתפלת ערבית וכו'. כתב רבינו חננאל שבימיהם היו הבתי כנסיות חוץ לעיר ומתוך כך אם מניחו יחידי שמא יסתכן מהמזיקים שמצויין שם יותר ונראה דאפילו בבתי כנסיות שבעיר יש זה הדין שדרך העולם כשאדם עומד יחידי בתפלה תפלתו מתבלבלת:",
+          "en": "“The rabbis have explained this and established that it concerns the evening prayer,” and so forth. Rabbeinu Ḥananel wrote that in their days the synagogues were outside the city; consequently, leaving someone alone might expose him to danger from the harmful forces more commonly found there. It appears that this rule applies even to synagogues in the city, for it is common that when a person stands alone in prayer, his prayer becomes confused.",
+          "translation": "Original English translation prepared from the cited Hebrew or Aramaic.",
+          "coverage": "excerpt",
+          "heSha256": "a59ddf790124f4ac7147b30976b35ff063da65d2e0cbdc10eea4410a1c97649a"
+        }
+      ],
+      "reviewEvidence": {
+        "pdfPages": {
+          "neimosA": [
+            103,
+            104,
+            105,
+            106,
+            107,
+            108
+          ],
+          "integratedA": [
+            149,
+            150,
+            151,
+            152
+          ]
+        },
+        "preserveExisting": true,
+        "status": "verified",
+        "dedup": "Destination native and connected notes checked; selected source quotation is not already supplied.",
+        "primaryTextFile": "review-work/recover36-primary.json"
+      }
+    },
+    {
+      "section": 36,
+      "id": "beit-yosef-waiting-and-daytime",
+      "rowN": 1,
+      "phraseIndex": 15,
+      "heAnchorPrefix": "אַךְ עַל הַ\"יֵּשׁ אוֹמְרִים\" שֶׁבָּרַמָ\"א נִרְשָׁם תַּלְמִידֵי רַבֵּנוּ יוֹנָה, מְבוֹאָר דִּלְתַלְמִידֵי רַבֵּנוּ יוֹנָה הוּא הַדִּין בַּיּוֹם, וְכֵן כָּתַב בְּבֵית יוֹסֵף לְהַתַּלְמִידֵי רַבֵּנוּ יוֹנָה,",
+      "heCharOffset": 204,
+      "ref": "Beit Yosef, Orach Chayim 90:20-21",
+      "url": "https://www.sefaria.org/Beit_Yosef,_Orach_Chayim_90:20-21",
+      "he": "שנים שנכנסו לב\"ה וסיים אחד תפלתו קודם חבירו וכו' שם (ה:) וכתב הר\"י דה\"ה אם נכנסו הרבה בני אדם לב\"ה אע\"פ שלא נכנסו ביחד שאותם שנשארו אחרונים יש לאחד להמתין לחבירו מיהו אם נכנס יחידי בשעה שלא יוכל לסיים עמהם תפלתו אין חבירו חייב להמתין לו דכיון שרואה שלא יוכל לסיים עמהם ונכנס איגלאי מילתא דאדעתא דהכי נכנס ואינו מפחד אם ישאר יחידי וכתב עוד וכי אמרינן שחבירו חייב להמתינו דוקא כשאינו מאריך בדבר אחר אלא בתפלתו אבל אם הוא מאריך בבקשות ובדברים אחרים אין חבירו חייב להמתינו בשום ענין עכ\"ל ומה שפירש רבינו בשם ר\"ח כ\"כ הר\"י בשמו וכן כתבו התוס' בשם ר\"ת והרי\"ף כתב הא פירשוה רבנן ואוקמוה בתפלת ערבית שאם הניחו יחידי ויצא חוששין שמא יבא לידי סכנה:\nומ\"ש ור\"י היה ממתין אף בשלנו ביום מדברי התוס' נראה דמשום חומרא בעלמא היה עושה כן וגם המרדכי כתב ור\"י היה מחמיר אף בבתי כנסיות שלנו והיה מאריך בתפלתו עד שיצאו כולם ואם בתוך כך היה אדם בא בב\"ה היה מעיין בספר עד שגמר תפלתו ונכון אף לנו להחמיר עכ\"ל אבל ה\"ר יונה כתב דנראה שאפילו בבתי כנסיות שבעיר יש זה הדין שדרך העולם כשאדם עומד יחידי בתפלה תפלתו מתבלבלת:",
+      "en": "“Two people who entered a synagogue, and one finished his prayer before his fellow,” and so forth: this is discussed there, on Berakhot 5b. Rabbeinu Yonah wrote that the same applies when many people entered a synagogue, even if they did not enter together: of those remaining last, one must wait for the other. However, if someone entered alone at a time when he could not finish his prayer with them, his fellow need not wait for him. Since he saw that he could not finish with them and nevertheless entered, he showed that he entered on that understanding and is not afraid to remain alone. He further wrote: When we say that his fellow must wait for him, this applies specifically when he is not prolonging anything beyond his prayer. But if he prolongs petitions and other matters, his fellow is not required to wait for him in any circumstance. This concludes his words. What our author explained in the name of Rabbeinu Chananel was also written by Rabbeinu Yonah in his name, and Tosafot likewise wrote it in the name of Rabbeinu Tam. Rif wrote: “The rabbis explained this and established that it concerns the evening prayer; if he leaves him alone and departs, there is concern that he may come into danger.” Concerning the statement that Ri would wait even in our synagogues during the day: Tosafot’s words indicate that he did so as an additional stringency. Mordechai likewise wrote: “Ri was stringent even in our synagogues. He would prolong his prayer until everyone left; and if someone entered the synagogue in the meantime, he would study a book until that person finished his prayer. It is proper for us too to be stringent.” This concludes his words. Rabbeinu Yonah, however, wrote that this rule appears to apply even in synagogues within the city, because a person’s prayer commonly becomes unsettled when he stands alone in prayer.",
+      "context": "Beit Yosef preserves the exceptions for a late arrival who knowingly remains alone and for someone prolonging additional petitions. He then distinguishes Ri’s daytime stringency from Rabbeinu Yonah’s rule for synagogues in town. Rav Tzadok questions whether the latter statement, which does not expressly mention daytime, establishes the same obligation by day.",
+      "sourceEvidence": [
+        {
+          "ref": "Beit Yosef, Orach Chayim 90:20-21",
+          "url": "https://www.sefaria.org/Beit_Yosef,_Orach_Chayim_90:20-21",
+          "he": "שנים שנכנסו לב\"ה וסיים אחד תפלתו קודם חבירו וכו' שם (ה:) וכתב הר\"י דה\"ה אם נכנסו הרבה בני אדם לב\"ה אע\"פ שלא נכנסו ביחד שאותם שנשארו אחרונים יש לאחד להמתין לחבירו מיהו אם נכנס יחידי בשעה שלא יוכל לסיים עמהם תפלתו אין חבירו חייב להמתין לו דכיון שרואה שלא יוכל לסיים עמהם ונכנס איגלאי מילתא דאדעתא דהכי נכנס ואינו מפחד אם ישאר יחידי וכתב עוד וכי אמרינן שחבירו חייב להמתינו דוקא כשאינו מאריך בדבר אחר אלא בתפלתו אבל אם הוא מאריך בבקשות ובדברים אחרים אין חבירו חייב להמתינו בשום ענין עכ\"ל ומה שפירש רבינו בשם ר\"ח כ\"כ הר\"י בשמו וכן כתבו התוס' בשם ר\"ת והרי\"ף כתב הא פירשוה רבנן ואוקמוה בתפלת ערבית שאם הניחו יחידי ויצא חוששין שמא יבא לידי סכנה:\nומ\"ש ור\"י היה ממתין אף בשלנו ביום מדברי התוס' נראה דמשום חומרא בעלמא היה עושה כן וגם המרדכי כתב ור\"י היה מחמיר אף בבתי כנסיות שלנו והיה מאריך בתפלתו עד שיצאו כולם ואם בתוך כך היה אדם בא בב\"ה היה מעיין בספר עד שגמר תפלתו ונכון אף לנו להחמיר עכ\"ל אבל ה\"ר יונה כתב דנראה שאפילו בבתי כנסיות שבעיר יש זה הדין שדרך העולם כשאדם עומד יחידי בתפלה תפלתו מתבלבלת:",
+          "en": "“Two people who entered a synagogue, and one finished his prayer before his fellow,” and so forth: this is discussed there, on Berakhot 5b. Rabbeinu Yonah wrote that the same applies when many people entered a synagogue, even if they did not enter together: of those remaining last, one must wait for the other. However, if someone entered alone at a time when he could not finish his prayer with them, his fellow need not wait for him. Since he saw that he could not finish with them and nevertheless entered, he showed that he entered on that understanding and is not afraid to remain alone. He further wrote: When we say that his fellow must wait for him, this applies specifically when he is not prolonging anything beyond his prayer. But if he prolongs petitions and other matters, his fellow is not required to wait for him in any circumstance. This concludes his words. What our author explained in the name of Rabbeinu Chananel was also written by Rabbeinu Yonah in his name, and Tosafot likewise wrote it in the name of Rabbeinu Tam. Rif wrote: “The rabbis explained this and established that it concerns the evening prayer; if he leaves him alone and departs, there is concern that he may come into danger.” Concerning the statement that Ri would wait even in our synagogues during the day: Tosafot’s words indicate that he did so as an additional stringency. Mordechai likewise wrote: “Ri was stringent even in our synagogues. He would prolong his prayer until everyone left; and if someone entered the synagogue in the meantime, he would study a book until that person finished his prayer. It is proper for us too to be stringent.” This concludes his words. Rabbeinu Yonah, however, wrote that this rule appears to apply even in synagogues within the city, because a person’s prayer commonly becomes unsettled when he stands alone in prayer.",
+          "translation": "Original English translation prepared from the cited Hebrew or Aramaic.",
+          "coverage": "Complete source unit, including its qualifications and conclusion.",
+          "heSha256": "a0ebf72f63c778fc75c2798ff19824b7bf2d36d0aea6f529fa155b4289fe0ef0"
+        }
+      ],
+      "reviewEvidence": {
+        "pdfPages": {
+          "neimosA": [
+            103,
+            104,
+            105,
+            106,
+            107,
+            108
+          ],
+          "integratedA": [
+            149,
+            150,
+            151,
+            152
+          ]
+        },
+        "preserveExisting": true,
+        "status": "verified",
+        "dedup": "All eight existing native notes and the empty connected-note set in ois 36 checked; this quoted source passage is absent.",
+        "primaryTextFile": "review-work/review-36-restored-primary.json",
+        "recovery": "Restored after independent review identified the missing source explicitly cited in the author text; all six other additions retained."
+      }
+    },
+    {
+      "section": 36,
+      "id": "tur-waiting-views",
+      "rowN": 1,
+      "phraseIndex": 17,
+      "heAnchorPrefix": "וְעַיֵּין בַּטּוּר מַה שֶּׁכָּתַב: \"וְיֵשׁ אוֹמְרִים דְּאַף בְּשֶׁלָּנוּ וְכוּלֵי\", לִכְאוֹרָה הַךְ \"יֵשׁ אוֹמְרִים\" דִּבְרֵי תַּלְמִידֵי רַבֵּנוּ יוֹנָה וּכְמוֹ שֶׁכָּתַבְתִּי.",
+      "heCharOffset": 177,
+      "ref": "Tur, Orach Chayim 90:1",
+      "url": "https://www.sefaria.org/Tur,_Orach_Chayim_90:1",
+      "he": "שנים שנכנסו לבית הכנסת וסיים אחד תפלתו קודם חבירו ומיהר לצאת ולא המתין לחבירו אין תפלתו נשמעת ואם המתין לו שכרו הרבה מאד ופי' ר\"ח דוקא בימיהם שבתי כנסיות היו בשדות ושכיחי מזיקין וי\"א דאף בשלנו בלילה צריך להמתין ור\"י היה ממתין אף בשלנו ביום.",
+      "en": "If two people enter the synagogue and one finishes his prayer before the other, hurries to leave and does not wait for his fellow, his prayer is not heard. If he waits, his reward is exceedingly great. Rabbeinu Ḥananel explained that this applied specifically in their days, when synagogues stood in the fields and harmful forces were common. Some say that even in our synagogues one must wait at night. Ri would wait even in our synagogues during the day.",
+      "context": "The Tur places three formulations side by side: Rabbeinu Ḥananel’s explanation, the view requiring waiting at night in contemporary synagogues, and Ri’s daytime practice. These are the precise distinctions whose attribution Rav Tzadok investigates.",
+      "sourceEvidence": [
+        {
+          "ref": "Tur, Orach Chayim 90:1",
+          "url": "https://www.sefaria.org/Tur,_Orach_Chayim_90:1",
+          "he": "שנים שנכנסו לבית הכנסת וסיים אחד תפלתו קודם חבירו ומיהר לצאת ולא המתין לחבירו אין תפלתו נשמעת ואם המתין לו שכרו הרבה מאד ופי' ר\"ח דוקא בימיהם שבתי כנסיות היו בשדות ושכיחי מזיקין וי\"א דאף בשלנו בלילה צריך להמתין ור\"י היה ממתין אף בשלנו ביום.",
+          "en": "If two people enter the synagogue and one finishes his prayer before the other, hurries to leave and does not wait for his fellow, his prayer is not heard. If he waits, his reward is exceedingly great. Rabbeinu Ḥananel explained that this applied specifically in their days, when synagogues stood in the fields and harmful forces were common. Some say that even in our synagogues one must wait at night. Ri would wait even in our synagogues during the day.",
+          "translation": "Original English translation prepared from the cited Hebrew or Aramaic.",
+          "coverage": "excerpt",
+          "heSha256": "de28fe72baf7ed47a47ac885e3711a04be8fd863358f585ff719a1d60a08f8d9"
+        }
+      ],
+      "reviewEvidence": {
+        "pdfPages": {
+          "neimosA": [
+            103,
+            104,
+            105,
+            106,
+            107,
+            108
+          ],
+          "integratedA": [
+            149,
+            150,
+            151,
+            152
+          ]
+        },
+        "preserveExisting": true,
+        "status": "verified",
+        "dedup": "Destination native and connected notes checked; selected source quotation is not already supplied.",
+        "primaryTextFile": "review-work/recover36-primary.json"
+      }
+    },
+    {
+      "section": 36,
+      "id": "tur-yiru-eineinu",
+      "rowN": 1,
+      "phraseIndex": 23,
+      "heAnchorPrefix": "וְעַיֵּין בְּטוּר וְשֻׁלְחָן עָרוּךְ סִימָן רל\"ו טַעַם אַחֵר, דְּהוּא בִּמְקוֹם תְּפִלַּת עַרְבִית דְּגַם כְּשֶׁכֻּלָּם בְּיַחַד יְרֵאִים",
+      "heCharOffset": 137,
+      "ref": "Tur, Orach Chayim 236:1",
+      "url": "https://www.sefaria.org/Tur,_Orach_Chayim_236:1",
+      "he": "ומה שנוהגין להפסיק בפסוקים ויראו עינינו וקדיש לפי שבימים ראשונים היו בתי כנסיות שלהם בשדות והיו יראים להתאחר שם עד זמן תפלת ערבית ותיקנו לומר פסוקים אלו שיש בהם י\"ח אזכרות כנגד י\"ח ברכות שיש בתפלת ערבית ונפטרין בקדיש ועתה שחזרו להתפלל ערבית בבתי כנסיות לא נתבטל מנהג הראשון ומ\"מ אין להפסיק בדברים אחרים ויש מן הגדולים שנהגו שלא לאמרם",
+      "en": "The custom to interrupt with verses, “May our eyes see,” and Kaddish arose because in earlier days their synagogues were in the fields, and they feared remaining there until the time of the evening prayer. They instituted these verses, which contain eighteen mentions of God’s name corresponding to the eighteen blessings of the evening prayer, and concluded with Kaddish. Now that they have resumed praying the evening prayer in synagogues, the original custom has not been abolished. Nevertheless, one must not interrupt with other matters. Some of the great authorities followed the practice of not reciting these verses.",
+      "context": "Here the verses originally provide a shorter substitute for the evening Amidah because the congregation feared remaining outside. This differs from an explanation based on waiting for a late individual. The quotation preserves the later continuation of the custom and the practice of those who omitted the verses.",
+      "sourceEvidence": [
+        {
+          "ref": "Tur, Orach Chayim 236:1",
+          "url": "https://www.sefaria.org/Tur,_Orach_Chayim_236:1",
+          "he": "ומה שנוהגין להפסיק בפסוקים ויראו עינינו וקדיש לפי שבימים ראשונים היו בתי כנסיות שלהם בשדות והיו יראים להתאחר שם עד זמן תפלת ערבית ותיקנו לומר פסוקים אלו שיש בהם י\"ח אזכרות כנגד י\"ח ברכות שיש בתפלת ערבית ונפטרין בקדיש ועתה שחזרו להתפלל ערבית בבתי כנסיות לא נתבטל מנהג הראשון ומ\"מ אין להפסיק בדברים אחרים ויש מן הגדולים שנהגו שלא לאמרם",
+          "en": "The custom to interrupt with verses, “May our eyes see,” and Kaddish arose because in earlier days their synagogues were in the fields, and they feared remaining there until the time of the evening prayer. They instituted these verses, which contain eighteen mentions of God’s name corresponding to the eighteen blessings of the evening prayer, and concluded with Kaddish. Now that they have resumed praying the evening prayer in synagogues, the original custom has not been abolished. Nevertheless, one must not interrupt with other matters. Some of the great authorities followed the practice of not reciting these verses.",
+          "translation": "Original English translation prepared from the cited Hebrew or Aramaic.",
+          "coverage": "excerpt",
+          "heSha256": "13e2f5ea57550a00e62b2e73ce676738c58bd64001b867d7f77a00ba9c768695"
+        }
+      ],
+      "reviewEvidence": {
+        "pdfPages": {
+          "neimosA": [
+            103,
+            104,
+            105,
+            106,
+            107,
+            108
+          ],
+          "integratedA": [
+            149,
+            150,
+            151,
+            152
+          ]
+        },
+        "preserveExisting": true,
+        "status": "verified",
+        "dedup": "Destination native and connected notes checked; selected source quotation is not already supplied.",
+        "primaryTextFile": "review-work/recover36-primary.json"
+      }
+    },
+    {
+      "section": 36,
+      "id": "shabbat-sleeping-alone",
+      "rowN": 1,
+      "phraseIndex": 27,
+      "heAnchorPrefix": "רַק לִישַׁן יְחִידִי],",
+      "heCharOffset": 22,
+      "ref": "Shabbat 151b:10",
+      "url": "https://www.sefaria.org/Shabbat_151b:10",
+      "he": "אמר רבי חנינא: אסור לישן בבית יחידי, וכל הישן בבית יחידי — אחזתו לילית.",
+      "en": "Rabbi Ḥanina said: It is forbidden to sleep alone in a house, and whoever sleeps alone in a house is seized by Lilith.",
+      "context": "This is the specific warning about sleeping alone that Rav Tzadok distinguishes from merely entering or being alone in a sound building.",
+      "sourceEvidence": [
+        {
+          "ref": "Shabbat 151b:10",
+          "url": "https://www.sefaria.org/Shabbat_151b:10",
+          "he": "אמר רבי חנינא: אסור לישן בבית יחידי, וכל הישן בבית יחידי — אחזתו לילית.",
+          "en": "Rabbi Ḥanina said: It is forbidden to sleep alone in a house, and whoever sleeps alone in a house is seized by Lilith.",
+          "translation": "Original English translation prepared from the cited Hebrew or Aramaic.",
+          "coverage": "excerpt",
+          "heSha256": "66877ab6aabcf3b6f8645124b785754cbf60d22f63a236615317eae62c193831"
+        }
+      ],
+      "reviewEvidence": {
+        "pdfPages": {
+          "neimosA": [
+            103,
+            104,
+            105,
+            106,
+            107,
+            108
+          ],
+          "integratedA": [
+            149,
+            150,
+            151,
+            152
+          ]
+        },
+        "preserveExisting": true,
+        "status": "verified",
+        "dedup": "Destination native and connected notes checked; selected source quotation is not already supplied.",
+        "primaryTextFile": "review-work/recover36-primary.json"
+      }
+    },
+    {
+      "section": 36,
+      "id": "berakhot-latrine-protection",
+      "rowN": 1,
+      "phraseIndex": 31,
+      "heAnchorPrefix": "וְיֵשׁ לוֹמַר גַּם בֵּית הַכִּסֵּא לֹא מִקְרֵי חָרְבָּה דְּהוּא לְתַשְׁמִישׁ אָדָם, וְיֵשׁ לוֹמַר שָׁאנֵי בֵּית הַכִּסֵּא דִּשְׁכִיחֵי מַזִּיקִין כְּמוֹ שֶׁכָּתוּב שִׁילְהֵי בְּרָכוֹת.",
+      "heCharOffset": 184,
+      "ref": "Berakhot 62a:6-7",
+      "url": "https://www.sefaria.org/Berakhot_62a:6-7",
+      "he": "אמר רבי תנחום בר חנילאי: כל הצנוע בבית הכסא נצול משלשה דברים — מן הנחשים, ומן העקרבים, ומן המזיקין. ויש אומרים אף חלומותיו מיושבים עליו. ההוא בית הכסא דהוה בטבריא, כי הוו עיילי ביה בי תרי — אפילו ביממא מתזקי. רבי אמי ורבי אסי הוו עיילי ביה חד וחד לחודיה — ולא מתזקי. אמרי להו רבנן: לא מסתפיתו? אמרי להו: אנן קבלה גמירינן, קבלה דבית הכסא — צניעותא ושתיקותא. קבלה דיסורי — שתיקותא ומבעי רחמי.",
+      "en": "Rabbi Tanḥum bar Ḥanilai said: Anyone who conducts himself modestly in the privy is saved from three things—from snakes, from scorpions and from harmful spirits. Some say that his dreams are also settled. There was a privy in Tiberias where even two people entering together during the day would be harmed. Rabbi Ami and Rabbi Asi would enter individually and were not harmed. The rabbis asked them, “Are you not afraid?” They answered, “We have learned a received tradition: protection in the privy consists of modesty and silence; protection in suffering consists of silence and seeking mercy.”",
+      "context": "This is the passage at the end of Berakhot explicitly invoked here. Its account treats the particular place as dangerous even during the day and even for two people, and it also states the protective conduct of Rabbi Ami and Rabbi Asi.",
+      "sourceEvidence": [
+        {
+          "ref": "Berakhot 62a:6-7",
+          "url": "https://www.sefaria.org/Berakhot_62a:6-7",
+          "he": "אמר רבי תנחום בר חנילאי: כל הצנוע בבית הכסא נצול משלשה דברים — מן הנחשים, ומן העקרבים, ומן המזיקין. ויש אומרים אף חלומותיו מיושבים עליו. ההוא בית הכסא דהוה בטבריא, כי הוו עיילי ביה בי תרי — אפילו ביממא מתזקי. רבי אמי ורבי אסי הוו עיילי ביה חד וחד לחודיה — ולא מתזקי. אמרי להו רבנן: לא מסתפיתו? אמרי להו: אנן קבלה גמירינן, קבלה דבית הכסא — צניעותא ושתיקותא. קבלה דיסורי — שתיקותא ומבעי רחמי.",
+          "en": "Rabbi Tanḥum bar Ḥanilai said: Anyone who conducts himself modestly in the privy is saved from three things—from snakes, from scorpions and from harmful spirits. Some say that his dreams are also settled. There was a privy in Tiberias where even two people entering together during the day would be harmed. Rabbi Ami and Rabbi Asi would enter individually and were not harmed. The rabbis asked them, “Are you not afraid?” They answered, “We have learned a received tradition: protection in the privy consists of modesty and silence; protection in suffering consists of silence and seeking mercy.”",
+          "translation": "Original English translation prepared from the cited Hebrew or Aramaic.",
+          "coverage": "excerpt",
+          "heSha256": "b70a8b3f74458276ad72af3d5f288db0ffa942de1e3b85f4a1533069304a21d2"
+        }
+      ],
+      "reviewEvidence": {
+        "pdfPages": {
+          "neimosA": [
+            103,
+            104,
+            105,
+            106,
+            107,
+            108
+          ],
+          "integratedA": [
+            149,
+            150,
+            151,
+            152
+          ]
+        },
+        "preserveExisting": true,
+        "status": "verified",
+        "dedup": "Destination native and connected notes checked; selected source quotation is not already supplied.",
+        "primaryTextFile": "review-work/recover36-primary.json"
+      }
+    },
+    {
+      "section": 37,
+      "id": "mei-proverbs-field",
+      "rowN": 1,
+      "phraseIndex": 1,
+      "heAnchorPrefix": "שָׂדֶה הוּא הִתְפַּשְּׁטוּת לְאֹרֶךְ וָרֹחַב, כְּמוֹ שֶׁשָּׁמַעְתִּי עַל פָּסוּק (מִשְׁלֵי כד, כז): \"וְעַתְּדָהּ בַּשָּׂדֶה לָךְ\",",
+      "heCharOffset": 130,
+      "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 24:1",
+      "url": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/#/read/Mei_HaShiloach,_Volume_I,_Writings,_Proverbs_24",
+      "he": "הכן בחוץ מלאכתך ועתדה בשדה לך אחר ובנית ביתך. \"הכן בחוץ מלאכתך\" היינו בתחילה צריך האדם לשמור כל המצות כפשוטם, היינו להזהר בכל מצות לא תעשה מאד ולסור מרע, \"ועתדה בשדה לך\", שדה היינו התפשטות והוא שיתפשט אליו כל האיסורים בגדרים וכל החומרות מדברי סופרים, כמה שידוע עד כמה יסתעפו דברי אלקים, עד כי שמץ מכעס יקרא \"לא תרצח\" וריבוי שיחה עם האשה הוא אביזריהו ד\"לא תנאף\", וכמו שמצינו בגמרא (עירובין נ״ג עמוד ב) שאמרה ברוריה לרבי יוסי הגלילי: \"היה לך לומר באיזה ללוד וכולי\", \"ועתדה\", היינו לשון קיום וחיזוק שהגדרים והסייגים הם קיום לגוף המצוה, \"אחר ובנית ביתך\", היינו אחר שתגדל עצמך בחזק ובתקופות תהיה מגדר מכל צד ותהיה מתר להתפשט עצמך בכל חפצך ולא תצטרך לשום גדר, ולכן באמת לא עבר רבי יוסי הגלילי על \"לא תרבה\" כי כבר היה נשלם ולא היה צריך לגדרים.",
+      "en": "“Prepare your work outside, make it ready for yourself in the field, and afterward build your house.” “Prepare your work outside” means that initially a person must observe all the mitzvot in their plain meaning: to be very careful about every prohibition and turn away from evil. “Make it ready for yourself in the field”: a field signifies expansion, so that all the prohibitions extend for him into safeguards and all the stringencies of the Sages. It is known how far the words of God branch out: even a trace of anger is termed “You shall not murder,” and excessive conversation with a woman is an adjunct of “You shall not commit adultery.” Thus the Gemara in Eruvin 53b records Beruriah saying to Rabbi Yose HaGelili, “You should have said, ‘Which way to Lod?’” “Make it ready” conveys establishment and strengthening, for the boundaries and safeguards sustain the mitzvah itself. “Afterward build your house” means that after you have developed yourself in strength and firmness, you will be bounded on every side and permitted to expand into all your wishes without needing an additional safeguard. Rabbi Yose HaGelili therefore did not in fact transgress “Do not speak excessively,” because he had already attained completeness and did not need those safeguards.",
+      "context": "This is the interpretation of “make it ready in the field” that Rav Tzadok says he heard. The order matters: observance and inwardly established safeguards precede the described freedom of action. The passage identifies its final example with Rabbi Yose HaGelili’s attained state.",
+      "sourceEvidence": [
+        {
+          "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 24:1",
+          "url": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/#/read/Mei_HaShiloach,_Volume_I,_Writings,_Proverbs_24",
+          "he": "הכן בחוץ מלאכתך ועתדה בשדה לך אחר ובנית ביתך. \"הכן בחוץ מלאכתך\" היינו בתחילה צריך האדם לשמור כל המצות כפשוטם, היינו להזהר בכל מצות לא תעשה מאד ולסור מרע, \"ועתדה בשדה לך\", שדה היינו התפשטות והוא שיתפשט אליו כל האיסורים בגדרים וכל החומרות מדברי סופרים, כמה שידוע עד כמה יסתעפו דברי אלקים, עד כי שמץ מכעס יקרא \"לא תרצח\" וריבוי שיחה עם האשה הוא אביזריהו ד\"לא תנאף\", וכמו שמצינו בגמרא (עירובין נ״ג עמוד ב) שאמרה ברוריה לרבי יוסי הגלילי: \"היה לך לומר באיזה ללוד וכולי\", \"ועתדה\", היינו לשון קיום וחיזוק שהגדרים והסייגים הם קיום לגוף המצוה, \"אחר ובנית ביתך\", היינו אחר שתגדל עצמך בחזק ובתקופות תהיה מגדר מכל צד ותהיה מתר להתפשט עצמך בכל חפצך ולא תצטרך לשום גדר, ולכן באמת לא עבר רבי יוסי הגלילי על \"לא תרבה\" כי כבר היה נשלם ולא היה צריך לגדרים.",
+          "en": "“Prepare your work outside, make it ready for yourself in the field, and afterward build your house.” “Prepare your work outside” means that initially a person must observe all the mitzvot in their plain meaning: to be very careful about every prohibition and turn away from evil. “Make it ready for yourself in the field”: a field signifies expansion, so that all the prohibitions extend for him into safeguards and all the stringencies of the Sages. It is known how far the words of God branch out: even a trace of anger is termed “You shall not murder,” and excessive conversation with a woman is an adjunct of “You shall not commit adultery.” Thus the Gemara in Eruvin 53b records Beruriah saying to Rabbi Yose HaGelili, “You should have said, ‘Which way to Lod?’” “Make it ready” conveys establishment and strengthening, for the boundaries and safeguards sustain the mitzvah itself. “Afterward build your house” means that after you have developed yourself in strength and firmness, you will be bounded on every side and permitted to expand into all your wishes without needing an additional safeguard. Rabbi Yose HaGelili therefore did not in fact transgress “Do not speak excessively,” because he had already attained completeness and did not need those safeguards.",
+          "translation": "Original English translation prepared from the cited Hebrew or Aramaic.",
+          "coverage": "excerpt",
+          "heSha256": "ad07327a55dfbdd7915e0212c1af089c7b4f8e3cbc3ce51e093a07cd4a2a5a13"
+        }
+      ],
+      "reviewEvidence": {
+        "pdfPages": {
+          "neimosA": [
+            109
+          ],
+          "integratedA": [
+            153,
+            154
+          ]
+        },
+        "preserveExisting": true,
+        "status": "verified",
+        "dedup": "Destination native and connected notes checked; selected source quotation is not already supplied.",
+        "primaryTextFile": "tmp/batch-engineering/current-site/mcp-data/text/mei-hashiloach.json"
+      },
+      "readerRef": "Mei HaShiloach, Volume I, Writings, Proverbs 24:1"
+    },
+    {
+      "originalNumber": 2757,
+      "section": 38,
+      "rowN": 1,
+      "id": "heart-does-not-disclose",
+      "phraseIndex": 5,
+      "heAnchorPrefix": "וּבִכְגוֹן זֶה: לִבָּא לְפוּמָא לָא גַּלְיָא:",
+      "ref": "Kohelet Rabbah 12:10, on the hidden time of redemption",
+      "url": "https://www.sefaria.org/Kohelet_Rabbah.12.10",
+      "openExternal": true,
+      "he": "רבי שאול דנווה מתני לה בשם ר׳ שמעון. אם יאמר לך אדם מתי קץ הגאולה? הווי אומר לו: כי יום נקם בלבי. כתיב. ר׳ יהודה בר׳ סימון בשם רבי יהושע בן לוי: שלשה סימנים סימנתי לך, וסיימתי לך בקבורתו של משה. (דברים ל״ד) בגיא, בארץ מואב, מול בית פעור. ואף על פי כן, \"ולא ידע איש את קבורתו\". לבא לפומא לא גלי פומא למאן גלי?",
+      "en": "Rabbi Shaul of Naveh taught in the name of Rabbi Shimon: If someone asks you, “When is the appointed time of redemption?” tell him: It is written, “For a day of vengeance is in My heart.” Rabbi Yehudah son of Rabbi Simon said in the name of Rabbi Yehoshua ben Levi: I gave you three identifying signs and specified them concerning Moshe’s burial place—“in the valley,” “in the land of Moav,” and “opposite Beit Peor.” Nevertheless, “no one knew his burial place.” The heart has not disclosed it to the mouth; to whom, then, could the mouth disclose it?",
+      "context": "The Midrash uses this expression for what Hashem has kept undisclosed, in its discussion of the time of redemption and Moshe’s burial place. Rav Tzadok applies the expression here to the distinction between an inward conviction and what one can responsibly express to others.",
+      "originalEvidenceUrl": "https://daat.ac.il/he-il/tanach/midrashim/midrash-raba/kohelet-raba/raba-kohelet12.htm",
+      "originalHeSha256": "542adca13bb00e94891a9d23b1778650df0c97dd8cf8528de1a002cb943831b4",
+      "reviewEvidence": {
+        "pdfPages": {
+          "neimosA": [
+            110,
+            111
+          ],
+          "integratedA": [
+            155
+          ]
+        },
+        "verification": "The complete original passage was independently read in Daat chapter 12, subsection 10 and in https://www.sefaria.org/api/texts/Kohelet_Rabbah.12.10?context=0. Root approved changing only the new visible source URL to supported Sefaria, with openExternal true. All quotation and context words remained unchanged.",
+        "preserveExisting": true,
+        "status": "verified",
+        "recovery": "Exact original approved entry restored from engineering tool-output recovery. Wording compared against fresh Sefaria primary text; spelling/punctuation follows the original Daat transcription."
+      },
+      "sourceEvidence": [
+        {
+          "ref": "Kohelet Rabbah 12:10, on the hidden time of redemption",
+          "url": "https://daat.ac.il/he-il/tanach/midrashim/midrash-raba/kohelet-raba/raba-kohelet12.htm",
+          "he": "רבי שאול דנווה מתני לה בשם ר׳ שמעון. אם יאמר לך אדם מתי קץ הגאולה? הווי אומר לו: כי יום נקם בלבי. כתיב. ר׳ יהודה בר׳ סימון בשם רבי יהושע בן לוי: שלשה סימנים סימנתי לך, וסיימתי לך בקבורתו של משה. (דברים ל״ד) בגיא, בארץ מואב, מול בית פעור. ואף על פי כן, \"ולא ידע איש את קבורתו\". לבא לפומא לא גלי פומא למאן גלי?",
+          "en": "Rabbi Shaul of Naveh taught in the name of Rabbi Shimon: If someone asks you, “When is the appointed time of redemption?” tell him: It is written, “For a day of vengeance is in My heart.” Rabbi Yehudah son of Rabbi Simon said in the name of Rabbi Yehoshua ben Levi: I gave you three identifying signs and specified them concerning Moshe’s burial place—“in the valley,” “in the land of Moav,” and “opposite Beit Peor.” Nevertheless, “no one knew his burial place.” The heart has not disclosed it to the mouth; to whom, then, could the mouth disclose it?",
+          "heSha256": "542adca13bb00e94891a9d23b1778650df0c97dd8cf8528de1a002cb943831b4",
+          "translation": "Original English translation prepared directly from the original Hebrew or Aramaic.",
+          "coverage": "Contiguous complete selected source unit, with relevant qualifications retained."
+        }
+      ],
+      "heCharOffset": 45
+    },
+    {
+      "section": 39,
+      "id": "yoma-opening-and-assistance",
+      "rowN": 1,
+      "phraseIndex": 1,
+      "heAnchorPrefix": "דְּלוּלֵי כֵן לֹא הָיָה הַקָּדוֹשׁ בָּרוּךְ הוּא עוֹזְרוֹ, שֶׁרַק לַבָּא לִטָּהֵר מְסַיְּעִין אוֹתוֹ, אֲבָל בְּבָא לִטָּמֵא אָמְרוּ: רַק פּוֹתְחִין לוֹ וְלֹא מְסַיְּעִין.",
+      "heCharOffset": 170,
+      "ref": "Yoma 38b:16",
+      "url": "https://www.sefaria.org/Yoma_38b:16",
+      "he": "אמר ריש לקיש, מאי דכתיב: ״אם ללצים הוא יליץ ולענוים יתן חן״, בא לטמא — פותחין לו. בא לטהר — מסייעין אותו.",
+      "en": "Reish Lakish said: What is meant by the verse, “If it concerns scoffers, He lets them scoff; but to the humble He gives favor”? If someone comes to become impure, an opening is made for him; if someone comes to become pure, he is assisted.",
+      "context": "The distinction between an opening and active assistance is the premise of Rav Tzadok’s discussion. He then cautions that apparent assistance in a particular action is not, by itself, proof that the action is right.",
+      "sourceEvidence": [
+        {
+          "ref": "Yoma 38b:16",
+          "url": "https://www.sefaria.org/Yoma_38b:16",
+          "he": "אמר ריש לקיש, מאי דכתיב: ״אם ללצים הוא יליץ ולענוים יתן חן״, בא לטמא — פותחין לו. בא לטהר — מסייעין אותו.",
+          "en": "Reish Lakish said: What is meant by the verse, “If it concerns scoffers, He lets them scoff; but to the humble He gives favor”? If someone comes to become impure, an opening is made for him; if someone comes to become pure, he is assisted.",
+          "translation": "Original English translation prepared from the cited Hebrew or Aramaic.",
+          "coverage": "excerpt",
+          "heSha256": "435ac7e9bb3e5fc35151fd5f077b6a57d770c4c9cc4239ce18f813dd321da914"
+        }
+      ],
+      "reviewEvidence": {
+        "pdfPages": {
+          "neimosA": [
+            111,
+            112,
+            113
+          ],
+          "integratedA": [
+            156,
+            157
+          ]
+        },
+        "preserveExisting": true,
+        "status": "verified",
+        "dedup": "Destination native and connected notes checked; selected source quotation is not already supplied.",
+        "primaryTextFile": "review-work/recover36-primary.json"
+      }
+    },
+    {
+      "section": 39,
+      "id": "eliyahu-micah-anokhi",
+      "rowN": 1,
+      "phraseIndex": 6,
+      "heAnchorPrefix": "אָמְנָם רַבּוֹתֵינוּ זִכְרוֹנָם לִבְרָכָה אָמְרוּ בְּתַנָּא דְבֵי אֵלִיָּהוּ (סֵדֶר אֵלִיָּהוּ רַבָּה פָּרָשָׁה כו) כִּי מִיכָה כָּפַר בְּ\"אָנֹכִי\",",
+      "heCharOffset": 148,
+      "ref": "Tanna DeBei Eliyahu Rabbah 26:1",
+      "url": "https://www.sefaria.org/Tanna_DeBei_Eliyahu_Rabbah_26:1",
+      "he": "ד\"א אנכי ה' אלקיך מלמד שנסתכל הקב\"ה בעולם כולו מתחלת העולם ועד סוף העולם וצפה בעשרה אנשים שבעטו בו ואלו הן א' מיכה ב' ירבעם ג' בן הישראלית ד' מקושש ה' אבשלום ו' יואב ז' שמשון ח' עכן ט' עדי נבות י' אחאב אנכי ה' אלקיך בעט מיכה",
+      "en": "Another interpretation of “I am the Lord your God”: this teaches that the Holy One, blessed be He, looked over the entire world, from its beginning to its end, and foresaw ten people who rebelled against Him. These are: Micah, Jeroboam, the son of the Israelite woman, the wood-gatherer, Absalom, Joab, Samson, Achan, the witnesses against Naboth, and Ahab. Against “I am the Lord your God,” Micah rebelled.",
+      "context": "This is the explicit source for the statement that Micah rebelled against “Anokhi.” The midrash maps these figures onto the Ten Commandments; Rav Tzadok’s discussion focuses on the special significance of the first declaration.",
+      "sourceEvidence": [
+        {
+          "ref": "Tanna DeBei Eliyahu Rabbah 26:1",
+          "url": "https://www.sefaria.org/Tanna_DeBei_Eliyahu_Rabbah_26:1",
+          "he": "ד\"א אנכי ה' אלקיך מלמד שנסתכל הקב\"ה בעולם כולו מתחלת העולם ועד סוף העולם וצפה בעשרה אנשים שבעטו בו ואלו הן א' מיכה ב' ירבעם ג' בן הישראלית ד' מקושש ה' אבשלום ו' יואב ז' שמשון ח' עכן ט' עדי נבות י' אחאב אנכי ה' אלקיך בעט מיכה",
+          "en": "Another interpretation of “I am the Lord your God”: this teaches that the Holy One, blessed be He, looked over the entire world, from its beginning to its end, and foresaw ten people who rebelled against Him. These are: Micah, Jeroboam, the son of the Israelite woman, the wood-gatherer, Absalom, Joab, Samson, Achan, the witnesses against Naboth, and Ahab. Against “I am the Lord your God,” Micah rebelled.",
+          "translation": "Original English translation prepared from the cited Hebrew or Aramaic.",
+          "coverage": "excerpt",
+          "heSha256": "4bc268cb705d8d11f364cee9a1800021e9a93af15879d58156b4117cb286e994"
+        }
+      ],
+      "reviewEvidence": {
+        "pdfPages": {
+          "neimosA": [
+            111,
+            112,
+            113
+          ],
+          "integratedA": [
+            156,
+            157
+          ]
+        },
+        "preserveExisting": true,
+        "status": "verified",
+        "dedup": "Destination native and connected notes checked; selected source quotation is not already supplied.",
+        "primaryTextFile": "review-work/recover36-primary.json"
+      }
+    },
+    {
+      "section": 39,
+      "id": "yisrael-anokhi-root",
+      "rowN": 1,
+      "phraseIndex": 7,
+      "heAnchorPrefix": "וּבְמָקוֹם אַחֵר בֵּיאַרְתִּי שֶׁהוּא כְּפִירָה בַּשּׁוֹרֶשׁ הַיִּשְׂרְאֵלִי, עַיֵּין שָׁם בְּבֵיאוּרוֹ.",
+      "heCharOffset": 104,
+      "ref": "Yisrael Kedoshim 5:17",
+      "url": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/#/read/Yisrael_Kedoshim_5",
+      "he": "אבל מיכה בעט ב״אנכי״ (תנא דבי אליהו רבה פרק כ״ו) הקודם ל״לא יהיה לך״ שהוא אזהרת עבודה זרה שמכלל הציווים, אבל ״אנכי״ לא בא בלשון ציווי כלל כנודע דאאמונה לא שייך ציווי, דאם אין מאמין בלב מה יועיל הציווי? רק ישראל ״מאמינים בני מאמינים״ (שבת צ״ז עמוד א׳), והוא שורש היהדות שבתולדה בכל זרע יעקב ודי בלשון הודעת דברים לבד: ״אנכי ה׳ אלהיך״ (שמות כ:ב), וזרע ישראל המאמינים יאמינו בזה אבל מכל מקום בעולם הזה שהוא עולם הבחירה ניתן מקום לבחירה גם בזה שיוכל לצאת משורש היהדות ולכפור בעיקר",
+      "en": "But Micah rebelled against “I am,” which precedes “You shall have no other gods,” the prohibition of idolatry that is among the commandments. “I am,” however, was not expressed as a command at all. As is known, faith is not something to which a command can apply: if a person does not believe in his heart, what would a command accomplish? Israel are “believers, children of believers”; this is the root of Jewish identity present from birth in all the seed of Jacob. A simple declaration therefore suffices: “I am the Lord your God,” and the believing seed of Israel will believe it. Nevertheless, in this world, which is the world of choice, room for choice was granted even in this, so that a person can depart from the root of Jewish identity and deny the fundamental principle.",
+      "context": "This develops the author’s reference to his explanation elsewhere: Micah’s fault is described as rejection of the root expressed by “Anokhi,” beyond the separate prohibition of idolatry. The continuation of this ois directs the reader toward prayer for transformation rather than confidence in one’s own origins.",
+      "sourceEvidence": [
+        {
+          "ref": "Yisrael Kedoshim 5:17",
+          "url": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/#/read/Yisrael_Kedoshim_5",
+          "he": "אבל מיכה בעט ב״אנכי״ (תנא דבי אליהו רבה פרק כ״ו) הקודם ל״לא יהיה לך״ שהוא אזהרת עבודה זרה שמכלל הציווים, אבל ״אנכי״ לא בא בלשון ציווי כלל כנודע דאאמונה לא שייך ציווי, דאם אין מאמין בלב מה יועיל הציווי? רק ישראל ״מאמינים בני מאמינים״ (שבת צ״ז עמוד א׳), והוא שורש היהדות שבתולדה בכל זרע יעקב ודי בלשון הודעת דברים לבד: ״אנכי ה׳ אלהיך״ (שמות כ:ב), וזרע ישראל המאמינים יאמינו בזה אבל מכל מקום בעולם הזה שהוא עולם הבחירה ניתן מקום לבחירה גם בזה שיוכל לצאת משורש היהדות ולכפור בעיקר",
+          "en": "But Micah rebelled against “I am,” which precedes “You shall have no other gods,” the prohibition of idolatry that is among the commandments. “I am,” however, was not expressed as a command at all. As is known, faith is not something to which a command can apply: if a person does not believe in his heart, what would a command accomplish? Israel are “believers, children of believers”; this is the root of Jewish identity present from birth in all the seed of Jacob. A simple declaration therefore suffices: “I am the Lord your God,” and the believing seed of Israel will believe it. Nevertheless, in this world, which is the world of choice, room for choice was granted even in this, so that a person can depart from the root of Jewish identity and deny the fundamental principle.",
+          "translation": "Original English translation prepared from the cited Hebrew or Aramaic.",
+          "coverage": "excerpt",
+          "heSha256": "28b3f7406ef9cac4168f8db5c951d87cdde018635449d7c208f59445703323b8"
+        }
+      ],
+      "reviewEvidence": {
+        "pdfPages": {
+          "neimosA": [
+            111,
+            112,
+            113
+          ],
+          "integratedA": [
+            156,
+            157
+          ]
+        },
+        "preserveExisting": true,
+        "status": "verified",
+        "dedup": "Destination native and connected notes checked; selected source quotation is not already supplied.",
+        "primaryTextFile": "tmp/batch-engineering/current-site/mcp-data/text/yisrael-kedoshim.json"
+      },
+      "readerRef": "Yisrael Kedoshim 5:17"
+    },
+    {
+      "section": 39,
+      "id": "likkutei-prayer-new-root",
+      "rowN": 1,
+      "phraseIndex": 10,
+      "heAnchorPrefix": "וְהָעֵצָה לָזֶה תְּפִלָּה וְתַחֲנוּנִים לְרַחֲמֵי שָׁמַיִם הַמּוֹעִילִים לַהֲפוֹךְ גַּם הַשּׁוֹרֶשׁ,",
+      "heCharOffset": 100,
+      "ref": "Likkutei Maamarim, Compositions on the Festivals 16:37",
+      "url": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/#/read/Likkutei_Maamarim,_Compositions_on_the_Festivals_16",
+      "he": "שזהו רק בישראל, דבהם יש אפילו חידוש גמור להיות \"יש מאין\", כדרך שנאמר: \"ועם נברא יהלל יה\" (תהלים קב, יט), ו\"בריאה\" בכל מקום מורה יש מאין כידוע. ועל דרך שנאמר: \"לב טהור ברא לי [אלהים]\" וגומר (תהלים נא, יב), דזה כח ישראל בתפלתן: לפעול אפילו בריאת יש מאין, בדבר שיש בו חסרון משורש, יוכל לתקן השורש עד שיהיה נברא טהרה מחודשת בלבו – יש מאין.",
+      "en": "This is found specifically in Israel, for in them there can be a completely new creation, bringing something into being from nothing, as it is said, “A people newly created shall praise the Lord.” As is known, “creation” everywhere denotes bringing something into being from nothing. It is like the verse, “Create in me a pure heart, O God”: this is Israel’s power in prayer—to effect even such a creation. Where there is a deficiency at the root, one can repair the root until a new purity is created in one’s heart, brought into being from nothing.",
+      "context": "The parallel explicitly connects prayer to a change in the root itself, using the same verse and the same explanation of “creation.” It gives the affirmative answer to the concern raised earlier in the ois.",
+      "sourceEvidence": [
+        {
+          "ref": "Likkutei Maamarim, Compositions on the Festivals 16:37",
+          "url": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/#/read/Likkutei_Maamarim,_Compositions_on_the_Festivals_16",
+          "he": "שזהו רק בישראל, דבהם יש אפילו חידוש גמור להיות \"יש מאין\", כדרך שנאמר: \"ועם נברא יהלל יה\" (תהלים קב, יט), ו\"בריאה\" בכל מקום מורה יש מאין כידוע. ועל דרך שנאמר: \"לב טהור ברא לי [אלהים]\" וגומר (תהלים נא, יב), דזה כח ישראל בתפלתן: לפעול אפילו בריאת יש מאין, בדבר שיש בו חסרון משורש, יוכל לתקן השורש עד שיהיה נברא טהרה מחודשת בלבו – יש מאין.",
+          "en": "This is found specifically in Israel, for in them there can be a completely new creation, bringing something into being from nothing, as it is said, “A people newly created shall praise the Lord.” As is known, “creation” everywhere denotes bringing something into being from nothing. It is like the verse, “Create in me a pure heart, O God”: this is Israel’s power in prayer—to effect even such a creation. Where there is a deficiency at the root, one can repair the root until a new purity is created in one’s heart, brought into being from nothing.",
+          "translation": "Original English translation prepared from the cited Hebrew or Aramaic.",
+          "coverage": "excerpt",
+          "heSha256": "3d3686d6f7a9e51b005fa8439978a170aa34b383a608695b5b8b4e1eedff1627"
+        }
+      ],
+      "reviewEvidence": {
+        "pdfPages": {
+          "neimosA": [
+            111,
+            112,
+            113
+          ],
+          "integratedA": [
+            156,
+            157
+          ]
+        },
+        "preserveExisting": true,
+        "status": "verified",
+        "dedup": "Destination native and connected notes checked; selected source quotation is not already supplied.",
+        "primaryTextFile": "tmp/batch-engineering/current-site/mcp-data/text/likkutei-maamarim.json"
+      },
+      "readerRef": "Likkutei Maamarim, Compositions on the Festivals 16:37"
+    },
+    {
+      "section": 39,
+      "id": "ramban-creation-from-nothing",
+      "rowN": 1,
+      "phraseIndex": 11,
+      "heAnchorPrefix": "כְּמוֹ שֶׁכָּתַבְתִּי בְּמָקוֹם אַחֵר עַל פָּסוּק: \"לֵב טָהוֹר בְּרָא לִי אֱלֹהִים וְגוֹמֵר\", דִּבְרִיאָה בְּכָל מָקוֹם הַיְינוּ יֵשׁ מֵאַיִן כַּנּוֹדָע.",
+      "heCharOffset": 153,
+      "ref": "Ramban on Numbers 16:30:1",
+      "url": "https://www.sefaria.org/Ramban_on_Numbers_16:30:1",
+      "he": "והנכון שתאמר על המצא דבר מאין, כי אין אצלנו בלשון הקדש מורה על זה זולתי המלה הזאת.",
+      "en": "The correct explanation is that it denotes bringing something into existence from nothing, for in the holy language we have no expression denoting this other than this word.",
+      "context": "Ramban explains the word “creation” in the account of the earth opening to swallow Korah’s company. Rav Tzadok applies this meaning to the request, “Create in me a pure heart.”",
+      "sourceEvidence": [
+        {
+          "ref": "Ramban on Numbers 16:30:1",
+          "url": "https://www.sefaria.org/Ramban_on_Numbers_16:30:1",
+          "he": "והנכון שתאמר על המצא דבר מאין, כי אין אצלנו בלשון הקדש מורה על זה זולתי המלה הזאת.",
+          "en": "The correct explanation is that it denotes bringing something into existence from nothing, for in the holy language we have no expression denoting this other than this word.",
+          "translation": "Original English translation prepared from the cited Hebrew or Aramaic.",
+          "coverage": "excerpt",
+          "heSha256": "f00a234c65aac393c7d491e31dddc2259c36fa28d61e649bb916005f78bc8d1e"
+        }
+      ],
+      "reviewEvidence": {
+        "pdfPages": {
+          "neimosA": [
+            111,
+            112,
+            113
+          ],
+          "integratedA": [
+            156,
+            157
+          ]
+        },
+        "preserveExisting": true,
+        "status": "verified",
+        "dedup": "Destination native and connected notes checked; selected source quotation is not already supplied.",
+        "primaryTextFile": "review-work/recover36-primary.json"
+      }
+    }
+  ],
+  "coverage": [
+    {
+      "section": 36,
+      "status": "reviewed-add-only",
+      "sourcePageRanges": {
+        "neimosA": [
+          103,
+          108
+        ],
+        "integratedA": [
+          149,
+          152
+        ]
+      },
+      "addedSourceRefs": [
+        "Rif Berakhot 3a:7",
+        "Rabbeinu Yonah on Berakhot 3a:11",
+        "Tur, Orach Chayim 90:1",
+        "Tur, Orach Chayim 236:1",
+        "Shabbat 151b:10",
+        "Berakhot 62a:6-7",
+        "Berakhot 43b:7",
+        "Beit Yosef, Orach Chayim 90:20-21"
+      ],
+      "existingNotesPreserved": true
+    },
+    {
+      "section": 37,
+      "status": "reviewed-add-only",
+      "sourcePageRanges": {
+        "neimosA": [
+          109,
+          109
+        ],
+        "integratedA": [
+          153,
+          154
+        ]
+      },
+      "addedSourceRefs": [
+        "Mei HaShiloach, Volume I, Writings, Proverbs 24:1"
+      ],
+      "existingNotesPreserved": true
+    },
+    {
+      "section": 38,
+      "status": "reviewed-add-only",
+      "sourcePageRanges": {
+        "neimosA": [
+          110,
+          111
+        ],
+        "integratedA": [
+          155,
+          155
+        ]
+      },
+      "addedSourceRefs": [
+        "Kohelet Rabbah 12:10:1"
+      ],
+      "existingNotesPreserved": true
+    },
+    {
+      "section": 39,
+      "status": "reviewed-add-only",
+      "sourcePageRanges": {
+        "neimosA": [
+          111,
+          113
+        ],
+        "integratedA": [
+          156,
+          157
+        ]
+      },
+      "addedSourceRefs": [
+        "Yoma 38b:16",
+        "Tanna DeBei Eliyahu Rabbah 26:1",
+        "Yisrael Kedoshim 5:17",
+        "Likkutei Maamarim, Compositions on the Festivals 16:37",
+        "Ramban on Numbers 16:30:1"
+      ],
+      "existingNotesPreserved": true
+    },
+    {
+      "section": 40,
+      "status": "skipped-already-complete",
+      "reason": "User confirmed the ois 40 model was already completed; no review or modification requested for this pass.",
+      "existingNotesPreserved": true
+    }
+  ],
+  "observationsNotApplied": [
+    {
+      "section": 36,
+      "source": "Beit Yosef, Orach Chayim 90:21",
+      "reason": "Its selected Ri account is already quoted in native Tosafot note 2561, while its Rabbeinu Yonah passage is supplied in the new original Rabbeinu Yonah note. No additional repeated quotation added."
+    },
+    {
+      "section": 39,
+      "source": "Takanat HaShavin 15:48",
+      "reason": "Additional related explanation of David’s request for a newly created pure heart. The new Likkutei Maamarim passage and the existing Ohr Zarua note already provide the direct prayer/root/creation explanation; preserved without multiplying this point."
+    }
+  ]
+}
