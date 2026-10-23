@@ -1,0 +1,175 @@
+{
+  "schemaVersion": 1,
+  "reviewedSections": [
+    56,
+    57,
+    58,
+    59,
+    60
+  ],
+  "reviewedProposal": "review-work/ois-56-60.json",
+  "status": "Original 22-entry proposal reviewed before workspace refresh; 21 approved, 1 duplicate omitted by agreement.",
+  "recoveryNote": "This record reconstructs the completed independent review from retained context after the task filesystem reset. It records the original reviewed selections; a separately reconstructed proposal must preserve those reviewed passages, translations and anchors.",
+  "checks": {
+    "primaryHebrew": "All 22 matched cached original Hebrew/Aramaic or canonical local book text after removing vocalization, punctuation and HTML.",
+    "exactAnchors": "All 22 Hebrew anchor prefixes matched the corresponding baseline row and phrase.",
+    "translations": "English faithfully represented the cited excerpts; the relevant limitations and qualifications were retained.",
+    "existingNotes": "All native and connected notes in destination sections were read; existing content was to remain unchanged."
+  },
+  "approvedEntries": [
+    {
+      "section": 56,
+      "id": "peri-tzadik-root-consent",
+      "ref": "Peri Tzadik, Bo 11:1",
+      "status": "approved-original-proposal"
+    },
+    {
+      "section": 56,
+      "id": "rashi-redemption-through-wrath",
+      "ref": "Rashi on Sanhedrin 105a:5:2",
+      "status": "approved-original-proposal"
+    },
+    {
+      "section": 56,
+      "id": "deuteronomy-fear-and-service",
+      "ref": "Deuteronomy 10:12-13",
+      "status": "approved-original-proposal"
+    },
+    {
+      "section": 56,
+      "id": "zohar-tekhelet-awe",
+      "ref": "Zohar, Sh'lach 46:332",
+      "status": "approved-original-proposal"
+    },
+    {
+      "section": 56,
+      "id": "kometz-tekhelet-and-white",
+      "ref": "Kometz HaMinchah 2:4:1",
+      "status": "approved-original-proposal"
+    },
+    {
+      "section": 56,
+      "id": "menachot-tzitzit-restrain",
+      "ref": "Menachot 44a:4-7",
+      "status": "approved-original-proposal"
+    },
+    {
+      "section": 57,
+      "id": "taanit-righteous-account",
+      "ref": "Taanit 11a:11-12",
+      "status": "approved-original-proposal"
+    },
+    {
+      "section": 57,
+      "id": "berakhot-speech-accusation",
+      "ref": "Berakhot 19a:20-21",
+      "status": "approved-original-proposal"
+    },
+    {
+      "section": 57,
+      "id": "shabbat-joy-and-presence",
+      "ref": "Shabbat 30b:5",
+      "status": "approved-original-proposal"
+    },
+    {
+      "section": 57,
+      "id": "tzidkat-i-and-you",
+      "ref": "Tzidkat HaTzadik 247:1",
+      "status": "approved-original-proposal"
+    },
+    {
+      "section": 58,
+      "id": "rashi-unwitting-transgression",
+      "ref": "Rashi on Proverbs 12:21:1",
+      "status": "approved-original-proposal"
+    },
+    {
+      "section": 58,
+      "id": "sotah-nazir-order",
+      "ref": "Sotah 2a:4-6",
+      "status": "approved-original-proposal"
+    },
+    {
+      "section": 58,
+      "id": "rashi-stumbling-through-iniquity",
+      "ref": "Rashi on Hosea 14:2:3",
+      "status": "approved-original-proposal"
+    },
+    {
+      "section": 59,
+      "id": "shabbat-torah-elixir",
+      "ref": "Shabbat 88b:4",
+      "status": "approved-original-proposal"
+    },
+    {
+      "section": 59,
+      "id": "rashi-right-hand-study",
+      "ref": "Rashi on Shabbat 88b:4:1",
+      "status": "approved-original-proposal"
+    },
+    {
+      "section": 59,
+      "id": "yerushalmi-torah-conversation",
+      "ref": "Jerusalem Talmud Berakhot 9:5:19",
+      "status": "approved-original-proposal"
+    },
+    {
+      "section": 59,
+      "id": "tur-words-of-torah-blessing",
+      "ref": "Tur, Orach Chayim 47",
+      "status": "approved-original-proposal"
+    },
+    {
+      "section": 59,
+      "id": "tzidkat-torah-enters-heart",
+      "ref": "Tzidkat HaTzadik 133:1",
+      "status": "approved-original-proposal"
+    },
+    {
+      "section": 60,
+      "id": "rashi-baasha-accountability",
+      "ref": "Rashi on I Kings 16:7:2",
+      "status": "approved-original-proposal"
+    },
+    {
+      "section": 60,
+      "id": "shaarei-teshuvah-same-fault",
+      "ref": "Sha'arei Teshuvah 3:219",
+      "status": "approved-original-proposal"
+    },
+    {
+      "section": 60,
+      "id": "sotah-husband-clear",
+      "ref": "Sotah 28a:1",
+      "status": "approved-original-proposal"
+    }
+  ],
+  "issues": [
+    {
+      "section": 59,
+      "id": "eikhah-light-restores",
+      "ref": "Eikhah Rabbah, Petichta 2",
+      "severity": "omit-duplicate",
+      "finding": "The central Midrash passage about abandoning God but keeping His Torah, whose light returns a person to good, was already fully quoted within native footnote 2577, Peri Tzadik, Rosh Chodesh Tammuz 3:2. The concluding teaching to study even shelo lishmah because this leads to lishmah was already quoted in native note 210, Pesachim 50b:5.",
+      "disposition": "Root agreed to omit this proposed new entry, preserving all existing notes. Root owns the proposal edit."
+    }
+  ],
+  "qualifications": [
+    "Peri Tzadik, Bo distinguishes outward compulsion from the inward root's willing acceptance.",
+    "Kometz HaMinchah's explanation of tekhelet and white is interpretive symbolism, not a replacement practical ruling.",
+    "Taanit retains both the righteous and wicked and both this-world and next-world consequences.",
+    "Sotah 2a is quoted for its own tractate-order argument; Rav Tzadok's inward application is explicitly distinguished in context.",
+    "Shabbat 88b retains both the elixir-of-life and elixir-of-death alternatives.",
+    "Tzidkat HaTzadik 133 retains the qualification that sin may obstruct progression from shelo lishmah, as in Doeg.",
+    "Sha'arei Teshuvah 3:219 retains its possible-interpretation framing, witness motive, persistence in the same sin and relevant distinction concerning exposing hypocrites.",
+    "Sotah 28a is presented as the quoted source for Rav Tzadok's interpretation, without turning this editorial note into generalized practical advice."
+  ],
+  "evidenceFiles": [
+    "root-primary-fourth.json",
+    "zohar56-primary.json",
+    "rashi56-primary.json",
+    "rashi59-primary.json",
+    "canonical primary book JSONs (peri-tzadik, kometz-haminchah, tzidkat-hatzadik)"
+  ],
+  "mutationsPerformed": false
+}
