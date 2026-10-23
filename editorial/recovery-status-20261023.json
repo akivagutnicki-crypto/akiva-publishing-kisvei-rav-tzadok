@@ -1,7 +1,7 @@
 {
   "task": "Tzidkas HaTzadik original-source footnote review",
   "recoveredFrom": "Conversation lost after source review106–120; working files recovered from f85ae98f1669 and /tmp/tzidkat-batch8-candidate",
-  "confirmedLiveThrough": 120,
+  "confirmedLiveThrough": 135,
   "publicationInProgress": null,
   "protectedSections": [
     40,
@@ -30,10 +30,6 @@
       [
         211,
         225
-      ],
-      [
-        256,
-        264
       ]
     ],
     "review_136_150": [
@@ -63,19 +59,29 @@
         241,
         255
       ]
+    ],
+    "root": [
+      [
+        256,
+        264
+      ]
     ]
   },
-  "totalPublishedAdditions": 578,
+  "totalPublishedAdditions": 644,
   "lastSuccessfulPublication": {
     "sections": [
-      106,
-      120
+      121,
+      135
     ],
-    "newNotes": 115,
-    "commit": "c282902427ca4b699e269997aa6dfb1a661264eb",
-    "run": 40029321489,
-    "pagesArtifactId": 12533779591,
-    "verificationArtifactId": 12534392987,
-    "completedAt": "2026-10-23T21:59:26Z"
-  }
+    "newNotes": 66,
+    "commit": "a2e19d94110f1f6aea691dbbe54352e9ef3208f6",
+    "run": 40034987527,
+    "pagesArtifactId": 12537245322,
+    "verificationArtifactId": 12537066096,
+    "completedAt": "2026-10-23T22:42:45Z"
+  },
+  "researchRecoveryNotes": [
+    "Old integratedB text cache duplicated integratedA; re-extracted actual525-page volumeB before review beyond180. See integratedB-cache-correction.json.",
+    "Original temporary workspace expired. Uploaded source PDFs restored into current source-files; prepared proposals and publication evidence remain in current workspace and GitHub checkpoint branch."
+  ]
 }
