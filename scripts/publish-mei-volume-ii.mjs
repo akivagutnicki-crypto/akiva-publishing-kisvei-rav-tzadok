@@ -136,7 +136,7 @@ function updateReverseIndexes(sections) {
     for(const target of [map,mcp]){const list=target[edge.r]??=[];if(!list.includes(edge.a))list.push(edge.a);}
   }
   for(const [name,value] of maps)if(originals.get(name)!==hashObject(value))write(path.join(directory,name),value);
-  const indexFile=path.join(directory,'index.json'),index=[...maps.keys()].map(name=>name.slice(0,-5)).sort();if(hashObject(read(indexFile))!==hashObject(index))write(indexFile,index);write(mcpFile,mcp);
+  const indexFile=path.join(directory,'index.json'),previousIndex=read(indexFile),index=[...new Set([...previousIndex,...[...maps.keys()].map(name=>name.slice(0,-5))])].sort();if(hashObject(previousIndex)!==hashObject(index))write(indexFile,index);write(mcpFile,mcp);
   const sourceFile=path.join(root,'library/data/packs/sources.json'),sources=read(sourceFile);
   sources.refs=[...new Set([...sources.refs,...sections.flatMap(s=>s.edges.map(e=>e.r))])].sort();write(sourceFile,sources);
 }
@@ -381,16 +381,34 @@ function rebuildOffline(){
   // Keep every other sefer ZIP byte-for-byte. Repacking those archives merely
   // to refresh a timestamp would exceed this release's publication scope.
   const require=createRequire(import.meta.url),{zipSync,unzipSync}=require(path.resolve(root,'library/vendor/fflate.min.js'));
+  const baseline=read(baselineFile),reportFile=path.join(root,REPORT),report=read(reportFile);
+  assert.equal(baseline.release,RELEASE);assert.equal(report.packSha256,baseline.packSha256);
   const dataDir=path.join(root,'library/data'),files=[];
   const walk=(directory,prefix='')=>{for(const entry of fs.readdirSync(directory,{withFileTypes:true})){const name=prefix?prefix+'/'+entry.name:entry.name;if(entry.isDirectory())walk(path.join(directory,entry.name),name);else if(name!=='files.json'){assert(entry.isFile());files.push(name);}}};walk(dataDir);files.sort();
-  const hash=createHash('sha256');let bytes=0;const data={};for(const name of files){const value=fs.readFileSync(path.join(dataDir,name));hash.update(name).update('\0').update(value);bytes+=value.length;data['data/'+name]=value;}
-  const version=hash.digest('hex').slice(0,16),manifest={version,bytes,files};write(path.join(dataDir,'files.json'),manifest);data['data/files.json']=Buffer.from(JSON.stringify(manifest));
-  const zipFile=path.join(root,'library/downloads/rav-tzadok-library.zip'),old=unzipSync(fs.readFileSync(zipFile));
-  for(const name of Object.keys(old).filter(name=>name.startsWith('data/')))assert(Object.hasOwn(data,name),'Offline data unexpectedly removed '+name);
-  const result=zipSync({...old,...data},{level:6});fs.writeFileSync(zipFile,result);
-  const indexFile=path.join(root,'library/downloads/index.json'),index=read(indexFile);index.version=version;index.library.bytes=result.length;index.library.dataFiles=Object.keys(data).length;write(indexFile,index);
-  const checked=unzipSync(result);for(const [name,value] of Object.entries(data))assert.equal(sha(checked[name]),sha(value),'Offline ZIP data mismatch '+name);
-  console.log(JSON.stringify({ok:true,offlineFiles:files.length,version,zipBytes:result.length}));
+  const data=Object.fromEntries(files.map(name=>['data/'+name,fs.readFileSync(path.join(dataDir,name))]));
+  for(const name of Object.keys(baseline.files).filter(name=>name.startsWith('library/data/')))
+    assert(name==='library/data/files.json'?fs.existsSync(path.join(root,name)):Object.hasOwn(data,name.slice('library/'.length)),'Baseline offline data unexpectedly removed '+name);
+  const zipName='library/downloads/rav-tzadok-library.zip',zipFile=path.join(root,zipName),zipBytes=fs.readFileSync(zipFile),inputSha256=sha(zipBytes),baselineZipSha256=baseline.files[zipName]?.sha256;
+  assert(baselineZipSha256,'Missing baseline archive proof');
+  if(inputSha256!==baselineZipSha256){assert.equal(report.offlineArchive?.baselineZipSha256,baselineZipSha256,'Unverified input archive');assert.equal(inputSha256,report.offlineArchive.zipSha256,'Input archive changed since verification');}
+  const old=unzipSync(zipBytes),archiveOnly=Object.fromEntries(Object.entries(old).filter(([name])=>name.startsWith('data/')&&name!=='data/files.json'&&!Object.hasOwn(data,name)));
+  // Pages artifacts omit hidden files, while their pre-existing ZIP can retain
+  // them. Only entries already absent from the captured site may stay ZIP-only.
+  for(const name of Object.keys(archiveOnly))assert(!Object.hasOwn(baseline.files,'library/'+name),'Offline data unexpectedly removed '+name);
+  const archivedProofs=Object.fromEntries(Object.entries(archiveOnly).map(([name,value])=>[name,{bytes:value.length,sha256:sha(value)}]));
+  if(inputSha256!==baselineZipSha256)assert.deepEqual(archivedProofs,report.offlineArchive.preservedArchiveOnly,'Archive-only data changed');
+  const manifestFor=entries=>{const names=Object.keys(entries).filter(name=>name.startsWith('data/')&&name!=='data/files.json').sort(),hash=createHash('sha256');let bytes=0;for(const name of names){hash.update(name.slice(5)).update('\0').update(entries[name]);bytes+=entries[name].length;}return {version:hash.digest('hex').slice(0,16),bytes,files:names.map(name=>name.slice(5))};};
+  const manifest=manifestFor(data),entries={...old,...data},zipManifest=manifestFor(entries);
+  // The HTTP manifest advertises only real site files. The archive manifest
+  // separately lists every retained archive file, so neither invents URLs.
+  entries['data/files.json']=Buffer.from(JSON.stringify(zipManifest));
+  const result=zipSync(entries,{level:6}),checked=unzipSync(result);
+  assert.deepEqual(Object.keys(checked).sort(),Object.keys(entries).sort(),'Offline ZIP entry set changed');
+  for(const [name,value] of Object.entries(entries))assert.equal(sha(checked[name]),sha(value),'Offline ZIP data mismatch '+name);
+  write(path.join(dataDir,'files.json'),manifest);fs.writeFileSync(zipFile,result);
+  const indexFile=path.join(root,'library/downloads/index.json'),index=read(indexFile);index.version=manifest.version;index.library.bytes=result.length;index.library.dataFiles=zipManifest.files.length+1;write(indexFile,index);
+  report.offlineArchive={baselineZipSha256,zipSha256:sha(result),preservedArchiveOnly:archivedProofs,onlineVersion:manifest.version,archiveVersion:zipManifest.version};write(reportFile,report);
+  console.log(JSON.stringify({ok:true,offlineFiles:files.length,archiveDataFiles:zipManifest.files.length+1,preservedArchiveOnly:Object.keys(archiveOnly).length,version:manifest.version,archiveVersion:zipManifest.version,zipBytes:result.length}));
 }
 
 async function browserCheck(){
