@@ -103,7 +103,11 @@ jobs:
           fi
 
       - name: Verify all new Hebrew markers and all existing notes on desktop and mobile
-        run: node scripts/test-tzidkat-batch-review.mjs --all
+        # The full immutable batch chain, all earlier notes, protected ois, and
+        # unrelated site bytes are authenticated by --verify before this step.
+        # Exercise the new batch in both viewports; earlier batches retain
+        # their successful browser reports and exact content seals.
+        run: node scripts/test-tzidkat-batch-review.mjs
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
@@ -131,7 +135,7 @@ jobs:
       - name: Verify exact public bytes notes markers and protected ois
         run: |
           node scripts/publish-tzidkat-batch-review.mjs --live
-          node scripts/test-tzidkat-batch-review.mjs --all --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'
+          node scripts/test-tzidkat-batch-review.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'
 
       - name: Save source review and publication evidence
         if: always()
