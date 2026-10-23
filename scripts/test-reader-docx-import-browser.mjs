@@ -4,6 +4,7 @@ import http from 'node:http';
 import assert from 'node:assert/strict';
 import {pathToFileURL} from 'node:url';
 import {loadRelease, normalizedSections, REPORT, visible} from './publish-reader-docx-import.mjs';
+import {loadPack as loadMeiVolumeII, REPORT as MEI_VOLUME_II_REPORT} from './publish-mei-volume-ii.mjs';
 
 let playwright;
 try { playwright = await import('playwright'); }
@@ -22,9 +23,16 @@ const server = http.createServer((request, response) => {
 await new Promise(resolve => server.listen(0, '127.0.0.1', resolve));
 const base = urlIndex >= 0 ? args[urlIndex + 1].replace(/\/?$/, '/') : `http://127.0.0.1:${server.address().port}/library/`;
 const hash = ref => encodeURIComponent(ref).replace(/%20/g, '_').replace(/%2C/g, ',').replace(/%3A/g, ':');
-const release = loadRelease(), sections = release.packs.flatMap(({pack}) => normalizedSections(pack));
+const release = loadRelease(), meiSuccessor = args.includes('--after-mei-volume-ii') ? loadMeiVolumeII() : null;
+const originalSections = release.packs.flatMap(({pack}) => normalizedSections(pack));
+const sections = meiSuccessor ? originalSections.filter(section => !section.ref.startsWith('Mei HaShiloach, Volume II, ')).concat(meiSuccessor.sections) : originalSections;
 const paratext = release.packs.flatMap(({pack}) => pack.paratext || []);
 const report = await (await fetch(base + REPORT)).json();
+if (meiSuccessor) {
+  const successor = await (await fetch(new URL(MEI_VOLUME_II_REPORT, base.replace(/library\/$/, '')))).json();
+  assert.equal(successor.packSha256, meiSuccessor.packSha256);
+  report.canonicalOrder = successor.canonicalOrder;
+}
 const browser = await playwright.chromium.launch({headless:true,
   ...(process.env.READER_CHROMIUM_EXECUTABLE ? {executablePath:process.env.READER_CHROMIUM_EXECUTABLE} : {})});
 const sampleRefs = [1, 3, 9, 28, 76].map(number => `Beit Yaakov on Torah, Vayetzei ${number}`);

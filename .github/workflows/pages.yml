@@ -12,12 +12,12 @@ permissions:
 
 concurrency:
   # Skipped workflows must not displace a pending publisher in the shared queue.
-  group: ${{ (github.event_name != 'push' || (!contains(github.event.head_commit.message, '[divrei-source-release]') && !contains(github.event.head_commit.message, '[divrei-media-release]') && !contains(github.event.head_commit.message, '[reader-ui-release]') && !contains(github.event.head_commit.message, '[share-release]'))) && 'pages' || format('pages-skipped-{0}', github.run_id) }}
+  group: ${{ (github.event_name != 'push' || (!contains(github.event.head_commit.message, '[divrei-source-release]') && !contains(github.event.head_commit.message, '[divrei-media-release]') && !contains(github.event.head_commit.message, '[reader-ui-release]') && !contains(github.event.head_commit.message, '[share-release]') && !contains(github.event.head_commit.message, '[mei-volume-ii-release]'))) && 'pages' || format('pages-skipped-{0}', github.run_id) }}
   cancel-in-progress: false
 
 jobs:
   deploy:
-    if: ${{ github.event_name != 'push' || (!contains(github.event.head_commit.message, '[divrei-source-release]') && !contains(github.event.head_commit.message, '[divrei-media-release]') && !contains(github.event.head_commit.message, '[reader-ui-release]') && !contains(github.event.head_commit.message, '[share-release]')) }}
+    if: ${{ github.event_name != 'push' || (!contains(github.event.head_commit.message, '[divrei-source-release]') && !contains(github.event.head_commit.message, '[divrei-media-release]') && !contains(github.event.head_commit.message, '[reader-ui-release]') && !contains(github.event.head_commit.message, '[share-release]') && !contains(github.event.head_commit.message, '[mei-volume-ii-release]')) }}
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -457,6 +457,14 @@ jobs:
       - name: Preserve the responsive Share controls after content builds
         run: node scripts/apply-share.mjs dist
 
+      - name: Publish the reviewed complete Mei HaShiloach Volume II after historical gates
+        run: |
+          node scripts/publish-mei-volume-ii.mjs --capture-rebuild
+          node scripts/publish-mei-volume-ii.mjs --publish
+          node scripts/publish-mei-volume-ii.mjs --offline
+          node scripts/publish-mei-volume-ii.mjs --seal
+          node scripts/publish-mei-volume-ii.mjs --browser
+
       - name: Upload site
         uses: actions/upload-pages-artifact@v4
         with:
@@ -505,9 +513,14 @@ jobs:
 
       - name: Verify the complete Vayeitzei and Mei HaShiloach import on the published reader
         run: |
-          node scripts/test-reader-docx-import.mjs --after-divrei-source-audit --zips --mcp --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/' > reader-docx-import-live-verification.json
+          node scripts/test-reader-docx-import.mjs --after-divrei-source-audit --after-mei-volume-ii --zips --mcp --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/' > reader-docx-import-live-verification.json
           cat reader-docx-import-live-verification.json
-          node scripts/test-reader-docx-import-browser.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'
+          node scripts/test-reader-docx-import-browser.mjs --after-mei-volume-ii --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'
+
+      - name: Verify the complete Mei HaShiloach Volume II on the published reader
+        run: |
+          node scripts/publish-mei-volume-ii.mjs --live
+          node scripts/publish-mei-volume-ii.mjs --browser --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'
 
       - name: Verify seasonal quotations and matching print downloads on the published reader
         run: |
@@ -527,11 +540,11 @@ jobs:
 
       - name: Verify reviewed connections and the shared source matcher on the live reader
         run: |
-          node scripts/test-reviewed-connections.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/' > reviewed-source-connections-live-verification.json
+          node scripts/test-reviewed-connections.mjs --after-mei-volume-ii --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/' > reviewed-source-connections-live-verification.json
           cat reviewed-source-connections-live-verification.json
           node scripts/test-source-translations.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/' > source-translations-live-verification.json
           cat source-translations-live-verification.json
-          node scripts/test-connected-ideas.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/' > connected-ideas-live-verification.json
+          node scripts/test-connected-ideas.mjs --after-mei-volume-ii --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/' > connected-ideas-live-verification.json
           cat connected-ideas-live-verification.json
           node scripts/test-connected-ideas-reader.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/' > connection-footnotes-live-verification.json
           node scripts/test-seasonal-connections-release.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/' > seasonal-connections-live-verification.json

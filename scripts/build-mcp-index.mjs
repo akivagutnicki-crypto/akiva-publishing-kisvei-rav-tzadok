@@ -304,12 +304,37 @@ if (fs.existsSync(remoteSourceDir)) {
     const paras = existing ? JSON.parse(fs.readFileSync(path.join(OUT, 'text', doc.slug + '.json'))).paras : [];
     const previousCount = paras.length;
     const seen = new Set(sections.map(s => s.ref));
+    const snapshotSeen = new Set();
     for (const sec of doc.sections) {
       assert(typeof sec.ref === 'string' && sec.ref.startsWith(doc.title + ', ')
-        && !seen.has(sec.ref) && [':', ' '].includes(sec.separator)
+        && !snapshotSeen.has(sec.ref) && [':', ' '].includes(sec.separator)
         && Array.isArray(sec.paragraphs) && sec.paragraphs.length
         && sec.paragraphs.every(p => typeof p === 'string' && /[א-ת]/.test(p)),
       'Invalid or repeated remote source section: ' + sec.ref);
+      snapshotSeen.add(sec.ref);
+      if (seen.has(sec.ref)) {
+        // The reviewed Volume II successor supplies a full interlinear edition
+        // of two passages previously retained only as Hebrew source evidence.
+        // Accept only that exact, attested successor; keep snapshot provenance.
+        const successorFile = 'dist/library/mei-volume-ii-20261023.json';
+        assert(doc.extendsExisting === true && doc.slug === 'mei-hashiloach'
+          && sec.ref.startsWith('Mei HaShiloach, Volume II, ')
+          && fs.existsSync(successorFile), 'Unexpected duplicated remote source section: ' + sec.ref);
+        const successor = JSON.parse(fs.readFileSync(successorFile, 'utf8'));
+        const current = sections.find(section => section.ref === sec.ref);
+        const overlay = read('mei-ha-shiloach/interlinear.json')[sec.ref];
+        assert(successor.release === '20261023-mei-volume-ii-v1' && current?.il === true
+          && current.count === sec.paragraphs.length && Array.isArray(overlay)
+          && overlay.length === sec.paragraphs.length
+          && successor.sectionHashes?.[sec.ref] === createHash('sha256').update(JSON.stringify(overlay)).digest('hex'),
+        'Remote snapshot replacement is not the verified complete interlinear section: ' + sec.ref);
+        const currentParagraphs = paras.slice(current.first, current.first + current.count);
+        assert(currentParagraphs.every((paragraph, index) => paragraph.r === sec.ref + sec.separator + (index + 1)
+          && Array.isArray(paragraph.p) && paragraph.p.length
+          && paragraph.p.every(pair => /[א-ת]/.test(pair[0]) && /[A-Za-z]/.test(pair[1]))),
+        'Interlinear successor lost source paragraphs: ' + sec.ref);
+        continue;
+      }
       seen.add(sec.ref);
       const list = paragraphsOf(sec.paragraphs, sec.ref);
       assert(list.length === sec.paragraphs.length, 'Remote source paragraphs were lost: ' + sec.ref);

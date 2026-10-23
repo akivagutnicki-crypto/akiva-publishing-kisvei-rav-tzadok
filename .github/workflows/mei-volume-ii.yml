@@ -1,0 +1,128 @@
+name: Publish reviewed Mei HaShiloach Volume II
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: ${{ (github.repository == 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok' && github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[mei-volume-ii-release]'))) && 'pages' || format('mei-volume-ii-skipped-{0}', github.run_id) }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: ${{ github.repository == 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok' && github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[mei-volume-ii-release]')) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout reviewed Volume II inputs
+        uses: actions/checkout@v6
+
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+
+      - name: Verify reviewed source pack and exact current publication
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          node scripts/publish-mei-volume-ii.mjs --prepare
+          node scripts/publish-mei-volume-ii.mjs --metadata
+
+      - name: Download current verified publication with Share controls
+        uses: actions/download-artifact@v4
+        with:
+          artifact-ids: '12477077790'
+          run-id: '39896984684'
+          repository: akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/mei-volume-ii-baseline
+          merge-multiple: true
+
+      - name: Restore and record the complete current publication
+        run: |
+          python3 - <<'PY'
+          import os, pathlib, shutil, tarfile
+          destination = pathlib.Path('dist').resolve()
+          if destination.exists():
+              shutil.rmtree(destination)
+          destination.mkdir()
+          archive = pathlib.Path(os.environ['RUNNER_TEMP']) / 'mei-volume-ii-baseline/artifact.tar'
+          with tarfile.open(archive, 'r:') as source:
+              members = source.getmembers()
+              for member in members:
+                  target = (destination / member.name).resolve()
+                  assert target == destination or destination in target.parents, 'Unsafe archive path'
+                  assert member.isdir() or member.isfile(), 'Archive contains a link or special file'
+              source.extractall(destination, members=members)
+          PY
+          node scripts/publish-mei-volume-ii.mjs --capture
+
+      - name: Add only the checked Volume II edition and its citation indexes
+        run: |
+          node scripts/publish-mei-volume-ii.mjs --publish
+          node scripts/publish-mei-volume-ii.mjs --publish
+          node scripts/publish-mei-volume-ii.mjs --offline
+          node scripts/publish-mei-volume-ii.mjs --seal
+          node --check dist/library/sw.js
+
+      - name: Install focused browser verification runtime
+        run: |
+          npm install --no-save --package-lock=false playwright@1.62.1
+          npx playwright install --with-deps chromium
+
+      - name: Verify Hebrew and English rendering source links navigation and preserved sharing
+        run: |
+          node scripts/publish-mei-volume-ii.mjs --browser
+          node scripts/publish-mei-volume-ii.mjs --verify
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Recheck current publication immediately before upload
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/publish-mei-volume-ii.mjs --live-baseline
+
+      - name: Upload checked Volume II publication
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ./dist
+
+      - name: Recheck current publication immediately before deployment
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/publish-mei-volume-ii.mjs --live-baseline
+
+      - name: Publish reviewed Mei HaShiloach Volume II
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Verify public files and mobile and desktop reading
+        run: |
+          node scripts/publish-mei-volume-ii.mjs --live
+          node scripts/publish-mei-volume-ii.mjs --browser --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'
+
+      - name: Save publication preservation and browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mei-volume-ii-verification
+          if-no-files-found: warn
+          path: |
+            mei-volume-ii-artifact.json
+            mei-volume-ii-baseline.json
+            mei-volume-ii-verification.json
+            mei-volume-ii-live-verification.json
+            dist/library/mei-volume-ii-20261023.json
+            artifacts/mei-volume-ii/

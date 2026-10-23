@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "release": "20261023-mei-volume-ii-v1",
+  "scope": "Complete supplied Mei HaShiloach Volume II interlinear manuscript; headings, confirmed textual corrections and checked source links.",
+  "inputFiles": [
+    {
+      "filename": "Mei HaShiloach - he - Mei HaShiloach, Publication of Sifrei Izhbitza Radzin, Bnei Brak 2005. (1)(1).json",
+      "bytes": 2027985,
+      "sha256": "1b60d6ca85e448f3c8b70635dde8d34e2e5f3e2faafc7684c99a0873dc344d47"
+    },
+    {
+      "filename": "Mei HaShiloach - he - Mei HaShiloach, Publication of Sifrei Izhbitza Radzin, Bnei Brak 2005.(1).csv",
+      "bytes": 1812964,
+      "sha256": "9a4428d5928ba1d4256a085a3e994fdad419b78f9e2866f85a5ccaedd9f3572b"
+    },
+    {
+      "filename": "Mei HaShiloach - he - Mei HaShiloach, Publication of Sifrei Izhbitza Radzin, Bnei Brak 2005.(2).txt",
+      "bytes": 1811633,
+      "sha256": "f98f5925cdb60170b5c715aad894ccdbcd549501c199471bc49fbefc65f92da0"
+    },
+    {
+      "filename": "Mei HaShiloach - he - Mei HaShiloach, Publication of Sifrei Izhbitza Radzin, Bnei Brak 2005..plain(1).txt",
+      "bytes": 1797927,
+      "sha256": "1cd3bb58d46816be6cce0ab71373f51dfbb3936b5074defa16cb5672bdf539c2"
+    },
+    {
+      "filename": "מי השלוח, חלק ב,.docx",
+      "bytes": 2432666,
+      "sha256": "fded2a2354766b86961e6e8ff16086ba02c06b695f666699984fbd7ef02795c5"
+    }
+  ],
+  "sourceEdition": "Mei HaShiloach, Publication of Sifrei Izhbitza Radzin, Bnei Brak 2005",
+  "counts": {
+    "sections": 222,
+    "paragraphs": 560,
+    "phrasePairs": 10166
+  },
+  "canonicalCoverage": {
+    "canonical_segments": 560,
+    "document_paragraphs": 557,
+    "mapped_segments": 560,
+    "missing_segments": [],
+    "duplicates": {},
+    "document_order_monotonic": true,
+    "merged_paragraphs": {
+      "2": [
+        "Mei HaShiloach, Volume II, Introduction 1",
+        "Mei HaShiloach, Volume II, Introduction 2"
+      ],
+      "16": [
+        "Mei HaShiloach, Volume II, Introduction 9",
+        "Mei HaShiloach, Volume II, Introduction 10"
+      ],
+      "36": [
+        "Mei HaShiloach, Volume II, Introduction 20",
+        "Mei HaShiloach, Volume II, Introduction 21"
+      ]
+    }
+  },
+  "reviewedCorrections": 23,
+  "editorialHeadings": 560,
+  "citationOverrides": 161,
+  "verifiedInlineLinks": 1681,
+  "reviewedConnectionUpdates": [
+    {
+      "id": "chanukah-complete-8-five-lights-become-action-mei",
+      "targetRef": "Mei HaShiloach, Volume II, Genesis, Bereshit 3",
+      "reviewNote": "Read the complete revised Bereshit 3 teaching and the preserved Peri Tzadik origin quotation. The five stages remain preparation, felt illumination, recognition, turning from evil, and active good. The comparison remains accurate and the selected quotation is the complete revised paragraph."
+    },
+    {
+      "id": "kedusha-deferred-5-1-oral-mei-eikev",
+      "targetRef": "Mei HaShiloach, Volume II, Deuteronomy, Eikev 6",
+      "reviewNote": "Read the complete revised Eikev 6 teaching and adjacent Eikev 5 in Hebrew and English. The expanded divine-name abbreviation leaves the claim unchanged. Retain the explanation that the enduring bond does not remove responsibility and that Eikev 5 warns against anger, deficient trust, and desire; no new claim about the unnamed transmitter is added."
+    },
+    {
+      "id": "kedusha-deferred-6-5-nachshon-mei-behaalotcha",
+      "targetRef": "Mei HaShiloach, Volume II, Numbers, Beha'alotcha 7",
+      "reviewNote": "Read the complete revised Behaalotcha 7 in Hebrew and English and the preserved originating received teaching. The passage still infers, rather than states as independently proven history, that Nachshon was the precious soul lost. The English phrase about debts is corrected against Berakhot 62b. Retain the distinction between a printed Ishbitz parallel and identification of the unnamed transmitter. The manuscript-introduced folio156b has been corrected to156a in both languages, matching the supplied canonical text and the verified exact Zohar passage at Behaalotcha25:146."
+    },
+    {
+      "id": "kislev-4-3-concealment-makes-earned-work-possible-mei-bereshit-ii-7",
+      "targetRef": "Mei HaShiloach, Volume II, Genesis, Bereshit 7",
+      "reviewNote": "Read the complete revised Bereshit 7 and originating quotation. Concealment of the initial divine light makes personal free choice and earned effort discernible; the explanation of supported descent remains a precise editorial comparison. No additional theological conclusion is introduced."
+    },
+    {
+      "id": "lech-lecha-6-command-repair-creation-mei-lech-3",
+      "targetRef": "Mei HaShiloach, Volume II, Genesis, Lech Lecha 3",
+      "reviewNote": "Read all three revised Volume II Lech Lecha teachings in Hebrew and English for the reciprocal link, as well as the preserved originating Peri Tzadik quotation. Paragraph 3 retains the explicit-command distinction, the intentionally incomplete creation, and the role of Ishmael as recognition preceding the command. The surrounding teachings on possessions and the covenant do not change the comparison. Reciprocal placement remains approved for the exact revised whole-section hash."
+    },
+    {
+      "id": "lech-lecha-8-2-uncommanded-service-mei-lech-ii-3",
+      "targetRef": "Mei HaShiloach, Volume II, Genesis, Lech Lecha 3",
+      "reviewNote": "Read the complete revised Lech Lecha 3 and the preserved origin quotation about Abraham observing Oral Torah before command. The qualification remains necessary: other mitzvot preserve uprightness, while circumcision repairs an intended lack and required an explicit command. Retain the one-way comparison."
+    },
+    {
+      "id": "lech-lecha-complete-1-hidden-guidance-mei-bereshit",
+      "targetRef": "Mei HaShiloach, Volume II, Genesis, Bereshit 2",
+      "reviewNote": "Read the complete revised Bereshit 2, including all three forms of concealment and the later accounts of salvation, and the preserved Peri Tzadik origin quotation. The selected phrases 17 through 27 retain the complete thought about concealed guidance, vulnerability even among prophets, and prayer against error. The existing comparison accurately marks this as a limit on human discernment."
+    },
+    {
+      "id": "tzidkat-1-64-21-mercy-below-and-mercy-above",
+      "targetRef": "Mei HaShiloach, Volume II, Genesis, Bereshit 5",
+      "reviewNote": "Read the complete revised Bereshit 5, its Zohar discussion, and the selected Tzidkat origin. The selected concluding phrases 17 through 22 remain one complete argument: parental compassion toward a disobedient child awakens corresponding compassion above by measure-for-measure judgment. Retain the ethical-example explanation without adding a blanket exemption from responsibility."
+    }
+  ],
+  "textualNotes": [
+    {
+      "ref": "Mei HaShiloach, Volume II, Exodus, Ki Tisa 5",
+      "notes": [
+        "The supplied Word text reads והשחתה; the supplied Hebrew export reads והשאתם. The Word reading is retained."
+      ]
+    },
+    {
+      "ref": "Mei HaShiloach, Volume II, Numbers, Korach 5",
+      "notes": [
+        "The inherited citation to Zohar, Haazinu 281a could not be matched to this passage. The preceding citation to Zohar II 64a has been verified."
+      ]
+    }
+  ],
+  "reviewLimit": "The supplied edition was checked for complete canonical paragraph coverage, empty or missing translation pairs, source destinations and identified word-level differences. The record documents the concrete corrections made; it does not assert that all interpretive translation choices have been independently retranslated.",
+  "publication": "One deterministic compressed pack supplies identical reviewed phrase pairs, links and thematic headings to the reader and the DOCX. The publisher verifies preservation of all material outside Volume II and refreshes eight individually reviewed Connected Ideas target quotations.",
+  "packFile": "mei-volume-ii-20261023.json.gz.b64",
+  "packSha256": "5f37ae72d978c48d2593ca3fbe4d51ce1c94729823f543c2109b37611c0b5b91"
+}
