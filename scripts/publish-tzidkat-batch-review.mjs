@@ -32,6 +32,16 @@ const SLUG = 'tzidkat-hatzadik';
 const LINKS = 'library/data/' + SLUG + '/links.json';
 const MCP = 'mcp-data/text/' + SLUG + '.json';
 const ARCHIVES = ['library/downloads/rav-tzadok-library.zip', 'library/downloads/books/' + SLUG + '.zip'];
+// This independently published ZIP repair occurred between batches 2 and 3.
+// Its successful CI artifact authenticated all 5,218 files and changed only
+// the Divrei ZIP and its byte count in the shared download index. Pin that
+// concrete transition; do not waive seals for arbitrary future publications.
+export const DIVREI_ZIP_REFRESH = Object.freeze({
+  commit:'1afec77e2434baa963d11cca88c97a554715abec',runId:40015215082,
+  evidenceArtifactId:12529055050,evidenceArtifactSha256:'dd4d51ab9568ad58b8a7acfdb9f8ed22f668cc74a95db2c1b1d1e07d847d7718',
+  index:{path:'library/downloads/index.json',before:{bytes:4102,sha256:'b7a353797bc9152763cc75308f34711fe9ebb7aa5a6ec54c6058f9dc54477bd4'},after:{bytes:4103,sha256:'22af11e32dc75480a15947bb66cd913855886dea9396f7035aa1c7cc5104c50d'}},
+  zip:{path:'library/downloads/books/divrei-soferim.zip',before:{bytes:693467,sha256:'bc54bb28204103dfc94caa3e2dc6a449a0b80852fd7f969d55c16df9e3355ae2'},after:{bytes:678319,sha256:'d4fea290699fd871ade6635ba069526f60a86f74e42e53cb451a592e8ec75df0'}},
+});
 const META = 'tzidkat-batch-publication.json';
 const STATE = 'tzidkat-batch-baseline.json';
 const argv = process.argv.slice(2);
@@ -41,6 +51,19 @@ const packFile = path.resolve(option('--pack', DEFAULT_PACK));
 export const sha = value => createHash('sha256').update(value).digest('hex');
 export const digest = value => sha(JSON.stringify(value));
 const jsonBytes = value => Buffer.from(JSON.stringify(value));
+export function verifyDivreiZipRefresh({indexBytes,indexBefore,zipBefore,zipAfter}) {
+  const known = DIVREI_ZIP_REFRESH;
+  assert.deepEqual(indexBefore,known.index.before,'Unknown predecessor index for Divrei ZIP refresh');
+  assert.deepEqual(zipBefore,known.zip.before,'Unknown predecessor Divrei ZIP');
+  assert.deepEqual(zipAfter,known.zip.after,'Divrei ZIP differs from its independently verified publication');
+  assert.deepEqual({bytes:indexBytes.length,sha256:sha(indexBytes)},known.index.after,'Download index differs from its independently verified publication');
+  const previous = JSON.parse(indexBytes), entries = previous.books.filter(book => book.slug === 'divrei-soferim');
+  assert.equal(entries.length,1); assert.equal(entries[0].bytes,known.zip.after.bytes);
+  entries[0].bytes = known.zip.before.bytes;
+  const reconstructed = jsonBytes(previous);
+  assert.deepEqual({bytes:reconstructed.length,sha256:sha(reconstructed)},known.index.before,'Divrei refresh changed another download record');
+  return known;
+}
 const read = (directory, name) => JSON.parse(fs.readFileSync(localFile(directory, name), 'utf8'));
 const write = (directory, name, value) => { const file = localFile(directory, name); fs.mkdirSync(path.dirname(file), {recursive:true}); fs.writeFileSync(file, value instanceof Uint8Array ? value : jsonBytes(value)); };
 const entities = {amp:'&',lt:'<',gt:'>',quot:'"',apos:"'",nbsp:' ',thinsp:' ',ensp:' ',emsp:' ',lrm:'',rlm:''};
@@ -336,7 +359,7 @@ export function applyPublication(directory, prepared, state) {
 }
 
 /** Exact terminal overlay for older preservation gates; no ignored fields. */
-export function verifyBatchSuccessor({directory=root,prepared=loadPack(DEFAULT_PACK),verifyAllBaseline=false,terminalFiles=null,archiveChapters=null} = {}) {
+export function verifyBatchSuccessor({directory=root,prepared=loadPack(DEFAULT_PACK),verifyAllBaseline=false,terminalFiles=null,archiveChapters=null,independentFiles=new Map()} = {}) {
   const {pack,packSha256,additions} = prepared, REPORT = batchNames(pack).report, report = read(directory,REPORT);
   assert.equal(report.schemaVersion,1); assert.equal(report.release,pack.release); assert.equal(report.packSha256,packSha256);
   assert.equal(report.completeReview,true); assert.equal(report.verification?.ok,true);
@@ -357,7 +380,7 @@ export function verifyBatchSuccessor({directory=root,prepared=loadPack(DEFAULT_P
   }
   if (verifyAllBaseline) {
     const after = inventory(directory), before = report.baselineFiles; assert(before && Object.keys(before).length);
-    for (const [name,info] of Object.entries(before)) { assert(after[name],'Original site file removed'); if (!files.has(name) && name !== REPORT) assert.deepEqual(after[name],info,'Unrelated site file changed: ' + name); }
+    for (const [name,info] of Object.entries(before)) { assert(after[name],'Original site file removed'); if (!files.has(name) && name !== REPORT) assert.deepEqual(after[name],independentFiles.get(name) || info,'Unrelated site file changed: ' + name); }
     for (const name of Object.keys(after)) assert(before[name] || files.has(name) || name === REPORT,'Unexpected new site file: ' + name);
     const manifest = dataManifest(dataEntries(directory)); assert.deepEqual(read(directory,'library/data/files.json'),manifest);
     assert.equal(read(directory,'library/downloads/index.json').version,manifest.version); assert.equal(read(directory,'mcp-data/catalog.json').version,manifest.version);
@@ -386,9 +409,21 @@ export function verifyBatchChain({directory=root,verifyAllBaseline=false,packFil
   assert(batches.length,'No published immutable batches found');
   const terminalFiles = new Map();
   for (const {report} of batches) for (const item of report.changedFiles) terminalFiles.set(item.path,item);
+  const independentFiles = new Map(), known = DIVREI_ZIP_REFRESH, expectedIndex = terminalFiles.get(known.index.path);
+  let independentPublication = null;
+  if (expectedIndex?.sha256 === known.index.before.sha256 && fileInfo(localFile(directory,known.index.path)).sha256 !== expectedIndex.sha256) {
+    independentPublication = verifyDivreiZipRefresh({
+      indexBytes:fs.readFileSync(localFile(directory,known.index.path)),
+      indexBefore:{bytes:expectedIndex.bytes,sha256:expectedIndex.sha256},
+      zipBefore:batches.at(-1).report.baselineFiles[known.zip.path],
+      zipAfter:fileInfo(localFile(directory,known.zip.path)),
+    });
+    terminalFiles.set(known.index.path,{path:known.index.path,...known.index.after});
+    independentFiles.set(known.zip.path,known.zip.after);
+  }
   const chapters = batches.flatMap(({prepared}) => prepared.pack.chapters);
   const verified = batches.map(({prepared},index) => verifyBatchSuccessor({directory,prepared,terminalFiles,
-    verifyAllBaseline:verifyAllBaseline && index === batches.length-1,archiveChapters:chapters}));
+    verifyAllBaseline:verifyAllBaseline && index === batches.length-1,archiveChapters:chapters,independentFiles}));
   // A successor may advance shared exports, but must preserve earlier chapter
   // bytes, original report bytes and ledgers in its captured full baseline.
   for (let index = 1; index < batches.length; index++) {
@@ -398,10 +433,10 @@ export function verifyBatchChain({directory=root,verifyAllBaseline=false,packFil
       for (const name of [batchNames(prior.pack).report,batchNames(prior.pack).ledger]) assert.deepEqual(before[name],fileInfo(localFile(directory,name)),'Later batch replaced an immutable predecessor audit');
     }
   }
-  return {batches:verified,files:terminalFiles,additions:verified.flatMap(b => b.additions),
+  return {batches:verified,files:terminalFiles,independentFiles,additions:verified.flatMap(b => b.additions),
     pack:{chapters,linksBefore:Object.assign({},...verified.map(b => b.pack.linksBefore))},
     report:{linkChanges:verified.flatMap(b => b.report.linkChanges)},
-    proof:{batches:verified.map(b => b.proof),reviewedSections:chapters.length,newNotes:verified.reduce((n,b)=>n+b.additions.length,0),existingNotesUnchanged:true,authorTextUnchanged:true}};
+    proof:{batches:verified.map(b => b.proof),reviewedSections:chapters.length,newNotes:verified.reduce((n,b)=>n+b.additions.length,0),existingNotesUnchanged:true,authorTextUnchanged:true,...(independentPublication ? {independentPublication} : {})}};
 }
 function requirePriorBatches(directory,prepared) {
   if (path.dirname(prepared.filename || '') !== PACK_DIRECTORY) return;
@@ -423,7 +458,7 @@ function rebuild(prepared=loadPack()) {
 }
 async function published() {
   const verified = verifyBatchChain({directory:root,verifyAllBaseline:true});
-  const files = [...verified.files.values(),...verified.batches.map(b => ({path:batchNames(b.pack).report,...fileInfo(localFile(root,batchNames(b.pack).report))}))];
+  const files = [...verified.files.values(),...[...verified.independentFiles].map(([path,info]) => ({path,...info})),...verified.batches.map(b => ({path:batchNames(b.pack).report,...fileInfo(localFile(root,batchNames(b.pack).report))}))];
   await mapLimited(files,async item => assert.equal(sha(await bytesPublic(item.path)),item.sha256,'Published bytes differ: ' + item.path));
   const latest = verified.batches.at(-1);
   for (const name of ['library/data/tzidkat-hatzadik/39.json','library/data/tzidkat-hatzadik/153.json','library/connected-ideas/catalog.json']) assert.equal(sha(await bytesPublic(name)),latest.report.baselineFiles[name].sha256,'Protected live content changed');
