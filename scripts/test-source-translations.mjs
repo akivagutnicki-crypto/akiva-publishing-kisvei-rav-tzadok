@@ -10,6 +10,7 @@ import {gzipSync} from 'node:zlib';
 import {createRequire} from 'node:module';
 import {fileURLToPath} from 'node:url';
 import {buildSourceTranslations, completePrimaryUnit, publishedTranslation, primaryPlainText} from './build-source-translations.mjs';
+import {readPublishedAudit} from './publish-divrei-source-audit.mjs';
 
 const require = createRequire(import.meta.url);
 const engine = require('../dist/library/source-connections.js');
@@ -167,8 +168,20 @@ async function main() {
   // These real samples preserve the objections, qualifications, and conclusion
   // in the primary text. Previously retained sub-unit excerpts stay excluded.
   assert.match(byRef.get('Rashi on Ketubot 85b:8:1')?.en || '', /so that one may say the deceased intended to benefit him\.$/);
-  assert.match(byRef.get('Tosafot on Pesachim 53b:7:1')?.en || '', /Nevertheless, the expression ‘served’ is not satisfactory/);
-  assert.match(byRef.get('Tosafot on Pesachim 53b:7:1')?.en || '', /What did they see that they did not flee\?/);
+  const divreiAudit = readPublishedAudit(path.join(REPO,'dist/library'));
+  const tosafot = byRef.get('Tosafot on Pesachim 53b:7:1');
+  if (tosafot || !divreiAudit) {
+    assert.match(tosafot?.en || '', /Nevertheless, the expression ‘served’ is not satisfactory/);
+    assert.match(tosafot?.en || '', /What did they see that they did not flee\?/);
+  } else {
+    // The new Divrei footnote deliberately quotes only Rabbeinu Tam's relevant
+    // explanation; that excerpt must not pass as this entire Tosafot unit.
+    assert(divreiAudit.audit.notes.filter(note=>[578,628].includes(note.number))
+      .every(note=>note.quotes.some(quote=>quote.ref==='Tosafot on Pesachim 53b:7:1')));
+  }
+  if(divreiAudit)for(const translation of published.translations)
+    assert(translation.evidence.publishedNotes.every(note=>!/^data\/divrei-soferim\//.test(note.path)),
+      'A superseded Divrei note survived in the complete-source translation index');
   for (const ref of ['Tanna DeBei Eliyahu Rabbah 2:1', 'Sefer HaShorashim, אישׁ', 'Sefer Yereim 252:4',
     'Teshuvot Maharshal 89:2', 'Teshuvot Maharshal 36:4', 'Rosh on Bava Metzia 9:14:2',
     'Shiltei HaGiborim on Shabbat 54b:3', "Sheiltot d'Rav Achai Gaon 1:1"])

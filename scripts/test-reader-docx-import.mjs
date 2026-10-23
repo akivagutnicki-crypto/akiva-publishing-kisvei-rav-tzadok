@@ -5,8 +5,10 @@ import path from 'node:path';
 import assert from 'node:assert/strict';
 import {createRequire} from 'node:module';
 import {loadRelease, normalizedSections, MANIFEST, REPORT, MEI, BEIT, sha, visible, paragraphRef, leaves} from './publish-reader-docx-import.mjs';
+import {readPack as readDivreiAudit, protectedSuccessorHash} from './publish-divrei-source-audit.mjs';
 
 const args = process.argv.slice(2), urlIndex = args.indexOf('--url');
+const divreiAudit = args.includes('--after-divrei-source-audit') ? readDivreiAudit() : null;
 const base = urlIndex >= 0 ? args[urlIndex + 1].replace(/\/?$/, '/') : null;
 const release = loadRelease(), {manifest, registry} = release;
 const normalized = text => visible(text).replace(/\s+/g, ' ').trim();
@@ -143,7 +145,7 @@ if (args.includes('--zips')) {
   const archive = unzipSync(await bytes('library/downloads/rav-tzadok-library.zip'));
   for (const [file, hash] of Object.entries(report.protectedTextSha256)) {
     assert.ok(archive['data/' + file], 'Protected section absent from offline archive: ' + file);
-    assert.equal(sha(archive['data/' + file]), hash, 'Earlier Hebrew or English changed: ' + file); protectedFiles++;
+    assert.equal(sha(archive['data/' + file]), protectedSuccessorHash(file,hash,divreiAudit), 'Earlier Hebrew or English changed: ' + file); protectedFiles++;
   }
   for (const [file, expected] of readbackFiles) assert.deepEqual(JSON.parse(Buffer.from(archive[file])), expected);
   for (const [file, expected] of [[`data/${MEI}/interlinear.json`, mei], [`data/${MEI}/headings.json`, headings], [`data/${MEI}/study-contents.json`, studyToc]]) {
@@ -153,7 +155,7 @@ if (args.includes('--zips')) {
   for (const [file, expected] of readbackFiles) assert.deepEqual(JSON.parse(Buffer.from(beitZip[file])), expected);
 } else if (!base) {
   for (const [file, hash] of Object.entries(report.protectedTextSha256)) {
-    assert.equal(sha(await bytes('library/data/' + file)), hash, 'Earlier Hebrew or English changed: ' + file); protectedFiles++;
+    assert.equal(sha(await bytes('library/data/' + file)), protectedSuccessorHash(file,hash,divreiAudit), 'Earlier Hebrew or English changed: ' + file); protectedFiles++;
   }
 }
 

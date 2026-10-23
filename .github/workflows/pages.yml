@@ -414,6 +414,27 @@ jobs:
       - name: Verify Vayeitzei and Mei HaShiloach text navigation and source links on desktop and mobile
         run: node scripts/test-reader-docx-import-browser.mjs
 
+      - name: Publish the complete Divrei Soferim source audit after all predecessor checks
+        run: |
+          node scripts/publish-divrei-source-audit.mjs > divrei-source-audit-publication.json
+          node scripts/publish-divrei-source-audit.mjs > divrei-source-audit-repeat.json
+          node --input-type=module -e "import fs from 'node:fs'; import assert from 'node:assert/strict'; assert.equal(JSON.parse(fs.readFileSync('divrei-source-audit-repeat.json')).mode, 'already-applied');"
+          node scripts/build-source-translations.mjs
+          node scripts/build-library-zips.mjs
+          node scripts/build-mcp-index.mjs
+          node scripts/build-reviewed-connections.mjs
+          node scripts/build-connected-ideas.mjs
+          node scripts/build-theme-review-progress.mjs
+          node scripts/test-reviewed-source-excerpt-arrays.mjs
+          node scripts/test-reviewed-connections.mjs
+          node scripts/test-connected-ideas.mjs
+          node scripts/test-theme-review-progress.mjs
+          node scripts/test-divrei-source-audit.mjs --zips --mcp > divrei-source-audit-verification.json
+          node scripts/test-source-translations.mjs
+          node scripts/test-reader-docx-import.mjs --after-divrei-source-audit --zips --mcp
+          node scripts/test-dover-kdp.mjs --after-divrei-source-audit --zips --data-only
+          node scripts/test-divrei-source-audit-browser.mjs
+
       - name: Cache official Sefaria source exports
         uses: actions/cache@v4
         with:
@@ -440,6 +461,11 @@ jobs:
         id: deployment
         uses: actions/deploy-pages@v4
 
+      - name: Verify every audited Divrei source note and export on the published reader
+        run: |
+          node scripts/test-divrei-source-audit.mjs --zips --mcp --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/' > divrei-source-audit-live-verification.json
+          node scripts/test-divrei-source-audit-browser.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'
+
       # The successor verifier reconstructs the exact historical cleanup edition
       # before checking all final data, source links and browser note boxes. Its
       # Pri coverage supersedes the old exact-prose seasonal/Vayera assertions;
@@ -451,7 +477,7 @@ jobs:
       - name: Verify the latest Dover manuscripts and preserved other sefarim on the live reader
         run: |
           for attempt in 1 2 3; do
-            if node scripts/test-dover-kdp.mjs --zips --data-only --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/' > supplied-source-footnotes-live-verification.json; then
+            if node scripts/test-dover-kdp.mjs --after-divrei-source-audit --zips --data-only --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/' > supplied-source-footnotes-live-verification.json; then
               cat supplied-source-footnotes-live-verification.json
               exit 0
             fi
@@ -474,7 +500,7 @@ jobs:
 
       - name: Verify the complete Vayeitzei and Mei HaShiloach import on the published reader
         run: |
-          node scripts/test-reader-docx-import.mjs --zips --mcp --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/' > reader-docx-import-live-verification.json
+          node scripts/test-reader-docx-import.mjs --after-divrei-source-audit --zips --mcp --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/' > reader-docx-import-live-verification.json
           cat reader-docx-import-live-verification.json
           node scripts/test-reader-docx-import-browser.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'
 
@@ -527,6 +553,18 @@ jobs:
             reader-docx-import-verification.json
             editorial/verification/docx-import-20261022/
             artifacts/reader-docx-import/
+          retention-days: 14
+
+      - name: Save the complete Divrei Soferim source audit and reader checks
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: divrei-source-audit-verification
+          path: |
+            divrei-source-audit-*.json
+            dist/library/divrei-source-audit-20261022.json
+            dist/library/divrei-source-audit-ledger.json
+            artifacts/divrei-source-audit/
           retention-days: 14
 
       - name: Save Shabbos reader verification and screenshots

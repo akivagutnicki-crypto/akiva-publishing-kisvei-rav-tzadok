@@ -8,7 +8,7 @@
 })(typeof window === 'object' ? window : globalThis, function () {
   'use strict';
   const SCHOOLS = ['Kisvei Rav Tzadok', 'Ishbitz–Radzin'];
-  const VERSION = '20261020-reviewed-connections-v4';
+  const VERSION = '20261022-reviewed-connections-v5';
 
   function decode(value) {
     return String(value || '').replace(/&#(x[\da-f]+|\d+);/gi, (_, n) => {
@@ -53,6 +53,37 @@
     const sources = note.sources.filter(source => source && typeof source.ref === 'string'
       && typeof source.url === 'string' && source.url
       && (!source.role || /^(?:primary(?:-source)?|source)$/.test(source.role)));
+    // An audited note can quote several distinct sources. Resolve only the
+    // requested, exact citation, then bind its evidence to the published English
+    // paragraph. The Hebrew in this metadata remains audit evidence only.
+    if (note.reviewedSourceExcerpts !== undefined) {
+      const release = note.provenance?.sourceAudit?.release;
+      if (!Array.isArray(note.reviewedSourceExcerpts)
+          || typeof release !== 'string' || !release.trim()) return null;
+      const matches = sources.filter(source =>
+        (!ref || normalizeRef(ref).toLowerCase() === normalizeRef(source.ref).toLowerCase())
+        && (!sourceUrl || sourceUrl === source.url));
+      if (matches.length !== 1) return null;
+      const source = matches[0], exactRef = normalizeRef(source.ref);
+      if (!exactRef || normalizeRef(sourceRefFromUrl(source.url)).toLowerCase() !== exactRef.toLowerCase()) return null;
+      const excerpts = note.reviewedSourceExcerpts.filter(excerpt =>
+        excerpt && normalizeRef(excerpt.ref).toLowerCase() === exactRef.toLowerCase());
+      if (excerpts.length !== 1) return null;
+      const excerpt = excerpts[0];
+      if (excerpt.scope !== 'selected-source-excerpt' || typeof excerpt.en !== 'string'
+          || !/[A-Za-z]/.test(excerpt.en)
+          || !/^[a-f\d]{64}$/i.test(excerpt.evidenceSha256 || '')) return null;
+      const citation = source.citation || source.ref, expected = `${citation}: “${excerpt.en}”`;
+      if (source.citation && (typeof source.citation !== 'string' || !source.citation.startsWith(source.ref + ' ('))) return null;
+      const paragraphs = (Array.isArray(note.paragraphs) ? note.paragraphs : []).filter(paragraph =>
+        paragraph?.language === 'en' && paragraph.text === expected && Array.isArray(paragraph.rich)
+        && paragraph.rich.map(run => run?.text || '').join('') === expected
+        && paragraph.rich[0]?.text === citation && paragraph.rich[0]?.href === source.url
+        && paragraph.rich[0]?.bold === true);
+      if (paragraphs.length !== 1) return null;
+      return {ref:exactRef,sourceUrl:source.url,en:excerpt.en,
+        provenance:`Original English translation of the reviewed source excerpt · ${release}`,coverage:'excerpt'};
+    }
     if (sources.length !== 1) return null;
     const source = sources[0], exactRef = normalizeRef(source.ref);
     if (!exactRef || (ref && normalizeRef(ref).toLowerCase() !== exactRef.toLowerCase())

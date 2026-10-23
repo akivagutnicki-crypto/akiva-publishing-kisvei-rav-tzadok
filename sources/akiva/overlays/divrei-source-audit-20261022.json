@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "release": "20261022-divrei-source-audit-v1",
+  "payloadFile": "divrei-source-audit-20261022.payload.json.gz.b64",
+  "payloadSha256": "9db58fd2df802adee4cdf15500f28137ad48c6cfccbc3ff9938e502533ff06c8",
+  "counts": {
+    "sections": 38,
+    "reviewedExistingNotes": 717,
+    "addedSourceNotes": 1,
+    "finalSourceNotes": 718,
+    "selectedSourceExcerpts": 750,
+    "notesWithChangedReferences": 651,
+    "correctedNotePlacements": 27,
+    "changedInlineLinkDestinations": 1676,
+    "sourceConnectionEdges": 698,
+    "primaryEvidenceFiles": 514
+  },
+  "scope": "Every existing regular source footnote in Divrei Soferim1–38; preserves all author wording, existing note identities and excluded parallel data.",
+  "translationScope": "Complete original English translations of the selected relevant Hebrew/Aramaic excerpts; these are not necessarily complete Sefaria source units."
+}

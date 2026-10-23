@@ -9,6 +9,7 @@ import {createHash, randomUUID} from 'node:crypto';
 import {createRequire} from 'node:module';
 import {fileURLToPath} from 'node:url';
 import {gunzipSync} from 'node:zlib';
+import {readPublishedAudit} from './publish-divrei-source-audit.mjs';
 
 const require = createRequire(import.meta.url);
 const engine = require('../dist/library/source-connections.js');
@@ -205,9 +206,19 @@ export function buildSourceTranslations(options = {}) {
   const releaseFiles = new Map(payload.files.map(file => [file.path, file]));
   assert(releaseFiles.size === payload.files.length, 'Duplicate source release file paths');
   const finalFiles = new Map(), translations = new Map(), skipped = [];
+  // The Divrei audit supplies context-selected excerpts. Do not promote them,
+  // or their superseded quotations, to complete indexed source translations.
+  // Historical builds have no audit report and retain their exact old proof.
+  const divreiAudit = readPublishedAudit(libraryRoot);
   const candidateRestorations = payload.quotationRestorations.filter(item => item.verified === true
     && item.sourceHebrew && item.sourceTranslationSha256);
   for (const restoration of candidateRestorations) {
+    if (divreiAudit && /^data\/divrei-soferim\//.test(restoration.path)) {
+      assert(divreiAudit.files.some(file => file.path === restoration.path), 'Unreviewed Divrei successor path');
+      skipped.push({ref: restoration.sourceSegmentRefs?.join('; ') || null, path: restoration.path,
+        reason: 'Superseded by the verified Divrei context-selected source quotation audit; not a complete-source-unit claim'});
+      continue;
+    }
     let primary, unit;
     try {
       eligible(Array.isArray(restoration.sourceSegmentRefs) && restoration.sourceSegmentRefs.length === 1, 'Multiple or ambiguous source references');
