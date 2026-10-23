@@ -12,12 +12,12 @@ permissions:
 
 concurrency:
   # Skipped workflows must not displace a pending publisher in the shared queue.
-  group: ${{ (github.event_name != 'push' || (!contains(github.event.head_commit.message, '[divrei-source-release]') && !contains(github.event.head_commit.message, '[divrei-media-release]') && !contains(github.event.head_commit.message, '[reader-ui-release]'))) && 'pages' || format('pages-skipped-{0}', github.run_id) }}
+  group: ${{ (github.event_name != 'push' || (!contains(github.event.head_commit.message, '[divrei-source-release]') && !contains(github.event.head_commit.message, '[divrei-media-release]') && !contains(github.event.head_commit.message, '[reader-ui-release]') && !contains(github.event.head_commit.message, '[share-release]'))) && 'pages' || format('pages-skipped-{0}', github.run_id) }}
   cancel-in-progress: false
 
 jobs:
   deploy:
-    if: ${{ github.event_name != 'push' || (!contains(github.event.head_commit.message, '[divrei-source-release]') && !contains(github.event.head_commit.message, '[divrei-media-release]') && !contains(github.event.head_commit.message, '[reader-ui-release]')) }}
+    if: ${{ github.event_name != 'push' || (!contains(github.event.head_commit.message, '[divrei-source-release]') && !contains(github.event.head_commit.message, '[divrei-media-release]') && !contains(github.event.head_commit.message, '[reader-ui-release]') && !contains(github.event.head_commit.message, '[share-release]')) }}
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -453,6 +453,9 @@ jobs:
         uses: actions/configure-pages@v5
         with:
           enablement: true
+
+      - name: Preserve the responsive Share controls after content builds
+        run: node scripts/apply-share.mjs dist
 
       - name: Upload site
         uses: actions/upload-pages-artifact@v4

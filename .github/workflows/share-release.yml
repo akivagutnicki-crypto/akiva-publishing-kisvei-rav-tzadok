@@ -1,0 +1,142 @@
+name: Publish responsive Share controls
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+  pages: write
+  id-token: write
+
+concurrency:
+  # Skipped workflows must not displace a queued publisher.
+  group: ${{ (github.repository == 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok' && github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[share-release]'))) && 'pages' || format('share-skipped-{0}', github.run_id) }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: ${{ github.repository == 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok' && github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[share-release]')) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout the Share controls
+        uses: actions/checkout@v6
+
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+
+      - name: Verify the exact current publication and branch head
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/verify-share-release.mjs --metadata
+
+      - name: Download the current verified publication
+        uses: actions/download-artifact@v4
+        with:
+          artifact-ids: '12476101114'
+          run-id: '39893706860'
+          repository: akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/share-baseline-artifact
+          merge-multiple: true
+
+      - name: Restore the publication and record every original file
+        run: |
+          python3 - <<'PY'
+          import json, os, pathlib, shutil, subprocess, tarfile
+          inputs = pathlib.Path(os.environ['RUNNER_TEMP']) / 'share-release-inputs'
+          inputs.mkdir()
+          names = json.loads(subprocess.check_output(['node', 'scripts/verify-share-release.mjs', '--input-files'], text=True))
+          for name in names:
+              source = pathlib.Path('dist') / name
+              assert source.is_file() and not source.is_symlink(), 'Missing Share input: ' + name
+              target = inputs / name
+              target.parent.mkdir(parents=True, exist_ok=True)
+              shutil.copyfile(source, target)
+          destination = pathlib.Path('dist').resolve()
+          shutil.rmtree(destination)
+          destination.mkdir()
+          archive = pathlib.Path(os.environ['RUNNER_TEMP']) / 'share-baseline-artifact/artifact.tar'
+          with tarfile.open(archive, 'r:') as source:
+              members = source.getmembers()
+              for member in members:
+                  target = (destination / member.name).resolve()
+                  assert target == destination or destination in target.parents, 'Unsafe publication archive path'
+                  assert member.isdir() or member.isfile(), 'Unexpected archive link or special file'
+              source.extractall(destination, members=members)
+          PY
+          node scripts/verify-share-release.mjs --capture
+
+      - name: Add only the reviewed Share files and shell hooks
+        run: |
+          python3 - <<'PY'
+          import os, pathlib, shutil
+          inputs = pathlib.Path(os.environ['RUNNER_TEMP']) / 'share-release-inputs'
+          for source in inputs.rglob('*'):
+              if source.is_file():
+                  target = pathlib.Path('dist') / source.relative_to(inputs)
+                  assert not target.exists(), 'Share addition would replace an original file: ' + str(target)
+                  target.parent.mkdir(parents=True, exist_ok=True)
+                  shutil.copyfile(source, target)
+          PY
+          node scripts/apply-share.mjs dist
+          node --check dist/library/share.js
+          node --check dist/library/sw.js
+          node scripts/verify-share-release.mjs --verify
+
+      - name: Install the focused browser verification runtime
+        run: |
+          npm install --no-save --package-lock=false playwright@1.62.1
+          npx playwright install --with-deps chromium
+
+      - name: Verify sharing in portrait and landscape before publishing
+        run: node scripts/test-share-browser.mjs
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Recheck the current publication immediately before uploading
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/verify-share-release.mjs --live-baseline
+
+      - name: Upload the preserved publication with Share controls
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ./dist
+
+      - name: Recheck the current publication immediately before deployment
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/verify-share-release.mjs --live-baseline
+
+      - name: Publish the responsive Share controls
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Verify public sharing and the preserved publication
+        run: |
+          node scripts/verify-share-release.mjs --live
+          node scripts/test-share-browser.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/'
+
+      - name: Save preservation and browser verification
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: share-release-verification
+          if-no-files-found: warn
+          path: |
+            share-release-baseline-artifact.json
+            share-release-inputs.json
+            share-release-baseline.json
+            share-release-verification.json
+            share-release-live-verification.json
+            share-browser-evidence/
