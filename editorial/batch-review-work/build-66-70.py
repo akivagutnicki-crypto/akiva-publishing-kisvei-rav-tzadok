@@ -142,6 +142,9 @@ add(70,'tikkunei-binah-heart',10,'Tikkunei Zohar 17a:17',
     'The brain is wisdom; it is thought within. Understanding is the heart, and through it the heart understands.',
     'Patach Eliyahu identifies Binah, understanding, with the heart. This explains the specific phrase “Binah in the heart” within the ois’s symbolism of the mother.',anchor_end='(בִּינָה שֶׁבַּלֵּב)')
 
+from align_batch5_reader import align_entries
+align_entries(entries)
+
 out={'schemaVersion':1,'reviewedSections':[66,67,68,69,70],'entries':entries,
      'coverage':[{'section':n,'status':'reviewed-add-only','sourcePageRanges':{'neimosA':[min(pages[n][0]),max(pages[n][0])],'integratedA':[min(pages[n][1]),max(pages[n][1])]},'addedSourceRefs':[e['ref'] for e in entries if e['section']==n],'existingNotesPreserved':True} for n in range(66,71)],
      'observationsNotApplied':[

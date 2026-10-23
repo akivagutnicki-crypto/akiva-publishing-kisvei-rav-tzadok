@@ -53,6 +53,13 @@ for(let section=first;section<=last;section++){
  coverage.push({...supplied,section,status:[40,154].includes(section)?'previously-completed-preserved':section===74?'absent-preserved':selected.length?'reviewed-additions':'reviewed-no-addition',additions:selected.map(e=>e.id),existingNotes:'Every native note and existing connected-source quotation preserved unchanged.'});
 }
 const pack={schemaVersion:1,release,reviewedSections:Array.from({length:last-first+1},(_,i)=>first+i),chapters,linksBefore,audit:{completeReview:true,reviewedAt:'2026-10-23',method:'Original source quotations, original English translations, exact Hebrew anchors, and unchanged existing notes.',coverage,entries:auditEntries}};
+const exactExternalUrls=[];
+for(const e of entries) if(/^https:\/\/wiki\.jewishbooks\.org\.il\//.test(e.url||'')&&!exactExternalUrls.some(item=>item.url===e.url)) {
+ const evidence=e.sourceEvidence.find(v=>v.ref===e.ref&&v.url===e.url&&v.he===e.he&&v.en===e.en);
+ assert(evidence,'Exact external URL lacks the approved quotation evidence: '+e.id);
+ exactExternalUrls.push({url:e.url,ref:e.ref,placementId:`TZB-${pad(e.section)}-${e.id}-1`,evidenceSha256:digest({ref:evidence.ref,url:evidence.url,he:evidence.he,en:evidence.en})});
+}
+if(exactExternalUrls.length)pack.verifiedExternalUrls=exactExternalUrls;
 const added=validatePack(pack);const bytes=gzipSync(Buffer.from(JSON.stringify(pack)),{level:9});
 fs.writeFileSync(target,bytes);fs.writeFileSync(target+'.sha256',hash(bytes)+'\n');
 console.log(JSON.stringify({release,path:target,notes:added.length,firstNumber:startNumber,lastNumber:number-1,sha256:hash(bytes),counts:coverage.map(c=>[c.section,c.additions.length])},null,2));

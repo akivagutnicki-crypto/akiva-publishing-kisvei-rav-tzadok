@@ -118,6 +118,9 @@ add(65,'ramban-why-separate-from-the-congregation',22,'Ramban on Numbers 17:10:1
 '“Remove yourselves from this congregation”—I do not understand the reason for this verse and its counterpart above, “Separate yourselves from this congregation.” God has the power to kill many by plague around one righteous person, leaving that person alone alive, as occurred among the firstborn of Egypt. So too in every plague: three people sleep beneath one blanket, two die, and the one in the middle escapes. It appears that the wrath was going forth to kill the entire congregation as these sinners were killed, because they had followed them—through the opening of the earth’s mouth or the fire that came forth. These are encompassing blows, capable of killing everyone standing there together, unless a second miracle is performed for those who escape. Alternatively, the Holy One, blessed be He, said this in honor of the righteous: as long as they remained among them, He would not strike them. The purpose of these and similar statements is to make known that they need a plea for mercy and atonement, and Moshe is the one who hastens to do this immediately.',
 'This is Ramban’s question, followed by his own two explanations and their practical purpose. Rav Tzadok takes up the question and offers the further explanation developed in this ois.',P65)
 
+from align_batch5_reader import align_entries
+align_entries(E)
+
 E.sort(key=lambda e:(e['section'],e['rowN'],e['phraseIndex'],e['heCharOffset']))
 cat=json.loads((ROOT/'tmp/batch-engineering/current-site/library/connected-ideas/catalog.json').read_text())['records']
 ranges={61:P61,62:P62,63:P63,64:P64,65:P65}

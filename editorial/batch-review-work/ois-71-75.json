@@ -1084,52 +1084,6 @@
     },
     {
       "section": 75,
-      "id": "yisrael-jacobs-hidden-firstborn-status",
-      "rowN": 1,
-      "phraseIndex": 15,
-      "heAnchorPrefix": "שָׁמַעְתִּי לְפִי שֶׁהוּא הָיָה בְּכוֹר בְּדִמְיוֹן וְלֹא בֶּאֱמֶת,",
-      "heCharOffset": 67,
-      "ref": "Yisrael Kedoshim 7:11",
-      "url": "#/read/Yisrael_Kedoshim_7:11",
-      "he": "וְיַעֲקֹב בְּכוֹר לִיצִירָה, דְּהַיְינוּ מִצַּד הָאֱמֶת הַנֶּעְלָם בָּעוֹלָם הַזֶּה אֲבָל מִצַּד הִתְגַּלּוּת בָּעוֹלָם הַזֶּה בַּלֵּידָה, הָיָה עֵשָׂו בְּכוֹר לְמַרְאִית עַיִן כִּי הָעֲבוֹדָה הוּא בְּמַעֲשֶׂה וְכֹחַ הַפְּעֻלָּה, וְעֵשָׂו הוּא שׁוֹרֶשׁ כֹּחַ הַמַּעֲשִׂים",
-      "en": "Yaakov was the firstborn in formation, that is, from the side of the truth concealed in this world. But from the manifestation in this world at birth, Esav was the firstborn to outward appearance. For the service is in action and the power of activity, and Esav is the root of the power of deeds.",
-      "context": "This parallel states the distinction between the concealed order of formation and the visible order of birth. It explains the ois’s phrase “firstborn in appearance.”",
-      "sourceEvidence": [
-        {
-          "ref": "Yisrael Kedoshim 7:11",
-          "url": "#/read/Yisrael_Kedoshim_7:11",
-          "he": "וְיַעֲקֹב בְּכוֹר לִיצִירָה, דְּהַיְינוּ מִצַּד הָאֱמֶת הַנֶּעְלָם בָּעוֹלָם הַזֶּה אֲבָל מִצַּד הִתְגַּלּוּת בָּעוֹלָם הַזֶּה בַּלֵּידָה, הָיָה עֵשָׂו בְּכוֹר לְמַרְאִית עַיִן כִּי הָעֲבוֹדָה הוּא בְּמַעֲשֶׂה וְכֹחַ הַפְּעֻלָּה, וְעֵשָׂו הוּא שׁוֹרֶשׁ כֹּחַ הַמַּעֲשִׂים",
-          "en": "Yaakov was the firstborn in formation, that is, from the side of the truth concealed in this world. But from the manifestation in this world at birth, Esav was the firstborn to outward appearance. For the service is in action and the power of activity, and Esav is the root of the power of deeds.",
-          "heSha256": "ea15624d18a707319daa3514cd9600a0cdedf5a038cfb85dc6d3407197e40668",
-          "translation": "Original English translation prepared directly from the original Hebrew or Aramaic source.",
-          "coverage": "Complete selected source unit with all qualifications necessary to its meaning.",
-          "canonicalReaderRef": "Yisrael Kedoshim 7:11",
-          "canonicalSourceFile": "mcp-data/text/yisrael-kedoshim.json"
-        }
-      ],
-      "reviewEvidence": {
-        "pdfPages": {
-          "neimosA": [
-            207,
-            208,
-            209,
-            210
-          ],
-          "integratedA": [
-            245,
-            246,
-            247
-          ]
-        },
-        "preserveExisting": true,
-        "status": "verified",
-        "dedup": "All destination native and connected quotations compared; no existing complete source passage is replaced or duplicated.",
-        "method": "Both supplied editions reviewed; original sources read in context; exact canonical Hebrew prefix checked."
-      },
-      "readerRef": "Yisrael Kedoshim 7:11"
-    },
-    {
-      "section": 75,
       "id": "yisrael-birthright-preparation-for-holiness",
       "rowN": 1,
       "phraseIndex": 16,
@@ -1333,7 +1287,6 @@
         "bereshit-rabbah-goat-and-innocent-one",
         "rav-hai-earned-reward-and-support",
         "rashi-firstborn-and-sacrificial-service",
-        "yisrael-jacobs-hidden-firstborn-status",
         "yisrael-birthright-preparation-for-holiness",
         "resisei-exile-and-holy-sparks"
       ],
@@ -1341,6 +1294,12 @@
     }
   ],
   "omissions": [
+    {
+      "section": 75,
+      "ref": "Yisrael Kedoshim 7:11",
+      "existingFootnote": 2249,
+      "reason": "The complete proposed hidden-firstborn passage is already included in the existing connected quotation. Preserved without a duplicate new note."
+    },
     {
       "section": 71,
       "reason": "Existing Berakhot10a, Sotah47a, Sanhedrin107b, Avodah Zarah4b, Psalms, and Megillah13b quotations retained rather than duplicated."

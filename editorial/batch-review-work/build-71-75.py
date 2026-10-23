@@ -118,10 +118,6 @@ E[-1]['sourceEvidence'][0].update(webRef='turn58view0',sourceLocation='Full fina
 add(75,'rashi-firstborn-and-sacrificial-service',14,'Rashi on Genesis 25:31:2',src('Rashi on Genesis 25:31',2),
     '“Your birthright”—Because the sacrificial service belonged to the firstborn, Yaakov said: This wicked person is not fit to offer sacrifices to the Holy One, blessed be He.',
     'Rashi supplies the connection between the birthright and offering sacrifices that the Hebrew assumes.',anchorEnd='לְהַקְרִיב קָרְבָּנוֹת')
-ref='Yisrael Kedoshim 7:11'
-add(75,'yisrael-jacobs-hidden-firstborn-status',15,ref,local('yisrael-kedoshim',ref,22,25),
-    'Yaakov was the firstborn in formation, that is, from the side of the truth concealed in this world. But from the manifestation in this world at birth, Esav was the firstborn to outward appearance. For the service is in action and the power of activity, and Esav is the root of the power of deeds.',
-    'This parallel states the distinction between the concealed order of formation and the visible order of birth. It explains the ois’s phrase “firstborn in appearance.”',book='yisrael-kedoshim')
 ref='Yisrael Kedoshim 7:1'
 add(75,'yisrael-birthright-preparation-for-holiness',16,ref,local('yisrael-kedoshim',ref,30,37),
     'He [Yitzchak] considered him [Esav] a vessel prepared for holiness, since he had been formed as a firstborn. Although the firstborn had not yet been sanctified, the forefathers fulfilled the whole Torah and he knew that the firstborn would be sanctified in the future. In truth, however, Yaakov took the birthright and the blessings from him, for everything truly belonged to Yaakov. The birthright came first, even though holiness follows blessing, because the birthright at that time was not holiness itself but a preparation for holiness. He had to take all this from Esav indirectly, because from the appearance of this world everything initially seemed to belong to Esav. For this is the order of the world: first darkness and then light, as they said at the beginning of Berakhot.',
@@ -131,7 +127,7 @@ add(75,'resisei-exile-and-holy-sparks',26,ref,local('resisei-layla',ref,57,63),
     'All their association with the nations, in its deepest truth, is only to absorb holy sparks from them. As the Sages said: Israel went into exile only so that converts would be added to them. This does not mean only actual converts, but the additional absorption of the nations’ powers, returning them little by little to holiness, until the final time when everything returns to holiness. Although this is not yet revealed outwardly, in the inward heart this light is revealed and shines clearly, and nevertheless accomplishes its work.',
     'This parallel explains the closing phrase about Israel’s gathering of good during exile. It explicitly extends “converts” beyond literal conversion and distinguishes hidden spiritual work from what is presently visible.',book='resisei-layla')
 
-assert len(E)==27
+assert len(E)==26
 for e in E:
     assert e['he'] and e['en'] and e['sourceEvidence'][0]['he']==e['he']
     if e.get('readerRef'):
@@ -139,6 +135,7 @@ for e in E:
         assert bare(e['he']) in bare(local(slug,e['readerRef'])),e['id']
 coverage=[{'section':s,'status':'absent-preserved' if s==74 else 'reviewed-additions','pdfPages':{'neimosA':P[s][0],'integratedA':P[s][1]},'additions':[e['id'] for e in E if e['section']==s],'existingNotes':'All native and connected quotations preserved. No new note added to absent ois74.'} for s in range(71,76)]
 out={'schemaVersion':1,'reviewedSections':list(range(71,76)),'entries':E,'coverage':coverage,'omissions':[
+    {'section':75,'ref':'Yisrael Kedoshim 7:11','existingFootnote':2249,'reason':'The complete proposed hidden-firstborn passage is already included in the existing connected quotation. Preserved without a duplicate new note.'},
     {'section':71,'reason':'Existing Berakhot10a, Sotah47a, Sanhedrin107b, Avodah Zarah4b, Psalms, and Megillah13b quotations retained rather than duplicated.'},
     {'section':72,'reason':'Existing Megillah14a/27a and Shabbat10a quotations retained; new notes supply Rashi and distinct original explanatory passages.'},
     {'section':73,'reason':'Existing Shaarei Teshuvah1:49 already quotes both the full test and the case where the opportunity does not recur; Yoma wording within it is not duplicated. Sanhedrin25a and Gehazi’s camp/properties passages remain unchanged.'},

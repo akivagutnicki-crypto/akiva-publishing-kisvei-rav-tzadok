@@ -61,10 +61,21 @@
       "heCharOffset": 49,
       "ref": "Tzidkat HaTzadik 219:1",
       "url": "#/read/Tzidkat_HaTzadik_219",
-      "he": "וכהנים רבה בהן הכתוב מצות יתירות לפי שנבדל אהרן להקדישו קודש קדשים לעומתו ג\"כ היצר מובדל מיצר מחשבות אחרים. וצריך עצות יתירות להשמר ממנו.",
+      "he": "וְכֹהֲנִים רִבָּה בָּהֶן הַכָּתוּב מִצְווֹת יְתֵירוֹת, לְפִי שֶׁנֶּאֱבְדַל אַהֲרֹן לְהַקְדִּישׁוֹ קֹדֶשׁ קָדָשִׁים, לְעֻמָּתוֹ גַּם כֵּן הַיֵּצֶר מוּבְדָּל מִיֵּצֶר מַחְשְׁבוֹת אֲחֵרִים, וְצָרִיךְ עֵצוֹת יְתֵירוֹת לְהִשָּׁמֵר מִמֶּנּוּ.",
       "en": "Scripture imposed additional mitzvot upon the priests because Aharon was set apart to consecrate him as most holy. Correspondingly, his inclination is also distinct from the inclinations of other people’s thoughts, and he needs additional counsels to guard against it.",
       "context": "Rav Tzadok explains elsewhere why greater holiness is accompanied by additional obligations: the stronger spiritual capacity has its corresponding challenge and needs further remedies.",
       "sourceEvidence": [
+        {
+          "ref": "Tzidkat HaTzadik 219:1",
+          "url": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/#/read/Tzidkat_HaTzadik_219:1",
+          "he": "וְכֹהֲנִים רִבָּה בָּהֶן הַכָּתוּב מִצְווֹת יְתֵירוֹת, לְפִי שֶׁנֶּאֱבְדַל אַהֲרֹן לְהַקְדִּישׁוֹ קֹדֶשׁ קָדָשִׁים, לְעֻמָּתוֹ גַּם כֵּן הַיֵּצֶר מוּבְדָּל מִיֵּצֶר מַחְשְׁבוֹת אֲחֵרִים, וְצָרִיךְ עֵצוֹת יְתֵירוֹת לְהִשָּׁמֵר מִמֶּנּוּ.",
+          "en": "Scripture imposed additional mitzvot upon the priests because Aharon was set apart to consecrate him as most holy. Correspondingly, his inclination is also distinct from the inclinations of other people’s thoughts, and he needs additional counsels to guard against it.",
+          "heSha256": "f8b786e4c0b92189438c5f71c0025fc13636e3e3d075eec54e357cdfcb8bf676",
+          "translation": "Original English translation checked directly against the complete selected canonical Hebrew passage.",
+          "coverage": "Complete contiguous selected source passage; no omitted intervening text.",
+          "canonicalReaderRef": "Tzidkat HaTzadik 219:1",
+          "canonicalSourceFile": "mcp-data/text/tzidkat-hatzadik.json"
+        },
         {
           "ref": "Tzidkat HaTzadik 219:1",
           "url": "https://www.sefaria.org/Tzidkat_HaTzadik_219:1",
@@ -72,7 +83,8 @@
           "en": "Scripture imposed additional mitzvot upon the priests because Aharon was set apart to consecrate him as most holy. Correspondingly, his inclination is also distinct from the inclinations of other people’s thoughts, and he needs additional counsels to guard against it.",
           "translation": "Original English translation prepared directly from the Hebrew or Aramaic source.",
           "coverage": "Complete selected source unit; all qualifications needed for its meaning retained.",
-          "heSha256": "3a22652b1f6b7d6107c5d57799677c70be2abb5ec621a7b09754232b92e49bd9"
+          "heSha256": "3a22652b1f6b7d6107c5d57799677c70be2abb5ec621a7b09754232b92e49bd9",
+          "editionRelationship": "Original Sefaria spelling retained; canonical reader expands abbreviations."
         }
       ],
       "reviewEvidence": {
@@ -91,7 +103,17 @@
         "preserveExisting": true,
         "status": "verified",
         "dedup": "Compared all existing native and connected notes in the destination ois; the selected quotation is not already present.",
-        "method": "Original-source text checked in context; exact current Hebrew anchor verified."
+        "method": "Original-source text checked in context; exact current Hebrew anchor verified.",
+        "readerHebrewAlignment": {
+          "canonicalRef": "Tzidkat HaTzadik 219:1",
+          "previousHebrewSha256": "3a22652b1f6b7d6107c5d57799677c70be2abb5ec621a7b09754232b92e49bd9",
+          "canonicalHebrewSha256": "f8b786e4c0b92189438c5f71c0025fc13636e3e3d075eec54e357cdfcb8bf676",
+          "previousEnglishSha256": "f1ce0061e6467ff7debe6954dd9d4fd3e8a0dc8b7ed5dc4868d03df65cc9291f",
+          "englishUnchanged": true,
+          "contextAndAnchorUnchanged": true,
+          "existingSourceTextUnchanged": true,
+          "restoredInterveningPhrases": []
+        }
       },
       "readerRef": "Tzidkat HaTzadik 219:1"
     },
