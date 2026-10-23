@@ -1,12 +1,14 @@
 /* Page-image preview of the supplied Divrei Soferim Ois 16 transcript. */
 (() => {
   'use strict';
-  const PAGES = 9;
   const BASE = 'downloads/divrei-soferim-ois-16-lech-lecha-preview/';
 
   function mount(section) {
     const details = section.querySelector('.divrei16-pdf');
     if (!details) return null;
+    const pages = Number(details.dataset.previewPages);
+    const revision = details.dataset.previewVersion;
+    if (!Number.isInteger(pages) || pages < 1 || !revision) return null;
     const image = details.querySelector('.divrei16-page-image');
     const viewport = details.querySelector('.divrei16-page-viewport');
     const count = details.querySelector('.divrei16-page-count');
@@ -27,9 +29,9 @@
       listeners.push(() => target.removeEventListener(event, handler));
     };
     const controls = () => {
-      count.textContent = `Page ${page} of ${PAGES}`;
+      count.textContent = `Page ${page} of ${pages}`;
       previous.disabled = page === 1;
-      next.disabled = page === PAGES;
+      next.disabled = page === pages;
       zoomOut.disabled = zoom <= 1;
       zoomIn.disabled = zoom >= 3;
       zoomLabel.textContent = `${Math.round(zoom * 100)}%`;
@@ -39,16 +41,16 @@
       if (!details.open || (!force && loadedPage === page)) return;
       loadedPage = page;
       image.hidden = true;
-      image.alt = `Divrei Soferim Ois 16 Lech Lecha shiur transcript, page ${page} of ${PAGES}`;
+      image.alt = `Divrei Soferim Ois 16 Lech Lecha shiur transcript, page ${page} of ${pages}`;
       status.textContent = `Loading page ${page}…`;
       status.hidden = false;
       retry.hidden = true;
-      image.src = `${BASE}page-${String(page).padStart(2, '0')}.webp`;
+      image.src = `${BASE}page-${String(page).padStart(2, '0')}.webp?v=${encodeURIComponent(revision)}`;
       viewport.scrollTop = 0;
       viewport.scrollLeft = 0;
     };
     const setPage = value => {
-      page = Math.min(PAGES, Math.max(1, value));
+      page = Math.min(pages, Math.max(1, value));
       controls();
       loadPage();
     };

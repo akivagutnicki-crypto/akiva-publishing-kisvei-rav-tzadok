@@ -4,10 +4,16 @@ import fs from 'node:fs';
 import path from 'node:path';
 
 const library = process.argv[2] || 'dist/library';
+const previewDirectory = path.join(library, 'downloads/divrei-soferim-ois-16-lech-lecha-preview');
+const pageFiles = fs.readdirSync(previewDirectory).filter(name => /^page-\d+\.webp$/.test(name)).sort();
+assert(pageFiles.length > 0, 'The revised transcript preview images are missing');
+assert.deepEqual(pageFiles, Array.from({length: pageFiles.length}, (_, index) => `page-${String(index + 1).padStart(2, '0')}.webp`), 'Transcript preview pages are not complete and sequential');
+const transcript = {pages: pageFiles.length, version: '20261022-divrei16-transcript-v2'};
 const version = '20261022-divrei16-media';
 const oldQuery = 'shiur-player.js?v=20261016-compact-noach-audio';
 const newQuery = `shiur-player.js?v=${version}`;
-const previewQuery = 'divrei16-preview.js?v=20261022-divrei16-page-preview-v1';
+const oldPreviewQuery = 'divrei16-preview.js?v=20261022-divrei16-page-preview-v1';
+const previewQuery = `divrei16-preview.js?v=${transcript.version}`;
 const count = (text, anchor) => text.split(anchor).length - 1;
 const replaceOnce = (text, before, after, label) => {
   assert.equal(count(text, before), 1, `Unexpected ${label} anchor count`);
@@ -34,7 +40,7 @@ const oldMediaBlock = `} else if (d.sectionRef === 'Divrei Soferim 16') {
       </details>
     </div>\`;
   } else html += shiurMarkup;`;
-const mediaBlock = `} else if (d.sectionRef === 'Divrei Soferim 16') {
+const initialMediaBlock = `} else if (d.sectionRef === 'Divrei Soferim 16') {
     html += \`<div class="noach6-media divrei16-media">\${shiurMarkup}
       <details class="noach6-pdf divrei16-pdf">
         <summary>📄 Preview the shiur transcript · 9 pages</summary>
@@ -61,6 +67,25 @@ const mediaBlock = `} else if (d.sectionRef === 'Divrei Soferim 16') {
       </details>
     </div>\`;
   } else html += shiurMarkup;`;
+const reviseMediaBlock = block => {
+  const update = (pattern, value, label) => {
+    assert.equal([...block.matchAll(pattern)].length, 1, `Unexpected transcript ${label} count`);
+    block = block.replace(pattern, value);
+  };
+  update(/<details\b(?=[^>]*\bclass="[^"]*\bdivrei16-pdf\b[^"]*")[^>]*>/g, tag => {
+    tag = tag.replace(/\sdata-preview-(?:pages|version)="[^"]*"/g, '');
+    return tag.slice(0, -1) + ` data-preview-pages="${transcript.pages}" data-preview-version="${transcript.version}">`;
+  }, 'container');
+  update(/Preview the shiur transcript · \d+ pages/g, `Preview the shiur transcript · ${transcript.pages} pages`, 'summary');
+  update(/>Page 1 of \d+<\/span>/g, `>Page 1 of ${transcript.pages}</span>`, 'page label');
+  update(/page 1 of \d+" decoding="async"/g, `page 1 of ${transcript.pages}" decoding="async"`, 'page description');
+  update(/href="downloads\/divrei-soferim-ois-16-lech-lecha-shiur\.pdf(?:\?[^"]*)?"/g,
+    `href="downloads/divrei-soferim-ois-16-lech-lecha-shiur.pdf?v=${transcript.version}"`, 'PDF link');
+  update(/href="downloads\/divrei-soferim-ois-16-lech-lecha-shiur\.docx(?:\?[^"]*)?"/g,
+    `href="downloads/divrei-soferim-ois-16-lech-lecha-shiur.docx?v=${transcript.version}"`, 'Word link');
+  return block;
+};
+const mediaBlock = reviseMediaBlock(initialMediaBlock);
 const previewStyles = `/* Divrei Soferim Ois 16 transcript page preview */
 .divrei16-preview{margin-top:10px;min-width:0;color:var(--ink);font:400 .85rem/1.4 var(--ui)}
 .divrei16-preview-toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:6px 8px}
@@ -80,13 +105,20 @@ if (!index.includes(sectionAnchor)) {
 } else if (index.includes(oldMediaBlock)) {
   index = replaceOnce(index, oldMediaBlock, mediaBlock, 'previous Ois 16 PDF preview');
 } else {
-  assert.equal(count(index, mediaBlock), 1, 'An unexpected Ois 16 media card is already present');
+  assert.equal(count(index, sectionAnchor), 1, 'An unexpected Ois 16 media card is already present');
+  const start = index.indexOf(sectionAnchor);
+  const endMarker = '} else html += shiurMarkup;';
+  const end = index.indexOf(endMarker, start);
+  assert(end > start, 'The Ois 16 media card boundary is missing');
+  const existing = index.slice(start, end + endMarker.length);
+  index = replaceOnce(index, existing, reviseMediaBlock(existing), 'existing transcript metadata');
 }
 index = updateQuery(index, 'reader');
-if (!index.includes(previewStyles)) {
-  assert(!index.includes('/* Divrei Soferim Ois 16 transcript page preview */'), 'Unexpected existing preview styles');
+const previewStyleMarker = '/* Divrei Soferim Ois 16 transcript page preview */';
+if (!index.includes(previewStyleMarker)) {
   index = replaceOnce(index, '.shiur-host-note{', previewStyles + '.shiur-host-note{', 'preview style');
-}
+} else assert.equal(count(index, previewStyleMarker), 1, 'Repeated preview style block');
+if (index.includes(oldPreviewQuery)) index = replaceOnce(index, oldPreviewQuery, previewQuery, 'previous preview script');
 const previewScript = `<script src="${previewQuery}"></script>`;
 if (!index.includes(previewScript)) {
   assert(!index.includes('divrei16-preview.js'), 'Unexpected existing preview module');
@@ -103,6 +135,7 @@ if (!index.includes(previewMount)) {
 const swFile = path.join(library, 'sw.js');
 let sw = fs.readFileSync(swFile, 'utf8');
 sw = updateQuery(sw, 'service worker');
+if (sw.includes(oldPreviewQuery)) sw = replaceOnce(sw, oldPreviewQuery, previewQuery, 'previous preview cache');
 if (!sw.includes(previewQuery)) {
   assert(!sw.includes('divrei16-preview.js'), 'Unexpected existing preview cache entry');
   sw = replaceOnce(sw, `'./${newQuery}',`, `'./${newQuery}', './${previewQuery}',`, 'preview cache');
@@ -121,6 +154,11 @@ const updatedShell = [...sw.matchAll(/const SHELL = `([^`]+)`;/g)][0];
 if (!updatedShell[1].includes(previewSuffix)) {
   sw = replaceOnce(sw, updatedShell[0], `const SHELL = \`${updatedShell[1]}${previewSuffix}\`;`, 'preview shell');
 } else assert.equal(count(updatedShell[1], previewSuffix), 1, 'Repeated preview shell suffix');
+const revisionShell = [...sw.matchAll(/const SHELL = `([^`]+)`;/g)][0];
+const revisionSuffix = `-${transcript.version}`;
+if (!revisionShell[1].includes(revisionSuffix)) {
+  sw = replaceOnce(sw, revisionShell[0], `const SHELL = \`${revisionShell[1]}${revisionSuffix}\`;`, 'transcript revision shell');
+} else assert.equal(count(revisionShell[1], revisionSuffix), 1, 'Repeated transcript revision shell suffix');
 fs.writeFileSync(indexFile, index);
 fs.writeFileSync(swFile, sw);
-console.log('Applied Divrei Soferim Ois 16 media card and player refresh; all other reader content retained.');
+console.log(`Applied Divrei Soferim Ois 16 transcript ${transcript.version}: ${transcript.pages} pages; all other reader content retained.`);

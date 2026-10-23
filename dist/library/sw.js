@@ -5,12 +5,12 @@
 //   with the last answer kept for offline use; web fonts are cache-first.
 const VERSION = 'v62-20261016-et-haochel-240-5468b7180d41-20261016-pri-vayera-chayei-footnotes-929';
 // Keep this layout refresh when a later publishing step updates the text edition version.
-const SHELL = `rtl-shell-${VERSION}-compact-noach-audio-20261016-beit-vayera-complete-20261016-pri-shevat-tubishvat-399c2228eea0-dover-elaboration-sources-20261018-dover-revisions-v1-dover-revisions-v2-dover-title-paragraphs-v1-dover-headings-v1-dover-reviewed-parallels-v3-805e8b67fc05-hebrew-alignment-20261020-reviewed-connections-v4-20261021-pri-shabbos-oral-deferred-v2-preferred-editions-v1-20261019-dew-of-your-youth-dover-kdp-v1-9802990330fd-divrei16-media-20261022-divrei16-page-preview-20261022-reader-ui-20261022-responsive-v1-reader-ui-route-safe-v2`;
+const SHELL = `rtl-shell-${VERSION}-compact-noach-audio-20261016-beit-vayera-complete-20261016-pri-shevat-tubishvat-399c2228eea0-dover-elaboration-sources-20261018-dover-revisions-v1-dover-revisions-v2-dover-title-paragraphs-v1-dover-headings-v1-dover-reviewed-parallels-v3-805e8b67fc05-hebrew-alignment-20261020-reviewed-connections-v4-20261021-pri-shabbos-oral-deferred-v2-preferred-editions-v1-20261019-dew-of-your-youth-dover-kdp-v1-9802990330fd-divrei16-media-20261022-divrei16-page-preview-20261022-reader-ui-20261022-responsive-v1-reader-ui-route-safe-v2-20261022-divrei16-transcript-v2`;
 const DATA = 'rtl-data';
 const EXTERNAL = 'rtl-external';
 const SHELL_FILES = [
   './responsive-ui.css?v=20261022-responsive-v1', './responsive-ui.js?v=20261022-responsive-v1',
-  './', './index.html', './manifest.webmanifest', './shiur-player.js?v=20261022-divrei16-media', './divrei16-preview.js?v=20261022-divrei16-page-preview-v1',
+  './', './index.html', './manifest.webmanifest', './shiur-player.js?v=20261022-divrei16-media', './divrei16-preview.js?v=20261022-divrei16-transcript-v2',
   './sefaria-packs.js?v=20261019-preferred-edition-cache-v4', './data/packs/collections.json',
   './source-connections.js?v=20261020-reviewed-connections-v4', './source-connections/catalog.json?v=20261020-reviewed-connections-v4',
   './source-connections/translations.json?v=20261020-reviewed-connections-v4',

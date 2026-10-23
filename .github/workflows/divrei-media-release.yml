@@ -1,4 +1,4 @@
-name: Add Divrei Soferim Ois 16 shiur to the reader
+name: Publish the formatted Divrei Soferim Ois 16 transcript
 
 on:
   push:
@@ -25,7 +25,7 @@ jobs:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - name: Checkout the Ois 16 media addition
+      - name: Checkout the formatted Ois 16 transcript
         uses: actions/checkout@v6
 
       - name: Set up Node
@@ -33,7 +33,7 @@ jobs:
         with:
           node-version: '24'
 
-      - name: Verify the successful current publication and branch head
+      - name: Verify the current deployed publication and branch head
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: node scripts/verify-divrei16-media-release.mjs --metadata
@@ -41,8 +41,8 @@ jobs:
       - name: Download the verified publication
         uses: actions/download-artifact@v4
         with:
-          artifact-ids: '12472516539'
-          run-id: '39885179226'
+          artifact-ids: '12475726255'
+          run-id: '39892885124'
           repository: akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok
           github-token: ${{ github.token }}
           path: ${{ runner.temp }}/divrei16-baseline-artifact
@@ -51,14 +51,13 @@ jobs:
       - name: Restore the publication and record every original file
         run: |
           python3 - <<'PY'
-          import os, pathlib, shutil, tarfile
+          import json, os, pathlib, shutil, subprocess, tarfile
           inputs = pathlib.Path(os.environ['RUNNER_TEMP']) / 'divrei16-media-inputs'
           inputs.mkdir()
-          media_files = ['library/shiur-player.js', 'library/divrei16-preview.js', 'library/downloads/divrei-soferim-ois-16-lech-lecha-shiur.pdf', 'library/downloads/divrei-soferim-ois-16-lech-lecha-shiur.docx']
-          media_files += [f'library/downloads/divrei-soferim-ois-16-lech-lecha-preview/page-{page:02d}.webp' for page in range(1, 10)]
+          media_files = json.loads(subprocess.check_output(['node', 'scripts/verify-divrei16-media-release.mjs', '--input-files'], text=True))
           for name in media_files:
               source = pathlib.Path('dist') / name
-              assert source.is_file(), 'Missing new media input: ' + name
+              assert source.is_file(), 'Missing revised transcript input: ' + name
               destination = inputs / name
               destination.parent.mkdir(parents=True, exist_ok=True)
               shutil.copyfile(source, destination)
@@ -76,18 +75,19 @@ jobs:
           PY
           node scripts/verify-divrei16-media-release.mjs --capture
 
-      - name: Attach only the new recording and transcript
+      - name: Replace only the transcript and its preview
         run: |
           python3 - <<'PY'
           import os, pathlib, shutil
           inputs = pathlib.Path(os.environ['RUNNER_TEMP']) / 'divrei16-media-inputs'
+          # Replace this one dedicated directory so no old excess pages survive.
+          shutil.rmtree(pathlib.Path('dist/library/downloads/divrei-soferim-ois-16-lech-lecha-preview'))
           for source in inputs.rglob('*'):
               if source.is_file():
                   destination = pathlib.Path('dist') / source.relative_to(inputs)
                   destination.parent.mkdir(parents=True, exist_ok=True)
                   shutil.copyfile(source, destination)
           PY
-          node scripts/build-shiur-audio.mjs
           node scripts/apply-divrei16-media.mjs
           node --check dist/library/divrei16-preview.js
           node scripts/test-shiur-player.mjs
@@ -109,7 +109,7 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         run: node scripts/verify-divrei16-media-release.mjs --live-baseline
 
-      - name: Upload the preserved site with Ois 16 media
+      - name: Upload the preserved site with the formatted transcript
         uses: actions/upload-pages-artifact@v4
         with:
           path: ./dist
@@ -119,11 +119,11 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         run: node scripts/verify-divrei16-media-release.mjs --live-baseline
 
-      - name: Publish the Ois 16 media addition
+      - name: Publish the formatted Ois 16 transcript
         id: deployment
         uses: actions/deploy-pages@v4
 
-      - name: Verify the public recording, transcript, and reader
+      - name: Verify the public transcript and preserved recording and layout
         run: |
           node scripts/verify-divrei16-media-release.mjs --live
           node scripts/test-divrei16-media-browser.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'

@@ -78,24 +78,29 @@ try {
       assert.match(await card.locator('.shiur-audio h3').innerText(), /Divrei Soferim.*Ois 16.*Lech Lecha/);
       assert.match(await card.locator('.shiur-audio-meta').innerText(), /36:57/);
       assert.equal(await card.locator('audio').getAttribute('src'), 'audio/divrei-soferim-ois-16-lech-lecha.m4a');
-      assert.equal(await card.locator('a[href="downloads/divrei-soferim-ois-16-lech-lecha-shiur.pdf"]').count(), 1);
-      assert.equal(await card.locator('a[href="downloads/divrei-soferim-ois-16-lech-lecha-shiur.docx"]').count(), 1);
+      assert.equal(await card.locator('a[href="downloads/divrei-soferim-ois-16-lech-lecha-shiur.pdf?v=20261022-divrei16-transcript-v2"]').count(), 1);
+      assert.equal(await card.locator('a[href="downloads/divrei-soferim-ois-16-lech-lecha-shiur.docx?v=20261022-divrei16-transcript-v2"]').count(), 1);
       assert(await section.locator('.seg').count() > 0, 'The original Ois 16 text is missing');
       assert((await section.locator('.seg').first().textContent()).trim().length > 30, 'The original text is empty');
 
       const preview = card.locator('.divrei16-pdf');
       const image = preview.locator('.divrei16-page-image');
+      const pages = Number(await preview.getAttribute('data-preview-pages'));
+      const revision = await preview.getAttribute('data-preview-version');
+      assert(Number.isInteger(pages) && pages > 1, 'Missing transcript page count');
+      assert.equal(revision, '20261022-divrei16-transcript-v2', 'Transcript revision is stale');
+      assert.match(await preview.locator('summary').innerText(), new RegExp(`${pages} pages`));
       assert.equal(await preview.evaluate(el => el.open), false, 'Preview must begin collapsed');
       assert.equal(await image.getAttribute('src'), null, 'Page images must not load before expansion');
       assert.equal(imageRequests.length, 0, 'A preview image was requested before expansion');
       assert.equal(await preview.locator('iframe').count(), 0, 'Mobile preview must not require a native PDF viewer');
       const waitForImage = async number => {
-        await page.waitForFunction(number => {
+        await page.waitForFunction(({number, revision}) => {
           const image = document.querySelector('.divrei16-page-image');
-          return image && image.getAttribute('src')?.endsWith(`page-${String(number).padStart(2, '0')}.webp`)
+          return image && image.getAttribute('src')?.endsWith(`page-${String(number).padStart(2, '0')}.webp?v=${revision}`)
             && image.complete && image.naturalWidth > 0 && !image.hidden;
-        }, number, {timeout: 30000});
-        assert.equal((await preview.locator('.divrei16-page-count').innerText()).trim(), `Page ${number} of 9`);
+        }, {number, revision}, {timeout: 30000});
+        assert.equal((await preview.locator('.divrei16-page-count').innerText()).trim(), `Page ${number} of ${pages}`);
       };
       await preview.locator('summary').click();
       await waitForImage(1);
@@ -106,12 +111,12 @@ try {
       await waitForImage(2);
       await preview.locator('[data-preview-action="previous"]').click();
       await waitForImage(1);
-      for (let number = 2; number <= 9; number++) {
+      for (let number = 2; number <= pages; number++) {
         await preview.locator('[data-preview-action="next"]').click();
         await waitForImage(number);
       }
       assert(await preview.locator('[data-preview-action="next"]').isDisabled());
-      assert.equal(new Set(imageRequests.map(url => new URL(url).pathname)).size, 9, 'Every transcript page must be readable');
+      assert.equal(new Set(imageRequests.map(url => new URL(url).pathname)).size, pages, 'Every transcript page must be readable');
 
       await preview.locator('[data-preview-action="zoom-in"]').click();
       assert.equal(await preview.locator('.divrei16-zoom-label').innerText(), '125%');
@@ -141,9 +146,9 @@ try {
       }, undefined, {timeout: 45000});
       const duration = await card.locator('audio').evaluate(audio => audio.duration);
       assert(Math.abs(duration - 2217.472) < 1, 'The audio metadata does not match the supplied 36:57 recording');
-      if (screenshots) await card.screenshot({path: path.join(screenshots, device.name + '-page-9.png')});
+      if (screenshots) await card.screenshot({path: path.join(screenshots, device.name + '-page-' + pages + '.png')});
       assert.deepEqual(errors, [], device.name + ': reader JavaScript errors');
-      checks.push({device: device.name, pages: 9, lazyImages: true, navigation: true, zoom: true, containedScrolling: true, audioDurationSeconds: duration});
+      checks.push({device: device.name, pages, transcriptRevision: revision, lazyImages: true, navigation: true, zoom: true, containedScrolling: true, audioDurationSeconds: duration});
     } catch (error) {
       if (screenshots) await page.screenshot({path: path.join(screenshots, device.name + '-failure.png'), fullPage: false}).catch(() => {});
       throw error;
