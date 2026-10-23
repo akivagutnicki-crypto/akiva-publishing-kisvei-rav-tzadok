@@ -1,0 +1,42 @@
+{
+  "reviewedAt": "2026-10-23T20:15:01.208573+00:00",
+  "sections": [
+    46,
+    60
+  ],
+  "newNotes": 59,
+  "existingNativeReferenceDuplicates": 0,
+  "existingNativeAndConnectedNotesPreserved": true,
+  "translationsAndContextsIndependentlyRead": 59,
+  "primaryHebrewCompared": 59,
+  "canonicalReaderAlignments": 6,
+  "citationCorrection": {
+    "section": 52,
+    "ref": "Takanat HaShavin 9:1",
+    "correct": "Even HaEzer [38]",
+    "verifiedOriginalRefs": [
+      "Beit Shmuel 38:55",
+      "Chelkat Mechokek 38:44"
+    ],
+    "evidence": "review-takanat-citation-primary.json"
+  },
+  "radbazPrimaryVerification": {
+    "ref": "Responsa Radbaz IV:92 (1163)",
+    "url": "https://he.wikisource.org/wiki/שו\"ת_רדב\"ז/אלף_קסג",
+    "selectedParagraph": "ומעתה בנדון דידן",
+    "wholeResponsumRead": true,
+    "sourceCaptureRef": "turn62view0",
+    "sourceLines": [
+      110,
+      128
+    ],
+    "quotationAtLine": 121
+  },
+  "proposalHashes": {
+    "ois-46-50.json": "00ea0abc7b20a5038b663ae23ab70bc894b9a808fc3b41494b7970888fe3faf3",
+    "ois-51-55.json": "8cc254af21d332afe7944ceac624d2124d49fbed94160110c5f505db0eacebc8",
+    "ois-56-60.json": "e07e28e0998e852c9a16495499c27dd26c92c1e00e973422cf84477557561269"
+  },
+  "preservedOriginalPrimaryEvidence": true,
+  "generatorsReproduceExactly": true
+}

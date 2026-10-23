@@ -116,6 +116,9 @@ add(60,'sotah-husband-clear',9,ref,he,
  'Was it not taught: “The man shall be clear of iniquity, and that woman shall bear her iniquity”? When the man is clear of iniquity, the water examines his wife; when the man is not clear of iniquity, the water does not examine his wife.',
  'This is the baraita Rav Tzadok invokes at the conclusion. Its stated condition is the husband’s being clear of iniquity; he uses that condition in his discussion of the person through whom another is judged.')
 
+from align_batch4_reader import align_entries
+align_entries(entries)
+
 assert len(entries)==21
 out={'schemaVersion':1,'reviewedSections':list(range(56,61)),'entries':entries,'coverage':[{'section':n,'pdfPages':{'neimosA':PAGES[n][0],'integratedA':PAGES[n][1]},'additions':[e['id'] for e in entries if e['section']==n],'existingNotes':'All existing native and connected notes preserved.'} for n in range(56,61)],'omissions':[{'section':59,'ref':'Eikhah Rabbah, Petichta 2','reason':'Already quoted in existing note2577; conclusion already in note210. No duplicate added.'}]}
 (W/'ois-56-60.json').write_text(json.dumps(out,ensure_ascii=False,indent=2)+'\n')

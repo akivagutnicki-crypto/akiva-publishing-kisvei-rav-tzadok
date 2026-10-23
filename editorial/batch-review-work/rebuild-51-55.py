@@ -91,6 +91,9 @@ add(55,'yisrael-oath-against-rationalizing',10,'Yisrael Kedoshim 4:2',
  'One may add further: concerning someone who is not established as wicked, it is known that the evil inclination does not immediately entice him to a transgression. Rather, it makes him forget the severity of the prohibition and presents reasons why it is no transgression at all. This is why Nedarim 8a says that one may swear to fulfill the mitzvot. Vayikra Rabbah 23 and Midrash Ruth, on the verse “As the Lord lives,” say that Joseph, David and Boaz swore against their inclination. Although a person is already under oath from Mount Sinai, the inclination presents the act as permitted, so that he thinks he is not violating the oath at Sinai. Against this the new oath is effective.',
  'Here Rav Tzadok explains the practical effect of the additional oath: it counters the inclination’s concealment and rationalization of a known prohibition. This develops the closing answer that the oath brings what is known into active awareness in the heart.',reader=True)
 
+from align_batch4_reader import align_entries
+align_entries(entries)
+
 out={'schemaVersion':1,'reviewedSections':[51,52,53,54,55],
  'recovery':{'status':'reconstructed-and-reverified','reason':'Original proposal lost in workspace refresh; all 15 original selected references recovered from retained context. Exact Hebrew excerpts and destination anchors were retrieved and checked again. English was freshly reconstructed from those excerpts; this is not a claim of byte-for-byte recovery.'},
  'entries':entries,

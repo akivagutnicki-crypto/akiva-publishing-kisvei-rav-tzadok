@@ -21,10 +21,21 @@
       "heCharOffset": 143,
       "ref": "Kometz HaMinchah 2:40:1",
       "url": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/#/read/Kometz_HaMinchah_2:40",
-      "he": "כי אמת הוא הקיום לעד כמ\"ש שפת אמת תכון לעד. וכמ\"ש בירושלמי ריש סנהדרין דלכך חותמו של הקב\"ה בו ע\"ש",
+      "he": "כִּי אֱמֶת הוּא הַקִּיּוּם לָעַד, כְּמוֹ שֶׁכָּתוּב מִשְׁלֵי יב, יט: \"שְׂפַת אֱמֶת תִּכּוֹן לָעַד\", וּכְמוֹ שֶׁכָּתוּב בַּיְרוּשַׁלְמִי רֵישׁ סַנְהֶדְרִין: דִּלְכָךְ חוֹתָמוֹ שֶׁל הַקָּדוֹשׁ בָּרוּךְ הוּא בּוֹ, עַיֵּין שָׁם.",
       "en": "For truth is that which endures forever, as it is said, “A truthful lip will be established forever.” As stated in the Jerusalem Talmud at the beginning of Sanhedrin, this is why it is the seal of the Holy One, blessed be He; see there.",
       "context": "Rav Tzadok uses endurance as the measure of truth. This explains why a victory whose continuation is uncertain can be called “false” or “vain,” even though the effort at that moment has value.",
       "sourceEvidence": [
+        {
+          "ref": "Kometz HaMinchah 2:40:1",
+          "url": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/#/read/Kometz_HaMinchah_2:40:1",
+          "he": "כִּי אֱמֶת הוּא הַקִּיּוּם לָעַד, כְּמוֹ שֶׁכָּתוּב מִשְׁלֵי יב, יט: \"שְׂפַת אֱמֶת תִּכּוֹן לָעַד\", וּכְמוֹ שֶׁכָּתוּב בַּיְרוּשַׁלְמִי רֵישׁ סַנְהֶדְרִין: דִּלְכָךְ חוֹתָמוֹ שֶׁל הַקָּדוֹשׁ בָּרוּךְ הוּא בּוֹ, עַיֵּין שָׁם.",
+          "en": "For truth is that which endures forever, as it is said, “A truthful lip will be established forever.” As stated in the Jerusalem Talmud at the beginning of Sanhedrin, this is why it is the seal of the Holy One, blessed be He; see there.",
+          "heSha256": "e0100dc4eecfc4e4c2369cfc250176b1ca7590beb85ae4648636ae9cf5d8e9cf",
+          "translation": "Reviewed original-source English quotation. Canonical reader spelling expands abbreviations and some cited verses; original Sefaria Hebrew remains additional evidence.",
+          "coverage": "Corresponding complete selected source passage in the current canonical reader.",
+          "canonicalReaderRef": "Kometz HaMinchah 2:40:1",
+          "canonicalSourceFile": "mcp-data/text/kometz-haminchah.json"
+        },
         {
           "ref": "Kometz HaMinchah 2:40:1",
           "url": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/#/read/Kometz_HaMinchah_2:40",
@@ -32,7 +43,8 @@
           "en": "For truth is that which endures forever, as it is said, “A truthful lip will be established forever.” As stated in the Jerusalem Talmud at the beginning of Sanhedrin, this is why it is the seal of the Holy One, blessed be He; see there.",
           "translation": "Original English translation prepared from the cited Hebrew or Aramaic.",
           "coverage": "excerpt",
-          "heSha256": "f2497211cbd8430321a65836201f17295bf31481fd68132f963e4ef26bf8720a"
+          "heSha256": "f2497211cbd8430321a65836201f17295bf31481fd68132f963e4ef26bf8720a",
+          "editionRelationship": "Original Sefaria Hebrew retained; canonical reader expands abbreviations and some cited verses."
         }
       ],
       "reviewEvidence": {
@@ -48,7 +60,16 @@
         "preserveExisting": true,
         "status": "verified",
         "dedup": "Existing native and connected notes in the destination ois checked; this selected passage is absent.",
-        "primaryTextFile": "review-work/recover51-primary.json"
+        "primaryTextFile": "review-work/recover51-primary.json",
+        "readerHebrewAlignment": {
+          "reason": "Align the new source excerpt metadata with the existing canonical reader spelling.",
+          "canonicalRef": "Kometz HaMinchah 2:40:1",
+          "previousHebrewSha256": "f2497211cbd8430321a65836201f17295bf31481fd68132f963e4ef26bf8720a",
+          "canonicalHebrewSha256": "e0100dc4eecfc4e4c2369cfc250176b1ca7590beb85ae4648636ae9cf5d8e9cf",
+          "englishContextUnchanged": true,
+          "anchorUnchanged": true,
+          "existingSourceTextUnchanged": true
+        }
       },
       "readerRef": "Kometz HaMinchah 2:40:1"
     },
@@ -186,10 +207,21 @@
       "heCharOffset": 92,
       "ref": "Takanat HaShavin 9:1",
       "url": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/#/read/Takanat_HaShavin_9",
-      "he": "ועיקר התשובה הוא בהרהור בלב בלבד שהרי נקרא בכך צדיק גמור אפי' הי' מקודם רשע גמור כמבואר (בקדושין מ\"ט ב), ואפי' הוידוי דברים אע\"ג דהוא מצות עשה מן התורה והתודו וגו' זהו מצוה בפני עצמה ואינו מעכב התשובה שעיקרה בלב לבד שמתחרט על העבר ומסכים בלבו שלא לשוב עוד לכסלה ושלא יחטא עוד, ואע\"ג דלא נגלה לשום אדם ואפי' למלאכי השרת שאין יודעים מה שבלב קמי שמיא גליא והוא נקרא צדיק גמור באמת, אפי' הגדיל עבירות עד למעלה דבכל רשע גמור אמרוהו שם ואפי' עבר על כל תורה כולה, ובב\"ש וח\"מ (באהע\"ז סימן מ\"ב) כתבו דאפי' גזל ולא החזיר הגזילה רק שקיבל בלבו להחזיר מהני,",
-      "en": "The essence of repentance is a resolve in the heart alone, for through this one is called completely righteous even if previously completely wicked, as explained in Kiddushin 49b. Even verbal confession, although it is a positive commandment of the Torah, “They shall confess,” is a separate mitzvah and does not prevent the repentance itself, whose essence is in the heart alone: regretting the past and resolving in one’s heart not to return to folly and not to sin again. Although this is not revealed to anyone—not even to the ministering angels, who do not know what is in the heart—it is revealed before Heaven, and the person is truly called completely righteous. This applies even if his sins have mounted exceedingly high: the statement there applies to every completely wicked person, even one who has transgressed the whole Torah. Beit Shmuel and Ḥelkat Meḥokek, in Even HaEzer 42, write that even if he stole and has not returned the stolen property, sincerely accepting in his heart that he will return it is effective.",
-      "context": "The instantaneous change is sincere repentance: regret and a real commitment to cease sin and repair what is owed. The passage preserves confession as an independent mitzvah and requires a genuine intention to restore stolen property; it does not cancel those duties.",
+      "he": "וְעִיקַּר הַתְּשׁוּבָה הוּא בְּהִרְהוּר הַלֵּב בִּלְבָד, שֶׁהֲרֵי נִקְרָא בְּכָךְ ״צַדִּיק גָּמוּר״ אֲפִילּוּ הָיָה מִקּוֹדֶם רָשָׁע גָּמוּר, כִּמְבוֹאָר [בְּקִידּוּשִׁין מט:] וַאֲפִילּוּ הַוִּידּוּי דְּבָרִים, אַף עַל גַּב דְּהוּא מִצְוַת עֲשֵׂה מִן הַתּוֹרָה, ״וְהִתְוַדּוּ״ וְגוֹמֵר — זֶהוּ מִצְוָה בִּפְנֵי עַצְמָהּ, וְאֵינוֹ מְעַכֵּב הַתְּשׁוּבָה שֶׁעִיקָּרָהּ בַּלֵּב לְבַד, שֶׁמִּתְחָרֵט עַל הֶעָבָר וּמַסְכִּים בְּלִבּוֹ שֶׁלֹּא לָשׁוּב עוֹד לְכִסְלָה וְשֶׁלֹּא יֶחֱטָא עוֹד וְאַף עַל גַּב דְּלֹא נִגְלָה לְשׁוּם אָדָם וַאֲפִילּוּ לְמַלְאֲכֵי הַשָּׁרֵת שֶׁאֵין יוֹדְעִים מַה שֶּׁבַּלֵּב, ״קַמֵּי שְׁמַיָּא גַּלְיָא״ וְהוּא נִקְרָא ״צַדִּיק גָּמוּר״ בֶּאֱמֶת, אֲפִילּוּ הִגְדִּיל עֲבֵירוֹת עַד לְמַעְלָה, דִּ״בְכָל רָשָׁע גָּמוּר״ אֲמָרוּהוּ שָׁם, וַאֲפִילּוּ עָבַר עַל כָּל תּוֹרָה כּוּלָּהּ וּבְבֵית שְׁמוּאֵל וְחֶלְקַת מְחוֹקֵק [בְּאֶבֶן הָעֵזֶר סִימָן לח] כָּתְבוּ דַּאֲפִילּוּ גָּזַל וְלֹא הֶחֱזִיר הַגְּזֵילָה, רַק שֶׁקִּיבֵּל בְּלִבּוֹ לְהַחֲזִיר, מְהַנֵּי",
+      "en": "The essence of repentance is a resolve in the heart alone, for through this one is called completely righteous even if previously completely wicked, as explained in Kiddushin 49b. Even verbal confession, although it is a positive commandment of the Torah, “They shall confess,” is a separate mitzvah and does not prevent the repentance itself, whose essence is in the heart alone: regretting the past and resolving in one’s heart not to return to folly and not to sin again. Although this is not revealed to anyone—not even to the ministering angels, who do not know what is in the heart—it is revealed before Heaven, and the person is truly called completely righteous. This applies even if his sins have mounted exceedingly high: the statement there applies to every completely wicked person, even one who has transgressed the whole Torah. Beit Shmuel and Ḥelkat Meḥokek, in Even HaEzer [38], write that even if he stole and has not returned the stolen property, sincerely accepting in his heart that he will return it is effective.",
+      "context": "The instantaneous change is sincere repentance: regret and a real commitment to cease sin and repair what is owed. The passage preserves confession as an independent mitzvah and requires a genuine intention to restore stolen property; it does not cancel those duties. The cross-reference is Even HaEzer 38: Beit Shmuel 38:55 and Chelkat Mechokek 38:44 discuss this point.",
       "sourceEvidence": [
+        {
+          "ref": "Takanat HaShavin 9:1",
+          "url": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/#/read/Takanat_HaShavin_9:1",
+          "he": "וְעִיקַּר הַתְּשׁוּבָה הוּא בְּהִרְהוּר הַלֵּב בִּלְבָד, שֶׁהֲרֵי נִקְרָא בְּכָךְ ״צַדִּיק גָּמוּר״ אֲפִילּוּ הָיָה מִקּוֹדֶם רָשָׁע גָּמוּר, כִּמְבוֹאָר [בְּקִידּוּשִׁין מט:] וַאֲפִילּוּ הַוִּידּוּי דְּבָרִים, אַף עַל גַּב דְּהוּא מִצְוַת עֲשֵׂה מִן הַתּוֹרָה, ״וְהִתְוַדּוּ״ וְגוֹמֵר — זֶהוּ מִצְוָה בִּפְנֵי עַצְמָהּ, וְאֵינוֹ מְעַכֵּב הַתְּשׁוּבָה שֶׁעִיקָּרָהּ בַּלֵּב לְבַד, שֶׁמִּתְחָרֵט עַל הֶעָבָר וּמַסְכִּים בְּלִבּוֹ שֶׁלֹּא לָשׁוּב עוֹד לְכִסְלָה וְשֶׁלֹּא יֶחֱטָא עוֹד וְאַף עַל גַּב דְּלֹא נִגְלָה לְשׁוּם אָדָם וַאֲפִילּוּ לְמַלְאֲכֵי הַשָּׁרֵת שֶׁאֵין יוֹדְעִים מַה שֶּׁבַּלֵּב, ״קַמֵּי שְׁמַיָּא גַּלְיָא״ וְהוּא נִקְרָא ״צַדִּיק גָּמוּר״ בֶּאֱמֶת, אֲפִילּוּ הִגְדִּיל עֲבֵירוֹת עַד לְמַעְלָה, דִּ״בְכָל רָשָׁע גָּמוּר״ אֲמָרוּהוּ שָׁם, וַאֲפִילּוּ עָבַר עַל כָּל תּוֹרָה כּוּלָּהּ וּבְבֵית שְׁמוּאֵל וְחֶלְקַת מְחוֹקֵק [בְּאֶבֶן הָעֵזֶר סִימָן לח] כָּתְבוּ דַּאֲפִילּוּ גָּזַל וְלֹא הֶחֱזִיר הַגְּזֵילָה, רַק שֶׁקִּיבֵּל בְּלִבּוֹ לְהַחֲזִיר, מְהַנֵּי",
+          "en": "The essence of repentance is a resolve in the heart alone, for through this one is called completely righteous even if previously completely wicked, as explained in Kiddushin 49b. Even verbal confession, although it is a positive commandment of the Torah, “They shall confess,” is a separate mitzvah and does not prevent the repentance itself, whose essence is in the heart alone: regretting the past and resolving in one’s heart not to return to folly and not to sin again. Although this is not revealed to anyone—not even to the ministering angels, who do not know what is in the heart—it is revealed before Heaven, and the person is truly called completely righteous. This applies even if his sins have mounted exceedingly high: the statement there applies to every completely wicked person, even one who has transgressed the whole Torah. Beit Shmuel and Ḥelkat Meḥokek, in Even HaEzer [38], write that even if he stole and has not returned the stolen property, sincerely accepting in his heart that he will return it is effective.",
+          "heSha256": "d0563e182aa6bdd2bac1ff8cfc17341c175e60c75034ee5044367209626e2148",
+          "translation": "Reviewed original-source English quotation. Canonical reader spelling expands abbreviations and some cited verses; original Sefaria Hebrew remains additional evidence.",
+          "coverage": "Corresponding complete selected source passage in the current canonical reader.",
+          "canonicalReaderRef": "Takanat HaShavin 9:1",
+          "canonicalSourceFile": "mcp-data/text/takanat-hashavin.json"
+        },
         {
           "ref": "Takanat HaShavin 9:1",
           "url": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/#/read/Takanat_HaShavin_9",
@@ -197,7 +229,8 @@
           "en": "The essence of repentance is a resolve in the heart alone, for through this one is called completely righteous even if previously completely wicked, as explained in Kiddushin 49b. Even verbal confession, although it is a positive commandment of the Torah, “They shall confess,” is a separate mitzvah and does not prevent the repentance itself, whose essence is in the heart alone: regretting the past and resolving in one’s heart not to return to folly and not to sin again. Although this is not revealed to anyone—not even to the ministering angels, who do not know what is in the heart—it is revealed before Heaven, and the person is truly called completely righteous. This applies even if his sins have mounted exceedingly high: the statement there applies to every completely wicked person, even one who has transgressed the whole Torah. Beit Shmuel and Ḥelkat Meḥokek, in Even HaEzer 42, write that even if he stole and has not returned the stolen property, sincerely accepting in his heart that he will return it is effective.",
           "translation": "Original English translation prepared from the cited Hebrew or Aramaic.",
           "coverage": "excerpt",
-          "heSha256": "6febf0ec66a198556696e779f30f40f579b01458e1d79225c9089b159a27b11c"
+          "heSha256": "6febf0ec66a198556696e779f30f40f579b01458e1d79225c9089b159a27b11c",
+          "editionRelationship": "Original Sefaria Hebrew retained; canonical reader expands abbreviations and some cited verses."
         }
       ],
       "reviewEvidence": {
@@ -217,7 +250,26 @@
         "preserveExisting": true,
         "status": "verified",
         "dedup": "Existing native and connected notes in the destination ois checked; this selected passage is absent.",
-        "primaryTextFile": "review-work/recover51-primary.json"
+        "primaryTextFile": "review-work/recover51-primary.json",
+        "verifiedCitationCorrection": {
+          "from": "Even HaEzer 42",
+          "to": "Even HaEzer [38]",
+          "originalSources": [
+            "Beit Shmuel 38:55",
+            "Chelkat Mechokek 38:44"
+          ],
+          "evidenceFile": "review-work/review-takanat-citation-primary.json",
+          "reason": "Both original commentaries contain the cited return-of-stolen-property discussion in section 38. Canonical reader already has 38."
+        },
+        "readerHebrewAlignment": {
+          "reason": "Align the new source excerpt metadata with the existing canonical reader spelling.",
+          "canonicalRef": "Takanat HaShavin 9:1",
+          "previousHebrewSha256": "6febf0ec66a198556696e779f30f40f579b01458e1d79225c9089b159a27b11c",
+          "canonicalHebrewSha256": "d0563e182aa6bdd2bac1ff8cfc17341c175e60c75034ee5044367209626e2148",
+          "englishContextUnchanged": false,
+          "anchorUnchanged": true,
+          "existingSourceTextUnchanged": true
+        }
       },
       "readerRef": "Takanat HaShavin 9:1"
     },
@@ -273,10 +325,21 @@
       "heCharOffset": 89,
       "ref": "Poked Akarim 6:8",
       "url": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/#/read/Poked_Akarim_6",
-      "he": "ויש ג\"כ לכ\"י אחיזה בתושבע\"פ דאפי' כל ע\"ה שבישראל יש בהם מציאות איזה ד' של חכמה שיש בו שייכות לתושבע\"פ רק שהוא אצלו בתכלית ההעלם, ולעתיד נא' כי כולם ידעו וגו' שיצא הידיעה שבהם מההעלם לגילוי, ועכ\"א בזוהר דגם מילי דהדיוטא מלי הוא וזמנין דבאפרקסתא דעניא משתכח מרגניתא ובגמ' בכ\"ד היינו דאמרי אינשי שהם ד\"ת, ובפ\"ק דסנהדרין (ו' א') ההוא דהוה א' ואזיל והם ד\"ת וכן בכ\"ד ועז\"א איזהו חכם הלומד מכ\"א דבכל אדם יש איזה ד' התחדשות של חכמה השייך לשורש נפשו ביחוד שיש ללמוד ממנו ואתם קרוים אדם ולא או\"ה דרק בכ\"א מישראל יש איזה דבר פרטי מתושבע\"פ השייך לשרש נפשו והמבין יכול ללמוד זה ממנו אף שהוא עצמו א\"י כלום אבל מבקשי ה' יבונו כל וישיגו מתוך שיחותיו ודבוריו בענייני העולם איזה ד' של חכמה שבשורש נפשו המתעלם בזה,",
+      "he": "וְיֵשׁ גַּם כֵּן לִכְלַל יִשְׂרָאֵל אֲחִיזָה בַּתּוֹרָה שֶׁבְּעַל פֶּה, דַּאֲפִילּוּ כָּל עַם הָאָרֶץ שֶׁבְּיִשְׂרָאֵל יֵשׁ בָּהֶם מְצִיאוּת אֵיזֶה דָבָר שֶׁל חָכְמָה שֶׁיֵּשׁ בּוֹ שַׁיָּכוּת לְתוֹרָה שֶׁבְּעַל פֶּה, רַק שֶׁהוּא אֶצְלוֹ בְּתַכְלִית הַהֶעְלֵם; וְלֶעָתִיד נֶאֱמַר: \"כִּי כֻלָּם יֵדְעוּ [אוֹתִי לְמִקְּטַנָּם וְעַד גְּדוֹלָם]\" [יִרְמְיָהוּ ל״א:ל״ג], שֶׁיֵּצֵא הַיְּדִיעָה שֶׁבָּהֶם מֵהַהֶעְלֵם לְגִלּוּי. וְעַל כֵּן אָמְרוּ בַּזֹּהַר [חֵלֶק ג׳ קס״ז עַמּוּד ב׳] דְּגַם מִילֵּי דְּהֶדְיוֹטָא מִלָּה הִיא, וְזִמְנִין דִּבְאַפְרַכְסְתָא דַּעַנְיָא מִשְׁתַּכַּח מַרְגָּנִיתָא; וּבַגְּמָרָא בְּכָל דּוּכְתָּא: הַיְינוּ דְּאָמְרֵי אֱינָשֵׁי, שֶׁהֵם דִּבְרֵי תוֹרָה; וּבְפֶרֶק קַמָּא דְּסַנְהֶדְרִין (ו׳ עַמּוּד א׳): הַהוּא דַּהֲוָה אָמַר וְאָזֵיל, וְהֵם דִּבְרֵי תוֹרָה, וְכֵן בְּכָל דּוּכְתָּא. וְעַל זֶה אָמְרוּ (אָבוֹת פֶּרֶק ד׳ מִשְׁנָה א׳): \"אֵיזֶהוּ חָכָם? הַלּוֹמֵד מִכָּל אָדָם\", דִּבְכָל אָדָם יֵשׁ אֵיזֶה דָּבָר הִתְחַדְּשׁוּת שֶׁל חָכְמָה הַשַּׁיָּךְ לְשֹׁרֶשׁ נַפְשׁוֹ בְּיִחוּד שֶׁיֵּשׁ לִלְמֹד מִמֶּנּוּ; וְ\"אַתֶּם קְרוּיִין אָדָם, וְאֵין אֻמּוֹת הָעוֹלָם קְרוּיִין אָדָם\" [יְבָמוֹת ס״א עַמּוּד א׳], דְּרַק בְּכָל אֶחָד מִיִּשְׂרָאֵל יֵשׁ אֵיזֶה דָבָר פְּרָטִי מִתּוֹרָה שֶׁבְּעַל פֶּה הַשַּׁיָּךְ לְשֹׁרֶשׁ נַפְשׁוֹ, וְהַמֵּבִין יָכוֹל לִלְמֹד זֶה מִמֶּנּוּ אַף שֶׁהוּא עַצְמוֹ אֵינוֹ יוֹדֵעַ כְּלוּם, אֲבָל מְבַקְשֵׁי ה' יָבִינוּ כֹל [מִשְׁלֵי כ״ח:ה׳], וְיַשִּׂיגוּ מִתּוֹךְ שִׂיחוֹתָיו וְדִבּוּרָיו בְּעִנְיְנֵי הָעוֹלָם אֵיזֶה דָבָר שֶׁל חָכְמָה שֶׁבְּשֹׁרֶשׁ נַפְשׁוֹ הַמִּתְעַלֵּם בָּזֶה.",
       "en": "All Israel also has a share in the Oral Torah, for even every unlearned Israelite possesses some matter of wisdom related to the Oral Torah, though it is completely concealed within him. Of the future it is said, “For they will all know,” meaning that their knowledge will emerge from concealment into revelation. Therefore the Zohar says that even an ordinary person’s words have substance, and sometimes a pearl is found in a poor person’s basket. In many places the Gemara says, “This is what people say,” and those words are Torah. At the beginning of Sanhedrin it records “A certain person used to say,” and these are words of Torah, as in many other places. Concerning this it says, “Who is wise? One who learns from every person,” for every person has some new matter of wisdom belonging specifically to the root of his soul, which can be learned from him. “You are called adam, but the nations of the world are not called adam”: only in each Israelite is there a particular matter of Oral Torah belonging to the root of his soul. An understanding person can learn it from him even if he himself knows nothing. But “those who seek the Lord understand everything”: from his conversations and speech about worldly matters they can grasp a matter of wisdom at the root of his soul that is concealed within it.",
       "context": "This parallel explains the specific Torah content Rav Tzadok seeks within ordinary habitual speech: a matter of wisdom belonging to that person’s soul-root. It is not a claim that every casual utterance, regardless of content, automatically becomes a Torah ruling.",
       "sourceEvidence": [
+        {
+          "ref": "Poked Akarim 6:8",
+          "url": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/#/read/Poked_Akarim_6:8",
+          "he": "וְיֵשׁ גַּם כֵּן לִכְלַל יִשְׂרָאֵל אֲחִיזָה בַּתּוֹרָה שֶׁבְּעַל פֶּה, דַּאֲפִילּוּ כָּל עַם הָאָרֶץ שֶׁבְּיִשְׂרָאֵל יֵשׁ בָּהֶם מְצִיאוּת אֵיזֶה דָבָר שֶׁל חָכְמָה שֶׁיֵּשׁ בּוֹ שַׁיָּכוּת לְתוֹרָה שֶׁבְּעַל פֶּה, רַק שֶׁהוּא אֶצְלוֹ בְּתַכְלִית הַהֶעְלֵם; וְלֶעָתִיד נֶאֱמַר: \"כִּי כֻלָּם יֵדְעוּ [אוֹתִי לְמִקְּטַנָּם וְעַד גְּדוֹלָם]\" [יִרְמְיָהוּ ל״א:ל״ג], שֶׁיֵּצֵא הַיְּדִיעָה שֶׁבָּהֶם מֵהַהֶעְלֵם לְגִלּוּי. וְעַל כֵּן אָמְרוּ בַּזֹּהַר [חֵלֶק ג׳ קס״ז עַמּוּד ב׳] דְּגַם מִילֵּי דְּהֶדְיוֹטָא מִלָּה הִיא, וְזִמְנִין דִּבְאַפְרַכְסְתָא דַּעַנְיָא מִשְׁתַּכַּח מַרְגָּנִיתָא; וּבַגְּמָרָא בְּכָל דּוּכְתָּא: הַיְינוּ דְּאָמְרֵי אֱינָשֵׁי, שֶׁהֵם דִּבְרֵי תוֹרָה; וּבְפֶרֶק קַמָּא דְּסַנְהֶדְרִין (ו׳ עַמּוּד א׳): הַהוּא דַּהֲוָה אָמַר וְאָזֵיל, וְהֵם דִּבְרֵי תוֹרָה, וְכֵן בְּכָל דּוּכְתָּא. וְעַל זֶה אָמְרוּ (אָבוֹת פֶּרֶק ד׳ מִשְׁנָה א׳): \"אֵיזֶהוּ חָכָם? הַלּוֹמֵד מִכָּל אָדָם\", דִּבְכָל אָדָם יֵשׁ אֵיזֶה דָּבָר הִתְחַדְּשׁוּת שֶׁל חָכְמָה הַשַּׁיָּךְ לְשֹׁרֶשׁ נַפְשׁוֹ בְּיִחוּד שֶׁיֵּשׁ לִלְמֹד מִמֶּנּוּ; וְ\"אַתֶּם קְרוּיִין אָדָם, וְאֵין אֻמּוֹת הָעוֹלָם קְרוּיִין אָדָם\" [יְבָמוֹת ס״א עַמּוּד א׳], דְּרַק בְּכָל אֶחָד מִיִּשְׂרָאֵל יֵשׁ אֵיזֶה דָבָר פְּרָטִי מִתּוֹרָה שֶׁבְּעַל פֶּה הַשַּׁיָּךְ לְשֹׁרֶשׁ נַפְשׁוֹ, וְהַמֵּבִין יָכוֹל לִלְמֹד זֶה מִמֶּנּוּ אַף שֶׁהוּא עַצְמוֹ אֵינוֹ יוֹדֵעַ כְּלוּם, אֲבָל מְבַקְשֵׁי ה' יָבִינוּ כֹל [מִשְׁלֵי כ״ח:ה׳], וְיַשִּׂיגוּ מִתּוֹךְ שִׂיחוֹתָיו וְדִבּוּרָיו בְּעִנְיְנֵי הָעוֹלָם אֵיזֶה דָבָר שֶׁל חָכְמָה שֶׁבְּשֹׁרֶשׁ נַפְשׁוֹ הַמִּתְעַלֵּם בָּזֶה.",
+          "en": "All Israel also has a share in the Oral Torah, for even every unlearned Israelite possesses some matter of wisdom related to the Oral Torah, though it is completely concealed within him. Of the future it is said, “For they will all know,” meaning that their knowledge will emerge from concealment into revelation. Therefore the Zohar says that even an ordinary person’s words have substance, and sometimes a pearl is found in a poor person’s basket. In many places the Gemara says, “This is what people say,” and those words are Torah. At the beginning of Sanhedrin it records “A certain person used to say,” and these are words of Torah, as in many other places. Concerning this it says, “Who is wise? One who learns from every person,” for every person has some new matter of wisdom belonging specifically to the root of his soul, which can be learned from him. “You are called adam, but the nations of the world are not called adam”: only in each Israelite is there a particular matter of Oral Torah belonging to the root of his soul. An understanding person can learn it from him even if he himself knows nothing. But “those who seek the Lord understand everything”: from his conversations and speech about worldly matters they can grasp a matter of wisdom at the root of his soul that is concealed within it.",
+          "heSha256": "d1dcd694d4289415fad296df89b5949ed8b80bc85f9f7dbbc811246db6805eea",
+          "translation": "Reviewed original-source English quotation. Canonical reader spelling expands abbreviations and some cited verses; original Sefaria Hebrew remains additional evidence.",
+          "coverage": "Corresponding complete selected source passage in the current canonical reader.",
+          "canonicalReaderRef": "Poked Akarim 6:8",
+          "canonicalSourceFile": "mcp-data/text/poked-akarim.json"
+        },
         {
           "ref": "Poked Akarim 6:8",
           "url": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/#/read/Poked_Akarim_6",
@@ -284,7 +347,8 @@
           "en": "All Israel also has a share in the Oral Torah, for even every unlearned Israelite possesses some matter of wisdom related to the Oral Torah, though it is completely concealed within him. Of the future it is said, “For they will all know,” meaning that their knowledge will emerge from concealment into revelation. Therefore the Zohar says that even an ordinary person’s words have substance, and sometimes a pearl is found in a poor person’s basket. In many places the Gemara says, “This is what people say,” and those words are Torah. At the beginning of Sanhedrin it records “A certain person used to say,” and these are words of Torah, as in many other places. Concerning this it says, “Who is wise? One who learns from every person,” for every person has some new matter of wisdom belonging specifically to the root of his soul, which can be learned from him. “You are called adam, but the nations of the world are not called adam”: only in each Israelite is there a particular matter of Oral Torah belonging to the root of his soul. An understanding person can learn it from him even if he himself knows nothing. But “those who seek the Lord understand everything”: from his conversations and speech about worldly matters they can grasp a matter of wisdom at the root of his soul that is concealed within it.",
           "translation": "Original English translation prepared from the cited Hebrew or Aramaic.",
           "coverage": "excerpt",
-          "heSha256": "28aa94faeb4d8f29a5cf3816fd9d31e7a7b82220c79c031a7005c2ec20f3c40d"
+          "heSha256": "28aa94faeb4d8f29a5cf3816fd9d31e7a7b82220c79c031a7005c2ec20f3c40d",
+          "editionRelationship": "Original Sefaria Hebrew retained; canonical reader expands abbreviations and some cited verses."
         }
       ],
       "reviewEvidence": {
@@ -302,7 +366,16 @@
         "preserveExisting": true,
         "status": "verified",
         "dedup": "Existing native and connected notes in the destination ois checked; this selected passage is absent.",
-        "primaryTextFile": "review-work/recover51-primary.json"
+        "primaryTextFile": "review-work/recover51-primary.json",
+        "readerHebrewAlignment": {
+          "reason": "Align the new source excerpt metadata with the existing canonical reader spelling.",
+          "canonicalRef": "Poked Akarim 6:8",
+          "previousHebrewSha256": "28aa94faeb4d8f29a5cf3816fd9d31e7a7b82220c79c031a7005c2ec20f3c40d",
+          "canonicalHebrewSha256": "d1dcd694d4289415fad296df89b5949ed8b80bc85f9f7dbbc811246db6805eea",
+          "englishContextUnchanged": true,
+          "anchorUnchanged": true,
+          "existingSourceTextUnchanged": true
+        }
       },
       "readerRef": "Poked Akarim 6:8"
     },
@@ -524,10 +597,21 @@
       "heCharOffset": 123,
       "ref": "Tzidkat HaTzadik 220:1",
       "url": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/#/read/Tzidkat_HaTzadik_220",
-      "he": "בציצית מפורש וראיתם אותו וגו' ולא תתורו וגו'. ולשון ולא תתורו משמע לא שיעקר ההרהור מלב לגמרי רק שיהיה בכחו לדחותו. כי כל זמן שהאדם נזכר בעול מלכות שמים ועול תורה ועול מצות שעליו יכול בקל לגעור ביצר ולדחות כל מחשבת חוץ מזה. רק פעולת היצר להשכיחו מזה וכמו שאמרו (נדרים לב:) דבשעת יצר רע לית דמדכר ליצר טוב שנאמר ואדם לא זכר וגו' שהמחשבת הטובות של יחוד הבורא יתברך נשכחות מן הלב אז ואין נזכר מהם",
+      "he": "בְּצִיצִית מְפוֹרָשׁ: \"וּרְאִיתֶם אֹתוֹ וְגוֹמֵר וְלֹא תָתוּרוּ וְגוֹמֵר\" (בַּמִּדְבָּר טו, לט). וּלְשׁוֹן \"וְלֹא תָתוּרוּ\" מַשְׁמָע לֹא שֶׁיֵּעָקֵר הַהִרְהוּר מִלֵּב לְגַמְרֵי, רַק שֶׁיִּהְיֶה בְּכֹחוֹ לִדְחוֹתוֹ. כִּי כָּל זְמַן שֶׁהָאָדָם נִזְכָּר בְּעוֹל מַלְכוּת שָׁמַיִם וְעוֹל תּוֹרָה וְעוֹל מִצְווֹת שֶׁעָלָיו, יָכוֹל בְּקַל לִגְעוֹר בַּיֵּצֶר וְלִדְחוֹת כָּל מַחֲשֶׁבֶת חוּץ מִזֶּה. רַק פְּעֻלַּת הַיֵּצֶר לְהַשְׁכִּיחוֹ מִזֶּה, וּכְמוֹ שֶׁאָמְרוּ (נְדָרִים לב:): דִּבִשְׁעַת יֵצֶר רָע לֵית דְּמַדְכַּר לְיֵצֶר טוֹב, שֶׁנֶּאֱמַר: \"וְאָדָם לֹא זָכַר וְגוֹמֵר\" (קֹהֶלֶת ט, טו), שֶׁהַמַּחֲשָׁבוֹת הַטּוֹבוֹת שֶׁל יִחוּד הַבּוֹרֵא יִתְבָּרַךְ נִשְׁכָּחוֹת מִן הַלֵּב אָז וְאֵין נִזְכָּר מֵהֶם;",
       "en": "Concerning tzitzit it is explicitly stated, “You shall see it,” and “You shall not stray,” and so forth. The wording “You shall not stray” does not imply that the thought will be completely uprooted from the heart, but that one will have the strength to reject it. For as long as a person remembers the yoke of Heaven’s kingship, the yoke of Torah and the yoke of mitzvot that rest upon him, he can readily rebuke the inclination and reject every thought outside this. The inclination’s activity is only to make him forget this. As they said in Nedarim 32b, when the evil inclination is active no one remembers the good inclination, as it is said, “No person remembered,” and so forth. At that time the good thoughts of the unity of the Creator, blessed be He, are forgotten from the heart and are not recalled.",
       "context": "Tzitzit restores the awareness needed to reject the temptation. The passage carefully distinguishes gaining the power to dismiss a thought from having the thought’s root completely removed.",
       "sourceEvidence": [
+        {
+          "ref": "Tzidkat HaTzadik 220:1",
+          "url": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/#/read/Tzidkat_HaTzadik_220:1",
+          "he": "בְּצִיצִית מְפוֹרָשׁ: \"וּרְאִיתֶם אֹתוֹ וְגוֹמֵר וְלֹא תָתוּרוּ וְגוֹמֵר\" (בַּמִּדְבָּר טו, לט). וּלְשׁוֹן \"וְלֹא תָתוּרוּ\" מַשְׁמָע לֹא שֶׁיֵּעָקֵר הַהִרְהוּר מִלֵּב לְגַמְרֵי, רַק שֶׁיִּהְיֶה בְּכֹחוֹ לִדְחוֹתוֹ. כִּי כָּל זְמַן שֶׁהָאָדָם נִזְכָּר בְּעוֹל מַלְכוּת שָׁמַיִם וְעוֹל תּוֹרָה וְעוֹל מִצְווֹת שֶׁעָלָיו, יָכוֹל בְּקַל לִגְעוֹר בַּיֵּצֶר וְלִדְחוֹת כָּל מַחֲשֶׁבֶת חוּץ מִזֶּה. רַק פְּעֻלַּת הַיֵּצֶר לְהַשְׁכִּיחוֹ מִזֶּה, וּכְמוֹ שֶׁאָמְרוּ (נְדָרִים לב:): דִּבִשְׁעַת יֵצֶר רָע לֵית דְּמַדְכַּר לְיֵצֶר טוֹב, שֶׁנֶּאֱמַר: \"וְאָדָם לֹא זָכַר וְגוֹמֵר\" (קֹהֶלֶת ט, טו), שֶׁהַמַּחֲשָׁבוֹת הַטּוֹבוֹת שֶׁל יִחוּד הַבּוֹרֵא יִתְבָּרַךְ נִשְׁכָּחוֹת מִן הַלֵּב אָז וְאֵין נִזְכָּר מֵהֶם;",
+          "en": "Concerning tzitzit it is explicitly stated, “You shall see it,” and “You shall not stray,” and so forth. The wording “You shall not stray” does not imply that the thought will be completely uprooted from the heart, but that one will have the strength to reject it. For as long as a person remembers the yoke of Heaven’s kingship, the yoke of Torah and the yoke of mitzvot that rest upon him, he can readily rebuke the inclination and reject every thought outside this. The inclination’s activity is only to make him forget this. As they said in Nedarim 32b, when the evil inclination is active no one remembers the good inclination, as it is said, “No person remembered,” and so forth. At that time the good thoughts of the unity of the Creator, blessed be He, are forgotten from the heart and are not recalled.",
+          "heSha256": "b506d37f829934c013c707e2db4110957774131df9555101323d996f3413a176",
+          "translation": "Reviewed original-source English quotation. Canonical reader spelling expands abbreviations and some cited verses; original Sefaria Hebrew remains additional evidence.",
+          "coverage": "Corresponding complete selected source passage in the current canonical reader.",
+          "canonicalReaderRef": "Tzidkat HaTzadik 220:1",
+          "canonicalSourceFile": "mcp-data/text/tzidkat-hatzadik.json"
+        },
         {
           "ref": "Tzidkat HaTzadik 220:1",
           "url": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/#/read/Tzidkat_HaTzadik_220",
@@ -535,7 +619,8 @@
           "en": "Concerning tzitzit it is explicitly stated, “You shall see it,” and “You shall not stray,” and so forth. The wording “You shall not stray” does not imply that the thought will be completely uprooted from the heart, but that one will have the strength to reject it. For as long as a person remembers the yoke of Heaven’s kingship, the yoke of Torah and the yoke of mitzvot that rest upon him, he can readily rebuke the inclination and reject every thought outside this. The inclination’s activity is only to make him forget this. As they said in Nedarim 32b, when the evil inclination is active no one remembers the good inclination, as it is said, “No person remembered,” and so forth. At that time the good thoughts of the unity of the Creator, blessed be He, are forgotten from the heart and are not recalled.",
           "translation": "Original English translation prepared from the cited Hebrew or Aramaic.",
           "coverage": "excerpt",
-          "heSha256": "ecbeb8edf6821b77ef2042540da086bc4a4806d66ec94b441d30737c99c1037b"
+          "heSha256": "ecbeb8edf6821b77ef2042540da086bc4a4806d66ec94b441d30737c99c1037b",
+          "editionRelationship": "Original Sefaria Hebrew retained; canonical reader expands abbreviations and some cited verses."
         }
       ],
       "reviewEvidence": {
@@ -554,7 +639,16 @@
         "preserveExisting": true,
         "status": "verified",
         "dedup": "Existing native and connected notes in the destination ois checked; this selected passage is absent.",
-        "primaryTextFile": "review-work/recover51-primary.json"
+        "primaryTextFile": "review-work/recover51-primary.json",
+        "readerHebrewAlignment": {
+          "reason": "Align the new source excerpt metadata with the existing canonical reader spelling.",
+          "canonicalRef": "Tzidkat HaTzadik 220:1",
+          "previousHebrewSha256": "ecbeb8edf6821b77ef2042540da086bc4a4806d66ec94b441d30737c99c1037b",
+          "canonicalHebrewSha256": "b506d37f829934c013c707e2db4110957774131df9555101323d996f3413a176",
+          "englishContextUnchanged": true,
+          "anchorUnchanged": true,
+          "existingSourceTextUnchanged": true
+        }
       },
       "readerRef": "Tzidkat HaTzadik 220:1"
     },
