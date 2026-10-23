@@ -1,0 +1,165 @@
+{
+  "runId": 40029321489,
+  "jobId": 120673333517,
+  "commit": "c282902427ca4b699e269997aa6dfb1a661264eb",
+  "completedAt": "2026-10-23T21:59:26Z",
+  "conclusion": "success",
+  "pagesArtifactId": 12533779591,
+  "verificationArtifactId": 12534392987,
+  "report": {
+    "ok": true,
+    "release": "20261023-tzidkat-batch-106-120-v1",
+    "publiclyVerified": true,
+    "guards": [
+      {
+        "name": "another download record changed",
+        "rejected": true
+      },
+      {
+        "name": "unverified Divrei ZIP",
+        "rejected": true
+      },
+      {
+        "name": "different predecessor index",
+        "rejected": true
+      },
+      {
+        "name": "different predecessor Divrei ZIP",
+        "rejected": true
+      },
+      {
+        "name": "different Divrei ZIP size",
+        "rejected": true
+      },
+      {
+        "name": "changed existing quotation",
+        "rejected": true
+      },
+      {
+        "name": "removed existing note",
+        "rejected": true
+      },
+      {
+        "name": "changed author text",
+        "rejected": true
+      },
+      {
+        "name": "incorrect Hebrew anchor",
+        "rejected": true
+      },
+      {
+        "name": "colliding note number",
+        "rejected": true
+      },
+      {
+        "name": "incorrect predecessor",
+        "rejected": true
+      },
+      {
+        "name": "unrequested section",
+        "rejected": true
+      },
+      {
+        "name": "secondary-edition attribution",
+        "rejected": true
+      }
+    ],
+    "proof": {
+      "batches": [
+        {
+          "release": "20261023-tzidkat-batch-001-015-v1",
+          "packSha256": "af0b3ac4c469386973fc038bc813602b4fa2138a0e0e0d886356a50562f89674",
+          "newNotes": 27,
+          "reviewedSections": 15,
+          "existingNotesUnchanged": true,
+          "authorTextUnchanged": true
+        },
+        {
+          "release": "20261023-tzidkat-batch-016-030-v1",
+          "packSha256": "593d55d12e2917b7aff02f8649dd4ed09343c7c2dfda943a31b4cdce6c4e329a",
+          "newNotes": 43,
+          "reviewedSections": 15,
+          "existingNotesUnchanged": true,
+          "authorTextUnchanged": true
+        },
+        {
+          "release": "20261023-tzidkat-batch-031-045-v1",
+          "packSha256": "adceb20e64032fcfa2ae6bc07718249a7d5822cad0e770668662822c39e2151c",
+          "newNotes": 54,
+          "reviewedSections": 15,
+          "existingNotesUnchanged": true,
+          "authorTextUnchanged": true
+        },
+        {
+          "release": "20261023-tzidkat-batch-046-060-v1",
+          "packSha256": "931f22856b5634d2722df0b4e3a738c17667223274e432ef68e09a833343d500",
+          "newNotes": 59,
+          "reviewedSections": 15,
+          "existingNotesUnchanged": true,
+          "authorTextUnchanged": true
+        },
+        {
+          "release": "20261023-tzidkat-batch-061-075-v1",
+          "packSha256": "9a4f6ceb7a571675b844eed6b750c4fc7a7d4702a18f9873301f35b570a23293",
+          "newNotes": 76,
+          "reviewedSections": 15,
+          "existingNotesUnchanged": true,
+          "authorTextUnchanged": true
+        },
+        {
+          "release": "20261023-tzidkat-batch-076-090-v1",
+          "packSha256": "e493ef6c22857cb517a3a63995685e46cf309b30d9895595cd803764a579ccb6",
+          "newNotes": 101,
+          "reviewedSections": 15,
+          "existingNotesUnchanged": true,
+          "authorTextUnchanged": true
+        },
+        {
+          "release": "20261023-tzidkat-batch-091-105-v1",
+          "packSha256": "b49db049491394d4c082be551d300a38b0dc2d6d9250923fd9cdb467aedfccbf",
+          "newNotes": 103,
+          "reviewedSections": 15,
+          "existingNotesUnchanged": true,
+          "authorTextUnchanged": true
+        },
+        {
+          "release": "20261023-tzidkat-batch-106-120-v1",
+          "packSha256": "3af6f62eb516d4ba02ac7daacd9d236b010d0f73e4fc8f3212b6b0a2e2b653e6",
+          "newNotes": 115,
+          "reviewedSections": 15,
+          "existingNotesUnchanged": true,
+          "authorTextUnchanged": true
+        }
+      ],
+      "reviewedSections": 120,
+      "newNotes": 578,
+      "existingNotesUnchanged": true,
+      "authorTextUnchanged": true
+    },
+    "viewports": [
+      {
+        "width": 1280,
+        "reviewedSections": 15,
+        "newNotesOpened": 115,
+        "exactHebrewAnchors": 115,
+        "existingNotesPreserved": 136,
+        "originalSourceLinks": 114,
+        "internalSourcesOpened": 27,
+        "exactSourceExcerptsOpened": 3,
+        "exactExternalUrlsOpened": 0
+      },
+      {
+        "width": 390,
+        "reviewedSections": 15,
+        "newNotesOpened": 115,
+        "exactHebrewAnchors": 115,
+        "existingNotesPreserved": 136,
+        "originalSourceLinks": 114,
+        "internalSourcesOpened": 27,
+        "exactSourceExcerptsOpened": 3,
+        "exactExternalUrlsOpened": 0
+      }
+    ],
+    "errors": []
+  }
+}
