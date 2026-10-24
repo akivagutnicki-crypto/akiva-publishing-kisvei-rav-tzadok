@@ -2,7 +2,17 @@
   "task": "Tzidkas HaTzadik original-source footnote review",
   "recoveredFrom": "Conversation lost after source review106–120; working files recovered from f85ae98f1669 and /tmp/tzidkat-batch8-candidate",
   "confirmedLiveThrough": 195,
-  "publicationInProgress": null,
+  "publicationInProgress": {
+    "sections": [
+      196,
+      210
+    ],
+    "notes": 141,
+    "commit": "cbd7f52c78bd277346f78326028cacb55374e09c",
+    "run": 40044827030,
+    "packSha256": "fa033d63504e45bb780c04e2d3898e5cd3390a65727b27c23ff1281a00f24dae",
+    "localDesktopMobileVerified": true
+  },
   "protectedSections": [
     40,
     154
@@ -92,10 +102,15 @@
     "259": 16,
     "226-230": 40,
     "256-260": 70,
-    "201-205": 43
-  },
-  "rootDraftsAwaitingIndependentReview": {
+    "201-205": 43,
+    "206-210": 56,
     "261": 11
   },
-  "awaitingIndependentReview": {}
+  "rootDraftsAwaitingIndependentReview": {
+    "262": 15
+  },
+  "awaitingIndependentReview": {
+    "211-215": 55,
+    "231-235": 32
+  }
 }
