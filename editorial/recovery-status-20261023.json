@@ -1,20 +1,8 @@
 {
   "task": "Tzidkas HaTzadik original-source footnote review",
   "recoveredFrom": "Conversation lost after source review106–120; working files recovered from f85ae98f1669 and /tmp/tzidkat-batch8-candidate",
-  "confirmedLiveThrough": 165,
-  "publicationInProgress": {
-    "sections": [
-      166,
-      180
-    ],
-    "notes": 77,
-    "firstNote": 3450,
-    "lastNote": 3526,
-    "stage": "166–180 deployed; recovering final verification after HTTP503 and rerun selected stale baseline",
-    "packSha256": "8ed849bedf20c8c4a94bf1355bd2919ea2f040f47425f464628f73022c80156b",
-    "commit": "39f40d1f38dc0e070d8f96321dd7e1ddc61c1613",
-    "priorDeploymentRun": 40040818693
-  },
+  "confirmedLiveThrough": 195,
+  "publicationInProgress": null,
   "protectedSections": [
     40,
     154
@@ -79,30 +67,24 @@
       ]
     ]
   },
-  "totalPublishedAdditions": 790,
+  "totalPublishedAdditions": 945,
   "lastSuccessfulPublication": {
     "sections": [
-      151,
-      165
+      181,
+      195
     ],
-    "newNotes": 85,
-    "commit": "64fa33e8cab55397426dbca8e0ebc98d217a4413",
-    "run": 40038420449,
-    "pagesArtifactId": 12538142156,
-    "verificationArtifactId": 12538542087,
-    "completedAt": "2026-10-23T23:19:29Z"
+    "newNotes": 78,
+    "commit": "037864c383fa0fbc769f3489be48ec1da4f7ff5e",
+    "run": 40042518841,
+    "pagesArtifactId": 12540530065,
+    "verificationArtifactId": 12540291114,
+    "completedAt": "2026-10-24T00:01:42Z"
   },
   "researchRecoveryNotes": [
     "Old integratedB text cache duplicated integratedA; re-extracted actual525-page volumeB before review beyond180. See integratedB-cache-correction.json.",
     "Original temporary workspace expired. Uploaded source PDFs restored into current source-files; prepared proposals and publication evidence remain in current workspace and GitHub checkpoint branch."
   ],
   "acceptedUnpublishedReviews": {
-    "166-170": 20,
-    "171-175": 29,
-    "181-185": 25,
-    "176-180": 28,
-    "186-190": 24,
-    "191-195": 29,
     "196-200": 42,
     "256": 8,
     "257": 18,
@@ -113,21 +95,7 @@
     "201-205": 43
   },
   "rootDraftsAwaitingIndependentReview": {
-    "256": 8,
-    "257": 18,
-    "258": 11,
-    "259": 16
-  },
-  "localReadyBatch": {
-    "sections": [
-      181,
-      195
-    ],
-    "notes": 78,
-    "firstNote": 3527,
-    "lastNote": 3604,
-    "packSha256": "d007449eff89a1fbe118dbd221bfcaab3ab7b47b2db0afde6c2a9a29892c9288",
-    "desktopAndMobilePassed": true
+    "261": 11
   },
   "awaitingIndependentReview": {}
 }
