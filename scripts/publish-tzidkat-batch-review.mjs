@@ -165,6 +165,8 @@ const additionalExactPrimaryUrls = new Set([
   'https://mobile.tora.ws/html/15061-27.html',
   'https://mobile.tora.ws/html/15061-30.html',
   'https://www.daat.ac.il/daat/vl/sidurshabat/sidurshabat14.pdf#page=14',
+  'https://search.orhasulam.org/Document/%D7%94%D7%9C%D7%90-%D7%9C%D7%90%D7%9C%D7%A7%D7%99%D7%9D-%D7%A4%D7%AA%D7%A8%D7%95%D7%A0%D7%99%D7%9D?id=43981&view=doc',
+  'https://search.orhasulam.org/Document/%D7%95%D7%99%D7%94%D7%99-%D7%90%D7%97%D7%A8-%D7%94%D7%93%D7%91%D7%A8%D7%99%D7%9D-%D7%94%D7%90%D7%9C%D7%94-%D7%95%D7%9B%D7%95%27?id=43965&view=doc',
 ]);
 export function validateExternalSourceUrls(pack,additions) {
   const declared = pack.verifiedExternalUrls || [];
@@ -182,7 +184,7 @@ export function validateExternalSourceUrls(pack,additions) {
     assert(evidence && audit.status === 'verified','Exact URL lacks matching reviewed bilingual source evidence');
     assert.equal(item.evidenceSha256,digest({ref:evidence.ref,url:evidence.url,he:evidence.he,en:evidence.en}),'Exact URL source evidence changed');
   }
-  for (const {note} of additions) for (const source of note.sources) if (/^https:\/\/(?:wiki\.jewishbooks\.org\.il|mobile\.tora\.ws|www\.daat\.ac\.il)\//.test(source.url || '')) {
+  for (const {note} of additions) for (const source of note.sources) if (/^https:\/\/(?:wiki\.jewishbooks\.org\.il|mobile\.tora\.ws|www\.daat\.ac\.il|search\.orhasulam\.org)\//.test(source.url || '')) {
     assert(seen.has(source.url),'Primary-source URL needs its exact reviewed declaration');
   }
   return declared;
