@@ -1,0 +1,639 @@
+{
+  "schemaVersion": 1,
+  "status": "accepted",
+  "reviewer": "/root/verify_release",
+  "translator": "/root",
+  "reviewMethod": "Independent complete Hebrew/Aramaic-to-English review of every supplied unit; no legacy English translation used. Exact primary response hashes and Hebrew hashes verified. Additional difficult-term checks used Hebrew-only Rashi.",
+  "packet": "review-work/download-refresh/english-replacement/translation-packets/root-hebrew-only.json",
+  "packetSHA256": "ceaa3f13b25020981039c2be149b7d844e037dd1eb42960414cdbbfc7652af2a",
+  "draft": "review-work/download-refresh/english-replacement/translations/root.json",
+  "draftSHA256": "8351a789e1900e883f264321d779b6195f1f798dec124abcde6b9596df84500f",
+  "counts": {
+    "units": 32,
+    "notePlacements": 46,
+    "substantivePrecisionEdits": 1,
+    "smallPrecisionEdits": 3
+  },
+  "findings": [
+    {
+      "id": "prayer-location",
+      "unitId": "nc-he-c0c53cc65395354847fb",
+      "sourceRef": "Sanhedrin 44b:7",
+      "severity": "source-meaning precision",
+      "before": "Had Abraham not prayed before the trouble between Bethel and Ai,",
+      "after": "Had Abraham not prayed between Bethel and Ai before the trouble came,",
+      "reason": "The location describes Abraham’s earlier prayer. The earlier English can instead attach the location to the later trouble. Root has agreed to this correction.",
+      "proposedEnglish": "‘Have you set out your plea before distress?’ Rabbi Elazar said: A person should always pray before trouble comes. Had Abraham not prayed between Bethel and Ai before the trouble came, not one survivor or escapee would have remained among Israel, referred to here euphemistically as ‘the enemies of Israel.’ Reish Lakish said: Anyone who exerts himself in prayer below has no adversaries above. Rabbi Yochanan said: A person should always seek mercy that all will strengthen him and that he will have no adversaries above.",
+      "beforeEnglishSHA256": "e59e2a9539ea9069a6634d9cca92f9b2fc69e0d18bda2826b314cac5e137d58c",
+      "proposedEnglishSHA256": "f86385e70c5a99929f40db8306e29eb5c70d0a3697130608bc9d43f4190eb130",
+      "status": "applied-exactly-and-independently-verified"
+    },
+    {
+      "id": "envy-descriptive",
+      "unitId": "nc-he-881145e60d1271954f19",
+      "sourceRef": "Sanhedrin 105b:15",
+      "severity": "small wording precision",
+      "before": "A person may envy anyone except his own son and his student.",
+      "after": "A person can feel envy toward anyone except his own son and his student.",
+      "reason": "The source describes whom a person envies; “may” can accidentally sound like permission.",
+      "proposedEnglish": "This differs from Rav Yosei bar Choni’s view, for Rav Yosei bar Choni said: A person can feel envy toward anyone except his own son and his student. The case of one’s son is learned from Solomon. As for one’s student, one may derive it from ‘Let a double portion of your spirit be upon me,’ or, alternatively, from ‘He laid his hands upon him and charged him.’",
+      "beforeEnglishSHA256": "3c4633329c1471ac989bdc1221df4879563a5b8765fc1a0d36f1af90def3eb13",
+      "proposedEnglishSHA256": "12b9a6233c07e07d2e184f250cb95ad87a5a6d48aead79d72919774a74d0d55c",
+      "status": "applied-exactly-and-independently-verified"
+    },
+    {
+      "id": "exact-quoted-words",
+      "unitId": "nc-he-be29ead43c1cc42cb825",
+      "sourceRef": "Berakhot 12b:22",
+      "severity": "small quotation precision",
+      "before": "‘After which you stray’ refers to thoughts of idolatry",
+      "after": "‘You stray’ refers to thoughts of idolatry",
+      "reason": "The supplied quoted Hebrew is אתם זונים. The words “after which” belong to the surrounding biblical verse and are not in this selected quotation.",
+      "proposedEnglish": "For it was taught: ‘After your hearts’ refers to heresy, as another verse says, ‘The fool says in his heart: There is no God.’ ‘After your eyes’ refers to thoughts of sexual sin, as it is said, ‘Samson said to his father: Take her for me, for she is pleasing in my eyes.’ ‘You stray’ refers to thoughts of idolatry, as another verse says, ‘They strayed after the Baals.’",
+      "beforeEnglishSHA256": "050dd31b23efbd2903ae238068f470383b4069e048190afd9e1c7ca2a2191e63",
+      "proposedEnglishSHA256": "9b43a44692e878da5fbeaa1cdd03e3f11e3d418bcd6de479d70fc5f8c1a00c7b",
+      "status": "applied-exactly-and-independently-verified"
+    },
+    {
+      "id": "relations-wording",
+      "unitId": "nc-he-45200f976535719d78dc",
+      "sourceRef": "Megillah 13a:19-20",
+      "severity": "small wording precision",
+      "before": "he did not have marital relations during the day.",
+      "after": "he did not have sexual relations during the day.",
+      "reason": "משמש מטתו describes sexual relations; the selected episode does not establish marriage to each woman. This avoids an unnecessary marital implication.",
+      "proposedEnglish": "‘In the evening she would come, and in the morning she would return.’ Rabbi Yochanan said: From this disgraceful account of that wicked man, we learn something to his credit: he did not have sexual relations during the day. ‘Esther won favor.’ Rabbi Elazar said: This teaches that each person thought she belonged to his own nation. ‘Esther was taken to King Ahasuerus, to his royal house, in the tenth month, which is the month of Tevet’—the month when one body takes pleasure in another’s warmth.",
+      "beforeEnglishSHA256": "a64a64e36e91a48a97a0045ff62ce1baebb0933342c53441faa4c6e462c44053",
+      "proposedEnglishSHA256": "87dff816aa2c15af78280b4cfc81afaed7e2ef713cde94e4fa7f381d40f98f17",
+      "status": "applied-exactly-and-independently-verified"
+    }
+  ],
+  "specialChecks": [
+    {
+      "sourceRef": "Sanhedrin 104b:15-105a:1",
+      "disposition": "accepted",
+      "reason": "Both folios form one complete unit. The Philistia refrain preserves the plain sense of התרועעי as a shout and the concluding דרש explicitly makes the figures friends. Rashi on Sanhedrin105a confirms the reconciliation/friendship sense of the concluding reply. Rashi on Psalms60:10 offers the related joining-under-rule reading; it does not require rejecting the draft’s plain rendering."
+    },
+    {
+      "sourceRef": "Chullin 89a:10",
+      "disposition": "accepted",
+      "reason": "Silence, the deaf-mute comparison, Torah as the exception, and rejection of arrogance remain distinct. Hebrew-only Rashi confirms the craft/silence and level-ground readings."
+    },
+    {
+      "sourceRef": "Eruvin 54b:5",
+      "disposition": "accepted",
+      "reason": "The rich-coverings/middin verse and its interpretation as judgment appear separately; the source’s scholar categories and resulting benefits are preserved."
+    },
+    {
+      "sourceRef": "Bava Batra 16a:8",
+      "disposition": "accepted",
+      "reason": "The bracketed corrected reading in the supplied primary Hebrew is used; the deleted parenthetical alternative is not silently substituted."
+    }
+  ],
+  "units": [
+    {
+      "unitId": "nc-he-612ed04b139039ae34cf",
+      "sourceRef": "Tanya, Part I; Likkutei Amarim 41:25",
+      "heSHA256": "ed20e03707c81ea1d01bf0ebfefd93e9f24a0b82559892e000017fab8e4c7a51",
+      "englishSHA256": "dac2584f8986f6a9d48d65b9353721aea31492987738553d8ad9fb9a9c93ca0f",
+      "placements": [
+        19
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesSpeakersQuestionsQualificationsReviewed": true,
+      "sourceBoundaryReviewed": true,
+      "status": "accepted",
+      "findingIds": [],
+      "acceptedAfterExactPrecisionEdit": false
+    },
+    {
+      "unitId": "nc-he-ce18402d18904ff10cdc",
+      "sourceRef": "Shabbat 68b:2",
+      "heSHA256": "f4da5db5383b11b60249a21e744bb32434fde281174331852853b5f9b6a9fc4e",
+      "englishSHA256": "ebf97d136d55e820ca2305f7229f5ada9a18d512570d693011b89dcbc5881326",
+      "placements": [
+        186
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesSpeakersQuestionsQualificationsReviewed": true,
+      "sourceBoundaryReviewed": true,
+      "status": "accepted",
+      "findingIds": [],
+      "acceptedAfterExactPrecisionEdit": false
+    },
+    {
+      "unitId": "nc-he-fddd1a672fbbfe179596",
+      "sourceRef": "Pesachim 50b:5",
+      "heSHA256": "f56ec42a9365339e6526f3da8cea351c8af51b7fe9babb6b0e9d895f477cd10b",
+      "englishSHA256": "8609420f4cf73bcdaa8065458a0946b8f8d9e100ffa58d0290ee570710671c10",
+      "placements": [
+        210,
+        975
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesSpeakersQuestionsQualificationsReviewed": true,
+      "sourceBoundaryReviewed": true,
+      "status": "accepted",
+      "findingIds": [],
+      "acceptedAfterExactPrecisionEdit": false
+    },
+    {
+      "unitId": "nc-he-881145e60d1271954f19",
+      "sourceRef": "Sanhedrin 105b:15",
+      "heSHA256": "1ae6bafda44fd56dbd6facc419b11e520338e13d1f3c51b67d8acc08a837c2c0",
+      "englishSHA256": "12b9a6233c07e07d2e184f250cb95ad87a5a6d48aead79d72919774a74d0d55c",
+      "placements": [
+        328
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesSpeakersQuestionsQualificationsReviewed": true,
+      "sourceBoundaryReviewed": true,
+      "status": "accepted",
+      "findingIds": [
+        "envy-descriptive"
+      ],
+      "acceptedAfterExactPrecisionEdit": true
+    },
+    {
+      "unitId": "nc-he-ace00a7b6baac895b9ed",
+      "sourceRef": "Shabbat 149b:6",
+      "heSHA256": "8c3cbecb45fb125207fc8653e68c60faaaef0677b8dc7bd798df78d5f96bc9e8",
+      "englishSHA256": "ee1136fc1cc05ec26d7a0b58028c02e032f2ff73d89b7b634ac89a1dacb93647",
+      "placements": [
+        347,
+        1056
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesSpeakersQuestionsQualificationsReviewed": true,
+      "sourceBoundaryReviewed": true,
+      "status": "accepted",
+      "findingIds": [],
+      "acceptedAfterExactPrecisionEdit": false
+    },
+    {
+      "unitId": "nc-he-483cfcd6344ce102487d",
+      "sourceRef": "Chullin 89a:10",
+      "heSHA256": "9c98a0ad48626c452d3823e0cad8c490dfa8e2116a88f19175c4f623b29f946f",
+      "englishSHA256": "8894c119631fc2392df997f062c79122a6a474a2f357366454c2526d298d6321",
+      "placements": [
+        370
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesSpeakersQuestionsQualificationsReviewed": true,
+      "sourceBoundaryReviewed": true,
+      "status": "accepted",
+      "findingIds": [],
+      "acceptedAfterExactPrecisionEdit": false
+    },
+    {
+      "unitId": "nc-he-dbd17f7d4b4c9a3a2917",
+      "sourceRef": "Sukkah 21b:9",
+      "heSHA256": "f0c41a2e95bb15992556500bd90b80e4a045f7efab609c617b76fd84cd090090",
+      "englishSHA256": "f48b8f06e32493db7cc2396f58ddd4bdb9e0f9fa244c57789b87586ba12efbc2",
+      "placements": [
+        374,
+        607,
+        613,
+        899,
+        1695
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesSpeakersQuestionsQualificationsReviewed": true,
+      "sourceBoundaryReviewed": true,
+      "status": "accepted",
+      "findingIds": [],
+      "acceptedAfterExactPrecisionEdit": false
+    },
+    {
+      "unitId": "nc-he-cb3015c4308a387a6a58",
+      "sourceRef": "Chullin 139b:10",
+      "heSHA256": "9aa1f2970aa1caa338d51068c669d55eab498f359bf718f37cd2cadc3c4e0c84",
+      "englishSHA256": "4db674bd2766a30ab9f816be2bf7373ff3b909f48506d7327ee6454d2dc0a93f",
+      "placements": [
+        411
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesSpeakersQuestionsQualificationsReviewed": true,
+      "sourceBoundaryReviewed": true,
+      "status": "accepted",
+      "findingIds": [],
+      "acceptedAfterExactPrecisionEdit": false
+    },
+    {
+      "unitId": "nc-he-e973b7504c1811cedc67",
+      "sourceRef": "Shabbat 120a:6",
+      "heSHA256": "3603b9e1fe604525943fba948102729aa08c44053cdd0dbad22210d0e38e0fbf",
+      "englishSHA256": "ea2d2c70b849e00b54aa3807e45382e29429408ac239d9babc1f36a7b141727e",
+      "placements": [
+        451
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesSpeakersQuestionsQualificationsReviewed": true,
+      "sourceBoundaryReviewed": true,
+      "status": "accepted",
+      "findingIds": [],
+      "acceptedAfterExactPrecisionEdit": false
+    },
+    {
+      "unitId": "nc-he-94602c11b6bb364600f0",
+      "sourceRef": "Yoma 88a:11",
+      "heSHA256": "e9b3de35cc993d676c9ff408fcfe4c5e783c1253768af868fd44902863946480",
+      "englishSHA256": "a4b4ee53bb692ae1f8154401fa6a79c9a949ebd609bbfba71f3732b9f1d71236",
+      "placements": [
+        487,
+        488,
+        492
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesSpeakersQuestionsQualificationsReviewed": true,
+      "sourceBoundaryReviewed": true,
+      "status": "accepted",
+      "findingIds": [],
+      "acceptedAfterExactPrecisionEdit": false
+    },
+    {
+      "unitId": "nc-he-c696210570d9ff0c4861",
+      "sourceRef": "Yevamot 77a:1",
+      "heSHA256": "418d4422bf632fba046437a25784025af393ecfaf0f8f43e3a885801299839ef",
+      "englishSHA256": "c78e63791b49d3455c6b56b74405ed511646dd876b94ae0e89d8692fc7197e5c",
+      "placements": [
+        581
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesSpeakersQuestionsQualificationsReviewed": true,
+      "sourceBoundaryReviewed": true,
+      "status": "accepted",
+      "findingIds": [],
+      "acceptedAfterExactPrecisionEdit": false
+    },
+    {
+      "unitId": "nc-he-e1c0fcd9ad073e81972c",
+      "sourceRef": "Eruvin 54b:5",
+      "heSHA256": "31f520f10eea6482a0245b6d9bd580df64dd2124d495a908064dc3fb8ce47273",
+      "englishSHA256": "242af0fb3690db0d67c880a9afb08a2846b5ccc713609350cbd2e988a7212e17",
+      "placements": [
+        609,
+        1130,
+        1492
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesSpeakersQuestionsQualificationsReviewed": true,
+      "sourceBoundaryReviewed": true,
+      "status": "accepted",
+      "findingIds": [],
+      "acceptedAfterExactPrecisionEdit": false
+    },
+    {
+      "unitId": "nc-he-dc4d066e69451caca8b2",
+      "sourceRef": "Shabbat 152a:10",
+      "heSHA256": "841ae99823687ad09d0b381e0c29edce7a27ac6fb8fc32d71a987b6cc8e7635a",
+      "englishSHA256": "026be15b12fa67d3ff2fc0edf541901b7ceb757efe3ad8e0b28c65b5fd3d6b7e",
+      "placements": [
+        733,
+        1376
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesSpeakersQuestionsQualificationsReviewed": true,
+      "sourceBoundaryReviewed": true,
+      "status": "accepted",
+      "findingIds": [],
+      "acceptedAfterExactPrecisionEdit": false
+    },
+    {
+      "unitId": "nc-he-b846925501ce9e369559",
+      "sourceRef": "Shabbat 32a:4",
+      "heSHA256": "06be8c5f72629c90ed21ebb522ce83155ccae3458bf574142fabf6fd977b233a",
+      "englishSHA256": "e59330aae386d2db038eedb829f673f2b6572b767a88c9e386b8ef8e5f35cf8a",
+      "placements": [
+        789
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesSpeakersQuestionsQualificationsReviewed": true,
+      "sourceBoundaryReviewed": true,
+      "status": "accepted",
+      "findingIds": [],
+      "acceptedAfterExactPrecisionEdit": false
+    },
+    {
+      "unitId": "nc-he-99e240fabd789378cd29",
+      "sourceRef": "Shabbat 88b:6",
+      "heSHA256": "4ed662c6443a606f049e1dadd5bfc3b0deb7779bbea01802ff2f06b0a65b3b7a",
+      "englishSHA256": "54c77c34306cb958998da6b9fc4bf80baba2e2850cd3da0f57c2c310e83bf455",
+      "placements": [
+        861,
+        1295
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesSpeakersQuestionsQualificationsReviewed": true,
+      "sourceBoundaryReviewed": true,
+      "status": "accepted",
+      "findingIds": [],
+      "acceptedAfterExactPrecisionEdit": false
+    },
+    {
+      "unitId": "nc-he-d2630245bb323dd271cd",
+      "sourceRef": "Shabbat 87a:5",
+      "heSHA256": "f1ab4969f7c43fbdc7074857e0d797bfd50c38e43ee0a67443612d64a48a4ab7",
+      "englishSHA256": "3a7fc77c6f3a32d744bcc3de5b353f9247757f20a799afc27d6c2740ce39a760",
+      "placements": [
+        893
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesSpeakersQuestionsQualificationsReviewed": true,
+      "sourceBoundaryReviewed": true,
+      "status": "accepted",
+      "findingIds": [],
+      "acceptedAfterExactPrecisionEdit": false
+    },
+    {
+      "unitId": "nc-he-c510f78a1ae709622c53",
+      "sourceRef": "Makkot 23a:19-23b:1",
+      "heSHA256": "d97f6141bd347dc6604c6bd87b779ca7e9a73696eb1843c61a34588cf1b97b9f",
+      "englishSHA256": "38587c8555db1db42710fe311a754af3d9b08e67b011248dc91f62981f5f878c",
+      "placements": [
+        943
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesSpeakersQuestionsQualificationsReviewed": true,
+      "sourceBoundaryReviewed": true,
+      "status": "accepted",
+      "findingIds": [],
+      "acceptedAfterExactPrecisionEdit": false
+    },
+    {
+      "unitId": "nc-he-f25cf9c513e25c58e20f",
+      "sourceRef": "Zechariah 14:4-5",
+      "heSHA256": "7c382ae974a85a73376e2778791437dadd17852c6c706e29be017517e5b5b5bd",
+      "englishSHA256": "22fc7294ec3126a4f97736be372887c71e58db6d3f07b4546daebc9dc611c807",
+      "placements": [
+        957
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesSpeakersQuestionsQualificationsReviewed": true,
+      "sourceBoundaryReviewed": true,
+      "status": "accepted",
+      "findingIds": [],
+      "acceptedAfterExactPrecisionEdit": false
+    },
+    {
+      "unitId": "nc-he-c0c53cc65395354847fb",
+      "sourceRef": "Sanhedrin 44b:7",
+      "heSHA256": "52a182ab9eec01a961ea74c41551f7580bc546ddb762183305d69a8e47c12d05",
+      "englishSHA256": "f86385e70c5a99929f40db8306e29eb5c70d0a3697130608bc9d43f4190eb130",
+      "placements": [
+        996
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesSpeakersQuestionsQualificationsReviewed": true,
+      "sourceBoundaryReviewed": true,
+      "status": "accepted",
+      "findingIds": [
+        "prayer-location"
+      ],
+      "acceptedAfterExactPrecisionEdit": true
+    },
+    {
+      "unitId": "nc-he-c0fa3160b6c6227f09c6",
+      "sourceRef": "Berakhot 3b:29",
+      "heSHA256": "86805d810503cc615fb88dcd2a5ad46e897e81456919e4088e404ed87992ca1d",
+      "englishSHA256": "3215042964b758b4f8b342d4fb4c187971befae09d6b9a7e0320239bb502ac18",
+      "placements": [
+        1428
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesSpeakersQuestionsQualificationsReviewed": true,
+      "sourceBoundaryReviewed": true,
+      "status": "accepted",
+      "findingIds": [],
+      "acceptedAfterExactPrecisionEdit": false
+    },
+    {
+      "unitId": "nc-he-93e9790f47923cf55ade",
+      "sourceRef": "Shabbat 119a:9-119b:1",
+      "heSHA256": "ebaa9d20a9a1bf4f0b3ff6d05dd015cdcea2e2af4bc1bbe6ee31421139989397",
+      "englishSHA256": "cfb7833b7e5b11c0d2395eea052bd00fc2260518a76da6c73d75459580ae6ede",
+      "placements": [
+        1537
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesSpeakersQuestionsQualificationsReviewed": true,
+      "sourceBoundaryReviewed": true,
+      "status": "accepted",
+      "findingIds": [],
+      "acceptedAfterExactPrecisionEdit": false
+    },
+    {
+      "unitId": "nc-he-c68da4dfba866ccfa0ef",
+      "sourceRef": "Berakhot 26b:5",
+      "heSHA256": "863dd61554879d9eac0b2bbd3f9722e474a16f9f2a577384c94da74263ff2b90",
+      "englishSHA256": "89434beff2844c3f377817351cf9fe816400d8deec341df0ebfc55e47e6222ba",
+      "placements": [
+        1604
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesSpeakersQuestionsQualificationsReviewed": true,
+      "sourceBoundaryReviewed": true,
+      "status": "accepted",
+      "findingIds": [],
+      "acceptedAfterExactPrecisionEdit": false
+    },
+    {
+      "unitId": "nc-he-1cdc818be1abd496c440",
+      "sourceRef": "Shabbat 33b:7",
+      "heSHA256": "5c4cb741636e48ba952f3999caa59d1624c1f749c5abdf1932e94e4d402a47f2",
+      "englishSHA256": "71d0bc35ca0a7849cfc6e76f8f75a8711404caee65ba4d3b8be601084542a5f5",
+      "placements": [
+        1632
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesSpeakersQuestionsQualificationsReviewed": true,
+      "sourceBoundaryReviewed": true,
+      "status": "accepted",
+      "findingIds": [],
+      "acceptedAfterExactPrecisionEdit": false
+    },
+    {
+      "unitId": "nc-he-62fa8ccacefff838bd92",
+      "sourceRef": "Sanhedrin 104a:7",
+      "heSHA256": "d7d8312b7753e24070dbcd82cdd6941a5c4aaad8b4c24a594066f32e2d11a224",
+      "englishSHA256": "99964950d9e6c5d83dbe22ab39efa9c807c2dcc99539212743e5cccb308125e0",
+      "placements": [
+        1714,
+        1834
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesSpeakersQuestionsQualificationsReviewed": true,
+      "sourceBoundaryReviewed": true,
+      "status": "accepted",
+      "findingIds": [],
+      "acceptedAfterExactPrecisionEdit": false
+    },
+    {
+      "unitId": "nc-he-ce508fc14e0d42d85489",
+      "sourceRef": "Berakhot 28a:6",
+      "heSHA256": "ab12565cb2823ad0ae4d295027926af5e3e1408659e1363f8d4cffde84e37286",
+      "englishSHA256": "39bc9f419ccedfbccc5a98af09aa57b80e1562da945f5d88c28e2cd81376dbad",
+      "placements": [
+        1758
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesSpeakersQuestionsQualificationsReviewed": true,
+      "sourceBoundaryReviewed": true,
+      "status": "accepted",
+      "findingIds": [],
+      "acceptedAfterExactPrecisionEdit": false
+    },
+    {
+      "unitId": "nc-he-be29ead43c1cc42cb825",
+      "sourceRef": "Berakhot 12b:22",
+      "heSHA256": "0032f44bac86836122a460c70a2a2fb81648488e9ce0c8651c02ec615c98d3b8",
+      "englishSHA256": "9b43a44692e878da5fbeaa1cdd03e3f11e3d418bcd6de479d70fc5f8c1a00c7b",
+      "placements": [
+        1775
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesSpeakersQuestionsQualificationsReviewed": true,
+      "sourceBoundaryReviewed": true,
+      "status": "accepted",
+      "findingIds": [
+        "exact-quoted-words"
+      ],
+      "acceptedAfterExactPrecisionEdit": true
+    },
+    {
+      "unitId": "nc-he-00d72a9dbb833bbbb459",
+      "sourceRef": "Berakhot 35b:7",
+      "heSHA256": "78486e426942bfaa6d046b3fe929f7953373ad7b91c6d9646b6ac095221f19ca",
+      "englishSHA256": "315aab21dd52f42cb2aa78511569a567e1efdb7a172041cd25a00029ba1002c3",
+      "placements": [
+        1821
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesSpeakersQuestionsQualificationsReviewed": true,
+      "sourceBoundaryReviewed": true,
+      "status": "accepted",
+      "findingIds": [],
+      "acceptedAfterExactPrecisionEdit": false
+    },
+    {
+      "unitId": "nc-he-0ea1a76f480132ffedfc",
+      "sourceRef": "Bava Batra 16a:8",
+      "heSHA256": "d2adf9f3d7d4040ba323d06b6a17716db6c433dc8fd48e146213942b5073b623",
+      "englishSHA256": "e5b6a5ac6b7233c8e19e07611dfac1e3b7e7d28d7b0422670a9614bf646e6115",
+      "placements": [
+        1845,
+        2052
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesSpeakersQuestionsQualificationsReviewed": true,
+      "sourceBoundaryReviewed": true,
+      "status": "accepted",
+      "findingIds": [],
+      "acceptedAfterExactPrecisionEdit": false
+    },
+    {
+      "unitId": "nc-he-45200f976535719d78dc",
+      "sourceRef": "Megillah 13a:19-20",
+      "heSHA256": "41ee4861908c7516b31f438912a8d92f39c7142cd8a7d572ba0e1b23c710b9e3",
+      "englishSHA256": "87dff816aa2c15af78280b4cfc81afaed7e2ef713cde94e4fa7f381d40f98f17",
+      "placements": [
+        2032
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesSpeakersQuestionsQualificationsReviewed": true,
+      "sourceBoundaryReviewed": true,
+      "status": "accepted",
+      "findingIds": [
+        "relations-wording"
+      ],
+      "acceptedAfterExactPrecisionEdit": true
+    },
+    {
+      "unitId": "nc-he-947cff7db6c808e4c1d1",
+      "sourceRef": "Shabbat 30b:6",
+      "heSHA256": "eb0d29f7d39b3b3dd31641fdf9feb10dc024b0874d4d99b3331405114af43e98",
+      "englishSHA256": "15c85e19a53a7f01c23cc8873bda7418551c12ac6c1ea151ae17fbaf5978a1db",
+      "placements": [
+        2113
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesSpeakersQuestionsQualificationsReviewed": true,
+      "sourceBoundaryReviewed": true,
+      "status": "accepted",
+      "findingIds": [],
+      "acceptedAfterExactPrecisionEdit": false
+    },
+    {
+      "unitId": "nc-he-59a3aebd0db88ea28e09",
+      "sourceRef": "Sanhedrin 104b:15-105a:1",
+      "heSHA256": "8805c9997148be58a5538eebb4d0989c9c154568ed4ec3640276c1f30915ce3f",
+      "englishSHA256": "ac76a3cd41831d8db0a8f8305c72c19a338746e13b3786932d9f989b45002c64",
+      "placements": [
+        2176
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesSpeakersQuestionsQualificationsReviewed": true,
+      "sourceBoundaryReviewed": true,
+      "status": "accepted",
+      "findingIds": [],
+      "acceptedAfterExactPrecisionEdit": false
+    },
+    {
+      "unitId": "nc-he-df2ac256a4bc43bbb89f",
+      "sourceRef": "Pesachim 68a:15",
+      "heSHA256": "95d41de286a7a5bf194981646e7473c3c88710575247cc009f0ac1934c062320",
+      "englishSHA256": "6fd9713b08aa153a98c87e78fa5a179ec207e7a4c4074891750385d255ff1bfa",
+      "placements": [
+        2187
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesSpeakersQuestionsQualificationsReviewed": true,
+      "sourceBoundaryReviewed": true,
+      "status": "accepted",
+      "findingIds": [],
+      "acceptedAfterExactPrecisionEdit": false
+    }
+  ],
+  "hebrewContextEvidence": [
+    {
+      "path": "review-work/download-refresh/english-replacement/peer-hebrew-context/sanhedrin105a-rashi-he-only.json",
+      "sha256": "34ba03c283a292691a32fdfe36083f3d304f6a947f9352ef65a8dc44a2366669"
+    },
+    {
+      "path": "review-work/download-refresh/english-replacement/peer-hebrew-context/psalms60-10-rashi-he-only.json",
+      "sha256": "8b320f75acae93fb8648d447d2edc49ca90f2f87060713407382fb5dac2f3f3a"
+    },
+    {
+      "path": "review-work/download-refresh/english-replacement/root-hebrew-context/chullin89.json",
+      "sha256": "6ece72171ce1a33010a767f9638a40b4eeb1b07a1a32f4e5ee7623586e6f2722"
+    },
+    {
+      "path": "review-work/download-refresh/english-replacement/root-hebrew-context/eruvin54.json",
+      "sha256": "7afe7b8f52dae17ec57fee1479977d868ab8e1f37b79157aa2412b873748bae9"
+    },
+    {
+      "path": "review-work/download-refresh/english-replacement/root-hebrew-context/sanhedrin44.json",
+      "sha256": "c217adbb3460096b3730e378e4d293d14be1c9bd07530102dd0d8f9e7275a345"
+    },
+    {
+      "path": "review-work/download-refresh/english-replacement/root-hebrew-context/yoma88.json",
+      "sha256": "5e695a0088475fa40ade5406d6ee7b9bc868bbf1ca960265fe6868630a691db5"
+    },
+    {
+      "path": "review-work/download-refresh/english-replacement/root-hebrew-context/shabbat119.json",
+      "sha256": "11a68bbc46797fc205f98d2070b7393db007b2601d4ff2c4abe225ec47f8219f"
+    },
+    {
+      "path": "review-work/download-refresh/english-replacement/root-hebrew-context/shabbat32.json",
+      "sha256": "f2f9b59f9d4756e2dabd57bcde9815f49aae3bcba8c0368f019f6fb6809a6590"
+    }
+  ],
+  "limitations": [
+    "This is a translation/scope review, not a deployment or license opinion.",
+    "The independent reviewer did not modify the translator’s draft. Acceptance is pinned to the exact final file and per-unit English hashes."
+  ],
+  "reviewedPreEditDraft": "review-work/download-refresh/english-replacement/translations/root.pre-peer.json",
+  "reviewedPreEditDraftSHA256": "2de117d07e049bf8f3cc075408486f28c02d5b91f5e2520b99e9bb8ef044d476",
+  "finalSemanticReview": "All32 complete units accepted. The four requested exact English strings were applied; all28 other translations and all source identifiers/hashes are unchanged.",
+  "acyclicEvidenceContract": "The final review pins the translation file. The translation file names the review path without embedding a reverse report hash. Only review/status metadata changed during this seal; all32 English strings and Hebrew/source identifiers are exact."
+}

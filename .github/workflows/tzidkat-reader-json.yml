@@ -1,0 +1,123 @@
+name: Publish Tzidkas reader JSON only
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+  deployments: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: ${{ (github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[tzidkat-reader-json]'))) && 'pages' || format('tzidkat-reader-json-skipped-{0}', github.run_id) }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: ${{ github.repository == 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok' && github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[tzidkat-reader-json]')) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout the approved reader-only source package
+        uses: actions/checkout@v6
+
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+
+      - name: Validate approved translations and current public preimages
+        id: baseline
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          node scripts/publish-tzidkat-reader-json.mjs --prepare
+          node scripts/publish-tzidkat-reader-json.mjs --metadata
+
+      - name: Download the exact current complete publication
+        uses: actions/download-artifact@v4
+        with:
+          artifact-ids: ${{ steps.baseline.outputs.artifact }}
+          run-id: ${{ steps.baseline.outputs.run }}
+          repository: akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/reader-baseline
+          merge-multiple: true
+
+      - name: Restore the whole site without rebuilding documents or archives
+        run: |
+          python3 - <<'PY'
+          import os,pathlib,tarfile
+          root=pathlib.Path('dist').resolve()
+          assert not root.exists()
+          root.mkdir()
+          archive=pathlib.Path(os.environ['RUNNER_TEMP'])/'reader-baseline/artifact.tar'
+          with tarfile.open(archive,'r:') as source:
+              for member in source.getmembers():
+                  target=(root/member.name).resolve()
+                  assert target==root or root in target.parents
+                  assert member.isdir() or member.isfile()
+              source.extractall(root,filter='data')
+          PY
+
+      - name: Apply only reviewed reader quotations and their live indexes
+        run: |
+          node scripts/publish-tzidkat-reader-json.mjs --apply dist
+          node --check dist/library/sw.js
+          node tests/test-tzidkat-reader-json.mjs --root dist
+
+      - name: Verify desktop and mobile reader footnotes
+        run: |
+          npm install --no-save --package-lock=false playwright@1.62.1
+          browser_candidate="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || true)"
+          if [ -n "$browser_candidate" ]; then
+            export AKIVA_CHROMIUM_EXECUTABLE="$browser_candidate"
+          else
+            npx playwright install --with-deps chromium
+          fi
+          node tests/test-tzidkat-reader-json-browser.mjs --root dist
+          node scripts/publish-tzidkat-reader-json.mjs --verify dist
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Verify current branch and publication before upload
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/publish-tzidkat-reader-json.mjs --guard
+
+      - name: Upload the complete preserved publication
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ./dist
+          retention-days: 14
+
+      - name: Recheck publication before deployment
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/publish-tzidkat-reader-json.mjs --guard
+
+      - name: Publish the approved Tzidkas reader JSON
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Read back every updated public reader file
+        run: |
+          node scripts/publish-tzidkat-reader-json.mjs --live
+          node tests/test-tzidkat-reader-json-browser.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'
+
+      - name: Save publication evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tzidkat-reader-json-verification
+          retention-days: 90
+          if-no-files-found: warn
+          path: artifacts/tzidkat-reader-json/

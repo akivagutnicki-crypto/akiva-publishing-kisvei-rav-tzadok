@@ -1,0 +1,60 @@
+{
+  "schemaVersion": 1,
+  "status": "accepted",
+  "reviewer": "/root/verify_release",
+  "translator": "/root",
+  "translationFile": "review-work/download-refresh/english-replacement/translations/root-mini-verify-release-003.json",
+  "translationFileSHA256": "064c6563a1ae6171c63172267d4c431395afc4d3e5a7e03d91d2f24e295a00fe",
+  "packet": "review-work/download-refresh/english-replacement/translation-packets/root-mini-verify-release-003-hebrew-only.json",
+  "packetSHA256": "63a16eb2716bb3a37f31ff5ec5e0f9016473e137dcb36122dacfe4d46c971f20",
+  "counts": {
+    "units": 2,
+    "notePlacements": 3,
+    "correctionsRequired": 0
+  },
+  "method": "Independent full Hebrew/Aramaic-to-English comparison. Nedarim20b checked against Hebrew Ran; Job35:11 checked against Hebrew Rashi. Exact primary cache and Hebrew hashes verified. Reassignment before drafting preserved a clean Hebrew-only translation input for the contributor.",
+  "specialChecks": [
+    {
+      "sourceRef": "Nedarim 20b",
+      "result": "accepted",
+      "detail": "All speakers, time-of-night qualifications, both single-handbreadth clauses and the compulsion metaphor retained. Mesapper is correctly understood as marital intimacy, corroborated by Hebrew Ran."
+    },
+    {
+      "sourceRef": "Job 35:11",
+      "result": "accepted",
+      "detail": "Comparative min explicitly follows Hebrew Rashi. The separate already-original Eruvin100b contextual quotation in the existing note remains outside this replacement scope."
+    }
+  ],
+  "units": [
+    {
+      "unitId": "unresolved-he-5f9c406ea28bcbc6ddab",
+      "sourceRef": "Nedarim 20b",
+      "heSHA256": "7315b12e542775c13f4053856fdd806b0aa2b2830558a18efee5bac700c82414",
+      "englishSHA256": "ec8ff1a84251d050e8dba61a742068a625e96ae0bf1ecccb2443cd2bc513746c",
+      "placements": [
+        1033,
+        2149
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-f33b71f135affba1d018",
+      "sourceRef": "Job 35:11",
+      "heSHA256": "5528eb268ad3f15f3e010a6683ae8b6566718e8f09b45875aa442d6e7a464266",
+      "englishSHA256": "721c9db1ee24b2b3e9c01e2e817829ad73c03b1f3b028b39363d63d687f359c8",
+      "placements": [
+        1036
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    }
+  ],
+  "limitations": [
+    "This review pins the clean contributor artifact and per-unit English hashes. The exact strings may be copied to the composite packet with translator /root retained; the other56 units require a different reviewer."
+  ]
+}

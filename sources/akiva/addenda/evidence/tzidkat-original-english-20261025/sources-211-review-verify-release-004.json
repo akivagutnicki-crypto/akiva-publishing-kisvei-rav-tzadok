@@ -1,0 +1,488 @@
+{
+  "schemaVersion": 1,
+  "status": "verified",
+  "reviewer": "/root/sources_211_225",
+  "translator": "/root/verify_release",
+  "reviewedAtUTC": "2026-10-25T05:35:09.474819+00:00",
+  "translationArtifact": "/workspace/scratch/d9a4c32fec33/review-work/download-refresh/english-replacement/translations/verify_release-unresolved-004.json",
+  "translationArtifactSHA256": "0753c2e5e823aff1c91f836551d5b4d9583fd1e270904904454bce956d127984",
+  "primaryPacket": "/workspace/scratch/d9a4c32fec33/review-work/download-refresh/english-replacement/translation-packets/verify_release-unresolved-004-hebrew-only.json",
+  "primaryPacketSHA256": "db947d030bcaa92d130e13cd2eb5d50abadd9448086a30f055ad439fc7c40d98",
+  "method": "Complete independent reading of every supplied Hebrew/Aramaic unit against the fresh English. Checked every clause, speaker, question, repetition, qualification, wordplay and selected boundary. Primary Hebrew Rashi/Ibn Ezra/Sulam context was consulted for the recorded interpretive points. No legacy English was used. All proposed precision edits were reread in their complete final English context.",
+  "counts": {
+    "sourceUnits": 58,
+    "verified": 58,
+    "precisionEditsAccepted": 4
+  },
+  "records": [
+    {
+      "unitId": "unresolved-he-67d86970e63e84a63f0d",
+      "heSHA256": "23864fd8c290a519c1b1f08e0780c1ec0ddb0e6a2caab7f82240723e6e780f86",
+      "englishSHA256": "c3cf454bcb491bda880d4bcd620eca6ae514390ee557f5beeb85e005b11416f6",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-fb978c43ddd46cfb9ed1",
+      "heSHA256": "5a6c4ece1a578f83231015ad8dd51075b326278157e03d375c5c2235d8e1a445",
+      "englishSHA256": "927716c55062e3a5ae6d473c0a6508a5c3f62621a5ceae9dd55cc5752ff225ca",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-7e86adfecc69c091b79e",
+      "heSHA256": "f1fe0848f76ce12dc158eedd335fc2da2b73464d107f8f6cfb704fbc4c17d179",
+      "englishSHA256": "4df11b2d9cc2b04c1cde7d9e10858c41dbecb914864afa225054c3d2aa247b7b",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-0243f612e8e26dc223f2",
+      "heSHA256": "2ba54de9b0e7464b08f8fbde036ab4ad09b0913cf99dbb528c0a603a275a76d7",
+      "englishSHA256": "96211b4644baf641755f0a5db762075701d2f15399eaeec66d6cd0a456070c87",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-13e4ece51aecc09ded7b",
+      "heSHA256": "284ff4e584e1e7b8e98608d1cf0a0ce07ddbe39e5e5a195e92e00901800eddbd",
+      "englishSHA256": "345c55cfb4527fcf608256fa10b4435a684864348c4e07c46b82a65112bf648a",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-ae01fce8bc328919b755",
+      "heSHA256": "74eea316eb410797dcca9e9378569000ab206bfbdafd260075b843972b0290af",
+      "englishSHA256": "888b454c11dc9d1a6534c655b036cf9263be99b92e7f91eccb9ec0026fe4de50",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-bd3ff7b0341fd7201e0d",
+      "heSHA256": "a03c0d2e93b9c3a24f0b7f8184a2d34164d80b2ebb930421a77a2627c30a9977",
+      "englishSHA256": "a8ee2b4fa0c7f2a49a80c4fbe16e87ccea07b47564dc9ba2ea82f35860f86527",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-7d0198bdd3532686d123",
+      "heSHA256": "d28107ebca44c83e0a74863d351e4c9610af4585deaafe9c343c6edaa2c47c06",
+      "englishSHA256": "a7ef87c89540a3f8e6bcadd1f2512a1320ea01a561392564f9d693f20e7271be",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-7362cd820a1fd2378f65",
+      "heSHA256": "bc9eb6e7568310be804e6f711a6f078767e7a3a59c07f49c87f671e528394309",
+      "englishSHA256": "956d6fed5b16306ce5e0bc2d1bae82b287c92ca59d5931d49b9ff3b97b1023c6",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-dd90fc92052df2732657",
+      "heSHA256": "a4f371cba0049676b4aa4d8051938b114e63207b303d2cb88b2e2178c7a79402",
+      "englishSHA256": "2e156adfa35d2b59076055fef738284634b4b84a1b877917a890aaa52663f823",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-9f6308bb04a3bd82069c",
+      "heSHA256": "616269f4216e9a80c365783c8abbdb95c4111020beba824c18a66bcb4611f1dd",
+      "englishSHA256": "97c68c9b67c0055afcd232e39d4a9be053f943b8b059fb44dcff32d3791baa78",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-c543f5bfe7cce6571029",
+      "heSHA256": "b6bc14597af150693c1f0b325bf7ba08626e1c3799f142046f29f5e8ad76db74",
+      "englishSHA256": "6d8d44a40e4e64fd25aa65861d1ddca83daf8231658b79e71c5b7195a1b5338e",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-3a00395776c07dad89d6",
+      "heSHA256": "784868ddcafac288dfef3c8fc8f15b87e2dfeb995a05851b078765965517e5b4",
+      "englishSHA256": "1ef0ef5b8d1878f327ab5e6a9b1cbed9ef9853c1fe6c3ec0da161a3a20d8f877",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-512e80521b5d970dcf50",
+      "heSHA256": "e5782196eab1a084fa4823635069e7d6c8000986a5e3044d9a38c2d6e3077aea",
+      "englishSHA256": "5795ea3f78211c84e482fa47caa99da4808e1e08bdbb3d6df6da02c58e217190",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-c31dea547e5842be8ac3",
+      "heSHA256": "34a5ec5dec6436032ff8bf89f6404afcaefb8760685047cac22cfd5566c4bd6d",
+      "englishSHA256": "95cb18f6006b014dfffa4e175cbd6ddb100237ca9b3a95880fd2001f6e88594c",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-ba1e0f4e6c7a4be3d32e",
+      "heSHA256": "4630834ca317ff02b83aa064ff670ca94a1267d1762a2458dd9a1c8eebc7d32f",
+      "englishSHA256": "9bb1c6c2b7b03f67f3b55f9cfc44aced44f7b732af4abd42d279ee2b05dc43a9",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified",
+      "acceptedPrecisionCorrection": "Preserved restrictive nothing but for לית…אלא."
+    },
+    {
+      "unitId": "unresolved-he-d8957e1ce59c622edb2b",
+      "heSHA256": "5902b57d9dd5a472b9efa996d16961ec588f288fc6cd97630c4dedd556590151",
+      "englishSHA256": "b6f974a3a19c2957bf1947fe30d125d80c6e0d07a31642c00012ef60193d4513",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-6052fe48dc44b242a6f2",
+      "heSHA256": "1f84ce7e54c5b63fa65cd05a25082f15aec950d32866a0432ce7e8b3dce4b015",
+      "englishSHA256": "92d4cafaa0440cde4abb606e2d100ab9b4f9d708c878fe5e43d31f6cf40e4c78",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-07cf2e02051b3af0d159",
+      "heSHA256": "0e63113d4684ae0e86213b9a754f56e62da8a0ed45ac26dcd104752ddc673328",
+      "englishSHA256": "b10f89fce8d5f43aa9c271a2db9ec77d81c288c888887cee2dcaf40f7e0ac263",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-8b064d727914bde0a584",
+      "heSHA256": "1437793dff5d9b197862b32885b2296051e8b85b0f86dee2ba9f0785229bf334",
+      "englishSHA256": "d0c81fcdb7d8175c043a5fdaf8a376dd2b88602c188906ca7013ea7403452439",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-3e1a86338bd684e1c4f3",
+      "heSHA256": "65b3ade643c9a0f93793476defa72559eda5e539c4966c33d394b587d83b4b10",
+      "englishSHA256": "4178aa5d6783bdca165ca4bf2cb51cb257e4bb4235319de2e6dbb510211c1036",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-48256c2a722d242336b7",
+      "heSHA256": "a8806606c75a9898a738b0005e626a1ea81a274e89cd027fb2e2a4f6785894f1",
+      "englishSHA256": "5982e1d481ad2d02baca10cbe2649261e888d81447a8dc5d2009f39949baf9e7",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-62a23f5aab4ae8d1e465",
+      "heSHA256": "f79f1f4cb61b7b3efc1fa50db00588b3a8a2b1e921569351e63e2f85e014e984",
+      "englishSHA256": "abee3e810afb86bf98e54d44131d4f36e59e880021eacbb59eb103daead682db",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-4756d92f981251571087",
+      "heSHA256": "d1b904500d3f3bc8573e87ae1d2bad437e0a63d2c22bdd5a9f4d6cd42728d840",
+      "englishSHA256": "946e24c95fb349e5f969a4577be589def7ff49447094c4702bd11cbb849fc08d",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-12decf80bd071704a7b5",
+      "heSHA256": "52f2fcfaade3c202c3ae756f76c38a11690dab385f6562c0e5c2a19c218bf5c7",
+      "englishSHA256": "6cf18613c3439492c2ab663b4da84421a24ca2d3913487748922ee549bfffb5a",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-aa13413ad2e17460ef53",
+      "heSHA256": "867cc37c8965759413f6105d137c5d9620148b7a150e8204c2735b4c1ad4677e",
+      "englishSHA256": "b32616f1c4e8a00592a9d356843d004bb3dcf35ba539cb824a525476b17d152c",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-945b4556e0841c6f04d3",
+      "heSHA256": "a83381cf9d10a20a8dd7c3b04a8a23a3c40f0f9bdeed0f2c5e475a288e4033db",
+      "englishSHA256": "b02d4c9bb43b053230d20d86c2a4eeef08f1c0e228480d60566c754f585de210",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-45ffdf6b416a4231c09c",
+      "heSHA256": "a0ab9e8538e98b0078bf7b4c7a30f2b31802a62419a50c30c9c7bc0b57c0b038",
+      "englishSHA256": "ce72c239a6fbf1f63bf8eb99dfca4a26565a56696609af87d86ae98dea82c058",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-3f9954b19f6da38ef6f0",
+      "heSHA256": "404abe8a2974ee782ced8e7a81c8d04698fef1a3282acf8e9f3da41569ade234",
+      "englishSHA256": "5b5d5a5b78a20608304562e8e527107ec741d721b1be765074970c75bff9dfa5",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-e85e8c60ae81a54a95ac",
+      "heSHA256": "6be7f5628c7e5d8f81cee7fb0a95d6c69a8750cd87c1588914f6b10cb9e80cfb",
+      "englishSHA256": "653c09c4f4624c0e73f7b08f136b1f5d5e6d7020ad0ec61846544ec37f8270a9",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-02bd15076a0b17cb8d1b",
+      "heSHA256": "cea5a7015cf783b8b579717d02fd891e4e9f4e3c36dae2deaa8f6f7f7044f8d9",
+      "englishSHA256": "36edd2af7e06103ebf1a67fd07bd7b49d175fd0a6bbdf947aa4f7d5554b30b89",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-e409aa55a2fa31dbe7b1",
+      "heSHA256": "8aa339b665ba0ae36451d4234ee5bee3a162ee7cb82358f919082bea377e0165",
+      "englishSHA256": "f04b4bfc1da32c7e4a8ef2ffbedd550d0a2339964ed4a2bc4eef9a5ff3995f0f",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-386fd1905532acf73cea",
+      "heSHA256": "03729896df1ece53967039cf5f494055009d207fc55ff07bb818898c4d9180fc",
+      "englishSHA256": "2ab720095303c0293034eaa3394a66641f759516588fb98fa17c3ec011b5d313",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-7ec48d028dabd4b7f5d3",
+      "heSHA256": "9bbed14221f83084c3a27fc1602c730944b7f537f188719e62e204dbde87192d",
+      "englishSHA256": "c6e133c61c389b08d0b94bc5ecc527cd720c9cc3fb736a53cce7bb904dbf1414",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified",
+      "acceptedPrecisionCorrection": "Restored the explicit מאי דכתיב question and its complete answer."
+    },
+    {
+      "unitId": "unresolved-he-04f02126cbc37ed5dc04",
+      "heSHA256": "21c2b665344fe7b44bc1ca06e8802ad6432a8ab974852525aae70b3a3691ff9f",
+      "englishSHA256": "ef27d428f36fca4d76c6cb4e0d5d9fd386b781a73a255ad6ad05feba15f063c9",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-067719b15a10032bd46c",
+      "heSHA256": "50f4962bae7c1e0cabeb52a1dd104071a62e7f53b8351369d2569ead6fa2ed25",
+      "englishSHA256": "fb2db90630310432358a8d6adae36c8a6f313a52f19170ebb2978221a4b81a9b",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-f754cec292cacd36cb0d",
+      "heSHA256": "dd411a8bc2d8cd2e6493a7589338dc3f7d8ffeb1301ff37fefbc40e413f245ff",
+      "englishSHA256": "cd9d327e25fdcacc32f57b03d118c233cff909b8def7e456a2c9433574a6d232",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-6229bd74f8c686c2cf9d",
+      "heSHA256": "b354801aaeaa833eaf3987d2dd9bd368eed2edc4596dc8ef4d1458c8545c95af",
+      "englishSHA256": "1da239dc3d2b48c1b6f3bc44c32e48bc60a1d4de0aa3c10065d0488280e81f6b",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-37ac463951d7426b6075",
+      "heSHA256": "3fb19b56534d24f721f8ef9064ae0cfe1b6aa97bf30eacfc7b1c1bc757a63241",
+      "englishSHA256": "d34e83194bd2d6961f7e599f7b1d94d1561604a0108e89f49ae89b4bba7794cf",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-8e984d3ec8c7b17b546b",
+      "heSHA256": "543d7c5bc239987c119ede1e5adf5836b12b22a6b027d632513f2237e8907095",
+      "englishSHA256": "1972c1a7ec96dd248e049b14d775526d065fc92c178c8e71c5e1bd6591ae1f31",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-5ce856dafdf074cba38b",
+      "heSHA256": "f3938425d6193a53b3f8a318dfa6f94b1fd30dd05b388fbe7e6ad6a4419517b9",
+      "englishSHA256": "9a65c20d9da85cfe51af81307d1a2097b1770eab644bca2b7cdcfb9a81d66414",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-3b082d0f3e8472d79866",
+      "heSHA256": "66303f9ec1f54c1a7e1a9e18149ee6c79983f3bedd49dafba7b93ce5f2481a4c",
+      "englishSHA256": "37d6561bb4a3b3a52449aca52f897bdc3d7b764f49e29446549b5a7c1492193a",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-dba80ba210b6ff00b034",
+      "heSHA256": "be20531f89e8f5a89b0109c1f1d1d735592160e08f43500f2cff2f0169b42aa9",
+      "englishSHA256": "0396b0ae9fc8c96c80039f984e8f1ed9114867c213d8cdfb05d68e28628a222c",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-c4ecc38934faad13358e",
+      "heSHA256": "320d59d8f5bfc2c6f6845b1eca335039805159a51d24739d0856208d7dd98c43",
+      "englishSHA256": "5f901be6bc82cdaed7d5efe07e3f9cc48c65403cb4f1a24a4f624335b1b69651",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-2c6dbd05620a0ff46d16",
+      "heSHA256": "09da4f229c73c0481e1dcfaf7451f8feeb599a170873553c38e85898e934577e",
+      "englishSHA256": "8c73036195cdf3386a9017e6b3ad40213bdd807f3d083ddbdfecca0d005bb122",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-83b9edcc66d5cda1ef1f",
+      "heSHA256": "20ce213bffa007c53339972c59d4875612c3f612fe0f1731f9302ccc415be068",
+      "englishSHA256": "3049920acf8b9269f9702ec8a3983f27564ca1c2ab84f92fb24fbcc820da52f9",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-6ecc309d657872b894d1",
+      "heSHA256": "6f50ee3010d392ca6100a3594ba47a76b2588e606ac5a608b5ba5d4860d9035c",
+      "englishSHA256": "1023ebd98d02ba49a775abf74963cde43142d0686ce170f10fb48f2da8e04090",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-f6a9fe2496d48457c4f4",
+      "heSHA256": "470893d668505d85a9f8372d56fceeb6a996faf7c3bfc477310a8848cb79a5d4",
+      "englishSHA256": "6012f5617be4ddbc673ed3ac642ff22bb140214d4be799cecfc35fc8c38a27e1",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified",
+      "acceptedPrecisionCorrection": "Bound him to the post accurately renders כפאתו and agrees with the saved Hebrew Rashi context."
+    },
+    {
+      "unitId": "unresolved-he-bf4d81a49dc6e98af51a",
+      "heSHA256": "4bad8401e6e20629186051843d9e7e740621402cc3ccf3d41726980623320535",
+      "englishSHA256": "06e0c50f29764c9edcc94fbedd75858b1b2a65f0cb8cac9e707eee642650925c",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-6a27fcb972a61d858461",
+      "heSHA256": "4817db642a7e502328e29b39cecf823b5eb25c920b4806fce93b1f51892ce88e",
+      "englishSHA256": "98dda9631aaa51389d3f4d98aff057de9316573ae221288018c67651fdbb8070",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-52f89fcabdb9955b64bf",
+      "heSHA256": "ed467ac129717d0f2d8362f0dae2dc07c56d4a4d157fca812d718fec85a12ea9",
+      "englishSHA256": "91c74d6285ca16f8a83746e00a0e654015383e622d35f7c515d2f4a39644aa40",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-5db7abd2d32b271065da",
+      "heSHA256": "4705ae968549e4d5a67950b4aeeeaa1e8751569e1ff6286091ccffab34cbf505",
+      "englishSHA256": "a0e15dcadf014c47c2b2d4a0ea23bf8e03885275d3f590c64e46626e72f3e84e",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-8908be232effef378e03",
+      "heSHA256": "0347ce94a54f971125acc76cdf53c4908f35117d3c696862a65ea649d3e2f26f",
+      "englishSHA256": "170390fe7e4705dfc29cc09837697daddc430bd3fef8fc574655c5ae25952ede",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-31d6e2544f4f3775269c",
+      "heSHA256": "aee41b0be512743dc2ecbf2d5962382e4245ea179d2af01ee03055b31ce59dc9",
+      "englishSHA256": "bcbfb6887c0b63ad17ea78d8973695c4ec44555d982e52f12ccfaf7820acd996",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-00492b0323daaf5ce83e",
+      "heSHA256": "f1c78c37231c5ee1b9eb12d35994f7838f5df0c4b458347c7d9f6ffc1aa77e50",
+      "englishSHA256": "6ef59b71fd8d52b197eec2c85d5a54b11d3438e44c856f8a6b46277b4be1169d",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-ae77d98f6a9653f1f0a6",
+      "heSHA256": "26366d775ee1228f0f5a97ee9d5d8b6c6577d10ee137d1702bb843550d8744a6",
+      "englishSHA256": "e4a889a1aa60a11ef81b394864d1e65e8e78fa7bba260f539c3d9fd8cf16276a",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-15f593b8f5536b5d5c8a",
+      "heSHA256": "182a816ca1087e0af867d2ce9570b4d3d748daac7fc7a6dead5f8dc03eaf2d29",
+      "englishSHA256": "a72c618e841ca5060fffbac915abd9e72ccc1f84ebd851b0f76fe6fe8149b1a5",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-c455406037f719faff94",
+      "heSHA256": "440a9cfea89d57a3ce9c6ce2dbca9c793b8c6bb4bfbeebb9ed4f49adacfd9c8c",
+      "englishSHA256": "24cb079c4f577a5985c667b59243da9275670b3ee53154711ff3e795735cee89",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified",
+      "acceptedPrecisionCorrection": "Clarified the immediate covering-moon subject after independently reading primary Hebrew Sulam92; all subsequent clauses and variant retained."
+    }
+  ],
+  "acyclicProof": "This report pins the final translation bytes. The translation artifact references the report path only, without a hash of this report."
+}

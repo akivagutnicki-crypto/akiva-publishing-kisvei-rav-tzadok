@@ -1,0 +1,789 @@
+{
+  "schemaVersion": 1,
+  "status": "accepted",
+  "reviewer": "/root/verify_release",
+  "translator": "/root",
+  "translationFile": "review-work/download-refresh/english-replacement/translations/root-unresolved-005.json",
+  "translationFileSHA256": "a5d43d69dfb2af18dc911c79e6dabd51b4acb1630f6463b1167e40c152deb934",
+  "packet": "review-work/download-refresh/english-replacement/translation-packets/root-unresolved-005-hebrew-only.json",
+  "packetSHA256": "208d82109db5378614c6ddb5b1add98c29929e8e6bcfede7f48198e2f0e91424",
+  "counts": {
+    "units": 54,
+    "notePlacements": 57,
+    "precisionEditsRequired": 0,
+    "precisionEditsApplied": 1
+  },
+  "method": "Independently read all54 primary Hebrew/Aramaic units against every English clause, checking questions, speakers, attributions, qualifications, proof verses and source boundaries. All Hebrew and raw primary-cache hashes verified. No third-party English used.",
+  "corrections": [
+    {
+      "unitId": "unresolved-he-a1f53c72c6581a197e22",
+      "sourceRef": "Berakhot 7b",
+      "beforeEnglishSHA256": "ea8646264df7ce12390870d961c9a8d06ed57d265a78bcb9b17973cca6446ba7",
+      "proposedEnglish": "Rabbi Yochanan said in the name of Rabbi Shimon ben Yochai: From the day the Holy One, blessed be He, created the world, no person called the Holy One, blessed be He, ‘Master’ until Abraham came and called Him Master, as it is said: ‘He said: My Lord God, how shall I know that I will inherit it?’",
+      "proposedEnglishSHA256": "681456f29dda632d66281a4aec938ebf2270da5eee87179e7584f45122f4ea61",
+      "reason": "The supplied Talmud quotation reads אֲדֹנָי אֱלֹהִים. Preserve Lord for Adonai and God for Elohim, consistent with the approved003 convention.",
+      "status": "accepted-and-verified-applied"
+    }
+  ],
+  "specialChecks": [
+    {
+      "sourceRef": "I Chronicles 4:10",
+      "result": "accepted",
+      "detail": "Retains the if-clause and does not invent the implicit vow’s unprinted promise; the ellipsis distinguishes the omitted apodosis before God’s granting of the request."
+    },
+    {
+      "sourceRef": "I Chronicles 17:5",
+      "result": "accepted",
+      "detail": "Supplies the ordinary repeated dwelling-place term from the source ellipsis, supported by recorded Hebrew Rashi; does not insert a new event."
+    },
+    {
+      "sourceRef": "Avodah Zarah 28b",
+      "result": "accepted",
+      "detail": "Retains maidservant, Shabbat, pain, lack of attention, bursting eye, subsequent ruling and source’s vessel/heart-membrane rationale without substituting modern medical claims."
+    },
+    {
+      "sourceRef": "Kiddushin 81a",
+      "result": "accepted",
+      "detail": "All narrative stages preserved: mockery, appearance across river, absent ferry, crossing with rope, temptation’s departure halfway, heavenly proclamation and two-maah valuation."
+    },
+    {
+      "sourceRef": "Yoma 18a",
+      "result": "accepted",
+      "detail": "All four qualities preserved; both meechav readings and the brothers’ financial provision retained."
+    },
+    {
+      "sourceRef": "Arakhin 15b",
+      "result": "accepted",
+      "detail": "Already-spoken statement distinguished from preventive remedy; both Torah-scholar and unlearned branches and both proof verses preserved."
+    },
+    {
+      "sourceRef": "I Kings 9:1",
+      "result": "accepted",
+      "detail": "Complete selected when-clause retains terminal ellipsis because verse2 supplies its result; no source expansion."
+    },
+    {
+      "sourceRef": "Yoma 74b / Berakhot 31a",
+      "result": "accepted",
+      "detail": "Eye/desire comparison is descriptive in translation, with no added moral permission; Reish Lakish’s laughter practice begins at the explicitly stated time he heard his teacher."
+    }
+  ],
+  "verification": {
+    "all54HebrewHashesMatch": true,
+    "all54PrimaryCacheHashesMatch": true,
+    "acyclicReviewPins": true,
+    "allUnchangedEnglishHashesMatchPriorRead": true,
+    "allExactApprovedEditsMatch": true
+  },
+  "units": [
+    {
+      "unitId": "unresolved-he-7224b99ca68fbaa5dacb",
+      "sourceRef": "Yoma 74b",
+      "heSHA256": "c444a2af28bc80bcde2eee1a89883c3e9df276353516f8c5e39a2ca355d94c8f",
+      "englishSHA256": "2987ba6bf61dc1c861888dbb16ac8d8a9120cb344343ef9d65a0f184f187571c",
+      "placements": [
+        1471
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-a70783bb2d3acd49059c",
+      "sourceRef": "Berakhot 6b",
+      "heSHA256": "e68c4f828ab35a1cef22feace4a3eb221488c73e42d285a0330ae3da97b6d785",
+      "englishSHA256": "be2d981d7df3a90dbc1768d6c7ff15db31c301a476e763991f37a9deff864567",
+      "placements": [
+        1486
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-7ed00b8f6718964b8b00",
+      "sourceRef": "Nedarim 41a",
+      "heSHA256": "e2fe535cf20802ae1a45cd52bae636e2ebe75db1b27f8eada85a6c9031ae2c0d",
+      "englishSHA256": "918fdc661cdc5b79ac11ec2deec896ede69d038e98b74acecfd4f8ed5fa08c2a",
+      "placements": [
+        1489
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-744a39f54b12fad34e90",
+      "sourceRef": "I Chronicles 4:10",
+      "heSHA256": "aa7b75c82951fc087250fd825cfd3ae038b5182f7a2e665a73c6d88d751611e2",
+      "englishSHA256": "6229ff4a2c46ebffa9c8884a014b6749ce89b7c342c57ece2acaedba31fd28a8",
+      "placements": [
+        1495,
+        1500
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-3d75f73e74c1ecae4bc6",
+      "sourceRef": "Menachot 99b",
+      "heSHA256": "92e82a4d8c98b536d472d3f4b2a8e5dcef5aab0b166f1ef06dc268e315ffb37d",
+      "englishSHA256": "245acb8bad16a19525fec748e06c8e092db2ddfbb47104d1fe6466c6be8e9dfd",
+      "placements": [
+        1532
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-f0382652e256884ced33",
+      "sourceRef": "Berakhot 6a",
+      "heSHA256": "f890c78f7244f880b85765f819baf3dc4bb8e72a17da497251a45098b976bc22",
+      "englishSHA256": "a2067b541207cb1d2d6af4497027a853d57b4c470fcb6f446e562e962407c2be",
+      "placements": [
+        1547
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-60087bbf59261f8ebc8e",
+      "sourceRef": "Isaiah 62:8",
+      "heSHA256": "416f1a1047f460f122aa48d3e5bd0c5348dc199b91095923a7c07547c5c0bb1b",
+      "englishSHA256": "57c29bf99da325a879367f27a54f8b349c6d1842c1842274c165122fe70f0cd1",
+      "placements": [
+        1561
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-cb82428356d11e84335c",
+      "sourceRef": "Proverbs 8:12",
+      "heSHA256": "c6cd847c073c7fb339dc668635058cdb46b0c70fa2feb149bc04b8a60e9bf737",
+      "englishSHA256": "884ab9ef47f37e55098a613cc5ba7b45ddf152fdf950e7fe98c5133c757acbc2",
+      "placements": [
+        1571
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-c7e91436c79750739da5",
+      "sourceRef": "Bava Kamma 17a",
+      "heSHA256": "de72d97dcfe6381d8f661abd990883e230da0715e8d979e3fb39cac22cb0f1ef",
+      "englishSHA256": "bfe948e212258dfb5df0b98b804228d94f6f8733cfdc0f0d1a4bbb0d9297af0e",
+      "placements": [
+        1582
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-bb9211b7e27d46560bed",
+      "sourceRef": "Genesis 14:23",
+      "heSHA256": "6b5aa221a07725c9a8c89c3d06c77a28d662227a3b069d5b87557d83af477f40",
+      "englishSHA256": "d42597057c7b81089870f78e55385cdfdedba6f7b246a40895aa5fb5d4e5fd17",
+      "placements": [
+        1585
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-d08c03bcce78ec993798",
+      "sourceRef": "Eruvin 13b",
+      "heSHA256": "a0b209114f90fe9d07183ab3ae16ae1096fbb599cbf476336052cac3c5b8a9cb",
+      "englishSHA256": "63c4d1ae5c1e33682869c92cff09f3f79a538c735f3d45a75a3119526cb72716",
+      "placements": [
+        1598
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-c7489f1563d3da44d433",
+      "sourceRef": "Proverbs 15:31",
+      "heSHA256": "4dfe1eaf84cd7ac746217c4c034fbb44e9f729f99e1445389cef1224e5c78dd4",
+      "englishSHA256": "084ed637e74a6a7ead1c83a5348e280329de94f1d30630b188d823371a035f17",
+      "placements": [
+        1600
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-accbb6b72b81278b6e08",
+      "sourceRef": "Exodus 13:19",
+      "heSHA256": "9dc2516b18e6651c17a88210f64b0cb0477ad98ddea745499a5e458f902929c6",
+      "englishSHA256": "745757abf22eb79d3ac01c1846fb3ba3162af398e14baf93dcce168a55a63374",
+      "placements": [
+        1655
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-484d5da5e97dbaa82bce",
+      "sourceRef": "I Chronicles 17:5",
+      "heSHA256": "210442057e6f19a65818235dfd449f3c662e9c330815a730f5448cd9ab91ca87",
+      "englishSHA256": "6fb9daa378419858c64e04db6db6ea19b77940ebb5c0d296a7a574bcfc46c3ed",
+      "placements": [
+        1661
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-dc354f5b421a2df64c20",
+      "sourceRef": "Isaiah 6:1",
+      "heSHA256": "d093718ff0312dbe01b2ecbed79a52cdf387ef79a7e32fb9358bc13cbeba4e3a",
+      "englishSHA256": "0708602c294661d3095a653bfd5f17dde9d716a31522fb78a633222244b60fac",
+      "placements": [
+        1668
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-3940b919a4f9f4bebe61",
+      "sourceRef": "II Samuel 23:2",
+      "heSHA256": "4cf6cc10dcdc5a162b7a8a5090d73f1e8707e68ace7f962a6fb68a7928fe6771",
+      "englishSHA256": "8734955e15b7bd50f235b1d46fc02e5b6bf7ce64ad8a916e2b626aa1ab1f2221",
+      "placements": [
+        1674
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-44fa5c8ab4b4e8cb761d",
+      "sourceRef": "Exodus 20:12",
+      "heSHA256": "4aab5bba2712c028c0dd097fa4862fb80a848bf9e5a605cfe1140e0b4967430b",
+      "englishSHA256": "83dbc46644b5ea8a3e4d2abc2be7d7fdb79f642febf8974b51853f1898c7ba21",
+      "placements": [
+        1713
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-36259f936f16090fda11",
+      "sourceRef": "Avodah Zarah 19a",
+      "heSHA256": "0968b23bfa834f466a90101d5b52f693a7d9664f059654b0807bc6315d3633df",
+      "englishSHA256": "2eafe9cfae1ac081b1e7123c362f57990e980b18523f3e5b3d6b09d396f2d51f",
+      "placements": [
+        1716,
+        1979
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-42ef54ea2808672d3b5a",
+      "sourceRef": "Exodus 18:21",
+      "heSHA256": "81989bd04a9ed9930d226b17f884d2d7fc3d42246eaf5b768d7462ce40e41c01",
+      "englishSHA256": "e9ebab1132630375f0d1782f690e71c8dd3acb461c2a02c5808a9c09ece257fb",
+      "placements": [
+        1723
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-3b4f03752d5edd914743",
+      "sourceRef": "Psalms 119:36",
+      "heSHA256": "3289b2a50f21fa15470de4f92d52b051b6c777ba05c79a8c93d3bf0b663435b6",
+      "englishSHA256": "bf11992ffe602f917025b97bcab8c76b4d969e3765f979cd73e00f8ac04bb725",
+      "placements": [
+        1725
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-a18cbf2368828db27ac6",
+      "sourceRef": "Deuteronomy 29:9",
+      "heSHA256": "1f62ed5819ac96c10b5b89d47c0347ac1d3acf626f4d7262119e87141c2d40a6",
+      "englishSHA256": "cd9af093c2bf861a01839622a5dc373c8b059a9c565b1cac27b5bd318b51bc2b",
+      "placements": [
+        1729
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-bfb1022e4ea0e5aadc34",
+      "sourceRef": "Ketubot 28a",
+      "heSHA256": "dc0875963df968a6e585c18f682f6c370f662b0390c69c0a58579ec76665cea7",
+      "englishSHA256": "3d161db5131937899f14b27b8ff5bc4a58075b9d6b7c82ff6f0f94b8d906cc83",
+      "placements": [
+        1740
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-860de9d3e3873c406ce0",
+      "sourceRef": "Proverbs 27:4",
+      "heSHA256": "1e43fe1181937b0b368a1cdef89be0414e632cca69a441fed9cd8a823f10e8ca",
+      "englishSHA256": "6e0ffa7beecee138b774520e89d0079f0734634ef6a4ad22b8849ddfd628e2b9",
+      "placements": [
+        1770
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-882e1fd14db671cdea6d",
+      "sourceRef": "Arakhin 16a",
+      "heSHA256": "eb4d3bd2564f1a49e3f688479086393f9e91d0d29f090e2a5029d65cdf9cd7a4",
+      "englishSHA256": "90d000a99d041c8d211a0e212400bea240dd107871d08274c15a58f9d9a70e5b",
+      "placements": [
+        1771
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-4dd4d39f3bea51a4c3b2",
+      "sourceRef": "Isaiah 28:6",
+      "heSHA256": "1cf79b91e9f826dd1233345f4e78641bb7b1407d0ee3a0d2c516c2ff0b6eaea4",
+      "englishSHA256": "cd02aa7c6c93d7879af02ee17af4934cb85b8600db664d61ceb53b8c09ffa987",
+      "placements": [
+        1814
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-9b6072152138129c190d",
+      "sourceRef": "Ketubot 62b",
+      "heSHA256": "9277b09a677d8bf09d7bd7bd2d44829028375f4a5f23f5321c766e476c110263",
+      "englishSHA256": "4e4801132307f9ab95566e5f193bd896575fa4360299df109f027ef6a06de8aa",
+      "placements": [
+        1852
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-a9382a94355fe53420fd",
+      "sourceRef": "Lamentations 3:27",
+      "heSHA256": "2f7f2cdc80a194269834e989ae8ef5271e8c854e12903b23460eaed5fb3e223a",
+      "englishSHA256": "db82b36780441af8c3dbb7bb80d8215dd5c0ef6217dd3c2aa24002d3e24407e3",
+      "placements": [
+        1855
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-3db7e80272d2ed3117e2",
+      "sourceRef": "Psalms 149:7",
+      "heSHA256": "0cdd57b4eb232e71054a15fd54cd29a3cd0cb90d9b12f945433949e583486a75",
+      "englishSHA256": "50dbb74798e8bb92c18d5c6bc4289788672e28f8f1e36f1aa42bc4c1625bdf8d",
+      "placements": [
+        1864
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-9a124a0f11ee04cf5a99",
+      "sourceRef": "Avodah Zarah 28b",
+      "heSHA256": "eba60174b71921c31ad72c1ce01c14b26d5d811bad3b2bc7dfffab06a9a87093",
+      "englishSHA256": "104f11a1dfb197be10ae2c6fbc6ab45308518dc1abd473fcede64ff4fe6a2c17",
+      "placements": [
+        1867
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-17616f43dd06944d807c",
+      "sourceRef": "II Chronicles 17:6",
+      "heSHA256": "50aa10874b57ac165f28d69a61029c2b6274e092c8e2e1c48a424860d29ae5bb",
+      "englishSHA256": "316798ff36b35cccfa390e76b99e582d662845a875911608ff84118395c807d2",
+      "placements": [
+        1903
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-1d93d3fbe4d1026f6953",
+      "sourceRef": "Psalms 93:1",
+      "heSHA256": "6ad3b96a7a5f813d480add2d8e95966816c7238ee92f080e8f18a13c37de3f4d",
+      "englishSHA256": "2d8db469e75e2ea22e2cb61d22cd48a1aac8b10a45b3a77d191509ee830ba00c",
+      "placements": [
+        1906
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-dee8cf8fd54a813cf78d",
+      "sourceRef": "Kiddushin 22b",
+      "heSHA256": "ee31afb87acf16ef6517df7b4e0f4c909ff145d9c4f9a28b92afc7176a4bb1f1",
+      "englishSHA256": "3ddcf158bab68b26a3422659653dfa1ddc9b3bd6ea2b9513b2b9a0a82954ab2a",
+      "placements": [
+        1909
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-a1f53c72c6581a197e22",
+      "sourceRef": "Berakhot 7b",
+      "heSHA256": "1c41072f3f6c41d46376963c7f507ec43692991c744a6d821c8cb2288942f715",
+      "englishSHA256": "681456f29dda632d66281a4aec938ebf2270da5eee87179e7584f45122f4ea61",
+      "placements": [
+        1924
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true,
+      "preEditEnglishSHA256": "ea8646264df7ce12390870d961c9a8d06ed57d265a78bcb9b17973cca6446ba7"
+    },
+    {
+      "unitId": "unresolved-he-0dcc18f09fd7350856f6",
+      "sourceRef": "I Kings 9:1",
+      "heSHA256": "cd6fbd65062c3f6ddd3bd56cce81c45c90ec569afc1e2b493ccba6dd048601b8",
+      "englishSHA256": "d3ff84f64e0b5b7050e9b5be85354656d3ab4e6cba0bd1bc199bfc0470e20694",
+      "placements": [
+        1937
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-52750c8ec9ee65a6d835",
+      "sourceRef": "Genesis 25:29",
+      "heSHA256": "88e13d3bc61e55af31dca82b521b1e8c7c156e4efc354a23f8eb15add683f415",
+      "englishSHA256": "d391836b26fd40c5068ae051ab9fd00731d8011290c5208fe710112c557c66c3",
+      "placements": [
+        1946
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-c25d8aa9e5715bfab244",
+      "sourceRef": "Moed Katan 16b",
+      "heSHA256": "aedf5e337d32bcb805b54a04d8a60ebb54b36063a57bfeeb311b042bc713b8ae",
+      "englishSHA256": "ababd674f2c210c00be8886b62c73eb8e16ead40a5ead20452b7de50a4f72056",
+      "placements": [
+        1977
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-2a9f9f5b311abe5ec698",
+      "sourceRef": "Yoma 18a",
+      "heSHA256": "aaaee967d2875c9be7ed2cd8d313f3aa15588af48b217dcddf25027baf0f4fef",
+      "englishSHA256": "ac9eeeb8a4b0237b2da00b6c3b6adf6840ec36876dfa4f1c65fa9240181d900d",
+      "placements": [
+        1997,
+        2167
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-f921ca6f123629922cf3",
+      "sourceRef": "Malachi 2:7",
+      "heSHA256": "8580a2b1e9bfbad9a9e222152113b04c2e50498d88fb8e2c4cae73398785e79b",
+      "englishSHA256": "30542a21caaebb1d081260762cc05d265822e2304f63130e485cc716b8551e37",
+      "placements": [
+        1998
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-a18e033400b25ce30487",
+      "sourceRef": "Deuteronomy 8:2",
+      "heSHA256": "fa41c2dc4d4f2b1f77163078ead62fce711ef2567cb8fe702f56069303d32276",
+      "englishSHA256": "4e58226a5cf8b00946070661811f91ac1852ea7815c04e03e299e691f2067da5",
+      "placements": [
+        2002
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-7626728129a59b2db223",
+      "sourceRef": "Genesis 26:3",
+      "heSHA256": "8f3f29713f42325cbd39ddbcea1173dcf5a7583d2afb4dae7d9caa05e0056ad5",
+      "englishSHA256": "ced93a2a455cd01ad8ab984fe27ed70f0304d760b725064439408940a362a253",
+      "placements": [
+        2003
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-e168fb5d10758c426066",
+      "sourceRef": "Chullin 4b",
+      "heSHA256": "45f99c1d2d529249bda76bd1ba63b3d0c9642c3ece2dfba7e4ac11c02c887f4b",
+      "englishSHA256": "413cc947b016155cae71394895fbbbdb57944dceaa92d9abf71163ceb0d8ecd0",
+      "placements": [
+        2021
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-9454650c706ef82a853a",
+      "sourceRef": "Megillah 14b",
+      "heSHA256": "708ddd8b764096cfcf7276a88903bf422f73b5978fcab7701ade646a783a4903",
+      "englishSHA256": "1db3e783a190e8b44231577239302848592ce0e450d82fe730a083721fea4dd4",
+      "placements": [
+        2026
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-071262523fea1453d7c5",
+      "sourceRef": "Proverbs 19:1",
+      "heSHA256": "fea36548654f15b8e4c7851fc85bc4dae434a9c28a1eeb42561d9a4de60889da",
+      "englishSHA256": "c14c6604cc8685589b67fd53e2ca0123e7039e96e952c854db3edc413ad8fa97",
+      "placements": [
+        2046
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-63ef9d6a347c9c2e357c",
+      "sourceRef": "Psalms 35:10",
+      "heSHA256": "24e32b97251ca0db46ed377492efe8748c40cc8d56ad73f6a6b0fe7d94c00960",
+      "englishSHA256": "234405cf5188a53f14b94f3c0c2da4b02f98cfc9ebd330197b123c58ac5b2dc8",
+      "placements": [
+        2068
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-033e6f49682d02db0ae6",
+      "sourceRef": "Megillah 18a",
+      "heSHA256": "7a60d17504b55ceb7b827897a72be91f5ea0a3f0706915bc50e0dacfa9d0b09e",
+      "englishSHA256": "22a561153574d99905ddf251db51e94436e573d4c2ee1e43eea8c03edb588f6d",
+      "placements": [
+        2092
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-eb304ed172cbb5950de1",
+      "sourceRef": "Sanhedrin 24b",
+      "heSHA256": "e55c1adec50befe1833b85ea965506742e96f5e4aedbb769f29f96f9133e6fba",
+      "englishSHA256": "954899e4b83e312a9540f1162b0f92c51e81cceae69ca6fbd61d567f2487bfec",
+      "placements": [
+        2098
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-ed2fb94f9c28a4a07dbb",
+      "sourceRef": "Ecclesiastes 2:3",
+      "heSHA256": "e057a2a499fe1a9235ec0252d31632a5aa672355f1137e9f12170f6754a5a7d6",
+      "englishSHA256": "1ea681961926d37b580a9759de5389360246301a3029af59f62535b75e2f457f",
+      "placements": [
+        2104
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-7a451757650a54893032",
+      "sourceRef": "Kiddushin 81a",
+      "heSHA256": "476a73270e348e3e1fdd4593b12fc7af60fb779fd2ac8fdea41701e9176705a5",
+      "englishSHA256": "2510f6a022377fb98baf31fd1150a8db872d705c325f2087349cc430f232f30a",
+      "placements": [
+        2109
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-03d4ee3c722caa46e5e8",
+      "sourceRef": "Berakhot 31a",
+      "heSHA256": "23d9763c5a2a2632d1e94adf36d0e001d7b76153d6126d8990057d273c71a782",
+      "englishSHA256": "6155ca9b13acbb938582d5f3baa54d47c3083eecb1c868d472caf763cb9ebeac",
+      "placements": [
+        2123
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-1d98d741526d4826d548",
+      "sourceRef": "Genesis 12:1",
+      "heSHA256": "85b70dcf1441b2b83c4da288e4060262103e2370b863357aacc6a0ace7733465",
+      "englishSHA256": "c9423abb08ba14c34ce0988cbc3a3f5ba4e25440b6bad74ad174e7f26c5105ec",
+      "placements": [
+        2131
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-4761d5e203fc3572481c",
+      "sourceRef": "Exodus 20:16",
+      "heSHA256": "e25271d8ea7ea82d3601eb12f6da34f375adc5876150d70a6eee483e1797c844",
+      "englishSHA256": "7ac714278e9228053cff8a88a652a205435ab56b5f9bc4586fef267f3507dd9d",
+      "placements": [
+        2135
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-949ed0257cb2402ac210",
+      "sourceRef": "Arakhin 15b",
+      "heSHA256": "7e2bd77872743af67dcefb153e13c23be975230550786abdd96714eba3ccb59d",
+      "englishSHA256": "c7253718cd01b04ae67014e77df87faae932ca5690a5225a265c190fbd24211c",
+      "placements": [
+        2175
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-dd0c25cae9cd0a0c5811",
+      "sourceRef": "Isaiah 25:8",
+      "heSHA256": "f7ea386d52ab795e8cb80447122af1ec2e478e557b40401f7f1b4cc8b03499dd",
+      "englishSHA256": "20be64b3d5604fcc09c24f13370662fa11ff4f7660bff9be66d5aa5e5593782f",
+      "placements": [
+        2186
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-e3480375fb9384445bff",
+      "sourceRef": "Isaiah 2:22",
+      "heSHA256": "c82cee7b707fab1cbdda197096eb6c9af7bcc80b6116848e626cb1e6cec013b7",
+      "englishSHA256": "8494db3d042a660ba981a54fe89520a246446b62b1f665329c27a5515a2d4b8e",
+      "placements": [
+        2191
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    }
+  ],
+  "reviewedPreEditArtifact": {
+    "path": "review-work/download-refresh/english-replacement/translations/root-unresolved-005.pre-peer.json",
+    "sha256": "7c45b9b5ba632ae16c3494e6c5810b98434845a886d474e464c5deb3ee16b88b"
+  }
+}

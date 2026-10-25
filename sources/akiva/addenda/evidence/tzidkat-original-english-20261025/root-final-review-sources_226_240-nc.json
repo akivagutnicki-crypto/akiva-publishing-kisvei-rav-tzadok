@@ -1,0 +1,384 @@
+{
+  "schemaVersion": 1,
+  "status": "verified",
+  "reviewer": "/root",
+  "artifact": {
+    "path": "review-work/download-refresh/english-replacement/translations/sources_226_240.json",
+    "sha256": "77c92c0db07321ae361f8419079ecaccc8c696a4e53477979d93721b1e89b68f",
+    "bytes": 37826
+  },
+  "packet": {
+    "path": "review-work/download-refresh/english-replacement/translation-packets/sources_226_240-hebrew-only.json",
+    "sha256": "eba8ed27860b7be21affde15d0ad5ca92dac70998db20f6e94b4cf66654f39c7"
+  },
+  "counts": {
+    "units": 32,
+    "placements": 42,
+    "precisionEdits": 6
+  },
+  "reviewMethod": "Independent full Hebrew/Aramaic versus new English reading of all32 units, with primary Hebrew Rashi for technical ambiguities. Six proposed clarifications accepted exactly by the translator. All final English, Hebrew and source identities rechecked; no legacy English used for translation review.",
+  "priorReviewEvidence": [
+    {
+      "path": "review-work/download-refresh/english-replacement/reviews/root-review-sources_226_240-first16.json",
+      "sha256": "a62e71fedf2fda457093015024790f8d74364039bd63e1220225c024bfd1094d"
+    },
+    {
+      "path": "review-work/download-refresh/english-replacement/reviews/root-review-sources_226_240-last16.json",
+      "sha256": "9e57b8283f09f20e7b05c38be1e99ce8025bff98f4fcdab3c9e81157f3402692"
+    }
+  ],
+  "records": [
+    {
+      "unitId": "nc-he-edb1d6d1d23055674059",
+      "sourceRef": "Chullin 60b:3",
+      "heSHA256": "5775a5df3f1658ac7a75387f835628929ffa8581e95da79f348e81fec9dc5fb6",
+      "englishSHA256": "692a70f1103b176c467c75967bd2782ca4bf67b65310634df438b748d04e95b9",
+      "translator": "/root/sources_226_240",
+      "independentReviewer": "/root",
+      "status": "verified",
+      "semanticReview": "The moon’s objection, day/night rule, lamp analogy, calendar/seasons objection and all three righteous names are preserved.",
+      "precisionEditAcceptedExactly": false
+    },
+    {
+      "unitId": "nc-he-7b47d368f42e7ea06e04",
+      "sourceRef": "Berakhot 2b:8",
+      "heSHA256": "943ab6399982630df64d3bc004532af56d2173e179a975c1c064b47d43b3b32c",
+      "englishSHA256": "a45ba3347b86efd75b93fffdb2aadb33a01c774134387e46190d44e7d6fe2dbd",
+      "translator": "/root/sources_226_240",
+      "independentReviewer": "/root",
+      "status": "verified",
+      "semanticReview": "Both starting-time opinions, the stars sign and both Nehemiah quotations are present; no view is conflated.",
+      "precisionEditAcceptedExactly": false
+    },
+    {
+      "unitId": "nc-he-6fcac1ae4bcfd959ddfe",
+      "sourceRef": "Chagigah 15b:11",
+      "heSHA256": "8cb46854ea348b592cba056393e08776f74f0a044696cefcccb34f5b86fb27bb",
+      "englishSHA256": "0d2a75046f4dccd9d588db4db3072d60277ee88f55a8ef821757b7f054e845b7",
+      "translator": "/root/sources_226_240",
+      "independentReviewer": "/root",
+      "status": "verified",
+      "semanticReview": "Checked the Elijah conversation, Meir/Aher distinction, pomegranate analogy and Shechinah’s suffering for wicked and righteous.",
+      "precisionEditAcceptedExactly": false
+    },
+    {
+      "unitId": "nc-he-a537c0416e6174e2ab66",
+      "sourceRef": "Yoma 28a:10",
+      "heSHA256": "d3a70e2ee737d69b64cfb4838fed17e61270041d429c2d1a76fc853572161a2c",
+      "englishSHA256": "7ee2195b675f01ec120747818b97885f2440fb43f003337272f1892ddf4ba7c2",
+      "translator": "/root/sources_226_240",
+      "independentReviewer": "/root",
+      "status": "verified",
+      "semanticReview": "Checked officer/observer roles, Matya’s formulation, Hebron limit and invalid-offering outcome after the moonlight error.",
+      "precisionEditAcceptedExactly": false
+    },
+    {
+      "unitId": "nc-he-3d6fd3cac56df855c378",
+      "sourceRef": "Berakhot 3a:12",
+      "heSHA256": "73d3b3714bd64d85f791b0b453835bfb327ad34bbc4ce344d616b9fdfdae7935",
+      "englishSHA256": "e158179141ca917f63dfaea05e1fdde7895108ba6a5d31a5ca4d3f5caa685269",
+      "translator": "/root/sources_226_240",
+      "independentReviewer": "/root",
+      "status": "verified",
+      "semanticReview": "All dialogue turns, the ruin/road distinction, travelers’ interruption and the short-prayer advice are preserved.",
+      "precisionEditAcceptedExactly": false
+    },
+    {
+      "unitId": "nc-he-11e02367b971bf87b79a",
+      "sourceRef": "Nedarim 8a:2-3",
+      "heSHA256": "9d74a519e295af7918e5f2b4e667b63f180182ca42330946efa818f721e09b3c",
+      "englishSHA256": "b8bf2d2c32994def217e9b03f636f9436056664b940d747edea8e13aeb56fae5",
+      "translator": "/root/sources_226_240",
+      "independentReviewer": "/root",
+      "status": "verified",
+      "semanticReview": "Both oath objections and the distinction between exhortation and the later vow remain intact; the selected unit ends with a complete question.",
+      "precisionEditAcceptedExactly": false
+    },
+    {
+      "unitId": "nc-he-e8be89a6197d39a4afb2",
+      "sourceRef": "Yoma 19b:9",
+      "heSHA256": "e0844b8aa03c8b7f2c4bd2b8d740fc4bf45df9719adac526e39cb04c8b4f3517",
+      "englishSHA256": "a0affb66ef69020c84f62fadfcc5c8882de2d9f5aa1598c1df27929c4b1229dc",
+      "translator": "/root/sources_226_240",
+      "independentReviewer": "/root",
+      "status": "verified",
+      "semanticReview": "Checked the aloud/silent-prayer distinction against Hebrew Rashi on Yoma19b; clarification recommended to prevent syntactic ambiguity.",
+      "precisionEditAcceptedExactly": true
+    },
+    {
+      "unitId": "nc-he-8d10190734844432dd61",
+      "sourceRef": "Makkot 10b:4",
+      "heSHA256": "e9bcc2dc7826d5da73ea1108e34cb775dd50247c20b358834c343f5c568d7341",
+      "englishSHA256": "714386f402c6a4b78e1a045e2f8facf7b7b105e759b98e57bab9489505f03323",
+      "translator": "/root/sources_226_240",
+      "independentReviewer": "/root",
+      "status": "verified",
+      "semanticReview": "Intentional and unintentional killers, missing witnesses, ladder event and distinct death/exile outcomes are accurately retained.",
+      "precisionEditAcceptedExactly": false
+    },
+    {
+      "unitId": "nc-he-ddc9b66c2ae5459f2300",
+      "sourceRef": "Shabbat 20a:5",
+      "heSHA256": "2ba59533e73d80d83b1612ed079515c068787a21e36e5ac51c88f649899321b0",
+      "englishSHA256": "51d337ef8480047cbe377e6d98829456c71e92d2f854da4319b540fc4668c486",
+      "translator": "/root/sources_226_240",
+      "independentReviewer": "/root",
+      "status": "verified",
+      "semanticReview": "The proposed verse derivation, Rav Chisda’s objection, limbs/fats alternative and diligent-priests rationale are all present.",
+      "precisionEditAcceptedExactly": false
+    },
+    {
+      "unitId": "nc-he-4704b56552b0e3fa3009",
+      "sourceRef": "Eruvin 13b:3",
+      "heSHA256": "2e9f35fbd84f05b3e05827d48d2077e871b87dcfb3e15856877a776f0cf31c07",
+      "englishSHA256": "f08bb2481114a0717b81134cb8d999e4f9d0bec48c13e2335c7d96f9055530a6",
+      "translator": "/root/sources_226_240",
+      "independentReviewer": "/root",
+      "status": "verified",
+      "semanticReview": "Meir’s unmatched reasoning, why his view was not fixed as law, and both impurity/purity examples are preserved.",
+      "precisionEditAcceptedExactly": false
+    },
+    {
+      "unitId": "nc-he-04140720d731f48860a7",
+      "sourceRef": "Shabbat 88a:5",
+      "heSHA256": "d5ab9b3d6cd528e3d8fbba214d8c70263861339136e1a385215ac6881fd88a48",
+      "englishSHA256": "71a432b01802dd79ebe7d65698bb42481dc7da96e8eee353f9830f550322d5ae",
+      "translator": "/root/sources_226_240",
+      "independentReviewer": "/root",
+      "status": "verified",
+      "semanticReview": "The overturned mountain, ultimatum, coercion plea and voluntary reaffirmation in Ahasuerus’s days are correctly distinguished.",
+      "precisionEditAcceptedExactly": false
+    },
+    {
+      "unitId": "nc-he-c45cc7c2766208d0a144",
+      "sourceRef": "Yoma 21b:7",
+      "heSHA256": "24294f8378710bf7ae115d96421a47e15d5470b485ad3d1cbf48aaf840f44da2",
+      "englishSHA256": "43a5ae982436f5fc83c38d64160b1cb559bcfe43112069b3ec9ea716f9b57fcf",
+      "translator": "/root/sources_226_240",
+      "independentReviewer": "/root",
+      "status": "verified",
+      "semanticReview": "The written/read spelling distinction, missing hei, five grouped items and diminished heavenly fire are all retained.",
+      "precisionEditAcceptedExactly": false
+    },
+    {
+      "unitId": "nc-he-f21650361e8c03d426a5",
+      "sourceRef": "Bava Batra 12a:14-12b:1",
+      "heSHA256": "72827a228db7b3a2f85cdc43b71dd121a0d8ba0ab187e823dbb45b97a1be2aca",
+      "englishSHA256": "fa65d5a4c3126911496e80f82009f33106a7a0952fda8e85f6f699a6a9c371e9",
+      "translator": "/root/sources_226_240",
+      "independentReviewer": "/root",
+      "status": "verified",
+      "semanticReview": "The navi/wise-heart proof needs an explicit wordplay cue; all independent-agreement examples, two mazal objections and named speakers are otherwise complete.",
+      "precisionEditAcceptedExactly": true
+    },
+    {
+      "unitId": "nc-he-5caa4c7a1fd3bca263e9",
+      "sourceRef": "Sanhedrin 103a:14-15",
+      "heSHA256": "e9f308d9dfcc301f4024a86135e88b620cfd65fc49ff0b9b237e55e11e42667e",
+      "englishSHA256": "e3868d9a0c01c4c301a2d0ef61ced19cc96a537e357356341927a45fc3ff1e8f",
+      "translator": "/root/sources_226_240",
+      "independentReviewer": "/root",
+      "status": "verified",
+      "semanticReview": "Both protective blessings, the uncensored name, father/mother transition and all verse fragments are present; clarify the spoiled-dish idiom for English readers.",
+      "precisionEditAcceptedExactly": true
+    },
+    {
+      "unitId": "nc-he-3008e0479bc8ef67e1f8",
+      "sourceRef": "Sanhedrin 107b:8-9",
+      "heSHA256": "14ed40d39bc47b47460206043edace2910e877e72216943a3c75cad806f44d89",
+      "englishSHA256": "cd4392014d38d170f59eab7f294a50ef08c44ababc35bd5a735b19a7b3a29ccd",
+      "translator": "/root/sources_226_240",
+      "independentReviewer": "/root",
+      "status": "verified",
+      "semanticReview": "Left/right balance, both named counterexamples, Naaman/Gehazi/Elisha dialogue, all eight possession categories and final objection are complete.",
+      "precisionEditAcceptedExactly": false
+    },
+    {
+      "unitId": "nc-he-7978d3eda20492c9fb64",
+      "sourceRef": "Shabbat 87a:4",
+      "heSHA256": "dec72006f129ca1a62d229673224bd716243f43168bea9ec5b9bd7696b627365",
+      "englishSHA256": "f7d360cefc23ac34df026f4d88d4dfca2f2a40107cadc6a864015d8d090858d3",
+      "translator": "/root/sources_226_240",
+      "independentReviewer": "/root",
+      "status": "verified",
+      "semanticReview": "Checked the one-time/fixed revelation versus continuous/unfixed revelation, a-fortiori argument and both proof alternatives.",
+      "precisionEditAcceptedExactly": false
+    },
+    {
+      "unitId": "nc-he-c04ac3ea870401063fe7",
+      "sourceRef": "Berakhot 22a:17",
+      "heSHA256": "82d28b872383ee0c4fadb675284586c7d8124414b9f450a4b4538984f69225d2",
+      "englishSHA256": "82c8c6b1055e5be181c34d259b97f65045470b34bd5eebe06d78897e28adf8c8",
+      "translator": "/root/sources_226_240",
+      "independentReviewer": "/root",
+      "status": "verified",
+      "semanticReview": "Both transmission versions and the competing Torah/procreation versus excessive intimacy concerns are preserved.",
+      "precisionEditAcceptedExactly": false
+    },
+    {
+      "unitId": "nc-he-5941850e06729ef94c6e",
+      "sourceRef": "Bava Batra 11a:2",
+      "heSHA256": "5ef4773d443519a3569faa5141f22e38166e7a9ca96f6d3cc1595d32c4bed494",
+      "englishSHA256": "993eb08a131752de671b91fe452d74b4330fb43257e4ca81cb90a976a71faff5",
+      "translator": "/root/sources_226_240",
+      "independentReviewer": "/root",
+      "status": "verified",
+      "semanticReview": "All charity narrative details, seven sons, own funds, angelic plea and twenty-two added years are present.",
+      "precisionEditAcceptedExactly": false
+    },
+    {
+      "unitId": "nc-he-4024ebca16b495be5e07",
+      "sourceRef": "Shabbat 31a:11",
+      "heSHA256": "4e24e96fc2d98f1bd4b4abcd02ebe4fb2f48c8259173ad5a2b3489727bfa5f88",
+      "englishSHA256": "e8422a329a39e2afd8ee75c58eb4ab247bc8496b77140cdcc669eed5c779ee6a",
+      "translator": "/root/sources_226_240",
+      "independentReviewer": "/root",
+      "status": "verified",
+      "semanticReview": "All six judgment questions, indispensable fear of Hashem, kor/kav amounts and the preservative analogy are retained.",
+      "precisionEditAcceptedExactly": false
+    },
+    {
+      "unitId": "nc-he-3d5f216d6c656af7e402",
+      "sourceRef": "Chagigah 12a:15",
+      "heSHA256": "7f182978c16e844460dbcb0f99d51fae88e4e208932e5949c9fed4ab38826ec4",
+      "englishSHA256": "3abbd7c5474eb96fdc5a48c088ea2738db26c7e27f42cab6e6143280bc743c6f",
+      "translator": "/root/sources_226_240",
+      "independentReviewer": "/root",
+      "status": "verified",
+      "semanticReview": "World and sea expansion remain distinct; both rebukes, scriptural proofs and Shaddai/dai wordplay are complete.",
+      "precisionEditAcceptedExactly": false
+    },
+    {
+      "unitId": "nc-he-781e1fea1f3674f2a1f7",
+      "sourceRef": "Yoma 26a:6",
+      "heSHA256": "af2d06445162898c47109208874da8bc3063f4baa594bb7462c6d0077be78ed7",
+      "englishSHA256": "7ee087fce016afa7631a7a72e23095c7e2a3837e03fe05b08d93c3cb16e84cd4",
+      "translator": "/root/sources_226_240",
+      "independentReviewer": "/root",
+      "status": "verified",
+      "semanticReview": "Levi/Issachar proofs, Judah objection and the final specific distinction concerning correct halakhic conclusions are complete.",
+      "precisionEditAcceptedExactly": false
+    },
+    {
+      "unitId": "nc-he-f0de1e3ef7cb2844be3b",
+      "sourceRef": "Shabbat 89b:4",
+      "heSHA256": "f42af653060319dc1890a9b388cfec1a573294e480f4ac935c1def8ad67f31c0",
+      "englishSHA256": "c46d93bae58bb68959989a8e6d54cdbfafaa04587e5b9d4bbc6bc9ccfa4c79f9",
+      "translator": "/root/sources_226_240",
+      "independentReviewer": "/root",
+      "status": "verified",
+      "semanticReview": "All three patriarch dialogues, elder/young rebuke, naaseh/nishma priority and firstborn-son argument are complete.",
+      "precisionEditAcceptedExactly": false
+    },
+    {
+      "unitId": "nc-he-807c0c71652af247f379",
+      "sourceRef": "Avodah Zarah 20b:1-2",
+      "heSHA256": "71b93806c4f0ef410c81fe8415d599b187a54d912b96fc721c8f189c2f0866ef",
+      "englishSHA256": "3fecbba2a6b75c488aea2ef7dd1d0dc83cb35418172ce6a24a6098baaa819c59",
+      "translator": "/root/sources_226_240",
+      "independentReviewer": "/root",
+      "status": "verified",
+      "semanticReview": "The forbidden-gaze list and angel-of-death narrative are complete; preserve the literal foul-odor consequence rather than replacing it by general decay.",
+      "precisionEditAcceptedExactly": true
+    },
+    {
+      "unitId": "nc-he-1c94aff8c332e9a7690a",
+      "sourceRef": "Sanhedrin 113a:16-113b:1",
+      "heSHA256": "bf9a39d4ad42213ffe2313bbaab2b732444b0d0e955e855411c9611b8d541964",
+      "englishSHA256": "751577af3f07b697fd1a04610df1d4881fc71cf7318b1b8fd62266833d90b45e",
+      "translator": "/root/sources_226_240",
+      "independentReviewer": "/root",
+      "status": "verified",
+      "semanticReview": "Both folios form one full anecdote; three days, missing visit, complaint and ironic reply are accurately preserved.",
+      "precisionEditAcceptedExactly": false
+    },
+    {
+      "unitId": "nc-he-6fbcc7dc3a3737966757",
+      "sourceRef": "Berakhot 31a:25",
+      "heSHA256": "10ba5581ee374a956811e5c3e9bbbda1ec095931fced6a14d147cddb05bdfb33",
+      "englishSHA256": "fca2ac1f700ffd08cea5525ba4c75445620a6bc1b0711ad1228be049bd48514c",
+      "translator": "/root/sources_226_240",
+      "independentReviewer": "/root",
+      "status": "verified",
+      "semanticReview": "Request/prayer order, rinnah/tefillah definitions, EmetVeyatziv boundary and extended post-prayer confession are all present.",
+      "precisionEditAcceptedExactly": false
+    },
+    {
+      "unitId": "nc-he-076e4fa2ebaafe0fafeb",
+      "sourceRef": "Sukkah 52a:10",
+      "heSHA256": "38ba477106a5c960a9e7fc0652f8c28ce8cdbe0eb71f146c9d54252626de1d7f",
+      "englishSHA256": "03dd521be0e5f8c49bf01b026f7d97d8ff1543add4fc9d788105c019bfe3cbb1",
+      "translator": "/root/sources_226_240",
+      "independentReviewer": "/root",
+      "status": "verified",
+      "semanticReview": "All five verse clauses, two Temples, Torah scholars and the enemies-of-Israel euphemism are preserved.",
+      "precisionEditAcceptedExactly": false
+    },
+    {
+      "unitId": "nc-he-d824504bbd55153c8220",
+      "sourceRef": "Shabbat 89b:2",
+      "heSHA256": "d3862f1bc06a7ea264c62004af428fc54874d1b8af787b95c6a8cf1e685eb2f2",
+      "englishSHA256": "cf6b5f27320e9180c188d9ed6320fada7772ba40d91fe2306ebb21befde2ceb0",
+      "translator": "/root/sources_226_240",
+      "independentReviewer": "/root",
+      "status": "verified",
+      "semanticReview": "The scarlet/years plural, creation-to-present range, go/come and future/past objections are all explicit.",
+      "precisionEditAcceptedExactly": false
+    },
+    {
+      "unitId": "nc-he-5d51e3dd90a75124023b",
+      "sourceRef": "Sanhedrin 94a:4",
+      "heSHA256": "55ff74ec4e5d0cb1545d496f4706caa07d5013c3437733d340df04c6ccf660b0",
+      "englishSHA256": "f5dac496ae6d632f110c780c6410b850db5353f404d8c70d00022ca546f04964",
+      "translator": "/root/sources_226_240",
+      "independentReviewer": "/root",
+      "status": "verified",
+      "semanticReview": "Closed medial mem, BarKappara/Tanchum chain, Hezekiah/Messiah and Sennacherib/GogMagog correspondences are preserved.",
+      "precisionEditAcceptedExactly": false
+    },
+    {
+      "unitId": "nc-he-6016fe5913efc790a9e6",
+      "sourceRef": "Shabbat 14a:8",
+      "heSHA256": "3d460507b41c649bd863c73a6512c38d70deaa1470b16afc09ad9f55dfd05e00",
+      "englishSHA256": "c78108f5ab4edef97a93ae2b72daca7da563684c11ca0c485151e9f1ddd55811",
+      "translator": "/root/sources_226_240",
+      "independentReviewer": "/root",
+      "status": "verified",
+      "semanticReview": "Impure hands and scroll rule, two literal objections and final single-mitzvah limit are complete; clarify that naked handling means direct parchment contact, not merely removing a scroll cover.",
+      "precisionEditAcceptedExactly": true
+    },
+    {
+      "unitId": "nc-he-7b4c689cfb6de8b6ace2",
+      "sourceRef": "Berakhot 5a:5",
+      "heSHA256": "1d8df91d058b9a51e9b5c142117f7ceed4bb25b4e2cd070a7c7665b4be829451",
+      "englishSHA256": "674b4fb109bfd286583627406789d4a070c5e7849b8da50e56ab43a31a8d201c",
+      "translator": "/root/sources_226_240",
+      "independentReviewer": "/root",
+      "status": "verified",
+      "semanticReview": "Protection and both uf/reshef proof chains are complete; Rashi explains hataif as closing ones eyes to Torah, so revise toward to reflect the intended exegetical sense.",
+      "precisionEditAcceptedExactly": true
+    },
+    {
+      "unitId": "nc-he-ede5e42cf564d2588f2c",
+      "sourceRef": "Yoma 69b:12",
+      "heSHA256": "52bc361f1648f83ac8fc94ead5499921a89fcb28e83b3e751618262bbef792c8",
+      "englishSHA256": "358b5c6c8fd12528cc138372ba8087226a1245b551cbca923f63a31ce100072a",
+      "translator": "/root/sources_226_240",
+      "independentReviewer": "/root",
+      "status": "verified",
+      "semanticReview": "Three-day captivity, missing fresh egg, two rejected alternatives, blinding/release and female-relative result are all complete.",
+      "precisionEditAcceptedExactly": false
+    },
+    {
+      "unitId": "nc-he-65ebeba6d32c563d3e9a",
+      "sourceRef": "Berakhot 30a:9",
+      "heSHA256": "da285661cb527af9074a87643dae36c1d50142ab4a635225892a66907b5fc57c",
+      "englishSHA256": "5a0fd27a126721854a57e757dfc1152a51eabf2e2001c2ad9ebd20f0f3c8f578",
+      "translator": "/root/sources_226_240",
+      "independentReviewer": "/root",
+      "status": "verified",
+      "semanticReview": "Every geographic/Temple stage, all proof fragments, the cover/front distinction, all four compass directions and final unity statement were checked separately.",
+      "precisionEditAcceptedExactly": false
+    }
+  ]
+}

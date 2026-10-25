@@ -1,0 +1,484 @@
+{
+  "schemaVersion": 1,
+  "status": "verified",
+  "reviewer": "/root/sources_211_225",
+  "translator": "/root/verify_release",
+  "reviewedAtUTC": "2026-10-25T05:35:09.478785+00:00",
+  "translationArtifact": "/workspace/scratch/d9a4c32fec33/review-work/download-refresh/english-replacement/translations/sources_211_225-unresolved-004.json",
+  "translationArtifactSHA256": "3f5dc55487a65982f744fe89633e275d979670a39e2d7827e18586ef5f17b679",
+  "primaryPacket": "/workspace/scratch/d9a4c32fec33/review-work/download-refresh/english-replacement/translation-packets/sources_211_225-unresolved-004-hebrew-only.json",
+  "primaryPacketSHA256": "e39ea449847399b2f72260d9d032b6f6c285a5ed510b287514319cdce0d710e9",
+  "method": "Complete independent reading of every supplied Hebrew/Aramaic unit against the fresh English. Checked every clause, speaker, question, repetition, qualification, wordplay and selected boundary. Primary Hebrew Rashi/Ibn Ezra/Sulam context was consulted for the recorded interpretive points. No legacy English was used. All proposed precision edits were reread in their complete final English context.",
+  "counts": {
+    "sourceUnits": 58,
+    "verified": 58,
+    "precisionEditsAccepted": 0
+  },
+  "records": [
+    {
+      "unitId": "unresolved-he-9e57b0e2be689bf96baf",
+      "heSHA256": "f85df461cd35652a655a1636965f57a6cc82a2aa04b5d73556f9ce884ff4317e",
+      "englishSHA256": "1e6bb1aa36419459f25e0edb72397a9c8afb3ec5d2d1231220a786dc9b3775ae",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-7b12de82f6977b516002",
+      "heSHA256": "e0d553221c074dc38c6c737c1cd0e988b5939f6138eb4ea303ceb2a3cd714a6f",
+      "englishSHA256": "ca288a4afa1cf47823242757218c70cfbef5cd8f38b9fd4358608e09af6faac9",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-c84ac43e23954ecfe2b7",
+      "heSHA256": "44e3eb4c599c7422e2b4e3caf4b904959142bc4d4296ee21ac5327fbab3ff7ad",
+      "englishSHA256": "2c8d6341ed213b2852c71e7b9408f6e29d8c7f14aed786d0bda7a6d2b9241e2e",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-c223967f9299376dda6e",
+      "heSHA256": "512b72d68da2ef21eadd3f80db41fc1c475a13ea04a0478689791209658c5279",
+      "englishSHA256": "236158faa7fd95b0db45df00bf68374f4543b6f1ab4f94c5fdc8202386b607e8",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-753be6337d97903e4cd4",
+      "heSHA256": "46a4314f2c181dc8a01be8d56a9d01bf0e13c5aab9d825a7c193685bc7be5aaf",
+      "englishSHA256": "3cb5e85146bb6831bfdddb571932db40e3d163eda10f067d98cd0e91c663f925",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-4333f58b41215e27e7ae",
+      "heSHA256": "c4b6e1abe103fa7b00acef9c1e668f98fec9a63ee1867d2f22a39774d40bda8e",
+      "englishSHA256": "daeb65358f71e85d504cf424c8c0aab7ece08123007e65082ede9aae252f5140",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-a990965da2d66f1024c5",
+      "heSHA256": "78fbc876529789ba54184c1b9753d4075fb7ec89acff336f2f969d310dcf1372",
+      "englishSHA256": "680d7bc201b977534878124f0d134d9548667f407393f53f4ad26b1443a0a108",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-3bd9f4e8c53ae0e49272",
+      "heSHA256": "084177992009a339933bdda159ea7f8b66d3c5397c9566e0755e290ccc157635",
+      "englishSHA256": "7cdfef1c2284011b566f234b62a1b2a4d2113b19cbf1a61b4780bbcfca9ca688",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-8104bf87a779b2a2c985",
+      "heSHA256": "c05f4bf42e85a930fd25a38f4c1acf13f61d1dc1f69544dd9e28808b4316d870",
+      "englishSHA256": "a2635957af634a5aae4503ba5caca5e2fcde209da35da0f20b8947232eca3b84",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-9c864fb90db5d947214d",
+      "heSHA256": "e2fbc8eec7b485e5fec51b2503e970081e88056f6f2ec8d707f152d9c39c37fe",
+      "englishSHA256": "232ad2548e73c6363889f3fc40e40e5bb958be1715721358a770889323012051",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-64336679a78f2e3e3f5f",
+      "heSHA256": "7ca9a8a6bf7c0c9099dc7aa74dba8ebafddd6e8e26a6315239053bf7ab154d41",
+      "englishSHA256": "6ae146f5dbdef2dc204d3622ae5e96841b80f44905345d381a86ee0c99267ebf",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-a3ad66a7365616dd6f63",
+      "heSHA256": "0536da4aeff17495dac638f4a79a571bc4446189aed63664456de6f69619ad25",
+      "englishSHA256": "1f5bb177084960a359a8e9ba87c8cbbff7877ece4731a9fb4f049861ea6fa855",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-ee36ebb5003e10a67a05",
+      "heSHA256": "9fb0ad8985552e109a5e3008a40ce2ff0392089aa6a6eddddf9fe436744f8eae",
+      "englishSHA256": "4b76207e3511c722b62e7e00e410a86aed4dfc5ace9645e80c877887ce4ddc33",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-c57177f13655b3082fa4",
+      "heSHA256": "8c0eb8a58a852baa3a63e37358e7cc616aaaf9c8fd7d29bf0ff79f8969f9669c",
+      "englishSHA256": "8c44ebca37c058fb99d2abc2765983ddcda422fbb9bcda7eedb8ee32be9e6415",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-f4adc2a031b4c61705c6",
+      "heSHA256": "d6dda506b689dbe6eaa1513ba56be2fd5891433512ca02afabb1769c9c909361",
+      "englishSHA256": "ef618fd2030e7b81232d4f6a3036b449e2d0141ef451e9dd37399a0246cf4315",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-0980d1e99b402a2db5e8",
+      "heSHA256": "62003c6a75204d61745ce5dee8d4e0862b0cda7deef21eec517b2015622da9ed",
+      "englishSHA256": "d5ccb9132b95775896b73cb3468746e0cf73a47e9445a849e3ed56b3b2bc6d43",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-3693c9b61f8ed470f46e",
+      "heSHA256": "b3dd26889899088cead119d333bda63f90a00ad6c67e7719e5545187ea6f7d74",
+      "englishSHA256": "0d6a94957089ae343b31d03c56c6a9267f5a55b7d894411b7bd3e454faa8b344",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-4cb5a6058d0aba157242",
+      "heSHA256": "f25aa93c5e555a114ec0278781f0080f41abbae7ad3d05db6d45ecb0ad2ac5ac",
+      "englishSHA256": "8a17ce906f809da6a0788d17ebe90264ac1387dd4cee9e7df9005d50c4995ed0",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-659294c9b4770148effe",
+      "heSHA256": "f16a86da864f0ff306b5354ada99d98b3e1c99b2e277bb8d1ccd43b11cc04ef6",
+      "englishSHA256": "dab7c80c88fbecbc527cbdbd08b5bf2732b6765c5a7c139343cddc2d31a61895",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-acabb55dfc32c94619bd",
+      "heSHA256": "bea96764f2e48f58ecbd4fe500511c787431589a998ec3499e8d58ad6df590b1",
+      "englishSHA256": "1e169e6b88889564fa56e0dbaf83cf536471aa0399bebfffce95dffbf0751fa9",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-9d4361c7dbec90274466",
+      "heSHA256": "2cb3b254df329acdbe217108443514bd68162b0654a92830f0f5ed3cb46e1a0e",
+      "englishSHA256": "35d4aa51376f5018dfbcd3f8ebe40cc61af2b6bbf42c9a9a80efdc682ebf481c",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-d3d7b15658f0872957db",
+      "heSHA256": "ddf7a8fda78f45ce041a0a6d5c67647315c81df64cdb5e88259d06d497e33aed",
+      "englishSHA256": "5777852c24c862cccf05ed789b9d2e4e216a14847e3801ab993be358f0b92aed",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-4c7d2275c1c73f42a8b6",
+      "heSHA256": "2ff62f8344613304c6dd2940175ebfee2e9a920df19238d769232a03dffcd765",
+      "englishSHA256": "0943a16ae6e01edbd72472c6db4b9eab0bd47a89c6aa94714a9fa526e22d42a7",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-228d9dc69cfbad36b8b0",
+      "heSHA256": "ae7a93c68c60969e13cc4cc398d86c57110dfe0f7058c202e0475fcc39e7357b",
+      "englishSHA256": "22fcf9287b650ea2e2943ee92c754cea04b4a4633fc0ee32734e91549b338ea6",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-71c2fafdd1a11e4d701a",
+      "heSHA256": "49b082e54797b1988ee3e22f5957ce30e4955359d6dd30839390ab1bf5879400",
+      "englishSHA256": "62ce491d6409d3631f43f792b4a8613e0efc3ad6aab6d48c45268fcf57a56a4a",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-b6589ae4cd44eb56f025",
+      "heSHA256": "9783b8b494e583b45174387d7c56ba3baddd4cef012e6df684d45c9dc0a51757",
+      "englishSHA256": "d9e7f9e80e3c8e69c3cc69e056d8a2ab3061e3d7763a4c0e0f14419ed27ab8ac",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-1f811c7aa2d0e9de6958",
+      "heSHA256": "2df4920657eb550e678d65ac6fc01622fa9b6c3e413562d3f2d1d622bdd2ff94",
+      "englishSHA256": "41d29560b09f19266dd1c3050239e69596bf352f55de4266bf58c675720d8b64",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-33ce4e9d926233cfbc93",
+      "heSHA256": "45b63011f96a3b8afbebe7b941d74872493418a217fccf2d9dff37ab5c7e49d5",
+      "englishSHA256": "f3a5218a30e8af46adeb6f4cb684272c19fd47e4d342c01300e5b1f5ba2537c5",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-79703ae6bfb1509351f7",
+      "heSHA256": "4cd3fd5526f6881212b60c6481942e67347feebedc0f68a6885a913d0a192d40",
+      "englishSHA256": "02badbc63c3f073177ab685405b6796535f1f037a1a4c1ae6cbd085f74b80922",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-13f259fea2828347fb8a",
+      "heSHA256": "ef5f394ab347ac8ce6def5d3ee40e87cb3c09b7635c3b5d78d0ee1da48e6c194",
+      "englishSHA256": "f35b68b51f80b4e4bfee3b46b9e2dcf03e92f474204253ed7d07840bf5f452a8",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-6b74567d7882c64e7499",
+      "heSHA256": "d117842e21c82b587665893ae746aabf234bb1078df5aee55d44dd5faa7d6276",
+      "englishSHA256": "c8a7d37caad00900b7a8a2c2c8724b6ee5735a44edf262fe5323d722cdd07f7d",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-558aa4772d6d576e0b4a",
+      "heSHA256": "410fe9cc39c55c56c525f36c7324c091247d48cc305c0d623bec8bd4f11a0225",
+      "englishSHA256": "a6918ce683ee8937ddec89bebe92af79ffa7af82c62269dbf129d2027794e221",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-6a1b958f9189e281ac4c",
+      "heSHA256": "67c502eb944fa969db5dd4dd8e4913f62c231442bd5b7b339ba1cac8e6c2ef7f",
+      "englishSHA256": "b308a1441587608dad323648ed59d90bf98718c5cd124cc3a4a209bf27cbc65e",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-a8f154155647a5dea7ed",
+      "heSHA256": "d01e696f35cc73fd1bd83dfa61e5932b516d7284b3cd1182d70918de9dbfc54e",
+      "englishSHA256": "5c858c621dc539d40bd1fc5e14e7034492f43b08bb1966ddcfa96e183aafc3fa",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-7ab3bb8443aadcee20e1",
+      "heSHA256": "b21d896e9abec411e7a3f1633beffab98ec9ccdc06d9c45e773eead4d692924d",
+      "englishSHA256": "2466df0120c250fe974ef6cdda119546ece57992ed9a3f8f760d0b4bea3da533",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-234798f7410d9031dabf",
+      "heSHA256": "2e6ab2d1a5924962e105fa9e5536e9b7898cf20495ba0b6e50b9b3940c186c29",
+      "englishSHA256": "50fc3765e97fe3fa8050d7ec6b3c7da8d19d376045c85a6ace6a0905697e7d44",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-b824bdb2608109ae4ad5",
+      "heSHA256": "11a03cc94c8f5be00b1c473b9d87d10302f53a5e6c96a9ec306e0949a6de8f26",
+      "englishSHA256": "11229e0b4918b34cc9cba706ab242c2108e231b6ae98eb11977837223f5e44f7",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-e9f918da72c34e24f69e",
+      "heSHA256": "b5160979b389d0de242fa379e87778091c9c207558eee9a673443eec43bace53",
+      "englishSHA256": "c34eb95d2c1620b307ec13457e388e0d368321ee044a202cb7462f176d4da712",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-ec1808845481092d0b04",
+      "heSHA256": "cdda8863d80b269e53936c62de0c44c4b5f0c76fe88ffb4981436cfb8b3506a1",
+      "englishSHA256": "2db4ceb945b3cc121fd637b270083021c1f08c43930176edc6367263fd304a23",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-9546c4726ded0a2541e4",
+      "heSHA256": "a6d59f8ac06c71bc6800f2fae79dca0016acbca016bee1c92ce9473d070a77af",
+      "englishSHA256": "ac7c1cbd4c9067f0dff77703eb8eaf1ddc8873826a3414f2397a4b8bc645ecae",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-9afbe42d08658c1b0491",
+      "heSHA256": "cde4177d9be2e0907cde768d3737494a0d8377b9fb275ee04de3e368f0fc629b",
+      "englishSHA256": "e82f0cc681458ed28166b4d74f6a14e4dfd2485e2f34e4951bf1a1b4e3818d51",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-9fdd078c0bf0b9702898",
+      "heSHA256": "e76cb3b06f66a531baaa617a87060e2cb05fab73e8a4caff26ea85a1e3664fda",
+      "englishSHA256": "e831c4661fe392e99376f8a31cebbc021019b0388d5473f21e7f0350bc722f3e",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-6cfca6420122ccdf9b04",
+      "heSHA256": "979052bf92ca40f0dad4ad7dc0b57915c5808024917b8e3c87f4279f2585e2fe",
+      "englishSHA256": "9d55f2ca0c877ff204f60dda75840b5fd6f922a65bda00f22f139892e294c69a",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-461fa436a86afb9f7d90",
+      "heSHA256": "2117f2fa799c512a1ee756fbc06dd31fb4e6212fc4d684685021d61c4612d9ce",
+      "englishSHA256": "cd4f1b6dcb1e104eaa65dc6d7765fe11e9c0aadad45d1cb8fe7cdc91e4235d16",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-b90a522136b026b02368",
+      "heSHA256": "a9deb6c31573688488e7ed8d295193a14a3d809a863fdff8951fa5409fd99185",
+      "englishSHA256": "3f334813dd9b92c90d7367a04b8c786a6d1f245ba00b18d3dabde546488ba9cb",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-f69041e2e97506522330",
+      "heSHA256": "7064da60a4b479f51e9c1296b02a9c7406c0c6a084e16b5b2421bd0289fd83ce",
+      "englishSHA256": "6235a4feb87b80df296d97b03e9843fcda7fcea833cfe83cd65c1d2c966ae3bd",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-b4851084d36808d4400e",
+      "heSHA256": "6c3ca17978c1fe0fff97304daf2bd087e59642426c2e548f8020cb55d93da4f5",
+      "englishSHA256": "d87eb516b973d2d7ba9f4e22b44a79b035a74f2f70160f3e66d8918c32baacea",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-2fdd0817c673f30d06ca",
+      "heSHA256": "fda5fca6f4c274a346224b0037d7ec3d2370d78e38f0d2f39c82df819e5c3c79",
+      "englishSHA256": "bcf8b5a2d66cc37af690c3442471c834fe6b0ccf5b3446cc251fd0786b1e98c5",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-03a6965751104c04abe9",
+      "heSHA256": "6aed7b61759eb727acd88dc37d79deb27ff41b17996bf891e8d68e9487621000",
+      "englishSHA256": "6abeb225cec93c8de12ff819ebc8769cdbcee89b3c7a9eb429fa0343cddf6fa2",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-e24b3b667994fc3d1e1b",
+      "heSHA256": "23c6d7bb91cc20a2c89c686b1fb471ae2fa13f4f80833085ca984ae4541176f8",
+      "englishSHA256": "9122292545cc9f0220bf9e7901a8d0cacd4a1a23af56f9d6be86881b4b1d0eb5",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-7ba6c5c289b8d04f0f13",
+      "heSHA256": "28523bc5418933ff5ed14f01633fb55ae664a619256bfa379ecf69f162e120a4",
+      "englishSHA256": "2a3cdfcd10dc2ed0e9b390d0f4759bfe2153ff9b4eff5360aa173d7d774c82eb",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-03887f5a3df0a997d245",
+      "heSHA256": "a67f79a426e33063f3eae2e20fd961d75d2e0a1e274faaddd56957b3bc3f653f",
+      "englishSHA256": "3c98603db6ca6c9088a825e52661c77aeb0bdc12b32573d84e88b25671a62d9b",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-8ee20a5742e903c951a5",
+      "heSHA256": "9017c3eadf0f05661a9159b6dd8662507accdcd81f8ac1854ee3ede589483a34",
+      "englishSHA256": "4d95535614e39a5b6cf26f5d8c1b7ece14faafb6b8df2d6c3b24d2205d1f18a5",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-7b8192f6ce633e52d5c3",
+      "heSHA256": "376080738ec874573f09251af957d3a014afc155a3580028bbb852a145fd5fd2",
+      "englishSHA256": "ecda704838fecd4e7ad9d22b52fab9fafc1d3ed9fefd9641493297fcb90a626f",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-c48b97e6d2990a7cd1a8",
+      "heSHA256": "fc1c7321a1e5c9da538fcdb57306c711df02cb921da801c47277b3bd9b055e55",
+      "englishSHA256": "a8046921d8f1aa7661ec7de13c32bc5c3fe36275421dd3067d064a44b39e087b",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-ffbbde2779dc9b9dfac6",
+      "heSHA256": "7fce676a0da7a09bde5a8adcd85c25fddf1ab6acdcbb583225e495dbb54014d7",
+      "englishSHA256": "7c540fa4fb7992c9c08297c66b34cdfc275b0f99044358fe2fb755d91a2569af",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-7769fdd2524712629efb",
+      "heSHA256": "82d01fd4edfa5dce1bd4125b56db004963beda44aaf78c250b4d7528351eea5f",
+      "englishSHA256": "7374d28efb8e8dcace033317760572d578dca5497ac8b5db7ba5074c10e03415",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-7d580d1f1e8162d1cc18",
+      "heSHA256": "dd960567973eb82a6de8d446bd190e37963e1c4384685c8119888c321885dbe8",
+      "englishSHA256": "bc30390cc9418a0f664cd0fc84ab35dda2e1c060033b1ff661a96fcb80344192",
+      "translator": "/root/verify_release",
+      "reviewer": "/root/sources_211_225",
+      "status": "verified"
+    }
+  ],
+  "acyclicProof": "This report pins the final translation bytes. The translation artifact references the report path only, without a hash of this report."
+}

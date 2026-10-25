@@ -1,0 +1,50 @@
+{
+  "schemaVersion": 1,
+  "reviewer": "/root/sources_226_240",
+  "status": "verified",
+  "sourceTranslationFile": "review-work/download-refresh/english-replacement/translations/root-mini-six-for-226.json",
+  "sourceTranslationSHA256": "f95c55da70c7e58d0b6600e04913a992251f50bae80f96d6808847b4136d543f",
+  "scope": "All six fresh translations read in full against their exact primary-language packet selections. Full verse/segment clauses, conditional wording, speaker identities and verse fragments are preserved. No correction needed. Hebrew Rashi Berakhot48a confirms tallela as roof/ceiling and the gourd-sap proverb.",
+  "contextEvidence": {
+    "path": "review-work/download-refresh/english-replacement/root-hebrew-context/berakhot48a-mini.json",
+    "SHA256": "3239204932e9abd1b059a5b7d5d0decad52fa311cd2c4c9fc67d8f9786cefbcf"
+  },
+  "records": [
+    {
+      "unitId": "unresolved-he-5569307ae83239f9297f",
+      "heSHA256": "238e68efc21de5e09803e097e15c59ddc98a080481ec90b7a4bf3a46cc513b50",
+      "enSHA256": "f99b0ba8728cbb84598d8295779fc30e8033103f532f0ca70649a5b6638ea313",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-726e9db34b93d53acf1a",
+      "heSHA256": "da1f733c94dc766a6630406f62227402a7d5fc21d303a3ade97fe2663df603ad",
+      "enSHA256": "e8fc62b862277f3377b2473adbc240903d4685b49a9c9e0bf9abed8e6dda3e3f",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-39733984a7e233f2743c",
+      "heSHA256": "575605d6338feb862940f8c3aea1c819aeab82a4cfe72f59f4d735349e018eae",
+      "enSHA256": "edfac9ecc65146926859f2c4010f9d666d3da0de2c93089fd3951625055df880",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-95d9177ea765f58152af",
+      "heSHA256": "7d10ae476c03990cfd2d786c0c9dec6c3f47bf19110da9dd561a6fe771b4412d",
+      "enSHA256": "c2d5905737d861e625f60308691d362e49155fec07de82976f9b29c494538165",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-236f2b007f92fb576d9b",
+      "heSHA256": "68e357307f9284cb0992217c41a92776300e2926771a44786ac93dc78f4c98aa",
+      "enSHA256": "3874ce16e6900b17681d36031a93ee3a9ff6f1429bda89f6d06be5c4a2ba42ce",
+      "status": "verified"
+    },
+    {
+      "unitId": "unresolved-he-f5149b599f91c1ce171d",
+      "heSHA256": "be1a2db15d3670f126dec859fda697aa3d4537565a3e06e904b5168d7c63ea4b",
+      "enSHA256": "3ab41b0cc75ac3f9ca49425b6df1263a5a251f65515417f0552bba3780d7cce0",
+      "status": "verified"
+    }
+  ]
+}

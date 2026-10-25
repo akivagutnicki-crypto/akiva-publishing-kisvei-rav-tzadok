@@ -1,0 +1,1178 @@
+{
+  "schemaVersion": 1,
+  "status": "verified",
+  "reviewer": "/root",
+  "translationPath": "/workspace/scratch/d9a4c32fec33/review-work/download-refresh/english-replacement/translations/verify_release-unresolved-001.json",
+  "translationSHA256": "a5c5cae865a4288618b1afc28b2e90d780626ac07d66fe2fae86c667689d1b8c",
+  "packetPath": "/workspace/scratch/d9a4c32fec33/review-work/download-refresh/english-replacement/translation-packets/verify_release-unresolved-001-hebrew-only.json",
+  "packetSHA256": "990fc1f091d6fef5c397d2ea1dc54c0434368e696e603300de4d27f9078231e0",
+  "reviewedUnits": 75,
+  "method": "Full independent reading of all Hebrew/Aramaic and English, not sampling. Every primary Hebrew hash and referenced raw-cache hash verified. No third-party English consulted.",
+  "primaryCacheFilesChecked": 75,
+  "contextChecks": [
+    {
+      "sourceRef": "Avot4:14",
+      "basis": "Bartenura primary Hebrew second explanation explicitly supports companions making Torah secure as the reason to go into exile to a place of Torah."
+    },
+    {
+      "sourceRef": "Isaiah53:10",
+      "basis": "Rashi primary Hebrew explicitly describes the soul giving itself as reparation, supporting the conditional translation."
+    },
+    {
+      "sourceRef": "VayikraRabbah1:15",
+      "basis": "EtzYosef primary Hebrew explains the difference in separation at the bush versus Tent of Meeting; neutral wording preserves source without inserting unprinted technical claims."
+    },
+    {
+      "sourceRef": "Genesis24:42",
+      "basis": "Conditional verse boundary correctly marked by terminal ellipsis; no invented completion."
+    }
+  ],
+  "records": [
+    {
+      "unitId": "unresolved-he-642fe22a49cb4350fbd6",
+      "sourceRef": "Psalms 91:10",
+      "heSHA256": "f7bad0bac18ccf21fd57573480b2ef0bf89b19070c344bfb1fca9a2d5a5cdf4f",
+      "enSHA256": "3fa2dfcae8bb014477742c837338e61a5c74c8eb9d8ea4acc25cb0cd630624a5",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        471
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-08d392c457cd8e7c398d",
+      "sourceRef": "Deuteronomy 23:10",
+      "heSHA256": "13a53c3b2ca2f074576f5fa7845999636cefd3aef8567234abf2cf15eb18d59d",
+      "enSHA256": "d1ad8b7de4804f156c7b57cc82ee437c576f130560bbbd0fe60285cef6621e0d",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        474
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-e5f3cd1ce4caa7de3ace",
+      "sourceRef": "Psalms 91:11",
+      "heSHA256": "6cbb0e7fc7db81eaff584541be28739707d9c82019572940c63ebf2b2fcdfc1e",
+      "enSHA256": "25061b709a9d28e6c247d185b052b34e76a891b4c8f9d456fa39af48138eca60",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        479
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-860db9a4be66b69ab7ac",
+      "sourceRef": "Deuteronomy 32:3",
+      "heSHA256": "3db215436af74685ebcabd7372a261c9d3794d43eb12d3afba04eb6dbf996c91",
+      "enSHA256": "434990d477a42e858ce33eb7f5dc935adc58c57b1f80ce214b8b3729203795e3",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        481,
+        1809
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-8383b750898e5af08482",
+      "sourceRef": "Pirkei Avot 4:14",
+      "heSHA256": "7135b8b6314734a52e8779141da221e687650c10737b2525b7e0601b7e86f5a1",
+      "enSHA256": "a3c1ae257a80bc777f5d9062a35a36849f0e82bf78182061f825757adf676d40",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        482,
+        1171
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-9f5fee75f15b31fe7479",
+      "sourceRef": "Isaiah 53:10",
+      "heSHA256": "7803793c2e30ac82bd640640f16a5e2927d5ae6e798563bd76f69e5f73eeb201",
+      "enSHA256": "5266628cab8ce892a9d75e255b31202097c585019ca4b973be8a24b5b3b69f17",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        486,
+        493,
+        499
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-4514c0fa06eb234fc525",
+      "sourceRef": "Proverbs 19:2",
+      "heSHA256": "8badb12058452eb9ba855c1ce5a3599529f798bc983f654271a00282185cfbc5",
+      "enSHA256": "150ef0424e5a97769584f35b80cfeea68310ab278134c78eb1424bdd25c4c9c6",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        507
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-5a3288b045a4c458fbbc",
+      "sourceRef": "Isaiah 6:10",
+      "heSHA256": "5a4b95351e70cbd15d99f773f025560d4885a6c8e40e4f71fd53fbf65eb6ac21",
+      "enSHA256": "6e6e89603a3cc10715b8cda680c42e5b17b774feb61e449581dceb6edea519fd",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        519
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-278e016e9e363ef61d62",
+      "sourceRef": "Psalms 51:18",
+      "heSHA256": "4ad293eed8b707c746092956168dbd52f3f8892c58e02c69473fabd1b7ffa73f",
+      "enSHA256": "9b6ff0eebbe1ffcb3659541309b19897e8e3e769295ef92815a26237da38d14d",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        525
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-f3d7b97e057e3a93868c",
+      "sourceRef": "Psalms 51:19",
+      "heSHA256": "a3705b9ff4b3b053a8e60cb1630a09b7d57c4935345a4ad99a3952f75b23cbdf",
+      "enSHA256": "000615f77c6a11faf29419b2149e7d436f58971e7d040e688f9ecf227170e405",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        527
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-b7d2235883c752f1ad4e",
+      "sourceRef": "Hosea 14:9",
+      "heSHA256": "b9a085289ed3d3c7cd90f957d1d353d0bbcb9aa40e574a75a485a575919500d5",
+      "enSHA256": "8ecc5c2a809314bc5740878fe5a88fc9fa9ffd52827c1e18cb0268d0aa4a07a9",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        534
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-dee6d07943feb7d4f2c9",
+      "sourceRef": "II Samuel 7:14",
+      "heSHA256": "cdb43f29121c1cb7b96354409cd3fab611ed7e7d34037e0bb0e9bfc2a303bbc8",
+      "enSHA256": "c7fa00b69158e57b0fdcd72c7aff985fbd7d45a5757f29197ea949c5f5357d47",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        537
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-2acc28a10e09ea34ad3f",
+      "sourceRef": "Psalms 5:5",
+      "heSHA256": "99f99aec9db1f9fb6f7a5ccc6d16fd4ea9f8ff5929e8445feb38f53225589755",
+      "enSHA256": "b765c9b967ea7158635e48301d5146471dfd20f991d066d50aafef0c2a7325c4",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        539
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-1d0327e08c79460bd5a1",
+      "sourceRef": "Deuteronomy 8:18",
+      "heSHA256": "580be2018abde98f72bead6cb357adb0da37700e31d668cc28affaf75c0acbec",
+      "enSHA256": "0db784dc7ca479f1f17377cbc687275a89032cb4c50696fccc7d9081fb135009",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        545
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-3ffb8d3143df3406203f",
+      "sourceRef": "Proverbs 3:7",
+      "heSHA256": "e560a933f480f369d17659343f5a17ea4fcae3ef93d12723c6f2c927ce382ffa",
+      "enSHA256": "a5dd4c558ce9e0e3ba80df145d3bd3a5cd63835640d0e64074ca15ca77d4e265",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        551
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-4dfbef7983f2e4f22adb",
+      "sourceRef": "Exodus 20:17",
+      "heSHA256": "375793f4619085cb63c8404e765c64826a084a03fa340ae78158da708e42a513",
+      "enSHA256": "685db5f94ed8b39766ec193a2be0926a94c953e5077043f800ec492d4f13f323",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        553
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-90acb92d70cf14e12ecf",
+      "sourceRef": "Jeremiah 15:19",
+      "heSHA256": "f416834b3b04ed037caeba2262cce6421949228be0430e64bbfa65aead42c2d9",
+      "enSHA256": "b98a31ac791aa07a326373172cf4121a69d107fd531225eeeaffbb79540dcb4f",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        554
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-5abee7834f2ef4d0ec1f",
+      "sourceRef": "Proverbs 5:5",
+      "heSHA256": "78e329700fd0f9315ccf42205203435531a6a8359e109b5176cbfd0940276781",
+      "enSHA256": "c183b0e6c600b41e90d6bbf760f04d87d5ba479578795387baeff1fcc2b2353c",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        557,
+        2101
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-39470e014c940aae7159",
+      "sourceRef": "Psalms 51:7",
+      "heSHA256": "6247882381c152f9d1dbc1c40050018c52eed15f9d77feae4ef7e914007cfd26",
+      "enSHA256": "b413dcdfb83008848e466cb5a3ac469ffa1ce2e78300f56b4c0a8582ead83da3",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        562,
+        847,
+        1870
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-713563df40a9ce72d918",
+      "sourceRef": "Leviticus 21:9",
+      "heSHA256": "ee4979fb0ce2ab5dbdda0058087d28a1dcd379c8e2674fe22dc2747a8ec5a40a",
+      "enSHA256": "6ed19e811f1042e4de1ba71c8a681c1634e1d69c4cd7f3aa494ee6c837afd825",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        564
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-3b0d75cfc0df90bd98ed",
+      "sourceRef": "Proverbs 23:25",
+      "heSHA256": "e5c4916f8ed885c405c7d45fbca5c9281ef7374475449bbeb11ec1e2b9e9fe5e",
+      "enSHA256": "ea35a8dd73b59746ed304c4849793c9230ce8131f96de99f7aad98f977d0528c",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        566
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-47cc5d833a3609dc084d",
+      "sourceRef": "Proverbs 11:30",
+      "heSHA256": "465c803c0b2a9463e417612a8a562baca3474c62a2b799f689749b334bfb5971",
+      "enSHA256": "527d88d4ea7416f7862ad056daf3c271916ef7460e734ac39408d88969251e78",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        569,
+        571,
+        572,
+        669
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-48c026a028d7b5972322",
+      "sourceRef": "Hosea 14:10",
+      "heSHA256": "1bed2f0f9ff9880034c6fc7724b8d55dcfd912198ece5eb28e99be72a44286e6",
+      "enSHA256": "73f70a112c3a1c818486fab7b0a10b7067322551c41100f0a9048fc61520556d",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        576
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-2dc2da22da893918abd8",
+      "sourceRef": "Proverbs 23:27",
+      "heSHA256": "03dd64a88d871970ed937185fa563fa4d94d35c70e4c262de70a1b63e438cbfd",
+      "enSHA256": "a24c68f01872883e7ae79d1c71d97a9db177fd48d694b3e808f62f7ddef5d3e7",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        577
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-61f5788517e1efcc9abc",
+      "sourceRef": "I Kings 12:33",
+      "heSHA256": "4d287232423206be760337416fe5e89b38e0b2d9d34a29d0bc589b8cbb841576",
+      "enSHA256": "642ff68df99cbae75221fb88c0711ebbd4645f4b16aec2561aa91a908e0e96ac",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        580
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-99b8b7f43bac9dae2968",
+      "sourceRef": "Vayikra Rabbah 1:15",
+      "heSHA256": "d42cd0db2410f240e7e2634a8ced77e027f308a6c61a6e48c55f65d99eaf8e4d",
+      "enSHA256": "db59997a2ee92b9002275af21887a71b3390a216ef084b57c35b572ff9c2e5ad",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        584
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-525ca2150620e9154755",
+      "sourceRef": "Isaiah 3:6",
+      "heSHA256": "7ee604f26a0a8677d9907807f884816a1a4291907201676c6ca8f55e2a742adb",
+      "enSHA256": "9d69d874ddb9d3f33643c6100481668a6b96693e241f9f62b374cc39764cb671",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        585,
+        967
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-c1d7eec3988725560620",
+      "sourceRef": "Isaiah 57:14",
+      "heSHA256": "7cdcc1b582a327cb22691faaa7cc9342e50b9210468bde9f1fb1f662bc441d6f",
+      "enSHA256": "9ae936c140259089a5db60ee7fb6880af66c064c57f9da85348d226d07713b1f",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        587
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-64e48857c669cd65d7a8",
+      "sourceRef": "Proverbs 30:19",
+      "heSHA256": "efe122cd8a17b4b50ab3d2089121f465fecad0ce546a062f7bd4df79e47ec5d0",
+      "enSHA256": "347346b86ffa1ab2152ef0da8cdb4438f24ba8e8d3b6fe2b9c3e2d3fb8fe73dd",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        589
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-89a65d201dd1e0c3395d",
+      "sourceRef": "Proverbs 16:1",
+      "heSHA256": "04ff2ae8372dfb7d59ca39e78d88939606aa5f8b3c00bff3e6dca30b52339e07",
+      "enSHA256": "b5794b8412c80b321fbe84acee4ae539b812f4054f55dce3f7dfd77e18f31235",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        595
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-cd4f7400b3966de172b6",
+      "sourceRef": "Isaiah 6:5",
+      "heSHA256": "866f7efec356cad9eb03164bbb52d6df4fd7398abbd328d2ec5b6fa52790b8c8",
+      "enSHA256": "788d41c687e31e448e93923ceca357237c3f8fcc008b6d223da88855c6502f8d",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        596
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-8e13bb7f62d6f2b5159b",
+      "sourceRef": "Proverbs 15:4",
+      "heSHA256": "73a0fcbdc76765227d0a954be8db1e50bff449f3226d4de2bb04336387f2668a",
+      "enSHA256": "74e48fc074974b3015c68e51d0a567d913541459b5a1e5622af8a5b8d41cf524",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        615
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-84e08f56d0fc09949bc6",
+      "sourceRef": "Exodus 32:16",
+      "heSHA256": "3cff0843e479244b96a01b7d489b4f608410df6e0a56238a3d80455a6c7de530",
+      "enSHA256": "6a114379e2a025282ad3bfb9a684b3f669d9e775ad9db494e454d5bcf05460f4",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        618
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-b2db022040617e1bb8b0",
+      "sourceRef": "Isaiah 50:4",
+      "heSHA256": "9e1b255bca6fd8dd1ddb1d944feed3300bf115cfa5bfc593e890a93ec9cbed52",
+      "enSHA256": "c69507e3c778cd565891da6d4e4801c46a25d28dbe7dcc2681c04a92633f20a2",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        619
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-787d1019ddc261be0baa",
+      "sourceRef": "Genesis 24:42",
+      "heSHA256": "565c3b56ca3f1f26fd224863ca2b16a55f4d6004f33dd0e443f8e4a8300d3446",
+      "enSHA256": "df3cdc977cdb633dd5ac11d45e9a6571c21fd5865d4aa9578e6edf41a7ccd26b",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        620
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-3fe5b4bef6a673fbb232",
+      "sourceRef": "Genesis 19:11",
+      "heSHA256": "8ed54cab44b8c0ee480b5884b00765950c8837df6cbcf25eadc9238ae1cced07",
+      "enSHA256": "62e504420c55a62c3a07bf26197fcef2a180bf831542a6f2100f8c0de8c9dbf7",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        621
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-e0a6540c78f8a279c21a",
+      "sourceRef": "Numbers 19:14",
+      "heSHA256": "03c6b4e1f4570c9af793525fb607cd5a1ecf65816f2e5d6c4e6936d4040110e8",
+      "enSHA256": "7050e93103d331998120e138bd6d27618122ba283e776283615f31b7126ba7dc",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        642,
+        1341
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-913677b4930e74f9ed0d",
+      "sourceRef": "I Kings 2:2",
+      "heSHA256": "46ace672d11967482413c65e3b3c4c6aabc64ec6b497fd124ca74c7c2a498957",
+      "enSHA256": "4dc07a4fa1ccf44f9673a641c6f234b703cdfe3f38e36f7418faa2d6453329eb",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        644
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-d509ed5a50f6c9824bfb",
+      "sourceRef": "Pirkei Avot 2:2",
+      "heSHA256": "8581ec126d81ad9a5dbf3b77bbcc01ef508b04e6bd4826bdd9c4bd7ba1d9384d",
+      "enSHA256": "481743ba80fec8f418c1cd24df87d0f016f2084a29ac8a139d0d4272e02e4f74",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        645
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-42292fa25fba713a6bfa",
+      "sourceRef": "Numbers 12:11",
+      "heSHA256": "78bbababdc1bdcc8cba992b79d1c3ab16ee212c86e3ee3a031c5cca91b572b5c",
+      "enSHA256": "424773d4a59a15dba9329e4c9e50779cfef43ae00c9987b6db2705703249d988",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        647
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-51fbcf40eaffcf8aecec",
+      "sourceRef": "Ecclesiastes 9:9",
+      "heSHA256": "9c820c610d04d922efdb22638216c348d8717329fc799b0ccff6c49ac5965da8",
+      "enSHA256": "d243aab184ce6c3c4c7d2a6d23c4c517767e213327fea7b971a4cb0019148447",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        649
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-2dfe994ab1027eb059a2",
+      "sourceRef": "Proverbs 10:2",
+      "heSHA256": "4012582ba22105f07753a9c7a4cd5626699f3b95e9fbbe117e114b581a527a07",
+      "enSHA256": "cb89ca289ce3a594a7d54763ed3b0914294b6ba52809421b10b960fcbfdc434f",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        657
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-3dce9aba2c40dc6de7d9",
+      "sourceRef": "Jeremiah 18:23",
+      "heSHA256": "5dfe350f6dafe2bb6c27701bc0a2a60b59386e30539386838409e49c86907f79",
+      "enSHA256": "f5f083e144dba3ca8dfa1b41c0add6ef72e1f4dd6281cf73284b22d4fad1419a",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        659
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-2d821e89a2f9286325a0",
+      "sourceRef": "Psalms 36:8",
+      "heSHA256": "dc7b02efe284000bf78d262d0b6bb7e34c4f085ada0e84f459f875a01aadb62a",
+      "enSHA256": "a72d68a1ccdae329230d530cb22d9da22aac751c49313c0872626e9059c1b422",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        666
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-be6db349f1fbb32ff89d",
+      "sourceRef": "Ecclesiastes 11:6",
+      "heSHA256": "966979bf441f40ed0f3204c976fb38505d2601173ec1370647a7ebe859b0f99e",
+      "enSHA256": "7a81800b443e8248e4595fa6fb46811e7939601d6b63bf6944c508c23a761b56",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        668
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-2c2e30b3967307daff90",
+      "sourceRef": "Psalms 51:15",
+      "heSHA256": "0962e7cf031ee56e8a16ece9c0f5f78b368b4117b5fbdb13cd03957a513e2455",
+      "enSHA256": "281b3991bc6664e81e55c42840024b5e1dd32d2abd48fefd08fded70a873e71e",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        672
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-fcc9a6ce6c35c9e47ee0",
+      "sourceRef": "Job 19:26",
+      "heSHA256": "12851b01ba96f7f71f1c1050f0f654e48557e145c4dfbfd700f0753eb7e1e17d",
+      "enSHA256": "9ea14d0c96f7f4399104f1dd8f108a2de6a24a160d6b6e3b29c5fe80d82ec62d",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        676
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-2f638b86e40d4aa40d53",
+      "sourceRef": "Exodus 33:20",
+      "heSHA256": "7aef1ed59fb9bcfa22871c886626cd9ac56d52206e2def399bd581a2d5c1a8a5",
+      "enSHA256": "08a1ae38bb50257e8d205b17346a90a4074bd577afe7d475c4297061712227b7",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        681,
+        863
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-b6396575bcb9b236a5d8",
+      "sourceRef": "Ezekiel 18:25",
+      "heSHA256": "d2a135d3f80b134129cd03c21aedf9e24cdfc1557c3e476dd60391d5db669f1c",
+      "enSHA256": "6c1c2724c4fd1d5258382e8c32a8664858e0d1e5b06729b99b5544ddb4bbc2d1",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        705
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-0453ae9324383095943d",
+      "sourceRef": "Deuteronomy 23:6",
+      "heSHA256": "9dfe3dd06d71e4c6efabab65e13b3a6b36b73c1b26a08fb1b7df01e0847e724a",
+      "enSHA256": "23bd2c60b12404873f048e6ded26608ac82d5b8ac0e2f821911bee140320d32b",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        710
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-17f99a171cefbd17f5e8",
+      "sourceRef": "Isaiah 26:4",
+      "heSHA256": "b11cb0b8e62c358fe99eec686300d921c9035f3b63bfa52527104ced7c3a4287",
+      "enSHA256": "85aaff7d87bb0f42e78b7bc20072ce8dd8f0ea52fa0ca83659be8ee0e845080f",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        714
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-4e23b706f01fbf26814e",
+      "sourceRef": "Proverbs 17:16",
+      "heSHA256": "57211733ebfbc3b842441a84ffb97adc3140d8712ac2755671adcaacf0bccf0f",
+      "enSHA256": "be1d6fd0e090ac2c8b83fd84fb119cadfea5a80d7901ec25a7702f44cd8f8e22",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        724
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-237785ffac438a918a7e",
+      "sourceRef": "Ezekiel 3:3",
+      "heSHA256": "8664d0a650306507d675b24591ad452d995a30b6c4113e713da6b40dacdcdb5f",
+      "enSHA256": "95ec5fba607c343ed30ec546d33e8b3d80bad034658559ed490c3bd76acc6982",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        725
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-5198d07d259c21db8de1",
+      "sourceRef": "Psalms 40:9",
+      "heSHA256": "aa6af3abf77eb30c798c82657856f93454754c247984326f5fb381a681c4741d",
+      "enSHA256": "43da5d7f3b1b6f964cff9fdec9e477022b2f3d065f1981a6fef90ff5f5120e5c",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        726
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-2ab6d7bbdac7af16808b",
+      "sourceRef": "Proverbs 22:4",
+      "heSHA256": "bcdb4d1d5ea51f4e19c812e1d89cd736e95e6ffa0d22a9edc490fd9adf7c6486",
+      "enSHA256": "31e62109030ae46e39d329e1b619a5220b7306460b3c7eab1a8e5bcb1f02549a",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        728
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-ed4e040b8c34d18c8e62",
+      "sourceRef": "Deuteronomy 31:2",
+      "heSHA256": "3404f8de2a99dd1c840ed49ec8a28e131529e6eb3d53aec858dd3ec176cd654d",
+      "enSHA256": "250e82d87a84c97353a6b8b173d7ba80cdd3d0f0ae479d2b92f2e7255bd013f0",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        731
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-27ec0bd5345c1ff4380d",
+      "sourceRef": "Psalms 55:23",
+      "heSHA256": "882c9d23355ce6ae14ba90f7c47639549f62be3fec2a5dfc7f8a11a096534ff8",
+      "enSHA256": "d3d4ba098222b4b504567c47faafad2d2cffc4c0b62c12a11f69770d858bea83",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        735,
+        748
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-a02e0d0a24c5d81277d1",
+      "sourceRef": "Psalms 10:17",
+      "heSHA256": "2bcc0626ca8ac8bd92b74f0b2b66449d65d3cd0be9dd67b2a38f321726ad6597",
+      "enSHA256": "a9fcd36ae2291c67df858e41222b44319e1de9948cd2aefc537c8f2cb1784974",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        736
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-0b0a8ba107dc43a1d291",
+      "sourceRef": "Psalms 10:16",
+      "heSHA256": "3bba36c074778838127513dc5c560192e68d155640228d79c426f538f7ffd75d",
+      "enSHA256": "cf4bde8fec40ab5e34e181ef566d4786a92ddd49e9e9b9771b6b58940ca6fb35",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        737
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-1e8fa43fad3dedead0bf",
+      "sourceRef": "Psalms 79:1",
+      "heSHA256": "d3775ad9cdc082ce6707b1276bed81fa86bd243897af95aa436f1fa6c39aae8a",
+      "enSHA256": "8f1f1cc1f42ecb903e1b8a79e06d23ba9023b087b2018b90a8d721b11165b508",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        738
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-a78630d093202f163632",
+      "sourceRef": "Psalms 10:5",
+      "heSHA256": "a0d1e5bfc83556b115f2868e89306bf9fbabb667485a675c70c4c68d2c4901b7",
+      "enSHA256": "f701690c28b1c43c2c91a4b3ad9a362e237273a956dede9745d995b7a7e7e9c7",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        741
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-e6a7cd9b6c96e20cadc3",
+      "sourceRef": "Proverbs 10:8",
+      "heSHA256": "22a8cb6b3077876c34f434eb5e207b9206d6a172b4a24d3a36418c98bebb7b63",
+      "enSHA256": "fb877e4349ff7833952353f197ec18ee3dd2a533a37214c68db3e0cef7f08a19",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        752
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-9a59d47be0eafb5ea864",
+      "sourceRef": "Psalms 126:1",
+      "heSHA256": "e576d58214abb5a75e3cb651609cb3c96bb402c24a05fabd233d8a1bb5405cb1",
+      "enSHA256": "80ca86521721397797cc2bb71f1a87c186adf34250687c00ee4cfef2955bda2d",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        755
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-136a441e262e69f86542",
+      "sourceRef": "I Kings 8:19",
+      "heSHA256": "14660a2ad946f7c02904f3644b41ad2ff80dc59fb64203535c174087ade0ebe5",
+      "enSHA256": "2524ddaf1f5111e2f33010155ed2a9cff5101575d3e22b0ab7b3ff1de4edfdad",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        757
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-5a5236b886170b8351c9",
+      "sourceRef": "Isaiah 30:21",
+      "heSHA256": "3f38a8c1d2f0776b25869deb9df6edd17b6cac10a355f6e3d0b89b1c745401f1",
+      "enSHA256": "24917a3b08c7cfdb347ccd286e0f30e97836881e5c521cd27dfaa9c75f0a1a01",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        762
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-10fb3b8baa591006e1b4",
+      "sourceRef": "Isaiah 58:11",
+      "heSHA256": "1b86c4dfff3c8162aabcf98baf7023a970e410cfbe8745422c5fb35260dca951",
+      "enSHA256": "2fa600b46855e5e1b9bdb28bbbbd899047d2ac565dbad82db6d4eeebb96d7f88",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        764
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-f94a19f9ddf87ccdc567",
+      "sourceRef": "Psalms 37:9",
+      "heSHA256": "94003307591b39121f25973addde935178d3f70a78ef471b963b9f7b5631e689",
+      "enSHA256": "706676a4f97b6e6f178637ca123c5b0a5439076c0cadc997146dda5519d74b35",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        767
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-eef54ce2914a5ad57b16",
+      "sourceRef": "Isaiah 57:13",
+      "heSHA256": "f1d106dbdda6a86ccd786c767571871c3a4dbbb74673053bcdb3088feb0e5b66",
+      "enSHA256": "5749481d296843c4ad9be126406f2625465672220b10c4e587a5830637f6884f",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        768
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-ceda82975193738316d1",
+      "sourceRef": "Psalms 27:14",
+      "heSHA256": "db268f3ada77dcd3ddc7fa7eb1335dc0ae1efe11b3f874de2629c8454039aa10",
+      "enSHA256": "b28e2182b1d59a06e3323858ea3896581976cffbdfddef49ee54802161e7a211",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        770,
+        1481
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-b8c378ad689bc61cdd8e",
+      "sourceRef": "Isaiah 5:20",
+      "heSHA256": "a34d06cb0db891d486eaa4834f8f0cd73dd39320b052031a3360843156e6e599",
+      "enSHA256": "5b310f692bfb63a2ddb7b8e817beaa0d024bd283b348f675595975201fef67fc",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        772
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-d9a3352948dd3765ea9b",
+      "sourceRef": "Proverbs 12:19",
+      "heSHA256": "a32a78ae5857bd749455ad44965c4a2ffd52069c7514206ce8defcb41d7646d8",
+      "enSHA256": "7eaad7fd52545cf8dc78cea4c7ea9954d326a82674d6c431c5382e553ec66b18",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        776,
+        780
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-afcb90b37d74ddda50f6",
+      "sourceRef": "Psalms 37:11",
+      "heSHA256": "6e10a5b25d82119e138fb147fc4fab439a0abbb37ce64bb9913ab68ef30ab3f6",
+      "enSHA256": "440a404c8768039d3138263b55acd1d4f842011781e662d4a3802baf4f5cdaa3",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        781
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-25e189a0a6e448aaa094",
+      "sourceRef": "Deuteronomy 34:7",
+      "heSHA256": "2b6c266fa9d084fbb3b33a5e66fdfc746ea00a536cd41f8918a0fd2d334c13e7",
+      "enSHA256": "f0ebba5ee124d85fa7265164346b32a69dc637e7f2ed80c6df89a82f3d261658",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        783
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-e7cba5afe7d92876bd2e",
+      "sourceRef": "Hosea 6:4",
+      "heSHA256": "2fcb690beef5772fbc2ebb69997d4a60fadc972161e8372f613a1329fbe2d457",
+      "enSHA256": "d9c1ddf9967ca17db7e255ee77e34e5ef1fb9d172609abbe50e0bf625ded5708",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        784
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-f0455c1102d08fd848c7",
+      "sourceRef": "Deuteronomy 34:10",
+      "heSHA256": "0e458c32b2853ccea057b918807e148a0ad6251ddf351c0eed06ef4aa8a7f2af",
+      "enSHA256": "7d45766033751576d91a6484f502bfb6600bb6283bf00c286162f9fe65e64176",
+      "translator": "/root/verify_release",
+      "reviewer": "/root",
+      "status": "verified",
+      "placements": [
+        786,
+        1408
+      ],
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    }
+  ],
+  "priorReadReport": {
+    "path": "/workspace/scratch/d9a4c32fec33/review-work/download-refresh/english-replacement/reviews/root-review-verify_release-unresolved-001-pre-final.json",
+    "sha256": "2325c73d5513c80db402da1f7dbbffe02cad1a0f625d2d4f60039bde9e36c58b"
+  }
+}

@@ -1,0 +1,565 @@
+{
+  "schemaVersion": 1,
+  "status": "verified",
+  "reviewer": "/root",
+  "translationPath": "/workspace/scratch/d9a4c32fec33/review-work/download-refresh/english-replacement/translations/sources_226_240-unresolved-001.json",
+  "translationSHA256": "821b847b9a67fedb86052bc04aa875e80d5c83873b44e31bda9fd44455c3e172",
+  "packetSHA256": "1d24efffdacefdbdc378f5a1ab47498d0c880e788cd81c176a2b5d43a95352e6",
+  "reviewedUnits": 55,
+  "excludedSelfTranslations": 6,
+  "selfTranslationsReviewedSeparatelyBy": "/root/sources_226_240",
+  "method": "Every complete primary Hebrew/Aramaic passage and corresponding English was read; no sampling. Independent public Hebrew Rashi retrieval checked Sukkah52a self-reference, Niddah13b nonpenetrative emission, Bekhorot8a age and fruit-period distinction, Numbers24:3 open-of-eye reading.",
+  "priorReadReport": "reviews/root-review-sources_226_240-unresolved-001-pre-edits.json",
+  "records": [
+    {
+      "unitId": "unresolved-he-6b71e0d449b82b4af5d1",
+      "sourceRef": "Rosh Hashanah 17a",
+      "heSHA256": "4e1286177f7a9506a59e192d47c6d8d52f813e9849632d1a88525f0aab119276",
+      "enSHA256": "9266d89b3ae09e24df65a075fcefd3609aeb72cdb767e79c4258334fb9d4f8c2",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    },
+    {
+      "unitId": "unresolved-he-7433b4f4a5b3d037ab7b",
+      "sourceRef": "Berakhot 2b",
+      "heSHA256": "9d1124552e1b64bfd09a7e2262618dedaa0a93ac017828019d42b22efe358895",
+      "enSHA256": "c5351bfa24648ce207c2dbbae2e8fafdced22719ebfd5c9b90cccfd2105c026d",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    },
+    {
+      "unitId": "unresolved-he-2038e2e48fb75083dd62",
+      "sourceRef": "Avodah Zarah 19b",
+      "heSHA256": "0ad3d51e5f011430b026ec86bbfec521fd3042c9173d443e362eaccf511448c9",
+      "enSHA256": "fc356555539e4507e9be376cf22139ae3e13938e6393e7b6a26402bdcd93dc77",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    },
+    {
+      "unitId": "unresolved-he-90a4ebf11c84481b2437",
+      "sourceRef": "Berakhot 3a",
+      "heSHA256": "3cf3f5f6b9fe5a89b8bbf42caf9e84eaafff274d47bb12874c7aa657f5076228",
+      "enSHA256": "0ec3b0ccb124268400b21018da0371121e1b52a5dfff1f4a97c5c6918767bff7",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    },
+    {
+      "unitId": "unresolved-he-2faf46cc67bf900ff52b",
+      "sourceRef": "Yevamot 63b",
+      "heSHA256": "6f8a6fede16391593f3e859d98b467eff059679bf9603aca36e2ed7e3a8f9081",
+      "enSHA256": "1e15c332fbfa74a5ee6e130d721884a50a713aea9dfe786f28aae1379a03ace2",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    },
+    {
+      "unitId": "unresolved-he-0d9d9d39a53abef1a5c6",
+      "sourceRef": "Bava Kamma 60b",
+      "heSHA256": "fc293a730f6159d4a227269f7dcdedbc50c36c40d49008280d56794074b91f5d",
+      "enSHA256": "cef96b45028e7bac5fdb6cb1bb6dd8a7d4a9a16f97efa155238bb2be76ad067d",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    },
+    {
+      "unitId": "unresolved-he-25131bdf59a6c43d599c",
+      "sourceRef": "Arakhin 17a",
+      "heSHA256": "0b33c0eaa1536391bd66d3c105d428eb2620df0543870344214e6d6bea14e600",
+      "enSHA256": "7a3d592c692ac7eae6b81a8f20bf66810e5a09d0b4e9f4ed5226e8d834453fa3",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    },
+    {
+      "unitId": "unresolved-he-d73a3eb14127febde8ae",
+      "sourceRef": "Ketubot 51b",
+      "heSHA256": "f9beb4a991f2490fb5922c4a521e0810f7e32d0b95fec5ef6944ab67e7292f40",
+      "enSHA256": "31668f5ba73c6df702cebdb02b48bc93f36ea8d79301813d80e2ea83820b165f",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    },
+    {
+      "unitId": "unresolved-he-acae9490af6c27e1e1b2",
+      "sourceRef": "Sukkah 52a",
+      "heSHA256": "6530d5512170d1645b6252c303fd59b9658a2871c99ae84224c252199817b9ca",
+      "enSHA256": "b1544dce3680ade9ca596df3b9025062cfc0559f5b909af2fdf1089a7bf5d1af",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Requested precision edit accepted; full passage reviewed."
+    },
+    {
+      "unitId": "unresolved-he-9e7e371acc097134a499",
+      "sourceRef": "Zohar, Sh'lach 9:59-10:67",
+      "heSHA256": "6995a632940064742bfc8074d211033c6affe0911248c68795919d63bef91d93",
+      "enSHA256": "ca1be78c6b060e6120e12d5e976f7b0b5e8d5175a380a57e09a0401b73d11c78",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Requested precision edit accepted; full passage reviewed."
+    },
+    {
+      "unitId": "unresolved-he-bbe7261683418036672c",
+      "sourceRef": "Shabbat 63a",
+      "heSHA256": "8c3713b7b7675ab56de50957584e6c678b9c0e5fea0be79841c369705d6e0da8",
+      "enSHA256": "9b495cea7c9c4f3d7c3989ddab6dbf8f5f1deef9800c76e8876b0b850dd1dcd7",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    },
+    {
+      "unitId": "unresolved-he-4a20266eca341ee40709",
+      "sourceRef": "Megillah 10b",
+      "heSHA256": "77cd5823f8b9941ae182d974c350a392b13915ab0618f8bb8ee6228d98ff8322",
+      "enSHA256": "fc2a0552d0ab992802127ffb9568f2d816704dceaf0d2d3692ed9b4043f152d8",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    },
+    {
+      "unitId": "unresolved-he-88fab028673eddacfc40",
+      "sourceRef": "Bava Metzia 83b",
+      "heSHA256": "82782e6eae9261ca1475748ff01a89dcdebd3150681c824236ab8452e3be13b4",
+      "enSHA256": "a4b5da0eadc44263fd7a9c6290874c3c8928ee30b6cf5abd4300477ed59112cd",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    },
+    {
+      "unitId": "unresolved-he-5e480f891e7a9777f81d",
+      "sourceRef": "Kiddushin 49b",
+      "heSHA256": "f355e0b86c17c2324d3fc68aa3b40c73097adc8d723eaefa8e045ef49582012c",
+      "enSHA256": "4a2da5265d0496148d416caa917cb69a965abb159d5ef6c6140f459ff7af255c",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    },
+    {
+      "unitId": "unresolved-he-67513f3e590caea5a3d0",
+      "sourceRef": "Pesachim 4a",
+      "heSHA256": "7b5a17a92068704a8ae9a1aa143637e23e987b9b52eb9472aa14e7880032d68c",
+      "enSHA256": "ff09c4e43acfdda53d7461e3bc1b780ccfa45a2cf27f34d9c9b919faca9c3019",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    },
+    {
+      "unitId": "unresolved-he-b0d2611722fd35817d8d",
+      "sourceRef": "Berakhot 10a",
+      "heSHA256": "f1d70d45a24b8e9dbe40554ea5fbfc993d5960c0942d9badf2a97ef8ecf60bdd",
+      "enSHA256": "c381f8f40db882a030407a003242242cd4c5763432b64fa7b61faeaf49988290",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    },
+    {
+      "unitId": "unresolved-he-9113c15eda33a40ce280",
+      "sourceRef": "Megillah 14a",
+      "heSHA256": "3e587f8a2a9e56a864477fa2c7f88aa7c5f538b0fc95e01e591dca00492b810b",
+      "enSHA256": "ac845dcd7588a8be4e1a096b88f1a1b46fe5f271e09c40dbdb0461de70e4d114",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    },
+    {
+      "unitId": "unresolved-he-b8dd493c2959f17798fb",
+      "sourceRef": "Sanhedrin 25a",
+      "heSHA256": "ebf5028868c9bda325ca781d306c54fa6ec2a7bd28358d3011f62678f0dd0658",
+      "enSHA256": "bd602a6214b8cd6b83efa7a5b7ec818f4c78b160f274459395ea0baaa8912b71",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    },
+    {
+      "unitId": "unresolved-he-1f211a98f9d206900152",
+      "sourceRef": "Yevamot 45a",
+      "heSHA256": "2f93f61bf87b3a17c13a6d86c45c9a0e10877639e98238868023bc6150b71b75",
+      "enSHA256": "009dbbe975e868edbc47b3657ecdc3987067e9bc1867b3744941c6f6b64c144f",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    },
+    {
+      "unitId": "unresolved-he-0a659c486748403af28a",
+      "sourceRef": "Sotah 47a",
+      "heSHA256": "1e1dbc9efa06bd0bf2fa87ff0584e6c80e2db10d23ae9caf8b10459cf111ce00",
+      "enSHA256": "73dd72c2d0763caece5ae13de5731665f568a374b5bac299db29237dc7646abd",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    },
+    {
+      "unitId": "unresolved-he-df9653378448f5a536d9",
+      "sourceRef": "Sanhedrin 97a",
+      "heSHA256": "9844f8d8519f8ff7894c54595b339e0f2eea7e6e50bc907e3f140962e27ce975",
+      "enSHA256": "6844ce9b42c2ce06886e5ccaebb5413b569bc67b42453e06e4c85a546fd4f7fa",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    },
+    {
+      "unitId": "unresolved-he-0003b769c8a1c8e83b2f",
+      "sourceRef": "Sotah 22a",
+      "heSHA256": "15e84addb4acabaeee096bbf02b3faa970e7f78cfdb4d9bd69dba3d560f21dad",
+      "enSHA256": "6318001f319ad7c970ba1a20ac05630b142d70b65b0655cabe46d61be8e265de",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    },
+    {
+      "unitId": "unresolved-he-ae59805d9f671cb61362",
+      "sourceRef": "Kiddushin 49b",
+      "heSHA256": "beee27abb71f79bc54ba45781ce79bf7e7370826ce44912d55e952d4388139b2",
+      "enSHA256": "6d9c21fec29528f20e75ba7718009791872736b5343fe0f5278eebd0f124d138",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    },
+    {
+      "unitId": "unresolved-he-c1a53916e96cf906a416",
+      "sourceRef": "Bava Kamma 92a",
+      "heSHA256": "3d5c1d0b117b1e9382916154c5b5eeaa744a08f329c21cd820737f4baab7b871",
+      "enSHA256": "cc3ead227acfcb66743de612a8c426c58693ff8ac6466eee76dac93efd0a9533",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    },
+    {
+      "unitId": "unresolved-he-0027656b62ad93b17fdd",
+      "sourceRef": "Niddah 13b",
+      "heSHA256": "8495988d1707adbeca4806b5fbf893154ab41a7f0c25ba9ae1de36ee2769ae24",
+      "enSHA256": "ff64f951f269781a3a88458ccfd1b9876f88d556984ffb2e2c938f43c3530069",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Requested precision edit accepted; full passage reviewed."
+    },
+    {
+      "unitId": "unresolved-he-d0b0c39e60936860c7ae",
+      "sourceRef": "Kiddushin 13a",
+      "heSHA256": "59468535b4203b510085a7f7a91cbb4775788092e0e72a847a26f877df7b14e8",
+      "enSHA256": "c0aaa6636db185784d4d17fc83af39a18c4d5c7f453d2469021e426583bfbbcd",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    },
+    {
+      "unitId": "unresolved-he-df3553580efac03b76f8",
+      "sourceRef": "Berakhot 34b",
+      "heSHA256": "c85fffdda2eff37c043e652d3e8b6790ded4c49f8d18e7fe4b9ee2d00edb537c",
+      "enSHA256": "4d4851e126dceaaf4edb0e93d1893821bcc0647836bcf40a4dfe9a66281fbeb2",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    },
+    {
+      "unitId": "unresolved-he-2e030989c19df7368746",
+      "sourceRef": "Eruvin 43a",
+      "heSHA256": "e4ee305862206d7030805d97bee4927d7016cd989ababcde0756525bbdba419f",
+      "enSHA256": "7a23fd938198e557490f88b4965c9c4a5cff8acd6d95edb035fa6dbb34e3fd3a",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    },
+    {
+      "unitId": "unresolved-he-9cd5e54068eba690a744",
+      "sourceRef": "Bava Metzia 33b",
+      "heSHA256": "65554c05ad18ce7ddfd35fe8752ccce1c622d5321bca6483cee6109d89574b5b",
+      "enSHA256": "ec796b23f4367ca538be32e0d9e7deb0ad1fea3ecc3ab8418fb3c4640e06ffb8",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    },
+    {
+      "unitId": "unresolved-he-417d6f1fee3a5de301dd",
+      "sourceRef": "Shabbat 149b",
+      "heSHA256": "0def9bb2ba2d9b86fffaa85670643d8e26b95cf9a12df3d49c70b57682296f90",
+      "enSHA256": "dc8d7045e3c87931012a599e6bc60d339e4d2d78eab615316fbe8e0082ae516d",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    },
+    {
+      "unitId": "unresolved-he-4820df8b03b9e47590a9",
+      "sourceRef": "Eruvin 18b",
+      "heSHA256": "2b49ff9f655f5d87e9bf9c51a918db238f5ce0ec5886d5c7ca25d73011ddafd7",
+      "enSHA256": "8fc6b11b0af34a52a8a4e2dc92138c631437dc7e7337960941bf2a86d31c7d27",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    },
+    {
+      "unitId": "unresolved-he-2cc0111d0ba5c340deac",
+      "sourceRef": "Nedarim 20a",
+      "heSHA256": "63466f1d5a4f171bfb9483ca5ee132ae39776219f6a9ea853df82b2b1b0087f2",
+      "enSHA256": "8af464e9d768a5d0b589e129271695779a809c078d287b3450c8ff8bdc0fa191",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    },
+    {
+      "unitId": "unresolved-he-d6b27083ef8f188c17ab",
+      "sourceRef": "Yevamot 49b",
+      "heSHA256": "82041dbc9668c439b0c7de22ff7580e5016273216e3245e0702fffad961a2fc1",
+      "enSHA256": "09bdc5e7898c57626c36da23c72cd01339c06b1fc679d47a2ebadd29a8f70036",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    },
+    {
+      "unitId": "unresolved-he-303e89177b2b253f5a2a",
+      "sourceRef": "Berakhot 5b",
+      "heSHA256": "ac0bb8b5a07a9f2dbc5122b6a6a87b9760aecbec5bb7bbe2d68b1fb808dc3529",
+      "enSHA256": "22dc0b36e0a1d112efa9f75cc7638c8de289881a950b7f71567b286a9ae6a1c6",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    },
+    {
+      "unitId": "unresolved-he-390c9f3670f608109900",
+      "sourceRef": "Shabbat 56b",
+      "heSHA256": "10b19c2c124da43c64f4c8b0c31b384a46a78bd927be19769918e6f8b1d700be",
+      "enSHA256": "41826dc72afaa08717e9097ee7f9d657587535fd047ada5148e4df895074aa7b",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    },
+    {
+      "unitId": "unresolved-he-a5b85bc69a6db729d4e1",
+      "sourceRef": "Berakhot 22a",
+      "heSHA256": "02418d7f1f0d8df4b3471549caad9ad8ecd436261cc0f29155b7e7422e64a85a",
+      "enSHA256": "3e6e8197ad377aac128e2b60f38d32d10b92963447080d2b8523284294e9b26d",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    },
+    {
+      "unitId": "unresolved-he-e5ff931b2db96bc0bae5",
+      "sourceRef": "Yoma 86b",
+      "heSHA256": "ef9f404b20725b84572c635d55b797a81533b0e5b5e6eaf4407928d84c4c4bc1",
+      "enSHA256": "e1379cc0ffe9a8d03c25a945a5f67086f1aae3b1e9c604a72374aeb8d352effc",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    },
+    {
+      "unitId": "unresolved-he-0bab78eb9508ccce76d1",
+      "sourceRef": "Niddah 13a",
+      "heSHA256": "1c876756f9eb830ce6608274a3886b9da896e1ab8d163b63fd7b4eacbb773a26",
+      "enSHA256": "43552e3b3c10d85ffc073dbf6e87b7968273b615da1c7d7873800cb37380db1f",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    },
+    {
+      "unitId": "unresolved-he-a897474a729eaf070761",
+      "sourceRef": "Berakhot 63b",
+      "heSHA256": "01aeb6d4b2c870ac295bb3fe2c50b12eaea34a9e43cf826563ec803df99dea77",
+      "enSHA256": "2c17ca9e4d60a5b76093cb0eec582a75d03a5447e89064625db5408010b3dc19",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    },
+    {
+      "unitId": "unresolved-he-7547b3abc5240409945b",
+      "sourceRef": "Sanhedrin 100b",
+      "heSHA256": "067bb18c1c1e1d308788da34cd062b4c51a3b5b6c1fa2f2f448e9ce59a2b798a",
+      "enSHA256": "d7e60b03aa4f80cd3999e86a8ff618a99ad55952f62ab51772ac0806878ab828",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    },
+    {
+      "unitId": "unresolved-he-580f11342b76130531e0",
+      "sourceRef": "Sanhedrin 26b",
+      "heSHA256": "020c2ab9ca27ccdc1fbdb1f7bc5488b50e573ccf6bd321c27b2114915c00be1d",
+      "enSHA256": "2650c519c7aef519bbf6c65e42f3d4cb569754ee063bd068b69f01e4f6d6a76d",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    },
+    {
+      "unitId": "unresolved-he-8e1fb5d72e80780db1eb",
+      "sourceRef": "Chagigah 15b",
+      "heSHA256": "e269f3fab53abc727037991f0428c32152bc735bde56b2d82ccb8c808377a77e",
+      "enSHA256": "8b55dbaea73c7953bbf525be92b3e3d1ab8e89f2b0b1288571b8eb774bc1cb91",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    },
+    {
+      "unitId": "unresolved-he-89d0f33dcd839603d936",
+      "sourceRef": "Zohar, Achrei Mot 20:124-21:130",
+      "heSHA256": "d218985f6746ec4aa6d981fe0c2711da3bfb9a5c51c3e8531797fb26ad4fb127",
+      "enSHA256": "646d9d889d41a47b494cda2ab149e555b01371bffff5d2f7c72f7db58ff5f04c",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    },
+    {
+      "unitId": "unresolved-he-dff415baeb9fd00c6cc2",
+      "sourceRef": "Shabbat 30a",
+      "heSHA256": "dcb286fd461bb581347047d2bc1f6129bbfe04d4cc94f94dc33de4c4ad876cde",
+      "enSHA256": "95d48a266533a21d1877eaac102678c142d99d9530337223e046daa2a7987bba",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    },
+    {
+      "unitId": "unresolved-he-4f72cf27d82f20e9d51e",
+      "sourceRef": "Berakhot 18b",
+      "heSHA256": "ad199ab8af4198ca930ff5a506b251ef05f1e244216eceacfd81f6495d567c21",
+      "enSHA256": "2f1d46dfc1c3c621edfc9039619c637eaa1f93cdb85fc01251e85322963d05c1",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    },
+    {
+      "unitId": "unresolved-he-458172e078517616313c",
+      "sourceRef": "Bava Kamma 16a",
+      "heSHA256": "a8150ec1b1ebb13f9964449acf7c6daf562ff5a3647402a2f6fe378062d0caff",
+      "enSHA256": "dfdc0854fcf761dbe248e4b46e4898a8768eee28f6cdc4dfc15a98d2cf8a39d5",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    },
+    {
+      "unitId": "unresolved-he-033b000006a0040893af",
+      "sourceRef": "Bekhorot 8a",
+      "heSHA256": "2fa88f24aea2bd671438c3875c5525cca259c0c04bc880d058daf59338ae142f",
+      "enSHA256": "c0e03d8a85607b9e707696840760dd598e733de9799f9e6c02bce1c14fd8c0d0",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    },
+    {
+      "unitId": "unresolved-he-8d1df1e26fb8e4e08a17",
+      "sourceRef": "Chagigah 15b",
+      "heSHA256": "c3f3d7334e883c86fcff8e460d908dfeb5738effb44fa4a02ced80c186d9c0ac",
+      "enSHA256": "9b7575e7a4a04bfac96f0eb759b27ad8749194db40e51f0a0485891a54da053f",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    },
+    {
+      "unitId": "unresolved-he-a0a10c3d577e254c0a13",
+      "sourceRef": "Berakhot 58a",
+      "heSHA256": "9f399e1e15a012785823c3b1e789ee8ede51eeb6504e1876f943fe8eadbfac44",
+      "enSHA256": "1770959f4fa50417af0c69c3c45ab228b4ee02506783427d2a79447e9ffddfdb",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    },
+    {
+      "unitId": "unresolved-he-51bd784492b75e00638a",
+      "sourceRef": "Shabbat 152a",
+      "heSHA256": "29f0c247124f44812f2b8bd9e443cd20e17dd9a5d0c525bc1ed98862ddb2e99f",
+      "enSHA256": "90c5d125c403a29779de370e969b036bafdad211908feca1819b082a58cd6080",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    },
+    {
+      "unitId": "unresolved-he-a45ba94ea0ed259150d9",
+      "sourceRef": "Pirkei Avot 3:17",
+      "heSHA256": "e5c6264969b19d3ba09dfa7c7268e9c900ad7c013e4ff195aac6076d91c37fc8",
+      "enSHA256": "5acf4c00c8bd7ce04e52248adce99628bf4a63520fd65cda126fa4151d038908",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    },
+    {
+      "unitId": "unresolved-he-d4ecc997440206cc7f0c",
+      "sourceRef": "Taanit 8b",
+      "heSHA256": "8e3bee1272c5046ca3e902b841dbf72de717dfcfdf014d28f5a90ca61130cd4f",
+      "enSHA256": "858cb6b05af8086905c5dab57f5837dbf5e03d3ca54f34b93bad8cdde4cf23ee",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    },
+    {
+      "unitId": "unresolved-he-0303d241e7beb109ca3c",
+      "sourceRef": "Kiddushin 40b",
+      "heSHA256": "00b5ec3b308950d275d1cda02e0bf6f5d6e7c10f92b5212a2f6cadf8f686f269",
+      "enSHA256": "42baa084a0d3b53cb55147b6babc07391a90b74c3a7e1e8afb94968b86c9d489",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    },
+    {
+      "unitId": "unresolved-he-8e5b3927ba8d4ccf4c5f",
+      "sourceRef": "Berakhot 60a",
+      "heSHA256": "416b10f1d2301bc7dd3fa89f71b876e73ddcaad4dd3b3eb64887d6b05e6c2534",
+      "enSHA256": "219d2b98013c460a6239976c62d24324f6361099f9986aec212551d0007ee5c1",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    },
+    {
+      "unitId": "unresolved-he-d673b0e39708e90c5560",
+      "sourceRef": "Berakhot 8a",
+      "heSHA256": "8bd705452b8d2ee04035e36d67a23b7d513b26e31b054bc3b7f82ee91ad46ee8",
+      "enSHA256": "a69943d5ff14b157dfb5dcbc0344e2fba54613c16ee519b576ab1d98c58d458c",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "finding": "Fully read against the supplied primary Hebrew/Aramaic; clause coverage, speakers, qualifiers, logical relation, and quotation ending accepted."
+    }
+  ]
+}

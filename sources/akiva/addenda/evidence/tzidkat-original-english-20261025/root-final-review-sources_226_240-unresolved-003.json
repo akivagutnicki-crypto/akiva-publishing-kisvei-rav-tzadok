@@ -1,0 +1,826 @@
+{
+  "schemaVersion": 1,
+  "status": "verified",
+  "reviewer": "/root",
+  "translationPath": "/workspace/scratch/d9a4c32fec33/review-work/download-refresh/english-replacement/translations/sources_226_240-unresolved-003.json",
+  "translationSHA256": "118f132c7c7260e34dae9b9de2a963326fc16ad32694d1c8240a6e380ba17ef8",
+  "packetPath": "/workspace/scratch/d9a4c32fec33/review-work/download-refresh/english-replacement/translation-packets/sources_226_240-unresolved-003-hebrew-only.json",
+  "packetSHA256": "c0c3ad6bd4f9901c29e765438ceeb4c04ff01232e91b6347578842991768ed3f",
+  "reviewedUnits": 60,
+  "excludedSelfTranslations": 0,
+  "method": "Full independent bilingual reading of every listed unit, not sampling. Source packet Hebrew hashes and all referenced primary-cache file hashes verified. Context checked in primary Hebrew classical commentary as described below. No existing third-party English consulted.",
+  "records": [
+    {
+      "unitId": "unresolved-he-db7d17e060feec30a761",
+      "sourceRef": "Ecclesiastes 9:15",
+      "heSHA256": "e27f1ce0b58e3990def8487a944a9672370b2f2f229e0ffb1d1dd6546cb6b51e",
+      "enSHA256": "dd160679aacd5f7cda1e90324a899c88f276c8f410b86fc314eae7217103b920",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        1588
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-6f19047a09c9bc7a0107",
+      "sourceRef": "Deuteronomy 8:19",
+      "heSHA256": "27340c8d7505497b073811fd06a868b7dac95c87f3aad8367051eea025b72107",
+      "enSHA256": "c5b77663611b8411c3ab277e28852580c69762503bcab775c88008c60d3a384b",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        1592
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-a67cba19b29b32c42a4f",
+      "sourceRef": "Genesis 19:27",
+      "heSHA256": "029a11c3d9a733b0174f375a3cfcf40203fd300f500c447019fde9e39a66eeef",
+      "enSHA256": "2de598ec40d6236fd7e18aaa61342fc04f2ffbaac5948dd5f399941b27a7e135",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        1605
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-d8ff8f813dae09b5925a",
+      "sourceRef": "Ketubot 77b",
+      "heSHA256": "eda5352196e1fc52d2d024677c73ae2bf8ffab3f575557fe8b21e59307fe9b3f",
+      "enSHA256": "45c57dc1df1026e9ca7e28968c95555675ff7e9781763071a71b7f4af334c64b",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        1612
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-c918cbe10f9ffbcc8070",
+      "sourceRef": "Jeremiah 9:7",
+      "heSHA256": "f46a487aae7632ad68e8499f59eefc091d7d7291555ab1ad361f3dc9adf52da2",
+      "enSHA256": "0a6a7a2e223216388a660501449c4352726773d44e9f94d21f25a09354c899b0",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        1613,
+        2174
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-2e62adbfce75a97d05d0",
+      "sourceRef": "Psalms 106:2",
+      "heSHA256": "c8ffacd2951f6eaff2015bea51459b06cf55cb60db687402f1a1918df5055763",
+      "enSHA256": "698c11e9c26915246f798777712e9b87fd9b95061ecb1620e053d31ef0b5963c",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        1619
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-2b47ba2bd20fcc714665",
+      "sourceRef": "Eruvin 22a",
+      "heSHA256": "c7d868bf93ce282c1814fc69450a0270d34774ccd7c60cf0fe9c5584cf2ff1c6",
+      "enSHA256": "9fb62feb0901f7abf30cfca3ad7a59900608b9e8cf6f77bd4448ce9bf2e1b2b7",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        1629
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-c80cc395ec21eaba5324",
+      "sourceRef": "Isaiah 45:18",
+      "heSHA256": "272d01cded3ac602ba17255fcc68fc85d176339f692c76c2bca4d584dc5d965f",
+      "enSHA256": "48ad2ceea857ea6861d2213e8db97ad753228e424f6e03fab58293eef04a45c0",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        1633,
+        1890
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-4a5fed845f7c36e2e4af",
+      "sourceRef": "Taanit 22b",
+      "heSHA256": "c3c6d99b0450bc3dc9da4ba840e2f234ea0956687499b7103a45c26fbbb46f1f",
+      "enSHA256": "11f80ef73a33ef18cb92c033bbafe4787547bcab87b5583afec44da3c83dd404",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        1634
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-c09d5f522c630ccdc281",
+      "sourceRef": "Psalms 104:3",
+      "heSHA256": "e1874074002c49d0ef63d08ac34efdeca7266cb73975e98d58fbe06de6a948d6",
+      "enSHA256": "9d6709b213f632f0f2202ab56c4bf53f205045c8c76ded7add58f3bdbf505766",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        1659
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-3859bf3f6bda0eb2308f",
+      "sourceRef": "Mishnah Yadayim 3:5",
+      "heSHA256": "f6b965d9ce01bb182463ee59b7668da7e0c22ced5939446ee14a0b8aee430637",
+      "enSHA256": "b8a737f701ef1a9b3b8a92323366109b63acacfa4f6fb947ba631ca62c718322",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        1670
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-b207388e2a1165589c2a",
+      "sourceRef": "Zohar, Yitro 11:126-136",
+      "heSHA256": "7ff0b61313d166fdb063d2a3cb0696df1d3337c92d66e92d47adcec68fb3cec1",
+      "enSHA256": "0f6b520118a0d87928b0f26b95c57120b82e281e8b0723767ec6b201fd515b07",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        1680
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-8658d2f75ff02a7b20a3",
+      "sourceRef": "Ezekiel 1:4",
+      "heSHA256": "75220be2a5463b3426954b9e1d41b2ae0fcc7802f87a6cdd4ed17d338a8eba40",
+      "enSHA256": "6929ed98a7656b329408cd67f34a5bb3b9d12463e411ff04b2ff568a3fde0a8e",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        1682,
+        1702
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-d0bf9e1738fff3378b05",
+      "sourceRef": "Numbers 24:20",
+      "heSHA256": "2da1d11b2a6f2c88af8c9606f4a71cfc406d88b2f2241a92f78f01c3e141fcd0",
+      "enSHA256": "518a0c34843ace31d39a97beb3d8d5ca7bdd74cc80a290d7e53ed298b465fe71",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        1692,
+        1950,
+        2086,
+        2183
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-14db41fe909661feac94",
+      "sourceRef": "Yoma 71a",
+      "heSHA256": "fd0f2a3ddb93dc4172d2be0db08019954f4b14e408d4a99bf939e9e3627efdc2",
+      "enSHA256": "d53e3055593738c912aa5df115f47b1e1429ea5376334a46ad1744dbfdd09ffd",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        1694
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-93d552e613e3ac05d9df",
+      "sourceRef": "Zechariah 8:17",
+      "heSHA256": "3ba9f22b7cf3e96a2c6403918e01c24c844329fc7022e9fa27bae5c575028289",
+      "enSHA256": "2e12a8ae88b8dedc49651beb9001aae5519b1e65ed6b19b3cba8cc93252434df",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        1711
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-8331e16e40f3c8f936b0",
+      "sourceRef": "Eruvin 100b",
+      "heSHA256": "fca22c2dc411598d5f08272d69090477461b2ddb7e80198e31cccc47a47b4f3c",
+      "enSHA256": "a79fe5f2abe23e05ebc5679bca6d815a7c378db160ddc60a24a06c3030076841",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        1727
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-ff246c37a359a3baa065",
+      "sourceRef": "Zohar, Yitro 19:311-324",
+      "heSHA256": "5d676e5c9a4ec1bc128af2bcde536d256309a8fcc751d4a1546990a1bd285a2d",
+      "enSHA256": "2fe35731c1156529fbe73fa58a3f5431340fea22ad55ba5a8b9c7214d1931b85",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        1728
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-13f048343355433e002e",
+      "sourceRef": "Numbers 12:3",
+      "heSHA256": "43608510cd28901126c706b51f9a4a882dcb644918cf7b542ccd5be6aa1d3743",
+      "enSHA256": "bce25374421e30560127e744428db0c20898ae14c7cb94aad3bca6f576877bbc",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        1748
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-40aef543841b9659a90f",
+      "sourceRef": "Zohar, Yitro 1:28-39",
+      "heSHA256": "77ab9d4a376cade87cdcf2fa7460030e5cbbf17d54112b829e3d38b11154a2ff",
+      "enSHA256": "a172d1a0ceb859d65baae890f477e123956bb7589f925b36bad485a626de5ac1",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        1759
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-b987681a04f6ed3128b7",
+      "sourceRef": "Psalms 37:24",
+      "heSHA256": "c3baaaa8c5ed93940a815d02d9b250537099d4b483a510aa4ee0de870170764b",
+      "enSHA256": "9fc52604c0251a3943de5a639a9f20c1b85b5ec9b783059941a30f2cf163e888",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        1798
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-b6e44b816738cc593752",
+      "sourceRef": "Megillah 15b",
+      "heSHA256": "021f26c073215e431469bd5c790222839038d623c2aa482769786a7df236b7a0",
+      "enSHA256": "24eb41f2097729ce7f5a09be6fb345de48f253f26648495108c093b1fb0c798b",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        1813
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-c330e52f6bbfaa83947b",
+      "sourceRef": "Bava Metzia 73b",
+      "heSHA256": "1af6484734ad5c70b291f95fc7d9d8fbea7aa1c8cd50a9735ecc422ca015f8b8",
+      "enSHA256": "d69c43890ecec241a04138368ce4275512c566641d1fdbf91d942f7e7d2398e9",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        1820
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-12ff82742e1c22d1ab8c",
+      "sourceRef": "Avodah Zarah 73a",
+      "heSHA256": "03d1dd35549d643b3f4c915160123aaac2586020491a6955f9177c391ba0d5d3",
+      "enSHA256": "3caa45d06a89185d12a100efedbfe29ae4916491386f9020bcdce603fed41c38",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        1831
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-3da6d7855d3dbf1b2ebe",
+      "sourceRef": "Zohar, Mishpatim 3:118-126",
+      "heSHA256": "7b4c34cb3cf579e3ead5d4de2f6ec82c5c0871a72b72ffbbe2ca7973cd634b4f",
+      "enSHA256": "7f79978d4abb21762032e39e0be7b24d1f2dcad9ac73a66bfd48ab986972085e",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        1841
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-3efe7acb6f7bbb5a3564",
+      "sourceRef": "Psalms 13:4",
+      "heSHA256": "1f981e81e19737104a72282cb34301e429ad1e000fa81c084d1f71dea7c92dee",
+      "enSHA256": "0807c4f798f7cec496718ad29cd02563c078cdd9e76ff3489c0fd81be43fdbde",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        1866
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-beb50ba85338a79bffdd",
+      "sourceRef": "Sukkah 26b",
+      "heSHA256": "0b999d47bda3403eaeaa2845d9aba646f7b55f8afffd85a0c00330015a8dcfb2",
+      "enSHA256": "431c0ecd707c39e7ca03264bb5be14ca0d4535630d9adf2306c68aa04fde713d",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        1869
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-426aac7cb1b3e1721e4e",
+      "sourceRef": "I Chronicles 22:8",
+      "heSHA256": "589860e8f49e68421ac87f793f5e3ee658c5484b0a88d96515093f9dcff012ed",
+      "enSHA256": "5dad270d64556bc731403c3c03667861c8353b0f6c0a730f7e1b3c39bf1fcc98",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        1877
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-eeaf10a412c1bdec8c89",
+      "sourceRef": "Chagigah 9a",
+      "heSHA256": "2ba684911f42e0cf9c20f6cb1276000f5c0451f48bf9b039d32b8babb0f5e7c9",
+      "enSHA256": "929612d9808cb902716982f0988069d6f8d4f5732a0b288b0f88f305990de396",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        1894
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-e45891b26e6b31eef96a",
+      "sourceRef": "Arakhin 29a",
+      "heSHA256": "14e914502bb6d3612ff53eccb367544cb526a2ee19c2003ea148013e1ef60837",
+      "enSHA256": "7a5ef127fcd573fdb96f22b79aa9b1ae9132662f22b241badc9fd01c086c8dc0",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        1895
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-87825ab584ccd0fbf3ce",
+      "sourceRef": "Isaiah 6:3",
+      "heSHA256": "147ee6bf585c376a227426c1303bccd46443cd0b515bcd10e5b01c418559d3bf",
+      "enSHA256": "e10eca65f818574b6dd62513a9feb0fbbc59596175f9562abfa9b5288b79bbbc",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        1916
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-85a30caeb1ac239c981b",
+      "sourceRef": "Ketubot 110b",
+      "heSHA256": "6fdc791de35894c251394cb1cc8446ff831e0a6a73ea9dd7c4ec5a04bb5fd434",
+      "enSHA256": "c1acf08b9c487324dc402f2bfbfca9f9c922006c440587682e9aca131d40ed3b",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        1923
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-6173d83f8847b22689d8",
+      "sourceRef": "Bava Batra 15a",
+      "heSHA256": "153058ff3fd68d924f6d9c88e86ca5294b463a3b1c9418c921239cac090ad6a5",
+      "enSHA256": "9217c1e1ad8e1b62851cab90e6e78f0871220b751f51f7cb234b4c74a8738bc9",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        1934
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-9a493627f0d2ab5fc2ee",
+      "sourceRef": "Exodus 21:14",
+      "heSHA256": "acd3419697966643e195baabc93391437e64a9f2d37262d41394d8e8e8d0f59e",
+      "enSHA256": "d7c9f16033f9a01eb43e304049453a06645e6f0fa8cf7d2c23daa6941dade691",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        1945
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-f71af7594c091eba20f7",
+      "sourceRef": "Chagigah 15a",
+      "heSHA256": "1febdaac5a48bce4dedacf280b10c9f69c0a2ff072354b7d5828c1076f829f4b",
+      "enSHA256": "9c65a3670c256d9bd7a6d93bd532e424bafa39fd4b598778db9ac1977f64fb21",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        1952
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-fcc57218a820a34cd30f",
+      "sourceRef": "Exodus 30:15",
+      "heSHA256": "9da7fe21975e845ba4c5f111e40eec6256bb0efe361ff3fd7f4ec273117dc463",
+      "enSHA256": "45cc1b81e4eec3a9618ee1fe372fbb2917e022d6b13c40ae4e190fcd23231901",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        1961
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-5649aae6fc9b8929073e",
+      "sourceRef": "Taanit 31a",
+      "heSHA256": "3a749d12ae60d315f14cd167da1cd3b70c9fad397354ede54d8761f379cef6d1",
+      "enSHA256": "bc90cad64869f71d267f08ae4fa67c73f919aa415c147382d7675536f14a37af",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        1964
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-7a0fedc2ee7b54e8c1e5",
+      "sourceRef": "Yoma 75a",
+      "heSHA256": "94629127f3d7d61904a2c7c96cf9cfb9473ef4c7d9fa659cb88bfd5dd65e3af0",
+      "enSHA256": "ee4b536a52f8aac9056d6c2a55dc860f45c6e389953a5d767ce47312b27a62c5",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        1966
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-69317f2986babc35a265",
+      "sourceRef": "Mishnah Kelim 1:6",
+      "heSHA256": "28fe9871fc284c4a3e7d8919f89abc995f5d09e6e6696d31f9ecd1c24750d1fb",
+      "enSHA256": "7b5bef3b670e2d62503ca8d730f4f6a1767d888fd8f92880a92eea58475c421b",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        1994
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-dea3f1d7cb26450f0220",
+      "sourceRef": "Proverbs 30:16",
+      "heSHA256": "9f54ddc93728144b8c5da9b0999d285cbb26fbd58e80d72cabbe37c514fd5fb3",
+      "enSHA256": "c5cc99cbbed2e2d69fd04e72368765b127c7575b6ccbaea1fd6edd08050504e8",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        2008
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-9c684cbc61584b4370fa",
+      "sourceRef": "Ecclesiastes 5:9",
+      "heSHA256": "53e36907920226c9258d4fe750324dfb832f4b09eb29352ff9dfc419a267d491",
+      "enSHA256": "5d001c85aa09c007e11750c645818a178b7361931055d1b5fe23f9c865cdd710",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        2011
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-3377fb3d370536b66908",
+      "sourceRef": "Avodah Zarah 8a",
+      "heSHA256": "2c75621fc94ad42a65cd8b9fbd05f08f453f448d64952a09cebf95510c80f8d7",
+      "enSHA256": "dce6101bbfe31d319f8372f63aacd803f1c8808be6b6ae2da55af476d87dd18a",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        2022
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-1eff29e0fa2476c72120",
+      "sourceRef": "Micah 6:8",
+      "heSHA256": "76f69ac20ef2e96ef1ce1aa9f9705ee58a76f059f0116e6bf15fa8f78a04d642",
+      "enSHA256": "20fe303efe9921c4fea641aac05e9669b04f16e382862373d53e54fb71754e43",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        2033
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-d1fb1813d5713bee83cb",
+      "sourceRef": "Shabbat 55b",
+      "heSHA256": "41cfa2b6eeb5a4a49326340f2370d8830ade989b8cc7fa863ea814a8be9d8b72",
+      "enSHA256": "9f59bf7ce0087a1709b14c4d6ac5eb7635b6115214c2b5eca6f7681ceb0063d3",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        2054
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-3c7612c5b3635eb5d3ad",
+      "sourceRef": "Esther 9:1",
+      "heSHA256": "52f44239b0c30ca260d4d7422a8a082e9eaf8b15b21d22d8ae7b05048627b8b5",
+      "enSHA256": "f4fcee6175e319b3d74109383e5b7ec9f3c4dff923486febc2b494e9ecf105a0",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        2056
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-f19e8a6544ffcf150228",
+      "sourceRef": "Keritot 6b",
+      "heSHA256": "7cab50bc23f493692df3564adff5d25659ec596fdd71fe27f43234ce54609f03",
+      "enSHA256": "fc27e49d63b607b5a7fc329d59a88745e80ca4245f63b1b18dae127f15784f15",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        2059
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-3d241df005465d7c2100",
+      "sourceRef": "Psalms 111:1",
+      "heSHA256": "ece802a9d38d972b8a4de28ea5034e3d0ca386dbef52efbc4b75b9ff42c575d4",
+      "enSHA256": "662a6af44f93e68083ce7709c85c3c153994dbe16d46c6151d4e0df506f78020",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        2062
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-20e3c7e074c95c4386d2",
+      "sourceRef": "Proverbs 30:15",
+      "heSHA256": "41ff01b3193b92eeea3ec832d73c4b6924ff3ea86c35247067f072c08121536d",
+      "enSHA256": "3936ea9b5511de604b1e13e9b01d674cb2f08b2bff82eb186f8791e70d0dc470",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        2070
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-1161bb40450f4a0d0854",
+      "sourceRef": "Sukkah 52b",
+      "heSHA256": "84d2e2888dd9882d51b3096d9c57ecf385353894e94b84914dbaf9dc0915a783",
+      "enSHA256": "ec30bd96b5481350a87a9624c2498bff430a89ef12d5a4418f7c407939062ef0",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        2071
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-99c682e8ecbd6e1983d9",
+      "sourceRef": "Proverbs 26:18-19",
+      "heSHA256": "6e002498f603f1c31544770516fa5918c4ee6ef60413b6857350263a9bae674a",
+      "enSHA256": "41e7aa84315a150771310afc602c365c6894e397c7a900b73e601a3b280bef27",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        2094
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-34d51bc907bdaa51a607",
+      "sourceRef": "Psalms 2:4",
+      "heSHA256": "705fc6de8a47a70f04abe040846297bfe928cc63beb8254b2d3b8dc819914e67",
+      "enSHA256": "b7fdea3e0f0b68663973b0c000f6f568efcf4404b9b24a6717ac9dee917075c7",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        2096
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-ce0eaf393e3d9d8fcffb",
+      "sourceRef": "Ecclesiastes 2:2",
+      "heSHA256": "d95fa417100cb655718c17bbd64993fb01744b538704ff1cab1d1ecce444a497",
+      "enSHA256": "f8f7904493cd4dbef7f4f283fd3ec6eae45c8ed165bff6b3d5d447d014443bc8",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        2100
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-472b554f66a9a195069f",
+      "sourceRef": "Megillah 13b",
+      "heSHA256": "d6ffbe387dcd0b32c5bbe8447c6cbed8bc876a734cfeba6eb262a2f68c373a22",
+      "enSHA256": "3b8196ddb022eac1e7d0a181dc8ccc1fea108bd622d0fca56e3050fb3b492eee",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        2102
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-aca117a26f03ad6e73f2",
+      "sourceRef": "Megillah 25b",
+      "heSHA256": "41384029359ee7ae09b14087a779c0b52cfe089ffdf15c09a651bf7f40d8238d",
+      "enSHA256": "60d3aa1d8b103bf813d5cfcc6a6fccf9b02df0c828c41d482b38afc76939c99f",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        2108
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-f7ebbbbf3640cb611a11",
+      "sourceRef": "Sanhedrin 103a",
+      "heSHA256": "e5fbeea9993929750b8b0b17baa1aa590af2d57b67bc93c73e29327448d35010",
+      "enSHA256": "9765edf56865dd47d89d2601c4a44c2d076fc7d122838f56016d60fd37c5e36e",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        2118
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-de7428a4de0b753bd09f",
+      "sourceRef": "Berakhot 51a",
+      "heSHA256": "70ee5c02f83af07858b1c2cdd78a62af5fed7e9e98bb76ba58ea225fb175e3b0",
+      "enSHA256": "f47b5d96a6c6da723efbbc222a2da91811a4de291ee37444481c2ab7b6bb8332",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        2125
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-c4891c7fd7cf58b1b023",
+      "sourceRef": "Pesachim 111b",
+      "heSHA256": "ee3d85d430fca28f0e6cb13512abd576d072bb14833325b149be22f1581a101f",
+      "enSHA256": "e3c251cc21e08f03617ce4a3359cf83191ca1c87d81279b68a89810d2e588d82",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        2156
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-587a34221f854d4ae49b",
+      "sourceRef": "Berakhot 17a",
+      "heSHA256": "71d1f182cb0b3795d26087ff7c2ab4cdeb1a8948d2aee17a06cf5af7fdcc49fb",
+      "enSHA256": "642293b9a936c7131c0974cf358d5f2b60cbe22288387e28faef52aad7b2ce58",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        2171
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-f3c0b42fa86b8c7261d6",
+      "sourceRef": "Sotah 42a",
+      "heSHA256": "2cbdc438cf6cdcaf357cf7b6c9b5761f3da4e495d13dceca2d6d1ee6cead04cb",
+      "enSHA256": "80a29aa921c8937bf8e61f35988ab759ca8abecc6261619ab1b1d1bed1e2c68c",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        2182
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    },
+    {
+      "unitId": "unresolved-he-990bca91d4bd89a47862",
+      "sourceRef": "Zevachim 46b",
+      "heSHA256": "eaecc49d4baa5682b587e8922856392bc2b84bf5a1336e16b35beeb3be0332b7",
+      "enSHA256": "a3d1d27f2ecbfee80917d6b414506de994900e18faa6dbb8c6918bf69c7b3c10",
+      "status": "verified",
+      "translator": "/root/sources_226_240",
+      "reviewer": "/root",
+      "placements": [
+        2193
+      ],
+      "finding": "Every supplied Hebrew/Aramaic and English clause read in full; speakers, questions, qualifiers, proof quotations, and selected source boundaries accepted."
+    }
+  ],
+  "primaryCacheFilesChecked": 58,
+  "contextChecks": [
+    {
+      "sourceRef": "MishnahYadayim3:5",
+      "detail": "All positions,72 elders, sanctity comparison and final dispute/resolution preserved; primary Bartenura and Tosafot Yom Tov independently read."
+    },
+    {
+      "sourceRef": "Eruvin100b:18",
+      "detail": "Seeks marital relations avoids an unsupported explicit spoken demand; later qualification23 is separately translated in root004, no source extension."
+    },
+    {
+      "sourceRef": "Shabbat55b:3",
+      "detail": "Four individuals, tradition/Scripture distinction and full printed proof retained. Following name explanation documented without expanding approved quote."
+    },
+    {
+      "sourceRef": "ZoharYitro",
+      "detail": "Bodily garment/soul distinction, five levels on each side, and judgment/ordinary-person statements all preserved."
+    }
+  ],
+  "acceptedPrecisionEdits": [
+    {
+      "unitId": "unresolved-he-9c684cbc61584b4370fa",
+      "reason": "Ibn Ezra’s alternate reading explicitly interprets hamon as a multitude of attendants; independently corroborated in Hebrew Metzudat David. Added bracketed referent instead of treating hamon as generic wealth.",
+      "finalEnglishSHA256": "5d001c85aa09c007e11750c645818a178b7361931055d1b5fe23f9c865cdd710"
+    }
+  ]
+}

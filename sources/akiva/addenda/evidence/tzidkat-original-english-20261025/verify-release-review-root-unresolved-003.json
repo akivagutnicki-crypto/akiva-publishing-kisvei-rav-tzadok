@@ -1,0 +1,817 @@
+{
+  "schemaVersion": 1,
+  "status": "accepted",
+  "reviewer": "/root/verify_release",
+  "translator": "/root",
+  "translationFile": "review-work/download-refresh/english-replacement/translations/root-unresolved-003.json",
+  "translationFileSHA256": "1663f12641d7df047d62315ba14f9db22932d5bb99e995f133bba96228c0854c",
+  "packet": "review-work/download-refresh/english-replacement/translation-packets/root-unresolved-003-hebrew-only.json",
+  "packetSHA256": "767c364ea2b4c3cf93824cca4f1117e7a63914e18072f591aaa1db26eb8d7e1f",
+  "counts": {
+    "units": 54,
+    "notePlacements": 69,
+    "precisionEditsRequired": 0,
+    "precisionEditsApplied": 3
+  },
+  "method": "Independently read every supplied Hebrew/Aramaic clause against every English sentence, including the exact approved332 source completion. Verified all54 Hebrew and raw primary-cache hashes. Primary Hebrew commentaries consulted where listed; no third-party English used.",
+  "corrections": [
+    {
+      "unitId": "unresolved-he-5ce0dcd4797cff6f67d7",
+      "sourceRef": "Yevamot 62a",
+      "beforeEnglishSHA256": "088ab22c04b3ea4254f890b5dd9f8ad18437e0133436dc8a4b4be61488e7f2b1",
+      "proposedEnglish": "Rav Huna said: He has fulfilled the commandment, on account of Rav Asi’s teaching. For Rav Asi said: The son of David will not come until all the souls in the Guf [the treasury of souls] have been exhausted, as it is said: ‘For the spirit from before Me grows faint,’ and so forth. Rabbi Yochanan said: He has not fulfilled the commandment to be fruitful and multiply. We require ‘He formed it to be inhabited,’ and that is absent here.",
+      "proposedEnglishSHA256": "ec393b370e844d3a0fcd11227498f38c434a4655c00440a6bab22a8385d36b09",
+      "reason": "Preserve the source-origin min in מלפני. Grow faint itself is supported by saved primary Hebrew Rashi on Isaiah57:16.",
+      "status": "accepted-and-verified-applied"
+    },
+    {
+      "unitId": "unresolved-he-b2ee1b42ce31f56001fd",
+      "sourceRef": "Berakhot 12b",
+      "beforeEnglishSHA256": "94018de3c1db80a7b1fb068b35526172f7733d6d42647d50e670ff6297e2cf17",
+      "proposedEnglish": "Rabbah bar Chinena the Elder said in the name of Rav: Anyone who commits a transgression and feels ashamed of it is forgiven for all his iniquities, as it is said: ‘So that you may remember and be ashamed, and no longer have an opening of the mouth because of your humiliation, when I atone for you for everything you have done, declares Hashem God.’",
+      "proposedEnglishSHA256": "d5fe68a30a58235cc4a25bcf10af2942e97804943e4b620debc0e91894109dc0",
+      "reason": "Follow the supplied ה׳ אֱלֹהִים and the established Hashem/God convention.",
+      "status": "accepted-and-verified-applied"
+    },
+    {
+      "unitId": "unresolved-he-173e654c31ec935c5b4c",
+      "sourceRef": "Gittin 57a",
+      "beforeEnglishSHA256": "59dd4c0f47e6d0cf7e2edb090e23a50818b0599da62e66609fb67e2b453226f5",
+      "proposedEnglish": "Bar Daroma’s mouth caused him to stumble, and he said: ‘You, God, have surely abandoned us, and You, God, do not go out with our armies.’ But David said this too! David was speaking in astonishment.",
+      "proposedEnglishSHA256": "17536832866fbd58ed5bdecdcaf701b2468179ccccbe3bde587864c8bdb667df",
+      "reason": "Make Bar Daroma’s assertion distinct from David’s astonished question, as the source explicitly contrasts them.",
+      "status": "accepted-and-verified-applied"
+    }
+  ],
+  "specialChecks": [
+    {
+      "sourceRef": "Bava Metzia 58b:12-13",
+      "result": "accepted",
+      "detail": "Initial mistaken everyone-except-three formulation is explicitly challenged and corrected; all three exceptions and the accustomed-nickname qualification are fully translated. Broad public58b source label/URL remains unchanged."
+    },
+    {
+      "sourceRef": "Yevamot 62a",
+      "result": "accepted-with-origin-preposition-edit",
+      "detail": "Guf treasury explanation is distinguished; grow-faint reading supported by saved Hebrew RashiIsa57:16; no unselected remainder of the verse inserted."
+    },
+    {
+      "sourceRef": "Tamid 32a",
+      "result": "accepted",
+      "detail": "Figurative self-denial/self-indulgence clarifications are distinguished and attributed in the audit to Rosh, not Rashi; every question and both competing recommendations are retained."
+    },
+    {
+      "sourceRef": "Niddah 9a",
+      "result": "accepted",
+      "detail": "Rashi explicitly defines nafshah as blood; all twenty-four-month, blood-to-milk and One proof language preserved."
+    },
+    {
+      "sourceRef": "Berakhot 57b",
+      "result": "accepted",
+      "detail": "Preserves source heading three prophets and all four named books including Kings; does not silently change the printed number."
+    },
+    {
+      "sourceRef": "Eruvin 19a",
+      "result": "accepted",
+      "detail": "Both gei/hinnam and Tofteh/mitpatteh wordplays preserved, with Rashi’s forbidden-relations gloss distinguished."
+    },
+    {
+      "sourceRef": "Berakhot 48a",
+      "result": "accepted",
+      "detail": "Full actual selected narrative retained; earlier halakhic paragraph absent from this selected source is not imported."
+    }
+  ],
+  "verification": {
+    "all54HebrewHashesMatch": true,
+    "all54PrimaryCacheHashesMatch": true,
+    "source332ApprovedCompletionReadInFull": true,
+    "all51UnchangedEnglishHashesMatchPriorRead": true,
+    "all3ExactApprovedCorrectionsMatch": true,
+    "acyclicReviewPins": true
+  },
+  "units": [
+    {
+      "unitId": "unresolved-he-504508934b74cc390a01",
+      "sourceRef": "Berakhot 13a",
+      "heSHA256": "c60c47af89fcc64ccd6f40f36bf0c6b22c3f54ca9a0fc70f839966ec9a21bdf6",
+      "englishSHA256": "14944f528f7ef96d2fa304d59856594e0f8ae2250bcb55ab771dc46021351910",
+      "placements": [
+        12,
+        1628
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-4fde0720f5efa2d72e3d",
+      "sourceRef": "Berakhot 2a",
+      "heSHA256": "fb975966197d535c6de48b5dba741422875a954146079f11098c6205c72793be",
+      "englishSHA256": "a71dee7bbff11db691464b317048710e323b1bb901fac6c1096e422d3335c332",
+      "placements": [
+        29
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-85fc8d35afd503355507",
+      "sourceRef": "Sukkah 28b",
+      "heSHA256": "f8b7405bf6df3af9d9ee4a7cf731d55b3cea93ca6bef2efadccff4623378583d",
+      "englishSHA256": "9d2b3f00ddbbfa0181ec0d7bc71c6f773cc429a1c78986e9bf893c925727db0a",
+      "placements": [
+        47
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-2044ce715728a95a7291",
+      "sourceRef": "Berakhot 58a",
+      "heSHA256": "4e6047050d7e056deed8d8bef47a94c293b3119cc881f9318dd0cdb1a8195056",
+      "englishSHA256": "61252eab80d921814e65da2e54b40d4b85d3d14aba7f9ea53d455ac71c2f7872",
+      "placements": [
+        63,
+        262
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-896af862ee9538df8dc1",
+      "sourceRef": "Berakhot 3b",
+      "heSHA256": "7d2262cf50af83abed1fb638f60921e80c1737305ad58f29a459f67b01a3e101",
+      "englishSHA256": "3e7f48010244407918d00612fd37b7cfc307d2d055970f0707f1f6bf934f8041",
+      "placements": [
+        74
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-55a27e38543b7b31d9fb",
+      "sourceRef": "Bava Kamma 92b",
+      "heSHA256": "fe33258a6ae112420a2d2684e15421d5f1966e0f428bfb1fb957567cd2f9f8ea",
+      "englishSHA256": "5f5e1dd45e9ec198dacc6bf09da7f2ec93046275b1953d1a476e93706026dcbb",
+      "placements": [
+        75
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-c427f69ae7afad0493c8",
+      "sourceRef": "Sanhedrin 92a",
+      "heSHA256": "d706b7be3f1875e02c1f1439f5f1c129cde410df501ceed76550b68d5a6c0e84",
+      "englishSHA256": "60724a02cc7f3be78f59f62e1d74911611cf3e99d57f4c7e692b719b47bb4791",
+      "placements": [
+        91
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-18980e1cca885713f99a",
+      "sourceRef": "Pesachim 4a",
+      "heSHA256": "bb677170f7312e80c77376e8cf299d9b362746f92387e46243795a578eed1555",
+      "englishSHA256": "e9925abf430a0054e919372edf23147613e1e0b83f62a5287bc8f25aba08623c",
+      "placements": [
+        97
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-495478a00d09a2d4dfd6",
+      "sourceRef": "Berakhot 4a",
+      "heSHA256": "8bc6925c928f4894ea856efde531911559366afc9ddaac4762d42d042a9b08e6",
+      "englishSHA256": "0e580177bd31a829b11057f638a30da76ff68400331766c86a1c3f0da06308c7",
+      "placements": [
+        111
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-accd75ba605763ba8b3d",
+      "sourceRef": "Kiddushin 71b",
+      "heSHA256": "a9434f3fc1ba8fa19b1e6aa985655e9d2af9f6e95e660cd4545e3b796364a9ac",
+      "englishSHA256": "cf1eccdcb5226831634f7f70fcc350407fddb86c07b966b2452ecd7c92912cf7",
+      "placements": [
+        114
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-66795d58cbf6a4f7c256",
+      "sourceRef": "Berakhot 32a",
+      "heSHA256": "5cc4c8abe17cbbe213e78f9ad8e3d45e528d86bd55f60c9885e6b899f46aca00",
+      "englishSHA256": "9987a8881e5953faff918cdbb39baa2ab2f747c385e9cd74b99bdefa10a96faa",
+      "placements": [
+        129
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-5ce0dcd4797cff6f67d7",
+      "sourceRef": "Yevamot 62a",
+      "heSHA256": "819d21eb993299495068f235c6d8540dd56a79a4dea5ab23e6ec3ec3b446c460",
+      "englishSHA256": "ec393b370e844d3a0fcd11227498f38c434a4655c00440a6bab22a8385d36b09",
+      "placements": [
+        140,
+        531
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true,
+      "preEditEnglishSHA256": "088ab22c04b3ea4254f890b5dd9f8ad18437e0133436dc8a4b4be61488e7f2b1"
+    },
+    {
+      "unitId": "unresolved-he-81ff95c485c0703a2681",
+      "sourceRef": "Pesachim 86b",
+      "heSHA256": "43be42b800bd3b3c032e63203c8d16fd2e21e9e303bfe0d3af729a12a812c3ec",
+      "englishSHA256": "b2b6f115c897b9ef580444a4c1e31835b3face58427dd0e6b63eb69f9c90d92d",
+      "placements": [
+        143
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-d7d2fc42d207bdbe6ef0",
+      "sourceRef": "Sotah 49b",
+      "heSHA256": "02e031e735464de290d3e9dd93eb976b6133031db7295541193bad892d32abc1",
+      "englishSHA256": "4ecea67f5e1f39fd1f805769e763431e6cb38de561425e2230a1c6ac6b8e369e",
+      "placements": [
+        147
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-e764cded81d2b659e817",
+      "sourceRef": "Sotah 36b",
+      "heSHA256": "b4510505d8245fd5c7c4f11b89de0229d1fed795a22b1b9e3ad1c88e0f953e1e",
+      "englishSHA256": "ca4c13bc45608f61d456197ca6576075ed140f35f4ebab865d54aadbd20fba65",
+      "placements": [
+        176
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-619c963bb416a0cc8d62",
+      "sourceRef": "Sanhedrin 7a",
+      "heSHA256": "25ba164d49a4b399b072c2834356abca6c57f41f84e8f9477b7347e0a03a36a4",
+      "englishSHA256": "dcb6f2e6333b735854ed1a27d2987c734a3fc31b2c62aa153568b75caef516b1",
+      "placements": [
+        183
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-b2ee1b42ce31f56001fd",
+      "sourceRef": "Berakhot 12b",
+      "heSHA256": "aa831bf0d42cd55698ca3a8e1f92847a3404f5bc119cb6dff082b2480662c5e0",
+      "englishSHA256": "d5fe68a30a58235cc4a25bcf10af2942e97804943e4b620debc0e91894109dc0",
+      "placements": [
+        198
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true,
+      "preEditEnglishSHA256": "94018de3c1db80a7b1fb068b35526172f7733d6d42647d50e670ff6297e2cf17"
+    },
+    {
+      "unitId": "unresolved-he-0b608efa3d7a9db5a674",
+      "sourceRef": "Bava Metzia 107b",
+      "heSHA256": "225e18b7f92dc08af227331a949f75f6ee012cfbd7b0674864ae8d9913d43da2",
+      "englishSHA256": "0e15b7815449bc1469d531628b346894ddbe22a19be8f385fe9e83713107f410",
+      "placements": [
+        212
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-bdac57446c5647111233",
+      "sourceRef": "Niddah 31a",
+      "heSHA256": "84a0203400cac1e5ad3810f75af4b6ef613e016c72abf00baa9d9c3715c8daa6",
+      "englishSHA256": "3eb2b08547e8595933f0d805e3e347802c87c419f3fbb2328471c4699f63ffbc",
+      "placements": [
+        238,
+        804,
+        1358,
+        1907
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-398bb4a33d3ae360b616",
+      "sourceRef": "Sanhedrin 113a",
+      "heSHA256": "ff4f6ccea63c2164ebb281b868de3404fe446d7225e234bfcdb50553682b409c",
+      "englishSHA256": "b5ad746f4ceadb598a505bfdcf469907e49f462ceda37c4e55da30e3ab59f27d",
+      "placements": [
+        243
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-e8af92db8dce454b60bc",
+      "sourceRef": "I Kings 20:14",
+      "heSHA256": "b3445d351c37a9e26ce2c56b7bd65eb8ba9e306eec2c25a95dcf67bfcda57ff9",
+      "englishSHA256": "5213b9769d1efe950c621d883810d921512a460fd0186634ff1556b27c2e3c99",
+      "placements": [
+        268
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-329055557715f15cb535",
+      "sourceRef": "Avodah Zarah 4b",
+      "heSHA256": "70db72f3e3b335f8ce16eb6989e388fd3d25c8fff38cf8fd7f5aed950e45edf2",
+      "englishSHA256": "0371e27e31f723465ae855fdd8766b6f8996b93f958b8c73ba46cc5c403ab2fb",
+      "placements": [
+        285,
+        1427
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-f6ed8cd719143144c80e",
+      "sourceRef": "Yevamot 17a",
+      "heSHA256": "da33152070f1faee27e469a6513ea2181f6861cf7263ec201111d89dcef7c3bf",
+      "englishSHA256": "c326b0e233f0b381b0fa2cf2c199b7f0e5745bf215d03ae09fb355bcc1d47bff",
+      "placements": [
+        316
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-812f8317854fe9b6db96",
+      "sourceRef": "Bava Metzia 58b",
+      "heSHA256": "4a82260f5dc1c5e5b5f7b8278e8d0f983655e98c338574919a798f4c181a5ecc",
+      "englishSHA256": "dd5f19d60c8dc18ff35387f0d30406ae84548a29ea982f69e2d12c86c4581dd7",
+      "placements": [
+        332
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-2439866732066b384982",
+      "sourceRef": "Bava Kamma 83a",
+      "heSHA256": "d4033da6be0286e72567f40abce6169893841f0f5f625a514931c901529a4d95",
+      "englishSHA256": "15a9695f2f15de91eb1f452e3fc023752233342e24d5a86faffb53a57a615d68",
+      "placements": [
+        375
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-c6885e1a8d752b959810",
+      "sourceRef": "Kiddushin 30b",
+      "heSHA256": "5b02df2d572df4a54ba7a7a15376c784a643fa462adf61d3d89d219177e06363",
+      "englishSHA256": "4793141016fa0495ec9aa4f575c9e833a24c33ead1c99edaed65dacf80d32501",
+      "placements": [
+        415
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-109d80e62105b4064f84",
+      "sourceRef": "Berakhot 61a",
+      "heSHA256": "5a494f44162b2aba7e87b0c93d977fee8255926659d65a837b814eab772a6c11",
+      "englishSHA256": "94e43f45f48f1de04248669b37f41ab3e8163d0abf0aeec72a1a09b9148bf5d8",
+      "placements": [
+        423
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-45b1b51ced8a3a60dde5",
+      "sourceRef": "Eruvin 19a",
+      "heSHA256": "3c975ef7b7d5e840fdadf5484c044214b74cd7aab04444b5e82a7d93797839c4",
+      "englishSHA256": "33ee1b1b5df367737b6ba0489ff423ee4cacb390768ad6d920846553e8187617",
+      "placements": [
+        425
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-ce5b33ebc5bab3aa52fa",
+      "sourceRef": "Sanhedrin 90a",
+      "heSHA256": "d61e6975c9dcda9e5a5b7725729dfd41b793a34adf90cfd3dce8d79d9d6c6067",
+      "englishSHA256": "4a6c27deb5e72c6e08bcaf064f381986cecfebe4ef08de15222f164526ae87b6",
+      "placements": [
+        490,
+        706
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-dee57207cf9765bfd8a1",
+      "sourceRef": "Berakhot 5a",
+      "heSHA256": "d68fdb2a65664c25816772dc2e5f2fcc3691e280c17f976b76ec573374079840",
+      "englishSHA256": "428b355087c84322739131694ed792e03a0e8140de42959fe6990eb08d3068d8",
+      "placements": [
+        494
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-9b111a294c46cfd2534f",
+      "sourceRef": "Pesachim 110a",
+      "heSHA256": "e18f8508fb89f7fd17a39b1f6f1dcb2888ebbb582175ab09e815af9c5e68edb8",
+      "englishSHA256": "e020ad1d4bf3da316e198313ef88c809badcec786f9864d493bcb2e1b58d5730",
+      "placements": [
+        500
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-850423dc436bf6009f72",
+      "sourceRef": "Moed Katan 25a",
+      "heSHA256": "4e3d5fe93837da9eae51006b53bb4e3557544cb0a9b5977eacb1b0234a78d7df",
+      "englishSHA256": "5c3e2b6f695b17f02307d6b6228e4e1fd49d0ba701dd6cd64364e5a1e57758f0",
+      "placements": [
+        518
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-2a6b61d99c0c7e63ec4a",
+      "sourceRef": "Psalms 34:17",
+      "heSHA256": "3da4c4024dbbb5d2f46a59fc3d1bba3b55d7c0aba0178a24b3d63491929c88e8",
+      "englishSHA256": "dc756bcf03c7d2b1cf60e47f81eaeaecdf5f4d5a97379b376a0877ecd8665b45",
+      "placements": [
+        521
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-65adcfb2e5e6f84b1db6",
+      "sourceRef": "Psalms 34:19",
+      "heSHA256": "b916e8902cebb15c8781ec7308e6a46ca9c6ffce3efaa8e8188066979143a76a",
+      "englishSHA256": "078ef6ebe9200e229a7669b4a74776ae2778c90724a2c3e58030c1ddb864dc1e",
+      "placements": [
+        524,
+        1487
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-c3132ab2e4ef0f853db4",
+      "sourceRef": "Taanit 2a",
+      "heSHA256": "a064e0aa39519ba91075462da2b4f5c76c50db515bd9c0cae794dcfeaafd392f",
+      "englishSHA256": "5aef29a7703f82ca3d6dd7d6152fa1d94d7c1afd22fdee1a3ef791855995173f",
+      "placements": [
+        533
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-6fc5888434bd7f469040",
+      "sourceRef": "Bava Metzia 85a",
+      "heSHA256": "e0bb3c71f1d4009eaf4f3a43b10601c519940ada74fe7b9dc34a6ce29e1d46ac",
+      "englishSHA256": "8ae4aa0379f9f32538bef5d6e46a68050233475fccbef27e2ecba21fb14e8bcc",
+      "placements": [
+        570
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-4c944f45b69467301d64",
+      "sourceRef": "Sukkah 52a",
+      "heSHA256": "5f358969972d277a1ba7d1d4c030bd16aa16c72d93a9a8602fcdd59e0d34de01",
+      "englishSHA256": "7075e7805594ff79f72fe5174e061b0c29e868f7759b35315736512c8b2611d6",
+      "placements": [
+        588
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-879acf0f14ff1ff37a06",
+      "sourceRef": "Gittin 52a",
+      "heSHA256": "77f8ca98deaafc881889841dee67a8df4ed6c37d6f03646e34677417e8e44215",
+      "englishSHA256": "5573ebf4ae839d6c167a52f745bbf726671c8d8de74f18a79b3b003d212f4f21",
+      "placements": [
+        592
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-173e654c31ec935c5b4c",
+      "sourceRef": "Gittin 57a",
+      "heSHA256": "ed6c8ad9ab0bf96da25fd86081f8d4ea612036825bc7a44f3b467cfa32b45e47",
+      "englishSHA256": "17536832866fbd58ed5bdecdcaf701b2468179ccccbe3bde587864c8bdb667df",
+      "placements": [
+        594
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true,
+      "preEditEnglishSHA256": "59dd4c0f47e6d0cf7e2edb090e23a50818b0599da62e66609fb67e2b453226f5"
+    },
+    {
+      "unitId": "unresolved-he-e8320f3bdd8df291124f",
+      "sourceRef": "Tamid 32a",
+      "heSHA256": "d6062cff56708b722c51111ba1a2e73456f0594dcec1865d3de7ff13df353750",
+      "englishSHA256": "4f799854076904a7925a37146ccc8ac31e318587efde14282a5965875335ee41",
+      "placements": [
+        643,
+        917,
+        2153
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-f58470a23200116b1f1c",
+      "sourceRef": "Berakhot 48a",
+      "heSHA256": "a49e68e5b904c40701b66d7619d22fe4507de080bf04456a713b44ccc940de71",
+      "englishSHA256": "c70f5cfc93a1d2c2e0cd9f2023d0c1970d5dfa2c9213588f2292425300b61a3d",
+      "placements": [
+        701
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-b2684966b062cb0ebba9",
+      "sourceRef": "Avodah Zarah 3a",
+      "heSHA256": "6b1149bf1a2cc097215e6aed77be24b31b5c440ecd23a5471e2a6a412a8d5d12",
+      "englishSHA256": "b8a0a2c8c1f7ce945987d6352204667f28f0d3dcece55f56028453916c96772b",
+      "placements": [
+        702
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-f651b441acdd6d26dc7e",
+      "sourceRef": "Pirkei Avot 4:16",
+      "heSHA256": "62db96341c17a6756904eeb93687c9cbbbf765866b3c62b6b383b15a87c8f146",
+      "englishSHA256": "e7093947c5b6623cae851ea9f495d55ab590de0b53a4c7840362f04d37ef13e3",
+      "placements": [
+        716
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-d0de6b802fd1cb4f687a",
+      "sourceRef": "Sanhedrin 106b",
+      "heSHA256": "8465845a2635e4482cbf0c1229f2392f42fc0043091a231321be6ee206a750e9",
+      "englishSHA256": "0e6290962f6f3ac9f723aca5602af11fa1dd3d72c89c9ac906ae6fdd34675fe4",
+      "placements": [
+        723,
+        1138,
+        1706,
+        1782
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-4aab58330453a106f6de",
+      "sourceRef": "Berakhot 63a",
+      "heSHA256": "dd9c6d2a40cd0164d3a0397d2fbdb87b9d0c5e03049f41b8e4500a7125807a74",
+      "englishSHA256": "1da5bf568b8055dc750b3f424ea678d14c35da1da0d0945b78bb1dc95ff05e1e",
+      "placements": [
+        751
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-61b16b1bced8fc0f68c6",
+      "sourceRef": "Eruvin 22a",
+      "heSHA256": "60bb84be06527ee83722b700d851efeb42e33d5f327ac484eff78cd5ec0b70ba",
+      "englishSHA256": "bc924a4305c812e98194430eabfed6a1026cb880138122174cc41c8cb1b47851",
+      "placements": [
+        756
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-493ca30065db02b473ea",
+      "sourceRef": "Berakhot 32b",
+      "heSHA256": "e5ace2603d86446ce9b55db9dea535190e8de6d1c83812f8756514b7b8db36d8",
+      "englishSHA256": "9622b43a8f8cade986833f86d5fd8ec133e307a42b0302e197bf814ed92ee22f",
+      "placements": [
+        771
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-0a65bd48bd49a5773df8",
+      "sourceRef": "Avodah Zarah 4b",
+      "heSHA256": "befbe39c570d960bca260a71c37d5bde072d7c7364ad3417cdbfb2bb892af4cf",
+      "englishSHA256": "48821eec6dccf72ea8c841dd7146531e6ab79512d786f277ffbd3a9acaacdc80",
+      "placements": [
+        774
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-66b48671dc04ffc10580",
+      "sourceRef": "Sanhedrin 26b",
+      "heSHA256": "f6830e9e719bd319d882fe08ce881a6aa68c7b3cc68fff4c0a8eb02e4e518a49",
+      "englishSHA256": "6d6449867e9d96f1acfb42b5e2727fee8775584a89b4511357b7e0f58804b608",
+      "placements": [
+        775
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-f7e41f62e2469511a15c",
+      "sourceRef": "Taanit 5b",
+      "heSHA256": "2d568aa49c5966915a6143b9e04c6a5f5bffe03b63b1e2f68e9f1b5024848b20",
+      "englishSHA256": "95c8d1cde8992ca6a7658be31ea8c6f371cc961be5bb495e8bb77ded5dde93d9",
+      "placements": [
+        787
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-621c49c95fe4baddb07a",
+      "sourceRef": "Kiddushin 40a",
+      "heSHA256": "38ccd30267bf808c0b6ee6671fe316ca5f1cbc4b8ce33bbab9eb9527c1662a01",
+      "englishSHA256": "2b1db37bc99306d503564561f8d213c6c5b9143fb17875b36550fca8cf0fd955",
+      "placements": [
+        810
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-594578adb0640c5fdb94",
+      "sourceRef": "Berakhot 4b",
+      "heSHA256": "66cdd8019559baf1cb7491676e39a68c1fc9378fa535e60296a84ca0fe92b9b7",
+      "englishSHA256": "2463228a9dd5f709dcf110f21eb2990b4b3f607e3947380d9e8e9791dec8a537",
+      "placements": [
+        835
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-6621a429a3991f1762f6",
+      "sourceRef": "Niddah 9a",
+      "heSHA256": "828c8a1229a644fcfde80f5979b584ace6048dc9c2dbd7b57a82b709480e1056",
+      "englishSHA256": "ba4a2740f381e991b4225afba33b648518ad9bc57cdc1f8ee9524793ba4cf7a6",
+      "placements": [
+        837
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    },
+    {
+      "unitId": "unresolved-he-8d18598a2663ccace3be",
+      "sourceRef": "Berakhot 57b",
+      "heSHA256": "67182ec429c34c74f234dacbcb7191f2583b8a33ad3dd09b765fcdaaf0d2b0ff",
+      "englishSHA256": "fc21e400a7622cbcbc16126ca752c5f16ec5cf30b440198db6de9c1e9e983f45",
+      "placements": [
+        870,
+        1022
+      ],
+      "status": "accepted",
+      "completeSelectedScopeReviewed": true,
+      "clausesQualificationsSpeakersReviewed": true,
+      "sourceBoundaryReviewed": true
+    }
+  ],
+  "reviewedPreEditArtifact": {
+    "path": "review-work/download-refresh/english-replacement/translations/root-unresolved-003.pre-peer.json",
+    "sha256": "7613fd9c690cc49a07e377ece3604752764bd238972e985d793398d4c51a0b7a"
+  }
+}

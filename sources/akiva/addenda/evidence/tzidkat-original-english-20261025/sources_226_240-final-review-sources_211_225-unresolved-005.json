@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "status": "verified",
+  "reviewer": "/root/sources_226_240",
+  "translator": "/root/sources_211_225",
+  "translationFile": "/workspace/scratch/d9a4c32fec33/review-work/download-refresh/english-replacement/translations/sources_211_225-unresolved-005.json",
+  "sourcePacket": "/workspace/scratch/d9a4c32fec33/review-work/download-refresh/english-replacement/translation-packets/sources_211_225-unresolved-005-hebrew-only.json",
+  "sourcePacketSHA256": "deb0190e7bf1ec78b639dcb12094f162a8e937d86f4870f4b42bce4e3abbf249",
+  "method": "Independent complete Hebrew/Aramaic–English comparison of all five manually selected source units. Hebrew Etz Yosef consulted for Vayikra Rabbah 9:3. Existing independent source-selection audit and root approvals retained; no legacy English used for translation assessment.",
+  "records": [
+    {
+      "position": 1,
+      "unitId": "unresolved-he-9997263f7f55356b30f1",
+      "sourceRef": "Zohar, Bereshit 22:255-24:264",
+      "heSHA256": "9e4519def22fd9a23b5758061300891ce0a21effb50cf9b7224cfa4c13939228",
+      "englishSHA256": "bca7bf9b5628a9f1aefef6d6b9d3923cb90b7dcabe5047f73afeabb7c7801d61",
+      "actualTranslator": "/root/sources_211_225",
+      "independentReviewer": "/root/sources_226_240",
+      "status": "verified",
+      "findings": "All clauses retained, including repentance/Torah, four elements, separation and placement in the Shekhinah, positive/negative commandments, conditional guardianship and river/rulership. Divine subject through the separation/placement clauses is a grammatical inference from the continuous explicit subject; no unattested Sulam authority claimed. Exact selected source is Bereshit 24:260; public broader label remains unchanged."
+    },
+    {
+      "position": 2,
+      "unitId": "unresolved-he-8c150f09c7705919e978",
+      "sourceRef": "Shulchan Arukh, Orach Chayim 1:4",
+      "heSHA256": "34bac641a09d0003e096782c992f795cdf25720b44d984e9aa1b353a5e8b165e",
+      "englishSHA256": "43968b61064cffb572d158b95bbf652ca63e28a09ea0b1d9ecc15fb831a025f0",
+      "actualTranslator": "/root/sources_211_225",
+      "independentReviewer": "/root/sources_226_240",
+      "status": "verified",
+      "findings": "Complete seven-word ruling faithfully rendered, including the comparative preference and intention qualification."
+    },
+    {
+      "position": 3,
+      "unitId": "unresolved-he-a3b5a4901132e3fd6429",
+      "sourceRef": "Midrash Tehillim 144",
+      "heSHA256": "82969cc61e7ba807f9d5c2226f52b12f172c82429ee2ab782702c596fa78fda7",
+      "englishSHA256": "e3dbdf0772c00dae5455de3bc35d0a55d9a4cad1f9a4c5259e8a7af0ca419180",
+      "actualTranslator": "/root/sources_211_225",
+      "independentReviewer": "/root/sources_226_240",
+      "status": "verified",
+      "findings": "Complete approved opening argument through the first conclusion retained, with every supplied proof verse, David’s declarations about kingship/might/wealth, and attribution of victory and formation for battle. No later Goliath narrative imported."
+    },
+    {
+      "position": 4,
+      "unitId": "unresolved-he-e39cbee693fd4cbad77c",
+      "sourceRef": "Vayikra Rabbah 9:3",
+      "heSHA256": "9385b800ab4ccd65412759d727ec44823b6cffeb4d2653c8b3798ce1924e540f",
+      "englishSHA256": "f2631ceb6e98c6df9737919b6fdd54c9f729c81ffa9e46e6670c5d971960ce2f",
+      "actualTranslator": "/root/sources_211_225",
+      "independentReviewer": "/root/sources_226_240",
+      "status": "verified",
+      "findings": "Complete story and concluding teachings retained. Hebrew Etz Yosef independently read to verify the appraisal wordplay, clothing, cup, dog statement and reporting to the subject of an ill word. All four knowledge tests, inheritance argument, peacemaking, 26 generations and divine/Israel salvation conclusion remain."
+    },
+    {
+      "position": 5,
+      "unitId": "unresolved-he-56a6437ae5fa52907c1d",
+      "sourceRef": "Sefer Chasidim 176",
+      "heSHA256": "b9a675ee7b62530a501fa5967440c0174a29326b6a4c1dcb3fdf18f7bfcc4fe0",
+      "englishSHA256": "19208918127988662c4657e401ba1ee9beba2ee44150d6d040fb76295fe5750c",
+      "actualTranslator": "/root/sources_211_225",
+      "independentReviewer": "/root/sources_226_240",
+      "status": "verified",
+      "findings": "Complete source paragraph and exact qualifications retained, including the circumstance of inability to resist otherwise, the atonement requirement, sitting in ice in winter or fasting forty days in summer. This review confirms historical textual fidelity, without turning the quoted ruling into new practical advice."
+    }
+  ],
+  "counts": {
+    "unitsRead": 5,
+    "verifiedUnchanged": 5,
+    "editsProposed": 0
+  },
+  "translationSHA256": "7fd603caac9762bf0231a9385b8a42f9488478c4935aeb145364f45dcc8951ce",
+  "reviewOfSnapshotSHA256": "ea5695e5525f42e2e61db727cd7084093c9e6a2c53e209d2075e7bf2522eaae0",
+  "allEnglishUnchangedAtFinalPin": true
+}
