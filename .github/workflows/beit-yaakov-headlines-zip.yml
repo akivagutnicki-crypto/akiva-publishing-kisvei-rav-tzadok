@@ -1,0 +1,144 @@
+name: Publish Beis Yaakov editorial headlines and refreshed ZIPs
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+  deployments: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: ${{ (github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[beit-headlines-zip]'))) && 'pages' || format('beit-yaakov-skipped-{0}', github.run_id) }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: ${{ github.repository == 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok' && github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[beit-headlines-zip]')) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    env:
+      NEW_BOOKS_SITE: .beit-site
+    steps:
+      - name: Checkout reader source and audited interlinear manuscript
+        uses: actions/checkout@v6
+
+      - name: Set up Node 24
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+
+      - name: Unpack and verify the source-grounded editorial release
+        run: |
+          cat sources/akiva/overlays/beit-headline-tools-part-*.b64part > .beit-release-tools.b64
+          echo "feed36926515b3d6d55c60ee7029b4bb1991339b5f9e8d711d58a89a09d2d976  .beit-release-tools.b64" | sha256sum -c
+          base64 --decode .beit-release-tools.b64 | tar -xz
+          echo "9e8783d253c1133f2a58f4df0e506e2ebd18a5fdd082209507fa308e021fc5ad  scripts/publish-beit-headlines-zip.mjs" | sha256sum -c
+          echo "ef387229c062ff147a1aee6095ed43ab602903078f056272b816c14f2d28d4ce  scripts/refresh-beit-headlines-zips.py" | sha256sum -c
+          mkdir -p .beit-editorial-input
+          cp editorial/beit-titles-257.txt .beit-editorial-input/beit_titles_257.txt
+          python3 - <<'PY'
+          import base64, gzip, hashlib
+          from pathlib import Path
+          source = Path('sources/akiva/overlays/beit-yaakov-vayishlach-vayechi-20261025.json.gz.b64')
+          raw = gzip.decompress(base64.b64decode(source.read_text()))
+          assert hashlib.sha256(raw).hexdigest() == '974d5bd587b34cde3dc9ec9e3da773606765c0a11f105b003aef58c3cc103b55'
+          Path('.beit-editorial-input/Beis_Yaakov_Reader_Update_20261025.json').write_bytes(raw)
+          PY
+          python3 scripts/prepare-beit-headings.py
+          cp .beit-editorial-input/Beis_Yaakov_Headlines_20261025.json.gz.b64 sources/akiva/overlays/beit-yaakov-headlines-20261025.json.gz.b64
+          node --check scripts/publish-beit-headlines-zip.mjs
+          python3 -m py_compile scripts/refresh-beit-headlines-zips.py
+
+      - name: Validate all 257 editorial headlines and 640 source-anchored subheadings
+        run: node scripts/publish-beit-headlines-zip.mjs --check
+
+      - name: Identify the currently published complete Pages artifact
+        id: baseline
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/new-books-release.py metadata
+
+      - name: Download exact current site without rebuilding the library
+        uses: actions/download-artifact@v4
+        with:
+          artifact-ids: ${{ steps.baseline.outputs.artifact }}
+          run-id: ${{ steps.baseline.outputs.run }}
+          repository: akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/beit-baseline
+          merge-multiple: true
+
+      - name: Safely restore every published book and site file
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PY'
+          import os,pathlib,tarfile
+          root=pathlib.Path('.beit-site').resolve()
+          root.mkdir(exist_ok=True)
+          archive=pathlib.Path(os.environ['RUNNER_TEMP'])/'beit-baseline/artifact.tar'
+          assert archive.is_file(), 'Missing complete Pages archive'
+          with tarfile.open(archive,'r:') as source:
+              members=source.getmembers()
+              for member in members:
+                  target=(root/member.name).resolve()
+                  assert target==root or root in target.parents, 'Path outside site'
+                  assert member.isdir() or member.isfile(), 'Unsafe archive entry'
+              source.extractall(root,members=members,filter='data')
+          PY
+          python3 scripts/new-books-release.py capture
+
+      - name: Add editorial headlines and safely synchronize both ZIP archives
+        run: |
+          node scripts/publish-beit-headlines-zip.mjs --apply .beit-site
+          python3 scripts/refresh-beit-headlines-zips.py --apply .beit-site
+          node scripts/publish-beit-headlines-zip.mjs --verify .beit-site
+          python3 scripts/refresh-beit-headlines-zips.py --verify
+          node --check .beit-site/library/sw.js
+
+      - name: Recheck original live site and main branch before artifact upload
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/new-books-release.py guard
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload complete preserved site and updated Beis Yaakov ZIP downloads
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: .beit-site
+          retention-days: 14
+
+      - name: Recheck main and latest publication before deployment
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/new-books-release.py guard
+
+      - name: Publish Beis Yaakov headlines, subheadings, and ZIPs
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Verify public hashes of all changed pages and both full ZIPs
+        run: node scripts/publish-beit-headlines-zip.mjs --live .beit-site
+
+      - name: Save release and preservation verification
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: beit-yaakov-headlines-zip-verification
+          retention-days: 90
+          if-no-files-found: warn
+          path: |
+            new-books-publication.json
+            new-books-baseline.json
+            artifacts/beit-yaakov-headlines-zip/
+            .beit-site/library/beit-yaakov-headlines-20261025.json
