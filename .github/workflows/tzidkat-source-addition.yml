@@ -1,0 +1,136 @@
+name: Publish the missing Tosafot source at Tzidkat ois 6
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: ${{ (github.repository == 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok' && github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[tzidkat-source-addition]'))) && 'pages' || format('tzidkat-source-addition-skipped-{0}', github.run_id) }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: ${{ github.repository == 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok' && github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[tzidkat-source-addition]')) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout the independently reviewed one-note source addition
+        uses: actions/checkout@v6
+
+      - name: Set up Node for the sealed ZIP compressor and content guards
+        uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+
+      - name: Identify the actual latest deployed Pages artifact
+        id: baseline
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/publish-tzidkat-download-refresh.py metadata --source-only
+
+      - name: Download the actual current complete publication
+        uses: actions/download-artifact@v4
+        with:
+          artifact-ids: ${{ steps.baseline.outputs.artifact }}
+          run-id: ${{ steps.baseline.outputs.run }}
+          repository: akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/tzidkat-download-baseline
+          merge-multiple: true
+
+      - name: Restore and authenticate every original published file
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          python3 scripts/publish-tzidkat-download-refresh.py restore --source-only --artifact-tar "$RUNNER_TEMP/tzidkat-download-baseline/artifact.tar"
+          node scripts/publish-tzidkat-batch-review.mjs --verify --root .tzidkat-download-refresh-site
+          node scripts/publish-tzidkat-source-accuracy.mjs --verify-successor --root .tzidkat-download-refresh-site --successor-pack sources/akiva/overlays/tzidkat-source-attribution-20261023.json.gz
+
+      - name: Apply exactly the approved Tosafot note and its derived exports
+        run: |
+          node tests/test-tzidkat-source-addition-guards.mjs tzidkat-download-refresh-evidence/source-guards.json
+          python3 scripts/publish-tzidkat-download-refresh.py apply --source-only
+          python3 scripts/publish-tzidkat-download-refresh.py verify --source-only
+          node scripts/publish-tzidkat-batch-review.mjs --verify --root .tzidkat-download-refresh-site
+          node scripts/publish-tzidkat-source-accuracy.mjs --verify-successor --root .tzidkat-download-refresh-site --successor-pack sources/akiva/overlays/tzidkat-source-attribution-20261023.json.gz
+
+      - name: Install browser verification
+        run: |
+          npm install --no-save --package-lock=false playwright@1.62.1
+          browser_candidate="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || true)"
+          if [ -n "$browser_candidate" ] && AKIVA_BROWSER_CANDIDATE="$browser_candidate" node <<'JS'
+          const { chromium } = require('playwright');
+          (async () => {
+            const browser = await chromium.launch({ headless: true, executablePath: process.env.AKIVA_BROWSER_CANDIDATE, timeout: 30000 });
+            try {
+              const page = await browser.newPage();
+              await page.goto('about:blank', { timeout: 10000 });
+              console.log(`Verified installed browser: ${browser.version()}`);
+            } finally {
+              await browser.close();
+            }
+          })().catch(error => { console.error(error); process.exitCode = 1; });
+          JS
+          then
+            printf 'AKIVA_CHROMIUM_EXECUTABLE=%s\n' "$browser_candidate" >> "$GITHUB_ENV"
+          else
+            npx playwright install --with-deps chromium
+          fi
+
+
+      - name: Verify exact source marker, quotation, old notes and links on desktop and mobile
+        run: node tests/test-tzidkat-source-addition-browser.mjs --root .tzidkat-download-refresh-site
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Recheck main and live publication before artifact upload
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/publish-tzidkat-download-refresh.py guard --source-only
+
+      - name: Upload the complete site preserving all old text and notes
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: .tzidkat-download-refresh-site
+          retention-days: 14
+
+      - name: Recheck main and live publication before deployment
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/publish-tzidkat-download-refresh.py guard --source-only
+
+      - name: Publish the approved Tosafot note 4031 at ois 6
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Read back the source addition, exports, and all 264 reader chapters
+        run: python3 scripts/publish-tzidkat-download-refresh.py published --source-only
+
+      - name: Verify the public source marker and preserved notes on desktop and mobile
+        run: node tests/test-tzidkat-source-addition-browser.mjs --root .tzidkat-download-refresh-site --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'
+
+      - name: Save the one-note source transition and preservation evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tzidkat-source-addition-006-verification
+          retention-days: 90
+          if-no-files-found: warn
+          path: |
+            tzidkat-download-refresh-evidence/
+            sources/akiva/addenda/tzidkat-source-addition-006-20261025.json.gz
+            sources/akiva/addenda/tzidkat-source-addition-006-20261025.json.gz.sha256
+            sources/akiva/addenda/tzidkat-source-addition-006-transition-20261025.json
+            sources/akiva/addenda/tzidkat-source-addition-006-transition-20261025.json.sha256
+            artifacts/tzidkat-source-addition-006/

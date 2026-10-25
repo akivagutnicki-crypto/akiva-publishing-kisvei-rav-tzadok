@@ -9,6 +9,8 @@ import {createRequire} from 'node:module';
 import {fileURLToPath} from 'node:url';
 import {gunzipSync} from 'node:zlib';
 import {patchLocalSourcePreview} from './tzidkat-local-source-preview.mjs';
+import {verifyTzidkatDownloadRefresh} from './tzidkat-download-refresh-transition.mjs';
+import {prepareSourceAdditionTransition,verifySourceAdditionTerminal} from './tzidkat-source-addition-transition.mjs';
 
 const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const REPO = 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok';
@@ -347,8 +349,8 @@ function dataEntries(directory, prefix = 'data/', relative = 'library/data/') {
 }
 
 /** Build every changed byte in memory before modifying the site. */
-export function planPublication(directory, prepared) {
-  const {pack,packSha256,additions} = prepared, names = batchNames(pack);
+export function planPublication(directory, prepared, {publicationNames=null,zipMtime=null}={}) {
+  const {pack,packSha256,additions} = prepared, names = publicationNames || batchNames(pack);
   const linksAfter = checkPreimages(directory,prepared), changes = new Map();
   const put = (name,value) => { const bytes = value instanceof Uint8Array ? Buffer.from(value) : jsonBytes(value); const file = localFile(directory,name); if (!fs.existsSync(file) || sha(fs.readFileSync(file)) !== sha(bytes)) changes.set(name,bytes); };
   for (const file of pack.chapters) if (digest(file.after) !== file.beforeSha256) put(file.path,file.after);
@@ -394,7 +396,7 @@ export function planPublication(directory, prepared) {
       const relative = filename.slice(8); if (!book || relative.startsWith('data/' + SLUG + '/')) next[relative] = bytes;
     }
     if (!book) next['data/files.json'] = jsonBytes(dataManifest(next));
-    const output = zipSync(next,{level:6}), check = unzipSync(output);
+    const output = zipSync(next,{level:6,...(zipMtime ? {mtime:zipMtime} : {})}), check = unzipSync(output);
     assert.deepEqual(Object.keys(check).sort(),Object.keys(next).sort());
     for (const [filename,bytes] of Object.entries(next)) assert.equal(sha(check[filename]),sha(bytes),'ZIP payload differs');
     archives.push({path:name,...{bytes:output.length,sha256:sha(output)},dataFiles:Object.keys(next).filter(n => n.startsWith('data/')).length,preservedEntries:Object.keys(old).filter(n => sha(old[n]) === sha(next[n])).length}); put(name,output);
@@ -402,7 +404,7 @@ export function planPublication(directory, prepared) {
   const downloads = read(directory,'library/downloads/index.json'); downloads.version = manifest.version;
   for (const item of archives) { const entry = item.path.includes('/books/') ? downloads.books.find(b => b.slug === SLUG) : downloads.library; assert(entry); entry.bytes = item.bytes; entry.dataFiles = item.dataFiles; } put('library/downloads/index.json',downloads);
   const catalog = read(directory,'mcp-data/catalog.json'); catalog.version = manifest.version; put('mcp-data/catalog.json',catalog);
-  put(names.ledger,pack.audit);
+  if (names.ledger) put(names.ledger,pack.audit);
   return {changes,archives,linksAfter,additions,version:manifest.version};
 }
 
@@ -429,7 +431,7 @@ export function applyPublication(directory, prepared, state) {
 }
 
 /** Exact terminal overlay for older preservation gates; no ignored fields. */
-export function verifyBatchSuccessor({directory=root,prepared=loadPack(DEFAULT_PACK),verifyAllBaseline=false,terminalFiles=null,archiveChapters=null,independentFiles=new Map()} = {}) {
+export function verifyBatchSuccessor({directory=root,prepared=loadPack(DEFAULT_PACK),verifyAllBaseline=false,terminalFiles=null,archiveChapters=null,independentFiles=new Map(),terminalChapters=new Map(),terminalLinks=new Map()} = {}) {
   const {pack,packSha256,additions} = prepared, REPORT = batchNames(pack).report, report = read(directory,REPORT);
   assert.equal(report.schemaVersion,1); assert.equal(report.release,pack.release); assert.equal(report.packSha256,packSha256);
   assert.equal(report.completeReview,true); assert.equal(report.verification?.ok,true);
@@ -441,7 +443,7 @@ export function verifyBatchSuccessor({directory=root,prepared=loadPack(DEFAULT_P
   for (const item of report.changedFiles) { assert(permitted(item.path,prepared) && item.path !== REPORT && !files.has(item.path),'Invalid batch seal path'); assert.match(item.sha256,/^[a-f0-9]{64}$/); const terminal = terminalFiles?.get(item.path) || item; assert.deepEqual(fileInfo(localFile(directory,item.path)),{bytes:terminal.bytes,sha256:terminal.sha256},'Batch seal differs: ' + item.path); files.set(item.path,item); }
   const linksAfter = expectedLinks(pack,additions), links = read(directory,LINKS);
   assert.deepEqual(report.linkChanges,Object.entries(linksAfter).map(([sectionRef,after]) => ({sectionRef,beforeSha256:digest(pack.linksBefore[sectionRef]),after})));
-  for (const file of pack.chapters) { assert.equal(digest(read(directory,file.path)),digest(file.after),'Batch chapter differs'); assert.deepEqual(links[sectionOf(file.path)],linksAfter[sectionOf(file.path)],'Batch source links differ'); }
+  for (const file of pack.chapters) { assert.equal(digest(read(directory,file.path)),digest(terminalChapters.get(file.path) || file.after),'Batch chapter differs'); assert.deepEqual(links[sectionOf(file.path)],terminalLinks.get(sectionOf(file.path)) || linksAfter[sectionOf(file.path)],'Batch source links differ'); }
   const mcp = read(directory,MCP), cited = read(directory,'mcp-data/cited.json');
   for (const item of additions) {
     const para = mcp.paras.find(p => p.r === item.originRef); assert(para);
@@ -451,11 +453,11 @@ export function verifyBatchSuccessor({directory=root,prepared=loadPack(DEFAULT_P
   if (verifyAllBaseline) {
     const after = inventory(directory), before = report.baselineFiles; assert(before && Object.keys(before).length);
     for (const [name,info] of Object.entries(before)) { assert(after[name],'Original site file removed'); if (!files.has(name) && name !== REPORT) assert.deepEqual(after[name],independentFiles.get(name) || info,'Unrelated site file changed: ' + name); }
-    for (const name of Object.keys(after)) assert(before[name] || files.has(name) || name === REPORT,'Unexpected new site file: ' + name);
+    for (const name of Object.keys(after)) assert(before[name] || files.has(name) || name === REPORT || independentFiles.has(name),'Unexpected new site file: ' + name);
     const manifest = dataManifest(dataEntries(directory)); assert.deepEqual(read(directory,'library/data/files.json'),manifest);
     assert.equal(read(directory,'library/downloads/index.json').version,manifest.version); assert.equal(read(directory,'mcp-data/catalog.json').version,manifest.version);
     const require = createRequire(import.meta.url), {unzipSync} = require(localFile(directory,'library/vendor/fflate.min.js'));
-    for (const archive of report.offline) { const raw = fs.readFileSync(localFile(directory,archive.path)); assert.equal(sha(raw),archive.sha256); const entries = unzipSync(raw); for (const file of archiveChapters || pack.chapters) assert.equal(digest(JSON.parse(Buffer.from(entries[file.path.slice(8)]).toString())),digest(file.after),'ZIP chapter differs'); }
+    for (const archive of report.offline) { const raw = fs.readFileSync(localFile(directory,archive.path)); const expected = terminalFiles?.get(archive.path) || archive; assert.equal(raw.length,expected.bytes); assert.equal(sha(raw),expected.sha256); const entries = unzipSync(raw); for (const file of archiveChapters || pack.chapters) assert.equal(digest(JSON.parse(Buffer.from(entries[file.path.slice(8)]).toString())),digest(file.after),'ZIP chapter differs'); }
   }
   return {pack,packSha256,additions,report,files,linksAfter,proof:{release:pack.release,packSha256,newNotes:additions.length,reviewedSections:pack.reviewedSections.length,existingNotesUnchanged:true,authorTextUnchanged:true}};
 }
@@ -491,22 +493,26 @@ export function verifyBatchChain({directory=root,verifyAllBaseline=false,packFil
     terminalFiles.set(known.index.path,{path:known.index.path,...known.index.after});
     independentFiles.set(known.zip.path,known.zip.after);
   }
-  const chapters = batches.flatMap(({prepared}) => prepared.pack.chapters);
+  const sourcePublication = prepareSourceAdditionTransition({directory,batches,terminalFiles,independentFiles});
+  const downloadPublication = verifyTzidkatDownloadRefresh({directory,batches,terminalFiles,independentFiles,sourcePublication});
+  verifySourceAdditionTerminal({directory,sourcePublication,terminalFiles});
+  const terminalChapters = sourcePublication?.chapterAfters || new Map(), terminalLinks = sourcePublication?.linkAfters || new Map();
+  const chapters = batches.flatMap(({prepared}) => prepared.pack.chapters).map(file => terminalChapters.has(file.path) ? {...file,after:terminalChapters.get(file.path)} : file);
   const verified = batches.map(({prepared},index) => verifyBatchSuccessor({directory,prepared,terminalFiles,
-    verifyAllBaseline:verifyAllBaseline && index === batches.length-1,archiveChapters:chapters,independentFiles}));
+    verifyAllBaseline:verifyAllBaseline && index === batches.length-1,archiveChapters:chapters,independentFiles,terminalChapters,terminalLinks}));
   // A successor may advance shared exports, but must preserve earlier chapter
   // bytes, original report bytes and ledgers in its captured full baseline.
   for (let index = 1; index < batches.length; index++) {
     const before = batches[index].report.baselineFiles;
     for (const prior of verified.slice(0,index)) {
-      for (const file of prior.pack.chapters) assert.deepEqual(before[file.path],fileInfo(localFile(directory,file.path)),'Later batch did not preserve its predecessor chapter');
+      for (const file of prior.pack.chapters) assert.deepEqual(before[file.path],sourcePublication?.chapterPreimages.get(file.path) || fileInfo(localFile(directory,file.path)),'Later batch did not preserve its predecessor chapter');
       for (const name of [batchNames(prior.pack).report,batchNames(prior.pack).ledger]) assert.deepEqual(before[name],fileInfo(localFile(directory,name)),'Later batch replaced an immutable predecessor audit');
     }
   }
   return {batches:verified,files:terminalFiles,independentFiles,additions:verified.flatMap(b => b.additions),
     pack:{chapters,linksBefore:Object.assign({},...verified.map(b => b.pack.linksBefore))},
-    report:{linkChanges:verified.flatMap(b => b.report.linkChanges)},
-    proof:{batches:verified.map(b => b.proof),reviewedSections:chapters.length,newNotes:verified.reduce((n,b)=>n+b.additions.length,0),existingNotesUnchanged:true,authorTextUnchanged:true,...(independentPublication ? {independentPublication} : {})}};
+    report:{linkChanges:verified.flatMap(b => b.report.linkChanges).map(item => terminalLinks.has(item.sectionRef) ? {...item,after:terminalLinks.get(item.sectionRef)} : item)},
+    proof:{batches:verified.map(b => b.proof),reviewedSections:chapters.length,newNotes:verified.reduce((n,b)=>n+b.additions.length,0),existingNotesUnchanged:true,authorTextUnchanged:true,...(independentPublication ? {independentPublication} : {}),...(sourcePublication ? {sourceAddition:sourcePublication.proof} : {}),...(downloadPublication ? {downloadPublication} : {})}};
 }
 function requirePriorBatches(directory,prepared) {
   if (path.dirname(prepared.filename || '') !== PACK_DIRECTORY) return;
