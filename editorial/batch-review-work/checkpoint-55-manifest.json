@@ -1,0 +1,763 @@
+{
+  "checkpoint": 55,
+  "confirmedLiveThrough": 225,
+  "publicationInProgress": [
+    226,
+    240
+  ],
+  "archive": "checkpoint-55-remaining-review.tar.gz",
+  "archiveBytes": 1774677,
+  "archiveSha256": "556cdc00f3dff5b7e4a8d268ffa992c431883e5a906ef6db1917a723a0cee554",
+  "entries": [
+    {
+      "path": "apply-local-batch.mjs",
+      "bytes": 1284,
+      "sha256": "989fdb44185d1c2f52812208ee01c897c5c97b80e7016736b3214c8efe614632"
+    },
+    {
+      "path": "build-final-batch.mjs",
+      "bytes": 7060,
+      "sha256": "ed69577530e43c93f94a7cee406e24fd819a0574e1ff0d9926394665212efa74"
+    },
+    {
+      "path": "check-final-proposals.py",
+      "bytes": 3056,
+      "sha256": "5c74fd652780ee1aa93fa2920c7438ab0e17a8a5d8fd8142010b3333b694dbdc"
+    },
+    {
+      "path": "final-cross-batch-reviewed.json",
+      "bytes": 8594,
+      "sha256": "b0d6e7bd8156f74ccee813f30d4791daca46ee52efcb5c79a0e6203fd3a11f57"
+    },
+    {
+      "path": "final-review-status-20261025.json",
+      "bytes": 3185,
+      "sha256": "393eb0677d1e51e8acaaae0b37dc01c68dce14d33bde959b1bc8e14fdcd683ac"
+    },
+    {
+      "path": "final211/build-216-220.py",
+      "bytes": 35136,
+      "sha256": "9752d58aa69b40b4beaf98b734d04a8f2dd9f75b5dfb439e157fc354ffa2a634"
+    },
+    {
+      "path": "final211/candidate-existing-notes.json",
+      "bytes": 107783,
+      "sha256": "94fb33477b21dcdcc99534c5f06b94a914648a55a37f0be16f9521de309bccb7"
+    },
+    {
+      "path": "final211/common.py",
+      "bytes": 4915,
+      "sha256": "ebb7246b232330b249c958c4bc287e908cff1217901832aaee48fc8440df2c81"
+    },
+    {
+      "path": "final211/coverage-audit-216-220.md",
+      "bytes": 6715,
+      "sha256": "8886b05f11fe40668e5b61a9757eebb408abe01259d59472850eaddd63c42e8c"
+    },
+    {
+      "path": "final211/exact-reference-checks.json",
+      "bytes": 4460,
+      "sha256": "2e115d800f9c302d86bcae4a6afb7eb80005982e50a32f9d9be4766f677c120d"
+    },
+    {
+      "path": "final211/extra-retrieval.json",
+      "bytes": 3340277,
+      "sha256": "c62bdcbb23ce8ec5688a96c2e873893d07472639fcc6fbd828fef376414c8443"
+    },
+    {
+      "path": "final211/final-structural-and-canonical-verification.json",
+      "bytes": 15322,
+      "sha256": "f38936f476ce401280986c8d2cbb0b96f765de4d70b19fa434d0c6cacca36dd8"
+    },
+    {
+      "path": "final211/global-dedup-decisions-211-215.json",
+      "bytes": 4003,
+      "sha256": "d28aa2ce737c658109e2395f626f2412fc354b8e8081338a777f49f5f33c80e1"
+    },
+    {
+      "path": "final211/independent-211-215.json",
+      "bytes": 751,
+      "sha256": "a8f61264ccd83c52f279fb465ffa5886e658cf4a76a06a27015584435610118d"
+    },
+    {
+      "path": "final211/local-candidates.json",
+      "bytes": 75796,
+      "sha256": "61d19e9730a3fc1291cf69f4071c649e0e4dd1bba861f0a220937556c4dc537e"
+    },
+    {
+      "path": "final211/new-primary.json",
+      "bytes": 616518,
+      "sha256": "6109dc142e175acde94706ddda64f743b695a22865a2fd1c4c929d9f403bb846"
+    },
+    {
+      "path": "final211/ois-211-215.json",
+      "bytes": 268821,
+      "sha256": "fcaeb2cc956f7ed930146ef8805fc4dad8691dc523665d894c18f76ec56d41f6"
+    },
+    {
+      "path": "final211/ois-216-220.json",
+      "bytes": 139557,
+      "sha256": "6e43ff3fad882a475248e1eefa9b1c6dfa9005ebaf59ea04704be69f01ee5aad"
+    },
+    {
+      "path": "final211/ois-221-225.json",
+      "bytes": 145198,
+      "sha256": "690bfee435f32abcf30114625310ef98c1ecbcd53bf34e59bcf2f9b29e0a830b"
+    },
+    {
+      "path": "final211/root-independent-216-220.json",
+      "bytes": 684,
+      "sha256": "1e00b3b1a8d4b8fb59f51ae14a1a04fd70e32dfbe50aabc6aa00351d6341fec3"
+    },
+    {
+      "path": "final211/structural-216-220.json",
+      "bytes": 3767,
+      "sha256": "0a99ca83e4b06ebde645729bed364d116c8212f1df6544b0c307872988acdfaf"
+    },
+    {
+      "path": "final221/build-221-225.py",
+      "bytes": 33018,
+      "sha256": "6e657a468f680462d7fbe647a5ad6d6743b585bd7af434cb72adc5bef3753121"
+    },
+    {
+      "path": "final221/independent-exact-reference-checks.json",
+      "bytes": 2261,
+      "sha256": "e6ca4dde28c88cdbe6f14004159bd7889ebaab771d99bdc8c1fc5b13f1b2a1bf"
+    },
+    {
+      "path": "final221/independent-review.json",
+      "bytes": 7861,
+      "sha256": "95e41434e1fe1f0f47a7e6763defa12006d72f6c07b077b2e6d19ca7c815f650"
+    },
+    {
+      "path": "final221/independent-structural-check.json",
+      "bytes": 3840,
+      "sha256": "a72b4ad87ffc14b3f42f311b06e470d80b7f386ee3c6d9014eca1129967012c2"
+    },
+    {
+      "path": "final221/independent-web-primary-checks.json",
+      "bytes": 2692,
+      "sha256": "f8e625f29c55cd0553fd3167fc49681172640de5f7c3446574c69ac6f5e75695"
+    },
+    {
+      "path": "final221/ois-221-225.json",
+      "bytes": 145198,
+      "sha256": "690bfee435f32abcf30114625310ef98c1ecbcd53bf34e59bcf2f9b29e0a830b"
+    },
+    {
+      "path": "final221/source-cache/Chagigah_15a.json",
+      "bytes": 27765,
+      "sha256": "d61b46f4a127254bbd1ac351a10aaa3dc923b0044e36bba50e1c1f09fc2dbcdd"
+    },
+    {
+      "path": "final221/source-cache/Chidushei_Agadot_on_Chagigah_14b.json",
+      "bytes": 15794,
+      "sha256": "3e7479b2b6029f89f8cf8fc74a970ebefc293123bcb70e43b629873430e55a20"
+    },
+    {
+      "path": "final221/source-cache/Jerusalem_Talmud_Chagigah_2:1.json",
+      "bytes": 97578,
+      "sha256": "46268c229fdb691df54f5428565199852b405be92bbefddd0058600cb3a7b8c3"
+    },
+    {
+      "path": "final221/source-cache/Maaseh_Hashem.json",
+      "bytes": 43,
+      "sha256": "ea111e660d92f1f403343d96c147558b9c7aa3ad7e7a7c47a999c690e29595d9"
+    },
+    {
+      "path": "final221/source-cache/Maharsha_on_Chagigah_14b.json",
+      "bytes": 72,
+      "sha256": "df324da3cddeb941548418fcc786d2f89805cc65529926f0853ea59932a6f3ba"
+    },
+    {
+      "path": "final221/source-cache/Mishneh_Torah,_Offerings_for_Those_with_Incomplete_Atonement_2:1.json",
+      "bytes": 7952,
+      "sha256": "7d7697978b9a7acd2fc049e1e19441d86aec29e23759ec87cd174d8043d5c973"
+    },
+    {
+      "path": "final221/source-cache/Mishneh_Torah,_Those_Who_Defile_Bed_or_Seat_1:1.json",
+      "bytes": 8503,
+      "sha256": "6085cf558e77ec460aadf55592db76ce9e1b542c695b180599703864ac8fef7b"
+    },
+    {
+      "path": "final221/source-cache/Niddah_35b.json",
+      "bytes": 34463,
+      "sha256": "ab9d452e536b5f9369d84b9b309accfc1a09d02c4cdc8f68eeef4db5f9389376"
+    },
+    {
+      "path": "final221/source-cache/Pri_Etz_Chaim,_Gate_of_the_Recitation_of_the_Shema_Before_Retiring_1.json",
+      "bytes": 5748,
+      "sha256": "6c09e5ced55799962800549d990c5f2bb598924540ff2ea82009b72cb7279d6f"
+    },
+    {
+      "path": "final221/source-cache/Pri_Etz_Chaim.json",
+      "bytes": 21022,
+      "sha256": "183218826d10c3d9a1eec6ecbbf962dfab9206312d260327af476ca9498351dc"
+    },
+    {
+      "path": "final221/source-cache/Rashi_on_Exodus_31:3:1-2.json",
+      "bytes": 7059,
+      "sha256": "cb79754b533b025997f29530cca3f108ce9278136c8d35735d527c807464c472"
+    },
+    {
+      "path": "final221/source-cache/Rashi_on_Leviticus_6:21.json",
+      "bytes": 8079,
+      "sha256": "169be3f2aa75ac72d5472b16c9d4fa42c2161a332fb212683f09a9970ad2542f"
+    },
+    {
+      "path": "final221/source-cache/Shaar_HaGilgulim_38.json",
+      "bytes": 196566,
+      "sha256": "d50a00142512479a80f00936de668760c956e4e593a15f86fbe2c7b5729df23e"
+    },
+    {
+      "path": "final221/source-cache/Shaar_HaKavanot,_Sermons_on_Kaddish_1.json",
+      "bytes": 19780,
+      "sha256": "815fec0a976586000ddcebf41f9e72be6524c4b1fb97241c2d50e8aab4dc12cb"
+    },
+    {
+      "path": "final221/source-cache/Shaar_HaKavanot,_Sermons_on_the_Night_Ritual_5.json",
+      "bytes": 21777,
+      "sha256": "7533d067146bb9bceca1f2e1491f7934ac6676fe6fa8c9a7e9be6da7e7436cc6"
+    },
+    {
+      "path": "final221/source-cache/Shaar_HaKavanot.json",
+      "bytes": 22392,
+      "sha256": "1657bb0f03eadf4c0eea8bd68acabe4b772fe2f0e1a2bb19ddae629dbd9f7023"
+    },
+    {
+      "path": "final221/source-cache/Sichat_Malakhei_HaSharet_1:21.json",
+      "bytes": 3020,
+      "sha256": "09bf856efe8d73be125ef2e27e2bb1c451e40c3ee47687fdad4484152c760c67"
+    },
+    {
+      "path": "final221/source-cache/Sifra,_Acharei_Mot,_Chapter_13.json",
+      "bytes": 33401,
+      "sha256": "6d227ebae0bbc456fe37f676f5f5bc8bc66b1a2cb8517056aeecef465246338c"
+    },
+    {
+      "path": "final221/source-cache/Sifra,_Acharei_Mot,_Section_8.json",
+      "bytes": 12630,
+      "sha256": "042a6d75e9d247911f7946dca170eacc200e9faf7e7f97bc80b7fcbd9b704dd7"
+    },
+    {
+      "path": "final221/source-cache/Sifra.json",
+      "bytes": 130642,
+      "sha256": "fff41315c5e3ae9cdbecdd46c55440812ed5b7961306ead6163da4b17d2949f4"
+    },
+    {
+      "path": "final221/source-cache/Tanya,_Part_I;_Likkutei_Amarim_43.json",
+      "bytes": 22743,
+      "sha256": "34a044385830769be5371791fc44fb4241513ab59ade1401ba0a9213922188be"
+    },
+    {
+      "path": "final221/source-cache/Tiferet_Yisrael,_Introduction_1.json",
+      "bytes": 28804,
+      "sha256": "b65d7c76cf1ec53df6aeac37dae58d561ddd956520c9802f848207b7330edb6f"
+    },
+    {
+      "path": "final221/source-cache/Tikkunei_Zohar_78a.json",
+      "bytes": 10534,
+      "sha256": "7883b7906e0de2e2ea7e05b2fc2bff653b60bb33cf63349a773b6964edb97731"
+    },
+    {
+      "path": "final221/source-cache/verified-exact-Chidushei_Agadot_on_Chagigah_14b_9.json",
+      "bytes": 5628,
+      "sha256": "d93ed3a3d0fab85a5cb0fa88ddcc262a22e8b248e48d45817eebbf66ab68e502"
+    },
+    {
+      "path": "final221/source-cache/verified-exact-Jerusalem_Talmud_Chagigah_2_1_10.json",
+      "bytes": 30458,
+      "sha256": "66f71bf622c9bd15904d948cd2b49f2e56c45dc31eb313f836b921ff0c374956"
+    },
+    {
+      "path": "final221/source-cache/verified-exact-Mishneh_Torah_Offerings_for_Those_with_Incomplete_Atonement_2_1.json",
+      "bytes": 8788,
+      "sha256": "c58f48a7fa496d918fc5c498b3129cd8aad9ad32ccff7b67d7b0a8bf4c237208"
+    },
+    {
+      "path": "final221/source-cache/verified-exact-Rashi_on_Leviticus_6_21_3.json",
+      "bytes": 8333,
+      "sha256": "739a701a2f28bc8ad66d41296492f50390a6f0dc6d8a1063af9f10636900f70a"
+    },
+    {
+      "path": "final221/source-cache/verified-exact-Sha_ar_HaKavanot_Sermons_on_Kaddish_1_1_6.json",
+      "bytes": 8006,
+      "sha256": "ad56cd83695902ece49a03b657c182f7fde499778feed0543cc9fc171bdc646c"
+    },
+    {
+      "path": "final221/source-cache/verified-exact-Sha_ar_HaKavanot_Sermons_on_the_Night_Ritual_5_2.json",
+      "bytes": 5357,
+      "sha256": "ccad716cb27257b6037d7ffe4eb1f7c02a0a16888d02e5019734ce11f1395d55"
+    },
+    {
+      "path": "final221/source-cache/verified-exact-Sifra_Acharei_Mot_Section_8_4.json",
+      "bytes": 5688,
+      "sha256": "e5338ba7e29f187f95ed6d81b0c869dbb2d3faf41f9e9d95eeb403e2262fb9d1"
+    },
+    {
+      "path": "final221/source-cache/verified-exact-Tikkunei_Zohar_78a_3.json",
+      "bytes": 4461,
+      "sha256": "6dc72672b697a02f0e5e8e6cd52550e5dfbba8e50ae14eee89c4056f75fd1383"
+    },
+    {
+      "path": "final221/tanya9.json",
+      "bytes": 21789,
+      "sha256": "2d897f81399a325c7ff928f3ed72e540f0dcf745876d9de473ed6583bdfaa364"
+    },
+    {
+      "path": "final226/build236.py",
+      "bytes": 42385,
+      "sha256": "4b2270cccdf1e9f6ee7653766a15ecc76e229c0da5f1380fbb4de829abb3203b"
+    },
+    {
+      "path": "final226/dedup-226-235.json",
+      "bytes": 23724,
+      "sha256": "c719700a0b1f8c23c3f292b2037c6096ee702abf9557502df8b5223eab1d9f0c"
+    },
+    {
+      "path": "final226/fetch_primary.py",
+      "bytes": 959,
+      "sha256": "e8acf25b20e57c78959e41fec2a0bb0b284367491641f6869575a8d1eb37dfb3"
+    },
+    {
+      "path": "final226/final-structural-audit.json",
+      "bytes": 40022,
+      "sha256": "983c2b3f29398c4ee711d82431ed07dfdbc47c19acfb29cb17454a2b34eb3ac5"
+    },
+    {
+      "path": "final226/independent-scholarly-226-235.json",
+      "bytes": 662,
+      "sha256": "2e1b9957a9efacd9761eff135da81cd2278385d89dad6cd49fd8152af346f3ce"
+    },
+    {
+      "path": "final226/independent-scholarly-226-240.json",
+      "bytes": 3233,
+      "sha256": "6585fdc1f59c3ad22b3d41d9e4c5be1ced105cce46fb72ae676cd01cf9941ddf"
+    },
+    {
+      "path": "final226/ois-226-230.json",
+      "bytes": 139375,
+      "sha256": "85ca4bf7641d4ad09b4017f59b9f57ad5de7d642cf79df0af519498e66a1eb94"
+    },
+    {
+      "path": "final226/ois-231-235.json",
+      "bytes": 135303,
+      "sha256": "d0c467dafd77ad08ab9ea4c8a50414c602a639f4cfc8e07bbc781eeec4e85328"
+    },
+    {
+      "path": "final226/ois-236-240.json",
+      "bytes": 142201,
+      "sha256": "3ef74874daea86514c7e861a528b294817f0cc060f7cc42b7cd8ff9fcf668d7f"
+    },
+    {
+      "path": "final226/primary/Akeidat_Yitzchak_67.json",
+      "bytes": 32018,
+      "sha256": "d9d5504bc9d48d6c9015176657f3c9270849d44a6b1f8d6fd393706967a761c6"
+    },
+    {
+      "path": "final226/primary/Akeidat_Yitzchak_67:2-10.json",
+      "bytes": 412656,
+      "sha256": "b710a22dcf1d4a25db7f297252d3e79c21a7a7c525689fbedf6d161da47218eb"
+    },
+    {
+      "path": "final226/primary/Akeidat_Yitzchak_67:8:16.json",
+      "bytes": 61158,
+      "sha256": "4aa2a9a05e0857fcf33f3123c5dcc407f979e93640dfecdcbc56142a246bcc70"
+    },
+    {
+      "path": "final226/primary/Bava_Metzia_85b.json",
+      "bytes": 31778,
+      "sha256": "6219c5ee581046e171ffaf6c307407a2a29f5959358931aae62b470db7d8f87d"
+    },
+    {
+      "path": "final226/primary/Beit_Yosef,_Orach_Chaim_4.json",
+      "bytes": 4273,
+      "sha256": "82dc33ac4833985f39fe8de66145ce1a589a9ad80206c48bba608edd64592663"
+    },
+    {
+      "path": "final226/primary/Beit_Yosef,_Orach_Chayim_4:2-30.json",
+      "bytes": 32413,
+      "sha256": "4d653cde6451dd236e92b17ea509588ae4c3b7d479f38965920250c7c79df22a"
+    },
+    {
+      "path": "final226/primary/Beit_Yosef,_Orach_Chayim_4:5:1.json",
+      "bytes": 17099,
+      "sha256": "5ec44c90539abae376ca17762ec6665df740b41052918ce46b3422e9153cc472"
+    },
+    {
+      "path": "final226/primary/Derekh_Chayim_5:15.json",
+      "bytes": 54484,
+      "sha256": "59383a57bcb6460946446e5f1706f0b81950bed4f11d9f46d27a1fe581f0dce8"
+    },
+    {
+      "path": "final226/primary/Derekh_Chayyim_5:15:11.json",
+      "bytes": 7399,
+      "sha256": "282198ebdd2d8002cf46c241ff113db762a01e1474cb7fa2a3f0812b89c47d50"
+    },
+    {
+      "path": "final226/primary/Jerusalem_Talmud_Berakhot_5:1.json",
+      "bytes": 71849,
+      "sha256": "c1745a2b9f150d03e9f61d578d896eb72a1d797441f1a2cd018570c69a613831"
+    },
+    {
+      "path": "final226/primary/Jerusalem_Talmud_Berakhot_5:1:3.json",
+      "bytes": 17908,
+      "sha256": "1335b21abf9b5eb08bf496ababfe9deb33bafd0d6e5b9f398b863a6dc6224e69"
+    },
+    {
+      "path": "final226/primary/Keter_Shem_Tov_1:208.json",
+      "bytes": 4253,
+      "sha256": "c3c352af8ddae234838b5329eeda58131a8c54779cffb7fd481a06bf0b78339a"
+    },
+    {
+      "path": "final226/primary/Keter_Shem_Tov_1:208:2-209:1.json",
+      "bytes": 4310,
+      "sha256": "d851ebfe7cef08a25fac41666b11323b15677af3303930e6a10829315e5f336b"
+    },
+    {
+      "path": "final226/primary/Keter_Shem_Tov_1:209.json",
+      "bytes": 3170,
+      "sha256": "425f1be4fb4e01c0a600ff027b5049f4b28fbe6ade9885530e7a1f780abf018e"
+    },
+    {
+      "path": "final226/primary/Keter_Shem_Tov_209a.json",
+      "bytes": 5689,
+      "sha256": "7a97d11b5d5ce69d1abbaf7acbab6b0ec294222d8d9ec1bde7536e825fba00c0"
+    },
+    {
+      "path": "final226/primary/Magen_Avraham_46:10.json",
+      "bytes": 3597,
+      "sha256": "07e78930638a878c72bef36f41b5f47056f53a40dfef735c927d95f771a90006"
+    },
+    {
+      "path": "final226/primary/Mesilat_Yesharim_26.json",
+      "bytes": 38549,
+      "sha256": "b02a8c2e805c495d09e20ae7b13dcf51081e513cf85f11bd443bb451fb9c1bc1"
+    },
+    {
+      "path": "final226/primary/Mesillat_Yesharim_26:22-23.json",
+      "bytes": 6072,
+      "sha256": "98b07fcb2cbdd623c919fe797021f12c7064733dc84a108d06de5593cc95e3ce"
+    },
+    {
+      "path": "final226/primary/Pri_Etz_Chaim,_Gate_of_the_Recitation_of_the_Shema_Before_Retiring_11.json",
+      "bytes": 62834,
+      "sha256": "d287b71b79b812d747c75ce37a7e9e12d715fa8e3569acfb345b098e0ca30cd5"
+    },
+    {
+      "path": "final226/primary/Pri_Etz_Chaim,_Gate_of_the_Recitation_of_the_Shema_Before_Retiring_1:3.json",
+      "bytes": 4624,
+      "sha256": "2a81a1a278217da4018d996089c66097f99954eec568e22bba69451146e7e3f1"
+    },
+    {
+      "path": "final226/primary/Rashi_on_Avodah_Zarah_73a.json",
+      "bytes": 2151,
+      "sha256": "b1042385f2d8b53458f01386aa63707d49b4e41b522f2fcd0415f02ba97f7e28"
+    },
+    {
+      "path": "final226/primary/Rashi_on_Berakhot_25a.json",
+      "bytes": 3665,
+      "sha256": "ce4108a080515d5c41cabbf5e502d15d384b87724b30d8cb18c8363a79a65533"
+    },
+    {
+      "path": "final226/primary/Rashi_on_Exodus_19:5:1.json",
+      "bytes": 18646,
+      "sha256": "1fb958d91017577614d8927eef86737fc8ae931565c95c830b8e5aeed926805a"
+    },
+    {
+      "path": "final226/primary/Rashi_on_Exodus_21:1.json",
+      "bytes": 12275,
+      "sha256": "8d39f83205e5036954fc42152f083eb4fc9ed7a80d70d1b1704ad12d3d325c47"
+    },
+    {
+      "path": "final226/primary/Rashi_on_Exodus_21:1:2.json",
+      "bytes": 9242,
+      "sha256": "8af3475c19819e5c934bf74c3f1035c2a54141ca9d4b6364e4fa69d57a7ae496"
+    },
+    {
+      "path": "final226/primary/Sefer_Yetzirah_4:3.json",
+      "bytes": 6164,
+      "sha256": "7988663a915f4480c269c687a46276aee85a8833ddd7c9f802f87acc7c84f3a0"
+    },
+    {
+      "path": "final226/primary/Sha'ar_HaGilgulim_1.json",
+      "bytes": 37225,
+      "sha256": "cc03d0a169a04e1d345b74c32d007320aaea27876d667065ed652ee2ff7a9d06"
+    },
+    {
+      "path": "final226/primary/Sha'ar_HaGilgulim_3.json",
+      "bytes": 42993,
+      "sha256": "47c125eafe838d439184eda9c16003d6f75129f818e3ae6d6ebb7b0a67c8baa6"
+    },
+    {
+      "path": "final226/primary/Sha'ar_HaGilgulim_3:1.json",
+      "bytes": 7002,
+      "sha256": "7ea17051561b03fed33703e74f624873fc1251301a5b29856f64574230a58ef0"
+    },
+    {
+      "path": "final226/primary/Sha'ar_HaKavanot,_Sermons_on_Sabbath_Night_Kiddush_1.json",
+      "bytes": 32930,
+      "sha256": "d46464b9c301e307ca5c9884c2461a9cbc33076decd61081c5cfc64e3b69cd14"
+    },
+    {
+      "path": "final226/primary/Sha'ar_HaKavanot,_Sermons_on_the_Falling_on_the_Face_Prayer_2.json",
+      "bytes": 14799,
+      "sha256": "d2e951874a67e265ba26a8031723055264955c4acabc7a81102a4357489fee7b"
+    },
+    {
+      "path": "final226/primary/Sha'ar_HaKavanot,_Sermons_on_the_Falling_on_the_Face_Prayer_2:4.json",
+      "bytes": 9327,
+      "sha256": "2eeb513b3367b42ad39a91db47b7090e426a7fb3e60a375d933685cbe54142e0"
+    },
+    {
+      "path": "final226/primary/Sha'ar_HaMitzvot,_Eikev.json",
+      "bytes": 92474,
+      "sha256": "f8b0e5046ed0e038ba9f2f584ce331af49ab8b9d4f63c6d1c59e6f0e4d05e17f"
+    },
+    {
+      "path": "final226/primary/Sha'ar_HaMitzvot,_Eikev_22-23.json",
+      "bytes": 8834,
+      "sha256": "3650baf5986e22995217f33378a854e6967189a8312595ab7e0d254b31e55365"
+    },
+    {
+      "path": "final226/primary/Shenei_Luchot_HaBerit,_Toldot_Adam,_Beit_Hashem_1-30.json",
+      "bytes": 42398,
+      "sha256": "932515434dffbdcffa42cf75dce709248be34bff0efa4be5717f5ec99f0e2732"
+    },
+    {
+      "path": "final226/primary/Shenei_Luchot_HaBerit,_Toldot_Adam,_Beit_Hashem_11.json",
+      "bytes": 4444,
+      "sha256": "42deb786b5c353ce9c4e5e2f42f96c6c4a1d9f3bdd946c0191d9027cc9fd6283"
+    },
+    {
+      "path": "final226/primary/Shenei_Luchot_HaBerit,_Toldot_Adam,_Beit_Hashem_19.json",
+      "bytes": 4344,
+      "sha256": "8ae8b4edbf4665171ab1d699c41057742230f4ecc0a6d24307128da5c9fbacf4"
+    },
+    {
+      "path": "final226/primary/Shenei_Luchot_HaBerit,_Toldot_Adam,_Beit_Hashem_8.json",
+      "bytes": 3633,
+      "sha256": "5c06a67cc4e6350953d244ed68226533e33d9b02f8b36d3ff83e4fea3b09936b"
+    },
+    {
+      "path": "final226/primary/Tanya,_Part_I;_Likkutei_Amarim_48.json",
+      "bytes": 27360,
+      "sha256": "d1258279243478c207d036fd970846e60ba429f61159a1d9715d3ca076151988"
+    },
+    {
+      "path": "final226/primary/Tanya,_Part_II;_Shaar_HaYichud_VehaEmunah_8.json",
+      "bytes": 18145,
+      "sha256": "3494f49b7099c198219d0d82e2457f111384cfb253d6519b82e2802725136109"
+    },
+    {
+      "path": "final226/primary/Tanya,_Part_II;_Shaar_HaYichud_VehaEmunah_8:1.json",
+      "bytes": 9120,
+      "sha256": "f35279d4ad392ea9ee69ab2f63f5f460abfe3aa0d63bd42994d8bf26d837901e"
+    },
+    {
+      "path": "final226/primary/Tzidkat_HaTzadik_91.json",
+      "bytes": 5363,
+      "sha256": "f75daf57d52a11ebb584f5b91fda15b583c027785d131b7cf1e2af605a97a9cd"
+    },
+    {
+      "path": "final226/primary/Zohar,_Pekudei_38:487.json",
+      "bytes": 1238,
+      "sha256": "66ea2469ce766fecc4c4f17f2827cda4633f0c0759866ee8c36b51d5923c4424"
+    },
+    {
+      "path": "final226/primary/Zohar,_Pekudei_51:663-674.json",
+      "bytes": 17912,
+      "sha256": "26b08231b1467cf7f093ccae5595f05405b0466a45b0bd5e38d82d1d38d55dc5"
+    },
+    {
+      "path": "final226/primary/Zohar,_Pekudei_51:673.json",
+      "bytes": 5047,
+      "sha256": "c847ede93acec47fdb8dabd9e45bc997af885ff1caa2070ecdc86bc2e6d9854f"
+    },
+    {
+      "path": "final226/primary/index-Zohar.json",
+      "bytes": 1425161,
+      "sha256": "2d556d2c732103aea1991abc68aeddc4ed0cbe1ce973c86862894e3a2adb2f52"
+    },
+    {
+      "path": "final226/recovered-structural-audit.json",
+      "bytes": 27992,
+      "sha256": "250cd521005759d0837fc56a698985835720d0017ea11701409a4cb0a9904bb7"
+    },
+    {
+      "path": "final226/root-final-verification.json",
+      "bytes": 13045,
+      "sha256": "3bddffb5458ea98514a606def75c518eeaeaf00d8b2b89b97a445c3c8d5fac09"
+    },
+    {
+      "path": "final226/verify_final.py",
+      "bytes": 3314,
+      "sha256": "b11136dabf885bfaa184538d69c0a70a193b2280ed5877aba7dd11528cfb96cc"
+    },
+    {
+      "path": "final226/verify_recovered.py",
+      "bytes": 2325,
+      "sha256": "b5a90b78ef4d322cf1f85cc2f8e0ea48f2909e283380ac1dbc224ed3ffd9b15e"
+    },
+    {
+      "path": "final241/build-241-245.py",
+      "bytes": 14593,
+      "sha256": "07b42de4c2745630658696b5bfaf16ddee341efd8cbad162168dc395574f971d"
+    },
+    {
+      "path": "final241/build-246-250.py",
+      "bytes": 20153,
+      "sha256": "b04f8fc866340a07e65d4fde1fadfce8a56c41c9ee9e408aa3507baecd9d85af"
+    },
+    {
+      "path": "final241/build-251-255.py",
+      "bytes": 16440,
+      "sha256": "917610f829994984c6e2aec719b9264072f3330cbc6c2de30816210a9a35d434"
+    },
+    {
+      "path": "final241/common.py",
+      "bytes": 5453,
+      "sha256": "f601ab7aa1484d90e281e7bbda41c849c5f6a1e827642a8c0f79d0ffd8f68ed5"
+    },
+    {
+      "path": "final241/fetch_sources.py",
+      "bytes": 979,
+      "sha256": "7a4baccd102078401c9cb307fdd1289f64a4781e851da1a1008ddcdd5bdb29df"
+    },
+    {
+      "path": "final241/ois-241-245.json",
+      "bytes": 69979,
+      "sha256": "3f4c70eeb3998fe97b1927a6eb3ed2ea74364b5ea224a8b36ecac9b6188dde4a"
+    },
+    {
+      "path": "final241/ois-246-250.json",
+      "bytes": 79071,
+      "sha256": "475d128ad312ac2f8f72f7d50cce02322eaace0e59c45f473cb7e59fe328cccd"
+    },
+    {
+      "path": "final241/ois-251-255.json",
+      "bytes": 79655,
+      "sha256": "2d09a90eae6f07385452eb76eed768c24c25bc876fd48c51edca9236e19958a1"
+    },
+    {
+      "path": "final241/peer-cross-batch-262-264.json",
+      "bytes": 2,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "path": "final241/peer-review-262-264.json",
+      "bytes": 12584,
+      "sha256": "f45a7adcfc8adaae034fcafda3f910354da88eefa9d285210d79111480b87cf2"
+    },
+    {
+      "path": "final241/primary.json",
+      "bytes": 562095,
+      "sha256": "074066276f0bb12666497269f22489fcdea6203a1385239c3c03ff977c1376bd"
+    },
+    {
+      "path": "final241/root-independent-bilingual-review.json",
+      "bytes": 1102,
+      "sha256": "8c9dbf6f7c76166f4b3895cd7c2be9200cb8e0e84c7b4532f4843f7b31f607a6"
+    },
+    {
+      "path": "final241/verification-and-coverage-audit.json",
+      "bytes": 1412,
+      "sha256": "523dc20a0947d034d1257196f961d74b09a5c6eb469a3a910e540799d9f07958"
+    },
+    {
+      "path": "final241/wikisource.json",
+      "bytes": 10965,
+      "sha256": "4a16cbf53eccd938d88bc6c19c2ce0d385d13e2c315ff17b28ac23f3cd4d03c4"
+    },
+    {
+      "path": "final256/build-final-sections.py",
+      "bytes": 34123,
+      "sha256": "5954d12a88fe975d8d28998edf57f492c033159fefe76657ab97cdbe1ae7e0b8"
+    },
+    {
+      "path": "final256/dedup-decisions-256-262.json",
+      "bytes": 8102,
+      "sha256": "76a3ddf3d638b12e889557ead7524f491407e2a9a289e36c8c83280e306ee843"
+    },
+    {
+      "path": "final256/finalize-recovered.py",
+      "bytes": 3600,
+      "sha256": "25f1688a2cc933b8c392f916a543a84a58665707ea7ea68eda8b1b092fbb6bc7"
+    },
+    {
+      "path": "final256/native-overlap-review.json",
+      "bytes": 83642,
+      "sha256": "964e3cf338d577d0cb55634d9361f3b3f87ae5112d8c08a05ec7f1c54730e518"
+    },
+    {
+      "path": "final256/ois-256-260-existing-duplicates.json",
+      "bytes": 1953,
+      "sha256": "ad386e092b022b13c0c3c5b9b7c1cb8177422fdde77d1908a3572ca1ceba2568"
+    },
+    {
+      "path": "final256/ois-256-260.json",
+      "bytes": 333707,
+      "sha256": "fae729c18e0620831c8b6d82755c064e795f9252fdc0ac74ccd0fee07e4f95b6"
+    },
+    {
+      "path": "final256/ois-261-261-existing-duplicates.json",
+      "bytes": 2,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "path": "final256/ois-261-261.json",
+      "bytes": 55616,
+      "sha256": "c0b5294d21d6f99e47a895a2deb856d2fda74d3950be86388b6921ec653c79bd"
+    },
+    {
+      "path": "final256/ois-261-264.json",
+      "bytes": 257886,
+      "sha256": "4866c459a9746f6b6a18f551b4c24db55e845316887127eb5725c6a3fa0bd00b"
+    },
+    {
+      "path": "final256/ois-262-262-existing-duplicates.json",
+      "bytes": 1629,
+      "sha256": "800a36fc2ea0604c570a0115004f711b8340970731c7b571de87d3c265055beb"
+    },
+    {
+      "path": "final256/ois-262-262.json",
+      "bytes": 53368,
+      "sha256": "b1657b2ee269c5624e58504cbf23cf8dbc70cb8fa8f2945b2c83483d732e5de7"
+    },
+    {
+      "path": "final256/ois-263-264.json",
+      "bytes": 149901,
+      "sha256": "d622a8f281b459c181f2a4608146b2fd418b32d6eb5f02ae5afcdbe0b2ed223c"
+    },
+    {
+      "path": "final256/primary-sources.json",
+      "bytes": 161665,
+      "sha256": "8a1f298479e85efbcc2876418d551d149c3a2ebe86eb11c34a02248766511816"
+    },
+    {
+      "path": "final256/primary-tools.json",
+      "bytes": 51348,
+      "sha256": "02a82a820ed82a0cd473018740929c734d8791577b011be70d77cb73b7e81386"
+    },
+    {
+      "path": "final256/structural-and-canonical-verification.json",
+      "bytes": 16289,
+      "sha256": "ed8d1bd40257bda963f7150d7638a7db4928efa7dfa0918d92ede297f4306c4a"
+    },
+    {
+      "path": "find-proposal-overlaps.py",
+      "bytes": 2368,
+      "sha256": "041ba38808d99d7938e68c32cd76d2ffc1bf185bc041b120121df98560fd3f93"
+    },
+    {
+      "path": "release-211-225-local-verification.json",
+      "bytes": 4674,
+      "sha256": "333a7ae13cb138877245054fdd864be9cc187d51c3d9bae5448018306b6fd10a"
+    },
+    {
+      "path": "release-226-240-local-verification.json",
+      "bytes": 4969,
+      "sha256": "4cccd4cc31970459ca0aa0202ad4d82455e2572a5bb1499ebcf27838bed9617c"
+    }
+  ]
+}
