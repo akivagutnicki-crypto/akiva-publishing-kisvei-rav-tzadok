@@ -163,10 +163,14 @@ export function checkPreimages(directory,prepared){
   const added=prepared.additions.map(o=>o.after),all=[];for(const name of fs.readdirSync(local(directory,'library/data/peri-tzadik'))){if(/^\d+\.json$/.test(name)){const rows=read(directory,'library/data/peri-tzadik/'+name);if(Array.isArray(rows))all.push(...notesOf(rows).map(x=>x.note));}}
   for(const n of added)assert(!all.some(x=>x.number===n.number||x.sourceId===n.sourceId||x.placementId===n.placementId),'New note identity already used in Pri Tzaddik');
 }
-export function verifyPublication({directory,prepared=loadPack({requireDescriptor:true}),verifyAllBaseline=false}={}){
+export function verifyPublication({directory,prepared=loadPack({requireDescriptor:true}),verifyAllBaseline=false,successorFiles=null}={}){
   const {pack,descriptor}=prepared;const report=read(directory,REPORT);assert.equal(report.release,RELEASE);assert.equal(report.packSha256,prepared.packSha256);assert.equal(report.descriptorSha256,prepared.descriptorSha256);assert.equal(report.verification?.ok,true);
   assert.deepEqual(report.counts,descriptor.counts);assert.deepEqual(report.changedFiles,descriptor.files.map(f=>({path:f.path,...f.after})));
-  for(const f of descriptor.files)assert.deepEqual(fileInfo(local(directory,f.path)),f.after,'Reviewed terminal file differs: '+f.path);
+  const sharedSuccessorPaths=new Set(['mcp-data/cited.json','mcp-data/catalog.json','library/data/cited/shabbat.json',
+    'library/data/packs/sources.json','library/data/files.json','library/downloads/index.json',
+    'library/index.html','library/sw.js','library/downloads/rav-tzadok-library.zip']);
+  for(const f of descriptor.files){const next=successorFiles?.get(f.path);if(next)assert(sharedSuccessorPaths.has(f.path),'Pri author or annotation file cannot be advanced by the Tzidkat successor');
+    assert.deepEqual(fileInfo(local(directory,f.path)),next||f.after,'Reviewed terminal file differs: '+f.path);}
   for(const c of pack.chapters)assert.deepEqual(read(directory,c.path),c.after);assert.deepEqual(read(directory,LEDGER),pack.audit);
   assert.deepEqual(read(directory,SUPPLEMENT),Object.fromEntries(pack.supplementalSections.map(s=>[s.sectionRef,s.annotations])));assert.equal(fileInfo(local(directory,CONNECTED)).sha256,pack.connected.catalogSha256);
   const links=read(directory,LINKS),mcp=read(directory,MCP),cited=read(directory,'mcp-data/cited.json');
@@ -184,9 +188,9 @@ export function verifyPublication({directory,prepared=loadPack({requireDescripto
 }
 // A precise independent successor for earlier book-preservation gates. Each
 // overlap is bound to its authenticated predecessor before exposing new hashes.
-export function preparePriParshaTransition({directory,batches,terminalFiles,independentFiles}){
+export function preparePriParshaTransition({directory,batches,terminalFiles,independentFiles,successorFiles=null}){
   if(!fs.existsSync(local(directory,REPORT)))return null;
-  const verified=verifyPublication({directory});const {descriptor}=verified;
+  const verified=verifyPublication({directory,successorFiles});const {descriptor}=verified;
   for(const f of descriptor.files){const prior=terminalFiles.get(f.path)||batches.at(-1).report.baselineFiles[f.path];if(prior)assert.deepEqual(onlyInfo(prior),f.before,'Unknown Pri review predecessor: '+f.path);else assert.equal(f.before,null,'Unrecognized pre-existing Pri publication path');terminalFiles.set(f.path,{path:f.path,...f.after});independentFiles.set(f.path,f.after);}
   independentFiles.set(REPORT,fileInfo(local(directory,REPORT)));
   return verified;
