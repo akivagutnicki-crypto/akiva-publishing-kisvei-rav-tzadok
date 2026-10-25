@@ -8,6 +8,7 @@ import {createHash} from 'node:crypto';
 import {createRequire} from 'node:module';
 import {fileURLToPath} from 'node:url';
 import {gunzipSync} from 'node:zlib';
+import {patchLocalSourcePreview} from './tzidkat-local-source-preview.mjs';
 
 const REPO_ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 export const REPO = 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok';
@@ -376,6 +377,7 @@ export function planPublication(directory, prepared) {
   const revision = pack.release + '-' + packSha256.slice(0,12), marker = 'const editionDataUrl = url => ';
   let html = fs.readFileSync(localFile(directory,'library/index.html'),'utf8'); assert.equal(html.split(marker).length,2); assert(!html.includes('/* ' + pack.release + ' */'));
   html = addVerifiedSourceUrls(html,pack.verifiedExternalUrls || []);
+  if (pack.release === '20261025-tzidkat-batch-256-264-v1') html = patchLocalSourcePreview(html);
   html = html.replace(marker,marker + "/* " + pack.release + " */ (url.startsWith('data/tzidkat-hatzadik/') || url.startsWith('data/cited/') || url === 'data/files.json' || url === 'data/packs/sources.json') ? url + '?batch=" + revision + "' :\n");
   put('library/index.html',Buffer.from(html));
   let sw = fs.readFileSync(localFile(directory,'library/sw.js'),'utf8'); assert.equal((sw.match(/const SHELL = `[^`]+`;/g)||[]).length,1);
