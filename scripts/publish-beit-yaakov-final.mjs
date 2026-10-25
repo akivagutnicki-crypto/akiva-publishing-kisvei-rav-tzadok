@@ -136,7 +136,7 @@ function updateSite(root){
       for(const item of section.items){
         const pairs=item.p.map(([h,e])=>[linked(h,true),linked(e,false)]);
         pairs.forEach((pair,index)=>assert.deepEqual(pair.map(visible),item.p[index],`Linked source changed manuscript ${ref}:${item.n}:${index}`));
-        items.push({n:item.n,p:pairs,keepPairs:true,paragraphTranslation:true});
+        items.push({n:item.n,p:pairs,keepPairs:true,paragraphTranslation:false});
         edges.push(...edgesFromPairs(pairs,ref,item.n));
       }
       const id=nextId++,filename=loc(`${SLUG}/${id}.json`);
@@ -147,14 +147,14 @@ function updateSite(root){
       newBookSections.push(ref);
       sectionRows.push({en:section.en,he:`${he}, ${heNumber(section.ois)}`,id,depth:1,shape:items.length,interlinear:true,
         ref,heRef:`בית יעקב על התורה, ${he} ${heNumber(section.ois)}`,sourceUrl:section.sourceUrl,sep:':',parashah,ois:section.ois,
-        presentation:'paragraphs'});
+        presentation:'interlinear'});
     }
     assert.equal(sectionRows.length,length);
     newGroups.push({en:`${parashah} · ${length} Osiyos`,he,children:sectionRows});
   }
   toc.toc.children.push(...newGroups);
   toc.beitFinalEdition={release:RELEASE,parashiyot:RANGES.map(([name,n])=>({name,osiyos:n})),osiyos:257,paragraphs:1839,phrasePairs:25241,
-    deduplicated:true,originalFilesUnchanged:true,englishBracketsRemoved:true,paragraphTranslation:true};
+    deduplicated:true,originalFilesUnchanged:true,englishBracketsRemoved:true,paragraphTranslation:false};
   assert.equal(json(toc.toc.children.slice(0,-5)),prefixToc,'Existing table of contents changed');
   book.segments+=1839;assert.equal(json(catalog.filter(b=>b.slug!==SLUG)),otherCatalog,'Other seforim changed');
   assert.equal(Object.keys(links).length,earlierLinks+257,'Source link group keys changed unexpectedly');
@@ -214,11 +214,11 @@ function verify(root){
   assert.equal(sections.length,257);
   let count=0,pairs=0,brackets=0;
   for(const original of pack.sections){
-    const leaf=sections.find(s=>s.ref===BOOK+', '+original.key);assert(leaf?.interlinear && leaf.presentation==='paragraphs');
+    const leaf=sections.find(s=>s.ref===BOOK+', '+original.key);assert(leaf?.interlinear && leaf.presentation==='interlinear');
     const items=read(root,`library/data/${SLUG}/${leaf.id}.json`);
     assert.equal(items.length,original.items.length);count+=items.length;
     for(let i=0;i<items.length;i++){
-      assert.equal(items[i].paragraphTranslation,true);assert.equal(items[i].keepPairs,true);
+      assert.equal(items[i].paragraphTranslation,false);assert.equal(items[i].keepPairs,true);
       assert.equal(items[i].p.length,original.items[i].p.length);
       for(let j=0;j<items[i].p.length;j++){
         assert.deepEqual(items[i].p[j].map(visible),original.items[i].p[j],`Source text changed in ${original.key} ${i+1}:${j+1}`);
