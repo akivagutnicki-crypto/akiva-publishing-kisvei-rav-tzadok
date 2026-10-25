@@ -1,0 +1,1293 @@
+{
+  "checkpoint": 56,
+  "confirmedLiveThrough": 264,
+  "continuationNewNotes": 285,
+  "totalPublishedAdditions": 1371,
+  "liveCommit": "5e4470fe04422960d91db22d11b053ddc2b6bee1",
+  "liveRun": 40150663025,
+  "archive": "checkpoint-56-completed-review.tar.gz",
+  "archiveBytes": 4813415,
+  "archiveSha256": "50efd1b107797cc6eef401fb0e39c72754dbbc58d33d527593bc04ef917f4f1e",
+  "entries": [
+    {
+      "path": "apply-local-batch.mjs",
+      "bytes": 1284,
+      "sha256": "989fdb44185d1c2f52812208ee01c897c5c97b80e7016736b3214c8efe614632"
+    },
+    {
+      "path": "build-final-batch.mjs",
+      "bytes": 7060,
+      "sha256": "ed69577530e43c93f94a7cee406e24fd819a0574e1ff0d9926394665212efa74"
+    },
+    {
+      "path": "check-final-proposals.py",
+      "bytes": 3056,
+      "sha256": "5c74fd652780ee1aa93fa2920c7438ab0e17a8a5d8fd8142010b3333b694dbdc"
+    },
+    {
+      "path": "checkpoints/prepare-final-completion.py",
+      "bytes": 5697,
+      "sha256": "887104654bfb4376e45c43c8ec06bb53683697c9a8a2dfaa3c89a3354b13b116"
+    },
+    {
+      "path": "coverage-gap-audit-241-255.json",
+      "bytes": 10445,
+      "sha256": "230580b2c41543fdaf10ee65d7a734dd89b5df8cb6ba8416c98228974e6f48be"
+    },
+    {
+      "path": "final-285-native-catalog-overlaps.json",
+      "bytes": 885437,
+      "sha256": "4542dc1d449e2125c145068d0ce3cedc7f2269a9fc5fa59c2ababdc95b38cdba"
+    },
+    {
+      "path": "final-285-source-verification-summary.json",
+      "bytes": 366,
+      "sha256": "eef2568b21cc85e41575b6656459810efa0659bb084adfc7df024443217be261"
+    },
+    {
+      "path": "final-285-structural-verification.json",
+      "bytes": 50592,
+      "sha256": "a660eb7145575c5cf53883d178dc1d7dff60d2be623d132281e7bb23f13576d3"
+    },
+    {
+      "path": "final-completion-20261025.json",
+      "bytes": 6028,
+      "sha256": "564ec4704cec87b062b2e5460477ccdfa8b629a3f750f730c0312ba372df9fa3"
+    },
+    {
+      "path": "final-cross-batch-overlaps.json",
+      "bytes": 37,
+      "sha256": "3e30fe81b59c861ef5f397a430b0d2d7bcd0b6d4547145d10946c2b53b1c6306"
+    },
+    {
+      "path": "final-cross-batch-reviewed.json",
+      "bytes": 8594,
+      "sha256": "b0d6e7bd8156f74ccee813f30d4791daca46ee52efcb5c79a0e6203fd3a11f57"
+    },
+    {
+      "path": "final-proposal-manifest.json",
+      "bytes": 1928,
+      "sha256": "d9acee5b3fd7c581dba72baf1890c0d28e0141ecb176082f95fc92850cdb48fe"
+    },
+    {
+      "path": "final-review-status-20261025.json",
+      "bytes": 4801,
+      "sha256": "80be158aa23498e92bf79d0b83a47efc3b111202147730919d3a51e635634653"
+    },
+    {
+      "path": "final211/build-216-220.py",
+      "bytes": 35136,
+      "sha256": "9752d58aa69b40b4beaf98b734d04a8f2dd9f75b5dfb439e157fc354ffa2a634"
+    },
+    {
+      "path": "final211/candidate-existing-notes.json",
+      "bytes": 107783,
+      "sha256": "94fb33477b21dcdcc99534c5f06b94a914648a55a37f0be16f9521de309bccb7"
+    },
+    {
+      "path": "final211/common.py",
+      "bytes": 4915,
+      "sha256": "ebb7246b232330b249c958c4bc287e908cff1217901832aaee48fc8440df2c81"
+    },
+    {
+      "path": "final211/coverage-audit-216-220.md",
+      "bytes": 6715,
+      "sha256": "8886b05f11fe40668e5b61a9757eebb408abe01259d59472850eaddd63c42e8c"
+    },
+    {
+      "path": "final211/exact-reference-checks.json",
+      "bytes": 4460,
+      "sha256": "2e115d800f9c302d86bcae4a6afb7eb80005982e50a32f9d9be4766f677c120d"
+    },
+    {
+      "path": "final211/extra-retrieval.json",
+      "bytes": 3340277,
+      "sha256": "c62bdcbb23ce8ec5688a96c2e873893d07472639fcc6fbd828fef376414c8443"
+    },
+    {
+      "path": "final211/final-structural-and-canonical-verification.json",
+      "bytes": 15322,
+      "sha256": "f38936f476ce401280986c8d2cbb0b96f765de4d70b19fa434d0c6cacca36dd8"
+    },
+    {
+      "path": "final211/final-whole-sefer-overlaps.json",
+      "bytes": 233063,
+      "sha256": "ff8ccb680fb7236ba623355531b5bab37b581ea0f445e7e02cfd674c2b1f87b8"
+    },
+    {
+      "path": "final211/global-connected-overlaps-211-215.json",
+      "bytes": 128666,
+      "sha256": "e77b9570c6c6e4f6f3c12370da5cf9229e3814b91ca21790cc1357cbaa9fc129"
+    },
+    {
+      "path": "final211/global-dedup-decisions-211-215.json",
+      "bytes": 4003,
+      "sha256": "d28aa2ce737c658109e2395f626f2412fc354b8e8081338a777f49f5f33c80e1"
+    },
+    {
+      "path": "final211/global-overlaps-211-215.json",
+      "bytes": 214735,
+      "sha256": "fd0c2bad78f886a3faa42490778f477bdbe1196d23ead3aaa91cfb06166845a2"
+    },
+    {
+      "path": "final211/global-overlaps-216-220.json",
+      "bytes": 42499,
+      "sha256": "3105c395bf434f6ab2fb84b981c5125821b5d53aa009278e84f210c1b219875a"
+    },
+    {
+      "path": "final211/independent-211-215.json",
+      "bytes": 751,
+      "sha256": "a8f61264ccd83c52f279fb465ffa5886e658cf4a76a06a27015584435610118d"
+    },
+    {
+      "path": "final211/local-candidates.json",
+      "bytes": 75796,
+      "sha256": "61d19e9730a3fc1291cf69f4071c649e0e4dd1bba861f0a220937556c4dc537e"
+    },
+    {
+      "path": "final211/new-primary.json",
+      "bytes": 616518,
+      "sha256": "6109dc142e175acde94706ddda64f743b695a22865a2fd1c4c929d9f403bb846"
+    },
+    {
+      "path": "final211/ois-211-215.json",
+      "bytes": 268821,
+      "sha256": "fcaeb2cc956f7ed930146ef8805fc4dad8691dc523665d894c18f76ec56d41f6"
+    },
+    {
+      "path": "final211/ois-216-220.json",
+      "bytes": 139557,
+      "sha256": "6e43ff3fad882a475248e1eefa9b1c6dfa9005ebaf59ea04704be69f01ee5aad"
+    },
+    {
+      "path": "final211/ois-216-reading.txt",
+      "bytes": 21987,
+      "sha256": "c9d62659dd0fa12b154e8ffef089cd26e8a0433a3e10bb9aae5cd7a2fda8eb43"
+    },
+    {
+      "path": "final211/ois-217-reading.txt",
+      "bytes": 20116,
+      "sha256": "df7592d98e39ef746c984ed0c9b60d1fb67eb9141b98a79d6d2aa2e53007b57e"
+    },
+    {
+      "path": "final211/ois-218-reading.txt",
+      "bytes": 22267,
+      "sha256": "492fa47c2782bd4a1c8b0b5bb9dcde394eff59a65620040656d5d82ec743aa87"
+    },
+    {
+      "path": "final211/ois-219-reading.txt",
+      "bytes": 23029,
+      "sha256": "1e16f5efbc11b8066919abd584a116f116116952ee47cc33e92686186bd414a7"
+    },
+    {
+      "path": "final211/ois-220-reading.txt",
+      "bytes": 17353,
+      "sha256": "2b464dc74d425526de5b8f042878da1e9cffebdaa8c9cf786a796eb8f43225d8"
+    },
+    {
+      "path": "final211/ois-221-225.json",
+      "bytes": 145198,
+      "sha256": "690bfee435f32abcf30114625310ef98c1ecbcd53bf34e59bcf2f9b29e0a830b"
+    },
+    {
+      "path": "final211/ois-221-reading.txt",
+      "bytes": 21233,
+      "sha256": "ac843916727d0b53f2d174e33e3e16ae6ca4c61781da77d181666fe361558099"
+    },
+    {
+      "path": "final211/ois-222-reading.txt",
+      "bytes": 13922,
+      "sha256": "744ec378e9341f482614c71c63aec592414d3a6dd77fca46a906c897113895f4"
+    },
+    {
+      "path": "final211/ois-223-reading.txt",
+      "bytes": 23824,
+      "sha256": "6f8203c9b0841dc8379e77af797a34cfce6bf18b4ae41ad65bc49ee2a214ed9c"
+    },
+    {
+      "path": "final211/ois-224-reading.txt",
+      "bytes": 30463,
+      "sha256": "0cb9eb55e266d9ab61c97f476d69cc2b4113dc5c870b7db0f9348d2e64df17e9"
+    },
+    {
+      "path": "final211/ois-225-reading.txt",
+      "bytes": 23206,
+      "sha256": "7f5292b39103a339f575d2e0717419d8f216feda4e8860f49003e53226c9d66f"
+    },
+    {
+      "path": "final211/root-independent-216-220.json",
+      "bytes": 684,
+      "sha256": "1e00b3b1a8d4b8fb59f51ae14a1a04fd70e32dfbe50aabc6aa00351d6341fec3"
+    },
+    {
+      "path": "final211/structural-216-220.json",
+      "bytes": 3767,
+      "sha256": "0a99ca83e4b06ebde645729bed364d116c8212f1df6544b0c307872988acdfaf"
+    },
+    {
+      "path": "final221/build-221-225.py",
+      "bytes": 33018,
+      "sha256": "6e657a468f680462d7fbe647a5ad6d6743b585bd7af434cb72adc5bef3753121"
+    },
+    {
+      "path": "final221/global-overlaps.json",
+      "bytes": 64610,
+      "sha256": "246b25eb42fa6747777785b11f7c649b425336ceebb582fe75ec58445445a9f1"
+    },
+    {
+      "path": "final221/independent-exact-reference-checks.json",
+      "bytes": 2261,
+      "sha256": "e6ca4dde28c88cdbe6f14004159bd7889ebaab771d99bdc8c1fc5b13f1b2a1bf"
+    },
+    {
+      "path": "final221/independent-review.json",
+      "bytes": 7861,
+      "sha256": "95e41434e1fe1f0f47a7e6763defa12006d72f6c07b077b2e6d19ca7c815f650"
+    },
+    {
+      "path": "final221/independent-structural-check.json",
+      "bytes": 3840,
+      "sha256": "a72b4ad87ffc14b3f42f311b06e470d80b7f386ee3c6d9014eca1129967012c2"
+    },
+    {
+      "path": "final221/independent-web-primary-checks.json",
+      "bytes": 2692,
+      "sha256": "f8e625f29c55cd0553fd3167fc49681172640de5f7c3446574c69ac6f5e75695"
+    },
+    {
+      "path": "final221/ois-221-225.json",
+      "bytes": 145198,
+      "sha256": "690bfee435f32abcf30114625310ef98c1ecbcd53bf34e59bcf2f9b29e0a830b"
+    },
+    {
+      "path": "final221/source-cache/Chagigah_15a.json",
+      "bytes": 27765,
+      "sha256": "d61b46f4a127254bbd1ac351a10aaa3dc923b0044e36bba50e1c1f09fc2dbcdd"
+    },
+    {
+      "path": "final221/source-cache/Chidushei_Agadot_on_Chagigah_14b.json",
+      "bytes": 15794,
+      "sha256": "3e7479b2b6029f89f8cf8fc74a970ebefc293123bcb70e43b629873430e55a20"
+    },
+    {
+      "path": "final221/source-cache/Jerusalem_Talmud_Chagigah_2:1.json",
+      "bytes": 97578,
+      "sha256": "46268c229fdb691df54f5428565199852b405be92bbefddd0058600cb3a7b8c3"
+    },
+    {
+      "path": "final221/source-cache/Maaseh_Hashem.json",
+      "bytes": 43,
+      "sha256": "ea111e660d92f1f403343d96c147558b9c7aa3ad7e7a7c47a999c690e29595d9"
+    },
+    {
+      "path": "final221/source-cache/Maharsha_on_Chagigah_14b.json",
+      "bytes": 72,
+      "sha256": "df324da3cddeb941548418fcc786d2f89805cc65529926f0853ea59932a6f3ba"
+    },
+    {
+      "path": "final221/source-cache/Mishneh_Torah,_Offerings_for_Those_with_Incomplete_Atonement_2:1.json",
+      "bytes": 7952,
+      "sha256": "7d7697978b9a7acd2fc049e1e19441d86aec29e23759ec87cd174d8043d5c973"
+    },
+    {
+      "path": "final221/source-cache/Mishneh_Torah,_Those_Who_Defile_Bed_or_Seat_1:1.json",
+      "bytes": 8503,
+      "sha256": "6085cf558e77ec460aadf55592db76ce9e1b542c695b180599703864ac8fef7b"
+    },
+    {
+      "path": "final221/source-cache/Niddah_35b.json",
+      "bytes": 34463,
+      "sha256": "ab9d452e536b5f9369d84b9b309accfc1a09d02c4cdc8f68eeef4db5f9389376"
+    },
+    {
+      "path": "final221/source-cache/Pri_Etz_Chaim,_Gate_of_the_Recitation_of_the_Shema_Before_Retiring_1.json",
+      "bytes": 5748,
+      "sha256": "6c09e5ced55799962800549d990c5f2bb598924540ff2ea82009b72cb7279d6f"
+    },
+    {
+      "path": "final221/source-cache/Pri_Etz_Chaim.json",
+      "bytes": 21022,
+      "sha256": "183218826d10c3d9a1eec6ecbbf962dfab9206312d260327af476ca9498351dc"
+    },
+    {
+      "path": "final221/source-cache/Rashi_on_Exodus_31:3:1-2.json",
+      "bytes": 7059,
+      "sha256": "cb79754b533b025997f29530cca3f108ce9278136c8d35735d527c807464c472"
+    },
+    {
+      "path": "final221/source-cache/Rashi_on_Leviticus_6:21.json",
+      "bytes": 8079,
+      "sha256": "169be3f2aa75ac72d5472b16c9d4fa42c2161a332fb212683f09a9970ad2542f"
+    },
+    {
+      "path": "final221/source-cache/Shaar_HaGilgulim_38.json",
+      "bytes": 196566,
+      "sha256": "d50a00142512479a80f00936de668760c956e4e593a15f86fbe2c7b5729df23e"
+    },
+    {
+      "path": "final221/source-cache/Shaar_HaKavanot,_Sermons_on_Kaddish_1.json",
+      "bytes": 19780,
+      "sha256": "815fec0a976586000ddcebf41f9e72be6524c4b1fb97241c2d50e8aab4dc12cb"
+    },
+    {
+      "path": "final221/source-cache/Shaar_HaKavanot,_Sermons_on_the_Night_Ritual_5.json",
+      "bytes": 21777,
+      "sha256": "7533d067146bb9bceca1f2e1491f7934ac6676fe6fa8c9a7e9be6da7e7436cc6"
+    },
+    {
+      "path": "final221/source-cache/Shaar_HaKavanot.json",
+      "bytes": 22392,
+      "sha256": "1657bb0f03eadf4c0eea8bd68acabe4b772fe2f0e1a2bb19ddae629dbd9f7023"
+    },
+    {
+      "path": "final221/source-cache/Sichat_Malakhei_HaSharet_1:21.json",
+      "bytes": 3020,
+      "sha256": "09bf856efe8d73be125ef2e27e2bb1c451e40c3ee47687fdad4484152c760c67"
+    },
+    {
+      "path": "final221/source-cache/Sifra,_Acharei_Mot,_Chapter_13.json",
+      "bytes": 33401,
+      "sha256": "6d227ebae0bbc456fe37f676f5f5bc8bc66b1a2cb8517056aeecef465246338c"
+    },
+    {
+      "path": "final221/source-cache/Sifra,_Acharei_Mot,_Section_8.json",
+      "bytes": 12630,
+      "sha256": "042a6d75e9d247911f7946dca170eacc200e9faf7e7f97bc80b7fcbd9b704dd7"
+    },
+    {
+      "path": "final221/source-cache/Sifra.json",
+      "bytes": 130642,
+      "sha256": "fff41315c5e3ae9cdbecdd46c55440812ed5b7961306ead6163da4b17d2949f4"
+    },
+    {
+      "path": "final221/source-cache/Tanya,_Part_I;_Likkutei_Amarim_43.json",
+      "bytes": 22743,
+      "sha256": "34a044385830769be5371791fc44fb4241513ab59ade1401ba0a9213922188be"
+    },
+    {
+      "path": "final221/source-cache/Tiferet_Yisrael,_Introduction_1.json",
+      "bytes": 28804,
+      "sha256": "b65d7c76cf1ec53df6aeac37dae58d561ddd956520c9802f848207b7330edb6f"
+    },
+    {
+      "path": "final221/source-cache/Tikkunei_Zohar_78a.json",
+      "bytes": 10534,
+      "sha256": "7883b7906e0de2e2ea7e05b2fc2bff653b60bb33cf63349a773b6964edb97731"
+    },
+    {
+      "path": "final221/source-cache/verified-exact-Chidushei_Agadot_on_Chagigah_14b_9.json",
+      "bytes": 5628,
+      "sha256": "d93ed3a3d0fab85a5cb0fa88ddcc262a22e8b248e48d45817eebbf66ab68e502"
+    },
+    {
+      "path": "final221/source-cache/verified-exact-Jerusalem_Talmud_Chagigah_2_1_10.json",
+      "bytes": 30458,
+      "sha256": "66f71bf622c9bd15904d948cd2b49f2e56c45dc31eb313f836b921ff0c374956"
+    },
+    {
+      "path": "final221/source-cache/verified-exact-Mishneh_Torah_Offerings_for_Those_with_Incomplete_Atonement_2_1.json",
+      "bytes": 8788,
+      "sha256": "c58f48a7fa496d918fc5c498b3129cd8aad9ad32ccff7b67d7b0a8bf4c237208"
+    },
+    {
+      "path": "final221/source-cache/verified-exact-Rashi_on_Leviticus_6_21_3.json",
+      "bytes": 8333,
+      "sha256": "739a701a2f28bc8ad66d41296492f50390a6f0dc6d8a1063af9f10636900f70a"
+    },
+    {
+      "path": "final221/source-cache/verified-exact-Sha_ar_HaKavanot_Sermons_on_Kaddish_1_1_6.json",
+      "bytes": 8006,
+      "sha256": "ad56cd83695902ece49a03b657c182f7fde499778feed0543cc9fc171bdc646c"
+    },
+    {
+      "path": "final221/source-cache/verified-exact-Sha_ar_HaKavanot_Sermons_on_the_Night_Ritual_5_2.json",
+      "bytes": 5357,
+      "sha256": "ccad716cb27257b6037d7ffe4eb1f7c02a0a16888d02e5019734ce11f1395d55"
+    },
+    {
+      "path": "final221/source-cache/verified-exact-Sifra_Acharei_Mot_Section_8_4.json",
+      "bytes": 5688,
+      "sha256": "e5338ba7e29f187f95ed6d81b0c869dbb2d3faf41f9e9d95eeb403e2262fb9d1"
+    },
+    {
+      "path": "final221/source-cache/verified-exact-Tikkunei_Zohar_78a_3.json",
+      "bytes": 4461,
+      "sha256": "6dc72672b697a02f0e5e8e6cd52550e5dfbba8e50ae14eee89c4056f75fd1383"
+    },
+    {
+      "path": "final221/tanya9.json",
+      "bytes": 21789,
+      "sha256": "2d897f81399a325c7ff928f3ed72e540f0dcf745876d9de473ed6583bdfaa364"
+    },
+    {
+      "path": "final226/build236.py",
+      "bytes": 42385,
+      "sha256": "4b2270cccdf1e9f6ee7653766a15ecc76e229c0da5f1380fbb4de829abb3203b"
+    },
+    {
+      "path": "final226/dedup-226-235.json",
+      "bytes": 23724,
+      "sha256": "c719700a0b1f8c23c3f292b2037c6096ee702abf9557502df8b5223eab1d9f0c"
+    },
+    {
+      "path": "final226/fetch_primary.py",
+      "bytes": 959,
+      "sha256": "e8acf25b20e57c78959e41fec2a0bb0b284367491641f6869575a8d1eb37dfb3"
+    },
+    {
+      "path": "final226/final-structural-audit.json",
+      "bytes": 40022,
+      "sha256": "983c2b3f29398c4ee711d82431ed07dfdbc47c19acfb29cb17454a2b34eb3ac5"
+    },
+    {
+      "path": "final226/global-overlaps-226-235.json",
+      "bytes": 257021,
+      "sha256": "aa5c94eac46a94040eebcc5af889a1409b6d8e04cc9f1f6656f2460e1f0035ab"
+    },
+    {
+      "path": "final226/global-overlaps-enhanced.json",
+      "bytes": 178761,
+      "sha256": "c23cd35dc435f51c04f23f461c0f45fa70e9550528126af793ed6068cc121113"
+    },
+    {
+      "path": "final226/global-overlaps-final.json",
+      "bytes": 153107,
+      "sha256": "813822eb1cee72762fef41283428a978afc19cf65f964581dd22d0516c3dee5e"
+    },
+    {
+      "path": "final226/independent-scholarly-226-235.json",
+      "bytes": 662,
+      "sha256": "2e1b9957a9efacd9761eff135da81cd2278385d89dad6cd49fd8152af346f3ce"
+    },
+    {
+      "path": "final226/independent-scholarly-226-240.json",
+      "bytes": 3233,
+      "sha256": "6585fdc1f59c3ad22b3d41d9e4c5be1ced105cce46fb72ae676cd01cf9941ddf"
+    },
+    {
+      "path": "final226/ois-226-230.json",
+      "bytes": 139375,
+      "sha256": "85ca4bf7641d4ad09b4017f59b9f57ad5de7d642cf79df0af519498e66a1eb94"
+    },
+    {
+      "path": "final226/ois-231-235.json",
+      "bytes": 135303,
+      "sha256": "d0c467dafd77ad08ab9ea4c8a50414c602a639f4cfc8e07bbc781eeec4e85328"
+    },
+    {
+      "path": "final226/ois-236-240.json",
+      "bytes": 142201,
+      "sha256": "3ef74874daea86514c7e861a528b294817f0cc060f7cc42b7cd8ff9fcf668d7f"
+    },
+    {
+      "path": "final226/primary/Akeidat_Yitzchak_67.json",
+      "bytes": 32018,
+      "sha256": "d9d5504bc9d48d6c9015176657f3c9270849d44a6b1f8d6fd393706967a761c6"
+    },
+    {
+      "path": "final226/primary/Akeidat_Yitzchak_67:2-10.json",
+      "bytes": 412656,
+      "sha256": "b710a22dcf1d4a25db7f297252d3e79c21a7a7c525689fbedf6d161da47218eb"
+    },
+    {
+      "path": "final226/primary/Akeidat_Yitzchak_67:8:16.json",
+      "bytes": 61158,
+      "sha256": "4aa2a9a05e0857fcf33f3123c5dcc407f979e93640dfecdcbc56142a246bcc70"
+    },
+    {
+      "path": "final226/primary/Bava_Metzia_85b.json",
+      "bytes": 31778,
+      "sha256": "6219c5ee581046e171ffaf6c307407a2a29f5959358931aae62b470db7d8f87d"
+    },
+    {
+      "path": "final226/primary/Beit_Yosef,_Orach_Chaim_4.json",
+      "bytes": 4273,
+      "sha256": "82dc33ac4833985f39fe8de66145ce1a589a9ad80206c48bba608edd64592663"
+    },
+    {
+      "path": "final226/primary/Beit_Yosef,_Orach_Chayim_4:2-30.json",
+      "bytes": 32413,
+      "sha256": "4d653cde6451dd236e92b17ea509588ae4c3b7d479f38965920250c7c79df22a"
+    },
+    {
+      "path": "final226/primary/Beit_Yosef,_Orach_Chayim_4:5:1.json",
+      "bytes": 17099,
+      "sha256": "5ec44c90539abae376ca17762ec6665df740b41052918ce46b3422e9153cc472"
+    },
+    {
+      "path": "final226/primary/Derekh_Chayim_5:15.json",
+      "bytes": 54484,
+      "sha256": "59383a57bcb6460946446e5f1706f0b81950bed4f11d9f46d27a1fe581f0dce8"
+    },
+    {
+      "path": "final226/primary/Derekh_Chayyim_5:15:11.json",
+      "bytes": 7399,
+      "sha256": "282198ebdd2d8002cf46c241ff113db762a01e1474cb7fa2a3f0812b89c47d50"
+    },
+    {
+      "path": "final226/primary/Jerusalem_Talmud_Berakhot_5:1.json",
+      "bytes": 71849,
+      "sha256": "c1745a2b9f150d03e9f61d578d896eb72a1d797441f1a2cd018570c69a613831"
+    },
+    {
+      "path": "final226/primary/Jerusalem_Talmud_Berakhot_5:1:3.json",
+      "bytes": 17908,
+      "sha256": "1335b21abf9b5eb08bf496ababfe9deb33bafd0d6e5b9f398b863a6dc6224e69"
+    },
+    {
+      "path": "final226/primary/Keter_Shem_Tov_1:208.json",
+      "bytes": 4253,
+      "sha256": "c3c352af8ddae234838b5329eeda58131a8c54779cffb7fd481a06bf0b78339a"
+    },
+    {
+      "path": "final226/primary/Keter_Shem_Tov_1:208:2-209:1.json",
+      "bytes": 4310,
+      "sha256": "d851ebfe7cef08a25fac41666b11323b15677af3303930e6a10829315e5f336b"
+    },
+    {
+      "path": "final226/primary/Keter_Shem_Tov_1:209.json",
+      "bytes": 3170,
+      "sha256": "425f1be4fb4e01c0a600ff027b5049f4b28fbe6ade9885530e7a1f780abf018e"
+    },
+    {
+      "path": "final226/primary/Keter_Shem_Tov_209a.json",
+      "bytes": 5689,
+      "sha256": "7a97d11b5d5ce69d1abbaf7acbab6b0ec294222d8d9ec1bde7536e825fba00c0"
+    },
+    {
+      "path": "final226/primary/Magen_Avraham_46:10.json",
+      "bytes": 3597,
+      "sha256": "07e78930638a878c72bef36f41b5f47056f53a40dfef735c927d95f771a90006"
+    },
+    {
+      "path": "final226/primary/Mesilat_Yesharim_26.json",
+      "bytes": 38549,
+      "sha256": "b02a8c2e805c495d09e20ae7b13dcf51081e513cf85f11bd443bb451fb9c1bc1"
+    },
+    {
+      "path": "final226/primary/Mesillat_Yesharim_26:22-23.json",
+      "bytes": 6072,
+      "sha256": "98b07fcb2cbdd623c919fe797021f12c7064733dc84a108d06de5593cc95e3ce"
+    },
+    {
+      "path": "final226/primary/Pri_Etz_Chaim,_Gate_of_the_Recitation_of_the_Shema_Before_Retiring_11.json",
+      "bytes": 62834,
+      "sha256": "d287b71b79b812d747c75ce37a7e9e12d715fa8e3569acfb345b098e0ca30cd5"
+    },
+    {
+      "path": "final226/primary/Pri_Etz_Chaim,_Gate_of_the_Recitation_of_the_Shema_Before_Retiring_1:3.json",
+      "bytes": 4624,
+      "sha256": "2a81a1a278217da4018d996089c66097f99954eec568e22bba69451146e7e3f1"
+    },
+    {
+      "path": "final226/primary/Rashi_on_Avodah_Zarah_73a.json",
+      "bytes": 2151,
+      "sha256": "b1042385f2d8b53458f01386aa63707d49b4e41b522f2fcd0415f02ba97f7e28"
+    },
+    {
+      "path": "final226/primary/Rashi_on_Berakhot_25a.json",
+      "bytes": 3665,
+      "sha256": "ce4108a080515d5c41cabbf5e502d15d384b87724b30d8cb18c8363a79a65533"
+    },
+    {
+      "path": "final226/primary/Rashi_on_Exodus_19:5:1.json",
+      "bytes": 18646,
+      "sha256": "1fb958d91017577614d8927eef86737fc8ae931565c95c830b8e5aeed926805a"
+    },
+    {
+      "path": "final226/primary/Rashi_on_Exodus_21:1.json",
+      "bytes": 12275,
+      "sha256": "8d39f83205e5036954fc42152f083eb4fc9ed7a80d70d1b1704ad12d3d325c47"
+    },
+    {
+      "path": "final226/primary/Rashi_on_Exodus_21:1:2.json",
+      "bytes": 9242,
+      "sha256": "8af3475c19819e5c934bf74c3f1035c2a54141ca9d4b6364e4fa69d57a7ae496"
+    },
+    {
+      "path": "final226/primary/Sefer_Yetzirah_4:3.json",
+      "bytes": 6164,
+      "sha256": "7988663a915f4480c269c687a46276aee85a8833ddd7c9f802f87acc7c84f3a0"
+    },
+    {
+      "path": "final226/primary/Sha'ar_HaGilgulim_1.json",
+      "bytes": 37225,
+      "sha256": "cc03d0a169a04e1d345b74c32d007320aaea27876d667065ed652ee2ff7a9d06"
+    },
+    {
+      "path": "final226/primary/Sha'ar_HaGilgulim_3.json",
+      "bytes": 42993,
+      "sha256": "47c125eafe838d439184eda9c16003d6f75129f818e3ae6d6ebb7b0a67c8baa6"
+    },
+    {
+      "path": "final226/primary/Sha'ar_HaGilgulim_3:1.json",
+      "bytes": 7002,
+      "sha256": "7ea17051561b03fed33703e74f624873fc1251301a5b29856f64574230a58ef0"
+    },
+    {
+      "path": "final226/primary/Sha'ar_HaKavanot,_Sermons_on_Sabbath_Night_Kiddush_1.json",
+      "bytes": 32930,
+      "sha256": "d46464b9c301e307ca5c9884c2461a9cbc33076decd61081c5cfc64e3b69cd14"
+    },
+    {
+      "path": "final226/primary/Sha'ar_HaKavanot,_Sermons_on_the_Falling_on_the_Face_Prayer_2.json",
+      "bytes": 14799,
+      "sha256": "d2e951874a67e265ba26a8031723055264955c4acabc7a81102a4357489fee7b"
+    },
+    {
+      "path": "final226/primary/Sha'ar_HaKavanot,_Sermons_on_the_Falling_on_the_Face_Prayer_2:4.json",
+      "bytes": 9327,
+      "sha256": "2eeb513b3367b42ad39a91db47b7090e426a7fb3e60a375d933685cbe54142e0"
+    },
+    {
+      "path": "final226/primary/Sha'ar_HaMitzvot,_Eikev.json",
+      "bytes": 92474,
+      "sha256": "f8b0e5046ed0e038ba9f2f584ce331af49ab8b9d4f63c6d1c59e6f0e4d05e17f"
+    },
+    {
+      "path": "final226/primary/Sha'ar_HaMitzvot,_Eikev_22-23.json",
+      "bytes": 8834,
+      "sha256": "3650baf5986e22995217f33378a854e6967189a8312595ab7e0d254b31e55365"
+    },
+    {
+      "path": "final226/primary/Shenei_Luchot_HaBerit,_Toldot_Adam,_Beit_Hashem_1-30.json",
+      "bytes": 42398,
+      "sha256": "932515434dffbdcffa42cf75dce709248be34bff0efa4be5717f5ec99f0e2732"
+    },
+    {
+      "path": "final226/primary/Shenei_Luchot_HaBerit,_Toldot_Adam,_Beit_Hashem_11.json",
+      "bytes": 4444,
+      "sha256": "42deb786b5c353ce9c4e5e2f42f96c6c4a1d9f3bdd946c0191d9027cc9fd6283"
+    },
+    {
+      "path": "final226/primary/Shenei_Luchot_HaBerit,_Toldot_Adam,_Beit_Hashem_19.json",
+      "bytes": 4344,
+      "sha256": "8ae8b4edbf4665171ab1d699c41057742230f4ecc0a6d24307128da5c9fbacf4"
+    },
+    {
+      "path": "final226/primary/Shenei_Luchot_HaBerit,_Toldot_Adam,_Beit_Hashem_8.json",
+      "bytes": 3633,
+      "sha256": "5c06a67cc4e6350953d244ed68226533e33d9b02f8b36d3ff83e4fea3b09936b"
+    },
+    {
+      "path": "final226/primary/Tanya,_Part_I;_Likkutei_Amarim_48.json",
+      "bytes": 27360,
+      "sha256": "d1258279243478c207d036fd970846e60ba429f61159a1d9715d3ca076151988"
+    },
+    {
+      "path": "final226/primary/Tanya,_Part_II;_Shaar_HaYichud_VehaEmunah_8.json",
+      "bytes": 18145,
+      "sha256": "3494f49b7099c198219d0d82e2457f111384cfb253d6519b82e2802725136109"
+    },
+    {
+      "path": "final226/primary/Tanya,_Part_II;_Shaar_HaYichud_VehaEmunah_8:1.json",
+      "bytes": 9120,
+      "sha256": "f35279d4ad392ea9ee69ab2f63f5f460abfe3aa0d63bd42994d8bf26d837901e"
+    },
+    {
+      "path": "final226/primary/Tzidkat_HaTzadik_91.json",
+      "bytes": 5363,
+      "sha256": "f75daf57d52a11ebb584f5b91fda15b583c027785d131b7cf1e2af605a97a9cd"
+    },
+    {
+      "path": "final226/primary/Zohar,_Pekudei_38:487.json",
+      "bytes": 1238,
+      "sha256": "66ea2469ce766fecc4c4f17f2827cda4633f0c0759866ee8c36b51d5923c4424"
+    },
+    {
+      "path": "final226/primary/Zohar,_Pekudei_51:663-674.json",
+      "bytes": 17912,
+      "sha256": "26b08231b1467cf7f093ccae5595f05405b0466a45b0bd5e38d82d1d38d55dc5"
+    },
+    {
+      "path": "final226/primary/Zohar,_Pekudei_51:673.json",
+      "bytes": 5047,
+      "sha256": "c847ede93acec47fdb8dabd9e45bc997af885ff1caa2070ecdc86bc2e6d9854f"
+    },
+    {
+      "path": "final226/primary/index-Zohar.json",
+      "bytes": 1425161,
+      "sha256": "2d556d2c732103aea1991abc68aeddc4ed0cbe1ce973c86862894e3a2adb2f52"
+    },
+    {
+      "path": "final226/recovered-structural-audit.json",
+      "bytes": 27992,
+      "sha256": "250cd521005759d0837fc56a698985835720d0017ea11701409a4cb0a9904bb7"
+    },
+    {
+      "path": "final226/root-final-verification.json",
+      "bytes": 13045,
+      "sha256": "3bddffb5458ea98514a606def75c518eeaeaf00d8b2b89b97a445c3c8d5fac09"
+    },
+    {
+      "path": "final226/verify_final.py",
+      "bytes": 3314,
+      "sha256": "b11136dabf885bfaa184538d69c0a70a193b2280ed5877aba7dd11528cfb96cc"
+    },
+    {
+      "path": "final226/verify_recovered.py",
+      "bytes": 2325,
+      "sha256": "b5a90b78ef4d322cf1f85cc2f8e0ea48f2909e283380ac1dbc224ed3ffd9b15e"
+    },
+    {
+      "path": "final241/body-241.txt",
+      "bytes": 9377,
+      "sha256": "87ba479aa16e942190ae918b057a189fe3df09cf673c2bda0824cc42bc2fe757"
+    },
+    {
+      "path": "final241/body-242.txt",
+      "bytes": 8630,
+      "sha256": "0922d29d4fdfbcb5e724197366c1e1249f14c2a4cdbe01a548dfa0745fd27846"
+    },
+    {
+      "path": "final241/body-243.txt",
+      "bytes": 11502,
+      "sha256": "dcb912e774aacebed436cf99819d11b34e9ef13938878f1726d3a9334f8d3c64"
+    },
+    {
+      "path": "final241/body-244.txt",
+      "bytes": 12808,
+      "sha256": "770817bec0dd15856d3d7938d2ff418c88b5d0fe0b276b841ad76d6c6e013b6f"
+    },
+    {
+      "path": "final241/body-245.txt",
+      "bytes": 17393,
+      "sha256": "afd6582442f47238a2eeba79d5f5facfecf3c8e07d175aa694ecaaf7d0c5aa87"
+    },
+    {
+      "path": "final241/body-246.txt",
+      "bytes": 18192,
+      "sha256": "dbf4737d6196ab07f98aa4302762c016b54263f74b331641b59052ce1c705baf"
+    },
+    {
+      "path": "final241/body-247.txt",
+      "bytes": 9707,
+      "sha256": "ecd6688a69b35670a2bbcbafd576c4d2d68c34087fb21e12a0e28468922e94f9"
+    },
+    {
+      "path": "final241/body-248.txt",
+      "bytes": 8178,
+      "sha256": "69174a4a8350ea2cac0ce991bf0a086f2c5da67a332405ea4a0480d3a76a33c3"
+    },
+    {
+      "path": "final241/body-249.txt",
+      "bytes": 9495,
+      "sha256": "0436f4cb7309e3468cdc162f8cbfc7def2a3b36583b79d611db70226749c6abf"
+    },
+    {
+      "path": "final241/body-250.txt",
+      "bytes": 9340,
+      "sha256": "afcaa4cdc4b55b7f26a8d68ae4b18164427cf6c50f6f6a843ff5ab95639cd787"
+    },
+    {
+      "path": "final241/body-251.txt",
+      "bytes": 9540,
+      "sha256": "bb2ca32930557c572cefceccb38caeaff1f96c369dae13836cbf5bbbed24c198"
+    },
+    {
+      "path": "final241/body-252.txt",
+      "bytes": 16985,
+      "sha256": "4886af67858cdaa014fec0035a4c4ea5dbbe7c50182cc452aba58438d8d1669c"
+    },
+    {
+      "path": "final241/body-253.txt",
+      "bytes": 10769,
+      "sha256": "4e946575e198dfc4faa4744ab19fed6ac7765fdc3c34e12d6a0b1b17c5cd052e"
+    },
+    {
+      "path": "final241/body-254.txt",
+      "bytes": 12746,
+      "sha256": "40f75b2fcd0f6768ee49cb28cf257e06f53e0ad4d224b42eca18985e1afa481a"
+    },
+    {
+      "path": "final241/body-255.txt",
+      "bytes": 9185,
+      "sha256": "d98fd04c09dfe344b15c7990cb7d9b58f0515f529bb5f234694f13fd9ca994cc"
+    },
+    {
+      "path": "final241/build-241-245.py",
+      "bytes": 14593,
+      "sha256": "07b42de4c2745630658696b5bfaf16ddee341efd8cbad162168dc395574f971d"
+    },
+    {
+      "path": "final241/build-246-250.py",
+      "bytes": 20153,
+      "sha256": "b04f8fc866340a07e65d4fde1fadfce8a56c41c9ee9e408aa3507baecd9d85af"
+    },
+    {
+      "path": "final241/build-251-255.py",
+      "bytes": 16440,
+      "sha256": "917610f829994984c6e2aec719b9264072f3330cbc6c2de30816210a9a35d434"
+    },
+    {
+      "path": "final241/common.py",
+      "bytes": 5453,
+      "sha256": "f601ab7aa1484d90e281e7bbda41c849c5f6a1e827642a8c0f79d0ffd8f68ed5"
+    },
+    {
+      "path": "final241/coverage-candidates-241-255.json",
+      "bytes": 48482,
+      "sha256": "b47f14f9df61c98c74e83160f02de0445482725cd24e5507d211cfe26d0ee56e"
+    },
+    {
+      "path": "final241/coverage246-additional.json",
+      "bytes": 6102,
+      "sha256": "3df3f3b6e42836436c1d7e198f5207e12de0801c59f02e8dd66da0c02f9885b6"
+    },
+    {
+      "path": "final241/fetch_sources.py",
+      "bytes": 979,
+      "sha256": "7a4baccd102078401c9cb307fdd1289f64a4781e851da1a1008ddcdd5bdb29df"
+    },
+    {
+      "path": "final241/global-overlaps-first-ten.json",
+      "bytes": 147360,
+      "sha256": "1631c74012faa5f1f8b743717685be2bd8909535be5abf9caf627de204f69e4d"
+    },
+    {
+      "path": "final241/global-overlaps.json",
+      "bytes": 172910,
+      "sha256": "2f9bffe8ba18e8f90b323049ea4cecfdfe0b293e9628389a3805889c8d9a228a"
+    },
+    {
+      "path": "final241/merge-coverage-additions.py",
+      "bytes": 2346,
+      "sha256": "cf68a67645f373af8471f01d92f510ef7936aea3e5e63813d7241582d00a9a27"
+    },
+    {
+      "path": "final241/ois-241-245.json",
+      "bytes": 89338,
+      "sha256": "288308e4752cc5359318c0e9bf3a1704cf43b4e647eb7590ddb0fbaea1dce726"
+    },
+    {
+      "path": "final241/ois-246-250.json",
+      "bytes": 99507,
+      "sha256": "e0119abe38c68e7b245b2e2e38d75804e51e87b30e7fdbeb13276b1da1701b73"
+    },
+    {
+      "path": "final241/ois-251-255.json",
+      "bytes": 89402,
+      "sha256": "269a40042f712fb97fa8068738dabaf02507a4308c47b4b3b9f12a5044df922c"
+    },
+    {
+      "path": "final241/peer-cross-batch-262-264.json",
+      "bytes": 2,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "path": "final241/peer-review-262-264.json",
+      "bytes": 12584,
+      "sha256": "f45a7adcfc8adaae034fcafda3f910354da88eefa9d285210d79111480b87cf2"
+    },
+    {
+      "path": "final241/primary.json",
+      "bytes": 562095,
+      "sha256": "074066276f0bb12666497269f22489fcdea6203a1385239c3c03ff977c1376bd"
+    },
+    {
+      "path": "final241/review-supplemental.py",
+      "bytes": 8006,
+      "sha256": "e95831da4e6f4b499c952d84cc96cbf802b14ad7c7e51e789bfea0f6175c0bba"
+    },
+    {
+      "path": "final241/root-final-verification.json",
+      "bytes": 6542,
+      "sha256": "190bc16ee66f7b4ab286c6e1b595e56805c48934abb2fcdb1b06a883ca286cc2"
+    },
+    {
+      "path": "final241/root-independent-bilingual-review.json",
+      "bytes": 1102,
+      "sha256": "8c9dbf6f7c76166f4b3895cd7c2be9200cb8e0e84c7b4532f4843f7b31f607a6"
+    },
+    {
+      "path": "final241/supplemental-initial-overlaps.json",
+      "bytes": 12838,
+      "sha256": "13fe72f40d3ad8f7f204a35c5f1228505d415529310fe95491703f81bb635bc5"
+    },
+    {
+      "path": "final241/supplemental-peer-review-241-255.json",
+      "bytes": 6962,
+      "sha256": "e98a69a0185dce1e04b5642547e1822c5ef6314da9cf9dc0b06102adbbdcaa37"
+    },
+    {
+      "path": "final241/verification-and-coverage-audit.json",
+      "bytes": 1412,
+      "sha256": "523dc20a0947d034d1257196f961d74b09a5c6eb469a3a910e540799d9f07958"
+    },
+    {
+      "path": "final241/wikisource.json",
+      "bytes": 10965,
+      "sha256": "4a16cbf53eccd938d88bc6c19c2ce0d385d13e2c315ff17b28ac23f3cd4d03c4"
+    },
+    {
+      "path": "final256/build-final-sections.py",
+      "bytes": 34123,
+      "sha256": "5954d12a88fe975d8d28998edf57f492c033159fefe76657ab97cdbe1ae7e0b8"
+    },
+    {
+      "path": "final256/dedup-decisions-256-262.json",
+      "bytes": 8102,
+      "sha256": "76a3ddf3d638b12e889557ead7524f491407e2a9a289e36c8c83280e306ee843"
+    },
+    {
+      "path": "final256/final-structural-and-canonical-verification.json",
+      "bytes": 15961,
+      "sha256": "cc7677814b99c429abd4b13a23e1dd52064f965466d05712601b6e3781e0e29f"
+    },
+    {
+      "path": "final256/finalize-recovered.py",
+      "bytes": 3600,
+      "sha256": "25f1688a2cc933b8c392f916a543a84a58665707ea7ea68eda8b1b092fbb6bc7"
+    },
+    {
+      "path": "final256/global-connected-overlaps.json",
+      "bytes": 313747,
+      "sha256": "9463c30faefef0f40d54f0c7e93c7c66afa892b9d4a4c4630d88e6ba90dbca0c"
+    },
+    {
+      "path": "final256/native-overlap-review.json",
+      "bytes": 83642,
+      "sha256": "964e3cf338d577d0cb55634d9361f3b3f87ae5112d8c08a05ec7f1c54730e518"
+    },
+    {
+      "path": "final256/ois-256-260-existing-duplicates.json",
+      "bytes": 1953,
+      "sha256": "ad386e092b022b13c0c3c5b9b7c1cb8177422fdde77d1908a3572ca1ceba2568"
+    },
+    {
+      "path": "final256/ois-256-260.json",
+      "bytes": 333707,
+      "sha256": "fae729c18e0620831c8b6d82755c064e795f9252fdc0ac74ccd0fee07e4f95b6"
+    },
+    {
+      "path": "final256/ois-261-261-existing-duplicates.json",
+      "bytes": 2,
+      "sha256": "4f53cda18c2baa0c0354bb5f9a3ecbe5ed12ab4d8e11ba873c2f11161202b945"
+    },
+    {
+      "path": "final256/ois-261-261.json",
+      "bytes": 55616,
+      "sha256": "c0b5294d21d6f99e47a895a2deb856d2fda74d3950be86388b6921ec653c79bd"
+    },
+    {
+      "path": "final256/ois-261-264.json",
+      "bytes": 257886,
+      "sha256": "4866c459a9746f6b6a18f551b4c24db55e845316887127eb5725c6a3fa0bd00b"
+    },
+    {
+      "path": "final256/ois-262-262-existing-duplicates.json",
+      "bytes": 1629,
+      "sha256": "800a36fc2ea0604c570a0115004f711b8340970731c7b571de87d3c265055beb"
+    },
+    {
+      "path": "final256/ois-262-262.json",
+      "bytes": 53368,
+      "sha256": "b1657b2ee269c5624e58504cbf23cf8dbc70cb8fa8f2945b2c83483d732e5de7"
+    },
+    {
+      "path": "final256/ois-263-264.json",
+      "bytes": 149901,
+      "sha256": "d622a8f281b459c181f2a4608146b2fd418b32d6eb5f02ae5afcdbe0b2ed223c"
+    },
+    {
+      "path": "final256/primary-sources.json",
+      "bytes": 161665,
+      "sha256": "8a1f298479e85efbcc2876418d551d149c3a2ebe86eb11c34a02248766511816"
+    },
+    {
+      "path": "final256/primary-tools.json",
+      "bytes": 51348,
+      "sha256": "02a82a820ed82a0cd473018740929c734d8791577b011be70d77cb73b7e81386"
+    },
+    {
+      "path": "final256/structural-and-canonical-verification.json",
+      "bytes": 16289,
+      "sha256": "ed8d1bd40257bda963f7150d7638a7db4928efa7dfa0918d92ede297f4306c4a"
+    },
+    {
+      "path": "find-proposal-overlaps.py",
+      "bytes": 2368,
+      "sha256": "041ba38808d99d7938e68c32cd76d2ffc1bf185bc041b120121df98560fd3f93"
+    },
+    {
+      "path": "local-source-preview-independent-review.json",
+      "bytes": 2340,
+      "sha256": "6cc62c352838d73f920267552d40484ad71bb2103c273b418980c4f6cc928660"
+    },
+    {
+      "path": "release-211-225-local-verification.json",
+      "bytes": 4674,
+      "sha256": "333a7ae13cb138877245054fdd864be9cc187d51c3d9bae5448018306b6fd10a"
+    },
+    {
+      "path": "release-211-225-verification.json",
+      "bytes": 1083,
+      "sha256": "585e94e7bde678b9ba5996e7b38479bd0817eda5cc88debb3759e56e010cd8d3"
+    },
+    {
+      "path": "release-226-240-local-verification.json",
+      "bytes": 4969,
+      "sha256": "4cccd4cc31970459ca0aa0202ad4d82455e2572a5bb1499ebcf27838bed9617c"
+    },
+    {
+      "path": "release-226-240-verification.json",
+      "bytes": 1083,
+      "sha256": "82041090b54b610e534599ea06076e905eb520724fb683fadb6233873935a02b"
+    },
+    {
+      "path": "release-241-255-verification.json",
+      "bytes": 1100,
+      "sha256": "6202130827407ae8e84874756726cf51bb4fbdf1cfc447e8a905f8927cb3cadc"
+    },
+    {
+      "path": "release-256-264-verification.json",
+      "bytes": 1336,
+      "sha256": "ab5c46de256aef00979926c0abb64859cf4137b0c1c15eaf27a3e407a45439d7"
+    },
+    {
+      "path": "release211-evidence/extracted/artifacts/tzidkat-batch-211-225/live-ois221-390.png",
+      "bytes": 90664,
+      "sha256": "2f3a486957ba8a041ed45d0b364c2e0ce508b603a5494e8d0c7f63327e241abe"
+    },
+    {
+      "path": "release211-evidence/extracted/artifacts/tzidkat-batch-211-225/live-ois225-1280.png",
+      "bytes": 212034,
+      "sha256": "c0b1c4f6f96f99968778148b2c085d7db6c0c81049ddd493c73b1ddd3abd3ecd"
+    },
+    {
+      "path": "release211-evidence/extracted/artifacts/tzidkat-batch-211-225/live-report.json",
+      "bytes": 6762,
+      "sha256": "12be75317087397bff1b54976bc9ab12120a279744506cf7022fb0bf0643d184"
+    },
+    {
+      "path": "release211-evidence/extracted/artifacts/tzidkat-batch-211-225/local-report.json",
+      "bytes": 6763,
+      "sha256": "66ab7f49bafa507716f7bd30a80d7c67e7109cd3f7132b288a9b23e4a0f3601e"
+    },
+    {
+      "path": "release211-evidence/extracted/dist/library/tzidkat-batch-review-211-225-20261025.json",
+      "bytes": 756581,
+      "sha256": "e81e6797a229c37f1da8f9eae4f5866528b03acc148529442eac3c3ccd3e733b"
+    },
+    {
+      "path": "release211-evidence/extracted/tzidkat-batch-live-verification.json",
+      "bytes": 3523,
+      "sha256": "284e0a3b2701c4a0a7f47198f8ba890729ba8e18fd1f9ea74c828b42b8019ae7"
+    },
+    {
+      "path": "release211-evidence/github-artifact-metadata.json",
+      "bytes": 901,
+      "sha256": "0bbd166bbbf59399fda0a0d1a2316b4530a2e72051550ac8c2cb43e60beeff42"
+    },
+    {
+      "path": "release211-evidence/github-job-outcome.json",
+      "bytes": 3542,
+      "sha256": "bd232c8a69cf045a628b788f102d8044e3ece62903341f177cd25494c89faf1b"
+    },
+    {
+      "path": "release211-evidence/independent-release211-check.json",
+      "bytes": 4364,
+      "sha256": "aee794173ec45e223bf0ef38eb46780821c6dfc5df2c55e2a44bf0ab21b76279"
+    },
+    {
+      "path": "release226-evidence/extracted/artifacts/tzidkat-batch-226-240/live-ois237-390.png",
+      "bytes": 88346,
+      "sha256": "0933190f37bce936a1c4da919bd3917d2d12e543d7bd140023a5f86efc6204bc"
+    },
+    {
+      "path": "release226-evidence/extracted/artifacts/tzidkat-batch-226-240/live-ois240-1280.png",
+      "bytes": 157380,
+      "sha256": "f91a200f79913f8d3d32bacf4a5431e02b5c0837b8bee02ef121fbe839d57b11"
+    },
+    {
+      "path": "release226-evidence/extracted/artifacts/tzidkat-batch-226-240/live-report.json",
+      "bytes": 6653,
+      "sha256": "acab15a487f5aeee4e7405c161754aac2388ff635461209888c2978d1f1e89d1"
+    },
+    {
+      "path": "release226-evidence/extracted/artifacts/tzidkat-batch-226-240/local-report.json",
+      "bytes": 6654,
+      "sha256": "07a5a62c301afa83e8414e728ea0b03b6677f60e4539e965ba6434d566baabab"
+    },
+    {
+      "path": "release226-evidence/extracted/dist/library/tzidkat-batch-review-226-240-20261025.json",
+      "bytes": 751813,
+      "sha256": "795845ee634580cc317fe589420cdf8d237ee3cded5166fe6793197808223efa"
+    },
+    {
+      "path": "release226-evidence/extracted/tzidkat-batch-live-verification.json",
+      "bytes": 3744,
+      "sha256": "d66d105ece860b95516ca6e83a2f8b36561bdbb224b1e775d0dac8a5c8e9665b"
+    },
+    {
+      "path": "release226-evidence/github-artifact-metadata.json",
+      "bytes": 901,
+      "sha256": "f9e7927b232c34690e2dc0ade904fea15c31d4ac325d9145a343e90e4abcfa17"
+    },
+    {
+      "path": "release226-evidence/github-job-outcome.json",
+      "bytes": 3542,
+      "sha256": "f92d30d279e5beebf0a38c0d60416c4481e4846eab20e46c315158b26fa9cbe8"
+    },
+    {
+      "path": "release226-evidence/github-run.json",
+      "bytes": 392,
+      "sha256": "87f15c0117a3a274b357d02bb883f109503ce11743d7dcdbf81a064633f3e9e9"
+    },
+    {
+      "path": "release226-evidence/independent-release226-check.json",
+      "bytes": 4310,
+      "sha256": "ff2a8ac9574bfeb7de550c14b8fcfe4f4e4573085c0712ada5224467bf28e7d7"
+    },
+    {
+      "path": "release241-evidence/extracted/artifacts/tzidkat-batch-241-255/live-ois246-390.png",
+      "bytes": 89272,
+      "sha256": "0b1b6782b705aafdf6dec2e0122d833f639ca4098f63cb0ff354507954cf5831"
+    },
+    {
+      "path": "release241-evidence/extracted/artifacts/tzidkat-batch-241-255/live-ois255-1280.png",
+      "bytes": 137704,
+      "sha256": "640e58b4f867a693e1d4b69fbcd304b905e0b604fd1d12d614330209a00b276c"
+    },
+    {
+      "path": "release241-evidence/extracted/artifacts/tzidkat-batch-241-255/live-report.json",
+      "bytes": 6948,
+      "sha256": "42a9353cbfb471c6de97fecaeb7fa7e658e980ea692b7f19127586ffef40afc3"
+    },
+    {
+      "path": "release241-evidence/extracted/artifacts/tzidkat-batch-241-255/local-report.json",
+      "bytes": 6949,
+      "sha256": "7df87995655a0a2b75bb566040a585c37f6d486882bc4a5bb8b1ae0a055c19f7"
+    },
+    {
+      "path": "release241-evidence/extracted/dist/library/tzidkat-batch-review-241-255-20261025.json",
+      "bytes": 742887,
+      "sha256": "1b2aef6c8e2d5968d59ff9b566db96660254a62a6134607c86b791fabfd02e7c"
+    },
+    {
+      "path": "release241-evidence/extracted/tzidkat-batch-live-verification.json",
+      "bytes": 3965,
+      "sha256": "4cfea67753c96485a01d9b3301e47ae99ae4683aba692584d353f493564cf8ce"
+    },
+    {
+      "path": "release241-evidence/github-artifact-metadata.json",
+      "bytes": 901,
+      "sha256": "758153bc20fd5e110b504211490a08a030abed661e4ab8ce1062e6d182363f9b"
+    },
+    {
+      "path": "release241-evidence/github-job-outcome.json",
+      "bytes": 3542,
+      "sha256": "f13db999c3eecf464155ffc9b9b0c68ede745376cb705748e2929e063f319caa"
+    },
+    {
+      "path": "release241-evidence/github-job-progress.json",
+      "bytes": 3292,
+      "sha256": "d17e7691d3bbad2f2fc9ea081d6001d37887d42f94290549caa3e35224714e9c"
+    },
+    {
+      "path": "release241-evidence/github-run.json",
+      "bytes": 392,
+      "sha256": "838bdcf50177022a58867c38e40c67ec751b0ef21841310dce1468801a54bef9"
+    },
+    {
+      "path": "release241-evidence/independent-release241-check.json",
+      "bytes": 4345,
+      "sha256": "9b1f0f180bd9656ca3dbb722f7f3c22a368608fbed067db48e657dab5907381f"
+    },
+    {
+      "path": "release256-evidence/failed-attempt-1/github-failed-artifact-metadata.json",
+      "bytes": 900,
+      "sha256": "17359a2053ffae961458c53db8ae735c339cb79b551929f343e24fe3a1f4861c"
+    },
+    {
+      "path": "release256-evidence/failed-attempt-1/github-failed-job-outcome.json",
+      "bytes": 3542,
+      "sha256": "727688f2c25eba6f949d3a0e49db698a016b32d003428b6b0a524e456a7e4a6c"
+    },
+    {
+      "path": "release256-evidence/failed-attempt-1/github-failed-job.log",
+      "bytes": 43606,
+      "sha256": "b0b7182ff61be42fd9a694ec6d9505afef267242dbdae50500f1b70b873675bf"
+    },
+    {
+      "path": "release256-evidence/failed-attempt-1/github-failed-run.json",
+      "bytes": 392,
+      "sha256": "c642cb3b4e8f5ffb00621461ec0f13a35906d3e1fec6336cfd73131b8bf45ddf"
+    },
+    {
+      "path": "release256-evidence/failed-attempt-1/github-job-progress.json",
+      "bytes": 3299,
+      "sha256": "c43568aee67feb9544acd54fd491459c2c2317a2570b29ffdcc2bca5dee75aa0"
+    },
+    {
+      "path": "release256-evidence/failed-attempt-1/github-run.json",
+      "bytes": 389,
+      "sha256": "19fb2728d4bb3cfc7c5a4662377f0e99bf56d9690ff3190067ce2170e0f69216"
+    },
+    {
+      "path": "release256-evidence/failed-attempt-1/independent-failed-attempt-check.json",
+      "bytes": 2107,
+      "sha256": "6df650677a78be9b3f5606c7e7ab72a99506f45de39c0968eba322b371d14e30"
+    },
+    {
+      "path": "release256-evidence/successful-retry/extracted/artifacts/tzidkat-batch-256-264/live-ois262-390.png",
+      "bytes": 81082,
+      "sha256": "b154521b67161e7fe3cffba21ba41230b99488e7dc2964bff96505a916aa7443"
+    },
+    {
+      "path": "release256-evidence/successful-retry/extracted/artifacts/tzidkat-batch-256-264/live-ois264-1280.png",
+      "bytes": 154138,
+      "sha256": "88b5d96868e4ea3b1eaecd91f6cbea1fd33a93165dace277c1d5a6e89c15fbee"
+    },
+    {
+      "path": "release256-evidence/successful-retry/extracted/artifacts/tzidkat-batch-256-264/live-report.json",
+      "bytes": 7240,
+      "sha256": "aa9fa0e245d64a89de23b3af5deeb7194e0ea93193800dc4b8b33ea38c48eb17"
+    },
+    {
+      "path": "release256-evidence/successful-retry/extracted/artifacts/tzidkat-batch-256-264/local-report.json",
+      "bytes": 7241,
+      "sha256": "559a3aa0cd1fab327adebff0d4c60ecc5be1a9a85c0791ec7d5dc713c62a4771"
+    },
+    {
+      "path": "release256-evidence/successful-retry/extracted/dist/library/tzidkat-batch-review-256-264-20261025.json",
+      "bytes": 755083,
+      "sha256": "742cf6899188bb20080fadfda85bee0ca9f732049e38bb49c318d1cdb507db40"
+    },
+    {
+      "path": "release256-evidence/successful-retry/extracted/tzidkat-batch-live-verification.json",
+      "bytes": 4185,
+      "sha256": "23b683a835bb72f56d9ddbba42a6160265f6d4663bf82edaf9618eb4f209e224"
+    },
+    {
+      "path": "release256-evidence/successful-retry/github-artifact-metadata.json",
+      "bytes": 901,
+      "sha256": "3614c80ee98bfa94c3a0ff6011c640b037f40d0924f2df0fbf26508867bdee3c"
+    },
+    {
+      "path": "release256-evidence/successful-retry/github-job-outcome.json",
+      "bytes": 3542,
+      "sha256": "25fcb8449c51253bfa7814cc6fffa3bd5b86c17e09975699de3100a706f7807d"
+    },
+    {
+      "path": "release256-evidence/successful-retry/github-run.json",
+      "bytes": 392,
+      "sha256": "5d0f9cb1e0bc6075cbfa6b9e58244efd25cdfe581bc49e41ea8271d341362a3d"
+    },
+    {
+      "path": "release256-evidence/successful-retry/independent-release256-check.json",
+      "bytes": 5841,
+      "sha256": "d5c60105fad327c019b398b474c727b46a81fcd6f3e625397acbb8cc8e33d3ba"
+    },
+    {
+      "path": "resisei5-source-preview-diagnosis.json",
+      "bytes": 1114,
+      "sha256": "32741f7b3081e6cfe4554cfc52e2a99bc737c1fa441cdf9b7f0d02ca4bc7e780"
+    },
+    {
+      "path": "source-preview-repair-static-verification.json",
+      "bytes": 1120,
+      "sha256": "9e65de0aef944baea16c35542c70ab210620f7e1e84c1efe278214728413ec90"
+    }
+  ]
+}

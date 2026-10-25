@@ -1,0 +1,35 @@
+{
+  "ok": true,
+  "checks": [
+    {
+      "file": "live-baseline/library/index.html",
+      "onlyExactHelperAndLocalPairCallChanged": true,
+      "otherHtmlByteEquivalent": true,
+      "idempotent": true,
+      "inlineScriptsParsed": 1
+    },
+    {
+      "file": "candidate-site-unpublished-34-draft/library/index.html",
+      "onlyExactHelperAndLocalPairCallChanged": true,
+      "otherHtmlByteEquivalent": true,
+      "idempotent": true,
+      "inlineScriptsParsed": 1
+    }
+  ],
+  "unknownPreimageRejected": true,
+  "exactOriginalClassSelection": true,
+  "downstreamSanitizationUnchanged": true,
+  "immutablePackUnchanged": "3bc345df5b4c9c9060fab8265de26f9692b0b618580521d3cabdec9103691c61",
+  "actualDomRegression": "Pending final GitHub browser verification, retaining full selected-Hebrew containment and covering the actual Resisei 5 legacy footnote and Dover 2:70–74 range.",
+  "subsequentBrowserVerification": {
+    "ok": true,
+    "run": 40150663025,
+    "job": 121041372148,
+    "localAndLive": true,
+    "viewports": [
+      1280,
+      390
+    ],
+    "completeSelectedHebrewAssertionRetained": true
+  }
+}

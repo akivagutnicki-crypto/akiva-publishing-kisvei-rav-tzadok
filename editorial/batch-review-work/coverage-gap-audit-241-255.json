@@ -1,0 +1,271 @@
+{
+  "reviewedSections": [
+    241,
+    242,
+    243,
+    244,
+    245,
+    246,
+    247,
+    248,
+    249,
+    250,
+    251,
+    252,
+    253,
+    254,
+    255
+  ],
+  "status": "focused-coverage-audit-complete",
+  "scope": "Focused second review of current-public explicit citations, received-teaching and as-I-wrote clauses, supplied-edition original-source leads, original 29 retained additions, and native/connected/source-connection coverage across the public sefer. This is not a claim to have collated every word or every possible parallel in both explanatory editions.",
+  "originalRetainedProposals": 29,
+  "approvedSupplementalProposals": 6,
+  "proposalFiles": [
+    "review-work/final241/coverage-candidates-241-255.json",
+    "review-work/final241/coverage246-additional.json"
+  ],
+  "peerReviewReport": "review-work/final241/supplemental-peer-review-241-255.json",
+  "sourceGapsResolved": [
+    {
+      "section": 241,
+      "ref": "Zohar, Balak 13:182-185",
+      "reason": "Explicit III194b citation previously unlocated. Primary folio map resolves the exact sequence. No old native/connected note or current proposal supplies it.",
+      "discoveryPages": {
+        "integratedB": [
+          331
+        ],
+        "neimosB": [
+          330
+        ]
+      },
+      "status": "independently-reviewed-and-approved"
+    },
+    {
+      "section": 243,
+      "ref": "Zohar, Vayishlach 4:82-83",
+      "reason": "Direct source for the spirit of impurity during dreams. Existing Berakhot notes and other dream passages do not supply this unit.",
+      "discoveryPages": {
+        "integratedB": [
+          336
+        ],
+        "neimosB": [
+          336
+        ]
+      },
+      "status": "independently-reviewed-and-approved"
+    },
+    {
+      "section": 246,
+      "ref": "Zohar, Mishpatim 3:218-221",
+      "reason": "Explicit II105b citation about the Hebrew servant entering the feminine world and, after refusing release, the domain of servants. Existing Mishpatim notes quote different paragraphs. Conditional restoration and printed alternate reading retained.",
+      "discoveryPages": {
+        "integratedB": [
+          365
+        ],
+        "neimosB": [
+          366
+        ]
+      },
+      "status": "independently-reviewed-and-approved"
+    },
+    {
+      "section": 246,
+      "ref": "Zohar, Mishpatim 8:395",
+      "reason": "Explicit prayer/slavery interpretation missing from native notes. Complete selected sentence retains the first/last-three-blessings and unable-to-pray qualifications. The exact current source map places it within115b; body116b locator preserved.",
+      "discoveryPages": {
+        "integratedB": [
+          369
+        ],
+        "neimosB": [
+          369
+        ]
+      },
+      "status": "independently-reviewed-and-approved"
+    },
+    {
+      "section": 252,
+      "ref": "Likkutei Maamarim, Compositions on the Festivals 14:1",
+      "reason": "Entire final paragraph directly explains the cited God-as-heart statement and the two sources of awakening. Section12 note2675 quotes an earlier prayer/atonement unit of this paragraph; no complete repeated unit. Final comparative preference for refuge in God preserved.",
+      "discoveryPages": {
+        "integratedB": [
+          396
+        ]
+      },
+      "status": "independently-reviewed-and-approved"
+    },
+    {
+      "section": 246,
+      "ref": "Pri Etz Chaim, Gate of The New Month, Chanukah, and Purim 3:29-30",
+      "reason": "Precisely verified written source for the Esau half of the reincarnation statement. Anchor ends after Esau, before Ishmael. Context and hope of repair retained. No whole-sefer/catalog or cross-batch source match. Does not claim to establish the Ishmael half or the attribution to the Zohar.",
+      "discoveryPages": {
+        "integratedB": [
+          360
+        ]
+      },
+      "status": "independently-reviewed-and-approved"
+    }
+  ],
+  "noAdditionalQuotationDecisions": [
+    {
+      "section": 241,
+      "refs": [
+        "Dover Tzedek, Kuntres Dover Tzedek, Berakhot 3:16",
+        "Divrei Chalomot 23:1"
+      ],
+      "decision": "Existing connected source and separately retained221 proposal already supply the complete selected units; no second quotation."
+    },
+    {
+      "section": 242,
+      "refs": [
+        "Yoma 86b",
+        "Ketubot 74b:2",
+        "Peri Tzadik, Erev Yom Kippur 4:2"
+      ],
+      "decision": "Core repentance, retroactive uprooting, and transformation leads covered by existing sefer notes and retained proposals. No additional marginal parallel selected."
+    },
+    {
+      "section": 243,
+      "refs": [
+        "Midrash Tehillim 34:1",
+        "Machshavot Charutz 10:3"
+      ],
+      "decision": "David/folly narrative supplied by retained proposal. The oral report attribution varies between current source and supplied edition; no silent attribution change or unsupported independent source claimed."
+    },
+    {
+      "section": 244,
+      "refs": [
+        "Takanat HaShavin 6:65",
+        "Tzidkat HaTzadik 63:1"
+      ],
+      "decision": "Received teaching that children disclose their parents’ hidden heart is already fully quoted at63 note2856 fromTakanat6:65. The63 body independently records the same teaching. No duplicate."
+    },
+    {
+      "section": 244,
+      "refs": [
+        "Rashi on Berakhot 62b:1:2",
+        "Takanat HaShavin 2:7"
+      ],
+      "decision": "Existing Rashi source and retained Solomon/David clarification cover the source units. No separate written identification of the additional oral preference was established."
+    },
+    {
+      "section": 245,
+      "refs": [
+        "Pri Etz Chaim, Gate of the Bedtime Shema, chapter 5",
+        "Machshavot Charutz 9:4",
+        "Arakhin 32b"
+      ],
+      "decision": "Retained primary captivity/repair source and retained holy-root parallel cover the material leads; Arakhin already quoted at231 note1754."
+    },
+    {
+      "section": 246,
+      "refs": [
+        "Resisei Layla 14:1"
+      ],
+      "decision": "Garment/humility passage already supplied by existing connected source. TannaDeBeiEliyahu and worker-withdrawal leads supplied by retained proposals."
+    },
+    {
+      "section": 247,
+      "refs": [
+        "Mei HaShiloach, Volume I, Genesis, Lech Lecha 1",
+        "Peri Tzadik, Vayechi 11:1",
+        "Peri Tzadik, Parshat Shekalim 5:1"
+      ],
+      "decision": "Palace-master teaching already quoted in connected source at261; remaining He/You/I and Shekalim leads supplied by retained proposals."
+    },
+    {
+      "section": 248,
+      "refs": [
+        "Mei HaShiloach, Mei HaShiloach Anthology, Talmud, Rosh Hashanah 11a:1"
+      ],
+      "decision": "Anthology entry repeats the target248 wording, including I heard. It cannot serve as an independent written identification of the oral teacher. No circular addition."
+    },
+    {
+      "section": 249,
+      "refs": [
+        "Machshavot Charutz 20:7",
+        "Ohr Zarua LaTzadik, The Egyptian Exile 6:3",
+        "Dover Tzedek, Miscellany 4:137"
+      ],
+      "decision": "Three retained source units cover Solomon/Shishak wisdom, desire, and Abraham’s acquired wisdom. No additional material gap identified in focused review."
+    },
+    {
+      "section": 250,
+      "refs": [
+        "Dover Tzedek, Miscellany 2:3"
+      ],
+      "decision": "Heard Gilead teaching already quoted completely at80 note2946 and connected locally. No duplicate."
+    },
+    {
+      "section": 251,
+      "refs": [
+        "Mei HaShiloach, Volume I, Talmud, Berakhot 2a:3",
+        "Bamidbar Rabbah 21:21"
+      ],
+      "decision": "Mishnah-as-Written-Torah teaching already quoted at10 note2550; offering/atonement unit supplied by retained proposal."
+    },
+    {
+      "section": 252,
+      "refs": [
+        "Zohar, Terumah 13:150-153",
+        "Zohar, Terumah 27:266",
+        "Zohar, Terumah 12:144-145"
+      ],
+      "decision": "Explicit Terumah/Zohar citations have native sources; the material added gap is the directly relevant Festivals14:1 final paragraph."
+    },
+    {
+      "section": 253,
+      "refs": [
+        "Sefer Yetzirah 6:2",
+        "Mei HaShiloach, Volume I, Genesis, Vayetzei 3"
+      ],
+      "decision": "World/year/soul and holy place/time/soul leads supplied by retained proposals. Printed numbering6:4 is digitally6:2."
+    },
+    {
+      "section": 254,
+      "refs": [
+        "Tanya, Part I; Likkutei Amarim 15:4-8",
+        "Shemonah Perakim 6:3",
+        "Dover Tzedek, Miscellany 4:115"
+      ],
+      "decision": "Retained units preserve natural discipline versus active struggle and the two categories of struggle; no additional material gap identified."
+    },
+    {
+      "section": 255,
+      "refs": [
+        "Mei HaShiloach, Volume I, Talmud, Megillah 7a:1",
+        "Mei HaShiloach, Volume I, Exodus, Tetzaveh 3",
+        "Takanat HaShavin 2:5"
+      ],
+      "decision": "The two heard teachings and king/root-of-nation source supplied by retained proposals. Tetzaveh later teaching unit is distinct from226’s opening eight garments/requests."
+    }
+  ],
+  "attributionLimits": [
+    {
+      "section": 246,
+      "ref": "Zohar Chadash, Midrash Rut 165",
+      "primaryVerified": true,
+      "decision": "Omitted: it discusses the other gods of Ishmael/Esau emerging from the dregs of Jewish demons, but does not explicitly state reincarnation or name later founders. It cannot prove the precise body attribution. No independent source for the Ishmael half was established."
+    },
+    {
+      "section": 248,
+      "decision": "No independent oral attribution inferred from an anthology that reproduces the target passage."
+    },
+    {
+      "section": 243,
+      "decision": "Conflicting named-attribution traditions left unchanged; no invented resolution."
+    }
+  ],
+  "dedupEvidence": [
+    "review-work/coverage241-cache/final-candidate-overlaps.json",
+    "review-work/coverage241-cache/heard244-overlaps.json",
+    "review-work/coverage241-cache/esau-overlaps.json"
+  ],
+  "preservation": {
+    "bodyEdits": 0,
+    "existingNoteEdits": 0,
+    "frozenOriginalProposalEditsByThisAudit": 0
+  },
+  "publication": "Root handles merging and publication; this audit agent has not changed the shared repository.",
+  "finalNoteCount": 35,
+  "publicationDisposition": "All six supplemental quotations independently accepted. Root to merge with29 original retained additions; no original body or existing notes altered."
+}

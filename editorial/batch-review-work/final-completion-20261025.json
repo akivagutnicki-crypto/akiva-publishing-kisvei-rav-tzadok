@@ -1,0 +1,155 @@
+{
+  "schemaVersion": 1,
+  "ok": true,
+  "completedAt": "2026-10-25T01:34:03.419978+00:00",
+  "task": "Tzidkat HaTzadik original-source footnote review",
+  "confirmedLiveThrough": 264,
+  "continuationSections": [
+    211,
+    264
+  ],
+  "continuationNewNotes": 285,
+  "continuationFootnoteNumbers": [
+    3746,
+    4030
+  ],
+  "totalReviewSeriesAdditions": 1371,
+  "reviewSeriesBatches": 18,
+  "liveCommit": "5e4470fe04422960d91db22d11b053ddc2b6bee1",
+  "liveRun": 40150663025,
+  "liveReaderUrl": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/#/read/Tzidkat_HaTzadik_264",
+  "batches": [
+    {
+      "sections": [
+        211,
+        225
+      ],
+      "newNotes": 85,
+      "numbers": [
+        3746,
+        3830
+      ],
+      "packSha256": "1a97f805feb90b15be821321e23c55b10205593258f3a8dcd0dd277a19f65f8b",
+      "commit": "362fa093696a367a130a65ed5acd9d6cf11670f5",
+      "workflowRun": 40148225766,
+      "workflowUrl": "https://github.com/akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok/actions/runs/40148225766",
+      "reportUrl": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/tzidkat-batch-review-211-225-20261025.json",
+      "liveDesktopAndMobilePassed": true,
+      "rootScreenshotsReviewed": [
+        "live-ois225-1280.png",
+        "live-ois221-390.png"
+      ]
+    },
+    {
+      "sections": [
+        226,
+        240
+      ],
+      "newNotes": 73,
+      "numbers": [
+        3831,
+        3903
+      ],
+      "packSha256": "536a02845258c16786a0a177339cee4e4c4d9c736222147caf7902d879e113d2",
+      "commit": "da83b4ad418f3bd073ab5df881ce563e2ee4a2ad",
+      "workflowRun": 40148618071,
+      "workflowUrl": "https://github.com/akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok/actions/runs/40148618071",
+      "reportUrl": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/tzidkat-batch-review-226-240-20261025.json",
+      "liveDesktopAndMobilePassed": true,
+      "rootScreenshotsReviewed": [
+        "live-ois240-1280.png",
+        "live-ois237-390.png"
+      ]
+    },
+    {
+      "sections": [
+        241,
+        255
+      ],
+      "newNotes": 35,
+      "numbers": [
+        3904,
+        3938
+      ],
+      "packSha256": "fef2c887872ffec671cfa5ceeaf01cff9fe1a34570bd5f8dc9f24cdea87aa9dd",
+      "commit": "e57beef8e80e4bcc1c2a5456d5eebaa91bfc9552",
+      "workflowRun": 40149548470,
+      "workflowUrl": "https://github.com/akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok/actions/runs/40149548470",
+      "reportUrl": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/tzidkat-batch-review-241-255-20261025.json",
+      "liveDesktopAndMobilePassed": true,
+      "rootScreenshotsReviewed": [
+        "live-ois255-1280.png",
+        "live-ois246-390.png"
+      ]
+    },
+    {
+      "sections": [
+        256,
+        264
+      ],
+      "newNotes": 92,
+      "numbers": [
+        3939,
+        4030
+      ],
+      "packSha256": "3bc345df5b4c9c9060fab8265de26f9692b0b618580521d3cabdec9103691c61",
+      "commit": "5e4470fe04422960d91db22d11b053ddc2b6bee1",
+      "workflowRun": 40150663025,
+      "workflowUrl": "https://github.com/akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok/actions/runs/40150663025",
+      "reportUrl": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/tzidkat-batch-review-256-264-20261025.json",
+      "liveDesktopAndMobilePassed": true,
+      "rootScreenshotsReviewed": [
+        "live-ois264-1280.png",
+        "live-ois262-390.png"
+      ]
+    }
+  ],
+  "preservation": {
+    "authorHebrewUnchanged": true,
+    "authorEnglishUnchanged": true,
+    "allExistingNotesAndNumbersUnchanged": true,
+    "protectedSections": [
+      40,
+      154
+    ],
+    "absentSection74Preserved": true
+  },
+  "sourceReview": {
+    "primaryQuotationsVerified": true,
+    "originalEnglishTranslations": true,
+    "exactHebrewAnchors": true,
+    "wholeBookAndConnectedCatalogDuplicateReview": true,
+    "visibleSecondaryEditionAttributionsAdded": false,
+    "publicContextParagraphsAdded": false,
+    "sourceReviewReport": "final-285-source-verification-summary.json",
+    "proposalManifest": "final-proposal-manifest.json"
+  },
+  "verification": {
+    "publicFilesMatched": 399,
+    "all18BatchContentSealsPassed": true,
+    "desktopWidth": 1280,
+    "mobileWidth": 390,
+    "all285NewNotesAndAnchorsOpenedInLiveBrowser": true,
+    "finalBatchCompleteHebrewSourcePanelsPassed": true,
+    "finalBatchExistingNotesCheckedPerViewport": 179,
+    "rootFinalScreenshotObservations": "The final desktop and mobile screenshots show readable Hebrew and English, legible superscript note numbers, and correctly wrapped visible footnote text and source links. The mobile quotation continues below the viewport as expected. No horizontal clipping or visual defect observed."
+  },
+  "sourcePreviewRepair": {
+    "description": "Remove exact legacy footnote and footnote-marker subtrees only from copied local source-preview HTML. Source data, stored notes, edition precedence, and downstream sanitization remain unchanged.",
+    "firstAttemptFailedBeforeDeployment": true,
+    "independentReview": "local-source-preview-independent-review.json",
+    "liveVerificationPassed": true
+  },
+  "scholarlyLimits": {
+    "reviewScope": "Verified worthwhile new original-source quotations and duplicate coverage; not a claim that every inherited attribution or every possible parallel is established.",
+    "unresolvedInheritedAttributionsDocumented": true,
+    "example": "In section 246, Pri Etz Chaim supports the Esau clause; the additional Ishmael attribution was not independently established, so the new note is anchored only to the verified Esau clause.",
+    "audit": "coverage-gap-audit-241-255.json"
+  },
+  "recoveryCheckpoint": {
+    "number": 56,
+    "branch": "tzidkat-footnote-review-20261023",
+    "archive": "checkpoint-56-completed-review.tar.gz",
+    "neverMergeCheckpointBranchIntoMain": true
+  }
+}
