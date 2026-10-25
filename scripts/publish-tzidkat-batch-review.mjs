@@ -162,6 +162,7 @@ export function validatePack(pack) {
 // Some original works are available only on these primary-text sites. Enable
 // individual reviewed destinations, never a domain-wide runtime permission.
 const additionalExactPrimaryUrls = new Set([
+  'https://or-breslev.co.il/wp-content/uploads/%D7%9E%D7%A2%D7%A9%D7%99-%D7%94%D7%A9%D7%9D-%D7%97%D7%9C%D7%A7-%D7%90-%D7%94%D7%A8%D7%91-%D7%90%D7%9C%D7%99%D7%A2%D7%96%D7%A8-%D7%90%D7%A9%D7%9B%D7%A0%D7%96%D7%99-%D7%91%D7%9F-%D7%A8%D7%91%D7%99-%D7%90%D7%9C%D7%99%D7%94-%D7%94%D7%A8%D7%95%D7%A4%D7%90.pdf#page=277',
   'https://mobile.tora.ws/html/15061-27.html',
   'https://mobile.tora.ws/html/15061-30.html',
   'https://www.daat.ac.il/daat/vl/sidurshabat/sidurshabat14.pdf#page=14',
@@ -184,7 +185,7 @@ export function validateExternalSourceUrls(pack,additions) {
     assert(evidence && audit.status === 'verified','Exact URL lacks matching reviewed bilingual source evidence');
     assert.equal(item.evidenceSha256,digest({ref:evidence.ref,url:evidence.url,he:evidence.he,en:evidence.en}),'Exact URL source evidence changed');
   }
-  for (const {note} of additions) for (const source of note.sources) if (/^https:\/\/(?:wiki\.jewishbooks\.org\.il|mobile\.tora\.ws|www\.daat\.ac\.il|search\.orhasulam\.org)\//.test(source.url || '')) {
+  for (const {note} of additions) for (const source of note.sources) if (/^https:\/\/(?:wiki\.jewishbooks\.org\.il|mobile\.tora\.ws|www\.daat\.ac\.il|search\.orhasulam\.org|or-breslev\.co\.il)\//.test(source.url || '')) {
     assert(seen.has(source.url),'Primary-source URL needs its exact reviewed declaration');
   }
   return declared;
