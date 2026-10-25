@@ -9,6 +9,7 @@ import {createRequire} from 'node:module';
 import {fileURLToPath} from 'node:url';
 import {gunzipSync} from 'node:zlib';
 import {patchLocalSourcePreview} from './tzidkat-local-source-preview.mjs';
+import {preparePriParshaTransition} from './pri-parsha-review-core.mjs';
 import {verifyTzidkatDownloadRefresh} from './tzidkat-download-refresh-transition.mjs';
 import {prepareSourceAdditionTransition,verifySourceAdditionTerminal} from './tzidkat-source-addition-transition.mjs';
 
@@ -495,6 +496,7 @@ export function verifyBatchChain({directory=root,verifyAllBaseline=false,packFil
   }
   const sourcePublication = prepareSourceAdditionTransition({directory,batches,terminalFiles,independentFiles});
   const downloadPublication = verifyTzidkatDownloadRefresh({directory,batches,terminalFiles,independentFiles,sourcePublication});
+  const parshaPublication = preparePriParshaTransition({directory,batches,terminalFiles,independentFiles});
   verifySourceAdditionTerminal({directory,sourcePublication,terminalFiles});
   const terminalChapters = sourcePublication?.chapterAfters || new Map(), terminalLinks = sourcePublication?.linkAfters || new Map();
   const chapters = batches.flatMap(({prepared}) => prepared.pack.chapters).map(file => terminalChapters.has(file.path) ? {...file,after:terminalChapters.get(file.path)} : file);
@@ -509,7 +511,7 @@ export function verifyBatchChain({directory=root,verifyAllBaseline=false,packFil
       for (const name of [batchNames(prior.pack).report,batchNames(prior.pack).ledger]) assert.deepEqual(before[name],fileInfo(localFile(directory,name)),'Later batch replaced an immutable predecessor audit');
     }
   }
-  return {batches:verified,files:terminalFiles,independentFiles,additions:verified.flatMap(b => b.additions),
+  return {batches:verified,files:terminalFiles,independentFiles,parshaPublication,additions:verified.flatMap(b => b.additions),
     pack:{chapters,linksBefore:Object.assign({},...verified.map(b => b.pack.linksBefore))},
     report:{linkChanges:verified.flatMap(b => b.report.linkChanges).map(item => terminalLinks.has(item.sectionRef) ? {...item,after:terminalLinks.get(item.sectionRef)} : item)},
     proof:{batches:verified.map(b => b.proof),reviewedSections:chapters.length,newNotes:verified.reduce((n,b)=>n+b.additions.length,0),existingNotesUnchanged:true,authorTextUnchanged:true,...(independentPublication ? {independentPublication} : {}),...(sourcePublication ? {sourceAddition:sourcePublication.proof} : {}),...(downloadPublication ? {downloadPublication} : {})}};

@@ -252,6 +252,12 @@ export function createProtectedTzidkatSuccessorHash(options={}) {
   // Chapters unaffected by the original accuracy release can still receive a
   // new quotation. Their own exact preimage supplies the preservation chain.
   for (const file of verified.batch?.pack.chapters || []) if (!targets.has(file.path) && verified.batch.files.has(file.path)) targets.set(file.path,file);
+  // The independent Pri review is authenticated against exact predecessor
+  // hashes by the batch chain before it can advance an older preservation seal.
+  for (const file of verified.batch?.parshaPublication?.pack.chapters || []) {
+    assert(verified.batch.files.has(file.path) || file.beforeSha256 === hashObject(file.after));
+    if (verified.batch.files.has(file.path)) targets.set(file.path,file);
+  }
   return (file, expected) => {
     assert.equal(typeof file, 'string');
     const relative = file.startsWith('library/data/') ? file

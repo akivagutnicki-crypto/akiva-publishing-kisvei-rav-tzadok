@@ -1,0 +1,138 @@
+name: Publish reviewed Pri Tzaddik parsha quotations
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: ${{ (github.repository == 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok' && github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[pri-parsha-review]'))) && 'pages' || format('pri-parsha-skipped-{0}', github.run_id) }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: ${{ github.repository == 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok' && github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[pri-parsha-review]')) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    env:
+      TZ: UTC
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout the reviewed quotations
+        uses: actions/checkout@v6
+
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+
+      - name: Validate the exact review and identify the current publication
+        id: baseline
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          node scripts/publish-pri-parsha-review.mjs --prepare
+          node tests/test-pri-parsha-review.mjs --guards-only
+          node scripts/publish-pri-parsha-review.mjs --metadata
+
+      - name: Download the actual current complete Pages artifact
+        uses: actions/download-artifact@v4
+        with:
+          artifact-ids: ${{ steps.baseline.outputs.artifact }}
+          run-id: ${{ steps.baseline.outputs.run }}
+          repository: akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/pri-parsha-baseline
+          merge-multiple: true
+
+      - name: Restore all published files and authenticate the source preimages
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PY'
+          import os, pathlib, shutil, tarfile
+          root = pathlib.Path('dist').resolve()
+          if root.exists(): shutil.rmtree(root)
+          root.mkdir()
+          archive = pathlib.Path(os.environ['RUNNER_TEMP']) / 'pri-parsha-baseline/artifact.tar'
+          with tarfile.open(archive, 'r:') as source:
+              members = source.getmembers()
+              for member in members:
+                  target = (root / member.name).resolve()
+                  assert target == root or root in target.parents, 'Unsafe artifact path'
+                  assert member.isdir() or member.isfile(), 'Unexpected archive link'
+              source.extractall(root, members=members, filter='data')
+          PY
+          node scripts/publish-pri-parsha-review.mjs --capture
+          node scripts/publish-tzidkat-source-accuracy.mjs --verify-successor --successor-pack sources/akiva/overlays/tzidkat-source-attribution-20261023.json.gz
+
+      - name: Apply the exact quotation corrections and synchronize their exports
+        run: |
+          node scripts/publish-pri-parsha-review.mjs --apply
+          node scripts/publish-pri-parsha-review.mjs --verify
+          node --check dist/library/sw.js
+          node scripts/publish-tzidkat-source-accuracy.mjs --verify-successor --successor-pack sources/akiva/overlays/tzidkat-source-attribution-20261023.json.gz
+
+      - name: Install browser verification
+        run: |
+          npm install --no-save --package-lock=false playwright@1.62.1
+          browser_candidate="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || true)"
+          if [ -n "$browser_candidate" ]; then
+            printf 'AKIVA_CHROMIUM_EXECUTABLE=%s\n' "$browser_candidate" >> "$GITHUB_ENV"
+          else
+            npx playwright install --with-deps chromium
+          fi
+
+      - name: Verify quotation text Hebrew markers links and duplicate removal
+        run: node tests/test-pri-parsha-review.mjs
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Guard the current branch and publication before upload
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/publish-pri-parsha-review.mjs --guard
+
+      - name: Upload the complete preserved publication
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ./dist
+          retention-days: 14
+
+      - name: Guard the current branch and publication before deployment
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/publish-pri-parsha-review.mjs --guard
+
+      - name: Publish the reviewed Pri Tzaddik quotations
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Verify the public reader and exact published data
+        run: |
+          node scripts/publish-pri-parsha-review.mjs --live
+          node tests/test-pri-parsha-review.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'
+
+      - name: Save the source review and verification evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pri-parsha-source-verification
+          retention-days: 90
+          if-no-files-found: warn
+          path: |
+            pri-parsha-publication.json
+            pri-parsha-baseline.json
+            pri-parsha-live-verification.json
+            dist/library/pri-parsha-source-review-20261025.json
+            dist/library/pri-parsha-source-review-ledger.json
+            artifacts/pri-parsha-review/
