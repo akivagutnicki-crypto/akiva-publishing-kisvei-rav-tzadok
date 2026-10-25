@@ -56,6 +56,10 @@ try {
   const response = await context.request.get(base + 'editions/catalog.json');
   assert(response.ok(), 'Missing book catalog');
   const catalog = await response.json();
+  const doverResponse = await context.request.get(base + 'editions/dover-tzedek.json');
+  assert(doverResponse.ok(), 'Missing Dover Tzedek print catalog');
+  const doverCatalog = await doverResponse.json();
+  const sampleBooks = [...catalog.books, ...doverCatalog.books];
   const expectOrder = catalog.books.map(book => book.slug);
   const assertNoOverflow = async label => assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), label + ' overflows the viewport');
   for (const [width,height] of sizes) {
@@ -87,8 +91,8 @@ try {
     await assertNoOverflow('Reader ' + width);
     assert.deepEqual(await page.locator('.shop-shelf>.shop-group').evaluateAll(nodes => nodes.slice(0,2).map(node=>node.dataset.edition)), expectOrder);
     assert.equal(await page.locator('#libraryBookshop').count(),1);
-    assert.equal(await page.locator('.shop-shelf>.shop-group').count(),5);
-    assert.equal(await page.locator('#libraryBookshop .shop-book').count(),7);
+    assert.equal(await page.locator('.shop-shelf>.shop-group').count(),7);
+    assert.equal(await page.locator('#libraryBookshop .shop-book').count(),9);
     assert.equal(await page.locator('#libraryBookshop').evaluate(node=>node.classList.contains('compact-bookshop')),width<=1100);
     if (width <= 1100) {
       assert(await page.locator('#libraryBookshop').evaluate(node=>node.previousElementSibling?.classList.contains('intro')));
@@ -99,9 +103,9 @@ try {
     await page.locator('#libraryBookshop').scrollIntoViewIfNeeded();
     await page.screenshot({path:`${out}/reader-${width}x${height}.png`});
     await page.locator('#libraryBookshop').screenshot({path:`${out}/books-${width}x${height}.png`});
-    checks.push({surface:'reader',viewport:[width,height],newCardsFirst:true,bookCount:7,overflow:false});
+    checks.push({surface:'reader',viewport:[width,height],newCardsFirst:true,bookCount:9,overflow:false});
 
-    for (const book of catalog.books) {
+    for (const book of sampleBooks) {
       const url = base + 'editions/sample.html?book=' + book.slug;
       await page.goto(url,{waitUntil:'domcontentloaded'});
       await page.waitForFunction(()=>!document.getElementById('sample-page').hidden && document.getElementById('sample-page').naturalWidth>0);
@@ -129,8 +133,8 @@ try {
   await page.waitForFunction(()=>!document.getElementById('sample-page').hidden && document.getElementById('sample-page').naturalWidth>0);
   assert.equal(await page.locator('#sample-download').getAttribute('href'),'../../editions/'+catalog.books[0].pdf);
   checks.push({surface:'android-compatible sample route',withinLibrary:true});
-  const files = new Set(['editions/new-books.css?v='+catalog.version,'editions/akiva-seven-book-collection.webp','editions/sample.html','editions/sample.css','editions/sample.js','editions/sample-provenance.json','library/editions/sample.html']);
-  for (const book of catalog.books) {
+  const files = new Set(['editions/new-books.css?v='+catalog.version,'editions/akiva-nine-book-collection.webp','editions/dover-tzedek.json','editions/dover-tzedek.css?v=20261025-dover-print-v1','editions/sample.html','editions/sample.css','editions/sample.js','editions/sample-provenance.json','library/editions/sample.html']);
+  for (const book of sampleBooks) {
     for (const key of ['front','back','scene','pdf']) files.add('editions/'+book[key]);
     for (let n=1;n<=20;n++) files.add(`editions/${book.pageDirectory}/page-${String(n).padStart(2,'0')}.webp`);
   }

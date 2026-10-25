@@ -62,7 +62,8 @@
   async function initialize() {
     $('sample-error').hidden = true;
     try {
-      const response = await fetch(assetBase + 'catalog.json?v=20261023-new-books-v1');
+      const catalogFile = requested?.startsWith('dover-tzedek-') ? 'dover-tzedek.json' : 'catalog.json';
+      const response = await fetch(assetBase + catalogFile + '?v=20261025-dover-print-v1');
       if (!response.ok) throw Error('Catalog unavailable');
       const catalog = await response.json();
       book = catalog.books.find(item => item.slug === requested) || (!requested ? catalog.books[0] : null);
@@ -70,7 +71,7 @@
       document.title = `${book.title}: ${book.subtitle} · 20-page sample`;
       $('sample-title').textContent = book.title;
       $('sample-subtitle').textContent = book.subtitle;
-      $('sample-note').textContent = 'Twenty unchanged pages from the actual print PDF: the title and copyright pages, followed by eighteen consecutive opening pages. Original printed page numbers are retained.';
+      $('sample-note').textContent = `Twenty unchanged pages from the actual print PDF: the title and copyright pages, followed by eighteen consecutive opening pages. Original printed page numbers are retained.${book.sampleSection ? ' Opening text: ' + book.sampleSection + '.' : ''}`;
       $('sample-download').href = assetBase + book.pdf;
       $('open-pdf').href = assetBase + book.pdf;
       $('sample-amazon').href = book.amazon;

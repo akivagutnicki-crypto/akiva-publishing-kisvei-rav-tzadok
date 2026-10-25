@@ -108,3 +108,6 @@ const readerViewer = fs.readFileSync(path.join(source, 'sample.html'), 'utf8')
 fs.mkdirSync(path.join(root, 'library/editions'), {recursive:true});
 fs.writeFileSync(path.join(root, 'library/editions/sample.html'), readerViewer);
 console.log(`Applied ${version}: homepage feature, two reader cards, seven-book collection, genuine samples, and cache refresh.`);
+
+// Keep the newly published Dover Tzedek presentation on every print release.
+await import('./apply-dover-presentation.mjs');
