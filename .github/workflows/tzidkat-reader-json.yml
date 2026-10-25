@@ -54,9 +54,11 @@ jobs:
       - name: Restore the whole site without rebuilding documents or archives
         run: |
           python3 - <<'PY'
-          import os,pathlib,tarfile
+          import os,pathlib,tarfile,shutil
           root=pathlib.Path('dist').resolve()
-          assert not root.exists()
+          # dist is also tracked in this repository; replace that historical
+          # checkout copy with the hash-pinned current complete publication.
+          if root.exists(): shutil.rmtree(root)
           root.mkdir()
           archive=pathlib.Path(os.environ['RUNNER_TEMP'])/'reader-baseline/artifact.tar'
           with tarfile.open(archive,'r:') as source:
