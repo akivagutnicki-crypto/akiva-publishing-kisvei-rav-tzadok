@@ -111,3 +111,4 @@ console.log(`Applied ${version}: homepage feature, two reader cards, seven-book 
 
 // Keep the newly published Dover Tzedek presentation on every print release.
 await import('./apply-dover-presentation.mjs');
+await import('./apply-learning-hub.mjs');
