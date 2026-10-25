@@ -150,8 +150,8 @@ try {
           await panel.locator('.quote .qh').first().waitFor({state:'visible',timeout:60000});
           assert.equal(await page.locator('#panel .panel-head .ttl').textContent(),target,'Opened a different original source');
           const he = (await panel.locator('.quote .qh').allTextContents()).join(' ').replace(/[^א-ת]/g,'');
-          const evidence = note.reviewedSourceExcerpt?.he?.replace(/[^א-ת]/g,'').slice(0,28);
-          assert(evidence && he.includes(evidence),'Original-source navigation did not show the checked Hebrew passage: ' + target);
+          const evidence = note.reviewedSourceExcerpt?.he?.replace(/[^א-ת]/g,'');
+          assert(evidence && he.includes(evidence),'Original-source navigation did not show the complete checked Hebrew passage: ' + target);
           const primaryEnglish = (await panel.locator('.quote .qe').allTextContents()).join(' ').trim();
           const fallbackEnglish = await panel.locator('.footnote-source-excerpt .qe').allTextContents();
           if (fallbackEnglish.length || !primaryEnglish) {
