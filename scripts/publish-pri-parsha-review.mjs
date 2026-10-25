@@ -67,7 +67,9 @@ export function planPublication(directory,prepared,{baselineFiles=null}={}){
     const original=unzipSync(fs.readFileSync(local(directory,name))),next={...original},book=name.includes('/books/');
     for(const [filename,bytes]of changes)if(filename.startsWith('library/data/')){const key=filename.slice(8);if(!book||key.startsWith('data/peri-tzadik/'))next[key]=bytes;}
     if(!book)next['data/files.json']=json(dataManifest(next));
-    const output=zipSync(next,{level:6,mtime:new Date('2026-10-25T00:00:00Z')}),check=unzipSync(output);assert.deepEqual(Object.keys(check).sort(),Object.keys(next).sort());
+    // ZIP stores a local DOS wall-clock time, with no timezone. Construct that
+    // fixed wall time directly so preparation and CI produce identical bytes.
+    const output=zipSync(next,{level:6,mtime:new Date(2026,9,25,0,0,0)}),check=unzipSync(output);assert.deepEqual(Object.keys(check).sort(),Object.keys(next).sort());
     for(const [key,bytes]of Object.entries(next))assert.equal(sha(check[key]),sha(bytes));
     const changedMembers=Object.keys(next).filter(n=>!original[n]||sha(original[n])!==sha(next[n])).map(n=>({path:n,before:original[n]?info(original[n]):null,after:info(next[n])}));
     for(const member of changedMembers)assert(member.path==='data/files.json'&&!book||changes.has('library/'+member.path),'Unrelated ZIP entry changed');
