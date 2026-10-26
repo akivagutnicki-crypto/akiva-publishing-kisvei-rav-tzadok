@@ -1,4 +1,4 @@
-name: Publish reviewed Pri Tzaddik Vayeira parallels
+name: Publish reviewed Pri Tzaddik Bereishis Noach and Lech Lecha parallels
 
 on:
   push:
@@ -39,9 +39,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
-          node scripts/publish-vayeira-parallels.mjs --prepare
-          node tests/test-vayeira-parallels.mjs --guards-only
-          node scripts/publish-vayeira-parallels.mjs --metadata
+          node scripts/publish-pri-bnl-parallels.mjs --prepare
+          node tests/test-pri-bnl-parallels.mjs --guards-only
+          node scripts/publish-pri-bnl-parallels.mjs --metadata
 
       - name: Download the actual current complete Pages artifact
         uses: actions/download-artifact@v4
@@ -71,12 +71,12 @@ jobs:
                   assert member.isdir() or member.isfile(), 'Unexpected archive link'
               source.extractall(root, members=members, filter='data')
           PY
-          node scripts/publish-vayeira-parallels.mjs --capture
+          node scripts/publish-pri-bnl-parallels.mjs --capture
 
       - name: Apply the exact quotation corrections and synchronize their exports
         run: |
-          node scripts/publish-vayeira-parallels.mjs --apply
-          node scripts/publish-vayeira-parallels.mjs --verify
+          node scripts/publish-pri-bnl-parallels.mjs --apply
+          node scripts/publish-pri-bnl-parallels.mjs --verify
           node --check dist/library/sw.js
 
       - name: Install browser verification
@@ -90,7 +90,7 @@ jobs:
           fi
 
       - name: Verify quotation text Hebrew markers links and duplicate removal
-        run: node tests/test-vayeira-parallels.mjs
+        run: node tests/test-pri-bnl-parallels.mjs
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
@@ -98,7 +98,7 @@ jobs:
       - name: Guard the current branch and publication before upload
         env:
           GITHUB_TOKEN: ${{ github.token }}
-        run: node scripts/publish-vayeira-parallels.mjs --guard
+        run: node scripts/publish-pri-bnl-parallels.mjs --guard
 
       - name: Upload the complete preserved publication
         uses: actions/upload-pages-artifact@v4
@@ -109,7 +109,7 @@ jobs:
       - name: Guard the current branch and publication before deployment
         env:
           GITHUB_TOKEN: ${{ github.token }}
-        run: node scripts/publish-vayeira-parallels.mjs --guard
+        run: node scripts/publish-pri-bnl-parallels.mjs --guard
 
       - name: Publish the reviewed Pri Tzaddik quotations
         id: deployment
@@ -117,19 +117,19 @@ jobs:
 
       - name: Verify the public reader and exact published data
         run: |
-          node scripts/publish-vayeira-parallels.mjs --live
-          node tests/test-vayeira-parallels.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'
+          node scripts/publish-pri-bnl-parallels.mjs --live
+          node tests/test-pri-bnl-parallels.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'
 
       - name: Save the source review and verification evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: vayeira-parallel-source-verification
+          name: pri-bnl-parallel-source-verification
           retention-days: 90
           if-no-files-found: warn
           path: |
-            vayeira-general-parallels-publication.json
-            vayeira-general-parallels-baseline.json
-            vayeira-general-parallels-live-verification.json
-            dist/library/vayeira-general-parallels-20261026.json
-            artifacts/vayeira-parallels/
+            pri-bnl-parallels-publication.json
+            pri-bnl-parallels-baseline.json
+            pri-bnl-parallels-live-verification.json
+            dist/library/pri-bnl-parallels-20261026.json
+            artifacts/pri-bnl-parallels/
