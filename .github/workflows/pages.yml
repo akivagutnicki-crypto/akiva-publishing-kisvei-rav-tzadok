@@ -501,6 +501,13 @@ jobs:
           node scripts/test-tzidkat-batch-review.mjs --all
           node scripts/publish-tzidkat-source-accuracy.mjs --verify-successor --successor-pack sources/akiva/overlays/tzidkat-source-attribution-20261023.json.gz
 
+      # Keep this after all historical assertions. The historical rebuild gate
+      # above remains in force until its exact predecessor transitions exist.
+      - name: Preserve the reviewed Vayeira parallels in any approved rebuild
+        run: |
+          node scripts/publish-vayeira-parallels.mjs --rebuild
+          node tests/test-vayeira-parallels.mjs
+
       - name: Upload site
         uses: actions/upload-pages-artifact@v4
         with:

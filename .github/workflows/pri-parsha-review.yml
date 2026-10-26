@@ -1,4 +1,4 @@
-name: Publish reviewed Pri Tzaddik parsha quotations
+name: Publish reviewed Pri Tzaddik Vayeira parallels
 
 on:
   push:
@@ -39,9 +39,9 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
-          node scripts/publish-pri-parsha-review.mjs --prepare
-          node tests/test-pri-parsha-review.mjs --guards-only
-          node scripts/publish-pri-parsha-review.mjs --metadata
+          node scripts/publish-vayeira-parallels.mjs --prepare
+          node tests/test-vayeira-parallels.mjs --guards-only
+          node scripts/publish-vayeira-parallels.mjs --metadata
 
       - name: Download the actual current complete Pages artifact
         uses: actions/download-artifact@v4
@@ -71,15 +71,13 @@ jobs:
                   assert member.isdir() or member.isfile(), 'Unexpected archive link'
               source.extractall(root, members=members, filter='data')
           PY
-          node scripts/publish-pri-parsha-review.mjs --capture
-          node scripts/publish-tzidkat-source-accuracy.mjs --verify-successor --successor-pack sources/akiva/overlays/tzidkat-source-attribution-20261023.json.gz
+          node scripts/publish-vayeira-parallels.mjs --capture
 
       - name: Apply the exact quotation corrections and synchronize their exports
         run: |
-          node scripts/publish-pri-parsha-review.mjs --apply
-          node scripts/publish-pri-parsha-review.mjs --verify
+          node scripts/publish-vayeira-parallels.mjs --apply
+          node scripts/publish-vayeira-parallels.mjs --verify
           node --check dist/library/sw.js
-          node scripts/publish-tzidkat-source-accuracy.mjs --verify-successor --successor-pack sources/akiva/overlays/tzidkat-source-attribution-20261023.json.gz
 
       - name: Install browser verification
         run: |
@@ -92,7 +90,7 @@ jobs:
           fi
 
       - name: Verify quotation text Hebrew markers links and duplicate removal
-        run: node tests/test-pri-parsha-review.mjs
+        run: node tests/test-vayeira-parallels.mjs
 
       - name: Configure Pages
         uses: actions/configure-pages@v5
@@ -100,7 +98,7 @@ jobs:
       - name: Guard the current branch and publication before upload
         env:
           GITHUB_TOKEN: ${{ github.token }}
-        run: node scripts/publish-pri-parsha-review.mjs --guard
+        run: node scripts/publish-vayeira-parallels.mjs --guard
 
       - name: Upload the complete preserved publication
         uses: actions/upload-pages-artifact@v4
@@ -111,7 +109,7 @@ jobs:
       - name: Guard the current branch and publication before deployment
         env:
           GITHUB_TOKEN: ${{ github.token }}
-        run: node scripts/publish-pri-parsha-review.mjs --guard
+        run: node scripts/publish-vayeira-parallels.mjs --guard
 
       - name: Publish the reviewed Pri Tzaddik quotations
         id: deployment
@@ -119,20 +117,19 @@ jobs:
 
       - name: Verify the public reader and exact published data
         run: |
-          node scripts/publish-pri-parsha-review.mjs --live
-          node tests/test-pri-parsha-review.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'
+          node scripts/publish-vayeira-parallels.mjs --live
+          node tests/test-vayeira-parallels.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'
 
       - name: Save the source review and verification evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: pri-parsha-source-verification
+          name: vayeira-parallel-source-verification
           retention-days: 90
           if-no-files-found: warn
           path: |
-            pri-parsha-publication.json
-            pri-parsha-baseline.json
-            pri-parsha-live-verification.json
-            dist/library/pri-parsha-source-review-20261025.json
-            dist/library/pri-parsha-source-review-ledger.json
-            artifacts/pri-parsha-review/
+            vayeira-parallels-publication.json
+            vayeira-parallels-baseline.json
+            vayeira-parallels-live-verification.json
+            dist/library/vayeira-parallels-20261026.json
+            artifacts/vayeira-parallels/
