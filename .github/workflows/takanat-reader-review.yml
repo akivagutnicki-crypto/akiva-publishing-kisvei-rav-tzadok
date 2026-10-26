@@ -40,7 +40,9 @@ jobs:
           GITHUB_TOKEN: ${{ github.token }}
         run: |
           node scripts/publish-takanat-reader-review.mjs --prepare
-          node tests/test-takanat-reader-review.mjs --guards-only
+          mkdir -p artifacts/takanat-reader-review
+          node tests/test-takanat-reader-review.mjs --guards-only > artifacts/takanat-reader-review/pack-guards.json
+          node tests/test-takanat-native-audit.mjs
           node scripts/publish-takanat-reader-review.mjs --metadata
 
       - name: Download the actual current complete Pages artifact
@@ -90,7 +92,7 @@ jobs:
           fi
 
       - name: Verify complete interlinear text source notes and links
-        run: node tests/test-takanat-reader-review.mjs
+        run: node tests/test-takanat-reader-review.mjs --guard-proof artifacts/takanat-reader-review/pack-guards.json
 
       - name: Configure Pages
         uses: actions/configure-pages@v5

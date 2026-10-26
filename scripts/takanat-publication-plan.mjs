@@ -5,7 +5,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {createHash} from 'node:crypto';
 import {createRequire} from 'node:module';
-import {BOOK,TITLE,RELEASE,REPORT,sha,json,plain,projectRows} from './takanat-review-core.mjs';
+import {BOOK,TITLE,RELEASE,REPORT,sha,json,plain,projectRows,publicationSections} from './takanat-review-core.mjs';
 import {categoryOf} from './citations.mjs';
 import {local,read,fileInfo,info,sourceSlug} from './pri-parsha-review-core.mjs';
 import {computeTakanatParallels} from './takanat-parallels.mjs';
@@ -27,17 +27,17 @@ function dataEntries(directory){const out={};const walk=(dir,prefix)=>{for(const
 export function sectionEdges(section,which='after'){
  const edges=[];for(const row of section[which]){if(!row.p)continue;const refs=new Set();for(const pair of row.p)for(const value of pair)for(const m of String(value).matchAll(/<a\b[^>]*\bdata-ref="([^"]+)"[^>]*>/g))refs.add(plain(m[1]));
   for(const source of row.connections||[])if(source.ref)refs.add(source.readerRef||source.ref);
-  for(const note of row.footnotes||[])for(const source of note.sources||[])if(source.ref&&!source.citationOnly&&!source.openExternal)refs.add(source.readerRef||source.ref);
+  for(const note of row.footnotes||[])for(const source of note.sources||[])if(source.ref&&!source.openExternal)refs.add(source.readerRef||source.ref);
   const origin=section.sectionRef+(section.id?':':' ')+row.n;for(const ref of refs)edges.push({a:origin,r:ref,c:categoryOf(ref)});
  }return edges;
 }
 
 // Remap only an already-reviewed, unchanged quotation, uniquely in the same
 // stable paragraph. The old pins must match the exact publication preimage.
-export function remapConnectedCatalog(directory,beforeMcp,afterMcp,beforeBook,afterBook,{revisions=[]}={}){
+export function remapConnectedCatalog(directory,beforeMcp,afterMcp,beforeBook,afterBook,{revisions=[],upgradeFromPackSha256,excludedSectionIds=[]}={}){
  const original=read(directory,CONNECTED),catalog=structuredClone(original),require=createRequire(import.meta.url);
  const normalize=require(local(directory,'library/source-connections.js')).normalizedHebrew;
- const changed=[],failures=[];
+ const changed=[],failures=[],preservedExcludedSides=[];
  function anchor(data,book,ref,quote){
   const matches=data.paras.map((p,i)=>({p,i})).filter(x=>x.p.r===ref);assert.equal(matches.length,1,'Stable paragraph is not unique: '+ref);const{p,i}=matches[0],section=book.sections[p.s];assert(section);
   const full=normalize(content(p)),selected=normalize(quote),hay=' '+full+' ',needle=' '+selected+' ',start=hay.indexOf(needle);assert(selected&&start>=0&&start===hay.lastIndexOf(needle),'Reviewed quotation no longer matches uniquely: '+ref);
@@ -48,10 +48,11 @@ export function remapConnectedCatalog(directory,beforeMcp,afterMcp,beforeBook,af
  }
  for(const record of catalog.records||[])for(const side of ['origin','target']){
   const ref=record[side+'Ref'];if(!ref?.startsWith(TITLE+' ')&&!ref?.startsWith(TITLE+','))continue;
+  const sectionNumber=ref.match(/^Takanat HaShavin (\d+)(?::|$)/)?.[1];if(sectionNumber&&excludedSectionIds.includes(Number(sectionNumber))){const revision=revisions.find(r=>r.id===record.id&&r.side===side);if(revision){assert(upgradeFromPackSha256&&record[side+'Hebrew']===revision.after.he&&record[side+'English']===revision.after.en,'A new conceptual quotation change targets an excluded section');}preservedExcludedSides.push({id:record.id,side,ref,previouslyAppliedRevision:revision||null});continue;}
   try{
    let old,next;try{old=anchor(beforeMcp,beforeBook,ref,record[side+'Hebrew']);}catch(error){throw new Error('Existing publication: '+error.message);}
    const revisionsHere=revisions.filter(r=>r.id===record.id&&r.side===side);assert(revisionsHere.length<=1,'Duplicate reviewed conceptual-quotation revision');const revision=revisionsHere[0];
-   if(revision){assert(revision.reviewed===true&&revision.reason&&Array.isArray(revision.evidence)&&revision.evidence.length,'Quotation revision lacks scholarly review');assert.equal(record[side+'Hebrew'],revision.before.he);assert.equal(record[side+'English'],revision.before.en);assert(/[א-ת]/.test(revision.after.he)&&/[A-Za-z]/.test(revision.after.en));record[side+'Hebrew']=revision.after.he;record[side+'English']=revision.after.en;}
+   let previouslyApplied=false;if(revision){assert(revision.reviewed===true&&revision.reason&&Array.isArray(revision.evidence)&&revision.evidence.length,'Quotation revision lacks scholarly review');previouslyApplied=Boolean(upgradeFromPackSha256&&record[side+'Hebrew']===revision.after.he&&record[side+'English']===revision.after.en);if(!previouslyApplied){assert.equal(record[side+'Hebrew'],revision.before.he);assert.equal(record[side+'English'],revision.before.en);assert(/[א-ת]/.test(revision.after.he)&&/[A-Za-z]/.test(revision.after.en));record[side+'Hebrew']=revision.after.he;record[side+'English']=revision.after.en;}}
    try{next=anchor(afterMcp,afterBook,ref,record[side+'Hebrew']);}catch(error){throw new Error('Restored publication: '+error.message);}
    const capital=side[0].toUpperCase()+side.slice(1),paragraphKey='reviewed'+capital+'HebrewSha256',sectionKey='reviewed'+capital+'SectionHebrewSha256';
    assert.equal(record[paragraphKey],old.paragraphPin,'Existing reviewed paragraph pin is stale: '+record.id+' '+side);
@@ -60,24 +61,32 @@ export function remapConnectedCatalog(directory,beforeMcp,afterMcp,beforeBook,af
    record[paragraphKey]=next.paragraphPin;if(record[sectionKey])record[sectionKey]=next.sectionPin;
    Object.assign(record.placement,{[side+'SectionRef']:next.section.ref,[side+'PhraseIndex']:next.phraseIndex,[side+'PhraseEnd']:next.phraseEnd,[side+'ParagraphOrder']:next.paragraphOrder});
    if(record.evidence?.[side])Object.assign(record.evidence[side],{textSha256:sha(json(afterMcp)),paragraphSha256:sha(canonical(next.paragraph)),fullHebrewSha256:next.paragraphPin,sectionHebrewSha256:next.sectionPin,quoteStart:next.quoteStart});
-   if(record.evidence&&revision){record.evidence[side+'EnglishSha256']=sha(record[side+'English']);record.evidence.takanatScholarlyQuotationRevisions=[...(record.evidence.takanatScholarlyQuotationRevisions||[]),{release:RELEASE,side,reason:revision.reason,evidence:revision.evidence,hebrewSha256:sha(revision.after.he),englishSha256:sha(revision.after.en)}];}
+   if(record.evidence&&revision&&!previouslyApplied){record.evidence[side+'EnglishSha256']=sha(record[side+'English']);record.evidence.takanatScholarlyQuotationRevisions=[...(record.evidence.takanatScholarlyQuotationRevisions||[]),{release:RELEASE,side,reason:revision.reason,evidence:revision.evidence,hebrewSha256:sha(revision.after.he),englishSha256:sha(revision.after.en)}];}
    const after={pin:record[paragraphKey],sectionPin:record[sectionKey],phraseIndex:record.placement[side+'PhraseIndex'],phraseEnd:record.placement[side+'PhraseEnd'],paragraphOrder:record.placement[side+'ParagraphOrder']};
-   changed.push({id:record.id,side,ref,quotationSha256:sha(record[side+'Hebrew']),quotationUnchanged:!revision,scholarlyRevision:revision||undefined,uniqueExactNormalizedMatch:true,before,after});
+   changed.push({id:record.id,side,ref,quotationSha256:sha(record[side+'Hebrew']),quotationUnchanged:!revision||previouslyApplied,scholarlyRevision:revision&&!previouslyApplied?revision:undefined,previouslyAppliedRevision:previouslyApplied?{fromPackSha256:upgradeFromPackSha256,revision}:undefined,uniqueExactNormalizedMatch:true,before,after});
   }catch(error){failures.push({id:record.id,side,ref,error:error.message});}
  }
  assert.equal(failures.length,0,'Connected quotation remapping requires review: '+JSON.stringify(failures));
- assert.equal(revisions.length,changed.filter(r=>r.scholarlyRevision).length,'Unused conceptual-quotation revision');
- if(changed.length){catalog.takanatTextRemapping={release:RELEASE,unchangedReviewedQuotations:!revisions.length,records:changed};catalog.contentSha256=sha(canonical({release:catalog.release,records:catalog.records,coverage:catalog.coverage,provenance:catalog.provenance,takanatTextRemapping:catalog.takanatTextRemapping}));catalog.version=catalog.release+'-'+catalog.contentSha256.slice(0,16);}
- return{catalog,remapping:changed};
+ assert.equal(revisions.length,changed.filter(r=>r.scholarlyRevision||r.previouslyAppliedRevision).length+preservedExcludedSides.filter(r=>r.previouslyAppliedRevision).length,'Unused conceptual-quotation revision');
+ if(changed.length){catalog.takanatTextRemapping={release:RELEASE,unchangedReviewedQuotations:changed.every(r=>r.quotationUnchanged),records:changed};catalog.contentSha256=sha(canonical({release:catalog.release,records:catalog.records,coverage:catalog.coverage,provenance:catalog.provenance,takanatTextRemapping:catalog.takanatTextRemapping}));catalog.version=catalog.release+'-'+catalog.contentSha256.slice(0,16);}
+ return{catalog,remapping:changed,preservedExcludedSides};
 }
 
 export function planPublication(directory,prepared,{parallelComputer=computeTakanatParallels}={}){
- const{pack}=prepared;assert.equal(pack.sections.length,16);const changes=new Map();
+ const{pack}=prepared;assert.equal(pack.sections.length,16);const baseSections=publicationSections(pack),changes=new Map();
+ if(pack.dynamicMarkerPlacements?.length){
+  const api=createRequire(import.meta.url)(local(directory,'library/connected-ideas.js')),records=read(directory,CONNECTED).records;
+  for(const section of baseSections){const ops=pack.dynamicMarkerPlacements.filter(op=>op.sectionId===section.id);if(!ops.length)continue;
+   const rows=section.before.filter(r=>r.p),data={sectionRef:section.sectionRef,he:rows.map(r=>r.p.map(p=>p[0]).join(' ')),en:rows.map(r=>r.p.map(p=>p[1]).join(' ')),annotations:Object.fromEntries(rows.map((r,k)=>[k,r.footnotes||[]]))};
+   const actual=api.footnotesForSection(data,api.forSection(records,section.sectionRef));
+   for(const op of ops){const matches=actual.filter(n=>n.connectionIdeaId===op.connectionIdeaId);assert.equal(matches.length,1,'Published dynamic source note is missing or already materialized');assert.deepEqual(matches[0],op.priorNativeNote,'The current catalog dynamic popup differs from its reviewed preimage');}
+  }
+ }
  const allowed=name=>pack.sections.some(s=>s.path===name)||/^library\/data\/cited\/[^/]+\.json$/.test(name)||[LINKS,MCP,TOC,CONNECTED,'mcp-data/cited.json','mcp-data/catalog.json','library/data/catalog.json','library/data/packs/sources.json','library/data/files.json','library/data/parallels/'+BOOK+'.json','library/data/parallels/words.json','library/downloads/index.json','library/index.html','library/sw.js',...ARCHIVES].includes(name);
  const put=(name,value)=>{assert(allowed(name),'Outside reviewed publication scope: '+name);const bytes=value instanceof Uint8Array?Buffer.from(value):json(value),file=local(directory,name);if(!fs.existsSync(file)||sha(fs.readFileSync(file))!==sha(bytes))changes.set(name,bytes);};
- for(const s of pack.sections){assert.deepEqual(read(directory,s.path),s.before,'Reviewed chapter preimage changed: '+s.path);put(s.path,s.after);}
+ for(const s of baseSections){assert.deepEqual(read(directory,s.path),s.before,'Reviewed chapter preimage changed: '+s.path);if(!pack.excludedSectionIds?.includes(s.id))put(s.path,s.after);}
  const links=read(directory,LINKS),beforeLinks=structuredClone(links);
- for(const section of pack.sections){
+ for(const section of baseSections){
   assert.deepEqual(new Set((links[section.sectionRef]||[]).map(edgeKey)),new Set(sectionEdges(section,'before').map(edgeKey)),'Baseline citation index does not describe exact chapter: '+section.sectionRef);
   links[section.sectionRef]=sectionEdges(section);
  }put(LINKS,links);
@@ -91,15 +100,17 @@ export function planPublication(directory,prepared,{parallelComputer=computeTaka
  const sourcePack=read(directory,'library/data/packs/sources.json');sourcePack.refs=[...new Set([...sourcePack.refs,...added.map(e=>e.r)])].sort();put('library/data/packs/sources.json',sourcePack);
  const mcp=read(directory,MCP),beforeMcp=structuredClone(mcp),catalog=read(directory,'mcp-data/catalog.json'),book=catalog.books.find(b=>b.slug===BOOK);assert(book?.sections.length===16);const beforeBook=structuredClone(book);mcp.paras=[];
  for(const section of pack.sections){const meta=book.sections[section.id];assert.equal(meta.ref,section.sectionRef);meta.first=mcp.paras.length;const paras=projectRows(section,section.id,links);meta.count=paras.length;mcp.paras.push(...paras);}book.paragraphs=mcp.paras.length;put(MCP,mcp);
+ for(const id of pack.excludedSectionIds||[])assert.deepEqual(mcp.paras.filter(p=>p.s===id),beforeMcp.paras.filter(p=>p.s===id),'An excluded MCP section changed');
  const toc=read(directory,TOC);for(const section of pack.sections){const leaf=toc.toc.children.find(l=>l.id===section.id);assert(leaf?.ref===section.sectionRef);leaf.shape=Math.max(...section.after.filter(r=>r.p).map(r=>r.n));}put(TOC,toc);
  const readerCatalog=read(directory,'library/data/catalog.json'),readerBook=readerCatalog.find(b=>b.slug===BOOK);assert(readerBook);readerBook.segments=mcp.paras.length;put('library/data/catalog.json',readerCatalog);
- const connected=remapConnectedCatalog(directory,beforeMcp,mcp,beforeBook,book,{revisions:pack.connectedQuotationRevisions||[]});put(CONNECTED,connected.catalog);
+ const connected=remapConnectedCatalog(directory,beforeMcp,mcp,beforeBook,book,{revisions:pack.connectedQuotationRevisions||[],upgradeFromPackSha256:pack.upgradeFromPackSha256,excludedSectionIds:pack.excludedSectionIds||[]});put(CONNECTED,connected.catalog);
  const parallels=parallelComputer(directory,{mcpOverride:mcp});put('library/data/parallels/'+BOOK+'.json',parallels.parallels);const words=read(directory,'library/data/parallels/words.json');for(const[key,value]of Object.entries(parallels.wordAdditions))words[key]=value;put('library/data/parallels/words.json',words);
- const revision=RELEASE+'-'+prepared.packSha256.slice(0,12),marker='const editionDataUrl = url => ';let html=fs.readFileSync(local(directory,'library/index.html'),'utf8');assert.equal(html.split(marker).length,2);assert(!html.includes('/* '+RELEASE+' */'));
- html=html.replace(marker,marker+'/* '+RELEASE+" */ (url.startsWith('data/"+BOOK+"/') || url.startsWith('data/cited/') || url.startsWith('data/parallels/') || url === 'data/catalog.json' || url === 'data/files.json' || url === 'data/packs/sources.json') ? url + '?takanat="+revision+"' :\n");
+ const revision=RELEASE+'-'+prepared.packSha256.slice(0,12),marker='const editionDataUrl = url => ';let html=fs.readFileSync(local(directory,'library/index.html'),'utf8');assert.equal(html.split(marker).length,2);
+ if(pack.upgradeFromPackSha256){const previous=RELEASE+'-'+pack.upgradeFromPackSha256.slice(0,12);assert.equal(html.split('/* '+RELEASE+' */').length,2,'The predecessor cache revision marker is missing');assert(html.includes(previous),'The predecessor cache revision differs');html=html.split(previous).join(revision);}else{assert(!html.includes('/* '+RELEASE+' */'));html=html.replace(marker,marker+'/* '+RELEASE+" */ (url.startsWith('data/"+BOOK+"/') || url.startsWith('data/cited/') || url.startsWith('data/parallels/') || url === 'data/catalog.json' || url === 'data/files.json' || url === 'data/packs/sources.json') ? url + '?takanat="+revision+"' :\n");}
  // Connected records use a separate catalog fetch, so refresh that URL too.
+ if(pack.sourceAuditManifest){const readerUrls=[...new Set(pack.sections.flatMap(s=>s.after.flatMap(r=>(r.footnotes||[]).flatMap(n=>(n.sources||[]).map(source=>source.url)))).filter(url=>/^https:\/\/akivagutnicki-crypto\.github\.io\/akiva-publishing-kisvei-rav-tzadok\/library\/#\/read\//.test(url||'')))].sort();if(readerUrls.length){const marker='const safeFootnoteUrl = url => ';assert.equal(html.split(marker).length,2,'Native footnote URL validator changed');html=html.replace(marker,marker+'/* Reviewed Takanat native source URLs */ '+JSON.stringify(readerUrls)+'.includes(String(url || \'\')) || ');}}
  html=html.replace(/(connected-ideas\/catalog\.json)(\?[^'"`\s]*)?/g,'$1?takanat='+revision);put('library/index.html',Buffer.from(html));
- let sw=fs.readFileSync(local(directory,'library/sw.js'),'utf8');assert.equal((sw.match(/const SHELL = `[^`]+`;/g)||[]).length,1);sw=sw.replace(/const SHELL = `([^`]+)`;/,(_all,key)=>'const SHELL = `'+key+'-takanat-'+prepared.packSha256.slice(0,12)+'`;');put('library/sw.js',Buffer.from(sw));
+ let sw=fs.readFileSync(local(directory,'library/sw.js'),'utf8');assert.equal((sw.match(/const SHELL = `[^`]+`;/g)||[]).length,1);if(pack.upgradeFromPackSha256){const previous='-takanat-'+pack.upgradeFromPackSha256.slice(0,12);assert.equal(sw.split(previous).length,2,'The predecessor service-worker revision differs');sw=sw.replace(previous,'-takanat-'+prepared.packSha256.slice(0,12));}else sw=sw.replace(/const SHELL = `([^`]+)`;/,(_all,key)=>'const SHELL = `'+key+'-takanat-'+prepared.packSha256.slice(0,12)+'`;');put('library/sw.js',Buffer.from(sw));
  const entries=dataEntries(directory);for(const[name,bytes]of changes)if(name.startsWith('library/data/'))entries[name.slice(8)]=bytes;const manifest=dataManifest(entries);put('library/data/files.json',manifest);catalog.version=manifest.version;put('mcp-data/catalog.json',catalog);
  const{zipSync,unzipSync}=createRequire(import.meta.url)(local(directory,'library/vendor/fflate.min.js')),archives=[];
  for(const archive of ARCHIVES){

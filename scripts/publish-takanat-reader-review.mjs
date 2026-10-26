@@ -5,7 +5,7 @@ import fs from 'node:fs';
 import path from 'node:path';
 import {createRequire} from 'node:module';
 import {fileURLToPath} from 'node:url';
-import {RELEASE,PACK,REPORT,loadPack,validatePack,REPO_ROOT,sha} from './takanat-review-core.mjs';
+import {RELEASE,PACK,REPORT,loadPack,validatePack,REPO_ROOT,sha,publicationSections} from './takanat-review-core.mjs';
 import {planPublication} from './takanat-publication-plan.mjs';
 import {info,local,fileInfo,inventory,read,write} from './pri-parsha-review-core.mjs';
 
@@ -16,16 +16,30 @@ const ARCHIVES=['library/downloads/rav-tzadok-library.zip','library/downloads/bo
 const REPO='akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok';
 const SITE='https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/';
 const META='takanat-reader-review-publication.json',STATE='takanat-reader-review-baseline.json';
+const REVIEW_BRANCH='codex/takanat-reader-review-20261026',REVIEW_META='takanat-reader-review-validation-publication.json',REVIEW_STATE='takanat-reader-review-validation-baseline.json';
 const args=process.argv.slice(2),option=(key,fallback)=>{const i=args.indexOf(key);return i<0?fallback:args[i+1];};
 const root=path.resolve(option('--root','dist'));
 
 function preimages(directory,{pack}){
-  for(const section of pack.sections)assert.deepEqual(read(directory,section.path),section.before,'Reviewed section source changed: '+section.path);
+  for(const section of publicationSections(pack))assert.deepEqual(read(directory,section.path),section.before,'Reviewed section source changed: '+section.path);
+}
+
+export function capturePublicationBaseline(directory,prepared){
+  const reportPath=local(directory,REPORT),{pack}=prepared;
+  if(!fs.existsSync(reportPath)){assert(!pack.upgradeFromPackSha256,'A publication upgrade requires its exact predecessor report');preimages(directory,prepared);return{alreadyPublished:false};}
+  const report=read(directory,REPORT);
+  if(report.packSha256===prepared.packSha256){verifyPublication(directory,prepared);return{alreadyPublished:true};}
+  assert.equal(report.schemaVersion,1);assert.equal(report.release,RELEASE);assert.match(pack.upgradeFromPackSha256||'',/^[a-f0-9]{64}$/,'A different existing publication requires an explicit predecessor pack');assert.equal(report.packSha256,pack.upgradeFromPackSha256,'The predecessor publication pack differs');assert(report.baselineFiles&&Array.isArray(report.changedFiles),'The predecessor publication report lacks preservation evidence');
+  preimages(directory,prepared);
+  for(const section of publicationSections(pack)){const changed=report.changedFiles.find(f=>f.path===section.path),expected=changed||report.baselineFiles[section.path];assert(expected,'The predecessor report does not pin a section preimage');assert.deepEqual(fileInfo(local(directory,section.path)),{bytes:expected.bytes,sha256:expected.sha256},'The predecessor report section bytes differ: '+section.path);}
+  return{alreadyPublished:false,previousReport:{path:REPORT,...fileInfo(reportPath),packSha256:report.packSha256}};
 }
 
 export function verifyPublication(directory,prepared=loadPack()){
   const report=read(directory,REPORT);assert.equal(report.schemaVersion,1);assert.equal(report.release,RELEASE);assert.equal(report.packSha256,prepared.packSha256,'Published review pack differs');
   assert(report.baselineFiles&&Array.isArray(report.changedFiles),'Missing complete publication preservation evidence');
+  assert(!Object.hasOwn(report.baselineFiles,REPORT),'The replaced publication report cannot be an unchanged baseline file');
+  if(prepared.pack.upgradeFromPackSha256){assert(report.replacedReport?.path===REPORT,'Missing explicit predecessor report replacement proof');assert.equal(report.replacedReport.packSha256,prepared.pack.upgradeFromPackSha256);assert.match(report.replacedReport.sha256||'',/^[a-f0-9]{64}$/);assert(report.replacedReport.bytes>0);}else assert(!report.replacedReport,'An initial release cannot invent a replaced predecessor report');
   assert.equal(new Set(report.changedFiles.map(f=>f.path)).size,report.changedFiles.length,'Duplicate changed-file evidence');
   assert(!report.changedFiles.some(f=>f.path===REPORT),'Publication report cannot include itself in its change set');
   assert.deepEqual(Object.keys(inventory(directory)).sort(),[...new Set([...Object.keys(report.baselineFiles),...report.changedFiles.map(f=>f.path),REPORT])].sort(),'Unrelated publication file added or removed');
@@ -45,11 +59,13 @@ export function verifyPublication(directory,prepared=loadPack()){
   return{ok:true,release:RELEASE,...report.counts,changedFiles:report.changedFiles.length,unrelatedFilesPreserved:Object.keys(report.baselineFiles).length-report.changedFiles.filter(f=>report.baselineFiles[f.path]).length,archives:ARCHIVES.length};
 }
 
-function apply(directory,prepared,state){
+export function apply(directory,prepared,state){
   const before=inventory(directory);if(state.files)assert.deepEqual(before,state.files,'Publication changed after capture');
+  const context=capturePublicationBaseline(directory,prepared);assert(!context.alreadyPublished,'Publication is already applied');if(state.previousReport)assert.deepEqual(context.previousReport,state.previousReport,'The predecessor report changed after capture');
   const plan=planPublication(directory,prepared);assert(plan.changes instanceof Map);assert(!plan.changes.has(REPORT),'Plan must leave publication evidence to the wrapper');
   for(const[name,bytes]of plan.changes){assert(Buffer.isBuffer(bytes),'Publication plan must provide exact Buffer bytes: '+name);write(directory,name,bytes);}
-  write(directory,REPORT,{schemaVersion:1,release:RELEASE,packSha256:prepared.packSha256,counts:plan.counts,archives:plan.archives,version:plan.version,baselineFiles:before,baselineArtifact:state.publication||null,changedFiles:[...plan.changes].map(([name,bytes])=>({path:name,...info(bytes)})),verification:{reviewedContentMatchesPack:true,allSixteenSectionsReviewed:true,unrelatedFilesPreserved:true,unrelatedArchiveEntriesPreserved:true}});
+  const baselineFiles={...before};if(context.previousReport)delete baselineFiles[REPORT];
+  write(directory,REPORT,{schemaVersion:1,release:RELEASE,packSha256:prepared.packSha256,counts:plan.counts,archives:plan.archives,version:plan.version,baselineFiles,baselineArtifact:state.publication||null,...(context.previousReport?{replacedReport:context.previousReport}:{}),changedFiles:[...plan.changes].map(([name,bytes])=>({path:name,...info(bytes)})),verification:{reviewedContentMatchesPack:true,allSixteenSectionsReviewed:true,unrelatedFilesPreserved:true,unrelatedArchiveEntriesPreserved:true}});
   return verifyPublication(directory,prepared);
 }
 
@@ -62,20 +78,28 @@ async function currentPublication(){
   assert(candidates.length,'No actual complete Pages publication found');candidates.sort((a,b)=>b.completedAt.localeCompare(a.completedAt));const{run,completedAt}=candidates[0],all=(await github('/actions/runs/'+run.id+'/artifacts?per_page=100')).artifacts;const artifact=all.filter(a=>a.name==='github-pages'&&!a.expired&&a.created_at<=completedAt).sort((a,b)=>b.created_at.localeCompare(a.created_at))[0];assert(artifact);return{runId:run.id,headSha:run.head_sha,artifactId:artifact.id,digest:artifact.digest,bytes:artifact.size_in_bytes,deployedAt:completedAt};
 }
 async function branchGuard(expected){assert.match(expected||'',/^[a-f0-9]{40}$/);assert.equal((await github('/git/ref/heads/main')).object.sha,expected,'Main advanced; preserve intervening work');}
+export function validateReviewEnvironment(env,state){assert.equal(env.GITHUB_REF,'refs/heads/'+REVIEW_BRANCH,'Review-only validation must run on its exact nondefault branch');assert.match(env.GITHUB_SHA||'',/^[a-f0-9]{40}$/);if(state){assert.equal(state.mode,'review-only');assert.equal(state.sourceBranch,REVIEW_BRANCH);assert.equal(state.sourceHead,env.GITHUB_SHA,'The review source commit differs');assert.match(state.expectedHead||'',/^[a-f0-9]{40}$/);}}
+async function reviewSourceGuard(state){validateReviewEnvironment(process.env,state);assert.equal((await github('/git/ref/heads/'+REVIEW_BRANCH)).object.sha,process.env.GITHUB_SHA,'The review branch advanced during validation');}
+async function reviewGuard(state){await reviewSourceGuard(state);await guard(state);}
 async function guard(state){
   await branchGuard(state.expectedHead);assert.equal((await currentPublication()).artifactId,state.publication.artifactId,'Newer complete publication exists');
   const paths=['index.html','library/index.html','library/sw.js','library/data/files.json',LINKS,MCP,'mcp-data/cited.json','mcp-data/catalog.json','library/connected-ideas/catalog.json',...loadPack().pack.sections.map(s=>s.path)];
+  if(state.files[REPORT])paths.push(REPORT);
   await mapLimited(paths,async name=>{assert(state.files[name],'Captured public baseline missing: '+name);assert.equal(sha(await bytesPublic(name)),state.files[name].sha256,'Public baseline changed: '+name);});
 }
 
 if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)){
   const mode=args[0]||'--prepare';
   if(mode==='--prepare'){const p=loadPack();console.log(JSON.stringify({ok:true,release:RELEASE,packSha256:p.packSha256,...p.counts}));}
+  else if(mode==='--review-metadata'){validateReviewEnvironment(process.env);await reviewSourceGuard();const p=loadPack(),expectedHead=(await github('/git/ref/heads/main')).object.sha,publication=await currentPublication();await branchGuard(expectedHead);const state={mode:'review-only',sourceBranch:REVIEW_BRANCH,sourceHead:process.env.GITHUB_SHA,expectedHead,publication,packSha256:p.packSha256};write(REPO_ROOT,REVIEW_META,state);if(process.env.GITHUB_OUTPUT)fs.appendFileSync(process.env.GITHUB_OUTPUT,'artifact='+publication.artifactId+'\nrun='+publication.runId+'\n');console.log(JSON.stringify(state));}
+  else if(mode==='--review-capture'){const state=read(REPO_ROOT,REVIEW_META),p=loadPack();assert.equal(state.packSha256,p.packSha256);state.files=inventory(root);Object.assign(state,capturePublicationBaseline(root,p));await reviewGuard(state);write(REPO_ROOT,REVIEW_STATE,state);console.log(JSON.stringify({reviewOnly:true,capturedFiles:Object.keys(state.files).length,alreadyPublished:state.alreadyPublished,incrementalUpgrade:Boolean(state.previousReport)}));}
+  else if(mode==='--review-apply'){const state=read(REPO_ROOT,REVIEW_STATE),p=loadPack();assert.equal(state.packSha256,p.packSha256);await reviewGuard(state);const proof=state.alreadyPublished?verifyPublication(root,p):apply(root,p,state);await reviewGuard(state);console.log(JSON.stringify({reviewOnly:true,...proof}));}
+  else if(mode==='--review-summary'){const state=read(REPO_ROOT,REVIEW_STATE),p=loadPack();assert.equal(state.packSha256,p.packSha256);const proof=verifyPublication(root,p);await reviewGuard(state);const report={reviewOnly:true,mainUnchanged:true,publicPublicationUnchanged:true,sourceCommit:state.sourceHead,expectedMainHead:state.expectedHead,baselineArtifact:state.publication,packSha256:p.packSha256,verifiedAt:new Date().toISOString(),...proof};write(REPO_ROOT,'takanat-reader-review-validation-summary.json',report);console.log(JSON.stringify(report));}
   else if(mode==='--metadata'){const p=loadPack();await branchGuard(process.env.GITHUB_SHA);const publication=await currentPublication();write(REPO_ROOT,META,{expectedHead:process.env.GITHUB_SHA,publication,packSha256:p.packSha256});if(process.env.GITHUB_OUTPUT)fs.appendFileSync(process.env.GITHUB_OUTPUT,'artifact='+publication.artifactId+'\nrun='+publication.runId+'\n');console.log(JSON.stringify(publication));}
-  else if(mode==='--capture'){const state=read(REPO_ROOT,META),p=loadPack();assert.equal(state.packSha256,p.packSha256);state.files=inventory(root);state.alreadyPublished=fs.existsSync(local(root,REPORT));if(state.alreadyPublished)verifyPublication(root,p);else preimages(root,p);await guard(state);write(REPO_ROOT,STATE,state);console.log(JSON.stringify({capturedFiles:Object.keys(state.files).length,alreadyPublished:state.alreadyPublished}));}
+  else if(mode==='--capture'){const state=read(REPO_ROOT,META),p=loadPack();assert.equal(state.packSha256,p.packSha256);state.files=inventory(root);Object.assign(state,capturePublicationBaseline(root,p));await guard(state);write(REPO_ROOT,STATE,state);console.log(JSON.stringify({capturedFiles:Object.keys(state.files).length,alreadyPublished:state.alreadyPublished,incrementalUpgrade:Boolean(state.previousReport)}));}
   else if(mode==='--guard')await guard(read(REPO_ROOT,STATE));
   else if(mode==='--apply'){const state=read(REPO_ROOT,STATE),p=loadPack();assert.equal(state.packSha256,p.packSha256);console.log(JSON.stringify(state.alreadyPublished?verifyPublication(root,p):apply(root,p,state)));}
-  else if(mode==='--rebuild'){const p=loadPack();console.log(JSON.stringify(fs.existsSync(local(root,REPORT))?verifyPublication(root,p):apply(root,p,{})));}
+  else if(mode==='--rebuild'){const p=loadPack(),state=capturePublicationBaseline(root,p);console.log(JSON.stringify(state.alreadyPublished?verifyPublication(root,p):apply(root,p,state)));}
   else if(mode==='--verify')console.log(JSON.stringify(verifyPublication(root)));
   else if(mode==='--live'){const proof=verifyPublication(root),report=read(root,REPORT);await mapLimited([...report.changedFiles,{path:REPORT,...fileInfo(local(root,REPORT))}],async f=>assert.equal(sha(await bytesPublic(f.path)),f.sha256,'Public bytes differ: '+f.path));write(REPO_ROOT,'takanat-reader-review-live-verification.json',{...proof,verifiedAt:new Date().toISOString()});console.log(JSON.stringify(proof));}
   else throw Error('Unknown mode '+mode);

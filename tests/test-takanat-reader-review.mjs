@@ -7,7 +7,8 @@ import {createRequire} from 'node:module';
 import {pathToFileURL} from 'node:url';
 import {loadPack,validatePack,RELEASE,BOOK,TITLE,sha,json,plain,splitNotes,projectRows,normalizeBrackets} from '../scripts/takanat-review-core.mjs';
 import {planPublication,remapConnectedCatalog,sectionEdges,dataManifest,ARCHIVES} from '../scripts/takanat-publication-plan.mjs';
-import {verifyPublication} from '../scripts/publish-takanat-reader-review.mjs';
+import {verifyPublication,capturePublicationBaseline,apply as applyPublication} from '../scripts/publish-takanat-reader-review.mjs';
+import {inventory,info} from '../scripts/pri-parsha-review-core.mjs';
 const args=process.argv.slice(2),option=(key,fallback)=>{const i=args.indexOf(key);return i<0?fallback:args[i+1];};
 const root=path.resolve(option('--root',process.env.AKIVA_ROOT||'dist')),live=option('--url',null),artifacts=path.resolve(option('--artifacts','artifacts/takanat-reader-review'));
 
@@ -30,6 +31,18 @@ function fixtures(){
   for(const archive of ARCHIVES){const contents=unzipSync(plan.changes.get(archive));assert.deepEqual(Buffer.from(contents['downloads/old.pdf']),sentinel);assert.deepEqual(JSON.parse(Buffer.from(contents['data/'+BOOK+'/1.json'])),sections[1].after);}
   assert.equal(fs.readFileSync(path.join(fixture,sections[1].path),'utf8'),JSON.stringify(sections[1].before),'Planning must never mutate the input artifact');
   const bad=structuredClone(prepared);bad.pack.sections[0].before[1].p[0][0]+=' תוספת';assert.throws(()=>planPublication(fixture,bad),/preimage changed/);
+  // A successor must start from the exact already-published rows and report,
+  // while the original scholarly preimage remains available for its audit.
+  const initialInventory=inventory(fixture);for(const[name,bytes]of plan.changes)put(name,bytes);put('library/takanat-reader-review-20261026.json',{schemaVersion:1,release:RELEASE,packSha256:prepared.packSha256,counts:plan.counts,baselineFiles:initialInventory,changedFiles:[...plan.changes].map(([name,bytes])=>({path:name,...info(bytes)}))});
+  const upgrade=structuredClone(prepared);upgrade.pack.upgradeFromPackSha256=prepared.packSha256;upgrade.pack.publicationBaseSections=sections.map(s=>structuredClone(s.after));upgrade.packSha256='c'.repeat(64);upgrade.pack.sections[1].after[1].p[1][1]=upgrade.pack.sections[1].after[1].p[1][1].replaceAll('Megillah 17b','Nedarim 31b:6-7');
+  const context=capturePublicationBaseline(fixture,upgrade);assert.equal(context.previousReport.packSha256,prepared.packSha256);assert.equal(context.alreadyPublished,false);
+  const wrongPredecessor=structuredClone(upgrade);wrongPredecessor.pack.upgradeFromPackSha256='d'.repeat(64);assert.throws(()=>capturePublicationBaseline(fixture,wrongPredecessor),/predecessor publication pack differs/);
+  const wrongBase=structuredClone(upgrade);wrongBase.pack.publicationBaseSections[1][1].p[0][0]+=' תוספת';assert.throws(()=>capturePublicationBaseline(fixture,wrongBase),/source changed/);
+  const incremental=planPublication(fixture,upgrade,{parallelComputer:()=>({parallels:{},wordAdditions:{},pairs:0})});assert(!incremental.changes.has(sections[0].path),'An unchanged predecessor chapter must remain byte-identical');assert.deepEqual(JSON.parse(incremental.changes.get(sections[1].path)),upgrade.pack.sections[1].after);assert.equal(JSON.parse(incremental.changes.get('mcp-data/text/'+BOOK+'.json')).paras.find(p=>p.r===TITLE+' 1:1').f[0][1].includes('Nedarim 31b:6-7'),true);
+  const upgradeProof=applyPublication(fixture,upgrade,{...context,files:inventory(fixture)});assert.equal(upgradeProof.ok,true);const successorReport=JSON.parse(fs.readFileSync(path.join(fixture,'library/takanat-reader-review-20261026.json')));assert.equal(Object.hasOwn(successorReport.baselineFiles,'library/takanat-reader-review-20261026.json'),false);assert.deepEqual(successorReport.replacedReport,context.previousReport);assert.equal(capturePublicationBaseline(fixture,upgrade).alreadyPublished,true,'Reapplying the exact successor must be idempotent');
+  // Restore the fixture to its original preimage for the independent remapping
+  // checks below; the incremental plan itself never writes the artifact.
+  for(const[name]of plan.changes)fs.rmSync(path.join(fixture,name),{force:true});for(const s of sections)put(s.path,s.before);put('library/connected-ideas/catalog.json',{release:'previous',records:[],coverage:[],provenance:{}});fs.rmSync(path.join(fixture,'library/takanat-reader-review-20261026.json'));
   const normalize=createRequire(import.meta.url)(path.join(fixture,'library/source-connections.js')).normalizedHebrew,record={id:'unchanged-quote',originRef:TITLE+' 1:1',originHebrew:'גדול',originEnglish:'Great',targetRef:'Other Work 1:1',targetHebrew:'אחר',targetEnglish:'Other',reviewedOriginHebrewSha256:sha(normalize('קטן גדול')),reviewedOriginSectionHebrewSha256:sha(normalize('קטן גדול')),placement:{originSectionRef:TITLE+' 1',originPhraseIndex:0,originPhraseEnd:0,originParagraphOrder:0},evidence:{origin:{}}};put('library/connected-ideas/catalog.json',{release:'previous',records:[record],coverage:[],provenance:{}});
   const afterMcp={slug:BOOK,paras:sections.flatMap(s=>projectRows(s,s.id,Object.fromEntries(sections.map(s=>[s.sectionRef,sectionEdges(s)]))))};const remap=remapConnectedCatalog(fixture,mcp,afterMcp,book,book);assert.equal(remap.catalog.records[0].placement.originPhraseIndex,1);assert.equal(remap.catalog.records[0].originEnglish,'Great');assert.equal(remap.catalog.records[0].originHebrew,'גדול');
   const stale=structuredClone(mcp);stale.paras[1].p[0][0]='אחר';assert.throws(()=>remapConnectedCatalog(fixture,stale,afterMcp,book,book),/requires review/);
@@ -38,14 +51,18 @@ function fixtures(){
   const encodedRefs=['Sha&#x27;ar HaGilgulim 1','Hasagot HaRa&#39;avad on Mishneh Torah 1:1','V&apos;Zot HaBerakhah 1','A &amp; B 1'];
   assert.deepEqual(encodedRefs.map(plain),["Sha'ar HaGilgulim 1","Hasagot HaRa'avad on Mishneh Torah 1:1","V'Zot HaBerakhah 1",'A & B 1'],'Citation attributes use the same decoded characters as the DOM');
   assert.notEqual(plain(encodedRefs[0]),"Sha'ar HaGilgulim 2",'Decoding must preserve exact source coordinates');
-  return{fixtureGuards:12,archivePreservation:true,reverseConnections:true,exactNoteProjection:true,uniqueUnchangedQuotationRemapping:true};
+  const nativeSection={id:1,sectionRef:TITLE+' 1',after:[{n:1,p:[['אָב גָּדוֹל','A great father.']],footnotes:[{number:42,sourceId:'TH-1-42',placementId:'TH-1-1-42',phraseIndex:0,heCharOffset:'אָב'.length,heAnchorPrefix:'אָב',paragraphs:[{language:'en',text:'A complete verified quotation.'}],sources:[{ref:'Nedarim 31b:6-7',url:'https://www.sefaria.org/Nedarim.31b.6-7'}]}]}]};
+  const nativeProjection=projectRows(nativeSection,1,{[TITLE+' 1']:[{a:TITLE+' 1:1',r:'Nedarim 31b:6-7',c:'Talmud'}]})[0];assert.deepEqual(nativeProjection.f,[['42','A complete verified quotation.',0,'h','אָב'.length]]);assert.deepEqual(nativeProjection.a['Nedarim 31b:6-7'],['n','42']);
+  const badNative=structuredClone(nativeSection);badNative.after[0].footnotes[0].heAnchorPrefix='גדול';assert.throws(()=>projectRows(badNative,1,{}),/Hebrew anchor differs/);
+  return{fixtureGuards:12,archivePreservation:true,reverseConnections:true,exactNoteProjection:true,uniqueUnchangedQuotationRemapping:true,incrementalUpgradeGuards:true};
  }finally{fs.rmSync(fixture,{recursive:true,force:true});}
 }
 const fixtureProof=fixtures();
 if(args.includes('--fixture-only')){console.log(JSON.stringify({ok:true,...fixtureProof}));process.exit(0);}
-const prepared=loadPack(),{pack}=prepared;let guards=0;
+const prepared=loadPack(option('--pack',undefined)),{pack}=prepared;let guards=0;
 for(const section of pack.sections)for(const row of section.after)for(const pair of row.p||[])for(const value of pair){const parsed=splitNotes(value);assert(!/[\[\]]/.test(parsed.text),'Visible editorial brackets remain');for(const note of parsed.notes)assert(!/[\[\]]/.test(note.text),'Visible editorial brackets remain in a source note');}
 const reject=(label,mutate)=>{const bad=structuredClone(pack);mutate(bad);assert.throws(()=>validatePack(bad),undefined,label);guards++;};
+const guardProof=option('--guard-proof',null);if(guardProof){const previous=JSON.parse(fs.readFileSync(guardProof));assert(previous.ok===true&&previous.negativeGuards>=11&&previous.packSha256===prepared.packSha256,'A reused guard proof must pin this exact pack');guards=previous.negativeGuards;}else{
 reject('Unreviewed Hebrew author changes must fail',p=>p.sections[0].after.find(r=>r.p).p[0][0]+=' תוספת');
 reject('Unreviewed English author changes must fail',p=>p.sections[0].after.find(r=>r.p).p[0][1]+=' Unreviewed words.');
 reject('Changing an original chapter preimage must fail',p=>p.sections[0].before.find(r=>r.p).p[0][0]+=' תוספת');
@@ -54,7 +71,8 @@ if(pack.pairReplacements.some(op=>op.newPairs.some(pair=>pair.some(value=>value.
 if(pack.sourceOperations.length)reject('Source operation must match exact original cell',p=>p.sourceOperations[0].cellSha256='0'.repeat(64));
 if(pack.bodyPatches.length)reject('Translation correction requires source evidence',p=>p.bodyPatches[0].evidence=[]);
 if(pack.restorationSatisfiedDeletions?.length){reject('A satisfied editorial deletion must match its exact original words',p=>p.restorationSatisfiedDeletions[0].old+=' Unreviewed words.');reject('A satisfied editorial deletion must belong to its exact restoration range',p=>p.restorationSatisfiedDeletions[0].restorationIndex=99999);}
-if(args.includes('--guards-only')){console.log(JSON.stringify({ok:true,...fixtureProof,negativeGuards:guards,...prepared.counts}));process.exit(0);}
+}
+if(args.includes('--guards-only')){console.log(JSON.stringify({ok:true,packSha256:prepared.packSha256,...fixtureProof,negativeGuards:guards,...prepared.counts}));process.exit(0);}
 const proof=verifyPublication(root,prepared);
 const mcp=JSON.parse(fs.readFileSync(path.join(root,'mcp-data/text/'+BOOK+'.json'))),links=JSON.parse(fs.readFileSync(path.join(root,'library/data/'+BOOK+'/links.json'))),catalog=JSON.parse(fs.readFileSync(path.join(root,'mcp-data/catalog.json'))).books.find(b=>b.slug===BOOK);
 const expectedParas=pack.sections.flatMap(s=>projectRows(s,s.id,links));assert.deepEqual(mcp.paras,expectedParas);assert.equal(catalog.paragraphs,expectedParas.length);
@@ -76,6 +94,14 @@ try{
    assert.deepEqual(snapshot.he.map(tidy),rows.flatMap(r=>r.p.map(p=>tidy(splitNotes(p[0]).text))),ref+' full Hebrew author text');assert.deepEqual(snapshot.en.map(tidy),rows.flatMap(r=>r.p.map(p=>tidy(splitNotes(p[1]).text))),ref+' full paired English author text');
    const notes=rows.flatMap(r=>r.p.flatMap(p=>p.flatMap(value=>splitNotes(value).notes)));assert.deepEqual(snapshot.notes.map(tidy),notes.map(n=>tidy(n.text)),ref+' every complete inline note');
    const expectedRefs=rows.flatMap(r=>r.p.flatMap(p=>p.flatMap(value=>[...String(value).matchAll(/<a\b[^>]*\bdata-ref="([^"]+)"[^>]*>/g)].map(m=>plain(m[1])))));assert.deepEqual(snapshot.refs,expectedRefs,ref+' every exact citation target');
+   const native=rows.flatMap(row=>(row.footnotes||[]).map(note=>({row,note})).sort((a,b)=>a.note.phraseIndex-b.note.phraseIndex));
+   if(native.length){
+    const actual=await element.locator('.seg-il .reader-footnote[data-source-note="true"]').evaluateAll(nodes=>nodes.map(node=>({id:node.dataset.noteKey,text:[...node.querySelectorAll('.annotation-text')].map(p=>p.textContent),urls:[...node.querySelectorAll('.annotation-text a')].map(a=>a.getAttribute('href'))})));
+    assert.deepEqual(actual,native.map(({note})=>({id:note.placementId,text:note.paragraphs.map(p=>p.text),urls:note.paragraphs.flatMap(p=>(p.rich||[]).filter(run=>run.href).map(run=>run.href))})),ref+' every complete native source popup and verified link');
+    const marks=await element.locator('.seg-il .footnote-marker[data-note-key]').evaluateAll(nodes=>nodes.map(mark=>{const range=document.createRange();range.selectNodeContents(mark.closest('.ph-he'));range.setEndBefore(mark);const content=range.cloneContents();content.querySelectorAll('.footnote,.footnote-marker').forEach(n=>n.remove());return{id:mark.dataset.noteKey,paragraph:mark.closest('.seg').dataset.ref,hebrewOnly:Boolean(mark.closest('.ph-he')),prefix:content.textContent};}));
+    const markerOrder=rows.flatMap(row=>(row.footnotes||[]).map(note=>({row,note})).sort((a,b)=>a.note.phraseIndex-b.note.phraseIndex||a.note.heCharOffset-b.note.heCharOffset));assert.deepEqual(marks.map(m=>({...m,prefix:tidy(m.prefix)})),markerOrder.map(({row,note})=>({id:note.placementId,paragraph:ref+(section.id?':':' ')+row.n,hebrewOnly:true,prefix:tidy(note.heAnchorPrefix)})),ref+' every native marker exact Hebrew phrase');
+    const sample=native.find(({note})=>typeof note.number==='string'&&/[a-z]/.test(note.number))||native[0],button=element.locator('.seg-il .footnote-marker[data-note-key="'+sample.note.placementId+'"]'),box=element.locator('.seg-il .reader-footnote[data-note-key="'+sample.note.placementId+'"]');await button.click();assert.equal(await button.getAttribute('aria-expanded'),'true',ref+' native source opens');assert(await box.evaluate(node=>node.classList.contains('open')),ref+' native popup opens beside its reviewed phrase');await button.click();assert.equal(await button.getAttribute('aria-expanded'),'false',ref+' native source closes');
+   }
    for(const inserted of(pack.paragraphInsertions||[]).filter(p=>p.sectionId===section.id))assert.equal(await element.locator('.seg[data-ref="'+ref+(section.id?':':' ')+inserted.newParagraph.n+'"]').count(),1,ref+' newly restored stable paragraph is reachable');
    const marker=element.locator('.seg-il .footnote-marker:not([data-note-key])').first();if(await marker.count()){
     let first;for(const row of rows){for(const[pairIndex,pair]of row.p.entries()){for(const[side,value]of pair.entries()){const parsed=splitNotes(value);if(parsed.notes.length&&!first)first={row,pairIndex,side,note:parsed.notes[0],prefix:parsed.text.slice(0,parsed.notes[0].at)};}}}assert(first);

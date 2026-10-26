@@ -4,6 +4,7 @@ import path from 'node:path';
 import {gunzipSync} from 'node:zlib';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
+import {applyReviewedMarkerPlacements,inventoryInlineNotes,markerAuthorPlain} from './takanat-marker-placements.mjs';
 export const REPO_ROOT=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 export const RELEASE='20261026-takanat-reader-review-v1';
 export const PACK='sources/akiva/overlays/takanat-reader-review-20261026.json.gz';
@@ -19,6 +20,16 @@ const decode = s => s.replace(/&(#x[0-9a-f]+|#\d+|[a-z]+);/gi, (m, e) => {
 });
 const tidy = s => s.replace(/[ \t ]+/g, ' ').replace(/ *\n */g, '\n').replace(/\n{3,}/g, '\n\n').trim();
 export const plain = html => tidy(decode(String(html ?? '').replace(/<br\s*\/?>/gi, '\n').replace(/<[^>]*>/g, '')));
+
+// Reconstruction retains the original scholarly preimage. An explicitly pinned
+// successor publishes from the already-reviewed predecessor's visible rows.
+export function publicationSections(pack){
+ const upgrading=pack.upgradeFromPackSha256!==undefined||pack.publicationBaseSections!==undefined;
+ if(!upgrading)return pack.sections;
+ assert.match(pack.upgradeFromPackSha256||'',/^[a-f0-9]{64}$/,'A publication upgrade needs the exact predecessor pack hash');assert(Array.isArray(pack.publicationBaseSections)&&pack.publicationBaseSections.length===16,'A publication upgrade needs all sixteen predecessor sections');
+ const excluded=pack.excludedSectionIds||[];assert(Array.isArray(excluded)&&new Set(excluded).size===excluded.length&&excluded.every(id=>Number.isInteger(id)&&id>=0&&id<16),'Invalid excluded section scope');
+ return pack.sections.map((section,index)=>{const rows=pack.publicationBaseSections[index];assert(Array.isArray(rows),'Invalid predecessor section rows');const numbers=new Set();for(const row of rows){assert(row&&typeof row==='object'&&(typeof row.h==='string'||Array.isArray(row.p)),'Invalid predecessor row');if(row.p){assert(Number.isInteger(row.n)&&row.n>0&&!numbers.has(row.n),'Invalid predecessor paragraph identity');numbers.add(row.n);for(const pair of row.p)assert(Array.isArray(pair)&&pair.length===2&&pair.every(s=>typeof s==='string'),'Invalid predecessor phrase pair');}}if(excluded.includes(section.id))assert.deepEqual(section.after,rows,'An excluded published section changed');return{...section,before:rows};});
+}
 
 // Citations are marked <a data-ref="Berakhot 6b">…</a>; returns each ref with its offset in the plain text.
 export function anchorsOf(html) {
@@ -75,9 +86,53 @@ export function footnoteBlocks(value){
  const s=String(value),out=[];const mark=/<sup class="footnote-marker">([^<]*)<\/sup>\s*<i class="footnote">/g;
  for(let m;(m=mark.exec(s));){let depth=1,end=s.length;const tag=/<(\/?)i\b[^>]*>/g;tag.lastIndex=mark.lastIndex;for(let t;(t=tag.exec(s));){depth+=t[1]?-1:1;if(!depth){end=tag.lastIndex;break;}}assert(!depth,'Unclosed inline source note');out.push({start:m.index,end,raw:s.slice(m.index,end),number:plain(m[1])});mark.lastIndex=end;}return out;
 }
+// Materialize only the dynamic notes already displayed by the published
+// connection catalog. Their full popup is preserved; the reviewed Hebrew
+// endpoint replaces the catalog's approximate start-phrase placement.
+export function applyReviewedDynamicMarkers(inputSections,operations=[]){
+ const sections=structuredClone(inputSections),used=new Set();
+ for(const op of operations){
+  assert(op.reviewed===true&&op.sectionId>=0&&op.sectionId<=13&&op.placementRationale&&Array.isArray(op.evidence)&&op.evidence.length,'A dynamic marker needs an in-scope scholarly placement review');
+  assert(op.connectionIdeaId&&!used.has(op.connectionIdeaId),'Duplicate dynamic source marker');used.add(op.connectionIdeaId);
+  const prior=op.priorNativeNote,note=structuredClone(op.note),target=op.target;assert(prior&&note&&target);assert.equal(sha(json(prior)),op.priorNativeNoteSha256,'The published dynamic popup preimage differs');assert.equal(prior.connectionIdeaId,op.connectionIdeaId);assert.equal(note.connectionIdeaId,op.connectionIdeaId);
+  const section=sections.find(s=>s.id===op.sectionId),row=section?.after.find(r=>r.p&&r.n===target.paragraph1),he=splitNotes(row?.p[target.pairIndex0]?.[0]).text;
+  assert(row&&he&&Number.isInteger(target.heCharOffset)&&target.heCharOffset>0&&target.heCharOffset<=he.length&&he.slice(0,target.heCharOffset)===target.heAnchorPrefix,'The dynamic marker exact Hebrew prefix differs');
+  assert.equal(note.phraseIndex,target.pairIndex0);assert.equal(note.heCharOffset,target.heCharOffset);assert.equal(note.heAnchorPrefix,target.heAnchorPrefix);assert(note.enCharOffset===undefined&&note.enAnchorPrefix===undefined,'Dynamic markers must occur only in Hebrew');
+  let expected=prior;if(op.formattingRevision){const revision=op.formattingRevision;assert(revision.reviewed===true&&revision.policy==='english-plain-hebrew-parentheses'&&revision.reason&&Array.isArray(revision.evidence)&&revision.evidence.length,'Unreviewed dynamic source formatting');assert.equal(revision.beforePopupSha256,sha(json(prior)),'Dynamic formatting original popup differs');expected=formatDynamicPopup(prior);assert.equal(revision.formattedPopupSha256,sha(json(expected)),'Dynamic formatting replacement differs');}
+  const placementOnly=value=>Object.fromEntries(Object.entries(value).filter(([key])=>!['phraseIndex','heCharOffset','heAnchorPrefix','paragraphOrder'].includes(key)));assert.deepEqual(placementOnly(note),placementOnly(expected),'Dynamic marker placement changed its full published popup');
+  assert.equal(note.originRef,section.sectionRef+(section.id?':':' ')+row.n,'Dynamic marker moved to an unrelated paragraph');
+  const existing=sections.flatMap(s=>s.after.flatMap(r=>r.footnotes||[]));assert(!existing.some(n=>n.placementId===note.placementId||n.sourceId===note.sourceId||n.connectionIdeaId===note.connectionIdeaId),'Dynamic source note is already materialized');
+  (row.footnotes??=[]).push(note);
+ }
+ return sections;
+}
+export function formatDynamicPopup(value){const note=structuredClone(value);for(const p of note.paragraphs||[]){const normalize=text=>p.language==='he'?String(text).replace(/\[/g,'(').replace(/\]/g,')'):String(text).replace(/[\[\]]/g,'');p.text=normalize(p.text);for(const run of p.rich||[])run.text=normalize(run.text);}return note;}
 export function normalizeBrackets(value,side){
  // Only text nodes change; source-reference attributes and hyperlinks stay intact.
  return String(value).split(/(<[^>]*>)/g).map(part=>part.startsWith('<')?part:side===0?part.replace(/\[/g,'(').replace(/\]/g,')'):part.replace(/[\[\]]/g,'')).join('');
+}
+// A second, fully pinned review is applied to the restored reader corpus. Its
+// coordinates describe that corpus; the historical reconstruction stays intact.
+export function applyAuditBodyPatches(inputSections,operations=[]){
+ const sections=structuredClone(inputSections),edits=new Map();
+ for(const op of operations){reason(op);assert(op.reviewed===true&&op.auditId&&op.sectionId>=0&&op.sectionId<=13,'Unreviewed or excluded audit body correction');const row=para(inputSections,op.sectionId,op.paragraph1),side=sideOf(op.language),raw=row.p[op.pairIndex0]?.[side];assert(typeof raw==='string');assert.equal(sha(raw),op.cellSha256,'Audited body cell preimage differs');const edit=authorFragmentEdit(raw,op),key=[op.sectionId,op.paragraph1,op.pairIndex0,side].join('|'),list=edits.get(key)||[];list.push(edit);edits.set(key,list);}
+ for(const[key,list]of edits){const[id,n,k,side]=key.split('|').map(Number),row=para(sections,id,n);list.sort((a,b)=>b.start-a.start);for(let i=1;i<list.length;i++)assert(list[i-1].start>=list[i].end,'Audited body corrections overlap');for(const edit of list)row.p[k][side]=row.p[k][side].slice(0,edit.start)+edit.newValue+row.p[k][side].slice(edit.end);}
+ return sections;
+}
+export function applyAuditedSourceOperations(inputSections,operations=[]){
+ const sections=structuredClone(inputSections),inventory=inventoryInlineNotes(inputSections),used=new Set();
+ for(const op of operations){reason(op);assert(op.reviewed===true&&op.noteKey&&!used.has(op.noteKey),'Duplicate or unreviewed source-content audit');used.add(op.noteKey);const item=inventory.find(n=>n.noteKey===op.noteKey);assert(item&&item.editable,'Audited source block is missing or excluded');assert.deepEqual(op.source,{sectionId:item.sectionId,paragraph1:item.paragraph1,pairIndex0:item.pairIndex0,language:item.language,number:item.number},'Audited source coordinates differ');assert.equal(op.sourceBlockHtml,item.raw);assert.equal(op.sourceBlockSha256,item.rawSha256);assert(['repair','remove'].includes(op.action));const row=para(sections,item.sectionId,item.paragraph1),side=sideOf(item.language),raw=row.p[item.pairIndex0][side];assert.equal(raw.split(item.raw).length,2,'Audited source block must occur exactly once');let replacement='';
+  if(op.action==='repair'){assert(typeof op.newInnerHtml==='string'&&op.newInnerHtml.trim()&&op.newInnerHtml!==item.innerHtml,'An audited replacement needs complete changed source HTML');assert(!/<(?:sup|i)\b[^>]*class=["'][^"']*footnote/i.test(op.newInnerHtml),'An audited replacement nests a source note');assert.equal(sha(op.newInnerHtml),op.newInnerHtmlSha256,'Audited source replacement hash differs');const at=item.raw.indexOf(item.innerHtml);assert(at>=0);replacement=item.raw.slice(0,at)+op.newInnerHtml+item.raw.slice(at+item.innerHtml.length);}else assert.equal(op.removalBasis,'reviewed-inaccuracy-irrelevance-or-duplication','Source availability alone cannot authorize removal');
+  row.p[item.pairIndex0][side]=raw.replace(item.raw,replacement);assert.equal(splitNotes(raw).text,splitNotes(row.p[item.pairIndex0][side]).text,'A source-content audit changed author text');
+ }
+ return sections;
+}
+export function applyAuditBodyLinks(inputSections,operations=[]){
+ const sections=structuredClone(inputSections),used=new Set();for(const op of operations){reason(op);assert(op.reviewed===true&&op.auditId&&!used.has(op.auditId)&&op.sectionId>=0&&op.sectionId<=13,'Unreviewed, duplicate, or excluded author citation repair');used.add(op.auditId);safeHref(op.url);const row=para(sections,op.sectionId,op.paragraph1),side=sideOf(op.language),raw=row.p[op.pairIndex0]?.[side];assert.equal(sha(raw),op.cellSha256,'Audited author citation cell differs');const blocks=footnoteBlocks(raw),matches=[...raw.matchAll(/<a\b[^>]*\bdata-ref="([^"]+)"[^>]*>/g)].filter(m=>decode(m[1])===op.fromRef&&!blocks.some(b=>m.index>=b.start&&m.index<b.end));assert.equal(matches.length,1,'Audited author citation must occur once outside source notes');const m=matches[0],end=raw.indexOf('</a>',m.index+m[0].length);assert(end>=0&&plain(raw.slice(m.index+m[0].length,end))===op.newVisibleText,'Audited author citation label differs');let tag=m[0].replace(/\bdata-ref="[^"]+"/,'data-ref="'+op.toRef.replace(/"/g,'&quot;')+'"').replace(/\s+href="[^"]*"/g,'');tag=tag.slice(0,-1)+' href="'+safeHref(op.url)+'">';const next=raw.slice(0,m.index)+tag+raw.slice(m.index+m[0].length);assert.equal(authorTextMap(next).text,authorTextMap(raw).text,'An author citation repair changed visible words');assert.deepEqual(footnoteBlocks(next).map(n=>n.raw),blocks.map(n=>n.raw),'An author citation repair changed source notes');row.p[op.pairIndex0][side]=next;}return sections;
+}
+export function applyAuditBodyCitationPatches(inputSections,operations=[]){
+ const sections=structuredClone(inputSections),edits=new Map(),used=new Set();for(const op of operations){reason(op);assert(op.reviewed===true&&op.auditId&&!used.has(op.auditId)&&op.sectionId>=0&&op.sectionId<=13,'Unreviewed, duplicate, or excluded author source anchor');used.add(op.auditId);const row=para(inputSections,op.sectionId,op.paragraph1),pair=row.p[op.pairIndex0];assert(pair,'Author source anchor phrase missing');assert.equal(pair[0],op.pairPreimages.he,'Author source anchor Hebrew context differs');assert.equal(pair[1],op.pairPreimages.en,'Author source anchor English context differs');assert.equal(sha(pair[0]),op.pairPreimages.heSha256);assert.equal(sha(pair[1]),op.pairPreimages.enSha256);const side=sideOf(op.language),raw=pair[side];assert.equal(sha(raw),op.cellSha256,'Author source anchor cell differs');assert(op.old&&op.new&&op.canonicalRef&&op.new.includes('data-ref="'+op.canonicalRef+'"'),'Author source anchor needs its exact canonical target');assert(!/<(?:script|iframe|style)\b|\bon\w+\s*=|javascript:/i.test(op.new),'Unsafe author source anchor HTML');const blocks=footnoteBlocks(raw),hits=[];for(let at=0;(at=raw.indexOf(op.old,at))>=0;at+=op.old.length)if(!blocks.some(b=>at<b.end&&at+op.old.length>b.start))hits.push(at);assert.equal(hits.length,1,'Author source anchor fragment must occur once outside notes');const key=[op.sectionId,op.paragraph1,op.pairIndex0,side].join('|'),list=edits.get(key)||[];list.push({start:hits[0],end:hits[0]+op.old.length,newValue:op.new});edits.set(key,list);}
+ for(const[key,list]of edits){const[id,n,k,side]=key.split('|').map(Number),row=para(sections,id,n),raw=row.p[k][side];list.sort((a,b)=>b.start-a.start);for(let i=1;i<list.length;i++)assert(list[i-1].start>=list[i].end,'Author source anchors overlap');let next=raw;for(const op of list)next=next.slice(0,op.start)+op.newValue+next.slice(op.end);assert.equal(authorTextMap(next).text,authorTextMap(raw).text,'An author source anchor changed visible wording');assert.deepEqual(footnoteBlocks(next).map(n=>n.raw),footnoteBlocks(raw).map(n=>n.raw),'An author source anchor changed a source note');row.p[k][side]=next;}for(const section of inputSections)for(const row of section.after.filter(r=>r.p))assert.equal(JSON.stringify(para(sections,section.id,row.n).footnotes||[]),JSON.stringify(row.footnotes||[]),'An author source anchor changed a native source popup');return sections;
 }
 const reason=op=>assert(typeof op.reason==='string'&&op.reason.trim()&&Array.isArray(op.evidence)&&op.evidence.length,'Every content operation requires a reviewed reason and source evidence');
 const para=(sections,id,n)=>{const s=sections.find(x=>x.id===id);assert(s,'Unknown section');const row=s.after.find(x=>x.n===n&&x.p);assert(row,'Unknown stable paragraph number');return row;};
@@ -179,23 +234,40 @@ export function reconstructSections(pack){
  editLinks(sections,pack.verifiedLinks||[]);
  const refs=new Map();for(const ref of pack.verifiedReferences||[]){assert(ref.verified===true&&ref.ref);safeHref(ref.url);assert(!refs.has(ref.ref),'Repeated verified-reference entry');refs.set(ref.ref,ref.url);}
  for(const section of sections)for(const row of section.after){if(row.p)row.p=row.p.map(pair=>pair.map((value,side)=>normalizeBrackets(value,side).replace(/<a\b([^>]*\bdata-ref="([^"]+)"[^>]*)>/g,(all,attrs,ref)=>{const url=refs.get(decode(ref));if(!url||/\bhref=/.test(attrs))return all;return '<a'+attrs+' href="'+safeHref(url)+'">';})));if(typeof row.h==='string')row.h=normalizeBrackets(row.h,/[א-ת]/.test(row.h)?0:1);}
- return sections;
+ const auditBody=applyAuditBodyLinks(applyAuditBodyPatches(sections,pack.auditBodyPatches||[]),pack.auditBodyLinkOperations||[]),audited=applyAuditedSourceOperations(auditBody,pack.auditedSourceOperations||[]);
+ if(pack.sourceAuditManifest){const manifest=pack.sourceAuditManifest;assert(manifest.complete===true&&manifest.expectedNotes===1896,'The primary-source audit is incomplete');const original=inventoryInlineNotes(sections).filter(n=>n.editable),keys=new Set(original.map(n=>n.noteKey));assert.equal(keys.size,1896);assert.equal(sha(json(original.map(n=>({noteKey:n.noteKey,rawSha256:n.rawSha256})))),manifest.originalInventorySha256,'The audited note inventory differs');const decisions=manifest.decisions;assert(Array.isArray(decisions)&&decisions.length===1896&&new Set(decisions.map(d=>d.noteKey)).size===1896&&decisions.every(d=>keys.has(d.noteKey)),'Every original source note requires exactly one audit decision');const expected=decisions.filter(d=>d.decision!=='remove').map(d=>d.noteKey).sort();assert.deepEqual((pack.markerPlacements||[]).map(op=>op.noteKey).sort(),expected,'The native marker ledger does not cover all retained audited sources');assert.deepEqual((pack.auditedSourceOperations||[]).map(op=>op.noteKey).sort(),decisions.filter(d=>['repair','remove'].includes(d.decision)).map(d=>d.noteKey).sort(),'A source-content decision lacks its exact operation');}
+ let placed=pack.markerPlacements?.length?applyReviewedMarkerPlacements(audited,pack.markerPlacements).sections:audited;
+ if(pack.sourceAuditManifest){for(const d of pack.sourceAuditManifest.decisions){const source=(pack.auditedSourceOperations||[]).find(op=>op.noteKey===d.noteKey),placement=(pack.markerPlacements||[]).find(op=>op.noteKey===d.noteKey);if(['repair','remove'].includes(d.decision))assert.equal(source?.action,d.decision,'The source-content action differs from its reviewed decision');if(d.decision!=='remove')assert.equal(placement?.decision==='split',d.decision==='split','The native split differs from its reviewed decision');}assert.equal(inventoryInlineNotes(placed).filter(n=>n.editable).length,0,'An in-scope source marker remains inline after the complete audit');}
+ placed=applyReviewedDynamicMarkers(placed,pack.dynamicMarkerPlacements||[]);
+ placed=applyAuditBodyCitationPatches(placed,pack.auditBodyCitationPatches||[]);
+ return placed;
 }
 export function validatePack(pack){
+ publicationSections(pack);
  const sections=reconstructSections(pack);for(let i=0;i<sections.length;i++)assert.deepEqual(sections[i].after,pack.sections[i].after,'Unexplained reader content change in '+i);
  const satisfied=new Set();for(const audit of pack.restorationSatisfiedDeletions||[]){
   reason(audit);assert(audit.auditId&&!satisfied.has(audit.auditId),'Repeated restoration-satisfied deletion audit');satisfied.add(audit.auditId);assert.equal(audit.new,'');assert(audit.old,'A deletion needs its exact original editorial words');
   const side=sideOf(audit.language),section=pack.sections.find(s=>s.id===audit.sectionId),before=section?.before.find(r=>r.n===audit.paragraph1&&r.p),after=section?.after.find(r=>r.n===audit.paragraph1&&r.p),range=pack.pairReplacements?.[audit.restorationIndex];assert(before&&after&&range,'Deletion restoration coordinates are missing');assert.equal(range.sectionId,audit.sectionId);assert.equal(range.paragraph1,audit.paragraph1);assert(audit.pairIndex0>=range.startPairIndex0&&audit.pairIndex0<=range.endPairIndex0,'Deletion is not covered by its reviewed restoration');
   assert.equal(splitNotes(before.p[audit.pairIndex0][side]).text.split(audit.old).length,2,'Exact deleted editorial words must occur once in the original author cell');assert(!after.p.map(p=>splitNotes(p[side]).text).join(' ').includes(audit.old),'Restored paragraph still contains the deleted editorial synthesis');
  }
- const count=rows=>({paragraphs:rows.filter(r=>r.p).length,pairs:rows.reduce((n,r)=>n+(r.p?.length||0),0),notes:rows.reduce((n,r)=>n+(r.p||[]).reduce((m,p)=>m+p.reduce((x,s)=>x+footnoteBlocks(s).length,0),0),0)});
+ const count=rows=>({paragraphs:rows.filter(r=>r.p).length,pairs:rows.reduce((n,r)=>n+(r.p?.length||0),0),notes:rows.reduce((n,r)=>n+(r.p||[]).reduce((m,p)=>m+p.reduce((x,s)=>x+footnoteBlocks(s).length,0),0),0),nativeNotes:rows.reduce((n,r)=>n+(r.footnotes?.length||0),0)});
  const before=pack.sections.map(s=>count(s.before)),after=sections.map(s=>count(s.after));
  assert.equal(before.reduce((n,s)=>n+s.paragraphs,0),362);assert.equal(before.reduce((n,s)=>n+s.pairs,0),5510);
- return{pack,sections,counts:{reviewedSections:16,bodyPatches:(pack.bodyPatches||[]).length,sourceOperations:(pack.sourceOperations||[]).length,restorationSatisfiedDeletions:(pack.restorationSatisfiedDeletions||[]).length,pairReplacements:(pack.pairReplacements||[]).length,pairInsertions:(pack.pairInsertions||[]).length,paragraphInsertions:(pack.paragraphInsertions||[]).length,paragraphs:after.reduce((n,s)=>n+s.paragraphs,0),phrasePairs:after.reduce((n,s)=>n+s.pairs,0),inlineNotes:after.reduce((n,s)=>n+s.notes,0),verifiedLinkOperations:(pack.verifiedLinks||[]).length,verifiedReferences:(pack.verifiedReferences||[]).length}};
+ return{pack,sections,counts:{reviewedSections:16,bodyPatches:(pack.bodyPatches||[]).length,sourceOperations:(pack.sourceOperations||[]).length,auditedSourceNotes:(pack.sourceAuditManifest?.decisions||[]).length,auditedSourceRepairs:(pack.auditedSourceOperations||[]).filter(op=>op.action==='repair').length,auditedSourceRemovals:(pack.auditedSourceOperations||[]).filter(op=>op.action==='remove').length,auditedSourceSplits:(pack.markerPlacements||[]).filter(op=>op.decision==='split').length,auditBodyPatches:(pack.auditBodyPatches||[]).length,auditBodyLinkOperations:(pack.auditBodyLinkOperations||[]).length,auditBodyCitationPatches:(pack.auditBodyCitationPatches||[]).length,dynamicMarkerPlacements:(pack.dynamicMarkerPlacements||[]).length,restorationSatisfiedDeletions:(pack.restorationSatisfiedDeletions||[]).length,pairReplacements:(pack.pairReplacements||[]).length,pairInsertions:(pack.pairInsertions||[]).length,paragraphInsertions:(pack.paragraphInsertions||[]).length,paragraphs:after.reduce((n,s)=>n+s.paragraphs,0),phrasePairs:after.reduce((n,s)=>n+s.pairs,0),inlineNotes:after.reduce((n,s)=>n+s.notes,0),nativeSourceNotes:after.reduce((n,s)=>n+s.nativeNotes,0),sourceNotesTotal:after.reduce((n,s)=>n+s.notes+s.nativeNotes,0),verifiedLinkOperations:(pack.verifiedLinks||[]).length,verifiedReferences:(pack.verifiedReferences||[]).length}};
 }
-export function loadPack(){const bytes=fs.readFileSync(path.join(REPO_ROOT,PACK)),pin=fs.readFileSync(path.join(REPO_ROOT,PACK+'.sha256'),'utf8').trim();assert.equal(sha(bytes),pin,'Reviewed Takanat pack checksum differs');return{...validatePack(JSON.parse(gunzipSync(bytes))),packSha256:sha(bytes)};}
+export function loadPack(packPath=path.join(REPO_ROOT,PACK)){const bytes=fs.readFileSync(packPath),pin=fs.readFileSync(packPath+'.sha256','utf8').trim();assert.equal(sha(bytes),pin,'Reviewed Takanat pack checksum differs');return{...validatePack(JSON.parse(gunzipSync(bytes))),packSha256:sha(bytes)};}
 export function projectRows(section,sectionIndex,links){
  const paras=[];let pending=[];
- for(const row of section.after){if(typeof row.h==='string'){const h=plain(row.h);if(h)pending.push(h);continue;}if(!row.p)continue;const p=[],f=[],parts=[];row.p.forEach((pair,k)=>{const he=splitNotes(pair[0]),en=splitNotes(pair[1]);p.push([he.text,en.text]);parts.push({k,side:'h',split:he},{k,side:'e',split:en});for(const n of he.notes)f.push([n.n,n.text,k,'h',n.at]);for(const n of en.notes)f.push([n.n,n.text,k,'e',n.at]);});const r=section.sectionRef+(section.id?':':' ')+row.n,para={r,s:sectionIndex,n:row.n,p};if(f.length)para.f=f;const a=citationPlaces(parts);if(a)para.a=a;if(pending.length){para.h=pending;pending=[];}const c=(links[section.sectionRef]||[]).filter(e=>e.a===r).map(e=>[e.r,e.c||'']);if(c.length)para.c=c;paras.push(para);}
+ for(const row of section.after){
+  if(typeof row.h==='string'){const h=plain(row.h);if(h)pending.push(h);continue;}if(!row.p)continue;
+  const p=[],f=[],parts=[];row.p.forEach((pair,k)=>{const he=splitNotes(pair[0]),en=splitNotes(pair[1]);p.push([he.text,en.text]);parts.push({k,side:'h',split:he},{k,side:'e',split:en});for(const n of he.notes)f.push([n.n,n.text,k,'h',n.at]);for(const n of en.notes)f.push([n.n,n.text,k,'e',n.at]);});
+  const a=citationPlaces(parts)||{};
+  for(const note of row.footnotes||[]){
+   assert(Number.isInteger(note.phraseIndex)&&p[note.phraseIndex],'Native source note has no exact phrase');const originalHebrew=markerAuthorPlain(row.p[note.phraseIndex][0]);assert(Number.isInteger(note.heCharOffset)&&note.heCharOffset>0&&originalHebrew.slice(0,note.heCharOffset)===note.heAnchorPrefix,'Native source note Hebrew anchor differs');const projectedPrefix=plain(note.heAnchorPrefix);assert(p[note.phraseIndex][0].startsWith(projectedPrefix),'Native source note projected Hebrew anchor differs');
+   const text=(note.paragraphs||[]).map(part=>plain(part.text)).join('\n');assert(text,'Native source note is empty');f.push([String(note.number),text,note.phraseIndex,'h',projectedPrefix.length]);
+   for(const source of note.sources||[])if(source.ref&&!source.openExternal)a[source.readerRef||source.ref]??=['n',String(note.number)];
+  }
+  const r=section.sectionRef+(section.id?':':' ')+row.n,para={r,s:sectionIndex,n:row.n,p};if(f.length)para.f=f;if(Object.keys(a).length)para.a=a;if(pending.length){para.h=pending;pending=[];}const c=(links[section.sectionRef]||[]).filter(e=>e.a===r).map(e=>[e.r,e.c||'']);if(c.length)para.c=c;paras.push(para);
+ }
  if(pending.length){assert(paras.length);paras.at(-1).h2=pending;}return paras;
 }
