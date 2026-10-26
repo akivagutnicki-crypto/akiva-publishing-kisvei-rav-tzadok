@@ -48,6 +48,14 @@ try{
    const ref=expected.sectionRef,newNotes=additions.filter(e=>e.sectionRef===ref).map(e=>e.note);
    await page.goto(base+'#/read/'+encodeURIComponent(ref).replace(/%20/g,'_'),{waitUntil:'domcontentloaded'});
    await page.waitForFunction(ref=>[...document.querySelectorAll('.sec')].some(s=>s.dataset.ref===ref&&s.dataset.connectionFootnotesMounted==='true'),ref,{timeout:60000});
+   // First-visit routing can select interlinear; exercise the requested layout
+   // through the reader's settings after that initialization has completed.
+   await page.locator('#setBtn').click();
+   await page.locator('#settings .seg-ctl[data-pref="lang"] button[data-v="bi"]').click();
+   await page.locator('#settings .seg-ctl[data-pref="layout"] button[data-v="'+layout+'"]').click();
+   await page.locator('#setBtn').click();
+   assert.equal(await page.locator('#text').getAttribute('data-lang'),'bi',ref+' bilingual view');
+   assert.equal(await page.locator('#text').getAttribute('data-layout'),layout,ref+' selected layout');
    const section=page.locator('.sec[data-ref="'+ref+'"]');
    assert.equal(await section.getAttribute('data-connected-ideas-status'),'checked',ref+' connected-idea check');
    const snapshot=await section.evaluate(element=>{
