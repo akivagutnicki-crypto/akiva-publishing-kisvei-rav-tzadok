@@ -49,11 +49,20 @@ if (!html.includes('id="akiva-vayeira-study"')) {
   fs.writeFileSync(indexPath, html);
 }
 
+if (!html.includes('id="akiva-vayeira-interlinear-fonts"')) {
+  html = once(html, '</head>', '<style id="akiva-vayeira-interlinear-fonts">\n.weekly-study .ph-he,.weekly-study .seg-he{font-weight:400}\n.weekly-study .ph-en,.weekly-study .seg-en{font-weight:700}\n.weekly-study .study-commentary .ph-en,.weekly-study .study-commentary .seg-en{font-weight:400}\n</style>\n</head>', 'interlinear fonts');
+  fs.writeFileSync(indexPath, html);
+}
+
 const swPath = path.join(library, 'sw.js');
 let sw = fs.readFileSync(swPath, 'utf8');
 if (!sw.includes(version)) {
   sw = sw.replace(/(const SHELL = `[^`]+)(`;)/, `$1-${version}$2`);
   sw = once(sw, 'const SHELL_FILES = [', `const SHELL_FILES = [\n  './vayeira-study.js?v=${version}', './studies/vayeira-mesiras-nefesh.json?v=${version}',\n  './downloads/vayeira-akeidah-mesiras-nefesh-cover.webp',`, 'offline study');
+  fs.writeFileSync(swPath, sw);
+}
+if (!sw.includes('vayeira-interlinear-fonts-v1')) {
+  sw = sw.replace(/(const SHELL = `[^`]+)(`;)/, '$1-vayeira-interlinear-fonts-v1$2');
   fs.writeFileSync(swPath, sw);
 }
 
