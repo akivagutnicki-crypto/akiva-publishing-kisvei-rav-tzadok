@@ -5,7 +5,7 @@ import path from 'node:path';
 import http from 'node:http';
 import {createRequire} from 'node:module';
 import {pathToFileURL} from 'node:url';
-import {loadPack,validatePack,RELEASE,BOOK,TITLE,sha,json,splitNotes,projectRows,normalizeBrackets} from '../scripts/takanat-review-core.mjs';
+import {loadPack,validatePack,RELEASE,BOOK,TITLE,sha,json,plain,splitNotes,projectRows,normalizeBrackets} from '../scripts/takanat-review-core.mjs';
 import {planPublication,remapConnectedCatalog,sectionEdges,dataManifest,ARCHIVES} from '../scripts/takanat-publication-plan.mjs';
 import {verifyPublication} from '../scripts/publish-takanat-reader-review.mjs';
 const args=process.argv.slice(2),option=(key,fallback)=>{const i=args.indexOf(key);return i<0?fallback:args[i+1];};
@@ -35,6 +35,9 @@ function fixtures(){
   const stale=structuredClone(mcp);stale.paras[1].p[0][0]='אחר';assert.throws(()=>remapConnectedCatalog(fixture,stale,afterMcp,book,book),/requires review/);
   const changed=structuredClone(afterMcp);changed.paras[1].p[1][0]='אחר';assert.throws(()=>remapConnectedCatalog(fixture,mcp,changed,book,book),/requires review/);
   assert.equal(normalizeBrackets('<a data-ref="[literal]">Text [words]</a>',1),'<a data-ref="[literal]">Text words</a>');
+  const encodedRefs=['Sha&#x27;ar HaGilgulim 1','Hasagot HaRa&#39;avad on Mishneh Torah 1:1','V&apos;Zot HaBerakhah 1','A &amp; B 1'];
+  assert.deepEqual(encodedRefs.map(plain),["Sha'ar HaGilgulim 1","Hasagot HaRa'avad on Mishneh Torah 1:1","V'Zot HaBerakhah 1",'A & B 1'],'Citation attributes use the same decoded characters as the DOM');
+  assert.notEqual(plain(encodedRefs[0]),"Sha'ar HaGilgulim 2",'Decoding must preserve exact source coordinates');
   return{fixtureGuards:12,archivePreservation:true,reverseConnections:true,exactNoteProjection:true,uniqueUnchangedQuotationRemapping:true};
  }finally{fs.rmSync(fixture,{recursive:true,force:true});}
 }
@@ -72,7 +75,7 @@ try{
    const snapshot=await element.evaluate(element=>{const author=e=>{const clone=e.cloneNode(true);clone.querySelectorAll('.footnote,.footnote-marker,.subhead').forEach(n=>n.remove());return clone.textContent;};return{he:[...element.querySelectorAll('.seg-il .ph-he')].map(author),en:[...element.querySelectorAll('.seg-il .ph-en')].map(author),notes:[...element.querySelectorAll('.seg-il .footnote:not(.reader-footnote)')].map(n=>n.textContent),refs:[...element.querySelectorAll('.seg-il a.cite')].map(a=>a.dataset.ref)};});
    assert.deepEqual(snapshot.he.map(tidy),rows.flatMap(r=>r.p.map(p=>tidy(splitNotes(p[0]).text))),ref+' full Hebrew author text');assert.deepEqual(snapshot.en.map(tidy),rows.flatMap(r=>r.p.map(p=>tidy(splitNotes(p[1]).text))),ref+' full paired English author text');
    const notes=rows.flatMap(r=>r.p.flatMap(p=>p.flatMap(value=>splitNotes(value).notes)));assert.deepEqual(snapshot.notes.map(tidy),notes.map(n=>tidy(n.text)),ref+' every complete inline note');
-   const expectedRefs=rows.flatMap(r=>r.p.flatMap(p=>p.flatMap(value=>[...String(value).matchAll(/<a\b[^>]*\bdata-ref="([^"]+)"[^>]*>/g)].map(m=>m[1].replace(/&amp;/g,'&')))));assert.deepEqual(snapshot.refs,expectedRefs,ref+' every exact citation target');
+   const expectedRefs=rows.flatMap(r=>r.p.flatMap(p=>p.flatMap(value=>[...String(value).matchAll(/<a\b[^>]*\bdata-ref="([^"]+)"[^>]*>/g)].map(m=>plain(m[1])))));assert.deepEqual(snapshot.refs,expectedRefs,ref+' every exact citation target');
    for(const inserted of(pack.paragraphInsertions||[]).filter(p=>p.sectionId===section.id))assert.equal(await element.locator('.seg[data-ref="'+ref+(section.id?':':' ')+inserted.newParagraph.n+'"]').count(),1,ref+' newly restored stable paragraph is reachable');
    const marker=element.locator('.seg-il .footnote-marker:not([data-note-key])').first();if(await marker.count()){
     let first;for(const row of rows){for(const[pairIndex,pair]of row.p.entries()){for(const[side,value]of pair.entries()){const parsed=splitNotes(value);if(parsed.notes.length&&!first)first={row,pairIndex,side,note:parsed.notes[0],prefix:parsed.text.slice(0,parsed.notes[0].at)};}}}assert(first);
