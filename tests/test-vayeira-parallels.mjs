@@ -9,8 +9,9 @@ import {plain,read,notesOf} from '../scripts/pri-parsha-review-core.mjs';
 const args=process.argv.slice(2),option=(key,fallback)=>{const i=args.indexOf(key);return i<0?fallback:args[i+1];};
 const root=path.resolve(option('--root',process.env.AKIVA_ROOT||'dist')),live=option('--url',null);
 const artifacts=path.resolve(option('--artifacts','artifacts/vayeira-parallels'));
-const prepared=loadPack(),{pack,additions}=prepared;
-assert.equal(additions.length,17,'Expected the seventeen individually reviewed additions');
+const prepared=loadPack(),{pack,additions,reanchors}=prepared;
+assert.equal(additions.length,pack.audit.newNotes,'Expected the audited individually reviewed additions');
+assert.equal(reanchors.length,pack.audit.reanchoredNotes,'Expected the exact audited reanchors');
 const newEntries=p=>validatePack(p).additions;
 let guards=0;
 const reject=(label,mutate)=>{const bad=structuredClone(pack);mutate(bad);assert.throws(()=>validatePack(bad),undefined,label);guards++;};
@@ -20,6 +21,11 @@ reject('A repeated parallel reference must fail',p=>{const a=newEntries(p),first
 reject('Changing author text must fail',p=>{p.sections[0].after.find(r=>r.p).p[0][0]+=' תוספת';});
 reject('Changing an existing note must fail',p=>{const s=p.sections[0],old=notesOf(s.before)[0].note,n=notesOf(s.after).find(x=>x.note.placementId===old.placementId).note;n.paragraphs[0].text+=' X';});
 reject('An invented quotation must fail',p=>{newEntries(p)[0].note.reviewedSourceExcerpt.he='ציטוט שמעולם לא היה';});
+if(reanchors.length){
+ reject('Unapproved reanchoring must fail',p=>{p.reanchors=[];});
+ reject('A reanchor without a reviewed reason must fail',p=>{p.reanchors[0].reason='';});
+ reject('Reanchoring cannot alter the existing quotation',p=>{const id=p.reanchors[0].placementId,n=[...p.sections.flatMap(s=>notesOf(s.after).map(x=>x.note)),...Object.values(p.supplement.after).flat(2)].find(n=>n.placementId===id);n.paragraphs[0].text+=' X';});
+}
 const allNotes=p=>[...p.sections.flatMap(s=>notesOf(s.after).map(x=>({section:s.sectionRef,note:x.note}))),...Object.entries(p.supplement.after).flatMap(([section,rows])=>rows.flatMap(ns=>ns.map(note=>({section,note}))))];
 const td145=allNotes(pack).filter(x=>x.note.sources?.some(s=>s.ref==='Tzidkat HaTzadik 145:1'));
 assert.deepEqual(td145.map(x=>x.section),['Peri Tzadik, Vayera 1'],'Keep Tzidkat 145 in ois 1 and remove its repeat in ois 10');
@@ -45,7 +51,7 @@ try{
   await context.route(url=>url.origin!==new URL(base).origin,route=>route.fulfill({status:200,contentType:'application/json',body:'[]'}));
   const page=await context.newPage();page.on('pageerror',error=>report.errors.push({width,error:error.message}));const checks=[];
   for(const expected of expectedSections){
-   const ref=expected.sectionRef,newNotes=additions.filter(e=>e.sectionRef===ref).map(e=>e.note);
+   const ref=expected.sectionRef,newNotes=additions.filter(e=>e.sectionRef===ref).map(e=>e.note),movedNotes=reanchors.filter(e=>e.sectionRef===ref).map(e=>e.note),changedNotes=[...newNotes,...movedNotes];
    await page.goto(base+'#/read/'+encodeURIComponent(ref).replace(/%20/g,'_'),{waitUntil:'domcontentloaded'});
    await page.waitForFunction(ref=>[...document.querySelectorAll('.sec')].some(s=>s.dataset.ref===ref&&s.dataset.connectionFootnotesMounted==='true'),ref,{timeout:60000});
    // First-visit routing can select interlinear; exercise the requested layout
@@ -65,7 +71,7 @@ try{
    assert.deepEqual(snapshot.he.map(tidy),expected.rows.flatMap(r=>r.p.map(p=>tidy(plain(p[0])))),ref+' author Hebrew');
    assert.deepEqual(snapshot.en.map(tidy),expected.rows.flatMap(r=>r.p.map(p=>tidy(plain(p[1])))),ref+' author English');
    assert.equal(snapshot.enMarkers,0,ref+' Hebrew-only numbering');
-   for(const note of newNotes){
+   for(const note of changedNotes){
     const key='[data-note-key="'+note.placementId+'"]',inline=section.locator('.seg-il .ph-he button'+key),flat=section.locator('.seg-he button'+key);
     assert.equal(await inline.count(),1,ref+' unique inline marker '+note.number);assert.equal(await flat.count(),1,ref+' unique running-Hebrew marker '+note.number);
     assert.equal(Number(await inline.getAttribute('data-fn')),note.number);assert.equal(Number(await flat.getAttribute('data-fn')),note.number);
@@ -82,21 +88,21 @@ try{
      }
     }
     assert(await box.evaluate(e=>e.scrollWidth<=e.clientWidth+2),ref+' unclipped quotation '+note.number);
-    if(note===newNotes[0])await page.screenshot({path:path.join(artifacts,(live?'live':'candidate')+'-'+ref.replace(/[^A-Za-z0-9]+/g,'-')+'-'+width+'.png'),fullPage:false});
+    if(note===changedNotes[0])await page.screenshot({path:path.join(artifacts,(live?'live':'candidate')+'-'+ref.replace(/[^A-Za-z0-9]+/g,'-')+'-'+width+'.png'),fullPage:false});
     await marker.click();await box.waitFor({state:'hidden'});
    }
    if(expected.hebrewOnly){
     await page.locator('#setBtn').click();await page.locator('#settings .seg-ctl[data-pref="lang"] button[data-v="he"]').click();await page.locator('#setBtn').click();
-    for(const note of newNotes){const key='[data-note-key="'+note.placementId+'"]',mark=section.locator('.seg-he button'+key),box=section.locator('.segment-annotations > .reader-footnote'+key);await mark.click();await box.waitFor({state:'visible'});assert.deepEqual(await box.locator('.annotation-text').allTextContents(),note.paragraphs.map(p=>p.text));await mark.click();}
+    for(const note of changedNotes){const key='[data-note-key="'+note.placementId+'"]',mark=section.locator('.seg-he button'+key),box=section.locator('.segment-annotations > .reader-footnote'+key);await mark.click();await box.waitFor({state:'visible'});assert.deepEqual(await box.locator('.annotation-text').allTextContents(),note.paragraphs.map(p=>p.text));await mark.click();}
     await page.locator('#setBtn').click();await page.locator('#settings .seg-ctl[data-pref="lang"] button[data-v="bi"]').click();await page.locator('#setBtn').click();
    }
    if(ref==='Peri Tzadik, Vayera 1')assert.equal(await section.locator('.seg-il .ph-he button[data-note-key="PT-5638-1"]').count(),1,'Tzidkat 145 retained in ois 1');
    if(ref==='Peri Tzadik, Vayera 10')assert.equal(await section.locator('button[data-note-key="PT-5719-1"]').count(),0,'Tzidkat 145 repeat removed from ois 10');
    assert.equal(await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth+2),false,ref+' horizontal overflow');
-   checks.push({section:ref,newNotes:newNotes.length,exactHebrewMarkers:true,fullPopupQuotesAndLinks:true,authorTextUnchanged:true,hebrewOnlyMode:!!expected.hebrewOnly});
+   checks.push({section:ref,newNotes:newNotes.length,reanchoredNotes:movedNotes.length,exactHebrewMarkers:true,fullPopupQuotesAndLinks:true,authorTextUnchanged:true,hebrewOnlyMode:!!expected.hebrewOnly});
   }
-  assert.equal(checks.reduce((sum,c)=>sum+c.newNotes,0),17);report.viewports.push({width,layout,sections:checks});await context.close();console.log(JSON.stringify({width,layout,verifiedSections:checks.length,additions:17}));
+  assert.equal(checks.reduce((sum,c)=>sum+c.newNotes,0),pack.audit.newNotes);assert.equal(checks.reduce((sum,c)=>sum+c.reanchoredNotes,0),pack.audit.reanchoredNotes);report.viewports.push({width,layout,sections:checks});await context.close();console.log(JSON.stringify({width,layout,verifiedSections:checks.length,additions:additions.length,reanchoredNotes:reanchors.length}));
  }
  assert.deepEqual(report.errors,[]);report.ok=true;
 }catch(error){report.failure=error.message;throw error;}finally{fs.writeFileSync(path.join(artifacts,(live?'live':'candidate')+'-browser-report.json'),JSON.stringify(report,null,2)+'\n');if(browser)await browser.close();if(server)await new Promise(resolve=>server.close(resolve));}
-console.log(JSON.stringify({ok:true,sections:10,additions:17,viewports:2,layouts:['side','inter'],release:RELEASE}));
+console.log(JSON.stringify({ok:true,sections:10,additions:additions.length,reanchoredNotes:reanchors.length,viewports:2,layouts:['side','inter'],release:RELEASE}));

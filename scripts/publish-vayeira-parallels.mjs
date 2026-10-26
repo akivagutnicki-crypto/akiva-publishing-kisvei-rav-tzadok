@@ -7,66 +7,81 @@ import {createHash} from 'node:crypto';
 import {createRequire} from 'node:module';
 import {fileURLToPath} from 'node:url';
 import {gunzipSync} from 'node:zlib';
+import {isDeepStrictEqual} from 'node:util';
 import {REPO_ROOT,sha,digest,json,info,local,fileInfo,inventory,read,write,plain,norm,notesOf,sourceSlug,navigates,readerRef,noteProjection} from './pri-parsha-review-core.mjs';
 
-export const RELEASE='20261026-vayeira-parallels-v1';
-export const PACK='sources/akiva/overlays/vayeira-parallels-20261026.json.gz';
-const REPORT='library/vayeira-parallels-20261026.json';
+export const RELEASE='20261026-vayeira-general-parallels-v2';
+export const PACK='sources/akiva/overlays/vayeira-general-parallels-20261026.json.gz';
+const REPORT='library/vayeira-general-parallels-20261026.json';
 const LINKS='library/data/peri-tzadik/links.json',MCP='mcp-data/text/peri-tzadik.json';
 const SUPPLEMENT='library/data/peri-tzadik/vayera-original-source-notes.json';
 const ARCHIVES=['library/downloads/rav-tzadok-library.zip','library/downloads/books/peri-tzadik.zip'];
 const REPO='akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok';
 const SITE='https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/';
-const META='vayeira-parallels-publication.json',STATE='vayeira-parallels-baseline.json';
+const META='vayeira-general-parallels-publication.json',STATE='vayeira-general-parallels-baseline.json';
 const args=process.argv.slice(2),option=(key,fallback)=>{const i=args.indexOf(key);return i<0?fallback:args[i+1];};
 const root=path.resolve(option('--root','dist'));
 const edgeKey=e=>JSON.stringify([e.a,e.r]);
 const allNotes=pack=>[...pack.sections.flatMap(s=>notesOf(s.after).map(x=>({...x,sectionRef:s.sectionRef,originRef:s.sectionRef+':'+x.row.n}))),...Object.entries(pack.supplement.after).flatMap(([sectionRef,rows])=>rows.flatMap((notes,i)=>notes.map(note=>({note,row:{n:i+1},sectionRef,originRef:sectionRef+':'+(i+1)}))))];
 const noteId=n=>n.placementId||n.sourceId;
 
+const COORDINATES=['phraseIndex','heCharOffset','heAnchorPrefix','heWord','enCharOffset','enAnchorPrefix'];
+const ROLES={'parallel-rav-tzadok':'Rav Tzadok','parallel-ishbitz-radzin':'Ishbitz–Radzin','parallel-chassidus':'Chassidus','parallel-kabbalah':'Kabbalah','parallel-machshava':'Machshavah','parallel-mussar':'Mussar'};
+const withoutCoordinates=note=>Object.fromEntries(Object.entries(note).filter(([key])=>!COORDINATES.includes(key)));
+function validateAnchor(entry){
+  const n=entry.note;assert(Number.isInteger(n.phraseIndex)&&n.phraseIndex>=0);assert(Number.isInteger(n.heCharOffset)&&n.heCharOffset>0);assert(typeof n.heAnchorPrefix==='string');
+  if(entry.row?.p){assert(entry.row.p[n.phraseIndex],'New Hebrew anchor phrase does not exist');const he=plain(entry.row.p[n.phraseIndex][0]);assert.equal(he.slice(0,n.heCharOffset),n.heAnchorPrefix,'Exact Hebrew anchor mismatch');assert(n.heCharOffset<=he.length);}
+}
 export function validatePack(pack){
   assert.equal(pack.schemaVersion,1);assert.equal(pack.release,RELEASE);
   assert.deepEqual(pack.sections.map(s=>s.sectionRef),Array.from({length:7},(_,i)=>'Peri Tzadik, Vayera '+(i+1)));
   assert.equal(pack.supplement.path,SUPPLEMENT);
-  const changes=[],beforeNotes=[];
-  for(const [i,s]of pack.sections.entries()){
+  assert(Array.isArray(pack.reanchors),'Exact reviewed reanchors audit is required');
+  assert(pack.reanchors.every(x=>x.placementId&&typeof x.reason==='string'&&x.reason.trim()),'Reanchor requires its reviewed reason');
+  assert.equal(new Set(pack.reanchors.map(x=>x.placementId)).size,pack.reanchors.length,'Repeated reanchor audit');
+  const changes=[],reanchors=[],beforeNotes=[];
+  function compare(note,prior,entry){
+    if(!prior){changes.push({...entry,note});return;}
+    const moved=prior.originRef!==entry.originRef;
+    if(!moved&&isDeepStrictEqual(note,prior.note))return;
+    assert(pack.reanchors.some(x=>x.placementId===noteId(note)),'An existing note changed without an exact reviewed reanchor');
+    assert.deepEqual(withoutCoordinates(note),withoutCoordinates(prior.note),'Reanchoring changed an existing quote, source, identity or provenance');
+    validateAnchor({...entry,note});reanchors.push({...entry,note,before:prior.note,beforeOriginRef:prior.originRef});
+  }
+  for(const[i,s]of pack.sections.entries()){
     assert.equal(s.path,'library/data/peri-tzadik/'+(159+i)+'.json');
     const body=rows=>rows.map(row=>Object.fromEntries(Object.entries(row).filter(([key])=>key!=='footnotes')));
     assert.deepEqual(body(s.after),body(s.before),'Author text, translation or headings changed');
-    for(let j=0;j<s.before.length;j++){
-      const old=s.before[j].footnotes||[],next=s.after[j].footnotes||[];beforeNotes.push(...old);
-      for(const note of next){const prior=old.find(n=>noteId(n)===noteId(note));if(prior){assert.deepEqual(note,prior,'Existing note changed');continue;}changes.push({note,sectionRef:s.sectionRef,row:s.after[j],originRef:s.sectionRef+':'+s.after[j].n});}
-    }
+    const old=new Map(notesOf(s.before).map(x=>[noteId(x.note),{note:x.note,originRef:s.sectionRef+':'+x.row.n}]));beforeNotes.push(...[...old.values()].map(x=>x.note));
+    for(const row of s.after)for(const note of row.footnotes||[])compare(note,old.get(noteId(note)),{sectionRef:s.sectionRef,row,originRef:s.sectionRef+':'+row.n});
   }
   assert.deepEqual(Object.keys(pack.supplement.before).sort(),[8,9,10].map(n=>'Peri Tzadik, Vayera '+n).sort());
   assert.deepEqual(Object.keys(pack.supplement.after).sort(),Object.keys(pack.supplement.before).sort());
-  for(const [ref,rows]of Object.entries(pack.supplement.before)){
+  for(const[ref,rows]of Object.entries(pack.supplement.before)){
     const next=pack.supplement.after[ref];assert.equal(next.length,rows.length);
-    rows.forEach((notes,i)=>{beforeNotes.push(...notes);for(const note of next[i]){const prior=notes.find(n=>noteId(n)===noteId(note));if(prior)assert.deepEqual(note,prior,'Existing supplemental note changed');else changes.push({note,sectionRef:ref,paragraph:i+1,originRef:ref+':'+(i+1)});}});
+    const old=new Map(rows.flatMap((notes,i)=>notes.map(note=>[noteId(note),{note,originRef:ref+':'+(i+1)}])));beforeNotes.push(...[...old.values()].map(x=>x.note));
+    next.forEach((notes,i)=>{for(const note of notes)compare(note,old.get(noteId(note)),{sectionRef:ref,paragraph:i+1,originRef:ref+':'+(i+1)});});
   }
+  assert.deepEqual(reanchors.map(x=>noteId(x.note)).sort(),pack.reanchors.map(x=>x.placementId).sort(),'Reanchor audit must match every exact placement change');
   const seen=new Set(),numbers=new Set(),sourceIds=new Set();
-  for(const {note}of allNotes(pack)){assert(noteId(note));assert(!seen.has(noteId(note)),'Duplicate placement');seen.add(noteId(note));assert(!numbers.has(note.number),'Duplicate Vayeira number');numbers.add(note.number);assert(!sourceIds.has(note.sourceId),'Duplicate Vayeira source identity');sourceIds.add(note.sourceId);}
+  for(const{note}of allNotes(pack)){assert(noteId(note));assert(!seen.has(noteId(note)),'Duplicate placement');seen.add(noteId(note));assert(!numbers.has(note.number),'Duplicate Vayeira number');numbers.add(note.number);assert(!sourceIds.has(note.sourceId),'Duplicate Vayeira source identity');sourceIds.add(note.sourceId);}
   for(const entry of changes){
     const n=entry.note,q=n.reviewedSourceExcerpt;assert(q?.ref&&q.url&&q.he&&q.en,'Missing bilingual verified source evidence');
     assert(/^https:\/\/www\.sefaria\.org\//.test(q.url),'Parallel requires the verified exact Sefaria source URL');
-    assert(n.quotationOnly===true&&n.verificationStatus==='verified');assert.equal(n.sources.length,1);assert.equal(n.sources[0].ref,q.ref);assert.equal(n.sources[0].url,q.url);
-    assert(['parallel-rav-tzadok','parallel-ishbitz-radzin'].includes(n.sources[0].role));
+    assert(n.quotationOnly===true&&n.verificationStatus==='verified');assert.equal(n.sources.length,1);assert.equal(n.sources[0].ref,q.ref);assert.equal(n.sources[0].url,q.url);assert(Object.hasOwn(ROLES,n.sources[0].role),'Unreviewed parallel category');
     assert(!beforeNotes.some(old=>old.number===n.number||old.sourceId===n.sourceId||noteId(old)===noteId(n)),'New note identity collision');
+    assert(!beforeNotes.some(old=>(old.sources||[]).some(source=>source.ref===q.ref)),'Parallel repeats a source already quoted in the Vayeira notes');
     const evidence=(pack.sourceEvidence||[]).find(e=>e.ref===q.ref&&e.url===q.url&&e.verified===true&&norm(e.he).includes(norm(q.he)));
     assert(evidence,'New quotation lacks primary source evidence');if(evidence.sha256)assert.equal(evidence.sha256,sha(evidence.he));
     const label=q.citation||q.ref,expected=label+': “'+q.en+'”';
-    assert.deepEqual(n.paragraphs,[{language:'en',text:expected,rich:[{text:label,bold:true,href:q.url},{text:': “'+q.en+'”'}]}],'Visible note must contain only source citation and complete translation');
-    assert(Number.isInteger(n.phraseIndex)&&n.phraseIndex>=0);assert(Number.isInteger(n.heCharOffset)&&n.heCharOffset>0);assert(typeof n.heAnchorPrefix==='string');
-    if(entry.row){const he=plain(entry.row.p[n.phraseIndex][0]);assert.equal(he.slice(0,n.heCharOffset),n.heAnchorPrefix,'Exact Hebrew anchor mismatch');assert(n.heCharOffset<=he.length);}
+    assert.deepEqual(n.paragraphs,[{language:'en',text:expected,rich:[{text:label,bold:true,href:q.url},{text:': “'+q.en+'”'}]}],'Visible note must contain only source citation and complete translation');validateAnchor(entry);
   }
-  const refs=new Set();for(const {note}of allNotes(pack))for(const source of note.sources||[]){if(!source.role?.startsWith('parallel-')&&!/Tzidkat HaTzadik|Resisei Layla|Mei HaShiloach|Poked Akarim/.test(source.ref))continue;assert(!refs.has(source.ref),'Repeated parallel source '+source.ref);refs.add(source.ref);}
+  const refs=new Set();for(const{note}of allNotes(pack))for(const source of note.sources||[]){if(!source.role?.startsWith('parallel-')&&!/Tzidkat HaTzadik|Resisei Layla|Mei HaShiloach|Poked Akarim/.test(source.ref))continue;assert(!refs.has(source.ref),'Repeated parallel source '+source.ref);refs.add(source.ref);}
   const retainedIds=new Set(allNotes(pack).map(x=>noteId(x.note))),removedNotes=beforeNotes.filter(n=>!retainedIds.has(noteId(n)));
-  assert(Array.isArray(pack.removals),'Exact reviewed removals audit is required');
-  assert.deepEqual(pack.removals.map(x=>x.placementId).sort(),removedNotes.map(noteId).sort(),'A note deletion was not explicitly reviewed');
-  assert(pack.removals.every(x=>typeof x.reason==='string'&&x.reason.trim()),'Removal requires its reviewed reason');
+  assert(Array.isArray(pack.removals),'Exact reviewed removals audit is required');assert.deepEqual(pack.removals.map(x=>x.placementId).sort(),removedNotes.map(noteId).sort(),'A note deletion was not explicitly reviewed');assert(pack.removals.every(x=>typeof x.reason==='string'&&x.reason.trim()),'Removal requires its reviewed reason');
   for(const removed of removedNotes)assert((removed.sources||[]).length===1&&refs.has(removed.sources[0].ref),'Only a repeated parallel source may be removed');
-  assert(Array.isArray(pack.suppressConnectionIds||[]));
-  return{pack,additions:changes};
+  assert.equal(pack.audit?.reviewedSections,10);assert.equal(pack.audit?.newNotes,changes.length,'New-note audit count differs');assert.equal(pack.audit?.reanchoredNotes,reanchors.length,'Reanchor audit count differs');assert(Array.isArray(pack.suppressConnectionIds||[]));
+  return{pack,additions:changes,reanchors};
 }
 export function loadPack(){const raw=fs.readFileSync(local(REPO_ROOT,PACK)),pin=fs.readFileSync(local(REPO_ROOT,PACK+'.sha256'),'utf8').trim();assert.match(pin,/^[a-f0-9]{64}$/);assert.equal(sha(raw),pin,'Reviewed pack changed');return{...validatePack(JSON.parse(gunzipSync(raw))),packSha256:sha(raw)};}
 function preimages(directory,{pack,additions}){
@@ -93,10 +108,13 @@ export function planPublication(directory,prepared){
   for(const [ref,rows]of Object.entries(pack.supplement.before))oldByRef.set(ref,rows.flatMap((notes,i)=>notes.map(note=>({note,originRef:ref+':'+(i+1)}))));
   for(const [ref,oldNotes]of oldByRef){
     const original=links[ref]||[];for(const edge of original)oldEdges.set(edgeKey(edge),edge);
-    const notes=allNotes(pack).filter(x=>x.sectionRef===ref),nextIds=new Set(notes.map(x=>noteId(x.note)));
-    const removedSources=oldNotes.filter(x=>!nextIds.has(noteId(x.note))).flatMap(x=>(x.note.sources||[]).filter(navigates).map(s=>({a:x.originRef,r:readerRef(s)})));
+    const notes=allNotes(pack).filter(x=>x.sectionRef===ref),nextById=new Map(notes.map(x=>[noteId(x.note),x]));
+    const removedSources=oldNotes.filter(x=>!nextById.has(noteId(x.note))||nextById.get(noteId(x.note)).originRef!==x.originRef).flatMap(x=>(x.note.sources||[]).filter(navigates).map(s=>({a:x.originRef,r:readerRef(s)})));
     const next=original.filter(edge=>!removedSources.some(s=>edgeKey(s)===edgeKey(edge))||notes.some(x=>x.originRef===edge.a&&(x.note.sources||[]).some(s=>readerRef(s)===edge.r)));
-    for(const x of prepared.additions.filter(x=>x.sectionRef===ref))for(const source of x.note.sources||[])if(navigates(source)&&!next.some(e=>e.a===x.originRef&&e.r===readerRef(source)))next.push({a:x.originRef,r:readerRef(source),c:'Parallel Sources',kind:source.role==='parallel-ishbitz-radzin'?'Reviewed parallel · Ishbitz–Radzin':'Reviewed parallel · Rav Tzadok'});
+    for(const x of [...prepared.additions,...prepared.reanchors].filter(x=>x.sectionRef===ref))for(const source of x.note.sources||[])if(navigates(source)&&!next.some(e=>e.a===x.originRef&&e.r===readerRef(source))){
+      const previous=x.beforeOriginRef&&original.find(e=>e.a===x.beforeOriginRef&&e.r===readerRef(source));
+      next.push(previous?{...previous,a:x.originRef}:{a:x.originRef,r:readerRef(source),c:'Parallel Sources',kind:'Reviewed parallel · '+(ROLES[source.role]||'Source')});
+    }
     links[ref]=next;for(const edge of next)nextEdges.set(edgeKey(edge),edge);
   }
   put(LINKS,links);
@@ -141,7 +159,7 @@ export function planPublication(directory,prepared){
   }
   const downloads=read(directory,'library/downloads/index.json');downloads.version=manifest.version;for(const archive of archives){const entry=archive.path.includes('/books/')?downloads.books.find(b=>b.slug==='peri-tzadik'):downloads.library;assert(entry);entry.bytes=archive.bytes;entry.dataFiles=archive.dataFiles;}put('library/downloads/index.json',downloads);
   const catalog=read(directory,'mcp-data/catalog.json');catalog.version=manifest.version;put('mcp-data/catalog.json',catalog);
-  return{changes,archives,version:manifest.version,counts:{reviewedSections:10,newNotes:prepared.additions.length,removedNotes:[...oldByRef.values()].flat().length-allNotes(pack).length+prepared.additions.length,finalNotes:allNotes(pack).length,suppressedConnections:pack.suppressConnectionIds?.length||0}};
+  return{changes,archives,version:manifest.version,counts:{reviewedSections:10,newNotes:prepared.additions.length,reanchoredNotes:prepared.reanchors.length,removedNotes:[...oldByRef.values()].flat().length-allNotes(pack).length+prepared.additions.length,finalNotes:allNotes(pack).length,suppressedConnections:pack.suppressConnectionIds?.length||0}};
 }
 export function verifyPublication(directory,prepared=loadPack()){
   const report=read(directory,REPORT);assert.equal(report.release,RELEASE);assert.equal(report.packSha256,prepared.packSha256);
@@ -172,13 +190,13 @@ async function guard(state){await branchGuard(state.expectedHead);assert.equal((
 
 if(process.argv[1]&&path.resolve(process.argv[1])===fileURLToPath(import.meta.url)){
   const mode=args[0]||'--prepare';
-  if(mode==='--prepare'){const p=loadPack();console.log(JSON.stringify({ok:true,release:RELEASE,packSha256:p.packSha256,newNotes:p.additions.length}));}
+  if(mode==='--prepare'){const p=loadPack();console.log(JSON.stringify({ok:true,release:RELEASE,packSha256:p.packSha256,newNotes:p.additions.length,reanchoredNotes:p.reanchors.length}));}
   else if(mode==='--metadata'){const p=loadPack();await branchGuard(process.env.GITHUB_SHA);const publication=await currentPublication();write(REPO_ROOT,META,{expectedHead:process.env.GITHUB_SHA,publication,packSha256:p.packSha256});if(process.env.GITHUB_OUTPUT)fs.appendFileSync(process.env.GITHUB_OUTPUT,'artifact='+publication.artifactId+'\nrun='+publication.runId+'\n');console.log(JSON.stringify(publication));}
   else if(mode==='--capture'){const state=read(REPO_ROOT,META),p=loadPack();assert.equal(state.packSha256,p.packSha256);state.files=inventory(root);state.alreadyPublished=fs.existsSync(local(root,REPORT));if(state.alreadyPublished)verifyPublication(root,p);else preimages(root,p);await guard(state);write(REPO_ROOT,STATE,state);console.log(JSON.stringify({capturedFiles:Object.keys(state.files).length,alreadyPublished:state.alreadyPublished}));}
   else if(mode==='--guard')await guard(read(REPO_ROOT,STATE));
   else if(mode==='--apply'){const state=read(REPO_ROOT,STATE),p=loadPack();assert.equal(state.packSha256,p.packSha256);console.log(JSON.stringify(state.alreadyPublished?verifyPublication(root,p):apply(root,p,state)));}
   else if(mode==='--rebuild'){const p=loadPack();console.log(JSON.stringify(fs.existsSync(local(root,REPORT))?verifyPublication(root,p):apply(root,p,{})));}
   else if(mode==='--verify')console.log(JSON.stringify(verifyPublication(root)));
-  else if(mode==='--live'){const proof=verifyPublication(root),report=read(root,REPORT);await mapLimited([...report.changedFiles,{path:REPORT,...fileInfo(local(root,REPORT))}],async f=>assert.equal(sha(await bytesPublic(f.path)),f.sha256,'Public bytes differ: '+f.path));write(REPO_ROOT,'vayeira-parallels-live-verification.json',{...proof,verifiedAt:new Date().toISOString()});console.log(JSON.stringify(proof));}
+  else if(mode==='--live'){const proof=verifyPublication(root),report=read(root,REPORT);await mapLimited([...report.changedFiles,{path:REPORT,...fileInfo(local(root,REPORT))}],async f=>assert.equal(sha(await bytesPublic(f.path)),f.sha256,'Public bytes differ: '+f.path));write(REPO_ROOT,'vayeira-general-parallels-live-verification.json',{...proof,verifiedAt:new Date().toISOString()});console.log(JSON.stringify(proof));}
   else throw Error('Unknown mode '+mode);
 }

@@ -128,8 +128,8 @@ jobs:
           retention-days: 90
           if-no-files-found: warn
           path: |
-            vayeira-parallels-publication.json
-            vayeira-parallels-baseline.json
-            vayeira-parallels-live-verification.json
-            dist/library/vayeira-parallels-20261026.json
+            vayeira-general-parallels-publication.json
+            vayeira-general-parallels-baseline.json
+            vayeira-general-parallels-live-verification.json
+            dist/library/vayeira-general-parallels-20261026.json
             artifacts/vayeira-parallels/
