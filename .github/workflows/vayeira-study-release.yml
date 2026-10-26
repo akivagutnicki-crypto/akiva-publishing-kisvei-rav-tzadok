@@ -1,0 +1,132 @@
+name: Publish Parshas Vayeira study and PDF attachment
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+  deployments: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: ${{ (github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[weekly-torah-release]'))) && 'pages' || format('weekly-torah-skipped-{0}', github.run_id) }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: ${{ github.repository == 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok' && github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[weekly-torah-release]')) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    env:
+      WEEKLY_STUDY_SITE: .vayeira-study-site
+    steps:
+      - name: Checkout the Vayeira reader study and PDF
+        uses: actions/checkout@v6
+
+      - name: Set up Node 24
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+
+      - name: Identify the currently published complete Pages artifact
+        id: baseline
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/vayeira-study-release.py metadata
+
+      - name: Download the exact current publication
+        uses: actions/download-artifact@v4
+        with:
+          artifact-ids: ${{ steps.baseline.outputs.artifact }}
+          run-id: ${{ steps.baseline.outputs.run }}
+          repository: akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/vayeira-baseline
+          merge-multiple: true
+
+      - name: Restore and record every current site and Torah file
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PY'
+          import os,pathlib,tarfile
+          root=pathlib.Path('.vayeira-study-site').resolve()
+          root.mkdir(exist_ok=True)
+          archive=pathlib.Path(os.environ['RUNNER_TEMP'])/'vayeira-baseline/artifact.tar'
+          assert archive.is_file(), 'Missing complete Pages archive'
+          with tarfile.open(archive,'r:') as source:
+              members=source.getmembers()
+              for member in members:
+                  target=(root/member.name).resolve()
+                  assert target==root or root in target.parents, 'Path outside site'
+                  assert member.isdir() or member.isfile(), 'Unsafe archive entry'
+              source.extractall(root,members=members,filter='data')
+          PY
+          python3 scripts/vayeira-study-release.py capture
+
+      - name: Add the native study, linked footnotes, home entry and PDF attachment
+        run: |
+          node scripts/apply-vayeira-study.mjs .vayeira-study-site
+          node scripts/test-vayeira-study.mjs .vayeira-study-site/library
+          node --check .vayeira-study-site/library/sw.js
+          python3 scripts/vayeira-study-release.py verify
+
+      - name: Install focused browser verification
+        run: |
+          npm install --no-save --package-lock=false playwright@1.62.1
+          npx playwright install --with-deps chromium
+
+      - name: Verify mobile and desktop reading, notes, navigation and PDF download
+        run: node scripts/test-vayeira-study-browser.cjs
+
+      - name: Recheck original live publication and main before upload
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/vayeira-study-release.py guard
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload complete preserved site with the Vayeira study
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: .vayeira-study-site
+          retention-days: 14
+
+      - name: Recheck main and latest publication before deployment
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/vayeira-study-release.py guard
+
+      - name: Publish Parshas Vayeira study and PDF
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Verify exact public bytes and preserved catalogs
+        run: python3 scripts/vayeira-study-release.py published
+
+      - name: Verify the study in the public reader
+        env:
+          READER_TEST_URL: https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/
+        run: node scripts/test-vayeira-study-browser.cjs
+
+      - name: Save study and preservation verification
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: vayeira-study-verification
+          retention-days: 90
+          if-no-files-found: warn
+          path: |
+            vayeira-study-publication.json
+            vayeira-study-baseline.json
+            vayeira-study-verification.json
+            vayeira-study-live-verification.json
+            artifacts/vayeira-study/

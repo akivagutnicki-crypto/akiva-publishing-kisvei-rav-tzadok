@@ -597,6 +597,20 @@ body.akiva-android-reader .akiva-support-embed{border-top-color:var(--ox)}
 <!-- akiva-new-books-style-start -->
 <link rel="stylesheet" href="../editions/new-books.css?v=20261023-new-books-v1">
 <!-- akiva-new-books-style-end -->
+<style id="akiva-vayeira-study">
+.weekly-study-teaser{grid-template-columns:1fr}
+.weekly-study-teaser .weekly-teaser-copy{padding:20px}
+.weekly-study .study-commentary .ph-he,.weekly-study .study-commentary .seg-he{display:none!important}
+.weekly-study .study-commentary .ph{display:block!important}
+.weekly-study .study-commentary .ph-en{font-weight:400;font-style:normal}
+.text[data-lang="he"] .weekly-study .study-commentary{display:none}
+.weekly-study-pdf{margin:16px 0 22px}
+.weekly-pdf-actions,.weekly-study-contents .actions{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}
+.weekly-pdf-actions .btn,.weekly-study-contents .btn{height:auto;min-height:38px;padding-top:10px;padding-bottom:10px}
+.weekly-pdf-cover{display:block;width:min(100%,220px);height:auto;margin:12px auto;border:1px solid var(--line)}
+@media(max-width:700px){.weekly-study-pdf iframe{display:none}.weekly-study-contents .btn{width:100%}}
+</style>
+<script src="vayeira-study.js?v=20261026-vayeira-mesiras-nefesh-v1"></script>
 </head>
 <body>
 <header class="top">
@@ -1478,6 +1492,7 @@ async function withMeiStudy(d) {
     heRef:headingInfo?.he || d.heRef, sourceUrl:headingInfo?.sourceUrl || d.sourceUrl, transcriptionNotes:headingInfo?.transcriptionNotes || {}, sourceNotes:headingInfo?.sourceNotes || {}, paragraphBreaks:headingInfo?.paragraphBreaks || d.paragraphBreaks, heRefHtml:headingInfo?.heHtml || null, ...(heads ? {heads, studyHeading:headingInfo.title, phraseHeads:headingInfo.phraseHeadings || {}} : {})};
 }
 async function fetchText(ref, {remoteOnly = false} = {}) {
+  if (window.AkivaVayeiraStudy?.recognizes(ref)) return window.AkivaVayeiraStudy.fetchText(ref);
   const preferred = await preferredSourceText(ref);
   if (preferred) return preferred;
   // All published study sections are bundled; do not let a stale Sefaria or app cache
@@ -1624,6 +1639,9 @@ async function renderHome() {
       </div>
 
       
+      <a class="weekly-teaser weekly-study-teaser" href="#/read/Akiva_Publishing_Weekly_Torah%2C_Vayeira_Mesiras_Nefesh" aria-label="Read the Parshas Vayeira Akeidah study">
+        <span class="weekly-teaser-copy"><span class="eyebrow">This week · Parshas Vayeira · Special section</span><strong>The Deeper Meaning of the Akeidah</strong><span>Mesiras Nefesh and Giving Up Everything · Dvar Torah, fifteen interlinear sources, 34 source footnotes and an attached PDF →</span></span>
+      </a>
       <a class="weekly-teaser" href="blog/the-dew-of-your-youth/" aria-label="Read The Dew of Your Youth">
         <img src="blog/the-dew-of-your-youth/rabbi-noach-weinberg.jpg" alt="Rabbi Noach Weinberg, founder of Aish HaTorah" loading="lazy">
         <span class="weekly-teaser-copy"><span class="eyebrow">Latest essay · Parshas Lech Lecha · Pri Tzadik</span><strong>The Dew of Your Youth</strong><span>Avraham, teshuvah and the Jews who found their way home, from the Kotel to the tunnels of Gaza · Read the essay →</span></span>
@@ -1664,7 +1682,7 @@ async function renderHome() {
 <div class="shop-book"><img loading="lazy" alt="Bilingual annotated edition cover" src="../livyasan-cover.jpg"><div><div class="book-name">Bilingual annotated edition</div><div class="formats"><a href="https://www.amazon.com/dp/B0H1YF5N8M" target="_blank" rel="noopener noreferrer">Purchase on Amazon ↗</a></div></div></div>
 </section>
 <div class="sidebar-foot"><a href="../">View the complete Akiva Publishing collection →</a></div></section>
-<section class="library-weekly"><h3>Latest article</h3><p><strong>The Dew of Your Youth</strong><br>Parshas Lech Lecha 5787 · Pri Tzadik Otiyos 2 and 7 · By Akiva Gutnicki</p><a class="link" href="blog/the-dew-of-your-youth/">Read the full illustrated article →</a><a class="link" href="blog/pdfs/the-dew-of-your-youth-lech-lecha.pdf" target="_blank" rel="noopener">Read article PDF ↗</a><a class="link" href="blog/pdfs/the-dew-of-your-youth-lech-lecha.pdf" download>Download complete PDF ↓</a><a class="link" href="blog/docs/the-dew-of-your-youth-lech-lecha.docx" download>Download Word edition ↓</a><h3>Previous articles</h3><p><strong>Faith in the Night</strong><br>Mar Cheshvan · Resisei Layla Simanim 5, 27 &amp; 21 · A tribute to Yenta Rivka bas Rav Yaakov Halevi</p><a class="link" href="blog/faith-in-the-night/">Read the full illustrated article →</a><a class="link" href="blog/pdfs/faith-in-the-night.pdf" target="_blank" rel="noopener">Read article PDF ↗</a><a class="link" href="blog/pdfs/faith-in-the-night.pdf" download>Download complete PDF ↓</a><a class="link" href="blog/docs/faith-in-the-night.docx" download>Download Word edition ↓</a><p><strong>Previous essay:</strong> The Lamp, the Dough, and the Open Gates</p><a class="link" href="blog/the-lamp-the-dough-and-the-open-gates/">Read Noach essay →</a><a class="link" href="blog/pdfs/the-lamp-the-dough-and-the-open-gates-noach.pdf" download>Download Noach essay PDF ↓</a><p><strong>New interlinear Pri Tzaddik · Vayeira and Chayei Sarah (18 teachings)</strong></p><a class="link" href="#/read/Peri_Tzadik,_Vayera_1">Read Vayeira, Ois 1 →</a><a class="link" href="#/read/Peri_Tzadik,_Chayei_Sara_1">Read Chayei Sarah, Ois 1 →</a><a class="link" href="#/book/Peri_Tzadik">Browse all 18 new teachings in Pri Tzaddik →</a><p><strong>Annotated Pri Tzaddik · Noach Ois 5–6</strong></p><a class="link" href="#/read/Peri_Tzadik,_Noach_5">Read annotated Ois 5 in the app →</a><a class="link" href="#/read/Peri_Tzadik,_Noach_6">Read annotated Ois 6 in the app →</a><a class="link" href="downloads/pri-tzaddik-noach-ois-5-6-chassidus-kdp-7x10.pdf" target="_blank" rel="noopener">Read KDP 7×10 PDF ↗</a><a class="link" href="downloads/pri-tzaddik-noach-ois-5-6-chassidus-kdp-7x10.docx" download>Download annotated DOCX ↓</a>
+<section class="library-weekly"><h3>This week · Parshas Vayeira</h3><p><strong>The Deeper Meaning of the Akeidah</strong><br>Mesiras Nefesh and Giving Up Everything</p><a class="link" href="#/read/Akiva_Publishing_Weekly_Torah%2C_Vayeira_Mesiras_Nefesh">Read the Dvar Torah and interlinear sources →</a><a class="link" href="downloads/vayeira-akeidah-mesiras-nefesh.pdf" target="_blank" rel="noopener">Open the complete PDF ↗</a><h3>Latest article</h3><p><strong>The Dew of Your Youth</strong><br>Parshas Lech Lecha 5787 · Pri Tzadik Otiyos 2 and 7 · By Akiva Gutnicki</p><a class="link" href="blog/the-dew-of-your-youth/">Read the full illustrated article →</a><a class="link" href="blog/pdfs/the-dew-of-your-youth-lech-lecha.pdf" target="_blank" rel="noopener">Read article PDF ↗</a><a class="link" href="blog/pdfs/the-dew-of-your-youth-lech-lecha.pdf" download>Download complete PDF ↓</a><a class="link" href="blog/docs/the-dew-of-your-youth-lech-lecha.docx" download>Download Word edition ↓</a><h3>Previous articles</h3><p><strong>Faith in the Night</strong><br>Mar Cheshvan · Resisei Layla Simanim 5, 27 &amp; 21 · A tribute to Yenta Rivka bas Rav Yaakov Halevi</p><a class="link" href="blog/faith-in-the-night/">Read the full illustrated article →</a><a class="link" href="blog/pdfs/faith-in-the-night.pdf" target="_blank" rel="noopener">Read article PDF ↗</a><a class="link" href="blog/pdfs/faith-in-the-night.pdf" download>Download complete PDF ↓</a><a class="link" href="blog/docs/faith-in-the-night.docx" download>Download Word edition ↓</a><p><strong>Previous essay:</strong> The Lamp, the Dough, and the Open Gates</p><a class="link" href="blog/the-lamp-the-dough-and-the-open-gates/">Read Noach essay →</a><a class="link" href="blog/pdfs/the-lamp-the-dough-and-the-open-gates-noach.pdf" download>Download Noach essay PDF ↓</a><p><strong>New interlinear Pri Tzaddik · Vayeira and Chayei Sarah (18 teachings)</strong></p><a class="link" href="#/read/Peri_Tzadik,_Vayera_1">Read Vayeira, Ois 1 →</a><a class="link" href="#/read/Peri_Tzadik,_Chayei_Sara_1">Read Chayei Sarah, Ois 1 →</a><a class="link" href="#/book/Peri_Tzadik">Browse all 18 new teachings in Pri Tzaddik →</a><p><strong>Annotated Pri Tzaddik · Noach Ois 5–6</strong></p><a class="link" href="#/read/Peri_Tzadik,_Noach_5">Read annotated Ois 5 in the app →</a><a class="link" href="#/read/Peri_Tzadik,_Noach_6">Read annotated Ois 6 in the app →</a><a class="link" href="downloads/pri-tzaddik-noach-ois-5-6-chassidus-kdp-7x10.pdf" target="_blank" rel="noopener">Read KDP 7×10 PDF ↗</a><a class="link" href="downloads/pri-tzaddik-noach-ois-5-6-chassidus-kdp-7x10.docx" download>Download annotated DOCX ↓</a>
         <p><strong>Annotated Pri Tzaddik · Rosh Chodesh Mar Cheshvan</strong></p>
         <a class="link" href="#/read/Peri_Tzadik,_Rosh_Chodesh_Cheshvan">Read annotated Mar Cheshvan in the app →</a>
         <a class="link" href="downloads/pri-tzaddik-rosh-chodesh-marcheshvan-annotated.docx" download>Download annotated Mar Cheshvan DOCX ↓</a>
@@ -1768,6 +1786,11 @@ async function renderDownloads() {
 
 /* ======================= Book / TOC ======================= */
 async function renderBook(title) {
+  if (title === window.AkivaVayeiraStudy?.BOOK) {
+    document.title = "Parshas Vayeira · Akiva Publishing";
+    app.innerHTML = window.AkivaVayeiraStudy.contents() + credit();
+    return;
+  }
   const w = info(title);
   document.title = `${title} · Rav Tzadok Library`;
   app.innerHTML = `<div class="page"><div class="crumbs"><a href="#/">Texts</a><span>›</span><span id="bookGroup">Library</span></div>
@@ -2061,7 +2084,7 @@ async function renderReader(ref, jump = new URLSearchParams()) {
     // Older installations can preserve "English only" or a stacked layout.
     // For the first visit to either newly published study edition, make the
     // requested genuine phrase-by-phrase interlinear view visible by default.
-    if (first.local && first.phrases && ['Peri Tzadik', 'Tiferet Yosef', 'Mei HaShiloach'].includes(first.book)
+    if (first.local && first.phrases && ['Peri Tzadik', 'Tiferet Yosef', 'Mei HaShiloach', 'Akiva Publishing Weekly Torah'].includes(first.book)
         && !store.get('studySeen.' + first.book, false)) {
       prefs.lang = 'bi'; prefs.layout = 'inter';
       store.set('lang', 'bi'); store.set('layout', 'inter');
@@ -2234,6 +2257,7 @@ function appendSection(d) {
   sec.className = 'sec' + (en.some(x => String(x || '').trim()) ? '' : ' no-en') + (d.paragraphTranslation ? ' paragraph-translation' : d.phrases ? ' il' : '');
   if (/^Peri Tzadik, Rosh Chodesh(?: \(manuscript\)| Cheshvan)(?::|$)/.test(d.sectionRef)) sec.classList.add('rosh-study');
   if (d.local && d.phrases && isPriShabbosEdition(d.sectionRef)) sec.classList.add('pri-shabbos-study');
+  if (d.weeklyStudy) sec.classList.add('weekly-study');
   sec.dataset.ref = d.sectionRef;
   let html = d.title
     ? `<div class="sec-head"><span>${esc(d.title.ois ? d.title.parashah + ' · Ois ' + d.title.ois + (d.title.en === d.title.parashah + ' · Ois ' + d.title.ois ? '' : ' — ' + (d.title.en || d.sectionRef)) : d.title.he && /^סימן/.test(d.title.he) ? d.sectionRef : d.title.en || d.sectionRef)}</span></div><h2 class="sec-title he" lang="he">${esc(d.title.he)}</h2>${d.title.he && /^סימן/.test(d.title.he) && d.title.en ? `<div class="sec-sub">${esc(d.title.en)}</div>` : ''}`
@@ -2287,7 +2311,8 @@ function appendSection(d) {
       ? 'mei-hashiloach-lech-lecha-interlinear.docx' : null;
   if (lechDownloads) html += `<div class="section-docx-link"><a href="downloads/${lechDownloads}" download>Download the complete Lech Lecha interlinear Word edition ↓</a></div>`;
   if (d.downloadDocx) html += `<div class="section-docx-link"><a href="${esc(d.downloadDocx)}" download>${esc(d.downloadDocxLabel || (d.sectionRef.startsWith('Beit Yaakov on Torah,') ? 'Download the supplied interlinear Word edition (DOCX)' : 'Download the complete annotated Word edition (DOCX)'))} ↓</a></div>`;
-  if (d.downloadPdf) html += `<div class="section-docx-link"><a href="${esc(d.downloadPdf)}" target="_blank" rel="noopener">${esc(d.downloadPdfLabel || "Download the print PDF")} ↗</a></div>`;
+  if (d.weeklyStudy) html += window.AkivaVayeiraStudy.attachment(d);
+  if (d.downloadPdf && !d.weeklyStudy) html += `<div class="section-docx-link"><a href="${esc(d.downloadPdf)}" target="_blank" rel="noopener">${esc(d.downloadPdfLabel || "Download the print PDF")} ↗</a></div>`;
   const numberOfNotes = Object.values(d.annotations || {}).reduce((sum, arr) => sum + arr.length, 0);
   if (numberOfNotes) html += `<div class="note-discovery">${numberOfNotes} annotated source footnotes · Tap a numbered marker beside its Hebrew word to read the full note and sources.</div>`;
   if (!n) html += `<div class="empty" style="text-align:center">This section has no text yet.</div>`;
@@ -2330,7 +2355,7 @@ function appendSection(d) {
     }
     const il = d.phrases && !d.paragraphTranslation ? `<div class="seg-il">${renderSourceParagraphs(d.phrases[i],breaks,([ph, pe], j) => `${phraseHeadings(j)}<div class="ph"><div class="ph-he" lang="he" dir="rtl">${anchoredPhrase(ph,notesAt.get(j)||[],'he','ph')}</div><div class="ph-en" lang="en">${anchoredPhrase(pe,notesAt.get(j)||[],'en','ph')}${(notesAt.get(j) || []).map(n => readingFootnote(n, 'box')).join('')}</div></div>`,'')}</div>` : '';
     const noteTray = annotated.length ? `<div class="segment-annotations">${annotated.map(n => readingFootnote(n, 'box')).join('')}</div>` : '';
-    html += `<div class="seg" data-ref="${esc(r)}" data-i="${num}" data-k="${i}" tabindex="0">
+    html += `<div class="seg${d.weeklyStudy && d.editorialRows?.includes(i) ? ' study-commentary' : ''}" data-ref="${esc(r)}" data-i="${num}" data-k="${i}" tabindex="0">
       <span class="num" data-n="${num}">${labels ? labels[i] : prefs.lang === 'he' ? gematria(num) : num}</span>
       <div class="seg-he" lang="he" dir="rtl">${h}</div>
       <div class="seg-en" lang="en">${e}</div>${il}${noteTray}
@@ -3626,3 +3651,4 @@ route();
 </script>
 </body>
 </html>
+
