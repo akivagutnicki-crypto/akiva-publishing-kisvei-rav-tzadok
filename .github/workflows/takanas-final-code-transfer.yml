@@ -1,0 +1,51 @@
+name: Prepare final Takanas Part 2 code blobs
+on:
+  push:
+    branches: ['release/takanas-part2-final-20261027']
+    paths: ['.github/workflows/takanas-final-code-transfer.yml']
+permissions:
+  contents: write
+jobs:
+  prepare:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Authenticate and store only the reviewed code bundle
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TRANSFER_URL: 'https://sdmntprsoutheastus3.oaiusercontent.com/files/00000000-55bc-820c-b16b-b0c2a15bbce4/raw?se=2026-10-27T22%3A29%3A40Z&sp=r&sv=2026-02-06&sr=b&scid=d87bc815-14c3-519d-95a9-d0abb83cde5f&skoid=db055408-822b-485f-92f8-bfeb3ea92408&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-10-27T15%3A52%3A07Z&ske=2026-10-28T15%3A52%3A07Z&sks=b&skv=2026-02-06&sig=%2BZOgmn6b/fAL7OgsfiA3GAhcXUEFH27V3V9qoNOi1JQ%3D'
+        run: |
+          python3 - <<'PY'
+          import base64,hashlib,io,json,os,pathlib,urllib.request,zipfile
+          repo='akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok'
+          def api(route,payload=None):
+              data=None if payload is None else json.dumps(payload).encode()
+              req=urllib.request.Request('https://api.github.com/repos/'+repo+route,data=data,headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json','Content-Type':'application/json','X-GitHub-Api-Version':'2022-11-28'})
+              with urllib.request.urlopen(req,timeout=60) as response:return json.load(response)
+          with urllib.request.urlopen(os.environ['TRANSFER_URL'],timeout=60) as response:blob=response.read()
+          assert len(blob)==24259 and hashlib.sha256(blob).hexdigest()=='ad4c73197a59b75ad25345542e88e466a11a6484aefac9499c314f608dabeda2'
+          parent=os.environ['GITHUB_SHA']
+          assert api('/git/ref/heads/release/takanas-part2-final-20261027')['object']['sha']==parent
+          tree=api('/git/commits/'+parent)['tree']['sha']
+          allowed={'.github/workflows/takanat-part2-review.yml','scripts/sync-takanat-part2-final.mjs','tests/test-takanat-part2-final-browser.mjs','reconciliation/apply_reconciliation.py','reconciliation/recipe.json','reconciliation/verify_conceptual.mjs','reconciliation/final-release.json','reconciliation/final-output-pins.json'}
+          entries=[]
+          with zipfile.ZipFile(io.BytesIO(blob)) as z:
+              manifest=json.loads(z.read('manifest.json'))
+              assert set(z.namelist())==allowed|{'manifest.json'}
+              assert {row['path'] for row in manifest['files']}==allowed
+              for row in manifest['files']:
+                  data=z.read(row['path']);data.decode('utf-8')
+                  assert len(data)==row['bytes'] and hashlib.sha256(data).hexdigest()==row['sha256']
+                  stored=api('/git/blobs',{'encoding':'base64','content':base64.b64encode(data).decode()})
+                  assert stored['sha']==row['gitBlob']
+                  entries.append({'path':row['path'],'mode':'100644','type':'blob','sha':stored['sha']})
+          receipt={'status':'blobs prepared only; no branch move and no publication','parent':parent,'baseTree':tree,'files':entries}
+          pathlib.Path('prepared-final-code.json').write_text(json.dumps(receipt,indent=2))
+          print('FINAL_CODE_RECEIPT='+json.dumps(receipt))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: prepared-takanas-final-code
+          path: prepared-final-code.json
+          retention-days: 90
+          if-no-files-found: error
