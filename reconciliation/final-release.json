@@ -1,0 +1,23 @@
+{
+  "release": "20261027-takanat-part2-final-r1",
+  "scope": "Publish the preserved Part 2 review plus the tested 37-note reconciliation; no fresh scholarly assertions.",
+  "priorCandidatePackSha256": "a9289680a0e7b8b39edb8ddbd4f213038bac5249a5a8309d4d0191ff50b7ba2a",
+  "successfulReconciliationRun": 40592180610,
+  "originalDecisions": 776,
+  "retainedPart2Notes": 766,
+  "unchangedNativeEndpoints": 766,
+  "supplementalChangedNotes": 37,
+  "recipeSha256": "c3d318e5b65e6083b13c140d9964a8417faa2ed6ec54f5b9d7913076b6fe5632",
+  "applyScriptSha256": "c87b133a45cb6890711d07ade550fa7768641432de7a7506a96c2795ea72fdc7",
+  "expectedCorrectedFiles": {
+    "library/data/takanat-hashavin/14.json": "2810cc660cb98953a12053ef47599216e62b874ec76a09f8f771feb77e49f1ba",
+    "library/data/takanat-hashavin/15.json": "3c1829856d5c1ca195ed162501bd3654128a29a6f51ff92ff2f081e7f73897f1",
+    "library/index.html": "b9e9f594708624e21d1307610853182c73a59e608321bb7f779c139a6caef619"
+  },
+  "limitations": [
+    "Fresh verification of every primary source is not claimed.",
+    "Printed-witness limitations remain as recorded.",
+    "The unconfirmed Word paragraph must not be added to the reader without a positive witness.",
+    "Automatic suggested parallels are not promoted to reviewed footnotes."
+  ]
+}

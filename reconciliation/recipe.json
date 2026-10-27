@@ -1,0 +1,327 @@
+{
+  "schemaVersion": 1,
+  "release": "20261027-takanat-part2-reconciliation-r2",
+  "scope": "Isolated review candidate only; no authorization to deploy this un-synchronized package.",
+  "inputSha256": {
+    "library/data/takanat-hashavin/14.json": "0755fc53381f89ab0e121b3e8c3650da8aeaf9dee7c2d4bf94add9cba98bc7dc",
+    "library/data/takanat-hashavin/15.json": "1876f7b04c1e21e37b422715d194594bbc591a6f239d05f4fcb604077435cb3d",
+    "library/index.html": "d5ec73d5982e1a7c4ca4272367e53a573e2bb70223aa9c1ef57d8e96d79d125b"
+  },
+  "quoteDelimiterRepairs": [
+    {
+      "noteId": "TAKANAT-SOURCE-15-1-657-1",
+      "kind": "restore-Hebrew-quotation-delimiters",
+      "before": "א תִנְאָף״ — לֹא תְּהֵא (בְּךָ נִיאוּף) נוֹאֵף, בֵּין בַּיָּד בֵּין בָּרֶגֶל.",
+      "after": "א תִנְאָף״ — לֹא תְּהֵא (בְּךָ נִיאוּף) [נוֹאֵף], בֵּין בַּיָּד בֵּין בָּרֶגֶל.",
+      "basis": "The brackets are present inside lang=he in the saved reviewed quotation. Restore the recorded textual-variant or editorial delimiters; this is not a new certification of the underlying printed witness."
+    },
+    {
+      "noteId": "TAKANAT-SOURCE-15-7-678-1",
+      "kind": "restore-Hebrew-quotation-delimiters",
+      "before": "א תִנְאָף״ — לֹא תְּהֵא (בְּךָ נִיאוּף) נוֹאֵף, בֵּין בַּיָּד בֵּין בָּרֶגֶל.",
+      "after": "א תִנְאָף״ — לֹא תְּהֵא (בְּךָ נִיאוּף) [נוֹאֵף], בֵּין בַּיָּד בֵּין בָּרֶגֶל.",
+      "basis": "The brackets are present inside lang=he in the saved reviewed quotation. Restore the recorded textual-variant or editorial delimiters; this is not a new certification of the underlying printed witness."
+    },
+    {
+      "noteId": "TAKANAT-SOURCE-15-17-710-1",
+      "kind": "restore-Hebrew-quotation-delimiters",
+      "before": "א כְּתִיבָא: \"אַחֲרֵי רַבִּים לְהַטֹּת\" שְׁמוֹת כ״ג:ב׳.",
+      "after": "א כְּתִיבָא: \"אַחֲרֵי רַבִּים לְהַטֹּת\" [שְׁמוֹת כ״ג:ב׳].",
+      "basis": "The brackets are present inside lang=he in the saved reviewed quotation. Restore the recorded textual-variant or editorial delimiters; this is not a new certification of the underlying printed witness."
+    },
+    {
+      "noteId": "TAKANAT-SOURCE-15-18-712-1",
+      "kind": "restore-Hebrew-quotation-delimiters",
+      "before": "לְהִזָּהֵר וְלִבְרֹחַ מִפְּנֵי חֲשָׁד\". נוֹטָה בֵּינֵי / הֶעָרָה: עַיֵּן שַׁבָּת קי״ח עַמּוּד ב׳: אָמַ",
+      "after": "לְהִזָּהֵר וְלִבְרֹחַ מִפְּנֵי חֲשָׁד\". [נוֹטָה בֵּינֵי / הֶעָרָה]: עַיֵּן שַׁבָּת קי״ח עַמּוּד ב׳: אָמַ",
+      "basis": "The brackets are present inside lang=he in the saved reviewed quotation. Restore the recorded textual-variant or editorial delimiters; this is not a new certification of the underlying printed witness."
+    },
+    {
+      "noteId": "TAKANAT-SOURCE-15-18-712-1",
+      "kind": "restore-Hebrew-quotation-delimiters",
+      "before": "ָד\". נוֹטָה בֵּינֵי / הֶעָרָה: עַיֵּן שַׁבָּת קי״ח עַמּוּד ב׳: אָמַר רַבִּי יוֹסֵי: יְהֵא חֶלְקִי מִמ",
+      "after": "ָד\". נוֹטָה בֵּינֵי / הֶעָרָה: עַיֵּן [שַׁבָּת קי״ח עַמּוּד ב׳]: אָמַר רַבִּי יוֹסֵי: יְהֵא חֶלְקִי מִמ",
+      "basis": "The brackets are present inside lang=he in the saved reviewed quotation. Restore the recorded textual-variant or editorial delimiters; this is not a new certification of the underlying printed witness."
+    },
+    {
+      "noteId": "TAKANAT-SOURCE-15-20-717-1",
+      "kind": "restore-Hebrew-quotation-delimiters",
+      "before": "לְהִזָּהֵר וְלִבְרֹחַ מִפְּנֵי חֲשָׁד\". נוֹטָה בֵּינֵי / הֶעָרָה: עַיֵּן שַׁבָּת קי״ח עַמּוּד ב׳: אָמַ",
+      "after": "לְהִזָּהֵר וְלִבְרֹחַ מִפְּנֵי חֲשָׁד\". [נוֹטָה בֵּינֵי / הֶעָרָה]: עַיֵּן שַׁבָּת קי״ח עַמּוּד ב׳: אָמַ",
+      "basis": "The brackets are present inside lang=he in the saved reviewed quotation. Restore the recorded textual-variant or editorial delimiters; this is not a new certification of the underlying printed witness."
+    },
+    {
+      "noteId": "TAKANAT-SOURCE-15-20-717-1",
+      "kind": "restore-Hebrew-quotation-delimiters",
+      "before": "ָד\". נוֹטָה בֵּינֵי / הֶעָרָה: עַיֵּן שַׁבָּת קי״ח עַמּוּד ב׳: אָמַר רַבִּי יוֹסֵי: יְהֵא חֶלְקִי מִמ",
+      "after": "ָד\". נוֹטָה בֵּינֵי / הֶעָרָה: עַיֵּן [שַׁבָּת קי״ח עַמּוּד ב׳]: אָמַר רַבִּי יוֹסֵי: יְהֵא חֶלְקִי מִמ",
+      "basis": "The brackets are present inside lang=he in the saved reviewed quotation. Restore the recorded textual-variant or editorial delimiters; this is not a new certification of the underlying printed witness."
+    },
+    {
+      "noteId": "TAKANAT-SOURCE-15-56-1021-1",
+      "kind": "restore-Hebrew-quotation-delimiters",
+      "before": "יהּ בֵּין שִׁמְשָׁא לְטוּלָּא, (הָהוּא) הָנְהוּ זַהֲרוּרֵי מֵעֵין שׁוּפְרֵיהּ דְּרַבִּי",
+      "after": "יהּ בֵּין שִׁמְשָׁא לְטוּלָּא, (הָהוּא) [הָנְהוּ] זַהֲרוּרֵי מֵעֵין שׁוּפְרֵיהּ דְּרַבִּי",
+      "basis": "The brackets are present inside lang=he in the saved reviewed quotation. Restore the recorded textual-variant or editorial delimiters; this is not a new certification of the underlying printed witness."
+    },
+    {
+      "noteId": "TAKANAT-SOURCE-15-46-855-1",
+      "kind": "restore-Hebrew-quotation-delimiters",
+      "before": "שוך ולא חיישינן שמא יעשה כרות שפכה שהרי גמרא כאן מלו הרבה בימי בן כוזיבא שמשכום באונס בכ",
+      "after": "שוך ולא חיישינן שמא יעשה כרות שפכה שהרי [גמרא כאן] מלו הרבה בימי בן כוזיבא שמשכום באונס בכ",
+      "basis": "The brackets are present inside lang=he in the saved reviewed quotation. Restore the recorded textual-variant or editorial delimiters; this is not a new certification of the underlying printed witness."
+    },
+    {
+      "noteId": "TAKANAT-SOURCE-15-52-953-1",
+      "kind": "restore-Hebrew-quotation-delimiters",
+      "before": "ְגַבַּהּ אֲזַל נָמֵי אִינָשׁ אַחֲרִינָא לְגַבַּהּ! יָצָאת בַּת קוֹל וְאָמְרָה: מִמֶּנִּי ",
+      "after": "ְגַבַּהּ אֲזַל נָמֵי אִינָשׁ אַחֲרִינָא [לְגַבַּהּ]! יָצָאת בַּת קוֹל וְאָמְרָה: מִמֶּנִּי ",
+      "basis": "The brackets are present inside lang=he in the saved reviewed quotation. Restore the recorded textual-variant or editorial delimiters; this is not a new certification of the underlying printed witness."
+    },
+    {
+      "noteId": "TAKANAT-SOURCE-15-53-963-1",
+      "kind": "restore-Hebrew-quotation-delimiters",
+      "before": "וּמַאי אַהְדַּרוּ לֵיהּ חַבְרֵיהּ דְּאִיּוֹב – ״אַף אַתָּה תָּפֵר יִרְאָה, וְתִגְרַע",
+      "after": "וּמַאי אַהְדַּרוּ לֵיהּ חַבְרֵיהּ [דְּאִיּוֹב] – ״אַף אַתָּה תָּפֵר יִרְאָה, וְתִגְרַע",
+      "basis": "The brackets are present inside lang=he in the saved reviewed quotation. Restore the recorded textual-variant or editorial delimiters; this is not a new certification of the underlying printed witness."
+    },
+    {
+      "noteId": "TAKANAT-SOURCE-15-54-981-1",
+      "kind": "restore-Hebrew-quotation-delimiters",
+      "before": "כְּמַה שֶּׁכָּתוּב בִּבְרֵאשִׁית רַבָּה פָּרָשָׁה פה, ח גַּבֵּי יְהוּדָה: זִמֵּן לוֹ הַקָּדוֹשׁ",
+      "after": "כְּמַה שֶּׁכָּתוּב בִּבְרֵאשִׁית רַבָּה [פָּרָשָׁה פה, ח] גַּבֵּי יְהוּדָה: זִמֵּן לוֹ הַקָּדוֹשׁ",
+      "basis": "The brackets are present inside lang=he in the saved reviewed quotation. Restore the recorded textual-variant or editorial delimiters; this is not a new certification of the underlying printed witness."
+    },
+    {
+      "noteId": "TAKANAT-SOURCE-15-55-998-1",
+      "kind": "restore-Hebrew-quotation-delimiters",
+      "before": "ִיִּשַׁי אֲבִי דָוִד דִּמְפָרַשׁ בֵּיהּ קְרָא, דִּכְתִיב: ״וְאֶת עֲמָשָׂא שָׂם אַבְשׁ",
+      "after": "ִיִּשַׁי אֲבִי דָוִד דִּמְפָרַשׁ בֵּיהּ [קְרָא], דִּכְתִיב: ״וְאֶת עֲמָשָׂא שָׂם אַבְשׁ",
+      "basis": "The brackets are present inside lang=he in the saved reviewed quotation. Restore the recorded textual-variant or editorial delimiters; this is not a new certification of the underlying printed witness."
+    },
+    {
+      "noteId": "TAKANAT-SOURCE-15-58-1052-1",
+      "kind": "restore-Hebrew-quotation-delimiters",
+      "before": "גדול - היודע ליזהר שלא ילמוד מעשיו יכול ללמוד תורה מפיו",
+      "after": "גדול - היודע ליזהר [שלא ילמוד] מעשיו יכול ללמוד תורה מפיו",
+      "basis": "The brackets are present inside lang=he in the saved reviewed quotation. Restore the recorded textual-variant or editorial delimiters; this is not a new certification of the underlying printed witness."
+    },
+    {
+      "noteId": "TAKANAT-SOURCE-15-59-1071-1",
+      "kind": "restore-Hebrew-quotation-delimiters",
+      "before": "שעים רנה ואהא מייתי לה בפרק (נגמר הדין) אחד דיני ממונות (דף לז): ושמא תאמר מה לנו לחוב בדמו של זה הרי כ",
+      "after": "שעים רנה ואהא מייתי לה בפרק (נגמר הדין) [אחד דיני ממונות (דף לז)]: ושמא תאמר מה לנו לחוב בדמו של זה הרי כ",
+      "basis": "The brackets are present inside lang=he in the saved reviewed quotation. Restore the recorded textual-variant or editorial delimiters; this is not a new certification of the underlying printed witness."
+    },
+    {
+      "noteId": "TAKANAT-SOURCE-15-67-1118-1",
+      "kind": "restore-Hebrew-quotation-delimiters",
+      "before": "כִּי מְטָא לְפַלְגָא דְּדַרְגָּא אִיפְּשַׁח, רְמָא קָלָא: נוּרָא",
+      "after": "כִּי מְטָא לְפַלְגָא [דְּ]דַרְגָּא אִיפְּשַׁח, רְמָא קָלָא: נוּרָא",
+      "basis": "The brackets are present inside lang=he in the saved reviewed quotation. Restore the recorded textual-variant or editorial delimiters; this is not a new certification of the underlying printed witness."
+    },
+    {
+      "noteId": "TAKANAT-SOURCE-15-75-1175-1",
+      "kind": "restore-Hebrew-quotation-delimiters",
+      "before": "ותם שכפרו בעיקר ושיש בידם חלול השם. אבל שאר רשעים דינם י\"ב חדש. הראב\"ד. וכאשר הגהתי כן נ\"",
+      "after": "ותם שכפרו בעיקר ושיש בידם חלול השם. אבל [שאר רשעים] דינם י\"ב חדש. הראב\"ד. וכאשר הגהתי כן נ\"",
+      "basis": "The brackets are present inside lang=he in the saved reviewed quotation. Restore the recorded textual-variant or editorial delimiters; this is not a new certification of the underlying printed witness."
+    },
+    {
+      "noteId": "TAKANAT-SOURCE-15-76-1182-1",
+      "kind": "restore-Hebrew-quotation-delimiters",
+      "before": "֘וּ־בָ֤ם יְשָׁרִ֨ים ׀ לַבֹּ֗קֶר (וצירם) וְ֭צוּרָם לְבַלּ֥וֹת שְׁא֗וֹל מִזְּבֻ֥ל לֽוֹ׃",
+      "after": "֘וּ־בָ֤ם יְשָׁרִ֨ים ׀ לַבֹּ֗קֶר (וצירם) [וְ֭צוּרָם] לְבַלּ֥וֹת שְׁא֗וֹל מִזְּבֻ֥ל לֽוֹ׃",
+      "basis": "The brackets are present inside lang=he in the saved reviewed quotation. Restore the recorded textual-variant or editorial delimiters; this is not a new certification of the underlying printed witness."
+    },
+    {
+      "noteId": "TAKANAT-SOURCE-15-92-1276-1",
+      "kind": "restore-Hebrew-quotation-delimiters",
+      "before": "ְכַּ֣ב עִמָּ֑הּ וַתֵּ֣לֶד בֵּ֗ן (ויקרא) וַתִּקְרָ֤א אֶת־שְׁמוֹ֙ שְׁלֹמֹ֔ה וַיהֹוָ֖ה אֲהֵבֽו",
+      "after": "ְכַּ֣ב עִמָּ֑הּ וַתֵּ֣לֶד בֵּ֗ן (ויקרא) [וַתִּקְרָ֤א] אֶת־שְׁמוֹ֙ שְׁלֹמֹ֔ה וַיהֹוָ֖ה אֲהֵבֽו",
+      "basis": "The brackets are present inside lang=he in the saved reviewed quotation. Restore the recorded textual-variant or editorial delimiters; this is not a new certification of the underlying printed witness."
+    },
+    {
+      "noteId": "TAKANAT-SOURCE-15-55-1006-1",
+      "kind": "restore-Hebrew-quotation-delimiters",
+      "before": "שֶׁהוּא בַּתּוֹלָדָה כְּמוֹ שֶׁכָּתוּב: \"כִּי יֵצֶר וְגוֹמֵר מִנְּעֻרָיו\", לְכָךְ בִּקֵּשׁ \"לֵב טָהוֹר בְּרָא\", וּבְרִיאָה הוּא חֲדָשָׁה עַתָּה תִצְמַח יֵשׁ מֵאַיִן",
+      "after": "[שֶׁהוּא בַּתּוֹלָדָה כְּמוֹ שֶׁכָּתוּב: \"כִּי יֵצֶר וְגוֹמֵר מִנְּעֻרָיו\", לְכָךְ בִּקֵּשׁ \"לֵב טָהוֹר בְּרָא\", וּבְרִיאָה הוּא חֲדָשָׁה עַתָּה תִצְמַח יֵשׁ מֵאַיִן]",
+      "basis": "Both authorial asides and their boundaries were independently confirmed in Tzidkat HaTzadik 108, Hebrew Lublin 1913 version, retrieved through Sefaria in this reconciliation. The long first aside was omitted by the initial short-span delimiter check. The second opening bracket was missing in the saved expanded quotation. Only brackets are inserted; the saved words, translation, qualification and marker remain unchanged.",
+      "primaryRef": "Tzidkat HaTzadik 108",
+      "primaryUrl": "https://www.sefaria.org/Tzidkat_HaTzadik.108"
+    },
+    {
+      "noteId": "TAKANAT-SOURCE-15-55-1006-1",
+      "kind": "restore-Hebrew-quotation-delimiters",
+      "before": "הַיְינוּ תְּשׁוּבָה, כְּעִנְיַן \"כָּל הַזּוֹבֵחַ יִצְרוֹ וּמִתְוַדֶּה וְכוּלֵי\" (סַנְהֶדְרִין מג רֵישׁ עַמּוּד ב)",
+      "after": "[הַיְינוּ תְּשׁוּבָה, כְּעִנְיַן \"כָּל הַזּוֹבֵחַ יִצְרוֹ וּמִתְוַדֶּה וְכוּלֵי\" (סַנְהֶדְרִין מג רֵישׁ עַמּוּד ב)]",
+      "basis": "Both authorial asides and their boundaries were independently confirmed in Tzidkat HaTzadik 108, Hebrew Lublin 1913 version, retrieved through Sefaria in this reconciliation. The long first aside was omitted by the initial short-span delimiter check. The second opening bracket was missing in the saved expanded quotation. Only brackets are inserted; the saved words, translation, qualification and marker remain unchanged.",
+      "primaryRef": "Tzidkat HaTzadik 108",
+      "primaryUrl": "https://www.sefaria.org/Tzidkat_HaTzadik.108"
+    }
+  ],
+  "entityRepairs": [
+    {
+      "noteId": "TAKANAT-SOURCE-15-11-695-1",
+      "count": 1
+    },
+    {
+      "noteId": "TAKANAT-SOURCE-15-15-704-1",
+      "count": 9
+    },
+    {
+      "noteId": "TAKANAT-SOURCE-15-24-730-1",
+      "count": 1
+    },
+    {
+      "noteId": "TAKANAT-SOURCE-15-26-738-1",
+      "count": 1
+    },
+    {
+      "noteId": "TAKANAT-SOURCE-15-85-1243-1",
+      "count": 3
+    },
+    {
+      "noteId": "TAKANAT-SOURCE-15-85-1245-1",
+      "count": 1
+    },
+    {
+      "noteId": "TAKANAT-SOURCE-15-87-1253-1",
+      "count": 1
+    },
+    {
+      "noteId": "TAKANAT-SOURCE-15-87-1255-1",
+      "count": 1
+    },
+    {
+      "noteId": "TAKANAT-SOURCE-15-95-1295-1",
+      "count": 1
+    },
+    {
+      "noteId": "TAKANAT-SOURCE-15-95-1296-1",
+      "count": 2
+    },
+    {
+      "noteId": "TAKANAT-SOURCE-15-96-1297-1",
+      "count": 2
+    },
+    {
+      "noteId": "TAKANAT-SOURCE-15-96-1302-1",
+      "count": 1
+    },
+    {
+      "noteId": "TAKANAT-SOURCE-15-98-1313-1",
+      "count": 1
+    },
+    {
+      "noteId": "TAKANAT-SOURCE-15-98-1314-1",
+      "count": 1
+    }
+  ],
+  "links": [
+    {
+      "noteId": "TAKANAT-SOURCE-15-1-655-1",
+      "kind": "replace-link",
+      "oldRef": "Takanat HaShavin 13",
+      "oldUrl": "https://www.sefaria.org/Takanat_HaShavin_1:3",
+      "newRef": "Takanat HaShavin 13",
+      "newUrl": "https://www.sefaria.org/Takanat_HaShavin.13",
+      "basis": "The label and author text say Siman 13; the stored URL incorrectly points to 1:3. Chapter 13:1 was retrieved from the primary text in this stage."
+    },
+    {
+      "noteId": "TAKANAT-SOURCE-14-3-640-1",
+      "kind": "replace-link",
+      "oldRef": "Machshavot Charutz 21",
+      "oldUrl": "https://www.sefaria.org/Machshavot_Charutz_21",
+      "newRef": "Machshavot Charutz 21:4",
+      "newUrl": "https://www.sefaria.org/Machshavot_Charutz.21.4",
+      "basis": "Primary paragraph 21:4 contains the quoted binah/teshuvah/kapparah sentence. Keep the saved qualification that it does not prove the adjacency of Hashiveinu and Selach Lanu."
+    },
+    {
+      "noteId": "TAKANAT-SOURCE-14-5-650-1",
+      "kind": "replace-link",
+      "oldRef": "Peri Tzadik, Vayishlach 4",
+      "oldUrl": "https://www.sefaria.org/Peri_Tzadik,_Vayishlach_4",
+      "newRef": "Peri Tzadik, Vayishlach 4:3",
+      "newUrl": "https://www.sefaria.org/Peri_Tzadik,_Vayishlach.4.3",
+      "basis": "Primary paragraph 4:3 contains the gift/separation argument. Keep the saved limit: a conceptual parallel, not a proof of the olah’s halachic atonement."
+    },
+    {
+      "noteId": "TAKANAT-SOURCE-14-4-645-1",
+      "kind": "link-existing-label",
+      "label": "Poked Akarim §4",
+      "newRef": "Poked Akarim 4:8",
+      "newUrl": "https://www.sefaria.org/Poked_Akarim.4.8",
+      "basis": "The newly retrieved primary paragraph distinguishes immediate righteous status from still-outstanding Torah atonement requirements; no change to the saved argument or endpoint."
+    },
+    {
+      "noteId": "TAKANAT-SOURCE-15-107-1368-1",
+      "kind": "link-existing-label",
+      "label": "Mei HaShiloach, Vezos HaBerachah §16",
+      "newRef": "Mei HaShiloach, Volume I, Deuteronomy, V'Zot HaBerachah 16",
+      "newUrl": "https://www.sefaria.org/Mei_HaShiloach%2C_Volume_I%2C_Deuteronomy%2C_V%27Zot_HaBerachah.16",
+      "basis": "The primary paragraph was read in full. It explains divine assistance when human power fails; it does not replace Chullin’s literal treifah ruling. Preserve the endpoint after the completed bitterness/life claim."
+    }
+  ],
+  "newQuotedTranslations": [
+    {
+      "noteId": "TAKANAT-SOURCE-14-5-650-1",
+      "kind": "append-primary-quotation",
+      "ref": "Peri Tzadik, Vayishlach 4:3",
+      "url": "https://www.sefaria.org/Peri_Tzadik,_Vayishlach.4.3",
+      "he": "וע״י המנחה והשלוחים נתבררו שניהם יעקב ועשו שנפרד הרע מהטוב.",
+      "en": "The passage concludes: “Through the gift and the messengers, both Yaakov and Esav were clarified, so that evil was separated from good.”",
+      "basis": "New English translation of the concluding sentence retrieved from the primary Hebrew in this stage; the saved contextual qualification remains unchanged."
+    },
+    {
+      "noteId": "TAKANAT-SOURCE-15-107-1368-1",
+      "kind": "append-primary-quotation",
+      "ref": "Mei HaShiloach, Volume I, Deuteronomy, V'Zot HaBerachah 16",
+      "url": "https://www.sefaria.org/Mei_HaShiloach%2C_Volume_I%2C_Deuteronomy%2C_V%27Zot_HaBerachah.16",
+      "he": "פֵּירוּשׁ הַש״י יִתֵּן יְשׁוּעָה רַק מִצִּדּוֹ אַף שֶׁאֵין לְאֵל יֶדְכֶם לַעֲשׂוֹת מַה, וְהָבֵן.",
+      "en": "Mei HaShiloach states: “That is, Hashem will grant deliverance solely from His side, even though you have no power to do anything yourselves; understand this.”",
+      "basis": "New English translation of the primary Hebrew sentence immediately explaining R’ Zeira’s reassurance. The saved distinction between homily and literal law remains unchanged."
+    }
+  ],
+  "exactPdfUrl": "https://or-breslev.co.il/wp-content/uploads/%D7%AA%D7%95%D7%A1%D7%A4%D7%AA-%D7%99%D7%95%D7%9D-%D7%94%D7%9B%D7%99%D7%A4%D7%95%D7%A8%D7%99%D7%9D-%D7%A8%D7%91%D7%99-%D7%9E%D7%A9%D7%94-%D7%91%D7%9F-%D7%A8%D7%91%D7%99-%D7%A9%D7%9C%D7%9E%D7%94-%D7%90%D7%91%D7%9F-%D7%97%D7%91%D7%99%D7%91.pdf#page=118",
+  "previousAllowedPdfUrl": "https://or-breslev.co.il/wp-content/uploads/%D7%AA%D7%95%D7%A1%D7%A4%D7%AA-%D7%99%D7%95%D7%9D-%D7%94%D7%9B%D7%99%D7%A4%D7%95%D7%A8%D7%99%D7%9D-%D7%A8%D7%91%D7%99-%D7%9E%D7%A9%D7%94-%D7%91%D7%9F-%D7%A8%D7%91%D7%99-%D7%A9%D7%9C%D7%9E%D7%94-%D7%90%D7%91%D7%9F-%D7%97%D7%91%D7%99%D7%91.pdf#page=121",
+  "invariants": [
+    "No Hebrew/English body phrase changes",
+    "No footnote relocation or removal",
+    "No change to completed sections 0–13",
+    "No change to reviewed incoming conceptual records or their unapproved reverse directions",
+    "No Word manuscript changes"
+  ],
+  "limitations": [
+    "This scoped check does not freshly certify every primary quotation among the 766 notes.",
+    "Previously unavailable printed witnesses and the unconfirmed Word paragraph remain qualified.",
+    "Citation indexes, MCP, cache manifests and both downloads must be synchronized and independently tested before a release."
+  ],
+  "excerptBoundaryDecisions": [
+    {
+      "noteKey": "15:27:743:1",
+      "decision": "retain-candidate-cleanup",
+      "kind": "unmatched-closing-bracket-at-excerpt-end",
+      "sourceRef": "Dover Tzedek, Kuntres Ner HaMitzvot 2:36",
+      "savedEnding": "וְאָז שַׁיָּךְ הַתַּעֲנִית]",
+      "acceptedEnding": "וְאָז שַׁיָּךְ הַתַּעֲנִית",
+      "basis": "The saved quote is an excerpt with a closing delimiter but no corresponding opening delimiter within the excerpt. Keep the candidate removal of this lone trailing bracket. No Hebrew word or translation differs. This is an excerpt-formatting decision, not a new certification of the underlying textual witness."
+    },
+    {
+      "noteKey": "15:52:944:1",
+      "decision": "retain-candidate-cleanup",
+      "kind": "unmatched-opening-bracket-at-excerpt-end",
+      "sourceRef": "Tzidkat HaTzadik 132",
+      "savedEnding": "טוב מאד כנודע [",
+      "acceptedEnding": "טוב מאד כנודע",
+      "basis": "The freshly retrieved primary Hebrew continues after this bracket with a separate explanatory aside beginning ולכ״א. That aside is not part of this excerpt. End the excerpt before its opening bracket, without adding or omitting quoted words."
+    },
+    {
+      "noteKey": "15:55:1006:1",
+      "decision": "correct-delimiter-boundaries-only",
+      "kind": "two-authorial-asides",
+      "sourceRef": "Tzidkat HaTzadik 108",
+      "basis": "Restore two balanced authorial asides where the primary Hebrew places them. Do not restore the extraneous closing bracket after the expanded Psalm wording. Preserve the saved explanation that the psalm repairs the covenantal blemish; David’s act is not presented as repairing it."
+    }
+  ]
+}

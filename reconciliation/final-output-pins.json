@@ -1,0 +1,101 @@
+{
+  "release": "20261027-takanat-part2-final-r1",
+  "scope": "Exact final derived outputs; source manuscript and original-note targets are unchanged by synchronization.",
+  "files": [
+    {
+      "path": "library/data/takanat-hashavin/14.json",
+      "bytes": 127859,
+      "sha256": "2810cc660cb98953a12053ef47599216e62b874ec76a09f8f771feb77e49f1ba"
+    },
+    {
+      "path": "library/data/takanat-hashavin/15.json",
+      "bytes": 3486484,
+      "sha256": "3c1829856d5c1ca195ed162501bd3654128a29a6f51ff92ff2f081e7f73897f1"
+    },
+    {
+      "path": "library/data/takanat-hashavin/links.json",
+      "bytes": 345936,
+      "sha256": "3d9814fc0754384bcfe3ad35ba0f54f41cdb541fd100fbb475e275e377e4a478"
+    },
+    {
+      "path": "library/data/cited/machshavot-charutz.json",
+      "bytes": 17783,
+      "sha256": "0b55e7cdba74f08244d2afa9af60e880518f0eba2be7448119a81d8d8aa1398d"
+    },
+    {
+      "path": "library/data/cited/peri-tzadik-vayishlach.json",
+      "bytes": 685,
+      "sha256": "0752f12ca5033aad226891680cb89e74a0b8d5fc95cbe25a45a1af3e423e7038"
+    },
+    {
+      "path": "library/data/cited/poked-akarim.json",
+      "bytes": 1945,
+      "sha256": "c72b14ac42be9d3955ebfa7bca0fe873c5e23b554f900f7361e5d3a38074bf05"
+    },
+    {
+      "path": "library/data/cited/mei-hashiloach-volume-i-deuteronomy-v-zot-haberachah.json",
+      "bytes": 177,
+      "sha256": "7fc403b74af79e9ab3f6c005975cae6d0c86aab1cc9c1af2cd07eb610cf5bfbc"
+    },
+    {
+      "path": "mcp-data/cited.json",
+      "bytes": 2375799,
+      "sha256": "a3176e561e695a8ee7d0ef316a681a0b691f8d721323d22fe83843496406d07a"
+    },
+    {
+      "path": "library/data/packs/sources.json",
+      "bytes": 307991,
+      "sha256": "df904dc67474ac61f4ddb18223de0831eebb5f2f35a27003c03889034fb91236"
+    },
+    {
+      "path": "mcp-data/text/takanat-hashavin.json",
+      "bytes": 5981161,
+      "sha256": "0b4a6b9a7ea368ee48e141905c52e464c5ab953d69e2a09be43170884db9cbfa"
+    },
+    {
+      "path": "library/connected-ideas/catalog.json",
+      "bytes": 7987619,
+      "sha256": "ae81817e0c66d91f09c6e03a6459793ed0d0d54871349098e832a681ecd141cf"
+    },
+    {
+      "path": "library/data/parallels/takanat-hashavin.json",
+      "bytes": 508980,
+      "sha256": "42a016413e01a91c5ce83055647c24a608f757fc4580b5333705a864e8ab59c5"
+    },
+    {
+      "path": "library/index.html",
+      "bytes": 302375,
+      "sha256": "1b678d3e497c1b70399de912b2f25ded019ef8a57b805027cf0402a9c286e9ea"
+    },
+    {
+      "path": "library/sw.js",
+      "bytes": 10760,
+      "sha256": "4dbfaba0e1014a82f35d715b301a921714c609c2296aadc8592a859d12f30e69"
+    },
+    {
+      "path": "library/data/files.json",
+      "bytes": 164111,
+      "sha256": "1b67b163043c519f38ede5f6c9521bc6f67b75e007e3c77c34f7ce31a2072da7"
+    },
+    {
+      "path": "mcp-data/catalog.json",
+      "bytes": 993567,
+      "sha256": "ed31bc0b788624394f979668b3d3a077bae39762c89bb7f6e2dc722696c7a24b"
+    },
+    {
+      "path": "library/downloads/rav-tzadok-library.zip",
+      "bytes": 68438340,
+      "sha256": "18c733580ca467d14a349486f0321e7963ea065f98b69b411910319643329890"
+    },
+    {
+      "path": "library/downloads/books/takanat-hashavin.zip",
+      "bytes": 2481584,
+      "sha256": "501995ae6de0328bab6e7359f5c5f7d29322001c65c0ff1eb0d09d6d093fcc4b"
+    },
+    {
+      "path": "library/downloads/index.json",
+      "bytes": 4102,
+      "sha256": "71db31602f2b1ae91ba3995ad936990135d9fa0e49c78a2d8328958d21f564d0"
+    }
+  ]
+}

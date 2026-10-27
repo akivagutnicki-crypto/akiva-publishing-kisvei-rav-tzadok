@@ -1,7 +1,7 @@
-name: Validate and publish the reviewed Takanas Part 2 continuation
+name: Validate and publish the final Takanas Part 2 edition
 on:
   push:
-    branches: ['main', 'review/takanas-part2-20261027']
+    branches: ['main', 'release/takanas-part2-final-20261027']
   workflow_dispatch:
 permissions:
   contents: read
@@ -13,9 +13,9 @@ concurrency:
   cancel-in-progress: false
 jobs:
   verify-and-publish:
-    if: ${{ github.repository == 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok' && ((github.ref == 'refs/heads/review/takanas-part2-20261027' && contains(github.event.head_commit.message, '[takanat-part2-review]')) || (github.ref == 'refs/heads/main' && contains(github.event.head_commit.message, '[takanat-part2-release]'))) }}
+    if: ${{ github.repository == 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok' && ((github.ref == 'refs/heads/release/takanas-part2-final-20261027' && contains(github.event.head_commit.message, '[takanat-part2-final-check]')) || (github.ref == 'refs/heads/main' && contains(github.event.head_commit.message, '[takanat-part2-release]'))) }}
     runs-on: ubuntu-latest
-    timeout-minutes: 60
+    timeout-minutes: 30
     env:
       TZ: UTC
     environment:
@@ -77,6 +77,20 @@ jobs:
           node scripts/publish-takanat-part2.mjs --apply
           node scripts/publish-takanat-part2.mjs --verify
           node --check dist/library/sw.js
+      - name: Synchronize the tested supplemental corrections and both downloads
+        run: |
+          node scripts/sync-takanat-part2-final.mjs --apply
+          node scripts/sync-takanat-part2-final.mjs --verify
+          node reconciliation/verify_conceptual.mjs "${GITHUB_WORKSPACE}/dist" reconciliation/final-conceptual-verification.json
+          python3 - <<'PYCODE'
+          import hashlib,json,pathlib
+          pins=json.loads(pathlib.Path('reconciliation/final-output-pins.json').read_text())
+          for row in pins['files']:
+              data=(pathlib.Path('dist')/row['path']).read_bytes()
+              assert len(data)==row['bytes'] and hashlib.sha256(data).hexdigest()==row['sha256'],row['path']
+          print('All supplemental derived files match the locally verified output pins.')
+          PYCODE
+          node --check dist/library/sw.js
       - name: Install desktop and mobile browser verification
         run: |
           npm install --no-save --package-lock=false playwright@1.62.1
@@ -87,7 +101,7 @@ jobs:
             npx playwright install --with-deps chromium
           fi
       - name: Check every source quotation and Hebrew endpoint on desktop and phone
-        run: node tests/test-takanat-part2-browser.mjs
+        run: node tests/test-takanat-part2-final-browser.mjs
       - name: Guard the unchanged live predecessor after candidate checks
         env:
           GITHUB_TOKEN: ${{ github.token }}
@@ -113,18 +127,25 @@ jobs:
       - name: Read back every changed live file and verify live reader interactions
         if: github.ref == 'refs/heads/main'
         run: |
-          node scripts/publish-takanat-part2.mjs --live
-          AKIVA_LIVE_URL='https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/' node tests/test-takanat-part2-browser.mjs
+          node scripts/sync-takanat-part2-final.mjs --live
+          AKIVA_LIVE_URL='https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/' node tests/test-takanat-part2-final-browser.mjs
       - name: Preserve the complete verification evidence
         if: always()
         uses: actions/upload-artifact@v4
         with:
-          name: takanat-part2-verification
+          name: takanat-part2-final-verification
           retention-days: 90
           if-no-files-found: warn
           path: |
             takanat-part2-state.json
             takanat-part2-verification.json
             takanat-part2-live-verification.json
+            takanat-part2-final-verification.json
+            takanat-part2-final-live-verification.json
+            reconciliation/
+            scripts/sync-takanat-part2-final.mjs
+            tests/test-takanat-part2-final-browser.mjs
+            dist/library/data/takanat-hashavin/
+            dist/library/downloads/books/takanat-hashavin.zip
             dist/library/takanat-reader-review-20261026.json
             artifacts/takanat-part2/
