@@ -1,0 +1,45 @@
+name: Takanas Part 2 exact primary-source address check
+on:
+  push:
+    branches: ['review/takanas-part2-20261027']
+    paths: ['.github/workflows/takanas-part2-source-check.yml']
+permissions:
+  contents: read
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Fetch exact primary Hebrew references without flattening
+        run: |
+          python3 - <<'PY'
+          import concurrent.futures, hashlib, json, pathlib, time, urllib.request, urllib.parse
+          refs = ['Deuteronomy 28:57','Deuteronomy 5:17','Exodus 20:13','Ezekiel 16:32','Genesis 17:9','Genesis 38:30','Genesis 38:9','Genesis 6:14','II Samuel 12:7','Judges 3:24','Judges 5:27','Kiddushin 21b','Leviticus 18:6','Leviticus 20:10','Machshavot Charutz 15:5','Mishnah Eduyot 5:6-7','Mishneh Torah, Forbidden Intercourse 1:4','Peri Tzadik, Vayetzei 1:1','Sanhedrin 63a',"Sha'ar HaGemul of the Ramban 64",'Shulchan Arukh, Even HaEzer 25','Shulchan Arukh, Even HaEzer 25:2','Shulchan Arukh, Orach Chayim 240','Takanat HaShavin 10:8','Takanat HaShavin 13:1','Takanat HaShavin 15:101','Takanat HaShavin 15:104','Takanat HaShavin 15:109','Takanat HaShavin 15:110','Takanat HaShavin 15:45','Takanat HaShavin 15:99','Takanat HaShavin 6:9']
+          out=pathlib.Path('primary-evidence');out.mkdir()
+          def fetch(ref):
+              url='https://www.sefaria.org/api/v3/texts/'+urllib.parse.quote(ref,safe='')+'?version=source'
+              record={'requestedRef':ref,'requestedUrl':url,'purpose':'address and Hebrew witness check, not a substitute for the saved contextual review'}
+              for attempt in range(3):
+                  try:
+                      req=urllib.request.Request(url,headers={'User-Agent':'Akiva-Publishing-source-verification/1.0','Accept':'application/json'})
+                      with urllib.request.urlopen(req,timeout=60) as r:
+                          data=r.read(); record['httpStatus']=r.status
+                      record['responseSha256']=hashlib.sha256(data).hexdigest();record['response']=json.loads(data)
+                      break
+                  except Exception as e:
+                      record['error']=str(e);time.sleep(2*(attempt+1))
+              file=urllib.parse.quote(ref,safe='')+'.json'
+              text=json.dumps(record,ensure_ascii=False,indent=2)
+              (out/file).write_text(text)
+              result={'requestedRef':ref,'file':file,'sha256':hashlib.sha256(text.encode()).hexdigest(),'returnedRef':record.get('response',{}).get('ref'),'error':record.get('error')}
+              print(json.dumps(result));return result
+          with concurrent.futures.ThreadPoolExecutor(max_workers=3) as pool:
+              rows=list(pool.map(fetch,refs))
+          (out/'manifest.json').write_text(json.dumps({'mode':'read only; unresolved references must remain qualified','results':rows},indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: takanas-part2-primary-address-evidence
+          path: primary-evidence/
+          if-no-files-found: error
+          retention-days: 60
