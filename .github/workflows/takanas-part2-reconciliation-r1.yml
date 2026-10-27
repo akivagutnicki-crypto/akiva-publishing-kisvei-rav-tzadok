@@ -1,0 +1,115 @@
+name: Takanas Part 2 scoped reconciliation - no deployment
+on:
+  push:
+    branches: ['review/takanas-part2-reconciliation-r1']
+    paths: ['.github/workflows/takanas-part2-reconciliation-r1.yml']
+permissions:
+  contents: read
+  actions: read
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      TZ: UTC
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 24
+      - name: Recover the exact locally tested supplemental recipes
+        env:
+          TRANSFER_URL: 'https://sdmntprsoutheastus3.oaiusercontent.com/files/00000000-0a18-820c-b72a-64088ffb2639/raw?se=2026-10-27T22%3A04%3A21Z&sp=r&sv=2026-02-06&sr=b&scid=9619b4ab-c186-5c4b-b0bb-d78698dbc78d&skoid=db055408-822b-485f-92f8-bfeb3ea92408&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-10-27T15%3A52%3A07Z&ske=2026-10-28T15%3A52%3A07Z&sks=b&skv=2026-02-06&sig=tDRYFEFA4YqSFnShk1kvMgBpBdhG7epkDAu9Suu9kGg%3D'
+        run: |
+          python3 - <<'PY'
+          import hashlib,io,json,os,pathlib,urllib.request,zipfile
+          with urllib.request.urlopen(os.environ['TRANSFER_URL'],timeout=60) as r: data=r.read()
+          assert len(data)==13421 and hashlib.sha256(data).hexdigest()=='89f26d8d8b0795e9067b20577132e13f17e7abb649254276d3602ccfe5d6befe'
+          pathlib.Path('reconciliation-inputs.zip').write_bytes(data)
+          allowed={'reconciliation/apply_reconciliation.py','reconciliation/recipe.json','reconciliation/verify_conceptual.mjs','tests/test-takanat-part2-reconciled-browser.mjs'}
+          with zipfile.ZipFile(io.BytesIO(data)) as z:
+              m=json.loads(z.read('manifest.json'))
+              assert set(z.namelist())==allowed|{'manifest.json'}
+              assert {row['path'] for row in m['files']}==allowed
+              for row in m['files']:
+                  b=z.read(row['path']); assert len(b)==row['bytes'] and hashlib.sha256(b).hexdigest()==row['sha256']
+                  p=pathlib.Path(row['path']);p.parent.mkdir(parents=True,exist_ok=True);p.write_bytes(b)
+          PY
+      - name: Guard the current published predecessor
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/publish-takanat-part2.mjs --metadata
+      - uses: actions/download-artifact@v4
+        with:
+          artifact-ids: '12646002468'
+          run-id: '40313998578'
+          repository: akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok
+          github-token: ${{ github.token }}
+          path: baseline
+          merge-multiple: true
+      - name: Restore every existing published file
+        run: |
+          python3 - <<'PY'
+          import pathlib,tarfile
+          root=pathlib.Path('dist').resolve();root.mkdir()
+          with tarfile.open('baseline/artifact.tar','r:') as t:
+              members=t.getmembers()
+              for m in members:
+                  target=(root/m.name).resolve()
+                  assert target==root or root in target.parents
+                  assert m.isfile() or m.isdir()
+              t.extractall(root,members=members,filter='data')
+          PY
+      - name: Rebuild and authenticate the exact prior Part 2 candidate
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          node scripts/publish-takanat-part2.mjs --capture
+          node scripts/publish-takanat-part2.mjs --apply
+          node scripts/publish-takanat-part2.mjs --verify
+          python3 - <<'PY'
+          import hashlib,json,pathlib
+          root=pathlib.Path('dist')
+          rows={str(p.relative_to(root)):hashlib.sha256(p.read_bytes()).hexdigest() for p in root.rglob('*') if p.is_file()}
+          pathlib.Path('reconciliation/prior-candidate-files.json').write_text(json.dumps(rows,sort_keys=True))
+          PY
+      - name: Apply only the scoped quotation and source-link repairs
+        run: |
+          python3 reconciliation/apply_reconciliation.py --root dist --recipe reconciliation/recipe.json --report reconciliation/reconciliation-applied.json
+          python3 - <<'PY'
+          import hashlib,json,pathlib
+          expected={'library/data/takanat-hashavin/14.json':'2810cc660cb98953a12053ef47599216e62b874ec76a09f8f771feb77e49f1ba','library/data/takanat-hashavin/15.json':'d673603173b25033474e06004df0cc32356b05a8ace2af48b3f16d4b395e61ce','library/index.html':'b9e9f594708624e21d1307610853182c73a59e608321bb7f779c139a6caef619'}
+          before=json.loads(pathlib.Path('reconciliation/prior-candidate-files.json').read_text())
+          root=pathlib.Path('dist'); after={str(p.relative_to(root)):hashlib.sha256(p.read_bytes()).hexdigest() for p in root.rglob('*') if p.is_file()}
+          assert set(before)==set(after)
+          for p,h in after.items():assert h==expected.get(p,before[p]),p
+          pathlib.Path('reconciliation/preservation.json').write_text(json.dumps({'ok':True,'changedFiles':expected,'unchangedFiles':len(before)-3,'noDeployment':True},indent=2))
+          PY
+          node reconciliation/verify_conceptual.mjs "${GITHUB_WORKSPACE}/dist" reconciliation/conceptual-quotation-reconciliation.json
+      - name: Set up browser verification
+        run: |
+          npm install --no-save --package-lock=false playwright@1.62.1
+          browser_candidate="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || true)"
+          if [ -n "$browser_candidate" ]; then
+            printf 'AKIVA_CHROMIUM_EXECUTABLE=%s\n' "$browser_candidate" >> "$GITHUB_ENV"
+          else
+            npx playwright install --with-deps chromium
+          fi
+      - name: Check all sixteen sections and all 766 Part 2 markers on desktop and phone
+        run: node tests/test-takanat-part2-reconciled-browser.mjs
+      - name: Preserve the scoped repair and validation evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: takanas-part2-reconciliation-r1
+          retention-days: 90
+          if-no-files-found: warn
+          path: |
+            reconciliation-inputs.zip
+            reconciliation/
+            tests/test-takanat-part2-reconciled-browser.mjs
+            takanat-part2-verification.json
+            artifacts/takanat-part2/
+            dist/library/data/takanat-hashavin/14.json
+            dist/library/data/takanat-hashavin/15.json
+            dist/library/index.html
