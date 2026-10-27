@@ -1,0 +1,130 @@
+name: Validate and publish the reviewed Takanas Part 2 continuation
+on:
+  push:
+    branches: ['main', 'review/takanas-part2-20261027']
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+  pages: write
+  id-token: write
+concurrency:
+  group: ${{ contains(github.event.head_commit.message, '[takanat-part2-release]') && 'pages' || format('takanat-part2-review-{0}', github.run_id) }}
+  cancel-in-progress: false
+jobs:
+  verify-and-publish:
+    if: ${{ github.repository == 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok' && ((github.ref == 'refs/heads/review/takanas-part2-20261027' && contains(github.event.head_commit.message, '[takanat-part2-review]')) || (github.ref == 'refs/heads/main' && contains(github.event.head_commit.message, '[takanat-part2-release]'))) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      TZ: UTC
+    environment:
+      name: ${{ github.ref == 'refs/heads/main' && 'github-pages' || 'takanat-part2-review' }}
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout the sealed continuation
+        uses: actions/checkout@v6
+      - name: Set up Node
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - name: Authenticate all transport chunks and current publication
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PYCODE'
+          import base64,hashlib,json,pathlib
+          p=pathlib.Path('sources/akiva/overlays/takanat-part2-20261027')
+          m=json.loads((p/'transport-checksums.json').read_text())
+          assert len(m['chunks'])==49
+          for x in m['chunks']:
+              b=(p/x['path']).read_bytes()
+              assert len(b)==x['bytes'] and hashlib.sha256(b).hexdigest()==x['sha256'],x['path']
+          data=base64.b64decode(''.join((p/x['path']).read_text().strip() for x in m['chunks']))
+          assert len(data)==295404 and hashlib.sha256(data).hexdigest()=='9993c31a709d4c2165d07e4215d0912e4052d784790dbc4c754c2e3b2326c4e9'
+          PYCODE
+          node scripts/publish-takanat-part2.mjs --metadata
+      - name: Restore the complete verified predecessor artifact
+        uses: actions/download-artifact@v4
+        with:
+          artifact-ids: '12646002468'
+          run-id: '40313998578'
+          repository: akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/takanat-part2-baseline
+          merge-multiple: true
+      - name: Capture and guard every published file
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PYCODE'
+          import os,pathlib,shutil,tarfile
+          root=pathlib.Path('dist').resolve()
+          if root.exists():shutil.rmtree(root)
+          root.mkdir()
+          archive=pathlib.Path(os.environ['RUNNER_TEMP'])/'takanat-part2-baseline/artifact.tar'
+          with tarfile.open(archive,'r:') as source:
+              members=source.getmembers()
+              for member in members:
+                  target=(root/member.name).resolve()
+                  assert target==root or root in target.parents,'Unsafe artifact path'
+                  assert member.isdir() or member.isfile(),'Unexpected artifact link'
+              source.extractall(root,members=members,filter='data')
+          PYCODE
+          node scripts/publish-takanat-part2.mjs --capture
+      - name: Apply only the sealed corrections and synchronize both downloads
+        run: |
+          node scripts/publish-takanat-part2.mjs --apply
+          node scripts/publish-takanat-part2.mjs --verify
+          node --check dist/library/sw.js
+      - name: Install desktop and mobile browser verification
+        run: |
+          npm install --no-save --package-lock=false playwright@1.62.1
+          browser_candidate="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || true)"
+          if [ -n "$browser_candidate" ]; then
+            printf 'AKIVA_CHROMIUM_EXECUTABLE=%s\n' "$browser_candidate" >> "$GITHUB_ENV"
+          else
+            npx playwright install --with-deps chromium
+          fi
+      - name: Check every source quotation and Hebrew endpoint on desktop and phone
+        run: node tests/test-takanat-part2-browser.mjs
+      - name: Guard the unchanged live predecessor after candidate checks
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/publish-takanat-part2.mjs --guard
+      - name: Configure Pages for the authorized main-branch release
+        if: github.ref == 'refs/heads/main'
+        uses: actions/configure-pages@v5
+      - name: Upload the complete preserved publication
+        if: github.ref == 'refs/heads/main'
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ./dist
+          retention-days: 14
+      - name: Recheck the main branch and predecessor immediately before deployment
+        if: github.ref == 'refs/heads/main'
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/publish-takanat-part2.mjs --guard
+      - name: Publish the reviewed Takanas Part 2 continuation
+        if: github.ref == 'refs/heads/main'
+        id: deployment
+        uses: actions/deploy-pages@v4
+      - name: Read back every changed live file and verify live reader interactions
+        if: github.ref == 'refs/heads/main'
+        run: |
+          node scripts/publish-takanat-part2.mjs --live
+          AKIVA_LIVE_URL='https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/' node tests/test-takanat-part2-browser.mjs
+      - name: Preserve the complete verification evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: takanat-part2-verification
+          retention-days: 90
+          if-no-files-found: warn
+          path: |
+            takanat-part2-state.json
+            takanat-part2-verification.json
+            takanat-part2-live-verification.json
+            dist/library/takanat-reader-review-20261026.json
+            artifacts/takanat-part2/
