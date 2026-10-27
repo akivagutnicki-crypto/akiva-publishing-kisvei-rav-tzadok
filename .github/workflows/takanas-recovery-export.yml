@@ -1,0 +1,67 @@
+name: Takanas recovery source export (no deployment)
+
+on:
+  push:
+    branches: ['recovery/takanas-transfer-20261027']
+    paths: ['.github/workflows/takanas-recovery-export.yml']
+
+permissions:
+  contents: read
+
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Read the pinned published source commit
+        uses: actions/checkout@v6
+        with:
+          ref: d37cc829c38128f120f2a071b82e22af6727ea7c
+          persist-credentials: false
+      - name: Package existing source files and immutable fingerprints
+        shell: bash
+        run: |
+          python3 - <<'PY'
+          import hashlib, json, pathlib, subprocess, zipfile
+          base = 'd37cc829c38128f120f2a071b82e22af6727ea7c'
+          assert subprocess.check_output(['git','rev-parse','HEAD'],text=True).strip() == base
+          out = pathlib.Path('recovery-export'); out.mkdir()
+          rows = []
+          text_ext = {'.json','.js','.mjs','.cjs','.ts','.tsx','.html','.css','.md','.txt','.yml','.yaml','.py','.sh','.toml'}
+          raw = subprocess.check_output(['git','ls-tree','-r','-z',base])
+          with zipfile.ZipFile(out/'repository-source.zip','w',zipfile.ZIP_DEFLATED,compresslevel=6) as archive:
+              for item in raw.split(b'\0'):
+                  if not item: continue
+                  meta, pathb = item.split(b'\t',1)
+                  mode, kind, blob = meta.decode().split()
+                  p = pathb.decode('utf-8')
+                  if kind != 'blob': continue
+                  chosen = (p.startswith(('scripts/','.github/workflows/','cloudflare/'))
+                            or 'takanat' in p.lower() or 'takanas' in p.lower()
+                            or (p.startswith('library/') and pathlib.Path(p).suffix in text_ext)
+                            or ('/' not in p and pathlib.Path(p).suffix in text_ext))
+                  if not chosen: continue
+                  data = subprocess.check_output(['git','show',base+':'+p])
+                  actual = hashlib.sha1(b'blob '+str(len(data)).encode()+b'\0'+data).hexdigest()
+                  assert actual == blob, p
+                  archive.writestr(p, data)
+                  rows.append({'path':p,'gitBlobSha':blob,'sha256':hashlib.sha256(data).hexdigest(),'bytes':len(data),'mode':mode})
+              manifest = {'purpose':'read-only recovery export; no deployment', 'commit':base,
+                          'tree':subprocess.check_output(['git','rev-parse',base+'^{tree}'],text=True).strip(),
+                          'fileCount':len(rows),'files':rows,
+                          'limitations':['Local-only Work prototype 2b7d97f is not part of this repository commit.','Complete live Pages artifact is separate and must be restored by the publishing workflow before any deployment.']}
+              text = json.dumps(manifest,ensure_ascii=False,indent=2)
+              archive.writestr('RECOVERY_SOURCE_MANIFEST.json',text)
+              (out/'RECOVERY_SOURCE_MANIFEST.json').write_text(text)
+          data = (out/'repository-source.zip').read_bytes()
+          (out/'repository-source.zip.sha256').write_text(hashlib.sha256(data).hexdigest()+'  repository-source.zip\n')
+          print(json.dumps({'commit':base,'files':len(rows),'zipBytes':len(data),'sha256':hashlib.sha256(data).hexdigest()}))
+          PY
+      - name: Save recovery source package
+        uses: actions/upload-artifact@v4
+        with:
+          name: takanas-recovery-source
+          path: recovery-export/
+          if-no-files-found: error
+          retention-days: 30
+          compression-level: 0
