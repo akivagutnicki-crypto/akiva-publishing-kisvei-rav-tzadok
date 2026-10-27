@@ -1,0 +1,74 @@
+name: Read-only Takanas Part 2 baseline export
+on:
+  push:
+    branches: ['review/takanas-part2-20261027']
+    paths: ['.github/workflows/takanas-part2-baseline-export.yml']
+permissions:
+  contents: read
+  actions: read
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          artifact-ids: '12646002468'
+          run-id: '40313998578'
+          repository: akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok
+          github-token: ${{ github.token }}
+          path: baseline
+          merge-multiple: true
+      - name: Fingerprint every published file and export testing inputs
+        run: |
+          python3 - <<'PY'
+          import tarfile,pathlib,hashlib,json,zipfile,shutil
+          out=pathlib.Path('baseline-export');out.mkdir()
+          inv=[];totals={}
+          with tarfile.open('baseline/artifact.tar','r:') as t, zipfile.ZipFile(out/'reader-baseline.zip','w',zipfile.ZIP_DEFLATED,compresslevel=6) as z, zipfile.ZipFile(out/'downloads-baseline.zip','w',zipfile.ZIP_STORED) as d:
+              for m in t:
+                  p=pathlib.PurePosixPath(m.name)
+                  assert not p.is_absolute() and '..' not in p.parts
+                  assert m.isfile() or m.isdir(), m.name
+                  if not m.isfile():continue
+                  n=str(p);f=t.extractfile(m);data=f.read();digest=hashlib.sha256(data).hexdigest()
+                  inv.append({'path':n,'bytes':len(data),'sha256':digest})
+                  if n in ['library/downloads/rav-tzadok-library.zip','library/downloads/books/takanat-hashavin.zip']:
+                      d.writestr(n,data)
+                  elif n.startswith(('library/','mcp-data/')) and p.suffix.lower() in {'.json','.js','.css','.html','.svg','.ico','.png','.woff','.woff2','.ttf','.webmanifest'}:
+                      z.writestr(n,data)
+          metadata={'purpose':'read-only exact published preimage; no site mutation','artifactId':12646002468,'runId':40313998578,'sourceCommit':'d37cc829c38128f120f2a071b82e22af6727ea7c','files':inv}
+          (out/'complete-publication-inventory.json').write_text(json.dumps(metadata,indent=2))
+          for p in list(out.glob('*.zip')):
+              totals[p.name]={'bytes':p.stat().st_size,'sha256':hashlib.sha256(p.read_bytes()).hexdigest()}
+              if p.stat().st_size>450*1024*1024:
+                  with p.open('rb') as src:
+                      i=0
+                      while True:
+                          b=src.read(300*1024*1024)
+                          if not b:break
+                          (out/(p.name+f'.part{i:02}')).write_bytes(b);i+=1
+                  p.unlink()
+          (out/'export-hashes.json').write_text(json.dumps(totals,indent=2))
+          print(json.dumps({'files':len(inv),'publishedBytes':sum(x['bytes'] for x in inv),'exports':totals},indent=2))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: takanas-part2-baseline-metadata
+          path: baseline-export/*.json
+          if-no-files-found: error
+          retention-days: 30
+      - uses: actions/upload-artifact@v4
+        with:
+          name: takanas-part2-reader-baseline
+          path: baseline-export/reader-baseline.zip
+          if-no-files-found: warn
+          retention-days: 30
+          compression-level: 0
+      - uses: actions/upload-artifact@v4
+        with:
+          name: takanas-part2-downloads-baseline
+          path: baseline-export/downloads-baseline.zip
+          if-no-files-found: warn
+          retention-days: 30
+          compression-level: 0
