@@ -1,0 +1,38 @@
+name: Takanas Part 2 reference dependency export
+on:
+  push:
+    branches: ['review/takanas-part2-20261027']
+    paths: ['.github/workflows/takanas-part2-reference-export.yml']
+permissions:
+  contents: read
+jobs:
+  export:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: d37cc829c38128f120f2a071b82e22af6727ea7c
+          persist-credentials: false
+      - name: Verify and export original reference dependencies
+        run: |
+          python3 - <<'PY'
+          import pathlib,hashlib,json,subprocess,zipfile
+          out=pathlib.Path('dependency-export');out.mkdir()
+          rows=[];base='d37cc829c38128f120f2a071b82e22af6727ea7c'
+          with zipfile.ZipFile(out/'dependencies.zip','w',zipfile.ZIP_DEFLATED) as z:
+              for item in subprocess.check_output(['git','ls-tree','-r','-z',base]).split(b'\0'):
+                  if not item:continue
+                  meta,pb=item.split(b'\t',1);mode,kind,blob=meta.decode().split();p=pb.decode()
+                  if kind!='blob' or not p.startswith(('sources/akiva/references/','sources/tanakh/')):continue
+                  data=subprocess.check_output(['git','show',base+':'+p]);assert hashlib.sha1(b'blob '+str(len(data)).encode()+b'\0'+data).hexdigest()==blob
+                  z.writestr(p,data);rows.append({'path':p,'gitBlob':blob,'sha256':hashlib.sha256(data).hexdigest(),'bytes':len(data)})
+              z.writestr('dependency-manifest.json',json.dumps({'commit':base,'files':rows},indent=2))
+          print(len(rows))
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: takanas-part2-reference-dependencies
+          path: dependency-export/dependencies.zip
+          retention-days: 60
+          if-no-files-found: error
+          compression-level: 0
