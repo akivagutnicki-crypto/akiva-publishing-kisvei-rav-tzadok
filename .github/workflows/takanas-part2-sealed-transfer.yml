@@ -1,0 +1,49 @@
+name: Import sealed Part 2 publication payload
+on:
+  push:
+    branches: ['review/takanas-part2-20261027']
+    paths: ['.github/workflows/takanas-part2-sealed-transfer.yml']
+permissions:
+  contents: write
+jobs:
+  transfer:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: review/takanas-part2-20261027
+      - name: Import only the exact publication payload
+        env:
+          TRANSFER_URL: 'https://sdmntprsoutheastus3.oaiusercontent.com/files/00000000-3d78-820c-b224-00295da72375/raw?se=2026-10-27T20%3A02%3A52Z&sp=r&sv=2026-02-06&sr=b&scid=f3a08e5d-4865-5941-a97c-f3c95d6aa1e7&skoid=db055408-822b-485f-92f8-bfeb3ea92408&sktid=a48cca56-e6da-484e-a814-9c849652bcb3&skt=2026-10-27T11%3A48%3A17Z&ske=2026-10-28T11%3A48%3A17Z&sks=b&skv=2026-02-06&sig=NNPEZSPkLXhAzhAOq/mW4tC9LXv56YyOrUlZnXHqcbw%3D'
+        run: |
+          python3 - <<'PY'
+          import base64, hashlib, json, os, pathlib, urllib.request
+          expected='9993c31a709d4c2165d07e4215d0912e4052d784790dbc4c754c2e3b2326c4e9'
+          with urllib.request.urlopen(os.environ['TRANSFER_URL'],timeout=60) as response:
+              data=response.read()
+          assert len(data)==295404
+          assert hashlib.sha256(data).hexdigest()==expected, 'Transfer checksum mismatch; refusing import'
+          directory=pathlib.Path('sources/akiva/overlays/takanat-part2-20261027')
+          directory.mkdir(parents=True,exist_ok=True)
+          encoded=base64.b64encode(data).decode('ascii')
+          rows=[]
+          for index,start in enumerate(range(0,len(encoded),8192)):
+              p=directory/f'chunk-{index:03}.b64'
+              b=(encoded[start:start+8192]+'\n').encode('ascii')
+              p.write_bytes(b)
+              rows.append({'path':p.name,'bytes':len(b),'sha256':hashlib.sha256(b).hexdigest()})
+          assert len(rows)==49
+          recovered=base64.b64decode(''.join((directory/row['path']).read_text().strip() for row in rows))
+          assert recovered==data
+          (directory/'transport-checksums.json').write_text(json.dumps({'compressedBytes':len(data),'sha256':expected,'chunks':rows},indent=2)+'\n')
+          print('Verified and imported all 49 chunks; complete payload SHA256 '+expected)
+          PY
+      - name: Commit the verified bytes to the review branch only
+        run: |
+          test "${GITHUB_REF}" = refs/heads/review/takanas-part2-20261027
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add sources/akiva/overlays/takanat-part2-20261027/
+          git commit -m 'Store checksum-verified Part 2 publication payload; not a deployment'
+          git push origin HEAD:refs/heads/review/takanas-part2-20261027
