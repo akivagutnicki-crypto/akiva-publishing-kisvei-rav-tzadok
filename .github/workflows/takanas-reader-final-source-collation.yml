@@ -1,0 +1,38 @@
+name: Takanas HaShavin - Final Source Collation Reader Candidate
+
+on:
+  push:
+    branches:
+      - audit/takanas-1-13-final-source-collated-2026-10-29
+    paths:
+      - editorial/takanas-reader-source-collation-pass.py
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  validate-and-package:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Apply source checked corrections, structural validation, and make Reader ZIP
+        run: python3 editorial/takanas-reader-source-collation-pass.py
+      - name: Commit corrected JSON, audit report, and synchronized source ZIP
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add sources/akiva/Takanat_HaShavin.json editorial/takanas-reader-final-applied-audit.json editorial/Takanas_HaShavin_Reader_1-13_GitHub_Source_UPLOAD_CANDIDATE.zip
+          git commit -m "Finalize additional source-collated Reader footnotes 1-13 on audit branch"
+          git push origin "HEAD:${GITHUB_REF_NAME}"
+      - name: Upload full Reader JSON and ZIP
+        uses: actions/upload-artifact@v4
+        with:
+          name: Takanas-HaShavin-1-13-Final-Source-Collated-Upload
+          retention-days: 90
+          path: |
+            sources/akiva/Takanat_HaShavin.json
+            editorial/takanas-reader-final-applied-audit.json
+            editorial/Takanas_HaShavin_Reader_1-13_GitHub_Source_UPLOAD_CANDIDATE.zip
