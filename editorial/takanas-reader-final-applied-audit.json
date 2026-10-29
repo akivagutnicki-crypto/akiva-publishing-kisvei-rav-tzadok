@@ -1,6 +1,6 @@
 {
   "original_blob_sha": "000c9e967b6421e80489cd39ab852e562578ca83",
-  "edited_notes": 21,
+  "edited_notes": 29,
   "operations": [
     [
       "text",
@@ -191,92 +191,153 @@
       "Viduy discussion developed"
     ]
   ],
-  "counts": [
-    {
-      "section": 0,
+  "counts": {
+    "0": {
       "markers": 6,
-      "hebrew_markers": 0
+      "hebrew_side": 0
     },
-    {
-      "section": 1,
+    "1": {
       "markers": 43,
-      "hebrew_markers": 0
+      "hebrew_side": 0
     },
-    {
-      "section": 2,
+    "2": {
       "markers": 72,
-      "hebrew_markers": 0
+      "hebrew_side": 0
     },
-    {
-      "section": 3,
+    "3": {
       "markers": 76,
-      "hebrew_markers": 0
+      "hebrew_side": 0
     },
-    {
-      "section": 4,
+    "4": {
       "markers": 32,
-      "hebrew_markers": 0
+      "hebrew_side": 0
     },
-    {
-      "section": 5,
+    "5": {
       "markers": 127,
-      "hebrew_markers": 7
+      "hebrew_side": 7
     },
-    {
-      "section": 6,
+    "6": {
       "markers": 763,
-      "hebrew_markers": 24
+      "hebrew_side": 24
     },
-    {
-      "section": 7,
+    "7": {
       "markers": 47,
-      "hebrew_markers": 0
+      "hebrew_side": 0
     },
-    {
-      "section": 8,
+    "8": {
       "markers": 56,
-      "hebrew_markers": 0
+      "hebrew_side": 0
     },
-    {
-      "section": 9,
+    "9": {
       "markers": 50,
-      "hebrew_markers": 0
+      "hebrew_side": 0
     },
-    {
-      "section": 10,
+    "10": {
       "markers": 372,
-      "hebrew_markers": 0
+      "hebrew_side": 0
     },
-    {
-      "section": 11,
+    "11": {
       "markers": 85,
-      "hebrew_markers": 0
+      "hebrew_side": 0
     },
-    {
-      "section": 12,
+    "12": {
       "markers": 130,
-      "hebrew_markers": 0
+      "hebrew_side": 0
     },
-    {
-      "section": 13,
+    "13": {
       "markers": 38,
-      "hebrew_markers": 0
+      "hebrew_side": 0
     },
-    {
-      "section": 14,
+    "14": {
       "markers": 26,
-      "hebrew_markers": 0
+      "hebrew_side": 0
     },
-    {
-      "section": 15,
+    "15": {
       "markers": 750,
-      "hebrew_markers": 4
+      "hebrew_side": 4
     }
-  ],
-  "output_sha256": "f49e80f72dd02546e8ce503c97b1fe0598010040a043a8b7422a20f65dde3e07",
+  },
+  "output_sha256": "bea64136f6cdfbcce4d41098ea92715be6f1f42554872f02d59401d6c68d5958",
   "warnings": [
     "186 clusters need additional scholarly review",
     "Simanim 10-13 preserved as live, not replaced from archives",
     "Independent source certification remains incomplete"
-  ]
+  ],
+  "previous_verified_source_blob_sha": "c1d72d84f244fdb85ae8276891c55cba262cc048",
+  "additional_source_collations": [
+    {
+      "siman": 2,
+      "note": "108",
+      "reason": "Distinguish the standard Koheles Rabbah wording from Rav Tzadok's reported textual variant",
+      "before_chars": 482,
+      "after_chars": 455
+    },
+    {
+      "siman": 3,
+      "note": "124",
+      "reason": "Distinguish II Divrei HaYamim 33:13 from the Sanhedrin 103a derashah",
+      "before_chars": 2168,
+      "after_chars": 2229
+    },
+    {
+      "siman": 3,
+      "note": "128",
+      "reason": "Differentiate Yerushalmi Makkos standard text from Yalkut Shimoni variant",
+      "before_chars": 384,
+      "after_chars": 598
+    },
+    {
+      "siman": 3,
+      "note": "134",
+      "reason": "Preserve authentic long original quote, now located precisely",
+      "before_chars": 672,
+      "after_chars": 694
+    },
+    {
+      "siman": 3,
+      "note": "165",
+      "reason": "Correct precise original Rav Tzadok work/paragraph",
+      "before_chars": 525,
+      "after_chars": 552
+    },
+    {
+      "siman": 3,
+      "note": "180",
+      "reason": "Precise verified source locator",
+      "before_chars": 776,
+      "after_chars": 777
+    },
+    {
+      "siman": 3,
+      "note": "184",
+      "reason": "Retain authentic original Rav Tzadok text, with exact location",
+      "before_chars": 579,
+      "after_chars": 604
+    },
+    {
+      "siman": 3,
+      "note": "194",
+      "reason": "Correct attribution of Moshe/Yeshayahu/Menasheh interpretation",
+      "before_chars": 608,
+      "after_chars": 619
+    }
+  ],
+  "source_collations_independently_checked_this_pass": [
+    "Koheles Rabbah 1:13",
+    "II Chronicles 33:13",
+    "Sanhedrin 103a",
+    "Yerushalmi Makkot 2:6:9",
+    "Yalkut Shimoni Nach 358:1",
+    "Dover Tzedek Miscellany 1:11",
+    "Dover Tzedek Miscellany 4:120",
+    "Ohr Zarua LaTzadik Large Beis and Small Beis 2",
+    "Poked Akarim 2:7",
+    "Pri Tzaddik Kedushas Shabbos 7:1"
+  ],
+  "total_operation_count": 36,
+  "output_git_blob_sha": "d8258c053e6cad0274f1fa7f199756a66bc4f0b4",
+  "validated_english_hebrew_pairs": 5510,
+  "main_branch_unchanged": true,
+  "all_notes_independently_source_certified": false,
+  "outstanding_cluster_locations_1_9": 186
 }
