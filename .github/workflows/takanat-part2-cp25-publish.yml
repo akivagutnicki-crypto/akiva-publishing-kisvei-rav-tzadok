@@ -64,6 +64,7 @@ jobs:
           browser_candidate="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || true)"
           if [ -n "$browser_candidate" ]; then
             printf 'AKIVA_CHROMIUM_EXECUTABLE=%s\n' "$browser_candidate" >> "$GITHUB_ENV"
+            export AKIVA_CHROMIUM_EXECUTABLE="$browser_candidate"
           else
             npx playwright install --with-deps chromium
           fi
