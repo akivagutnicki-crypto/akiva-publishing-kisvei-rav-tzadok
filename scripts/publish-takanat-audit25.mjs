@@ -95,6 +95,20 @@ function apply(){
  const{sections,report:prior}=snapshot(pack),baseline=inventory(ROOT);
  const prepared={pack:{sections,publicationBaseSections:sections.map(s=>s.before),upgradeFromPackSha256:PREVIOUS_PACK,excludedSectionIds:Array.from({length:14},(_,i)=>i)},packSha256:expectedSHA,counts:{originalDecisions:776,nativeNotesPart2:766,scholarlyNotesReviewed:766}};
  const plan=planPublication(ROOT,prepared);
+ // Preserve the reader's URL sanitizer while approving only exact destinations
+ // already contained in the reviewed and checksum-pinned Simanim 14-15 notes.
+ const approvedSourceHosts=new Set(['he.wikisource.org','or-breslev.co.il','wiki.jewishbooks.org.il','search.orhasulam.org','akivagutnicki-crypto.github.io']);
+ const reviewedUrls=[...new Set(sections.slice(14).flatMap(section=>section.after.flatMap(row=>(row.footnotes||[]).flatMap(note=>(note.paragraphs||[]).flatMap(paragraph=>(paragraph.rich||[]).map(run=>run.href).filter(Boolean))))))].filter(url=>{
+  try{const parsed=new URL(url);return parsed.protocol==='https:'&&approvedSourceHosts.has(parsed.hostname)&&!parsed.username&&!parsed.password;}catch{return false;}
+ }).sort();
+ assert.equal(reviewedUrls.length,19,'The reviewed external-source link inventory has changed');
+ const readerHtmlPath='library/index.html',urlSafetyMarker='const safeFootnoteUrl = url => ';
+ const preparedHtml=plan.changes.get(readerHtmlPath);
+ assert(preparedHtml,'The reader source-link safety preimage was not regenerated');
+ const html=preparedHtml.toString('utf8');
+ assert.equal(html.split(urlSafetyMarker).length,2,'Reader URL safety function differs from reviewed baseline');
+ const exactAllowed='/* Takanas CP25 individually reviewed external source destinations */ '+JSON.stringify(reviewedUrls)+'.includes(String(url || \'\')) || ';
+ plan.changes.set(readerHtmlPath,Buffer.from(html.replace(urlSafetyMarker,urlSafetyMarker+exactAllowed),'utf8'));
  for(const[n,data]of plan.changes)save(n,data);
  const newFileIndex=new Map(prior.changedFiles.map(x=>[x.path,x]));
  for(const[n,data]of plan.changes)newFileIndex.set(n,{path:n,...info(data)});
