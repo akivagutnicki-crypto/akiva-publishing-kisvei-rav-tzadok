@@ -1,0 +1,39 @@
+{
+  "metadata": {
+    "date": "2026-10-29",
+    "baseline_blob_sha": "000c9e967b6421e80489cd39ab852e562578ca83",
+    "scope": "Additional live-only Simanim 2–3 notes absent from uploaded older ZIP; scholarly verification only",
+    "status": "staged_only_no_Reader_changes"
+  },
+  "findings": [
+    {
+      "siman": 2,
+      "id": "75",
+      "anchor": "p4 phrase1",
+      "source": "Tzidkat HaTzadik 49",
+      "source_text_hebrew": "כל אחד ידע שבמה שיצרו תוקפו ביותר הוא כלי מוכן לאותם דברים ביותר להיות נקיים וזכים אצלו",
+      "status": "original_source_exact_passage_verified",
+      "context_status": "indirect_extension_to_individual_chalek_not_direct_quote_about_zohar",
+      "editorial_action": "Preserve note; mark as thematic parallel rather than proof of Zohar interpretation; avoid overstating equivalence"
+    },
+    {
+      "siman": 2,
+      "id": "93",
+      "anchor": "p6 phrase4",
+      "source": "Tzidkat HaTzadik 189",
+      "source_text_hebrew": "ב' מיני השגות אלהות יש. א' מצד הבריאה מכיר שיש בורא וזה נקרא מעשה בראשית. ב' מצד ההנהגה וזה נקרא מעשה מרכבה",
+      "status": "original_source_exact_passage_verified_but_inference_overextended",
+      "editorial_action": "Revise note to distinguish Rav Tzadok §189 discussion of the patriarchs and Moshe from the separate 'wisdom among the nations' argument from Eichah Rabbah.",
+      "proposed_note": "R’ Tzadok, Tzidkas HaTzadik §189, distinguishes recognition of a Creator through contemplating creation (ma’aseh bereishis) from apprehension of Divine governance (ma’aseh merkavah). This distinction illuminates Rav Tzadok’s contrast here between more accessible wisdom and higher apprehension. However, §189 develops the distinction principally through the patriarchs, Moshe, and Torah scholars; the particular teaching that wisdom may be found among the nations rests on the separate Midrash cited in this paragraph, not on §189 itself."
+    },
+    {
+      "siman": 3,
+      "id": "125",
+      "anchor": "p1 phrase0",
+      "source": "Yisrael Kedoshim 8:9",
+      "source_text_hebrew": "והחורבן היה בחטא מנשה כמפורש בכתובים ולא נחרב בימיו ולא גם מיד בדור שלאחריו כי הקדוש ברוך הוא מאריך רוחי' וגבי דילי'",
+      "status": "exact_source_located_and_context_checked",
+      "editorial_action": "Improve source locator from broad Yisrael Kedoshim §8 to precise 8:9; clarify that delayed judgment illustrates divine forbearance, not a direct one-to-one proof of every detail about teshuvah overriding strict judgment."
+    }
+  ]
+}
