@@ -1,0 +1,450 @@
+{
+  "title": "Takanas HaShavin Simanim 14–15 — Source-accurate reconciliation of 20 quotation-format conflicts",
+  "date": "2026-10-29",
+  "baselineCommit": "cedda55ddd2a26043ca25e80ed47d499fdf4741d",
+  "scholarlySource": "Checkpoint 25 (October 28, 2026)",
+  "scope": "Part 2 reader notes only; no change to Simanim 1–13, Siman 10 audit, manuscripts, or KDP",
+  "decisionRule": "Where a previously published literal quote-delimiter operation targets source text replaced by a newer audited, shorter source quote or carefully qualified paraphrase, do not insert obsolete punctuation into text that does not contain that quote. Use the source-checked wording and provenance in the later audit. Keep the old full witness as archival evidence. Do not conflate disputed witnesses, later commentators, and Rav Tzadok’s own inferences.",
+  "resolvedFormattingOperations": 20,
+  "distinctSourceRecords": 17,
+  "unresolvedFormattingOperations": 0,
+  "sourceLanguageIndependentRechecks": [
+    "Bava Metzia 84a:7",
+    "II Samuel 12:24-25",
+    "Makkot 23b:12",
+    "Mishnah Eduyot 5:7",
+    "Mishnah Shekalim 3:2",
+    "Niddah 13b",
+    "Rosh on Moed Katan 3:59",
+    "Sefer Mitzvot Katan 292",
+    "Tzidkat HaTzadik 108",
+    "Yevamot 72b:3"
+  ],
+  "historicalPrintedWitnesessAllCollated": false,
+  "inheritedOpenSourceQuestionsPreserved": true,
+  "sourceNoteChangesFromPreviouslyPreparedCandidate": 0,
+  "records": [
+    {
+      "operationOrdinal": 1,
+      "sourceId": "TAKANAT-SOURCE-15-7-678-1",
+      "legacyNumber": 678,
+      "oldOperation": "literal quote delimiter in earlier long-form source block",
+      "decision": "SUPERSEDED_BY_REVIEWED_SOURCE_NOTE",
+      "finalRecord": "checkpoint25_merged_live_candidate",
+      "rationale": "Prefer the reviewed distinction: Niddah 13b does not attest the Semak reading, while Sefer Mitzvos Katan §292 explicitly does. The old embedded verbatim sugya does not establish the old parchment witness independently.",
+      "printedWitnessStatus": "Retain inherited edition qualifications; no blanket collation claim",
+      "independentSourceLanguageChecks": [
+        "Niddah 13b",
+        "Sefer Mitzvot Katan 292"
+      ],
+      "oldQuoteFragment": "א תִנְאָף״ — לֹא תְּהֵא (בְּךָ נִיאוּף) נוֹאֵף, בֵּין בַּיָּד בֵּין בָ",
+      "previousNoteSha256": "aa110000b71030e0a9a5accf66a66beff2396de8ca2c3aa4ab63a0953bd16985",
+      "publishedCandidateNoteSha256": "f5a319655e70ff8c112d013ce31bc27f50d9e7880e4c43264d2c36bb732fb114",
+      "sourceRefs": [
+        "Niddah 13b",
+        "Sefer Mitzvot Katan 292",
+        "Takanat HaShavin 15:7"
+      ],
+      "originalFullQuotationPreservation": "Preserved byte-for-byte within October 27 live publication checkpoint / earlier audit evidence"
+    },
+    {
+      "operationOrdinal": 2,
+      "sourceId": "TAKANAT-SOURCE-15-17-710-1",
+      "legacyNumber": 710,
+      "oldOperation": "literal quote delimiter in earlier long-form source block",
+      "decision": "SUPERSEDED_BY_REVIEWED_SOURCE_NOTE",
+      "finalRecord": "checkpoint25_merged_live_candidate",
+      "rationale": "Use the exact selected Mishnah Eduyos exchange and the separately qualified Ohr Zarua parallel. The previous quotation marks belonged to a long source excerpt no longer reproduced verbatim.",
+      "printedWitnessStatus": "Retain inherited edition qualifications; no blanket collation claim",
+      "independentSourceLanguageChecks": [
+        "Mishnah Eduyot 5:7"
+      ],
+      "oldQuoteFragment": "א כְּתִיבָא: \"אַחֲרֵי רַבִּים לְהַטֹּת\" שְׁמוֹת כ״ג:ב׳.",
+      "previousNoteSha256": "580db0ed41a2dffe122dbadd6d91b414319a8fab29c82a5ad1293f6cf41e1746",
+      "publishedCandidateNoteSha256": "0fc7a29a3997c19f7b1018cd2dfca72972dd1c55deab29cbd3950cc9c9c4a62f",
+      "sourceRefs": [
+        "Mishnah Eduyot 5:7",
+        "Bartenura on Mishnah Eduyot 5:7",
+        "Tosafot Yom Tov on Mishnah Eduyot 5:7",
+        "Ohr Zarua LaTzadik, Novellae, Rif, Shabbat 22:2"
+      ],
+      "originalFullQuotationPreservation": "Preserved byte-for-byte within October 27 live publication checkpoint / earlier audit evidence"
+    },
+    {
+      "operationOrdinal": 3,
+      "sourceId": "TAKANAT-SOURCE-15-18-712-1",
+      "legacyNumber": 712,
+      "oldOperation": "literal quote delimiter in earlier long-form source block",
+      "decision": "SUPERSEDED_BY_REVIEWED_SOURCE_NOTE",
+      "finalRecord": "checkpoint25_merged_live_candidate",
+      "rationale": "Use the reviewed Mishnah Shekalim and Bartenura account, and separately attributed comparisons; do not present a general suspicion rule as the Mishnah’s express ruling.",
+      "printedWitnessStatus": "Retain inherited edition qualifications; no blanket collation claim",
+      "independentSourceLanguageChecks": [
+        "Mishnah Shekalim 3:2"
+      ],
+      "oldQuoteFragment": "לְהִזָּהֵר וְלִבְרֹחַ מִפְּנֵי חֲשָׁד\". נוֹטָה בֵּינֵי / הֶעָרָה: עַיּ",
+      "previousNoteSha256": "3d43ab49c87a469d9e140b2fb121c34afbdaa100934a1dcc0d82140bd5ffcae5",
+      "publishedCandidateNoteSha256": "c74e1382b3cbc6483495cc8266d30bab66b599ac3bde057f72dc60668b3a4cf3",
+      "sourceRefs": [
+        "Mishnah Shekalim 3:2",
+        "Bartenura on Mishnah Shekalim 3:2",
+        "Shabbat 23a",
+        "Niddah 12a",
+        "Ohr Zarua LaTzadik, Novellae, Rif, Berachot 1:5"
+      ],
+      "originalFullQuotationPreservation": "Preserved byte-for-byte within October 27 live publication checkpoint / earlier audit evidence"
+    },
+    {
+      "operationOrdinal": 4,
+      "sourceId": "TAKANAT-SOURCE-15-18-712-1",
+      "legacyNumber": 712,
+      "oldOperation": "literal quote delimiter in earlier long-form source block",
+      "decision": "SUPERSEDED_BY_REVIEWED_SOURCE_NOTE",
+      "finalRecord": "checkpoint25_merged_live_candidate",
+      "rationale": "Use the reviewed Mishnah Shekalim and Bartenura account, and separately attributed comparisons; do not present a general suspicion rule as the Mishnah’s express ruling.",
+      "printedWitnessStatus": "Retain inherited edition qualifications; no blanket collation claim",
+      "independentSourceLanguageChecks": [
+        "Mishnah Shekalim 3:2"
+      ],
+      "oldQuoteFragment": "ָד\". נוֹטָה בֵּינֵי / הֶעָרָה: עַיֵּן שַׁבָּת קי״ח עַמּוּד ב׳: אָמַר ר",
+      "previousNoteSha256": "3d43ab49c87a469d9e140b2fb121c34afbdaa100934a1dcc0d82140bd5ffcae5",
+      "publishedCandidateNoteSha256": "c74e1382b3cbc6483495cc8266d30bab66b599ac3bde057f72dc60668b3a4cf3",
+      "sourceRefs": [
+        "Mishnah Shekalim 3:2",
+        "Bartenura on Mishnah Shekalim 3:2",
+        "Shabbat 23a",
+        "Niddah 12a",
+        "Ohr Zarua LaTzadik, Novellae, Rif, Berachot 1:5"
+      ],
+      "originalFullQuotationPreservation": "Preserved byte-for-byte within October 27 live publication checkpoint / earlier audit evidence"
+    },
+    {
+      "operationOrdinal": 5,
+      "sourceId": "TAKANAT-SOURCE-15-20-717-1",
+      "legacyNumber": 717,
+      "oldOperation": "literal quote delimiter in earlier long-form source block",
+      "decision": "SUPERSEDED_BY_REVIEWED_SOURCE_NOTE",
+      "finalRecord": "checkpoint25_merged_live_candidate",
+      "rationale": "Retain the correct Bamidbar 32:22 quotation and distinguish Ohr Zarua’s question from Rav Tzadok’s answer; the original quoted clause is no longer reproduced verbatim.",
+      "printedWitnessStatus": "Retain inherited edition qualifications; no blanket collation claim",
+      "independentSourceLanguageChecks": [],
+      "oldQuoteFragment": "לְהִזָּהֵר וְלִבְרֹחַ מִפְּנֵי חֲשָׁד\". נוֹטָה בֵּינֵי / הֶעָרָה: עַיּ",
+      "previousNoteSha256": "1150fc70eddbe2aa131a5e6327d3eb1378009d0464d0bd588f27218b0c7d214a",
+      "publishedCandidateNoteSha256": "7f2e08cddc5baf4b69126d3294954de65af1915492ad3e043283239aa92ccaac",
+      "sourceRefs": [
+        "Numbers 32:22",
+        "Mishnah Shekalim 3:2",
+        "Shabbat 23a",
+        "Ohr Zarua LaTzadik, Novellae, Rif, Berachot 1:5"
+      ],
+      "originalFullQuotationPreservation": "Preserved byte-for-byte within October 27 live publication checkpoint / earlier audit evidence"
+    },
+    {
+      "operationOrdinal": 6,
+      "sourceId": "TAKANAT-SOURCE-15-20-717-1",
+      "legacyNumber": 717,
+      "oldOperation": "literal quote delimiter in earlier long-form source block",
+      "decision": "SUPERSEDED_BY_REVIEWED_SOURCE_NOTE",
+      "finalRecord": "checkpoint25_merged_live_candidate",
+      "rationale": "Retain the correct Bamidbar 32:22 quotation and distinguish Ohr Zarua’s question from Rav Tzadok’s answer; the original quoted clause is no longer reproduced verbatim.",
+      "printedWitnessStatus": "Retain inherited edition qualifications; no blanket collation claim",
+      "independentSourceLanguageChecks": [],
+      "oldQuoteFragment": "ָד\". נוֹטָה בֵּינֵי / הֶעָרָה: עַיֵּן שַׁבָּת קי״ח עַמּוּד ב׳: אָמַר ר",
+      "previousNoteSha256": "1150fc70eddbe2aa131a5e6327d3eb1378009d0464d0bd588f27218b0c7d214a",
+      "publishedCandidateNoteSha256": "7f2e08cddc5baf4b69126d3294954de65af1915492ad3e043283239aa92ccaac",
+      "sourceRefs": [
+        "Numbers 32:22",
+        "Mishnah Shekalim 3:2",
+        "Shabbat 23a",
+        "Ohr Zarua LaTzadik, Novellae, Rif, Berachot 1:5"
+      ],
+      "originalFullQuotationPreservation": "Preserved byte-for-byte within October 27 live publication checkpoint / earlier audit evidence"
+    },
+    {
+      "operationOrdinal": 7,
+      "sourceId": "TAKANAT-SOURCE-15-56-1021-1",
+      "legacyNumber": 1021,
+      "oldOperation": "literal quote delimiter in earlier long-form source block",
+      "decision": "SUPERSEDED_BY_REVIEWED_SOURCE_NOTE",
+      "finalRecord": "checkpoint25_merged_live_candidate",
+      "rationale": "Use Bava Metzia 84a:7 with its singular/plural textual variant honestly distinguished; do not splice the earlier full quotation’s brackets into the new selected rendering.",
+      "printedWitnessStatus": "Retain inherited edition qualifications; no blanket collation claim",
+      "independentSourceLanguageChecks": [
+        "Bava Metzia 84a:7"
+      ],
+      "oldQuoteFragment": "יהּ בֵּין שִׁמְשָׁא לְטוּלָּא, (הָהוּא) הָנְהוּ זַהֲרוּרֵי מֵעֵין שׁוּ",
+      "previousNoteSha256": "d98db45967437db8e6db8e57ffd6e68aae630d60f8ce8a82d606dc98f3cf9f63",
+      "publishedCandidateNoteSha256": "498990d6b9e5d52ef3ae587db1c7336e3f395e29713dad1cd1bdb7445cc58f03",
+      "sourceRefs": [
+        "Bava Metzia 84a:7",
+        "Rashi on Bava Metzia 84a:7"
+      ],
+      "originalFullQuotationPreservation": "Preserved byte-for-byte within October 27 live publication checkpoint / earlier audit evidence"
+    },
+    {
+      "operationOrdinal": 8,
+      "sourceId": "TAKANAT-SOURCE-15-46-855-1",
+      "legacyNumber": 855,
+      "oldOperation": "literal quote delimiter in earlier long-form source block",
+      "decision": "SUPERSEDED_BY_REVIEWED_SOURCE_NOTE",
+      "finalRecord": "checkpoint25_merged_live_candidate",
+      "rationale": "Retain the Bavli’s final mashuch ruling, distinguish the refuted terumah formulation and the Sefer HaChinukh; not all are the same legal proposition.",
+      "printedWitnessStatus": "Retain inherited edition qualifications; no blanket collation claim",
+      "independentSourceLanguageChecks": [
+        "Yevamot 72b:3"
+      ],
+      "oldQuoteFragment": "שוך ולא חיישינן שמא יעשה כרות שפכה שהרי גמרא כאן מלו הרבה בימי בן כוזי",
+      "previousNoteSha256": "3af9f175131c9ebd44182c13b30362316ae6f6005d74e146a41b8f4bfca74e9c",
+      "publishedCandidateNoteSha256": "2ba2c26477681ca848545bd29965bac9cd84d487624cbb51e28e3c20c033bab9",
+      "sourceRefs": [
+        "Yevamot 72b:3",
+        "Yevamot 72a",
+        "Nimukei Yosef on Yevamot 24a",
+        "Sefer HaChinukh 282"
+      ],
+      "originalFullQuotationPreservation": "Preserved byte-for-byte within October 27 live publication checkpoint / earlier audit evidence"
+    },
+    {
+      "operationOrdinal": 9,
+      "sourceId": "TAKANAT-SOURCE-15-52-953-1",
+      "legacyNumber": 953,
+      "oldOperation": "literal quote delimiter in earlier long-form source block",
+      "decision": "SUPERSEDED_BY_REVIEWED_SOURCE_NOTE",
+      "finalRecord": "checkpoint25_merged_live_candidate",
+      "rationale": "Retain Makkos 23b’s three-courts statement and Rava’s limitation, distinguishing the heavenly voice from Rav Tzadok’s inference.",
+      "printedWitnessStatus": "Retain inherited edition qualifications; no blanket collation claim",
+      "independentSourceLanguageChecks": [
+        "Makkot 23b:12"
+      ],
+      "oldQuoteFragment": "ְגַבַּהּ אֲזַל נָמֵי אִינָשׁ אַחֲרִינָא לְגַבַּהּ! יָצָאת בַּת קוֹל וְ",
+      "previousNoteSha256": "fd6479e62921a78abbf73b179b14579166985255cf6ae84e23762d4692cd4803",
+      "publishedCandidateNoteSha256": "b3ed5389131a0578ce9379074e8d3e73ac73ba4abab37ee76e1048a956f4bee6",
+      "sourceRefs": [
+        "Makkot 23b:12",
+        "Makkot 23b"
+      ],
+      "originalFullQuotationPreservation": "Preserved byte-for-byte within October 27 live publication checkpoint / earlier audit evidence"
+    },
+    {
+      "operationOrdinal": 10,
+      "sourceId": "TAKANAT-SOURCE-15-53-963-1",
+      "legacyNumber": 963,
+      "oldOperation": "literal quote delimiter in earlier long-form source block",
+      "decision": "SUPERSEDED_BY_REVIEWED_SOURCE_NOTE",
+      "finalRecord": "checkpoint25_merged_live_candidate",
+      "rationale": "Prefer the direct Bava Basra context with Iyov’s rejected exemption and Rambam’s separate free-will ruling, rather than old raw quotation formatting.",
+      "printedWitnessStatus": "Retain inherited edition qualifications; no blanket collation claim",
+      "independentSourceLanguageChecks": [],
+      "oldQuoteFragment": "וּמַאי אַהְדַּרוּ לֵיהּ חַבְרֵיהּ דְּאִיּוֹב – ״אַף אַתָּה תָּפֵר יִרְ",
+      "previousNoteSha256": "9161ce026b6543cda9455fc7e1e463c5dc625318b215ff04901c4242c6499687",
+      "publishedCandidateNoteSha256": "190f92d046242b323f9d19207485d5eb65e7bd12412bb6099f321f246599d556",
+      "sourceRefs": [
+        "Bava Batra 16a",
+        "Mishneh Torah, Repentance 5:1",
+        "Mishneh Torah, Repentance 5:2",
+        "Mishneh Torah, Repentance 5:5"
+      ],
+      "originalFullQuotationPreservation": "Preserved byte-for-byte within October 27 live publication checkpoint / earlier audit evidence"
+    },
+    {
+      "operationOrdinal": 11,
+      "sourceId": "TAKANAT-SOURCE-15-54-981-1",
+      "legacyNumber": 981,
+      "oldOperation": "literal quote delimiter in earlier long-form source block",
+      "decision": "SUPERSEDED_BY_REVIEWED_SOURCE_NOTE",
+      "finalRecord": "checkpoint25_merged_live_candidate",
+      "rationale": "Retain the selected direct Likkutei Maamarim explanation and its clear authorial distinction; older quote punctuation is attached to replaced long excerpts.",
+      "printedWitnessStatus": "Retain inherited edition qualifications; no blanket collation claim",
+      "independentSourceLanguageChecks": [],
+      "oldQuoteFragment": "כְּמַה שֶּׁכָּתוּב בִּבְרֵאשִׁית רַבָּה פָּרָשָׁה פה, ח גַּבֵּי יְהוּד",
+      "previousNoteSha256": "7add14808848e9fef9563d7d8d784e583ca328b51a3e55a2bfa965ad539e5731",
+      "publishedCandidateNoteSha256": "19c0ddca94776890015641adbd6b522fb790b994875692b7eb552d40d0c6ca04",
+      "sourceRefs": [
+        "Likkutei Maamarim, Compositions on the Festivals 16:38"
+      ],
+      "originalFullQuotationPreservation": "Preserved byte-for-byte within October 27 live publication checkpoint / earlier audit evidence"
+    },
+    {
+      "operationOrdinal": 12,
+      "sourceId": "TAKANAT-SOURCE-15-55-998-1",
+      "legacyNumber": 998,
+      "oldOperation": "literal quote delimiter in earlier long-form source block",
+      "decision": "SUPERSEDED_BY_REVIEWED_SOURCE_NOTE",
+      "finalRecord": "checkpoint25_merged_live_candidate",
+      "rationale": "Retain Bava Basra’s exact four names and the qualified Machshavos Charutz comparison. Do not add David as a fifth name or blend two chronologies.",
+      "printedWitnessStatus": "Retain inherited edition qualifications; no blanket collation claim",
+      "independentSourceLanguageChecks": [],
+      "oldQuoteFragment": "ִיִּשַׁי אֲבִי דָוִד דִּמְפָרַשׁ בֵּיהּ קְרָא, דִּכְתִיב: ״וְאֶת עֲמָש",
+      "previousNoteSha256": "ae3e4192a8d1cf26d3eaa3644a1368d8543d7c68528ea849272f918a0c1c7fda",
+      "publishedCandidateNoteSha256": "141ad53a43c71d1c97800f5d4e1a27e7ae6bd87664935ce9705be0b78623047d",
+      "sourceRefs": [
+        "Bava Batra 17a",
+        "Machshavot Charutz 18:5",
+        "Takanat HaShavin 15:48"
+      ],
+      "originalFullQuotationPreservation": "Preserved byte-for-byte within October 27 live publication checkpoint / earlier audit evidence"
+    },
+    {
+      "operationOrdinal": 13,
+      "sourceId": "TAKANAT-SOURCE-15-58-1052-1",
+      "legacyNumber": 1052,
+      "oldOperation": "literal quote delimiter in earlier long-form source block",
+      "decision": "SUPERSEDED_BY_REVIEWED_SOURCE_NOTE",
+      "finalRecord": "checkpoint25_merged_live_candidate",
+      "rationale": "Retain Rashi’s mature-reader condition and Rambam’s different instruction separately; the older inline Hebrew quote is replaced by a checked English quotation.",
+      "printedWitnessStatus": "Retain inherited edition qualifications; no blanket collation claim",
+      "independentSourceLanguageChecks": [],
+      "oldQuoteFragment": "גדול - היודע ליזהר שלא ילמוד מעשיו יכול ללמוד תורה מפיו",
+      "previousNoteSha256": "43c52cca7bcc076777c727283bc3b9e9d98bb62fdf253dbb762ac560c08ceca4",
+      "publishedCandidateNoteSha256": "c9fb880ca2839a51300b1629a423122a451860deff1f4854adbe0b519c59ae26",
+      "sourceRefs": [
+        "Rashi on Chagigah 15b:9:1",
+        "Mishneh Torah, Torah Study 4:1"
+      ],
+      "originalFullQuotationPreservation": "Preserved byte-for-byte within October 27 live publication checkpoint / earlier audit evidence"
+    },
+    {
+      "operationOrdinal": 14,
+      "sourceId": "TAKANAT-SOURCE-15-59-1071-1",
+      "legacyNumber": 1071,
+      "oldOperation": "literal quote delimiter in earlier long-form source block",
+      "decision": "SUPERSEDED_BY_REVIEWED_SOURCE_NOTE",
+      "finalRecord": "checkpoint25_merged_live_candidate",
+      "rationale": "Retain the Rosh’s explicitly separated positions, court-execution qualification, and unresolved original printed numbering; earlier complete Hebrew remains archived.",
+      "printedWitnessStatus": "Retain inherited edition qualifications; no blanket collation claim",
+      "independentSourceLanguageChecks": [
+        "Rosh on Moed Katan 3:59"
+      ],
+      "oldQuoteFragment": "שעים רנה ואהא מייתי לה בפרק (נגמר הדין) אחד דיני ממונות (דף לז): ושמא ",
+      "previousNoteSha256": "736a065bd1735a2e6315ca68e2d89dc774dbed60405dcbf03e8c3b3420d3ea61",
+      "publishedCandidateNoteSha256": "09f368cddf0cd77621520acc633fdd20c195c9ca2770e1597eb99468a1197015",
+      "sourceRefs": [
+        "Rosh on Moed Katan 3:59"
+      ],
+      "originalFullQuotationPreservation": "Preserved byte-for-byte within October 27 live publication checkpoint / earlier audit evidence"
+    },
+    {
+      "operationOrdinal": 15,
+      "sourceId": "TAKANAT-SOURCE-15-67-1118-1",
+      "legacyNumber": 1118,
+      "oldOperation": "literal quote delimiter in earlier long-form source block",
+      "decision": "SUPERSEDED_BY_REVIEWED_SOURCE_NOTE",
+      "finalRecord": "checkpoint25_merged_live_candidate",
+      "rationale": "Retain R. Amram’s resistance and Rashi’s explanation without implying an inevitable lapse; the old full sugya quotation is archived.",
+      "printedWitnessStatus": "Retain inherited edition qualifications; no blanket collation claim",
+      "independentSourceLanguageChecks": [],
+      "oldQuoteFragment": "כִּי מְטָא לְפַלְגָא דְּדַרְגָּא אִיפְּשַׁח, רְמָא קָלָא: נוּרָא",
+      "previousNoteSha256": "cdb7b859f7e83a596b0b852f56cbaba32c5af1d75ec4201c789e9b8653f827ca",
+      "publishedCandidateNoteSha256": "4e3900124fe7e14ac5b0c719fff2614f26936c8b7bf0c6203d4b9609f8ef0e02",
+      "sourceRefs": [
+        "Kiddushin 81a:12",
+        "Rashi on Kiddushin 81a:12:1-4",
+        "Hosea 7:4",
+        "Hosea 7:6",
+        "Resisei Layla 5"
+      ],
+      "originalFullQuotationPreservation": "Preserved byte-for-byte within October 27 live publication checkpoint / earlier audit evidence"
+    },
+    {
+      "operationOrdinal": 16,
+      "sourceId": "TAKANAT-SOURCE-15-75-1175-1",
+      "legacyNumber": 1175,
+      "oldOperation": "literal quote delimiter in earlier long-form source block",
+      "decision": "SUPERSEDED_BY_REVIEWED_SOURCE_NOTE",
+      "finalRecord": "checkpoint25_merged_live_candidate",
+      "rationale": "Retain the Tosafos Yom Tov text’s bracketed editorial proposal and the source’s expressed emendation; do not silently turn bracketed wording into an uncontested base text.",
+      "printedWitnessStatus": "Retain inherited edition qualifications; no blanket collation claim",
+      "independentSourceLanguageChecks": [],
+      "oldQuoteFragment": "ותם שכפרו בעיקר ושיש בידם חלול השם. אבל שאר רשעים דינם י\"ב חדש. הראב\"ד",
+      "previousNoteSha256": "9cdc1edd33eb58622e5fa150b12dce0513caf23f49bb8e77051dab41abfe7ee2",
+      "publishedCandidateNoteSha256": "4ca860688b09708846a4ce0ced71cb2dc5157d32e69f1d034ca3e37dbecbe940",
+      "sourceRefs": [
+        "Tosafot Yom Tov on Mishnah Eduyot 2:10:6"
+      ],
+      "originalFullQuotationPreservation": "Preserved byte-for-byte within October 27 live publication checkpoint / earlier audit evidence"
+    },
+    {
+      "operationOrdinal": 17,
+      "sourceId": "TAKANAT-SOURCE-15-76-1182-1",
+      "legacyNumber": 1182,
+      "oldOperation": "literal quote delimiter in earlier long-form source block",
+      "decision": "SUPERSEDED_BY_REVIEWED_SOURCE_NOTE",
+      "finalRecord": "checkpoint25_merged_live_candidate",
+      "rationale": "Retain the Masoretic written/read variant and the separate aggadic textual versions, not a conflation of the two.",
+      "printedWitnessStatus": "Retain inherited edition qualifications; no blanket collation claim",
+      "independentSourceLanguageChecks": [],
+      "oldQuoteFragment": "֘וּ־בָ֤ם יְשָׁרִ֨ים ׀ לַבֹּ֗קֶר (וצירם) וְ֭צוּרָם לְבַלּ֥וֹת שְׁא֗וֹל ",
+      "previousNoteSha256": "95e88d207b82070399346cfe55673af24966afc4f1a23440f85e5d6f286ac8f2",
+      "publishedCandidateNoteSha256": "d101129fc2008028aa2563800b8a771303eac528a7c83f0aa1054fbb597a51d6",
+      "sourceRefs": [
+        "Psalms 49:15",
+        "Rosh Hashanah 17a:5",
+        "Seder Olam Rabbah 3"
+      ],
+      "originalFullQuotationPreservation": "Preserved byte-for-byte within October 27 live publication checkpoint / earlier audit evidence"
+    },
+    {
+      "operationOrdinal": 18,
+      "sourceId": "TAKANAT-SOURCE-15-92-1276-1",
+      "legacyNumber": 1276,
+      "oldOperation": "literal quote delimiter in earlier long-form source block",
+      "decision": "SUPERSEDED_BY_REVIEWED_SOURCE_NOTE",
+      "finalRecord": "checkpoint25_merged_live_candidate",
+      "rationale": "Retain II Shmuel 12:24’s consonantal written masculine and read feminine forms with the corresponding translation and the distinct Malachi verses.",
+      "printedWitnessStatus": "Retain inherited edition qualifications; no blanket collation claim",
+      "independentSourceLanguageChecks": [
+        "II Samuel 12:24-25"
+      ],
+      "oldQuoteFragment": "ְכַּ֣ב עִמָּ֑הּ וַתֵּ֣לֶד בֵּ֗ן (ויקרא) וַתִּקְרָ֤א אֶת־שְׁמוֹ֙ שְׁלֹמ",
+      "previousNoteSha256": "ed2b5aa8e3f3eac8a5eac207edc9eb9c2c82833f33dd7b29bec4a7fffee17b4f",
+      "publishedCandidateNoteSha256": "d7e05c7f26259f4dc59f07c6e99026b1e6c0ff82f24e7458bb893e748a34da0d",
+      "sourceRefs": [
+        "II Samuel 12:24-25",
+        "Malachi 1:2"
+      ],
+      "originalFullQuotationPreservation": "Preserved byte-for-byte within October 27 live publication checkpoint / earlier audit evidence"
+    },
+    {
+      "operationOrdinal": 19,
+      "sourceId": "TAKANAT-SOURCE-15-55-1006-1",
+      "legacyNumber": 1006,
+      "oldOperation": "literal quote delimiter in earlier long-form source block",
+      "decision": "SUPERSEDED_BY_REVIEWED_SOURCE_NOTE",
+      "finalRecord": "checkpoint25_merged_live_candidate",
+      "rationale": "Retain the selected Tzidkas HaTzadik §108 discussion distinguishing Torah, broken-heartedness, prayer and a newly created heart; do not import unbalanced older brackets.",
+      "printedWitnessStatus": "Retain inherited edition qualifications; no blanket collation claim",
+      "independentSourceLanguageChecks": [
+        "Tzidkat HaTzadik 108"
+      ],
+      "oldQuoteFragment": "שֶׁהוּא בַּתּוֹלָדָה כְּמוֹ שֶׁכָּתוּב: \"כִּי יֵצֶר וְגוֹמֵר מִנְּעֻרָ",
+      "previousNoteSha256": "1e69e6281b20ef4b11352354ebbe1beaf1380129ed24d475b19cdd5d1541ea98",
+      "publishedCandidateNoteSha256": "965eb03dcc7228afcf8bdfd385f11be9783b4ac5faad897d7f94ed97d2000b37",
+      "sourceRefs": [
+        "Tzidkat HaTzadik 108",
+        "Psalms 51:18-19"
+      ],
+      "originalFullQuotationPreservation": "Preserved byte-for-byte within October 27 live publication checkpoint / earlier audit evidence"
+    },
+    {
+      "operationOrdinal": 20,
+      "sourceId": "TAKANAT-SOURCE-15-55-1006-1",
+      "legacyNumber": 1006,
+      "oldOperation": "literal quote delimiter in earlier long-form source block",
+      "decision": "SUPERSEDED_BY_REVIEWED_SOURCE_NOTE",
+      "finalRecord": "checkpoint25_merged_live_candidate",
+      "rationale": "Retain the selected Tzidkas HaTzadik §108 discussion distinguishing Torah, broken-heartedness, prayer and a newly created heart; do not import unbalanced older brackets.",
+      "printedWitnessStatus": "Retain inherited edition qualifications; no blanket collation claim",
+      "independentSourceLanguageChecks": [
+        "Tzidkat HaTzadik 108"
+      ],
+      "oldQuoteFragment": "הַיְינוּ תְּשׁוּבָה, כְּעִנְיַן \"כָּל הַזּוֹבֵחַ יִצְרוֹ וּמִתְוַדֶּה ",
+      "previousNoteSha256": "1e69e6281b20ef4b11352354ebbe1beaf1380129ed24d475b19cdd5d1541ea98",
+      "publishedCandidateNoteSha256": "965eb03dcc7228afcf8bdfd385f11be9783b4ac5faad897d7f94ed97d2000b37",
+      "sourceRefs": [
+        "Tzidkat HaTzadik 108",
+        "Psalms 51:18-19"
+      ],
+      "originalFullQuotationPreservation": "Preserved byte-for-byte within October 27 live publication checkpoint / earlier audit evidence"
+    }
+  ]
+}

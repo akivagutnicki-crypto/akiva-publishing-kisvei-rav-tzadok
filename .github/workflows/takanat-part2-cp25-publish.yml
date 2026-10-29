@@ -1,0 +1,101 @@
+name: Publish Takanas HaShavin Simanim 14-15 scholarly audit 25
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: read
+  actions: read
+  pages: write
+  id-token: write
+concurrency:
+  group: pages
+  cancel-in-progress: false
+jobs:
+  publish:
+    if: ${{ github.repository == 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok' && contains(github.event.head_commit.message, '[takanat-part2-audit25]') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout canonical publisher and sealed review data
+        uses: actions/checkout@v6
+      - name: Node.js 24
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - name: Authenticate reader editorial package
+        run: node scripts/publish-takanat-audit25.mjs --prepare
+      - name: Download the last verified complete Pages artifact
+        uses: actions/download-artifact@v4
+        with:
+          artifact-ids: '12775554669'
+          run-id: '40595420635'
+          repository: akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/takanat-part2-approved-baseline
+          merge-multiple: true
+      - name: Restore complete published library, preserving unrelated data
+        run: |
+          python3 - <<'PYCODE'
+          import os,pathlib,shutil,tarfile
+          root=pathlib.Path('dist').resolve()
+          if root.exists():shutil.rmtree(root)
+          root.mkdir()
+          archive=pathlib.Path(os.environ['RUNNER_TEMP'])/'takanat-part2-approved-baseline/artifact.tar'
+          assert archive.is_file(),'Validated complete site artifact missing'
+          with tarfile.open(archive,'r:') as source:
+              members=source.getmembers()
+              for member in members:
+                  target=(root/member.name).resolve()
+                  assert target==root or root in target.parents,'Unsafe path'
+                  assert member.isdir() or member.isfile(),'Unexpected link'
+              source.extractall(root,members=members,filter='data')
+          PYCODE
+      - name: Apply all 766 reviewed Part 2 records and synchronize downloads
+        run: |
+          node scripts/publish-takanat-audit25.mjs --apply
+          node scripts/publish-takanat-audit25.mjs --verify
+          node --check dist/library/sw.js
+      - name: Install and run comprehensive desktop/mobile reader validation
+        run: |
+          npm install --no-save --package-lock=false playwright@1.62.1
+          browser_candidate="$(command -v google-chrome || command -v google-chrome-stable || command -v chromium || true)"
+          if [ -n "$browser_candidate" ]; then
+            printf 'AKIVA_CHROMIUM_EXECUTABLE=%s\n' "$browser_candidate" >> "$GITHUB_ENV"
+          else
+            npx playwright install --with-deps chromium
+          fi
+          node tests/test-takanat-audit25-browser.mjs
+      - name: Guard against a changed main branch or newly updated live publication
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/publish-takanat-audit25.mjs --guard
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+      - name: Upload complete updated Pages site
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ./dist
+          retention-days: 14
+      - name: Guard again immediately before deployment
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/publish-takanat-audit25.mjs --guard
+      - name: Deploy reviewed Takanas reader Simanim 14 and 15
+        id: deployment
+        uses: actions/deploy-pages@v4
+      - name: Read back edited live JSON and offline download archives
+        run: node scripts/publish-takanat-audit25.mjs --live
+      - name: Verify the published reader footnotes at both screen sizes
+        run: |
+          AKIVA_LIVE_URL='https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/' node tests/test-takanat-audit25-browser.mjs
+      - name: Preserve detailed validation evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: takanat-part2-audit25-validation
+          retention-days: 90
+          if-no-files-found: warn
+          path: artifacts/takanat-part2-cp25/
