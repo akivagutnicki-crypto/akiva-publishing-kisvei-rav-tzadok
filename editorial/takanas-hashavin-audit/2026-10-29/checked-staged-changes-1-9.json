@@ -1,0 +1,254 @@
+{
+  "metadata": {
+    "project": "Takanas HaShavin Reader-only",
+    "date": "2026-10-29",
+    "branch": "audit/takanas-simanim-1-9-2026-10-29",
+    "baseline_sha": "000c9e967b6421e80489cd39ab852e562578ca83",
+    "status": "staged_candidate_ONLY_not_published",
+    "no_KDP_changes": true,
+    "known_holds": [
+      "Siman5 note249 contextually unsupported Kometz parallel",
+      "Siman8 note1213 placement versus1214 not yet resolved",
+      "Siman1 overly-long opening note7"
+    ],
+    "source_validation_scope": "six checked wording corrections; seven reversible marker moves; independent verification of other 1253 notes is not implied"
+  },
+  "validation": {
+    "source_blob_sha": "000c9e967b6421e80489cd39ab852e562578ca83",
+    "changes": 13,
+    "source_wording_edits": 6,
+    "marker_moves": 7,
+    "errors": [],
+    "all_hebrew_unchanged": true,
+    "all_nonfootnote_english_unchanged": true,
+    "simanim_10_15_unchanged": true,
+    "counts": {
+      "1": {
+        "before": 43,
+        "after": 43
+      },
+      "2": {
+        "before": 72,
+        "after": 72
+      },
+      "3": {
+        "before": 76,
+        "after": 76
+      },
+      "4": {
+        "before": 32,
+        "after": 32
+      },
+      "5": {
+        "before": 127,
+        "after": 127
+      },
+      "6": {
+        "before": 763,
+        "after": 763
+      },
+      "7": {
+        "before": 47,
+        "after": 47
+      },
+      "8": {
+        "before": 56,
+        "after": 56
+      },
+      "9": {
+        "before": 50,
+        "after": 50
+      },
+      "10": {
+        "before": 372,
+        "after": 372
+      },
+      "11": {
+        "before": 85,
+        "after": 85
+      },
+      "12": {
+        "before": 130,
+        "after": 130
+      },
+      "13": {
+        "before": 38,
+        "after": 38
+      },
+      "14": {
+        "before": 26,
+        "after": 26
+      },
+      "15": {
+        "before": 750,
+        "after": 750
+      }
+    }
+  },
+  "changes": [
+    {
+      "siman": 4,
+      "note_id": "220",
+      "type": "source_wording",
+      "anchor_before": "p4/phrase1/en",
+      "anchor_after": "p4/phrase1/en",
+      "replacements": [
+        {
+          "old": "Peri Tzadik, Vayakhel §1",
+          "new": "Pri Tzaddik, Kuntres Shevisas Shabbos 1:5"
+        }
+      ],
+      "source_evidence": "Peri Tzadik, Kuntres Shvitat Shabbat 1:5 exact Hebrew confirms rabbinic shevus quotation",
+      "publication_status": "branch_only_staged"
+    },
+    {
+      "siman": 4,
+      "note_id": "221",
+      "type": "source_wording",
+      "anchor_before": "p4/phrase2/en",
+      "anchor_after": "p4/phrase2/en",
+      "replacements": [
+        {
+          "old": "R’ Yochanan said",
+          "new": "R’ Chanina said"
+        },
+        {
+          "old": "were tightened, later relaxed, then re-tightened",
+          "new": "were stringently restricted in that generation and later relaxed in stages"
+        }
+      ],
+      "source_evidence": "Shabbat 123b Hebrew: אמר רבי חנינא בימי נחמיה בן חכליה נשנית משנה זו; והתירו וחזרו והתירו",
+      "publication_status": "branch_only_staged"
+    },
+    {
+      "siman": 5,
+      "note_id": "246",
+      "type": "source_wording",
+      "anchor_before": "p3/phrase1/en",
+      "anchor_after": "p3/phrase1/en",
+      "replacements": [
+        {
+          "old": "“and a king, once he has bowed, does not straighten up until he completes his entire prayer” (מֶלֶךְ כֵּיוָן שֶׁכָּרַע שׁוּב אֵינוֹ זוֹקֵף עַד שֶׁגּוֹמֵר כָּל תְּפִלָּתוֹ)",
+          "new": "“and a king, once he has bowed, does not straighten up” (הַמֶּלֶךְ כֵּיוָן שֶׁכָּרַע שׁוּב אֵינוֹ זוֹקֵף). The description “until the completion of his prayer” is explanatory and is not part of the quoted Gemara wording"
+        }
+      ],
+      "source_evidence": "Berakhot 34b: R. Yitzchak bar Nachmani reporting R. Yehoshua ben Levi, exact Hebrew phrase",
+      "publication_status": "branch_only_staged"
+    },
+    {
+      "siman": 6,
+      "note_id": "357",
+      "type": "source_wording",
+      "anchor_before": "p1/phrase0/en",
+      "anchor_after": "p1/phrase0/en",
+      "replacements": [
+        {
+          "old": "R’ Shmuel bar Nachmani said:",
+          "new": "R’ Shmuel bar Nachmani said in the name of R’ Yonatan:"
+        }
+      ],
+      "source_evidence": "Yoma 86b original amoraic attribution",
+      "publication_status": "branch_only_staged"
+    },
+    {
+      "siman": 6,
+      "note_id": "984",
+      "type": "source_wording",
+      "anchor_before": "p73/phrase1/en",
+      "anchor_after": "p73/phrase1/en",
+      "replacements": [
+        {
+          "old": "Yirmeyah 31:33",
+          "new": "Yirmeyah 31:34"
+        }
+      ],
+      "source_evidence": "Jeremiah 31:34; Tzidkat HaTzadik §65",
+      "publication_status": "branch_only_staged"
+    },
+    {
+      "siman": 6,
+      "note_id": "986",
+      "type": "source_wording",
+      "anchor_before": "p73/phrase2/en",
+      "anchor_after": "p73/phrase2/en",
+      "replacements": [
+        {
+          "old": "Yirmiyah 31:33 (in some editions 31:34)",
+          "new": "Yirmiyah 31:34"
+        }
+      ],
+      "source_evidence": "Jeremiah 31:34 exact verse and linked numbering",
+      "publication_status": "branch_only_staged"
+    },
+    {
+      "siman": 4,
+      "note_id": "222",
+      "type": "marker_relocation_only",
+      "anchor_before": "p4/phrase2/en",
+      "anchor_after": "p4/phrase3/en",
+      "reason": "Place Oral Torah reacceptance parallel after Rav Tzadok raises acceptance under oath",
+      "source_evidence": "Divrei Soferim 31:1 primary source checked",
+      "publication_status": "branch_only_staged"
+    },
+    {
+      "siman": 5,
+      "note_id": "232",
+      "type": "marker_relocation_only",
+      "anchor_before": "p1/phrase0/en",
+      "anchor_after": "p1/phrase1/en",
+      "reason": "Place thought-to-deed-root parallel after Rav Tzadok develops the root of the soul in the mind",
+      "source_evidence": "Ohr Zarua LaTzadik §4 exact parallel needs further collation",
+      "publication_status": "branch_only_staged"
+    },
+    {
+      "siman": 5,
+      "note_id": "231",
+      "type": "marker_relocation_only",
+      "anchor_before": "p1/phrase0/en",
+      "anchor_after": "p11/phrase4/en",
+      "reason": "Extensive love/fear transformation argument belongs after Rav Tzadok develops future revelation of the sin as merit",
+      "source_evidence": "Maharal/Sefas Emes/Meor Einayim exact quotes not yet independently re-collated",
+      "publication_status": "branch_only_staged"
+    },
+    {
+      "siman": 6,
+      "note_id": "984",
+      "type": "marker_relocation_only",
+      "anchor_before": "p73/phrase1/en",
+      "anchor_after": "p73/phrase2/en",
+      "reason": "Follow the exact Hebrew verse 'ולא ילמדו עוד איש את רעהו' rather than preceding circle analogy",
+      "source_evidence": "Jeremiah 31:34 and Tzidkat HaTzadik §65 checked",
+      "publication_status": "branch_only_staged"
+    },
+    {
+      "siman": 6,
+      "note_id": "987",
+      "type": "marker_relocation_only",
+      "anchor_before": "p73/phrase2/en",
+      "anchor_after": "p73/phrase6/en",
+      "reason": "Shimon as receiver without independent bestowal is actually developed at this point",
+      "source_evidence": "Pri Tzaddik Kislev/Beit Yaakov originals require final quote collation",
+      "publication_status": "branch_only_staged"
+    },
+    {
+      "siman": 7,
+      "note_id": "1122",
+      "type": "marker_relocation_only",
+      "anchor_before": "p1/phrase1/en",
+      "anchor_after": "p1/phrase3/en",
+      "reason": "Entire note includes Rav Tzadok's rejection of the areivus reading; move after Rav Tzadok states his own reading",
+      "source_evidence": "Asarah Maamaros I:14 source verified; Yad Yehudah witness still pending",
+      "publication_status": "branch_only_staged"
+    },
+    {
+      "siman": 9,
+      "note_id": "1224",
+      "type": "marker_relocation_only",
+      "anchor_before": "p1/phrase0/en",
+      "anchor_after": "p1/phrase1/en",
+      "reason": "Footnote discussing verbal confession must follow Rav Tzadok's actual viduy statement",
+      "source_evidence": "Pri Tzaddik Nasso/Beit Yaakov source quotations need final collation",
+      "publication_status": "branch_only_staged"
+    }
+  ]
+}
