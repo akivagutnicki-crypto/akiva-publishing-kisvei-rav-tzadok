@@ -124,7 +124,8 @@ def verify_inputs():
              'library/blog/pdfs/even-the-world-to-come-vayeira.pdf',
              'library/blog/docs/even-the-world-to-come-vayeira.docx',
              'library/downloads/vayeira-mesiras-nefesh-shiur.pdf',
-             'library/downloads/vayeira-mesiras-nefesh-shiur.docx']
+             'library/downloads/vayeira-mesiras-nefesh-shiur.docx',
+             'library/audio/vayeira-mesiras-nefesh-shiur.m4a']
     for folder in ['library/blog/even-the-world-to-come', 'library/blog/even-the-world-to-come/shiur']:
         pages = sorted((Path('dist') / folder / 'pages').glob('page-*.webp'))
         assert pages, 'Missing page images: ' + folder
@@ -168,7 +169,8 @@ elif mode == 'verify':
         assert after.get(name) == expected, 'Input asset was changed or omitted: ' + name
     for name, marker in [('library/index.html', 'akiva-vayeira-study'), ('library/sw.js', '20261026-vayeira-mesiras-nefesh-v1'), ('library/blog/index.html', 'vayeira-feature-title'),
                          ('library/index.html', 'href="blog/even-the-world-to-come/"'), ('library/sw.js', '-20261030-vayeira-blog-shiur-v2'),
-                         ('library/blog/index.html', 'href="even-the-world-to-come/shiur/"')]:
+                         ('library/blog/index.html', 'href="even-the-world-to-come/shiur/"'), ('library/sw.js', '-20261030-vayeira-shiur-audio-v3'),
+                         ('library/vayeira-study.js', 'audio/vayeira-mesiras-nefesh-shiur.m4a')]:
         assert marker in (ROOT / name).read_text(), 'Missing study hook: ' + name
     report = {'publication': state['publication'], 'expectedHead': state['expectedHead'],
               'changed': sorted(changed), 'removed': [],
