@@ -49,11 +49,17 @@ const PROTECTED_BOOKS = [
 ];
 const PROTECTED_PERI_FILES = new Set(['6.json', '106.json', '111.json', '112.json']);
 
-// These hashes identify the protected edition verified on the public reader.
-// No bypass is provided: a different protected edition must be reviewed first.
+// The October 18 live snapshot is preserved for all unchanged protected files.
+// Only the October 29 audited Takanas HaShavin source (Simanim 1-9 and links)
+// has new independently rebuilt SHA-256 pins. Other differences still fail closed.
 const CURRENT_PROTECTED_EDITION = {
   "capturedOn": "2026-10-18",
   "snapshotVersion": "7fce1438a4b6663a",
+  "approvedTakanatUpdate": {
+    "approvedOn": "2026-10-29",
+    "sourceSha256": "bea64136f6cdfbcce4d41098ea92715be6f1f42554872f02d59401d6c68d5958",
+    "description": "36 verified reader corrections (29 footnotes, 10 phrase relocations), Simanim 1-9 and links only"
+  },
   "sourceZipSha256": "155ace41cbc1dd4c96f52abb44be5776f07d65b6c3b9ba4e0ede0bc705b83d7c",
   "source": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/downloads/rav-tzadok-library.zip",
   "files": {
@@ -142,28 +148,36 @@ const CURRENT_PROTECTED_EDITION = {
     "data/resisei-layla/links.json": "06711197a9216164cc609c16c6ca11642f5c1edf5c28fe79f754f576baf2b283",
     "data/resisei-layla/toc.json": "f384cc2f7f70bed3e77dc1490738384d0ca1b06ed4ef31020308d0e381a99985",
     "data/takanat-hashavin/0.json": "5072477048640d0e73f166b67f5352bc44f4eca010a88dd2d6dc576241e932b6",
-    "data/takanat-hashavin/1.json": "e00388a412d53f9ac02a39d83978479d618680e2406d04ac9eeb55cc7c86d4ee",
+    "data/takanat-hashavin/1.json": "d3aee9a228bbb66820da6785fe36b2cbeac3632e05e6c5f9a30c09f4477dceac",
     "data/takanat-hashavin/10.json": "f0ebd53943637907fb6d360a06d01f33e25f5a6f99cff6e96fd8af08c8b9b0bc",
     "data/takanat-hashavin/11.json": "6ecf59fb014b2d4dac5ca333f2bd983a3a8f69c77d409cc148aa46c6dc2a9010",
     "data/takanat-hashavin/12.json": "aa186f0a1a8e6c4e3a6ba18a89d4caeded63b92d8c0a061b9705e1c3bd92d022",
     "data/takanat-hashavin/13.json": "eef699950f2967ff0b43cf47dbce6a0d35edeba51c613030b50a3db5eb67939f",
     "data/takanat-hashavin/14.json": "62a1a1b04f4df73ce9ca9a15bf43f7f11fe3202d272aa415b063e1f7a3b74f84",
     "data/takanat-hashavin/15.json": "bb75a2a24427d31715f8105a64cf9aca22eba7ccf13259473990854142e99ddd",
-    "data/takanat-hashavin/2.json": "dd2be1c0eb8d356b8f1ec5d1186c30aee336475eb8bbdb2a78e24c7e76f08759",
-    "data/takanat-hashavin/3.json": "cb3b7d69fb5c005f1478836fe156d7d81b6bd81dc0e982b4cf1ba7b6e885baf0",
-    "data/takanat-hashavin/4.json": "3f06ff527add034e6c8b387ebbbcf5445022d547206004d3a0585c66ccd563a6",
-    "data/takanat-hashavin/5.json": "ef89e363400da64b210a64cc39939545cba35160675c62a3b02fec7b7dc5c90f",
-    "data/takanat-hashavin/6.json": "5e191f6b63b212dbda45920a58d0736d878739288ab6da4a4cf255f0a0aabc56",
-    "data/takanat-hashavin/7.json": "b0426c6375062aaecd8e540a38646beec294321159c1c35cf9e051afec252be6",
-    "data/takanat-hashavin/8.json": "3181abc3c05375b3c93ed1ab4cebdfbee27b742af5d65d301a9f97da05b874f0",
-    "data/takanat-hashavin/9.json": "b5dea18c986f8c078f94b5c838672905a0a44008bf9b01c676df48ff1818e810",
-    "data/takanat-hashavin/links.json": "5200e0f8a2457baf0f084300ffa549d8ab143bd6e48fe15093aa6e2dfaec02a7",
+    "data/takanat-hashavin/2.json": "b4e3b68aea5fa5f3de259ba32a3640c44e79a3a41492b05fe858288e664bcc6d",
+    "data/takanat-hashavin/3.json": "ecae700bed777d66b35a73876500cf4665e45c9687c5f1f89ed592368de4cef9",
+    "data/takanat-hashavin/4.json": "6ba0164bc44459ae44a9505b95d85943ec6159047eab1996852a6cd011534707",
+    "data/takanat-hashavin/5.json": "bac6ca357ca507ced0a61b224e1142f130e1889df8e414fc4c2992822838ec1c",
+    "data/takanat-hashavin/6.json": "3ab1ffbbc436351b780c283c47144fbf73b5b27206c5077d5cd9028b4aed4455",
+    "data/takanat-hashavin/7.json": "ca8194ad1d1f17e6bec8e33ee63cb9034a34aa701bb6073c7df1f578ebc58993",
+    "data/takanat-hashavin/8.json": "bdc27b73002916622cb4a5d0d591b7ebf17f2f14cc37c5bb67fd19173d1df163",
+    "data/takanat-hashavin/9.json": "dd6b7f2cd7026ce545da09d214b19d79078e507ef08d44d1e1d8c70801322325",
+    "data/takanat-hashavin/links.json": "92a4654ace10fae1ed10dd797f97327bceef842d02098e4a1515217a57a79cc7",
     "data/takanat-hashavin/toc.json": "e28e12ccb15e61a6a20a0192516bbffd7859f91cb7c3413b87bec6238d891f82"
   }
 };
 
 function verifyCurrentProtectedEdition(root) {
   const failures = [];
+  // Only the audited October 29 Takanas HaShavin master may accompany
+  // this updated, individually pinned Reader section/link snapshot.
+  // A changed source without fresh approved hashes must still fail closed.
+  const approvedTakanat = path.join(root, 'sources', 'akiva', 'Takanat_HaShavin.json');
+  checkInputPath(root, approvedTakanat);
+  if (!fs.existsSync(approvedTakanat) || !fs.lstatSync(approvedTakanat).isFile() ||
+      digest(fs.readFileSync(approvedTakanat)) !== CURRENT_PROTECTED_EDITION.approvedTakanatUpdate.sourceSha256)
+    failures.push('sources/akiva/Takanat_HaShavin.json: not the approved audited Reader source');
   for (const [relativeFile, expected] of Object.entries(CURRENT_PROTECTED_EDITION.files)) {
     const filename = path.join(root, relativeFile);
     checkInputPath(root, filename);
