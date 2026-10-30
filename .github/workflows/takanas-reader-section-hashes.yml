@@ -44,11 +44,11 @@ jobs:
           from pathlib import Path
           out=Path('dist/library/data/takanat-hashavin')
           result={}
-          for s in range(16):
-              file=out / f'{s}.json'
+          for name in [*(f'{s}.json' for s in range(16)), 'links.json', 'toc.json']:
+              file=out / name
               digest=hashlib.sha256(file.read_bytes()).hexdigest()
-              result[f'data/takanat-hashavin/{s}.json']=digest
-              print(f'SECTION_SHA256 data/takanat-hashavin/{s}.json {digest}',flush=True)
+              result[f'data/takanat-hashavin/{name}']=digest
+              print(f'SECTION_SHA256 data/takanat-hashavin/{name} {digest}',flush=True)
           Path('takanas-reader-approved-section-hashes.json').write_text(json.dumps(result,indent=2)+'\n')
           PY
       - uses: actions/upload-artifact@v4
