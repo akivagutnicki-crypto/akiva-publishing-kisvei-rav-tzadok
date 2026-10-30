@@ -1,0 +1,38 @@
+name: Takanas source-quotation protected edition preflight
+on:
+  push:
+    branches:
+      - audit/takanas-source-quotation-guard-preflight-20261029
+
+permissions:
+  contents: read
+
+jobs:
+  exact-protected-hash-compatibility:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Verify Python modules compile
+        run: |
+          python3 -m py_compile scripts/approved_takanas_reader_protected.py scripts/publish-supplied-source-footnotes.py scripts/verify-supplied-source-footnotes.py
+      - name: Reassemble the immutable original source quotation package
+        run: python3 scripts/materialize-source-quotation-payload.py
+      - name: Require only the approved Takanas changes
+        run: |
+          python3 - <<'PY'
+          import sys, gzip, json
+          from pathlib import Path
+          sys.path.insert(0,'scripts')
+          from approved_takanas_reader_protected import approved_protected_files, APPROVED_READER_FILES
+          payload=json.loads(gzip.decompress(Path('sources/akiva/overlays/source-quotations-20261019.json.gz').read_bytes()))
+          original=payload['protectedFiles']
+          approved=approved_protected_files(original)
+          assert len(approved)==len(original)
+          before={x['path']:x['sha256'] for x in original}
+          after={x['path']:x['sha256'] for x in approved}
+          changed={x for x in before if before[x]!=after[x]}
+          assert changed==set(APPROVED_READER_FILES) and len(changed)==10
+          assert all(before[x]==after[x] for x in before if x not in changed)
+          assert all(x.startswith('data/takanat-hashavin/') for x in changed)
+          print('PASS: approved source, 10 exact successor files, all other protected books unchanged')
+          PY
