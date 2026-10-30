@@ -16,6 +16,7 @@ from pathlib import Path
 import re
 import tempfile
 import urllib.parse
+from approved_takanas_reader_protected import approved_protected_files
 
 PAYLOAD = Path('sources/akiva/overlays/source-quotations-20261019.json.gz')
 REPORT = 'supplied-source-footnotes-report.json'
@@ -169,7 +170,8 @@ def main():
     assert not set(payload['books']) & EXCLUDED
     reviewed_urls = reviewed_external_source_urls(payload)
     inventory_before = data_inventory(root)
-    for entry in payload['protectedFiles']:
+    protected_records = approved_protected_files(payload['protectedFiles'])
+    for entry in protected_records:
         assert inventory_before[entry['path']] == entry['sha256'], 'Protected edition changed: ' + entry['path']
     previous_report = root / REPORT
     if previous_report.exists():
@@ -248,7 +250,7 @@ def main():
         'reviewedExternalSourceUrls': reviewed_urls,
         'exceptions': payload.get('exceptions', []), 'books': books, 'changedFiles': changed,
         'files': [{'path': name, 'beforeSha256': before, 'afterSha256': inventory_after[name]} for name, before in inventory_before.items()],
-        'protectedFiles': payload['protectedFiles'], 'shellFiles': shell_files,
+        'protectedFiles': protected_records, 'shellFiles': shell_files,
         'assertions': {'bodyUnchanged': True, 'excludedBooksUnchanged': True, 'onlyReviewedFootnoteArraysChanged': True,
             'noUnmatchedNotesImported': True, 'allInputsCheckedBeforeWriting': True, 'offlineFallbackPreserved': True,
             'verifiedPrimarySourceUrlsEnabled': True},
@@ -273,7 +275,7 @@ def main():
             os.replace(temporary, path)
             written.append((path, before))
         assert data_inventory(root) == inventory_after, 'Final library inventory differs'
-        for entry in payload['protectedFiles']:
+        for entry in protected_records:
             assert sha((root / entry['path']).read_bytes()) == entry['sha256'], 'Excluded book changed'
         descriptor, temporary = tempfile.mkstemp(prefix='.source-quotation-report-', dir=root)
         with os.fdopen(descriptor, 'wb') as stream:
