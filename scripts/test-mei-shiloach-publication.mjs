@@ -55,8 +55,11 @@ assert.ok(inlineLinks>=100,'Inline primary-source links missing');
 const html=fs.readFileSync('dist/library/index.html','utf8');
 const meiRefsBlock=html.split('const meiStudyRefs = new Set([')[1]?.split(']);')[0];
 assert.ok(meiRefsBlock,'Missing Mei HaShiloach reader edition registry');
+// Accept either JavaScript string quotation style while still requiring the
+// exact canonical section to be explicitly registered in the Reader.
+const meiReaderRefs = new Set([...meiRefsBlock.matchAll(/(["'])(.*?)\\1/g)].map(match => match[2]));
 for(const section of source.sections){
-  assert.ok(meiRefsBlock.includes("'"+section.ref+"'"),'Reader does not route revised Mei section: '+section.ref);
+  assert.ok(meiReaderRefs.has(section.ref),'Reader does not route revised Mei section: '+section.ref);
 }
 assert.ok(html.includes('if (!remoteOnly && meiStudyRefs.has(ref))'),
   'Reviewed Mei HaShiloach edition must load before the older remote translation');
