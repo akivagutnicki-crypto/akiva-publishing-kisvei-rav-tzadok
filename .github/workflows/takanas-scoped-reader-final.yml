@@ -1,0 +1,149 @@
+name: Publish final Takanas HaShavin Reader 1-13 (preserve live site)
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/takanas-scoped-reader-final.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: pages
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[takanas-scoped-reader-final]')
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout audited source and scoped publication plan
+        uses: actions/checkout@v6
+
+      - name: Set up Node.js 24
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+
+      - name: Validate publisher syntax
+        run: |
+          node --check scripts/publish-takanas-scoped-reader-final.mjs
+          python3 -m py_compile scripts/approved_takanas_reader_protected.py
+
+      - name: Materialize the exact current Reader file outputs from canonical source
+        run: |
+          node scripts/build-pages.mjs
+          node scripts/import-tzidkat-reviewed.mjs
+          node scripts/import-tzidkat-parallels.mjs
+          python3 scripts/import-tzidkat-expanded-2096.py
+          node scripts/import-mei-vayera-bo.mjs
+          node scripts/import-machshavot-charutz.mjs
+          python3 scripts/import-divrei-footnotes.py
+          node scripts/build-library.mjs
+
+      - name: Pin and isolate the ten approved Takanas Reader outputs
+        run: |
+          python3 - <<'PY'
+          import sys, os, json, hashlib
+          from pathlib import Path
+          sys.path.insert(0,'scripts')
+          from approved_takanas_reader_protected import approved_protected_files, APPROVED_READER_FILES
+          output=Path(os.environ['RUNNER_TEMP'])/'takanas-final-staged'
+          output.mkdir(parents=True,exist_ok=True)
+          checked={}
+          for name,digest in APPROVED_READER_FILES.items():
+              assert name.startswith('data/takanat-hashavin/')
+              source=Path('dist/library')/name
+              raw=source.read_bytes()
+              assert hashlib.sha256(raw).hexdigest()==digest,'Approved Reader changed: '+name
+              (output/Path(name).name).write_bytes(raw)
+              checked['library/'+name]=digest
+          assert len(checked)==10
+          (output/'hashes.json').write_text(json.dumps(checked,indent=2)+'\n')
+          print('PASS 9 corrected reader chapters, 1 source link index; all file hashes pinned')
+          PY
+          node scripts/publish-takanas-scoped-reader-final.mjs --prepare
+
+      - name: Download the latest successful verified full GitHub Pages artifact
+        uses: actions/download-artifact@v4
+        with:
+          artifact-ids: '12895046269'
+          run-id: '40868225572'
+          repository: akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/takanas-last-successful-pages
+          merge-multiple: true
+
+      - name: Restore the verified complete live publication without rebuilding other books
+        run: |
+          python3 - <<'PY'
+          import os, pathlib, shutil, tarfile
+          root=pathlib.Path('dist').resolve()
+          if root.exists(): shutil.rmtree(root)
+          root.mkdir()
+          archive=pathlib.Path(os.environ['RUNNER_TEMP'])/'takanas-last-successful-pages/artifact.tar'
+          assert archive.is_file(),'Last successful complete Pages archive missing'
+          with tarfile.open(archive,'r:') as source:
+              members=source.getmembers()
+              for member in members:
+                  target=(root/member.name).resolve()
+                  assert target==root or root in target.parents,'Unsafe artifact path'
+                  assert member.isdir() or member.isfile(),'Unexpected archive link'
+              source.extractall(root,members=members,filter='data')
+          assert (root/'library/data/takanat-hashavin/15.json').is_file()
+          assert (root/'library/downloads/rav-tzadok-library.zip').is_file()
+          print('PASS restored last successful published Reader and all companion books')
+          PY
+
+      - name: Apply only the approved Simanim 1-9 revision and synchronize linked indexes and ZIPs
+        run: |
+          node scripts/publish-takanas-scoped-reader-final.mjs --apply
+          node scripts/publish-takanas-scoped-reader-final.mjs --verify
+          node --check dist/library/sw.js
+          node scripts/test-library-zips.mjs
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Guard live publication and main SHA from concurrent changes
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/publish-takanas-scoped-reader-final.mjs --guard
+
+      - name: Upload only the verified complete successor website
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: ./dist
+          retention-days: 14
+
+      - name: Recheck live predecessor and main before changing the production site
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: node scripts/publish-takanas-scoped-reader-final.mjs --guard
+
+      - name: Deploy final audited Takanas Reader to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Verify live chapters, source links, book ZIP, Reader cache, and preserved sections
+        run: node scripts/publish-takanas-scoped-reader-final.mjs --live
+
+      - name: Save scoped Reader publication proof
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: takanas-final-reader-1-13-scoped-publication-proof
+          retention-days: 90
+          if-no-files-found: warn
+          path: |
+            artifacts/takanas-scoped-reader-final/
+            editorial/takanas-reader-final-applied-audit.json
