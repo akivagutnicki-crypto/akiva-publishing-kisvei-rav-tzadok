@@ -151,8 +151,7 @@
   });
   }
   function attachment(d) {
-    if (d.sectionRef === REF) return media() + extras(d);
-    return extras(d);
+    return media() + extras(d);
   }
   function extras(d) {
     return '<div class="weekly-study-new"><span class="eyebrow">New this week · the blog and the transcribed shiur</span>' +

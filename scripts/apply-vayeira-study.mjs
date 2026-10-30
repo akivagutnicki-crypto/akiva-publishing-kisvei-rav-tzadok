@@ -78,6 +78,7 @@ if (!blog.includes('id="vayeira-feature-title"')) {
 // Each step replaces the earlier markup in place, so it is safe to run again on an already-updated site.
 const blogVersion = '20261030-vayeira-blog-shiur-v2';
 const audioVersion = '20261030-vayeira-shiur-audio-v3';
+const everywhereVersion = '20261030-vayeira-audio-all-sections-v4';
 const sourcesRef = ref + '_Sources';
 const replaceOne = (text, pattern, replacement, label) => {
   const found = text.match(new RegExp(pattern.source, 'g')) || [];
@@ -86,7 +87,7 @@ const replaceOne = (text, pattern, replacement, label) => {
 };
 
 html = fs.readFileSync(indexPath, 'utf8');
-html = html.replace(/vayeira-study\.js\?v=[\w-]+/g, `vayeira-study.js?v=${audioVersion}`);
+html = html.replace(/vayeira-study\.js\?v=[\w-]+/g, `vayeira-study.js?v=${everywhereVersion}`);
 if (!html.includes('id="akiva-vayeira-blog-shiur"')) {
   const styles = [
     '.weekly-study-new{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;margin:16px 0 6px;padding:14px 16px;background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--ox)}',
@@ -115,9 +116,10 @@ html = replaceOne(html, /<section class="library-weekly"><h3>This week · Parsha
 fs.writeFileSync(indexPath, html);
 
 sw = fs.readFileSync(swPath, 'utf8');
-sw = sw.replace(/\.\/vayeira-study\.js\?v=[\w-]+/g, `./vayeira-study.js?v=${audioVersion}`);
+sw = sw.replace(/\.\/vayeira-study\.js\?v=[\w-]+/g, `./vayeira-study.js?v=${everywhereVersion}`);
 if (!sw.includes('-' + blogVersion)) sw = sw.replace(/(const SHELL = `[^`]+)(`;)/, `$1-${blogVersion}$2`);
 if (!sw.includes('-' + audioVersion)) sw = sw.replace(/(const SHELL = `[^`]+)(`;)/, `$1-${audioVersion}$2`);
+if (!sw.includes('-' + everywhereVersion)) sw = sw.replace(/(const SHELL = `[^`]+)(`;)/, `$1-${everywhereVersion}$2`);
 if (!sw.includes("'./blog/even-the-world-to-come/'")) {
   sw = once(sw, "  './blog/', ", "  './blog/', './blog/even-the-world-to-come/', './blog/even-the-world-to-come/shiur/', ", 'offline blog pages');
 }
@@ -125,7 +127,7 @@ fs.writeFileSync(swPath, sw);
 
 blog = fs.readFileSync(blogPath, 'utf8');
 const shiurLinks = `<a class="btn" href="../#/read/${ref}">🎧 Listen to the shiur →</a><a class="btn secondary" href="even-the-world-to-come/shiur/">Read the shiur →</a><a class="btn secondary" href="../downloads/vayeira-mesiras-nefesh-shiur.pdf" target="_blank" rel="noopener">Read PDF ↗</a><a class="btn secondary" href="../downloads/vayeira-mesiras-nefesh-shiur.pdf" download>Download PDF ↓</a><a class="btn secondary" href="../downloads/vayeira-mesiras-nefesh-shiur.docx" download>Download Word ↓</a>`;
-const card = `<article class="card" aria-labelledby="vayeira-feature-title"><div class="eyebrow">October 30, 2026 · Parshas Vayeira 5787 · Beis Yaakov, Mei HaShiloach &amp; Pri Tzaddik</div><h2 id="vayeira-feature-title"><a style="text-decoration:none" href="even-the-world-to-come/">Even the World to Come</a></h2><p class="subtitle" style="margin:0 0 15px;text-align:left">Avraham, the Akeidah, and the radical mesiras nefesh of Izhbitz</p><p>Rabbi Akiva gave his life with the Shema on his lips. Avraham, at the Akeidah, was ready to give up even his World to Come. A 12-page essay on what mesiras nefesh means in the Izhbitz–Radzin tradition, with the Hebrew sources and footnotes. By Akiva Gutnicki.</p><div class="actions" style="justify-content:flex-start"><a class="btn" href="even-the-world-to-come/">Read the blog →</a><a class="btn secondary" href="pdfs/even-the-world-to-come-vayeira.pdf" target="_blank" rel="noopener">Read PDF ↗</a><a class="btn secondary" href="pdfs/even-the-world-to-come-vayeira.pdf" download>Download PDF ↓</a><a class="btn secondary" href="docs/even-the-world-to-come-vayeira.docx" download>Download Word ↓</a></div><div style="border-top:1px solid var(--border);margin-top:6px;padding-top:24px"><div class="eyebrow">The shiur · recording 1:16:20 · transcript 38 pages</div><h3 style="font-weight:400;font-size:clamp(25px,3.2vw,33px);letter-spacing:-.02em;line-height:1.2;margin:12px 0 10px"><a style="text-decoration:none" href="even-the-world-to-come/shiur/">Mesiras Nefesh: The Deeper Meaning of the Akeidah</a></h3><p>The full shiur the essay grew from: listen to the recording in the reader, or read the transcript in ten parts with its sources in Hebrew and English.</p><div class="actions" style="justify-content:flex-start;margin-bottom:14px">${shiurLinks}</div><p style="margin:0;font:700 13px/1.6 Arial,sans-serif"><a href="../#/read/${sourcesRef}">The fifteen Hebrew–English interlinear sources are in the reader →</a></p></div></article>\n`;
+const card = `<article class="card" aria-labelledby="vayeira-feature-title"><div class="eyebrow">October 30, 2026 · Parshas Vayeira 5787 · Beis Yaakov, Mei HaShiloach &amp; Pri Tzaddik</div><h2 id="vayeira-feature-title"><a style="text-decoration:none" href="even-the-world-to-come/">Even the World to Come</a></h2><p class="subtitle" style="margin:0 0 15px;text-align:left">Avraham, the Akeidah, and the radical mesiras nefesh of Izhbitz</p><p>Rabbi Akiva gave his life with the Shema on his lips. Avraham, at the Akeidah, was ready to give up even his World to Come. A 12-page essay on what mesiras nefesh means in the Izhbitz–Radzin tradition, with the Hebrew sources and footnotes. By Akiva Gutnicki.</p><div class="actions" style="justify-content:flex-start"><a class="btn" href="even-the-world-to-come/">Read the blog →</a><a class="btn secondary" href="even-the-world-to-come/#listen">🎧 Listen to the shiur</a><a class="btn secondary" href="pdfs/even-the-world-to-come-vayeira.pdf" target="_blank" rel="noopener">Read PDF ↗</a><a class="btn secondary" href="pdfs/even-the-world-to-come-vayeira.pdf" download>Download PDF ↓</a><a class="btn secondary" href="docs/even-the-world-to-come-vayeira.docx" download>Download Word ↓</a></div><div style="border-top:1px solid var(--border);margin-top:6px;padding-top:24px"><div class="eyebrow">The shiur · recording 1:16:20 · transcript 38 pages</div><h3 style="font-weight:400;font-size:clamp(25px,3.2vw,33px);letter-spacing:-.02em;line-height:1.2;margin:12px 0 10px"><a style="text-decoration:none" href="even-the-world-to-come/shiur/">Mesiras Nefesh: The Deeper Meaning of the Akeidah</a></h3><p>The full shiur the essay grew from: listen to the recording in the reader, or read the transcript in ten parts with its sources in Hebrew and English.</p><div class="actions" style="justify-content:flex-start;margin-bottom:14px">${shiurLinks}</div><p style="margin:0;font:700 13px/1.6 Arial,sans-serif"><a href="../#/read/${sourcesRef}">The fifteen Hebrew–English interlinear sources are in the reader →</a></p></div></article>\n`;
 blog = replaceOne(blog, /<article class="card" aria-labelledby="vayeira-feature-title">[\s\S]*?<\/article>\n?/, card, 'Vayeira listing');
 fs.writeFileSync(blogPath, blog);
 

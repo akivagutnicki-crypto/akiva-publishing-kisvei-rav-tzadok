@@ -78,7 +78,9 @@ const ref = 'Akiva_Publishing_Weekly_Torah%2C_Vayeira_Mesiras_Nefesh';
     await page.locator('#nextBtn').click();
     await page.waitForFunction(()=>document.querySelector('.weekly-study')?.dataset.ref.endsWith(' Sources'));
     assert.equal(await page.locator('.weekly-study .seg').count(),34);
-    assert.equal(await page.locator('.weekly-study .shiur-audio').count(),0,'Sources section repeats the player');
+    assert.equal(await page.locator('.weekly-study .vayeira-media .shiur-audio').count(),1,'Interlinear sources section lacks the player');
+    assert.equal(await page.locator('.weekly-study .vayeira-media .shiur-audio select.shiur-speed').evaluate(s=>{s.value='1.25';s.dispatchEvent(new Event('change',{bubbles:true}));return document.querySelector('.weekly-study .vayeira-media audio').playbackRate;}),1.25,'Sources player is not mounted');
+    await page.locator('.weekly-study .vayeira-media .shiur-audio select.shiur-speed').selectOption('1');
     assert.equal(await page.locator('.weekly-study .seg-il .footnote-marker').count(),26);
     await page.locator('.weekly-study .seg-il .footnote-marker').first().click();
     await page.locator('.weekly-study .seg-il .reader-footnote.open').first().waitFor({state:'visible'});
@@ -106,6 +108,9 @@ const ref = 'Akiva_Publishing_Weekly_Torah%2C_Vayeira_Mesiras_Nefesh';
     for(const [dir,count] of [['blog/even-the-world-to-come/',12],['blog/even-the-world-to-come/shiur/',38]]) {
       await page.goto(base+dir,{waitUntil:'load'});
       assert.equal(await page.locator('.sheet img').count(),count);
+      const listenSrc=await page.locator('#listen audio').evaluate(a=>a.src);
+      assert(listenSrc.endsWith('/library/audio/vayeira-mesiras-nefesh-shiur.m4a'),dir+' player source '+listenSrc);
+      assert.equal((await context.request.head(listenSrc)).status(),200,dir+' recording link');
       await page.waitForFunction(()=>{const i=document.querySelector('.sheet img');return i.complete&&i.naturalWidth===1224;});
       for(const link of await page.locator('.mast .actions a').evaluateAll(a=>a.map(x=>x.href))) {
         const res=await context.request.get(link);

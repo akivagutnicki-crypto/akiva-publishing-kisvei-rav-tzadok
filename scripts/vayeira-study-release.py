@@ -169,7 +169,7 @@ elif mode == 'verify':
         assert after.get(name) == expected, 'Input asset was changed or omitted: ' + name
     for name, marker in [('library/index.html', 'akiva-vayeira-study'), ('library/sw.js', '20261026-vayeira-mesiras-nefesh-v1'), ('library/blog/index.html', 'vayeira-feature-title'),
                          ('library/index.html', 'href="blog/even-the-world-to-come/"'), ('library/sw.js', '-20261030-vayeira-blog-shiur-v2'),
-                         ('library/blog/index.html', 'href="even-the-world-to-come/shiur/"'), ('library/sw.js', '-20261030-vayeira-shiur-audio-v3'),
+                         ('library/blog/index.html', 'href="even-the-world-to-come/shiur/"'), ('library/sw.js', '-20261030-vayeira-shiur-audio-v3'), ('library/sw.js', '-20261030-vayeira-audio-all-sections-v4'),
                          ('library/vayeira-study.js', 'audio/vayeira-mesiras-nefesh-shiur.m4a')]:
         assert marker in (ROOT / name).read_text(), 'Missing study hook: ' + name
     report = {'publication': state['publication'], 'expectedHead': state['expectedHead'],
