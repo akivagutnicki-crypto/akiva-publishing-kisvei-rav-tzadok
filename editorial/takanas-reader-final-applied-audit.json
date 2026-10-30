@@ -1,0 +1,343 @@
+{
+  "original_blob_sha": "000c9e967b6421e80489cd39ab852e562578ca83",
+  "edited_notes": 29,
+  "operations": [
+    [
+      "text",
+      1,
+      7,
+      "Separate developed parallels primary"
+    ],
+    [
+      "text",
+      1,
+      14,
+      "Separate developed parallels later parallel"
+    ],
+    [
+      "text",
+      2,
+      75,
+      "Contextual qualification"
+    ],
+    [
+      "text",
+      2,
+      93,
+      "Separate inference from source"
+    ],
+    [
+      "text",
+      3,
+      125,
+      "Precision"
+    ],
+    [
+      "text",
+      4,
+      220,
+      "Source correction"
+    ],
+    [
+      "text",
+      4,
+      221,
+      "Shabbos 123b attribution"
+    ],
+    [
+      "text",
+      4,
+      221,
+      "Shabbos 123b chronology"
+    ],
+    [
+      "move",
+      4,
+      220,
+      "p4 phrase1",
+      "p4 phrase2",
+      "Temporary fences discussed"
+    ],
+    [
+      "move",
+      4,
+      222,
+      "p4 phrase2",
+      "p4 phrase3",
+      "Torah renewal discussed"
+    ],
+    [
+      "move",
+      5,
+      232,
+      "p1 phrase0",
+      "p1 phrase1",
+      "Thought-root mechanism"
+    ],
+    [
+      "move",
+      5,
+      231,
+      "p1 phrase0",
+      "p11 phrase4",
+      "Future transformation of past"
+    ],
+    [
+      "text",
+      5,
+      246,
+      "Gemara exact wording"
+    ],
+    [
+      "text",
+      5,
+      246,
+      "Gemara exact Hebrew"
+    ],
+    [
+      "text",
+      5,
+      246,
+      "Transmission"
+    ],
+    [
+      "text",
+      5,
+      249,
+      "Replace Kometz citation with primary"
+    ],
+    [
+      "text",
+      6,
+      357,
+      "Attribution"
+    ],
+    [
+      "text",
+      6,
+      984,
+      "Yirmeyah exact verse"
+    ],
+    [
+      "text",
+      6,
+      984,
+      "Keep Korach nuance"
+    ],
+    [
+      "text",
+      6,
+      986,
+      "Yirmeyah exact verse"
+    ],
+    [
+      "move",
+      6,
+      984,
+      "p73 phrase1",
+      "p73 phrase2",
+      "Place with future verse"
+    ],
+    [
+      "move",
+      6,
+      985,
+      "p73 phrase1",
+      "p73 phrase5",
+      "Future level developed"
+    ],
+    [
+      "move",
+      6,
+      987,
+      "p73 phrase2",
+      "p73 phrase6",
+      "Shimon reception developed"
+    ],
+    [
+      "move",
+      7,
+      1122,
+      "p1 phrase1",
+      "p1 phrase3",
+      "Rav Tzadok disagrees and develops his view"
+    ],
+    [
+      "move",
+      8,
+      1213,
+      "p6 phrase2",
+      "p6 phrase3",
+      "Beyond worldly bounds developed"
+    ],
+    [
+      "text",
+      9,
+      1224,
+      "Public legal credibility follows later primary"
+    ],
+    [
+      "text",
+      9,
+      1233,
+      "Public legal credibility follows later later parallel"
+    ],
+    [
+      "move",
+      9,
+      1224,
+      "p1 phrase0",
+      "p1 phrase1",
+      "Viduy discussion developed"
+    ]
+  ],
+  "counts": {
+    "0": {
+      "markers": 6,
+      "hebrew_side": 0
+    },
+    "1": {
+      "markers": 43,
+      "hebrew_side": 0
+    },
+    "2": {
+      "markers": 72,
+      "hebrew_side": 0
+    },
+    "3": {
+      "markers": 76,
+      "hebrew_side": 0
+    },
+    "4": {
+      "markers": 32,
+      "hebrew_side": 0
+    },
+    "5": {
+      "markers": 127,
+      "hebrew_side": 7
+    },
+    "6": {
+      "markers": 763,
+      "hebrew_side": 24
+    },
+    "7": {
+      "markers": 47,
+      "hebrew_side": 0
+    },
+    "8": {
+      "markers": 56,
+      "hebrew_side": 0
+    },
+    "9": {
+      "markers": 50,
+      "hebrew_side": 0
+    },
+    "10": {
+      "markers": 372,
+      "hebrew_side": 0
+    },
+    "11": {
+      "markers": 85,
+      "hebrew_side": 0
+    },
+    "12": {
+      "markers": 130,
+      "hebrew_side": 0
+    },
+    "13": {
+      "markers": 38,
+      "hebrew_side": 0
+    },
+    "14": {
+      "markers": 26,
+      "hebrew_side": 0
+    },
+    "15": {
+      "markers": 750,
+      "hebrew_side": 4
+    }
+  },
+  "output_sha256": "bea64136f6cdfbcce4d41098ea92715be6f1f42554872f02d59401d6c68d5958",
+  "warnings": [
+    "186 clusters need additional scholarly review",
+    "Simanim 10-13 preserved as live, not replaced from archives",
+    "Independent source certification remains incomplete"
+  ],
+  "previous_verified_source_blob_sha": "c1d72d84f244fdb85ae8276891c55cba262cc048",
+  "additional_source_collations": [
+    {
+      "siman": 2,
+      "note": "108",
+      "reason": "Distinguish the standard Koheles Rabbah wording from Rav Tzadok's reported textual variant",
+      "before_chars": 482,
+      "after_chars": 455
+    },
+    {
+      "siman": 3,
+      "note": "124",
+      "reason": "Distinguish II Divrei HaYamim 33:13 from the Sanhedrin 103a derashah",
+      "before_chars": 2168,
+      "after_chars": 2229
+    },
+    {
+      "siman": 3,
+      "note": "128",
+      "reason": "Differentiate Yerushalmi Makkos standard text from Yalkut Shimoni variant",
+      "before_chars": 384,
+      "after_chars": 598
+    },
+    {
+      "siman": 3,
+      "note": "134",
+      "reason": "Preserve authentic long original quote, now located precisely",
+      "before_chars": 672,
+      "after_chars": 694
+    },
+    {
+      "siman": 3,
+      "note": "165",
+      "reason": "Correct precise original Rav Tzadok work/paragraph",
+      "before_chars": 525,
+      "after_chars": 552
+    },
+    {
+      "siman": 3,
+      "note": "180",
+      "reason": "Precise verified source locator",
+      "before_chars": 776,
+      "after_chars": 777
+    },
+    {
+      "siman": 3,
+      "note": "184",
+      "reason": "Retain authentic original Rav Tzadok text, with exact location",
+      "before_chars": 579,
+      "after_chars": 604
+    },
+    {
+      "siman": 3,
+      "note": "194",
+      "reason": "Correct attribution of Moshe/Yeshayahu/Menasheh interpretation",
+      "before_chars": 608,
+      "after_chars": 619
+    }
+  ],
+  "source_collations_independently_checked_this_pass": [
+    "Koheles Rabbah 1:13",
+    "II Chronicles 33:13",
+    "Sanhedrin 103a",
+    "Yerushalmi Makkot 2:6:9",
+    "Yalkut Shimoni Nach 358:1",
+    "Dover Tzedek Miscellany 1:11",
+    "Dover Tzedek Miscellany 4:120",
+    "Ohr Zarua LaTzadik Large Beis and Small Beis 2",
+    "Poked Akarim 2:7",
+    "Pri Tzaddik Kedushas Shabbos 7:1"
+  ],
+  "total_operation_count": 36,
+  "output_git_blob_sha": "d8258c053e6cad0274f1fa7f199756a66bc4f0b4",
+  "validated_english_hebrew_pairs": 5510,
+  "main_branch_unchanged": true,
+  "all_notes_independently_source_certified": false,
+  "outstanding_cluster_locations_1_9": 186
+}

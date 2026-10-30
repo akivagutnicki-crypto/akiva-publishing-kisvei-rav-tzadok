@@ -1,0 +1,58 @@
+name: Takanas HaShavin - Reader Footnote Candidate (Audit Branch)
+on:
+  push:
+    branches:
+      - audit/takanas-1-13-reader-upload-candidate-2026-10-29
+    paths:
+      - editorial/takanas-reader-final-audit-patch.py
+      - .github/workflows/takanas-reader-upload-candidate.yml
+  workflow_dispatch:
+permissions:
+  contents: write
+jobs:
+  assemble:
+    if: github.ref_name == 'audit/takanas-1-13-reader-upload-candidate-2026-10-29'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out isolated audit branch
+        uses: actions/checkout@v4
+        with:
+          persist-credentials: true
+      - name: Apply SHA-guarded reader-only corrections and verify markers
+        run: python3 editorial/takanas-reader-final-audit-patch.py
+      - name: Package exact GitHub JSON for reader source upload
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import zipfile
+          root = Path('editorial')
+          bundle = root / 'Takanas_HaShavin_Reader_1-13_GitHub_Source_UPLOAD_CANDIDATE.zip'
+          readme = ('Takanas HaShavin Reader Source Upload Candidate - October 29, 2026\n'
+                    'Replacement target: sources/akiva/Takanat_HaShavin.json\n'
+                    'This is NOT the older offline reader ZIP: this ZIP contains the complete updated GitHub Reader source JSON.\n'
+                    'Sections 10-13 are preserved from the live Reader; Introduction and sections 14-15 are unchanged.\n'
+                    '28 editing operations across 21 footnotes (10 relocations), sourced from original checked audits.\n'
+                    'Unresolved: additional checks on 186 crowded clusters and several parallel citations.\n'
+                    'Do not claim that all 1,891 marker sources in Simanim 1-13 have been independently checked.\n')
+          with zipfile.ZipFile(bundle, 'w', compression=zipfile.ZIP_DEFLATED, compresslevel=9) as z:
+              z.write('sources/akiva/Takanat_HaShavin.json', 'Takanat_HaShavin.json')
+              z.write('editorial/takanas-reader-final-applied-audit.json', 'Reader_Change_and_Validation_Report.json')
+              z.writestr('README_UPLOAD_FIRST.txt', readme)
+          print(bundle, bundle.stat().st_size)
+          PY
+      - name: Commit upload candidate on audit branch only
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add sources/akiva/Takanat_HaShavin.json editorial/takanas-reader-final-applied-audit.json editorial/Takanas_HaShavin_Reader_1-13_GitHub_Source_UPLOAD_CANDIDATE.zip
+          git commit -m 'Stage verified Takanas HaShavin reader source JSON and candidate ZIP (do not publish main)'
+          git push origin HEAD:audit/takanas-1-13-reader-upload-candidate-2026-10-29
+      - name: Upload Reader JSON and ZIP as downloadable workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: Takanas-HaShavin-Reader-Simanim-1-13-Upload-Candidate
+          path: |
+            sources/akiva/Takanat_HaShavin.json
+            editorial/Takanas_HaShavin_Reader_1-13_GitHub_Source_UPLOAD_CANDIDATE.zip
+            editorial/takanas-reader-final-applied-audit.json
+          retention-days: 90
