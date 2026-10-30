@@ -1,0 +1,58 @@
+name: Verify revised Takanas HaShavin Reader section hashes
+on:
+  push:
+    branches: [main]
+    paths:
+      - .github/workflows/takanas-reader-section-hashes.yml
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  verified-section-hashes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '24'
+      - name: Verify approved Takanas HaShavin source identity
+        run: |
+          python3 - <<'PY'
+          from pathlib import Path
+          import hashlib
+          file = Path('sources/akiva/Takanat_HaShavin.json')
+          digest = hashlib.sha256(file.read_bytes()).hexdigest()
+          print('Approved source SHA256:', digest)
+          assert digest == 'bea64136f6cdfbcce4d41098ea92715be6f1f42554872f02d59401d6c68d5958', 'Audit source changed'
+          PY
+      - name: Build same reader inputs used by GitHub Pages
+        run: |
+          node scripts/build-pages.mjs
+          node scripts/import-tzidkat-reviewed.mjs
+          node scripts/import-tzidkat-parallels.mjs
+          python3 scripts/import-tzidkat-expanded-2096.py
+          node scripts/import-mei-vayera-bo.mjs
+          node scripts/import-machshavot-charutz.mjs
+          python3 scripts/import-divrei-footnotes.py
+          node scripts/build-library.mjs
+      - name: Record exact approved Takanas HaShavin reader section hashes
+        run: |
+          python3 - <<'PY'
+          import hashlib,json
+          from pathlib import Path
+          out=Path('dist/library/data/takanat-hashavin')
+          result={}
+          for s in range(16):
+              file=out / f'{s}.json'
+              digest=hashlib.sha256(file.read_bytes()).hexdigest()
+              result[f'data/takanat-hashavin/{s}.json']=digest
+              print(f'SECTION_SHA256 data/takanat-hashavin/{s}.json {digest}',flush=True)
+          Path('takanas-reader-approved-section-hashes.json').write_text(json.dumps(result,indent=2)+'\n')
+          PY
+      - uses: actions/upload-artifact@v4
+        with:
+          name: takanas-reader-approved-section-hashes
+          path: takanas-reader-approved-section-hashes.json
+          retention-days: 90
