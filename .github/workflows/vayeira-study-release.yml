@@ -35,6 +35,9 @@ jobs:
         with:
           node-version: '24'
 
+      - name: Assemble the supplied shiur recordings from their verified parts
+        run: node scripts/build-shiur-audio.mjs
+
       - name: Identify the currently published complete Pages artifact
         id: baseline
         env:
