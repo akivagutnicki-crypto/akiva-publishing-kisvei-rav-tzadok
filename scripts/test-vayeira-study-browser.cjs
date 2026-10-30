@@ -46,6 +46,7 @@ const ref = 'Akiva_Publishing_Weekly_Torah%2C_Vayeira_Mesiras_Nefesh';
     await note.waitFor({state:'visible'});
     assert((await note.textContent()).includes('Chanukah'));
     assert(await note.locator('a').count()>0);
+    assert.equal(await page.locator('.weekly-study .weekly-study-new a').count(),2);
     const attachment=page.locator('.weekly-study-pdf').first();
     await attachment.locator('summary').click();
     assert(await attachment.locator('a[download]').isVisible());
@@ -67,15 +68,37 @@ const ref = 'Akiva_Publishing_Weekly_Torah%2C_Vayeira_Mesiras_Nefesh';
     await page.locator('#setBtn').click();
     await page.locator('#tocBtn').click();
     await page.waitForSelector('.weekly-study-contents');
-    assert.equal(await page.locator('.weekly-study-contents a[download]').count(),1);
+    assert.equal(await page.locator('.weekly-study-contents a[download]').count(),5);
     await page.locator('.weekly-study-contents a').filter({hasText:'Read the Vayeira Dvar Torah'}).click();
     await page.waitForSelector('.weekly-study');
     assert.equal(await page.locator('#text').getAttribute('data-lang'),'en','Returning reader preference was reset');
     await page.goto(base+'#/',{waitUntil:'domcontentloaded'});
     await page.waitForSelector('.weekly-study-teaser');
     assert.equal(await page.locator('.weekly-study-teaser').count(),1);
+    assert.equal(await page.locator('.weekly-study-teaser').getAttribute('href'),'blog/even-the-world-to-come/');
     await page.goto(base+'blog/',{waitUntil:'domcontentloaded'});
     await page.waitForSelector('#vayeira-feature-title');
+    assert.equal((await page.locator('#vayeira-feature-title').textContent()).trim(),'Even the World to Come');
+    const cardLinks=await page.locator('article[aria-labelledby="vayeira-feature-title"] a').evaluateAll(a=>a.map(x=>x.href));
+    assert(cardLinks.length>=10,'Blog and shiur actions');
+    for(const href of new Set(cardLinks.filter(h=>!h.includes('#')))) assert.equal((await context.request.get(href)).status(),200,href);
+    assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'Blog listing overflow');
+    for(const [dir,count] of [['blog/even-the-world-to-come/',12],['blog/even-the-world-to-come/shiur/',38]]) {
+      await page.goto(base+dir,{waitUntil:'load'});
+      assert.equal(await page.locator('.sheet img').count(),count);
+      await page.waitForFunction(()=>{const i=document.querySelector('.sheet img');return i.complete&&i.naturalWidth===1224;});
+      for(const link of await page.locator('.mast .actions a').evaluateAll(a=>a.map(x=>x.href))) {
+        const res=await context.request.get(link);
+        assert.equal(res.status(),200,link);
+      }
+      const bodies=await Promise.all((await page.locator('.mast .actions a[download]').evaluateAll(a=>a.map(x=>x.href))).map(h=>context.request.get(h).then(r=>r.body())));
+      assert.deepEqual(bodies.map(b=>b.subarray(0,2).toString()).sort(),['%P','PK']);
+      await page.locator('.toc summary').click();
+      await page.locator('.toc li a').last().click();
+      await page.waitForFunction(()=>location.hash.startsWith('#page-'));
+      assert(await page.evaluate(()=>document.documentElement.scrollWidth<=innerWidth+1),'Reader page overflow '+dir);
+      await page.screenshot({path:screenshots+'/'+(dir.includes('shiur')?'shiur':'blog')+'-'+viewport.width+'.png',fullPage:false});
+    }
     assert.deepEqual(errors,[]);
     results.push({viewport:viewport.width,pass:true});
     await context.close();
