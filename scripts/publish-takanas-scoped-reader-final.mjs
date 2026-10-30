@@ -50,6 +50,40 @@ const verifyStage=()=>{
 };
 const markers=rows=>rows.flatMap(row=>(row.p||[]).flatMap(pair=>pair.flatMap(text=>[...String(text).matchAll(/<sup class="footnote-marker">([^<]+)<\/sup>/g)].map(match=>match[1])))).sort();
 const readingText=html=>splitNotes(String(html||'')).text;
+
+function diagnosePhraseDrift(){
+ const report={rowsReviewed:0,phraseDrift:0,driftWithEqualFullText:0,
+  driftWithDifferentFullText:0,changedInlineNumbers:0,samples:[]};
+ const allText=(row,side)=>row.p.map(pair=>readingText(pair[side])).join(' ').replace(/\s+/g,' ').trim();
+ for(const id of MODIFIED){
+  const before=read(DATA+id+'.json'),after=JSON.parse(fs.readFileSync(path.join(STAGE,id+'.json'),'utf8'));
+  assert.equal(before.length,after.length,'Diagnostics row structure changed '+id);
+  for(let j=0;j<before.length;j++){
+   const a=before[j],b=after[j];if(!a.p||!b.p)continue;
+   report.rowsReviewed++;
+   const oldMarkers=markers([a]),newMarkers=markers([b]);
+   if(JSON.stringify(oldMarkers)!==JSON.stringify(newMarkers))report.changedInlineNumbers++;
+   if(a.p.length!==b.p.length){
+    report.phraseDrift++;
+    const bh=allText(a,0),ch=allText(b,0),be=allText(a,1),ce=allText(b,1);
+    if(bh===ch&&be===ce)report.driftWithEqualFullText++;
+    else report.driftWithDifferentFullText++;
+    if(report.samples.length<30)report.samples.push({
+     siman:id,rowIndex:j,paragraphNumber:a.n,oldPhraseCount:a.p.length,newPhraseCount:b.p.length,
+     hebrewEqual:bh===ch,englishEqual:be===ce,
+     beforeHebrewLength:bh.length,candidateHebrewLength:ch.length,
+     beforeEnglishLength:be.length,candidateEnglishLength:ce.length,
+     beforeHebrewSample:bh.slice(0,170),candidateHebrewSample:ch.slice(0,170),
+     beforeEnglishSample:be.slice(0,170),candidateEnglishSample:ce.slice(0,170),
+     oldInlineMarkers:oldMarkers.slice(0,30),newInlineMarkers:newMarkers.slice(0,30),
+     oldNativeNotes:a.footnotes?.length||0,newNativeNotes:b.footnotes?.length||0
+    });
+   }
+  }
+ }
+ console.log('SCOPED_READER_PHRASE_DIAGNOSTICS '+JSON.stringify(report));
+}
+
 function mergeSectionPreservingNative(before,candidate,id){
  assert.equal(before.length,candidate.length,'Structure differs in Siman '+id);
  const merged=structuredClone(before);
@@ -105,6 +139,7 @@ function preflight(){
  console.log('PASS final Reader source and 10 staged file checksums');
 }
 function apply(){
+ diagnosePhraseDrift();
  const{sections,pinned}=sectionsForPlan();
  const original=inventory(ROOT),prior=read(REPORT);
  assert.match(prior.packSha256,/^[a-f0-9]{64}$/,'Missing authenticated previous Takanas publication');
