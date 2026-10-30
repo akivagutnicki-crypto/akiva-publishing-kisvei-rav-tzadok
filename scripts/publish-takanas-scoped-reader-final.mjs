@@ -50,29 +50,41 @@ const verifyStage=()=>{
 };
 const markers=rows=>rows.flatMap(row=>(row.p||[]).flatMap(pair=>pair.flatMap(text=>[...String(text).matchAll(/<sup class="footnote-marker">([^<]+)<\/sup>/g)].map(match=>match[1])))).sort();
 const readingText=html=>splitNotes(String(html||'')).text;
-function compareSection(before,after,id){
- assert.equal(before.length,after.length,'Structure differs in Siman '+id);
+function mergeSectionPreservingNative(before,candidate,id){
+ assert.equal(before.length,candidate.length,'Structure differs in Siman '+id);
+ const merged=structuredClone(before);
+ const withoutPairsAndNative=row=>Object.fromEntries(Object.entries(row).filter(([k])=>k!=='p'&&k!=='footnotes'));
  for(let j=0;j<before.length;j++){
-  const a=before[j],b=after[j];
-  assert.deepEqual(Object.fromEntries(Object.entries(a).filter(([k])=>k!=='p')),
-    Object.fromEntries(Object.entries(b).filter(([k])=>k!=='p')),'Unapproved metadata change in '+id+':'+j);
+  const a=before[j],b=candidate[j];
+  // Original published native footnotes are an independent, later edition
+  // and must never be overwritten by a source-only inline footnote patch.
+  assert.deepEqual(withoutPairsAndNative(a),withoutPairsAndNative(b),'Unapproved metadata change in '+id+':'+j);
   assert.equal(Boolean(a.p),Boolean(b.p),'Paragraph changed at '+id+':'+j);
   if(!a.p)continue;
   assert.equal(a.p.length,b.p.length,'Phrase count changed at '+id+':'+j);
   for(let k=0;k<a.p.length;k++){
    assert.equal(a.p[k][0],b.p[k][0],'Original Hebrew changed at '+id+':'+j+':'+k);
    assert.equal(readingText(a.p[k][1]),readingText(b.p[k][1]),'English outside source notes changed at '+id+':'+j+':'+k);
+   merged[j].p[k][1]=b.p[k][1];
   }
+  assert.deepEqual(merged[j].footnotes,a.footnotes,'Existing native Reader footnotes were altered at '+id+':'+j);
  }
- assert.deepEqual(markers(before),markers(after),'Footnote marker identity changed in Siman '+id);
+ assert.deepEqual(markers(before),markers(merged),'Footnote marker identity changed in Siman '+id);
+ for(let j=0;j<merged.length;j++){
+  if(!merged[j].p)continue;
+  for(let k=0;k<merged[j].p.length;k++)assert.deepEqual(merged[j].p[k],candidate[j].p[k],'Audited inline edition not applied at '+id+':'+j+':'+k);
+ }
+ return merged;
 }
+const nativeFingerprint=rows=>sha(json(rows.map(row=>Object.fromEntries(Object.entries(row).filter(([k])=>k!=='p')))));
+
 function sectionsForPlan(){
  const pinned=verifyStage();
  const sections=Array.from({length:16},(_,id)=>{
   const name=DATA+id+'.json';
   const before=read(name);
-  const after=MODIFIED.includes(id)?JSON.parse(fs.readFileSync(path.join(STAGE,id+'.json'),'utf8')):structuredClone(before);
-  if(MODIFIED.includes(id))compareSection(before,after,id);
+  const candidate=MODIFIED.includes(id)?JSON.parse(fs.readFileSync(path.join(STAGE,id+'.json'),'utf8')):null;
+  const after=candidate?mergeSectionPreservingNative(before,candidate,id):structuredClone(before);
   return{id,path:name,sectionRef:id?TITLE+' '+id:TITLE+', Introduction',before,after};
  });
  let footnoteCount=0,hebrewCount=0;
@@ -146,6 +158,8 @@ function apply(){
   previousPackSha256:prior.packSha256,baselineArtifact:12895046269,baselineRun:40868225572,
   originalPins:Object.fromEntries(guardFiles.map(n=>[n,original[n]?.sha256])),
   protectedHashes:Object.fromEntries(EXCLUDED.map(id=>[DATA+id+'.json',original[DATA+id+'.json']?.sha256])),
+  preservedNativeMetadataHashes:Object.fromEntries(MODIFIED.map(id=>[DATA+id+'.json',nativeFingerprint(sections[id].before)])),
+  mergedReaderHashes:Object.fromEntries(MODIFIED.map(id=>[DATA+id+'.json',sha(bytes(DATA+id+'.json'))])),
   changedFiles:[...plan.changes].map(([name,data])=>({path:name,before:original[name],after:info(data)})),
   archives:plan.archives,version:plan.version,stagedHashes:pinned});
  verify();
@@ -159,7 +173,13 @@ function verify(){
  assert.equal(read('library/downloads/index.json').version,proof.version);
  assert.equal(read('mcp-data/catalog.json').version,proof.version);
  for(const[id,digest]of Object.entries(proof.protectedHashes))assert.equal(sha(bytes(id)),digest,'Excluded section changed: '+id);
- for(const id of MODIFIED)assert.equal(sha(bytes(DATA+id+'.json')),proof.stagedHashes[DATA+id+'.json'],'Wrong revised reader section '+id);
+ for(const id of MODIFIED){
+  const file=DATA+id+'.json',rows=read(file),candidate=JSON.parse(fs.readFileSync(path.join(STAGE,id+'.json'),'utf8'));
+  assert.equal(sha(bytes(file)),proof.mergedReaderHashes[file],'Merged Reader chapter changed: '+id);
+  assert.equal(nativeFingerprint(rows),proof.preservedNativeMetadataHashes[file],'Existing native footnotes changed: '+id);
+  assert.equal(rows.length,candidate.length,'Reader structure drift: '+id);
+  for(let j=0;j<rows.length;j++)if(rows[j].p)assert.deepEqual(rows[j].p,candidate[j].p,'Audited inline text differs: '+id+':'+j);
+ }
  const links=read(DATA+'links.json'),mcp=read('mcp-data/text/takanat-hashavin.json');
  for(let id=0;id<16;id++){
   const section={id,sectionRef:id?TITLE+' '+id:TITLE+', Introduction',after:read(DATA+id+'.json')};
