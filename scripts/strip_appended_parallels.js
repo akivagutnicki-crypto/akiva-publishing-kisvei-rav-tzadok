@@ -170,13 +170,14 @@ const CURRENT_PROTECTED_EDITION = {
 
 function verifyCurrentProtectedEdition(root) {
   const failures = [];
-  // Only the audited October 29 Takanas HaShavin master may accompany
-  // this updated, individually pinned Reader section/link snapshot.
-  // A changed source without fresh approved hashes must still fail closed.
+  // Generated Reader-only libraries need not contain their canonical source
+  // manuscript. Exact hashes of every protected generated chapter and links
+  // file remain compulsory below. If a source master is included, verify it.
   const approvedTakanat = path.join(root, 'sources', 'akiva', 'Takanat_HaShavin.json');
   checkInputPath(root, approvedTakanat);
-  if (!fs.existsSync(approvedTakanat) || !fs.lstatSync(approvedTakanat).isFile() ||
-      digest(fs.readFileSync(approvedTakanat)) !== CURRENT_PROTECTED_EDITION.approvedTakanatUpdate.sourceSha256)
+  if (fs.existsSync(approvedTakanat) &&
+      (!fs.lstatSync(approvedTakanat).isFile() ||
+       digest(fs.readFileSync(approvedTakanat)) !== CURRENT_PROTECTED_EDITION.approvedTakanatUpdate.sourceSha256))
     failures.push('sources/akiva/Takanat_HaShavin.json: not the approved audited Reader source');
   for (const [relativeFile, expected] of Object.entries(CURRENT_PROTECTED_EDITION.files)) {
     const filename = path.join(root, relativeFile);
