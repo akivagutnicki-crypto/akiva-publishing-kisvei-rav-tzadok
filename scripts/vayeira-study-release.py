@@ -53,21 +53,30 @@ def publishers():
 
 def latest_publication():
     known = publishers()
-    runs = api('/actions/runs?branch=main&per_page=100')['workflow_runs']
     current_run = str(os.environ.get('GITHUB_RUN_ID', ''))
     candidates = []
-    for run in runs:
-        if str(run['id']) == current_run or run['path'] not in known:
-            continue
-        if run['status'] != 'completed' or run['conclusion'] == 'skipped':
-            continue
-        # A post-deployment check can fail after a site was published. Inspect
-        # the actual deploy-pages step, rather than treating run success as live.
-        jobs = api('/actions/runs/' + str(run['id']) + '/jobs?per_page=100')['jobs']
-        deployed = [step for job in jobs for step in job.get('steps', [])
-                    if step['name'] == known[run['path']] and step['conclusion'] == 'success']
-        if deployed:
-            candidates.append((max(step['completed_at'] for step in deployed), run))
+    found_page = None
+    # Every push starts dozens of skipped workflows, so the last deployment can be
+    # several hundred runs back. Page until one is found, then read one more page
+    # in case an older, longer run finished its deployment later.
+    for page in range(1, 31):
+        runs = api('/actions/runs?branch=main&per_page=100&page=' + str(page))['workflow_runs']
+        for run in runs:
+            if str(run['id']) == current_run or run['path'] not in known:
+                continue
+            if run['status'] != 'completed' or run['conclusion'] in ('skipped', 'cancelled'):
+                continue
+            # A post-deployment check can fail after a site was published. Inspect
+            # the actual deploy-pages step, rather than treating run success as live.
+            jobs = api('/actions/runs/' + str(run['id']) + '/jobs?per_page=100')['jobs']
+            deployed = [step for job in jobs for step in job.get('steps', [])
+                        if step['name'] == known[run['path']] and step['conclusion'] == 'success']
+            if deployed:
+                candidates.append((max(step['completed_at'] for step in deployed), run))
+        if candidates and found_page is None:
+            found_page = page
+        if not runs or (found_page is not None and page > found_page):
+            break
     assert candidates, 'No verified completed Pages deployment found; refusing a rebuild'
     completed_at, run = max(candidates, key=lambda item: item[0])
     artifacts = api('/actions/runs/' + str(run['id']) + '/artifacts')['artifacts']
@@ -111,7 +120,15 @@ def guard(state):
 def verify_inputs():
     files = ['library/vayeira-study.js', 'library/studies/vayeira-mesiras-nefesh.json',
              'library/downloads/vayeira-akeidah-mesiras-nefesh.pdf',
-             'library/downloads/vayeira-akeidah-mesiras-nefesh-cover.webp']
+             'library/downloads/vayeira-akeidah-mesiras-nefesh-cover.webp',
+             'library/blog/pdfs/even-the-world-to-come-vayeira.pdf',
+             'library/blog/docs/even-the-world-to-come-vayeira.docx',
+             'library/downloads/vayeira-mesiras-nefesh-shiur.pdf',
+             'library/downloads/vayeira-mesiras-nefesh-shiur.docx']
+    for folder in ['library/blog/even-the-world-to-come', 'library/blog/even-the-world-to-come/shiur']:
+        pages = sorted((Path('dist') / folder / 'pages').glob('page-*.webp'))
+        assert pages, 'Missing page images: ' + folder
+        files += [folder + '/index.html'] + [page.relative_to('dist').as_posix() for page in pages]
     inputs = {}
     for name in files:
         file = Path('dist') / name
@@ -149,7 +166,9 @@ elif mode == 'verify':
     assert changed <= allowed, 'Unexpected publication change: ' + repr(sorted(changed - allowed))
     for name, expected in state['inputs'].items():
         assert after.get(name) == expected, 'Input asset was changed or omitted: ' + name
-    for name, marker in [('library/index.html', 'akiva-vayeira-study'), ('library/sw.js', '20261026-vayeira-mesiras-nefesh-v1'), ('library/blog/index.html', 'vayeira-feature-title')]:
+    for name, marker in [('library/index.html', 'akiva-vayeira-study'), ('library/sw.js', '20261026-vayeira-mesiras-nefesh-v1'), ('library/blog/index.html', 'vayeira-feature-title'),
+                         ('library/index.html', 'href="blog/even-the-world-to-come/"'), ('library/sw.js', '-20261030-vayeira-blog-shiur-v2'),
+                         ('library/blog/index.html', 'href="even-the-world-to-come/shiur/"')]:
         assert marker in (ROOT / name).read_text(), 'Missing study hook: ' + name
     report = {'publication': state['publication'], 'expectedHead': state['expectedHead'],
               'changed': sorted(changed), 'removed': [],

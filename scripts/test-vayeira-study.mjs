@@ -1,4 +1,5 @@
 import fs from 'node:fs';
+import path from 'node:path';
 import vm from 'node:vm';
 import assert from 'node:assert/strict';
 
@@ -53,9 +54,44 @@ for(const s of sections) {
 }
 await assert.rejects(api.fetchText(sections[0].sectionRef+':1000'),/out of range/);
 assert(!api.recognizes('Peri Tzadik, Vayera 1'));
+const contentsHtml=api.contents();
+const attachmentHtml=api.attachment(sections[0]);
+for (const link of ['blog/even-the-world-to-come/','blog/even-the-world-to-come/shiur/']) {
+  assert(contentsHtml.includes(`href="${link}"`), 'Study contents lacks '+link);
+  assert(attachmentHtml.includes(`href="${link}"`), 'Study attachment lacks '+link);
+}
+const downloads={
+  'blog/pdfs/even-the-world-to-come-vayeira.pdf':'%PDF-','blog/docs/even-the-world-to-come-vayeira.docx':'PK',
+  'downloads/vayeira-mesiras-nefesh-shiur.pdf':'%PDF-','downloads/vayeira-mesiras-nefesh-shiur.docx':'PK'};
+for (const [file,magic] of Object.entries(downloads)) {
+  assert.equal(fs.readFileSync(`${root}/${file}`).subarray(0,magic.length).toString(),magic,file);
+  assert(contentsHtml.includes(`href="${file}" download`), 'Study contents lacks download '+file);
+}
+for (const [dir,count] of [['blog/even-the-world-to-come',12],['blog/even-the-world-to-come/shiur',38]]) {
+  const pageHtml=fs.readFileSync(`${root}/${dir}/index.html`,'utf8');
+  const images=[...pageHtml.matchAll(/<img src="(pages\/page-\d\d\.webp)"/g)].map(m=>m[1]);
+  assert.equal(images.length,count,dir+' page count');
+  assert.deepEqual(fs.readdirSync(`${root}/${dir}/pages`).sort(),images.map(i=>i.slice(6)),dir+' page files');
+  for (const image of images) {
+    const bytes=fs.readFileSync(`${root}/${dir}/${image}`);
+    assert.equal(bytes.subarray(0,4).toString()+bytes.subarray(8,12).toString(),'RIFFWEBP',image);
+  }
+  for (const m of pageHtml.matchAll(/href="([^"#]+\.(?:pdf|docx))"/g)) assert(fs.existsSync(path.resolve(`${root}/${dir}`,m[1])),dir+' broken link '+m[1]);
+  assert(pageHtml.includes('#/read/Akiva_Publishing_Weekly_Torah%2C_Vayeira_Mesiras_Nefesh_Sources'));
+}
+const blogIndex=fs.readFileSync(`${root}/blog/index.html`,'utf8');
+const card=blogIndex.match(/<article class="card" aria-labelledby="vayeira-feature-title">[\s\S]*?<\/article>/g);
+assert.equal(card?.length,1,'One Vayeira listing');
+assert(card[0].includes('>Even the World to Come</a>'));
+for (const m of card[0].matchAll(/href="([^"#]+)"/g)) {
+  const target=path.resolve(`${root}/blog`,m[1]);
+  assert(fs.existsSync(target.endsWith('/')||!path.extname(target)?path.join(target,'index.html'):target),'Broken listing link '+m[1]);
+}
 const html=fs.readFileSync(`${root}/index.html`,'utf8');
+assert.equal((html.match(/<a class="weekly-teaser weekly-study-teaser" href="blog\/even-the-world-to-come\/"/g)||[]).length,1,'Home teaser');
+assert(html.includes('vayeira-study.js?v=20261030-vayeira-blog-shiur-v2'));
 assert(html.includes('window.AkivaVayeiraStudy.fetchText(ref)'));
 assert(html.includes('window.AkivaVayeiraStudy.contents()'));
 assert(html.includes('window.AkivaVayeiraStudy.attachment(d)'));
 for(const script of html.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/g)) if(script[1].trim())new vm.Script(script[1]);
-console.log('PASS: Vayeira native chapter routes, 15 interlinear sources, 34 linked Hebrew-only source markers, editorial attribution, and PDF attachment.');
+console.log('PASS: Vayeira native chapter routes, 15 interlinear sources, 34 linked Hebrew-only source markers, editorial attribution, PDF attachment, and the blog and transcribed shiur (12 + 38 pages, PDF and Word).');

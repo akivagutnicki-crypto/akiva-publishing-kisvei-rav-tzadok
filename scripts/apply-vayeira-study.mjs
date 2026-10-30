@@ -74,11 +74,60 @@ if (!blog.includes('id="vayeira-feature-title"')) {
   fs.writeFileSync(blogPath, blog);
 }
 
+// October 30 · the blog "Even the World to Come" and the transcribed shiur replace the Vayeira listing.
+// Each step replaces the earlier markup in place, so it is safe to run again on an already-updated site.
+const blogVersion = '20261030-vayeira-blog-shiur-v2';
+const sourcesRef = ref + '_Sources';
+const replaceOne = (text, pattern, replacement, label) => {
+  const found = text.match(new RegExp(pattern.source, 'g')) || [];
+  assert.equal(found.length, 1, `Unexpected ${label} count`);
+  return text.replace(pattern, () => replacement);
+};
+
+html = fs.readFileSync(indexPath, 'utf8');
+html = html.replace(/vayeira-study\.js\?v=[\w-]+/g, `vayeira-study.js?v=${blogVersion}`);
+if (!html.includes('id="akiva-vayeira-blog-shiur"')) {
+  const styles = [
+    '.weekly-study-new{display:flex;flex-wrap:wrap;align-items:baseline;gap:6px 14px;margin:16px 0 6px;padding:14px 16px;background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--ox)}',
+    '.weekly-study-new .eyebrow{flex-basis:100%}',
+    '.weekly-study-new strong{font:500 1.2rem/1.3 var(--en);color:var(--forest)}',
+    '.weekly-study-new span:not(.eyebrow){color:var(--muted)}',
+    '.weekly-study-new a{font-weight:700}',
+    '.weekly-study-contents .weekly-study-item{border-top:1px solid var(--line);margin-top:20px;padding-top:16px}',
+    '.weekly-study-contents .weekly-study-item h2{font:500 1.35rem/1.25 var(--en);color:var(--forest);margin:0 0 6px}',
+    '.weekly-study-contents .weekly-study-item p{margin:0}'
+  ].join('\n');
+  html = once(html, '</head>', `<style id="akiva-vayeira-blog-shiur">\n${styles}\n</style>\n</head>`, 'blog and shiur styles');
+}
+html = replaceOne(html, /<a class="weekly-teaser weekly-study-teaser"[\s\S]*?<\/a>/,
+  `<a class="weekly-teaser weekly-study-teaser" href="blog/even-the-world-to-come/" aria-label="Read Even the World to Come, the Parshas Vayeira blog and transcribed shiur">\n        <span class="weekly-teaser-copy"><span class="eyebrow">This week · Parshas Vayeira</span><strong>Even the World to Come</strong><span>Avraham, the Akeidah, and the radical mesiras nefesh of Izhbitz · The blog and the transcribed shiur, to read here or download as PDF and Word →</span></span>\n      </a>`, 'home teaser');
+html = replaceOne(html, /<section class="library-weekly"><h3>This week · Parshas Vayeira<\/h3>[\s\S]*?<h3>Latest article<\/h3>/,
+  `<section class="library-weekly"><h3>This week · Parshas Vayeira</h3><p><strong>Even the World to Come</strong><br>Avraham, the Akeidah, and the radical mesiras nefesh of Izhbitz</p><a class="link" href="blog/even-the-world-to-come/">Read the blog →</a><a class="link" href="blog/even-the-world-to-come/shiur/">Read the transcribed shiur →</a><a class="link" href="#/read/${sourcesRef}">Interlinear sources in the reader →</a><h3>Latest article</h3>`, 'sidebar');
+fs.writeFileSync(indexPath, html);
+
+sw = fs.readFileSync(swPath, 'utf8');
+sw = sw.replace(/\.\/vayeira-study\.js\?v=[\w-]+/g, `./vayeira-study.js?v=${blogVersion}`);
+if (!sw.includes('-' + blogVersion)) sw = sw.replace(/(const SHELL = `[^`]+)(`;)/, `$1-${blogVersion}$2`);
+if (!sw.includes("'./blog/even-the-world-to-come/'")) {
+  sw = once(sw, "  './blog/', ", "  './blog/', './blog/even-the-world-to-come/', './blog/even-the-world-to-come/shiur/', ", 'offline blog pages');
+}
+fs.writeFileSync(swPath, sw);
+
+blog = fs.readFileSync(blogPath, 'utf8');
+const shiurLinks = `<a class="btn" href="even-the-world-to-come/shiur/">Read the shiur →</a><a class="btn secondary" href="../downloads/vayeira-mesiras-nefesh-shiur.pdf" target="_blank" rel="noopener">Read PDF ↗</a><a class="btn secondary" href="../downloads/vayeira-mesiras-nefesh-shiur.pdf" download>Download PDF ↓</a><a class="btn secondary" href="../downloads/vayeira-mesiras-nefesh-shiur.docx" download>Download Word ↓</a>`;
+const card = `<article class="card" aria-labelledby="vayeira-feature-title"><div class="eyebrow">October 30, 2026 · Parshas Vayeira 5787 · Beis Yaakov, Mei HaShiloach &amp; Pri Tzaddik</div><h2 id="vayeira-feature-title"><a style="text-decoration:none" href="even-the-world-to-come/">Even the World to Come</a></h2><p class="subtitle" style="margin:0 0 15px;text-align:left">Avraham, the Akeidah, and the radical mesiras nefesh of Izhbitz</p><p>Rabbi Akiva gave his life with the Shema on his lips. Avraham, at the Akeidah, was ready to give up even his World to Come. A 12-page essay on what mesiras nefesh means in the Izhbitz–Radzin tradition, with the Hebrew sources and footnotes. By Akiva Gutnicki.</p><div class="actions" style="justify-content:flex-start"><a class="btn" href="even-the-world-to-come/">Read the blog →</a><a class="btn secondary" href="pdfs/even-the-world-to-come-vayeira.pdf" target="_blank" rel="noopener">Read PDF ↗</a><a class="btn secondary" href="pdfs/even-the-world-to-come-vayeira.pdf" download>Download PDF ↓</a><a class="btn secondary" href="docs/even-the-world-to-come-vayeira.docx" download>Download Word ↓</a></div><div style="border-top:1px solid var(--border);margin-top:6px;padding-top:24px"><div class="eyebrow">The transcribed shiur · 38 pages</div><h3 style="font-weight:400;font-size:clamp(25px,3.2vw,33px);letter-spacing:-.02em;line-height:1.2;margin:12px 0 10px"><a style="text-decoration:none" href="even-the-world-to-come/shiur/">Mesiras Nefesh: The Deeper Meaning of the Akeidah</a></h3><p>The full shiur the essay grew from, in ten parts, with its sources in Hebrew and English.</p><div class="actions" style="justify-content:flex-start;margin-bottom:14px">${shiurLinks}</div><p style="margin:0;font:700 13px/1.6 Arial,sans-serif"><a href="../#/read/${sourcesRef}">The fifteen Hebrew–English interlinear sources are in the reader →</a></p></div></article>\n`;
+blog = replaceOne(blog, /<article class="card" aria-labelledby="vayeira-feature-title">[\s\S]*?<\/article>\n?/, card, 'Vayeira listing');
+fs.writeFileSync(blogPath, blog);
+
 if (path.resolve(root) !== path.resolve('dist')) {
-  for (const file of ['vayeira-study.js', 'studies/vayeira-mesiras-nefesh.json', 'downloads/vayeira-akeidah-mesiras-nefesh.pdf', 'downloads/vayeira-akeidah-mesiras-nefesh-cover.webp']) {
+  const blogPages = ['blog/even-the-world-to-come', 'blog/even-the-world-to-come/shiur'].flatMap(dir =>
+    ['index.html', ...fs.readdirSync(path.join('dist/library', dir, 'pages')).sort().map(name => 'pages/' + name)].map(name => dir + '/' + name));
+  for (const file of ['vayeira-study.js', 'studies/vayeira-mesiras-nefesh.json', 'downloads/vayeira-akeidah-mesiras-nefesh.pdf', 'downloads/vayeira-akeidah-mesiras-nefesh-cover.webp',
+    'blog/pdfs/even-the-world-to-come-vayeira.pdf', 'blog/docs/even-the-world-to-come-vayeira.docx',
+    'downloads/vayeira-mesiras-nefesh-shiur.pdf', 'downloads/vayeira-mesiras-nefesh-shiur.docx', ...blogPages]) {
     const dest = path.join(library, file);
     fs.mkdirSync(path.dirname(dest), {recursive:true});
     fs.copyFileSync(path.join('dist/library', file), dest);
   }
 }
-console.log('Parshas Vayeira native reader entry, PDF attachment and discovery links are ready.');
+console.log('Parshas Vayeira reader entry, blog, transcribed shiur, PDF and Word downloads and discovery links are ready.');
