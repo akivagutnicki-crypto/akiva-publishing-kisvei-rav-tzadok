@@ -27,6 +27,8 @@ import urllib.error
 import urllib.request
 import zipfile
 
+from approved_takanas_reader_protected import approved_protected_files
+
 
 REPO = Path(__file__).resolve().parent.parent
 RELEASE = '20261019-source-quotations'
@@ -937,7 +939,7 @@ def verify(args):
     boundary = verify_chanukah24_boundary(reader, after)
     historical_files = boundary['historicalFiles']
     final_after = boundary['finalInventory']
-    protected = record_map(payload['protectedFiles'])
+    protected = record_map(approved_protected_files(payload['protectedFiles']))
     check(record_map(report['protectedFiles']) == protected, 'Excluded-book preservation evidence changed')
     expected_protected = {path: digest for path, digest in before.items() if path.split('/')[1] in EXCLUDED}
     check(protected == expected_protected, 'The release must protect every file in all three excluded books')
