@@ -57,7 +57,7 @@ const meiRefsBlock=html.split('const meiStudyRefs = new Set([')[1]?.split(']);')
 assert.ok(meiRefsBlock,'Missing Mei HaShiloach reader edition registry');
 // Accept either JavaScript string quotation style while still requiring the
 // exact canonical section to be explicitly registered in the Reader.
-const meiReaderRefs = new Set([...meiRefsBlock.matchAll(/(["'])(.*?)\\1/g)].map(match => match[2]));
+const meiReaderRefs = new Set([...meiRefsBlock.matchAll(/"([^"]+)"|'([^']+)'/g)].map(match => match[1] || match[2]));
 for(const section of source.sections){
   assert.ok(meiReaderRefs.has(section.ref),'Reader does not route revised Mei section: '+section.ref);
 }
