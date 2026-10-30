@@ -107,7 +107,7 @@ jobs:
         run: node scripts/build-shiur-audio.mjs && node scripts/test-shiur-player.mjs && node scripts/test-noach6-media.mjs
 
       - name: Verify interlinear Hebrew, nikkud, and Sefaria links
-        run: node scripts/test-beit-yaakov-publication.mjs && node scripts/test-mei-shiloach-publication.mjs && node scripts/test-tzidkat.mjs && node scripts/test-tzidkat-footnotes.mjs && node scripts/test-tzidkat-parallels.mjs && node scripts/test-machshavot-footnotes.mjs && node scripts/test-divrei-footnotes.mjs && node scripts/test-hazikhronot-footnotes.mjs
+        run: node scripts/test-beit-yaakov-publication.mjs && node scripts/test-tzidkat.mjs && node scripts/test-tzidkat-footnotes.mjs && node scripts/test-tzidkat-parallels.mjs && node scripts/test-machshavot-footnotes.mjs && node scripts/test-divrei-footnotes.mjs && node scripts/test-hazikhronot-footnotes.mjs
 
       - name: Verify Hebrew-word footnotes in a mobile browser
         run: |
@@ -144,6 +144,9 @@ jobs:
 
       - name: Publish and verify English descriptive contents and in-text headings in seven sefarim
         run: python scripts/apply-seven-editorial-tocs.py && node scripts/test-seven-editorial-tocs.mjs
+
+      - name: Verify Mei HaShiloach published sections after reader cache refresh
+        run: node scripts/test-mei-shiloach-publication.mjs
 
       - name: Add 929 supplied Hebrew-anchored notes only to Pri Tzadik Vayera and Chayei Sara
         run: python scripts/import-pri-vayera-chayei-footnotes.py
