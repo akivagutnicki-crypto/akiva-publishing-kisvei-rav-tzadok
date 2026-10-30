@@ -116,7 +116,7 @@ self.addEventListener('fetch', event => {
         || rel.startsWith('connected-ideas/') || rel === 'connected-ideas.js' || rel === 'source-editions.js'
         || rel === 'sefaria-packs.js') {
       event.respondWith(networkFirst(request, DATA));
-    } else if (rel.startsWith('data/et-haochel/') || rel === 'data/parallels/et-haochel.json' || /^data\/(?:catalog\.json|files\.json|cited\/index\.json|[^/]+\/toc\.json)$/.test(rel) || /^data\/(?:dover-tzedek|likkutei-maamarim|ohr-zarua-latzadik|peri-tzadik|tiferet-yosef|beit-yaakov-on-torah|mei-ha-shiloach|poked-akarim|sefer-hazikhronot|yisrael-kedoshim|machshavot-charutz|divrei-soferim|tzidkat-hatzadik|toldos-hakohen|meshiv-hata-anah|meshiv-tzedek)\//.test(rel)) {
+    } else if (rel.startsWith('data/takanat-hashavin/') || rel.startsWith('data/et-haochel/') || rel === 'data/parallels/et-haochel.json' || /^data\/(?:catalog\.json|files\.json|cited\/index\.json|[^/]+\/toc\.json)$/.test(rel) || /^data\/(?:dover-tzedek|likkutei-maamarim|ohr-zarua-latzadik|peri-tzadik|tiferet-yosef|beit-yaakov-on-torah|mei-ha-shiloach|poked-akarim|sefer-hazikhronot|yisrael-kedoshim|machshavot-charutz|divrei-soferim|tzidkat-hatzadik|toldos-hakohen|meshiv-hata-anah|meshiv-tzedek)\//.test(rel)) {
       // Contents and manifests must reflect newly added editions immediately.
       event.respondWith(networkFirst(request, DATA));
     } else if (rel.startsWith('data/') && (url.searchParams.get('edition') || '').startsWith('20261018-appended-parallels-cleanup-')) {
