@@ -5,6 +5,7 @@ on:
     branches: [main]
     paths:
       - .github/workflows/takanas-scoped-reader-final.yml
+      - scripts/publish-takanas-scoped-reader-final.mjs
   workflow_dispatch:
 
 permissions:
