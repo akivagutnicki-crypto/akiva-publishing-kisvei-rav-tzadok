@@ -85,7 +85,13 @@ assert.equal(fs.readFileSync(audioFile).subarray(4,8).toString(),'ftyp','Shiur r
 assert(attachmentHtml.includes('<audio controls preload="none" src="audio/vayeira-mesiras-nefesh-shiur.m4a"'),'Dvar Torah section lacks the shiur player');
 assert(attachmentHtml.includes('class="shiur-audio" data-shiur-key="vayeira-mesiras-nefesh-shiur"'));
 assert(attachmentHtml.includes('Preview the shiur transcript · 38 pages'));
-assert(!api.attachment(sections[1]).includes('shiur-audio'),'The sources section must not repeat the player');
+assert(api.attachment(sections[1]).includes('<audio controls preload="none" src="audio/vayeira-mesiras-nefesh-shiur.m4a"'),'Interlinear sources section lacks the shiur player');
+for (const dir of ['blog/even-the-world-to-come','blog/even-the-world-to-come/shiur']) {
+  const pageHtml=fs.readFileSync(`${root}/${dir}/index.html`,'utf8');
+  const src=pageHtml.match(/<section class="listen" id="listen"[\s\S]*?<audio controls preload="none" src="([^"]+)"/);
+  assert(src,dir+' lacks the shiur player');
+  assert.equal(path.resolve(`${root}/${dir}`,src[1]),path.resolve(audioFile),dir+' player points elsewhere');
+}
 assert(contentsHtml.includes('href="audio/vayeira-mesiras-nefesh-shiur.m4a" download'),'Study contents lacks the recording');
 const blogIndex=fs.readFileSync(`${root}/blog/index.html`,'utf8');
 const card=blogIndex.match(/<article class="card" aria-labelledby="vayeira-feature-title">[\s\S]*?<\/article>/g);
@@ -97,7 +103,7 @@ for (const m of card[0].matchAll(/href="([^"#]+)"/g)) {
 }
 const html=fs.readFileSync(`${root}/index.html`,'utf8');
 assert.equal((html.match(/<a class="weekly-teaser weekly-study-teaser" href="blog\/even-the-world-to-come\/"/g)||[]).length,1,'Home teaser');
-assert(html.includes('vayeira-study.js?v=20261030-vayeira-shiur-audio-v3'));
+assert(html.includes('vayeira-study.js?v=20261030-vayeira-audio-all-sections-v4'));
 assert(html.includes('window.AkivaVayeiraStudy.fetchText(ref)'));
 assert(html.includes('window.AkivaVayeiraStudy.contents()'));
 assert(html.includes('window.AkivaVayeiraStudy.attachment(d)'));
