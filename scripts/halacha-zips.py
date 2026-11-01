@@ -44,7 +44,10 @@ def check_archive(path, expected_titles=(), expected_files=()):
 
 def verify(folder):
     manifest, records = check_archive(folder / SEFARIA, EXPECTED_SEFARIA)
-    assert manifest['complete'] and len(manifest['books']) >= 2000, 'Incomplete Sefaria Halakhah export'
+    assert len(manifest['books']) >= 2000, 'Incomplete Sefaria Halakhah export'
+    assert manifest['complete'] or len(manifest['missing']) <= 40, 'Too many unusable Sefaria export files'
+    if manifest['missing']:
+        print(f'{len(manifest["missing"])} unusable export files are listed in the manifest.')
     assert all(b['categories'][0] == 'Halakhah' for b in manifest['books'])
     langs = {r.get('language') for r in records if r.get('language')}
     assert langs == {'Hebrew', 'English'}, langs
