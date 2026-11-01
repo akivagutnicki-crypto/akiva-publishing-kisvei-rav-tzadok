@@ -1,4 +1,4 @@
-"""Publish the Vayeira study over the current complete Pages artifact.
+"""Publish the weekly Torah releases (Vayeira, Chayei Sarah) over the current complete Pages artifact.
 
 Verify every original Torah file and every unrelated site file remains identical.
 """
@@ -125,8 +125,14 @@ def verify_inputs():
              'library/blog/docs/even-the-world-to-come-vayeira.docx',
              'library/downloads/vayeira-mesiras-nefesh-shiur.pdf',
              'library/downloads/vayeira-mesiras-nefesh-shiur.docx',
-             'library/audio/vayeira-mesiras-nefesh-shiur.m4a']
-    for folder in ['library/blog/even-the-world-to-come', 'library/blog/even-the-world-to-come/shiur']:
+             'library/audio/vayeira-mesiras-nefesh-shiur.m4a',
+             'library/blog/from-the-east/ben-ish-chai.jpg',
+             'library/blog/pdfs/from-the-east-chayei-sarah.pdf',
+             'library/blog/docs/from-the-east-chayei-sarah.docx',
+             'library/downloads/chayei-sarah-wisdom-outside-the-house-shiur.pdf',
+             'library/downloads/chayei-sarah-wisdom-outside-the-house-shiur.docx']
+    for folder in ['library/blog/even-the-world-to-come', 'library/blog/even-the-world-to-come/shiur',
+                   'library/blog/from-the-east', 'library/blog/from-the-east/shiur']:
         pages = sorted((Path('dist') / folder / 'pages').glob('page-*.webp'))
         assert pages, 'Missing page images: ' + folder
         files += [folder + '/index.html'] + [page.relative_to('dist').as_posix() for page in pages]
@@ -170,7 +176,9 @@ elif mode == 'verify':
     for name, marker in [('library/index.html', 'akiva-vayeira-study'), ('library/sw.js', '20261026-vayeira-mesiras-nefesh-v1'), ('library/blog/index.html', 'vayeira-feature-title'),
                          ('library/index.html', 'href="blog/even-the-world-to-come/"'), ('library/sw.js', '-20261030-vayeira-blog-shiur-v2'),
                          ('library/blog/index.html', 'href="even-the-world-to-come/shiur/"'), ('library/sw.js', '-20261030-vayeira-shiur-audio-v3'), ('library/sw.js', '-20261030-vayeira-audio-all-sections-v4'),
-                         ('library/vayeira-study.js', 'audio/vayeira-mesiras-nefesh-shiur.m4a')]:
+                         ('library/vayeira-study.js', 'audio/vayeira-mesiras-nefesh-shiur.m4a'),
+                         ('library/index.html', 'href="blog/from-the-east/"'), ('library/index.html', 'id="chayei-sarah-weekly"'),
+                         ('library/sw.js', '-20261101-chayei-sarah-v1'), ('library/blog/index.html', 'chayei-sarah-feature-title')]:
         assert marker in (ROOT / name).read_text(), 'Missing study hook: ' + name
     report = {'publication': state['publication'], 'expectedHead': state['expectedHead'],
               'changed': sorted(changed), 'removed': [],
