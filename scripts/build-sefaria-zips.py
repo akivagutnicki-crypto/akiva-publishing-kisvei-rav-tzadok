@@ -155,15 +155,38 @@ def build(selected_ids, cache, output, books_index=None):
     cache.mkdir(parents=True, exist_ok=True)
     output.mkdir(parents=True, exist_ok=True)
     sources = {}
+    failures = []
     with concurrent.futures.ThreadPoolExecutor(max_workers=8) as pool:
-        pending = [pool.submit(source_file, job, cache) for job in jobs.values()]
+        pending = {pool.submit(source_file, job, cache): job for job in jobs.values()}
         for count, result in enumerate(concurrent.futures.as_completed(pending), 1):
-            job, path, sha = result.result()
-            sources[job['url']] = (path, sha)
+            try:
+                job, path, sha = result.result()
+                sources[job['url']] = (path, sha)
+            except Exception as error:
+                job = pending[result]
+                failures.append({'title': job['title'], 'kind': job['kind'], 'language': job.get('language'),
+                                 'versionTitle': job.get('versionTitle'), 'url': job['url'],
+                                 'error': str(error).replace('\n', ' ')[:300]})
             if count % 100 == 0 or count == len(jobs):
                 print(f'Sefaria exports: {count:,}/{len(jobs):,} files verified', flush=True)
+    if failures:
+        failures.sort(key=lambda f: (f['title'], f['kind'], f['language'] or '', f['versionTitle'] or ''))
+        # Annotations are readable without the raw log.
+        for f in failures[:8]:
+            print(f"::error title=Sefaria export file unusable::{f['title']} | {f['kind']} {f['language'] or ''} {f['versionTitle'] or ''} | {f['error']}", flush=True)
+        print(f'::error title=Sefaria export summary::{len(failures)} of {len(jobs)} export files could not be used', flush=True)
+        extra_titles = {b['title'] for b in extra}
+        # The original Pages collections stay strict; the export-index collections may omit a
+        # small number of unusable editions, which are listed in their manifests.
+        if any(f['title'] not in extra_titles for f in failures) or len(failures) > max(40, len(jobs) // 50):
+            raise SystemExit(f'{len(failures)} Sefaria export files failed')
+    failed_urls = {f['url'] for f in failures}
     for book in extra:
-        fill_from_schema(book, json.loads(sources[book['schema_url']][0].read_bytes()))
+        if book['schema_url'] not in failed_urls:
+            fill_from_schema(book, json.loads(sources[book['schema_url']][0].read_bytes()))
+        book['versions'] = [v for v in book['versions'] if v['json_url'] not in failed_urls]
+    unusable = {b['title'] for b in extra if b['schema_url'] in failed_urls or not b['versions']}
+    collections = {key: [b for b in books if b['title'] not in unusable] for key, books in collections.items()}
     manifest = {'revision': snapshot['revision'], 'source': snapshot['source'],
                 'sourceDate': snapshot['generated_at'], 'collections': {}}
     for key, books in collections.items():
@@ -171,9 +194,10 @@ def build(selected_ids, cache, output, books_index=None):
         all_books = select_books(snapshot['books'] + extra + snapshot['unavailable'], prefix)
         available_titles = {b['title'] for b in books}
         unavailable = [b for b in all_books if b['title'] not in available_titles]
+        missing = [f for f in failures if any(f['title'] == b['title'] for b in all_books)]
         description = {'id': key, 'title': title, 'source': snapshot['source'],
                        'sourceDate': snapshot['generated_at'], 'revision': snapshot['revision'],
-                       'complete': True, 'missing': [], 'books': [],
+                       'complete': not missing, 'missing': missing, 'books': [],
                        'notInPublicExport': [b['title'] for b in unavailable]}
         filename = key + '-with-meforshim.zip'
         temporary = output / (filename + '.tmp')
@@ -214,7 +238,9 @@ def build(selected_ids, cache, output, books_index=None):
                       'Each edition has its own license; retain its attribution and observe its\n'
                       'license terms. See SEFARIA-LICENSE.md and each edition\'s license field.\n'
                       'Titles not provided in the public export are listed explicitly in the\n'
-                      'manifest. This ZIP contains every available public export for this pack.\n')
+                      'manifest. This ZIP contains every available public export for this pack.\n'
+                      + (f'\n{len(missing)} export file(s) listed in the public index could not be downloaded or\n'
+                         'failed validation; they are listed under "missing" in manifest.json.\n' if missing else ''))
             archive.writestr('README.txt', readme)
             archive.writestr('SEFARIA-LICENSE.md', (SOURCE / 'SEFARIA-LICENSE.md').read_bytes())
             archive.writestr('manifest.json', json.dumps(description, ensure_ascii=False, indent=2))
@@ -232,7 +258,7 @@ def build(selected_ids, cache, output, books_index=None):
         manifest['collections'][key] = {'id': key, 'title': title, 'file': 'downloads/collections/' + filename,
                                         'books': len(books), 'commentaries': commentaries, 'versions': versions,
                                         'bytes': archive_path.stat().st_size, 'sha256': digest(archive_path.read_bytes()),
-                                        'unavailable': len(unavailable)}
+                                        'unavailable': len(unavailable), 'missing': len(missing)}
         print(f'{title}: {len(books):,} works, {commentaries:,} meforshim, '
               f'{archive_path.stat().st_size / 1048576:.1f} MB ZIP; all source bytes verified', flush=True)
     (output / 'index.json').write_text(json.dumps(manifest, ensure_ascii=False, indent=2) + '\n')
