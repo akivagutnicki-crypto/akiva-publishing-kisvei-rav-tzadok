@@ -6,6 +6,11 @@
     'torahlm-halakhah': 'The same halacha library as clean Markdown from TorahLM.org: one file per sefer, Hebrew with English where available, footnotes and links back to each passage.',
     'halachipedia-torahlm': 'Every Halachipedia article on practical halacha, compiled by TorahLM.org as Markdown, with a link back to each article.'
   };
+  const SHORT = {
+    'halakhah-with-meforshim': 'Shulchan Arukh, Mishneh Torah, Tur and the poskim with all their meforshim, from Sefaria’s public export. Hebrew and English.',
+    'torahlm-halakhah': 'The same halacha library as Markdown from TorahLM.org, one file per sefer.',
+    'halachipedia-torahlm': 'Every Halachipedia article on practical halacha, as Markdown from TorahLM.org.'
+  };
   const esc = s => String(s).replace(/[&<>"']/g, c => ({'&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'}[c]));
   const size = bytes => bytes >= 1073741824 ? (bytes / 1073741824).toFixed(2) + ' GB' : (bytes / 1048576).toFixed(1) + ' MB';
   const count = n => Number(n).toLocaleString();
@@ -19,8 +24,9 @@
     if (pack.sourceDate) parts.push(pack.sourceLabel + ' ' + pack.sourceDate.slice(0, 10));
     return parts.join(' · ');
   }
-  async function render(box) {
+  async function render(box, {compact = false} = {}) {
     if (!box) return;
+    const notes = compact ? SHORT : NOTES;
     box.innerHTML = '<div class="pack"><small>Loading the Halacha ZIP downloads…</small></div>';
     try {
       const response = await fetch('downloads/halacha/index.json', {cache: 'no-cache'});
@@ -29,12 +35,24 @@
       if (!Array.isArray(index.packs) || !index.packs.length) throw Error('Empty list');
       if (!box.isConnected) return;
       box.innerHTML = index.packs.map(pack => '<div class="pack" data-id="' + esc(pack.id) + '"><b>' + esc(pack.title) + '</b>' +
-        '<small>' + esc(NOTES[pack.id] || '') + '</small>' +
+        '<small>' + esc(notes[pack.id] || '') + '</small>' +
         '<a class="btn zipb" href="' + esc(pack.url) + '" rel="noopener" aria-label="Download ' + esc(pack.title) + ' ZIP">Download ZIP ↓</a>' +
         '<small class="zip-details">' + esc(details(pack)) + '</small></div>').join('');
     } catch {
       if (box.isConnected) box.innerHTML = '<div class="pack"><small>The Halacha ZIP list could not be loaded. Check your connection and open this page again.</small></div>';
     }
   }
-  window.AkivaHalachaZips = {render, details};
+  // Home page app card: list the three Halacha ZIPs right after the Shulchan Arukh pack.
+  function attach(box) {
+    if (!box) return;
+    box.querySelector('#halachaPacks')?.remove();
+    const holder = document.createElement('div');
+    holder.id = 'halachaPacks';
+    holder.className = 'halacha-packs';
+    holder.setAttribute('aria-label', 'Halacha ZIP downloads');
+    const shulchan = box.querySelector('.pack[data-id="shulchan"]');
+    if (shulchan) shulchan.after(holder); else box.append(holder);
+    return render(holder, {compact: true});
+  }
+  window.AkivaHalachaZips = {render, attach, details};
 })();

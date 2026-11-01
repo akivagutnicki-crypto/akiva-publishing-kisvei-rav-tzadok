@@ -37,19 +37,51 @@ jobs:
         with:
           node-version: '24'
 
+      - name: Check whether the release already holds the three ZIPs
+        id: zips
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          count=$(gh release view "$RELEASE_TAG" --json assets -q '[.assets[].name | select(. == "halakhah-with-meforshim.zip" or . == "torahlm-halakhah.zip" or . == "halachipedia-torahlm.zip")] | length' 2>/dev/null || echo 0)
+          if [ "$count" = "3" ] && [ "${{ github.event_name }}" != "workflow_dispatch" ]; then echo "build=false" >> "$GITHUB_OUTPUT"; else echo "build=true" >> "$GITHUB_OUTPUT"; fi
+          echo "Release assets present: $count"
+
+      - name: Reuse the published ZIP list, checked against the release assets
+        if: steps.zips.outputs.build == 'false'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          mkdir -p dist/library/downloads/halacha
+          curl -fsSL --retry 4 -o dist/library/downloads/halacha/index.json "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/downloads/halacha/index.json?check=$GITHUB_RUN_ID"
+          gh api "repos/$GITHUB_REPOSITORY/releases/tags/$RELEASE_TAG" > release.json
+          python3 - <<'PY'
+          import json
+          listing = json.load(open('dist/library/downloads/halacha/index.json'))
+          assets = {a['name']: a for a in json.load(open('release.json'))['assets']}
+          assert len(listing['packs']) == 3
+          for pack in listing['packs']:
+              asset = assets[pack['file']]
+              assert asset['size'] == pack['bytes'], pack['file']
+              assert asset.get('digest') in (None, 'sha256:' + pack['sha256']), pack['file']
+              print('Published list matches release asset', pack['file'], pack['bytes'])
+          PY
+
       - name: Cache official Sefaria Halakhah source exports
+        if: steps.zips.outputs.build == 'true'
         uses: actions/cache@v4
         with:
           path: .cache/sefaria-export
           key: sefaria-halakhah-${{ runner.os }}-00a8da34a5c1e8bfc4983897e4e0711eb4c8e3971d4e7b08957fb61a34424917
 
       - name: Build the Sefaria Halacha + meforshim ZIP from the public export
+        if: steps.zips.outputs.build == 'true'
         run: |
           python -m pip install 'requests==2.32.5'
           curl -fsSL --retry 4 -o books.json https://raw.githubusercontent.com/Sefaria/Sefaria-Export/master/books.json
           python scripts/build-sefaria-zips.py --collection halakhah --books-index books.json --output "$ZIPS"
 
       - name: Build the TorahLM Halacha and Halachipedia ZIPs from the pinned TorahLM commit
+        if: steps.zips.outputs.build == 'true'
         run: |
           git clone -q --filter=blob:none --no-checkout https://github.com/TorahApp/TorahLM-download torahlm
           git -C torahlm sparse-checkout set --no-cone /README.md /LICENSE /books/Halakhah/ /notebooklm/halachipedia/
@@ -57,9 +89,11 @@ jobs:
           python scripts/build-torahlm-zips.py --source torahlm --output "$ZIPS"
 
       - name: Verify every archive entry
+        if: steps.zips.outputs.build == 'true'
         run: python scripts/halacha-zips.py verify "$ZIPS"
 
       - name: Publish the ZIPs as release assets
+        if: steps.zips.outputs.build == 'true'
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
