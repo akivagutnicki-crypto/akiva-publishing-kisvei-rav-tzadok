@@ -130,7 +130,8 @@ def verify_inputs():
              'library/blog/pdfs/from-the-east-chayei-sarah.pdf',
              'library/blog/docs/from-the-east-chayei-sarah.docx',
              'library/downloads/chayei-sarah-wisdom-outside-the-house-shiur.pdf',
-             'library/downloads/chayei-sarah-wisdom-outside-the-house-shiur.docx']
+             'library/downloads/chayei-sarah-wisdom-outside-the-house-shiur.docx',
+             'library/chayei-sarah-study.js', 'library/studies/chayei-sarah-wisdom-outside-the-house.json']
     for folder in ['library/blog/even-the-world-to-come', 'library/blog/even-the-world-to-come/shiur',
                    'library/blog/from-the-east', 'library/blog/from-the-east/shiur']:
         pages = sorted((Path('dist') / folder / 'pages').glob('page-*.webp'))
@@ -178,7 +179,10 @@ elif mode == 'verify':
                          ('library/blog/index.html', 'href="even-the-world-to-come/shiur/"'), ('library/sw.js', '-20261030-vayeira-shiur-audio-v3'), ('library/sw.js', '-20261030-vayeira-audio-all-sections-v4'),
                          ('library/vayeira-study.js', 'audio/vayeira-mesiras-nefesh-shiur.m4a'),
                          ('library/index.html', 'href="blog/from-the-east/"'), ('library/index.html', 'id="chayei-sarah-weekly"'),
-                         ('library/sw.js', '-20261101-chayei-sarah-v1'), ('library/blog/index.html', 'chayei-sarah-feature-title')]:
+                         ('library/sw.js', '-20261101-chayei-sarah-v1'), ('library/blog/index.html', 'chayei-sarah-feature-title'),
+                         ('library/index.html', 'chayei-sarah-study.js?v=20261101-chayei-sarah-native-v1'), ('library/index.html', 'window.AkivaChayeiSarahStudy.attachment(d)'),
+                         ('library/sw.js', './chayei-sarah-study.js?v=20261101-chayei-sarah-native-v1'),
+                         ('library/blog/index.html', 'Chayei_Sarah_Wisdom_Outside_the_House')]:
         assert marker in (ROOT / name).read_text(), 'Missing study hook: ' + name
     report = {'publication': state['publication'], 'expectedHead': state['expectedHead'],
               'changed': sorted(changed), 'removed': [],

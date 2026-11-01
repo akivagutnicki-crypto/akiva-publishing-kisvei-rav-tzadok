@@ -137,6 +137,7 @@ fs.writeFileSync(blogPath, blog);
 const chayeiVersion = '20261101-chayei-sarah-v1';
 const chayeiBlog = 'blog/from-the-east/';
 const chayeiPri = 'Peri_Tzadik,_Chayei_Sara_6';
+const chayeiNative = 'Akiva_Publishing_Weekly_Torah%2C_Chayei_Sarah_Wisdom_Outside_the_House';
 const upsert = (text, pattern, markup, before, label) => {
   const found = text.match(new RegExp(pattern.source, 'g')) || [];
   if (found.length === 1) return text.replace(pattern, () => markup);
@@ -147,7 +148,7 @@ const upsert = (text, pattern, markup, before, label) => {
 html = fs.readFileSync(indexPath, 'utf8');
 const chayeiTeaser = `<a class="weekly-teaser weekly-chayei-teaser" href="${chayeiBlog}" aria-label="Read From the East I Will Bring Your Seed, the Parshas Chayei Sarah blog and shiur">\n        <img src="${chayeiBlog}ben-ish-chai.jpg" alt="Rabbi Yosef Chaim of Baghdad, the Ben Ish Chai" loading="lazy">\n        <span class="weekly-teaser-copy"><span class="eyebrow">This week · Parshas Chayei Sarah</span><strong>From the East I Will Bring Your Seed</strong><span>The sons of Keturah, the sparks of the Oral Torah that went east, and the gedolim and hidden souls coming home · The blog and the 32-page shiur →</span></span>\n      </a>\n      `;
 html = upsert(html, /<a class="weekly-teaser weekly-chayei-teaser"[\s\S]*?<\/a>\n      /, chayeiTeaser, '<a class="weekly-teaser weekly-study-teaser"', 'Chayei Sarah teaser');
-const chayeiSidebar = `<h3 id="chayei-sarah-weekly">This week · Parshas Chayei Sarah</h3><p><strong>From the East I Will Bring Your Seed</strong><br>The sons of Keturah and the sparks coming home · By Akiva Gutnicki</p><a class="link" href="${chayeiBlog}">Read the blog →</a><a class="link" href="${chayeiBlog}shiur/">Read the shiur, Wisdom Outside the House →</a><a class="link" href="#/read/${chayeiPri}">Pri Tzaddik, Chayei Sarah 6 in the reader →</a>`;
+const chayeiSidebar = `<h3 id="chayei-sarah-weekly">This week · Parshas Chayei Sarah</h3><p><strong>From the East I Will Bring Your Seed</strong><br>The sons of Keturah and the sparks coming home · By Akiva Gutnicki</p><a class="link" href="${chayeiBlog}">Read the blog →</a><a class="link" href="#/read/${chayeiNative}">Read the shiur in the app, Wisdom Outside the House →</a><a class="link" href="${chayeiBlog}shiur/">The shiur page by page, PDF and Word →</a><a class="link" href="#/read/${chayeiPri}">Pri Tzaddik, Chayei Sarah 6 in the reader →</a>`;
 html = upsert(html, /<h3 id="chayei-sarah-weekly">[\s\S]*?(?=<h3>(?:This week|Last week) · Parshas Vayeira<\/h3>)/, chayeiSidebar, '<h3>This week · Parshas Vayeira</h3>', 'Chayei Sarah sidebar');
 html = html.replace('<h3>This week · Parshas Vayeira</h3>', '<h3>Last week · Parshas Vayeira</h3>');
 fs.writeFileSync(indexPath, html);
@@ -158,15 +159,72 @@ if (!sw.includes(`'./${chayeiBlog}'`)) sw = once(sw, "  './blog/', ", `  './blog
 fs.writeFileSync(swPath, sw);
 
 blog = fs.readFileSync(blogPath, 'utf8');
-const chayeiCard = `<article class="card" aria-labelledby="chayei-sarah-feature-title"><div class="eyebrow">November 1, 2026 · Parshas Chayei Sarah 5787 · Pri Tzaddik, Mei HaShiloach &amp; Beis Yaakov</div><h2 id="chayei-sarah-feature-title"><a style="text-decoration:none" href="from-the-east/">From the East I Will Bring Your Seed</a></h2><p class="subtitle" style="margin:0 0 15px;text-align:left">Parshas Chayei Sarah, the sons of Keturah, and the sparks coming home</p><p>Why does the Midrash call the sons of Keturah Avraham’s “great increase”? Rav Tzadok’s answer runs from the gifts Avraham sent east, through the Talmud Bavli and the gedolim of Baghdad, Aleppo, Turkey, Persia, Yemen and Morocco, to the hidden Jewish souls coming home in our own day. An 8-page essay with photographs and sources. By Akiva Gutnicki.</p><div class="actions" style="justify-content:flex-start"><a class="btn" href="from-the-east/">Read the blog →</a><a class="btn secondary" href="pdfs/from-the-east-chayei-sarah.pdf" target="_blank" rel="noopener">Read PDF ↗</a><a class="btn secondary" href="pdfs/from-the-east-chayei-sarah.pdf" download>Download PDF ↓</a><a class="btn secondary" href="docs/from-the-east-chayei-sarah.docx" download>Download Word ↓</a></div><div style="border-top:1px solid var(--border);margin-top:6px;padding-top:24px"><div class="eyebrow">The shiur · 32 pages · ten parts · 65 footnotes</div><h3 style="font-weight:400;font-size:clamp(25px,3.2vw,33px);letter-spacing:-.02em;line-height:1.2;margin:12px 0 10px"><a style="text-decoration:none" href="from-the-east/shiur/">Wisdom Outside the House</a></h3><p>Keturah, the Bnei Kedem and Yishmael: the full shiur, with Pri Tzaddik, Mei HaShiloach, Beis Yaakov, Kometz HaMinchah and Divrei Soferim in Hebrew–English interlinear, and supporting sources from kabbalah, machshavah, chassidus and mussar.</p><div class="actions" style="justify-content:flex-start;margin-bottom:14px"><a class="btn" href="from-the-east/shiur/">Read the shiur →</a><a class="btn secondary" href="../downloads/chayei-sarah-wisdom-outside-the-house-shiur.pdf" target="_blank" rel="noopener">Read PDF ↗</a><a class="btn secondary" href="../downloads/chayei-sarah-wisdom-outside-the-house-shiur.pdf" download>Download PDF ↓</a><a class="btn secondary" href="../downloads/chayei-sarah-wisdom-outside-the-house-shiur.docx" download>Download Word ↓</a></div><p style="margin:0;font:700 13px/1.6 Arial,sans-serif"><a href="../#/read/${chayeiPri}">Read Pri Tzaddik, Chayei Sarah 6 in the reader →</a></p></div></article>\n`;
+const chayeiCard = `<article class="card" aria-labelledby="chayei-sarah-feature-title"><div class="eyebrow">November 1, 2026 · Parshas Chayei Sarah 5787 · Pri Tzaddik, Mei HaShiloach &amp; Beis Yaakov</div><h2 id="chayei-sarah-feature-title"><a style="text-decoration:none" href="from-the-east/">From the East I Will Bring Your Seed</a></h2><p class="subtitle" style="margin:0 0 15px;text-align:left">Parshas Chayei Sarah, the sons of Keturah, and the sparks coming home</p><p>Why does the Midrash call the sons of Keturah Avraham’s “great increase”? Rav Tzadok’s answer runs from the gifts Avraham sent east, through the Talmud Bavli and the gedolim of Baghdad, Aleppo, Turkey, Persia, Yemen and Morocco, to the hidden Jewish souls coming home in our own day. An 8-page essay with photographs and sources. By Akiva Gutnicki.</p><div class="actions" style="justify-content:flex-start"><a class="btn" href="from-the-east/">Read the blog →</a><a class="btn secondary" href="pdfs/from-the-east-chayei-sarah.pdf" target="_blank" rel="noopener">Read PDF ↗</a><a class="btn secondary" href="pdfs/from-the-east-chayei-sarah.pdf" download>Download PDF ↓</a><a class="btn secondary" href="docs/from-the-east-chayei-sarah.docx" download>Download Word ↓</a></div><div style="border-top:1px solid var(--border);margin-top:6px;padding-top:24px"><div class="eyebrow">The shiur · 32 pages · ten parts · 65 footnotes</div><h3 style="font-weight:400;font-size:clamp(25px,3.2vw,33px);letter-spacing:-.02em;line-height:1.2;margin:12px 0 10px"><a style="text-decoration:none" href="from-the-east/shiur/">Wisdom Outside the House</a></h3><p>Keturah, the Bnei Kedem and Yishmael: the full shiur, with Pri Tzaddik, Mei HaShiloach, Beis Yaakov, Kometz HaMinchah and Divrei Soferim in Hebrew–English interlinear, and supporting sources from kabbalah, machshavah, chassidus and mussar.</p><div class="actions" style="justify-content:flex-start;margin-bottom:14px"><a class="btn" href="../#/read/${chayeiNative}">Read the shiur in the app →</a><a class="btn secondary" href="from-the-east/shiur/">Page by page →</a><a class="btn secondary" href="../downloads/chayei-sarah-wisdom-outside-the-house-shiur.pdf" target="_blank" rel="noopener">Read PDF ↗</a><a class="btn secondary" href="../downloads/chayei-sarah-wisdom-outside-the-house-shiur.pdf" download>Download PDF ↓</a><a class="btn secondary" href="../downloads/chayei-sarah-wisdom-outside-the-house-shiur.docx" download>Download Word ↓</a></div><p style="margin:0;font:700 13px/1.6 Arial,sans-serif"><a href="../#/read/${chayeiPri}">Read Pri Tzaddik, Chayei Sarah 6 in the reader →</a></p></div></article>\n`;
 blog = upsert(blog, /<article class="card" aria-labelledby="chayei-sarah-feature-title">[\s\S]*?<\/article>\n?/, chayeiCard, '<article class="card" aria-labelledby="vayeira-feature-title">', 'Chayei Sarah listing');
 fs.writeFileSync(blogPath, blog);
+
+// November 1 · the shiur "Wisdom Outside the House" as native reader text, beside its PDF, Word and page-by-page editions.
+const nativeVersion = '20261101-chayei-sarah-native-v1';
+html = fs.readFileSync(indexPath, 'utf8');
+const nativeStyles = [
+  '.chayei-native-new .chayei-native-actions{flex-basis:100%}',
+  '.chayei-native-actions{display:flex;flex-wrap:wrap;gap:8px;margin:8px 0 4px}',
+  '.chayei-native-actions .btn{height:auto;min-height:36px;padding-top:8px;padding-bottom:8px}',
+  '.chayei-native-end{justify-content:center;margin:0 0 6px}',
+  '.chayei-parts{margin:14px 0 22px;padding:14px 16px;border:1px solid var(--line);border-radius:6px;background:var(--panel)}',
+  '.chayei-parts h3{font:700 .76rem/1.4 var(--ui);letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin:0 0 10px}',
+  '.chayei-parts-list{list-style:none;margin:0;padding:0;display:grid;gap:10px}',
+  '.chayei-parts-list a{font:600 1.02rem/1.35 var(--en);color:var(--link)}',
+  '.chayei-parts-list span{display:block;color:var(--muted);font-size:.93rem;line-height:1.45}',
+  '.chayei-parts-list li[aria-current] a{color:var(--forest)}',
+  '.weekly-chayei-contents .chayei-parts-list{margin:16px 0 4px}',
+  '.chayei-part-sources{font:500 .86rem/1.6 var(--ui);color:var(--muted);text-align:center;margin:2px 0 16px}',
+  '.chayei-part-sources a{color:var(--link)}',
+  '.chayei-source-index{margin:8px 0 22px}',
+  '.chayei-source-index h3{font:500 1.2rem/1.3 var(--en);color:var(--forest);margin:20px 0 8px}',
+  '.chayei-source-index p{margin:0 0 8px;color:var(--muted)}',
+  '.chayei-source-index ul{margin:0;padding:0 0 0 1.1em;display:grid;gap:6px}',
+  '.chayei-source-index li{line-height:1.5}',
+  '.chayei-source-index li span{color:var(--muted);font-size:.9rem}',
+  '.chayei-source-index a{color:var(--link);overflow-wrap:anywhere}',
+  '.weekly-chayei-contents .weekly-study-item{border-top:1px solid var(--line);margin-top:20px;padding-top:16px}',
+  '.weekly-chayei-contents .weekly-study-item h2{font:500 1.35rem/1.25 var(--en);color:var(--forest);margin:0 0 6px}',
+  '.weekly-chayei-contents .weekly-study-item p{margin:0}',
+  '.weekly-chayei-contents .actions{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}',
+  '.weekly-chayei-contents .btn{height:auto;min-height:38px;padding-top:10px;padding-bottom:10px}',
+  '.weekly-chayei-contents + .weekly-study-contents{padding-top:8px}',
+  '.text[data-lang="en"] section.weekly-study[data-ref^="Akiva Publishing Weekly Torah, Chayei Sarah"] .seg-en{font-weight:400}',
+  'section.weekly-study[data-ref^="Akiva Publishing Weekly Torah, Chayei Sarah"] .reader-footnote .annotation-text,section.weekly-study[data-ref^="Akiva Publishing Weekly Torah, Chayei Sarah"] i.footnote{font-family:"Crimson Pro","Frank Ruhl Libre","Taamey Frank CLM","Times New Roman",serif}',
+  '@media(max-width:700px){.weekly-chayei-contents .btn{width:100%}.chayei-native-actions{display:grid;grid-template-columns:1fr 1fr}.chayei-native-actions .btn{width:100%;justify-content:center;text-align:center}}'
+].join('\n');
+html = upsert(html, /<style id="akiva-chayei-sarah-study">[\s\S]*?<\/style>\n<script src="chayei-sarah-study\.js\?v=[\w-]+"><\/script>\n/,
+  `<style id="akiva-chayei-sarah-study">\n${nativeStyles}\n</style>\n<script src="chayei-sarah-study.js?v=${nativeVersion}"></script>\n`, '</head>', 'Chayei Sarah reader module');
+const vayeiraLoader = '  if (window.AkivaVayeiraStudy?.recognizes(ref)) return window.AkivaVayeiraStudy.fetchText(ref);';
+if (!html.includes('window.AkivaChayeiSarahStudy?.recognizes(ref)')) html = once(html, vayeiraLoader,
+  '  if (window.AkivaChayeiSarahStudy?.recognizes(ref)) return window.AkivaChayeiSarahStudy.fetchText(ref);\n' + vayeiraLoader, 'Chayei Sarah text loader');
+if (!html.includes('window.AkivaChayeiSarahStudy.contents(')) html = once(html,
+  '    document.title = "Parshas Vayeira · Akiva Publishing";\n    app.innerHTML = window.AkivaVayeiraStudy.contents() + credit();',
+  '    document.title = "Weekly Torah · Akiva Publishing";\n    app.innerHTML = (window.AkivaChayeiSarahStudy ? window.AkivaChayeiSarahStudy.contents(window.AkivaVayeiraStudy.contents()) : window.AkivaVayeiraStudy.contents()) + credit();',
+  'Weekly Torah contents');
+if (!html.includes('window.AkivaChayeiSarahStudy.attachment(d)')) html = once(html,
+  '  if (d.weeklyStudy) html += window.AkivaVayeiraStudy.attachment(d);',
+  '  if (d.weeklyStudy) html += d.chayeiSarahStudy && window.AkivaChayeiSarahStudy ? window.AkivaChayeiSarahStudy.attachment(d) : window.AkivaVayeiraStudy.attachment(d);',
+  'Chayei Sarah attachment');
+fs.writeFileSync(indexPath, html);
+sw = fs.readFileSync(swPath, 'utf8');
+if (!sw.includes('-' + nativeVersion)) sw = sw.replace(/(const SHELL = `[^`]+)(`;)/, `$1-${nativeVersion}$2`);
+if (!sw.includes('./chayei-sarah-study.js?v=')) sw = once(sw, 'const SHELL_FILES = [',
+  `const SHELL_FILES = [\n  './chayei-sarah-study.js?v=${nativeVersion}', './studies/chayei-sarah-wisdom-outside-the-house.json?v=${nativeVersion}',`, 'offline Chayei Sarah text');
+sw = sw.replace(/\.\/chayei-sarah-study\.js\?v=[\w-]+/g, `./chayei-sarah-study.js?v=${nativeVersion}`)
+  .replace(/\.\/studies\/chayei-sarah-wisdom-outside-the-house\.json\?v=[\w-]+/g, `./studies/chayei-sarah-wisdom-outside-the-house.json?v=${nativeVersion}`);
+fs.writeFileSync(swPath, sw);
 
 if (path.resolve(root) !== path.resolve('dist')) {
   const chayeiFiles = ['blog/from-the-east', 'blog/from-the-east/shiur'].flatMap(dir =>
     ['index.html', ...fs.readdirSync(path.join('dist/library', dir, 'pages')).sort().map(name => 'pages/' + name)].map(name => dir + '/' + name))
     .concat(['blog/from-the-east/ben-ish-chai.jpg', 'blog/pdfs/from-the-east-chayei-sarah.pdf', 'blog/docs/from-the-east-chayei-sarah.docx',
-      'downloads/chayei-sarah-wisdom-outside-the-house-shiur.pdf', 'downloads/chayei-sarah-wisdom-outside-the-house-shiur.docx']);
+      'downloads/chayei-sarah-wisdom-outside-the-house-shiur.pdf', 'downloads/chayei-sarah-wisdom-outside-the-house-shiur.docx',
+      'chayei-sarah-study.js', 'studies/chayei-sarah-wisdom-outside-the-house.json']);
   const blogPages = ['blog/even-the-world-to-come', 'blog/even-the-world-to-come/shiur'].flatMap(dir =>
     ['index.html', ...fs.readdirSync(path.join('dist/library', dir, 'pages')).sort().map(name => 'pages/' + name)].map(name => dir + '/' + name));
   for (const file of ['vayeira-study.js', 'studies/vayeira-mesiras-nefesh.json', 'downloads/vayeira-akeidah-mesiras-nefesh.pdf', 'downloads/vayeira-akeidah-mesiras-nefesh-cover.webp',
@@ -177,4 +235,4 @@ if (path.resolve(root) !== path.resolve('dist')) {
     fs.copyFileSync(path.join('dist/library', file), dest);
   }
 }
-console.log('Parshas Vayeira and Parshas Chayei Sarah reader entries, blogs, shiurim, PDF and Word downloads and discovery links are ready.');
+console.log('Parshas Vayeira and Parshas Chayei Sarah reader entries, blogs, shiurim (Chayei Sarah also as native text), PDF and Word downloads and discovery links are ready.');
