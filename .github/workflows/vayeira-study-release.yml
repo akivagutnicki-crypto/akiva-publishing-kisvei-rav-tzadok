@@ -1,4 +1,4 @@
-name: Publish Parshas Vayeira study and PDF attachment
+name: Publish weekly Torah (Parshas Vayeira and Chayei Sarah)
 
 on:
   push:
@@ -78,6 +78,7 @@ jobs:
         run: |
           node scripts/apply-vayeira-study.mjs .vayeira-study-site
           node scripts/test-vayeira-study.mjs .vayeira-study-site/library
+          node scripts/test-chayei-sarah-weekly.mjs .vayeira-study-site/library
           node --check .vayeira-study-site/library/sw.js
           python3 scripts/vayeira-study-release.py verify
 
@@ -87,7 +88,9 @@ jobs:
           npx playwright install --with-deps chromium
 
       - name: Verify mobile and desktop reading, notes, navigation and PDF download
-        run: node scripts/test-vayeira-study-browser.cjs
+        run: |
+          node scripts/test-vayeira-study-browser.cjs
+          node scripts/test-chayei-sarah-browser.cjs
 
       - name: Recheck original live publication and main before upload
         env:
@@ -118,7 +121,9 @@ jobs:
       - name: Verify the study in the public reader
         env:
           READER_TEST_URL: https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/
-        run: node scripts/test-vayeira-study-browser.cjs
+        run: |
+          node scripts/test-vayeira-study-browser.cjs
+          node scripts/test-chayei-sarah-browser.cjs
 
       - name: Save study and preservation verification
         if: always()

@@ -110,9 +110,10 @@ if (!html.includes('id="akiva-vayeira-shiur-audio"')) {
   html = once(html, '</head>', `<style id="akiva-vayeira-shiur-audio">\n${styles}\n</style>\n</head>`, 'shiur audio styles');
 }
 html = replaceOne(html, /<a class="weekly-teaser weekly-study-teaser"[\s\S]*?<\/a>/,
-  `<a class="weekly-teaser weekly-study-teaser" href="blog/even-the-world-to-come/" aria-label="Read Even the World to Come, the Parshas Vayeira blog and transcribed shiur">\n        <span class="weekly-teaser-copy"><span class="eyebrow">This week · Parshas Vayeira</span><strong>Even the World to Come</strong><span>Avraham, the Akeidah, and the radical mesiras nefesh of Izhbitz · The blog, the transcribed shiur and the shiur recording →</span></span>\n      </a>`, 'home teaser');
-html = replaceOne(html, /<section class="library-weekly"><h3>This week · Parshas Vayeira<\/h3>[\s\S]*?<h3>Latest article<\/h3>/,
-  `<section class="library-weekly"><h3>This week · Parshas Vayeira</h3><p><strong>Even the World to Come</strong><br>Avraham, the Akeidah, and the radical mesiras nefesh of Izhbitz</p><a class="link" href="blog/even-the-world-to-come/">Read the blog →</a><a class="link" href="#/read/${ref}">🎧 Listen to the shiur →</a><a class="link" href="blog/even-the-world-to-come/shiur/">Read the transcribed shiur →</a><a class="link" href="#/read/${sourcesRef}">Interlinear sources in the reader →</a><h3>Latest article</h3>`, 'sidebar');
+  `<a class="weekly-teaser weekly-study-teaser" href="blog/even-the-world-to-come/" aria-label="Read Even the World to Come, the Parshas Vayeira blog and transcribed shiur">\n        <span class="weekly-teaser-copy"><span class="eyebrow">Parshas Vayeira</span><strong>Even the World to Come</strong><span>Avraham, the Akeidah, and the radical mesiras nefesh of Izhbitz · The blog, the transcribed shiur and the shiur recording →</span></span>\n      </a>`, 'home teaser');
+const vayeiraLabel = html.includes('id="chayei-sarah-weekly"') ? 'Last week · Parshas Vayeira' : 'This week · Parshas Vayeira';
+html = replaceOne(html, /<h3>(?:This week|Last week) · Parshas Vayeira<\/h3>[\s\S]*?<h3>Latest article<\/h3>/,
+  `<h3>${vayeiraLabel}</h3><p><strong>Even the World to Come</strong><br>Avraham, the Akeidah, and the radical mesiras nefesh of Izhbitz</p><a class="link" href="blog/even-the-world-to-come/">Read the blog →</a><a class="link" href="#/read/${ref}">🎧 Listen to the shiur →</a><a class="link" href="blog/even-the-world-to-come/shiur/">Read the transcribed shiur →</a><a class="link" href="#/read/${sourcesRef}">Interlinear sources in the reader →</a><h3>Latest article</h3>`, 'sidebar');
 fs.writeFileSync(indexPath, html);
 
 sw = fs.readFileSync(swPath, 'utf8');
@@ -131,15 +132,49 @@ const card = `<article class="card" aria-labelledby="vayeira-feature-title"><div
 blog = replaceOne(blog, /<article class="card" aria-labelledby="vayeira-feature-title">[\s\S]*?<\/article>\n?/, card, 'Vayeira listing');
 fs.writeFileSync(blogPath, blog);
 
+// November 1 · Parshas Chayei Sarah: the blog "From the East I Will Bring Your Seed" and the shiur "Wisdom Outside the House".
+// Each step inserts its markup once and replaces it in place afterwards, so it is safe to run again on an updated site.
+const chayeiVersion = '20261101-chayei-sarah-v1';
+const chayeiBlog = 'blog/from-the-east/';
+const chayeiPri = 'Peri_Tzadik,_Chayei_Sara_6';
+const upsert = (text, pattern, markup, before, label) => {
+  const found = text.match(new RegExp(pattern.source, 'g')) || [];
+  if (found.length === 1) return text.replace(pattern, () => markup);
+  assert.equal(found.length, 0, `Unexpected ${label} count`);
+  return once(text, before, markup + before, label + ' anchor');
+};
+
+html = fs.readFileSync(indexPath, 'utf8');
+const chayeiTeaser = `<a class="weekly-teaser weekly-chayei-teaser" href="${chayeiBlog}" aria-label="Read From the East I Will Bring Your Seed, the Parshas Chayei Sarah blog and shiur">\n        <img src="${chayeiBlog}ben-ish-chai.jpg" alt="Rabbi Yosef Chaim of Baghdad, the Ben Ish Chai" loading="lazy">\n        <span class="weekly-teaser-copy"><span class="eyebrow">This week · Parshas Chayei Sarah</span><strong>From the East I Will Bring Your Seed</strong><span>The sons of Keturah, the sparks of the Oral Torah that went east, and the gedolim and hidden souls coming home · The blog and the 32-page shiur →</span></span>\n      </a>\n      `;
+html = upsert(html, /<a class="weekly-teaser weekly-chayei-teaser"[\s\S]*?<\/a>\n      /, chayeiTeaser, '<a class="weekly-teaser weekly-study-teaser"', 'Chayei Sarah teaser');
+const chayeiSidebar = `<h3 id="chayei-sarah-weekly">This week · Parshas Chayei Sarah</h3><p><strong>From the East I Will Bring Your Seed</strong><br>The sons of Keturah and the sparks coming home · By Akiva Gutnicki</p><a class="link" href="${chayeiBlog}">Read the blog →</a><a class="link" href="${chayeiBlog}shiur/">Read the shiur, Wisdom Outside the House →</a><a class="link" href="#/read/${chayeiPri}">Pri Tzaddik, Chayei Sarah 6 in the reader →</a>`;
+html = upsert(html, /<h3 id="chayei-sarah-weekly">[\s\S]*?(?=<h3>(?:This week|Last week) · Parshas Vayeira<\/h3>)/, chayeiSidebar, '<h3>This week · Parshas Vayeira</h3>', 'Chayei Sarah sidebar');
+html = html.replace('<h3>This week · Parshas Vayeira</h3>', '<h3>Last week · Parshas Vayeira</h3>');
+fs.writeFileSync(indexPath, html);
+
+sw = fs.readFileSync(swPath, 'utf8');
+if (!sw.includes('-' + chayeiVersion)) sw = sw.replace(/(const SHELL = `[^`]+)(`;)/, `$1-${chayeiVersion}$2`);
+if (!sw.includes(`'./${chayeiBlog}'`)) sw = once(sw, "  './blog/', ", `  './blog/', './${chayeiBlog}', './${chayeiBlog}shiur/', `, 'offline Chayei Sarah pages');
+fs.writeFileSync(swPath, sw);
+
+blog = fs.readFileSync(blogPath, 'utf8');
+const chayeiCard = `<article class="card" aria-labelledby="chayei-sarah-feature-title"><div class="eyebrow">November 1, 2026 · Parshas Chayei Sarah 5787 · Pri Tzaddik, Mei HaShiloach &amp; Beis Yaakov</div><h2 id="chayei-sarah-feature-title"><a style="text-decoration:none" href="from-the-east/">From the East I Will Bring Your Seed</a></h2><p class="subtitle" style="margin:0 0 15px;text-align:left">Parshas Chayei Sarah, the sons of Keturah, and the sparks coming home</p><p>Why does the Midrash call the sons of Keturah Avraham’s “great increase”? Rav Tzadok’s answer runs from the gifts Avraham sent east, through the Talmud Bavli and the gedolim of Baghdad, Aleppo, Turkey, Persia, Yemen and Morocco, to the hidden Jewish souls coming home in our own day. An 8-page essay with photographs and sources. By Akiva Gutnicki.</p><div class="actions" style="justify-content:flex-start"><a class="btn" href="from-the-east/">Read the blog →</a><a class="btn secondary" href="pdfs/from-the-east-chayei-sarah.pdf" target="_blank" rel="noopener">Read PDF ↗</a><a class="btn secondary" href="pdfs/from-the-east-chayei-sarah.pdf" download>Download PDF ↓</a><a class="btn secondary" href="docs/from-the-east-chayei-sarah.docx" download>Download Word ↓</a></div><div style="border-top:1px solid var(--border);margin-top:6px;padding-top:24px"><div class="eyebrow">The shiur · 32 pages · ten parts · 65 footnotes</div><h3 style="font-weight:400;font-size:clamp(25px,3.2vw,33px);letter-spacing:-.02em;line-height:1.2;margin:12px 0 10px"><a style="text-decoration:none" href="from-the-east/shiur/">Wisdom Outside the House</a></h3><p>Keturah, the Bnei Kedem and Yishmael: the full shiur, with Pri Tzaddik, Mei HaShiloach, Beis Yaakov, Kometz HaMinchah and Divrei Soferim in Hebrew–English interlinear, and supporting sources from kabbalah, machshavah, chassidus and mussar.</p><div class="actions" style="justify-content:flex-start;margin-bottom:14px"><a class="btn" href="from-the-east/shiur/">Read the shiur →</a><a class="btn secondary" href="../downloads/chayei-sarah-wisdom-outside-the-house-shiur.pdf" target="_blank" rel="noopener">Read PDF ↗</a><a class="btn secondary" href="../downloads/chayei-sarah-wisdom-outside-the-house-shiur.pdf" download>Download PDF ↓</a><a class="btn secondary" href="../downloads/chayei-sarah-wisdom-outside-the-house-shiur.docx" download>Download Word ↓</a></div><p style="margin:0;font:700 13px/1.6 Arial,sans-serif"><a href="../#/read/${chayeiPri}">Read Pri Tzaddik, Chayei Sarah 6 in the reader →</a></p></div></article>\n`;
+blog = upsert(blog, /<article class="card" aria-labelledby="chayei-sarah-feature-title">[\s\S]*?<\/article>\n?/, chayeiCard, '<article class="card" aria-labelledby="vayeira-feature-title">', 'Chayei Sarah listing');
+fs.writeFileSync(blogPath, blog);
+
 if (path.resolve(root) !== path.resolve('dist')) {
+  const chayeiFiles = ['blog/from-the-east', 'blog/from-the-east/shiur'].flatMap(dir =>
+    ['index.html', ...fs.readdirSync(path.join('dist/library', dir, 'pages')).sort().map(name => 'pages/' + name)].map(name => dir + '/' + name))
+    .concat(['blog/from-the-east/ben-ish-chai.jpg', 'blog/pdfs/from-the-east-chayei-sarah.pdf', 'blog/docs/from-the-east-chayei-sarah.docx',
+      'downloads/chayei-sarah-wisdom-outside-the-house-shiur.pdf', 'downloads/chayei-sarah-wisdom-outside-the-house-shiur.docx']);
   const blogPages = ['blog/even-the-world-to-come', 'blog/even-the-world-to-come/shiur'].flatMap(dir =>
     ['index.html', ...fs.readdirSync(path.join('dist/library', dir, 'pages')).sort().map(name => 'pages/' + name)].map(name => dir + '/' + name));
   for (const file of ['vayeira-study.js', 'studies/vayeira-mesiras-nefesh.json', 'downloads/vayeira-akeidah-mesiras-nefesh.pdf', 'downloads/vayeira-akeidah-mesiras-nefesh-cover.webp',
     'blog/pdfs/even-the-world-to-come-vayeira.pdf', 'blog/docs/even-the-world-to-come-vayeira.docx',
-    'downloads/vayeira-mesiras-nefesh-shiur.pdf', 'downloads/vayeira-mesiras-nefesh-shiur.docx', 'audio/vayeira-mesiras-nefesh-shiur.m4a', ...blogPages]) {
+    'downloads/vayeira-mesiras-nefesh-shiur.pdf', 'downloads/vayeira-mesiras-nefesh-shiur.docx', 'audio/vayeira-mesiras-nefesh-shiur.m4a', ...blogPages, ...chayeiFiles]) {
     const dest = path.join(library, file);
     fs.mkdirSync(path.dirname(dest), {recursive:true});
     fs.copyFileSync(path.join('dist/library', file), dest);
   }
 }
-console.log('Parshas Vayeira reader entry, shiur recording, blog, transcribed shiur, PDF and Word downloads and discovery links are ready.');
+console.log('Parshas Vayeira and Parshas Chayei Sarah reader entries, blogs, shiurim, PDF and Word downloads and discovery links are ready.');
