@@ -49,6 +49,15 @@ let server;
         assert.equal(response.status(), 200, href);
       }
     }
+    // Home page: the app card lists the three Halacha ZIPs right after the Shulchan Arukh pack.
+    await page.goto(base + '#/', {waitUntil: 'domcontentloaded'});
+    await page.waitForSelector('#packs #halachaPacks .pack[data-id]');
+    assert.equal(await page.locator('#halachaPacks .pack[data-id]').count(), 3);
+    assert(await page.evaluate(() => document.querySelector('#packs .pack[data-id="shulchan"]').nextElementSibling?.id === 'halachaPacks'), 'Halacha ZIPs are not under Shulchan Arukh');
+    assert.equal(await page.locator('#packs .pack[data-id="shulchan"] .get').count(), 1, 'Shulchan Arukh pack changed');
+    await page.locator('#halachaPacks').scrollIntoViewIfNeeded();
+    await page.screenshot({path: screenshots + '/home-' + viewport.width + '.png'});
+    assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), 'Horizontal overflow on home');
     assert.deepEqual(errors, []);
     results.push({viewport: viewport.width, pass: true});
     await context.close();

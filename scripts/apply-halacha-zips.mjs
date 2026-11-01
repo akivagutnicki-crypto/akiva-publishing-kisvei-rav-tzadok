@@ -6,7 +6,8 @@ import assert from 'node:assert/strict';
 
 const root = process.argv[2] || 'dist';
 const library = path.join(root, 'library');
-const version = '20261101-halacha-zips-v1';
+const version = '20261101-halacha-zips-v2';
+const firstVersion = '20261101-halacha-zips-v1';
 const once = (text, before, after, label) => {
   assert.equal(text.split(before).length - 1, 1, `Unexpected ${label} anchor count`);
   return text.replace(before, after);
@@ -27,11 +28,15 @@ if (!html.includes('id="halachaZips"')) {
   html = once(html, '  setupCorpusCards();\n',
     '  setupCorpusCards();\n  window.AkivaHalachaZips?.render(document.getElementById(\'halachaZips\'));\n', 'Halacha render');
 }
+if (!html.includes('window.AkivaHalachaZips?.attach(box);')) {
+  html = once(html, '  bindPackRows(box);\n  showCorpusZipDetails(box);\n  showStorage();\n}',
+    '  bindPackRows(box);\n  showCorpusZipDetails(box);\n  showStorage();\n  window.AkivaHalachaZips?.attach(box);\n}', 'app card Halacha packs');
+}
 fs.writeFileSync(indexPath, html);
 
 const swPath = path.join(library, 'sw.js');
 let sw = fs.readFileSync(swPath, 'utf8');
-if (!sw.includes('-' + version)) sw = sw.replace(/(const SHELL = `[^`]+)(`;)/, `$1-${version}$2`);
+for (const token of [firstVersion, version]) if (!sw.includes('-' + token)) sw = sw.replace(/(const SHELL = `[^`]+)(`;)/, `$1-${token}$2`);
 assert(sw.includes('-' + version), 'Service worker shell version not updated');
 fs.writeFileSync(swPath, sw);
 

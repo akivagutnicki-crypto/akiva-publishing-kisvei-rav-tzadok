@@ -160,7 +160,8 @@ elif mode == 'verify':
     for name, expected in state['inputs'].items():
         assert after.get(name) == expected, 'Input asset was changed or omitted: ' + name
     for name, marker in [('library/index.html', 'id="halachaZips"'), ('library/index.html', 'AkivaHalachaZips?.render'),
-                         ('library/sw.js', '-20261101-halacha-zips-v1')]:
+                         ('library/sw.js', '-20261101-halacha-zips-v1'), ('library/sw.js', '-20261101-halacha-zips-v2'),
+                         ('library/index.html', 'window.AkivaHalachaZips?.attach(box);')]:
         assert marker in (ROOT / name).read_text(), 'Missing study hook: ' + name
     report = {'publication': state['publication'], 'expectedHead': state['expectedHead'],
               'changed': sorted(changed), 'removed': [],
