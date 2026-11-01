@@ -25,7 +25,13 @@ DEFINITIONS = {
     'shas': ('Talmud Bavli + meforshim', ['Talmud', 'Bavli']),
     'yerushalmi': ('Talmud Yerushalmi + meforshim', ['Talmud', 'Yerushalmi']),
     'midrash': ('Midrashim + meforshim', ['Midrash']),
+    'halakhah': ('Halacha + meforshim', ['Halakhah']),
 }
+# Collections read directly from Sefaria-Export's books.json (the same export
+# index the checked-in snapshot was made from), with titles' Hebrew names and
+# commentary links filled in from each work's exported schema.
+INDEX_COLLECTIONS = {'halakhah'}
+BOOKS_INDEX_URL = 'https://raw.githubusercontent.com/Sefaria/Sefaria-Export/master/books.json'
 SESSIONS = threading.local()
 
 
@@ -46,6 +52,38 @@ def select_books(books, prefix):
         if not additions:
             return list(selected.values())
         selected.update({b['title']: b for b in additions})
+
+
+def index_books(path, snapshot, prefixes):
+    """Group the version-level export index into one entry per work."""
+    data = path.read_bytes()
+    if digest(data) != snapshot['index_sha256']:
+        raise ValueError('books.json is not the export index of the checked-in snapshot')
+    index = json.loads(data)
+    base = index['base_url'].rstrip('/')
+    known = {b['title'] for b in snapshot['books']}
+    grouped = {}
+    for entry in index['books']:
+        if entry['title'] in known or not any(entry['categories'][:len(p)] == p for p in prefixes):
+            continue
+        book = grouped.setdefault(entry['title'], {
+            'title': entry['title'], 'he': '', 'categories': entry['categories'], 'dependence': '',
+            'collectiveTitle': '', 'base_text_titles': [],
+            'schema_url': base + '/schemas/' + urllib.parse.quote(entry['title'].replace(' ', '_'), safe='_-.~') + '.json',
+            'versions': []})
+        book['versions'].append({'language': entry['language'], 'versionTitle': entry['versionTitle'],
+                                 'json_url': entry['json_url']})
+    for book in grouped.values():
+        book['versions'].sort(key=lambda v: (v['language'] != 'Hebrew', v['versionTitle']))
+    return sorted(grouped.values(), key=lambda b: b['title'])
+
+
+def fill_from_schema(book, schema):
+    book['he'] = schema.get('heTitle') or book['he']
+    book['dependence'] = schema.get('dependence') or ('Commentary' if 'Commentary' in book['categories'] else '')
+    collective = schema.get('collective_title') or ''
+    book['collectiveTitle'] = collective if isinstance(collective, str) else collective.get('en', '')
+    book['base_text_titles'] = list(schema.get('base_text_titles') or [])
 
 
 def check_source(data, job):
@@ -99,9 +137,15 @@ def source_file(job, cache):
     raise RuntimeError(job['title'] + ': ' + str(failure)) from failure
 
 
-def build(selected_ids, cache, output):
+def build(selected_ids, cache, output, books_index=None):
     snapshot = json.loads(gzip.decompress((SOURCE / 'exports.json.gz').read_bytes()))
-    collections = {key: select_books(snapshot['books'], DEFINITIONS[key][1]) for key in selected_ids}
+    extra = []
+    wanted = [DEFINITIONS[key][1] for key in selected_ids if key in INDEX_COLLECTIONS]
+    if wanted:
+        if not books_index:
+            raise SystemExit('--books-index is required for: ' + ', '.join(sorted(set(selected_ids) & INDEX_COLLECTIONS)))
+        extra = index_books(books_index, snapshot, wanted)
+    collections = {key: select_books(snapshot['books'] + extra, DEFINITIONS[key][1]) for key in selected_ids}
     jobs = {}
     for books in collections.values():
         for book in books:
@@ -118,11 +162,13 @@ def build(selected_ids, cache, output):
             sources[job['url']] = (path, sha)
             if count % 100 == 0 or count == len(jobs):
                 print(f'Sefaria exports: {count:,}/{len(jobs):,} files verified', flush=True)
+    for book in extra:
+        fill_from_schema(book, json.loads(sources[book['schema_url']][0].read_bytes()))
     manifest = {'revision': snapshot['revision'], 'source': snapshot['source'],
                 'sourceDate': snapshot['generated_at'], 'collections': {}}
     for key, books in collections.items():
         title, prefix = DEFINITIONS[key]
-        all_books = select_books(snapshot['books'] + snapshot['unavailable'], prefix)
+        all_books = select_books(snapshot['books'] + extra + snapshot['unavailable'], prefix)
         available_titles = {b['title'] for b in books}
         unavailable = [b for b in all_books if b['title'] not in available_titles]
         description = {'id': key, 'title': title, 'source': snapshot['source'],
@@ -197,5 +243,8 @@ if __name__ == '__main__':
     parser.add_argument('--collection', choices=DEFINITIONS, action='append')
     parser.add_argument('--cache', type=Path, default=ROOT / '.cache/sefaria-export')
     parser.add_argument('--output', type=Path, default=ROOT / 'dist/library/downloads/collections')
+    parser.add_argument('--books-index', type=Path, help='Sefaria-Export books.json (' + BOOKS_INDEX_URL + ')')
     arguments = parser.parse_args()
-    build(arguments.collection or list(DEFINITIONS), arguments.cache, arguments.output)
+    # The default full build keeps its four original Pages collections; Halacha is built on request.
+    build(arguments.collection or [k for k in DEFINITIONS if k not in INDEX_COLLECTIONS],
+          arguments.cache, arguments.output, arguments.books_index)

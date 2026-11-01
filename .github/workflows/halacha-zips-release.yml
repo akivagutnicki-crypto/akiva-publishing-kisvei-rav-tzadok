@@ -1,0 +1,190 @@
+name: Publish the Halacha, TorahLM and Halachipedia ZIP downloads
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: write   # the ZIPs are published as assets of a GitHub Release
+  actions: read
+  deployments: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: ${{ (github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[halacha-zips-release]'))) && 'pages' || format('halacha-zips-skipped-{0}', github.run_id) }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: ${{ github.repository == 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok' && github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[halacha-zips-release]')) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    env:
+      HALACHA_SITE: .halacha-site
+      RELEASE_TAG: halacha-zips-2026-11
+      ZIPS: release-zips
+    steps:
+      - name: Checkout the Halacha ZIP builders and reader list
+        uses: actions/checkout@v6
+
+      - name: Set up Node 24
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+
+      - name: Cache official Sefaria Halakhah source exports
+        uses: actions/cache@v4
+        with:
+          path: .cache/sefaria-export
+          key: sefaria-halakhah-${{ runner.os }}-00a8da34a5c1e8bfc4983897e4e0711eb4c8e3971d4e7b08957fb61a34424917
+
+      - name: Build the Sefaria Halacha + meforshim ZIP from the public export
+        run: |
+          python -m pip install 'requests==2.32.5'
+          curl -fsSL --retry 4 -o books.json https://raw.githubusercontent.com/Sefaria/Sefaria-Export/master/books.json
+          python scripts/build-sefaria-zips.py --collection halakhah --books-index books.json --output "$ZIPS"
+
+      - name: Build the TorahLM Halacha and Halachipedia ZIPs from the pinned TorahLM commit
+        run: |
+          git clone -q --filter=blob:none --no-checkout https://github.com/TorahApp/TorahLM-download torahlm
+          git -C torahlm sparse-checkout set --no-cone /README.md /LICENSE /books/Halakhah/ /notebooklm/halachipedia/
+          git -C torahlm checkout -q 755002756b242c40d2eb7dfe487b686bc2da5ed2
+          python scripts/build-torahlm-zips.py --source torahlm --output "$ZIPS"
+
+      - name: Verify every archive entry
+        run: python scripts/halacha-zips.py verify "$ZIPS"
+
+      - name: Publish the ZIPs as release assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          exported=$(python -c 'import json,sys; print(json.load(open(sys.argv[1]))["sourceDate"][:10])' "$ZIPS/index.json")
+          notes="Halacha ZIP downloads for the Rav Tzadok Library: Sefaria's Halakhah export with meforshim (public export of $exported), TorahLM's Halakhah Markdown and Halachipedia (TorahLM commit 7550027). Each archive includes a manifest with SHA-256 checksums, its sources and license notes."
+          if gh release view "$RELEASE_TAG" >/dev/null 2>&1; then
+            gh release upload "$RELEASE_TAG" "$ZIPS/halakhah-with-meforshim.zip" "$ZIPS/torahlm-halakhah.zip" "$ZIPS/halachipedia-torahlm.zip" --clobber
+          else
+            gh release create "$RELEASE_TAG" "$ZIPS/halakhah-with-meforshim.zip" "$ZIPS/torahlm-halakhah.zip" "$ZIPS/halachipedia-torahlm.zip" \
+              --target "$GITHUB_SHA" --title "Halacha ZIP downloads" --notes "$notes" --latest=false
+          fi
+          python scripts/halacha-zips.py index "$ZIPS" --tag "$RELEASE_TAG"
+          python - <<'PY'
+          import json, time, urllib.request
+          listing = json.load(open('dist/library/downloads/halacha/index.json'))
+          for pack in listing['packs']:
+              for attempt in range(10):
+                  try:
+                      # GitHub redirects release downloads; read only the final response headers.
+                      with urllib.request.urlopen(pack['url'], timeout=60) as response:
+                          size = int(response.headers['Content-Length'])
+                      assert size == pack['bytes'], (pack['file'], size, pack['bytes'])
+                      print('Release asset available:', pack['file'], size)
+                      break
+                  except Exception as error:
+                      if attempt == 9:
+                          raise
+                      time.sleep(6)
+          PY
+
+      - name: Identify the currently published complete Pages artifact
+        id: baseline
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/halacha-zips-release.py metadata
+
+      - name: Download the exact current publication
+        uses: actions/download-artifact@v4
+        with:
+          artifact-ids: ${{ steps.baseline.outputs.artifact }}
+          run-id: ${{ steps.baseline.outputs.run }}
+          repository: akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/halacha-baseline
+          merge-multiple: true
+
+      - name: Restore and record every current site and Torah file
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PY'
+          import os,pathlib,tarfile
+          root=pathlib.Path('.halacha-site').resolve()
+          root.mkdir(exist_ok=True)
+          archive=pathlib.Path(os.environ['RUNNER_TEMP'])/'halacha-baseline/artifact.tar'
+          assert archive.is_file(), 'Missing complete Pages archive'
+          with tarfile.open(archive,'r:') as source:
+              members=source.getmembers()
+              for member in members:
+                  target=(root/member.name).resolve()
+                  assert target==root or root in target.parents, 'Path outside site'
+                  assert member.isdir() or member.isfile(), 'Unsafe archive entry'
+              source.extractall(root,members=members,filter='data')
+          PY
+          python3 scripts/halacha-zips-release.py capture
+
+      - name: Add the Halacha ZIP list to the reader's download page
+        run: |
+          node scripts/apply-halacha-zips.mjs .halacha-site
+          node scripts/test-halacha-zips.mjs .halacha-site/library
+          node --check .halacha-site/library/sw.js
+          python3 scripts/halacha-zips-release.py verify
+
+      - name: Install focused browser verification
+        run: |
+          npm install --no-save --package-lock=false playwright@1.62.1
+          npx playwright install --with-deps chromium
+
+      - name: Verify the download page on desktop and mobile
+        run: node scripts/test-halacha-zips-browser.cjs
+
+      - name: Recheck original live publication and main before upload
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/halacha-zips-release.py guard
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload complete preserved site with the Halacha ZIP list
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: .halacha-site
+          retention-days: 14
+
+      - name: Recheck main and latest publication before deployment
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/halacha-zips-release.py guard
+
+      - name: Publish the Halacha ZIP downloads
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Verify exact public bytes and preserved catalogs
+        run: python3 scripts/halacha-zips-release.py published
+
+      - name: Verify the download page in the public reader
+        env:
+          READER_TEST_URL: https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/
+        run: node scripts/test-halacha-zips-browser.cjs
+
+      - name: Save ZIP and preservation verification
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: halacha-zips-verification
+          retention-days: 90
+          if-no-files-found: warn
+          path: |
+            release-zips/index.json
+            release-zips/torahlm-index.json
+            dist/library/downloads/halacha/index.json
+            halacha-zips-publication.json
+            halacha-zips-baseline.json
+            halacha-zips-verification.json
+            halacha-zips-live-verification.json
+            artifacts/halacha-zips/
