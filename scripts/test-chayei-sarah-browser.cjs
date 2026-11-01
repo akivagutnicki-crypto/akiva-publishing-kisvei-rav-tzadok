@@ -1,4 +1,4 @@
-// Browser checks for the Parshas Chayei Sarah blog and shiur, on desktop and phone widths.
+// Browser checks for the Parshas Chayei Sarah blog and shiur, and the shiur as native reader text, on desktop and phone widths.
 const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const http = require('node:http');
@@ -56,6 +56,36 @@ let server;
       assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), 'Reader page overflow ' + dir);
       await page.screenshot({path: screenshots + '/chayei-' + (dir.includes('shiur') ? 'shiur' : 'blog') + '-' + viewport.width + '.png', fullPage: false});
     }
+    // The shiur as native reader text.
+    const native = '#/read/Akiva_Publishing_Weekly_Torah%2C_Chayei_Sarah_Wisdom_Outside_the_House';
+    const shown = suffix => page.waitForFunction(s => document.querySelector('section.weekly-study')?.dataset.ref.endsWith(s), suffix);
+    await page.goto(base + 'blog/from-the-east/shiur/', {waitUntil: 'domcontentloaded'});
+    await page.locator('.mast .actions a').filter({hasText: 'Read the shiur in the app'}).click();
+    await shown('Wisdom Outside the House');
+    assert.equal(await page.locator('.chayei-parts-list li').count(), 12, 'Parts list');
+    assert.equal(await page.locator('.chayei-native-new a[href$=".pdf"]').count(), 2, 'The PDF stays beside the text');
+    await page.locator('.chayei-parts-list a').nth(1).click();
+    await shown('Part II');
+    assert.match(await page.locator('#rTitle').textContent(), /Wisdom Outside the House · Part II/);
+    assert.equal(await page.locator('section.weekly-study .seg-il .footnote-marker').count(), 10, 'Part II note markers');
+    await page.locator('section.weekly-study .seg-il .footnote-marker').first().click();
+    await page.locator('section.weekly-study .seg-il .reader-footnote.open').first().waitFor({state: 'visible'});
+    assert.match(await page.locator('section.weekly-study .seg-il .reader-footnote.open').first().textContent(), /Footnote 4\b/);
+    await page.goto(base + native + '_Part_X', {waitUntil: 'domcontentloaded'});
+    await shown('Part X');
+    const prose = page.locator('section.weekly-study .study-commentary .ph-en sup.footnote-marker').first();
+    await prose.scrollIntoViewIfNeeded(); await prose.click();
+    await page.locator('section.weekly-study .ph-en i.footnote.open').first().waitFor({state: 'visible'});
+    await page.goto(base + native + '_Sources', {waitUntil: 'domcontentloaded'});
+    await shown('Sources');
+    assert(await page.locator('.chayei-source-index a').count() >= 80, 'Source index links');
+    assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), 'Text edition overflow');
+    await page.screenshot({path: screenshots + '/chayei-native-sources-' + viewport.width + '.png', fullPage: false});
+    await page.locator('#tocBtn').click();
+    await page.waitForSelector('.weekly-chayei-contents');
+    assert.equal(await page.locator('.weekly-study-contents a[download]').count(), 6, 'Last week stays listed');
+    assert.equal(await page.locator('.weekly-chayei-contents .eyebrow').first().textContent(), 'This week · Parshas Chayei Sarah 5787');
+    assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), 'Contents overflow');
     assert.deepEqual(errors, []);
     results.push({viewport: viewport.width, pass: true});
     await context.close();
