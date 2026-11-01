@@ -631,6 +631,7 @@ body.akiva-android-reader .akiva-support-embed{border-top-color:var(--ox)}
 .vayeira-transcript .vayeira-part{min-height:40px;max-width:100%;padding:4px 8px;border:1px solid var(--line);border-radius:6px;background:var(--panel);color:var(--ink);font:500 .85rem var(--ui)}
 .vayeira-transcript .divrei16-page-image{aspect-ratio:1224/1584}
 </style>
+<script src="halacha-zips.js?v=20261101-halacha-zips-v1"></script>
 </head>
 <body>
 <header class="top">
@@ -1775,11 +1776,17 @@ async function renderDownloads() {
       <p>Each ZIP includes the collection and all its meforshim available in Sefaria’s public exports, including Rishonim, Acharonim and supercommentaries. Hebrew and English editions are included where available. Tap Download ZIP to save the complete archive.</p>
       <div class="packs" id="corpusPacks"></div>
     </section>
+    <section class="app-card corpus-downloads halacha-downloads" aria-label="Halacha ZIP downloads">
+      <h2>Halacha · the whole package</h2>
+      <p>Shulchan Arukh, Mishneh Torah, Tur and the poskim with their meforshim, in three ZIPs: Sefaria’s complete public source files, the same library as Markdown from TorahLM, and Halachipedia. The files are large, so check your device’s free space first.</p>
+      <div class="packs" id="halachaZips"></div>
+    </section>
     <h2>Individual sefarim</h2>
     <div class="download-grid" id="bookZips" aria-live="polite"><div class="loading">Loading ZIP downloads…</div></div>
     <p class="note">Unzip the file to access the reader text data (JSON) and any Word or PDF editions. For offline reading inside the app, use “Save this sefer offline” on a sefer’s contents page. Shiur audio and external source texts are downloaded separately.</p>
   </div>${credit()}`;
   setupCorpusCards();
+  window.AkivaHalachaZips?.render(document.getElementById('halachaZips'));
   try {
     const res = await fetch('downloads/index.json', {cache: 'no-cache'});
     if (!res.ok) throw Error('Download list unavailable');
