@@ -34,14 +34,20 @@ const tz = JSON.parse(fs.readFileSync(path.join(DIR, index.books['Tzidkat HaTzad
 const e = M.entryFor(tz.passages, 'Tzidkat HaTzadik 100');
 check(e.p.some(p => p[0] === 'Takanat HaShavin 6') && e.s.some(s => s[0] === 'Chagigah 15a'), 'Tzidkat HaTzadik 100: parallel Takanat HaShavin 6 via Chagigah 15a');
 const html = M.render(e, 'Tzidkat HaTzadik 100');
-check(html.includes('href="#/read/Takanat_HaShavin_6"') && html.includes('https://www.sefaria.org/Chagigah.15a') && html.includes('Show all'), 'render: in-app links, Sefaria links, show-all');
+check(html.includes('href="#/read/Takanat_HaShavin_6"') && html.includes('href="#/read/Chagigah_15a"') && html.includes('Show all'), 'render: in-app links for passages and sources, show-all');
 const hc = JSON.parse(fs.readFileSync(path.join(DIR, index.books['Peri Tzadik, Parshat HaChodesh'].file), 'utf8'));
 const merged = M.entryFor(hc.passages, 'Peri Tzadik, Parshat HaChodesh');
 check(merged && merged.p.length && merged.p.length <= 40 && merged.p.every(p => !p[0].startsWith('Peri Tzadik, Parshat HaChodesh ')), 'one-block section gathers its paragraphs');
 check(M.sefariaUrl('Bereshit Rabbah 2:4') === 'https://www.sefaria.org/Bereshit_Rabbah.2.4' && M.sefariaUrl('Berakhot 6b') === 'https://www.sefaria.org/Berakhot.6b', 'Sefaria URLs');
 check(!M.render(e, 'x').includes('<script'), 'render escapes text');
 { let lines = 0, en = 0; for (const p of e.p) for (const w of p[2]) if (w[0] === 'line') { lines++; if (w[4] && !/[א-ת]{3}/.test(w[4])) en++; }
-  check(lines && en / lines > 0.9 && /maf-why-en/.test(html), `panel index lines have English (${en}/${lines})`); }
+  check(lines && en / lines > 0.9, `panel index lines have English (${en}/${lines})`);
+  const w = e.p.find(p => p[2].some(x => x[0] === 'line' && x[4]));
+  check(w && /Why/.test(html) && html.includes(w[2].find(x => x[0] === 'line' && x[4])[4].replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/'/g, '&#39;').slice(0, 20)), 'each parallel says why, in English'); }
+// phrases in the text: a quoted source is found despite nikkud, prefixes and OCR'd final letters
+{ const tws = M.words('וְאִיתָא בְּרָכוֹת לה: אֵין אָבִיו אֶלָּא הַקָּדוֹשׁ בָּרוּךְ הוּא, וְאֵין אִמּוֹ אֶלָּא כְּנֶסֶת יִשְׂרָאֵל').map(w => ({ w, l: w.replace(/[וי]/g, '') }));
+  const hit = M.findPhrase(tws, 'ואין אביו אלא הקבייה ואין אמו אלא כנסת ישראל דף עמוד');
+  check(hit && hit.k >= 4, 'a quoted line is located in the passage'); }
 check(fs.readFileSync('dist/library/index.html', 'utf8').includes('window.AkivaMafteach?.mount(d, sec, {toHash, esc})'), 'reader mounts the panel');
 
 // Machine-learned parallels (dist/library/ml-parallels)
@@ -88,5 +94,5 @@ for (const [key, info] of Object.entries(gIndex.books)) {
 check(genres.size === 4 && gLinks > 8000, `${gLinks} parallels in four genres`);
 check(M.sefariaRefUrl('Sefat Emet, Genesis, Bereshit 3:2-9') === 'https://www.sefaria.org/Sefat_Emet,_Genesis,_Bereshit.3.2-9', 'Sefaria link for a passage range');
 const gHtml = M.render(null, 'X', {}, [], [['Mesilat Yesharim 1-15', 'מסילת ישרים', 'Mussar', 0.7, 'likely', ['א']]]);
-check(gHtml.includes('In Chassidus, Kabbalah, Machshava and Mussar') && gHtml.includes('https://www.sefaria.org/Mesilat_Yesharim.1-15'), 'panel renders the outside parallels');
+check(gHtml.includes('In Chassidus, Kabbalah, Machshava and Mussar') && gHtml.includes('href="#/read/Mesilat_Yesharim_1-15"'), 'panel renders the outside parallels');
 console.log(`PASS Mafteach panel: ${passed} checks, ${passages} passages, ${links} parallels`);
