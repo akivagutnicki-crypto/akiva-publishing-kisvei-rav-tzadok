@@ -14,7 +14,7 @@ from pathlib import Path
 REPO = 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok'
 PUBLIC = 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/'
 STATE = Path('mafteach-release-state.json')
-PANEL_V = '20261102-mafteach-ml-genre-en-v2'
+PANEL_V = '20261102-mafteach-ml-genre-en-v3'
 SEARCH_V = '20261102-mafteach-search-en-v6'
 NEW_DIRS = ['library/mafteach', 'library/ml-parallels', 'library/genre-parallels']
 ALLOWED = re.compile(r'^(library/index\.html|library/sw\.js|library/mafteach-panel\.js|library/mafteach-search\.js|library/(mafteach|ml-parallels|genre-parallels)/.+|mcp-data/mafteach/.+)$')
@@ -92,6 +92,26 @@ def patch_index(text):
         anchor = "  if (kind === 'book') return renderBook(arg);"
         assert text.count(anchor) == 1, 'Route anchor not found exactly once'
         text = text.replace(anchor, "  { const k0 = kind.split('?')[0]; if ((k0 === 'mafteach' || k0 === 'shiur') && window.AkivaMafteachSearch) return window.AkivaMafteachSearch.render(app, k0, new URLSearchParams(h.split('?').slice(1).join('?')), {fetchText, toHash, esc}); }   // HaMafteach search and shiur builder\n" + anchor)
+    # The Mafteach in the side panel: a tab beside Connections / Tools / About, a line atop Connections, a Tools item
+    SEC = "(R.sections.filter(s => ref === s.sectionRef || ref.startsWith(s.sectionRef + ':') || ref.startsWith(s.sectionRef + ' ')).sort((a, b) => b.sectionRef.length - a.sectionRef.length)[0] || {}).sectionRef || ref"
+    if 'data-tab="mafteach"' not in text:
+        a = '<button role="tab" data-tab="connections">Connections</button>'
+        assert text.count(a) == 1, 'Panel tab anchor not found exactly once'
+        text = text.replace(a, a + '<button role="tab" data-tab="mafteach">Mafteach</button>')
+    if "tab === 'mafteach'" not in text:
+        a = "  if (tab === 'tools') return renderTools(ref, c);"
+        assert text.count(a) == 1, 'Panel showTab anchor not found exactly once'
+        text = text.replace(a, "  if (tab === 'mafteach' && window.AkivaMafteach?.panelTab) { const seq = ++panelSeq; c.onclick = null; return window.AkivaMafteach.panelTab(ref, c, {toHash, esc, alive: () => seq === panelSeq, sectionRef: " + SEC + "}); }   // HaMafteach HaShalem\n" + a)
+        a = "  renderConnections(ref, c);"
+        assert text.count(a) == 1, 'Panel connections anchor not found exactly once'
+        text = text.replace(a, "  const done = renderConnections(ref, c), seq = panelSeq;\n  if (window.AkivaMafteach?.connectionsBanner) Promise.resolve(done).then(() => window.AkivaMafteach.connectionsBanner(" + SEC + ", c, () => showTab(ref, 'mafteach'), {alive: () => seq === panelSeq}));")
+    if "data-act=\"maf\"" not in text:
+        a = 'Search Sefaria for this phrase</a>`;'
+        assert text.count(a) == 1, 'Tools anchor not found exactly once'
+        text = text.replace(a, 'Search Sefaria for this phrase</a>\n    <button class="tool" data-act="maf">${ICON.link}HaMafteach HaShalem: topics, sources and parallels</button>\n    <a class="tool" href="#/mafteach">${ICON.ext}Search the Mafteach or build a shiur</a>`;')
+        a = "    const v = {link: url, he, en,"
+        assert text.count(a) == 1, 'Tools click anchor not found exactly once'
+        text = text.replace(a, "    if (b.dataset.act === 'maf') return showTab(ref, 'mafteach');\n" + a)
     return text
 
 

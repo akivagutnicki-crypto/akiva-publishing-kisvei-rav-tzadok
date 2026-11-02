@@ -7,7 +7,7 @@
   else root.AkivaMafteach = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this, function () {
   'use strict';
-  const VERSION = '20261102-mafteach-ml-genre-en-v2';
+  const VERSION = '20261102-mafteach-ml-genre-en-v3';
   const SHOW = 8;
   const toHashDefault = ref => encodeURIComponent(ref).replace(/%20/g, '_').replace(/%2C/g, ',').replace(/%3A/g, ':');
   const escDefault = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -201,5 +201,67 @@ ${topics ? `<div class="maf-block"><h4>Indexed under</h4><div class="maf-topics"
       return true;
     } catch { return false; }   // the panel is optional: never disturb reading
   }
-  return { VERSION, mount, render, entryFor, shardKey, sefariaUrl, mlKey, mlFor, genreFor, sefariaRefUrl };
+  // ---- the reader's side panel: a Mafteach tab, and a line at the top of Connections
+  function ensureStyle() {
+    if (typeof document === 'undefined') return;
+    if (!document.getElementById('mafteach-panel-style')) { const st = document.createElement('style'); st.id = 'mafteach-panel-style'; st.textContent = STYLE; document.head.appendChild(st); }
+    if (!document.getElementById('mafteach-side-style')) {
+      const st = document.createElement('style'); st.id = 'mafteach-side-style';
+      st.textContent = `.maf-side .mafteach-panel{border:0;padding:0;margin:0}.maf-side .mafteach-panel>summary{display:none}
+.maf-side-actions{display:flex;flex-wrap:wrap;gap:8px;margin:4px 0 14px}.maf-side-actions a{flex:1 1 auto;text-align:center}
+.maf-side .maf-topic a{color:inherit;text-decoration:none}.maf-banner{display:flex;width:100%;justify-content:space-between;gap:10px;align-items:center;text-align:start;
+border:1px solid var(--line,#ddd);border-radius:10px;padding:10px 12px;margin:0 0 12px;background:var(--soft,transparent);cursor:pointer;font:inherit;color:inherit}
+.maf-banner b{display:block;font-size:.95em}.maf-banner span{font-size:.85em;opacity:.8}`;
+      document.head.appendChild(st);
+    }
+  }
+  async function gather(sectionRef, base) {
+    const entry = await mafteachEntry(base, sectionRef);
+    const exclude = new Set((entry?.p || []).map(p => p[0]));
+    const [ml, outside] = await Promise.all([mlEntries(base, sectionRef, exclude), genreEntries(base, sectionRef)]);
+    return { entry, ml, outside };
+  }
+  async function panelTab(ref, container, opts = {}) {
+    const esc = opts.esc || escDefault, alive = opts.alive || (() => true);
+    const sectionRef = opts.sectionRef || ref;
+    ensureStyle();
+    container.innerHTML = '<div class="loading">Looking in HaMafteach HaShalem…</div>';
+    let g;
+    try { g = await gather(sectionRef, opts.base || ''); } catch { g = { entry: null, ml: [], outside: [] }; }
+    if (!alive()) return;
+    const { entry, ml, outside } = g;
+    const topics = entry?.t || [];
+    const q = encodeURIComponent;
+    const S = typeof window !== 'undefined' && window.AkivaMafteachSearch;
+    const parsha = S && /^Peri Tzadik, /.test(sectionRef) ? S.findParsha(sectionRef.replace(/^Peri Tzadik, /, '').replace(/\s+\d+(:\d+)?$/, '')) : null;
+    const actions = `<div class="maf-side-actions">${parsha ? `<a class="btn" href="#/shiur?parsha=${q(parsha.key)}">Build a shiur on Parshas ${esc(parsha.ashk)}</a>` : ''}${topics.length ? `<a class="btn" href="#/mafteach?q=${q(topics[0][0])}">Topic: ${esc(topics[0][1] || topics[0][0])}</a>` : ''}<a class="btn" href="#/mafteach">Search the Mafteach</a></div>`;
+    if ((!entry || (!entry.p.length && !entry.s.length && !topics.length)) && !ml.length && !outside.length) {
+      container.innerHTML = `<div class="maf-side">${actions}<div class="empty">HaMafteach HaShalem has no entry for ${esc(sectionRef)}. (Some sefarim, like Dover Tzedek, are indexed by page and not linked to the library.)</div></div>`;
+      return;
+    }
+    const html = render(entry, sectionRef, opts, ml, outside).replace('<details class="mafteach-panel"', '<details open class="mafteach-panel"');
+    container.innerHTML = `<div class="maf-side"><p class="empty" style="padding:0 0 8px;font-size:.9rem">${esc(sectionRef)} in HaMafteach HaShalem: its parallels, the sources it draws on and the topics it is indexed under.</p>${actions}${html}</div>`;
+    container.querySelectorAll('.maf-topic').forEach(el => {          // a topic opens its heading in the Mafteach search
+      const he = el.querySelector('[lang=he]')?.textContent || '';
+      const a = document.createElement('a'); a.href = '#/mafteach?q=' + q(he);
+      while (el.firstChild) a.appendChild(el.firstChild);
+      el.appendChild(a);
+    });
+    const panel = container.querySelector('.mafteach-panel');
+    panel?.querySelectorAll('.maf-toggle').forEach(b => b.addEventListener('click', () => { panel.classList.add('maf-open-' + b.dataset.what); b.remove(); }));
+  }
+  async function connectionsBanner(sectionRef, container, openTab, opts = {}) {
+    const alive = opts.alive || (() => true);
+    try {
+      const { entry, ml, outside } = await gather(sectionRef, opts.base || '');
+      if (!alive() || !container.isConnected || container.querySelector('.maf-banner')) return;
+      const n = (entry?.p.length || 0) + ml.length, t = entry?.t.length || 0, sCount = entry?.s.length || 0;
+      if (!n && !t && !sCount && !outside.length) return;
+      ensureStyle();
+      const bits = [n && `${n} parallel${n === 1 ? '' : 's'}`, sCount && `${sCount} source${sCount === 1 ? '' : 's'}`, t && `${t} topic${t === 1 ? '' : 's'}`, outside.length && `${outside.length} in other sefarim`].filter(Boolean).join(' · ');
+      container.insertAdjacentHTML('afterbegin', `<button type="button" class="maf-banner"><div><b>HaMafteach HaShalem</b><span>${bits}</span></div><span aria-hidden="true">›</span></button>`);
+      container.querySelector('.maf-banner').addEventListener('click', e => { e.stopPropagation(); openTab(); });
+    } catch {}
+  }
+  return { VERSION, mount, render, entryFor, shardKey, sefariaUrl, mlKey, mlFor, genreFor, sefariaRefUrl, panelTab, connectionsBanner };
 });
