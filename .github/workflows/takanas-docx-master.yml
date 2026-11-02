@@ -45,6 +45,7 @@ jobs:
           mkdir -p artifacts/takanas-docx-master
           node scripts/publish-takanas-docx-master.mjs --check-pack > artifacts/takanas-docx-master/check-pack.json
           node tests/test-takanas-docx-master-cache.mjs
+          node tests/test-takanas-docx-source-links.mjs
 
       - name: Build fresh Reader outputs without releasing other books
         run: |
@@ -163,6 +164,7 @@ jobs:
           mkdir -p artifacts/takanas-docx-master
           node scripts/publish-takanas-docx-master.mjs --check-pack > artifacts/takanas-docx-master/check-pack.json
           node tests/test-takanas-docx-master-cache.mjs
+          node tests/test-takanas-docx-source-links.mjs
 
       - name: Build fresh Reader outputs without releasing other books
         run: |

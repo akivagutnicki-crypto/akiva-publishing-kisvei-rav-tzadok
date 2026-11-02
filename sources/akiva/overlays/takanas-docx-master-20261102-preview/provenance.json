@@ -64,6 +64,42 @@
       "source_pages_one_based": [
         7
       ]
+    },
+    {
+      "source_file": "takanas-page-intro.webp",
+      "public_paths": [
+        "assets/takanas-page-intro.webp"
+      ],
+      "sha256": "447cf4f0d0d0eb01dafa231eb2b30ae9474db47fbee95723282234a3acdc1bb9",
+      "bytes": 114134,
+      "source_pages_one_based": [
+        4
+      ],
+      "encoding": "Lossless WebP, RGB; decoded pixels exactly match the corrected source page rendered at 140 dpi.",
+      "old_public_sha256": "134cfbca1ad5f43cdd011e9be333630121b6ddbd18417de1183e29d3aef10410",
+      "old_public_actual_format": "PNG despite .webp filename",
+      "dimensions": [
+        980,
+        1400
+      ]
+    },
+    {
+      "source_file": "takanas-page-siman.webp",
+      "public_paths": [
+        "assets/takanas-page-siman.webp"
+      ],
+      "sha256": "b7f54b5c6ee3a6936ae00177d3c32c0f48dbfc34e2756f56655e880b3be0992e",
+      "bytes": 105686,
+      "source_pages_one_based": [
+        7
+      ],
+      "encoding": "Lossless WebP, RGB; decoded pixels exactly match the corrected source page rendered at 140 dpi.",
+      "old_public_sha256": "dba982165282ffad8219995c7f13cd9963dcc61965abc6b244a78fec635f023d",
+      "old_public_actual_format": "PNG despite .webp filename",
+      "dimensions": [
+        980,
+        1400
+      ]
     }
   ],
   "preview_selection": "Twenty consecutive opening pages preserve the latest title and frontmatter and contain the complete Introduction and Siman 1, ending immediately before Siman 2 on source page 21. No page contents are retypeset.",
@@ -282,5 +318,10 @@
     ],
     "new_scholarly_collation_claim": false
   },
-  "scope": "Four public preview assets and matching Takanas homepage ranges. Other books, cover artwork, and Amazon links remain unchanged."
+  "scope": "Six public preview assets and matching Takanas homepage ranges. Other books, cover artwork, and Amazon links remain unchanged.",
+  "alternate_image_replacements": {
+    "count": 2,
+    "reason": "Alternate public asset URLs contained byte-identical copies of the same older Introduction and Siman 1 page images, with PNG contents under .webp filenames. Both replacements are genuine lossless WebP encodings of corrected source pages 4 and 7.",
+    "pixels_identical_to_corrected_PNGs": true
+  }
 }

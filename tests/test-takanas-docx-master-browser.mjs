@@ -184,7 +184,16 @@ try {
         equal([...node.querySelectorAll('.seg-il .ph-he')].map(author), expectedPairs.map(pair => text(pair[0])), section.ref + ' every exact Hebrew phrase');
         equal([...node.querySelectorAll('.seg-il .ph-en')].map(author), expectedPairs.map(pair => text(pair[1])), section.ref + ' every exact English phrase');
         const authorLinks = [...node.querySelectorAll('.seg-il .ph-he a.cite,.seg-il .ph-en a.cite')].filter(a => !a.closest('.reader-footnote,.footnote')).map(a => ({ref: a.dataset.ref, href: a.getAttribute('href')}));
-        equal(authorLinks, expectedBuilt.flatMap(pair => pair.flatMap(citationLinks)), section.ref + ' complete citation links');
+        const explicitLinks = expectedBuilt.flatMap(pair => pair.flatMap(citationLinks));
+        // The Reader also recognizes references in plain manuscript prose at
+        // render time. Require every supplied link, and validate every generated
+        // link's exact Reader destination without treating those extra links as
+        // added manuscript words.
+        for (const expected of explicitLinks) if (!authorLinks.some(actual => JSON.stringify(actual) === JSON.stringify(expected))) throw Error(section.ref + ' missing supplied citation link ' + expected.ref);
+        for (const actual of authorLinks) {
+          if (!actual.ref) throw Error(section.ref + ' empty citation target');
+          equal(actual.href, '#/read/' + encodeURIComponent(actual.ref).replace(/%20/g, '_').replace(/%2C/g, ',').replace(/%3A/g, ':'), section.ref + ' generated citation destination');
+        }
         const actualRows = [...node.querySelectorAll('.seg')].filter(row => row.querySelector('.seg-il'));
         equal(actualRows.map(row => row.dataset.ref), section.rows.map(row => section.ref + (section.id ? ':' : ' ') + row.n), section.ref + ' stable paragraph references');
         const expectedNotes = section.rows.flatMap(row => (row.footnotes || []).map(note => ({row, note}))).sort((a, b) => a.row.n - b.row.n || a.note.phraseIndex - b.note.phraseIndex || a.note.heCharOffset - b.note.heCharOffset);
@@ -225,7 +234,7 @@ try {
           marker.click(); equal(marker.getAttribute('aria-expanded'), 'false', expected.note.sourceId + ' closes');
           if (box.classList.contains('open')) throw Error('Source did not close ' + marker.dataset.noteKey);
         }
-        return {section: section.ref, paragraphs: section.rows.length, phrasePairs: expectedPairs.length, nativeNotes: boxes.length, noteHyperlinks: hyperlinks, exactHebrewAndEnglish: true, exactFullNoteTextAndFormatting: true, exactHebrewMarkerPrefixes: true, allNotesOpenedAndClosed: markers.length, exactPrintedSeifHeadingPlacements: navigationEntries.length, repairedWordBoundaryKeys: repairKeys};
+        return {section: section.ref, paragraphs: section.rows.length, phrasePairs: expectedPairs.length, nativeNotes: boxes.length, noteHyperlinks: hyperlinks, authorCitationLinks: authorLinks.length, suppliedCitationLinksPreserved: explicitLinks.length, exactHebrewAndEnglish: true, exactFullNoteTextAndFormatting: true, exactHebrewMarkerPrefixes: true, allNotesOpenedAndClosed: markers.length, exactPrintedSeifHeadingPlacements: navigationEntries.length, repairedWordBoundaryKeys: repairKeys};
       }, {section, repairs: Object.fromEntries(repairByKey), navigationEntries: sectionNavigation});
       checked.repairedWordBoundaryKeys.forEach(key => checkedRepairKeys.add(key));
       // A physical pointer activation checks hit targets, focus, visible expansion and layout.

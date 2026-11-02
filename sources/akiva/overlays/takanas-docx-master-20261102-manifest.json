@@ -3734,6 +3734,23 @@
       "path": "sample-text-page.png",
       "source": "sources/akiva/overlays/takanas-docx-master-20261102-preview/sample-text-page.png",
       "sha256": "4613e4d3a66fef1bb31fc238a0021ee06b8b82e16a13b622f2430cbfba31fd48"
+    },
+    {
+      "path": "assets/takanas-page-intro.webp",
+      "source": "sources/akiva/overlays/takanas-docx-master-20261102-preview/takanas-page-intro.webp",
+      "sha256": "447cf4f0d0d0eb01dafa231eb2b30ae9474db47fbee95723282234a3acdc1bb9"
+    },
+    {
+      "path": "assets/takanas-page-siman.webp",
+      "source": "sources/akiva/overlays/takanas-docx-master-20261102-preview/takanas-page-siman.webp",
+      "sha256": "b7f54b5c6ee3a6936ae00177d3c32c0f48dbfc34e2756f56655e880b3be0992e"
+    }
+  ],
+  "retiredPublicPaths": [
+    {
+      "path": "library/takanat-reader-review-20261026.json",
+      "sha256": "6b803a583c66c20122737a59ce970f860ca942a00f449d66f3ceeff008310597",
+      "reason": "Historical audit of the retired Reader edition, with obsolete note counts and Word source hash; retained privately, removed from current public edition."
     }
   ]
 }

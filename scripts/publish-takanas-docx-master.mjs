@@ -25,7 +25,8 @@ const PUBLIC = 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-r
 const ARCHIVES = ['library/downloads/rav-tzadok-library.zip', `library/downloads/books/${SLUG}.zip`];
 const DOCS = {I: 'downloads/takanas-hashavin-volume-i-corrected.docx', II: 'downloads/takanas-hashavin-volume-ii-corrected.docx'};
 const EXPECTED = {I: 1526, II: 1095};
-const PREVIEW_PATHS = ['Takanas_HaShavin_Volume_I_Siman_Aleph.pdf', 'previews/takanas-hashavin-20-page-preview.pdf', 'sample-page.png', 'sample-text-page.png'];
+const PREVIEW_PATHS = ['Takanas_HaShavin_Volume_I_Siman_Aleph.pdf', 'previews/takanas-hashavin-20-page-preview.pdf', 'sample-page.png', 'sample-text-page.png', 'assets/takanas-page-intro.webp', 'assets/takanas-page-siman.webp'];
+const RETIRED_PUBLIC_REPORT = 'library/takanat-reader-review-20261026.json';
 const RANGE_HTML_PATHS = ['library/index.html', 'library/blog/index.html', 'library/blog/the-alchemy-of-the-soul/index.html'];
 const sha = b => createHash('sha256').update(b).digest('hex');
 const encode = x => Buffer.from(typeof x === 'string' ? x : JSON.stringify(x));
@@ -148,6 +149,8 @@ export function loadPack() {
   assert(Array.isArray(manifest.previewAssets)); assert.deepEqual(manifest.previewAssets.map(a => a.path).sort(), [...PREVIEW_PATHS].sort()); verifyTakanasPrintPreviewSources();
   const previewPins = new Map(TAKANAS_PRINT_PREVIEW_ASSETS.flatMap(a => a.publicPaths.map(p => [p, a.sha256])));
   for (const asset of manifest.previewAssets) { assert.equal(asset.sha256, previewPins.get(asset.path)); assert.equal(digest(ROOT, asset.source), asset.sha256, 'Corrected print preview source changed'); }
+  assert(Array.isArray(manifest.retiredPublicPaths)); assert.deepEqual(manifest.retiredPublicPaths.map(p => p.path), [RETIRED_PUBLIC_REPORT], 'Only the explicitly reviewed obsolete public report may be forcibly retired');
+  for (const proof of manifest.retiredPublicPaths) { assert.match(proof.sha256, /^[a-f0-9]{64}$/); assert(typeof proof.reason === 'string' && proof.reason.trim(), 'Public retirement needs its reviewed reason'); }
   return {src, manifest, docs, allow, navigation, sourceSha256: digest(ROOT, SOURCE), manifestSha256: digest(ROOT, MANIFEST), stats: {sections: 16, paragraphs, pairs, headings, notes: ids.size, notesByVolume: counts, printedSeifNavigation: navCount}};
 }
 
@@ -178,7 +181,12 @@ export async function apply(site, build) {
   assert.equal(state.publication.artifactId, meta.publication.artifactId); assert.deepEqual(inventory(site), before, 'Preserved artifact changed after capture');
   const namedPublicBefore = namedPublicInventory(site);
   compareReader(build, pack);
-  const affected = new Set(), removed = [], otherCitationPins = {}, retired = [];
+  const affected = new Set(), removed = [], otherCitationPins = {}, retired = pack.manifest.retiredPublicPaths.map(p => p.path);
+  for (const proof of pack.manifest.retiredPublicPaths) {
+    assert.equal(before[proof.path], proof.sha256, 'Reviewed public retirement preimage differs: ' + proof.path);
+    assert.equal(digest(site, proof.path), proof.sha256, 'Public retirement bytes changed after capture');
+    fs.unlinkSync(local(site, proof.path)); removed.push(proof.path);
+  }
   const put = (name, value) => {
     assert(permitted(name, retired), 'Outside Takanas publication scope: ' + name);
     const b = Buffer.isBuffer(value) || value instanceof Uint8Array ? Buffer.from(value) : encode(value);
@@ -245,7 +253,7 @@ export async function apply(site, build) {
     currentArtifactParallels: {corpusParagraphs: parallels.corpusParagraphs, withParallels: parallels.withParallels, pairs: parallels.pairs, sha256: sha(json(parallels.parallels)), wordAdditions: parallels.wordAdditions},
     otherDownloadEntriesPin: sha(json(read(site, 'library/downloads/index.json').books.filter(b => b.slug !== SLUG))),
     connectedIdeas: {originalSha256: digest(site, IDEAS), keptRecordPin: sha(json(kept)), keptSortedRecordPin: sha(json(kept.slice().sort((a, b) => a.id.localeCompare(b.id)))), removedIds: removedIdeas},
-    sourceRefsAdded: [...refs].sort(), homepageAfterSha256: digest(site, 'index.html'), previewAssets: pack.manifest.previewAssets, stage: 'applied'};
+    sourceRefsAdded: [...refs].sort(), homepageAfterSha256: digest(site, 'index.html'), previewAssets: pack.manifest.previewAssets, publicAuditRetirements: pack.manifest.retiredPublicPaths, stage: 'applied'};
   write(ROOT, STAGE, stage); console.log(json({ok: true, stage: 'applied', ...pack.stats, changedFiles: affected.size, retiredAssets: removed, retiredConnectedIdeas: removedIdeas.length})); return stage;
 }
 
@@ -396,6 +404,8 @@ export async function finalize(site) {
 export function verify(site, build = null) {
   const pack = loadPack(), report = read(site, REPORT), before = read(ROOT, BASE).files, stage = read(ROOT, STAGE); assert.equal(report.release, RELEASE); assert.equal(report.editionId, EDITION); assert.equal(report.sourceSha256, pack.sourceSha256); assert.equal(report.manifestSha256, pack.manifestSha256);
   const after = inventory(site), changed = new Set(report.affected.map(r => r.name));
+  assert.deepEqual(report.publicAuditRetirements, pack.manifest.retiredPublicPaths); assert.deepEqual(report.removed, stage.removed);
+  for (const proof of pack.manifest.retiredPublicPaths) { assert(stage.retired.includes(proof.path) && report.removed.includes(proof.path)); assert.equal(before[proof.path], proof.sha256); assert(!exists(site, proof.path), 'Obsolete public report remains'); }
   for (const [name, pin] of Object.entries(before)) { if (report.removed.includes(name)) { assert(stage.retired.includes(name) && !exists(site, name)); continue; } assert(exists(site, name), 'Original site file disappeared: ' + name); if (!changed.has(name) && name !== REPORT) assert.equal(after[name], pin, 'Unrelated published file changed: ' + name); }
   for (const name of Object.keys(after)) if (!(name in before)) assert(permitted(name, stage.retired) && (changed.has(name) || name === REPORT), 'Unexpected or undeclared new publication file: ' + name);
   for (const row of report.affected) { assert(permitted(row.name, stage.retired)); assert.equal(after[row.name], row.sha256); }
@@ -442,7 +452,14 @@ async function publicBytes(name) { const url = new URL(name, PUBLIC); url.search
 export async function live(site) {
   const report = read(site, REPORT), pending = [...report.affected, {name: REPORT, sha256: digest(site, REPORT)}], errors = []; let next = 0;
   await Promise.all(Array.from({length: 4}, async () => { for (;;) { const n = next++; if (n >= pending.length) break; const row = pending[n]; let ok = false; for (let attempt = 0; attempt < 6; attempt++) { try { if (sha(await publicBytes(row.name)) === row.sha256) { ok = true; break; } } catch {} if (attempt < 5) await new Promise(r => setTimeout(r, 3000)); } if (!ok) errors.push(row.name); } }));
-  for (const name of report.removed) { const url = new URL(name, PUBLIC); url.searchParams.set('takanas_docx_retired', Date.now()); const r = await fetch(url, {cache: 'no-store', signal: AbortSignal.timeout(60000)}); if (r.status !== 404) errors.push('Retired public path remains: ' + name); }
+  for (const name of report.removed) {
+    let absent = false;
+    for (let attempt = 0; attempt < 6; attempt++) {
+      try { const url = new URL(name, PUBLIC); url.searchParams.set('takanas_docx_retired', Date.now()); const r = await fetch(url, {cache: 'no-store', signal: AbortSignal.timeout(60000)}); if (r.status === 404) { absent = true; break; } } catch {}
+      if (attempt < 5) await new Promise(r => setTimeout(r, 3000));
+    }
+    if (!absent) errors.push('Retired public path remains: ' + name);
+  }
   assert.deepEqual(errors, [], 'Public successor bytes differ'); const result = {ok: true, live: true, release: RELEASE, filesChecked: pending.length, retiredAssets404: report.removed, verifiedAt: new Date().toISOString()}; write(ROOT, 'artifacts/takanas-docx-master/live-verification.json', result); console.log(json(result)); return result;
 }
 

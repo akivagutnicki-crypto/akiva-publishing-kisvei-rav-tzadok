@@ -18,6 +18,16 @@ export function patchTakanasSeifNavigation(html) {
 `;
   html = html.replace(marker, helper + marker + `
   if (node.children?.some(siman => siman.seifNavigation?.length)) return renderKdpSeifContents(node);`);
+  const sourceMarker = '  const ref = sourceConnections.normalizeRef(link.sourceRef || link.ref);\n  let translationLookupFailed = false;';
+  assert.equal(html.split(sourceMarker).length, 2, 'Source passage insertion point changed');
+  html = html.replace(sourceMarker, `  const ref = sourceConnections.normalizeRef(link.sourceRef || link.ref);
+  // Native source URLs use Sefaria's original siman/seif/paragraph addresses.
+  // The Reader's stable paragraph URLs are a different coordinate system.
+  // Keep the exact cited source; the enclosing fallback preserves its Word translation.
+  if (/^Takanat HaShavin(?:[ ,]|$)/.test(ref)
+      && /^https:\\/\\/(?:www\\.)?sefaria\\.org\\//i.test(String(link.sourceUrl || '')))
+    return await fetchText(ref, {remoteOnly:true});
+  let translationLookupFailed = false;`);
   const style = `<style id="takanas-kdp-seif-navigation">
 .toc-kdp-siman{margin:0 0 24px;border:1px solid var(--line);border-radius:10px;overflow:hidden}
 .kdp-siman-title{display:flex;gap:16px;justify-content:space-between;align-items:center;padding:14px 16px;background:var(--paper);font-weight:600;border-bottom:1px solid var(--line)}
