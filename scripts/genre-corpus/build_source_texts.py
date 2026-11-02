@@ -11,7 +11,7 @@ import requests
 
 BOOKS = 'https://raw.githubusercontent.com/Sefaria/Sefaria-Export/master/books.json'
 WANT_CATS = ('Tanakh', 'Mishnah', 'Talmud', 'Midrash', 'Tosefta')
-WANT_TITLES = re.compile(r"^(Tikkunei Zohar|Zohar Chadash)$")
+WANT_TITLES = re.compile(r"^(Tikkunei Zohar|Zohar Chadash|Zohar|Sifrei Bamidbar|Sifrei Devarim|Sifra|Mekhilta DeRabbi Yishmael|Mekhilta DeRabbi Shimon Bar Yochai|Sefer Yetzirah|Sefer HaMitzvot|Mishneh Torah, .+|Shulchan Arukh, .+|Arba'ah Turim, .+|Yalkut Shimoni on Torah|Yalkut Shimoni on Nach|Seder Olam Rabbah|Midrash Mishlei|Midrash Shmuel)$")
 SKIP = re.compile(r"(Commentary|Rishonim|Acharonim|Modern|Targum|Quoting|Rashi|Tosafot|Steinsaltz|Ein Yaakov|Introductions|Halakhah|English)", re.I)
 
 def he_only(s):
@@ -52,7 +52,7 @@ def main(out):
     for b in books:
         cats = b.get('categories') or []
         if b.get('language') != 'Hebrew' or not cats: continue
-        ok = (cats[0] in WANT_CATS and not any(SKIP.search(c) for c in cats)) or WANT_TITLES.match(b['title'])
+        ok = (cats[0] in WANT_CATS and not any(SKIP.search(c) for c in cats)) or bool(WANT_TITLES.match(b['title']) and not re.search(r'(Commentary|Rishonim|Acharonim|English)', ' '.join(cats), re.I))
         if cats[0] == 'Talmud' and not (len(cats) > 1 and cats[1] in ('Bavli', 'Yerushalmi')): ok = False
         if ok and rank(b) < rank(chosen.get(b['title'])): chosen[b['title']] = b
     print('books', len(chosen), collections.Counter(b['categories'][0] for b in chosen.values()), flush=True)
