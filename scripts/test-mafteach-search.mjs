@@ -59,6 +59,8 @@ const withEn = faithEntries.filter(e => e.e);
 check(withEn.length / faithEntries.length > 0.9 && withEn.every(e => !/[א-ת]{3}/.test(e.e)), `topic lines have English (${withEn.length}/${faithEntries.length})`);
 const ftEn = await A.searchEntries(M, 'olive tree', 'all');
 check(ftEn.total > 0 && ftEn.hits.every(e => /olive/i.test(e.e || '')), 'full-text search finds English words');
+const efron = await A.searchEntries(M, 'Efron', 'all');
+check(efron.total >= 1 && efron.hits.every(e => /Ephron/i.test(e.e || '')), 'Efron finds Ephron inside entries');
 // shiur builder: topic
 const rep = (await A.analyze('teshuvah')).topics[0].t;
 const plan = A.planTopicShiur(M, rep, await A.topicEntries(rep.id));
