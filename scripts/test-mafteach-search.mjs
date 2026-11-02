@@ -6,7 +6,7 @@ import { createRequire } from 'node:module';
 const require = createRequire(import.meta.url);
 const A = require('../dist/library/mafteach-search.js');
 const DATA = path.join(process.argv[2] || 'dist/mcp-data', 'mafteach') + '/';
-A.configure({ base: DATA, panelBase: 'dist/library/mafteach/', loader: async u => (u.endsWith('.txt') ? fs.readFileSync(u, 'utf8') : JSON.parse(fs.readFileSync(u, 'utf8'))) });
+A.configure({ base: DATA, panelBase: 'dist/library/mafteach/', linksBase: 'dist/library/mafteach-links/', loader: async u => (u.endsWith('.txt') ? fs.readFileSync(u, 'utf8') : JSON.parse(fs.readFileSync(u, 'utf8'))) });
 let passed = 0;
 const check = (ok, what) => { if (!ok) throw new Error('Mafteach search test failed: ' + what); passed++; };
 
@@ -66,6 +66,12 @@ check(mm.total >= 10, `Mearas Machpeilah finds the entries on the Cave of Machpe
 const cave = (await A.analyze('Mearas Machpeilah')).topics[0].t;
 check(/Machpelah/.test(cave.en), 'Mearas Machpeilah -> the Cave of Machpelah');
 check(A.seeAlso(M, await A.topicEntries(cave.id)).some(t => t.en === 'Hebron'), 'the Cave of Machpelah points to Hebron');
+// Ishbitz-Radzin and the other sefarim, for a topic and a source
+const fl = await A.topicLinks(107);
+check(fl && fl.ish.length >= 5 && fl.ish.every(x => /^(Beit Yaakov|Mei HaShiloach|Sod Yesharim|Tiferet Yosef|Sha'ar HaEmunah)/.test(x[0]) && x[3].length), 'Faith: Ishbitz-Radzin passages, each with the Rav Tzadok passages it comes through');
+check(fl.ish[0][6] === 1 && new Set(fl.out.map(x => x[2])).size >= 2, 'the first is confirmed by its own text; outside parallels in several genres');
+const gl = await A.sourceLinks('Berakhot 35b');
+check(gl && (gl.ish.length + gl.out.length) > 0, 'Berakhot 35b: links beyond Rav Tzadok');
 // shiur builder: topic
 const rep = (await A.analyze('teshuvah')).topics[0].t;
 const plan = A.planTopicShiur(M, rep, await A.topicEntries(rep.id));
