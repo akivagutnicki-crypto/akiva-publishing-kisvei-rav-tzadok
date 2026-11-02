@@ -47,6 +47,7 @@ jobs:
           node scripts/test-mafteach-panel.mjs
           node scripts/build-mafteach-index.mjs .maf-test
           node scripts/test-mafteach-search.mjs .maf-test
+          node scripts/test-ask.mjs
           rm -rf .maf-test
           python3 -m py_compile scripts/mafteach-release.py
 
@@ -116,6 +117,14 @@ jobs:
 
       - name: Verify the new files are live
         run: python3 scripts/mafteach-release.py verify-live
+
+      - name: Check the written-answer service (information only)
+        continue-on-error: true
+        run: |
+          sleep 90
+          curl -sS -m 60 -X POST -H 'content-type: application/json' -H 'origin: https://akivagutnicki-crypto.github.io' \
+            --data '{"q":"Why is Shabbos called a gift?","passages":[{"ref":"Peri Tzadik, Behar 17","lines":["The gift of Shabbat is unique to Israel"],"text":""},{"ref":"Peri Tzadik, Shoftim 7","lines":["The gift of Shabbat is the giving of reward"],"text":""}]}' \
+            https://akiva-publishing-kisvei-rav-tzadok.akivagutnicki.workers.dev/ask | head -c 1500; echo
 
       - name: Save the release report
         if: always()
