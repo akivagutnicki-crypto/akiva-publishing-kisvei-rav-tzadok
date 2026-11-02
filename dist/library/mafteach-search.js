@@ -12,15 +12,16 @@
   else root.AkivaMafteachSearch = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this, function () {
   'use strict';
-  const VERSION = '20261102-mafteach-search-inapp-v7';
+  const VERSION = '20261102-mafteach-search-schools-v8';
   let BASE = '../mcp-data/mafteach/';
   let PANEL_BASE = 'mafteach/';
+  let LINKS_BASE = 'mafteach-links/';
   const memo = new Map();
   let loader = async url => { const r = await fetch(url); if (!r.ok) throw new Error('HTTP ' + r.status + ' ' + url); return url.endsWith('.txt') ? r.text() : r.json(); };
   const load = url => { if (!memo.has(url)) { const p = loader(url); memo.set(url, p); p.catch(() => memo.delete(url)); } return memo.get(url); };
   const loadMaf = rel => load(BASE + rel);
   const loadShard = rel => loadMaf(rel).catch(() => []);
-  function configure(o = {}) { if (o.base) BASE = o.base; if (o.panelBase) PANEL_BASE = o.panelBase; if (o.loader) loader = o.loader; memo.clear(); M = null; }
+  function configure(o = {}) { if (o.base) BASE = o.base; if (o.panelBase) PANEL_BASE = o.panelBase; if (o.linksBase) LINKS_BASE = o.linksBase; if (o.loader) loader = o.loader; memo.clear(); M = null; }
 
   // ------------------------------------------------------------ normalization (as cloudflare/mcp.mjs)
   function table() {
@@ -430,6 +431,40 @@
     return { total: r.total, hits: r.hits };
   }
   const appUrl = key => (sefariaUrl(key) ? '#/read/' + API.toHash(String(key)) : null);   // sources open in the app's reader
+  // Ishbitz-Radzin and Chassidus / Kabbalah / Machshava / Mussar passages for a topic or a source (scripts/ml-parallels/mafteach_links.py)
+  async function topicLinks(id) { try { return (await load(LINKS_BASE + `topics-${String(Math.floor(id / 100)).padStart(2, '0')}.json`))[id] || null; } catch { return null; } }
+  async function sourceLinks(key) {
+    const m = String(key).match(/^(.*?)\s+(\d+)[ab]?(?::\d+)?$/);
+    try { return (await load(LINKS_BASE + `sources-${fileKey(m ? `${m[1]} ${m[2]}` : key)}.json`))[key] || null; } catch { return null; }
+  }
+  const TIER = { strong: 'Strong', likely: 'Likely', possible: 'Possible' };
+  const GENRE_HE = { Chassidus: 'חסידות', Kabbalah: 'קבלה', Machshava: 'מחשבה', Mussar: 'מוסר' };
+  const viaHTML = via => via.slice(0, 2).map(r => `<a href="${readLink(r)}">${E(r)}</a>`).join(' and ');
+  const speaks = what => what.he ? `its own text speaks of <span class="maf-he" lang="he">${E(what.he)}</span>` : `it quotes ${E(what.key)} too`;
+  const keepIsh = list => (list || []).filter(x => x[6] || x[1] !== 'possible');
+  const keepOut = list => (list || []).filter(x => x[7] || x[3] !== 'possible');
+  function ishHTML(list, what, show = 6) {
+    if (!list.length) return '<p class="maf-meta">No strong links found.</p>';
+    return '<ul class="maf-list">' + list.map((x, i) => {
+      const [ref, tier, , via, cites, , rel] = x;
+      const parts = [via.length && `reached through Rav Tzadok's ${viaHTML(via)}`, cites.length && `both cite ${cites.slice(0, 2).map(c => appUrl(c) ? `<a href="${appUrl(c)}">${E(c)}</a>` : E(c)).join(' and ')}`, rel && speaks(what)].filter(Boolean);
+      return `<li${i >= show ? ' hidden data-more' : ''}><span class="maf-tier maf-${tier}">${TIER[tier]}</span> <a class="maf-xref" href="${readLink(ref)}">${E(ref)}</a><div class="maf-why"><span class="maf-why-label">Why</span> ${parts.join('; ')}.</div></li>`;
+    }).join('') + '</ul>' + (list.length > show ? `<button class="maf-more" data-show-more>Show all ${list.length}</button>` : '');
+  }
+  function outHTML(list, what) {
+    if (!list.length) return '<p class="maf-meta">No strong links found.</p>';
+    return ['Chassidus', 'Kabbalah', 'Machshava', 'Mussar'].map(g => {
+      const l = list.filter(x => x[2] === g); if (!l.length) return '';
+      return `<h4 class="maf-genre-h">${g} · <span class="maf-he" lang="he">${GENRE_HE[g]}</span></h4><ul class="maf-list">${l.map(([ref, title, , tier, , via, words, rel]) => {
+        const parts = [via.length && `reached through Rav Tzadok's ${viaHTML(via)}`, rel && speaks(what), !rel && words.length && `shared words <span class="maf-he" lang="he">${E(words.slice(0, 3).join(' · '))}</span>`].filter(Boolean);
+        return `<li><span class="maf-tier maf-${tier}">${TIER[tier]}</span> <a class="maf-xref" href="${readLink(ref)}">${E(ref)}</a>${title && /[א-ת]/.test(title) ? ` <span class="maf-he" lang="he" style="color:var(--muted)">${E(title)}</span>` : ''}<div class="maf-why"><span class="maf-why-label">Why</span> ${parts.join('; ')}.</div></li>`;
+      }).join('')}</ul>`;
+    }).join('');
+  }
+  function schoolsHTML(ish, out, what) {
+    return `<section class="maf-sec" data-s="ish"><h3>In the Ishbitz–Radzin works <span class="maf-count">${ish.length}</span></h3><p class="maf-meta">Mei HaShiloach, Beis Yaakov, Sod Yesharim, Tiferes Yosef, Sha'ar HaEmunah — found by the machine-learned parallels of the Rav Tzadok passages here; Strong ones first.</p>${ishHTML(ish, what)}</section>
+      <section class="maf-sec" data-s="out"><h3>In Chassidus, Kabbalah, Machshava and Mussar <span class="maf-count">${out.length}</span></h3>${outHTML(out, what)}</section>`;
+  }
   function sefariaUrl(key) {
     const m = String(key || '').match(/^(.*?)\s+(\d+[ab]?)(?::(\d+))?$/);
     return m ? 'https://www.sefaria.org/' + m[1].replace(/ /g, '_') + '.' + m[2] + (m[3] ? '.' + m[3] : '') : null;
@@ -540,6 +575,8 @@
       }
       if (plan.themes.length) L.push('Recurring themes: ' + plan.themes.map(t => `${t.en || t.he} (${t.he})`).join(', '));
     }
+    if (plan.ish?.length) { L.push('', 'In the Ishbitz–Radzin works:'); for (const x of plan.ish) L.push(`   • ${x[0]} (${x[1]}) — through ${x[3].slice(0, 2).join(', ')}`); }
+    if (plan.out?.length) { L.push('', 'In Chassidus, Kabbalah, Machshava and Mussar:'); for (const x of plan.out) L.push(`   • ${x[0]} (${x[2]}, ${x[3]})`); }
     return L.join('\n');
   }
 
@@ -568,6 +605,15 @@
 .maf-refs a{color:var(--forest,#2f4a3a)}
 .maf-refs span{color:var(--muted)}
 .maf-en{font:400 .9rem/1.45 var(--en,Georgia,serif);color:var(--muted);margin-top:1px}
+.maf-tabs{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px}.maf-tabs button{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;padding:7px 13px;font:600 .82rem var(--ui,system-ui);cursor:pointer}
+.maf-tabs button[aria-pressed=true]{background:var(--forest,#2f4a3a);border-color:var(--forest,#2f4a3a);color:#fff}
+[data-school=rt] .maf-sec:not([data-s=rt]),[data-school=ish] .maf-sec:not([data-s=ish]),[data-school=out] .maf-sec:not([data-s=out]){display:none}
+.maf-counts{display:flex;flex-wrap:wrap;gap:6px;margin:4px 0 12px}.maf-counts button{border:1px solid var(--line);background:var(--soft,transparent);border-radius:8px;padding:6px 10px;font:500 .8rem var(--ui,system-ui);cursor:pointer;color:var(--ink)}
+.maf-counts b{font-weight:700}.maf-count{font:600 .75rem var(--ui,system-ui);color:var(--muted);margin-inline-start:6px}
+.maf-sec{margin-top:6px}.maf-genre-h{font:600 .85rem var(--ui,system-ui);margin:12px 0 2px}
+.maf-tier{font:700 .66rem var(--ui,system-ui);border-radius:4px;padding:1px 5px;border:1px solid currentColor;vertical-align:1px}.maf-strong{color:#2e7d32}.maf-likely{color:#1565c0}.maf-possible{color:#8d6e63}
+.maf-why{font-size:.88rem;color:var(--muted);margin-top:2px}.maf-why a{color:var(--forest,#2f4a3a)}.maf-why-label{font:700 .68rem var(--ui,system-ui);letter-spacing:.05em;text-transform:uppercase;color:var(--brass,#8a6d2f);margin-inline-end:4px}.maf-xref{font-weight:600}
+.maf-key{background:var(--soft,rgba(0,0,0,.03));border-radius:8px;padding:8px 12px;margin:0 0 6px}
 .maf-dash{color:var(--muted);font-weight:600}
 .maf-tag{font:600 .66rem var(--ui,system-ui);text-transform:uppercase;letter-spacing:.04em;color:var(--brass,#8a6d2f);margin-inline-start:4px}
 .maf-chips{display:flex;flex-wrap:wrap;gap:6px}
@@ -687,10 +733,17 @@
     if (a.hebrew || tokens(q).filter(x => x.keep).length) {
       const topE = top.length ? corpusFilter(await topicEntries(top[0].t.id), corpus).length : 0;
       const auto = !cards.length || (top.length && topE < 10);
-      cards.push(`<div class="maf-card" data-fulltext><h2>Inside the entries</h2><p class="maf-meta">Every Mafteach entry whose Hebrew or English includes ${a.hebrew ? `“<span class="maf-he" lang="he">${E(q)}</span>”` : `the words “${E(tokens(q).filter(x => x.keep).map(x => x.w).join(' '))}”${top.length ? ` or “<span class="maf-he" lang="he">${E(top[0].t.he)}</span>”` : ''}`}.</p>${auto ? '<div class="loading">Searching…</div>' : '<button class="maf-btn ghost" data-run-fulltext>Search inside all entries</button>'}</div>`);
+      cards.push(`<div class="maf-card maf-sec" data-s="rt" data-fulltext><h2>Inside the entries</h2><p class="maf-meta">Every Mafteach entry whose Hebrew or English includes ${a.hebrew ? `“<span class="maf-he" lang="he">${E(q)}</span>”` : `the words “${E(tokens(q).filter(x => x.keep).map(x => x.w).join(' '))}”${top.length ? ` or “<span class="maf-he" lang="he">${E(top[0].t.he)}</span>”` : ''}`}.</p>${auto ? '<div class="loading">Searching…</div>' : '<button class="maf-btn ghost" data-run-fulltext>Search inside all entries</button>'}</div>`);
     }
     if (!cards.length) cards.push(`<div class="maf-card"><h2>Nothing in the Mafteach matched</h2><p class="maf-meta">Try one key word, the Hebrew term, another spelling (Shabbos / Shabbat), or a pasuk or daf with its number (Bereishis 2:7, Shabbos 88b).</p></div>`);
-    out.innerHTML = cards.join('');
+    const tabs = `<div class="maf-tabs" role="toolbar" aria-label="Show results from"><button data-s="all" aria-pressed="true">Everything</button><button data-s="rt" aria-pressed="false">Rav Tzadok</button><button data-s="ish" aria-pressed="false">Ishbitz–Radzin</button><button data-s="out" aria-pressed="false">Chassidus · Kabbalah · Machshava · Mussar</button></div>`;
+    out.innerHTML = (cards.some(c => c.includes('maf-sec')) ? tabs : '') + cards.join('');
+    const setSchool = sc => { out.dataset.school = sc; out.querySelectorAll('.maf-tabs button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.s === sc))); };
+    out.addEventListener('click', ev => {
+      const b = ev.target.closest('.maf-tabs button, [data-go]'); if (!b) return;
+      setSchool(b.dataset.s || b.dataset.go);
+      if (b.dataset.go) out.querySelector(`.maf-sec[data-s="${b.dataset.go}"]`)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    });
     const ft = out.querySelector('[data-fulltext]');
     const runFull = async () => {
       ft.querySelector('[data-run-fulltext]')?.remove();
@@ -725,7 +778,9 @@
     return out;
   }
   async function topicCard(M, t, corpus, { show }) {
-    const entries = corpusFilter(await topicEntries(t.id), corpus);
+    const [all, links] = await Promise.all([topicEntries(t.id), topicLinks(t.id)]);
+    const entries = corpusFilter(all, corpus);
+    const also = [...new Set([...(t.ashk || []), ...(t.sef || []), ...(t.en_alt || [])])].slice(0, 6);
     const see = seeAlso(M, entries);
     const linked = entries.filter(e => e.r.some(r => refInfo(r).ref)).length;
     let follow = '';
@@ -734,11 +789,20 @@
       follow = `<h3>See: <a href="${mafHash({ topic: T.id, corpus })}"><span class="maf-he" lang="he">${E(T.he)}</span> · ${E(T.en)}</a> (${te.length})</h3>${entryListHTML(M, te, { show: 15, grouped: true })}`;
     }
     const seeChips = see.length ? `<div class="maf-chips" style="margin:6px 0 10px"><span class="maf-meta" style="margin:0 4px 0 0;align-self:center">See also:</span>${see.map(T => `<a href="${mafHash({ topic: T.id, corpus })}"><span class="maf-he" lang="he">${E(T.he)}</span> · ${E(T.en)} <span style="color:var(--muted)">${T.n}</span></a>`).join('')}</div>` : '';
-    const also = [...new Set([...(t.ashk || []), ...(t.sef || []), ...(t.en_alt || [])])].slice(0, 6);
+    const ish = keepIsh(links?.ish), out = keepOut(links?.out);
+    // key passages: the ones the Mafteach marks as treated at length
+    const keySeen = new Set(), key = [];
+    for (const e of entries) for (const r of e.r.map(refInfo)) if (r.ref && r.long && !keySeen.has(r.ref) && key.length < 6) { keySeen.add(r.ref); key.push({ e, ref: r.ref }); }
+    const what = { he: String(t.he).replace(/\([^)]*\)/g, '').trim() };
     return `<div class="maf-card"><h2><span class="maf-he" lang="he">${E(t.he)}</span><span>${E(t.en)}</span></h2>
-      <p class="maf-meta">${entries.length} entr${entries.length === 1 ? 'y' : 'ies'} in HaMafteach HaShalem${also.length ? ` · also: ${E(also.join(', '))}` : ''}. In an entry, “-” stands for the heading word.</p>
-      <div class="maf-actions" style="margin:0 0 10px"><a class="maf-btn" href="${shiurHash({ topic: t.id, corpus })}">Build a shiur on this topic</a>${t.n > entries.length || show < 60 ? `<a class="maf-btn ghost" href="${mafHash({ topic: t.id, corpus })}">Open this heading</a>` : ''}</div>
-      ${seeChips}${entries.length ? entryListHTML(M, entries, { show, grouped: true }) : '<p class="maf-meta">No entries in these sefarim; choose “All Rav Tzadok”.</p>'}${follow}</div>`;
+      <p class="maf-meta">${also.length ? `Also: ${E(also.join(', '))}. ` : ''}In an entry, “-” stands for the heading word.</p>
+      <div class="maf-counts"><button data-go="rt"><b>${entries.length}</b> Rav Tzadok entries</button><button data-go="ish"><b>${ish.length}</b> Ishbitz–Radzin</button><button data-go="out"><b>${out.length}</b> Chassidus · Kabbalah · Machshava · Mussar</button></div>
+      <div class="maf-actions" style="margin:0 0 10px"><a class="maf-btn" href="${shiurHash({ topic: t.id, corpus })}">Build a shiur on this topic</a>${show < 60 ? `<a class="maf-btn ghost" href="${mafHash({ topic: t.id, corpus })}">Open this heading</a>` : ''}</div>
+      ${seeChips}
+      ${key.length ? `<section class="maf-sec" data-s="rt"><h3>Key passages · treated at length</h3>${key.map(({ e, ref }) => `<div class="maf-key"><a class="maf-xref" href="${readLink(ref)}">${E(ref)}</a> ${capHTML(e.t, headOf(e))}${e.e ? `<div class="maf-en">${E(e.e)}</div>` : ''}</div>`).join('')}</section>` : ''}
+      ${schoolsHTML(ish, out, what)}
+      <section class="maf-sec" data-s="rt"><h3>All entries in HaMafteach HaShalem <span class="maf-count">${entries.length}</span></h3>
+      ${entries.length ? entryListHTML(M, entries, { show, grouped: true }) : '<p class="maf-meta">No entries in these sefarim; choose “All Rav Tzadok”.</p>'}${follow}</section></div>`;
   }
   async function sourceCard(M, ps, corpus) {
     const label = ps.kind === 'named' ? ps.title : `${ps.title}${ps.addr ? ' ' + ps.addr : ''}`;
@@ -748,9 +812,12 @@
     }
     const entries = corpusFilter(await sourceEntries(ps) || [], corpus);
     const url = ps.kind !== 'named' && appUrl(label);
+    const links = ps.kind !== 'named' && /[:ab]/.test(ps.addr) ? await sourceLinks(label) : null;
     return `<div class="maf-card"><h2><span>${E(label)}</span>${url ? `<a href="${url}" style="font:500 .8rem var(--ui,system-ui)">Read it ›</a>` : ''}</h2>
       <p class="maf-meta">${entries.length ? `Where Rav Tzadok draws on it: ${entries.length} entr${entries.length === 1 ? 'y' : 'ies'}. Each shows the words he quotes, then the passages.` : 'HaMafteach HaShalem lists no entries for it.'}</p>
-      ${entries.length ? entryListHTML(M, entries, { show: 25 }) : ''}</div>`;
+      ${links ? `<div class="maf-counts"><button data-go="rt"><b>${entries.length}</b> Rav Tzadok</button><button data-go="ish"><b>${keepIsh(links.ish).length}</b> Ishbitz–Radzin</button><button data-go="out"><b>${keepOut(links.out).length}</b> Chassidus · Kabbalah · Machshava · Mussar</button></div>` : ''}
+      <section class="maf-sec" data-s="rt">${entries.length ? entryListHTML(M, entries, { show: 25 }) : ''}</section>
+      ${links ? schoolsHTML(keepIsh(links.ish), keepOut(links.out), { key: label }) : ''}</div>`;
   }
   function parshaCard(p) {
     return `<div class="maf-card"><h2><span class="maf-he" lang="he">פרשת ${E(p.he)}</span><span>Parshas ${E(p.ashk)}</span></h2>
@@ -765,7 +832,7 @@
     const shared = [...counts].filter(([, s]) => s.size >= 2).sort((a, b) => b[1].size - a[1].size).slice(0, 30);
     if (!shared.length) return null;
     const names = topics.map(x => `${E(x.t.en)} · <span class="maf-he" lang="he">${E(x.t.he)}</span>`).join(' + ');
-    return `<div class="maf-card"><h2>Passages on ${names.replace(/ \+ /g, ' and ')}</h2><p class="maf-meta">${shared.length} passage${shared.length === 1 ? '' : 's'} the Mafteach lists under more than one of these headings — the likeliest places Rav Tzadok connects them.</p>
+    return `<div class="maf-card maf-sec" data-s="rt"><h2>Passages on ${names.replace(/ \+ /g, ' and ')}</h2><p class="maf-meta">${shared.length} passage${shared.length === 1 ? '' : 's'} the Mafteach lists under more than one of these headings — the likeliest places Rav Tzadok connects them.</p>
       <ul class="maf-list">${shared.map(([ref, s]) => `<li><a href="${readLink(ref)}" style="font-weight:600">${E(ref)}</a>${[...s].map(k => { const e = refSets[k].get(ref)[0]; return `<div><span class="maf-tag" style="text-transform:none;letter-spacing:0">${E(topics[k].t.en)}</span> ${capHTML(e.t, topics[k].t.he)}${e.e ? `<div class="maf-en">${E(e.e)}</div>` : ''}</div>`; }).join('')}</li>`).join('')}</ul></div>`;
   }
 
@@ -811,6 +878,15 @@
       if (!p) { page.innerHTML = '<div class="maf-card">That parsha was not recognized.</div>'; return; }
       const [pt, src] = await Promise.all([ptSectionPassages(p), parshaSources(p)]);
       plan = planParshaShiur(p, pt, src);
+      // the parsha's pesukim lead to the same places in Ishbitz-Radzin and the other sefarim: add them up
+      const agg = new Map(), aggOut = new Map();
+      for (const v of plan.pesukim) {
+        const l = await sourceLinks(v.key); if (!l) continue;
+        for (const x of keepIsh(l.ish)) { const c = agg.get(x[0]); if (c) { c[2] += x[2]; c[3] = [...new Set([...c[3], ...x[3]])]; c[6] = c[6] || x[6]; c.onKeys.push(v.key); } else agg.set(x[0], Object.assign([...x], { onKeys: [v.key] })); }
+        for (const x of keepOut(l.out)) { const c = aggOut.get(x[0]); if (c) { c[4] += x[4]; c[7] = c[7] || x[7]; } else aggOut.set(x[0], [...x]); }
+      }
+      plan.ish = [...agg.values()].sort((a, b) => (b[6] - a[6]) || b[2] - a[2]).slice(0, 6);
+      plan.out = [...aggOut.values()].sort((a, b) => (b[7] - a[7]) || b[4] - a[4]).slice(0, 6);
     } else {
       const t = M.byId.get(+params.get('topic'));
       if (!t) { page.innerHTML = '<div class="maf-card">That topic was not found.</div>'; return; }
@@ -818,6 +894,10 @@
       if (entries.filter(e => e.r.some(r => refInfo(r).ref)).length < 5)      // "see Hebron": build from the headings it points to
         for (const T of seeAlso(M, entries).slice(0, 3)) entries = entries.concat(corpusFilter(await topicEntries(T.id), corpus));
       plan = planTopicShiur(M, t, entries);
+      const links = await topicLinks(t.id);
+      const ish = keepIsh(links?.ish), out = keepOut(links?.out);
+      plan.ish = [...ish.filter(x => x[6]), ...ish.filter(x => !x[6])].slice(0, 5);
+      plan.out = [...out.filter(x => x[7]), ...out.filter(x => !x[7])].slice(0, 5);
     }
     document.title = `Shiur: ${plan.title.en} · Rav Tzadok Library`;
     page.innerHTML = shiurHTML(plan, corpus);
@@ -833,6 +913,18 @@
     page.addEventListener('click', ev => { const b = ev.target.closest('[data-show-more]'); if (b) { b.parentElement.querySelectorAll('[data-more]').forEach(x => { x.hidden = false; }); b.remove(); } });
     fillTexts(page);
   }
+  function shiurSchoolsHTML(plan) {
+    const what = plan.kind === 'topic' ? { he: String(plan.title.he).replace(/\([^)]*\)/g, '').trim() } : { key: 'the parsha' };
+    const ish = (plan.ish || []).map(x => {
+      const [ref, tier, , via, cites, , rel] = x;
+      const why = [via.length && `reached through Rav Tzadok's ${viaHTML(via)}`, x.onKeys && `on ${x.onKeys.slice(0, 2).map(E).join(' and ')}`, cites.length && `both cite ${cites.slice(0, 2).map(E).join(' and ')}`, rel && plan.kind === 'topic' && speaks(what)].filter(Boolean).join('; ');
+      return `<div class="maf-src"><div class="cap"><span class="maf-tier maf-${tier}">${TIER[tier]}</span> <span class="src-ref"><a href="${readLink(ref)}">${E(ref)}</a></span><div class="maf-why"><span class="maf-why-label">Why</span> ${why}.</div></div>
+        <div class="txt" data-text-ref="${E(ref)}" data-words="60"><span class="maf-noprint" style="color:var(--muted);font-size:.85rem">Loading the text…</span></div></div>`;
+    }).join('');
+    const out = (plan.out || []).map(([ref, title, g, tier, , via, , rel]) => `<li><span class="maf-tier maf-${tier}">${TIER[tier]}</span> <a href="${readLink(ref)}">${E(ref)}</a> <span class="maf-meta">(${g})</span>${via.length ? `<div class="maf-why"><span class="maf-why-label">Why</span> reached through Rav Tzadok's ${viaHTML(via)}${rel && plan.kind === 'topic' ? '; ' + speaks(what) : ''}.</div>` : ''}</li>`).join('');
+    return (ish ? `<h2 class="sec">In the Ishbitz–Radzin works</h2><p class="maf-meta">Suggested by machine learning from the Rav Tzadok passages above; check each before using it.</p>${ish}` : '')
+      + (out ? `<h2 class="sec">In Chassidus, Kabbalah, Machshava and Mussar</h2><ul class="maf-list">${out}</ul>` : '');
+  }
   function shiurHTML(plan, corpus) {
     const actions = `<div class="maf-actions maf-noprint"><button class="maf-btn" data-act="print">Print / save as PDF</button><button class="maf-btn ghost" data-act="copy">Copy as text</button><button class="maf-btn ghost" data-act="share">Share link</button><a class="maf-btn ghost" href="${plan.kind === 'topic' ? mafHash({ q: plan.title.en, corpus }) : mafHash({ q: 'Parshas ' + plan.parsha.ashk })}">Back to search</a></div>`;
     if (plan.kind === 'topic') {
@@ -845,6 +937,7 @@
             <div class="txt" data-text-ref="${E(it.ref)}"><span class="maf-noprint" style="color:var(--muted);font-size:.85rem">Loading the text…</span></div>
             ${it.also.length ? `<div class="maf-refs" style="margin-top:6px"><span>See also:</span>${it.also.slice(0, 4).map(r => `<a href="${readLink(r)}">${E(r)}</a>`).join('')}</div>` : ''}</div>`).join('')}
           ${s.total > s.items.length ? `<p class="maf-meta maf-noprint">${s.total - s.items.length} more in the Mafteach under this heading.</p>` : ''}`).join('')}
+        ${shiurSchoolsHTML(plan)}
         <p class="maf-note">Captions are the Mafteach's own summary lines (OCR'd from the printed index); texts are excerpts from the library — open each passage to read it whole. <a href="${mafHash({ q: plan.title.he, corpus })}" class="maf-noprint">All entries on this topic</a></p>`;
     }
     const p = plan.parsha;
@@ -860,6 +953,7 @@
           ${v.items.map(it => `<div class="maf-refs">${it.refs.map(r => r.ref ? `<a href="${readLink(r.ref)}">${E(r.ref)}</a>` : `<span>${E(r.text)}</span>`).join('')}</div>`).join('')}${v.total > v.items.length ? `<div class="maf-meta" style="margin:2px 0 0">+${v.total - v.items.length} more</div>` : ''}</li>`).join('')}</ul>
         ${plan.pesukim.length > 30 ? '<button class="maf-more" data-show-more>Show all ' + plan.pesukim.length + ' pesukim</button>' : ''}` : ''}
       ${!plan.maamarim.length && !plan.pesukim.length ? '<div class="maf-card">The Mafteach has no entries for this parsha yet.</div>' : ''}
+      ${shiurSchoolsHTML(plan)}
       <p class="maf-note">Built from HaMafteach HaShalem (OCR'd from the printed index) and the library's Pri Tzaddik. Open each passage to read it whole.</p>`;
   }
 
@@ -920,7 +1014,7 @@
     return renderSearch(app, p);
   }
 
-  return { VERSION, configure, index, buildIndex, findTerms, parseSource, findParsha, findSourceIn, questionTopics, analyze, refInfo, topicEntries, sourceEntries,
+  return { VERSION, topicLinks, sourceLinks, configure, index, buildIndex, findTerms, parseSource, findParsha, findSourceIn, questionTopics, analyze, refInfo, topicEntries, sourceEntries,
     searchEntries, seeAlso, planTopicShiur, planParshaShiur, ptSectionPassages, parshaSources, shiurText, suggestRows, excerpt, render, attach, PARSHIYOS, translitKey, heKey, norm };
 });
 // Attach to the reader's header search and home page as soon as the page is ready.

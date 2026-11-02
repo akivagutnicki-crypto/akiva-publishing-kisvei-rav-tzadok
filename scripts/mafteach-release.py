@@ -15,9 +15,9 @@ REPO = 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok'
 PUBLIC = 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/'
 STATE = Path('mafteach-release-state.json')
 PANEL_V = '20261102-mafteach-inline-v4'
-SEARCH_V = '20261102-mafteach-search-inapp-v7'
-NEW_DIRS = ['library/mafteach', 'library/ml-parallels', 'library/genre-parallels']
-ALLOWED = re.compile(r'^(library/index\.html|library/sw\.js|library/mafteach-panel\.js|library/mafteach-search\.js|library/(mafteach|ml-parallels|genre-parallels)/.+|mcp-data/mafteach/.+)$')
+SEARCH_V = '20261102-mafteach-search-schools-v8'
+NEW_DIRS = ['library/mafteach', 'library/ml-parallels', 'library/genre-parallels', 'library/mafteach-links']
+ALLOWED = re.compile(r'^(library/index\.html|library/sw\.js|library/mafteach-panel\.js|library/mafteach-search\.js|library/(mafteach|ml-parallels|genre-parallels|mafteach-links)/.+|mcp-data/mafteach/.+)$')
 MAX_BYTES = 10_000_000
 
 
@@ -180,7 +180,7 @@ elif mode == 'guard':
     print('Main and live publication unchanged.')
 elif mode == 'verify-live':
     for name in ('library/mafteach-panel.js', 'library/mafteach-search.js', 'library/mafteach/index.json', 'library/ml-parallels/index.json',
-                 'library/genre-parallels/index.json', 'mcp-data/mafteach/glossary.json'):
+                 'library/genre-parallels/index.json', 'library/mafteach-links/topics-01.json', 'mcp-data/mafteach/glossary.json'):
         for k in range(20):
             try:
                 with urllib.request.urlopen(PUBLIC + name + '?check=' + str(time.time_ns()), timeout=60) as r:
