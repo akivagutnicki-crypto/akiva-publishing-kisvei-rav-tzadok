@@ -1,0 +1,65 @@
+name: Kisvei engine — refresh from the live library
+
+# Downloads the published library index (/mcp-data on the live reader, the same data the Kisvei MCP
+# serves), checks every book is complete, retrains the parallel ranker on it, and commits the
+# result. The retrain keeps whichever weights (previous, hand-set or newly learned) score best on
+# the held-out reviewed parallels, so it can never make the ranker worse.
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 3 * * 0"   # weekly, Sunday 03:17 UTC
+  push:
+    branches: ["main", "kisvei-engine-live-index"]
+    paths:
+      - "tools/kisvei-engine/kisvei_engine/**"
+      - "tools/kisvei-engine/run.py"
+      - ".github/workflows/kisvei-engine-live-index.yml"
+
+permissions:
+  contents: write
+
+concurrency:
+  group: kisvei-engine-live-index-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  refresh:
+    if: ${{ github.repository == 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    defaults:
+      run:
+        working-directory: tools/kisvei-engine
+    steps:
+      - uses: actions/checkout@v6
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install numpy
+        run: python -m pip install --quiet numpy
+
+      - name: Download the live library index and check completeness
+        run: python run.py fetch-live data/live
+
+      - name: Retrain the parallel ranker on the full library
+        run: |
+          python run.py learn data/live ../../editorial/tzidkat-editorial-master-2026-11/connections.json models/parallel_weights.json ../.. | grep -vE '^ |^[{}]'
+          cp data/live/coverage.json models/library_coverage.json
+
+      - name: Smoke test
+        run: |
+          python run.py cite "כמו שאמרו (ברכות מח.) קטן היודע למי מברכין"
+          python run.py parallels data/live models/parallel_weights.json "Mei HaShiloach, Volume I, Genesis, Bereshit 1" 5 || true
+
+      - name: Commit the refreshed model and coverage report
+        working-directory: .
+        run: |
+          git add tools/kisvei-engine/models/parallel_weights.json tools/kisvei-engine/models/library_coverage.json
+          if git diff --cached --quiet; then echo "No change"; exit 0; fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
+          git commit -m "Refresh the Kisvei engine from the live library index [skip ci]"
+          git push

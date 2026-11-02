@@ -159,12 +159,24 @@ def main(mcp_dir, connections_path, out_path, repo=None):
     print('pairwise differences', D.shape)
     weights = fit_pairwise(D)
     print('weights', json.dumps(weights, indent=1))
-    print('baseline (hand weights) test:', evaluate(index, test, index.weights))
-    print('learned weights test:', evaluate(index, test, weights))
-    json.dump({'features': list(FEATS), 'weights': weights, 'trainPairs': len(train), 'testPairs': len(test), 'paragraphs': index.N,
+    hand = dict(index.weights)
+    candidates = {'hand': hand, 'learned': weights}
+    if os.path.exists(out_path):  # the weights currently in use compete too, so a retrain never makes things worse
+        try:
+            candidates['previous'] = json.load(open(out_path, encoding='utf-8'))['weights']
+        except Exception:  # noqa: BLE001
+            pass
+    results = {name: evaluate(index, test, w) for name, w in candidates.items()}
+    for name, r in results.items():
+        print(f'{name} weights test:', r)
+    rank = lambda n: (results[n]['recall@10'], results[n]['recall@20'], results[n]['recall@5'])  # noqa: E731
+    best = max(results, key=rank)
+    print('keeping', best, 'weights')
+    json.dump({'features': list(FEATS), 'weights': candidates[best], 'chosen': best, 'evaluation': results,
+               'trainPairs': len(train), 'testPairs': len(test), 'paragraphs': index.N,
                'gold': 'reviewed editorial parallels (editorial master connections + reader reviewed connections + connected ideas)'},
               open(out_path, 'w', encoding='utf-8'), indent=1)
-
+    return best, results
 
 if __name__ == '__main__':
-    main(*sys.argv[1:5])
+    main(*sys.argv[1:6])

@@ -55,15 +55,25 @@ locators where the editor chose a more specific segment or a commentary on that 
 
 ## Usage
 
+Always work from the **published** library index. A plain local `build-library.mjs && build-mcp-index.mjs`
+misses what the publishing workflows add over the Pages artifact (most of Mei HaShiloach, later Peri
+Tzadik and Beit Yaakov sections): locally that gives about 13,900 paragraphs against about 15,700 live.
+
 ```bash
-python3 run.py learn <mcp-data dir> <connections.json> models/parallel_weights.json <repo root>
-python3 run.py parallels <mcp-data dir> models/parallel_weights.json "Tzidkat HaTzadik 1:3" 10
+python3 run.py fetch-live data/live          # download /mcp-data from the live reader; fails if any book is incomplete
+python3 run.py parallels data/live models/parallel_weights.json "Tzidkat HaTzadik 1:3" 10
 python3 run.py cite "כמו שאמרו (ברכות מח.) קטן היודע למי מברכין"
-python3 run.py footnotes <mcp-data dir> models/parallel_weights.json "Peri Tzadik, Noach 3:1"
-python3 run.py annotate-book <mcp-data dir> models/parallel_weights.json peri-tzadik out/peri_tzadik_drafts.json
+python3 run.py footnotes data/live models/parallel_weights.json "Peri Tzadik, Noach 3:1"
+python3 run.py annotate-book data/live models/parallel_weights.json peri-tzadik out/peri_tzadik_drafts.json
+python3 run.py learn data/live ../../editorial/tzidkat-editorial-master-2026-11/connections.json models/parallel_weights.json ../..
 ```
 
-`<mcp-data dir>` is `dist/mcp-data` after `node scripts/build-library.mjs && node scripts/build-mcp-index.mjs`.
+`learn` evaluates the previous, hand-set and newly learned weights on the held-out reviewed parallels
+and keeps the best, so retraining never makes the ranker worse. `data/` is git-ignored.
+
+The workflow `.github/workflows/kisvei-engine-live-index.yml` does the fetch and retrain on GitHub
+(weekly, on demand, and whenever the engine changes) and commits `models/parallel_weights.json` and
+`models/library_coverage.json` (books, sections and paragraphs the model was trained on).
 
 ## How the editorial pipeline uses it
 

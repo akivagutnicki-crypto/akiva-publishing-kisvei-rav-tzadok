@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Command-line entry point for the Kisvei Rav Tzadok engine.
 
+  python3 run.py fetch-live [out dir]                     download the published library index (default data/live)
   python3 run.py learn <mcp-data dir> <connections.json> <weights-out.json>
   python3 run.py parallels <mcp-data dir> <weights.json> <ref> [limit]
   python3 run.py cite "<hebrew text>"                      detect explicit citations
@@ -26,8 +27,14 @@ def load_index(mcp_dir, weights_path=None):
 
 def main(argv):
     cmd = argv[1] if len(argv) > 1 else ''
-    if cmd == 'learn':
-        learn.main(argv[2], argv[3], argv[4])
+    if cmd == 'fetch-live':
+        from kisvei_engine import live
+        s = live.fetch(argv[2] if len(argv) > 2 else 'data/live')
+        print(json.dumps({k: v for k, v in s.items() if k != 'perBook'}, indent=1))
+        if s['problems']:
+            sys.exit(1)
+    elif cmd == 'learn':
+        learn.main(argv[2], argv[3], argv[4], argv[5] if len(argv) > 5 else None)
     elif cmd == 'parallels':
         index = load_index(argv[2], argv[3])
         limit = int(argv[5]) if len(argv) > 5 else 10
