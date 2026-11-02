@@ -12,7 +12,7 @@
   else root.AkivaMafteachSearch = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this, function () {
   'use strict';
-  const VERSION = '20261102-mafteach-search-en-v6';
+  const VERSION = '20261102-mafteach-search-inapp-v7';
   let BASE = '../mcp-data/mafteach/';
   let PANEL_BASE = 'mafteach/';
   const memo = new Map();
@@ -429,6 +429,7 @@
     if (!r.total && terms.length > 1 && r.seen.some(n => n > 0)) r = run(terms.filter((t, i) => r.seen[i] > 0));
     return { total: r.total, hits: r.hits };
   }
+  const appUrl = key => (sefariaUrl(key) ? '#/read/' + API.toHash(String(key)) : null);   // sources open in the app's reader
   function sefariaUrl(key) {
     const m = String(key || '').match(/^(.*?)\s+(\d+[ab]?)(?::(\d+))?$/);
     return m ? 'https://www.sefaria.org/' + m[1].replace(/ /g, '_') + '.' + m[2] + (m[3] ? '.' + m[3] : '') : null;
@@ -621,7 +622,7 @@
       const T = e.T != null ? M.byId.get(e.T) : null;
       if (T) head = `<a href="${mafHash({ topic: T.id })}" class="maf-tag" style="text-transform:none;letter-spacing:0">${E(T.en || T.he)}</a> `;
     }
-    if (e.x === 's' && e.k) head += `<a class="maf-tag" style="text-transform:none;letter-spacing:0" href="${sefariaUrl(e.k) || '#'}" target="_blank" rel="noopener">${E(e.k)}</a> `;
+    if (e.x === 's' && e.k) head += `<a class="maf-tag" style="text-transform:none;letter-spacing:0" href="${appUrl(e.k) || '#'}">${E(e.k)}</a> `;
     return `<li>${head}${e.x === 't' ? capHTML(e.t, headOf(e)) : `<span class="maf-he" lang="he">${E(e.t)}</span>`}${e.e ? `<div class="maf-en">${E(e.e)}</div>` : ''}<div class="maf-refs">${refsHTML(e)}</div></li>`;
   }
   function entryListHTML(M, entries, { show = 25, grouped = false, topic = false } = {}) {
@@ -746,8 +747,8 @@
       return `<div class="maf-card"><h2>${E(ps.title)}</h2><p class="maf-meta">${info ? `${info.n} entries. Add a chapter or daf, e.g. ` + info.chapters.slice(0, 8).map(c => `<a href="${mafHash({ q: ps.title + ' ' + c, corpus })}">${E(ps.title)} ${c}</a>`).join(', ') : 'The Mafteach has no entries for it.'}</p></div>`;
     }
     const entries = corpusFilter(await sourceEntries(ps) || [], corpus);
-    const url = ps.kind !== 'named' && sefariaUrl(label);
-    return `<div class="maf-card"><h2><span>${E(label)}</span>${url ? `<a href="${url}" target="_blank" rel="noopener" style="font:500 .8rem var(--ui,system-ui)">Open on Sefaria ↗</a>` : ''}</h2>
+    const url = ps.kind !== 'named' && appUrl(label);
+    return `<div class="maf-card"><h2><span>${E(label)}</span>${url ? `<a href="${url}" style="font:500 .8rem var(--ui,system-ui)">Read it ›</a>` : ''}</h2>
       <p class="maf-meta">${entries.length ? `Where Rav Tzadok draws on it: ${entries.length} entr${entries.length === 1 ? 'y' : 'ies'}. Each shows the words he quotes, then the passages.` : 'HaMafteach HaShalem lists no entries for it.'}</p>
       ${entries.length ? entryListHTML(M, entries, { show: 25 }) : ''}</div>`;
   }
@@ -853,9 +854,9 @@
       ${plan.maamarim.length ? `<h2 class="sec">Pri Tzaddik on Parshas ${E(p.ashk)}</h2>
         ${plan.maamarim.map((m, i) => `<div class="maf-src"><div class="cap"><span class="src-ref"><a href="${readLink(m.ref)}">${E(m.ref.replace(/^Peri Tzadik, /, 'Pri Tzaddik, '))}</a></span>${m.topics.length ? ` — ${m.topics.map(t => `${t[1] ? E(t[1]) + ' ' : ''}<span class="maf-he" lang="he">${E(t[0])}</span>`).join(' · ')}` : ''}</div>
           ${i < 12 ? `<div class="txt" data-text-ref="${E(m.ref)}" data-words="70"><span class="maf-noprint" style="color:var(--muted);font-size:.85rem">Loading the text…</span></div>` : ''}
-          ${m.sources.length ? `<div class="maf-refs" style="margin-top:6px"><span>Draws on:</span>${m.sources.map(s => `<a href="${sefariaUrl(s) || '#'}" target="_blank" rel="noopener">${E(s)}</a>`).join('')}</div>` : ''}</div>`).join('')}` : ''}
+          ${m.sources.length ? `<div class="maf-refs" style="margin-top:6px"><span>Draws on:</span>${m.sources.map(s => `<a href="${appUrl(s) || '#'}">${E(s)}</a>`).join('')}</div>` : ''}</div>`).join('')}` : ''}
       ${plan.pesukim.length ? `<h2 class="sec">The pesukim of the parsha in Rav Tzadok's sefarim</h2><p class="maf-meta">In order, each pasuk with the passages where Rav Tzadok draws on it (Mafteach part 3 and part 7).</p>
-        <ul class="maf-list">${plan.pesukim.map((v, i) => `<li${i >= 30 ? ' hidden data-more' : ''}><a class="src-ref" href="${sefariaUrl(v.key)}" target="_blank" rel="noopener">${E(v.key)}</a> <span class="maf-he" lang="he">${E(v.quote)}</span>
+        <ul class="maf-list">${plan.pesukim.map((v, i) => `<li${i >= 30 ? ' hidden data-more' : ''}><a class="src-ref" href="${appUrl(v.key)}">${E(v.key)}</a> <span class="maf-he" lang="he">${E(v.quote)}</span>
           ${v.items.map(it => `<div class="maf-refs">${it.refs.map(r => r.ref ? `<a href="${readLink(r.ref)}">${E(r.ref)}</a>` : `<span>${E(r.text)}</span>`).join('')}</div>`).join('')}${v.total > v.items.length ? `<div class="maf-meta" style="margin:2px 0 0">+${v.total - v.items.length} more</div>` : ''}</li>`).join('')}</ul>
         ${plan.pesukim.length > 30 ? '<button class="maf-more" data-show-more>Show all ' + plan.pesukim.length + ' pesukim</button>' : ''}` : ''}
       ${!plan.maamarim.length && !plan.pesukim.length ? '<div class="maf-card">The Mafteach has no entries for this parsha yet.</div>' : ''}
