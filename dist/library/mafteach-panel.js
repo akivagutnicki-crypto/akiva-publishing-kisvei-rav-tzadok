@@ -7,7 +7,7 @@
   else root.AkivaMafteach = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this, function () {
   'use strict';
-  const VERSION = '20261102-mafteach-ml-genre-v1';
+  const VERSION = '20261102-mafteach-ml-genre-en-v2';
   const SHOW = 8;
   const toHashDefault = ref => encodeURIComponent(ref).replace(/%20/g, '_').replace(/%2C/g, ',').replace(/%3A/g, ':');
   const escDefault = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -45,7 +45,7 @@
   function caption(c, esc) {
     const [type, a, b, c3] = c;
     const link = key => { const u = c3 && sefariaUrl(key); return u ? `<a href="${u}" target="_blank" rel="noopener">${esc(key)}</a>` : esc(key); };
-    if (type === 'line') return `<span class="maf-why-topic">${esc(b)}${c[3] ? ` — ${esc(c[3])}` : ''}</span> <span lang="he" class="maf-he">${esc(a)}</span>`;
+    if (type === 'line') return `<span class="maf-why-topic">${esc(b)}${c[3] ? ` — ${esc(c[3])}` : ''}</span> <span lang="he" class="maf-he">${esc(a)}</span>${c[4] ? ` <span class="maf-why-en">(${esc(c[4])})</span>` : ''}`;
     if (type === 'quote') return `Both draw on ${link(b)}: <span lang="he" class="maf-he">${esc(a)}</span>`;
     if (type === 'source') return `Both cite ${link(a)}`;
     if (type === 'chapter') return `Both draw on ${esc(a)}${b ? ` (${esc(b)})` : ''}`;
@@ -129,7 +129,7 @@ ${topics ? `<div class="maf-block"><h4>Indexed under</h4><div class="maf-topics"
 .maf-topics{display:flex;flex-wrap:wrap;gap:.35em}.maf-topic{border:1px solid var(--line,#ddd);border-radius:999px;padding:.1em .6em;font-size:.88em}
 .maf-list{margin:.2em 0;padding-inline-start:1.4em}.maf-list li{margin:.35em 0}.maf-ref{font-weight:600;unicode-bidi:isolate}
 .maf-why{font-size:.88em;opacity:.85}.maf-he{font-family:inherit;direction:rtl;unicode-bidi:isolate}
-.maf-why-topic{font-style:italic}.maf-star{color:#b8860b}.maf-more{display:none}.mafteach-panel.maf-open-par [data-list=par] .maf-more,.mafteach-panel.maf-open-src [data-list=src] .maf-more{display:list-item}.mafteach-panel.maf-open-top [data-list=top] .maf-more{display:inline-block}
+.maf-why-topic{font-style:italic}.maf-why-en{color:var(--muted)}.maf-star{color:#b8860b}.maf-more{display:none}.mafteach-panel.maf-open-par [data-list=par] .maf-more,.mafteach-panel.maf-open-src [data-list=src] .maf-more{display:list-item}.mafteach-panel.maf-open-top [data-list=top] .maf-more{display:inline-block}
 .maf-tier{font-size:.72em;border-radius:4px;padding:.05em .4em;vertical-align:.1em;border:1px solid currentColor}.maf-strong{color:#2e7d32}.maf-likely{color:#1565c0}.maf-possible{color:#8d6e63}.mafteach-panel.maf-open-ml [data-list=ml] .maf-more{display:list-item}
 .maf-genre h5{margin:.6em 0 .2em;font-size:.88em;opacity:.85}
 .maf-note{font-size:.8em;opacity:.75;margin:.8em 0 .3em}.maf-toggle{margin:.2em 0}`;

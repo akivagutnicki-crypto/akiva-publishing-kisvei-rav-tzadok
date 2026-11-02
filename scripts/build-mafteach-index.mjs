@@ -49,6 +49,20 @@ export function buildMafteach(OUT) {
   const lines = zlib.gunzipSync(fs.readFileSync(path.join(SRC, 'entries.jsonl.gz'))).toString('utf8').split('\n').filter(Boolean);
   // Column-header rows of the source volumes ("דף עמ'", "פרשה", "פרק פסוק") have no references: leave them out.
   const entries = lines.map(l => JSON.parse(l)).filter(e => e.r.length || e.x === 't' || e.t.trim().split(/\s+/).length > 3);
+  // English of the index lines (scripts/mafteach-english.py): key = Hebrew line, plus "|heading" when it uses the dash.
+  const enFile = path.join(SRC, 'captions-en.json');
+  if (fs.existsSync(enFile)) {
+    const en = JSON.parse(fs.readFileSync(enFile, 'utf8'));
+    const heOf = new Map(glossary.terms.map(t => [t.id, t.he]));
+    let n = 0;
+    for (const e of entries) {
+      if (e.x !== 't') continue;
+      const t = e.t.trim();
+      const k = /(^|\s)-(?=\s|$)/.test(t) ? `${t}|${(e.T != null ? heOf.get(e.T) : e.Th) || ''}` : t;
+      if (en[k]) { e.e = en[k]; n++; }
+    }
+    console.log(`Mafteach English: ${n} of ${entries.filter(e => e.x === 't').length} topic lines`);
+  }
   const base = path.join(OUT, 'mafteach');
   fs.rmSync(base, { recursive: true, force: true });
   for (const d of ['topic', 'source', 'passage', 'text']) fs.mkdirSync(path.join(base, d), { recursive: true });
@@ -80,7 +94,7 @@ export function buildMafteach(OUT) {
   for (const [k, l] of bySource) write(`source/${k}.json`, l);
   for (const [k, l] of byPassage) write(`passage/${k}.json`, l);
   for (const [v, l] of byPart) {
-    fs.writeFileSync(path.join(base, 'text', `${v}.txt`), l.map(e => heNorm(e.t) + '\t' + JSON.stringify(e)).join('\n'));
+    fs.writeFileSync(path.join(base, 'text', `${v}.txt`), l.map(e => heNorm(e.t + (e.e ? ' ' + e.e : '')) + '\t' + JSON.stringify(e)).join('\n'));
   }
   const passages = {};
   for (const e of entries) for (const r of e.r) if (r[1]) passages[r[1]] = (passages[r[1]] || 0) + 1;

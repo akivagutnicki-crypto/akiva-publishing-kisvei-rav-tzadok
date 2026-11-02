@@ -14,8 +14,8 @@ from pathlib import Path
 REPO = 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok'
 PUBLIC = 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/'
 STATE = Path('mafteach-release-state.json')
-PANEL_V = '20261102-mafteach-ml-genre-v1'
-SEARCH_V = '20261102-mafteach-search-v1'
+PANEL_V = '20261102-mafteach-ml-genre-en-v2'
+SEARCH_V = '20261102-mafteach-search-en-v2'
 NEW_DIRS = ['library/mafteach', 'library/ml-parallels', 'library/genre-parallels']
 ALLOWED = re.compile(r'^(library/index\.html|library/sw\.js|library/mafteach-panel\.js|library/mafteach-search\.js|library/(mafteach|ml-parallels|genre-parallels)/.+|mcp-data/mafteach/.+)$')
 MAX_BYTES = 10_000_000
@@ -98,13 +98,11 @@ def patch_index(text):
 def patch_sw(text):
     m = re.search(r'const SHELL = `([^`]*)`;', text)
     assert m, 'Service worker SHELL not found'
-    marker = '-mafteach-parallels-20261102' + ('-search-v1' if 'mafteach-search.js' not in text else '')
-    if marker not in m.group(1) and 'mafteach-search-v1' not in m.group(1):
+    marker = '-maf-' + SEARCH_V                      # a new shell cache whenever the panel or search version changes
+    if marker not in m.group(1):
         text = text.replace(m.group(0), 'const SHELL = `' + m.group(1) + marker + '`;')
-    m = re.search(r'const SHELL = `([^`]*)`;', text)
-    if 'mafteach-parallels-20261102' not in m.group(1):
-        text = text.replace(m.group(0), 'const SHELL = `' + m.group(1) + '-mafteach-parallels-20261102`;')
     for name, ver in (('mafteach-panel.js', PANEL_V), ('mafteach-search.js', SEARCH_V)):
+        text = re.sub(r"'\./" + re.escape(name) + r"\?v=[^']*'", "'./" + name + "?v=" + ver + "'", text)
         if name not in text:
             anchor = re.search(r"\n(\s*)'\./connected-ideas\.js\?v=[^\n]*\n", text)
             assert anchor, 'Service worker shell list anchor not found'

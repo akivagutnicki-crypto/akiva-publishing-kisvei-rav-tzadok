@@ -1136,6 +1136,7 @@ function mafEntryLine(M, e, { topic = false, source = true } = {}) {
   else if (topic && e.Th) parts.push(`[${e.Th}]`);
   if (source && e.x === 's') parts.push(`[${e.k || [e.b, e.ch, e.vs].filter(Boolean).join(' ')}]`);
   parts.push(e.t);
+  if (e.e) parts.push(`(${e.e})`);
   const refs = e.r.map(r => mafRefText(r, e.c)).join('; ');
   return `- ${parts.join(' ')} → ${refs || '(no reference legible)'}  _(${mafWhere(e)}${e.nr > 1 ? `; ${e.nr} refs in all` : ''})_`;
 }
@@ -1145,7 +1146,7 @@ function mafJson(M, e) {
     topic: e.T != null ? { he: M.byId.get(e.T)?.he, en: M.byId.get(e.T)?.en } : (e.Th || undefined),
     subtopic: e.U != null ? { he: M.byId.get(e.U)?.he, en: M.byId.get(e.U)?.en } : (e.Uh || undefined),
     source: e.x === 's' ? { key: e.k || null, book: e.b || null, chapter: e.ch || null, verse: e.vs || null } : undefined,
-    text: e.t, refs: e.r.map(r => ({ label: r[0], ref: r[1] || null, text: mafRefText(r, e.c) })),
+    text: e.t, text_en: e.e || undefined, refs: e.r.map(r => ({ label: r[0], ref: r[1] || null, text: mafRefText(r, e.c) })),
   };
 }
 const mafCorpusFilter = (list, corpus) => (MAF_CORPUS[corpus] ? list.filter(e => e.c === MAF_CORPUS[corpus]) : list);
