@@ -147,14 +147,41 @@ def evaluate(index, pairs, weights, sample=300, seed=3):
     return {'queries': n, 'recall@1': round(h1 / n, 3), 'recall@5': round(h5 / n, 3), 'recall@10': round(h10 / n, 3), 'recall@20': round(h20 / n, 3)}
 
 
+def footnote_pairs(index, mcp_dir=None):
+    """Parallels the editors wrote into footnotes: linked ones (index.gold) and, when mcp_dir is given,
+    every footnote parsed as a library parallel (footnote_memory). Side-panel links are not used."""
+    raw = {(a, b) for a, targets in index.gold.items() for b in targets}
+    if mcp_dir:
+        from .footnote_memory import extract
+        for r in extract(mcp_dir, ParallelIndex.LIBRARY_BOOKS):
+            if r['kind'] == 'parallel' and r.get('ref'):
+                raw.add((r['para'], r['ref']))
+    pairs = set()
+    for a, b in raw:
+        if a not in index.paras:
+            continue
+        t = _resolve_target(index, a, b)
+        if t and t != a and not (index.paras[t]['book'] == index.paras[a]['book'] and index.paras[t]['section'] == index.paras[a]['section']):
+            pairs.add((a, t))
+    return sorted(pairs)
+
+
+def _split(pairs, seed):
+    pairs = list(pairs)
+    random.Random(seed).shuffle(pairs)
+    cut = int(len(pairs) * 0.8)
+    return pairs[:cut], pairs[cut:]
+
+
 def main(mcp_dir, connections_path, out_path, repo=None):
     index = ParallelIndex().load_mcp_dir(mcp_dir)
-    pairs = gold_pairs(index, connections_path, repo=repo)
-    print('paragraphs', index.N, 'reviewed gold pairs', len(pairs))
-    rng = random.Random(11)
-    rng.shuffle(pairs)
-    cut = int(len(pairs) * 0.8)
-    train, test = pairs[:cut], pairs[cut:]
+    reviewed = gold_pairs(index, connections_path, repo=repo)
+    foot = sorted(set(footnote_pairs(index, mcp_dir)) - set(reviewed))
+    print('paragraphs', index.N, 'reviewed gold pairs', len(reviewed), 'footnote gold pairs', len(foot))
+    train_r, test_r = _split(reviewed, 11)
+    train_f, test_f = _split(foot, 12)
+    train_f = train_f[:int(os.environ.get('KISVEI_MAX_FOOTNOTE_TRAIN', '4000'))]  # bounds training time
+    train, test = train_r + train_f, test_r + test_f
     D = pairwise_dataset(index, train)
     print('pairwise differences', D.shape)
     weights = fit_pairwise(D)
@@ -166,15 +193,17 @@ def main(mcp_dir, connections_path, out_path, repo=None):
             candidates['previous'] = json.load(open(out_path, encoding='utf-8'))['weights']
         except Exception:  # noqa: BLE001
             pass
-    results = {name: evaluate(index, test, w) for name, w in candidates.items()}
-    for name, r in results.items():
-        print(f'{name} weights test:', r)
-    rank = lambda n: (results[n]['recall@10'], results[n]['recall@20'], results[n]['recall@5'])  # noqa: E731
+    results = {}
+    for name, w in candidates.items():
+        results[name] = {'all': evaluate(index, test, w, sample=600), 'reviewed': evaluate(index, test_r, w), 'footnotes': evaluate(index, test_f, w)}
+        for part, r in results[name].items():
+            print(f'{name} weights, {part} test:', r)
+    rank = lambda n: (results[n]['all']['recall@10'], results[n]['all']['recall@20'], results[n]['all']['recall@5'])  # noqa: E731
     best = max(results, key=rank)
     print('keeping', best, 'weights')
     json.dump({'features': list(FEATS), 'weights': candidates[best], 'chosen': best, 'evaluation': results,
-               'trainPairs': len(train), 'testPairs': len(test), 'paragraphs': index.N,
-               'gold': 'reviewed editorial parallels (editorial master connections + reader reviewed connections + connected ideas)'},
+               'trainPairs': len(train), 'testPairs': len(test), 'reviewedPairs': len(reviewed), 'footnotePairs': len(foot), 'paragraphs': index.N,
+               'gold': 'reviewed editorial parallels (editorial master connections, reader reviewed connections, connected ideas) and library links inside reader footnotes; side-panel links excluded'},
               open(out_path, 'w', encoding='utf-8'), indent=1)
     return best, results
 

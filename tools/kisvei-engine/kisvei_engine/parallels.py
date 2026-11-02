@@ -27,6 +27,9 @@ STOP = set('''את של על אל כל לא זה זו זאת הוא היא הם 
 דבר דברי ה' השם יתברך ית' הקב"ה הקדוש ברוך הוא ז"ל רז"ל חז"ל ש"ס'''.split())
 
 
+from .footnote_memory import TRUSTED_BOOKS  # noqa: E402
+
+
 class ParallelIndex:
     def __init__(self):
         self.paras = {}          # ref -> {'book','section','n','he','words','shingles','sources'}
@@ -148,9 +151,13 @@ class ParallelIndex:
     def is_library_ref(cls, ref):
         return any(ref == b or ref.startswith(b + ' ') or ref.startswith(b + ',') for b in cls.LIBRARY_BOOKS)
 
-    def load_mcp_dir(self, mcp_dir, skip_books=()):
-        """Load the reader's built MCP text. Cited primary sources become similarity evidence; citations of
-        other library passages (reviewed parallels, 'Parallel Sources') are kept aside as gold labels."""
+    def load_mcp_dir(self, mcp_dir, skip_books=(), side_links=False):
+        """Load the reader's published library index.
+
+        Evidence comes from the editorial links in the text and its footnotes (`a` in the index).
+        The reader's side-panel links (`c`, built from links.json) are of poor quality and are
+        ignored unless side_links=True. Footnote links to other library passages are kept aside
+        as gold labels (self.gold), never used as similarity evidence."""
         text_dir = os.path.join(mcp_dir, 'text')
         self.gold = defaultdict(set)
         for f in sorted(os.listdir(text_dir)):
@@ -162,17 +169,24 @@ class ParallelIndex:
                 book = next((b for b in self.LIBRARY_BOOKS if ref == b or ref.startswith(b + ' ') or ref.startswith(b + ',')), ref.split(',')[0])
                 if book in skip_books:
                     continue
-                he = ' '.join(pair[0] for pair in p.get('p', [])) if p.get('p') else (p.get('he') or '')
+                he = ' '.join(pair[0] for pair in p.get('p', [])) if p.get('p') else (p.get('he') or p.get('t') or '')
                 en = ' '.join(pair[1] for pair in p.get('p', [])) if p.get('p') else (p.get('en') or '')
                 he = re.sub(r'<[^>]+>', '', he)
+                # trusted seforim: in-text and footnote links; others: only links in the text itself
+                trusted = book in TRUSTED_BOOKS
+                links = [(r, '') for r, place in (p.get('a') or {}).items() if trusted or not (place and place[0] == 'n')]
+                if side_links:
+                    links += [((c[0], c[1] if len(c) > 1 else '') if isinstance(c, list) else (c, '')) for c in p.get('c', [])]
                 sources = []
-                for c in p.get('c', []):
-                    r, cat = (c[0], c[1] if len(c) > 1 else '') if isinstance(c, list) else (c, '')
+                for r, cat in links:
                     if self.is_library_ref(r):
-                        self.gold[ref].add(r)
-                    elif cat != 'Parallel Sources':
+                        if trusted:
+                            self.gold[ref].add(r)
+                    elif cat != 'Parallel Sources' and r not in sources:
                         sources.append(r)
                 self.add(ref, book, p.get('s'), p.get('n'), he, sources, en)
+                if p.get('p'):
+                    self.paras[ref]['phrases'] = [re.sub(r'<[^>]+>', '', pair[0]) for pair in p['p']]
         self.finalize()
         return self
 

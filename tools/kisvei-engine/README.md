@@ -36,7 +36,22 @@ citations each commentator attaches to each siman; those become additional gold 
 - `learn.py` — pairwise ranking training on reviewed gold pairs; writes `models/parallel_weights.json`.
 - `footnotes.py` — drafts footnotes for a paragraph or a whole book in the editorial-master shape (source notes with Sefaria links, quotation lookups, parallel notes with reader links), ready for an editor or a Claude session to finish with the source text, Context and Explanation.
 
-## Measured performance (held-out reviewed parallels, 97 queries)
+## What it learns from (since November 2026)
+
+- **Footnotes of the five edited seforim only**: Peri Tzadik, Tzidkat HaTzadik, Resisei Layla, Takanat HaShavin
+  and Dover Tzedek (`footnote_memory.TRUSTED_SLUGS`). The other seforim's footnotes still need an editorial revamp:
+  their *text* is indexed and searched (and links written in the text itself count), but their footnotes are never
+  used as examples or as parallels.
+- **Never the reader's side-panel links** (`c` in the index, built from `links.json`). Only editorial links in the
+  text and footnotes (`a`) are evidence.
+- `footnote_memory.py` turns every trusted footnote into a record: Hebrew anchor phrase, source ref (parsed from
+  the head of the note, Ashkenazi spellings normalised), the words quoted, the context written, and any library
+  parallel appended to the note. `SourceMemory` then proposes, for a new phrase, the sources editors attached to
+  the same wording elsewhere, with those earlier quotations and contexts as worked examples. Footnote parallels
+  become training pairs for the parallel ranker, next to the reviewed connections.
+- Measured with `python3 run.py footnote-memory data/live` (leave-one-sefer-out on the trusted footnotes).
+
+## Measured performance (Tzidkat editorial master, superseded by the reports in models/) (held-out reviewed parallels, 97 queries)
 
 | Ranker | recall@5 | recall@10 | recall@20 |
 |---|---|---|---|

@@ -49,6 +49,9 @@ jobs:
           python run.py learn data/live ../../editorial/tzidkat-editorial-master-2026-11/connections.json models/parallel_weights.json ../.. | grep -vE '^ |^[{}]'
           cp data/live/coverage.json models/library_coverage.json
 
+      - name: Measure how well the footnote memory finds sources (trusted seforim only)
+        run: python run.py footnote-memory data/live models/footnote_memory_report.json
+
       - name: Smoke test
         run: |
           python run.py cite "כמו שאמרו (ברכות מח.) קטן היודע למי מברכין"
@@ -57,7 +60,7 @@ jobs:
       - name: Commit the refreshed model and coverage report
         working-directory: .
         run: |
-          git add tools/kisvei-engine/models/parallel_weights.json tools/kisvei-engine/models/library_coverage.json
+          git add tools/kisvei-engine/models/parallel_weights.json tools/kisvei-engine/models/library_coverage.json tools/kisvei-engine/models/footnote_memory_report.json
           if git diff --cached --quiet; then echo "No change"; exit 0; fi
           git config user.name "github-actions[bot]"
           git config user.email "41898283+github-actions[bot]@users.noreply.github.com"
