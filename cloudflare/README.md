@@ -29,7 +29,8 @@ GitHub Pages must be deployed and responding with `/mcp-data/catalog.json` **bef
 
 A `GET /mcp` response of HTTP 405 is normal; MCP clients use **POST**. Example read-only tools:
 `kisvei_list_books`, `kisvei_get_contents`, `kisvei_get_text`, `kisvei_search`,
-`kisvei_find_citing_passages`, `kisvei_get_cited_sources`, `kisvei_find_parallels`.
+`kisvei_find_citing_passages`, `kisvei_get_cited_sources`, `kisvei_find_parallels`, and the HaMafteach HaShalem tools
+`mafteach_find_topic`, `mafteach_lookup_source`, `mafteach_lookup_passage`, `mafteach_search` (data: `sources/mafteach/`).
 
 To test from an MCP client, first call `tools/list`, then `kisvei_list_books`. No publishing/write tool is currently exposed.
 

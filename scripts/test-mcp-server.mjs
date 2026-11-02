@@ -29,7 +29,7 @@ r = await send({ jsonrpc: '2.0', method: 'notifications/initialized' }, { 'mcp-p
 check(r.status === 202 && !r.text, 'notifications get 202 and no body');
 r = await send({ jsonrpc: '2.0', id: 3, method: 'tools/list' }, { 'mcp-protocol-version': '2025-06-18' });
 const tools = r.json.result.tools;
-check(tools.length === 7 && tools.every(t => t.name.startsWith('kisvei_') && t.inputSchema.type === 'object' && t.annotations.readOnlyHint === true), 'seven read-only tools');
+check(tools.length === 11 && tools.every(t => (t.name.startsWith('kisvei_') || t.name.startsWith('mafteach_')) && t.inputSchema.type === 'object' && t.annotations.readOnlyHint === true), 'eleven read-only tools');
 r = await send({ jsonrpc: '2.0', id: 4, method: 'ping' }, { 'mcp-protocol-version': '2025-11-25' });
 check(r.status === 200 && r.json.result && !r.json.error, 'ping');
 r = await send({ jsonrpc: '2.0', id: 5, method: 'nope/nothing' }, { 'mcp-protocol-version': '2025-06-18' });
@@ -52,7 +52,7 @@ r = await modern(10, 'server/discover');
 check(r.status === 200 && r.json.result.resultType === 'complete' && r.json.result.supportedVersions.includes('2026-07-28')
   && r.json.result.capabilities.tools && r.json.result._meta[META + 'serverInfo'].name === 'kisvei-rav-tzadok-library', 'server/discover');
 r = await modern(11, 'tools/list');
-check(r.json.result.resultType === 'complete' && r.json.result.tools.length === 7, 'modern tools/list');
+check(r.json.result.resultType === 'complete' && r.json.result.tools.length === 11, 'modern tools/list');
 r = await modern(12, 'tools/call', { name: 'kisvei_list_books', arguments: {} });
 check(r.json.result.resultType === 'complete' && r.json.result.isError === false && r.json.result.content[0].text.includes('Resisei Layla'), 'modern tools/call');
 r = await send({ jsonrpc: '2.0', id: 13, method: 'tools/call', params: { name: 'kisvei_list_books', arguments: {}, _meta: meta() } },
@@ -174,5 +174,37 @@ t = await tool('kisvei_search', { query: 'x', colour: 'red' });
 check(t.isError && t.text.includes('unknown argument'), 'unknown argument is a tool error');
 t = await tool('kisvei_nothing', {});
 check(t.error?.code === -32602, 'unknown tool is -32602');
+
+// HaMafteach HaShalem: Hebrew, English and Ashkenazi/Sefardi queries, sources, passages, search.
+for (const [q, he] of [['emunah', 'אמונה'], ['faith', 'אמונה'], ['emunoh', 'אמונה'], ['bitachon', 'בטחון'], ['trust in God', 'בטחון'], ['Shabbos', 'שבת'], ['Shabbat', 'שבת'], ['תשובה', 'תשובה'], ['oral torah', 'תורה שבעל פה']]) {
+  t = await tool('mafteach_find_topic', { query: q, response_format: 'json' });
+  js = JSON.parse(t.text);
+  check(!t.isError && js.topic.he === he && js.total > 0, `mafteach_find_topic "${q}" -> ${he}`);
+}
+t = await tool('mafteach_find_topic', { query: 'Avrohom Avinu', corpus: 'pri-tzadik', response_format: 'json' });
+js = JSON.parse(t.text);
+check(js.topic.he === 'אברהם אבינו' && js.entries.every(e => e.corpus === 'Pri Tzaddik'), 'mafteach_find_topic corpus filter');
+for (const src of ['Bereishis 2:7', 'Genesis 2:7', 'בראשית ב ז']) {
+  t = await tool('mafteach_lookup_source', { source: src, response_format: 'json' });
+  js = JSON.parse(t.text);
+  check(js.source === 'Genesis 2:7' && js.entries.some(e => e.refs.some(r => r.ref === 'Peri Tzadik, Vayera 1')), `mafteach_lookup_source "${src}"`);
+}
+t = await tool('mafteach_lookup_source', { source: 'Berachos 6b', response_format: 'json' });
+js = JSON.parse(t.text);
+check(js.source === 'Berakhot 6b' && js.total > 10, 'mafteach_lookup_source daf');
+t = await tool('mafteach_lookup_source', { source: 'Tanchuma' });
+check(!t.isError && t.text.includes('תנחומא'), 'mafteach_lookup_source named source');
+for (const ref of ['Tzidkas HaTzaddik 100', 'Tzidkat HaTzadik 100', 'צה-ק']) {
+  t = await tool('mafteach_lookup_passage', { ref, response_format: 'json' });
+  js = JSON.parse(t.text);
+  check(js.passage === 'Tzidkat HaTzadik 100' && js.topics > 0 && js.sources > 0, `mafteach_lookup_passage "${ref}"`);
+}
+t = await tool('mafteach_lookup_passage', { ref: 'Pri Tzaddik Vayechi 11', response_format: 'json' });
+check(JSON.parse(t.text).passage === 'Peri Tzadik, Vayechi 11', 'mafteach_lookup_passage Pri Tzaddik');
+t = await tool('mafteach_search', { query: 'ויפח באפיו', response_format: 'json' });
+js = JSON.parse(t.text);
+check(js.total >= 2 && js.entries.every(e => e.text.includes('ויפח')), 'mafteach_search Hebrew quote');
+t = await tool('mafteach_search', { query: 'bitachon', response_format: 'json' });
+check(JSON.parse(t.text).headings.some(h => h.he === 'בטחון'), 'mafteach_search transliterated heading');
 
 console.log(`PASS MCP server: ${passed} checks (first full-library search ${ms} ms)`);

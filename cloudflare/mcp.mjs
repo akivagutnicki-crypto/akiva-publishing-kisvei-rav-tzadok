@@ -7,6 +7,8 @@
 //   kisvei_search                full-text search, Hebrew without nikkud, English, headings, notes
 //   kisvei_find_citing_passages  every library passage that cites a verse, daf, midrash...
 //   kisvei_get_cited_sources     the sources a library passage cites
+//   mafteach_find_topic / mafteach_lookup_source / mafteach_lookup_passage / mafteach_search
+//                                HaMafteach HaShalem, the complete index to R. Tzadok's works (topics, sources, passages)
 //
 // Transport: Streamable HTTP with JSON responses and no sessions. It answers both the current protocol
 // (2026-07-28: protocol version and capabilities in each request's _meta, server/discover) and the earlier
@@ -23,7 +25,8 @@ const META = 'io.modelcontextprotocol/';
 
 const INSTRUCTIONS = `Kisvei Rav Tzadok Library: the writings of R. Tzadok HaKohen of Lublin and works of the Izhbitz-Radzin school, as published in Akiva Publishing's online library. Akiva Publishing interlinear editions give vocalized Hebrew phrase by phrase with English and source notes (© Akiva Publishing); the other works are the original Hebrew of public-domain printings.
 How to use: kisvei_search finds passages (Hebrew is matched without nikkud, prefixes included; spelling "loose" also ignores ו/י spelling differences); kisvei_get_text returns the exact text of a ref; kisvei_get_contents browses a book; kisvei_find_citing_passages lists every passage citing a source such as "Berakhot 6b" or "Genesis 1:1"; kisvei_get_cited_sources lists what a passage cites; kisvei_find_parallels lists the passages in Kisvei Rav Tzadok and the Ishbitz-Radzin works that share a passage's sources.
-Quote the text exactly as returned and give its ref. Refs follow the reader, e.g. "Resisei Layla 5:2", "Tzidkat HaTzadik 100", "Peri Tzadik, Bereshit 1:3". Ashkenazi spellings (Tzidkas HaTzaddik, Pri Tzaddik, Bereishis, Berachos) are accepted.`;
+Quote the text exactly as returned and give its ref. Refs follow the reader, e.g. "Resisei Layla 5:2", "Tzidkat HaTzadik 100", "Peri Tzadik, Bereshit 1:3". Ashkenazi spellings (Tzidkas HaTzaddik, Pri Tzaddik, Bereishis, Berachos) are accepted.
+HaMafteach HaShalem (R' Chaim Hirsch's complete index to R. Tzadok's works) is searchable too: mafteach_find_topic (a topic, person or concept: Hebrew, English, or Ashkenazi/Sefardi transliteration such as "emunah", "bitachon", "Shabbos", "Avrohom Avinu"), mafteach_lookup_source (a pasuk, daf or midrash: "Bereishis 2:7", "Berachos 6b", "Bereshit Rabbah 2:4"), mafteach_lookup_passage (the topics and sources indexed to a passage, for footnotes: "Tzidkas HaTzaddik 100", "Pri Tzaddik Vayechi 11") and mafteach_search (Hebrew words or a quote inside the entries). Its entries were OCR'd from the printed index; open the passage with kisvei_get_text before citing it.`;
 
 // ---------------------------------------------------------------- data
 
@@ -413,6 +416,77 @@ const TOOLS = [
       additionalProperties: false,
     },
     annotations: { title: 'Parallels in the library', ...RO },
+  },
+  {
+    name: 'mafteach_find_topic',
+    title: 'HaMafteach: where Rav Tzadok discusses a topic',
+    description: 'HaMafteach HaShalem (R\' Chaim Hirsch\'s complete index to R. Tzadok HaKohen\'s works): every place R. Tzadok discusses a topic, concept, person, place, mitzvah or festival, with the passages as library refs. Ask in Hebrew, English or Ashkenazi/Sefardi transliteration: "אמונה", "faith", "emunah", "emunoh"; "Shabbos"/"Shabbat"; "Avrohom Avinu"; "Mashiach ben Yosef"; "teshuva"; "Chanukah". Returns the best-matching index heading with its entries (grouped by sub-heading) and other headings that also match.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        query: { type: 'string', description: 'Topic, person or concept in Hebrew, English or transliteration, e.g. "בטחון", "trust in God", "bitachon", "Yosef HaTzaddik".' },
+        corpus: { type: 'string', enum: ['all', 'rav-tzadok', 'pri-tzadik'], default: 'all', description: 'all; rav-tzadok = his sefarim other than Pri Tzaddik (Mafteach parts 1-3); pri-tzadik = Pri Tzaddik (parts 4-7).' },
+        offset: { type: 'integer', minimum: 0, default: 0 },
+        limit: { type: 'integer', minimum: 1, maximum: 300, default: 60, description: 'Number of entries to return.' },
+        response_format: FORMAT,
+      },
+      required: ['query'],
+      additionalProperties: false,
+    },
+    annotations: { title: 'HaMafteach topics', ...RO },
+  },
+  {
+    name: 'mafteach_lookup_source',
+    title: 'HaMafteach: where Rav Tzadok draws on a verse, daf or midrash',
+    description: 'From HaMafteach HaShalem\'s source indexes: every place R. Tzadok (his sefarim and Pri Tzaddik) uses a given pasuk, daf, Midrash Rabbah passage, or Zohar/Midrash/Rambam source, with the words he quotes and the passages as library refs. Names in any spelling: "Genesis 2:7", "Bereishis 2:7", "Bereshit 2", "Berachos 6b", "Shabbos 88", "Yerushalmi Berakhot 1:1", "Bereshit Rabbah 2:4", "בראשית ב ז", "שבת פח ב", "Zohar Bereshit", "Tanchuma".',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        source: { type: 'string', description: 'Book and address, e.g. "Tehillim 92:2", "Psalms 92", "Sanhedrin 97b", "שמות רבה ג", "Pirkei DeRabbi Eliezer".' },
+        corpus: { type: 'string', enum: ['all', 'rav-tzadok', 'pri-tzadik'], default: 'all', description: 'all; rav-tzadok = his sefarim other than Pri Tzaddik (Mafteach parts 1-3); pri-tzadik = Pri Tzaddik (parts 4-7).' },
+        offset: { type: 'integer', minimum: 0, default: 0 },
+        limit: { type: 'integer', minimum: 1, maximum: 300, default: 60 },
+        response_format: FORMAT,
+      },
+      required: ['source'],
+      additionalProperties: false,
+    },
+    annotations: { title: 'HaMafteach sources', ...RO },
+  },
+  {
+    name: 'mafteach_lookup_passage',
+    title: 'HaMafteach: topics and sources indexed to a passage',
+    description: 'Every HaMafteach HaShalem entry that points to one R. Tzadok passage: the topics the index files it under and the verses, dapim and midrashim it draws on. Use it to build footnotes and to find parallels. Refs in any form: "Tzidkat HaTzadik 100", "Tzidkas HaTzaddik 100", "Peri Tzadik, Vayechi 11", "Pri Tzaddik Vayechi 11", "Resisei Layla 57", "צדקת הצדיק ק", or a Mafteach code "צה-ק".',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        ref: { type: 'string', description: 'Library passage (section) ref or Mafteach code.' },
+        offset: { type: 'integer', minimum: 0, default: 0 },
+        limit: { type: 'integer', minimum: 1, maximum: 300, default: 100 },
+        response_format: FORMAT,
+      },
+      required: ['ref'],
+      additionalProperties: false,
+    },
+    annotations: { title: 'HaMafteach by passage', ...RO },
+  },
+  {
+    name: 'mafteach_search',
+    title: 'HaMafteach: search entries and headings',
+    description: 'Search all of HaMafteach HaShalem: Hebrew words or phrases inside the index entries (the quoted words of pesukim, Gemara and Midrash, and the topic sentences), plus index headings matching a Hebrew, English or transliterated query. Hebrew matching ignores nikkud, final letters and quote marks; put a phrase in double quotes. Use it for a remembered quote ("ויפח באפיו", "אין מזל לישראל") or a word inside topics.',
+    inputSchema: {
+      type: 'object',
+      properties: {
+        query: { type: 'string', description: 'Hebrew words (all must appear) or a quoted phrase; English/transliteration matches headings only.' },
+        corpus: { type: 'string', enum: ['all', 'rav-tzadok', 'pri-tzadik'], default: 'all', description: 'all; rav-tzadok = his sefarim other than Pri Tzaddik (Mafteach parts 1-3); pri-tzadik = Pri Tzaddik (parts 4-7).' },
+        offset: { type: 'integer', minimum: 0, default: 0 },
+        limit: { type: 'integer', minimum: 1, maximum: 200, default: 40 },
+        response_format: FORMAT,
+      },
+      required: ['query'],
+      additionalProperties: false,
+    },
+    annotations: { title: 'HaMafteach search', ...RO },
   },
 ];
 
@@ -935,7 +1009,328 @@ async function findParallels({ ref, school, limit, response_format }) {
   return lines.join('\n');
 }
 
+// ---------------------------------------------------------------- HaMafteach HaShalem
+//
+// The complete index to R. Tzadok's works (R' Chaim Hirsch): topics, people and sources, each with the passages
+// where R. Tzadok discusses them. Data: mcp-data/mafteach/ (scripts/build-mafteach-index.mjs). Queries may be
+// Hebrew, English, or Ashkenazi/Sefardi transliteration; every term carries all three.
+
+const fileKey = s => String(s).toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+const MAF_PART = { '1-2': 'א-ב', '3': 'ג', '4': 'ד', '5': 'ה-ו', '7': 'ז' };
+const MAF_CORPUS = { all: null, 'rav-tzadok': 'rt', 'pri-tzadik': 'pt' };
+const MAF_CORPUS_SCHEMA = {
+  type: 'string', enum: ['all', 'rav-tzadok', 'pri-tzadik'], default: 'all',
+  description: 'all; rav-tzadok = his sefarim other than Pri Tzaddik (Mafteach parts 1-3); pri-tzadik = Pri Tzaddik (parts 4-7).',
+};
+const MAF_CODES = { 'רל': 'Resisei Layla', 'צה': 'Tzidkat HaTzadik', 'מח': 'Machshavot Charutz', 'תה': 'Takanat HaShavin' };
+const MAF_STOP = new Set(['the', 'of', 'a', 'an', 'and', 'in', 'on', 'to', 'rav', 'tzadok', 'r']);
+const RABBAH_EN = {
+  'Bereshit Rabbah': ['Bereishis Rabbah', 'Genesis Rabbah', 'Breishis Rabba', 'בראשית רבה'], 'Shemot Rabbah': ['Shemos Rabbah', 'Exodus Rabbah', 'שמות רבה'],
+  'Vayikra Rabbah': ['Leviticus Rabbah', 'ויקרא רבה'], 'Bamidbar Rabbah': ['Numbers Rabbah', 'במדבר רבה'], 'Devarim Rabbah': ['Deuteronomy Rabbah', 'דברים רבה'],
+  'Shir HaShirim Rabbah': ['Song of Songs Rabbah', 'Shir Hashirim Rabba', 'שיר השירים רבה'], 'Ruth Rabbah': ['Rus Rabbah', 'רות רבה'],
+  'Eichah Rabbah': ['Lamentations Rabbah', 'Eicha Rabba', 'איכה רבה'], 'Kohelet Rabbah': ['Koheles Rabbah', 'Ecclesiastes Rabbah', 'קהלת רבה'],
+  'Esther Rabbah': ['Esther Rabba', 'אסתר רבה'],
+};
+const gematria = s => [...String(s).replace(/[^א-ת]/g, '')].reduce((n, c) => n + ({ א: 1, ב: 2, ג: 3, ד: 4, ה: 5, ו: 6, ז: 7, ח: 8, ט: 9, י: 10, כ: 20, ך: 20, ל: 30, מ: 40, ם: 40, נ: 50, ן: 50, ס: 60, ע: 70, פ: 80, ף: 80, צ: 90, ץ: 90, ק: 100, ר: 200, ש: 300, ת: 400 }[c] || 0), 0);
+const latinKeys = s => {                        // whole-phrase skeleton, plus the same without stop words
+  const words = String(s).toLowerCase().split(/[^a-z']+/).filter(Boolean);
+  const all = skel(words.join(' ')), core = skel(words.filter(w => !MAF_STOP.has(w)).join(' '));
+  return [...new Set([all, core].filter(Boolean))];
+};
+
+// Vowel-aware key for transliterations: Ashkenazi and Sefardi spellings meet, but emunah stays apart from moon.
+// kamatz o/a, final h, doubled letters, apostrophes, s/t for sav, kh/ch/h for ches, ei/ai/ay, tz/ts.
+function translitKey(s) {
+  return String(s).toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g, '')
+    .split(/[^a-z']+/).filter(w => w && !MAF_STOP.has(w)).map(w => w.replace(/'/g, '')
+      .replace(/kh/g, 'ch').replace(/ck/g, 'k').replace(/c(?!h)/g, 'k').replace(/ph/g, 'f').replace(/ts/g, 'tz')
+      .replace(/th/g, 't').replace(/s(?!h)/g, 't').replace(/(ei|ai|ay|ey)/g, 'e').replace(/oi|oy/g, 'o')
+      .replace(/o/g, 'a').replace(/u/g, 'u').replace(/y(?=[^aeiou]|$)/g, 'i').replace(/([aeiou])h$/, '$1').replace(/h$/, '')
+      .replace(/(.)\1+/g, '$1')).join('');
+}
+
+let MAF = null;
+async function mafteach() {
+  const g = await load('mafteach/glossary.json');
+  if (MAF?.raw === g) return MAF;
+  const keys = new Map();                       // key -> [{t, w}]
+  const add = (k, t, w) => {
+    if (!k || k.length < 2) return;
+    const l = keys.get(k) || [];
+    const prev = l.find(x => x.t === t);
+    if (prev) prev.w = Math.max(prev.w, w); else l.push({ t, w });
+    keys.set(k, l);
+  };
+  const addAlias = (a, t, w) => {
+    if (!a) return;
+    if (/[א-ת]/.test(a)) { add('h:' + heKey(a), t, w); return; }
+    for (const k of latinKeys(a)) add('l:' + k, t, w);
+    add('v:' + translitKey(a), t, w);
+  };
+  for (const t of g.terms) {
+    addAlias(t.he, t, 3); for (const h of t.he_raw || []) addAlias(h, t, 1);
+    addAlias(t.en, t, 3);
+    for (const a of [...(t.ashk || []), ...(t.sef || [])]) addAlias(a, t, 2.5);
+    for (const a of t.en_alt || []) addAlias(a, t, 2);
+  }
+  // Source names: Tanach, Shas, Midrash Rabbah, and the source headings without numeric addresses (Zohar, Midrash ...).
+  const sourceNames = new Map();                // key -> {title, kind, term?}
+  const addSource = (a, v) => { const k = /[א-ת]/.test(a) ? 'h:' + heKey(a) : 'l:' + skel(a); if (k.length > 3 && !sourceNames.has(k)) sourceNames.set(k, v); };
+  for (const b of g.books) for (const a of [b.en, b.he, ...(b.he_alt || []), ...(b.variants || [])]) addSource(a, { title: b.en, kind: b.kind });
+  for (const [en, alts] of Object.entries(RABBAH_EN)) for (const a of [en, ...alts]) addSource(a, { title: en, kind: 'rabbah' });
+  for (const t of g.terms.filter(t => t.kind === 'source_book')) for (const a of [t.he, ...(t.he_raw || []), t.en, ...(t.en_alt || []), ...(t.ashk || []), ...(t.sef || [])]) {
+    if (!a) continue;
+    for (const v of [a, ...String(a).split(/\s*\/\s*/), String(a).replace(/^(midrash|sefer|the)\s+/i, '')]) if (v) addSource(v, { title: t.he, kind: 'named', term: t });
+  }
+  const passageKeys = new Map(Object.keys(g.passages).map(p => [refKey(p), p]));
+  MAF = { raw: g, keys, sourceNames, passageKeys, byId: new Map(g.terms.map(t => [t.id, t])) };
+  return MAF;
+}
+
+// Index headings matching a query in Hebrew, English or transliteration, best first.
+function mafFindTerms(M, query, kinds = ['topic']) {
+  const q = String(query).trim();
+  const scores = new Map();
+  const bump = (t, s) => { if (kinds.includes(t.kind)) scores.set(t, Math.max(scores.get(t) || 0, s)); };
+  if (/[א-ת]/.test(q)) {
+    const k = heKey(q);
+    const variants = [k, k.replace(/^[והבלמש]/, ''), k.replace(/^ה/, '')].filter(x => x.length >= 2);
+    for (const v of variants) for (const { t, w } of M.keys.get('h:' + v) || []) bump(t, 100 + w * 10 - (v === k ? 0 : 5));
+    if (k.length >= 2) for (const [key, l] of M.keys) {
+      if (!key.startsWith('h:')) continue;
+      const hk = key.slice(2);
+      if (hk.includes(k) || (k.length >= 4 && k.includes(hk) && hk.length >= 3)) for (const { t, w } of l) bump(t, (hk.startsWith(k) ? 60 : 40) + w);
+    }
+  } else {
+    const qk = latinKeys(q), qwords = wordSkels(q).filter((w, i, a) => w && !MAF_STOP.has(q.toLowerCase().split(/[^a-z']+/).filter(Boolean)[i]));
+    for (const { t, w } of M.keys.get('v:' + translitKey(q)) || []) bump(t, 160 + w * 10);
+    for (const k of qk) for (const { t, w } of M.keys.get('l:' + k) || []) bump(t, 100 + w * 10);
+    for (const t of M.raw.terms) {
+      if (!kinds.includes(t.kind)) continue;
+      for (const a of [t.en, ...(t.en_alt || []), ...(t.ashk || []), ...(t.sef || [])]) {
+        if (!a) continue;
+        if (qwords.length && wordsIn(qwords, a)) { bump(t, qwords.length === wordSkels(a).length ? 90 : 55); continue; }
+        const ak = skel(a);
+        for (const k of qk) if (k.length >= 4 && ak.includes(k)) bump(t, 35);
+      }
+    }
+  }
+  return [...scores].sort((a, b) => b[1] - a[1] || b[0].n - a[0].n).map(([t, s]) => ({ t, s }));
+}
+
+const mafTermLabel = t => t ? `${t.he}${t.en ? ` — ${t.en}` : ''}` : '';
+function mafRefText(r, corpus) {
+  const [label, kref, bookEn, flags = ''] = r.length === 3 && /^[*?~]+$/.test(r[2] || '') ? [r[0], r[1], null, r[2]] : r;
+  const marks = (flags.includes('*') ? ' (discussed at length)' : '') + (flags.includes('?') ? ' (OCR uncertain)' : '') + (flags.includes('~') ? ' (OCR-corrected)' : '');
+  if (kref) return `${kref}${marks}`;
+  if (corpus === 'rt' && bookEn) {
+    const loc = String(label).replace(/^[א-ת]{2}-/, '');
+    return `${bookEn} ${loc}${/^\d/.test(loc) ? ' (page)' : ''}${marks}`;
+  }
+  return `${label}${marks}`;
+}
+const mafWhere = e => `Mafteach part ${MAF_PART[e.v] || e.v}, scan p. ${e.p}`;
+function mafEntryLine(M, e, { topic = false, source = true } = {}) {
+  const parts = [];
+  if (topic && e.T != null) parts.push(`[${mafTermLabel(M.byId.get(e.T))}${e.U != null ? ` › ${M.byId.get(e.U)?.he || ''}` : ''}]`);
+  else if (topic && e.Th) parts.push(`[${e.Th}]`);
+  if (source && e.x === 's') parts.push(`[${e.k || [e.b, e.ch, e.vs].filter(Boolean).join(' ')}]`);
+  parts.push(e.t);
+  const refs = e.r.map(r => mafRefText(r, e.c)).join('; ');
+  return `- ${parts.join(' ')} → ${refs || '(no reference legible)'}  _(${mafWhere(e)}${e.nr > 1 ? `; ${e.nr} refs in all` : ''})_`;
+}
+function mafJson(M, e) {
+  return {
+    id: e.id, part: MAF_PART[e.v], scan_page: e.p, index: e.x === 't' ? 'topics' : 'sources', corpus: e.c === 'pt' ? 'Pri Tzaddik' : 'Rav Tzadok sefarim',
+    topic: e.T != null ? { he: M.byId.get(e.T)?.he, en: M.byId.get(e.T)?.en } : (e.Th || undefined),
+    subtopic: e.U != null ? { he: M.byId.get(e.U)?.he, en: M.byId.get(e.U)?.en } : (e.Uh || undefined),
+    source: e.x === 's' ? { key: e.k || null, book: e.b || null, chapter: e.ch || null, verse: e.vs || null } : undefined,
+    text: e.t, refs: e.r.map(r => ({ label: r[0], ref: r[1] || null, text: mafRefText(r, e.c) })),
+  };
+}
+const mafCorpusFilter = (list, corpus) => (MAF_CORPUS[corpus] ? list.filter(e => e.c === MAF_CORPUS[corpus]) : list);
+async function mafShard(rel) { try { return await load(`mafteach/${rel}`); } catch { return []; } }
+function mafPage(list, offset, limit) { return { total: list.length, page: list.slice(offset, offset + limit), more: offset + limit < list.length ? offset + limit : null }; }
+
+// ---- mafteach_find_topic
+async function mafFindTopic({ query, corpus, offset, limit, response_format }) {
+  const M = await mafteach();
+  const found = mafFindTerms(M, query, ['topic']).filter(x => x.t.n > 0);
+  if (!found.length) throw new ToolError(`no Mafteach heading matches "${query}". Try a synonym, the Hebrew term, or mafteach_search for words inside entries.`);
+  const best = found[0].t;
+  const entries = mafCorpusFilter(await mafShard(`topic/${best.id}.json`), corpus);
+  const { total, page, more } = mafPage(entries, offset, limit);
+  const others = found.slice(1, 12).map(x => x.t);
+  if (response_format === 'json') {
+    return json({ topic: { he: best.he, en: best.en, also: best.en_alt, ashkenazi: best.ashk, sefardi: best.sef, type: best.type, entries: best.n },
+      total, offset, next_offset: more, entries: page.map(e => mafJson(M, e)),
+      other_matches: others.map(t => ({ he: t.he, en: t.en, entries: t.n })) });
+  }
+  const out = [`# ${best.he} — ${best.en}`,
+    `Also: ${[...(best.ashk || []), ...(best.sef || [])].filter((v, i, a) => a.indexOf(v) === i).join(', ')}${best.en_alt?.length ? ` · ${best.en_alt.join(', ')}` : ''}`,
+    `HaMafteach HaShalem: ${total} entr${total === 1 ? 'y' : 'ies'}${corpus !== 'all' ? ` (${corpus})` : ''}; showing ${total ? offset + 1 : 0}–${offset + page.length}. In the entry text " - " stands for the heading word itself.`, ''];
+  let sub = undefined;
+  for (const e of page) {
+    if (e.U !== sub) { sub = e.U; if (sub != null) out.push(`## ${mafTermLabel(M.byId.get(sub))}`); }
+    out.push(mafEntryLine(M, e));
+  }
+  if (more != null) out.push('', `More: offset ${more}.`);
+  if (others.length) out.push('', `Other matching headings: ${others.map(t => `${t.he} (${t.en}, ${t.n})`).join('; ')}.`);
+  out.push('', 'Refs in Library form open with kisvei_get_text. Index entries are OCR\'d from the printed Mafteach: check the passage before citing.');
+  return out.join('\n');
+}
+
+// Split "Bereishis 2:7", "Berachos 6b", "שבת פח ב", "Zohar Bereshit" into a known source name and an address.
+function mafParseSource(M, input) {
+  let s = String(input).trim().replace(/\s+/g, ' ').replace(/^(the\s+)?(book of\s+)?/i, '');
+  let jt = false;
+  if (/^(yerushalmi|jerusalem talmud|talmud yerushalmi|ירושלמי)\s+/i.test(s)) { jt = true; s = s.replace(/^(yerushalmi|jerusalem talmud|talmud yerushalmi|ירושלמי)\s+/i, ''); }
+  s = s.replace(/^(bavli|talmud bavli|tb|בבלי)\s+/i, '');
+  const words = s.split(' ');
+  for (let n = Math.min(words.length, 5); n >= 1; n--) {
+    const name = words.slice(0, n).join(' '), rest = words.slice(n).join(' ').trim();
+    if (/\d/.test(name)) continue;
+    const key = /[א-ת]/.test(name) ? 'h:' + heKey(name) : 'l:' + skel(name);
+    const hit = M.sourceNames.get(key);
+    if (!hit) continue;
+    // address: digits "2:7", "88b", "6", or Hebrew numerals "ב ז", "פח ב", "פח:"
+    let addr = '';
+    const d = rest.match(/^(\d+)\s*([ab]|[:.]\s*(\d+))?\s*$/i);
+    if (d) addr = d[3] ? `${d[1]}:${d[3]}` : d[2] && /[ab]/i.test(d[2]) ? `${d[1]}${d[2].toLowerCase()}` : d[1];
+    else if (/^[א-ת"'׳״\s:.,]+$/.test(rest) && rest) {
+      const tok = rest.replace(/[:.,]/g, ' ').split(/\s+/).filter(Boolean);
+      const a = gematria(tok[0]);
+      if (hit.kind === 'shas' && tok[1] && /^(ע"?[אב]|[אב]|עמוד [אב])$/.test(tok.slice(1).join(' ').replace(/['׳״]/g, '"'))) addr = `${a}${/ב/.test(tok.slice(1).join(' ')) ? 'b' : 'a'}`;
+      else addr = tok[1] ? `${a}:${gematria(tok[1])}` : String(a);
+    } else if (rest) continue;
+    let title = hit.title;
+    if (hit.kind === 'shas' && jt) title = `Jerusalem Talmud ${title}`;
+    return { ...hit, title, addr };
+  }
+  const best = mafFindTerms(M, s, ['source_book'])[0];               // unnumbered sources by any name: "Tanchuma", "Zohar Bereishis"
+  if (best && best.s >= 100) return { title: best.t.he, kind: 'named', term: best.t, addr: '' };
+  return null;
+}
+
+// ---- mafteach_lookup_source
+async function mafLookupSource({ source, corpus, offset, limit, response_format }) {
+  const M = await mafteach();
+  const ps = mafParseSource(M, source);
+  if (!ps) {
+    const near = mafFindTerms(M, source, ['source_book']).slice(0, 8).map(x => x.t.he);
+    throw new ToolError(`no Mafteach source is named "${source}". Give a book and address, e.g. "Genesis 2:7", "Bereishis 2:7", "Berachos 6b", "Shabbos 88", "Bereshit Rabbah 2:4", "בראשית ב ז".${near.length ? ` Sources without numbered addresses that match: ${near.join(', ')}.` : ''}`);
+  }
+  let entries;
+  if (ps.kind === 'named') entries = await mafShard(`source/b-${ps.term.id}.json`);
+  else if (!ps.addr) {
+    const info = M.raw.source_titles[ps.title];
+    if (!info) throw new ToolError(`the Mafteach has no entries for ${ps.title}.`);
+    const text = `# ${ps.title} in HaMafteach HaShalem\n${info.n} entries. Chapters/dapim with entries: ${info.chapters.join(', ')}.\nAsk again with an address, e.g. "${ps.title} ${info.chapters[0]}".`;
+    return response_format === 'json' ? json({ source: ps.title, entries: info.n, chapters: info.chapters }) : text;
+  } else {
+    const chapter = ps.addr.match(/^\d+/)[0];
+    const shard = await mafShard(`source/${fileKey(`${ps.title} ${chapter}`)}.json`);
+    const exact = ps.addr.includes(':') || /[ab]$/.test(ps.addr);
+    entries = shard.filter(e => !exact ? true : e.k === `${ps.title} ${ps.addr}` || (/^\d+$/.test(ps.addr) && e.k?.startsWith(`${ps.title} ${ps.addr}`)));
+    if (!exact) entries = shard.filter(e => new RegExp(`^${ps.title.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')} ${chapter}(?:[ab]|:|$)`).test(e.k || ''));
+  }
+  entries = mafCorpusFilter(entries, corpus);
+  const label = ps.kind === 'named' ? ps.title : `${ps.title}${ps.addr ? ' ' + ps.addr : ''}`;
+  const { total, page, more } = mafPage(entries, offset, limit);
+  if (response_format === 'json') return json({ source: label, total, offset, next_offset: more, entries: page.map(e => mafJson(M, e)) });
+  if (!total) return `# ${label}\nHaMafteach HaShalem lists no entries for ${label}${corpus !== 'all' ? ` in ${corpus}` : ''}. (Its source volumes are OCR'd; also try kisvei_find_citing_passages.)`;
+  const out = [`# ${label} — where Rav Tzadok draws on it`, `HaMafteach HaShalem: ${total} entr${total === 1 ? 'y' : 'ies'}; showing ${offset + 1}–${offset + page.length}. Each line: the quoted words, then the passages.`, ''];
+  for (const e of page) out.push(mafEntryLine(M, e, { source: true }));
+  if (more != null) out.push('', `More: offset ${more}.`);
+  out.push('', 'Refs in Library form open with kisvei_get_text. Index entries are OCR\'d from the printed Mafteach: check the passage before citing.');
+  return out.join('\n');
+}
+
+// ---- mafteach_lookup_passage
+async function mafLookupPassage({ ref, offset, limit, response_format }) {
+  const M = await mafteach();
+  let s = String(ref).trim();
+  let target = null;
+  const code = s.match(/^([א-ת]{2})\s*[-־ ]\s*([א-ת"'׳״]+)$/);         // Mafteach code: צה-קיח, רל-נז
+  if (code && MAF_CODES[code[1]]) target = `${MAF_CODES[code[1]]} ${gematria(code[2])}`;
+  if (!target) {
+    const k = refKey(s.replace(/:\d+(-\d+)?$/, ''));
+    target = M.passageKeys.get(k) || null;
+    if (!target) {
+      try { const r = await resolveRef(s); if (r?.sec?.ref) target = r.sec.ref; } catch {}
+    }
+  }
+  if (!target) throw new ToolError(`could not read "${ref}" as a library passage. Examples: "Tzidkat HaTzadik 100", "Tzidkas HaTzaddik 100", "Peri Tzadik, Vayechi 11", "Pri Tzaddik Vayechi 11", "Resisei Layla 57", "צה-ק".`);
+  const entries = await mafShard(`passage/${fileKey(target)}.json`);
+  const topics = entries.filter(e => e.x === 't'), sources = entries.filter(e => e.x === 's');
+  const all = [...topics, ...sources];
+  const { total, page, more } = mafPage(all, offset, limit);
+  if (response_format === 'json') return json({ passage: target, total, topics: topics.length, sources: sources.length, offset, next_offset: more, entries: page.map(e => mafJson(M, e)) });
+  if (!total) return `# ${target}\nHaMafteach HaShalem has no entry pointing to ${target}. (References it cites only by page, e.g. Dover Tzedek or Likkutei Maamarim, are not linked to library sections.)`;
+  const out = [`# ${target} in HaMafteach HaShalem`, `${topics.length} topic entr${topics.length === 1 ? 'y' : 'ies'} and ${sources.length} source entr${sources.length === 1 ? 'y' : 'ies'} point here; showing ${offset + 1}–${offset + page.length}. Use these as footnote leads: the topics it treats and the verses, sugyos and midrashim it draws on.`, ''];
+  let shown = '';
+  for (const e of page) {
+    const h = e.x === 't' ? 'Topics' : 'Sources';
+    if (h !== shown) { out.push(`## ${h}`); shown = h; }
+    out.push(mafEntryLine(M, e, { topic: e.x === 't', source: e.x === 's' }));
+  }
+  if (more != null) out.push('', `More: offset ${more}.`);
+  return out.join('\n');
+}
+
+// ---- mafteach_search
+async function mafSearch({ query, corpus, offset, limit, response_format }) {
+  const M = await mafteach();
+  const q = String(query).trim();
+  const headings = mafFindTerms(M, q, ['topic', 'source_book']).filter(x => x.t.n > 0).slice(0, 10).map(x => x.t);
+  const hits = [];
+  let total = 0;
+  if (/[א-ת]/.test(q)) {
+    const phrases = [...q.matchAll(/"([^"]+)"|(\S+)/g)].map(m => (m[1] || m[2]).trim()).filter(Boolean);
+    const terms = phrases.map(p => norm(p).trim()).filter(Boolean);
+    if (!terms.length) throw new ToolError('the query has no letters to search for.');
+    const parts = MAF_CORPUS[corpus] === 'rt' ? ['1-2', '3'] : MAF_CORPUS[corpus] === 'pt' ? ['4', '5', '7'] : M.raw.parts;
+    for (const p of parts) {
+      let text = '';
+      try {
+        if (typeof process !== 'undefined' && process.env?.MCP_DATA_DIR) {
+          const { readFile } = await import('node:fs/promises');
+          text = await readFile(`${process.env.MCP_DATA_DIR}/mafteach/text/${p}.txt`, 'utf8');
+        } else {
+          const res = await fetch(new URL(`mcp-data/mafteach/text/${p}.txt`, `${ORIGIN.replace(/\/+$/, '')}/`));
+          if (res.ok) text = await res.text();
+        }
+      } catch {}
+      for (const line of text.split('\n')) {
+        const tab = line.indexOf('\t');
+        const hay = line.slice(0, tab);
+        if (terms.every(t => hay.includes(t))) {
+          total++;
+          if (total > offset && hits.length < limit) hits.push(JSON.parse(line.slice(tab + 1)));
+        }
+      }
+    }
+  }
+  if (response_format === 'json') {
+    return json({ query: q, headings: headings.map(t => ({ he: t.he, en: t.en, kind: t.kind, entries: t.n })), total, offset, next_offset: offset + hits.length < total ? offset + hits.length : null, entries: hits.map(e => mafJson(M, e)) });
+  }
+  const out = [`# Mafteach search: ${q}`];
+  if (headings.length) out.push(`Matching headings (open with mafteach_find_topic or mafteach_lookup_source): ${headings.map(t => `${t.he} — ${t.en} (${t.n})`).join('; ')}.`);
+  if (/[א-ת]/.test(q)) {
+    out.push(`${total} entr${total === 1 ? 'y contains' : 'ies contain'} these words${total ? `; showing ${offset + 1}–${offset + hits.length}` : ''}.`, '');
+    for (const e of hits) out.push(mafEntryLine(M, e, { topic: true, source: true }));
+    if (offset + hits.length < total) out.push('', `More: offset ${offset + hits.length}.`);
+  } else if (!headings.length) {
+    out.push('No heading matches. Entry texts are Hebrew: search with Hebrew words, or try another English or transliterated form.');
+  }
+  return out.join('\n');
+}
+
 const HANDLERS = {
+  mafteach_find_topic: mafFindTopic,
+  mafteach_lookup_source: mafLookupSource,
+  mafteach_lookup_passage: mafLookupPassage,
+  mafteach_search: mafSearch,
   kisvei_list_books: listBooks,
   kisvei_get_contents: getContents,
   kisvei_get_text: getText,
