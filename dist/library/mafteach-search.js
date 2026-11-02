@@ -12,7 +12,7 @@
   else root.AkivaMafteachSearch = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this, function () {
   'use strict';
-  const VERSION = '20261102-mafteach-search-en-v5';
+  const VERSION = '20261102-mafteach-search-en-v6';
   let BASE = '../mcp-data/mafteach/';
   let PANEL_BASE = 'mafteach/';
   const memo = new Map();
@@ -400,25 +400,34 @@
   const corpusFilter = (list, corpus) => (corpus === 'pt' || corpus === 'rt') ? list.filter(e => e.c === corpus) : list;
   const sndKey = w => skel(w).replace(/v/g, 'b').replace(/w/g, 'b');   // by sound: Lavan = Laban, Efron = Ephron
   // Full-text search inside entry texts (Hebrew words), loading the parts on demand.
-  async function searchEntries(M, q, corpus, limit = 200) {
-    const terms = [...q.matchAll(/"([^"]+)"|(\S+)/g)].map(m => norm(m[1] || m[2]).trim()).filter(Boolean)
+  // q's words must all occur (Hebrew as written, English also by sound: Efron = Ephron). A word no entry contains is
+  // dropped ("Mearas Machpeilah": the English says "Cave of Machpelah"). alt: Hebrew phrases that match on their own
+  // (the Hebrew of the heading the query found, e.g. המכפלה).
+  async function searchEntries(M, q, corpus, limit = 200, { alt = [] } = {}) {
+    let terms = [...q.matchAll(/"([^"]+)"|(\S+)/g)].map(m => norm(m[1] || m[2]).trim()).filter(Boolean)
       .filter(t => /[א-ת]/.test(t) ? !HE_STOP.has(t.replace(/ /g, '')) : t.length >= 3 && !EN_STOP.has(t));
-    if (!terms.length) return { total: 0, hits: [] };
+    const alts = alt.map(a => norm(a).trim()).filter(a => a.replace(/ /g, '').length >= 3);
+    if (!terms.length && !alts.length) return { total: 0, hits: [] };
     const parts = corpus === 'rt' ? ['1-2', '3'] : corpus === 'pt' ? ['4', '5', '7'] : M.raw.parts;
-    const skels = terms.map(t => !/[א-ת]/.test(t) && !t.includes(' ') ? (k => k.length >= 3 ? k : null)(sndKey(t)) : null);
-    const hits = []; let total = 0;
-    for (const p of parts) {
-      let text = '';
-      try { text = await loadMaf(`text/${p}.txt`); } catch { continue; }
-      for (const line of text.split('\n')) {
+    const texts = [];
+    for (const p of parts) { try { texts.push(await loadMaf(`text/${p}.txt`)); } catch {} }
+    const run = (terms, count) => {
+      const skels = terms.map(t => !/[א-ת]/.test(t) && !t.includes(' ') ? (k => k.length >= 3 ? k : null)(sndKey(t)) : null);
+      const seen = terms.map(() => 0), hits = []; let total = 0;
+      for (const text of texts) for (const line of text.split('\n')) {
         const tab = line.indexOf('\t');
         const hay = line.slice(0, tab);
-        let sk = null;                                   // English words by sound: Efron = Ephron, Yitzchak = Yitzhak
+        let sk = null;
         const has = (t, i) => hay.includes(t) || (skels[i] && (sk = sk || new Set((hay.match(/[a-z]{3,}/g) || []).map(sndKey))).has(skels[i]));
-        if (terms.every(has)) { total++; if (hits.length < limit) hits.push(JSON.parse(line.slice(tab + 1))); }
+        let all = terms.length > 0;
+        terms.forEach((t, i) => { if (has(t, i)) seen[i]++; else all = false; });
+        if (all || alts.some(a => hay.includes(' ' + a + ' ') || hay.includes(a))) { total++; if (hits.length < limit) hits.push(JSON.parse(line.slice(tab + 1))); }
       }
-    }
-    return { total, hits };
+      return { total, hits, seen };
+    };
+    let r = run(terms);
+    if (!r.total && terms.length > 1 && r.seen.some(n => n > 0)) r = run(terms.filter((t, i) => r.seen[i] > 0));
+    return { total: r.total, hits: r.hits };
   }
   function sefariaUrl(key) {
     const m = String(key || '').match(/^(.*?)\s+(\d+[ab]?)(?::(\d+))?$/);
@@ -675,8 +684,9 @@
     const others = a.topics.slice(1, 16).map(x => x.t).concat(a.weak).filter((t, i, arr) => arr.findIndex(u => u.id === t.id) === i).slice(0, 18);
     if (others.length) cards.push(`<div class="maf-card"><h2>${top.length ? 'Other headings that match' : 'Headings that match'}</h2><div class="maf-chips">${others.map(t => `<a href="${mafHash({ topic: t.id, corpus })}"><span class="maf-he" lang="he">${E(t.he)}</span> · ${E(t.en)} <span style="color:var(--muted)">${t.n}</span></a>`).join('')}</div></div>`);
     if (a.hebrew || tokens(q).filter(x => x.keep).length) {
-      const auto = !cards.length;
-      cards.push(`<div class="maf-card" data-fulltext><h2>Inside the entries</h2><p class="maf-meta">Every Mafteach entry whose Hebrew or English includes ${a.hebrew ? `“<span class="maf-he" lang="he">${E(q)}</span>”` : `the words “${E(tokens(q).filter(x => x.keep).map(x => x.w).join(' '))}”`}.</p>${auto ? '<div class="loading">Searching…</div>' : '<button class="maf-btn ghost" data-run-fulltext>Search inside all entries</button>'}</div>`);
+      const topE = top.length ? corpusFilter(await topicEntries(top[0].t.id), corpus).length : 0;
+      const auto = !cards.length || (top.length && topE < 10);
+      cards.push(`<div class="maf-card" data-fulltext><h2>Inside the entries</h2><p class="maf-meta">Every Mafteach entry whose Hebrew or English includes ${a.hebrew ? `“<span class="maf-he" lang="he">${E(q)}</span>”` : `the words “${E(tokens(q).filter(x => x.keep).map(x => x.w).join(' '))}”${top.length ? ` or “<span class="maf-he" lang="he">${E(top[0].t.he)}</span>”` : ''}`}.</p>${auto ? '<div class="loading">Searching…</div>' : '<button class="maf-btn ghost" data-run-fulltext>Search inside all entries</button>'}</div>`);
     }
     if (!cards.length) cards.push(`<div class="maf-card"><h2>Nothing in the Mafteach matched</h2><p class="maf-meta">Try one key word, the Hebrew term, another spelling (Shabbos / Shabbat), or a pasuk or daf with its number (Bereishis 2:7, Shabbos 88b).</p></div>`);
     out.innerHTML = cards.join('');
@@ -684,19 +694,50 @@
     const runFull = async () => {
       ft.querySelector('[data-run-fulltext]')?.remove();
       if (!ft.querySelector('.loading')) ft.insertAdjacentHTML('beforeend', '<div class="loading">Searching…</div>');
-      const { total, hits } = await searchEntries(M, q, corpus);
+      const { total, hits } = await searchEntries(M, q, corpus, 200, { alt: !a.hebrew && top.length ? [top[0].t.he] : [] });
       ft.querySelector('.loading')?.remove();
       ft.insertAdjacentHTML('beforeend', total ? `<p class="maf-meta">${total} entr${total === 1 ? 'y' : 'ies'}${total > hits.length ? `; showing the first ${hits.length}` : ''}.</p>${entryListHTML(M, hits, { topic: true, show: 25 })}` : '<p class="maf-meta">No entry contains these words.</p>');
     };
     if (ft) { if (ft.querySelector('.loading')) runFull(); else ft.querySelector('[data-run-fulltext]').addEventListener('click', runFull); }
   }
+  // "ראה: חברון" — a heading that only points to others ("see Hebron"); the targets as headings.
+  function seeAlso(M, entries) {
+    const out = [];
+    for (const e of entries) {
+      const m = String(e.t).match(/^\s*ראה\s*(?:מפתח\s+\S+\s*)?[:\-]?\s*(.+)$/);
+      if (!m) continue;
+      for (const part of m[1].split(/[,;]/)) {
+        const name = part.replace(/[.\-–]+\s*$/, '').trim();
+        if (heKey(name).length < 2) continue;
+        let hit = findTerms(M, name, ['topic']).find(x => x.s >= 100 && x.t.n > 0);
+        if (!hit && heKey(name).length >= 4) {             // OCR slips in the printed index: חברוו for חברון
+          const k = heKey(name).replace(/ו$/, 'נ');
+          const bare = t => heKey(String(t.he).replace(/\([^)]*\)/g, ''));          // "חברון (העיר)" is חברון
+          hit = findTerms(M, k, ['topic']).find(x => x.s >= 100 && x.t.n > 0);
+          const t = hit ? null : M.raw.terms.filter(t => t.kind === 'topic' && t.n > 0 && bare(t) === k)[0]
+            || M.raw.terms.filter(t => t.kind === 'topic' && t.n > 0 && dist(bare(t), k, 1) <= 1).sort((a, b) => b.n - a.n)[0];
+          if (t) hit = { t };
+        }
+        if (hit && !out.some(t => t.id === hit.t.id)) out.push(hit.t);
+      }
+    }
+    return out;
+  }
   async function topicCard(M, t, corpus, { show }) {
     const entries = corpusFilter(await topicEntries(t.id), corpus);
+    const see = seeAlso(M, entries);
+    const linked = entries.filter(e => e.r.some(r => refInfo(r).ref)).length;
+    let follow = '';
+    if (see.length && linked < 5) {                     // the heading only points elsewhere: show where it points
+      const T = see[0], te = corpusFilter(await topicEntries(T.id), corpus);
+      follow = `<h3>See: <a href="${mafHash({ topic: T.id, corpus })}"><span class="maf-he" lang="he">${E(T.he)}</span> · ${E(T.en)}</a> (${te.length})</h3>${entryListHTML(M, te, { show: 15, grouped: true })}`;
+    }
+    const seeChips = see.length ? `<div class="maf-chips" style="margin:6px 0 10px"><span class="maf-meta" style="margin:0 4px 0 0;align-self:center">See also:</span>${see.map(T => `<a href="${mafHash({ topic: T.id, corpus })}"><span class="maf-he" lang="he">${E(T.he)}</span> · ${E(T.en)} <span style="color:var(--muted)">${T.n}</span></a>`).join('')}</div>` : '';
     const also = [...new Set([...(t.ashk || []), ...(t.sef || []), ...(t.en_alt || [])])].slice(0, 6);
     return `<div class="maf-card"><h2><span class="maf-he" lang="he">${E(t.he)}</span><span>${E(t.en)}</span></h2>
       <p class="maf-meta">${entries.length} entr${entries.length === 1 ? 'y' : 'ies'} in HaMafteach HaShalem${also.length ? ` · also: ${E(also.join(', '))}` : ''}. In an entry, “-” stands for the heading word.</p>
       <div class="maf-actions" style="margin:0 0 10px"><a class="maf-btn" href="${shiurHash({ topic: t.id, corpus })}">Build a shiur on this topic</a>${t.n > entries.length || show < 60 ? `<a class="maf-btn ghost" href="${mafHash({ topic: t.id, corpus })}">Open this heading</a>` : ''}</div>
-      ${entries.length ? entryListHTML(M, entries, { show, grouped: true }) : '<p class="maf-meta">No entries in these sefarim; choose “All Rav Tzadok”.</p>'}</div>`;
+      ${seeChips}${entries.length ? entryListHTML(M, entries, { show, grouped: true }) : '<p class="maf-meta">No entries in these sefarim; choose “All Rav Tzadok”.</p>'}${follow}</div>`;
   }
   async function sourceCard(M, ps, corpus) {
     const label = ps.kind === 'named' ? ps.title : `${ps.title}${ps.addr ? ' ' + ps.addr : ''}`;
@@ -772,7 +813,10 @@
     } else {
       const t = M.byId.get(+params.get('topic'));
       if (!t) { page.innerHTML = '<div class="maf-card">That topic was not found.</div>'; return; }
-      plan = planTopicShiur(M, t, corpusFilter(await topicEntries(t.id), corpus));
+      let entries = corpusFilter(await topicEntries(t.id), corpus);
+      if (entries.filter(e => e.r.some(r => refInfo(r).ref)).length < 5)      // "see Hebron": build from the headings it points to
+        for (const T of seeAlso(M, entries).slice(0, 3)) entries = entries.concat(corpusFilter(await topicEntries(T.id), corpus));
+      plan = planTopicShiur(M, t, entries);
     }
     document.title = `Shiur: ${plan.title.en} · Rav Tzadok Library`;
     page.innerHTML = shiurHTML(plan, corpus);
@@ -876,7 +920,7 @@
   }
 
   return { VERSION, configure, index, buildIndex, findTerms, parseSource, findParsha, findSourceIn, questionTopics, analyze, refInfo, topicEntries, sourceEntries,
-    searchEntries, planTopicShiur, planParshaShiur, ptSectionPassages, parshaSources, shiurText, suggestRows, excerpt, render, attach, PARSHIYOS, translitKey, heKey, norm };
+    searchEntries, seeAlso, planTopicShiur, planParshaShiur, ptSectionPassages, parshaSources, shiurText, suggestRows, excerpt, render, attach, PARSHIYOS, translitKey, heKey, norm };
 });
 // Attach to the reader's header search and home page as soon as the page is ready.
 if (typeof document !== 'undefined' && typeof window !== 'undefined' && window.AkivaMafteachSearch) {

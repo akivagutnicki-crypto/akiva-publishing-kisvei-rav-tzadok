@@ -61,6 +61,11 @@ const ftEn = await A.searchEntries(M, 'olive tree', 'all');
 check(ftEn.total > 0 && ftEn.hits.every(e => /olive/i.test(e.e || '')), 'full-text search finds English words');
 const efron = await A.searchEntries(M, 'Efron', 'all');
 check(efron.total >= 1 && efron.hits.every(e => /Ephron/i.test(e.e || '')), 'Efron finds Ephron inside entries');
+const mm = await A.searchEntries(M, 'Mearas Machpeilah', 'all', 200, { alt: ['מערת המכפלה'] });
+check(mm.total >= 10, `Mearas Machpeilah finds the entries on the Cave of Machpelah (${mm.total})`);
+const cave = (await A.analyze('Mearas Machpeilah')).topics[0].t;
+check(/Machpelah/.test(cave.en), 'Mearas Machpeilah -> the Cave of Machpelah');
+check(A.seeAlso(M, await A.topicEntries(cave.id)).some(t => t.en === 'Hebron'), 'the Cave of Machpelah points to Hebron');
 // shiur builder: topic
 const rep = (await A.analyze('teshuvah')).topics[0].t;
 const plan = A.planTopicShiur(M, rep, await A.topicEntries(rep.id));
