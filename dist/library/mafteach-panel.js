@@ -90,7 +90,7 @@
       const list = items.filter(x => x[2] === g);
       if (!list.length) return '';
       return `<div class="maf-genre"><h5>${g} · <span lang="he">${he}</span></h5><ul class="maf-list">${list.map(([ref, title, , p, tier, words]) =>
-        `<li class="maf-par"><span class="maf-tier maf-${tier}">${TIER_LABEL[tier]}</span> <a class="maf-ref" href="${sefariaRefUrl(ref)}" target="_blank" rel="noopener">${esc(ref)}</a>${title && /[א-ת]/.test(title) ? ` <span lang="he" class="maf-he">${esc(title)}</span>` : ''}${words && words.length ? `<div class="maf-why">Shared words: <span lang="he" class="maf-he">${esc(words.slice(0, 4).join(' · '))}</span></div>` : ''}</li>`).join('')}</ul></div>`;
+        `<li class="maf-par"><span class="maf-tier maf-${tier}">${TIER_LABEL[tier]}</span> <a class="maf-ref" href="${sefariaRefUrl(ref)}" target="_blank" rel="noopener">${esc(ref)}</a><div class="maf-why">${title && /[א-ת]/.test(title) ? `<span lang="he" class="maf-he">${esc(title)}</span>` : ''}${title && /[א-ת]/.test(title) && words && words.length ? ' · ' : ''}${words && words.length ? `Shared words: <span lang="he" class="maf-he">${esc(words.slice(0, 4).join(' · '))}</span>` : ''}</div></li>`).join('')}</ul></div>`;
     }).join('');
   }
 
@@ -127,7 +127,7 @@ ${topics ? `<div class="maf-block"><h4>Indexed under</h4><div class="maf-topics"
 .mafteach-panel summary{cursor:pointer;font-weight:600;display:flex;gap:.8em;flex-wrap:wrap;justify-content:space-between;padding:.35em 0}
 .mafteach-panel h4{margin:.8em 0 .35em;font-size:.95em}
 .maf-topics{display:flex;flex-wrap:wrap;gap:.35em}.maf-topic{border:1px solid var(--line,#ddd);border-radius:999px;padding:.1em .6em;font-size:.88em}
-.maf-list{margin:.2em 0;padding-inline-start:1.4em}.maf-list li{margin:.35em 0}.maf-ref{font-weight:600}
+.maf-list{margin:.2em 0;padding-inline-start:1.4em}.maf-list li{margin:.35em 0}.maf-ref{font-weight:600;unicode-bidi:isolate}
 .maf-why{font-size:.88em;opacity:.85}.maf-he{font-family:inherit;direction:rtl;unicode-bidi:isolate}
 .maf-why-topic{font-style:italic}.maf-star{color:#b8860b}.maf-more{display:none}.mafteach-panel.maf-open-par [data-list=par] .maf-more,.mafteach-panel.maf-open-src [data-list=src] .maf-more{display:list-item}.mafteach-panel.maf-open-top [data-list=top] .maf-more{display:inline-block}
 .maf-tier{font-size:.72em;border-radius:4px;padding:.05em .4em;vertical-align:.1em;border:1px solid currentColor}.maf-strong{color:#2e7d32}.maf-likely{color:#1565c0}.maf-possible{color:#8d6e63}.mafteach-panel.maf-open-ml [data-list=ml] .maf-more{display:list-item}

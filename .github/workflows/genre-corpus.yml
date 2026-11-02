@@ -1,0 +1,41 @@
+name: Build the Chassidus, Kabbalah, Machshava and Mussar corpus (data for machine-learned parallels)
+
+# Runs only for pushes to the genre-corpus-build branch. Publishes the corpus as assets of a pre-release
+# (genre-corpus-2026-11); the site and its other workflows are not touched.
+on:
+  push:
+    branches: ["genre-corpus-build"]
+    paths:
+      - "scripts/genre-corpus/**"
+      - ".github/workflows/genre-corpus.yml"
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    if: ${{ github.ref == 'refs/heads/genre-corpus-build' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    env:
+      TAG: genre-corpus-2026-11
+    steps:
+      - uses: actions/checkout@v6
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+      - name: Download the Sefaria export for the four genres and build the corpus
+        run: |
+          python -m pip install 'requests==2.32.5'
+          python scripts/genre-corpus/build_genre_corpus.py genre-corpus.jsonl.gz
+          ls -la genre-corpus*
+      - name: Publish as pre-release assets
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if ! gh release view "$TAG" >/dev/null 2>&1; then
+            gh release create "$TAG" --prerelease --target "$GITHUB_SHA" --title "Genre corpus for machine-learned parallels (data, not a site release)" \
+              --notes "Chassidus, Kabbalah, Jewish Thought and Musar texts (Hebrew) from Sefaria's public export, split into passages, used to compute parallels for the Rav Tzadok Library reader. Each book's license is in genre-corpus-manifest.json."
+          fi
+          gh release upload "$TAG" genre-corpus.jsonl.gz genre-corpus-manifest.json --clobber

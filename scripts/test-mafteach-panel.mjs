@@ -68,4 +68,23 @@ const meiParsha = M.mlFor(meiShard.passages, 'Mei HaShiloach, Volume I, Genesis,
 check(meiParsha.length > 5 && meiParsha.every(x => !x[0].startsWith('Mei HaShiloach, Volume I, Genesis, Bereshit ')), 'a Mei HaShiloach parsha gathers its teachings, without self-links');
 const htmlMl = M.render(null, 'X', {}, meiParsha);
 check(htmlMl.includes('suggested by machine learning') && htmlMl.includes('maf-tier'), 'panel renders suggested parallels with tiers');
+
+// Parallels in Chassidus, Kabbalah, Machshava and Mussar (dist/library/genre-parallels)
+const GP = 'dist/library/genre-parallels';
+const gIndex = JSON.parse(fs.readFileSync(path.join(GP, 'index.json'), 'utf8'));
+let gLinks = 0; const genres = new Set();
+for (const [key, info] of Object.entries(gIndex.books)) {
+  check(fs.statSync(path.join(GP, info.file)).size < 1e6, `${info.file} under 1 MB`);
+  for (const [ref, items] of Object.entries(JSON.parse(fs.readFileSync(path.join(GP, info.file), 'utf8')).passages)) {
+    check(M.mlKey(gIndex.books, ref) === key, `${ref} found through its file`);
+    for (const [target, title, genre, p, tier, words] of items) {
+      gLinks++; genres.add(genre);
+      if (!['Chassidus', 'Kabbalah', 'Machshava', 'Mussar'].includes(genre) || !['strong', 'likely', 'possible'].includes(tier) || !(p > 0) || !String(target).trim()) check(false, `${ref} -> ${target} well formed`);
+    }
+  }
+}
+check(genres.size === 4 && gLinks > 8000, `${gLinks} parallels in four genres`);
+check(M.sefariaRefUrl('Sefat Emet, Genesis, Bereshit 3:2-9') === 'https://www.sefaria.org/Sefat_Emet,_Genesis,_Bereshit.3.2-9', 'Sefaria link for a passage range');
+const gHtml = M.render(null, 'X', {}, [], [['Mesilat Yesharim 1-15', 'מסילת ישרים', 'Mussar', 0.7, 'likely', ['א']]]);
+check(gHtml.includes('In Chassidus, Kabbalah, Machshava and Mussar') && gHtml.includes('https://www.sefaria.org/Mesilat_Yesharim.1-15'), 'panel renders the outside parallels');
 console.log(`PASS Mafteach panel: ${passed} checks, ${passages} passages, ${links} parallels`);

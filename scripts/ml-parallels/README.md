@@ -44,3 +44,31 @@ ML_WORK=<work dir> python3 scripts/ml-parallels/export.py dist/library/ml-parall
 Python needs scikit-learn and scipy.
 
 The full Mei HaShiloach (1,305 teachings) comes from `sources/held/Mei_HaShiloach.json` via `add_mei.py`.
+
+## Parallels in Chassidus, Kabbalah, Machshava and Mussar (`genre_parallels.py`)
+
+These are parallels from each Rav Tzadok and Ishbitz-Radzin teaching out into 296 outside sefarim, published in `dist/library/genre-parallels/`.
+
+| Genre | Books | Words |
+|---|---|---|
+| Chassidus | 72 | 14.0M |
+| Kabbalah | 70 | 11.7M |
+| Machshava | 113 | 14.8M |
+| Mussar | 41 | 2.9M |
+
+**Corpus.** The outside texts come from Sefaria's public export, Hebrew versions only, with Rav Tzadok's and the Izhbitz-Radzin works left out. They are split into 106,819 passages by `scripts/genre-corpus/build_genre_corpus.py`. That script runs in GitHub Actions (`.github/workflows/genre-corpus.yml`) because this workspace can't reach Sefaria's storage, and publishes the corpus as the pre-release `genre-corpus-2026-11`. Each book's license is listed in `genre-parallels/sources-manifest.json`.
+
+**Model.** This is a text-only version of the library model: wording, letter n-grams, LSA, rare shared words and length. It is trained on the HaMafteach labels. Held-out precision@10 is 0.49, against 0.43 for wording alone.
+
+**Evidence rule.** It is strict:
+- **Strong:** needs word cosine ≥ 0.10 and rare-shared ≥ 20.
+- **Likely:** needs ≥ 0.07 and ≥ 12.
+- **Possible:** needs ≥ 0.06 and ≥ 8.
+
+**Limits.** Each teaching keeps at most 3 parallels per genre and 2 per book. That gives 10,659 links for 2,931 teachings. Links open on Sefaria.
+
+To re-run:
+
+```
+ML_WORK=<work dir> python3 scripts/ml-parallels/genre_parallels.py genre-corpus.jsonl.gz dist/library/genre-parallels
+```
