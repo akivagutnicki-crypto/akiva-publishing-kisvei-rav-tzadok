@@ -50,6 +50,39 @@ function load(file) {
   return p;
 }
 
+// The reader's own data files (library/...): the Mafteach panel, the machine-learned and the outside-genre parallels.
+function loadLib(file) {
+  const key = 'library/' + file;
+  let p = cache.get(key);
+  if (!p) {
+    p = (async () => {
+      if (typeof process !== 'undefined' && process.env?.MCP_DATA_DIR) {
+        const { readFile } = await import('node:fs/promises');
+        return JSON.parse(await readFile(`${process.env.MCP_DATA_DIR}/../library/${file}`, 'utf8'));
+      }
+      const res = await fetch(new URL(`library/${file}`, `${ORIGIN.replace(/\/+$/, '')}/`));
+      if (!res.ok) throw new Error(`library data ${file} is unavailable (HTTP ${res.status})`);
+      return res.json();
+    })();
+    p.catch(() => cache.delete(key));
+    cache.set(key, p);
+  }
+  return p;
+}
+// The entries for one section from a sharded reader data set (index.json maps a sefer, or a Pri Tzaddik section, to its file).
+async function libSection(dir, sectionRef) {
+  try {
+    const idx = await loadLib(`${dir}/index.json`);
+    let key = null;
+    for (const k of Object.keys(idx.books || {})) if ((sectionRef === k || sectionRef.startsWith(k + ',') || sectionRef.startsWith(k + ' ')) && (!key || k.length > key.length)) key = k;
+    if (!key) return [];
+    const { passages } = await loadLib(`${dir}/${idx.books[key].file}`);
+    const keys = passages[sectionRef] ? [sectionRef] : Object.keys(passages).filter(k => k.startsWith(sectionRef + ' ') && /^\d+$/.test(k.slice(sectionRef.length + 1)));
+    return keys.map(k => passages[k]);
+  } catch { return []; }
+}
+const OUTSIDE = ['Chassidus', 'Kabbalah', 'Machshava', 'Mussar'];
+
 let CAT = null;
 async function catalog() {
   const c = await load('catalog.json');
@@ -403,12 +436,12 @@ const TOOLS = [
   {
     name: 'kisvei_find_parallels',
     title: 'Parallels in the library',
-    description: 'Parallels to a passage across Kisvei Rav Tzadok and the Ishbitz-Radzin works: the passages that draw on the same sources (verses, Gemara, Midrash, Zohar, halachah, other works of the library), including verses quoted without being named and distinctive Biblical words such as חפזון. Strongest first; each parallel lists what the two passages share, so check the text before relying on it. Give a paragraph ref ("Tzidkat HaTzadik 1:3") or a section ref (all its paragraphs).',
+    description: 'Parallels to a passage: in Kisvei Rav Tzadok and the Ishbitz-Radzin works, ranked by a model trained on HaMafteach HaShalem\'s own parallels together with the Mafteach\'s index lines and the sources both passages draw on (verses, Gemara, Midrash, Zohar, including verses quoted without being named); and beyond the library, in Chassidus, Kabbalah, Machshava and Mussar (Sefaria). Strongest first; each parallel says why (the index line, the shared sources or rare words), so read both before relying on it. Give a paragraph ref ("Tzidkat HaTzadik 1:3") or a section ref (all its paragraphs).',
     inputSchema: {
       type: 'object',
       properties: {
         ref: { type: 'string', description: 'Paragraph or section ref, e.g. "Tzidkat HaTzadik 1:3", "Resisei Layla 5".' },
-        school: { type: 'string', enum: ['all', 'Kisvei Rav Tzadok', 'Ishbitz-Radzin'], default: 'all', description: 'Only parallels from this school.' },
+        school: { type: 'string', enum: ['all', 'Kisvei Rav Tzadok', 'Ishbitz-Radzin', 'outside', 'Chassidus', 'Kabbalah', 'Machshava', 'Mussar'], default: 'all', description: 'Only parallels from this school. "outside" = Chassidus, Kabbalah, Machshava and Mussar beyond the library (Sefaria).' },
         limit: { type: 'integer', minimum: 1, maximum: 100, default: 30, description: 'Maximum number of parallels.' },
         response_format: FORMAT,
       },
@@ -985,26 +1018,61 @@ async function findParallels({ ref, school, limit, response_format }) {
       if (!prev || prev.score < score) best.set(other, { ref: other, from: p.r, score, school: schoolOf(other), shared: [...sources, ...ids.map(id => words[id] ? `the Biblical word ${words[id].w} (${words[id].v.join('; ')})` : '').filter(Boolean)] });
     }
   }
-  let list = [...best.values()].filter(x => school === 'all' || x.school === school).sort((a, b) => b.score - a.score);
+  // Blend: the machine-learned model (trained on the Mafteach's parallels) first, the Mafteach's own index lines next,
+  // shared citations last. Library parallels are compared by section.
+  const base = x => x.replace(/:\d+$/, '');
+  const self = r.sec.ref, merged = new Map();
+  const get = ref => { const k = base(ref); let m = merged.get(k); if (!m) { m = { ref: k, ml: 0, maf: 0, cit: 0, shared: [], why: [] }; merged.set(k, m); } return m; };
+  const maxCit = Math.max(1e-9, ...[...best.values()].map(x => x.score));
+  for (const x of best.values()) { const m = get(x.ref); if (x.score / maxCit > m.cit) { m.cit = x.score / maxCit; m.shared = x.shared; m.from = x.from; } }
+  for (const list of await libSection('ml-parallels', self)) for (const [other, prob, tier, srcs, words] of list) {
+    const m = get(other); if (prob > m.ml) { m.ml = prob; m.tier = tier; m.mlShared = [...(srcs || []), ...(words || []).map(w => `the rare word ${w}`)]; }
+  }
+  const mafLists = await libSection('mafteach', self);
+  const maxMaf = Math.max(1e-9, ...mafLists.flatMap(e => (e.p || []).map(x => x[1])));
+  for (const e of mafLists) for (const [other, w, whys] of e.p || []) {
+    const m = get(other); if (w / maxMaf > m.maf) { m.maf = w / maxMaf; m.why = (whys || []).slice(0, 2).map(y => y[0] === 'line' ? `the Mafteach lists both under "${y[4] || y[3] || y[1]}"` : y[0] === 'quote' ? `both quote ${y[2]}` : y[0] === 'topic' || y[0] === 'subtopic' ? `the Mafteach topic ${y[2] || y[1]}` : `both draw on ${y[1]}`); }
+  }
+  merged.delete(self);
+  for (const m of merged.values()) {
+    m.score = Math.round((0.55 * m.ml + 0.3 * m.maf + 0.15 * m.cit + (m.ml && m.maf ? 0.1 : 0)) * 1000) / 1000;
+    m.school = schoolOf(m.ref);
+    m.shared = [...m.why, ...(m.mlShared || []).slice(0, 4), ...m.shared.filter(x => !(m.mlShared || []).includes(x))].slice(0, 7);
+  }
+  const outsideOnly = school === 'outside' || OUTSIDE.includes(school);
+  let list = outsideOnly ? [] : [...merged.values()].filter(x => school === 'all' || x.school === school).sort((a, b) => b.score - a.score);
+  // beyond the library: [sefaria ref, Hebrew title, genre, probability, tier, [shared rare words]]
+  const outside = [], seenOut = new Set();
+  if (school === 'all' || outsideOnly) for (const l of await libSection('genre-parallels', self)) for (const [oref, heTitle, genre, prob, tier, words] of l) {
+    if (seenOut.has(oref) || (OUTSIDE.includes(school) && genre !== school)) continue;
+    seenOut.add(oref); outside.push({ ref: oref, title_he: heTitle, genre, score: prob, tier, shared: (words || []).map(w => `the rare word ${w}`), link: `https://www.sefaria.org/${encodeURIComponent(oref.replace(/ /g, '_'))}` });
+  }
+  outside.sort((a, b) => ({ strong: 0, likely: 1, possible: 2 }[a.tier] - { strong: 0, likely: 1, possible: 2 }[b.tier]) || b.score - a.score);
   const total = list.length;
   list = list.slice(0, limit);
   for (const x of list) {
     const b = byTitle.find(b => x.ref.startsWith(b.title));
     if (!b) continue;
     const bt = await bookText(b);
-    const ids = bt.byRef.get(x.ref) || [];
+    const ids = bt.byRef.get(x.ref) || bt.byRef.get(x.ref + ':1') || [];
     const p = ids.map(i => bt.paras[i]).find(q => b.sections[q.s].il) || bt.paras[ids[0]];
     if (p) { const sec = b.sections[p.s]; x.section = sec.title + (sec.heTitle ? ` · ${sec.heTitle}` : ''); x.preview = clip((p.p ? p.p.slice(0, 2).map(([he, en]) => `${he} — ${en}`).join(' / ') : (p.t || '')).replace(/\s+/g, ' '), 260); }
   }
   const label = r.from != null ? (r.from === r.to ? paras[0]?.r : `${paras[0]?.r}–${r.to}`) : r.sec.ref;
-  if (response_format === 'json') return json({ ref: label, total, quoted_verses: [...quoted], parallels: list.map(x => ({ ...x, link: readerLink(x.ref) })) });
-  if (!total && !quoted.size) return `No parallels are recorded for ${label}. Try kisvei_search with its key words.`;
-  const lines = [`# Parallels to ${label}`, `${total} passage${total === 1 ? '' : 's'} in the library share its sources${school !== 'all' ? ` (${school})` : ''}; showing ${list.length}, strongest first. What the passages share is listed; read both before relying on a parallel.`];
+  const outShow = outside.filter(x => outsideOnly || x.tier !== 'possible').slice(0, outsideOnly ? limit : 8);
+  if (response_format === 'json') return json({ ref: label, total, quoted_verses: [...quoted], parallels: list.map(({ ml, maf, cit, why, mlShared, ...x }) => ({ ...x, signals: { model: ml, mafteach: Math.round(maf * 100) / 100, citations: Math.round(cit * 100) / 100 }, link: readerLink(x.ref) })), outside: outShow });
+  if (!total && !quoted.size && !outShow.length) return `No parallels are recorded for ${label}. Try kisvei_search with its key words.`;
+  const lines = [`# Parallels to ${label}`];
+  if (!outsideOnly) lines.push(`${total} passage${total === 1 ? '' : 's'} in the library${school !== 'all' ? ` (${school})` : ''}; showing ${list.length}, strongest first. Why each is a parallel is given; read both before relying on it.`);
   if (quoted.size) lines.push(`Verses it quotes without naming them: ${[...quoted].join('; ')}.`);
   lines.push('');
   for (const x of list) {
-    lines.push(`- ${x.ref}${x.section ? ` — ${x.section}` : ''} [${x.school}]`, `  Shares: ${x.shared.join(' · ')}`);
+    lines.push(`- ${x.ref}${x.section ? ` — ${x.section}` : ''} [${x.school}${x.tier ? `, ${x.tier}` : ''}]`, `  Why: ${x.shared.join(' · ') || 'shared sources'}`);
     if (x.preview) lines.push(`  ${x.preview}`);
+  }
+  if (outShow.length) {
+    lines.push('', `## Beyond the library: Chassidus, Kabbalah, Machshava, Mussar`, 'Found by wording and rare shared words, not by an index: read both before relying on one.');
+    for (const x of outShow) lines.push(`- ${x.ref} (${x.title_he}) [${x.genre}, ${x.tier}] — shares ${x.shared.join(', ') || 'wording'} — ${x.link}`);
   }
   return lines.join('\n');
 }
