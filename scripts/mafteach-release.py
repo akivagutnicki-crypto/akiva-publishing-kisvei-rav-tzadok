@@ -15,8 +15,9 @@ REPO = 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok'
 PUBLIC = 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/'
 STATE = Path('mafteach-release-state.json')
 PANEL_V = '20261102-mafteach-ml-genre-v1'
+SEARCH_V = '20261102-mafteach-search-v1'
 NEW_DIRS = ['library/mafteach', 'library/ml-parallels', 'library/genre-parallels']
-ALLOWED = re.compile(r'^(library/index\.html|library/sw\.js|library/mafteach-panel\.js|library/(mafteach|ml-parallels|genre-parallels)/.+|mcp-data/mafteach/.+)$')
+ALLOWED = re.compile(r'^(library/index\.html|library/sw\.js|library/mafteach-panel\.js|library/mafteach-search\.js|library/(mafteach|ml-parallels|genre-parallels)/.+|mcp-data/mafteach/.+)$')
 MAX_BYTES = 10_000_000
 
 
@@ -69,25 +70,45 @@ def inventory(root):
 
 
 def patch_index(text):
-    if 'mafteach-panel.js' in text and 'AkivaMafteach' in text:
-        return re.sub(r'mafteach-panel\.js\?v=[^"]+', 'mafteach-panel.js?v=' + PANEL_V, text)
-    tags = re.findall(r'<script src="connected-ideas\.js\?v=[^"]+"></script>', text)
-    assert len(tags) == 1, 'Reader script anchor not found exactly once'
-    text = text.replace(tags[0], tags[0] + '\n<script src="mafteach-panel.js?v=' + PANEL_V + '"></script>')
-    mount = 'mountConnectedIdeas(d,sec);'
-    assert text.count(mount) == 1, 'Reader mount anchor not found exactly once'
-    return text.replace(mount, mount + '\n  window.AkivaMafteach?.mount(d, sec, {toHash, esc});   // HaMafteach HaShalem and suggested parallels')
+    if not ('mafteach-panel.js' in text and 'AkivaMafteach?.mount' in text):
+        tags = re.findall(r'<script src="connected-ideas\.js\?v=[^"]+"></script>', text)
+        assert len(tags) == 1, 'Reader script anchor not found exactly once'
+        text = text.replace(tags[0], tags[0] + '\n<script src="mafteach-panel.js?v=' + PANEL_V + '"></script>')
+        mount = 'mountConnectedIdeas(d,sec);'
+        assert text.count(mount) == 1, 'Reader mount anchor not found exactly once'
+        text = text.replace(mount, mount + '\n  window.AkivaMafteach?.mount(d, sec, {toHash, esc});   // HaMafteach HaShalem and suggested parallels')
+    text = re.sub(r'mafteach-panel\.js\?v=[^"]+', 'mafteach-panel.js?v=' + PANEL_V, text)
+    # Mafteach search page and shiur builder
+    if 'mafteach-search.js' not in text:
+        tags = re.findall(r'<script src="mafteach-panel\.js\?v=[^"]+"></script>', text)
+        assert len(tags) == 1, 'Panel script anchor not found exactly once'
+        text = text.replace(tags[0], tags[0] + '\n<script src="mafteach-search.js?v=' + SEARCH_V + '"></script>')
+    text = re.sub(r'mafteach-search\.js\?v=[^"]+', 'mafteach-search.js?v=' + SEARCH_V, text)
+    if 'href="#/mafteach"' not in text:
+        nav = '<a href="#/support">Support</a></nav>'
+        assert text.count(nav) == 1, 'Nav anchor not found exactly once'
+        text = text.replace(nav, '<a href="#/mafteach">Mafteach</a>' + nav)
+    if "AkivaMafteachSearch.render" not in text:
+        anchor = "  if (kind === 'book') return renderBook(arg);"
+        assert text.count(anchor) == 1, 'Route anchor not found exactly once'
+        text = text.replace(anchor, "  { const k0 = kind.split('?')[0]; if ((k0 === 'mafteach' || k0 === 'shiur') && window.AkivaMafteachSearch) return window.AkivaMafteachSearch.render(app, k0, new URLSearchParams(h.split('?').slice(1).join('?')), {fetchText, toHash, esc}); }   // HaMafteach search and shiur builder\n" + anchor)
+    return text
 
 
 def patch_sw(text):
     m = re.search(r'const SHELL = `([^`]*)`;', text)
     assert m, 'Service worker SHELL not found'
+    marker = '-mafteach-parallels-20261102' + ('-search-v1' if 'mafteach-search.js' not in text else '')
+    if marker not in m.group(1) and 'mafteach-search-v1' not in m.group(1):
+        text = text.replace(m.group(0), 'const SHELL = `' + m.group(1) + marker + '`;')
+    m = re.search(r'const SHELL = `([^`]*)`;', text)
     if 'mafteach-parallels-20261102' not in m.group(1):
         text = text.replace(m.group(0), 'const SHELL = `' + m.group(1) + '-mafteach-parallels-20261102`;')
-    if 'mafteach-panel.js' not in text:
-        anchor = re.search(r"\n(\s*)'\./connected-ideas\.js\?v=[^\n]*\n", text)
-        assert anchor, 'Service worker shell list anchor not found'
-        text = text.replace(anchor.group(0), anchor.group(0) + anchor.group(1) + "'./mafteach-panel.js?v=" + PANEL_V + "',\n")
+    for name, ver in (('mafteach-panel.js', PANEL_V), ('mafteach-search.js', SEARCH_V)):
+        if name not in text:
+            anchor = re.search(r"\n(\s*)'\./connected-ideas\.js\?v=[^\n]*\n", text)
+            assert anchor, 'Service worker shell list anchor not found'
+            text = text.replace(anchor.group(0), anchor.group(0) + anchor.group(1) + "'./" + name + "?v=" + ver + "',\n")
     return text
 
 
@@ -98,7 +119,8 @@ def apply(site):
     for d in NEW_DIRS:
         if (site / d).exists(): shutil.rmtree(site / d)
         shutil.copytree(Path('dist') / d, site / d)
-    shutil.copy2('dist/library/mafteach-panel.js', site / 'library/mafteach-panel.js')
+    for js in ('mafteach-panel.js', 'mafteach-search.js'):
+        shutil.copy2('dist/library/' + js, site / 'library' / js)
     for name, fn in (('library/index.html', patch_index), ('library/sw.js', patch_sw)):
         f = site / name
         f.write_text(fn(f.read_text(encoding='utf-8')), encoding='utf-8')
@@ -118,7 +140,11 @@ def apply(site):
 
 
 mode = sys.argv[1]
-if mode == 'metadata':
+if mode == 'patch-repo':
+    for name, fn in (('dist/library/index.html', patch_index), ('dist/library/sw.js', patch_sw)):
+        f = Path(name); f.write_text(fn(f.read_text(encoding='utf-8')), encoding='utf-8')
+    print('Patched the repository reader.')
+elif mode == 'metadata':
     head = os.environ.get('GITHUB_SHA') or subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip()
     assert main_head() == head, 'Main advanced'
     state = {'publication': latest_publication(), 'expectedHead': head}
@@ -135,7 +161,7 @@ elif mode == 'guard':
     assert latest_publication()['artifactId'] == state['publication']['artifactId'], 'A newer site was published; re-run on it'
     print('Main and live publication unchanged.')
 elif mode == 'verify-live':
-    for name in ('library/mafteach-panel.js', 'library/mafteach/index.json', 'library/ml-parallels/index.json',
+    for name in ('library/mafteach-panel.js', 'library/mafteach-search.js', 'library/mafteach/index.json', 'library/ml-parallels/index.json',
                  'library/genre-parallels/index.json', 'mcp-data/mafteach/glossary.json'):
         for k in range(20):
             try:
