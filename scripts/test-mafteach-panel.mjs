@@ -41,4 +41,31 @@ check(merged && merged.p.length && merged.p.length <= 40 && merged.p.every(p => 
 check(M.sefariaUrl('Bereshit Rabbah 2:4') === 'https://www.sefaria.org/Bereshit_Rabbah.2.4' && M.sefariaUrl('Berakhot 6b') === 'https://www.sefaria.org/Berakhot.6b', 'Sefaria URLs');
 check(!M.render(e, 'x').includes('<script'), 'render escapes text');
 check(fs.readFileSync('dist/library/index.html', 'utf8').includes('window.AkivaMafteach?.mount(d, sec, {toHash, esc})'), 'reader mounts the panel');
+
+// Machine-learned parallels (dist/library/ml-parallels)
+const ML = 'dist/library/ml-parallels';
+const mlIndex = JSON.parse(fs.readFileSync(path.join(ML, 'index.json'), 'utf8'));
+check(mlIndex.evaluation.model.prec10 > mlIndex.evaluation['engine only'].prec10, 'model beats the engine on held-out data');
+let mlTeachings = 0, mlLinks = 0;
+const ishbitz = ['Beit Yaakov on Torah', 'Sod Yesharim', 'Tiferet Yosef', 'Mei HaShiloach, Volume I'];
+for (const b of ishbitz) check(Object.keys(mlIndex.books).includes(b), `ML covers ${b}`);
+for (const [key, info] of Object.entries(mlIndex.books)) {
+  const size = fs.statSync(path.join(ML, info.file)).size;
+  check(size < 2e6, `${info.file} under 2 MB`);
+  const sh = JSON.parse(fs.readFileSync(path.join(ML, info.file), 'utf8'));
+  for (const [ref, items] of Object.entries(sh.passages)) {
+    mlTeachings++;
+    check(M.mlKey(mlIndex.books, ref) === key, `${ref} is found through its file`);
+    for (const [target, p, tier, cites, words] of items) {
+      mlLinks++;
+      if (!['strong', 'likely', 'possible'].includes(tier) || !(p > 0 && p <= 1) || !Array.isArray(cites) || !Array.isArray(words) || target === ref) check(false, `${ref} -> ${target} well formed`);
+    }
+  }
+}
+check(mlTeachings > 3500 && mlLinks > 30000, `${mlTeachings} teachings, ${mlLinks} suggested parallels`);
+const meiShard = JSON.parse(fs.readFileSync(path.join(ML, mlIndex.books['Mei HaShiloach, Volume I'].file), 'utf8'));
+const meiParsha = M.mlFor(meiShard.passages, 'Mei HaShiloach, Volume I, Genesis, Bereshit');
+check(meiParsha.length > 5 && meiParsha.every(x => !x[0].startsWith('Mei HaShiloach, Volume I, Genesis, Bereshit ')), 'a Mei HaShiloach parsha gathers its teachings, without self-links');
+const htmlMl = M.render(null, 'X', {}, meiParsha);
+check(htmlMl.includes('suggested by machine learning') && htmlMl.includes('maf-tier'), 'panel renders suggested parallels with tiers');
 console.log(`PASS Mafteach panel: ${passed} checks, ${passages} passages, ${links} parallels`);
