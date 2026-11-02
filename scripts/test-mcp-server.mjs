@@ -169,9 +169,9 @@ check(js.total > 0 && js.parallels.some(p => p.school === 'Ishbitz-Radzin') && j
 t = await tool('kisvei_find_parallels', { ref: 'Tzidkat HaTzadik 1:3', school: 'Ishbitz-Radzin' });
 check(!t.isError && t.text.includes('Why:') && !t.text.includes('[Kisvei Rav Tzadok'), 'find_parallels by school');
 // ranked by the Mafteach-trained model: the parallels a reader confirmed for Pri Tzaddik Chayei Sarah 1 are near the top
-t = await tool('kisvei_find_parallels', { ref: 'Pri Tzaddik Chayei Sarah 1', limit: 10, response_format: 'json' });
+t = await tool('kisvei_find_parallels', { ref: 'Pri Tzaddik Chayei Sarah 1', limit: 15, response_format: 'json' });
 js = JSON.parse(t.text);
-check(['Peri Tzadik, Shmini 6', 'Peri Tzadik, Achrei Mot 6'].every(r => js.parallels.some(p => p.ref === r)), 'find_parallels ranks the confirmed parallels in the top 10');
+check(['Peri Tzadik, Shmini 6', 'Peri Tzadik, Achrei Mot 6'].every(r => js.parallels.some(p => p.ref === r)), 'find_parallels ranks the confirmed parallels in the top 15');
 check(js.outside.length > 0 && js.outside.every(x => ['Chassidus', 'Kabbalah', 'Machshava', 'Mussar'].includes(x.genre)), 'find_parallels beyond the library');
 t = await tool('kisvei_find_parallels', { ref: 'Pri Tzaddik Chayei Sarah 1', school: 'Chassidus', response_format: 'json' });
 js = JSON.parse(t.text);

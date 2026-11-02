@@ -28,7 +28,7 @@ const SHELL_FILES = [
   './source-editions.js?v=20261019-preferred-source-editions-v1',
   './connected-ideas.js?v=20261021-pri-shabbos-oral-deferred-v2', './connected-ideas/catalog.json?v=20261021-pri-shabbos-oral-deferred-v2',
   './mafteach-search.js?v=20261102-mafteach-ask-v10',
-  './mafteach-panel.js?v=20261102-mafteach-inline-v6',
+  './mafteach-panel.js?v=20261102-mafteach-inline-v7',
   './icons/icon.svg', './icons/icon-192.png', './icons/icon-512.png', './icons/maskable-512.png',
   './icons/apple-touch-icon.png', './icons/favicon-32.png',
   './blog/', './blog/from-the-east/', './blog/from-the-east/shiur/', './blog/even-the-world-to-come/', './blog/even-the-world-to-come/shiur/', './blog/the-alchemy-of-the-soul/', './blog/the-alchemy-of-the-soul/read-pdf/', './blog/pdfs/the-alchemy-of-the-soul.pdf',

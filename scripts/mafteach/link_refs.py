@@ -35,6 +35,11 @@ CODES = {   # Mafteach sefer code -> (library book, section from the siman lette
     'קמ': ('kometz-haminchah', None), 'שמ': ('sichat-malakhei-hasharet', None), 'אז': ('ohr-zarua-latzadik', None),
     'מט': ('meshiv-hata-anah', None), 'מצ': ('meshiv-tzedek', None),
 }
+# checked against references whose quote fixes the passage (2026-11-02): siman letters do not match the library's
+# numbering in Sefer HaZichronos, and the references the first parse left unlinked in these sefarim are mostly OCR
+# misreadings; pages are too coarse in Kometz HaMincha (74% right) and Ohr Zarua (81%). Pages elsewhere: 93-100%.
+NO_LETTERS = {'סה', 'זכ', 'רל', 'צה', 'מח', 'תה', 'יק'}
+NO_PAGES = {'kometz-haminchah', 'ohr-zarua-latzadik'}
 LABEL = re.compile(r'^(..)-([א-ת"\'׳״]+)?\s*(?:\((\d+)(?:-\d+)?\))?(?:(\d+)(?:-(\d+))?)?')
 
 class Lib:
@@ -101,7 +106,7 @@ def run(entries, textdir, note, gem, pt_sections):
             if code:
                 slug, tmpl = CODES[code]
                 lets, page = m.group(2), m.group(3) or m.group(4)
-                if not r[1] and lets and tmpl and gem(lets):
+                if not r[1] and lets and tmpl and gem(lets) and code not in NO_LETTERS:
                     sec = tmpl.format(gem(lets))
                     if sec in lib.secs: setref(e, r, sec, 'letters: the siman is given in letters')
                 if r[1] and page: anchors[slug][int(page)][r[1]] += 1
@@ -127,7 +132,7 @@ def run(entries, textdir, note, gem, pt_sections):
     # pages: a page between two known pages of one section is in that section
     for e, r, slug, page in pageonly:
         A = anchors.get(slug)
-        if not A: continue
+        if not A or slug in NO_PAGES: continue
         pages = sorted(A)
         sec = None
         if page in A and len(A[page]) == 1: sec = next(iter(A[page]))
@@ -137,6 +142,28 @@ def run(entries, textdir, note, gem, pt_sections):
                 lo, hi = A[pages[i - 1]], A[pages[i]]
                 if len(lo) == 1 and lo.keys() == hi.keys(): sec = next(iter(lo))
         if sec and all(x[1] != sec for x in e['r']): setref(e, r, sec, 'pages: between two pages of this section')
+
+    # references to an os the library does not have ("בא פדיון" read as Bo 150, "הבדלה" as 46, misread numbers):
+    # a source entry is relinked where its quote is, otherwise the broken link is removed (the label stays)
+    valid = set(lib.secs)
+    try: valid |= {l.strip() for l in open('sources/mafteach/library-refs.txt', encoding='utf-8') if l.strip()}
+    except OSError: pass
+    for e in entries:
+        ps = pieces(e['t']) if e['x'] == 's' else []
+        for r in list(e['r']):
+            sec = r[1]
+            if not sec or sec in valid: continue
+            book = next((lib.book_of[x] for x in (re.sub(r' \d+$', ' 1', sec), re.sub(r' \d+$', '', sec)) if x in lib.book_of), None)
+            best = None
+            if book and len(ps) >= 2:
+                top = re.sub(r' \d+$', '', sec)
+                best = strong(lib.find(book, ps, within=top), .5) or strong(lib.find(book, ps), .75, .4)
+            if best and all(x[1] != best for x in e['r']):
+                note(e, 'links', 'ref', sec, best, f'quotes: the library has no {sec}; the quoted words are in {best}')
+                r[1] = best; stats['relinked'] += 1
+            else:
+                note(e, 'links', 'ref', sec, None, f'the library has no {sec} (label "{r[0]}"): link removed')
+                r[1] = None; stats['unlinked'] += 1
 
     # linked references of source entries: are the quoted words in the passage?
     for e in entries:

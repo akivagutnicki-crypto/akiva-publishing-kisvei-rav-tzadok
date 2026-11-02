@@ -9,7 +9,7 @@ A quote is cut into 7-letter pieces (letters only, so the OCR's run-together wor
   unverified    too short, not in these texts, or not found; left as printed
 Every entry gets e['vq'] = one of c / a / b / l / u / s (short) / n (no text) for the scorecard.
 """
-import gzip, json, re, bisect, collections
+import gzip, json, re, bisect, collections, os
 
 N = 6
 FINAL = str.maketrans('ךםןףץ', 'כמנפצ')
@@ -28,7 +28,26 @@ def pieces(t):
 ALIAS = {'Eichah Rabbah': 'Eikhah Rabbah', 'Shir HaShirim Rabbah': 'Shir HaShirim Rabbah', 'Esther Rabbah': 'Esther Rabbah'}
 HEB = {'תנחומא': 'Midrash Tanchuma', 'שוחר טוב': 'Midrash Tehillim', 'מדרש תהלים': 'Midrash Tehillim', 'פרקי דרבי אליעזר': 'Pirkei DeRabbi Eliezer',
        'פסיקתא רבתי': 'Pesikta Rabbati', 'פסיקתא דרב כהנא': 'Pesikta DeRav Kahana', 'תקוני זהר': 'Tikkunei Zohar', 'זהר חדש': 'Zohar Chadash',
-       'אבות דרבי נתן': 'Avot DeRabbi Natan', 'תנחומא בובר': 'Midrash Tanchuma Buber', 'ילקוט שמעוני': None}
+       'אבות דרבי נתן': 'Avot DeRabbi Natan', 'תנחומא בובר': 'Midrash Tanchuma Buber', 'ילקוט שמעוני': ['Yalkut Shimoni on Torah', 'Yalkut Shimoni on Nach'],
+       'ספרי': ['Sifrei Devarim', 'Sifrei Bamidbar'], 'מכילתא': ['Mekhilta DeRabbi Yishmael', 'Mekhilta DeRabbi Shimon Bar Yochai'],
+       'תורת כהנים': 'Sifra', 'ספרא': 'Sifra', 'ספר יצירה': 'Sefer Yetzirah', 'ספר המצוות': 'Sefer HaMitzvot', 'ספר המצות': 'Sefer HaMitzvot',
+       'טור וטולחן ערוך': 'Shulchan Arukh, *', 'טור ושולחן ערוך': 'Shulchan Arukh, *', 'שולחן ערוך': 'Shulchan Arukh, *',
+       'רמב"ם': 'Mishneh Torah, *', 'משנה תורה': 'Mishneh Torah, *', 'מדרש משלי': 'Midrash Mishlei', 'מדרש שמואל': 'Midrash Shmuel',
+       'סדר עולם': 'Seder Olam Rabbah', 'תנא דבי אליהו': ['Tanna DeBei Eliyahu Rabbah', 'Tanna DeBei Eliyahu Zuta']}
+# the Zohar's volumes by parasha (Sefaria's Zohar is arranged by parasha, not by daf)
+ZOHAR_VOL = {}
+for v, names in ((1, 'Hakdamat Zohar|Introduction|Bereshit|Noach|Lech Lecha|Vayera|Chayei Sara|Toldot|Vayetzei|Vayishlach|Vayeshev|Miketz|Vayigash|Vayechi'),
+                 (2, 'Shemot|Vaera|Bo|Beshalach|Yitro|Mishpatim|Terumah|Sifra DeTzniuta|Tetzaveh|Ki Tisa|Vayakhel|Pekudei'),
+                 (3, 'Vayikra|Tzav|Shmini|Tazria|Metzora|Achrei Mot|Kedoshim|Emor|Behar|Bechukotai|Bamidbar|Nasso|Idra Rabba|Beha\'alotcha|Shelach Lecha|Korach|Chukat|Balak|Pinchas|Idra Zuta|Matot|Vaetchanan|Eikev|Shoftim|Ki Teitzei|Vayeilech|Ha\'Azinu|V\'Zot HaBerachah')):
+    for n in names.split('|'): ZOHAR_VOL[n.lower()] = v
+def zohar_vol(unit):
+    head = unit.rsplit(' ', 1)[0].lower() if ' ' in unit else unit.lower()
+    for n, v in ZOHAR_VOL.items():
+        if head == n or head.startswith(n): return v
+    return None
+def he_norm(h):
+    h = re.sub(r'[^א-ת ]', '', h or '').strip()
+    return re.sub(r' (א|ב)י$', r' \1', h)                     # "דברי הימים אי": the OCR's א' 
 KIND = {'Tanakh': 'Tanakh', 'Bavli': 'Talmud/Bavli', 'Yerushalmi': 'Talmud/Yerushalmi', 'Midrash Rabbah': 'Midrash', 'Midrash': 'Midrash'}
 
 class Book:
@@ -79,17 +98,50 @@ def verify(entries, path, note):
     for e in entries:
         if e['x'] == 's' and e.get('k') and e.get('b'): he2en[e['b']][re.match(r'(.+) \S+$', e['k']).group(1)] += 1
     he2en = {h: c.most_common(1)[0][0] for h, c in he2en.items()}
+    try:
+        g = json.load(open(os.path.join(os.path.dirname(path) if False else 'sources/mafteach', 'glossary.json'), encoding='utf-8'))
+        for b in g.get('books', []):
+            for h in [b['he'], *(b.get('he_alt') or [])]: he2en.setdefault(he_norm(h), b['en'])
+    except Exception: pass
+    def names_for(e, k):
+        if k:
+            n = re.match(r'(.+) \S+$', k).group(1)
+            if re.match(r'^Zohar (I|II|III)$', n): return ['Zohar']
+            return [ALIAS.get(n, n)]
+        h = e.get('b') or ''
+        v = HEB.get(h) or HEB.get(he_norm(h)) or he2en.get(h) or he2en.get(he_norm(h))
+        v = v if isinstance(v, list) else [v] if v else []
+        out = []
+        for n in v:
+            if n.endswith(', *'): out += [b for b in books if b.startswith(n[:-1])]
+            else: out.append(ALIAS.get(n, n))
+        return out
     stats = collections.Counter()
     for e in entries:
         if e['x'] != 's': continue
         k = e.get('k') or ''
-        name = re.match(r'(.+) \S+$', k).group(1) if k else (HEB.get(e.get('b')) or he2en.get(e.get('b')))
-        name = ALIAS.get(name, name)
-        book = books.get(name)
-        if not book: e['vq'] = 'n'; stats['n'] += 1; continue
+        cands = [books[n] for n in names_for(e, k) if n in books]
+        if not cands: e['vq'] = 'n'; stats['n'] += 1; continue
         ps = pieces(e.get('t'))
         if len(ps) < 2: e['vq'] = 's'; stats['s'] += 1; continue
+        if len(cands) > 1:
+            scored = [(max(b.hits(ps).values() or [0]), b) for b in cands]
+            book = max(scored, key=lambda x: x[0])[1]
+        else: book = cands[0]
         sc = book.hits(ps)
+        if book.name == 'Zohar':                 # by daf in the index, by parasha in the text: check the quote and the volume
+            ranked = sorted(sc.items(), key=lambda x: -x[1])
+            vol = {'I': 1, 'II': 2, 'III': 3}.get((re.match(r'Zohar (I+)', k or '') or [None, None])[1])
+            if ranked and ranked[0][1] >= .5:
+                v = zohar_vol(ranked[0][0])
+                if vol and v and v != vol and (len(ranked) == 1 or ranked[1][1] < ranked[0][1] - .2 or zohar_vol(ranked[1][0]) != vol):
+                    note(e, 'texts', 'flag', k, f'Zohar, {ranked[0][0]}', f'the quote is in Zohar volume {v} ({ranked[0][0]}), not volume {vol}: check the daf')
+                    e['vq'] = 'z'; stats['z'] += 1
+                else:
+                    e['vq'] = 'c'; stats['c'] += 1
+                    if not vol: e['zp'] = f'Zohar, {ranked[0][0]}'
+            else: e['vq'] = 'u'; stats['u'] += 1
+            continue
         a = address(e, book) if k else None
         here = max(sc.get(a, 0), 0) if a else 0
         if a and book.cat == 'Talmud/Bavli': here = max(here, sc.get(other_amud(a) or '', 0) * .9)

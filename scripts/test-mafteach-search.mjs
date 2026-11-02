@@ -80,7 +80,8 @@ const wl = async q => (await A.whereToLook(q, await A.analyze(q))).map(x => x.re
 const gift = await wl('Why is Shabbos called a gift?');
 check(['Peri Tzadik, Shoftim 7', 'Peri Tzadik, Behar 17', 'Peri Tzadik, Masei 9'].filter(r => gift.slice(0, 5).includes(r)).length >= 2, `Shabbos as a gift: ${gift.slice(0, 5).join('; ')}`);
 check((await wl('למה נקרא שבת מתנה')).slice(0, 5).includes('Peri Tzadik, Behar 17'), 'the same question in Hebrew');
-check((await wl('what is the connection between Purim and Yom Kippur'))[0] === 'Resisei Layla 58', 'Purim and Yom Kippur');
+{ const pk = (await wl('what is the connection between Purim and Yom Kippur')).slice(0, 3);   // Purim 1 opens with the Midrash: Purim and Yom Kippur are never annulled
+  check(pk.includes('Peri Tzadik, Purim 1') && pk.includes('Resisei Layla 58'), `Purim and Yom Kippur: ${pk.join('; ')}`); }
 check((await wl('how can a person do teshuva for sins he does not remember')).includes('Tzidkat HaTzadik 99'), 'teshuvah for forgotten sins -> Tzidkat HaTzadik 99');
 check((await wl('why did Moshe break the luchos')).slice(0, 3).includes('Peri Tzadik, Ki Teitzei 11'), 'Moshe and the luchos');
 check(A.isQuestion('Why is Shabbos called a gift?') && !A.isQuestion('emunah'), 'questions recognized');
