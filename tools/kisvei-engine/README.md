@@ -59,6 +59,11 @@ citations each commentator attaches to each siman; those become additional gold 
   in the reader by its own words, so no citation is needed; passages under one sub-heading become thematic parallel
   pairs (`training/thematic/`), and each located paragraph gets the topic labels. The retrain reports a separate
   `thematic` score: these are the parallels that share no proof-text and no wording, the ranker's blind spot.
+- **Subject index** (`ingest-mafteach`, Sefer Mafteach le-Kitvei R. Tzadok HaKohen): ~9,500 one-line statements under
+  ~1,300 headwords, referenced to the old printed pages. Each is located by its wording (the bracketed Tzidkat siman
+  numbers are garbled by the OCR, and the wording wins every time they disagree); garbled abbreviations are mapped to
+  seforim from where their matches land. Gives the library-wide topic index
+  (`editorial/library-topic-index/topics.json`) and broad thematic pairs.
 - Measured with `python3 run.py footnote-memory data/live` (leave-one-sefer-out on the trusted footnotes).
 
 ## Measured performance (Tzidkat editorial master, superseded by the reports in models/) (held-out reviewed parallels, 97 queries)
