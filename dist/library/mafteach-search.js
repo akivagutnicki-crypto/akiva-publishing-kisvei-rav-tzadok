@@ -12,7 +12,7 @@
   else root.AkivaMafteachSearch = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this, function () {
   'use strict';
-  const VERSION = '20261102-mafteach-search-en-v2';
+  const VERSION = '20261102-mafteach-search-en-v3';
   let BASE = '../mcp-data/mafteach/';
   let PANEL_BASE = 'mafteach/';
   const memo = new Map();
@@ -111,15 +111,16 @@
       for (const a of [...(t.ashk || []), ...(t.sef || [])]) addAlias(a, t, 2.5);
       for (const a of t.en_alt || []) addAlias(a, t, 2);
     }
-    const sourceNames = new Map();
-    const addSource = (a, v) => { const k = /[א-ת]/.test(a) ? 'h:' + heKey(a) : 'l:' + skel(a); if (k.length > 3 && !sourceNames.has(k)) sourceNames.set(k, v); };
+    const sourceNames = new Map(), sourceAliases = new Map();
+    const addSource = (a, v) => {
+      const al = sourceAliases.get(v.title) || new Set(); al.add(/[א-ת]/.test(a) ? 'h:' + heKey(a) : 'v:' + translitKey(a)); sourceAliases.set(v.title, al); const k = /[א-ת]/.test(a) ? 'h:' + heKey(a) : 'l:' + skel(a); if (k.length > 3 && !sourceNames.has(k)) sourceNames.set(k, v); };
     for (const b of g.books) for (const a of [b.en, b.he, ...(b.he_alt || []), ...(b.variants || [])]) addSource(a, { title: b.en, kind: b.kind });
     for (const [en, alts] of Object.entries(RABBAH_EN)) for (const a of [en, ...alts]) addSource(a, { title: en, kind: 'rabbah' });
     for (const t of g.terms.filter(t => t.kind === 'source_book')) for (const a of [t.he, ...(t.he_raw || []), t.en, ...(t.en_alt || []), ...(t.ashk || []), ...(t.sef || [])]) {
       if (!a) continue;
       for (const v of [a, ...String(a).split(/\s*\/\s*/), String(a).replace(/^(midrash|sefer|the)\s+/i, '')]) if (v) addSource(v, { title: t.he, kind: 'named', term: t });
     }
-    return { raw: g, keys, sourceNames, byId: new Map(g.terms.map(t => [t.id, t])) };
+    return { raw: g, keys, sourceNames, sourceAliases, byId: new Map(g.terms.map(t => [t.id, t])) };
   }
   async function index() { if (!M) M = buildIndex(await loadMaf('glossary.json')); return M; }
 
@@ -264,13 +265,42 @@
     return found.map(x => {
       const al = [x.t.en, ...(x.t.en_alt || []), ...(x.t.ashk || []), ...(x.t.sef || [])].filter(Boolean);
       const exact = al.some(a => a.toLowerCase() === pl || a.toLowerCase() === pl + 's' || a.toLowerCase() + 's' === pl);
-      const tr = pk.length >= 3 && al.some(a => translitKey(a) === pk);
+      const tr = pk.length >= 3 && al.some(a => translitKey(a) === pk || (n === 1 && a.split(/\s+/).length <= 3 && translitKey(a.split(/\s+/)[0]) === pk));
       return { ...x, s: x.s + (exact ? 60 : tr ? 40 : 0), ok: exact || tr || (n > 1 && x.s >= 100) };
     }).filter(x => x.ok).sort((a, b) => b.s - a.s);
   }
+  // Misspellings: "Ishamel", "dYishamel" -> Ishmael. Compares the transliteration key of the word with each heading's
+  // names (and their first word: "Avraham" in "Avraham Avinu"), allowing about one slip per four letters.
+  function dist(a, b, max) {
+    if (Math.abs(a.length - b.length) > max) return max + 1;
+    const d = Array.from({ length: a.length + 1 }, (_, i) => [i, ...Array(b.length).fill(0)]);
+    for (let j = 1; j <= b.length; j++) d[0][j] = j;
+    for (let i = 1; i <= a.length; i++) for (let j = 1; j <= b.length; j++) {
+      d[i][j] = Math.min(d[i - 1][j] + 1, d[i][j - 1] + 1, d[i - 1][j - 1] + (a[i - 1] === b[j - 1] ? 0 : 1));
+      if (i > 1 && j > 1 && a[i - 1] === b[j - 2] && a[i - 2] === b[j - 1]) d[i][j] = Math.min(d[i][j], d[i - 2][j - 2] + 1);
+    }
+    return d[a.length][b.length];
+  }
+  function fuzzyTerms(M, phrase) {
+    const k = translitKey(phrase);
+    if (k.length < 4) return [];
+    const max = Math.max(1, Math.floor(k.length / 4));
+    const out = [];
+    for (const t of M.raw.terms) {
+      if (t.kind !== 'topic' || !t.n) continue;
+      let best = 99;
+      for (const a of [t.en, ...(t.en_alt || []), ...(t.ashk || []), ...(t.sef || [])]) {
+        if (!a) continue;
+        const words = a.split(/\s+/);
+        for (const c of words.length <= 3 ? [a, words[0]] : [a]) { const ck = translitKey(c); if (ck.length >= 3) best = Math.min(best, dist(k, ck, max)); }
+      }
+      if (best <= max) out.push({ t, s: 150 - 20 * best });
+    }
+    return out.sort((a, b) => b.s - a.s || b.t.n - a.t.n).slice(0, 6);
+  }
   // Find topics for a whole question: each phrase of 1-3 content words is matched to headings; topics that match more of the
   // question rank first. Returns [{t, score, words:Set}] best first.
-  function questionTopics(M, q) {
+  function questionTopics(M, q, { fuzzy = true } = {}) {
     const tok = tokens(q);
     const out = new Map();
     const note = (t, s, from, to) => {
@@ -288,6 +318,7 @@
         const isHe = /[א-ת]/.test(phrase);
         let found = findTerms(M, phrase, ['topic']).filter(x => x.t.n > 0);
         if (!isHe) found = gateLatin(found, phrase, n);
+        if (!isHe && !found.length && n === 1 && fuzzy) found = fuzzyTerms(M, phrase);
         const top = found.length ? found[0].s : 0;
         const min = isHe ? 100 : 90;
         for (const { t, s } of found.slice(0, 6)) if (s >= min && s >= top - 35) note(t, s + 15 * (n - 1), i, i + n);
@@ -298,8 +329,15 @@
   }
   // A pasuk/daf/midrash anywhere in the query: "what does Rav Tzadok say on Bereishis 2:7?"
   function findSourceIn(M, q) {
-    const whole = parseSource(M, q.replace(/[?!]+$/, ''));
-    if (whole && (whole.addr || whole.kind === 'named' || /^\S+(\s+\S+)?$/.test(q.trim()))) return { ...whole, span: q };
+    const bare = q.replace(/[?!]+$/, '').trim();
+    const whole = parseSource(M, bare);
+    const named = ps => {                              // "Ishmael" must not become Shmuel, nor "Moshe" Amos
+      const k = /[א-ת]/.test(bare) ? 'h:' + heKey(bare) : 'v:' + translitKey(bare.replace(/^(the\s+)?(book of\s+)?/i, ''));
+      if (ps.kind === 'named') return [ps.term.he, ...(ps.term.he_raw || []), ps.term.en, ...(ps.term.en_alt || []), ...(ps.term.ashk || []), ...(ps.term.sef || [])].filter(Boolean)
+        .some(a => (/[א-ת]/.test(a) ? 'h:' + heKey(a) : 'v:' + translitKey(a)) === k);
+      return (M.sourceAliases.get(ps.title) || new Set()).has(k);
+    };
+    if (whole && (whole.addr || named(whole))) return { ...whole, span: q };
     const words = q.replace(/[?!,;()"“”]+/g, ' ').split(/\s+/).filter(Boolean);
     for (let i = 0; i < words.length; i++) for (let j = Math.min(words.length, i + 6); j > i; j--) {
       const span = words.slice(i, j).join(' ');
@@ -320,11 +358,11 @@
     const query = String(q || '').trim();
     const source = findSourceIn(M, query);
     const parsha = findParsha(query);
-    const rest = source ? query.replace(source.span, ' ').replace(/\s+/g, ' ').trim() : query;
+    const rest = source && source.addr ? query.replace(source.span, ' ').replace(/\s+/g, ' ').trim() : query;
     let whole = rest ? findTerms(M, rest, ['topic']).filter(x => x.t.n > 0) : [];
     const weakAll = whole;
     if (rest && !/[א-ת]/.test(rest)) whole = gateLatin(whole, rest, tokens(rest).filter(x => x.keep).length);
-    let topics = rest ? questionTopics(M, rest) : [];
+    let topics = rest ? questionTopics(M, rest, { fuzzy: !source }) : [];
     // whole-query matches first when strong (an exact heading), then the question's topics
     const strongWhole = whole.filter(x => x.s >= 90).map(x => ({ t: x.t, score: x.s + 100, words: new Set(), best: x.s }));
     const seen = new Set(); const merged = [];
