@@ -1,0 +1,164 @@
+[
+ {
+  "id": "vol7-0012-039859",
+  "action": "fix_address",
+  "index_text": "וירא ה'וכוי התהלך לפני והיה תמים",
+  "was": "Genesis 68:1",
+  "correct": "Genesis 17:1",
+  "ref": "Peri Tzadik, Chayei Sara 3",
+  "quote": "באברהם אבינו ע\"ה כ' התהלך לפני והיה תמים",
+  "note": "Genesis has 50 chapters; the verse is Gen 17:1."
+ },
+ {
+  "id": "vol7-0187-042120",
+  "action": "fix_address",
+  "index_text": "אדם אחד מאלף מצאתי ואשה בכל אלה",
+  "was": "Ecclesiastes 6:28",
+  "correct": "Ecclesiastes 7:28",
+  "ref": "Peri Tzadik, Chayei Sara 3",
+  "quote": "אדם א' מאלף מצאתי זה אברהם. ואשה בכל אלא לא מצאתי זו שרה",
+  "note": "Ch. 6 has 12 verses; the verse is Koheles 7:28."
+ },
+ {
+  "id": "vol7-0477-045934",
+  "action": "fix_address",
+  "index_text": "אדסם זה אברהם ואשה בכל אלה לא מצאתי זו שרה",
+  "was": "Kohelet Rabbah 5:40",
+  "correct": "Kohelet Rabbah 7:28",
+  "ref": "Peri Tzadik, Chayei Sara 3",
+  "quote": "עפמ\"ש במדרש (קה\"ר ז) אדם א' מאלף מצאתי זה אברהם",
+  "note": "Verified on Sefaria: Kohelet Rabbah 7:28 (דבר אחר, אדם זה אברהם ... זו שרה); Rav Tzadok cites קה\"ר ז."
+ },
+ {
+  "id": "vol7-0409-045114",
+  "action": "fix_address",
+  "index_text": "לך טלילדותך וכוי תאמר עון",
+  "was": "Bereshit Rabbah 39:9",
+  "correct": "Bereshit Rabbah 39:8",
+  "ref": "Peri Tzadik, Chayei Sara 3",
+  "quote": "לך טל ילדותך מה טל זה פורח כו' מה הטל הזה סי' ברכה כו' וכמו ש' (ב\"ר פ' לט)",
+  "note": "Verified on Sefaria: the passage is 39:8; 39:9 is R. Levi on the two 'Lech Lecha's."
+ },
+ {
+  "id": "vol7-0413-045174",
+  "action": "fix_address",
+  "index_text": "למחר אומר לך שופך דם ... אין דור שאין בו כאברהם וכוי כיעקב וכוי כמשה",
+  "was": "Bereshit Rabbah 56:4",
+  "correct": "Bereshit Rabbah 56:7",
+  "ref": "Peri Tzadik, Chayei Sara 3",
+  "quote": "וכמו שנאמר בב\"ר (פ' נו) אין דור שאין בו כאברהם כו'",
+  "note": "Verified on Sefaria: אין דור שאין בו כאברהם is 56:7; the entry's opening words (שופך דם) are an OCR run-in from a neighboring line."
+ },
+ {
+  "id": "vol7-0608-047195",
+  "action": "fix_address",
+  "index_text": "דלית נהורא אלא ההוא דנפיק מגו חשוכא ... ולית טובא אלא מגו בישא",
+  "was": "הגדה של פסח קסו א",
+  "correct": "Zohar II 184a",
+  "ref": "Peri Tzadik, Chayei Sara 3",
+  "quote": "שיהא נהורא דנפיק מגו חשוכא (וכמו שאמרנו לך מא'ז)",
+  "note": "Zohar Tetzaveh (Sefaria: Zohar, Tetzaveh 10:86); Rav Tzadok himself cites it as ח\"ב קפד א in Pri Tzaddik, Lech Lecha 7. Book label is also wrong (Zohar, not Haggadah)."
+ },
+ {
+  "id": "vol7-0566-046661",
+  "action": "fix_book",
+  "index_text": "בכלהו לא כתיב כמה דכתיב בשרה דאתמר ויהיו חיי שרה מאה שנה",
+  "was": "הגדה של פסח קכב א",
+  "correct": "Zohar I 122a",
+  "ref": "Peri Tzadik, Chayei Sara 3",
+  "quote": "וכמו ש' בזוה\"ק (קכב א)",
+  "note": "Address right; book is the Zohar (Chayei Sarah; Sefaria: Zohar, Chayei Sara 3:14)."
+ },
+ {
+  "id": "vol7-0218-042531",
+  "action": "fix_book",
+  "index_text": "תלמידי חכמים אין להם מנוחה לא בעוה\"ז",
+  "was": "Shabbat 64a",
+  "correct": "Berakhot 64a",
+  "ref": "Peri Tzadik, Chayei Sara 3",
+  "quote": "דאי' (סוף ברכות) ת\"ח אין להם מנוחה לא בעוה\"ז ואל בעוה\"ב",
+  "note": "Verified: last lines of Berakhot 64a."
+ },
+ {
+  "id": "vol7-0218-042532",
+  "action": "fix_book",
+  "index_text": "ילכו מחיל אל חיל ובפירוש רש\"י מישיבה לישיבה",
+  "was": "Shabbat 64a",
+  "correct": "Rashi on Berakhot 64a",
+  "ref": "Peri Tzadik, Chayei Sara 3",
+  "quote": "ופירש\"י מישיבה לישיבה ממדרש למדרש",
+  "note": "Verified: Rashi Berakhot 64a s.v. אין להם מנוחה."
+ },
+ {
+  "id": "vol7-0293-043595",
+  "action": "fix_book",
+  "index_text": "ת\"ח אין להם מנוחה אפילו לעולם הבא",
+  "was": "Chagigah 29a",
+  "correct": "Moed Katan 29a",
+  "ref": "Peri Tzadik, Chayei Sara 3",
+  "quote": "ת\"ח אין להם מנוחה לא בעוה\"ז ואל בעוה\"ב שנ' ילכו מחיל אל חיל",
+  "note": "Chagigah ends at 27a; the wording 'אפילו לעולם הבא' is the end of Moed Katan 29a (verified). Rav Tzadok here cites the Berakhot version."
+ },
+ {
+  "id": "vol4-0085-020854",
+  "action": "move",
+  "index_text": "- חלוקתה לשבטים ע\"י יהושע",
+  "was": "Peri Tzadik, Chayei Sara 3",
+  "correct": "Peri Tzadik, Chayei Sara 5",
+  "ref": "Peri Tzadik, Chayei Sara 3",
+  "quote": "",
+  "note": "Chayei Sara 3 never mentions Joshua or the Land; Chayei Sara 5:2 does (ספר יהושע בלבד שערכה של א\"י ... שם בירר יהושע חלק כל א' מישראל). Likely ה misread as ג.",
+  "correct_ref": "Peri Tzadik, Chayei Sara 5"
+ },
+ {
+  "id": "vol5-0506-038382",
+  "action": "move",
+  "index_text": "לוקת א\"י לשבטיים ע\"י -",
+  "was": "Peri Tzadik, Chayei Sara 3",
+  "correct": "Peri Tzadik, Chayei Sara 5",
+  "ref": "Peri Tzadik, Chayei Sara 3",
+  "quote": "",
+  "note": "Same as the ארץ ישראל entry: belongs to Chayei Sara 5.",
+  "correct_ref": "Peri Tzadik, Chayei Sara 5"
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Psalms 37:18",
+  "ref": "Peri Tzadik, Chayei Sara 3",
+  "quote": "במ\"ר יודע ה' ימי תמימים וגו'",
+  "note": "The verse opening the Midrash is quoted; no Tehillim 37:18 entry for this os."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Avodah Zarah 27a",
+  "ref": "Peri Tzadik, Chayei Sara 3",
+  "quote": "כבר אמרו (ע\"ז כז.) דאשה כמאן דמהילא דמיא",
+  "note": "Verified on Sefaria; the index lists no Avodah Zarah 27a at all."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Peri Tzadik, Lech Lecha 7",
+  "ref": "Peri Tzadik, Chayei Sara 3",
+  "quote": "(וכמו שאמרנו לך מא'ז)",
+  "note": "Cross-reference to his own maamar (מא'ז = מאמר ז), verified: it treats לך טל ילדותך and נהורא דנפיק מגו חשוכא."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Mei HaShiloach I, Chayei Sarah (s.v. ויהיו חיי שרה)",
+  "ref": "Peri Tzadik, Chayei Sara 3",
+  "quote": "ושמעתי מרה\"ק זצוקללה\"ה שפי' כהדא עגלתא דבר עגול שא\"ל ראש וסוף",
+  "note": "The Izhbitzer's teaching, heard orally; printed form in Mei HaShiloach (verified)."
+ }
+]

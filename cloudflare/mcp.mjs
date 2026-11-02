@@ -1181,12 +1181,39 @@ async function mafFindTopic({ query, corpus, offset, limit, response_format }) {
   return out.join('\n');
 }
 
+// The Zohar by volume and daf, as the corrected part ז keys it: "Zohar I 128b", "Zohar 2 52b", "זהר ח"ג רנו ב", "זוהר חלק א קכח."
+const ZOHAR_RE = /^(?:zohar|zohar hakadosh|זהר|זוהר)\s*(?:vol(?:ume)?\.?\s*|part\s*|חלק\s*|ח['׳"״]?)?\s*(III|II|I|3|2|1|[אבג])['׳"״]?(?=\s|$|,)\s*,?\s*(.*)$/i;
+function zoharVolume(s) {
+  const m = String(s).trim().match(ZOHAR_RE);
+  if (!m) return null;
+  const v = { I: 1, II: 2, III: 3, 1: 1, 2: 2, 3: 3, 'א': 1, 'ב': 2, 'ג': 3 }[m[1].toUpperCase()] || { 'א': 1, 'ב': 2, 'ג': 3 }[m[1]];
+  return v ? { title: `Zohar ${'I'.repeat(v)}`, rest: m[2].trim() } : null;
+}
+
 // Split "Bereishis 2:7", "Berachos 6b", "שבת פח ב", "Zohar Bereshit" into a known source name and an address.
+// An address after a source name: digits "2:7", "88b", "6", or Hebrew numerals "ב ז", "פח ב"; '' for none, null if not an address.
+function parseAddr(rest, kind) {
+  if (!rest) return '';
+  const d = rest.match(/^(\d+)\s*([ab]|[:.]\s*(\d+))?\s*$/i);
+  if (d) return d[3] ? `${d[1]}:${d[3]}` : d[2] && /[ab]/i.test(d[2]) ? `${d[1]}${d[2].toLowerCase()}` : d[1];
+  if (!/^[א-ת"'׳״\s:.,]+$/.test(rest)) return null;
+  const tok = rest.replace(/[:.,]/g, ' ').split(/\s+/).filter(Boolean);
+  const a = gematria(tok[0]);
+  if (kind === 'shas' && tok[1] && /^(ע"?[אב]|[אב]|עמוד [אב])$/.test(tok.slice(1).join(' ').replace(/['׳״]/g, '"'))) return `${a}${/ב/.test(tok.slice(1).join(' ')) ? 'b' : 'a'}`;
+  if (kind === 'shas' && !tok[1] && /[.:]\s*$/.test(rest)) return `${a}${/:\s*$/.test(rest) ? 'b' : 'a'}`;
+  return tok[1] ? `${a}:${gematria(tok[1])}` : String(a);
+}
+
 function mafParseSource(M, input) {
   let s = String(input).trim().replace(/\s+/g, ' ').replace(/^(the\s+)?(book of\s+)?/i, '');
   let jt = false;
   if (/^(yerushalmi|jerusalem talmud|talmud yerushalmi|ירושלמי)\s+/i.test(s)) { jt = true; s = s.replace(/^(yerushalmi|jerusalem talmud|talmud yerushalmi|ירושלמי)\s+/i, ''); }
   s = s.replace(/^(bavli|talmud bavli|tb|בבלי)\s+/i, '');
+  const zv = zoharVolume(s);
+  if (zv) {
+    const a = parseAddr(zv.rest, 'shas');
+    if (a != null) return { title: zv.title, kind: 'shas', addr: a };
+  }
   const words = s.split(' ');
   for (let n = Math.min(words.length, 5); n >= 1; n--) {
     const name = words.slice(0, n).join(' '), rest = words.slice(n).join(' ').trim();
@@ -1195,15 +1222,8 @@ function mafParseSource(M, input) {
     const hit = M.sourceNames.get(key);
     if (!hit) continue;
     // address: digits "2:7", "88b", "6", or Hebrew numerals "ב ז", "פח ב", "פח:"
-    let addr = '';
-    const d = rest.match(/^(\d+)\s*([ab]|[:.]\s*(\d+))?\s*$/i);
-    if (d) addr = d[3] ? `${d[1]}:${d[3]}` : d[2] && /[ab]/i.test(d[2]) ? `${d[1]}${d[2].toLowerCase()}` : d[1];
-    else if (/^[א-ת"'׳״\s:.,]+$/.test(rest) && rest) {
-      const tok = rest.replace(/[:.,]/g, ' ').split(/\s+/).filter(Boolean);
-      const a = gematria(tok[0]);
-      if (hit.kind === 'shas' && tok[1] && /^(ע"?[אב]|[אב]|עמוד [אב])$/.test(tok.slice(1).join(' ').replace(/['׳״]/g, '"'))) addr = `${a}${/ב/.test(tok.slice(1).join(' ')) ? 'b' : 'a'}`;
-      else addr = tok[1] ? `${a}:${gematria(tok[1])}` : String(a);
-    } else if (rest) continue;
+    const addr = parseAddr(rest, hit.kind);
+    if (addr == null) continue;
     let title = hit.title;
     if (hit.kind === 'shas' && jt) title = `Jerusalem Talmud ${title}`;
     return { ...hit, title, addr };

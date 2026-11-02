@@ -1,0 +1,371 @@
+[
+ {
+  "id": "vol7-0371-044663",
+  "action": "fix_address",
+  "index_text": "ויוסף אברהם ויקח אשה ושמה לוחני וכוי קטורה",
+  "was": "Zevachim 2a",
+  "correct": "Zevachim 62b",
+  "ref": "Peri Tzadik, Chayei Sara 6",
+  "quote": "עפמ\"ש (זבחים סב:) קרי עלייהו בני קטורה",
+  "note": "R. Tarfon's nephews passage is on Zevachim 62b; index also OCRs יוחני as לוחני."
+ },
+ {
+  "id": "vol7-0374-044712",
+  "action": "fix_address",
+  "index_text": "אמרי ליה יוחנן וממרא למשה תבן אתה",
+  "was": "Menachot 36a",
+  "correct": "Menachot 85a",
+  "ref": "Peri Tzadik, Chayei Sara 6",
+  "quote": "והנה מצינו (מנחות פה.) א\"ל יוחנא וממרא",
+  "note": "Yochana and Mamre are on Menachot 85a."
+ },
+ {
+  "id": "vol7-0315-043898",
+  "action": "fix_address",
+  "index_text": "בתולה צליינית ואלמנה שובבית",
+  "was": "Sotah 22b",
+  "correct": "Sotah 22a",
+  "ref": "Peri Tzadik, Chayei Sara 6",
+  "quote": "ובגמ' (סוטה כב.) מצינו אלמנה שובבית כגון יוחני בת רטובי",
+  "note": "Sotah 22a (also Rashi there: אלמנה מכשפה)."
+ },
+ {
+  "id": "vol7-0192-042181",
+  "action": "fix_address",
+  "index_text": "ואתה מחיה את כלם וצבא השמים לך משתחוים",
+  "was": "Nehemiah 2:6",
+  "correct": "Nehemiah 9:6",
+  "ref": "Peri Tzadik, Chayei Sara 6",
+  "quote": "והיינו דכ' ואתה מחיה את כולם",
+  "note": "The verse is Nehemiah 9:6."
+ },
+ {
+  "id": "vol7-0523-046393",
+  "action": "fix_address",
+  "index_text": "כלעבדים שנמולו עם אברהם אבינו פרק פסקה",
+  "was": "פרקי דרבי אליעזר א",
+  "correct": "Pirkei DeRabbi Eliezer 29",
+  "ref": "Peri Tzadik, Chayei Sara 6",
+  "quote": "וכ\"כ (בפרדר\"א פ' כט) כל העבדים שנמולו עם אברהם לא נתקיימו",
+  "note": "PDRE 29 (Sefaria 29:9)."
+ },
+ {
+  "id": "vol7-0561-046594",
+  "action": "fix_book",
+  "index_text": "ביום השביעי דא תורה שבעל פה דאיהו יום שביעי",
+  "was": "הגדה של פסח מו ב",
+  "correct": "Zohar I 47b",
+  "ref": "Peri Tzadik, Chayei Sara 6",
+  "quote": "וכמו ש' (זח\"א מז ב) ביום השביעי דא תורה שבעל פה",
+  "note": "Zohar, not Haggadah; and 47b (as RT cites here and in Peri Tzadik, Parshat Parah 2), not 46b. Sefaria: Zohar, Bereshit 76:180."
+ },
+ {
+  "id": "vol7-0608-047195",
+  "action": "fix_book",
+  "index_text": "דלית נהורא אלא ההוא דנפיק מגו חשוכא ... ולית טובא אלא מגו בישא",
+  "was": "הגדה של פסח קסו א",
+  "correct": "Zohar II 184a",
+  "ref": "Peri Tzadik, Chayei Sara 6",
+  "quote": "ועדמ\"ש (בזוה\"ק ח\"ב קפד א) דלית נהורה אלא ההוא דנפקי מגו חשוכא",
+  "note": "Zohar II 184a (RT cites the same address in Parshat Parah 2)."
+ },
+ {
+  "id": "vol7-0568-046688",
+  "action": "fix_book",
+  "index_text": "דהא באינון הררי קדם אינון דאולפין חרשין",
+  "was": "הגדה של פסח קלג ב",
+  "correct": "Zohar I 133b",
+  "ref": "Peri Tzadik, Chayei Sara 6",
+  "quote": "דאי בזוה\"ק (סו\"פ זו קלג ב) דהא באינון הררי קדם",
+  "note": "Address right, book wrong. Sefaria: Zohar, Chayei Sara 26:264."
+ },
+ {
+  "id": "vol7-0005-039759",
+  "action": "fix_book",
+  "index_text": "וירא אלקים את כל אשר עשה והנה טוב מאוד ויהי ערב ויהי בקר יום השישי",
+  "was": "בראשית לא (no chapter)",
+  "correct": "Genesis 1:31",
+  "ref": "Peri Tzadik, Chayei Sara 6",
+  "quote": "וירא א' את כל אשה עשה והנה טוב מאד",
+  "note": "Unparsed address: chapter 1 verse 31."
+ },
+ {
+  "id": "vol7-0540-046533",
+  "action": "drop",
+  "index_text": "מי שרוצה לזכות בכתרה ... (Siddur/Zemiros block)",
+  "was": "פרה כג",
+  "correct": "",
+  "ref": "Peri Tzadik, Chayei Sara 6",
+  "quote": "",
+  "note": "OCR noise: thousands of words of Siddur text; nothing in this os."
+ },
+ {
+  "id": "vol7-0665-047848",
+  "action": "drop",
+  "index_text": "תיקון הקדמת תקוני זוהר פתח אליהו ... (long block)",
+  "was": "תקוני זהר (no address)",
+  "correct": "",
+  "ref": "Peri Tzadik, Chayei Sara 6",
+  "quote": "",
+  "note": "OCR noise block; replace with the two clean add_source entries below for Tikkunei Zohar intro 17a–b."
+ },
+ {
+  "id": "vol7-0015-039907",
+  "action": "move",
+  "index_text": "והיברך את אברהם בכל",
+  "was": "Genesis 24:1",
+  "correct": "Genesis 24:1",
+  "ref": "Peri Tzadik, Chayei Sara 6",
+  "correct_ref": "Peri Tzadik, Chayei Sara 7",
+  "quote": "ואחר כך כ' וה' ברך את אברהם בכל",
+  "note": "Not in Chayei Sara 6; the quoted words are in Chayei Sara 7."
+ },
+ {
+  "id": "vol7-0019-039949",
+  "action": "move",
+  "index_text": "מיאפוא הוא הצד ציד ויבא לי ואכל מכל",
+  "was": "Genesis 27:36",
+  "correct": "Genesis 27:33",
+  "ref": "Peri Tzadik, Chayei Sara 6",
+  "correct_ref": "Peri Tzadik, Chayei Sara 7",
+  "quote": "וביצחק כ' ואוכל מכל",
+  "note": "Not in Chayei Sara 6; the quoted words are in Chayei Sara 7."
+ },
+ {
+  "id": "vol7-0023-040006",
+  "action": "move",
+  "index_text": "כיחנניהיישליכל",
+  "was": "Genesis 33:11",
+  "correct": "Genesis 33:11",
+  "ref": "Peri Tzadik, Chayei Sara 6",
+  "correct_ref": "Peri Tzadik, Chayei Sara 7",
+  "quote": "ויעקב אע\"ה אמר וכי יש לי כל",
+  "note": "Not in Chayei Sara 6; the quoted words are in Chayei Sara 7."
+ },
+ {
+  "id": "vol7-0315-043899",
+  "action": "move",
+  "index_text": "לא תני פרוש מאהבה ובתוסי",
+  "was": "Sotah 22b",
+  "correct": "Sotah 22b (Tosafot, citing Yerushalmi Berakhot)",
+  "ref": "Peri Tzadik, Chayei Sara 6",
+  "correct_ref": "Peri Tzadik, Chayei Sara 7",
+  "quote": "ואי' בירושלמי (פ' הרואה הובא תוס' סוטה כב:) עשה מאהבה",
+  "note": "Not in Chayei Sara 6; the quoted words are in Chayei Sara 7."
+ },
+ {
+  "id": "vol7-0388-044893",
+  "action": "move",
+  "index_text": "אייהבת לי לבך ועיניך אנא ידע דאת",
+  "was": "ברכות ה",
+  "correct": "Yerushalmi Berakhot (address to verify)",
+  "ref": "Peri Tzadik, Chayei Sara 6",
+  "correct_ref": "Peri Tzadik, Chayei Sara 7",
+  "quote": "אי יהבת לי לבך ועיניך אנא ידע דאת לי",
+  "note": "Not in Chayei Sara 6; the quoted words are in Chayei Sara 7."
+ },
+ {
+  "id": "vol7-0389-044907",
+  "action": "move",
+  "index_text": "עשה מאהבה שאם באת לשנוא דע כי אתה אוהב ואין אוהב שונא",
+  "was": "ברכות ה",
+  "correct": "Yerushalmi Berakhot 9 (via Tosafot Sotah 22b)",
+  "ref": "Peri Tzadik, Chayei Sara 6",
+  "correct_ref": "Peri Tzadik, Chayei Sara 7",
+  "quote": "עשה מאהבה שאם באת לשנוא דע שאתה אוהבו",
+  "note": "Not in Chayei Sara 6; the quoted words are in Chayei Sara 7."
+ },
+ {
+  "id": "vol7-0467-045824",
+  "action": "move",
+  "index_text": "ישקני מנשיקות ... מיד חזר יצר הרע למקומו",
+  "was": "Shir HaShirim Rabbah 1:15",
+  "correct": "Shir HaShirim Rabbah 1 (on ישקני)",
+  "ref": "Peri Tzadik, Chayei Sara 6",
+  "correct_ref": "Peri Tzadik, Chayei Sara 7",
+  "quote": "ומ\"מ אחר כך חזר יצר הרע למקומו כמו ש' (שהש\"ר פ' ישקני)",
+  "note": "Not in Chayei Sara 6; the quoted words are in Chayei Sara 7."
+ },
+ {
+  "id": "vol7-0563-046616",
+  "action": "move",
+  "index_text": "לךלך לגרמך וכוי לאתקנא דילך",
+  "was": "הגדה של פסח סב ב",
+  "correct": "Zohar (address to verify)",
+  "ref": "Peri Tzadik, Chayei Sara 6",
+  "correct_ref": "Peri Tzadik, Chayei Sara 7",
+  "quote": "ונאמר לאברהם לך לך לאתקנא גרמך",
+  "note": "Not in Chayei Sara 6; the quoted words are in Chayei Sara 7."
+ },
+ {
+  "id": "vol7-0637-047542",
+  "action": "move",
+  "index_text": "נהירין אנפוהי דעתיק באנפוהי",
+  "was": "הגדה של פסח קכד ב",
+  "correct": "Zohar III 136b (Idra Rabba)",
+  "ref": "Peri Tzadik, Chayei Sara 6",
+  "correct_ref": "Peri Tzadik, Chayei Sara 7",
+  "quote": "ועדמ\"ש (אד\"ר קלו ב) נהירין אנפוהי דעתיק יומין",
+  "note": "Not in Chayei Sara 6; the quoted words are in Chayei Sara 7."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Job 8:7",
+  "ref": "Peri Tzadik, Chayei Sara 6",
+  "quote": "זש\"ה והיה ראשיתך מצער ואחריתך ישגה מאד",
+  "note": "The verse the Tanchuma expounds."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Rashi on Zevachim 62b",
+  "ref": "Peri Tzadik, Chayei Sara 6",
+  "quote": "ופירש\"י בני אברהם אתם אבל לא כזרע יצחק ויעקב",
+  "note": "Rashi s.v. בני קטורה."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Avodah Zarah 3b",
+  "ref": "Peri Tzadik, Chayei Sara 6",
+  "quote": "שיהיו גרים גרורים",
+  "note": "Term גרים גרורים."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Rashi on Menachot 85a",
+  "ref": "Peri Tzadik, Chayei Sara 6",
+  "quote": "פירש\"י ראשי מכשפים של מצרים",
+  "note": "Cited by RT."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Rashi on Sotah 22a",
+  "ref": "Peri Tzadik, Chayei Sara 6",
+  "quote": "ופירש\"י אלמנה מכשפה",
+  "note": "Rashi: יוחני בת רטיבי – אלמנה מכשפה היתה."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "I Kings 5:10",
+  "ref": "Peri Tzadik, Chayei Sara 6",
+  "quote": "והנה כ' ותרב חכמת שלמה מחכמת כל בני קדם ומכל חכמת מצרים",
+  "note": "Printed index has the verse at part ז p.99 with 'חיי שרה-ו' garbled into the text, so the ref is not linked."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Genesis 1:20",
+  "ref": "Peri Tzadik, Chayei Sara 6",
+  "quote": "שנזכר בתורה ראשונה לשון נפש חיה",
+  "note": "First use of נפש חיה (fish)."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Bereshit Rabbah 61:4",
+  "ref": "Peri Tzadik, Chayei Sara 6",
+  "quote": "וקטורה אף שהיתה צנועה במעשי' כמו ש' במדרש ... זו הגר",
+  "note": "Keturah = Hagar, kept herself chaste."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Genesis 16:1",
+  "ref": "Peri Tzadik, Chayei Sara 6",
+  "quote": "זו הגר שהיתה שפחה מצרית",
+  "note": "שפחה מצרית ושמה הגר."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Sanhedrin 59b",
+  "ref": "Peri Tzadik, Chayei Sara 6",
+  "quote": "וכן מצינו (סנהדרין נט:) לענין מילה לרבות בני קטורה",
+  "note": "Includes Rashi: אותם ששה לבדם ולא זרעם."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Mishneh Torah, Kings and Wars 10:8",
+  "ref": "Peri Tzadik, Chayei Sara 6",
+  "quote": "הרמב\"ם (פרק י מה' מלכים) פסק שכל זרעם חייבין במילה",
+  "note": "Sons of Keturah obligated in milah."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Genesis 12:5",
+  "ref": "Peri Tzadik, Chayei Sara 6",
+  "quote": "שכל הנפש אשר עשו בחרן",
+  "note": "Cited verse."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Isaiah 59:21",
+  "ref": "Peri Tzadik, Chayei Sara 6",
+  "quote": "ודברי היינו תורה שבעל פה דברי אשר שמתי בפיך",
+  "note": "Cited verse."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Tikkunei Zohar, Introduction 17a-b",
+  "ref": "Peri Tzadik, Chayei Sara 6",
+  "quote": "וכ\"כ בהקדמת תקו\"ז וכד אתנטילת מגבורה אתקריאת תורה שבעל פה",
+  "note": "Replaces the OCR block."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Tikkunei Zohar, Introduction 17a",
+  "ref": "Peri Tzadik, Chayei Sara 6",
+  "quote": "והיינו מלכות פה תורה שבעל פה",
+  "note": "Replaces the OCR block."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Ecclesiastes 1:18",
+  "ref": "Peri Tzadik, Chayei Sara 6",
+  "quote": "שהוא הרב חכמה לתקן הרב כעס",
+  "note": "כי ברב חכמה רב כעס."
+ }
+]

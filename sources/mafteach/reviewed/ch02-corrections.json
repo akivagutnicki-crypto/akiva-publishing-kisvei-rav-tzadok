@@ -1,0 +1,409 @@
+[
+ {
+  "id": "vol7-0124-041324",
+  "action": "fix_address",
+  "index_text": "ברשייידייה אביך: אברהם ושרה משם נטלו גדולתם",
+  "was": "יחזקאל ג",
+  "correct": "Rashi on Ezekiel 16:3",
+  "ref": "Peri Tzadik, Chayei Sara 2",
+  "quote": "ובפיר\"ש (יחזקאל) אברהם ושרה משם נטלו גדולתם ובני חת נתנו לה קבר",
+  "note": "Verified on Sefaria: Rashi Ezek. 16:3 ד\"ה אביך ואמך."
+ },
+ {
+  "id": "vol7-0192-042181",
+  "action": "fix_address",
+  "index_text": "ואתה מחיה את כלם וצבא השמים לך משתחוים",
+  "was": "Nehemiah 2:6",
+  "correct": "Nehemiah 9:6",
+  "ref": "Peri Tzadik, Chayei Sara 2",
+  "quote": "דכ' ואתה מחי' את כולם",
+  "note": "The verse is Neh. 9:6."
+ },
+ {
+  "id": "vol7-0558-046565",
+  "action": "fix_book",
+  "index_text": "א=| ענגרית עדן נהר גו",
+  "was": "הגדה של פסח ח כ",
+  "correct": "Zohar I 26a",
+  "ref": "Peri Tzadik, Chayei Sara 2",
+  "quote": "דג' סעודות שבת ברזא דענג עדן נהר גן כמו ש' (זח\"א כו א)",
+  "note": "Zohar, not Haggadah; page garbled in OCR. Address per Rav Tzadok here and in Chayei Sara 1."
+ },
+ {
+  "id": "vol7-0566-046667",
+  "action": "fix_book",
+  "index_text": "מאבהן עילאין רזא דואייו",
+  "was": "הגדה של פסח קכד ב",
+  "correct": "Zohar I 124b",
+  "ref": "Peri Tzadik, Chayei Sara 2",
+  "quote": "בזוה\"ק פ' זו (קכד ב) מאבהן עלאין רזא דוא\"ו",
+  "note": "Label only; page correct."
+ },
+ {
+  "id": "vol7-0567-046672",
+  "action": "fix_book",
+  "index_text": "קפסו דהוה סליק ריחין עילאין וחמא נהורא דנפיק",
+  "was": "הגדה של פסח קכה ב",
+  "correct": "Zohar I 127b",
+  "ref": "Peri Tzadik, Chayei Sara 2",
+  "quote": "ואמר (שם ע\"ב) דהוה סליק ריחין עלאין וחמא נהורא דנפיק מגו מערתא",
+  "note": "Label and page: 127b per Rav Tzadok (after קכז א), Pri Tzaddik Bo 4 (ח\"א קכז ב), Shekalim 6, Shem MiShmuel CS 5:5 (קכז:)."
+ },
+ {
+  "id": "vol7-0567-046674",
+  "action": "fix_book",
+  "index_text": "ויקם השדה קימה ממש הוה ליה מה דלא הוה",
+  "was": "הגדה של פסח קנח א",
+  "correct": "Zohar I 128a",
+  "ref": "Peri Tzadik, Chayei Sara 2",
+  "quote": "ואי' בזוה\"ק (קכח א) קימה ממש הוה לי' מה דלא הו\"ל עד השתא",
+  "note": "Label and page (OCR כ→נ). 128a confirmed in Pri Tzaddik Bo 4."
+ },
+ {
+  "id": "vol7-0567-046679",
+  "action": "fix_book",
+  "index_text": "ואברהם זקן בא בימים באינון יומין עילאין אשדה המכפלה ודאי מאן מכפלה הי דבשמא קדישא",
+  "was": "הגדה של פסח קכט א",
+  "correct": "Zohar I 129a",
+  "ref": "Peri Tzadik, Chayei Sara 2",
+  "quote": "ואברהם זקן בא בימים באינון יומין עלאין ... ה' דבשמא קדישא דאיהו מכפלה",
+  "note": "Label only; page correct (also in Chayei Sara 1 and Shekalim 6)."
+ },
+ {
+  "id": "vol7-0568-046682",
+  "action": "fix_book",
+  "index_text": "ונחית לון קובייה ויקרי לון בשמהן",
+  "was": "הגדה של פסח קלא א",
+  "correct": "Zohar I 131a",
+  "ref": "Peri Tzadik, Chayei Sara 2",
+  "quote": "בזוה\"ק פ' זו (קלא א) ... ונחית לון קוב\"ה ויקרי לון בשמהן",
+  "note": "Label only."
+ },
+ {
+  "id": "vol7-0570-046715",
+  "action": "fix_book",
+  "index_text": "כריח השדה אשר ברכו הי וכוי שדה דאבהו",
+  "was": "הגדה של פסח קמב ב",
+  "correct": "Zohar I 142b",
+  "ref": "Peri Tzadik, Chayei Sara 2",
+  "quote": "שדה המכפלה נקרא שדה אשר ברכו ה' וכמו ש' בזוה\"ק",
+  "note": "Label is certainly Zohar. Page 142b not checked against a Zohar; Rav Tzadok's own referent (per Chayei Sara 1) is the passage just before I 129a (I 128b)."
+ },
+ {
+  "id": "vol7-0574-046771",
+  "action": "fix_book",
+  "index_text": "ודיוקנא חדא להו וכוי תולדות יעקב יוסף",
+  "was": "הגדה של פסח קסח ב",
+  "correct": "Zohar I 176b",
+  "ref": "Peri Tzadik, Chayei Sara 2",
+  "quote": "ויעקב ויוסף כחדא אינין כמו ש' (זח\"א קעו ב)",
+  "note": "Label certain; page per Rav Tzadok's citation (176b) differs from the index (168b) and was not checked in a Zohar edition."
+ },
+ {
+  "id": "vol7-0589-046982",
+  "action": "fix_book",
+  "index_text": "ואוליפנא דקבייה תורה איקרי וכוי ואין תורה אלא הקבייה",
+  "was": "הגדה של פסח סא",
+  "correct": "Zohar II 60a",
+  "ref": "Peri Tzadik, Chayei Sara 2",
+  "quote": "קוב\"ה תורה איקרי (זח\"ב ס ע\"א)",
+  "note": "Label and page; 60a also in Pri Tzaddik Lag BaOmer 6 (בשלח ס' עא)."
+ },
+ {
+  "id": "vol7-0610-047219",
+  "action": "fix_book",
+  "index_text": "שבת וכוי מתעטרא איהי באבהן ... רזא דתלת אבהו",
+  "was": "הגדה של פסח קפט א",
+  "correct": "Zohar II 204a",
+  "ref": "Peri Tzadik, Chayei Sara 2",
+  "quote": "וזהו מ\"ש (זח\"ב רד א) שבת ש' רזא דתלת אבהן דמתאחדן בבת יחידה",
+  "note": "Label and page; text located in Zohar Vayakhel (13:180), which spans II 194b-220a; Rav Tzadok gives רד א in several places."
+ },
+ {
+  "id": "vol7-0616-047288",
+  "action": "fix_book",
+  "index_text": "עשרה למעשה בראשית עשרה למתן תורה",
+  "was": "הגדה של פסח יא ב",
+  "correct": "Zohar III 11b",
+  "ref": "Peri Tzadik, Chayei Sara 2",
+  "quote": "עשרה למעשה בראשית עשרה למ\"ת כמ\"ש (זח\"ג יא ב)",
+  "note": "Label only."
+ },
+ {
+  "id": "vol7-0644-047635",
+  "action": "fix_book",
+  "index_text": "בתרין ווייין וכוי דא עוג דאתדבק באברהם",
+  "was": "הגדה של פסח קפד א",
+  "correct": "Zohar III 184a",
+  "ref": "Peri Tzadik, Chayei Sara 2",
+  "quote": "ובזוה\"ק (ח\"ג קפד א) אותו בתרי ווין ... דא עוג דאתדבק באברהם",
+  "note": "Label only."
+ },
+ {
+  "id": "vol7-0653-047742",
+  "action": "fix_book",
+  "index_text": "גוףוברית חשבינן חד",
+  "was": "הגדה של פסח רל א",
+  "correct": "Zohar III 242b",
+  "ref": "Peri Tzadik, Chayei Sara 2",
+  "quote": "גוף וברית חשבינן חד (זח\"ג רמב ב)",
+  "note": "Label and page: Ra'aya Mehemna, Pinchas 242b (Rav Tzadok here and in Ki Teitzei 9: רע\"מ פנחס רמ\"ב ב; located in Zohar Pinchas 71:450)."
+ },
+ {
+  "id": "vol7-0656-047780",
+  "action": "fix_book",
+  "index_text": "שכינתא אתקריאת שבת מסטרא דתלת",
+  "was": "הגדה של פסח רט א",
+  "correct": "Zohar III 257a",
+  "ref": "Peri Tzadik, Chayei Sara 2",
+  "quote": "ברע\"מ (זח\"ג רנז א) שכינתא אתקיראת שבת מסטרא דתלת דרגין",
+  "note": "Label and page: Ra'aya Mehemna 257a (also Vayetzei 4:2); text located at Zohar Pinchas 123:854, end of Pinchas; III 209a is Balak."
+ },
+ {
+  "id": "vol7-0656-047781",
+  "action": "fix_book",
+  "index_text": "שיגי כתרין כתר חכמה ובינה",
+  "was": "הגדה של פסח רט א",
+  "correct": "Zohar III 257a",
+  "ref": "Peri Tzadik, Chayei Sara 2",
+  "quote": "ש' ג' כתרין כתר חכמה ובינה ואיהי בת רביעאה לון",
+  "note": "Same passage as the previous entry."
+ },
+ {
+  "id": "vol7-0661-047841",
+  "action": "fix_book",
+  "index_text": "מאן עדן דא חכמה עילאה",
+  "was": "הגדה של פסח רצ ב",
+  "correct": "Zohar III 290b",
+  "ref": "Peri Tzadik, Chayei Sara 2",
+  "quote": "ובזוה\"ק (ח\"ג רצ ב) אי' מאן עדן חכמה עלאה",
+  "note": "Label only."
+ },
+ {
+  "id": "vol7-0218-042531",
+  "action": "move",
+  "index_text": "תלמידי חכמים אין להם מנוחה לא בעוה\"ז",
+  "was": "Shabbat 64a",
+  "correct": "Berakhot 64a",
+  "ref": "Peri Tzadik, Chayei Sara 2",
+  "quote": "(not in this os) Chayei Sara 3: דאי' (סוף ברכות) ת\"ח אין להם מנוחה",
+  "note": "Belongs to Chayei Sara 3; source is end of Berakhot (64a), not Shabbat.",
+  "correct_ref": "Peri Tzadik, Chayei Sara 3"
+ },
+ {
+  "id": "vol7-0293-043595",
+  "action": "move",
+  "index_text": "תייח אין להם מנוחה אפילו לעולם הבא",
+  "was": "Chagigah 29a",
+  "correct": "Moed Katan 29a",
+  "ref": "Peri Tzadik, Chayei Sara 2",
+  "quote": "(not in this os) Chayei Sara 3: ת\"ח אין להם מנוחה לא בעוה\"ז ואל בעוה\"ב",
+  "note": "Belongs to Chayei Sara 3; the parallel source is Moed Katan 29a (also Berakhot 64a).",
+  "correct_ref": "Peri Tzadik, Chayei Sara 3"
+ },
+ {
+  "id": "vol7-0365-044586",
+  "action": "move",
+  "index_text": "דאשה כמאן דמהילה דמיא",
+  "was": "Avodah Zarah 19a",
+  "correct": "Avodah Zarah 27a",
+  "ref": "Peri Tzadik, Chayei Sara 2",
+  "quote": "(not in this os) Chayei Sara 3: כבר אמרו (ע\"ז כז.) דאשה כמאן דמהילא דמיא",
+  "note": "Belongs to Chayei Sara 3; address is 27a.",
+  "correct_ref": "Peri Tzadik, Chayei Sara 3"
+ },
+ {
+  "id": "vol7-0528-046431",
+  "action": "drop",
+  "index_text": "ילקוט שמעוני ... קב - כמה דיות משתפכות כדי לכתוב בני חת עשרה פעמים ...",
+  "was": "ילקוט שמעוני (garbled block)",
+  "ref": "Peri Tzadik, Chayei Sara 2",
+  "quote": "ובמ\"ר (פ' נח) כמה דיות כו' לכתוב בני חת עשרה פעמים",
+  "note": "OCR noise (whole Yalkut index merged); the relevant item is replaced by add_source Bereshit Rabbah 58:8 below."
+ },
+ {
+  "id": "vol7-0540-046533",
+  "action": "drop",
+  "index_text": "פרה כג ... סדור ... קריבו שושבינין ...",
+  "was": "פרה כג (garbled Siddur block)",
+  "ref": "Peri Tzadik, Chayei Sara 2",
+  "quote": "וכמו שאמרנו במ\"ש קריבו שושבינין",
+  "note": "OCR noise (whole Siddur index merged); relevant item is the zemer Asader."
+ },
+ {
+  "id": "vol7-0665-047848",
+  "action": "drop",
+  "index_text": "תיקון הקדמת תקוני זוהר ... חמש לגו חמש ... דלית עדן אלא כתר עליון ...",
+  "was": "תקוני זהר (garbled block, listed twice under the same id)",
+  "ref": "Peri Tzadik, Chayei Sara 2",
+  "quote": "בהקדמת תקו\"ז חמש לגו חמש ... בתיקונים (תי' נה) דלית עדן אלא כ\"ע",
+  "note": "OCR noise; duplicated. Replace with clean add_source entries for Tikkunei Zohar Hakdamah and Tikkun 55 once verified in a printed edition."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "אביך האמורי ואמך חתית",
+  "was": null,
+  "correct": "Ezekiel 16:3",
+  "ref": "Peri Tzadik, Chayei Sara 2",
+  "quote": "לך אמור להם לישראל אביך האמורי ואמך חתית",
+  "note": "Quoted via Sanhedrin 44b; Mafteach has no entry for Ezek. 16:3."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "ופירש\"י תרח ואבותיו מכנען באו",
+  "was": null,
+  "correct": "Rashi on Sanhedrin 44b",
+  "ref": "Peri Tzadik, Chayei Sara 2",
+  "quote": "ופירש\"י תרח ואבותיו מכנען באו ע\"ש",
+  "note": "Verified: Rashi Sanh. 44b ד\"ה אביך האמורי."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "כמה דיות ... לכתוב בני חת עשרה פעמים כנגד עשרת הדברות",
+  "was": null,
+  "correct": "Bereshit Rabbah 58:8",
+  "ref": "Peri Tzadik, Chayei Sara 2",
+  "quote": "ובמ\"ר (פ' נח) כמה דיות כו' לכתוב בני חת עשרה פעמים",
+  "note": "Verified on Sefaria (BR 58:8)."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "ויקם דהוה נפילה וקמת",
+  "was": null,
+  "correct": "Bereshit Rabbah 58:8",
+  "ref": "Peri Tzadik, Chayei Sara 2",
+  "quote": "וכן אי' בב\"ר ויקם דהוה נפילה וקמת",
+  "note": "Verified on Sefaria (BR 58:8)."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "ואברהם זקן בא בימים",
+  "was": null,
+  "correct": "Genesis 24:1",
+  "ref": "Peri Tzadik, Chayei Sara 2",
+  "quote": "כמש\"נ ואברהם זקן בא בימים",
+  "note": "Pasuk quoted directly."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "שדה אשר ברכו ה'",
+  "was": null,
+  "correct": "Genesis 27:27",
+  "ref": "Peri Tzadik, Chayei Sara 2",
+  "quote": "שדה המכפלה נקרא שדה אשר ברכו ה'",
+  "note": "Pasuk words quoted (twice)."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "פחד יצחק",
+  "was": null,
+  "correct": "Genesis 31:42",
+  "ref": "Peri Tzadik, Chayei Sara 2",
+  "quote": "ויצחק שמדתו פחד יצחק",
+  "note": "Pasuk words quoted."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "ולשרה בן",
+  "was": null,
+  "correct": "Genesis 18:14",
+  "ref": "Peri Tzadik, Chayei Sara 2",
+  "quote": "כתיב ולשרה בן",
+  "note": "Pasuk quoted twice."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "אשה יראת ה'",
+  "was": null,
+  "correct": "Proverbs 31:30",
+  "ref": "Peri Tzadik, Chayei Sara 2",
+  "quote": "והאם מכנסת בלב הבן היראה. אשה יראת ה'",
+  "note": "Pasuk quoted."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "לכלם בשם יקרא",
+  "was": null,
+  "correct": "Isaiah 40:26",
+  "ref": "Peri Tzadik, Chayei Sara 2",
+  "quote": "כד\"א לכלם בשם יקרא",
+  "note": "Pasuk quoted (within the Zohar)."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "עשרה מאמרות",
+  "was": null,
+  "correct": "Pirkei Avot 5:1",
+  "ref": "Peri Tzadik, Chayei Sara 2",
+  "quote": "ועשרה מאמרות כנגד ע\"ס",
+  "note": "Verified on Sefaria."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "עשרה אני יודע עשרה דבריא",
+  "was": null,
+  "correct": "Passover Haggadah, Echad Mi Yodea",
+  "ref": "Peri Tzadik, Chayei Sara 2",
+  "quote": "כמו ש' עשרה אני יודע עשרה דבריא",
+  "note": "Quoted directly; Rav Tzadok cites the same in Lag BaOmer 6 (באגש\"פ)."
+ },
+ {
+  "id": null,
+  "action": "add_topic",
+  "index_text": "שבת - מוסף שבת כנגד קדושת יוסף",
+  "was": null,
+  "correct": "topic: שבת / יוסף",
+  "ref": "Peri Tzadik, Chayei Sara 2",
+  "quote": "ומוסף שבת נחשב בזוה\"ח (תולדות) כנגד קדושת יוסף",
+  "note": "Theme stated explicitly; not indexed for this os (also in Ki Teitzei 9)."
+ },
+ {
+  "id": null,
+  "action": "add_topic",
+  "index_text": "יחזקאל - אביך האמורי ואמך חתית: אברהם ושרה הוציאו הקדושה מהאמורי ומבני חת",
+  "was": null,
+  "correct": "topic: אברהם אבינו / שרה אמנו",
+  "ref": "Peri Tzadik, Chayei Sara 2",
+  "quote": "ואמר אביך האמורי כנגד אברהם אבינו ע\"ה שהוציא הקדושה והחיות מהם",
+  "note": "Central derashah of the os; topics index only the Sarah half and Og."
+ },
+ {
+  "id": "vol4-0020-019690",
+  "action": "drop",
+  "index_text": "מה שאצל ה - בכח יוצא לפועל בבו",
+  "was": "topic אב",
+  "ref": "Peri Tzadik, Chayei Sara 2",
+  "quote": "(not in this os)",
+  "note": "The text says the father endows Chochmah and the mother yirah; nothing about potential becoming actual in the son."
+ },
+ {
+  "id": "vol4-0170-022447",
+  "action": "drop",
+  "index_text": "י\" ספירות כנגד י' - מאדה\"ר וכנגד דברות",
+  "was": "topic דורות",
+  "ref": "Peri Tzadik, Chayei Sara 2",
+  "quote": "וכן מצינו עשרה למעשה בראשית עשרה למ\"ת ... ועשרה מאמרות כנגד ע\"ס",
+  "note": "The ten generations from Adam are not mentioned in this os."
+ },
+ {
+  "id": "vol4-0540-029146",
+  "action": "drop",
+  "index_text": "י' - כנגד י' דורות מאדה\"ר וכנגד דברות",
+  "was": "topic ספירות",
+  "ref": "Peri Tzadik, Chayei Sara 2",
+  "quote": "(same)",
+  "note": "Same as the previous entry; the ten generations from Adam are not in this os."
+ }
+]

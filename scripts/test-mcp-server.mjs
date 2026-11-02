@@ -189,6 +189,12 @@ for (const src of ['Bereishis 2:7', 'Genesis 2:7', 'בראשית ב ז']) {
   js = JSON.parse(t.text);
   check(js.source === 'Genesis 2:7' && js.entries.some(e => e.refs.some(r => r.ref === 'Peri Tzadik, Vayera 1')), `mafteach_lookup_source "${src}"`);
 }
+// the Zohar by volume and daf (part ז, corrected from the OCR's "Haggadah" heading)
+for (const src of ['Zohar I 128b', 'זהר ח"א קכח ב']) {
+  t = await tool('mafteach_lookup_source', { source: src, response_format: 'json' });
+  js = JSON.parse(t.text);
+  check(js.source === 'Zohar I 128b' && js.entries.length > 0, `mafteach_lookup_source "${src}"`);
+}
 t = await tool('mafteach_lookup_source', { source: 'Berachos 6b', response_format: 'json' });
 js = JSON.parse(t.text);
 check(js.source === 'Berakhot 6b' && js.total > 10, 'mafteach_lookup_source daf');

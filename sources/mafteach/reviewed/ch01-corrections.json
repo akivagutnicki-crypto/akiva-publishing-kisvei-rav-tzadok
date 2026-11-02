@@ -1,0 +1,527 @@
+[
+ {
+  "id": "vol7-0038-040226",
+  "action": "fix_address",
+  "index_text": "היילחם לכם ואתם תחרשון טור מה תצעק אלי דבר אל בני ישראל ויסעו",
+  "was": "Exodus 14:14",
+  "correct": "Exodus 14:15",
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": "דקריעת ים סוף בעתיקא תליא",
+  "note": "Entry text is מה תצעק אלי (14:15); 14:14 is not used."
+ },
+ {
+  "id": "vol7-0038-040229",
+  "action": "fix_address",
+  "index_text": "והמים להם חמה מימינם ומשמאלם",
+  "was": "Exodus 14:22",
+  "correct": "Exodus 14:29",
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": "והמים להם חמה חסר. אל תיקרי חומה אלא חמה",
+  "note": "Defective חֹמָה is in 14:29 (Sefaria); 14:22 has חוֹמָה. RT gives Mechilta Beshalach 6 in Bo 8."
+ },
+ {
+  "id": "vol7-0103-041073",
+  "action": "fix_address",
+  "index_text": "\\מדוע קויתי לעשות ענבים ויעש באושים כיכרם היצבאות בית ישראל",
+  "was": "Isaiah 5:4",
+  "correct": "Isaiah 5:7",
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": "זה ישראל שנאמר כי כרם ה' צבאות בית ישראל",
+  "note": "Quoted via Tanchuma Chayei Sara 4 (marked ישעיה ה, ז on Sefaria)."
+ },
+ {
+  "id": "vol7-0148-041636",
+  "action": "fix_address",
+  "index_text": "אניאמרתי אלהים אתם כלכם אכן כאדם תמותון וכאחד השרים תפלו",
+  "was": "Psalms 81:6",
+  "correct": "Psalms 82:6",
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": "דכ' אני אמרתי אלהי' אתם",
+  "note": "Verified Psalms 82:6."
+ },
+ {
+  "id": "vol7-0228-042675",
+  "action": "fix_address",
+  "index_text": "אס יהיו וכויכשנים הללו שסדורות ובאות",
+  "was": "Shabbat 88b",
+  "correct": "Shabbat 89b",
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": "ובג' (שבת פט:) אם יהיה חטאיכם כשנים הללו שסדורות ובאות",
+  "note": "Verified Shabbat 89b:2; RT gives פט:."
+ },
+ {
+  "id": "vol7-0276-043366",
+  "action": "fix_address",
+  "index_text": "שמש בשבת צדקה לעניים שנאמר וזרחה לכם יראי שמי שמש צדקה ומרפא 1 דף עמוד",
+  "was": "Taanit 405b",
+  "correct": "Taanit 8b",
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": "דשומרי שבת נקראו יראי שמי. (בתענית ח:)",
+  "note": "Verified Taanit 8b; RT gives ח:."
+ },
+ {
+  "id": "vol7-0342-044276",
+  "action": "fix_address",
+  "index_text": "וירח את ריח בגדיו אל תקרי בגדיו אלא בוגדיו",
+  "was": "Sanhedrin 31a",
+  "correct": "Sanhedrin 37a",
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": "ודרש בגדיו כמו בוגדיו וכ\"ה בגמ' (סנהדרין לז.)",
+  "note": "Verified Sanhedrin 37a; RT gives לז."
+ },
+ {
+  "id": "vol7-0418-045223",
+  "action": "fix_address",
+  "index_text": "בשעה שנכנס אבינו יעקב אצל אביו נכנסה עמו גן עדן וכוי ראה ריח בני",
+  "was": "Bereshit Rabbah 65:20",
+  "correct": "Bereshit Rabbah 65:22",
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": "ואי' במדרש (ב\"ר סו\"פ סה) נכנסה עמו ג\"ע",
+  "note": "Sefaria 65:22 contains נכנסה עמו גן עדן (end of parashah)."
+ },
+ {
+  "id": "vol7-0498-046146",
+  "action": "fix_address",
+  "index_text": "מפני ארבעה דברים הזקנה על האדם ואברהם זקן כוי ברכי נפשי גדל ומ - ל תת לו זקנה,",
+  "was": "תנחומא ב",
+  "correct": "Midrash Tanchuma, Chayei Sara 3",
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": "ובמד\"ת פתח ה\"א גדלת מאד שעשית עם האדם שנתת לו זקנה",
+  "note": "ברכי נפשי / גדלת מאד / הוד והדר is Tanchuma Chayei Sara 3 (Sefaria); the \"four things\" are §2, not used here."
+ },
+ {
+  "id": "vol7-0523-046390",
+  "action": "fix_address",
+  "index_text": "התחיל משורר מזמור שיר ליום השבת וכוי שכל מי שהוא משורר ומזמר לשם עליון ומודה על פשעיו בבית דין ועוזב נצל מדינה של גהינם",
+  "was": "פרקי דרבי אליעזר א",
+  "correct": "Pirkei DeRabbi Eliezer 19",
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": "ובפרדר\"א (פ' יט)",
+  "note": "Verified PDRE 19:3; RT gives פ' יט."
+ },
+ {
+  "id": "vol7-0567-046678",
+  "action": "fix_address",
+  "index_text": "כריח שדה אשר ברכו הי לעילא ותתא",
+  "was": "הגדה של פסח קנח ב",
+  "correct": "Zohar I 128b-129a (Sefaria: Zohar, Chayei Sara 15:114)",
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": "ולעיל מינה א' בזוה\"ק כגונא דא כ' כריח שדה אשר ברכו ה' לעילא ותתא",
+  "note": "Text found at Zohar, Chayei Sara 15:114, the same passage as שדה המכפלה ודאי (I 129a).",
+  "fix_book": "Zohar"
+ },
+ {
+  "id": "vol7-0583-046895",
+  "action": "fix_address",
+  "index_text": "כלמאן דאתגזר איקרי צדיק",
+  "was": "הגדה של פסח כו א",
+  "correct": "Zohar II 23a (Sefaria: Zohar, Vaera 1:20)",
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": "ועמך כולם צדיקים כל מאן דאתגזר איקרי צדיק",
+  "note": "Text verified at Zohar, Vaera 1:20; Ohr HaChammah on Zohar 2:23a comments on it.",
+  "fix_book": "Zohar"
+ },
+ {
+  "id": "vol7-0585-046926",
+  "action": "fix_address",
+  "index_text": "נגף למצרים ורפא לישראל \\ב| לזאת יקרא אשה",
+  "was": "הגדה של פסח טח א",
+  "correct": "Zohar II 36a (Sefaria: Zohar, Bo 4:85)",
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": "נגוף למצרים ורפוא לישראל כעין מ\"ש בזוה\"ק (ח\"ב לו א)",
+  "note": "Text verified at Zohar, Bo 4:85; RT gives ח\"ב לו א here and in Shavuot 3.",
+  "fix_book": "Zohar"
+ },
+ {
+  "id": "vol7-0588-046969",
+  "action": "fix_address",
+  "index_text": "מה תצעק אלי בעתיקא תליא כולא",
+  "was": "הגדה של פסח א ב",
+  "correct": "Zohar II 52b (Sefaria: Zohar, Beshalach 13:180)",
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": "דקריעת ים סוף בעתיקא תליא כמו ש' בזוה\"ק (ח\"ב נב ב)",
+  "note": "Text verified at Zohar, Beshalach 13:180; RT gives נב ב here and in Shavuot 3.",
+  "fix_book": "Zohar"
+ },
+ {
+  "id": "vol7-0608-047195",
+  "action": "fix_address",
+  "index_text": "דלית נהורא אלא ההוא דנפיק מגו חשוכא דכד אתכפיא סטרא דא אסתלק קבייה לעילא ואתייקר ביקריה וכו ולית טובא אלא מגו בישא דף עמוד",
+  "was": "הגדה של פסח קסו א",
+  "correct": "Zohar II 184a (Sefaria: Zohar, Tetzaveh 10:86)",
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": "שכך עלה במחשבה להיות נהורא דנפיק מגו חשוכא",
+  "note": "Text verified at Zohar, Tetzaveh 10:86; Mikdash Melekh on Zohar 2:184a; RT cites ח\"ב קפד א for it in Acharei Mot 6 and RC Adar 2.",
+  "fix_book": "Zohar"
+ },
+ {
+  "id": "vol7-0176-041969",
+  "action": "fix_book",
+  "index_text": "זממה שדה וכוי מפרי כפיה נטעה כרם",
+  "was": "איוב טז",
+  "correct": "Proverbs 31:16",
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": "זממנה שדה ותקחהו",
+  "note": "Mishlei 31 parsed as איוב; verified via Tanchuma Chayei Sara 4."
+ },
+ {
+  "id": "vol7-0176-041972",
+  "action": "fix_book",
+  "index_text": "לא תירא לביתה משלג כי כל ביתה לבש שנים",
+  "was": "איוב כא",
+  "correct": "Proverbs 31:21",
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": "לא תירא לביתה משלג... כי כל ביתה לבוש שנים",
+  "note": "Mishlei 31 parsed as איוב."
+ },
+ {
+  "id": "vol7-0176-041975",
+  "action": "fix_book",
+  "index_text": "עוז והדר לבושה ותשחק ליום אחרון",
+  "was": "איוב כה",
+  "correct": "Proverbs 31:25",
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": "עוז והדר לבושה... ותשחק ליום אחרון",
+  "note": "Mishlei 31 parsed as איוב."
+ },
+ {
+  "id": "vol7-0302-043721",
+  "action": "fix_book",
+  "index_text": "בתוס'בענין נסתחפה שדהו האשה שדה של הבעל",
+  "was": "כתובות ב",
+  "correct": "Tosafot on Ketubot 2b",
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": "עדמ\"ש תוס' (כתובות ב:) שהאשה שדה של הבעל",
+  "note": "Unparsed address; נסתחפה שדהו verified at Ketubot 2b (Tosafot not opened)."
+ },
+ {
+  "id": "vol7-0388-044902",
+  "action": "fix_book",
+  "index_text": "הקורא את שמע וכוי צריך להזכיר קריעת יייס באמת ויציב",
+  "was": "ברכות א",
+  "correct": "Jerusalem Talmud Berakhot 1:6",
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": "(ירושלמי סופ\"א דברכות) הקורא את שמע כו' צריך להזכיר בה קריעת ים סוף ומכות בכורים",
+  "note": "Verified Yerushalmi Berakhot 1:6:6; unparsed \"ברכות א\"."
+ },
+ {
+  "id": "vol7-0499-046148",
+  "action": "fix_book",
+  "index_text": "הביטו אל אברהם אביכם ואל שרה תחוללכם",
+  "was": "תנחומא ד",
+  "correct": "Midrash Tanchuma, Chayei Sara 4",
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": "ובמד\"ת פ' זו נדרש על שרה... הביטו אל אברהם אביכם",
+  "note": "Verified on Sefaria; unparsed \"תנחומא ד\"."
+ },
+ {
+  "id": "vol7-0507-046235",
+  "action": "fix_book",
+  "index_text": "ירושלים מכוונת למעלה כמו ירושלים של מטה כל הנשמות היו בסיני וכוי ואת אשר איננו",
+  "was": "תנחומא א",
+  "correct": "Midrash Tanchuma, Pekudei 1",
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": "(מד\"ת ר\"פ פקודי) שירושלים מכוונת למעלה",
+  "note": "Verified on Sefaria; unparsed \"תנחומא א\"."
+ },
+ {
+  "id": "vol7-0525-046407",
+  "action": "fix_book",
+  "index_text": "עושים מלאכה כל ששה ימים שבת יעשה כולו תורה וכוי ונכה רוח",
+  "was": "פרקי דרבי אליעזר ד",
+  "correct": "Tanna DeBei Eliyahu Rabbah 1",
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": "וכן שבת יעשה כולה תורה כמו ש' (ריש סא\"ר)",
+  "note": "Verified TDE Rabbah 1:2; not PDRE."
+ },
+ {
+  "id": "vol7-0487-046047",
+  "action": "fix_book",
+  "index_text": "שירה - והמים להם חומה אל תקרי חומה אלא חמה פרשה",
+  "was": "מכילתא ו",
+  "correct": "Mekhilta DeRabbi Yishmael, Beshalach 6",
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": "אי' במכילתא על מש\"נ והמים להם חמה חסר. אל תיקרי חומה אלא חמה",
+  "note": "RT gives \"מכילתא בשלח פ' ו\" for this in Bo 8; unparsed \"מכילתא ו\"."
+ },
+ {
+  "id": "vol7-0566-046662",
+  "action": "fix_book",
+  "index_text": "מלך לשדה נעבד מאן מלך דא קבייה",
+  "was": "הגדה של פסח קכב א",
+  "correct": "Zohar I 122a",
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": "ולעיל בזוה\"ק (קכב א) דרש מלך לשדה נעבד",
+  "note": "Zohar entries mislabelled \"הגדה של פסח\"; address as printed in Rav Tzadok's text."
+ },
+ {
+  "id": "vol7-0567-046679",
+  "action": "fix_book",
+  "index_text": "ואברהם זקן בא בימים באינון יומין עילאין אשדה המכפלה ודאי מאן מכפלה הי דבשמא קדישא",
+  "was": "הגדה של פסח קכט א",
+  "correct": "Zohar I 129a",
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": "עפמ\"ש בזוה\"ק (קכט א) רזא דמלה שדה המכפלה ודאי",
+  "note": "Zohar entries mislabelled \"הגדה של פסח\"; address as printed in Rav Tzadok's text."
+ },
+ {
+  "id": "vol7-0588-046973",
+  "action": "fix_book",
+  "index_text": "כד אתנהיר נהירו דעתיקא קדישא בעטרוי דף עמוד",
+  "was": "הגדה של פסח נד א",
+  "correct": "Zohar II 54a",
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": "וכמ\"ש בזוה\"ק (ח\"ב נד א) כד אתנהיר נהירו דעתיקא",
+  "note": "Zohar entries mislabelled \"הגדה של פסח\"; address as printed in Rav Tzadok's text."
+ },
+ {
+  "id": "vol7-0589-046974",
+  "action": "fix_book",
+  "index_text": "איז אלף אנקיב בחשוכי ונהיר לכל עיבר",
+  "was": "הגדה של פסח נד א",
+  "correct": "Zohar II 54a",
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": "ואלף אנקיב בחשוכי ונהיר לכל עיבר",
+  "note": "Zohar entries mislabelled \"הגדה של פסח\"; address as printed in Rav Tzadok's text."
+ },
+ {
+  "id": "vol7-0592-047006",
+  "action": "fix_book",
+  "index_text": "ראתה שפחה על הים מה שלא ראה יחזקאל",
+  "was": "הגדה של פסח סד ב",
+  "correct": "Zohar II 64b",
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": "ראתה שפחה על הים מה שלא ראה יחזקאל (ושם ס\"ד ב)",
+  "note": "Zohar entries mislabelled \"הגדה של פסח\"; address as printed in Rav Tzadok's text."
+ },
+ {
+  "id": "vol7-0594-047032",
+  "action": "fix_book",
+  "index_text": "חמוישראל הכא מה דלא חמא יחזקאל",
+  "was": "הגדה של פסח פב א",
+  "correct": "Zohar II 82a",
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": "ובזוה\"ק (שם פ\"ב א) חמו ישראל הכא מה דלא חמא יחזקאל",
+  "note": "Zohar entries mislabelled \"הגדה של פסח\"; address as printed in Rav Tzadok's text."
+ },
+ {
+  "id": "vol7-0597-047057",
+  "action": "fix_book",
+  "index_text": "בשבתא יהבין ליה לבר נש נשמתא אחרא נשמתא עלאה נשמתא דכל",
+  "was": "הגדה של פסח פח ב",
+  "correct": "Zohar II 88b",
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": "וכמו ש' בזוה\"ק (ח\"ב פח ב) נשמתא דכל שלימו בה",
+  "note": "Zohar entries mislabelled \"הגדה של פסח\"; address as printed in Rav Tzadok's text."
+ },
+ {
+  "id": "vol7-0598-047071",
+  "action": "fix_book",
+  "index_text": "זכור את יום השבת לקדשו דא איהו רזא דברית קדישא",
+  "was": "הגדה של פסח צב א",
+  "correct": "Zohar II 92a",
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": "כשלג ילבינו ברזא דברית כמו ש' בזוה\"ק (ח\"ב צב א)",
+  "note": "Zohar entries mislabelled \"הגדה של פסח\"; address as printed in Rav Tzadok's text."
+ },
+ {
+  "id": "vol7-0643-047628",
+  "action": "fix_book",
+  "index_text": "האיעדן תתאה איקרי גן לעדן דלעילא",
+  "was": "הגדה של פסח קפב ב",
+  "correct": "Zohar III 182b",
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": "בזוה\"ק (ח\"ג קפב ב) האי עדן תתאה איקרי גן לעדן דלעילא",
+  "note": "Zohar entries mislabelled \"הגדה של פסח\"; address as printed in Rav Tzadok's text."
+ },
+ {
+  "id": "vol7-0528-046431",
+  "action": "drop",
+  "index_text": "פרשת בראשית ב - בראשית בזכות ישראל שנקראו ראשית ד-יהיאור זה מעשיהם של צדיקים אבל איני יודע באיזה מהן חפ* קב - כמה דיות משתפכות כדי לכתוב בני חת עשרה פעמים קג - ואברהם זקן וכוי בא בפילון מפולש לחיי העו",
+  "was": "ילקוט שמעוני",
+  "correct": null,
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": null,
+  "note": "Garbled Yalkut Shimoni block (returned 3 times)."
+ },
+ {
+  "id": "vol7-0540-046533",
+  "action": "drop",
+  "index_text": "מישרוצה לזכות בכתרה יזהר בכל לילותיו ולא אחת ספרות שויית הריבייש סי קנג ספרות ספר חסידים סימן תתשכיט היה מוציא בייב בקדוש סדור ראה: חלק ד-הי מפתח ברכות,תפילה תפילת שחרית לשם יחוד קובייה ושכינתיה נשמה ",
+  "was": "פרה כג",
+  "correct": null,
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": null,
+  "note": "Garbled Siddur block filed under \"פרה כג\"."
+ },
+ {
+  "id": "vol7-0558-046565",
+  "action": "drop",
+  "index_text": "א=| ענגרית עדן נהר גו",
+  "was": "הגדה של פסח ח כ",
+  "correct": null,
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": null,
+  "note": "OCR fragment \"ענגרית עדן נהר גו\"."
+ },
+ {
+  "id": "vol7-0661-047847",
+  "action": "drop",
+  "index_text": "לדרתם בשביל דירתם שהיה השם שלם זהר חדשל פרשת בראשית עד שלא נברא העולם לא היה מי שיקלס לקבייה והחכמה הוא שמו של מקום והוא נקרא חכמה ותנינן הוא והחכמה הכל דבר אחד פרשת נח ויולד וכוי אלו גי הנהגות אשר בא",
+  "was": "הגדה של פסח ש ב",
+  "correct": null,
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": null,
+  "note": "Garbled Zohar Chadash block (returned twice)."
+ },
+ {
+  "id": "vol7-0665-047848",
+  "action": "drop",
+  "index_text": "תיקון הקדמת תקוני זוהר פתח אליהו וכו מלכות פה תושבייע תיקון ובראת שמיא וארעא וכוי לאשתמודעא בהון עילאין ותתאין ובארח רזא הי תמן יי יראת הי. ואלין ארבע אתוון אינון מפתחות החיצוניים לבושין תקינת לון, דמ",
+  "was": "תקוני זהר",
+  "correct": null,
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": null,
+  "note": "Garbled Tikkunei Zohar Introduction block."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": null,
+  "was": null,
+  "correct": "Proverbs 31:30",
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": "דכנס\"י אשה יראת ה'",
+  "note": "Verified; unnamed quotation."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": null,
+  "was": null,
+  "correct": "Malachi 3:20",
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": "דשומרי שבת נקראו יראי שמי",
+  "note": "Verse cited inside Taanit 8b (verified)."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": null,
+  "was": null,
+  "correct": "Shabbat 119a",
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": "ושבת נקראה כלה מלכתא",
+  "note": "בואי כלה / שבת המלכה, verified Shabbat 119a:2."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": null,
+  "was": null,
+  "correct": "Psalms 122:3",
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": "כעיר שחברה לה יחדיו",
+  "note": "Quoted via Tanchuma Pekudei 1 (verified)."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": null,
+  "was": null,
+  "correct": "Proverbs 31:22",
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": "הדרש מרבדים עשתה לה אלו בגדי כהונה",
+  "note": "Verified in Tanchuma Chayei Sara 4."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": null,
+  "was": null,
+  "correct": "Song of Songs 7:9",
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": "כמש\"נ וירח [=וריח] אפך כתפוחים",
+  "note": "Verified; print has וירח."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": null,
+  "was": null,
+  "correct": "Ecclesiastes 5:8",
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": "דרש מלך לשדה נעבד",
+  "note": "Verified."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": null,
+  "was": null,
+  "correct": "Bereshit Rabbah 58:9",
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": "ובמ\"ר (סו\"פ נח) תפשת אומנתי בוא לבוש לבושי ואברהם זקן",
+  "note": "Verified on Sefaria."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": null,
+  "was": null,
+  "correct": "Psalms 104:1",
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": "ולמעלה דרש הוד והדר לבשת",
+  "note": "Verified in Tanchuma Chayei Sara 3."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": null,
+  "was": null,
+  "correct": "Exodus 15:2",
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": "הוד זה העוז שהלבשתיך בים שנאמר עזי וזמרת",
+  "note": "Verified in Tanchuma Chayei Sara 3."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": null,
+  "was": null,
+  "correct": "Genesis 24:1",
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": "שנ' ואברהם זקן",
+  "note": "Verified in Tanchuma Chayei Sara 3 and BR 58:9."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": null,
+  "was": null,
+  "correct": "Isaiah 19:22",
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": "כמש\"נ נגוף ורפוא נגוף למצרים ורפוא לישראל",
+  "note": "Verified."
+ },
+ {
+  "id": null,
+  "action": "add_topic",
+  "index_text": null,
+  "was": null,
+  "correct": "עמלק — קליפת השלג: קרירות ועצלות, ראשית דקליפה (אשר קרך = שהצנינך והפשירך)",
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": "ויש קליפת עמלק שנאמר אשר קרך שהצנינך והפשירך. והיינו שמשליך קרירות ועצלות על האדם. וזה ראשית דקליפה",
+  "note": "Central theme of paragraph 2; no topic entry indexes it."
+ },
+ {
+  "id": null,
+  "action": "add_topic",
+  "index_text": null,
+  "was": null,
+  "correct": "שבת ומילה — \"כל ביתה לבוש שנים\", קשורים בשורש בראשית",
+  "ref": "Peri Tzadik, Chayei Sara 1",
+  "quote": "למה כי כל ביתה לבוש שנים. שבת ומילה ששניהם מורים שקשורים בשרש במאמר בראשית",
+  "note": "Index has milah/Shabbat as connection to ראשית; the שלג/לבוש שנים reading is not indexed."
+ }
+]

@@ -1,0 +1,372 @@
+[
+ {
+  "id": "vol7-0093-040940",
+  "action": "fix_address",
+  "index_text": "ויהושע זקן בא בימים",
+  "was": "Joshua 30:1",
+  "correct": "Joshua 13:1",
+  "ref": "Peri Tzadik, Chayei Sara 5",
+  "quote": "שפסוק ויהושע זקן וגו' נכתב אחר שכתב שכבש המלכים. ואחר כך (סי' כ\"ג) כ' ויהי מימים וגו' מסביב ויהושע זקן",
+  "note": "Text uses both Joshua 13:1 (after the conquest, ch. 12) and 23:1 (explicit 'סי' כ\"ג'); chapter 30 does not exist."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "ויהי מימים רבים … מסביב ויהושע זקן בא בימים",
+  "was": null,
+  "correct": "Joshua 23:1",
+  "ref": "Peri Tzadik, Chayei Sara 5",
+  "quote": "(סי' כ\"ג) כ' ויהי מימים וגו' מסביב ויהושע זקן וגו'",
+  "note": "Second Joshua verse, cited by chapter; also the Tanchuma's proof text."
+ },
+ {
+  "id": "vol7-0095-040961",
+  "action": "fix_book",
+  "index_text": "וג ולא כהה בם",
+  "was": "II Samuel 3",
+  "correct": "I Samuel 3:13",
+  "ref": "Peri Tzadik, Chayei Sara 5",
+  "quote": "וכמ\"שנ אחר כך ולא כהה בם",
+  "note": "Eli's sons: Shmuel I, not II."
+ },
+ {
+  "id": "vol7-0192-042181",
+  "action": "fix_address",
+  "index_text": "ואתה מחיה את כלם וצבא השמים לך משתחוים",
+  "was": "Nehemiah 2:6",
+  "correct": "Nehemiah 9:6",
+  "ref": "Peri Tzadik, Chayei Sara 5",
+  "quote": "עדמ\"ש ואתה מחיה את כולם",
+  "note": "Verified on Sefaria-standard text: Nehemiah 9:6."
+ },
+ {
+  "id": "vol7-0193-042197",
+  "action": "fix_address",
+  "index_text": "כינבעת מפני החרב",
+  "was": "דברי הימים א [no chapter] ל",
+  "correct": "I Chronicles 21:30",
+  "ref": "Peri Tzadik, Chayei Sara 5",
+  "quote": "דכ' כי נבעת מפני חרב וגו'",
+  "note": "Chapter lost in parse; Tanchuma Chayei Sara 2 marks it (דה\"א כא, ל)."
+ },
+ {
+  "id": "vol7-0193-042198",
+  "action": "fix_address",
+  "index_text": "ודוידזקן ושבע ימים",
+  "was": "דברי הימים א [no chapter] א",
+  "correct": "I Chronicles 23:1",
+  "ref": "Peri Tzadik, Chayei Sara 5",
+  "quote": "מה כ' אחריו ודו[יד] זקן ושבע ימים",
+  "note": "Chapter lost in parse; Tanchuma marks (דה\"א כג, א)."
+ },
+ {
+  "id": "vol7-0199-042267",
+  "action": "fix_address",
+  "index_text": "וראיתיאת אכתריאל",
+  "was": "Berakhot 6a",
+  "correct": "Berakhot 7a",
+  "ref": "Peri Tzadik, Chayei Sara 5",
+  "quote": "כמו ש' בגמ' (ברכות ז.) ונזכר שם של כ\"ע",
+  "note": "R. Yishmael b. Elisha / Akatriel is Berakhot 7a."
+ },
+ {
+  "id": "vol7-0247-042955",
+  "action": "fix_address",
+  "index_text": "לא הגלה הקב'יה את ישראל וכוי שיתוספו גרים",
+  "was": "Pesachim 86b",
+  "correct": "Pesachim 87b",
+  "ref": "Peri Tzadik, Chayei Sara 5",
+  "quote": "ועז\"א (פסחים פ\"ז:) לא הגלה כו'",
+  "note": "Pesachim 87b:14."
+ },
+ {
+  "id": "vol7-0292-043584",
+  "action": "fix_address",
+  "index_text": "ונאם הגבר הוקם על נאם דוד בן ישי שהקים עולה של תשובה",
+  "was": "מועד קטן [no daf] ב",
+  "correct": "Moed Katan 16b",
+  "ref": "Peri Tzadik, Chayei Sara 5",
+  "quote": "שהקים עולה של תשובה כמו ש' (מו\"ק טז:)",
+  "note": "Daf lost in parse; Moed Katan 16b:21."
+ },
+ {
+  "id": "vol7-0300-043692",
+  "action": "fix_address",
+  "index_text": "(ביאים הסתכלו באספקלריה לא מאירה משה",
+  "was": "Yevamot 6b",
+  "correct": "Yevamot 49b",
+  "ref": "Peri Tzadik, Chayei Sara 5",
+  "quote": "שכל הנביאים נתנבאו באספקלריא שאינה מאירה כמו ש' (יבמות מט:)",
+  "note": "Yevamot 49b:10."
+ },
+ {
+  "id": "vol7-0351-044401",
+  "action": "fix_address",
+  "index_text": "נביאים הסתכלו באספקלריה לא מאירה משה",
+  "was": "Sanhedrin 97b",
+  "correct": "Yevamot 49b",
+  "ref": "Peri Tzadik, Chayei Sara 5",
+  "quote": "כמו ש' (יבמות מט:)",
+  "note": "Duplicate of the Yevamot entry under a wrong tractate."
+ },
+ {
+  "id": "vol7-0306-043788",
+  "action": "fix_address",
+  "index_text": "אלמלא חטאו ישראל … שערכה של ארץ ישראל היא … כי ברוב חכמה רב כעס",
+  "was": "Nedarim 8b",
+  "correct": "Nedarim 22b",
+  "ref": "Peri Tzadik, Chayei Sara 5",
+  "quote": "וז\"ש (נדרים כב:) אלמלא חטאו כו וס' יהושע בלבד שערכה של אי' היא",
+  "note": "Nedarim 22b."
+ },
+ {
+  "id": "vol7-0307-043792",
+  "action": "fix_address",
+  "index_text": "כיביצחק ולא כל יצחק",
+  "was": "Nedarim 8a",
+  "correct": "Nedarim 31a",
+  "ref": "Peri Tzadik, Chayei Sara 5",
+  "quote": "כי ביצחק ולא כל יצחק כמו ש' (נדרים לא.)",
+  "note": "Nedarim 31a:8."
+ },
+ {
+  "id": "vol7-0344-044310",
+  "action": "fix_address",
+  "index_text": "כיביצחק ולא כל יצחק",
+  "was": "Sanhedrin 59a",
+  "correct": "Sanhedrin 59b",
+  "ref": "Peri Tzadik, Chayei Sara 5",
+  "quote": "כי ביצחק ולא כל יצחק",
+  "note": "The derashah is at Sanhedrin 59b:11; the text itself cites Nedarim 31a."
+ },
+ {
+  "id": "vol7-0487-046043",
+  "action": "fix_address",
+  "index_text": "ותרא אויבתי … ראתה הים שראה מה שראה יחזקאל …",
+  "was": "מכילתא [unparsed] א",
+  "correct": "Mekhilta de-Rabbi Yishmael, Beshalach, Shirata 3 (Exodus 15:2)",
+  "ref": "Peri Tzadik, Chayei Sara 5",
+  "quote": "שראתה שפחה על הים מה שלא ראה יחזקאל כמו ש' (במכילתא) … שאמרו זה אלי",
+  "note": "Also cited so by Pri Tzaddik, Bo 3 ('מכילתא בשלח'). Entry text is a garbled merge of several Mekhilta lines."
+ },
+ {
+  "id": "vol7-0557-046549",
+  "action": "fix_book",
+  "index_text": "ומקדשי תראו דא שבת … דאיהי יראה ושריא בה יראה",
+  "was": "הגדה של פסח ה ב",
+  "correct": "Zohar I 5b",
+  "ref": "Peri Tzadik, Chayei Sara 5",
+  "quote": "איהי יראה ושריא בה יראה (זח\"א ה ב)",
+  "note": "Zohar parse error."
+ },
+ {
+  "id": "vol7-0559-046577",
+  "action": "fix_book",
+  "index_text": "ובארן דא כ\"יי … דאחיד בשמיא וארעא",
+  "was": "הגדה של פסח לא א",
+  "correct": "Zohar I 31a",
+  "ref": "Peri Tzadik, Chayei Sara 5",
+  "quote": "דארץ מדת מלכות (זח\"א לא א)",
+  "note": "Zohar parse error."
+ },
+ {
+  "id": "vol7-0592-047006",
+  "action": "fix_book",
+  "index_text": "ראתה שפחה על הים מה שלא ראה יחזקאל",
+  "was": "הגדה של פסח סד ב",
+  "correct": "Zohar II 64b",
+  "ref": "Peri Tzadik, Chayei Sara 5",
+  "quote": "שראתה שפחה על הים מה שלא ראה יחזקאל",
+  "note": "Zohar parse error; Zohar Beshalach (Sefaria 31:434) has the line, and Rav Tzadok cites 'זה\"ק (שם סד ב)' for it in Bo 3. Here he cites only the Mekhilta."
+ },
+ {
+  "id": "vol7-0501-046174",
+  "action": "drop",
+  "index_text": "אב לא למדו וכוי נעשו שתי כליותיו כמין רבנים פרשת ויחי עריבין עלי דברי דודיך יותר מיינה של תורה",
+  "was": "תנחומא [unparsed] יא",
+  "correct": "Bereshit Rabbah 61:1",
+  "ref": "Peri Tzadik, Chayei Sara 5",
+  "quote": "כמו ש' (בב\"ר פ' סא) אב לא למדו רב לא היה לו",
+  "note": "OCR merge of a Bereshit Rabbah line with a Vayechi lemma; the source is already indexed as Bereshit Rabbah 61:1."
+ },
+ {
+  "id": "vol4-0307-024887",
+  "action": "drop",
+  "index_text": "דוד זכה לחכמה ע\"י - מבניו",
+  "was": "topic: יסורין",
+  "correct": null,
+  "ref": "Peri Tzadik, Chayei Sara 5",
+  "quote": "וחשב מפני היראה מדוד … ואחר כך חשב מפני כעס בנים מעלי",
+  "note": "Not in this text: David's old age is from fear; 'anger over children' is Eli's."
+ },
+ {
+  "id": "vol5-0499-038244",
+  "action": "drop",
+  "index_text": "- זכה לחכמה ע\"י יסוריו מבניו",
+  "was": "topic: [דוד המלך] וחסרונו",
+  "correct": null,
+  "ref": "Peri Tzadik, Chayei Sara 5",
+  "quote": "ואחר כך חשב מפני כעס בנים מעלי",
+  "note": "Same error as the Yissurin entry; the text attributes this to Eli (who has his own correct entry)."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": null,
+  "was": null,
+  "correct": "Midrash Tanchuma, Chayei Sara 2",
+  "ref": "Peri Tzadik, Chayei Sara 5",
+  "quote": "במד\"ת בשביל ד' דברים הזקנה קופצת על האדם",
+  "note": "The maamar's base text; verified on Sefaria."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": null,
+  "was": null,
+  "correct": "Chiddushei HaRamban, Bava Batra 12a",
+  "ref": "Peri Tzadik, Chayei Sara 5",
+  "quote": "והוא על ידי רוה\"ק וכמו ש' הרמב\"ן",
+  "note": "'יודעים האמת ברוח הקדש שבקרבם'."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": null,
+  "was": null,
+  "correct": "Tikkunei Zohar, Hakdamah 17a",
+  "ref": "Peri Tzadik, Chayei Sara 5",
+  "quote": "מלכות פה תורה שבעל פה",
+  "note": "'מלכות פה ותורה שבעל פה קרינן לה' (Patach Eliyahu)."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": null,
+  "was": null,
+  "correct": "I Chronicles 22:19",
+  "ref": "Peri Tzadik, Chayei Sara 5",
+  "quote": "וקומו ובנו את מקדש ה' הא' להביא את ארון ברית ה'",
+  "note": "Quoted verbatim."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": null,
+  "was": null,
+  "correct": "Daniel 7:9",
+  "ref": "Peri Tzadik, Chayei Sara 5",
+  "quote": "עתיק יומין יתיב",
+  "note": "'ועתיק יומין יתב'."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": null,
+  "was": null,
+  "correct": "Zohar I 129a",
+  "ref": "Peri Tzadik, Chayei Sara 5",
+  "quote": "עדמ\"ש בזוה\"ק על מש\"נ בא בימים ביומין עלאין",
+  "note": "Zohar Chayei Sara; Rav Tzadok gives the address 'ח\"א קכ\"ט א' in Lag BaOmer 8."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": null,
+  "was": null,
+  "correct": "I Samuel 2:22",
+  "ref": "Peri Tzadik, Chayei Sara 5",
+  "quote": "שעלי אחר ששמע את כל אשר יעשון בניו … לא כתיב בא בימים אלא זקן מאד",
+  "note": "'ועלי זקן מאד ושמע את כל אשר יעשון בניו'."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": null,
+  "was": null,
+  "correct": "Proverbs 31:26",
+  "ref": "Peri Tzadik, Chayei Sara 5",
+  "quote": "וכן כ' ותורת חסד על לשונה",
+  "note": "Quoted verbatim."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": null,
+  "was": null,
+  "correct": "I Kings 11:4",
+  "ref": "Peri Tzadik, Chayei Sara 5",
+  "quote": "ויהי לעת זקנת שלמה נשיו הטו את לבבו וגו' … ולא היה לבבו שלם עם ה' אלהיו כלבב דוד אביו",
+  "note": "Quoted verbatim; also 11:3 'ויטו נשיו את לבו'."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": null,
+  "was": null,
+  "correct": "I Kings 11:3",
+  "ref": "Peri Tzadik, Chayei Sara 5",
+  "quote": "ויטו נשיו את לבו",
+  "note": "Quoted verbatim."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": null,
+  "was": null,
+  "correct": "Zohar I 219a",
+  "ref": "Peri Tzadik, Chayei Sara 5",
+  "quote": "בת יהבה לאברהם כו' (זח\"א ריט א)",
+  "note": "Explicit citation; Sefaria Zohar Vayechi 22:177; Rav Tzadok cites the same address in Bo 3."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": null,
+  "was": null,
+  "correct": "Genesis 24:3",
+  "ref": "Peri Tzadik, Chayei Sara 5",
+  "quote": "והזהיר שלא יקח מבנות הכנעני",
+  "note": "'אשר לא תקח אשה לבני מבנות הכנעני'."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": null,
+  "was": null,
+  "correct": "Genesis 15:14",
+  "ref": "Peri Tzadik, Chayei Sara 5",
+  "quote": "ולא היו זוכין להרכוש גדול",
+  "note": "'ואחרי כן יצאו ברכוש גדול'."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": null,
+  "was": null,
+  "correct": "Ecclesiastes 1:18",
+  "ref": "Peri Tzadik, Chayei Sara 5",
+  "quote": "יזכו אחר כך להרב חכמה לתקן הרב כעס",
+  "note": "'כי ברב חכמה רב כעס' (via Nedarim 22b)."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": null,
+  "was": null,
+  "correct": "Rashi on Genesis 47:31",
+  "ref": "Peri Tzadik, Chayei Sara 5",
+  "quote": "לנפש יעקב שמטתו שלימה",
+  "note": "'על שהיתה מטתו שלימה' (unnamed Chazal phrase)."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": null,
+  "was": null,
+  "correct": "Shulchan Arukh, Orach Chayim 5:1",
+  "ref": "Peri Tzadik, Chayei Sara 5",
+  "quote": "ששם הוי\"ה בעל הכחות שלך",
+  "note": "'אלהים … תקיף בעל היכולת ובעל הכחות כולם'."
+ }
+]

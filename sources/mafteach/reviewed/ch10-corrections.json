@@ -1,0 +1,355 @@
+[
+ {
+  "id": "vol7-0113-041202",
+  "action": "fix_address",
+  "index_text": "לסריסים אשר ישמרו את שבתותי",
+  "was": "Isaiah 6:4",
+  "correct": "Isaiah 56:4",
+  "ref": "Peri Tzadik, Chayei Sara 10",
+  "quote": "ומדכתיב לריסים אשר ישמרו את שבתותי וגו' ונתתי להם וגו' ושם טוב מבנים",
+  "note": "The verse is Isaiah 56:4-5."
+ },
+ {
+  "id": "vol7-0143-041557",
+  "action": "fix_address",
+  "index_text": "אין שלום בעצמי מפני חטאתי",
+  "was": "Psalms 17:4",
+  "correct": "Psalms 38:4",
+  "ref": "Peri Tzadik, Chayei Sara 10",
+  "quote": "כמש\"נ אין שלום בעצמי מפני חטאתי",
+  "note": "The verse is Psalms 38:4."
+ },
+ {
+  "id": "vol7-0186-042117",
+  "action": "fix_address",
+  "index_text": "בצל החכמה וכו ויתרון דעת החכמה תחיה בעליה",
+  "was": "Ecclesiastes 6:12",
+  "correct": "Ecclesiastes 7:12",
+  "ref": "Peri Tzadik, Chayei Sara 10",
+  "quote": "וכ' החכמה תחי בעלי'",
+  "note": "The verse is Ecclesiastes 7:12."
+ },
+ {
+  "id": "vol7-0276-043366",
+  "action": "fix_address",
+  "index_text": "שמש בשבת צדקה לעניים שנאמר וזרחה לכם יראי שמי שמש צדקה ומרפא",
+  "was": "Taanit 405b",
+  "correct": "Taanit 8b",
+  "ref": "Peri Tzadik, Chayei Sara 10",
+  "quote": "ובשבת נקראו ישראל יראי שמי כמו ש' (תענית ח:)",
+  "note": "Unparsed address; Rav Tzadok gives תענית ח:."
+ },
+ {
+  "id": "vol7-0293-043589",
+  "action": "fix_address",
+  "index_text": "חיי בני ומזוני לא בזכותא תליא מילתא אלא במזלא תליא",
+  "was": "Chagigah 28a",
+  "correct": "Moed Katan 28a",
+  "ref": "Peri Tzadik, Chayei Sara 10",
+  "quote": "חיי בני ומזוני דלאו בזכותא תליא אלא במזלא תליא מלתא כמו ש' (מו\"ק כח.)",
+  "note": "Wrong tractate: the dictum (Rava) is Moed Katan 28a."
+ },
+ {
+  "id": "vol7-0309-043809",
+  "action": "fix_address",
+  "index_text": "נקטינן אין עני אלא בדעה",
+  "was": "Nedarim 38a",
+  "correct": "Nedarim 41a",
+  "ref": "Peri Tzadik, Chayei Sara 10",
+  "quote": "כמו ש' (נדרים מא.) אין עני אלא בדיעה",
+  "note": "Abaye's dictum is Nedarim 41a."
+ },
+ {
+  "id": "vol7-0383-044833",
+  "action": "fix_book",
+  "index_text": "עשיר ורש נפגשו עושה שלום כולם הי מי שעשאו חכם",
+  "was": "מעילה א",
+  "correct": "Temurah 16a",
+  "ref": "Peri Tzadik, Chayei Sara 10",
+  "quote": "וכן נדרש (תמורה טז.) עשיר ורש על חכם וטיפש",
+  "note": "Verified on Sefaria: Temurah 16a."
+ },
+ {
+  "id": "vol7-0416-045209",
+  "action": "fix_address",
+  "index_text": "זבל פרדותיו של יצחק ולא כספו של אבימלך",
+  "was": "Bereshit Rabbah 64:6",
+  "correct": "Bereshit Rabbah 64:7",
+  "ref": "Peri Tzadik, Chayei Sara 10",
+  "quote": "ובב\"ר שאמרו זבל פרדותיו של יצחק ולא כספו וזהבו של אבימלך",
+  "note": "Verified on Sefaria: BR 64:7 (on Gen 26:13)."
+ },
+ {
+  "id": "vol7-0462-045779",
+  "action": "fix_address",
+  "index_text": "דרך וכו' אין עץ חיים אלא",
+  "was": "Devarim Rabbah 1:1",
+  "correct": "Berakhot 32b",
+  "ref": "Peri Tzadik, Chayei Sara 10",
+  "quote": "ואי' (ברכות לב:) ואין עץ חיים אלא תורה",
+  "note": "Cross-listing of the dictum; this os cites only Berakhot 32b (entry vol7-0208-042398 already correct). Could be dropped for this ref."
+ },
+ {
+  "id": "vol7-0523-046388",
+  "action": "fix_address",
+  "index_text": "דרך וכו' אין עץ חיים אלא תורה",
+  "was": "פרקי דרבי אליעזר א",
+  "correct": "Berakhot 32b",
+  "ref": "Peri Tzadik, Chayei Sara 10",
+  "quote": "ואי' (ברכות לב:) ואין עץ חיים אלא תורה",
+  "note": "Cross-listing; this os cites Berakhot 32b. Could be dropped for this ref."
+ },
+ {
+  "id": "vol7-0524-046405",
+  "action": "fix_address",
+  "index_text": "דרך וכו' אין עץ חיים אלא תורה",
+  "was": "פרקי דרבי אליעזר א",
+  "correct": "Berakhot 32b",
+  "ref": "Peri Tzadik, Chayei Sara 10",
+  "quote": "ואי' (ברכות לב:) ואין עץ חיים אלא תורה",
+  "note": "Cross-listing; this os cites Berakhot 32b. Could be dropped for this ref."
+ },
+ {
+  "id": "vol7-0590-046985",
+  "action": "fix_address",
+  "index_text": "ואין ע' אלא תורה דכתיב עץ חיים היא למחזיקים בה",
+  "was": "הגדה של פסח סא ב",
+  "correct": "Berakhot 32b",
+  "ref": "Peri Tzadik, Chayei Sara 10",
+  "quote": "ואי' (ברכות לב:) ואין עץ חיים אלא תורה",
+  "note": "Zohar cross-listing (mislabelled Haggadah); this os cites Berakhot 32b."
+ },
+ {
+  "id": "vol7-0540-046533",
+  "action": "drop",
+  "index_text": "מי שרוצה לזכות בכתרה … סדור … (long Siddur block)",
+  "was": "פרה כג",
+  "correct": "",
+  "ref": "Peri Tzadik, Chayei Sara 10",
+  "quote": "מנוחה וקדושה לעמך נתת",
+  "note": "OCR noise: garbled Siddur index block; returned 4 times for this os under one id."
+ },
+ {
+  "id": "vol7-0561-046594",
+  "action": "fix_address",
+  "index_text": "ביום השביעי דא תורה שבעל פה דאיהו יום שביעי",
+  "was": "הגדה של פסח מו ב",
+  "correct": "Zohar I 47b",
+  "ref": "Peri Tzadik, Chayei Sara 10",
+  "quote": "כמו ש' (זח\"א מז ב)",
+  "note": "Verified on Sefaria (Zohar, Bereshit 76:180)."
+ },
+ {
+  "id": "vol7-0567-046671",
+  "action": "fix_book",
+  "index_text": "ועדן באיזה מקום הוא",
+  "was": "הגדה של פסח קכה א",
+  "correct": "Zohar I 125a",
+  "ref": "Peri Tzadik, Chayei Sara 10",
+  "quote": "ובמדרש הנעלם פ' זו' (קכה א) ועדין באיזה מקום",
+  "note": "Midrash HaNe'elam, Chayei Sara; verified on Sefaria (Zohar, Chayei Sara 18:143)."
+ },
+ {
+  "id": "vol7-0582-046886",
+  "action": "fix_book",
+  "index_text": "עבד לאברהם ברזא דחכמה ליצחק ברזא דתבונה ליעקב ברזא",
+  "was": "הגדה של פסח יד ב",
+  "correct": "Zohar II 14b",
+  "ref": "Peri Tzadik, Chayei Sara 10",
+  "quote": "כמו ש' (זח\"ב יד ב) עביד לאברהם ברזא דחכמה",
+  "note": "Verified on Sefaria (Zohar, Shemot 26:249)."
+ },
+ {
+  "id": "vol7-0588-046969",
+  "action": "move",
+  "index_text": "מה תצעק אלי בעתיקא תליא כולא",
+  "was": "הגדה של פסח א ב",
+  "correct": "Zohar II 52b",
+  "ref": "Peri Tzadik, Chayei Sara 10",
+  "quote": "(not in this os)",
+  "note": "Not quoted in Chayei Sara 10; Zohar II 52b, used by Rav Tzadok in Sukkot 13:2 and Pesach 50:2; true os for this index line not identified.",
+  "correct_ref": null
+ },
+ {
+  "id": "vol7-0615-047283",
+  "action": "fix_book",
+  "index_text": "יו\"ד דשמא קדישא וכו' דנפיק מקוצא דלעילא",
+  "was": "הגדה של פסח י ב",
+  "correct": "Zohar",
+  "ref": "Peri Tzadik, Chayei Sara 10",
+  "quote": "דקוצא דיוד לדעילא רמיזא לאין כ\"ע (כמש\"ש סה ב)",
+  "note": "Book is Zohar, not Haggadah. Rav Tzadok gives III 65b here and in Pesach 50:2; the index's 10b was not checked, so only the book is corrected."
+ },
+ {
+  "id": "vol7-0617-047296",
+  "action": "fix_address",
+  "index_text": "עושה שלום במרומיו דא יעקב",
+  "was": "הגדה של פסח ע ב",
+  "correct": "Zohar III 12b",
+  "ref": "Peri Tzadik, Chayei Sara 10",
+  "quote": "כמו ש' (בזוה\"ק ח\"ג יב ב) עושה שלום במרומיו דא יעקב",
+  "note": "Verified on Sefaria (Zohar, Vayikra 25:191); Pri Tzaddik Vayera 2 gives the same address."
+ },
+ {
+  "id": "vol7-0617-047299",
+  "action": "fix_address",
+  "index_text": "דאמת ושלום קשיר דא בדא ועל דא הוא שלימותא",
+  "was": "הגדה של פסח ע ב",
+  "correct": "Zohar III 12b",
+  "ref": "Peri Tzadik, Chayei Sara 10",
+  "quote": "דאמת ושלום קשיר דא בדא",
+  "note": "Same Zohar passage as above (Vayikra 25:191)."
+ },
+ {
+  "id": "vol7-0625-047393",
+  "action": "fix_book",
+  "index_text": "ותתפלל על ה' בגין דבנין במזלא קדישא",
+  "was": "הגדה של פסח עט ב",
+  "correct": "Zohar III 79b",
+  "ref": "Peri Tzadik, Chayei Sara 10",
+  "quote": "בזוה\"ק (ח\"ג עט ב) כ' בחנה ותתפלל על ה' על דייקא",
+  "note": "Verified on Sefaria (Zohar, Achrei Mot 74:410)."
+ },
+ {
+  "id": "vol7-0647-047669",
+  "action": "fix_address",
+  "index_text": "איהו אמת ואיהי אמונה",
+  "was": "הגדה של פסח קצד ב",
+  "correct": "Zohar III 230a",
+  "ref": "Peri Tzadik, Chayei Sara 10",
+  "quote": "עפמ\"ש ברע\"מ (שם רל א) איהו אמת ואיהי אמונה",
+  "note": "Cross-listing; this os cites Ra'aya Mehemna III 230a (entry vol7-0651-047725)."
+ },
+ {
+  "id": "vol7-0651-047725",
+  "action": "fix_book",
+  "index_text": "איהו אמת ואיהי אמונה",
+  "was": "הגדה של פסח רל א",
+  "correct": "Zohar III 230a",
+  "ref": "Peri Tzadik, Chayei Sara 10",
+  "quote": "ברע\"מ (שם רל א) איהו אמת ואיהי אמונה",
+  "note": "Ra'aya Mehemna, Pinchas; Sefaria Zohar, Pinchas 53:332."
+ },
+ {
+  "id": "vol7-0038-040226",
+  "action": "move",
+  "index_text": "מה תצעק אלי … ויסעו",
+  "was": "Exodus 14:14",
+  "correct": "Exodus 14:15",
+  "ref": "Peri Tzadik, Chayei Sara 10",
+  "quote": "(not in this os)",
+  "note": "Exodus 14 is not cited in Chayei Sara 10; true os not identified.",
+  "correct_ref": null
+ },
+ {
+  "id": "vol7-0276-043365",
+  "action": "move",
+  "index_text": "והפוך בש\"ת ותשכח שב\"ת, והיינו בראשית ירא שבת",
+  "was": "Taanit 405b",
+  "correct": "Tikkunei Zohar",
+  "ref": "Peri Tzadik, Chayei Sara 10",
+  "quote": "(not in this os)",
+  "note": "This Tikkunim derasha is not in Chayei Sara 10; true os not identified.",
+  "correct_ref": null
+ },
+ {
+  "id": "vol4-0322-025138",
+  "action": "drop",
+  "index_text": "מנוחה בפורים במגילה היא מ -",
+  "was": "topic: שבו",
+  "correct": "",
+  "ref": "Peri Tzadik, Chayei Sara 10",
+  "quote": "(Purim not mentioned)",
+  "note": "Topic not discussed in this os (the parallels data place it in Peri Tzadik, Purim 1); remove this ref from the line."
+ },
+ {
+  "id": "vol5-0232-033883",
+  "action": "fix_book",
+  "index_text": "עיקר הקדושה של - בתפילת המנחה",
+  "was": "topic: סעודת מלוה מלכה › התפילה בשבת",
+  "correct": "topic: שבת (Shabbat Minchah)",
+  "ref": "Peri Tzadik, Chayei Sara 10",
+  "quote": "מ\"מ עיקר הקדושה בתפלה זו",
+  "note": "Filed under Melaveh Malkah; the text speaks of Shabbat Minchah."
+ },
+ {
+  "id": "vol5-0234-033901",
+  "action": "fix_book",
+  "index_text": "עיקר המנוחה ב - היא מהיצר הרע",
+  "was": "topic: סעודת מלוה מלכה › ביטול היצר הרע",
+  "correct": "topic: שבת",
+  "ref": "Peri Tzadik, Chayei Sara 10",
+  "quote": "שלום הוא מקטרוג היצר הרע",
+  "note": "Filed under Melaveh Malkah; the text speaks of Shabbat rest."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "ונת' בראשית מא' י",
+  "was": "",
+  "correct": "Peri Tzadik, Bereshit 10",
+  "ref": "Peri Tzadik, Chayei Sara 10",
+  "quote": "(ונת' בראשית מא' י)",
+  "note": "Rav Tzadok's own cross-reference; checked: Bereshit 10 treats מנוחת אמת ואמונה with Zohar III 230a."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "ונתתי שלום בארץ ושכבתם ואין מחריד",
+  "was": "",
+  "correct": "Leviticus 26:6",
+  "ref": "Peri Tzadik, Chayei Sara 10",
+  "quote": "ועז\"נ ונתתי שלום בארץ ושכבתם ואין מחריד",
+  "note": "Pasuk quoted, not indexed."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "השלך על ה' יהבך",
+  "was": "",
+  "correct": "Psalms 55:23",
+  "ref": "Peri Tzadik, Chayei Sara 10",
+  "quote": "השלך על ה' יהבך על דייקא דהא מזוני במזלא תליין",
+  "note": "Pasuk quoted inside the Zohar (III 79b-80a; Sefaria Achrei Mot 75:411)."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "ותתפלל על ה'",
+  "was": "",
+  "correct": "I Samuel 1:10",
+  "ref": "Peri Tzadik, Chayei Sara 10",
+  "quote": "כ' בחנה ותתפלל על ה'",
+  "note": "Pasuk quoted inside the Zohar."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "וראה בנים לבניך שלום על ישראל",
+  "was": "",
+  "correct": "Psalms 128:6",
+  "ref": "Peri Tzadik, Chayei Sara 10",
+  "quote": "וכמש\"נ וראה בנים לבניך שלום על ישראל",
+  "note": "Pasuk quoted, not indexed."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "ואלה ימי שני חיי אברהם אשר חי",
+  "was": "",
+  "correct": "Genesis 25:7",
+  "ref": "Peri Tzadik, Chayei Sara 10",
+  "quote": "דכ' בי' ביחוד ואלה ימי שני חיי אברהם אשר חי",
+  "note": "Pasuk quoted, not indexed."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "ויברכהו",
+  "was": "",
+  "correct": "Genesis 26:12",
+  "ref": "Peri Tzadik, Chayei Sara 10",
+  "quote": "דכ' בי' ויברכהו",
+  "note": "Pasuk quoted (Yitzchak), not indexed."
+ }
+]
