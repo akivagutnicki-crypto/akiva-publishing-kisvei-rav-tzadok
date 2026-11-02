@@ -17,8 +17,8 @@ LIB = Path('dist/library')
 OUT = LIB / 'mafteach-links'
 ISH = ('Beit Yaakov on Torah', 'Mei HaShiloach', 'Sod Yesharim', 'Tiferet Yosef', "Sha'ar HaEmunah VeYesod HaChasidut")
 is_ish = lambda r: r.startswith(ISH)
-W = {'strong': 3.0, 'likely': 2.0, 'possible': 1.0}
-ORDER = {'strong': 0, 'likely': 1, 'possible': 2}
+W = {'reviewed': 3.5, 'strong': 3.0, 'likely': 2.0, 'possible': 1.0}
+ORDER = {'reviewed': -1, 'strong': 0, 'likely': 1, 'possible': 2}
 fkey = lambda s: re.sub(r'^-+|-+$', '', re.sub(r'[^a-z0-9]+', '-', s.lower()))
 
 def load(dirname):
@@ -58,7 +58,7 @@ def aggregate(refs, rel=None):
         for src, p, tier, cites, words in reverse.get(ref, []):
             add_ish(src, ref, p, tier, cites, words, w)
         for u in units(ref, genre):
-            for target, title, g, p, tier, words in genre[u]:
+            for target, title, g, p, tier, words, *_ in genre[u]:
                 t = out.setdefault(target, {'title': title, 'genre': g, 'score': 0, 'tier': tier, 'via': collections.Counter(), 'words': collections.Counter()})
                 t['score'] += W[tier] * p * w; t['via'][ref] += W[tier] * p; t['words'].update(words or [])
                 if ORDER[tier] < ORDER[t['tier']]: t['tier'] = tier
