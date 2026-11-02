@@ -160,8 +160,9 @@ def footnote_pairs(index, mcp_dir=None):
         for f in (os.listdir(TRAINING_DIR) if os.path.isdir(TRAINING_DIR) else []):
             if f.endswith('.json'):  # outside elucidations: siman-level cross-references count too
                 for r in json.load(open(os.path.join(TRAINING_DIR, f), encoding='utf-8'))['records']:
-                    if r['kind'] == 'parallel':
-                        raw.add((r['para'] if r.get('phrase') is not None else r['para'] + ':1', r['ref']))
+                    if r['kind'] == 'parallel' and r.get('para'):
+                        a = r['para'] if r['para'] in index.paras else r['para'] + ':1'
+                        raw.add((a, r['ref']))
     pairs = set()
     for a, b in raw:
         if a not in index.paras:

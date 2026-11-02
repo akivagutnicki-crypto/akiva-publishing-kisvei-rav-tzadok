@@ -106,12 +106,12 @@ def _alt(d):
     return '|'.join(sorted((re.escape(k) for k in d), key=len, reverse=True))
 
 
-DAF_RE = re.compile(r'(?:מס(?:כת|\')\s+)?(' + _alt(BAVLI) + r')\s+(?:דף\s+)?(' + NUM + r')\s*(?:(?P<marker>\.|:|,)|(?P<side>ע"?[אב]|ע\'[אב]|\s+[אב]\b))?')
+DAF_RE = re.compile(r'(?:מס(?:כת|\')\s+)?(' + _alt(BAVLI) + r')\s+(?:דף\s+)?(' + NUM + r')\s*(?:(?P<side>,\s*[אב](?![א-ת])|ע"?[אב]|ע\'[אב]|\s+[אב]\b)|(?P<marker>\.|:|,))?')
 DAF_SIDE_RE = re.compile(r'(?:ע"?([אב])|ע\'([אב]))')
 VERSE_RE = re.compile(r'(' + _alt(TANAKH) + r')\s+(' + NUM + r')\s*[,:\.]?\s+(' + NUM + r')\b')
 VERSE_CHAPTER_RE = re.compile(r'(' + _alt(TANAKH) + r')\s+(' + NUM + r')\b')
 MIDRASH_RE = re.compile(r'(' + _alt(MIDRASH) + r')\s+(?:פ(?:רשה|\')?\s*)?(' + NUM + r')\s*[,:\.]?\s*(?:סי\'?\s*|אות\s*)?(' + NUM + r')?\b')
-ZOHAR_RE = re.compile(r'(?:זוהר|זהר|זוה"ק|זוה"ק|זוהר הקדוש|בזוהר|בזוה"ק|בזהר)\s*(?:הק\'\s*)?(?:ח"([אבג])|חלק\s+([אבג]))\s*[,:\.]?\s*(?:דף\s+)?(' + NUM + r')\s*(?:(\.|:)|ע"?([אב]))?')
+ZOHAR_RE = re.compile(r'(?:זוהר|זהר|זוה"ק|זוה"ק|זוהר הקדוש|בזוהר|בזוה"ק|בזהר)\s*(?:הק(?:\'|דוש)\s*)?[(\[]?\s*(?:ח"([אבג])|חלק\s+([אבג]))\s*[,:\.]?\s*(?:דף\s+)?(' + NUM + r')\s*(?:(\.|:)|ע"?([אב])|,\s*([אב])(?![א-ת]))?')
 ZOHAR_PARSHA_RE = re.compile(r'(?:זוהר|זהר|זוה"ק)\s+(?:פ(?:רשת|\')\s+)?([א-ת]+(?:\s[א-ת]+)?)\s+(?:דף\s+)?(' + NUM + r')\s*(?:(\.|:)|ע"?([אב]))?')
 TIKKUNEI_RE = re.compile(r'(?:תיקוני(?:ם)? זוהר|תיקו"ז|תקו"ז|תקוני זוהר|תיקונים)\s*(?:תיקון\s+|ת\'\s+)?(' + NUM + r')')
 MISHNAH_RE = re.compile(r'(?:משנה\s+)?(' + _alt({**MISHNAH_TRACTATE_EXTRA, **{k: v for k, v in BAVLI.items() if len(k) > 2}}) + r')\s+פ"?(' + NUM + r')\s*[,:\.]?\s*מ"?(' + NUM + r')')
@@ -167,7 +167,7 @@ def detect(text):
 
     for m in ZOHAR_RE.finditer(t):
         vol = {'א': 1, 'ב': 2, 'ג': 3}[m.group(1) or m.group(2)]
-        d = _daf(m.group(3), m.group(4), m.group(5))
+        d = _daf(m.group(3), m.group(4), m.group(5) or m.group(6))
         if d:
             add('zohar-daf', m, f'Zohar {vol}:{d}', 0.9, {'volume': vol, 'daf': d})
     for m in TIKKUNEI_RE.finditer(t):

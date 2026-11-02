@@ -49,6 +49,12 @@ citations each commentator attaches to each siman; those become additional gold 
   parallel appended to the note. `SourceMemory` then proposes, for a new phrase, the sources editors attached to
   the same wording elsewhere, with those earlier quotations and contexts as worked examples. Footnote parallels
   become training pairs for the parallel ranker, next to the reviewed connections.
+- **Elucidated editions** (OCR, never stored; only refs and anchor positions in `training/`):
+  `ingest-biur` reads *Tzidkat HaTzadik im Biur Meshulav* (inline citations in ביאורי החסידות and מקורות וציונים,
+  cross-references to Rav Tzadok's writings, לעיל/להלן within Tzidkat); `ingest-peri` reads an annotated Peri Tzadik
+  volume (bracketed sources in the text, numbered notes tied to their markers, cross-references by אות / מאמר).
+  Each citation is anchored to the closest phrase (interlinear) or 8-word window (Hebrew-only) of the reader's own
+  edition. These records feed the footnote memory and the parallel training.
 - Measured with `python3 run.py footnote-memory data/live` (leave-one-sefer-out on the trusted footnotes).
 
 ## Measured performance (Tzidkat editorial master, superseded by the reports in models/) (held-out reviewed parallels, 97 queries)

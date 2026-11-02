@@ -217,15 +217,28 @@ def extra_records(mcp_dir, training_dir=TRAINING_DIR):
             continue
         d = json.load(open(os.path.join(training_dir, f), encoding='utf-8'))
         slug = d['book']
-        if slug not in texts:
-            texts[slug] = {p['r']: p for p in json.load(open(os.path.join(mcp_dir, 'text', slug + '.json'), encoding='utf-8'))['paras']}
+        if slug not in texts:  # a ref can exist twice (Peri Tzadik: interlinear study edition and original Hebrew)
+            by_ref = defaultdict(list)
+            for p in json.load(open(os.path.join(mcp_dir, 'text', slug + '.json'), encoding='utf-8'))['paras']:
+                by_ref[p['r']].append(p)
+            texts[slug] = by_ref
         for r in d['records']:
-            p = texts[slug].get(r['para'])
-            if p is None or r.get('phrase') is None or not p.get('p'):
+            if r.get('phrase') is None:
                 continue
-            pair = p['p'][r['phrase']]
-            out.append({'book': slug, 'para': r['para'], 'note': None, 'part': 0, 'phrase': r['phrase'], 'anchorHe': pair[0],
-                        'anchorEn': pair[1], 'ref': r['ref'], 'refs': [r['ref']], 'linked': False, 'kind': r['kind'],
+            unit = r.get('unit', 'phrase')
+            cands = texts[slug].get(r['para'], [])
+            p = next((x for x in cands if (x.get('p') if unit == 'phrase' else not x.get('p'))), None)
+            if p is None:
+                continue
+            if unit == 'phrase':
+                if r['phrase'] >= len(p['p']):
+                    continue
+                he, en = p['p'][r['phrase']]
+            else:
+                w = (p.get('t') or '').split()
+                he, en = ' '.join(w[r['phrase'] * 8:(r['phrase'] + 1) * 8]), ''
+            out.append({'book': slug, 'para': r['para'], 'note': None, 'part': 0, 'phrase': r['phrase'], 'anchorHe': he,
+                        'anchorEn': en, 'ref': r['ref'], 'refs': [r['ref']], 'linked': False, 'kind': r['kind'],
                         'quote': '', 'context': '', 'headline': '', 'text': '', 'origin': d['origin']})
     return out
 

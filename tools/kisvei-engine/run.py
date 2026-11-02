@@ -6,6 +6,7 @@
   python3 run.py parallels <mcp-data dir> <weights.json> <ref> [limit]
   python3 run.py footnote-memory <mcp-data dir> [report.json]   learn from the reader footnotes; leave-one-book-out accuracy
   python3 run.py ingest-biur <ocr.docx|txt> <mcp-data dir> <training/out.json> [origin [suggestions prefix]]   derive refs from an elucidated Tzidkat edition
+  python3 run.py ingest-peri <ocr.docx|txt> <mcp-data dir> <training/out.json> [origin]   derive refs from an annotated Peri Tzadik volume
   python3 run.py cite "<hebrew text>"                      detect explicit citations
   python3 run.py footnotes <mcp-data dir> <weights.json> <ref> [limit]   draft footnotes for a paragraph
   python3 run.py annotate-book <mcp-data dir> <weights.json> <slug> <out.json> [limit]
@@ -60,6 +61,13 @@ def main(argv):
             md, recs = biur.suggestions(argv[4], os.path.join(os.path.dirname(__file__), '../../editorial/tzidkat-editorial-master-2026-11/connections.json'))
             open(argv[6] + '.md', 'w', encoding='utf-8').write(md)
             json.dump(recs, open(argv[6] + '.json', 'w', encoding='utf-8'), ensure_ascii=False, indent=0)
+    elif cmd == 'ingest-peri':
+        from kisvei_engine import biur
+        recs, stats = biur.ingest_peri(argv[2], argv[3])
+        keep = [{k: r[k] for k in ('section', 'kind', 'ref', 'para', 'unit', 'phrase', 'part') if k in r} for r in recs]  # refs only
+        json.dump({'book': 'peri-tzadik', 'origin': argv[5] if len(argv) > 5 else 'peri-tzadik-elucidated', 'stats': stats, 'records': keep},
+                  open(argv[4], 'w', encoding='utf-8'), ensure_ascii=False, indent=0)
+        print(json.dumps(stats, ensure_ascii=False, indent=1))
     elif cmd == 'footnote-memory':
         from kisvei_engine import footnote_memory, citations as cit
         from kisvei_engine.parallels import ParallelIndex

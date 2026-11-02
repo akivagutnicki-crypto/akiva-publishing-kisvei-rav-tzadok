@@ -35,8 +35,9 @@ LIB_HE = {
     'משיב הטענה': "Meshiv HaTa'anah", 'סוד ישרים': 'Sod Yesharim', 'תפארת יוסף': 'Tiferet Yosef',
 }
 LIB_RE = re.compile(r'(?:ב|ו|וב|ע\' |עיין |וע\' |ועיין )?(' + '|'.join(sorted(map(re.escape, LIB_HE), key=len, reverse=True)) + r')(?![א-ת])([^()\n]{0,30})\(([^()]{1,60})\)')
+LIB_RE2 = re.compile(r'(' + '|'.join(sorted(map(re.escape, LIB_HE), key=len, reverse=True)) + r')(?![א-ת])([^()"\n:]{0,30}?)\s*((?:אות|סימן|מאמר|סי\'|ס\')\s*[א-ת"\'׳״]{1,5})')
 INTERNAL_RE = re.compile(r'(לעיל|להלן|לקמן)\s*(?:ב?אות|סי(?:מן|\'))\s*([א-ת"\'׳״]{1,5})')
-NUM_IN = re.compile(r'(?:אות|סי(?:מן|\')|סימן|פרק|פ\')\s*([א-ת"\'׳״]{1,5})')
+NUM_IN = re.compile(r'(?:אות|סי(?:מן|\')|סימן|מאמר|פרק|פ\')\s*([א-ת"\'׳״]{1,5})')
 
 
 def _plain(s):
@@ -91,6 +92,8 @@ class LibraryResolver:
                 if n is None:
                     continue
                 middle = ' '.join(parts[1:-1]) if len(parts) > 2 else ''
+                if len(parts) == 2 and len(parts[1].split()) > 1:  # "פרי צדיק, לחג השבועות א"
+                    middle = re.sub(r"\s*[א-ת]{1,4}'?\s*$", '', parts[1])
                 self.by_key[(b['title'], re.sub(r'\s+', ' ', middle), n)] = s['ref']
                 self.by_key.setdefault((b['title'], '', n), s['ref'])
 
@@ -103,12 +106,30 @@ class LibraryResolver:
         if not n:
             return None
         ctx = _plain(between + ' ' + loc)
-        parsha = re.search(r'(?:פרשת|פר\'|פ\')\s*([א-ת]+(?:\s[א-ת]+)?)', ctx)
-        if parsha:
-            for (t, mid, k), ref in self.by_key.items():
-                if t == title and k == n and mid and parsha.group(1).split()[0] in mid:
-                    return ref
+        words = {w for w in re.findall(r'[א-ת]{2,}', ctx) if w not in ('פרשת', 'אות', 'סימן', 'מאמר')}
+        best, score = None, 0
+        for (t, mid, k), ref in self.by_key.items():
+            if t == title and k == n and mid:
+                mw = set(re.findall(r'[א-ת]{2,}', mid))
+                sc = len(words & mw) + sum(1 for w in words for x in mw if len(w) > 2 and (w in x or x in w)) * 0.5
+                if sc > score:
+                    best, score = ref, sc
+        if best:
+            return best
+        if any(t == title and mid for (t, mid, k) in self.by_key) and words:
+            return None  # a sefer arranged by parashah needs the parashah to resolve
         return self.by_key.get((title, '', n))
+
+
+def lib_mentions(text):
+    """(title, between, locator, span) for every cross-reference to Rav Tzadok's writings, with or without parentheses."""
+    seen = set()
+    for rx in (LIB_RE, LIB_RE2):
+        for m in rx.finditer(text):
+            if m.start(1) in seen:
+                continue
+            seen.add(m.start(1))
+            yield LIB_HE[m.group(1)], m.group(2), m.group(3), m.span()
 
 
 def ingest(path, mcp_dir):
@@ -143,11 +164,11 @@ def ingest(path, mcp_dir):
                 records.append({'siman': siman, 'page': page, 'part': part_name, 'kind': 'source', 'ref': normalize_ref(d['ref']),
                                 'anchorHe': anchor, 'confidence': d.get('confidence')})
                 stats[part_name + 'Sources'] += 1
-            for m in LIB_RE.finditer(plain):
+            for title, between, loc, span in lib_mentions(plain):
                 stats['libMentions'] += 1
-                r = resolver.resolve(LIB_HE[m.group(1)], m.group(2), m.group(3))
+                r = resolver.resolve(title, between, loc)
                 if r and not r.startswith(f'Tzidkat HaTzadik {siman}'):
-                    anchor = ' '.join(plain[:m.start()].split()[-8:])
+                    anchor = ' '.join(plain[:span[0]].split()[-8:])
                     records.append({'siman': siman, 'page': page, 'part': part_name, 'kind': 'parallel', 'ref': r, 'anchorHe': anchor})
                     stats[part_name + 'Library'] += 1
             for m in INTERNAL_RE.finditer(plain):
@@ -240,3 +261,135 @@ def suggestions(training_json, master_path, title='Biur Meshulav'):
             'Found automatically in the OCR: expect some wrong refs (misread numerals, daf without amud, verse past the end of a chapter).', '',
             f"{tot['source']} sources and {tot['parallel']} cross-references across {len(new)} simanim.", '']
     return '\n'.join(head + body), out
+
+
+# ---------------------------------------------------------------------------------------------
+# Peri Tzadik with sources and numbered notes (e.g. the Moadim volume: Chanukah, Tu BiShvat,
+# Pesach Sheni, Lag BaOmer, Shavuot, Tu BeAv). Header: "<page> פרי <section> / <ois> צדיק".
+PERI_SECTIONS = [  # header text (no nikkud) -> reader section prefix; longest first
+    ('לזאת חנכה', 'Peri Tzadik, Chanukah'), ('זאת חנכה', 'Peri Tzadik, Chanukah'), ('לחנכה', 'Peri Tzadik, Chanukah'),
+    ('דחנכה', 'Peri Tzadik, Chanukah'), ('חנכה', 'Peri Tzadik, Chanukah'), ('חנוכה', 'Peri Tzadik, Chanukah'),
+    ('חג השבועות', 'Peri Tzadik, Shavuot'), ('חמשה עשר באב', 'Peri Tzadik, The Fifteenth of Av'),
+    ('חמשה עשר בשבט', 'Peri Tzadik, Tu BiShvat'), ('ל"ג בעמר', 'Peri Tzadik, Lag BaOmer'), ('ל"ג בעומר', 'Peri Tzadik, Lag BaOmer'),
+    ('פסח שני', 'Peri Tzadik, Pesach Sheni'), ('פרשת מקץ', 'Peri Tzadik, Miketz'), ('לראש חדש טבת', None),
+]
+PERI_HEADER = re.compile(r'פרי\s+(.+?)\s*(?:/\s*([א-ת"\'-]{1,9}))?\s*(?:צדיק)?\s*$')
+NOTE_START = re.compile(r'^\s*([א-ת"]{1,4})\.\s')
+NOTE_SPLIT = re.compile(r'(?:^|(?<=\s))([א-ת"]{1,4})\.\s')
+TOKEN_NUM = re.compile(r'(?<![א-ת"\'])([א-ת]{1,4})(?=[,.:;]?(?:\s|$))')
+
+
+def _units(p):
+    """('phrase', [hebrew phrases]) for interlinear paragraphs, ('window', [8-word windows]) for Hebrew-only."""
+    if p.get('p'):
+        return 'phrase', [pair[0] for pair in p['p']]
+    w = (p.get('t') or '').split()
+    return 'window', [' '.join(w[i:i + 8]) for i in range(0, len(w), 8)]
+
+
+def ingest_peri(path, mcp_dir):
+    from .footnote_memory import he_words
+    lines = read_lines(path)
+    resolver = LibraryResolver(mcp_dir)
+    paras = json.load(open(os.path.join(mcp_dir, 'text', 'peri-tzadik.json'), encoding='utf-8'))['paras']
+    units = defaultdict(list)                       # section prefix -> [(para ref, unit, index, words)]
+    for p in paras:
+        kind, us = _units(p)
+        for prefix in {v for _, v in PERI_SECTIONS if v}:
+            if p['r'].startswith(prefix + ' '):
+                for k, u in enumerate(us):
+                    units[prefix].append((p['r'], kind, k, set(he_words(u))))
+    records, stats = [], Counter()
+    for page, _, body in pages_any(lines):
+        if not body:
+            continue
+        head = _plain(body[0]).replace('״', '"')
+        m = PERI_HEADER.search(head)
+        if not m or 'משנת' in head or 'תוכן' in head:
+            stats['pagesSkipped'] += 1
+            continue
+        section = next((v for k, v in PERI_SECTIONS if k in m.group(1)), 'unknown')
+        if not section or section == 'unknown':
+            stats['pagesNoReaderSection'] += 1
+            continue
+        stats['pages'] += 1
+        text, notes, in_notes = [], [], False
+        for l in body[1:]:
+            pl = _plain(l)
+            nums = [gematria_number(x) for x in NOTE_SPLIT.findall(pl)]
+            nums = [x for x in nums if x]
+            consecutive = sum(1 for a, b in zip(nums, nums[1:]) if b == a + 1)
+            if not in_notes and (NOTE_START.match(pl) or consecutive >= 2):
+                in_notes = True
+            (notes if in_notes else text).append(l)
+        tp, np_ = _plain(' '.join(text)), _plain(' '.join(notes))
+        # numbered notes, accepting only consecutive numbers (so "שם." is not taken for a note)
+        cuts, expect = [], None
+        for nm in NOTE_SPLIT.finditer(np_):
+            n = gematria_number(nm.group(1))
+            if n and (expect is None or n == expect or n == expect + 1):
+                cuts.append((nm.start(), n))
+                expect = n
+        note_text = {n: np_[s:(cuts[i + 1][0] if i + 1 < len(cuts) else len(np_))] for i, (s, n) in enumerate(cuts)}
+        marker_anchor = {}
+        for tm in TOKEN_NUM.finditer(tp):
+            n = gematria_number(tm.group(1))
+            if n in note_text and n not in marker_anchor and n > 10:
+                marker_anchor[n] = ' '.join(tp[:tm.start()].split()[-8:])
+
+        para_words = None
+
+        def emit(kind, ref, anchor, part):
+            nonlocal para_words
+            if anchor is tp:  # page-level: best paragraph by shared words with the whole page
+                if para_words is None:
+                    pw = defaultdict(set)
+                    for r_, _, _, w in units.get(section, []):
+                        pw[r_] |= w
+                    words = set(he_words(tp))
+                    para_words = max(pw.items(), key=lambda x: len(words & x[1]), default=(None, set()))
+                    para_words = para_words[0] if para_words[0] and len(words & para_words[1]) >= 8 else ''
+                records.append({'section': section, 'page': page, 'part': part + '-page', 'kind': kind, 'ref': ref,
+                                'para': para_words or None, 'unit': None, 'phrase': None})
+                stats[part + ('PageAnchored' if para_words else 'Unanchored')] += 1
+                return
+            words = set(he_words(anchor))
+            best = max(units.get(section, []), key=lambda x: len(words & x[3]), default=None)
+            ok = best and len(words & best[3]) >= 3
+            records.append({'section': section, 'page': page, 'part': part, 'kind': kind, 'ref': ref,
+                            'para': best[0] if ok else None, 'unit': best[1] if ok else None, 'phrase': best[2] if ok else None})
+            stats[part + ('Anchored' if ok else 'Unanchored')] += 1
+
+        for d in detect(tp):
+            if d.get('ref') and d.get('kind') != 'work-mention':
+                emit('source', normalize_ref(d['ref']), ' '.join(tp[:d['span'][0]].split()[-8:]), 'text')
+        for n, nt in note_text.items():
+            anchor = marker_anchor.get(n, '')
+            stats['notes'] += 1
+            stats['notesWithMarker'] += bool(anchor)
+            if not anchor:  # marker not found: anchor to the reader paragraph closest to the page's text
+                anchor = tp
+            for d in detect(nt):
+                if d.get('ref') and d.get('kind') != 'work-mention':
+                    emit('source', normalize_ref(d['ref']), anchor, 'note')
+            for title, between, loc, span in lib_mentions(nt):
+                stats['libMentions'] += 1
+                r = resolver.resolve(title, between, loc)
+                stats['libResolved'] += bool(r)
+                if r:
+                    emit('parallel', r, anchor, 'note')
+    stats['records'] = len(records)
+    return [r for r in records if r['para']], dict(stats)
+
+
+def pages_any(lines):
+    """[(page, None, [lines])] split on the OCR page markers only."""
+    out, cur = [], None
+    for l in lines:
+        m = PAGE.match(l.strip())
+        if m:
+            cur = (int(m.group(1)), None, [])
+            out.append(cur)
+        elif cur is not None and l.strip():
+            cur[2].append(l)
+    return out
