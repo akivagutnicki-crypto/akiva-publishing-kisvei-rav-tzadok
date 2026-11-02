@@ -1,0 +1,446 @@
+{
+ "version": "2026-11-02",
+ "source": "HaMafteach HaShalem (R' Chaim Hirsch), OCR",
+ "books": {
+  "Machshavot Charutz": {
+   "file": "machshavot-charutz.json",
+   "passages": 21,
+   "bytes": 196384
+  },
+  "Peri Tzadik, Achrei Mot": {
+   "file": "peri-tzadik-achrei-mot.json",
+   "passages": 12,
+   "bytes": 102028
+  },
+  "Peri Tzadik, Balak": {
+   "file": "peri-tzadik-balak.json",
+   "passages": 15,
+   "bytes": 134045
+  },
+  "Peri Tzadik, Bamidbar": {
+   "file": "peri-tzadik-bamidbar.json",
+   "passages": 18,
+   "bytes": 148785
+  },
+  "Peri Tzadik, Bechukotai": {
+   "file": "peri-tzadik-bechukotai.json",
+   "passages": 14,
+   "bytes": 124357
+  },
+  "Peri Tzadik, Beha'alotcha": {
+   "file": "peri-tzadik-beha-alotcha.json",
+   "passages": 14,
+   "bytes": 127761
+  },
+  "Peri Tzadik, Behar": {
+   "file": "peri-tzadik-behar.json",
+   "passages": 17,
+   "bytes": 139061
+  },
+  "Peri Tzadik, Bereshit": {
+   "file": "peri-tzadik-bereshit.json",
+   "passages": 15,
+   "bytes": 124089
+  },
+  "Peri Tzadik, Beshalach": {
+   "file": "peri-tzadik-beshalach.json",
+   "passages": 14,
+   "bytes": 118609
+  },
+  "Peri Tzadik, Bo": {
+   "file": "peri-tzadik-bo.json",
+   "passages": 11,
+   "bytes": 95141
+  },
+  "Peri Tzadik, Chanukah": {
+   "file": "peri-tzadik-chanukah.json",
+   "passages": 25,
+   "bytes": 236319
+  },
+  "Peri Tzadik, Chayei Sara": {
+   "file": "peri-tzadik-chayei-sara.json",
+   "passages": 11,
+   "bytes": 91249
+  },
+  "Peri Tzadik, Chukat": {
+   "file": "peri-tzadik-chukat.json",
+   "passages": 16,
+   "bytes": 119255
+  },
+  "Peri Tzadik, Devarim": {
+   "file": "peri-tzadik-devarim.json",
+   "passages": 17,
+   "bytes": 148489
+  },
+  "Peri Tzadik, Eikev": {
+   "file": "peri-tzadik-eikev.json",
+   "passages": 19,
+   "bytes": 156037
+  },
+  "Peri Tzadik, Emor": {
+   "file": "peri-tzadik-emor.json",
+   "passages": 14,
+   "bytes": 120317
+  },
+  "Peri Tzadik, Erev Yom Kippur": {
+   "file": "peri-tzadik-erev-yom-kippur.json",
+   "passages": 8,
+   "bytes": 67306
+  },
+  "Peri Tzadik, Ha'Azinu": {
+   "file": "peri-tzadik-ha-azinu.json",
+   "passages": 13,
+   "bytes": 90624
+  },
+  "Peri Tzadik, Kedoshim": {
+   "file": "peri-tzadik-kedoshim.json",
+   "passages": 14,
+   "bytes": 122901
+  },
+  "Peri Tzadik, Ki Tavo": {
+   "file": "peri-tzadik-ki-tavo.json",
+   "passages": 17,
+   "bytes": 141365
+  },
+  "Peri Tzadik, Ki Teitzei": {
+   "file": "peri-tzadik-ki-teitzei.json",
+   "passages": 17,
+   "bytes": 145770
+  },
+  "Peri Tzadik, Ki Tisa": {
+   "file": "peri-tzadik-ki-tisa.json",
+   "passages": 10,
+   "bytes": 83799
+  },
+  "Peri Tzadik, Korach": {
+   "file": "peri-tzadik-korach.json",
+   "passages": 17,
+   "bytes": 140538
+  },
+  "Peri Tzadik, Lag BaOmer": {
+   "file": "peri-tzadik-lag-baomer.json",
+   "passages": 8,
+   "bytes": 65847
+  },
+  "Peri Tzadik, Lech Lecha": {
+   "file": "peri-tzadik-lech-lecha.json",
+   "passages": 11,
+   "bytes": 89091
+  },
+  "Peri Tzadik, Masei": {
+   "file": "peri-tzadik-masei.json",
+   "passages": 15,
+   "bytes": 125452
+  },
+  "Peri Tzadik, Matot": {
+   "file": "peri-tzadik-matot.json",
+   "passages": 14,
+   "bytes": 107700
+  },
+  "Peri Tzadik, Metzora": {
+   "file": "peri-tzadik-metzora.json",
+   "passages": 10,
+   "bytes": 83004
+  },
+  "Peri Tzadik, Miketz": {
+   "file": "peri-tzadik-miketz.json",
+   "passages": 14,
+   "bytes": 113692
+  },
+  "Peri Tzadik, Mishpatim": {
+   "file": "peri-tzadik-mishpatim.json",
+   "passages": 12,
+   "bytes": 98332
+  },
+  "Peri Tzadik, Motzei Yom Kippur": {
+   "file": "peri-tzadik-motzei-yom-kippur.json",
+   "passages": 12,
+   "bytes": 77922
+  },
+  "Peri Tzadik, Nasso": {
+   "file": "peri-tzadik-nasso.json",
+   "passages": 19,
+   "bytes": 142861
+  },
+  "Peri Tzadik, Nitzavim": {
+   "file": "peri-tzadik-nitzavim.json",
+   "passages": 18,
+   "bytes": 145003
+  },
+  "Peri Tzadik, Noach": {
+   "file": "peri-tzadik-noach.json",
+   "passages": 10,
+   "bytes": 83513
+  },
+  "Peri Tzadik, Parshat HaChodesh": {
+   "file": "peri-tzadik-parshat-hachodesh.json",
+   "passages": 9,
+   "bytes": 71277
+  },
+  "Peri Tzadik, Parshat Parah": {
+   "file": "peri-tzadik-parshat-parah.json",
+   "passages": 7,
+   "bytes": 57890
+  },
+  "Peri Tzadik, Parshat Shekalim": {
+   "file": "peri-tzadik-parshat-shekalim.json",
+   "passages": 15,
+   "bytes": 112701
+  },
+  "Peri Tzadik, Parshat Zachor": {
+   "file": "peri-tzadik-parshat-zachor.json",
+   "passages": 13,
+   "bytes": 109567
+  },
+  "Peri Tzadik, Pekudei": {
+   "file": "peri-tzadik-pekudei.json",
+   "passages": 10,
+   "bytes": 73895
+  },
+  "Peri Tzadik, Pesach": {
+   "file": "peri-tzadik-pesach.json",
+   "passages": 54,
+   "bytes": 451775
+  },
+  "Peri Tzadik, Pesach Sheni": {
+   "file": "peri-tzadik-pesach-sheni.json",
+   "passages": 3,
+   "bytes": 29055
+  },
+  "Peri Tzadik, Pidyon Haben": {
+   "file": "peri-tzadik-pidyon-haben.json",
+   "passages": 3,
+   "bytes": 29231
+  },
+  "Peri Tzadik, Pinchas": {
+   "file": "peri-tzadik-pinchas.json",
+   "passages": 19,
+   "bytes": 162656
+  },
+  "Peri Tzadik, Purim": {
+   "file": "peri-tzadik-purim.json",
+   "passages": 8,
+   "bytes": 57563
+  },
+  "Peri Tzadik, Purim Katan": {
+   "file": "peri-tzadik-purim-katan.json",
+   "passages": 2,
+   "bytes": 18282
+  },
+  "Peri Tzadik, Re'eh": {
+   "file": "peri-tzadik-re-eh.json",
+   "passages": 16,
+   "bytes": 132691
+  },
+  "Peri Tzadik, Rosh Chodesh Adar": {
+   "file": "peri-tzadik-rosh-chodesh-adar.json",
+   "passages": 11,
+   "bytes": 107034
+  },
+  "Peri Tzadik, Rosh Chodesh Adar II": {
+   "file": "peri-tzadik-rosh-chodesh-adar-ii.json",
+   "passages": 2,
+   "bytes": 19944
+  },
+  "Peri Tzadik, Rosh Chodesh Av": {
+   "file": "peri-tzadik-rosh-chodesh-av.json",
+   "passages": 7,
+   "bytes": 54939
+  },
+  "Peri Tzadik, Rosh Chodesh Cheshvan": {
+   "file": "peri-tzadik-rosh-chodesh-cheshvan.json",
+   "passages": 4,
+   "bytes": 14219
+  },
+  "Peri Tzadik, Rosh Chodesh Elul": {
+   "file": "peri-tzadik-rosh-chodesh-elul.json",
+   "passages": 5,
+   "bytes": 53965
+  },
+  "Peri Tzadik, Rosh Chodesh Iyar": {
+   "file": "peri-tzadik-rosh-chodesh-iyar.json",
+   "passages": 6,
+   "bytes": 65079
+  },
+  "Peri Tzadik, Rosh Chodesh Kislev": {
+   "file": "peri-tzadik-rosh-chodesh-kislev.json",
+   "passages": 7,
+   "bytes": 61141
+  },
+  "Peri Tzadik, Rosh Chodesh Nisan": {
+   "file": "peri-tzadik-rosh-chodesh-nisan.json",
+   "passages": 3,
+   "bytes": 29171
+  },
+  "Peri Tzadik, Rosh Chodesh Shvat": {
+   "file": "peri-tzadik-rosh-chodesh-shvat.json",
+   "passages": 6,
+   "bytes": 58332
+  },
+  "Peri Tzadik, Rosh Chodesh Sivan": {
+   "file": "peri-tzadik-rosh-chodesh-sivan.json",
+   "passages": 5,
+   "bytes": 47958
+  },
+  "Peri Tzadik, Rosh Chodesh Tammuz": {
+   "file": "peri-tzadik-rosh-chodesh-tammuz.json",
+   "passages": 5,
+   "bytes": 54816
+  },
+  "Peri Tzadik, Rosh Hashanah": {
+   "file": "peri-tzadik-rosh-hashanah.json",
+   "passages": 29,
+   "bytes": 206080
+  },
+  "Peri Tzadik, Sh'lach": {
+   "file": "peri-tzadik-sh-lach.json",
+   "passages": 15,
+   "bytes": 130084
+  },
+  "Peri Tzadik, Shabbat HaGadol": {
+   "file": "peri-tzadik-shabbat-hagadol.json",
+   "passages": 12,
+   "bytes": 91665
+  },
+  "Peri Tzadik, Shavuot": {
+   "file": "peri-tzadik-shavuot.json",
+   "passages": 26,
+   "bytes": 212159
+  },
+  "Peri Tzadik, Shemot": {
+   "file": "peri-tzadik-shemot.json",
+   "passages": 11,
+   "bytes": 97024
+  },
+  "Peri Tzadik, Shmini": {
+   "file": "peri-tzadik-shmini.json",
+   "passages": 11,
+   "bytes": 94178
+  },
+  "Peri Tzadik, Shoftim": {
+   "file": "peri-tzadik-shoftim.json",
+   "passages": 17,
+   "bytes": 130022
+  },
+  "Peri Tzadik, Shushan Purim": {
+   "file": "peri-tzadik-shushan-purim.json",
+   "passages": 2,
+   "bytes": 19378
+  },
+  "Peri Tzadik, Sukkot": {
+   "file": "peri-tzadik-sukkot.json",
+   "passages": 53,
+   "bytes": 385460
+  },
+  "Peri Tzadik, Tazria": {
+   "file": "peri-tzadik-tazria.json",
+   "passages": 11,
+   "bytes": 94845
+  },
+  "Peri Tzadik, Terumah": {
+   "file": "peri-tzadik-terumah.json",
+   "passages": 13,
+   "bytes": 108240
+  },
+  "Peri Tzadik, Tetzaveh": {
+   "file": "peri-tzadik-tetzaveh.json",
+   "passages": 12,
+   "bytes": 103838
+  },
+  "Peri Tzadik, The Fifteenth of Av": {
+   "file": "peri-tzadik-the-fifteenth-of-av.json",
+   "passages": 6,
+   "bytes": 60123
+  },
+  "Peri Tzadik, Toldot": {
+   "file": "peri-tzadik-toldot.json",
+   "passages": 10,
+   "bytes": 89408
+  },
+  "Peri Tzadik, Tu BiShvat": {
+   "file": "peri-tzadik-tu-bishvat.json",
+   "passages": 5,
+   "bytes": 48278
+  },
+  "Peri Tzadik, Tzav": {
+   "file": "peri-tzadik-tzav.json",
+   "passages": 10,
+   "bytes": 91485
+  },
+  "Peri Tzadik, Vaera": {
+   "file": "peri-tzadik-vaera.json",
+   "passages": 17,
+   "bytes": 130251
+  },
+  "Peri Tzadik, Vaetchanan": {
+   "file": "peri-tzadik-vaetchanan.json",
+   "passages": 21,
+   "bytes": 165817
+  },
+  "Peri Tzadik, Vayakhel": {
+   "file": "peri-tzadik-vayakhel.json",
+   "passages": 11,
+   "bytes": 91800
+  },
+  "Peri Tzadik, Vayechi": {
+   "file": "peri-tzadik-vayechi.json",
+   "passages": 17,
+   "bytes": 147502
+  },
+  "Peri Tzadik, Vayeilech and Shabbat Shuvah": {
+   "file": "peri-tzadik-vayeilech-and-shabbat-shuvah.json",
+   "passages": 21,
+   "bytes": 162359
+  },
+  "Peri Tzadik, Vayera": {
+   "file": "peri-tzadik-vayera.json",
+   "passages": 10,
+   "bytes": 80572
+  },
+  "Peri Tzadik, Vayeshev": {
+   "file": "peri-tzadik-vayeshev.json",
+   "passages": 13,
+   "bytes": 115030
+  },
+  "Peri Tzadik, Vayetzei": {
+   "file": "peri-tzadik-vayetzei.json",
+   "passages": 10,
+   "bytes": 87945
+  },
+  "Peri Tzadik, Vayigash": {
+   "file": "peri-tzadik-vayigash.json",
+   "passages": 17,
+   "bytes": 140088
+  },
+  "Peri Tzadik, Vayikra": {
+   "file": "peri-tzadik-vayikra.json",
+   "passages": 10,
+   "bytes": 83099
+  },
+  "Peri Tzadik, Vayishlach": {
+   "file": "peri-tzadik-vayishlach.json",
+   "passages": 11,
+   "bytes": 98883
+  },
+  "Peri Tzadik, Yitro": {
+   "file": "peri-tzadik-yitro.json",
+   "passages": 13,
+   "bytes": 115084
+  },
+  "Resisei Layla": {
+   "file": "resisei-layla.json",
+   "passages": 58,
+   "bytes": 487899
+  },
+  "Takanat HaShavin": {
+   "file": "takanat-hashavin.json",
+   "passages": 15,
+   "bytes": 129129
+  },
+  "Tzidkat HaTzadik": {
+   "file": "tzidkat-hatzadik.json",
+   "passages": 263,
+   "bytes": 1312948
+  }
+ }
+}

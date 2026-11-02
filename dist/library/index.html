@@ -688,6 +688,7 @@ section.weekly-study[data-ref^="Akiva Publishing Weekly Torah, Chayei Sarah"] .r
 <script src="source-connections.js?v=20261022-reviewed-connections-v5"></script>
 <script src="source-editions.js?v=20261019-preferred-source-editions-v1"></script>
 <script src="connected-ideas.js?v=20261021-pri-shabbos-oral-deferred-v2"></script>
+<script src="mafteach-panel.js?v=20261102-mafteach-ml-genre-v1"></script>
 <script>
 (() => {
 'use strict';
@@ -2440,6 +2441,7 @@ function appendSection(d) {
   R.sections.push(d);
   R.next = d.next;
   mountConnectedIdeas(d,sec);
+  window.AkivaMafteach?.mount(d, sec, {toHash, esc});   // HaMafteach HaShalem parallels and sources
   loadLinkCounts(d.sectionRef, sec, d);
   sec.querySelectorAll('.seg').forEach(s => s.addEventListener('keydown', e => { if (e.key === 'Enter') selectSegment(s.dataset.ref, s); }));
   // Bundled texts are Hebrew only; add Sefaria's English translation when one exists.

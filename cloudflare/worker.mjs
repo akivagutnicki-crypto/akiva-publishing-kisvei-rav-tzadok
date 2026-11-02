@@ -18,7 +18,7 @@ async function health(env) {
     return Response.json({
       ok: true,
       service: 'Akiva Publishing MCP',
-      tools: 6,
+      tools: 11,
       books: data.books.length,
       catalog_url: url.href,
       mcp_endpoint: '/mcp',

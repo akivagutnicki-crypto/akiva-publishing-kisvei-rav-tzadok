@@ -402,3 +402,10 @@ console.log(`MCP index: ${books.length} books, ${totalParas} paragraphs, ${Objec
 if (exists('parallels')) {
   fs.cpSync(path.join(DATA, 'parallels'), path.join(OUT, 'parallels'), {recursive: true});
 }
+
+// HaMafteach HaShalem (complete index to R. Tzadok's works) for the mafteach_* tools. OUT was cleared above,
+// so its shards are rebuilt on every run from sources/mafteach.
+{
+  const { buildMafteach } = await import('./build-mafteach-index.mjs');
+  buildMafteach(OUT);
+}

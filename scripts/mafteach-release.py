@@ -1,0 +1,149 @@
+"""Publish the Parallels panel (HaMafteach HaShalem, machine-learned parallels, Chassidus/Kabbalah/Machshava/Mussar)
+and the HaMafteach MCP data over the ACTUAL current Pages publication. Nothing is rebuilt.
+
+Modes:
+  metadata        find the live publication artifact (as scripts/new-books-release.py does); pin it and main's head
+  apply SITE      add the panel files and MCP shards, patch library/index.html and library/sw.js, and prove that no
+                  other published file changed
+  guard           main and the live publication are still the pinned ones
+  verify-live     the new files are being served
+"""
+import hashlib, json, os, re, shutil, subprocess, sys, time, urllib.request
+from pathlib import Path
+
+REPO = 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok'
+PUBLIC = 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/'
+STATE = Path('mafteach-release-state.json')
+PANEL_V = '20261102-mafteach-ml-genre-v1'
+NEW_DIRS = ['library/mafteach', 'library/ml-parallels', 'library/genre-parallels']
+ALLOWED = re.compile(r'^(library/index\.html|library/sw\.js|library/mafteach-panel\.js|library/(mafteach|ml-parallels|genre-parallels)/.+|mcp-data/mafteach/.+)$')
+MAX_BYTES = 10_000_000
+
+
+def digest(file):
+    h = hashlib.sha256()
+    with open(file, 'rb') as s:
+        for b in iter(lambda: s.read(1 << 20), b''): h.update(b)
+    return h.hexdigest()
+
+
+def api(route):
+    headers = {'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28'}
+    if os.environ.get('GITHUB_TOKEN'): headers['Authorization'] = 'Bearer ' + os.environ['GITHUB_TOKEN']
+    with urllib.request.urlopen(urllib.request.Request('https://api.github.com/repos/' + REPO + route, headers=headers), timeout=60) as r:
+        return json.load(r)
+
+
+def publishers():
+    result = {}
+    for wf in Path('.github/workflows').glob('*.yml'):
+        last = ''
+        for line in wf.read_text().splitlines():
+            if line.lstrip().startswith('- name:'): last = line.split('- name:', 1)[1].strip()
+            if 'uses: actions/deploy-pages@' in line: result[wf.as_posix()] = last
+    return result
+
+
+def latest_publication():
+    """The run whose deploy-pages step most recently succeeded on main, and its github-pages artifact."""
+    known = publishers()
+    current_run = str(os.environ.get('GITHUB_RUN_ID', ''))
+    cands = []
+    for run in api('/actions/runs?branch=main&per_page=100')['workflow_runs']:
+        if str(run['id']) == current_run or run['path'] not in known or run['status'] != 'completed': continue
+        jobs = api('/actions/runs/' + str(run['id']) + '/jobs?per_page=100')['jobs']
+        done = [s for j in jobs for s in j.get('steps', []) if s['name'] == known[run['path']] and s['conclusion'] == 'success']
+        if done: cands.append((max(s['completed_at'] for s in done), run))
+    assert cands, 'No verified Pages deployment found; refusing to publish'
+    at, run = max(cands, key=lambda x: x[0])
+    art = next((a for a in api('/actions/runs/' + str(run['id']) + '/artifacts')['artifacts'] if a['name'] == 'github-pages' and not a['expired']), None)
+    assert art, 'The current publication artifact is unavailable; refusing an older baseline'
+    return {'runId': run['id'], 'artifactId': art['id'], 'deployedAt': at, 'workflow': run['path']}
+
+
+def main_head(): return api('/git/ref/heads/main')['object']['sha']
+
+
+def inventory(root):
+    return {p.relative_to(root).as_posix(): digest(p) for p in sorted(root.rglob('*')) if p.is_file()}
+
+
+def patch_index(text):
+    if 'mafteach-panel.js' in text and 'AkivaMafteach' in text:
+        return re.sub(r'mafteach-panel\.js\?v=[^"]+', 'mafteach-panel.js?v=' + PANEL_V, text)
+    tags = re.findall(r'<script src="connected-ideas\.js\?v=[^"]+"></script>', text)
+    assert len(tags) == 1, 'Reader script anchor not found exactly once'
+    text = text.replace(tags[0], tags[0] + '\n<script src="mafteach-panel.js?v=' + PANEL_V + '"></script>')
+    mount = 'mountConnectedIdeas(d,sec);'
+    assert text.count(mount) == 1, 'Reader mount anchor not found exactly once'
+    return text.replace(mount, mount + '\n  window.AkivaMafteach?.mount(d, sec, {toHash, esc});   // HaMafteach HaShalem and suggested parallels')
+
+
+def patch_sw(text):
+    m = re.search(r'const SHELL = `([^`]*)`;', text)
+    assert m, 'Service worker SHELL not found'
+    if 'mafteach-parallels-20261102' not in m.group(1):
+        text = text.replace(m.group(0), 'const SHELL = `' + m.group(1) + '-mafteach-parallels-20261102`;')
+    if 'mafteach-panel.js' not in text:
+        anchor = re.search(r"\n(\s*)'\./connected-ideas\.js\?v=[^\n]*\n", text)
+        assert anchor, 'Service worker shell list anchor not found'
+        text = text.replace(anchor.group(0), anchor.group(0) + anchor.group(1) + "'./mafteach-panel.js?v=" + PANEL_V + "',\n")
+    return text
+
+
+def apply(site):
+    site = Path(site)
+    assert (site / 'library/index.html').is_file() and (site / 'mcp-data/catalog.json').is_file(), 'Not a complete site'
+    before = inventory(site)
+    for d in NEW_DIRS:
+        if (site / d).exists(): shutil.rmtree(site / d)
+        shutil.copytree(Path('dist') / d, site / d)
+    shutil.copy2('dist/library/mafteach-panel.js', site / 'library/mafteach-panel.js')
+    for name, fn in (('library/index.html', patch_index), ('library/sw.js', patch_sw)):
+        f = site / name
+        f.write_text(fn(f.read_text(encoding='utf-8')), encoding='utf-8')
+    subprocess.run(['node', 'scripts/build-mafteach-index.mjs', str(site / 'mcp-data')], check=True)
+    after = inventory(site)
+    changed = sorted(k for k in set(before) | set(after) if before.get(k) != after.get(k))
+    removed = [k for k in before if k not in after]
+    bad = [k for k in changed if not ALLOWED.match(k)]
+    assert not removed or all(ALLOWED.match(k) for k in removed), 'Removed published files: ' + ', '.join(removed[:5])
+    assert not bad, 'Unexpected changes: ' + ', '.join(bad[:10])
+    big = [k for k in changed if k in after and (site / k).stat().st_size > MAX_BYTES]
+    assert not big, 'Files over 10 MB: ' + ', '.join(big)
+    report = {'changed': len(changed), 'unchanged': sum(1 for k in before if k in after and before[k] == after[k]),
+              'shell': [k for k in changed if k in ('library/index.html', 'library/sw.js')]}
+    Path('mafteach-release-report.json').write_text(json.dumps(report, indent=1))
+    print('Applied:', json.dumps(report))
+
+
+mode = sys.argv[1]
+if mode == 'metadata':
+    head = os.environ.get('GITHUB_SHA') or subprocess.check_output(['git', 'rev-parse', 'HEAD'], text=True).strip()
+    assert main_head() == head, 'Main advanced'
+    state = {'publication': latest_publication(), 'expectedHead': head}
+    STATE.write_text(json.dumps(state, indent=2))
+    print(json.dumps(state))
+    if os.environ.get('GITHUB_OUTPUT'):
+        with open(os.environ['GITHUB_OUTPUT'], 'a') as o:
+            o.write(f"artifact={state['publication']['artifactId']}\nrun={state['publication']['runId']}\n")
+elif mode == 'apply':
+    apply(sys.argv[2])
+elif mode == 'guard':
+    state = json.loads(STATE.read_text())
+    assert main_head() == state['expectedHead'], 'Main advanced; re-run on the new head'
+    assert latest_publication()['artifactId'] == state['publication']['artifactId'], 'A newer site was published; re-run on it'
+    print('Main and live publication unchanged.')
+elif mode == 'verify-live':
+    for name in ('library/mafteach-panel.js', 'library/mafteach/index.json', 'library/ml-parallels/index.json',
+                 'library/genre-parallels/index.json', 'mcp-data/mafteach/glossary.json'):
+        for k in range(20):
+            try:
+                with urllib.request.urlopen(PUBLIC + name + '?check=' + str(time.time_ns()), timeout=60) as r:
+                    assert r.status == 200; print('live:', name); break
+            except Exception:
+                time.sleep(15)
+        else:
+            raise SystemExit('Not live: ' + name)
+else:
+    raise SystemExit('Use metadata, apply, guard or verify-live')

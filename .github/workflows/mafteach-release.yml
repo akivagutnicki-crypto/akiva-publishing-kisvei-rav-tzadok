@@ -1,0 +1,125 @@
+name: Publish Parallels panel and HaMafteach MCP data (preserve live site)
+
+# Adds the Parallels box (HaMafteach HaShalem, machine-learned parallels, Chassidus/Kabbalah/Machshava/Mussar)
+# and the HaMafteach MCP shards on top of the CURRENT live publication. Nothing else is rebuilt or changed.
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[mafteach-release]')) && 'pages' || format('mafteach-skipped-{0}', github.run_id) }}
+  cancel-in-progress: false
+
+env:
+  SITE: .mafteach-site
+
+jobs:
+  publish:
+    if: ${{ github.repository == 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok' && github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[mafteach-release]')) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+    permissions:
+      contents: read
+      actions: read
+      deployments: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check out the exact source commit
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+
+      - name: Set up Node 24
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+
+      - name: Test the panel, its data and the MCP tools
+        run: |
+          node scripts/test-mafteach-panel.mjs
+          python3 -m py_compile scripts/mafteach-release.py
+
+      - name: Identify the actual current deployed complete Pages artifact
+        id: baseline
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/mafteach-release.py metadata
+
+      - name: Download the complete current publication
+        uses: actions/download-artifact@v4
+        with:
+          artifact-ids: ${{ steps.baseline.outputs.artifact }}
+          run-id: ${{ steps.baseline.outputs.run }}
+          repository: akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/mafteach-baseline
+          merge-multiple: true
+
+      - name: Safely restore every published site file
+        run: |
+          python3 - <<'PY_RESTORE'
+          import os, pathlib, shutil, tarfile
+          root = pathlib.Path(os.environ['SITE']).resolve()
+          if root.exists(): shutil.rmtree(root)
+          root.mkdir()
+          archive = pathlib.Path(os.environ['RUNNER_TEMP']) / 'mafteach-baseline/artifact.tar'
+          assert archive.is_file(), 'Missing complete Pages archive'
+          with tarfile.open(archive, 'r:') as source:
+              members = source.getmembers()
+              for member in members:
+                  target = (root / member.name).resolve()
+                  assert target == root or root in target.parents, 'Archive path escapes site'
+                  assert member.isdir() or member.isfile(), 'Archive contains an unsafe link'
+              source.extractall(root, members=members, filter='data')
+          PY_RESTORE
+
+      - name: Add the Parallels panel and HaMafteach MCP data; prove nothing else changed
+        run: |
+          python3 scripts/mafteach-release.py apply "$SITE"
+          node --check "$SITE/library/sw.js"
+          node --check "$SITE/library/mafteach-panel.js"
+
+      - name: Recheck main and the live publication before upload
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/mafteach-release.py guard
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload the preserved site with the Parallels panel
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: .mafteach-site
+          retention-days: 14
+
+      - name: Recheck main and the live publication before deployment
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/mafteach-release.py guard
+
+      - name: Publish the Parallels panel
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Verify the new files are live
+        run: python3 scripts/mafteach-release.py verify-live
+
+      - name: Save the release report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mafteach-release-${{ github.sha }}
+          retention-days: 30
+          if-no-files-found: warn
+          path: |
+            mafteach-release-state.json
+            mafteach-release-report.json
