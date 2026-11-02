@@ -30,6 +30,10 @@ jobs:
           python -m pip install 'requests==2.32.5'
           python scripts/genre-corpus/build_genre_corpus.py genre-corpus.jsonl.gz
           ls -la genre-corpus*
+      - name: Download the Hebrew texts the Mafteach indexes (Tanach, Mishnah, Shas, Midrash, Tikkunim)
+        run: |
+          python scripts/genre-corpus/build_source_texts.py source-texts.jsonl.gz
+          ls -la source-texts*
       - name: Publish as pre-release assets
         env:
           GH_TOKEN: ${{ github.token }}
@@ -38,4 +42,4 @@ jobs:
             gh release create "$TAG" --prerelease --target "$GITHUB_SHA" --title "Genre corpus for machine-learned parallels (data, not a site release)" \
               --notes "Chassidus, Kabbalah, Jewish Thought and Musar texts (Hebrew) from Sefaria's public export, split into passages, used to compute parallels for the Rav Tzadok Library reader. Each book's license is in genre-corpus-manifest.json."
           fi
-          gh release upload "$TAG" genre-corpus.jsonl.gz genre-corpus-manifest.json --clobber
+          gh release upload "$TAG" genre-corpus.jsonl.gz genre-corpus-manifest.json source-texts.jsonl.gz source-texts-manifest.json --clobber
