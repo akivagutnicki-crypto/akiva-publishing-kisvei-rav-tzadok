@@ -432,6 +432,13 @@ jobs:
           python scripts/build-sefaria-zips.py
           python scripts/test-sefaria-zips.py
 
+      - name: Prevent a historical rebuild from discarding approved additions or downloads
+        run: |
+          if [ -f sources/akiva/overlays/pri-parsha-transition-20261025.json ]; then
+            echo "::error::This full rebuild predates the explicitly reviewed Pri Tzadik parsha transition. Use the artifact-preserving publishers (including tzidkat-editorial-master.yml for Tzidkat HaTzadik) or add a reviewed rebuild transition; do not bypass this gate."
+            exit 1
+          fi
+
       - name: Setup Pages
         uses: actions/configure-pages@v5
         with:
