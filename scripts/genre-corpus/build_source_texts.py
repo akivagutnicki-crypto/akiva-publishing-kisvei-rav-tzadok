@@ -27,6 +27,16 @@ def leaves(node, path=()):
         for k, v in node.items():
             for p, a, t in leaves(v, path + ((k,) if k else ())): yield p, a, t
 
+BAD_VERSION = re.compile(r"(Mevoar|Modern Hebrew|Maoz|Farsi|Judeo|\\[[a-z]{2,3}\\]|trans\\.|translated|Aramaic into Hebrew|Commentar|Lekach|Sechel|temp)", re.I)
+GOOD_VERSION = ('Miqra according to the Masorah', 'Tanach with Text Only', 'William Davidson Edition - Hebrew', 'Talmud Bavli, Vilna 1883 ed.',
+                'Wikisource Talmud Bavli', 'merged', 'Midrash Rabbah -- TE', 'Midrash Tanchuma -- Torat Emet')
+def rank(b):
+    """lower is better: the masoretic Tanakh and the standard printings over paraphrases and translations"""
+    if b is None: return 99
+    v = b.get('versionTitle') or ''
+    if BAD_VERSION.search(v): return 50
+    return GOOD_VERSION.index(v) if v in GOOD_VERSION else 20
+
 def fetch(url, tries=5):
     for k in range(tries):
         try:
@@ -44,7 +54,7 @@ def main(out):
         if b.get('language') != 'Hebrew' or not cats: continue
         ok = (cats[0] in WANT_CATS and not any(SKIP.search(c) for c in cats)) or WANT_TITLES.match(b['title'])
         if cats[0] == 'Talmud' and not (len(cats) > 1 and cats[1] in ('Bavli', 'Yerushalmi')): ok = False
-        if ok: chosen.setdefault(b['title'], b)
+        if ok and rank(b) < rank(chosen.get(b['title'])): chosen[b['title']] = b
     print('books', len(chosen), collections.Counter(b['categories'][0] for b in chosen.values()), flush=True)
     n = 0; manifest = []
     with gzip.open(out, 'wt', encoding='utf-8') as f, cf.ThreadPoolExecutor(16) as ex:
