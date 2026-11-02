@@ -688,7 +688,7 @@ section.weekly-study[data-ref^="Akiva Publishing Weekly Torah, Chayei Sarah"] .r
 <script src="source-connections.js?v=20261022-reviewed-connections-v5"></script>
 <script src="source-editions.js?v=20261019-preferred-source-editions-v1"></script>
 <script src="connected-ideas.js?v=20261021-pri-shabbos-oral-deferred-v2"></script>
-<script src="mafteach-panel.js?v=20261102-mafteach-ml-genre-en-v2"></script>
+<script src="mafteach-panel.js?v=20261102-mafteach-ml-genre-en-v3"></script>
 <script src="mafteach-search.js?v=20261102-mafteach-search-en-v6"></script>
 <script>
 (() => {
@@ -2953,7 +2953,7 @@ async function openPanel(ref, tab = 'connections') {
   p.hidden = false; document.body.classList.add('panel-open');
   p.innerHTML = `<div class="panel-head"><div class="ttl">${esc(ref)}</div><button class="icon-btn" id="pClose" aria-label="Close panel">${ICON.close}</button></div>
     <div class="panel-body"><div class="ptabs" role="tablist">
-      <button role="tab" data-tab="connections">Connections</button><button role="tab" data-tab="tools">Tools</button><button role="tab" data-tab="about">About</button></div>
+      <button role="tab" data-tab="connections">Connections</button><button role="tab" data-tab="mafteach">Mafteach</button><button role="tab" data-tab="tools">Tools</button><button role="tab" data-tab="about">About</button></div>
       <div id="pContent"></div></div>`;
   $('#pClose').onclick = closePanel;
   p.querySelectorAll('.ptabs button').forEach(b => b.onclick = () => showTab(ref, b.dataset.tab));
@@ -2963,9 +2963,11 @@ async function openPanel(ref, tab = 'connections') {
 function showTab(ref, tab) {
   document.querySelectorAll('.ptabs button').forEach(b => b.setAttribute('aria-selected', b.dataset.tab === tab));
   const c = $('#pContent');
+  if (tab === 'mafteach' && window.AkivaMafteach?.panelTab) { const seq = ++panelSeq; c.onclick = null; return window.AkivaMafteach.panelTab(ref, c, {toHash, esc, alive: () => seq === panelSeq, sectionRef: (R.sections.filter(s => ref === s.sectionRef || ref.startsWith(s.sectionRef + ':') || ref.startsWith(s.sectionRef + ' ')).sort((a, b) => b.sectionRef.length - a.sectionRef.length)[0] || {}).sectionRef || ref}); }   // HaMafteach HaShalem
   if (tab === 'tools') return renderTools(ref, c);
   if (tab === 'about') return renderAbout(ref, c);
-  renderConnections(ref, c);
+  const done = renderConnections(ref, c), seq = panelSeq;
+  if (window.AkivaMafteach?.connectionsBanner) Promise.resolve(done).then(() => window.AkivaMafteach.connectionsBanner((R.sections.filter(s => ref === s.sectionRef || ref.startsWith(s.sectionRef + ':') || ref.startsWith(s.sectionRef + ' ')).sort((a, b) => b.sectionRef.length - a.sectionRef.length)[0] || {}).sectionRef || ref, c, () => showTab(ref, 'mafteach'), {alive: () => seq === panelSeq}));
 }
 // Each panel view bumps this; slower async renders drop out if a newer view replaced them.
 let panelSeq = 0;
@@ -3154,9 +3156,12 @@ function renderTools(ref, c) {
     ${en && !/No English translation/.test(en) ? `<button class="tool" data-act="en">${ICON.copy}Copy English</button>` : ''}
     <button class="tool" data-act="cite">${ICON.copy}Copy with citation</button>
     <a class="tool" href="${sefariaUrl(ref)}" target="_blank" rel="noopener">${ICON.ext}Open on Sefaria</a>
-    <a class="tool" href="${API}/search?q=${encodeURIComponent(he.split(/\s+/).slice(0, 6).join(' '))}&tab=text" target="_blank" rel="noopener">${ICON.ext}Search Sefaria for this phrase</a>`;
+    <a class="tool" href="${API}/search?q=${encodeURIComponent(he.split(/\s+/).slice(0, 6).join(' '))}&tab=text" target="_blank" rel="noopener">${ICON.ext}Search Sefaria for this phrase</a>
+    <button class="tool" data-act="maf">${ICON.link}HaMafteach HaShalem: topics, sources and parallels</button>
+    <a class="tool" href="#/mafteach">${ICON.ext}Search the Mafteach or build a shiur</a>`;
   c.onclick = async e => {
     const b = e.target.closest('button[data-act]'); if (!b) return;
+    if (b.dataset.act === 'maf') return showTab(ref, 'mafteach');
     const v = {link: url, he, en, cite: `${he}\n\n${en && !/No English translation/.test(en) ? en + '\n\n' : ''}— ${ref}`}[b.dataset.act];
     try { await navigator.clipboard.writeText(v); toast('Copied'); } catch { toast('Copy failed'); }
   };
