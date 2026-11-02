@@ -45,6 +45,9 @@ jobs:
       - name: Test the panel, its data and the MCP tools
         run: |
           node scripts/test-mafteach-panel.mjs
+          node scripts/build-mafteach-index.mjs .maf-test
+          node scripts/test-mafteach-search.mjs .maf-test
+          rm -rf .maf-test
           python3 -m py_compile scripts/mafteach-release.py
 
       - name: Identify the actual current deployed complete Pages artifact
@@ -86,6 +89,7 @@ jobs:
           python3 scripts/mafteach-release.py apply "$SITE"
           node --check "$SITE/library/sw.js"
           node --check "$SITE/library/mafteach-panel.js"
+          node --check "$SITE/library/mafteach-search.js"
 
       - name: Recheck main and the live publication before upload
         env:

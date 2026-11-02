@@ -668,7 +668,7 @@ section.weekly-study[data-ref^="Akiva Publishing Weekly Torah, Chayei Sarah"] .r
 <body>
 <header class="top">
   <a class="brand" href="#/"><span class="mark"><img src="icons/icon.svg" alt="Akiva Publishing logo" width="46" height="46"></span><span><strong>Rav Tzadok Library</strong><small>Akiva Publishing</small></span></a>
-  <nav class="topnav" aria-label="Primary"><a href="#/">Texts</a><a href="blog/">Weekly Torah</a><a href="../">Our books</a><a href="../#method">About</a><a href="#/support">Support</a></nav>
+  <nav class="topnav" aria-label="Primary"><a href="#/">Texts</a><a href="blog/">Weekly Torah</a><a href="../">Our books</a><a href="../#method">About</a><a href="#/mafteach">Mafteach</a><a href="#/support">Support</a></nav>
   <a class="btn zip-nav" href="#/downloads" aria-label="Download library or sefer ZIP files">ZIP ↓</a>
   <a class="btn donate-nav" href="#/support" aria-label="Support Akiva Publishing">Donate ♥</a>
   <button class="btn install" id="installBtn" type="button" hidden>Install app</button>
@@ -689,6 +689,7 @@ section.weekly-study[data-ref^="Akiva Publishing Weekly Torah, Chayei Sarah"] .r
 <script src="source-editions.js?v=20261019-preferred-source-editions-v1"></script>
 <script src="connected-ideas.js?v=20261021-pri-shabbos-oral-deferred-v2"></script>
 <script src="mafteach-panel.js?v=20261102-mafteach-ml-genre-v1"></script>
+<script src="mafteach-search.js?v=20261102-mafteach-search-v1"></script>
 <script>
 (() => {
 'use strict';
@@ -1611,6 +1612,7 @@ function route() {
   if (!h) return renderHome();
   const [kind, ...rest] = h.split('/');
   const arg = fromHash(rest.join('/').split('?')[0]);
+  { const k0 = kind.split('?')[0]; if ((k0 === 'mafteach' || k0 === 'shiur') && window.AkivaMafteachSearch) return window.AkivaMafteachSearch.render(app, k0, new URLSearchParams(h.split('?').slice(1).join('?')), {fetchText, toHash, esc}); }   // HaMafteach search and shiur builder
   if (kind === 'book') return renderBook(arg);
   if (kind === 'read') return renderReader(arg, new URLSearchParams(rest.join('/').split('?').slice(1).join('?')));
   if (kind === 'install') return renderInstall();
