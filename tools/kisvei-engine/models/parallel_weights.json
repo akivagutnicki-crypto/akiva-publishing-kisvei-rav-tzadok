@@ -29,10 +29,10 @@
   "hand": {
    "all": {
     "queries": 369,
-    "recall@1": 0.032,
-    "recall@5": 0.117,
-    "recall@10": 0.173,
-    "recall@20": 0.252
+    "recall@1": 0.024,
+    "recall@5": 0.103,
+    "recall@10": 0.152,
+    "recall@20": 0.23
    },
    "reviewed": {
     "queries": 119,
@@ -43,42 +43,42 @@
    },
    "footnotes": {
     "queries": 250,
-    "recall@1": 0.024,
-    "recall@5": 0.096,
-    "recall@10": 0.164,
-    "recall@20": 0.24
+    "recall@1": 0.012,
+    "recall@5": 0.076,
+    "recall@10": 0.132,
+    "recall@20": 0.208
    }
   },
   "learned": {
    "all": {
     "queries": 369,
-    "recall@1": 0.076,
-    "recall@5": 0.184,
-    "recall@10": 0.263,
-    "recall@20": 0.347
+    "recall@1": 0.054,
+    "recall@5": 0.16,
+    "recall@10": 0.214,
+    "recall@20": 0.29
    },
    "reviewed": {
     "queries": 119,
-    "recall@1": 0.101,
-    "recall@5": 0.252,
+    "recall@1": 0.092,
+    "recall@5": 0.235,
     "recall@10": 0.311,
-    "recall@20": 0.395
+    "recall@20": 0.387
    },
    "footnotes": {
     "queries": 250,
-    "recall@1": 0.064,
-    "recall@5": 0.152,
-    "recall@10": 0.24,
-    "recall@20": 0.324
+    "recall@1": 0.036,
+    "recall@5": 0.124,
+    "recall@10": 0.168,
+    "recall@20": 0.244
    }
   },
   "previous": {
    "all": {
     "queries": 369,
-    "recall@1": 0.073,
-    "recall@5": 0.184,
-    "recall@10": 0.268,
-    "recall@20": 0.339
+    "recall@1": 0.057,
+    "recall@5": 0.16,
+    "recall@10": 0.217,
+    "recall@20": 0.29
    },
    "reviewed": {
     "queries": 119,
@@ -89,17 +89,17 @@
    },
    "footnotes": {
     "queries": 250,
-    "recall@1": 0.072,
-    "recall@5": 0.16,
-    "recall@10": 0.248,
-    "recall@20": 0.324
+    "recall@1": 0.048,
+    "recall@5": 0.124,
+    "recall@10": 0.172,
+    "recall@20": 0.252
    }
   }
  },
  "trainPairs": 2060,
- "testPairs": 730,
+ "testPairs": 797,
  "reviewedPairs": 700,
- "footnotePairs": 2947,
+ "footnotePairs": 3282,
  "paragraphs": 15691,
  "gold": "reviewed editorial parallels (editorial master connections, reader reviewed connections, connected ideas) and library links inside reader footnotes; side-panel links excluded"
 }
