@@ -1,0 +1,372 @@
+[
+ {
+  "id": "vol7-0016-039916",
+  "action": "fix_address",
+  "index_text": "וישלחם מעל יצחק בנו ואלה ימי שני חיי אברהם אשר חי…",
+  "was": "Genesis 25:6",
+  "correct": "Genesis 25:7",
+  "ref": "Peri Tzadik, Chayei Sara 7",
+  "quote": "ואלה ימי שני חיי אברהם אשר חי וגו'",
+  "note": "The verse quoted is 25:7."
+ },
+ {
+  "id": "vol7-0110-041157",
+  "action": "fix_address",
+  "index_text": "ישראלנושעבהי תשועת עולמים",
+  "was": "Isaiah 45:19",
+  "correct": "Isaiah 45:17",
+  "ref": "Peri Tzadik, Chayei Sara 7",
+  "quote": "ועדמש\"נ ישראל נושע בה' תשועת עולמים לא תבושו וגו'",
+  "note": "The verse is Isaiah 45:17."
+ },
+ {
+  "id": "vol7-0228-042675",
+  "action": "fix_address",
+  "index_text": "אס יהיו וכויכשנים הללו שסדורות ובאות",
+  "was": "Shabbat 88b",
+  "correct": "Shabbat 89b",
+  "ref": "Peri Tzadik, Chayei Sara 7",
+  "quote": "כשנים הללו שסדורות ובאות מו' ימי בראשית כו' כמו ש' (שבת פט:)",
+  "note": "Checked on Sefaria: Shabbat 89b."
+ },
+ {
+  "id": "vol7-0335-044176",
+  "action": "fix_address",
+  "index_text": "שלשה לא שלט בהם יצה\"יר ובתוסי דייה שלשה",
+  "was": "Bava Batra 19a",
+  "correct": "Bava Batra 17a",
+  "ref": "Peri Tzadik, Chayei Sara 7",
+  "quote": "שלא שלט בהן יצר הרע. שלא שלט בהן מה\"מ. שלא שלט בהן רימה ותולעה",
+  "note": "Checked on Sefaria: Bava Batra 17a (the text says ב\"ב יז.)."
+ },
+ {
+  "id": "vol7-0335-044177",
+  "action": "fix_address",
+  "index_text": "המטעימן מעין עוה\"ב אברהם יצחק ויעקב וכוי",
+  "was": "Bava Batra 19a",
+  "correct": "Bava Batra 16b",
+  "ref": "Peri Tzadik, Chayei Sara 7",
+  "quote": "בכל מכל כל שהטעימן בעוה\"ז מעין עוה\"ב",
+  "note": "The baraita begins at the end of 16b and continues on 17a."
+ },
+ {
+  "id": "vol7-0418-045234",
+  "action": "fix_address",
+  "index_text": "ואוכל מכלוכוי מכל טוב שהוא מתוקן לעתיד לבוא",
+  "was": "Bereshit Rabbah 66:2",
+  "correct": "Bereshit Rabbah 67:2",
+  "ref": "Peri Tzadik, Chayei Sara 7",
+  "quote": "כמו שנדרש (ב\"ר פ' סז) מכל טוב שהוא מתוקן לעתיד לבא",
+  "note": "Checked on Sefaria: Bereshit Rabbah 67:2 (R. Nechemiah)."
+ },
+ {
+  "id": "vol7-0679-047953",
+  "action": "fix_book",
+  "index_text": "לכל צדיק יש עולם בפני עצמו",
+  "was": "תקוני זהר ע",
+  "correct": "Shemot Rabbah 52:3",
+  "ref": "Peri Tzadik, Chayei Sara 7",
+  "quote": "ואי' (משו\"ר פ' נב) כל צדיק וצדיק הוה לי' עולם בעצמו",
+  "note": "Checked on Sefaria: Shemot Rabbah 52:3 (on Kohelet 12:5)."
+ },
+ {
+  "id": "vol7-0593-047023",
+  "action": "fix_address",
+  "index_text": "והנורא דא יעקב וכתיב תם כתרגומו גבר שלים",
+  "was": "הגדה של פסח סה א",
+  "correct": "Zohar II 79a",
+  "ref": "Peri Tzadik, Chayei Sara 7",
+  "quote": "הנורא מדתו יעאע\"ה וכמו ש' בזוה\"ק (ח\"ב עט א)",
+  "note": "Zohar Yitro (Sefaria Zohar, Yitro 14:246); the label and the folio are both wrong."
+ },
+ {
+  "id": "vol7-0636-047536",
+  "action": "fix_address",
+  "index_text": "נהירין אנפוי דזעיר אנפין",
+  "was": "הגדה של פסח קכד א",
+  "correct": "Zohar III 136b",
+  "ref": "Peri Tzadik, Chayei Sara 7",
+  "quote": "ועדמ\"ש (אד\"ר קלו ב) נהירין אנפוהי דעתיק יומין באנפוי דז\"א",
+  "note": "Idra Rabba (Sefaria Idra Rabba 28:201; Yahel Ohr gives the folio 136b)."
+ },
+ {
+  "id": "vol7-0388-044892",
+  "action": "fix_book",
+  "index_text": "ליבא ועינא תרין סרסורין דחטאה",
+  "was": "ברכות ה",
+  "correct": "Jerusalem Talmud Berakhot 1:5",
+  "ref": "Peri Tzadik, Chayei Sara 7",
+  "quote": "עדמ\"ש (ירושלמי פ\"א דברכות ה\"ה) ליבא ועינא תרי סרסורין דחטאה",
+  "note": "Checked on Sefaria: Yerushalmi Berakhot 1:5."
+ },
+ {
+  "id": "vol7-0498-046144",
+  "action": "fix_book",
+  "index_text": "נסיון אחרון כנסיון ראשוו",
+  "was": "תנחומא כב",
+  "correct": "Midrash Tanchuma, Vayera 22",
+  "ref": "Peri Tzadik, Chayei Sara 7",
+  "quote": "וז\"ש במדרש (תנחומא וירא) מהו לך לך נסיון אחרון כנסיון ראשון",
+  "note": "Checked on Sefaria: Tanchuma Vayera 22."
+ },
+ {
+  "id": "vol7-0525-046411",
+  "action": "fix_book",
+  "index_text": "מקצת חיים שלא בצער ושלא ביצר הרע…",
+  "was": "פרקי דרבי אליעזר ה",
+  "correct": "Tanna DeVei Eliyahu Rabbah 5",
+  "ref": "Peri Tzadik, Chayei Sara 7",
+  "quote": "ובתדב\"א (א\"ה פ' ה) ומפני מה זכה יעקב לחיים שלא בצער ושלא ביצר הרע",
+  "note": "Checked on Sefaria: Tanna DeVei Eliyahu Rabbah 5."
+ },
+ {
+  "id": "vol7-0566-046666",
+  "action": "fix_book",
+  "index_text": "וההוא חויא נשיך לעלמא ואחשיך אנפי בריין",
+  "was": "הגדה של פסח קכד א",
+  "correct": "Zohar I 124a",
+  "ref": "Peri Tzadik, Chayei Sara 7",
+  "quote": "כמו ש' בזוה\"ק (שם קכד א) וההוא חויא נשיך לעמלא ואחשיך אנפי בריין",
+  "note": "Zohar Chayei Sara (Sefaria 7:34)."
+ },
+ {
+  "id": "vol7-0568-046684",
+  "action": "fix_book",
+  "index_text": "מאי וחרפת עמו יסיר דא יצר הרע",
+  "was": "הגדה של פסח קלא א",
+  "correct": "Zohar I 131a",
+  "ref": "Peri Tzadik, Chayei Sara 7",
+  "quote": "עדמ\"ש בזוה\"ק (פ' זו קלא סע\"א) מאי וחרפת עמו יסיר דא יצר הרע",
+  "note": "Zohar Chayei Sara (Sefaria 19:212)."
+ },
+ {
+  "id": "vol7-0568-046685",
+  "action": "fix_book",
+  "index_text": "גלעיני ואביטה וכוי חיי בלא עציבו",
+  "was": "הגדה של פסח קלא ב",
+  "correct": "Zohar I 131b",
+  "ref": "Peri Tzadik, Chayei Sara 7",
+  "quote": "ובזוה\"ק פ' זו (קלא ב) ר\"א פתח גל עיני ואביטה",
+  "note": "Zohar Chayei Sara."
+ },
+ {
+  "id": "vol7-0568-046686",
+  "action": "fix_book",
+  "index_text": "מאן דאשתדל באורייתא לא יכיל לשלטאה חויא",
+  "was": "הגדה של פסח קלא ב",
+  "correct": "Zohar I 131b",
+  "ref": "Peri Tzadik, Chayei Sara 7",
+  "quote": "ומסיק בזוה\"ק וע\"ד כל מאן דאשתדל באורייתא לא יכיל לשלטאה",
+  "note": "Zohar Chayei Sara (Sefaria 21:221)."
+ },
+ {
+  "id": "vol7-0596-047052",
+  "action": "fix_book",
+  "index_text": "אבלביומא דשבתא כד מטא עידן דצלותא דמנחה רעוא דרעוין…",
+  "was": "הגדה של פסח פח ב",
+  "correct": "Zohar II 88b",
+  "ref": "Peri Tzadik, Chayei Sara 7",
+  "quote": "ואז זוכין לעת רצון רעוא דרעון ולית זעפין",
+  "note": "Zohar Yitro (Sefaria 27:463); Rav Tzadok alludes to it without naming it."
+ },
+ {
+  "id": "vol7-0393-044947",
+  "action": "drop",
+  "index_text": "ואין אמת אלא תורה וכוי אמת קנה ואל תמכר",
+  "was": "Jerusalem Talmud Rosh Hashanah 3:8",
+  "correct": "",
+  "ref": "Peri Tzadik, Chayei Sara 7",
+  "quote": "אמת ליעקב אמת זו תורה כמו ש' (ברכות ה':)",
+  "note": "Not cited in this os, which cites only Berakhot 5b (already indexed). Probably belongs to another passage."
+ },
+ {
+  "id": "vol7-0540-046533",
+  "action": "drop",
+  "index_text": "מישרוצה לזכות בכתרה… סדור… (long Siddur list)",
+  "was": "פרה כג",
+  "correct": "",
+  "ref": "Peri Tzadik, Chayei Sara 7",
+  "quote": "",
+  "note": "OCR noise: a full Siddur index block attached to this os (returned twice)."
+ },
+ {
+  "id": "vol4-0403-026560",
+  "action": "drop",
+  "index_text": "אי אפשר לעמוד ב - הגבוהות כל היום",
+  "was": "מדרגות",
+  "correct": "",
+  "ref": "Peri Tzadik, Chayei Sara 7",
+  "quote": "והיינו להיות מהלך מדרגא לדרגא ולא עומד",
+  "note": "Not discussed in this os; the text teaches the opposite, never to stand still."
+ },
+ {
+  "id": "vol5-0532-038824",
+  "action": "drop",
+  "index_text": "- נוטה יותר לחסד ממידת אברהם",
+  "was": "יעקב אבינו",
+  "correct": "",
+  "ref": "Peri Tzadik, Chayei Sara 7",
+  "quote": "שיצא נפש יע,א שעיקר מדתו משל א\"א מדת החסד",
+  "note": "A garbled copy of vol5-0483-037943 (more chesed than Isaac); as worded it contradicts the text."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Jerusalem Talmud Berakhot 9:5",
+  "ref": "Peri Tzadik, Chayei Sara 7",
+  "quote": "ואי' בירושלמי (פ' הרואה הובא תוס' סוטה כב:) עשה מאהבה שאם באת לשנוא דע שאתה אוהבו",
+  "note": "Checked on Sefaria."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Tosafot on Sotah 22b",
+  "ref": "Peri Tzadik, Chayei Sara 7",
+  "quote": "הובא תוס' סוטה כב:",
+  "note": "Tosafot s.v. פרוש מאהבה quotes the Yerushalmi; checked."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Chullin 16a",
+  "ref": "Peri Tzadik, Chayei Sara 7",
+  "quote": "כמו ש' (חולין טז.) קרא זריזותיה דאברהם קמ\"ל",
+  "note": "Checked on Sefaria."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Zohar I 77b",
+  "ref": "Peri Tzadik, Chayei Sara 7",
+  "quote": "ונאמר לאברהם לך לך לאתקנא גרמך כו'. וכמו ש' (בזוה\"ק עז ב)",
+  "note": "Wording checked (Sefaria Zohar Lech Lecha 5:21); folio as printed by Rav Tzadok."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Genesis 33:11",
+  "ref": "Peri Tzadik, Chayei Sara 7",
+  "quote": "ויעקב אע\"ה אמר וכי יש לי כל",
+  "note": "Jacob's \"kol\" (Bava Batra 17a)."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Genesis 27:33",
+  "ref": "Peri Tzadik, Chayei Sara 7",
+  "quote": "וביצחק כ' ואוכל מכל",
+  "note": "Isaac's \"mikol\"."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Bereshit Rabbah 60:8",
+  "ref": "Peri Tzadik, Chayei Sara 7",
+  "quote": "כמו ש' (בב\"ר פ' ס) יפה שיחתן של עבדי בתי אבות מתורתן של בנים",
+  "note": "Checked on Sefaria."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Micah 7:20",
+  "ref": "Peri Tzadik, Chayei Sara 7",
+  "quote": "אמת ליעקב… חסד לאברהם",
+  "note": "Both halves of the verse are used."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Vayikra Rabbah 21:4",
+  "ref": "Peri Tzadik, Chayei Sara 7",
+  "quote": "עדמ\"ש (בוי\"ר) ישעי ביוהכ\"פ",
+  "note": "Checked on Sefaria."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Shir HaShirim Rabbah 1:2:4",
+  "ref": "Peri Tzadik, Chayei Sara 7",
+  "quote": "ומ\"מ אחר כך חזר יצר הרע למקומו כמו ש' (שהש\"ר פ' ישקני)",
+  "note": "Checked on Sefaria (R. Nechemiah)."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Psalms 119:18",
+  "ref": "Peri Tzadik, Chayei Sara 7",
+  "quote": "ר\"א פתח גל עיני ואביטה נפלאות מתורתך",
+  "note": "The verse expounded by the Zohar."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Proverbs 23:26",
+  "ref": "Peri Tzadik, Chayei Sara 7",
+  "quote": "דכ' תנה בני לבך לי ועיניך דרכי תצרנה",
+  "note": "Quoted within the Yerushalmi."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Isaiah 1:18",
+  "ref": "Peri Tzadik, Chayei Sara 7",
+  "quote": "כשנים הללו שסדורות ובאות",
+  "note": "The verse underlying Shabbat 89b."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Peri Tzadik, Lech Lecha 7",
+  "ref": "Peri Tzadik, Chayei Sara 7",
+  "quote": "וכמו שאמרנו (לך מא' ז)",
+  "note": "His own cross-reference; checked."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Siddur, Ahavah Rabbah",
+  "ref": "Peri Tzadik, Chayei Sara 7",
+  "quote": "והאר עינינו בתורתך ודבק לבנו במצותך… ויחד לבבנו… ולא נבוש… כי בשם קדשך… נגילה ונשמחה… ורחמיך… וחסדיך הרבים",
+  "note": "Expounded phrase by phrase in the second half of the os."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Siddur, Uva LeTzion",
+  "ref": "Peri Tzadik, Chayei Sara 7",
+  "quote": "הוא יפתח לבינו בתורתו… וישים בלבנו אהבתו ויראתו",
+  "note": ""
+ }
+]

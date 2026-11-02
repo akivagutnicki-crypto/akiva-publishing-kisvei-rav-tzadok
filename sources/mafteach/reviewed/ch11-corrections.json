@@ -1,0 +1,252 @@
+[
+ {
+  "id": "vol7-0178-042000",
+  "action": "fix_address",
+  "index_text": "בצורות יארים בקע וכל יקר ראתה עינו",
+  "was": "Job 25:10",
+  "correct": "Job 28:10",
+  "ref": "Peri Tzadik, Chayei Sara 11",
+  "quote": "וכל יקר ראתה עינו זה ר\"ע וחבריו",
+  "note": "The verse is Iyov 28:10 (as quoted in Bamidbar Rabbah 19:6 and Tanchuma Chukat 8)."
+ },
+ {
+  "id": "vol7-0190-042159",
+  "action": "fix_address",
+  "index_text": "ליהודים היתה אורה ושמחה וששן ויקר",
+  "was": "Esther 408:16",
+  "correct": "Esther 8:16",
+  "ref": "Peri Tzadik, Chayei Sara 11",
+  "quote": "ע\"ד מ\"ש (מגילה טז:) ויקר אלו תפילין",
+  "note": "Chapter parsed as תח; the verse is Esther 8:16."
+ },
+ {
+  "id": "vol7-0302-043723",
+  "action": "fix_address",
+  "index_text": "איכא צנועות דמסרין נפשייהו לקטלא",
+  "was": "כתובות ב (no daf)",
+  "correct": "Ketubot 3b",
+  "ref": "Peri Tzadik, Chayei Sara 11",
+  "quote": "דהא אשכחן (כתובות ג:) דאיכא צניעות דמסרי נפשייהו לקטלא",
+  "note": "Verified in Ketubot 3b: משום דאיכא צנועות דמסרן נפשייהו לקטלא."
+ },
+ {
+  "id": "vol7-0409-045114",
+  "action": "fix_address",
+  "index_text": "לך טלילדותך וכוי תאמר עון",
+  "was": "Bereshit Rabbah 39:9",
+  "correct": "Bereshit Rabbah 39:8",
+  "ref": "Peri Tzadik, Chayei Sara 11",
+  "quote": "רק שהשי\"ת בשרו של יצטער עליהם כמו ש' (בב\"ר פ' לט)",
+  "note": "'לך טל ילדותך... תאמר שיש בידי עון' is Bereishis Rabbah 39:8 (Vilna/Sefaria numbering); 39:9 is the two 'lech lecha' midrash."
+ },
+ {
+  "id": "vol7-0413-045174",
+  "action": "fix_address",
+  "index_text": "אין דור שאין בו כאברהם וכוי כיעקב וכוי כמשה",
+  "was": "Bereshit Rabbah 56:4",
+  "correct": "Bereshit Rabbah 56:7",
+  "ref": "Peri Tzadik, Chayei Sara 11",
+  "quote": "ועדמ\"ש (ב\"ר פ' נו) ואין דור שאין בו כאברהם כו'",
+  "note": "Verified: Bereishis Rabbah 56:7 (R. Eliezer b. Yaakov on 'Avraham Avraham')."
+ },
+ {
+  "id": "vol7-0644-047632",
+  "action": "fix_book",
+  "index_text": "ותלבש אסתר מלכות וכוי דא רוח דקודשא",
+  "was": "הגדה של פסח קפא ב",
+  "correct": "Zohar III, Chukat (Sefaria: Zohar, Chukat 10:70)",
+  "ref": "Peri Tzadik, Chayei Sara 11",
+  "quote": "וזה מדת מלכות רוה\"ק",
+  "note": "Book is the Zohar (Chukat: דאתלבשת במלכות עלאה קדישא, ודאי לבשה רוח הקדש); folio as indexed not collated."
+ },
+ {
+  "id": "vol7-0641-047598",
+  "action": "fix_book",
+  "index_text": "ותלבש אסתר מלכות דקודשא",
+  "was": "הגדה של פסח קנט ב",
+  "correct": "Zohar III 159b (folio as indexed; not collated)",
+  "ref": "Peri Tzadik, Chayei Sara 11",
+  "quote": "וזה מדת מלכות רוה\"ק",
+  "note": "Known parse error: Zohar entries labelled הגדה של פסח."
+ },
+ {
+  "id": "vol7-0601-047097",
+  "action": "fix_book",
+  "index_text": "משה שורש תורה שבכתב",
+  "was": "הגדה של פסח צד ב",
+  "correct": "Zohar II 121a (as cited in the text)",
+  "ref": "Peri Tzadik, Chayei Sara 11",
+  "quote": "דמשה רבינו שורש תורה שבכתב שהיא חכמה וכמו ש' בזוה\"ק (ח\"ב קכא א)",
+  "note": "Book is the Zohar; the text cites II 121a, the index has 94b; folio not collated."
+ },
+ {
+  "id": "vol7-0512-046281",
+  "action": "fix_address",
+  "index_text": "ראתה עינו זה רבי עקיבא ... פרשת בלק",
+  "was": "תנחומא ח (garbled block)",
+  "correct": "Tanchuma, Chukat 8",
+  "ref": "Peri Tzadik, Chayei Sara 11",
+  "quote": "וז\"ש במדרש (פ' חוקת) דברים שלא נגלו למשה נגלו לר\"ע וחבריו",
+  "note": "OCR block runs several Tanchuma Chukat 8 lines together with a 'פרשת בלק' tail; the source for this os is Tanchuma Chukat 8 (verified)."
+ },
+ {
+  "id": "vol7-0414-045180",
+  "action": "fix_address",
+  "index_text": "מה ראתה אסתר שתמלוך מדינה",
+  "was": "ref label 'מלוך על קכייז חיי שרה-*יא' (unlinked)",
+  "correct": "Bereshit Rabbah 58:3 → Peri Tzadik, Chayei Sara 11",
+  "ref": "Peri Tzadik, Chayei Sara 11",
+  "quote": "במ\"ר פ' זו. ר\"ע היה יושב ודורש והצבור מתנמנם ... מה ראתה אסתר שתמלוך על קכ\"ז מדינה",
+  "note": "Source key is right; the passage ref was OCR-garbled and must be linked to Chayei Sara 11."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": null,
+  "correct": "Genesis 23:1",
+  "ref": "Peri Tzadik, Chayei Sara 11",
+  "quote": "שרה שחיתה ק' וכ' וז'",
+  "note": "Implicit verse behind the midrash."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": null,
+  "correct": "Tanna DeBei Eliyahu Rabbah 25",
+  "ref": "Peri Tzadik, Chayei Sara 11",
+  "quote": "כל או\"א מישראל חייב לומר מתי יגיעו מעשי למעשה אברהם יצחק ויעקב",
+  "note": "Cited explicitly (תדב\"א א\"ר ר\"פ כה); verified."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": null,
+  "correct": "I Chronicles 12:19",
+  "ref": "Peri Tzadik, Chayei Sara 11",
+  "quote": "כ' הכא ותלבש וכ' התם ורוח לבשה",
+  "note": "The 'there' of the gezeirah shavah."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": null,
+  "correct": "Tosafot on Gittin 57b",
+  "ref": "Peri Tzadik, Chayei Sara 11",
+  "quote": "(וע' תוס' גיטין נז:)",
+  "note": "Tosafot s.v. קפצו כולן ונפלו לתוך הים; verified."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": null,
+  "correct": "Esther 4:16",
+  "ref": "Peri Tzadik, Chayei Sara 11",
+  "quote": "וכמו שמארה מקודם וכאשר אבדתי אבדתי",
+  "note": "Print reads שמארה for שאמרה."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": null,
+  "correct": "Bereshit Rabbah 59:6",
+  "ref": "Peri Tzadik, Chayei Sara 11",
+  "quote": "ובמ\"ר פ' זו שהיה ראש למכלות משבט יהודה",
+  "note": "Verified: דוד ראש למלכות משבט יהודה (print: למכלות)."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": null,
+  "correct": "Bava Batra 12a",
+  "ref": "Peri Tzadik, Chayei Sara 11",
+  "quote": "וכמו ש' הרמב\"ן ז\"ל על מ\"ש (ב\"ב יב.) וחכם עדיף מנביא",
+  "note": "Gemara plus Chiddushei HaRamban there (ruach hakodesh of the sages); verified."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": null,
+  "correct": "Tikkunei Zohar 17a",
+  "ref": "Peri Tzadik, Chayei Sara 11",
+  "quote": "כ\"ע איהו כתר מלכות כו'",
+  "note": "Patach Eliyahu; also 'מלכות פה תורה שבעל פה קרינן לה' and קרקפתא דתפלי; verified."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": null,
+  "correct": "Sanhedrin 86a",
+  "ref": "Peri Tzadik, Chayei Sara 11",
+  "quote": "וע\"כ כולהו סתימתאי אליבא דר\"ע (סנהדרין פו.)",
+  "note": "Verified."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": null,
+  "correct": "Bereshit Rabbah 30:8",
+  "ref": "Peri Tzadik, Chayei Sara 11",
+  "quote": "יש דעה שבן מ\"ח הכיר את בוראו",
+  "note": "R. Chanina and R. Yochanan: at 48; verified."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": null,
+  "correct": "I Kings 8:38",
+  "ref": "Peri Tzadik, Chayei Sara 11",
+  "quote": "והוא יודע נגעי לבבו",
+  "note": "Echo of Shlomo's prayer."
+ },
+ {
+  "id": "vol4-0357-025725",
+  "action": "fix_book",
+  "index_text": "לכל אדם מ - יכולת להגיע להשגות גבוהות בתורה",
+  "was": "חלוקת ישראל לכהנים לויים וישראלים",
+  "correct": "עם ישראל › ישראל ושייכותם לתורה",
+  "ref": "Peri Tzadik, Chayei Sara 11",
+  "quote": "שכל א' מישראל שייך אף לד\"ת הגבוהין",
+  "note": "Division into Kohanim/Levi'im/Yisraelim is not discussed; the line duplicates vol4-0348-025553. (topic heading correction)"
+ },
+ {
+  "id": "vol5-0387-036487",
+  "action": "fix_book",
+  "index_text": "משה: ראה: משה פ\"ה משה היה שורש - שבכתב",
+  "was": "זבולון",
+  "correct": "תורה שבכתב / משה רבינו",
+  "ref": "Peri Tzadik, Chayei Sara 11",
+  "quote": "דמשה רבינו שורש תורה שבכתב ... שר\"ע שורש תורה שבעל פה",
+  "note": "Zevulun is not in the text; heading misassigned. (topic heading correction)"
+ },
+ {
+  "id": "vol5-0395-036593",
+  "action": "fix_book",
+  "index_text": "רבי עקיבא: יסוד - שבעל פה",
+  "was": "עזרא",
+  "correct": "תורה שבעל פה",
+  "ref": "Peri Tzadik, Chayei Sara 11",
+  "quote": "דמשה רבינו שורש תורה שבכתב ... שר\"ע שורש תורה שבעל פה",
+  "note": "Ezra is not in the text; heading misassigned. (topic heading correction)"
+ },
+ {
+  "id": "vol5-0271-034468",
+  "action": "fix_book",
+  "index_text": "משה היה - תורה שבכתב",
+  "was": "ישראל",
+  "correct": "משה רבינו (משה היה שורש תורה שבכתב)",
+  "ref": "Peri Tzadik, Chayei Sara 11",
+  "quote": "דמשה רבינו שורש תורה שבכתב ... שר\"ע שורש תורה שבעל פה",
+  "note": "Under heading 'ישראל' the dash yields nonsense; duplicates vol5-0559-039311. (topic heading correction)"
+ }
+]

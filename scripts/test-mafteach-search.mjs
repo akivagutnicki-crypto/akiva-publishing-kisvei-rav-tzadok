@@ -43,6 +43,9 @@ check(await src('Berachos 6b') === 'Berakhot 6b', 'Berachos 6b');
 check(await src('Shabbos 88b') === 'Shabbat 88b', 'Shabbos 88b');
 check(await src('בראשית ב ז') === 'Genesis 2:7', 'בראשית ב ז');
 check(await src('what does he say on Bereishis 1:1?') === 'Genesis 1:1', 'pasuk inside a question');
+// the Zohar by volume and daf (part ז's Zohar, corrected from the OCR's "Haggadah" label)
+for (const [q, k] of [['Zohar I 128b', 'Zohar I 128b'], ['זהר ח"א קכח ב', 'Zohar I 128b'], ['Zohar 3 256b', 'Zohar III 256b'], ['זוהר חלק ב נב:', 'Zohar II 52b']])
+  check(await src(q) === k, `${q} -> ${k}`);
 const M = await A.index();
 const g27 = await A.sourceEntries(A.parseSource(M, 'Genesis 2:7'));
 check(g27.length > 0 && g27.every(e => e.k === 'Genesis 2:7'), 'Genesis 2:7 entries');

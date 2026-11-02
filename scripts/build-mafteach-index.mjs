@@ -79,9 +79,8 @@ export function buildMafteach(OUT) {
       push(bySource, fileKey(ch ? `${title} ${ch}` : title), e);
       const st = sourceTitles.get(title) || { n: 0, chapters: new Set() };
       st.n++; if (ch) st.chapters.add(+ch); sourceTitles.set(title, st);
-    } else if (e.B != null) {
-      push(bySource, `b-${e.B}`, e);
     }
+    if (e.B != null) push(bySource, `b-${e.B}`, e);   // the source heading by name ("Tanchuma", "Zohar") lists every entry under it, keyed or not
     if (e.B != null) counts.set(e.B, (counts.get(e.B) || 0) + 1);
     for (const r of e.r) if (r[1]) {                // slim copy: the entry with only the reference to this passage
       const { r: _all, ...rest } = e;
