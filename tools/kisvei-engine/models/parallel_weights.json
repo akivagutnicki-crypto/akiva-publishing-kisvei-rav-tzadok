@@ -12,44 +12,94 @@
   "english_cosine"
  ],
  "weights": {
-  "shared_sources": 0.0616412886399187,
-  "shared_quotes": -0.012153756003132246,
-  "term_cosine": -5.7629594219322575,
-  "rare_terms": 0.04393096110466861,
-  "same_book": -0.2812190057074278,
+  "shared_sources": 0.024901802871602985,
+  "shared_quotes": -0.004214076203671726,
+  "term_cosine": 5.750723371491234,
+  "rare_terms": 0.036875259606371044,
+  "same_book": -1.1857121263980512,
   "explicit_xref": 0.0,
-  "max_source_idf": 0.10702114231427595,
-  "source_count": 0.15318315564032273,
-  "rare_quote": 0.4734566572769441,
-  "english_cosine": 2.014684046263384,
+  "max_source_idf": 0.0963733168542781,
+  "source_count": 0.13976900260991562,
+  "rare_quote": 0.5779076411395636,
+  "english_cosine": -3.7507752828044705,
   "bias": -2.0
  },
- "chosen": "previous",
+ "chosen": "learned",
  "evaluation": {
   "hand": {
-   "queries": 119,
-   "recall@1": 0.034,
-   "recall@5": 0.151,
-   "recall@10": 0.202,
-   "recall@20": 0.252
+   "all": {
+    "queries": 461,
+    "recall@1": 0.035,
+    "recall@5": 0.111,
+    "recall@10": 0.156,
+    "recall@20": 0.221
+   },
+   "reviewed": {
+    "queries": 119,
+    "recall@1": 0.05,
+    "recall@5": 0.16,
+    "recall@10": 0.193,
+    "recall@20": 0.277
+   },
+   "footnotes": {
+    "queries": 300,
+    "recall@1": 0.033,
+    "recall@5": 0.1,
+    "recall@10": 0.157,
+    "recall@20": 0.203
+   }
   },
   "learned": {
-   "queries": 119,
-   "recall@1": 0.067,
-   "recall@5": 0.176,
-   "recall@10": 0.21,
-   "recall@20": 0.286
+   "all": {
+    "queries": 461,
+    "recall@1": 0.072,
+    "recall@5": 0.193,
+    "recall@10": 0.254,
+    "recall@20": 0.341
+   },
+   "reviewed": {
+    "queries": 119,
+    "recall@1": 0.076,
+    "recall@5": 0.235,
+    "recall@10": 0.311,
+    "recall@20": 0.37
+   },
+   "footnotes": {
+    "queries": 300,
+    "recall@1": 0.073,
+    "recall@5": 0.19,
+    "recall@10": 0.24,
+    "recall@20": 0.323
+   }
   },
   "previous": {
-   "queries": 119,
-   "recall@1": 0.076,
-   "recall@5": 0.16,
-   "recall@10": 0.218,
-   "recall@20": 0.269
+   "all": {
+    "queries": 461,
+    "recall@1": 0.056,
+    "recall@5": 0.139,
+    "recall@10": 0.197,
+    "recall@20": 0.269
+   },
+   "reviewed": {
+    "queries": 119,
+    "recall@1": 0.092,
+    "recall@5": 0.193,
+    "recall@10": 0.235,
+    "recall@20": 0.319
+   },
+   "footnotes": {
+    "queries": 300,
+    "recall@1": 0.05,
+    "recall@5": 0.13,
+    "recall@10": 0.197,
+    "recall@20": 0.253
+   }
   }
  },
- "trainPairs": 560,
- "testPairs": 140,
+ "trainPairs": 2668,
+ "testPairs": 667,
+ "reviewedPairs": 700,
+ "footnotePairs": 2635,
  "paragraphs": 15691,
- "gold": "reviewed editorial parallels (editorial master connections + reader reviewed connections + connected ideas)"
+ "gold": "reviewed editorial parallels (editorial master connections, reader reviewed connections, connected ideas) and library links inside reader footnotes; side-panel links excluded"
 }
