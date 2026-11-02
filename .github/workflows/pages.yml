@@ -152,7 +152,7 @@ jobs:
         run: node scripts/publish-pri-shevat-tubishvat.mjs && node scripts/test-pri-shevat-tubishvat.mjs
 
       - name: Build and verify MCP search index and library parallels
-        run: node scripts/build-mcp-index.mjs && node scripts/test-pri-toldos.mjs && node scripts/build-parallels.mjs && node scripts/test-parallels.mjs && node scripts/test-mcp-server.mjs && node scripts/test-cloudflare-worker.mjs
+        run: node scripts/build-mcp-index.mjs && node scripts/test-pri-toldos.mjs && node scripts/build-parallels.mjs && node scripts/test-parallels.mjs && node scripts/test-mcp-server.mjs && node scripts/test-cloudflare-worker.mjs && node scripts/test-mafteach-panel.mjs
 
       - name: Publish and verify Et HaOchel translated source footnotes and unique parallels
         run: node scripts/publish-et-haochel.mjs && node scripts/test-parallels.mjs && node scripts/test-et-haochel-reader-browser.mjs
