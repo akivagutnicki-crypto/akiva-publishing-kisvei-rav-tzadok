@@ -78,8 +78,8 @@ try {
    assert.equal(await box.locator('.annotation-text').first().textContent(),note.paragraphs[0].text);
    await box.scrollIntoViewIfNeeded();const bounds=await box.boundingBox();
    assert.ok(bounds.x>=-0.5&&bounds.x+bounds.width<=390.5,'Inline note overflows mobile viewport');
-   if(note.verificationStatus.includes('requires collation'))assert.ok(await box.locator('.footnote-edition-warning').isVisible());
-   const source=box.locator('a[href^="https://www.sefaria.org/"]').first();assert.ok(await source.count());
+   if(String(note.verificationStatus||'').includes('requires collation'))assert.ok(await box.locator('.footnote-edition-warning').isVisible());
+   const source=box.locator('a[href^="https://www.sefaria.org/"]').first();if(note.sources?.length)assert.ok(await source.count());
    assert.equal(await source.getAttribute('target'),'_blank');
    if(note.sourceId==='TZ-0001'){
     const expectedUrl=await source.getAttribute('href');

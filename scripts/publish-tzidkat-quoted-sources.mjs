@@ -1,3 +1,8 @@
+import __fs from 'node:fs';
+try {
+  const __edition = JSON.parse(__fs.readFileSync('sources/akiva/Tzidkat_HaTzadik.json', 'utf8')).editionId;
+  if (__edition === 'tzidkat-editorial-master-2026-11') { console.log('skipped: Tzidkat HaTzadik is the editorial master edition; this legacy layer is retired'); process.exit(0); }
+} catch {}
 // Apply only the individually reviewed source quotations selected from the
 // supplied Tzidkat editions. The canonical body and every unrelated note stay exact.
 import assert from 'node:assert/strict';

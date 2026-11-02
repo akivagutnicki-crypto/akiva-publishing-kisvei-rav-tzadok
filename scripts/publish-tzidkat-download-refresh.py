@@ -5,6 +5,14 @@ Planning can use a small, independently downloaded input tree. Publication must
 restore the actual latest Pages artifact and match its entire sealed inventory.
 No chapter, footnote, reader asset, or historical publication report is written.
 """
+import json as _json, sys as _sys
+try:
+    if _json.load(open('sources/akiva/Tzidkat_HaTzadik.json', encoding='utf-8')).get('editionId') == 'tzidkat-editorial-master-2026-11':
+        print('skipped: Tzidkat HaTzadik is the editorial master edition; this legacy layer is retired')
+        _sys.exit(0)
+except FileNotFoundError:
+    pass
+
 import argparse
 import concurrent.futures
 import copy

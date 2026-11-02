@@ -165,6 +165,14 @@ def main():
     payload_path = Path(args.payload)
     compressed = payload_path.read_bytes()
     payload = json.loads(gzip.decompress(compressed))
+    # The Tzidkat HaTzadik editorial master edition supersedes the historical Tzidkat quotation patches.
+    try:
+        _tz_master = json.load(open('sources/akiva/Tzidkat_HaTzadik.json', encoding='utf-8')).get('editionId') == 'tzidkat-editorial-master-2026-11'
+    except FileNotFoundError:
+        _tz_master = False
+    if _tz_master:
+        payload['files'] = [_e for _e in payload['files'] if not _e['path'].startswith('data/tzidkat-hatzadik/')]
+        payload['books'] = [_b for _b in payload['books'] if _b != 'tzidkat-hatzadik']
     assert payload['schemaVersion'] == 1 and payload['release'] == RELEASE
     assert set(payload['excludedBooks']) == EXCLUDED
     assert not set(payload['books']) & EXCLUDED

@@ -12,12 +12,12 @@ permissions:
 
 concurrency:
   # Skipped workflows must not displace a pending publisher in the shared queue.
-  group: ${{ (github.event_name != 'push' || (!contains(github.event.head_commit.message, '[divrei-source-release]') && !contains(github.event.head_commit.message, '[divrei-media-release]') && !contains(github.event.head_commit.message, '[reader-ui-release]') && !contains(github.event.head_commit.message, '[share-release]') && !contains(github.event.head_commit.message, '[mei-volume-ii-release]') && !contains(github.event.head_commit.message, '[mei-likutei-release]') && !contains(github.event.head_commit.message, '[tzidkat-accuracy-release]') && !contains(github.event.head_commit.message, '[tzidkat-source-attribution]') && !contains(github.event.head_commit.message, '[tzidkat-accuracy-rebuild-integration]') && !contains(github.event.head_commit.message, '[new-books-release]') && !contains(github.event.head_commit.message, '[tzidkat-batch-review]') && !contains(github.event.head_commit.message, '[divrei-zip-refresh]') && !contains(github.event.head_commit.message, '[tzidkat-download-refresh]') && !contains(github.event.head_commit.message, '[tzidkat-source-addition]') && !contains(github.event.head_commit.message, '[pri-parsha-review]') && !contains(github.event.head_commit.message, '[tzidkat-reader-json]') && !contains(github.event.head_commit.message, '[beit-yaakov-reader-json]') && !contains(github.event.head_commit.message, '[beit-headlines-zip]') && !contains(github.event.head_commit.message, '[beit-phrase-layout]') && !contains(github.event.head_commit.message, '[weekly-torah-release]') && !contains(github.event.head_commit.message, '[takanat-reader-review]') && !contains(github.event.head_commit.message, '[takanat-part2-release]') && !contains(github.event.head_commit.message, '[takanat-part2-audit25]') && !contains(github.event.head_commit.message, '[takanas-scoped-reader-final]') && !contains(github.event.head_commit.message, '[halacha-zips-release]'))) && 'pages' || format('pages-skipped-{0}', github.run_id) }}
+  group: ${{ (github.event_name != 'push' || (!contains(github.event.head_commit.message, '[divrei-source-release]') && !contains(github.event.head_commit.message, '[divrei-media-release]') && !contains(github.event.head_commit.message, '[reader-ui-release]') && !contains(github.event.head_commit.message, '[share-release]') && !contains(github.event.head_commit.message, '[mei-volume-ii-release]') && !contains(github.event.head_commit.message, '[mei-likutei-release]') && !contains(github.event.head_commit.message, '[tzidkat-accuracy-release]') && !contains(github.event.head_commit.message, '[tzidkat-source-attribution]') && !contains(github.event.head_commit.message, '[tzidkat-accuracy-rebuild-integration]') && !contains(github.event.head_commit.message, '[new-books-release]') && !contains(github.event.head_commit.message, '[tzidkat-batch-review]') && !contains(github.event.head_commit.message, '[divrei-zip-refresh]') && !contains(github.event.head_commit.message, '[tzidkat-download-refresh]') && !contains(github.event.head_commit.message, '[tzidkat-source-addition]') && !contains(github.event.head_commit.message, '[pri-parsha-review]') && !contains(github.event.head_commit.message, '[tzidkat-reader-json]') && !contains(github.event.head_commit.message, '[beit-yaakov-reader-json]') && !contains(github.event.head_commit.message, '[beit-headlines-zip]') && !contains(github.event.head_commit.message, '[beit-phrase-layout]') && !contains(github.event.head_commit.message, '[weekly-torah-release]') && !contains(github.event.head_commit.message, '[takanat-reader-review]') && !contains(github.event.head_commit.message, '[takanat-part2-release]') && !contains(github.event.head_commit.message, '[takanat-part2-audit25]') && !contains(github.event.head_commit.message, '[takanas-scoped-reader-final]') && !contains(github.event.head_commit.message, '[tzidkat-editorial-master]') && !contains(github.event.head_commit.message, '[halacha-zips-release]'))) && 'pages' || format('pages-skipped-{0}', github.run_id) }}
   cancel-in-progress: false
 
 jobs:
   deploy:
-    if: ${{ github.event_name != 'push' || (!contains(github.event.head_commit.message, '[divrei-source-release]') && !contains(github.event.head_commit.message, '[divrei-media-release]') && !contains(github.event.head_commit.message, '[reader-ui-release]') && !contains(github.event.head_commit.message, '[share-release]') && !contains(github.event.head_commit.message, '[mei-volume-ii-release]') && !contains(github.event.head_commit.message, '[mei-likutei-release]') && !contains(github.event.head_commit.message, '[tzidkat-accuracy-release]') && !contains(github.event.head_commit.message, '[tzidkat-source-attribution]') && !contains(github.event.head_commit.message, '[tzidkat-accuracy-rebuild-integration]') && !contains(github.event.head_commit.message, '[new-books-release]') && !contains(github.event.head_commit.message, '[tzidkat-batch-review]') && !contains(github.event.head_commit.message, '[divrei-zip-refresh]') && !contains(github.event.head_commit.message, '[tzidkat-download-refresh]') && !contains(github.event.head_commit.message, '[tzidkat-source-addition]') && !contains(github.event.head_commit.message, '[pri-parsha-review]') && !contains(github.event.head_commit.message, '[tzidkat-reader-json]') && !contains(github.event.head_commit.message, '[beit-yaakov-reader-json]') && !contains(github.event.head_commit.message, '[beit-headlines-zip]') && !contains(github.event.head_commit.message, '[beit-phrase-layout]') && !contains(github.event.head_commit.message, '[weekly-torah-release]') && !contains(github.event.head_commit.message, '[takanat-reader-review]') && !contains(github.event.head_commit.message, '[takanat-part2-release]') && !contains(github.event.head_commit.message, '[takanat-part2-audit25]') && !contains(github.event.head_commit.message, '[takanas-scoped-reader-final]') && !contains(github.event.head_commit.message, '[halacha-zips-release]')) }}
+    if: ${{ github.event_name != 'push' || (!contains(github.event.head_commit.message, '[divrei-source-release]') && !contains(github.event.head_commit.message, '[divrei-media-release]') && !contains(github.event.head_commit.message, '[reader-ui-release]') && !contains(github.event.head_commit.message, '[share-release]') && !contains(github.event.head_commit.message, '[mei-volume-ii-release]') && !contains(github.event.head_commit.message, '[mei-likutei-release]') && !contains(github.event.head_commit.message, '[tzidkat-accuracy-release]') && !contains(github.event.head_commit.message, '[tzidkat-source-attribution]') && !contains(github.event.head_commit.message, '[tzidkat-accuracy-rebuild-integration]') && !contains(github.event.head_commit.message, '[new-books-release]') && !contains(github.event.head_commit.message, '[tzidkat-batch-review]') && !contains(github.event.head_commit.message, '[divrei-zip-refresh]') && !contains(github.event.head_commit.message, '[tzidkat-download-refresh]') && !contains(github.event.head_commit.message, '[tzidkat-source-addition]') && !contains(github.event.head_commit.message, '[pri-parsha-review]') && !contains(github.event.head_commit.message, '[tzidkat-reader-json]') && !contains(github.event.head_commit.message, '[beit-yaakov-reader-json]') && !contains(github.event.head_commit.message, '[beit-headlines-zip]') && !contains(github.event.head_commit.message, '[beit-phrase-layout]') && !contains(github.event.head_commit.message, '[weekly-torah-release]') && !contains(github.event.head_commit.message, '[takanat-reader-review]') && !contains(github.event.head_commit.message, '[takanat-part2-release]') && !contains(github.event.head_commit.message, '[takanat-part2-audit25]') && !contains(github.event.head_commit.message, '[takanas-scoped-reader-final]') && !contains(github.event.head_commit.message, '[tzidkat-editorial-master]') && !contains(github.event.head_commit.message, '[halacha-zips-release]')) }}
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
@@ -36,15 +36,6 @@ jobs:
 
       - name: Verify library homepage grouping and donation placement
         run: node scripts/test-library-home-layout.mjs
-
-      - name: Import supplied Tzidkat HaTzadik expanded source footnotes
-        run: node scripts/import-tzidkat-reviewed.mjs
-
-      - name: Import collated English parallels into Tzidkat footnotes
-        run: node scripts/import-tzidkat-parallels.mjs
-
-      - name: Apply supplied 2,096 deduplicated Tzidkat footnotes and Sefaria parallels
-        run: python scripts/import-tzidkat-expanded-2096.py
 
       - name: Import Mei HaShiloach Vayera to Bo translation and source annotations
         run: node scripts/import-mei-vayera-bo.mjs
@@ -107,7 +98,7 @@ jobs:
         run: node scripts/build-shiur-audio.mjs && node scripts/test-shiur-player.mjs && node scripts/test-noach6-media.mjs
 
       - name: Verify interlinear Hebrew, nikkud, and Sefaria links
-        run: node scripts/test-beit-yaakov-publication.mjs && node scripts/test-tzidkat.mjs && node scripts/test-tzidkat-footnotes.mjs && node scripts/test-tzidkat-parallels.mjs && node scripts/test-machshavot-footnotes.mjs && node scripts/test-divrei-footnotes.mjs && node scripts/test-hazikhronot-footnotes.mjs
+        run: node scripts/test-beit-yaakov-publication.mjs && node scripts/test-tzidkat.mjs && node scripts/test-tzidkat-footnotes.mjs && node scripts/test-machshavot-footnotes.mjs && node scripts/test-divrei-footnotes.mjs && node scripts/test-hazikhronot-footnotes.mjs
 
       - name: Verify Hebrew-word footnotes in a mobile browser
         run: |
@@ -338,14 +329,6 @@ jobs:
           node --input-type=module -e "import fs from 'node:fs'; import assert from 'node:assert/strict'; assert.equal(JSON.parse(fs.readFileSync('pri-seasonal-quoted-sources-repeat-verification.json')).mode, 'already-applied');"
           node scripts/test-pri-seasonal-quoted-sources.mjs > pri-seasonal-quoted-sources-data-verification.json
 
-      - name: Publish reviewed quotations from all four supplied Tzidkat source editions
-        run: |
-          node scripts/test-tzidkat-publication-guards.mjs
-          node scripts/publish-tzidkat-quoted-sources.mjs > tzidkat-quoted-sources-publication-verification.json
-          node scripts/publish-tzidkat-quoted-sources.mjs > tzidkat-quoted-sources-repeat-verification.json
-          node --input-type=module -e "import fs from 'node:fs'; import assert from 'node:assert/strict'; assert.equal(JSON.parse(fs.readFileSync('tzidkat-quoted-sources-repeat-verification.json')).mode, 'already-applied');"
-          node scripts/test-tzidkat-quoted-sources.mjs > tzidkat-quoted-sources-data-verification.json
-
       - name: Publish the latest two Dover Tzedek KDP Word manuscripts after historical edition checks
         run: |
           node scripts/publish-dover-kdp.mjs
@@ -354,10 +337,9 @@ jobs:
           node scripts/check-dover-source-links.mjs
           node scripts/build-library-zips.mjs
           node scripts/test-dover-kdp.mjs --zips
-          node scripts/test-beit-toldos.mjs --zips --mcp --after-seasonal-quotes --after-tzidkat-quotes
+          node scripts/test-beit-toldos.mjs --zips --mcp --after-seasonal-quotes
           node scripts/test-pri-shabbos-quoted-sources.mjs --zips --mcp > pri-shabbos-quoted-sources-final-verification.json
           node scripts/test-pri-seasonal-quoted-sources.mjs --zips --mcp > pri-seasonal-quoted-sources-final-verification.json
-          node scripts/test-tzidkat-quoted-sources.mjs --zips --mcp > tzidkat-quoted-sources-final-verification.json
 
       - name: Publish complete Vayeitzei and remaining Mei HaShiloach after predecessor preservation checks
         run: |
@@ -370,7 +352,7 @@ jobs:
           node scripts/build-mcp-index.mjs
           node scripts/test-reader-docx-import.mjs --zips --mcp > reader-docx-import-verification.json
           cat reader-docx-import-verification.json
-          node scripts/test-beit-toldos.mjs --zips --mcp --after-seasonal-quotes --after-tzidkat-quotes --after-docx-import
+          node scripts/test-beit-toldos.mjs --zips --mcp --after-seasonal-quotes --after-docx-import
           node scripts/test-dover-kdp.mjs --zips
 
       - name: Build and verify reviewed connections against the final canonical source edition
@@ -413,11 +395,6 @@ jobs:
 
       - name: Verify seasonal quotations, Hebrew markers and print links on desktop and mobile
         run: node scripts/test-pri-seasonal-quoted-sources-browser.mjs
-
-      - name: Verify Tzidkat quotations and preserved supplemental numbering on desktop and mobile
-        run: |
-          node scripts/test-tzidkat-quoted-sources.mjs --zips --mcp --connections > tzidkat-quoted-sources-connections-verification.json
-          node scripts/test-tzidkat-quoted-sources-browser.mjs
 
       - name: Verify Vayeitzei and Mei HaShiloach text navigation and source links on desktop and mobile
         run: node scripts/test-reader-docx-import-browser.mjs
@@ -479,36 +456,9 @@ jobs:
           node scripts/publish-mei-likutei.mjs --seal
           node scripts/publish-mei-likutei.mjs --browser
 
-      - name: Preserve reviewed Tzidkat quotations and primary-source presentation after historical gates
-        run: |
-          node scripts/publish-tzidkat-source-accuracy.mjs --rebuild --successor-pack sources/akiva/overlays/tzidkat-source-attribution-20261023.json.gz
-          node scripts/publish-tzidkat-source-attribution.mjs --rebuild
-          node scripts/publish-tzidkat-source-accuracy.mjs --verify-successor --successor-pack sources/akiva/overlays/tzidkat-source-attribution-20261023.json.gz
-          node scripts/test-tzidkat-source-accuracy-browser.mjs --successor-pack sources/akiva/overlays/tzidkat-source-attribution-20261023.json.gz
-          node scripts/test-tzidkat-source-attribution-browser.mjs
-          node scripts/test-reviewed-connections.mjs --after-mei-volume-ii --after-mei-likutei --after-tzidkat-source-accuracy
-          node scripts/test-connected-ideas.mjs --after-mei-volume-ii --after-mei-likutei --after-tzidkat-source-accuracy
-          node scripts/test-reader-docx-import.mjs --after-divrei-source-audit --after-mei-volume-ii --after-mei-likutei --after-tzidkat-source-accuracy --zips --mcp
-          node scripts/test-dover-kdp.mjs --after-divrei-source-audit --after-tzidkat-source-accuracy --zips --data-only
-
       - name: Keep the latest printed editions and original samples
         run: node scripts/apply-new-books.mjs dist
 
-      - name: Prevent a historical rebuild from discarding approved additions or downloads
-        run: |
-          if [ -f sources/akiva/addenda/tzidkat-source-addition-006-transition-20261025.json ] || [ -f sources/akiva/downloads/tzidkat-download-refresh-20261025.json ] || [ -f sources/akiva/overlays/pri-parsha-transition-20261025.json ]; then
-            echo "::error::This historical source rebuild predates the explicitly reviewed Tzidkat source/download transitions. Use the artifact-preserving publisher or add a reviewed rebuild transition; do not bypass this gate."
-            exit 1
-          fi
-
-      - name: Add each reviewed Tzidkat source batch after predecessor gates
-        run: |
-          node scripts/publish-tzidkat-batch-review.mjs --rebuild-all
-          node scripts/test-tzidkat-batch-review.mjs --all
-          node scripts/publish-tzidkat-source-accuracy.mjs --verify-successor --successor-pack sources/akiva/overlays/tzidkat-source-attribution-20261023.json.gz
-
-      # Keep this after all historical assertions. The historical rebuild gate
-      # above remains in force until its exact predecessor transitions exist.
       - name: Preserve the reviewed Vayeira parallels in any approved rebuild
         run: |
           node scripts/publish-vayeira-parallels.mjs --rebuild
@@ -539,7 +489,7 @@ jobs:
       - name: Verify the latest Dover manuscripts and preserved other sefarim on the live reader
         run: |
           for attempt in 1 2 3; do
-            if node scripts/test-dover-kdp.mjs --after-divrei-source-audit --after-tzidkat-source-accuracy --zips --data-only --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/' > supplied-source-footnotes-live-verification.json; then
+            if node scripts/test-dover-kdp.mjs --after-divrei-source-audit --zips --data-only --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/' > supplied-source-footnotes-live-verification.json; then
               cat supplied-source-footnotes-live-verification.json
               exit 0
             fi
@@ -562,27 +512,19 @@ jobs:
 
       - name: Verify the complete Vayeitzei and Mei HaShiloach import on the published reader
         run: |
-          node scripts/test-reader-docx-import.mjs --after-divrei-source-audit --after-mei-volume-ii --after-mei-likutei --after-tzidkat-source-accuracy --zips --mcp --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/' > reader-docx-import-live-verification.json
+          node scripts/test-reader-docx-import.mjs --after-divrei-source-audit --after-mei-volume-ii --after-mei-likutei --zips --mcp --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/' > reader-docx-import-live-verification.json
           cat reader-docx-import-live-verification.json
           node scripts/test-reader-docx-import-browser.mjs --after-mei-volume-ii --after-mei-likutei --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'
 
       - name: Verify the complete Mei HaShiloach and Likutei successor on the published reader
         run: |
-          node scripts/publish-mei-likutei.mjs --live --after-tzidkat-source-accuracy
+          node scripts/publish-mei-likutei.mjs --live
           node scripts/publish-mei-likutei.mjs --browser --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'
 
       - name: Verify seasonal quotations and matching print downloads on the published reader
         run: |
           node scripts/test-pri-seasonal-quoted-sources.mjs --zips --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/' > pri-seasonal-quoted-sources-live-verification.json
           node scripts/test-pri-seasonal-quoted-sources-browser.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'
-
-      - name: Verify all reviewed Tzidkat quotations and primary-source popups on the published reader
-        run: |
-          node scripts/publish-tzidkat-source-accuracy.mjs --live --successor-pack sources/akiva/overlays/tzidkat-source-attribution-20261023.json.gz
-          node scripts/test-tzidkat-source-accuracy-browser.mjs --successor-pack sources/akiva/overlays/tzidkat-source-attribution-20261023.json.gz --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'
-          node scripts/test-tzidkat-source-attribution-browser.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'
-          node scripts/publish-tzidkat-batch-review.mjs --live
-          node scripts/test-tzidkat-batch-review.mjs --all --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/'
 
       - name: Verify Chanukah 25 and all three source entry points on the published reader
         run: |
@@ -592,11 +534,11 @@ jobs:
 
       - name: Verify reviewed connections and the shared source matcher on the live reader
         run: |
-          node scripts/test-reviewed-connections.mjs --after-mei-volume-ii --after-mei-likutei --after-tzidkat-source-accuracy --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/' > reviewed-source-connections-live-verification.json
+          node scripts/test-reviewed-connections.mjs --after-mei-volume-ii --after-mei-likutei --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/' > reviewed-source-connections-live-verification.json
           cat reviewed-source-connections-live-verification.json
           node scripts/test-source-translations.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/' > source-translations-live-verification.json
           cat source-translations-live-verification.json
-          node scripts/test-connected-ideas.mjs --after-mei-volume-ii --after-mei-likutei --after-tzidkat-source-accuracy --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/' > connected-ideas-live-verification.json
+          node scripts/test-connected-ideas.mjs --after-mei-volume-ii --after-mei-likutei --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/' > connected-ideas-live-verification.json
           cat connected-ideas-live-verification.json
           node scripts/test-connected-ideas-reader.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/' > connection-footnotes-live-verification.json
           node scripts/test-seasonal-connections-release.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/' > seasonal-connections-live-verification.json

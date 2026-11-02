@@ -1,3 +1,8 @@
+import __fs from 'node:fs';
+try {
+  const __edition = JSON.parse(__fs.readFileSync('sources/akiva/Tzidkat_HaTzadik.json', 'utf8')).editionId;
+  if (__edition === 'tzidkat-editorial-master-2026-11') { console.log('skipped: Tzidkat HaTzadik is the editorial master edition; this legacy layer is retired'); process.exit(0); }
+} catch {}
 // Add reviewed original-source quotations in immutable batches over the current
 // Pages publication. Existing notes, author text, other books and files remain
 // byte-for-byte intact. Historical source packs are never rewritten.
