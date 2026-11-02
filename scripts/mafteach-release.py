@@ -14,7 +14,7 @@ from pathlib import Path
 REPO = 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok'
 PUBLIC = 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/'
 STATE = Path('mafteach-release-state.json')
-PANEL_V = '20261102-mafteach-inline-v5'
+PANEL_V = '20261102-mafteach-inline-v6'
 SEARCH_V = '20261102-mafteach-ask-v10'
 NEW_DIRS = ['library/mafteach', 'library/ml-parallels', 'library/genre-parallels', 'library/mafteach-links']
 ALLOWED = re.compile(r'^(library/index\.html|library/sw\.js|library/mafteach-panel\.js|library/mafteach-search\.js|library/(mafteach|ml-parallels|genre-parallels|mafteach-links)/.+|mcp-data/mafteach/.+)$')

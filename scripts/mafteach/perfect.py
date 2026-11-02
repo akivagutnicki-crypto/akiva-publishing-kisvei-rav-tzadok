@@ -20,7 +20,8 @@ Every source entry gets "vq": c confirmed in the text · a address fixed · b bo
 u not found · s quote too short · n text not available (Zohar I-III, Sifrei, Rambam ...).
 
 Usage (from the repository root):
-  python3 scripts/mafteach/perfect.py source-texts.jsonl.gz [sources/mafteach/reviewed]
+  python3 scripts/mafteach/perfect.py source-texts.jsonl.gz [sources/mafteach/reviewed] [dist/mcp-data/text]
+  links    every reference checked against the Rav Tzadok passage it points to, unlinked ones linked (link_refs.py)
   source-texts.jsonl.gz: the asset of the genre-corpus-2026-11 pre-release (scripts/genre-corpus/build_source_texts.py)
 """
 import gzip, json, re, sys, os, collections, glob
@@ -187,7 +188,15 @@ def run_reviewed(folder):
                 entries.append(ne)
                 log.append(dict(id=nid, step='reviewed', field='entry', was=None, now=cor, why='added (missing from the index); ' + why)); count['reviewed'] += 1
 
+def run_links(textdir):
+    if not textdir or not os.path.isdir(textdir): print('links: no library text given, skipped'); return
+    import importlib.util
+    spec = importlib.util.spec_from_file_location('links', os.path.join(os.path.dirname(__file__), 'link_refs.py'))
+    mod = importlib.util.module_from_spec(spec); spec.loader.exec_module(mod)
+    mod.run(entries, textdir, note, gem, json.load(open(f'{D}/glossary.json', encoding='utf-8'))['pt_sections'])
+
 run_texts(sys.argv[1] if len(sys.argv) > 1 else None)
+run_links(sys.argv[3] if len(sys.argv) > 3 else None)   # still under test: only when the library text is given
 run_reviewed(sys.argv[2] if len(sys.argv) > 2 else f'{D}/reviewed')
 entries = [e for e in entries if not e.pop('_drop', None)]
 with gzip.open(OUT, 'wt', encoding='utf-8') as f:

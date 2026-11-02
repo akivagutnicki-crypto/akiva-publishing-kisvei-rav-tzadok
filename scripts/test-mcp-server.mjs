@@ -167,7 +167,21 @@ t = await tool('kisvei_find_parallels', { ref: 'Tzidkas HaTzaddik 1:3', response
 js = JSON.parse(t.text);
 check(js.total > 0 && js.parallels.some(p => p.school === 'Ishbitz-Radzin') && js.parallels.every(p => p.shared.length), 'find_parallels');
 t = await tool('kisvei_find_parallels', { ref: 'Tzidkat HaTzadik 1:3', school: 'Ishbitz-Radzin' });
-check(!t.isError && t.text.includes('Shares:') && !t.text.includes('[Kisvei Rav Tzadok]'), 'find_parallels by school');
+check(!t.isError && t.text.includes('Why:') && !t.text.includes('[Kisvei Rav Tzadok'), 'find_parallels by school');
+// ranked by the Mafteach-trained model: the parallels a reader confirmed for Pri Tzaddik Chayei Sarah 1 are near the top
+t = await tool('kisvei_find_parallels', { ref: 'Pri Tzaddik Chayei Sarah 1', limit: 10, response_format: 'json' });
+js = JSON.parse(t.text);
+check(['Peri Tzadik, Shmini 6', 'Peri Tzadik, Achrei Mot 6'].every(r => js.parallels.some(p => p.ref === r)), 'find_parallels ranks the confirmed parallels in the top 10');
+check(js.outside.length > 0 && js.outside.every(x => ['Chassidus', 'Kabbalah', 'Machshava', 'Mussar'].includes(x.genre)), 'find_parallels beyond the library');
+t = await tool('kisvei_find_parallels', { ref: 'Pri Tzaddik Chayei Sarah 1', school: 'Chassidus', response_format: 'json' });
+js = JSON.parse(t.text);
+check(js.parallels.length === 0 && js.outside.length > 0 && js.outside.every(x => x.genre === 'Chassidus'), 'find_parallels school Chassidus');
+check(js.outside[0].tier === 'reviewed' && js.outside[0].why, 'reviewed outside parallels first, with the reader\'s reason');
+// refs that sound alike or are written the way readers write them
+for (const [q, want] of [['Peri Tzadik, Masei 9:1', 'Peri Tzadik, Masei 9:1'], ['Pri Tzaddik, Korach 12', 'Peri Tzadik, Korach 12'], ['Pri Tzaddik, Ki Seitzei 9', 'Peri Tzadik, Ki Teitzei 9'], ['Pri Tzaddik, Shekalim 6', 'Peri Tzadik, Parshat Shekalim 6'], ['Mei HaShiloach I, Vayetzei 3', 'Mei HaShiloach, Volume I, Genesis, Vayetzei 3']]) {
+  t = await tool('kisvei_get_text', { ref: q });
+  check(!t.isError && t.text.includes('Ref: ' + want), `get_text "${q}" -> ${want}`);
+}
 t = await tool('kisvei_search', {});
 check(t.isError && t.text.includes('"query" is required'), 'missing argument is a tool error');
 t = await tool('kisvei_search', { query: 'x', colour: 'red' });
