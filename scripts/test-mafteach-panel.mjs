@@ -85,9 +85,10 @@ for (const [key, info] of Object.entries(gIndex.books)) {
   check(fs.statSync(path.join(GP, info.file)).size < 1e6, `${info.file} under 1 MB`);
   for (const [ref, items] of Object.entries(JSON.parse(fs.readFileSync(path.join(GP, info.file), 'utf8')).passages)) {
     check(M.mlKey(gIndex.books, ref) === key, `${ref} found through its file`);
-    for (const [target, title, genre, p, tier, words] of items) {
+    for (const [target, title, genre, p, tier, words, why] of items) {
       gLinks++; genres.add(genre);
-      if (!['Chassidus', 'Kabbalah', 'Machshava', 'Mussar'].includes(genre) || !['strong', 'likely', 'possible'].includes(tier) || !(p > 0) || !String(target).trim()) check(false, `${ref} -> ${target} well formed`);
+      if (!['Chassidus', 'Kabbalah', 'Machshava', 'Mussar'].includes(genre) || !['reviewed', 'strong', 'likely', 'possible'].includes(tier) || !(p > 0) || !String(target).trim()) check(false, `${ref} -> ${target} well formed`);
+      if (tier === 'reviewed' && !String(why || '').trim()) check(false, `${ref} -> ${target}: a checked parallel says why`);
     }
   }
 }

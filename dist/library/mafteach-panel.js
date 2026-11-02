@@ -7,7 +7,7 @@
   else root.AkivaMafteach = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this, function () {
   'use strict';
-  const VERSION = '20261102-mafteach-inline-v5';
+  const VERSION = '20261102-mafteach-inline-v6';
   const SHOW = 8;
   const toHashDefault = ref => encodeURIComponent(ref).replace(/%20/g, '_').replace(/%2C/g, ',').replace(/%3A/g, ':');
   const escDefault = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -74,7 +74,7 @@
     for (const k of Object.keys(books || {})) if ((sectionRef === k || sectionRef.startsWith(k + ',') || sectionRef.startsWith(k + ' ')) && (!best || k.length > best.length)) best = k;
     return best;
   }
-  const TIER_ORDER = { strong: 0, likely: 1, possible: 2 };
+  const TIER_ORDER = { reviewed: -1, strong: 0, likely: 1, possible: 2 };
   function mlFor(passages, sectionRef, exclude = new Set()) {
     if (!passages) return [];
     const keys = passages[sectionRef] ? [sectionRef] : Object.keys(passages).filter(k => k.startsWith(sectionRef + ' ') && /^\d+$/.test(k.slice(sectionRef.length + 1)));
@@ -86,7 +86,7 @@
     }
     return out.sort((a, b) => TIER_ORDER[a[2]] - TIER_ORDER[b[2]] || b[1] - a[1]).slice(0, 20);
   }
-  const TIER_LABEL = { strong: 'Strong', likely: 'Likely', possible: 'Possible' };
+  const TIER_LABEL = { reviewed: 'Checked', strong: 'Strong', likely: 'Likely', possible: 'Possible' };
   // Outside parallels (dist/library/genre-parallels): [sefaria ref, Hebrew title, genre, probability, tier, [shared rare words]]
   const GENRES = [['Chassidus', 'חסידות'], ['Kabbalah', 'קבלה'], ['Machshava', 'מחשבה'], ['Mussar', 'מוסר']];
   function sefariaRefUrl(ref) {
@@ -106,8 +106,8 @@
     return GENRES.map(([g, he]) => {
       const list = items.filter(x => x[2] === g);
       if (!list.length) return '';
-      return `<div class="maf-genre"><h5>${g} · <span lang="he">${he}</span></h5><ul class="maf-list">${list.map(([ref, title, , p, tier, words]) =>
-        `<li class="maf-par"><span class="maf-tier maf-${tier}">${TIER_LABEL[tier]}</span> <a class="maf-ref" href="#/read/${(opts.toHash || toHashDefault)(ref)}">${esc(ref)}</a><div class="maf-why">${title && /[א-ת]/.test(title) ? `<span lang="he" class="maf-he">${esc(title)}</span>` : ''}${title && /[א-ת]/.test(title) && words && words.length ? ' · ' : ''}${words && words.length ? `Shared words: <span lang="he" class="maf-he">${esc(words.slice(0, 4).join(' · '))}</span>` : ''}</div></li>`).join('')}</ul></div>`;
+      return `<div class="maf-genre"><h5>${g} · <span lang="he">${he}</span></h5><ul class="maf-list">${list.map(([ref, title, , p, tier, words, why]) =>
+        `<li class="maf-par"><span class="maf-tier maf-${tier}">${TIER_LABEL[tier]}</span> <a class="maf-ref" href="#/read/${(opts.toHash || toHashDefault)(ref)}">${esc(ref)}</a><div class="maf-why">${title && /[א-ת]/.test(title) ? `<span lang="he" class="maf-he">${esc(title)}</span>` : ''}${title && /[א-ת]/.test(title) && words && words.length ? ' · ' : ''}${why ? `${title && /[א-ת]/.test(title) ? ' · ' : ''}${esc(why)}` : words && words.length ? `Shared words: <span lang="he" class="maf-he">${esc(words.slice(0, 4).join(' · '))}</span>` : ''}</div></li>`).join('')}</ul></div>`;
     }).join('');
   }
 
@@ -147,7 +147,7 @@ ${topics ? `<div class="maf-block"><h4>Indexed under</h4><div class="maf-topics"
 .maf-list{margin:.2em 0;padding-inline-start:1.4em}.maf-list li{margin:.35em 0}.maf-ref{font-weight:600;unicode-bidi:isolate}
 .maf-why{font-size:.88em;opacity:.85}.maf-he{font-family:inherit;direction:rtl;unicode-bidi:isolate}
 .maf-why-topic{font-style:italic}.maf-why-en{color:var(--muted)}.maf-star{color:#b8860b}.maf-more{display:none}.mafteach-panel.maf-open-par [data-list=par] .maf-more,.mafteach-panel.maf-open-src [data-list=src] .maf-more{display:list-item}.mafteach-panel.maf-open-top [data-list=top] .maf-more{display:inline-block}
-.maf-tier{font-size:.72em;border-radius:4px;padding:.05em .4em;vertical-align:.1em;border:1px solid currentColor}.maf-strong{color:#2e7d32}.maf-likely{color:#1565c0}.maf-possible{color:#8d6e63}.mafteach-panel.maf-open-ml [data-list=ml] .maf-more{display:list-item}
+.maf-tier{font-size:.72em;border-radius:4px;padding:.05em .4em;vertical-align:.1em;border:1px solid currentColor}.maf-strong{color:#2e7d32}.maf-reviewed{color:#6a1b9a;font-weight:600}.maf-likely{color:#1565c0}.maf-possible{color:#8d6e63}.mafteach-panel.maf-open-ml [data-list=ml] .maf-more{display:list-item}
 .maf-genre h5{margin:.6em 0 .2em;font-size:.88em;opacity:.85}
 .maf-note{font-size:.8em;opacity:.75;margin:.8em 0 .3em}.maf-toggle{margin:.2em 0}
 .maf-why-label{font-size:.78em;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--brass,#8a6d2f);margin-inline-end:.3em}.maf-why-he{opacity:.75;font-size:.95em}

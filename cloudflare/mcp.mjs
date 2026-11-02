@@ -260,6 +260,18 @@ async function splitRef(input) {
     }
     if (best) return { book: best.book, rest: s, hebrew: true };
   }
+  // Transliterated title, word by word ("Pri Tzaddik, Korach 12"): joining the words first would merge letters across
+  // the title and the section ("...tzdk" + "krch" -> "...tzdkrch") and lose the section's first letter.
+  const words = s.split(/[\s,]+/).filter(Boolean);
+  for (let n = Math.min(6, words.length - 1); n >= 1; n--) {
+    const k = skel(words.slice(0, n).join(' '));
+    if (n > 1 && k === skel(words.slice(0, n - 1).join(' '))) continue;      // "Pri Tzaddik Ki": "Ki" adds no letter after "...k"
+    const b = k && books.find(b => b.keys.includes(k));
+    if (b) {
+      const m = s.match(new RegExp('^(?:[^\\s,]+[\\s,]+){' + n + '}'));
+      return { book: b, rest: m ? s.slice(m[0].length) : words.slice(n).join(' ') };
+    }
+  }
   // Transliterated title: the longest book key that starts the ref's first letter run.
   const key = refKey(s);
   const first = key.split('|')[0];
@@ -307,6 +319,32 @@ async function resolveRef(input, edition) {
         candidates = book.sections.filter(s => s.key === secKey).map(sec => ({ sec, para: +last }));
       }
     }
+  }
+  // The sound-alike key can join two names (Masei / Matot both reduce to "mt"): keep the sections whose name is closest
+  // to what was written, letter for letter.
+  if (!split.hebrew && new Set(candidates.map(c => c.sec.key)).size === 1 && new Set(candidates.map(c => c.sec.ref.replace(/[\d:\s]+$/, ''))).size > 1) {
+    const lit = x => String(x).toLowerCase().normalize('NFKD').replace(/[^a-z]/g, '');
+    const said = lit(base.replace(new RegExp('^' + book.title.replace(/[.*+?^${}()|[\]\\]/g, '\\$&'), 'i'), ''));
+    const bigrams = x => new Set([...x].map((ch, i) => x.slice(i, i + 2)).filter(b => b.length === 2));
+    const sim = name => { const a = bigrams(lit(name)), b = bigrams(said); let n = 0; for (const g of a) if (b.has(g)) n++; return (2 * n) / (a.size + b.size || 1); };
+    const nameOf = sec => (sec.ref.startsWith(book.title) ? sec.ref.slice(book.title.length) : sec.ref).replace(/[\d:\s]+$/, '');
+    const best = Math.max(...candidates.map(c => sim(nameOf(c.sec))));
+    candidates = candidates.filter(c => sim(nameOf(c.sec)) === best);
+  }
+  // A section named by its last words: "Shekalim 6" for "Parshat Shekalim", "Mei HaShiloach I, Vayetzei 3" for
+  // "Mei HaShiloach, Volume I, Genesis, Vayetzei" (paragraph 3); "I"/"II" picks the volume.
+  if (!candidates.length && !split.hebrew) {
+    const restKey = split.restKey ?? refKey(split.rest);
+    const parts = restKey.split('|');
+    const tryName = (nameKey, para) => nameKey ? book.sections.filter(s => s.key !== nameKey && s.key.endsWith(nameKey) && !/\d/.test(s.key.slice(0, -nameKey.length).slice(-1))).map(sec => ({ sec, para })) : [];
+    candidates = tryName(restKey, null);
+    if (!candidates.length && /^\d+$/.test(parts[parts.length - 1])) candidates = tryName(parts.slice(0, -1).join('|'), +parts[parts.length - 1]);
+    if (!candidates.length && parts.length >= 3 && /^\d+$/.test(parts[parts.length - 1]) && /^\d+$/.test(parts[parts.length - 2])) {
+      // "Korach 12:3": a whole-parsha section, os 12 (the paragraph); the last number is dropped
+      candidates = tryName(parts.slice(0, -2).join('|'), +parts[parts.length - 2]);
+    }
+    const vol = base.slice(book.title.length).match(/(?:^|[\s,])(?:volume\s+|vol\.?\s*)?(II|I)(?=[\s,])/i);
+    if (candidates.length > 1 && vol) { const v = candidates.filter(c => c.sec.ref.includes(`Volume ${vol[1].toUpperCase()},`)); if (v.length) candidates = v; }
   }
   if (!candidates.length) {
     const restKey = split.restKey ?? (split.hebrew ? '' : refKey(split.rest));
@@ -1035,7 +1073,7 @@ async function findParallels({ ref, school, limit, response_format }) {
   }
   merged.delete(self);
   for (const m of merged.values()) {
-    m.score = Math.round((0.55 * m.ml + 0.3 * m.maf + 0.15 * m.cit + (m.ml && m.maf ? 0.1 : 0)) * 1000) / 1000;
+    m.score = Math.round((0.55 * m.ml + 0.6 * m.maf + 0.02 * m.cit + (m.ml && m.maf ? 0.1 : 0)) * 1000) / 1000;   // weights tuned on 11 reviewed maamarim (Chayei Sarah): shared citations alone mostly found weak parallels
     m.school = schoolOf(m.ref);
     m.shared = [...m.why, ...(m.mlShared || []).slice(0, 4), ...m.shared.filter(x => !(m.mlShared || []).includes(x))].slice(0, 7);
   }
@@ -1043,11 +1081,12 @@ async function findParallels({ ref, school, limit, response_format }) {
   let list = outsideOnly ? [] : [...merged.values()].filter(x => school === 'all' || x.school === school).sort((a, b) => b.score - a.score);
   // beyond the library: [sefaria ref, Hebrew title, genre, probability, tier, [shared rare words]]
   const outside = [], seenOut = new Set();
-  if (school === 'all' || outsideOnly) for (const l of await libSection('genre-parallels', self)) for (const [oref, heTitle, genre, prob, tier, words] of l) {
+  if (school === 'all' || outsideOnly) for (const l of await libSection('genre-parallels', self)) for (const [oref, heTitle, genre, prob, tier, words, why] of l) {
     if (seenOut.has(oref) || (OUTSIDE.includes(school) && genre !== school)) continue;
-    seenOut.add(oref); outside.push({ ref: oref, title_he: heTitle, genre, score: prob, tier, shared: (words || []).map(w => `the rare word ${w}`), link: `https://www.sefaria.org/${encodeURIComponent(oref.replace(/ /g, '_'))}` });
+    seenOut.add(oref); outside.push({ ref: oref, title_he: heTitle, genre, score: prob, tier, ...(why ? { why } : {}), shared: (words || []).map(w => `the rare word ${w}`), link: `https://www.sefaria.org/${encodeURIComponent(oref.replace(/ /g, '_'))}` });
   }
-  outside.sort((a, b) => ({ strong: 0, likely: 1, possible: 2 }[a.tier] - { strong: 0, likely: 1, possible: 2 }[b.tier]) || b.score - a.score);
+  const TO = { reviewed: -1, strong: 0, likely: 1, possible: 2 };
+  outside.sort((a, b) => TO[a.tier] - TO[b.tier] || b.score - a.score);
   const total = list.length;
   list = list.slice(0, limit);
   for (const x of list) {
@@ -1071,8 +1110,8 @@ async function findParallels({ ref, school, limit, response_format }) {
     if (x.preview) lines.push(`  ${x.preview}`);
   }
   if (outShow.length) {
-    lines.push('', `## Beyond the library: Chassidus, Kabbalah, Machshava, Mussar`, 'Found by wording and rare shared words, not by an index: read both before relying on one.');
-    for (const x of outShow) lines.push(`- ${x.ref} (${x.title_he}) [${x.genre}, ${x.tier}] — shares ${x.shared.join(', ') || 'wording'} — ${x.link}`);
+    lines.push('', `## Beyond the library: Chassidus, Kabbalah, Machshava, Mussar`, '"Checked by a reader" means both passages were read and the link confirmed; the rest were found by wording and rare shared words: read both before relying on one.');
+    for (const x of outShow) lines.push(`- ${x.ref}${x.title_he ? ` (${x.title_he})` : ''} [${x.genre}, ${x.tier === 'reviewed' ? 'checked by a reader' : x.tier}] — ${x.why || `shares ${x.shared.join(', ') || 'wording'}`} — ${x.link}`);
   }
   return lines.join('\n');
 }
