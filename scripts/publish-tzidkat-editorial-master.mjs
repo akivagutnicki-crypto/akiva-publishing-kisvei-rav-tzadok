@@ -253,9 +253,14 @@ export function finalize(site) {
   touch(htmlName, html.replace(marker, marker + `/* ${RELEASE} */ (url.startsWith('data/${SLUG}/') || url.startsWith('data/cited/') || url.startsWith('data/parallels/') || url === 'data/catalog.json' || url === 'data/files.json' || url === 'data/packs/sources.json') ? url + '?tzidkat=${stamp}' :\n`));
   if (stage.connectedIdeas) {
     const current = fs.readFileSync(relative(site, htmlName), 'utf8');
-    const fetchLine = /(fetch\('connected-ideas\/catalog\.json\?v=' \+ connectedIdeas\.VERSION \+ ')([^']*)'/;
-    assert(fetchLine.test(current), 'Connected Ideas catalog request not found in the reader');
-    touch(htmlName, current.replace(fetchLine, (_, a, b) => `${a}${b}&tzidkat=${stamp}'`));
+    // Earlier publishers rewrote this request in different ways (the Takanat release replaced the "?v=" query,
+    // the source-accuracy release appended "&accuracy="), so match the whole fetch argument, whatever its form,
+    // and append the Tzidkat cache key as one more concatenated string.
+    const fetchLine = /(fetch\('connected-ideas\/catalog\.json[^)\n]*)\)/g;
+    const hits = current.match(fetchLine) || [];
+    if (hits.length !== 1) console.error(json({connectedIdeasFetchCandidates: hits}));
+    assert.equal(hits.length, 1, 'Connected Ideas catalog request not found exactly once in the reader');
+    touch(htmlName, current.replace(fetchLine, (_, a) => `${a} + '&tzidkat=${stamp}')`));
   }
   const swName = 'library/sw.js', sw = fs.readFileSync(relative(site, swName), 'utf8');
   assert.equal((sw.match(/const SHELL = `[^`]+`;/g) || []).length, 1, 'Unexpected service worker cache revision');
