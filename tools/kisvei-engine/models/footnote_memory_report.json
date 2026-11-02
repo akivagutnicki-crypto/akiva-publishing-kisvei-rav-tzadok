@@ -1,11 +1,11 @@
 {
  "summary": {
   "n": 13443,
-  "top1": 0.124,
-  "top3": 0.196,
-  "top5": 0.221,
+  "top1": 0.121,
+  "top3": 0.194,
+  "top5": 0.22,
   "detector": 0.281,
-  "either": 0.387,
+  "either": 0.385,
   "quoteReuse": {
    "repeatQuotations": 5290,
    "shareHalfTheWords": 0.701,
@@ -15,44 +15,44 @@
  "perBook": {
   "dover-tzedek": {
    "n": 2346,
-   "top1": 0.156,
-   "top3": 0.237,
-   "top5": 0.268,
+   "top1": 0.147,
+   "top3": 0.228,
+   "top5": 0.262,
    "detector": 0.127,
-   "either": 0.327
+   "either": 0.317
   },
   "peri-tzadik": {
    "n": 5312,
-   "top1": 0.134,
-   "top3": 0.219,
-   "top5": 0.243,
+   "top1": 0.131,
+   "top3": 0.216,
+   "top5": 0.24,
    "detector": 0.464,
    "either": 0.535
   },
   "resisei-layla": {
    "n": 670,
-   "top1": 0.084,
-   "top3": 0.149,
-   "top5": 0.178,
+   "top1": 0.081,
+   "top3": 0.146,
+   "top5": 0.182,
    "detector": 0.112,
    "either": 0.222
   },
   "takanat-hashavin": {
    "n": 1932,
-   "top1": 0.054,
-   "top3": 0.081,
-   "top5": 0.098,
+   "top1": 0.053,
+   "top3": 0.084,
+   "top5": 0.102,
    "detector": 0.041,
-   "either": 0.106
+   "either": 0.109
   },
   "tzidkat-hatzadik": {
    "n": 3183,
-   "top1": 0.135,
-   "top3": 0.208,
-   "top5": 0.233,
+   "top1": 0.136,
+   "top3": 0.209,
+   "top5": 0.235,
    "detector": 0.269,
-   "either": 0.387
+   "either": 0.388
   }
  },
- "records": 16823
+ "records": 18726
 }

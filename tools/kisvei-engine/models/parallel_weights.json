@@ -24,15 +24,15 @@
   "english_cosine": -3.7507752828044705,
   "bias": -2.0
  },
- "chosen": "learned",
+ "chosen": "previous",
  "evaluation": {
   "hand": {
    "all": {
-    "queries": 461,
-    "recall@1": 0.035,
-    "recall@5": 0.111,
-    "recall@10": 0.156,
-    "recall@20": 0.221
+    "queries": 369,
+    "recall@1": 0.032,
+    "recall@5": 0.117,
+    "recall@10": 0.173,
+    "recall@20": 0.252
    },
    "reviewed": {
     "queries": 119,
@@ -42,20 +42,43 @@
     "recall@20": 0.277
    },
    "footnotes": {
-    "queries": 300,
-    "recall@1": 0.033,
-    "recall@5": 0.1,
-    "recall@10": 0.157,
-    "recall@20": 0.203
+    "queries": 250,
+    "recall@1": 0.024,
+    "recall@5": 0.096,
+    "recall@10": 0.164,
+    "recall@20": 0.24
    }
   },
   "learned": {
    "all": {
-    "queries": 461,
-    "recall@1": 0.072,
-    "recall@5": 0.193,
-    "recall@10": 0.254,
-    "recall@20": 0.341
+    "queries": 369,
+    "recall@1": 0.076,
+    "recall@5": 0.184,
+    "recall@10": 0.263,
+    "recall@20": 0.347
+   },
+   "reviewed": {
+    "queries": 119,
+    "recall@1": 0.101,
+    "recall@5": 0.252,
+    "recall@10": 0.311,
+    "recall@20": 0.395
+   },
+   "footnotes": {
+    "queries": 250,
+    "recall@1": 0.064,
+    "recall@5": 0.152,
+    "recall@10": 0.24,
+    "recall@20": 0.324
+   }
+  },
+  "previous": {
+   "all": {
+    "queries": 369,
+    "recall@1": 0.073,
+    "recall@5": 0.184,
+    "recall@10": 0.268,
+    "recall@20": 0.339
    },
    "reviewed": {
     "queries": 119,
@@ -65,41 +88,18 @@
     "recall@20": 0.37
    },
    "footnotes": {
-    "queries": 300,
-    "recall@1": 0.073,
-    "recall@5": 0.19,
-    "recall@10": 0.24,
-    "recall@20": 0.323
-   }
-  },
-  "previous": {
-   "all": {
-    "queries": 461,
-    "recall@1": 0.056,
-    "recall@5": 0.139,
-    "recall@10": 0.197,
-    "recall@20": 0.269
-   },
-   "reviewed": {
-    "queries": 119,
-    "recall@1": 0.092,
-    "recall@5": 0.193,
-    "recall@10": 0.235,
-    "recall@20": 0.319
-   },
-   "footnotes": {
-    "queries": 300,
-    "recall@1": 0.05,
-    "recall@5": 0.13,
-    "recall@10": 0.197,
-    "recall@20": 0.253
+    "queries": 250,
+    "recall@1": 0.072,
+    "recall@5": 0.16,
+    "recall@10": 0.248,
+    "recall@20": 0.324
    }
   }
  },
- "trainPairs": 2668,
- "testPairs": 667,
+ "trainPairs": 2060,
+ "testPairs": 730,
  "reviewedPairs": 700,
- "footnotePairs": 2635,
+ "footnotePairs": 2947,
  "paragraphs": 15691,
  "gold": "reviewed editorial parallels (editorial master connections, reader reviewed connections, connected ideas) and library links inside reader footnotes; side-panel links excluded"
 }
