@@ -23,6 +23,14 @@ for (const q of ['Ishmael', 'Yishmael', 'Yishmoel', 'Ishamel', 'dYishamel', 'Yis
 check(!(await A.analyze('Ishmael')).source && !(await A.analyze('Moshe')).source, 'Ishmael is not Shmuel, Moshe is not Amos');
 check(/Moses/.test(await top('Moshe')) && /Abraham/.test(await top('Avraham')) && /Solomon/.test(await top('Shlomo')), 'Moshe, Avraham, Shlomo');
 check((await A.analyze('Tehillim 23')).source?.title === 'Psalms' && (await A.analyze('Zohar')).topics.length === 0, 'sources by name');
+// a parsha inside a question; Sarah is not Torah
+const cs = await A.analyze('Themes in Chayei Sarah');
+check(cs.parsha?.key === 'Chayei Sara' && !cs.topics.some(x => /^Torah|Living|Barley/.test(x.t.en)), 'Themes in Chayei Sarah -> the parsha, not Torah');
+check(/Sarah/.test(await top('Sarah')) && !(await A.analyze('Sarah')).topics.some(x => x.t.en === 'Torah'), 'Sarah is not Torah');
+const eb = await A.analyze('emunah in Beshalach');
+check(eb.parsha?.key === 'Beshalach' && eb.topics[0]?.t.en === 'Faith', 'emunah in Beshalach -> Faith and the parsha');
+check((await A.analyze('the flood in Noach')).parsha?.key === 'Noach', 'parsha at the end of a question');
+check(/Shabbos|Shabbat/.test(await top('Shabbos')) && await top('Torah') === 'Torah', 'Shabbos, Torah');
 // questions: the topics they name, best first
 const qa = await A.analyze('what does Rav Tzadok say about teshuvah and simcha?');
 check(qa.topics[0].t.en === 'Repentance' && qa.topics.some(x => x.t.en === 'Joy'), 'question finds Repentance and Joy');
