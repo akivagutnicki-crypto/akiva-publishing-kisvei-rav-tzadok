@@ -4,6 +4,14 @@
 Run after the existing Har Bracha source import, before build-library.mjs.
 Only annotations are replaced; the Hebrew and English reading text is preserved.
 """
+import json as _json, sys as _sys
+try:
+    if _json.load(open('sources/akiva/Tzidkat_HaTzadik.json', encoding='utf-8')).get('editionId') == 'tzidkat-editorial-master-2026-11':
+        print('skipped: Tzidkat HaTzadik is the editorial master edition; this legacy layer is retired')
+        _sys.exit(0)
+except FileNotFoundError:
+    pass
+
 import csv
 import hashlib
 import io

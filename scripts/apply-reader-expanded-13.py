@@ -14,14 +14,19 @@ BOOKS={'peri-tzadik':1665,'machshavot-charutz':3580,'divrei-soferim':845,
  'ohr-zarua-latzadik':1710,'sichat-malakhei-hasharet':752,'sichat-shedim':120,
  'divrei-chalomot':247}
 EXCLUDED=('takanat-hashavin','resisei-layla','et-haochel','dover-tzedek')
+# The editorial master edition of Tzidkat HaTzadik supersedes the archived 13-volume Tzidkat folder.
+_TZ=Path('sources/akiva/Tzidkat_HaTzadik.json')
+TZIDKAT_MASTER=_TZ.exists() and json.loads(_TZ.read_text(encoding='utf-8')).get('editionId')=='tzidkat-editorial-master-2026-11'
+SKIP={'tzidkat-hatzadik'} if TZIDKAT_MASTER else set()
 PREFIXES=('Peri Tzadik','Pri Tzadik','Machshavot Charutz','Divrei Soferim',
- 'Sefer HaZikhronot','Tzidkat HaTzadik','Yisrael Kedoshim','Kometz HaMinchah',
+ 'Sefer HaZikhronot','Yisrael Kedoshim','Kometz HaMinchah',
  'Likkutei Maamarim','Poked Akarim','Ohr Zarua LaTzadik',
  'Sichat Malakhei HaSharet','Sichat Shedim','Divrei Chalomot')
 sha=lambda x:hashlib.sha256(x).hexdigest()
 plain=lambda x:html.unescape(re.sub('<[^>]*>','',str(x or ''))).replace('\u00a0',' ')
 def target_ref(s):
- return isinstance(s,str) and any(s==p or s.startswith(p+' ') or s.startswith(p+',') or s.startswith(p+':') for p in PREFIXES)
+ prefixes=PREFIXES if TZIDKAT_MASTER else PREFIXES+('Tzidkat HaTzadik',)
+ return isinstance(s,str) and any(s==p or s.startswith(p+' ') or s.startswith(p+',') or s.startswith(p+':') for p in prefixes)
 def hashdir(d):
  if not d.is_dir():return None
  h=hashlib.sha256()
@@ -199,10 +204,11 @@ def install(data):
   catfile=BASE/'catalog.json'
   byslug={e['slug']:e for e in json.loads(catfile.read_text())} if catfile.exists() else {}
   for e in json.loads(data['data/catalog.json']):
-   if e['slug'] in BOOKS:byslug[e['slug']]={**byslug.get(e['slug'],{}),**e}
+   if e['slug'] in BOOKS and e['slug'] not in SKIP:byslug[e['slug']]={**byslug.get(e['slug'],{}),**e}
   (stage/'catalog.json').write_text(json.dumps(list(byslug.values()),ensure_ascii=False,separators=(',',':'))+'\n')
   BASE.mkdir(parents=True,exist_ok=True)
   for book in BOOKS:
+   if book in SKIP:continue
    existing=BASE/book;backup=Path(td)/('backup-'+book)
    if existing.exists():os.replace(existing,backup)
    try:os.replace(stage/book,existing)

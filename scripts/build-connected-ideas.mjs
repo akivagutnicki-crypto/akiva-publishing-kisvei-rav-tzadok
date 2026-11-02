@@ -74,11 +74,15 @@ export function buildConnectedIdeas(options={}) {
     && !output.startsWith(path.join(REPO,'dist/library/data')+path.sep),'Output cannot overwrite canonical or editorial inputs');
   const catalogBytes=fs.readFileSync(path.join(mcpRoot,'catalog.json')), catalog=JSON.parse(catalogBytes);
   const lookup=readCanonical(catalog,mcpRoot), records=[], files=[], ids=new Set(), pairs=new Set();
+  // options.filter limits the build to the editorial records it accepts (the book-only
+  // Tzidkat publisher rebuilds the records of one sefer and keeps the published rest).
+  const filter=typeof options.filter==='function'?options.filter:()=>true;
   for(const file of fs.readdirSync(editorialDir).filter(file=>file.endsWith('.json')).sort()) {
     const bytes=fs.readFileSync(path.join(editorialDir,file)), doc=JSON.parse(bytes);
     assert(doc.schemaVersion===1 && Array.isArray(doc.records),'Unknown theme input schema: '+file);
     files.push({path:file,sha256:sha(bytes)});
     for(const input of doc.records) {
+      if(!filter(input)) continue;
       try {
         assert(input.reviewed===true,'Unreviewed concept cannot be published');
         const record={};
@@ -120,7 +124,12 @@ export function buildConnectedIdeas(options={}) {
           translation:'editorial-review',reverseRelation:record.reverseExplanation?'individually-reviewed':'not-approved'};
         assert(ideas.validRecord(record),'Invalid published theme record');
         records.push(record); ids.add(record.id); pairs.add(pair);
-      } catch(error) {throw new Error(file+': '+(input.id || '(missing id)')+': '+error.message,{cause:error});}
+      } catch(error) {
+        // options.onError lets a partial, artifact-preserving publish keep the record that is
+        // already published instead of failing the whole catalog; the full build still fails.
+        if(typeof options.onError==='function') { options.onError(input,file,error); continue; }
+        throw new Error(file+': '+(input.id || '(missing id)')+': '+error.message,{cause:error});
+      }
     }
   }
   assert(records.length,'No reviewed thematic connections');
@@ -140,7 +149,10 @@ export function buildConnectedIdeas(options={}) {
     }
     // The PDF quotation successor continues after both the manuscript and the
     // already published supplementary notes. Do not renumber those older notes.
-    const numbering=publishedNumbering(path.resolve(mcpRoot,'../library'));
+    // The Complete Editorial Master edition carries its own continuous manuscript numbering
+    // (1-4,407); the retired quoted-sources pack no longer pins supplementary numbers, so
+    // Connected Ideas notes are numbered after the manuscript notes in reading order.
+    const numbering=tzidkatMasterEdition()?null:publishedNumbering(path.resolve(mcpRoot,'../library'));
     const allocator=stableNumberAllocator(nativeNumbers,numbering);
     const byId=new Map(records.map(record=>[record.id,record]));
     for(const {section} of studySections(numberedBook).values())
@@ -151,6 +163,20 @@ export function buildConnectedIdeas(options={}) {
       }
     allocator.verify();
   }
+  return assembleCatalog({records,catalog,catalogBytes,files,date:options.date,output,write:options.write!==false});
+}
+export function tzidkatMasterEdition() {
+  try { return JSON.parse(fs.readFileSync(path.join(REPO,'sources/akiva/Tzidkat_HaTzadik.json'),'utf8')).editionId==='tzidkat-editorial-master-2026-11'; }
+  catch { return false; }
+}
+export function editorialFiles(editorialDir=path.join(REPO,'sources/akiva/themes')) {
+  return fs.readdirSync(editorialDir).filter(file=>file.endsWith('.json')).sort().map(file=>({path:file,sha256:sha(fs.readFileSync(path.join(editorialDir,file)))}));
+}
+// Coverage, counts, provenance and the content version for a complete record set.
+export function assembleCatalog({records,catalog,catalogBytes,files,date,output,write,release=ideas.VERSION}) {
+  assert(records.length,'No reviewed thematic connections');
+  assert.equal(new Set(records.map(r=>r.id)).size,records.length,'Repeated connected idea id');
+  records=[...records].sort((a,b)=>a.id.localeCompare(b.id));
   const coverage=catalog.books.map(book=>{
     const sections=[...new Set(book.sections.map(section=>section.ref))];
     const reviewed=sections.filter(ref=>ideas.forSection(records,ref).length);
@@ -161,10 +187,10 @@ export function buildConnectedIdeas(options={}) {
     worksWithReviewedIdeas:coverage.filter(b=>b.sectionsWithReviewedIdeas).length,
     schools:Object.fromEntries(ideas.SCHOOLS.map(s=>[s,records.filter(r=>r.school===s).length]))};
   const provenance={editorialFiles:files,mcpCatalogSha256:sha(catalogBytes),mcpDataVersion:catalog.version};
-  const contentSha256=sha(canonical({release:ideas.VERSION,records,coverage,provenance}));
-  const result={schemaVersion:1,release:ideas.VERSION,version:ideas.VERSION+'-'+contentSha256.slice(0,16),contentSha256,
-    date:options.date || new Date().toISOString().slice(0,10),counts,coverage,provenance,records};
-  if(options.write!==false){fs.mkdirSync(path.dirname(output),{recursive:true});fs.writeFileSync(output,JSON.stringify(result,null,2)+'\n');}
+  const contentSha256=sha(canonical({release,records,coverage,provenance}));
+  const result={schemaVersion:1,release,version:release+'-'+contentSha256.slice(0,16),contentSha256,
+    date:date || new Date().toISOString().slice(0,10),counts,coverage,provenance,records};
+  if(write && output){fs.mkdirSync(path.dirname(output),{recursive:true});fs.writeFileSync(output,JSON.stringify(result,null,2)+'\n');}
   return {catalog:result,output};
 }
 if(process.argv[1] && path.resolve(process.argv[1])===fileURLToPath(import.meta.url)) {

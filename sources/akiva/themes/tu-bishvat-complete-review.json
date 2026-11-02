@@ -161,7 +161,20 @@
       "reviewed": true,
       "reviewedOriginHebrewSha256": "34641b755fbfba9f43ff71bc1676dfef1f7e47cb6fece4d306dbf638bf3f6af3",
       "reviewedOriginSectionHebrewSha256": "34641b755fbfba9f43ff71bc1676dfef1f7e47cb6fece4d306dbf638bf3f6af3",
-      "reviewedTargetHebrewSha256": "7ae34b2bdc52a53cf4442d858201a0213b49ff21aef1c7a301a79388456562bb"
+      "reviewedTargetHebrewSha256": "1dc60a5ad7240c0b2a32460fc4fa4ab9a95580ac486c5c0e7463e2ca26bcb4b3",
+      "reanchoring": {
+        "target": {
+          "edition": "tzidkat-editorial-master-2026-11",
+          "date": "2026-11-02",
+          "previousRef": "Tzidkat HaTzadik 223:1",
+          "previousHebrewSha256": "be86871a955fa85f5a25b0b9d07d873334ceb27f1c211427c41e95da677be3b5",
+          "previousParagraphPin": "7ae34b2bdc52a53cf4442d858201a0213b49ff21aef1c7a301a79388456562bb",
+          "status": "exact",
+          "wordsChanged": 0,
+          "clippedWords": 0,
+          "note": "Quotation words unchanged; vocalization, punctuation and paragraph numbering follow the Complete Editorial Master."
+        }
+      }
     },
     {
       "id": "tubishvat-4-command-and-ideal",

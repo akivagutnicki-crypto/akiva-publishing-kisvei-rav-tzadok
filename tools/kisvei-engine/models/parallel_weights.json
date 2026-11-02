@@ -1,0 +1,31 @@
+{
+ "features": [
+  "shared_sources",
+  "shared_quotes",
+  "term_cosine",
+  "rare_terms",
+  "same_book",
+  "explicit_xref",
+  "max_source_idf",
+  "source_count",
+  "rare_quote",
+  "english_cosine"
+ ],
+ "weights": {
+  "shared_sources": 0.0616412886399187,
+  "shared_quotes": -0.012153756003132246,
+  "term_cosine": -5.7629594219322575,
+  "rare_terms": 0.04393096110466861,
+  "same_book": -0.2812190057074278,
+  "explicit_xref": 0.0,
+  "max_source_idf": 0.10702114231427595,
+  "source_count": 0.15318315564032273,
+  "rare_quote": 0.4734566572769441,
+  "english_cosine": 2.014684046263384,
+  "bias": -2.0
+ },
+ "trainPairs": 471,
+ "testPairs": 118,
+ "paragraphs": 13790,
+ "gold": "reviewed editorial parallels (editorial master connections + reader reviewed connections + connected ideas)"
+}

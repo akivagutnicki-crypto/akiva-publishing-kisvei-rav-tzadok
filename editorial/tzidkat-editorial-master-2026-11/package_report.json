@@ -1,0 +1,1211 @@
+{
+ "notes": 4407,
+ "sections": 264,
+ "connections": 4155,
+ "review": {
+  "unverifiedSefaria": 3,
+  "displayDiffersFromCanonical": 21,
+  "libraryNotFound": 24,
+  "libraryQuoteMismatch": 173,
+  "externalSources": 55,
+  "quotationMatches": 889,
+  "referenceOnly": 2508
+ },
+ "reviewLists": {
+  "unverifiedSefaria": [
+   {
+    "note": 704,
+    "ref": "Zohar, Yitro 23:11-13",
+    "linkedRef": "Zohar, Yitro 23:11-13"
+   },
+   {
+    "note": 1179,
+    "ref": "Zohar, Noach 9:3",
+    "linkedRef": "Zohar, Noach 9:3"
+   },
+   {
+    "note": 1233,
+    "ref": "Zohar, Introduction 21:2-6",
+    "linkedRef": "Zohar, Introduction 21:2-6"
+   }
+  ],
+  "displayDiffersFromCanonical": [
+   {
+    "note": 17,
+    "display": "Rema on Shulchan Arukh, Orach Chayim 1:1",
+    "canonical": "Shulchan Arukh, Orach Chayim 1:1"
+   },
+   {
+    "note": 25,
+    "display": "Rema on Shulchan Arukh, Orach Chayim 1:1",
+    "canonical": "Shulchan Arukh, Orach Chayim 1:1"
+   },
+   {
+    "note": 263,
+    "display": "Kohelet Rabbah 12:10, on the hidden time of redemption",
+    "canonical": "Kohelet Rabbah 12:10"
+   },
+   {
+    "note": 349,
+    "display": "Jeremiah 31:21",
+    "canonical": "Jeremiah 31:22"
+   },
+   {
+    "note": 562,
+    "display": "Jeremiah 31:33",
+    "canonical": "Jeremiah 31:34"
+   },
+   {
+    "note": 631,
+    "display": "Sanhedrin 107b:16",
+    "canonical": "Sotah 47a:5"
+   },
+   {
+    "note": 930,
+    "display": "Rema, Shulchan Arukh, Orach Chayim 1:1",
+    "canonical": "Shulchan Arukh, Orach Chayim 1:1"
+   },
+   {
+    "note": 1417,
+    "display": "Zohar I 219b",
+    "canonical": "Zohar, Vayechi 25:194"
+   },
+   {
+    "note": 2563,
+    "display": "Siddur, the Yotzer Or blessing",
+    "canonical": "Siddur Ashkenaz, Weekday, Shacharit, Blessings of the Shema, First Blessing before Shema 8"
+   },
+   {
+    "note": 2700,
+    "display": "Siddur, the Yotzer Or blessing",
+    "canonical": "Siddur Sefard, Weekday Shacharit, The Shema 10"
+   },
+   {
+    "note": 2911,
+    "display": "Tur, Orach Chaim 417",
+    "canonical": "Tur, Orach Chayim 417"
+   },
+   {
+    "note": 2921,
+    "display": "Siddur, Uva LeTzion",
+    "canonical": "Siddur Ashkenaz, Weekday, Shacharit, Concluding Prayers, Uva Letzion 10"
+   },
+   {
+    "note": 3393,
+    "display": "Siddur, weekday Shacharit, blessing Yotzer Or",
+    "canonical": "Siddur Ashkenaz, Weekday, Shacharit, Blessings of the Shema, First Blessing before Shema 3"
+   },
+   {
+    "note": 3418,
+    "display": "Selichot, the piyyut Zechor Brit",
+    "canonical": "Selichot Nusach Polin, Fast of Gedaliah 11:7"
+   },
+   {
+    "note": 3466,
+    "display": "Siddur, weekday Shacharit, blessing Yotzer Or",
+    "canonical": "Siddur Ashkenaz, Weekday, Shacharit, Blessings of the Shema, First Blessing before Shema 3"
+   },
+   {
+    "note": 3475,
+    "display": "Siddur, Shabbat Shacharit, hymn El Adon",
+    "canonical": "Siddur Ashkenaz, Shabbat, Shacharit, Blessings of the Shema, First Blessing before Shema 3"
+   },
+   {
+    "note": 3502,
+    "display": "Siddur, weekday Shacharit, blessing Yotzer Or",
+    "canonical": "Siddur Ashkenaz, Weekday, Shacharit, Blessings of the Shema, First Blessing before Shema 8"
+   },
+   {
+    "note": 3510,
+    "display": "Siddur, weekday Shacharit, blessing Ahavah Rabbah",
+    "canonical": "Siddur Ashkenaz, Weekday, Shacharit, Blessings of the Shema, Second Blessing before Shema 1"
+   },
+   {
+    "note": 3745,
+    "display": "Siddur, weekday Amidah, blessing Atah Gibbor",
+    "canonical": "Siddur Ashkenaz, Weekday, Shacharit, Amidah, Divine Might 7"
+   },
+   {
+    "note": 3794,
+    "display": "Siddur, weekday Shacharit, blessing Yotzer Or",
+    "canonical": "Siddur Ashkenaz, Weekday, Shacharit, Blessings of the Shema, First Blessing before Shema 8"
+   },
+   {
+    "note": 4073,
+    "display": "Shemonah Perakim 6:3",
+    "canonical": "Eight Chapters 6:3"
+   }
+  ],
+  "libraryNotFound": [
+   {
+    "note": 158,
+    "ref": "Mei HaShiloach, Volume II, Genesis, Bereshit 5"
+   },
+   {
+    "note": 1001,
+    "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 10:1"
+   },
+   {
+    "note": 1337,
+    "ref": "Mei HaShiloach, Volume I, Deuteronomy, Shoftim 15"
+   },
+   {
+    "note": 2010,
+    "ref": "Mei HaShiloach, Volume I, Deuteronomy, Shoftim 15"
+   },
+   {
+    "note": 2473,
+    "ref": "Mei HaShiloach, Volume II, Five Scrolls, Ecclesiastes 5"
+   },
+   {
+    "note": 2738,
+    "ref": "Mei HaShiloach, Volume I, Talmud, Berakhot 54a:1"
+   },
+   {
+    "note": 2839,
+    "ref": "Mei HaShiloach, Volume I, Leviticus, Vayikra 6"
+   },
+   {
+    "note": 2841,
+    "ref": "Mei HaShiloach, Volume I, Talmud, Shabbat 138b:1"
+   },
+   {
+    "note": 2875,
+    "ref": "Mei HaShiloach, Volume II, Numbers, Korach 1"
+   },
+   {
+    "note": 2898,
+    "ref": "Mei HaShiloach, Volume I, Leviticus, Emor 4"
+   },
+   {
+    "note": 2989,
+    "ref": "Mei HaShiloach, Volume I, Talmud, Berakhot 12b:1"
+   },
+   {
+    "note": 3070,
+    "ref": "Mei HaShiloach, Volume I, Prophets, I Samuel 20:1"
+   },
+   {
+    "note": 3254,
+    "ref": "Mei HaShiloach, Volume II, Numbers, Korach 1"
+   },
+   {
+    "note": 3498,
+    "ref": "Mei HaShiloach, Volume I, Exodus, Beshalach 1"
+   },
+   {
+    "note": 3511,
+    "ref": "Mei HaShiloach, Volume I, Exodus, Tetzaveh 3"
+   },
+   {
+    "note": 3591,
+    "ref": "Mei HaShiloach, Volume II, Exodus, Yitro 14"
+   },
+   {
+    "note": 3663,
+    "ref": "Mei HaShiloach, Volume I, Talmud, Berakhot 27b:3"
+   },
+   {
+    "note": 3713,
+    "ref": "Mei HaShiloach, Volume I, Leviticus, Metzora 1"
+   },
+   {
+    "note": 3766,
+    "ref": "Mei HaShiloach, Volume I, Leviticus, Behar 3"
+   },
+   {
+    "note": 4103,
+    "ref": "Mei HaShiloach, Volume I, Talmud, Megillah 7a:1"
+   },
+   {
+    "note": 4106,
+    "ref": "Mei HaShiloach, Volume I, Exodus, Tetzaveh 3"
+   },
+   {
+    "note": 4129,
+    "ref": "Mei HaShiloach, Volume I, Talmud, Megillah 11a:1"
+   },
+   {
+    "note": 4180,
+    "ref": "Mei HaShiloach, Volume I, Writings, Proverbs 30:3"
+   },
+   {
+    "note": 4214,
+    "ref": "Mei HaShiloach, Volume II, Exodus, Yitro 3"
+   }
+  ],
+  "libraryQuoteMismatch": [
+   {
+    "note": 4,
+    "ref": "Dover Tzedek, Kuntres Dover Tzedek, Berakhot 2:3"
+   },
+   {
+    "note": 18,
+    "ref": "Dover Tzedek, Kuntres Dover Tzedek, Berakhot 2:5"
+   },
+   {
+    "note": 48,
+    "ref": "Machshavot Charutz 9:5"
+   },
+   {
+    "note": 63,
+    "ref": "Poked Akarim 4:12"
+   },
+   {
+    "note": 103,
+    "ref": "Dover Tzedek, Kuntres Ner HaMitzvot 2:87"
+   },
+   {
+    "note": 120,
+    "ref": "Meshiv Tzedek, A Rebuttal Regarding Sitting in the Sukkah on Shemini Atzeret 150"
+   },
+   {
+    "note": 126,
+    "ref": "Dover Tzedek, Kuntres Dover Tzedek, Berakhot 3:10"
+   },
+   {
+    "note": 157,
+    "ref": "Dover Tzedek, Miscellany 4:88"
+   },
+   {
+    "note": 163,
+    "ref": "Dover Tzedek, Kuntres Ner HaMitzvot 2:254"
+   },
+   {
+    "note": 165,
+    "ref": "Dover Tzedek, Kuntres Dover Tzedek, Berakhot 3:9"
+   },
+   {
+    "note": 172,
+    "ref": "Kometz HaMinchah 2:22:1"
+   },
+   {
+    "note": 173,
+    "ref": "Peri Tzadik, Sefer Kedushat Shabbat 1:6"
+   },
+   {
+    "note": 230,
+    "ref": "Kometz HaMinchah 2:22:1"
+   },
+   {
+    "note": 270,
+    "ref": "Likkutei Maamarim, Compositions on the Festivals 16:37"
+   },
+   {
+    "note": 271,
+    "ref": "Ohr Zarua LaTzadik, The Egyptian Exile 5:8"
+   },
+   {
+    "note": 309,
+    "ref": "Kometz HaMinchah 2:22:1"
+   },
+   {
+    "note": 322,
+    "ref": "Peri Tzadik, Lech Lecha 3:3"
+   },
+   {
+    "note": 347,
+    "ref": "Likkutei Maamarim, On Book of Joshua 28"
+   },
+   {
+    "note": 353,
+    "ref": "Divrei Soferim 28:1"
+   },
+   {
+    "note": 421,
+    "ref": "Poked Akarim 6:8"
+   },
+   {
+    "note": 426,
+    "ref": "Ohr Zarua LaTzadik, The Egyptian Exile 6:11"
+   },
+   {
+    "note": 435,
+    "ref": "Sefer HaZikhronot 1:7"
+   },
+   {
+    "note": 497,
+    "ref": "Tzidkat HaTzadik 219:1"
+   },
+   {
+    "note": 515,
+    "ref": "Dover Tzedek, Kuntres Ner HaMitzvot 2:111"
+   },
+   {
+    "note": 577,
+    "ref": "Likkutei Maamarim, On Book of Joshua 23"
+   },
+   {
+    "note": 615,
+    "ref": "Divrei Soferim 38:4"
+   },
+   {
+    "note": 620,
+    "ref": "Poked Akarim 5:2"
+   },
+   {
+    "note": 649,
+    "ref": "Likkutei Maamarim, Compositions on the Festivals 11:9"
+   },
+   {
+    "note": 657,
+    "ref": "Divrei Soferim 19:1"
+   },
+   {
+    "note": 667,
+    "ref": "Resisei Layla 10:2"
+   },
+   {
+    "note": 677,
+    "ref": "Yisrael Kedoshim 7:1"
+   },
+   {
+    "note": 680,
+    "ref": "Likkutei Maamarim, On Book of Joshua 23"
+   },
+   {
+    "note": 722,
+    "ref": "Poked Akarim 4:21"
+   },
+   {
+    "note": 723,
+    "ref": "Kometz HaMinchah 1:18:1"
+   },
+   {
+    "note": 735,
+    "ref": "Machshavot Charutz 13:2"
+   },
+   {
+    "note": 788,
+    "ref": "Yisrael Kedoshim 8:10"
+   },
+   {
+    "note": 794,
+    "ref": "Machshavot Charutz 1:6"
+   },
+   {
+    "note": 809,
+    "ref": "Mei HaShiloach, Volume I, Genesis, Bereshit 3"
+   },
+   {
+    "note": 856,
+    "ref": "Likkutei Maamarim, Compositions on the Festivals 11:13"
+   },
+   {
+    "note": 860,
+    "ref": "Dover Tzedek, Miscellany 1:8"
+   },
+   {
+    "note": 870,
+    "ref": "Likkutei Maamarim, On Book of Joshua 5"
+   },
+   {
+    "note": 879,
+    "ref": "Likkutei Maamarim, Compositions on the Festivals 16:37"
+   },
+   {
+    "note": 886,
+    "ref": "Yisrael Kedoshim 5:34"
+   },
+   {
+    "note": 891,
+    "ref": "Sefer HaZikhronot 4:14"
+   },
+   {
+    "note": 907,
+    "ref": "Poked Akarim 3:1"
+   },
+   {
+    "note": 909,
+    "ref": "Peri Tzadik, Chanukah 7:5"
+   },
+   {
+    "note": 931,
+    "ref": "Resisei Layla 36:1"
+   },
+   {
+    "note": 943,
+    "ref": "Dover Tzedek, Miscellany 4:40"
+   },
+   {
+    "note": 956,
+    "ref": "Yisrael Kedoshim 6:11"
+   },
+   {
+    "note": 984,
+    "ref": "Peri Tzadik, Chanukah 21:6"
+   },
+   {
+    "note": 1013,
+    "ref": "Likkutei Maamarim, On Book of Joshua 23"
+   },
+   {
+    "note": 1077,
+    "ref": "Tzidkat HaTzadik 243:1"
+   },
+   {
+    "note": 1090,
+    "ref": "Sichat Shedim 1:14"
+   },
+   {
+    "note": 1139,
+    "ref": "Tzidkat HaTzadik 76:1"
+   },
+   {
+    "note": 1145,
+    "ref": "Tzidkat HaTzadik 90:1"
+   },
+   {
+    "note": 1147,
+    "ref": "Mei HaShiloach, Volume I, Genesis, Vayechi 10"
+   },
+   {
+    "note": 1166,
+    "ref": "Takanat HaShavin 15:42"
+   },
+   {
+    "note": 1178,
+    "ref": "Tzidkat HaTzadik 174:1"
+   },
+   {
+    "note": 1183,
+    "ref": "Machshavot Charutz 8:3"
+   },
+   {
+    "note": 1255,
+    "ref": "Resisei Layla 26:1"
+   },
+   {
+    "note": 1257,
+    "ref": "Beit Yaakov on Torah, Lech Lecha 52:10"
+   },
+   {
+    "note": 1287,
+    "ref": "Sichat Malakhei HaSharet 4:8"
+   },
+   {
+    "note": 1366,
+    "ref": "Yisrael Kedoshim 6:9"
+   },
+   {
+    "note": 1373,
+    "ref": "Resisei Layla 27:1"
+   },
+   {
+    "note": 1436,
+    "ref": "Yisrael Kedoshim 8:15"
+   },
+   {
+    "note": 1526,
+    "ref": "Resisei Layla 36:1"
+   },
+   {
+    "note": 1546,
+    "ref": "Ohr Zarua LaTzadik, The Egyptian Exile 4:9"
+   },
+   {
+    "note": 1689,
+    "ref": "Mei HaShiloach, Volume I, Genesis, Miketz 6"
+   },
+   {
+    "note": 1690,
+    "ref": "Dover Tzedek, Mishlei Commentary 2:4"
+   },
+   {
+    "note": 1701,
+    "ref": "Likkutei Maamarim, On Book of Joshua 10"
+   },
+   {
+    "note": 1742,
+    "ref": "Machshavot Charutz 1:6"
+   },
+   {
+    "note": 1784,
+    "ref": "Poked Akarim 6:2"
+   },
+   {
+    "note": 1839,
+    "ref": "Resisei Layla 41:1"
+   },
+   {
+    "note": 1863,
+    "ref": "Machshavot Charutz 16:5"
+   },
+   {
+    "note": 1879,
+    "ref": "Yisrael Kedoshim 6:4"
+   },
+   {
+    "note": 1892,
+    "ref": "Likkutei Maamarim, On Book of Joshua 10"
+   },
+   {
+    "note": 1944,
+    "ref": "Dover Tzedek, Miscellany 4:12"
+   },
+   {
+    "note": 1950,
+    "ref": "Likkutei Maamarim, On Book of Joshua 23"
+   },
+   {
+    "note": 1951,
+    "ref": "Tzidkat HaTzadik 40:1"
+   },
+   {
+    "note": 1963,
+    "ref": "Poked Akarim 5:2"
+   },
+   {
+    "note": 1972,
+    "ref": "Takanat HaShavin 11:7"
+   },
+   {
+    "note": 2000,
+    "ref": "Sichat Malakhei HaSharet, From Yerushalmi 16"
+   },
+   {
+    "note": 2012,
+    "ref": "Divrei Soferim 10:2"
+   },
+   {
+    "note": 2013,
+    "ref": "Peri Tzadik, Chanukah 6:2"
+   },
+   {
+    "note": 2015,
+    "ref": "Takanat HaShavin 6:31"
+   },
+   {
+    "note": 2039,
+    "ref": "Tzidkat HaTzadik 205:1"
+   },
+   {
+    "note": 2047,
+    "ref": "Tzidkat HaTzadik 47:1"
+   },
+   {
+    "note": 2058,
+    "ref": "Tzidkat HaTzadik 242:1"
+   },
+   {
+    "note": 2059,
+    "ref": "Tzidkat HaTzadik 241:1"
+   },
+   {
+    "note": 2089,
+    "ref": "Machshavot Charutz 16:5"
+   },
+   {
+    "note": 2102,
+    "ref": "Mei HaShiloach, Volume I, Genesis, Vayetzei 7"
+   },
+   {
+    "note": 2118,
+    "ref": "Likkutei Maamarim, On Shimshon 2"
+   },
+   {
+    "note": 2135,
+    "ref": "Mei HaShiloach, Volume I, Exodus, Bo 5"
+   },
+   {
+    "note": 2179,
+    "ref": "Mei HaShiloach, Volume I, Genesis, Miketz 1"
+   },
+   {
+    "note": 2184,
+    "ref": "Resisei Layla 43:1"
+   },
+   {
+    "note": 2237,
+    "ref": "Likkutei Maamarim, On Book of Joshua 10"
+   },
+   {
+    "note": 2245,
+    "ref": "Peri Tzadik, Chanukah 8:6"
+   },
+   {
+    "note": 2251,
+    "ref": "Dover Tzedek, Miscellany 4:64"
+   },
+   {
+    "note": 2272,
+    "ref": "Peri Tzadik, Chanukah 2:10"
+   },
+   {
+    "note": 2328,
+    "ref": "Likkutei Maamarim, On Shimshon 13"
+   },
+   {
+    "note": 2333,
+    "ref": "Divrei Chalomot 12:1"
+   },
+   {
+    "note": 2377,
+    "ref": "Tzidkat HaTzadik 128:1"
+   },
+   {
+    "note": 2413,
+    "ref": "Sichat Malakhei HaSharet, From Tanchuma 1"
+   },
+   {
+    "note": 2441,
+    "ref": "Machshavot Charutz 15:7"
+   },
+   {
+    "note": 2459,
+    "ref": "Mei HaShiloach, Volume I, Genesis, Noach 6"
+   },
+   {
+    "note": 2476,
+    "ref": "Mei HaShiloach, Volume I, Genesis, Bereshit 15"
+   },
+   {
+    "note": 2516,
+    "ref": "Likkutei Maamarim, Compositions on the Festivals 8:2"
+   },
+   {
+    "note": 2570,
+    "ref": "Peri Tzadik, Chanukah 9:5"
+   },
+   {
+    "note": 2582,
+    "ref": "Resisei Layla 53:3"
+   },
+   {
+    "note": 2586,
+    "ref": "Peri Tzadik, Chanukah 10:2"
+   },
+   {
+    "note": 2589,
+    "ref": "Resisei Layla 53:3"
+   },
+   {
+    "note": 2591,
+    "ref": "Beit Yaakov on Torah, Lech Lecha 1:31"
+   },
+   {
+    "note": 2623,
+    "ref": "Divrei Soferim 10:2"
+   },
+   {
+    "note": 2636,
+    "ref": "Peri Tzadik, Chanukah 20:6"
+   },
+   {
+    "note": 2640,
+    "ref": "Mei HaShiloach, Volume I, Genesis, Vayeshev 2"
+   },
+   {
+    "note": 2650,
+    "ref": "Machshavot Charutz 9:14"
+   },
+   {
+    "note": 2669,
+    "ref": "Divrei Soferim 17:1"
+   },
+   {
+    "note": 2687,
+    "ref": "Tzidkat HaTzadik 38:1"
+   },
+   {
+    "note": 2697,
+    "ref": "Tzidkat HaTzadik 258:1"
+   },
+   {
+    "note": 2725,
+    "ref": "Divrei Soferim 17:1"
+   },
+   {
+    "note": 2758,
+    "ref": "Tzidkat HaTzadik 90:1"
+   },
+   {
+    "note": 2762,
+    "ref": "Kometz HaMinchah 2:16:1"
+   },
+   {
+    "note": 2774,
+    "ref": "Beit Yaakov on Torah, Lech Lecha 18:3"
+   },
+   {
+    "note": 2784,
+    "ref": "Tzidkat HaTzadik 254:1"
+   },
+   {
+    "note": 2800,
+    "ref": "Tzidkat HaTzadik 174:1"
+   },
+   {
+    "note": 2817,
+    "ref": "Peri Tzadik, Chanukah 16:4"
+   },
+   {
+    "note": 2876,
+    "ref": "Beit Yaakov on Torah, Vayera 57:4"
+   },
+   {
+    "note": 2912,
+    "ref": "Mei HaShiloach, Volume I, Exodus, Bo 6"
+   },
+   {
+    "note": 2916,
+    "ref": "Takanat HaShavin 5:6"
+   },
+   {
+    "note": 2919,
+    "ref": "Resisei Layla 24:1"
+   },
+   {
+    "note": 2933,
+    "ref": "Mei HaShiloach, Volume I, Genesis, Miketz 6"
+   },
+   {
+    "note": 2950,
+    "ref": "Peri Tzadik, Rosh Chodesh Cheshvan:1"
+   },
+   {
+    "note": 2956,
+    "ref": "Mei HaShiloach, Volume I, Genesis, Vayetzei 4"
+   },
+   {
+    "note": 2957,
+    "ref": "Machshavot Charutz 3:4"
+   },
+   {
+    "note": 3017,
+    "ref": "Machshavot Charutz 1:6"
+   },
+   {
+    "note": 3077,
+    "ref": "Likkutei Maamarim, Compositions on the Festivals 11:9"
+   },
+   {
+    "note": 3140,
+    "ref": "Mei HaShiloach, Volume I, Genesis, Miketz 6"
+   },
+   {
+    "note": 3160,
+    "ref": "Likkutei Maamarim, On Book of Joshua 19"
+   },
+   {
+    "note": 3213,
+    "ref": "Mei HaShiloach, Volume I, Genesis, Lech Lecha 5"
+   },
+   {
+    "note": 3241,
+    "ref": "Divrei Soferim 33:1"
+   },
+   {
+    "note": 3252,
+    "ref": "Peri Tzadik, Lech Lecha 11:3"
+   },
+   {
+    "note": 3305,
+    "ref": "Dover Tzedek, Kuntres Dover Tzedek, Eruvin 4:14"
+   },
+   {
+    "note": 3316,
+    "ref": "Likkutei Maamarim, Compositions on the Festivals 16:6"
+   },
+   {
+    "note": 3390,
+    "ref": "Beit Yaakov on Torah, Lech Lecha 14:11"
+   },
+   {
+    "note": 3396,
+    "ref": "Divrei Chalomot 23:1"
+   },
+   {
+    "note": 3433,
+    "ref": "Beit Yaakov on Torah, Lech Lecha 31:7"
+   },
+   {
+    "note": 3673,
+    "ref": "Mei HaShiloach, Volume I, Genesis, Vayechi 8"
+   },
+   {
+    "note": 3679,
+    "ref": "Sefer HaZikhronot 1:31"
+   },
+   {
+    "note": 3683,
+    "ref": "Resisei Layla 10:2"
+   },
+   {
+    "note": 3684,
+    "ref": "Tzidkat HaTzadik 209:1"
+   },
+   {
+    "note": 3738,
+    "ref": "Dover Tzedek, Miscellany 4:89"
+   },
+   {
+    "note": 3741,
+    "ref": "Likkutei Maamarim, Compositions on the Festivals 13:3"
+   },
+   {
+    "note": 3750,
+    "ref": "Dover Tzedek, Miscellany 4:88"
+   },
+   {
+    "note": 3756,
+    "ref": "Peri Tzadik, Rosh Chodesh Cheshvan:1"
+   },
+   {
+    "note": 3801,
+    "ref": "Poked Akarim 6:1"
+   },
+   {
+    "note": 3823,
+    "ref": "Et HaOchel 7:1"
+   },
+   {
+    "note": 3841,
+    "ref": "Ohr Zarua LaTzadik, The Egyptian Exile 6:4"
+   },
+   {
+    "note": 3860,
+    "ref": "Mei HaShiloach, Volume I, Genesis, Vayeshev 1"
+   },
+   {
+    "note": 3994,
+    "ref": "Peri Tzadik, Lech Lecha 4:10"
+   },
+   {
+    "note": 4019,
+    "ref": "Peri Tzadik, Chanukah 7:4"
+   },
+   {
+    "note": 4047,
+    "ref": "Dover Tzedek, Kuntres Ner HaMitzvot 2:228"
+   },
+   {
+    "note": 4062,
+    "ref": "Mei HaShiloach, Volume I, Genesis, Vayetzei 3"
+   },
+   {
+    "note": 4089,
+    "ref": "Dover Tzedek, Kuntres Dover Tzedek, Berakhot 3:27"
+   },
+   {
+    "note": 4094,
+    "ref": "Mei HaShiloach, Volume I, Genesis, Vayeshev 1"
+   },
+   {
+    "note": 4097,
+    "ref": "Takanat HaShavin 15:34"
+   },
+   {
+    "note": 4102,
+    "ref": "Likkutei Maamarim, Compositions on the Festivals 5:2"
+   },
+   {
+    "note": 4161,
+    "ref": "Likkutei Maamarim, Compositions on the Festivals 16:38"
+   },
+   {
+    "note": 4182,
+    "ref": "Divrei Soferim 17:1"
+   },
+   {
+    "note": 4324,
+    "ref": "Divrei Soferim 26:1"
+   },
+   {
+    "note": 4345,
+    "ref": "Beit Yaakov on Torah, Lech Lecha 46:6"
+   },
+   {
+    "note": 4373,
+    "ref": "Likkutei Maamarim, Compositions on the Festivals 16:41"
+   },
+   {
+    "note": 4389,
+    "ref": "Likkutei Maamarim, On Shimshon 1"
+   },
+   {
+    "note": 4407,
+    "ref": "Divrei Chalomot, Epilogue 1"
+   }
+  ],
+  "externalSources": [
+   {
+    "note": 44,
+    "ref": "Tiferet Yosef identifies the human task as humility and fear of Heaven that make room for divine Torah",
+    "url": null
+   },
+   {
+    "note": 52,
+    "ref": "Beit Yaakov describes human refinement reaching the point at which one asks Hashem to complete what effort alone cannot finish",
+    "url": null
+   },
+   {
+    "note": 79,
+    "ref": "Tiferet Yosef explains why the act of accepting teshuvah can already receive an answer from Hashem",
+    "url": null
+   },
+   {
+    "note": 169,
+    "ref": "Tur, Orach Chaim 1, opening paragraph",
+    "url": null
+   },
+   {
+    "note": 174,
+    "ref": "Rashi on Berakhot 9a, s.v. Ve-vilvad shelo yomar hashkivenu",
+    "url": null
+   },
+   {
+    "note": 176,
+    "ref": "Talmidei Rabbeinu Yonah on Rif, Berakhot 1a, s.v. Ad sof ha-ashmurah ha-rishonah",
+    "url": null
+   },
+   {
+    "note": 260,
+    "ref": "Mei HaShiloach distinguishes expansion in unholy desires from Yaakov's expansion in holiness",
+    "url": null
+   },
+   {
+    "note": 274,
+    "ref": "Rambam asked how a person’s choice can be free if Hashem knows beforehand whether he will be righteous or wicked, and answered that His knowledge is not like ours (Hilchot Teshuvah 5:5; see note 282 below). Rav Tzadok holds that this admission is itself the true answer, and he explains it, after Tikkunei Zohar Chadash and the Ari’s Arba Me’ot Shekel Kesef, as two truths that stand in two different “places”: “In the place of knowledge there is no choice, and in the place of choice there is no grasp of His knowledge; choice exists only from the side of this world” (Takanat HaShavin 6). The place of knowledge is hidden in this world and will be revealed in the future, when the evil inclination is removed and choice falls away (Machshavot Charutz 8; Resisei Layla 50). Elsewhere he spells out that this is Rambam’s answer itself: for us two opposites cannot rest in one subject, but for Hashem they can (citing Maharal’s introduction to Gevurot Hashem); “for us there is choice, and for Hashem knowledge,” and when we merit such a revelation of Godliness that “the righteous will be called by the name of the Holy One” (Bava Batra 75b), we will see that there was no room for choice at all (Likkutei Maamarim, On Shimshon 17)",
+    "url": null
+   },
+   {
+    "note": 274,
+    "ref": "Further reading",
+    "url": null
+   },
+   {
+    "note": 281,
+    "ref": "Arba Meot Shekel Kesef, fol. 79b",
+    "url": null
+   },
+   {
+    "note": 373,
+    "ref": "Mei HaShiloach applies the same verse to avoiding an appearance of joining another's wrongful purpose",
+    "url": null
+   },
+   {
+    "note": 425,
+    "ref": "Tzvi Leshem, “From Tzidkas HaTzaddik to HaMalei to HaShalem: The Printing Stages of Tzidkas HaTzaddik” (Hebrew), The Librarians, National Library of Israel blog, 28 February 2018",
+    "url": null
+   },
+   {
+    "note": 431,
+    "ref": "Responsa Radbaz IV:92 (1163)",
+    "url": null
+   },
+   {
+    "note": 496,
+    "ref": "Arukh LaNer on Yevamot 84b",
+    "url": null
+   },
+   {
+    "note": 517,
+    "ref": "Zohar III, 176b",
+    "url": null
+   },
+   {
+    "note": 555,
+    "ref": "Zohar II, 202b",
+    "url": null
+   },
+   {
+    "note": 674,
+    "ref": "Rav Hai Gaon, quoted in Responsa Maharam Alashkar 101",
+    "url": null
+   },
+   {
+    "note": 691,
+    "ref": "Midrash Tehillim 90:19",
+    "url": null
+   },
+   {
+    "note": 808,
+    "ref": "Netivot Olam, Netiv Gemilut Chasadim 5",
+    "url": null
+   },
+   {
+    "note": 815,
+    "ref": "Guide for the Perplexed III:11, Ibn Tibbon translation",
+    "url": null
+   },
+   {
+    "note": 837,
+    "ref": "Noam Elimelech, Devarim, ותקרבון אלי",
+    "url": null
+   },
+   {
+    "note": 872,
+    "ref": "Zohar III 73a",
+    "url": null
+   },
+   {
+    "note": 918,
+    "ref": "Pirkei Heikhalot Rabbati 28",
+    "url": null
+   },
+   {
+    "note": 919,
+    "ref": "Pirkei Heikhalot Rabbati 31:5",
+    "url": null
+   },
+   {
+    "note": 1003,
+    "ref": "Noam Elimelech, Tzetel Katan 6-7",
+    "url": null
+   },
+   {
+    "note": 1082,
+    "ref": "Zohar III 47b",
+    "url": null
+   },
+   {
+    "note": 1086,
+    "ref": "Zohar I 93a",
+    "url": null
+   },
+   {
+    "note": 1089,
+    "ref": "Zohar III 253a",
+    "url": null
+   },
+   {
+    "note": 1129,
+    "ref": "Zohar I 59b",
+    "url": null
+   },
+   {
+    "note": 1217,
+    "ref": "Maharal, Chiddushei Aggadot, Kiddushin 40a (vol. II, p. 141)",
+    "url": null
+   },
+   {
+    "note": 1290,
+    "ref": "Tanna DeBei Eliyahu Zuta 22",
+    "url": null
+   },
+   {
+    "note": 1368,
+    "ref": "Zohar III 103a",
+    "url": null
+   },
+   {
+    "note": 1381,
+    "ref": "Sha'ar Maamarei Razal, Berakhot 5b",
+    "url": null
+   },
+   {
+    "note": 1460,
+    "ref": "Moed LeKol Chai 28, rectification 43",
+    "url": null
+   },
+   {
+    "note": 1596,
+    "ref": "Sidduro Shel Shabbat, Part II, Derush 3, Chapter 3, item 5",
+    "url": null
+   },
+   {
+    "note": 1747,
+    "ref": "Zohar III, 232a (Ra’aya Mehemna, Pinchas)",
+    "url": null
+   },
+   {
+    "note": 1821,
+    "ref": "Sefer Yuchasin (R. Avraham Zacuto), Ma’amar 1, in the name of the early authorities",
+    "url": null
+   },
+   {
+    "note": 1837,
+    "ref": "Sefer HaRokeach, Hilkhot Chasidut, at the opening of the book",
+    "url": null
+   },
+   {
+    "note": 1858,
+    "ref": "Likkutei Torah of the Arizal, Parashat Chayei Sarah",
+    "url": null
+   },
+   {
+    "note": 2066,
+    "ref": "Likkutei Maamarim distinguishes the exact Zohar formula from thought displacing thought",
+    "url": null
+   },
+   {
+    "note": 2186,
+    "ref": "Pri Etz Chaim, Gate of the Shofar 5",
+    "url": null
+   },
+   {
+    "note": 2331,
+    "ref": "Zohar Chadash, Tikkunim 122b",
+    "url": null
+   },
+   {
+    "note": 2365,
+    "ref": "Pri Etz Chaim, Gate of Shofar, chapter 3",
+    "url": null
+   },
+   {
+    "note": 2370,
+    "ref": "Zohar Chadash, Tikkunim 140b",
+    "url": null
+   },
+   {
+    "note": 2376,
+    "ref": "Tiferet Yosef interprets the Talmudic saying through the continued availability of teshuvah",
+    "url": null
+   },
+   {
+    "note": 2576,
+    "ref": "Shevut Yaakov 2:64",
+    "url": null
+   },
+   {
+    "note": 2628,
+    "ref": "Rabbeinu Yonah on Proverbs 23:26",
+    "url": null
+   },
+   {
+    "note": 2940,
+    "ref": "Likutei Torah, Vayeshev 25",
+    "url": null
+   },
+   {
+    "note": 2991,
+    "ref": "Likutei Torah, Vayeshev 9",
+    "url": null
+   },
+   {
+    "note": 3197,
+    "ref": "Asarah Maamarot, Em Kol Chai 1:31",
+    "url": null
+   },
+   {
+    "note": 3444,
+    "ref": "Maasei Hashem, Maaseh Avot 10",
+    "url": null
+   },
+   {
+    "note": 3470,
+    "ref": "Zohar III 141a",
+    "url": null
+   },
+   {
+    "note": 3650,
+    "ref": "Brit Menucha, First Way (conclusion)",
+    "url": null
+   },
+   {
+    "note": 3912,
+    "ref": "Pri Etz Chaim, Gate of the Bedtime Shema, chapter 5",
+    "url": null
+   },
+   {
+    "note": 4164,
+    "ref": "Asarah Maamarot, Maamar Chikur Din 3:10",
+    "url": null
+   }
+  ],
+  "quotationMatches": 889,
+  "referenceOnly": 2508
+ }
+}

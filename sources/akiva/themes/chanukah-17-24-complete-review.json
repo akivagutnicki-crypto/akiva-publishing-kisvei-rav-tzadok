@@ -341,7 +341,20 @@
       "reviewed": true,
       "reviewedOriginHebrewSha256": "b097b914fae50b1db9a6337b59e7daa81e2a387864f13be32e1fc023961e244b",
       "reviewedOriginSectionHebrewSha256": "3601a150cdc6e067b2a0cd22e75eccdd8b7e3b20d96599aac9bb973b19fb586f",
-      "reviewedTargetHebrewSha256": "cb5fc3a4500ec7be45f9d4ceeb03271c9900fd60e625d9c81a3214746aee60f8"
+      "reviewedTargetHebrewSha256": "b276460d580f0d46f7f15281d0af16a9b835d078b5a5be7fe94b0e6a6658b6f2",
+      "reanchoring": {
+        "target": {
+          "edition": "tzidkat-editorial-master-2026-11",
+          "date": "2026-11-02",
+          "previousRef": "Tzidkat HaTzadik 192:1",
+          "previousHebrewSha256": "c25c957a03b0b321b717bb65f6bc90e705cff731e3ef8a988867f8666aaa9cd0",
+          "previousParagraphPin": "cb5fc3a4500ec7be45f9d4ceeb03271c9900fd60e625d9c81a3214746aee60f8",
+          "status": "exact",
+          "wordsChanged": 0,
+          "clippedWords": 0,
+          "note": "Quotation words unchanged; vocalization, punctuation and paragraph numbering follow the Complete Editorial Master."
+        }
+      }
     },
     {
       "themeTitle": "Discipline in giving shapes what a person is able to receive",
@@ -404,16 +417,29 @@
       "originEnglish": "According to the Geonim’s reading, “the letter ayin with laughter”: our Sages indeed said that a person may not fill his mouth with laughter in this world. Rather, “with laughter” has the meaning we explained in the teaching, “He does not rejoice, but causes others to rejoice.” Although God does not rejoice in the downfall of the wicked—He would have wanted them not to perish, and their suffering to help them improve their ways—it nevertheless benefits Israel, whose blood was shed, by bringing them to joy. They attain this only when they attain an upright heart, without any inclination toward evil, as it says, “The upright, for joy.” At Chanukah they attained the light of Oral Torah; likewise, every Chanukah is a time to attain the shining of Oral Torah’s light in the heart. It is written, “The Lord’s precepts are upright, rejoicing the heart”: through the light of Oral Torah, one attains an upright heart and joy.",
       "themeTitle": "Joy becomes possible through the clarification of the heart",
       "themeSummary": "Rav Tzadok distinguishes God’s unwillingness to delight in the destruction of His creatures from the joy granted to Israel, and makes that joy depend on a heart rectified through Torah.",
-      "targetRef": "Tzidkat HaTzadik 260:1",
-      "targetHebrew": "וּמִכָּל מָקוֹם הַקָּדוֹשׁ בָּרוּךְ הוּא אָמְרוּ בְּרֵישׁ עֲבוֹדָה זָרָה (ג:) דְּעַל בְּרִיּוֹתָיו אֵינוֹ מְשַׂחֵק אֶלָּא אוֹתוֹ הַיּוֹם. וְהַיְינוּ כְּמוֹ שֶׁכָּתוּב בִּמְגִילָּה (י:) דְּאָמַר: \"מַעֲשֵׂה יָדַי טוֹבְעִים וְכוּלֵי\", וְהוּא אֵינוֹ שָׂשׂ אֲבָל אֲחֵרִים מֵשִׂישׂ. כִּי מִצִּידּוֹ קִילוּסוֹ עוֹלֶה מִן הָרְשָׁעִים, מֵאַחַר שֶׁהֵן גַּם כֵּן בְּרִיּוֹתָיו שֶׁהֲרֵי בּוֹרְאָן וּמְקַיְּימָן בְּכָל יוֹם, וְהִתְלוֹצְצוּת שַׁיָּיךְ רַק מִדָּבָר הַנִּבְדָּל מִמֶּנּוּ וְהוּא מוֹאֵס בּוֹ. וְאֵצֶל הַשֵּׁם יִתְבָּרַךְ לֹא שַׁיָּיךְ זֶה, כִּי אִם מוֹאֵס בּוֹ לֹא הָיָה לוֹ שׁוּם קִיּוּם כְּלָל.",
+      "targetRef": "Tzidkat HaTzadik 260:2",
+      "targetHebrew": "וּמִכָּל מָקוֹם הַקָּדוֹשׁ בָּרוּךְ הוּא אָמְרוּ בְּרֵישׁ עֲבוֹדָה זָרָה (ג:) דְּעַל בְּרִיּוֹתָיו אֵינוֹ מְשַׂחֵק אֶלָּא אוֹתוֹ הַיּוֹם. וְהַיְינוּ כְּמוֹ שֶׁאָמְרוּ בִּמְגִילָּה (י:) דְּאָמַר: \"מַעֲשֵׂה יָדַי טוֹבְעִים וְכוּלֵי\", וְהוּא אֵינוֹ שָׂשׂ אֲבָל אֲחֵרִים מֵשִׂישׂ. כִּי מִצִּידּוֹ קִילוּסוֹ עוֹלֶה מִן הָרְשָׁעִים, מֵאַחַר שֶׁהֵן גַּם כֵּן בְּרִיּוֹתָיו שֶׁהֲרֵי בּוֹרְאָן וּמְקַיְּימָן בְּכָל יוֹם, וְהִתְלוֹצְצוּת שַׁיָּיךְ רַק מִדָּבָר הַנִּבְדָּל מִמֶּנּוּ וְהוּא מוֹאֵס בּוֹ. וְאֵצֶל הַשֵּׁם יִתְבָּרַךְ לֹא שַׁיָּיךְ זֶה, כִּי אִם מוֹאֵס בּוֹ לֹא הָיָה לוֹ שׁוּם קִיּוּם כְּלָל.",
       "targetEnglish": "Nevertheless, concerning the Holy One they said at the beginning of Avodah Zarah that He does not laugh at His creatures except on that day. This is like the teaching in Megillah: He said, “My handiwork is drowning …”; He does not rejoice, but causes others to rejoice. From His side, His praise rises from the wicked, since they too are His creatures: He creates them and sustains them every day. Mockery applies only to something separate from oneself that one rejects. This does not apply to God, for if He rejected it, it would have no existence at all.",
       "school": "Kisvei Rav Tzadok",
       "explanation": "Tzidkat HaTzadik explains the divine side of the distinction through God’s continuing creation and preservation of those creatures. Derisive laughter entails a separation and rejection that cannot describe His present act of sustaining them. This gives a definite reason for the reluctance to rejoice in their destruction that Pri Tzadik states here; the subsequent discussion in Tzidkat reserves a different condition for the future removal of evil.",
       "translationProvenance": "New English translations of the selected canonical Hebrew, prepared after reading the complete origin section and target paragraph. Clarified antecedents are integrated into the English. The explanation is an editorial comparison, not part of either source.",
       "reviewedOriginHebrewSha256": "8ae4330f0a582cda7ac06977058d2b2f0449576ba3ec1cc121cc43003d34ed7f",
       "reviewedOriginSectionHebrewSha256": "c8e2dbc33319aedece76dae51b56039407977cc1559caf485453e280cabda8c1",
-      "reviewedTargetHebrewSha256": "83d339dae1e97abf62ef1cc53fb38b4cb5263e706bcf858bef4527b3f59b0903",
-      "reviewed": true
+      "reviewedTargetHebrewSha256": "13d8bb8f2e64470a3f81f726bb8a94725a3fd238b3844a4d962a65b227ecca82",
+      "reviewed": true,
+      "reanchoring": {
+        "target": {
+          "edition": "tzidkat-editorial-master-2026-11",
+          "date": "2026-11-02",
+          "previousRef": "Tzidkat HaTzadik 260:1",
+          "previousHebrewSha256": "ebc5ad4cf62535e44b53fdc991b4eb313a9fceb700b4bae0c809be4debafc962",
+          "previousParagraphPin": "83d339dae1e97abf62ef1cc53fb38b4cb5263e706bcf858bef4527b3f59b0903",
+          "status": "edited",
+          "wordsChanged": 2,
+          "clippedWords": 0,
+          "note": "The master edition edits 2 word(s) of the reviewed quotation; the English excerpt should be rechecked against the new Hebrew."
+        }
+      }
     },
     {
       "id": "chanukah-complete-19-joy-tested-mei-vayigash-4",
@@ -621,15 +647,28 @@
       "themeTitle": "A frightening rescue can call a person to examine an earlier judgment",
       "themeSummary": "Joseph reads the dangers in the pit as a summons to examine the accusations he brought against his brothers. The rescue does not certify that his earlier judgment was complete or faultless.",
       "targetRef": "Tzidkat HaTzadik 161:1",
-      "targetHebrew": "כְּשֶׁאָדָם מִתְיַסֵּר בְּאֵיזֶה אֵבֶר אוֹ בְּאֵיזֶה כֹּחַ מִכֹּחוֹתָיו כִּי ע' כֹּחוֹת בַּנֶּפֶשׁ נֶגֶד ע' אֻמּוֹת בָּרָע כַּיָּדוּעַ], מִסְּתָמָא בּוֹ חָטָא, וּמִיָּד שֶׁלָּקָה, הֲרֵי הוּא כְּאָחִיךָ, כְּמַאֲמַר רַבּוֹתֵינוּ זִכְרוֹנָם לִבְרָכָה (מַכּוֹת כג.) וַאֲפִילּוּ רַק כְּפָתוּהוּ וְכוּלֵי כְּמוֹ שֶׁכָּתוּב בְּמַכּוֹת (שָׁם), וְכִדְבָרֵי שַׁמַּאי בְּשַׁבָּת (קכא:) בְּנָחָשׁ שֶׁהָיָה רוֹדֵף אַחֲרָיו, כִּי בָּזֶה יָצָא יְדֵי עוֹנְשׁוֹ וְיִסּוּרִין שֶׁלּוֹ בַּפַּחַד שֶׁחָשַׁב שֶׁיִּשְּׁכֶנּוּ; וְכֵן הָיָה בֶּאֱמֶת דְּמִן הַשָּׁמַיִם נִזְדַּמְּנוּ וְכוּלֵי כִּדְאִיתָא הָתָם, רַק שֶׁחָסוּ עָלָיו וּפְדָאוּהוּ עַל יְדֵי הַפַּחַד, עַל דֶּרֶךְ שֶׁאָמְרוּ (בְּרָכוֹת נה.): חֶלְמָא בִּישָׁא וְכוּלֵי, כִּי כְּשֶׁשָּׁב בֶּאֱמֶת, אָז כָּל עִנְיְנֵי עוֹלָם הַזֶּה הוּא כְּחוֹלְמִים; וְאָז אוֹתוֹ אֵבֶר וְכֹחַ מְתוּקָּן, וְנֶפֶשׁ מֵשִׁיב אֶת הַנֶּפֶשׁ, שֶׁאוֹתוֹ אֵבֶר יֵשׁ בּוֹ תִּיקּוּן, אֶלָּא שֶׁצָּרִיךְ לְהוֹסִיף וּלְחַזְּקוֹ. וְאָז \"בִּמְקוֹם אֲשֶׁר יֵאָמֵר לָהֶם לֹא עַמִּי אַתֶּם יֵאָמֵר לָהֶם בְּנֵי אֵל חָי]\" (הוֹשֵׁעַ ב, א) – דַּיְיקָא בְּאוֹתוֹ מָקוֹם הוּא מַמָּשׁ לְהֵיפֶךְ:",
+      "targetHebrew": "כְּשֶׁאָדָם מִתְיַסֵּר בְּאֵיזֶה אֵבֶר אוֹ בְּאֵיזֶה כֹּחַ מִכֹּחוֹתָיו [כִּי ע' כֹּחוֹת בַּנֶּפֶשׁ נֶגֶד ע' אֻמּוֹת בָּרָע כַּיָּדוּעַ], מִסְּתָמָא בּוֹ חָטָא, וּמִיָּד שֶׁלָּקָה, הֲרֵי הוּא כְּאָחִיךָ, כְּמַאֲמַר רַבּוֹתֵינוּ זִכְרוֹנָם לִבְרָכָה (מַכּוֹת כג.) [וַאֲפִילּוּ רַק כְּפָתוּהוּ וְכוּלֵי כְּמוֹ שֶׁאָמְרוּ בְּמַכּוֹת (שָׁם), וּכְדֶרֶךְ שֶׁאָמְרוּ בְּשַׁבָּת (קכא:) בְּנָחָשׁ שֶׁהָיָה רוֹדֵף אַחֲרָיו, כִּי בָּזֶה יָצָא יְדֵי עוֹנְשׁוֹ וְיִסּוּרִין שֶׁלּוֹ בַּפַּחַד שֶׁחָשַׁב שֶׁיִּשְּׁכֶנּוּ; וְכֵן הָיָה בֶּאֱמֶת דְּמִן הַשָּׁמַיִם נִזְדַּמְּנוּ וְכוּלֵי כִּדְאִיתָא הָתָם, רַק שֶׁחָסוּ עָלָיו וּפְדָאוּהוּ עַל יְדֵי הַפַּחַד, עַל דֶּרֶךְ שֶׁאָמְרוּ (בְּרָכוֹת נה.): חֶלְמָא בִּישָׁא וְכוּלֵי, כִּי כְּשֶׁשָּׁב בֶּאֱמֶת, אָז כָּל עִנְיְנֵי עוֹלָם הַזֶּה הוּא כְּחוֹלְמִים (תְּהִלִּים קכו, א)]; וְאָז אוֹתוֹ אֵבֶר וְכֹחַ מְתוּקָּן, וְנֶפֶשׁ מֵשִׁיב אֶת הַנֶּפֶשׁ, שֶׁאוֹתוֹ אֵבֶר יֵשׁ בּוֹ תִּיקּוּן, אֶלָּא שֶׁצָּרִיךְ לְהוֹסִיף וּלְחַזְּקוֹ. וְאָז \"בִּמְקוֹם אֲשֶׁר יֵאָמֵר לָהֶם לֹא עַמִּי אַתֶּם יֵאָמֵר לָהֶם בְּנֵי אֵל חָי\" (הוֹשֵׁעַ ב, א) – דַּיְיקָא בְּאוֹתוֹ מָקוֹם הוּא מַמָּשׁ לְהֵיפֶךְ:",
       "targetEnglish": "When a person suffers in a particular limb or one of the soul’s powers—for there are seventy powers in the soul corresponding to the seventy nations on the side of evil, as is known—it is presumable that the sin was in that place. As soon as he has been punished, he is again “your brother,” as our Sages say in Makkot 23a. This applies even if they only bound him, as stated there. Likewise, as stated in Shabbat 121b about a snake pursuing a person: he has discharged his punishment and suffering through the fear that it would bite him. Indeed, it really had been sent from Heaven, as stated there; but they had compassion on him and redeemed him through the fear. This is like what is said in Berakhot 55a about a bad dream: for when one truly repents, all the matters of this world are like dreams. Then that limb and power are repaired, and “the soul restores the soul”: that limb has a repair, but one must add to it and strengthen it. Then, “In the place where it was said to them, ‘You are not My people,’ it will be said to them, ‘Children of the living God’”—in precisely that place, the matter becomes its very opposite.",
       "school": "Kisvei Rav Tzadok",
       "explanation": "Tzidkat HaTzadik reads the same encounter with a snake as more than either injury or escape: the fear itself can accomplish a stage of repair when joined to real repentance. It also insists that the repaired power still needs strengthening. That gives a concrete account of why Joseph can be saved and yet take the event as a demand for inward work. This is the author’s spiritual interpretation, not a license to identify another person’s suffering with a particular fault.",
       "translationProvenance": "New English translations after full-context review. The canonical Hebrew’s expansion כדברי שמאי at the Shabbat citation is retained unchanged, but the primary Sefaria witness, Tzidkat HaTzadick, Lublin, 1913, reads וכד״ש rather than naming Shammai (https://www.sefaria.org/api/texts/Tzidkat_HaTzadik.161?context=0, inspected 2026-10-20). The English therefore says “as stated in Shabbat 121b.” Canonical section-heading debris after the argument is outside the selected quotation.",
       "reviewedOriginHebrewSha256": "5bb81469e678b8bdd19a3676072b18276efe2c3c6d76cdbd9c74d54750402dd5",
       "reviewedOriginSectionHebrewSha256": "45f0faea9afe51827eaf4e7c4bd31c32d5f28fc699b08faa424cd4e5cd5c01cf",
-      "reviewedTargetHebrewSha256": "faac16f0bdfd9a4aa656807c8b2d52795bdacd68069cf3e4d6da81731152d914",
-      "reviewed": true
+      "reviewedTargetHebrewSha256": "0d9347394ae289153554b40a20844d1b96db89b651e5f93028c55b710f109cd6",
+      "reviewed": true,
+      "reanchoring": {
+        "target": {
+          "edition": "tzidkat-editorial-master-2026-11",
+          "date": "2026-11-02",
+          "previousRef": "Tzidkat HaTzadik 161:1",
+          "previousHebrewSha256": "c37c59bf686c51a990094e7c5dfd26619a88148d621fddd048a1ffe9d9be744a",
+          "previousParagraphPin": "faac16f0bdfd9a4aa656807c8b2d52795bdacd68069cf3e4d6da81731152d914",
+          "status": "edited",
+          "wordsChanged": 9,
+          "clippedWords": 0,
+          "note": "The master edition edits 9 word(s) of the reviewed quotation; the English excerpt should be rechecked against the new Hebrew."
+        }
+      }
     },
     {
       "id": "chanukah-complete-20-judgment-during-test-mei-vayeshev-4",
@@ -693,15 +732,28 @@
       "themeTitle": "Guarding sight must deepen into the repair of the heart",
       "themeSummary": "Chanukah begins a recurring season of repair rather than certifying its completion. Guarding the eyes prepares the heart, and active attention to repair belongs together with trust in God.",
       "targetRef": "Tzidkat HaTzadik 190:1",
-      "targetHebrew": "אַךְ בֶּאֱמֶת הָעִיקָּר הַלֵּב, כְּמוֹ שֶׁכָּתוּב: \"מִכָּל מִשְׁמָר נְצֹר לִבֶּךָ] כִּי מִמֶּנּוּ תּוֹצְאוֹת חַיִּים\" (מִשְׁלֵי ד, כג), שֶׁבּוֹ עִיקַּר הַחַיּוּת וְהַדְּבֵיקוּת בֵּאלֹהִים חַיִּים, וּבָזֶה יַעֲקֹב אָבִינוּ עָלָיו הַשָּׁלוֹם מִטָּתוֹ שְׁלֵימָה וְכֻלּוֹ זֶרַע אֱמֶת. וּבִלְשׁוֹן חֲכָמִים: \"עַיִן יָפָה\" וְ\"עַיִן טוֹבָה\" רְצוֹנוֹ לוֹמַר נְדִיבוּת הַלֵּב וְשֶׁאֵינוֹ מְקַנֵּא, וְכֵן בִּלְשׁוֹן הַכָּתוּב: \"טוֹב עַיִן הוּא יְבֹרָךְ] כִּי נָתַן מִלַּחְמוֹ לַדָּל]\" (מִשְׁלֵי כב, ט). וְהַהִיפּוּךְ: עַיִן רָעָה, וּבִלְשׁוֹן הַכָּתוּב \"רַע עַיִן\" (שָׁם כג, ו). וְזֶה הַחִסָּרוֹן הוּא בְּזַרְעָא דְּיוֹסֵף דַּיְיקָא, כְּמוֹ שֶׁכָּתוּב: \"אֶפְרַיִם לֹא יְקַנֵּא אֶת יְהוּדָה]\" (יְשַׁעְיָה יא, יג), כִּי שׁוֹרֶשׁ יוֹסֵף יְרֵא חֵטְא, שֶׁזֶּהוּ שְׁמִירַת הָעַיִן, וְהוּא אוֹתִיּוֹת רְאִיָּ\"ה, כְּטַעַם: מַחֲוֵי לְהוּ יִצְחָק הַקָּדוֹשׁ בָּרוּךְ הוּא בְּעֵינַיְיהוּ (שַׁבָּת פט:), שֶׁזֶּה מִכֹּחַ יִצְחָק וּמִמִּדָּתוֹ. וְהַנְּדִיבוּת הוּא מִמִּדַּת הָאַהֲבָה: \"חֶסֶד לְאַבְרָהָם\" (מִיכָה ז, כ), שֶׁהוּא מַמָּשׁ הַהֵיפֶךְ, וְאִם כֵּן אַדְּרַבָּה, הֵם עֵינֵיהֶם יָפוֹת וּבַעֲלֵי עַיִן טוֹבָה יוֹתֵר מִמֶּנּוּ:",
+      "targetHebrew": "אַךְ בֶּאֱמֶת הָעִיקָּר הַלֵּב, כְּמוֹ שֶׁכָּתוּב: \"מִכָּל מִשְׁמָר נְצֹר לִבֶּךָ כִּי מִמֶּנּוּ תּוֹצְאוֹת חַיִּים\" (מִשְׁלֵי ד, כג), שֶׁבּוֹ עִיקַּר הַחַיּוּת וְהַדְּבֵיקוּת בֵּאלֹהִים חַיִּים, וּבָזֶה יַעֲקֹב אָבִינוּ עָלָיו הַשָּׁלוֹם מִטָּתוֹ שְׁלֵימָה וְכֻלּוֹ זֶרַע אֱמֶת. וּבִלְשׁוֹן חֲכָמִים: \"עַיִן יָפָה\" וְ\"עַיִן טוֹבָה\" רְצוֹנוֹ לוֹמַר נְדִיבוּת הַלֵּב וְשֶׁאֵינוֹ מְקַנֵּא, וְכֵן בִּלְשׁוֹן הַכָּתוּב: \"טוֹב עַיִן הוּא יְבֹרָךְ כִּי נָתַן מִלַּחְמוֹ לַדָּל\" (מִשְׁלֵי כב, ט). וְהַהִיפּוּךְ: עַיִן רָעָה, וּבִלְשׁוֹן הַכָּתוּב \"רַע עַיִן\" (שָׁם כג, ו). וְזֶה הַחִסָּרוֹן הוּא בְּזַרְעָא דְּיוֹסֵף דַּיְיקָא, כְּמוֹ שֶׁכָּתוּב: \"אֶפְרַיִם לֹא יְקַנֵּא אֶת יְהוּדָה\" (יְשַׁעְיָה יא, יג), כִּי שׁוֹרֶשׁ יוֹסֵף יְרֵא חֵטְא, שֶׁזֶּהוּ שְׁמִירַת הָעַיִן, וְהוּא אוֹתִיּוֹת רְאִיָּ\"ה, כְּטַעַם: מַחֲוֵי לְהוּ יִצְחָק הַקָּדוֹשׁ בָּרוּךְ הוּא בְּעֵינַיְיהוּ (שַׁבָּת פט:), שֶׁזֶּה מִכֹּחַ יִצְחָק וּמִמִּדָּתוֹ. וְהַנְּדִיבוּת הוּא מִמִּדַּת הָאַהֲבָה: \"חֶסֶד לְאַבְרָהָם\" (מִיכָה ז, כ), שֶׁהוּא מַמָּשׁ הַהֵיפֶךְ, וְאִם כֵּן אַדְּרַבָּה, הֵם עֵינֵיהֶם יָפוֹת וּבַעֲלֵי עַיִן טוֹבָה יוֹתֵר מִמֶּנּוּ:",
       "targetEnglish": "But in truth the heart is primary, as it is written, “More than all you guard, guard your heart, for from it are the issues of life.” In it lies the principal life and attachment to the living God. In this respect Jacob our father’s bed was complete, and all his offspring were a seed of truth. In the Sages’ language, “a generous eye” and “a good eye” mean generosity of heart and the absence of jealousy; likewise in Scripture, “One with a good eye will be blessed, for he has given of his bread to the poor.” The opposite is an evil eye, called “an evil eye” in Scripture. This deficiency is specifically in Joseph’s descendants, as it says, “Ephraim will not envy Judah.” For Joseph’s root is fear of sin, which is guarding the eye; yirah (fear) has the letters of re’iyah, seeing, like the teaching that Isaac points out the Holy One, blessed be He, before their eyes. This comes from Isaac’s power and quality. Generosity comes from the quality of love, “kindness to Abraham,” which is its very opposite. If so, on the contrary, the brothers’ eyes are more generous, and they possess a better eye than he does.",
       "school": "Kisvei Rav Tzadok",
       "explanation": "Tzidkat HaTzadik prevents “guarding the eyes” from becoming the whole definition of a repaired heart. Joseph’s careful restraint must also meet the brothers’ generosity and freedom from jealousy. This supplies a precise further dimension to Chanukah 20’s warning against declaring the work complete: the eye is linked to the heart not only through desire, but also through the way one looks upon another person.",
       "translationProvenance": "New English translations of the selected canonical Hebrew, prepared after reading the complete origin section and target paragraph. Clarified antecedents are integrated into the English. The explanation is an editorial comparison, not part of either source.",
       "reviewedOriginHebrewSha256": "807e35d37bce1063bfb284f06ac9d1caa15733b527a2bef1efa9584ecad201d1",
       "reviewedOriginSectionHebrewSha256": "45f0faea9afe51827eaf4e7c4bd31c32d5f28fc699b08faa424cd4e5cd5c01cf",
-      "reviewedTargetHebrewSha256": "6fa4380542fb54ee0a6fd6a30faa47d6ff49ae1bc9a6c942041404b8eef66a19",
-      "reviewed": true
+      "reviewedTargetHebrewSha256": "f9bdb1f9bfba22aa2e4c482b36a926b380c86162b08ac5af8a99a48fedf54913",
+      "reviewed": true,
+      "reanchoring": {
+        "target": {
+          "edition": "tzidkat-editorial-master-2026-11",
+          "date": "2026-11-02",
+          "previousRef": "Tzidkat HaTzadik 190:1",
+          "previousHebrewSha256": "6f0d249f263834930e7b3dd3f7994425f58166aeef473940b55a5afd998cbd08",
+          "previousParagraphPin": "6fa4380542fb54ee0a6fd6a30faa47d6ff49ae1bc9a6c942041404b8eef66a19",
+          "status": "exact",
+          "wordsChanged": 0,
+          "clippedWords": 0,
+          "note": "Quotation words unchanged; vocalization, punctuation and paragraph numbering follow the Complete Editorial Master."
+        }
+      }
     },
     {
       "id": "chanukah-complete-20-root-does-not-excuse-thought-sod-yom-3",
@@ -782,16 +834,29 @@
       "originEnglish": "This is also the hint in what is said in Berakhot 8b: “In three matters I love the Persians: they are modest in their eating, modest in the privy, and modest in another matter.” For this is the root of modesty. Yet close to it the Sages said, “‘I have commanded My consecrated ones’—these are the Persians, who are consecrated and prepared for Gehinnom.” Among Israel, this matter is holiness—restraining oneself in modesty—whereas among them it is only the outward appearance, and they are consecrated for Gehinnom. This was explained in discourse 14.",
       "themeTitle": "The purpose of modesty matters more than its outward appearance",
       "themeSummary": "The paragraph distinguishes restraint that serves holiness from the same outward behavior directed toward a different aim. The adjacent Talmudic statements about Persia are read together to expose that distinction.",
-      "targetRef": "Tzidkat HaTzadik 256:1",
-      "targetHebrew": "וְזֶה טַעַם בִּנְיַן בַּיִת שֵׁנִי עַל יְדֵי מַלְכֵי פָּרַס, כְּמוֹ שֶׁכָּתוּב בִּבְרָכוֹת (ח:): \"בְּשַׁבָּת הַפַּרְסִיִּים צְנוּעִים וְכוּלֵי\", שֶׁזֶּה הָיָה נִיצוֹץ קָדוֹשׁ שֶׁלָּהֶם – מִדַּת הַצְּנִיעוּת; רַק דְּמַיְיתֵי עֲלָהּ תֵּיכֶף אַחַר כָּךְ: \"אֵלּוּ פַּרְסִיִּים הַמְקוּדָּשִׁים לְגֵיהִנָּם\", דְּאָסוּר לְסַפֵּר בְּשֶׁבַח עַכּוּ״ם (כְּמוֹ שֶׁכָּתוּב עֲבוֹדָה זָרָה כ.). וּבֶאֱמֶת הֵם מַעֲלָתָם הִיא הַמְּבִיאָתַם לְגֵיהִנָּם, כִּי צְנִיעוּתָם הוּא כְּדֵי לְמַלֹּאות תַּאֲוָתָם בְּיֶתֶר שְׂאֵת, וְגַם מִצַּד עַיִן הָרָע דִּצְרֵי עַיִן שֶׁהָיָה לָהֶם, כַּנִּזְכָּר לְעֵיל אוֹת רנ\"ה]. וְכֵן אָמְרוּ בַּאֲחַשְׁוֵרוֹשׁ, שֶׁהַמֶּלֶךְ כֹּחוֹ יוֹתֵר שֶׁכּוֹלֵל כָּל הָאוּמָּה (מְגִילָּה יג.): \"מִגְּנוּתוֹ שֶׁל אוֹתוֹ רָשָׁע אַתָּה לָמֵד שִׁבְחוֹ וְכוּלֵי\", גַּם כֵּן בִּצְנִיעוּת, רַק שֶׁזֶּהוּ מִגְּנוּתוֹ בֶּאֱמֶת כַּנִּזְכָּר לְעֵיל, דְּכַוָּנָתוֹ הַכֹּל לִגְנוּת. וּמִכָּל מָקוֹם לְגַבֵּי יִשְׂרָאֵל הוּא טוֹב, וְזָכְתָה אֶסְתֵּר, כִּמְשֶׁאָמְרוּ זִכְרוֹנָם לִבְרָכָה (שָׁם עַמּוּד ב): \"בִּשְׂכַר צְנִיעוּת שֶׁהָיְתָה וְכוּלֵי\", וְהִיא קָלְטָה מִדַּת הַצְּנִיעוּת הַטּוֹבָה \"הַצְנֵעַ לֶכֶת עִם אֱלֹהֶיךָ\", שֶׁגַּם הִיא מִמִּדָּה זוֹ – לִהְיוֹת בְּהֶעְלֵם וְלֹא בְּהִתְגַּלּוּת.",
+      "targetRef": "Tzidkat HaTzadik 256:3",
+      "targetHebrew": "וְזֶה טַעַם בִּנְיַן בַּיִת שֵׁנִי עַל יְדֵי מַלְכֵי פָּרַס, כְּמוֹ שֶׁאָמְרוּ בִּבְרָכוֹת (ח:): \"בְּשַׁבָּת הַפַּרְסִיִּים צְנוּעִים וְכוּלֵי\", שֶׁזֶּה הָיָה נִיצוֹץ קָדוֹשׁ שֶׁלָּהֶם – מִדַּת הַצְּנִיעוּת; רַק דְּמַיְיתֵי עֲלָהּ תֵּיכֶף אַחַר כָּךְ: \"אֵלּוּ פַּרְסִיִּים הַמְקוּדָּשִׁים לְגֵיהִנָּם\", דְּאָסוּר לְסַפֵּר בְּשֶׁבַח עַכּוּ״ם (כְּמוֹ שֶׁאָמְרוּ עֲבוֹדָה זָרָה כ.). וּבֶאֱמֶת הֵם מַעֲלָתָם הִיא הַמְּבִיאָתַם לְגֵיהִנָּם, כִּי צְנִיעוּתָם הוּא כְּדֵי לְמַלֹּאות תַּאֲוָתָם בְּיֶתֶר שְׂאֵת, [וְגַם מִצַּד עַיִן הָרָע דִּצְרֵי עַיִן שֶׁהָיָה לָהֶם, כַּנִּזְכָּר לְעֵיל אוֹת רנ\"ה]. וְכֵן אָמְרוּ בַּאֲחַשְׁוֵרוֹשׁ, שֶׁהַמֶּלֶךְ כֹּחוֹ יוֹתֵר שֶׁכּוֹלֵל כָּל הָאוּמָּה (מְגִילָּה יג.): \"מִגְּנוּתוֹ שֶׁל אוֹתוֹ רָשָׁע אַתָּה לָמֵד שִׁבְחוֹ וְכוּלֵי\", גַּם כֵּן בִּצְנִיעוּת, רַק שֶׁזֶּהוּ מִגְּנוּתוֹ בֶּאֱמֶת כַּנִּזְכָּר לְעֵיל, דְּכַוָּנָתוֹ הַכֹּל לִגְנוּת. וּמִכָּל מָקוֹם לְגַבֵּי יִשְׂרָאֵל הוּא טוֹב, וְזָכְתָה אֶסְתֵּר, כִּמְשֶׁאָמְרוּ זִכְרוֹנָם לִבְרָכָה (שָׁם עַמּוּד ב): \"בִּשְׂכַר צְנִיעוּת שֶׁהָיְתָה וְכוּלֵי\", וְהִיא קָלְטָה מִדַּת הַצְּנִיעוּת הַטּוֹבָה \"הַצְנֵעַ לֶכֶת עִם אֱלֹהֶיךָ\", שֶׁגַּם הִיא מִמִּדָּה זוֹ – לִהְיוֹת בְּהֶעְלֵם וְלֹא בְּהִתְגַּלּוּת.",
       "targetEnglish": "This is why the Second Temple was built through the kings of Persia. As is written in Berakhot 8b in praise of the Persians, “They are modest …”: this was their holy spark, the quality of modesty. But the Gemara immediately brings the statement, “These are the Persians consecrated for Gehinnom,” for it is forbidden to recount the praise of idolaters, as stated in Avodah Zarah 20a. In truth, their own excellence is what brings them to Gehinnom, because their modesty is for the purpose of satisfying their desire all the more, and also because of the evil eye and begrudging disposition they possessed, as explained above. Similarly, concerning Ahasuerus—whose royal power is greater because it encompasses the entire nation—the Sages say, “From the disgrace of that wicked man you learn his praise …,” also concerning modesty. But this is truly his disgrace, as above, since his intention is wholly disgraceful. Nevertheless, for Israel it is good. Esther merited it, as the Sages said, “In reward for the modesty that she possessed ….” She absorbed the good quality of modesty, “Walk modestly with your God,” which likewise means remaining concealed rather than revealed.",
       "school": "Kisvei Rav Tzadok",
       "explanation": "Tzidkat HaTzadik states the hidden purpose that the Chanukah paragraph leaves compressed: concealment can be used to intensify desire, or to walk modestly with God. It also explains how Esther can receive and redirect the positive capacity itself. The same outward restraint therefore needs to be assessed by its inward aim; the comparison does not reduce modesty to clothing or manners alone.",
       "translationProvenance": "New English translations after full-context review. The canonical target and the Sefaria Lublin 1913 primary witness both have the apparent inherited reading בשבת הפרסיים at the Berakhot 8b citation; the intended praise-context is supplied explicitly in the English as “in praise of”. Hebrew and its context pin are preserved. Primary witness inspected 2026-10-20: https://www.sefaria.org/api/texts/Tzidkat_HaTzadik.256?context=0",
       "reviewedOriginHebrewSha256": "b8c78b1acdfe809ce85c432c1ece1a5f9e9f468a74517c7c22a0da30d169f01a",
       "reviewedOriginSectionHebrewSha256": "3ff7ff592e2a9196799ce5bcfb291cea8217df8e64c90992f8f48e377ed7a62d",
-      "reviewedTargetHebrewSha256": "a9b5ab184defef4fc422cb2f2e4d10f8644770f642110971d42c613bd0642d24",
-      "reviewed": true
+      "reviewedTargetHebrewSha256": "75416f608b7fd9428734594a3652b47898690ee0209fe8b27e742fccd1442a1d",
+      "reviewed": true,
+      "reanchoring": {
+        "target": {
+          "edition": "tzidkat-editorial-master-2026-11",
+          "date": "2026-11-02",
+          "previousRef": "Tzidkat HaTzadik 256:1",
+          "previousHebrewSha256": "9b35e750b4d0054e8d5d5feca22f08d1f8bb77972cf02171470e653a748c1296",
+          "previousParagraphPin": "a9b5ab184defef4fc422cb2f2e4d10f8644770f642110971d42c613bd0642d24",
+          "status": "edited",
+          "wordsChanged": 4,
+          "clippedWords": 0,
+          "note": "The master edition edits 4 word(s) of the reviewed quotation; the English excerpt should be rechecked against the new Hebrew."
+        }
+      }
     },
     {
       "id": "chanukah-complete-21-outward-quality-inward-root-sod-purim-12",
@@ -916,8 +981,21 @@
       "translationProvenance": "New English translations of the selected canonical Hebrew, prepared after reading the complete origin section and target paragraph. Clarified antecedents are integrated into the English. The explanation is an editorial comparison, not part of either source. “His sensing by scent” follows the author’s explicit smell-and-judgment interpretation of והריחו, rather than substituting an unrelated sense of the verse.",
       "reviewedOriginHebrewSha256": "1dd031c8d27dd239df6f5637fa34c724e47e08f7ea3c40c4059fa25701edb855",
       "reviewedOriginSectionHebrewSha256": "3ff7ff592e2a9196799ce5bcfb291cea8217df8e64c90992f8f48e377ed7a62d",
-      "reviewedTargetHebrewSha256": "6b3f8b16dd4f595476f26963c75e5ca612ef7d0366434988624b55a39a46328a",
-      "reviewed": true
+      "reviewedTargetHebrewSha256": "81a8eeeda64ff66e328a953768c61a0e8b45445c0dc4401eb0d7b0df2fc2efdd",
+      "reviewed": true,
+      "reanchoring": {
+        "target": {
+          "edition": "tzidkat-editorial-master-2026-11",
+          "date": "2026-11-02",
+          "previousRef": "Tzidkat HaTzadik 97:1",
+          "previousHebrewSha256": "db49ad6c754536593d73c16d2bcda2a82b22f15051f0544a99e940d44a1625b3",
+          "previousParagraphPin": "6b3f8b16dd4f595476f26963c75e5ca612ef7d0366434988624b55a39a46328a",
+          "status": "exact",
+          "wordsChanged": 0,
+          "clippedWords": 0,
+          "note": "Quotation words unchanged; vocalization, punctuation and paragraph numbering follow the Complete Editorial Master."
+        }
+      }
     },
     {
       "id": "chanukah-complete-21-attainment-and-enduring-purity-tiferet-shavuot-2",
@@ -1089,15 +1167,28 @@
       "themeTitle": "An everyday expression can disclose a Torah root",
       "themeSummary": "Rav Tzadok takes the established name “Zot Chanukah” as something whose Torah meaning should be investigated. His appeal to ordinary sayings in the Talmud gives a reason to look beneath the familiar expression.",
       "targetRef": "Tzidkat HaTzadik 53:1",
-      "targetHebrew": "דִּבּוּר שֶׁל חוֹל הַמּוּרְגָּל בְּפִי הָאָדָם וּמַרְגְּלָא בְּפוּמֵיהּ, הוּא דִּבְרֵי תוֹרָה מַמָּשׁ אֲפִילּוּ אֵצֶל אִישׁ הַהֲמוֹנִי מִיִּשְׂרָאֵל, וּכְמוֹ שֶׁנִּרְאֶה הַרְבֵּה בַּתַּלְמוּד מֵבִיא: \"דְּאָמְרֵי אֱינָשֵׁי\", וְהוּא דִּבְרֵי תוֹרָה, וּבְפֶרֶק קַמָּא דְּסַנְהֶדְרִין (ז.) הַרְבֵּה: \"הַהוּא דַּהֲוָה קָאָמַר וְאָזֵיל וְכוּלֵי, וַאֲמַר שְׁמוּאֵל: קְרָא כְּתִיב\". כִּי כָּל נֶפֶשׁ מִיִּשְׂרָאֵל יֵשׁ לוֹ אֲחִיזָה בְּדִבְרֵי תוֹרָה מְיוּחֶדֶת כַּנּוֹדָע, וּבְדִבּוּר שֶׁמַּרְגְּלָא בְּפוּמֵיהּ זֶהוּ שׁוֹרֶשׁ נַפְשׁוֹ [כִּי הַדִּבּוּר הוּא יְסוֹד הַנֶּפֶשׁ, תַּרְגּוּם \"נֶפֶשׁ חַיָּה\" – \"רוּחַ מְמַלְּלָא\", וּכְמוֹ שֶׁכָּתוּב בִּפְסִיקְתָּא: אֵין בֵּין צַדִּיקִים הַחַיִּים לַמֵּתִים אֶלָּא הַדִּבּוּר, זֶהוּ יְסוֹד הַחַיּוּת]. וּמִזֶּה יוּכַל הָאָדָם לַעֲמוֹד עַל שׁוֹרֶשׁ נַפְשׁוֹ לָדַעַת מַה עִנְיָנוֹ בְּזֶה הָעוֹלָם.",
+      "targetHebrew": "דִּבּוּר שֶׁל חוֹל הַמּוּרְגָּל בְּפִי הָאָדָם וּמַרְגְּלָא בְּפוּמֵיהּ, הוּא דִּבְרֵי תוֹרָה מַמָּשׁ אֲפִילּוּ אֵצֶל אִישׁ הַהֲמוֹנִי מִיִּשְׂרָאֵל, וּכְמוֹ שֶׁנִּרְאֶה הַרְבֵּה בַּתַּלְמוּד מֵבִיא: \"דְּאָמְרֵי אֱינָשֵׁי\", וְהוּא דִּבְרֵי תוֹרָה, וּבְפֶרֶק קַמָּא דְּסַנְהֶדְרִין (ז.) הַרְבֵּה: \"הַהוּא דַּהֲוָה קָאָמַר וְאָזֵיל וְכוּלֵי, וַאֲמַר שְׁמוּאֵל: קְרָא כְּתִיב\". כִּי כָּל נֶפֶשׁ מִיִּשְׂרָאֵל יֵשׁ לוֹ אֲחִיזָה בְּדִבְרֵי תוֹרָה מְיוּחֶדֶת כַּנּוֹדָע, וּבְדִבּוּר שֶׁמַּרְגְּלָא בְּפוּמֵיהּ זֶהוּ שׁוֹרֶשׁ נַפְשׁוֹ [כִּי הַדִּבּוּר הוּא יְסוֹד הַנֶּפֶשׁ, תַּרְגּוּם \"נֶפֶשׁ חַיָּה\" – \"רוּחַ מְמַלְּלָא\", וּכְמוֹ שֶׁאָמְרוּ בִּפְסִיקְתָּא: אֵין בֵּין צַדִּיקִים הַחַיִּים לַמֵּתִים אֶלָּא הַדִּבּוּר, זֶהוּ יְסוֹד הַחַיּוּת]. וּמִזֶּה יוּכַל הָאָדָם לַעֲמוֹד עַל שׁוֹרֶשׁ נַפְשׁוֹ לָדַעַת מַה עִנְיָנוֹ בְּזֶה הָעוֹלָם.",
       "targetEnglish": "An ordinary expression that a person habitually uses, a saying constantly on his lips, is actual words of Torah—even in the case of an ordinary person of Israel. Thus we often find the Talmud citing “as people say,” and this is words of Torah. In the first chapter of Sanhedrin there are many instances of “That person who used to go about saying …,” followed by Samuel saying, “It is written in Scripture.” For every soul of Israel has its own particular attachment to words of Torah, as is known, and the expression constantly on a person's lips is the root of his soul. (For speech is the foundation of the soul: “a living soul” is translated “a speaking spirit”; and, as stated in the Pesikta, the only difference between living and dead righteous people is speech—this is the foundation of vitality.) From this a person can discern the root of his soul and know what his task is in this world.",
       "school": "Kisvei Rav Tzadok",
       "explanation": "Tzidkat HaTzadik supplies the reason that an ordinary saying can deserve Torah interpretation: a characteristic expression can disclose the speaker’s particular attachment to Torah. This makes the investigation of “Zot Chanukah” more than an inference from a name’s popularity. The target concerns a person’s habitual saying; the origin applies the same Talmudic precedent to an established communal name.",
       "translationProvenance": "New English translations of the selected canonical Hebrew, prepared after reading the complete origin section and target paragraph. Clarified antecedents are integrated into the English. The explanation is an editorial comparison, not part of either source.",
       "reviewedOriginHebrewSha256": "0b778dcae9e047f3f5493da6829734fab15ee2178b10b283e6c4ce080b205022",
       "reviewedOriginSectionHebrewSha256": "5a73c2388c81a20ee770af55dc4d41d926011da1cbdba44ee64b78d232762d89",
-      "reviewedTargetHebrewSha256": "8fb9c1b8bc4f25046f7890b8fa895b6f0767cd2c662d7030e95bb08b511591b1",
-      "reviewed": true
+      "reviewedTargetHebrewSha256": "7bb3cf48b02766e299fc0ba602c199e99b6a5b64af0bae258209ec2dea4bcb82",
+      "reviewed": true,
+      "reanchoring": {
+        "target": {
+          "edition": "tzidkat-editorial-master-2026-11",
+          "date": "2026-11-02",
+          "previousRef": "Tzidkat HaTzadik 53:1",
+          "previousHebrewSha256": "8ec62948860952bfc2c8c210d057f0227a5e6a1f9a1a70c9fc7f5b148a1b9891",
+          "previousParagraphPin": "8fb9c1b8bc4f25046f7890b8fa895b6f0767cd2c662d7030e95bb08b511591b1",
+          "status": "edited",
+          "wordsChanged": 2,
+          "clippedWords": 0,
+          "note": "The master edition edits 2 word(s) of the reviewed quotation; the English excerpt should be rechecked against the new Hebrew."
+        }
+      }
     },
     {
       "id": "chanukah-complete-23-engraved-heart-sod-sukkot-24",

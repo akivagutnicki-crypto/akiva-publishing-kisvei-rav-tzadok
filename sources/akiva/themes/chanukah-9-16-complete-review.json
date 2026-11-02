@@ -137,13 +137,26 @@
       "reviewedOriginHebrewSha256": "582dbd1cbd9d69f1d8ab87e26870f71325067ecf48d01b0961ef711f158ef747",
       "reviewedOriginSectionHebrewSha256": "d0fe575415214a6d491df55eb3087ef7fe2fbac6875071b581b507b734a24671",
       "targetRef": "Tzidkat HaTzadik 187:1",
-      "targetHebrew": "הַדִּבְרֵי תוֹרָה הֵם עֹז לָאָדָם, כְּמוֹ שֶׁכָּתוּב: \"וְהַחָכְמָה תָּעֹז [לֶחָכָם]\" (קֹהֶלֶת ז, יט), וְ\"אֵיזֶהוּ גִבּוֹר? הַכּוֹבֵשׁ [אֶת יִצְרוֹ]\" (אָבוֹת פֶּרֶק ד, א), שֶׁעַל יְדֵי זֶה מִתְגַּבֵּר עַל יִצְרוֹ כְּמוֹ שֶׁכָּתוּב (קִדּוּשִׁין ל:): מָשְׁכֵהוּ לְבֵית הַמִּדְרָשׁ, וּכְמוֹ שֶׁכָּתוּב: בָּרָאתִי יֵצֶר הָרָע, בָּרָאתִי תוֹרָה וְכוּלֵי; שֶׁזֶּהוּ \"אִלְמָלֵא הַקָּדוֹשׁ בָּרוּךְ הוּא עוֹזְרוֹ וְכוּלֵי\" (סֻכָּה נב:), וְהָעֵזֶר וְהַסַּיַּעְתָּא הוּא עַל יְדֵי דִּבְרֵי תוֹרָה שֶׁמֵּאִיר לוֹ.",
+      "targetHebrew": "הַדִּבְרֵי תוֹרָה הֵם עֹז לָאָדָם, כְּמוֹ שֶׁכָּתוּב: \"וְהַחָכְמָה תָּעֹז [לֶחָכָם]\" (קֹהֶלֶת ז, יט), וְ\"אֵיזֶהוּ גִבּוֹר? הַכּוֹבֵשׁ [אֶת יִצְרוֹ]\" (אָבוֹת פֶּרֶק ד, א), שֶׁעַל יְדֵי זֶה מִתְגַּבֵּר עַל יִצְרוֹ כְּמוֹ שֶׁאָמְרוּ (קִדּוּשִׁין ל:): מָשְׁכֵהוּ לְבֵית הַמִּדְרָשׁ, וּכְמוֹ שֶׁכָּתוּב: בָּרָאתִי יֵצֶר הָרָע, בָּרָאתִי תוֹרָה וְכוּלֵי; שֶׁזֶּהוּ \"אִלְמָלֵא הַקָּדוֹשׁ בָּרוּךְ הוּא עוֹזְרוֹ וְכוּלֵי\" (סֻכָּה נב:), וְהָעֵזֶר וְהַסַּיַּעְתָּא הוּא עַל יְדֵי דִּבְרֵי תוֹרָה שֶׁמֵּאִיר לוֹ.",
       "targetEnglish": "Words of Torah are a person’s strength, as it is written, “Wisdom strengthens the wise.” “Who is mighty? One who conquers his inclination”: through Torah a person prevails over the inclination, as they said, “Draw it to the house of study,” and “I created the evil inclination; I created Torah,” and so forth. This is “Were the Holy One, blessed be He, not to help him”: the help and assistance come through the words of Torah that He illuminates for him.",
       "school": "Kisvei Rav Tzadok",
       "explanation": "Tzidkat HaTzadik identifies the help within the person’s actual learning: God illuminates words of Torah that become strength against the inclination. It therefore explains how the miraculous help named in Modim can occur within ordinary study, without making human choice self-sufficient or treating divine help as an excuse to stop studying.",
       "translationProvenance": "English translated directly from the unchanged canonical Hebrew for Akiva Publishing’s complete paragraph review of Peri Tzadik, Chanukah 9–16. The complete originating ois and complete target paragraph were read, with surrounding context where needed. Previously reviewed English is retained only after comparison with the identical Hebrew excerpt. Explanations are editorial comparisons, separate from the translations. Hashes pin the reviewed text; semantic approval rests on the actual reading and comparison.",
-      "reviewedTargetHebrewSha256": "fde998f9ce8ce78ed2a3f46297970d14c3f8de82078632cb33e418b74e4230a2",
-      "reviewed": true
+      "reviewedTargetHebrewSha256": "3f9e58483149449eee458ef0905e5cc3166ec90209c64c49cef30f295afe7caa",
+      "reviewed": true,
+      "reanchoring": {
+        "target": {
+          "edition": "tzidkat-editorial-master-2026-11",
+          "date": "2026-11-02",
+          "previousRef": "Tzidkat HaTzadik 187:1",
+          "previousHebrewSha256": "9b9e68f0d12982b831c9a3e992cae54413b29942cb0f6eb79f1da28443278334",
+          "previousParagraphPin": "fde998f9ce8ce78ed2a3f46297970d14c3f8de82078632cb33e418b74e4230a2",
+          "status": "edited",
+          "wordsChanged": 2,
+          "clippedWords": 0,
+          "note": "The master edition edits 2 word(s) of the reviewed quotation; the English excerpt should be rechecked against the new Hebrew."
+        }
+      }
     },
     {
       "id": "chanukah-9-help-and-prayer-tiferet-taanit-1",
@@ -178,8 +191,21 @@
       "school": "Kisvei Rav Tzadok",
       "explanation": "Tzidkat HaTzadik examines the same spontaneous bow amid distracting thoughts. Its distinction between the soul’s root and an intrusive garment explains why the bow can disclose something real even before the person has eliminated every distraction. This complements Chanukah’s account of the head sensing awe, without turning a bodily reflex into proof that the whole person is already perfected.",
       "translationProvenance": "English translated directly from the unchanged canonical Hebrew for Akiva Publishing’s complete paragraph review of Peri Tzadik, Chanukah 9–16. The complete originating ois and complete target paragraph were read, with surrounding context where needed. Previously reviewed English is retained only after comparison with the identical Hebrew excerpt. Explanations are editorial comparisons, separate from the translations. Hashes pin the reviewed text; semantic approval rests on the actual reading and comparison.",
-      "reviewedTargetHebrewSha256": "338460483deb4972da7b38f151689148842b2c338701f42ccad6fec2b34aaae8",
-      "reviewed": true
+      "reviewedTargetHebrewSha256": "23e892ae7918bb37a89b01d25e5daf9a26a251c22cec4cd9611e7c4f89e8d99f",
+      "reviewed": true,
+      "reanchoring": {
+        "target": {
+          "edition": "tzidkat-editorial-master-2026-11",
+          "date": "2026-11-02",
+          "previousRef": "Tzidkat HaTzadik 233:1",
+          "previousHebrewSha256": "786c4d0454e5f4831efdce89d2b6f15f14b88a42b875e5dcb9aa57f6047b3021",
+          "previousParagraphPin": "338460483deb4972da7b38f151689148842b2c338701f42ccad6fec2b34aaae8",
+          "status": "exact",
+          "wordsChanged": 0,
+          "clippedWords": 0,
+          "note": "Quotation words unchanged; vocalization, punctuation and paragraph numbering follow the Complete Editorial Master."
+        }
+      }
     },
     {
       "id": "chanukah-9-modim-speech-becomes-body-sod-pesach-26",
@@ -245,13 +271,26 @@
       "reviewedOriginHebrewSha256": "40a5653e06670d48799c02fe9d29468725395d1773f369420e97a96e3424264f",
       "reviewedOriginSectionHebrewSha256": "77acb4ea92f7c876b1fa8f222745d5a584d415486e11467baaff813f5a38a7a2",
       "targetRef": "Tzidkat HaTzadik 187:1",
-      "targetHebrew": "וְהַיְינוּ עַל יְדֵי הַהַכָּרָה שֶׁהַחִדּוּשִׁין הֵם מֵהַשֵּׁם יִתְבָּרַךְ, שֶׁזֶּהוּ עֲנָוָה וְלִשְׁמָהּ, שֶׁמַּכִּיר שֶׁאֵין לוֹ מִגַּרְמֵיהּ כְּלוּם, אָז מַצְלִיחִין וְעוֹלֶה לִגְדוּלָּה לִהְיוֹת נִקְרָא \"אִמִּי\", כְּמִשְׁפַּט אַחַר הַבְּרָכָה וְהַהַכָּרָה שֶׁהַכֹּל מֵהַשֵּׁם יִתְבָּרַךְ, אָז הַשֵּׁם יִתְבָּרַךְ אוֹמֵר שֶׁהַכֹּל שֶׁלּוֹ, גַּם הָאִתְעָרוּתָא דִּלְעֵילָא הוּא מִשֶּׁלּוֹ, כְּטַעַם: תְּנוּ עֹז הַיְינוּ דִּבְרֵי תוֹרָה כַּנִּזְכָּר לְעֵיל] לֵאלֹהִים (תְּהִלִּים סח, לה), כִּי עַל יְדֵי אִתְעָרוּתָא דִּלְתַתָּא שֶׁלּוֹ הוּא שֶׁנּוֹלַד זֶה:",
+      "targetHebrew": "וְהַיְינוּ עַל יְדֵי הַהַכָּרָה שֶׁהַחִדּוּשִׁין הֵם מֵהַשֵּׁם יִתְבָּרַךְ, שֶׁזֶּהוּ עֲנָוָה וְלִשְׁמָהּ, שֶׁמַּכִּיר שֶׁאֵין לוֹ מִגַּרְמֵיהּ כְּלוּם, אָז מַצְלִיחִין וְעוֹלֶה לִגְדוּלָּה לִהְיוֹת נִקְרָא \"אִמִּי\", כְּמִשְׁפַּט אַחַר הַבְּרָכָה וְהַהַכָּרָה שֶׁהַכֹּל מֵהַשֵּׁם יִתְבָּרַךְ, אָז הַשֵּׁם יִתְבָּרַךְ אוֹמֵר שֶׁהַכֹּל שֶׁלּוֹ, גַּם הָאִתְעָרוּתָא דִּלְעֵילָא הוּא מִשֶּׁלּוֹ, כְּטַעַם: תְּנוּ עֹז [הַיְינוּ דִּבְרֵי תוֹרָה כַּנִּזְכָּר לְעֵיל] לֵאלֹהִים (תְּהִלִּים סח, לה), כִּי עַל יְדֵי אִתְעָרוּתָא דִּלְתַתָּא שֶׁלּוֹ הוּא שֶׁנּוֹלַד זֶה:",
       "targetEnglish": "This occurs through recognizing that the new teachings come from God. That is humility and acting for Heaven’s sake: the person recognizes that he has nothing of his own. He then succeeds and rises to the stature called “My mother.” For after the blessing and the recognition that everything comes from God, God says that everything belongs to him—even the awakening from above belongs to him. This is “Give strength (that is, words of Torah, as stated) to God”: it was through his awakening from below that this came into being.",
       "school": "Kisvei Rav Tzadok",
       "explanation": "Tzidkat HaTzadik explains how a teaching can be attributed to a human discoverer while remaining God’s Torah. The discoverer recognizes the gift, and God in turn attributes the result, including the assistance, to the person’s initiating desire and work. That supplies the relation between the two claims in “Come and give Me light.”",
       "translationProvenance": "English translated directly from the unchanged canonical Hebrew for Akiva Publishing’s complete paragraph review of Peri Tzadik, Chanukah 9–16. The complete originating ois and complete target paragraph were read, with surrounding context where needed. Previously reviewed English is retained only after comparison with the identical Hebrew excerpt. Explanations are editorial comparisons, separate from the translations. Hashes pin the reviewed text; semantic approval rests on the actual reading and comparison.",
-      "reviewedTargetHebrewSha256": "fde998f9ce8ce78ed2a3f46297970d14c3f8de82078632cb33e418b74e4230a2",
-      "reviewed": true
+      "reviewedTargetHebrewSha256": "3f9e58483149449eee458ef0905e5cc3166ec90209c64c49cef30f295afe7caa",
+      "reviewed": true,
+      "reanchoring": {
+        "target": {
+          "edition": "tzidkat-editorial-master-2026-11",
+          "date": "2026-11-02",
+          "previousRef": "Tzidkat HaTzadik 187:1",
+          "previousHebrewSha256": "ddbfcd405fedeecb285217b60bc391a593485e7f3754b893baa07d98de76fa37",
+          "previousParagraphPin": "fde998f9ce8ce78ed2a3f46297970d14c3f8de82078632cb33e418b74e4230a2",
+          "status": "exact",
+          "wordsChanged": 0,
+          "clippedWords": 0,
+          "note": "Quotation words unchanged; vocalization, punctuation and paragraph numbering follow the Complete Editorial Master."
+        }
+      }
     },
     {
       "id": "chanukah-10-torah-human-vessel-tiferet-nitzavim-10",
@@ -389,13 +428,26 @@
       "reviewedOriginHebrewSha256": "421568f3427f714f70573917c33535acb43e36d69d39a124f61bd26b71c83624",
       "reviewedOriginSectionHebrewSha256": "4a067c78101f4adfc3081a21cf22362299e9513811de4113385c33660ac7255b",
       "targetRef": "Tzidkat HaTzadik 186:1",
-      "targetHebrew": "וְהַיְינוּ כִּי שְׁלֹשָׁה הוּא חִבּוּר שְׁנֵי קְצוֹת וְאֶמְצָעִי הַמְחַבֵּר, וְזֶה שֶׁאָמְרוּ בִּבְרָכוֹת (מה:): אִיכָּא דֵּעוֹת, דְּהָעִיקָּר שָׁלֹשׁ דֵּעוֹת הַנִּפְרָדוֹת שֶׁמִּתְחַבְּרִים יַחַד עַל יְדֵי הָאֲכִילָה יַחַד, כְּדִבְרֵי שַׁמַּאי בְּחֻלִּין (ד:): אֵין הֲסָתָה בְּלֹא אֲכִילָה וְכוּלֵי. וְכֵן פִּתָּן וְיֵינָן מִשּׁוּם בְּנוֹתֵיהֶם, שֶׁעִיקַּר הִתְחַבְּרוּת עַל יְדֵי אֲכִילָה וּשְׁתִיָּה. וְזֶהוּ הַזִּמּוּן דִּבְרָכָה לְפָנֶיהָ כְּשֶׁרָעֵב דּוּגְמַת שָׁבוּעוֹת וּפֶסַח בְּחֹדֶשׁ הָאָבִיב], וּבִרְכַּת הַמָּזוֹן שֶׁמְּבָרֵךְ כְּשֶׁהוּא שָׂבֵעַ דּוּגְמַת סֻכּוֹת חַג הָאָסִיף שֶׁהוּא זְמַן שִׂמְחָתֵנוּ וּבְמוֹעֵד קָטָן (ט.): אֵין שִׂמְחָה בְּלֹא אֲכִילָה וְכוּלֵי], וּמִשָּׁם שׁוֹאֲבִין רוּחַ הַקֹּדֶשׁ כְּמוֹ שֶׁכָּתוּב בַּיְרוּשַׁלְמִי דְּהֶחָלִיל (סֻכָּה פֶּרֶק ה הֲלָכָה א), דְּדַעַת הַיְינוּ רוּחַ הַקֹּדֶשׁ כִּדְפֵירֵשׁ רַשִּׁ\"י פָּרָשַׁת תִּשָּׂא. וְזֶהוּ אַחַר חָכְמָה וּבִינָה, דְּדַעַת הַמְחַבֵּר כַּנּוֹדָע, וְכֵן חַג הַסֻּכּוֹת הַשְּׁלִישִׁי לָרְגָלִים. וּלְכָךְ בִּשְׁלֹשָׁה אָז צָרִיךְ זִמּוּן, דִּמְפוֹרָשׁ בִּבְרָכוֹת (מה.) דְּהַיְינוּ \"גַּדְּלוּ לַה' אִתִּי וּנְרוֹמְמָה שְׁמוֹ] יַחְדָּו\" (תְּהִלִּים לד, ד), שֶׁלָּזֶה צָרִיךְ הֲכָנָה וְזִמּוּן לְהִתְכַּלֵּל יַחַד הַנְּפָשׁוֹת.",
+      "targetHebrew": "וְהַיְינוּ כִּי שְׁלֹשָׁה הוּא חִבּוּר שְׁנֵי קְצוֹת וְאֶמְצָעִי הַמְחַבֵּר, וְזֶה שֶׁאָמְרוּ בִּבְרָכוֹת (מה:): אִיכָּא דֵּעוֹת, דְּהָעִיקָּר שָׁלֹשׁ דֵּעוֹת הַנִּפְרָדוֹת שֶׁמִּתְחַבְּרִים יַחַד עַל יְדֵי הָאֲכִילָה יַחַד, כְּדֶרֶךְ שֶׁאָמְרוּ בְּחֻלִּין (ד:): אֵין הֲסָתָה בְּלֹא אֲכִילָה וְכוּלֵי. וְכֵן פִּתָּן וְיֵינָן מִשּׁוּם בְּנוֹתֵיהֶם, שֶׁעִיקַּר הִתְחַבְּרוּת עַל יְדֵי אֲכִילָה וּשְׁתִיָּה. וְזֶהוּ הַזִּמּוּן דִּבְרָכָה לְפָנֶיהָ כְּשֶׁרָעֵב דּוּגְמַת שָׁבוּעוֹת [וּפֶסַח בְּחֹדֶשׁ הָאָבִיב], וּבִרְכַּת הַמָּזוֹן שֶׁמְּבָרֵךְ כְּשֶׁהוּא שָׂבֵעַ דּוּגְמַת סֻכּוֹת חַג הָאָסִיף שֶׁהוּא זְמַן שִׂמְחָתֵנוּ [וּבְמוֹעֵד קָטָן (ט.): אֵין שִׂמְחָה בְּלֹא אֲכִילָה וְכוּלֵי], וּמִשָּׁם שׁוֹאֲבִין רוּחַ הַקֹּדֶשׁ כְּמוֹ שֶׁאָמְרוּ בַּיְרוּשַׁלְמִי דְּהֶחָלִיל (סֻכָּה פֶּרֶק ה הֲלָכָה א), דְּדַעַת הַיְינוּ רוּחַ הַקֹּדֶשׁ כִּדְפֵירֵשׁ רַשִּׁ\"י פָּרָשַׁת תִּשָּׂא. וְזֶהוּ אַחַר חָכְמָה וּבִינָה, דְּדַעַת הַמְחַבֵּר כַּנּוֹדָע, וְכֵן חַג הַסֻּכּוֹת הַשְּׁלִישִׁי לָרְגָלִים. וּלְכָךְ בִּשְׁלֹשָׁה אָז צָרִיךְ זִמּוּן, דִּמְפוֹרָשׁ בִּבְרָכוֹת (מה.) דְּהַיְינוּ \"גַּדְּלוּ לַה' אִתִּי וּנְרוֹמְמָה שְׁמוֹ יַחְדָּו\" (תְּהִלִּים לד, ד), שֶׁלָּזֶה צָרִיךְ הֲכָנָה וְזִמּוּן לְהִתְכַּלֵּל יַחַד הַנְּפָשׁוֹת.",
       "targetEnglish": "Three signifies the joining of two ends and a middle that connects them. Thus Berakhot says, “There are opinions”: the essential matter is three distinct opinions becoming connected through eating together, as stated in Chullin 4b, that there is no enticement without eating. Likewise, the prohibition of their bread and wine is because of their daughters, for eating and drinking principally bring people together. This explains zimmun: the blessing before eating, when one is hungry, resembles Shavuot and Pesach in the spring, while Grace after Meals, blessed when one is satisfied, resembles Sukkot, the festival of ingathering and the season of our joy—there is no joy without eating. From there holy inspiration is drawn, as stated in the Jerusalem Talmud, for daat means holy inspiration, according to Rashi on Ki Tissa. It follows wisdom and understanding, since daat connects them; Sukkot is likewise the third pilgrimage festival. Therefore three require zimmun, which the Talmud explicitly relates to “Magnify the Lord with me, and let us exalt His name together.” This requires preparation and invitation, so that the souls may be included together.",
       "school": "Kisvei Rav Tzadok",
       "explanation": "Tzidkat HaTzadik explains the structure of three as two distinct ends joined by a middle. Its account of zimmun shows that mere proximity is insufficient: the distinct participants must be prepared for inclusion together. This illuminates the threefold cord in Chanukah as a union of qualities, beyond the simple addition of a third protective act.",
       "translationProvenance": "English translated directly from the unchanged canonical Hebrew for Akiva Publishing’s complete paragraph review of Peri Tzadik, Chanukah 9–16. The complete originating ois and complete target paragraph were read, with surrounding context where needed. Previously reviewed English is retained only after comparison with the identical Hebrew excerpt. Explanations are editorial comparisons, separate from the translations. Hashes pin the reviewed text; semantic approval rests on the actual reading and comparison. Independent source verification: Bereishit Rabbah 68:12 explains the rope as woven from at least three strands. The inherited reader Hebrew expands כד״ש as כדברי שמאי; the official Sefaria Hebrew witness, Tzidkat HaTzadick, Lublin, 1913, has כד״ש בחולין (ד:), and Chullin 4b:9 gives the statement anonymously. The English therefore renders “as stated in Chullin 4b”; the canonical Hebrew anchor is retained, with this expansion discrepancy disclosed. Primary witnesses: https://www.sefaria.org/Tzidkat_HaTzadik.186 and https://www.sefaria.org/Chullin.4b.9 and https://www.sefaria.org/Bereshit_Rabbah.68.12.",
-      "reviewedTargetHebrewSha256": "100a122d21f7939ab5a0c0028dc393b444de1cc5796b5d66a114dd9c158a1d48",
-      "reviewed": true
+      "reviewedTargetHebrewSha256": "9505a412416b88d552a517d1e46f8bda9384048feef9e0c2ec7aff54ff3df710",
+      "reviewed": true,
+      "reanchoring": {
+        "target": {
+          "edition": "tzidkat-editorial-master-2026-11",
+          "date": "2026-11-02",
+          "previousRef": "Tzidkat HaTzadik 186:1",
+          "previousHebrewSha256": "f9ab606cd6403968df099e0c474656d18ed7884774060f6eacd8a32b48da3e8f",
+          "previousParagraphPin": "100a122d21f7939ab5a0c0028dc393b444de1cc5796b5d66a114dd9c158a1d48",
+          "status": "edited",
+          "wordsChanged": 6,
+          "clippedWords": 0,
+          "note": "The master edition edits 6 word(s) of the reviewed quotation; the English excerpt should be rechecked against the new Hebrew."
+        }
+      }
     },
     {
       "id": "chanukah-11-needle-opening-divrei-soferim-13",
@@ -586,14 +638,27 @@
       "themeSummary": "The ois explains why the Hasmoneans and even the lowliest Israelite can be dear like Daniel. God desires an awakening that comes through the person, while the person recognizes that the power to awaken was itself given.",
       "reviewedOriginHebrewSha256": "e5ef4adfe3b5fbf68259f46c3a22aa3ba4008389ffb074702b2dcc9ff62d35d4",
       "reviewedOriginSectionHebrewSha256": "28cdc55a962b0e32d673424a091c377ea5fa23476f46aea79d0a1783267b756b",
-      "targetRef": "Tzidkat HaTzadik 261:1",
-      "targetHebrew": "וְאַבְרָהָם אָבִינוּ עָלָיו הַשָּׁלוֹם, לִהְיוֹתוֹ אָב כּוֹלֵל כָּל הַנְּפָשׁוֹת וְהֻוצְרַךְ לְהָאִיר לְכָל הָעוֹלָם כֻּלּוֹ, הָיָה כְּלִי לִסְבּוֹל תַּבְעֵרָה וּדְלֵיקָה זוֹ גַּם כֵּן, עַד שֶׁהֵאִיר לוֹ הַשֵּׁם יִתְבָּרַךְ בְּנֵר דְּצִיוּוּיִם שׁוֹנִים, וְנַעֲשׂוּ כִּלְיוֹתָיו נוֹבְעוֹת חָכְמָה (כְּמוֹ שֶׁכָּתוּב בְּרֵאשִׁית רַבָּה פָּרָשָׁה סא), וְזָכוּ בָּנָיו לְנֵר מִקְדָּשׁ. וְאָמְרוּ זִכְרוֹנָם לִבְרָכָה (מִדְרָשׁ תַּנְחוּמָא תְּצַוֶּה ב): הַקָּדוֹשׁ בָּרוּךְ הוּא מֵאִיר לְכָל הָעוֹלָם כֻּלּוֹ וְצִיוָּה לְהָאִיר לְפָנָיו; וְהַיְינוּ כִּי בֶּאֱמֶת הַשֵּׁם יִתְבָּרַךְ הַמֵּאִיר מַה שֶּׁמֵּאִיר בַּלֵּב, רַק שֶׁהוּא אוֹמֵר לְהָאִיר לְפָנָיו שֶׁהוּא אוֹמֵר שֶׁמַּה שֶּׁמֵּאִיר בְּלִבְבוֹת בְּנֵי יִשְׂרָאֵל, בָּזֶה הֵם מְאִירִים לְפָנָיו שֶׁלֹּא יֵלֵךְ בִּמְבוֹאוֹת אֲפֵלוֹת, וְלֹא הוּא מֵאִיר לָהֶם. וְהוּא כְּטַעַם \"לֹא זָז מֵחַבְּבָהּ עַד וְכוּלֵי\" (שְׁמוֹת רַבָּה סוֹף פָּרָשָׁה נב), וּכְטַעַם \"תְּנוּ עֹז לֵאלֹהִים\".",
+      "targetRef": "Tzidkat HaTzadik 261:6",
+      "targetHebrew": "וְאַבְרָהָם אָבִינוּ עָלָיו הַשָּׁלוֹם, לִהְיוֹתוֹ אָב כּוֹלֵל כָּל הַנְּפָשׁוֹת וְהֻוצְרַךְ לְהָאִיר לְכָל הָעוֹלָם כֻּלּוֹ, הָיָה כְּלִי לִסְבּוֹל תַּבְעֵרָה וּדְלֵיקָה זוֹ גַּם כֵּן, עַד שֶׁהֵאִיר לוֹ הַשֵּׁם יִתְבָּרַךְ בְּנֵר דְּצִיוּוּיִם שׁוֹנִים, וְנַעֲשׂוּ כִּלְיוֹתָיו נוֹבְעוֹת חָכְמָה (כְּמוֹ שֶׁאָמְרוּ בְּרֵאשִׁית רַבָּה פָּרָשָׁה סא), וְזָכוּ בָּנָיו לְנֵר מִקְדָּשׁ. וְאָמְרוּ זִכְרוֹנָם לִבְרָכָה (מִדְרָשׁ תַּנְחוּמָא תְּצַוֶּה ב): הַקָּדוֹשׁ בָּרוּךְ הוּא מֵאִיר לְכָל הָעוֹלָם כֻּלּוֹ וְצִיוָּה לְהָאִיר לְפָנָיו; וְהַיְינוּ כִּי בֶּאֱמֶת הַשֵּׁם יִתְבָּרַךְ הַמֵּאִיר מַה שֶּׁמֵּאִיר בַּלֵּב, רַק שֶׁהוּא אוֹמֵר לְהָאִיר לְפָנָיו שֶׁהוּא אוֹמֵר שֶׁמַּה שֶּׁמֵּאִיר בְּלִבְבוֹת בְּנֵי יִשְׂרָאֵל, בָּזֶה הֵם מְאִירִים לְפָנָיו שֶׁלֹּא יֵלֵךְ בִּמְבוֹאוֹת אֲפֵלוֹת, וְלֹא הוּא מֵאִיר לָהֶם. וְהוּא כְּטַעַם \"לֹא זָז מֵחַבְּבָהּ עַד וְכוּלֵי\" (שְׁמוֹת רַבָּה סוֹף פָּרָשָׁה נב), וּכְטַעַם \"תְּנוּ עֹז לֵאלֹהִים\".",
       "targetEnglish": "Abraham our father, being a father who included all the souls and needed to illuminate the entire world, was a vessel able to bear even this burning and blaze. God then illuminated for him through the lamp of particular commands, and his kidneys became fountains of wisdom; his descendants merited the lamp of the Sanctuary. The Sages said: God illuminates the entire world, yet commanded that light be given before Him. In truth, God is the One who gives the illumination that shines in the heart. Nevertheless He says that they should give light before Him: through what shines in Israel’s hearts, they illuminate before Him, so that He should not walk through dark passages. He describes it as their illuminating Him, rather than His illuminating them. This is the meaning of “He did not cease to cherish her until...,” and “Give strength to God.”",
       "school": "Kisvei Rav Tzadok",
       "explanation": "Tzidkat HaTzadik explains the attribution at the center of Chanukah: God gives the inward illumination and nevertheless credits Israel with illuminating before Him. Abraham’s movement from a blaze to the vessel of particular commands also preserves the necessary form of that contribution. Human initiative is valued through a life of commanded service.",
       "translationProvenance": "English translated directly from the unchanged canonical Hebrew for Akiva Publishing’s complete paragraph review of Peri Tzadik, Chanukah 9–16. The complete originating ois and complete target paragraph were read, with surrounding context where needed. Previously reviewed English is retained only after comparison with the identical Hebrew excerpt. Explanations are editorial comparisons, separate from the translations. Hashes pin the reviewed text; semantic approval rests on the actual reading and comparison.",
-      "reviewedTargetHebrewSha256": "760e4c7a5df4e5062836d9405a2b26a8c6b4b725352b44248524607079a72770",
-      "reviewed": true
+      "reviewedTargetHebrewSha256": "109b83a1418941889c17c8a1d6859239a9356a0a0e83854e2e71e362f01e7e0a",
+      "reviewed": true,
+      "reanchoring": {
+        "target": {
+          "edition": "tzidkat-editorial-master-2026-11",
+          "date": "2026-11-02",
+          "previousRef": "Tzidkat HaTzadik 261:1",
+          "previousHebrewSha256": "b0c7a00b8cff29df0e5e455465d2efbcf9ab2e4ac06eb869dee4bea162ba66b2",
+          "previousParagraphPin": "760e4c7a5df4e5062836d9405a2b26a8c6b4b725352b44248524607079a72770",
+          "status": "edited",
+          "wordsChanged": 2,
+          "clippedWords": 0,
+          "note": "The master edition edits 2 word(s) of the reviewed quotation; the English excerpt should be rechecked against the new Hebrew."
+        }
+      }
     },
     {
       "id": "chanukah-12-hidden-effort-precious-tiferet-taanit-19",
@@ -857,13 +922,26 @@
       "reviewedOriginHebrewSha256": "c1861c6cd7f6d48678b1bb4a98249af9911e57ea0d676c4c204521224a125447",
       "reviewedOriginSectionHebrewSha256": "6b204e5bb1796ddcf207d017d5af6181b1988d825f6ef044fc0de52250fff543",
       "targetRef": "Tzidkat HaTzadik 52:1",
-      "targetHebrew": "וּתְשׁוּבָה אֶפְשָׁר שֶׁיִּהְיֶה בְּרֶגַע אֶחָד כִּדְמוּכָח בְּפֶרֶק ב דְּקִדּוּשִׁין (מט:), וְאָנוּ מְבַקְּשִׁים \"הֲשִׁיבֵנוּ וְגוֹמֵר\", רַק הַשֵּׁם יִתְבָּרַךְ צוֹוֵחַ \"שׁוּבוּ וְגוֹמֵר\" (כְּמוֹ שֶׁכָּתוּב בַּמִּדְרָשׁ רַבָּה סוֹף אֵיכָה), וּמִסְּתָמָא בְּדוֹר שֶׁכֻּלּוֹ חַיָּיב עַל כָּרְחֲךָ שֶׁיִּהְיֶה אָז \"דִּידַן נָצַח\", וּכְשֶׁהַשֵּׁם יִתְבָּרַךְ יִרְצֶה, הֲרֵי בְּרֶגַע אֶחָד יִכְלוּ כָּל הַקּוֹצִים הַסּוֹבְבִים וְיִהְיֶה הַכֹּל כִּרְצוֹנוֹ, וְיִתְגַּלֶּה שֶׁגַּם מַה שֶּׁקּוֹדֶם הָיָה הַכֹּל לְצוֹרֶךְ:",
+      "targetHebrew": "וּתְשׁוּבָה אֶפְשָׁר שֶׁיִּהְיֶה בְּרֶגַע אֶחָד כִּדְמוּכָח בְּפֶרֶק ב דְּקִדּוּשִׁין (מט:), וְאָנוּ מְבַקְּשִׁים \"הֲשִׁיבֵנוּ וְגוֹמֵר\", רַק הַשֵּׁם יִתְבָּרַךְ צוֹוֵחַ \"שׁוּבוּ וְגוֹמֵר\" (כְּמוֹ שֶׁאָמְרוּ בַּמִּדְרָשׁ רַבָּה סוֹף אֵיכָה), וּמִסְּתָמָא בְּדוֹר שֶׁכֻּלּוֹ חַיָּיב עַל כָּרְחֲךָ שֶׁיִּהְיֶה אָז \"דִּידַן נָצַח\", וּכְשֶׁהַשֵּׁם יִתְבָּרַךְ יִרְצֶה, הֲרֵי בְּרֶגַע אֶחָד יִכְלוּ כָּל הַקּוֹצִים הַסּוֹבְבִים וְיִהְיֶה הַכֹּל כִּרְצוֹנוֹ, וְיִתְגַּלֶּה שֶׁגַּם מַה שֶּׁקּוֹדֶם הָיָה הַכֹּל לְצוֹרֶךְ:",
       "targetEnglish": "Repentance can occur in a single moment, as is evident in the second chapter of Kiddushin. We ask, “Bring us back,” while God cries, “Return,” as the Midrash at the end of Lamentations says. Presumably, in a generation entirely guilty, “our side will prevail.” When God desires, in one moment all the surrounding thorns will be consumed, everything will be according to His will, and it will be revealed that all that preceded was also needed.",
       "school": "Kisvei Rav Tzadok",
       "explanation": "Tzidkat HaTzadik explains why a deeply damaged condition does not make a present beginning impossible: repentance can start in a moment, and the exchange between “Bring us back” and “Return” keeps both divine help and the person’s response in view. Its full paragraph distinguishes the soul from the surrounding thorns. This strengthens Chanukah’s invitation to open the small beginning without declaring the whole repair already accomplished.",
       "translationProvenance": "English translated directly from the unchanged canonical Hebrew for Akiva Publishing’s complete paragraph review of Peri Tzadik, Chanukah 9–16. The complete originating ois and complete target paragraph were read, with surrounding context where needed. Previously reviewed English is retained only after comparison with the identical Hebrew excerpt. Explanations are editorial comparisons, separate from the translations. Hashes pin the reviewed text; semantic approval rests on the actual reading and comparison.",
-      "reviewedTargetHebrewSha256": "cfce991bf87b10b81d68787fd65a7a5fcd5a86fa70ca4d86461d1d7aaeee0da0",
-      "reviewed": true
+      "reviewedTargetHebrewSha256": "0b991223e4fcec39f3873debec0c500b4bd260bd0113f66a0d529782ea6feedf",
+      "reviewed": true,
+      "reanchoring": {
+        "target": {
+          "edition": "tzidkat-editorial-master-2026-11",
+          "date": "2026-11-02",
+          "previousRef": "Tzidkat HaTzadik 52:1",
+          "previousHebrewSha256": "9328c4b7e42bf7a1a2769ed092860205f7e5374ab755170d59f1b16d197b8bbe",
+          "previousParagraphPin": "cfce991bf87b10b81d68787fd65a7a5fcd5a86fa70ca4d86461d1d7aaeee0da0",
+          "status": "edited",
+          "wordsChanged": 2,
+          "clippedWords": 0,
+          "note": "The master edition edits 2 word(s) of the reviewed quotation; the English excerpt should be rechecked against the new Hebrew."
+        }
+      }
     },
     {
       "id": "chanukah-13-yom-kippur-unity-sod-44",
@@ -1235,13 +1313,26 @@
       "reviewedOriginHebrewSha256": "29b0d9be45260d27a2e169573fd5de460384ff79098aa7840cc38611fdaf1099",
       "reviewedOriginSectionHebrewSha256": "fd2e2052b2cbe4b09575468ac43d5006f020eeaf47cd25bcd66f0c96917ff527",
       "targetRef": "Tzidkat HaTzadik 199:1",
-      "targetHebrew": "וְרוּגְזָא דְּרַבָּנָן טָב בְּכָל סִטְרִין כְּמוֹ שֶׁכָּתוּב בַּזֹּהַר (חֵלֶק ב, קפב עַמּוּד ב), וְהַיְינוּ כְּמוֹ שֶׁכָּתוּב בְּתַעֲנִית (ד.): דְּאוֹרַיְיתָא דְּקָא מְרַתְּחָא, פֵּירוּשׁ: כְּשֶׁהַכַּעַס הוּא רַק מַה שֶּׁהַתּוֹרָה מַרְתִּיחָתוֹ, שֶׁעַל פִּי הַתּוֹרָה רָאוּי לִכְעוֹס, כְּעִנְיַן הַסַּנְהֶדְרִין שֶׁדָּנוּ נְפָשׁוֹת, וְאֵין מְמַנִּין בְּסַנְהֶדְרִין זָקֵן וְכוּלֵי (סַנְהֶדְרִין לו:), שֶׁהֵם הָיוּ מְלֵאִים רַחֲמִים בֶּאֱמֶת וּמִשְׁתַּדְּלִים לִמְצוֹא זְכוּת עַל פִּי הַתּוֹרָה, וּרְתִיחָתָם רַק מִצַּד הֶכְרֵחַ הַתּוֹרָה זֶה נִקְרָא רוּגְזָא דְּרַבָּנָן, הָאוֹהֲבֵי הַתּוֹרָה בֶּאֱמֶת, שֶׁגַּם בְּעֵת כַּעֲסוֹ אֵינוֹ אֶלָּא מִצַּד הַתּוֹרָה וְזוֹכֵר וּמִשְׁתַּדֵּל בְּרַחֲמִים.",
+      "targetHebrew": "וְרוּגְזָא דְּרַבָּנָן טָב בְּכָל סִטְרִין כְּמוֹ שֶׁכָּתוּב בַּזֹּהַר (חֵלֶק ב, קפב עַמּוּד ב), וְהַיְינוּ כְּמוֹ שֶׁאָמְרוּ בְּתַעֲנִית (ד.): דְּאוֹרַיְיתָא דְּקָא מְרַתְּחָא, פֵּירוּשׁ: כְּשֶׁהַכַּעַס הוּא רַק מַה שֶּׁהַתּוֹרָה מַרְתִּיחָתוֹ, שֶׁעַל פִּי הַתּוֹרָה רָאוּי לִכְעוֹס, כְּעִנְיַן הַסַּנְהֶדְרִין שֶׁדָּנוּ נְפָשׁוֹת, וְאֵין מְמַנִּין בְּסַנְהֶדְרִין זָקֵן וְכוּלֵי (סַנְהֶדְרִין לו:), שֶׁהֵם הָיוּ מְלֵאִים רַחֲמִים בֶּאֱמֶת וּמִשְׁתַּדְּלִים לִמְצוֹא זְכוּת עַל פִּי הַתּוֹרָה, וּרְתִיחָתָם רַק מִצַּד הֶכְרֵחַ הַתּוֹרָה זֶה נִקְרָא רוּגְזָא דְּרַבָּנָן, הָאוֹהֲבֵי הַתּוֹרָה בֶּאֱמֶת, שֶׁגַּם בְּעֵת כַּעֲסוֹ אֵינוֹ אֶלָּא מִצַּד הַתּוֹרָה וְזוֹכֵר וּמִשְׁתַּדֵּל בְּרַחֲמִים.",
       "targetEnglish": "“The anger of sages is good on all sides,” as the Zohar says. This is what Taanit means by “It is the Torah that makes him boil”: the anger is only what the Torah arouses in him, where the Torah calls for anger. It is like the Sanhedrin judging capital cases; they do not appoint an elderly person to the Sanhedrin, and so forth. In truth, they were filled with mercy and sought to find grounds of merit according to Torah. Their ardor arose only from the necessity imposed by the Torah. This is called the anger of sages—those who truly love Torah, whose anger, even when it occurs, comes only from Torah, while they remember mercy and exert themselves in it.",
       "school": "Kisvei Rav Tzadok",
       "explanation": "Tzidkat HaTzadik supplies a demanding criterion for the commanded strength described here. The judge’s necessary firmness does not erase compassion or the effort to find merit; only the Torah’s requirement causes the anger. This explains how the power can belong to upright creation while destructive anger remains evil. It does not make a person’s private feeling of anger proof of a command.",
       "translationProvenance": "English translated directly from the unchanged canonical Hebrew for Akiva Publishing’s complete paragraph review of Peri Tzadik, Chanukah 9–16. The complete originating ois and complete target paragraph were read, with surrounding context where needed. Previously reviewed English is retained only after comparison with the identical Hebrew excerpt. Explanations are editorial comparisons, separate from the translations. Hashes pin the reviewed text; semantic approval rests on the actual reading and comparison.",
-      "reviewedTargetHebrewSha256": "21f01a4505f390c8acdc499d9b8c807642bd8638c6082b15d5d4ca28105b08e8",
-      "reviewed": true
+      "reviewedTargetHebrewSha256": "15e8d298630d6c109a5aed111e750c3c195579a00b0c2bd5c8939951097effe3",
+      "reviewed": true,
+      "reanchoring": {
+        "target": {
+          "edition": "tzidkat-editorial-master-2026-11",
+          "date": "2026-11-02",
+          "previousRef": "Tzidkat HaTzadik 199:1",
+          "previousHebrewSha256": "401c454a44a2ec496a4cb7737969f77f83b3a38c559ad89b357b2fced300aba8",
+          "previousParagraphPin": "21f01a4505f390c8acdc499d9b8c807642bd8638c6082b15d5d4ca28105b08e8",
+          "status": "edited",
+          "wordsChanged": 2,
+          "clippedWords": 0,
+          "note": "The master edition edits 2 word(s) of the reviewed quotation; the English excerpt should be rechecked against the new Hebrew."
+        }
+      }
     },
     {
       "id": "chanukah-15-anger-measured-correction-tiferet-pesach-6",
@@ -1379,13 +1470,26 @@
       "reviewedOriginHebrewSha256": "127c90cb32f992aa787a3e0f0767ce458c66320e55695384cc28eaed9293fba2",
       "reviewedOriginSectionHebrewSha256": "f03c4bd9f1837dd6b6f58b925f43efefbb16a5999096e2e257aaa1ddffbc9156",
       "targetRef": "Tzidkat HaTzadik 108:1",
-      "targetHebrew": "הוֹצָאַת זֶרַע לְבַטָּלָה אָמְרוּ בַּזֹּהַר נֹחַ (סב עַמּוּד א) דְּאֵין מוֹעִיל תְּשׁוּבָה, וְהַיְינוּ כִּי טִפֵּי זֶרַע נִמְשָׁךְ מֵהַמּוֹחַ, וּפָגַם בְּטִפֵּי מוֹחוֹ. וְהַתְּשׁוּבָה הוּא בַּלֵּב כְּמוֹ שֶׁכָּתוּב: \"וּלְבָבוֹ יָבִין וְשָׁב\", וּלְכָךְ אִי אֶפְשָׁר לְתַקֵּן עַל יָדָהּ הַחָכְמָה שֶׁהוּא לְמַעְלָה מִמֶּנָּה. רַק צָרִיךְ תּוֹרָה, שֶׁהוּא נוֹבְלוֹת חָכְמָה שֶׁלְּמַעְלָה כְּמוֹ שֶׁכָּתוּב בִּבְרֵאשִׁית רַבָּה (פָּרָשָׁה יז), וְהִיא גַּם כֵּן בַּמּוֹחַ וְנִקְרָא \"יֵשׁ\" כַּנּוֹדָע, בְּגִימַטְרִיָּא \"קֶרִי\", וּכְמוֹ שֶׁכָּתַבְתִּי בְּמָקוֹם אַחֵר בָּזֶה]. לֵב נִשְׁבָּר – לִהְיוֹת מַמָּשׁ כְּאַיִן, שֶׁהוּא בַּכֶּתֶר כַּנּוֹדָע שֶׁלְּמַעְלָה עוֹד, וְזֶה מוֹעִיל, וּכְמוֹ שֶׁכָּתוּב: \"פְּנֵי ה' בְּעֹשֵׂי רָע\", הוּא עָוֹן זֶה שֶׁנִּקְרָא כֵּן, \"לְהַכְרִית מֵאֶרֶץ וְגוֹמֵר\", כְּמוֹ שֶׁכָּתוּב: \"וְעַמֵּךְ כֻּלָּם צַדִּיקִים לְעוֹלָם יִירְשׁוּ אָרֶץ]\", שֶׁיְּרֻשַּׁת הָאָרֶץ הוּא רַק לַצַּדִּיק דְּהַיְינוּ שׁוֹמֵר הַבְּרִית. וְאָמַר: \"צָעֲקוּ וְגוֹמֵר\" – תְּפִלָּה הוּא עֵצָה נֶגֶד לְהַכְרִית מֵאֶרֶץ [שֶׁהַתְּפִלָּה שָׁרְשָׁהּ בַּמַּלְכוּת שֶׁהִיא אֶרֶץ הָעֶלְיוֹנָה, וּפְגָמוֹ הִגִּיעַ לָהּ כְּעִנְיַן \"ה' צִלְּךָ\", מַמָּשׁ דּוּגְמַת הַצֵּל עוֹשֶׂה מַה שֶּׁהוּא עוֹשֶׂה אִם לְטוֹב אִם לְהֵיפֶךְ חַס וְשָׁלוֹם]; אֲבָל לִהְיוֹת קָרוֹב לַה', הָעֵצָה – שְׁבִירוּת לֵב: \"וְאֶת דַּכְּאֵי רוּחַ וְגוֹמֵר\". וְכֵן נֶאֱמַר בַּמִּזְמוֹר כַּאֲשֶׁר בָּא אֶל בַּת שֶׁבַע, שֶׁנִּתְקַן עַל קִלְקוּל הַבְּרִית [שֶׁהוּא בַּתּוֹלָדָה כְּמוֹ שֶׁכָּתוּב: \"כִּי יֵצֶר וְגוֹמֵר מִנְּעֻרָיו\", לְכָךְ בִּקֵּשׁ \"לֵב טָהוֹר בְּרָא\", וּבְרִיאָה הוּא חֲדָשָׁה עַתָּה תִצְמַח יֵשׁ מֵאַיִן]: \"כִּי לֹא תַחְפֹּץ זֶבַח וְגוֹמֵר\" הַיְינוּ תְּשׁוּבָה, כְּעִנְיַן \"כָּל הַזּוֹבֵחַ יִצְרוֹ וּמִתְוַדֶּה וְכוּלֵי\" (סַנְהֶדְרִין מג רֵישׁ עַמּוּד ב)], \"זִבְחֵי אֱלֹהִים – רוּחַ נִשְׁבָּרָה, לֵב נִשְׁבָּר וְנִדְכֶּה אֱלֹהִים לֹא תִבְזֶה]\":",
+      "targetHebrew": "הוֹצָאַת זֶרַע לְבַטָּלָה אָמְרוּ בַּזֹּהַר נֹחַ (סב עַמּוּד א) דְּאֵין מוֹעִיל תְּשׁוּבָה, וְהַיְינוּ כִּי טִפֵּי זֶרַע נִמְשָׁךְ מֵהַמּוֹחַ, וּפָגַם בְּטִפֵּי מוֹחוֹ. וְהַתְּשׁוּבָה הוּא בַּלֵּב כְּמוֹ שֶׁכָּתוּב: \"וּלְבָבוֹ יָבִין וְשָׁב\", וּלְכָךְ אִי אֶפְשָׁר לְתַקֵּן עַל יָדָהּ הַחָכְמָה שֶׁהוּא לְמַעְלָה מִמֶּנָּה. רַק צָרִיךְ תּוֹרָה, שֶׁהוּא נוֹבְלוֹת חָכְמָה שֶׁלְּמַעְלָה כְּמוֹ שֶׁאָמְרוּ בִּבְרֵאשִׁית רַבָּה (פָּרָשָׁה יז), וְהִיא גַּם כֵּן בַּמּוֹחַ [וְנִקְרָא \"יֵשׁ\" כַּנּוֹדָע, בְּגִימַטְרִיָּא \"קֶרִי\", וּכְמוֹ שֶׁכָּתַבְתִּי בְּמָקוֹם אַחֵר בָּזֶה]. וְלֵב נִשְׁבָּר – לִהְיוֹת מַמָּשׁ כְּאַיִן, שֶׁהוּא בַּכֶּתֶר כַּנּוֹדָע שֶׁלְּמַעְלָה עוֹד, וְזֶה מוֹעִיל, וּכְמוֹ שֶׁכָּתוּב: \"פְּנֵי ה' בְּעֹשֵׂי רָע\", הוּא עָוֹן זֶה שֶׁנִּקְרָא כֵּן, \"לְהַכְרִית מֵאֶרֶץ וְגוֹמֵר\", כְּמוֹ שֶׁכָּתוּב: \"וְעַמֵּךְ כֻּלָּם צַדִּיקִים לְעוֹלָם יִירְשׁוּ אָרֶץ\", שֶׁיְּרֻשַּׁת הָאָרֶץ הוּא רַק לַצַּדִּיק דְּהַיְינוּ שׁוֹמֵר הַבְּרִית. וְאָמַר: \"צָעֲקוּ וְגוֹמֵר\" – תְּפִלָּה הוּא עֵצָה נֶגֶד לְהַכְרִית מֵאֶרֶץ [שֶׁהַתְּפִלָּה שָׁרְשָׁהּ בַּמַּלְכוּת שֶׁהִיא אֶרֶץ הָעֶלְיוֹנָה, וּפְגָמוֹ הִגִּיעַ לָהּ כְּעִנְיַן \"ה' צִלְּךָ\", מַמָּשׁ דּוּגְמַת הַצֵּל עוֹשֶׂה מַה שֶּׁהוּא עוֹשֶׂה אִם לְטוֹב אִם לְהֵיפֶךְ חַס וְשָׁלוֹם]; אֲבָל לִהְיוֹת קָרוֹב לַה', הָעֵצָה – שְׁבִירוּת לֵב: \"וְאֶת דַּכְּאֵי רוּחַ וְגוֹמֵר\". וְכֵן נֶאֱמַר בַּמִּזְמוֹר כַּאֲשֶׁר בָּא אֶל בַּת שֶׁבַע, שֶׁנִּתְקַן עַל קִלְקוּל הַבְּרִית [שֶׁהוּא בַּתּוֹלָדָה כְּמוֹ שֶׁכָּתוּב: \"כִּי יֵצֶר וְגוֹמֵר מִנְּעֻרָיו\", לְכָךְ בִּקֵּשׁ \"לֵב טָהוֹר בְּרָא\", וּבְרִיאָה הוּא חֲדָשָׁה עַתָּה תִצְמַח יֵשׁ מֵאַיִן] \"כִּי לֹא תַחְפֹּץ זֶבַח וְגוֹמֵר\" [הַיְינוּ תְּשׁוּבָה, כְּעִנְיַן \"כָּל הַזּוֹבֵחַ יִצְרוֹ וּמִתְוַדֶּה וְכוּלֵי\" (סַנְהֶדְרִין מג רֵישׁ עַמּוּד ב)], \"זִבְחֵי אֱלֹהִים – רוּחַ נִשְׁבָּרָה, לֵב נִשְׁבָּר וְנִדְכֶּה אֱלֹהִים לֹא תִבְזֶה\":",
       "targetEnglish": "Concerning emission of seed in vain, the Zohar in Noach says that repentance does not help. This is because the drops of seed are drawn from the brain, and the person has damaged the drops of his brain. Repentance is in the heart, as it says, “His heart will understand, and he will return”; therefore it cannot repair the wisdom that is above it. Torah is needed, for it is the fallen portion of the upper wisdom, as Bereishit Rabbah says. It too is in the brain and is called yesh, “existence,” whose numerical value equals keri, “emission,” as I have written elsewhere. A broken heart—becoming truly like nothing—belongs, as is known, to the crown, which is higher still, and this helps. Thus “The face of the Lord is against those who do evil” refers to this sin, which is called evil, “to cut off their remembrance from the land.” Likewise, “Your people are all righteous; they shall inherit the land forever”: inheritance of the land is only for the righteous, meaning one who guards the covenant. It then says, “They cried out”: prayer is counsel against being cut off from the land. (Prayer is rooted in kingship, the upper land, which his damage reached, in the sense of “The Lord is your shadow”: like a shadow, it does what he does, whether for good or, Heaven forbid, the reverse.) But to become close to God, the counsel is a broken heart: “Those crushed in spirit He saves.” The psalm composed when he came to Bathsheba likewise concerns repair of damage to the covenant. (This is present from birth, as in “The inclination ... from his youth”; therefore he requested, “Create for me a pure heart.” Creation is something new, springing forth now, existence from nothing.) “For You do not desire a sacrifice” means repentance, in the sense of “Whoever sacrifices his inclination and confesses.” “The sacrifices of God are a broken spirit; a broken and crushed heart, God, You will not despise.”",
       "school": "Kisvei Rav Tzadok",
       "explanation": "Tzidkat HaTzadik explains why brokenness is an effective response to the very failure under discussion. It distinguishes ordinary repentance in the heart, Torah’s repair of wisdom, prayer against exclusion, and the deeper humility that restores closeness. Reading its entire argument prevents the opening Zohar citation from being isolated as a denial of every path of return. This gives substance to the origin’s confidence in a heart that has begun to turn but is not yet fully refined.",
       "translationProvenance": "English translated directly from the unchanged canonical Hebrew for Akiva Publishing’s complete paragraph review of Peri Tzadik, Chanukah 9–16. The complete originating ois and complete target paragraph were read, with surrounding context where needed. Previously reviewed English is retained only after comparison with the identical Hebrew excerpt. Explanations are editorial comparisons, separate from the translations. Hashes pin the reviewed text; semantic approval rests on the actual reading and comparison.",
-      "reviewedTargetHebrewSha256": "6d165c5a27580c15bfb984d12739f544b8ac29d6e66ad7612863ce3edf032aa6",
-      "reviewed": true
+      "reviewedTargetHebrewSha256": "44108080b52728494968ad9e2305db59c31e6ee177be339596a759a124262b5d",
+      "reviewed": true,
+      "reanchoring": {
+        "target": {
+          "edition": "tzidkat-editorial-master-2026-11",
+          "date": "2026-11-02",
+          "previousRef": "Tzidkat HaTzadik 108:1",
+          "previousHebrewSha256": "b50ab67d2840c647ade62a3a7970dc21b9c305d9d15ee5618acc50977ea17e5c",
+          "previousParagraphPin": "6d165c5a27580c15bfb984d12739f544b8ac29d6e66ad7612863ce3edf032aa6",
+          "status": "edited",
+          "wordsChanged": 4,
+          "clippedWords": 0,
+          "note": "The master edition edits 4 word(s) of the reviewed quotation; the English excerpt should be rechecked against the new Hebrew."
+        }
+      }
     },
     {
       "id": "chanukah-16-accepted-return-finite-person-tiferet-taanit-10",
@@ -1415,13 +1519,26 @@
       "reviewedOriginHebrewSha256": "4e8e2dea449e9254de559fe86ed8d4fb8d05b4c9da36baa3832de13f10b9c5b2",
       "reviewedOriginSectionHebrewSha256": "f03c4bd9f1837dd6b6f58b925f43efefbb16a5999096e2e257aaa1ddffbc9156",
       "targetRef": "Tzidkat HaTzadik 225:1",
-      "targetHebrew": "דִּבְרֵי תוֹרָה שֶׁעוֹבְרִים דֶּרֶךְ הַלֵּב – פֵּירוּשׁ שֶׁהַלֵּב מַרְגִּישׁ וּמִתְפַּעֵל בָּהֶם – הוּא נִקְרָא \"עֵץ חַיִּים\" וְסַמָּא דְּחַיֵּי. כִּי הַלֵּב מְקוֹר הַחַיּוּת, כְּמוֹ שֶׁכָּתוּב: \"כִּי מִמֶּנּוּ תּוֹצְאוֹת חַיִּים\" (מִשְׁלֵי ד, כג), וְכַאֲשֶׁר הוּא מִתְפַּעֵל, הֲרֵי שׁוֹרֶשׁ חַיּוּתוֹ מִתְפַּעֵל עַל יְדֵי הַדִּבְרֵי תוֹרָה וּמוֹלִידָה חַיּוּת בָּאָדָם. וְזֶהוּ עַל יְדֵי שֶׁיִּרְאַת חֶטְאוֹ קוֹדֶמֶת לְחָכְמָתוֹ, כִּי הַיִּרְאָה בַּלֵּב כְּמַאֲמַר רַבּוֹתֵינוּ זִכְרוֹנָם לִבְרָכָה (יוֹמָא עב:) עַל פָּסוּק \"וְלֶב אָיִן\", וְיִרְאָה נוּקְבָא וְתוֹרַת אֱמֶת דְּכַר לְהַשְׁלִים וּלְשַׂמֵּחַ הַלֵּב, כְּמוֹ שֶׁכָּתוּב: \"פִּקּוּדֵי ה' יְשָׁרִים מְשַׂמְּחֵי לֵב]\" (תְּהִלִּים יט, ט), אַחַר הַיִּרְאָה הַמּוֹלֶדֶת לֵב נִשְׁבָּר וְעַצְבוּת.",
+      "targetHebrew": "דִּבְרֵי תוֹרָה שֶׁעוֹבְרִים דֶּרֶךְ הַלֵּב – פֵּירוּשׁ שֶׁהַלֵּב מַרְגִּישׁ וּמִתְפַּעֵל בָּהֶם – הוּא נִקְרָא \"עֵץ חַיִּים\" וְסַמָּא דְּחַיֵּי. כִּי הַלֵּב מְקוֹר הַחַיּוּת, כְּמוֹ שֶׁכָּתוּב: \"כִּי מִמֶּנּוּ תּוֹצְאוֹת חַיִּים\" (מִשְׁלֵי ד, כג), וְכַאֲשֶׁר הוּא מִתְפַּעֵל, הֲרֵי שׁוֹרֶשׁ חַיּוּתוֹ מִתְפַּעֵל עַל יְדֵי הַדִּבְרֵי תוֹרָה וּמוֹלִידָה חַיּוּת בָּאָדָם. וְזֶהוּ עַל יְדֵי שֶׁיִּרְאַת חֶטְאוֹ קוֹדֶמֶת לְחָכְמָתוֹ, כִּי הַיִּרְאָה בַּלֵּב כְּמַאֲמַר רַבּוֹתֵינוּ זִכְרוֹנָם לִבְרָכָה (יוֹמָא עב:) עַל פָּסוּק \"וְלֶב אָיִן\", וְיִרְאָה נוּקְבָא וְתוֹרַת אֱמֶת דְּכַר לְהַשְׁלִים וּלְשַׂמֵּחַ הַלֵּב, כְּמוֹ שֶׁכָּתוּב: \"פִּקּוּדֵי [ה' יְשָׁרִים מְשַׂמְּחֵי לֵב]\" (תְּהִלִּים יט, ט), אַחַר הַיִּרְאָה הַמּוֹלֶדֶת לֵב נִשְׁבָּר וְעַצְבוּת.",
       "targetEnglish": "Words of Torah that pass through the heart—that is, the heart feels them and is affected by them—are called “a tree of life” and a medicine of life. The heart is the source of vitality, as it says, “From it are the outgoings of life”; when it is affected, the very root of the person’s life is affected by the words of Torah, and they generate life within him. This happens when his fear of sin precedes his wisdom. Fear is in the heart, as the sages explain concerning “but there is no heart.” Fear is the feminine aspect, while the Torah of truth is the masculine aspect, completing and gladdening the heart, as it says, “The precepts of the Lord are upright, gladdening the heart,” after the fear that produces a broken heart and sadness.",
       "school": "Kisvei Rav Tzadok",
       "explanation": "Tzidkat HaTzadik explains the order behind the requirement of humility: fear first makes the person conscious of a lack, and Torah can then complete and gladden that very heart. Its description of Torah as felt within the source of life clarifies what it means for Oral Torah to endure and repair. The broken heart is a receptive beginning, rather than the final condition the teaching seeks to preserve.",
       "translationProvenance": "English translated directly from the unchanged canonical Hebrew for Akiva Publishing’s complete paragraph review of Peri Tzadik, Chanukah 9–16. The complete originating ois and complete target paragraph were read, with surrounding context where needed. Previously reviewed English is retained only after comparison with the identical Hebrew excerpt. Explanations are editorial comparisons, separate from the translations. Hashes pin the reviewed text; semantic approval rests on the actual reading and comparison.",
-      "reviewedTargetHebrewSha256": "6d71374a1240e4350dd7cb82569106d03d20c9476f325e816b7997c7c1473ee3",
-      "reviewed": true
+      "reviewedTargetHebrewSha256": "477b187793cf0240818230386119a1dc7128cd8cf2a113d342d2156e06bd04c6",
+      "reviewed": true,
+      "reanchoring": {
+        "target": {
+          "edition": "tzidkat-editorial-master-2026-11",
+          "date": "2026-11-02",
+          "previousRef": "Tzidkat HaTzadik 225:1",
+          "previousHebrewSha256": "9f72cd6bc680fb2ca0cdc7e2661324f6e1e75c0a1d8a3c0b3c64a5d59d18f2de",
+          "previousParagraphPin": "6d71374a1240e4350dd7cb82569106d03d20c9476f325e816b7997c7c1473ee3",
+          "status": "exact",
+          "wordsChanged": 0,
+          "clippedWords": 0,
+          "note": "Quotation words unchanged; vocalization, punctuation and paragraph numbering follow the Complete Editorial Master."
+        }
+      }
     },
     {
       "id": "chanukah-16-understanding-guides-action-resisei-12",
@@ -1468,14 +1585,27 @@
       "themeSummary": "The ois explains why Judah can be the root of Oral Torah even where his depth does not yield the ruling followed in practice. Issachar’s understanding of times then appears as a related, distinct capacity.",
       "reviewedOriginHebrewSha256": "5ffa2af5f861fd09f2859239adf1bf806fa1b1a0819cd6887ee2e363578c995e",
       "reviewedOriginSectionHebrewSha256": "f03c4bd9f1837dd6b6f58b925f43efefbb16a5999096e2e257aaa1ddffbc9156",
-      "targetRef": "Tzidkat HaTzadik 198:1",
+      "targetRef": "Tzidkat HaTzadik 198:2",
       "targetHebrew": "וְאָמְרוּ בִּמְגִילָּה (יג.): כָּל הַכּוֹפֵר בַּעֲבוֹדָה זָרָה נִקְרָא \"יְהוּדִי\", לָכֵן אָמְרוּ שָׁם בְּיוֹמָא דְּגַם בּוֹ נֶאֱמַר: \"יְהוּדָה מְחֹקְקִי\" (תְּהִלִּים ס, ט), רַק דְּלָא מַסִּיק וְכוּלֵי. דְּוַדַּאי הַמִּשְׁפָּט מִדָּה כְּנֶגֶד מִדָּה: הַשֵּׁם יִתְבָּרַךְ מְגַלֶּה לוֹ סְתָרָיו, אֶלָּא דְּזֶה אֵינוֹ אַלִּיבָּא דְּהִלְכְתָא, פֵּירוּשׁ לְשׁוֹן \"הֲלָכָה\" הַיְינוּ מִלְּשׁוֹן הַכָּתוּב \"זֶה הַדֶּרֶךְ לְכוּ בוֹ\" (יְשַׁעְיָה ל, כא). וּלְעִנְיַן הַנְהָגַת הָעוֹלָם אָמְרוּ בְּבָבָא מְצִיעָא (נט:): \"לֹא בַשָּׁמַיִם הִוא\", וְאֵין מַשְׁגִּיחִין בְּבַת קוֹל; (וְשָׁם פו.) נֶחְלְקוּ בִּמְתִיבְתָּא דִּרְקִיעָא: הַקָּדוֹשׁ בָּרוּךְ הוּא אוֹמֵר וְכוּלֵי, כִּי תּוֹרָה שֶׁבִּכְתָב מִן הַשָּׁמַיִם נִקְרָא: חֻקָּה חָקַקְתִּי, גְּזֵירָה גָּזַרְתִּי וְכוּלֵי. וְכֵן הַבְּרִיאָה דְּהוּא מַעֲשֵׂה הַקָּדוֹשׁ בָּרוּךְ הוּא נִקְרָא \"חֻקּוֹת שָׁמַיִם וָאָרֶץ\", וְכֵן \"יְהוּדָה מְחֹקְקִי\" נִתְגַּלּוּ לוֹ חוּקּוֹת הַקָּדוֹשׁ בָּרוּךְ הוּא;",
       "targetEnglish": "They said in Megillah: anyone who rejects idolatry is called a Jew. Therefore they said there in Yoma that “Judah is My lawgiver” applies to him too, except that he does not bring the discussion to its conclusion. Certainly the judgment is measure for measure: God reveals His secrets to him. But this is not the halakhic conclusion. The word halakhah comes from “This is the way; walk in it.” Concerning the conduct of the world they said, “It is not in Heaven,” and a heavenly voice is not taken into account. Elsewhere, the heavenly academy disputes a matter, and the Holy One, blessed be He, says one view. Written Torah, which comes from Heaven, is called “I have enacted a statute; I have issued a decree.” Creation, God’s work, is likewise called “the statutes of heaven and earth.” Similarly, “Judah is My lawgiver” means that the statutes of the Holy One, blessed be He, were revealed to him.",
       "school": "Kisvei Rav Tzadok",
       "explanation": "Tzidkat HaTzadik separates revealed depth from halakhah as the way people are to walk in the world. This explains the tension in the origin without treating the absence of a practical ruling as absence of holiness, or treating hidden depth as an independent ruling for others. The complete target further distinguishes Issachar’s sensitivity to a particular time, person, and place from the general wisdom of Torah.",
       "translationProvenance": "English translated directly from the unchanged canonical Hebrew for Akiva Publishing’s complete paragraph review of Peri Tzadik, Chanukah 9–16. The complete originating ois and complete target paragraph were read, with surrounding context where needed. Previously reviewed English is retained only after comparison with the identical Hebrew excerpt. Explanations are editorial comparisons, separate from the translations. Hashes pin the reviewed text; semantic approval rests on the actual reading and comparison.",
-      "reviewedTargetHebrewSha256": "0853ba8752079837fce10672f214e869dcc896d027626a5605f3f42ba45ac85b",
-      "reviewed": true
+      "reviewedTargetHebrewSha256": "e85415510db7d77862beb5a59d8acd0d7f98272d3c1952378555c302d5c0d4b4",
+      "reviewed": true,
+      "reanchoring": {
+        "target": {
+          "edition": "tzidkat-editorial-master-2026-11",
+          "date": "2026-11-02",
+          "previousRef": "Tzidkat HaTzadik 198:1",
+          "previousHebrewSha256": "d58e8894f72b38e1e950296c6e07ab7a2296025b415e433cbca8f7d2def8888c",
+          "previousParagraphPin": "0853ba8752079837fce10672f214e869dcc896d027626a5605f3f42ba45ac85b",
+          "status": "exact",
+          "wordsChanged": 0,
+          "clippedWords": 0,
+          "note": "Quotation words unchanged; vocalization, punctuation and paragraph numbering follow the Complete Editorial Master."
+        }
+      }
     },
     {
       "id": "chanukah-16-reuben-restored-capacity-sod-simchat-44",

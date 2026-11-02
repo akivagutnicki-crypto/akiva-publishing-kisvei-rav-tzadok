@@ -26,9 +26,9 @@ for(const section of source.sections){
    assert.equal(textOf(pair[0]).slice(0,note.heCharOffset),note.heAnchorPrefix,'Wrong Hebrew boundary '+note.placementId);
    assert.equal(textOf(pair[1]).slice(0,note.enCharOffset),note.enAnchorPrefix,'Wrong English boundary '+note.placementId);
    assert.ok(note.heCharOffset>0&&note.enCharOffset>0);
-   assert.ok(!/[א-ת]/.test(note.paragraphs[0].text),'Footnote translation must be English');
+   if(!note.kind)assert.ok(!/[א-ת]/.test(note.paragraphs[0].text),'Footnote translation must be English');
    for(const p of note.paragraphs)assert.equal(p.rich.map(r=>r.text).join(''),p.text,'Truncated rich text '+note.sourceId);
-   assert.ok(note.sources.length);
+   assert.ok(note.sources.length||note.nativeConnections?.length||note.crossReference||note.kind&&note.kind!=='source','Note without a source or connection '+note.sourceId);
    for(const s of note.sources){
     assert.ok(/^https:\/\/www\.sefaria\.org\//.test(s.url));
     assert.ok(s.connectionsUrl.includes('?with=all'));
@@ -36,7 +36,7 @@ for(const section of source.sections){
    }
    if(numbers.has(note.sourceId))assert.equal(numbers.get(note.sourceId),note.number);
    numbers.set(note.sourceId,note.number);
-   if(note.verificationStatus.includes('requires collation'))pending.add(note.sourceId);
+   if(String(note.verificationStatus||'').includes('requires collation'))pending.add(note.sourceId);
    if(note.crossReference?.placementId)assert.match(note.crossReference.placementId,/^TZ-\d{4}-\d+$/);
   }
  }

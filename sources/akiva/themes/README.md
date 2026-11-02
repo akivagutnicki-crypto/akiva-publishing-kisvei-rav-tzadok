@@ -55,3 +55,16 @@ Retain rejected-candidate notes outside the approved JSON inputs so they do not 
 The shared source viewer requests **Metsudah Chumash** for the five books of the Torah, **The Koren Jerusalem Bible** for the remaining Tanach, and the verified **Metsudah Rashi** editions wherever available. Exact version titles and availability evidence are in `source-editions.js` and `sources/akiva/source-editions/availability-20261019.json`. An unavailable preferred edition must be identified as unavailable rather than silently replaced by JPS. This source-viewer preference does not rewrite a sefer’s canonical text or previously published notes.
 
 Publish these features through the existing GitHub Pages workflow. The user has expressly rejected adding Netlify or a new monthly service. Editorial generation and review happen before publication; the reader consumes the verified static catalog without a paid inference gateway.
+
+## Re-anchoring after a canonical edition is replaced (Tzidkat HaTzadik, November 2026)
+
+When a sefer's canonical text is replaced by a new edition (the Tzidkat HaTzadik Complete Editorial Master,
+`editionId: tzidkat-editorial-master-2026-11`), the pins of every record that quotes it stop matching although the
+reviewed thought is unchanged. `scripts/reanchor-tzidkat-themes.mjs` relocates each quotation in the new edition
+(vocalization- and punctuation-insensitive, tolerating the few words the master edits, following the new paragraph
+division), rewrites the ref, the Hebrew excerpt and the pins, and records what happened in the record's `reanchoring`
+field (`exact`, `edited` with the number of changed words, or `recut` when the master divides the siman inside the
+quotation and the excerpt was re-cut to whole interlinear phrases with the master's English). This is a mechanical
+relocation of an already reviewed excerpt, not a new review: `edited` and `recut` records are listed in
+`editorial/tzidkat-editorial-master-2026-11/connected-ideas-reanchoring.json` for an editorial reread of the English
+excerpt and the explanation. The builder ignores the `reanchoring` field.

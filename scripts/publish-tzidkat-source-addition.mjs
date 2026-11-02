@@ -1,3 +1,13 @@
+import __fs from 'node:fs';
+import __path from 'node:path';
+import {fileURLToPath as __fileURLToPath} from 'node:url';
+// Retired layer: skip only when this file is the entry point. Modules that import helpers from it keep working.
+try {
+  const __edition = JSON.parse(__fs.readFileSync('sources/akiva/Tzidkat_HaTzadik.json', 'utf8')).editionId;
+  if (__edition === 'tzidkat-editorial-master-2026-11' && process.argv[1] && __path.resolve(process.argv[1]) === __fileURLToPath(import.meta.url)) {
+    console.log('skipped: Tzidkat HaTzadik is the editorial master edition; this legacy layer is retired'); process.exit(0);
+  }
+} catch {}
 // Prepare and apply exactly one independently reviewed source note, without
 // altering the 18 immutable batch packs/reports or any existing author/note text.
 import assert from 'node:assert/strict';

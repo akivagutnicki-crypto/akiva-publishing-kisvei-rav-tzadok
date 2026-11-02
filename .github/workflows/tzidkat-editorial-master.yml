@@ -1,0 +1,136 @@
+name: Publish Tzidkat HaTzadik editorial master (book only)
+
+# Publishes the Complete Editorial Master edition of Tzidkat HaTzadik over the exact current Pages
+# artifact. Only the Tzidkat chapter data, its TOC/links/MCP text, the citation reverse indexes it
+# touches, the offline manifest and the two cache markers change; every other sefer is preserved
+# byte for byte. Trigger with the commit tag [tzidkat-editorial-master] or workflow_dispatch.
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+  deployments: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: ${{ (github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[tzidkat-editorial-master]'))) && 'pages' || format('tzidkat-master-skipped-{0}', github.run_id) }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: ${{ github.repository == 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok' && github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[tzidkat-editorial-master]')) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    env:
+      NEW_BOOKS_SITE: .tzidkat-site
+    steps:
+      - name: Checkout reader source and the editorial master edition
+        uses: actions/checkout@v6
+
+      - name: Set up Node 24
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+
+      - name: Validate the editorial master source (264 simanim, 4,407 anchored notes)
+        run: node scripts/publish-tzidkat-editorial-master.mjs --check-pack
+
+      - name: Build the fresh Tzidkat data with the canonical library builder
+        run: |
+          node scripts/import-mei-vayera-bo.mjs
+          node scripts/build-library.mjs
+          node scripts/build-mcp-index.mjs
+          node scripts/build-parallels.mjs
+          rm -rf .tzidkat-build && mv dist .tzidkat-build
+          git checkout -- dist
+
+      - name: Identify the currently published complete Pages artifact
+        id: baseline
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/new-books-release.py metadata
+
+      - name: Download the exact current site without rebuilding the other seforim
+        uses: actions/download-artifact@v4
+        with:
+          artifact-ids: ${{ steps.baseline.outputs.artifact }}
+          run-id: ${{ steps.baseline.outputs.run }}
+          repository: akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/tzidkat-baseline
+          merge-multiple: true
+
+      - name: Safely restore every published book and site file
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PY'
+          import os,pathlib,tarfile
+          root=pathlib.Path('.tzidkat-site').resolve()
+          root.mkdir(exist_ok=True)
+          archive=pathlib.Path(os.environ['RUNNER_TEMP'])/'tzidkat-baseline/artifact.tar'
+          assert archive.is_file(), 'Missing complete Pages archive'
+          with tarfile.open(archive,'r:') as source:
+              members=source.getmembers()
+              for member in members:
+                  target=(root/member.name).resolve()
+                  assert target==root or root in target.parents, 'Path outside site'
+                  assert member.isdir() or member.isfile(), 'Unsafe archive entry'
+              source.extractall(root,members=members,filter='data')
+          PY
+          python3 scripts/new-books-release.py capture
+
+      - name: Replace only Tzidkat HaTzadik with the editorial master edition
+        run: |
+          node scripts/publish-tzidkat-editorial-master.mjs --apply .tzidkat-site .tzidkat-build
+          node scripts/publish-tzidkat-editorial-master.mjs --finalize .tzidkat-site
+          node scripts/publish-tzidkat-editorial-master.mjs --verify .tzidkat-site .tzidkat-build
+          node --check .tzidkat-site/library/sw.js
+
+      - name: Recheck original live site and main branch before artifact upload
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/new-books-release.py guard
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload complete preserved site with only the Tzidkat replacement
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: .tzidkat-site
+          retention-days: 14
+
+      - name: Recheck main and latest publication before deployment
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/new-books-release.py guard
+
+      - name: Publish the Tzidkat HaTzadik editorial master
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Verify exact public bytes of all changed reader files
+        run: node scripts/publish-tzidkat-editorial-master.mjs --live .tzidkat-site
+
+      - name: Save release and preservation verification
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: tzidkat-editorial-master-verification
+          retention-days: 90
+          if-no-files-found: warn
+          path: |
+            new-books-publication.json
+            new-books-baseline.json
+            tzidkat-editorial-master-stage.json
+            artifacts/tzidkat-editorial-master/
+            .tzidkat-site/library/tzidkat-editorial-master-20261102.json

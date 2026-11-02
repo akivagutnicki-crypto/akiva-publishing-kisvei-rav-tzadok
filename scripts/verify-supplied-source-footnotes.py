@@ -884,6 +884,14 @@ def verify(args):
     check(SHA_PATTERN.fullmatch(PAYLOAD_SHA256) is not None, 'Final source-quotation payload has not been pinned')
     check(sha(compressed) == PAYLOAD_SHA256, 'Immutable supplied source-quotation package changed')
     payload = json.loads(gzip.decompress(compressed))
+    # The Tzidkat HaTzadik editorial master edition supersedes the historical Tzidkat quotation patches.
+    try:
+        _tz_master = json.load(open('sources/akiva/Tzidkat_HaTzadik.json', encoding='utf-8')).get('editionId') == 'tzidkat-editorial-master-2026-11'
+    except FileNotFoundError:
+        _tz_master = False
+    if _tz_master:
+        payload['files'] = [_e for _e in payload['files'] if not _e['path'].startswith('data/tzidkat-hatzadik/')]
+        payload['books'] = [_b for _b in payload['books'] if _b != 'tzidkat-hatzadik']
     check(payload.get('schemaVersion') == 1 and payload.get('release') == RELEASE, 'Unknown supplied source edition')
     check(set(payload['books']) == BOOKS and set(payload['excludedBooks']) == EXCLUDED, 'Source release book scope changed')
     check(payload['matchedNotes'] == 25904, 'Expected all 25,904 supplied source-note matches')
