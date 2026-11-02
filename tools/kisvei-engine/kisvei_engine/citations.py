@@ -12,6 +12,7 @@ Handles the citation styles of the Lublin/Har Bracha printings and of Rav Tzadok
 Also finds the work names Rav Tzadok invokes without a locator (e.g. "כמו שכתב הרמב"ם", "בזוה"ק") as weak leads.
 """
 import re
+from .sefaria import plausible
 from .hebrew import gematria_number, strip_nikkud, GERESH, GERSHAYIM
 
 BAVLI = {
@@ -87,8 +88,13 @@ NUM = f'[א-ת]{{1,3}}(?:{Q}[א-ת]{{1,2}})?{Q}?'  # Hebrew numeral with optiona
 NUM_RE = re.compile(NUM)
 
 
+NOT_NUMERALS = {'שם', 'שמ'}  # "שם" (ibid.) would otherwise read as 340
+
+
 def num(s):
     s = s.replace(GERSHAYIM, '"').replace(GERESH, "'")
+    if s.strip('"\'') in NOT_NUMERALS:
+        return None
     return gematria_number(s)
 
 
@@ -214,6 +220,7 @@ def detect(text):
     for m in WORK_RE.finditer(t):
         if free(*m.span()):
             found.append({'kind': 'work-mention', 'text': m.group(0), 'ref': None, 'work': WORK_MENTIONS[m.group(1)], 'span': m.span(), 'confidence': 0.3})
+    found = [f for f in found if not f.get('ref') or plausible(f['ref'])]
     found.sort(key=lambda x: x['span'][0])
     return found
 

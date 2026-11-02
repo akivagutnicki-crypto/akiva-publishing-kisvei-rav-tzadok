@@ -203,6 +203,33 @@ def extract(mcp_dir, library_books=(), books=TRUSTED_SLUGS):
     return records
 
 
+TRAINING_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'training')
+
+
+def extra_records(mcp_dir, training_dir=TRAINING_DIR):
+    """Derived records from outside editions (e.g. Biur Meshulav on Tzidkat), anchored to the reader's own phrases."""
+    out = []
+    if not os.path.isdir(training_dir):
+        return out
+    texts = {}
+    for f in sorted(os.listdir(training_dir)):
+        if not f.endswith('.json'):
+            continue
+        d = json.load(open(os.path.join(training_dir, f), encoding='utf-8'))
+        slug = d['book']
+        if slug not in texts:
+            texts[slug] = {p['r']: p for p in json.load(open(os.path.join(mcp_dir, 'text', slug + '.json'), encoding='utf-8'))['paras']}
+        for r in d['records']:
+            p = texts[slug].get(r['para'])
+            if p is None or r.get('phrase') is None or not p.get('p'):
+                continue
+            pair = p['p'][r['phrase']]
+            out.append({'book': slug, 'para': r['para'], 'note': None, 'part': 0, 'phrase': r['phrase'], 'anchorHe': pair[0],
+                        'anchorEn': pair[1], 'ref': r['ref'], 'refs': [r['ref']], 'linked': False, 'kind': r['kind'],
+                        'quote': '', 'context': '', 'headline': '', 'text': '', 'origin': d['origin']})
+    return out
+
+
 class SourceMemory:
     """Hebrew anchor wording -> sources the editors attached to it, with their quotes and context."""
 
@@ -283,7 +310,7 @@ def evaluate(records, detect=None):
     mem = SourceMemory(records)
     by_book = defaultdict(list)
     for r in mem.records:
-        if r['kind'] == 'source':
+        if r['kind'] == 'source' and not r.get('origin'):  # score only the reader's own footnotes
             by_book[r['book']].append(r)
     totals = Counter()
     per_book = {}

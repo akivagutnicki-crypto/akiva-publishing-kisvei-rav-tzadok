@@ -153,9 +153,15 @@ def footnote_pairs(index, mcp_dir=None):
     raw = {(a, b) for a, targets in index.gold.items() for b in targets}
     if mcp_dir:
         from .footnote_memory import extract
+        from .footnote_memory import extra_records, TRAINING_DIR
         for r in extract(mcp_dir, ParallelIndex.LIBRARY_BOOKS):
             if r['kind'] == 'parallel' and r.get('ref'):
                 raw.add((r['para'], r['ref']))
+        for f in (os.listdir(TRAINING_DIR) if os.path.isdir(TRAINING_DIR) else []):
+            if f.endswith('.json'):  # outside elucidations: siman-level cross-references count too
+                for r in json.load(open(os.path.join(TRAINING_DIR, f), encoding='utf-8'))['records']:
+                    if r['kind'] == 'parallel':
+                        raw.add((r['para'] if r.get('phrase') is not None else r['para'] + ':1', r['ref']))
     pairs = set()
     for a, b in raw:
         if a not in index.paras:
@@ -180,9 +186,11 @@ def main(mcp_dir, connections_path, out_path, repo=None):
     print('paragraphs', index.N, 'reviewed gold pairs', len(reviewed), 'footnote gold pairs', len(foot))
     train_r, test_r = _split(reviewed, 11)
     train_f, test_f = _split(foot, 12)
-    train_f = train_f[:int(os.environ.get('KISVEI_MAX_FOOTNOTE_TRAIN', '4000'))]  # bounds training time
+    train_f = train_f[:int(os.environ.get('KISVEI_MAX_FOOTNOTE_TRAIN', '1500'))]  # bounds training time
     train, test = train_r + train_f, test_r + test_f
+    import time; t0 = time.time()
     D = pairwise_dataset(index, train)
+    print('dataset built in', round(time.time() - t0), 's', flush=True)
     print('pairwise differences', D.shape)
     weights = fit_pairwise(D)
     print('weights', json.dumps(weights, indent=1))
@@ -195,7 +203,10 @@ def main(mcp_dir, connections_path, out_path, repo=None):
             pass
     results = {}
     for name, w in candidates.items():
-        results[name] = {'all': evaluate(index, test, w, sample=600), 'reviewed': evaluate(index, test_r, w), 'footnotes': evaluate(index, test_f, w)}
+        rv, ft = evaluate(index, test_r, w), evaluate(index, test_f, w, sample=250)
+        n = rv['queries'] + ft['queries']
+        both = {'queries': n, **{k: round((rv[k] * rv['queries'] + ft[k] * ft['queries']) / n, 3) for k in rv if k != 'queries'}}
+        results[name] = {'all': both, 'reviewed': rv, 'footnotes': ft}
         for part, r in results[name].items():
             print(f'{name} weights, {part} test:', r)
     rank = lambda n: (results[n]['all']['recall@10'], results[n]['all']['recall@20'], results[n]['all']['recall@5'])  # noqa: E731

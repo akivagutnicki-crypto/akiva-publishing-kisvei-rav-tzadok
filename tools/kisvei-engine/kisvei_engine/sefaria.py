@@ -156,3 +156,31 @@ if __name__ == '__main__':
         n = normalize_ref(t)
         print(t, '->', n, '|', sefaria_url(n), '|', dotted_data_ref(n))
     print('table sizes', {k: len(v) for k, v in z.table.items()})
+
+
+# Last daf of each Bavli tractate and chapter count of each Tanakh book: impossible refs (usually a
+# misread numeral such as "שם" read as 340) are rejected by the citation detector.
+LAST_DAF = {'Berakhot': 64, 'Shabbat': 157, 'Eruvin': 105, 'Pesachim': 121, 'Shekalim': 22, 'Yoma': 88, 'Sukkah': 56, 'Beitzah': 40,
+            'Rosh Hashanah': 35, 'Taanit': 31, 'Megillah': 32, 'Moed Katan': 29, 'Chagigah': 27, 'Yevamot': 122, 'Ketubot': 112,
+            'Nedarim': 91, 'Nazir': 66, 'Sotah': 49, 'Gittin': 90, 'Kiddushin': 82, 'Bava Kamma': 119, 'Bava Metzia': 119,
+            'Bava Batra': 176, 'Sanhedrin': 113, 'Makkot': 24, 'Shevuot': 49, 'Avodah Zarah': 76, 'Horayot': 14, 'Zevachim': 120,
+            'Menachot': 110, 'Chullin': 142, 'Bekhorot': 61, 'Arakhin': 34, 'Temurah': 34, 'Keritot': 28, 'Meilah': 22, 'Tamid': 33,
+            'Niddah': 73}
+CHAPTERS = {'Genesis': 50, 'Exodus': 40, 'Leviticus': 27, 'Numbers': 36, 'Deuteronomy': 34, 'Joshua': 24, 'Judges': 21, 'I Samuel': 31,
+            'II Samuel': 24, 'I Kings': 22, 'II Kings': 25, 'Isaiah': 66, 'Jeremiah': 52, 'Ezekiel': 48, 'Hosea': 14, 'Joel': 4, 'Amos': 9,
+            'Obadiah': 1, 'Jonah': 4, 'Micah': 7, 'Nahum': 3, 'Habakkuk': 3, 'Zephaniah': 3, 'Haggai': 2, 'Zechariah': 14, 'Malachi': 3,
+            'Psalms': 150, 'Proverbs': 31, 'Job': 42, 'Song of Songs': 8, 'Ruth': 4, 'Lamentations': 5, 'Ecclesiastes': 12, 'Esther': 10,
+            'Daniel': 12, 'Ezra': 10, 'Nehemiah': 13, 'I Chronicles': 29, 'II Chronicles': 36}
+
+
+def plausible(ref):
+    """False for refs that cannot exist (daf past the end of a tractate, chapter past the end of a book, verse > 180)."""
+    m = re.match(r'^(.+?) (\d+)([ab])?(?::(\d+))?', ref or '')
+    if not m:
+        return True
+    title, n, amud, sub = m.group(1), int(m.group(2)), m.group(3), m.group(4)
+    if title in LAST_DAF:
+        return 2 <= n <= LAST_DAF[title]
+    if title in CHAPTERS:
+        return amud is None and 1 <= n <= CHAPTERS[title] and (sub is None or 1 <= int(sub) <= 176)
+    return True
