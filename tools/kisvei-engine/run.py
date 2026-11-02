@@ -7,6 +7,7 @@
   python3 run.py footnote-memory <mcp-data dir> [report.json]   learn from the reader footnotes; leave-one-book-out accuracy
   python3 run.py ingest-biur <ocr.docx|txt> <mcp-data dir> <training/out.json> [origin [suggestions prefix]]   derive refs from an elucidated Tzidkat edition
   python3 run.py ingest-peri <ocr.docx|txt> <mcp-data dir> <training/out.json> [origin]   derive refs from an annotated Peri Tzadik volume
+  python3 run.py ingest-otzar <ocr.docx|txt> <mcp-data dir> <training/thematic/out.json> [origin]   topics and thematic pairs from an anthology
   python3 run.py cite "<hebrew text>"                      detect explicit citations
   python3 run.py footnotes <mcp-data dir> <weights.json> <ref> [limit]   draft footnotes for a paragraph
   python3 run.py annotate-book <mcp-data dir> <weights.json> <slug> <out.json> [limit]
@@ -67,6 +68,16 @@ def main(argv):
         keep = [{k: r[k] for k in ('section', 'kind', 'ref', 'para', 'unit', 'phrase', 'part') if k in r} for r in recs]  # refs only
         json.dump({'book': 'peri-tzadik', 'origin': argv[5] if len(argv) > 5 else 'peri-tzadik-elucidated', 'stats': stats, 'records': keep},
                   open(argv[4], 'w', encoding='utf-8'), ensure_ascii=False, indent=0)
+        print(json.dumps(stats, ensure_ascii=False, indent=1))
+    elif cmd == 'ingest-otzar':
+        from kisvei_engine import otzar
+        recs, stats = otzar.ingest(argv[2], argv[3])
+        recs = otzar.normalize_topics(recs)
+        pairs = otzar.thematic_pairs(recs)
+        stats['thematicPairs'] = len(pairs)
+        keep = [{k: r[k] for k in ('topic', 'sub', 'para', 'book')} for r in recs]  # topic labels and refs only
+        json.dump({'origin': argv[5] if len(argv) > 5 else 'otzar-hamachshavah', 'stats': stats, 'records': keep,
+                   'thematicPairs': pairs}, open(argv[4], 'w', encoding='utf-8'), ensure_ascii=False, indent=0)
         print(json.dumps(stats, ensure_ascii=False, indent=1))
     elif cmd == 'footnote-memory':
         from kisvei_engine import footnote_memory, citations as cit

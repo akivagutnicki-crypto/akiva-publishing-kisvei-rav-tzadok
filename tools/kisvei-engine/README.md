@@ -55,6 +55,10 @@ citations each commentator attaches to each siman; those become additional gold 
   volume (bracketed sources in the text, numbered notes tied to their markers, cross-references by אות / מאמר).
   Each citation is anchored to the closest phrase (interlinear) or 8-word window (Hebrew-only) of the reader's own
   edition. These records feed the footnote memory and the parallel training.
+- **Thematic anthology** (`ingest-otzar`, Otzar HaMachshavah shel R. Tzadok HaKohen): every quoted passage is located
+  in the reader by its own words, so no citation is needed; passages under one sub-heading become thematic parallel
+  pairs (`training/thematic/`), and each located paragraph gets the topic labels. The retrain reports a separate
+  `thematic` score: these are the parallels that share no proof-text and no wording, the ranker's blind spot.
 - Measured with `python3 run.py footnote-memory data/live` (leave-one-sefer-out on the trusted footnotes).
 
 ## Measured performance (Tzidkat editorial master, superseded by the reports in models/) (held-out reviewed parallels, 97 queries)

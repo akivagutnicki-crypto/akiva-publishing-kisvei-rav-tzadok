@@ -173,6 +173,19 @@ def footnote_pairs(index, mcp_dir=None):
     return sorted(pairs)
 
 
+def thematic_pairs(index):
+    """Thematic parallels from anthologies (training/thematic/*.json): passages gathered under one sub-heading."""
+    from .footnote_memory import TRAINING_DIR
+    d = os.path.join(TRAINING_DIR, 'thematic')
+    pairs = set()
+    for f in (sorted(os.listdir(d)) if os.path.isdir(d) else []):
+        if f.endswith('.json'):
+            for a, b in json.load(open(os.path.join(d, f), encoding='utf-8'))['thematicPairs']:
+                if a in index.paras and b in index.paras:
+                    pairs.add((a, b))
+    return sorted(pairs)
+
+
 def _split(pairs, seed):
     pairs = list(pairs)
     random.Random(seed).shuffle(pairs)
@@ -188,6 +201,10 @@ def main(mcp_dir, connections_path, out_path, repo=None):
     train_r, test_r = _split(reviewed, 11)
     train_f, test_f = _split(foot, 12)
     train_f = train_f[:int(os.environ.get('KISVEI_MAX_FOOTNOTE_TRAIN', '1500'))]  # bounds training time
+    them = sorted(set(thematic_pairs(index)) - set(reviewed) - set(foot))
+    train_t, test_t = _split(them, 13)
+    print('thematic pairs', len(them))
+    train_f = train_f + train_t
     train, test = train_r + train_f, test_r + test_f
     import time; t0 = time.time()
     D = pairwise_dataset(index, train)
@@ -208,6 +225,8 @@ def main(mcp_dir, connections_path, out_path, repo=None):
         n = rv['queries'] + ft['queries']
         both = {'queries': n, **{k: round((rv[k] * rv['queries'] + ft[k] * ft['queries']) / n, 3) for k in rv if k != 'queries'}}
         results[name] = {'all': both, 'reviewed': rv, 'footnotes': ft}
+        if test_t:  # reported apart: thematic parallels share no sources or wording
+            results[name]['thematic'] = evaluate(index, test_t, w)
         for part, r in results[name].items():
             print(f'{name} weights, {part} test:', r)
     rank = lambda n: (results[n]['all']['recall@10'], results[n]['all']['recall@20'], results[n]['all']['recall@5'])  # noqa: E731
