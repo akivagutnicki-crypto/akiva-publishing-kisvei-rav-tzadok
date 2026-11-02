@@ -1044,7 +1044,7 @@ function translitKey(s) {
   return String(s).toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g, '')
     .split(/[^a-z']+/).filter(w => w && !MAF_STOP.has(w)).map(w => w.replace(/'/g, '')
       .replace(/kh/g, 'ch').replace(/ck/g, 'k').replace(/c(?!h)/g, 'k').replace(/ph/g, 'f').replace(/ts/g, 'tz')
-      .replace(/th/g, 't').replace(/s(?!h)/g, 't').replace(/(ei|ai|ay|ey)/g, 'e').replace(/oi|oy/g, 'o')
+      .replace(/th/g, 't').replace(/(?<=.)s(?!h)/g, 't').replace(/(ei|ai|ay|ey)/g, 'e').replace(/oi|oy/g, 'o')
       .replace(/o/g, 'a').replace(/u/g, 'u').replace(/y(?=[^aeiou]|$)/g, 'i').replace(/([aeiou])h$/, '$1').replace(/h$/, '')
       .replace(/(.)\1+/g, '$1')).join('');
 }

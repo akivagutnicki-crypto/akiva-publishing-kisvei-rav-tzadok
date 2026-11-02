@@ -12,7 +12,7 @@
   else root.AkivaMafteachSearch = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this, function () {
   'use strict';
-  const VERSION = '20261102-mafteach-search-en-v3';
+  const VERSION = '20261102-mafteach-search-en-v4';
   let BASE = '../mcp-data/mafteach/';
   let PANEL_BASE = 'mafteach/';
   const memo = new Map();
@@ -74,7 +74,7 @@
     return String(s).toLowerCase().normalize('NFKD').replace(/[̀-ͯ]/g, '')
       .split(/[^a-z']+/).filter(w => w && !MAF_STOP.has(w)).map(w => w.replace(/'/g, '')
         .replace(/kh/g, 'ch').replace(/ck/g, 'k').replace(/c(?!h)/g, 'k').replace(/ph/g, 'f').replace(/ts/g, 'tz')
-        .replace(/th/g, 't').replace(/s(?!h)/g, 't').replace(/(ei|ai|ay|ey)/g, 'e').replace(/oi|oy/g, 'o')
+        .replace(/th/g, 't').replace(/(?<=.)s(?!h)/g, 't').replace(/(ei|ai|ay|ey)/g, 'e').replace(/oi|oy/g, 'o')
         .replace(/o/g, 'a').replace(/y(?=[^aeiou]|$)/g, 'i').replace(/([aeiou])h$/, '$1').replace(/h$/, '')
         .replace(/(.)\1+/g, '$1')).join('');
   }
@@ -228,17 +228,17 @@
     for (const c of cands) {
       const isHe = /[א-ת]/.test(c);
       for (const p of PARSHIYOS) {
-        if (isHe ? heKey(c) === heKey(p.he) : parshaNames(p).some(n => translitKey(n) === translitKey(c) && translitKey(c).length >= 2)) return p;
+        if (isHe ? heKey(c) === heKey(p.he) : parshaNames(p).some(n => translitKey(n) === translitKey(c) && translitKey(c).length >= 2)) return { ...p, span: c };
       }
     }
-    if (named) {                                       // "what does Pri Tzaddik say on parshas Vayeishev about Yosef"
-      const words = named[1].split(/\s+/);
-      for (let n = Math.min(3, words.length); n >= 1; n--) {
-        const c = words.slice(0, n).join(' ');
-        const isHe = /[א-ת]/.test(c);
-        const p = PARSHIYOS.find(p => isHe ? heKey(c) === heKey(p.he) : parshaNames(p).some(x => translitKey(x) === translitKey(c)));
-        if (p) return p;
-      }
+    // a parsha named anywhere in a question: "themes in Chayei Sarah", "what does Pri Tzaddik say on parshas Vayeishev"
+    const words = (named ? named[1] : s).replace(/[?!.,;:()"“”]+/g, ' ').split(/\s+/).filter(Boolean);
+    for (let n = 3; n >= 1; n--) for (let i = 0; i + n <= words.length; i++) {
+      const c = words.slice(i, i + n).join(' ');
+      const isHe = /[א-ת]/.test(c);
+      if (!named && (n === 1 ? (isHe ? heKey(c).length < 3 : c.length < 4) : false)) continue;   // a lone short word needs "parshas"
+      const p = PARSHIYOS.find(p => isHe ? heKey(c) === heKey(p.he) && (named || n > 1 || heKey(p.he).length >= 4) : parshaNames(p).some(x => translitKey(x) === translitKey(c)));
+      if (p && (named || n > 1 || p.he.includes(' ') === false)) return { ...p, span: c };
     }
     return null;
   }
@@ -358,11 +358,17 @@
     const query = String(q || '').trim();
     const source = findSourceIn(M, query);
     const parsha = findParsha(query);
-    const rest = source && source.addr ? query.replace(source.span, ' ').replace(/\s+/g, ' ').trim() : query;
+    let rest = source && source.addr ? query.replace(source.span, ' ').replace(/\s+/g, ' ').trim() : query;
+    // a parsha in a question: its name is not a topic ("Chayei Sarah" is not Living or Barley); the rest of the question is
+    if (parsha && parsha.span && !(parsha.span === query && parsha.he.includes(' ') === false && /^[A-Za-z]+$/.test(query) && false)) {
+      const r2 = rest.replace(parsha.span, ' ').replace(/(^|\s)(parshas|parashas|parshat|parashat|parsha|parasha|sidra|sedra|פרשת|פרשה)(?=\s|$)/gi, ' ')
+        .replace(/(^|\s)(themes?|ideas?|topics?|in|of|on|the|for|about|what|are|is)(?=\s|$)/gi, ' ').replace(/\s+/g, ' ').trim();
+      if (r2 !== rest.trim() && parsha.span !== query.trim()) rest = r2;
+    }
     let whole = rest ? findTerms(M, rest, ['topic']).filter(x => x.t.n > 0) : [];
     const weakAll = whole;
     if (rest && !/[א-ת]/.test(rest)) whole = gateLatin(whole, rest, tokens(rest).filter(x => x.keep).length);
-    let topics = rest ? questionTopics(M, rest, { fuzzy: !source }) : [];
+    let topics = rest ? questionTopics(M, rest, { fuzzy: !source && !parsha }) : [];
     // whole-query matches first when strong (an exact heading), then the question's topics
     const strongWhole = whole.filter(x => x.s >= 90).map(x => ({ t: x.t, score: x.s + 100, words: new Set(), best: x.s }));
     const seen = new Set(); const merged = [];
