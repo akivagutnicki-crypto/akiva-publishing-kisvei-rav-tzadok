@@ -19,7 +19,7 @@
    "top3": 0.23,
    "top5": 0.263,
    "detector": 0.127,
-   "either": 0.318
+   "either": 0.319
   },
   "peri-tzadik": {
    "n": 5312,
@@ -31,15 +31,15 @@
   },
   "resisei-layla": {
    "n": 670,
-   "top1": 0.079,
-   "top3": 0.148,
+   "top1": 0.082,
+   "top3": 0.149,
    "top5": 0.19,
    "detector": 0.112,
-   "either": 0.224
+   "either": 0.225
   },
   "takanat-hashavin": {
    "n": 1932,
-   "top1": 0.057,
+   "top1": 0.056,
    "top3": 0.089,
    "top5": 0.102,
    "detector": 0.041,
@@ -47,7 +47,7 @@
   },
   "tzidkat-hatzadik": {
    "n": 3183,
-   "top1": 0.139,
+   "top1": 0.14,
    "top3": 0.217,
    "top5": 0.242,
    "detector": 0.269,

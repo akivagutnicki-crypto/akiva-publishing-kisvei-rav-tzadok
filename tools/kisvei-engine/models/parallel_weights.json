@@ -47,29 +47,43 @@
     "recall@5": 0.076,
     "recall@10": 0.132,
     "recall@20": 0.208
+   },
+   "thematic": {
+    "queries": 97,
+    "recall@1": 0.0,
+    "recall@5": 0.041,
+    "recall@10": 0.052,
+    "recall@20": 0.052
    }
   },
   "learned": {
    "all": {
     "queries": 369,
-    "recall@1": 0.054,
-    "recall@5": 0.16,
-    "recall@10": 0.214,
-    "recall@20": 0.29
+    "recall@1": 0.062,
+    "recall@5": 0.157,
+    "recall@10": 0.195,
+    "recall@20": 0.274
    },
    "reviewed": {
     "queries": 119,
-    "recall@1": 0.092,
-    "recall@5": 0.235,
-    "recall@10": 0.311,
-    "recall@20": 0.387
+    "recall@1": 0.101,
+    "recall@5": 0.218,
+    "recall@10": 0.269,
+    "recall@20": 0.378
    },
    "footnotes": {
     "queries": 250,
-    "recall@1": 0.036,
-    "recall@5": 0.124,
-    "recall@10": 0.168,
-    "recall@20": 0.244
+    "recall@1": 0.044,
+    "recall@5": 0.128,
+    "recall@10": 0.16,
+    "recall@20": 0.224
+   },
+   "thematic": {
+    "queries": 97,
+    "recall@1": 0.0,
+    "recall@5": 0.031,
+    "recall@10": 0.041,
+    "recall@20": 0.062
    }
   },
   "previous": {
@@ -93,10 +107,17 @@
     "recall@5": 0.124,
     "recall@10": 0.172,
     "recall@20": 0.252
+   },
+   "thematic": {
+    "queries": 97,
+    "recall@1": 0.0,
+    "recall@5": 0.021,
+    "recall@10": 0.031,
+    "recall@20": 0.041
    }
   }
  },
- "trainPairs": 2060,
+ "trainPairs": 2714,
  "testPairs": 797,
  "reviewedPairs": 700,
  "footnotePairs": 3282,
