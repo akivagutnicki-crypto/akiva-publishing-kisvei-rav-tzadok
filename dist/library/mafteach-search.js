@@ -12,7 +12,7 @@
   else root.AkivaMafteachSearch = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this, function () {
   'use strict';
-  const VERSION = '20261102-mafteach-search-en-v4';
+  const VERSION = '20261102-mafteach-search-en-v5';
   let BASE = '../mcp-data/mafteach/';
   let PANEL_BASE = 'mafteach/';
   const memo = new Map();
@@ -398,12 +398,14 @@
     return shard.filter(e => re.test(e.k || ''));
   }
   const corpusFilter = (list, corpus) => (corpus === 'pt' || corpus === 'rt') ? list.filter(e => e.c === corpus) : list;
+  const sndKey = w => skel(w).replace(/v/g, 'b').replace(/w/g, 'b');   // by sound: Lavan = Laban, Efron = Ephron
   // Full-text search inside entry texts (Hebrew words), loading the parts on demand.
   async function searchEntries(M, q, corpus, limit = 200) {
     const terms = [...q.matchAll(/"([^"]+)"|(\S+)/g)].map(m => norm(m[1] || m[2]).trim()).filter(Boolean)
       .filter(t => /[א-ת]/.test(t) ? !HE_STOP.has(t.replace(/ /g, '')) : t.length >= 3 && !EN_STOP.has(t));
     if (!terms.length) return { total: 0, hits: [] };
     const parts = corpus === 'rt' ? ['1-2', '3'] : corpus === 'pt' ? ['4', '5', '7'] : M.raw.parts;
+    const skels = terms.map(t => !/[א-ת]/.test(t) && !t.includes(' ') ? (k => k.length >= 3 ? k : null)(sndKey(t)) : null);
     const hits = []; let total = 0;
     for (const p of parts) {
       let text = '';
@@ -411,7 +413,9 @@
       for (const line of text.split('\n')) {
         const tab = line.indexOf('\t');
         const hay = line.slice(0, tab);
-        if (terms.every(t => hay.includes(t))) { total++; if (hits.length < limit) hits.push(JSON.parse(line.slice(tab + 1))); }
+        let sk = null;                                   // English words by sound: Efron = Ephron, Yitzchak = Yitzhak
+        const has = (t, i) => hay.includes(t) || (skels[i] && (sk = sk || new Set((hay.match(/[a-z]{3,}/g) || []).map(sndKey))).has(skels[i]));
+        if (terms.every(has)) { total++; if (hits.length < limit) hits.push(JSON.parse(line.slice(tab + 1))); }
       }
     }
     return { total, hits };
