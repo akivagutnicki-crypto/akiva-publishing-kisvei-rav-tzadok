@@ -18,6 +18,11 @@ check(/Abraham/.test(await top('Avrohom Avinu')), 'Avrohom Avinu -> Abraham');
 check(await top('bitachon') === 'Trust in God', 'bitachon');
 check(await top('חנוכה') === 'Hanukkah', 'חנוכה');
 check(/evil inclination/.test(await top('yetzer hara')), 'yetzer hara');
+// names: exact, other transliterations and misspellings; never mistaken for a sefer of Tanach by sound
+for (const q of ['Ishmael', 'Yishmael', 'Yishmoel', 'Ishamel', 'dYishamel', 'Yishamel', 'ישמעאל']) check(await top(q) === 'Ishmael', `${q} -> Ishmael`);
+check(!(await A.analyze('Ishmael')).source && !(await A.analyze('Moshe')).source, 'Ishmael is not Shmuel, Moshe is not Amos');
+check(/Moses/.test(await top('Moshe')) && /Abraham/.test(await top('Avraham')) && /Solomon/.test(await top('Shlomo')), 'Moshe, Avraham, Shlomo');
+check((await A.analyze('Tehillim 23')).source?.title === 'Psalms' && (await A.analyze('Zohar')).topics.length === 0, 'sources by name');
 // questions: the topics they name, best first
 const qa = await A.analyze('what does Rav Tzadok say about teshuvah and simcha?');
 check(qa.topics[0].t.en === 'Repentance' && qa.topics.some(x => x.t.en === 'Joy'), 'question finds Repentance and Joy');
