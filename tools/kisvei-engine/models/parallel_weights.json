@@ -24,8 +24,32 @@
   "english_cosine": 2.014684046263384,
   "bias": -2.0
  },
- "trainPairs": 471,
- "testPairs": 118,
- "paragraphs": 13790,
+ "chosen": "previous",
+ "evaluation": {
+  "hand": {
+   "queries": 119,
+   "recall@1": 0.034,
+   "recall@5": 0.151,
+   "recall@10": 0.202,
+   "recall@20": 0.252
+  },
+  "learned": {
+   "queries": 119,
+   "recall@1": 0.067,
+   "recall@5": 0.176,
+   "recall@10": 0.21,
+   "recall@20": 0.286
+  },
+  "previous": {
+   "queries": 119,
+   "recall@1": 0.076,
+   "recall@5": 0.16,
+   "recall@10": 0.218,
+   "recall@20": 0.269
+  }
+ },
+ "trainPairs": 560,
+ "testPairs": 140,
+ "paragraphs": 15691,
  "gold": "reviewed editorial parallels (editorial master connections + reader reviewed connections + connected ideas)"
 }
