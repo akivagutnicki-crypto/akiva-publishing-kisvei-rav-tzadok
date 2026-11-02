@@ -26,6 +26,26 @@ indexes, the MCP text and parallels for the book, the offline manifest and the t
 - `editorial/tzidkat-editorial-master-2026-11/sefaria_and_library_verification.json` — the API verification map.
 - `tools/kisvei-engine/` — the citation / parallel / footnote engine and the conversion scripts (see its README).
 
-Known follow-ups: Connected Ideas records in `sources/akiva/themes/*.json` still pin the previous paragraph
-numbering of the 40 re-paragraphed simanim; the reader hides a thread whose pinned Hebrew no longer matches, so
-those records should be re-anchored with `build-connected-ideas.mjs` after review.
+- `editorial/tzidkat-editorial-master-2026-11/topic-index/` — the search topic index: 263 simanim, 1,105 editorial
+  topic labels (English + Hebrew, kind, weight), 2,196 Hebrew search terms checked against the text, 544 Sefaria topic
+  slugs recommended from each siman's cited sources, and a per-siman summary file for the reader.
+- `editorial/tzidkat-editorial-master-2026-11/connected-ideas-reanchoring.json` — the re-anchoring report (below).
+
+## Connected Ideas threads
+
+The 428 Connected Ideas threads into Tzidkat HaTzadik (`sources/akiva/themes/*.json`) were pinned to the previous
+edition's Hebrew; 366 of them would have been hidden by the reader's pin check. `scripts/reanchor-tzidkat-themes.mjs`
+relocated every quotation in the master edition (215 word-for-word, 138 with a few edited words, 13 re-cut to whole
+interlinear phrases where the master divides the siman inside the quotation, with the master's own English), updated
+the refs, Hebrew and pins, and recorded the change in each record's `reanchoring` field. The book-only publisher
+rebuilds those records against the published texts and keeps every other record of
+`library/connected-ideas/catalog.json` unchanged; a thread whose other side no longer matches the published text is
+kept as published and listed under `provenance.partialRebuild.unresolved` (at the time of writing: seven threads whose
+Peri Tzadik side awaits the pending Peri Tzadik transition). Connected Ideas notes in Tzidkat are numbered after the
+4,407 manuscript notes (the retired quoted-sources pack no longer pins supplementary numbers).
+
+The edition guard prepended to the retired scripts only fires when the script is the entry point, so
+`build-connected-ideas.mjs` and the tests that import helpers from them keep working.
+
+Known follow-ups: the 13 re-cut threads and the 138 edited quotations are flagged in the re-anchoring report for an
+editorial reread; the seven unresolved threads resolve once the Peri Tzadik transition is published.

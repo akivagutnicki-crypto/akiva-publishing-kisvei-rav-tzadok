@@ -12,6 +12,7 @@ import path from 'node:path';
 import assert from 'node:assert/strict';
 import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
+import {createRequire} from 'node:module';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SOURCE = 'sources/akiva/Tzidkat_HaTzadik.json';
@@ -23,6 +24,8 @@ const PROOF = 'artifacts/tzidkat-editorial-master/final-verification.json';
 const PREVIOUS = 'new-books-baseline.json', META = 'new-books-publication.json';
 const PUBLIC = 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/';
 const DOWNLOAD = 'downloads/tzidkas-hatzaddik-complete-editorial-master.docx';
+const IDEAS = 'library/connected-ideas/catalog.json';
+const involvesTzidkat = r => String(r.originRef || '').startsWith(ANCHOR_PREFIX) || String(r.targetRef || '').startsWith(ANCHOR_PREFIX);
 
 const sha = bytes => createHash('sha256').update(bytes).digest('hex');
 const json = obj => JSON.stringify(obj);
@@ -117,7 +120,7 @@ function mergeTzidkat(index, fresh) {
   return index;
 }
 
-export function apply(site, build) {
+export async function apply(site, build) {
   const {src, stats} = loadPack();
   const before = read(ROOT, PREVIOUS).files, base = read(ROOT, META);
   assert.equal(read(ROOT, PREVIOUS).publication?.artifactId, base.publication?.artifactId, 'Baseline selection changed');
@@ -200,10 +203,38 @@ export function apply(site, build) {
   }
   // 6. the Word edition download
   if (exists(build, 'library/' + DOWNLOAD)) touch('library/' + DOWNLOAD, fs.readFileSync(relative(build, 'library/' + DOWNLOAD)));
+  // 7. Connected Ideas: the published catalog pins every thread to the Hebrew it was reviewed on.
+  // Threads into Tzidkat are rebuilt from the re-anchored editorial records against the fresh
+  // build; every record of the other seforim is kept byte-for-byte, with its numbering.
+  let ideasStats = null;
+  if (exists(site, IDEAS)) {
+    const {buildConnectedIdeas, assembleCatalog, editorialFiles} = await import('./build-connected-ideas.mjs');
+    const live = read(site, IDEAS);
+    assert(live.schemaVersion === 1 && Array.isArray(live.records) && live.release, 'Unknown published Connected Ideas catalog');
+    const kept = live.records.filter(r => !involvesTzidkat(r));
+    // Resolve against the site's own texts (Tzidkat is already the fresh edition after step 5), so
+    // the other side of each thread is pinned to exactly what the site publishes.
+    const unresolved = [];
+    const rebuilt = buildConnectedIdeas({mcpRoot: relative(site, 'mcp-data'), write: false, filter: involvesTzidkat,
+      onError: (input, file, error) => unresolved.push({id: input.id, file, error: error.message})}).catalog.records;
+    assert(rebuilt.length > 0, 'No Tzidkat Connected Ideas could be rebuilt');
+    for (const r of rebuilt) assert(r.evidence.origin.textSha256 && involvesTzidkat(r));
+    const rebuiltIds = new Set(rebuilt.map(r => r.id));
+    // A thread whose other side no longer matches the published text is kept exactly as published
+    // (the reader already hides it); it is listed for editorial review rather than dropped.
+    const stale = live.records.filter(r => involvesTzidkat(r) && !rebuiltIds.has(r.id));
+    const mcpCatalogBytes = fs.readFileSync(relative(site, 'mcp-data/catalog.json'));
+    const result = assembleCatalog({records: [...kept, ...stale, ...rebuilt], catalog: JSON.parse(mcpCatalogBytes), catalogBytes: mcpCatalogBytes,
+      files: editorialFiles(), date: new Date().toISOString().slice(0, 10), write: false, release: live.release}).catalog;
+    result.provenance.partialRebuild = {release: RELEASE, book: BOOK, rebuiltRecords: rebuilt.length, keptRecords: kept.length, keptStaleRecords: stale.map(r => r.id),
+      unresolved, previousVersion: live.version, previousTzidkatRecords: live.records.length - kept.length};
+    touch(IDEAS, JSON.stringify(result, null, 2) + '\n');
+    ideasStats = {kept: kept.length, rebuilt: rebuilt.length, stale: stale.length, unresolved, previous: live.records.length - kept.length, version: result.version, rebuiltIds: [...rebuiltIds].sort()};
+  } else console.log(json({note: 'no published Connected Ideas catalog on the site; nothing to re-anchor'}));
   const report = {schemaVersion: 1, release: RELEASE, editionId: EDITION_ID, publication: base.publication, sourceSha256: digest(ROOT, SOURCE),
-    stats, citedFilesUpdated: touchedCited.size, affected: [...affected].sort(), created: [...created].sort(), stage: 'applied'};
+    stats, connectedIdeas: ideasStats, citedFilesUpdated: touchedCited.size, affected: [...affected].sort(), created: [...created].sort(), stage: 'applied'};
   write(ROOT, 'tzidkat-editorial-master-stage.json', report);
-  console.log(json({ok: true, stage: 'applied', ...stats, affectedFiles: affected.size, citedFilesUpdated: touchedCited.size}));
+  console.log(json({ok: true, stage: 'applied', ...stats, connectedIdeas: ideasStats && {...ideasStats, rebuiltIds: undefined}, affectedFiles: affected.size, citedFilesUpdated: touchedCited.size}));
 }
 
 export function finalize(site) {
@@ -220,6 +251,12 @@ export function finalize(site) {
   assert(!html.includes('/* ' + RELEASE + ' */'), 'Release marker already present');
   const stamp = stage.sourceSha256.slice(0, 12);
   touch(htmlName, html.replace(marker, marker + `/* ${RELEASE} */ (url.startsWith('data/${SLUG}/') || url.startsWith('data/cited/') || url.startsWith('data/parallels/') || url === 'data/catalog.json' || url === 'data/files.json' || url === 'data/packs/sources.json') ? url + '?tzidkat=${stamp}' :\n`));
+  if (stage.connectedIdeas) {
+    const current = fs.readFileSync(relative(site, htmlName), 'utf8');
+    const fetchLine = /(fetch\('connected-ideas\/catalog\.json\?v=' \+ connectedIdeas\.VERSION \+ ')([^']*)'/;
+    assert(fetchLine.test(current), 'Connected Ideas catalog request not found in the reader');
+    touch(htmlName, current.replace(fetchLine, (_, a, b) => `${a}${b}&tzidkat=${stamp}'`));
+  }
   const swName = 'library/sw.js', sw = fs.readFileSync(relative(site, swName), 'utf8');
   assert.equal((sw.match(/const SHELL = `[^`]+`;/g) || []).length, 1, 'Unexpected service worker cache revision');
   touch(swName, sw.replace(/const SHELL = `([^`]+)`;/, (_, v) => `const SHELL = \`${v}-tzidkat-master-${stamp}\`;`));
@@ -261,10 +298,43 @@ export function verify(site, build) {
     }
   }
   assert(anchors > 1000, 'Too few Tzidkat citation anchors: ' + anchors);
+  if (report.connectedIdeas) {
+    const live = read(site, IDEAS), normalize = createRequire(import.meta.url)(relative(site, 'library/source-connections.js')).normalizedHebrew;
+    assert.equal(live.version, report.connectedIdeas.version, 'Connected Ideas catalog differs from the published stage');
+    const text = read(site, `mcp-data/text/${SLUG}.json`), book = read(site, 'mcp-data/catalog.json').books.find(b => b.slug === SLUG);
+    const content = p => Array.isArray(p.p) ? p.p.map(x => x[0] || '').join(' ') : p.t || '';
+    const paraHash = new Map(), sectionHash = new Map(), nativeMax = Math.max(...text.paras.flatMap(p => (p.f || []).map(n => Number(n[0]) || 0)));
+    for (const p of text.paras) {
+      paraHash.set(p.r, sha(normalize(content(p))));
+      const section = book.sections[p.s];
+      if (!sectionHash.has(section.ref)) sectionHash.set(section.ref, sha(normalize(text.paras.slice(section.first, section.first + section.count).map(content).join(' '))));
+    }
+    let threads = 0, staleThreads = 0; const numbers = new Set(), rebuiltIds = new Set(report.connectedIdeas.rebuiltIds);
+    for (const r of live.records) {
+      if (!involvesTzidkat(r)) continue;
+      if (!rebuiltIds.has(r.id)) { staleThreads++; continue; }
+      threads++;
+      for (const side of ['origin', 'target']) {
+        const ref = r[side + 'Ref']; if (!ref.startsWith(ANCHOR_PREFIX)) continue;
+        const key = side === 'origin' ? 'Origin' : 'Target';
+        assert.equal(r['reviewed' + key + 'HebrewSha256'], paraHash.get(ref), 'Connected Ideas thread pinned to stale Tzidkat Hebrew: ' + r.id);
+        const sectionPin = r['reviewed' + key + 'SectionHebrewSha256'];
+        if (sectionPin) assert.equal(sectionPin, sectionHash.get(ref.split(':')[0]), 'Connected Ideas thread pinned to a stale Tzidkat siman: ' + r.id);
+        assert((' ' + normalize(content(text.paras.find(p => p.r === ref))) + ' ').includes(' ' + normalize(r[side + 'Hebrew']) + ' '), 'Quotation absent from the published paragraph: ' + r.id);
+      }
+      for (const field of ['footnoteNumber', 'reverseFootnoteNumber']) if (r[field] !== undefined) {
+        assert(Number.isSafeInteger(r[field]) && r[field] > nativeMax && !numbers.has(r[field]), 'Connected Ideas note number collides with the manuscript notes: ' + r.id);
+        numbers.add(r[field]);
+      }
+    }
+    assert.equal(threads, report.connectedIdeas.rebuilt, 'Rebuilt Connected Ideas thread count changed');
+    assert.equal(staleThreads, report.connectedIdeas.stale, 'Stale Connected Ideas thread count changed');
+    assert.equal(live.records.length - threads - staleThreads, report.connectedIdeas.kept, 'Kept Connected Ideas record count changed');
+  }
   assert.equal(read(site, 'library/data/files.json').version, manifest(site).version, 'Offline manifest stale');
   const catalog = read(site, 'library/data/catalog.json');
   assert.equal(catalog.filter(b => b.slug === SLUG).length, 1);
-  console.log(json({ok: true, notes, paragraphs, updatedFiles: report.affected.length, newFiles: after.length - Object.keys(before).length, version: report.version}));
+  console.log(json({ok: true, notes, paragraphs, connectedIdeas: report.connectedIdeas && {...report.connectedIdeas, rebuiltIds: undefined}, updatedFiles: report.affected.length, newFiles: after.length - Object.keys(before).length, version: report.version}));
 }
 
 async function publicBytes(name) {
@@ -294,7 +364,7 @@ async function verifyLive(site) {
 if (process.argv[1] && path.resolve(process.argv[1]) === fileURLToPath(import.meta.url)) {
   const [mode, site = '.tzidkat-site', build = '.tzidkat-build'] = process.argv.slice(2);
   if (mode === '--check-pack') console.log(json({ok: true, release: RELEASE, ...loadPack().stats}));
-  else if (mode === '--apply') apply(site, build);
+  else if (mode === '--apply') await apply(site, build);
   else if (mode === '--finalize') finalize(site);
   else if (mode === '--verify') verify(site, build === '-' ? null : build);
   else if (mode === '--live') await verifyLive(site);

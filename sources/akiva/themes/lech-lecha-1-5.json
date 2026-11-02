@@ -118,12 +118,25 @@
       "translationProvenance": "English translated and checked directly against the quoted canonical Hebrew for this thematic record. Brackets supply an explicitly marked contextual clarification. The complete origin ois and complete target paragraph were read; existing interlinear English was not treated as independent source verification.",
       "reviewedOriginHebrewSha256": "a618c5b1891afd746d18b0e1affa2d309fa7cc46503c9fc48880c66de6c81dee",
       "reviewedOriginSectionHebrewSha256": "42e69915f33192bda7928ba7dafa470b41cdf7c5a776ee6bd4360bf37019273b",
-      "reviewedTargetHebrewSha256": "21f01a4505f390c8acdc499d9b8c807642bd8638c6082b15d5d4ca28105b08e8",
+      "reviewedTargetHebrewSha256": "15e8d298630d6c109a5aed111e750c3c195579a00b0c2bd5c8939951097effe3",
       "reviewed": true,
       "reverseExplanation": "Peri Tzadik applies the general test of the cup to Joseph and his brothers. Joseph first brings them to experience Shabbat holiness and then seeks to know whether their hearts are bound to the root. This narrative illustrates why Tzidkat HaTzadik makes the heart’s prior content decisive for the secret wine reveals.",
-      "reviewedTargetSectionHebrewSha256": "21f01a4505f390c8acdc499d9b8c807642bd8638c6082b15d5d4ca28105b08e8",
+      "reviewedTargetSectionHebrewSha256": "15e8d298630d6c109a5aed111e750c3c195579a00b0c2bd5c8939951097effe3",
       "reverseThemeTitle": "The cup as a test of love that fills the heart",
-      "reverseThemeSummary": "The cup, purse, and anger test the dimensions of love expressed in “all your heart, all your soul, and all your might.” What emerges through wine depends on the love already filling the heart."
+      "reverseThemeSummary": "The cup, purse, and anger test the dimensions of love expressed in “all your heart, all your soul, and all your might.” What emerges through wine depends on the love already filling the heart.",
+      "reanchoring": {
+        "target": {
+          "edition": "tzidkat-editorial-master-2026-11",
+          "date": "2026-11-02",
+          "previousRef": "Tzidkat HaTzadik 199:1",
+          "previousHebrewSha256": "6b37982011faaba7865b477fee35dc230802f1787c319dd9dc4de47cbd9a8177",
+          "previousParagraphPin": "21f01a4505f390c8acdc499d9b8c807642bd8638c6082b15d5d4ca28105b08e8",
+          "status": "exact",
+          "wordsChanged": 0,
+          "clippedWords": 0,
+          "note": "Quotation words unchanged; vocalization, punctuation and paragraph numbering follow the Complete Editorial Master."
+        }
+      }
     },
     {
       "id": "lech-lecha-4-heart-beit-yaakov-12",
