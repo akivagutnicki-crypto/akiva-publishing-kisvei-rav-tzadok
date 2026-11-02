@@ -12,7 +12,8 @@
   else root.AkivaMafteachSearch = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this, function () {
   'use strict';
-  const VERSION = '20261102-mafteach-search-schools-v8';
+  const VERSION = '20261102-mafteach-ask-v9';
+  let ASK_URL = 'https://akiva-publishing-kisvei-rav-tzadok.akivagutnicki.workers.dev/ask';
   let BASE = '../mcp-data/mafteach/';
   let PANEL_BASE = 'mafteach/';
   let LINKS_BASE = 'mafteach-links/';
@@ -21,7 +22,7 @@
   const load = url => { if (!memo.has(url)) { const p = loader(url); memo.set(url, p); p.catch(() => memo.delete(url)); } return memo.get(url); };
   const loadMaf = rel => load(BASE + rel);
   const loadShard = rel => loadMaf(rel).catch(() => []);
-  function configure(o = {}) { if (o.base) BASE = o.base; if (o.panelBase) PANEL_BASE = o.panelBase; if (o.linksBase) LINKS_BASE = o.linksBase; if (o.loader) loader = o.loader; memo.clear(); M = null; }
+  function configure(o = {}) { if (o.base) BASE = o.base; if (o.panelBase) PANEL_BASE = o.panelBase; if (o.linksBase) LINKS_BASE = o.linksBase; if (o.askUrl !== undefined) ASK_URL = o.askUrl; ANS = null; if (o.loader) loader = o.loader; memo.clear(); M = null; }
 
   // ------------------------------------------------------------ normalization (as cloudflare/mcp.mjs)
   function table() {
@@ -379,6 +380,115 @@
     return { query, source, parsha, topics, weak, hebrew: /[א-ת]/.test(query) };
   }
 
+  // ------------------------------------------------------------ answering a question: where to look
+  // Every index line that links to a passage (mafteach/answer.json: [English, topic, refs, at length, Hebrew, source]) is
+  // scored against the question's words (English by stem, Hebrew with or without prefixes) and the headings the question
+  // names; the scores add up per passage, and each passage keeps the lines that earned it.
+  let ANS = null;
+  const stem = w => { w = w.toLowerCase().replace(/'s$/, ''); if (w.length > 5 && w.endsWith('ies')) return w.slice(0, -3) + 'y'; if (w.length > 5 && /(ing|ness|ment)$/.test(w)) return w.replace(/(ing|ness|ment)$/, ''); if (w.length > 4 && w.endsWith('ed')) return w.slice(0, -2); if (w.length > 3 && w.endsWith('s') && !w.endsWith('ss')) return w.slice(0, -1); return w; };
+  const enStems = s => String(s || '').toLowerCase().split(/[^a-z']+/).filter(w => w.length > 2 && !EN_STOP.has(w)).map(stem);
+  const heStems = s => { const out = []; for (const w of norm(s).split(' ')) { if (w.length < 2 || HE_STOP.has(w)) continue; out.push(w); if (w.length > 3 && /^[והבלמשכ]/.test(w)) out.push(w.slice(1)); } return out; };
+  async function answerIndex() {
+    if (ANS) return ANS;
+    const rows = await loadMaf('answer.json');
+    const df = new Map(), docs = rows.map(r => {
+      const en = new Set(enStems(r[0])), he = new Set(heStems(r[4]));
+      for (const w of en) df.set('e' + w, (df.get('e' + w) || 0) + 1);
+      for (const w of he) df.set('h' + w, (df.get('h' + w) || 0) + 1);
+      return { r, en, he };
+    });
+    return (ANS = { rows, docs, df, N: rows.length });
+  }
+  // One word, its other names: Shabbos = Shabbat = Sabbath = שבת, teshuvah = repentance = תשובה (the Mafteach's name lists)
+  let ALIAS = null;
+  function aliases(M) {
+    if (ALIAS) return ALIAS;
+    ALIAS = new Map();
+    for (const t of M.raw.terms) {
+      const latin = [t.en, ...(t.en_alt || []), ...(t.ashk || []), ...(t.sef || [])].filter(a => a && !/\s/.test(a.trim()));
+      const he = [t.he, ...(t.he_raw || [])].filter(a => a && heKey(a).length >= 2 && !/\s/.test(a.replace(/\([^)]*\)/g, '').trim()));
+      if (!latin.length && !he.length) continue;
+      // the same word in other spellings and in Hebrew; not English synonyms ("gift" must not become "present")
+      const same = [t.en, ...(t.ashk || []), ...(t.sef || [])].filter(a => a && !/\s/.test(a.trim()));
+      const group = new Set([...same.flatMap(a => enStems(a).map(x => 'e' + x)), ...he.flatMap(a => heStems(a.replace(/\([^)]*\)/g, '')).slice(0, 1).map(x => 'h' + x))]);
+      for (const a of latin) { const k = 'v' + translitKey(a); ALIAS.set(k, new Set([...(ALIAS.get(k) || []), ...group])); }
+      for (const a of he) { const k = 'h' + heKey(a.replace(/\([^)]*\)/g, '')); ALIAS.set(k, new Set([...(ALIAS.get(k) || []), ...group])); }
+    }
+    return ALIAS;
+  }
+  const Q_FILLER = new Set(('call called calls named name reason reasons mean meaning explain explained say said teach taught learn ' +
+    'person people someone thing things way ways matter idea really important significance נקרא נקראת נקראים נקראו אומר אמר כתוב ענין').split(' '));
+  async function whereToLook(q, analysis, { limit = 8 } = {}) {
+    const A = await answerIndex(), M = await index();
+    const idf = k => Math.log(1 + A.N / (1 + (A.df.get(k) || 0)));
+    const AL = aliases(M);
+    // each word of the question is a group of equivalent terms; a line matching any of them matches the word
+    const groups = [];
+    for (const x of tokens(q).filter(x => x.keep && !Q_FILLER.has(x.w.toLowerCase()) && !Q_FILLER.has(heKey(x.w)))) {
+      const isHe = /[א-ת]/.test(x.w);
+      const g = new Set(isHe ? heStems(x.w).map(w => 'h' + w) : enStems(x.w).map(w => 'e' + w));
+      for (const k of AL.get(isHe ? 'h' + heKey(x.w) : 'v' + translitKey(x.w)) || []) if (g.size < 12) g.add(k);
+      if (g.size) groups.push([...g]);
+    }
+    const qEn = [], qHe = [];
+    const topicW = new Map();
+    (analysis?.topics || []).slice(0, 5).forEach((x, i) => topicW.set(x.t.id, i === 0 ? 1 : 0.6));
+    const extra = new Map();                         // the English names of the headings the question names
+    for (const [id, w] of topicW) for (const t of enStems(M.byId.get(id)?.en || '')) if (!qEn.includes(t)) extra.set(t, Math.max(extra.get(t) || 0, 0.5 * w));
+    for (const g of groups) for (const k of g) extra.delete(k.slice(1));
+    const terms = [...[...extra].map(([t, w]) => ['e' + t, w])];
+    if (!groups.length && !terms.length && !topicW.size) return [];
+    const gIdf = groups.map(g => Math.max(...g.map(idf)));
+    const byRef = new Map();
+    A.docs.forEach((d, i) => {
+      let sc = 0, hit = 0;
+      groups.forEach((g, gi) => { if (g.some(k => (k[0] === 'e' ? d.en : d.he).has(k.slice(1)))) { sc += gIdf[gi]; hit++; } });
+      for (const [k, w] of terms) if ((k[0] === 'e' ? d.en : d.he).has(k.slice(1))) sc += idf(k) * w;
+      const tw = topicW.get(d.r[1]) || 0;
+      if (tw && (hit || groups.length <= 1)) sc += (groups.length > 1 ? 2 : 4) * tw;
+      if (!sc) return;
+      if (hit > 1) sc *= 1 + 0.6 * (hit - 1);
+      if (groups.length > 1 && hit === groups.length) sc *= 1.5;          // every word of the question
+      if (d.r[3]) sc *= 1.3;
+      const share = sc / Math.sqrt(d.r[2].length);
+      for (const ref of d.r[2]) { const b = byRef.get(ref) || []; b.push([share, i]); byRef.set(ref, b); }
+    });
+    return [...byRef].map(([ref, ev]) => { ev.sort((a, b) => b[0] - a[0]); return { ref, score: ev.slice(0, 3).reduce((a, x) => a + x[0], 0), ev: ev.slice(0, 3).map(([, i]) => A.rows[i]) }; })
+      .sort((a, b) => b.score - a.score).slice(0, limit);
+  }
+  const isQuestion = q => /\?|^(what|why|how|where|when|who|which|is|are|does|do|can|should|מה|למה|מדוע|איך|היכן|מי|האם)\b/i.test(String(q).trim()) || tokens(q).filter(x => x.keep).length >= 3;
+  function answerCardHTML(M, q, list) {
+    if (!list.length) return '';
+    const items = list.map(({ ref, ev }, i) => {
+      const T = ev[0][1] >= 0 ? M.byId.get(ev[0][1]) : null;
+      return `<li><a class="maf-xref" href="${readLink(ref)}">${E(ref)}</a>${T ? ` <a class="maf-tag" style="text-transform:none;letter-spacing:0" href="${mafHash({ topic: T.id })}">${E(T.en)}</a>` : ''}${ev.some(r => r[3]) ? '<span class="maf-tag">treated at length</span>' : ''}
+        ${ev.slice(0, 2).map(r => `<div class="maf-why">${r[0] ? E(r[0]) : ''} <span class="maf-he" lang="he" style="opacity:.75">${E(r[4])}</span></div>`).join('')}</li>`;
+    }).join('');
+    return `<div class="maf-card maf-answer" data-answer><h2>Where to look</h2>
+      <div class="maf-ai" data-ai hidden></div>
+      <ol class="maf-list maf-answer-list">${items}</ol>
+      <p class="maf-meta">Ranked from HaMafteach HaShalem: the index lines that match your question, added up per passage. Open a passage to read it.</p></div>`;
+  }
+  // A short written answer from these passages only (the worker's /ask, an AI model); every [Ref] becomes a link.
+  async function writeAnswer(card, q, list) {
+    const box = card.querySelector('[data-ai]'); if (!box || !ASK_URL) return;
+    box.hidden = false; box.innerHTML = '<div class="loading">Writing a short answer from these passages…</div>';
+    try {
+      const passages = await Promise.all(list.slice(0, 6).map(async ({ ref, ev }) => {
+        let text = '';
+        try { const d = API.fetchText && await API.fetchText(ref); const x = excerpt(d, ref, 140); if (x) text = (x.en ? x.en + ' ' : '') + x.he; } catch {}
+        return { ref, lines: ev.slice(0, 3).map(r => (r[0] ? r[0] + ' — ' : '') + r[4]), text: text.slice(0, 1400) };
+      }));
+      const r = await fetch(ASK_URL, { method: 'POST', headers: { 'content-type': 'application/json' }, body: JSON.stringify({ q: String(q).slice(0, 300), passages }) });
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      const j = await r.json();
+      if (!j.answer) throw new Error('no answer');
+      const refs = new Set(list.map(x => x.ref));
+      const html = E(j.answer).replace(/\[([^\]]{3,80})\]/g, (m, ref) => refs.has(ref) ? `<a href="${readLink(ref)}">${E(ref)}</a>` : '').replace(/\n+/g, '<br>');
+      box.innerHTML = `<div class="maf-ai-text">${html}</div><p class="maf-meta" style="margin:6px 0 0">Written by AI from the passages below; read them before relying on it.</p>`;
+    } catch { box.hidden = true; }
+  }
+
   // ------------------------------------------------------------ entries
   const FLAG = /^[*?~]+$/;
   function refInfo(r) {
@@ -605,6 +715,8 @@
 .maf-refs a{color:var(--forest,#2f4a3a)}
 .maf-refs span{color:var(--muted)}
 .maf-en{font:400 .9rem/1.45 var(--en,Georgia,serif);color:var(--muted);margin-top:1px}
+.maf-answer{border-color:var(--brass,#8a6d2f)}.maf-answer h2{font-size:1.15rem}.maf-ai{margin:4px 0 12px;padding:10px 14px;border-radius:8px;background:var(--soft,rgba(0,0,0,.03));line-height:1.65}.maf-ai a{font-weight:600;color:var(--forest,#2f4a3a)}
+.maf-answer-list li{padding:9px 0}
 .maf-tabs{display:flex;flex-wrap:wrap;gap:6px;margin:0 0 14px}.maf-tabs button{border:1px solid var(--line);background:var(--bg);color:var(--ink);border-radius:999px;padding:7px 13px;font:600 .82rem var(--ui,system-ui);cursor:pointer}
 .maf-tabs button[aria-pressed=true]{background:var(--forest,#2f4a3a);border-color:var(--forest,#2f4a3a);color:#fff}
 [data-school=rt] .maf-sec:not([data-s=rt]),[data-school=ish] .maf-sec:not([data-s=ish]),[data-school=out] .maf-sec:not([data-s=out]){display:none}
@@ -720,6 +832,11 @@
     if (!q) { out.innerHTML = ''; return; }
     const a = await analyze(q);
     const cards = [];
+    let answerList = [], answerCard = '';
+    if (isQuestion(q) || !(a.topics.length || a.source || a.parsha)) {
+      try { answerList = await whereToLook(q, a); } catch {}
+      if (answerList.length) answerCard = answerCardHTML(M, q, answerList);
+    }
     if (a.source) cards.push(await sourceCard(M, a.source, corpus));
     if (a.parsha) cards.push(parshaCard(a.parsha));
     const top = a.topics.slice(0, 1);
@@ -735,9 +852,12 @@
       const auto = !cards.length || (top.length && topE < 10);
       cards.push(`<div class="maf-card maf-sec" data-s="rt" data-fulltext><h2>Inside the entries</h2><p class="maf-meta">Every Mafteach entry whose Hebrew or English includes ${a.hebrew ? `“<span class="maf-he" lang="he">${E(q)}</span>”` : `the words “${E(tokens(q).filter(x => x.keep).map(x => x.w).join(' '))}”${top.length ? ` or “<span class="maf-he" lang="he">${E(top[0].t.he)}</span>”` : ''}`}.</p>${auto ? '<div class="loading">Searching…</div>' : '<button class="maf-btn ghost" data-run-fulltext>Search inside all entries</button>'}</div>`);
     }
-    if (!cards.length) cards.push(`<div class="maf-card"><h2>Nothing in the Mafteach matched</h2><p class="maf-meta">Try one key word, the Hebrew term, another spelling (Shabbos / Shabbat), or a pasuk or daf with its number (Bereishis 2:7, Shabbos 88b).</p></div>`);
+    if (!cards.length && !answerCard) cards.push(`<div class="maf-card"><h2>Nothing in the Mafteach matched</h2><p class="maf-meta">Try one key word, the Hebrew term, another spelling (Shabbos / Shabbat), or a pasuk or daf with its number (Bereishis 2:7, Shabbos 88b).</p></div>`);
+    if (answerCard) cards.unshift(answerCard);             // the answer always comes first
     const tabs = `<div class="maf-tabs" role="toolbar" aria-label="Show results from"><button data-s="all" aria-pressed="true">Everything</button><button data-s="rt" aria-pressed="false">Rav Tzadok</button><button data-s="ish" aria-pressed="false">Ishbitz–Radzin</button><button data-s="out" aria-pressed="false">Chassidus · Kabbalah · Machshava · Mussar</button></div>`;
     out.innerHTML = (cards.some(c => c.includes('maf-sec')) ? tabs : '') + cards.join('');
+    const ans = out.querySelector('[data-answer]');
+    if (ans && isQuestion(q)) writeAnswer(ans, q, answerList);
     const setSchool = sc => { out.dataset.school = sc; out.querySelectorAll('.maf-tabs button').forEach(b => b.setAttribute('aria-pressed', String(b.dataset.s === sc))); };
     out.addEventListener('click', ev => {
       const b = ev.target.closest('.maf-tabs button, [data-go]'); if (!b) return;
@@ -1014,7 +1134,7 @@
     return renderSearch(app, p);
   }
 
-  return { VERSION, topicLinks, sourceLinks, configure, index, buildIndex, findTerms, parseSource, findParsha, findSourceIn, questionTopics, analyze, refInfo, topicEntries, sourceEntries,
+  return { VERSION, whereToLook, isQuestion, answerIndex, topicLinks, sourceLinks, configure, index, buildIndex, findTerms, parseSource, findParsha, findSourceIn, questionTopics, analyze, refInfo, topicEntries, sourceEntries,
     searchEntries, seeAlso, planTopicShiur, planParshaShiur, ptSectionPassages, parshaSources, shiurText, suggestRows, excerpt, render, attach, PARSHIYOS, translitKey, heKey, norm };
 });
 // Attach to the reader's header search and home page as soon as the page is ready.

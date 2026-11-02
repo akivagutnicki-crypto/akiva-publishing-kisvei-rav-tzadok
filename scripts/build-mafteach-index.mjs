@@ -106,7 +106,17 @@ export function buildMafteach(OUT) {
     passages,
     stats: { entries: entries.length, refs: entries.reduce((a, e) => a + e.r.length, 0), linked: Object.values(passages).reduce((a, b) => a + b, 0) },
   });
-  const stats = { entries: entries.length, topics: byTopic.size, sources: bySource.size, passages: byPassage.size };
+  // Question answering (reader "Ask" and the worker's /ask): every index line that links to a library passage,
+  // as [English, topic id, [refs], treated at length, Hebrew, source key]
+  const answer = [];
+  for (const e of entries) {
+    const refs = [...new Set(e.r.filter(r => r[1]).map(r => r[1]))];
+    if (!refs.length) continue;
+    const long = e.r.some(r => r[1] && String(r[r.length - 1]).includes('*')) ? 1 : 0;
+    answer.push([e.e || '', e.T ?? (e.U ?? -1), refs, long, e.t, e.k || '']);
+  }
+  write('answer.json', answer);
+  const stats = { entries: entries.length, topics: byTopic.size, sources: bySource.size, passages: byPassage.size, answer: answer.length };
   console.log('Mafteach index:', JSON.stringify(stats));
   return stats;
 }
