@@ -134,7 +134,22 @@ function paragraphsOf(items, where) {
     const pairs = [], notes = [], parts = [];
     it.p.forEach((pair, k) => {
       const [heHtml, enHtml] = Array.isArray(pair) ? pair : [pair, ''];
-      const he = splitNotes(heHtml), en = splitNotes(enHtml);
+      // A source Word paragraph break inside one bilingual citation is layout
+      // only: DOM textContent and the audited character anchor count no glyph
+      // for BR. Keep the MCP text/anchor coordinate in that same space.
+      const wordHtml = value => it.sourceEdition === 'takanas-docx-master-2026-11-02'
+        ? String(value).replace(/<br\s*\/?>/gi, '') : value;
+      const he = splitNotes(wordHtml(heHtml)), en = splitNotes(wordHtml(enHtml));
+      if (it.sourceEdition === 'takanas-docx-master-2026-11-02') {
+        // Preserve literal intra-phrase spaces as well: tidying them would
+        // change the audited UTF-16 coordinate and move a native marker.
+        he.text = decode(wordHtml(heHtml).replace(/<[^>]*>/g, ''));
+        en.text = decode(wordHtml(enHtml).replace(/<[^>]*>/g, ''));
+        const exactAnchors = value => [...String(value).matchAll(/<a\b[^>]*\bdata-ref="([^"]+)"[^>]*>/g)]
+          .map(m => ({ref:decode(m[1]),at:decode(String(value).slice(0,m.index).replace(/<[^>]*>/g,'')).length}));
+        he.anchors = exactAnchors(wordHtml(heHtml));
+        en.anchors = exactAnchors(wordHtml(enHtml));
+      }
       pairs.push([he.text, en.text]);
       parts.push({ k, side: 'h', split: he }, { k, side: 'e', split: en });
       for (const x of he.notes) notes.push([x.n, x.text, k, 'h', x.at]);
@@ -144,7 +159,16 @@ function paragraphsOf(items, where) {
     for (const fn of it.footnotes || []) {
       const k = Math.max(0, Math.min(pairs.length - 1, fn.phraseIndex ?? pairs.length - 1));
       const text = (fn.paragraphs || []).map(x => plain(x.text ?? x)).filter(Boolean).join('\n') || plain(fn.text);
-      notes.push([String(fn.number ?? notes.length + 1), text, k, 'e', pairs[k] ? pairs[k][1].length : 0]);
+      // Preserve the exact native Word anchor, including Hebrew nikkud and
+      // UTF-16 offsets. Structured notes must not silently move to English.
+      const heAnchor = Number.isInteger(fn.heCharOffset);
+      const side = heAnchor ? 'h' : 'e';
+      const offset = heAnchor ? fn.heCharOffset : (Number.isInteger(fn.enCharOffset) ? fn.enCharOffset : pairs[k]?.[1].length || 0);
+      const phrase = pairs[k]?.[heAnchor ? 0 : 1] || '';
+      if (offset < 0 || offset > phrase.length) throw Error('Structured footnote anchor outside phrase: ' + fn.sourceId);
+      if (heAnchor && fn.heAnchorPrefix !== undefined && phrase.slice(0, offset) !== fn.heAnchorPrefix)
+        throw Error('Structured footnote Hebrew anchor differs: ' + fn.sourceId);
+      notes.push([String(fn.number ?? notes.length + 1), text, k, side, offset]);
     }
     const para = { n: it.n || paras.length + 1, p: pairs };
     if (notes.length) para.f = notes;

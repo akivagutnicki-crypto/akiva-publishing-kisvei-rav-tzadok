@@ -1,0 +1,264 @@
+name: Publish Takanas HaShavin corrected KDP master (preserve live site)
+
+# The release branch can only validate and upload review evidence. It has no
+# Pages/OIDC permissions and no deployment step. Only main with the explicit
+# release tag (or an explicit main workflow_dispatch) can publish.
+on:
+  push:
+    branches: [main, release/takanas-docx-20261102]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ (github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[takanas-docx-master]'))) && 'pages' || format('takanas-docx-candidate-{0}', github.ref) }}
+  cancel-in-progress: false
+
+env:
+  NEW_BOOKS_SITE: .takanas-docx-site
+
+jobs:
+  candidate:
+    if: ${{ github.repository == 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok' && github.ref == 'refs/heads/release/takanas-docx-20261102' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: read
+      actions: read
+      deployments: read
+    steps:
+      - name: Check out the exact source commit
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+
+      - name: Set up Node 24
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+
+      - name: Validate the exact corrected KDP conversion pack
+        run: |
+          node --check scripts/publish-takanas-docx-master.mjs
+          python3 -m py_compile scripts/takanas-docx-release-guard.py scripts/collect-takanas-docx-candidate.py
+          mkdir -p artifacts/takanas-docx-master
+          node scripts/publish-takanas-docx-master.mjs --check-pack > artifacts/takanas-docx-master/check-pack.json
+          node tests/test-takanas-docx-master-cache.mjs
+
+      - name: Build fresh Reader outputs without releasing other books
+        run: |
+          node scripts/import-mei-vayera-bo.mjs
+          node scripts/build-library.mjs
+          node scripts/build-mcp-index.mjs
+          node tests/test-takanas-docx-master.mjs dist
+          node scripts/build-parallels.mjs
+          rm -rf .takanas-docx-build
+          mv dist .takanas-docx-build
+          git restore --worktree -- dist
+
+      - name: Identify the actual current deployed complete Pages artifact
+        id: baseline
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/takanas-docx-release-guard.py metadata
+
+      - name: Download the complete current publication on the runner
+        uses: actions/download-artifact@v4
+        with:
+          artifact-ids: ${{ steps.baseline.outputs.artifact }}
+          run-id: ${{ steps.baseline.outputs.run }}
+          repository: akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/takanas-docx-baseline
+          merge-multiple: true
+
+      - name: Safely restore every published site file and authenticate the baseline
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PY_RESTORE'
+          import os, pathlib, shutil, tarfile
+          root = pathlib.Path(os.environ['NEW_BOOKS_SITE']).resolve()
+          if root.exists(): shutil.rmtree(root)
+          root.mkdir()
+          archive = pathlib.Path(os.environ['RUNNER_TEMP']) / 'takanas-docx-baseline/artifact.tar'
+          assert archive.is_file(), 'Missing complete Pages archive'
+          with tarfile.open(archive, 'r:') as source:
+              members = source.getmembers()
+              for member in members:
+                  target = (root / member.name).resolve()
+                  assert target == root or root in target.parents, 'Archive path escapes site'
+                  assert member.isdir() or member.isfile(), 'Archive contains an unsafe link'
+              source.extractall(root, members=members, filter='data')
+          PY_RESTORE
+          python3 scripts/new-books-release.py capture
+          python3 scripts/takanas-docx-release-guard.py guard
+
+      - name: Replace all sixteen Takanas sections and synchronize notes indexes and both ZIPs
+        run: |
+          node scripts/publish-takanas-docx-master.mjs --apply .takanas-docx-site .takanas-docx-build
+          node scripts/publish-takanas-docx-master.mjs --finalize .takanas-docx-site
+          node scripts/publish-takanas-docx-master.mjs --verify .takanas-docx-site .takanas-docx-build
+          node --check .takanas-docx-site/library/sw.js
+
+      - name: Collect bounded source conservation and archive verification evidence
+        run: python3 scripts/collect-takanas-docx-candidate.py
+
+      - name: Confirm the source branch main and live predecessor stayed unchanged
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/takanas-docx-release-guard.py guard
+
+      - name: Upload the bounded candidate for review without publishing
+        uses: actions/upload-artifact@v4
+        with:
+          name: takanas-docx-master-candidate-${{ github.sha }}
+          retention-days: 90
+          if-no-files-found: error
+          path: |
+            artifacts/takanas-docx-candidate/
+            artifacts/takanas-docx-master/
+
+      - name: Preserve candidate diagnostics on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: takanas-docx-master-candidate-failure-${{ github.sha }}
+          retention-days: 30
+          if-no-files-found: warn
+          path: |
+            new-books-publication.json
+            new-books-baseline.json
+            artifacts/takanas-docx-master/
+
+  publish:
+    if: ${{ github.repository == 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok' && github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[takanas-docx-master]')) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    permissions:
+      contents: read
+      actions: read
+      deployments: read
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check out the exact source commit
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+
+      - name: Set up Node 24
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+
+      - name: Validate the exact corrected KDP conversion pack
+        run: |
+          node --check scripts/publish-takanas-docx-master.mjs
+          python3 -m py_compile scripts/takanas-docx-release-guard.py scripts/collect-takanas-docx-candidate.py
+          mkdir -p artifacts/takanas-docx-master
+          node scripts/publish-takanas-docx-master.mjs --check-pack > artifacts/takanas-docx-master/check-pack.json
+          node tests/test-takanas-docx-master-cache.mjs
+
+      - name: Build fresh Reader outputs without releasing other books
+        run: |
+          node scripts/import-mei-vayera-bo.mjs
+          node scripts/build-library.mjs
+          node scripts/build-mcp-index.mjs
+          node tests/test-takanas-docx-master.mjs dist
+          node scripts/build-parallels.mjs
+          rm -rf .takanas-docx-build
+          mv dist .takanas-docx-build
+          git restore --worktree -- dist
+
+      - name: Identify the actual current deployed complete Pages artifact
+        id: baseline
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/takanas-docx-release-guard.py metadata
+
+      - name: Download the complete current publication on the runner
+        uses: actions/download-artifact@v4
+        with:
+          artifact-ids: ${{ steps.baseline.outputs.artifact }}
+          run-id: ${{ steps.baseline.outputs.run }}
+          repository: akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/takanas-docx-baseline
+          merge-multiple: true
+
+      - name: Safely restore every published site file and authenticate the baseline
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PY_RESTORE'
+          import os, pathlib, shutil, tarfile
+          root = pathlib.Path(os.environ['NEW_BOOKS_SITE']).resolve()
+          if root.exists(): shutil.rmtree(root)
+          root.mkdir()
+          archive = pathlib.Path(os.environ['RUNNER_TEMP']) / 'takanas-docx-baseline/artifact.tar'
+          assert archive.is_file(), 'Missing complete Pages archive'
+          with tarfile.open(archive, 'r:') as source:
+              members = source.getmembers()
+              for member in members:
+                  target = (root / member.name).resolve()
+                  assert target == root or root in target.parents, 'Archive path escapes site'
+                  assert member.isdir() or member.isfile(), 'Archive contains an unsafe link'
+              source.extractall(root, members=members, filter='data')
+          PY_RESTORE
+          python3 scripts/new-books-release.py capture
+          python3 scripts/takanas-docx-release-guard.py guard
+
+      - name: Replace all sixteen Takanas sections and synchronize notes indexes and both ZIPs
+        run: |
+          node scripts/publish-takanas-docx-master.mjs --apply .takanas-docx-site .takanas-docx-build
+          node scripts/publish-takanas-docx-master.mjs --finalize .takanas-docx-site
+          node scripts/publish-takanas-docx-master.mjs --verify .takanas-docx-site .takanas-docx-build
+          node --check .takanas-docx-site/library/sw.js
+
+      - name: Collect bounded source conservation and archive verification evidence
+        run: python3 scripts/collect-takanas-docx-candidate.py
+
+      - name: Recheck exact source main and latest live publication before upload
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/takanas-docx-release-guard.py guard
+
+      - name: Configure GitHub Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload only the verified complete preserved successor
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: .takanas-docx-site
+          retention-days: 14
+
+      - name: Recheck exact source main and latest live publication before deployment
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/takanas-docx-release-guard.py guard
+
+      - name: Publish the corrected Takanas HaShavin KDP master Reader
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Verify exact public section note index cache and archive bytes
+        run: node scripts/publish-takanas-docx-master.mjs --live .takanas-docx-site
+
+      - name: Save complete release and preservation proof
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: takanas-docx-master-publication-proof-${{ github.sha }}
+          retention-days: 90
+          if-no-files-found: warn
+          path: |
+            new-books-publication.json
+            new-books-baseline.json
+            artifacts/takanas-docx-master/
+            artifacts/takanas-docx-candidate/
+            .takanas-docx-site/library/takanas-docx-master-20261102.json

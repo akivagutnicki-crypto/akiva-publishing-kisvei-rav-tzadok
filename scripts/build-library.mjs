@@ -323,7 +323,10 @@ const linkHebrewDeep = x => Array.isArray(x) ? x.map(linkHebrewDeep) : (typeof x
 
 function connect(slug, sectionRef, sep, items) {
   dropHebrewRecords(slug, sectionRef);
-  items = cleanHeadings(items);
+  // The corrected Word master has an audited heading sequence. Keep those
+  // headings verbatim, including adjacent subtitles and printed section labels.
+  if (!items.some(item => item.sourceEdition === 'takanas-docx-master-2026-11-02'))
+    items = cleanHeadings(items);
   for (const item of items) {
     if (!item.p) continue;
     // A reviewed Tzidkat note has one canonical book-wide number. It never
@@ -406,6 +409,20 @@ function connect(slug, sectionRef, sep, items) {
     // Reviewed Tzidkat and Machshavot sources use precise bilingual insertion boundaries.
     // Fail a future rebuild if either phrase changes underneath its Hebrew marker.
     for (const note of item.footnotes || []) {
+      if (/^TK-KDP-(?:I|II)-\d{4}$/.test(note.sourceId || '')) {
+        const phrase = item.p[note.phraseIndex];
+        const plain = value => String(value).replace(/<[^>]*>/g, '').replace(/&(?:quot|amp|apos|lt|gt|nbsp|#39|#x27);/g,
+          t => ({'&quot;':'"','&amp;':'&','&apos;':"'",'&lt;':'<','&gt;':'>','&nbsp;':' ','&#39;':"'",'&#x27;':"'"}[t]));
+        if (!phrase || plain(phrase[0]).slice(0,note.heCharOffset) !== note.heAnchorPrefix ||
+            plain(phrase[1]).slice(0,note.enCharOffset) !== note.enAnchorPrefix)
+          throw Error('Revised Takanas DOCX footnote anchor changed: ' + note.placementId);
+        for (const source of note.sources || []) {
+          if (source.url && !/^https?:\/\//i.test(source.url))
+            throw Error('Invalid Takanas native source connection: ' + note.sourceId);
+          if (source.ref && source.url) refs.add(normalizeRef(source.ref));
+        }
+        continue;
+      }
       if (!/^(?:TZ|MC|DS|SZ|KH|PA|OZ|SM|SS|DC)-\d{4}$/.test(note.sourceId || '')) continue;
       const phrase = item.p[note.phraseIndex];
       const textOf = s => String(s).replace(/<[^>]*>/g, '').replace(/&(?:quot|amp|apos|lt|gt|nbsp|#39|#x27);/g,
@@ -482,6 +499,8 @@ for (const dir of DIRS) {
         fs.copyFileSync(source, destination);
         return { file, label };
       });
+      const kdpSeifNavigation = src.editionId === 'takanas-docx-master-2026-11-02'
+        ? JSON.parse(fs.readFileSync('sources/akiva/overlays/takanas-docx-master-20261102-seif-navigation.json', 'utf8')) : null;
       const children = src.sections.map(sec => {
         if (src.title === 'Beit Yaakov on Torah' && /^Lech Lecha \d+$/.test(sec.key || ''))
           addLechDocumentHeadings(sec, 'beit');
@@ -496,6 +515,7 @@ for (const dir of DIRS) {
           en: sec.en, he: sec.he, id, depth: 1, shape: paras, interlinear: true,
           ref,
           heRef: `${src.heTitle}, ${sec.he}`, sep,
+          ...(kdpSeifNavigation && numbered ? {seifNavigation: kdpSeifNavigation.simanim.find(siman => siman.n === sec.n).entries} : {}),
           ...(sec.sourceUrl ? { sourceUrl: sec.sourceUrl } : {}),
           ...(sec.downloadDocx ? { downloadDocx: sec.downloadDocx } : {}),
         };

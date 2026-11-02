@@ -1,0 +1,286 @@
+{
+  "schema_version": 1,
+  "edition": "takanas-docx-master-2026-11-02",
+  "source_print_pdf": {
+    "filename": "Takanas_HaShavin_Volume_I_KDP_Corrected_Balanced.pdf",
+    "sha256": "78debc19ed575238b7bfa28368e8e4730ca52890b9545c0b7cbadb728f013351",
+    "total_pages": 532,
+    "page_size_points": [
+      504,
+      720
+    ]
+  },
+  "old_preview_sha256": "483f3fa3dfb2d41bba686685ba3fccf7a936ef02683f4247eb0557a5389f8e7a",
+  "assets": [
+    {
+      "source_file": "preview.pdf",
+      "public_paths": [
+        "Takanas_HaShavin_Volume_I_Siman_Aleph.pdf",
+        "previews/takanas-hashavin-20-page-preview.pdf"
+      ],
+      "sha256": "0ce1cf9b7e2144ff4b5f5c62933efe55e5bd79f1145b6f6031f9a0f44a485875",
+      "bytes": 592318,
+      "source_pages_one_based": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        15,
+        16,
+        17,
+        18,
+        19,
+        20
+      ]
+    },
+    {
+      "source_file": "sample-page.png",
+      "public_paths": [
+        "sample-page.png"
+      ],
+      "sha256": "efe2b895c281d66c22bd6114d2c1e66e99a94945303275f9f33bac25ac3c8bcc",
+      "bytes": 325864,
+      "source_pages_one_based": [
+        4
+      ]
+    },
+    {
+      "source_file": "sample-text-page.png",
+      "public_paths": [
+        "sample-text-page.png"
+      ],
+      "sha256": "4613e4d3a66fef1bb31fc238a0021ee06b8b82e16a13b622f2430cbfba31fd48",
+      "bytes": 331656,
+      "source_pages_one_based": [
+        7
+      ]
+    }
+  ],
+  "preview_selection": "Twenty consecutive opening pages preserve the latest title and frontmatter and contain the complete Introduction and Siman 1, ending immediately before Siman 2 on source page 21. No page contents are retypeset.",
+  "image_rendering": {
+    "dpi": 140,
+    "width": 980,
+    "height": 1400,
+    "page_contents": "Unaltered source page; no crop, reflow, or translation changes."
+  },
+  "translation_replacement_evidence": [
+    {
+      "old_pdf_page": 6,
+      "new_source_pdf_page": 7,
+      "old": "For all the bodily ailments of the Children of Israel are in no way happenstance",
+      "corrected": "For all physical illnesses of the Jewish people are not incidental at all",
+      "basis": "Direct PDFtext extraction and individual rendered page comparison."
+    },
+    {
+      "old_pdf_page": 2,
+      "new_source_pdf_page": 4,
+      "old": "And it is known that teshuvah is drawn from the binah [understanding] of the heart",
+      "corrected": "And it is known that repentance is drawn from understanding (Binah) in the heart",
+      "basis": "Direct PDFtext extraction, old public enlarged page image, and corrected rendered page."
+    }
+  ],
+  "public_observation": {
+    "observed_at_utc": "2026-11-02T14:31:35.186250+00:00",
+    "homepage_url": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/",
+    "public_preview_url": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/Takanas_HaShavin_Volume_I_Siman_Aleph.pdf",
+    "observed": "Actual homepage shows two old page images; opened Introduction image modal matches old sample-page.png. Public PDF viewer displays 20 pages and the older standalone Introduction title page. Existing public link labels are “Read 20-page preview” and “Open all 20 pages ↗”."
+  },
+  "visual_qa": {
+    "all20pages_individually_visually_inspected": true,
+    "every_preview_page_pixel_and_text_identical_to_source": true,
+    "page_records": [
+      {
+        "preview_page": 1,
+        "source_page": 1,
+        "png_sha256": "960c6522660b045c8c54856313aeedea2dca33b36c321bf84c2600babbbcc664",
+        "visual_inspection": "PASS",
+        "inspection_basis": "Individually opened full-page native100dpi PNG; checked margins, Hebrew/English rendering, headings, markers, and footnote flow. Source paragraph/footnote continuations retained.",
+        "pixel_identity_with_source_at_100dpi": true,
+        "text_identity_with_source": true
+      },
+      {
+        "preview_page": 2,
+        "source_page": 2,
+        "png_sha256": "80b501b340688c26c40d20287b2eb26fca635b7805407ad3d4a860405573176b",
+        "visual_inspection": "PASS",
+        "inspection_basis": "Individually opened full-page native100dpi PNG; checked margins, Hebrew/English rendering, headings, markers, and footnote flow. Source paragraph/footnote continuations retained.",
+        "pixel_identity_with_source_at_100dpi": true,
+        "text_identity_with_source": true
+      },
+      {
+        "preview_page": 3,
+        "source_page": 3,
+        "png_sha256": "3889e9a304ce8791a33f0463c7c6c2ed305906cdc936ecd7f55c0b791a9389ad",
+        "visual_inspection": "PASS",
+        "inspection_basis": "Individually opened full-page native100dpi PNG; checked margins, Hebrew/English rendering, headings, markers, and footnote flow. Source paragraph/footnote continuations retained.",
+        "pixel_identity_with_source_at_100dpi": true,
+        "text_identity_with_source": true
+      },
+      {
+        "preview_page": 4,
+        "source_page": 4,
+        "png_sha256": "7ce9aa58742c457c7c945b95f00cedcc48aff741d44c970f8cc4bcb208318772",
+        "visual_inspection": "PASS",
+        "inspection_basis": "Individually opened full-page native100dpi PNG; checked margins, Hebrew/English rendering, headings, markers, and footnote flow. Source paragraph/footnote continuations retained.",
+        "pixel_identity_with_source_at_100dpi": true,
+        "text_identity_with_source": true
+      },
+      {
+        "preview_page": 5,
+        "source_page": 5,
+        "png_sha256": "3aa660356de4cd6aea871d381fde158927fe4b2bfc507dadff9e66b1463e9ff3",
+        "visual_inspection": "PASS",
+        "inspection_basis": "Individually opened full-page native100dpi PNG; checked margins, Hebrew/English rendering, headings, markers, and footnote flow. Source paragraph/footnote continuations retained.",
+        "pixel_identity_with_source_at_100dpi": true,
+        "text_identity_with_source": true
+      },
+      {
+        "preview_page": 6,
+        "source_page": 6,
+        "png_sha256": "61e9e308b9bc6f3b75a8633287d5bb987ef5e7bea2fe57b55ddf2d4444547fc9",
+        "visual_inspection": "PASS",
+        "inspection_basis": "Individually opened full-page native100dpi PNG; checked margins, Hebrew/English rendering, headings, markers, and footnote flow. Source paragraph/footnote continuations retained.",
+        "pixel_identity_with_source_at_100dpi": true,
+        "text_identity_with_source": true
+      },
+      {
+        "preview_page": 7,
+        "source_page": 7,
+        "png_sha256": "407ebbf9276940016465e6792e41442a1dbf28aeb31863882a2b0c94f19f6393",
+        "visual_inspection": "PASS",
+        "inspection_basis": "Individually opened full-page native100dpi PNG; checked margins, Hebrew/English rendering, headings, markers, and footnote flow. Source paragraph/footnote continuations retained.",
+        "pixel_identity_with_source_at_100dpi": true,
+        "text_identity_with_source": true
+      },
+      {
+        "preview_page": 8,
+        "source_page": 8,
+        "png_sha256": "9748a5cd2ec9d6c1641281c55c62064a6639724acc47850454c2a948e1bb9261",
+        "visual_inspection": "PASS",
+        "inspection_basis": "Individually opened full-page native100dpi PNG; checked margins, Hebrew/English rendering, headings, markers, and footnote flow. Source paragraph/footnote continuations retained.",
+        "pixel_identity_with_source_at_100dpi": true,
+        "text_identity_with_source": true
+      },
+      {
+        "preview_page": 9,
+        "source_page": 9,
+        "png_sha256": "a83b256989524d50a92546e0d76e158850c1a713924cf9da22c32c93b6aa669f",
+        "visual_inspection": "PASS",
+        "inspection_basis": "Individually opened full-page native100dpi PNG; checked margins, Hebrew/English rendering, headings, markers, and footnote flow. Source paragraph/footnote continuations retained.",
+        "pixel_identity_with_source_at_100dpi": true,
+        "text_identity_with_source": true
+      },
+      {
+        "preview_page": 10,
+        "source_page": 10,
+        "png_sha256": "dc0b7c6af3488a9389c7f45a76bedc3419fab2f526574ab5f07f3e9e210cc717",
+        "visual_inspection": "PASS",
+        "inspection_basis": "Individually opened full-page native100dpi PNG; checked margins, Hebrew/English rendering, headings, markers, and footnote flow. Source paragraph/footnote continuations retained.",
+        "pixel_identity_with_source_at_100dpi": true,
+        "text_identity_with_source": true
+      },
+      {
+        "preview_page": 11,
+        "source_page": 11,
+        "png_sha256": "26053549619bc85db699f4b7c664f359c146824966f55d5d2c3dacce7178eb40",
+        "visual_inspection": "PASS",
+        "inspection_basis": "Individually opened full-page native100dpi PNG; checked margins, Hebrew/English rendering, headings, markers, and footnote flow. Source paragraph/footnote continuations retained.",
+        "pixel_identity_with_source_at_100dpi": true,
+        "text_identity_with_source": true
+      },
+      {
+        "preview_page": 12,
+        "source_page": 12,
+        "png_sha256": "69c4e9b65dc10d0e08dd38c4f8782050b9578a94669a3b79de6fe59761934612",
+        "visual_inspection": "PASS",
+        "inspection_basis": "Individually opened full-page native100dpi PNG; checked margins, Hebrew/English rendering, headings, markers, and footnote flow. Source paragraph/footnote continuations retained.",
+        "pixel_identity_with_source_at_100dpi": true,
+        "text_identity_with_source": true
+      },
+      {
+        "preview_page": 13,
+        "source_page": 13,
+        "png_sha256": "1b2fe4c89b700fe923bb8720b0c4890cbe90fc46deac515a0f1bbfd59de4fcfa",
+        "visual_inspection": "PASS",
+        "inspection_basis": "Individually opened full-page native100dpi PNG; checked margins, Hebrew/English rendering, headings, markers, and footnote flow. Source paragraph/footnote continuations retained.",
+        "pixel_identity_with_source_at_100dpi": true,
+        "text_identity_with_source": true
+      },
+      {
+        "preview_page": 14,
+        "source_page": 14,
+        "png_sha256": "062e5bad57f2882710b9d39bc953c5e462079e483ae59125c434883e78ff7ca9",
+        "visual_inspection": "PASS",
+        "inspection_basis": "Individually opened full-page native100dpi PNG; checked margins, Hebrew/English rendering, headings, markers, and footnote flow. Source paragraph/footnote continuations retained.",
+        "pixel_identity_with_source_at_100dpi": true,
+        "text_identity_with_source": true
+      },
+      {
+        "preview_page": 15,
+        "source_page": 15,
+        "png_sha256": "8d032505d7b78d2d4e7c633aec24bb83a7de022e3684ac6b73173506fd53444c",
+        "visual_inspection": "PASS",
+        "inspection_basis": "Individually opened full-page native100dpi PNG; checked margins, Hebrew/English rendering, headings, markers, and footnote flow. Source paragraph/footnote continuations retained.",
+        "pixel_identity_with_source_at_100dpi": true,
+        "text_identity_with_source": true
+      },
+      {
+        "preview_page": 16,
+        "source_page": 16,
+        "png_sha256": "ca5ec52c8eec4e8034a76ff6680b4ef8579eb250ba6bd7f6088ad05f10602e56",
+        "visual_inspection": "PASS",
+        "inspection_basis": "Individually opened full-page native100dpi PNG; checked margins, Hebrew/English rendering, headings, markers, and footnote flow. Source paragraph/footnote continuations retained.",
+        "pixel_identity_with_source_at_100dpi": true,
+        "text_identity_with_source": true
+      },
+      {
+        "preview_page": 17,
+        "source_page": 17,
+        "png_sha256": "eef770a8337e62a1bb841e6e2062a2710df6173b1449c293402d72b373ace792",
+        "visual_inspection": "PASS",
+        "inspection_basis": "Individually opened full-page native100dpi PNG; checked margins, Hebrew/English rendering, headings, markers, and footnote flow. Source paragraph/footnote continuations retained.",
+        "pixel_identity_with_source_at_100dpi": true,
+        "text_identity_with_source": true
+      },
+      {
+        "preview_page": 18,
+        "source_page": 18,
+        "png_sha256": "dea47b98973ccd0d8c19d6cd886eb4d29f1542bbd7f0286c98773482b8cd35d3",
+        "visual_inspection": "PASS",
+        "inspection_basis": "Individually opened full-page native100dpi PNG; checked margins, Hebrew/English rendering, headings, markers, and footnote flow. Source paragraph/footnote continuations retained.",
+        "pixel_identity_with_source_at_100dpi": true,
+        "text_identity_with_source": true
+      },
+      {
+        "preview_page": 19,
+        "source_page": 19,
+        "png_sha256": "d4c6480772ad97447b6d5b68bd41fd90c94175084dce7fab04b15fb70bce311c",
+        "visual_inspection": "PASS",
+        "inspection_basis": "Individually opened full-page native100dpi PNG; checked margins, Hebrew/English rendering, headings, markers, and footnote flow. Source paragraph/footnote continuations retained.",
+        "pixel_identity_with_source_at_100dpi": true,
+        "text_identity_with_source": true
+      },
+      {
+        "preview_page": 20,
+        "source_page": 20,
+        "png_sha256": "bbe4d29d965b0c67f9b41aef989e81c9859d86bad5275e78fe9f858898140be8",
+        "visual_inspection": "PASS",
+        "inspection_basis": "Individually opened full-page native100dpi PNG; checked margins, Hebrew/English rendering, headings, markers, and footnote flow. Source paragraph/footnote continuations retained.",
+        "pixel_identity_with_source_at_100dpi": true,
+        "text_identity_with_source": true
+      }
+    ],
+    "new_scholarly_collation_claim": false
+  },
+  "scope": "Four public preview assets and matching Takanas homepage ranges. Other books, cover artwork, and Amazon links remain unchanged."
+}
