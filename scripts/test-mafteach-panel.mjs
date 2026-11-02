@@ -40,6 +40,8 @@ const merged = M.entryFor(hc.passages, 'Peri Tzadik, Parshat HaChodesh');
 check(merged && merged.p.length && merged.p.length <= 40 && merged.p.every(p => !p[0].startsWith('Peri Tzadik, Parshat HaChodesh ')), 'one-block section gathers its paragraphs');
 check(M.sefariaUrl('Bereshit Rabbah 2:4') === 'https://www.sefaria.org/Bereshit_Rabbah.2.4' && M.sefariaUrl('Berakhot 6b') === 'https://www.sefaria.org/Berakhot.6b', 'Sefaria URLs');
 check(!M.render(e, 'x').includes('<script'), 'render escapes text');
+{ let lines = 0, en = 0; for (const p of e.p) for (const w of p[2]) if (w[0] === 'line') { lines++; if (w[4] && !/[א-ת]{3}/.test(w[4])) en++; }
+  check(lines && en / lines > 0.9 && /maf-why-en/.test(html), `panel index lines have English (${en}/${lines})`); }
 check(fs.readFileSync('dist/library/index.html', 'utf8').includes('window.AkivaMafteach?.mount(d, sec, {toHash, esc})'), 'reader mounts the panel');
 
 // Machine-learned parallels (dist/library/ml-parallels)

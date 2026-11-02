@@ -12,7 +12,7 @@
   else root.AkivaMafteachSearch = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this, function () {
   'use strict';
-  const VERSION = '20261102-mafteach-search-v1';
+  const VERSION = '20261102-mafteach-search-en-v2';
   let BASE = '../mcp-data/mafteach/';
   let PANEL_BASE = 'mafteach/';
   const memo = new Map();
@@ -356,7 +356,8 @@
   const corpusFilter = (list, corpus) => (corpus === 'pt' || corpus === 'rt') ? list.filter(e => e.c === corpus) : list;
   // Full-text search inside entry texts (Hebrew words), loading the parts on demand.
   async function searchEntries(M, q, corpus, limit = 200) {
-    const terms = [...q.matchAll(/"([^"]+)"|(\S+)/g)].map(m => norm(m[1] || m[2]).trim()).filter(Boolean).filter(t => /[א-ת]/.test(t) && !HE_STOP.has(t.replace(/ /g, '')));
+    const terms = [...q.matchAll(/"([^"]+)"|(\S+)/g)].map(m => norm(m[1] || m[2]).trim()).filter(Boolean)
+      .filter(t => /[א-ת]/.test(t) ? !HE_STOP.has(t.replace(/ /g, '')) : t.length >= 3 && !EN_STOP.has(t));
     if (!terms.length) return { total: 0, hits: [] };
     const parts = corpus === 'rt' ? ['1-2', '3'] : corpus === 'pt' ? ['4', '5', '7'] : M.raw.parts;
     const hits = []; let total = 0;
@@ -413,7 +414,7 @@
         usedBooks.set(bookOf(x.primary.ref), (usedBooks.get(bookOf(x.primary.ref)) || 0) + 1);
       }
       if (picks.length) out.push({ heading: g.sub ? { he: g.sub.he, en: g.sub.en } : g.subHe ? { he: g.subHe, en: '' } : { he: topic.he, en: topic.en, general: true },
-        total: g.entries.length, items: picks.map(x => ({ caption: x.e.t, ref: x.primary.ref, long: x.primary.long, also: x.refs.filter(r => r.ref !== x.primary.ref).map(r => r.ref) })) });
+        total: g.entries.length, items: picks.map(x => ({ caption: x.e.t, en: x.e.e || '', ref: x.primary.ref, long: x.primary.long, also: x.refs.filter(r => r.ref !== x.primary.ref).map(r => r.ref) })) });
     }
     const books = new Set(entries.flatMap(e => e.r.map(r => refInfo(r)).map(x => x.ref ? bookOf(x.ref) : x.text.replace(/\s+\S+$/, ''))));
     return { kind: 'topic', title: { he: topic.he, en: topic.en }, entries: entries.length, linked: linked.length, books: books.size, sections: out };
@@ -461,7 +462,7 @@
       L.push(`${plan.title.en} — ${plan.title.he}`, `Rav Tzadok HaKohen on this topic. Built from HaMafteach HaShalem (${plan.entries} entries in ${plan.books} sefarim).`, '');
       plan.sections.forEach((s, i) => {
         L.push(`${i + 1}. ${s.heading.general ? 'General' : `${s.heading.en || ''}${s.heading.en ? ' — ' : ''}${s.heading.he}`}`);
-        for (const it of s.items) L.push(`   • ${it.caption.replace(/(^|\s)-(?=\s|$)/g, '$1' + plan.title.he)} — ${it.ref}${it.long ? ' (at length)' : ''}${it.also.length ? `; see also ${it.also.join(', ')}` : ''}`);
+        for (const it of s.items) L.push(`   • ${it.en ? it.en + ' — ' : ''}${it.caption.replace(/(^|\s)-(?=\s|$)/g, '$1' + plan.title.he)} — ${it.ref}${it.long ? ' (at length)' : ''}${it.also.length ? `; see also ${it.also.join(', ')}` : ''}`);
         L.push('');
       });
     } else {
@@ -508,6 +509,7 @@
 .maf-refs{font:500 .84rem var(--ui,system-ui);margin-top:2px;display:flex;flex-wrap:wrap;gap:4px 12px}
 .maf-refs a{color:var(--forest,#2f4a3a)}
 .maf-refs span{color:var(--muted)}
+.maf-en{font:400 .9rem/1.45 var(--en,Georgia,serif);color:var(--muted);margin-top:1px}
 .maf-dash{color:var(--muted);font-weight:600}
 .maf-tag{font:600 .66rem var(--ui,system-ui);text-transform:uppercase;letter-spacing:.04em;color:var(--brass,#8a6d2f);margin-inline-start:4px}
 .maf-chips{display:flex;flex-wrap:wrap;gap:6px}
@@ -563,7 +565,7 @@
       if (T) head = `<a href="${mafHash({ topic: T.id })}" class="maf-tag" style="text-transform:none;letter-spacing:0">${E(T.en || T.he)}</a> `;
     }
     if (e.x === 's' && e.k) head += `<a class="maf-tag" style="text-transform:none;letter-spacing:0" href="${sefariaUrl(e.k) || '#'}" target="_blank" rel="noopener">${E(e.k)}</a> `;
-    return `<li>${head}${e.x === 't' ? capHTML(e.t, headOf(e)) : `<span class="maf-he" lang="he">${E(e.t)}</span>`}<div class="maf-refs">${refsHTML(e)}</div></li>`;
+    return `<li>${head}${e.x === 't' ? capHTML(e.t, headOf(e)) : `<span class="maf-he" lang="he">${E(e.t)}</span>`}${e.e ? `<div class="maf-en">${E(e.e)}</div>` : ''}<div class="maf-refs">${refsHTML(e)}</div></li>`;
   }
   function entryListHTML(M, entries, { show = 25, grouped = false, topic = false } = {}) {
     let html = '', sub;
@@ -624,9 +626,9 @@
     if (distinct.length >= 2) { const both = await bothCard(M, distinct, corpus); if (both) cards.splice(a.source || a.parsha ? 1 : 0, 0, both); }
     const others = a.topics.slice(1, 16).map(x => x.t).concat(a.weak).filter((t, i, arr) => arr.findIndex(u => u.id === t.id) === i).slice(0, 18);
     if (others.length) cards.push(`<div class="maf-card"><h2>${top.length ? 'Other headings that match' : 'Headings that match'}</h2><div class="maf-chips">${others.map(t => `<a href="${mafHash({ topic: t.id, corpus })}"><span class="maf-he" lang="he">${E(t.he)}</span> · ${E(t.en)} <span style="color:var(--muted)">${t.n}</span></a>`).join('')}</div></div>`);
-    if (a.hebrew) {
+    if (a.hebrew || tokens(q).filter(x => x.keep).length) {
       const auto = !cards.length;
-      cards.push(`<div class="maf-card" data-fulltext><h2>Inside the entries</h2><p class="maf-meta">Every Mafteach entry whose words include “<span class="maf-he" lang="he">${E(q)}</span>”.</p>${auto ? '<div class="loading">Searching…</div>' : '<button class="maf-btn ghost" data-run-fulltext>Search inside all entries</button>'}</div>`);
+      cards.push(`<div class="maf-card" data-fulltext><h2>Inside the entries</h2><p class="maf-meta">Every Mafteach entry whose Hebrew or English includes ${a.hebrew ? `“<span class="maf-he" lang="he">${E(q)}</span>”` : `the words “${E(tokens(q).filter(x => x.keep).map(x => x.w).join(' '))}”`}.</p>${auto ? '<div class="loading">Searching…</div>' : '<button class="maf-btn ghost" data-run-fulltext>Search inside all entries</button>'}</div>`);
     }
     if (!cards.length) cards.push(`<div class="maf-card"><h2>Nothing in the Mafteach matched</h2><p class="maf-meta">Try one key word, the Hebrew term, another spelling (Shabbos / Shabbat), or a pasuk or daf with its number (Bereishis 2:7, Shabbos 88b).</p></div>`);
     out.innerHTML = cards.join('');
@@ -674,7 +676,7 @@
     if (!shared.length) return null;
     const names = topics.map(x => `${E(x.t.en)} · <span class="maf-he" lang="he">${E(x.t.he)}</span>`).join(' + ');
     return `<div class="maf-card"><h2>Passages on ${names.replace(/ \+ /g, ' and ')}</h2><p class="maf-meta">${shared.length} passage${shared.length === 1 ? '' : 's'} the Mafteach lists under more than one of these headings — the likeliest places Rav Tzadok connects them.</p>
-      <ul class="maf-list">${shared.map(([ref, s]) => `<li><a href="${readLink(ref)}" style="font-weight:600">${E(ref)}</a>${[...s].map(k => { const e = refSets[k].get(ref)[0]; return `<div><span class="maf-tag" style="text-transform:none;letter-spacing:0">${E(topics[k].t.en)}</span> ${capHTML(e.t, topics[k].t.he)}</div>`; }).join('')}</li>`).join('')}</ul></div>`;
+      <ul class="maf-list">${shared.map(([ref, s]) => `<li><a href="${readLink(ref)}" style="font-weight:600">${E(ref)}</a>${[...s].map(k => { const e = refSets[k].get(ref)[0]; return `<div><span class="maf-tag" style="text-transform:none;letter-spacing:0">${E(topics[k].t.en)}</span> ${capHTML(e.t, topics[k].t.he)}${e.e ? `<div class="maf-en">${E(e.e)}</div>` : ''}</div>`; }).join('')}</li>`).join('')}</ul></div>`;
   }
 
   // ------------------------------------------------------------ shiur page
@@ -746,7 +748,7 @@
       return `<h1>${E(plan.title.en)} · <span class="maf-he" lang="he">${E(plan.title.he)}</span></h1>
         <p class="maf-sub">A shiur in Rav Tzadok HaKohen's words, arranged from HaMafteach HaShalem: ${plan.entries} entries in ${plan.books} sefarim on this topic; these ${plan.sections.reduce((a, s) => a + s.items.length, 0)} sources are the ones the Mafteach marks as treated at length or that best represent each aspect.</p>${actions}
         ${plan.sections.map((s, si) => `<h2 class="sec">${si + 1}. ${s.heading.general ? `${E(plan.title.en)} — in general` : `<span class="maf-he" lang="he">${E(s.heading.he)}</span>${s.heading.en ? ` · ${E(s.heading.en)}` : ''}`}</h2>
-          ${s.items.map(it => `<div class="maf-src"><div class="cap"><span class="src-ref">${++n}. <a href="${readLink(it.ref)}">${E(it.ref)}</a></span>${it.long ? '<span class="maf-tag">treated at length</span>' : ''} — ${capHTML(it.caption, plan.title.he)}</div>
+          ${s.items.map(it => `<div class="maf-src"><div class="cap"><span class="src-ref">${++n}. <a href="${readLink(it.ref)}">${E(it.ref)}</a></span>${it.long ? '<span class="maf-tag">treated at length</span>' : ''} — ${capHTML(it.caption, plan.title.he)}${it.en ? `<div class="maf-en">${E(it.en)}</div>` : ''}</div>
             <div class="txt" data-text-ref="${E(it.ref)}"><span class="maf-noprint" style="color:var(--muted);font-size:.85rem">Loading the text…</span></div>
             ${it.also.length ? `<div class="maf-refs" style="margin-top:6px"><span>See also:</span>${it.also.slice(0, 4).map(r => `<a href="${readLink(r)}">${E(r)}</a>`).join('')}</div>` : ''}</div>`).join('')}
           ${s.total > s.items.length ? `<p class="maf-meta maf-noprint">${s.total - s.items.length} more in the Mafteach under this heading.</p>` : ''}`).join('')}

@@ -40,6 +40,12 @@ check(A.PARSHIYOS.length === 54, '54 parshiyos');
 // full-text search inside entries
 const ft = await A.searchEntries(M, 'אור הגנוז', 'all');
 check(ft.total > 10 && ft.hits.every(e => /אור הגנו/.test(A.norm(e.t))), 'full-text search');
+// English of the index lines (sources/mafteach/captions-en.json)
+const faithEntries = await A.topicEntries(107);
+const withEn = faithEntries.filter(e => e.e);
+check(withEn.length / faithEntries.length > 0.9 && withEn.every(e => !/[א-ת]{3}/.test(e.e)), `topic lines have English (${withEn.length}/${faithEntries.length})`);
+const ftEn = await A.searchEntries(M, 'olive tree', 'all');
+check(ftEn.total > 0 && ftEn.hits.every(e => /olive/i.test(e.e || '')), 'full-text search finds English words');
 // shiur builder: topic
 const rep = (await A.analyze('teshuvah')).topics[0].t;
 const plan = A.planTopicShiur(M, rep, await A.topicEntries(rep.id));
@@ -49,6 +55,7 @@ check(refs.every(r => /\d$/.test(r)), 'topic shiur sources are library refs');
 const faith = A.planTopicShiur(M, M.byId.get(107), await A.topicEntries(107));
 check(faith.sections.reduce((a, s) => a + s.items.length, 0) >= 6, 'heading without sub-headings still gives a full shiur');
 check(/Repentance — תשובה/.test(A.shiurText(plan)), 'shiur text');
+check(plan.sections.flatMap(x => x.items).filter(i => i.en).length >= refs.length * 0.9, 'shiur sources carry English');
 // shiur builder: parsha
 const p = A.PARSHIYOS.find(x => x.key === 'Vayeshev');
 const pp = A.planParshaShiur(p, await A.ptSectionPassages(p), await A.parshaSources(p));
