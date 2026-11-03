@@ -1,0 +1,153 @@
+[
+ {
+  "id": "vol7-0009-039800",
+  "action": "fix_address",
+  "index_text": "השומר אחיאנכי",
+  "was": "Genesis 30:9",
+  "correct": "Genesis 4:9",
+  "ref": "Peri Tzadik, Vayetzei 1",
+  "quote": "שֶׁהֵשִׁיב הֲשֹׁמֵר אָחִי אָנֹכִי",
+  "note": "Kayin's answer, Genesis 4:9 (ch. ד not ל)."
+ },
+ {
+  "id": "vol7-0131-041414",
+  "action": "fix_address",
+  "index_text": "תתןאמת ליעקב חסד לאברהם",
+  "was": "chapter ו (key Micah 7:20)",
+  "correct": "Micah 7:20",
+  "ref": "Peri Tzadik, Vayetzei 1",
+  "quote": "תִּתֵּן אֱמֶת לְיַעֲקֹב",
+  "note": "Printed chapter should be ז; key is already right."
+ },
+ {
+  "id": "vol7-0214-042482",
+  "action": "fix_address",
+  "index_text": "שבת היא אחת משישים לעולם הבא",
+  "was": "Berakhot 56b",
+  "correct": "Berakhot 57b",
+  "ref": "Peri Tzadik, Vayetzei 1",
+  "quote": "כִּי הַשַּׁבָּת מֵעֵין עוֹלָם הַבָּא",
+  "note": "'שבת אחד מששים לעולם הבא' is Berakhot 57b."
+ },
+ {
+  "id": "vol7-0276-043365",
+  "action": "drop",
+  "index_text": "והפוך בש\"ת ותשכח שב\"ת, והיינו בראשי\"ת ירי\"א שב\"ת",
+  "was": "Taanit 405b",
+  "correct": "",
+  "ref": "Peri Tzadik, Vayetzei 1",
+  "quote": "",
+  "note": "Not in this os (no such words in Vayetzei 1), and 'Taanit 405b' does not exist; belongs to another passage."
+ },
+ {
+  "id": "vol7-0396-044973",
+  "action": "drop",
+  "index_text": "הקב\"ה איסתכל באורייתא וברא עלמא",
+  "was": "Bereshit Rabbah 2 (no key)",
+  "correct": "",
+  "ref": "Peri Tzadik, Vayetzei 1",
+  "quote": "",
+  "note": "Not quoted in Vayetzei 1; belongs to another passage."
+ },
+ {
+  "id": "vol7-0416-045202",
+  "action": "fix_address",
+  "index_text": "ויקראו שמו עשו הא שוא שבראתי בעולמי",
+  "was": "Bereshit Rabbah 63:10",
+  "correct": "Bereshit Rabbah 63:8",
+  "ref": "Peri Tzadik, Vayetzei 1",
+  "quote": "הֵא שָׁוְא שֶׁבָּרָאתִי בְּעוֹלָמִי",
+  "note": "Sefaria numbering 63:8 (the index's printed siman ח agrees; the key 63:10 is wrong)."
+ },
+ {
+  "id": "vol7-0419-045237",
+  "action": "fix_address",
+  "index_text": "באאחיך במרמה בחכמת תורתו",
+  "was": "parashah סו (key Bereshit Rabbah 67:4)",
+  "correct": "Bereshit Rabbah 67:4",
+  "ref": "Peri Tzadik, Vayetzei 1",
+  "quote": "בָּא אָחִיךָ בְּמִרְמָה ... בְּחָכְמַת תּוֹרָתוֹ",
+  "note": "Rav Tzadok cites פ' סז; printed parashah should be סז."
+ },
+ {
+  "id": "vol7-0419-045240",
+  "action": "drop",
+  "index_text": "אז תלך לבטח דרכך וכו' זה יעקב",
+  "was": "Bereshit Rabbah 68:1",
+  "correct": "",
+  "ref": "Peri Tzadik, Vayetzei 1",
+  "quote": "",
+  "note": "Not quoted in Vayetzei 1; belongs to another Vayetzei passage."
+ },
+ {
+  "id": "vol7-0514-046303",
+  "action": "drop",
+  "index_text": "מותר לשנות מפני השלום פרשת כי תצא",
+  "was": "Tanchuma (no address)",
+  "correct": "",
+  "ref": "Peri Tzadik, Vayetzei 1",
+  "quote": "מֻתָּר לוֹ לְשַׁנּוֹת מִפְּנֵי הַשָּׁלוֹם",
+  "note": "No address and not found in Tanchuma Ki Teitzei; the phrase is covered by the Bamidbar Rabbah 11:7 entry (and Yevamot 65b)."
+ },
+ {
+  "id": "vol5-0234-033899",
+  "action": "move",
+  "index_text": "אימת - שעל עם הארא",
+  "was": "topic glossed 'Melaveh Malkah'",
+  "correct": "",
+  "correct_ref": "",
+  "ref": "Peri Tzadik, Vayetzei 1",
+  "quote": "אֵימַת שַׁבָּת עָלָיו עַל עַם הָאָרֶץ",
+  "note": "The os is about the awe of Shabbat on the am ha'aretz; nothing here about Melaveh Malkah. Check the heading this line was filed under."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Mishnah Demai 4:1",
+  "ref": "Peri Tzadik, Vayetzei 1",
+  "quote": "רֵישׁ פֶּרֶק ד דִּדְמַאי",
+  "note": "The os cites the Mishnah by chapter; the index has only the Yerushalmi."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Berakhot 55a",
+  "ref": "Peri Tzadik, Vayetzei 1",
+  "quote": "אִי אֶפְשָׁר לַחֲלוֹם בְּלֹא דְּבָרִים בְּטֵלִים (כְּמוֹ שֶׁכָּתוּב בְּרָכוֹת נה עַמּוּד א)",
+  "note": "Explicitly cited; indexed only as a topic."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Berakhot 55b",
+  "ref": "Peri Tzadik, Vayetzei 1",
+  "quote": "כָּאן עַל יְדֵי מַלְאָךְ כָּאן עַל יְדֵי כּוּלֵּי",
+  "note": "The contradiction of verses (cited as 'Berachos there')."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Zohar I 241b",
+  "ref": "Peri Tzadik, Vayetzei 1",
+  "quote": "סִימָנָא דְּחַיֵּי",
+  "note": "The phrase is from Zohar Vayechi (I 241b), which refers to Vayikra 2a."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Psalms 120:2",
+  "ref": "Peri Tzadik, Vayetzei 1",
+  "quote": "ה' הַצִּילָה נַפְשִׁי מִשְּׂפַת שֶׁקֶר מִלָּשׁוֹן רְמִיָּה",
+  "note": "Quoted twice."
+ }
+]

@@ -1,0 +1,178 @@
+[
+ {
+  "id": "vol7-0571-046726",
+  "action": "fix_address",
+  "index_text": "ויצא יעקב מבאר שבע ואזל לרשו אחרא",
+  "was": "Zohar I 146a",
+  "correct": "Zohar I 147a",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Vayetzei 10",
+  "quote": "אֲזַל לִרְשׁוּ אַחֲרָא ... כְּמוֹ שֶׁכָּתוּב בַּזֹּהַר הַקָּדוֹשׁ רֵישׁ פָּרָשָׁה זוֹ",
+  "note": "R. Shimon's words (Zohar, Vayetzei 1:3) are on 147a; Vayetzei begins on 146b, and nothing of it is on 146a."
+ },
+ {
+  "id": "vol7-0520-046364",
+  "action": "fix_book",
+  "index_text": "שכלמי שמודה ועזב ירוחם ניצול מדינה",
+  "was": "Shocher Tov (Midrash Tehillim) 52:4",
+  "correct": "Pirkei DeRabbi Eliezer 19",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Vayetzei 10",
+  "quote": "וּבְפִרְקֵי דְּרַבִּי אֱלִיעֶזֶר שֶׁכָּל מִי שֶׁמּוֹדֶה וְעוֹזֵב",
+  "note": "Rav Tzadok names PRE; the words are in PRE 19:4. Midrash Tehillim has a near-identical line at 92:5 (not 52)."
+ },
+ {
+  "id": "vol7-0673-047883",
+  "action": "fix_address",
+  "index_text": "עולם הכסא הוא עולם הנשמה",
+  "was": "Tikkunei Zohar, Tikkun 19",
+  "correct": "Tikkunei Zohar 23a",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Vayetzei 10",
+  "quote": "וּכְמוֹ שֶׁכָּתוּב בְּתִקּוּנֵי זֹהַר (תִּקּוּן ו) דְּמִכֻּרְסְיָא אִינּוּן נִשְׁמָתִין",
+  "note": "The os cites only Tikkun 6 (23a) for the Throne as the source of the neshamot. It cites no Tikkun 19, so this entry duplicates the Tikkun 6 entry under a wrong number."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Yoma 39b",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Vayetzei 10",
+  "quote": "(יוֹמָא לט עַמּוּד ב) לָמָּה נִקְרָא שְׁמוֹ לְבָנוֹן שֶׁמַּלְבִּין עֲוֹנוֹתֵיהֶן שֶׁל יִשְׂרָאֵל",
+  "note": "This is the os's central source, cited by daf and quoted twice, yet it is missing from the source index."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Eruvin 21b",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Vayetzei 10",
+  "quote": "(עֵירוּבִין כא עַמּוּד ב) הַדּוּדָאִים נָתְנוּ רֵיחַ אֵלּוּ וָאֵלּוּ עֲתִידִין שֶׁיִּתְּנוּ רֵיחַ",
+  "note": "Cited by daf; it has no source entry."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Zohar I 162b",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Vayetzei 10",
+  "quote": "וּבַזֹּהַר הַקָּדוֹשׁ פָּרָשָׁה זוֹ (קסב סוֹף עַמּוּד ב) תָּא חֲזֵי יִשְׂבְּעוּ עֲצֵי ה'",
+  "note": "This Zohar (Vayetzei 37) carries ¶3; the index has only 163a (Proverbs 9:12)."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Zohar II 3a",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Vayetzei 10",
+  "quote": "(חֵלֶק ב, ג עַמּוּד א) דְּהָא קוֹל אָתֵי לְדִבּוּר",
+  "note": "Cited by daf; it has no source entry."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Zohar I 163b",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Vayetzei 10",
+  "quote": "(קסג עַמּוּד ב) וְלֹא שָׁתָם עַל צֹאן לָבָן דְּלָא שַׁוֵּי חוּלָקֵיהּ",
+  "note": "Cited by daf; it has no source entry."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Zohar I 162a",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Vayetzei 10",
+  "quote": "וּבְסִתְרֵי תּוֹרָה (קסב סוֹף עַמּוּד א) עֲדָרִים אַפְרֵישׁ לֵיהּ לְגַרְמֵיהּ",
+  "note": "Sitrei Torah, Vayetzei 32; cited by daf."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Zohar I 161a",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Vayetzei 10",
+  "quote": "פָּרָשָׁה זוֹ (קסא עַמּוּד א) אֶלֶף עָאנִין וְאֶלֶף אִמְּרִין",
+  "note": "This Zohar (Vayetzei 30) carries ¶6-7; it has no source entry."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Deuteronomy 1:11",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Vayetzei 10",
+  "quote": "ה' אֱלֹהֵי אֲבוֹתֵיכֶם יוֹסֵף עֲלֵיכֶם כָּכֶם אֶלֶף פְּעָמִים",
+  "note": "Opens the second maamar (after Havdalah), with Rashi and Devarim Rabbah 1:13; none of the three is indexed."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Sha'ar HaKavanot, Derushei Seder Shabbat 1:4",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Vayetzei 10",
+  "quote": "וּכְמוֹ שֶׁחָשַׁב הָאֲרִ\"י זִכְרוֹנוֹ לִבְרָכָה דִּבְתְלָתָא יוֹמֵי דְּבָתַר שַׁבְּתָא",
+  "note": "Source of the three days after and before Shabbat in Neshamah, Ruach and Nefesh."
+ },
+ {
+  "id": "vol4-0285-024485",
+  "action": "drop",
+  "index_text": "- צרעת ו- מת כנגד קנאה וכבוד",
+  "was": "Peri Tzadik, Vayetzei 10",
+  "correct": "",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Vayetzei 10",
+  "quote": "",
+  "note": "Nothing in this os is about tzara'at, corpse impurity, jealousy or honor. The same index lines also point to Parshat Parah 7, Nasso 3 and Pesach 29, so the Vayetzei 10 reference is probably a misprint."
+ },
+ {
+  "id": "vol4-0285-024479",
+  "action": "drop",
+  "index_text": "- מת הוא מקליפת הגאוה",
+  "was": "Peri Tzadik, Vayetzei 10",
+  "correct": "",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Vayetzei 10",
+  "quote": "",
+  "note": "Not in this os (see vol4-0285-024485)."
+ },
+ {
+  "id": "vol4-0366-025870",
+  "action": "drop",
+  "index_text": "טיומאת מת כנגד -",
+  "was": "Peri Tzadik, Vayetzei 10",
+  "correct": "",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Vayetzei 10",
+  "quote": "",
+  "note": "Not in this os (see vol4-0285-024485)."
+ },
+ {
+  "id": "vol5-0142-032295",
+  "action": "drop",
+  "index_text": "טיומאת צרעת וטיומאת מת כנגד - וכבוד",
+  "was": "Peri Tzadik, Vayetzei 10",
+  "correct": "",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Vayetzei 10",
+  "quote": "",
+  "note": "Not in this os (see vol4-0285-024485)."
+ }
+]

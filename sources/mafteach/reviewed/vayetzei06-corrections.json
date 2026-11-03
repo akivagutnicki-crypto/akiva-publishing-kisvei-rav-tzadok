@@ -1,0 +1,386 @@
+[
+ {
+  "id": "vol7-0420-045251",
+  "action": "fix_address",
+  "index_text": "מלמד שהראה הקב\"ה ליעקב בית המקדש בנוי וחרב",
+  "was": "Bereshit Rabbah 69:4",
+  "correct": "Bereshit Rabbah 69:7",
+  "ref": "Peri Tzadik, Vayetzei 6",
+  "quote": "וּבְמִדְרַשׁ רַבָּה פָּרָשָׁה זוֹ (פָּרָשָׁה סט) דָּבָר אַחֵר, מְלַמֵּד שֶׁהֶרְאָה",
+  "note": "The built/destroyed/built derashah is BR 69:7 in Sefaria numbering."
+ },
+ {
+  "id": "vol7-0039-040238",
+  "action": "fix_address",
+  "index_text": "מכון לשבתך: מקדש של מטה מכוון כנגד",
+  "was": "Exodus 15:14",
+  "correct": "Exodus 15:17",
+  "ref": "Peri Tzadik, Vayetzei 6",
+  "quote": "(פֵּירוּשׁ רַשִׁי בְּשַׁלַּח מִמִּדְרַשׁ רַבָּה)",
+  "note": "Rashi \"מכון לשבתך\" is on Exodus 15:17."
+ },
+ {
+  "id": "vol7-0247-042957",
+  "action": "fix_address",
+  "index_text": "אברהם קראו הר יצחק שכתוב בו שדה וכו' יעקב קראו בית",
+  "was": "Pesachim 86a",
+  "correct": "Pesachim 88a",
+  "ref": "Peri Tzadik, Vayetzei 6",
+  "quote": "(כְּמוֹ שֶׁכָּתוּב פְּסָחִים פח עַמּוּד א)",
+  "note": "OCR misread פח as פו."
+ },
+ {
+  "id": "vol7-0498-046143",
+  "action": "fix_book",
+  "index_text": "והיה משה גוזר והקב\"ה",
+  "was": "Tanchuma 3 (no parasha)",
+  "correct": "Tanchuma, V'Zot HaBerachah 2",
+  "ref": "Peri Tzadik, Vayetzei 6",
+  "quote": "(בְּתַנְחוּמָא בְּרָכָה) שֶׁהָיָה גּוֹזֵר",
+  "note": "Author names Tanchuma Berachah; the passage is V'Zot HaBerachah 2 (Sefaria 2:1)."
+ },
+ {
+  "id": "vol7-0558-046566",
+  "action": "fix_address",
+  "index_text": "ונהר יוצא מעדן ... דא אמא עלאה / שכינתא תתאה",
+  "was": "Zohar I 8a",
+  "correct": "Zohar I 26a",
+  "ref": "Peri Tzadik, Vayetzei 6",
+  "quote": "(חֵלֶק א, כו סוֹף עַמּוּד א)",
+  "note": "Author gives 26 end of side a; the passage is Zohar I 26a (Bereshit 21:247); 8a has no such text."
+ },
+ {
+  "id": "vol7-0558-046567",
+  "action": "fix_address",
+  "index_text": "ונהר יוצא מעדן ... דא אמא עלאה / שכינתא תתאה",
+  "was": "Zohar I 8a",
+  "correct": "Zohar I 26a",
+  "ref": "Peri Tzadik, Vayetzei 6",
+  "quote": "(חֵלֶק א, כו סוֹף עַמּוּד א)",
+  "note": "Author gives 26 end of side a; the passage is Zohar I 26a (Bereshit 21:247); 8a has no such text."
+ },
+ {
+  "id": "vol7-0559-046568",
+  "action": "fix_address",
+  "index_text": "ונהר יוצא מעדן ... דא אמא עלאה / שכינתא תתאה",
+  "was": "Zohar I 8a",
+  "correct": "Zohar I 26a",
+  "ref": "Peri Tzadik, Vayetzei 6",
+  "quote": "(חֵלֶק א, כו סוֹף עַמּוּד א)",
+  "note": "Author gives 26 end of side a; the passage is Zohar I 26a (Bereshit 21:247); 8a has no such text."
+ },
+ {
+  "id": "vol7-0022-039993",
+  "action": "move",
+  "index_text": "Genesis 32:11",
+  "was": "Peri Tzadik, Vayetzei 6",
+  "correct": "Genesis 32:11",
+  "correct_ref": "Peri Tzadik, Vayetzei 7",
+  "ref": "Peri Tzadik, Vayetzei 6",
+  "quote": "קטנתי",
+  "note": "Not in Vayetzei 6; the words are in Peri Tzadik, Vayetzei 7."
+ },
+ {
+  "id": "vol7-0103-041066",
+  "action": "move",
+  "index_text": "Isaiah 2:11",
+  "was": "Peri Tzadik, Vayetzei 6",
+  "correct": "Isaiah 2:11",
+  "correct_ref": "Peri Tzadik, Vayetzei 7",
+  "ref": "Peri Tzadik, Vayetzei 6",
+  "quote": "ונשגב ה' לבדו",
+  "note": "Not in Vayetzei 6; the words are in Peri Tzadik, Vayetzei 7."
+ },
+ {
+  "id": "vol7-0105-041093",
+  "action": "move",
+  "index_text": "Isaiah 14:14",
+  "was": "Peri Tzadik, Vayetzei 6",
+  "correct": "Isaiah 14:14",
+  "correct_ref": "Peri Tzadik, Vayetzei 7",
+  "ref": "Peri Tzadik, Vayetzei 6",
+  "quote": "אעלה על במתי עב",
+  "note": "Not in Vayetzei 6; the words are in Peri Tzadik, Vayetzei 7."
+ },
+ {
+  "id": "vol7-0152-041669",
+  "action": "move",
+  "index_text": "Psalms 93:1",
+  "was": "Peri Tzadik, Vayetzei 6",
+  "correct": "Psalms 93:1",
+  "correct_ref": "Peri Tzadik, Vayetzei 7",
+  "ref": "Peri Tzadik, Vayetzei 6",
+  "quote": "ה' מלך גאות לבש",
+  "note": "Not in Vayetzei 6; the words are in Peri Tzadik, Vayetzei 7."
+ },
+ {
+  "id": "vol7-0204-042332",
+  "action": "move",
+  "index_text": "Berakhot 17a",
+  "was": "Peri Tzadik, Vayetzei 6",
+  "correct": "Berakhot 17a",
+  "correct_ref": "Peri Tzadik, Vayetzei 7",
+  "ref": "Peri Tzadik, Vayetzei 6",
+  "quote": "באקרויי בנייהו",
+  "note": "Not in Vayetzei 6; the words are in Peri Tzadik, Vayetzei 7."
+ },
+ {
+  "id": "vol7-0221-042580",
+  "action": "move",
+  "index_text": "Shabbat 31a",
+  "was": "Peri Tzadik, Vayetzei 6",
+  "correct": "Shabbat 31a",
+  "correct_ref": "Peri Tzadik, Vayetzei 7",
+  "ref": "Peri Tzadik, Vayetzei 6",
+  "quote": "והיה אמונת וגו'",
+  "note": "Not in Vayetzei 6; the words are in Peri Tzadik, Vayetzei 7."
+ },
+ {
+  "id": "vol7-0237-042805",
+  "action": "move",
+  "index_text": "Eruvin 13b",
+  "was": "Peri Tzadik, Vayetzei 6",
+  "correct": "Eruvin 13b",
+  "correct_ref": "Peri Tzadik, Vayetzei 7",
+  "ref": "Peri Tzadik, Vayetzei 6",
+  "quote": "כבוד חכמים ינחלו (כמ\"ש עירובין יג:)",
+  "note": "Not in Vayetzei 6; the words are in Peri Tzadik, Vayetzei 7."
+ },
+ {
+  "id": "vol7-0275-043357",
+  "action": "move",
+  "index_text": "Taanit 7a",
+  "was": "Peri Tzadik, Vayetzei 6",
+  "correct": "Taanit 7a",
+  "correct_ref": "Peri Tzadik, Vayetzei 7",
+  "ref": "Peri Tzadik, Vayetzei 6",
+  "quote": "מניחים מקום גבוה (כמ\"ש תענית ז.)",
+  "note": "Not in Vayetzei 6; the words are in Peri Tzadik, Vayetzei 7."
+ },
+ {
+  "id": "vol7-0275-043356",
+  "action": "move",
+  "index_text": "Taanit 6a",
+  "was": "Peri Tzadik, Vayetzei 6",
+  "correct": "Taanit 6a",
+  "correct_ref": "Peri Tzadik, Vayetzei 7",
+  "ref": "Peri Tzadik, Vayetzei 6",
+  "quote": "מים... חשק ואהבת התורה (topic of Vayetzei 7; not in Vayetzei 6)",
+  "note": "Not in Vayetzei 6; the words are in Peri Tzadik, Vayetzei 7. (Taanit 6a: probable, theme only.)"
+ },
+ {
+  "id": "vol7-0331-044121",
+  "action": "move",
+  "index_text": "Bava Metzia 84a",
+  "was": "Peri Tzadik, Vayetzei 6",
+  "correct": "Bava Metzia 84a",
+  "correct_ref": "Peri Tzadik, Vayetzei 4",
+  "ref": "Peri Tzadik, Vayetzei 6",
+  "quote": "שופריה דאדה\"ר (ב\"מ פד.)",
+  "note": "Not in Vayetzei 6; the words are in Peri Tzadik, Vayetzei 4."
+ },
+ {
+  "id": "vol7-0600-047088",
+  "action": "move",
+  "index_text": "Zohar II 110b",
+  "was": "Peri Tzadik, Vayetzei 6",
+  "correct": "Zohar II 110b",
+  "correct_ref": "Peri Tzadik, Vayetzei 4",
+  "ref": "Peri Tzadik, Vayetzei 6",
+  "quote": "ובזוה\"ק (ח\"ב קיא סע\"א)",
+  "note": "Not in Vayetzei 6; the words are in Peri Tzadik, Vayetzei 4."
+ },
+ {
+  "id": "vol7-0560-046585",
+  "action": "move",
+  "index_text": "Zohar I 32b",
+  "was": "Peri Tzadik, Vayetzei 6",
+  "correct": "Zohar I 32b",
+  "correct_ref": "Peri Tzadik, Vayetzei 4",
+  "ref": "Peri Tzadik, Vayetzei 6",
+  "quote": "שופריה דאדה\"ר... וש\"מ",
+  "note": "Not in Vayetzei 6; the words are in Peri Tzadik, Vayetzei 4. (Zohar I 32b/62a/142a: \"and elsewhere\" there.)"
+ },
+ {
+  "id": "vol7-0565-046647",
+  "action": "move",
+  "index_text": "Zohar I 62a",
+  "was": "Peri Tzadik, Vayetzei 6",
+  "correct": "Zohar I 62a",
+  "correct_ref": "Peri Tzadik, Vayetzei 4",
+  "ref": "Peri Tzadik, Vayetzei 6",
+  "quote": "שופריה דאדה\"ר... וש\"מ",
+  "note": "Not in Vayetzei 6; the words are in Peri Tzadik, Vayetzei 4. (Zohar I 32b/62a/142a: \"and elsewhere\" there.)"
+ },
+ {
+  "id": "vol7-0570-046710",
+  "action": "move",
+  "index_text": "Zohar I 142a",
+  "was": "Peri Tzadik, Vayetzei 6",
+  "correct": "Zohar I 142a",
+  "correct_ref": "Peri Tzadik, Vayetzei 4",
+  "ref": "Peri Tzadik, Vayetzei 6",
+  "quote": "שופריה דאדה\"ר... וש\"מ",
+  "note": "Not in Vayetzei 6; the words are in Peri Tzadik, Vayetzei 4. (Zohar I 32b/62a/142a: \"and elsewhere\" there.)"
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Yoma 69b",
+  "ref": "Peri Tzadik, Vayetzei 6",
+  "quote": "(יוֹמָא סט עַמּוּד ב)",
+  "note": "Cited or quoted in the os; not indexed."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Deuteronomy 10:17",
+  "ref": "Peri Tzadik, Vayetzei 6",
+  "quote": "הַגָּדוֹל הַגִּבּוֹר",
+  "note": "Cited or quoted in the os; not indexed."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Psalms 147:13",
+  "ref": "Peri Tzadik, Vayetzei 6",
+  "quote": "כִּי חִזַּק בְּרִיחֵי שְׁעָרָיִךְ",
+  "note": "Cited or quoted in the os; not indexed."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Psalms 122:1",
+  "ref": "Peri Tzadik, Vayetzei 6",
+  "quote": "בֵּית ה' נֵלֵךְ",
+  "note": "Cited or quoted in the os; not indexed."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Psalms 27:4",
+  "ref": "Peri Tzadik, Vayetzei 6",
+  "quote": "לַחֲזוֹת בְּנֹעַם ה'",
+  "note": "Cited or quoted in the os; not indexed."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Genesis 28:22",
+  "ref": "Peri Tzadik, Vayetzei 6",
+  "quote": "יִהְיֶה בֵּית אֱלֹהִים",
+  "note": "Cited or quoted in the os; not indexed."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Genesis 31:42",
+  "ref": "Peri Tzadik, Vayetzei 6",
+  "quote": "פַּחַד יִצְחָק",
+  "note": "Cited or quoted in the os; not indexed."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Exodus 26:28",
+  "ref": "Peri Tzadik, Vayetzei 6",
+  "quote": "הַבְּרִיחַ הַתִּיכוֹן",
+  "note": "Cited or quoted in the os; not indexed."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Zohar I 153a",
+  "ref": "Peri Tzadik, Vayetzei 6",
+  "quote": "(קנג עַמּוּד א)",
+  "note": "Cited or quoted in the os; not indexed."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Zohar I 152b",
+  "ref": "Peri Tzadik, Vayetzei 6",
+  "quote": "ז' פְּעָמִים בְּאֵר... כְּמוֹ שֶׁכָּתוּב בַּזֹּהַר הַקָּדוֹשׁ",
+  "note": "Cited or quoted in the os; not indexed."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Zohar I 148a",
+  "ref": "Peri Tzadik, Vayetzei 6",
+  "quote": "הַבְּרִיחַ הַתִּיכוֹן",
+  "note": "Cited or quoted in the os; not indexed."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Zohar I 48a",
+  "ref": "Peri Tzadik, Vayetzei 6",
+  "quote": "פְּרִישַׂת סֻכַּת שָׁלוֹם",
+  "note": "Cited or quoted in the os; not indexed."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Matnot Kehunah on Bereshit Rabbah 69:7",
+  "ref": "Peri Tzadik, Vayetzei 6",
+  "quote": "הַמַּתְּנוֹת כְּהֻנָּה",
+  "note": "Cited or quoted in the os; not indexed."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Yalkut Shimoni on Torah 120",
+  "ref": "Peri Tzadik, Vayetzei 6",
+  "quote": "הַמַּתְּנוֹת כְּהֻנָּה מִיַּלְקוּט",
+  "note": "Cited or quoted in the os; not indexed."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Shulchan Arukh, Orach Chayim 1:1",
+  "ref": "Peri Tzadik, Vayetzei 6",
+  "quote": "שֶׁמֶּלֶךְ מַלְכֵי הַמְּלָכִים עוֹמֵד עָלָיו וְרוֹאֶה בְּמַעֲשָׂיו",
+  "note": "Cited or quoted in the os; not indexed."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Ein Yaakov, Yoma 69b",
+  "ref": "Peri Tzadik, Vayetzei 6",
+  "quote": "וּכְגִרְסַת עֵין יַעֲקֹב",
+  "note": "Cited or quoted in the os; not indexed."
+ }
+]

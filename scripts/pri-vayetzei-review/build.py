@@ -18,7 +18,7 @@ HEB = ['', 'א', 'ב', 'ג', 'ד', 'ה', 'ו', 'ז', 'ח', 'ט', 'י']
 
 def plain(s): return html.unescape(re.sub(r'<[^>]+>', '', s or ''))
 def bare(s): return re.sub(r'[֑-ׇ]', '', s)
-LINK = r'\[([^\]]+)\]\(((?:https://www\.sefaria\.org/|#/read/)[^)\s]+)\)'
+LINK = r'\[([^\]]+)\]\(((?:https://www\.sefaria\.org/|#/read/)(?:[^()\s]|\([^()\s]*\))+)\)'
 
 def rich(md):
     runs, pos = [], 0
