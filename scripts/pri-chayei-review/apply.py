@@ -93,6 +93,7 @@ def apply(site):
     # 6. the MCP server's text of these maamarim, in its own paragraph format (scripts/build-mcp-index.mjs)
     mcp = site / 'mcp-data'
     if (mcp / 'text/peri-tzadik.json').exists():
+        old_size = (mcp / 'text/peri-tzadik.json').stat().st_size
         text, mcat = rd(mcp / 'text/peri-tzadik.json'), rd(mcp / 'catalog.json')
         book = next(b for b in mcat['books'] if b['slug'] == 'peri-tzadik')
         secs = book['sections']
@@ -120,6 +121,17 @@ def apply(site):
         for i, x in enumerate(secs):
             if i in first: x['first'], x['count'] = first[i], count[i]
         book['paragraphs'] = len(text['paras'])
+        # the file was already over 10 MB on the live site: it may not grow, so the MCP copy of the notes is
+        # shortened as far as needed (the reader keeps every note in full; kisvei_get_text links to it)
+        mine = [p for p in text['paras'] if any(p['r'].startswith(r + ':') for r in refs) and p.get('f')]
+        full = {id(p): [list(f) for f in p['f']] for p in mine}
+        limit = None
+        for cap in [None] + list(range(1600, 99, -100)):
+            for p in mine:
+                p['f'] = [[f[0], f[1] if cap is None or len(f[1]) <= cap else f[1][:cap].rsplit(' ', 1)[0] + ' … (full note in the reader)', *f[2:]] for f in full[id(p)]]
+            size = len(json.dumps(text, ensure_ascii=False, separators=(',', ':')).encode())
+            if size <= old_size or old_size <= 10_000_000: limit = cap; break
+        print('MCP text:', old_size, '->', size, 'bytes; notes', 'in full' if limit is None else f'shortened to {limit} characters')
         wr(mcp / 'text/peri-tzadik.json', text); wr(mcp / 'catalog.json', mcat)
         changed |= {mcp / 'text/peri-tzadik.json', mcp / 'catalog.json'}
     print(f'Chayei Sarah reviewed edition {EDITION}: {len(META["maamarim"])} maamarim, {sum(m["paragraphs"] for m in META["maamarim"])} paragraphs, '
