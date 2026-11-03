@@ -33,7 +33,23 @@ def section():
     return home[a:b] + '\n'
 
 
+WEEKLY_NAV = '<a href="#blog">Weekly Torah</a>'
+HUB_CSS = '<style id="akiva-no-weekly-home">.learning-hub-grid{grid-template-columns:1fr}</style>'
+
+
+def drop_weekly(text):
+    """The Weekly Torah article panel stays in the library (library/blog/), not on the book homepage."""
+    if '<aside class="weekly-side"' in text:
+        a = text.index('<aside class="weekly-side"')
+        text = text[:a] + text[text.index('</aside>', a) + len('</aside>'):]
+    text = text.replace(WEEKLY_NAV, '')
+    if HUB_CSS not in text:
+        text = once(text, '</head>', HUB_CSS + '</head>', 'head')
+    return text
+
+
 def patch_home(text):
+    text = drop_weekly(text)
     if START in text:
         a, b = text.index(START), text.index(END) + len(END) + 1
         text = text[:a] + text[b:]
