@@ -45,6 +45,12 @@ def locate(phrase, anchor):
 def main():
     pack = json.loads(gzip.decompress(base64.b64decode(open(PACK).read())))
     text = {s['chapter']: {it['n']: [plain(h) for h, _ in it['p']] for it in s['items'] if 'p' in it} for s in pack['sections']}
+    # readings corrected to the printed text (text-fixes.json): the notes are placed on the corrected phrase
+    fp = os.path.join(D, 'text-fixes.json')
+    for x in (json.load(open(fp, encoding='utf-8')) if os.path.exists(fp) else []):
+        k = int(x['ref'].rsplit(' ', 1)[1]); ph = text[k][x['n']]
+        assert ph[x['i']] in (x['he_from'], x['he_to']), (x['ref'], x['n'], x['i'], ph[x['i']])
+        ph[x['i']] = x['he_to']
     out, problems = {}, []
     for f in sorted(glob.glob(os.path.join(D, 'os[0-9][0-9]-notes.json'))):
         d = json.load(open(f, encoding='utf-8')); k = int(d['os']); ref = f'Peri Tzadik, Toldot {k}'

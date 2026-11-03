@@ -11,6 +11,7 @@ from pathlib import Path
 
 NOTES = Path('sources/akiva/overlays/pri-toldos-review/reader-notes.json')
 PACK = Path('sources/akiva/overlays/pri-toldos.json.gz.b64')
+FIXES = Path('sources/akiva/overlays/pri-toldos-review/text-fixes.json')
 def rd(p): return json.loads(Path(p).read_text(encoding='utf-8'))
 def wr(p, v): Path(p).write_text(json.dumps(v, ensure_ascii=False, separators=(',', ':')), encoding='utf-8')
 def plain(s): return H.unescape(re.sub(r'<[^>]+>', '', s or ''))
@@ -23,6 +24,18 @@ def apply(site):
     edition = 'pri-toldos-review-' + hashlib.sha256(NOTES.read_bytes()).hexdigest()[:10]
     pack = json.loads(gzip.decompress(base64.b64decode(PACK.read_text())))
     packtext = {f"Peri Tzadik, Toldot {s['chapter']}": {it['n']: [squash(h) for h, _ in it['p']] for it in s['items'] if 'p' in it} for s in pack['sections']}
+    # readings corrected to the 1901 Lublin print (text-fixes.json): the phrase pair is replaced, Hebrew and English
+    fixes = rd(FIXES) if FIXES.exists() else []
+    for x in fixes:
+        ph = packtext[x['ref']][x['n']]
+        assert ph[x['i']] in (squash(x['he_from']), squash(x['he_to'])), f"{x['ref']}:{x['n']}: fix {x['i']} does not match"
+        ph[x['i']] = squash(x['he_to'])
+    def fix_pairs(ref, n, pairs):
+        for x in fixes:
+            if x['ref'] == ref and x['n'] == n and x['i'] < len(pairs):
+                h, e = pairs[x['i']]
+                if squash(h) == squash(x['he_from']): pairs[x['i']] = [x['he_to'], x['en_to'] if squash(e) == squash(x['en_from']) else e]
+                elif squash(h) == squash(x['he_to']) and squash(e) == squash(x['en_from']): pairs[x['i']] = [h, x['en_to']]
     toc = rd(pt / 'toc.json')
     ids = {}
     def walk(n):
@@ -35,6 +48,7 @@ def apply(site):
         f = pt / f'{ids[ref]}.json'; items = rd(f)
         for it in items:
             if 'p' not in it or 'n' not in it: continue
+            fix_pairs(ref, it['n'], it['p'])
             want = packtext[ref].get(it['n'])
             assert want == [squash(h) for h, _ in it['p']], f'{ref}:{it["n"]}: the text differs from the published Toldos text'
             new = per.get(str(it['n']), [])
@@ -53,6 +67,7 @@ def apply(site):
         for p in text['paras']:
             m = re.match(r'^(Peri Tzadik, Toldot \d+):(\d+)$', p['r'])
             if not m or m.group(1) not in notes or not isinstance(p.get('p'), list): continue
+            fix_pairs(m.group(1), int(m.group(2)), p['p'])
             new = notes[m.group(1)].get(m.group(2), [])
             p['_full'] = [[str(x['number']), '\n'.join(q['text'] for q in x['paragraphs']), x['phraseIndex'], 'h', x['heCharOffset']] for x in new]
             mine.append(p)
