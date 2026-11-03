@@ -1,0 +1,352 @@
+[
+ {
+  "id": "vol7-0019-039952",
+  "action": "fix_address",
+  "index_text": "הנה משמני האר וכוי",
+  "was": "Genesis 27:40",
+  "correct": "Genesis 27:39",
+  "ref": "Peri Tzadik, Toldot 8",
+  "quote": "הִנֵּה מִשְׁמַנֵּי וְגוֹמֵר",
+  "note": "The words are Genesis 27:39, and they duplicate entry vol7-0019-039951."
+ },
+ {
+  "id": "vol7-0040-040248",
+  "action": "fix_address",
+  "index_text": "שבתון שבת קדש להי מחר ... אכלוהו היום",
+  "was": "Exodus 16:23",
+  "correct": "Exodus 16:25",
+  "ref": "Peri Tzadik, Toldot 8",
+  "quote": "אִכְלוּהוּ הַיּוֹם",
+  "note": "אכלוהו היום is 16:25; the index text merges 16:23 with it."
+ },
+ {
+  "id": "vol7-0045-040304",
+  "action": "fix_address",
+  "index_text": "ובירך את לחמך ואת",
+  "was": "Exodus 23:5",
+  "correct": "Exodus 23:25",
+  "ref": "Peri Tzadik, Toldot 8",
+  "quote": "וּבֵרַךְ אֶת לַחְמְךָ וְאֶת מֵימֶיךָ",
+  "note": "OCR dropped the 2 of 25."
+ },
+ {
+  "id": "vol7-0187-042125",
+  "action": "fix_address",
+  "index_text": "לך אכל בשמחה לחמך ושתה בלב טוב יינך",
+  "was": "Ecclesiastes 9:2",
+  "correct": "Ecclesiastes 9:7",
+  "ref": "Peri Tzadik, Toldot 8",
+  "quote": "לֵךְ אֱכֹל בְּשִׂמְחָה",
+  "note": "The quoted verse is 9:7."
+ },
+ {
+  "id": "vol7-0242-042876",
+  "action": "fix_book",
+  "index_text": "וברך מימך ומאי ניהו יין",
+  "was": "Pesachim",
+  "correct": "Eruvin 65a",
+  "ref": "Peri Tzadik, Toldot 8",
+  "quote": "וְאָמְרוּ (עֵירוּבִין סה.)",
+  "note": "The derasha of R. Chanin bar Pappa is in Eruvin 65a, as the os says."
+ },
+ {
+  "id": "vol7-0242-042877",
+  "action": "fix_book",
+  "index_text": "עד דלא שתינא רביעתא דחמרא לא צילא דעתאי",
+  "was": "Pesachim",
+  "correct": "Eruvin 64a",
+  "ref": "Peri Tzadik, Toldot 8",
+  "quote": "וְכֵן אָמַר (עֵירוּבִין סד.)",
+  "note": "Rav Nachman's statement is in Eruvin 64a; this duplicates vol7-0241-042863."
+ },
+ {
+  "id": "vol7-0275-043355",
+  "action": "fix_address",
+  "index_text": "מיטרא בעלה דארעא הוא ...",
+  "was": "Taanit 7a",
+  "correct": "Taanit 6b",
+  "ref": "Peri Tzadik, Toldot 8",
+  "quote": "מִטְרָא בַּעְלָהּ דְּאַרְעָא הוּא",
+  "note": "R. Yehudah's statement is on 6b (the entry's own chapter/verse ו/ב); the rest of the index text belongs to 7a."
+ },
+ {
+  "id": "vol7-0309-043812",
+  "action": "fix_address",
+  "index_text": "הנודר מן הדגן אסור",
+  "was": "Nedarim 38a",
+  "correct": "Nedarim 55a",
+  "ref": "Peri Tzadik, Toldot 8",
+  "quote": "הַנּוֹדֵר מִן הַדָּגָן אָסוּר בַּחֲמֵשֶׁת הַמִּינִים",
+  "note": "The vow law is in Mishnah Nedarim 7:2 (55a); the os itself cites Challah 1:2."
+ },
+ {
+  "id": "vol7-0328-044086",
+  "action": "fix_address",
+  "index_text": "האידלא אמרילך וכו דלא אכלי בשרא דתורא",
+  "was": "Bava Kamma 38a",
+  "correct": "Bava Kamma 72a",
+  "ref": "Peri Tzadik, Toldot 8",
+  "quote": "בָּבָא קַמָּא עב.",
+  "note": "The statement runs from 71b into 72a; Tosafot is on 72a."
+ },
+ {
+  "id": "vol7-0430-045383",
+  "action": "drop",
+  "index_text": "גדול השלום שאף השבטים דברו דברים בדויים ...",
+  "was": "Bereshit Rabbah 100:8",
+  "correct": null,
+  "ref": "Peri Tzadik, Toldot 8",
+  "quote": "",
+  "note": "Nothing in this os quotes or alludes to this midrash."
+ },
+ {
+  "id": "vol7-0493-046100",
+  "action": "fix_address",
+  "index_text": "רצונך שתכיר מי שאמר העולם למד הגדה פרשת ראה",
+  "was": "Sifrei §33 (Re'eh)",
+  "correct": "Sifrei Devarim 49",
+  "ref": "Peri Tzadik, Toldot 8",
+  "quote": "סִפְרֵי עֵקֶב פָּרָשַׁת \"וּלְדָבְקָה בוֹ\"",
+  "note": "The passage is Sifrei Devarim 49 on Deut 11:22 (Ekev)."
+ },
+ {
+  "id": "vol7-0496-046131",
+  "action": "fix_address",
+  "index_text": "בשעה שאדם מסתלק ... תורה שבעייפ שהיא קשה ללמוד ומשולה לחשך",
+  "was": "Tanchuma [Noach] 2",
+  "correct": "Midrash Tanchuma, Noach 3",
+  "ref": "Peri Tzadik, Toldot 8",
+  "quote": "בְּמִדְרַשׁ תַּנְחוּמָא נֹחַ ג",
+  "note": "The words the os uses (צער ונדוד שינה, העם ההולכים בחשך) are in Noach 3."
+ },
+ {
+  "id": "vol7-0513-046290",
+  "action": "fix_address",
+  "index_text": "שלשה מתנות ברא הקבייה חכמה גבורה ועושר ... פרשת מסעי",
+  "was": "Tanchuma, Masei",
+  "correct": "Midrash Tanchuma, Matot 5",
+  "ref": "Peri Tzadik, Toldot 8",
+  "quote": "מִדְרַשׁ רַבָּה וּמִדְרַשׁ תַּנְחוּמָא מַטּוֹת",
+  "note": "The os says Matot; the three gifts open Tanchuma Matot 5 (Buber 7)."
+ },
+ {
+  "id": "vol7-0525-046410",
+  "action": "fix_book",
+  "index_text": "יראתימתוך שמחתי ושמחתי מתוך יראתי",
+  "was": "Pirkei DeRabbi Eliezer 3",
+  "correct": "Tanna DeBei Eliyahu Rabbah 3",
+  "ref": "Peri Tzadik, Toldot 8",
+  "quote": "סֵדֶר אֵלִיָּהוּ רַבָּה פָּרָשָׁה ג",
+  "note": "The saying is Tanna DeVei Eliyahu Rabbah 3, as the os says."
+ },
+ {
+  "id": "vol7-0658-047810",
+  "action": "fix_address",
+  "index_text": "לכו לחמו בלחמי ודא נהמא דאורייתא דבכתב ויינא דאורייתא דבעל פה",
+  "was": "Zohar III 266b",
+  "correct": "Zohar III 271b",
+  "ref": "Peri Tzadik, Toldot 8",
+  "quote": "זֹהַר חֵלֶק ג, רעא ב",
+  "note": "Ra'aya Meheimna Ekev, III 271b, as Rav Tzadok cites it here and in Toldot 7 and Tzav 7."
+ },
+ {
+  "id": "vol7-0679-047943",
+  "action": "drop",
+  "index_text": "חיות יש בדברי תורה",
+  "was": "Tikkunei Zohar 55",
+  "correct": null,
+  "ref": "Peri Tzadik, Toldot 8",
+  "quote": "",
+  "note": "The os does not cite the Tikkunim; the words are the index's paraphrase and no such Tikkunim source was found."
+ },
+ {
+  "id": "vol7-0390-044921",
+  "action": "fix_address",
+  "index_text": "הנודר מן הדגן אינו אסור אלא מהן",
+  "was": "Challah (no chapter)",
+  "correct": "Mishnah Challah 1:2",
+  "ref": "Peri Tzadik, Toldot 8",
+  "quote": "פֶּרֶק קַמָּא דְּחַלָּה",
+  "note": "The entry has no source key; it is Challah 1:2."
+ },
+ {
+  "id": "vol4-0092-020972",
+  "action": "drop",
+  "index_text": "בבל ובבליים - המשלותם לגמל",
+  "was": "topic",
+  "correct": null,
+  "ref": "Peri Tzadik, Toldot 8",
+  "quote": "",
+  "note": "Nothing about Babylonia or camels in this os."
+ },
+ {
+  "id": "vol4-0110-021322",
+  "action": "drop",
+  "index_text": "סימני טהרה חצוניים לעומת פנימים בבעלי חיים",
+  "was": "topic",
+  "correct": null,
+  "ref": "Peri Tzadik, Toldot 8",
+  "quote": "",
+  "note": "Nothing about animals' signs of purity in this os."
+ },
+ {
+  "id": "vol4-0255-023948",
+  "action": "drop",
+  "index_text": "חיצוניות - סימני טהרה ... בבעלי חיים",
+  "was": "topic",
+  "correct": null,
+  "ref": "Peri Tzadik, Toldot 8",
+  "quote": "",
+  "note": "Cross-reference to the same entry that does not belong here."
+ },
+ {
+  "id": "vol5-0039-030462",
+  "action": "drop",
+  "index_text": "עץ החיים (OCR garbled)",
+  "was": "topic",
+  "correct": null,
+  "ref": "Peri Tzadik, Toldot 8",
+  "quote": "",
+  "note": "The Tree of Life is not mentioned in this os."
+ },
+ {
+  "id": "vol5-0105-031657",
+  "action": "drop",
+  "index_text": "התחדשות - בעת השתנות הזמן",
+  "was": "topic",
+  "correct": null,
+  "ref": "Peri Tzadik, Toldot 8",
+  "quote": "",
+  "note": "The os speaks of daily renewal, not renewal at a change of season."
+ },
+ {
+  "id": "vol5-0356-035963",
+  "action": "drop",
+  "index_text": "לימוד תורה - וחיים ועץ החיים",
+  "was": "topic",
+  "correct": null,
+  "ref": "Peri Tzadik, Toldot 8",
+  "quote": "",
+  "note": "No Tree of Life here; 'Torah and life' is already covered by the חיים entries."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Deuteronomy 32:47",
+  "ref": "Peri Tzadik, Toldot 8",
+  "quote": "כִּי הוּא חַיֵּיכֶם",
+  "note": "Quoted by name ('as it is said')."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Tosafot, Bava Kamma 72a",
+  "ref": "Peri Tzadik, Toldot 8",
+  "quote": "וּפֵירְשׁוּ בְּתוֹסָפוֹת שֶׁשָּׁרוּי בְּתַעֲנִית הָיָה",
+  "note": "Tosafot s.v. דלא אכלי בשרא דתורא."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Isaiah 55:10",
+  "ref": "Peri Tzadik, Toldot 8",
+  "quote": "וְהוֹלִידָהּ וְהִצְמִיחָהּ",
+  "note": "The verse quoted inside Ta'anit 6b."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Siddur, Yotzer blessing",
+  "ref": "Peri Tzadik, Toldot 8",
+  "quote": "מְחַדֵּשׁ בְּכָל יוֹם תָּמִיד מַעֲשֵׂה בְרֵאשִׁית",
+  "note": "Liturgy quoted without naming it."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Mekhilta DeRabbi Yishmael, Vayassa 2 (Sefaria 3:4)",
+  "ref": "Peri Tzadik, Toldot 8",
+  "quote": "מִי שֶׁבָּרָא יוֹם בָּרָא פַּרְנָסָתוֹ",
+  "note": "Mekhilta, Beshalach, cited by name."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Exodus 16:4",
+  "ref": "Peri Tzadik, Toldot 8",
+  "quote": "דְּבַר יוֹם בְּיוֹמוֹ",
+  "note": "The verse the Mekhilta comments on."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Job 11:9",
+  "ref": "Peri Tzadik, Toldot 8",
+  "quote": "אֲרֻכָּה מֵאֶרֶץ מִדָּהּ",
+  "note": "Applied to Talmud / the Oral Torah, as in Tanchuma Noach 3."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Proverbs 4:23",
+  "ref": "Peri Tzadik, Toldot 8",
+  "quote": "וּמֵהַלֵּב תּוֹצְאוֹת חַיִּים",
+  "note": "Used without naming it."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Judges 9:13",
+  "ref": "Peri Tzadik, Toldot 8",
+  "quote": "יַיִן הַמְשַׂמֵּחַ אֱלֹהִים וַאֲנָשִׁים",
+  "note": "Used without naming it."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Exodus 19:9",
+  "ref": "Peri Tzadik, Toldot 8",
+  "quote": "וַיַּגֵּד מֹשֶׁה",
+  "note": "The verse expounded in Shabbat 87a."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Daniel 7:10",
+  "ref": "Peri Tzadik, Toldot 8",
+  "quote": "נְגִיד וְנָפֵיק בְּדָנִיֵּאל (ז, י)",
+  "note": "Cited by name for the etymology of אגדה."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Zohar I 143b",
+  "ref": "Peri Tzadik, Toldot 8",
+  "quote": "וְעַיֵּין בַּזֹּהַר הַקָּדוֹשׁ (חֵלֶק א, קמג ב)",
+  "note": "Zohar Toldot (Sefaria Toldot 19:150), cited by name."
+ }
+]

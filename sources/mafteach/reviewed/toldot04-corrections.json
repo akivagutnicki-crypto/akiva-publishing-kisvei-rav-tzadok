@@ -1,0 +1,178 @@
+[
+ {
+  "id": "vol7-0276-043360",
+  "action": "fix_address",
+  "index_text": "יערף כמטר מינתלה במי הו\"א קטן נתלה בגדול",
+  "was": "Taanit 6a",
+  "correct": "Taanit 7a",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Toldot 4",
+  "quote": "כמ\"ש (תענית ז.) יותר כו' שנ' יערוף כמטר מי נתלה במי",
+  "note": "Rava's statement is on Ta'anit 7a."
+ },
+ {
+  "id": "vol7-0568-046694",
+  "action": "fix_address",
+  "index_text": "ואלה תולדות יצחק שיצחקו ... זכות הנשמה מוליד השחוק הזה והשמחה בעולם",
+  "was": "Zohar I 135b",
+  "correct": "Zohar I 136a",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Toldot 4",
+  "quote": "שבאמת יצחק אע\"ה הי' מקור השמחה כמ\"ש במה\"נ",
+  "note": "Entry merges the Leviathan line (135b, correct) with the Isaac-joy lines (135a, 136a)."
+ },
+ {
+  "id": "vol7-0233-042755",
+  "action": "drop",
+  "index_text": "בתוס' ד\"ה שש - ויעש משתה וכו' ביום הגמל",
+  "was": "Shabbat 129a",
+  "correct": "",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Toldot 4",
+  "quote": "",
+  "note": "Not cited in this os; the label is garbled (\"עש אברהם תולדות-ד\"); belongs elsewhere."
+ },
+ {
+  "id": "vol7-0578-046825",
+  "action": "drop",
+  "index_text": "האי נחש קם כדין וכו' הוא הגדול",
+  "was": "Zohar I 209b",
+  "correct": "",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Toldot 4",
+  "quote": "",
+  "note": "Not cited in this os (label \"קוא התנין\"); probably belongs to another passage on the great tanin."
+ },
+ {
+  "id": "vol7-0507-046242",
+  "action": "drop",
+  "index_text": "עתיד עשו להתעטף בטליתו ... לעתיד לבא עושה סעודה לצדיקים מן הבהמה ולויתן",
+  "was": "Tanchuma",
+  "correct": "",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Toldot 4",
+  "quote": "",
+  "note": "OCR merge of several Tanchuma lines; none is cited in this os."
+ },
+ {
+  "id": "vol7-0526-046422",
+  "action": "drop",
+  "index_text": "מעשה ברבי יהודה הנשיא בשעת מיתתו ... אצבעותי",
+  "was": "Pirkei DeRabbi Eliezer",
+  "correct": "Ketubot 104a",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Toldot 4",
+  "quote": "כמו שמצינו (כתובות קד.) שאמר רבי שיגעתי בעשר אצבעותי בתורה",
+  "note": "The os cites Ketubot 104a, which is already indexed."
+ },
+ {
+  "id": "vol7-0442-045522",
+  "action": "drop",
+  "index_text": "אימה זו בבל וכו' חשיכה זו מדי",
+  "was": "Shemot Rabbah 51:7",
+  "correct": "Bereshit Rabbah 44:17",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Toldot 4",
+  "quote": "אימה זו בבל כמ\"ש (שם פ' מד)",
+  "note": "Same derasha, but the os cites Bereshit Rabbah 44, already indexed."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Genesis 27:4",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Toldot 4",
+  "quote": "בעבור תברכך נפשי",
+  "note": "Isaac ties the blessing to the meal."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Genesis 27:25",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Toldot 4",
+  "quote": "ויבא לו יין וישת",
+  "note": "The wine Jacob brought."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Bereshit Rabbah 2:4",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Toldot 4",
+  "quote": "כמ\"ש (ב\"ר פ\"ב) ע\"פ והארץ היתה תוהו וגו' שנדרש על ד' גליות",
+  "note": "Cited by chapter in the os."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Bereshit Rabbah 65:13",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Toldot 4",
+  "quote": "בפ' זו נדרש במ\"ר שא נא כליך זו בבל",
+  "note": "Cited in the os."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Bereshit Rabbah 63:10",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Toldot 4",
+  "quote": "במ\"ר כי ציד בפיו וכסא טבא לפומי'",
+  "note": "Cited in the os."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Psalms 124:5",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Toldot 4",
+  "quote": "מים הזדונים",
+  "note": "Verse used without naming."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Shabbat 118a",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Toldot 4",
+  "quote": "מ\"ש בגמ' במעלת המענג את השבת",
+  "note": "Gemara cited without a daf."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Berakhot 34b",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Toldot 4",
+  "quote": "יין המשומר בענביו",
+  "note": "Talmudic source of the image, behind the Zohar."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Leviticus 11:4",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Toldot 4",
+  "quote": "בגמל שפן ארנבת ששלשתן יש להם סימן טומאה בחוץ",
+  "note": "The verses on the four animals (11:4–7)."
+ }
+]

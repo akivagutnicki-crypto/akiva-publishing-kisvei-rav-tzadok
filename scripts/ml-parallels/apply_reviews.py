@@ -14,6 +14,7 @@ def shard_of(ref):
     for k in idx['books']:
         if (ref == k or ref.startswith(k + ',') or ref.startswith(k + ' ')) and (not best or len(k) > len(best)): best = k
     return best
+GENRES = ('Chassidus', 'Kabbalah', 'Machshava', 'Mussar')   # the reader's four outside genres
 shards, stats = {}, {'removed': 0, 'reviewed': 0, 'added': 0}
 for f in sorted(glob.glob(f'{R}/*.json')):
     rv = json.load(open(f, encoding='utf-8'))
@@ -32,7 +33,7 @@ for f in sorted(glob.glob(f'{R}/*.json')):
         out.append(it)
     have = {it[0] for it in out}
     for x in rv.get('found', []):
-        if x['grade'] in ('strong', 'related') and x['ref'] not in have:
+        if x['grade'] in ('strong', 'related') and x['ref'] not in have and x.get('genre') in GENRES:
             out.append([x['ref'], '', x['genre'], 1.0 if x['grade'] == 'strong' else 0.9, 'reviewed', [], x['why']]); stats['added'] += 1
     data['passages'][rv['ref']] = out
 for file, data in shards.items():

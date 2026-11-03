@@ -56,7 +56,7 @@ def apply(site):
             new = notes[m.group(1)].get(m.group(2), [])
             p['_full'] = [[str(x['number']), '\n'.join(q['text'] for q in x['paragraphs']), x['phraseIndex'], 'h', x['heCharOffset']] for x in new]
             mine.append(p)
-        for cap in [None] + list(range(1600, 99, -100)):
+        for cap in [None] + list(range(1600, 99, -100)) + [80, 60, 40]:   # down to the reference line alone
             for p in mine:
                 fs = [[a, b if cap is None or len(b) <= cap else b[:cap].rsplit(' ', 1)[0] + ' … (full note in the reader)', *c] for a, b, *c in p['_full']]
                 if fs: p['f'] = fs

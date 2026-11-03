@@ -1,0 +1,232 @@
+[
+ {
+  "id": "vol7-0569-046698",
+  "action": "fix_address",
+  "index_text": "אברהם לא צלי קמיה קובייה דיתן ליה בנין",
+  "was": "Zohar I 135b",
+  "correct": "Zohar I 137b",
+  "ref": "Peri Tzadik, Toldot 5",
+  "quote": "כמ\"ש בזוה\"ק פ' זו (קלז ב)",
+  "note": "The os (and Vayera 5) gives the folio as 137b; the passage is in Zohar Toldot on 'ויעתר יצחק'."
+ },
+ {
+  "id": "vol7-0145-041593",
+  "action": "fix_address",
+  "index_text": "אלמדה פשעים דרכיך ... ה' שפתי תפתח ופי יגיד תהלתך",
+  "was": "Psalms 51:15",
+  "correct": "Psalms 51:17",
+  "ref": "Peri Tzadik, Toldot 5",
+  "quote": "כמש\"נ אדני שפתי תפתח",
+  "note": "Only 'אדני שפתי תפתח' (51:17) is quoted; the entry text merged 51:15 with it."
+ },
+ {
+  "id": "vol7-0214-042474",
+  "action": "fix_address",
+  "index_text": "אפילו ריקנין שבך מלאים מצוות כרימון",
+  "was": "Berakhot 57a",
+  "correct": "Sanhedrin 37a",
+  "ref": "Peri Tzadik, Toldot 5",
+  "quote": "שפושעי ישראל מלאים מצות כרימון (כמש\"ש)",
+  "note": "'כמש\"ש' points back to Sanhedrin 37a, where the saying stands next to 'bogedav'."
+ },
+ {
+  "id": "vol7-0238-042821",
+  "action": "fix_address",
+  "index_text": "פושעי ישראל מלאים מצוות כרימון",
+  "was": "Eruvin 19a",
+  "correct": "Sanhedrin 37a",
+  "ref": "Peri Tzadik, Toldot 5",
+  "quote": "שפושעי ישראל מלאים מצות כרימון (כמש\"ש)",
+  "note": "Same line as the Berakhot 57a entry; the os's own reference is Sanhedrin 37a."
+ },
+ {
+  "id": "vol7-0282-043440",
+  "action": "fix_address",
+  "index_text": "פושעי ישראל מלאים",
+  "was": "Megillah 6a",
+  "correct": "Sanhedrin 37a",
+  "ref": "Peri Tzadik, Toldot 5",
+  "quote": "שפושעי ישראל מלאים מצות כרימון (כמש\"ש)",
+  "note": "Same line; the os's own reference is Sanhedrin 37a."
+ },
+ {
+  "id": "vol7-0347-044349",
+  "action": "drop",
+  "index_text": "ויעמוד פנחס ויפלל שעשה עם קונו",
+  "was": "Sanhedrin 81b",
+  "correct": "Sanhedrin 44a",
+  "ref": "Peri Tzadik, Toldot 5",
+  "quote": "שעשה פלילות עם קונו כו' (כמ\"ש סנהדרין מד.)",
+  "note": "The os cites Sanhedrin 44a, which is already indexed separately; this entry duplicates it at the wrong address."
+ },
+ {
+  "id": "vol7-0420-045259",
+  "action": "fix_book",
+  "index_text": "יש ששמותיהם כעורים ומעשיהם ...",
+  "was": "Bereshit Rabbah 71:3",
+  "correct": "Bamidbar Rabbah 16:10",
+  "ref": "Peri Tzadik, Toldot 5",
+  "quote": "עפמ\"ש (במ\"ר ומד\"ת שלח) שמותיהן נאים ומעשיהם כעורים",
+  "note": "'במ\"ר ... שלח' is Bamidbar Rabbah 16:10 / Tanchuma Shelach 6; BR 71:3 explains Esau's name differently, and 16:10 is already indexed, so this can be dropped."
+ },
+ {
+  "id": "vol7-0421-045260",
+  "action": "fix_book",
+  "index_text": "יש שמותיהם נאים ומעשיהם כעורים עשו וישמעאל",
+  "was": "Bereshit Rabbah 71:3",
+  "correct": "Bamidbar Rabbah 16:10",
+  "ref": "Peri Tzadik, Toldot 5",
+  "quote": "ישמעאל שומע אל עשו עושה רצון עושיו",
+  "note": "The words quoted ('עושה רצון עושיו') are from Bamidbar Rabbah 16:10 / Tanchuma Shelach 6, not BR 71:3 ('שמו עשו ואינו עושה')."
+ },
+ {
+  "id": "vol7-0499-046154",
+  "action": "fix_address",
+  "index_text": "... אברהם נתעטר ביצחק ...",
+  "was": "תנחומא (no key; verse ד)",
+  "correct": "Midrash Tanchuma, Toldot 4",
+  "ref": "Peri Tzadik, Toldot 5",
+  "quote": "במד\"ת יצחק נתעטר באברהם ואברהם נתעטר ביצחק",
+  "note": "The entry has no source key; the passage is Tanchuma Toldot 4 (the entry text also runs other Tanchuma lines together)."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Bereshit Rabbah 65:19",
+  "ref": "Peri Tzadik, Toldot 5",
+  "quote": "אמר יצחק יודע אני שאין עשו מזכיר שמו של הקב\"ה אין זה עשו אלא יעקב",
+  "note": "Quoted at length; only Gen 27:20 is indexed."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Berakhot 6a",
+  "ref": "Peri Tzadik, Toldot 5",
+  "quote": "וכן דרשו בכל המקום אשר אזכיר את שמי על העוסק בתורה (כמש\"ש ו.)",
+  "note": "Explicit citation not in the index (also Exodus 20:21)."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Berakhot 26b",
+  "ref": "Peri Tzadik, Toldot 5",
+  "quote": "ונקראה תפלתו שיחה ולפני ה' ישפוך שיחו",
+  "note": "Isaac's prayer as sichah with Ps 102:1 is the derashah of Berakhot 26b."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Psalms 102:1",
+  "ref": "Peri Tzadik, Toldot 5",
+  "quote": "ולפני ה' ישפוך שיחו",
+  "note": "Verse quoted, not indexed."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Proverbs 13:25",
+  "ref": "Peri Tzadik, Toldot 5",
+  "quote": "דאכילת ת\"ח אוכל לשובע נפשו כקרבנות",
+  "note": "Verse used without naming it."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Genesis 25:27",
+  "ref": "Peri Tzadik, Toldot 5",
+  "quote": "שיעקב איש תם יושב אוהלים",
+  "note": "Verse quoted, not indexed."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Genesis 31:42",
+  "ref": "Peri Tzadik, Toldot 5",
+  "quote": "למדת היראה פחד יצחק",
+  "note": "Verse phrase used for Isaac's attribute."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Micah 7:20",
+  "ref": "Peri Tzadik, Toldot 5",
+  "quote": "איך הוציא יעקב שמדתו אמת דבר שאינו",
+  "note": "Jacob's attribute of truth, unnamed."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Shabbat 88a",
+  "ref": "Peri Tzadik, Toldot 5",
+  "quote": "והוא כתר נשמע ... והוא כתר נעשה",
+  "note": "The two crowns of na'aseh and nishma."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Jerusalem Talmud Rosh Hashanah 3:8",
+  "ref": "Peri Tzadik, Toldot 5",
+  "quote": "ו' דאיקרי אות אמת (זח\"ג ב א) אמת זו תורה",
+  "note": "'אין אמת אלא תורה'."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Mishnah Zevachim 14:4",
+  "ref": "Peri Tzadik, Toldot 5",
+  "quote": "שהעבודה בבכורות היה",
+  "note": "Service by the firstborn before the Mishkan (also Rashi on Gen 25:31)."
+ },
+ {
+  "id": "vol4-0074-020669",
+  "action": "drop",
+  "index_text": "לא נכתבה בתורה שבכתב טיענה שאינה -",
+  "was": "Peri Tzadik, Toldot 5",
+  "correct": "",
+  "ref": "Peri Tzadik, Toldot 5",
+  "quote": "וקשה איך הוציא יעקב שמדתו אמת דבר שאינו",
+  "note": "The os asks how Jacob could speak an untruth, but never asks why the Torah would record an untrue claim; that question is in Peri Tzadik, Vayeshev 8, which the index already lists under the same heading."
+ },
+ {
+  "id": "vol5-0365-036140",
+  "action": "drop",
+  "index_text": "לא נכתבה ב - שבכתב טיענה שאינה אמת",
+  "was": "Peri Tzadik, Toldot 5",
+  "correct": "",
+  "ref": "Peri Tzadik, Toldot 5",
+  "quote": "וקשה איך הוציא יעקב שמדתו אמת דבר שאינו",
+  "note": "The os asks how Jacob could speak an untruth, but never asks why the Torah would record an untrue claim; that question is in Peri Tzadik, Vayeshev 8, which the index already lists under the same heading."
+ },
+ {
+  "id": "vol5-0405-036740",
+  "action": "drop",
+  "index_text": "לא נכתבה ב - טענה שאינה אמת",
+  "was": "Peri Tzadik, Toldot 5",
+  "correct": "",
+  "ref": "Peri Tzadik, Toldot 5",
+  "quote": "וקשה איך הוציא יעקב שמדתו אמת דבר שאינו",
+  "note": "The os asks how Jacob could speak an untruth, but never asks why the Torah would record an untrue claim; that question is in Peri Tzadik, Vayeshev 8, which the index already lists under the same heading."
+ }
+]
