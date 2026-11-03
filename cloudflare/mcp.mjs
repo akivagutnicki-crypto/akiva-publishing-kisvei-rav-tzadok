@@ -1251,7 +1251,7 @@ function mafSefaria(e) {
   if (e.x !== 's') return null;
   const ref = e.zs || (e.k && !/^Zohar (I|II|III) /.test(e.k) && /^(c|a|l|b)$/.test(e.vq || '') && /\s\d+[ab]?(:\d+)*$/.test(e.k) ? e.k : null);
   if (!ref) return null;
-  const m = ref.match(/^(.*?)\s+(\d+[ab]?(?::\d+)*)$/);
+  const m = ref.match(/^(.*?)\s+(\d+[ab]?(?::\d+)*(?:-\d+[ab]?(?::\d+)*)?)$/);   // a Zohar page is a range of paragraphs
   return m ? `https://www.sefaria.org/${encodeURI(m[1].replace(/ /g, '_'))}.${m[2].replace(/:/g, '.')}` : null;
 }
 function mafEntryLine(M, e, { topic = false, source = true } = {}) {
