@@ -1,0 +1,86 @@
+{
+ "ref": "Peri Tzadik, Toldot 6",
+ "reviewed": "2026-11-03",
+ "connector": [
+  {
+   "rank": 1,
+   "ref": "Peri Tzadik, Vayetzei 1",
+   "grade": "strong",
+   "why": "Esau = falsehood (BR 63), Jacob = truth (Micah 7:20), Psalms 120:2 at the blessings via Zohar I 143a, BR 67 'בחכמת תורתו'; read in full."
+  },
+  {
+   "rank": 2,
+   "ref": "Peri Tzadik, Toldot 1",
+   "grade": "weak",
+   "why": "Read 1:1–1:3 (Tanchuma openings, Abraham and Isaac crowned through Jacob); the shared Genesis 27:19 / Psalms 120:2 are not the subject of what I read."
+  },
+  {
+   "rank": 9,
+   "ref": "Peri Tzadik, Toldot 5",
+   "grade": "strong",
+   "why": "The 'as we said' of this os: Jacob's eating as offerings (Zohar I 142a, Prov 13:25), truthful 'אנכי עשו בכורך' and 'אני'."
+  },
+  {
+   "rank": 15,
+   "ref": "Machshavot Charutz 14",
+   "grade": "weak",
+   "why": "Opening read (Purim mitzvot, letters of Amalek against Yaakov); the shared sources were not in the portion read, so not used."
+  },
+  {
+   "rank": 1,
+   "ref": "Sod Yesharim, Sukkot 57 (Ishbitz–Radzin list)",
+   "grade": "strong",
+   "why": "Same Zohar: Jacob says Psalms 120:2 before Isaac; 'lying lip' = Esau and the serpent."
+  },
+  {
+   "rank": 21,
+   "ref": "Ohr HaChammah on Zohar 1:275:1-6 (outside list)",
+   "grade": "strong",
+   "why": "The ref does not resolve on Sefaria; the matching text is Ohr HaChammah on Zohar 1:138a:6, which was read and used."
+  }
+ ],
+ "candidates": [
+  {
+   "ref": "Ohr HaChammah on Zohar 1:275:1-6",
+   "genre": "Kabbalah",
+   "tier": "likely",
+   "grade": "strong",
+   "why": "Ref as given returns 404; the passage with דרוכב/בעקימו/תתפל is Ohr HaChammah on Zohar 1:138a:6 (R. Chaim Vital): Jacob, a 'tam', goes crookedly with the serpent per עם עקש תתפל to keep it from holiness, which is the os's core idea."
+  },
+  {
+   "ref": "Sulam on Zohar, Toldot 194",
+   "genre": "Kabbalah",
+   "tier": "possible",
+   "grade": "related",
+   "why": "Jacob outwitted Esau by 'ועם עקש תתפל' and received the blessings from both sides, the same verse and setting."
+  },
+  {
+   "ref": "Sulam on Zohar, Toldot 158",
+   "genre": "Kabbalah",
+   "tier": "possible",
+   "grade": "weak",
+   "why": "Shares only 'מצידי'; about Jacob's humble speech versus Esau's 'יקום אבי'."
+  },
+  {
+   "ref": "Be'er Mayim Chaim, Genesis 27:19",
+   "genre": "Chassidus",
+   "tier": "possible",
+   "grade": "weak",
+   "why": "Shares only the verse; Jacob is sure of success because Isaac did not recognize him. Not about truth and stratagem."
+  }
+ ],
+ "found": [
+  {
+   "ref": "Degel Machaneh Ephraim, Addenda on Torah, Toldot 3",
+   "genre": "Chassidus",
+   "grade": "related",
+   "why": "Asks how Jacob, a man of truth, said 'אנכי עשו'; answers via Onkelos בחכמה and BR 'בחכמת תורתו': Jacob is Torah."
+  },
+  {
+   "ref": "Ketem Paz on Zohar 145a:14",
+   "genre": "Kabbalah",
+   "grade": "related",
+   "why": "Commentary on Rav Tzadok's Zohar I 145b: 'שכנתי ערמה דא יעקב', shrewdness as Jacob's left-side component that won the blessings."
+  }
+ ]
+}

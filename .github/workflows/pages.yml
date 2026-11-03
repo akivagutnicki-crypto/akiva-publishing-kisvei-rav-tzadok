@@ -474,6 +474,9 @@ jobs:
       - name: Keep the reviewed Pri Tzaddik Chayei Sarah edition (interlinear, footnotes, parallels) in any rebuild
         run: python3 scripts/pri-chayei-review/apply.py dist
 
+      - name: Keep the reviewed Pri Tzaddik Toldos footnotes in any rebuild
+        run: python3 scripts/pri-toldos-review/apply.py dist
+
       - name: Upload site
         uses: actions/upload-pages-artifact@v4
         with:

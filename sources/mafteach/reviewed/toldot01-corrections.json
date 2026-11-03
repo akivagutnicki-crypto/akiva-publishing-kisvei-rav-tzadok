@@ -1,0 +1,362 @@
+[
+ {
+  "id": "vol7-0016-039916",
+  "action": "fix_address",
+  "index_text": "וישלחם מעל יצחק בנו … ואלה תולדות יצחק בן אברהם",
+  "was": "Genesis 25:17",
+  "correct": "Genesis 25:19",
+  "ref": "Peri Tzadik, Toldot 1",
+  "quote": "אֵלֶּה תּוֹלְדֹת יִצְחָק בֶּן אַבְרָהָם אַבְרָהָם הוֹלִיד אֶת יִצְחָק",
+  "note": "The os opens on 25:19; 25:17 is Ishmael's years."
+ },
+ {
+  "id": "vol7-0123-041306",
+  "action": "fix_book",
+  "index_text": "אם לא בריתי יומם ולילה חקות שמים וארץ לא שמתי",
+  "was": "book יחזקאל",
+  "correct": "Jeremiah 33:25",
+  "ref": "Peri Tzadik, Toldot 1",
+  "quote": "אִם לֹא בְרִיתִי יוֹמָם וָלַיְלָה",
+  "note": "Verse is Jeremiah, not Yechezkel; key already right."
+ },
+ {
+  "id": "vol7-0173-041941",
+  "action": "fix_address",
+  "index_text": "ויולד חכם וישמח בו",
+  "was": "Proverbs 63:25",
+  "correct": "Proverbs 23:24",
+  "ref": "Peri Tzadik, Toldot 1",
+  "quote": "וְיוֹלֵד חָכָם יִשְׂמַח בּוֹ",
+  "note": "Proverbs has 31 chapters; Tanchuma Toldot 2 gives (משלי כג, כד)."
+ },
+ {
+  "id": "vol7-0244-042907",
+  "action": "drop",
+  "index_text": "גדולה שנאה ששונאים עמי הארצות ת\"ח",
+  "was": "Pesachim 49b (second line)",
+  "correct": "Pesachim 49b",
+  "ref": "Peri Tzadik, Toldot 1",
+  "quote": "כְּשֶׁהָיִיתִי עַם הָאָרֶץ אָמַרְתִּי: מִי יִתֵּן כוּלֵי",
+  "note": "Only R. Akiva's 'when I was an am ha-aretz' is used; the daf is already indexed by vol7-0244-042905."
+ },
+ {
+  "id": "vol7-0293-043589",
+  "action": "fix_book",
+  "index_text": "חיי בני ומזוני לא בזכותא תליא מילתא אלא במזלא תליא",
+  "was": "book חגיגה",
+  "correct": "Moed Katan 28a",
+  "ref": "Peri Tzadik, Toldot 1",
+  "quote": "בְּחַיֵּי בָּנֵי וּמְזוֹנֵי דְּתַלְיָא בְּמַזָּלָא",
+  "note": "Rava's dictum is Moed Katan 28a."
+ },
+ {
+  "id": "vol7-0373-044696",
+  "action": "fix_address",
+  "index_text": "שתוק כך עלה במחשבה לפני",
+  "was": "Menachot (no daf)",
+  "correct": "Menachot 29b",
+  "ref": "Peri Tzadik, Toldot 1",
+  "quote": "\"שְׁתוֹק, כָּךְ עָלָה בְּמַחֲשָׁבָה לְפָנַי\" כְּמוֹ שֶׁכָּתוּב (מְנָחוֹת כט:)",
+  "note": "Daf missing in the index."
+ },
+ {
+  "id": "vol7-0385-044862",
+  "action": "fix_address",
+  "index_text": "כל שאינו מקיים דברי … רשע לא מקרי",
+  "was": "Niddah (no daf)",
+  "correct": "Niddah 12a",
+  "ref": "Peri Tzadik, Toldot 1",
+  "quote": "(יְבָמוֹת כ., נִדָּה יב.)",
+  "note": "Daf missing in the index."
+ },
+ {
+  "id": "vol7-0393-044947",
+  "action": "drop",
+  "index_text": "ואין אמת אלא תורה … אמת קנה ואל תמכר",
+  "was": "Jerusalem Talmud Rosh Hashanah 3:8",
+  "correct": "Berakhot 5b",
+  "ref": "Peri Tzadik, Toldot 1",
+  "quote": "אֱמֶת זוֹ תּוֹרָה (בְּרָכוֹת ה:)",
+  "note": "The os cites Berakhot 5b, which is already indexed (vol7-0197-042243); the Yerushalmi is not used."
+ },
+ {
+  "id": "vol7-0413-045174",
+  "action": "fix_address",
+  "index_text": "למחר אומר לך שופך דם את …",
+  "was": "Bereshit Rabbah 56:7",
+  "correct": "Bereshit Rabbah 56:4",
+  "ref": "Peri Tzadik, Toldot 1",
+  "quote": "לְמָחָר אוֹמֵר לְךָ שׁוֹפֵךְ דָּם אַתָּה כוּלֵי, אָמַר לוֹ: עַל מְנָת כֵּן",
+  "note": "The Samael dialogue is 56:4 (the index's own verse digit is ד)."
+ },
+ {
+  "id": "vol7-0473-045888",
+  "action": "drop",
+  "index_text": "ואין אמת אלא תורה",
+  "was": "Eichah Rabbah (no address)",
+  "correct": "Berakhot 5b",
+  "ref": "Peri Tzadik, Toldot 1",
+  "quote": "אֱמֶת זוֹ תּוֹרָה (בְּרָכוֹת ה:)",
+  "note": "Not cited in the os; Berakhot 5b is the source he names."
+ },
+ {
+  "id": "vol7-0499-046154",
+  "action": "fix_address",
+  "index_text": "כה אמר ה' אל בית יעקב פדה את אברהם, אברהם נתעטר ביצחק …",
+  "was": "Tanchuma (no section)",
+  "correct": "Midrash Tanchuma, Toldot 4",
+  "ref": "Peri Tzadik, Toldot 1",
+  "quote": "אַבְרָהָם נִתְעַטֵּר בִּזְכוּת יַעֲקֹב … יִצְחָק נִתְעַטֵּר בְּאַבְרָהָם וְאַבְרָהָם נִתְעַטֵּר בְּיִצְחָק",
+  "note": "Section missing; the text belongs to printed Tanchuma Toldot 4."
+ },
+ {
+  "id": "vol7-0525-046410",
+  "action": "fix_book",
+  "index_text": "יראתי מתוך שמחתי ושמחתי מתוך יראתי",
+  "was": "Pirkei DeRabbi Eliezer 3",
+  "correct": "Tanna DeBei Eliyahu Rabbah 3:1",
+  "ref": "Peri Tzadik, Toldot 1",
+  "quote": "כְּמוֹ שֶׁכָּתוּב (סֵדֶר אֵלִיָּהוּ רַבָּה רֵישׁ פֶּרֶק ג)",
+  "note": "The os names Seder Eliyahu Rabbah, where the line is found."
+ },
+ {
+  "id": "vol7-0673-047888",
+  "action": "drop",
+  "index_text": "ואין אמת אלא תורה … תורת אמת היתה בפיהו",
+  "was": "Tikkunei Zohar 21",
+  "correct": "Berakhot 5b",
+  "ref": "Peri Tzadik, Toldot 1",
+  "quote": "אֱמֶת זוֹ תּוֹרָה (בְּרָכוֹת ה:)",
+  "note": "Not cited in the os."
+ },
+ {
+  "id": "vol4-0136-021819",
+  "action": "drop",
+  "index_text": "עיקר השמחה נובעת ממידת הגבורה",
+  "was": "topic גבורה",
+  "correct": "—",
+  "ref": "Peri Tzadik, Toldot 1",
+  "quote": "שֶׁכְּשֶׁנּוֹלַד יִצְחָק הָיוּ הַכֹּל שְׂמֵחִים",
+  "note": "The os does not say joy comes from Gevurah; probably belongs to another passage."
+ },
+ {
+  "id": "vol5-0308-035145",
+  "action": "drop",
+  "index_text": "עיקר השמחה נובעת ממידת גבורה",
+  "was": "topic שמחה",
+  "correct": "—",
+  "ref": "Peri Tzadik, Toldot 1",
+  "quote": "שֶׁכְּשֶׁנּוֹלַד יִצְחָק הָיוּ הַכֹּל שְׂמֵחִים",
+  "note": "Same as vol4-0136-021819."
+ },
+ {
+  "id": "vol4-0267-024140",
+  "action": "drop",
+  "index_text": "מעלת חלום של יעקב",
+  "was": "topic חלום",
+  "correct": "—",
+  "ref": "Peri Tzadik, Toldot 1",
+  "quote": "—",
+  "note": "No dream of Jacob in this os."
+ },
+ {
+  "id": "vol5-0119-031876",
+  "action": "drop",
+  "index_text": "ה- של אברהם בעבודת ה' ע\"י מצות עשה",
+  "was": "topic heading קדושת המועדות",
+  "correct": "עבודת ה' (vol5-0007-029863)",
+  "ref": "Peri Tzadik, Toldot 1",
+  "quote": "וּקְדוּשַׁת אַבְרָהָם אָבִינוּ הָיָה הַהִשְׁתַּדְּלוּת בְּמִצְווֹת עֲשֵׂה",
+  "note": "Filed under the wrong heading; the same line is correctly indexed under עבודת ה'."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "—",
+  "was": "missing",
+  "correct": "Genesis 1:2",
+  "ref": "Peri Tzadik, Toldot 1",
+  "quote": "תֹּהוּ וָבֹהוּ וְחֹשֶׁךְ וְאַחַר כָּךְ \"יְהִי אוֹר\"",
+  "note": "Source used in the os but absent from the Mafteach entries for this passage."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "—",
+  "was": "missing",
+  "correct": "Genesis 5:24",
+  "ref": "Peri Tzadik, Toldot 1",
+  "quote": "כְּמוֹ שֶׁהֶעֱלָה לַחֲנוֹךְ",
+  "note": "Source used in the os but absent from the Mafteach entries for this passage."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "—",
+  "was": "missing",
+  "correct": "Genesis 15:14",
+  "ref": "Peri Tzadik, Toldot 1",
+  "quote": "הָרְכוּשׁ גָּדוֹל",
+  "note": "Source used in the os but absent from the Mafteach entries for this passage."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "—",
+  "was": "missing",
+  "correct": "Genesis 21:4",
+  "ref": "Peri Tzadik, Toldot 1",
+  "quote": "רִאשׁוֹן שֶׁנִּימּוֹל לִשְׁמוֹנָה",
+  "note": "Source used in the os but absent from the Mafteach entries for this passage."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "—",
+  "was": "missing",
+  "correct": "Genesis 25:28",
+  "ref": "Peri Tzadik, Toldot 1",
+  "quote": "כִּי צַיִד בְּפִיו",
+  "note": "Source used in the os but absent from the Mafteach entries for this passage."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "—",
+  "was": "missing",
+  "correct": "Exodus 2:2",
+  "ref": "Peri Tzadik, Toldot 1",
+  "quote": "נוֹלַד טוֹב וְנִתְמַלֵּא הַבַּיִת אוֹר",
+  "note": "Source used in the os but absent from the Mafteach entries for this passage."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "—",
+  "was": "missing",
+  "correct": "Megillah 14a",
+  "ref": "Peri Tzadik, Toldot 1",
+  "quote": "נִתְמַלֵּא הַבַּיִת אוֹר",
+  "note": "Source used in the os but absent from the Mafteach entries for this passage."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "—",
+  "was": "missing",
+  "correct": "Exodus 20:2",
+  "ref": "Peri Tzadik, Toldot 1",
+  "quote": "\"אָנֹכִי\" וְ\"לֹא יִהְיֶה\"",
+  "note": "Source used in the os but absent from the Mafteach entries for this passage."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "—",
+  "was": "missing",
+  "correct": "Isaiah 41:8",
+  "ref": "Peri Tzadik, Toldot 1",
+  "quote": "אַבְרָהָם אוֹהֲבִי",
+  "note": "Source used in the os but absent from the Mafteach entries for this passage."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "—",
+  "was": "missing",
+  "correct": "Ecclesiastes 10:2",
+  "ref": "Peri Tzadik, Toldot 1",
+  "quote": "מִלֵּב כְּסִיל לִשְׂמֹאלוֹ",
+  "note": "Source used in the os but absent from the Mafteach entries for this passage."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "—",
+  "was": "missing",
+  "correct": "Psalms 34:15",
+  "ref": "Peri Tzadik, Toldot 1",
+  "quote": "בְּמִדַּת סוּר מֵרָע",
+  "note": "Source used in the os but absent from the Mafteach entries for this passage."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "—",
+  "was": "missing",
+  "correct": "Bereshit Rabbah 8:5",
+  "ref": "Peri Tzadik, Toldot 1",
+  "quote": "הַמַּלְאָכִים שֶׁקִּטְרְגוּ עַל בְּרִיאַת אָדָם",
+  "note": "Source used in the os but absent from the Mafteach entries for this passage."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "—",
+  "was": "missing",
+  "correct": "Bereshit Rabbah 63:2",
+  "ref": "Peri Tzadik, Toldot 1",
+  "quote": "אַבְרָהָם לֹא נִיצּוֹל מִכִּבְשַׁן הָאֵשׁ אֶלָּא בִּזְכוּתוֹ שֶׁל יַעֲקֹב",
+  "note": "Source used in the os but absent from the Mafteach entries for this passage."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "—",
+  "was": "missing",
+  "correct": "Vayikra Rabbah 36:5",
+  "ref": "Peri Tzadik, Toldot 1",
+  "quote": "שֶׁתִּהְיֶה מִטָּתוֹ שְׁלֵימָה",
+  "note": "Source used in the os but absent from the Mafteach entries for this passage."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "—",
+  "was": "missing",
+  "correct": "Sanhedrin 86a",
+  "ref": "Peri Tzadik, Toldot 1",
+  "quote": "סְתָם מַתְנִיתִין רַבִּי מֵאִיר",
+  "note": "Source used in the os but absent from the Mafteach entries for this passage."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "—",
+  "was": "missing",
+  "correct": "Bava Metzia 84a",
+  "ref": "Peri Tzadik, Toldot 1",
+  "quote": "כְּאָדָם הָרִאשׁוֹן קוֹדֶם הַקִּלְקוּל",
+  "note": "Source used in the os but absent from the Mafteach entries for this passage."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "—",
+  "was": "missing",
+  "correct": "Zohar III 79b",
+  "ref": "Peri Tzadik, Toldot 1",
+  "quote": "כְּמוֹ שֶׁכָּתוּב בַּזֹּהַר הַקָּדוֹשׁ (חֵלֶק ג, עט ב)",
+  "note": "Source used in the os but absent from the Mafteach entries for this passage."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "—",
+  "was": "missing",
+  "correct": "Zohar I, Chayei Sara (בא בימים באינון יומין עלאין)",
+  "ref": "Peri Tzadik, Toldot 1",
+  "quote": "בְּאִינּוּן יוֹמִין עִלָּאִין",
+  "note": "Source used in the os but absent from the Mafteach entries for this passage."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "—",
+  "was": "missing",
+  "correct": "Peri Tzadik, Noach 9",
+  "ref": "Peri Tzadik, Toldot 1",
+  "quote": "כְּמוֹ שֶׁנִּתְבָּאֵר (נֹחַ מַאֲמָר ט)",
+  "note": "Source used in the os but absent from the Mafteach entries for this passage."
+ }
+]

@@ -17,7 +17,7 @@ STATE = Path('mafteach-release-state.json')
 PANEL_V = '20261102-mafteach-inline-v8'
 SEARCH_V = '20261102-mafteach-ask-v11'
 NEW_DIRS = ['library/mafteach', 'library/ml-parallels', 'library/genre-parallels', 'library/mafteach-links']
-ALLOWED = re.compile(r'^(library/index\.html|library/sw\.js|library/mafteach-panel\.js|library/mafteach-search\.js|library/(mafteach|ml-parallels|genre-parallels|mafteach-links)/.+|mcp-data/mafteach/.+|library/data/peri-tzadik/(16[6-9]|17[0-6]|toc|links)\.json|library/data/(catalog|files)\.json|library/data/cited/[a-z0-9-]+\.json|mcp-data/(catalog|text/peri-tzadik)\.json)$')   # + the reviewed Chayei Sarah edition
+ALLOWED = re.compile(r'^(library/index\.html|library/sw\.js|library/mafteach-panel\.js|library/mafteach-search\.js|library/(mafteach|ml-parallels|genre-parallels|mafteach-links)/.+|mcp-data/mafteach/.+|library/data/peri-tzadik/(16[6-9]|17[0-9]|18[0-6]|toc|links)\.json|library/data/(catalog|files)\.json|library/data/cited/[a-z0-9-]+\.json|mcp-data/(catalog|text/peri-tzadik)\.json)$')   # + the reviewed Chayei Sarah edition
 MAX_BYTES = 10_000_000
 
 
@@ -155,6 +155,8 @@ def apply(site):
     subprocess.run(['node', 'scripts/build-mafteach-index.mjs', str(site / 'mcp-data')], check=True)
     # the reviewed Pri Tzaddik Chayei Sarah 1-11 (interlinear, footnotes, parallels): scripts/pri-chayei-review/apply.py
     subprocess.run([sys.executable, 'scripts/pri-chayei-review/apply.py', str(site)], check=True)
+    # the reviewed footnotes of Pri Tzaddik Toldos 1-10: scripts/pri-toldos-review/apply.py
+    subprocess.run([sys.executable, 'scripts/pri-toldos-review/apply.py', str(site)], check=True)
     after = inventory(site)
     changed = sorted(k for k in set(before) | set(after) if before.get(k) != after.get(k))
     removed = [k for k in before if k not in after]

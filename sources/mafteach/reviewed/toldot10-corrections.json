@@ -1,0 +1,233 @@
+[
+ {
+  "id": "vol7-0203-042325",
+  "action": "fix_address",
+  "index_text": "בתוס' בענין למוד תורה שלא לשמה",
+  "was": "Berakhot 14a",
+  "correct": "Berakhot 17a",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Toldot 10",
+  "quote": "וְהַתּוֹסָפוֹת הִקְשׁוּ מִמַּה שֶּׁכָּתוּב",
+  "note": "Tosafot s.v. העושה שלא לשמה is on Berakhot 17a."
+ },
+ {
+  "id": "vol7-0356-044461",
+  "action": "fix_address",
+  "index_text": "שמתוך שלא לשמה",
+  "was": "Sanhedrin 106b",
+  "correct": "Sanhedrin 105b",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Toldot 10",
+  "quote": "שֶׁמִּתּוֹךְ שֶׁלֹּא לִשְׁמָהּ בָּא לִשְׁמָהּ",
+  "note": "Rav Yehudah's saying (Balak's offerings) is Sanhedrin 105b:12."
+ },
+ {
+  "id": "vol7-0267-043240",
+  "action": "fix_address",
+  "index_text": "כאן קודם שהחמיץ כאן לאחר שהחמיץ",
+  "was": "Rosh Hashanah 3a",
+  "correct": "Rosh Hashanah 3b",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Toldot 10",
+  "quote": "וּבְכוֹרֶשׁ קָרֵי לֵיהּ בִּשְׁבִיל זֶה \"לְאַחַר שֶׁהֶחְמִיץ\"",
+  "note": "R. Yitzchak's answer is Rosh Hashanah 3b:11; the resolution follows on 4a."
+ },
+ {
+  "id": "vol7-0243-042895",
+  "action": "fix_book",
+  "index_text": "חת סלעזולצדקה וכוי שאהיה העוהייב",
+  "was": "book 'חלק', no key",
+  "correct": "Pesachim 8a",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Toldot 10",
+  "quote": "הָאוֹמֵר: \"סֶלַע זוֹ לִצְדָקָה בִּשְׁבִיל שֶׁיִּחְיוּ בָּנַי\"",
+  "note": "Wording שאהיה בן העולם הבא is the baraita at Pesachim 8a:18 (entry sits between Eruvin and Pesachim 50b in the index)."
+ },
+ {
+  "id": "vol7-0085-040839",
+  "action": "fix_address",
+  "index_text": "את ה' האמרת היום",
+  "was": "Deuteronomy 26:16",
+  "correct": "Deuteronomy 26:17",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Toldot 10",
+  "quote": "\"אֶת ה' הֶאֱמַרְתָּ כוּלֵי\"",
+  "note": "את ה' האמרת is v. 17."
+ },
+ {
+  "id": "vol7-0614-047264",
+  "action": "fix_address",
+  "index_text": "עייל שבתא מסתדראן תמן כל פתורי דבני עלמא דאקרון בני היכלא דמלכא",
+  "was": "Zohar II 223b",
+  "correct": "Zohar II 252b",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Toldot 10",
+  "quote": "(חֵלֶק ב, פח ב; רנב ב)",
+  "note": "Heikhalot passage in Pekudei falls on 252b (Vilna page marker); Rav Tzadok cites 252b."
+ },
+ {
+  "id": "vol7-0615-047281",
+  "action": "fix_address",
+  "index_text": "ישראל מפרנסי לאביהן שבשמים",
+  "was": "Zohar III 4b",
+  "correct": "Zohar III 7b",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Toldot 10",
+  "quote": "(חֵלֶק ג, ז ב)",
+  "note": "Zohar Vayikra 14, right after the 7b page marker; Rav Tzadok cites ז ב."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Psalms 29:11",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Toldot 10",
+  "quote": "\"ה' עֹז לְעַמּוֹ יִתֵּן\"",
+  "note": "Quoted within the Zohar."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Psalms 68:5",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Toldot 10",
+  "quote": "\"סֹלּוּ לָרֹכֵב בָּעֲרָבוֹת\"",
+  "note": "Quoted twice (¶2, ¶7)."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Genesis 27:29",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Toldot 10",
+  "quote": "\"יַעַבְדוּךָ עַמִּים וְגוֹמֵר\"",
+  "note": "Expounded twice."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Rambam, Hilkhot De'ot 3:3",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Toldot 10",
+  "quote": "וּכְמוֹ שֶׁכָּתַב הָרַמְבַּ״ם",
+  "note": "Serving Hashem constantly through optional acts."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Shabbat 118a",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Toldot 10",
+  "quote": "\"הַמְעַנֵּג אֶת הַשַּׁבָּת\"",
+  "note": "Close reading of the Gemara's wording."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Shabbat 88a",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Toldot 10",
+  "quote": "(שַׁבָּת פח.)",
+  "note": "Explicitly cited; only a topic entry exists."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Avot 3:5",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Toldot 10",
+  "quote": "שֶׁכָּל הַמְקַבֵּל עָלָיו עוֹל תּוֹרָה",
+  "note": ""
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Zohar I 62a",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Toldot 10",
+  "quote": "(חֵלֶק א, סב א; פג רֵישׁ עַמּוּד ב)",
+  "note": "Zohar Noach: ואקרי קדוש."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Isaiah 56:2",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Toldot 10",
+  "quote": "\"שֹׁמֵר שַׁבָּת מֵחַלְּלוֹ",
+  "note": ""
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Taanit 8b",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Toldot 10",
+  "quote": "(תַּעֲנִית ח:)",
+  "note": "Explicitly cited."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Psalms 27:4",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Toldot 10",
+  "quote": "\"לַחֲזוֹת בְּנֹעַם ה'\"",
+  "note": ""
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Zohar II 88b",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Toldot 10",
+  "quote": "(חֵלֶק ב, פח ב; רנב ב)",
+  "note": "Yitro, בני היכלא דמלכא and the three meals."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Psalms 90:17",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Toldot 10",
+  "quote": "\"וִיהִי נֹעַם אֲדֹנָי אֱלֹהֵינוּ עָלֵינוּ\"",
+  "note": ""
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "",
+  "was": "",
+  "correct": "Zohar II 32b",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Toldot 10",
+  "quote": "בַּזֹּהַר הַקָּדוֹשׁ בֹּא (חֵלֶק ב, לב ב)",
+  "note": ""
+ }
+]
