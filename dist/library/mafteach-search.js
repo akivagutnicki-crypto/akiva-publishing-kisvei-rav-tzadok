@@ -12,7 +12,7 @@
   else root.AkivaMafteachSearch = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this, function () {
   'use strict';
-  const VERSION = '20261102-mafteach-ask-v10';
+  const VERSION = '20261102-mafteach-ask-v11';
   let ASK_URL = 'https://akiva-publishing-kisvei-rav-tzadok.akivagutnicki.workers.dev/ask';
   let BASE = '../mcp-data/mafteach/';
   let PANEL_BASE = 'mafteach/';
