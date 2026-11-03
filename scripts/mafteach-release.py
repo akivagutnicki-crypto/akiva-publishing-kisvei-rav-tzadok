@@ -17,7 +17,7 @@ STATE = Path('mafteach-release-state.json')
 PANEL_V = '20261102-mafteach-inline-v7'
 SEARCH_V = '20261102-mafteach-ask-v10'
 NEW_DIRS = ['library/mafteach', 'library/ml-parallels', 'library/genre-parallels', 'library/mafteach-links']
-ALLOWED = re.compile(r'^(library/index\.html|library/sw\.js|library/mafteach-panel\.js|library/mafteach-search\.js|library/(mafteach|ml-parallels|genre-parallels|mafteach-links)/.+|mcp-data/mafteach/.+)$')
+ALLOWED = re.compile(r'^(library/index\.html|library/sw\.js|library/mafteach-panel\.js|library/mafteach-search\.js|library/(mafteach|ml-parallels|genre-parallels|mafteach-links)/.+|mcp-data/mafteach/.+|library/data/peri-tzadik/(16[6-9]|17[0-6]|toc|links)\.json|library/data/(catalog|files)\.json|library/data/cited/[a-z0-9-]+\.json|mcp-data/(catalog|text/peri-tzadik)\.json)$')   # + the reviewed Chayei Sarah edition
 MAX_BYTES = 10_000_000
 
 
@@ -134,6 +134,7 @@ def apply(site):
     site = Path(site)
     assert (site / 'library/index.html').is_file() and (site / 'mcp-data/catalog.json').is_file(), 'Not a complete site'
     before = inventory(site)
+    sizes = {k: (site / k).stat().st_size for k in before}
     for d in NEW_DIRS:
         if (site / d).exists(): shutil.rmtree(site / d)
         shutil.copytree(Path('dist') / d, site / d)
@@ -143,13 +144,16 @@ def apply(site):
         f = site / name
         f.write_text(fn(f.read_text(encoding='utf-8')), encoding='utf-8')
     subprocess.run(['node', 'scripts/build-mafteach-index.mjs', str(site / 'mcp-data')], check=True)
+    # the reviewed Pri Tzaddik Chayei Sarah 1-11 (interlinear, footnotes, parallels): scripts/pri-chayei-review/apply.py
+    subprocess.run([sys.executable, 'scripts/pri-chayei-review/apply.py', str(site)], check=True)
     after = inventory(site)
     changed = sorted(k for k in set(before) | set(after) if before.get(k) != after.get(k))
     removed = [k for k in before if k not in after]
     bad = [k for k in changed if not ALLOWED.match(k)]
     assert not removed or all(ALLOWED.match(k) for k in removed), 'Removed published files: ' + ', '.join(removed[:5])
     assert not bad, 'Unexpected changes: ' + ', '.join(bad[:10])
-    big = [k for k in changed if k in after and (site / k).stat().st_size > MAX_BYTES]
+    # a file already over the limit on the live site may be rewritten, never grown (mcp-data/text/peri-tzadik.json)
+    big = [k for k in changed if k in after and (site / k).stat().st_size > MAX_BYTES and (site / k).stat().st_size > sizes.get(k, 0)]
     assert not big, 'Files over 10 MB: ' + ', '.join(big)
     report = {'changed': len(changed), 'unchanged': sum(1 for k in before if k in after and before[k] == after[k]),
               'shell': [k for k in changed if k in ('library/index.html', 'library/sw.js')]}
@@ -180,11 +184,15 @@ elif mode == 'guard':
     print('Main and live publication unchanged.')
 elif mode == 'verify-live':
     for name in ('library/mafteach-panel.js', 'library/mafteach-search.js', 'library/mafteach/index.json', 'library/ml-parallels/index.json',
-                 'library/genre-parallels/index.json', 'library/mafteach-links/topics-01.json', 'mcp-data/mafteach/glossary.json'):
+                 'library/genre-parallels/index.json', 'library/mafteach-links/topics-01.json', 'mcp-data/mafteach/glossary.json',
+                 'library/data/peri-tzadik/168.json'):
         for k in range(20):
             try:
                 with urllib.request.urlopen(PUBLIC + name + '?check=' + str(time.time_ns()), timeout=60) as r:
-                    assert r.status == 200; print('live:', name); break
+                    body = r.read()
+                    assert r.status == 200
+                    if name.endswith('/168.json'): assert 'Parallels beyond the library'.encode() in body, 'old Chayei Sarah still live'
+                    print('live:', name); break
             except Exception:
                 time.sleep(15)
         else:
