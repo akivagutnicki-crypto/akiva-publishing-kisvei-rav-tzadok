@@ -16,7 +16,12 @@ KIND = {'source': 0, 'parallels': 1, 'beyond': 2}
 def plain(s): return html.unescape(re.sub(r'<[^>]+>', '', s or ''))
 def bare(s): return re.sub(r'[֑-ׇ]', '', s)
 
+# the reviewers' Mafteach verdicts (*Mafteach: found* ...) stay in the review files for the index corrections; readers don't see them
+MAFTEACH_MARK = re.compile(r'\s*\*\(?Mafteach:[^*]*\*')
 def rich(md):
+    md = MAFTEACH_MARK.sub("", md).rstrip()
+    md = re.sub(r"\s*The Mafteach(?:'s|’s)? (?:indexes|lists|has|files|entry|gives)[^.]*\.", "", md)
+    md = re.sub(r",? where the Mafteach (?:lists|has) it", "", md).replace("The Mafteach points to ", "See also ")
     runs, pos = [], 0
     for m in re.finditer(r'\*\*(.+?)\*\*|\*(.+?)\*|\[([^\]]+)\]\((https?://[^)]+)\)', md):
         if m.start() > pos: runs.append({'text': md[pos:m.start()]})

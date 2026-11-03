@@ -15,8 +15,13 @@ D = 'sources/akiva/overlays/pri-chayei-sara-review'
 IDS = {n: 165 + n for n in range(1, 12)}          # the reader's chapter files for Peri Tzadik, Chayei Sara 1-11
 MARK = re.compile(r'\^(\d+(?:,\d+)*)\^')
 
+# the reviewers' Mafteach verdicts (*Mafteach: found* ...) stay in the review files for the index corrections; readers don't see them
+MAFTEACH_MARK = re.compile(r'\s*\*\(?Mafteach:[^*]*\*')
 def rich(md):
     """**bold**, *italic*, [text](url) -> the reader's rich runs"""
+    md = MAFTEACH_MARK.sub("", md).rstrip()
+    md = re.sub(r"\s*The Mafteach(?:'s|’s)? (?:indexes|lists|has|files|entry|gives)[^.]*\.", "", md)
+    md = re.sub(r",? where the Mafteach (?:lists|has) it", "", md).replace("The Mafteach points to ", "See also ")
     runs, pos = [], 0
     for m in re.finditer(r'\*\*(.+?)\*\*|\*(.+?)\*|\[([^\]]+)\]\((https?://[^)]+)\)', md):
         if m.start() > pos: runs.append({'text': md[pos:m.start()]})
