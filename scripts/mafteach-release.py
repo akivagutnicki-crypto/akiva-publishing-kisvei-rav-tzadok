@@ -112,6 +112,15 @@ def patch_index(text):
         a = "    const v = {link: url, he, en,"
         assert text.count(a) == 1, 'Tools click anchor not found exactly once'
         text = text.replace(a, "    if (b.dataset.act === 'maf') return showTab(ref, 'mafteach');\n" + a)
+    # Footnotes: one open at a time; tap the open note (or its marker) to close it (scripts/footnote-toggle.json)
+    if 'function closeOpenFootnotes(' not in text:
+        ft = json.loads(Path('scripts/footnote-toggle.json').read_text(encoding='utf-8'))
+        assert text.count(ft['old']) == 1, 'Footnote click handler not found exactly once'
+        text = text.replace(ft['old'], ft['new'])
+        a = 'function anchoredPhrase(value, notes, language, scope) {'
+        assert text.count(a) == 1, 'Footnote function anchor not found exactly once'
+        text = text.replace(a, ft['fn'] + a)
+        text = text.replace('</style>', '.reader-footnote.open{cursor:pointer}\n</style>', 1)
     return text
 
 
