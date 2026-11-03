@@ -471,6 +471,9 @@ jobs:
           node scripts/publish-vayeira-parallels.mjs --rebuild
           node tests/test-vayeira-parallels.mjs
 
+      - name: Keep the reviewed Pri Tzaddik Chayei Sarah edition (interlinear, footnotes, parallels) in any rebuild
+        run: python3 scripts/pri-chayei-review/apply.py dist
+
       - name: Upload site
         uses: actions/upload-pages-artifact@v4
         with:
