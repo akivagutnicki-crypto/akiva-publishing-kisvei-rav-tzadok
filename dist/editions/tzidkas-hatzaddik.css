@@ -1,0 +1,15 @@
+#tzidkas{padding:100px 0;background:#eee6d9;scroll-margin-top:24px}
+#tzidkas .dover-copy{padding:42px clamp(26px,3.5vw,48px);display:flex;flex-direction:column;justify-content:center;min-width:0}
+#tzidkas .dover-copy h2{font-size:clamp(3.3rem,5.5vw,5.2rem);margin:20px 0;color:#17372d}
+#tzidkas .dover-copy p{font-size:1.04rem;line-height:1.65;color:#56524b;margin:16px 0}
+#tzidkas .dover-copy .lead{font-size:1.42rem;line-height:1.35;color:#17372d}
+#tzidkas a:focus-visible,#tzidkas button:focus-visible{outline:3px solid #b28b55;outline-offset:4px}
+@media(max-width:850px){#tzidkas{padding:72px 0}.dover-overview{grid-template-columns:1fr}.dover-copy{max-width:680px}.dover-volume-grid{grid-template-columns:1fr}.dover-volume{grid-template-columns:125px minmax(0,1fr);padding:28px}.dover-sample-heading{grid-template-columns:1fr;gap:18px;margin-top:45px}}
+@media(max-width:480px){.dover-volume{grid-template-columns:88px minmax(0,1fr);padding:20px 16px;gap:17px}.dover-volume h3{font-size:1.5rem}.dover-volume p{font-size:.93rem}.dover-volume .eyebrow{font-size:.55rem}.dover-format-links a{padding:8px 10px;font-size:.68rem}.dover-page-grid{gap:16px}.dover-page-grid figcaption{font-size:.63rem}.dover-live{font-size:.6rem}#tzidkas .dover-copy .lead{font-size:1.3rem}}
+#tzidkas{background:#efe6dc}
+#tzidkas .dover-copy h2{color:#4b1f24;margin:6px 0 18px}
+#tzidkas .dover-live{color:#4b1f24}
+.tzidkas-hebrew{display:block;margin-top:22px;font:600 1.9rem/1.2 "Frank Ruhl Libre","Times New Roman",serif;color:#8a6a3a}
+#tzidkas blockquote{margin:18px 0 6px;padding:0 0 0 18px;border-left:2px solid #b28b55;font:italic 1.28rem/1.45 Georgia,"Times New Roman",serif;color:#4b1f24}
+#tzidkas blockquote cite{display:block;margin-top:8px;font:700 .68rem/1.4 Arial,Helvetica,sans-serif;letter-spacing:.1em;text-transform:uppercase;font-style:normal;color:#8a6a3a}
+.tzidkas-actions{display:flex;flex-wrap:wrap;gap:10px 22px;align-items:center;margin-top:8px}

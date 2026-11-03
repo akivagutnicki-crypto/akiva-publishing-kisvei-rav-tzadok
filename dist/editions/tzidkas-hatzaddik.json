@@ -1,0 +1,113 @@
+{
+  "version": "20261103-tzidkas-v1",
+  "books": [
+    {
+      "slug": "tzidkas-hatzaddik",
+      "title": "Tzidkas HaTzaddik",
+      "subtitle": "Volumes I & II · 20-page sample",
+      "scope": "Volume I: Sections 1–170 · Volume II: Sections 171–264",
+      "samplePages": 20,
+      "pdf": "tzidkas-hatzaddik-sample.pdf",
+      "pageDirectory": "tzidkas-hatzaddik-pages",
+      "amazon": "https://www.amazon.com/dp/B0HQ5V41L3?binding=hardcover",
+      "paperback": "https://www.amazon.com/dp/B0HQ5V41L3?binding=paperback",
+      "hardcover": "https://www.amazon.com/dp/B0HQ5V41L3?binding=hardcover",
+      "sourcePages": [
+        1,
+        2,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,
+        1,
+        2,
+        7,
+        8,
+        9,
+        10,
+        11,
+        12,
+        13,
+        14
+      ],
+      "pageLabels": [
+        "Volume I · original PDF page 1",
+        "Volume I · original PDF page 2",
+        "Volume I · original PDF page 7",
+        "Volume I · original PDF page 8",
+        "Volume I · original PDF page 9",
+        "Volume I · original PDF page 10",
+        "Volume I · original PDF page 11",
+        "Volume I · original PDF page 12",
+        "Volume I · original PDF page 13",
+        "Volume I · original PDF page 14",
+        "Volume II · original PDF page 1",
+        "Volume II · original PDF page 2",
+        "Volume II · original PDF page 7",
+        "Volume II · original PDF page 8",
+        "Volume II · original PDF page 9",
+        "Volume II · original PDF page 10",
+        "Volume II · original PDF page 11",
+        "Volume II · original PDF page 12",
+        "Volume II · original PDF page 13",
+        "Volume II · original PDF page 14"
+      ],
+      "sampleNote": "Twenty unchanged pages from the actual print PDFs: ten from each volume—the title and copyright pages, followed by the first eight pages of the text. Original printed page numbers are retained.",
+      "front": [
+        "tzidkas-hatzaddik-volume-i-front.webp",
+        "tzidkas-hatzaddik-volume-ii-front.webp"
+      ],
+      "back": [
+        "tzidkas-hatzaddik-volume-i-back.webp",
+        "tzidkas-hatzaddik-volume-ii-back.webp"
+      ],
+      "scene": "tzidkas-hatzaddik-two-volumes-shtenders.webp",
+      "provenance": {
+        "volumes": [
+          {
+            "volume": "I",
+            "original_file": "Tzidkas_V1_Interior_REVISED.pdf",
+            "original_page_count": 370,
+            "source_sha256": "b13539f9fbdb8f6a96eceaedf8d6f59b4d116ec9340774b7635228a87d0f3325",
+            "selected_source_pages": [
+              1,
+              2,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14
+            ]
+          },
+          {
+            "volume": "II",
+            "original_file": "Tzidkas_V2_Interior_REVISED.pdf",
+            "original_page_count": 364,
+            "source_sha256": "d2d4b1648e74252d1d1b9fb63bd310267b940ea0e5375e8442e34b04ee867bb8",
+            "selected_source_pages": [
+              1,
+              2,
+              7,
+              8,
+              9,
+              10,
+              11,
+              12,
+              13,
+              14
+            ]
+          }
+        ],
+        "sample_sha256": "69c4344c03e5845e5a8472f0d18d14db26b435cda728c7a6010526216c31f1ca",
+        "method": "qpdf page extraction; pages unchanged"
+      }
+    }
+  ]
+}

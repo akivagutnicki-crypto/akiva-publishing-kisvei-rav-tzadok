@@ -13,7 +13,7 @@
     $('zoom-in').disabled = zoom === 3;
     $('zoom-level').textContent = `${Math.round(zoom * 100)}%`;
     $('sample-page').style.width = `${zoom * 100}%`;
-    $('page-caption').textContent = `Sample page ${page} of ${book.samplePages} · Original PDF page ${book.sourcePages[page - 1]}`;
+    $('page-caption').textContent = `Sample page ${page} of ${book.samplePages} · ${book.pageLabels ? book.pageLabels[page - 1] : 'Original PDF page ' + book.sourcePages[page - 1]}`;
   };
   function loadPage() {
     if (!book) return;
@@ -62,8 +62,8 @@
   async function initialize() {
     $('sample-error').hidden = true;
     try {
-      const catalogFile = requested?.startsWith('dover-tzedek-') ? 'dover-tzedek.json' : 'catalog.json';
-      const response = await fetch(assetBase + catalogFile + '?v=20261025-dover-print-v1');
+      const catalogFile = requested?.startsWith('dover-tzedek-') ? 'dover-tzedek.json' : requested?.startsWith('tzidkas-hatzaddik') ? 'tzidkas-hatzaddik.json' : 'catalog.json';
+      const response = await fetch(assetBase + catalogFile + '?v=20261103-tzidkas-v1');
       if (!response.ok) throw Error('Catalog unavailable');
       const catalog = await response.json();
       book = catalog.books.find(item => item.slug === requested) || (!requested ? catalog.books[0] : null);
@@ -71,7 +71,7 @@
       document.title = `${book.title}: ${book.subtitle} · 20-page sample`;
       $('sample-title').textContent = book.title;
       $('sample-subtitle').textContent = book.subtitle;
-      $('sample-note').textContent = `Twenty unchanged pages from the actual print PDF: the title and copyright pages, followed by eighteen consecutive opening pages. Original printed page numbers are retained.${book.sampleSection ? ' Opening text: ' + book.sampleSection + '.' : ''}`;
+      $('sample-note').textContent = book.sampleNote || `Twenty unchanged pages from the actual print PDF: the title and copyright pages, followed by eighteen consecutive opening pages. Original printed page numbers are retained.${book.sampleSection ? ' Opening text: ' + book.sampleSection + '.' : ''}`;
       $('sample-download').href = assetBase + book.pdf;
       $('open-pdf').href = assetBase + book.pdf;
       $('sample-amazon').href = book.amazon;
@@ -85,6 +85,8 @@
       document.querySelectorAll('#sample-choices a').forEach(link => {
         if (new URL(link.href).searchParams.get('book') === book.slug) link.setAttribute('aria-current', 'page');
       });
+      const startPage = Number(params.get('page'));
+      if (Number.isInteger(startPage) && startPage >= 1 && startPage <= book.samplePages) page = startPage;
       loadPage();
     } catch (error) {
       $('sample-error').hidden = false;
