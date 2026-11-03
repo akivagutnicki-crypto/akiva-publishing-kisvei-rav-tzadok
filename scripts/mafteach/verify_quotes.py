@@ -110,7 +110,9 @@ def zohar_dafs(book, mapfile='sources/mafteach/zohar-daf.json'):
         m = re.match(r'^(.+) (\d+):(\d+)$', a)
         if m: chapters.setdefault((m.group(1), int(m.group(2))), []).append(a)
     first, upto = {}, collections.Counter()
-    for (p, c), units in chapters.items(): first[(p, c)] = upto[p] + 1; upto[p] += len(units)
+    for (p, c), units in chapters.items():
+        if (p, c) == ('Bereshit', 51): upto[p] = 0            # Sefaria restarts the numbering of Bereshit at chapter 51 (I 38a)
+        first[(p, c)] = upto[p] + 1; upto[p] += len(units)
     def local(p, c, v):
         units = chapters.get((p, c)); i = v - first.get((p, c), 0) if units else -1
         return units[i] if units and 0 <= i < len(units) else None
