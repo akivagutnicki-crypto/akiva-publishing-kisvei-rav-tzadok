@@ -587,6 +587,7 @@ body.akiva-android-reader .akiva-support-embed{border-top-color:var(--ox)}
 .theme-context a{font-family:var(--ui);font-size:.82rem}
 .link-item .theme-title{font-family:var(--ui);font-weight:600;font-size:.85rem;margin:0 0 9px;color:var(--muted)}
 @media(max-width:640px){.connected-outline{padding:15px;margin:18px 0}.idea-anchor.idea-paragraph{margin-left:0}.connected-outline ol{padding-left:18px}}
+.reader-footnote.open{cursor:pointer}
 </style>
 <link id="akiva-responsive-ui" rel="stylesheet" href="responsive-ui.css?v=20261022-responsive-v1">
 <script defer src="responsive-ui.js?v=20261022-responsive-v1"></script>
@@ -2103,13 +2104,20 @@ async function renderReader(ref, jump = new URLSearchParams()) {
         ? (fm.dataset.scope === 'ph' ? fm.closest('.ph') : fm.closest('.seg')?.querySelector('.segment-annotations'))?.querySelector(fm.dataset.noteKey ? `.reader-footnote[data-note-key="${CSS.escape(fm.dataset.noteKey)}"]` : `.reader-footnote[data-fn="${fm.dataset.fn}"]`)
         : fm.nextElementSibling;
       if (fn && fn.classList.contains('footnote')) {
-        // All reviewed source notes expand inside their own paragraph, not a popup.
-        const expanded = fn.classList.toggle('open');
+        // All reviewed source notes expand inside their own paragraph, not a popup. One note at a time:
+        // opening a note closes the others; tapping its marker again (or the note itself) closes it.
+        const expanded = !fn.classList.contains('open');
+        if (expanded) closeOpenFootnotes(fn);
+        fn.classList.toggle('open', expanded);
         if (fm.tagName === 'BUTTON') fm.setAttribute('aria-expanded', String(expanded));
       }
       e.stopPropagation(); return;
     }
     const footnote = e.target.closest('.reader-footnote');
+    if (footnote && footnote.classList.contains('open') && !e.target.closest('a,button,input,summary,details')
+      && !(window.getSelection && String(window.getSelection()).length > 1)) {
+      closeOpenFootnotes(null); e.stopPropagation(); return;   // tap an open note to close it
+    }
     const sourceAnchor = e.target.closest('a');
     const linkedSource = sourceAnchor && !sourceAnchor.classList.contains('footnote-cross-reference')
       && !sourceAnchor.hasAttribute('data-source-external')
@@ -2255,6 +2263,16 @@ function insertAtTextOffsets(html, marks) {
     else range.insertNode(button.content);
   }
   return template.innerHTML;
+}
+// One open footnote at a time (reader text): close every open note except keep.
+function closeOpenFootnotes(keep) {
+  document.querySelectorAll('.reader-footnote.open').forEach(n => {
+    if (n === keep) return;
+    n.classList.remove('open');
+    document.querySelectorAll('.footnote-marker[aria-expanded="true"]').forEach(m => {
+      if (m.dataset.fn === n.dataset.fn && (!n.dataset.noteKey || m.dataset.noteKey === n.dataset.noteKey)) m.setAttribute('aria-expanded', 'false');
+    });
+  });
 }
 function anchoredPhrase(value, notes, language, scope) {
   let html = clean(value);
