@@ -67,6 +67,35 @@ def patch_sample_html(h):
     return once(h, link, link + '<a href="?book=tzidkas-hatzaddik">Tzidkas HaTzaddik, Volumes I &amp; II →</a>', 'sample choices')
 
 
+SHOP_START, SHOP_END = '<!-- tzidkas-shop-start -->', '<!-- tzidkas-shop-end -->'
+SHOP_ANCHOR = '<!-- akiva-new-book-cards-end -->\n'
+SET = 'https://www.amazon.com/dp/B0HQ5V41L3?binding='
+
+
+def shop_card(slug, vol, scope, pages, page, blurb):
+    return (f'<section class="shop-group shop-new shop-dover" data-edition="{slug}"><h3><span class="shop-new-badge">Newly published</span>'
+            f'<br>Tzidkas HaTzaddik, Volume {vol}</h3><div class="shop-book"><img loading="lazy" decoding="async" '
+            f'src="../editions/{slug}-front.webp" alt="Tzidkas HaTzaddik, Volume {vol} · published front cover"><div>'
+            f'<div class="book-name">{scope}</div><div class="formats"><a href="{SET}hardcover" target="_blank" rel="noopener noreferrer">Hardcover ↗</a>'
+            f'<a href="{SET}paperback" target="_blank" rel="noopener noreferrer">Paperback ↗</a></div><div class="formats">'
+            f'<a class="sample-link" href="editions/sample.html?book=tzidkas-hatzaddik&amp;page={page}">Read 20-page sample →</a>'
+            f'<a href="../editions/tzidkas-hatzaddik-sample.pdf" download>Download sample PDF ↓</a></div>'
+            f'<p class="book-format-note">{pages} pages · Hardcover &amp; paperback</p></div></div><p class="shop-description">{blurb}</p></section>')
+
+
+SHOP = SHOP_START + '\n' + shop_card('tzidkas-hatzaddik-volume-i', 'I', 'Sections 1–170', 370, 1,
+    'For the first time, the complete Tzidkas HaTzaddik in English: the first steps in avodas Hashem, prayer and Torah study, the battle with desire, and the power of teshuvah.') + '\n' + \
+    shop_card('tzidkas-hatzaddik-volume-ii', 'II', 'Sections 171–264', 364, 11,
+    'The Torah that Hashem renews each day, the hidden roots of teshuvah and holiness, the meaning of human effort, and each person’s bond with Hashem.') + '\n' + SHOP_END + '\n'
+
+
+def patch_reader(text):
+    if SHOP_START in text:
+        a, b = text.index(SHOP_START), text.index(SHOP_END) + len(SHOP_END) + 1
+        text = text[:a] + text[b:]
+    return once(text, SHOP_ANCHOR, SHOP_ANCHOR + SHOP, 'reader new-book cards end marker')
+
+
 def apply(site):
     site = Path(site)
     ed = site / 'editions'
@@ -87,7 +116,9 @@ def apply(site):
     for viewer in (ed / 'sample.html', site / 'library/editions/sample.html'):
         if viewer.is_file():
             viewer.write_text(patch_sample_html(viewer.read_text(encoding='utf-8')), encoding='utf-8')
-    print('Tzidkas HaTzaddik homepage section applied.')
+    reader = site / 'library/index.html'
+    reader.write_text(patch_reader(reader.read_text(encoding='utf-8')), encoding='utf-8')
+    print('Tzidkas HaTzaddik homepage section and reader listing applied.')
 
 
 if __name__ == '__main__':
