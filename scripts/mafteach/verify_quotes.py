@@ -84,6 +84,48 @@ def other_amud(a):
     m = re.match(r'(\d+)([ab])$', a)
     return m and f"{m.group(1)}{'b' if m.group(2) == 'a' else 'a'}"
 
+ROMAN = {1: 'I', 2: 'II', 3: 'III'}
+def amud(a):                                   # "31b" -> 61 (1a = 0)
+    m = re.match(r'^(\d+)([ab])$', a or '')
+    return m and (int(m.group(1)) - 1) * 2 + (m.group(2) == 'b')
+def amud_name(i): return f"{i // 2 + 1}{'ab'[i % 2]}"
+def heb(n):
+    out = ''
+    for v, c in ((400, 'ת'), (300, 'ש'), (200, 'ר'), (100, 'ק')):
+        while n >= v: out += c; n -= v
+    if n in (15, 16): return out + ('טו' if n == 15 else 'טז')
+    for v, c in ((90, 'צ'), (80, 'פ'), (70, 'ע'), (60, 'ס'), (50, 'נ'), (40, 'מ'), (30, 'ל'), (20, 'כ'), (10, 'י')):
+        if n >= v: out += c; n -= v
+    return out + ('אבגדהוזחט'[n - 1] if n else '')
+
+def zohar_dafs(book, mapfile='sources/mafteach/zohar-daf.json'):
+    """the Zohar's standard pages: each paragraph of the source text -> the dafim it stands on ((vol, amud), ...),
+    from Sefaria's Daf structure, whose refs number the paragraphs through each parasha (Bereshit 35:339) while
+    the source text numbers them within the chapter (Bereshit 35:9)"""
+    try: daf = json.load(open(mapfile, encoding='utf-8'))['daf']
+    except OSError: return {}
+    chapters = collections.OrderedDict()
+    for a in book.addr:
+        m = re.match(r'^(.+) (\d+):(\d+)$', a)
+        if m: chapters.setdefault((m.group(1), int(m.group(2))), []).append(a)
+    first, upto = {}, collections.Counter()
+    for (p, c), units in chapters.items(): first[(p, c)] = upto[p] + 1; upto[p] += len(units)
+    def local(p, c, v):
+        units = chapters.get((p, c)); i = v - first.get((p, c), 0) if units else -1
+        return units[i] if units and 0 <= i < len(units) else None
+    pos = {a: i for i, a in enumerate(book.addr)}
+    out = collections.defaultdict(set)
+    for key, refs in daf.items():
+        vol, a = key.split(':'); place = (int(vol), amud(a))
+        for r in refs:
+            m = re.match(r'^Zohar, (.+?) (\d+):(\d+)(?:-(?:(\d+):)?(\d+))?$', r)
+            if not m: continue
+            p, c1, v1, c2, v2 = m.groups(); c1, v1 = int(c1), int(v1); c2 = int(c2) if c2 else c1; v2 = int(v2) if v2 else v1
+            s, e = local(p, c1, v1), local(p, c2, v2)
+            if s and e:
+                for i in range(pos[s], pos[e] + 1): out[book.addr[i]].add(place)
+    return out
+
 def verify(entries, path, note):
     books = {}
     for line in gzip.open(path, 'rt', encoding='utf-8'):
@@ -117,6 +159,7 @@ def verify(entries, path, note):
             else: out.append(ALIAS.get(n, n))
         return out
     stats = collections.Counter()
+    zd = zohar_dafs(books['Zohar']) if 'Zohar' in books else {}
     for e in entries:
         if e['x'] != 's': continue
         k = e.get('k') or ''
@@ -132,6 +175,30 @@ def verify(entries, path, note):
         if book.name == 'Zohar':                 # by daf in the index, by parasha in the text: check the quote and the volume
             ranked = sorted(sc.items(), key=lambda x: -x[1])
             vol = {'I': 1, 'II': 2, 'III': 3}.get((re.match(r'Zohar (I+)', k or '') or [None, None])[1])
+            # the daf itself, through Sefaria's page division: within a daf either way of the index's amud is a match
+            # (the division is not exact at the edges); a quote clearly on one other page moves the entry there
+            km = re.match(r'^Zohar (I+) (\d+[ab])$', k)
+            if zd and km:
+                here = (vol, amud(km.group(2)))
+                byplace = collections.defaultdict(float)
+                for u, s in sc.items():
+                    for pl in zd.get(u, ()): byplace[pl] = max(byplace[pl], s)
+                near = max([s for pl, s in byplace.items() if pl[0] == here[0] and abs(pl[1] - here[1]) <= 2] or [0])
+                if near >= .5:
+                    e['vq'] = 'c'; stats['c'] += 1; continue
+                top = sorted(byplace.items(), key=lambda x: -x[1])
+                # moved only within the volume, only far from the index's page (near it the page division and the
+                # Ra'aya Mehemna's parallel columns blur), and only when no other page has a fair share of the words
+                if top and top[0][1] >= .75 and near < .34 and top[0][0][0] == vol and abs(top[0][0][1] - here[1]) > 4:
+                    best = top[0][0]
+                    rivals = [s for pl, s in top[1:] if not (pl[0] == best[0] and abs(pl[1] - best[1]) <= 2)]
+                    if not rivals or rivals[0] < .34:
+                        unit = next(u for u, s in sc.items() if best in zd.get(u, ()) and s == top[0][1])
+                        ref = f'Zohar {ROMAN[best[0]]} {amud_name(best[1])}'
+                        note(e, 'texts', 'source', k, ref, f'the quoted words are on {ref} (Zohar, {unit}; Sefaria\'s page division), not on {k}')
+                        e['k'] = ref; e['ch'], e['vs'] = heb(best[1] // 2 + 1), 'אב'[best[1] % 2]
+                        e['b'] = e['bn'] = {1: "זהר חלק א'", 2: "זהר חלק ב'", 3: "זהר חלק ג'"}[best[0]]
+                        e['vq'] = 'a'; stats['zohar daf'] += 1; continue
             if ranked and ranked[0][1] >= .5:
                 v = zohar_vol(ranked[0][0])
                 if vol and v and v != vol and (len(ranked) == 1 or ranked[1][1] < ranked[0][1] - .2 or zohar_vol(ranked[1][0]) != vol):
