@@ -1,0 +1,112 @@
+[
+ {
+  "id": "vol7-0566-046656",
+  "action": "fix_address",
+  "index_text": "תושבחן דאבהן יעקב",
+  "was": "Zohar I 119b",
+  "correct": "Zohar I 163b",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Vayetzei 5",
+  "quote": "וְאִיתָא בְּזֹהַר הַקָּדוֹשׁ פָּרָשָׁה זוֹ (קסג עַמּוּד ב): וְתָא חֲזֵי, יַעֲקֹב תּוּשְׁבְּחָא דַּאֲבָהָן",
+  "note": "He cites 163b and quotes Zohar, Vayetzei 38:14 (163b). The 119b phrase (Vayera 33:4, \"תושבחן דאבהן יעקב הוה\") is a different passage."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "אֶל הַמָּקוֹם אֲשֶׁר עָמַד שָׁם",
+  "was": null,
+  "correct": "Genesis 19:27",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Vayetzei 5",
+  "quote": "אֶל הַמָּקוֹם אֲשֶׁר עָמַד שָׁם",
+  "note": "Avraham and Shacharit; verse quoted unnamed"
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "הַיְדַעְתֶּם אֶת לָבָן",
+  "was": null,
+  "correct": "Genesis 29:5",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Vayetzei 5",
+  "quote": "הַיְדַעְתֶּם אֶת לָבָן",
+  "note": "quoted with BR 70:10"
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "כְּמוֹ שֶׁכָּתוּב בַּגְּמָרָא וּמִדְרַשׁ רַבָּה",
+  "was": null,
+  "correct": "Bereshit Rabbah 68:9",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Vayetzei 5",
+  "quote": "כְּמוֹ שֶׁכָּתוּב בַּגְּמָרָא וּמִדְרַשׁ רַבָּה",
+  "note": "Midrash Rabbah for the Avos instituting the prayers"
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "תַּרְכּוֹסָא שֶׁל שָׁלֹשׁ רַגְלַיִם הֶרְאָה לוֹ",
+  "was": null,
+  "correct": "Bereshit Rabbah 68:12",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Vayetzei 5",
+  "quote": "תַּרְכּוֹסָא שֶׁל שָׁלֹשׁ רַגְלַיִם הֶרְאָה לוֹ",
+  "note": "quoted at length"
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "(וּכְמוֹ שֶׁאָמְרוּ סוֹטָה י עַמּוּד א)",
+  "was": null,
+  "correct": "Sotah 10a",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Vayetzei 5",
+  "quote": "(וּכְמוֹ שֶׁאָמְרוּ סוֹטָה י עַמּוּד א)",
+  "note": "explicit citation"
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "וַיִּקְרָא לוֹ לְיַעֲקֹב אֵל",
+  "was": null,
+  "correct": "Genesis 33:20",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Vayetzei 5",
+  "quote": "וַיִּקְרָא לוֹ לְיַעֲקֹב אֵל",
+  "note": "the verse behind Megillah 18a"
+ },
+ {
+  "id": "vol5-0120-031886",
+  "action": "drop",
+  "index_text": "שורש ה - היא מידת יעקב",
+  "was": "Peri Tzadik, Vayetzei 5",
+  "correct": null,
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Vayetzei 5",
+  "quote": "",
+  "note": "Topic \"root of the festivals\" does not appear in this os (no festivals, Shabbat or oil). The address may be an OCR carry-over; check against the printed index."
+ },
+ {
+  "id": "vol5-0270-034465",
+  "action": "drop",
+  "index_text": "יעקב הוא - הקדושה כמו השבת",
+  "was": "Peri Tzadik, Vayetzei 5",
+  "correct": null,
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Vayetzei 5",
+  "quote": "",
+  "note": "Topic \"Jacob like Shabbat\" does not appear in this os (no festivals, Shabbat or oil). The address may be an OCR carry-over; check against the printed index."
+ },
+ {
+  "id": "vol5-0320-035378",
+  "action": "drop",
+  "index_text": "- ויעקב",
+  "was": "Peri Tzadik, Vayetzei 5",
+  "correct": null,
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Vayetzei 5",
+  "quote": "",
+  "note": "Topic \"Oil and Jacob\" does not appear in this os (no festivals, Shabbat or oil). The address may be an OCR carry-over; check against the printed index."
+ }
+]

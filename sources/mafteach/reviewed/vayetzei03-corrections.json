@@ -1,0 +1,233 @@
+[
+ {
+  "id": "vol7-0675-047908",
+  "action": "fix_address",
+  "index_text": "ובג\"ד אמרו קדמאי אם ישראל הוו מקיימין שבת אחת",
+  "was": "Tikkunei Zohar 113:9",
+  "correct": "Tikkunei Zohar 57a",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Vayetzei 3",
+  "quote": "וּבַתִּיקּוּנִים (תִּיקּוּן כא) אִיתָא וּבְגִין דָּא אָמְרוּ קַדְמָאֵי",
+  "note": "113:9 is a running-paragraph index, not a daf; the passage is Tikkun 21, daf 57a (Sefaria Tikkunei Zohar 57a:9)."
+ },
+ {
+  "id": "vol7-0559-046569",
+  "action": "fix_address",
+  "index_text": "לעבדה בפקודין דעשה ולשמרה בפקודין דלא תעשה",
+  "was": "Zohar I 8a",
+  "correct": "Zohar I 27a",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Vayetzei 3",
+  "quote": "(כְּמוֹ שֶׁכָּתוּב זֹהַר חֵלֶק א, כז עַמּוּד א)",
+  "note": "The words are in Zohar, Bereshit 24:260 = I 27a, as Rav Tzadok cites."
+ },
+ {
+  "id": "vol7-0559-046571",
+  "action": "fix_address",
+  "index_text": "לעבדה בפקודין דעשה",
+  "was": "Zohar I 8a",
+  "correct": "Zohar I 27a",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Vayetzei 3",
+  "quote": "בְּפִקּוּדִין דַּעֲשֵׂה וּמִצְוֹת לֹא תַּעֲשֶׂה (כְּמוֹ שֶׁכָּתוּב זֹהַר חֵלֶק א, כז עַמּוּד א)",
+  "note": "Duplicate of the previous entry; same correction."
+ },
+ {
+  "id": "vol7-0674-047892",
+  "action": "fix_book",
+  "index_text": "לעבדה בפקודין דעשה",
+  "was": null,
+  "correct": "Zohar I 27a",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Vayetzei 3",
+  "quote": "בְּפִקּוּדִין דַּעֲשֵׂה",
+  "note": "Entry has no source key; it is Zohar I 27a."
+ },
+ {
+  "id": "vol7-0520-046365",
+  "action": "fix_book",
+  "index_text": "אם בקולו תשמעו וכו' אם משמרין שבת אחת מיד נגאלין",
+  "was": null,
+  "correct": "Midrash Tehillim 95:3",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Vayetzei 3",
+  "quote": "אִם יִשְׂרָאֵל הֲווֹ מְקַיְּימִין שַׁבָּת אַחַת כְּהִלְכָתָהּ",
+  "note": "Entry has no source key; the wording (היום אם בקולו תשמעו ... אם היו ישראל משמרין אפילו שבת אחת ... מיד היו נגאלין) is Midrash Tehillim 95:3."
+ },
+ {
+  "id": "vol7-0332-044134",
+  "action": "fix_address",
+  "index_text": "ועבדתם וכו' זה קריאת שמע ותפילה",
+  "was": "Bava Metzia 86b",
+  "correct": "Bava Metzia 107b",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Vayetzei 3",
+  "quote": "(בָּבָא מְצִיעָא קז עַמּוּד ב)",
+  "note": "Rav Tzadok cites BM 107b, where the derashah stands (107b:11)."
+ },
+ {
+  "id": "vol7-0403-045026",
+  "action": "fix_address",
+  "index_text": "ברכו במן וקדשו במן",
+  "was": "Bereshit Rabbah 11:4",
+  "correct": "Bereshit Rabbah 11:2",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Vayetzei 3",
+  "quote": "בֵּרְכוֹ בַּמָּן",
+  "note": "In Sefaria's numbering the saying is BR 11:2."
+ },
+ {
+  "id": "vol7-0070-040643",
+  "action": "drop",
+  "index_text": "זאת עולת חודש בחדשו",
+  "was": "Numbers 28:14",
+  "correct": "Isaiah 66:23",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Vayetzei 3",
+  "quote": "עַל פָּסוּק מִדֵּי חוֹדֶשׁ בְּחָדְשׁוֹ",
+  "note": "The os quotes Isaiah 66:23 (already indexed), not Num 28:14."
+ },
+ {
+  "id": "vol7-0276-043365",
+  "action": "drop",
+  "index_text": "והפוך בש\"ת ותשכח שב\"ת, והיינו בראשי\"ת ירא שב\"ת",
+  "was": "Taanit 405b",
+  "correct": null,
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Vayetzei 3",
+  "quote": "",
+  "note": "Not in this os (a Tikkunei Zohar wordplay, mislabelled Taanit); the os has only Rashi's בשביל ישראל שנקרא ראשית."
+ },
+ {
+  "id": "vol7-0335-044176",
+  "action": "drop",
+  "index_text": "שלשה לא שלט בהם יצה\"ר ובתוס' ד\"ה שלשה",
+  "was": "Bava Batra 17a",
+  "correct": null,
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Vayetzei 3",
+  "quote": "",
+  "note": "Nothing in the os uses Bava Batra 17a."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "מבטלין ממנו הרהורי",
+  "was": null,
+  "correct": "Avot DeRabbi Natan 20:1",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Vayetzei 3",
+  "quote": "(בְּאָבוֹת דְּרַבִּי נָתָן פֶּרֶק כ) כָּל מִי שֶׁנּוֹתֵן דִּבְרֵי תּוֹרָה עַל לִבּוֹ",
+  "note": "Named source, not indexed."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "אחרי לבבכם זה הרהור מינות",
+  "was": null,
+  "correct": "Berakhot 12b",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Vayetzei 3",
+  "quote": "וְאָמְרוּ (בְּרָכוֹת יב עַמּוּד ב)",
+  "note": "Named source, not indexed."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "דכו\"ע בשבת נתנה תורה לישראל",
+  "was": null,
+  "correct": "Shabbat 86b",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Vayetzei 3",
+  "quote": "דְּכוּלֵּי עָלְמָא בְּשַׁבָּת נִתְּנָה תּוֹרָה לְיִשְׂרָאֵל",
+  "note": "Unnamed Gemara."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "הקורא כו' כאדם שקורא בתורה",
+  "was": null,
+  "correct": "Berakhot 10b",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Vayetzei 3",
+  "quote": "כְּאָדָם שֶׁקּוֹרֵא בַּתּוֹרָה (בְּרָכוֹת י עַמּוּד ב)",
+  "note": "Named source, not indexed."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "שכר מצוה בהאי עלמא ליכא",
+  "was": null,
+  "correct": "Kiddushin 39b",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Vayetzei 3",
+  "quote": "דִּבְהַאי עָלְמָא לֵיכָּא",
+  "note": "Unnamed Gemara."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "זכור אתר דלית ליה שכחה",
+  "was": null,
+  "correct": "Zohar II 92b",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Vayetzei 3",
+  "quote": "שֶׁהִיא אֲתַר דְּלֵית לֵיהּ שִׁכְחָה כְּמוֹ שֶׁכָּתוּב בַּזֹּהַר הַקָּדוֹשׁ",
+  "note": "Zohar cited without address."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "מי שברא יום ברא פרנסתו",
+  "was": null,
+  "correct": "Mekhilta DeRabbi Yishmael, Vayassa 3",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Vayetzei 3",
+  "quote": "וּבַמְּכִילְתָּא עַל פָּסוּק זֶה מִי שֶׁבָּרָא יוֹם בָּרָא פַּרְנָסָתוֹ",
+  "note": "Named source, not indexed."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "לקח שביעי ושם להם במקומו והשאר גנזו לצדיקים",
+  "was": null,
+  "correct": "Sefer HaBahir 160",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Vayetzei 3",
+  "quote": "וְאִיתָא בְּסֵפֶר הַבָּהִיר לָקַח שְׁבִיעִי",
+  "note": "Named source, not indexed."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "חמדת ימים אותו קראת וכמ\"ש האבודרהם",
+  "was": null,
+  "correct": "Abudarham, Shabbat Prayers, Evening Service 7",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Vayetzei 3",
+  "quote": "וּכְמוֹ שֶׁכָּתַב הָאַבּוּדִרְהָם",
+  "note": "Named source, not indexed."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "שאין בירור של תפלה אחת דומה לחבירו",
+  "was": null,
+  "correct": "Pri Etz Chaim, Sha'ar HaTefillah 7",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Vayetzei 3",
+  "quote": "כִּדְאִיתָא בְּכִתְבֵי הָאֲרִ\"י זִכְרוֹנוֹ לִבְרָכָה",
+  "note": "Arizal source located: Pri Etz Chaim, Gate of Prayer 7:10."
+ },
+ {
+  "id": null,
+  "action": "add_source",
+  "index_text": "בעובד אלהים ... וכ' בס' התניא",
+  "was": null,
+  "correct": "Tanya, Likkutei Amarim 15",
+  "correct_ref": null,
+  "ref": "Peri Tzadik, Vayetzei 3",
+  "quote": "וְכָתַב בְּסֵפֶר הַתַּנְיָא",
+  "note": "Named source, not indexed."
+ }
+]

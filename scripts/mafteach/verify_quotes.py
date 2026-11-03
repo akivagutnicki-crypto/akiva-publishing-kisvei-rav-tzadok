@@ -98,23 +98,30 @@ def heb(n):
         if n >= v: out += c; n -= v
     return out + ('אבגדהוזחט'[n - 1] if n else '')
 
+SEFARIA_ZOHAR, DAF_REFS = {}, {}
 def zohar_dafs(book, mapfile='sources/mafteach/zohar-daf.json'):
     """the Zohar's standard pages: each paragraph of the source text -> the dafim it stands on ((vol, amud), ...),
     from Sefaria's Daf structure, whose refs number the paragraphs through each parasha (Bereshit 35:339) while
     the source text numbers them within the chapter (Bereshit 35:9)"""
     try: daf = json.load(open(mapfile, encoding='utf-8'))['daf']
     except OSError: return {}
+    DAF_REFS.update(daf)
     chapters = collections.OrderedDict()
     for a in book.addr:
         m = re.match(r'^(.+) (\d+):(\d+)$', a)
         if m: chapters.setdefault((m.group(1), int(m.group(2))), []).append(a)
     first, upto = {}, collections.Counter()
-    for (p, c), units in chapters.items(): first[(p, c)] = upto[p] + 1; upto[p] += len(units)
+    for (p, c), units in chapters.items():
+        if (p, c) == ('Bereshit', 51): upto[p] = 0            # Sefaria restarts the numbering of Bereshit at chapter 51 (I 38a)
+        first[(p, c)] = upto[p] + 1; upto[p] += len(units)
     def local(p, c, v):
         units = chapters.get((p, c)); i = v - first.get((p, c), 0) if units else -1
         return units[i] if units and 0 <= i < len(units) else None
     pos = {a: i for i, a in enumerate(book.addr)}
     out = collections.defaultdict(set)
+    # Sefaria's own paragraph numbering of each unit (Bereshit 35:9 -> Zohar, Bereshit 35:347), for links to the passage
+    for (p, c), units in chapters.items():
+        for i, u in enumerate(units): SEFARIA_ZOHAR[u] = f'Zohar, {p} {c}:{first[(p, c)] + i}'
     for key, refs in daf.items():
         vol, a = key.split(':'); place = (int(vol), amud(a))
         for r in refs:
@@ -184,7 +191,11 @@ def verify(entries, path, note):
                 for u, s in sc.items():
                     for pl in zd.get(u, ()): byplace[pl] = max(byplace[pl], s)
                 near = max([s for pl, s in byplace.items() if pl[0] == here[0] and abs(pl[1] - here[1]) <= 2] or [0])
+                def link(place):                     # the page on Sefaria, straight from its Daf structure (exact, unlike paragraph arithmetic)
+                    refs = DAF_REFS.get(f'{place[0]}:{amud_name(place[1])}')
+                    if refs: e['zs'] = refs[0]
                 if near >= .5:
+                    link(here)
                     e['vq'] = 'c'; stats['c'] += 1; continue
                 top = sorted(byplace.items(), key=lambda x: -x[1])
                 # moved only within the volume, only far from the index's page (near it the page division and the
@@ -198,6 +209,7 @@ def verify(entries, path, note):
                         note(e, 'texts', 'source', k, ref, f'the quoted words are on {ref} (Zohar, {unit}; Sefaria\'s page division), not on {k}')
                         e['k'] = ref; e['ch'], e['vs'] = heb(best[1] // 2 + 1), 'אב'[best[1] % 2]
                         e['b'] = e['bn'] = {1: "זהר חלק א'", 2: "זהר חלק ב'", 3: "זהר חלק ג'"}[best[0]]
+                        link(best)
                         e['vq'] = 'a'; stats['zohar daf'] += 1; continue
             if ranked and ranked[0][1] >= .5:
                 v = zohar_vol(ranked[0][0])

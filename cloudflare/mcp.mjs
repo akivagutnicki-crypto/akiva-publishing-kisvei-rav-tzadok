@@ -1189,6 +1189,14 @@ async function mafteach() {
     if (!a) continue;
     for (const v of [a, ...String(a).split(/\s*\/\s*/), String(a).replace(/^(midrash|sefer|the)\s+/i, '')]) if (v) addSource(v, { title: t.he, kind: 'named', term: t });
   }
+  // Sources the review added that have no heading in the printed index (the Arizal's works: "Pri Etz Chaim, Sha'ar HaShabbat 8"):
+  // by their own title, and by the work's name alone ("Pri Etz Chaim") for every gate of it
+  for (const title of Object.keys(g.source_titles || {})) {
+    if (/^Zohar (I|II|III)$/.test(title)) continue;
+    addSource(title, { title, kind: 'titled' });
+    const head = title.split(',')[0].trim();
+    if (head !== title) addSource(head, { title: head, kind: 'family' });
+  }
   const passageKeys = new Map(Object.keys(g.passages).map(p => [refKey(p), p]));
   MAF = { raw: g, keys, sourceNames, passageKeys, byId: new Map(g.terms.map(t => [t.id, t])) };
   return MAF;
@@ -1236,7 +1244,16 @@ function mafRefText(r, corpus) {
   }
   return `${label}${marks}`;
 }
-const mafWhere = e => `Mafteach part ${MAF_PART[e.v] || e.v}, scan p. ${e.p}`;
+const mafWhere = e => e.added ? 'added in Akiva Publishing\'s review: not in the printed index' : `Mafteach part ${MAF_PART[e.v] || e.v}, scan p. ${e.p}`;
+// The passage on Sefaria: a Zohar entry carries the Sefaria paragraph that holds its quote ("zs", checked by daf);
+// other source keys confirmed in the text are Sefaria refs themselves (Genesis 28:12, Berakhot 55a, Bereshit Rabbah 68:12).
+function mafSefaria(e) {
+  if (e.x !== 's') return null;
+  const ref = e.zs || (e.k && !/^Zohar (I|II|III) /.test(e.k) && /^(c|a|l|b)$/.test(e.vq || '') && /\s\d+[ab]?(:\d+)*$/.test(e.k) ? e.k : null);
+  if (!ref) return null;
+  const m = ref.match(/^(.*?)\s+(\d+[ab]?(?::\d+)*(?:-\d+[ab]?(?::\d+)*)?)$/);   // a Zohar page is a range of paragraphs
+  return m ? `https://www.sefaria.org/${encodeURI(m[1].replace(/ /g, '_'))}.${m[2].replace(/:/g, '.')}` : null;
+}
 function mafEntryLine(M, e, { topic = false, source = true } = {}) {
   const parts = [];
   if (topic && e.T != null) parts.push(`[${mafTermLabel(M.byId.get(e.T))}${e.U != null ? ` › ${M.byId.get(e.U)?.he || ''}` : ''}]`);
@@ -1244,6 +1261,8 @@ function mafEntryLine(M, e, { topic = false, source = true } = {}) {
   if (source && e.x === 's') parts.push(`[${e.k || [e.b, e.ch, e.vs].filter(Boolean).join(' ')}]`);
   parts.push(e.t);
   if (e.e) parts.push(`(${e.e})`);
+  const sef = source ? mafSefaria(e) : null;
+  if (sef) parts.push(`[Sefaria: ${e.zs || e.k}](${sef})`);
   const refs = e.r.map(r => mafRefText(r, e.c)).join('; ');
   return `- ${parts.join(' ')} → ${refs || '(no reference legible)'}  _(${mafWhere(e)}${e.nr > 1 ? `; ${e.nr} refs in all` : ''})_`;
 }
@@ -1252,7 +1271,7 @@ function mafJson(M, e) {
     id: e.id, part: MAF_PART[e.v], scan_page: e.p, index: e.x === 't' ? 'topics' : 'sources', corpus: e.c === 'pt' ? 'Pri Tzaddik' : 'Rav Tzadok sefarim',
     topic: e.T != null ? { he: M.byId.get(e.T)?.he, en: M.byId.get(e.T)?.en } : (e.Th || undefined),
     subtopic: e.U != null ? { he: M.byId.get(e.U)?.he, en: M.byId.get(e.U)?.en } : (e.Uh || undefined),
-    source: e.x === 's' ? { key: e.k || null, book: e.b || null, chapter: e.ch || null, verse: e.vs || null } : undefined,
+    source: e.x === 's' ? { key: e.k || null, book: e.b || null, chapter: e.ch || null, verse: e.vs || null, sefaria_ref: e.zs || (mafSefaria(e) ? e.k : null), sefaria_url: mafSefaria(e) } : undefined,
     text: e.t, text_en: e.e || undefined, refs: e.r.map(r => ({ label: r[0], ref: r[1] || null, text: mafRefText(r, e.c) })),
   };
 }
@@ -1349,7 +1368,13 @@ async function mafLookupSource({ source, corpus, offset, limit, response_format 
     throw new ToolError(`no Mafteach source is named "${source}". Give a book and address, e.g. "Genesis 2:7", "Bereishis 2:7", "Berachos 6b", "Shabbos 88", "Bereshit Rabbah 2:4", "בראשית ב ז".${near.length ? ` Sources without numbered addresses that match: ${near.join(', ')}.` : ''}`);
   }
   let entries;
-  if (ps.kind === 'named') entries = await mafShard(`source/b-${ps.term.id}.json`);
+  if (ps.kind === 'family') {
+    const titles = Object.entries(M.raw.source_titles).filter(([t]) => t === ps.title || t.startsWith(ps.title + ','));
+    const shards = await Promise.all(titles.flatMap(([t, v]) => (v.chapters.length ? v.chapters : [null]).map(c => mafShard(`source/${fileKey(c == null ? t : `${t} ${c}`)}.json`))));
+    entries = shards.flat().filter(e => e.k && (e.k === ps.title || e.k.startsWith(ps.title + ',')));
+    if (ps.addr) entries = entries.filter(e => new RegExp(`\\s${ps.addr}(?:[ab]|:|$)`).test(e.k));
+  }
+  else if (ps.kind === 'named') entries = await mafShard(`source/b-${ps.term.id}.json`);
   else if (!ps.addr) {
     const info = M.raw.source_titles[ps.title];
     if (!info) throw new ToolError(`the Mafteach has no entries for ${ps.title}.`);
