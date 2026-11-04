@@ -22,7 +22,7 @@ def plain(s):return html.unescape(re.sub('<[^>]*>','',s))
 
 def verify(site=None, archives=False):
     manifest=rd(B.OUTPUT/'manifest.json');total_notes=0;total_pairs=0;total_heads=0
-    assert manifest['footnotes']==3151 and len(manifest['parashas'])==11 and len(manifest['sections'])==148
+    assert manifest['footnotes']==3476 and len(manifest['parashas'])==11 and len(manifest['sections'])==148
     for v in manifest['volumes']:
         assert B.digest(B.SOURCE/v['file'])==v['sha256']
         with ZipFile(B.SOURCE/v['file']) as z:
@@ -75,7 +75,7 @@ def verify(site=None, archives=False):
             assert covered==relevant,'Source paragraph or heading was omitted'
         if site:assert B.digest(Path(site)/'library/downloads'/v['download'])==v['sha256']
     assert total_heads==len(manifest['sourceHeadings'])==150
-    assert total_notes==3151 and total_pairs==manifest['pairs']
+    assert total_notes==3476 and total_pairs==manifest['pairs']
     if site:
         site=Path(site);toc=rd(site/'library/data/peri-tzadik/toc.json')
         def leaves(x):return sum((leaves(c) for c in x['children']),[]) if 'children'in x else [x]

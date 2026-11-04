@@ -231,7 +231,7 @@ def live():
         if not pending:break
         print('Waiting for current Pages files:',len(pending),flush=True);time.sleep(15)
     assert not pending,'Published bytes differ: '+str(list(pending)[:8])
-    wr('pri-shemos-live-verification.json',{'edition':B.EDITION,'verifiedFiles':len(report['files']),'footnotes':3151,'ok':True})
+    wr('pri-shemos-live-verification.json',{'edition':B.EDITION,'verifiedFiles':len(report['files']),'footnotes':3476,'ok':True})
     print('Every changed file is publicly live and matches its release SHA-256')
 
 def main():

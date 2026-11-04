@@ -16,7 +16,7 @@ from zipfile import ZipFile
 
 SOURCE = Path('sources/akiva/pri-shemos-20261104')
 OUTPUT = Path('sources/akiva/overlays/pri-shemos-20261104')
-EDITION = 'pri-shemos-docx-20261104-v1'
+EDITION = 'pri-shemos-docx-20261104-v2'
 NS = {'w': 'http://schemas.openxmlformats.org/wordprocessingml/2006/main',
       'r': 'http://schemas.openxmlformats.org/officeDocument/2006/relationships'}
 W = '{' + NS['w'] + '}'
@@ -148,7 +148,7 @@ def section_identity(title):
 def build():
     OUTPUT.mkdir(parents=True, exist_ok=True)
     sections = []; volumes = []; source_headings = []; used = set()
-    for volume, filename, expected in [(1,'volume-i.docx',1897),(2,'volume-ii.docx',1254)]:
+    for volume, filename, expected in [(1,'volume-i.docx',2098),(2,'volume-ii.docx',1378)]:
         source = SOURCE / filename
         with ZipFile(source) as z:
             document = ET.fromstring(z.read('word/document.xml'))
