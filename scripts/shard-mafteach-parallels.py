@@ -10,6 +10,7 @@ def cap(i):
     if t == 'source_line': return ['quote', r['he'], r.get('source') or '', r.get('sefaria', 0)]
     if t in ('topic', 'subtopic'): return [t, r['he'], r.get('en') or '']
     if t == 'source': return ['source', r.get('key'), '', r.get('sefaria', 0)]
+    if t == 'edition': return ['edition', r.get('key') or '', '', 0]
     return ['chapter', r.get('key') or '', r.get('en') or '', r.get('sefaria', 0)]
 def book(ref):
     # Pri Tzaddik: one file per section (parsha / festival); other books: one file per book
