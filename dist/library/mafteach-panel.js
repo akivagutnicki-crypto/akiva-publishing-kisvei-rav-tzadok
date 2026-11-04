@@ -50,6 +50,7 @@
     if (type === 'line') return `<span class="maf-why-topic">${esc(b)}${c[3] ? ` — ${esc(c[3])}` : ''}</span> <span lang="he" class="maf-he">${esc(a)}</span>${c[4] ? ` <span class="maf-why-en">(${esc(c[4])})</span>` : ''}`;
     if (type === 'quote') return `Both draw on ${link(b)}: <span lang="he" class="maf-he">${esc(a)}</span>`;
     if (type === 'source') return `Both cite ${link(a)}`;
+    if (type === 'edition') return esc(a.charAt(0).toUpperCase() + a.slice(1));
     if (type === 'chapter') return `Both draw on ${esc(a)}${b ? ` (${esc(b)})` : ''}`;
     return `Both under <span lang="he" class="maf-he">${esc(a)}</span>${b ? ` — ${esc(b)}` : ''}`;
   }
@@ -61,6 +62,7 @@
       if (type === 'quote') return `${first ? 'Both quote' : 'both quote'} ${link(b, c[3])}: <span lang="he" class="maf-he">“${esc(a)}”</span>`;
       if (type === 'line') return `${first ? 'Both' : 'both'} indexed under <b>${esc(c[3] || b)}</b>${c[4] ? `: “${esc(c[4])}”` : ''}${first ? ` <span lang="he" class="maf-he maf-why-he">${esc(a)}</span>` : ''}`;
       if (type === 'source') return `${first ? 'Both cite' : 'both cite'} ${link(a, c[3])}`;
+      if (type === 'edition') return first ? esc(a.charAt(0).toUpperCase() + a.slice(1)) : esc(a);
       if (type === 'chapter') return `${first ? 'Both draw on' : 'both draw on'} ${esc(a)}`;
       return `${first ? 'Both under' : 'both under'} <span lang="he" class="maf-he">${esc(a)}</span>${b ? ` (${esc(b)})` : ''}`;
     };

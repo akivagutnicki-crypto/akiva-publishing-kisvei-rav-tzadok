@@ -131,6 +131,18 @@ for gk, members in groups.items():
             scores[a][b] += w
             why[a][b].append((w, gk))
 
+# ---------- parallels named in Akiva Publishing's annotated editions (sources/mafteach/curated-parallels/*.json) ----------
+# {passage: {parallel passage: why}}: checked by hand, so they rank with the strongest index signals; both directions
+EDITION_WEIGHT = 3.0
+for f in sorted(glob.glob(f'{REPO}/curated-parallels/*.json')):
+    for a, targets in json.load(open(f, encoding='utf-8')).items():
+        for b, note in targets.items():
+            if a == b or a not in valid or b not in valid: continue
+            gk = ('edition', note)
+            reasons_meta.setdefault(gk, dict(type='edition', key=note))
+            for x, y in ((a, b), (b, a)):
+                scores[x][y] += EDITION_WEIGHT; why[x][y].append((EDITION_WEIGHT, gk))
+
 # ---------- reasons table + output ----------
 reason_ids = {}
 reasons = []
