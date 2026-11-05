@@ -67,10 +67,10 @@ jobs:
           PY
           python3 scripts/new-books-release.py capture
 
-      - name: Apply only the new print features and sample viewer
+      - name: Apply the current print collection and four new samples
         run: |
-          node scripts/apply-new-books.mjs .new-books-site
-          node scripts/apply-new-books.mjs .new-books-site
+          node scripts/apply-print-refresh.mjs .new-books-site
+          node scripts/apply-print-refresh.mjs .new-books-site
           node --check .new-books-site/library/sw.js
           node --check .new-books-site/editions/sample.js
           python3 scripts/new-books-release.py verify
@@ -88,6 +88,13 @@ jobs:
           from pypdf import PdfReader
           root = pathlib.Path('.new-books-site/editions')
           proof = json.loads((root / 'sample-provenance.json').read_text())
+          for item in proof['samples']:
+              path = root / (item['slug'] + '-sample.pdf')
+              assert len(PdfReader(path).pages) == 20
+              assert hashlib.sha256(path.read_bytes()).hexdigest() == item['sample_sha256']
+              assert item['all_pages_pixel_identical']
+          proof = json.loads((root / 'print-refresh-provenance.json').read_text())
+          assert len(proof['samples']) == 4
           for item in proof['samples']:
               path = root / (item['slug'] + '-sample.pdf')
               assert len(PdfReader(path).pages) == 20

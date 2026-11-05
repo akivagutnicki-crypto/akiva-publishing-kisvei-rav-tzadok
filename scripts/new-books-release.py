@@ -121,6 +121,16 @@ def verify_inputs():
     for name in needed:
         file = Path('dist/editions') / name
         assert file.is_file() and not file.is_symlink() and file.stat().st_size > 20, 'Missing release asset: ' + name
+    refresh = json.loads(Path('dist/editions/print-refresh.json').read_text())
+    assert len(refresh['books']) == 4, 'Expected two Takanas and two Shemos volumes'
+    refresh_needed = ['print-refresh.json', 'print-refresh-provenance.json', 'print-refresh.css']
+    for book in refresh['books']:
+        assert book['samplePages'] == 20 and len(book['sourcePages']) == 20
+        refresh_needed.extend(book[key] for key in ['front', 'back', 'pdf'])
+        refresh_needed.extend(book['pageDirectory'] + '/page-' + str(page).zfill(2) + '.webp' for page in range(1, 21))
+    for name in refresh_needed:
+        file = Path('dist/editions') / name
+        assert file.is_file() and not file.is_symlink() and file.stat().st_size > 20, 'Missing print asset: ' + name
     inputs = {'editions/' + name: value for name, value in inventory(Path('dist/editions')).items()}
     viewer = Path('dist/library/editions/sample.html')
     assert viewer.is_file(), 'Missing in-app sample viewer'

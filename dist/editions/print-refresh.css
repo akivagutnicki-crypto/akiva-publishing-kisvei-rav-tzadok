@@ -1,0 +1,34 @@
+/* The current print collection, using the original cover artwork. */
+.print-refresh{padding:86px 0;background:#f7f1e7;scroll-margin-top:22px}
+.print-refresh.upcoming{background:#ece2d8;border-top:1px solid #b28b5540}
+.print-refresh .section-intro{display:grid;grid-template-columns:1fr .9fr;gap:45px;align-items:end}
+.print-refresh .eyebrow{color:#6f2e2b}
+.print-refresh h2{font:400 clamp(2.8rem,5vw,4.7rem)/1.02 Georgia,"Times New Roman",serif;letter-spacing:-.035em;margin:16px 0 18px;color:#4b1f24}
+.print-refresh .section-intro p{font:400 1.09rem/1.65 Georgia,"Times New Roman",serif;color:#5e574e;margin:0 0 18px}
+.print-refresh .edition-history{max-width:830px;margin:30px 0 0;font:400 1rem/1.65 Georgia,"Times New Roman",serif;color:#5e574e}
+.print-refresh .dover-volume-grid{margin-top:30px}
+.print-refresh .dover-volume{grid-template-columns:140px minmax(0,1fr)}
+.print-refresh .dover-volume h3{color:#4b1f24}
+.print-refresh .release-status{color:#6f2e2b;font:700 .67rem/1.4 Arial,Helvetica,sans-serif;letter-spacing:.08em;text-transform:uppercase;margin:4px 0 10px}
+.print-refresh .dover-sample-link{margin-top:auto}
+.print-refresh .dover-format-links+.dover-sample-link{margin-top:10px}
+.print-refresh .sample-note{font:.85rem/1.6 Georgia,"Times New Roman",serif;color:#6b6255;margin:22px 0 0}
+.collection.collection-current{padding-bottom:65px}
+.collection-current .collection-copy p{max-width:940px}
+.catalog-shelf{position:relative;isolation:isolate;padding:40px 30px 20px;background:#382b22;display:flex;flex-wrap:wrap;justify-content:center;gap:34px 22px;overflow:hidden}
+.catalog-shelf:before{content:"";position:absolute;inset:-20px;z-index:-1;background:linear-gradient(#201810b8,#2d2119e8),url('../akiva-five-book-collection.webp') center/cover;filter:blur(8px)}
+.shelf-book{flex:0 0 calc((100% - 132px)/7);min-width:0;display:flex;flex-direction:column;align-items:center;color:#f4ead8;text-align:center;position:relative}
+.shelf-cover{width:100%;border-bottom:9px solid #63442c;padding:0 0 5px;box-shadow:0 6px 5px #100a0780;margin-bottom:14px;display:block}
+.shelf-cover img{width:100%;height:auto;aspect-ratio:7/10;object-fit:contain;box-shadow:4px 5px 12px #100b0980;transition:transform .2s}
+.shelf-cover:hover img{transform:translateY(-5px)}
+.shelf-name{font:600 .74rem/1.4 Arial,Helvetica,sans-serif;min-height:3.8em;color:#f4ead8}
+.shelf-badge{font:700 .6rem/1.4 Arial,Helvetica,sans-serif;text-transform:uppercase;letter-spacing:.07em;color:#f1cb91;display:block;margin:5px 0}
+.collection-current a:focus-visible,.print-refresh a:focus-visible,.print-refresh button:focus-visible{outline:3px solid #b28b55;outline-offset:4px}
+#tzidkas .dover-overview{align-items:start}
+#tzidkas .dover-visual{justify-content:flex-start}
+#libraryBookshop .shop-upcoming .shop-new-badge{color:#8e4d42}
+@media(max-width:1050px){.shelf-book{flex-basis:calc((100% - 88px)/5)}.print-refresh .dover-volume{grid-template-columns:110px minmax(0,1fr);padding:24px;gap:20px}}
+@media(max-width:850px){.print-refresh{padding:65px 0}.print-refresh .section-intro{grid-template-columns:1fr;gap:6px}.print-refresh .dover-volume{grid-template-columns:140px minmax(0,1fr)}.shelf-book{flex-basis:calc((100% - 66px)/4)}}
+@media(max-width:600px){.catalog-shelf{padding:28px 20px 18px;gap:27px 18px}.shelf-book{flex-basis:calc((100% - 36px)/3)}.shelf-name{font-size:.67rem}.print-refresh .dover-volume{grid-template-columns:105px minmax(0,1fr);gap:18px;padding:22px 18px}}
+@media(max-width:420px){.shelf-book{flex-basis:calc((100% - 18px)/2)}.shelf-name{font-size:.72rem}.print-refresh .dover-volume{grid-template-columns:82px minmax(0,1fr);gap:16px;padding:20px 15px}.print-refresh .dover-volume h3{font-size:1.5rem}.print-refresh .dover-format-links{gap:15px}}
+@media(prefers-reduced-motion:reduce){.shelf-cover img{transition:none}}

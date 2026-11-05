@@ -79,6 +79,12 @@ export function patchTakanasEditionRanges(html, publicPath) {
   assert.equal(typeof html, 'string');
   assert.equal(typeof publicPath, 'string');
   if (!SHOP_RANGE_PATHS.has(publicPath)) return html;
+  if (html.includes('data-edition="takanas-hashavin-volume-i"')) {
+    assert(html.includes('data-edition="takanas-hashavin-volume-ii"'));
+    assert(html.includes('Introduction (Hakdamah) and Simanim 1-10'));
+    assert(html.includes('Simanim 11-15, completing the work'));
+    return html;
+  }
   assert(html.includes('Takanas%20HaShavin'), 'Expected Takanas shop panel: ' + publicPath);
   for (const [before, after] of SHOP_RANGE_LITERALS) html = changeLiteralOnce(html, before, after);
   return html;
@@ -87,6 +93,14 @@ export function patchTakanasEditionRanges(html, publicPath) {
 export function patchTakanasPrintPreview(html) {
   assert.equal(typeof html, 'string');
   verifyTakanasPrintPreviewSources();
+  if (html.includes('id="print-refresh-samples"')) {
+    for (const volume of ['i', 'ii']) {
+      assert(html.includes('editions/sample.html?book=takanas-hashavin-volume-' + volume));
+      assert(html.includes('editions/takanas-hashavin-volume-' + volume + '-sample.pdf'));
+    }
+    assert(html.includes('Volume I contains the Introduction and Simanim 1–10; Volume II contains Simanim 11–15.'));
+    return html;
+  }
   html = patchSection(html, 'takanas', block => {
     block = changeLiteralOnce(block,
       'Introduction (Hakdamah) and Simanim 1–9',

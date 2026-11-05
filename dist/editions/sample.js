@@ -62,8 +62,8 @@
   async function initialize() {
     $('sample-error').hidden = true;
     try {
-      const catalogFile = requested?.startsWith('dover-tzedek-') ? 'dover-tzedek.json' : requested?.startsWith('tzidkas-hatzaddik') ? 'tzidkas-hatzaddik.json' : 'catalog.json';
-      const response = await fetch(assetBase + catalogFile + '?v=20261103-tzidkas-v1');
+      const catalogFile = /^(takanas-hashavin-|pri-tzaddik-shemos-)/.test(requested || '') ? 'print-refresh.json' : requested?.startsWith('dover-tzedek-') ? 'dover-tzedek.json' : requested?.startsWith('tzidkas-hatzaddik') ? 'tzidkas-hatzaddik.json' : 'catalog.json';
+      const response = await fetch(assetBase + catalogFile + '?v=20261105-print-refresh-v1');
       if (!response.ok) throw Error('Catalog unavailable');
       const catalog = await response.json();
       book = catalog.books.find(item => item.slug === requested) || (!requested ? catalog.books[0] : null);
@@ -74,7 +74,8 @@
       $('sample-note').textContent = book.sampleNote || `Twenty unchanged pages from the actual print PDF: the title and copyright pages, followed by eighteen consecutive opening pages. Original printed page numbers are retained.${book.sampleSection ? ' Opening text: ' + book.sampleSection + '.' : ''}`;
       $('sample-download').href = assetBase + book.pdf;
       $('open-pdf').href = assetBase + book.pdf;
-      $('sample-amazon').href = book.amazon;
+      $('sample-amazon').hidden = !book.amazon;
+      if (book.amazon) $('sample-amazon').href = book.amazon;
       $('sample-links').hidden = false;
       $('sample-viewer').hidden = false;
       $('page-total').textContent = `of ${book.samplePages}`;

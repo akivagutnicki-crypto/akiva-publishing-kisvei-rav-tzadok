@@ -63,8 +63,8 @@ if (!home.includes('<nav aria-label="Primary navigation"><a href="#new-books">')
 }
 home = home.replace(/<p><strong>New in print:<\/strong>[\s\S]*?<\/p>/, '<p><strong>New in print:</strong> Two Pri Tzaddik editions, on Rosh Chodesh to Tu BiShvat and on Shabbos. <a class="vol-link" href="#new-books">Explore the new books and their 20-page samples →</a></p>');
 const collection = `<section class="collection" id="collection" aria-labelledby="collection-title"><div class="wrap collection-copy"><div class="eyebrow">Akiva Publishing · The collection</div><h2 id="collection-title">Seven sefarim. A growing world of Torah.</h2><p>Discover the new <em>Pri Tzaddik</em> editions alongside <em>Takanas HaShavin</em>, Volumes I and II; <em>Resisei Layla</em>, Volumes I and II; and <em>The Livyasan and Shavuos</em>.</p></div><button class="collection-photo zoom" type="button" data-img="editions/akiva-seven-book-collection.webp" data-label="Akiva Publishing · seven published sefarim" aria-label="Enlarge the seven-book Akiva Publishing collection"><img src="editions/akiva-seven-book-collection.webp" loading="lazy" decoding="async" alt="The seven Akiva Publishing sefarim: Pri Tzaddik Rosh Chodesh to Tu BiShvat; Pri Tzaddik Kedushas Shabbos and Shevisas Shabbos; Takanas HaShavin Volumes I and II; Resisei Layla Volumes I and II; and The Livyasan and Shavuos"></button></section>`;
-assert.equal((home.match(/<section class="collection" id="collection"/g) || []).length, 1);
-home = home.replace(/<section class="collection" id="collection"[\s\S]*?<\/section>/, collection);
+assert.equal((home.match(/<section class="collection(?: [^"]*)?" id="collection"/g) || []).length, 1);
+home = home.replace(/<section class="collection(?: [^"]*)?" id="collection"[\s\S]*?<\/section>/, collection);
 fs.writeFileSync(rootFile, home);
 
 const shopCard = book => `<section class="shop-group shop-new" data-edition="${book.slug}"><h3><span class="shop-new-badge">Newly published</span><br>${esc(book.title)}</h3><div class="shop-book"><img loading="eager" decoding="async" src="../editions/${book.front}" alt="${esc(book.title + ': ' + book.subtitle)} · original front cover"><div><div class="book-name">${esc(book.subtitle)}</div><div class="formats"><a href="${esc(book.amazon)}" target="_blank" rel="noopener noreferrer">View on Amazon ↗</a><a class="sample-link" href="editions/sample.html?book=${book.slug}">Read 20-page sample →</a><a href="../editions/${book.pdf}" download>Download sample PDF ↓</a></div><p class="book-format-note">Hardcover &amp; paperback</p></div></div><p class="shop-description">${esc(book.shortDescription)}</p></section>`;
@@ -112,3 +112,4 @@ console.log(`Applied ${version}: homepage feature, two reader cards, seven-book 
 // Keep the newly published Dover Tzedek presentation on every print release.
 await import('./apply-dover-presentation.mjs');
 await import('./apply-learning-hub.mjs');
+await import('./apply-print-refresh.mjs');

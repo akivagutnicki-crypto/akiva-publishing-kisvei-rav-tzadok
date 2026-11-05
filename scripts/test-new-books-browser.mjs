@@ -59,7 +59,13 @@ try {
   const doverResponse = await context.request.get(base + 'editions/dover-tzedek.json');
   assert(doverResponse.ok(), 'Missing Dover Tzedek print catalog');
   const doverCatalog = await doverResponse.json();
-  const sampleBooks = [...catalog.books, ...doverCatalog.books];
+  const refreshResponse = await context.request.get(base + 'editions/print-refresh.json');
+  assert(refreshResponse.ok(), 'Missing current print catalog');
+  const refreshCatalog = await refreshResponse.json();
+  const tzidkasResponse = await context.request.get(base + 'editions/tzidkas-hatzaddik.json');
+  assert(tzidkasResponse.ok(), 'Missing Tzidkas catalog');
+  const tzidkasCatalog = await tzidkasResponse.json();
+  const sampleBooks = [...catalog.books, ...doverCatalog.books, ...tzidkasCatalog.books, ...refreshCatalog.books];
   const expectOrder = catalog.books.map(book => book.slug);
   const assertNoOverflow = async label => assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), label + ' overflows the viewport');
   for (const [width,height] of sizes) {
@@ -68,6 +74,14 @@ try {
     await page.locator('.hero-edition img').first().waitFor();
     await page.evaluate(async () => {await document.fonts.ready; await Promise.all([...document.querySelectorAll('.hero-edition img,.print-scene img')].map(img=>{img.loading='eager';return img.decode();}));});
     await assertNoOverflow('Homepage ' + width);
+    assert.equal(await page.locator('.catalog-shelf .shelf-book').count(), 13);
+    assert.equal(await page.locator('.catalog-shelf .shelf-badge').count(), 2);
+    assert.equal(await page.locator('#pri-tzaddik-shemos .dover-volume').count(), 2);
+    assert.equal(await page.locator('#takanas .dover-volume').count(), 2);
+    for (const book of refreshCatalog.books) {
+      assert.equal(await page.locator('#' + book.slug + ' .dover-sample-link').getAttribute('href'), 'editions/sample.html?book=' + book.slug);
+      if (book.status === 'upcoming') assert.equal(await page.locator('#' + book.slug + ' a[href*="amazon.com"]').count(), 0);
+    }
     assert.deepEqual(await page.locator('.print-release').evaluateAll(nodes => nodes.map(node=>node.id)), expectOrder);
     assert(await page.evaluate(() => document.getElementById('new-books').previousElementSibling?.classList.contains('hero')), 'New books must immediately follow hero');
     assert.equal(await page.locator('.hero-edition img').count(), 2);
@@ -91,8 +105,8 @@ try {
     await assertNoOverflow('Reader ' + width);
     assert.deepEqual(await page.locator('.shop-shelf>.shop-group').evaluateAll(nodes => nodes.slice(0,2).map(node=>node.dataset.edition)), expectOrder);
     assert.equal(await page.locator('#libraryBookshop').count(),1);
-    assert.equal(await page.locator('.shop-shelf>.shop-group').count(),7);
-    assert.equal(await page.locator('#libraryBookshop .shop-book').count(),9);
+    assert.equal(await page.locator('.shop-shelf>.shop-group').count(),12);
+    assert.equal(await page.locator('#libraryBookshop .shop-book').count(),13);
     assert.equal(await page.locator('#libraryBookshop').evaluate(node=>node.classList.contains('compact-bookshop')),width<=1100);
     if (width <= 1100) {
       assert(await page.locator('#libraryBookshop').evaluate(node=>node.previousElementSibling?.classList.contains('intro')));
@@ -103,7 +117,7 @@ try {
     await page.locator('#libraryBookshop').scrollIntoViewIfNeeded();
     await page.screenshot({path:`${out}/reader-${width}x${height}.png`});
     await page.locator('#libraryBookshop').screenshot({path:`${out}/books-${width}x${height}.png`});
-    checks.push({surface:'reader',viewport:[width,height],newCardsFirst:true,bookCount:9,overflow:false});
+    checks.push({surface:'reader',viewport:[width,height],newCardsFirst:true,bookCount:13,overflow:false});
 
     for (const book of sampleBooks) {
       const url = base + 'editions/sample.html?book=' + book.slug;
@@ -135,7 +149,7 @@ try {
   checks.push({surface:'android-compatible sample route',withinLibrary:true});
   const files = new Set(['editions/new-books.css?v='+catalog.version,'editions/akiva-nine-book-collection.webp','editions/dover-tzedek.json','editions/dover-tzedek.css?v=20261025-dover-print-v1','editions/sample.html','editions/sample.css','editions/sample.js','editions/sample-provenance.json','library/editions/sample.html']);
   for (const book of sampleBooks) {
-    for (const key of ['front','back','scene','pdf']) files.add('editions/'+book[key]);
+    for (const key of ['front','back','scene','pdf']) if (book[key]) files.add('editions/'+book[key]);
     for (let n=1;n<=20;n++) files.add(`editions/${book.pageDirectory}/page-${String(n).padStart(2,'0')}.webp`);
   }
   for (const file of files) {
