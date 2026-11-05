@@ -162,7 +162,10 @@ try {
   checks.push({surface:'android-compatible sample route',withinLibrary:true});
   const files = new Set(['editions/new-books.css?v='+catalog.version,'editions/akiva-nine-book-collection.webp','editions/dover-tzedek.json','editions/dover-tzedek.css?v=20261025-dover-print-v1','editions/sample.html','editions/sample.css','editions/sample.js','editions/sample-provenance.json','library/editions/sample.html']);
   for (const book of sampleBooks) {
-    for (const key of ['front','back','scene','pdf']) if (book[key]) files.add('editions/'+book[key]);
+    for (const key of ['front','back','scene','pdf']) {
+      const assets = Array.isArray(book[key]) ? book[key] : [book[key]];
+      for (const asset of assets) if (asset) files.add('editions/' + asset);
+    }
     for (let n=1;n<=20;n++) files.add(`editions/${book.pageDirectory}/page-${String(n).padStart(2,'0')}.webp`);
   }
   for (const file of files) {
