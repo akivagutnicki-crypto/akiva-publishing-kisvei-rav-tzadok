@@ -13,7 +13,8 @@ permissions:
 
 concurrency:
   group: ${{ (github.repository == 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok' && github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[new-books-release]'))) && 'pages' || format('new-books-skipped-{0}', github.run_id) }}
-  cancel-in-progress: false
+  # An explicitly marked recovery replaces the stalled release holding Pages.
+  cancel-in-progress: ${{ github.event_name == 'push' && contains(github.event.head_commit.message, '[new-books-recovery]') }}
 
 jobs:
   deploy:
@@ -103,6 +104,7 @@ jobs:
           PY
 
       - name: Verify homepage reader and samples in portrait and landscape
+        timeout-minutes: 8
         run: node scripts/test-new-books-browser.mjs --root .new-books-site
 
       - name: Configure Pages
@@ -129,6 +131,7 @@ jobs:
         uses: actions/deploy-pages@v4
 
       - name: Verify the public book features samples and unchanged catalogs
+        timeout-minutes: 8
         run: |
           python3 scripts/new-books-release.py published
           node scripts/test-new-books-browser.mjs --url 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/'

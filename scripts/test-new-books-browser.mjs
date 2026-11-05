@@ -50,6 +50,8 @@ const errors = [], failures = [], checks = [], verifiedUrls = [];
 const sizes = [[1440,1000],[390,844],[844,390]];
 try {
   const context = await browser.newContext({serviceWorkers:'block'});
+  context.setDefaultTimeout(30000);
+  context.setDefaultNavigationTimeout(45000);
   const page = await context.newPage();
   page.on('pageerror', error => errors.push({url:page.url(), message:error.message}));
   page.on('response', response => {if(response.status() >= 400 && response.url().includes('/editions/')) failures.push({url:response.url(),status:response.status()});});
@@ -68,11 +70,20 @@ try {
   const sampleBooks = [...catalog.books, ...doverCatalog.books, ...tzidkasCatalog.books, ...refreshCatalog.books];
   const expectOrder = catalog.books.map(book => book.slug);
   const assertNoOverflow = async label => assert(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth + 1), label + ' overflows the viewport');
+  const waitForImages = async selector => {
+    // Off-screen lazy covers never start loading just because decode() is called.
+    await page.locator(selector).evaluateAll(images => {
+      for (const image of images) image.loading = 'eager';
+    });
+    await page.waitForFunction(selector => [...document.querySelectorAll(selector)].every(image => image.complete && image.naturalWidth > 0), selector);
+    await page.waitForFunction(() => document.fonts.status === 'loaded');
+  };
   for (const [width,height] of sizes) {
+    console.log(`Checking homepage ${width}x${height}`);
     await page.setViewportSize({width,height});
     await page.goto(base, {waitUntil:'domcontentloaded'});
     await page.locator('.hero-edition img').first().waitFor();
-    await page.evaluate(async () => {await document.fonts.ready; await Promise.all([...document.querySelectorAll('.hero-edition img,.print-scene img')].map(img=>{img.loading='eager';return img.decode();}));});
+    await waitForImages('.hero-edition img,.print-scene img');
     await assertNoOverflow('Homepage ' + width);
     assert.equal(await page.locator('.catalog-shelf .shelf-book').count(), 13);
     assert.equal(await page.locator('.catalog-shelf .shelf-badge').count(), 2);
@@ -99,9 +110,10 @@ try {
     await page.locator('#close').click();
     checks.push({surface:'homepage',viewport:[width,height],titles:expectOrder,overflow:false});
 
+    console.log(`Checking reader ${width}x${height}`);
     await page.goto(base + 'library/', {waitUntil:'domcontentloaded'});
     await page.waitForSelector('#libraryBookshop .shop-shelf', {timeout:60000});
-    await page.evaluate(async () => {await document.fonts.ready; await Promise.all([...document.querySelectorAll('.shop-new img')].map(img=>img.decode()));});
+    await waitForImages('.shop-new img');
     await assertNoOverflow('Reader ' + width);
     assert.deepEqual(await page.locator('.shop-shelf>.shop-group').evaluateAll(nodes => nodes.slice(0,2).map(node=>node.dataset.edition)), expectOrder);
     assert.equal(await page.locator('#libraryBookshop').count(),1);
@@ -120,6 +132,7 @@ try {
     checks.push({surface:'reader',viewport:[width,height],newCardsFirst:true,bookCount:13,overflow:false});
 
     for (const book of sampleBooks) {
+      console.log(`Checking sample ${book.slug} ${width}x${height}`);
       const url = base + 'editions/sample.html?book=' + book.slug;
       await page.goto(url,{waitUntil:'domcontentloaded'});
       await page.waitForFunction(()=>!document.getElementById('sample-page').hidden && document.getElementById('sample-page').naturalWidth>0);
