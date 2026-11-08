@@ -61,7 +61,7 @@ try{
             const frag=r.cloneContents();frag.querySelectorAll('.footnote-marker').forEach(n=>n.remove());
             return {number:Number(b.dataset.fn),key:b.dataset.noteKey,prefix:frag.textContent};
           });
-          const notes=[...ph.querySelectorAll('.reader-footnote')].map(n=>({number:Number(n.dataset.fn),paragraphs:[...n.querySelectorAll('.annotation-text')].map(p=>p.textContent),links:[...n.querySelectorAll('a[href]')].map(a=>a.getAttribute('href'))}));
+          const notes=[...ph.querySelectorAll('.reader-footnote')].map(n=>({number:Number(n.dataset.fn),key:n.dataset.noteKey||'',paragraphs:[...n.querySelectorAll('.annotation-text')].map(p=>p.textContent),links:[...n.querySelectorAll('a[href]')].map(a=>a.getAttribute('href'))}));
           return {he:h.textContent,en:e.textContent,markers,notes};
         })}));
         return {paragraphs,englishMarkers:s.querySelectorAll('.seg-il .ph-en .footnote-marker').length,
@@ -74,7 +74,10 @@ try{
         const row=rows[i],ar=actual.paragraphs[i];assert.equal(ar.n,row.n);
         assert.equal(ar.pairs.length,row.p.length);
         for(let j=0;j<row.p.length;j++){
-          const ap=ar.pairs[j];assert.equal(ap.he,plain(row.p[j][0]),section.ref+' Hebrew');assert.equal(ap.en,plain(row.p[j][1]),section.ref+' English');
+          const ap0=ar.pairs[j];
+          // the reader's own connected-idea notes (IDEA-…) also attach to this Hebrew; check this edition's notes only
+          const ap={...ap0,ideas:ap0.markers.filter(x=>!String(x.key).startsWith('BEREISHIS-')).length,
+            markers:ap0.markers.filter(x=>String(x.key).startsWith('BEREISHIS-')),notes:ap0.notes.filter(x=>!x.key||x.key.startsWith('BEREISHIS-'))};assert.equal(ap.he,plain(row.p[j][0]),section.ref+' Hebrew');assert.equal(ap.en,plain(row.p[j][1]),section.ref+' English');
           const notes=(row.footnotes||[]).filter(n=>n.phraseIndex===j);markers+=ap.markers.length;
           assert.deepEqual(ap.markers.map(x=>[x.number,x.key,x.prefix]),notes.map(n=>[n.number,n.placementId,n.heAnchorPrefix]),section.ref+' exact rendered Hebrew anchors');
           assert.deepEqual(ap.notes.map(n=>[n.number,n.paragraphs.map(compact)]),notes.map(n=>[n.number,n.paragraphs.map(p=>compact(p.text))]),section.ref+' complete note text');
