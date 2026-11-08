@@ -1,0 +1,43 @@
+name: Probe Pri Tzaddik Bereishis reader data and Sefaria links
+
+on:
+  push:
+    branches: [probe-bereishis-reader]
+    paths: ['probe/links-in.json', 'probe/probe.py', '.github/workflows/probe-bereishis-reader.yml']
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  probe:
+    if: ${{ !contains(github.event.head_commit.message, '[probe-results]') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v6
+      - name: Find the current Pages artifact
+        id: art
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          read id run <<< "$(gh api "repos/${{ github.repository }}/actions/artifacts?name=github-pages&per_page=20" --jq '[.artifacts[] | select(.expired==false)] | sort_by(.created_at) | last | "\(.id) \(.workflow_run.id)"')"
+          echo "id=$id" >> "$GITHUB_OUTPUT"; echo "run=$run" >> "$GITHUB_OUTPUT"; echo "artifact $id run $run"
+      - uses: actions/download-artifact@v4
+        with:
+          artifact-ids: ${{ steps.art.outputs.id }}
+          run-id: ${{ steps.art.outputs.run }}
+          repository: ${{ github.repository }}
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/pages
+          merge-multiple: true
+      - name: Summarize the current Pri Tzaddik reader data
+        run: |
+          mkdir -p "$RUNNER_TEMP/site" && tar -xf "$RUNNER_TEMP/pages/artifact.tar" -C "$RUNNER_TEMP/site"
+          python3 probe/probe.py site "$RUNNER_TEMP/site"
+      - name: Check every footnote label and link against Sefaria
+        run: python3 probe/probe.py links
+      - name: Save the results on this branch
+        run: |
+          git config user.name "github-actions[bot]"; git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add probe/out && git commit -m "Probe results [probe-results]" && git push
