@@ -1,0 +1,128 @@
+nst info = t => INFO[t] || {};
+
+/* ---------- local library data (built by scripts/build-library.mjs) ---------- */
+let CATALOG = [];
+// Edition URLs keep older installed app caches from mixing Hebrew-only data
+// with the new interlinear contents. The service worker also accepts saved packs.
+const editionDataUrl = url => /* Vayetzei edition data revision */ (url.startsWith('data/peri-tzadik/') || url === 'data/catalog.json' || url.startsWith('data/cited/') || url === 'data/files.json') ? url + '?edition=pri-vayetzei-review-e7ebba7012' :
+/* Toldos review data revision */ (url.startsWith('data/peri-tzadik/') || url === 'data/files.json') ? url + '?edition=pri-toldos-review-b894b4ae2e' :
+/* Chayei Sarah review data revision */ (url.startsWith('data/peri-tzadik/') || url === 'data/catalog.jso
+----
+l-kedoshim/') ? '?edition=20261006-yisrael-4-opening' : url.startsWith('data/divrei-soferim/') ? '?edition=20261014-divrei-491-footnotes-v1' : url.startsWith('data/machshavot-charutz/') ? '?edition=20261006-machshavot-format' : '?edition=20261006-resisei-complete') : url;
+const catalogReady = fetch(editionDataUrl('data/catalog.json')).then(r => r.ok ? r.json() : []).catch(() => []).then(c => { CATALOG = c; return c; });
+const localBook = t => CATALOG.find(b => b.title === t);
+const tocCache = new Map();
+function loadToc(slug) {
+  if (!tocCache.has(slug)) tocCache.set(slug, fetch(editionDataUrl(`data/${slug}/toc.json`)).then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }));
+  return tocCache.get(slug);
+}
+const leavesOf = n => n.children ? n.children.flatMap(leaves
+----
+Ready = fetch(editionDataUrl('data/catalog.json')).then(r => r.ok ? r.json() : []).catch(() => []).then(c => { CATALOG = c; return c; });
+const localBook = t => CATALOG.find(b => b.title === t);
+const tocCache = new Map();
+function loadToc(slug) {
+  if (!tocCache.has(slug)) tocCache.set(slug, fetch(editionDataUrl(`data/${slug}/toc.json`)).then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }));
+  return tocCache.get(slug);
+}
+const leavesOf = n => n.children ? n.children.flatMap(leavesOf) : [n];
+// All section addresses of a leaf, in reading order, skipping empty ones.
+function sectionsOf(leaf) {
+  if (leaf.depth === 1) return leaf.shape > 0 ? [[]] : [];
+  const out = [];
+  const walk = (sh, addr) => Array.isArray(sh) && sh.some(Array.isArray)
+    ? sh.forEach((c, i
+----
+map(gematria).join(':')}` : leaf.heRef;
+const isPriShabbosEdition = ref => /^Peri Tzadik, (?:Sefer Kedushat Shabbat|Kuntres Shvitat Shabbat|Title|Introduction)(?:[ :]\d+(?::\d+)*)?$/.test(ref);
+const fileCache = new Map();
+function loadFile(url) {
+  if (!fileCache.has(url)) fileCache.set(url, fetch(editionDataUrl(url)).then(r => { if (!r.ok) throw new Error('HTTP ' + r.status); return r.json(); }));
+  return fileCache.get(url);
+}
+// Resolve a ref against bundled texts. Returns null when the text is not local.
+async function resolveLocal(ref) {
+  ref = String(ref).trim().replace(/,+\s*$/, '').trim();
+  await catalogReady;
+  const book = CATALOG.filter(b => ref === b.title || ref.startsWith(b.title + ' ') || ref.startsWith(b.title + ',')).sort((a, b) => b.title.length - a.title.length)[0];
+ 
+----
+} — ${chapterDisplayTitle}` : null, studyHeading: chapterDisplayTitle || null,
+    chapterLinks: !!il, title: leaf.interlinear ? {en: chapterDisplayTitle || leaf.en, he: leaf.he, ois: leaf.ois, parashah: leaf.parashah} : null,
+    sourceUrl: leaf.sourceUrls?.[addr[0] - 1] || leaf.sourceUrl || null, downloadDocx: leaf.downloadDocx || null, downloadDocxLabel: leaf.downloadDocxLabel || null, downloadPdf: leaf.downloadPdf || null, downloadPdfLabel: leaf.downloadPdfLabel || null,
+    segmentLevel: false, sep, highlight: segment ? `${sectionRef}${sep}${segment}` : null,
+    next: all[k + 1] || null, prev: k > 0 ? all[k - 1] : null,
+    versions: [paragraphTranslation ? {title: 'Akiva Publishing paragraph translation', lang: 'Hebrew with English translation', source: '', license: '© Akiva Publish
+----
+yTitle}` : null, studyHeading: chapterDisplayTitle || null,
+    chapterLinks: !!il, title: leaf.interlinear ? {en: chapterDisplayTitle || leaf.en, he: leaf.he, ois: leaf.ois, parashah: leaf.parashah} : null,
+    sourceUrl: leaf.sourceUrls?.[addr[0] - 1] || leaf.sourceUrl || null, downloadDocx: leaf.downloadDocx || null, downloadDocxLabel: leaf.downloadDocxLabel || null, downloadPdf: leaf.downloadPdf || null, downloadPdfLabel: leaf.downloadPdfLabel || null,
+    segmentLevel: false, sep, highlight: segment ? `${sectionRef}${sep}${segment}` : null,
+    next: all[k + 1] || null, prev: k > 0 ? all[k - 1] : null,
+    versions: [paragraphTranslation ? {title: 'Akiva Publishing paragraph translation', lang: 'Hebrew with English translation', source: '', license: '© Akiva Publishing'} : il && !leaf
+----
+Heading: chapterDisplayTitle || null,
+    chapterLinks: !!il, title: leaf.interlinear ? {en: chapterDisplayTitle || leaf.en, he: leaf.he, ois: leaf.ois, parashah: leaf.parashah} : null,
+    sourceUrl: leaf.sourceUrls?.[addr[0] - 1] || leaf.sourceUrl || null, downloadDocx: leaf.downloadDocx || null, downloadDocxLabel: leaf.downloadDocxLabel || null, downloadPdf: leaf.downloadPdf || null, downloadPdfLabel: leaf.downloadPdfLabel || null,
+    segmentLevel: false, sep, highlight: segment ? `${sectionRef}${sep}${segment}` : null,
+    next: all[k + 1] || null, prev: k > 0 ? all[k - 1] : null,
+    versions: [paragraphTranslation ? {title: 'Akiva Publishing paragraph translation', lang: 'Hebrew with English translation', source: '', license: '© Akiva Publishing'} : il && !leaf.interlinear ? {title:
+----
+itle || null,
+    chapterLinks: !!il, title: leaf.interlinear ? {en: chapterDisplayTitle || leaf.en, he: leaf.he, ois: leaf.ois, parashah: leaf.parashah} : null,
+    sourceUrl: leaf.sourceUrls?.[addr[0] - 1] || leaf.sourceUrl || null, downloadDocx: leaf.downloadDocx || null, downloadDocxLabel: leaf.downloadDocxLabel || null, downloadPdf: leaf.downloadPdf || null, downloadPdfLabel: leaf.downloadPdfLabel || null,
+    segmentLevel: false, sep, highlight: segment ? `${sectionRef}${sep}${segment}` : null,
+    next: all[k + 1] || null, prev: k > 0 ? all[k - 1] : null,
+    versions: [paragraphTranslation ? {title: 'Akiva Publishing paragraph translation', lang: 'Hebrew with English translation', source: '', license: '© Akiva Publishing'} : il && !leaf.interlinear ? {title: 'Akiva Publishing inter
+----
+lel', 'Additional Chassidus source', 'English translation of the Chassidus passage', 'Connection to this footnote'];
+  const wordSource = (note.paragraphs || []).some(p => Array.isArray(p.rich) && p.rich.length);
+  const content = (note.paragraphs || []).map((p, i) => {
+    const isSefaria = url => safeFootnoteUrl(url);
+    // Preserve bold source labels, complete English quotations and linked source locations
+    // from each true Word footnote. Do not flatten a multi-paragraph note to one summary.
+    const rich = Array.isArray(p.rich) && p.rich.length ? p.rich.map(run => {
+      let segment = esc(run.text || '');
+      if (run.bold) segment = '<strong>' + segment + '</strong>';
+      if (run.italic) segment = '<em>' + segment + '</em>';
+      const source = (note.sources || []).find(ite
+----
+source' : 'Sources and commentary'}</div>${warning}${content}${cross}</div>`;
+  return box;
+}
+/* A footnote marker placed inside the Hebrew, beside the word it annotates (as in the Word edition).
+   It opens the matching footnote box of the same phrase, or of the paragraph's footnote tray. */
+const safeFootnoteUrl = url => /* Shemos source URL preservation */ ["https://github.com/Otzaria/otzaria-library/blob/16f43d3496078d0d5eadb77e543480485f343749/DictaToOtzaria/%D7%A2%D7%A8%D7%95%D7%9A/%D7%A1%D7%A4%D7%A8%D7%99%D7%9D/%D7%90%D7%95%D7%A6%D7%A8%D7%99%D7%90/%D7%AA%D7%9C%D7%9E%D7%95%D7%93%20%D7%91%D7%91%D7%9C%D7%99/%D7%A8%D7%90%D7%A9%D7%95%D7%A0%D7%99%D7%9D/%D7%94%D7%9C%D7%9B%D7%95%D7%AA%20%D7%91%D7%9B%D7%95%D7%A8%D7%95%D7%AA%20%D7%95%D7%97%D7%9C%D7%94%20%D7%9C%D7%94%D7%A8%D7%9E%D7%91%D7%9F.tx
+----
+hiloach,') && d.sectionRef.endsWith(', Lech Lecha')
+      ? 'mei-hashiloach-lech-lecha-interlinear.docx' : null;
+  if (lechDownloads) html += `<div class="section-docx-link"><a href="downloads/${lechDownloads}" download>Download the complete Lech Lecha interlinear Word edition ↓</a></div>`;
+  if (d.downloadDocx) html += `<div class="section-docx-link"><a href="${esc(d.downloadDocx)}" download>${esc(d.downloadDocxLabel || (d.sectionRef.startsWith('Beit Yaakov on Torah,') ? 'Download the supplied interlinear Word edition (DOCX)' : 'Download the complete annotated Word edition (DOCX)'))} ↓</a></div>`;
+  if (d.weeklyStudy) html += d.chayeiSarahStudy && window.AkivaChayeiSarahStudy ? window.AkivaChayeiSarahStudy.attachment(d) : window.AkivaVayeiraStudy.attachment(d);
+  if (d.downloadPdf && !d.w
+----
+oach-lech-lecha-interlinear.docx' : null;
+  if (lechDownloads) html += `<div class="section-docx-link"><a href="downloads/${lechDownloads}" download>Download the complete Lech Lecha interlinear Word edition ↓</a></div>`;
+  if (d.downloadDocx) html += `<div class="section-docx-link"><a href="${esc(d.downloadDocx)}" download>${esc(d.downloadDocxLabel || (d.sectionRef.startsWith('Beit Yaakov on Torah,') ? 'Download the supplied interlinear Word edition (DOCX)' : 'Download the complete annotated Word edition (DOCX)'))} ↓</a></div>`;
+  if (d.weeklyStudy) html += d.chayeiSarahStudy && window.AkivaChayeiSarahStudy ? window.AkivaChayeiSarahStudy.attachment(d) : window.AkivaVayeiraStudy.attachment(d);
+  if (d.downloadPdf && !d.weeklyStudy) html += `<div class="section-docx-link"><a href="${esc(d.do
+----
+ : null;
+  if (lechDownloads) html += `<div class="section-docx-link"><a href="downloads/${lechDownloads}" download>Download the complete Lech Lecha interlinear Word edition ↓</a></div>`;
+  if (d.downloadDocx) html += `<div class="section-docx-link"><a href="${esc(d.downloadDocx)}" download>${esc(d.downloadDocxLabel || (d.sectionRef.startsWith('Beit Yaakov on Torah,') ? 'Download the supplied interlinear Word edition (DOCX)' : 'Download the complete annotated Word edition (DOCX)'))} ↓</a></div>`;
+  if (d.weeklyStudy) html += d.chayeiSarahStudy && window.AkivaChayeiSarahStudy ? window.AkivaChayeiSarahStudy.attachment(d) : window.AkivaVayeiraStudy.attachment(d);
+  if (d.downloadPdf && !d.weeklyStudy) html += `<div class="section-docx-link"><a href="${esc(d.downloadPdf)}" target="_blank" rel=
+----
+rary.mjs): what our translated paragraphs
+   cite (data/<slug>/links.json) and which of them cite a given book (data/cited). */
+const bookOfRef = ref => ref.replace(/\s+\d[\dab:\-–]*$/, '');
+const localJSON = new Map();
+function dataJSON(path) {
+  if (!localJSON.has(path)) localJSON.set(path, fetch(editionDataUrl('data/' + path)).then(r => r.ok ? r.json() : null).catch(() => null));
+  return localJSON.get(path);
+}
+const sourceConnections = window.AkivaSourceConnections;
+const connectedIdeas = window.AkivaConnectedIdeas;
+let connectedIdeasPromise = null;
+function connectedIdeasCatalog() {
+  if (!connectedIdeasPromise) connectedIdeasPromise = fetch('connected-ideas/catalog.json?takanat=20261026-takanat-reader-review-v1-934d347e7267' + connectedIdeas.VERSION + '&accuracy=20261023-tzidkat-sour
