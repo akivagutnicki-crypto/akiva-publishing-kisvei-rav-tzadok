@@ -4,9 +4,9 @@ nst info = t => INFO[t] || {};
 let CATALOG = [];
 // Edition URLs keep older installed app caches from mixing Hebrew-only data
 // with the new interlinear contents. The service worker also accepts saved packs.
-const editionDataUrl = url => /* Vayetzei edition data revision */ (url.startsWith('data/peri-tzadik/') || url === 'data/catalog.json' || url.startsWith('data/cited/') || url === 'data/files.json') ? url + '?edition=pri-vayetzei-review-e7ebba7012' :
-/* Toldos review data revision */ (url.startsWith('data/peri-tzadik/') || url === 'data/files.json') ? url + '?edition=pri-toldos-review-b894b4ae2e' :
-/* Chayei Sarah review data revision */ (url.startsWith('data/peri-tzadik/') || url === 'data/catalog.jso
+const editionDataUrl = url => /* Bereishis Word edition data revision */ (url.startsWith('data/peri-tzadik/') || url === 'data/catalog.json' || url === 'data/files.json') ? url + '?edition=pri-bereishis-docx-20261108-v1' :
+/* Vayetzei edition data revision */ (url.startsWith('data/peri-tzadik/') || url === 'data/catalog.json' || url.startsWith('data/cited/') || url === 'data/files.json') ? url + '?edition=pri-vayetzei-review-e7ebba7012' :
+/* Toldos review data revision */ (url.startsWith('data/peri-tz
 ----
 l-kedoshim/') ? '?edition=20261006-yisrael-4-opening' : url.startsWith('data/divrei-soferim/') ? '?edition=20261014-divrei-491-footnotes-v1' : url.startsWith('data/machshavot-charutz/') ? '?edition=20261006-machshavot-format' : '?edition=20261006-resisei-complete') : url;
 const catalogReady = fetch(editionDataUrl('data/catalog.json')).then(r => r.ok ? r.json() : []).catch(() => []).then(c => { CATALOG = c; return c; });
@@ -92,7 +92,18 @@ source' : 'Sources and commentary'}</div>${warning}${content}${cross}</div>`;
 }
 /* A footnote marker placed inside the Hebrew, beside the word it annotates (as in the Word edition).
    It opens the matching footnote box of the same phrase, or of the paragraph's footnote tray. */
-const safeFootnoteUrl = url => /* Shemos source URL preservation */ ["https://github.com/Otzaria/otzaria-library/blob/16f43d3496078d0d5eadb77e543480485f343749/DictaToOtzaria/%D7%A2%D7%A8%D7%95%D7%9A/%D7%A1%D7%A4%D7%A8%D7%99%D7%9D/%D7%90%D7%95%D7%A6%D7%A8%D7%99%D7%90/%D7%AA%D7%9C%D7%9E%D7%95%D7%93%20%D7%91%D7%91%D7%9C%D7%99/%D7%A8%D7%90%D7%A9%D7%95%D7%A0%D7%99%D7%9D/%D7%94%D7%9C%D7%9B%D7%95%D7%AA%20%D7%91%D7%9B%D7%95%D7%A8%D7%95%D7%AA%20%D7%95%D7%97%D7%9C%D7%94%20%D7%9C%D7%94%D7%A8%D7%9E%D7%91%D7%9F.tx
+const safeFootnoteUrl = url => /* Bereishis source URL preservation */ ["https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/#/read/Beit_Yaakov_on_Torah,_Bereshit_44", "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/#/read/Divrei_Soferim_12", "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/#/read/Et_HaOchel_3", "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/#/read/Et_
+----
+        <a class="btn" href="downloads/divrei-soferim-ois-16-lech-lecha-shiur.docx?v=20261022-divrei16-transcript-v2" download>Download Word transcript ↓</a>
+      </details>
+    </div>`;
+  } else html += shiurMarkup;
+  const lechDownloads = d.sectionRef.startsWith('Peri Tzadik, Lech Lecha ') && !d.downloadDocx ? 'pri-tzaddik-lech-lecha-interlinear.docx'
+    : d.sectionRef.startsWith('Beit Yaakov on Torah, Lech Lecha ') ? 'beit-yaakov-lech-lecha-interlinear.docx'
+    : d.sectionRef.startsWith('Mei HaShiloach,') && d.sectionRef.endsWith(', Lech Lecha')
+      ? 'mei-hashiloach-lech-lecha-interlinear.docx' : null;
+  if (lechDownloads) html += `<div class="section-docx-link"><a href="downloads/${lechDownloads}" download>Download the complete Lech Lecha interlinear Word edition ↓</a></div>`;
+  
 ----
 hiloach,') && d.sectionRef.endsWith(', Lech Lecha')
       ? 'mei-hashiloach-lech-lecha-interlinear.docx' : null;
