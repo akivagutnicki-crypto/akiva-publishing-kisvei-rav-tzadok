@@ -102,3 +102,31 @@ if mode == 'links2':
     json.dump(labs, open(OUT / 'labels2.json', 'w'), ensure_ascii=False); json.dump(us, open(OUT / 'urls2.json', 'w'), ensure_ascii=False)
     print('labels resolved', sum(1 for v in labs.values() if v['ref']), '/', len(labs), 'urls ok', sum(v['ok'] for v in us.values()), '/', len(us),
           'unreachable', sum(1 for v in list(labs.values()) for t in v['tried'] if t[3] == 'unreachable') + sum(v.get('error') == 'unreachable' for v in us.values()))
+
+if mode == 'content':
+    d = json.load(open('probe/content-in.json'))
+    STOP = set('that this with from have they their there which what when your will shall unto said were been into upon them then than also only even more most such like each other some just about after before because where whom whose those these being does doth hath thou thee thy ye our ours out not but and the for are was his her him she you all one who how why may can its it is in of to a an on as at by or be he we i my me us so no do if'.split())
+    words = lambda s: {w for w in re.findall(r"[a-z]{4,}", (s or '').lower()) if w not in STOP}
+    def flat(t):
+        if isinstance(t, list): return ' '.join(flat(x) for x in t)
+        return re.sub('<[^>]+>', ' ', t or '')
+    cache = {}
+    def eng(ref):
+        for k in range(5):
+            try:
+                with urllib.request.urlopen(urllib.request.Request('https://www.sefaria.org/api/v3/texts/' + urllib.parse.quote(ref) + '?version=english&return_format=text_only', headers=UA), timeout=40) as r:
+                    j = json.load(r); return ref, ' '.join(flat(v.get('text')) for v in j.get('versions') or [])
+            except urllib.error.HTTPError as e:
+                if e.code in (400, 404): return ref, ''
+                time.sleep(3 * (k + 1))
+            except Exception: time.sleep(3 * (k + 1))
+        return ref, None
+    refs = sorted({i['ref'] for i in d})
+    with cf.ThreadPoolExecutor(5) as ex: texts = dict(ex.map(eng, refs))
+    out = {}
+    for i in d:
+        q = words(i['quote']); t = texts.get(i['ref'])
+        out[i['k']] = {'ref': i['ref'], 'score': (round(len(q & words(t)) / len(q), 3) if q and t else None), 'hasEnglish': bool(t), 'qwords': len(q)}
+    json.dump(out, open(OUT / 'content.json', 'w'))
+    sc = [v['score'] for v in out.values() if v['score'] is not None]
+    print('items', len(out), 'scored', len(sc), 'low (<0.3)', sum(s < 0.3 for s in sc), 'no English', sum(1 for v in out.values() if not v['hasEnglish']))

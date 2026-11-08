@@ -3,7 +3,7 @@ name: Probe Pri Tzaddik Bereishis reader data and Sefaria links
 on:
   push:
     branches: [probe-bereishis-reader]
-    paths: ['probe/links2-in.json', 'probe/links-in.json', 'probe/probe.py', '.github/workflows/probe-bereishis-reader.yml']
+    paths: ['probe/content-in.json', 'probe/links2-in.json', 'probe/links-in.json', 'probe/probe.py', '.github/workflows/probe-bereishis-reader.yml']
 
 permissions:
   contents: write
@@ -36,7 +36,7 @@ jobs:
           mkdir -p "$RUNNER_TEMP/site" && tar -xf "$RUNNER_TEMP/pages/artifact.tar" -C "$RUNNER_TEMP/site"
           python3 probe/probe.py site "$RUNNER_TEMP/site"
       - name: Check every footnote label and link against Sefaria
-        run: python3 probe/probe.py links2
+        run: python3 probe/probe.py content
       - name: Save the results on this branch
         run: |
           git config user.name "github-actions[bot]"; git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
