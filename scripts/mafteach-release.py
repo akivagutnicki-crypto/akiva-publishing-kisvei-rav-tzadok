@@ -153,12 +153,17 @@ def apply(site):
         f = site / name
         f.write_text(fn(f.read_text(encoding='utf-8')), encoding='utf-8')
     subprocess.run(['node', 'scripts/build-mafteach-index.mjs', str(site / 'mcp-data')], check=True)
-    # the reviewed Pri Tzaddik Chayei Sarah 1-11 (interlinear, footnotes, parallels): scripts/pri-chayei-review/apply.py
-    subprocess.run([sys.executable, 'scripts/pri-chayei-review/apply.py', str(site)], check=True)
-    # the reviewed footnotes of Pri Tzaddik Toldos 1-10: scripts/pri-toldos-review/apply.py
-    subprocess.run([sys.executable, 'scripts/pri-toldos-review/apply.py', str(site)], check=True)
-    # the interlinear study edition of Pri Tzaddik Vayetzei 1-10 with reviewed footnotes: scripts/pri-vayetzei-review/apply.py
-    subprocess.run([sys.executable, 'scripts/pri-vayetzei-review/apply.py', str(site)], check=True)
+    # The Sefer Bereishis Word edition (scripts/pri-bereishis/release.py) replaces the earlier Chayei Sarah, Toldos and
+    # Vayetzei study chapters; once the live site carries it, those older overlays must not be put back over it.
+    if '"bereishisDocxEdition"' not in (site / 'library/data/peri-tzadik/toc.json').read_text(encoding='utf-8'):
+        # the reviewed Pri Tzaddik Chayei Sarah 1-11 (interlinear, footnotes, parallels): scripts/pri-chayei-review/apply.py
+        subprocess.run([sys.executable, 'scripts/pri-chayei-review/apply.py', str(site)], check=True)
+        # the reviewed footnotes of Pri Tzaddik Toldos 1-10: scripts/pri-toldos-review/apply.py
+        subprocess.run([sys.executable, 'scripts/pri-toldos-review/apply.py', str(site)], check=True)
+        # the interlinear study edition of Pri Tzaddik Vayetzei 1-10 with reviewed footnotes: scripts/pri-vayetzei-review/apply.py
+        subprocess.run([sys.executable, 'scripts/pri-vayetzei-review/apply.py', str(site)], check=True)
+    else:
+        print('Sefer Bereishis edition is live: the earlier Chayei Sarah, Toldos and Vayetzei overlays are superseded.')
     # the Tzidkas HaTzaddik two-volume section on the homepage: scripts/tzidkas-homepage/apply.py
     subprocess.run([sys.executable, 'scripts/tzidkas-homepage/apply.py', str(site)], check=True)
     after = inventory(site)
