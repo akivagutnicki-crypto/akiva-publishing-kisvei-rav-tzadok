@@ -119,6 +119,21 @@ for e in entries:
 # ---------- score pairs ----------
 scores = collections.defaultdict(lambda: collections.defaultdict(float))
 why = collections.defaultdict(lambda: collections.defaultdict(list))
+# ---------- sources cited in Akiva Publishing's annotated editions (sources/mafteach/curated-sources/*.json) ----------
+# {passage: [[Sefaria ref, footnote label], ...]}: each ref was checked against the text it quotes. They join the index's own
+# source list for the passage, and passages citing the same verified source count as parallels, like an index source line.
+for f in sorted(glob.glob(f'{REPO}/curated-sources/*.json')):
+    for a, cited in json.load(open(f, encoding='utf-8')).items():
+        if a not in valid: continue
+        for ref, label in cited:
+            key = re.sub(r'(\d)-\d.*$', r'\1', ref)      # a range is listed by its start
+            if key not in passage_sources[a]:
+                passage_sources[a][key] = dict(source=key, quote=label, sefaria=sefaria(key) or 'https://www.sefaria.org/' + key.replace(' ', '_'),
+                                               at_length=False, corpus='edition')
+            gk = ('verse', key)
+            reasons_meta.setdefault(gk, dict(type='source', key=key, sefaria=1))
+            groups[gk][a] = max(groups[gk][a], 1.0)
+
 for gk, members in groups.items():
     n = len(members)
     if n < 2 or n > 400: continue
