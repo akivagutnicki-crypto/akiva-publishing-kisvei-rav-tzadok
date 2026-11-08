@@ -71,3 +71,34 @@ elif mode == 'site':
     hits = [m.start() for m in re.finditer(r'shemosDocxEdition|reviewedEdition|downloadDocx|editionDataUrl|safeFootnoteUrl', idx)]
     (OUT / 'index-snippets.txt').write_text('\n----\n'.join(idx[max(0, h - 300):h + 500] for h in hits[:30]))
     print('toc rows', len(rows), 'files', len(files))
+
+if mode == 'links2':
+    d = json.load(open('probe/links2-in.json'))
+    def check_ref(ref):
+        j = None
+        for k in range(6):
+            try:
+                with urllib.request.urlopen(urllib.request.Request('https://www.sefaria.org/api/v3/texts/' + urllib.parse.quote(ref) + '?return_format=text_only', headers=UA), timeout=40) as r:
+                    j = json.load(r); break
+            except urllib.error.HTTPError as e:
+                if e.code in (400, 404): j = {'error': str(e.code)}; break
+                time.sleep(3 * (k + 1))
+            except Exception: time.sleep(3 * (k + 1))
+        if j is None: return {'ok': False, 'error': 'unreachable'}
+        vs = j.get('versions') or []
+        has = any(v.get('text') not in (None, '', [], [[]]) for v in vs)
+        return {'ok': bool(has) and not j.get('error'), 'normalized': j.get('ref'), 'error': j.get('error')}
+    def label(item):
+        lab, vs = item; tried = []
+        for v in vs:
+            r = check_ref(v); tried.append([v, r.get('normalized'), r['ok'], r.get('error')])
+            if r['ok']: return lab, {'ref': r['normalized'], 'query': v, 'tried': tried}
+        return lab, {'ref': None, 'tried': tried}
+    def url(u):
+        path = urllib.parse.unquote(u.split('sefaria.org/', 1)[1].split('?')[0]); ref = path.replace('_', ' ')
+        return u, check_ref(ref) | {'ref': ref}
+    with cf.ThreadPoolExecutor(5) as ex: labs = dict(ex.map(label, d['variants'].items()))
+    with cf.ThreadPoolExecutor(5) as ex: us = dict(ex.map(url, d['urls']))
+    json.dump(labs, open(OUT / 'labels2.json', 'w'), ensure_ascii=False); json.dump(us, open(OUT / 'urls2.json', 'w'), ensure_ascii=False)
+    print('labels resolved', sum(1 for v in labs.values() if v['ref']), '/', len(labs), 'urls ok', sum(v['ok'] for v in us.values()), '/', len(us),
+          'unreachable', sum(1 for v in list(labs.values()) for t in v['tried'] if t[3] == 'unreachable') + sum(v.get('error') == 'unreachable' for v in us.values()))
