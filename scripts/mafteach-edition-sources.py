@@ -3,9 +3,9 @@
 From the reader overlay of an edition, write:
   sources/mafteach/curated-sources/<name>.json    {passage: [[Sefaria ref, footnote label], ...]}  (every verified Sefaria link)
   sources/mafteach/curated-parallels/<name>.json  {passage: {library passage: why}}  (Rav Tzadok / Ishbitz–Radzin passages its notes name)
-Usage: mafteach-edition-sources.py OVERLAY_DIR NAME"""
+Usage: mafteach-edition-sources.py OVERLAY_DIR NAME [--sources-only]   (--sources-only: keep an existing curated-parallels/NAME.json)"""
 import json, sys, re, os, urllib.parse
-ov, name = sys.argv[1:3]
+ov, name = sys.argv[1:3]; sources_only = '--sources-only' in sys.argv
 REPO = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'sources', 'mafteach')
 valid = set(l.strip() for l in open(f'{REPO}/library-refs.txt', encoding='utf-8') if l.strip())
 m = json.load(open(os.path.join(ov, 'manifest.json')))
@@ -34,7 +34,7 @@ for s in m['sections']:
     if pars: parallels[s['ref']] = pars
 os.makedirs(f'{REPO}/curated-sources', exist_ok=True)
 json.dump(sources, open(f'{REPO}/curated-sources/{name}.json', 'w'), ensure_ascii=False, indent=1)
-json.dump(parallels, open(f'{REPO}/curated-parallels/{name}.json', 'w'), ensure_ascii=False, indent=1)
+if not sources_only: json.dump(parallels, open(f'{REPO}/curated-parallels/{name}.json', 'w'), ensure_ascii=False, indent=1)
 missing = [s['ref'] for s in m['sections'] if s['ref'] not in valid]
 print('passages', len(m['sections']), 'with sources', len(sources), 'source links', sum(len(v) for v in sources.values()),
       'with parallels', len(parallels), 'parallel pairs', sum(len(v) for v in parallels.values()), 'not in library-refs', missing)
