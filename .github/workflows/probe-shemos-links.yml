@@ -1,0 +1,25 @@
+name: Probe Pri Tzaddik Shemos Sefaria links
+
+on:
+  push:
+    branches: [probe-shemos-links]
+    paths: ['probe/content-in.json', 'probe/links2-in.json', 'probe/probe.py', '.github/workflows/probe-shemos-links.yml']
+
+permissions:
+  contents: write
+
+jobs:
+  probe:
+    if: ${{ !contains(github.event.head_commit.message, '[probe-results]') }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v6
+      - name: Check that every Sefaria link opens real text
+        run: python3 probe/probe.py links2
+      - name: Compare each note's quoted text with Sefaria's English at its link
+        run: python3 probe/probe.py content
+      - name: Save the results on this branch
+        run: |
+          git config user.name "github-actions[bot]"; git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add probe/out && git commit -m "Probe results [probe-results]" && git pull --rebase && git push
