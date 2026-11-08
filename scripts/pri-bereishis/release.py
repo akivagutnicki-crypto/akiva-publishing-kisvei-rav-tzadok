@@ -130,6 +130,9 @@ def apply(site):
         anchor='const safeFootnoteUrl = url => '
         assert text.count(anchor)==1
         text=text.replace(anchor,anchor+'/* Bereishis source URL preservation */ '+json.dumps(sorted(allowed),ensure_ascii=False)+'.includes(String(url || \'\')) || ')
+    # the older Lech Lecha study chapters carried a fixed whole-parsha download; the new chapters name their own volume
+    lech="d.sectionRef.startsWith('Peri Tzadik, Lech Lecha ') ?"
+    if lech in text:text=text.replace(lech,"d.sectionRef.startsWith('Peri Tzadik, Lech Lecha ') && !d.downloadDocx ?",1)
     if '/* Bereishis heading typography */' not in text:
         selectors=','.join('.sec[data-ref="'+s['ref'].replace('"','')+'"] .subhead' for s in secs)
         text=text.replace('</style>','/* Bereishis heading typography */\n'+selectors+'{font-weight:400}\n</style>',1)
