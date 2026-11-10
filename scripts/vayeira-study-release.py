@@ -1,4 +1,4 @@
-"""Publish the weekly Torah releases (Vayeira, Chayei Sarah) over the current complete Pages artifact.
+"""Publish the weekly Torah releases (Vayeira, Chayei Sarah, Toldos) over the current complete Pages artifact.
 
 Verify every original Torah file and every unrelated site file remains identical.
 """
@@ -131,9 +131,11 @@ def verify_inputs():
              'library/blog/docs/from-the-east-chayei-sarah.docx',
              'library/downloads/chayei-sarah-wisdom-outside-the-house-shiur.pdf',
              'library/downloads/chayei-sarah-wisdom-outside-the-house-shiur.docx',
-             'library/chayei-sarah-study.js', 'library/studies/chayei-sarah-wisdom-outside-the-house.json']
+             'library/chayei-sarah-study.js', 'library/studies/chayei-sarah-wisdom-outside-the-house.json',
+             'library/blog/the-kings-table/kings-table.jpg', 'library/blog/pdfs/the-kings-table-toldos.pdf',
+             'library/blog/docs/the-kings-table-toldos.docx']
     for folder in ['library/blog/even-the-world-to-come', 'library/blog/even-the-world-to-come/shiur',
-                   'library/blog/from-the-east', 'library/blog/from-the-east/shiur']:
+                   'library/blog/from-the-east', 'library/blog/from-the-east/shiur', 'library/blog/the-kings-table']:
         pages = sorted((Path('dist') / folder / 'pages').glob('page-*.webp'))
         assert pages, 'Missing page images: ' + folder
         files += [folder + '/index.html'] + [page.relative_to('dist').as_posix() for page in pages]
@@ -182,7 +184,9 @@ elif mode == 'verify':
                          ('library/sw.js', '-20261101-chayei-sarah-v1'), ('library/blog/index.html', 'chayei-sarah-feature-title'),
                          ('library/index.html', 'chayei-sarah-study.js?v=20261101-chayei-sarah-native-v1'), ('library/index.html', 'window.AkivaChayeiSarahStudy.attachment(d)'),
                          ('library/sw.js', './chayei-sarah-study.js?v=20261101-chayei-sarah-native-v1'),
-                         ('library/blog/index.html', 'Chayei_Sarah_Wisdom_Outside_the_House')]:
+                         ('library/blog/index.html', 'Chayei_Sarah_Wisdom_Outside_the_House'),
+                         ('library/index.html', 'id="toldos-weekly"'), ('library/index.html', 'href="blog/the-kings-table/"'),
+                         ('library/sw.js', '-20261109-toldos-kings-table-v1'), ('library/blog/index.html', 'toldos-feature-title')]:
         assert marker in (ROOT / name).read_text(), 'Missing study hook: ' + name
     report = {'publication': state['publication'], 'expectedHead': state['expectedHead'],
               'changed': sorted(changed), 'removed': [],

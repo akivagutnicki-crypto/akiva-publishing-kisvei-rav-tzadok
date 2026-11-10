@@ -112,7 +112,7 @@ if (!html.includes('id="akiva-vayeira-shiur-audio"')) {
 html = replaceOne(html, /<a class="weekly-teaser weekly-study-teaser"[\s\S]*?<\/a>/,
   `<a class="weekly-teaser weekly-study-teaser" href="blog/even-the-world-to-come/" aria-label="Read Even the World to Come, the Parshas Vayeira blog and transcribed shiur">\n        <span class="weekly-teaser-copy"><span class="eyebrow">Parshas Vayeira</span><strong>Even the World to Come</strong><span>Avraham, the Akeidah, and the radical mesiras nefesh of Izhbitz · The blog, the transcribed shiur and the shiur recording →</span></span>\n      </a>`, 'home teaser');
 const vayeiraLabel = html.includes('id="chayei-sarah-weekly"') ? 'Last week · Parshas Vayeira' : 'This week · Parshas Vayeira';
-html = replaceOne(html, /<h3>(?:This week|Last week) · Parshas Vayeira<\/h3>[\s\S]*?<h3>Latest article<\/h3>/,
+html = replaceOne(html, /<h3>(?:This week|Last week|Earlier) · Parshas Vayeira<\/h3>[\s\S]*?<h3>Latest article<\/h3>/,
   `<h3>${vayeiraLabel}</h3><p><strong>Even the World to Come</strong><br>Avraham, the Akeidah, and the radical mesiras nefesh of Izhbitz</p><a class="link" href="blog/even-the-world-to-come/">Read the blog →</a><a class="link" href="#/read/${ref}">🎧 Listen to the shiur →</a><a class="link" href="blog/even-the-world-to-come/shiur/">Read the transcribed shiur →</a><a class="link" href="#/read/${sourcesRef}">Interlinear sources in the reader →</a><h3>Latest article</h3>`, 'sidebar');
 fs.writeFileSync(indexPath, html);
 
@@ -149,7 +149,7 @@ html = fs.readFileSync(indexPath, 'utf8');
 const chayeiTeaser = `<a class="weekly-teaser weekly-chayei-teaser" href="${chayeiBlog}" aria-label="Read From the East I Will Bring Your Seed, the Parshas Chayei Sarah blog and shiur">\n        <img src="${chayeiBlog}ben-ish-chai.jpg" alt="Rabbi Yosef Chaim of Baghdad, the Ben Ish Chai" loading="lazy">\n        <span class="weekly-teaser-copy"><span class="eyebrow">This week · Parshas Chayei Sarah</span><strong>From the East I Will Bring Your Seed</strong><span>The sons of Keturah, the sparks of the Oral Torah that went east, and the gedolim and hidden souls coming home · The blog and the 32-page shiur →</span></span>\n      </a>\n      `;
 html = upsert(html, /<a class="weekly-teaser weekly-chayei-teaser"[\s\S]*?<\/a>\n      /, chayeiTeaser, '<a class="weekly-teaser weekly-study-teaser"', 'Chayei Sarah teaser');
 const chayeiSidebar = `<h3 id="chayei-sarah-weekly">This week · Parshas Chayei Sarah</h3><p><strong>From the East I Will Bring Your Seed</strong><br>The sons of Keturah and the sparks coming home · By Akiva Gutnicki</p><a class="link" href="${chayeiBlog}">Read the blog →</a><a class="link" href="#/read/${chayeiNative}">Read the shiur in the app, Wisdom Outside the House →</a><a class="link" href="${chayeiBlog}shiur/">The shiur page by page, PDF and Word →</a><a class="link" href="#/read/${chayeiPri}">Pri Tzaddik, Chayei Sarah 6 in the reader →</a>`;
-html = upsert(html, /<h3 id="chayei-sarah-weekly">[\s\S]*?(?=<h3>(?:This week|Last week) · Parshas Vayeira<\/h3>)/, chayeiSidebar, '<h3>This week · Parshas Vayeira</h3>', 'Chayei Sarah sidebar');
+html = upsert(html, /<h3 id="chayei-sarah-weekly">[\s\S]*?(?=<h3>(?:This week|Last week|Earlier) · Parshas Vayeira<\/h3>)/, chayeiSidebar, '<h3>This week · Parshas Vayeira</h3>', 'Chayei Sarah sidebar');
 html = html.replace('<h3>This week · Parshas Vayeira</h3>', '<h3>Last week · Parshas Vayeira</h3>');
 fs.writeFileSync(indexPath, html);
 
@@ -219,12 +219,40 @@ sw = sw.replace(/\.\/chayei-sarah-study\.js\?v=[\w-]+/g, `./chayei-sarah-study.j
   .replace(/\.\/studies\/chayei-sarah-wisdom-outside-the-house\.json\?v=[\w-]+/g, `./studies/chayei-sarah-wisdom-outside-the-house.json?v=${nativeVersion}`);
 fs.writeFileSync(swPath, sw);
 
+// November 9 · Parshas Toldos: the blog "The King's Table" (Pri Tzaddik, Toldos 3 and Kuntres Eis HaOchel 8).
+// Toldos becomes this week, Chayei Sarah last week and Vayeira earlier. Safe to run again on an updated site.
+const toldosVersion = '20261109-toldos-kings-table-v1';
+const toldosBlog = 'blog/the-kings-table/';
+const toldosPri = 'Peri_Tzadik,_Toldot_3';
+const toldosEis = 'Et_HaOchel_8';
+html = fs.readFileSync(indexPath, 'utf8');
+const toldosTeaser = `<a class="weekly-teaser weekly-toldos-teaser" href="${toldosBlog}" aria-label="Read The King’s Table, the Parshas Toldos blog">\n        <img src="${toldosBlog}kings-table.jpg" alt="A Shabbos table set with candles, a kiddush cup, a covered challah and a dish of savory food" loading="lazy">\n        <span class="weekly-teaser-copy"><span class="eyebrow">This week · Parshas Toldos</span><strong>The King’s Table</strong><span>Why Yitzchak ate before he blessed: the Ibn Ezra, the Ramban, and Rav Tzadok on the meal of faith, the King’s table, and the one meal that lifts every meal →</span></span>\n      </a>\n      `;
+html = upsert(html, /<a class="weekly-teaser weekly-toldos-teaser"[\s\S]*?<\/a>\n      /, toldosTeaser, '<a class="weekly-teaser weekly-chayei-teaser"', 'Toldos teaser');
+const toldosSidebar = `<h3 id="toldos-weekly">This week · Parshas Toldos</h3><p><strong>The King’s Table</strong><br>Why Yitzchak ate before he blessed, and what that means for every meal we eat · By Akiva Gutnicki</p><a class="link" href="${toldosBlog}">Read the blog →</a><a class="link" href="#/read/${toldosPri}">Pri Tzaddik, Toldos 3 in the reader →</a><a class="link" href="#/read/${toldosEis}">Kuntres Eis HaOchel 8 in the reader →</a>`;
+html = upsert(html, /<h3 id="toldos-weekly">[\s\S]*?(?=<h3 id="chayei-sarah-weekly">)/, toldosSidebar, '<h3 id="chayei-sarah-weekly">', 'Toldos sidebar');
+html = html.replace('<h3 id="chayei-sarah-weekly">This week · Parshas Chayei Sarah</h3>', '<h3 id="chayei-sarah-weekly">Last week · Parshas Chayei Sarah</h3>')
+  .replace('<span class="eyebrow">This week · Parshas Chayei Sarah</span>', '<span class="eyebrow">Last week · Parshas Chayei Sarah</span>')
+  .replace(/<h3>(?:This week|Last week) · Parshas Vayeira<\/h3>/, '<h3>Earlier · Parshas Vayeira</h3>');
+fs.writeFileSync(indexPath, html);
+
+sw = fs.readFileSync(swPath, 'utf8');
+if (!sw.includes('-' + toldosVersion)) sw = sw.replace(/(const SHELL = `[^`]+)(`;)/, `$1-${toldosVersion}$2`);
+if (!sw.includes(`'./${toldosBlog}'`)) sw = once(sw, "  './blog/', ", `  './blog/', './${toldosBlog}', `, 'offline Toldos page');
+fs.writeFileSync(swPath, sw);
+
+blog = fs.readFileSync(blogPath, 'utf8');
+const toldosCard = `<article class="card" aria-labelledby="toldos-feature-title"><div class="eyebrow">November 9, 2026 · Parshas Toldos 5787 · Pri Tzaddik &amp; Kuntres Eis HaOchel</div><h2 id="toldos-feature-title"><a style="text-decoration:none" href="the-kings-table/">The King’s Table</a></h2><p class="subtitle" style="margin:0 0 15px;text-align:left">Why Yitzchak ate before he blessed, and what that means for every meal we eat</p><p><a href="the-kings-table/"><img src="the-kings-table/kings-table.jpg" width="1600" height="900" alt="A Shabbos table set with candles, a kiddush cup, a covered challah and a dish of savory food" loading="lazy" style="display:block;width:100%;height:auto;border:1px solid var(--border);margin:0 0 14px"></a>Esav ate and walked away from the birthright; Yitzchak ate and gave the berachos. The Ibn Ezra’s surprising chiddush, the Ramban’s objection and his peshat, and Rav Tzadok’s two meals: the meal of faith and the King’s table. Then his own table, and Kuntres Eis HaOchel on how one meal eaten awake can lift every other meal. A 5-page essay. By Akiva Gutnicki.</p><div class="actions" style="justify-content:flex-start"><a class="btn" href="the-kings-table/">Read the blog →</a><a class="btn secondary" href="pdfs/the-kings-table-toldos.pdf" target="_blank" rel="noopener">Read PDF ↗</a><a class="btn secondary" href="pdfs/the-kings-table-toldos.pdf" download>Download PDF ↓</a><a class="btn secondary" href="docs/the-kings-table-toldos.docx" download>Download Word ↓</a></div><p style="margin:0;font:700 13px/1.6 Arial,sans-serif"><a href="../#/read/${toldosPri}">Pri Tzaddik, Toldos 3 in the reader →</a> · <a href="../#/read/${toldosEis}">Eis HaOchel 8 →</a></p></article>\n`;
+blog = upsert(blog, /<article class="card" aria-labelledby="toldos-feature-title">[\s\S]*?<\/article>\n?/, toldosCard, '<article class="card" aria-labelledby="chayei-sarah-feature-title">', 'Toldos listing');
+fs.writeFileSync(blogPath, blog);
+
 if (path.resolve(root) !== path.resolve('dist')) {
   const chayeiFiles = ['blog/from-the-east', 'blog/from-the-east/shiur'].flatMap(dir =>
     ['index.html', ...fs.readdirSync(path.join('dist/library', dir, 'pages')).sort().map(name => 'pages/' + name)].map(name => dir + '/' + name))
     .concat(['blog/from-the-east/ben-ish-chai.jpg', 'blog/pdfs/from-the-east-chayei-sarah.pdf', 'blog/docs/from-the-east-chayei-sarah.docx',
       'downloads/chayei-sarah-wisdom-outside-the-house-shiur.pdf', 'downloads/chayei-sarah-wisdom-outside-the-house-shiur.docx',
-      'chayei-sarah-study.js', 'studies/chayei-sarah-wisdom-outside-the-house.json']);
+      'chayei-sarah-study.js', 'studies/chayei-sarah-wisdom-outside-the-house.json',
+      'blog/the-kings-table/index.html', 'blog/the-kings-table/kings-table.jpg', 'blog/pdfs/the-kings-table-toldos.pdf', 'blog/docs/the-kings-table-toldos.docx',
+      ...fs.readdirSync('dist/library/blog/the-kings-table/pages').sort().map(name => 'blog/the-kings-table/pages/' + name)]);
   const blogPages = ['blog/even-the-world-to-come', 'blog/even-the-world-to-come/shiur'].flatMap(dir =>
     ['index.html', ...fs.readdirSync(path.join('dist/library', dir, 'pages')).sort().map(name => 'pages/' + name)].map(name => dir + '/' + name));
   for (const file of ['vayeira-study.js', 'studies/vayeira-mesiras-nefesh.json', 'downloads/vayeira-akeidah-mesiras-nefesh.pdf', 'downloads/vayeira-akeidah-mesiras-nefesh-cover.webp',
@@ -235,4 +263,4 @@ if (path.resolve(root) !== path.resolve('dist')) {
     fs.copyFileSync(path.join('dist/library', file), dest);
   }
 }
-console.log('Parshas Vayeira and Parshas Chayei Sarah reader entries, blogs, shiurim (Chayei Sarah also as native text), PDF and Word downloads and discovery links are ready.');
+console.log('Parshas Toldos (The King’s Table), Parshas Vayeira and Parshas Chayei Sarah reader entries, blogs, shiurim (Chayei Sarah also as native text), PDF and Word downloads and discovery links are ready.');

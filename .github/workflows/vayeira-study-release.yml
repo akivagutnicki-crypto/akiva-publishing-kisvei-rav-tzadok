@@ -1,4 +1,4 @@
-name: Publish weekly Torah (Parshas Vayeira and Chayei Sarah)
+name: Publish weekly Torah (Parshas Vayeira, Chayei Sarah and Toldos)
 
 on:
   push:
@@ -79,6 +79,7 @@ jobs:
           node scripts/apply-vayeira-study.mjs .vayeira-study-site
           node scripts/test-vayeira-study.mjs .vayeira-study-site/library
           node scripts/test-chayei-sarah-weekly.mjs .vayeira-study-site/library
+          node scripts/test-toldos-weekly.mjs .vayeira-study-site/library
           node --check .vayeira-study-site/library/sw.js
           python3 scripts/vayeira-study-release.py verify
 
