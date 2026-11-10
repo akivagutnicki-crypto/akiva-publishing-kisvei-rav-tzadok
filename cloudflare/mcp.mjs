@@ -26,7 +26,7 @@ const META = 'io.modelcontextprotocol/';
 const INSTRUCTIONS = `Kisvei Rav Tzadok Library: the writings of R. Tzadok HaKohen of Lublin and works of the Izhbitz-Radzin school, as published in Akiva Publishing's online library. Akiva Publishing interlinear editions give vocalized Hebrew phrase by phrase with English and source notes (© Akiva Publishing); the other works are the original Hebrew of public-domain printings.
 How to use: kisvei_search finds passages (Hebrew is matched without nikkud, prefixes included; spelling "loose" also ignores ו/י spelling differences); kisvei_get_text returns the exact text of a ref; kisvei_get_contents browses a book; kisvei_find_citing_passages lists every passage citing a source such as "Berakhot 6b" or "Genesis 1:1"; kisvei_get_cited_sources lists what a passage cites; kisvei_find_parallels lists the passages in Kisvei Rav Tzadok and the Ishbitz-Radzin works that share a passage's sources.
 Quote the text exactly as returned and give its ref. Refs follow the reader, e.g. "Resisei Layla 5:2", "Tzidkat HaTzadik 100", "Peri Tzadik, Bereshit 1:3". Ashkenazi spellings (Tzidkas HaTzaddik, Pri Tzaddik, Bereishis, Berachos) are accepted.
-HaMafteach HaShalem (R' Chaim Hirsch's complete index to R. Tzadok's works) is searchable too: mafteach_find_topic (a topic, person or concept: Hebrew, English, or Ashkenazi/Sefardi transliteration such as "emunah", "bitachon", "Shabbos", "Avrohom Avinu"), mafteach_lookup_source (a pasuk, daf or midrash: "Bereishis 2:7", "Berachos 6b", "Bereshit Rabbah 2:4"), mafteach_lookup_passage (the topics and sources indexed to a passage, for footnotes: "Tzidkas HaTzaddik 100", "Pri Tzaddik Vayechi 11") and mafteach_search (Hebrew words or a quote inside the entries). Its entries were OCR'd from the printed index; open the passage with kisvei_get_text before citing it.`;
+HaMafteach HaShalem (R' Chaim Hirsch's complete index to R. Tzadok's works) is searchable too: mafteach_find_topic (a topic, person or concept: Hebrew, English, or Ashkenazi/Sefardi transliteration such as "emunah", "bitachon", "Shabbos", "Avrohom Avinu"), mafteach_lookup_source (a pasuk, daf or midrash: "Bereishis 2:7", "Berachos 6b", "Bereshit Rabbah 2:4"), mafteach_lookup_passage (the topics and sources indexed to a passage, for footnotes: "Tzidkas HaTzaddik 100", "Pri Tzaddik Vayechi 11") and mafteach_search (Hebrew words or a quote inside the entries). Its entries were OCR'd from the printed index; open the passage with kisvei_get_text before citing it. The mafteach tools also index Torat HaKohen (תורת הכהן, R' Mordechai Yosef Zakutinsky, 5787) by siman, os, sub-topic and page: mafteach_lookup_passage shows where it quotes and explains a passage; corpus "torat-hakohen" limits find_topic and search to it. The sefer's own text is not in the library.`;
 
 // ---------------------------------------------------------------- data
 
@@ -496,7 +496,7 @@ const TOOLS = [
       type: 'object',
       properties: {
         query: { type: 'string', description: 'Topic, person or concept in Hebrew, English or transliteration, e.g. "בטחון", "trust in God", "bitachon", "Yosef HaTzaddik".' },
-        corpus: { type: 'string', enum: ['all', 'rav-tzadok', 'pri-tzadik'], default: 'all', description: 'all; rav-tzadok = his sefarim other than Pri Tzaddik (Mafteach parts 1-3); pri-tzadik = Pri Tzaddik (parts 4-7).' },
+        corpus: { type: 'string', enum: ['all', 'rav-tzadok', 'pri-tzadik', 'torat-hakohen'], default: 'all', description: 'all; rav-tzadok = his sefarim other than Pri Tzaddik (Mafteach parts 1-3); pri-tzadik = Pri Tzaddik (parts 4-7); torat-hakohen = the index of Torat HaKohen (R\' Mordechai Yosef Zakutinsky, 5787): where that sefer quotes and explains each R. Tzadok passage.' },
         offset: { type: 'integer', minimum: 0, default: 0 },
         limit: { type: 'integer', minimum: 1, maximum: 300, default: 60, description: 'Number of entries to return.' },
         response_format: FORMAT,
@@ -514,7 +514,7 @@ const TOOLS = [
       type: 'object',
       properties: {
         source: { type: 'string', description: 'Book and address, e.g. "Tehillim 92:2", "Psalms 92", "Sanhedrin 97b", "שמות רבה ג", "Pirkei DeRabbi Eliezer".' },
-        corpus: { type: 'string', enum: ['all', 'rav-tzadok', 'pri-tzadik'], default: 'all', description: 'all; rav-tzadok = his sefarim other than Pri Tzaddik (Mafteach parts 1-3); pri-tzadik = Pri Tzaddik (parts 4-7).' },
+        corpus: { type: 'string', enum: ['all', 'rav-tzadok', 'pri-tzadik', 'torat-hakohen'], default: 'all', description: 'all; rav-tzadok = his sefarim other than Pri Tzaddik (Mafteach parts 1-3); pri-tzadik = Pri Tzaddik (parts 4-7); torat-hakohen = the index of Torat HaKohen (R\' Mordechai Yosef Zakutinsky, 5787): where that sefer quotes and explains each R. Tzadok passage.' },
         offset: { type: 'integer', minimum: 0, default: 0 },
         limit: { type: 'integer', minimum: 1, maximum: 300, default: 60 },
         response_format: FORMAT,
@@ -527,7 +527,7 @@ const TOOLS = [
   {
     name: 'mafteach_lookup_passage',
     title: 'HaMafteach: topics and sources indexed to a passage',
-    description: 'Every HaMafteach HaShalem entry that points to one R. Tzadok passage: the topics the index files it under and the verses, dapim and midrashim it draws on. Use it to build footnotes and to find parallels. Refs in any form: "Tzidkat HaTzadik 100", "Tzidkas HaTzaddik 100", "Peri Tzadik, Vayechi 11", "Pri Tzaddik Vayechi 11", "Resisei Layla 57", "צדקת הצדיק ק", or a Mafteach code "צה-ק".',
+    description: 'Every HaMafteach HaShalem entry that points to one R. Tzadok passage: the topics the index files it under and the verses, dapim and midrashim it draws on. Use it to build footnotes and to find parallels; it also shows where Torat HaKohen (R\' Mordechai Yosef Zakutinsky) quotes and explains the passage, by siman, os and page. Refs in any form: "Tzidkat HaTzadik 100", "Tzidkas HaTzaddik 100", "Peri Tzadik, Vayechi 11", "Pri Tzaddik Vayechi 11", "Resisei Layla 57", "צדקת הצדיק ק", or a Mafteach code "צה-ק".',
     inputSchema: {
       type: 'object',
       properties: {
@@ -549,7 +549,7 @@ const TOOLS = [
       type: 'object',
       properties: {
         query: { type: 'string', description: 'Hebrew words (all must appear) or a quoted phrase; English/transliteration matches headings only.' },
-        corpus: { type: 'string', enum: ['all', 'rav-tzadok', 'pri-tzadik'], default: 'all', description: 'all; rav-tzadok = his sefarim other than Pri Tzaddik (Mafteach parts 1-3); pri-tzadik = Pri Tzaddik (parts 4-7).' },
+        corpus: { type: 'string', enum: ['all', 'rav-tzadok', 'pri-tzadik', 'torat-hakohen'], default: 'all', description: 'all; rav-tzadok = his sefarim other than Pri Tzaddik (Mafteach parts 1-3); pri-tzadik = Pri Tzaddik (parts 4-7); torat-hakohen = the index of Torat HaKohen (R\' Mordechai Yosef Zakutinsky, 5787): where that sefer quotes and explains each R. Tzadok passage.' },
         offset: { type: 'integer', minimum: 0, default: 0 },
         limit: { type: 'integer', minimum: 1, maximum: 200, default: 40 },
         response_format: FORMAT,
@@ -1123,12 +1123,15 @@ async function findParallels({ ref, school, limit, response_format }) {
 // Hebrew, English, or Ashkenazi/Sefardi transliteration; every term carries all three.
 
 const fileKey = s => String(s).toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
-const MAF_PART = { '1-2': 'א-ב', '3': 'ג', '4': 'ד', '5': 'ה-ו', '7': 'ז' };
-const MAF_CORPUS = { all: null, 'rav-tzadok': 'rt', 'pri-tzadik': 'pt' };
+const MAF_PART = { '1-2': 'א-ב', '3': 'ג', '4': 'ד', '5': 'ה-ו', '7': 'ז', th: 'תורת הכהן' };
+const MAF_CORPUS = { all: null, 'rav-tzadok': 'rt', 'pri-tzadik': 'pt', 'torat-hakohen': 'th' };
 const MAF_CORPUS_SCHEMA = {
-  type: 'string', enum: ['all', 'rav-tzadok', 'pri-tzadik'], default: 'all',
-  description: 'all; rav-tzadok = his sefarim other than Pri Tzaddik (Mafteach parts 1-3); pri-tzadik = Pri Tzaddik (parts 4-7).',
+  type: 'string', enum: ['all', 'rav-tzadok', 'pri-tzadik', 'torat-hakohen'], default: 'all',
+  description: 'all; rav-tzadok = his sefarim other than Pri Tzaddik (Mafteach parts 1-3); pri-tzadik = Pri Tzaddik (parts 4-7); torat-hakohen = the index of Torat HaKohen (R\' Mordechai Yosef Zakutinsky, 5787).',
 };
+// Torat HaKohen (תורת הכהן, R' Mordechai Yosef Zakutinsky, Lawrence NY 5787): an index of where that sefer quotes and
+// explains R. Tzadok's passages, by siman, os and sub-topic and printed page. Index only: the sefer's text is not here.
+const TH_NAME = 'תורת הכהן (R\' Mordechai Yosef Zakutinsky, 5787)';
 const MAF_CODES = { 'רל': 'Resisei Layla', 'צה': 'Tzidkat HaTzadik', 'מח': 'Machshavot Charutz', 'תה': 'Takanat HaShavin' };
 const MAF_STOP = new Set(['the', 'of', 'a', 'an', 'and', 'in', 'on', 'to', 'rav', 'tzadok', 'r']);
 const RABBAH_EN = {
@@ -1244,7 +1247,8 @@ function mafRefText(r, corpus) {
   }
   return `${label}${marks}`;
 }
-const mafWhere = e => e.added ? 'added in Akiva Publishing\'s review: not in the printed index' : `Mafteach part ${MAF_PART[e.v] || e.v}, scan p. ${e.p}`;
+const mafWhere = e => e.c === 'th' ? `${TH_NAME}, p. ${e.pl}: ${e.Th}, ${e.Uh}`
+  : e.added ? 'added in Akiva Publishing\'s review: not in the printed index' : `Mafteach part ${MAF_PART[e.v] || e.v}, scan p. ${e.p}`;
 // The passage on Sefaria: a Zohar entry carries the Sefaria paragraph that holds its quote ("zs", checked by daf);
 // other source keys confirmed in the text are Sefaria refs themselves (Genesis 28:12, Berakhot 55a, Bereshit Rabbah 68:12).
 function mafSefaria(e) {
@@ -1268,7 +1272,9 @@ function mafEntryLine(M, e, { topic = false, source = true } = {}) {
 }
 function mafJson(M, e) {
   return {
-    id: e.id, part: MAF_PART[e.v], scan_page: e.p, index: e.x === 't' ? 'topics' : 'sources', corpus: e.c === 'pt' ? 'Pri Tzaddik' : 'Rav Tzadok sefarim',
+    id: e.id, part: MAF_PART[e.v], scan_page: e.c === 'th' ? undefined : e.p, index: e.c === 'th' ? 'Torat HaKohen' : e.x === 't' ? 'topics' : 'sources',
+    corpus: e.c === 'th' ? 'Torat HaKohen' : e.c === 'pt' ? 'Pri Tzaddik' : 'Rav Tzadok sefarim',
+    torat_hakohen: e.c === 'th' ? { page: e.pl, pdf_page: e.p, siman: e.Th, os: e.Uh } : undefined,
     topic: e.T != null ? { he: M.byId.get(e.T)?.he, en: M.byId.get(e.T)?.en } : (e.Th || undefined),
     subtopic: e.U != null ? { he: M.byId.get(e.U)?.he, en: M.byId.get(e.U)?.en } : (e.Uh || undefined),
     source: e.x === 's' ? { key: e.k || null, book: e.b || null, chapter: e.ch || null, verse: e.vs || null, sefaria_ref: e.zs || (mafSefaria(e) ? e.k : null), sefaria_url: mafSefaria(e) } : undefined,
@@ -1296,9 +1302,10 @@ async function mafFindTopic({ query, corpus, offset, limit, response_format }) {
   const out = [`# ${best.he} — ${best.en}`,
     `Also: ${[...(best.ashk || []), ...(best.sef || [])].filter((v, i, a) => a.indexOf(v) === i).join(', ')}${best.en_alt?.length ? ` · ${best.en_alt.join(', ')}` : ''}`,
     `HaMafteach HaShalem: ${total} entr${total === 1 ? 'y' : 'ies'}${corpus !== 'all' ? ` (${corpus})` : ''}; showing ${total ? offset + 1 : 0}–${offset + page.length}. In the entry text " - " stands for the heading word itself.`, ''];
-  let sub = undefined;
+  let sub = undefined, th = false;
   for (const e of page) {
-    if (e.U !== sub) { sub = e.U; if (sub != null) out.push(`## ${mafTermLabel(M.byId.get(sub))}`); }
+    if (e.c === 'th') { if (!th) { th = true; out.push(`## ${TH_NAME}: where it explains this topic`); } }
+    else if (e.U !== sub) { sub = e.U; if (sub != null) out.push(`## ${mafTermLabel(M.byId.get(sub))}`); }
     out.push(mafEntryLine(M, e));
   }
   if (more != null) out.push('', `More: offset ${more}.`);
@@ -1415,15 +1422,15 @@ async function mafLookupPassage({ ref, offset, limit, response_format }) {
   }
   if (!target) throw new ToolError(`could not read "${ref}" as a library passage. Examples: "Tzidkat HaTzadik 100", "Tzidkas HaTzaddik 100", "Peri Tzadik, Vayechi 11", "Pri Tzaddik Vayechi 11", "Resisei Layla 57", "צה-ק".`);
   const entries = await mafShard(`passage/${fileKey(target)}.json`);
-  const topics = entries.filter(e => e.x === 't'), sources = entries.filter(e => e.x === 's');
-  const all = [...topics, ...sources];
+  const topics = entries.filter(e => e.x === 't' && e.c !== 'th'), sources = entries.filter(e => e.x === 's'), thEntries = entries.filter(e => e.c === 'th');
+  const all = [...topics, ...sources, ...thEntries];
   const { total, page, more } = mafPage(all, offset, limit);
-  if (response_format === 'json') return json({ passage: target, total, topics: topics.length, sources: sources.length, offset, next_offset: more, entries: page.map(e => mafJson(M, e)) });
+  if (response_format === 'json') return json({ passage: target, total, topics: topics.length, sources: sources.length, torat_hakohen: thEntries.length, offset, next_offset: more, entries: page.map(e => mafJson(M, e)) });
   if (!total) return `# ${target}\nHaMafteach HaShalem has no entry pointing to ${target}. (References it cites only by page, e.g. Dover Tzedek or Likkutei Maamarim, are not linked to library sections.)`;
-  const out = [`# ${target} in HaMafteach HaShalem`, `${topics.length} topic entr${topics.length === 1 ? 'y' : 'ies'} and ${sources.length} source entr${sources.length === 1 ? 'y' : 'ies'} point here; showing ${offset + 1}–${offset + page.length}. Use these as footnote leads: the topics it treats and the verses, sugyos and midrashim it draws on.`, ''];
+  const out = [`# ${target} in HaMafteach HaShalem`, `${topics.length} topic entr${topics.length === 1 ? 'y' : 'ies'} and ${sources.length} source entr${sources.length === 1 ? 'y' : 'ies'} point here${thEntries.length ? `, and ${TH_NAME} quotes it in ${thEntries.length} place${thEntries.length === 1 ? '' : 's'}` : ''}; showing ${offset + 1}–${offset + page.length}. Use these as footnote leads: the topics it treats and the verses, sugyos and midrashim it draws on.`, ''];
   let shown = '';
   for (const e of page) {
-    const h = e.x === 't' ? 'Topics' : 'Sources';
+    const h = e.c === 'th' ? `Explained in ${TH_NAME}` : e.x === 't' ? 'Topics' : 'Sources';
     if (h !== shown) { out.push(`## ${h}`); shown = h; }
     out.push(mafEntryLine(M, e, { topic: e.x === 't', source: e.x === 's' }));
   }
@@ -1442,7 +1449,7 @@ async function mafSearch({ query, corpus, offset, limit, response_format }) {
     const phrases = [...q.matchAll(/"([^"]+)"|(\S+)/g)].map(m => (m[1] || m[2]).trim()).filter(Boolean);
     const terms = phrases.map(p => norm(p).trim()).filter(Boolean);
     if (!terms.length) throw new ToolError('the query has no letters to search for.');
-    const parts = MAF_CORPUS[corpus] === 'rt' ? ['1-2', '3'] : MAF_CORPUS[corpus] === 'pt' ? ['4', '5', '7'] : M.raw.parts;
+    const parts = MAF_CORPUS[corpus] === 'rt' ? ['1-2', '3'] : MAF_CORPUS[corpus] === 'pt' ? ['4', '5', '7'] : MAF_CORPUS[corpus] === 'th' ? ['th'].filter(p => M.raw.parts.includes(p)) : M.raw.parts;
     for (const p of parts) {
       let text = '';
       try {

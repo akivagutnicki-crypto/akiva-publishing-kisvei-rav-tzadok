@@ -6,6 +6,8 @@
 //   library has the passage, linked to its ref (e.g. "Tzidkat HaTzadik 100", "Peri Tzadik, Vayechi 11").
 //
 // Input:  sources/mafteach/entries.jsonl.gz   one compact record per index entry
+//         sources/mafteach/torat-hakohen.jsonl.gz  index of Torat HaKohen (R' Mordechai Yosef Zakutinsky, 5787): where it
+//                                             quotes and explains R. Tzadok passages, by siman/os/sub-topic and page (part "th")
 //         sources/mafteach/glossary.json      topics/people/places with English and Ashkenazi/Sefardi transliterations,
 //                                             sefer codes, Pri Tzaddik sections, Tanach and Shas names
 // Output: <out>/mafteach/glossary.json        terms (with entry counts), sefarim, sections, books, source titles
@@ -47,6 +49,9 @@ export function buildMafteach(OUT) {
   if (!fs.existsSync(path.join(SRC, 'entries.jsonl.gz'))) { console.log('Mafteach: no source data, skipped'); return null; }
   const glossary = JSON.parse(fs.readFileSync(path.join(SRC, 'glossary.json'), 'utf8'));
   const lines = zlib.gunzipSync(fs.readFileSync(path.join(SRC, 'entries.jsonl.gz'))).toString('utf8').split('\n').filter(Boolean);
+  // Torat HaKohen index (part "th", corpus "th"): one entry per place the sefer quotes a library passage. Index only.
+  const thFile = path.join(SRC, 'torat-hakohen.jsonl.gz');
+  if (fs.existsSync(thFile)) lines.push(...zlib.gunzipSync(fs.readFileSync(thFile)).toString('utf8').split('\n').filter(Boolean));
   // Column-header rows of the source volumes ("דף עמ'", "פרשה", "פרק פסוק") have no references: leave them out.
   const entries = lines.map(l => JSON.parse(l)).filter(e => e.r.length || e.x === 't' || e.t.trim().split(/\s+/).length > 3);
   // English of the index lines (scripts/mafteach-english.py): key = Hebrew line, plus "|heading" when it uses the dash.
@@ -72,7 +77,8 @@ export function buildMafteach(OUT) {
   const counts = new Map();                         // term id -> entries
   const sourceTitles = new Map();                   // title -> {chapters:Set, n}
   for (const e of entries) {
-    if (e.T != null) { push(byTopic, e.T, e); counts.set(e.T, (counts.get(e.T) || 0) + 1); }
+    // Torat HaKohen entries join their topic shard but not the heading counts (the reader shows HaMafteach entries only).
+    if (e.T != null) { push(byTopic, e.T, e); if (e.c !== 'th') counts.set(e.T, (counts.get(e.T) || 0) + 1); }
     if (e.U != null && e.U !== e.T) { push(byTopic, e.U, e); counts.set(e.U, (counts.get(e.U) || 0) + 1); }
     if (e.k) {
       const [title, ch] = sourceShard(e.k);
@@ -109,6 +115,7 @@ export function buildMafteach(OUT) {
   // as [English, topic id, [refs], treated at length, Hebrew, source key]
   const answer = [];
   for (const e of entries) {
+    if (e.c === 'th') continue;
     const refs = [...new Set(e.r.filter(r => r[1]).map(r => r[1]))];
     if (!refs.length) continue;
     const long = e.r.some(r => r[1] && String(r[r.length - 1]).includes('*')) ? 1 : 0;

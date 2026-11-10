@@ -111,4 +111,12 @@ check(rows.some(r => /topic=/.test(r.href)) && rows.at(-1).href.includes('q=bita
 // excerpt of a fetched passage
 const x = A.excerpt({ he: ['<b>א</b> ' + 'מלה '.repeat(200)], en: ['word '.repeat(10)], sectionRef: 'X 1' }, 'X 1', 20);
 check(x.he.split(' ').length === 21 && x.he.endsWith('…') && !x.he.includes('<'), 'excerpt');
+// the Torat HaKohen index (part "th") is for the MCP tools: built into its own part, kept out of the reader's results
+if (M.raw.parts.includes('th')) {
+  const thText = fs.readFileSync(DATA + 'text/th.txt', 'utf8').split('\n').filter(Boolean).map(l => JSON.parse(l.slice(l.indexOf('\t') + 1)));
+  check(thText.length > 300 && thText.every(e => e.c === 'th' && e.r.length === 1 && e.r[0][1] && e.pl && e.Th && e.Uh), 'Torat HaKohen entries carry siman, os, page and a library ref');
+  const tef = await A.topicEntries(M.raw.terms.find(t => t.he === 'תפילין').id);
+  check(tef.some(e => e.c === 'th'), 'Torat HaKohen entries join their topic shard');
+  check(!(await A.searchEntries(M, 'תפילין', 'all')).hits.some(e => e.c === 'th'), 'the reader search leaves Torat HaKohen out');
+}
 console.log(`PASS Mafteach search: ${passed} checks`);
