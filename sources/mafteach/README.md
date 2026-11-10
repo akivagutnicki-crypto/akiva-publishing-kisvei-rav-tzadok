@@ -24,8 +24,6 @@ All seven parts were OCR'd from the printed volumes (Otzar HaChochma scans), and
   - `pt_sections`: the Pri Tzaddik sections with spelling variants.
   - `books`: Tanach and Shas names in English, Hebrew, Ashkenazi and Sefardi forms.
 
-- **`torat-hakohen.jsonl.gz`** — 427 entries indexing **תורת הכהן** (הקדמות ושערים במשנת הרה"ק רבי צדוק הכהן, R' Mordechai Yosef Zakutinsky, Lawrence NY 5787): one entry for each place that sefer quotes and explains a library passage. Same record shape, with `v`/`c` = `th`, `p` = PDF page, `pl` = printed page, `Th` = siman, `Uh` = os › sub-topic (from the sefer's table of contents), `t` = the sub-topic and the opening words of the quoted passage in the library's own text, `r` = the library ref, and `T` where the sub-topic names a glossary heading (221 entries). Built from an OCR of the sefer matched against the library (scripts outside this repo); index only, the sefer's text is not included. The MCP tools serve it as corpus `torat-hakohen`; the reader's Mafteach search leaves it out.
-
 `scripts/build-mafteach-index.mjs` (run by `scripts/build-mcp-index.mjs`) turns these into the shards under `dist/mcp-data/mafteach/` that the Worker serves.
 
 The entries are OCR output: references are occasionally misread, and about 2% are flagged uncertain. Check a passage before citing it.

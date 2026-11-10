@@ -528,8 +528,7 @@
     const re = new RegExp(`^${ps.title.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')} ${chapter}(?:[ab]|:|$)`);
     return shard.filter(e => re.test(e.k || ''));
   }
-  // The Torat HaKohen index (corpus "th") is served to the MCP tools only; the reader shows HaMafteach HaShalem.
-  const corpusFilter = (list, corpus) => (corpus === 'pt' || corpus === 'rt') ? list.filter(e => e.c === corpus) : list.filter(e => e.c !== 'th');
+  const corpusFilter = (list, corpus) => (corpus === 'pt' || corpus === 'rt') ? list.filter(e => e.c === corpus) : list;
   const sndKey = w => skel(w).replace(/v/g, 'b').replace(/w/g, 'b');   // by sound: Lavan = Laban, Efron = Ephron
   // Full-text search inside entry texts (Hebrew words), loading the parts on demand.
   // q's words must all occur (Hebrew as written, English also by sound: Efron = Ephron). A word no entry contains is
@@ -540,7 +539,7 @@
       .filter(t => /[א-ת]/.test(t) ? !HE_STOP.has(t.replace(/ /g, '')) : t.length >= 3 && !EN_STOP.has(t));
     const alts = alt.map(a => norm(a).trim()).filter(a => a.replace(/ /g, '').length >= 3);
     if (!terms.length && !alts.length) return { total: 0, hits: [] };
-    const parts = corpus === 'rt' ? ['1-2', '3'] : corpus === 'pt' ? ['4', '5', '7'] : M.raw.parts.filter(p => p !== 'th');
+    const parts = corpus === 'rt' ? ['1-2', '3'] : corpus === 'pt' ? ['4', '5', '7'] : M.raw.parts;
     const texts = [];
     for (const p of parts) { try { texts.push(await loadMaf(`text/${p}.txt`)); } catch {} }
     const run = (terms, count) => {
