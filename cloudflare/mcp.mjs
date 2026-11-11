@@ -34,7 +34,7 @@ let ORIGIN = '';
 const cache = new Map();
 function load(file) {
   let p = cache.get(file);
-  if (p && file.startsWith('text/')) { cache.delete(file); cache.set(file, p); } // most recently used last
+  if (p && (file.startsWith('text/') || file.startsWith('text-chunks/'))) { cache.delete(file); cache.set(file, p); } // most recently used last
   if (!p) {
     p = (async () => {
       if (typeof process !== 'undefined' && process.env?.MCP_DATA_DIR) { // tests: disk; Cloudflare has no Node process by default
@@ -48,6 +48,7 @@ function load(file) {
     p.catch(() => cache.delete(file));
     cache.set(file, p);
     if (file.startsWith('text/')) trimTexts(file);
+    if (file.startsWith('text-chunks/') && !file.endsWith('refs.json')) trimChunks(file);
   }
   return p;
 }
@@ -57,6 +58,11 @@ const MAX_TEXTS = 4;
 function trimTexts(keep) {
   const keys = [...cache.keys()].filter(k => k.startsWith('text/') && k !== keep);
   for (const k of keys.slice(0, Math.max(0, keys.length - (MAX_TEXTS - 1)))) cache.delete(k);
+}
+const MAX_CHUNKS = 48;
+function trimChunks(keep) {
+  const keys = [...cache.keys()].filter(k => k.startsWith('text-chunks/') && !k.endsWith('refs.json') && k !== keep);
+  for (const k of keys.slice(0, Math.max(0, keys.length - (MAX_CHUNKS - 1)))) cache.delete(k);
 }
 // A book's text for one pass of a search, without adding it to the cache when it is not there already.
 async function scanText(book) {
@@ -137,6 +143,28 @@ async function bookText(book) {
   }
   return t;
 }
+
+// Chunked book texts (scripts/build-mcp-search-index.mjs): text-chunks/<slug>/refs.json lists every paragraph's ref,
+// and <k>.json holds paragraphs k*chunk … (k+1)*chunk-1. A tool then reads only the paragraphs it shows, not the whole
+// book (the largest is over 12 MB), which keeps every call well inside the Worker's memory and CPU limits as books grow.
+// Falls back to the whole-book file where the chunks are not published.
+async function refIndex(book) {
+  let R;
+  try { R = await load(`text-chunks/${book.slug}/refs.json`); } catch { return null; }
+  if (!R.byRef) { R.byRef = new Map(); R.r.forEach((r, i) => { const l = R.byRef.get(r); l ? l.push(i) : R.byRef.set(r, [i]); }); }
+  return R;
+}
+async function textAt(book, indices) {
+  const R = await refIndex(book);
+  if (!R) return bookText(book);
+  const paras = new Array(R.n), want = [...new Set([...indices].filter(i => i >= 0 && i < R.n).map(i => Math.floor(i / R.chunk)))];
+  for (const k of want) {
+    const c = await load(`text-chunks/${book.slug}/${k}.json`);
+    c.paras.forEach((p, j) => { paras[k * R.chunk + j] = p; });
+  }
+  return { book, paras, byRef: R.byRef, partial: true };
+}
+const range = (from, count) => Array.from({ length: count }, (_, i) => from + i);
 
 // Titles people write in other transliterations (most variants are already caught by skel()).
 const TITLE_ALIASES = {
@@ -681,7 +709,7 @@ async function getText({ ref, view, include_notes, include_citations, edition, m
   const r = await resolveRef(ref, edition);
   if (r.error) throw new ToolError(r.error + (r.suggest?.length ? ` Try: ${r.suggest.slice(0, 15).join('; ')}.` : ''));
   const { book, sec } = r;
-  const t = await bookText(book);
+  const t = await textAt(book, range(sec.first, sec.count));
   let paras = t.paras.slice(sec.first, sec.first + sec.count);
   if (r.from != null) {
     const sel = paras.filter(p => { const n = +p.r.slice(p.r.search(/\d+$/)); return n >= r.from && n <= r.to; });
@@ -766,13 +794,18 @@ export function searchFields(t) {
   }
   return { v: 1, h, e, d };
 }
+// The footnotes in search form (search/<slug>.notes.json), read only when a search includes notes.
+export function searchNotes(t) {
+  return { v: 1, n: t.paras.map(p => (p.f ? norm(p.f.map(x => x[1]).join(' \n ')) : ' ')) };
+}
 const looseOf = s => s.replace(/[וי]/g, '').replace(/ {2,}/g, ' ');
-async function searchIndex(book) {
-  const one = await searchFile(`search/${book.slug}.json`);
+async function searchIndex(book, notes = false) {
+  const name = notes ? `${book.slug}.notes` : book.slug, keys = notes ? ['n'] : ['h', 'e', 'd'];
+  const one = await searchFile(`search/${name}.json`);
   if (!one?.parts) return one;
   const parts = [];
-  for (let k = 1; k <= one.parts; k++) { const p = await searchFile(`search/${book.slug}.${k}.json`); if (!p) return null; parts.push(p); }
-  return { v: 1, h: parts.flatMap(p => p.h), e: parts.flatMap(p => p.e), d: parts.flatMap(p => p.d) };
+  for (let k = 1; k <= one.parts; k++) { const p = await searchFile(`search/${name}.${k}.json`); if (!p) return null; parts.push(p); }
+  return Object.fromEntries([['v', 1], ...keys.map(x => [x, parts.flatMap(p => p[x])])]);
 }
 async function searchFile(key) {
   try {
@@ -847,13 +880,17 @@ async function search({ query, books: bookNames, fields, spelling, whole_words: 
   const hits = [];
   const perBook = new Map();
   // One book at a time, so only one book's text is in memory during the scan.
-  const viaIndex = !fields.includes('notes');
   for (let bi = 0; bi < list.length; bi++) {
     const book = list[bi];
-    const idx = viaIndex ? await searchIndex(book) : null;
+    const notesOnly = fields.every(x => x === 'notes');
+    let idx = notesOnly ? { v: 1 } : await searchIndex(book);
+    if (idx && fields.includes('notes')) {
+      const nn = await searchIndex(book, true);
+      idx = nn && (notesOnly || nn.n.length === idx.h.length) ? { ...idx, n: nn.n } : null;
+    }
     let t = idx ? null : await scanText(book);
-    const count = idx ? idx.h.length : t.paras.length;
-    const pick = { hebrew: 'h', english: 'e', headings: 'd' };
+    const count = idx ? (idx.h || idx.n).length : t.paras.length;
+    const pick = { hebrew: 'h', english: 'e', headings: 'd', notes: 'n' };
     for (let i = 0; i < count; i++) {
       const f = {};
       const get = idx
@@ -878,7 +915,7 @@ async function search({ query, books: bookNames, fields, spelling, whole_words: 
   hits.sort((a, b) => b.near - a.near || b.score - a.score || a.book.order - b.book.order || a.i - b.i);
   const page = hits.slice(offset, offset + limit);
   const more = offset + page.length < hits.length;
-  for (const bi of new Set(page.map(h => h.bi))) texts[bi] = await scanText(list[bi]);
+  for (const bi of new Set(page.map(h => h.bi))) texts[bi] = await textAt(list[bi], page.filter(h => h.bi === bi).map(h => h.i));
   const bestSnippet = h => {                                   // where the words stand together, if they do
     const near = h.near ? snippet(texts[h.bi], h.i, [together], fields, spelling, whole) : [];
     return near.length ? near : snippet(texts[h.bi], h.i, terms, fields, spelling, whole);
@@ -1049,7 +1086,9 @@ async function findCiting({ source, books: bookNames, offset, limit, response_fo
   const page = located.slice(offset, offset + limit);
   const more = offset + page.length < located.length;
   for (const x of page) {
-    const t = await bookText(x.book);
+    const R = await refIndex(x.book);
+    const ids0 = R ? R.byRef.get(x.ref) || [] : null;
+    const t = R ? await textAt(x.book, ids0) : await bookText(x.book);
     const ids = t.byRef.get(x.ref) || [];
     const p = ids.map(i => t.paras[i]).find(q => x.book.sections[q.s].il) || t.paras[ids[0]];
     if (p) {
@@ -1079,7 +1118,7 @@ async function findCiting({ source, books: bookNames, offset, limit, response_fo
 async function getCited({ ref, edition, response_format }) {
   const r = await resolveRef(ref, edition);
   if (r.error) throw new ToolError(r.error + (r.suggest?.length ? ` Try: ${r.suggest.slice(0, 15).join('; ')}.` : ''));
-  const t = await bookText(r.book);
+  const t = await textAt(r.book, range(r.sec.first, r.sec.count));
   let paras = t.paras.slice(r.sec.first, r.sec.first + r.sec.count);
   if (r.from != null) paras = paras.filter(p => { const n = +p.r.match(/\d+$/)[0]; return n >= r.from && n <= r.to; });
   const rows = paras.map(p => ({ ref: p.r, cites: (p.c || []).map(([source, category]) => ({ source, category })) }));
@@ -1099,7 +1138,7 @@ const readerSlug = slug => (slug === 'mei-hashiloach' ? 'mei-ha-shiloach' : slug
 async function findParallels({ ref, school, limit, response_format }) {
   const r = await resolveRef(ref, undefined);
   if (r.error) throw new ToolError(r.error + (r.suggest?.length ? ` Try: ${r.suggest.slice(0, 15).join('; ')}.` : ''));
-  const t = await bookText(r.book);
+  const t = await textAt(r.book, range(r.sec.first, r.sec.count));
   let paras = t.paras.slice(r.sec.first, r.sec.first + r.sec.count);
   if (r.from != null) paras = paras.filter(p => { const n = +p.r.match(/\d+$/)[0]; return n >= r.from && n <= r.to; });
   let data, words;
@@ -1154,7 +1193,8 @@ async function findParallels({ ref, school, limit, response_format }) {
   for (const x of list) {
     const b = byTitle.find(b => x.ref.startsWith(b.title));
     if (!b) continue;
-    const bt = await bookText(b);
+    const R = await refIndex(b);
+    const bt = R ? await textAt(b, [...(R.byRef.get(x.ref) || []), ...(R.byRef.get(x.ref + ':1') || [])]) : await bookText(b);
     const ids = bt.byRef.get(x.ref) || bt.byRef.get(x.ref + ':1') || [];
     const p = ids.map(i => bt.paras[i]).find(q => b.sections[q.s].il) || bt.paras[ids[0]];
     if (p) { const sec = b.sections[p.s]; x.section = sec.title + (sec.heTitle ? ` · ${sec.heTitle}` : ''); x.preview = clip((p.p ? p.p.slice(0, 2).map(([he, en]) => `${he} — ${en}`).join(' / ') : (p.t || '')).replace(/\s+/g, ' '), 260); }
