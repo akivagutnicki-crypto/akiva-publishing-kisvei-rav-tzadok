@@ -1,0 +1,32 @@
+{
+  "manifest_version": "0.3",
+  "name": "kisvei-library-local",
+  "display_name": "Kisvei Rav Tzadok Library (local backup)",
+  "version": "1.0.0",
+  "description": "The Kisvei Rav Tzadok Library and HaMafteach HaShalem tools, run on this computer: a backup of the online MCP server that works without Cloudflare and keeps an offline copy.",
+  "long_description": "Runs the same server code as Akiva Publishing's online Kisvei Rav Tzadok Library connector, on this computer. It reads the library published on GitHub Pages (Rav Tzadok's works, the Izhbitz–Radzin works, the Akiva Publishing interlinear editions and HaMafteach HaShalem) and keeps each file it reads in a local cache, so it also works offline with the last copy it saw. Tools: kisvei_search, kisvei_get_text, kisvei_get_contents, kisvei_list_books, kisvei_find_citing_passages, kisvei_get_cited_sources, kisvei_find_parallels, mafteach_find_topic, mafteach_lookup_source, mafteach_lookup_passage, mafteach_search.",
+  "author": { "name": "Akiva Publishing" },
+  "repository": { "type": "git", "url": "https://github.com/akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok" },
+  "homepage": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/",
+  "server": {
+    "type": "node",
+    "entry_point": "server/index.mjs",
+    "mcp_config": { "command": "node", "args": ["${__dirname}/server/index.mjs"] }
+  },
+  "tools": [
+    { "name": "kisvei_list_books", "description": "List every book in the library." },
+    { "name": "kisvei_search", "description": "Full-text search across the library (Hebrew without nikkud, English, headings, notes)." },
+    { "name": "kisvei_get_text", "description": "The exact text of a ref." },
+    { "name": "kisvei_get_contents", "description": "Browse a book's sections." },
+    { "name": "kisvei_find_citing_passages", "description": "Every passage citing a source." },
+    { "name": "kisvei_get_cited_sources", "description": "The sources a passage cites." },
+    { "name": "kisvei_find_parallels", "description": "Parallels to a passage in Kisvei Rav Tzadok and the Izhbitz–Radzin works." },
+    { "name": "mafteach_find_topic", "description": "HaMafteach HaShalem: a topic, person or concept." },
+    { "name": "mafteach_lookup_source", "description": "HaMafteach HaShalem: a pasuk, daf or midrash." },
+    { "name": "mafteach_lookup_passage", "description": "HaMafteach HaShalem: topics and sources indexed to a passage." },
+    { "name": "mafteach_search", "description": "HaMafteach HaShalem: words or a quote inside the entries." }
+  ],
+  "keywords": ["torah", "rav tzadok", "pri tzaddik", "mafteach", "hebrew", "izhbitz"],
+  "license": "Proprietary (Akiva Publishing); public-domain texts as marked",
+  "compatibility": { "platforms": ["darwin", "win32", "linux"], "runtimes": { "node": ">=18.0.0" } }
+}

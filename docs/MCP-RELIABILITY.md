@@ -29,3 +29,12 @@ footnote and Sefaria link makes the data larger, so three guards keep it inside 
 ## When adding a book or an edition
 Nothing extra: the build and release run the index, the chunks and the budget test. If the budget test fails, the
 publication stops and the live site keeps the previous, working data; its message says which limit was passed.
+
+## Local backup (Claude desktop app / Claude Code)
+`mcp-backup/` is the same server as a local MCP Bundle: `node scripts/build-mcp-backup.mjs` builds
+`dist/kisvei-library-local.mcpb`; open it in the Claude desktop app to install ("Kisvei Rav Tzadok Library (local backup)").
+It runs `cloudflare/mcp.mjs` on the computer itself, over stdio, with the desktop app's built-in Node.js (nothing to
+install), reads the library from GitHub Pages directly (no Cloudflare, no 128 MB / CPU limits), and caches every file it
+reads (`~/Library/Caches/kisvei-library-mcp` on a Mac), so it keeps working offline with the last copy it saw.
+It works only in Claude on that computer (desktop app, Claude Code), not on the web or the phone.
+Rebuild and reinstall after changes to `cloudflare/mcp.mjs`. Test: `node scripts/test-mcp-backup.mjs` (online and offline).
