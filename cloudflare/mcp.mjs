@@ -34,6 +34,7 @@ let ORIGIN = '';
 const cache = new Map();
 function load(file) {
   let p = cache.get(file);
+  if (p && file.startsWith('text/')) { cache.delete(file); cache.set(file, p); } // most recently used last
   if (!p) {
     p = (async () => {
       if (typeof process !== 'undefined' && process.env?.MCP_DATA_DIR) { // tests: disk; Cloudflare has no Node process by default
@@ -46,8 +47,32 @@ function load(file) {
     })();
     p.catch(() => cache.delete(file));
     cache.set(file, p);
+    if (file.startsWith('text/')) trimTexts(file);
   }
   return p;
+}
+// Book texts are large (the interlinear books carry every phrase pair and note). A Worker has 128 MB, so keep
+// only the few most recently used in memory; the rest are fetched again when needed.
+const MAX_TEXTS = 4;
+function trimTexts(keep) {
+  const keys = [...cache.keys()].filter(k => k.startsWith('text/') && k !== keep);
+  for (const k of keys.slice(0, Math.max(0, keys.length - (MAX_TEXTS - 1)))) cache.delete(k);
+}
+// A book's text for one pass of a search, without adding it to the cache when it is not there already.
+async function scanText(book) {
+  const key = `text/${book.slug}.json`;
+  if (cache.has(key)) return bookText(book);
+  let t;
+  if (typeof process !== 'undefined' && process.env?.MCP_DATA_DIR) {
+    const { readFile } = await import('node:fs/promises');
+    t = JSON.parse(await readFile(`${process.env.MCP_DATA_DIR}/${key}`, 'utf8'));
+  } else {
+    const res = await fetch(new URL(`mcp-data/${key}`, `${ORIGIN.replace(/\/+$/, '')}/`));
+    if (!res.ok) throw new Error(`library data ${key} is unavailable (HTTP ${res.status})`);
+    t = await res.json();
+  }
+  t.book = book;
+  return t;
 }
 
 // The reader's own data files (library/...): the Mafteach panel, the machine-learned and the outside-genre parallels.
@@ -722,19 +747,12 @@ function parseQuery(q, mode) {
   return { terms, not };
 }
 
-// Normalized fields of paragraph i, built on first use and kept for the life of the function instance.
-function field(t, i, name, mode) {
-  const byMode = (t.norm[mode] = t.norm[mode] || {});
-  const arr = (byMode[name] = byMode[name] || []);
-  let v = arr[i];
-  if (v === undefined) {
-    const p = t.paras[i];
-    v = arr[i] = name === 'hebrew' ? norm(heOf(p), mode) : name === 'english' ? norm(enOf(p), mode)
-      : name === 'headings' ? norm(headingsAt(t, i).join(' \n '), mode) : (p.f ? norm(p.f.map(x => x[1]).join(' \n '), mode) : ' ');
-  }
-  return v;
+// Normalized field of paragraph i, built for this search only (keeping them for the whole library would not fit in memory).
+function fieldOnce(t, i, name, mode) {
+  const p = t.paras[i];
+  return name === 'hebrew' ? norm(heOf(p), mode) : name === 'english' ? norm(enOf(p), mode)
+    : name === 'headings' ? norm(headingsAt(t, i).join(' \n '), mode) : (p.f ? norm(p.f.map(x => x[1]).join(' \n '), mode) : ' ');
 }
-
 // Hebrew words carry prefixes (ו ה ב כ ל מ ש); a whole-word match allows up to three of them.
 const PREFIX = new Set('והבכלמש');
 function wordStart(hay, i, hebrew) {
@@ -791,32 +809,38 @@ async function search({ query, books: bookNames, fields, spelling, whole_words: 
   if (unknown.length) throw new ToolError(`no book matches ${unknown.map(u => `"${u}"`).join(', ')}. Use kisvei_list_books for the titles.`);
   const { books } = await catalog();
   const list = chosen || books;
-  const texts = await Promise.all(list.map(bookText));
+  const texts = new Array(list.length);                        // filled below only for the books on the page shown
   // Several words: the same words side by side, in order, rank first.
   const together = terms.length > 1 ? { n: norm(terms.map(x => x.raw).join(' '), spelling).trim(), hebrew: terms[0].hebrew } : null;
   const hits = [];
   const perBook = new Map();
-  list.forEach((book, bi) => {
-    const t = texts[bi];
+  // One book at a time, so only one book's text is in memory during the scan.
+  for (let bi = 0; bi < list.length; bi++) {
+    const book = list[bi];
+    let t = await scanText(book);
     for (let i = 0; i < t.paras.length; i++) {
+      const f = {};
+      const get = name => (f[name] ??= fieldOnce(t, i, name, spelling));
       let score = 0, near = 0, ok = true;
       for (const term of terms) {
         let c = 0;
-        for (const name of fields) c += occurrences(field(t, i, name, spelling), term, whole);
+        for (const name of fields) c += occurrences(get(name), term, whole);
         if (!c) { ok = false; break; }
         score += Math.min(c, 5) + (term.phrase ? 3 : 0);
       }
       if (!ok) continue;
-      if (not.some(term => fields.some(name => firstAt(field(t, i, name, spelling), term, whole) >= 0))) continue;
-      if (together) for (const name of fields) near += occurrences(field(t, i, name, spelling), together, whole, 3);
-      if (fields.includes('headings') && terms.every(term => firstAt(field(t, i, 'headings', spelling), term, whole) >= 0)) score += 2;
+      if (not.some(term => fields.some(name => firstAt(get(name), term, whole) >= 0))) continue;
+      if (together) for (const name of fields) near += occurrences(get(name), together, whole, 3);
+      if (fields.includes('headings') && terms.every(term => firstAt(get('headings'), term, whole) >= 0)) score += 2;
       hits.push({ book, bi, i, score, near: Math.min(near, 3) });
       perBook.set(book.title, (perBook.get(book.title) || 0) + 1);
     }
-  });
+    t = null;
+  }
   hits.sort((a, b) => b.near - a.near || b.score - a.score || a.book.order - b.book.order || a.i - b.i);
   const page = hits.slice(offset, offset + limit);
   const more = offset + page.length < hits.length;
+  for (const bi of new Set(page.map(h => h.bi))) texts[bi] = await scanText(list[bi]);
   const bestSnippet = h => {                                   // where the words stand together, if they do
     const near = h.near ? snippet(texts[h.bi], h.i, [together], fields, spelling, whole) : [];
     return near.length ? near : snippet(texts[h.bi], h.i, terms, fields, spelling, whole);
@@ -1596,11 +1620,9 @@ const isModern = msg => !!msg?.params?._meta?.[`${META}protocolVersion`] && msg.
 let warming = null;
 function warm() {
   warming = warming || (async () => {
-    const { books } = await catalog();
-    for (const b of books) {
-      const t = await bookText(b);
-      for (let i = 0; i < t.paras.length; i++) { field(t, i, 'hebrew', 'exact'); field(t, i, 'english', 'exact'); field(t, i, 'headings', 'exact'); }
-    }
+    // Only the small indexes: loading every book's text here filled the Worker's 128 MB and Cloudflare
+    // ended the instance ("Service Unavailable" on kisvei_search).
+    await catalog();
     await citedIndex();
   })().catch(e => { warming = null; console.error('warm', e); });
   return warming;
