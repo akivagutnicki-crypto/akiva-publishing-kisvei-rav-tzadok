@@ -6,8 +6,9 @@ request**; past either, Cloudflare ends the request and Claude sees "Service Una
 footnote and Sefaria link makes the data larger, so three guards keep it inside those limits.
 
 ## How the server reads the data
-- `mcp-data/search/<slug>.json` — each paragraph's Hebrew, English and headings already in search form; `<slug>.notes.json`
-  the footnotes. `kisvei_search` scans these, one book at a time, never the full texts. Large books are split into parts.
+- `mcp-data/search/<slug>.<f>.txt` — one line per paragraph in search form: `h` Hebrew, `hl` Hebrew in loose spelling,
+  `e` English, `d` headings, `n` footnotes. `kisvei_search` runs a plain substring scan over each file and maps hits to
+  paragraphs by line: nothing is parsed, one book at a time. Files over ~7 MB are split (`#parts n`).
 - `mcp-data/text-chunks/<slug>/` — the book's paragraphs in ~400 KB pieces plus `refs.json`; tools read only the
   paragraphs they show (a maamar, a page of results), not the whole book.
 - Both are built by `scripts/build-mcp-search-index.mjs` (run by `build-mcp-index.mjs` and by every Mafteach release).

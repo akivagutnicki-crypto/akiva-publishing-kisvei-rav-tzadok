@@ -798,7 +798,77 @@ export function searchFields(t) {
 export function searchNotes(t) {
   return { v: 1, n: t.paras.map(p => (p.f ? norm(p.f.map(x => x[1]).join(' \n ')) : ' ')) };
 }
-const looseOf = s => s.replace(/[וי]/g, '').replace(/ {2,}/g, ' ');
+export const looseOf = s => s.replace(/[וי]/g, '').replace(/ {2,}/g, ' ');
+// Text search index (the current form): search/<slug>.<f>.txt for f = h (Hebrew), e (English), d (headings), n (notes),
+// one line per paragraph in search form; files over ~7 MB are split into <slug>.<f>.<k>.txt with "#parts n" in the first.
+// The scan runs indexOf over each file and maps a hit to its paragraph by line, so a library-wide search parses nothing.
+async function searchRaw(key) {
+  try {
+    if (typeof process !== 'undefined' && process.env?.MCP_DATA_DIR) {
+      const { readFile } = await import('node:fs/promises');
+      return await readFile(`${process.env.MCP_DATA_DIR}/${key}`, 'utf8');
+    }
+    const res = await fetch(new URL(`mcp-data/${key}`, `${ORIGIN.replace(/\/+$/, '')}/`));
+    return res.ok ? await res.text() : null;
+  } catch { return null; }
+}
+async function fieldParts(book, f) {
+  const head = await searchRaw(`search/${book.slug}.${f}.txt`);
+  if (head == null) return null;
+  if (!head.startsWith('#parts ')) return [head];
+  const out = [];
+  for (let k = 1; k <= +head.slice(7); k++) { const t = await searchRaw(`search/${book.slug}.${f}.${k}.txt`); if (t == null) return null; out.push(t); }
+  return out;
+}
+const FIELD_KEY = { hebrew: 'h', english: 'e', headings: 'd', notes: 'n' };
+// Per paragraph: counts[i][slot] — slot = term index × fields + field index (capped later as the per-field scan did).
+async function scanBookText(book, fields, terms, not, together, spelling, whole) {
+  const T = terms.length, F = fields.length, NOT = T * F, TOG = NOT + 1;
+  const counts = new Map();
+  const bump = (i, slot) => { let c = counts.get(i); if (!c) counts.set(i, (c = new Uint16Array(TOG + 1))); if (c[slot] < 60000) c[slot]++; };
+  let lines = -1;
+  for (let fi = 0; fi < F; fi++) {
+    const f = FIELD_KEY[fields[fi]];
+    const pre = spelling === 'loose' && f === 'h' ? await fieldParts(book, 'hl') : null;   // Hebrew already in loose form
+    const parts = pre || await fieldParts(book, f);
+    if (!parts) return null;
+    let base = 0;
+    for (let text of parts) {
+      if (spelling === 'loose' && !pre) text = looseOf(text);
+      let starts = null;
+      const lineOf = pos => {
+        if (!starts) { starts = [0]; for (let k = text.indexOf('\n'); k >= 0 && k < text.length - 1; k = text.indexOf('\n', k + 1)) starts.push(k + 1); }
+        let lo = 0, hi = starts.length - 1;
+        while (lo < hi) { const mid = (lo + hi + 1) >> 1; if (starts[mid] <= pos) lo = mid; else hi = mid - 1; }
+        return base + lo;
+      };
+      const each = (term, slot) => { for (let i = firstAt(text, term, whole); i >= 0; i = firstAt(text, term, whole, i + term.n.length)) bump(lineOf(i), slot); };
+      terms.forEach((term, ti) => each(term, ti * F + fi));
+      for (const term of not) each(term, NOT);
+      if (together) each(together, TOG);
+      let n = 0; for (let k = text.indexOf('\n'); k >= 0; k = text.indexOf('\n', k + 1)) n++;
+      base += n;
+    }
+    if (lines < 0) lines = base;
+    else if (lines !== base) return null;                      // fields out of step: use the full text instead
+  }
+  const hi = fields.indexOf('headings');
+  const out = [];
+  for (const [i, c] of counts) {
+    if (c[NOT]) continue;
+    let score = 0, ok = true;
+    for (let ti = 0; ti < T && ok; ti++) {
+      let sum = 0;
+      for (let fi = 0; fi < F; fi++) sum += Math.min(c[ti * F + fi], 5);
+      if (!sum) ok = false; else score += Math.min(sum, 5) + (terms[ti].phrase ? 3 : 0);
+    }
+    if (!ok) continue;
+    if (hi >= 0 && terms.every((_, ti) => c[ti * F + hi] > 0)) score += 2;
+    out.push({ i, score, near: together ? Math.min(c[TOG], 3) : 0 });
+  }
+  return out;
+}
+
 async function searchIndex(book, notes = false) {
   const name = notes ? `${book.slug}.notes` : book.slug, keys = notes ? ['n'] : ['h', 'e', 'd'];
   const one = await searchFile(`search/${name}.json`);
@@ -882,6 +952,12 @@ async function search({ query, books: bookNames, fields, spelling, whole_words: 
   // One book at a time, so only one book's text is in memory during the scan.
   for (let bi = 0; bi < list.length; bi++) {
     const book = list[bi];
+    const fast = await scanBookText(book, fields, terms, not, together, spelling, whole);
+    if (fast) {
+      for (const h of fast) hits.push({ book, bi, ...h });
+      if (fast.length) perBook.set(book.title, fast.length);
+      continue;
+    }
     const notesOnly = fields.every(x => x === 'notes');
     let idx = notesOnly ? { v: 1 } : await searchIndex(book);
     if (idx && fields.includes('notes')) {
