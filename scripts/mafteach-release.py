@@ -17,7 +17,7 @@ STATE = Path('mafteach-release-state.json')
 PANEL_V = '20261104-mafteach-edition-v9'
 SEARCH_V = '20261102-mafteach-ask-v11'
 NEW_DIRS = ['library/mafteach', 'library/ml-parallels', 'library/genre-parallels', 'library/mafteach-links']
-ALLOWED = re.compile(r'^(index\.html|editions/tzidkas-hatzaddik[^/]*|editions/tzidkas-hatzaddik-pages/page-\d\d\.webp|editions/sample\.(js|html)|library/editions/sample\.html|library/index\.html|library/sw\.js|library/mafteach-panel\.js|library/mafteach-search\.js|library/(mafteach|ml-parallels|genre-parallels|mafteach-links)/.+|mcp-data/mafteach/.+|library/data/peri-tzadik/(16[6-9]|17[0-9]|18[0-6]|80[1-9]|810|toc|links)\.json|library/data/(catalog|files)\.json|library/data/cited/[a-z0-9-]+\.json|mcp-data/(catalog|text/peri-tzadik)\.json)$')   # + the reviewed Chayei Sarah edition
+ALLOWED = re.compile(r'^(index\.html|editions/tzidkas-hatzaddik[^/]*|editions/tzidkas-hatzaddik-pages/page-\d\d\.webp|editions/sample\.(js|html)|library/editions/sample\.html|library/index\.html|library/sw\.js|library/mafteach-panel\.js|library/mafteach-search\.js|library/(mafteach|ml-parallels|genre-parallels|mafteach-links)/.+|mcp-data/mafteach/.+|mcp-data/search/.+|library/data/peri-tzadik/(16[6-9]|17[0-9]|18[0-6]|80[1-9]|810|toc|links)\.json|library/data/(catalog|files)\.json|library/data/cited/[a-z0-9-]+\.json|mcp-data/(catalog|text/peri-tzadik)\.json)$')   # + the reviewed Chayei Sarah edition
 MAX_BYTES = 10_000_000
 
 
@@ -153,6 +153,8 @@ def apply(site):
         f = site / name
         f.write_text(fn(f.read_text(encoding='utf-8')), encoding='utf-8')
     subprocess.run(['node', 'scripts/build-mafteach-index.mjs', str(site / 'mcp-data')], check=True)
+    # kisvei_search's prebuilt index, from the live site's own book texts (scripts/build-mcp-search-index.mjs)
+    subprocess.run(['node', 'scripts/build-mcp-search-index.mjs', str(site / 'mcp-data')], check=True)
     # The Sefer Bereishis Word edition (scripts/pri-bereishis/release.py) replaces the earlier Chayei Sarah, Toldos and
     # Vayetzei study chapters; once the live site carries it, those older overlays must not be put back over it.
     if '"bereishisDocxEdition"' not in (site / 'library/data/peri-tzadik/toc.json').read_text(encoding='utf-8'):
