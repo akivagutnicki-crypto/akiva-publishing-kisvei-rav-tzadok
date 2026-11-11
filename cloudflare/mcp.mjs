@@ -37,6 +37,7 @@ function load(file) {
   if (p && (file.startsWith('text/') || file.startsWith('text-chunks/'))) { cache.delete(file); cache.set(file, p); } // most recently used last
   if (!p) {
     p = (async () => {
+      if (file.startsWith('text/')) return wholeText(file);
       if (typeof process !== 'undefined' && process.env?.MCP_DATA_DIR) { // tests: disk; Cloudflare has no Node process by default
         const { readFile } = await import('node:fs/promises');
         return JSON.parse(await readFile(`${process.env.MCP_DATA_DIR}/${file}`, 'utf8'));
@@ -68,17 +69,39 @@ function trimChunks(keep) {
 async function scanText(book) {
   const key = `text/${book.slug}.json`;
   if (cache.has(key)) return bookText(book);
-  let t;
-  if (typeof process !== 'undefined' && process.env?.MCP_DATA_DIR) {
-    const { readFile } = await import('node:fs/promises');
-    t = JSON.parse(await readFile(`${process.env.MCP_DATA_DIR}/${key}`, 'utf8'));
-  } else {
-    const res = await fetch(new URL(`mcp-data/${key}`, `${ORIGIN.replace(/\/+$/, '')}/`));
-    if (!res.ok) throw new Error(`library data ${key} is unavailable (HTTP ${res.status})`);
-    t = await res.json();
-  }
+  const t = await wholeText(key);
   t.book = book;
   return t;
+}
+// A whole-book file (text/<slug>.json), read only where a book's chunks or search index are missing. The largest is
+// over 30 MB: parsing it would not fit in the Worker's 128 MB, so past WHOLE_TEXT_MAX the call fails cleanly instead.
+// (scripts/test-mcp-budget.mjs fails a publication whose chunks or index are missing, so a published site never needs it.)
+const WHOLE_TEXT_MAX = 20_000_000;
+const rebuilding = () => new ToolError("this book's text index is being rebuilt; try again shortly.");
+async function wholeText(key) {
+  if (typeof process !== 'undefined' && process.env?.MCP_DATA_DIR) {
+    const { readFile, stat } = await import('node:fs/promises');
+    const file = `${process.env.MCP_DATA_DIR}/${key}`;
+    if ((await stat(file)).size > WHOLE_TEXT_MAX) throw rebuilding();
+    return JSON.parse(await readFile(file, 'utf8'));
+  }
+  const res = await fetch(new URL(`mcp-data/${key}`, `${ORIGIN.replace(/\/+$/, '')}/`));
+  if (!res.ok) throw new Error(`library data ${key} is unavailable (HTTP ${res.status})`);
+  if (+(res.headers.get('content-length') || 0) > WHOLE_TEXT_MAX) { res.body?.cancel(); throw rebuilding(); }
+  // Content-Length can be absent or the compressed size: count the bytes as they arrive and stop past the limit.
+  const reader = res.body.getReader(), parts = [];
+  let n = 0;
+  for (;;) {
+    const { done, value } = await reader.read();
+    if (done) break;
+    n += value.byteLength;
+    if (n > WHOLE_TEXT_MAX) { await reader.cancel(); throw rebuilding(); }
+    parts.push(value);
+  }
+  const all = new Uint8Array(n);
+  let at = 0;
+  for (const p of parts) { all.set(p, at); at += p.byteLength; }
+  return JSON.parse(new TextDecoder().decode(all));
 }
 
 // The reader's own data files (library/...): the Mafteach panel, the machine-learned and the outside-genre parallels.

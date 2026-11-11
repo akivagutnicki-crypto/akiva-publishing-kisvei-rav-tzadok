@@ -17,9 +17,11 @@ const READ_BUDGET_MB = 60;        // index data one library-wide search reads (h
 const READ_WARN_MB = 45;          // past this, plan the next step (a word index, so a search reads only its words' entries)
 const CPU_BUDGET_MS = 1500;       // per tool call, measured here; the Worker failed at ~2,000 ms of the same work
 const MAX_FILE = 10_000_000;
-// Whole-book files the server reads only as a fallback (tools read text-chunks/); over 10 MB on the live site before this
-// test, so they are held where they are and may not grow past it.
-const GRANDFATHERED = { 'text/peri-tzadik.json': 31_000_000 };
+// Whole-book files over 10 MB. The tools read text-chunks/ and the search index; this whole-book file is only a fallback,
+// and this test makes it unreachable on a published site (it fails a publication whose chunks or index are missing).
+// cloudflare/mcp.mjs also refuses to load a whole-book file over 20 MB (wholeText), so the Worker never parses it.
+// Raised from 31 MB for the Pri Tzaddik Moadim editions (scripts/pri-moadim/).
+const GRANDFATHERED = { 'text/peri-tzadik.json': 45_000_000 };
 let passed = 0;
 const fail = [];
 const check = (ok, what) => { ok ? passed++ : fail.push(what); };
