@@ -50,8 +50,13 @@ def latest_publication():
     known = publishers()
     current_run = str(os.environ.get('GITHUB_RUN_ID', ''))
     cands = []
-    for run in api('/actions/runs?branch=main&per_page=100')['workflow_runs']:
-        if str(run['id']) == current_run or run['path'] not in known or run['status'] != 'completed': continue
+    # Each publishing workflow's own recent runs: the repository-wide run list fills up with skipped runs (every push
+    # starts ~40 workflows), so the last real publication can fall outside its newest 100.
+    runs = []
+    for wf in known:
+        runs += api('/actions/workflows/' + wf.rsplit('/', 1)[1] + '/runs?branch=main&status=completed&per_page=15')['workflow_runs']
+    for run in runs:
+        if str(run['id']) == current_run or run['path'] not in known or run['status'] != 'completed' or run.get('conclusion') == 'skipped': continue
         jobs = api('/actions/runs/' + str(run['id']) + '/jobs?per_page=100')['jobs']
         done = [s for j in jobs for s in j.get('steps', []) if s['name'] == known[run['path']] and s['conclusion'] == 'success']
         if done: cands.append((max(s['completed_at'] for s in done), run))
