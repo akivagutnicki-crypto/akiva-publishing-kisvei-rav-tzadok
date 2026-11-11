@@ -82,7 +82,9 @@ export function buildMafteach(OUT) {
     }
     if (e.B != null) push(bySource, `b-${e.B}`, e);   // the source heading by name ("Tanchuma", "Zohar") lists every entry under it, keyed or not
     if (e.B != null) counts.set(e.B, (counts.get(e.B) || 0) + 1);
-    for (const r of e.r) if (r[1]) {                // slim copy: the entry with only the reference to this passage
+    const once = new Set();                          // one slim copy per passage, even when several pages of it are cited
+    for (const r of e.r) if (r[1] && !once.has(r[1])) {   // slim copy: the entry with only the reference to this passage
+      once.add(r[1]);
       const { r: _all, ...rest } = e;
       push(byPassage, fileKey(r[1]), { ...rest, r: [r], nr: e.r.length });
     }

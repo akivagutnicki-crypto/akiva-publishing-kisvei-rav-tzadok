@@ -1413,8 +1413,9 @@ function mafFindTerms(M, query, kinds = ['topic']) {
 
 const mafTermLabel = t => t ? `${t.he}${t.en ? ` — ${t.en}` : ''}` : '';
 function mafRefText(r, corpus) {
-  const [label, kref, bookEn, flags = ''] = r.length === 3 && /^[*?~]+$/.test(r[2] || '') ? [r[0], r[1], null, r[2]] : r;
-  const marks = (flags.includes('*') ? ' (discussed at length)' : '') + (flags.includes('?') ? ' (OCR uncertain)' : '') + (flags.includes('~') ? ' (OCR-corrected)' : '');
+  const [label, kref, bookEn, flags = ''] = r.length === 3 && /^[*?~p]+$/.test(r[2] || '') ? [r[0], r[1], null, r[2]] : r;
+  const marks = (flags.includes('*') ? ' (discussed at length)' : '') + (flags.includes('?') ? ' (OCR uncertain)' : '') + (flags.includes('~') ? ' (OCR-corrected)' : '')
+    + (flags.includes('p') ? ` (the index cites print p. ${String(label).replace(/^[א-ת]{2}-/, '')}; passage located by that page)` : '');
   if (kref) return `${kref}${marks}`;
   if (corpus === 'rt' && bookEn) {
     const loc = String(label).replace(/^[א-ת]{2}-/, '');
