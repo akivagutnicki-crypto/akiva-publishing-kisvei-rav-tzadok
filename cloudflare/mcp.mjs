@@ -753,6 +753,32 @@ function fieldOnce(t, i, name, mode) {
   return name === 'hebrew' ? norm(heOf(p), mode) : name === 'english' ? norm(enOf(p), mode)
     : name === 'headings' ? norm(headingsAt(t, i).join(' \n '), mode) : (p.f ? norm(p.f.map(x => x[1]).join(' \n '), mode) : ' ');
 }
+// Prebuilt search index (scripts/build-mcp-index.mjs writes mcp-data/search/<slug>.json): each paragraph's Hebrew,
+// English and headings already in exact search form, so a search across the library reads a few MB of strings
+// instead of every book's full text, and does not normalize them again (which ran past the Worker's CPU limit).
+export function searchFields(t) {
+  const h = [], e = [], d = [];
+  for (let i = 0; i < t.paras.length; i++) {
+    const p = t.paras[i];
+    h.push(norm(heOf(p)));
+    e.push(norm(enOf(p)));
+    d.push(norm(headingsAt(t, i).join(' \n ')));
+  }
+  return { v: 1, h, e, d };
+}
+const looseOf = s => s.replace(/[וי]/g, '').replace(/ {2,}/g, ' ');
+async function searchIndex(book) {
+  const key = `search/${book.slug}.json`;
+  try {
+    if (typeof process !== 'undefined' && process.env?.MCP_DATA_DIR) {
+      const { readFile } = await import('node:fs/promises');
+      return JSON.parse(await readFile(`${process.env.MCP_DATA_DIR}/${key}`, 'utf8'));
+    }
+    const res = await fetch(new URL(`mcp-data/${key}`, `${ORIGIN.replace(/\/+$/, '')}/`));
+    return res.ok ? await res.json() : null;          // not built yet: search the full text instead
+  } catch { return null; }
+}
+
 // Hebrew words carry prefixes (ו ה ב כ ל מ ש); a whole-word match allows up to three of them.
 const PREFIX = new Set('והבכלמש');
 function wordStart(hay, i, hebrew) {
@@ -815,12 +841,18 @@ async function search({ query, books: bookNames, fields, spelling, whole_words: 
   const hits = [];
   const perBook = new Map();
   // One book at a time, so only one book's text is in memory during the scan.
+  const viaIndex = !fields.includes('notes');
   for (let bi = 0; bi < list.length; bi++) {
     const book = list[bi];
-    let t = await scanText(book);
-    for (let i = 0; i < t.paras.length; i++) {
+    const idx = viaIndex ? await searchIndex(book) : null;
+    let t = idx ? null : await scanText(book);
+    const count = idx ? idx.h.length : t.paras.length;
+    const pick = { hebrew: 'h', english: 'e', headings: 'd' };
+    for (let i = 0; i < count; i++) {
       const f = {};
-      const get = name => (f[name] ??= fieldOnce(t, i, name, spelling));
+      const get = idx
+        ? name => (f[name] ??= (spelling === 'loose' ? looseOf(idx[pick[name]][i]) : idx[pick[name]][i]))
+        : name => (f[name] ??= fieldOnce(t, i, name, spelling));
       let score = 0, near = 0, ok = true;
       for (const term of terms) {
         let c = 0;
