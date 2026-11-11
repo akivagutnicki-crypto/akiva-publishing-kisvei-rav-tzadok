@@ -392,6 +392,20 @@ if (fs.existsSync(remoteSourceDir)) {
 const version = exists('files.json') ? read('files.json').version : '';
 fs.writeFileSync(path.join(OUT, 'catalog.json'), JSON.stringify({ version, built: new Date().toISOString(), books }));
 fs.writeFileSync(path.join(OUT, 'cited.json'), JSON.stringify(cited));
+// Search index: every paragraph's Hebrew, English and headings in search form (see searchFields in cloudflare/mcp.mjs).
+{
+  const { searchFields } = await import('../cloudflare/mcp.mjs');
+  fs.mkdirSync(path.join(OUT, 'search'), { recursive: true });
+  let bytes = 0;
+  for (const b of books) {
+    const t = JSON.parse(fs.readFileSync(path.join(OUT, 'text', `${b.slug}.json`), 'utf8'));
+    t.book = b;
+    const out = JSON.stringify(searchFields(t));
+    fs.writeFileSync(path.join(OUT, 'search', `${b.slug}.json`), out);
+    bytes += out.length;
+  }
+  console.log(`MCP search index: ${books.length} books, ${(bytes / 1e6).toFixed(1)} MB`);
+}
 const size = dir => fs.readdirSync(dir, { withFileTypes: true }).reduce((n, e) => n + (e.isDirectory() ? size(path.join(dir, e.name)) : fs.statSync(path.join(dir, e.name)).size), 0);
 for (const w of warnings.slice(0, 20)) console.warn('  warning: ' + w);
 if (warnings.length > 20) console.warn(`  … ${warnings.length - 20} more warnings`);
