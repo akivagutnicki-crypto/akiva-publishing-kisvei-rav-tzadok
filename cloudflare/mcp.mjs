@@ -768,7 +768,13 @@ export function searchFields(t) {
 }
 const looseOf = s => s.replace(/[וי]/g, '').replace(/ {2,}/g, ' ');
 async function searchIndex(book) {
-  const key = `search/${book.slug}.json`;
+  const one = await searchFile(`search/${book.slug}.json`);
+  if (!one?.parts) return one;
+  const parts = [];
+  for (let k = 1; k <= one.parts; k++) { const p = await searchFile(`search/${book.slug}.${k}.json`); if (!p) return null; parts.push(p); }
+  return { v: 1, h: parts.flatMap(p => p.h), e: parts.flatMap(p => p.e), d: parts.flatMap(p => p.d) };
+}
+async function searchFile(key) {
   try {
     if (typeof process !== 'undefined' && process.env?.MCP_DATA_DIR) {
       const { readFile } = await import('node:fs/promises');
