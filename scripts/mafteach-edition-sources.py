@@ -3,9 +3,10 @@
 From the reader overlay of an edition, write:
   sources/mafteach/curated-sources/<name>.json    {passage: [[Sefaria ref, footnote label], ...]}  (every verified Sefaria link)
   sources/mafteach/curated-parallels/<name>.json  {passage: {library passage: why}}  (Rav Tzadok / Ishbitz–Radzin passages its notes name)
-Usage: mafteach-edition-sources.py OVERLAY_DIR NAME [--sources-only]   (--sources-only: keep an existing curated-parallels/NAME.json)"""
+Usage: mafteach-edition-sources.py OVERLAY_DIR NAME [--sources-only] [--label='Sefer Bereishis']   (--sources-only: keep an existing curated-parallels/NAME.json)"""
 import json, sys, re, os, urllib.parse
 ov, name = sys.argv[1:3]; sources_only = '--sources-only' in sys.argv
+ed_label = next((x.split('=', 1)[1] for x in sys.argv if x.startswith('--label=')), 'Sefer Bereishis')   # the edition's name in the parallel's reason
 REPO = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'sources', 'mafteach')
 valid = set(l.strip() for l in open(f'{REPO}/library-refs.txt', encoding='utf-8') if l.strip())
 m = json.load(open(os.path.join(ov, 'manifest.json')))
@@ -29,7 +30,7 @@ for s in m['sections']:
                 elif '#/read/' in href:
                     target = section_of(urllib.parse.unquote(href.split('#/read/', 1)[1]).replace('_', ' '))
                 else: target = None
-                if target and target != s['ref']: pars[target] = 'named in the notes of the Akiva Publishing Sefer Bereishis edition'
+                if target and target != s['ref']: pars[target] = f'named in the notes of the Akiva Publishing {ed_label} edition'
     if srcs: sources[s['ref']] = srcs
     if pars: parallels[s['ref']] = pars
 os.makedirs(f'{REPO}/curated-sources', exist_ok=True)
