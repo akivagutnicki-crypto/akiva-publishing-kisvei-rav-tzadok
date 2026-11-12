@@ -86,7 +86,7 @@ try {
     await waitForImages('.hero-edition img,.print-scene img');
     await assertNoOverflow('Homepage ' + width);
     assert.equal(await page.locator('.catalog-shelf .shelf-book').count(), 13);
-    assert.equal(await page.locator('.catalog-shelf .shelf-badge').count(), 2);
+    assert.equal(await page.locator('.catalog-shelf .shelf-badge').count(), refreshCatalog.books.filter(b => b.status === 'upcoming').length);
     assert.equal(await page.locator('#pri-tzaddik-shemos .dover-volume').count(), 2);
     assert.equal(await page.locator('#takanas .dover-volume').count(), 2);
     for (const book of refreshCatalog.books) {

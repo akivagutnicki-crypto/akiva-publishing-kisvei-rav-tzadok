@@ -1,5 +1,5 @@
 {
-  "version": "20261105-print-refresh-v1",
+  "version": "20261111-shemos-amazon-live",
   "books": [
     {
       "slug": "takanas-hashavin-volume-i",
@@ -87,7 +87,7 @@
       "subtitle": "Shemos - Yitro",
       "scope": "Shemos · Vaera · Bo · Beshalach · Yitro",
       "pageCount": 392,
-      "status": "upcoming",
+      "status": "available",
       "description": "Exile, redemption, and the making of a people: from Egypt and the plagues through the Splitting of the Sea, the manna, Shabbos, and the Giving of the Torah.",
       "samplePages": 20,
       "sourcePages": [
@@ -116,8 +116,11 @@
       "back": "pri-tzaddik-shemos-volume-i-back.webp",
       "pdf": "pri-tzaddik-shemos-volume-i-sample.pdf",
       "pageDirectory": "pri-tzaddik-shemos-volume-i-pages",
-      "sampleNote": "Twenty unchanged pages from the upcoming print edition: title and copyright, followed by eighteen consecutive opening pages. Original printed page numbers and footnotes are retained.",
-      "amazon": null
+      "sampleNote": "Twenty unchanged pages from the published print edition: title and copyright, followed by eighteen consecutive opening pages. Original printed page numbers and footnotes are retained.",
+      "amazon": "https://www.amazon.com/dp/B0HNRSTB8L?binding=hardcover&ref=dbs_dp_rwt_sb_pc_thcv",
+      "amazonLinkType": "series",
+      "hardcover": "https://www.amazon.com/dp/B0HNRSTB8L?binding=hardcover&ref=dbs_dp_rwt_sb_pc_thcv",
+      "paperback": "https://www.amazon.com/dp/B0HNRSTB8L?binding=paperback"
     },
     {
       "slug": "pri-tzaddik-shemos-volume-ii",
@@ -125,7 +128,7 @@
       "subtitle": "Mishpatim - Pekudei",
       "scope": "Mishpatim · Terumah · Tetzaveh · Ki Tisa · Vayakhel · Pekudei",
       "pageCount": 351,
-      "status": "upcoming",
+      "status": "available",
       "description": "The Oral Torah, the Mishkan, the sanctity of the kohanim, the Golden Calf and its repair, and the Divine Presence dwelling among the Jewish people.",
       "samplePages": 20,
       "sourcePages": [
@@ -154,8 +157,11 @@
       "back": "pri-tzaddik-shemos-volume-ii-back.webp",
       "pdf": "pri-tzaddik-shemos-volume-ii-sample.pdf",
       "pageDirectory": "pri-tzaddik-shemos-volume-ii-pages",
-      "sampleNote": "Twenty unchanged pages from the upcoming print edition: title and copyright, followed by eighteen consecutive opening pages. Original printed page numbers and footnotes are retained.",
-      "amazon": null
+      "sampleNote": "Twenty unchanged pages from the published print edition: title and copyright, followed by eighteen consecutive opening pages. Original printed page numbers and footnotes are retained.",
+      "amazon": "https://www.amazon.com/dp/B0HNRSTB8L?binding=hardcover&ref=dbs_dp_rwt_sb_pc_thcv",
+      "amazonLinkType": "series",
+      "hardcover": "https://www.amazon.com/dp/B0HNRSTB8L?binding=hardcover&ref=dbs_dp_rwt_sb_pc_thcv",
+      "paperback": "https://www.amazon.com/dp/B0HNRSTB8L?binding=paperback"
     }
   ]
 }
