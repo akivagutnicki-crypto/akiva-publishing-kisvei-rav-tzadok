@@ -10,6 +10,7 @@ on:
       - 'Publish Parallels panel and HaMafteach MCP data (preserve live site)'
       - 'Deploy Akiva Publishing to GitHub Pages'
       - 'Publish Pri Tzaddik Moadim interlinear editions (Iyar–Menachem Av, Elul–Sukkos)'
+      - 'Publish Pri Tzaddik Daled Parshiyos and Purim interlinear edition'
     types: [completed]
   workflow_dispatch:
 
