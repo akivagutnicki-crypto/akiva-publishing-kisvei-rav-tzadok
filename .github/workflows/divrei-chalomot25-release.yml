@@ -71,6 +71,24 @@ jobs:
         with:
           path: .dc25-site
           retention-days: 14
+      - name: Wait for the uploaded Pages artifact to appear in the deployment API
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          node --input-type=module <<'NODE'
+          const url='https://api.github.com/repos/'+process.env.GITHUB_REPOSITORY+'/actions/runs/'+process.env.GITHUB_RUN_ID+'/artifacts?per_page=100';
+          for(let attempt=0;attempt<20;attempt++){
+            await new Promise(resolve=>setTimeout(resolve,5000));
+            const response=await fetch(url,{headers:{Authorization:'Bearer '+process.env.GH_TOKEN,Accept:'application/vnd.github+json'}});
+            if(!response.ok)throw Error('Cannot inspect uploaded Pages artifact: '+response.status);
+            const result=await response.json();
+            if(result.artifacts.some(a=>a.name==='github-pages'&&!a.expired)){
+              console.log('The reviewed Pages artifact is registered and ready for deployment.');
+              process.exit(0);
+            }
+          }
+          throw Error('Uploaded Pages artifact has not become visible to the deployment API');
+          NODE
       - name: Deploy the corrected reader
         id: deployment
         uses: actions/deploy-pages@v4
