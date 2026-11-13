@@ -477,6 +477,9 @@ jobs:
       - name: Keep the Pri Tzaddik Vayetzei interlinear study edition in any rebuild
         run: python3 scripts/pri-vayetzei-review/apply.py dist
 
+      - name: Preserve the corrected Divrei Chalomot 25 PDF translation and sourced shiur notes
+        run: python3 scripts/publish-divrei-chalomot25.py apply dist
+
       - name: Upload site
         uses: actions/upload-pages-artifact@v4
         with:

@@ -1,0 +1,24 @@
+{
+  "revision": "20261113-dc25-pdf-shiur-v1",
+  "ref": "Divrei Chalomot 25",
+  "translation": "All 102 English phrase translations replaced with the corrected supplied 12-page PDF, in the same order. Hebrew visible text and nikkud preserved exactly.",
+  "footnotes": "All 63 PDF notes retained in full, including continuations across PDF pages, source-label emphasis and source links. Full Bereishis 6:3 added to the existing Chullin 139b and Rashi note.",
+  "shiurDiscussionNotes": [
+    "Thirteen middle Amidah blessings: Berakhot 28b:20-23; Megillah 17b-18a. The mapping suggested in the shiur is labeled as a suggestion.",
+    "Rambam's middle path: Hilkhot De'ot 1:4-7 and Shemonah Perakim 4.",
+    "Adam's prayer for rain: Rashi on Bereishis 2:5:2.",
+    "974 generations: Chagigah 13b:14-14a:1; distinguished from the worlds created and destroyed in Bereshit Rabbah 3:7.",
+    "Og and Eliezer: Soferim 21:9 with Da'at Zekenim on Bereishis 24:39:1, including the qualification about two kings called Og.",
+    "Those who remained in Egypt: Rashi on Shemos 10:22:2 and 13:18:3; suggested application to Dasan and Aviram distinguished from the source.",
+    "David, Ruth and Moav: Bereishis 19:30-38; Ruth 4:13-22.",
+    "Darkness before light: Shabbat 77b:8.",
+    "Milah and desire: Bereishis 21:4; Moreh Nevukhim III:49; adjacent Yisrael Kedoshim 9:4 parallel preserved.",
+    "Echad, thirteen and Chanukah: Me'or Einayim, Mikeitz 1. The exact Maharal passage recalled in the shiur was not identified and is not asserted as verified.",
+    "Begadim and bogdim: Sanhedrin 37a:7-8.",
+    "The covering from itself: Bereshit Rabbah 21:5; Tanya, Likkutei Amarim 21:8. Marked as a source note for the alternate transcript, since the brief spoken phrase was not clearly recoverable.",
+    "Riding above materiality: Maharal, Gevurot Hashem 29:6 and Derekh Chayim 5:19:4. The donkey riding Bilaam is explicitly identified as a metaphor, not the literal verse."
+  ],
+  "excludedFromCanonicalText": "Unattributed anecdotal asides and the contemporary CEO illustration remain outside Rav Tzadok's canonical interlinear text.",
+  "verification": "Primary source passages retrieved and checked for the added discussions. PDF note quotations are retained as the user's corrected source edition; no claim is made to a new independent facsimile collation of all 63 notes.",
+  "publication": "Restore the last successful complete Pages artifact, match live fingerprints, patch only the bounded edition and its derived indexes/archives, verify Hebrew and PDF alignment, test desktop/mobile before deployment, and re-read the live files after deployment."
+}

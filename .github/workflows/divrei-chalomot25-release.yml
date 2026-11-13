@@ -1,0 +1,88 @@
+name: Publish corrected Divrei Chalomot 25 PDF and sourced shiur commentary
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+  pages: write
+  id-token: write
+concurrency:
+  group: ${{ (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[dc25-review-release]')) && 'pages' || format('dc25-skipped-{0}', github.run_id) }}
+  cancel-in-progress: false
+jobs:
+  publish:
+    if: ${{ github.repository == 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok' && github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[dc25-review-release]')) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check out the exact reviewed revision
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+      - name: Set up Node 24
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - name: Check publication code
+        run: |
+          python3 -m py_compile scripts/publish-divrei-chalomot25.py scripts/divrei-chalomot25-release.py
+          node --check scripts/build-mcp-search-index.mjs
+      - name: Pin and verify the actual current publication
+        id: baseline
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/divrei-chalomot25-release.py metadata
+      - name: Download the complete current Pages publication
+        uses: actions/download-artifact@v4
+        with:
+          artifact-ids: ${{ steps.baseline.outputs.artifact }}
+          run-id: ${{ steps.baseline.outputs.run }}
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/dc25-baseline
+          merge-multiple: true
+      - name: Restore the current site and verify its live fingerprints
+        run: python3 scripts/divrei-chalomot25-release.py restore .dc25-site "$RUNNER_TEMP/dc25-baseline/artifact.tar"
+      - name: Replace the interlinear translation and commentary from the corrected PDF
+        run: |
+          python3 scripts/publish-divrei-chalomot25.py apply .dc25-site
+          python3 scripts/publish-divrei-chalomot25.py apply .dc25-site
+          python3 scripts/publish-divrei-chalomot25.py verify .dc25-site
+      - name: Install the browser verification runtime
+        run: |
+          npm install --prefix "$RUNNER_TEMP/dc25-browser" --no-save --package-lock=false playwright@1.62.1
+          "$RUNNER_TEMP/dc25-browser/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Verify the revised interlinear and Hebrew footnotes on desktop and mobile
+        env:
+          DC25_PLAYWRIGHT: ${{ runner.temp }}/dc25-browser/node_modules/playwright
+        run: node scripts/test-divrei-chalomot25-browser.cjs .dc25-site
+      - name: Guard against an intervening publication
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/divrei-chalomot25-release.py guard
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Upload the preserved complete site
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: .dc25-site
+          retention-days: 14
+      - name: Deploy the corrected reader
+        id: deployment
+        uses: actions/deploy-pages@v4
+      - name: Verify the corrected edition is live
+        run: python3 scripts/divrei-chalomot25-release.py verify-live .dc25-site
+      - name: Save publication and browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: divrei-chalomot25-reviewed-edition-evidence
+          path: |
+            .dc25-site/library/divrei-chalomot25-publication.json
+            divrei-chalomot25-release-state.json
+            artifacts/divrei-chalomot25/
+          retention-days: 14

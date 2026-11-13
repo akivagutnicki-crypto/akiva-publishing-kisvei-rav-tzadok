@@ -6,17 +6,27 @@
 import fs from 'node:fs';
 import path from 'node:path';
 const DIR = process.argv[2] || 'dist/mcp-data';
+// A bounded edition publisher may refresh one book while preserving all other
+// published search/chunk bytes. The ordinary full-build behavior is unchanged.
+const ONLY = process.argv[3] || null;
 const PART_BYTES = 7_000_000;
 const CHUNK_BYTES = 400_000;
 let chunkFiles = 0, largestChunk = 0;
 const { searchFields, searchNotes, looseOf } = await import('../cloudflare/mcp.mjs');
 const { books } = JSON.parse(fs.readFileSync(path.join(DIR, 'catalog.json'), 'utf8'));
 const out = path.join(DIR, 'search');
-fs.rmSync(out, { recursive: true, force: true });
-fs.rmSync(path.join(DIR, 'text-chunks'), { recursive: true, force: true });
+if (!ONLY) {
+  fs.rmSync(out, { recursive: true, force: true });
+  fs.rmSync(path.join(DIR, 'text-chunks'), { recursive: true, force: true });
+} else {
+  if (!books.some(b => b.slug === ONLY) || !/^[a-z0-9-]+$/.test(ONLY)) throw Error('Unknown single-book search index: '+ONLY);
+  for (const f of fs.existsSync(out) ? fs.readdirSync(out) : []) if (f.startsWith(ONLY+'.')) fs.rmSync(path.join(out,f));
+  fs.rmSync(path.join(DIR,'text-chunks',ONLY),{recursive:true,force:true});
+}
 fs.mkdirSync(out, { recursive: true });
 let bytes = 0, files = 0, largest = 0;
 for (const b of books) {
+  if (ONLY && b.slug !== ONLY) continue;
   const t = JSON.parse(fs.readFileSync(path.join(DIR, 'text', `${b.slug}.json`), 'utf8'));
   t.book = b;
   const idx = searchFields(t), notes = searchNotes(t);
