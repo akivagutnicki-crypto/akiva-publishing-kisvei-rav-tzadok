@@ -26,12 +26,12 @@ const server=http.createServer((req,res)=>{
    await page.route('**/*',route=>new URL(route.request().url()).hostname==='127.0.0.1'?route.continue():route.abort());
    const errors=[];page.on('pageerror',e=>errors.push(e.message));
    await page.goto(base+'/library/#/read/Divrei_Chalomot_25',{waitUntil:'domcontentloaded'});
-   await page.waitForSelector('.source-note-trigger[data-note-key^="DC25-"]',{timeout:60000});
-   assert.equal(await page.locator('.source-note-trigger[data-note-key^="DC25-"]').count(),76);
+   await page.waitForSelector('.source-note-trigger[data-note-key^="DC25-"]:visible',{timeout:60000});
+   assert.equal(await page.locator('.source-note-trigger[data-note-key^="DC25-"]:visible').count(),76);
    assert((await page.locator('#text').textContent()).includes(edition.translations[0].en));
    assert((await page.locator('#text').textContent()).includes(edition.translations[25].en));
    assert(!(await page.locator('#text').textContent()).includes('surpassing even Shem in explicit prophetic vision'));
-   await page.locator('.source-note-trigger[data-note-key="'+beshegam+'"]').click();
+   await page.locator('.source-note-trigger[data-note-key="'+beshegam+'"]:visible').click();
    const box=page.locator('.reader-footnote.open[data-note-key="'+beshegam+'"]');
    await box.waitFor();const content=await box.textContent();
    assert(content.includes('Bereishis 6:3'));assert(content.includes('מֵאָה וְעֶשְׂרִים'));assert(content.includes('Chullin 139b:10'));
