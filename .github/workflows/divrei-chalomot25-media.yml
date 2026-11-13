@@ -1,0 +1,110 @@
+name: Publish Divrei Chalomos 25 audio and Noach 6 PDF layout
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+  pages: write
+  id-token: write
+concurrency:
+  group: ${{ (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[dc25-media-release]')) && 'pages' || format('dc25-skipped-{0}', github.run_id) }}
+  cancel-in-progress: false
+jobs:
+  publish:
+    if: ${{ github.repository == 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok' && github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[dc25-media-release]')) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check out the exact reviewed revision
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+      - name: Set up Node 24
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - name: Check publication code
+        run: |
+          python3 -m py_compile scripts/divrei-chalomot25-media.py scripts/divrei-chalomot25-media-release.py
+          node --check scripts/test-divrei-chalomot25-media.cjs
+      - name: Pin and verify the actual current publication
+        id: baseline
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/divrei-chalomot25-media-release.py metadata
+      - name: Download the complete current Pages publication
+        uses: actions/download-artifact@v4
+        with:
+          artifact-ids: ${{ steps.baseline.outputs.artifact }}
+          run-id: ${{ steps.baseline.outputs.run }}
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/dc25-baseline
+          merge-multiple: true
+      - name: Restore the current site and verify its live fingerprints
+        run: python3 scripts/divrei-chalomot25-media-release.py restore .dc25-site "$RUNNER_TEMP/dc25-baseline/artifact.tar"
+      - name: Attach the original recording and PDF with the Noach 6 layout
+        run: |
+          python3 scripts/divrei-chalomot25-media.py apply .dc25-site
+          node --check .dc25-site/library/shiur-player.js
+          python3 scripts/divrei-chalomot25-media.py verify .dc25-site
+      - name: Install the browser verification runtime
+        run: |
+          npm install --prefix "$RUNNER_TEMP/dc25-browser" --no-save --package-lock=false playwright@1.62.1
+          "$RUNNER_TEMP/dc25-browser/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Verify audio controls and expandable PDF on desktop and mobile
+        env:
+          DC25_PLAYWRIGHT: ${{ runner.temp }}/dc25-browser/node_modules/playwright
+        run: node scripts/test-divrei-chalomot25-media.cjs .dc25-site
+      - name: Guard against an intervening publication
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/divrei-chalomot25-media-release.py guard
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Upload the preserved complete site
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: .dc25-site
+          retention-days: 14
+      - name: Wait for the uploaded Pages artifact to appear in the deployment API
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          node --input-type=module <<'NODE'
+          const url='https://api.github.com/repos/'+process.env.GITHUB_REPOSITORY+'/actions/runs/'+process.env.GITHUB_RUN_ID+'/artifacts?per_page=100';
+          for(let attempt=0;attempt<20;attempt++){
+            await new Promise(resolve=>setTimeout(resolve,5000));
+            const response=await fetch(url,{headers:{Authorization:'Bearer '+process.env.GH_TOKEN,Accept:'application/vnd.github+json'}});
+            if(!response.ok)throw Error('Cannot inspect uploaded Pages artifact: '+response.status);
+            const result=await response.json();
+            if(result.artifacts.some(a=>a.name==='github-pages'&&!a.expired)){
+              console.log('The reviewed Pages artifact is registered and ready for deployment.');
+              process.exit(0);
+            }
+          }
+          throw Error('Uploaded Pages artifact has not become visible to the deployment API');
+          NODE
+      - name: Recheck the live publication immediately before deployment
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/divrei-chalomot25-media-release.py guard
+      - name: Deploy the media layout
+        id: deployment
+        uses: actions/deploy-pages@v4
+      - name: Verify the player and original media files are live
+        run: python3 scripts/divrei-chalomot25-media-release.py verify-live .dc25-site
+      - name: Save publication and browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: divrei-chalomot25-media-evidence
+          path: |
+            .dc25-site/library/divrei-chalomot25-media-publication.json
+            divrei-chalomot25-media-release-state.json
+            artifacts/divrei-chalomot25-media/
+          retention-days: 14
