@@ -12,6 +12,26 @@ concurrency:
   group: ${{ (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[dc25-media-release]')) && 'pages' || format('dc25-skipped-{0}', github.run_id) }}
   cancel-in-progress: false
 jobs:
+  stop-unnecessary-rebuild:
+    if: ${{ contains(github.event.head_commit.message, '[dc25-media-prepare]') }}
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+    steps:
+      - name: Stop only the redundant rebuild and its superseded media run
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PY'
+          import os, urllib.request, json
+          base='https://api.github.com/repos/'+os.environ['GITHUB_REPOSITORY']+'/actions/runs/'
+          headers={'Authorization':'Bearer '+os.environ['GH_TOKEN'],'Accept':'application/vnd.github+json'}
+          for run in [43370570615,43370570711]:
+              current=json.load(urllib.request.urlopen(urllib.request.Request(base+str(run),headers=headers)))
+              if current['status'] != 'completed':
+                  urllib.request.urlopen(urllib.request.Request(base+str(run)+'/cancel',headers=headers,method='POST'))
+                  print('Stopped redundant run',run)
+          PY
   publish:
     if: ${{ github.repository == 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok' && github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[dc25-media-release]')) }}
     runs-on: ubuntu-latest
