@@ -89,6 +89,10 @@ jobs:
           }
           throw Error('Uploaded Pages artifact has not become visible to the deployment API');
           NODE
+      - name: Recheck the live publication immediately before deployment
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/divrei-chalomot25-release.py guard
       - name: Deploy the corrected reader
         id: deployment
         uses: actions/deploy-pages@v4

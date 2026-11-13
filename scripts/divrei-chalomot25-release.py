@@ -3,8 +3,8 @@ import hashlib,json,os,sys,tarfile,time,urllib.request
 from pathlib import Path
 REPO='akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok'
 PUBLIC='https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/'
-RUN=43168700496;ART=13920609109
-DIGEST='sha256:f50e5c14cb801f2b633caa202100211f5fb1bb7d91ca46b8d4dc07de57d91b00'
+RUN=43366095733;ART=14011005456
+DIGEST='sha256:d1d231455cba2ea6a805e35d449580dd600c55b8e87a8a62e4a89e64ef43ca72'
 WATCH=['index.html','library/index.html','library/open/index.html','library/sw.js','library/data/files.json','library/data/divrei-chalomot/24.json','library/downloads/index.json','mcp-data/catalog.json']
 STATE=Path('divrei-chalomot25-release-state.json')
 def get(url,api=False):
@@ -19,7 +19,7 @@ if mode=='metadata':
  art=api('/actions/artifacts/'+str(ART));run=api('/actions/runs/'+str(RUN))
  assert art['name']=='github-pages' and not art['expired'] and art['digest']==DIGEST
  assert art['workflow_run']['id']==RUN and run['conclusion']=='success'
- assert art['workflow_run']['head_sha']==run['head_sha']=='ae9d04f47acc8681330f0ea186a665f0d496bd5b'
+ assert art['workflow_run']['head_sha']==run['head_sha']=='153666fb01f42f0aaceda16861093ce4bd6c7b30'
  assert head()==os.environ['GITHUB_SHA'],'Main advanced before publication'
  state={'run':RUN,'artifact':ART,'head':os.environ['GITHUB_SHA'],'live':{r:live(r) for r in WATCH}}
  STATE.write_text(json.dumps(state))
