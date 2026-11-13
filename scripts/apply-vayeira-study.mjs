@@ -245,6 +245,28 @@ const toldosCard = `<article class="card" aria-labelledby="toldos-feature-title"
 blog = upsert(blog, /<article class="card" aria-labelledby="toldos-feature-title">[\s\S]*?<\/article>\n?/, toldosCard, '<article class="card" aria-labelledby="chayei-sarah-feature-title">', 'Toldos listing');
 fs.writeFileSync(blogPath, blog);
 
+// Chanukah · Divrei Chalomos 25: the blog "The Sealed Cruse", added above Parshas Toldos. Safe to run again.
+const cruseVersion = '20261113-chanukah-sealed-cruse-v1';
+const cruseBlog = 'blog/the-sealed-cruse/';
+const cruseRef = 'Divrei_Chalomot_25';
+const cruseAlt = 'A Greek soldier, a temple behind him, reaches for the Torah scroll held by a Kohen standing before a lit menorah';
+html = fs.readFileSync(indexPath, 'utf8');
+const cruseTeaser = `<a class="weekly-teaser weekly-chanukah-teaser" href="${cruseBlog}" aria-label="Read The Sealed Cruse, the Chanukah blog">\n        <img src="${cruseBlog}sealed-cruse.jpg" alt="${cruseAlt}" loading="lazy">\n        <span class="weekly-teaser-copy"><span class="eyebrow">Chanukah · Divrei Chalomos 25</span><strong>The Sealed Cruse</strong><span>What the Greeks wanted from us, and why one sealed jar of oil was the answer: Rav Tzadok’s dream on the fifth night of Chanukah →</span></span>\n      </a>\n      `;
+html = upsert(html, /<a class="weekly-teaser weekly-chanukah-teaser"[\s\S]*?<\/a>\n      /, cruseTeaser, '<a class="weekly-teaser weekly-toldos-teaser"', 'Chanukah teaser');
+const cruseSidebar = `<h3 id="chanukah-weekly">Chanukah · Divrei Chalomos 25</h3><p><strong>The Sealed Cruse</strong><br>Greek wisdom, the heart of Yisrael, and the light that could not be touched · By Akiva Gutnicki</p><a class="link" href="${cruseBlog}">Read the blog →</a><a class="link" href="#/read/${cruseRef}">Divrei Chalomos 25 in the reader →</a>`;
+html = upsert(html, /<h3 id="chanukah-weekly">[\s\S]*?(?=<h3 id="toldos-weekly">)/, cruseSidebar, '<h3 id="toldos-weekly">', 'Chanukah sidebar');
+fs.writeFileSync(indexPath, html);
+
+sw = fs.readFileSync(swPath, 'utf8');
+if (!sw.includes('-' + cruseVersion)) sw = sw.replace(/(const SHELL = `[^`]+)(`;)/, `$1-${cruseVersion}$2`);
+if (!sw.includes(`'./${cruseBlog}'`)) sw = once(sw, "  './blog/', ", `  './blog/', './${cruseBlog}', `, 'offline Chanukah page');
+fs.writeFileSync(swPath, sw);
+
+blog = fs.readFileSync(blogPath, 'utf8');
+const cruseCard = `<article class="card" aria-labelledby="chanukah-feature-title"><div class="eyebrow">November 13, 2026 · Chanukah 5787 · Divrei Chalomos 25</div><h2 id="chanukah-feature-title"><a style="text-decoration:none" href="the-sealed-cruse/">The Sealed Cruse</a></h2><p class="subtitle" style="margin:0 0 15px;text-align:left">One against the other: Greek wisdom, the heart of Yisrael, and the light that could not be touched</p><p><a href="the-sealed-cruse/"><img src="the-sealed-cruse/sealed-cruse.jpg" width="1600" height="900" alt="${cruseAlt}" loading="lazy" style="display:block;width:100%;height:auto;border:1px solid var(--border);margin:0 0 14px"></a>On the fifth night of Chanukah Rav Tzadok dreamed a Torah and wrote it down: thirteen tribes and the shadow each one carries, Og as the shell before Avraham’s fruit, Greek wisdom as the shell around the Oral Torah, and the one jar of oil sealed with the seal of the Kohen Gadol that no stranger could touch. A 6-page essay. By Akiva Gutnicki.</p><div class="actions" style="justify-content:flex-start"><a class="btn" href="the-sealed-cruse/">Read the blog →</a><a class="btn secondary" href="pdfs/the-sealed-cruse-chanukah.pdf" target="_blank" rel="noopener">Read PDF ↗</a><a class="btn secondary" href="pdfs/the-sealed-cruse-chanukah.pdf" download>Download PDF ↓</a><a class="btn secondary" href="docs/the-sealed-cruse-chanukah.docx" download>Download Word ↓</a></div><p style="margin:0;font:700 13px/1.6 Arial,sans-serif"><a href="../#/read/${cruseRef}">Divrei Chalomos 25 in the reader →</a></p></article>\n`;
+blog = upsert(blog, /<article class="card" aria-labelledby="chanukah-feature-title">[\s\S]*?<\/article>\n?/, cruseCard, '<article class="card" aria-labelledby="toldos-feature-title">', 'Chanukah listing');
+fs.writeFileSync(blogPath, blog);
+
 if (path.resolve(root) !== path.resolve('dist')) {
   const chayeiFiles = ['blog/from-the-east', 'blog/from-the-east/shiur'].flatMap(dir =>
     ['index.html', ...fs.readdirSync(path.join('dist/library', dir, 'pages')).sort().map(name => 'pages/' + name)].map(name => dir + '/' + name))
@@ -252,7 +274,9 @@ if (path.resolve(root) !== path.resolve('dist')) {
       'downloads/chayei-sarah-wisdom-outside-the-house-shiur.pdf', 'downloads/chayei-sarah-wisdom-outside-the-house-shiur.docx',
       'chayei-sarah-study.js', 'studies/chayei-sarah-wisdom-outside-the-house.json',
       'blog/the-kings-table/index.html', 'blog/the-kings-table/kings-table.jpg', 'blog/pdfs/the-kings-table-toldos.pdf', 'blog/docs/the-kings-table-toldos.docx',
-      ...fs.readdirSync('dist/library/blog/the-kings-table/pages').sort().map(name => 'blog/the-kings-table/pages/' + name)]);
+      ...fs.readdirSync('dist/library/blog/the-kings-table/pages').sort().map(name => 'blog/the-kings-table/pages/' + name),
+      'blog/the-sealed-cruse/index.html', 'blog/the-sealed-cruse/sealed-cruse.jpg', 'blog/pdfs/the-sealed-cruse-chanukah.pdf', 'blog/docs/the-sealed-cruse-chanukah.docx',
+      ...fs.readdirSync('dist/library/blog/the-sealed-cruse/pages').sort().map(name => 'blog/the-sealed-cruse/pages/' + name)]);
   const blogPages = ['blog/even-the-world-to-come', 'blog/even-the-world-to-come/shiur'].flatMap(dir =>
     ['index.html', ...fs.readdirSync(path.join('dist/library', dir, 'pages')).sort().map(name => 'pages/' + name)].map(name => dir + '/' + name));
   for (const file of ['vayeira-study.js', 'studies/vayeira-mesiras-nefesh.json', 'downloads/vayeira-akeidah-mesiras-nefesh.pdf', 'downloads/vayeira-akeidah-mesiras-nefesh-cover.webp',
@@ -263,4 +287,4 @@ if (path.resolve(root) !== path.resolve('dist')) {
     fs.copyFileSync(path.join('dist/library', file), dest);
   }
 }
-console.log('Parshas Toldos (The King’s Table), Parshas Vayeira and Parshas Chayei Sarah reader entries, blogs, shiurim (Chayei Sarah also as native text), PDF and Word downloads and discovery links are ready.');
+console.log('Chanukah (The Sealed Cruse), Parshas Toldos (The King’s Table), Parshas Vayeira and Parshas Chayei Sarah reader entries, blogs, shiurim (Chayei Sarah also as native text), PDF and Word downloads and discovery links are ready.');

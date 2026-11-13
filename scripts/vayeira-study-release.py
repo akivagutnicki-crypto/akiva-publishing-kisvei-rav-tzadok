@@ -133,9 +133,11 @@ def verify_inputs():
              'library/downloads/chayei-sarah-wisdom-outside-the-house-shiur.docx',
              'library/chayei-sarah-study.js', 'library/studies/chayei-sarah-wisdom-outside-the-house.json',
              'library/blog/the-kings-table/kings-table.jpg', 'library/blog/pdfs/the-kings-table-toldos.pdf',
-             'library/blog/docs/the-kings-table-toldos.docx']
+             'library/blog/docs/the-kings-table-toldos.docx',
+             'library/blog/the-sealed-cruse/sealed-cruse.jpg', 'library/blog/pdfs/the-sealed-cruse-chanukah.pdf',
+             'library/blog/docs/the-sealed-cruse-chanukah.docx']
     for folder in ['library/blog/even-the-world-to-come', 'library/blog/even-the-world-to-come/shiur',
-                   'library/blog/from-the-east', 'library/blog/from-the-east/shiur', 'library/blog/the-kings-table']:
+                   'library/blog/from-the-east', 'library/blog/from-the-east/shiur', 'library/blog/the-kings-table', 'library/blog/the-sealed-cruse']:
         pages = sorted((Path('dist') / folder / 'pages').glob('page-*.webp'))
         assert pages, 'Missing page images: ' + folder
         files += [folder + '/index.html'] + [page.relative_to('dist').as_posix() for page in pages]
@@ -186,7 +188,9 @@ elif mode == 'verify':
                          ('library/sw.js', './chayei-sarah-study.js?v=20261101-chayei-sarah-native-v1'),
                          ('library/blog/index.html', 'Chayei_Sarah_Wisdom_Outside_the_House'),
                          ('library/index.html', 'id="toldos-weekly"'), ('library/index.html', 'href="blog/the-kings-table/"'),
-                         ('library/sw.js', '-20261109-toldos-kings-table-v1'), ('library/blog/index.html', 'toldos-feature-title')]:
+                         ('library/sw.js', '-20261109-toldos-kings-table-v1'), ('library/blog/index.html', 'toldos-feature-title'),
+                         ('library/index.html', 'id="chanukah-weekly"'), ('library/index.html', 'href="blog/the-sealed-cruse/"'),
+                         ('library/sw.js', '-20261113-chanukah-sealed-cruse-v1'), ('library/blog/index.html', 'chanukah-feature-title')]:
         assert marker in (ROOT / name).read_text(), 'Missing study hook: ' + name
     report = {'publication': state['publication'], 'expectedHead': state['expectedHead'],
               'changed': sorted(changed), 'removed': [],
