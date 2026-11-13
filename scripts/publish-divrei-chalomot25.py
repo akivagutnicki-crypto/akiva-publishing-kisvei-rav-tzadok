@@ -8,7 +8,7 @@ from pathlib import Path
 
 ROOT=Path(__file__).resolve().parent.parent
 EDITION=json.loads((ROOT/'sources/akiva/divrei-chalomot25/edition.json').read_text())
-REV=EDITION['revision']; SLUG='divrei-chalomot'
+REV=EDITION['revision']+'-headings'; SLUG='divrei-chalomot'
 def plain(s):return html.unescape(re.sub('<[^>]*>','',str(s)))
 def digest(p):return hashlib.sha256(p.read_bytes()).hexdigest()
 def read(p):return json.loads(p.read_text())
@@ -46,6 +46,8 @@ def apply(site):
  its[0]['inlineHeadings']=[{'phraseIndex':18,'text':'Shem and Ever: the name Yisrael','kind':'subsection'},{'phraseIndex':26,'text':'Avraham and the opposing shell of Og','kind':'subsection'},{'phraseIndex':36,'text':'Torah flowing from Avraham','kind':'subsection'}]
  its[1]['inlineHeadings']=[{'phraseIndex':5,'text':'Yaakov and the holiness of every descendant','kind':'subsection'}]
  its[2]['inlineHeadings']=[{'phraseIndex':12,'text':'The dream ends; Rav Tzadok develops its meaning','kind':'subsection'},{'phraseIndex':20,'text':'The sealed spring and the Hasmonean victory','kind':'subsection'},{'phraseIndex':38,'text':'Levi: devotion beyond personal calculation','kind':'subsection'}]
+ for it,headings in zip(its,read(ROOT/'sources/akiva/divrei-chalomot25/headings.json')):
+  it['inlineHeadings']=[{**h,'kind':'subsection'} for h in headings]
  for k,note in enumerate(EDITION['notes']):
   ii,pi=locations[note['pair']];he,en=map(plain,its[ii]['p'][pi]);number=first+k
   n={**copy.deepcopy(note),'number':number,'placementId':note['sourceId']+'-1','phraseIndex':pi,'heWord':len(he.split()),'heCharOffset':len(he),'heAnchorPrefix':he,'enCharOffset':len(en),'enAnchorPrefix':en,'nativeConnections':[],
