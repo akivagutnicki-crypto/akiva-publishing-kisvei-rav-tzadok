@@ -850,8 +850,12 @@ async function scanBookText(book, fields, terms, not, together, spelling, whole)
   const counts = new Map();
   const bump = (i, slot) => { let c = counts.get(i); if (!c) counts.set(i, (c = new Uint16Array(TOG + 1))); if (c[slot] < 60000) c[slot]++; };
   let lines = -1;
+  // A Hebrew-only query read against the Hebrew text need not read the English translation as well: Hebrew in an English
+  // gloss is a short spelling of a word in the same paragraph's Hebrew, which the Hebrew field already finds.
+  const skipEnglish = fields.includes('hebrew') && [...terms, ...not].every(t => t.hebrew) && (!together || together.hebrew);
   for (let fi = 0; fi < F; fi++) {
     const f = FIELD_KEY[fields[fi]];
+    if (f === 'e' && skipEnglish) continue;
     const pre = spelling === 'loose' && f === 'h' ? await fieldParts(book, 'hl') : null;   // Hebrew already in loose form
     const parts = pre || await fieldParts(book, f);
     if (!parts) return null;
