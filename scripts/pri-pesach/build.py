@@ -21,7 +21,7 @@ from zipfile import ZipFile
 
 SOURCE = Path('sources/akiva/pri-pesach-20261115')
 OUTPUT = Path('sources/akiva/overlays/pri-pesach-20261115')
-EDITION = 'pri-pesach-docx-20261115-v2'
+EDITION = 'pri-pesach-docx-20261115-v3'
 NS = {'w': 'http://schemas.openxmlformats.org/wordprocessingml/2006/main',
       'r': 'http://schemas.openxmlformats.org/officeDocument/2006/relationships'}
 W = '{' + NS['w'] + '}'
