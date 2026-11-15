@@ -101,7 +101,7 @@ def apply(site):
         pg = {'en': name, 'he': ps[0]['heGroup'], 'children': []}
         for s in ps:
             shutil.copyfile(B.OUTPUT / f"{s['id']}.json", pt / f"{s['id']}.json")
-            pg['children'].append({k: s[k] for k in ('en', 'he', 'id', 'ref', 'heRef', 'parashah', 'ois')} | {
+            pg['children'].append({k: s[k] for k in ('en', 'he', 'id', 'ref', 'heRef', 'parashah', 'ois')} | {'en': s['title'],
                 'depth': 1, 'shape': s['paragraphs'], 'il1': True, 'interlinear': True, 'sep': ':',
                 'reviewedEdition': B.EDITION, 'downloadDocx': 'downloads/' + v['download'],
                 'downloadDocxLabel': B.LABEL + ' · Complete Word edition',
@@ -154,11 +154,12 @@ def apply(site):
         for item in rd(B.OUTPUT / f"{s['id']}.json"):
             if 'h' in item: pending.append(item['h']); continue
             para = {'r': s['ref'] + ':' + str(item['n']), 's': si, 'n': item['n'], 'p': [[plain(h), plain(e)] for h, e in item['p']]}
+            if item.get('inlineHeadings'): para['inlineHeadings'] = item['inlineHeadings']
             if pending: para['h'] = pending; pending = []
             if item.get('footnotes'):
                 para['f'] = [[str(n['number']), '\n'.join(p['text'] for p in n['paragraphs']), n['phraseIndex'], 'h', n['heCharOffset']] for n in item['footnotes']]
             text['paras'].append(para)
-        oldsec.append({'ref': s['ref'], 'he': s['heRef'], 'title': s['en'], 'heTitle': s['he'],
+        oldsec.append({'ref': s['ref'], 'he': s['heRef'], 'title': s['title'], 'heTitle': s['he'],
                        'path': STUDY + ' › ' + s['parashah'], 'il': True, 'first': first, 'count': s['paragraphs'],
                        'edition': 'interlinear', 'parashah': s['parashah'], 'ois': s['ois'], KEY: B.EDITION})
     mb['paragraphs'] = len(text['paras']); mb['interlinear'] = True

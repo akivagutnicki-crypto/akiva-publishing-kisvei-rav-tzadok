@@ -46,6 +46,7 @@ def _name(n):
     return _ONES[o - 1] if not t else _TENS[t] + ('' if not o else ' ' + _ONES[o - 1])
 NUMBERS = [_name(n) for n in range(1, 55)]
 
+HEADINGS = json.loads(Path('sources/akiva/pri-pesach-20261115/headings.json').read_text(encoding='utf-8'))
 def read_json(p): return json.loads(Path(p).read_text(encoding='utf-8'))
 def write_json(p, value):
     p = Path(p); p.parent.mkdir(parents=True, exist_ok=True)
@@ -224,6 +225,14 @@ def build():
                 'pdf': PDF, 'pdfSha256': digest(SOURCE / PDF), 'pdfBytes': (SOURCE / PDF).stat().st_size}]
     for sec in sections:
         raw = sec.pop('items')
+        # the edition's topical headline (contents title) and subheadlines (inline, at the phrase where a topic begins)
+        hd = HEADINGS[sec['ref']]; sec['title'] = hd['title']; byn = {}
+        for h in hd['sub']: byn.setdefault(h['n'], []).append({'phraseIndex': h['phraseIndex'], 'text': h['text'], 'kind': 'subsection'})
+        for it in raw:
+            if 'p' in it and it['n'] in byn:
+                assert not it.get('subheading') and all(0 <= h['phraseIndex'] < len(it['p']) for h in byn[it['n']]), sec['ref']
+                it['inlineHeadings'] = sorted(byn.pop(it['n']), key=lambda h: h['phraseIndex'])
+        assert not byn, ('Subheadline outside a text paragraph', sec['ref'], byn)
         write_json(OUTPUT/f"{sec['id']}.json", raw)
         sec['volume'] = 1
         sec['paragraphs'] = sum('p' in x for x in raw)

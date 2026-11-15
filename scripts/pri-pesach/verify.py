@@ -46,6 +46,9 @@ def verify(site=None, archives=False):
             local = rd(B.OUTPUT/f"{sec['id']}.json")
             if site: assert rd(Path(site)/f"library/data/peri-tzadik/{sec['id']}.json") == local, 'Published chapter differs: ' + sec['ref']
             ns = [it['n'] for it in local if 'p' in it]
+            assert sec.get('title') and sum(len(it.get('inlineHeadings', [])) for it in local) >= 1, ('Missing headline or subheadline', sec['ref'])
+            first = next(it for it in local if 'p' in it and not it.get('subheading'))
+            assert first.get('inlineHeadings') and first['inlineHeadings'][0]['phraseIndex'] == 0, ('No opening subheadline', sec['ref'])
             assert ns == list(range(1, len(ns)+1)) == list(range(1, sec['paragraphs']+1)), sec['ref']
             for item in local:
                 i = item['sourceParagraph']; assert i not in covered; covered.add(i)
