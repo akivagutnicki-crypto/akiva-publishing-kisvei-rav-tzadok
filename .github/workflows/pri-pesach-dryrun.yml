@@ -2,7 +2,7 @@ name: Dry run of the Pri Tzaddik Pesach and revised Purim reader editions
 
 on:
   push:
-    branches: [pri-pesach-purim-reader]
+    branches: [pri-pesach-purim-reader, pri-pesach-headlines]
   workflow_dispatch:
 
 permissions:

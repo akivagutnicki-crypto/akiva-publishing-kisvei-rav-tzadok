@@ -40,19 +40,22 @@ def verify(site=None, archives=False):
         ps = list(native.find('w:body', NS))
         original_notes = {n.get(W+'id'): n for n in note_xml if int(n.get(W+'id', '0')) > 0 and not n.get(W+'type')}
         expected_rel = {r.get('Id'): r.get('Target') for r in ET.fromstring(z.read('word/_rels/footnotes.xml.rels'))}
-        covered = set(m['printFrontMatter']) | {g['sourceParagraph'] for g in m['groupHeadings']}
+        covered = set(m['printFrontMatter']) | {g['sourceParagraph'] for g in m['groupHeadings']} | {h['sourceParagraph'] for h in m['subheadlines']}
         seen = set(); numbers = []
         for sec in m['sections']:
             local = rd(B.OUTPUT/f"{sec['id']}.json")
             if site: assert rd(Path(site)/f"library/data/peri-tzadik/{sec['id']}.json") == local, 'Published chapter differs: ' + sec['ref']
             ns = [it['n'] for it in local if 'p' in it]
-            assert sec.get('title') and sum(len(it.get('inlineHeadings', [])) for it in local) >= 1, ('Missing headline or subheadline', sec['ref'])
+            assert sec.get('title') and any(it.get('h') == sec['title'] for it in local), ('Missing headline', sec['ref'])
+            assert sum(len(it.get('inlineHeadings', [])) for it in local) == len([h for h in m['subheadlines'] if h['ref'] == sec['ref']]), ('Subheadlines lost', sec['ref'])
             first = next(it for it in local if 'p' in it and not it.get('subheading'))
             assert first.get('inlineHeadings') and first['inlineHeadings'][0]['phraseIndex'] == 0, ('No opening subheadline', sec['ref'])
             assert ns == list(range(1, len(ns)+1)) == list(range(1, sec['paragraphs']+1)), sec['ref']
             for item in local:
-                i = item['sourceParagraph']; assert i not in covered; covered.add(i)
-                raw = ps[i]; source_text = ''.join(n.text or '' for n in raw.iter(W+'t'))
+                i = item['sourceParagraph']; srcs = item.get('sourceParagraphs', [i]); assert srcs[0] == i
+                for j in srcs: assert j not in covered; covered.add(j)
+                raws = [ps[j] for j in srcs]; raw = raws[0]
+                source_text = ''.join(n.text or '' for r in raws for n in r.iter(W+'t'))
                 if 'h' in item: assert item['h'] == source_text; total_heads += 1; continue
                 pairs = [[plain(h), plain(e)] for h, e in item['p']]
                 assert all(h.strip() and e.strip() for h, e in pairs), (sec['ref'], i, 'Unpaired translation')
@@ -61,7 +64,7 @@ def verify(site=None, archives=False):
                 if item.get('subheading'): subheads += 1; total_pairs += len(pairs); continue
                 total_pairs += len(pairs)
                 stream = ''; markers = {}
-                for el in raw.iter():
+                for el in (e for r in raws for e in r.iter()):
                     if el.tag == W+'t': stream += el.text or ''
                     elif el.tag == W+'footnoteReference': markers[el.get(W+'id')] = len(tight(stream))
                 assert set(markers) == {n['wordFootnoteId'] for n in item.get('footnotes', [])}
@@ -93,7 +96,7 @@ def verify(site=None, archives=False):
         assert numbers == list(range(1, B.EXPECTED_NOTES+1)), 'Word reading-order numbering changed'
         relevant = {i for i, p in enumerate(ps) if p.tag == W+'p' and ''.join(t.text or '' for t in p.iter(W+'t')).strip()}
         assert covered == relevant, 'Source paragraph or heading was omitted: ' + str(sorted(relevant - covered)[:5])
-    assert total_heads + subheads == len(m['sourceHeadings']) and subheads == len([h for h in m['sourceHeadings'] if not h['text'].strip().endswith(tuple(' — Maamar ' + x for x in B.NUMBERS))])
+    assert total_heads + subheads == len(m['sourceHeadings']) and subheads == len([h for h in m['sourceHeadings'] if h.get('kind') == 'aligned'])
     assert total_notes == B.EXPECTED_NOTES and total_pairs == m['pairs']
     if site:
         site = Path(site)
