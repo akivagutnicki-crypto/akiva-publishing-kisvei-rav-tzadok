@@ -19,9 +19,9 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 from zipfile import ZipFile
 
-SOURCE = Path('sources/akiva/pri-purim-20261112')
-OUTPUT = Path('sources/akiva/overlays/pri-purim-20261112')
-EDITION = 'pri-purim-docx-20261112-v1'
+SOURCE = Path('sources/akiva/pri-purim-20261115')
+OUTPUT = Path('sources/akiva/overlays/pri-purim-20261115')
+EDITION = 'pri-purim-docx-20261115-v2'
 NS = {'w': 'http://schemas.openxmlformats.org/wordprocessingml/2006/main',
       'r': 'http://schemas.openxmlformats.org/officeDocument/2006/relationships'}
 W = '{' + NS['w'] + '}'
@@ -29,7 +29,7 @@ R = '{' + NS['r'] + '}'
 FIRST_ID = 4000            # Shemos 3000–3147, Bereishis 3400–3549, Moadim 3600–3799
 FILE = 'pri-tzaddik-daled-parshiyos-and-purim.docx'
 PDF = 'pri-tzaddik-daled-parshiyos-and-purim.pdf'
-EXPECTED_NOTES = 1465
+EXPECTED_NOTES = 1949
 LABEL = 'Daled Parshiyos and Purim'
 HE_LABEL = 'ארבע פרשיות ופורים'
 # Word section (English, as on the cover page) -> the library's section name

@@ -6,7 +6,7 @@ import path from 'node:path';
 import http from 'node:http';
 import {pathToFileURL} from 'node:url';
 const read=p=>JSON.parse(fs.readFileSync(p,'utf8'));
-const manifest=read('sources/akiva/overlays/pri-purim-20261112/manifest.json');
+const manifest=read('sources/akiva/overlays/pri-purim-20261115/manifest.json');
 const root=path.resolve(process.env.PURIM_SITE || 'dist');
 const live=process.argv.includes('--url')?process.argv[process.argv.indexOf('--url')+1]:null;
 let pw;try{pw=await import('playwright');}catch{pw=await import(pathToFileURL(path.join(process.env.CODEX_PRIMARY_RUNTIME_NODE_MODULES,'playwright/index.mjs')).href);}
@@ -49,7 +49,7 @@ try{
     const samples=width===1280?manifest.sections:manifest.parashas.map(p=>manifest.sections.find(s=>s.parashah===p&&s.notes));
     const checks=[];
     for(const section of samples){
-      const rows=read(`sources/akiva/overlays/pri-purim-20261112/${section.id}.json`).filter(x=>x.p);
+      const rows=read(`sources/akiva/overlays/pri-purim-20261115/${section.id}.json`).filter(x=>x.p);
       await page.goto(base+'#/read/'+hash(section.ref),{waitUntil:'domcontentloaded'});
       await page.waitForFunction(({ref,count})=>[...document.querySelectorAll('.sec')].some(s=>s.dataset.ref===ref&&s.querySelectorAll('.seg-il .ph').length===count),{ref:section.ref,count:section.pairs},{timeout:60000});
       const actual=await page.locator('.sec').evaluateAll((nodes,ref)=>{
