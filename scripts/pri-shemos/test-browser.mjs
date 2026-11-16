@@ -64,7 +64,8 @@ try{
           const notes=[...ph.querySelectorAll('.reader-footnote')].map(n=>({number:Number(n.dataset.fn),paragraphs:[...n.querySelectorAll('.annotation-text')].map(p=>p.textContent),links:[...n.querySelectorAll('a[href]')].map(a=>a.getAttribute('href'))}));
           return {he:h.textContent,en:e.textContent,markers,notes};
         })}));
-        return {paragraphs,englishMarkers:s.querySelectorAll('.seg-il .ph-en .footnote-marker').length,
+        const subheads=[...s.querySelectorAll('.seg-il .subhead')].map(x=>x.textContent.replace(/\s+/g,' ').trim());
+        return {paragraphs,subheads,sectionText:s.textContent.replace(/\s+/g,' '),englishMarkers:s.querySelectorAll('.seg-il .ph-en .footnote-marker').length,
           horizontalOverflow:document.documentElement.scrollWidth>innerWidth+8,
           download:s.querySelector('.section-docx-link a')?.getAttribute('href')};
       },section.ref);
@@ -84,6 +85,10 @@ try{
           }
         }
       }
+      // the maamar's headline and every subheadline (v3), in order
+      const wantHeads=rows.flatMap(r=>(r.inlineHeadings||[]).map(h=>h.text.replace(/\s+/g,' ').trim()));
+      assert.deepEqual(actual.subheads.filter(t=>wantHeads.includes(t)),wantHeads,section.ref+' subheadlines');
+      assert(actual.sectionText.includes(section.title.replace(/\s+/g,' ')),section.ref+' headline');
       assert.equal(markers,section.notes);assert.equal(actual.englishMarkers,0);assert(!actual.horizontalOverflow,section.ref+' horizontal overflow');
       assert.equal(actual.download,'downloads/'+manifest.volumes.find(v=>v.volume===section.volume).download);
       if(section===manifest.sections.find(s=>s.parashah===section.parashah&&s.notes)){
