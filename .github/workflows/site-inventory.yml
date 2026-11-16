@@ -28,8 +28,8 @@ jobs:
       - name: List sizes
         run: |
           python3 - <<'PY'
-          import os, tarfile, collections
-          t = tarfile.open(os.path.join(os.environ['RUNNER_TEMP'], 'site/artifact.tar'))
+          import os, tarfile, collections, glob
+          t = tarfile.open(glob.glob(os.path.join(os.environ['RUNNER_TEMP'], 'site/**/artifact.tar'), recursive=True)[0])
           files = [(m.name.lstrip('./'), m.size) for m in t.getmembers() if m.isfile()]
           total = sum(s for _, s in files)
           print(f'FILES {len(files)} TOTAL {total}')
