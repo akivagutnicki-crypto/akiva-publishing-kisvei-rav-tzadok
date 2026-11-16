@@ -24,7 +24,7 @@ from pathlib import Path
 
 SOURCE = Path('sources/akiva/pri-moadim-20261111')
 OUTPUT = Path('sources/akiva/overlays/pri-moadim-20261111')
-EDITION = 'pri-moadim-20261111-v3'
+EDITION = 'pri-moadim-20261111-v4'
 FIRST_ID = 3600            # Shemos 3000–3147, Bereishis 3400–3549
 VOLUMES = [
     {'volume': 1, 'dir': 'iyar-av', 'revs': 33, 'file': 'Pri_Tzaddik_Iyar_through_Menachem_Av_Interlinear.docx',
