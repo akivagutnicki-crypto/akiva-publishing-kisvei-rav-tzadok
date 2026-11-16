@@ -1,10 +1,14 @@
 {
   // Browser-only setup: Cloudflare Workers & Pages > Create > Import repository.
-  // This Worker exposes /mcp while the website remains hosted by GitHub Pages.
+  // This Worker serves the whole website as static assets (the publication mirrored to the site-latest release by
+  // .github/workflows/site-mirror.yml, fetched by scripts/cf-build.sh at deploy) and exposes /mcp.
   "name": "akiva-publishing-kisvei-rav-tzadok",
   "main": "cloudflare/worker.mjs",
   "compatibility_date": "2026-10-11",
   "workers_dev": true,
+  "build": { "command": "bash scripts/cf-build.sh" },
+  // Files are served first; the Worker runs for /mcp, /health, /ask and the few files over 25 MB (redirected).
+  "assets": { "directory": "./site", "binding": "ASSETS", "html_handling": "auto-trailing-slash", "not_found_handling": "none" },
   // Cloudflare Workers AI, for /ask (short written answers in the reader's Mafteach search)
   "ai": { "binding": "AI" },
   // Workers Paid: a library-wide search reads one index file per book and field (over 50 subrequests)
