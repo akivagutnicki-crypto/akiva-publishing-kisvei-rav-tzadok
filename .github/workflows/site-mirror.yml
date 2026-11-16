@@ -1,0 +1,71 @@
+name: Mirror the published site to Cloudflare (via the site-latest release)
+
+on:
+  deployment_status:
+  schedule:
+    - cron: '17 * * * *'
+  workflow_dispatch:
+    inputs:
+      force:
+        description: Mirror even if the current publication was already mirrored
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+  actions: read
+
+concurrency:
+  group: site-mirror
+  cancel-in-progress: false
+
+jobs:
+  mirror:
+    if: ${{ github.repository == 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok' && (github.event_name != 'deployment_status' || (github.event.deployment_status.state == 'success' && github.event.deployment.environment == 'github-pages')) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    env:
+      GITHUB_TOKEN: ${{ github.token }}
+      GH_TOKEN: ${{ github.token }}
+      FORCE: ${{ inputs.force }}
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: main
+      - name: Find the current publication
+        id: find
+        run: python3 scripts/site-mirror.py find
+      - name: Download it
+        if: steps.find.outputs.changed == '1'
+        uses: actions/download-artifact@v4
+        with:
+          artifact-ids: ${{ steps.find.outputs.artifact }}
+          run-id: ${{ steps.find.outputs.run }}
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/pages
+      - name: Package for Cloudflare and upload to the site-latest release
+        if: steps.find.outputs.changed == '1'
+        run: |
+          set -e
+          TAR=$(find "$RUNNER_TEMP/pages" -name artifact.tar | head -1)
+          python3 scripts/site-mirror.py package "$TAR" "$RUNNER_TEMP/out"
+          rm -rf "$RUNNER_TEMP/pages"
+          cd "$RUNNER_TEMP/out"
+          gh release view site-latest -R "$GITHUB_REPOSITORY" >/dev/null 2>&1 || \
+            gh release create site-latest -R "$GITHUB_REPOSITORY" --title "Published site (for Cloudflare)" --notes "pending" --latest=false
+          gh release upload site-latest -R "$GITHUB_REPOSITORY" --clobber site.tar.gz $(python3 -c "import json;print(' '.join(json.load(open('big-files.json')).values()))")
+          keep=$(python3 -c "import json;print(' '.join(['site.tar.gz']+list(json.load(open('big-files.json')).values())))")
+          for a in $(gh release view site-latest -R "$GITHUB_REPOSITORY" --json assets -q '.assets[].name'); do
+            case " $keep " in *" $a "*) ;; *) gh release delete-asset site-latest "$a" -R "$GITHUB_REPOSITORY" -y ;; esac
+          done
+          gh release edit site-latest -R "$GITHUB_REPOSITORY" --notes "Mirror of the GitHub Pages publication for the Cloudflare Worker. run=${{ steps.find.outputs.run }} artifact=${{ steps.find.outputs.artifact }}"
+      - name: Tell Cloudflare to redeploy (Workers Builds deploys on every push to main)
+        if: steps.find.outputs.changed == '1'
+        run: |
+          set -e
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          echo "run=${{ steps.find.outputs.run }} artifact=${{ steps.find.outputs.artifact }}" > cloudflare/site-version.txt
+          git add cloudflare/site-version.txt
+          git commit -m "Cloudflare: site mirror ${{ steps.find.outputs.run }}"
+          git push origin HEAD:main
