@@ -7,6 +7,8 @@
   "workers_dev": true,
   // Cloudflare Workers AI, for /ask (short written answers in the reader's Mafteach search)
   "ai": { "binding": "AI" },
+  // Workers Paid: a library-wide search reads one index file per book and field (over 50 subrequests)
+  "limits": { "subrequests": 10000 },
   "vars": {
     "MCP_SITE_ORIGIN": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok"
   }
