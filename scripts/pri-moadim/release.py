@@ -95,6 +95,8 @@ def apply(site):
         assert sha(B.SOURCE / v['file']) == v['sha256'], 'Source Word file changed'
         target = lib / 'downloads' / v['download']; target.parent.mkdir(parents=True, exist_ok=True)
         shutil.copyfile(B.SOURCE / v['file'], target)
+        assert sha(B.SOURCE / v['pdf']) == v['pdfSha256'], 'Source PDF changed'
+        shutil.copyfile(B.SOURCE / v['pdf'], lib / 'downloads' / v['pdfDownload'])
         group = {'en': v['label'], 'he': v['he'], KEY: B.EDITION, 'children': []}
         vs = [s for s in secs if s['volume'] == v['volume']]
         for name in dict.fromkeys(s['parashah'] for s in vs):
@@ -105,7 +107,8 @@ def apply(site):
                 pg['children'].append({k: s[k] for k in ('en', 'he', 'id', 'ref', 'heRef', 'parashah', 'ois')} | {'en': s['title'],
                     'depth': 1, 'shape': s['paragraphs'], 'il1': True, 'interlinear': True, 'sep': ':',
                     'reviewedEdition': B.EDITION, 'downloadDocx': 'downloads/' + v['download'],
-                    'downloadDocxLabel': v['label'] + ' · Complete Word edition'})
+                    'downloadDocxLabel': v['label'] + ' · Complete Word edition',
+                    'downloadPdf': 'downloads/' + v['pdfDownload'], 'downloadPdfLabel': v['label'] + ' · Print edition PDF'})
             group['children'].append(pg)
         existing['children'].append(group)
     wr(pt / 'toc.json', original)
@@ -115,6 +118,9 @@ def apply(site):
         file = 'downloads/' + v['download']
         if not any(d['file'] == file for d in book.setdefault('downloads', [])):
             book['downloads'].append({'file': file, 'label': v['label'] + ' · Complete interlinear Word edition'})
+        file = 'downloads/' + v['pdfDownload']
+        if not any(d['file'] == file for d in book['downloads']):
+            book['downloads'].append({'file': file, 'label': v['label'] + ' · Print edition PDF'})
     wr(data / 'catalog.json', catalog)
     # every footnote link must be Sefaria (verify.py holds this), so the reader's link filter needs no additions
     for s in secs:
@@ -209,7 +215,7 @@ def exports(site):
 def permitted(name):
     m = rd(B.OUTPUT / 'manifest.json')
     ids = '|'.join(str(s['id']) for s in m['sections'])
-    downloads = '|'.join(re.escape(v['download']) for v in m['volumes'])
+    downloads = '|'.join(re.escape(x) for v in m['volumes'] for x in (v['download'], v['pdfDownload']))
     allowed = re.compile(r'^(library/index\.html|library/sw\.js|library/data/(catalog|files)\.json|library/data/peri-tzadik/(toc|'
                          + ids + r')\.json|library/downloads/(index\.json|rav-tzadok-library\.zip|books/peri-tzadik\.zip|'
                          + downloads + r')|library/pri-moadim-publication\.json|mcp-data/(catalog|text/peri-tzadik)\.json|'
