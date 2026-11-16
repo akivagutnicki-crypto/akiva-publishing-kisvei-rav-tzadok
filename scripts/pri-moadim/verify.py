@@ -56,26 +56,42 @@ def verify(site=None, archives=False):
             assert s['ref'] == want, (s['ref'], want)
             if d == 'iyar-av': assert info[str(h['m'])]['heading'] == h['text'], h['text']
         # every unit, in order, exactly
+        hl = rd(base / 'headlines.json'); assert v['headlines'] == sha(base / 'headlines.json')
+        want_word = []; got = {}
         k = -1; items = []; pos = 0
         for u, r in zip(units, rev):
             if u['type'] == 'heading':
                 k += 1; s = vsecs[k]; items = rd(OUTPUT / f"{s['id']}.json"); pos = 0
-                assert items[0] == {'h': r['he'] + ' ' + r['en'], 'unit': r['id']}; pos = 1
+                assert items[0] == {'h': r['he'] + ' ' + r['en'], 'unit': r['id']}
+                assert items[1] == {'h': hl['heads'][r['id']]} and s['title'] == hl['heads'][r['id']], (s['ref'], 'headline'); pos = 2
                 assert s['he'] == r['he'] and s['en'] == r['en']
+                want_word.append(('Subtitle', s['title']))
                 continue
             it = items[pos]; pos += 1
             assert it['unit'] == r['id'], (s['ref'], r['id'], 'order')
             want = [[r['he'], r['en']]] if u['type'] == 'subheading' else r['segs']
             assert [[plain(h), plain(e)] for h, e in it['p']] == want, (s['ref'], r['id'], 'phrase pairs differ')
             assert bool(it.get('subheading')) == (u['type'] == 'subheading')
+            for ih in it.get('inlineHeadings', []):
+                assert ih['kind'] == 'subsection' and 0 <= ih['phraseIndex'] < len(it['p'])
+                got[f"{r['id']}#{ih['phraseIndex']}"] = ih['text']; want_word.append(('Heading4', ih['text']))
             totals['subheadings'] += u['type'] == 'subheading'
             if pos == len(items) or 'unit' not in items[pos]:   # end of the maamar's units
                 rest = items[pos:]
                 assert all(x.get('colophon') for x in rest) and (len(rest) == (s['ref'] == COLOPHON))
+        assert got == hl['subs'], (v['label'], 'subheadlines differ from headlines.json')
+        # the Word edition carries the same headlines and subheadlines, in the same order
+        with ZipFile(SOURCE / v['file']) as z: body = z.read('word/document.xml').decode('utf-8')
+        word = [(st, html.unescape(re.sub('<[^>]*>', '', p)).strip()) for st, p in
+                re.findall(r'<w:p\b[^>]*>(?:(?!</w:p>).)*?<w:pStyle w:val="(Subtitle|Heading4)"/>(.*?)</w:p>', body, re.S)]
+        assert word == want_word, (v['label'], 'Word headlines differ', len(word), len(want_word))
+        totals['headlines'] = totals.get('headlines', 0) + len(vsecs); totals['subheadlines'] = totals.get('subheadlines', 0) + len(got)
         for s in vsecs:
             items = rd(OUTPUT / f"{s['id']}.json")
             assert [x['n'] for x in items if 'p' in x] == list(range(1, s['paragraphs'] + 1))
-            assert all('h' in x for x in items[:1]) and not any('h' in x for x in items[1:])
+            assert all('h' in x for x in items[:2]) and not any('h' in x for x in items[2:])
+            first = next(x for x in items if 'p' in x and not x.get('subheading'))
+            assert first.get('inlineHeadings') and first['inlineHeadings'][0]['phraseIndex'] == 0, (s['ref'], 'no opening subheadline')
             totals['paragraphs'] += s['paragraphs']; totals['pairs'] += s['pairs']
     assert totals['paragraphs'] == m['paragraphs'] and totals['pairs'] == m['pairs'] and totals['subheadings'] == 9
     # footnotes: every note of the Word edition, at its unit and phrase, numbered in reading order, Sefaria links only
@@ -124,7 +140,7 @@ def verify(site=None, archives=False):
         for s in secs:
             assert rd(data / f"peri-tzadik/{s['id']}.json") == rd(OUTPUT / f"{s['id']}.json"), 'Published chapter differs: ' + s['ref']
             found = [l for l in published if l.get('ref') == s['ref'] and l.get('interlinear')]
-            assert len(found) == 1 and found[0]['id'] == s['id'] and found[0]['shape'] == s['paragraphs'], s['ref']
+            assert len(found) == 1 and found[0]['id'] == s['id'] and found[0]['shape'] == s['paragraphs'] and found[0]['en'] == s['title'], s['ref']
             sc = [x for x in book['sections'] if x['ref'] == s['ref'] and x.get('moadimEdition')]
             assert len(sc) == 1, s['ref']; sc = sc[0]
             paras = text['paras'][sc['first']:sc['first'] + sc['count']]
@@ -132,6 +148,8 @@ def verify(site=None, archives=False):
             items = [x for x in rd(OUTPUT / f"{s['id']}.json") if 'p' in x]
             assert [p['p'] for p in paras] == [[[plain(h), plain(e)] for h, e in x['p']] for x in items], s['ref'] + ' MCP text'
             assert [len(p.get('f', [])) for p in paras] == [len(x.get('footnotes', [])) for x in items], s['ref'] + ' MCP notes'
+            assert [p.get('inlineHeadings') for p in paras] == [x.get('inlineHeadings') for x in items], s['ref'] + ' MCP subheadlines'
+            assert sc['title'] == s['title'], s['ref'] + ' MCP title'
         for v in m['volumes']:
             assert sha(lib / 'downloads' / v['download']) == v['sha256'], 'Download differs: ' + v['download']
         assert (site / 'mcp-data/text/peri-tzadik.json').stat().st_size <= 45_000_000

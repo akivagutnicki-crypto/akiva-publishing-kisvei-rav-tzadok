@@ -12,6 +12,10 @@ So that the study edition's paragraph numbers line up with the library's origina
 Footnotes (v2): each volume's footnotes.json holds the notes of the finished Word edition, keyed by unit id and phrase
 index ("m0p1#7" -> note numbers), exactly as they were placed in the Word file. They are numbered here in reading
 order, which is Word's own display numbering. Every link is a Sefaria link.
+Headlines (v3): each volume's headlines.json gives every maamar a topical headline (the Word edition's Subtitle line under
+the maamar heading; the chapter title in the contents and an 'h' item in the reader) and subheadlines keyed by unit id and
+phrase index ("m0p1#17"), exactly where the Word edition sets its Heading 4 lines. In the reader they are inlineHeadings at
+that phrase, in the shape of the Pesach edition.
 """
 import hashlib
 import html
@@ -20,7 +24,7 @@ from pathlib import Path
 
 SOURCE = Path('sources/akiva/pri-moadim-20261111')
 OUTPUT = Path('sources/akiva/overlays/pri-moadim-20261111')
-EDITION = 'pri-moadim-20261111-v2'
+EDITION = 'pri-moadim-20261111-v3'
 FIRST_ID = 3600            # Shemos 3000–3147, Bereishis 3400–3549
 VOLUMES = [
     {'volume': 1, 'dir': 'iyar-av', 'revs': 33, 'file': 'Pri_Tzaddik_Iyar_through_Menachem_Av_Interlinear.docx',
@@ -95,6 +99,7 @@ def build():
     refs = read_json(SOURCE / 'iyar-av/refs.json')
     for v in VOLUMES:
         d = SOURCE / v['dir']; units = read_json(d / 'units.json'); rev = revs(v)
+        hl = read_json(d / 'headlines.json'); subs_used = set()
         assert [u['id'] for u in units] == [r['id'] for r in rev], v['dir'] + ': revision ids differ from units.json'
         cur = None; maamar = None
         for u, r in zip(units, rev):
@@ -107,6 +112,7 @@ def build():
                        'id': FIRST_ID + len(sections), 'volume': v['volume'], 'items': [], 'units': []}
                 sections.append(cur); maamar = u['m']
                 cur['items'].append({'h': r['he'] + ' ' + r['en'], 'unit': r['id']})
+                cur['title'] = hl['heads'][r['id']]; cur['items'].append({'h': cur['title']})
             else:
                 assert cur is not None and u['m'] == maamar, r['id'] + ': unit outside its maamar'
                 if u['type'] == 'subheading':
@@ -117,11 +123,19 @@ def build():
                     pairs = r['segs']
                 assert all(isinstance(h, str) and isinstance(e, str) and h.strip() and e.strip() for h, e in pairs), r['id']
                 n = sum('p' in x for x in cur['items']) + 1
+                inline = []
+                for pi in range(len(pairs)):
+                    key = f"{r['id']}#{pi}"
+                    if key in hl['subs']:
+                        assert u['type'] == 'para', key; subs_used.add(key)
+                        inline.append({'phraseIndex': pi, 'text': hl['subs'][key], 'kind': 'subsection'})
                 cur['items'].append({'p': [[esc(h), esc(e)] for h, e in pairs], 'keepPairs': True, 'n': n,
-                                     'unit': r['id'], **({'subheading': True} if u['type'] == 'subheading' else {})})
+                                     'unit': r['id'], **({'subheading': True} if u['type'] == 'subheading' else {}),
+                                     **({'inlineHeadings': inline} if inline else {})})
             cur['units'].append(r['id'])
+        assert subs_used == set(hl['subs']), (v['dir'], 'subheadlines not placed')
         footnotes = attach_notes(v, sections, [s for s in sections if s['volume'] == v['volume']])
-        volumes.append({'volume': v['volume'], 'footnotes': footnotes, 'label': v['label'], 'he': v['he'], 'file': v['dir'] + '/' + v['file'],
+        volumes.append({'volume': v['volume'], 'footnotes': footnotes, 'headlines': digest(d / 'headlines.json'), 'label': v['label'], 'he': v['he'], 'file': v['dir'] + '/' + v['file'],
                         'sha256': digest(d / v['file']), 'bytes': (d / v['file']).stat().st_size, 'download': v['download'],
                         'units': len(units), 'revisionFiles': {f'rev{i:02d}.jsonl': digest(d / f'rev{i:02d}.jsonl') for i in range(1, v['revs'] + 1)}})
     for ref, pair in COLOPHONS.items():
@@ -138,6 +152,8 @@ def build():
         sec['subheadings'] = sum(bool(x.get('subheading')) for x in items)
         sec['colophons'] = sum(bool(x.get('colophon')) for x in items)
         sec['notes'] = sum(len(x.get('footnotes', [])) for x in items)
+        sec['subheadlines'] = sum(len(x.get('inlineHeadings', [])) for x in items)
+        assert sec['title'] and sec['subheadlines'] and items[2].get('inlineHeadings', [{}])[0].get('phraseIndex') == 0 or items[2].get('subheading'), sec['ref']
         sec['heRef'] = 'פרי צדיק, ' + sec['he']
     report = {'edition': EDITION, 'volumes': volumes, 'sections': sections,
               'groups': list(dict.fromkeys(s['parashah'] for s in sections)),
@@ -147,7 +163,8 @@ def build():
         vs = [s for s in sections if s['volume'] == v['volume']]
         print(json.dumps({'volume': v['label'], 'sections': len(vs), 'paragraphs': sum(s['paragraphs'] for s in vs),
                           'pairs': sum(s['pairs'] for s in vs), 'subheadings': sum(s['subheadings'] for s in vs),
-                          'colophons': sum(s['colophons'] for s in vs), 'footnotes': v['footnotes']}))
+                          'colophons': sum(s['colophons'] for s in vs), 'footnotes': v['footnotes'],
+                          'headlines': sum(bool(s.get('title')) for s in vs), 'subheadlines': sum(s['subheadlines'] for s in vs)}))
     return report
 
 
