@@ -1,0 +1,109 @@
+name: Publish reviewed Kometz HaMinchah II 70–72
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+  actions: read
+  pages: write
+  id-token: write
+concurrency:
+  group: ${{ (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[kometz-ii70-72-release]')) && 'pages' || format('kometz-ii70-72-skipped-{0}', github.run_id) }}
+  cancel-in-progress: false
+jobs:
+  publish:
+    if: ${{ github.repository == 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok' && github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[kometz-ii70-72-release]')) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check out the exact reviewed revision
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+      - name: Set up Node 24
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+      - name: Check publication code
+        run: |
+          python3 -m py_compile scripts/publish-kometz-ii70-72.py scripts/kometz-ii70-72-release.py
+          node --check scripts/test-kometz-ii70-72-browser.cjs
+      - name: Pin and verify the actual current publication
+        id: baseline
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/kometz-ii70-72-release.py metadata
+      - name: Download the complete current Pages publication
+        uses: actions/download-artifact@v4
+        with:
+          artifact-ids: ${{ steps.baseline.outputs.artifact }}
+          run-id: ${{ steps.baseline.outputs.run }}
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/kometz-baseline
+          merge-multiple: true
+      - name: Restore the complete site and verify its live fingerprints
+        run: python3 scripts/kometz-ii70-72-release.py restore .kometz-site "$RUNNER_TEMP/kometz-baseline/artifact.tar"
+      - name: Publish the three reviewed sections and verify preservation and repeat safety
+        run: |
+          python3 scripts/publish-kometz-ii70-72.py apply .kometz-site
+          python3 scripts/publish-kometz-ii70-72.py apply .kometz-site
+          python3 scripts/publish-kometz-ii70-72.py verify .kometz-site
+          node --check .kometz-site/library/sw.js
+      - name: Install the browser verification runtime
+        run: |
+          npm install --prefix "$RUNNER_TEMP/kometz-browser" --no-save --package-lock=false playwright@1.62.1
+          "$RUNNER_TEMP/kometz-browser/node_modules/.bin/playwright" install --with-deps chromium
+      - name: Verify all phrases and footnotes on desktop and mobile
+        env:
+          KOMETZ_PLAYWRIGHT: ${{ runner.temp }}/kometz-browser/node_modules/playwright
+        run: node scripts/test-kometz-ii70-72-browser.cjs .kometz-site
+      - name: Guard against an intervening publication
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/kometz-ii70-72-release.py guard
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+      - name: Upload the preserved complete site
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: .kometz-site
+          retention-days: 14
+      - name: Wait for the uploaded Pages artifact registration
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          node --input-type=module <<'NODE'
+          const url='https://api.github.com/repos/'+process.env.GITHUB_REPOSITORY+'/actions/runs/'+process.env.GITHUB_RUN_ID+'/artifacts?per_page=100';
+          for(let attempt=0;attempt<20;attempt++){
+            await new Promise(resolve=>setTimeout(resolve,5000));
+            const response=await fetch(url,{headers:{Authorization:'Bearer '+process.env.GH_TOKEN,Accept:'application/vnd.github+json'}});
+            if(!response.ok)throw Error('Cannot inspect uploaded Pages artifact: '+response.status);
+            const result=await response.json();
+            if(result.artifacts.some(a=>a.name==='github-pages'&&!a.expired))process.exit(0);
+          }
+          throw Error('Uploaded Pages artifact has not become visible to the deployment API');
+          NODE
+      - name: Recheck main and the live publication immediately before deployment
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/kometz-ii70-72-release.py guard
+      - name: Deploy the corrected Reader
+        id: deployment
+        uses: actions/deploy-pages@v4
+      - name: Verify the corrected sections, links, and MCP edition are live
+        run: python3 scripts/kometz-ii70-72-release.py verify-live .kometz-site
+      - name: Save publication and browser evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: kometz-ii70-72-reviewed-edition-evidence
+          retention-days: 30
+          path: |
+            .kometz-site/library/kometz-ii70-72-publication.json
+            kometz-ii70-72-release-state.json
+            kometz-ii70-72-live-verification.json
+            artifacts/kometz-ii70-72/
