@@ -24,14 +24,14 @@ from pathlib import Path
 
 SOURCE = Path('sources/akiva/pri-moadim-20261111')
 OUTPUT = Path('sources/akiva/overlays/pri-moadim-20261111')
-EDITION = 'pri-moadim-20261111-v4'
+EDITION = 'pri-moadim-20261111-v5'
 FIRST_ID = 3600            # Shemos 3000–3147, Bereishis 3400–3549
 VOLUMES = [
     {'volume': 1, 'dir': 'iyar-av', 'revs': 33, 'file': 'Pri_Tzaddik_Iyar_through_Menachem_Av_Interlinear.docx',
-     'download': 'pri-tzaddik-iyar-through-menachem-av-interlinear.docx',
+     'download': 'pri-tzaddik-iyar-through-menachem-av-interlinear.docx', 'pdf': 'pri-tzaddik-iyar-through-menachem-av-interlinear.pdf',
      'label': 'Iyar through Menachem Av', 'he': 'אייר – מנחם אב'},
     {'volume': 2, 'dir': 'elul-sukkos', 'revs': 47, 'file': 'Pri_Tzaddik_Elul_through_Sukkos_7x10_KDP.docx',
-     'download': 'pri-tzaddik-elul-through-sukkos-interlinear.docx',
+     'download': 'pri-tzaddik-elul-through-sukkos-interlinear.docx', 'pdf': 'pri-tzaddik-elul-through-sukkos-kdp-7x10.pdf',
      'label': 'Elul through Sukkos', 'he': 'אלול – סוכות'},
 ]
 # Group (festival) names in the contents, by the library ref's section name
@@ -137,6 +137,7 @@ def build():
         footnotes = attach_notes(v, sections, [s for s in sections if s['volume'] == v['volume']])
         volumes.append({'volume': v['volume'], 'footnotes': footnotes, 'headlines': digest(d / 'headlines.json'), 'label': v['label'], 'he': v['he'], 'file': v['dir'] + '/' + v['file'],
                         'sha256': digest(d / v['file']), 'bytes': (d / v['file']).stat().st_size, 'download': v['download'],
+                        'pdf': v['dir'] + '/' + v['pdf'], 'pdfDownload': v['pdf'], 'pdfSha256': digest(d / v['pdf']), 'pdfBytes': (d / v['pdf']).stat().st_size,
                         'units': len(units), 'revisionFiles': {f'rev{i:02d}.jsonl': digest(d / f'rev{i:02d}.jsonl') for i in range(1, v['revs'] + 1)}})
     for ref, pair in COLOPHONS.items():
         sec = next(s for s in sections if s['ref'] == ref)

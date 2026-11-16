@@ -40,6 +40,7 @@ def verify(site=None, archives=False):
     for v in m['volumes']:
         d, n = DIRS[v['volume']]; base = SOURCE / d
         assert sha(SOURCE / v['file']) == v['sha256'] and (SOURCE / v['file']).stat().st_size <= 10_000_000
+        assert sha(SOURCE / v['pdf']) == v['pdfSha256'] and v['pdfBytes'] <= 10_000_000, 'PDF over 10 MB or changed'
         units = rd(base / 'units.json')
         rev = []
         for i in range(1, n + 1):
@@ -152,6 +153,7 @@ def verify(site=None, archives=False):
             assert sc['title'] == s['title'], s['ref'] + ' MCP title'
         for v in m['volumes']:
             assert sha(lib / 'downloads' / v['download']) == v['sha256'], 'Download differs: ' + v['download']
+            assert sha(lib / 'downloads' / v['pdfDownload']) == v['pdfSha256'], 'PDF download differs: ' + v['pdfDownload']
         assert (site / 'mcp-data/text/peri-tzadik.json').stat().st_size <= 45_000_000
         if archives:
             files = rd(data / 'files.json'); index = rd(lib / 'downloads/index.json')
