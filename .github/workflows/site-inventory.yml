@@ -1,0 +1,50 @@
+name: Inventory the published site (sizes only, no publishing)
+
+on:
+  workflow_dispatch:
+    inputs:
+      run:
+        description: Run id holding the github-pages artifact
+        required: true
+      artifact:
+        description: github-pages artifact id
+        required: true
+
+permissions:
+  contents: read
+  actions: read
+
+jobs:
+  inventory:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          artifact-ids: ${{ inputs.artifact }}
+          run-id: ${{ inputs.run }}
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/site
+      - name: List sizes
+        run: |
+          python3 - <<'PY'
+          import os, tarfile, collections
+          t = tarfile.open(os.path.join(os.environ['RUNNER_TEMP'], 'site/artifact.tar'))
+          files = [(m.name.lstrip('./'), m.size) for m in t.getmembers() if m.isfile()]
+          total = sum(s for _, s in files)
+          print(f'FILES {len(files)} TOTAL {total}')
+          for depth in (1, 2, 3):
+              d = collections.Counter()
+              for n, s in files: d['/'.join(n.split('/')[:depth])] += s
+              print(f'== DIRS depth {depth}')
+              for k, s in d.most_common(40): print(f'DIR {s:>12} {k}')
+          e = collections.Counter()
+          for n, s in files: e[os.path.splitext(n)[1].lower()] += s
+          print('== EXT')
+          for k, s in e.most_common(20): print(f'EXT {s:>12} {k}')
+          print('== LARGEST')
+          for n, s in sorted(files, key=lambda x: -x[1])[:120]: print(f'BIG {s:>12} {n}')
+          print('== PDF')
+          for n, s in sorted(files):
+              if n.lower().endswith('.pdf'): print(f'PDF {s:>12} {n}')
+          PY
