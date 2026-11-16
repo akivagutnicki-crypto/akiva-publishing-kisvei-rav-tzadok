@@ -75,11 +75,16 @@ async function ask(request, env) {
   return new Response(out, { headers });
 }
 
+import bigFiles from './big-files.json' with { type: 'json' };
+const RELEASE = 'https://github.com/akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok/releases/download/site-latest/';
+
 export default {
   async fetch(request, env, context) {
     const pathname = new URL(request.url).pathname;
     if (pathname === '/health' && request.method === 'GET') return health(env);
     if (pathname === '/ask' || pathname === '/ask/') return ask(request, env);
+    const big = bigFiles[decodeURIComponent(pathname).replace(/^\/+/, '')];
+    if (big) return Response.redirect(RELEASE + encodeURIComponent(big), 302);
     if (pathname === '/' && request.method === 'GET') {
       return new Response('Akiva Publishing MCP server. Use /health for a browser-friendly status check and /mcp for MCP clients.', {
         headers: { 'Content-Type': 'text/plain; charset=utf-8' },
