@@ -21,7 +21,7 @@ from zipfile import ZipFile
 
 SOURCE = Path('sources/akiva/pri-purim-20261115')
 OUTPUT = Path('sources/akiva/overlays/pri-purim-20261115')
-EDITION = 'pri-purim-docx-20261115-v3'
+EDITION = 'pri-purim-docx-20261115-v4'
 NS = {'w': 'http://schemas.openxmlformats.org/wordprocessingml/2006/main',
       'r': 'http://schemas.openxmlformats.org/officeDocument/2006/relationships'}
 W = '{' + NS['w'] + '}'
@@ -175,7 +175,7 @@ def build():
         assert len(order) == len(set(order)) == len(notes) == EXPECTED_NOTES, (len(order), len(notes))
         assert set(order) == set(notes), 'Unreferenced native footnotes'
         numbering = {fid: i+1 for i,fid in enumerate(order)}
-        cur = None; n = 0; group = None
+        cur = None; n = 0; group = None; pending = []; subheadlines = []
         for i,p in enumerate(document.find('w:body',NS)):
             assert p.tag in (W+'p', W+'sectPr'), 'Unexpected table or source block'
             if p.tag != W+'p': continue
@@ -201,8 +201,18 @@ def build():
                 sections.append(cur)
                 cur['items'].append({'h': t, 'sourceParagraph': i})
                 source_headings.append({'sourceParagraph': i, 'text': t, 'ref': cur['ref']})
-            elif style.startswith('Heading') or style == 'Subtitle':
+            elif style == 'Subtitle':
+                # the maamar's topical headline (v4): the contents title, and the chapter's opening heading in the reader
+                assert cur is not None and not list(p.iter(W+'footnoteReference')) and 'title' not in cur
+                cur['title'] = BIDI.sub('', t).strip(); cur['items'].append({'h': t, 'sourceParagraph': i})
+                source_headings.append({'sourceParagraph': i, 'text': t, 'ref': cur['ref'], 'kind': 'headline'})
+            elif style == 'Heading4':
+                # a subheadline (v4): shown inline at the first phrase of the text that follows it
                 assert cur is not None and not list(p.iter(W+'footnoteReference'))
+                pending.append({'text': BIDI.sub('', t).strip(), 'kind': 'subsection', 'sourceParagraph': i})
+                subheadlines.append({'sourceParagraph': i, 'text': t, 'ref': cur['ref']})
+            elif style.startswith('Heading'):
+                assert cur is not None and not list(p.iter(W+'footnoteReference')) and not pending
                 if ALIGNED_SUBHEADS.get(cur['ref']) == n + 1:
                     n += 1; he, en = split_heading(t)
                     cur['items'].append({'p': [[html.escape(he, quote=False), html.escape(en, quote=False)]], 'keepPairs': True,
@@ -213,8 +223,21 @@ def build():
             else:
                 assert cur is not None, f'Paragraph {i} outside a maamar'
                 item = paragraph(p, body_rels, notes, numbering, 1, i)
-                if item.get('p'): n += 1; item['n'] = n
-                cur['items'].append(item)
+                if style == 'BodyContinue':
+                    # the same paragraph of the original, continued after a subheadline
+                    prev = cur['items'][-1]; assert 'p' in prev and not prev.get('subheading') and item.get('p'), i
+                    off = len(prev['p'])
+                    for h in pending: prev.setdefault('inlineHeadings', []).append({'phraseIndex': off, 'text': h['text'], 'kind': 'subsection'})
+                    for fn in item.get('footnotes', []): fn['phraseIndex'] += off
+                    prev['p'] += item['p']; prev.setdefault('sourceParagraphs', [prev['sourceParagraph']]).append(i)
+                    if item.get('footnotes'): prev.setdefault('footnotes', []).extend(item['footnotes'])
+                else:
+                    if item.get('p'):
+                        n += 1; item['n'] = n
+                        if pending: item['inlineHeadings'] = [{'phraseIndex': 0, 'text': h['text'], 'kind': 'subsection'} for h in pending]
+                    else: assert not pending, i
+                    cur['items'].append(item)
+                pending = []
     actual = sum(len(it.get('footnotes',[])) for s in sections for it in s['items'])
     assert actual == EXPECTED_NOTES
     volumes = [{'volume': 1, 'file': FILE, 'sha256': digest(source), 'bytes': source.stat().st_size, 'footnotes': actual,
@@ -222,6 +245,8 @@ def build():
                 'pdf': PDF, 'pdfSha256': digest(SOURCE / PDF), 'pdfBytes': (SOURCE / PDF).stat().st_size}]
     for sec in sections:
         raw = sec.pop('items')
+        assert sec.get('title'), ('No headline', sec['ref'])
+        assert any(it.get('inlineHeadings') for it in raw), ('No subheadline', sec['ref'])
         write_json(OUTPUT/f"{sec['id']}.json", raw)
         sec['volume'] = 1
         sec['paragraphs'] = sum('p' in x for x in raw)
@@ -230,7 +255,7 @@ def build():
         sec['subheadings'] = sum(bool(x.get('subheading')) for x in raw)
         sec['heRef'] = 'פרי צדיק, ' + sec['he']
     report = {'edition': EDITION, 'volumes': volumes, 'sections': sections, 'sourceHeadings': source_headings,
-              'groupHeadings': group_headings, 'printFrontMatter': front,
+              'groupHeadings': group_headings, 'printFrontMatter': front, 'subheadlines': subheadlines,
               'parashas': list(dict.fromkeys(s['parashah'] for s in sections)),
               'footnotes': sum(s['notes'] for s in sections), 'pairs': sum(s['pairs'] for s in sections),
               'paragraphs': sum(s['paragraphs'] for s in sections)}
