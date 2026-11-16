@@ -81,7 +81,7 @@ def apply(site):
             pg={'en':parsha,'he':ps[0]['he'].split(',')[0],'children':[]}
             for s in ps:
                 shutil.copyfile(B.OUTPUT/f"{s['id']}.json",pt/f"{s['id']}.json")
-                pg['children'].append({k:s[k] for k in ('en','he','id','ref','heRef','parashah','ois')} | {
+                pg['children'].append({k:s[k] for k in ('en','he','id','ref','heRef','parashah','ois')} | {'en':s['title'],
                     'depth':1,'shape':s['paragraphs'],'il1':True,'interlinear':True,'sep':':',
                     'reviewedEdition':B.EDITION,'downloadDocx':'downloads/'+v['download'],
                     'downloadDocxLabel':group['en']+' · Complete Word edition'})
@@ -118,6 +118,10 @@ def apply(site):
     if '/* Shemos heading typography */' not in text:
         selectors=','.join('.sec[data-ref^="'+s['ref'].replace('"','')+'"] .subhead' for s in secs)
         text=text.replace('</style>','/* Shemos heading typography */\n'+selectors+'{font-weight:400}\n</style>',1)
+    # Subheadlines (v3) are set inline in bold, as in the Word edition's Heading 4 lines.
+    if '/* Shemos subheadline weight */' not in text:
+        selectors=','.join('.sec[data-ref^="'+s['ref'].replace('"','')+'"] .seg .subhead' for s in secs)
+        text=text.replace('</style>','/* Shemos subheadline weight */\n'+selectors+'{font-weight:700}\n</style>',1)
     page.write_text(text)
     sw=lib/'sw.js';text=sw.read_text()
     if '-'+B.EDITION not in text:
@@ -142,11 +146,12 @@ def apply(site):
             if 'h' in item:pending.append(item['h']);continue
             para={'r':s['ref']+':'+str(item['n']),'s':si,'n':item['n'],
                   'p':[[plain(h),plain(e)] for h,e in item['p']]}
+            if item.get('inlineHeadings'):para['inlineHeadings']=item['inlineHeadings']
             if pending:para['h']=pending;pending=[]
             if item.get('footnotes'):
                 para['f']=[[str(n['number']),'\n'.join(p['text'] for p in n['paragraphs']),n['phraseIndex'],'h',n['heCharOffset']] for n in item['footnotes']]
             text['paras'].append(para)
-        oldsec.append({'ref':s['ref'],'he':s['heRef'],'title':s['en'],'heTitle':s['he'],
+        oldsec.append({'ref':s['ref'],'he':s['heRef'],'title':s['title'],'heTitle':s['he'],
                        'path':STUDY+' › '+s['parashah'],'il':True,'first':first,'count':s['paragraphs'],
                        'edition':'interlinear','parashah':s['parashah'],'ois':s['ois'],'shemosDocxEdition':B.EDITION})
     mb['paragraphs']=len(text['paras']);mb['interlinear']=True

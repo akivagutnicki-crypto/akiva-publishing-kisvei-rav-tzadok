@@ -36,16 +36,19 @@ def verify(site=None, archives=False):
                 local=rd(B.OUTPUT/f"{sec['id']}.json")
                 if site:assert rd(Path(site)/f"library/data/peri-tzadik/{sec['id']}.json")==local,'Published chapter differs: '+sec['ref']
                 for item in local:
-                    i=item['sourceParagraph'];assert i not in covered;covered.add(i)
-                    raw=ps[i];source_text=''.join(n.text or '' for n in raw.iter(W+'t'))
+                    idxs=item.get('sourceParagraphs',[item['sourceParagraph']])
+                    for i in idxs:assert i not in covered;covered.add(i)
+                    i=idxs[0];raws=[ps[k] for k in idxs];raw=raws[0]
+                    source_text=''.join(n.text or '' for r in raws for n in r.iter(W+'t'))
                     if 'h' in item:
                         assert item['h']==source_text;total_heads+=1;continue
+                    if len(idxs)>1:assert all((ps[k].find('w:pPr/w:pStyle',NS) is not None and ps[k].find('w:pPr/w:pStyle',NS).get(W+'val')=='BodyContinue') for k in idxs[1:])
                     pairs=[[plain(h),plain(e)] for h,e in item['p']]
                     assert all(h.strip() and e.strip() for h,e in pairs),(sec['ref'],i,'Unpaired translation')
                     assert tight(source_text)==tight(''.join(h+e for h,e in pairs)),(sec['ref'],i,'Text changed')
                     total_pairs+=len(pairs)
                     stream_prefix='';marker_positions={}
-                    for el in raw.iter():
+                    for el in (e for r in raws for e in r.iter()):
                         if el.tag==W+'t':stream_prefix+=el.text or ''
                         elif el.tag==W+'footnoteReference':marker_positions[el.get(W+'id')]=len(tight(stream_prefix))
                     assert set(marker_positions)=={n['wordFootnoteId'] for n in item.get('footnotes',[])}
@@ -71,10 +74,20 @@ def verify(site=None, archives=False):
                         for p in note['paragraphs']:assert p['text']==''.join(r['text'] for r in p['rich'])
             assert seen_notes==set(original_notes)
             assert volume_notes==list(range(1,v['footnotes']+1)),'Word reading-order numbering changed'
+            for sh in [x for x in manifest['subheadlines'] if x['volume']==v['volume']]:
+                i=sh['sourceParagraph'];assert i not in covered;covered.add(i)
+                assert ps[i].find('w:pPr/w:pStyle',NS).get(W+'val')=='Heading4' and ''.join(t.text or '' for t in ps[i].iter(W+'t'))==sh['text']
             relevant={i for i,p in enumerate(ps) if p.tag==W+'p' and ''.join(t.text or '' for t in p.iter(W+'t')).strip()}
             assert covered==relevant,'Source paragraph or heading was omitted'
         if site:assert B.digest(Path(site)/'library/downloads'/v['download'])==v['sha256']
-    assert total_heads==len(manifest['sourceHeadings'])==150
+    assert total_heads==len(manifest['sourceHeadings'])+len(manifest['headlines'])==150+148
+    for sec in manifest['sections']:
+        local=rd(B.OUTPUT/f"{sec['id']}.json");assert sec['title'] and local[1].get('h') and B.BIDI.sub('',local[1]['h']).strip()==sec['title']
+        got=[h['text'] for it in local for h in it.get('inlineHeadings',[])]
+        want=[B.BIDI.sub('',x['text']).strip() for x in manifest['subheadlines'] if x['ref']==sec['ref']]
+        assert got==want and got,(sec['ref'],'Subheadlines differ')
+        for it in local:
+            for h in it.get('inlineHeadings',[]):assert 0<=h['phraseIndex']<len(it['p'])
     assert total_notes==3476 and total_pairs==manifest['pairs']
     if site:
         site=Path(site);toc=rd(site/'library/data/peri-tzadik/toc.json')
@@ -106,7 +119,7 @@ def verify(site=None, archives=False):
                     if entry is index['library']:
                         assert all('data/'+n in z.namelist() for n in files['files'])
                         for n in files['files']+['files.json']:assert z.read('data/'+n)==(data/n).read_bytes(),'Library ZIP differs: '+n
-    result={'ok':True,'edition':manifest['edition'],'sections':148,'parashas':11,'headings':total_heads,
+    result={'ok':True,'edition':manifest['edition'],'sections':148,'parashas':11,'headings':total_heads,'subheadlines':len(manifest['subheadlines']),
             'paragraphs':manifest['paragraphs'],'pairs':total_pairs,'footnotes':total_notes,'allWordTextAndAnchorsVerified':True}
     print(json.dumps(result));return result
 
