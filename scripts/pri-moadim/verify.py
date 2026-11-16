@@ -78,6 +78,29 @@ def verify(site=None, archives=False):
             assert all('h' in x for x in items[:1]) and not any('h' in x for x in items[1:])
             totals['paragraphs'] += s['paragraphs']; totals['pairs'] += s['pairs']
     assert totals['paragraphs'] == m['paragraphs'] and totals['pairs'] == m['pairs'] and totals['subheadings'] == 9
+    # footnotes: every note of the Word edition, at its unit and phrase, numbered in reading order, Sefaria links only
+    totals['footnotes'] = 0
+    for v in m['volumes']:
+        d, _ = DIRS[v['volume']]; data = rd(SOURCE / d / 'footnotes.json')
+        with ZipFile(SOURCE / v['file']) as z:
+            word = z.read('word/footnotes.xml').decode('utf-8'); body = z.read('word/document.xml').decode('utf-8')
+        native = len(re.findall(r'<w:footnoteReference ', body))
+        assert native == len(data['notes']) == v['footnotes'], (v['label'], native, len(data['notes']), v['footnotes'])
+        seen = []
+        for s in [s for s in secs if s['volume'] == v['volume']]:
+            for it in rd(OUTPUT / f"{s['id']}.json"):
+                for fn in it.get('footnotes', []):
+                    key = fn['sourceId'].split('-', 1)[1]
+                    assert key in data['marks'].get(f"{it['unit']}#{fn['phraseIndex']}", []), (s['ref'], key, 'placement')
+                    n = data['notes'][key]
+                    assert fn['paragraphs'][0]['text'] == (n.get('pre') or '') + n['label'] + n['rest']
+                    for r in fn['paragraphs'][0]['rich']:
+                        assert not r.get('href') or r['href'].startswith('https://www.sefaria.org/'), 'Non-Sefaria link'
+                    assert html.escape(n['label'], quote=False) in word or n['label'] in word, ('Word note text', key)
+                    seen.append(fn['number'])
+        assert seen == list(range(1, v['footnotes'] + 1)), (v['label'], 'numbering')
+        totals['footnotes'] += v['footnotes']
+    assert totals['footnotes'] == m['footnotes'] == sum(s['notes'] for s in secs)
     result = {'ok': True, 'edition': m['edition'], 'sections': len(secs), **totals}
     if site:
         site = Path(site); lib = site / 'library'; data = lib / 'data'
@@ -108,6 +131,7 @@ def verify(site=None, archives=False):
             assert len(paras) == s['paragraphs'] and [p['r'] for p in paras] == [f"{s['ref']}:{i}" for i in range(1, s['paragraphs'] + 1)]
             items = [x for x in rd(OUTPUT / f"{s['id']}.json") if 'p' in x]
             assert [p['p'] for p in paras] == [[[plain(h), plain(e)] for h, e in x['p']] for x in items], s['ref'] + ' MCP text'
+            assert [len(p.get('f', [])) for p in paras] == [len(x.get('footnotes', [])) for x in items], s['ref'] + ' MCP notes'
         for v in m['volumes']:
             assert sha(lib / 'downloads' / v['download']) == v['sha256'], 'Download differs: ' + v['download']
         assert (site / 'mcp-data/text/peri-tzadik.json').stat().st_size <= 45_000_000

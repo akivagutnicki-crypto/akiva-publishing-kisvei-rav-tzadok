@@ -9,7 +9,9 @@ So that the study edition's paragraph numbers line up with the library's origina
   - a subheading (e.g. "(אושפיזא דיצחק)") is its own paragraph, as it is in the library's Hebrew;
   - Rosh Chodesh Av 7 ends with the colophon of Sefer Bamidbar, a separate paragraph in the library's Hebrew
     (COLOPHONS below; supplied by the editor).
-No footnotes yet: the interlinear text only.
+Footnotes (v2): each volume's footnotes.json holds the notes of the finished Word edition, keyed by unit id and phrase
+index ("m0p1#7" -> note numbers), exactly as they were placed in the Word file. They are numbered here in reading
+order, which is Word's own display numbering. Every link is a Sefaria link.
 """
 import hashlib
 import html
@@ -18,7 +20,7 @@ from pathlib import Path
 
 SOURCE = Path('sources/akiva/pri-moadim-20261111')
 OUTPUT = Path('sources/akiva/overlays/pri-moadim-20261111')
-EDITION = 'pri-moadim-20261111-v1'
+EDITION = 'pri-moadim-20261111-v2'
 FIRST_ID = 3600            # Shemos 3000–3147, Bereishis 3400–3549
 VOLUMES = [
     {'volume': 1, 'dir': 'iyar-av', 'revs': 33, 'file': 'Pri_Tzaddik_Iyar_through_Menachem_Av_Interlinear.docx',
@@ -46,6 +48,34 @@ def write_json(p, value):
     p.write_text(json.dumps(value, ensure_ascii=False, separators=(',', ':')), encoding='utf-8')
 def digest(p): return hashlib.sha256(Path(p).read_bytes()).hexdigest()
 def esc(s): return html.escape(s, quote=False)
+
+
+def note_paragraphs(n):
+    rich = []
+    if n.get('pre'): rich.append({'text': n['pre']})
+    rich.append({'text': n['label'], 'bold': True, **({'href': n['url']} if n.get('url') else {})})
+    rich.append({'text': n['rest']})
+    for r in rich: assert not r.get('href') or r['href'].startswith('https://www.sefaria.org/'), 'Non-Sefaria link'
+    return [{'text': ''.join(r['text'] for r in rich), 'rich': rich}]
+
+
+def attach_notes(v, sections, volume_sections):
+    data = read_json(SOURCE / v['dir'] / 'footnotes.json'); marks, notes = data['marks'], data['notes']
+    placed = set(); number = 0; tag = 'IYAR' if v['dir'] == 'iyar-av' else 'ELUL'
+    for sec in volume_sections:
+        for item in sec['items']:
+            if 'p' not in item or 'unit' not in item: continue
+            fns = []
+            for pi, (h, e) in enumerate(item['p']):
+                for key in marks.get(f"{item['unit']}#{pi}", []):
+                    assert key in notes and key not in placed, key; placed.add(key); number += 1
+                    raw = html.unescape(h).strip()
+                    fns.append({'number': number, 'sourceId': f'{tag}-{key}', 'placementId': f'{tag}-N{number}',
+                                'phraseIndex': pi, 'heCharOffset': len(raw), 'heAnchorPrefix': raw,
+                                'heWord': len(raw.split()), 'nativeConnections': [], 'paragraphs': note_paragraphs(notes[key])})
+            if fns: item['footnotes'] = fns
+    assert placed == set(notes), (v['dir'], len(notes) - len(placed), 'notes not placed')
+    return number
 
 
 def revs(v):
@@ -90,7 +120,8 @@ def build():
                 cur['items'].append({'p': [[esc(h), esc(e)] for h, e in pairs], 'keepPairs': True, 'n': n,
                                      'unit': r['id'], **({'subheading': True} if u['type'] == 'subheading' else {})})
             cur['units'].append(r['id'])
-        volumes.append({'volume': v['volume'], 'label': v['label'], 'he': v['he'], 'file': v['dir'] + '/' + v['file'],
+        footnotes = attach_notes(v, sections, [s for s in sections if s['volume'] == v['volume']])
+        volumes.append({'volume': v['volume'], 'footnotes': footnotes, 'label': v['label'], 'he': v['he'], 'file': v['dir'] + '/' + v['file'],
                         'sha256': digest(d / v['file']), 'bytes': (d / v['file']).stat().st_size, 'download': v['download'],
                         'units': len(units), 'revisionFiles': {f'rev{i:02d}.jsonl': digest(d / f'rev{i:02d}.jsonl') for i in range(1, v['revs'] + 1)}})
     for ref, pair in COLOPHONS.items():
@@ -106,17 +137,17 @@ def build():
         sec['pairs'] = sum(len(x.get('p', [])) for x in items)
         sec['subheadings'] = sum(bool(x.get('subheading')) for x in items)
         sec['colophons'] = sum(bool(x.get('colophon')) for x in items)
-        sec['notes'] = 0
+        sec['notes'] = sum(len(x.get('footnotes', [])) for x in items)
         sec['heRef'] = 'פרי צדיק, ' + sec['he']
     report = {'edition': EDITION, 'volumes': volumes, 'sections': sections,
               'groups': list(dict.fromkeys(s['parashah'] for s in sections)),
-              'footnotes': 0, 'pairs': sum(s['pairs'] for s in sections), 'paragraphs': sum(s['paragraphs'] for s in sections)}
+              'footnotes': sum(s['notes'] for s in sections), 'pairs': sum(s['pairs'] for s in sections), 'paragraphs': sum(s['paragraphs'] for s in sections)}
     write_json(OUTPUT / 'manifest.json', report)
     for v in volumes:
         vs = [s for s in sections if s['volume'] == v['volume']]
         print(json.dumps({'volume': v['label'], 'sections': len(vs), 'paragraphs': sum(s['paragraphs'] for s in vs),
                           'pairs': sum(s['pairs'] for s in vs), 'subheadings': sum(s['subheadings'] for s in vs),
-                          'colophons': sum(s['colophons'] for s in vs)}))
+                          'colophons': sum(s['colophons'] for s in vs), 'footnotes': v['footnotes']}))
     return report
 
 

@@ -116,6 +116,11 @@ def apply(site):
         if not any(d['file'] == file for d in book.setdefault('downloads', [])):
             book['downloads'].append({'file': file, 'label': v['label'] + ' · Complete interlinear Word edition'})
     wr(data / 'catalog.json', catalog)
+    # every footnote link must be Sefaria (verify.py holds this), so the reader's link filter needs no additions
+    for s in secs:
+        for it in rd(B.OUTPUT / f"{s['id']}.json"):
+            for n in it.get('footnotes', []):
+                assert all(r['href'].startswith('https://www.sefaria.org/') for p in n['paragraphs'] for r in p['rich'] if r.get('href'))
     page = lib / 'index.html'; text = page.read_text()
     text = re.sub(r'/\* Moadim edition data revision \*/[^\n]*\n', '', text)
     anchor = 'const editionDataUrl = url => '
@@ -131,7 +136,7 @@ def apply(site):
         text, n = re.subn(r'const SHELL = `([^`]+)`;', lambda x: 'const SHELL = `' + x[1] + '-' + B.EDITION + '`;', text, count=1)
         assert n == 1
     sw.write_text(text)
-    # MCP: keep every existing paragraph; replace an earlier copy of this edition, append the new one
+    # MCP: keep every existing paragraph; replace an earlier copy of this edition, append the new one with its notes
     catpath = site / 'mcp-data/catalog.json'; textpath = site / 'mcp-data/text/peri-tzadik.json'
     cat = rd(catpath); text = rd(textpath); mb = next(b for b in cat['books'] if b['slug'] == 'peri-tzadik')
     oldsec = mb['sections']; gone = {i for i, s in enumerate(oldsec) if s.get(KEY)}
@@ -149,6 +154,8 @@ def apply(site):
             if 'h' in item: pending.append(item['h']); continue
             para = {'r': s['ref'] + ':' + str(item['n']), 's': si, 'n': item['n'], 'p': [[plain(h), plain(e)] for h, e in item['p']]}
             if pending: para['h'] = pending; pending = []
+            if item.get('footnotes'):
+                para['f'] = [[str(n['number']), '\n'.join(p['text'] for p in n['paragraphs']), n['phraseIndex'], 'h', n['heCharOffset']] for n in item['footnotes']]
             text['paras'].append(para)
         oldsec.append({'ref': s['ref'], 'he': s['heRef'], 'title': s['en'], 'heTitle': s['he'],
                        'path': STUDY + ' › ' + s['parashah'], 'il': True, 'first': first, 'count': s['paragraphs'],
@@ -159,7 +166,7 @@ def apply(site):
     # kisvei_search's prebuilt index and the text chunks, from the site's own book texts; then the Worker budget guard
     subprocess.run(['node', 'scripts/build-mcp-search-index.mjs', str(site / 'mcp-data')], check=True)
     subprocess.run(['node', 'scripts/test-mcp-budget.mjs', str(site / 'mcp-data')], check=True)
-    print('Applied', len(secs), 'sections,', m['paragraphs'], 'paragraphs,', m['pairs'], 'phrase pairs;',
+    print('Applied', len(secs), 'sections,', m['paragraphs'], 'paragraphs,', m['pairs'], 'phrase pairs,', m['footnotes'], 'notes;',
           'mcp-data/text/peri-tzadik.json is', round(textpath.stat().st_size / 1e6, 2), 'MB')
 
 
