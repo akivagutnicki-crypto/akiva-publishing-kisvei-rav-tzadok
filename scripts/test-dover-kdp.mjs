@@ -50,7 +50,7 @@ for(const proof of report.sections){
   for(const [j,note]of a.notes.entries()){
    const original=e.notes[j];assert.ok(!seen.has(note.placementId),'Repeated note identity');seen.add(note.placementId);
    assert.equal(note.number,original.number);assert.equal(note.sourceId,original.sourceId);
-   const at=Number.isInteger(original.heOffset)?Math.min(original.heOffset,e.he.length):e.he.length;assert.equal(note.heCharOffset,at);assert.equal(note.heAnchorPrefix,e.he.slice(0,at));
+   const sq=v=>v.replace(/[ \t\u00a0]+/g,' '),he=sq(e.he).replace(/^ +| +$/g,''),at=Number.isInteger(original.heOffset)?Math.min(sq(e.he.slice(0,original.heOffset)).replace(/^ +/,'').length,he.length):he.length;assert.equal(note.heCharOffset,at);assert.equal(note.heAnchorPrefix,he.slice(0,at));
    assert.deepEqual(note.paragraphs.map(p=>p.text),original.paragraphs.map(p=>p.text),'A full source quotation was changed or shortened');
    note.paragraphs.forEach(p=>assert.equal(p.rich.map(r=>r.text).join(''),p.text,'Linked source text differs'));
    numbers[note.volume].push(note.number);notes++;

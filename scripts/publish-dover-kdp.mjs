@@ -110,7 +110,12 @@ for(const [file,section] of Object.entries(extracted.sections)) {
   const [id,chapter]=file.slice(0,-5).split('-').map(Number),leaf=tocLeaves.find(l=>l.id===id);
   assert.ok(leaf,'Unrecognized Dover reader section '+file);
   const ref=leaf.ref+' '+chapter,byN=new Map();
-  section.pairs.forEach((pair,index)=>{
+  section.pairs.forEach((source,index)=>{
+    // The reader and the MCP text collapse runs of spaces and trim each phrase;
+    // apply that here so every Hebrew note anchor keeps its exact prefix.
+    const squash=v=>v.replace(/[ \t\u00a0]+/g,' ').replace(/^ +| +$/g,'');
+    const pair={...source,he:squash(source.he),heHtml:squash(source.heHtml),
+      notes:source.notes.map(x=>Number.isInteger(x.heOffset)?{...x,heOffset:source.he.slice(0,x.heOffset).replace(/[ \t\u00a0]+/g,' ').replace(/^ +/,'').length}:x)};
     const n=section.canonicalNumbers[index];
     if(!byN.has(n))byN.set(n,{n,p:[],keepPairs:true,sourceVolume:section.volume});
     const row=byN.get(n),pi=row.p.length;
