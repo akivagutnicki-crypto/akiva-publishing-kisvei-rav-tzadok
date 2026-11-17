@@ -169,7 +169,7 @@ function paragraphsOf(items, where) {
       // MCP_TOLERATE_FOREIGN_ANCHORS set, an anchor problem in a sefer that this
       // release does not touch is logged and the note kept at the phrase end,
       // as in the live index; the released sefer stays strict.
-      const tolerate = process.env.MCP_TOLERATE_FOREIGN_ANCHORS && !String(where).startsWith(process.env.MCP_STRICT_REF_PREFIX || '\u0000');
+      const tolerate = process.env.MCP_TOLERATE_FOREIGN_ANCHORS && !(process.env.MCP_STRICT_REF_PREFIX || '').split('|').some(x => x && String(where).startsWith(x));
       let at = offset;
       if (offset < 0 || offset > phrase.length || (heAnchor && fn.heAnchorPrefix !== undefined && phrase.slice(0, offset) !== fn.heAnchorPrefix)) {
         if (!tolerate) {
