@@ -1,0 +1,4 @@
+# Local development only. Never commit populated .dev.vars files.
+# Blank values deliberately keep the service unavailable until configured.
+OPENAI_API_KEY=""
+OCR_ACCESS_TOKEN=""

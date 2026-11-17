@@ -56,8 +56,8 @@
       font-family: var(--book-font); font-size: 8.5pt; color: #334155; text-align: center;
       display: flex; align-items: flex-end; justify-content: center; padding-bottom: 6px; flex-shrink: 0;
     }
-    .ws-page-body { flex: 1 1 auto; min-height: 0; overflow: hidden; font-family: var(--book-font); }
-    .ws-para-slice { outline: none; word-wrap: break-word; overflow-wrap: break-word; }
+    .ws-page-body { display: flex; flex-direction: column; flex: 1 1 auto; min-height: 0; overflow: hidden; font-family: var(--book-font); }
+    .ws-para-slice { flex-shrink: 0; outline: none; word-wrap: break-word; overflow-wrap: break-word; }
     .ws-para-slice:focus { background: rgba(24, 90, 189, 0.03); box-shadow: inset 2px 0 0 rgba(24, 90, 189, 0.35); }
     .ws-para-slice.justify-cont { text-align: justify; text-align-last: justify; }
     .ws-page-footnotes { flex-shrink: 0; margin-top: auto; padding-top: 6px; font-family: var(--book-font); }
@@ -98,6 +98,11 @@
         page-break-after: always !important; break-after: page !important; transform: none !important;
       }
       #print-export-mount .ws-page-sheet:last-child { page-break-after: auto !important; break-after: auto !important; }
+      body.ws-document-print { display: block !important; width: auto !important; min-width: 0 !important; margin: 0 !important; padding: 0 !important; }
+      body.ws-document-print > :not(#print-export-mount) { display: none !important; }
+      body.ws-document-print #print-export-mount .ws-page-sheet { break-inside: avoid !important; page-break-inside: avoid !important; print-color-adjust: exact; -webkit-print-color-adjust: exact; }
+      #print-export-mount .ws-fmt-mark { display: none !important; }
+      #print-export-mount .ws-search-hit, #print-export-mount .fn-highlight, #print-export-mount .ws-para-slice:focus { background: transparent !important; box-shadow: none !important; color: inherit !important; }
     }
   </style>
   <style id="dynamic-print-page-style">
@@ -515,6 +520,7 @@
             <button type="button" data-action="dismiss-banner" class="p-1 text-slate-400 hover:text-slate-600">✕</button>
           </div>
         </div>
+        <div id="docx-import-notice" class="hidden max-w-2xl mx-auto mb-4 border border-amber-300 bg-amber-50 text-amber-950 rounded px-3 py-2 text-xs" role="status"></div>
         <div id="pages-stage" class="mx-auto"></div>
       </main>
     </div>
@@ -524,6 +530,8 @@
         <button type="button" data-action="goto-page-prompt" class="hover:underline font-medium" id="status-page-indicator">Page 1 of 1</button>
         <span id="status-word-count">0 words</span>
         <button type="button" data-action="show-fn-pane" class="hover:underline" id="status-fn-count">0 bottom-of-page footnotes</button>
+        <span id="status-import-time" class="hidden sm:inline" aria-live="polite"></span>
+        <span id="status-word-preview-note" class="hidden xl:inline text-white/80" style="display:none">Preview pagination may differ from Word</span>
       </div>
       <div class="flex items-center gap-2">
         <button type="button" data-action="zoom-out" class="px-1.5 hover:bg-white/15 rounded font-bold">−</button>
@@ -661,6 +669,27 @@
           <div class="font-bold text-slate-800 flex items-center justify-between">
             <span>OCR PDF Scanner (Hebrew + English)</span>
           </div>
+          <select id="pdf-ocr-engine" aria-label="OCR engine" class="w-full border border-slate-300 rounded px-2 py-1 bg-white text-xs">
+            <option value="local">On-device OCR · ready to use</option>
+            <option value="vision">OpenAI vision · connection required</option>
+          </select>
+          <div id="pdf-vision-settings" class="hidden rounded border border-blue-200 bg-blue-50 p-2 space-y-2 text-xs">
+            <p>Read the selected page with an OpenAI vision model. The page image is sent to your connected service and OpenAI; API usage applies.</p>
+            <label class="block">OCR service address
+              <input id="pdf-vision-endpoint" type="url" autocomplete="off" placeholder="https://your-ocr-service.example/ocr" class="mt-1 w-full rounded border border-blue-200 bg-white p-1.5" />
+            </label>
+            <label class="block">Service access code
+              <input id="pdf-vision-access" type="password" autocomplete="off" placeholder="Access code for this session" class="mt-1 w-full rounded border border-blue-200 bg-white p-1.5" />
+            </label>
+            <p class="text-[10px] text-slate-600">Use your OCR service access code here. Your OpenAI API key belongs in the service settings. This page does not save the access code.</p>
+            <button type="button" data-pdf-action="ocr-connect" class="rounded border border-blue-300 bg-white px-2 py-1 font-semibold">Check connection</button>
+            <div id="pdf-vision-connection-status" role="status" class="text-[11px] text-blue-900">Connect your OCR service to enable vision recognition.</div>
+            <select id="pdf-vision-layout" aria-label="Page reading order" class="w-full rounded border border-blue-200 bg-white p-1">
+              <option value="auto">Detect columns and footnotes</option>
+              <option value="rtl-columns">Hebrew columns · right before left</option>
+              <option value="single">Single text column</option>
+            </select>
+          </div>
           <div class="flex items-center gap-1.5">
             <select id="pdf-ocr-lang" aria-label="OCR Language" class="flex-1 border border-slate-300 rounded px-2 py-1 bg-white">
               <option value="eng+heb">English + Hebrew (eng+heb)</option>
@@ -668,8 +697,20 @@
               <option value="heb">Hebrew / Ivrit (heb)</option>
             </select>
             <button type="button" data-pdf-action="ocr" class="px-3 py-1 rounded bg-red-700 hover:bg-red-800 text-white font-semibold">Run OCR</button>
+            <button type="button" data-pdf-action="ocr-cancel" class="hidden rounded border border-red-200 px-2 py-1 text-red-800">Stop</button>
           </div>
+          <select id="pdf-ocr-quality" aria-label="OCR scan quality" class="w-full border border-slate-300 rounded px-2 py-1 bg-white text-xs">
+            <option value="400" selected>Dense print · higher detail (400 DPI)</option>
+            <option value="300">Balanced · lower memory use (300 DPI)</option>
+          </select>
           <div id="pdf-ocr-status" class="text-[11px] text-slate-500">Ready to scan current PDF page.</div>
+          <div id="pdf-vision-review" class="hidden whitespace-pre-line rounded border border-amber-200 bg-amber-50 p-2 text-[11px] text-amber-950" role="status"></div>
+          <details id="pdf-ocr-review" class="hidden border border-amber-200 rounded bg-amber-50 p-2 text-xs">
+            <summary id="pdf-ocr-review-summary" class="cursor-pointer font-semibold text-amber-950">Review suggested words</summary>
+            <p class="my-1 text-[11px] text-amber-950">Compare flagged words with the scan. Unflagged text may also need correction.</p>
+            <div id="pdf-ocr-review-list" class="flex flex-wrap gap-1 max-h-24 overflow-auto"></div>
+            <img id="pdf-ocr-review-image" class="hidden mt-2 max-w-full max-h-24 border border-amber-300 bg-white" alt="Selected word from the scan" />
+          </details>
           <textarea id="pdf-ocr-output" rows="9" placeholder="Recognized OCR text appears here (editable)…" class="w-full flex-1 border border-slate-300 rounded p-2 font-serif text-xs outline-none focus:border-red-600"></textarea>
           <button type="button" data-pdf-action="ocr-to-word" class="w-full py-1.5 rounded bg-[#185abd] hover:bg-[#103f91] text-white font-semibold">Send OCR Text to Word Studio →</button>
         </div>
@@ -869,7 +910,7 @@
 
   <div id="toast-container" class="fixed bottom-10 right-4 z-50 flex flex-col gap-2 pointer-events-none"></div>
 
-  <script id="initial-sample-data" type="application/json">{"paragraphs": [{"style": "BookFront", "jc": "center", "sectBreakAfter": false, "runs": [{"type": "text", "text": "מִסְמָךְ תּוֹרָנִי וּמֶחְקָרִי דּוּ־לְשׁוֹנִי", "rtl": true, "pt": 22}]}, {"style": "Title", "jc": "center", "sectBreakAfter": false, "runs": [{"type": "text", "text": "Scholarly Bilingual Edition", "pt": 23}]}, {"style": "BookFront", "jc": "center", "sectBreakAfter": false, "runs": [{"type": "text", "text": "7.0 × 10.0 Inch Trim · Mirror Binding Gutter · True Page-Bottom Footnotes", "pt": 11}]}, {"style": "BookFront", "jc": "center", "sectBreakAfter": true, "runs": [{"type": "text", "text": "Drop a .docx manuscript anywhere to open its text, styles, and Word footnotes.", "pt": 10.5, "i": true}]}, {"style": "TzidkatSiman", "jc": "center", "sectBreakAfter": false, "runs": [{"type": "bookmark", "name": "sec_1"}, {"type": "text", "text": "Siman 1 · סִימָן א׳"}]}, {"style": "TzidkatTopic", "jc": "center", "sectBreakAfter": false, "runs": [{"type": "text", "text": "Bilingual Interlinear Layout & Dynamic Footnotes"}]}, {"style": "Normal", "jc": "both", "sectBreakAfter": false, "runs": [{"type": "text", "text": "⁧[א] בְּסִיַּעְתָּא דִּשְׁמַיָּא, מַעֲרֶכֶת עִמּוּד מִקְצוֹעִית זוֹ תּוֹמֶכֶת בְּעִבְרִית מְנֻקֶּדֶת וּבִכְתַב רַשִׁ״י⁩", "rtl": true}, {"type": "fnRef", "fnId": "1", "customMark": ""}, {"type": "text", "text": " — ⁦This print-layout engine natively parses multi-megabyte OpenXML (.docx) manuscripts, de-obfuscates embedded TrueType (.odttf) book fonts, and places every footnote dynamically at the bottom of the exact page where its reference marker appears.⁩"}, {"type": "fnRef", "fnId": "2", "customMark": ""}]}, {"style": "Normal", "jc": "both", "sectBreakAfter": false, "runs": [{"type": "text", "text": "⁧[ב] גַּם קְבָצִים גְּדוֹלִים עִם אַלְפֵי הֶעָרוֹת שׁוּלַיִם נִפְתָּחִים בִּמְהִירוּת לְלֹא תְּקִיעוֹת⁩", "rtl": true}, {"type": "fnRef", "fnId": "3", "customMark": ""}, {"type": "text", "text": " — ⁦The editor uses virtualized page rendering and supports exact-trim print layouts and DOCX export. Document complexity and the device affect loading speed; review pagination before publishing.⁩"}]}, {"style": "TzidkatSiman", "jc": "center", "sectBreakAfter": false, "runs": [{"type": "bookmark", "name": "sec_2"}, {"type": "text", "text": "Siman 2 · סִימָן ב׳"}]}, {"style": "TzidkatTopic", "jc": "center", "sectBreakAfter": false, "runs": [{"type": "text", "text": "Hebrew-Ivrit Typography, PDF OCR & Publisher Suite"}]}, {"style": "Normal", "jc": "both", "sectBreakAfter": false, "runs": [{"type": "text", "text": "⁦Use the top workspace bar to switch seamlessly between Word (.DOCX), Publisher (multi-column newsletters & flyers), Acrobat PDF Studio (edit PDF text, run Hebrew/English OCR, and pin bottom-of-page footnotes onto any PDF), Canva Design Studio (4-variation image generator, photo filters & background remover), and the AI Copilot Plugin drawer (Gemini, OpenAI/ChatGPT, Claude, or built-in offline assistant).⁩"}, {"type": "fnRef", "fnId": "4", "customMark": ""}]}], "footnotes": {"1": [[{"type": "text", "text": "Typography Note", "b": true}, {"type": "text", "text": ": Switch fonts anytime in the Home ribbon—including Frank Ruhl Libre, David Libre, Noto Serif Hebrew, Noto Rashi Hebrew (כְּתַב רַשִׁ״י), Heebo, Rubik, Secular One, and embedded .odttf book fonts."}]], "2": [[{"type": "text", "text": "OpenXML Footnote Mechanics", "b": true}, {"type": "text", "text": ": In References → Numbering, toggle between Auto-Sequential (1, 2, 3…), Restart Every Page, or Preserve DOCX Custom Marks (automatically reconciling w:customMarkFollows markers)."}]], "3": [[{"type": "text", "text": "Large Manuscript Support", "b": true}, {"type": "text", "text": ": Review the imported layout and exported Word or PDF files before final publication, especially when a manuscript uses complex formatting."}]], "4": [[{"type": "text", "text": "Cross-Studio Workflow", "b": true}, {"type": "text", "text": ": Click any footnote at the bottom of this page to edit it live, or press Ctrl+Alt+F to insert a new bottom-of-page footnote."}]]}}</script>
+  <script id="initial-sample-data" type="application/json">{"paragraphs": [{"style": "BookFront", "jc": "center", "sectBreakAfter": false, "runs": [{"type": "text", "text": "מִסְמָךְ תּוֹרָנִי וּמֶחְקָרִי דּוּ־לְשׁוֹנִי", "rtl": true, "pt": 22}]}, {"style": "Title", "jc": "center", "sectBreakAfter": false, "runs": [{"type": "text", "text": "Scholarly Bilingual Edition", "pt": 23}]}, {"style": "BookFront", "jc": "center", "sectBreakAfter": false, "runs": [{"type": "text", "text": "7.0 × 10.0 Inch Trim · Mirror Binding Gutter · True Page-Bottom Footnotes", "pt": 11}]}, {"style": "BookFront", "jc": "center", "sectBreakAfter": true, "runs": [{"type": "text", "text": "Drop a .docx manuscript anywhere to open its text, styles, and Word footnotes.", "pt": 10.5, "i": true}]}, {"style": "TzidkatSiman", "jc": "center", "sectBreakAfter": false, "runs": [{"type": "bookmark", "name": "sec_1"}, {"type": "text", "text": "Siman 1 · סִימָן א׳"}]}, {"style": "TzidkatTopic", "jc": "center", "sectBreakAfter": false, "runs": [{"type": "text", "text": "Bilingual Interlinear Layout & Dynamic Footnotes"}]}, {"style": "Normal", "jc": "both", "sectBreakAfter": false, "runs": [{"type": "text", "text": "⁧[א] בְּסִיַּעְתָּא דִּשְׁמַיָּא, מַעֲרֶכֶת עִמּוּד מִקְצוֹעִית זוֹ תּוֹמֶכֶת בְּעִבְרִית מְנֻקֶּדֶת וּבִכְתַב רַשִׁ״י⁩", "rtl": true}, {"type": "fnRef", "fnId": "1", "customMark": ""}, {"type": "text", "text": " — ⁦This print-layout engine natively parses multi-megabyte OpenXML (.docx) manuscripts, de-obfuscates embedded TrueType (.odttf) book fonts, and places every footnote dynamically at the bottom of the exact page where its reference marker appears.⁩"}, {"type": "fnRef", "fnId": "2", "customMark": ""}]}, {"style": "Normal", "jc": "both", "sectBreakAfter": false, "runs": [{"type": "text", "text": "⁧[ב] הָעוֹרֵךְ תּוֹמֵךְ בְּמִסְמָכִים גְּדוֹלִים וּבְהֶעָרוֹת שׁוּלַיִם; יֵשׁ לִבְדֹּק אֶת הָעִמּוּד לִפְנֵי פִרְסוּם⁩", "rtl": true}, {"type": "fnRef", "fnId": "3", "customMark": ""}, {"type": "text", "text": " — ⁦The editor uses virtualized page rendering and supports exact-trim print layouts and DOCX export. Document complexity and the device affect loading speed; review pagination before publishing.⁩"}]}, {"style": "TzidkatSiman", "jc": "center", "sectBreakAfter": false, "runs": [{"type": "bookmark", "name": "sec_2"}, {"type": "text", "text": "Siman 2 · סִימָן ב׳"}]}, {"style": "TzidkatTopic", "jc": "center", "sectBreakAfter": false, "runs": [{"type": "text", "text": "Hebrew-Ivrit Typography, PDF OCR & Publisher Suite"}]}, {"style": "Normal", "jc": "both", "sectBreakAfter": false, "runs": [{"type": "text", "text": "⁦Use the top workspace bar to switch seamlessly between Word (.DOCX), Publisher (multi-column newsletters & flyers), Acrobat PDF Studio (edit PDF text, run Hebrew/English OCR, and pin bottom-of-page footnotes onto any PDF), Canva Design Studio (4-variation image generator, photo filters & background remover), and the AI Copilot Plugin drawer (Gemini, OpenAI/ChatGPT, Claude, or built-in offline assistant).⁩"}, {"type": "fnRef", "fnId": "4", "customMark": ""}]}], "footnotes": {"1": [[{"type": "text", "text": "Typography Note", "b": true}, {"type": "text", "text": ": Switch fonts anytime in the Home ribbon—including Frank Ruhl Libre, David Libre, Noto Serif Hebrew, Noto Rashi Hebrew (כְּתַב רַשִׁ״י), Heebo, Rubik, Secular One, and embedded .odttf book fonts."}]], "2": [[{"type": "text", "text": "OpenXML Footnote Mechanics", "b": true}, {"type": "text", "text": ": In References → Numbering, toggle between Auto-Sequential (1, 2, 3…), Restart Every Page, or Preserve DOCX Custom Marks (automatically reconciling w:customMarkFollows markers)."}]], "3": [[{"type": "text", "text": "Large Manuscript Support", "b": true}, {"type": "text", "text": ": Review the imported layout and exported Word or PDF files before final publication, especially when a manuscript uses complex formatting."}]], "4": [[{"type": "text", "text": "Cross-Studio Workflow", "b": true}, {"type": "text", "text": ": Click any footnote at the bottom of this page to edit it live, or press Ctrl+Alt+F to insert a new bottom-of-page footnote."}]]}}</script>
 
   <script>
     // Shared Suite Coordinator
@@ -936,6 +977,8 @@
       const measureCanvas = document.createElement('canvas');
       const measureCtx = measureCanvas.getContext('2d');
       const widthCache = new Map();
+      let measureFont = '';
+      let layoutDefaultFont = 'serif';
 
       const docState = {
         title: 'Tzidkas HaTzaddik — Volume I (Sample Preview)',
@@ -962,6 +1005,8 @@
         },
         paragraphs: [],
         footnotes: {}, // fnId -> Array of runs-arrays
+        footnoteParagraphStyles: {},
+        sectionLayouts: [],
         fnSeqMap: {},  // fnId -> computed display label
         fnOrder: [],   // ordered fnIds appearing in body
         bookmarkPageMap: {}, // bookmark name -> 1-based pageIndex
@@ -998,6 +1043,54 @@
         Heading2: { pt: 14.0, line: 1.2, beforePt: 10, afterPt: 4, jc: 'left', indentLeftPt: 0, indentRightPt: 0, bold: true, italic: false, outlineLvl: 1 }
       };
       let activeStyles = Object.assign({}, DEFAULT_STYLES);
+      let activeCharacterStyles = {};
+      const embeddedDocxFamilies = new Map();
+      const embeddedDocxLineHeightFactors = new Map();
+      const embeddedDocxFaces = [];
+
+      // Keep the imported package intact when only viewing, navigating or renaming it.
+      // The preview is a subset of Word's document model, so rebuilding an unchanged
+      // manuscript would otherwise discard unsupported layout and package metadata.
+      let originalDocxSaveState = null;
+      function editableDocxSaveSignature() {
+        return JSON.stringify({
+          paragraphs: docState.paragraphs,
+          footnotes: docState.footnotes,
+          footnoteParagraphStyles: docState.footnoteParagraphStyles,
+          sectionLayouts: docState.sectionLayouts,
+          pageSetup: docState.pageSetup,
+          footnoteConfig: docState.footnoteConfig,
+          styles: activeStyles,
+          fontFamily: document.documentElement.style.getPropertyValue('--book-font')
+        });
+      }
+
+      function captureOriginalDocxSaveState() {
+        originalDocxSaveState = {
+          buffer: docState.rawZipBuffer,
+          signature: editableDocxSaveSignature(),
+          inlineEdited: false
+        };
+      }
+
+      function canSaveOriginalDocx() {
+        return !!(originalDocxSaveState && !originalDocxSaveState.inlineEdited && docState.rawZipBuffer &&
+          originalDocxSaveState.buffer === docState.rawZipBuffer &&
+          originalDocxSaveState.signature === editableDocxSaveSignature());
+      }
+
+      async function downloadDocxBlob(blob, outName) {
+        if (window.wordStudioDesktop && typeof window.wordStudioDesktop.saveDocxBuffer === 'function') {
+          await window.wordStudioDesktop.saveDocxBuffer(await blob.arrayBuffer(), outName);
+        } else {
+          const a = document.createElement('a');
+          a.href = URL.createObjectURL(blob);
+          a.download = outName;
+          document.body.appendChild(a);
+          a.click();
+          setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1500);
+        }
+      }
 
       // =========================================================================
       // 2. TOAST & MODAL UTILITIES (Zero alert/confirm/prompt)
@@ -1136,8 +1229,45 @@
         return outB;
       }
 
+      function readSfntLineHeightFactor(bytes) {
+        try {
+          const view = new DataView(bytes.buffer, bytes.byteOffset, bytes.byteLength);
+          if (view.byteLength < 12) return null;
+          const tables = view.getUint16(4, false);
+          let head = null, hhea = null;
+          for (let i = 0; i < tables; i++) {
+            const record = 12 + i * 16;
+            if (record + 16 > view.byteLength) return null;
+            const tag = String.fromCharCode(view.getUint8(record), view.getUint8(record + 1), view.getUint8(record + 2), view.getUint8(record + 3));
+            const offset = view.getUint32(record + 8, false), length = view.getUint32(record + 12, false);
+            if (offset + length > view.byteLength) return null;
+            if (tag === 'head' && length >= 20) head = offset;
+            if (tag === 'hhea' && length >= 10) hhea = offset;
+          }
+          if (head === null || hhea === null) return null;
+          const units = view.getUint16(head + 18, false);
+          const naturalHeight = view.getInt16(hhea + 4, false) - view.getInt16(hhea + 6, false) + view.getInt16(hhea + 8, false);
+          return units && naturalHeight > 0 ? naturalHeight / units : null;
+        } catch (_fontMetricsError) { return null; }
+      }
+
+      function resolveFontLineHeightFactor(sourceFamily) {
+        const override = document.documentElement.style.getPropertyValue('--book-font').trim();
+        let requested = sourceFamily || (activeStyles.Normal && activeStyles.Normal.fontFamily);
+        if (override) {
+          const embedded = Array.from(embeddedDocxFamilies.entries()).find(([name, alias]) => override.includes('"' + alias + '"') || override.includes("'" + alias + "'") || override.includes('"' + name + '"') || override.includes("'" + name + "'"));
+          if (!embedded) return null;
+          requested = embedded[0];
+        }
+        return embeddedDocxLineHeightFactors.get(requested) || null;
+      }
+
       async function loadEmbeddedDocxFonts(zip) {
         let loadedCount = 0;
+        for (const face of embeddedDocxFaces) document.fonts.delete(face);
+        embeddedDocxFaces.length = 0;
+        embeddedDocxFamilies.clear();
+        embeddedDocxLineHeightFactors.clear();
         try {
           const ftFile = zip.file('word/fontTable.xml');
           const relFile = zip.file('word/_rels/fontTable.xml.rels');
@@ -1171,12 +1301,21 @@
               if (!fEntry) continue;
               const rawBytes = await fEntry.async('uint8array');
               const ttfBytes = deobfuscateOdttf(rawBytes, fontKey);
-              const face = new FontFace('DocxEmbeddedFont', ttfBytes.buffer, {
+              const sourceFamily = getAttr(el.parentElement, 'name') || 'Embedded Font';
+              let familyAlias = embeddedDocxFamilies.get(sourceFamily);
+              if (!familyAlias) {
+                familyAlias = embeddedDocxFamilies.size ? 'DocxEmbeddedFont' + (embeddedDocxFamilies.size + 1) : 'DocxEmbeddedFont';
+                embeddedDocxFamilies.set(sourceFamily, familyAlias);
+              }
+              const face = new FontFace(familyAlias, ttfBytes.buffer, {
                 weight: spec.weight,
                 style: spec.style
               });
               await face.load();
               document.fonts.add(face);
+              embeddedDocxFaces.push(face);
+              const lineHeightFactor = readSfntLineHeightFactor(ttfBytes);
+              if (lineHeightFactor) embeddedDocxLineHeightFactors.set(sourceFamily, Math.max(embeddedDocxLineHeightFactors.get(sourceFamily) || 0, lineHeightFactor));
               loadedCount++;
             }
           }
@@ -1184,6 +1323,18 @@
           // Fallback silently to web serif stack if font table is unusual
         }
         return loadedCount;
+      }
+
+      function resolveFontFamily(sourceFamily) {
+        const override = document.documentElement.style.getPropertyValue('--book-font').trim();
+        if (override) return override;
+        const requested = sourceFamily || (activeStyles.Normal && activeStyles.Normal.fontFamily);
+        if (requested) {
+          const quote = (s) => '"' + String(s).replace(/\\/g, '\\\\').replace(/"/g, '\\"') + '"';
+          const embedded = embeddedDocxFamilies.get(requested);
+          return (embedded ? quote(embedded) + ', ' : '') + quote(requested) + ', serif';
+        }
+        return '"DocxEmbeddedFont", "Frank Ruhl Libre", "David Libre", "Noto Serif Hebrew", "Times New Roman", serif';
       }
 
       // =========================================================================
@@ -1213,45 +1364,222 @@
         return map;
       }
 
+      function xmlOnOff(el) {
+        return !['0', 'false', 'off'].includes((getAttr(el, 'val') || '1').toLowerCase());
+      }
+
+      function parseRunFormatting(rPr) {
+        const fmt = {};
+        if (!rPr) return fmt;
+        for (let el = rPr.firstElementChild; el; el = el.nextElementSibling) {
+          const name = el.localName;
+          const val = getAttr(el, 'val');
+          if (name === 'b') fmt.bold = xmlOnOff(el);
+          else if (name === 'i') fmt.italic = xmlOnOff(el);
+          else if (name === 'rtl') fmt.rtl = xmlOnOff(el);
+          else if (name === 'sz' && Number.isFinite(+val)) fmt.pt = +val / 2;
+          else if (name === 'szCs' && Number.isFinite(+val)) fmt.ptCs = +val / 2;
+          else if (name === 'color' && /^[0-9a-f]{6}$/i.test(val || '')) fmt.color = '#' + val;
+          else if (name === 'u') fmt.underline = !['none', '0', 'false'].includes(val || 'single');
+          else if (name === 'vertAlign') fmt.vertAlign = val;
+          else if (name === 'spacing' && Number.isFinite(+val)) fmt.letterSpacingPt = +val / 20;
+          else if (name === 'rFonts') {
+            const family = getAttr(el, 'ascii') || getAttr(el, 'hAnsi') || getAttr(el, 'cs');
+            if (family) fmt.fontFamily = family;
+          }
+        }
+        return fmt;
+      }
+
+      function parseParagraphFormatting(pPr) {
+        const fmt = {};
+        if (!pPr) return fmt;
+        for (let el = pPr.firstElementChild; el; el = el.nextElementSibling) {
+          const name = el.localName;
+          const val = getAttr(el, 'val');
+          if (name === 'jc' && val) fmt.jc = val;
+          else if (name === 'bidi') fmt.rtlPara = xmlOnOff(el);
+          else if (name === 'keepNext' || name === 'keepLines' || name === 'widowControl' || name === 'pageBreakBefore' || name === 'contextualSpacing') fmt[name] = xmlOnOff(el);
+          else if (name === 'outlineLvl' && val !== null) fmt.outlineLvl = +val;
+          else if (name === 'ind') {
+            const left = getAttr(el, 'start') ?? getAttr(el, 'left');
+            const right = getAttr(el, 'end') ?? getAttr(el, 'right');
+            if (left !== null) fmt.indentLeftPt = +left / 20;
+            if (right !== null) fmt.indentRightPt = +right / 20;
+            const hanging = getAttr(el, 'hanging');
+            const first = getAttr(el, 'firstLine');
+            if (hanging !== null) fmt.firstLinePt = -(+hanging / 20);
+            else if (first !== null) fmt.firstLinePt = +first / 20;
+          } else if (name === 'spacing') {
+            const before = getAttr(el, 'before');
+            const after = getAttr(el, 'after');
+            if (before !== null) fmt.beforePt = +before / 20;
+            if (after !== null) fmt.afterPt = +after / 20;
+            const line = getAttr(el, 'line');
+            const rule = getAttr(el, 'lineRule');
+            if (rule) fmt.lineRule = rule;
+            if (line !== null) {
+              fmt.lineRule = rule || 'auto';
+              if (fmt.lineRule === 'auto') { fmt.line = +line / 240; fmt.linePt = null; }
+              else fmt.linePt = +line / 20;
+            }
+          } else if (name === 'tabs') {
+            fmt.tabs = Array.from(el.children).filter((t) => t.localName === 'tab').map((t) => ({
+              positionPt: +(getAttr(t, 'pos') || 0) / 20,
+              align: getAttr(t, 'val') || 'left',
+              leader: getAttr(t, 'leader') || 'none'
+            }));
+          }
+        }
+        return fmt;
+      }
+
       function parseStylesXml(xmlStr) {
         const styles = JSON.parse(JSON.stringify(DEFAULT_STYLES));
+        activeCharacterStyles = {};
         if (!xmlStr) return styles;
         const doc = new DOMParser().parseFromString(xmlStr, 'application/xml');
-        const nodes = doc.getElementsByTagNameNS('*', 'style');
-        for (let i = 0; i < nodes.length; i++) {
-          const st = nodes[i];
-          if (getAttr(st, 'type') !== 'paragraph') continue;
-          const id = getAttr(st, 'styleId');
-          if (!id) continue;
-          const base = Object.assign({}, styles[id] || styles.Normal);
-          const pPr = findFirstChild(st, 'pPr');
-          const rPr = findFirstChild(st, 'rPr');
-          if (pPr) {
-            const jc = findFirstChild(pPr, 'jc');
-            if (jc && getAttr(jc, 'val')) base.jc = getAttr(jc, 'val');
-            const sp = findFirstChild(pPr, 'spacing');
-            if (sp) {
-              if (getAttr(sp, 'before')) base.beforePt = Math.min(48, parseInt(getAttr(sp, 'before'), 10) / 20);
-              if (getAttr(sp, 'after')) base.afterPt = Math.min(36, parseInt(getAttr(sp, 'after'), 10) / 20);
-            }
-            const ol = findFirstChild(pPr, 'outlineLvl');
-            if (ol && getAttr(ol, 'val') !== null) base.outlineLvl = parseInt(getAttr(ol, 'val'), 10);
-          }
-          if (rPr) {
-            const sz = findFirstChild(rPr, 'sz');
-            if (sz && getAttr(sz, 'val')) base.pt = parseInt(getAttr(sz, 'val'), 10) / 2;
-            const b = findFirstChild(rPr, 'b');
-            if (b) base.bold = !['0', 'false'].includes(getAttr(b, 'val') || '1');
-            const it = findFirstChild(rPr, 'i');
-            if (it) base.italic = !['0', 'false'].includes(getAttr(it, 'val') || '1');
-          }
-          styles[id] = base;
+        const base = {
+          pt: 11, line: 1, lineRule: 'auto', linePt: null, beforePt: 0, afterPt: 0,
+          indentLeftPt: 0, indentRightPt: 0, firstLinePt: 0, jc: 'left', rtlPara: false,
+          bold: false, italic: false, outlineLvl: null, keepNext: false, keepLines: false,
+          widowControl: true, pageBreakBefore: false, contextualSpacing: false
+        };
+        const defaults = doc.getElementsByTagNameNS('*', 'docDefaults')[0];
+        if (defaults) {
+          const dp = findFirstChild(findFirstChild(defaults, 'pPrDefault'), 'pPr');
+          const dr = findFirstChild(findFirstChild(defaults, 'rPrDefault'), 'rPr');
+          Object.assign(base, parseParagraphFormatting(dp), parseRunFormatting(dr));
         }
+        const defs = new Map();
+        for (const node of Array.from(doc.getElementsByTagNameNS('*', 'style'))) {
+          const type = getAttr(node, 'type');
+          const id = getAttr(node, 'styleId');
+          if (id && (type === 'paragraph' || type === 'character')) defs.set(id, {node, type});
+        }
+        const resolved = new Map();
+        const resolving = new Set();
+        function resolve(id) {
+          if (resolved.has(id)) return resolved.get(id);
+          const def = defs.get(id);
+          if (!def || resolving.has(id)) return {};
+          resolving.add(id);
+          const parentId = getAttr(findFirstChild(def.node, 'basedOn'), 'val');
+          const parent = parentId && defs.has(parentId) && defs.get(parentId).type === def.type ? resolve(parentId) : {};
+          const out = Object.assign({}, def.type === 'paragraph' ? base : {}, parent,
+            def.type === 'paragraph' ? parseParagraphFormatting(findFirstChild(def.node, 'pPr')) : {},
+            parseRunFormatting(findFirstChild(def.node, 'rPr')));
+          resolving.delete(id);
+          resolved.set(id, out);
+          return out;
+        }
+        for (const [id, def] of defs) {
+          if (def.type === 'paragraph') styles[id] = resolve(id);
+          else activeCharacterStyles[id] = resolve(id);
+        }
+        if (!defs.has('Normal')) styles.Normal = base;
         return styles;
+      }
+
+      function resolveParagraphLayout(para) {
+        const st = Object.assign({}, activeStyles[(para || {}).style] || activeStyles.Normal || DEFAULT_STYLES.Normal, (para || {}).format || {});
+        if (para && para.spaceBeforePt != null) st.beforePt = para.spaceBeforePt;
+        if (para && para.spaceAfterPt != null) st.afterPt = para.spaceAfterPt;
+        if (para && para.jc) st.jc = para.jc;
+        if (para && para.rtlPara != null) st.rtlPara = para.rtlPara;
+        return st;
+      }
+
+      function resolveFootnoteLayout(fnId, paragraphIndex) {
+        const meta = ((docState.footnoteParagraphStyles || {})[fnId] || [])[paragraphIndex] || {style: 'FootnoteText'};
+        const st = resolveParagraphLayout(meta);
+        if (!activeStyles[meta.style]) st.pt = docState.footnoteConfig.fontSizePt || 8.5;
+        return st;
+      }
+
+      function parseSectionLayout(sectPr) {
+        const result = {type: 'nextPage', pageNumberFormat: 'decimal', pageNumberStart: null, titlePage: false, headerRefs: {}, footerRefs: {}};
+        for (let el = sectPr.firstElementChild; el; el = el.nextElementSibling) {
+          const name = el.localName;
+          if (name === 'type') result.type = getAttr(el, 'val') || 'nextPage';
+          else if (name === 'titlePg') result.titlePage = xmlOnOff(el);
+          else if (name === 'pgNumType') {
+            result.pageNumberFormat = getAttr(el, 'fmt') || 'decimal';
+            if (getAttr(el, 'start') !== null) result.pageNumberStart = +getAttr(el, 'start');
+          } else if (name === 'headerReference' || name === 'footerReference') {
+            result[name === 'headerReference' ? 'headerRefs' : 'footerRefs'][getAttr(el, 'type') || 'default'] = getAttr(el, 'id');
+          } else if (name === 'pgSz') {
+            if (getAttr(el, 'w') !== null) result.widthIn = +getAttr(el, 'w') / 1440;
+            if (getAttr(el, 'h') !== null) result.heightIn = +getAttr(el, 'h') / 1440;
+          } else if (name === 'pgMar') {
+            for (const [attr, key] of [['top','marginTopIn'],['bottom','marginBottomIn'],['left','marginLeftIn'],['right','marginRightIn'],['gutter','gutterIn'],['header','headerDistanceIn'],['footer','footerDistanceIn']]) {
+              if (getAttr(el, attr) !== null) result[key] = +getAttr(el, attr) / 1440;
+            }
+          }
+        }
+        return result;
+      }
+
+      function headerFooterText(xmlDoc) {
+        const parts = [];
+        let fieldInstruction = '';
+        let inFieldResult = false;
+        let skipFieldResult = false;
+        function walk(el) {
+          if (el.localName === 'fldSimple') {
+            const instruction = getAttr(el, 'instr') || '';
+            if (/^\s*PAGE\b/i.test(instruction)) { parts.push('{{PAGE}}'); return; }
+            if (/^\s*NUMPAGES\b/i.test(instruction)) { parts.push('{{NUMPAGES}}'); return; }
+          }
+          if (el.localName === 'fldChar') {
+            const kind = getAttr(el, 'fldCharType');
+            if (kind === 'begin') { fieldInstruction = ''; inFieldResult = false; skipFieldResult = false; }
+            else if (kind === 'separate') {
+              inFieldResult = true;
+              skipFieldResult = /^\s*(?:PAGE|NUMPAGES)\b/i.test(fieldInstruction);
+              if (skipFieldResult) parts.push(/^\s*NUMPAGES\b/i.test(fieldInstruction) ? '{{NUMPAGES}}' : '{{PAGE}}');
+            } else if (kind === 'end') { inFieldResult = false; skipFieldResult = false; fieldInstruction = ''; }
+          } else if (el.localName === 'instrText') fieldInstruction += el.textContent || '';
+          else if (el.localName === 't' && !(inFieldResult && skipFieldResult)) parts.push(el.textContent || '');
+          else if (el.localName === 'tab') parts.push('\t');
+          else if (el.localName === 'br') parts.push('\n');
+          for (let child = el.firstElementChild; child; child = child.nextElementSibling) walk(child);
+          if (el.localName === 'p') parts.push('\n');
+        }
+        walk(xmlDoc.documentElement);
+        return parts.join('').trim();
+      }
+
+      async function populateSectionHeaders(zip, relationships, sections) {
+        const parts = new Map();
+        for (const section of sections) {
+          for (const id of [...Object.values(section.headerRefs), ...Object.values(section.footerRefs)]) {
+            if (parts.has(id)) continue;
+            const target = relationships.get(id);
+            const path = target && (target.startsWith('/') ? target.slice(1) : target.startsWith('word/') ? target : 'word/' + target);
+            const entry = path && zip.file(path);
+            parts.set(id, entry ? entry.async('string').then((xml) => {
+              const parsed = new DOMParser().parseFromString(xml, 'application/xml');
+              const text = headerFooterText(parsed);
+              return {text, hasPageField: text.includes('{{PAGE}}')};
+            }) : Promise.resolve({text: '', hasPageField: false}));
+          }
+        }
+        const resolved = new Map(await Promise.all(Array.from(parts, async ([id, value]) => [id, await value])));
+        let priorHeaders = {}, priorFooters = {};
+        for (const section of sections) {
+          section.headers = Object.assign({}, priorHeaders);
+          section.footers = Object.assign({}, priorFooters);
+          for (const [kind, id] of Object.entries(section.headerRefs)) section.headers[kind] = resolved.get(id);
+          for (const [kind, id] of Object.entries(section.footerRefs)) section.footers[kind] = resolved.get(id);
+          priorHeaders = section.headers;
+          priorFooters = section.footers;
+        }
       }
 
       function parseParagraphRuns(pEl, relsMap) {
         const runs = [];
+        const sourceRunIndices = new Map(Array.from(pEl.getElementsByTagNameNS('*', 'r')).map((run, index) => [run, index]));
         function walk(container, linkHref, linkAnchor) {
           for (let ch = container.firstElementChild; ch; ch = ch.nextElementSibling) {
             const ln = ch.localName;
@@ -1260,6 +1588,8 @@
               const anc = getAttr(ch, 'anchor');
               const url = rId ? relsMap.get(rId) : null;
               walk(ch, url || linkHref, anc || linkAnchor);
+            } else if (['sdt', 'sdtContent', 'ins', 'smartTag', 'customXml', 'fldSimple'].includes(ln)) {
+              walk(ch, linkHref, linkAnchor);
             } else if (ln === 'bookmarkStart') {
               const bName = getAttr(ch, 'name');
               if (bName && !bName.startsWith('_')) {
@@ -1267,58 +1597,60 @@
               }
             } else if (ln === 'r') {
               const rPr = findFirstChild(ch, 'rPr');
-              let bold = false, italic = false, underline = false, sup = false, rtl = false, pt = null, rStyle = null;
-              if (rPr) {
-                for (let rp = rPr.firstElementChild; rp; rp = rp.nextElementSibling) {
-                  const rln = rp.localName;
-                  const val = getAttr(rp, 'val');
-                  if (rln === 'b' && val !== '0' && val !== 'false') bold = true;
-                  else if (rln === 'i' && val !== '0' && val !== 'false') italic = true;
-                  else if (rln === 'u' && val && val !== 'none' && val !== '0' && val !== 'false') underline = true;
-                  else if (rln === 'vertAlign' && val === 'superscript') sup = true;
-                  else if (rln === 'rtl' && val !== '0' && val !== 'false') rtl = true;
-                  else if (rln === 'sz' && val) pt = parseInt(val, 10) / 2;
-                  else if (rln === 'rStyle') rStyle = val;
-                }
-              }
-              if (rStyle === 'TzidkatFootnoteSeparator' || rStyle === 'FootnoteReference') sup = true;
+              const rStyle = getAttr(findFirstChild(rPr, 'rStyle'), 'val');
+              const fmt = Object.assign({}, activeCharacterStyles[rStyle] || {}, parseRunFormatting(rPr));
+              const sup = fmt.vertAlign === 'superscript' || rStyle === 'TzidkatFootnoteSeparator' || rStyle === 'FootnoteReference';
 
               let fnRefEl = null;
               let hasFootnoteRefSelf = false;
-              let hasTab = false;
-              let hasBrPage = false;
               let textBuf = '';
+              const pieces = [];
 
               for (let rc = ch.firstElementChild; rc; rc = rc.nextElementSibling) {
                 const rcln = rc.localName;
                 if (rcln === 'footnoteReference') fnRefEl = rc;
                 else if (rcln === 'footnoteRef') hasFootnoteRefSelf = true;
-                else if (rcln === 'tab') hasTab = true;
-                else if (rcln === 'br' && getAttr(rc, 'type') === 'page') hasBrPage = true;
-                else if (rcln === 't') textBuf += rc.textContent || '';
+                else if (rcln === 'tab') pieces.push({type: 'tab'});
+                else if (rcln === 'br' || rcln === 'cr') pieces.push({type: getAttr(rc, 'type') === 'page' ? 'pageBreak' : 'lineBreak'});
+                else if (rcln === 't') {
+                  const text = rc.textContent || '';
+                  textBuf += text;
+                  pieces.push({type: 'text', text});
+                }
               }
 
-              if (hasBrPage) runs.push({ type: 'pageBreak' });
               if (fnRefEl) {
                 const fnId = getAttr(fnRefEl, 'id');
                 const customFollows = ['1', 'true'].includes(getAttr(fnRefEl, 'customMarkFollows') || '');
                 runs.push({
                   type: 'fnRef',
                   fnId: String(fnId),
-                  customMark: customFollows ? textBuf.trim() : ''
+                  customMark: customFollows ? textBuf.trim() : '',
+                  sourceRunIndex: sourceRunIndices.get(ch),
+                  pt: fmt.pt || undefined,
+                  fontFamily: fmt.fontFamily || undefined,
+                  b: fmt.bold,
+                  i: fmt.italic
                 });
                 continue;
               }
               if (hasFootnoteRefSelf) continue;
-              if (hasTab) runs.push({ type: 'tab' });
-              if (textBuf) {
-                const runObj = { type: 'text', text: textBuf };
-                if (bold) runObj.b = true;
-                if (italic) runObj.i = true;
-                if (underline) runObj.u = true;
+              for (const piece of pieces) {
+                if (piece.type !== 'text') { runs.push(Object.assign({sourceRunIndex: sourceRunIndices.get(ch)}, piece)); continue; }
+                if (!piece.text) continue;
+                const runObj = { type: 'text', text: piece.text, sourceRunIndex: sourceRunIndices.get(ch) };
+                if (fmt.bold !== undefined) runObj.b = fmt.bold;
+                if (fmt.italic !== undefined) runObj.i = fmt.italic;
+                if (fmt.underline !== undefined) runObj.u = fmt.underline;
                 if (sup) runObj.sup = true;
-                if (rtl) runObj.rtl = true;
+                if (fmt.vertAlign === 'subscript') runObj.sub = true;
+                if (fmt.rtl !== undefined) runObj.rtl = fmt.rtl;
+                const useComplexSize = fmt.rtl || (/[\u0590-\u05FF]/.test(piece.text) && !/[A-Za-z]/.test(piece.text));
+                const pt = useComplexSize ? (fmt.ptCs ?? fmt.pt) : fmt.pt;
                 if (pt) runObj.pt = pt;
+                if (fmt.fontFamily) runObj.fontFamily = fmt.fontFamily;
+                if (fmt.color) runObj.color = fmt.color;
+                if (fmt.letterSpacingPt !== undefined) runObj.letterSpacingPt = fmt.letterSpacingPt;
                 if (linkHref) runObj.href = linkHref;
                 if (linkAnchor) runObj.anchor = linkAnchor;
                 runs.push(runObj);
@@ -1335,10 +1667,24 @@
           showToast('JSZip library is still loading; please retry in a moment.', 'error');
           return;
         }
+        const importStarted = performance.now();
+        let importStageStarted = importStarted;
+        const importStages = [];
+        const importStatus = document.getElementById('status-import-time');
+        const finishImportStage = (name) => {
+          const now = performance.now();
+          importStages.push(`${name}: ${((now - importStageStarted) / 1000).toFixed(3)}s`);
+          importStageStarted = now;
+        };
+        if (importStatus) {
+          importStatus.textContent = 'Opening…';
+          importStatus.title = 'Processing the selected file in this browser';
+        }
         try {
           setLoading(true, 'Unpacking ' + fileName + '…', 'Reading OpenXML ZIP archive in memory', 15);
           await nextFrame();
           const zip = await JSZip.loadAsync(arrayBuffer);
+          finishImportStage('Unpack');
           docState.rawZipBuffer = arrayBuffer;
           docState.fileName = fileName;
           const cleanTitle = fileName.replace(/\.docx$/i, '').replace(/_/g, ' ');
@@ -1349,9 +1695,27 @@
           await nextFrame();
           const fontCount = await loadEmbeddedDocxFonts(zip);
           docState.embeddedFontCount = fontCount;
+          finishImportStage('Fonts');
 
           const stylesStr = zip.file('word/styles.xml') ? await zip.file('word/styles.xml').async('string') : '';
           activeStyles = parseStylesXml(stylesStr);
+          document.documentElement.style.removeProperty('--book-font');
+          document.getElementById('font-family-select').selectedIndex = 0;
+          docState.footnoteConfig.fontSizePt = (activeStyles.FootnoteText || {}).pt || 8.5;
+          docState.footnoteConfig.numberingMode = 'sequential';
+          const settingsEntry = zip.file('word/settings.xml');
+          if (settingsEntry) {
+            const settings = new DOMParser().parseFromString(await settingsEntry.async('string'), 'application/xml');
+            const mirror = settings.getElementsByTagNameNS('*', 'mirrorMargins')[0];
+            docState.pageSetup.mirrorMargins = !!mirror && xmlOnOff(mirror);
+            const evenAndOdd = settings.getElementsByTagNameNS('*', 'evenAndOddHeaders')[0];
+            docState.evenAndOddHeaders = !!evenAndOdd && xmlOnOff(evenAndOdd);
+            const numbering = settings.getElementsByTagNameNS('*', 'numRestart')[0];
+            if (numbering && getAttr(numbering, 'val') === 'eachPage') docState.footnoteConfig.numberingMode = 'restartPage';
+          } else {
+            docState.pageSetup.mirrorMargins = false;
+            docState.evenAndOddHeaders = false;
+          }
 
           const [docRelsStr, fnRelsStr] = await Promise.all([
             zip.file('word/_rels/document.xml.rels') ? zip.file('word/_rels/document.xml.rels').async('string') : Promise.resolve(''),
@@ -1369,30 +1733,45 @@
             const hdrTxt = (hdrDoc.documentElement.textContent || '').trim();
             if (hdrTxt) detectedHeader = hdrTxt;
           }
+          finishImportStage('Styles and headers');
 
           setLoading(true, 'Parsing Footnotes XML…', 'Mapping scholarly bottom-of-page footnote bodies & citations', 52);
           await nextFrame();
           const newFootnotes = {};
+          const newFootnoteParagraphStyles = {};
+          let noteTableCount = 0, noteDrawingCount = 0;
           const fnFile = zip.file('word/footnotes.xml');
           if (fnFile) {
             const fnXmlStr = await fnFile.async('string');
             const fnDoc = new DOMParser().parseFromString(fnXmlStr, 'application/xml');
             const fnRoot = fnDoc.documentElement;
+            noteTableCount = fnRoot.getElementsByTagNameNS('*', 'tbl').length;
+            noteDrawingCount = fnRoot.getElementsByTagNameNS('*', 'drawing').length + fnRoot.getElementsByTagNameNS('*', 'pict').length;
             for (let fnEl = fnRoot.firstElementChild; fnEl; fnEl = fnEl.nextElementSibling) {
               if (fnEl.localName !== 'footnote') continue;
               const fid = getAttr(fnEl, 'id');
               const ftype = getAttr(fnEl, 'type');
               if (fid === '-1' || fid === '0' || ftype === 'separator' || ftype === 'continuationSeparator') continue;
               const fnParas = [];
-              for (let fp = fnEl.firstElementChild; fp; fp = fp.nextElementSibling) {
+              const fnParaStyles = [];
+              let sourceFootnoteParagraphIndex = 0;
+              for (let fp = fnEl.firstElementChild; fp; fp = fp.nextElementSibling, sourceFootnoteParagraphIndex++) {
                 if (fp.localName === 'p') {
                   const pRuns = parseParagraphRuns(fp, fnRels);
-                  if (pRuns.length) fnParas.push(pRuns);
+                  const pPr = findFirstChild(fp, 'pPr');
+                  fnParas.push(pRuns);
+                  fnParaStyles.push({
+                    style: getAttr(findFirstChild(pPr, 'pStyle'), 'val') || 'FootnoteText',
+                    format: parseParagraphFormatting(pPr),
+                    sourceFootnoteParagraphIndex
+                  });
                 }
               }
               newFootnotes[String(fid)] = fnParas.length ? fnParas : [[{ type: 'text', text: '' }]];
+              newFootnoteParagraphStyles[String(fid)] = fnParaStyles;
             }
           }
+          finishImportStage('Footnotes');
 
           setLoading(true, 'Parsing Main Manuscript XML…', 'Streaming paragraphs, BiDi isolates, bookmarks & section trim', 74);
           await nextFrame();
@@ -1404,10 +1783,13 @@
           if (!bodyEl) throw new Error('Invalid .docx: missing w:body');
 
           const newParas = [];
+          const newSections = [];
           let lastSectPr = null;
-          for (let el = bodyEl.firstElementChild; el; el = el.nextElementSibling) {
+          let sourceBodyIndex = 0;
+          for (let el = bodyEl.firstElementChild; el; el = el.nextElementSibling, sourceBodyIndex++) {
             if (el.localName === 'sectPr') {
               lastSectPr = el;
+              newSections.push(parseSectionLayout(el));
               continue;
             }
             if (el.localName === 'tbl') {
@@ -1424,58 +1806,47 @@
                     rowRuns.push(...parseParagraphRuns(ps[pi], docRels));
                   }
                 }
-                newParas.push({ style: 'Normal', jc: 'left', isTableRow: true, runs: rowRuns });
+                newParas.push({ style: 'Normal', jc: 'left', isTableRow: true, sourceBodyIndex, runs: rowRuns });
               }
               continue;
             }
             if (el.localName !== 'p') continue;
             const pPr = findFirstChild(el, 'pPr');
-            let pStyle = 'Normal';
-            let jc = null;
+            const pStyle = getAttr(findFirstChild(pPr, 'pStyle'), 'val') || 'Normal';
+            const format = parseParagraphFormatting(pPr);
+            const inherited = Object.assign({}, activeStyles[pStyle] || activeStyles.Normal, format);
             let sectBreakAfter = false;
-            let pageBreakBefore = false;
-            let spaceBeforePt = null;
-            let spaceAfterPt = null;
-            let rtlPara = false;
+            let pageBreakBefore = !!inherited.pageBreakBefore;
 
             if (pPr) {
-              const psEl = findFirstChild(pPr, 'pStyle');
-              if (psEl && getAttr(psEl, 'val')) pStyle = getAttr(psEl, 'val');
-              const jcEl = findFirstChild(pPr, 'jc');
-              if (jcEl && getAttr(jcEl, 'val')) jc = getAttr(jcEl, 'val');
-              const bidiEl = findFirstChild(pPr, 'bidi');
-              if (bidiEl && !['0', 'false'].includes(getAttr(bidiEl, 'val') || '1')) rtlPara = true;
-              const pbb = findFirstChild(pPr, 'pageBreakBefore');
-              if (pbb && !['0', 'false'].includes(getAttr(pbb, 'val') || '1')) pageBreakBefore = true;
-              const spEl = findFirstChild(pPr, 'spacing');
-              if (spEl) {
-                if (getAttr(spEl, 'before')) spaceBeforePt = Math.min(110, parseInt(getAttr(spEl, 'before'), 10) / 20);
-                if (getAttr(spEl, 'after')) spaceAfterPt = Math.min(60, parseInt(getAttr(spEl, 'after'), 10) / 20);
-              }
               const sPr = findFirstChild(pPr, 'sectPr');
               if (sPr) {
                 sectBreakAfter = true;
                 lastSectPr = sPr;
+                newSections.push(parseSectionLayout(sPr));
               }
             }
 
             const pRuns = parseParagraphRuns(el, docRels);
             if (pRuns.some((r) => r.type === 'pageBreak')) pageBreakBefore = true;
 
-            // Skip completely empty micro-spacer section carrier paragraphs except keep their sectBreakAfter
-            if (!pRuns.length && !sectBreakAfter && !pageBreakBefore) continue;
+            // Empty paragraphs carry authored line height and spacing too.
+            if (!pRuns.length) Object.assign(format, parseRunFormatting(findFirstChild(pPr, 'rPr')));
 
             newParas.push({
               style: pStyle,
-              jc: jc || (activeStyles[pStyle] ? activeStyles[pStyle].jc : 'both'),
-              rtlPara: rtlPara,
+              format,
+              sourceBodyIndex,
+              jc: inherited.jc || 'left',
+              rtlPara: !!inherited.rtlPara,
               sectBreakAfter: sectBreakAfter,
               pageBreakBefore: pageBreakBefore,
-              spaceBeforePt: spaceBeforePt,
-              spaceAfterPt: spaceAfterPt,
+              spaceBeforePt: format.beforePt ?? null,
+              spaceAfterPt: format.afterPt ?? null,
               runs: pRuns
             });
           }
+          await populateSectionHeaders(zip, docRels, newSections);
 
           // Apply exact <w:sectPr> page size & margins
           if (lastSectPr) {
@@ -1497,23 +1868,45 @@
             }
           }
           docState.pageSetup.headerText = detectedHeader;
+          finishImportStage('Manuscript');
 
           setLoading(true, 'Paginating Book & Bottom-of-Page Footnotes…', 'Fitting body lines + dynamic footnotes across physical pages', 90);
           await nextFrame();
 
           docState.paragraphs = newParas;
           docState.footnotes = newFootnotes;
+          docState.footnoteParagraphStyles = newFootnoteParagraphStyles;
+          docState.sectionLayouts = newSections;
+          const tableCount = bodyEl.getElementsByTagNameNS('*', 'tbl').length;
+          const drawingCount = bodyEl.getElementsByTagNameNS('*', 'drawing').length + bodyEl.getElementsByTagNameNS('*', 'pict').length + noteDrawingCount;
+          const importNotice = document.getElementById('docx-import-notice');
+          const importLimitations = [];
+          if (tableCount) importLimitations.push(`${tableCount} table(s) use a simplified preview`);
+          if (noteTableCount) importLimitations.push(`${noteTableCount} table(s) inside footnotes are retained in the Word file but are not displayed here`);
+          if (drawingCount) importLimitations.push(`${drawingCount} embedded drawing(s) are retained in the Word file but are not displayed here`);
+          importNotice.textContent = importLimitations.length ? importLimitations.join('; ') + '. Check the original in Word for their exact appearance.' : '';
+          importNotice.classList.toggle('hidden', !importLimitations.length);
           widthCache.clear();
           rebuildDocumentLayout();
+          captureOriginalDocxSaveState();
           document.getElementById('document-viewport').scrollTop = 0;
+          finishImportStage('Page layout');
 
           const fontMsg = fontCount > 0 ? ` (${fontCount} embedded fonts active)` : '';
           document.getElementById('font-engine-text').textContent =
             fontCount > 0 ? `${fontCount} Embedded ODTTF Fonts Loaded` : 'BiDi + True Footnotes Ready';
           setLoading(false);
+          if (importStatus) {
+            importStatus.textContent = `Opened in ${((performance.now() - importStarted) / 1000).toFixed(1)}s`;
+            importStatus.title = 'Browser processing time; excludes file transfer. ' + importStages.join(' · ');
+          }
           showToast(`Opened ${fileName}: ${docState.pages.length} pages, ${docState.fnOrder.length} footnotes${fontMsg}`);
         } catch (err) {
           setLoading(false);
+          if (importStatus) {
+            importStatus.textContent = 'Import failed';
+            importStatus.title = 'The selected document could not be opened';
+          }
           showToast('Failed to parse .docx: ' + (err && err.message ? err.message : String(err)), 'error');
         }
       }
@@ -1521,60 +1914,68 @@
       // =========================================================================
       // 6. TRUE WORD BOTTOM-OF-PAGE FOOTNOTE & LINE PAGINATION ENGINE
       // =========================================================================
-      const COMBINING_MARKS_RE = /[\u0591-\u05C7\u2066-\u2069\u200E\u200F]/g;
-
-      function measureWordPx(word, pt, bold, italic) {
-        const clean = word.replace(COMBINING_MARKS_RE, '');
-        if (!clean) return 0;
-        const key = (bold ? 'B' : '') + (italic ? 'I' : '') + pt + ':' + clean;
+      function measureWordPx(word, pt, bold, italic, fontFamily) {
+        if (!word) return 0;
+        const pxSize = (pt * DPI) / 72;
+        const weight = typeof bold === 'number' ? bold : (bold ? 700 : 400);
+        const font = `${italic ? 'italic ' : ''}${weight} ${pxSize}px ${fontFamily || layoutDefaultFont}`;
+        const key = font + ':' + word;
         const cached = widthCache.get(key);
         if (cached !== undefined) return cached;
-        const pxSize = (pt * DPI) / 72;
-        measureCtx.font = `${italic ? 'italic ' : ''}${bold ? '700 ' : '400 '}${pxSize.toFixed(1)}px "Times New Roman", serif`;
-        // Add 3% safety cushion for justified bilingual Hebrew/English glyph shaping
-        const w = measureCtx.measureText(clean).width * 1.035;
-        if (widthCache.size < 65000) widthCache.set(key, w);
+        if (font !== measureFont) {
+          measureCtx.font = font;
+          measureFont = font;
+        }
+        // Measure the same font and intact text rendered on the page. Hebrew
+        // punctuation and vocalization must never be discarded for measurement.
+        const w = measureCtx.measureText(word).width;
+        if (widthCache.size < 200000) widthCache.set(key, w);
         return w;
       }
 
-      function computeFootnoteHeightPx(fnId, contentWidthPx, fnFontPt) {
-        const paras = docState.footnotes[fnId];
-        if (!paras || !paras.length) return 18;
-        const linePx = ((fnFontPt * DPI) / 72) * 1.34;
-        const availW = Math.max(140, contentWidthPx - 22);
-        let totalH = 0;
-        for (let p = 0; p < paras.length; p++) {
-          let lineW = 18; // hanging number lead
-          let lines = 1;
-          const runs = paras[p];
-          for (let r = 0; r < runs.length; r++) {
-            const run = runs[r];
-            if (run.type !== 'text' || !run.text) continue;
-            const tokens = run.text.split(/(\s+)/);
-            for (let t = 0; t < tokens.length; t++) {
-              const tok = tokens[t];
-              if (!tok) continue;
-              const tw = measureWordPx(tok, fnFontPt, !!run.b, !!run.i);
-              if (lineW + tw > availW && lineW > 24) {
-                lines++;
-                lineW = tw;
-              } else {
-                lineW += tw;
-              }
-            }
-          }
-          totalH += lines * linePx + 3.5;
-        }
-        return Math.ceil(totalH);
+      function paragraphLineHeightPx(st, maxRunPt) {
+        const naturalFactor = resolveFontLineHeightFactor(st.fontFamily) || 1;
+        const automatic = ((maxRunPt || st.pt || 9.5) * DPI / 72) * naturalFactor * (st.line || 1.2);
+        if (st.lineRule === 'exact' && Number.isFinite(st.linePt)) return Math.max(0.1, st.linePt * DPI / 72);
+        if (st.lineRule === 'atLeast' && Number.isFinite(st.linePt)) return Math.max(st.linePt * DPI / 72, automatic);
+        return automatic;
       }
 
-      function wrapParagraphIntoLines(para, pIdx, contentWidthPx) {
-        const st = activeStyles[para.style] || DEFAULT_STYLES.Normal;
+      function computeFootnoteLayout(fnId, contentWidthPx) {
+        const paras = docState.footnotes[fnId] || [[]];
+        const lines = [];
+        let precedingAfter = 0;
+        for (let p = 0; p < paras.length; p++) {
+          const st = resolveFootnoteLayout(fnId, p);
+          const runs = p === 0
+            ? [{ type: 'text', text: String(docState.fnSeqMap[fnId] || fnId), sup: true, footnoteLead: true, pt: st.pt || 8.5, b: false }, ...paras[p]]
+            : paras[p];
+          const wrapped = wrapParagraphIntoLines({ runs, style: 'FootnoteText' }, -1, contentWidthPx, st);
+          for (let i = 0; i < wrapped.lines.length; i++) {
+            const line = wrapped.lines[i];
+            lines.push({
+              atoms: line.atoms,
+              heightPx: line.heightPx,
+              beforePx: i === 0 ? Math.max(0, wrapped.beforePx - precedingAfter) : 0,
+              afterPx: line.isLast ? wrapped.afterPx : 0,
+              paraIndex: p,
+              isFirst: i === 0,
+              isLast: line.isLast,
+              layout: st
+            });
+          }
+          precedingAfter = wrapped.afterPx;
+        }
+        return { lines, heightPx: lines.reduce((sum, line) => sum + line.beforePx + line.heightPx + line.afterPx, 0) };
+      }
+
+      function wrapParagraphIntoLines(para, pIdx, contentWidthPx, resolvedStyle) {
+        const st = resolvedStyle || resolveParagraphLayout(para);
         const basePt = st.pt || 9.5;
-        const lineMult = st.line || 1.22;
         const indentL = ((st.indentLeftPt || 0) * DPI) / 72;
         const indentR = ((st.indentRightPt || 0) * DPI) / 72;
-        const maxLineW = Math.max(120, contentWidthPx - indentL - indentR);
+        const maxLineW = Math.max(1, contentWidthPx - indentL - indentR);
+        const firstLineIndentPx = ((st.firstLinePt || 0) * DPI) / 72;
 
         // Flatten runs into atomic word/fnRef tokens so long multi-page paragraphs split cleanly!
         const atoms = [];
@@ -1588,37 +1989,46 @@
             continue;
           }
           if (run.type === 'pageBreak') continue;
+          if (run.type === 'lineBreak') {
+            atoms.push({ kind: 'lineBreak', width: 0, run });
+            continue;
+          }
           if (run.type === 'tab') {
             atoms.push({ kind: 'tab', width: 28, run: run });
             continue;
           }
           if (run.type === 'fnRef') {
             const label = docState.fnSeqMap[run.fnId] || run.customMark || '1';
-            const w = measureWordPx(label, basePt * 0.75, true, false) + 2;
+            const w = measureWordPx(label, (run.pt || basePt) * 0.72, !!run.b, !!run.i, resolveFontFamily(run.fontFamily || st.fontFamily));
             atoms.push({ kind: 'fnRef', fnId: run.fnId, customMark: run.customMark, width: w, run: run });
             continue;
           }
           if (run.type === 'text' && run.text) {
             const rPt = run.pt || basePt;
-            if (rPt > maxRunPt && !run.sup) maxRunPt = rPt;
-            const parts = run.text.split(/(\s+)/);
+            if (rPt > maxRunPt && !run.sup && !run.sub) maxRunPt = rPt;
+            const family = resolveFontFamily(run.fontFamily || st.fontFamily);
+            const parts = run.text.split(/([ \t\r\n\f]+)/);
             for (let k = 0; k < parts.length; k++) {
               const part = parts[k];
               if (!part) continue;
-              const isSpace = /^\s+$/.test(part);
-              const w = measureWordPx(part, run.sup ? rPt * 0.72 : rPt, !!(run.b || st.bold), !!(run.i || st.italic));
+              const isSpace = /^[ \t\r\n\f]+$/.test(part);
+              let w = measureWordPx(isSpace ? ' ' : part, run.sup || run.sub ? rPt * 0.72 : rPt, run.b ?? st.bold, run.i ?? st.italic, family);
+              if (run.letterSpacingPt) {
+                const count = isSpace ? 1 : Array.from(part.matchAll(/[^\p{M}\u2066-\u2069\u200E\u200F]/gu)).length;
+                w += count * run.letterSpacingPt * DPI / 72;
+              }
               atoms.push({ kind: 'word', text: part, isSpace: isSpace, width: w, run: run });
             }
           }
         }
 
-        const lineHeightPx = Math.ceil(((maxRunPt * DPI) / 72) * lineMult);
-        const beforePx = Math.round(((para.spaceBeforePt !== null && para.spaceBeforePt !== undefined ? para.spaceBeforePt : (st.beforePt || 0)) * DPI) / 72);
-        const afterPx = Math.round(((para.spaceAfterPt !== null && para.spaceAfterPt !== undefined ? para.spaceAfterPt : (st.afterPt || 0)) * DPI) / 72);
+        const lineHeightPx = paragraphLineHeightPx(st, maxRunPt);
+        const beforePx = ((st.beforePt || 0) * DPI) / 72;
+        const afterPx = ((st.afterPt || 0) * DPI) / 72;
 
         if (!atoms.length) {
           return {
-            lines: [{ atoms: [], fnIds: [], heightPx: Math.max(10, Math.round(lineHeightPx * 0.5)), isFirst: true, isLast: true }],
+            lines: [{ atoms: [], fnIds: [], heightPx: lineHeightPx, isFirst: true, isLast: true }],
             bookmarks: bookmarks,
             beforePx: beforePx,
             afterPx: afterPx,
@@ -1634,8 +2044,25 @@
 
         for (let i = 0; i < atoms.length; i++) {
           const a = atoms[i];
+          if (a.kind === 'lineBreak') {
+            curAtoms.push(a);
+            lines.push({ atoms: curAtoms, fnIds: curFnIds, heightPx: lineHeightPx, isFirst: lines.length === 0, isLast: false });
+            curAtoms = [];
+            curFnIds = [];
+            curW = 0;
+            continue;
+          }
           const attachToPrev = a.kind === 'fnRef' || (a.kind === 'word' && a.run && a.run.sup);
-          if (!attachToPrev && !a.isSpace && curW + a.width > maxLineW && curAtoms.length > 0) {
+          let attachedWidth = a.width;
+          if (!attachToPrev && !a.isSpace) {
+            for (let j = i + 1; j < atoms.length; j++) {
+              const next = atoms[j];
+              if (next.kind !== 'fnRef' && !(next.kind === 'word' && next.run && next.run.sup)) break;
+              attachedWidth += next.width;
+            }
+          }
+          const availableWidth = maxLineW - (lines.length === 0 ? firstLineIndentPx : 0);
+          if (!attachToPrev && !a.isSpace && curW + attachedWidth > availableWidth && curAtoms.some((atom) => !atom.isSpace)) {
             lines.push({ atoms: curAtoms, fnIds: curFnIds, heightPx: lineHeightPx, isFirst: lines.length === 0, isLast: false });
             curAtoms = [a];
             curFnIds = a.kind === 'fnRef' ? [a.fnId] : [];
@@ -1643,7 +2070,8 @@
           } else {
             curAtoms.push(a);
             if (a.kind === 'fnRef') curFnIds.push(a.fnId);
-            curW += a.width;
+            const previous = curAtoms[curAtoms.length - 2];
+            if (!a.isSpace || (curAtoms.length > 1 && !(previous && previous.isSpace))) curW += a.width;
           }
         }
         if (curAtoms.length) {
@@ -1665,253 +2093,222 @@
 
       function rebuildDocumentLayout() {
         const ps = docState.pageSetup;
-        const pageW = Math.round((ps.orient === 'landscape' ? Math.max(ps.widthIn, ps.heightIn) : Math.min(ps.widthIn, ps.heightIn)) * DPI);
-        const pageH = Math.round((ps.orient === 'landscape' ? Math.min(ps.widthIn, ps.heightIn) : Math.max(ps.widthIn, ps.heightIn)) * DPI);
-        const padTop = Math.round(ps.marginTopIn * DPI);
-        const padBottom = Math.round(Math.max(0.45, ps.marginBottomIn) * DPI);
-        const innerPad = Math.round((ps.marginLeftIn + (ps.mirrorMargins ? ps.gutterIn : 0)) * DPI);
-        const outerPad = Math.round(ps.marginRightIn * DPI);
-        const contentWidthPx = Math.max(180, pageW - innerPad - outerPad);
-        const availHeightPx = Math.max(220, pageH - padTop - padBottom);
-
-        // Update dynamic @page CSS for exact-trim-size PDF export
-        const wIn = (pageW / DPI).toFixed(2);
-        const hIn = (pageH / DPI).toFixed(2);
-        document.getElementById('dynamic-print-page-style').textContent =
-          `@page { size: ${wIn}in ${hIn}in; margin: 0; }`;
-
-        // Update ruler readout
+        layoutDefaultFont = resolveFontFamily();
+        const sections = docState.sectionLayouts || [];
+        const originalDefaults = sections[sections.length - 1] || {};
+        const geometryKeys = ['widthIn', 'heightIn', 'marginTopIn', 'marginBottomIn', 'marginLeftIn', 'marginRightIn', 'gutterIn'];
+        function sectionMetrics(index) {
+          const authored = sections[index] || {};
+          const effective = Object.assign({}, ps, authored);
+          for (const key of geometryKeys) {
+            if (Number.isFinite(ps[key]) && (!Number.isFinite(originalDefaults[key]) || Math.abs(ps[key] - originalDefaults[key]) > 0.002)) effective[key] = ps[key];
+          }
+          const originalLandscape = (originalDefaults.widthIn || ps.widthIn) > (originalDefaults.heightIn || ps.heightIn);
+          if ((ps.orient === 'landscape') !== originalLandscape) {
+            const w = effective.widthIn, h = effective.heightIn;
+            effective.widthIn = ps.orient === 'landscape' ? Math.max(w, h) : Math.min(w, h);
+            effective.heightIn = ps.orient === 'landscape' ? Math.min(w, h) : Math.max(w, h);
+          }
+          const pageW = effective.widthIn * DPI, pageH = effective.heightIn * DPI;
+          const padTop = effective.marginTopIn * DPI, padBottom = effective.marginBottomIn * DPI;
+          const innerPad = (effective.marginLeftIn + (ps.mirrorMargins ? effective.gutterIn : 0)) * DPI;
+          const outerPad = effective.marginRightIn * DPI;
+          return { pageW, pageH, padTop, padBottom, innerPad, outerPad, contentWidthPx: Math.max(1, pageW - innerPad - outerPad), availHeightPx: Math.max(1, pageH - padTop - padBottom) };
+        }
+        const firstMetrics = sectionMetrics(0);
+        const wIn = (firstMetrics.pageW / DPI).toFixed(2), hIn = (firstMetrics.pageH / DPI).toFixed(2);
+        document.getElementById('dynamic-print-page-style').textContent = `@page { size: ${wIn}in ${hIn}in; margin: 0; }`;
         const rulerTrack = document.getElementById('ruler-track');
         if (rulerTrack) {
-          rulerTrack.style.width = pageW + 'px';
-          document.getElementById('ruler-left-margin').textContent =
-            (innerPad / DPI).toFixed(2) + '"' + (ps.mirrorMargins ? ' (In+Gutter)' : '');
-          document.getElementById('ruler-right-margin').textContent = (outerPad / DPI).toFixed(2) + '"';
+          rulerTrack.style.width = firstMetrics.pageW + 'px';
+          document.getElementById('ruler-left-margin').textContent = (firstMetrics.innerPad / DPI).toFixed(2) + '"' + (ps.mirrorMargins ? ' (In+Gutter)' : '');
+          document.getElementById('ruler-right-margin').textContent = (firstMetrics.outerPad / DPI).toFixed(2) + '"';
         }
-        document.getElementById('trim-badge').textContent =
-          `${wIn}" × ${hIn}"${ps.mirrorMargins ? ' · Mirror Gutter' : ''}`;
+        document.getElementById('trim-badge').textContent = `${wIn}" × ${hIn}"${ps.mirrorMargins ? ' · Mirror Gutter' : ''}`;
 
-        // Step 1: Collect footnote sequence & word statistics
         docState.fnOrder = [];
         docState.fnSeqMap = {};
-        let totalWords = 0;
-        let hebrewChars = 0;
-        let linkCount = 0;
-
-        for (let p = 0; p < docState.paragraphs.length; p++) {
-          const runs = docState.paragraphs[p].runs;
-          for (let r = 0; r < runs.length; r++) {
-            const run = runs[r];
-            if (run.type === 'fnRef') {
+        let totalWords = 0, hebrewChars = 0, linkCount = 0;
+        const seenReferences = new Set();
+        for (const para of docState.paragraphs) {
+          for (const run of para.runs) {
+            if (run.type === 'fnRef' && !seenReferences.has(run.fnId)) {
+              seenReferences.add(run.fnId);
               docState.fnOrder.push(run.fnId);
-              const seqIdx = docState.fnOrder.length;
-              if (docState.footnoteConfig.numberingMode === 'customMark' && run.customMark) {
-                docState.fnSeqMap[run.fnId] = run.customMark;
-              } else {
-                docState.fnSeqMap[run.fnId] = String(seqIdx);
-              }
+              docState.fnSeqMap[run.fnId] = docState.footnoteConfig.numberingMode === 'customMark' && run.customMark ? run.customMark : String(docState.fnOrder.length);
             } else if (run.type === 'text' && run.text) {
-              const wMatch = run.text.trim().split(/\s+/).filter(Boolean);
-              totalWords += wMatch.length;
-              const hMatch = run.text.match(/[\u05D0-\u05EA]/g);
-              if (hMatch) hebrewChars += hMatch.length;
+              totalWords += run.text.trim().split(/\s+/).filter(Boolean).length;
+              hebrewChars += (run.text.match(/[\u05D0-\u05EA]/g) || []).length;
               if (run.href) linkCount++;
             }
           }
         }
-
-        // Pre-measure every footnote's bottom-of-page height
-        const fnFontPt = docState.footnoteConfig.fontSizePt || 8.5;
-        const fnHeights = {};
-        for (let i = 0; i < docState.fnOrder.length; i++) {
-          const fid = docState.fnOrder[i];
-          fnHeights[fid] = computeFootnoteHeightPx(fid, contentWidthPx, fnFontPt);
-          const fParas = docState.footnotes[fid] || [];
-          for (const fp of fParas) {
-            for (const fr of fp) {
-              if (fr.href) linkCount++;
-            }
-          }
+        const footnoteLayouts = new Map();
+        function noteLayout(fnId, width) {
+          const key = fnId + ':' + width;
+          if (!footnoteLayouts.has(key)) footnoteLayouts.set(key, computeFootnoteLayout(fnId, width));
+          return footnoteLayouts.get(key);
         }
+        for (const fid of docState.fnOrder) {
+          noteLayout(fid, firstMetrics.contentWidthPx);
+          for (const runs of docState.footnotes[fid] || []) for (const run of runs) if (run.href) linkCount++;
+        }
+        docState.stats = { words: totalWords, hebrewChars, footnotes: docState.fnOrder.length, links: linkCount };
 
-        docState.stats = {
-          words: totalWords,
-          hebrewChars: hebrewChars,
-          footnotes: docState.fnOrder.length,
-          links: linkCount
-        };
-
-        // Step 2: Paginate body lines + bottom-of-page footnotes together!
         const pages = [];
-        let sectionIdx = 0;
-        let sectionPageCounter = 1;
+        let sectionIdx = 0, sectionPageIndex = 0;
+        let nextPageNumber = sections[0] && sections[0].pageNumberStart != null ? sections[0].pageNumberStart : 1;
         docState.bookmarkPageMap = {};
-
+        const separatorHeightPx = 13; // 6px top padding + 1px rule + 6px below rule
         function makeNewPage() {
-          const idx = pages.length;
-          const isRecto = (idx + 1) % 2 === 1;
-          let dispNum = String(sectionPageCounter);
-          if (sectionIdx === 0 && docState.paragraphs.length > 10 && docState.paragraphs[0].style === 'BookFront') {
-            dispNum = ''; // Title/front section empty footer
-          } else if (sectionIdx === 1 && docState.paragraphs.some((x) => x.style === 'BookContents')) {
-            dispNum = toRoman(sectionPageCounter + 2);
+          const idx = pages.length, isRecto = (idx + 1) % 2 === 1;
+          const section = sections[sectionIdx] || {};
+          const metrics = sectionMetrics(sectionIdx);
+          let displayPageNum = String(nextPageNumber++);
+          if (section.pageNumberFormat === 'lowerRoman') displayPageNum = toRoman(+displayPageNum);
+          else if (section.pageNumberFormat === 'upperRoman') displayPageNum = toRoman(+displayPageNum).toUpperCase();
+          const variant = section.titlePage && sectionPageIndex === 0 ? 'first' : (docState.evenAndOddHeaders && !isRecto ? 'even' : 'default');
+          function runningText(kind) {
+            if (!sections.length) return kind === 'headers' && idx > 0 ? ps.headerText || '' : (kind === 'footers' && ps.showPageNumbers ? displayPageNum : '');
+            const variants = section[kind] || {};
+            const part = variants[variant] || {text: ''};
+            return String(part.text || '').replace(/\{\{PAGE\}\}/g, displayPageNum);
           }
-          const pObj = {
-            pageIndex: idx,
-            sectionIdx: sectionIdx,
-            displayPageNum: dispNum,
-            showHeader: sectionIdx >= 2 || (!docState.paragraphs.some((x) => x.style === 'BookFront') && idx > 0),
-            padTop: padTop,
-            padBottom: padBottom,
-            padLeft: ps.mirrorMargins ? (isRecto ? innerPad : outerPad) : innerPad,
-            padRight: ps.mirrorMargins ? (isRecto ? outerPad : innerPad) : outerPad,
-            pageW: pageW,
-            pageH: pageH,
-            slices: [],
-            footnotes: [], // { fnId, label, isContinuation }
-            usedBodyH: 0,
-            usedFnH: 0
-          };
-          pages.push(pObj);
-          sectionPageCounter++;
-          return pObj;
+          const headerText = runningText('headers'), footerText = runningText('footers');
+          const page = Object.assign({}, metrics, {
+            pageIndex: idx, sectionIdx, displayPageNum, headerText, footerText,
+            showHeader: !!headerText,
+            padLeft: ps.mirrorMargins ? (isRecto ? metrics.innerPad : metrics.outerPad) : metrics.innerPad,
+            padRight: ps.mirrorMargins ? (isRecto ? metrics.outerPad : metrics.innerPad) : metrics.outerPad,
+            slices: [], footnotes: [], usedBodyH: 0, usedFnH: 0, trailingAfterPx: 0
+          });
+          pages.push(page);
+          sectionPageIndex++;
+          return page;
         }
-
         let curPage = makeNewPage();
-        let overflowFnQueue = [];
-
-        function drainOverflowFootnotesOnNewPage() {
-          while (overflowFnQueue.length > 0) {
-            const item = overflowFnQueue[0];
-            const sepCost = curPage.usedFnH === 0 ? 18 : 0;
-            const maxFnBudget = Math.floor(availHeightPx * 0.72);
-            if (curPage.usedFnH + sepCost + item.heightPx <= maxFnBudget || curPage.usedFnH === 0) {
-              overflowFnQueue.shift();
-              curPage.footnotes.push({ fnId: item.fnId, isContinuation: item.isCont });
-              curPage.usedFnH += sepCost + Math.min(item.heightPx, maxFnBudget);
-              if (item.heightPx > maxFnBudget) {
-                // Extremely long single footnote continues onto next page
-                overflowFnQueue.unshift({ fnId: item.fnId, heightPx: item.heightPx - maxFnBudget, isCont: true });
+        const pendingNotes = [];
+        const allocatedNotes = new Set();
+        function appendNotePart(item, bodyReserve) {
+          const note = item.layout || noteLayout(item.fnId, curPage.contentWidthPx);
+          const start = item.startLine || 0;
+          const separator = curPage.footnotes.length ? 0 : separatorHeightPx;
+          const budget = curPage.availHeightPx - curPage.usedBodyH - curPage.usedFnH - separator - (bodyReserve || 0);
+          let height = 0, end = start;
+          while (end < note.lines.length) {
+            const line = note.lines[end];
+            const cost = line.beforePx + line.heightPx + line.afterPx;
+            if (height + cost > budget + 0.01) break;
+            height += cost;
+            end++;
+          }
+          if (end === start) return false;
+          // Avoid a lone continuation line when two or more fit in this fragment.
+          if (note.lines.length - end === 1 && end - start > 2) {
+            end--;
+            const last = note.lines[end];
+            height -= last.beforePx + last.heightPx + last.afterPx;
+          }
+          curPage.footnotes.push({fnId: item.fnId, label: docState.fnSeqMap[item.fnId], isContinuation: start > 0, startLine: start, endLine: end, totalLines: note.lines.length, lines: note.lines.slice(start, end)});
+          curPage.usedFnH += separator + height;
+          item.startLine = end;
+          item.layout = note;
+          return true;
+        }
+        function beginNextPage(bodyReserve) {
+          curPage = makeNewPage();
+          while (pendingNotes.length) {
+            const item = pendingNotes[0];
+            if (!appendNotePart(item, bodyReserve)) {
+              // A page-sized note line still gets a visible page rather than a
+              // clipped, silently discarded continuation or an infinite loop.
+              if (!curPage.footnotes.length && !curPage.usedBodyH) {
+                const note = item.layout || noteLayout(item.fnId, curPage.contentWidthPx);
+                const line = note.lines[item.startLine || 0];
+                curPage.footnotes.push({fnId: item.fnId, label: docState.fnSeqMap[item.fnId], isContinuation: !!item.startLine, startLine: item.startLine || 0, endLine: (item.startLine || 0) + 1, totalLines: note.lines.length, lines: [line]});
+                curPage.usedFnH = separatorHeightPx + line.heightPx + line.beforePx + line.afterPx;
+                item.startLine = (item.startLine || 0) + 1;
+                item.layout = note;
+              } else {
                 curPage = makeNewPage();
+                continue;
               }
-            } else {
-              break;
             }
+            if (item.startLine >= item.layout.lines.length) pendingNotes.shift();
+            if (pendingNotes.length) curPage = makeNewPage();
           }
         }
 
         for (let pIdx = 0; pIdx < docState.paragraphs.length; pIdx++) {
           const para = docState.paragraphs[pIdx];
-          if (para.pageBreakBefore && (curPage.usedBodyH > 0 || curPage.usedFnH > 0)) {
-            curPage = makeNewPage();
-            drainOverflowFootnotesOnNewPage();
+          const wrapped = wrapParagraphIntoLines(para, pIdx, curPage.contentWidthPx);
+          const st = wrapped.styleObj;
+          if (para.pageBreakBefore && (curPage.usedBodyH || curPage.usedFnH)) beginNextPage(wrapped.lines[0].heightPx);
+          const paragraphHeight = wrapped.beforePx + wrapped.afterPx + wrapped.lines.reduce((sum, line) => sum + line.heightPx, 0);
+          let keepHeight = st.keepLines ? paragraphHeight : wrapped.beforePx + wrapped.lines[0].heightPx;
+          if (st.keepNext && pIdx + 1 < docState.paragraphs.length) {
+            const following = wrapParagraphIntoLines(docState.paragraphs[pIdx + 1], pIdx + 1, curPage.contentWidthPx);
+            keepHeight = paragraphHeight + Math.max(0, following.beforePx - wrapped.afterPx) + following.lines[0].heightPx;
           }
-
-          const wrapped = wrapParagraphIntoLines(para, pIdx, contentWidthPx);
-
-          // Keep headings (Siman / Topic) with at least first line of next paragraph
-          const isHeading = para.style === 'TzidkatSiman' || para.style === 'TzidkatTopic' || para.style === 'Heading1' || para.style === 'Heading2';
-          if (isHeading && curPage.usedBodyH + wrapped.beforePx + wrapped.lines[0].heightPx + 36 + curPage.usedFnH > availHeightPx && curPage.usedBodyH > 0) {
-            curPage = makeNewPage();
-            drainOverflowFootnotesOnNewPage();
-          }
-
+          if ((st.keepLines || st.keepNext) && keepHeight <= curPage.availHeightPx && curPage.usedBodyH > 0 && curPage.usedBodyH + curPage.usedFnH + keepHeight > curPage.availHeightPx) beginNextPage(wrapped.lines[0].heightPx);
           let activeSlice = null;
-
           for (let lIdx = 0; lIdx < wrapped.lines.length; lIdx++) {
             const line = wrapped.lines[lIdx];
-            const extraTop = lIdx === 0 && curPage.usedBodyH > 0 ? wrapped.beforePx : 0;
-            const extraBottom = line.isLast ? wrapped.afterPx : 0;
-
-            // Calculate footnote space needed by references on this line
-            let lineFnCost = 0;
-            if (line.fnIds.length > 0) {
-              if (curPage.usedFnH === 0) lineFnCost += 18; // Separator rule height
-              for (const fid of line.fnIds) {
-                lineFnCost += fnHeights[fid] || 20;
-              }
-            }
-
-            const totalNeeded = curPage.usedBodyH + extraTop + line.heightPx + curPage.usedFnH + lineFnCost;
-
-            if (totalNeeded > availHeightPx && curPage.usedBodyH > 0) {
-              // Move this line (and its footnotes!) cleanly to the next physical page
+            if (pendingNotes.length) { beginNextPage(line.heightPx); activeSlice = null; }
+            const newNotes = line.fnIds.filter((fid) => !allocatedNotes.has(fid));
+            const newNoteHeight = newNotes.reduce((sum, fid) => sum + noteLayout(fid, curPage.contentWidthPx).heightPx, 0);
+            const separator = newNotes.length && !curPage.footnotes.length ? separatorHeightPx : 0;
+            let beforeCost = lIdx === 0 ? Math.max(0, wrapped.beforePx - curPage.trailingAfterPx) : 0;
+            const afterCost = line.isLast ? wrapped.afterPx : 0;
+            let protectedHeight = line.heightPx + afterCost;
+            if (st.widowControl !== false && wrapped.lines.length > 1 && (lIdx === 0 || lIdx === wrapped.lines.length - 2)) protectedHeight += wrapped.lines[lIdx + 1].heightPx;
+            const fullNeeded = beforeCost + protectedHeight + newNoteHeight + separator;
+            if ((curPage.usedBodyH > 0 || curPage.usedFnH > 0) && curPage.usedBodyH + curPage.usedFnH + fullNeeded > curPage.availHeightPx) {
+              beginNextPage(line.heightPx);
               activeSlice = null;
-              curPage = makeNewPage();
-              drainOverflowFootnotesOnNewPage();
+              beforeCost = lIdx === 0 ? wrapped.beforePx : 0;
             }
-
-            // Now place line on curPage; if single line + multiple huge footnotes still exceed availHeightPx on a fresh page, spill excess footnotes into overflowFnQueue!
             if (!activeSlice) {
-              activeSlice = {
-                paraIdx: pIdx,
-                style: para.style,
-                jc: para.jc,
-                rtlPara: !!para.rtlPara,
-                isTableRow: !!para.isTableRow,
-                isStart: lIdx === 0,
-                isEnd: line.isLast,
-                beforePx: lIdx === 0 && curPage.slices.length > 0 ? wrapped.beforePx : (lIdx === 0 && para.style === 'BookFront' ? Math.min(90, wrapped.beforePx) : 0),
-                afterPx: line.isLast ? wrapped.afterPx : 0,
-                atoms: []
-              };
+              activeSlice = {paraIdx: pIdx, style: para.style, jc: st.jc, rtlPara: !!st.rtlPara, isTableRow: !!para.isTableRow, isStart: lIdx === 0, isEnd: line.isLast, beforePx: beforeCost, afterPx: line.isLast ? wrapped.afterPx : 0, lineHeightPx: line.heightPx, layout: st, atoms: []};
               curPage.slices.push(activeSlice);
-              if (lIdx === 0 && wrapped.bookmarks.length) {
-                for (const bm of wrapped.bookmarks) {
-                  docState.bookmarkPageMap[bm] = curPage.pageIndex + 1;
-                }
-              }
+              if (lIdx === 0) for (const bookmark of wrapped.bookmarks) docState.bookmarkPageMap[bookmark] = curPage.pageIndex + 1;
             }
-
             activeSlice.atoms.push(...line.atoms);
-            if (line.isLast) {
-              activeSlice.isEnd = true;
-              activeSlice.afterPx = wrapped.afterPx;
-            }
-            curPage.usedBodyH += (lIdx === 0 && curPage.slices.length > 1 ? wrapped.beforePx : 0) + line.heightPx + extraBottom;
-
-            // Allocate each footnote referenced on this line to bottom of curPage (or continuation queue if page is full)
-            for (const fid of line.fnIds) {
-              const fh = fnHeights[fid] || 20;
-              const sep = curPage.usedFnH === 0 ? 18 : 0;
-              if (curPage.usedBodyH + curPage.usedFnH + sep + fh <= availHeightPx || curPage.footnotes.length === 0) {
-                const room = Math.max(48, availHeightPx - curPage.usedBodyH - curPage.usedFnH - sep);
-                curPage.footnotes.push({ fnId: fid, isContinuation: false });
-                curPage.usedFnH += sep + Math.min(fh, room);
-              } else {
-                overflowFnQueue.push({ fnId: fid, heightPx: fh, isCont: false });
-              }
+            if (line.isLast) { activeSlice.isEnd = true; activeSlice.afterPx = wrapped.afterPx; }
+            curPage.usedBodyH += beforeCost + line.heightPx + afterCost;
+            curPage.trailingAfterPx = afterCost;
+            for (const fid of newNotes) {
+              allocatedNotes.add(fid);
+              const item = {fnId: fid, startLine: 0, layout: noteLayout(fid, curPage.contentWidthPx)};
+              if (!pendingNotes.length) appendNotePart(item, 0);
+              if (item.startLine < item.layout.lines.length) pendingNotes.push(item);
             }
           }
-
           if (para.sectBreakAfter && pIdx < docState.paragraphs.length - 1) {
-            sectionIdx++;
-            if (sectionIdx === 2) sectionPageCounter = 1;
-            curPage = makeNewPage();
-            drainOverflowFootnotesOnNewPage();
-          }
-        }
-
-        while (overflowFnQueue.length > 0) {
-          curPage = makeNewPage();
-          drainOverflowFootnotesOnNewPage();
-        }
-
-        // Assign per-page footnote display numbers if numberingMode === 'restartPage'
-        for (let pi = 0; pi < pages.length; pi++) {
-          const pg = pages[pi];
-          for (let fi = 0; fi < pg.footnotes.length; fi++) {
-            const fEntry = pg.footnotes[fi];
-            if (docState.footnoteConfig.numberingMode === 'restartPage') {
-              const pNum = String(fi + 1);
-              fEntry.label = pNum;
-              docState.fnSeqMap[fEntry.fnId] = pNum;
-            } else {
-              fEntry.label = docState.fnSeqMap[fEntry.fnId] || String(fi + 1);
+            if (pendingNotes.length) beginNextPage(0);
+            const nextSection = sections[sectionIdx + 1] || {};
+            const continuous = nextSection.type === 'continuous';
+            if (!continuous && (nextSection.type === 'oddPage' || nextSection.type === 'evenPage')) {
+              const desiredOdd = nextSection.type === 'oddPage';
+              if (((pages.length + 1) % 2 === 1) !== desiredOdd) makeNewPage();
             }
+            sectionIdx++;
+            sectionPageIndex = 0;
+            if (nextSection.pageNumberStart != null) nextPageNumber = nextSection.pageNumberStart;
+            if (!continuous) curPage = makeNewPage();
           }
         }
-
+        if (pendingNotes.length) beginNextPage(0);
+        if (docState.footnoteConfig.numberingMode === 'restartPage') {
+          for (const page of pages) for (let i = 0; i < page.footnotes.length; i++) {
+            page.footnotes[i].label = String(i + 1);
+            docState.fnSeqMap[page.footnotes[i].fnId] = String(i + 1);
+          }
+        }
+        for (const page of pages) {
+          page.headerText = page.headerText.replace(/\{\{NUMPAGES\}\}/g, String(pages.length));
+          page.footerText = page.footerText.replace(/\{\{NUMPAGES\}\}/g, String(pages.length));
+        }
         docState.pages = pages;
         renderStagesVirtual(true);
         renderSidebar();
@@ -1950,15 +2347,30 @@
             html += '<span class="ws-toc-dots"></span>';
             continue;
           }
+          if (a.kind === 'lineBreak') {
+            html += '<br/>';
+            continue;
+          }
           if (a.kind === 'fnRef') {
             const lbl = escapeHtml(docState.fnSeqMap[a.fnId] || a.customMark || '1');
             const hl = docState.ui.highlightedFnId === a.fnId ? ' fn-highlight' : '';
-            html += `<sup class="ws-fn-ref-sup${hl}" contenteditable="false" data-fn-jump="${escapeHtml(a.fnId)}" title="Footnote ${lbl} — click to jump to bottom of page">${lbl}</sup>`;
+            const refRun = a.run || {};
+            const refStyle = `font-size:${(refRun.pt || basePt) * 0.72}pt;font-weight:${refRun.b ? 700 : 400};font-style:${refRun.i ? 'italic' : 'normal'};font-family:${resolveFontFamily(refRun.fontFamily || st.fontFamily)};padding:0`;
+            html += `<sup class="ws-fn-ref-sup${hl}" style="${escapeHtml(refStyle)}" contenteditable="false" data-fn-jump="${escapeHtml(a.fnId)}" title="Footnote ${lbl} — click to jump to bottom of page">${lbl}</sup>`;
             continue;
           }
           if (a.kind === 'word') {
             const r = a.run || {};
-            let txt = escapeHtml(a.text);
+            const sourceAttr = Number.isInteger(r.sourceRunIndex) ? ` data-source-run-index="${r.sourceRunIndex}"` : '';
+            // Wrapping splits one source run into words and spaces for measurement.
+            // Rejoin adjacent atoms from that exact run for rendering: one inline
+            // element preserves its style/source identity without hundreds of
+            // thousands of duplicate wrappers in a full-book print document.
+            let runText = a.text;
+            while (i + 1 < atoms.length && atoms[i + 1].kind === 'word' && atoms[i + 1].run === a.run) {
+              runText += atoms[++i].text;
+            }
+            let txt = escapeHtml(runText);
             if (docState.ui.showFormattingMarks) {
               txt = txt
                 .replace(/\u2067/g, '<span class="ws-fmt-mark">[RLI]</span>\u2067')
@@ -1966,25 +2378,30 @@
                 .replace(/\u2069/g, '\u2069<span class="ws-fmt-mark">[PDI]</span>');
             }
             txt = highlightQueryHtml(txt);
-            const styles = [];
-            if (r.pt && Math.abs(r.pt - basePt) > 0.2) styles.push(`font-size:${r.pt}pt`);
-            if (r.b || st.bold) styles.push('font-weight:700');
-            if (r.i || st.italic) styles.push('font-style:italic');
-            if (r.u) styles.push('text-decoration:underline');
+            // The paragraph owns the line strut. Inline runs retain their authored
+            // point size without adding a second, differently sized line box.
+            const styles = [`font-size:${r.pt || basePt}pt`, 'line-height:0'];
+            if (r.b !== undefined || st.bold) styles.push(`font-weight:${(r.b ?? st.bold) ? 700 : 400}`);
+            if (r.i !== undefined || st.italic) styles.push(`font-style:${(r.i ?? st.italic) ? 'italic' : 'normal'}`);
+            if (r.u !== undefined || st.underline) styles.push(`text-decoration:${(r.u ?? st.underline) ? 'underline' : 'none'}`);
+            if (r.fontFamily) styles.push(`font-family:${resolveFontFamily(r.fontFamily)}`);
+            if (r.letterSpacingPt !== undefined) styles.push(`letter-spacing:${r.letterSpacingPt}pt`);
             if (r.color) styles.push(`color:${r.color}`);
             if (r.highlight) styles.push(`background:${r.highlight}`);
-            const stAttr = styles.length ? ` style="${styles.join(';')}"` : '';
+            const stAttr = styles.length ? ` style="${escapeHtml(styles.join(';'))}"` : '';
 
             if (r.sup) {
-              html += `<sup style="font-size:0.74em;line-height:0">${txt}</sup>`;
+              html += `<sup${sourceAttr} style="${escapeHtml(styles.concat([`font-size:${(r.pt || basePt) * 0.72}pt`, 'line-height:0']).join(';'))}">${txt}</sup>`;
+            } else if (r.sub) {
+              html += `<sub${sourceAttr} style="${escapeHtml(styles.concat([`font-size:${(r.pt || basePt) * 0.72}pt`, 'line-height:0']).join(';'))}">${txt}</sub>`;
             } else if (r.href) {
-              html += `<a href="${escapeHtml(r.href)}" target="_blank" rel="noopener noreferrer" class="underline decoration-slate-400 hover:text-[#185abd]"${stAttr}>${txt}</a>`;
+              html += `<a${sourceAttr} href="${escapeHtml(r.href)}" target="_blank" rel="noopener noreferrer" class="underline decoration-slate-400 hover:text-[#185abd]"${stAttr}>${txt}</a>`;
             } else if (r.anchor) {
-              html += `<span data-anchor-jump="${escapeHtml(r.anchor)}" class="cursor-pointer hover:text-[#185abd]"${stAttr}>${txt}</span>`;
+              html += `<span${sourceAttr} data-anchor-jump="${escapeHtml(r.anchor)}" class="cursor-pointer hover:text-[#185abd]"${stAttr}>${txt}</span>`;
             } else if (stAttr) {
-              html += `<span${stAttr}>${txt}</span>`;
+              html += `<span${sourceAttr}${stAttr}>${txt}</span>`;
             } else {
-              html += txt;
+              html += sourceAttr ? `<span${sourceAttr}>${txt}</span>` : txt;
             }
           }
         }
@@ -2016,65 +2433,91 @@
       function buildPageSheetHtml(pg, scale, editable) {
         const fnSizePt = docState.footnoteConfig.fontSizePt || 8.5;
         const ruleCls = docState.footnoteConfig.ruleStyle === 'full' ? 'full' : 'short';
-        const headerHtml = pg.showHeader && docState.pageSetup.headerText
-          ? `<div class="ws-page-header" style="height:${Math.max(24, pg.padTop - 10)}px">${escapeHtml(docState.pageSetup.headerText)}</div>`
+        const headerText = pg.headerText ?? docState.pageSetup.headerText;
+        const headerHtml = pg.showHeader && headerText
+          ? `<div class="ws-page-header" style="height:${pg.padTop}px;font-family:${escapeHtml(resolveFontFamily((activeStyles.Header || activeStyles.Normal || {}).fontFamily))}">${escapeHtml(headerText)}</div>`
           : `<div style="height:${pg.padTop}px;flex-shrink:0"></div>`;
 
         let bodyHtml = '';
         for (let s = 0; s < pg.slices.length; s++) {
           const sl = pg.slices[s];
-          const st = activeStyles[sl.style] || DEFAULT_STYLES.Normal;
+          const srcPara = docState.paragraphs[sl.paraIdx] || {};
+          const st = sl.layout || resolveParagraphLayout(srcPara);
           const basePt = st.pt || 9.5;
-          const lineMult = st.line || 1.22;
-          const alignCss = sl.jc === 'both' ? 'justify' : (sl.jc || 'left');
+          const strutPt = sl.atoms.reduce((largest, atom) => {
+            const run = atom.run || {};
+            return atom.kind === 'word' && !run.sup && !run.sub ? Math.max(largest, run.pt || basePt) : largest;
+          }, basePt);
+          const lineHeightPx = sl.lineHeightPx || paragraphLineHeightPx(st, strutPt);
+          const alignCss = sl.jc === 'both' ? 'justify' : (['left','right','center','justify','start','end'].includes(sl.jc) ? sl.jc : 'left');
           const contCls = sl.jc === 'both' && !sl.isEnd ? ' justify-cont' : '';
           const isToc = sl.style === 'BookContents' && sl.atoms.some((x) => x.kind === 'tab');
           const padL = ((st.indentLeftPt || 0) * DPI) / 72;
           const padR = ((st.indentRightPt || 0) * DPI) / 72;
           const dirAttr = sl.rtlPara ? ' dir="rtl"' : ' dir="ltr"';
           const tblCss = sl.isTableRow ? 'border:1px solid #cbd5e1;padding:4px 8px;background:#f8fafc;' : '';
-          const srcPara = docState.paragraphs[sl.paraIdx] || {};
           const imgBlock = (sl.isEnd && srcPara.embeddedImg) ? `<div class="my-2 flex justify-center"><img src="${srcPara.embeddedImg}" alt="Embedded Visual" class="max-w-full h-auto max-h-64 rounded shadow-xs" /></div>` : '';
           const inner = renderAtomsHtml(sl.atoms, basePt, st) + (docState.ui.showFormattingMarks && sl.isEnd ? '<span class="ws-fmt-mark">¶</span>' : '') + imgBlock;
-          const ceAttr = editable && sl.isStart && sl.isEnd && !isToc ? ' contenteditable="true" spellcheck="false"' : '';
+          const hasLinkedNotes = (srcPara.runs || []).some((run) => run.type === 'fnRef');
+          const ceAttr = editable && sl.isStart && sl.isEnd && !isToc && !hasLinkedNotes && !sl.isTableRow ? ' contenteditable="true" spellcheck="false"' : '';
+          const editHint = editable && hasLinkedNotes ? ' title="Footnote-linked paragraphs are read-only in this preview to keep note anchors in place."' : editable && !(sl.isStart && sl.isEnd) ? ' title="This paragraph continues across pages. Use Word to edit it while preserving the full paragraph."' : '';
+          const firstIndentPx = sl.isStart ? ((st.firstLinePt || 0) * DPI) / 72 : 0;
+          const paragraphCss = `font-size:${strutPt}pt;line-height:${lineHeightPx}px;font-family:${escapeHtml(resolveFontFamily(st.fontFamily))};font-weight:${st.bold ? 700 : 400};font-style:${st.italic ? 'italic' : 'normal'};color:${st.color || '#000000'};margin-top:${sl.beforePx}px;margin-bottom:${sl.afterPx}px;padding-left:${padL}px;padding-right:${padR}px;text-indent:${firstIndentPx}px;${!sl.atoms.length ? 'min-height:' + lineHeightPx + 'px;' : ''}`;
 
           if (isToc) {
             // Find anchor if any
             const ancAtom = sl.atoms.find((x) => x.run && x.run.anchor);
             const ancAttr = ancAtom ? ` data-anchor-jump="${escapeHtml(ancAtom.run.anchor)}"` : '';
-            bodyHtml += `<div class="ws-para-slice ws-toc-row"${ancAttr} style="font-size:${basePt}pt;line-height:${lineMult};margin-top:${sl.beforePx}px;margin-bottom:${sl.afterPx}px;padding-left:${padL}px;padding-right:${padR}px">${inner}</div>`;
+            bodyHtml += `<div class="ws-para-slice ws-toc-row"${ancAttr} style="${paragraphCss}">${inner}</div>`;
           } else {
-            bodyHtml += `<div class="ws-para-slice${contCls}" data-para-idx="${sl.paraIdx}"${ceAttr}${dirAttr} style="font-size:${basePt}pt;line-height:${lineMult};text-align:${alignCss};margin-top:${sl.beforePx}px;margin-bottom:${sl.afterPx}px;padding-left:${padL}px;padding-right:${padR}px;${tblCss}">${inner}</div>`;
+            bodyHtml += `<div class="ws-para-slice${contCls}" data-para-idx="${sl.paraIdx}"${ceAttr}${editHint}${dirAttr} style="${paragraphCss}text-align:${alignCss};${tblCss}">${inner}</div>`;
           }
         }
 
         let fnSectionHtml = '';
         if (pg.footnotes.length > 0) {
-          const hasCont = pg.footnotes.some((f) => f.isContinuation);
+          const hasCont = pg.footnotes.some((entry) => entry.isContinuation);
           let itemsHtml = '';
-          for (let f = 0; f < pg.footnotes.length; f++) {
-            const fEntry = pg.footnotes[f];
-            const fParas = docState.footnotes[fEntry.fnId] || [];
-            const hl = docState.ui.highlightedFnId === fEntry.fnId ? ' fn-highlight' : '';
-            let pJoined = '';
-            for (let fp = 0; fp < fParas.length; fp++) {
-              if (fp > 0) pJoined += '<br/>';
-              pJoined += renderFootnoteRunsHtml(fParas[fp]);
+          for (const entry of pg.footnotes) {
+            const noteLines = entry.lines || computeFootnoteLayout(entry.fnId, pg.pageW - pg.padLeft - pg.padRight).lines;
+            const groups = [];
+            for (const line of noteLines) {
+              let group = groups[groups.length - 1];
+              if (!group || group.paraIndex !== line.paraIndex) {
+                group = {paraIndex: line.paraIndex, lines: []};
+                groups.push(group);
+              }
+              group.lines.push(line);
             }
-            const ceFn = editable ? ' contenteditable="true" spellcheck="false"' : '';
-            itemsHtml += `<div class="ws-fn-item${hl}" data-fn-body="${escapeHtml(fEntry.fnId)}" style="font-size:${fnSizePt}pt">` +
-              `<span class="ws-fn-num-lead" contenteditable="false" data-fn-back="${escapeHtml(fEntry.fnId)}" title="Click to jump back to body reference">${escapeHtml(fEntry.label)}${fEntry.isContinuation ? ' (cont.)' : ''}</span> ` +
-              `<span class="ws-fn-editable" data-fn-edit="${escapeHtml(fEntry.fnId)}"${ceFn}>${pJoined}</span>` +
-              `</div>`;
+            const isWholeNote = !entry.isContinuation && (entry.endLine == null || entry.endLine === entry.totalLines);
+            const canEdit = editable && isWholeNote;
+            const hl = docState.ui.highlightedFnId === entry.fnId ? ' fn-highlight' : '';
+            let paragraphsHtml = '';
+            for (const group of groups) {
+              const first = group.lines[0], last = group.lines[group.lines.length - 1];
+              const st = first.layout || resolveFootnoteLayout(entry.fnId, group.paraIndex);
+              const basePt = st.pt || fnSizePt;
+              const atoms = group.lines.flatMap((line) => line.atoms);
+              const hasLead = atoms.some((atom) => atom.run && atom.run.footnoteLead);
+              const label = escapeHtml(entry.label || docState.fnSeqMap[entry.fnId] || entry.fnId);
+              const lead = hasLead ? `<sup class="ws-fn-num-lead" contenteditable="false" data-fn-back="${escapeHtml(entry.fnId)}" title="Return to footnote ${label} reference" style="font-size:0.72em;line-height:0;vertical-align:super;font-weight:400;margin:0">${label}</sup>` : '';
+              const body = renderAtomsHtml(atoms.filter((atom) => !(atom.run && atom.run.footnoteLead)), basePt, st);
+              const align = st.jc === 'both' ? 'justify' : (st.jc || 'left');
+              const before = first.beforePx || 0, after = last.afterPx || 0;
+              const continuationJustify = !last.isLast && align === 'justify' ? 'text-align-last:justify;' : '';
+              const minimumHeight = group.lines.reduce((sum, line) => sum + line.heightPx, 0);
+              paragraphsHtml += `<div class="ws-fn-paragraph" data-fn-paragraph="${group.paraIndex}" dir="${st.rtlPara ? 'rtl' : 'ltr'}" style="font-family:${escapeHtml(resolveFontFamily(st.fontFamily))};font-size:${basePt}pt;line-height:${first.heightPx}px;min-height:${minimumHeight}px;text-align:${align};${continuationJustify}padding-left:${(st.indentLeftPt || 0) * DPI / 72}px;padding-right:${(st.indentRightPt || 0) * DPI / 72}px;text-indent:${first.isFirst ? (st.firstLinePt || 0) * DPI / 72 : 0}px;margin-top:${before}px;margin-bottom:${after}px;flex-shrink:0;overflow-wrap:break-word">${lead}${body || '<br/>'}</div>\n`;
+            }
+            const continuationLabel = entry.isContinuation
+              ? `<sup contenteditable="false" data-fn-back="${escapeHtml(entry.fnId)}" title="Footnote ${escapeHtml(entry.label)} continued — return to reference" style="position:absolute;left:0;top:0;font-size:${fnSizePt * 0.72}pt;line-height:1;cursor:pointer">${escapeHtml(entry.label)}</sup>`
+              : '';
+            itemsHtml += `<div class="ws-fn-fragment${hl}" data-fn-body="${escapeHtml(entry.fnId)}" style="position:relative;flex-shrink:0;color:#000">${continuationLabel}<div class="ws-fn-editable" data-fn-edit="${escapeHtml(entry.fnId)}"${canEdit ? ' contenteditable="true" spellcheck="false"' : ''} style="display:flex;flex-direction:column;outline:none">${paragraphsHtml}</div></div>`;
           }
-          fnSectionHtml = `<div class="ws-page-footnotes">` +
-            `<div class="ws-fn-rule ${hasCont ? 'full' : ruleCls}"></div>` +
-            itemsHtml +
-            `</div>`;
+          fnSectionHtml = `<div class="ws-page-footnotes" style="display:flex;flex-direction:column"><div class="ws-fn-rule ${hasCont ? 'full' : ruleCls}" style="flex-shrink:0"></div>${itemsHtml}</div>`;
         }
-
-        const footerHtml = docState.pageSetup.showPageNumbers && pg.displayPageNum
-          ? `<div class="ws-page-footer" style="height:${pg.padBottom}px">${escapeHtml(pg.displayPageNum)}</div>`
+        const footerText = pg.footerText ?? (docState.pageSetup.showPageNumbers ? pg.displayPageNum : '');
+        const footerHtml = footerText
+          ? `<div class="ws-page-footer" style="height:${pg.padBottom}px;font-family:${escapeHtml(resolveFontFamily((activeStyles.Footer || activeStyles.Normal || {}).fontFamily))}">${escapeHtml(footerText)}</div>`
           : `<div style="height:${pg.padBottom}px;flex-shrink:0"></div>`;
 
         const sheetStyle = `width:${pg.pageW}px;height:${pg.pageH}px;padding-left:${pg.padLeft}px;padding-right:${pg.padRight}px;` +
@@ -2332,11 +2775,81 @@
           `${docState.stats.words.toLocaleString()} words`;
         document.getElementById('status-fn-count').textContent =
           `${docState.stats.footnotes.toLocaleString()} bottom-of-page footnotes`;
+        document.getElementById('status-word-preview-note').style.display = docState.rawZipBuffer ? '' : 'none';
       }
 
       // =========================================================================
       // 9. INSERT / EDIT / DELETE FOOTNOTES & RICH EDITING COMMANDS
       // =========================================================================
+      function readEditedInlineRuns(container, originalRuns) {
+        const originals = new Map((originalRuns || []).filter((run) => Number.isInteger(run.sourceRunIndex)).map((run) => [run.sourceRunIndex, run]));
+        const runs = [];
+        const sameFormatting = (a, b) => {
+          const aa = Object.assign({}, a), bb = Object.assign({}, b);
+          delete aa.text; delete bb.text;
+          return JSON.stringify(aa) === JSON.stringify(bb);
+        };
+        const append = (run) => {
+          const last = runs[runs.length - 1];
+          if (run.type === 'text' && last && last.type === 'text' && sameFormatting(last, run)) last.text += run.text;
+          else runs.push(run);
+        };
+        const rgbToHex = (color) => {
+          const match = String(color || '').match(/^rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/i);
+          return match ? '#' + match.slice(1, 4).map((value) => Math.max(0, Math.min(255, +value)).toString(16).padStart(2, '0')).join('') : /^#[0-9a-f]{6}$/i.test(color || '') ? color : null;
+        };
+        function walk(node) {
+          if (node.nodeType === 3) {
+            const text = node.nodeValue || '';
+            if (!text) return;
+            const parent = node.parentElement || container;
+            const sourceNode = parent.closest('[data-source-run-index]');
+            const sourceIndex = sourceNode && container.contains(sourceNode) ? Number(sourceNode.dataset.sourceRunIndex) : null;
+            const run = Object.assign({}, sourceIndex !== null ? originals.get(sourceIndex) || {} : {}, {type: 'text', text});
+            delete run.fnId; delete run.customMark;
+            const css = getComputedStyle(parent);
+            run.b = css.fontWeight === 'bold' || parseFloat(css.fontWeight) >= 600;
+            run.i = /italic|oblique/.test(css.fontStyle);
+            run.u = false;
+            for (let el = parent; el && container.contains(el); el = el.parentElement) {
+              if ((getComputedStyle(el).textDecorationLine || '').includes('underline')) run.u = true;
+              if (el === container) break;
+            }
+            const pt = parseFloat(css.fontSize) * 72 / DPI;
+            if (Number.isFinite(pt) && pt > 0) run.pt = +pt.toFixed(4);
+            const color = rgbToHex(css.color);
+            if (color) run.color = color;
+            const family = (css.fontFamily || '').split(',')[0].trim().replace(/^['"]|['"]$/g, '');
+            if (family) {
+              const originalFamily = Array.from(embeddedDocxFamilies).find(([, alias]) => alias === family);
+              run.fontFamily = originalFamily ? originalFamily[0] : family;
+            }
+            const sup = parent.closest('sup'), sub = parent.closest('sub');
+            if (sup && container.contains(sup)) { run.sup = true; delete run.sub; run.pt = +(run.pt / 0.72).toFixed(4); }
+            else if (sub && container.contains(sub)) { run.sub = true; delete run.sup; run.pt = +(run.pt / 0.72).toFixed(4); }
+            else { delete run.sup; delete run.sub; }
+            const link = parent.closest('a[href]');
+            if (link && container.contains(link)) run.href = link.getAttribute('href');
+            else delete run.href;
+            append(run);
+            return;
+          }
+          if (node.nodeType !== 1) return;
+          if (node.matches('.ws-fmt-mark, [data-fn-back], .ws-fn-num-lead')) return;
+          if (node.matches('[data-fn-jump]')) {
+            const original = (originalRuns || []).find((run) => run.type === 'fnRef' && String(run.fnId) === node.dataset.fnJump);
+            if (original) append(Object.assign({}, original));
+            return;
+          }
+          if (node.tagName === 'BR') { append({type: 'lineBreak'}); return; }
+          if (node.classList.contains('ws-toc-dots')) { append({type: 'tab'}); return; }
+          for (const child of Array.from(node.childNodes)) walk(child);
+          if (node !== container && ['DIV','P'].includes(node.tagName) && node.nextSibling) append({type: 'lineBreak'});
+        }
+        walk(container);
+        return (originalRuns || []).filter((run) => run.type === 'bookmark').map((run) => Object.assign({}, run)).concat(runs);
+      }
+
       function openInsertFootnoteModal() {
         const nextNumericId = String(
           Math.max(5000, ...Object.keys(docState.footnotes).map((k) => parseInt(k, 10) || 0)) + 1
@@ -2416,17 +2929,492 @@
           .replace(/"/g, '&quot;');
       }
 
+      // Patch an imported Word package instead of rebuilding its unsupported features.
+      // Untouched parts stay byte-identical; only explicitly edited XML is serialized.
+      async function savePreservedImportedDocx(zip) {
+        if (!originalDocxSaveState || originalDocxSaveState.buffer !== docState.rawZipBuffer) {
+          throw new Error('The source Word package is unavailable. Reopen the original file before saving edits.');
+        }
+        const baseline = JSON.parse(originalDocxSaveState.signature);
+        const W = 'http://schemas.openxmlformats.org/wordprocessingml/2006/main';
+        const R = 'http://schemas.openxmlformats.org/officeDocument/2006/relationships';
+        const PKG = 'http://schemas.openxmlformats.org/package/2006/relationships';
+        const CT = 'http://schemas.openxmlformats.org/package/2006/content-types';
+        const same = (a, b) => JSON.stringify(a) === JSON.stringify(b);
+        const entries = new Map();
+        const dirty = new Set();
+        let changedParagraphs = 0, changedFootnotes = 0;
+        const children = (el) => Array.from(el.children || []).filter((n) => n.nodeType === 1);
+        const descendants = (el, local) => Array.from(el.getElementsByTagNameNS(W, local));
+        const attr = (el, key) => el && (el.getAttributeNS(W, key) || el.getAttribute('w:' + key));
+        const setAttr = (el, key, value) => el.setAttributeNS(W, 'w:' + key, String(value));
+        const fail = (message) => { throw new Error(message + ' The original file has not been changed.'); };
+        const childOrder = {
+          pPr: ['pStyle','keepNext','keepLines','pageBreakBefore','framePr','widowControl','numPr','suppressLineNumbers','pBdr','shd','tabs','suppressAutoHyphens','kinsoku','wordWrap','overflowPunct','topLinePunct','autoSpaceDE','autoSpaceDN','bidi','adjustRightInd','snapToGrid','spacing','ind','contextualSpacing','mirrorIndents','suppressOverlap','jc','textDirection','textAlignment','textboxTightWrap','outlineLvl','divId','cnfStyle','rPr','sectPr','pPrChange'],
+          rPr: ['rStyle','rFonts','b','bCs','i','iCs','caps','smallCaps','strike','dstrike','outline','shadow','emboss','imprint','noProof','snapToGrid','vanish','webHidden','color','spacing','w','kern','position','sz','szCs','highlight','u','effect','bdr','shd','fitText','vertAlign','rtl','cs','em','lang','eastAsianLayout','specVanish','oMath','rPrChange'],
+          sectPr: ['headerReference','footerReference','footnotePr','endnotePr','type','pgSz','pgMar','paperSrc','pgBorders','lnNumType','pgNumType','cols','formProt','vAlign','noEndnote','titlePg','textDirection','bidi','rtlGutter','docGrid','printerSettings','sectPrChange']
+        };
+        function make(doc, local) { return doc.createElementNS(W, 'w:' + local); }
+        function ensure(parent, local) {
+          let el = children(parent).find((n) => n.namespaceURI === W && n.localName === local);
+          if (el) return el;
+          el = make(parent.ownerDocument, local);
+          const order = childOrder[parent.localName] || [];
+          const rank = order.indexOf(local);
+          const before = rank >= 0 && children(parent).find((n) => order.indexOf(n.localName) > rank);
+          parent.insertBefore(el, before || null);
+          return el;
+        }
+        function removeChild(parent, local) {
+          for (const el of children(parent).filter((n) => n.namespaceURI === W && n.localName === local)) parent.removeChild(el);
+        }
+        function value(parent, local, val) {
+          if (val === undefined || val === null) { removeChild(parent, local); return; }
+          setAttr(ensure(parent, local), 'val', val);
+        }
+        async function readPart(path, emptyXml) {
+          if (entries.has(path)) return entries.get(path);
+          const file = zip.file(path);
+          if (!file && !emptyXml) fail('The source is missing ' + path + '.');
+          const xml = file ? await file.async('string') : emptyXml;
+          const parsed = new DOMParser().parseFromString(xml, 'application/xml');
+          if (parsed.getElementsByTagName('parsererror').length) fail('The source contains invalid XML in ' + path + '.');
+          entries.set(path, parsed);
+          return parsed;
+        }
+        function applyRunFormat(rPr, format, prior, force) {
+          const changed = (key) => force ? format[key] !== undefined : !same(format[key], prior[key]);
+          for (const [key, tag] of [['b','b'],['i','i'],['rtl','rtl'],['strike','strike']]) {
+            if (changed(key)) {
+              const flag = format[key] == null ? null : (format[key] ? '1' : '0');
+              value(rPr, tag, flag);
+              if (key === 'b' || key === 'i') value(rPr, tag + 'Cs', flag);
+            }
+          }
+          if (changed('u')) value(rPr, 'u', format.u == null ? null : (format.u ? 'single' : 'none'));
+          if (changed('pt')) {
+            const pt = format.pt == null ? null : Math.round(format.pt * 2);
+            value(rPr, 'sz', pt); value(rPr, 'szCs', pt);
+          }
+          if (changed('ptCs')) value(rPr, 'szCs', format.ptCs == null ? null : Math.round(format.ptCs * 2));
+          if (changed('sup') || changed('sub')) value(rPr, 'vertAlign', format.sup ? 'superscript' : format.sub ? 'subscript' : 'baseline');
+          if (changed('vertAlign')) value(rPr, 'vertAlign', format.vertAlign);
+          if (changed('color')) value(rPr, 'color', format.color && format.color.replace(/^#/, ''));
+          if (changed('letterSpacingPt')) value(rPr, 'spacing', format.letterSpacingPt == null ? null : Math.round(format.letterSpacingPt * 20));
+          if (changed('fontFamily')) {
+            if (!format.fontFamily) removeChild(rPr, 'rFonts');
+            else {
+              const fonts = ensure(rPr, 'rFonts');
+              for (const key of ['ascii','hAnsi','cs','eastAsia']) setAttr(fonts, key, format.fontFamily);
+              for (const key of ['asciiTheme','hAnsiTheme','csTheme','eastAsiaTheme']) fonts.removeAttributeNS(W, key);
+            }
+          }
+        }
+        function applyParagraphFormat(pPr, format, prior, force) {
+          const changed = (key) => force ? format[key] !== undefined : !same(format[key], prior[key]);
+          for (const [key, tag] of [['keepNext','keepNext'],['keepLines','keepLines'],['widowControl','widowControl'],['pageBreakBefore','pageBreakBefore'],['contextualSpacing','contextualSpacing'],['rtlPara','bidi']]) {
+            if (changed(key)) value(pPr, tag, format[key] == null ? null : (format[key] ? '1' : '0'));
+          }
+          if (changed('jc')) value(pPr, 'jc', format.jc);
+          if (changed('outlineLvl')) value(pPr, 'outlineLvl', format.outlineLvl);
+          if (['beforePt','afterPt','line','lineRule','linePt'].some(changed)) {
+            const spacing = ensure(pPr, 'spacing');
+            for (const [key, xmlKey] of [['beforePt','before'],['afterPt','after']]) if (changed(key)) {
+              if (format[key] == null) spacing.removeAttributeNS(W, xmlKey);
+              else setAttr(spacing, xmlKey, Math.round(format[key] * 20));
+            }
+            if (['line','lineRule','linePt'].some(changed)) {
+              const rule = format.lineRule || 'auto';
+              setAttr(spacing, 'lineRule', rule);
+              const line = rule === 'auto' ? Math.round((format.line || 1) * 240) : Math.round((format.linePt || 12) * 20);
+              setAttr(spacing, 'line', line);
+            }
+          }
+          if (['indentLeftPt','indentRightPt','firstLinePt'].some(changed)) {
+            const ind = ensure(pPr, 'ind');
+            for (const [key, xmlKey, logical] of [['indentLeftPt','left','start'],['indentRightPt','right','end']]) if (changed(key)) {
+              ind.removeAttributeNS(W, logical);
+              if (format[key] == null) ind.removeAttributeNS(W, xmlKey);
+              else setAttr(ind, xmlKey, Math.round(format[key] * 20));
+            }
+            if (changed('firstLinePt')) {
+              ind.removeAttributeNS(W, 'hanging'); ind.removeAttributeNS(W, 'firstLine');
+              if (format.firstLinePt != null) setAttr(ind, format.firstLinePt < 0 ? 'hanging' : 'firstLine', Math.round(Math.abs(format.firstLinePt) * 20));
+            }
+          }
+          if (changed('tabs')) {
+            removeChild(pPr, 'tabs');
+            if (format.tabs && format.tabs.length) {
+              const tabs = ensure(pPr, 'tabs');
+              for (const item of format.tabs) {
+                const tab = make(pPr.ownerDocument, 'tab');
+                setAttr(tab, 'pos', Math.round(item.positionPt * 20));
+                setAttr(tab, 'val', item.align || 'left');
+                if (item.leader && item.leader !== 'none') setAttr(tab, 'leader', item.leader);
+                tabs.appendChild(tab);
+              }
+            }
+          }
+        }
+        function styleRunFormat(style) {
+          const format = Object.assign({}, style);
+          if (style.bold !== undefined) format.b = style.bold;
+          if (style.italic !== undefined) format.i = style.italic;
+          if (style.underline !== undefined) format.u = style.underline;
+          return format;
+        }
+        const docXml = await readPart('word/document.xml');
+        const body = descendants(docXml, 'body')[0];
+        if (!body) fail('The source has no Word document body.');
+        const originalBodyChildren = children(body);
+        const oldParas = baseline.paragraphs || [];
+        const currentParas = docState.paragraphs || [];
+        if (oldParas.length !== currentParas.length || oldParas.some((p, i) => p.sourceBodyIndex !== currentParas[i].sourceBodyIndex)) {
+          fail('This edit adds, removes or reorders Word paragraphs. That structural change is not supported by this preview.');
+        }
+        if (!same(baseline.sectionLayouts, docState.sectionLayouts)) fail('Editing individual Word sections is not supported by this preview.');
+        const documentRelsPath = 'word/_rels/document.xml.rels';
+        const footnoteRelsPath = 'word/_rels/footnotes.xml.rels';
+        const emptyRels = '<?xml version="1.0" encoding="UTF-8"?><Relationships xmlns="' + PKG + '"/>';
+        const docRels = await readPart(documentRelsPath, emptyRels);
+        const fnRels = await readPart(footnoteRelsPath, emptyRels);
+        function relationship(part, path, target, type, external) {
+          const list = children(part.documentElement);
+          const match = list.find((el) => el.getAttribute('Target') === target && el.getAttribute('Type') === type && (el.getAttribute('TargetMode') === 'External') === !!external);
+          if (match) return match.getAttribute('Id');
+          const ids = new Set(list.map((el) => el.getAttribute('Id')));
+          let index = 1;
+          while (ids.has('rIdSeferStudio' + index)) index++;
+          const rel = part.createElementNS(PKG, 'Relationship');
+          const id = 'rIdSeferStudio' + index;
+          rel.setAttribute('Id', id); rel.setAttribute('Target', target); rel.setAttribute('Type', type);
+          if (external) rel.setAttribute('TargetMode', 'External');
+          part.documentElement.appendChild(rel); dirty.add(path);
+          return id;
+        }
+        function buildRuns(p, runs, isFootnote, priorRuns) {
+          const doc = p.ownerDocument;
+          const originalRuns = descendants(p, 'r');
+          const fallback = originalRuns.find((r) => descendants(r, 't').length);
+          const priorBySource = new Map();
+          for (const run of priorRuns || []) {
+            if (!Number.isInteger(run.sourceRunIndex)) continue;
+            if (!priorBySource.has(run.sourceRunIndex)) priorBySource.set(run.sourceRunIndex, []);
+            priorBySource.get(run.sourceRunIndex).push(run);
+          }
+          const sourcePositions = new Map();
+          const result = [];
+          for (const run of runs || []) {
+            if (run.type === 'bookmark') continue;
+            const node = make(doc, 'r');
+            const mappedSource = Number.isInteger(run.sourceRunIndex) && originalRuns[run.sourceRunIndex];
+            const sourceRun = mappedSource || fallback;
+            const priorGroup = priorBySource.get(run.sourceRunIndex) || [];
+            const position = sourcePositions.get(run.sourceRunIndex) || 0;
+            const priorRun = priorGroup[position] || priorGroup.find((item) => item.type === run.type);
+            sourcePositions.set(run.sourceRunIndex, position + 1);
+            const sourceProps = sourceRun && children(sourceRun).find((el) => el.localName === 'rPr');
+            if (sourceProps) node.appendChild(sourceProps.cloneNode(true));
+            const rPr = ensure(node, 'rPr');
+            applyRunFormat(rPr, run, priorRun || {}, !mappedSource || !priorRun);
+            if (run.type === 'text') {
+              if (!run.text) continue;
+              const pieces = String(run.text).split('\n');
+              pieces.forEach((piece, i) => {
+                if (i) node.appendChild(make(doc, 'br'));
+                if (piece) {
+                  const text = make(doc, 't');
+                  text.setAttributeNS('http://www.w3.org/XML/1998/namespace', 'xml:space', 'preserve');
+                  text.textContent = piece; node.appendChild(text);
+                }
+              });
+            } else if (run.type === 'tab') node.appendChild(make(doc, 'tab'));
+            else if (run.type === 'lineBreak' || run.type === 'pageBreak') {
+              const br = make(doc, 'br');
+              if (run.type === 'pageBreak') setAttr(br, 'type', 'page');
+              node.appendChild(br);
+            } else if (run.type === 'fnRef') {
+              const marker = make(doc, 'footnoteReference');
+              setAttr(marker, 'id', run.fnId);
+              if (!mappedSource) { value(rPr, 'rStyle', 'FootnoteReference'); value(rPr, 'vertAlign', 'superscript'); }
+              const keepCustom = run.customMark && (docState.footnoteConfig.numberingMode === 'customMark' || baseline.footnoteConfig.numberingMode === docState.footnoteConfig.numberingMode);
+              if (keepCustom) setAttr(marker, 'customMarkFollows', '1');
+              node.appendChild(marker);
+              if (keepCustom) { const text = make(doc, 't'); text.textContent = run.customMark; node.appendChild(text); }
+            } else fail('This paragraph contains an unsupported edited object.');
+            if (run.href || run.anchor) {
+              const link = make(doc, 'hyperlink');
+              if (run.href) {
+                const rels = isFootnote ? fnRels : docRels;
+                const path = isFootnote ? footnoteRelsPath : documentRelsPath;
+                link.setAttributeNS(R, 'r:id', relationship(rels, path, run.href, R + '/hyperlink', true));
+              }
+              if (run.anchor) setAttr(link, 'anchor', run.anchor);
+              link.appendChild(node); result.push(link);
+            } else result.push(node);
+          }
+          return result;
+        }
+        function replaceRuns(p, runs, isFootnote, priorRuns) {
+          for (const tag of ['drawing','pict','object','fldSimple','fldChar','instrText','sdt','ins','del','delText','oMath','oMathPara','customXml','commentReference','endnoteReference','sym','AlternateContent']) {
+            if (p.getElementsByTagNameNS('*', tag).length) fail('A changed paragraph contains a field, image, revision or other Word object that this preview cannot safely rewrite.');
+          }
+          if (descendants(p, 'hyperlink').length && !(runs || []).some((r) => r.href || r.anchor)) fail('A changed linked paragraph no longer contains its source link information. Edit that paragraph in Word to preserve its links.');
+          const replacement = buildRuns(p, runs, isFootnote, priorRuns);
+          const keep = new Set(['pPr','bookmarkStart','bookmarkEnd','commentRangeStart','commentRangeEnd','permStart','permEnd']);
+          const leadingNoteMarker = isFootnote && children(p).find((n) => n.localName === 'r' && descendants(n, 'footnoteRef').length);
+          const endBookmarks = children(p).filter((n) => n.localName === 'bookmarkEnd');
+          for (const node of Array.from(p.childNodes)) {
+            if (node === leadingNoteMarker || (node.nodeType === 1 && keep.has(node.localName))) continue;
+            p.removeChild(node);
+          }
+          const before = endBookmarks[0] || null;
+          for (const node of replacement) p.insertBefore(node, before);
+        }
+        function patchParagraph(p, current, prior, isFootnote) {
+          const allowed = new Set(['runs','style','jc','rtlPara','pageBreakBefore','spaceBeforePt','spaceAfterPt','format']);
+          for (const key of new Set([...Object.keys(prior), ...Object.keys(current)])) {
+            if (!same(current[key], prior[key]) && !allowed.has(key)) fail('The changed paragraph uses an unsupported structural edit (' + key + ').');
+          }
+          if (!same(current.runs, prior.runs)) replaceRuns(p, current.runs, isFootnote, prior.runs);
+          const props = ensure(p, 'pPr');
+          // pPr is required to precede paragraph content.
+          if (p.firstChild !== props) p.insertBefore(props, p.firstChild);
+          if (current.style !== prior.style) value(props, 'pStyle', current.style || 'Normal');
+          const currentFmt = Object.assign({}, current.format || {});
+          const priorFmt = Object.assign({}, prior.format || {});
+          for (const key of ['jc','rtlPara','pageBreakBefore']) {
+            if (current[key] !== undefined) currentFmt[key] = current[key];
+            if (prior[key] !== undefined) priorFmt[key] = prior[key];
+          }
+          for (const [key, formatKey] of [['spaceBeforePt','beforePt'],['spaceAfterPt','afterPt']]) {
+            if (current[key] != null) currentFmt[formatKey] = current[key];
+            if (prior[key] != null) priorFmt[formatKey] = prior[key];
+          }
+          applyParagraphFormat(props, currentFmt, priorFmt, false);
+        }
+        for (let i = 0; i < currentParas.length; i++) {
+          const current = currentParas[i], prior = oldParas[i];
+          if (same(current, prior)) continue;
+          if (current.isTableRow || prior.isTableRow) fail('Editing a flattened Word table is not supported.');
+          const source = originalBodyChildren[current.sourceBodyIndex];
+          if (!source || source.localName !== 'p') fail('The edited paragraph cannot be matched to its original Word location.');
+          patchParagraph(source, current, prior, false);
+          dirty.add('word/document.xml'); changedParagraphs++;
+        }
+        for (const paragraph of currentParas) for (const run of paragraph.runs || []) {
+          if (run.type === 'fnRef' && !Object.prototype.hasOwnProperty.call(docState.footnotes, String(run.fnId))) fail('A footnote reference has no matching note body.');
+        }
+        const oldNotes = baseline.footnotes || {}, currentNotes = docState.footnotes || {};
+        const oldNoteStyles = baseline.footnoteParagraphStyles || {}, noteStyles = docState.footnoteParagraphStyles || {};
+        const noteIds = new Set([...Object.keys(oldNotes), ...Object.keys(currentNotes)]);
+        const changedIds = Array.from(noteIds).filter((id) => !same(oldNotes[id], currentNotes[id]) || !same(oldNoteStyles[id], noteStyles[id]));
+        let notesDoc = null;
+        if (changedIds.length) {
+          notesDoc = await readPart('word/footnotes.xml', '<?xml version="1.0" encoding="UTF-8"?><w:footnotes xmlns:w="' + W + '" xmlns:r="' + R + '"><w:footnote w:type="separator" w:id="-1"><w:p><w:r><w:separator/></w:r></w:p></w:footnote><w:footnote w:type="continuationSeparator" w:id="0"><w:p><w:r><w:continuationSeparator/></w:r></w:p></w:footnote></w:footnotes>');
+          const noteMap = new Map(children(notesDoc.documentElement).map((el) => [attr(el, 'id'), el]));
+          const standardNote = children(notesDoc.documentElement).find((el) => +(attr(el, 'id') || 0) > 0 && children(el).some((p) => p.localName === 'p'));
+          const standardNoteParagraphs = standardNote ? children(standardNote).filter((p) => p.localName === 'p') : [];
+          for (const id of changedIds) {
+            let note = noteMap.get(id);
+            if (!(id in currentNotes)) { if (note) note.parentNode.removeChild(note); changedFootnotes++; continue; }
+            if (!note) { note = make(notesDoc, 'footnote'); setAttr(note, 'id', id); notesDoc.documentElement.appendChild(note); }
+            const unsupported = children(note).some((el) => el.localName !== 'p');
+            if (unsupported) fail('Editing a footnote containing a table or other block object is not supported.');
+            const originalPs = children(note).filter((el) => el.localName === 'p');
+            const newPs = currentNotes[id], priorPs = oldNotes[id] || [];
+            if (!Number.isInteger(+id) || +id <= 0 || !newPs.length) fail('A Word footnote must have a positive numeric identifier and at least one paragraph.');
+            for (let index = 0; index < newPs.length; index++) {
+              const meta = (noteStyles[id] || [])[index] || {style: 'FootnoteText'};
+              const oldMeta = (oldNoteStyles[id] || [])[index] || {style: 'FootnoteText'};
+              let paragraph = originalPs[index];
+              if (!paragraph) {
+                paragraph = make(notesDoc, 'p');
+                const template = originalPs[originalPs.length - 1] || standardNoteParagraphs[index] || standardNoteParagraphs[standardNoteParagraphs.length - 1];
+                const props = template && children(template).find((el) => el.localName === 'pPr');
+                if (props) paragraph.appendChild(props.cloneNode(true));
+                else value(ensure(paragraph, 'pPr'), 'pStyle', meta.style || 'FootnoteText');
+                note.appendChild(paragraph);
+              }
+              if (!same(newPs[index], priorPs[index]) || !same(meta, oldMeta)) {
+                const before = Object.assign({}, oldMeta, {runs: priorPs[index] || []});
+                const after = Object.assign({}, meta, {runs: newPs[index]});
+                // Source indices identify original nodes; new paragraph indices are not content edits.
+                delete before.sourceFootnoteParagraphIndex; delete after.sourceFootnoteParagraphIndex;
+                patchParagraph(paragraph, after, before, true);
+              }
+              if (index === 0 && !descendants(paragraph, 'footnoteRef').length) {
+                const marker = make(notesDoc, 'r');
+                value(ensure(marker, 'rPr'), 'rStyle', 'FootnoteReference'); marker.appendChild(make(notesDoc, 'footnoteRef'));
+                const pPr = ensure(paragraph, 'pPr'); paragraph.insertBefore(marker, pPr.nextSibling);
+                const firstRun = newPs[index][0];
+                if (firstRun && firstRun.type !== 'tab' && !/^\s/.test(firstRun.text || '')) {
+                  const gap = make(notesDoc, 'r'), text = make(notesDoc, 't');
+                  text.setAttributeNS('http://www.w3.org/XML/1998/namespace', 'xml:space', 'preserve');
+                  text.textContent = ' '; gap.appendChild(text); paragraph.insertBefore(gap, marker.nextSibling);
+                }
+
+              }
+            }
+            for (let index = newPs.length; index < originalPs.length; index++) note.removeChild(originalPs[index]);
+            changedFootnotes++;
+          }
+          dirty.add('word/footnotes.xml');
+          relationship(docRels, documentRelsPath, 'footnotes.xml', R + '/footnotes', false);
+          const types = await readPart('[Content_Types].xml');
+          if (!children(types.documentElement).some((el) => el.getAttribute('PartName') === '/word/footnotes.xml')) {
+            const override = types.createElementNS(CT, 'Override');
+            override.setAttribute('PartName', '/word/footnotes.xml');
+            override.setAttribute('ContentType', 'application/vnd.openxmlformats-officedocument.wordprocessingml.footnotes+xml');
+            types.documentElement.appendChild(override); dirty.add('[Content_Types].xml');
+          }
+        }
+        const priorSetup = baseline.pageSetup || {}, currentSetup = docState.pageSetup || {};
+        for (const key of ['headerText','showPageNumbers']) if (!same(priorSetup[key], currentSetup[key])) fail('Changing headers or page-number visibility is not yet supported for preserved Word exports.');
+        const sectionNodes = descendants(docXml, 'sectPr');
+        const sizeKeys = ['widthIn','heightIn','orient'];
+        const marginKeys = [['marginTopIn','top'],['marginBottomIn','bottom'],['marginLeftIn','left'],['marginRightIn','right'],['gutterIn','gutter']];
+        for (const section of sectionNodes) {
+          if (sizeKeys.some((key) => !same(priorSetup[key], currentSetup[key]))) {
+            const size = ensure(section, 'pgSz');
+            if (priorSetup.widthIn !== currentSetup.widthIn) setAttr(size, 'w', Math.round(currentSetup.widthIn * 1440));
+            if (priorSetup.heightIn !== currentSetup.heightIn) setAttr(size, 'h', Math.round(currentSetup.heightIn * 1440));
+            if (priorSetup.orient !== currentSetup.orient) {
+              const w = +(attr(size, 'w') || Math.round(currentSetup.widthIn * 1440));
+              const h = +(attr(size, 'h') || Math.round(currentSetup.heightIn * 1440));
+              const landscape = currentSetup.orient === 'landscape';
+              setAttr(size, 'w', landscape ? Math.max(w, h) : Math.min(w, h));
+              setAttr(size, 'h', landscape ? Math.min(w, h) : Math.max(w, h));
+              setAttr(size, 'orient', currentSetup.orient || 'portrait');
+            }
+            dirty.add('word/document.xml');
+          }
+          if (priorSetup.mirrorMargins !== currentSetup.mirrorMargins) {
+            setAttr(ensure(section, 'pgMar'), 'gutter', currentSetup.mirrorMargins ? Math.round((currentSetup.gutterIn || 0) * 1440) : 0);
+            dirty.add('word/document.xml');
+          }
+          for (const [key, xmlKey] of marginKeys) if (!same(priorSetup[key], currentSetup[key])) {
+            const amount = key === 'gutterIn' && !currentSetup.mirrorMargins ? 0 : (currentSetup[key] || 0);
+            setAttr(ensure(section, 'pgMar'), xmlKey, Math.round(amount * 1440)); dirty.add('word/document.xml');
+          }
+        }
+        const priorConfig = baseline.footnoteConfig || {}, currentConfig = docState.footnoteConfig || {};
+        if (priorConfig.ruleStyle !== currentConfig.ruleStyle) fail('Changing the Word footnote separator rule is not yet supported by this preview.');
+        if (priorSetup.mirrorMargins !== currentSetup.mirrorMargins || priorConfig.numberingMode !== currentConfig.numberingMode) {
+          const settings = await readPart('word/settings.xml', '<?xml version="1.0" encoding="UTF-8"?><w:settings xmlns:w="' + W + '"/>');
+          if (priorSetup.mirrorMargins !== currentSetup.mirrorMargins) value(settings.documentElement, 'mirrorMargins', currentSetup.mirrorMargins ? '1' : '0');
+          if (priorConfig.numberingMode !== currentConfig.numberingMode) {
+            const restart = currentConfig.numberingMode === 'restartPage' ? 'eachPage' : 'continuous';
+            value(ensure(settings.documentElement, 'footnotePr'), 'numRestart', restart);
+            for (const section of sectionNodes) {
+              const props = children(section).find((el) => el.localName === 'footnotePr');
+              if (props) { value(props, 'numRestart', restart); dirty.add('word/document.xml'); }
+            }
+          }
+          dirty.add('word/settings.xml');
+          relationship(docRels, documentRelsPath, 'settings.xml', R + '/settings', false);
+          const types = await readPart('[Content_Types].xml');
+          if (!children(types.documentElement).some((el) => el.getAttribute('PartName') === '/word/settings.xml')) {
+            const override = types.createElementNS(CT, 'Override');
+            override.setAttribute('PartName', '/word/settings.xml');
+            override.setAttribute('ContentType', 'application/vnd.openxmlformats-officedocument.wordprocessingml.settings+xml');
+            types.documentElement.appendChild(override); dirty.add('[Content_Types].xml');
+          }
+
+        }
+        const styleChanges = Object.keys(activeStyles).filter((id) => !same(activeStyles[id], (baseline.styles || {})[id]));
+        const newStyleIds = currentParas.filter((p, i) => p.style !== oldParas[i].style).map((p) => p.style || 'Normal');
+        const fontOverride = document.documentElement.style.getPropertyValue('--book-font');
+        const fontChanged = fontOverride !== baseline.fontFamily;
+        const noteSizeChanged = priorConfig.fontSizePt !== currentConfig.fontSizePt;
+        if (styleChanges.length || newStyleIds.length || fontChanged || noteSizeChanged) {
+          const stylesDoc = await readPart('word/styles.xml');
+          const styles = new Map(children(stylesDoc.documentElement).filter((el) => el.localName === 'style').map((el) => [attr(el, 'styleId'), el]));
+          for (const id of new Set([...styleChanges, ...newStyleIds])) {
+            let style = styles.get(id);
+            const format = activeStyles[id];
+            if (!format) fail('The selected Word paragraph style is unavailable.');
+            const isNew = !style;
+            if (!style) {
+              style = make(stylesDoc, 'style'); setAttr(style, 'type', 'paragraph'); setAttr(style, 'styleId', id);
+              value(style, 'name', id); stylesDoc.documentElement.appendChild(style); styles.set(id, style);
+            }
+            if (isNew || styleChanges.includes(id)) {
+              const old = (baseline.styles || {})[id] || {};
+              applyParagraphFormat(ensure(style, 'pPr'), format, old, isNew);
+              applyRunFormat(ensure(style, 'rPr'), styleRunFormat(format), styleRunFormat(old), isNew);
+              dirty.add('word/styles.xml');
+            }
+          }
+          if (fontChanged) {
+            let family = String(fontOverride || '').split(',')[0].trim().replace(/^['"]|['"]$/g, '');
+            if (!family) fail('Resetting the font after an edit is not supported; reopen the original document first.');
+            if (/^DocxEmbeddedFont/.test(family)) {
+              const mapped = Array.from(embeddedDocxFamilies.entries()).find(([, alias]) => alias === family);
+              if (!mapped) fail('The selected embedded font cannot be matched to its Word font name.');
+              family = mapped[0];
+            }
+            const defaults = ensure(ensure(stylesDoc.documentElement, 'docDefaults'), 'rPrDefault');
+            applyRunFormat(ensure(defaults, 'rPr'), {fontFamily: family}, {}, true);
+            for (const style of styles.values()) applyRunFormat(ensure(style, 'rPr'), {fontFamily: family}, {}, true);
+            dirty.add('word/styles.xml');
+            for (const path of ['word/document.xml','word/footnotes.xml']) {
+              if (!zip.file(path) && path === 'word/footnotes.xml' && !notesDoc) continue;
+              const part = await readPart(path);
+              for (const run of descendants(part, 'r')) applyRunFormat(ensure(run, 'rPr'), {fontFamily: family}, {}, true);
+              dirty.add(path);
+            }
+          }
+          if (noteSizeChanged) {
+            const part = notesDoc || (zip.file('word/footnotes.xml') && await readPart('word/footnotes.xml'));
+            if (part) {
+              for (const run of descendants(part, 'r')) if (!descendants(run, 'footnoteRef').length) applyRunFormat(ensure(run, 'rPr'), {pt: currentConfig.fontSizePt}, {}, true);
+              dirty.add('word/footnotes.xml');
+            }
+            const style = styles.get('FootnoteText');
+            if (style) { applyRunFormat(ensure(style, 'rPr'), {pt: currentConfig.fontSizePt}, {}, true); dirty.add('word/styles.xml'); }
+          }
+        }
+        const serializer = new XMLSerializer();
+        for (const path of dirty) zip.file(path, serializer.serializeToString(entries.get(path)));
+        return {changedParagraphs, changedFootnotes, changedParts: Array.from(dirty)};
+      }
+
       async function exportValidDocx() {
         if (typeof JSZip === 'undefined') {
           showToast('JSZip is not loaded yet.', 'error');
           return;
         }
         try {
+          // Ctrl+S does not naturally blur an editor, whereas clicking Save does.
+          // Commit the focused editor first so the unchanged-file path cannot omit text edits.
+          const focusedEditor = document.activeElement;
+          if (focusedEditor && focusedEditor.isContentEditable && focusedEditor.closest('#pages-stage')) {
+            focusedEditor.blur();
+          }
+          const outName = (docState.title.replace(/[^\w\u0590-\u05FF\- ]+/g, '').trim().replace(/\s+/g, '_') || 'Document') + '.docx';
+          if (canSaveOriginalDocx()) {
+            const originalBlob = new Blob([docState.rawZipBuffer], { type: 'application/vnd.openxmlformats-officedocument.wordprocessingml.document' });
+            await downloadDocxBlob(originalBlob, outName);
+            showToast('Saved original Word file without reformatting: ' + outName);
+            return;
+          }
           setLoading(true, 'Building Valid OpenXML (.docx)…', 'Writing word/document.xml, word/footnotes.xml & section geometry', 40);
           await nextFrame();
 
           // Reuse existing zip container if one was loaded (preserves embedded AkivaTimes*.odttf fonts!)
           const zip = docState.rawZipBuffer ? await JSZip.loadAsync(docState.rawZipBuffer) : new JSZip();
+          if (docState.rawZipBuffer) {
+            await savePreservedImportedDocx(zip);
+            setLoading(true, 'Saving Edited Word Package…', 'Preserving source formatting, sections, fonts, and related files', 85);
+            await nextFrame();
+            const preservedBlob = await zip.generateAsync({ type: 'blob', compression: 'DEFLATE', compressionOptions: { level: 6 } });
+            await downloadDocxBlob(preservedBlob, outName);
+            setLoading(false);
+            showToast('Saved edits while preserving the original Word package: ' + outName);
+            return;
+          }
+
 
           const docRelsList = [
             { id: 'rIdStyles', type: 'http://schemas.openxmlformats.org/officeDocument/2006/relationships/styles', target: 'styles.xml' },
@@ -2537,7 +3525,8 @@
             const fParas = docState.footnotes[fid] || [];
             const fpXml = fParas.map((runs, idx) =>
               `<w:p><w:pPr><w:pStyle w:val="FootnoteText"/><w:ind w:left="300" w:hanging="240"/></w:pPr>` +
-              (idx === 0 ? `<w:r><w:rPr><w:rStyle w:val="FootnoteReference"/><w:vertAlign w:val="superscript"/></w:rPr><w:footnoteRef/></w:r><w:r><w:t xml:space="preserve"> </w:t></w:r>` : '') +
+              (idx === 0 ? `<w:r><w:rPr><w:rStyle w:val="FootnoteReference"/><w:vertAlign w:val="superscript"/></w:rPr><w:footnoteRef/></w:r>` +
+                (/^\s/.test((runs.find((r) => r.type === 'text' && r.text) || {}).text || '') || (runs[0] && runs[0].type === 'tab') ? '' : `<w:r><w:t xml:space="preserve"> </w:t></w:r>`) : '') +
               serializeRunsXml(runs, true) +
               `</w:p>`
             ).join('');
@@ -2589,20 +3578,7 @@
           setLoading(true, 'Compressing .docx Package…', 'Generating downloadable Word file', 85);
           await nextFrame();
           const blob = await zip.generateAsync({ type: 'blob', compression: 'DEFLATE', compressionOptions: { level: 6 } });
-          const outName = (docState.title.replace(/[^\w\u0590-\u05FF\- ]+/g, '').trim().replace(/\s+/g, '_') || 'Document') + '.docx';
-
-          // Support native Desktop App save bridge if running inside WordStudio Desktop
-          if (window.wordStudioDesktop && typeof window.wordStudioDesktop.saveDocxBuffer === 'function') {
-            const arrBuf = await blob.arrayBuffer();
-            await window.wordStudioDesktop.saveDocxBuffer(arrBuf, outName);
-          } else {
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(blob);
-            a.download = outName;
-            document.body.appendChild(a);
-            a.click();
-            setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); }, 1500);
-          }
+          await downloadDocxBlob(blob, outName);
           setLoading(false);
           showToast('Saved Word document: ' + outName);
         } catch (err) {
@@ -2613,18 +3589,18 @@
 
       function openConvertPdfModal() {
         const totalP = docState.pages.length;
-        const wIn = docState.pageSetup.widthIn.toFixed(2);
-        const hIn = docState.pageSetup.heightIn.toFixed(2);
+        const wIn = ((docState.pages[0] || {}).pageW / DPI || docState.pageSetup.widthIn).toFixed(2);
+        const hIn = ((docState.pages[0] || {}).pageH / DPI || docState.pageSetup.heightIn).toFixed(2);
         const hasDesktopNative = !!(window.wordStudioDesktop && typeof window.wordStudioDesktop.exportPdfNative === 'function');
 
-        openModal('Convert to Print-Ready PDF (True Bottom-of-Page Footnotes)', `
+        openModal('Save the Paginated Preview as PDF', `
           <div class="space-y-3">
             <div class="p-3 rounded-lg bg-slate-50 border border-slate-200 flex items-start gap-2.5">
               <i data-lucide="printer" class="w-5 h-5 text-[#185abd] shrink-0 mt-0.5"></i>
               <div>
-                <div class="font-semibold text-slate-900">Exact Trim Size Vector PDF (${wIn}" × ${hIn}")</div>
+                <div class="font-semibold text-slate-900">Selectable Text PDF (${wIn}" × ${hIn}")</div>
                 <p class="text-slate-600 mt-0.5 leading-relaxed">
-                  Exports selectable vector Hebrew (with vocalized <em>nikkud</em>) &amp; English serif typography, mirror binding gutters, running headers/footers, and bottom-of-page footnotes with zero UI chrome.
+                  Prints the current paginated preview with selectable Hebrew and English text, the manuscript’s fonts, section headers and footers, and continued footnotes.
                 </p>
               </div>
             </div>
@@ -2653,14 +3629,14 @@
             <div class="text-[11px] text-slate-500 bg-amber-50 border border-amber-200 text-amber-900 rounded p-2">
               ${hasDesktopNative
                 ? '<strong>Desktop Native PDF Engine Active:</strong> Writes exact-trim PDF directly to disk.'
-                : '<strong>Tip:</strong> In the system PDF dialog, choose <strong>Destination: Save as PDF</strong> and keep <strong>Margins: Default / None</strong> (exact 7"×10" @page dimensions are pre-applied). You can also download a standalone print-ready HTML proof.'}
+                : '<strong>Browser PDF:</strong> Choose <strong>Save as PDF</strong>, <strong>100% scale</strong>, and <strong>no added margins</strong>. Turn off browser <strong>headers and footers</strong>. Paper sizes come from the manuscript. The HTML proof also includes its embedded fonts.'}
             </div>
 
             <div class="flex flex-wrap justify-end gap-2 pt-1">
               <button type="button" id="btn-export-print-html" class="px-3 py-1.5 rounded border border-slate-300 hover:bg-slate-100 font-medium">Download Print-Ready Proof (.html)</button>
               <button type="button" id="btn-run-pdf-convert" class="px-4 py-1.5 rounded bg-[#185abd] hover:bg-[#103f91] text-white font-semibold flex items-center gap-1.5">
                 <i data-lucide="file-down" class="w-3.5 h-3.5"></i>
-                <span>${hasDesktopNative ? 'Save Native PDF Now' : 'Convert / Save as PDF'}</span>
+                <span>${hasDesktopNative ? 'Save Native PDF Now' : 'Print / Save as PDF'}</span>
               </button>
             </div>
           </div>
@@ -2687,73 +3663,168 @@
         });
       }
 
+      function buildPrintPageCss(pages) {
+        const sizes = new Map();
+        for (const page of pages) {
+          if (!(page.pageW > 0 && page.pageH > 0 && Number.isFinite(page.pageW) && Number.isFinite(page.pageH))) throw new Error('A page has an invalid paper size.');
+          const size = `${+(page.pageW / DPI).toFixed(6)}in ${+(page.pageH / DPI).toFixed(6)}in`;
+          if (!sizes.has(size)) sizes.set(size, {name: 'wsPrintSize' + sizes.size, selectors: []});
+          sizes.get(size).selectors.push(`#print-export-mount [data-page-sheet="${page.pageIndex}"]`);
+        }
+        const rules = [`@page { size: ${sizes.keys().next().value}; margin: 0; }`];
+        for (const [size, entry] of sizes) rules.push(`@page ${entry.name} { size: ${size}; margin: 0; }`, `${entry.selectors.join(',')} { page: ${entry.name}; }`);
+        return rules.join('\n');
+      }
+
+      function collectPrintFontRequests(pages) {
+        const requests = new Set();
+        const add = (st, run = {}) => requests.add(`${(run.i ?? st.italic) ? 'italic' : 'normal'} ${(run.b ?? st.bold) ? 700 : 400} ${run.pt || st.pt || 9.5}pt ${resolveFontFamily(run.fontFamily || st.fontFamily)}`);
+        add(activeStyles.Header || activeStyles.Normal || {});
+        add(activeStyles.Footer || activeStyles.Normal || {});
+        for (const page of pages) {
+          for (const slice of page.slices) {
+            const st = slice.layout || resolveParagraphLayout(docState.paragraphs[slice.paraIdx]);
+            add(st);
+            for (const atom of slice.atoms) if (atom.run) add(st, atom.run);
+          }
+          for (const note of page.footnotes) for (const line of note.lines || []) {
+            const st = line.layout || resolveFootnoteLayout(note.fnId, line.paraIndex);
+            add(st);
+            for (const atom of line.atoms) if (atom.run) add(st, atom.run);
+          }
+        }
+        return Array.from(requests);
+      }
+
+      async function buildEmbeddedDocxPrintCss() {
+        if (!docState.rawZipBuffer || !embeddedDocxFaces.length) return '';
+        const zip = await JSZip.loadAsync(docState.rawZipBuffer);
+        const table = zip.file('word/fontTable.xml'), relationships = zip.file('word/_rels/fontTable.xml.rels');
+        if (!table || !relationships) throw new Error('The imported font files are missing.');
+        const parser = new DOMParser();
+        const [tableXml, relXml] = await Promise.all([table.async('string'), relationships.async('string')]);
+        const tableDoc = parser.parseFromString(tableXml, 'application/xml');
+        const relDoc = parser.parseFromString(relXml, 'application/xml');
+        const rels = new Map(Array.from(relDoc.getElementsByTagName('Relationship')).map((node) => [node.getAttribute('Id'), node.getAttribute('Target')]));
+        const rules = [];
+        for (const [tag, weight, style] of [['embedRegular','400','normal'], ['embedBold','700','normal'], ['embedItalic','400','italic'], ['embedBoldItalic','700','italic']]) {
+          for (const node of Array.from(tableDoc.getElementsByTagNameNS('*', tag))) {
+            const alias = embeddedDocxFamilies.get(getAttr(node.parentElement, 'name') || 'Embedded Font');
+            if (!alias || !embeddedDocxFaces.some((face) => face.family === alias && face.weight === weight && face.style === style)) continue;
+            const target = rels.get(getAttr(node, 'id'));
+            const file = target && zip.file(target.startsWith('word/') ? target : 'word/' + target.replace(/^\//, ''));
+            if (!file) throw new Error('An embedded font could not be included in the print proof.');
+            const bytes = deobfuscateOdttf(await file.async('uint8array'), getAttr(node, 'fontKey'));
+            let binary = '';
+            for (let offset = 0; offset < bytes.length; offset += 0x8000) binary += String.fromCharCode(...bytes.subarray(offset, offset + 0x8000));
+            const openType = String.fromCharCode(...bytes.subarray(0, 4)) === 'OTTO';
+            rules.push(`@font-face { font-family: "${alias}"; font-weight: ${weight}; font-style: ${style}; font-display: block; src: url(data:font/${openType ? 'otf' : 'ttf'};base64,${btoa(binary)}) format("${openType ? 'opentype' : 'truetype'}"); }`);
+          }
+        }
+        if (rules.length !== embeddedDocxFaces.length) throw new Error('Not all imported fonts could be included in the print proof.');
+        return rules.join('\n');
+      }
+
+      let wordPrintExportBusy = false;
+      let wordPrintCleanup = null;
       async function executeVectorPdfExport(startOneBased, endOneBased, downloadStandaloneHtml) {
+        if (wordPrintExportBusy) return;
         const mount = document.getElementById('print-export-mount');
-        setLoading(true, 'Materializing Vector Pages for PDF…', `Rendering pages ${startOneBased}–${endOneBased} with bottom-of-page footnotes`, 35);
-        await nextFrame();
-
-        const chunks = [];
-        for (let p = startOneBased - 1; p < endOneBased && p < docState.pages.length; p++) {
-          chunks.push(buildPageSheetHtml(docState.pages[p], 1, false));
-          if ((p - startOneBased) % 45 === 44) {
-            setLoading(true, 'Materializing Vector Pages for PDF…', `Rendered ${p - startOneBased + 1} of ${endOneBased - startOneBased + 1} pages`, 35 + Math.round(((p - startOneBased) / Math.max(1, endOneBased - startOneBased)) * 55));
-            await nextFrame();
-          }
-        }
-        mount.innerHTML = chunks.join('');
-        if (document.fonts && document.fonts.ready) {
-          try { await document.fonts.ready; } catch (_e) {}
-        }
-        setLoading(false);
-
-        if (downloadStandaloneHtml) {
-          const baseCss = document.getElementById('base-styles').textContent;
-          const pageCss = document.getElementById('dynamic-print-page-style').textContent;
-          const fullHtml = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><title>${escapeHtml(docState.title)} — Print Proof</title>` +
-            `<link href="https://fonts.googleapis.com/css2?family=Frank+Ruhl+Libre:wght@400;700&family=Noto+Serif+Hebrew:wght@400;700&display=swap" rel="stylesheet">` +
-            `<style>${baseCss}\n${pageCss}\nhtml,body{overflow:visible!important;height:auto!important;background:#cbd5e1;padding:16px 0;}#print-export-mount{display:block!important;}.ws-page-sheet{margin:0 auto 18px auto;}@media print{body{background:#fff;padding:0;}.ws-page-sheet{margin:0;box-shadow:none;page-break-after:always;}}</style>` +
-            `</head><body><div id="print-export-mount">${mount.innerHTML}</div><script>window.onload=function(){setTimeout(function(){window.print();},400);};<\/script><\/body><\/html>`;
-          const blob = new Blob([fullHtml], { type: 'text/html;charset=utf-8' });
-          const a = document.createElement('a');
-          a.href = URL.createObjectURL(blob);
-          a.download = (docState.title.replace(/[^\w\- ]+/g, '').trim().replace(/\s+/g, '_') || 'Book') + '_Print_PDF.html';
-          document.body.appendChild(a);
-          a.click();
-          setTimeout(() => { URL.revokeObjectURL(a.href); a.remove(); mount.innerHTML = ''; }, 1500);
-          showToast('Downloaded print-ready vector proof HTML');
-          return;
-        }
-
-        // Desktop Native Electron / Python Bridge
-        if (window.wordStudioDesktop && typeof window.wordStudioDesktop.exportPdfNative === 'function') {
-          try {
-            setLoading(true, 'Writing Native Vector PDF…', 'Exporting exact trim size via Desktop PDF Engine', 92);
-            const outPdfName = (docState.title.replace(/[^\w\- ]+/g, '').trim().replace(/\s+/g, '_') || 'Document') + '.pdf';
-            await window.wordStudioDesktop.exportPdfNative({
-              suggestedName: outPdfName,
-              widthIn: docState.pageSetup.widthIn,
-              heightIn: docState.pageSetup.heightIn
-            });
-            setLoading(false);
-            mount.innerHTML = '';
-            showToast('Saved native PDF: ' + outPdfName);
-            return;
-          } catch (err) {
-            setLoading(false);
-            showToast('Desktop PDF bridge error: ' + err.message, 'error');
-          }
-        }
-
-        // Browser / Canvas Native Print-to-PDF
+        const start = Math.max(1, Math.floor(+startOneBased || 1));
+        const end = Math.min(docState.pages.length, Math.floor(+endOneBased || docState.pages.length));
+        const pages = docState.pages.slice(start - 1, end);
+        if (!pages.length || !mount) { showToast('There are no pages in this export range.', 'error'); return; }
+        if (wordPrintCleanup) wordPrintCleanup();
+        wordPrintExportBusy = true;
         const cleanup = () => {
           mount.innerHTML = '';
+          document.body.classList.remove('ws-document-print');
           window.removeEventListener('afterprint', cleanup);
+          if (wordPrintCleanup === cleanup) wordPrintCleanup = null;
+          wordPrintExportBusy = false;
         };
-        window.addEventListener('afterprint', cleanup);
-        setTimeout(() => {
+        wordPrintCleanup = cleanup;
+        try {
+          setLoading(true, 'Preparing PDF Pages…', `Rendering pages ${start}–${end}, including continued footnotes`, 10);
+          await nextFrame();
+          const pageCss = buildPrintPageCss(pages);
+          // Recompute from this export: Publisher may have changed the shared @page rule.
+          document.getElementById('dynamic-print-page-style').textContent = pageCss;
+          const fontRequests = collectPrintFontRequests(pages);
+          const chunks = [];
+          for (let index = 0; index < pages.length; index++) {
+            chunks.push(buildPageSheetHtml(pages[index], 1, false));
+            if ((index + 1) % 25 === 0) {
+              setLoading(true, 'Preparing PDF Pages…', `Rendered ${index + 1} of ${pages.length} pages`, 10 + Math.round((index + 1) / pages.length * 65));
+              await nextFrame();
+            }
+          }
+          const pageHtml = chunks.join('');
+          if (downloadStandaloneHtml) {
+            setLoading(true, 'Including Manuscript Fonts…', 'Preparing a portable print proof with the imported fonts', 85);
+            const embeddedFonts = await buildEmbeddedDocxPrintCss();
+            const styleText = Array.from(document.querySelectorAll('style')).map((style) => {
+              try { return style.sheet ? Array.from(style.sheet.cssRules).map((rule) => rule.cssText).join('\n') : style.textContent; }
+              catch (_styleReadError) { return style.textContent; }
+            }).join('\n');
+            const embeddedAliases = Array.from(embeddedDocxFamilies.values());
+            const onlyEmbeddedFonts = !!embeddedFonts && fontRequests.every((request) => embeddedAliases.some((alias) => request.includes('pt "' + alias + '",')));
+            const fontLinks = onlyEmbeddedFonts ? '' : Array.from(document.querySelectorAll('link[rel="stylesheet"]')).filter((link) => link.href.startsWith('https://fonts.googleapis.com/')).map((link) => link.outerHTML).join('');
+            const bookFont = document.documentElement.style.getPropertyValue('--book-font').trim();
+            const proofCss = `${styleText}\n${embeddedFonts}\n${pageCss}\n${bookFont ? ':root{--book-font:' + bookFont + ';}' : ''}\nhtml,body{overflow:visible!important;height:auto!important;min-height:0!important;background:#cbd5e1;padding:16px 0;}#print-export-mount{display:block!important}.ws-page-sheet{margin:0 auto 18px auto;}#print-proof-controls{max-width:760px;margin:0 auto 16px;padding:12px;background:white;font:14px/1.5 sans-serif;}#print-proof-controls button{padding:6px 12px;border:1px solid #94a3b8;border-radius:4px;cursor:pointer;}@media print{html,body{background:#fff!important;padding:0!important;}#print-proof-controls{display:none!important}}`;
+            const requestsJson = JSON.stringify(fontRequests).replace(/</g, '\\u003c');
+            const proofScript = `const printButton=document.getElementById('print-proof-button');async function printProof(){printButton.disabled=true;try{if(document.fonts){await Promise.all(${requestsJson}.map(font=>document.fonts.load(font,'Aaאבגָ')));await document.fonts.ready;}await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));document.getElementById('print-proof-status').textContent='Ready. Choose Save as PDF, scale 100%, no margins, and turn off browser headers and footers.';window.print();}catch(error){document.getElementById('print-proof-status').textContent='A font could not be loaded: '+error.message+'. Reconnect and try Print again.';}finally{printButton.disabled=false;}}printButton.addEventListener('click',printProof);window.addEventListener('load',printProof);`;
+            const fullHtml = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escapeHtml(docState.title)} — Print Proof</title>${fontLinks}<style>${proofCss.replace(/<\/style/gi, '<\\/style')}</style></head><body class="ws-document-print"><div id="print-proof-controls"><button id="print-proof-button" type="button">Print / Save as PDF</button><p id="print-proof-status">Loading fonts for ${pages.length} pages…</p></div><div id="print-export-mount">${pageHtml}</div><script>${proofScript}<\/script><\/body><\/html>`;
+            const blob = new Blob([fullHtml], {type: 'text/html;charset=utf-8'});
+            const link = document.createElement('a');
+            const url = URL.createObjectURL(blob);
+            link.href = url;
+            link.download = (docState.title.replace(/[^\w\- ]+/g, '').trim().replace(/\s+/g, '_') || 'Book') + '_Print_PDF.html';
+            document.body.appendChild(link);
+            link.click();
+            link.remove();
+            setTimeout(() => URL.revokeObjectURL(url), 30000);
+            setLoading(false);
+            cleanup();
+            showToast(`Downloaded ${pages.length}-page print proof with manuscript fonts`);
+            return;
+          }
+
+          mount.innerHTML = pageHtml;
+          document.body.classList.add('ws-document-print');
+          setLoading(true, 'Finishing PDF Preparation…', 'Waiting for fonts and images before opening the PDF dialog', 90);
+          if (document.fonts) {
+            await Promise.all(fontRequests.map((font) => document.fonts.load(font, 'Aaאבגָ')));
+            await document.fonts.ready;
+          }
+          await Promise.all(Array.from(mount.querySelectorAll('img')).map((img) => img.decode ? img.decode() : Promise.resolve()));
+          await nextFrame();
+          await nextFrame();
+          const firstPage = pages[0];
+          const singleSize = pages.every((page) => page.pageW === firstPage.pageW && page.pageH === firstPage.pageH);
+          if (singleSize && window.wordStudioDesktop && typeof window.wordStudioDesktop.exportPdfNative === 'function') {
+            try {
+              setLoading(true, 'Writing PDF…', 'Exporting the selected pages with the desktop PDF engine', 96);
+              const outPdfName = (docState.title.replace(/[^\w\- ]+/g, '').trim().replace(/\s+/g, '_') || 'Document') + '.pdf';
+              const saved = await window.wordStudioDesktop.exportPdfNative({suggestedName: outPdfName, widthIn: firstPage.pageW / DPI, heightIn: firstPage.pageH / DPI});
+              setLoading(false);
+              cleanup();
+              showToast(saved === false ? 'PDF save cancelled' : 'Saved PDF: ' + outPdfName);
+              return;
+            } catch (err) {
+              showToast('Desktop PDF export was unavailable. Opening the print dialog.', 'error');
+            }
+          }
+          setLoading(false);
+          window.addEventListener('afterprint', cleanup);
+          // The print preview can remain open for minutes. Never clear its pages on a timer.
+          wordPrintExportBusy = false;
           window.print();
-          setTimeout(() => { if (mount.innerHTML) mount.innerHTML = ''; }, 4000);
-        }, 80);
+        } catch (err) {
+          setLoading(false);
+          cleanup();
+          showToast('PDF preparation error: ' + err.message, 'error');
+        }
       }
 
       // =========================================================================
@@ -2764,7 +3835,12 @@
           const el = document.getElementById('initial-sample-data');
           const parsed = JSON.parse(el.textContent);
           activeStyles = JSON.parse(JSON.stringify(DEFAULT_STYLES));
+          activeCharacterStyles = {};
           docState.rawZipBuffer = null;
+          docState.footnoteParagraphStyles = {};
+          docState.sectionLayouts = [];
+          docState.evenAndOddHeaders = false;
+          document.getElementById('docx-import-notice').classList.add('hidden');
           docState.title = 'Tzidkas HaTzaddik — Volume I (Sample Preview)';
           docState.fileName = 'Tzidkas_HaTzaddik_Volume_I_Sample.docx';
           document.getElementById('doc-title-input').value = docState.title;
@@ -2838,6 +3914,10 @@
             else if (act === 'new') {
               pushUndoSnapshot();
               docState.rawZipBuffer = null;
+              docState.footnoteParagraphStyles = {};
+              docState.sectionLayouts = [];
+              docState.evenAndOddHeaders = false;
+              document.getElementById('docx-import-notice').classList.add('hidden');
               docState.title = 'Untitled Scholarly Manuscript';
               docState.fileName = 'Untitled_Manuscript.docx';
               document.getElementById('doc-title-input').value = docState.title;
@@ -3204,6 +4284,14 @@
           // Formatting buttons (Bold, Italic, Underline, Strike, Sup, Sub)
           const fmtBtn = e.target.closest('[data-fmt]');
           if (fmtBtn) {
+            const selection = window.getSelection();
+            const anchor = selection && selection.anchorNode;
+            const anchorElement = anchor && (anchor.nodeType === 1 ? anchor : anchor.parentElement);
+            const editor = anchorElement && anchorElement.closest('[contenteditable="true"]');
+            if (!editor || !document.getElementById('pages-stage').contains(editor)) {
+              showToast('Select text in an editable paragraph or whole footnote to apply formatting.', 'warn');
+              return;
+            }
             document.execCommand(fmtBtn.dataset.fmt, false, null);
             return;
           }
@@ -3324,30 +4412,50 @@
           }
         });
 
-        // Sync inline contenteditable edits back to docState on blur
-        document.getElementById('pages-stage').addEventListener('focusout', (e) => {
+        // Rendering normalizes whitespace and splits footnote paragraphs with <br>.
+        // A focus/blur without an edit must never flatten or rewrite the source runs.
+        const inlineEditStartingHtml = new WeakMap();
+        const pageStage = document.getElementById('pages-stage');
+        document.addEventListener('mousedown', (e) => {
+          if (e.target.closest('[data-fmt]') && document.activeElement && document.activeElement.isContentEditable && pageStage.contains(document.activeElement)) {
+            e.preventDefault(); // Keep the text selection and its edit transaction alive.
+          }
+        });
+        pageStage.addEventListener('focusin', (e) => {
+          const editor = e.target.closest('[data-para-idx][contenteditable="true"], [data-fn-edit][contenteditable="true"]');
+          if (editor && !inlineEditStartingHtml.has(editor)) inlineEditStartingHtml.set(editor, editor.innerHTML);
+        });
+
+        // Sync actual inline contenteditable edits back to docState on blur.
+        pageStage.addEventListener('focusout', (e) => {
+          const editor = e.target.closest('[data-para-idx][contenteditable="true"], [data-fn-edit][contenteditable="true"]');
+          if (!editor) return;
+          const startingHtml = inlineEditStartingHtml.get(editor);
+          inlineEditStartingHtml.delete(editor);
+          if (startingHtml === undefined || startingHtml === editor.innerHTML) return;
+          if (originalDocxSaveState) originalDocxSaveState.inlineEdited = true;
           const pEl = e.target.closest('[data-para-idx][contenteditable="true"]');
           if (pEl) {
             const idx = parseInt(pEl.dataset.paraIdx, 10);
             const para = docState.paragraphs[idx];
             if (para) {
-              // Preserve existing fnRef runs while updating text
-              const fnRuns = para.runs.filter((r) => r.type === 'fnRef');
-              const clone = pEl.cloneNode(true);
-              clone.querySelectorAll('.ws-fn-ref-sup, .ws-fmt-mark').forEach((n) => n.remove());
-              const newTxt = clone.textContent || '';
-              const oldTxt = getParagraphPlainText(para);
-              if (newTxt.trim() !== oldTxt.trim()) {
-                para.runs = [{ type: 'text', text: newTxt }, ...fnRuns];
-                rebuildDocumentLayout();
-              }
+              const editedRuns = readEditedInlineRuns(pEl, para.runs);
+              pushUndoSnapshot();
+              para.runs = editedRuns;
+              rebuildDocumentLayout();
             }
           }
           const fnEdit = e.target.closest('[data-fn-edit][contenteditable="true"]');
           if (fnEdit) {
             const fid = fnEdit.dataset.fnEdit;
             if (fid && docState.footnotes[fid]) {
-              docState.footnotes[fid] = [[{ type: 'text', text: fnEdit.textContent || '' }]];
+              const paragraphNodes = Array.from(fnEdit.querySelectorAll('[data-fn-paragraph]'));
+              const previousParagraphs = docState.footnotes[fid];
+              const editedParagraphs = paragraphNodes.length
+                ? paragraphNodes.map((node, index) => readEditedInlineRuns(node, previousParagraphs[Number(node.dataset.fnParagraph) || index] || []))
+                : [readEditedInlineRuns(fnEdit, previousParagraphs[0] || [])];
+              pushUndoSnapshot();
+              docState.footnotes[fid] = editedParagraphs;
               rebuildDocumentLayout();
             }
           }
@@ -3356,7 +4464,8 @@
         // Selects & Sliders
         document.getElementById('font-family-select').addEventListener('change', (e) => {
           document.documentElement.style.setProperty('--book-font', e.target.value);
-          renderStagesVirtual(true);
+          widthCache.clear();
+          rebuildDocumentLayout();
         });
 
         document.getElementById('font-size-select').addEventListener('change', (e) => {
@@ -3570,11 +4679,21 @@
 
   async function loadPdfBytes(uint8Array, fileName, keepAnnotations) {
     if (!uint8Array) return;
+    if (pdfState.visionOcrAbort) pdfState.visionOcrAbort.abort();
     pdfState.pdfBytes = uint8Array instanceof Uint8Array ? uint8Array : new Uint8Array(uint8Array);
     if (fileName) pdfState.fileName = fileName;
     if (!keepAnnotations) {
       pdfState.overlays = {};
       pdfState.pdfFootnotes = {};
+      pdfState.ocrText = '';
+      const ocrOutput = document.getElementById('pdf-ocr-output');
+      const ocrStatus = document.getElementById('pdf-ocr-status');
+      const ocrReview = document.getElementById('pdf-ocr-review');
+      const visionReview = document.getElementById('pdf-vision-review');
+      if (ocrOutput) ocrOutput.value = '';
+      if (ocrStatus) ocrStatus.textContent = 'Ready to scan current PDF page.';
+      if (ocrReview) ocrReview.classList.add('hidden');
+      if (visionReview) visionReview.classList.add('hidden');
     }
     const nameEl = document.getElementById('pdf-filename-label');
     if (nameEl) nameEl.textContent = pdfState.fileName;
@@ -3771,53 +4890,313 @@
     });
   }
 
+  function getVisionOcrConnection() {
+    const raw = (document.getElementById('pdf-vision-endpoint').value || '').trim();
+    const access = (document.getElementById('pdf-vision-access').value || '').trim();
+    if (!raw) throw new Error('Enter the address of your OCR service, then check the connection.');
+    let endpoint;
+    try { endpoint = new URL(raw); } catch (_error) { throw new Error('Enter a valid HTTPS service address.'); }
+    if (endpoint.protocol !== 'https:' || endpoint.username || endpoint.password || endpoint.search || endpoint.hash) {
+      throw new Error('Use an HTTPS service address without a password or access code in the URL.');
+    }
+    if (endpoint.hostname === 'api.openai.com' || /^sk-/.test(access)) {
+      throw new Error('Keep your OpenAI API key in the backend service. Enter the OCR service address and its separate access code here.');
+    }
+    if (!access) throw new Error('Enter your OCR service access code. It is kept only for this page session.');
+    return { endpoint: endpoint.href, access };
+  }
+
+  async function checkVisionOcrConnection() {
+    const status = document.getElementById('pdf-vision-connection-status');
+    const button = document.querySelector('[data-pdf-action="ocr-connect"]');
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 15000);
+    button.disabled = true;
+    try {
+      const connection = getVisionOcrConnection();
+      status.textContent = 'Checking the OCR service…';
+      const response = await fetch(connection.endpoint, {
+        method: 'GET', headers: { Authorization: 'Bearer ' + connection.access },
+        credentials: 'omit', redirect: 'error', cache: 'no-store', referrerPolicy: 'no-referrer', signal: controller.signal
+      });
+      const data = await response.json();
+      if (!response.ok || data.ready !== true) throw new Error(data.error || 'The OCR service is not ready. Check its setup and access code.');
+      status.textContent = 'Service ready · ' + String(data.model || 'OpenAI vision') + '. A successful page scan will confirm model access.';
+    } catch (error) {
+      status.textContent = error.name === 'AbortError' ? 'Connection timed out. Check the service address.' : String(error.message || 'Unable to connect.').slice(0, 240);
+    } finally {
+      clearTimeout(timeout);
+      button.disabled = false;
+    }
+  }
+
+  async function runVisionOcrOnCurrentPage() {
+    const status = document.getElementById('pdf-ocr-status');
+    const out = document.getElementById('pdf-ocr-output');
+    const review = document.getElementById('pdf-vision-review');
+    if (!pdfState.pdfJsDoc || pdfState.ocrRunning) return;
+    let connection;
+    try { connection = getVisionOcrConnection(); }
+    catch (error) { status.textContent = error.message; return; }
+    const sourcePdf = pdfState.pdfJsDoc;
+    const sourceBytes = pdfState.pdfBytes;
+    const pageNumber = pdfState.currentPage;
+    const language = document.getElementById('pdf-ocr-lang').value;
+    const layout = document.getElementById('pdf-vision-layout').value;
+    const targetDpi = document.getElementById('pdf-ocr-quality').value === '400' ? 400 : 300;
+    const controls = [...document.querySelectorAll('[data-pdf-action="ocr"], [data-pdf-action="ocr-connect"], #pdf-ocr-engine, #pdf-ocr-lang, #pdf-ocr-quality, #pdf-vision-layout')];
+    const started = performance.now();
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 150000);
+    let canvas;
+    const previousReadOnly = out.readOnly;
+    out.readOnly = true;
+    pdfState.ocrRunning = true;
+    pdfState.visionOcrAbort = controller;
+    controls.forEach(el => { el.disabled = true; });
+    document.querySelector('[data-pdf-action="ocr-cancel"]').classList.remove('hidden');
+    document.getElementById('pdf-ocr-review').classList.add('hidden');
+    review.classList.add('hidden');
+    try {
+      status.textContent = `Preparing Page ${pageNumber} for OpenAI vision…`;
+      const page = await sourcePdf.getPage(pageNumber);
+      const base = page.getViewport({ scale: 1 });
+      const scale = Math.min(targetDpi / 72, Math.sqrt(20000000 / (base.width * base.height)), 6000 / base.width, 6000 / base.height);
+      const viewport = page.getViewport({ scale });
+      canvas = document.createElement('canvas');
+      canvas.width = Math.max(1, Math.floor(viewport.width));
+      canvas.height = Math.max(1, Math.floor(viewport.height));
+      const context = canvas.getContext('2d');
+      context.fillStyle = '#ffffff';
+      context.fillRect(0, 0, canvas.width, canvas.height);
+      await page.render({ canvasContext: context, viewport }).promise;
+      const imageDataUrl = canvas.toDataURL('image/jpeg', 0.96);
+      if (imageDataUrl.length > 12000000) throw new Error('This page image is too large. Choose the 300 DPI quality setting and try again.');
+      if (pdfState.pdfJsDoc !== sourcePdf || pdfState.pdfBytes !== sourceBytes) throw new Error('The PDF changed. Run OCR on the newly opened document.');
+      status.textContent = `OpenAI vision is reading Page ${pageNumber}, including its columns and footnotes…`;
+      const response = await fetch(connection.endpoint, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + connection.access },
+        credentials: 'omit', redirect: 'error', cache: 'no-store', referrerPolicy: 'no-referrer', signal: controller.signal,
+        body: JSON.stringify({ imageDataUrl, language, layout, pageNumber })
+      });
+      const data = await response.json();
+      if (!response.ok) throw new Error(data.error || `OCR service returned HTTP ${response.status}.`);
+      if (typeof data.text !== 'string' || !data.text.trim()) throw new Error('The model returned no transcription. The previous text has been kept.');
+      if (data.incomplete === true) throw new Error('The model response was incomplete. The previous text has been kept; retry this page.');
+      if (pdfState.pdfJsDoc !== sourcePdf || pdfState.pdfBytes !== sourceBytes) throw new Error('The PDF changed. Run OCR on the newly opened document.');
+      const text = data.text.trim();
+      out.dir = language.includes('heb') ? 'rtl' : 'auto';
+      out.value = text;
+      pdfState.ocrText = text;
+      const warnings = Array.isArray(data.warnings) ? data.warnings.filter(item => typeof item === 'string').slice(0, 10) : [];
+      const uncertain = Array.isArray(data.uncertain) ? data.uncertain.filter(item => typeof item === 'string').slice(0, 30) : [];
+      review.textContent = ['Compare the transcription with the scan before publishing.', ...warnings, ...uncertain.map(item => 'Check: ' + item)].join('\n');
+      review.classList.remove('hidden');
+      const words = text.split(/\s+/).filter(Boolean).length;
+      status.textContent = `Vision OCR complete · Page ${pageNumber} · ${words} words · ${String(data.model || 'OpenAI')} · ${((performance.now() - started) / 1000).toFixed(1)}s`;
+      status.title = `Recognized from the page image at ${Math.round(scale * 72)} DPI. The existing PDF text layer was not used.`;
+      toast('Vision transcription ready for review');
+    } catch (error) {
+      status.textContent = error.name === 'AbortError'
+        ? 'Vision OCR stopped or timed out. Previous text has been kept.'
+        : 'Vision OCR did not complete: ' + String(error.message || error).slice(0, 240);
+      status.title = 'No on-device or existing-text result has been substituted for a vision transcription.';
+    } finally {
+      clearTimeout(timeout);
+      if (canvas) canvas.width = canvas.height = 1;
+      out.readOnly = previousReadOnly;
+      pdfState.ocrRunning = false;
+      pdfState.visionOcrAbort = null;
+      controls.forEach(el => { el.disabled = false; });
+      document.querySelector('[data-pdf-action="ocr-cancel"]').classList.add('hidden');
+    }
+  }
+
   async function runOcrOnCurrentPage() {
+    const engine = document.getElementById('pdf-ocr-engine');
+    if (engine && engine.value === 'vision') return runVisionOcrOnCurrentPage();
+    const visionReview = document.getElementById('pdf-vision-review');
+    if (visionReview) visionReview.classList.add('hidden');
     const outArea = document.getElementById('pdf-ocr-output');
     const statusEl = document.getElementById('pdf-ocr-status');
     const langSel = document.getElementById('pdf-ocr-lang');
     const lang = langSel ? langSel.value : 'eng';
-    if (!pdfState.pdfJsDoc) return;
+    const qualitySel = document.getElementById('pdf-ocr-quality');
+    const targetDpi = qualitySel && qualitySel.value === '400' ? 400 : 300;
+    const pixelLimit = targetDpi === 400 ? 20000000 : 12000000;
+    const reviewPanel = document.getElementById('pdf-ocr-review');
+    if (reviewPanel) {
+      reviewPanel.classList.add('hidden');
+      document.getElementById('pdf-ocr-review-list').textContent = '';
+      document.getElementById('pdf-ocr-review-image').classList.add('hidden');
+    }
+    if (!pdfState.pdfJsDoc || pdfState.ocrRunning || !outArea || !statusEl) return;
 
-    statusEl.textContent = 'Checking embedded text stream + running Optical Character Recognition…';
-    outArea.value = '';
-
-    // 1. Extract native text layer first if present
-    let streamText = '';
-    try {
-      const page = await pdfState.pdfJsDoc.getPage(pdfState.currentPage);
-      const tc = await page.getTextContent();
-      streamText = tc.items.map((i) => i.str).join(' ').replace(/\s+/g, ' ').trim();
-    } catch (_e) {}
-
-    // 2. Run Tesseract.js OCR on rendered canvas image (wrapped in try/catch for sandbox safety)
-    const canvas = document.getElementById('pdf-main-canvas');
+    const sourcePdf = pdfState.pdfJsDoc;
+    const pageNumber = pdfState.currentPage;
+    const runButtons = Array.from(document.querySelectorAll('[data-pdf-action="ocr"]'));
+    const started = performance.now();
+    let page = null;
+    let ocrCanvas = null;
+    let worker = null;
     let ocrResultText = '';
-    if (typeof Tesseract !== 'undefined' && canvas) {
+    let recognizedData = null;
+    let ocrFailed = false;
+    let actualDpi = 300;
+    pdfState.ocrRunning = true;
+    runButtons.forEach((button) => { button.disabled = true; });
+    statusEl.textContent = `Preparing Page ${pageNumber} for image OCR…`;
+    statusEl.title = 'Recognizing the page image independently of any existing PDF text layer';
+    outArea.value = '';
+    pdfState.ocrText = '';
+    outArea.dir = lang.includes('heb') ? 'rtl' : 'auto';
+
+    try {
+      page = await sourcePdf.getPage(pageNumber);
       try {
-        statusEl.textContent = `Running Tesseract OCR (${lang}) on Page ${pdfState.currentPage}…`;
-        const res = await Tesseract.recognize(canvas, lang, {
+        if (typeof Tesseract === 'undefined') throw new Error('OCR engine is unavailable');
+        // Recognize a separate image, independent of preview zoom. Dense print
+        // uses 400 DPI; both modes have explicit pixel and dimension bounds.
+        const baseViewport = page.getViewport({ scale: 1 });
+        const scale = Math.min(
+          targetDpi / 72,
+          Math.sqrt(pixelLimit / (baseViewport.width * baseViewport.height)),
+          8192 / baseViewport.width,
+          8192 / baseViewport.height
+        );
+        const viewport = page.getViewport({ scale });
+        actualDpi = Math.max(1, Math.round(scale * 72));
+        ocrCanvas = document.createElement('canvas');
+        ocrCanvas.width = Math.max(1, Math.floor(viewport.width));
+        ocrCanvas.height = Math.max(1, Math.floor(viewport.height));
+        const context = ocrCanvas.getContext('2d');
+        context.fillStyle = '#ffffff';
+        context.fillRect(0, 0, ocrCanvas.width, ocrCanvas.height);
+        statusEl.textContent = `Rendering Page ${pageNumber} at ${actualDpi} DPI for OCR…`;
+        statusEl.title = `${ocrCanvas.width} × ${ocrCanvas.height} pixels; automatic page layout detection`;
+        await page.render({ canvasContext: context, viewport }).promise;
+        worker = await Tesseract.createWorker(lang, 1, {
           logger: (m) => {
-            if (m && m.status) {
-              const pct = m.progress ? ` (${Math.round(m.progress * 100)}%)` : '';
-              statusEl.textContent = `OCR: ${m.status}${pct}`;
+            if (m && m.status && pdfState.pdfJsDoc === sourcePdf) {
+              const pct = typeof m.progress === 'number' ? ` (${Math.round(m.progress * 100)}%)` : '';
+              statusEl.textContent = `Image OCR · Page ${pageNumber}: ${m.status}${pct}`;
             }
           }
         });
+        await worker.setParameters({
+          tessedit_pageseg_mode: Tesseract.PSM.AUTO,
+          user_defined_dpi: String(actualDpi)
+        });
+        const res = await worker.recognize(ocrCanvas, {}, { text: true, blocks: !!reviewPanel, hocr: false, tsv: false });
         if (res && res.data && res.data.text) {
           ocrResultText = res.data.text.trim();
+          recognizedData = res.data;
         }
-      } catch (_ocrErr) {
-        // Fallback smoothly to extracted PDF glyph stream if worker CDN blocked
+      } catch (ocrError) {
+        ocrFailed = true;
+        statusEl.title = 'Image OCR could not complete: ' + String(ocrError.message || ocrError).slice(0, 200);
       }
-    }
 
-    const finalTxt = ocrResultText || streamText || '(No text detected on this page.)';
-    pdfState.ocrText = finalTxt;
-    outArea.value = finalTxt;
-    statusEl.textContent = ocrResultText
-      ? `OCR completed (${finalTxt.split(/\s+/).filter(Boolean).length} words recognized)`
-      : `Extracted ${finalTxt.split(/\s+/).filter(Boolean).length} words from PDF text stream`;
-    toast('OCR extraction ready');
+      // Fall back only after image recognition, and distinguish it explicitly
+      // so an existing OCR layer cannot be mistaken for new recognition.
+      let streamText = '';
+      if (!ocrResultText) {
+        try {
+          const tc = await page.getTextContent();
+          streamText = tc.items.map((item) => item.str).join(' ').replace(/\s+/g, ' ').trim();
+        } catch (_textError) {}
+      }
+      if (pdfState.pdfJsDoc !== sourcePdf) {
+        statusEl.textContent = 'PDF changed. Run OCR on the newly opened document.';
+        return;
+      }
+      const finalText = ocrResultText || streamText;
+      const words = finalText.split(/\s+/).filter(Boolean).length;
+      pdfState.ocrText = finalText;
+      outArea.value = finalText;
+      if (ocrResultText) {
+        if (reviewPanel && recognizedData && Array.isArray(recognizedData.blocks) && ocrCanvas) {
+          const flagged = [];
+          let textCursor = 0;
+          for (const block of recognizedData.blocks) {
+            for (const paragraph of block.paragraphs || []) {
+              for (const line of paragraph.lines || []) {
+                for (const word of line.words || []) {
+                  const token = String(word.text || '').trim();
+                  if (!token) continue;
+                  let offset = finalText.indexOf(token, textCursor);
+                  if (offset < 0) offset = finalText.indexOf(token);
+                  if (offset >= 0) textCursor = offset + token.length;
+                  if (Number.isFinite(word.confidence) && word.confidence < 75 && word.bbox) {
+                    flagged.push({ text: token, confidence: word.confidence, bbox: word.bbox, offset });
+                  }
+                }
+              }
+            }
+          }
+          if (flagged.length) {
+            const list = document.getElementById('pdf-ocr-review-list');
+            const image = document.getElementById('pdf-ocr-review-image');
+            const shown = flagged.slice(0, 40);
+            document.getElementById('pdf-ocr-review-summary').textContent = `${flagged.length} words suggested for review${flagged.length > shown.length ? ' · first 40 shown' : ''}`;
+            reviewPanel.classList.remove('hidden');
+            for (const item of shown) {
+              const b = item.bbox;
+              const x = Math.max(0, b.x0 - 16);
+              const y = Math.max(0, b.y0 - 12);
+              const width = Math.min(ocrCanvas.width - x, b.x1 - x + 16);
+              const height = Math.min(ocrCanvas.height - y, b.y1 - y + 12);
+              if (!(width > 0 && height > 0)) continue;
+              const crop = document.createElement('canvas');
+              const cropScale = Math.min(2, 600 / width, 180 / height);
+              crop.width = Math.max(1, Math.round(width * cropScale));
+              crop.height = Math.max(1, Math.round(height * cropScale));
+              crop.getContext('2d').drawImage(ocrCanvas, x, y, width, height, 0, 0, crop.width, crop.height);
+              const cropUrl = crop.toDataURL('image/png');
+              crop.width = crop.height = 1;
+              const button = document.createElement('button');
+              button.type = 'button';
+              button.className = 'rounded border border-amber-300 bg-white px-1.5 py-0.5 hover:bg-amber-100';
+              button.dir = lang.includes('heb') ? 'rtl' : 'auto';
+              button.textContent = item.text;
+              button.title = `Compare this word with the scan (OCR confidence ${Math.round(item.confidence)})`;
+              button.addEventListener('click', () => {
+                image.src = cropUrl;
+                image.alt = 'Scan for: ' + item.text;
+                image.classList.remove('hidden');
+                let offset = outArea.value.indexOf(item.text, Math.max(0, item.offset - 80));
+                if (offset < 0) offset = outArea.value.indexOf(item.text);
+                if (offset >= 0) {
+                  outArea.focus();
+                  outArea.setSelectionRange(offset, offset + item.text.length);
+                  outArea.scrollTop = Math.max(0, (offset / Math.max(1, outArea.value.length)) * outArea.scrollHeight - outArea.clientHeight / 3);
+                }
+              });
+              list.appendChild(button);
+            }
+          }
+        }
+        statusEl.textContent = `Image OCR complete · Page ${pageNumber} · ${words} words · ${actualDpi} DPI · ${((performance.now() - started) / 1000).toFixed(1)}s`;
+        toast('Page image OCR ready');
+      } else if (streamText) {
+        statusEl.textContent = `${ocrFailed ? 'Image OCR failed' : 'Image OCR found no text'}; showing ${words} words from the existing PDF text layer (Page ${pageNumber}).`;
+        toast('Showing the existing PDF text layer', 'warn');
+      } else {
+        statusEl.textContent = ocrFailed ? `Image OCR failed on Page ${pageNumber}; no existing text layer is available.` : `Image OCR found no text on Page ${pageNumber}.`;
+        toast('No text recognized', 'warn');
+      }
+    } catch (_pageError) {
+      statusEl.textContent = `Unable to read Page ${pageNumber} for OCR. Please reopen the PDF and try again.`;
+      toast('Could not read the PDF page', 'error');
+    } finally {
+      if (worker) {
+        try { await worker.terminate(); } catch (_terminationError) {}
+      }
+      if (ocrCanvas) { ocrCanvas.width = 1; ocrCanvas.height = 1; }
+      pdfState.ocrRunning = false;
+      runButtons.forEach((button) => { button.disabled = false; });
+    }
   }
 
   async function exportEditedBinaryPdf() {
@@ -3980,6 +5359,9 @@
   function initPdfStudio() {
     const fileInp = document.getElementById('pdf-file-input');
     const mergeInp = document.getElementById('pdf-merge-input');
+    document.getElementById('pdf-ocr-engine').addEventListener('change', (event) => {
+      document.getElementById('pdf-vision-settings').classList.toggle('hidden', event.target.value !== 'vision');
+    });
 
     fileInp.addEventListener('change', async (e) => {
       const f = e.target.files && e.target.files[0];
@@ -4104,6 +5486,8 @@
       else if (act === 'insert-blank') mutatePdfStructure('insert-blank');
       else if (act === 'delete-page') mutatePdfStructure('delete');
       else if (act === 'ocr') runOcrOnCurrentPage();
+      else if (act === 'ocr-connect') checkVisionOcrConnection();
+      else if (act === 'ocr-cancel' && pdfState.visionOcrAbort) pdfState.visionOcrAbort.abort();
       else if (act === 'zoom-in') { pdfState.zoom = Math.min(2.2, pdfState.zoom + 0.15); renderCurrentPdfPage(); }
       else if (act === 'zoom-out') { pdfState.zoom = Math.max(0.65, pdfState.zoom - 0.15); renderCurrentPdfPage(); }
       else if (act === 'ocr-to-word') {
@@ -6476,7 +7860,7 @@ Reply with a valid JSON object matching this exact schema so I can paste it stra
         <div class="max-w-6xl mx-auto px-4 sm:px-6 py-14 lg:py-20 grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
           <div class="lg:col-span-7 space-y-5">
             <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-blue-500/10 border border-blue-400/25 text-blue-300 text-xs font-medium">
-              <span>✦ Print-Grade Word DOCX · Publisher · PDF OCR · Visual Studio · MCP</span>
+              <span>✦ Word DOCX · Publisher · PDF OCR · Visual Studio · MCP</span>
             </div>
             <h1 class="text-3xl sm:text-5xl font-bold tracking-tight text-white leading-tight" style="font-family:'Playfair Display', Georgia, serif;">
               Scholarly Publishing &amp; Creative Design, <span class="text-amber-400">Built Beyond Limits.</span>
@@ -6504,7 +7888,7 @@ Reply with a valid JSON object matching this exact schema so I can paste it stra
               <div class="w-14 h-14 rounded-2xl bg-blue-600/20 border border-blue-400/30 text-blue-300 mx-auto flex items-center justify-center text-2xl font-serif font-bold">W¹</div>
               <div>
                 <div class="text-base font-bold text-white">Drop Your .DOCX or .PDF Manuscript Here</div>
-                <p class="text-xs text-slate-400 mt-1">Instantly launches the print-layout engine with de-obfuscated embedded <code>.odttf</code> book fonts, BiDi isolates &amp; bottom-of-page footnotes.</p>
+                <p class="text-xs text-slate-400 mt-1">Opens the manuscript preview with embedded <code>.odttf</code> book fonts, BiDi isolates &amp; bottom-of-page footnotes.</p>
               </div>
               <div class="grid grid-cols-2 gap-2 text-left text-[11px] pt-2">
                 <div class="p-2.5 rounded-lg bg-slate-950/80 border border-slate-800">
