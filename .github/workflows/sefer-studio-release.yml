@@ -1,0 +1,104 @@
+name: Publish SeferStudio website while preserving the existing site
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'dist/sefer-studio/**'
+      - 'scripts/sefer-studio-release.py'
+      - '.github/workflows/sefer-studio-release.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: ${{ (github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[sefer-studio-release]'))) && 'pages' || format('sefer-studio-skipped-{0}', github.run_id) }}
+  cancel-in-progress: false
+
+jobs:
+  publish:
+    if: ${{ github.repository == 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok' && github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[sefer-studio-release]')) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 40
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Check out the exact SeferStudio revision
+        uses: actions/checkout@v6
+        with:
+          ref: ${{ github.sha }}
+
+      - name: Check the scoped publisher
+        run: python3 -m py_compile scripts/sefer-studio-release.py
+
+      - name: Identify the actual current complete Pages publication
+        id: baseline
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/sefer-studio-release.py metadata
+
+      - name: Download the current complete publication
+        uses: actions/download-artifact@v4
+        with:
+          artifact-ids: ${{ steps.baseline.outputs.artifact }}
+          run-id: ${{ steps.baseline.outputs.run }}
+          repository: akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/sefer-studio-baseline
+          merge-multiple: true
+
+      - name: Safely restore and fingerprint every existing site file
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          python3 scripts/sefer-studio-release.py restore "$RUNNER_TEMP/sefer-studio-baseline/artifact.tar"
+          rm -rf "$RUNNER_TEMP/sefer-studio-baseline"
+
+      - name: Add only SeferStudio and verify every unrelated file is unchanged
+        run: |
+          python3 scripts/sefer-studio-release.py apply
+          python3 scripts/sefer-studio-release.py verify
+
+      - name: Recheck main and the original publication before upload
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/sefer-studio-release.py guard
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload the complete preserved site with SeferStudio
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: .sefer-studio-site
+          retention-days: 14
+
+      - name: Recheck main and the current publication immediately before deployment
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/sefer-studio-release.py guard
+
+      - name: Publish the SeferStudio website
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Verify the new app bytes and unchanged site are live
+        run: python3 scripts/sefer-studio-release.py published
+
+      - name: Save scoped publication evidence
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: sefer-studio-publication-evidence
+          retention-days: 30
+          if-no-files-found: warn
+          path: |
+            sefer-studio-publication.json
+            sefer-studio-baseline.json
+            sefer-studio-verification.json
+            sefer-studio-live-verification.json
