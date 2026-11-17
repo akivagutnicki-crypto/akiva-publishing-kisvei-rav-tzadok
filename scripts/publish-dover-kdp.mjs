@@ -94,7 +94,7 @@ if(toc.manuscriptEdition?.sourceSignature===sourceSignature){
   console.log('Dover latest KDP manuscripts already published; no content rewritten.');
   process.exit(0);
 }
-const protectedTextSha256=Object.fromEntries(files(DATA).filter(f=>/^[^/]+\/\d+(?:-\d+)*\.json$/.test(f)&&!f.startsWith('dover-tzedek/')).map(f=>[f,hash(fs.readFileSync(path.join(DATA,f)))]));
+const protectedTextSha256=Object.fromEntries(files(DATA).filter(f=>/^[^/]+\/\d+(?:-\d+)*\.json$/.test(f)&&!f.startsWith('dover-tzedek/')&&!f.startsWith('cited/')).map(f=>[f,hash(fs.readFileSync(path.join(DATA,f)))]));
 const staged=new Map(),connections={},sectionProof=[],alignment=extracted.alignmentChanges;
 const tocLeaves=leaves(toc.toc);
 let totalPairs=0,totalNotes=0,totalHeads=0;

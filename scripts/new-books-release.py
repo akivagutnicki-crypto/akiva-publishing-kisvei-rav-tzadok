@@ -54,13 +54,21 @@ def publishers():
 
 def latest_publication():
     known = publishers()
-    runs = api('/actions/runs?branch=main&per_page=100')['workflow_runs']
+    runs = []
+    for page in range(1, 8):
+        batch = api('/actions/runs?branch=main&status=completed&per_page=100&page=' + str(page))['workflow_runs']
+        runs.extend(batch)
+        if any(run['path'] in known and run['conclusion'] != 'skipped' for run in batch) or not batch:
+            if page > 1 or any(run['path'] in known and run['conclusion'] != 'skipped' for run in batch):
+                pass
+        if not batch:
+            break
     current_run = str(os.environ.get('GITHUB_RUN_ID', ''))
     candidates = []
     for run in runs:
         if str(run['id']) == current_run or run['path'] not in known:
             continue
-        if run['status'] != 'completed':
+        if run['status'] != 'completed' or run.get('conclusion') == 'skipped':
             continue
         # A post-deployment check can fail after a site was published. Inspect
         # the actual deploy-pages step, rather than treating run success as live.

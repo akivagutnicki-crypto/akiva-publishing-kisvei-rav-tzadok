@@ -1,0 +1,154 @@
+name: Publish the revised Dover Tzedek KDP volumes (book only)
+
+# Publishes the two Dover Tzedek KDP Word volumes (sources/akiva/docx) over the exact current
+# Pages artifact. The full-site rebuild is gated, so this book-only publisher restores the live
+# site, replaces Dover Tzedek with scripts/publish-dover-kdp.mjs, rebuilds the MCP text, the
+# parallels and the offline ZIPs from that site, and deploys. Every other sefer's chapter text is
+# hash-checked by publish-dover-kdp.mjs. Trigger with the commit tag [dover-kdp-release] or
+# workflow_dispatch.
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+  deployments: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: ${{ (github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[dover-kdp-release]'))) && 'pages' || format('dover-kdp-skipped-{0}', github.run_id) }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: ${{ github.repository == 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok' && github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[dover-kdp-release]')) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    env:
+      NEW_BOOKS_SITE: .dover-site
+    steps:
+      - name: Checkout the reader source and the Dover Word volumes
+        uses: actions/checkout@v6
+
+      - name: Set up Node 24
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+
+      - name: Read both Word volumes before touching the site
+        run: |
+          python3 scripts/dover-kdp-docx.py --out dover-source-check.json
+          python3 - <<'PY'
+          import json
+          d=json.load(open('dover-source-check.json'))
+          pairs=sum(len(s['pairs']) for s in d['sections'].values())
+          simanim=sum(1 for s in d['sections'].values() for p in s['pairs'] for h in p['heads'] if h['level']==5)
+          print('pairs',pairs,'notes',{v:x['notes'] for v,x in d['volumes'].items()},'simanim',simanim)
+          assert pairs==27035 and d['volumes']['I']['notes']==1683 and d['volumes']['II']['notes']==1113 and simanim==383
+          PY
+
+      - name: Identify the currently published complete Pages artifact
+        id: baseline
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/new-books-release.py metadata
+
+      - name: Download the exact current site without rebuilding the other seforim
+        uses: actions/download-artifact@v4
+        with:
+          artifact-ids: ${{ steps.baseline.outputs.artifact }}
+          run-id: ${{ steps.baseline.outputs.run }}
+          repository: akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/dover-baseline
+          merge-multiple: true
+
+      - name: Safely restore every published book and site file
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PY'
+          import os,pathlib,tarfile
+          root=pathlib.Path('.dover-site').resolve()
+          root.mkdir(exist_ok=True)
+          archive=pathlib.Path(os.environ['RUNNER_TEMP'])/'dover-baseline/artifact.tar'
+          assert archive.is_file(), 'Missing complete Pages archive'
+          with tarfile.open(archive,'r:') as source:
+              members=source.getmembers()
+              for member in members:
+                  target=(root/member.name).resolve()
+                  assert target==root or root in target.parents, 'Path outside site'
+                  assert member.isdir() or member.isfile(), 'Unsafe archive entry'
+              source.extractall(root,members=members,filter='data')
+          PY
+          python3 scripts/new-books-release.py capture
+
+      - name: Replace only Dover Tzedek, then rebuild its MCP text, parallels and ZIP downloads
+        run: |
+          mv dist .dist-repo
+          ln -s .dover-site dist
+          set +e
+          (
+            set -e
+            node scripts/publish-dover-kdp.mjs
+            node scripts/build-mcp-index.mjs
+            node scripts/build-parallels.mjs
+            node scripts/check-dover-source-links.mjs
+            node scripts/build-library-zips.mjs
+            node --input-type=module -e "import fs from 'node:fs';const c=JSON.parse(fs.readFileSync('dist/mcp-data/catalog.json'));c.version=JSON.parse(fs.readFileSync('dist/library/data/files.json')).version;fs.writeFileSync('dist/mcp-data/catalog.json',JSON.stringify(c));"
+            node scripts/test-dover-kdp.mjs --zips
+          )
+          status=$?
+          rm dist && mv .dist-repo dist
+          exit $status
+
+      - name: Recheck original live site and main branch before artifact upload
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/new-books-release.py guard
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload complete preserved site with only the Dover replacement
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: .dover-site
+          retention-days: 14
+
+      - name: Recheck main and latest publication before deployment
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/new-books-release.py guard
+
+      - name: Publish the revised Dover Tzedek volumes
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Verify the revised Dover Tzedek is live
+        run: |
+          for attempt in $(seq 1 18); do
+            if curl -fsS "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/library/data/dover-tzedek/toc.json?check=$(date +%s%N)" | python3 -c "import json,sys;t=json.load(sys.stdin);assert t['manuscriptEdition']['phrases']==27035;print('live',t['manuscriptEdition']['sourceSignature'])"; then exit 0; fi
+            sleep 10
+          done
+          exit 1
+
+      - name: Save release verification
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: dover-kdp-release-verification
+          retention-days: 90
+          if-no-files-found: warn
+          path: |
+            new-books-publication.json
+            new-books-baseline.json
+            dover-source-check.json
+            .dover-site/library/dover-kdp-reader-report.json
