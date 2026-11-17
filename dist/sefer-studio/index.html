@@ -2519,7 +2519,7 @@
             const pStyle = xmlEsc(p.style || 'Normal');
             const jc = xmlEsc(p.jc || 'both');
             bodyParts.push(
-              `<w:p><w:pPr><w:pStyle w:val="${pStyle}"/><w:jc w:val="${jc}"/>${p.pageBreakBefore ? '<w:pageBreakBefore/>' : ''}</w:pPr>` +
+              `<w:p><w:pPr><w:pStyle w:val="${pStyle}"/><w:jc w:val="${jc}"/>${p.pageBreakBefore ? '<w:pageBreakBefore/>' : ''}${p.sectBreakAfter ? sectPrXml : ''}</w:pPr>` +
               serializeRunsXml(p.runs, false) +
               `</w:p>`
             );
