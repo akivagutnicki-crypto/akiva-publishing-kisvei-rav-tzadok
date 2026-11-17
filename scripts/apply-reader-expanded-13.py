@@ -16,7 +16,7 @@ BOOKS={'peri-tzadik':1665,'machshavot-charutz':3580,'divrei-soferim':845,
 EXCLUDED=('takanat-hashavin','resisei-layla','et-haochel','dover-tzedek')
 # The editorial master edition of Tzidkat HaTzadik supersedes the archived 13-volume Tzidkat folder.
 _TZ=Path('sources/akiva/Tzidkat_HaTzadik.json')
-TZIDKAT_MASTER=_TZ.exists() and json.loads(_TZ.read_text(encoding='utf-8')).get('editionId')=='tzidkat-editorial-master-2026-11'
+TZIDKAT_MASTER=_TZ.exists() and json.loads(_TZ.read_text(encoding='utf-8')).get('editionId') in ('tzidkat-editorial-master-2026-11','tzidkat-two-volume-2026-11')
 SKIP={'tzidkat-hatzadik'} if TZIDKAT_MASTER else set()
 PREFIXES=('Peri Tzadik','Pri Tzadik','Machshavot Charutz','Divrei Soferim',
  'Sefer HaZikhronot','Yisrael Kedoshim','Kometz HaMinchah',

@@ -7,7 +7,7 @@ No chapter, footnote, reader asset, or historical publication report is written.
 """
 import json as _json, sys as _sys
 try:
-    if _json.load(open('sources/akiva/Tzidkat_HaTzadik.json', encoding='utf-8')).get('editionId') == 'tzidkat-editorial-master-2026-11':
+    if _json.load(open('sources/akiva/Tzidkat_HaTzadik.json', encoding='utf-8')).get('editionId') in ('tzidkat-editorial-master-2026-11', 'tzidkat-two-volume-2026-11'):
         print('skipped: Tzidkat HaTzadik is the editorial master edition; this legacy layer is retired')
         _sys.exit(0)
 except FileNotFoundError:

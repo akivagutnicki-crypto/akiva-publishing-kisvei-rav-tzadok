@@ -166,7 +166,7 @@ export function buildConnectedIdeas(options={}) {
   return assembleCatalog({records,catalog,catalogBytes,files,date:options.date,output,write:options.write!==false});
 }
 export function tzidkatMasterEdition() {
-  try { return JSON.parse(fs.readFileSync(path.join(REPO,'sources/akiva/Tzidkat_HaTzadik.json'),'utf8')).editionId==='tzidkat-editorial-master-2026-11'; }
+  try { return ['tzidkat-editorial-master-2026-11','tzidkat-two-volume-2026-11'].includes(JSON.parse(fs.readFileSync(path.join(REPO,'sources/akiva/Tzidkat_HaTzadik.json'),'utf8')).editionId); }
   catch { return false; }
 }
 export function editorialFiles(editorialDir=path.join(REPO,'sources/akiva/themes')) {

@@ -167,7 +167,7 @@ def main():
     payload = json.loads(gzip.decompress(compressed))
     # The Tzidkat HaTzadik editorial master edition supersedes the historical Tzidkat quotation patches.
     try:
-        _tz_master = json.load(open('sources/akiva/Tzidkat_HaTzadik.json', encoding='utf-8')).get('editionId') == 'tzidkat-editorial-master-2026-11'
+        _tz_master = json.load(open('sources/akiva/Tzidkat_HaTzadik.json', encoding='utf-8')).get('editionId') in ('tzidkat-editorial-master-2026-11', 'tzidkat-two-volume-2026-11')
     except FileNotFoundError:
         _tz_master = False
     if _tz_master:

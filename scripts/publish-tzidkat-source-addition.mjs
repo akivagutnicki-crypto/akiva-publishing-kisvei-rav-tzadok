@@ -4,7 +4,7 @@ import {fileURLToPath as __fileURLToPath} from 'node:url';
 // Retired layer: skip only when this file is the entry point. Modules that import helpers from it keep working.
 try {
   const __edition = JSON.parse(__fs.readFileSync('sources/akiva/Tzidkat_HaTzadik.json', 'utf8')).editionId;
-  if (__edition === 'tzidkat-editorial-master-2026-11' && process.argv[1] && __path.resolve(process.argv[1]) === __fileURLToPath(import.meta.url)) {
+  if (['tzidkat-editorial-master-2026-11', 'tzidkat-two-volume-2026-11'].includes(__edition) && process.argv[1] && __path.resolve(process.argv[1]) === __fileURLToPath(import.meta.url)) {
     console.log('skipped: Tzidkat HaTzadik is the editorial master edition; this legacy layer is retired'); process.exit(0);
   }
 } catch {}
