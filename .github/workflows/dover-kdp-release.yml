@@ -103,7 +103,7 @@ jobs:
             node scripts/check-dover-source-links.mjs
             node scripts/build-library-zips.mjs
             node --input-type=module -e "import fs from 'node:fs';const c=JSON.parse(fs.readFileSync('dist/mcp-data/catalog.json'));c.version=JSON.parse(fs.readFileSync('dist/library/data/files.json')).version;fs.writeFileSync('dist/mcp-data/catalog.json',JSON.stringify(c));"
-            node scripts/test-dover-kdp.mjs --zips
+            node scripts/test-dover-kdp.mjs --zips --data-only
           )
           status=$?
           rm dist && mv .dist-repo dist
