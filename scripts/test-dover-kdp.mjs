@@ -50,7 +50,7 @@ for(const proof of report.sections){
   for(const [j,note]of a.notes.entries()){
    const original=e.notes[j];assert.ok(!seen.has(note.placementId),'Repeated note identity');seen.add(note.placementId);
    assert.equal(note.number,original.number);assert.equal(note.sourceId,original.sourceId);
-   assert.equal(note.heCharOffset,e.he.length);assert.equal(note.heAnchorPrefix,e.he);
+   const at=Number.isInteger(original.heOffset)?Math.min(original.heOffset,e.he.length):e.he.length;assert.equal(note.heCharOffset,at);assert.equal(note.heAnchorPrefix,e.he.slice(0,at));
    assert.deepEqual(note.paragraphs.map(p=>p.text),original.paragraphs.map(p=>p.text),'A full source quotation was changed or shortened');
    note.paragraphs.forEach(p=>assert.equal(p.rich.map(r=>r.text).join(''),p.text,'Linked source text differs'));
    numbers[note.volume].push(note.number);notes++;
@@ -62,7 +62,7 @@ for(const proof of report.sections){
  });
  sections.set(proof.ref,{proof,rows});
 }
-assert.equal(pairs,7405);assert.equal(notes,2796);assert.equal(headlines,371);
+assert.equal(pairs,27035);assert.equal(notes,2796);assert.equal(headlines,754);
 for(const v of ['I','II'])assert.deepEqual(numbers[v],Array.from({length:source.volumes[v].notes},(_,i)=>i+1),'Footnote sequence has a gap in volume '+v);
 const opening=await json('data/dover-tzedek/0.json');assert.equal(opening.length,9);
 opening.forEach((row,i)=>assert.deepEqual(row.p[0].map(norm),source.volumes.I.title.slice(2*i,2*i+2).map(norm)));

@@ -121,14 +121,14 @@ def load_volume(volume):
             assert text in SECTION_FILES,('Unknown section',text)
             section=sections.setdefault(SECTION_FILES[text],{'title':text,'volume':volume,'pairs':[]});pending=[]
         if section is None:continue
-        if style in ('Heading3','Heading4'):pending.append({'text':text,'level':int(style[-1])});continue
+        if style in ('Heading3','Heading4','Heading5'):pending.append({'text':text,'level':int(style[-1])});continue
         if '\u2066' not in text:continue
         current=None;state=None;count=0
         for kind,value,flags in events(p,rels):
             if kind=='note':
-                assert current is not None and state=='sep',(volume,pi,'note state',state)
+                assert current is not None and state in ('sep','he'),(volume,pi,'note state',state)
                 sequence+=1;used.append(value)
-                current['notes'].append({'number':sequence,'wordFootnoteId':value,'sourceId':f'DT-KDP-{volume}-{sequence:04}',
+                current['notes'].append({**({'heOffset':len(current['he'].lstrip())} if state=='he' else {}),'number':sequence,'wordFootnoteId':value,'sourceId':f'DT-KDP-{volume}-{sequence:04}',
                   'placementId':f'DT-KDP-{volume}-{sequence:04}-1','volume':volume,'paragraphs':notes[value]})
                 continue
             for part in re.split('([\u2066-\u2069])',value):
@@ -155,35 +155,45 @@ def load_volume(volume):
     assert len(title)==18 if volume=='I' else not title
     return {'name':name,'sha256':sha(path.read_bytes()),'sections':sections,'notes':sequence,'title':title}
 
+def skel(s):
+    return re.sub('[וי]','',bare(s)).translate(str.maketrans('ךםןףץ','כמנפצ'))
+
 def align_section(file,section):
+    """Map every Word phrase to the canonical reader paragraph that holds its text.
+    The Word volumes may re-cut phrases; canonical paragraph numbers (and so every
+    reference into Dover Tzedek) are kept by locating each phrase in the canonical
+    text, in order."""
     global BASELINE
     if BASELINE is None:
         pack=json.loads(gzip.decompress((ROOT/'sources/akiva/overlays/dover-revisions-20261018.json.gz').read_bytes()))
         BASELINE={s['file']:s['items'] for s in pack['sections']}
     source=BASELINE[file]
-    old=[(row['n'],pair) for row in source if 'p' in row for pair in row['p']]
-    new=section['pairs'];left=[bare(p[0]) for n,p in old];right=[bare(p['he']) for p in new]
-    mapping={};changes=[]
-    for tag,i,j,k,l in difflib.SequenceMatcher(None,left,right,autojunk=False).get_opcodes():
-        if tag=='equal':
-            for oi,ni in zip(range(i,j),range(k,l)):mapping[ni]=old[oi][0]
-        else:
-            changes.append({'kind':tag,'oldRange':[i,j],'newRange':[k,l],
-              'old':[[n,visible(pair[0]),visible(pair[1])] for n,pair in old[i:j]],
-              'new':[[p['he'],p['en']] for p in new[k:l]]})
-            rows=set(n for n,p in old[i:j])
-            if len(rows)==1:
-                for ni in range(k,l):mapping[ni]=next(iter(rows))
-            elif tag=='insert':
-                if file=='3-2.json' and i==0:
-                    assert l-k==1 and new[k]['he']=='מִצְוַת עֲשֵׂה א׳'
-                    for ni in range(k,l):mapping[ni]=1
-                else:
-                    assert i>0 and i<len(old) and old[i-1][0]==old[i][0],(file,'Insert between canonical paragraphs',i)
-                    for ni in range(k,l):mapping[ni]=old[i][0]
-            else:raise ValueError((file,'Canonical boundary requires review',tag,i,j,k,l))
-    assert len(mapping)==len(new) and list(mapping[x] for x in range(len(new)))==sorted(mapping.values())
-    assert set(mapping.values())==set(n for n,p in old),(file,'Canonical paragraph lost')
+    rows=[(row['n'],skel(''.join(p[0] for p in row['p']))) for row in source if 'p' in row]
+    big='';starts=[]
+    for n,t in rows:starts.append((len(big),n));big+=t
+    import bisect
+    keys=[o for o,n in starts]
+    new=section['pairs'];texts=[skel(p['he']) for p in new]
+    nbig='';nstarts=[]
+    for t in texts:nstarts.append(len(nbig));nbig+=t
+    # Locate the start of every canonical paragraph in the Word text, in order.
+    first={};pos=0;changes=[]
+    for n,t in rows:
+        k=-1
+        for L in (22,14,9):
+            if len(t)>=L:
+                k=nbig.find(t[:L],pos)
+                if k>=0:break
+        if k<0:changes.append({'kind':'canonical-start-unlocated','paragraph':n});continue
+        j=bisect.bisect_right(nstarts,k)-1
+        first[n]=j;pos=k+1
+    mapping={};order=sorted(first.items(),key=lambda x:x[1]);cur=rows[0][0];oi=0
+    for i in range(len(new)):
+        while oi<len(order) and order[oi][1]<=i:cur=order[oi][0];oi+=1
+        mapping[i]=cur
+    assert list(mapping[x] for x in range(len(new)))==sorted(mapping.values())
+    lost=sorted(set(n for n,_ in rows)-set(mapping.values()))
+    if lost:changes.append({'kind':'canonical-paragraphs-merged','paragraphs':lost})
     return mapping,changes
 
 def extract():

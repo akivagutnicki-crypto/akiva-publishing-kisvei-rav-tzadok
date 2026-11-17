@@ -29,6 +29,8 @@ const reviewFile='sources/verified/dover/kdp-link-target-review-20261020.json';
 const review=fs.existsSync(reviewFile)?read(reviewFile):{corrections:{},unlinked:[]};
 const verifiedFile='sources/verified/dover/kdp-sefaria-links-20261020.json.gz';
 const verified=fs.existsSync(verifiedFile)?JSON.parse(gunzipSync(fs.readFileSync(verifiedFile))).references:{};
+const verifiedSupplement='sources/verified/dover/kdp-sefaria-links-20261117.json';
+if(fs.existsSync(verifiedSupplement))Object.assign(verified,read(verifiedSupplement).references);
 function urlRef(value) {
   try {
     const u=new URL(value,'https://reader.example/library/');
@@ -116,12 +118,13 @@ for(const [file,section] of Object.entries(extracted.sections)) {
     assert.deepEqual(ph.map(normalized),[pair.he,pair.en].map(normalized),'Linking changed a source phrase');
     row.p.push(ph);
     if(pair.paragraphStart&&pi)(row.paragraphBreaks??=[]).push(pi);
-    for(const h of pair.heads){(row.inlineHeadings??=[]).push({text:h.text,phraseIndex:pi,kind:h.level===3?'section':'subsection',source:'Word manuscript'});totalHeads++;}
+    for(const h of pair.heads){(row.inlineHeadings??=[]).push({text:h.text,phraseIndex:pi,kind:h.level===3?'section':h.level===5?'siman':'subsection',source:'Word manuscript'});totalHeads++;}
     for(const value of ph)for(const m of value.matchAll(/data-ref="([^"]+)"/g))addRef(ref,n,decode(m[1]));
     for(const original of pair.notes){
       const paragraphs=original.paragraphs.map(linkNoteParagraph);
       const sources=[...new Set(paragraphs.flatMap(p=>p.rich.map(r=>r.href).filter(Boolean)))].flatMap(url=>{const r=urlRef(url);return r?[{ref:r,url}]:[];});
-      const note={...original,paragraphs,phraseIndex:pi,heCharOffset:pair.he.length,heAnchorPrefix:pair.he,
+      const {heOffset,...rest}=original,at=Number.isInteger(heOffset)?Math.min(heOffset,pair.he.length):pair.he.length;
+      const note={...rest,paragraphs,phraseIndex:pi,heCharOffset:at,heAnchorPrefix:pair.he.slice(0,at),
         enCharOffset:pair.en.length,enAnchorPrefix:pair.en,sources};
       (row.footnotes??=[]).push(note);noteSequence[section.volume].push(note.number);totalNotes++;
       for(const s of sources)addRef(ref,n,s.ref,note.number);
@@ -138,7 +141,7 @@ for(const [file,section] of Object.entries(extracted.sections)) {
   leaf.chapterOutlines??=[];leaf.chapterOutlines[chapter-1]=rows.flatMap(row=>(row.inlineHeadings||[]).map(h=>({title:h.text,ref:ref+':'+row.n,phraseIndex:h.phraseIndex,kind:h.kind})));
 }
 for(const volume of ['I','II'])assert.deepEqual(noteSequence[volume],Array.from({length:extracted.volumes[volume].notes},(_,i)=>i+1),'Word footnote numbering changed in volume '+volume);
-assert.equal(totalPairs,7405);assert.equal(totalNotes,2796);
+assert.equal(totalPairs,27035);assert.equal(totalNotes,2796);
 const title=extracted.volumes.I.title;
 const opening=Array.from({length:9},(_,i)=>({n:i+1,p:[[esc(title[2*i]),esc(title[2*i+1])]],paragraphTranslation:true}));
 staged.set('0.json',opening);
