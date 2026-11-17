@@ -16,14 +16,14 @@ import {createRequire} from 'node:module';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SOURCE = 'sources/akiva/Tzidkat_HaTzadik.json';
-const EDITION_ID = 'tzidkat-editorial-master-2026-11';
-const RELEASE = '20261102-tzidkat-editorial-master-v1';
+const EDITION_ID = 'tzidkat-two-volume-2026-11';
+const RELEASE = '20261117-tzidkat-two-volume-v1';
 const BOOK = 'Tzidkat HaTzadik', SLUG = 'tzidkat-hatzadik', ANCHOR_PREFIX = 'Tzidkat HaTzadik ';
-const REPORT = 'library/tzidkat-editorial-master-20261102.json';
+const REPORT = 'library/tzidkat-two-volume-20261117.json';
 const PROOF = 'artifacts/tzidkat-editorial-master/final-verification.json';
 const PREVIOUS = 'new-books-baseline.json', META = 'new-books-publication.json';
 const PUBLIC = 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/';
-const DOWNLOAD = 'downloads/tzidkas-hatzaddik-complete-editorial-master.docx';
+const DOWNLOADS = ['downloads/tzidkas-hatzaddik-volume-i.docx', 'downloads/tzidkas-hatzaddik-volume-ii.docx'];
 const IDEAS = 'library/connected-ideas/catalog.json';
 const involvesTzidkat = r => String(r.originRef || '').startsWith(ANCHOR_PREFIX) || String(r.targetRef || '').startsWith(ANCHOR_PREFIX);
 
@@ -46,7 +46,7 @@ const utf16 = s => s.length;
 
 export function loadPack() {
   const src = JSON.parse(fs.readFileSync(path.join(ROOT, SOURCE), 'utf8'));
-  assert.equal(src.editionId, EDITION_ID, 'The checked-in Tzidkat source is not the editorial master edition');
+  assert.equal(src.editionId, EDITION_ID, 'The checked-in Tzidkat source is not the two-volume edition');
   assert.equal(src.title, BOOK); assert.equal(src.sections.length, 264);
   let notes = 0, paragraphs = 0, headings = 0, sefariaSources = 0, native = 0, cross = 0;
   const ids = new Set();
@@ -74,7 +74,11 @@ export function loadPack() {
     }
   }
   assert.equal(notes, src.footnoteImportInfo.notes, 'footnoteImportInfo.notes differs from the notes present');
-  for (let i = 1; i <= notes; i++) assert(ids.has('TZ-' + String(i).padStart(4, '0')), 'Gap in numbering at ' + i);
+  // The printed volumes number their notes 1–4031 without 1369 and 1370; every other number is present once.
+  const unused = new Set(src.footnoteImportInfo.unusedNumbers || []);
+  assert.deepEqual([...unused], [1369, 1370], 'Unexpected unused note numbers');
+  for (let i = 1; i <= src.footnoteImportInfo.lastNumber; i++) assert.equal(ids.has('TZ-' + String(i).padStart(4, '0')), !unused.has(i), 'Gap in numbering at ' + i);
+  assert.equal(ids.size, src.footnoteImportInfo.lastNumber - unused.size);
   return {src, stats: {sections: src.sections.length, paragraphs, headings, notes, sefariaSources, nativeConnections: native, crossReferences: cross}};
 }
 
@@ -202,7 +206,7 @@ export async function apply(site, build) {
     assert(be && j >= 0, 'MCP catalog lacks Tzidkat'); mc.books[j] = be; touch(mcpCatalogName, mc);
   }
   // 6. the Word edition download
-  if (exists(build, 'library/' + DOWNLOAD)) touch('library/' + DOWNLOAD, fs.readFileSync(relative(build, 'library/' + DOWNLOAD)));
+  for (const DOWNLOAD of DOWNLOADS) { assert(exists(build, 'library/' + DOWNLOAD), 'Missing Word volume ' + DOWNLOAD); touch('library/' + DOWNLOAD, fs.readFileSync(relative(build, 'library/' + DOWNLOAD))); }
   // 7. Connected Ideas: the published catalog pins every thread to the Hebrew it was reviewed on.
   // Threads into Tzidkat are rebuilt from the re-anchored editorial records against the fresh
   // build; every record of the other seforim is kept byte-for-byte, with its numbering.

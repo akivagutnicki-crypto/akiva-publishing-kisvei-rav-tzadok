@@ -1,4 +1,4 @@
-name: Publish Tzidkat HaTzadik editorial master (book only)
+name: Publish Tzidkat HaTzadik two-volume edition (book only)
 
 # Publishes the Complete Editorial Master edition of Tzidkat HaTzadik over the exact current Pages
 # artifact. Only the Tzidkat chapter data, its TOC/links/MCP text, the citation reverse indexes it
@@ -40,7 +40,7 @@ jobs:
         with:
           node-version: '24'
 
-      - name: Validate the editorial master source (264 simanim, 4,407 anchored notes)
+      - name: Validate the two-volume edition source (264 simanim, 4,029 anchored notes)
         run: node scripts/publish-tzidkat-editorial-master.mjs --check-pack
 
       - name: Build the fresh Tzidkat data with the canonical library builder
@@ -133,4 +133,4 @@ jobs:
             new-books-baseline.json
             tzidkat-editorial-master-stage.json
             artifacts/tzidkat-editorial-master/
-            .tzidkat-site/library/tzidkat-editorial-master-20261102.json
+            .tzidkat-site/library/tzidkat-two-volume-20261117.json
