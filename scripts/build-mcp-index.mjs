@@ -165,10 +165,21 @@ function paragraphsOf(items, where) {
       const side = heAnchor ? 'h' : 'e';
       const offset = heAnchor ? fn.heCharOffset : (Number.isInteger(fn.enCharOffset) ? fn.enCharOffset : pairs[k]?.[1].length || 0);
       const phrase = pairs[k]?.[heAnchor ? 0 : 1] || '';
-      if (offset < 0 || offset > phrase.length) throw Error('Structured footnote anchor outside phrase: ' + fn.sourceId);
-      if (heAnchor && fn.heAnchorPrefix !== undefined && phrase.slice(0, offset) !== fn.heAnchorPrefix)
-        throw Error('Structured footnote Hebrew anchor differs: ' + fn.sourceId);
-      notes.push([String(fn.number ?? notes.length + 1), text, k, side, offset]);
+      // A book-only release rebuilds the MCP text from the live site. With
+      // MCP_TOLERATE_FOREIGN_ANCHORS set, an anchor problem in a sefer that this
+      // release does not touch is logged and the note kept at the phrase end,
+      // as in the live index; the released sefer stays strict.
+      const tolerate = process.env.MCP_TOLERATE_FOREIGN_ANCHORS && !String(where).startsWith(process.env.MCP_STRICT_REF_PREFIX || '\u0000');
+      let at = offset;
+      if (offset < 0 || offset > phrase.length || (heAnchor && fn.heAnchorPrefix !== undefined && phrase.slice(0, offset) !== fn.heAnchorPrefix)) {
+        if (!tolerate) {
+          if (offset < 0 || offset > phrase.length) throw Error('Structured footnote anchor outside phrase: ' + fn.sourceId);
+          throw Error('Structured footnote Hebrew anchor differs: ' + fn.sourceId);
+        }
+        warnings.push(`${where}: structured note ${fn.sourceId} anchor kept at phrase end`);
+        at = phrase.length;
+      }
+      notes.push([String(fn.number ?? notes.length + 1), text, k, side, at]);
     }
     const para = { n: it.n || paras.length + 1, p: pairs };
     if (notes.length) para.f = notes;

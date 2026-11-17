@@ -98,7 +98,7 @@ jobs:
           (
             set -e
             node scripts/publish-dover-kdp.mjs
-            node scripts/build-mcp-index.mjs
+            MCP_TOLERATE_FOREIGN_ANCHORS=1 MCP_STRICT_REF_PREFIX='Dover Tzedek' node scripts/build-mcp-index.mjs
             node scripts/build-parallels.mjs
             node scripts/check-dover-source-links.mjs
             node scripts/build-library-zips.mjs
