@@ -1,0 +1,68 @@
+name: Fetch Sefaria texts (JSON) to the sefaria-fetch branch
+
+# The Claude session cannot reach sefaria.org directly; this runner downloads Sefaria's own JSON for the
+# requested titles and pushes it to the sefaria-fetch branch (main is untouched).
+on:
+  workflow_dispatch:
+    inputs:
+      titles:
+        description: "Sefaria index titles, separated by |  (e.g. Dover Tzedek|Resisei Layla)"
+        required: true
+
+permissions:
+  contents: write
+
+jobs:
+  fetch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v6
+      - name: Download
+        env:
+          TITLES: ${{ inputs.titles }}
+        run: |
+          python3 - <<'PY'
+          import json, os, re, time, urllib.parse, urllib.request
+          def get(url):
+              for i in range(4):
+                  try:
+                      with urllib.request.urlopen(urllib.request.Request(url, headers={'User-Agent': 'akiva-publishing'}), timeout=60) as r:
+                          return json.load(r)
+                  except Exception as e:
+                      err = e; time.sleep(3 * (i + 1))
+              raise err
+          q = urllib.parse.quote
+          os.makedirs('sefaria', exist_ok=True)
+          for title in [t.strip() for t in os.environ['TITLES'].split('|') if t.strip()]:
+              index = get('https://www.sefaria.org/api/v2/raw/index/' + q(title.replace(' ', '_')))
+              out = {'title': title, 'fetched': time.strftime('%Y-%m-%dT%H:%M:%SZ', time.gmtime()), 'index': index, 'versions': {}, 'sections': []}
+              refs = []
+              def walk(node, prefix):
+                  name = node.get('title') or next((t['text'] for t in node.get('titles', []) if t.get('lang') == 'en' and t.get('primary')), '')
+                  ref = prefix if node.get('default') or not name else (prefix + ', ' + name if prefix else name)
+                  if node.get('nodes'):
+                      for n in node['nodes']: walk(n, ref)
+                  else:
+                      refs.append(ref)
+              walk(index['schema'], '')
+              refs = [r if r.startswith(title) else title + (', ' + r if r else '') for r in refs]
+              if index['schema'].get('nodes') is None: refs = [title]
+              for ref in refs:
+                  shape = get('https://www.sefaria.org/api/v3/texts/' + q(ref.replace(' ', '_')) + '?version=hebrew&version=english&return_format=text_only')
+                  out['sections'].append({'ref': ref, 'heRef': shape.get('heRef'), 'versions': [
+                      {k: v.get(k) for k in ('language', 'versionTitle', 'versionSource', 'license', 'text')} for v in shape.get('versions', [])]})
+                  time.sleep(0.5)
+              slug = re.sub(r'[^a-z0-9]+', '-', title.lower()).strip('-')
+              json.dump(out, open(f'sefaria/{slug}.json', 'w'), ensure_ascii=False, indent=1)
+              print(title, len(refs), 'sections')
+          PY
+      - name: Push to the sefaria-fetch branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          mkdir -p /tmp/s && cp -r sefaria /tmp/s/
+          git fetch origin sefaria-fetch || true
+          if git rev-parse --verify origin/sefaria-fetch >/dev/null 2>&1; then git checkout -B sefaria-fetch origin/sefaria-fetch; else git checkout --orphan sefaria-fetch && git rm -rfq .; fi
+          mkdir -p sefaria && cp /tmp/s/sefaria/* sefaria/
+          git add sefaria && git commit -m "Sefaria JSON: ${{ inputs.titles }}" && git push origin sefaria-fetch
