@@ -17,9 +17,9 @@ import {createRequire} from 'node:module';
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const SOURCE = 'sources/akiva/Tzidkat_HaTzadik.json';
 const EDITION_ID = 'tzidkat-two-volume-2026-11';
-const RELEASE = '20261117-tzidkat-two-volume-v1';
+const RELEASE = '20261117-tzidkat-two-volume-v2';
 const BOOK = 'Tzidkat HaTzadik', SLUG = 'tzidkat-hatzadik', ANCHOR_PREFIX = 'Tzidkat HaTzadik ';
-const REPORT = 'library/tzidkat-two-volume-20261117.json';
+const REPORT = 'library/tzidkat-two-volume-20261117-v2.json';
 const PROOF = 'artifacts/tzidkat-editorial-master/final-verification.json';
 const PREVIOUS = 'new-books-baseline.json', META = 'new-books-publication.json';
 const PUBLIC = 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/';
@@ -199,6 +199,16 @@ export async function apply(site, build) {
   for (const name of [`mcp-data/text/${SLUG}.json`, `mcp-data/parallels/${SLUG}.json`, `library/data/parallels/${SLUG}.json`]) {
     if (exists(build, name)) touch(name, fs.readFileSync(relative(build, name)));
   }
+  // The MCP tools read the search index and the text chunks, not text/<slug>.json alone:
+  // publish this book's fresh search files and chunks too (other books are untouched).
+  let mcpFiles = 0;
+  for (const f of fs.readdirSync(relative(build, 'mcp-data/search')).filter(f => f.startsWith(SLUG + '.')).sort()) {
+    touch('mcp-data/search/' + f, fs.readFileSync(relative(build, 'mcp-data/search/' + f))); mcpFiles++;
+  }
+  for (const f of fs.readdirSync(relative(build, 'mcp-data/text-chunks/' + SLUG)).sort()) {
+    touch(`mcp-data/text-chunks/${SLUG}/${f}`, fs.readFileSync(relative(build, `mcp-data/text-chunks/${SLUG}/${f}`))); mcpFiles++;
+  }
+  assert(mcpFiles > 2, 'The fresh build lacks the Tzidkat MCP search index and text chunks');
   const mcpCatalogName = 'mcp-data/catalog.json';
   if (exists(site, mcpCatalogName) && exists(build, mcpCatalogName)) {
     const mc = read(site, mcpCatalogName), bmc = read(build, mcpCatalogName);
