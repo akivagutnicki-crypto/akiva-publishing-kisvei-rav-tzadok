@@ -1,7 +1,7 @@
 // Keep this installation's cache separate from other apps on the same host.
 const APP_SCOPE = new URL(self.registration.scope);
 const CACHE_PREFIX = `seferstudio-${encodeURIComponent(APP_SCOPE.href)}-`;
-const CACHE_NAME = `${CACHE_PREFIX}v6-ocr-resume-20261118`;
+const CACHE_NAME = `${CACHE_PREFIX}v7-rashi-speed-coverage-20261118`;
 const CORE_URLS = [
   './',
   './index.html',
@@ -10,7 +10,8 @@ const CORE_URLS = [
   './kdp-render.js',
   './kdp-png.js',
   './kdp-cover.js',
-  './ocr-session.js',
+  './ocr-session.js?v=2',
+  './ocr-header-coverage.js',
   './manifest.webmanifest',
   './icons/icon-192.png',
   './icons/icon-512.png',
@@ -117,7 +118,7 @@ self.addEventListener('fetch', (event) => {
     event.respondWith(navigate(request));
     return;
   }
-  const localAsset = inScope && !url.search && CORE_PATHS.has(url.pathname);
+  const localAsset = inScope && ((!url.search && CORE_PATHS.has(url.pathname)) || CORE_URLS.includes(url.href));
   if (localAsset || isPublicDependency(url)) event.respondWith(asset(request));
   // User API calls, MCP connections, cloud documents, and unrelated sites bypass this cache.
 });

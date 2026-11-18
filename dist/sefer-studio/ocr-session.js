@@ -45,7 +45,8 @@
     if (!object(value)) fail('This OCR session has invalid scan settings.');
     if (!['local', 'vision'].includes(value.engine) || !['eng+heb', 'heb+eng', 'eng', 'heb', 'heb_rashi'].includes(value.language) || ![300, 400].includes(value.targetDpi) || !['current', 'all', 'range'].includes(value.scope) || !['auto', 'rtl-columns', 'single'].includes(value.layout)) fail('This OCR session uses unsupported scan settings.');
     if (!integer(value.rangeStart, 1, count) || !integer(value.rangeEnd, value.rangeStart, count) || !integer(value.currentPage, 1, count) || typeof value.improveSmallNumbers !== 'boolean' || typeof value.refineRashiLines !== 'boolean') fail('This OCR session has an invalid page range.');
-    return { engine: value.engine, language: value.language === 'heb+eng' ? 'eng+heb' : value.language, targetDpi: value.targetDpi, scope: value.scope, layout: value.layout, rangeStart: value.rangeStart, rangeEnd: value.rangeEnd, currentPage: value.currentPage, improveSmallNumbers: value.improveSmallNumbers, refineRashiLines: value.refineRashiLines };
+    if (value.fasterRashi !== undefined && typeof value.fasterRashi !== 'boolean') fail('This OCR session has an invalid Rashi speed option.');
+    return { engine: value.engine, language: value.language === 'heb+eng' ? 'eng+heb' : value.language, targetDpi: value.targetDpi, scope: value.scope, layout: value.layout, rangeStart: value.rangeStart, rangeEnd: value.rangeEnd, currentPage: value.currentPage, improveSmallNumbers: value.improveSmallNumbers, refineRashiLines: value.refineRashiLines, fasterRashi: value.fasterRashi === true };
   }
 
   function bounds(b, width, height) {
@@ -103,7 +104,7 @@
     if (!integer(row.flaggedCount, row.flags.length, 100000)) fail(label + ' has an invalid review count.');
     if (!Array.isArray(value.reviewNotes || []) || (value.reviewNotes || []).length > 100 || (value.reviewNotes || []).some(note => !text(note, 4000))) fail(label + ' has invalid review notes.');
     row.reviewNotes = (value.reviewNotes || []).slice();
-    for (const key of ['numericReview', 'rashiRefinement', 'timing', 'lastAttempt']) {
+    for (const key of ['numericReview', 'rashiRefinement', 'headerCoverage', 'timing', 'lastAttempt']) {
       if (value[key] != null) row[key] = cloneMetadata(value[key], label + ' ' + key);
     }
     return row;

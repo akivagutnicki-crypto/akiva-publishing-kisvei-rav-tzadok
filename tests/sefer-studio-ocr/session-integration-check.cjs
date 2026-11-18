@@ -111,6 +111,12 @@ async function check(name,fn){await fn();checks.push(name);}
   await check('Matching source download preserves exact source bytes instead of serializing PDF edits',async()=>{
     const f=sessionFixture({pages:3});await f.replace('Rotated',3);const before=Buffer.from(f.pdfState.pdfBytes);f.context.downloadOcrSessionSource();assert.equal(f.downloads.length,1);assert.deepEqual(Buffer.from(await f.downloads[0].blob.arrayBuffer()),before);assert.match(f.downloads[0].name,/_OCR_Source\.pdf$/);assert.equal(f.fontChecks.length,0);
   });
+  await check('The optional faster-Rashi setting survives a roundtrip and old sessions restore it as false',async()=>{
+    const f=sessionFixture({pages:3});f.context.storeOcrResult(1,row());f.get('pdf-ocr-lang').value='heb_rashi';f.get('pdf-ocr-rashi-refine').checked=true;f.get('pdf-ocr-rashi-fast').checked=true;await f.save();assert.equal(f.downloads.length,1,f.sessionStatus());
+    const saved=JSON.parse(await f.downloads[0].blob.text());assert.equal(saved.settings.fasterRashi,true);
+    const g=sessionFixture({pages:3});await g.restore(saved);assert.equal(g.get('pdf-ocr-rashi-fast').checked,true);assert.equal(g.get('pdf-ocr-lang').value,'heb_rashi');
+    const legacy=sessionFixture({pages:3});legacy.get('pdf-ocr-rashi-fast').checked=true;await legacy.restore(checkpoint());assert.equal(legacy.get('pdf-ocr-rashi-fast').checked,false,'Old v1 session must not opt in to extra worker memory');
+  });
   const result={status:'PASS',candidate,sha256:crypto.createHash('sha256').update(fs.readFileSync(candidate)).digest('hex'),cases:checks.length,checks,realNetworkRequests:0,appSourceMutations:0,fontParserMocked:true};
   fs.writeFileSync(path.join(__dirname,'session-integration-results.json'),JSON.stringify(result,null,2));console.log(JSON.stringify(result,null,2));
 })().catch(error=>{console.error(error);process.exitCode=1;});

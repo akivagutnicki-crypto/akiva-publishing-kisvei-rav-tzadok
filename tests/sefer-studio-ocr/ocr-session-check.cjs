@@ -87,6 +87,12 @@ check('Page ranges and obsolete language aliases are handled explicitly', () => 
   rejects(s => { s.settings.rangeEnd = 4; }, /page range/);
   const next = clone(original); next.settings.language = 'heb+eng'; assert.equal(session.validate(next).settings.language, 'eng+heb');
 });
+check('Older sessions retain single-worker Rashi; the optional faster setting roundtrips explicitly', () => {
+  assert.equal(session.validate(original).settings.fasterRashi, false);
+  const next = clone(original); next.settings.fasterRashi = true;
+  assert.equal(session.parse(JSON.stringify(next), source).settings.fasterRashi, true);
+  rejects(s => { s.settings.fasterRashi = 'true'; }, /invalid Rashi speed option/);
+});
 check('Validated output is detached from the input object', () => {
   const next = clone(original), result = session.validate(next);
   result.pages[0].searchWords[0][0] = 'edited'; result.pages[0].rashiRefinement.lines[0].selectedText = 'edited';

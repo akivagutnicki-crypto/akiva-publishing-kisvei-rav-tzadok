@@ -13,6 +13,9 @@ node tests/sefer-studio-ocr/ocr-session-check.cjs
 node tests/sefer-studio-ocr/session-integration-check.cjs
 node tests/sefer-studio-ocr/ocr-review-selection-check.cjs
 node tests/sefer-studio-ocr/rashi-edge-coverage-check.cjs
+node tests/sefer-studio-ocr/rashi-parallel-check.cjs
+node tests/sefer-studio-ocr/header-coverage-check.cjs
+node tests/sefer-studio-ocr/header-session-check.cjs
 ```
 
 The three small source-image crops and ground truth are recovered from the 18 November 2026 manual validation of the user-supplied *Machshavos Charutz* HebrewBooks 14375 scan. The reference texts were independently visually adjudicated, without substituting OCR or another edition. The source PDF SHA-256 is `63003ceb094dd99d962073970f61d3c403668ae44f3cc50225f737a50cc20407`. Full source PDF not included.
