@@ -15,6 +15,7 @@
   <script defer src="./kdp-render.js"></script>
   <script defer src="./kdp-png.js"></script>
   <script defer src="./kdp-cover.js"></script>
+  <script defer src="./ocr-session.js"></script>
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
@@ -774,7 +775,7 @@
             <option value="300">Balanced · lower memory use (300 DPI)</option>
           </select>
           <label class="flex items-start gap-1.5 text-[11px] text-slate-700"><input id="pdf-ocr-rescan" type="checkbox" class="mt-0.5" /><span>Rescan saved pages (replace their text after a successful scan)</span></label>
-          <p class="text-[10px] text-slate-500">Run continues unfinished pages. Saved results are kept even if you change engine, language, or quality; Rescan replaces them for one run. Keep this tab open to resume. Download TXT before reloading, opening another PDF, or merging, rotating, inserting, or deleting PDF pages; these actions reset OCR results.</p>
+          <p class="text-[10px] text-slate-500">Run continues unfinished pages. Saved results are kept even if you change engine, language, or quality; Rescan replaces them for one run. Save an OCR session before closing, reloading, opening another PDF, or changing PDF pages.</p>
           <label class="flex items-start gap-1.5 text-[11px] text-slate-700"><input id="pdf-ocr-small-numbers" type="checkbox" checked class="mt-0.5" />Improve small numbers (Hebrew only): compare two image readings; keep uncertain numbers flagged for review.</label>
           <progress id="pdf-ocr-progress" class="hidden w-full" max="1" value="0" aria-label="OCR pages processed"></progress>
           <div id="pdf-ocr-status" class="text-[11px] text-slate-600" role="status" aria-live="polite">Ready to scan current PDF page.</div>
@@ -797,6 +798,18 @@
           <textarea id="pdf-ocr-output" rows="9" aria-label="OCR text for the displayed PDF page" placeholder="This page’s OCR text appears here (editable)…" class="w-full flex-1 border border-slate-300 rounded p-2 font-serif text-xs outline-none focus:border-red-600"></textarea>
           <button type="button" data-pdf-action="ocr-download" class="w-full py-1.5 rounded border border-red-300 bg-red-50 text-red-900 font-semibold">Download selected OCR (.txt)</button>
           <button type="button" data-pdf-action="ocr-report" class="w-full py-1.5 rounded border border-slate-300 bg-white text-slate-800 font-semibold">Download OCR review report (.json)</button>
+          <details class="rounded border border-blue-200 bg-blue-50 p-2" open>
+            <summary class="cursor-pointer font-semibold text-blue-950">Save or resume OCR work</summary>
+            <p class="mt-1 text-[11px] text-blue-950">Save all page text, corrections, review notes, and searchable positions in an OCR session. Later, open the same PDF and restore the session; Run continues unfinished pages. Current page results are kept when restoring.</p>
+            <div class="mt-2 grid grid-cols-2 gap-1">
+              <button type="button" data-pdf-action="ocr-session-save" class="rounded bg-blue-800 px-2 py-1.5 text-white font-semibold disabled:opacity-50">Save OCR session</button>
+              <button type="button" data-pdf-action="ocr-session-open" class="rounded border border-blue-300 bg-white px-2 py-1.5 text-blue-950 font-semibold disabled:opacity-50">Restore OCR session</button>
+            </div>
+            <input id="pdf-ocr-session-file" type="file" accept=".json,application/json" class="hidden" aria-label="Saved OCR session file" />
+            <button type="button" data-pdf-action="ocr-session-source" class="mt-1 w-full rounded border border-blue-300 bg-white px-2 py-1.5 text-blue-950 disabled:opacity-50">Download matching source PDF</button>
+            <p class="mt-1 text-[10px] text-slate-600">Keep the session and its source PDF together. Download the matching source after merging, rotating, inserting, or deleting pages. The session does not include the PDF or annotations; it excludes service access codes.</p>
+            <div id="pdf-ocr-session-status" class="mt-1 text-[11px] text-blue-950" role="status" aria-live="polite">OCR work stays in this tab until you save a session.</div>
+          </details>
           <details class="rounded border border-emerald-300 bg-emerald-50 p-2">
             <summary class="cursor-pointer font-semibold text-emerald-950">Searchable PDF</summary>
             <p class="mt-1 text-[11px] text-emerald-950">Replace existing text layer (keeps scanned appearance). Exports the selected pages with matched on-device OCR. Pages become lossless images at the OCR resolution; original links, forms, and vector content are flattened. Studio annotations and footnotes are included.</p>
@@ -5699,6 +5712,8 @@
   let ocrGlyphlessSeed = null;
   let lastOcrRunReport = null;
   let activeSearchableExport = null;
+  let activeOcrSessionOperation = null;
+  const ocrSourceHashes = new WeakMap();
 
   function ocrResultIsSaved(result) {
     return !!result && ['recognized', 'no-text', 'edited'].includes(result.status);
@@ -5809,9 +5824,18 @@
       image.alt = 'Page ' + pageNumber + ' scan for: ' + item.text;
       image.classList.remove('hidden');
       const output = document.getElementById('pdf-ocr-output');
-      let offset = output.value.indexOf(item.text, Math.max(0, item.offset - 80));
-      if (offset < 0) offset = output.value.indexOf(item.text);
-      if (offset >= 0) { output.focus(); output.setSelectionRange(offset, offset + item.text.length); }
+      // Review crops belong to one source token. Prefer its recorded position;
+      // only use a uniquely nearest whole-token match if the offset shifted.
+      const expectedOffset = Number.isInteger(item.offset) && item.offset >= 0 ? item.offset : null;
+      const token = normalizeOcrSearchText(item.text);
+      const matches = expectedOffset === null || !token ? [] : [...output.value.matchAll(/\S+/g)]
+        .filter(match => normalizeOcrSearchText(match[0]) === token)
+        .map(match => ({ start: match.index, end: match.index + match[0].length, distance: Math.abs(match.index - expectedOffset) }))
+        .filter(match => match.distance <= 80)
+        .sort((a, b) => a.distance - b.distance);
+      if (matches.length && (!matches[1] || matches[0].distance < matches[1].distance)) {
+        output.focus(); output.setSelectionRange(matches[0].start, matches[0].end);
+      }
     } catch (error) {
       if (isCurrent()) document.getElementById('pdf-ocr-page-status').textContent = 'Could not prepare this word crop. Compare it with the displayed PDF page.';
     } finally {
@@ -5894,6 +5918,8 @@
   function resetPdfOcrResults() {
     stopOcrRun('PDF changed. OCR results were reset for the new document.');
     stopSearchablePdfExport(); ocrGlyphlessSeed = null; lastOcrRunReport = null;
+    activeOcrSessionOperation = null;
+    document.getElementById('pdf-ocr-session-status').textContent = 'Open a saved OCR session for this PDF, or run OCR and save your work.';
     document.getElementById('pdf-searchable-status').textContent = '';
     document.getElementById('pdf-ocr-timing').textContent = '';
     ocrGeneration++; cancelOcrReviewCrop(); ocrResults = new Map();
@@ -5902,7 +5928,7 @@
     pdfState.ocrText = ''; pdfState.ocrSourcePage = null; pdfState.ocrSourceEngine = null;
     document.getElementById('pdf-ocr-output').value = '';
     document.getElementById('pdf-ocr-output').readOnly = false;
-    document.getElementById('pdf-ocr-status').textContent = 'Ready to scan this PDF. Results stay in this tab until you download them or open a different document.';
+    document.getElementById('pdf-ocr-status').textContent = 'Ready to scan this PDF. Save an OCR session to continue after closing this tab.';
     document.getElementById('pdf-ocr-status').title = '';
     document.getElementById('pdf-ocr-progress').classList.add('hidden');
     renderOcrPageReview();
@@ -6093,16 +6119,56 @@
     return String(text || '').normalize('NFKC').replace(/[^\p{L}\p{N}]/gu, '');
   }
 
+  // Keep Tesseract's vertical line detection, but allow words omitted at either
+  // horizontal edge to remain in the second reading. The detected paragraph is
+  // the boundary; a paragraph spanning two normal-width columns is not expanded.
+  function ocrRashiLineCropBounds(line, paragraph, canvas, detectedLines) {
+    const box = line && line.bbox, parent = paragraph && paragraph.bbox;
+    if (!box || !parent || !['x0','x1','y0','y1'].every(key => Number.isFinite(box[key]) && Number.isFinite(parent[key]))) return box;
+    const widths = (paragraph.lines || []).map(part => part.bbox && part.bbox.x1 - part.bbox.x0).filter(width => Number.isFinite(width) && width > 0).sort((a,b) => a-b);
+    if (!widths.length || widths.length < 2) return box;
+    const typicalWidth = widths[Math.floor(widths.length / 2)], parentWidth = parent.x1 - parent.x0;
+    if (parentWidth <= 0 || parentWidth > typicalWidth * 1.35 || parent.x0 < 0 || parent.x1 > canvas.width || parent.x0 > box.x0 || parent.x1 < box.x1) return box;
+    const maximumExtension = Math.ceil(typicalWidth * .25);
+    const proposed = { ...box, x0: Math.max(parent.x0, box.x0 - maximumExtension), x1: Math.min(parent.x1, box.x1 + maximumExtension) };
+    // Expanding empty margins can change recognition elsewhere in the line.
+    // Require letter-sized ink that no detected line already accounts for.
+    // This excludes neighboring ascenders/descenders and specks in the margin.
+    try {
+      const top = Math.floor(box.y0), height = Math.ceil(box.y1) - top;
+      if (top < 0 || height <= 0 || top + height > canvas.height) return box;
+      const context = canvas.getContext('2d');
+      const hasUncoveredInk = (start, end) => {
+        const left = Math.max(0, Math.floor(start)), width = Math.ceil(end) - left;
+        if (width <= 0 || left + width > canvas.width || width * height > 2000000) return false;
+        const neighbors = (detectedLines || []).map(part => part.bbox).filter(b => b && ['x0','x1','y0','y1'].every(key => Number.isFinite(b[key])) && b.x1 + 2 > left && b.x0 - 2 < left + width && b.y1 + 2 > top && b.y0 - 2 < top + height);
+        const pixels = context.getImageData(left, top, width, height).data;
+        let ink = 0, minX = width, maxX = -1, minY = height, maxY = -1;
+        for (let y = 0; y < height; y++) for (let x = 0; x < width; x++) {
+          const index = (y * width + x) * 4;
+          if (pixels[index + 3] < 128 || pixels[index] * .299 + pixels[index + 1] * .587 + pixels[index + 2] * .114 >= 128) continue;
+          const px = left + x, py = top + y;
+          if (neighbors.some(b => px >= b.x0 - 2 && px < b.x1 + 2 && py >= b.y0 - 2 && py < b.y1 + 2)) continue;
+          ink++; minX = Math.min(minX, x); maxX = Math.max(maxX, x); minY = Math.min(minY, y); maxY = Math.max(maxY, y);
+        }
+        return ink >= Math.max(24, height * height * .08) && maxY - minY + 1 >= height * .35 && maxX - minX + 1 >= height * .12;
+      };
+      const left = proposed.x0 < box.x0 && hasUncoveredInk(proposed.x0, box.x0);
+      const right = proposed.x1 > box.x1 && hasUncoveredInk(box.x1, proposed.x1);
+      return left || right ? { ...box, x0: left ? proposed.x0 : box.x0, x1: right ? proposed.x1 : box.x1 } : box;
+    } catch (_) { return box; }
+  }
+
   // Refine Tesseract's detected lines. Never split the page using custom row
   // thresholds: that earlier experiment omitted short printed lines. Retain
   // the complete first reading and every detected line in the downloadable audit.
   async function refineOcrRashiLines(run, first, image) {
     const started = ocrClock();
-    const audit = { method: 'detected-lines-first-pass-fallback-v1', status: 'refining', firstPassText: first.text, detectedLines: 0, attemptedLines: 0, changedLines: 0, fallbackLines: 0, elapsedMs: 0, lines: [] };
-    const records = [];
+    const audit = { method: 'detected-lines-first-pass-fallback-v1', cropMethod: 'paragraph-edge-uncovered-ink-v1', status: 'refining', firstPassText: first.text, detectedLines: 0, attemptedLines: 0, changedLines: 0, fallbackLines: 0, elapsedMs: 0, lines: [] };
+    const records = [], lineParagraphs = new Map();
     const blocks = (first.blocks || []).map(block => ({ ...block, paragraphs: (block.paragraphs || []).map(paragraph => ({ ...paragraph, lines: (paragraph.lines || []).map(line => {
       const copy = { ...line, words: (line.words || []).map(word => ({ ...word, bbox: word.bbox && { ...word.bbox } })) };
-      records.push(copy); return copy;
+      records.push(copy); lineParagraphs.set(copy, paragraph); return copy;
     }) })) }));
     const firstWords = records.flatMap(line => line.words.map(word => normalizeOcrSearchText(word.text)).filter(Boolean));
     const finish = data => {
@@ -6140,7 +6206,9 @@
         try {
           if (unavailable) throw new Error(unavailable);
           if (!firstText || !b || !['x0','y0','x1','y1'].every(key => Number.isFinite(b[key])) || b.x0 < 0 || b.y0 < 0 || b.x1 > image.canvas.width || b.y1 > image.canvas.height || b.x1 <= b.x0 || b.y1 <= b.y0) throw new Error('Invalid or empty detected line; earlier reading kept');
-          const left = Math.floor(b.x0), top = Math.floor(b.y0), width = Math.ceil(b.x1) - left, height = Math.ceil(b.y1) - top, padding = 12;
+          const cropBox = ocrRashiLineCropBounds(line, lineParagraphs.get(line), image.canvas, records) || b;
+          record.cropBbox = { ...cropBox };
+          const left = Math.floor(cropBox.x0), top = Math.floor(cropBox.y0), width = Math.ceil(cropBox.x1) - left, height = Math.ceil(cropBox.y1) - top, padding = 12;
           if (width * height > 2000000) throw new Error('Detected line exceeds refinement image limit');
           crop = document.createElement('canvas'); crop.width = width + padding * 2; crop.height = height + padding * 2;
           const context = crop.getContext('2d'); context.fillStyle = '#fff'; context.fillRect(0, 0, crop.width, crop.height); context.drawImage(image.canvas, left, top, width, height, padding, padding, width, height);
@@ -6340,7 +6408,7 @@
   }
 
   async function runOcrOnCurrentPage() {
-    if (activeOcrRun || pdfState.ocrRunning || visionOcrHealthAbort || activeSearchableExport) return;
+    if (activeOcrRun || pdfState.ocrRunning || visionOcrHealthAbort || activeSearchableExport || activeOcrSessionOperation?.kind === 'restore') return;
     if (ocrWorkerInitializing) { document.getElementById('pdf-ocr-status').textContent = 'The previous OCR engine is still starting. Run becomes available after its cleanup finishes; saved pages are kept.'; return; }
     persistDisplayedOcrText();
     let pages, connection;
@@ -6594,7 +6662,145 @@
 
   function updateSearchableExportControls() {
     const button = document.querySelector('[data-pdf-action="ocr-searchable"]');
-    if (button) button.disabled = !!activeOcrRun || !!activeSearchableExport || !pdfState.pdfBytes;
+    if (button) button.disabled = !!activeOcrRun || !!activeSearchableExport || activeOcrSessionOperation?.kind === 'restore' || !pdfState.pdfBytes;
+    updateOcrSessionControls();
+  }
+
+  function updateOcrSessionControls() {
+    const ready = !!pdfState.pdfBytes && !!pdfState.pageCount && pdfState.pdfJsDocSource === pdfState.pdfBytes;
+    for (const [action, disabled] of [['ocr-session-save', !ready || !ocrResults.size || !!activeOcrSessionOperation], ['ocr-session-open', !ready || !!activeOcrRun || !!ocrWorkerInitializing || !!activeSearchableExport || !!activeOcrSessionOperation], ['ocr-session-source', !ready]]) {
+      const button = document.querySelector('[data-pdf-action="' + action + '"]');
+      if (button) button.disabled = disabled;
+    }
+  }
+
+  function assertOcrSessionOperation(job) {
+    if (activeOcrSessionOperation !== job || job.bytes !== pdfState.pdfBytes || job.pdf !== pdfState.pdfJsDoc || pdfState.pdfJsDocSource !== job.bytes) throw new Error('The PDF changed. No OCR session was restored or downloaded; try again with the current PDF.');
+    if (job.kind === 'restore' && (activeOcrRun || pdfState.ocrRunning || activeSearchableExport)) throw new Error('Wait for the current scan or export to finish, then restore the session.');
+  }
+
+  async function identifyOcrSource(job) {
+    let hash = ocrSourceHashes.get(job.bytes);
+    if (!hash) {
+      if (!globalThis.crypto?.subtle) throw new Error('This browser cannot verify the PDF. Open the secure online app to save or restore an OCR session.');
+      hash = crypto.subtle.digest('SHA-256', job.bytes).then(buffer => Array.from(new Uint8Array(buffer), byte => byte.toString(16).padStart(2, '0')).join(''));
+      ocrSourceHashes.set(job.bytes, hash);
+      hash.catch(() => { if (ocrSourceHashes.get(job.bytes) === hash) ocrSourceHashes.delete(job.bytes); });
+    }
+    const sha256 = await hash;
+    assertOcrSessionOperation(job);
+    return { sha256, byteLength: job.bytes.byteLength, pageCount: job.pageCount, fileName: job.fileName };
+  }
+
+  function beginOcrSessionOperation(kind) {
+    if (typeof SeferOcrSession === 'undefined') throw new Error('The OCR session helper is unavailable. Reload the app, keeping your current text with Download TXT first.');
+    if (activeOcrSessionOperation) throw new Error('An OCR session is already being saved or restored.');
+    if (!pdfState.pdfJsDoc || !pdfState.pageCount || pdfState.pdfJsDocSource !== pdfState.pdfBytes) throw new Error('Open the source PDF and wait for its pages to load.');
+    if (kind === 'restore' && (activeOcrRun || pdfState.ocrRunning || ocrWorkerInitializing || activeSearchableExport)) throw new Error('Stop OCR or wait for the current export to finish before restoring a session.');
+    const job = { kind, bytes: pdfState.pdfBytes, pdf: pdfState.pdfJsDoc, fileName: pdfState.fileName, pageCount: pdfState.pageCount };
+    activeOcrSessionOperation = job;
+    updateSearchableExportControls();
+    return job;
+  }
+
+  function currentOcrSessionSettings() {
+    const count = pdfState.pageCount;
+    const first = Math.max(1, Math.min(count, Math.floor(Number(document.getElementById('pdf-ocr-range-start').value)) || 1));
+    const last = Math.max(first, Math.min(count, Math.floor(Number(document.getElementById('pdf-ocr-range-end').value)) || count));
+    return { engine: document.getElementById('pdf-ocr-engine').value, language: document.getElementById('pdf-ocr-lang').value, targetDpi: Number(document.getElementById('pdf-ocr-quality').value), scope: document.getElementById('pdf-ocr-scope').value, rangeStart: first, rangeEnd: last, currentPage: pdfState.currentPage, layout: document.getElementById('pdf-vision-layout').value, improveSmallNumbers: document.getElementById('pdf-ocr-small-numbers').checked, refineRashiLines: document.getElementById('pdf-ocr-rashi-refine').checked };
+  }
+
+  async function saveOcrSession() {
+    const status = document.getElementById('pdf-ocr-session-status');
+    let job;
+    try {
+      persistDisplayedOcrText();
+      if (!ocrResults.size) throw new Error('Run OCR or enter page text before saving a session.');
+      job = beginOcrSessionOperation('save');
+      status.textContent = 'Verifying the source PDF and saving all current OCR pages…';
+      const source = await identifyOcrSource(job);
+      persistDisplayedOcrText();
+      const draft = { format: SeferOcrSession.FORMAT, version: 1, savedAt: new Date().toISOString(), source, settings: currentOcrSessionSettings(), pages: [...ocrResults.values()], glyphlessSeed: SeferOcrSession.encodeSeed(ocrGlyphlessSeed), latestRun: lastOcrRunReport };
+      const session = SeferOcrSession.parse(JSON.stringify(draft), source);
+      const blob = new Blob([JSON.stringify(session)], { type: 'application/json' });
+      if (blob.size > SeferOcrSession.MAX_BYTES) throw new Error('This session exceeds 64 MB. Download TXT and the review report to keep your work.');
+      assertOcrSessionOperation(job);
+      downloadPdfStudioBlob(blob, job.fileName.replace(/\.pdf$/i, '') + '_OCR_Session.json');
+      status.textContent = 'Saved a snapshot of all ' + session.pages.length + ' page results. Keep it with the matching source PDF.' + (activeOcrRun ? ' OCR is still running; save again for later results.' : ' Save again after further scans or corrections.');
+    } catch (error) { if (!job || job.bytes === pdfState.pdfBytes) status.textContent = 'Session was not saved: ' + error.message; }
+    finally { if (activeOcrSessionOperation === job) activeOcrSessionOperation = null; updateSearchableExportControls(); }
+  }
+
+  function downloadOcrSessionSource() {
+    if (!pdfState.pdfBytes || pdfState.pdfJsDocSource !== pdfState.pdfBytes) { toast('Wait for the source PDF to load.', 'warn'); return; }
+    downloadPdfStudioBlob(new Blob([pdfState.pdfBytes], { type: 'application/pdf' }), pdfState.fileName.replace(/\.pdf$/i, '') + '_OCR_Source.pdf');
+    document.getElementById('pdf-ocr-session-status').textContent = 'Downloaded the exact source PDF for this OCR session. Keep it with your saved OCR session file; annotations are saved separately with Export PDF.';
+  }
+
+  function restoreOcrSessionSettings(settings) {
+    for (const [id, value] of [['pdf-ocr-engine', settings.engine], ['pdf-ocr-lang', settings.language], ['pdf-ocr-quality', settings.targetDpi], ['pdf-ocr-scope', settings.scope], ['pdf-ocr-range-start', settings.rangeStart], ['pdf-ocr-range-end', settings.rangeEnd], ['pdf-vision-layout', settings.layout]]) document.getElementById(id).value = String(value);
+    document.getElementById('pdf-ocr-small-numbers').checked = settings.improveSmallNumbers;
+    document.getElementById('pdf-ocr-rashi-refine').checked = settings.refineRashiLines;
+    document.getElementById('pdf-vision-settings').classList.toggle('hidden', settings.engine !== 'vision');
+    updateOcrNumberOption();
+  }
+
+  async function restoreOcrSession(file) {
+    const status = document.getElementById('pdf-ocr-session-status');
+    let job;
+    try {
+      job = beginOcrSessionOperation('restore');
+      if (file.size > SeferOcrSession.MAX_BYTES) throw new Error('Choose an OCR session file smaller than 64 MB.');
+      status.textContent = 'Checking the session and matching source PDF…';
+      const raw = await file.text(); assertOcrSessionOperation(job);
+      const source = await identifyOcrSource(job);
+      const session = SeferOcrSession.parse(raw, source);
+      const seed = SeferOcrSession.decodeSeed(session.glyphlessSeed);
+      if (seed) {
+        if (typeof PDFLib === 'undefined') throw new Error('The PDF engine is not ready to validate the saved searchable font.');
+        await copyOcrGlyphlessDescriptor(await PDFLib.PDFDocument.create(), seed);
+        assertOcrSessionOperation(job);
+      }
+      for (const result of session.pages) {
+        if (result.renderScale) {
+          const page = await job.pdf.getPage(result.page); assertOcrSessionOperation(job);
+          const viewport = page.getViewport({ scale: result.renderScale });
+          if (Math.max(1, Math.floor(viewport.width)) !== result.imageWidth || Math.max(1, Math.floor(viewport.height)) !== result.imageHeight) throw new Error('Page ' + result.page + ': saved positions do not match the source PDF. No current OCR text was changed.');
+        }
+      }
+      assertOcrSessionOperation(job);
+      persistDisplayedOcrText();
+      const wasEmpty = !ocrResults.size, merged = new Map(ocrResults);
+      const pageToRestore = wasEmpty ? session.settings.currentPage : pdfState.currentPage;
+      const changedPage = pageToRestore !== pdfState.currentPage;
+      let restored = 0, kept = 0;
+      for (const result of session.pages) {
+        if (merged.has(result.page)) { kept++; continue; }
+        merged.set(result.page, result); restored++;
+      }
+      const words = [...merged.values()].reduce((sum, result) => sum + (result.searchWords?.length || 0), 0);
+      if (words > SeferOcrSession.MAX_WORDS) throw new Error('Combining these sessions would exceed the word-position limit. Current results were kept; reopen the matching PDF to restore this session on its own.');
+      ocrResults = merged;
+      if (!ocrGlyphlessSeed && seed) ocrGlyphlessSeed = seed;
+      if (wasEmpty) {
+        lastOcrRunReport = session.latestRun;
+        restoreOcrSessionSettings(session.settings);
+        document.getElementById('pdf-ocr-timing').textContent = lastOcrRunReport ? 'Saved run: ' + ocrSeconds(lastOcrRunReport.elapsedMs) + '. Page timings are preserved in the review report.' : '';
+      }
+      document.getElementById('pdf-ocr-rescan').checked = false;
+      pdfBridgeUndo = null;
+      ocrDisplayedPage = null; ocrDisplayedSource = null;
+      pdfState.currentPage = pageToRestore;
+      showOcrPage(pdfState.currentPage, true);
+      const counts = ocrPageCounts(Array.from({ length: job.pageCount }, (_, index) => index + 1));
+      status.textContent = 'Restored ' + restored + ' page results' + (kept ? '; kept ' + kept + ' existing page results' : '') + '. ' + counts.saved + '/' + job.pageCount + ' pages processed. Run OCR to continue unfinished pages. Review the text against the scan.';
+      document.getElementById('pdf-ocr-status').textContent = 'OCR session restored. Saved and edited pages will be skipped unless you choose Rescan saved pages.';
+      if (changedPage) {
+        renderPdfThumbnails();
+        renderCurrentPdfPage().catch(() => { if (job.bytes === pdfState.pdfBytes) status.textContent += ' The page preview could not be drawn; choose the page again. Your restored text is kept.'; });
+      }
+    } catch (error) { if (!job || job.bytes === pdfState.pdfBytes) status.textContent = 'Session was not restored: ' + error.message; }
+    finally { if (activeOcrSessionOperation === job) activeOcrSessionOperation = null; updateSearchableExportControls(); }
   }
 
   function searchableExportError(message, name = 'Error') { const error = new Error(message); error.name = name; return error; }
@@ -6615,7 +6821,7 @@
   }
 
   async function exportSearchablePdf() {
-    if (activeSearchableExport || activeOcrRun || pdfState.ocrRunning) { toast('Wait for the current scan or export to finish.', 'warn'); return; }
+    if (activeSearchableExport || activeOcrRun || pdfState.ocrRunning || activeOcrSessionOperation?.kind === 'restore') { toast('Wait for the current scan, restore, or export to finish.', 'warn'); return; }
     persistDisplayedOcrText();
     const status = document.getElementById('pdf-searchable-status');
     let pages, results;
@@ -6877,6 +7083,12 @@
     const fileInp = document.getElementById('pdf-file-input');
     const mergeInp = document.getElementById('pdf-merge-input');
     const connectionInp = document.getElementById('pdf-vision-connection-file');
+    const sessionInp = document.getElementById('pdf-ocr-session-file');
+    sessionInp.addEventListener('change', async event => {
+      const file = event.target.files && event.target.files[0];
+      try { if (file) await restoreOcrSession(file); }
+      finally { sessionInp.value = ''; }
+    });
     document.getElementById('pdf-ocr-output').addEventListener('input', persistDisplayedOcrText);
     for (const id of ['pdf-ocr-scope', 'pdf-ocr-range-start', 'pdf-ocr-range-end', 'pdf-ocr-rescan']) document.getElementById(id).addEventListener('change', updateOcrScopeSummary);
     document.getElementById('pdf-ocr-result-page').addEventListener('change', async event => {
@@ -7025,6 +7237,9 @@
       else if (act === 'ocr-cancel') stopOcrRun();
       else if (act === 'ocr-download') downloadOcrText();
       else if (act === 'ocr-report') downloadOcrReport();
+      else if (act === 'ocr-session-save') saveOcrSession();
+      else if (act === 'ocr-session-open') sessionInp.click();
+      else if (act === 'ocr-session-source') downloadOcrSessionSource();
       else if (act === 'ocr-searchable') exportSearchablePdf();
       else if (act === 'ocr-searchable-stop') stopSearchablePdfExport();
       else if (act === 'ocr-previous') window.PdfStudioAPI.changeReadingView({ pageDelta: -1 });
