@@ -55,13 +55,22 @@ The standard MCP endpoint works independently of experimental browser-native Web
 
 ## OCR
 
-Open a PDF in **PDF, OCR & PDF Footnotes**, select a page and language, and click **Run OCR**.
+Open a PDF in **PDF, OCR & PDF Footnotes**. In the scanner, choose **Current page**, **Entire PDF**, or **Page range**. The scope summary shows how many pages are selected, saved, and unfinished. Choose the engine, language, and quality, then select **Run OCR**.
+
+Pages scan sequentially, with a progress bar and the current page shown. **Stop** keeps completed pages. Select **Run OCR** again to continue unfinished selected pages; saved OCR, edited text, and pages on which recognition found no text are skipped. Changing the engine, language, or quality does not silently replace saved work. Select **Rescan saved pages** when you intentionally want fresh results; it applies to one run, and a failed rescan keeps the earlier text and identifies the failure. Text edited after a batch starts is protected even if that batch was set to rescan. If Stop is pressed while the local engine is still starting, Run becomes available once that initializer has finished and been cleaned up.
+
+Use **Review saved page text**, its previous/next buttons, or the PDF page navigator to move between results. Each result belongs to its source page. Text edits are kept when you change pages, and you can review completed pages while later pages are scanning. The page currently being scanned is temporarily read-only. Results distinguish image recognition, edited text, no text found, failures, and an existing-PDF-text fallback. Suggested confidence flags are cleared when you change the text so old confidence does not appear to describe your correction.
+
+**Download selected OCR (.txt)** combines the currently selected scope in source-page order. Every selected page has a labeled section, including explicit markers for missing text, failed scans, and pages with no recognized text. Partial output is labeled **PARTIAL**. **Send this page to Word Studio** inserts only the displayed page's text.
+
+Results and resume state stay in the open tab; they are not automatically backed up. Download TXT to keep them before reloading or closing the tab. Opening a different PDF, or changing PDF bytes through merge, rotation, insertion, or deletion, stops the run and resets its OCR results so old text cannot be attached to different pages. PDF bridge tools continue to read, edit, and undo the currently displayed page's OCR text; they do not substitute the combined book text.
 
 ### On-device OCR
 
 - Tesseract recognizes a fresh page image at 400 DPI by default; 300 DPI is available for lower memory use.
+- One local worker is reused for the selected pages and released when the run finishes or stops. Only one bounded page canvas is used for recognition at a time.
 - Recognition uses automatic page layout detection independently of the preview zoom.
-- Suggested review words can be compared with cropped images from the scan.
+- Each page stores text and at most 40 concise confidence flags. Suggested review words can be compared with a crop rendered on demand; full page images and recognition block trees are not retained for the whole book.
 - If fresh recognition fails and an existing PDF text layer is available, the status explicitly identifies that fallback.
 - OCR results remain editable. Low-confidence flags do not identify every error.
 
@@ -69,13 +78,15 @@ The page image is processed in the browser. The first run downloads the OCR engi
 
 ### AI vision OCR
 
-The vision option sends only the selected page image to the connected OCR service. **Check connection** identifies its provider and model. The built-in address uses Cloudflare Workers AI with `@cf/qwen/qwen3.8-27b`; this is not an OpenAI or ChatGPT model. It is instructed to preserve Hebrew column order, footnotes, literal text, and uncertainty notes. Review the result against the scan.
+The vision option sends each chosen page image to the connected OCR service, one page at a time. **Check connection** identifies its provider and model. The built-in address uses Cloudflare Workers AI with `@cf/qwen/qwen3.8-27b`; this is not an OpenAI or ChatGPT model. It is instructed to preserve Hebrew column order, footnotes, literal text, and uncertainty notes. Review the result against the scan.
 
 Select **AI vision**, use **Load connection file** to import your private SeferStudio JSON file, then choose **Check connection**. You can also enter the HTTPS service address and separate service access code manually. The access code remains in the current page session; the app does not store it in browser storage, URLs, or the repository. Keep the connection file private. Loading it is a local operation and does not start an AI request.
 
 The service address is `https://akiva-publishing-kisvei-rav-tzadok.akivagutnicki.workers.dev/sefer-studio-api/ocr`. Its native implementation is `cloudflare/ocr.mjs`, using the existing Worker's AI binding. Only a SHA-256 verifier of the random service code is deployed. Model usage is charged under the existing Cloudflare account; no provider key is needed in the browser. The approximate allowance is five OCR requests per minute per Cloudflare location, with a separate health allowance. This is not a global spending cap.
 
 Connection readiness confirms authentication and required bindings, not OCR accuracy or a successful model call. The app reports successful image recognition separately. It respects the service's advertised image limits and retains existing text after a failed, cancelled, incomplete, or stale request. A failed vision request is not silently replaced with an on-device result.
+
+Batch vision requests use the same checked connection and are spaced by at least 13 seconds. Authentication failures, rate limiting, service failures, unreadable responses, network failures, and timeouts pause the batch with completed pages retained. The app does not automatically retry failed model calls. After resolving the issue or waiting for a rate limit to clear, select **Run OCR** to retry unfinished selected pages. **Stop** also works during the pacing countdown. Each page can incur AI usage, and a large PDF can take substantial time.
 
 The separate OpenAI-based Worker in `services/sefer-studio-ocr/` remains an optional alternative requiring its own backend provider key and deployment. Selecting the native Cloudflare service does not activate that alternative.
 
