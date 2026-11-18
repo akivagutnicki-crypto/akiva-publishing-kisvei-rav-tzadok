@@ -12,6 +12,16 @@ The browser preview has its own layout engine. It is useful for reviewing a manu
 
 Saving an imported document without edits returns the original file byte for byte. Supported edits update the original Word package while keeping unrelated XML, relationships, fonts, notes, and section definitions. Unsupported structural changes stop with an explanation instead of silently rebuilding and stripping the original package. Editing a partial paragraph or footnote continuation is protected so a visible fragment cannot replace the complete source text.
 
+Contents entries use the paginator's measured line boundaries and heights in both the browser view and print proof. Labels, dotted leaders, and page fields have separate line boxes so compact Word TOC styles do not collapse into overlapping rows. Wrapped titles and continuation slices keep their measured spacing; page fields remain on one line. This display correction preserves the source DOCX, the existing page references, and manuscript pagination.
+
+## Full screen reading
+
+Select **Full screen** in either the Word/DOCX toolbar or the PDF toolbar. The reading view hides the suite navigation, editing ribbons, and side inspectors while keeping document navigation and zoom available. DOCX retains its page-jump control and zoom in the bottom bar; PDF provides previous/next page, a page-number field, and zoom in the top bar. Global dialogs remain available.
+
+Select **Exit full screen** or press **Esc** to return. If the browser does not support or allow native fullscreen, the app uses a clearly labeled **Focus view** inside the browser; **Exit focus view** and **Esc** restore the normal interface. Moving to another workspace or back to the website also exits the reading view.
+
+Entering or leaving this view does not reload the page, repaginate the manuscript, change its trim or formatting, or save/upload a file. Open documents and unsaved content remain in memory. The previous sidebar visibility is retained, and the app preserves the reading position where possible, including when a DOCX spread changes the number of visible columns. Fullscreen is not remembered after a reload.
+
 ## Converting DOCX to PDF
 
 1. Open the manuscript and let pagination finish.

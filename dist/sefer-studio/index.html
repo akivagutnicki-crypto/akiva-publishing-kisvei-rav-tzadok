@@ -80,16 +80,46 @@
       font-family: var(--book-font); font-size: 8.5pt; color: #334155; text-align: center;
       display: flex; align-items: flex-start; justify-content: center; padding-top: 6px; flex-shrink: 0;
     }
-    .ws-toc-row { display: flex; align-items: baseline; width: 100%; cursor: pointer; }
+    .ws-toc-row { width: 100%; cursor: pointer; }
+    .ws-toc-line { display: flex; align-items: baseline; width: 100%; }
+    /* Inline runs retain line-height:0 inside these real line struts. Wrapping
+       belongs to the paginator; a page field cannot shrink onto another line. */
+    .ws-toc-label, .ws-toc-page { flex: 0 0 auto; line-height: inherit; white-space: nowrap; }
+    .ws-toc-page { text-indent: 0; }
     .ws-toc-dots { flex: 1 1 auto; border-bottom: 1px dotted #64748b; margin: 0 6px; min-width: 16px; }
     .ws-fmt-mark { color: #3b82f6; font-family: monospace; font-size: 0.8em; margin-left: 2px; }
     .ws-search-hit { background: #fde047; color: #000; border-radius: 2px; }
     .spread-grid { display: flex; flex-wrap: wrap; justify-content: center; gap: 24px; padding: 0 16px; }
     .spread-grid .ws-page-slot { margin: 0 0 24px 0; }
     #print-export-mount { display: none; }
+    #studio-reading-bar { display: none; }
+    @media screen {
+      body.studio-reading-view { height: 100vh; height: 100dvh; }
+      body.studio-reading-view #studio-reading-bar { display: flex; }
+      body.studio-reading-view #suite-master-bar,
+      body.studio-reading-view #panel-word > header,
+      body.studio-reading-view #panel-word > nav,
+      body.studio-reading-view #ribbon-panels,
+      body.studio-reading-view #horizontal-ruler,
+      body.studio-reading-view #left-sidebar,
+      body.studio-reading-view #drop-banner,
+      body.studio-reading-view #pdf-main-toolbar,
+      body.studio-reading-view #pdf-page-sidebar,
+      body.studio-reading-view #pdf-inspector,
+      body.studio-reading-view #ai-plugin-drawer { display: none !important; }
+      body.studio-reading-view #document-viewport,
+      body.studio-reading-view #pdf-document-viewport { padding: 12px !important; }
+      body.studio-reading-view #panel-word > footer { min-height: 32px; height: auto; flex-wrap: wrap; gap: 6px; padding: 6px 12px; }
+      body.studio-reading-view #status-word-count,
+      body.studio-reading-view #status-fn-count,
+      body.studio-reading-view #status-import-time,
+      body.studio-reading-view #status-word-preview-note { display: none !important; }
+      #studio-reading-bar button:focus-visible,
+      [data-studio-fullscreen]:focus-visible { outline: 2px solid #fbbf24; outline-offset: 3px; }
+    }
     @media print {
       html, body { background: #ffffff !important; overflow: visible !important; height: auto !important; }
-      #suite-master-bar, #panel-word, #panel-publisher, #panel-pdf, #panel-design, #ai-plugin-drawer, #modal-layer, #loading-overlay, #toast-container {
+      #studio-reading-bar, #suite-master-bar, #panel-word, #panel-publisher, #panel-pdf, #panel-design, #ai-plugin-drawer, #modal-layer, #loading-overlay, #toast-container {
         display: none !important;
       }
       #print-export-mount { display: block !important; margin: 0 !important; padding: 0 !important; }
@@ -119,6 +149,18 @@
 
   <!-- FULL-SCREEN STUDIO APPLICATION VIEW (#/studio) -->
   <div id="studio-app-view" class="hidden flex-1 flex flex-col min-h-0 overflow-hidden">
+  <div id="studio-reading-bar" role="toolbar" aria-label="Full screen reading controls" class="shrink-0 flex-wrap items-center justify-between gap-2 bg-slate-950 text-white px-3 py-2 text-xs border-b border-slate-700">
+    <div class="flex items-center gap-2 min-w-0"><strong id="studio-reading-label">Full screen</strong><span id="studio-reading-status" role="status" aria-live="polite" class="text-slate-300"></span></div>
+    <div id="studio-reading-pdf-controls" class="hidden flex-wrap items-center gap-2">
+      <button type="button" id="reading-pdf-previous" aria-label="Previous PDF page" class="px-2 py-1 rounded bg-white/15 hover:bg-white/25 disabled:opacity-40">← Previous</button>
+      <label class="flex items-center gap-1">Page <input id="reading-pdf-page" type="number" min="1" value="1" aria-label="PDF page number" class="w-16 rounded border border-slate-500 bg-slate-800 px-2 py-1 text-white" /><span id="reading-pdf-total"></span></label>
+      <button type="button" id="reading-pdf-next" aria-label="Next PDF page" class="px-2 py-1 rounded bg-white/15 hover:bg-white/25 disabled:opacity-40">Next →</button>
+      <button type="button" id="reading-pdf-zoom-out" aria-label="Zoom out PDF" class="px-2 py-1 rounded bg-white/15 hover:bg-white/25 disabled:opacity-40">−</button>
+      <span id="reading-pdf-zoom" class="font-mono min-w-[3rem] text-center"></span>
+      <button type="button" id="reading-pdf-zoom-in" aria-label="Zoom in PDF" class="px-2 py-1 rounded bg-white/15 hover:bg-white/25 disabled:opacity-40">+</button>
+    </div>
+    <button type="button" id="studio-reading-exit" aria-keyshortcuts="Escape" class="shrink-0 rounded bg-white text-slate-950 px-3 py-1.5 font-semibold hover:bg-slate-200">Exit full screen</button>
+  </div>
   <!-- ===================================================================== -->
   <!-- UNIFIED SUITE WORKSPACE SWITCHER BAR                                  -->
   <!-- ===================================================================== -->
@@ -186,6 +228,7 @@
       </div>
 
       <div class="flex items-center gap-2 text-xs shrink-0">
+        <button type="button" data-studio-fullscreen="word" aria-label="Full screen DOCX" aria-controls="panel-word" aria-pressed="false" title="View DOCX full screen" class="px-2 py-1 rounded bg-white/15 hover:bg-white/25 font-semibold">Full screen</button>
         <span id="font-engine-badge" class="hidden xl:inline-flex items-center gap-1 px-2 py-0.5 rounded-full bg-emerald-500/20 border border-emerald-300/30 text-emerald-100 text-[11px]">
           <span id="font-engine-text">Ivrit + BiDi + True Footnotes</span>
         </span>
@@ -602,7 +645,7 @@
     <input id="pdf-file-input" type="file" accept=".pdf,application/pdf" class="hidden" />
     <input id="pdf-merge-input" type="file" accept=".pdf,application/pdf" class="hidden" />
 
-    <div class="bg-red-800 text-white px-3 py-2 flex flex-wrap items-center justify-between gap-2 shrink-0 text-xs">
+    <div id="pdf-main-toolbar" class="bg-red-800 text-white px-3 py-2 flex flex-wrap items-center justify-between gap-2 shrink-0 text-xs">
       <div class="flex flex-wrap items-center gap-1">
         <button type="button" data-pdf-action="open" class="px-2.5 py-1 rounded bg-white text-red-900 font-bold">Open PDF</button>
         <button type="button" data-pdf-action="merge" class="px-2.5 py-1 rounded bg-white/15 hover:bg-white/25">Merge PDF</button>
@@ -625,6 +668,7 @@
       </div>
 
       <div class="flex items-center gap-1.5">
+        <button type="button" data-studio-fullscreen="pdf" aria-label="Full screen PDF" aria-controls="panel-pdf" aria-pressed="false" title="View PDF full screen" class="px-2 py-1 rounded bg-white/15 hover:bg-white/25 font-semibold">Full screen</button>
         <button type="button" data-pdf-action="rotate" class="px-2 py-1 rounded bg-white/15 hover:bg-white/25">Rotate 90°</button>
         <button type="button" data-pdf-action="insert-blank" class="px-2 py-1 rounded bg-white/15 hover:bg-white/25">+ Page</button>
         <button type="button" data-pdf-action="delete-page" class="px-2 py-1 rounded bg-white/15 hover:bg-white/25">Delete Page</button>
@@ -634,7 +678,7 @@
 
     <div class="flex-1 flex min-h-0 overflow-hidden">
       <!-- Left PDF Page Thumbnails -->
-      <aside class="w-44 bg-white border-r border-slate-300 p-2 flex flex-col gap-2 shrink-0">
+      <aside id="pdf-page-sidebar" class="w-44 bg-white border-r border-slate-300 p-2 flex flex-col gap-2 shrink-0">
         <div class="text-[11px] font-bold text-slate-500 uppercase tracking-wider flex justify-between items-center">
           <span id="pdf-page-indicator">Page 1</span>
           <div class="flex gap-1">
@@ -646,7 +690,7 @@
       </aside>
 
       <!-- Center PDF Canvas + Interactive Annotation & Footnote Pin Layer -->
-      <div class="flex-1 overflow-auto p-6 flex flex-col items-center">
+      <div id="pdf-document-viewport" class="flex-1 overflow-auto p-6 flex flex-col items-center">
         <div class="relative shadow-xl bg-white">
           <canvas id="pdf-main-canvas" class="block"></canvas>
           <div id="pdf-overlay-layer" class="inset-0 absolute"></div>
@@ -656,7 +700,7 @@
       </div>
 
       <!-- Right OCR & PDF Footnote Settings Inspector -->
-      <aside class="w-72 bg-white border-l border-slate-300 p-3 flex flex-col gap-3 shrink-0 text-xs overflow-y-auto select-text">
+      <aside id="pdf-inspector" class="w-72 bg-white border-l border-slate-300 p-3 flex flex-col gap-3 shrink-0 text-xs overflow-y-auto select-text">
         <div class="p-2.5 rounded-lg bg-red-50 border border-red-200 space-y-1.5">
           <div class="font-bold text-red-950">PDF Bottom-of-Page Footnotes</div>
           <p class="text-[11px] text-red-900/80">Select <strong>AB¹ Pin PDF Footnote</strong> above, then click anywhere on the PDF page to drop a superscript reference and edit its footnote at the bottom of the page.</p>
@@ -943,6 +987,7 @@
         document.getElementById('modal-layer').classList.add('hidden');
       },
       switchWorkspace(ws) {
+        if (window.StudioReadingView) window.StudioReadingView.beforeWorkspaceChange(ws);
         ['word', 'publisher', 'pdf', 'design'].forEach((k) => {
           const p = document.getElementById('panel-' + k);
           if (p) p.classList.toggle('hidden', k !== ws);
@@ -969,6 +1014,176 @@
         document.getElementById('ai-plugin-drawer').classList.toggle('hidden');
       });
     });
+  </script>
+
+  <script>
+// Full screen and focus view change only the surrounding reading interface.
+(function () {
+  'use strict';
+  let active = null;
+  let lastNativeRequest = null;
+  let frameVersion = 0;
+  let pdfNavigationBusy = false;
+  const nativeElement = () => document.fullscreenElement || document.webkitFullscreenElement || null;
+  const viewportFor = workspace => document.getElementById(workspace === 'word' ? 'document-viewport' : 'pdf-document-viewport');
+  function commitFocusedEditor() {
+    const editor = document.activeElement;
+    if (editor && editor.isContentEditable && editor.closest('#pages-stage')) editor.blur();
+  }
+  function position(workspace) {
+    const viewport = viewportFor(workspace);
+    const saved = { top: viewport.scrollTop, left: viewport.scrollLeft };
+    if (workspace === 'word') {
+      const top = viewport.getBoundingClientRect().top;
+      const slots = document.querySelectorAll('#pages-stage [data-slot-idx]');
+      const slot = Array.from(slots).find(item => item.getBoundingClientRect().bottom > top + 1);
+      if (slot) { saved.page = slot.dataset.slotIdx; saved.offset = top - slot.getBoundingClientRect().top; }
+    }
+    return saved;
+  }
+  function restorePosition(workspace, saved) {
+    const version = ++frameVersion;
+    requestAnimationFrame(() => {
+      if (version !== frameVersion) return;
+      commitFocusedEditor();
+      const viewport = viewportFor(workspace);
+      if (!viewport || !viewport.clientHeight) return;
+      const slot = workspace === 'word' && saved.page !== undefined ? document.querySelector('#pages-stage [data-slot-idx="' + saved.page + '"]') : null;
+      viewport.scrollTop = slot ? viewport.scrollTop + slot.getBoundingClientRect().top - viewport.getBoundingClientRect().top + saved.offset : saved.top;
+      viewport.scrollLeft = saved.left;
+      if (workspace === 'word' && window.WordStudioAPI && window.WordStudioAPI.refreshReadingView) window.WordStudioAPI.refreshReadingView();
+      if (active && active.workspace === workspace) active.position = position(workspace);
+    });
+  }
+  function updatePdfControls() {
+    if (!active || active.workspace !== 'pdf' || !window.PdfStudioAPI) return;
+    const info = window.PdfStudioAPI.getReadingViewInfo();
+    const busy = pdfNavigationBusy || info.busy || !info.pageCount;
+    const input = document.getElementById('reading-pdf-page');
+    if (document.activeElement !== input) input.value = String(info.page || 1);
+    input.max = String(info.pageCount || 1);
+    input.disabled = busy;
+    document.getElementById('reading-pdf-total').textContent = 'of ' + info.pageCount;
+    document.getElementById('reading-pdf-zoom').textContent = Math.round(info.zoom * 100) + '%';
+    document.getElementById('reading-pdf-previous').disabled = busy || info.page <= 1;
+    document.getElementById('reading-pdf-next').disabled = busy || info.page >= info.pageCount;
+    document.getElementById('reading-pdf-zoom-out').disabled = busy || info.zoom <= 0.65;
+    document.getElementById('reading-pdf-zoom-in').disabled = busy || info.zoom >= 2.2;
+  }
+  function displayMode(session, mode) {
+    if (active !== session) return;
+    session.mode = mode;
+    document.getElementById('studio-reading-label').textContent = (session.workspace === 'word' ? 'DOCX' : 'PDF') + ' · ' + (mode === 'focus' ? 'Focus view' : 'Full screen');
+    document.getElementById('studio-reading-exit').textContent = mode === 'focus' ? 'Exit focus view' : 'Exit full screen';
+    document.getElementById('studio-reading-status').textContent = mode === 'focus' ? 'Browser full screen is unavailable. Press Esc to return.' : mode === 'pending' ? 'Opening full screen…' : 'Press Esc to return';
+  }
+  function restoreInterface(session, returnFocus) {
+    if (active !== session) return;
+    commitFocusedEditor();
+    active = null;
+    document.body.classList.remove('studio-reading-view');
+    document.querySelectorAll('[data-studio-fullscreen]').forEach(button => button.setAttribute('aria-pressed', 'false'));
+    restorePosition(session.workspace, session.position);
+    if (returnFocus && session.opener && session.opener.isConnected) session.opener.focus({ preventScroll: true });
+  }
+  function exitNative() {
+    const exit = document.exitFullscreen || document.webkitExitFullscreen;
+    try { return exit ? Promise.resolve(exit.call(document)) : Promise.resolve(); }
+    catch (error) { return Promise.reject(error); }
+  }
+  function leave(returnFocus = true) {
+    const session = active;
+    if (!session) return;
+    commitFocusedEditor();
+    session.position = position(session.workspace);
+    session.returnFocus = returnFocus;
+    session.cancelled = true;
+    if (nativeElement() === document.documentElement) {
+      exitNative().then(() => {
+        if (active === session && nativeElement() !== document.documentElement) restoreInterface(session, returnFocus);
+      }).catch(() => {
+        if (active === session) {
+          restoreInterface(session, returnFocus);
+          window.SuiteUI.toast('The reading controls were restored. Press Esc to leave browser full screen.', 'warn');
+        }
+      });
+      if (!returnFocus) restoreInterface(session, false);
+    } else restoreInterface(session, returnFocus);
+  }
+  function enter(workspace, opener) {
+    if (active) { leave(); return; }
+    const panel = document.getElementById('panel-' + workspace);
+    if (!panel || panel.classList.contains('hidden') || document.getElementById('studio-app-view').classList.contains('hidden')) return;
+    commitFocusedEditor();
+    const session = { workspace, opener, position: position(workspace), mode: 'pending', cancelled: false, returnFocus: true };
+    active = session;
+    document.body.classList.add('studio-reading-view');
+    opener.setAttribute('aria-pressed', 'true');
+    const pdfControls = document.getElementById('studio-reading-pdf-controls');
+    pdfControls.classList.toggle('hidden', workspace !== 'pdf');
+    pdfControls.classList.toggle('flex', workspace === 'pdf');
+    displayMode(session, 'pending');
+    updatePdfControls();
+    restorePosition(workspace, session.position);
+    document.getElementById('studio-reading-exit').focus({ preventScroll: true });
+    if (nativeElement() === document.documentElement) { displayMode(session, 'browser'); return; }
+    const request = document.documentElement.requestFullscreen || document.documentElement.webkitRequestFullscreen;
+    if (!request || nativeElement()) { displayMode(session, 'focus'); return; }
+    lastNativeRequest = session;
+    try {
+      Promise.resolve(request.call(document.documentElement)).then(() => {
+        if (active === session && !session.cancelled) {
+          displayMode(session, nativeElement() === document.documentElement ? 'browser' : 'focus');
+          restorePosition(workspace, session.position);
+        } else if (!active && nativeElement() === document.documentElement) exitNative().catch(() => {});
+      }).catch(() => { if (active === session && !session.cancelled) displayMode(session, 'focus'); });
+    } catch (_error) { displayMode(session, 'focus'); }
+  }
+  function nativeChanged() {
+    if (nativeElement() === document.documentElement) {
+      if (active && !active.cancelled) {
+        commitFocusedEditor();
+        displayMode(active, 'browser');
+        restorePosition(active.workspace, active.position);
+      } else if (lastNativeRequest) exitNative().catch(() => {});
+    } else if (active && (active.mode === 'browser' || active.cancelled)) restoreInterface(active, active.returnFocus);
+  }
+  async function navigatePdf(change) {
+    if (!active || active.workspace !== 'pdf' || pdfNavigationBusy) return;
+    const session = active;
+    pdfNavigationBusy = true; updatePdfControls();
+    try { await window.PdfStudioAPI.changeReadingView(change); }
+    catch (_error) { window.SuiteUI.toast('This PDF page could not be displayed. Try again after it finishes loading.', 'warn'); }
+    finally { pdfNavigationBusy = false; if (active === session) { updatePdfControls(); session.position = position('pdf'); } }
+  }
+  window.StudioReadingView = { beforeWorkspaceChange(workspace) { if (active && active.workspace !== workspace) leave(false); }, leaveStudio() { leave(false); } };
+  window.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('[data-studio-fullscreen]').forEach(button => button.addEventListener('click', () => enter(button.dataset.studioFullscreen, button)));
+    document.getElementById('studio-reading-exit').addEventListener('click', () => leave());
+    for (const workspace of ['word','pdf']) viewportFor(workspace).addEventListener('scroll', () => {
+      if (active && active.workspace === workspace && (active.mode !== 'browser' || nativeElement() === document.documentElement)) active.position = position(workspace);
+    }, { passive: true });
+    document.getElementById('reading-pdf-previous').addEventListener('click', () => navigatePdf({ pageDelta: -1 }));
+    document.getElementById('reading-pdf-next').addEventListener('click', () => navigatePdf({ pageDelta: 1 }));
+    document.getElementById('reading-pdf-zoom-out').addEventListener('click', () => navigatePdf({ zoomDelta: -0.15 }));
+    document.getElementById('reading-pdf-zoom-in').addEventListener('click', () => navigatePdf({ zoomDelta: 0.15 }));
+    const input = document.getElementById('reading-pdf-page');
+    const goToPage = () => { if (input.reportValidity()) navigatePdf({ page: Number(input.value) }); };
+    input.addEventListener('change', goToPage);
+    input.addEventListener('keydown', event => { if (event.key === 'Enter') { event.preventDefault(); goToPage(); } });
+  });
+  document.addEventListener('keydown', event => { if (event.key === 'Escape' && active) { event.preventDefault(); leave(); } });
+  document.addEventListener('fullscreenchange', nativeChanged);
+  document.addEventListener('webkitfullscreenchange', nativeChanged);
+  document.addEventListener('fullscreenerror', () => { if (active && active.mode !== 'browser') displayMode(active, 'focus'); });
+  document.addEventListener('webkitfullscreenerror', () => { if (active && active.mode !== 'browser') displayMode(active, 'focus'); });
+  document.addEventListener('studio-pdf-view-change', updatePdfControls);
+  window.addEventListener('resize', () => {
+    const editor = document.activeElement;
+    if (editor && editor.isContentEditable && editor.closest('#pages-stage')) return;
+    if (active && (active.mode !== 'browser' || nativeElement() === document.documentElement)) restorePosition(active.workspace, active.position);
+  });
+})();
   </script>
 
   <script>
@@ -2281,6 +2496,12 @@
               if (lIdx === 0) for (const bookmark of wrapped.bookmarks) docState.bookmarkPageMap[bookmark] = curPage.pageIndex + 1;
             }
             activeSlice.atoms.push(...line.atoms);
+            // Keep the measured TOC line boundaries. Flattened atoms alone lose
+            // those boundaries when a flex row is rendered as one paragraph.
+            if (para.style === 'BookContents') {
+              if (!activeSlice.tocLines) activeSlice.tocLines = [];
+              activeSlice.tocLines.push({atoms: line.atoms, heightPx: line.heightPx});
+            }
             if (line.isLast) { activeSlice.isEnd = true; activeSlice.afterPx = wrapped.afterPx; }
             curPage.usedBodyH += beforeCost + line.heightPx + afterCost;
             curPage.trailingAfterPx = afterCost;
@@ -2468,6 +2689,32 @@
         return {atoms: [...atoms.slice(0, tabIndex + 1), pageAtom], status: sourceLabel === pageLabel ? 'current' : 'updated', anchor, sourceLabel, pageLabel};
       }
 
+      function renderTocSliceHtml(slice, resolved, basePt, st, fallbackHeightPx) {
+        const lines = slice.tocLines && slice.tocLines.length
+          ? slice.tocLines : [{atoms: slice.atoms, heightPx: fallbackHeightPx}];
+        let tabIndex = -1;
+        for (let i = 0; i < slice.atoms.length; i++) if (slice.atoms[i].kind === 'tab') tabIndex = i;
+        let resolvedTabIndex = -1;
+        for (let i = 0; i < resolved.atoms.length; i++) if (resolved.atoms[i].kind === 'tab') resolvedTabIndex = i;
+        const pageAtoms = resolvedTabIndex < 0 ? [] : resolved.atoms.slice(resolvedTabIndex + 1).filter(atom => atom.kind !== 'lineBreak');
+        let offset = 0;
+        let heightPx = 0;
+        const rows = lines.map((line, index) => {
+          const lineHeight = Number.isFinite(line.heightPx) && line.heightPx > 0 ? line.heightPx : fallbackHeightPx;
+          const labelCount = tabIndex < 0 ? line.atoms.length : Math.max(0, Math.min(line.atoms.length, tabIndex - offset));
+          // A recorded visual row already represents an explicit break; do not
+          // render a second <br> inside it. Source atoms and runs stay untouched.
+          const labelAtoms = line.atoms.slice(0, labelCount).filter(atom => atom.kind !== 'lineBreak');
+          const label = renderAtomsHtml(labelAtoms, basePt, st);
+          const page = tabIndex >= 0 && index === lines.length - 1
+            ? '<span class="ws-toc-dots" aria-hidden="true"></span><span class="ws-toc-page">' + renderAtomsHtml(pageAtoms, basePt, st) + '</span>' : '';
+          offset += line.atoms.length;
+          heightPx += lineHeight;
+          return `<div class="ws-toc-line" style="height:${lineHeight}px;line-height:${lineHeight}px;text-indent:${index === 0 ? 'inherit' : '0px'};"><span class="ws-toc-label">${label}</span>${page}</div>`;
+        });
+        return {html: rows.join(''), heightPx};
+      }
+
       function getTocPaginationStatus() {
         const counts = {rows: 0, updated: 0, unresolved: 0};
         for (const page of docState.pages) for (const slice of page.slices) {
@@ -2501,7 +2748,7 @@
           const lineHeightPx = sl.lineHeightPx || paragraphLineHeightPx(st, strutPt);
           const alignCss = sl.jc === 'both' ? 'justify' : (['left','right','center','justify','start','end'].includes(sl.jc) ? sl.jc : 'left');
           const contCls = sl.jc === 'both' && !sl.isEnd ? ' justify-cont' : '';
-          const isToc = sl.style === 'BookContents' && sl.atoms.some((x) => x.kind === 'tab');
+          const isToc = sl.style === 'BookContents' && (srcPara.runs || []).some((run) => run.type === 'tab');
           const padL = ((st.indentLeftPt || 0) * DPI) / 72;
           const padR = ((st.indentRightPt || 0) * DPI) / 72;
           const dirAttr = sl.rtlPara ? ' dir="rtl"' : ' dir="ltr"';
@@ -2520,7 +2767,8 @@
             const ancAtom = sl.atoms.find((x) => x.run && x.run.anchor);
             const ancAttr = ancAtom ? ` data-anchor-jump="${escapeHtml(ancAtom.run.anchor)}"` : '';
             const tocAttr = ` data-toc-status="${tocReference.status}"${tocReference.pageLabel ? ` data-toc-page="${escapeHtml(tocReference.pageLabel)}"` : ''}`;
-            bodyHtml += `<div class="ws-para-slice ws-toc-row"${ancAttr}${tocAttr} style="${paragraphCss}">${inner}</div>`;
+            const tocLayout = renderTocSliceHtml(sl, tocReference, basePt, st, lineHeightPx);
+            bodyHtml += `<div class="ws-para-slice ws-toc-row"${ancAttr}${tocAttr}${dirAttr} style="${paragraphCss}height:${tocLayout.heightPx}px;min-height:${tocLayout.heightPx}px;">${tocLayout.html}</div>`;
           } else {
             bodyHtml += `<div class="ws-para-slice${contCls}" data-para-idx="${sl.paraIdx}"${ceAttr}${editHint}${dirAttr} style="${paragraphCss}text-align:${alignCss};${tblCss}">${inner}</div>`;
           }
@@ -4872,6 +5120,7 @@
         openConvertPdfModal
       };
       window.WordStudioAPI = {
+        refreshReadingView() { renderStagesVirtual(false); },
         appendParagraphText(txt) {
           pushUndoSnapshot();
           docState.paragraphs.push({ style: 'Normal', jc: 'both', runs: [{ type: 'text', text: String(txt || '') }] });
@@ -5048,8 +5297,11 @@
     }
   }
 
+  let pdfViewRenderCount = 0;
   async function renderCurrentPdfPage() {
     if (!pdfState.pdfJsDoc) return;
+    pdfViewRenderCount++;
+    try {
     const canvas = document.getElementById('pdf-main-canvas');
     const overlayLayer = document.getElementById('pdf-overlay-layer');
     const fnFooterBox = document.getElementById('pdf-live-footnotes-box');
@@ -5073,6 +5325,10 @@
     if (pageInd) pageInd.textContent = `Page ${pdfState.currentPage} of ${pdfState.pageCount}`;
     renderPdfOverlays();
     renderPdfFootnotesPreview(fnFooterBox, canvas.width);
+    } finally {
+      pdfViewRenderCount--;
+      document.dispatchEvent(new Event('studio-pdf-view-change'));
+    }
   }
 
   function renderPdfFootnotesPreview(container, widthPx) {
@@ -6113,6 +6369,22 @@
   window.PdfStudioAPI = {
     init: initPdfStudio,
     loadPdfBytes,
+    getReadingViewInfo() {
+      return { page: pdfState.currentPage, pageCount: pdfState.pageCount, zoom: pdfState.zoom, busy: pdfViewRenderCount > 0 || pdfState.pdfJsDocSource !== pdfState.pdfBytes };
+    },
+    async changeReadingView(change) {
+      if (!pdfState.pdfJsDoc || pdfState.pdfJsDocSource !== pdfState.pdfBytes || pdfViewRenderCount > 0) return;
+      const page = change.page !== undefined ? change.page : pdfState.currentPage + (change.pageDelta || 0);
+      if (!Number.isInteger(page) || page < 1 || page > pdfState.pageCount) return;
+      const zoom = Math.min(2.2, Math.max(0.65, pdfState.zoom + (change.zoomDelta || 0)));
+      const changedPage = page !== pdfState.currentPage;
+      if (!changedPage && zoom === pdfState.zoom) return;
+      pdfState.currentPage = page;
+      pdfState.zoom = zoom;
+      if (changedPage) renderPdfThumbnails();
+      await renderCurrentPdfPage();
+      if (changedPage) document.getElementById('pdf-document-viewport').scrollTop = 0;
+    },
     getBridgeInfo() {
       return { fileName: pdfState.fileName, pageCount: pdfState.pageCount, currentPage: pdfState.currentPage, ocrRunning: !!pdfState.ocrRunning, ocrCharacterCount: (document.getElementById('pdf-ocr-output').value || '').length };
     },
@@ -8984,6 +9256,7 @@ Reply with a valid JSON object matching this exact schema so I can paste it stra
       }
       if (window.DesignStudioAPI) window.DesignStudioAPI.render();
     } else {
+      if (window.StudioReadingView) window.StudioReadingView.leaveStudio();
       studioView.classList.add('hidden');
       webView.classList.remove('hidden');
       const secMap = {
