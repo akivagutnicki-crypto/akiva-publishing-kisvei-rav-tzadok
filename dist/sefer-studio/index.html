@@ -671,18 +671,22 @@
           </div>
           <select id="pdf-ocr-engine" aria-label="OCR engine" class="w-full border border-slate-300 rounded px-2 py-1 bg-white text-xs">
             <option value="local">On-device OCR · ready to use</option>
-            <option value="vision">OpenAI vision · connection required</option>
+            <option value="vision">AI vision · access code required</option>
           </select>
           <div id="pdf-vision-settings" class="hidden rounded border border-blue-200 bg-blue-50 p-2 space-y-2 text-xs">
-            <p>Read the selected page with an OpenAI vision model. The page image is sent to your connected service and OpenAI; API usage applies.</p>
+            <p>Read the selected page with an AI vision model. When you run OCR, the page image goes to the connected service and the provider shown by Check connection; API usage applies.</p>
             <label class="block">OCR service address
-              <input id="pdf-vision-endpoint" type="url" autocomplete="off" placeholder="https://your-ocr-service.example/ocr" class="mt-1 w-full rounded border border-blue-200 bg-white p-1.5" />
+              <input id="pdf-vision-endpoint" type="url" autocomplete="off" value="https://akiva-publishing-kisvei-rav-tzadok.akivagutnicki.workers.dev/sefer-studio-api/ocr" class="mt-1 w-full rounded border border-blue-200 bg-white p-1.5" />
             </label>
             <label class="block">Service access code
               <input id="pdf-vision-access" type="password" autocomplete="off" placeholder="Access code for this session" class="mt-1 w-full rounded border border-blue-200 bg-white p-1.5" />
             </label>
-            <p class="text-[10px] text-slate-600">Use your OCR service access code here. Your OpenAI API key belongs in the service settings. This page does not save the access code.</p>
-            <button type="button" data-pdf-action="ocr-connect" class="rounded border border-blue-300 bg-white px-2 py-1 font-semibold">Check connection</button>
+            <p class="text-[10px] text-slate-600">Use the service access code, not a provider API key. It stays in this page session. A private connection file fills these fields locally; loading it sends nothing.</p>
+            <div class="flex flex-wrap gap-1.5">
+              <button type="button" data-pdf-action="ocr-load-connection" class="rounded border border-blue-300 bg-white px-2 py-1 font-semibold">Load connection file</button>
+              <button type="button" data-pdf-action="ocr-connect" class="rounded border border-blue-300 bg-white px-2 py-1 font-semibold">Check connection</button>
+            </div>
+            <input id="pdf-vision-connection-file" type="file" accept=".json,application/json" class="hidden" aria-label="Private OCR connection file" />
             <div id="pdf-vision-connection-status" role="status" class="text-[11px] text-blue-900">Connect your OCR service to enable vision recognition.</div>
             <select id="pdf-vision-layout" aria-label="Page reading order" class="w-full rounded border border-blue-200 bg-white p-1">
               <option value="auto">Detect columns and footnotes</option>
@@ -4890,43 +4894,182 @@
     });
   }
 
-  function getVisionOcrConnection() {
-    const raw = (document.getElementById('pdf-vision-endpoint').value || '').trim();
-    const access = (document.getElementById('pdf-vision-access').value || '').trim();
+  const VISION_OCR_DEFAULT_LIMITS = Object.freeze({
+    maxRequestBytes: 12000000,
+    maxImageDataUrlChars: 12000000,
+    maxDimension: 6000,
+    maxPixels: 20000000
+  });
+  // Only public size limits are cached. Access codes remain in the password field
+  // and in the short-lived request that needs them, never in storage or URLs.
+  const visionOcrLimitsByEndpoint = new Map();
+  let visionOcrConnectionRevision = 0;
+  let visionOcrReadyRevision = -1;
+  let visionOcrHealthAbort = null;
+
+  function validateVisionOcrConnection(raw, access) {
+    if (typeof raw !== 'string' || typeof access !== 'string') throw new Error('The service address and access code must be text.');
+    raw = raw.trim();
+    access = access.trim();
     if (!raw) throw new Error('Enter the address of your OCR service, then check the connection.');
     let endpoint;
     try { endpoint = new URL(raw); } catch (_error) { throw new Error('Enter a valid HTTPS service address.'); }
     if (endpoint.protocol !== 'https:' || endpoint.username || endpoint.password || endpoint.search || endpoint.hash) {
       throw new Error('Use an HTTPS service address without a password or access code in the URL.');
     }
-    if (endpoint.hostname === 'api.openai.com' || /^sk-/.test(access)) {
-      throw new Error('Keep your OpenAI API key in the backend service. Enter the OCR service address and its separate access code here.');
+    if (endpoint.hostname === 'api.openai.com' || /^sk-/i.test(access)) {
+      throw new Error('Keep provider API keys in the backend service. Enter the OCR service address and its separate access code here.');
     }
     if (!access) throw new Error('Enter your OCR service access code. It is kept only for this page session.');
     return { endpoint: endpoint.href, access };
   }
 
-  async function checkVisionOcrConnection() {
+  function getVisionOcrConnection() {
+    return validateVisionOcrConnection(
+      document.getElementById('pdf-vision-endpoint').value || '',
+      document.getElementById('pdf-vision-access').value || ''
+    );
+  }
+
+  function visionOcrPublicText(value, fallback, access, maxLength = 240) {
+    if (typeof value !== 'string') return fallback;
+    let text = value;
+    if (access) text = text.split(access).join('[redacted]');
+    return text.replace(/[\u0000-\u001f\u007f-\u009f\u202a-\u202e\u2066-\u2069]/g, ' ').trim().slice(0, maxLength) || fallback;
+  }
+
+  function visionOcrServiceLabel(data, access) {
+    return [
+      visionOcrPublicText(data && data.provider, 'Connected AI service', access, 100),
+      visionOcrPublicText(data && data.model, '', access, 140)
+    ].filter(Boolean).join(' · ');
+  }
+
+  function invalidateVisionOcrConnection(message = 'Connection changed. Click Check connection before scanning.') {
+    visionOcrConnectionRevision++;
+    visionOcrReadyRevision = -1;
+    if (visionOcrHealthAbort) visionOcrHealthAbort.abort();
+    document.getElementById('pdf-vision-connection-status').textContent = message;
+  }
+
+  function parseVisionOcrConnectionConfig(text) {
+    if (typeof text !== 'string' || new TextEncoder().encode(text).byteLength > 16384) throw new Error('Choose a connection JSON file no larger than 16 KB.');
+    let config;
+    try { config = JSON.parse(text); }
+    catch (_error) { throw new Error('The connection file is not valid JSON.'); }
+    if (!config || typeof config !== 'object' || Array.isArray(config) ||
+        Object.keys(config).sort().join(',') !== 'accessCode,endpoint,version' || config.version !== 1) {
+      throw new Error('Use a version 1 connection file containing only version, endpoint, and accessCode.');
+    }
+    return validateVisionOcrConnection(config.endpoint, config.accessCode);
+  }
+
+  async function loadVisionOcrConnectionFile(file) {
     const status = document.getElementById('pdf-vision-connection-status');
-    const button = document.querySelector('[data-pdf-action="ocr-connect"]');
-    const controller = new AbortController();
-    const timeout = setTimeout(() => controller.abort(), 15000);
-    button.disabled = true;
+    const revision = visionOcrConnectionRevision;
     try {
-      const connection = getVisionOcrConnection();
-      status.textContent = 'Checking the OCR service…';
+      if (pdfState.ocrRunning) throw new Error('Wait for the current scan to finish before loading a connection file.');
+      if (!file || !Number.isSafeInteger(file.size) || file.size > 16384 || file.size < 0) throw new Error('Choose a connection JSON file no larger than 16 KB.');
+      let text;
+      try { text = await file.text(); }
+      catch (_error) { throw new Error('The connection file could not be read.'); }
+      const connection = parseVisionOcrConnectionConfig(text);
+      if (pdfState.ocrRunning || revision !== visionOcrConnectionRevision) throw new Error('The connection changed while the file was loading. Choose the file again.');
+      document.getElementById('pdf-vision-endpoint').value = connection.endpoint;
+      document.getElementById('pdf-vision-access').value = connection.access;
+      invalidateVisionOcrConnection('Connection file loaded locally. Click Check connection. No image or access code has been sent.');
+    } catch (error) {
+      status.textContent = String(error.message || 'The connection file could not be loaded.').slice(0, 240);
+    }
+  }
+
+  function normalizeVisionOcrLimits(advertised) {
+    if (advertised != null && (typeof advertised !== 'object' || Array.isArray(advertised))) throw new Error('The OCR service returned invalid image limits.');
+    const limits = { ...VISION_OCR_DEFAULT_LIMITS };
+    for (const name of Object.keys(limits)) {
+      if (!advertised || !Object.prototype.hasOwnProperty.call(advertised, name)) continue;
+      const value = advertised[name];
+      if (!Number.isSafeInteger(value) || value <= 0) throw new Error('The OCR service returned invalid image limits.');
+      limits[name] = Math.min(limits[name], value);
+    }
+    return Object.freeze(limits);
+  }
+
+  function throwIfVisionOcrAborted(signal) {
+    if (signal && signal.aborted) {
+      const error = new Error('The OCR request stopped.');
+      error.name = 'AbortError';
+      throw error;
+    }
+  }
+
+  function isVisionOcrConnectionCurrent(connection, revision) {
+    if (revision !== visionOcrConnectionRevision) return false;
+    try {
+      const current = getVisionOcrConnection();
+      return current.endpoint === connection.endpoint && current.access === connection.access;
+    } catch (_error) { return false; }
+  }
+
+  async function requestVisionOcrHealth(connection, parentSignal) {
+    const revision = visionOcrConnectionRevision;
+    const controller = new AbortController();
+    const abort = () => controller.abort();
+    if (visionOcrHealthAbort) visionOcrHealthAbort.abort();
+    visionOcrHealthAbort = controller;
+    visionOcrReadyRevision = -1;
+    if (parentSignal) {
+      parentSignal.addEventListener('abort', abort, { once: true });
+      if (parentSignal.aborted) controller.abort();
+    }
+    const timeout = setTimeout(abort, 15000);
+    const status = document.getElementById('pdf-vision-connection-status');
+    status.textContent = 'Checking service readiness. This check does not scan a page…';
+    try {
+      throwIfVisionOcrAborted(controller.signal);
       const response = await fetch(connection.endpoint, {
         method: 'GET', headers: { Authorization: 'Bearer ' + connection.access },
         credentials: 'omit', redirect: 'error', cache: 'no-store', referrerPolicy: 'no-referrer', signal: controller.signal
       });
       const data = await response.json();
-      if (!response.ok || data.ready !== true) throw new Error(data.error || 'The OCR service is not ready. Check its setup and access code.');
-      status.textContent = 'Service ready · ' + String(data.model || 'OpenAI vision') + '. A successful page scan will confirm model access.';
+      throwIfVisionOcrAborted(controller.signal);
+      if (!isVisionOcrConnectionCurrent(connection, revision)) throw new Error('The connection changed. Check the new connection before scanning.');
+      if (!response.ok || !data || data.ready !== true) throw new Error(visionOcrPublicText(data && data.error, 'The OCR service is not ready. Check its setup and access code.', connection.access));
+      const limits = normalizeVisionOcrLimits(data.limits);
+      if (visionOcrLimitsByEndpoint.size >= 8 && !visionOcrLimitsByEndpoint.has(connection.endpoint)) visionOcrLimitsByEndpoint.delete(visionOcrLimitsByEndpoint.keys().next().value);
+      visionOcrLimitsByEndpoint.set(connection.endpoint, limits);
+      visionOcrReadyRevision = revision;
+      status.textContent = 'Service ready · ' + visionOcrServiceLabel(data, connection.access) + '. AI scan not yet verified; a successful page scan confirms model access.';
+      return limits;
     } catch (error) {
-      status.textContent = error.name === 'AbortError' ? 'Connection timed out. Check the service address.' : String(error.message || 'Unable to connect.').slice(0, 240);
+      if (visionOcrHealthAbort === controller && revision === visionOcrConnectionRevision) {
+        status.textContent = error.name === 'AbortError'
+          ? 'Service check stopped or timed out. Check the connection again.'
+          : visionOcrPublicText(error.message, 'Unable to connect to the OCR service.', connection.access);
+      }
+      throw error;
     } finally {
       clearTimeout(timeout);
-      button.disabled = false;
+      if (parentSignal) parentSignal.removeEventListener('abort', abort);
+      if (visionOcrHealthAbort === controller) visionOcrHealthAbort = null;
+    }
+  }
+
+  async function checkVisionOcrConnection() {
+    if (pdfState.ocrRunning || visionOcrHealthAbort) return;
+    const status = document.getElementById('pdf-vision-connection-status');
+    const controls = [...document.querySelectorAll('[data-pdf-action="ocr-connect"], [data-pdf-action="ocr"]')];
+    const wasDisabled = controls.map(el => el.disabled);
+    const revision = visionOcrConnectionRevision;
+    let connection;
+    controls.forEach(el => { el.disabled = true; });
+    try {
+      connection = getVisionOcrConnection();
+      await requestVisionOcrHealth(connection);
+    } catch (error) {
+      if (revision === visionOcrConnectionRevision) status.textContent = error.name === 'AbortError' ? 'Connection timed out. Check the service address.' : visionOcrPublicText(error.message, 'Unable to connect.', connection && connection.access);
+    } finally {
+      controls.forEach((el, index) => { el.disabled = wasDisabled[index]; });
     }
   }
 
@@ -4944,7 +5087,9 @@
     const language = document.getElementById('pdf-ocr-lang').value;
     const layout = document.getElementById('pdf-vision-layout').value;
     const targetDpi = document.getElementById('pdf-ocr-quality').value === '400' ? 400 : 300;
-    const controls = [...document.querySelectorAll('[data-pdf-action="ocr"], [data-pdf-action="ocr-connect"], #pdf-ocr-engine, #pdf-ocr-lang, #pdf-ocr-quality, #pdf-vision-layout')];
+    const controls = [...document.querySelectorAll('[data-pdf-action="ocr"], [data-pdf-action="ocr-connect"], [data-pdf-action="ocr-load-connection"], #pdf-ocr-engine, #pdf-ocr-lang, #pdf-ocr-quality, #pdf-vision-layout, #pdf-vision-endpoint, #pdf-vision-access, #pdf-vision-connection-file')];
+    const wasDisabled = controls.map(el => el.disabled);
+    const connectionRevision = visionOcrConnectionRevision;
     const started = performance.now();
     const controller = new AbortController();
     const timeout = setTimeout(() => controller.abort(), 150000);
@@ -4958,33 +5103,48 @@
     document.getElementById('pdf-ocr-review').classList.add('hidden');
     review.classList.add('hidden');
     try {
-      status.textContent = `Preparing Page ${pageNumber} for OpenAI vision…`;
+      let limits = visionOcrLimitsByEndpoint.get(connection.endpoint);
+      if (visionOcrReadyRevision !== connectionRevision || !limits) {
+        status.textContent = 'Checking the AI service before preparing this page…';
+        limits = await requestVisionOcrHealth(connection, controller.signal);
+      }
+      throwIfVisionOcrAborted(controller.signal);
+      if (pdfState.pdfJsDoc !== sourcePdf || pdfState.pdfBytes !== sourceBytes) throw new Error('The PDF changed. Run OCR on the newly opened document.');
+      status.textContent = `Preparing Page ${pageNumber} for AI vision…`;
       const page = await sourcePdf.getPage(pageNumber);
       const base = page.getViewport({ scale: 1 });
-      const scale = Math.min(targetDpi / 72, Math.sqrt(20000000 / (base.width * base.height)), 6000 / base.width, 6000 / base.height);
+      if (!Number.isFinite(base.width) || !Number.isFinite(base.height) || base.width <= 0 || base.height <= 0) throw new Error('The PDF page has invalid dimensions.');
+      const scale = Math.min(targetDpi / 72, Math.sqrt(limits.maxPixels / (base.width * base.height)), limits.maxDimension / base.width, limits.maxDimension / base.height);
       const viewport = page.getViewport({ scale });
       canvas = document.createElement('canvas');
       canvas.width = Math.max(1, Math.floor(viewport.width));
       canvas.height = Math.max(1, Math.floor(viewport.height));
+      if (canvas.width * canvas.height > limits.maxPixels) throw new Error('This page cannot fit within the service image limits.');
       const context = canvas.getContext('2d');
       context.fillStyle = '#ffffff';
       context.fillRect(0, 0, canvas.width, canvas.height);
       await page.render({ canvasContext: context, viewport }).promise;
+      throwIfVisionOcrAborted(controller.signal);
       const imageDataUrl = canvas.toDataURL('image/jpeg', 0.96);
-      if (imageDataUrl.length > 12000000) throw new Error('This page image is too large. Choose the 300 DPI quality setting and try again.');
+      if (imageDataUrl.length > limits.maxImageDataUrlChars) throw new Error('This page image exceeds the service size limit. Choose the 300 DPI quality setting and try again.');
+      const body = JSON.stringify({ imageDataUrl, language, layout, pageNumber });
+      if (new TextEncoder().encode(body).byteLength > limits.maxRequestBytes) throw new Error('This page request exceeds the service size limit. Choose the 300 DPI quality setting and try again.');
       if (pdfState.pdfJsDoc !== sourcePdf || pdfState.pdfBytes !== sourceBytes) throw new Error('The PDF changed. Run OCR on the newly opened document.');
-      status.textContent = `OpenAI vision is reading Page ${pageNumber}, including its columns and footnotes…`;
+      if (!isVisionOcrConnectionCurrent(connection, connectionRevision)) throw new Error('The connection changed. Check the new connection before scanning.');
+      status.textContent = `AI vision is reading Page ${pageNumber}, including its columns and footnotes…`;
       const response = await fetch(connection.endpoint, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + connection.access },
         credentials: 'omit', redirect: 'error', cache: 'no-store', referrerPolicy: 'no-referrer', signal: controller.signal,
-        body: JSON.stringify({ imageDataUrl, language, layout, pageNumber })
+        body
       });
       const data = await response.json();
-      if (!response.ok) throw new Error(data.error || `OCR service returned HTTP ${response.status}.`);
-      if (typeof data.text !== 'string' || !data.text.trim()) throw new Error('The model returned no transcription. The previous text has been kept.');
+      throwIfVisionOcrAborted(controller.signal);
+      if (!response.ok) throw new Error(visionOcrPublicText(data && data.error, `OCR service returned HTTP ${response.status}.`, connection.access));
+      if (!data || typeof data.text !== 'string' || !data.text.trim()) throw new Error('The model returned no transcription. The previous text has been kept.');
       if (data.incomplete === true) throw new Error('The model response was incomplete. The previous text has been kept; retry this page.');
       if (pdfState.pdfJsDoc !== sourcePdf || pdfState.pdfBytes !== sourceBytes) throw new Error('The PDF changed. Run OCR on the newly opened document.');
+      if (!isVisionOcrConnectionCurrent(connection, connectionRevision)) throw new Error('The connection changed. The previous text has been kept.');
       const text = data.text.trim();
       out.dir = language.includes('heb') ? 'rtl' : 'auto';
       out.value = text;
@@ -4994,13 +5154,15 @@
       review.textContent = ['Compare the transcription with the scan before publishing.', ...warnings, ...uncertain.map(item => 'Check: ' + item)].join('\n');
       review.classList.remove('hidden');
       const words = text.split(/\s+/).filter(Boolean).length;
-      status.textContent = `Vision OCR complete · Page ${pageNumber} · ${words} words · ${String(data.model || 'OpenAI')} · ${((performance.now() - started) / 1000).toFixed(1)}s`;
+      const serviceLabel = visionOcrServiceLabel(data, connection.access);
+      status.textContent = `Vision OCR complete · Page ${pageNumber} · ${words} words · ${serviceLabel} · ${((performance.now() - started) / 1000).toFixed(1)}s`;
+      document.getElementById('pdf-vision-connection-status').textContent = 'AI scan verified · ' + serviceLabel + '. Review the transcription against the page image.';
       status.title = `Recognized from the page image at ${Math.round(scale * 72)} DPI. The existing PDF text layer was not used.`;
       toast('Vision transcription ready for review');
     } catch (error) {
       status.textContent = error.name === 'AbortError'
         ? 'Vision OCR stopped or timed out. Previous text has been kept.'
-        : 'Vision OCR did not complete: ' + String(error.message || error).slice(0, 240);
+        : 'Vision OCR did not complete: ' + visionOcrPublicText(error.message, 'Unable to complete the scan.', connection.access);
       status.title = 'No on-device or existing-text result has been substituted for a vision transcription.';
     } finally {
       clearTimeout(timeout);
@@ -5008,7 +5170,7 @@
       out.readOnly = previousReadOnly;
       pdfState.ocrRunning = false;
       pdfState.visionOcrAbort = null;
-      controls.forEach(el => { el.disabled = false; });
+      controls.forEach((el, index) => { el.disabled = wasDisabled[index]; });
       document.querySelector('[data-pdf-action="ocr-cancel"]').classList.add('hidden');
     }
   }
@@ -5359,8 +5521,17 @@
   function initPdfStudio() {
     const fileInp = document.getElementById('pdf-file-input');
     const mergeInp = document.getElementById('pdf-merge-input');
+    const connectionInp = document.getElementById('pdf-vision-connection-file');
     document.getElementById('pdf-ocr-engine').addEventListener('change', (event) => {
       document.getElementById('pdf-vision-settings').classList.toggle('hidden', event.target.value !== 'vision');
+    });
+    ['pdf-vision-endpoint', 'pdf-vision-access'].forEach(id => {
+      document.getElementById(id).addEventListener('input', () => invalidateVisionOcrConnection());
+    });
+    connectionInp.addEventListener('change', async (event) => {
+      const file = event.target.files && event.target.files[0];
+      try { if (file) await loadVisionOcrConnectionFile(file); }
+      finally { connectionInp.value = ''; }
     });
 
     fileInp.addEventListener('change', async (e) => {
@@ -5487,6 +5658,7 @@
       else if (act === 'delete-page') mutatePdfStructure('delete');
       else if (act === 'ocr') runOcrOnCurrentPage();
       else if (act === 'ocr-connect') checkVisionOcrConnection();
+      else if (act === 'ocr-load-connection') connectionInp.click();
       else if (act === 'ocr-cancel' && pdfState.visionOcrAbort) pdfState.visionOcrAbort.abort();
       else if (act === 'zoom-in') { pdfState.zoom = Math.min(2.2, pdfState.zoom + 0.15); renderCurrentPdfPage(); }
       else if (act === 'zoom-out') { pdfState.zoom = Math.max(0.65, pdfState.zoom - 0.15); renderCurrentPdfPage(); }

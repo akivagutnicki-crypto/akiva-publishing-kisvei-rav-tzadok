@@ -11,9 +11,14 @@
   "assets": { "directory": "./site", "binding": "ASSETS", "html_handling": "auto-trailing-slash", "not_found_handling": "none" },
   // Cloudflare Workers AI, for /ask (short written answers in the reader's Mafteach search)
   "ai": { "binding": "AI" },
+  // OCR-only approximate allowance per Cloudflare location; no caller-controlled key.
+  "ratelimits": [{ "name": "OCR_RATE_LIMITER", "namespace_id": "76118001", "simple": { "limit": 5, "period": 60 } }],
   // Workers Paid: a library-wide search reads one index file per book and field (over 50 subrequests)
   "limits": { "subrequests": 10000 },
   "vars": {
-    "MCP_SITE_ORIGIN": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok"
+    "MCP_SITE_ORIGIN": "https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok",
+    "OCR_ALLOWED_ORIGINS": "https://akivagutnicki-crypto.github.io,https://akiva-publishing-kisvei-rav-tzadok.akivagutnicki.workers.dev",
+    // SHA-256 verifier only; the private 256-bit service code is not in source.
+    "OCR_ACCESS_TOKEN_SHA256": "9e30c3d563ebd726769c450f87459ca041166e6d23c2a5abe479802294aee05c"
   }
 }

@@ -36,18 +36,22 @@ Open a PDF in **PDF, OCR & PDF Footnotes**, select a page and language, and clic
 
 The page image is processed in the browser. The first run downloads the OCR engine and language data.
 
-### OpenAI vision OCR
+### AI vision OCR
 
-The vision option sends only the selected page image to a connected OCR service and OpenAI. It supports Hebrew column order, footnotes, literal transcription, and uncertainty notes. It does not assume that model output is error-free.
+The vision option sends only the selected page image to the connected OCR service. **Check connection** identifies its provider and model. The built-in address uses Cloudflare Workers AI with `@cf/qwen/qwen3.8-27b`; this is not an OpenAI or ChatGPT model. It is instructed to preserve Hebrew column order, footnotes, literal text, and uncertainty notes. Review the result against the scan.
 
-Select **OpenAI vision**, enter the HTTPS OCR service address and its separate service access code, and choose **Check connection**. The access code is kept only in the page session. Keep the OpenAI API key in the backend's secret settings, never in this public application or repository. Model API usage applies.
+Select **AI vision**, use **Load connection file** to import your private SeferStudio JSON file, then choose **Check connection**. You can also enter the HTTPS service address and separate service access code manually. The access code remains in the current page session; the app does not store it in browser storage, URLs, or the repository. Keep the connection file private. Loading it is a local operation and does not start an AI request.
 
-Backend source and setup instructions are in the repository's `services/sefer-studio-ocr/` directory. Vision recognition is available only after that service is deployed and configured; frontend tests alone do not verify model quality or model-account access. A failed vision request is reported as a failure, without substituting on-device OCR and labeling it as a model result.
+The service address is `https://akiva-publishing-kisvei-rav-tzadok.akivagutnicki.workers.dev/sefer-studio-api/ocr`. Its native implementation is `cloudflare/ocr.mjs`, using the existing Worker's AI binding. Only a SHA-256 verifier of the random service code is deployed. Model usage is charged under the existing Cloudflare account; no provider key is needed in the browser. The approximate allowance is five OCR requests per minute per Cloudflare location, with a separate health allowance. This is not a global spending cap.
+
+Connection readiness confirms authentication and required bindings, not OCR accuracy or a successful model call. The app reports successful image recognition separately. It respects the service's advertised image limits and retains existing text after a failed, cancelled, incomplete, or stale request. A failed vision request is not silently replaced with an on-device result.
+
+The separate OpenAI-based Worker in `services/sefer-studio-ocr/` remains an optional alternative requiring its own backend provider key and deployment. Selecting the native Cloudflare service does not activate that alternative.
 
 ## Hosting and releases
 
 The application is published in `dist/sefer-studio/` through the dedicated `sefer-studio-release.yml` GitHub Actions workflow. That workflow restores the previously deployed Pages artifact, overlays this application, verifies that unrelated site files are unchanged, and deploys the complete artifact. Release commits carry `[sefer-studio-release]` so the older full-site build is not triggered.
 
-GitHub Pages is sufficient for the browser application, Word import/export, PDF printing, and on-device OCR. Model OCR requires a backend to protect the API key; the included Cloudflare Worker is one deployment option. The existing site's Cloudflare mirror is separate from enabling an OCR backend.
+GitHub Pages serves the browser application, Word import/export, PDF printing, and on-device OCR. The existing Cloudflare Worker also supplies the authenticated AI OCR endpoint. The service code belongs only in the private connection file or password field, never in public site assets.
 
 Files opened in the browser are not automatically published to GitHub or backed up. The local profile control does not establish a Google Drive account connection. Some fonts, PDF and OCR libraries, and icons load from public CDNs, so a first load needs an internet connection.
