@@ -22,6 +22,27 @@ Saving an imported document without edits returns the original file byte for byt
 
 The web version uses the browser's PDF printer; it does not run Microsoft Word's PDF engine. The optional desktop bridge can save directly. A downloadable HTML proof includes embedded DOCX fonts and can also be printed to PDF. Neither successful conversion nor a particular trim size constitutes KDP acceptance.
 
+Linked contents entries in the preview and HTML proof use the page labels of their resolved bookmark targets. This adjusts the displayed references when the browser repaginates the manuscript without rewriting the original Word fields. The export dialog identifies contents entries that could not be resolved. Review the resulting proof; an HTML download is not itself a PDF.
+
+## Connecting ChatGPT to the open app
+
+The application has two distinct MCP connections:
+
+- **Public Torah research:** `https://akiva-publishing-kisvei-rav-tzadok.akivagutnicki.workers.dev/mcp` exposes the published library's read-only tools. The MCP Hub can initialize it and run a search without an access code.
+- **Your open document:** `https://akiva-publishing-kisvei-rav-tzadok.akivagutnicki.workers.dev/studio-mcp` exposes the paired browser workspace. This uses OAuth with PKCE and a one-time pairing code. It does not use the separate AI OCR service code.
+
+Open **ChatGPT Connection** in the app. Leave editing disabled for read-only access, or enable **Allow targeted text edits** before starting the connection. Select **Connect this tab**. When connecting the SeferStudio plugin in ChatGPT, enter the one-time code on the SeferStudio authorization page and review the requested access. Keep the app tab open. A connection lasts up to two hours; **Disconnect** revokes it. If a code has expired or was already used, create a new pairing code in the app.
+
+The document tools inspect structure, read bounded paragraph and footnote ranges, search, navigate, replace an exact text run, undo a bridge edit, and open export controls. Each edit requires the correct document identity, current revision, and exact original text. A changed document or stale request is rejected. Repeated mutation requests use the same request identifier to avoid applying a change twice. Existing paragraph formatting, footnote IDs, and note anchors remain in place; unsupported Word structures and structural paragraph changes are excluded.
+
+PDF tools inspect the loaded PDF, return a bounded image of a selected page for ChatGPT to review, read OCR text, and replace that text with an exact preimage and page check. OCR replacement has its own undo. Sending a page image does not itself run an OCR model: ChatGPT can inspect the returned image and propose or supply a transcription using the tools available in that conversation. Review Hebrew, column order, and uncertain readings against the scan.
+
+Every remote operation returns a job identifier. The client must call `studio_get_job` and inspect its completed result before reporting success. Export preparation opens the relevant app controls and returns `prepared_requires_user_save`; it does not claim that a Word or PDF file was downloaded. Upload files and complete downloads through the browser UI.
+
+This authentication authorizes a particular open workspace, not a GitHub account identity. Browser credentials remain in memory. Requested text, page images, commands, and receipts pass through the existing Cloudflare Worker; completed payloads expire after fifteen minutes, and disconnect or session expiry removes the session's data. No complete manuscript is uploaded automatically. The public research server cannot access a paired private manuscript. A closed, expired, or offline tab cannot accept new commands.
+
+The standard MCP endpoint works independently of experimental browser-native WebMCP. The app also registers its bounded tools when the browser supports WebMCP and the user has connected the tab.
+
 ## OCR
 
 Open a PDF in **PDF, OCR & PDF Footnotes**, select a page and language, and click **Run OCR**.

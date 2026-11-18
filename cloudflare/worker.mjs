@@ -2,6 +2,8 @@
 // The searchable texts remain published by GitHub Pages (same content as the reader).
 import mcp from './mcp.mjs';
 import ocr from './ocr.mjs';
+import studio from './studio.mjs';
+export { SeferStudioSession } from './studio.mjs';
 
 async function health(env) {
   const origin = String(env.MCP_SITE_ORIGIN || '').replace(/\/+$/, '');
@@ -82,6 +84,7 @@ const RELEASE = 'https://github.com/akivagutnicki-crypto/akiva-publishing-kisvei
 export default {
   async fetch(request, env, context) {
     const pathname = new URL(request.url).pathname;
+    if (pathname === '/studio-mcp' || pathname === '/studio-mcp/' || pathname.startsWith('/studio-api/') || pathname.startsWith('/studio-oauth/') || pathname === '/.well-known/oauth-protected-resource/studio-mcp' || pathname === '/.well-known/oauth-authorization-server/studio-oauth') return studio(request, env);
     if (pathname === '/sefer-studio-api/ocr') return ocr.fetch(request, env);
     if (pathname === '/health' && request.method === 'GET') return health(env);
     if (pathname === '/ask' || pathname === '/ask/') return ask(request, env);

@@ -11,8 +11,13 @@
   "assets": { "directory": "./site", "binding": "ASSETS", "html_handling": "auto-trailing-slash", "not_found_handling": "none" },
   // Cloudflare Workers AI, for /ask (short written answers in the reader's Mafteach search)
   "ai": { "binding": "AI" },
+  "durable_objects": { "bindings": [{ "name": "STUDIO_SESSIONS", "class_name": "SeferStudioSession" }] },
+  "migrations": [{ "tag": "sefer-studio-session-v1", "new_sqlite_classes": ["SeferStudioSession"] }],
   // OCR-only approximate allowance per Cloudflare location; no caller-controlled key.
-  "ratelimits": [{ "name": "OCR_RATE_LIMITER", "namespace_id": "76118001", "simple": { "limit": 5, "period": 60 } }],
+  "ratelimits": [
+    { "name": "OCR_RATE_LIMITER", "namespace_id": "76118001", "simple": { "limit": 5, "period": 60 } },
+    { "name": "STUDIO_RATE_LIMITER", "namespace_id": "76118002", "simple": { "limit": 20, "period": 60 } }
+  ],
   // Workers Paid: a library-wide search reads one index file per book and field (over 50 subrequests)
   "limits": { "subrequests": 10000 },
   "vars": {

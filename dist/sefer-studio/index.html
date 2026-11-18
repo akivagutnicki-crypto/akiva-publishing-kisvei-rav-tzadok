@@ -149,6 +149,7 @@
       <button type="button" id="btn-make-nicer" class="px-2.5 py-1 rounded bg-fuchsia-600 hover:bg-fuchsia-500 text-white font-semibold text-xs flex items-center gap-1 shadow-xs" title="1-Click Auto-Beautify Typography, Margins &amp; Palette"><i data-lucide="wand-sparkles" class="w-3.5 h-3.5"></i><span class="hidden md:inline">Make Nicer</span></button>
       <button type="button" id="btn-open-extensions" class="px-2.5 py-1 rounded bg-violet-600 hover:bg-violet-500 text-white font-semibold text-xs flex items-center gap-1 shadow-xs" title="Add Extensions &amp; Ask Claude / ChatGPT / Gemini"><i data-lucide="blocks" class="w-3.5 h-3.5"></i><span>Extensions</span></button>
       <button type="button" id="btn-open-mcp-hub" class="px-2.5 py-1 rounded bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs flex items-center gap-1 shadow-xs" title="Model Context Protocol (MCP) Client &amp; Built-in Server"><i data-lucide="plug-zap" class="w-3.5 h-3.5"></i><span>MCP Hub</span></button>
+      <button type="button" id="btn-open-studio-bridge" class="px-2.5 py-1 rounded bg-emerald-700 hover:bg-emerald-600 text-white font-semibold text-xs flex items-center gap-1 shadow-xs" title="Connect ChatGPT to this open manuscript"><i data-lucide="link" class="w-3.5 h-3.5"></i><span>ChatGPT Connection</span></button>
       <button type="button" id="btn-pwa-install" class="px-2.5 py-1 rounded bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs flex items-center gap-1 shadow-xs" title="Install PWA on Chromebook, Android, or Desktop"><i data-lucide="download" class="w-3.5 h-3.5"></i><span class="hidden sm:inline">PWA / Android</span></button>
       <button type="button" id="btn-toggle-ai-drawer" class="px-2.5 py-1 rounded bg-gradient-to-r from-amber-400 to-orange-400 text-slate-950 font-semibold text-xs flex items-center gap-1 shadow-xs hover:brightness-105">
         <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
@@ -1056,6 +1057,7 @@
       // The preview is a subset of Word's document model, so rebuilding an unchanged
       // manuscript would otherwise discard unsupported layout and package metadata.
       let originalDocxSaveState = null;
+      let studioBridgeRevision = 0;
       function editableDocxSaveSignature() {
         return JSON.stringify({
           paragraphs: docState.paragraphs,
@@ -2096,6 +2098,7 @@
       }
 
       function rebuildDocumentLayout() {
+        studioBridgeRevision++;
         const ps = docState.pageSetup;
         layoutDefaultFont = resolveFontFamily();
         const sections = docState.sectionLayouts || [];
@@ -2434,6 +2437,49 @@
         return html;
       }
 
+      // Derive the displayed TOC page reference from the current browser layout.
+      // Source paragraphs, runs, page atoms, bookmarks, and the original DOCX stay
+      // unchanged. The TOC's flex layout owns the displayed page-number column.
+      function resolveTocPageAtoms(atoms, bookmarkPageMap, pages) {
+        const original = {atoms, status: 'unresolved', anchor: null, sourceLabel: null, pageLabel: null};
+        let tabIndex = -1;
+        for (let i = 0; i < atoms.length; i++) if (atoms[i].kind === 'tab') tabIndex = i;
+        if (tabIndex < 0) return original;
+        const tail = atoms.slice(tabIndex + 1);
+        if (!tail.length || tail.some((atom) => atom.kind !== 'word')) return original;
+        const sourceText = tail.map((atom) => String(atom.text || '')).join('');
+        const sourceLabel = sourceText.trim();
+        // Only replace a recognizable page field; other trailing text is authored
+        // content and must never be interpreted as a page number.
+        if (!/^(?:[0-9]+|[ivxlcdm]+)$/i.test(sourceLabel)) return {...original, sourceLabel};
+        const anchors = [...new Set(atoms.map((atom) => atom.run && atom.run.anchor).filter((anchor) => typeof anchor === 'string' && anchor))];
+        if (anchors.length !== 1) return {...original, sourceLabel};
+        const anchor = anchors[0];
+        if (!bookmarkPageMap || !Object.prototype.hasOwnProperty.call(bookmarkPageMap, anchor)) return {...original, anchor, sourceLabel};
+        const oneBased = bookmarkPageMap[anchor];
+        if (!Number.isInteger(oneBased) || oneBased < 1 || oneBased > pages.length) return {...original, anchor, sourceLabel};
+        const target = pages[oneBased - 1];
+        const pageLabel = target && String(target.displayPageNum ?? '');
+        if (!/^(?:[0-9]+|[ivxlcdm]+)$/i.test(pageLabel)) return {...original, anchor, sourceLabel};
+        const template = tail.find((atom) => String(atom.text || '').trim());
+        const leading = (sourceText.match(/^\s*/) || [''])[0];
+        const trailing = (sourceText.match(/\s*$/) || [''])[0];
+        const pageAtom = {...template, text: leading + pageLabel + trailing, isSpace: false, run: {...(template.run || {})}};
+        return {atoms: [...atoms.slice(0, tabIndex + 1), pageAtom], status: sourceLabel === pageLabel ? 'current' : 'updated', anchor, sourceLabel, pageLabel};
+      }
+
+      function getTocPaginationStatus() {
+        const counts = {rows: 0, updated: 0, unresolved: 0};
+        for (const page of docState.pages) for (const slice of page.slices) {
+          if (slice.style !== 'BookContents' || !slice.atoms.some((atom) => atom.kind === 'tab')) continue;
+          const resolved = resolveTocPageAtoms(slice.atoms, docState.bookmarkPageMap, docState.pages);
+          counts.rows++;
+          if (resolved.status === 'updated') counts.updated++;
+          if (resolved.status === 'unresolved') counts.unresolved++;
+        }
+        return counts;
+      }
+
       function buildPageSheetHtml(pg, scale, editable) {
         const fnSizePt = docState.footnoteConfig.fontSizePt || 8.5;
         const ruleCls = docState.footnoteConfig.ruleStyle === 'full' ? 'full' : 'short';
@@ -2461,7 +2507,8 @@
           const dirAttr = sl.rtlPara ? ' dir="rtl"' : ' dir="ltr"';
           const tblCss = sl.isTableRow ? 'border:1px solid #cbd5e1;padding:4px 8px;background:#f8fafc;' : '';
           const imgBlock = (sl.isEnd && srcPara.embeddedImg) ? `<div class="my-2 flex justify-center"><img src="${srcPara.embeddedImg}" alt="Embedded Visual" class="max-w-full h-auto max-h-64 rounded shadow-xs" /></div>` : '';
-          const inner = renderAtomsHtml(sl.atoms, basePt, st) + (docState.ui.showFormattingMarks && sl.isEnd ? '<span class="ws-fmt-mark">¶</span>' : '') + imgBlock;
+          const tocReference = isToc ? resolveTocPageAtoms(sl.atoms, docState.bookmarkPageMap, docState.pages) : null;
+          const inner = renderAtomsHtml(tocReference ? tocReference.atoms : sl.atoms, basePt, st) + (docState.ui.showFormattingMarks && sl.isEnd ? '<span class="ws-fmt-mark">¶</span>' : '') + imgBlock;
           const hasLinkedNotes = (srcPara.runs || []).some((run) => run.type === 'fnRef');
           const ceAttr = editable && sl.isStart && sl.isEnd && !isToc && !hasLinkedNotes && !sl.isTableRow ? ' contenteditable="true" spellcheck="false"' : '';
           const editHint = editable && hasLinkedNotes ? ' title="Footnote-linked paragraphs are read-only in this preview to keep note anchors in place."' : editable && !(sl.isStart && sl.isEnd) ? ' title="This paragraph continues across pages. Use Word to edit it while preserving the full paragraph."' : '';
@@ -2472,7 +2519,8 @@
             // Find anchor if any
             const ancAtom = sl.atoms.find((x) => x.run && x.run.anchor);
             const ancAttr = ancAtom ? ` data-anchor-jump="${escapeHtml(ancAtom.run.anchor)}"` : '';
-            bodyHtml += `<div class="ws-para-slice ws-toc-row"${ancAttr} style="${paragraphCss}">${inner}</div>`;
+            const tocAttr = ` data-toc-status="${tocReference.status}"${tocReference.pageLabel ? ` data-toc-page="${escapeHtml(tocReference.pageLabel)}"` : ''}`;
+            bodyHtml += `<div class="ws-para-slice ws-toc-row"${ancAttr}${tocAttr} style="${paragraphCss}">${inner}</div>`;
           } else {
             bodyHtml += `<div class="ws-para-slice${contCls}" data-para-idx="${sl.paraIdx}"${ceAttr}${editHint}${dirAttr} style="${paragraphCss}text-align:${alignCss};${tblCss}">${inner}</div>`;
           }
@@ -3593,6 +3641,7 @@
 
       function openConvertPdfModal() {
         const totalP = docState.pages.length;
+        const tocStatus = getTocPaginationStatus();
         const wIn = ((docState.pages[0] || {}).pageW / DPI || docState.pageSetup.widthIn).toFixed(2);
         const hIn = ((docState.pages[0] || {}).pageH / DPI || docState.pageSetup.heightIn).toFixed(2);
         const hasDesktopNative = !!(window.wordStudioDesktop && typeof window.wordStudioDesktop.exportPdfNative === 'function');
@@ -3636,8 +3685,9 @@
                 : '<strong>Browser PDF:</strong> Choose <strong>Save as PDF</strong>, <strong>100% scale</strong>, and <strong>no added margins</strong>. Turn off browser <strong>headers and footers</strong>. Paper sizes come from the manuscript. The HTML proof also includes its embedded fonts.'}
             </div>
 
+            <p class="text-xs text-slate-600">This proof uses the browser’s pagination, which may differ from Word. Review page breaks and contents references before publication.${tocStatus.rows ? ` ${tocStatus.rows - tocStatus.unresolved} linked contents references use this preview’s page numbers.` : ''}${tocStatus.unresolved ? ` ${tocStatus.unresolved} contents references could not be recalculated and need manual checking.` : ''}</p>
             <div class="flex flex-wrap justify-end gap-2 pt-1">
-              <button type="button" id="btn-export-print-html" class="px-3 py-1.5 rounded border border-slate-300 hover:bg-slate-100 font-medium">Download Print-Ready Proof (.html)</button>
+              <button type="button" id="btn-export-print-html" class="px-3 py-1.5 rounded border border-slate-300 hover:bg-slate-100 font-medium">Download Print Proof (.html)</button>
               <button type="button" id="btn-run-pdf-convert" class="px-4 py-1.5 rounded bg-[#185abd] hover:bg-[#103f91] text-white font-semibold flex items-center gap-1.5">
                 <i data-lucide="file-down" class="w-3.5 h-3.5"></i>
                 <span>${hasDesktopNative ? 'Save Native PDF Now' : 'Print / Save as PDF'}</span>
@@ -3778,7 +3828,7 @@
             const proofCss = `${styleText}\n${embeddedFonts}\n${pageCss}\n${bookFont ? ':root{--book-font:' + bookFont + ';}' : ''}\nhtml,body{overflow:visible!important;height:auto!important;min-height:0!important;background:#cbd5e1;padding:16px 0;}#print-export-mount{display:block!important}.ws-page-sheet{margin:0 auto 18px auto;}#print-proof-controls{max-width:760px;margin:0 auto 16px;padding:12px;background:white;font:14px/1.5 sans-serif;}#print-proof-controls button{padding:6px 12px;border:1px solid #94a3b8;border-radius:4px;cursor:pointer;}@media print{html,body{background:#fff!important;padding:0!important;}#print-proof-controls{display:none!important}}`;
             const requestsJson = JSON.stringify(fontRequests).replace(/</g, '\\u003c');
             const proofScript = `const printButton=document.getElementById('print-proof-button');async function printProof(){printButton.disabled=true;try{if(document.fonts){await Promise.all(${requestsJson}.map(font=>document.fonts.load(font,'Aaאבגָ')));await document.fonts.ready;}await new Promise(resolve=>requestAnimationFrame(()=>requestAnimationFrame(resolve)));document.getElementById('print-proof-status').textContent='Ready. Choose Save as PDF, scale 100%, no margins, and turn off browser headers and footers.';window.print();}catch(error){document.getElementById('print-proof-status').textContent='A font could not be loaded: '+error.message+'. Reconnect and try Print again.';}finally{printButton.disabled=false;}}printButton.addEventListener('click',printProof);window.addEventListener('load',printProof);`;
-            const fullHtml = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escapeHtml(docState.title)} — Print Proof</title>${fontLinks}<style>${proofCss.replace(/<\/style/gi, '<\\/style')}</style></head><body class="ws-document-print"><div id="print-proof-controls"><button id="print-proof-button" type="button">Print / Save as PDF</button><p id="print-proof-status">Loading fonts for ${pages.length} pages…</p></div><div id="print-export-mount">${pageHtml}</div><script>${proofScript}<\/script><\/body><\/html>`;
+            const fullHtml = `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>${escapeHtml(docState.title)} — Print Proof</title>${fontLinks}<style>${proofCss.replace(/<\/style/gi, '<\\/style')}</style></head><body class="ws-document-print"><div id="print-proof-controls"><button id="print-proof-button" type="button">Print / Save as PDF</button><p id="print-proof-status">Loading fonts for ${pages.length} pages…</p><p>This proof uses the browser’s pagination, which may differ from Word. Linked contents references use the preview’s page numbers where the bookmark can be resolved. Review the proof before publication.</p></div><div id="print-export-mount">${pageHtml}</div><script>${proofScript}<\/script><\/body><\/html>`;
             const blob = new Blob([fullHtml], {type: 'text/html;charset=utf-8'});
             const link = document.createElement('a');
             const url = URL.createObjectURL(blob);
@@ -3990,6 +4040,7 @@
         // Title input
         document.getElementById('doc-title-input').addEventListener('input', (e) => {
           docState.title = e.target.value || 'Untitled';
+          studioBridgeRevision++;
         });
 
         // Ribbon tabs
@@ -4560,6 +4611,260 @@
         renderStagesVirtual(true);
       }
 
+      // BEGIN STUDIO DOCUMENT BRIDGE
+      // A bounded, versioned interface shared by the authenticated remote bridge
+      // and optional browser-native WebMCP. It never serializes the entire book.
+      let studioBridgeIdentity = { id: crypto.randomUUID(), source: docState.rawZipBuffer, paragraphs: docState.paragraphs };
+      let studioBridgeUndo = [];
+      let studioBridgeSourceCache = null;
+      let studioBridgeMutationBusy = false;
+      function bridgeError(code, message) { const error = new Error(message); error.code = code; return error; }
+      function bridgeInteger(value, name, min, max) {
+        if (!Number.isInteger(value) || value < min || value > max) throw bridgeError('invalid_arguments', name + ' is outside its allowed range.');
+        return value;
+      }
+      function bridgeString(value, name, min = 0, max = 10000) {
+        if (typeof value !== 'string' || value.length < min || value.length > max || /[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/.test(value)) throw bridgeError('invalid_arguments', name + ' is not valid text.');
+        return value;
+      }
+      function bridgeSyncIdentity() {
+        if (studioBridgeIdentity.source !== docState.rawZipBuffer || studioBridgeIdentity.paragraphs !== docState.paragraphs) {
+          studioBridgeIdentity = { id: crypto.randomUUID(), source: docState.rawZipBuffer, paragraphs: docState.paragraphs };
+          studioBridgeUndo = [];
+          studioBridgeSourceCache = null;
+          studioBridgeRevision++;
+        }
+      }
+      function bridgeCommitFocusedEditor() {
+        const focused = document.activeElement;
+        if (focused && focused.isContentEditable && focused.closest('#pages-stage')) focused.blur();
+        bridgeSyncIdentity();
+      }
+      function bridgeRequireReady() {
+        const loading = document.getElementById('loading-overlay');
+        if (loading && !loading.classList.contains('hidden')) throw bridgeError('document_busy', 'The document is still loading or preparing an export. Try again when it is ready.');
+      }
+      function bridgePageForParagraph(index) {
+        const page = docState.pages.find(pg => pg.slices.some(slice => slice.paraIdx === index));
+        return page ? page.pageIndex + 1 : null;
+      }
+      function bridgeStatus() {
+        bridgeSyncIdentity();
+        const undo = studioBridgeUndo[studioBridgeUndo.length - 1];
+        return {
+          documentId: studioBridgeIdentity.id, revision: String(studioBridgeRevision), title: docState.title,
+          fileName: docState.fileName, paragraphCount: docState.paragraphs.length, pageCount: docState.pages.length,
+          footnoteCount: Object.keys(docState.footnotes).length, words: docState.stats.words,
+          trimInches: { width: docState.pageSetup.widthIn, height: docState.pageSetup.heightIn },
+          importedWordFile: !!docState.rawZipBuffer, previewPaginationRequiresReview: true,
+          undoId: undo && undo.afterRevision === String(studioBridgeRevision) ? undo.id : null,
+          pdf: window.PdfStudioAPI && window.PdfStudioAPI.getBridgeInfo ? window.PdfStudioAPI.getBridgeInfo() : null
+        };
+      }
+      function bridgeRequireVersion(args) {
+        bridgeSyncIdentity();
+        if (args.documentId !== studioBridgeIdentity.id) throw bridgeError('document_changed', 'A different document is now open. Read its state before editing.');
+        if (args.expectedRevision !== String(studioBridgeRevision)) throw bridgeError('revision_conflict', 'The document changed after it was read. Read the target again before editing.');
+      }
+      function bridgeRequireWrite(context) {
+        if (!context || typeof context.isAuthorized !== 'function' || !context.isAuthorized()) throw bridgeError('editing_not_allowed', 'This tab has not enabled edits for this connection.');
+      }
+      function bridgeReadRuns(runs, budget) {
+        const selected = runs.slice(0, Math.max(0, budget.runsRemaining));
+        budget.runsRemaining -= selected.length;
+        return selected.map((run, runIndex) => {
+          const entry = { runIndex, type: run.type };
+          if (run.type === 'text') {
+            const text = String(run.text || '');
+            entry.text = text.slice(0, Math.max(0, budget.remaining));
+            entry.characterCount = text.length;
+            entry.truncated = entry.text.length !== text.length;
+            budget.remaining -= entry.text.length;
+            if (run.b) entry.bold = true;
+            if (run.i) entry.italic = true;
+            if (run.rtl) entry.rtl = true;
+          } else if (run.type === 'fnRef') entry.footnoteId = String(run.fnId);
+          return entry;
+        });
+      }
+      async function bridgeOriginalSource() {
+        if (!docState.rawZipBuffer) return null;
+        if (!studioBridgeSourceCache || studioBridgeSourceCache.buffer !== docState.rawZipBuffer) {
+          const buffer = docState.rawZipBuffer;
+          studioBridgeSourceCache = { buffer, promise: (async () => {
+            const zip = await JSZip.loadAsync(buffer);
+            const parser = new DOMParser();
+            const parse = async path => {
+              const file = zip.file(path);
+              if (!file) return null;
+              const xml = parser.parseFromString(await file.async('string'), 'application/xml');
+              if (xml.getElementsByTagName('parsererror').length) throw bridgeError('unsupported_source', 'The original Word XML could not be read safely.');
+              return xml;
+            };
+            const [body, notes] = await Promise.all([parse('word/document.xml'), parse('word/footnotes.xml')]);
+            return { body, notes };
+          })() };
+        }
+        return studioBridgeSourceCache.promise;
+      }
+      async function bridgeCheckSourceParagraph(paragraphIndex, footnoteId) {
+        const source = await bridgeOriginalSource();
+        if (!source) return;
+        let paragraph;
+        if (footnoteId !== undefined) {
+          const note = source.notes && Array.from(source.notes.getElementsByTagNameNS('*', 'footnote')).find(el => getAttr(el, 'id') === footnoteId);
+          if (!note || Array.from(note.children).some(el => el.localName !== 'p')) throw bridgeError('unsupported_source', 'This footnote contains an unsupported Word object. Edit it in Word to preserve its layout.');
+          paragraph = Array.from(note.children)[paragraphIndex];
+        } else {
+          const model = docState.paragraphs[paragraphIndex];
+          if (model.isTableRow || model.embeddedImg) throw bridgeError('unsupported_source', 'This paragraph contains a table or image that cannot be safely rewritten.');
+          const body = source.body && source.body.getElementsByTagNameNS('*', 'body')[0];
+          paragraph = body && Array.from(body.children)[model.sourceBodyIndex];
+        }
+        if (!paragraph || paragraph.localName !== 'p') throw bridgeError('unsupported_source', 'The paragraph could not be matched to the original Word file.');
+        const unsupported = ['drawing','pict','object','fldSimple','fldChar','instrText','sdt','ins','del','delText','oMath','oMathPara','customXml','commentReference','endnoteReference','sym','AlternateContent'];
+        if (unsupported.some(tag => paragraph.getElementsByTagNameNS('*', tag).length)) throw bridgeError('unsupported_source', 'This paragraph contains a field, revision, image, equation or other Word object. Edit it in Word to preserve it.');
+        const allowedChildren = new Set(['pPr','r','hyperlink','bookmarkStart','bookmarkEnd','commentRangeStart','commentRangeEnd','permStart','permEnd']);
+        if (Array.from(paragraph.children).some(el => !allowedChildren.has(el.localName))) throw bridgeError('unsupported_source', 'This paragraph contains an unsupported Word structure.');
+      }
+      function bridgeTargetRun(args, footnote) {
+        const index = bridgeInteger(args.paragraphIndex, 'paragraphIndex', 0, 1000000);
+        let runs;
+        if (footnote) {
+          const id = bridgeString(args.footnoteId, 'footnoteId', 1, 100);
+          if (!Object.prototype.hasOwnProperty.call(docState.footnotes, id)) throw bridgeError('target_missing', 'That footnote is not in the current document.');
+          runs = docState.footnotes[id][index];
+        } else {
+          const paragraph = docState.paragraphs[index];
+          if (paragraph && (paragraph.isTableRow || paragraph.embeddedImg)) throw bridgeError('unsupported_source', 'This paragraph contains a table or image.');
+          runs = paragraph && paragraph.runs;
+        }
+        const runIndex = bridgeInteger(args.runIndex, 'runIndex', 0, 1000000);
+        const run = runs && runs[runIndex];
+        if (!run || run.type !== 'text') throw bridgeError('target_missing', 'That text run is unavailable. Read the paragraph or footnote again.');
+        return run;
+      }
+      async function bridgeReplaceRun(args, footnote, context) {
+        bridgeRequireWrite(context);
+        bridgeRequireVersion(args);
+        const before = bridgeString(args.expectedText, 'expectedText');
+        const after = bridgeString(args.replacementText, 'replacementText');
+        const run = bridgeTargetRun(args, footnote);
+        if (run.text !== before) throw bridgeError('text_conflict', 'The target text does not exactly match. Read it again before replacing it.');
+        await bridgeCheckSourceParagraph(args.paragraphIndex, footnote ? args.footnoteId : undefined);
+        bridgeRequireWrite(context);
+        bridgeRequireVersion(args);
+        if (bridgeTargetRun(args, footnote) !== run || run.text !== before) throw bridgeError('text_conflict', 'The target changed while its Word source was checked.');
+        if (before === after) return { status: 'unchanged', ...bridgeStatus() };
+        const previous = studioBridgeUndo[studioBridgeUndo.length - 1];
+        if (previous && previous.afterRevision !== String(studioBridgeRevision)) studioBridgeUndo = [];
+        run.text = after;
+        try { rebuildDocumentLayout(); }
+        catch (error) { run.text = before; rebuildDocumentLayout(); throw error; }
+        const change = { id: crypto.randomUUID(), footnote, paragraphIndex: args.paragraphIndex, runIndex: args.runIndex, footnoteId: args.footnoteId, before, after, afterRevision: String(studioBridgeRevision) };
+        studioBridgeUndo.push(change);
+        if (studioBridgeUndo.length > 20) studioBridgeUndo.shift();
+        showToast('ChatGPT updated ' + (footnote ? 'a footnote' : 'one paragraph') + '. Undo is available in ChatGPT Connection.');
+        return { status: 'applied', preservedFormatting: true, ...bridgeStatus() };
+      }
+      function bridgeUndoChange(args, context) {
+        bridgeRequireWrite(context);
+        bridgeRequireVersion(args);
+        const change = studioBridgeUndo[studioBridgeUndo.length - 1];
+        if (!change || args.undoId !== change.id || change.afterRevision !== String(studioBridgeRevision)) throw bridgeError('undo_conflict', 'That change can no longer be safely undone. Read the current document first.');
+        const run = bridgeTargetRun(change, change.footnote);
+        if (run.text !== change.after) throw bridgeError('text_conflict', 'The text changed after the ChatGPT edit.');
+        run.text = change.before;
+        try { rebuildDocumentLayout(); }
+        catch (error) { run.text = change.after; rebuildDocumentLayout(); change.afterRevision = String(studioBridgeRevision); throw error; }
+        studioBridgeUndo.pop();
+        const previous = studioBridgeUndo[studioBridgeUndo.length - 1];
+        if (previous) previous.afterRevision = String(studioBridgeRevision);
+        showToast('Undid the last ChatGPT edit.');
+        return { status: 'undone', ...bridgeStatus() };
+      }
+      async function invokeStudioDocumentTool(name, args = {}, context = {}) {
+        bridgeCommitFocusedEditor();
+        bridgeRequireReady();
+        if (!args || typeof args !== 'object' || Array.isArray(args)) throw bridgeError('invalid_arguments', 'Tool arguments must be an object.');
+        const mutation = ['studio_replace_text','studio_update_footnote','studio_undo'].includes(name);
+        if (mutation && studioBridgeMutationBusy) throw bridgeError('document_busy', 'Another edit is being checked. Try again after it finishes.');
+        if (mutation) studioBridgeMutationBusy = true;
+        try {
+          if (name === 'studio_get_state') return bridgeStatus();
+          if (name === 'studio_read_paragraphs') {
+            const start = bridgeInteger(args.start === undefined ? 0 : args.start, 'start', 0, docState.paragraphs.length);
+            const count = bridgeInteger(args.count === undefined ? 10 : args.count, 'count', 1, 30);
+            const budget = { remaining: 30000, runsRemaining: 300 };
+            const paragraphs = docState.paragraphs.slice(start, start + count).map((p, offset) => { const runs = bridgeReadRuns(p.runs, budget); return { paragraphIndex: start + offset, page: bridgePageForParagraph(start + offset), style: p.style || 'Normal', runCount: p.runs.length, runsTruncated: runs.length !== p.runs.length, runs }; });
+            return { documentId: studioBridgeIdentity.id, revision: String(studioBridgeRevision), start, returned: paragraphs.length, nextStart: start + paragraphs.length < docState.paragraphs.length ? start + paragraphs.length : null, paragraphs, textBudget: 30000 };
+          }
+          if (name === 'studio_read_footnotes') {
+            if (!Array.isArray(args.ids) || args.ids.length < 1 || args.ids.length > 10) throw bridgeError('invalid_arguments', 'Provide between one and ten footnote IDs.');
+            const budget = { remaining: 30000, runsRemaining: 300 };
+            const footnotes = args.ids.map(id => {
+              bridgeString(id, 'footnoteId', 1, 100);
+              if (!Object.prototype.hasOwnProperty.call(docState.footnotes, id)) return { footnoteId: id, missing: true };
+              return { footnoteId: id, paragraphCount: docState.footnotes[id].length, paragraphsTruncated: docState.footnotes[id].length > 30, paragraphs: docState.footnotes[id].slice(0, 30).map((sourceRuns, paragraphIndex) => { const runs = bridgeReadRuns(sourceRuns, budget); return { paragraphIndex, runCount: sourceRuns.length, runsTruncated: runs.length !== sourceRuns.length, runs }; }) };
+            });
+            return { documentId: studioBridgeIdentity.id, revision: String(studioBridgeRevision), footnotes, textBudget: 30000 };
+          }
+          if (name === 'studio_search') {
+            const query = bridgeString(args.query, 'query', 1, 200);
+            const limit = bridgeInteger(args.limit === undefined ? 20 : args.limit, 'limit', 1, 30);
+            if (args.ignoreNikkud !== undefined && typeof args.ignoreNikkud !== 'boolean') throw bridgeError('invalid_arguments', 'ignoreNikkud must be true or false.');
+            const normalize = value => (args.ignoreNikkud === false ? value : stripNikkud(value)).toLocaleLowerCase();
+            const needle = normalize(query);
+            if (!needle.trim()) throw bridgeError('invalid_arguments', 'The query must contain searchable text.');
+            const matches = [];
+            let totalMatches = 0;
+            docState.paragraphs.forEach((p, paragraphIndex) => {
+              const text = getParagraphPlainText(p);
+              const position = normalize(text).indexOf(needle);
+              if (position < 0) return;
+              totalMatches++;
+              if (matches.length < limit) matches.push({ paragraphIndex, page: bridgePageForParagraph(paragraphIndex), snippet: text.slice(Math.max(0, position - 80), position + 240) });
+            });
+            return { documentId: studioBridgeIdentity.id, revision: String(studioBridgeRevision), matches, totalMatchingParagraphs: totalMatches, truncated: matches.length < totalMatches };
+          }
+          if (name === 'studio_replace_text') return await bridgeReplaceRun(args, false, context);
+          if (name === 'studio_update_footnote') return await bridgeReplaceRun(args, true, context);
+          if (name === 'studio_undo') return bridgeUndoChange(args, context);
+          if (name === 'studio_navigate') {
+            const targets = ['page','paragraphIndex','footnoteId'].filter(key => args[key] !== undefined);
+            if (targets.length !== 1) throw bridgeError('invalid_arguments', 'Choose exactly one page, paragraphIndex or footnoteId.');
+            let page;
+            if (targets[0] === 'page') page = bridgeInteger(args.page, 'page', 1, docState.pages.length);
+            else if (targets[0] === 'paragraphIndex') {
+              const index = bridgeInteger(args.paragraphIndex, 'paragraphIndex', 0, docState.paragraphs.length - 1);
+              page = bridgePageForParagraph(index);
+              docState.ui.activeParaIdx = index;
+            } else {
+              const id = bridgeString(args.footnoteId, 'footnoteId', 1, 100);
+              if (!Object.prototype.hasOwnProperty.call(docState.footnotes, id)) throw bridgeError('target_missing', 'That footnote is not in the current document.');
+              const found = docState.pages.find(pg => pg.footnotes.some(note => note.fnId === id));
+              page = found ? found.pageIndex + 1 : null;
+            }
+            if (!page) throw bridgeError('target_missing', 'That target has no page in the current preview.');
+            window.SuiteUI.switchWorkspace('word');
+            scrollToPage(page);
+            if (args.footnoteId !== undefined) jumpToFootnoteOnCanvas(args.footnoteId, true);
+            return { status: 'navigated', page, documentId: studioBridgeIdentity.id, revision: String(studioBridgeRevision) };
+          }
+          if (name === 'studio_prepare_export') {
+            const format = args.format === undefined ? 'pdf' : args.format;
+            if (!['docx','pdf','html'].includes(format)) throw bridgeError('invalid_arguments', 'Choose docx, pdf or html.');
+            window.SuiteUI.switchWorkspace('word');
+            if (format === 'docx') openModal('Save the Current Word Document', '<p class="text-sm text-slate-700 mb-3">Save the current manuscript as a Word file. Imported documents retain their source package where supported.</p><button type="button" id="studio-bridge-save-docx" class="px-4 py-2 rounded bg-blue-700 text-white font-semibold">Save DOCX</button>', body => body.querySelector('#studio-bridge-save-docx').addEventListener('click', () => { closeModal(); exportValidDocx(); }));
+            else openConvertPdfModal();
+            return { status: 'prepared_requires_user_save', format, pageCount: docState.pages.length, saved: false, message: format === 'pdf' ? 'The PDF preparation dialog is open. Use Print / Save as PDF and review the resulting pagination.' : format === 'html' ? 'The export dialog is open. Choose Download Print Proof (.html).' : 'The Word save dialog is open. Use Save DOCX to download the file.' };
+          }
+          throw bridgeError('unknown_tool', 'That operation is not available in this app connection.');
+        } finally { if (mutation) studioBridgeMutationBusy = false; }
+      }
+      window.WordStudioBridgeAPI = { invoke: invokeStudioDocumentTool };
+      // END STUDIO DOCUMENT BRIDGE
+
       // Expose global API for Desktop App preload bridge & Cross-Studio Hub
       window.WordStudioApp = {
         loadDocxArrayBuffer,
@@ -4684,12 +4989,18 @@
   async function loadPdfBytes(uint8Array, fileName, keepAnnotations) {
     if (!uint8Array) return;
     if (pdfState.visionOcrAbort) pdfState.visionOcrAbort.abort();
-    pdfState.pdfBytes = uint8Array instanceof Uint8Array ? uint8Array : new Uint8Array(uint8Array);
+    const loadBytes = uint8Array instanceof Uint8Array ? uint8Array : new Uint8Array(uint8Array);
+    pdfState.pdfBytes = loadBytes;
+    pdfState.pdfJsDocSource = null;
+    pdfState.pdfJsDoc = null;
+    pdfState.pageCount = 0;
     if (fileName) pdfState.fileName = fileName;
     if (!keepAnnotations) {
       pdfState.overlays = {};
       pdfState.pdfFootnotes = {};
       pdfState.ocrText = '';
+      pdfState.ocrSourcePage = null;
+      pdfState.ocrSourceEngine = null;
       const ocrOutput = document.getElementById('pdf-ocr-output');
       const ocrStatus = document.getElementById('pdf-ocr-status');
       const ocrReview = document.getElementById('pdf-ocr-review');
@@ -4706,7 +5017,9 @@
       pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
       const loadingTask = pdfjsLib.getDocument({ data: pdfState.pdfBytes.slice() });
       const pdf = await loadingTask.promise;
+      if (pdfState.pdfBytes !== loadBytes) return;
       pdfState.pdfJsDoc = pdf;
+      pdfState.pdfJsDocSource = loadBytes;
       pdfState.pageCount = pdf.numPages;
       pdfState.currentPage = Math.min(Math.max(1, pdfState.currentPage), pdf.numPages);
       renderPdfThumbnails();
@@ -5152,6 +5465,8 @@
       out.dir = language.includes('heb') ? 'rtl' : 'auto';
       out.value = text;
       pdfState.ocrText = text;
+      pdfState.ocrSourcePage = pageNumber;
+      pdfState.ocrSourceEngine = 'vision';
       const warnings = Array.isArray(data.warnings) ? data.warnings.filter(item => typeof item === 'string').slice(0, 10) : [];
       const uncertain = Array.isArray(data.uncertain) ? data.uncertain.filter(item => typeof item === 'string').slice(0, 30) : [];
       review.textContent = ['Compare the transcription with the scan before publishing.', ...warnings, ...uncertain.map(item => 'Check: ' + item)].join('\n');
@@ -5279,6 +5594,8 @@
       const finalText = ocrResultText || streamText;
       const words = finalText.split(/\s+/).filter(Boolean).length;
       pdfState.ocrText = finalText;
+      pdfState.ocrSourcePage = pageNumber;
+      pdfState.ocrSourceEngine = ocrResultText ? 'on-device' : 'existing-pdf-text';
       outArea.value = finalText;
       if (ocrResultText) {
         if (reviewPanel && recognizedData && Array.isArray(recognizedData.blocks) && ocrCanvas) {
@@ -5687,9 +6004,119 @@
     });
   }
 
+  // BEGIN STUDIO PDF BRIDGE
+  let pdfBridgeIdentity = { id: crypto.randomUUID(), source: null, page: 0, text: '' };
+  let pdfBridgeRevision = 0;
+  let pdfBridgeUndo = null;
+  function pdfBridgeError(code, message) { const error = new Error(message); error.code = code; return error; }
+  function pdfBridgeSync() {
+    const text = document.getElementById('pdf-ocr-output').value || '';
+    if (pdfBridgeIdentity.source !== pdfState.pdfBytes) {
+      pdfBridgeIdentity = { id: crypto.randomUUID(), source: pdfState.pdfBytes, page: pdfState.currentPage, text };
+      pdfBridgeUndo = null; pdfBridgeRevision++;
+    } else if (pdfBridgeIdentity.page !== pdfState.currentPage || pdfBridgeIdentity.text !== text) {
+      pdfBridgeIdentity.page = pdfState.currentPage; pdfBridgeIdentity.text = text; pdfBridgeRevision++;
+    }
+  }
+  function pdfBridgeStatus() {
+    pdfBridgeSync();
+    return { documentId: pdfBridgeIdentity.id, revision: String(pdfBridgeRevision), fileName: pdfState.fileName, pageCount: pdfState.pageCount, currentPage: pdfState.currentPage, ocrSourcePage: pdfState.ocrSourcePage || null, ocrSourceEngine: pdfState.ocrSourceEngine || null, ocrRunning: !!pdfState.ocrRunning, ocrCharacterCount: pdfBridgeIdentity.text.length, undoId: pdfBridgeUndo && pdfBridgeUndo.afterRevision === String(pdfBridgeRevision) ? pdfBridgeUndo.id : null };
+  }
+  function pdfBridgeVersion(args, context) {
+    pdfBridgeSync();
+    if (!context || !context.isAuthorized || !context.isAuthorized()) throw pdfBridgeError('editing_not_allowed', 'Editing is disabled for this connection.');
+    if (args.documentId !== pdfBridgeIdentity.id) throw pdfBridgeError('document_changed', 'A different PDF is now open.');
+    if (args.expectedRevision !== String(pdfBridgeRevision)) throw pdfBridgeError('revision_conflict', 'The PDF page or OCR text changed. Read it again before editing.');
+    if (pdfState.ocrRunning) throw pdfBridgeError('document_busy', 'Wait until the current OCR scan finishes.');
+  }
+  function pdfBridgeText(value, field) {
+    if (typeof value !== 'string' || value.length > 40000 || /[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/.test(value)) throw pdfBridgeError('invalid_arguments', field + ' must be text of at most 40,000 characters.');
+    return value;
+  }
+  function pdfBridgeClearReviewEvidence() {
+    for (const id of ['pdf-ocr-review','pdf-vision-review']) {
+      const panel = document.getElementById(id);
+      if (panel) panel.classList.add('hidden');
+    }
+    for (const id of ['pdf-ocr-review-list','pdf-vision-review']) {
+      const content = document.getElementById(id);
+      if (content) content.textContent = '';
+    }
+    const image = document.getElementById('pdf-ocr-review-image');
+    if (image) { image.classList.add('hidden'); image.removeAttribute('src'); }
+    document.getElementById('pdf-ocr-status').title = '';
+  }
+  async function invokePdfBridgeTool(name, args = {}, context = {}) {
+    if (!args || typeof args !== 'object' || Array.isArray(args)) throw pdfBridgeError('invalid_arguments', 'Tool arguments must be an object.');
+    pdfBridgeSync();
+    if (!pdfState.pdfBytes) throw pdfBridgeError('document_missing', 'Open a PDF in the app first.');
+    if (!pdfState.pdfJsDoc || pdfState.pdfJsDocSource !== pdfState.pdfBytes) throw pdfBridgeError('document_busy', 'The new PDF is still loading. Try again when its pages are ready.');
+    if (name === 'studio_get_pdf_state') return pdfBridgeStatus();
+    if (name === 'studio_get_ocr_text') return { ...pdfBridgeStatus(), text: pdfBridgeIdentity.text.slice(0, 40000), truncated: pdfBridgeIdentity.text.length > 40000, reviewRequired: true };
+    if (name === 'studio_get_pdf_page') {
+      if (args.documentId !== pdfBridgeIdentity.id) throw pdfBridgeError('document_changed', 'Read the current PDF state before requesting its page image.');
+      if (!Number.isInteger(args.page) || args.page < 1 || args.page > pdfState.pageCount) throw pdfBridgeError('invalid_arguments', 'Choose a page within the current PDF.');
+      const width = args.maxWidth === undefined ? 1400 : args.maxWidth;
+      if (!Number.isInteger(width) || width < 400 || width > 1600) throw pdfBridgeError('invalid_arguments', 'maxWidth must be between 400 and 1600 pixels.');
+      const source = pdfState.pdfJsDoc, bytes = pdfState.pdfBytes, id = pdfBridgeIdentity.id, selectedPage = pdfState.currentPage;
+      const isCurrent = () => source === pdfState.pdfJsDoc && bytes === pdfState.pdfBytes && bytes === pdfState.pdfJsDocSource && selectedPage === pdfState.currentPage && id === pdfBridgeIdentity.id && (!context.isActive || context.isActive());
+      const page = await source.getPage(args.page);
+      if (!isCurrent()) throw pdfBridgeError('document_changed', 'The PDF or connection changed while the image was prepared.');
+      const base = page.getViewport({ scale: 1 });
+      if (!(Number.isFinite(base.width) && Number.isFinite(base.height) && base.width > 0 && base.height > 0)) throw pdfBridgeError('invalid_page', 'The PDF page has invalid dimensions.');
+      const scale = Math.min(width / base.width, 2400 / base.height, Math.sqrt(3200000 / (base.width * base.height)));
+      const viewport = page.getViewport({ scale });
+      const canvas = document.createElement('canvas');
+      canvas.width = Math.max(1, Math.floor(viewport.width)); canvas.height = Math.max(1, Math.floor(viewport.height));
+      try {
+        const drawing = canvas.getContext('2d');
+        drawing.fillStyle = '#ffffff'; drawing.fillRect(0, 0, canvas.width, canvas.height);
+        await page.render({ canvasContext: drawing, viewport }).promise;
+        if (!isCurrent()) throw pdfBridgeError('document_changed', 'The PDF or connection changed while the image was rendered.');
+        let data = '';
+        for (const quality of [0.92, 0.8, 0.65, 0.5]) { data = canvas.toDataURL('image/jpeg', quality).split(',')[1] || ''; if (data.length <= 1398100) break; }
+        if (!data || data.length > 1398100) throw pdfBridgeError('image_too_large', 'This page image is too large. Request a smaller maxWidth.');
+        return { documentId: id, page: args.page, width: canvas.width, height: canvas.height, image: { mimeType: 'image/jpeg', data }, description: 'Original PDF page image for visual review; the image has not been transcribed.' };
+      } finally { canvas.width = canvas.height = 1; }
+    }
+    if (name === 'studio_set_ocr_text') {
+      pdfBridgeVersion(args, context);
+      if (args.page !== pdfState.currentPage) throw pdfBridgeError('page_changed', 'Select the intended PDF page before changing its OCR text.');
+      const before = pdfBridgeText(args.expectedText, 'expectedText');
+      const after = pdfBridgeText(args.replacementText, 'replacementText');
+      if (before !== pdfBridgeIdentity.text) throw pdfBridgeError('text_conflict', 'The OCR box no longer exactly matches the text that was read.');
+      if (before === after) return { status: 'unchanged', ...pdfBridgeStatus() };
+      const previous = { text: before, sourcePage: pdfState.ocrSourcePage, sourceEngine: pdfState.ocrSourceEngine };
+      document.getElementById('pdf-ocr-output').value = after; pdfState.ocrText = after;
+      pdfBridgeClearReviewEvidence();
+      pdfState.ocrSourcePage = args.page; pdfState.ocrSourceEngine = 'chatgpt-review';
+      pdfBridgeSync();
+      pdfBridgeUndo = { id: crypto.randomUUID(), before: previous, after, page: args.page, afterRevision: String(pdfBridgeRevision) };
+      document.getElementById('pdf-ocr-status').textContent = 'ChatGPT text loaded for Page ' + args.page + '. Compare it with the scan before publishing.';
+      return { status: 'applied', reviewRequired: true, ...pdfBridgeStatus() };
+    }
+    if (name === 'studio_undo_ocr') {
+      pdfBridgeVersion(args, context);
+      const change = pdfBridgeUndo;
+      if (!change || args.undoId !== change.id || change.afterRevision !== String(pdfBridgeRevision) || change.after !== pdfBridgeIdentity.text || change.page !== pdfState.currentPage) throw pdfBridgeError('undo_conflict', 'That OCR text edit can no longer be safely undone.');
+      document.getElementById('pdf-ocr-output').value = change.before.text; pdfState.ocrText = change.before.text;
+      pdfBridgeClearReviewEvidence();
+      pdfState.ocrSourcePage = change.before.sourcePage; pdfState.ocrSourceEngine = change.before.sourceEngine;
+      pdfBridgeUndo = null; pdfBridgeSync();
+      document.getElementById('pdf-ocr-status').textContent = 'Undid the ChatGPT OCR text edit. Review the restored text against its source page.';
+      return { status: 'undone', ...pdfBridgeStatus() };
+    }
+    throw pdfBridgeError('unknown_tool', 'That PDF operation is unavailable.');
+  }
+  // END STUDIO PDF BRIDGE
+
   window.PdfStudioAPI = {
     init: initPdfStudio,
     loadPdfBytes,
+    getBridgeInfo() {
+      return { fileName: pdfState.fileName, pageCount: pdfState.pageCount, currentPage: pdfState.currentPage, ocrRunning: !!pdfState.ocrRunning, ocrCharacterCount: (document.getElementById('pdf-ocr-output').value || '').length };
+    },
+    invokeBridge: invokePdfBridgeTool,
     stampDataUrlOnCurrentPage(dataUrl) {
       const p = pdfState.currentPage || 1;
       if (!pdfState.overlays[p]) pdfState.overlays[p] = [];
@@ -6973,6 +7400,30 @@
     return [...LOCAL_MCP_TOOLS, ...mcpState.remoteTools];
   }
 
+  function escapeMcpHtml(value) {
+    return String(value == null ? '' : value).replace(/[&<>"']/g, char => ({
+      '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;'
+    }[char]));
+  }
+
+  async function readMcpRpcResult(response, requestId, method) {
+    if (!response.ok) throw new Error('MCP ' + method + ' HTTP ' + response.status);
+    let data;
+    try { data = await response.json(); }
+    catch (_error) { throw new Error('MCP ' + method + ' returned invalid JSON.'); }
+    if (!data || typeof data !== 'object' || Array.isArray(data) || data.jsonrpc !== '2.0' || data.id !== requestId) {
+      throw new Error('MCP ' + method + ' returned an invalid or mismatched JSON-RPC response.');
+    }
+    if (Object.prototype.hasOwnProperty.call(data, 'error')) {
+      const detail = data.error && typeof data.error.message === 'string' ? ': ' + data.error.message.slice(0, 200) : '';
+      throw new Error('MCP ' + method + ' failed' + detail);
+    }
+    if (!data.result || typeof data.result !== 'object' || Array.isArray(data.result)) {
+      throw new Error('MCP ' + method + ' returned no valid result.');
+    }
+    return data.result;
+  }
+
   async function connectExternalMcpServer(name, endpointUrl, authToken) {
     if (!endpointUrl || !endpointUrl.startsWith('https://')) {
       toast('External MCP servers in browser/PWA mode must use an https:// Streamable HTTP endpoint.', 'warn');
@@ -6983,12 +7434,13 @@
       if (authToken) headers['Authorization'] = 'Bearer ' + authToken;
 
       // Step 1: JSON-RPC 2.0 MCP initialize handshake
+      const initializeId = mcpState.rpcId++;
       const initResp = await fetch(endpointUrl, {
         method: 'POST',
         headers,
         body: JSON.stringify({
           jsonrpc: '2.0',
-          id: mcpState.rpcId++,
+          id: initializeId,
           method: 'initialize',
           params: {
             protocolVersion: '2024-11-05',
@@ -6997,21 +7449,35 @@
           }
         })
       });
-      if (!initResp.ok) throw new Error('MCP initialize HTTP ' + initResp.status);
+      const initialized = await readMcpRpcResult(initResp, initializeId, 'initialize');
+      if (initialized.protocolVersion !== '2024-11-05') throw new Error('This MCP Hub requires protocol 2024-11-05; the server did not accept it.');
+      if (!initialized.serverInfo || typeof initialized.serverInfo.name !== 'string' || !initialized.serverInfo.name.trim() ||
+          typeof initialized.serverInfo.version !== 'string' || !initialized.serverInfo.version.trim() ||
+          !initialized.capabilities || typeof initialized.capabilities !== 'object' || Array.isArray(initialized.capabilities) ||
+          !initialized.capabilities.tools || typeof initialized.capabilities.tools !== 'object' || Array.isArray(initialized.capabilities.tools)) {
+        throw new Error('MCP initialize did not return valid server information and tool capability.');
+      }
 
       // Step 2: Discover tools via tools/list
+      const listId = mcpState.rpcId++;
       const listResp = await fetch(endpointUrl, {
         method: 'POST',
         headers,
         body: JSON.stringify({
           jsonrpc: '2.0',
-          id: mcpState.rpcId++,
+          id: listId,
           method: 'tools/list',
           params: {}
         })
       });
-      const listJson = await listResp.json();
-      const tools = (listJson && listJson.result && Array.isArray(listJson.result.tools)) ? listJson.result.tools : [];
+      const listed = await readMcpRpcResult(listResp, listId, 'tools/list');
+      if (!Array.isArray(listed.tools) || listed.tools.some(tool => !tool || typeof tool !== 'object' || Array.isArray(tool) ||
+          typeof tool.name !== 'string' || !tool.name.trim() ||
+          (tool.description != null && typeof tool.description !== 'string') ||
+          !tool.inputSchema || typeof tool.inputSchema !== 'object' || Array.isArray(tool.inputSchema) || tool.inputSchema.type !== 'object')) {
+        throw new Error('MCP tools/list returned an invalid tool catalog.');
+      }
+      const tools = listed.tools;
       const srvId = 'mcp_' + Math.random().toString(36).slice(2, 8);
 
       mcpState.servers.push({
@@ -7089,7 +7555,7 @@
           <div class="font-semibold text-slate-700">Connected MCP Servers:</div>
           ${mcpState.servers.map((s) => `
             <div class="px-2.5 py-1.5 rounded border border-slate-200 bg-slate-50 flex items-center justify-between text-[11px]">
-              <span class="font-semibold text-slate-800 truncate">${s.name.replace(/</g, '&lt;')}</span>
+              <span class="font-semibold text-slate-800 truncate">${escapeMcpHtml(s.name)}</span>
               <span class="text-emerald-700 font-mono">${s.toolCount} tools ●</span>
             </div>
           `).join('')}
@@ -7099,9 +7565,10 @@
         <details class="rounded border border-slate-200 p-2.5 bg-white">
           <summary class="font-semibold text-slate-800 cursor-pointer">Connect External HTTPS MCP Server</summary>
           <div class="mt-2 space-y-2">
-            <input id="mcp-new-name" type="text" placeholder="Server Label (e.g., Sefaria / Research MCP)" class="w-full border border-slate-300 rounded px-2 py-1" />
-            <input id="mcp-new-url" type="url" placeholder="https://your-mcp-server.example.com/mcp" class="w-full border border-slate-300 rounded px-2 py-1 font-mono" />
+            <input id="mcp-new-name" type="text" value="Akiva Publishing Library" class="w-full border border-slate-300 rounded px-2 py-1" />
+            <input id="mcp-new-url" type="url" value="https://akiva-publishing-kisvei-rav-tzadok.akivagutnicki.workers.dev/mcp" class="w-full border border-slate-300 rounded px-2 py-1 font-mono" />
             <input id="mcp-new-token" type="password" placeholder="Optional Bearer Token" class="w-full border border-slate-300 rounded px-2 py-1 font-mono" />
+            <p class="text-[11px] text-slate-600">Akiva Library is public: leave the token blank. Click to verify its tools. External connections last for this page session.</p>
             <button type="button" id="btn-mcp-connect" class="px-3 py-1.5 rounded bg-indigo-700 hover:bg-indigo-800 text-white font-semibold">Initialize &amp; Discover Tools</button>
           </div>
         </details>
@@ -7110,14 +7577,14 @@
         <div class="rounded border border-slate-200 p-2.5 bg-slate-50 space-y-2">
           <div class="font-semibold text-slate-800">Interactive MCP Tool Runner (<code>tools/call</code>):</div>
           <select id="mcp-tool-select" class="w-full border border-slate-300 rounded px-2 py-1.5 bg-white font-mono text-xs">
-            ${allTools.map((t) => `<option value="${t.name}">${t.name} — ${t.description.slice(0, 52)}</option>`).join('')}
+            ${allTools.map((t) => `<option value="${escapeMcpHtml(t.name)}">${escapeMcpHtml(t.name)} — ${escapeMcpHtml(t.description.slice(0, 52))}</option>`).join('')}
           </select>
           <textarea id="mcp-tool-args" rows="2" class="w-full border border-slate-300 rounded p-2 font-mono text-[11px] bg-white">{"noteText": "Added dynamically via live MCP tools/call!"}</textarea>
           <div class="flex items-center justify-between gap-2">
             <button type="button" id="btn-mcp-call" class="px-3.5 py-1.5 rounded bg-slate-900 hover:bg-slate-800 text-white font-bold">Execute MCP Tool</button>
             <button type="button" id="btn-mcp-copy-cfg" class="px-2.5 py-1.5 rounded border border-slate-300 bg-white hover:bg-slate-100 font-medium">Copy Desktop MCP Config</button>
           </div>
-          <pre id="mcp-call-output" class="p-2 rounded bg-slate-900 text-emerald-300 font-mono text-[11px] overflow-x-auto max-h-32">${mcpState.lastCallResult || '// Ready — select a tool above and click Execute MCP Tool'}</pre>
+          <pre id="mcp-call-output" class="p-2 rounded bg-slate-900 text-emerald-300 font-mono text-[11px] overflow-x-auto max-h-32">${escapeMcpHtml(mcpState.lastCallResult || '// Ready — select a tool above and click Execute MCP Tool')}</pre>
         </div>
       </div>
     `;
@@ -7293,6 +7760,274 @@
   };
 })();
 
+  </script>
+
+  <script>
+// BEGIN STUDIO AUTHENTICATED CONNECTION
+(function () {
+  'use strict';
+  const STUDIO_ORIGIN = 'https://akiva-publishing-kisvei-rav-tzadok.akivagutnicki.workers.dev';
+  const STUDIO_MCP_URL = STUDIO_ORIGIN + '/studio-mcp';
+  const writeTools = new Set(['studio_replace_text','studio_update_footnote','studio_undo','studio_set_ocr_text','studio_undo_ocr']);
+  const pdfTools = new Set(['studio_get_pdf_state','studio_get_pdf_page','studio_get_ocr_text','studio_set_ocr_text','studio_undo_ocr']);
+  const renderedPanels = new WeakMap();
+  const labels = { studio_get_state: 'Read document information', studio_read_paragraphs: 'Read paragraphs', studio_search: 'Search manuscript', studio_read_footnotes: 'Read footnotes', studio_replace_text: 'Edit paragraph text', studio_update_footnote: 'Edit footnote text', studio_undo: 'Undo ChatGPT edit', studio_navigate: 'Navigate manuscript', studio_prepare_export: 'Prepare export', studio_get_pdf_state: 'Read PDF information', studio_get_pdf_page: 'Review PDF page image', studio_get_ocr_text: 'Read OCR text', studio_set_ocr_text: 'Update OCR text', studio_undo_ocr: 'Undo OCR text edit' };
+  const state = { session: null, ownerToken: '', pairingCode: '', pairingExpiresAt: '', status: 'Disconnected', allowEditing: false, pending: false, generation: 0, timer: null, pendingResult: null, receipts: new Map(), activity: [], webController: null, webAvailable: false, renderSignature: '', showPairing: false };
+  const schema = (properties = {}, required = []) => ({ type: 'object', properties, required, additionalProperties: false });
+  const string = (description, maxLength = 10000) => ({ type: 'string', description, maxLength });
+  const integer = (description, minimum = 0, maximum = 1000000) => ({ type: 'integer', description, minimum, maximum });
+  const version = { documentId: string('Document identity returned by the latest read.', 100), expectedRevision: string('Revision returned by the latest read.', 100) };
+  const replacement = { ...version, paragraphIndex: integer('Zero-based paragraph index, within the footnote for a footnote edit.'), runIndex: integer('Zero-based text run index returned by the read.'), expectedText: string('Exact complete original text of this run; do not use a truncated read.'), replacementText: string('Replacement text for this one run. Existing formatting is retained.') };
+  const toolDefinitions = [
+    { name: 'studio_get_state', description: 'Inspect the document open in this connected SeferStudio tab, including its current revision and counts.', inputSchema: schema() },
+    { name: 'studio_read_paragraphs', description: 'Read a bounded range of manuscript paragraphs and their text runs, formatting flags, and footnote references.', inputSchema: schema({ start: integer('Zero-based first paragraph.'), count: integer('Number of paragraphs to read.', 1, 30) }) },
+    { name: 'studio_search', description: 'Find literal text in the open manuscript and return paragraph locations. Search can ignore Hebrew nikkud.', inputSchema: schema({ query: { ...string('Text to find.', 200), minLength: 1 }, ignoreNikkud: { type: 'boolean', description: 'Whether to ignore Hebrew vowel marks.' }, limit: integer('Maximum matching paragraphs.', 1, 30) }, ['query']) },
+    { name: 'studio_read_footnotes', description: 'Read the text runs of specific native Word footnotes referenced in the manuscript.', inputSchema: schema({ ids: { type: 'array', description: 'Footnote identifiers returned by paragraph reads.', items: { type: 'string', minLength: 1, maxLength: 100 }, minItems: 1, maxItems: 10 } }, ['ids']) },
+    { name: 'studio_replace_text', description: 'Replace one exact manuscript text run after a fresh read, preserving formatting and footnote references. Requires editing permission.', inputSchema: schema(replacement, Object.keys(replacement)) },
+    { name: 'studio_update_footnote', description: 'Replace one exact text run in an existing footnote, preserving its formatting and anchor. Requires editing permission.', inputSchema: schema({ ...replacement, footnoteId: string('Existing footnote identifier.', 100) }, [...Object.keys(replacement), 'footnoteId']) },
+    { name: 'studio_undo', description: 'Undo the latest ChatGPT text edit only if no intervening edit changed the document.', inputSchema: schema({ ...version, undoId: string('Undo identity returned by the edit or current document state.', 100) }, ['documentId','expectedRevision','undoId']) },
+    { name: 'studio_navigate', description: 'Show a specific manuscript page, paragraph, or footnote. Supply exactly one target.', inputSchema: schema({ page: integer('One-based preview page.', 1), paragraphIndex: integer('Zero-based paragraph.'), footnoteId: string('Existing footnote identifier.', 100) }) },
+    { name: 'studio_prepare_export', description: 'Open the app export dialog for a manual Word save, PDF print/save, or HTML print proof. This does not create or upload a file.', inputSchema: schema({ format: { type: 'string', description: 'Requested export format.', enum: ['docx','pdf','html'] } }) }
+  ];
+  toolDefinitions.push(
+    { name: 'studio_get_pdf_state', description: 'Inspect the PDF open in this tab and identify its current page, OCR source, and revision.', inputSchema: schema() },
+    { name: 'studio_get_pdf_page', description: 'Read one original PDF page as a bounded JPEG image for direct visual analysis and transcription.', inputSchema: schema({ documentId: string('Current PDF document identity.', 100), page: integer('One-based PDF page.', 1), maxWidth: integer('Maximum image width in pixels.', 400, 1600) }, ['documentId','page']) },
+    { name: 'studio_get_ocr_text', description: 'Read the OCR review box with its actual source page and revision. Text must be checked against the scan.', inputSchema: schema() },
+    { name: 'studio_set_ocr_text', description: 'Replace the OCR review text for the selected PDF page after reading its exact previous value. Requires editing permission; does not modify the PDF itself.', inputSchema: schema({ ...version, page: integer('Currently selected PDF page.', 1), expectedText: string('Exact complete text previously read from the OCR box.', 40000), replacementText: string('Reviewed transcription to put into the OCR box.', 40000) }, ['documentId','expectedRevision','page','expectedText','replacementText']) },
+    { name: 'studio_undo_ocr', description: 'Undo the latest ChatGPT OCR text edit only if the PDF page and text remain unchanged.', inputSchema: schema({ ...version, undoId: string('Undo identity returned by the OCR text edit.', 100) }, ['documentId','expectedRevision','undoId']) }
+  );
+  const escape = value => String(value || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+  const expiryTime = value => typeof value === 'number' ? value : Date.parse(value);
+  const sessionActive = () => !!(state.session && expiryTime(state.session.expiresAt) > Date.now());
+  function publicError(error) {
+    const message = String(error && error.message || 'The connection could not complete this request.');
+    if ((state.ownerToken && message.includes(state.ownerToken)) || (state.pairingCode && message.includes(state.pairingCode))) return 'The connection could not complete this request.';
+    return message.slice(0, 260);
+  }
+  async function requestStudio(path, body, owner, keepalive = false) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 10000);
+    try {
+      const headers = { 'Content-Type': 'application/json', Accept: 'application/json' };
+      if (owner) headers.Authorization = 'Bearer ' + owner;
+      const response = await fetch(STUDIO_ORIGIN + path, { method: 'POST', headers, body: JSON.stringify(body || {}), credentials: 'omit', cache: 'no-store', redirect: 'error', referrerPolicy: 'no-referrer', signal: controller.signal, keepalive });
+      const data = await response.json();
+      if (!response.ok) {
+        const error = new Error(typeof data.error === 'string' ? data.error : 'Connection service returned HTTP ' + response.status + '.');
+        error.httpStatus = response.status;
+        throw error;
+      }
+      if (!data || typeof data !== 'object' || Array.isArray(data)) throw new Error('The connection service returned an invalid response.');
+      return data;
+    } finally { clearTimeout(timeout); }
+  }
+  function sessionPath(action, session = state.session) { return '/studio-api/session/' + encodeURIComponent(session.sessionId || session.id) + '/' + action; }
+  function recordActivity(name, status) {
+    state.activity.unshift({ name: labels[name] || 'Connection request', status, time: new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'}) });
+    state.activity = state.activity.slice(0, 12);
+  }
+  function stopLocalConnection(message) {
+    clearTimeout(state.timer);
+    state.timer = null;
+    state.generation++;
+    if (state.webController) state.webController.abort();
+    state.webController = null;
+    state.webAvailable = false;
+    state.showPairing = false;
+    state.session = null;
+    state.ownerToken = '';
+    state.pairingCode = '';
+    state.pairingExpiresAt = '';
+    state.pendingResult = null;
+    state.receipts.clear();
+    state.status = message || 'Disconnected';
+    state.pending = false;
+    renderConnection();
+  }
+  async function executeCommand(command, generation) {
+    if (!sessionActive() || generation !== state.generation) throw new Error('This tab connection has ended.');
+    if (!Object.prototype.hasOwnProperty.call(labels, command.name)) throw new Error('This operation is not supported by the connected app.');
+    if (command.expiresAt && expiryTime(command.expiresAt) <= Date.now()) throw new Error('This request expired before the app could execute it.');
+    const mutates = writeTools.has(command.name);
+    if (mutates && (!state.allowEditing || command.canWrite !== true)) throw new Error('Editing is disabled for this tab connection.');
+    const dispatcher = pdfTools.has(command.name) ? window.PdfStudioAPI.invokeBridge : window.WordStudioBridgeAPI.invoke;
+    return await dispatcher(command.name, command.arguments || {}, {
+      isActive: () => generation === state.generation && sessionActive(),
+      isAuthorized: () => generation === state.generation && sessionActive() && state.allowEditing && command.canWrite === true && (!command.expiresAt || expiryTime(command.expiresAt) > Date.now())
+    });
+  }
+  async function registerBrowserTools(generation) {
+    if (!document.modelContext || typeof document.modelContext.registerTool !== 'function') return;
+    const controller = new AbortController();
+    state.webController = controller;
+    try {
+      for (const tool of toolDefinitions) {
+        await document.modelContext.registerTool({ ...tool, execute: async args => {
+          try {
+            const result = await executeCommand({ name: tool.name, arguments: args, canWrite: state.allowEditing }, generation);
+            if (generation !== state.generation || !state.session) return { isError: true, error: { code: 'connection_ended', message: 'This tab connection has ended.' } };
+            recordActivity(tool.name, 'Completed'); renderConnection(); return result;
+          } catch (error) { if (generation === state.generation && state.session) { recordActivity(tool.name, 'Not applied'); renderConnection(); } return { isError: true, error: { code: error.code || 'request_failed', message: publicError(error) } }; }
+        }, annotations: { readOnlyHint: !writeTools.has(tool.name) && !['studio_navigate','studio_prepare_export'].includes(tool.name), destructiveHint: false, untrustedContentHint: true } }, { signal: controller.signal });
+      }
+      state.webAvailable = true;
+    } catch (_error) { controller.abort(); state.webController = null; state.webAvailable = false; }
+  }
+  function schedulePoll(generation, milliseconds = 2000) {
+    clearTimeout(state.timer);
+    if (generation === state.generation && state.session) state.timer = setTimeout(() => pollConnection(generation), milliseconds);
+  }
+  async function pollConnection(generation) {
+    if (generation !== state.generation || !state.session) return;
+    if (!sessionActive()) { stopLocalConnection('Connection expired. Start a new connection to continue.'); return; }
+    try {
+      if (state.pendingResult) {
+        await requestStudio(sessionPath('result'), state.pendingResult, state.ownerToken);
+        if (generation !== state.generation) return;
+        state.pendingResult = null;
+      }
+      const data = await requestStudio(sessionPath('poll'), {}, state.ownerToken);
+      if (generation !== state.generation || !state.session) return;
+      if (!data.session || typeof data.session.connected !== 'boolean') throw new Error('The service returned an invalid session response.');
+      state.session = { ...state.session, ...data.session };
+      state.status = data.session.authorized === true ? 'Connected to ChatGPT' : 'Waiting for ChatGPT to connect';
+      const command = data.command;
+      if (command) {
+        if (typeof command.jobId !== 'string' || !command.jobId || !Object.prototype.hasOwnProperty.call(labels, command.name)) throw new Error('The service returned an invalid command.');
+        let receipt = state.receipts.get(command.jobId);
+        if (!receipt) {
+          try {
+            const result = await executeCommand(command, generation);
+            receipt = { jobId: command.jobId, result, isError: false };
+            if (new TextEncoder().encode(JSON.stringify(receipt)).byteLength > (command.name === 'studio_get_pdf_page' ? 1500000 : 250000)) receipt = { jobId: command.jobId, result: { error: { code: 'result_too_large', message: 'This read is too large. Request fewer paragraphs or footnotes.' } }, isError: true };
+          } catch (error) { receipt = { jobId: command.jobId, result: { error: { code: error.code || 'request_failed', message: publicError(error) } }, isError: true }; }
+          if (generation !== state.generation || !state.session) return;
+          state.receipts.set(command.jobId, receipt);
+          if (state.receipts.size > 50) state.receipts.delete(state.receipts.keys().next().value);
+          recordActivity(command.name, receipt.isError ? 'Not applied' : 'Completed');
+        }
+        if (generation !== state.generation || !state.session) return;
+        state.pendingResult = receipt;
+        await requestStudio(sessionPath('result'), receipt, state.ownerToken);
+        if (generation !== state.generation) return;
+        state.pendingResult = null;
+      }
+      renderConnection();
+    } catch (error) {
+      if (generation !== state.generation) return;
+      if (state.pendingResult && [400,409,413,422].includes(error.httpStatus)) {
+        state.pendingResult = null;
+        state.status = 'The last result could not be delivered. Check the document before repeating an edit.';
+        recordActivity('connection', 'Result delivery failed');
+        renderConnection();
+        return;
+      }
+      if ([401,403,404,410].includes(error.httpStatus)) { stopLocalConnection('Connection ended. Start a new connection to continue.'); return; }
+      state.status = 'Connection interrupted; reconnecting';
+      renderConnection();
+    } finally { schedulePoll(generation); }
+  }
+  async function createConnection() {
+    if (state.pending || state.session) return;
+    state.pending = true;
+    state.status = 'Starting connection…';
+    renderConnection();
+    try {
+      const data = await requestStudio('/studio-api/session/create', { allowEditing: state.allowEditing });
+      if (typeof data.sessionId !== 'string' || !data.sessionId || typeof data.ownerToken !== 'string' || data.ownerToken.length < 24 || typeof data.pairingCode !== 'string' || !data.pairingCode || !(expiryTime(data.expiresAt) > Date.now())) throw new Error('The service returned an invalid connection.');
+      state.session = { sessionId: data.sessionId, expiresAt: data.expiresAt, connected: false, allowEditing: state.allowEditing };
+      state.ownerToken = data.ownerToken;
+      state.pairingCode = data.pairingCode;
+      state.pairingExpiresAt = data.pairingExpiresAt;
+      state.status = 'Waiting for ChatGPT to connect';
+      state.pending = false;
+      const generation = ++state.generation;
+      await registerBrowserTools(generation);
+      renderConnection();
+      schedulePoll(generation, 0);
+    } catch (error) { state.pending = false; state.status = publicError(error); renderConnection(); }
+  }
+  async function disconnectConnection() {
+    if (!state.session) return;
+    const session = state.session, owner = state.ownerToken;
+    stopLocalConnection('Disconnected');
+    try { await requestStudio(sessionPath('disconnect', session), {}, owner); }
+    catch (_error) { state.status = 'Disconnected in this tab. The server will also mark the tab offline.'; renderConnection(); }
+  }
+  async function renewPairing() {
+    if (!state.session || state.pending) return;
+    const generation = state.generation;
+    state.pending = true; renderConnection();
+    try {
+      const data = await requestStudio(sessionPath('pairing'), {}, state.ownerToken);
+      if (generation !== state.generation) return;
+      if (typeof data.pairingCode !== 'string' || !data.pairingCode) throw new Error('A new pairing code was not returned.');
+      state.pairingCode = data.pairingCode; state.pairingExpiresAt = data.pairingExpiresAt;
+    } catch (error) { if (generation === state.generation) state.status = publicError(error); }
+    finally { if (generation === state.generation) { state.pending = false; renderConnection(); } }
+  }
+  function renderConnection() {
+    const host = document.getElementById('studio-bridge-panel');
+    const toolbar = document.getElementById('btn-open-studio-bridge');
+    if (toolbar) toolbar.dataset.connected = state.session ? 'true' : 'false';
+    if (!host) return;
+    const signature = JSON.stringify({ session: state.session && (state.session.sessionId || state.session.id), status: state.status, allowEditing: state.allowEditing, pending: state.pending, pairingCode: state.pairingCode, activity: state.activity, webAvailable: state.webAvailable, showPairing: state.showPairing });
+    if (renderedPanels.get(host) === signature) return;
+    renderedPanels.set(host, signature);
+    const focused = host.contains(document.activeElement) ? document.activeElement.id : '';
+    const selection = focused && document.activeElement.selectionStart !== undefined ? [document.activeElement.selectionStart, document.activeElement.selectionEnd] : null;
+    const active = !!state.session;
+    host.innerHTML = `<div class="space-y-4 text-sm">
+      <div class="rounded-lg border ${active ? 'border-emerald-300 bg-emerald-50' : 'border-slate-200 bg-slate-50'} p-3"><div id="studio-bridge-status" role="status" class="font-semibold">${escape(state.status)}</div><p class="text-xs text-slate-600 mt-1">${active ? (state.allowEditing ? 'Reading and targeted text edits are enabled for this tab.' : 'Read-only connection. Manuscript edits are disabled.') : 'Let ChatGPT work with the manuscript open in this tab.'}</p></div>
+      <p class="text-slate-600 leading-relaxed">ChatGPT can inspect paragraphs and footnotes, search and navigate your manuscript, review PDF page images and OCR text, and prepare an export. Optional edits replace specific text while retaining formatting. This connection sends requested manuscript text and PDF page images to ChatGPT through your connection service; it does not publish your manuscript.</p>
+      <label class="flex items-start gap-2 p-3 border border-slate-200 rounded"><input id="studio-bridge-allow-edits" type="checkbox" ${state.allowEditing ? 'checked' : ''} ${active || state.pending ? 'disabled' : ''} class="mt-0.5"><span><strong>Allow targeted text edits</strong><span class="block text-xs text-slate-600 mt-1">Changes require a matching document revision and exact original text. Use Undo last ChatGPT edit if needed. Disconnect before changing this permission.</span></span></label>
+      ${active ? `<div class="space-y-2"><label class="block font-medium" for="studio-bridge-pairing-code">One-time pairing code</label><div class="flex gap-2"><input id="studio-bridge-pairing-code" type="${state.showPairing ? 'text' : 'password'}" autocomplete="off" spellcheck="false" readonly value="${escape(state.pairingCode)}" class="min-w-0 flex-1 border rounded px-2 py-1.5 font-mono"><button id="studio-bridge-show-code" type="button" class="px-3 py-1.5 rounded border">${state.showPairing ? 'Hide code' : 'Show code'}</button></div><p class="text-xs text-slate-600">Enter this code on the SeferStudio connection page opened by ChatGPT. It can be used once and expires after ten minutes. Keep it private.</p><button id="studio-bridge-renew" type="button" ${state.pending ? 'disabled' : ''} class="text-xs underline">Create a new pairing code</button></div>` : ''}
+      <div class="space-y-1"><label for="studio-bridge-mcp-url" class="block font-medium">ChatGPT MCP server URL</label><input id="studio-bridge-mcp-url" type="url" readonly value="${STUDIO_MCP_URL}" class="w-full border rounded px-2 py-1.5 text-xs font-mono"><p class="text-xs text-slate-600">Choose OAuth when adding this server in ChatGPT. Keep this tab open while using it.</p></div>
+      <p class="text-xs text-slate-500">A connection lasts up to two hours and ends locally when this page closes or reloads. Connection credentials are kept only in memory. ${state.webAvailable ? 'Browser-native tools are also active for this tab.' : ''}</p>
+      <div class="flex flex-wrap gap-2">${active ? '<button id="studio-bridge-disconnect" type="button" class="rounded bg-slate-900 text-white px-4 py-2 font-semibold">Disconnect</button><button id="studio-bridge-undo" type="button" class="rounded border px-3 py-2">Undo last manuscript edit</button><button id="studio-bridge-undo-ocr" type="button" class="rounded border px-3 py-2">Undo OCR text edit</button>' : `<button id="studio-bridge-create" type="button" ${state.pending ? 'disabled' : ''} class="rounded bg-emerald-700 text-white px-4 py-2 font-semibold disabled:opacity-50">${state.pending ? 'Connecting…' : 'Connect this tab'}</button>`}</div>
+      ${state.activity.length ? `<div class="border-t pt-3"><div class="font-medium mb-2">Recent activity</div><ul class="space-y-1 text-xs text-slate-600">${state.activity.map(item => `<li>${escape(item.time)} · ${escape(item.name)} · ${escape(item.status)}</li>`).join('')}</ul></div>` : ''}
+    </div>`;
+    const replacementFocus = focused && document.getElementById(focused);
+    if (replacementFocus) { replacementFocus.focus(); if (selection && typeof replacementFocus.setSelectionRange === 'function') { try { replacementFocus.setSelectionRange(...selection); } catch (_error) {} } }
+    host.querySelector('#studio-bridge-allow-edits').addEventListener('change', event => { state.allowEditing = event.target.checked; });
+    if (!active) host.querySelector('#studio-bridge-create').addEventListener('click', createConnection);
+    else {
+      host.querySelector('#studio-bridge-disconnect').addEventListener('click', disconnectConnection);
+      host.querySelector('#studio-bridge-renew').addEventListener('click', renewPairing);
+      host.querySelector('#studio-bridge-show-code').addEventListener('click', event => {
+        const input = host.querySelector('#studio-bridge-pairing-code');
+        state.showPairing = !state.showPairing;
+        input.type = state.showPairing ? 'text' : 'password';
+        event.target.textContent = state.showPairing ? 'Hide code' : 'Show code';
+      });
+      host.querySelector('#studio-bridge-undo-ocr').addEventListener('click', async () => {
+        try {
+          const current = await window.PdfStudioAPI.invokeBridge('studio_get_pdf_state');
+          if (!current.undoId) throw new Error('There is no OCR text edit that can be safely undone.');
+          await executeCommand({ name: 'studio_undo_ocr', arguments: { documentId: current.documentId, expectedRevision: current.revision, undoId: current.undoId }, canWrite: state.allowEditing }, state.generation);
+          recordActivity('studio_undo_ocr', 'Completed'); renderConnection();
+        } catch (error) { if (window.SuiteUI) window.SuiteUI.toast(publicError(error), 'warn'); }
+      });
+      host.querySelector('#studio-bridge-undo').addEventListener('click', async () => {
+        try {
+          const current = await window.WordStudioBridgeAPI.invoke('studio_get_state');
+          if (!current.undoId) throw new Error('There is no ChatGPT edit that can be safely undone.');
+          await executeCommand({ name: 'studio_undo', arguments: { documentId: current.documentId, expectedRevision: current.revision, undoId: current.undoId }, canWrite: state.allowEditing }, state.generation);
+          recordActivity('studio_undo', 'Completed'); renderConnection();
+        } catch (error) { if (window.SuiteUI) window.SuiteUI.toast(publicError(error), 'warn'); }
+      });
+    }
+  }
+  function openConnection() { window.SuiteUI.openModal('ChatGPT Connection', '<div id="studio-bridge-panel"></div>', renderConnection); }
+  window.addEventListener('DOMContentLoaded', () => { document.getElementById('btn-open-studio-bridge').addEventListener('click', openConnection); });
+  window.addEventListener('pagehide', () => {
+    if (!state.session) return;
+    const session = state.session, owner = state.ownerToken;
+    stopLocalConnection('Disconnected');
+    requestStudio(sessionPath('disconnect', session), {}, owner, true).catch(() => {});
+  });
+})();
+// END STUDIO AUTHENTICATED CONNECTION
   </script>
 
   <script>
