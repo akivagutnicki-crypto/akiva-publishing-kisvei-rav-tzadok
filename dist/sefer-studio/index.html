@@ -751,14 +751,14 @@
               <option value="single">Single text column</option>
             </select>
           </div>
-          <div class="flex items-center gap-1.5">
-            <select id="pdf-ocr-lang" aria-label="OCR Language" class="flex-1 border border-slate-300 rounded px-2 py-1 bg-white">
+          <div class="flex flex-wrap min-w-0 items-center gap-1.5">
+            <select id="pdf-ocr-lang" aria-label="OCR Language" class="w-full min-w-0 border border-slate-300 rounded px-2 py-1 bg-white">
               <option value="eng+heb">English + Hebrew (eng+heb)</option>
               <option value="eng">English (eng)</option>
               <option value="heb">Hebrew / Ivrit (heb)</option>
             </select>
-            <button type="button" data-pdf-action="ocr" class="px-3 py-1 rounded bg-red-700 hover:bg-red-800 text-white font-semibold">Run OCR</button>
-            <button type="button" data-pdf-action="ocr-cancel" class="hidden rounded border border-red-200 px-2 py-1 text-red-800">Stop</button>
+            <button type="button" data-pdf-action="ocr" class="shrink-0 whitespace-nowrap px-3 py-1 rounded bg-red-700 hover:bg-red-800 text-white font-semibold">Run OCR</button>
+            <button type="button" data-pdf-action="ocr-cancel" class="hidden shrink-0 whitespace-nowrap rounded border border-red-200 px-2 py-1 text-red-800">Stop</button>
           </div>
           <select id="pdf-ocr-quality" aria-label="OCR scan quality" class="w-full border border-slate-300 rounded px-2 py-1 bg-white text-xs">
             <option value="400" selected>Dense print · higher detail (400 DPI)</option>
