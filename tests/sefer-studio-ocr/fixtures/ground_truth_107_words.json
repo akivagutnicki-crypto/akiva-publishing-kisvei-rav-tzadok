@@ -1,0 +1,50 @@
+{
+  "samples": [
+    {
+      "id": "p005_right_top",
+      "page_number": 5,
+      "rect_points": [
+        208,
+        87,
+        379,
+        174
+      ],
+      "text": "למענהו לקילוסו, וע״ז הם כל תרי״ג מצות\nעיטין להגיע לזה דהתורה כתיב בה אמת\nשהוא עצות להגיע להשגה ברורה בלב שזה\nנקרא אמת מה שהוא מבורר גלוי בלב שאין\nצריך לאמונה, כידוע בסוד אמת ויציב\nשחרית אמת ואמונה ערבית דבהעלם האמת\nמתלבש באמונה וצריך לאמונה שגם בהעלם",
+      "notes": [
+        "Seven complete printed lines transcribed visually; independently checked and confirmed, including וע״ז and עיטין.",
+        "No expansion of abbreviations, substitution from another edition, or language-model correction of OCR."
+      ]
+    },
+    {
+      "id": "p100_right_top",
+      "page_number": 100,
+      "rect_points": [
+        203,
+        98,
+        369,
+        174
+      ],
+      "text": "שבו, והכעס שבכבד יהי׳ רק רוגזא דרבנן\nדטב בכל סטרין ובמקום שהש״י מצוה\nלכעוס, וזהו הגבורות הקדושות דאורייתא\nמסטרי׳ נפקת ויש בה דיני דינין, אבל\nהכל נגד סטרא דרע ששרשו בזרע עמלק\nוכשיבערו מן העולם יבקש עון ישראל",
+      "notes": [
+        "Independent visual transcription from physical PDF page 100, right column, six consecutive body lines beginning with שבו. No OCR or outside edition used.",
+        "Punctuation represented with geresh/gershayim; abbreviations not expanded.",
+        "Adjudicated visually with root and inspector: מצוה (not initial mistaken מורה), דיני דינין, אבל / הכל, and יבקש עון ישראל (not initial mistaken יתוקן מן ישראל). The consonantal spelling יבקש is retained, without supplying a vav from standard verse spelling.",
+        "Dense leading produces small neighboring ascender/descender fragments at rectangular crop edges.",
+        "This replaces the provisional middle transcription; use this current text for scoring, not earlier candidate strings in messages."
+      ]
+    },
+    {
+      "id": "p180_right_lines13_15",
+      "page_number": 180,
+      "rect_points": [
+        207,
+        225.0,
+        380,
+        262.0
+      ],
+      "text": "והש״י יהיב חכמתא לחכימין מי שיש בו\nהתחלת החכמה והוא החשק. וזהו גודל חכמת\nשלמה המלך ע״ה כפי גודל החשק שלו כי",
+      "notes": "Manual visual transcription, independent OCR outputs not consulted. Three consecutive lines from late page180. Larger surrounding crop reviewed but excluded uncertain lines. Root visual cross-check corrected initial misreading העתק to החשק; current reading matches repeated letter forms. Exact source abbreviations retained."
+    }
+  ],
+  "status": "Visually transcribed and independently adjudicated; 107 normalized words across three crops."
+}

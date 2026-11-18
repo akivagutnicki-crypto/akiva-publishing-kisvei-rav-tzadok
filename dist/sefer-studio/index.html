@@ -10,6 +10,11 @@
   <meta name="apple-mobile-web-app-title" content="SeferStudio Pro" />
   <title>SeferStudio Pro — Hebrew &amp; English Publishing Studio</title>
   <meta name="description" content="Edit Hebrew and English manuscripts, work with Word footnotes, create newsletters and covers, and open PDFs in SeferStudio Pro." />
+  <link rel="stylesheet" href="./kdp-cover.css" />
+  <script defer src="./kdp-geometry.js"></script>
+  <script defer src="./kdp-render.js"></script>
+  <script defer src="./kdp-png.js"></script>
+  <script defer src="./kdp-cover.js"></script>
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
   <script src="https://cdn.jsdelivr.net/npm/jszip@3.10.1/dist/jszip.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
@@ -184,6 +189,7 @@
         <span class="w-4 h-4 rounded-xs bg-purple-600 text-white font-bold text-[10px] flex items-center justify-center">C</span>
         <span>Visual &amp; Image Studio</span>
       </button>
+      <button type="button" data-kdp-open class="px-2.5 py-1 rounded bg-amber-300 text-slate-950 text-xs font-bold">KDP Cover</button>
     </div>
 
     <div class="flex items-center gap-1.5 shrink-0">
@@ -756,18 +762,24 @@
               <option value="eng+heb">English + Hebrew (eng+heb)</option>
               <option value="eng">English (eng)</option>
               <option value="heb">Hebrew / Ivrit (heb)</option>
+              <option value="heb_rashi">Hebrew — Rashi script</option>
             </select>
             <button type="button" data-pdf-action="ocr" class="shrink-0 whitespace-nowrap px-3 py-1 rounded bg-red-700 hover:bg-red-800 text-white font-semibold">Run OCR</button>
             <button type="button" data-pdf-action="ocr-cancel" class="hidden shrink-0 whitespace-nowrap rounded border border-red-200 px-2 py-1 text-red-800">Stop</button>
           </div>
+          <p id="pdf-ocr-profile-note" class="hidden text-[11px] text-amber-950">Rashi script uses a specialized on-device model. Review square Hebrew headings, page numbers, and references; they can still be misread.</p>
+          <label id="pdf-ocr-rashi-refine-label" class="hidden flex items-start gap-1.5 text-[11px] text-slate-700"><input id="pdf-ocr-rashi-refine" type="checkbox" checked class="mt-0.5" /><span>Refine detected Rashi lines (slower). Keeps the first reading in the review report. Compare changed lines with the scan.</span></label>
           <select id="pdf-ocr-quality" aria-label="OCR scan quality" class="w-full border border-slate-300 rounded px-2 py-1 bg-white text-xs">
             <option value="400" selected>Dense print · higher detail (400 DPI)</option>
             <option value="300">Balanced · lower memory use (300 DPI)</option>
           </select>
           <label class="flex items-start gap-1.5 text-[11px] text-slate-700"><input id="pdf-ocr-rescan" type="checkbox" class="mt-0.5" /><span>Rescan saved pages (replace their text after a successful scan)</span></label>
           <p class="text-[10px] text-slate-500">Run continues unfinished pages. Saved results are kept even if you change engine, language, or quality; Rescan replaces them for one run. Keep this tab open to resume. Download TXT before reloading, opening another PDF, or merging, rotating, inserting, or deleting PDF pages; these actions reset OCR results.</p>
+          <label class="flex items-start gap-1.5 text-[11px] text-slate-700"><input id="pdf-ocr-small-numbers" type="checkbox" checked class="mt-0.5" />Improve small numbers (Hebrew only): compare two image readings; keep uncertain numbers flagged for review.</label>
           <progress id="pdf-ocr-progress" class="hidden w-full" max="1" value="0" aria-label="OCR pages processed"></progress>
           <div id="pdf-ocr-status" class="text-[11px] text-slate-600" role="status" aria-live="polite">Ready to scan current PDF page.</div>
+          <div id="pdf-ocr-timing" class="text-[11px] text-slate-600" aria-live="polite"></div>
+          <p class="text-[11px] text-amber-950">Review footnote labels, page numbers, and references against the scan. Engine confidence is not measured accuracy.</p>
           <label for="pdf-ocr-result-page" class="font-semibold text-slate-800">Review saved page text</label>
           <div class="flex items-center gap-1">
             <button type="button" data-pdf-action="ocr-previous" aria-label="Previous OCR result page" class="rounded border border-slate-300 px-2 py-1">←</button>
@@ -784,6 +796,15 @@
           </details>
           <textarea id="pdf-ocr-output" rows="9" aria-label="OCR text for the displayed PDF page" placeholder="This page’s OCR text appears here (editable)…" class="w-full flex-1 border border-slate-300 rounded p-2 font-serif text-xs outline-none focus:border-red-600"></textarea>
           <button type="button" data-pdf-action="ocr-download" class="w-full py-1.5 rounded border border-red-300 bg-red-50 text-red-900 font-semibold">Download selected OCR (.txt)</button>
+          <button type="button" data-pdf-action="ocr-report" class="w-full py-1.5 rounded border border-slate-300 bg-white text-slate-800 font-semibold">Download OCR review report (.json)</button>
+          <details class="rounded border border-emerald-300 bg-emerald-50 p-2">
+            <summary class="cursor-pointer font-semibold text-emerald-950">Searchable PDF</summary>
+            <p class="mt-1 text-[11px] text-emerald-950">Replace existing text layer (keeps scanned appearance). Exports the selected pages with matched on-device OCR. Pages become lossless images at the OCR resolution; original links, forms, and vector content are flattened. Studio annotations and footnotes are included.</p>
+            <p class="mt-1 text-[11px] text-emerald-950">Single-word corrections keep their positions. Larger rewrites or AI text need new word positions; TXT remains available.</p>
+            <button type="button" data-pdf-action="ocr-searchable" class="mt-2 w-full rounded bg-emerald-800 px-2 py-1.5 font-semibold text-white disabled:opacity-50">Download searchable PDF</button>
+            <button type="button" data-pdf-action="ocr-searchable-stop" class="hidden mt-1 w-full rounded border border-red-300 bg-white px-2 py-1.5 font-semibold text-red-800">Stop PDF export</button>
+            <div id="pdf-searchable-status" class="mt-1 text-[11px] text-emerald-950" role="status" aria-live="polite"></div>
+          </details>
           <button type="button" data-pdf-action="ocr-to-word" class="w-full py-1.5 rounded bg-[#185abd] hover:bg-[#103f91] text-white font-semibold">Send this page to Word Studio →</button>
         </div>
       </aside>
@@ -798,7 +819,8 @@
 
     <div class="bg-purple-900 text-white px-3 py-2 flex flex-wrap items-center justify-between gap-2 shrink-0 text-xs">
       <div class="flex flex-wrap items-center gap-1.5">
-        <button type="button" data-design-tpl="book" class="px-2.5 py-1 rounded bg-white text-purple-950 font-bold">Book Cover</button>
+        <button type="button" data-kdp-open class="px-3 py-1 rounded bg-amber-300 text-slate-950 font-bold">Full KDP Cover · PDF</button>
+        <button type="button" data-design-tpl="book" class="px-2.5 py-1 rounded bg-white text-purple-950 font-bold">Front Artwork</button>
         <button type="button" data-design-tpl="poster" class="px-2.5 py-1 rounded bg-white/15 hover:bg-white/25">Wide Flyer</button>
         <button type="button" data-design-tpl="botanical" class="px-2.5 py-1 rounded bg-white/15 hover:bg-white/25">Botanical Card</button>
         <span class="opacity-40">|</span>
@@ -5674,6 +5696,9 @@
   let ocrCropGeneration = 0;
   let ocrCropTask = null;
   let visionOcrNextRequestAt = 0;
+  let ocrGlyphlessSeed = null;
+  let lastOcrRunReport = null;
+  let activeSearchableExport = null;
 
   function ocrResultIsSaved(result) {
     return !!result && ['recognized', 'no-text', 'edited'].includes(result.status);
@@ -5743,7 +5768,7 @@
     picker.disabled = !pdfState.pageCount;
     document.querySelector('[data-pdf-action="ocr-previous"]').disabled = pdfState.currentPage <= 1;
     document.querySelector('[data-pdf-action="ocr-next"]').disabled = pdfState.currentPage >= pdfState.pageCount;
-    updateOcrScopeSummary();
+    updateOcrScopeSummary(); updateSearchableExportControls();
   }
 
   function cancelOcrReviewCrop() {
@@ -5804,7 +5829,7 @@
     list.textContent = ''; panel.classList.add('hidden');
     visionReview.textContent = ''; visionReview.classList.add('hidden');
     const detail = document.getElementById('pdf-ocr-page-status');
-    detail.textContent = 'Page ' + pdfState.currentPage + ' · ' + ocrResultLabel(result) + (result && result.message ? ' · ' + result.message : '');
+    detail.textContent = 'Page ' + pdfState.currentPage + ' · ' + ocrResultLabel(result) + (result && result.message ? ' · ' + result.message : '') + describeOcrTiming(result);
     if (!result) return;
     if (result.reviewNotes && result.reviewNotes.length) {
       visionReview.textContent = result.reviewNotes.join('\n');
@@ -5817,8 +5842,8 @@
       for (const item of result.flags) {
         const button = document.createElement('button');
         button.type = 'button'; button.className = 'rounded border border-amber-300 bg-white px-1.5 py-0.5 hover:bg-amber-100';
-        button.dir = result.dir || 'auto'; button.textContent = item.text;
-        button.title = 'Compare with the scan (OCR confidence ' + Math.round(item.confidence) + ')';
+        button.dir = result.dir || 'auto'; button.textContent = item.previousText && item.previousText !== item.text ? item.previousText + ' → ' + item.text : item.text;
+        button.title = item.reason || 'Compare with the scan (engine confidence ' + Math.round(item.confidence) + ')';
         button.addEventListener('click', () => showOcrWordCrop(page, result, item));
         list.appendChild(button);
       }
@@ -5831,7 +5856,7 @@
     const previous = ocrResults.get(ocrDisplayedPage);
     const text = output.value || '';
     if (text === (previous ? previous.text : '')) return;
-    ocrResults.set(ocrDisplayedPage, { ...previous, page: ocrDisplayedPage, text, status: 'edited', engine: previous && previous.engine || 'manual', dir: output.dir || 'auto', flags: [], flaggedCount: 0, reviewNotes: [], message: 'Edited text; compare with the scan.', revision: (previous && previous.revision || 0) + 1 });
+    ocrResults.set(ocrDisplayedPage, { ...previous, ...remapEditedOcrWords(previous, text), page: ocrDisplayedPage, text, wordCount: text.trim() ? text.trim().split(/\s+/).length : 0, engineConfidence: null, numericReview: null, rashiRefinement: previous?.rashiRefinement ? { ...previous.rashiRefinement, editedAfterRefinement: true } : null, status: 'edited', engine: previous && previous.engine || 'manual', dir: output.dir || 'auto', flags: [], flaggedCount: 0, reviewNotes: [], message: 'Edited text; compare with the scan.', revision: (previous && previous.revision || 0) + 1 });
     pdfState.ocrText = text; pdfState.ocrSourcePage = ocrDisplayedPage; pdfState.ocrSourceEngine = previous && previous.engine || 'manual';
     renderOcrPageReview(); renderOcrResultPicker();
   }
@@ -5868,6 +5893,9 @@
 
   function resetPdfOcrResults() {
     stopOcrRun('PDF changed. OCR results were reset for the new document.');
+    stopSearchablePdfExport(); ocrGlyphlessSeed = null; lastOcrRunReport = null;
+    document.getElementById('pdf-searchable-status').textContent = '';
+    document.getElementById('pdf-ocr-timing').textContent = '';
     ocrGeneration++; cancelOcrReviewCrop(); ocrResults = new Map();
     ocrDisplayedPage = null; ocrDisplayedSource = null;
     pdfBridgeUndo = null;
@@ -5903,6 +5931,7 @@
     run.terminatedWorkers.add(worker);
     try { Promise.resolve(worker.terminate()).catch(() => {}); } catch (_error) {}
     if (run.worker === worker) run.worker = null;
+    if (run.numberWorker === worker) run.numberWorker = null;
   }
 
   function stopOcrRun(message = 'OCR stopped. Completed pages are kept. Run OCR to continue unfinished pages.') {
@@ -5910,32 +5939,254 @@
     if (!run) return;
     run.stopMessage = message; run.controller.abort();
     if (run.renderTask) { try { run.renderTask.cancel(); } catch (_error) {} }
-    releaseOcrWorker(run);
+    releaseOcrWorker(run); releaseOcrWorker(run, run.numberWorker);
     document.getElementById('pdf-ocr-status').textContent = message;
     updateOcrOutputLock();
   }
 
   function setOcrProgress(run, text, fraction = 0) {
     if (!ocrRunIsCurrent(run)) return;
-    document.getElementById('pdf-ocr-status').textContent = text + ' · ' + run.finished + '/' + run.pages.length + ' selected pages processed';
+    document.getElementById('pdf-ocr-status').textContent = text + ' · ' + run.finished + '/' + run.pages.length + ' selected pages processed' + (run.startedAt !== undefined ? ' · elapsed ' + ocrSeconds(ocrClock() - run.startedAt) : '');
     const progress = document.getElementById('pdf-ocr-progress');
     progress.max = run.pages.length; progress.value = Math.min(run.pages.length, run.finished + Math.max(0, Math.min(1, fraction)));
   }
 
   async function createOcrRunWorker(run) {
     if (typeof Tesseract === 'undefined') throw new Error('The on-device OCR engine is unavailable. Check your connection and reload the app.');
-    const pending = Promise.resolve(Tesseract.createWorker(run.language, 1, { logger: message => {
+    const initializationStart = ocrClock();
+    const options = { logger: message => {
       if (message && message.status) setOcrProgress(run, 'Image OCR · Page ' + run.page + ': ' + message.status + (typeof message.progress === 'number' ? ' (' + Math.round(message.progress * 100) + '%)' : ''), message.progress || 0);
-    } }));
+    } };
+    if (run.language === 'heb_rashi') {
+      options.langPath = new URL('ocr-models/rashi-v1/', document.baseURI).href;
+      options.cachePath = 'sefer-studio-rashi-v1-c3bdf2c4188e'; options.gzip = true;
+    }
+    const pending = Promise.resolve(Tesseract.createWorker(run.language, 1, options));
     ocrWorkerInitializing = pending;
     pending.then(worker => {
       if (ocrRunIsCurrent(run)) run.worker = worker; else releaseOcrWorker(run, worker);
     }, () => {}).finally(() => {
       if (ocrWorkerInitializing === pending) ocrWorkerInitializing = null;
-      if (!activeOcrRun && !visionOcrHealthAbort) document.querySelectorAll('[data-pdf-action="ocr"]').forEach(button => { button.disabled = false; });
+      if (!activeOcrRun && !activeSearchableExport && !visionOcrHealthAbort) document.querySelectorAll('[data-pdf-action="ocr"]').forEach(button => { button.disabled = false; });
     });
     run.worker = await awaitOcrStep(run, pending);
+    run.workerInitializationMs = ocrMilliseconds(ocrClock() - initializationStart);
     return run.worker;
+  }
+
+  function updateOcrNumberOption() {
+    const option = document.getElementById('pdf-ocr-small-numbers');
+    option.disabled = !!activeOcrRun || document.getElementById('pdf-ocr-engine').value !== 'local' || document.getElementById('pdf-ocr-lang').value !== 'heb';
+    const rashi = document.getElementById('pdf-ocr-lang').value === 'heb_rashi';
+    const refine = document.getElementById('pdf-ocr-rashi-refine');
+    refine.disabled = !!activeOcrRun || !rashi || document.getElementById('pdf-ocr-engine').value !== 'local';
+    document.getElementById('pdf-ocr-rashi-refine-label').classList.toggle('hidden', !rashi || document.getElementById('pdf-ocr-engine').value !== 'local');
+    const note = document.getElementById('pdf-ocr-profile-note');
+    note.classList.toggle('hidden', !rashi);
+    note.textContent = document.getElementById('pdf-ocr-engine').value === 'local' ? 'Rashi script uses a specialized on-device model. Review square Hebrew headings, page numbers, and references; they can still be misread.' : 'AI vision reads this as Hebrew and is instructed to preserve Rashi-script wording. The specialized Rashi model is available with the on-device engine.';
+  }
+
+  async function createOcrNumberWorker(run, dpi) {
+    if (run.numberWorker) {
+      if (run.numberWorkerDpi !== dpi) { await awaitOcrStep(run, run.numberWorker.setParameters({ user_defined_dpi: String(dpi) })); run.numberWorkerDpi = dpi; }
+      return run.numberWorker;
+    }
+    const started = ocrClock();
+    setOcrProgress(run, 'Starting the small-number check for Page ' + run.page);
+    const pending = Promise.resolve(Tesseract.createWorker('eng', 1));
+    ocrWorkerInitializing = pending;
+    pending.then(worker => {
+      if (ocrRunIsCurrent(run)) run.numberWorker = worker; else releaseOcrWorker(run, worker);
+    }, () => {}).finally(() => {
+      if (ocrWorkerInitializing === pending) ocrWorkerInitializing = null;
+      if (!activeOcrRun && !activeSearchableExport && !visionOcrHealthAbort) document.querySelectorAll('[data-pdf-action="ocr"]').forEach(button => { button.disabled = false; });
+    });
+    const worker = await awaitOcrStep(run, pending);
+    await awaitOcrStep(run, worker.setParameters({ tessedit_pageseg_mode: Tesseract.PSM.SINGLE_LINE, tessedit_char_whitelist: '0123456789', user_defined_dpi: String(dpi) }));
+    run.numberWorkerInitializationMs = ocrMilliseconds(ocrClock() - started); run.numberWorkerDpi = dpi;
+    return worker;
+  }
+
+  async function improveOcrSmallNumbers(run, data, image) {
+    const started = ocrClock();
+    const summary = { enabled: true, candidateCount: 0, checked: 0, changed: 0, retained: 0, flagged: 0, skipped: 0, elapsedMs: 0, candidates: [] };
+    const flags = [], entries = [], replacements = [];
+    let lowConfidenceOverlap = 0;
+    for (const block of data.blocks || []) for (const paragraph of block.paragraphs || []) for (const line of paragraph.lines || []) for (const word of line.words || []) if (normalizeOcrSearchText(word.text)) entries.push(word);
+    const tokens = [...data.text.matchAll(/\S+/g)].filter(match => normalizeOcrSearchText(match[0]));
+    if (tokens.length !== entries.length || entries.some((word, index) => normalizeOcrSearchText(word.text) !== normalizeOcrSearchText(tokens[index][0]))) {
+      summary.status = 'incomplete'; summary.message = 'Small-number check incomplete: text and word positions do not match exactly.';
+      summary.elapsedMs = ocrMilliseconds(ocrClock() - started);
+      return { flags, summary, lowConfidenceOverlap };
+    }
+    const candidates = entries.map((word, index) => ({ word, index, match: /^(\d{1,6})(\.?)$/.exec(normalizeOcrSearchText(word.text)) })).filter(item => item.match);
+    summary.candidateCount = candidates.length;
+    function flag(item, reason, record, text = normalizeOcrSearchText(item.word.text)) {
+      summary.flagged++;
+      if (Number.isFinite(item.word.confidence) && item.word.confidence < 75) lowConfidenceOverlap++;
+      if (flags.length < 40 && item.word.bbox && ['x0','y0','x1','y1'].every(key => Number.isFinite(item.word.bbox[key]))) flags.push({ tokenIndex: item.index, text, previousText: record.original, confidence: Number.isFinite(item.word.confidence) ? item.word.confidence : 0, offset: tokens[item.index].index, bbox: { ...item.word.bbox }, reason });
+    }
+    for (let index = 0; index < candidates.length; index++) {
+      assertOcrRun(run);
+      const item = candidates[index], b = item.word.bbox;
+      const original = normalizeOcrSearchText(item.word.text);
+      const record = { original, replacement: null, accepted: false, sourceBox: b ? { ...b } : null };
+      if (index >= 120) { summary.skipped++; flag(item, 'Small number not checked: this page reached the 120-number limit.', record); continue; }
+      summary.candidates.push(record);
+      if (run.numberReviewUnavailable || !b || !['x0','y0','x1','y1'].every(key => Number.isFinite(b[key])) || b.x0 < 0 || b.y0 < 0 || b.x1 > image.canvas.width || b.y1 > image.canvas.height || b.x1 <= b.x0 || b.y1 <= b.y0 || (b.x1 - b.x0) * (b.y1 - b.y0) > 300000) {
+        record.reason = run.numberReviewUnavailable || 'Unsupported number crop'; summary.skipped++; flag(item, record.reason, record); continue;
+      }
+      const height = b.y1 - b.y0, padding = Math.max(3, Math.round(height * 0.15)), border = Math.max(10, Math.round(height * 0.5));
+      const exact = { x0: Math.floor(b.x0), y0: Math.floor(b.y0), x1: Math.ceil(b.x1), y1: Math.ceil(b.y1) };
+      const padded = { x0: Math.max(0, exact.x0 - padding), y0: Math.max(0, exact.y0 - padding), x1: Math.min(image.canvas.width, exact.x1 + padding), y1: Math.min(image.canvas.height, exact.y1 + padding) };
+      record.paddedBox = padded;
+      if (entries.some(word => word !== item.word && word.bbox && word.bbox.x0 < padded.x1 && word.bbox.x1 > padded.x0 && word.bbox.y0 < padded.y1 && word.bbox.y1 > padded.y0)) {
+        record.reason = 'Padded number crop overlaps another recognized word'; summary.skipped++; flag(item, record.reason, record); continue;
+      }
+      try {
+        const worker = await createOcrNumberWorker(run, image.actualDpi);
+        assertOcrRun(run); setOcrProgress(run, 'Checking small numbers · Page ' + run.page + ' · ' + (index + 1) + '/' + Math.min(120, candidates.length));
+        const readings = [];
+        for (const crop of [exact, padded]) {
+          const canvas = document.createElement('canvas');
+          canvas.width = crop.x1 - crop.x0 + border * 2; canvas.height = crop.y1 - crop.y0 + border * 2;
+          try {
+            if (canvas.width * canvas.height > 1000000) throw new Error('Number crop exceeds the safe image size.');
+            const drawing = canvas.getContext('2d'); drawing.fillStyle = '#fff'; drawing.fillRect(0, 0, canvas.width, canvas.height);
+            drawing.drawImage(image.canvas, crop.x0, crop.y0, crop.x1 - crop.x0, crop.y1 - crop.y0, border, border, crop.x1 - crop.x0, crop.y1 - crop.y0);
+            const answer = await awaitOcrStep(run, worker.recognize(canvas, {}, { text: true, blocks: false, hocr: false, tsv: false }));
+            const text = String(answer?.data?.text || '').trim(), confidence = answer?.data?.confidence;
+            readings.push({ text: text.slice(0, 30), confidence: Number.isFinite(confidence) ? confidence : null });
+          } finally { canvas.width = canvas.height = 1; }
+        }
+        assertOcrRun(run); summary.checked++; record.readings = readings;
+        const accepted = readings.every(reading => /^\d{1,6}$/.test(reading.text) && reading.confidence >= 85) && readings[0].text === readings[1].text;
+        if (!accepted) { record.reason = 'Two clear agreeing number readings were not obtained'; flag(item, record.reason, record); continue; }
+        record.accepted = true;
+        if (readings[0].text === item.match[1]) { summary.retained++; continue; }
+        const raw = tokens[item.index][0], offset = tokens[item.index].index + raw.indexOf(item.match[1]);
+        if (offset < tokens[item.index].index || data.text.slice(offset, offset + item.match[1].length) !== item.match[1]) { record.accepted = false; record.reason = 'The exact numeric text could not be matched'; flag(item, record.reason, record); continue; }
+        const replacement = readings[0].text + item.match[2];
+        replacements.push({ start: offset, length: item.match[1].length, text: readings[0].text });
+        item.word.text = String(item.word.text).replace(item.match[1], readings[0].text);
+        record.replacement = replacement; summary.changed++;
+        flag(item, 'Small-number check: ' + original + ' → ' + replacement + '. Compare both with the scan.', record, replacement);
+      } catch (error) {
+        assertOcrRun(run);
+        run.numberReviewUnavailable = 'Small-number check unavailable; primary Hebrew text was kept.';
+        releaseOcrWorker(run, run.numberWorker);
+        record.reason = run.numberReviewUnavailable; summary.skipped++; flag(item, record.reason, record);
+      }
+    }
+    // Apply exact token edits from the end; never replace repeated numbers globally.
+    for (const change of replacements.sort((a, b) => b.start - a.start)) data.text = data.text.slice(0, change.start) + change.text + data.text.slice(change.start + change.length);
+    const updatedTokens = [...data.text.matchAll(/\S+/g)].filter(match => normalizeOcrSearchText(match[0]));
+    for (const item of flags) { if (updatedTokens[item.tokenIndex]) item.offset = updatedTokens[item.tokenIndex].index; delete item.tokenIndex; }
+    summary.elapsedMs = ocrMilliseconds(ocrClock() - started);
+    summary.status = summary.skipped ? 'incomplete' : 'checked';
+    summary.error = run.numberReviewUnavailable || null;
+    summary.message = summary.checked + ' small numbers checked · ' + summary.changed + ' updated · ' + summary.flagged + ' to review' + (summary.skipped ? ' · ' + summary.skipped + ' skipped; number check incomplete' : '');
+    return { flags, summary, lowConfidenceOverlap };
+  }
+
+  function ocrComparableCharacters(text) {
+    return String(text || '').normalize('NFKC').replace(/[^\p{L}\p{N}]/gu, '');
+  }
+
+  // Refine Tesseract's detected lines. Never split the page using custom row
+  // thresholds: that earlier experiment omitted short printed lines. Retain
+  // the complete first reading and every detected line in the downloadable audit.
+  async function refineOcrRashiLines(run, first, image) {
+    const started = ocrClock();
+    const audit = { method: 'detected-lines-first-pass-fallback-v1', status: 'refining', firstPassText: first.text, detectedLines: 0, attemptedLines: 0, changedLines: 0, fallbackLines: 0, elapsedMs: 0, lines: [] };
+    const records = [];
+    const blocks = (first.blocks || []).map(block => ({ ...block, paragraphs: (block.paragraphs || []).map(paragraph => ({ ...paragraph, lines: (paragraph.lines || []).map(line => {
+      const copy = { ...line, words: (line.words || []).map(word => ({ ...word, bbox: word.bbox && { ...word.bbox } })) };
+      records.push(copy); return copy;
+    }) })) }));
+    const firstWords = records.flatMap(line => line.words.map(word => normalizeOcrSearchText(word.text)).filter(Boolean));
+    const finish = data => {
+      audit.applied = data !== first;
+      if (!audit.applied && audit.status === 'skipped') {
+        audit.changedLines = 0;
+        for (const line of audit.lines) { line.selectedText = line.firstText; line.selectedSource = 'first-pass'; }
+      }
+      audit.elapsedMs = ocrMilliseconds(ocrClock() - started); run.currentRefinementMs = audit.elapsedMs;
+      audit.message = audit.status === 'skipped' ? 'Rashi refinement skipped; the complete first reading was kept.' : audit.detectedLines + ' detected lines kept · ' + audit.changedLines + ' refined · ' + audit.fallbackLines + ' earlier readings retained. Compare changed lines with the scan.';
+      return { data, audit };
+    };
+    audit.detectedLines = records.length;
+    if (!records.length || records.length > 500 || normalizeOcrSearchText(firstWords.join(' ')) !== normalizeOcrSearchText(first.text)) {
+      audit.status = 'skipped'; audit.reason = !records.length ? 'No detected line positions' : records.length > 500 ? 'Page exceeds the line-refinement limit' : 'Detected words do not match the complete first reading';
+      return finish(first);
+    }
+    const selected = [], worker = run.worker;
+    let unavailable = null, resetFailure = null;
+    try { await awaitOcrStep(run, worker.setParameters({ tessedit_pageseg_mode: Tesseract.PSM.SINGLE_LINE, user_defined_dpi: String(image.actualDpi) })); }
+    catch (error) {
+      assertOcrRun(run); releaseOcrWorker(run, worker);
+      audit.status = 'skipped'; audit.reason = 'The line-refinement engine could not be configured; the complete first reading was kept';
+      return finish(first);
+    }
+    try {
+      for (let index = 0; index < records.length; index++) {
+        assertOcrRun(run);
+        const line = records[index], firstText = line.words.map(word => normalizeOcrSearchText(word.text)).filter(Boolean).join(' ');
+        const boxes = line.words.map(word => word.bbox).filter(Boolean);
+        const b = line.bbox || (boxes.length ? { x0: Math.min(...boxes.map(box => box.x0)), y0: Math.min(...boxes.map(box => box.y0)), x1: Math.max(...boxes.map(box => box.x1)), y1: Math.max(...boxes.map(box => box.y1)) } : null);
+        const record = { line: index + 1, firstText, refinedText: '', selectedText: firstText, selectedSource: 'first-pass', fallbackReason: null, bbox: b && { ...b } };
+        audit.lines.push(record);
+        let crop = null;
+        try {
+          if (unavailable) throw new Error(unavailable);
+          if (!firstText || !b || !['x0','y0','x1','y1'].every(key => Number.isFinite(b[key])) || b.x0 < 0 || b.y0 < 0 || b.x1 > image.canvas.width || b.y1 > image.canvas.height || b.x1 <= b.x0 || b.y1 <= b.y0) throw new Error('Invalid or empty detected line; earlier reading kept');
+          const left = Math.floor(b.x0), top = Math.floor(b.y0), width = Math.ceil(b.x1) - left, height = Math.ceil(b.y1) - top, padding = 12;
+          if (width * height > 2000000) throw new Error('Detected line exceeds refinement image limit');
+          crop = document.createElement('canvas'); crop.width = width + padding * 2; crop.height = height + padding * 2;
+          const context = crop.getContext('2d'); context.fillStyle = '#fff'; context.fillRect(0, 0, crop.width, crop.height); context.drawImage(image.canvas, left, top, width, height, padding, padding, width, height);
+          setOcrProgress(run, 'Rashi refinement · Page ' + run.page + ' · detected line ' + (index + 1) + '/' + records.length);
+          audit.attemptedLines++;
+          let response;
+          try { response = await awaitOcrStep(run, worker.recognize(crop, {}, { text: true, blocks: true, pdf: false, hocr: false, tsv: false })); }
+          catch (error) { assertOcrRun(run); unavailable = 'Line recognition failed; remaining first readings kept'; throw new Error(unavailable); }
+          const refined = response && response.data;
+          if (!refined || typeof refined.text !== 'string') throw new Error('Invalid line result');
+          record.refinedText = refined.text.trim();
+          record.firstCharacters = ocrComparableCharacters(firstText).length;
+          record.refinedCharacters = ocrComparableCharacters(record.refinedText).length;
+          if (!record.refinedCharacters) throw new Error('Empty line refinement');
+          if (record.refinedCharacters < .75 * record.firstCharacters) throw new Error('Refined line is shorter than 75% of the first reading');
+          if (record.firstCharacters && record.refinedCharacters > 2 * record.firstCharacters) throw new Error('Refined line is more than twice the first reading');
+          if (normalizeOcrSearchText(record.refinedText).split(' ').length < firstText.split(' ').length) throw new Error('Refined line contains fewer words than the first reading');
+          const geometry = collectOcrSearchWords(refined, record.refinedText);
+          if (!geometry.searchWords || !geometry.searchWords.length) throw new Error('Refined words have no exact matching positions');
+          const refinedWords = (refined.blocks || []).flatMap(block => (block.paragraphs || []).flatMap(paragraph => (paragraph.lines || []).flatMap(part => part.words || []))).filter(word => normalizeOcrSearchText(word.text));
+          const translated = refinedWords.map(word => ({ ...word, bbox: { x0: word.bbox.x0 + left - padding, y0: word.bbox.y0 + top - padding, x1: word.bbox.x1 + left - padding, y1: word.bbox.y1 + top - padding } }));
+          if (translated.some(word => word.bbox.x0 < 0 || word.bbox.y0 < 0 || word.bbox.x1 > image.canvas.width || word.bbox.y1 > image.canvas.height)) throw new Error('Refined positions extend outside the source page');
+          if (normalizeOcrSearchText(record.refinedText) !== normalizeOcrSearchText(firstText)) {
+            record.selectedText = normalizeOcrSearchText(record.refinedText); record.selectedSource = 'refined'; line.words = translated; audit.changedLines++;
+          } else record.selectedSource = 'unchanged';
+        } catch (error) {
+          assertOcrRun(run); record.fallbackReason = String(error.message || error).slice(0, 180); audit.fallbackLines++;
+        } finally { if (crop) crop.width = crop.height = 1; }
+        line.text = record.selectedText; selected.push(record.selectedText);
+      }
+    } finally {
+      if (ocrRunIsCurrent(run)) {
+        try { await awaitOcrStep(run, worker.setParameters({ tessedit_pageseg_mode: Tesseract.PSM.AUTO, user_defined_dpi: String(image.actualDpi) })); }
+        catch (error) { assertOcrRun(run); resetFailure = 'The line-refinement engine could not reset; the complete first reading was kept'; releaseOcrWorker(run, worker); }
+      }
+    }
+    if (resetFailure) { audit.status = 'skipped'; audit.reason = resetFailure; return finish(first); }
+    assertOcrRun(run); audit.status = unavailable ? 'partial' : 'checked';
+    const text = selected.join('\n');
+    const data = audit.changedLines ? { ...first, text, blocks, confidence: null } : first;
+    const geometry = collectOcrSearchWords(data, data.text);
+    if (!geometry.searchWords || selected.length !== records.length) {
+      audit.status = 'skipped'; audit.reason = 'Refined page failed final text/position coverage check'; audit.changedLines = 0;
+      return finish(first);
+    }
+    return finish(data);
   }
 
   function collectOcrWordFlags(data, text) {
@@ -5954,6 +6205,7 @@
   }
 
   async function renderOcrPage(run, page, limits) {
+    const renderStart = ocrClock();
     const base = page.getViewport({ scale: 1 });
     if (!(Number.isFinite(base.width) && Number.isFinite(base.height) && base.width > 0 && base.height > 0)) throw new Error('The PDF page has invalid dimensions.');
     const scale = Math.min(run.targetDpi / 72, Math.sqrt(limits.maxPixels / (base.width * base.height)), limits.maxDimension / base.width, limits.maxDimension / base.height);
@@ -5965,7 +6217,8 @@
     setOcrProgress(run, 'Rendering Page ' + run.page + ' at ' + Math.round(scale * 72) + ' DPI');
     run.renderTask = page.render({ canvasContext: context, viewport });
     await awaitOcrStep(run, run.renderTask.promise); run.renderTask = null;
-    return { canvas, scale, actualDpi: Math.round(scale * 72) };
+    run.currentRenderMs = ocrMilliseconds(ocrClock() - renderStart);
+    return { canvas, scale, actualDpi: Math.round(scale * 72), renderMs: run.currentRenderMs };
   }
 
   async function recognizeLocalOcrPage(run, page) {
@@ -5974,14 +6227,35 @@
     await awaitOcrStep(run, worker.setParameters({ tessedit_pageseg_mode: Tesseract.PSM.AUTO, user_defined_dpi: String(image.actualDpi) }));
     let data = null, recognitionError = null;
     try {
-      const result = await awaitOcrStep(run, worker.recognize(image.canvas, {}, { text: true, blocks: true, hocr: false, tsv: false }));
+      const recognitionStart = ocrClock();
+      const result = await awaitOcrStep(run, worker.recognize(image.canvas, { pdfTextOnly: true }, { text: true, blocks: true, pdf: !ocrGlyphlessSeed, hocr: false, tsv: false }));
+      run.currentRecognitionMs = ocrMilliseconds(ocrClock() - recognitionStart);
       data = result && result.data;
       if (!data || typeof data.text !== 'string') throw new Error('The OCR engine returned an invalid result.');
     } catch (error) { assertOcrRun(run); recognitionError = error; }
     assertOcrRun(run);
+    let refinement = null;
+    if (data && data.text.trim() && run.refineRashiLines) {
+      const refined = await refineOcrRashiLines(run, data, image); data = refined.data; refinement = refined.audit;
+    }
+    const numbers = data && data.text.trim() && run.improveNumbers ? await improveOcrSmallNumbers(run, data, image) : null;
+    assertOcrRun(run);
     const text = data && data.text.trim() || '';
-    const shared = { text, engine: 'on-device', dir: run.language.includes('heb') ? 'rtl' : 'auto', language: run.language, actualDpi: image.actualDpi, renderScale: image.scale, imageWidth: image.canvas.width, imageHeight: image.canvas.height, flags: [], flaggedCount: 0, reviewNotes: [] };
-    if (text) return { ...shared, ...collectOcrWordFlags(data, text), status: 'recognized', message: text.split(/\s+/).length + ' words · ' + image.actualDpi + ' DPI · review the scan.' };
+    if (!ocrGlyphlessSeed && data && data.pdf && data.pdf.length <= 1024 * 1024) ocrGlyphlessSeed = new Uint8Array(data.pdf);
+    let geometry = data ? collectOcrSearchWords(data, text) : { searchWords: null, searchIssue: 'Image OCR did not provide word positions.' };
+    const retainedWordCount = [...ocrResults.entries()].reduce((total, [number, value]) => total + (number === run.page ? 0 : value.searchWords?.length || 0), 0);
+    if (geometry.searchWords && retainedWordCount + geometry.searchWords.length > 250000) geometry = { searchWords: null, searchIssue: 'The tab reached its word-position memory limit. Download TXT; export earlier page ranges before starting a new PDF session.' };
+    const shared = { text, ...geometry, rashiRefinement: refinement, numericReview: numbers ? numbers.summary : null, engineConfidence: Number.isFinite(data?.confidence) ? Math.max(0, Math.min(100, data.confidence)) : null, wordCount: text ? text.split(/\s+/).length : 0, engine: 'on-device', dir: run.language.includes('heb') ? 'rtl' : 'auto', language: run.language, modelId: run.modelId, actualDpi: image.actualDpi, renderScale: image.scale, imageWidth: image.canvas.width, imageHeight: image.canvas.height, flags: [], flaggedCount: 0, reviewNotes: [] };
+    if (text) {
+      const review = collectOcrWordFlags(data, text);
+      if (numbers) {
+        const unique = new Map();
+        for (const item of [...numbers.flags, ...review.flags]) { const key = [item.bbox.x0, item.bbox.y0, item.bbox.x1, item.bbox.y1].join(','); if (!unique.has(key)) unique.set(key, item); }
+        review.flags = [...unique.values()].slice(0, 40);
+        review.flaggedCount += numbers.summary.flagged - numbers.lowConfidenceOverlap;
+      }
+      return { ...shared, ...review, status: 'recognized', message: text.split(/\s+/).length + ' words · ' + image.actualDpi + ' DPI · review the scan.' + (numbers ? ' ' + numbers.summary.message : '') + (refinement ? ' ' + refinement.message : '') };
+    }
     let existing = '';
     try { const content = await awaitOcrStep(run, page.getTextContent()); existing = content.items.map(item => item.str).join(' ').replace(/\s+/g, ' ').trim(); }
     catch (error) { assertOcrRun(run); }
@@ -6005,7 +6279,7 @@
     const image = await renderOcrPage(run, page, run.limits);
     const imageDataUrl = image.canvas.toDataURL('image/jpeg', 0.96);
     if (imageDataUrl.length > run.limits.maxImageDataUrlChars) throw new Error('The image exceeds the service size limit. Choose 300 DPI and retry this page.');
-    const body = JSON.stringify({ imageDataUrl, language: run.language, layout: run.layout, pageNumber: run.page });
+    const body = JSON.stringify({ imageDataUrl, language: run.language === 'heb_rashi' ? 'heb' : run.language, layout: run.layout, pageNumber: run.page });
     if (new TextEncoder().encode(body).byteLength > run.limits.maxRequestBytes) throw new Error('The request exceeds the service size limit. Choose 300 DPI and retry this page.');
     assertOcrRun(run);
     if (!isVisionOcrConnectionCurrent(run.connection, run.connectionRevision)) { const error = new Error('The service connection changed. Check it before continuing.'); error.stopBatch = true; throw error; }
@@ -6016,6 +6290,7 @@
     const timeout = setTimeout(() => { timedOut = true; controller.abort(); }, 150000);
     try {
       setOcrProgress(run, 'AI vision is reading Page ' + run.page);
+      const recognitionStart = ocrClock();
       visionOcrNextRequestAt = Date.now() + 13000;
       const response = await awaitOcrStep(run, fetch(run.connection.endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + run.connection.access }, credentials: 'omit', redirect: 'error', cache: 'no-store', referrerPolicy: 'no-referrer', signal: controller.signal, body }));
       let data;
@@ -6038,15 +6313,17 @@
         if ([401,403].includes(response.status)) visionOcrReadyRevision = -1;
         throw error;
       }
-      if (!data || typeof data.text !== 'string' || !data.text.trim()) throw new Error('The model returned no transcription. Earlier text has been kept.');
+      const explicitBlank = data && data.text === '' && Array.isArray(data.warnings) && data.warnings.includes('No visible text on this page.') && Array.isArray(data.uncertain) && data.uncertain.length === 0;
+      if (!data || typeof data.text !== 'string' || (!data.text.trim() && !explicitBlank)) throw new Error('The model returned no transcription. Earlier text has been kept.');
       if (data.incomplete === true) throw new Error('The model response was incomplete. Retry this page; earlier text has been kept.');
       assertOcrRun(run);
       if (!isVisionOcrConnectionCurrent(run.connection, run.connectionRevision)) { const error = new Error('The service connection changed. Earlier text has been kept.'); error.stopBatch = true; throw error; }
+      run.currentRecognitionMs = ocrMilliseconds(ocrClock() - recognitionStart);
       const text = data.text.trim(), serviceLabel = visionOcrServiceLabel(data, run.connection.access);
       const warnings = Array.isArray(data.warnings) ? data.warnings.filter(x => typeof x === 'string').slice(0, 10).map(x => visionOcrPublicText(x, '', run.connection.access, 300)) : [];
       const uncertain = Array.isArray(data.uncertain) ? data.uncertain.filter(x => typeof x === 'string').slice(0, 30).map(x => 'Check: ' + visionOcrPublicText(x, '', run.connection.access, 160)) : [];
       document.getElementById('pdf-vision-connection-status').textContent = 'AI scan verified · ' + serviceLabel + '. Review each transcription against its page image.';
-      return { text, status: 'recognized', engine: 'vision', dir: run.language.includes('heb') ? 'rtl' : 'auto', language: run.language, actualDpi: image.actualDpi, flags: [], flaggedCount: 0, reviewNotes: ['Compare the transcription with the scan before publishing.', ...warnings, ...uncertain], message: text.split(/\s+/).length + ' words · ' + serviceLabel };
+      return { text, searchWords: null, searchIssue: 'AI transcription has no matched word positions. Download TXT; use on-device OCR for searchable PDF export.', wordCount: text ? text.split(/\s+/).length : 0, status: explicitBlank ? 'no-text' : 'recognized', engine: 'vision', dir: run.language.includes('heb') ? 'rtl' : 'auto', language: run.language, modelId: serviceLabel, actualDpi: image.actualDpi, flags: [], flaggedCount: 0, reviewNotes: ['Compare the transcription with the scan before publishing.', ...warnings, ...uncertain], message: (explicitBlank ? 'The model reported no visible text; check the scan.' : text.split(/\s+/).length + ' words') + ' · ' + serviceLabel };
     } catch (error) {
       if (timedOut && !run.controller.signal.aborted) {
         const timeoutError = new Error('The AI request timed out. It was not retried automatically; earlier text has been kept.');
@@ -6063,7 +6340,7 @@
   }
 
   async function runOcrOnCurrentPage() {
-    if (activeOcrRun || pdfState.ocrRunning || visionOcrHealthAbort) return;
+    if (activeOcrRun || pdfState.ocrRunning || visionOcrHealthAbort || activeSearchableExport) return;
     if (ocrWorkerInitializing) { document.getElementById('pdf-ocr-status').textContent = 'The previous OCR engine is still starting. Run becomes available after its cleanup finishes; saved pages are kept.'; return; }
     persistDisplayedOcrText();
     let pages, connection;
@@ -6074,10 +6351,15 @@
     const rescan = document.getElementById('pdf-ocr-rescan').checked;
     const pending = pages.filter(page => rescan || !ocrResultIsSaved(ocrResults.get(page)));
     if (!pending.length) { status.textContent = 'All ' + pages.length + ' selected pages already have saved results. Choose Rescan saved pages to use a different engine, language, or quality.'; return; }
-    const controls = [...document.querySelectorAll('[data-pdf-action="ocr"], [data-pdf-action="ocr-connect"], [data-pdf-action="ocr-load-connection"], #pdf-ocr-engine, #pdf-ocr-lang, #pdf-ocr-quality, #pdf-ocr-scope, #pdf-ocr-range-start, #pdf-ocr-range-end, #pdf-ocr-rescan, #pdf-vision-layout, #pdf-vision-endpoint, #pdf-vision-access, #pdf-vision-connection-file')];
-    const run = { generation: ++ocrGeneration, sourcePdf: pdfState.pdfJsDoc, sourceBytes: pdfState.pdfBytes, pages, pending, finished: pages.length - pending.length, page: pending[0], controller: new AbortController(), worker: null, terminatedWorkers: new Set(), controls, disabled: controls.map(el => el.disabled), engine, language: document.getElementById('pdf-ocr-lang').value, layout: document.getElementById('pdf-vision-layout').value, targetDpi: document.getElementById('pdf-ocr-quality').value === '400' ? 400 : 300, connection, connectionRevision: visionOcrConnectionRevision, stopMessage: '' };
+    const controls = [...document.querySelectorAll('[data-pdf-action="ocr"], [data-pdf-action="ocr-connect"], [data-pdf-action="ocr-load-connection"], #pdf-ocr-engine, #pdf-ocr-lang, #pdf-ocr-quality, #pdf-ocr-scope, #pdf-ocr-range-start, #pdf-ocr-range-end, #pdf-ocr-rescan, #pdf-ocr-small-numbers, #pdf-ocr-rashi-refine, #pdf-vision-layout, #pdf-vision-endpoint, #pdf-vision-access, #pdf-vision-connection-file')];
+    const run = { generation: ++ocrGeneration, sourcePdf: pdfState.pdfJsDoc, sourceBytes: pdfState.pdfBytes, pages, pending, finished: pages.length - pending.length, page: pending[0], controller: new AbortController(), worker: null, numberWorker: null, terminatedWorkers: new Set(), controls, disabled: controls.map(el => el.disabled), engine, language: document.getElementById('pdf-ocr-lang').value, layout: document.getElementById('pdf-vision-layout').value, targetDpi: document.getElementById('pdf-ocr-quality').value === '400' ? 400 : 300, connection, connectionRevision: visionOcrConnectionRevision, stopMessage: '' };
+    run.improveNumbers = engine === 'local' && run.language === 'heb' && document.getElementById('pdf-ocr-small-numbers').checked;
+    run.refineRashiLines = engine === 'local' && run.language === 'heb_rashi' && document.getElementById('pdf-ocr-rashi-refine').checked;
+    run.numberWorkerInitializationMs = 0;
+    run.modelId = engine === 'local' ? (run.language === 'heb_rashi' ? 'heb_rashi@sha256:c3bdf2c4188e037838e027de419e6e8ca663f1168fef3d09df1a3a46afab6c50' : run.language + '@tesseract.js-data/4.0.0_best_int') : null;
+    run.startedAt = ocrClock(); run.startedAtIso = new Date().toISOString(); run.attempts = []; run.workerInitializationMs = 0;
     run.startRevisions = new Map(pages.map(page => [page, ocrResults.get(page)?.revision || 0]));
-    activeOcrRun = run; pdfState.ocrRunning = true;
+    activeOcrRun = run; pdfState.ocrRunning = true; updateSearchableExportControls();
     controls.forEach(el => { el.disabled = true; });
     document.querySelector('[data-pdf-action="ocr-cancel"]').classList.remove('hidden');
     document.getElementById('pdf-ocr-progress').classList.remove('hidden');
@@ -6101,24 +6383,32 @@
         const before = ocrResults.get(pageNumber);
         const beforeRevision = before && before.revision || 0;
         let page = null;
+        const pageStartedAt = ocrClock();
+        const attempt = { page: pageNumber, status: 'running', elapsedMs: 0, renderMs: 0, recognitionMs: 0 };
+        run.attempts.push(attempt); run.currentRenderMs = 0; run.currentRecognitionMs = 0; run.currentRefinementMs = 0;
         try {
           setOcrProgress(run, 'Preparing Page ' + pageNumber);
           page = await awaitOcrStep(run, run.sourcePdf.getPage(pageNumber));
           const result = engine === 'vision' ? await recognizeVisionOcrPage(run, page) : await recognizeLocalOcrPage(run, page);
           assertOcrRun(run);
+          result.timing = { elapsedMs: ocrMilliseconds(ocrClock() - pageStartedAt), renderMs: run.currentRenderMs, recognitionMs: run.currentRecognitionMs, refinementMs: run.currentRefinementMs || 0 };
+          Object.assign(attempt, result.timing, { status: result.status }); result.lastAttempt = { ...attempt };
           if ((ocrResults.get(pageNumber)?.revision || 0) !== beforeRevision) throw new Error('Text was edited while this page was scanning. The edited version was kept; retry only if you want to replace it.');
           if (before && before.text && (result.status === 'fallback' || result.status === 'no-text')) {
-            storeOcrResult(pageNumber, { ...before, status: 'failed', flags: [], flaggedCount: 0, reviewNotes: [], message: result.message + ' Earlier text was kept.' });
+            attempt.recognitionStatus = result.status; attempt.status = 'failed';
+            storeOcrResult(pageNumber, { ...before, lastAttempt: { ...attempt, status: 'failed' }, status: 'failed', flags: [], flaggedCount: 0, reviewNotes: [], message: result.message + ' Earlier text was kept.' });
           } else storeOcrResult(pageNumber, result);
           run.finished++;
           setOcrProgress(run, 'Processed Page ' + pageNumber);
         } catch (error) {
           assertOcrRun(run);
+          Object.assign(attempt, { status: 'failed', elapsedMs: ocrMilliseconds(ocrClock() - pageStartedAt), renderMs: run.currentRenderMs, recognitionMs: run.currentRecognitionMs, refinementMs: run.currentRefinementMs || 0 });
           const current = ocrResults.get(pageNumber);
-          if ((current && current.revision || 0) === beforeRevision) storeOcrResult(pageNumber, { ...before, text: before && before.text || '', engine: before && before.engine || engine, status: 'failed', flags: [], flaggedCount: 0, reviewNotes: [], message: visionOcrPublicText(error.message, 'This page could not be scanned.', connection && connection.access, 300) });
+          if ((current && current.revision || 0) === beforeRevision) storeOcrResult(pageNumber, { ...before, lastAttempt: { ...attempt }, text: before && before.text || '', engine: before && before.engine || engine, status: 'failed', flags: [], flaggedCount: 0, reviewNotes: [], message: visionOcrPublicText(error.message, 'This page could not be scanned.', connection && connection.access, 300) });
           run.finished++;
           if (error.stopBatch) { prefix = 'OCR paused: ' + error.message; break; }
         } finally {
+          if (attempt.status === 'running') Object.assign(attempt, { status: run.controller.signal.aborted ? 'stopped' : 'failed', elapsedMs: ocrMilliseconds(ocrClock() - pageStartedAt), renderMs: run.currentRenderMs, recognitionMs: run.currentRecognitionMs, refinementMs: run.currentRefinementMs || 0 });
           if (run.renderTask) { try { run.renderTask.cancel(); } catch (_error) {} run.renderTask = null; }
           if (run.canvas) { run.canvas.width = run.canvas.height = 1; run.canvas = null; }
           // PDF.js defers cleanup when the same page is still being displayed.
@@ -6130,16 +6420,18 @@
     } catch (error) {
       prefix = error.name === 'AbortError' ? (run.stopMessage || 'OCR stopped. Completed pages are kept; Run OCR to continue.') : 'OCR did not finish: ' + visionOcrPublicText(error.message, 'Unable to start scanning.', connection && connection.access, 300);
     } finally {
-      releaseOcrWorker(run);
+      releaseOcrWorker(run); releaseOcrWorker(run, run.numberWorker);
       if (run.canvas) { run.canvas.width = run.canvas.height = 1; run.canvas = null; }
       if (activeOcrRun === run) {
-        activeOcrRun = null; pdfState.ocrRunning = false;
+        activeOcrRun = null; pdfState.ocrRunning = false; updateSearchableExportControls();
         controls.forEach((el, i) => { el.disabled = run.disabled[i]; });
         if (ocrWorkerInitializing) document.querySelectorAll('[data-pdf-action="ocr"]').forEach(button => { button.disabled = true; });
         document.querySelector('[data-pdf-action="ocr-cancel"]').classList.add('hidden');
         document.getElementById('pdf-ocr-rescan').checked = false;
-        updateOcrOutputLock();
+        updateOcrOutputLock(); updateOcrNumberOption();
         if (run.sourceBytes === pdfState.pdfBytes && run.generation === ocrGeneration) {
+          lastOcrRunReport = { startedAt: run.startedAtIso, finishedAt: new Date().toISOString(), elapsedMs: ocrMilliseconds(ocrClock() - run.startedAt), workerInitializationMs: run.workerInitializationMs, numberWorkerInitializationMs: run.numberWorkerInitializationMs, improveSmallNumbers: run.improveNumbers, refineRashiLines: run.refineRashiLines, modelId: run.modelId, engineVersion: run.engine === 'local' ? 'Tesseract.js 5.1.1' : null, engine: run.engine, language: run.language, targetDpi: run.targetDpi, selectedPages: run.pages, attemptedPages: run.attempts.length, stopped: run.controller.signal.aborted, outcome: prefix, attempts: run.attempts };
+          document.getElementById('pdf-ocr-timing').textContent = 'Last run: ' + ocrSeconds(lastOcrRunReport.elapsedMs) + ' · ' + run.attempts.length + ' pages attempted · engine startup ' + ocrSeconds(run.workerInitializationMs) + (run.numberWorkerInitializationMs ? ' + number check ' + ocrSeconds(run.numberWorkerInitializationMs) : '') + '. Exact page times are in the JSON report.';
           status.textContent = finishOcrSummary(run, prefix) + (ocrWorkerInitializing ? ' Engine startup is still finishing; Run becomes available after cleanup.' : ''); status.title = '';
           const progress = document.getElementById('pdf-ocr-progress'); progress.max = pages.length; progress.value = run.finished;
           renderOcrResultPicker();
@@ -6155,7 +6447,7 @@
     const sections = [pdfState.fileName + ' — OCR text', 'Selected pages: ' + pages.join(', '), 'Status: ' + (incomplete ? 'PARTIAL — ' + incomplete + ' pages need OCR or retry.' : 'All selected pages processed; review accuracy and pages with no text.'), counts.recognized + ' OCR, ' + counts.edited + ' edited, ' + counts.empty + ' no text, ' + counts.failed + ' failed, ' + counts.fallback + ' existing-text fallback, ' + counts.missing + ' unscanned.'];
     for (const page of pages) {
       const result = ocrResults.get(page);
-      sections.push('\n===== Page ' + page + ' of ' + pdfState.pageCount + ' =====\n[' + ocrResultLabel(result) + (result && result.engine ? ' · ' + result.engine : '') + ']\n' + (result && result.message ? result.message + '\n' : '') + (result && result.text ? result.text : result && result.status === 'no-text' ? '[NO TEXT FOUND — check the scan]' : '[NO SAVED TEXT]'));
+      sections.push('\n===== Page ' + page + ' of ' + pdfState.pageCount + ' =====\n[' + ocrResultLabel(result) + (result && result.engine ? ' · ' + result.engine : '') + ']\n' + (result && result.message ? result.message + '\n' : '') + (result ? describeOcrTiming(result).replace(/^ · /, '') + '\n' : '') + (result && result.text ? result.text : result && result.status === 'no-text' ? '[NO TEXT FOUND — check the scan]' : '[NO SAVED TEXT]'));
     }
     return sections.join('\n');
   }
@@ -6175,26 +6467,247 @@
   }
 
 
-  async function exportEditedBinaryPdf() {
-    if (!pdfState.pdfBytes || typeof PDFLib === 'undefined') {
-      toast('PDF engine not ready', 'error');
-      return;
+  // Search text uses one invisible glyph per logical word. Vertical font metrics
+  // are rotated onto the matched horizontal word box so Hebrew is not reversed
+  // by reader bidi heuristics. The font itself comes from Tesseract's PDF output.
+  function normalizeOcrSearchText(text) {
+    return String(text || '').replace(/[\u200e\u200f\u202a-\u202e\u2066-\u2069]/g, '').replace(/\s+/g, ' ').trim();
+  }
+
+  function collectOcrSearchWords(data, text) {
+    const words = [];
+    for (const block of data.blocks || []) for (const paragraph of block.paragraphs || []) for (const line of paragraph.lines || []) for (const word of line.words || []) {
+      const value = normalizeOcrSearchText(word.text);
+      if (!value) continue;
+      const b = word.bbox;
+      if (words.length >= 6000 || value.length > 160 || /\s/.test(value) || !b || !['x0','y0','x1','y1'].every(key => Number.isFinite(b[key])) || b.x0 < 0 || b.y0 < 0 || b.x1 <= b.x0 || b.y1 <= b.y0) return { searchWords: null, searchIssue: 'This page has unsupported word geometry. Its text can still be downloaded.' };
+      // Compact records: logical text followed by its four image coordinates.
+      words.push([value, b.x0, b.y0, b.x1, b.y1]);
     }
+    if (normalizeOcrSearchText(words.map(word => word[0]).join(' ')) !== normalizeOcrSearchText(text)) return { searchWords: null, searchIssue: 'Word positions do not match the OCR text exactly. Its text can still be downloaded.' };
+    return { searchWords: words, searchIssue: '' };
+  }
+
+  function remapEditedOcrWords(previous, text) {
+    if (!previous || !Array.isArray(previous.searchWords) || normalizeOcrSearchText(previous.searchWords.map(word => word[0]).join(' ')) !== normalizeOcrSearchText(previous.text)) return { searchWords: null, searchIssue: 'This edited text has no matching word positions. Download TXT, or rescan this page for a searchable PDF.' };
+    const tokens = normalizeOcrSearchText(text).split(' ').filter(Boolean);
+    const words = previous.searchWords;
+    if (tokens.length !== words.length || tokens.some(token => token.length > 160)) return { searchWords: null, searchIssue: 'Words were added or removed. Download TXT, or rescan this page to rebuild searchable positions.' };
+    const changed = tokens.reduce((count, token, index) => count + (token !== words[index][0] ? 1 : 0), 0);
+    if (changed > 1) return { searchWords: null, searchIssue: 'This rewrite changes more than one matched word. Download TXT, or rescan this page to rebuild searchable positions.' };
+    return { searchWords: words.map((word, index) => tokens[index] === word[0] ? word : [tokens[index], ...word.slice(1)]), searchIssue: '', searchEdited: changed > 0 || previous.searchEdited === true };
+  }
+
+  function utf16OcrHex(text) {
+    let hex = '';
+    for (let index = 0; index < text.length; index++) hex += text.charCodeAt(index).toString(16).padStart(4, '0');
+    return hex.toUpperCase();
+  }
+
+  async function copyOcrGlyphlessDescriptor(output, seedBytes) {
+    const { PDFDocument, PDFName, PDFDict, PDFArray, PDFObjectCopier } = PDFLib;
+    const seed = await PDFDocument.load(seedBytes);
+    const fonts = seed.getPage(0).node.Resources().lookup(PDFName.of('Font'), PDFDict);
+    for (const [, reference] of fonts.entries()) {
+      const font = seed.context.lookup(reference, PDFDict);
+      if (font.get(PDFName.of('BaseFont'))?.toString() !== '/GlyphLessFont') continue;
+      const descendant = font.lookup(PDFName.of('DescendantFonts'), PDFArray).lookup(0, PDFDict);
+      const descriptor = descendant.lookup(PDFName.of('FontDescriptor'), PDFDict);
+      if (!descriptor.has(PDFName.of('FontFile2'))) continue;
+      return output.context.register(PDFObjectCopier.for(seed.context, output.context).copy(descriptor));
+    }
+    throw new Error('The OCR font could not be prepared. Rescan a page with on-device OCR, then export again.');
+  }
+
+  function addOcrSearchLayer(output, page, result, descriptor) {
+    const { PDFName, PDFString } = PDFLib;
+    const words = result.searchWords;
+    if (!Array.isArray(words) || words.length > 6000 || normalizeOcrSearchText(words.map(word => word[0]).join(' ')) !== normalizeOcrSearchText(result.text)) throw new Error('The text changed without matching word positions. Rescan the affected page or download TXT.');
+    if (!words.length) return;
+    const scale = result.renderScale, height = page.getHeight(), width = page.getWidth();
+    if (!(scale > 0 && Number.isFinite(scale))) throw new Error('The page has no valid OCR scale. Rescan it before exporting.');
+    const cmap = ['/CIDInit /ProcSet findresource begin', '12 dict begin', 'begincmap', '/CIDSystemInfo << /Registry (Adobe) /Ordering (UCS) /Supplement 0 >> def', '/CMapName /SeferOCR-Word-UCS def', '/CMapType 2 def', '1 begincodespacerange', '<0000> <FFFF>', 'endcodespacerange'];
+    for (let start = 0; start < words.length; start += 100) {
+      const group = words.slice(start, start + 100);
+      cmap.push(group.length + ' beginbfchar');
+      group.forEach((word, offset) => cmap.push('<' + (start + offset + 1).toString(16).padStart(4, '0') + '> <' + utf16OcrHex(word[0] + ' ') + '>'));
+      cmap.push('endbfchar');
+    }
+    cmap.push('endcmap', 'CMapName currentdict /CMap defineresource pop', 'end', 'end');
+    const metrics = [], positions = [], glyphs = new Uint8Array((words.length + 1) * 2);
+    words.forEach((word, index) => {
+      if (word.length !== 5 || word[0].length > 160 || !word.slice(1).every(Number.isFinite)) throw new Error('A searchable word has invalid bounds. Rescan this page.');
+      const left = word[1] / scale, top = word[2] / scale, right = word[3] / scale, bottom = word[4] / scale;
+      if (left < 0 || top < 0 || right > width + 1 || bottom > height + 1 || right <= left || bottom <= top) throw new Error('OCR positions no longer match this page. Rescan it before exporting.');
+      const h = Math.max(0.5, bottom - top), w = Math.max(0.5, right - left), cid = index + 1;
+      metrics.push(cid, [-Math.round(1000 * w / h), 0, 0]);
+      glyphs[cid * 2 + 1] = 1;
+      positions.push({ cid, h, right, top });
+    });
+    const context = output.context;
+    const descendant = context.register(context.obj({ Type: 'Font', Subtype: 'CIDFontType2', BaseFont: 'GlyphLessFont', CIDSystemInfo: { Registry: PDFString.of('Adobe'), Ordering: PDFString.of('Identity'), Supplement: 0 }, FontDescriptor: descriptor, CIDToGIDMap: context.register(context.flateStream(glyphs)), DW: 1000, DW2: [0, -1000], W2: metrics }));
+    const font = context.register(context.obj({ Type: 'Font', Subtype: 'Type0', BaseFont: 'GlyphLessFont', Encoding: 'Identity-V', DescendantFonts: [descendant], ToUnicode: context.register(context.flateStream(cmap.join('\n'))) }));
+    const fontKey = page.node.newFontDictionary('SeferOCR', font).toString();
+    const contents = positions.map(({ cid, h, right, top }) => 'BT ' + fontKey + ' 0.01 Tf 3 Tr 100 Tz 0 ' + (-h / 0.01).toFixed(6) + ' ' + (h / 0.01).toFixed(6) + ' 0 ' + right.toFixed(6) + ' ' + (height - top).toFixed(6) + ' Tm <' + cid.toString(16).padStart(4, '0') + '> Tj ET').join('\n');
+    page.node.addContentStream(context.register(context.flateStream(contents)));
+  }
+
+  function ocrClock() { return typeof performance !== 'undefined' ? performance.now() : Date.now(); }
+  function ocrMilliseconds(value) { return Math.round(Math.max(0, Number(value) || 0) * 1000) / 1000; }
+  function ocrSeconds(value) { return (Math.max(0, Number(value) || 0) / 1000).toFixed(3) + ' s'; }
+
+  function describeOcrTiming(result) {
+    if (!result) return '';
+    const details = [];
+    if (result.timing) details.push('Scan time ' + ocrSeconds(result.timing.elapsedMs));
+    if (Number.isFinite(result.engineConfidence)) details.push('Engine confidence ' + result.engineConfidence.toFixed(1) + '/100');
+    if (result.searchIssue) details.push(result.searchIssue);
+    return details.length ? ' · ' + details.join(' · ') : '';
+  }
+
+  function buildOcrReport(pages) {
+    const counts = ocrPageCounts(pages);
+    const pageReports = pages.map(page => {
+      const result = ocrResults.get(page);
+      return { page, status: result?.status || 'unscanned', engine: result?.engine || null, language: result?.language || null, modelId: result?.modelId || null, actualDpi: result?.actualDpi || null, characterCount: result?.text?.length || 0, wordCount: result?.wordCount ?? (result?.text?.trim() ? result.text.trim().split(/\s+/).length : 0), engineConfidence: Number.isFinite(result?.engineConfidence) ? result.engineConfidence : null, reviewWordCount: result?.flaggedCount || 0, numericReview: result?.numericReview || null, rashiRefinement: result?.rashiRefinement || null, refinementMs: result?.timing?.refinementMs ?? null, elapsedMs: result?.timing?.elapsedMs ?? null, renderMs: result?.timing?.renderMs ?? null, recognitionMs: result?.timing?.recognitionMs ?? null, lastAttempt: result?.lastAttempt || null, searchablePositions: Array.isArray(result?.searchWords), searchIssue: result?.searchIssue || null, revision: result?.revision || 0 };
+    });
+    const measured = pageReports.filter(page => Number.isFinite(page.elapsedMs));
+    const sum = measured.reduce((total, page) => total + page.elapsedMs, 0);
+    return { format: 'sefer-studio-ocr-report', version: 1, generatedAt: new Date().toISOString(), sourceFile: pdfState.fileName, sourcePageCount: pdfState.pageCount, selectedPages: pages, status: counts.failed + counts.fallback + counts.missing ? 'partial' : 'processed_review_required', counts, measuredPageCount: measured.length, sumOfSavedPageElapsedMs: ocrMilliseconds(sum), meanSavedPageElapsedMs: measured.length ? ocrMilliseconds(sum / measured.length) : null, latestRun: lastOcrRunReport, pages: pageReports, reviewNote: 'Engine confidence is not measured accuracy. Review footnote labels, page numbers, and references against the scan. Page timings include rendering and recognition; the latest run also includes engine initialization, service waits, and failures.' };
+  }
+
+  function downloadOcrReport() {
+    persistDisplayedOcrText();
     try {
-      const pdfDoc = await PDFLib.PDFDocument.load(pdfState.pdfBytes);
-      const font = await pdfDoc.embedFont(PDFLib.StandardFonts.TimesRoman);
-      const fontBold = await pdfDoc.embedFont(PDFLib.StandardFonts.TimesRomanBold);
-      const pages = pdfDoc.getPages();
+      const pages = selectedOcrPages();
+      downloadPdfStudioBlob(new Blob([JSON.stringify(buildOcrReport(pages), null, 2)], { type: 'application/json' }), pdfState.fileName.replace(/\.pdf$/i, '') + '_OCR_Report_Pages_' + pages[0] + '-' + pages[pages.length - 1] + '.json');
+      toast('Downloaded page timings, engine confidence, and review status.');
+    } catch (error) { toast(error.message, 'warn'); }
+  }
 
-      for (let i = 0; i < pages.length; i++) {
-        const pNum = i + 1;
-        const page = pages[i];
-        const sz = page.getSize();
-        const origW = sz.width;
-        const origH = sz.height;
-        const ovs = pdfState.overlays[pNum] || [];
-        const fns = pdfState.pdfFootnotes[pNum] || [];
+  function downloadPdfStudioBlob(blob, name) {
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob); link.download = name;
+    document.body.appendChild(link); link.click();
+    setTimeout(() => { URL.revokeObjectURL(link.href); link.remove(); }, 1500);
+  }
 
+  function updateSearchableExportControls() {
+    const button = document.querySelector('[data-pdf-action="ocr-searchable"]');
+    if (button) button.disabled = !!activeOcrRun || !!activeSearchableExport || !pdfState.pdfBytes;
+  }
+
+  function searchableExportError(message, name = 'Error') { const error = new Error(message); error.name = name; return error; }
+  function assertSearchableExport(job, checkAnnotations = false) {
+    persistDisplayedOcrText();
+    if (activeSearchableExport !== job || job.controller.signal.aborted) throw searchableExportError('Searchable PDF export stopped. Your OCR results are kept.', 'AbortError');
+    if (job.sourceBytes !== pdfState.pdfBytes || job.sourcePdf !== pdfState.pdfJsDoc || pdfState.pdfJsDocSource !== job.sourceBytes) throw searchableExportError('The PDF changed during export. Export again from the current document.');
+    for (const [page, result] of job.results) if (ocrResults.get(page) !== result) throw searchableExportError('OCR text changed on Page ' + page + ' during export. Your edit is kept; start export again.');
+    if (checkAnnotations && job.annotationSignature !== JSON.stringify({ overlays: pdfState.overlays, footnotes: pdfState.pdfFootnotes, extendBottom: pdfState.extendBottomForFn })) throw searchableExportError('PDF annotations changed during export. Start export again to include the latest edits.');
+  }
+
+  function stopSearchablePdfExport() {
+    const job = activeSearchableExport;
+    if (!job) return;
+    job.controller.abort();
+    if (job.renderTask) { try { job.renderTask.cancel(); } catch (_error) {} }
+    document.getElementById('pdf-searchable-status').textContent = 'Stopping export. Your OCR results are kept.';
+  }
+
+  async function exportSearchablePdf() {
+    if (activeSearchableExport || activeOcrRun || pdfState.ocrRunning) { toast('Wait for the current scan or export to finish.', 'warn'); return; }
+    persistDisplayedOcrText();
+    const status = document.getElementById('pdf-searchable-status');
+    let pages, results;
+    try {
+      if (typeof PDFLib === 'undefined') throw new Error('The PDF engine is not ready.');
+      pages = selectedOcrPages();
+      results = new Map(pages.map(page => [page, ocrResults.get(page)]));
+      const issues = [];
+      for (const [page, result] of results) {
+        if (!ocrResultIsSaved(result)) issues.push('Page ' + page + ': ' + ocrResultLabel(result));
+        else if (!Array.isArray(result.searchWords)) issues.push('Page ' + page + ': ' + (result.searchIssue || 'No matched word positions. Use on-device OCR for this page.'));
+        else if (normalizeOcrSearchText(result.searchWords.map(word => word[0]).join(' ')) !== normalizeOcrSearchText(result.text)) issues.push('Page ' + page + ': text and word positions differ.');
+      }
+      if (issues.length) throw new Error('Cannot export all selected pages: ' + issues.slice(0, 4).join(' · ') + (issues.length > 4 ? ' · ' + (issues.length - 4) + ' more pages need attention.' : '') + ' Your TXT results remain available.');
+      if ([...results.values()].some(result => result.searchWords.length) && !ocrGlyphlessSeed) throw new Error('Rescan one page with on-device OCR to prepare the searchable font. Your other saved pages are kept.');
+    } catch (error) { status.textContent = error.message; toast(error.message, 'warn'); return; }
+    const annotationSignature = JSON.stringify({ overlays: pdfState.overlays, footnotes: pdfState.pdfFootnotes, extendBottom: pdfState.extendBottomForFn });
+    const annotations = JSON.parse(annotationSignature);
+    const controls = [...document.querySelectorAll('[data-pdf-action="ocr"], [data-pdf-action="export"], #pdf-ocr-scope, #pdf-ocr-range-start, #pdf-ocr-range-end')];
+    const job = { sourcePdf: pdfState.pdfJsDoc, sourceBytes: pdfState.pdfBytes, fileName: pdfState.fileName, pages, results, controller: new AbortController(), annotationSignature, annotations, controls, disabled: controls.map(button => button.disabled), startedAt: ocrClock(), compressedBytes: 0, renderTask: null, canvas: null };
+    activeSearchableExport = job; controls.forEach(button => { button.disabled = true; }); updateSearchableExportControls();
+    document.querySelector('[data-pdf-action="ocr-searchable-stop"]').classList.remove('hidden');
+    try {
+      assertSearchableExport(job, true);
+      const output = await PDFLib.PDFDocument.create(); assertSearchableExport(job);
+      output.setTitle(job.fileName.replace(/\.pdf$/i, '') + ' — searchable scan'); output.setCreator('Sefer Studio');
+      const descriptor = ocrGlyphlessSeed ? await copyOcrGlyphlessDescriptor(output, ocrGlyphlessSeed) : null; assertSearchableExport(job);
+      const font = await output.embedFont(PDFLib.StandardFonts.TimesRoman); assertSearchableExport(job);
+      const fontBold = await output.embedFont(PDFLib.StandardFonts.TimesRomanBold); assertSearchableExport(job);
+      for (let index = 0; index < pages.length; index++) {
+        const number = pages[index], result = results.get(number);
+        assertSearchableExport(job, true);
+        status.textContent = 'Preparing searchable PDF: Page ' + number + ' · ' + (index + 1) + '/' + pages.length + ' · ' + ocrSeconds(ocrClock() - job.startedAt);
+        const sourcePage = await job.sourcePdf.getPage(number); assertSearchableExport(job);
+        try {
+          const base = sourcePage.getViewport({ scale: 1 });
+          const scale = Math.min((result.actualDpi || 300) / 72, Math.sqrt(20000000 / (base.width * base.height)), 8192 / base.width, 8192 / base.height);
+          if (!(base.width > 0 && base.height > 0 && scale > 0 && Number.isFinite(scale))) throw new Error('Page ' + number + ' has invalid dimensions.');
+          const viewport = sourcePage.getViewport({ scale });
+          const canvas = document.createElement('canvas'); job.canvas = canvas;
+          canvas.width = Math.max(1, Math.floor(viewport.width)); canvas.height = Math.max(1, Math.floor(viewport.height));
+          const drawing = canvas.getContext('2d'); drawing.fillStyle = '#fff'; drawing.fillRect(0, 0, canvas.width, canvas.height);
+          job.renderTask = sourcePage.render({ canvasContext: drawing, viewport }); await job.renderTask.promise; job.renderTask = null; assertSearchableExport(job);
+          const blob = await new Promise((resolve, reject) => canvas.toBlob(value => value ? resolve(value) : reject(new Error('Page ' + number + ' could not be encoded. Try exporting fewer pages.')), 'image/png')); assertSearchableExport(job);
+          canvas.width = canvas.height = 1; job.canvas = null;
+          const png = new Uint8Array(await blob.arrayBuffer()); assertSearchableExport(job);
+          if (png.byteLength > 32000000) throw new Error('Page ' + number + ' exceeds the safe image size for this browser. Scan at 300 DPI and retry.');
+          const image = await output.embedPng(png); assertSearchableExport(job);
+          const page = output.addPage([base.width, base.height]);
+          page.drawImage(image, { x: 0, y: 0, width: base.width, height: base.height });
+          await image.embed(); assertSearchableExport(job);
+          // embed() releases decoded RGB data; only compressed PDF streams remain.
+          job.compressedBytes += output.context.lookup(image.ref).getContentsSize();
+          if (job.compressedBytes > 128 * 1024 * 1024) throw new Error('This searchable PDF exceeds the browser memory budget. Export smaller page ranges; all OCR results are kept.');
+          addOcrSearchLayer(output, page, result, descriptor);
+          await applyPdfPageEdits(output, page, annotations.overlays[number] || [], annotations.footnotes[number] || [], annotations.extendBottom, font, fontBold); assertSearchableExport(job, true);
+        } finally {
+          if (job.canvas) { job.canvas.width = job.canvas.height = 1; job.canvas = null; }
+          if (job.renderTask) { try { job.renderTask.cancel(); } catch (_error) {} job.renderTask = null; }
+          if (sourcePage.cleanup) { try { sourcePage.cleanup(); } catch (_error) {} }
+        }
+        await new Promise(resolve => setTimeout(resolve, 0)); assertSearchableExport(job);
+      }
+      status.textContent = 'Saving ' + pages.length + ' searchable pages · ' + ocrSeconds(ocrClock() - job.startedAt);
+      const bytes = await output.save(); assertSearchableExport(job, true);
+      if (bytes.byteLength > 160 * 1024 * 1024) throw new Error('The completed file exceeds the browser memory budget. Export a smaller page range.');
+      downloadPdfStudioBlob(new Blob([bytes], { type: 'application/pdf' }), job.fileName.replace(/\.pdf$/i, '') + '_Searchable_Pages_' + pages[0] + '-' + pages[pages.length - 1] + '.pdf');
+      status.textContent = 'Downloaded ' + pages.length + ' searchable pages in ' + ocrSeconds(ocrClock() - job.startedAt) + '. Old text was replaced; compare the OCR and scan before publishing.';
+      toast('Downloaded searchable PDF with a fresh text layer.');
+    } catch (error) {
+      if (job.sourceBytes === pdfState.pdfBytes) status.textContent = error.name === 'RenderingCancelledException' || error.name === 'AbortError' ? 'Searchable PDF export stopped. Your OCR results are kept.' : 'Searchable PDF was not downloaded: ' + error.message;
+    } finally {
+      if (job.canvas) { job.canvas.width = job.canvas.height = 1; job.canvas = null; }
+      if (activeSearchableExport === job) {
+        activeSearchableExport = null; controls.forEach((button, index) => { button.disabled = job.disabled[index]; });
+        document.querySelector('[data-pdf-action="ocr-searchable-stop"]').classList.add('hidden'); updateSearchableExportControls();
+        document.querySelectorAll('[data-pdf-action="ocr"]').forEach(button => { button.disabled = !!activeOcrRun || !!ocrWorkerInitializing || !!visionOcrHealthAbort; });
+      }
+    }
+  }
+
+  async function applyPdfPageEdits(pdfDoc, page, ovs, fns, extendBottomForFn, font, fontBold) {
+    // This legacy annotation renderer uses Times Roman (ASCII text only here).
+    // Fail explicitly instead of exporting question marks or dropping Hebrew.
+    for (const item of ovs) {
+      if (['text', 'whiteout', 'stamp'].includes(item.kind) && /[^\x20-\x7E]/.test(String(item.text || ''))) throw new Error('PDF export cannot yet encode Hebrew or other Unicode annotation text. Your annotations and OCR are unchanged.');
+    }
+    for (const [index, note] of fns.entries()) {
+      if (/[^\x20-\x7E]/.test(String(note.text || ''))) throw new Error('PDF export cannot yet encode Hebrew or other Unicode footnotes. Your footnotes and OCR are unchanged.');
+      if ((String(index + 1) + '. ' + String(note.text || '')).length > 105) throw new Error('A PDF footnote exceeds the single-line export limit. Export stopped instead of truncating it; your complete footnote is unchanged.');
+    }
+    const sz = page.getSize(), origW = sz.width, origH = sz.height;
         // Burn overlays
         for (const it of ovs) {
           const x = (it.xPct / 100) * origW;
@@ -6222,7 +6735,7 @@
               const w = ((it.wPct || 28) / 100) * origW;
               const h = (img.height / img.width) * w;
               page.drawImage(img, { x, y: yTop - h, width: w, height: h });
-            } catch (_ie) {}
+            } catch (_ie) { throw new Error('A PDF image annotation could not be embedded. Export stopped; your annotation is unchanged.'); }
           } else if (it.kind === 'draw' && it.points && it.points.length > 1) {
             for (let k = 1; k < it.points.length; k++) {
               page.drawLine({
@@ -6238,7 +6751,7 @@
         // Burn True Bottom-of-Page PDF Footnotes!
         if (fns.length > 0) {
           let baseBottomY = 22;
-          if (pdfState.extendBottomForFn) {
+          if (extendBottomForFn) {
             const extraH = 26 + fns.length * 15;
             const mb = page.getMediaBox();
             page.setMediaBox(mb.x, mb.y - extraH, mb.width, mb.height + extraH);
@@ -6259,6 +6772,29 @@
             page.drawText(safeTxt, { x: 48, y: fy, size: 8.5, font, color: PDFLib.rgb(0.08, 0.1, 0.14) });
           });
         }
+  }
+
+  async function exportEditedBinaryPdf() {
+    if (!pdfState.pdfBytes || typeof PDFLib === 'undefined') {
+      toast('PDF engine not ready', 'error');
+      return;
+    }
+    try {
+      const pdfDoc = await PDFLib.PDFDocument.load(pdfState.pdfBytes);
+      const font = await pdfDoc.embedFont(PDFLib.StandardFonts.TimesRoman);
+      const fontBold = await pdfDoc.embedFont(PDFLib.StandardFonts.TimesRomanBold);
+      const pages = pdfDoc.getPages();
+
+      for (let i = 0; i < pages.length; i++) {
+        const pNum = i + 1;
+        const page = pages[i];
+        const sz = page.getSize();
+        const origW = sz.width;
+        const origH = sz.height;
+        const ovs = pdfState.overlays[pNum] || [];
+        const fns = pdfState.pdfFootnotes[pNum] || [];
+
+        await applyPdfPageEdits(pdfDoc, page, ovs, fns, pdfState.extendBottomForFn, font, fontBold);
       }
 
       const outBytes = await pdfDoc.save();
@@ -6281,6 +6817,7 @@
     const sourceBytes = pdfState.pdfBytes, sourceName = pdfState.fileName;
     const idx = pdfState.currentPage - 1;
     stopOcrRun('OCR stopped because the PDF pages are changing.');
+    stopSearchablePdfExport();
     const pdfDoc = await PDFLib.PDFDocument.load(sourceBytes);
     if (pdfState.pdfBytes !== sourceBytes) return;
     if (op === 'rotate') {
@@ -6347,8 +6884,10 @@
       renderOcrResultPicker();
     });
     document.getElementById('pdf-ocr-engine').addEventListener('change', (event) => {
-      document.getElementById('pdf-vision-settings').classList.toggle('hidden', event.target.value !== 'vision');
+      document.getElementById('pdf-vision-settings').classList.toggle('hidden', event.target.value !== 'vision'); updateOcrNumberOption();
     });
+    document.getElementById('pdf-ocr-lang').addEventListener('change', updateOcrNumberOption);
+    updateOcrNumberOption();
     ['pdf-vision-endpoint', 'pdf-vision-access'].forEach(id => {
       document.getElementById(id).addEventListener('input', () => invalidateVisionOcrConnection());
     });
@@ -6485,6 +7024,9 @@
       else if (act === 'ocr-load-connection') connectionInp.click();
       else if (act === 'ocr-cancel') stopOcrRun();
       else if (act === 'ocr-download') downloadOcrText();
+      else if (act === 'ocr-report') downloadOcrReport();
+      else if (act === 'ocr-searchable') exportSearchablePdf();
+      else if (act === 'ocr-searchable-stop') stopSearchablePdfExport();
       else if (act === 'ocr-previous') window.PdfStudioAPI.changeReadingView({ pageDelta: -1 });
       else if (act === 'ocr-next') window.PdfStudioAPI.changeReadingView({ pageDelta: 1 });
       else if (act === 'zoom-in') { pdfState.zoom = Math.min(2.2, pdfState.zoom + 0.15); renderCurrentPdfPage(); }
@@ -6597,7 +7139,7 @@
       if (before === after) return { status: 'unchanged', ...pdfBridgeStatus() };
       const oldResult = ocrResults.get(args.page);
       const previous = { text: before, sourcePage: pdfState.ocrSourcePage, sourceEngine: pdfState.ocrSourceEngine, result: oldResult ? { ...oldResult, flags: [], flaggedCount: 0, reviewNotes: [] } : null };
-      storeOcrResult(args.page, { text: after, engine: 'chatgpt-review', status: 'edited', dir: 'auto', flags: [], flaggedCount: 0, reviewNotes: [], message: 'ChatGPT text; compare with the source page.' });
+      storeOcrResult(args.page, { ...oldResult, ...remapEditedOcrWords(oldResult, after), text: after, wordCount: after.trim() ? after.trim().split(/\s+/).length : 0, engineConfidence: null, numericReview: null, rashiRefinement: oldResult?.rashiRefinement ? { ...oldResult.rashiRefinement, editedAfterRefinement: true } : null, engine: 'chatgpt-review', status: 'edited', dir: 'auto', flags: [], flaggedCount: 0, reviewNotes: [], message: 'ChatGPT text; compare with the source page.' });
       pdfBridgeClearReviewEvidence();
       pdfState.ocrSourcePage = args.page; pdfState.ocrSourceEngine = 'chatgpt-review';
       pdfBridgeSync();
@@ -7382,7 +7924,13 @@
 
   window.DesignStudioAPI = {
     init: initDesignStudio,
-    render: () => renderDesignCanvas(true)
+    render: () => renderDesignCanvas(true),
+    exportFront: async () => {
+      if (document.fonts) await document.fonts.ready;
+      const canvas = await renderDesignCanvas(false);
+      try { return canvas.toDataURL('image/png'); }
+      finally { await renderDesignCanvas(true); }
+    }
   };
 })();
 
@@ -9432,9 +9980,9 @@ Reply with a valid JSON object matching this exact schema so I can paste it stra
             <div class="p-4 flex-1 flex flex-col justify-between gap-3">
               <div>
                 <div class="font-bold text-white">Embossed Navy &amp; Gold Book Cover</div>
-                <p class="text-xs text-slate-400 mt-1">7×10 luxury hardcover layout with editable Hebrew &amp; English foil typography layers.</p>
+                <p class="text-xs text-slate-400 mt-1">Full hardcover or paperback spread with editable Hebrew &amp; English, page-based spine sizing, and a 300-DPI PDF.</p>
               </div>
-              <button type="button" data-web-tpl="design:book" class="w-full py-2 rounded-lg bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold">Customize Cover →</button>
+              <button type="button" data-kdp-open class="w-full py-2 rounded-lg bg-purple-600 hover:bg-purple-500 text-white text-xs font-bold">Create Full KDP Cover →</button>
             </div>
           </div>
 

@@ -76,6 +76,30 @@ Results and resume state stay in the open tab; they are not automatically backed
 
 The page image is processed in the browser. The first run downloads the OCR engine and language data.
 
+### Rashi script and conservative line refinement
+
+Select **Hebrew — Rashi script** with the on-device engine to use the pinned `heb_rashi` best LSTM model. Its weights, license, source and hashes are under `ocr-models/rashi-v1/`. This option is distinct from ordinary square-Hebrew recognition. The model download is approximately 4.7 MB compressed and is cached by the OCR engine.
+
+**Refine detected Rashi lines** re-reads each line that the first OCR pass detected. It uses the engine's line boxes, not an experimental custom row splitter. An empty, failed, substantially shorter, fewer-word, or positionless refinement keeps that line's first reading. If line positions do not cover the complete first-pass text, the complete first reading is retained. Optional engine-configuration failures also retain the first reading and retire the worker. Stop and source changes cannot commit late text.
+
+The review report includes the complete first-pass text and every detected line's first, refined and selected readings. Changed lines still require comparison with the image: retaining detected lines does not establish that every printed line was detected or that every word is correct. Manual or ChatGPT edits mark the earlier refinement audit as historical.
+
+The integrated Tesseract.js 5.1.1 helper was checked on three previously adjudicated image crops (107 normalized words, physical pages 5, 100 and 180 of the supplied Machshavos Charutz scan) at 300 DPI. Word-edit counts fell from 24 to 17. This small controlled check confirms the port's behavior; it is not a whole-book accuracy estimate or a claim of publication-ready text. Select 300 DPI to reproduce those settings; 400 DPI remains available.
+
+### Numbers, timing and review reports
+
+Ordinary Hebrew has an optional **Improve small numbers** pass. It compares two image readings using a separate English digit worker, changes only high-confidence agreements, and flags disagreements or overlapping crops. Unsupported or failed checks keep the original number. The report records changed and uncertain numbers rather than treating model confidence as measured accuracy.
+
+**Download OCR review report (.json)** saves source-page identities, actual rendering/recognition/refinement times, engine/model provenance, result status, searchable-position status and refinement/number audit records. Processing speed and OCR accuracy are separate measurements. The latest-run time includes initialization, waiting and failures; saved-page timings describe those specific successful results.
+
+### Searchable PDF export
+
+After on-device recognition, open **Searchable PDF** and select **Download searchable PDF**. The export requires saved results with word positions for every selected page. It renders the scan to lossless page images and adds a new invisible Unicode text layer; the old PDF text layer is replaced, avoiding duplicate or contradictory text. Hebrew words retain their logical character order. The underlying scan's appearance is preserved at the OCR rendering resolution, while original forms, links and vector objects are flattened.
+
+Single-word edits retain their matched position. Larger rewrites, added/deleted words and AI-only text have no reliable word alignment, so they block searchable export until rescanned; TXT stays available. A source change, changed OCR, changed annotations or Stop aborts the download rather than producing stale output. Export has explicit page/image/memory limits and suggests smaller ranges when necessary.
+
+Supported Studio annotations are applied after the new text layer. The legacy annotation renderer currently supports ASCII text only. Hebrew/other Unicode annotations, Unicode footnotes, and footnotes exceeding its one-line limit stop binary PDF export with a clear message; they are never silently replaced by question marks or truncated. This restriction does not prevent a scanned Hebrew page's OCR text from being searchable.
+
 ### AI vision OCR
 
 The vision option sends each chosen page image to the connected OCR service, one page at a time. **Check connection** identifies its provider and model. The built-in address uses Cloudflare Workers AI with `@cf/qwen/qwen3.8-27b`; this is not an OpenAI or ChatGPT model. It is instructed to preserve Hebrew column order, footnotes, literal text, and uncertainty notes. Review the result against the scan.

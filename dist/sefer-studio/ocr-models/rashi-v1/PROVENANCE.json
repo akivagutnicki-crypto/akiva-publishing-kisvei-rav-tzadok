@@ -1,0 +1,15 @@
+{
+  "model": "heb_rashi",
+  "variant": "best (floating-point LSTM)",
+  "source": "https://github.com/AvtechScientific/tessdata_contrib/tree/main/heb_rashi",
+  "author": "Pninim / AvtechScientific; training instructions credited to Zeev Pekar",
+  "upstreamContribution": "https://github.com/tesseract-ocr/tessdata_contrib/pull/6",
+  "license": "Apache-2.0; see LICENSE.txt",
+  "upstreamGitBlobSha1": "bf906544896a5fbd80de6f83d45cb96183245290",
+  "trainedDataSha256": "c3bdf2c4188e037838e027de419e6e8ca663f1168fef3d09df1a3a46afab6c50",
+  "trainedDataBytes": 6367005,
+  "gzipSha256": "916a26942eecd7dc11608b3126566f628256769984b50bc3a52c47f412efefa5",
+  "gzipBytes": 4663563,
+  "modifications": "Model weights unchanged; gzip packaging only.",
+  "qualityNote": "Specialized Rashi-script recognition. Review square-Hebrew headings, references and page numbers. OCR remains uncorrected until proofread."
+}

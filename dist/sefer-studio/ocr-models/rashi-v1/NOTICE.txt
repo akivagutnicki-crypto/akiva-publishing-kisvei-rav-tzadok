@@ -1,0 +1,12 @@
+Hebrew Rashi OCR model
+
+Model from Pninim / AvtechScientific (Zeev Pekar), distributed from
+https://github.com/AvtechScientific/tessdata_contrib/tree/main/heb_rashi
+under the accompanying Apache License 2.0.
+
+Original project: https://gitlab.com/pninim.org/tessdata_heb_rashi
+Training documentation: https://github.com/AvtechScientific/tessdata_contrib/blob/main/heb_rashi/TRAINING.md
+
+SeferStudio redistributes the unchanged best-model weights as a gzip file.
+This community-contributed model is not an endorsement by Tesseract or OpenAI.
+See PROVENANCE.json for exact content hashes.
