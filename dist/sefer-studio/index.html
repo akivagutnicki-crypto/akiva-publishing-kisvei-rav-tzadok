@@ -5110,6 +5110,7 @@
       }
       throwIfVisionOcrAborted(controller.signal);
       if (pdfState.pdfJsDoc !== sourcePdf || pdfState.pdfBytes !== sourceBytes) throw new Error('The PDF changed. Run OCR on the newly opened document.');
+      if (pdfState.currentPage !== pageNumber) throw new Error('The selected page changed. Run OCR on the page now displayed. Previous text has been kept.');
       status.textContent = `Preparing Page ${pageNumber} for AI vision…`;
       const page = await sourcePdf.getPage(pageNumber);
       const base = page.getViewport({ scale: 1 });
@@ -5130,6 +5131,7 @@
       const body = JSON.stringify({ imageDataUrl, language, layout, pageNumber });
       if (new TextEncoder().encode(body).byteLength > limits.maxRequestBytes) throw new Error('This page request exceeds the service size limit. Choose the 300 DPI quality setting and try again.');
       if (pdfState.pdfJsDoc !== sourcePdf || pdfState.pdfBytes !== sourceBytes) throw new Error('The PDF changed. Run OCR on the newly opened document.');
+      if (pdfState.currentPage !== pageNumber) throw new Error('The selected page changed. Run OCR on the page now displayed. Previous text has been kept.');
       if (!isVisionOcrConnectionCurrent(connection, connectionRevision)) throw new Error('The connection changed. Check the new connection before scanning.');
       status.textContent = `AI vision is reading Page ${pageNumber}, including its columns and footnotes…`;
       const response = await fetch(connection.endpoint, {
@@ -5144,6 +5146,7 @@
       if (!data || typeof data.text !== 'string' || !data.text.trim()) throw new Error('The model returned no transcription. The previous text has been kept.');
       if (data.incomplete === true) throw new Error('The model response was incomplete. The previous text has been kept; retry this page.');
       if (pdfState.pdfJsDoc !== sourcePdf || pdfState.pdfBytes !== sourceBytes) throw new Error('The PDF changed. Run OCR on the newly opened document.');
+      if (pdfState.currentPage !== pageNumber) throw new Error('The selected page changed. Run OCR on the page now displayed. Previous text has been kept.');
       if (!isVisionOcrConnectionCurrent(connection, connectionRevision)) throw new Error('The connection changed. The previous text has been kept.');
       const text = data.text.trim();
       out.dir = language.includes('heb') ? 'rtl' : 'auto';
