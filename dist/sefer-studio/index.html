@@ -173,7 +173,8 @@
   <!-- ===================================================================== -->
   <div id="suite-master-bar" class="bg-slate-950 text-white h-10 px-2.5 flex items-center justify-between gap-2 shrink-0 z-40 border-b border-slate-800 overflow-x-auto">
     <div class="flex items-center gap-1 shrink-0">
-      <a href="#/home" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-amber-300 font-semibold text-xs flex items-center gap-1 mr-0.5" title="Return to SeferStudio Website Home">← Website</a>
+      <a href="../library/" target="_blank" rel="noopener" aria-label="Rav Tzadok Reader (opens in a new tab)" class="px-2.5 py-1 rounded bg-amber-300 hover:bg-amber-200 text-slate-950 font-bold text-xs whitespace-nowrap" title="Open the Rav Tzadok library in a new tab">Rav Tzadok Reader ↗</a>
+      <a href="#/home" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-amber-300 font-semibold text-xs flex items-center gap-1 mr-0.5" title="Return to SeferStudio Website Home">← Studio Home</a>
       <span class="font-bold text-xs tracking-wide px-2 py-1 rounded bg-gradient-to-r from-blue-600 to-indigo-600 mr-1">SeferStudio Pro</span>
       <button type="button" data-suite-ws="word" class="suite-ws-tab px-2.5 py-1 rounded text-xs font-semibold bg-[#185abd] text-white flex items-center gap-1.5">
         <span class="w-4 h-4 rounded-xs bg-white text-[#185abd] font-bold text-[10px] flex items-center justify-center">W</span>
@@ -10153,6 +10154,12 @@ Reply with a valid JSON object matching this exact schema so I can paste it stra
             <a href="#/studio" class="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-bold shadow-lg">Launch Studio →</a>
           </div>
         </div>
+        <nav aria-label="Akiva Publishing apps" class="border-t border-slate-800 bg-slate-900/80">
+          <div class="max-w-6xl mx-auto px-4 sm:px-6 py-2 flex flex-wrap items-center justify-between gap-2">
+            <span class="text-xs text-slate-300">Read the sefarim of Rav Tzadok · Hebrew, English &amp; source notes</span>
+            <a href="../library/" target="_blank" rel="noopener" aria-label="Rav Tzadok Reader (opens in a new tab)" class="inline-flex items-center px-3 py-2 rounded-lg bg-amber-300 hover:bg-amber-200 text-slate-950 text-xs font-bold whitespace-nowrap" title="Open the Rav Tzadok library in a new tab">Rav Tzadok Reader ↗</a>
+          </div>
+        </nav>
       </header>
 
       <!-- HERO SECTION WITH LIVE .DOCX & .PDF DROPZONE -->
@@ -10350,8 +10357,9 @@ Reply with a valid JSON object matching this exact schema so I can paste it stra
 
         <footer class="max-w-6xl mx-auto px-4 sm:px-6 pt-10 mt-10 border-t border-slate-800 flex flex-wrap items-center justify-between gap-4 text-xs text-slate-500">
           <div><strong>SeferStudio Pro</strong> · Complete Web Site, PWA &amp; Scholarly Publishing Suite</div>
-          <div class="flex gap-4">
+          <div class="flex flex-wrap gap-4">
             <a href="#/home" class="hover:text-slate-300">Home</a>
+            <a href="../library/" target="_blank" rel="noopener" aria-label="Rav Tzadok Reader (opens in a new tab)" class="hover:text-slate-300 text-amber-400 font-semibold">Rav Tzadok Reader ↗</a>
             <a href="#/studio" class="hover:text-slate-300 text-amber-400 font-semibold">Launch Studio</a>
           </div>
         </footer>
