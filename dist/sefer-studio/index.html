@@ -173,6 +173,7 @@
   <!-- ===================================================================== -->
   <div id="suite-master-bar" class="bg-slate-950 text-white h-10 px-2.5 flex items-center justify-between gap-2 shrink-0 z-40 border-b border-slate-800 overflow-x-auto">
     <div class="flex items-center gap-1 shrink-0">
+      <button type="button" id="btn-pwa-install" class="shrink-0 whitespace-nowrap px-2.5 py-1 rounded bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs flex items-center gap-1" aria-label="Install SeferStudio Pro"><i data-lucide="download" class="w-3.5 h-3.5" aria-hidden="true"></i>Install SeferStudio Pro</button>
       <a href="../library/" target="_blank" rel="noopener" aria-label="Rav Tzadok Reader (opens in a new tab)" class="px-2.5 py-1 rounded bg-amber-300 hover:bg-amber-200 text-slate-950 font-bold text-xs whitespace-nowrap" title="Open the Rav Tzadok library in a new tab">Rav Tzadok Reader ↗</a>
       <a href="#/home" class="px-2 py-1 rounded bg-slate-800 hover:bg-slate-700 text-amber-300 font-semibold text-xs flex items-center gap-1 mr-0.5" title="Return to SeferStudio Website Home">← Studio Home</a>
       <span class="font-bold text-xs tracking-wide px-2 py-1 rounded bg-gradient-to-r from-blue-600 to-indigo-600 mr-1">SeferStudio Pro</span>
@@ -201,7 +202,6 @@
       <button type="button" id="btn-open-extensions" class="px-2.5 py-1 rounded bg-violet-600 hover:bg-violet-500 text-white font-semibold text-xs flex items-center gap-1 shadow-xs" title="Add Extensions &amp; Ask Claude / ChatGPT / Gemini"><i data-lucide="blocks" class="w-3.5 h-3.5"></i><span>Extensions</span></button>
       <button type="button" id="btn-open-mcp-hub" class="px-2.5 py-1 rounded bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs flex items-center gap-1 shadow-xs" title="Model Context Protocol (MCP) Client &amp; Built-in Server"><i data-lucide="plug-zap" class="w-3.5 h-3.5"></i><span>MCP Hub</span></button>
       <button type="button" id="btn-open-studio-bridge" class="px-2.5 py-1 rounded bg-emerald-700 hover:bg-emerald-600 text-white font-semibold text-xs flex items-center gap-1 shadow-xs" title="Connect ChatGPT to this open manuscript"><i data-lucide="link" class="w-3.5 h-3.5"></i><span>ChatGPT Connection</span></button>
-      <button type="button" id="btn-pwa-install" class="px-2.5 py-1 rounded bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-xs flex items-center gap-1 shadow-xs" title="Install PWA on Chromebook, Android, or Desktop"><i data-lucide="download" class="w-3.5 h-3.5"></i><span class="hidden sm:inline">PWA / Android</span></button>
       <button type="button" id="btn-toggle-ai-drawer" class="px-2.5 py-1 rounded bg-gradient-to-r from-amber-400 to-orange-400 text-slate-950 font-semibold text-xs flex items-center gap-1 shadow-xs hover:brightness-105">
         <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
         <span>AI Copilot &amp; Plugins</span>
@@ -9087,47 +9087,41 @@
   }
 
   function openPwaInstallModal() {
-    const canPrompt = !!deferredInstallPrompt;
-    window.SuiteUI.openModal('Install as PWA — Chromebook, Android & Offline Setup', `
-      <div class="space-y-3">
-        <div class="p-3 rounded-lg bg-emerald-50 border border-emerald-200 text-emerald-950 flex items-start gap-2.5">
-          <i data-lucide="smartphone" class="w-5 h-5 text-emerald-700 shrink-0 mt-0.5"></i>
-          <div>
-            <div class="font-bold">Full Progressive Web App (PWA) Ready</div>
-            <p class="text-[11px] text-emerald-900 mt-0.5 leading-relaxed">
-              Install the studio for convenient access. The core interface is cached after your first visit; OCR downloads, AI, and Google Drive may need an internet connection. Save your work as DOCX to keep a copy of your document.
-            </p>
-          </div>
+    window.SuiteUI.openModal('Install SeferStudio Pro', `
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-sm">
+        <div class="p-2.5 rounded border border-slate-200 bg-slate-50 space-y-1">
+          <div class="font-bold text-slate-900">Chrome or Edge on desktop</div>
+          <p class="text-slate-600">Select the install icon in the address bar or look for the install option in the browser menu.</p>
         </div>
-
-        ${canPrompt ? `
-          <button type="button" id="btn-trigger-native-pwa" class="w-full py-2 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow">
-            Install SeferStudio Pro App Now (1-Click)
-          </button>
-        ` : ''}
-
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2.5 text-[11px]">
-          <div class="p-2.5 rounded border border-slate-200 bg-slate-50 space-y-1">
-            <div class="font-bold text-slate-900">💻 On Chromebook (ChromeOS)</div>
-            <p class="text-slate-600">Open this website in Chrome. Use the <strong>Install app</strong> icon in the address bar, or Chrome’s menu, to add SeferStudio Pro to your Chromebook shelf or desktop.</p>
-          </div>
-          <div class="p-2.5 rounded border border-slate-200 bg-slate-50 space-y-1">
-            <div class="font-bold text-slate-900">📱 On Android Phone / Tablet</div>
-            <p class="text-slate-600">Open this website in Chrome for Android, then tap <strong>⋮ → Add to Home screen → Install</strong>. The wording can vary by browser and device.</p>
-          </div>
+        <div class="p-2.5 rounded border border-slate-200 bg-slate-50 space-y-1">
+          <div class="font-bold text-slate-900">Chrome on Android</div>
+          <p class="text-slate-600">Open the menu and select <strong>Add to Home screen</strong>, then <strong>Install</strong>.</p>
+        </div>
+        <div class="p-2.5 rounded border border-slate-200 bg-slate-50 space-y-1">
+          <div class="font-bold text-slate-900">Safari on iPhone or iPad</div>
+          <p class="text-slate-600">Open <strong>Share → Add to Home Screen</strong>. Enable <strong>Open as Web App</strong> if offered, then tap <strong>Add</strong>.</p>
+        </div>
+        <div class="p-2.5 rounded border border-slate-200 bg-slate-50 space-y-1">
+          <div class="font-bold text-slate-900">Safari on Mac</div>
+          <p class="text-slate-600">Choose <strong>File → Add to Dock</strong>.</p>
         </div>
       </div>
-    `, (b) => {
-      const btn = b.querySelector('#btn-trigger-native-pwa');
-      if (btn && deferredInstallPrompt) {
-        btn.addEventListener('click', async () => {
-          deferredInstallPrompt.prompt();
-          await deferredInstallPrompt.userChoice;
-          deferredInstallPrompt = null;
-          window.SuiteUI.closeModal();
-        });
+    `);
+  }
+
+  async function installPwa() {
+    const prompt = deferredInstallPrompt;
+    deferredInstallPrompt = null;
+    document.getElementById('btn-pwa-install')?.classList.remove('ring-2', 'ring-emerald-400');
+    if (prompt) {
+      try {
+        await prompt.prompt();
+        return;
+      } catch (error) {
+        console.warn('The browser install prompt was unavailable:', error);
       }
-    });
+    }
+    openPwaInstallModal();
   }
 
   window.addEventListener('DOMContentLoaded', () => {
@@ -9135,7 +9129,7 @@
     if (mcpBtn) mcpBtn.addEventListener('click', openMcpHubModal);
 
     const pwaBtn = document.getElementById('btn-pwa-install');
-    if (pwaBtn) pwaBtn.addEventListener('click', openPwaInstallModal);
+    if (pwaBtn) pwaBtn.addEventListener('click', installPwa);
 
     bindTouchBridge(document.getElementById('design-main-canvas'));
     bindTouchBridge(document.getElementById('pdf-overlay-layer'));
@@ -10179,7 +10173,7 @@ Reply with a valid JSON object matching this exact schema so I can paste it stra
             <div class="flex flex-wrap items-center gap-3 pt-1">
               <a href="#/studio" class="px-5 py-3 rounded-xl bg-amber-400 hover:bg-amber-300 text-slate-950 font-bold text-sm shadow-lg transition">Open Live Web Studio →</a>
               <button type="button" data-web-act="open-docx-hero" class="px-5 py-3 rounded-xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-white font-semibold text-sm transition">Upload .DOCX or .PDF</button>
-              <button type="button" data-web-act="pwa-modal" class="px-4 py-3 rounded-xl bg-emerald-950/70 hover:bg-emerald-900/70 border border-emerald-700/50 text-emerald-300 font-semibold text-xs transition">Install on Chromebook / Android</button>
+              <button type="button" data-web-act="pwa-modal" class="px-4 py-3 rounded-xl bg-emerald-950/70 hover:bg-emerald-900/70 border border-emerald-700/50 text-emerald-300 font-semibold text-xs transition">Install SeferStudio Pro</button>
             </div>
 
             <div class="grid grid-cols-3 gap-4 pt-4 border-t border-slate-800/80 text-xs">
@@ -10334,7 +10328,7 @@ Reply with a valid JSON object matching this exact schema so I can paste it stra
             <div class="text-emerald-400 font-bold uppercase tracking-wider">Chromebook &amp; Android PWA</div>
             <h3 class="text-base font-bold text-white">Offline Installable App</h3>
             <p class="text-slate-400 leading-relaxed">Open the live site in Chrome and install it on your Chromebook, desktop, or Android home screen. Core files are cached after your first visit; online features still need a connection.</p>
-            <button type="button" data-web-act="pwa-modal" class="px-3.5 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold">PWA Setup &amp; Install</button>
+            <button type="button" data-web-act="pwa-modal" class="px-3.5 py-2 rounded-lg bg-emerald-600 hover:bg-emerald-500 text-white font-bold">Install SeferStudio Pro</button>
           </div>
 
           <div class="p-5 rounded-xl bg-slate-950 border border-slate-800 space-y-2.5">
