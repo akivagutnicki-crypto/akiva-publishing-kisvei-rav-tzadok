@@ -2,7 +2,11 @@
 
 A browser workspace for Hebrew and English DOCX manuscripts, PDF review, and OCR.
 
-**Live application:** https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/sefer-studio/
+[Open Sefer Pro](https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/sefer-pro/#/studio)
+
+Select **Install Sefer Pro** at the left of the workspace toolbar. If the browser does not offer an install prompt, the button shows instructions for Chrome, Edge, and Safari.
+
+[Open the original Studio URL](https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/sefer-studio/#/studio)
 
 ## Opening and saving Word manuscripts
 
