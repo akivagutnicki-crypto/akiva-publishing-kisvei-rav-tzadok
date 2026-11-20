@@ -11,6 +11,8 @@
   <title>SeferStudio Pro — Hebrew &amp; English Publishing Studio</title>
   <meta name="description" content="Edit Hebrew and English manuscripts, work with Word footnotes, create newsletters and covers, and open PDFs in SeferStudio Pro." />
   <link rel="stylesheet" href="./kdp-cover.css" />
+  <link rel="stylesheet" href="./studio-creative.css" />
+  <script defer src="./studio-creative.js"></script>
   <script defer src="./kdp-geometry.js"></script>
   <script defer src="./kdp-render.js"></script>
   <script defer src="./kdp-png.js"></script>
@@ -193,6 +195,7 @@
         <span class="w-4 h-4 rounded-xs bg-purple-600 text-white font-bold text-[10px] flex items-center justify-center">C</span>
         <span>Visual &amp; Image Studio</span>
       </button>
+      <button type="button" data-suite-ws="audio" class="suite-ws-tab whitespace-nowrap px-2.5 py-1 rounded text-xs font-semibold text-slate-300 hover:bg-slate-800">Audio Transcribe</button>
       <button type="button" data-kdp-open class="px-2.5 py-1 rounded bg-amber-300 text-slate-950 text-xs font-bold">KDP Cover</button>
     </div>
 
@@ -658,6 +661,7 @@
       <div class="flex flex-wrap items-center gap-1">
         <button type="button" data-pdf-action="open" class="px-2.5 py-1 rounded bg-white text-red-900 font-bold">Open PDF</button>
         <button type="button" data-pdf-action="merge" class="px-2.5 py-1 rounded bg-white/15 hover:bg-white/25">Merge PDF</button>
+        <button type="button" id="studio-pdf-ocr-toggle" aria-controls="pdf-inspector" aria-pressed="false" class="px-2.5 py-1 rounded bg-indigo-700 hover:bg-indigo-600 text-white font-bold">Hebrew &amp; Rashi OCR</button>
         <span id="pdf-filename-label" class="px-2 text-red-100 font-medium truncate max-w-[170px]">Scholarly_Proof.pdf</span>
         <span class="opacity-40">|</span>
         <button type="button" data-pdf-tool="select" class="ribbon-btn !text-white hover:!bg-white/20 active">Move</button>
@@ -710,7 +714,13 @@
 
       <!-- Right OCR & PDF Footnote Settings Inspector -->
       <aside id="pdf-inspector" class="w-72 bg-white border-l border-slate-300 p-3 flex flex-col gap-3 shrink-0 text-xs overflow-y-auto select-text">
-        <div class="p-2.5 rounded-lg bg-red-50 border border-red-200 space-y-1.5">
+        <div id="pdf-ocr-side">
+        <section id="pdf-ocr-upload-card" class="studio-creative-card">
+          <div class="studio-card-title"><h2>Hebrew &amp; Rashi PDF / Scan</h2><button type="button" id="studio-pdf-sample" class="studio-creative-button studio-creative-link">Load Rashi Sample</button></div>
+          <input type="file" hidden id="studio-pdf-scan-file" accept=".pdf,.png,.jpg,.jpeg,.webp,.tif,.tiff,application/pdf,image/png,image/jpeg,image/webp,image/tiff" />
+          <button type="button" class="studio-creative-drop" id="studio-pdf-drop"><strong>Drop a Hebrew / Rashi PDF or page image</strong><small>PDF, PNG, JPEG, WebP, TIFF</small></button>
+        </section>
+        <div id="pdf-footnote-inspector" class="p-2.5 rounded-lg bg-red-50 border border-red-200 space-y-1.5">
           <div class="font-bold text-red-950">PDF Bottom-of-Page Footnotes</div>
           <p class="text-[11px] text-red-900/80">Select <strong>AB¹ Pin PDF Footnote</strong> above, then click anywhere on the PDF page to drop a superscript reference and edit its footnote at the bottom of the page.</p>
           <label class="flex items-center gap-1.5 text-[11px] font-medium text-slate-800 pt-1 cursor-pointer">
@@ -719,10 +729,8 @@
           </label>
         </div>
 
-        <div class="border-t border-slate-200 pt-2 flex-1 flex flex-col gap-2">
-          <div class="font-bold text-slate-800 flex items-center justify-between">
-            <span>OCR PDF Scanner (Hebrew + English)</span>
-          </div>
+        <div id="pdf-ocr-controls" class="border-t border-slate-200 pt-2 flex-1 flex flex-col gap-2">
+          <h2 class="font-bold">OCR Engine &amp; Script Mode</h2>
           <label class="block font-semibold text-slate-800">Scan
             <select id="pdf-ocr-scope" aria-label="OCR scope" class="mt-1 w-full border border-red-200 rounded px-2 py-1.5 bg-red-50 text-xs">
               <option value="current">Current page</option>
@@ -735,14 +743,22 @@
             <label class="flex-1">To <input id="pdf-ocr-range-end" aria-label="Last OCR page" type="number" min="1" value="1" class="w-full border border-slate-300 rounded px-2 py-1" /></label>
           </div>
           <div id="pdf-ocr-scope-summary" class="text-[11px] text-slate-600" aria-live="polite">Open a PDF to choose pages.</div>
-          <select id="pdf-ocr-engine" aria-label="OCR engine" class="w-full border border-slate-300 rounded px-2 py-1 bg-white text-xs">
+          <div class="studio-fields-grid">
+          <label class="studio-field">OCR Engine<select id="pdf-ocr-engine" aria-label="OCR engine" class="w-full border border-slate-300 rounded px-2 py-1 bg-white text-xs">
             <option value="local">On-device OCR · ready to use</option>
             <option value="hybrid">Hybrid · Sofer.Ai + Gemini 4 Neon</option>
             <option value="gemini-4-neon">Gemini 4 Neon Vision</option>
             <option value="gemini-4-carbon">Gemini 4 Carbon Vision</option>
             <option value="sofer">Sofer.Ai OCR</option>
             <option value="vision">Connected AI vision · service access code</option>
-          </select>
+          </select></label>
+          <label class="studio-field">Script Type<select id="pdf-ocr-lang" aria-label="OCR Language" class="w-full min-w-0 border border-slate-300 rounded px-2 py-1 bg-white">
+            <option value="eng+heb">Auto · Hebrew and English</option>
+            <option value="heb">Square Hebrew / Ivrit</option>
+            <option value="heb_rashi">Hebrew — Rashi script</option>
+            <option value="eng">English</option>
+          </select></label>
+          </div>
           <div id="pdf-vision-settings" class="hidden rounded border border-blue-200 bg-blue-50 p-2 space-y-2 text-xs">
             <div id="pdf-provider-settings" class="hidden space-y-2">
               <p>Run OCR sends the selected page images through Sefer Pro’s OCR service to the selected provider. Provider charges may apply. API keys are kept in this page session.</p>
@@ -780,22 +796,17 @@
             <input id="pdf-vision-connection-file" type="file" accept=".json,application/json" class="hidden" aria-label="Private OCR connection file" />
             <div id="pdf-vision-connection-status" role="status" class="text-[11px] text-blue-900">Connect your OCR service to enable vision recognition.</div>
             </div>
-            <select id="pdf-vision-layout" aria-label="Page reading order" class="w-full rounded border border-blue-200 bg-white p-1">
+            <select id="pdf-vision-layout" aria-label="Column and RTL order" class="w-full rounded border border-blue-200 bg-white p-1">
               <option value="auto">Detect columns and footnotes</option>
               <option value="rtl-columns">Hebrew columns · right before left</option>
               <option value="single">Single text column</option>
               <option value="tzurat-hadaf">Tzurat HaDaf · separate text and commentary</option>
             </select>
           </div>
-          <div class="flex flex-wrap min-w-0 items-center gap-1.5">
-            <select id="pdf-ocr-lang" aria-label="OCR Language" class="w-full min-w-0 border border-slate-300 rounded px-2 py-1 bg-white">
-              <option value="eng+heb">English + Hebrew (eng+heb)</option>
-              <option value="eng">English (eng)</option>
-              <option value="heb">Hebrew / Ivrit (heb)</option>
-              <option value="heb_rashi">Hebrew — Rashi script</option>
-            </select>
-            <button type="button" data-pdf-action="ocr" class="shrink-0 whitespace-nowrap px-3 py-1 rounded bg-red-700 hover:bg-red-800 text-white font-semibold">Run OCR</button>
-            <button type="button" data-pdf-action="ocr-cancel" class="hidden shrink-0 whitespace-nowrap rounded border border-red-200 px-2 py-1 text-red-800">Stop</button>
+          <div id="pdf-ocr-enhancers" class="flex-col studio-creative-checks">
+            <label>Expand Roshei Teivos (ראשי תיבות) <input id="studio-pdf-expand" type="checkbox" /></label>
+            <label>Include English Translation <input id="studio-pdf-translate" type="checkbox" /></label>
+            <details id="studio-pdf-gemini-extra" class="text-xs"><summary>Gemini key for text tools</summary><label class="studio-field">Gemini API key<input id="studio-pdf-gemini" type="password" autocomplete="off" spellcheck="false" /></label></details>
           </div>
           <p id="pdf-ocr-profile-note" class="hidden text-[11px] text-amber-950">Rashi script uses a specialized on-device model. Review square Hebrew headings, page numbers, and references; they can still be misread.</p>
           <label id="pdf-ocr-rashi-refine-label" class="hidden flex items-start gap-1.5 text-[11px] text-slate-700"><input id="pdf-ocr-rashi-refine" type="checkbox" checked class="mt-0.5" /><span>Refine detected Rashi lines (slower). Keeps the first reading in the review report. Compare changed lines with the scan.</span></label>
@@ -807,10 +818,27 @@
           <label class="flex items-start gap-1.5 text-[11px] text-slate-700"><input id="pdf-ocr-rescan" type="checkbox" class="mt-0.5" /><span>Rescan saved pages (replace their text after a successful scan)</span></label>
           <p class="text-[10px] text-slate-500">Run continues unfinished pages. Saved results are kept even if you change engine, language, or quality; Rescan replaces them for one run. Save an OCR session before closing, reloading, opening another PDF, or changing PDF pages.</p>
           <label class="flex items-start gap-1.5 text-[11px] text-slate-700"><input id="pdf-ocr-small-numbers" type="checkbox" checked class="mt-0.5" />Improve small numbers (Hebrew only): compare two image readings; keep uncertain numbers flagged for review.</label>
+          <div class="flex flex-wrap min-w-0 items-center gap-1.5">
+            <button type="button" data-pdf-action="ocr" class="shrink-0 whitespace-nowrap px-3 py-1 rounded bg-red-700 hover:bg-red-800 text-white font-semibold">Run Hebrew &amp; Rashi OCR</button>
+            <button type="button" data-pdf-action="ocr-cancel" class="hidden shrink-0 whitespace-nowrap rounded border border-red-200 px-2 py-1 text-red-800">Stop</button>
+          </div>
           <progress id="pdf-ocr-progress" class="hidden w-full" max="1" value="0" aria-label="OCR pages processed"></progress>
           <div id="pdf-ocr-status" class="text-[11px] text-slate-600" role="status" aria-live="polite">Ready to scan current PDF page.</div>
           <div id="pdf-ocr-timing" class="text-[11px] text-slate-600" aria-live="polite"></div>
           <p class="text-[11px] text-amber-950">Review footnote labels, page numbers, and references against the scan. Engine confidence is not measured accuracy.</p>
+        </div>
+        </div>
+        <div id="pdf-ocr-results">
+          <div id="pdf-ocr-editor-toolbar" class="studio-editor-toolbar">
+            <h2>Extracted Text</h2>
+            <button type="button" id="studio-pdf-font" class="studio-creative-button studio-creative-accent">Font: Square Hebrew</button>
+            <div class="studio-editor-actions">
+              <button type="button" id="studio-pdf-point" class="studio-creative-button studio-creative-accent">+ Nikkud</button>
+              <button type="button" id="studio-pdf-copy" class="studio-creative-button">Copy</button>
+              <button type="button" id="studio-pdf-word-html" class="studio-creative-button">Export Word HTML</button>
+            </div>
+          </div>
+          <p id="studio-pdf-tools-status" role="status" aria-live="polite"></p>
           <label for="pdf-ocr-result-page" class="font-semibold text-slate-800">Review saved page text</label>
           <div class="flex items-center gap-1">
             <button type="button" data-pdf-action="ocr-previous" aria-label="Previous OCR result page" class="rounded border border-slate-300 px-2 py-1">←</button>
@@ -958,6 +986,72 @@
     </div>
   </div>
 
+  <section id="panel-audio" class="hidden studio-creative" aria-labelledby="studio-audio-title">
+  <header class="studio-creative-header">
+    <div class="studio-creative-brand"><span aria-hidden="true">ס</span><div><h1 id="studio-audio-title">SoferStudio AI</h1><p>Hebrew and English transcription for Sefer Studio</p></div></div>
+    <nav aria-label="SoferStudio tools">
+      <a href="#/studio/audio" data-sofer-tab="audio" aria-current="page">Audio Transcribe</a>
+      <a href="#/studio/pdf/ocr">Hebrew &amp; Rashi OCR</a>
+      <a href="#/studio/audio/nikkud" data-sofer-tab="nikkud">Nikkudot Lab</a>
+      <button type="button" id="studio-audio-api">API &amp; App</button>
+    </nav>
+    <button type="button" id="studio-audio-keys" aria-controls="studio-audio-credentials" aria-expanded="false">API Keys</button>
+  </header>
+  <div id="studio-audio-credentials" class="studio-creative-card studio-audio-credentials" hidden>
+    <label>Sofer.Ai API key<input id="studio-audio-sofer-key" type="password" autocomplete="off" spellcheck="false" /></label>
+    <label>Gemini API key<input id="studio-audio-gemini-key" type="password" autocomplete="off" spellcheck="false" /></label>
+    <p>Keys stay in this page session. A transcription request sends the selected audio or link to the chosen provider and may incur provider charges.</p>
+  </div>
+  <div id="studio-audio-api-info" class="studio-creative-card studio-audio-credentials" hidden>
+    <a class="studio-creative-link" href="https://docs.sofer.ai/welcome" target="_blank" rel="noopener">Sofer.Ai API documentation ↗</a>
+    <a class="studio-creative-link" href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">Gemini API keys ↗</a>
+    <button type="button" id="studio-audio-install">Install the web app</button>
+  </div>
+  <div class="studio-creative-grid">
+    <div id="studio-audio-controls" class="studio-creative-stack">
+      <section class="studio-creative-card">
+        <div class="studio-card-title"><h2>Audio Input</h2><button type="button" class="studio-creative-link" id="studio-audio-sample">Load Sample Shiur</button></div>
+        <input type="file" hidden id="studio-audio-file" accept="audio/*,.m4a,.mp3,.wav,.ogg,.webm,.flac,.aiff,.aac,.opus" />
+        <button type="button" id="studio-audio-drop" class="studio-creative-drop"><strong>Drop an audio file or click to browse</strong><small>M4A, MP3, WAV, OGG, WebM, FLAC, AIFF, AAC, Opus</small></button>
+        <div class="studio-record-row"><button type="button" id="studio-audio-record"><span aria-hidden="true">●</span> <strong>Record Live Shiur</strong></button><output id="studio-audio-timer" aria-label="Recording duration">00:00</output></div>
+        <div id="studio-audio-preview" hidden><div class="studio-card-title"><span id="studio-audio-filename"></span><button type="button" id="studio-audio-clear">Remove</button></div><audio id="studio-audio-player" controls preload="metadata"></audio></div>
+        <label>Or Audio / Shiur Link<input id="studio-audio-url" type="url" placeholder="https://example.com/shiur.m4a" /></label>
+        <p class="studio-creative-note">Links use Sofer.Ai. File limits are 18 MiB for Sofer.Ai and 12 MiB for Gemini or Hybrid.</p>
+      </section>
+      <section class="studio-creative-card">
+        <h2>Transcription Engine &amp; Nikkudot</h2>
+        <div class="studio-fields-grid">
+          <label>Engine<select id="studio-audio-engine"><option value="hybrid">Hybrid · Sofer.Ai + Gemini 4</option><option value="sofer">Sofer.Ai</option><option value="gemini-4-neon">Gemini 4 Neon</option><option value="gemini-4-carbon">Gemini 4 Carbon</option></select></label>
+          <label>Primary Language<select id="studio-audio-language"><option value="en">English + Hebrew</option><option value="he">Hebrew</option><option value="yi">Yiddish + Hebrew</option></select></label>
+        </div>
+        <label>Hebrew Word Format<select id="studio-audio-format"><option value="he">Hebrew letters</option><option value="both">Hebrew and transliteration</option><option value="hybrid">Hebrew quotes, transliterated short terms</option><option value="en">Transliteration</option></select></label>
+        <div class="studio-creative-checks">
+          <label>Add Hebrew Nikkudot Automatically <input id="studio-audio-nikkud" type="checkbox" checked /></label>
+          <label>Expand Roshei Teivos (ראשי תיבות) <input id="studio-audio-expand" type="checkbox" /></label>
+          <label>Speaker Labels &amp; Timestamps <input id="studio-audio-speakers" type="checkbox" checked /></label>
+        </div>
+        <p id="studio-audio-engine-note" class="studio-creative-note"></p>
+        <div class="studio-record-row"><button class="studio-creative-primary" type="button" id="studio-audio-run">Run Transcription</button><button type="button" id="studio-audio-stop" hidden>Stop</button></div>
+        <details id="studio-audio-resume-box"><summary>Retrieve a Sofer.Ai job by ID</summary><div id="studio-audio-resume-panel"><label>Sofer.Ai job ID<input id="studio-audio-job" type="text" autocomplete="off" /></label><button type="button" id="studio-audio-resume">Retrieve Transcription</button></div></details>
+      </section>
+    </div>
+    <section class="studio-creative-card studio-transcript-card">
+      <header class="studio-editor-toolbar">
+        <h2 id="studio-audio-editor-title">Transcript Editor</h2><output id="studio-audio-count">0 words</output>
+        <div class="studio-editor-actions">
+          <button type="button" id="studio-audio-point" class="studio-creative-accent">+ Add Nikkud</button>
+          <button type="button" id="studio-audio-unpoint">Strip Nikkud</button>
+          <button type="button" id="studio-audio-copy">Copy</button>
+          <button type="button" id="studio-audio-md">.MD</button>
+          <button type="button" id="studio-audio-word-html">Word HTML</button>
+          <button type="button" id="studio-audio-to-word">Send to Word Studio</button>
+        </div>
+      </header>
+      <textarea id="studio-audio-text" dir="auto" aria-labelledby="studio-audio-editor-title" placeholder="Your bilingual Hebrew and English transcript will appear here…"></textarea>
+      <p id="studio-audio-status" role="status" aria-live="polite">Choose a recording or paste text to edit.</p>
+    </section>
+  </div>
+</section>
   </div><!-- /#studio-app-view -->
 
   <!-- ===================================================================== -->
@@ -1076,7 +1170,7 @@
       },
       switchWorkspace(ws) {
         if (window.StudioReadingView) window.StudioReadingView.beforeWorkspaceChange(ws);
-        ['word', 'publisher', 'pdf', 'design'].forEach((k) => {
+        ['word', 'publisher', 'pdf', 'design', 'audio'].forEach((k) => {
           const p = document.getElementById('panel-' + k);
           if (p) p.classList.toggle('hidden', k !== ws);
         });
@@ -1086,6 +1180,7 @@
           b.classList.toggle('bg-teal-700', active && ws === 'publisher');
           b.classList.toggle('bg-red-700', active && ws === 'pdf');
           b.classList.toggle('bg-purple-700', active && ws === 'design');
+          b.classList.toggle('bg-blue-700', active && ws === 'audio');
           b.classList.toggle('text-white', active);
           b.classList.toggle('font-semibold', active);
           b.classList.toggle('text-slate-300', !active);
@@ -1096,7 +1191,12 @@
 
     window.addEventListener('DOMContentLoaded', () => {
       document.querySelectorAll('[data-suite-ws]').forEach((btn) => {
-        btn.addEventListener('click', () => window.SuiteUI.switchWorkspace(btn.dataset.suiteWs));
+        btn.addEventListener('click', () => {
+          if (btn.dataset.suiteWs === 'audio') {
+            if (location.hash !== '#/studio/audio') location.hash = '#/studio/audio';
+            else window.SuiteUI.switchWorkspace('audio');
+          } else window.SuiteUI.switchWorkspace(btn.dataset.suiteWs);
+        });
       });
       document.getElementById('btn-toggle-ai-drawer').addEventListener('click', () => {
         document.getElementById('ai-plugin-drawer').classList.toggle('hidden');
@@ -6570,19 +6670,23 @@
     if (activeOcrRun || pdfState.ocrRunning || visionOcrHealthAbort || activeSearchableExport || activeOcrSessionOperation?.kind === 'restore') return;
     if (ocrWorkerInitializing) { document.getElementById('pdf-ocr-status').textContent = 'The previous OCR engine is still starting. Run becomes available after its cleanup finishes; saved pages are kept.'; return; }
     persistDisplayedOcrText();
-    let pages, connection;
+    let pages, connection, enhancements;
     const status = document.getElementById('pdf-ocr-status');
     const selectedEngine = document.getElementById('pdf-ocr-engine').value;
     const engine = selectedEngine === 'local' ? 'local' : 'vision';
     try {
       pages = selectedOcrPages();
       if (engine === 'vision') connection = selectedEngine === 'vision' ? getVisionOcrConnection() : getProviderOcrConnection(selectedEngine);
+      if (document.getElementById('panel-pdf').classList.contains('pdf-ocr-focus')) {
+        enhancements = ['expand', 'translate'].filter(action => document.getElementById('studio-pdf-' + action).checked);
+        if (enhancements.length) window.StudioCreative.needKey(window.StudioCreative.keys().gemini, 'Gemini');
+      }
     }
     catch (error) { status.textContent = error.message; return; }
     const rescan = document.getElementById('pdf-ocr-rescan').checked;
     const pending = pages.filter(page => rescan || !ocrResultIsSaved(ocrResults.get(page)));
     if (!pending.length) { status.textContent = 'All ' + pages.length + ' selected pages already have saved results. Choose Rescan saved pages to use a different engine, language, or quality.'; return; }
-    const controls = [...document.querySelectorAll('[data-pdf-action="ocr"], [data-pdf-action="ocr-connect"], [data-pdf-action="ocr-load-connection"], #pdf-ocr-engine, #pdf-ocr-lang, #pdf-ocr-quality, #pdf-ocr-scope, #pdf-ocr-range-start, #pdf-ocr-range-end, #pdf-ocr-rescan, #pdf-ocr-small-numbers, #pdf-ocr-rashi-refine, #pdf-ocr-rashi-fast, #pdf-vision-layout, #pdf-vision-endpoint, #pdf-vision-access, #pdf-vision-connection-file, #pdf-provider-settings input, #pdf-provider-settings select')];
+    const controls = [...document.querySelectorAll('[data-pdf-action="ocr"], [data-pdf-action="ocr-connect"], [data-pdf-action="ocr-load-connection"], #pdf-ocr-engine, #pdf-ocr-lang, #pdf-ocr-quality, #pdf-ocr-scope, #pdf-ocr-range-start, #pdf-ocr-range-end, #pdf-ocr-rescan, #pdf-ocr-small-numbers, #pdf-ocr-rashi-refine, #pdf-ocr-rashi-fast, #pdf-vision-layout, #pdf-vision-endpoint, #pdf-vision-access, #pdf-vision-connection-file, #pdf-provider-settings input, #pdf-provider-settings select, #pdf-ocr-enhancers input')];
     const run = { generation: ++ocrGeneration, sourcePdf: pdfState.pdfJsDoc, sourceBytes: pdfState.pdfBytes, pages, pending, finished: pages.length - pending.length, page: pending[0], controller: new AbortController(), worker: null, numberWorker: null, terminatedWorkers: new Set(), controls, disabled: controls.map(el => el.disabled), engine, language: document.getElementById('pdf-ocr-lang').value, layout: selectedEngine === 'sofer' ? 'auto' : document.getElementById('pdf-vision-layout').value, targetDpi: document.getElementById('pdf-ocr-quality').value === '400' ? 400 : 300, connection, connectionRevision: visionOcrConnectionRevision, stopMessage: '' };
     run.improveNumbers = engine === 'local' && run.language === 'heb' && document.getElementById('pdf-ocr-small-numbers').checked;
     run.refineRashiLines = engine === 'local' && run.language === 'heb_rashi' && document.getElementById('pdf-ocr-rashi-refine').checked;
@@ -6626,6 +6730,26 @@
           page = await awaitOcrStep(run, run.sourcePdf.getPage(pageNumber));
           const result = engine === 'vision' ? await recognizeVisionOcrPage(run, page) : await recognizeLocalOcrPage(run, page);
           assertOcrRun(run);
+          if (result.text && enhancements?.length && result.status === 'recognized') {
+            let edited = result.text;
+            for (const action of enhancements) {
+              try {
+                setOcrProgress(run, 'Gemini Hydrogen is processing Page ' + pageNumber);
+                const output = await awaitOcrStep(run, window.StudioCreative.textAction(action, edited, run.controller.signal));
+                edited = action === 'translate' ? edited + '\n\nEnglish translation\n' + output : output;
+              } catch (error) {
+                assertOcrRun(run);
+                result.reviewNotes = [...(result.reviewNotes || []), 'The requested ' + (action === 'translate' ? 'translation' : 'abbreviation expansion') + ' did not finish. Earlier text was kept.'];
+                break;
+              }
+            }
+            if (edited !== result.text) {
+              result.text = edited; result.wordCount = edited.split(/\s+/).length;
+              result.searchWords = null;
+              result.searchIssue = 'Edited text does not have matching positions on the page.';
+              result.reviewNotes = [...(result.reviewNotes || []), 'Review AI-added text against the source.'];
+            }
+          }
           result.timing = { elapsedMs: ocrMilliseconds(ocrClock() - pageStartedAt), renderMs: run.currentRenderMs, recognitionMs: run.currentRecognitionMs, refinementMs: run.currentRefinementMs || 0 };
           Object.assign(attempt, result.timing, { status: result.status }); result.lastAttempt = { ...attempt };
           if ((ocrResults.get(pageNumber)?.revision || 0) !== beforeRevision) throw new Error('Text was edited while this page was scanning. The edited version was kept; retry only if you want to replace it.');
@@ -7554,6 +7678,17 @@
   // END STUDIO PDF BRIDGE
 
   window.PdfStudioAPI = {
+    captureOcrText() {
+      return { source: pdfState.pdfBytes, page: pdfState.currentPage, revision: ocrResults.get(pdfState.currentPage)?.revision, text: document.getElementById('pdf-ocr-output').value };
+    },
+    applyOcrText(guard, text) {
+      const output = document.getElementById('pdf-ocr-output');
+      if (output.readOnly || !pdfState.pdfBytes || guard.source !== pdfState.pdfBytes || guard.page !== pdfState.currentPage ||
+          guard.text !== output.value || guard.revision !== ocrResults.get(guard.page)?.revision) return false;
+      output.value = text;
+      persistDisplayedOcrText();
+      return true;
+    },
     init: initPdfStudio,
     loadPdfBytes,
     getReadingViewInfo() {
@@ -10220,6 +10355,7 @@ Reply with a valid JSON object matching this exact schema so I can paste it stra
 
           <div class="flex items-center gap-2">
             <button type="button" data-web-act="signin" class="px-3 py-1.5 rounded-lg border border-slate-700 hover:border-slate-500 text-xs font-medium text-slate-200">Profile / Drive</button>
+            <a href="#/studio/audio" class="px-2 py-2 rounded-lg text-blue-200 font-semibold text-xs whitespace-nowrap">Audio Transcribe</a>
             <a href="#/studio" class="px-4 py-2 rounded-lg bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-500 hover:to-indigo-500 text-white text-xs font-bold shadow-lg">Launch Studio →</a>
           </div>
         </div>
@@ -10446,8 +10582,10 @@ Reply with a valid JSON object matching this exact schema so I can paste it stra
       webView.classList.add('hidden');
       studioView.classList.remove('hidden');
       const requestedWorkspace = hash.split('/')[2];
-      if (['word', 'publisher', 'pdf', 'design'].includes(requestedWorkspace)) {
+      if (['word', 'publisher', 'pdf', 'design', 'audio'].includes(requestedWorkspace)) {
         window.SuiteUI.switchWorkspace(requestedWorkspace);
+        if (requestedWorkspace === 'audio') window.StudioCreative?.viewAudio(hash === '#/studio/audio/nikkud');
+        if (requestedWorkspace === 'pdf') window.StudioCreative?.pdfLayout(hash === '#/studio/pdf/ocr');
       }
       if (window.DesignStudioAPI) window.DesignStudioAPI.render();
     } else {

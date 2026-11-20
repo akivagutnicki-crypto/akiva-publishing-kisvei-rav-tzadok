@@ -48,7 +48,7 @@ function requireKey(request, header, provider) {
   return key;
 }
 
-async function upstreamJson(fetcher, url, options, provider) {
+async function upstreamJson(fetcher, url, options, provider, operation = 'OCR') {
   const { signal } = options;
   try {
     const response = await fetcher(url, { ...options, redirect: 'error' });
@@ -56,7 +56,7 @@ async function upstreamJson(fetcher, url, options, provider) {
       if ([401, 403].includes(response.status)) throw problem(response.status, 'provider_auth', provider + ' rejected the key or its model permissions.');
       if (response.status === 402) throw problem(402, 'provider_billing', provider + ' reported insufficient API balance.');
       if (response.status === 429) throw problem(429, 'provider_rate', provider + ' is rate-limited. Wait before running OCR again.', { 'Retry-After': '60' });
-      throw problem(502, 'provider_request', provider + ' rejected the OCR request (HTTP ' + response.status + ').');
+      throw problem(502, 'provider_request', provider + ' rejected the ' + operation + ' request (HTTP ' + response.status + ').');
     }
     const raw = await readBoundedText(response.body, LIMITS.modelResultChars, signal, badResult(provider));
     try { return JSON.parse(raw); } catch { throw badResult(provider); }
@@ -242,4 +242,5 @@ export function createProviderOcrHandler(fetcher = fetch, wait = pause) {
   } };
 }
 
+export { decodeEntities, requireKey, upstreamJson };
 export default createProviderOcrHandler();

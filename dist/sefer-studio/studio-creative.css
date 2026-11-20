@@ -1,0 +1,126 @@
+
+/* Audio and OCR share the publishing studio's dark editing surface. */
+.studio-creative, #panel-pdf.pdf-ocr-focus {
+  --studio-bg: #070d1b;
+  --studio-card: #121c2e;
+  --studio-line: #293952;
+  --studio-text: #eef3fc;
+  --studio-muted: #a8b7cb;
+  --studio-blue: #2860db;
+  color: var(--studio-text);
+  background: var(--studio-bg);
+}
+.studio-creative { flex: 1; min-height: 0; overflow: auto; user-select: text; }
+.studio-creative[hidden], .studio-creative [hidden], #pdf-inspector [hidden] { display: none !important; }
+.studio-creative-header {
+  display: flex; align-items: center; gap: 18px; flex-wrap: wrap;
+  padding: 12px clamp(14px,3vw,42px); border-bottom: 1px solid var(--studio-line);
+  background: #10192b;
+}
+.studio-creative-brand { display: flex; align-items: center; gap: 12px; margin-right: auto; }
+.studio-creative-brand > span {
+  display: grid; place-items: center; width: 45px; height: 45px; border-radius: 13px;
+  background: #2647a0; color: #ffe17e; font-size: 25px; font-family: serif; border: 1px solid #957d52;
+}
+.studio-creative h1 { font-size: 20px; font-weight: 750; margin: 0; }
+.studio-creative-brand p { margin: 2px 0 0; color: var(--studio-muted); font-size: 12px; }
+.studio-creative-header nav {
+  display: flex; flex-wrap: wrap; gap: 4px; padding: 4px; border: 1px solid var(--studio-line);
+  background: var(--studio-bg); border-radius: 13px;
+}
+.studio-creative-header nav a, .studio-creative-header nav button { padding: 8px 11px; color: var(--studio-muted); border-radius: 9px; font-size: 13px; font-weight: 650; text-decoration: none; }
+.studio-creative-header [aria-current=page], .studio-creative-header nav a:hover { color: white; background: var(--studio-blue); }
+.studio-creative-grid, #panel-pdf.pdf-ocr-focus #pdf-inspector {
+  display: grid; grid-template-columns: minmax(300px, 5fr) minmax(0, 7fr);
+  align-items: start; gap: clamp(14px,2vw,28px);
+  padding: clamp(14px,3vw,42px);
+  max-width: 1600px; margin: 0 auto; width: 100%;
+}
+.studio-creative-stack, .studio-creative-card { display: flex; flex-direction: column; gap: 13px; min-width: 0; }
+.studio-creative-card {
+  border: 1px solid var(--studio-line); border-radius: 16px; padding: clamp(14px,2vw,24px);
+  background: var(--studio-card);
+}
+.studio-card-title, .studio-editor-toolbar { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
+.studio-card-title { justify-content: space-between; }
+.studio-creative h2, #panel-pdf.pdf-ocr-focus .studio-creative-card h2 { margin: 0; font-size: 17px; font-weight: 750; }
+.studio-creative button, #panel-pdf.pdf-ocr-focus .studio-creative-button {
+  color: var(--studio-text); background: #1e2c43; border: 1px solid #344766;
+  padding: 7px 11px; border-radius: 9px; cursor: pointer; font-size: 13px; font-weight: 600;
+}
+.studio-creative button:disabled, #panel-pdf.pdf-ocr-focus button:disabled { opacity: .55; cursor: default; }
+.studio-creative button:hover:not(:disabled), #panel-pdf.pdf-ocr-focus .studio-creative-button:hover:not(:disabled) { border-color: #7193df; }
+.studio-creative .studio-creative-link, #panel-pdf.pdf-ocr-focus .studio-creative-link { color: #8bbaff; background: transparent; border-color: transparent; padding-inline: 3px; }
+.studio-creative input:not([type=checkbox]), .studio-creative select,
+#panel-pdf.pdf-ocr-focus #pdf-ocr-controls select, #panel-pdf.pdf-ocr-focus #pdf-ocr-controls input:not([type=checkbox]) {
+  display: block; width: 100%; min-width: 0; min-height: 37px; margin-top: 5px; padding: 6px 10px; color: var(--studio-text);
+  background: var(--studio-bg); border: 1px solid var(--studio-line); border-radius: 9px; font-size: 13px; color-scheme: dark;
+}
+.studio-creative label, #panel-pdf.pdf-ocr-focus .studio-field { display: block; min-width: 0; color: var(--studio-muted); font-size: 13px; }
+.studio-creative .studio-creative-drop, #panel-pdf.pdf-ocr-focus .studio-creative-drop {
+  display: flex; flex-direction: column; align-items: center; gap: 7px; width: 100%;
+  padding: 24px 10px; border: 2px dashed #536581; border-radius: 12px;
+  text-align: center; background: #0b1425; color: var(--studio-text); cursor: pointer;
+}
+.studio-creative-drop small { color: var(--studio-muted); }
+.studio-creative-drop[data-over=true] { background: #162d58; border-color: #9ebcff; }
+.studio-record-row, .studio-fields-grid { display: grid; grid-template-columns: minmax(0,1fr) auto; gap: 8px; align-items: center; }
+.studio-fields-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+.studio-record-row > button:first-child { min-height: 42px; }
+#studio-audio-record span { color: #ff7491; }
+#studio-audio-timer, #studio-audio-count { border: 1px solid var(--studio-line); border-radius: 8px; padding: 6px 8px; color: var(--studio-muted); font-size: 12px; background: var(--studio-bg); }
+#studio-audio-timer { font-family: monospace; }
+#studio-audio-player { width: 100%; margin-top: 5px; height: 40px; }
+#studio-audio-filename { overflow-wrap: anywhere; }
+.studio-creative-note { font-size: 12px; line-height: 1.45; color: var(--studio-muted); margin: 0; }
+.studio-creative-checks label { display: flex; justify-content: space-between; align-items: center; gap: 8px; padding: 4px 0; color: var(--studio-text); }
+.studio-creative-checks input { accent-color: var(--studio-blue); }
+.studio-creative .studio-creative-primary, #panel-pdf.pdf-ocr-focus [data-pdf-action=ocr] { color: #fff; background: var(--studio-blue); }
+#panel-pdf.pdf-ocr-focus [data-pdf-action=ocr] { width: 100%; min-height: 42px; border-radius: 10px; }
+.studio-creative .studio-creative-accent, #panel-pdf.pdf-ocr-focus .studio-creative-accent { color: #ffdc7a; border-color: #7d5f35; background: #393021; }
+.studio-audio-credentials { margin: 12px clamp(14px,3vw,42px) 0; }
+.studio-transcript-card { padding: 0; min-height: 490px; overflow: hidden; }
+.studio-editor-toolbar { border-bottom: 1px solid var(--studio-line); padding: 12px 14px; }
+.studio-editor-actions { display:flex; gap: 5px; flex-wrap: wrap; margin-left: auto; }
+#studio-audio-text, #panel-pdf.pdf-ocr-focus #pdf-ocr-output {
+  flex: 1; min-height: 370px; width: 100%; resize: vertical; padding: 16px;
+  border: none; border-radius: 0; outline-offset: -3px; background: var(--studio-bg); color: var(--studio-text);
+  unicode-bidi: plaintext; text-align: start;
+  font: 19px/1.6 "Frank Ruhl Libre", "Noto Serif Hebrew", Georgia, serif;
+}
+#studio-audio-status, #studio-pdf-tools-status { padding: 4px 14px 12px; margin: 0; color: var(--studio-muted); font-size: 12px; }
+#panel-audio.studio-nikkud-lab .studio-creative-grid { grid-template-columns: minmax(0,1fr); }
+#panel-audio.studio-nikkud-lab #studio-audio-controls { display: none; }
+
+#pdf-ocr-upload-card, #pdf-ocr-editor-toolbar, #studio-pdf-tools-status, #pdf-ocr-enhancers { display: none; }
+#pdf-ocr-side, #pdf-ocr-results { display: flex; flex-direction: column; gap: 8px; min-width: 0; }
+#panel-pdf.pdf-ocr-focus #pdf-page-sidebar, #panel-pdf.pdf-ocr-focus #pdf-document-viewport, #panel-pdf.pdf-ocr-focus #pdf-footnote-inspector { display: none; }
+#panel-pdf.pdf-ocr-focus #pdf-inspector { overflow: auto; border: 0; background: var(--studio-bg); align-self: stretch; min-height: 0; }
+#panel-pdf.pdf-ocr-focus #pdf-ocr-side { gap: 14px; }
+#panel-pdf.pdf-ocr-focus #pdf-ocr-upload-card, #panel-pdf.pdf-ocr-focus #pdf-ocr-enhancers { display: flex; }
+#panel-pdf.pdf-ocr-focus #pdf-ocr-editor-toolbar { display: flex; }
+#panel-pdf.pdf-ocr-focus #studio-pdf-tools-status { display: block; }
+#panel-pdf.pdf-ocr-focus #pdf-ocr-controls, #panel-pdf.pdf-ocr-focus #pdf-ocr-results {
+  background: var(--studio-card); border: 1px solid var(--studio-line); border-radius: 16px;
+}
+#panel-pdf.pdf-ocr-focus #pdf-ocr-controls { padding: 14px; }
+#panel-pdf.pdf-ocr-focus #pdf-ocr-results { padding: 0; overflow: hidden; }
+#panel-pdf.pdf-ocr-focus #pdf-ocr-results > :not(#pdf-ocr-output):not(.studio-editor-toolbar):not(#studio-pdf-tools-status) { margin-inline: 12px; }
+#panel-pdf.pdf-ocr-focus #pdf-ocr-results > :last-child { margin-bottom: 12px; }
+#panel-pdf.pdf-ocr-focus #pdf-ocr-controls > label, #panel-pdf.pdf-ocr-focus #pdf-ocr-controls > p,
+#panel-pdf.pdf-ocr-focus #pdf-ocr-status, #panel-pdf.pdf-ocr-focus #pdf-ocr-timing, #panel-pdf.pdf-ocr-focus #pdf-ocr-page-status,
+#panel-pdf.pdf-ocr-focus label[for=pdf-ocr-result-page], #panel-pdf.pdf-ocr-focus #pdf-ocr-scope-summary { color: var(--studio-muted); }
+#panel-pdf.pdf-ocr-focus #pdf-vision-settings { background: #15243b; border-color: var(--studio-line); }
+#panel-pdf.pdf-ocr-focus #pdf-vision-settings label, #panel-pdf.pdf-ocr-focus #pdf-vision-settings p { color: var(--studio-muted); }
+#panel-pdf.pdf-ocr-focus #pdf-ocr-output.studio-rashi-font { font-family: "Noto Rashi Hebrew", "Frank Ruhl Libre", serif; }
+#panel-pdf.pdf-ocr-focus #pdf-ocr-result-page { color: #172138; }
+@media (max-width: 800px) {
+  .studio-creative-grid, #panel-pdf.pdf-ocr-focus #pdf-inspector { grid-template-columns: minmax(0,1fr); }
+  .studio-creative-header { gap: 8px; }
+  .studio-creative-header nav { order: 3; width: 100%; }
+}
+@media print { #panel-audio { display: none !important; } }
+
+#panel-pdf.pdf-ocr-focus #pdf-main-toolbar { background:#10192b; }
+#panel-pdf.pdf-ocr-focus #pdf-main-toolbar > div > :not(#studio-pdf-ocr-toggle):not(#pdf-filename-label) { display:none; }
+#panel-pdf.pdf-ocr-focus #pdf-inspector { overflow-x:hidden; }

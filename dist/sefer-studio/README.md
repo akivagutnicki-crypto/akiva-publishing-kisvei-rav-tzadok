@@ -138,6 +138,14 @@ Batch vision requests use the same checked connection and are spaced by at least
 
 The separate OpenAI-based Worker in `services/sefer-studio-ocr/` remains an optional alternative requiring its own backend provider key and deployment. Selecting the native Cloudflare service does not activate that alternative.
 
+## Audio Transcribe and Hebrew & Rashi OCR
+
+Open **Audio Transcribe** to record a shiur from your microphone, upload existing audio, or enter a public Sofer.Ai-supported link. Recordings stay in the browser until you select **Run Transcription**. Uploads support M4A, MP3, WAV, OGG, WebM, FLAC, AIFF, AAC, and Opus. The upload limit is 18 MiB for Sofer.Ai and 12 MiB for Gemini or Hybrid. Longer recordings can use a supported Sofer.Ai link. A submitted Sofer.Ai job can be retrieved with its ID if you stop waiting or close the tab.
+
+**Hybrid** runs Sofer.Ai and Gemini Neon in parallel, then uses Gemini Hydrogen to reconcile their transcripts. Choose a language and Hebrew word format, plus optional timestamps, speaker labels, nikkud, or abbreviation expansion. The editable transcript supports Markdown, Word HTML, and sending the text to Word Studio. **Nikkudot Lab** also works on pasted text. Keys are shared between the audio and PDF workspaces for the current page session.
+
+In **PDF Studio**, click **Hebrew & Rashi OCR** for a two-panel scan and transcript view. Drop a PDF, PNG, JPEG, WebP, or TIFF. Page images are converted to PDF locally; the TIFF decoder is downloaded on first use. Scan settings use the same PDF OCR engine, saved pages, and Word Studio handoff. Optional Gemini text tools can add nikkud, expand abbreviations, or include a separate English translation after the OCR text. Review AI-added text against the scan.
+
 ## Hosting and releases
 
 The application is published in `dist/sefer-studio/` through the dedicated `sefer-studio-release.yml` GitHub Actions workflow. That workflow restores the previously deployed Pages artifact, overlays this application, verifies that unrelated site files are unchanged, and deploys the complete artifact. Release commits carry `[sefer-studio-release]` so the older full-site build is not triggered.
