@@ -1,6 +1,7 @@
 (() => {
   'use strict';
-  const endpoint = 'https://akiva-publishing-kisvei-rav-tzadok.akivagutnicki.workers.dev/sefer-studio-api/audio';
+  const api = 'https://akiva-publishing-kisvei-rav-tzadok.akivagutnicki.workers.dev/v1/';
+  const endpoint = api + 'audio';
   const find = (id) => document.getElementById(id);
   const formats = { m4a:'audio/m4a', mp4:'audio/m4a', mp3:'audio/mp3', wav:'audio/wav', ogg:'audio/ogg', webm:'audio/webm',
     flac:'audio/flac', aiff:'audio/aiff', aif:'audio/aiff', aac:'audio/aac', opus:'audio/opus', mpeg:'audio/mpeg' };
@@ -8,16 +9,13 @@
   const extension = (name) => name?.toLowerCase().split('.').pop();
   let file = null, previewUrl = '', recording = null, requestingMic = false, active = null, revision = 0;
 
-  function keys() {
-    return { sofer: find('pdf-provider-sofer').value.trim(), gemini: find('pdf-provider-gemini').value.trim() };
-  }
-  function needKey(key, name) {
-    if (!/^[\x21-\x7e]{12,256}$/.test(key)) throw new Error('Enter your ' + name + ' key using API Keys.');
+  let accessKey = '';
+  function requireAccess() {
+    if (!/^sfpro_[0-9a-f]{64}$/.test(accessKey)) throw new Error('Enter your SoferStudio access key under API Key.');
+    return accessKey;
   }
   async function request(action, data, access, signal) {
-    const headers = { 'Content-Type': 'application/json' };
-    if (['sofer-start', 'sofer-poll'].includes(action)) headers['X-Sofer-API-Key'] = access.sofer;
-    else headers['X-Gemini-API-Key'] = access.gemini;
+    const headers = { 'Content-Type': 'application/json', Authorization: 'Bearer ' + access };
     const response = await fetch(endpoint, {
       method: 'POST', headers, body: JSON.stringify({ ...data, action }), signal,
       credentials: 'omit', redirect: 'error', cache: 'no-store', referrerPolicy: 'no-referrer',
@@ -193,7 +191,8 @@
   }
   async function run(retrieve = false) {
     if (active || recording || requestingMic) return;
-    const access = keys(), config = options();
+    let access;
+    const config = options();
     const engine = retrieve ? 'sofer' : find('studio-audio-engine').value;
     const url = find('studio-audio-url').value.trim();
     const cap = engine === 'sofer' ? 18 : 12;
@@ -201,8 +200,7 @@
       if (retrieve && !find('studio-audio-job').value.trim()) throw new Error('Enter the Sofer.Ai job ID.');
       if (!retrieve && !file && !url) throw new Error('Load a recording, record a shiur or paste a public audio link.');
       if (!retrieve && file && file.size > cap * 1024 * 1024) throw new Error('This engine accepts files up to ' + cap + ' MiB. Use a shorter file or a Sofer.Ai link.');
-      if (['hybrid', 'sofer'].includes(engine)) needKey(access.sofer, 'Sofer.Ai');
-      if (engine !== 'sofer' || config.nikkud || config.expand) needKey(access.gemini, 'Gemini');
+      access = requireAccess();
     } catch (error) { status(error.message); return; }
     const snapshot = revision;
     const controller = active = new AbortController();
@@ -224,7 +222,7 @@
         signal.throwIfAborted();
         if (sofer.status === 'fulfilled' && neon.status === 'fulfilled') {
           status('Gemini Hydrogen is reconciling both transcripts…');
-          try { text = (await request('reconcile', { ...config, sofer: sofer.value.text, neon: neon.value.text }, access, signal)).text; }
+          try { text = (await request('reconcile', { ...config, sofer: sofer.value.text, neon: neon.value.text, ...media }, access, signal)).text; }
           catch (error) { signal.throwIfAborted(); text = neon.value.text; message = 'Showing the Gemini Neon draft. Hydrogen reconciliation did not finish.'; }
         } else if (sofer.status === 'fulfilled' || neon.status === 'fulfilled') {
           const useSofer = sofer.status === 'fulfilled';
@@ -246,10 +244,8 @@
       status(signal.aborted ? 'Stopped. Retrieve a submitted Sofer.Ai job by ID when ready.' : error.message);
     } finally { active = null; updateButtons(); }
   }
-  async function textAction(action, text, signal) {
-    const access = keys();
-    needKey(access.gemini, 'Gemini');
-    return (await request(action, { text }, access, signal)).text;
+  async function textAction(action, text, signal, style = 'rabbinic') {
+    return (await request(action, { text, style }, requireAccess(), signal)).text;
   }
   async function addNikkud() {
     const text = editor().value;
@@ -258,7 +254,7 @@
     const controller = active = new AbortController();
     updateButtons(); status('Adding nikkud with Gemini Hydrogen…');
     try {
-      const result = await textAction('nikkud', text, controller.signal);
+      const result = await textAction('nikkud', text, controller.signal, find('studio-nikkud-style').value);
       if (revision !== snapshot) throw new Error('The editor changed. Your edits were kept.');
       replaceText(result); status('Nikkud added. Review the vocalization.');
     } catch (error) { status(controller.signal.aborted ? 'Nikkud stopped.' : error.message); }
@@ -309,9 +305,19 @@
       const panel = find('studio-audio-credentials');
       panel.hidden = !panel.hidden;
       find('studio-audio-keys').setAttribute('aria-expanded', String(!panel.hidden));
-      if (!panel.hidden) { for (const key of ['sofer','gemini']) find('studio-audio-' + key + '-key').value = find('pdf-provider-' + key).value; }
+      if (!panel.hidden) find('studio-audio-access').focus();
     });
-    for (const key of ['sofer','gemini']) find('studio-audio-' + key + '-key').addEventListener('input', (event) => { find('pdf-provider-' + key).value = event.target.value; });
+    click('studio-access-check', async () => {
+      const result = find('studio-access-status');
+      try {
+        const access = requireAccess();
+        const reply = await fetch(api + 'health', { headers: { Authorization: 'Bearer ' + access }, cache:'no-store', referrerPolicy:'no-referrer' });
+        const data = await reply.json();
+        if (!reply.ok || !data.authorized) throw new Error(data.error || 'The service could not verify access.');
+        const names = Object.entries(data.providers).filter(([, ready]) => ready).map(([name]) => name === 'sofer' ? 'Sofer.Ai' : 'Gemini');
+        result.textContent = names.length ? 'Access verified. Server credentials configured for ' + names.join(' and ') + '.' : 'Access verified. The server operator still needs to configure provider credentials.';
+      } catch (error) { result.textContent = error.message; }
+    });
     click('studio-audio-api', () => { const info = find('studio-audio-api-info'); info.hidden = !info.hidden; });
     click('studio-audio-install', () => find('btn-pwa-install').click());
     click('studio-audio-point', addNikkud);
@@ -449,10 +455,6 @@
     });
     const output = find('pdf-ocr-output');
     const note = find('studio-pdf-tools-status');
-    find('studio-pdf-gemini').addEventListener('input', (event) => { find('pdf-provider-gemini').value = event.target.value; });
-    find('studio-pdf-gemini-extra').addEventListener('toggle', (event) => {
-      if (event.target.open) find('studio-pdf-gemini').value = keys().gemini;
-    });
     click('studio-pdf-font', () => {
       const rashi = output.classList.toggle('studio-rashi-font');
       find('studio-pdf-font').textContent = rashi ? 'Font: Rashi Script' : 'Font: Square Hebrew';
@@ -473,6 +475,29 @@
       finally { button.disabled = false; }
     });
   }
-  window.StudioCreative = { viewAudio, pdfLayout, textAction, keys, needKey };
-  document.addEventListener('DOMContentLoaded', () => { bindAudio(); bindPdf(); });
+  window.StudioCreative = { viewAudio, pdfLayout, textAction, requireAccess };
+  document.addEventListener('DOMContentLoaded', () => {
+    const inputs = [...document.querySelectorAll('[data-studio-access]')];
+    for (const input of inputs) input.addEventListener('input', () => {
+      accessKey = input.value.trim();
+      for (const other of inputs) if (other !== input) other.value = accessKey;
+    });
+    bindAudio(); bindPdf();
+    window.launchQueue?.setConsumer(async ({ files }) => {
+      if (!files?.length) return;
+      try {
+        const item = await files[0].getFile();
+        if (extension(item.name) === 'pdf') {
+          location.hash = '#/studio/pdf/ocr';
+          await openScan(item);
+        } else if (extension(item.name) === 'docx') {
+          location.hash = '#/studio/word';
+          await window.WordStudioApp.loadDocxArrayBuffer(await item.arrayBuffer(), item.name);
+        } else if (formats[extension(item.name)]) {
+          location.hash = '#/studio/audio';
+          setFile(item);
+        }
+      } catch (error) { status(error.message || 'The file could not be opened.'); }
+    });
+  });
 })();

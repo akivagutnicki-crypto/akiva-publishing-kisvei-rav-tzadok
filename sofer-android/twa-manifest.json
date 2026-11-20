@@ -1,0 +1,42 @@
+{
+  "packageId": "ai.soferstudio.app",
+  "host": "akiva-publishing-kisvei-rav-tzadok.akivagutnicki.workers.dev",
+  "name": "SoferStudio AI",
+  "launcherName": "SoferStudio AI",
+  "display": "standalone",
+  "themeColor": "#1E3A8A",
+  "themeColorDark": "#0F172A",
+  "navigationColor": "#0F172A",
+  "navigationColorDark": "#0F172A",
+  "navigationDividerColor": "#1E293B",
+  "navigationDividerColorDark": "#1E293B",
+  "backgroundColor": "#0F172A",
+  "enableNotifications": false,
+  "startUrl": "/sofer-studio/",
+  "iconUrl": "https://akiva-publishing-kisvei-rav-tzadok.akivagutnicki.workers.dev/sofer-studio/icons/icon-512.png",
+  "maskableIconUrl": "https://akiva-publishing-kisvei-rav-tzadok.akivagutnicki.workers.dev/sofer-studio/icons/maskable-512.png",
+  "splashScreenFadeOutDuration": 300,
+  "signingKey": {
+    "path": "./android.keystore",
+    "alias": "soferstudio"
+  },
+  "appVersionName": "2.0.0",
+  "appVersionCode": 1,
+  "shortcuts": [],
+  "generatorApp": "bubblewrap-cli",
+  "webManifestUrl": "https://akiva-publishing-kisvei-rav-tzadok.akivagutnicki.workers.dev/sofer-studio/manifest.webmanifest",
+  "fallbackType": "customtabs",
+  "features": {
+    "playBilling": {
+      "enabled": false
+    }
+  },
+  "alphaDependencies": {
+    "enabled": false
+  },
+  "enableSiteSettingsShortcut": true,
+  "isChromeOSOnly": false,
+  "minSdkVersion": 24,
+  "orientation": "default",
+  "scope": "https://akiva-publishing-kisvei-rav-tzadok.akivagutnicki.workers.dev/sofer-studio/"
+}

@@ -1,6 +1,6 @@
 {
   "id": "./",
-  "name": "SeferStudio Pro \u2014 Word DOCX, Publisher, PDF/OCR & Design",
+  "name": "SeferStudio Pro — Word DOCX, Publisher, PDF/OCR & Design",
   "short_name": "SeferStudio",
   "description": "Offline-capable Word (.docx) processor with true bottom-of-page footnotes & Ivrit BiDi, Publisher newsletters/flyers, PDF/OCR studio, Visual Design studio, and MCP Hub.",
   "start_url": "./",
@@ -49,6 +49,21 @@
         ],
         "application/pdf": [
           ".pdf"
+        ],
+        "audio/mpeg": [
+          ".mp3"
+        ],
+        "audio/mp4": [
+          ".m4a"
+        ],
+        "audio/wav": [
+          ".wav"
+        ],
+        "audio/ogg": [
+          ".ogg"
+        ],
+        "audio/webm": [
+          ".webm"
         ]
       }
     }
@@ -83,6 +98,10 @@
           "sizes": "192x192"
         }
       ]
+    },
+    {
+      "name": "Audio Transcribe",
+      "url": "./index.html#/studio/audio"
     }
   ]
 }

@@ -90,7 +90,7 @@ async function gemini(fetcher, key, model, instruction, parts, signal) {
     body: JSON.stringify({
       systemInstruction: { parts: [{ text: instruction }] },
       contents: [{ role: 'user', parts }],
-      generationConfig: { maxOutputTokens: 32768, thinkingConfig: { thinkingLevel: model === 'gemini-4-carbon' ? 'HIGH' : 'LOW' } },
+      generationConfig: { maxOutputTokens: 32768, thinkingConfig: { thinkingLevel: model === 'gemini-4-hydrogen' ? 'MEDIUM' : 'HIGH' } },
     }),
   }, 'Gemini', 'transcription');
   const candidate = response?.candidates?.[0];
@@ -132,11 +132,14 @@ async function route(fetcher, request, body, signal) {
   }
   if (body.action === 'reconcile') {
     const candidates = { sofer: textField(body.sofer, 'Sofer.Ai transcript'), neon: textField(body.neon, 'Neon transcript') };
-    return gemini(fetcher, key, 'gemini-4-hydrogen', TRANSCRIBE + ' Reconcile the two transcripts of the same recording. Preserve details supported by the candidates. Flag disagreements that cannot be resolved. ' + settingsPrompt(body), [{ text: JSON.stringify(candidates) }], signal);
+    return gemini(fetcher, key, 'gemini-4-hydrogen', TRANSCRIBE + ' Reconcile the two transcripts of the same recording. Preserve details supported by the candidates. Flag disagreements that cannot be resolved. ' + settingsPrompt(body), parts, signal);
   }
   const source = textField(body.text, 'Source text');
+  const style = body.style ?? 'rabbinic';
+  const styles = { rabbinic: 'Classical Rabbinic Hebrew and Aramaic', modern: 'Modern Israeli Hebrew', biblical: 'Biblical Hebrew' };
+  if (body.action === 'nikkud' && !Object.hasOwn(styles, style)) throw BAD('Choose Rabbinic, Modern, or Biblical nikkud.');
   const operations = [];
-  if (body.action === 'nikkud') operations.push('Add Hebrew and Aramaic vowel points. Keep all original characters other than vowel marks unchanged, including whitespace, punctuation, time codes, and any English.');
+  if (body.action === 'nikkud') operations.push('Use ' + styles[style] + ' grammar. Add Hebrew and Aramaic vowel points. Keep all original characters other than vowel marks unchanged, including whitespace, punctuation, time codes, and any English.');
   else if (body.action === 'expand') operations.push('Add expansions in parentheses after unambiguous Hebrew abbreviations. Preserve every original word and its order.');
   else if (body.action === 'translate') operations.push('Translate the source faithfully into English. Preserve paragraph boundaries and mark unclear passages. Return only the English translation.');
   else throw BAD('Unknown transcription action.');

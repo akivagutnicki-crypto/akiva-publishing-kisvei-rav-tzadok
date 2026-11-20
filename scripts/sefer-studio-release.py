@@ -24,7 +24,8 @@ REPORT = Path('sefer-studio-verification.json')
 LIVE_REPORT = Path('sefer-studio-live-verification.json')
 PREFIX = 'sefer-studio/'
 PRO_PREFIX = 'sefer-pro/'
-APP_PREFIXES = (PREFIX, PRO_PREFIX)
+SOFER_PREFIX = 'sofer-studio/'
+APP_PREFIXES = (PREFIX, PRO_PREFIX, SOFER_PREFIX)
 LIVE_GUARDS = ['index.html', 'library/index.html', 'library/sw.js',
                'library/data/catalog.json', 'library/data/cited/index.json']
 
@@ -123,23 +124,29 @@ def inventory(root):
     return result
 
 
-def sefer_pro_overrides():
+def app_overrides(standalone=False):
     """Build the Sefer Pro entry point from the current Studio release."""
     manifest = json.loads((SOURCE / 'manifest.webmanifest').read_text(encoding='utf-8'))
-    manifest.update(id=urllib.parse.urlparse(PUBLIC).path + PRO_PREFIX,
-                    name='Sefer Pro', short_name='Sefer Pro',
-                    start_url='./#/studio', scope='./', display='standalone')
+    prefix = SOFER_PREFIX if standalone else PRO_PREFIX
+    title = 'SoferStudio AI' if standalone else 'Sefer Pro'
+    route = '#/studio/audio' if standalone else '#/studio'
+    manifest.update(id=urllib.parse.urlparse(PUBLIC).path + prefix,
+                    name=title, short_name=title,
+                    start_url='./' + route, scope='./', display='standalone')
     manifest.pop('display_override', None)
     html = (SOURCE / 'index.html').read_text(encoding='utf-8')
     html = html.replace('SeferStudio Pro', 'Sefer Pro')
     html = html.replace('SeferStudio <span', 'Sefer <span')
     html = html.replace('Return to SeferStudio Website Home', 'Return to Sefer Pro Home')
-    html = html.replace("location.hash || '#/home'", "location.hash || '#/studio'")
+    html = html.replace("location.hash || '#/home'", f"location.hash || '{route}'")
+    if standalone:
+        html = html.replace('<title>Sefer Pro', '<title>SoferStudio AI', 1)
+        html = html.replace('content="Sefer Pro"', 'content="SoferStudio AI"', 1)
     html = html.replace(
         '<link rel="manifest" href="manifest.webmanifest" />',
         '<link rel="manifest" href="manifest.webmanifest" />\n'
         '  <link rel="apple-touch-icon" href="icons/icon-192.png" />')
-    assert '<title>Sefer Pro' in html and 'rel="apple-touch-icon"' in html, \
+    assert ('<title>' + title) in html and 'rel="apple-touch-icon"' in html, \
         'Missing Sefer Pro application metadata'
     return {'index.html': html.encode('utf-8'),
             'manifest.webmanifest': (json.dumps(manifest, indent=2) + '\n').encode('utf-8')}
@@ -153,8 +160,8 @@ def replace_app(destination):
     shutil.copytree(SOURCE, destination)
 
 
-def build_sefer_pro(destination):
-    overrides = sefer_pro_overrides()
+def build_app(destination, standalone=False):
+    overrides = app_overrides(standalone)
     replace_app(destination)
     for name, contents in overrides.items():
         (destination / name).write_bytes(contents)
@@ -165,10 +172,12 @@ def source_inventory():
     for required in ['index.html', 'manifest.webmanifest', 'sw.js']:
         assert required in files and (SOURCE / required).stat().st_size > 0, \
             'Missing app asset: ' + required
-    pro_files = files | {name: hashlib.sha256(contents).hexdigest()
-                         for name, contents in sefer_pro_overrides().items()}
-    return ({PREFIX + name: value for name, value in files.items()} |
-            {PRO_PREFIX + name: value for name, value in pro_files.items()})
+    result = {PREFIX + name: value for name, value in files.items()}
+    for prefix in (PRO_PREFIX, SOFER_PREFIX):
+        overrides = app_overrides(prefix == SOFER_PREFIX)
+        scoped = files | {name: hashlib.sha256(contents).hexdigest() for name, contents in overrides.items()}
+        result.update({prefix + name: value for name, value in scoped.items()})
+    return result
 
 
 def live_digest(name):
@@ -232,7 +241,8 @@ def apply():
     state = json.loads(STATE.read_text())
     assert source_inventory() == state['inputs'], 'App source changed after capture'
     replace_app(ROOT / PREFIX)
-    build_sefer_pro(ROOT / PRO_PREFIX)
+    build_app(ROOT / PRO_PREFIX)
+    build_app(ROOT / SOFER_PREFIX, standalone=True)
     verify()
 
 
@@ -255,7 +265,7 @@ def verify():
               'expectedLive': app_files}
     write_json(REPORT, report)
     print('Verified', report['preservedFiles'], 'unchanged existing files and',
-          len(app_files), 'exact app files across sefer-studio/ and sefer-pro/.')
+          len(app_files), 'exact app files across sefer-studio/, sefer-pro/, and sofer-studio/.')
 
 
 def published():
@@ -288,7 +298,7 @@ def published():
                 'verifiedPublicFiles': len(expected), 'unchangedLiveGuards': LIVE_GUARDS,
                 'url': PUBLIC + PRO_PREFIX + '#/studio', 'hashes': expected}
     write_json(LIVE_REPORT, evidence)
-    print('Verified the live website and unchanged existing site:', PUBLIC + PRO_PREFIX)
+    print('Verified the live apps and unchanged existing site:', PUBLIC + PRO_PREFIX, PUBLIC + SOFER_PREFIX)
 
 
 if __name__ == '__main__':
@@ -306,6 +316,7 @@ if __name__ == '__main__':
     elif mode == 'published':
         published()
     elif mode == 'build-sefer-pro':
-        build_sefer_pro(SOURCE.parent / PRO_PREFIX)
+        build_app(SOURCE.parent / PRO_PREFIX)
+        build_app(SOURCE.parent / SOFER_PREFIX, standalone=True)
     else:
         raise SystemExit('Unknown mode: ' + mode)

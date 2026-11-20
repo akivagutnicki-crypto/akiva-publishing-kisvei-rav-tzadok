@@ -38,8 +38,20 @@ async function requestData(request) {
       typeof payload.nikkud !== 'boolean' || typeof payload.oldPrint !== 'boolean') {
     throw badRequest('Invalid OCR engine, mode, page number, script, or layout.');
   }
-  validateJpeg(payload.imageDataUrl);
-  return payload;
+  const source = payload.documentDataUrl ?? payload.imageDataUrl;
+  const match = typeof source === 'string' && /^data:(application\/pdf|image\/(?:jpeg|png|webp));base64,([A-Za-z0-9+/]+={0,2})$/.exec(source);
+  if (!match || match[2].length % 4 !== 0) throw badRequest('Use a PDF, JPEG, PNG, or WebP data URL.');
+  const mime = match[1], data = match[2];
+  if (mime === 'image/jpeg') validateJpeg(source);
+  else {
+    const head = atob(data.slice(0, 16));
+    const valid = mime === 'application/pdf' ? head.startsWith('%PDF-') :
+      mime === 'image/png' ? head.startsWith('\x89PNG\r\n\x1a\n') :
+      head.startsWith('RIFF') && head.slice(8, 12) === 'WEBP';
+    if (!valid) throw badRequest('The file header does not match the claimed format.');
+  }
+  const { imageDataUrl, documentDataUrl, ...settings } = payload;
+  return { ...settings, mime, data };
 }
 
 function requireKey(request, header, provider) {
@@ -78,11 +90,12 @@ function promptFor(page) {
   ];
   if (page.layout === 'tzurat-hadaf') rules.push('Read each Tzurat HaDaf zone separately: central text, then each distinct marginal commentary, then separate notes. Never weave commentary lines into the central text.');
   if (page.oldPrint || page.language === 'heb_rashi') rules.push('Watch for historical letterpress, broken ink, reverse-page bleed-through, ligatures such as ﭏ, catchwords, and Rashi forms א/ט, ב/כ/פ, ג/נ, ד/ר, ה/ח/ת, מ/ס, ע/צ. Preserve visible catchwords and distinguish them from the main text.');
+  if (page.mime === 'application/pdf') rules.push('Extract every page, in document order, using --- Page N --- before each page.');
   rules.push('Return JSON with text, warnings and uncertain. If truly blank return text="" and no uncertainty.');
   return rules.join('\n');
 }
 
-const inlineImage = (page) => ({ inlineData: { mimeType: 'image/jpeg', data: page.imageDataUrl.slice('data:image/jpeg;base64,'.length) } });
+const inlineImage = (page) => ({ inlineData: { mimeType: page.mime, data: page.data } });
 const responseSchema = {
   type: 'object', required: ['text', 'warnings', 'uncertain'],
   properties: { text: { type: 'string' }, warnings: { type: 'array', items: { type: 'string' } }, uncertain: { type: 'array', items: { type: 'string' } } },
@@ -98,7 +111,7 @@ async function gemini(fetcher, model, key, page, parts, task, signal) {
       contents: [{ role: 'user', parts }],
       generationConfig: {
         maxOutputTokens: 32768, responseMimeType: 'application/json', responseJsonSchema: responseSchema,
-        thinkingConfig: { thinkingLevel: model === 'gemini-4-carbon' ? 'HIGH' : 'LOW' },
+        thinkingConfig: { thinkingLevel: model === 'gemini-4-hydrogen' ? 'MEDIUM' : 'HIGH' },
       },
     }),
   }, 'Gemini');
@@ -157,9 +170,10 @@ function pause(ms, signal) {
 
 async function sofer(fetcher, key, page, signal, wait, progress) {
   const headers = { Authorization: 'Bearer ' + key, 'Content-Type': 'application/json' };
+  const ext = { 'application/pdf': 'pdf', 'image/jpeg': 'jpg', 'image/png': 'png', 'image/webp': 'webp' }[page.mime];
   const created = await upstreamJson(fetcher, SOFER_URL, {
     method: 'POST', signal, headers,
-    body: JSON.stringify({ file: inlineImage(page).inlineData.data, file_name: 'page-' + page.pageNumber + '.jpg', content_type: 'image/jpeg', mode: page.soferMode }),
+    body: JSON.stringify({ file: page.data, file_name: 'scan-' + page.pageNumber + '.' + ext, content_type: page.mime, mode: page.soferMode }),
   }, 'Sofer.Ai');
   const id = created?.document_id;
   if (typeof id !== 'string' || !/^[0-9a-f]{8}(?:-[0-9a-f]{4}){3}-[0-9a-f]{12}$/i.test(id)) throw badResult('Sofer.Ai');
@@ -168,9 +182,15 @@ async function sofer(fetcher, key, page, signal, wait, progress) {
     const result = await upstreamJson(fetcher, SOFER_URL + id, { method: 'GET', signal, headers }, 'Sofer.Ai');
     if (result?.status === 'FAILED' || result?.failed_pages > 0) throw badResult('Sofer.Ai');
     if (result?.status === 'COMPLETED') {
-      const html = result.pages?.find((entry) => entry.page_num === 1)?.content;
-      if (typeof html !== 'string' || !html.trim()) throw badResult('Sofer.Ai');
-      const text = await soferText(html);
+      const pages = Array.isArray(result.pages) ? result.pages.slice().sort((a,b) => a.page_num - b.page_num) : [];
+      const count = Number.isInteger(created.num_pages) ? created.num_pages : pages.length;
+      if (!count || pages.length !== count || pages.some((entry, i) => entry.page_num !== i + 1 || typeof entry.content !== 'string')) throw badResult('Sofer.Ai');
+      const chunks = [];
+      for (const { page_num, content } of pages) {
+        const extracted = await soferText(content);
+        chunks.push(page.mime === 'application/pdf' ? '--- Page ' + page_num + ' ---\n' + extracted : extracted);
+      }
+      const text = chunks.join('\n\n').trim();
       if (!text || text.length > LIMITS.textChars) throw badResult('Sofer.Ai');
       return { text, warnings: ['Verify Sofer.Ai’s reading order and punctuation against the scan.'], uncertain: [], provider: 'Sofer.Ai', model: page.soferMode };
     }
@@ -181,7 +201,7 @@ async function sofer(fetcher, key, page, signal, wait, progress) {
 }
 
 async function recognize(fetcher, page, keys, signal, wait, progress) {
-  const scan = () => gemini(fetcher, page.engine === 'hybrid' ? 'gemini-4-neon' : page.engine, keys.gemini, page,
+  const scan = () => gemini(fetcher, page.engine === 'hybrid' ? (page.oldPrint && page.language === 'heb_rashi' ? 'gemini-4-carbon' : 'gemini-4-neon') : page.engine, keys.gemini, page,
     [inlineImage(page)], 'Use the image as the source of truth.', signal);
   const readSofer = () => sofer(fetcher, keys.sofer, page, signal, wait, progress);
   if (page.engine === 'hybrid') {
@@ -194,7 +214,7 @@ async function recognize(fetcher, page, keys, signal, wait, progress) {
       { text: JSON.stringify({ soferTranscription: baseline.text, neonTranscription: vision.text }) },
     ], 'Reconcile the two candidate transcriptions against the original image. Trust visible glyphs over candidates. Flag discrepancies that cannot be resolved.', signal);
     if (!reconciled.text) throw badResult('Hybrid OCR');
-    return { ...reconciled, provider: 'Sofer.Ai + Google Gemini', model: page.soferMode + ' + Neon → Hydrogen' };
+    return { ...reconciled, provider: 'Sofer.Ai + Google Gemini', model: page.soferMode + ' + ' + (page.oldPrint && page.language === 'heb_rashi' ? 'Carbon' : 'Neon') + ' → Hydrogen' };
   }
   if (page.engine !== 'sofer') return scan();
   const result = await readSofer();

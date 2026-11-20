@@ -153,3 +153,11 @@ The application is published in `dist/sefer-studio/` through the dedicated `sefe
 GitHub Pages serves the browser application, Word import/export, PDF printing, and on-device OCR. The existing Cloudflare Worker also supplies the authenticated AI OCR endpoint. The service code belongs only in the private connection file or password field, never in public site assets.
 
 Files opened in the browser are not automatically published to GitHub or backed up. The local profile control does not establish a Google Drive account connection. Some fonts, PDF and OCR libraries, and icons load from public CDNs, so a first load needs an internet connection.
+
+## Managed SoferStudio access
+
+The website, Sefer Pro PWA and standalone SoferStudio AI PWA use a single session-only sfpro_ access key. Add SOFERAI_API_KEY, GEMINI_API_KEY and SOFERSTUDIO_ADMIN_KEY as Cloudflare Worker secrets. After deploying, create a key with POST /v1/admin/keys and X-Admin-Key. Use GET /v1/admin/keys to list keys and DELETE /v1/admin/keys/{id} to revoke one. Do not put provider credentials or access keys in a public page, repository, mobile binary or URL.
+
+The Cloudflare Worker exposes /v1/health, /v1/audio, /v1/transcribe, /v1/ocr, /v1/ocr/json and /v1/nikkud. The browser uses /v1/audio for resumable audio jobs and Hydrogen post-processing. /v1/transcribe returns a Sofer job ID for asynchronous providers. Poll with /v1/audio using action sofer-poll and the same access key. Hybrid also returns the Neon draft, which can be reconciled after Sofer completes.
+
+Production usage requires funded, authorized provider accounts. On-device PDF OCR and local audio recording remain available independently of provider authentication.

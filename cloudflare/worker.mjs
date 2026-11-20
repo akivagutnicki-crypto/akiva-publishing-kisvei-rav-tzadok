@@ -4,6 +4,8 @@ import mcp from './mcp.mjs';
 import ocr from './ocr.mjs';
 import providerOcr, { PROVIDER_OCR_PATH } from './provider-ocr.mjs';
 import audio, { AUDIO_PATH } from './audio.mjs';
+import unified, { handlesUnifiedPath } from './unified.mjs';
+export { SoferKeyStore } from './unified.mjs';
 import studio from './studio.mjs';
 export { SeferStudioSession } from './studio.mjs';
 
@@ -87,6 +89,16 @@ export default {
   async fetch(request, env, context) {
     const pathname = new URL(request.url).pathname;
     if (pathname === '/studio-mcp' || pathname === '/studio-mcp/' || pathname.startsWith('/studio-api/') || pathname.startsWith('/studio-oauth/') || pathname === '/.well-known/oauth-protected-resource/studio-mcp' || pathname === '/.well-known/oauth-authorization-server/studio-oauth') return studio(request, env);
+    if (pathname === '/.well-known/assetlinks.json' && request.method === 'GET') {
+      const fingerprints = (env.SOFER_ANDROID_SHA256 || '').split(',').map(value => value.trim().toUpperCase())
+        .filter(value => /^(?:[0-9A-F]{2}:){31}[0-9A-F]{2}$/.test(value));
+      if (!fingerprints.length) return new Response('No Android signing certificate configured.', { status: 404 });
+      return Response.json([{
+        relation: ['delegate_permission/common.handle_all_urls'],
+        target: { namespace: 'android_app', package_name: 'ai.soferstudio.app', sha256_cert_fingerprints: fingerprints },
+      }], { headers: { 'Cache-Control': 'public, max-age=300' } });
+    }
+    if (handlesUnifiedPath(pathname)) return unified(request, env);
     if (pathname === AUDIO_PATH) return audio.fetch(request, env);
     if (pathname === PROVIDER_OCR_PATH) return providerOcr.fetch(request, env);
     if (pathname === '/sefer-studio-api/ocr') return ocr.fetch(request, env);
