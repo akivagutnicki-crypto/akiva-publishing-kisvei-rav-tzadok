@@ -1,13 +1,14 @@
 // Keep this installation's cache separate from other apps on the same host.
 const APP_SCOPE = new URL(self.registration.scope);
 const CACHE_PREFIX = `seferstudio-${encodeURIComponent(APP_SCOPE.href)}-`;
-const CACHE_NAME = `${CACHE_PREFIX}v12-sofer-unified-20261120`;
+const CACHE_NAME = `${CACHE_PREFIX}v13-sofer-audio-200mb`;
 const CORE_URLS = [
   './',
   './index.html',
   './kdp-cover.css',
   './studio-creative.css',
-  './studio-creative.js',
+  './studio-creative.js?v=audio-200mb',
+  './audio-segments.js',
   './kdp-geometry.js',
   './kdp-render.js',
   './kdp-png.js',

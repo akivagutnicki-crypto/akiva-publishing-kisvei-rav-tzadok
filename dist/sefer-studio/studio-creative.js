@@ -2,6 +2,9 @@
   'use strict';
   const api = 'https://akiva-publishing-kisvei-rav-tzadok.akivagutnicki.workers.dev/v1/';
   const endpoint = api + 'audio';
+  const segmentWorker = new URL('./audio-segments.js', document.currentScript.src);
+  const MAX_AUDIO_BYTES = 200_000_000;
+  const INLINE_MIB = { sofer: 18, gemini: 12 };
   const find = (id) => document.getElementById(id);
   const formats = { m4a:'audio/m4a', mp4:'audio/m4a', mp3:'audio/mp3', wav:'audio/wav', ogg:'audio/ogg', webm:'audio/webm',
     flac:'audio/flac', aiff:'audio/aiff', aif:'audio/aiff', aac:'audio/aac', opus:'audio/opus', mpeg:'audio/mpeg' };
@@ -9,7 +12,7 @@
   const extension = (name) => name?.toLowerCase().split('.').pop();
   let file = null, previewUrl = '', recording = null, requestingMic = false, active = null, revision = 0;
 
-  let accessKey = '';
+  let accessKey = '', segmentedRun = null;
   function requireAccess() {
     if (!/^sfpro_[0-9a-f]{64}$/.test(accessKey)) throw new Error('Enter your SoferStudio access key under API Key.');
     return accessKey;
@@ -78,13 +81,14 @@
   function replaceText(text) { editor().value = text; revision++; updateCount(); }
   function setFile(clip) {
     if (active || recording) return;
-    if (clip && (!formats[extension(clip.name)] || clip.size < 1 || clip.size > 18 * 1024 * 1024)) {
-      status('Choose a supported audio file no larger than 18 MiB. Longer recordings can use a Sofer.Ai link.'); return;
+    if (clip && (!formats[extension(clip.name)] || clip.size < 1 || clip.size > MAX_AUDIO_BYTES)) {
+      status('Choose a supported audio file up to 200 MB. You can also use a Sofer.Ai link.'); return;
     }
     const audio = find('studio-audio-player');
     audio.pause(); audio.removeAttribute('src'); audio.load();
     if (previewUrl) URL.revokeObjectURL(previewUrl);
     previewUrl = clip ? URL.createObjectURL(clip) : '';
+    if (file !== clip) segmentedRun = null;
     file = clip;
     find('studio-audio-preview').hidden = !clip;
     if (clip) {
@@ -128,7 +132,7 @@
       timer.textContent = '00:00';
       recorder.addEventListener('dataavailable', ({ data }) => {
         if (!data.size) return;
-        if (take.bytes + data.size > 18 * 1024 * 1024) {
+        if (take.bytes + data.size > MAX_AUDIO_BYTES) {
           take.limited = true; stopMic(); return;
         }
         take.bytes += data.size; take.parts.push(data);
@@ -171,15 +175,19 @@
       expand: find('studio-audio-expand').checked,
     };
   }
-  async function waitForSofer(id, config, access, signal) {
+  async function waitForSofer(id, config, access, signal, progress) {
     const end = Date.now() + 20 * 60 * 1000;
     while (Date.now() < end) {
-      status('Waiting for Sofer.Ai · job ' + id);
+      progress('Waiting for Sofer.Ai · job ' + id);
       let result;
       try { result = await request('sofer-poll', { id, speakers: config.speakers }, access, signal); }
       catch (error) { if (error.status !== 429) throw error; await wait(60000, signal); continue; }
       if (result.status === 'completed') return result;
-      if (result.status === 'failed') throw new Error('Sofer.Ai reported a failed job. Job ID: ' + id);
+      if (result.status === 'failed') {
+        const error = new Error('Sofer.Ai reported a failed job. Job ID: ' + id);
+        error.failedJob = true;
+        throw error;
+      }
       await wait(15000, signal);
     }
     throw new Error('Sofer.Ai is still processing. Use Retrieve Transcription with job ' + id + '.');
@@ -189,59 +197,166 @@
     if (config.nikkud) text = (await request('nikkud', { text }, access, signal)).text;
     return text;
   }
+  function openSegmenter(signal) {
+    const worker = new Worker(segmentWorker);
+    return {
+      close: () => worker.terminate(),
+      request: (data) => new Promise((resolve, reject) => {
+        signal.throwIfAborted();
+        const finish = (result, failure) => {
+          signal.removeEventListener('abort', cancel);
+          worker.onmessage = worker.onerror = worker.onmessageerror = null;
+          if (failure) reject(result); else resolve(result);
+        };
+        const cancel = () => finish(signal.reason, true);
+        const unavailable = () => finish(new Error('The browser could not start the audio decoder.'), true);
+        signal.addEventListener('abort', cancel, { once: true });
+        worker.onmessage = ({ data: result }) => {
+          if (result.error) finish(new Error(result.error), true); else finish(result, false);
+        };
+        worker.onerror = worker.onmessageerror = unavailable;
+        try { worker.postMessage(data); } catch (error) { finish(error, true); }
+      }),
+    };
+  }
+  function offsetTimes(text, offset) {
+    return text.replace(/^([ \t]*(?:[-*] )?)\[(?:(\d+):)?(\d+):([0-5]\d)\]/gm, (_, lead, hours, minutes, seconds) => {
+      const time = offset + Number(hours || 0) * 3600 + Number(minutes) * 60 + Number(seconds);
+      const stamp = [Math.floor(time / 3600), Math.floor(time / 60) % 60, time % 60]
+        .map(value => String(value).padStart(2, '0')).join(':');
+      return lead + '[' + stamp + ']';
+    });
+  }
+  async function transcribePart(media, engine, config, access, signal, part, progress) {
+    const runSofer = async () => {
+      if (!part.jobId) part.jobId = (await request('sofer-start', { ...config, ...media }, access, signal)).id;
+      const job = find('studio-audio-job');
+      job.value = part.jobId;
+      find('studio-audio-resume-box').open = true;
+      try { return await waitForSofer(part.jobId, config, access, signal, progress); }
+      catch (error) {
+        if (error.failedJob) part.jobId = null;
+        throw error;
+      }
+    };
+    const runGemini = (model) => request('gemini', { ...config, ...media, model }, access, signal);
+    if (engine === 'hybrid') {
+      const [sofer, neon] = await Promise.allSettled([runSofer(), runGemini('gemini-4-neon')]);
+      signal.throwIfAborted();
+      if (sofer.status === 'fulfilled' && neon.status === 'fulfilled') {
+        progress('Gemini Hydrogen is reconciling both transcripts…');
+        try {
+          return { text: (await request('reconcile', { ...config, sofer: sofer.value.text, neon: neon.value.text, ...media }, access, signal)).text };
+        } catch (error) {
+          signal.throwIfAborted();
+          return { text: neon.value.text, warning: 'Hydrogen reconciliation did not finish. Showing the Gemini Neon draft.' };
+        }
+      }
+      if (sofer.status === 'fulfilled') {
+        return { text: sofer.value.text, warning: 'Gemini Neon did not finish. Showing the Sofer.Ai draft.' };
+      }
+      if (neon.status === 'fulfilled') {
+        return { text: neon.value.text, warning: 'Sofer.Ai did not finish. Showing the Gemini Neon draft.' };
+      }
+      throw sofer.reason;
+    }
+    if (engine === 'sofer') {
+      const result = await runSofer();
+      let text = result.text;
+      let warning = config.speakers && !result.labelsAvailable ? 'Sofer.Ai did not return usable timestamps.' : '';
+      try { text = await refine(text, config, access, signal); }
+      catch (error) {
+        signal.throwIfAborted();
+        warning = [warning, 'The Gemini text pass did not finish. Showing the Sofer.Ai transcript.'].filter(Boolean).join(' ');
+      }
+      return { text, warning };
+    }
+    progress('Gemini is transcribing the audio…');
+    return runGemini(engine);
+  }
+  async function checkAudioAccess(access, engine, signal) {
+    const response = await fetch(api + 'health', {
+      headers: { Authorization: 'Bearer ' + access }, credentials: 'omit',
+      cache: 'no-store', redirect: 'error', referrerPolicy: 'no-referrer', signal,
+    });
+    const result = await response.json();
+    if (!response.ok || !result.authorized) throw new Error(result.error || 'The service could not verify your SoferStudio access key.');
+    const { sofer, gemini } = result.providers;
+    const ready = engine === 'hybrid' ? sofer || gemini : engine === 'sofer' ? sofer : gemini;
+    if (!ready) throw new Error('The server operator still needs to configure provider credentials for this engine.');
+  }
+  async function transcribeLarge(clip, engine, config, access, signal, state) {
+    await checkAudioAccess(access, engine, signal);
+    status('Loading the local audio decoder…');
+    const segmenter = openSegmenter(signal);
+    try {
+      await segmenter.request({ file: clip });
+      while (!state.complete) {
+        const index = state.completed.length;
+        const progress = (message) => status('Part ' + (index + 1) + ' · ' + message);
+        progress('Preparing audio on this device…');
+        const { bytes, offset, last } = await segmenter.request({ index });
+        if (bytes) {
+          const media = { mime: 'audio/wav', audio: await encodeAudio(new Blob([bytes], { type: 'audio/wav' }), signal) };
+          const result = await transcribePart(media, engine, config, access, signal, state.pending, progress);
+          state.completed.push({ ...result, text: offsetTimes(result.text, offset) });
+          state.pending = {};
+        }
+        state.complete = last;
+      }
+      if (!state.completed.length) throw new Error('The recording did not contain usable audio.');
+    } finally { segmenter.close(); }
+  }
   async function run(retrieve = false) {
     if (active || recording || requestingMic) return;
     let access;
     const config = options();
     const engine = retrieve ? 'sofer' : find('studio-audio-engine').value;
     const url = find('studio-audio-url').value.trim();
-    const cap = engine === 'sofer' ? 18 : 12;
+    const clip = !retrieve && !url ? file : null;
+    const cap = engine === 'sofer' ? INLINE_MIB.sofer : INLINE_MIB.gemini;
+    const large = clip && clip.size > cap * 1024 * 1024;
+    const signature = JSON.stringify({ engine, ...config });
     try {
       if (retrieve && !find('studio-audio-job').value.trim()) throw new Error('Enter the Sofer.Ai job ID.');
-      if (!retrieve && !file && !url) throw new Error('Load a recording, record a shiur or paste a public audio link.');
-      if (!retrieve && file && file.size > cap * 1024 * 1024) throw new Error('This engine accepts files up to ' + cap + ' MiB. Use a shorter file or a Sofer.Ai link.');
+      if (!retrieve && !clip && !url) throw new Error('Load a recording, record a shiur or paste a public audio link.');
       access = requireAccess();
     } catch (error) { status(error.message); return; }
     const snapshot = revision;
     const controller = active = new AbortController();
     const { signal } = controller;
+    let state;
     updateButtons(); status('Preparing audio…');
     try {
-      const media = retrieve ? {} : url ? { url } : { mime: formats[extension(file.name)], audio: await encodeAudio(file, signal) };
-      const runSofer = async () => {
-        const job = find('studio-audio-job');
-        const id = retrieve ? job.value.trim() : (await request('sofer-start', { ...config, ...media }, access, signal)).id;
-        job.value = id;
-        if (!retrieve) find('studio-audio-resume-box').open = true;
-        return waitForSofer(id, config, access, signal);
-      };
-      const runGemini = (model) => request('gemini', { ...config, ...media, model }, access, signal);
-      let text, message = 'Transcription ready. Review it against the audio.';
-      if (engine === 'hybrid') {
-        const [sofer, neon] = await Promise.allSettled([runSofer(), runGemini('gemini-4-neon')]);
-        signal.throwIfAborted();
-        if (sofer.status === 'fulfilled' && neon.status === 'fulfilled') {
-          status('Gemini Hydrogen is reconciling both transcripts…');
-          try { text = (await request('reconcile', { ...config, sofer: sofer.value.text, neon: neon.value.text, ...media }, access, signal)).text; }
-          catch (error) { signal.throwIfAborted(); text = neon.value.text; message = 'Showing the Gemini Neon draft. Hydrogen reconciliation did not finish.'; }
-        } else if (sofer.status === 'fulfilled' || neon.status === 'fulfilled') {
-          const useSofer = sofer.status === 'fulfilled';
-          text = useSofer ? sofer.value.text : neon.value.text;
-          message = 'Showing the ' + (useSofer ? 'Sofer.Ai' : 'Gemini Neon') + ' draft. The other provider did not finish.';
-        } else throw sofer.reason;
-      } else if (engine === 'sofer') {
-        const result = await runSofer();
-        text = result.text;
-        try { text = await refine(text, config, access, signal); }
-        catch (error) { signal.throwIfAborted(); message = 'Showing the Sofer.Ai transcript. The Gemini text pass did not finish.'; }
-        if (config.speakers && !result.labelsAvailable) message += ' Sofer.Ai did not return usable timestamps.';
-      } else { status('Gemini is transcribing the audio…'); text = (await runGemini(engine)).text; }
+      let results;
+      if (large) {
+        if (segmentedRun?.signature !== signature || segmentedRun?.access !== access || segmentedRun.complete) {
+          segmentedRun = { signature, access, completed: [], pending: {}, complete: false };
+        }
+        state = segmentedRun;
+        await transcribeLarge(clip, engine, config, access, signal, state);
+        results = state.completed;
+      } else {
+        const media = retrieve ? {} : url ? { url } : { mime: formats[extension(clip.name)], audio: await encodeAudio(clip, signal) };
+        const part = { jobId: retrieve ? find('studio-audio-job').value.trim() : null };
+        results = [await transcribePart(media, engine, config, access, signal, part, status)];
+      }
       signal.throwIfAborted();
       if (revision !== snapshot) throw new Error('The editor changed during transcription. Your edits were kept.');
-      replaceText(text);
-      status(message);
+      replaceText(results.map(part => part.text).join('\n\n'));
+      const warnings = [...new Set(results.map(part => part.warning).filter(Boolean))];
+      status(['Transcription ready. Review it against the audio.',
+        large && config.speakers && results.length > 1 ? 'Speaker labels can restart in each part.' : '',
+        ...warnings].filter(Boolean).join(' '));
     } catch (error) {
-      status(signal.aborted ? 'Stopped. Retrieve a submitted Sofer.Ai job by ID when ready.' : error.message);
+      const finished = state?.completed.length || 0;
+      if (finished && revision === snapshot) replaceText(state.completed.map(part => part.text).join('\n\n'));
+      if (state && !state.complete && (finished || state.pending.jobId)) {
+        const result = finished ? finished + ' part(s) completed. ' : '';
+        status((signal.aborted ? 'Stopped. ' : error.message + ' ') + result + 'Select Run Transcription to resume.');
+      } else {
+        status(signal.aborted ? 'Stopped. Retrieve a submitted Sofer.Ai job by ID when ready.' : error.message);
+      }
     } finally { active = null; updateButtons(); }
   }
   async function textAction(action, text, signal, style = 'rabbinic') {
