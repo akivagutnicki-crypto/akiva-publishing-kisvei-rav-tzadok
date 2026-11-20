@@ -23,7 +23,7 @@ const page = fs.readFileSync(`${root}/${dir}/index.html`, 'utf8');
 assert(page.includes('<h1>Leaving Home and Learning to Dream</h1>'), 'Title');
 assert(page.includes('id="listen"') && page.includes(`src="../../${audio}"`), 'Listen box with the recording');
 const images = [...page.matchAll(/<img src="(pages\/page-\d\d\.webp)"/g)].map(m => m[1]);
-assert.equal(images.length, 6, 'Six pages');
+assert.equal(images.length, 8, 'Eight pages');
 assert.deepEqual(fs.readdirSync(`${root}/${dir}/pages`).sort(), images.map(i => i.slice(6)), 'Page files');
 for (const image of images) {
   const bytes = fs.readFileSync(`${root}/${dir}/${image}`);
@@ -74,4 +74,4 @@ const sw = fs.readFileSync(`${root}/sw.js`, 'utf8');
 assert(sw.includes('-20261119-vayeitzei-leaving-home-v1') && sw.includes('-20261119-kometz-interlinear-pdf-v2'), 'Service worker version');
 assert(sw.includes("'./blog/leaving-home-and-learning-to-dream/'"), 'Offline page');
 new vm.Script(sw);
-console.log('PASS: Vayeitzei blog Leaving Home and Learning to Dream (6 pages, picture), shiur recording and shiur PDF, Weekly Torah listing, home teaser, sidebar, offline page, and the shiur in the reader at Kometz HaMinchah 2:70.');
+console.log('PASS: Vayeitzei blog Leaving Home and Learning to Dream (8 pages, picture), shiur recording and shiur PDF, Weekly Torah listing, home teaser, sidebar, offline page, and the shiur in the reader at Kometz HaMinchah 2:70.');

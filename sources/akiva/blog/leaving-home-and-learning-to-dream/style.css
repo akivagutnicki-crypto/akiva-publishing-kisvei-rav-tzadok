@@ -1,0 +1,39 @@
+@font-face{font-family:"Crimson Pro";src:url(crimson-pro-latin-400-normal.woff2);font-weight:400}
+@font-face{font-family:"Crimson Pro";src:url(crimson-pro-latin-ext-400-normal.woff2);font-weight:400;unicode-range:U+0100-024F,U+1E00-1EFF}
+@font-face{font-family:"Crimson Pro";src:url(crimson-pro-latin-400-italic.woff2);font-weight:400;font-style:italic}
+@font-face{font-family:"Crimson Pro";src:url(crimson-pro-latin-600-normal.woff2);font-weight:600}
+@font-face{font-family:"Crimson Pro";src:url(crimson-pro-latin-ext-600-normal.woff2);font-weight:600;unicode-range:U+0100-024F,U+1E00-1EFF}
+@font-face{font-family:"Crimson Pro";src:url(crimson-pro-latin-600-italic.woff2);font-weight:600;font-style:italic}
+@font-face{font-family:"Crimson Pro";src:url(crimson-pro-latin-700-normal.woff2);font-weight:700}
+@font-face{font-family:"Frank Ruhl";src:url(frank-ruhl-libre-hebrew-400-normal.woff2);font-weight:400;size-adjust:110%}
+@font-face{font-family:"Frank Ruhl";src:url(frank-ruhl-libre-hebrew-500-normal.woff2);font-weight:500 700;size-adjust:110%}
+:root{--ink:#24261f;--forest:#17372d;--ruby:#6f2e2b;--gold:#b28b55;--muted:#5f5b54}
+@page{size:letter;margin:0.8in 0.85in 0.85in;
+ @top-left{content:"WEEKLY TORAH · PARSHAS VAYEITZEI 5787";font:600 7.5pt "Crimson Pro";letter-spacing:.12em;color:#8a857b}
+ @top-right{content:"AKIVA PUBLISHING";font:600 7.5pt "Crimson Pro";letter-spacing:.12em;color:#8a857b}
+ @bottom-center{content:"Page " counter(page) " of " counter(pages);font:9pt "Crimson Pro";color:#7a756c}}
+@page:first{@top-left{content:none}@top-right{content:none}}
+html{font:12pt/1.62 "Crimson Pro","Frank Ruhl",serif;color:var(--ink)}
+body{margin:0}
+.he{font-family:"Frank Ruhl",serif;unicode-bidi:isolate;white-space:nowrap}
+.kicker p{text-align:center;font:700 8.5pt "Crimson Pro";letter-spacing:.16em;text-transform:uppercase;color:var(--ruby);margin:0 0 6pt}
+h1{text-align:center;font:600 31pt/1.08 "Crimson Pro";color:var(--forest);margin:4pt 0 8pt;letter-spacing:-.01em}
+.subtitle p{text-align:center;font:italic 13.5pt/1.35 "Crimson Pro";color:var(--muted);margin:0 .3in 8pt}
+.byline p{text-align:center;font:600 10pt "Crimson Pro";color:#4a4740;margin:0 0 12pt}
+figure.hero{margin:0 0 12pt}figure.hero img{width:100%;height:3.45in;object-fit:cover;object-position:50% 60%;display:block;border:1px solid #d9d0bd}
+.dedication{background:#f6efe1;border-left:3pt solid var(--gold);padding:8pt 12pt;margin:0 0 14pt}
+.dedication p{margin:0;font:italic 11pt/1.5 "Crimson Pro"}.dedication .he{font-style:normal}
+h2{font:600 17pt/1.3 "Crimson Pro";color:var(--forest);border-bottom:1pt solid var(--gold);padding-bottom:4pt;margin:20pt 0 10pt;break-after:avoid}
+p{margin:0 0 9pt;text-align:justify;hyphens:auto;orphans:3;widows:3}
+.interlinear{background:#fbf7ee;border-left:3pt solid var(--forest);padding:10pt 13pt 8pt;margin:4pt 0 13pt;break-inside:avoid}
+.interlinear p{text-align:left;line-height:1.7;font-size:11.5pt;margin:0 0 4pt;hyphens:manual}
+.interlinear strong{font-weight:600;color:#1d2a24}
+.interlinear .cite p{text-align:right;font:600 9.5pt "Crimson Pro";color:var(--ruby);margin:4pt 0 0}
+.sep{color:#a59c8a}
+sup,.footnote-ref{font-size:7.5pt;line-height:0;color:var(--ruby);font-weight:700;text-decoration:none}
+a{color:inherit;text-decoration:none}
+.notes{break-before:auto;margin-top:18pt}
+.notes-h{font-size:15pt}
+.notes ol{padding-left:18pt;margin:0}.notes li{font-size:9.5pt;line-height:1.45;margin:0 0 4pt;text-align:left}
+.notes li p{margin:0;text-align:left;hyphens:manual}
+.notes .he{white-space:normal}
