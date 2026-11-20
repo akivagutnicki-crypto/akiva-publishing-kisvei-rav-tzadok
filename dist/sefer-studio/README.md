@@ -116,6 +116,14 @@ Single-word edits retain their matched position. Larger rewrites, added/deleted 
 
 Supported Studio annotations are applied after the new text layer. The legacy annotation renderer currently supports ASCII text only. Hebrew/other Unicode annotations, Unicode footnotes, and footnotes exceeding its one-line limit stop binary PDF export with a clear message; they are never silently replaced by question marks or truncated. This restriction does not prevent a scanned Hebrew page's OCR text from being searchable.
 
+### Provider OCR in PDF Studio
+
+Select **Gemini 4 Neon Vision**, **Gemini 4 Carbon Vision**, **Sofer.Ai OCR**, or **Hybrid** in the OCR engine menu. Enter the required provider keys for this page session. **Hybrid** sends each selected page to Sofer.Ai and Gemini Neon concurrently, then asks Gemini Hydrogen to reconcile both readings against the original image. Sofer.Ai offers Standard, Enhanced, and Handwriting. Adding nikkud with Sofer.Ai alone requires a Gemini key for the text-only vocalization pass.
+
+Use **Current page**, **Entire PDF**, or **Page range** to choose what to send. **Hebrew columns** prompts Gemini to finish the right column before starting the left. **Tzurat HaDaf** prompts it to separate the central text from marginal commentary. **Old Print** highlights degraded type, Rashi forms, and catchwords. Review each result against its scan, especially if the page has multiple columns or complex margins. **Send this page to Word Studio** inserts the current page’s extracted text.
+
+Page images and session keys go over HTTPS to the existing OCR Worker, which forwards each request to the chosen provider. The app does not save provider keys in local storage, URLs, reports, or session files. Provider usage can be charged for each submitted page. Stopping a request stops the app from accepting its result. Sofer.Ai may continue a job it has already received. On a timed-out job, check the provider before resubmitting the page.
+
 ### AI vision OCR
 
 The vision option sends each chosen page image to the connected OCR service, one page at a time. **Check connection** identifies its provider and model. The built-in address uses Cloudflare Workers AI with `@cf/qwen/qwen3.8-27b`; this is not an OpenAI or ChatGPT model. It is instructed to preserve Hebrew column order, footnotes, literal text, and uncertainty notes. Review the result against the scan.

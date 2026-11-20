@@ -346,4 +346,5 @@ export function createOcrHandler(overrides = {}) {
   };
 }
 
+export { HttpProblem, deadline, json, parseAllowedOrigins, readBoundedText, responseHeaders, validateJpeg };
 export default createOcrHandler();

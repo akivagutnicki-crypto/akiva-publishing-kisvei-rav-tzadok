@@ -737,10 +737,35 @@
           <div id="pdf-ocr-scope-summary" class="text-[11px] text-slate-600" aria-live="polite">Open a PDF to choose pages.</div>
           <select id="pdf-ocr-engine" aria-label="OCR engine" class="w-full border border-slate-300 rounded px-2 py-1 bg-white text-xs">
             <option value="local">On-device OCR · ready to use</option>
-            <option value="vision">AI vision · access code required</option>
+            <option value="hybrid">Hybrid · Sofer.Ai + Gemini 4 Neon</option>
+            <option value="gemini-4-neon">Gemini 4 Neon Vision</option>
+            <option value="gemini-4-carbon">Gemini 4 Carbon Vision</option>
+            <option value="sofer">Sofer.Ai OCR</option>
+            <option value="vision">Connected AI vision · service access code</option>
           </select>
           <div id="pdf-vision-settings" class="hidden rounded border border-blue-200 bg-blue-50 p-2 space-y-2 text-xs">
-            <p>Read the chosen pages with an AI vision model. When you run OCR, each page image goes to the connected service and the provider shown by Check connection; API usage applies to every page.</p>
+            <div id="pdf-provider-settings" class="hidden space-y-2">
+              <p>Run OCR sends the selected page images through Sefer Pro’s OCR service to the selected provider. Provider charges may apply. API keys are kept in this page session.</p>
+              <label id="pdf-provider-sofer-label" class="block">Sofer.Ai API key
+                <input id="pdf-provider-sofer" type="password" autocomplete="off" spellcheck="false" class="mt-1 w-full rounded border border-blue-200 bg-white p-1.5" />
+              </label>
+              <label id="pdf-provider-gemini-label" class="block">Gemini API key
+                <input id="pdf-provider-gemini" type="password" autocomplete="off" spellcheck="false" class="mt-1 w-full rounded border border-blue-200 bg-white p-1.5" />
+              </label>
+              <label id="pdf-provider-sofer-mode-label" class="block">Sofer.Ai mode
+                <select id="pdf-provider-sofer-mode" class="mt-1 w-full rounded border border-blue-200 bg-white p-1">
+                  <option value="standard">Standard</option>
+                  <option value="enhanced" selected>Enhanced</option>
+                  <option value="handwriting">Handwriting</option>
+                </select>
+              </label>
+              <label class="flex items-center gap-1.5"><input id="pdf-provider-nikkud" type="checkbox" /> + Nikkudot</label>
+              <label id="pdf-provider-old-print-label" class="flex items-center gap-1.5"><input id="pdf-provider-old-print" type="checkbox" /> Old Print</label>
+              <p id="pdf-provider-sofer-note" class="hidden text-[11px] text-slate-700">Sofer.Ai returns its own reading order. Select Hybrid to review column order against the image. Adding nikkud here uses Gemini and sends the extracted text to Google.</p>
+              <p id="pdf-provider-status" role="status" class="text-[11px] text-blue-900"></p>
+            </div>
+            <div id="pdf-connected-vision-settings" class="space-y-2">
+            <p>Run OCR sends each page image to the connected OCR service.</p>
             <label class="block">OCR service address
               <input id="pdf-vision-endpoint" type="url" autocomplete="off" value="https://akiva-publishing-kisvei-rav-tzadok.akivagutnicki.workers.dev/sefer-studio-api/ocr" class="mt-1 w-full rounded border border-blue-200 bg-white p-1.5" />
             </label>
@@ -754,10 +779,12 @@
             </div>
             <input id="pdf-vision-connection-file" type="file" accept=".json,application/json" class="hidden" aria-label="Private OCR connection file" />
             <div id="pdf-vision-connection-status" role="status" class="text-[11px] text-blue-900">Connect your OCR service to enable vision recognition.</div>
+            </div>
             <select id="pdf-vision-layout" aria-label="Page reading order" class="w-full rounded border border-blue-200 bg-white p-1">
               <option value="auto">Detect columns and footnotes</option>
               <option value="rtl-columns">Hebrew columns · right before left</option>
               <option value="single">Single text column</option>
+              <option value="tzurat-hadaf">Tzurat HaDaf · separate text and commentary</option>
             </select>
           </div>
           <div class="flex flex-wrap min-w-0 items-center gap-1.5">
@@ -5552,6 +5579,38 @@
     return { endpoint: endpoint.href, access };
   }
 
+  const PROVIDER_OCR_ENDPOINT = 'https://akiva-publishing-kisvei-rav-tzadok.akivagutnicki.workers.dev/sefer-studio-api/provider-ocr';
+
+  function updateVisionOcrSettings() {
+    const engine = document.getElementById('pdf-ocr-engine').value;
+    const provider = !['local', 'vision'].includes(engine);
+    const usesSofer = ['hybrid', 'sofer'].includes(engine);
+    document.getElementById('pdf-vision-settings').classList.toggle('hidden', engine === 'local');
+    document.getElementById('pdf-connected-vision-settings').classList.toggle('hidden', provider);
+    document.getElementById('pdf-provider-settings').classList.toggle('hidden', !provider);
+    document.getElementById('pdf-provider-sofer-label').classList.toggle('hidden', !usesSofer);
+    document.getElementById('pdf-provider-sofer-mode-label').classList.toggle('hidden', !usesSofer);
+    document.getElementById('pdf-provider-sofer-note').classList.toggle('hidden', engine !== 'sofer');
+    document.getElementById('pdf-provider-gemini-label').classList.toggle('hidden', engine === 'sofer' && !document.getElementById('pdf-provider-nikkud').checked);
+    document.getElementById('pdf-provider-old-print-label').classList.toggle('hidden', engine === 'sofer');
+    const layout = document.getElementById('pdf-vision-layout');
+    layout.querySelector('[value="tzurat-hadaf"]').hidden = !provider || engine === 'sofer';
+    layout.disabled = engine === 'sofer';
+    if ((engine === 'vision' || engine === 'sofer') && layout.value === 'tzurat-hadaf') layout.value = 'auto';
+  }
+
+  function getProviderOcrConnection(engine) {
+    const nikkud = document.getElementById('pdf-provider-nikkud').checked;
+    const gemini = engine !== 'sofer' || nikkud ? document.getElementById('pdf-provider-gemini').value.trim() : '';
+    const sofer = ['hybrid', 'sofer'].includes(engine) ? document.getElementById('pdf-provider-sofer').value.trim() : '';
+    const keyPattern = /^[\x21-\x7e]{12,256}$/;
+    if ((engine !== 'sofer' || nikkud) && !keyPattern.test(gemini)) throw new Error('Enter a valid Gemini API key in OCR settings.');
+    if (['hybrid', 'sofer'].includes(engine) && !keyPattern.test(sofer)) throw new Error('Enter a valid Sofer.Ai API key in OCR settings.');
+    return { endpoint: PROVIDER_OCR_ENDPOINT, provider: engine, gemini, sofer, nikkud,
+      soferMode: document.getElementById('pdf-provider-sofer-mode').value,
+      oldPrint: engine !== 'sofer' && document.getElementById('pdf-provider-old-print').checked };
+  }
+
   function getVisionOcrConnection() {
     return validateVisionOcrConnection(
       document.getElementById('pdf-vision-endpoint').value || '',
@@ -6439,10 +6498,18 @@
     const image = await renderOcrPage(run, page, run.limits);
     const imageDataUrl = image.canvas.toDataURL('image/jpeg', 0.96);
     if (imageDataUrl.length > run.limits.maxImageDataUrlChars) throw new Error('The image exceeds the service size limit. Choose 300 DPI and retry this page.');
-    const body = JSON.stringify({ imageDataUrl, language: run.language === 'heb_rashi' ? 'heb' : run.language, layout: run.layout, pageNumber: run.page });
+    const connectedProvider = run.connection.provider;
+    const body = JSON.stringify(connectedProvider
+      ? { imageDataUrl, language: run.language, layout: run.layout, pageNumber: run.page, engine: connectedProvider, soferMode: run.connection.soferMode, nikkud: run.connection.nikkud, oldPrint: run.connection.oldPrint }
+      : { imageDataUrl, language: run.language === 'heb_rashi' ? 'heb' : run.language, layout: run.layout, pageNumber: run.page });
+    const headers = { 'Content-Type': 'application/json' };
+    if (connectedProvider) {
+      if (run.connection.gemini) headers['X-Gemini-API-Key'] = run.connection.gemini;
+      if (run.connection.sofer) headers['X-Sofer-API-Key'] = run.connection.sofer;
+    } else headers.Authorization = 'Bearer ' + run.connection.access;
     if (new TextEncoder().encode(body).byteLength > run.limits.maxRequestBytes) throw new Error('The request exceeds the service size limit. Choose 300 DPI and retry this page.');
     assertOcrRun(run);
-    if (!isVisionOcrConnectionCurrent(run.connection, run.connectionRevision)) { const error = new Error('The service connection changed. Check it before continuing.'); error.stopBatch = true; throw error; }
+    if (!connectedProvider && !isVisionOcrConnectionCurrent(run.connection, run.connectionRevision)) { const error = new Error('The service connection changed. Check it before continuing.'); error.stopBatch = true; throw error; }
     const controller = new AbortController();
     const abort = () => controller.abort();
     run.controller.signal.addEventListener('abort', abort, { once: true });
@@ -6452,7 +6519,7 @@
       setOcrProgress(run, 'AI vision is reading Page ' + run.page);
       const recognitionStart = ocrClock();
       visionOcrNextRequestAt = Date.now() + 13000;
-      const response = await awaitOcrStep(run, fetch(run.connection.endpoint, { method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + run.connection.access }, credentials: 'omit', redirect: 'error', cache: 'no-store', referrerPolicy: 'no-referrer', signal: controller.signal, body }));
+      const response = await awaitOcrStep(run, fetch(run.connection.endpoint, { method: 'POST', headers, credentials: 'omit', redirect: 'error', cache: 'no-store', referrerPolicy: 'no-referrer', signal: controller.signal, body }));
       let data;
       try { data = await awaitOcrStep(run, response.json()); }
       catch (error) {
@@ -6463,7 +6530,7 @@
       }
       if (!response.ok) {
         const error = new Error(visionOcrPublicText(data && data.error, 'OCR service returned HTTP ' + response.status + '.', run.connection.access));
-        if ([401,403,408,429].includes(response.status) || response.status >= 500) error.stopBatch = true;
+        if (connectedProvider || [401,403,408,429].includes(response.status) || response.status >= 500) error.stopBatch = true;
         if (response.status === 429) {
           const header = Number(response.headers.get('Retry-After'));
           const wait = Number.isFinite(header) && header > 0 ? Math.min(300, Math.max(60, header)) : 60;
@@ -6477,12 +6544,12 @@
       if (!data || typeof data.text !== 'string' || (!data.text.trim() && !explicitBlank)) throw new Error('The model returned no transcription. Earlier text has been kept.');
       if (data.incomplete === true) throw new Error('The model response was incomplete. Retry this page; earlier text has been kept.');
       assertOcrRun(run);
-      if (!isVisionOcrConnectionCurrent(run.connection, run.connectionRevision)) { const error = new Error('The service connection changed. Earlier text has been kept.'); error.stopBatch = true; throw error; }
+      if (!connectedProvider && !isVisionOcrConnectionCurrent(run.connection, run.connectionRevision)) { const error = new Error('The service connection changed. Earlier text has been kept.'); error.stopBatch = true; throw error; }
       run.currentRecognitionMs = ocrMilliseconds(ocrClock() - recognitionStart);
       const text = data.text.trim(), serviceLabel = visionOcrServiceLabel(data, run.connection.access);
       const warnings = Array.isArray(data.warnings) ? data.warnings.filter(x => typeof x === 'string').slice(0, 10).map(x => visionOcrPublicText(x, '', run.connection.access, 300)) : [];
       const uncertain = Array.isArray(data.uncertain) ? data.uncertain.filter(x => typeof x === 'string').slice(0, 30).map(x => 'Check: ' + visionOcrPublicText(x, '', run.connection.access, 160)) : [];
-      document.getElementById('pdf-vision-connection-status').textContent = 'AI scan verified · ' + serviceLabel + '. Review each transcription against its page image.';
+      document.getElementById(connectedProvider ? 'pdf-provider-status' : 'pdf-vision-connection-status').textContent = 'AI scan verified · ' + serviceLabel + '. Review each transcription against its page image.';
       return { text, searchWords: null, searchIssue: 'AI transcription has no matched word positions. Download TXT; use on-device OCR for searchable PDF export.', wordCount: text ? text.split(/\s+/).length : 0, status: explicitBlank ? 'no-text' : 'recognized', engine: 'vision', dir: run.language.includes('heb') ? 'rtl' : 'auto', language: run.language, modelId: serviceLabel, actualDpi: image.actualDpi, flags: [], flaggedCount: 0, reviewNotes: ['Compare the transcription with the scan before publishing.', ...warnings, ...uncertain], message: (explicitBlank ? 'The model reported no visible text; check the scan.' : text.split(/\s+/).length + ' words') + ' · ' + serviceLabel };
     } catch (error) {
       if (timedOut && !run.controller.signal.aborted) {
@@ -6505,14 +6572,18 @@
     persistDisplayedOcrText();
     let pages, connection;
     const status = document.getElementById('pdf-ocr-status');
-    const engine = document.getElementById('pdf-ocr-engine').value;
-    try { pages = selectedOcrPages(); if (engine === 'vision') connection = getVisionOcrConnection(); }
+    const selectedEngine = document.getElementById('pdf-ocr-engine').value;
+    const engine = selectedEngine === 'local' ? 'local' : 'vision';
+    try {
+      pages = selectedOcrPages();
+      if (engine === 'vision') connection = selectedEngine === 'vision' ? getVisionOcrConnection() : getProviderOcrConnection(selectedEngine);
+    }
     catch (error) { status.textContent = error.message; return; }
     const rescan = document.getElementById('pdf-ocr-rescan').checked;
     const pending = pages.filter(page => rescan || !ocrResultIsSaved(ocrResults.get(page)));
     if (!pending.length) { status.textContent = 'All ' + pages.length + ' selected pages already have saved results. Choose Rescan saved pages to use a different engine, language, or quality.'; return; }
-    const controls = [...document.querySelectorAll('[data-pdf-action="ocr"], [data-pdf-action="ocr-connect"], [data-pdf-action="ocr-load-connection"], #pdf-ocr-engine, #pdf-ocr-lang, #pdf-ocr-quality, #pdf-ocr-scope, #pdf-ocr-range-start, #pdf-ocr-range-end, #pdf-ocr-rescan, #pdf-ocr-small-numbers, #pdf-ocr-rashi-refine, #pdf-ocr-rashi-fast, #pdf-vision-layout, #pdf-vision-endpoint, #pdf-vision-access, #pdf-vision-connection-file')];
-    const run = { generation: ++ocrGeneration, sourcePdf: pdfState.pdfJsDoc, sourceBytes: pdfState.pdfBytes, pages, pending, finished: pages.length - pending.length, page: pending[0], controller: new AbortController(), worker: null, numberWorker: null, terminatedWorkers: new Set(), controls, disabled: controls.map(el => el.disabled), engine, language: document.getElementById('pdf-ocr-lang').value, layout: document.getElementById('pdf-vision-layout').value, targetDpi: document.getElementById('pdf-ocr-quality').value === '400' ? 400 : 300, connection, connectionRevision: visionOcrConnectionRevision, stopMessage: '' };
+    const controls = [...document.querySelectorAll('[data-pdf-action="ocr"], [data-pdf-action="ocr-connect"], [data-pdf-action="ocr-load-connection"], #pdf-ocr-engine, #pdf-ocr-lang, #pdf-ocr-quality, #pdf-ocr-scope, #pdf-ocr-range-start, #pdf-ocr-range-end, #pdf-ocr-rescan, #pdf-ocr-small-numbers, #pdf-ocr-rashi-refine, #pdf-ocr-rashi-fast, #pdf-vision-layout, #pdf-vision-endpoint, #pdf-vision-access, #pdf-vision-connection-file, #pdf-provider-settings input, #pdf-provider-settings select')];
+    const run = { generation: ++ocrGeneration, sourcePdf: pdfState.pdfJsDoc, sourceBytes: pdfState.pdfBytes, pages, pending, finished: pages.length - pending.length, page: pending[0], controller: new AbortController(), worker: null, numberWorker: null, terminatedWorkers: new Set(), controls, disabled: controls.map(el => el.disabled), engine, language: document.getElementById('pdf-ocr-lang').value, layout: selectedEngine === 'sofer' ? 'auto' : document.getElementById('pdf-vision-layout').value, targetDpi: document.getElementById('pdf-ocr-quality').value === '400' ? 400 : 300, connection, connectionRevision: visionOcrConnectionRevision, stopMessage: '' };
     run.improveNumbers = engine === 'local' && run.language === 'heb' && document.getElementById('pdf-ocr-small-numbers').checked;
     run.refineRashiLines = engine === 'local' && run.language === 'heb_rashi' && document.getElementById('pdf-ocr-rashi-refine').checked;
     run.fasterRashi = run.refineRashiLines && document.getElementById('pdf-ocr-rashi-fast').checked;
@@ -6528,7 +6599,9 @@
     updateOcrOutputLock();
     let prefix = 'Selected pages processed';
     try {
-      if (engine === 'vision') {
+      if (connection?.provider) {
+        run.limits = { maxImageDataUrlChars: 12_000_000, maxRequestBytes: 12_016_384, maxDimension: 6000, maxPixels: 20_000_000 };
+      } else if (engine === 'vision') {
         run.limits = visionOcrLimitsByEndpoint.get(connection.endpoint);
         if (visionOcrReadyRevision !== run.connectionRevision || !run.limits) {
           setOcrProgress(run, 'Checking the AI service before scanning');
@@ -6801,7 +6874,7 @@
     const count = pdfState.pageCount;
     const first = Math.max(1, Math.min(count, Math.floor(Number(document.getElementById('pdf-ocr-range-start').value)) || 1));
     const last = Math.max(first, Math.min(count, Math.floor(Number(document.getElementById('pdf-ocr-range-end').value)) || count));
-    return { engine: document.getElementById('pdf-ocr-engine').value, language: document.getElementById('pdf-ocr-lang').value, targetDpi: Number(document.getElementById('pdf-ocr-quality').value), scope: document.getElementById('pdf-ocr-scope').value, rangeStart: first, rangeEnd: last, currentPage: pdfState.currentPage, layout: document.getElementById('pdf-vision-layout').value, improveSmallNumbers: document.getElementById('pdf-ocr-small-numbers').checked, refineRashiLines: document.getElementById('pdf-ocr-rashi-refine').checked, fasterRashi: document.getElementById('pdf-ocr-rashi-fast').checked };
+    return { engine: document.getElementById('pdf-ocr-engine').value === 'local' ? 'local' : 'vision', language: document.getElementById('pdf-ocr-lang').value, targetDpi: Number(document.getElementById('pdf-ocr-quality').value), scope: document.getElementById('pdf-ocr-scope').value, rangeStart: first, rangeEnd: last, currentPage: pdfState.currentPage, layout: document.getElementById('pdf-vision-layout').value === 'tzurat-hadaf' ? 'auto' : document.getElementById('pdf-vision-layout').value, improveSmallNumbers: document.getElementById('pdf-ocr-small-numbers').checked, refineRashiLines: document.getElementById('pdf-ocr-rashi-refine').checked, fasterRashi: document.getElementById('pdf-ocr-rashi-fast').checked };
   }
 
   async function saveOcrSession() {
@@ -6836,7 +6909,7 @@
     document.getElementById('pdf-ocr-small-numbers').checked = settings.improveSmallNumbers;
     document.getElementById('pdf-ocr-rashi-refine').checked = settings.refineRashiLines;
     document.getElementById('pdf-ocr-rashi-fast').checked = settings.fasterRashi === true;
-    document.getElementById('pdf-vision-settings').classList.toggle('hidden', settings.engine !== 'vision');
+    updateVisionOcrSettings();
     updateOcrNumberOption();
   }
 
@@ -7190,9 +7263,11 @@
       await window.PdfStudioAPI.changeReadingView({ page: Number(event.target.value) });
       renderOcrResultPicker();
     });
-    document.getElementById('pdf-ocr-engine').addEventListener('change', (event) => {
-      document.getElementById('pdf-vision-settings').classList.toggle('hidden', event.target.value !== 'vision'); updateOcrNumberOption();
+    document.getElementById('pdf-ocr-engine').addEventListener('change', () => {
+      updateVisionOcrSettings(); updateOcrNumberOption();
     });
+    document.getElementById('pdf-provider-nikkud').addEventListener('change', updateVisionOcrSettings);
+    updateVisionOcrSettings();
     document.getElementById('pdf-ocr-lang').addEventListener('change', updateOcrNumberOption);
     document.getElementById('pdf-ocr-rashi-refine').addEventListener('change', updateOcrNumberOption);
     updateOcrNumberOption();
