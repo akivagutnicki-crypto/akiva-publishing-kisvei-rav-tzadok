@@ -138,6 +138,7 @@ def verify_inputs():
              'library/blog/docs/the-sealed-cruse-chanukah.docx',
              'library/blog/leaving-home-and-learning-to-dream/leaving-home-and-learning-to-dream.jpg',
              'library/blog/pdfs/leaving-home-and-learning-to-dream-vayeitzei.pdf',
+             'library/blog/pdfs/leaving-home-and-learning-to-dream-vayeitzei-newsletter.pdf',
              'library/blog/docs/leaving-home-and-learning-to-dream-vayeitzei.docx',
              'library/downloads/vayeitzei-leaving-home-shiur.pdf',
              'library/downloads/kometz-haminchah-ii-70-72-interlinear-shiur.pdf',

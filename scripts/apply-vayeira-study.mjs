@@ -362,7 +362,7 @@ if (path.resolve(root) !== path.resolve('dist')) {
       'blog/the-sealed-cruse/index.html', 'blog/the-sealed-cruse/sealed-cruse.jpg', 'blog/pdfs/the-sealed-cruse-chanukah.pdf', 'blog/docs/the-sealed-cruse-chanukah.docx',
       ...fs.readdirSync('dist/library/blog/the-sealed-cruse/pages').sort().map(name => 'blog/the-sealed-cruse/pages/' + name),
       'blog/leaving-home-and-learning-to-dream/index.html', 'blog/leaving-home-and-learning-to-dream/leaving-home-and-learning-to-dream.jpg',
-      'blog/pdfs/leaving-home-and-learning-to-dream-vayeitzei.pdf', 'blog/docs/leaving-home-and-learning-to-dream-vayeitzei.docx',
+      'blog/pdfs/leaving-home-and-learning-to-dream-vayeitzei.pdf', 'blog/pdfs/leaving-home-and-learning-to-dream-vayeitzei-newsletter.pdf', 'blog/docs/leaving-home-and-learning-to-dream-vayeitzei.docx',
       ...fs.readdirSync('dist/library/blog/leaving-home-and-learning-to-dream/pages').sort().map(name => 'blog/leaving-home-and-learning-to-dream/pages/' + name),
       vayeitzeiShiurPdf, vayeitzeiAudio, kometzPdf, 'blog-data.json', 'blog-app.css']);
   const blogPages = ['blog/even-the-world-to-come', 'blog/even-the-world-to-come/shiur'].flatMap(dir =>
