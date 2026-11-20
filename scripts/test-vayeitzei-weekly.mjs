@@ -54,7 +54,12 @@ assert(html.includes('<h3 id="toldos-weekly">Last week · Parshas Toldos</h3>'),
 assert.equal((html.match(/class="noach6-media kometz70-media"/g) || []).length, 1, 'Reader shiur card at Kometz HaMinchah 2:70');
 const branch = html.split("d.sectionRef === 'Kometz HaMinchah 2:70'")[1].split("d.sectionRef === 'Divrei Soferim 16'")[0];
 assert(branch.includes('${shiurMarkup}') && branch.includes(shiurPdf) && !branch.includes('<details open'), 'Recording and collapsed PDF in the reader');
-assert(html.includes('shiur-player.js?v=20261119-vayeitzei-leaving-home-v1'), 'Fresh shiur player');
+assert(html.includes('shiur-player.js?v=20261119-kometz-interlinear-pdf-v2'), 'Fresh shiur player');
+const kometzPdf = 'downloads/kometz-haminchah-ii-70-72-interlinear-shiur.pdf';
+const kpdf = fs.readFileSync(`${root}/${kometzPdf}`);
+assert.equal(kpdf.subarray(0, 5).toString(), '%PDF-', 'Kometz interlinear PDF');
+assert(branch.includes(kometzPdf) && branch.includes('kometz70-interlinear-pdf'), 'Interlinear PDF in the reader at Kometz HaMinchah 2:70');
+assert(page.includes('../../' + kometzPdf) && card[0].includes('../' + kometzPdf) && html.includes(`href="${kometzPdf}"`), 'Interlinear PDF on the blog, the listing and the sidebar');
 for (const script of html.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/g)) if (script[1].trim()) new vm.Script(script[1]);
 
 const player = fs.readFileSync(`${root}/shiur-player.js`, 'utf8');
@@ -66,7 +71,7 @@ assert(markup.includes(`src="${audio}"`) && markup.includes('42:11'), 'Player tr
 for (const ref of ['Peri Tzadik, Noach 6', 'Divrei Soferim 16']) assert(sandbox.window.AkivaShiurPlayer.render(ref), 'Earlier track kept: ' + ref);
 
 const sw = fs.readFileSync(`${root}/sw.js`, 'utf8');
-assert(sw.includes('-20261119-vayeitzei-leaving-home-v1'), 'Service worker version');
+assert(sw.includes('-20261119-vayeitzei-leaving-home-v1') && sw.includes('-20261119-kometz-interlinear-pdf-v2'), 'Service worker version');
 assert(sw.includes("'./blog/leaving-home-and-learning-to-dream/'"), 'Offline page');
 new vm.Script(sw);
 console.log('PASS: Vayeitzei blog Leaving Home and Learning to Dream (6 pages, picture), shiur recording and shiur PDF, Weekly Torah listing, home teaser, sidebar, offline page, and the shiur in the reader at Kometz HaMinchah 2:70.');

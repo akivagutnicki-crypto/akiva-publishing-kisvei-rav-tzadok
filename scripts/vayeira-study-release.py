@@ -140,6 +140,7 @@ def verify_inputs():
              'library/blog/pdfs/leaving-home-and-learning-to-dream-vayeitzei.pdf',
              'library/blog/docs/leaving-home-and-learning-to-dream-vayeitzei.docx',
              'library/downloads/vayeitzei-leaving-home-shiur.pdf',
+             'library/downloads/kometz-haminchah-ii-70-72-interlinear-shiur.pdf',
              'library/audio/vayeitzei-leaving-home-shiur.m4a',
              'library/blog-data.json', 'library/blog-app.css']
     for folder in ['library/blog/even-the-world-to-come', 'library/blog/even-the-world-to-come/shiur',
@@ -200,7 +201,8 @@ elif mode == 'verify':
                          ('library/sw.js', '-20261113-chanukah-sealed-cruse-v1'), ('library/blog/index.html', 'chanukah-feature-title'),
                          ('library/index.html', 'id="vayeitzei-weekly"'), ('library/index.html', 'href="blog/leaving-home-and-learning-to-dream/"'),
                          ('library/index.html', 'class="noach6-media kometz70-media"'), ('library/shiur-player.js', "'Kometz HaMinchah 2:70':"),
-                         ('library/sw.js', '-20261119-vayeitzei-leaving-home-v1'), ('library/blog/index.html', 'vayeitzei-feature-title')]:
+                         ('library/sw.js', '-20261119-vayeitzei-leaving-home-v1'), ('library/sw.js', '-20261119-kometz-interlinear-pdf-v2'),
+                         ('library/index.html', 'kometz-haminchah-ii-70-72-interlinear-shiur.pdf'), ('library/blog/index.html', 'vayeitzei-feature-title')]:
         assert marker in (ROOT / name).read_text(), 'Missing study hook: ' + name
     report = {'publication': state['publication'], 'expectedHead': state['expectedHead'],
               'changed': sorted(changed), 'removed': [],

@@ -1,0 +1,50 @@
+@font-face{font-family:"Crimson Pro";src:url(crimson-pro-latin-400-normal.woff2) format("woff2");font-weight:400;font-style:normal}
+@font-face{font-family:"Crimson Pro";src:url(crimson-pro-latin-ext-400-normal.woff2) format("woff2");font-weight:400;font-style:normal;unicode-range:U+0100-024F,U+1E00-1EFF}
+@font-face{font-family:"Crimson Pro";src:url(crimson-pro-latin-400-italic.woff2) format("woff2");font-weight:400;font-style:italic}
+@font-face{font-family:"Crimson Pro";src:url(crimson-pro-latin-600-normal.woff2) format("woff2");font-weight:600;font-style:normal}
+@font-face{font-family:"Crimson Pro";src:url(crimson-pro-latin-ext-600-normal.woff2) format("woff2");font-weight:600;font-style:normal;unicode-range:U+0100-024F,U+1E00-1EFF}
+@font-face{font-family:"Crimson Pro";src:url(crimson-pro-latin-600-italic.woff2) format("woff2");font-weight:600;font-style:italic}
+@font-face{font-family:"Crimson Pro";src:url(crimson-pro-latin-700-normal.woff2) format("woff2");font-weight:700;font-style:normal}
+@font-face{font-family:"Frank Ruhl";src:url(frank-ruhl-libre-hebrew-400-normal.woff2) format("woff2");font-weight:400;size-adjust:112%}
+@font-face{font-family:"Frank Ruhl";src:url(frank-ruhl-libre-hebrew-500-normal.woff2) format("woff2");font-weight:500 600;size-adjust:112%}
+@font-face{font-family:"Frank Ruhl";src:url(frank-ruhl-libre-hebrew-700-normal.woff2) format("woff2");font-weight:700;size-adjust:112%}
+:root{--ink:#22241f;--forest:#17372d;--ruby:#6f2e2b;--gold:#a8834d;--muted:#5f5b54;--rule:#d9d0bd}
+@page{size:letter;margin:0.85in 0.8in 0.9in 0.8in;
+  @top-left{content:"Kometz HaMinchah · Part Two, Sections 70–72";font:italic 9pt "Crimson Pro";color:#7a756c}
+  @top-right{content:"Parshas Vayeitzei · Akiva Publishing";font:italic 9pt "Crimson Pro";color:#7a756c}
+  @bottom-center{content:counter(page);font:10pt "Crimson Pro";color:#5f5b54}
+  @footnote{border-top:0.6pt solid #b9ae98;padding-top:5pt;margin-top:8pt}}
+@page:first{@top-left{content:none}@top-right{content:none}}
+html{font-family:"Crimson Pro","Frank Ruhl",serif;color:var(--ink);font-size:11.5pt;line-height:1.5}
+body{margin:0}
+.he{font-family:"Frank Ruhl","Crimson Pro",serif;font-weight:400;unicode-bidi:isolate}
+strong .he,h2 .he,h3 .he{font-weight:500}
+.title{text-align:center;margin:0.2in 0 0.25in}
+.he-title{font:500 21pt/1.45 "Frank Ruhl";color:var(--forest);margin:0 0 8pt}
+.he-title .he{font-weight:500}
+h1{font:600 30pt/1.1 "Crimson Pro";color:var(--forest);margin:0 0 6pt;letter-spacing:-.01em}
+.subtitle{font:italic 14pt/1.35 "Crimson Pro";color:var(--muted);margin:0 0 10pt}
+.byline{font:10.5pt/1.5 "Crimson Pro";letter-spacing:.06em;text-transform:uppercase;color:var(--ruby);margin:0}
+.byline .he{text-transform:none}
+.rule{width:1.6in;border-top:1.2pt solid var(--gold);margin:14pt auto 0}
+.dedication{background:#f7f2e6;border-left:2.5pt solid var(--gold);padding:9pt 12pt;margin:0 0 14pt;font-size:11pt}
+h2.section{font:600 16pt/1.35 "Crimson Pro";color:var(--forest);border-bottom:1pt solid var(--gold);padding-bottom:4pt;margin:20pt 0 10pt;break-after:avoid}
+h2.section .he{font-size:15pt}
+h3{font:600 13pt/1.35 "Crimson Pro";color:var(--ruby);margin:14pt 0 6pt;break-after:avoid}
+p{margin:0 0 9pt;text-align:justify;hyphens:auto;orphans:2;widows:2}
+p.interlinear{line-height:1.62}
+p.interlinear .he{font-size:1em}
+p.interlinear strong{font-weight:600;color:#1d2a24}
+.sep{color:#a59c8a;font-weight:400}
+p.commentary{background:#fbf8f1;border-left:2pt solid #c9b58f;padding:7pt 10pt;font-size:11pt;line-height:1.5}
+p.commentary>strong:first-child{color:var(--forest);font-variant:small-caps;letter-spacing:.03em}
+.footnote{float:footnote;font:9pt/1.38 "Crimson Pro";color:#34352f;text-align:left;hyphens:manual}
+.footnote .he{font-size:1em}
+.footnote::footnote-marker{content:none}
+.fnum{color:var(--ruby);font-weight:600}
+::footnote-call{content:counter(footnote);font-size:7pt;vertical-align:super;line-height:0;font-weight:600;color:var(--ruby);margin-left:.5pt}
+a{color:inherit;text-decoration:none}
+p.interlinear .he,h2 .he,h3 .he,p.commentary .he{white-space:nowrap}
+.he.long{white-space:normal!important}
+p.interlinear,p.commentary{text-align:left}
+h2.section.newpage{break-before:page;margin-top:0}
