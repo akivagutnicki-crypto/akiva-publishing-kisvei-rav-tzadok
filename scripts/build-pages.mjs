@@ -1,3 +1,4 @@
+import { execFileSync } from 'node:child_process';
 import fs from 'node:fs';
 
 const path = 'dist/index.html';
@@ -49,4 +50,5 @@ if (!html.includes('id="akiva-pages-polish"')) {
 }
 
 fs.writeFileSync(path, html);
+execFileSync('python3', ['scripts/sefer-studio-release.py', 'build-sefer-pro'], { stdio: 'inherit' });
 console.log('Prepared static GitHub Pages build.');

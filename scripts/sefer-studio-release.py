@@ -23,6 +23,8 @@ STATE = Path('sefer-studio-baseline.json')
 REPORT = Path('sefer-studio-verification.json')
 LIVE_REPORT = Path('sefer-studio-live-verification.json')
 PREFIX = 'sefer-studio/'
+PRO_PREFIX = 'sefer-pro/'
+APP_PREFIXES = (PREFIX, PRO_PREFIX)
 LIVE_GUARDS = ['index.html', 'library/index.html', 'library/sw.js',
                'library/data/catalog.json', 'library/data/cited/index.json']
 
@@ -121,12 +123,52 @@ def inventory(root):
     return result
 
 
+def sefer_pro_overrides():
+    """Build the Sefer Pro entry point from the current Studio release."""
+    manifest = json.loads((SOURCE / 'manifest.webmanifest').read_text(encoding='utf-8'))
+    manifest.update(id=urllib.parse.urlparse(PUBLIC).path + PRO_PREFIX,
+                    name='Sefer Pro', short_name='Sefer Pro',
+                    start_url='./#/studio', scope='./', display='standalone')
+    manifest.pop('display_override', None)
+    html = (SOURCE / 'index.html').read_text(encoding='utf-8')
+    html = html.replace('SeferStudio Pro', 'Sefer Pro')
+    html = html.replace('SeferStudio <span', 'Sefer <span')
+    html = html.replace('Return to SeferStudio Website Home', 'Return to Sefer Pro Home')
+    html = html.replace("location.hash || '#/home'", "location.hash || '#/studio'")
+    html = html.replace(
+        '<link rel="manifest" href="manifest.webmanifest" />',
+        '<link rel="manifest" href="manifest.webmanifest" />\n'
+        '  <link rel="apple-touch-icon" href="icons/icon-192.png" />')
+    assert '<title>Sefer Pro' in html and 'rel="apple-touch-icon"' in html, \
+        'Missing Sefer Pro application metadata'
+    return {'index.html': html.encode('utf-8'),
+            'manifest.webmanifest': (json.dumps(manifest, indent=2) + '\n').encode('utf-8')}
+
+
+def replace_app(destination):
+    assert not destination.is_symlink(), 'Unsafe app destination'
+    if destination.exists():
+        assert destination.is_dir(), 'App destination is not a directory'
+        shutil.rmtree(destination)
+    shutil.copytree(SOURCE, destination)
+
+
+def build_sefer_pro(destination):
+    overrides = sefer_pro_overrides()
+    replace_app(destination)
+    for name, contents in overrides.items():
+        (destination / name).write_bytes(contents)
+
+
 def source_inventory():
     files = inventory(SOURCE)
     for required in ['index.html', 'manifest.webmanifest', 'sw.js']:
         assert required in files and (SOURCE / required).stat().st_size > 0, \
             'Missing app asset: ' + required
-    return {PREFIX + name: value for name, value in files.items()}
+    pro_files = files | {name: hashlib.sha256(contents).hexdigest()
+                         for name, contents in sefer_pro_overrides().items()}
+    return ({PREFIX + name: value for name, value in files.items()} |
+            {PRO_PREFIX + name: value for name, value in pro_files.items()})
 
 
 def live_digest(name):
@@ -189,14 +231,8 @@ def restore(archive):
 def apply():
     state = json.loads(STATE.read_text())
     assert source_inventory() == state['inputs'], 'App source changed after capture'
-    destination = ROOT / 'sefer-studio'
-    assert destination.resolve() == ROOT.resolve() / 'sefer-studio'
-    assert not destination.is_symlink(), 'Unsafe app destination'
-    # Only this app's directory can be replaced; all other site files are preserved.
-    if destination.exists():
-        assert destination.is_dir(), 'App destination is not a directory'
-        shutil.rmtree(destination)
-    shutil.copytree(SOURCE, destination)
+    replace_app(ROOT / PREFIX)
+    build_sefer_pro(ROOT / PRO_PREFIX)
     verify()
 
 
@@ -206,20 +242,20 @@ def verify():
     after = inventory(ROOT)
     removed = sorted(set(before) - set(after))
     changed = {name for name in after if before.get(name) != after[name]}
-    assert all(name.startswith(PREFIX) for name in removed), 'An unrelated file was removed'
-    assert all(name.startswith(PREFIX) for name in changed), 'An unrelated file was changed'
+    assert all(name.startswith(APP_PREFIXES) for name in removed), 'An unrelated file was removed'
+    assert all(name.startswith(APP_PREFIXES) for name in changed), 'An unrelated file was changed'
     for name, expected in before.items():
-        if not name.startswith(PREFIX):
+        if not name.startswith(APP_PREFIXES):
             assert after.get(name) == expected, 'Unrelated published bytes changed: ' + name
-    app_files = {name: value for name, value in after.items() if name.startswith(PREFIX)}
+    app_files = {name: value for name, value in after.items() if name.startswith(APP_PREFIXES)}
     assert app_files == state['inputs'] == source_inventory(), 'Staged app differs from tracked source'
     report = {'publication': state['publication'], 'expectedHead': state['expectedHead'],
               'changed': sorted(changed), 'removed': removed,
-              'preservedFiles': sum(not name.startswith(PREFIX) for name in before),
+              'preservedFiles': sum(not name.startswith(APP_PREFIXES) for name in before),
               'expectedLive': app_files}
     write_json(REPORT, report)
     print('Verified', report['preservedFiles'], 'unchanged existing files and',
-          len(app_files), 'exact app files; all changes are inside sefer-studio/.')
+          len(app_files), 'exact app files across sefer-studio/ and sefer-pro/.')
 
 
 def published():
@@ -250,9 +286,9 @@ def published():
     assert not pending, 'Public bytes did not match after 12 attempts: ' + repr(sorted(pending))
     evidence = {'status': 'published-and-verified', 'sourceCommit': report['expectedHead'],
                 'verifiedPublicFiles': len(expected), 'unchangedLiveGuards': LIVE_GUARDS,
-                'url': PUBLIC + PREFIX, 'hashes': expected}
+                'url': PUBLIC + PRO_PREFIX + '#/studio', 'hashes': expected}
     write_json(LIVE_REPORT, evidence)
-    print('Verified the live website and unchanged existing site:', PUBLIC + PREFIX)
+    print('Verified the live website and unchanged existing site:', PUBLIC + PRO_PREFIX)
 
 
 if __name__ == '__main__':
@@ -269,5 +305,7 @@ if __name__ == '__main__':
         guard(json.loads(STATE.read_text()))
     elif mode == 'published':
         published()
+    elif mode == 'build-sefer-pro':
+        build_sefer_pro(SOURCE.parent / PRO_PREFIX)
     else:
         raise SystemExit('Unknown mode: ' + mode)
