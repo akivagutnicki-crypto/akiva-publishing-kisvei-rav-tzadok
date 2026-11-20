@@ -267,6 +267,79 @@ const cruseCard = `<article class="card" aria-labelledby="chanukah-feature-title
 blog = upsert(blog, /<article class="card" aria-labelledby="chanukah-feature-title">[\s\S]*?<\/article>\n?/, cruseCard, '<article class="card" aria-labelledby="toldos-feature-title">', 'Chanukah listing');
 fs.writeFileSync(blogPath, blog);
 
+// November 19 · Parshas Vayeitzei: the blog "Leaving Home and Learning to Dream" (Kometz HaMinchah II:70–72),
+// with the shiur recording and shiur PDF. The recording and PDF also open in the reader at Kometz HaMinchah 2:70.
+// Vayeitzei becomes this week, Toldos last week and Chayei Sarah earlier. Safe to run again on an updated site.
+const vayeitzeiVersion = '20261119-vayeitzei-leaving-home-v1';
+const vayeitzeiBlog = 'blog/leaving-home-and-learning-to-dream/';
+const vayeitzeiRef = 'Kometz_HaMinchah_2:70';
+const vayeitzeiAudio = 'audio/vayeitzei-leaving-home-shiur.m4a';
+const vayeitzeiShiurPdf = 'downloads/vayeitzei-leaving-home-shiur.pdf';
+const vayeitzeiAlt = 'An ancient desert dusk path winding away from a warm-lit village toward weathered stones illuminated by a rising golden beam of starlight';
+html = fs.readFileSync(indexPath, 'utf8');
+const vayeitzeiTeaser = `<a class="weekly-teaser weekly-vayeitzei-teaser" href="${vayeitzeiBlog}" aria-label="Read Leaving Home and Learning to Dream, the Parshas Vayeitzei blog and shiur">\n        <img src="${vayeitzeiBlog}leaving-home-and-learning-to-dream.jpg" alt="${vayeitzeiAlt}" loading="lazy">\n        <span class="weekly-teaser-copy"><span class="eyebrow">This week · Parshas Vayeitzei</span><strong>Leaving Home and Learning to Dream</strong><span>Yaakov leaves home: life challenges as ezer k’negdo, finding the “I” within, and the ladder of the dream · Kometz HaMinchah II:70–72, the blog and the shiur recording →</span></span>\n      </a>\n      `;
+html = upsert(html, /<a class="weekly-teaser weekly-vayeitzei-teaser"[\s\S]*?<\/a>\n      /, vayeitzeiTeaser, '<a class="weekly-teaser weekly-chanukah-teaser"', 'Vayeitzei teaser');
+const vayeitzeiSidebar = `<h3 id="vayeitzei-weekly">This week · Parshas Vayeitzei</h3><p><strong>Leaving Home and Learning to Dream</strong><br>Life challenges, finding oneself, and the deeper meaning of Yaakov’s ladder · By Akiva Gutnicki</p><a class="link" href="${vayeitzeiBlog}">Read the blog →</a><a class="link" href="${vayeitzeiBlog}#listen">🎧 Listen to the shiur →</a><a class="link" href="${vayeitzeiShiurPdf}" target="_blank" rel="noopener">Shiur PDF ↗</a><a class="link" href="#/read/${vayeitzeiRef}">Kometz HaMinchah II:70–72 in the reader →</a>`;
+html = upsert(html, /<h3 id="vayeitzei-weekly">[\s\S]*?(?=<h3 id="chanukah-weekly">)/, vayeitzeiSidebar, '<h3 id="chanukah-weekly">', 'Vayeitzei sidebar');
+html = html.replace('<h3 id="toldos-weekly">This week · Parshas Toldos</h3>', '<h3 id="toldos-weekly">Last week · Parshas Toldos</h3>')
+  .replace('<span class="eyebrow">This week · Parshas Toldos</span>', '<span class="eyebrow">Last week · Parshas Toldos</span>')
+  .replace('<h3 id="chayei-sarah-weekly">Last week · Parshas Chayei Sarah</h3>', '<h3 id="chayei-sarah-weekly">Earlier · Parshas Chayei Sarah</h3>')
+  .replace('<span class="eyebrow">Last week · Parshas Chayei Sarah</span>', '<span class="eyebrow">Earlier · Parshas Chayei Sarah</span>');
+fs.writeFileSync(indexPath, html);
+
+// The shiur recording and PDF in the reader, at the opening of Kometz HaMinchah II:70 (the same card as Divrei Chalomos 25).
+const kometzTrack = `    'Kometz HaMinchah 2:70': {
+      key: 'vayeitzei-leaving-home-shiur',
+      label: 'Kometz HaMinchah II · 70–72 · Vayeitzei',
+      collection: 'Leaving Home and Learning to Dream',
+      speaker: 'Shiur on Rav Tzadok HaKohen',
+      src: '${vayeitzeiAudio}',
+      format: 'M4A',
+      duration: '42:11', bytes: '15.9 MB'
+    },
+`;
+const playerPath = path.join(library, 'shiur-player.js');
+let player = fs.readFileSync(playerPath, 'utf8');
+if (!player.includes("'Kometz HaMinchah 2:70':")) {
+  player = once(player, 'const TRACKS = {', 'const TRACKS = {\n' + kometzTrack, 'Kometz shiur track');
+  fs.writeFileSync(playerPath, player);
+}
+const kometzCard = `  } else if (d.sectionRef === 'Kometz HaMinchah 2:70') {
+    html += \`<div class="noach6-media kometz70-media">\${shiurMarkup}
+      <details class="noach6-pdf kometz70-pdf">
+        <summary>📄 Preview the shiur on Kometz HaMinchah II:70–72 · 16-page PDF</summary>
+        <iframe title="Preview the shiur on Kometz HaMinchah II 70–72, Leaving Home and Learning to Dream, 16 pages" loading="lazy"
+          src="${vayeitzeiShiurPdf}#toolbar=0&navpanes=0"></iframe>
+        <a class="btn" target="_blank" rel="noopener noreferrer"
+          href="${vayeitzeiShiurPdf}">Open or download PDF ↗</a>
+        <a class="btn" href="${vayeitzeiBlog}">Read the blog, Leaving Home and Learning to Dream →</a>
+      </details>
+    </div>\`;
+`;
+for (const reader of ['index.html', 'open/index.html']) {
+  const readerPath = path.join(library, reader);
+  if (!fs.existsSync(readerPath)) continue;
+  let text = fs.readFileSync(readerPath, 'utf8');
+  if (!text.includes('const shiurMarkup =')) continue;
+  if (!text.includes('class="noach6-media kometz70-media"'))
+    text = once(text, "  } else if (d.sectionRef === 'Divrei Soferim 16') {", kometzCard + "  } else if (d.sectionRef === 'Divrei Soferim 16') {", 'Kometz 70 media card');
+  const players = text.match(/shiur-player\.js\?v=[^"\s]+/g) || [];
+  assert.equal(players.length, 1, 'Unexpected shiur player count in ' + reader);
+  text = text.replace(/shiur-player\.js\?v=[^"\s]+/, 'shiur-player.js?v=' + vayeitzeiVersion);
+  fs.writeFileSync(readerPath, text);
+}
+
+sw = fs.readFileSync(swPath, 'utf8');
+if (!sw.includes('-' + vayeitzeiVersion)) sw = sw.replace(/(const SHELL = `[^`]+)(`;)/, `$1-${vayeitzeiVersion}$2`);
+if (!sw.includes(`'./${vayeitzeiBlog}'`)) sw = once(sw, "  './blog/', ", `  './blog/', './${vayeitzeiBlog}', `, 'offline Vayeitzei page');
+sw = sw.replace(/shiur-player\.js\?v=[^'"\s]+/g, 'shiur-player.js?v=' + vayeitzeiVersion);
+fs.writeFileSync(swPath, sw);
+
+blog = fs.readFileSync(blogPath, 'utf8');
+const vayeitzeiCard = `<article class="card" aria-labelledby="vayeitzei-feature-title"><div class="eyebrow">November 19, 2026 · Parshas Vayeitzei 5787 · Kometz HaMinchah II:70–72</div><h2 id="vayeitzei-feature-title"><a style="text-decoration:none" href="leaving-home-and-learning-to-dream/">Leaving Home and Learning to Dream</a></h2><p class="subtitle" style="margin:0 0 15px;text-align:left">Life challenges, finding oneself, and the deeper meaning of Yaakov’s ladder</p><p><a href="leaving-home-and-learning-to-dream/"><img src="leaving-home-and-learning-to-dream/leaving-home-and-learning-to-dream.jpg" width="1600" height="900" alt="${vayeitzeiAlt}" loading="lazy" style="display:block;width:100%;height:auto;border:1px solid var(--border);margin:0 0 14px"></a>Why does Yaakov’s journey begin in flight, stripped of everything, heading straight into the land of deceit? Drawing on Rav Tzadok HaKohen’s Kometz HaMinchah (II:70–72), this essay explores leaving home, life challenges as ezer k’negdo, discovering the “I” within, and the bigger idea of dreaming. A 6-page essay with the companion shiur recording and PDF. By Akiva Gutnicki.</p><div class="actions" style="justify-content:flex-start"><a class="btn" href="leaving-home-and-learning-to-dream/">Read the blog →</a><a class="btn secondary" href="leaving-home-and-learning-to-dream/#listen">🎧 Listen to the shiur</a><a class="btn secondary" href="../${vayeitzeiShiurPdf}" target="_blank" rel="noopener">Shiur PDF ↗</a><a class="btn secondary" href="../${vayeitzeiShiurPdf}" download>Download shiur PDF ↓</a><a class="btn secondary" href="pdfs/leaving-home-and-learning-to-dream-vayeitzei.pdf" target="_blank" rel="noopener">Read PDF ↗</a><a class="btn secondary" href="pdfs/leaving-home-and-learning-to-dream-vayeitzei.pdf" download>Download PDF ↓</a><a class="btn secondary" href="docs/leaving-home-and-learning-to-dream-vayeitzei.docx" download>Download Word ↓</a></div><p style="margin:0;font:700 13px/1.6 Arial,sans-serif"><a href="../#/read/${vayeitzeiRef}">Kometz HaMinchah II:70–72 in the reader (with the shiur recording) →</a></p></article>\n`;
+blog = upsert(blog, /<article class="card" aria-labelledby="vayeitzei-feature-title">[\s\S]*?<\/article>\n?/, vayeitzeiCard, '<article class="card" aria-labelledby="chanukah-feature-title">', 'Vayeitzei listing');
+fs.writeFileSync(blogPath, blog);
+
 if (path.resolve(root) !== path.resolve('dist')) {
   const chayeiFiles = ['blog/from-the-east', 'blog/from-the-east/shiur'].flatMap(dir =>
     ['index.html', ...fs.readdirSync(path.join('dist/library', dir, 'pages')).sort().map(name => 'pages/' + name)].map(name => dir + '/' + name))
@@ -276,7 +349,11 @@ if (path.resolve(root) !== path.resolve('dist')) {
       'blog/the-kings-table/index.html', 'blog/the-kings-table/kings-table.jpg', 'blog/pdfs/the-kings-table-toldos.pdf', 'blog/docs/the-kings-table-toldos.docx',
       ...fs.readdirSync('dist/library/blog/the-kings-table/pages').sort().map(name => 'blog/the-kings-table/pages/' + name),
       'blog/the-sealed-cruse/index.html', 'blog/the-sealed-cruse/sealed-cruse.jpg', 'blog/pdfs/the-sealed-cruse-chanukah.pdf', 'blog/docs/the-sealed-cruse-chanukah.docx',
-      ...fs.readdirSync('dist/library/blog/the-sealed-cruse/pages').sort().map(name => 'blog/the-sealed-cruse/pages/' + name)]);
+      ...fs.readdirSync('dist/library/blog/the-sealed-cruse/pages').sort().map(name => 'blog/the-sealed-cruse/pages/' + name),
+      'blog/leaving-home-and-learning-to-dream/index.html', 'blog/leaving-home-and-learning-to-dream/leaving-home-and-learning-to-dream.jpg',
+      'blog/pdfs/leaving-home-and-learning-to-dream-vayeitzei.pdf', 'blog/docs/leaving-home-and-learning-to-dream-vayeitzei.docx',
+      ...fs.readdirSync('dist/library/blog/leaving-home-and-learning-to-dream/pages').sort().map(name => 'blog/leaving-home-and-learning-to-dream/pages/' + name),
+      vayeitzeiShiurPdf, vayeitzeiAudio, 'blog-data.json', 'blog-app.css']);
   const blogPages = ['blog/even-the-world-to-come', 'blog/even-the-world-to-come/shiur'].flatMap(dir =>
     ['index.html', ...fs.readdirSync(path.join('dist/library', dir, 'pages')).sort().map(name => 'pages/' + name)].map(name => dir + '/' + name));
   for (const file of ['vayeira-study.js', 'studies/vayeira-mesiras-nefesh.json', 'downloads/vayeira-akeidah-mesiras-nefesh.pdf', 'downloads/vayeira-akeidah-mesiras-nefesh-cover.webp',
@@ -287,4 +364,4 @@ if (path.resolve(root) !== path.resolve('dist')) {
     fs.copyFileSync(path.join('dist/library', file), dest);
   }
 }
-console.log('Chanukah (The Sealed Cruse), Parshas Toldos (The King’s Table), Parshas Vayeira and Parshas Chayei Sarah reader entries, blogs, shiurim (Chayei Sarah also as native text), PDF and Word downloads and discovery links are ready.');
+console.log('Parshas Vayeitzei (Leaving Home and Learning to Dream, with the shiur in the reader at Kometz HaMinchah 2:70), Chanukah (The Sealed Cruse), Parshas Toldos (The King’s Table), Parshas Vayeira and Parshas Chayei Sarah reader entries, blogs, shiurim (Chayei Sarah also as native text), PDF and Word downloads and discovery links are ready.');

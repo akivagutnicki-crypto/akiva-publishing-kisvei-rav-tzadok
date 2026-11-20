@@ -43,7 +43,7 @@ assert.equal((html.match(/<a class="weekly-teaser weekly-chayei-teaser" href="bl
 assert(html.indexOf('weekly-chayei-teaser') < html.indexOf('weekly-study-teaser"'), 'Chayei Sarah teaser first');
 assert.equal((html.match(/id="chayei-sarah-weekly"/g) || []).length, 1, 'Sidebar entry');
 assert(html.includes('<h3>Earlier · Parshas Vayeira</h3>'), 'Vayeira moved to earlier');
-assert(html.includes('<h3 id="chayei-sarah-weekly">Last week · Parshas Chayei Sarah</h3>'), 'Chayei Sarah moved to last week');
+assert(/<h3 id="chayei-sarah-weekly">(?:Last week|Earlier) · Parshas Chayei Sarah<\/h3>/.test(html), 'Chayei Sarah moved to last week or earlier');
 assert(!html.includes('This week · Parshas Vayeira'), 'Two weeks marked as this week');
 for (const script of html.matchAll(/<script\b[^>]*>([\s\S]*?)<\/script>/g)) if (script[1].trim()) new vm.Script(script[1]);
 

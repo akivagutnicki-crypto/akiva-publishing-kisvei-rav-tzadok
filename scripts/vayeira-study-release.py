@@ -1,4 +1,4 @@
-"""Publish the weekly Torah releases (Vayeira, Chayei Sarah, Toldos) over the current complete Pages artifact.
+"""Publish the weekly Torah releases (Vayeira, Chayei Sarah, Toldos, Chanukah, Vayeitzei) over the current complete Pages artifact.
 
 Verify every original Torah file and every unrelated site file remains identical.
 """
@@ -17,7 +17,7 @@ ROOT = Path(os.environ.get('WEEKLY_STUDY_SITE', '.vayeira-study-site'))
 STATE = Path('vayeira-study-baseline.json')
 META = Path('vayeira-study-publication.json')
 REPORT = Path('vayeira-study-verification.json')
-SHELL = {'library/index.html', 'library/sw.js', 'library/blog/index.html'}
+SHELL = {'library/index.html', 'library/sw.js', 'library/blog/index.html', 'library/shiur-player.js', 'library/open/index.html'}
 LIVE_GUARDS = ['index.html', 'library/index.html', 'library/sw.js', 'library/data/catalog.json', 'library/data/cited/index.json']
 
 
@@ -135,9 +135,16 @@ def verify_inputs():
              'library/blog/the-kings-table/kings-table.jpg', 'library/blog/pdfs/the-kings-table-toldos.pdf',
              'library/blog/docs/the-kings-table-toldos.docx',
              'library/blog/the-sealed-cruse/sealed-cruse.jpg', 'library/blog/pdfs/the-sealed-cruse-chanukah.pdf',
-             'library/blog/docs/the-sealed-cruse-chanukah.docx']
+             'library/blog/docs/the-sealed-cruse-chanukah.docx',
+             'library/blog/leaving-home-and-learning-to-dream/leaving-home-and-learning-to-dream.jpg',
+             'library/blog/pdfs/leaving-home-and-learning-to-dream-vayeitzei.pdf',
+             'library/blog/docs/leaving-home-and-learning-to-dream-vayeitzei.docx',
+             'library/downloads/vayeitzei-leaving-home-shiur.pdf',
+             'library/audio/vayeitzei-leaving-home-shiur.m4a',
+             'library/blog-data.json', 'library/blog-app.css']
     for folder in ['library/blog/even-the-world-to-come', 'library/blog/even-the-world-to-come/shiur',
-                   'library/blog/from-the-east', 'library/blog/from-the-east/shiur', 'library/blog/the-kings-table', 'library/blog/the-sealed-cruse']:
+                   'library/blog/from-the-east', 'library/blog/from-the-east/shiur', 'library/blog/the-kings-table', 'library/blog/the-sealed-cruse',
+                   'library/blog/leaving-home-and-learning-to-dream']:
         pages = sorted((Path('dist') / folder / 'pages').glob('page-*.webp'))
         assert pages, 'Missing page images: ' + folder
         files += [folder + '/index.html'] + [page.relative_to('dist').as_posix() for page in pages]
@@ -190,7 +197,10 @@ elif mode == 'verify':
                          ('library/index.html', 'id="toldos-weekly"'), ('library/index.html', 'href="blog/the-kings-table/"'),
                          ('library/sw.js', '-20261109-toldos-kings-table-v1'), ('library/blog/index.html', 'toldos-feature-title'),
                          ('library/index.html', 'id="chanukah-weekly"'), ('library/index.html', 'href="blog/the-sealed-cruse/"'),
-                         ('library/sw.js', '-20261113-chanukah-sealed-cruse-v1'), ('library/blog/index.html', 'chanukah-feature-title')]:
+                         ('library/sw.js', '-20261113-chanukah-sealed-cruse-v1'), ('library/blog/index.html', 'chanukah-feature-title'),
+                         ('library/index.html', 'id="vayeitzei-weekly"'), ('library/index.html', 'href="blog/leaving-home-and-learning-to-dream/"'),
+                         ('library/index.html', 'class="noach6-media kometz70-media"'), ('library/shiur-player.js', "'Kometz HaMinchah 2:70':"),
+                         ('library/sw.js', '-20261119-vayeitzei-leaving-home-v1'), ('library/blog/index.html', 'vayeitzei-feature-title')]:
         assert marker in (ROOT / name).read_text(), 'Missing study hook: ' + name
     report = {'publication': state['publication'], 'expectedHead': state['expectedHead'],
               'changed': sorted(changed), 'removed': [],
