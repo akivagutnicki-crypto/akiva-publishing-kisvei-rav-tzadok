@@ -423,10 +423,17 @@ function connect(slug, sectionRef, sep, items) {
         }
         continue;
       }
-      if (!/^(?:TZ|MC|DS|SZ|KH|PA|OZ|SM|SS|DC)-\d{4}$/.test(note.sourceId || '')) continue;
+      if (!/^(?:TZ|MC|DS|SZ|KH|PA|OZ|SM|SS|DC|BY|BS|BV|BB|BD|BM)-\d{4}$/.test(note.sourceId || '')) continue;
       const phrase = item.p[note.phraseIndex];
       const textOf = s => String(s).replace(/<[^>]*>/g, '').replace(/&(?:quot|amp|apos|lt|gt|nbsp|#39|#x27);/g,
         t => ({'&quot;':'"','&amp;':'&','&apos;':"'",'&lt;':'<','&gt;':'>','&nbsp;':' ','&#39;':"'",'&#x27;':"'"}[t]));
+      // Complete Beit Yaakov edition: each Word note sits at the end of its Hebrew phrase. Citation
+      // linking can respell a phrase's visible text, so re-anchor to the linked phrase's full length.
+      if (/^B[YSVBDM]-\d{4}$/.test(note.sourceId) && phrase) {
+        const he = textOf(phrase[0]), en = textOf(phrase[1]);
+        note.heCharOffset = he.length; note.heAnchorPrefix = he;
+        note.enCharOffset = Math.min(Math.max(1, note.enCharOffset || 0), en.length); note.enAnchorPrefix = en.slice(0, note.enCharOffset);
+      }
       if (!phrase || textOf(phrase[0]).slice(0,note.heCharOffset)!==note.heAnchorPrefix ||
           textOf(phrase[1]).slice(0,note.enCharOffset)!==note.enAnchorPrefix)
         throw new Error('Reviewed source footnote anchor changed: '+note.placementId+' in '+anchor);
@@ -475,7 +482,13 @@ for (const dir of DIRS) {
   for (const file of candidateFiles) {
     const src = JSON.parse(fs.readFileSync(path.join(dir, file), 'utf8'));
     if (catalog.some(b => b.title === src.title)) { console.log(`${src.title}: using Akiva edition, skipping ${path.join(dir, file)}`); continue; }
-    if (src.title === 'Beit Yaakov on Torah') {
+    // Large interlinear editions keep their sections in gzip parts (each under 10 MB).
+    if (Array.isArray(src.sectionsFiles)) {
+      src.sections = src.sectionsFiles.flatMap(part => JSON.parse(gunzipSync(fs.readFileSync(part)).toString('utf8')));
+      if (src.sectionCount !== undefined && src.sections.length !== src.sectionCount) throw new Error(`${src.title}: expected ${src.sectionCount} sections, read ${src.sections.length}`);
+    }
+    const completeBeit = src.editionId === 'beit-yaakov-complete-2026-11';
+    if (src.title === 'Beit Yaakov on Torah' && !completeBeit) {
       addBeitYaakovDocuments(src);
       addBeitYaakovVayeraGap(src);
     }
@@ -502,7 +515,7 @@ for (const dir of DIRS) {
       const kdpSeifNavigation = src.editionId === 'takanas-docx-master-2026-11-02'
         ? JSON.parse(fs.readFileSync('sources/akiva/overlays/takanas-docx-master-20261102-seif-navigation.json', 'utf8')) : null;
       const children = src.sections.map(sec => {
-        if (src.title === 'Beit Yaakov on Torah' && /^Lech Lecha \d+$/.test(sec.key || ''))
+        if (src.title === 'Beit Yaakov on Torah' && !completeBeit && /^Lech Lecha \d+$/.test(sec.key || ''))
           addLechDocumentHeadings(sec, 'beit');
         const id = leafId++;
         const numbered = !sec.key;
@@ -524,7 +537,11 @@ for (const dir of DIRS) {
       // The Beit Yaakov upload contains 77 Bereishit and 55 Noach osiyos.
       // Group its chapter links by parashah without changing the original
       // chapter numbers, the bilingual phrase pairs, or citation anchors.
-      const tocChildren = src.title === 'Beit Yaakov on Torah'
+      const byKey = new Map(src.sections.map((sec, i) => [sec.key, children[i]]));
+      const tocChildren = Array.isArray(src.tocGroups)
+        ? src.tocGroups.map(g => ({ en: g.en, he: g.he, children: g.keys.map(k => {
+            const leaf = byKey.get(k); if (!leaf) throw new Error(`${src.title}: TOC group key without a section: ${k}`); return leaf; }) }))
+        : src.title === 'Beit Yaakov on Torah'
         ? [
             {en: 'Bereishit · 77 Osiyos', he: 'בראשית',
               children: children.filter(leaf => /, Bereshit \d+$/.test(leaf.ref))},

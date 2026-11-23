@@ -16,7 +16,7 @@ from pathlib import Path
 from .hebrew import strip_nikkud
 
 TAG_RE = re.compile(r'<[^>]+>')
-ISHBITZ = {'Beit Yaakov on Torah', 'Sod Yesharim', 'Tiferet Yosef', 'Mei HaShiloach', "Sha'ar HaEmunah VeYesod HaChasidut"}
+ISHBITZ = {'Beit Yaakov on Torah', 'Beit Yaakov, Shemos', 'Beit Yaakov, Vayikra', 'Beit Yaakov, Bamidbar', 'Beit Yaakov, Devarim', 'Beit Yaakov, Moadim', 'Sod Yesharim', 'Tiferet Yosef', 'Mei HaShiloach', "Sha'ar HaEmunah VeYesod HaChasidut"}
 HEB_NUM = {1: 'א', 2: 'ב', 3: 'ג', 4: 'ד', 5: 'ה', 6: 'ו', 7: 'ז', 8: 'ח', 9: 'ט', 10: 'י', 20: 'כ', 30: 'ל', 40: 'מ', 50: 'נ', 60: 'ס',
            70: 'ע', 80: 'פ', 90: 'צ', 100: 'ק', 200: 'ר', 300: 'ש', 400: 'ת'}
 
@@ -39,6 +39,10 @@ class Corpus:
 
     def load_akiva_book(self, path):
         d = json.load(open(path, encoding='utf-8'))
+        if d.get('sectionsFiles'):
+            import gzip
+            root = Path(path).resolve().parents[2]
+            d['sections'] = [s for part in d['sectionsFiles'] for s in json.load(gzip.open(root / part, 'rt', encoding='utf-8'))]
         book = d['title']
         school = 'Ishbitz–Radzin' if book in ISHBITZ else 'Kisvei Rav Tzadok'
         for sec in d.get('sections', []):
@@ -76,6 +80,10 @@ class Corpus:
 
     def load_sefaria_export(self, path, skip_if_interlinear=None):
         d = json.load(open(path, encoding='utf-8'))
+        if d.get('sectionsFiles'):
+            import gzip
+            root = Path(path).resolve().parents[2]
+            d['sections'] = [s for part in d['sectionsFiles'] for s in json.load(gzip.open(root / part, 'rt', encoding='utf-8'))]
         book = d['title']
         school = 'Ishbitz–Radzin' if book in ISHBITZ else 'Kisvei Rav Tzadok'
         text = d.get('text')
