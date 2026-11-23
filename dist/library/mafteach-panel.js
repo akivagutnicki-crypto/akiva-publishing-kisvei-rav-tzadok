@@ -24,6 +24,7 @@
   function shardKey(sectionRef) {
     const ref = String(sectionRef || '');
     if (ref.startsWith('Peri Tzadik, ')) return ref.replace(/\s+\d+$/, '');
+    if (ref.startsWith('Beit Yaakov, ')) return ref.split(', ').slice(0, 2).join(', ');   // one file per Beit Yaakov volume
     return ref.includes(',') ? ref.split(',')[0] : ref.replace(/\s+\d+(?::\d+)*$/, '');
   }
   // Entry for a section; a one-block section (Pri Tzaddik Parshat HaChodesh) gathers its numbered paragraphs.

@@ -15,6 +15,7 @@ def cap(i):
 def book(ref):
     # Pri Tzaddik: one file per section (parsha / festival); other books: one file per book
     if ref.startswith('Peri Tzadik, '): return re.sub(r'\s+\d+$', '', ref)
+    if ref.startswith('Beit Yaakov, '): return ', '.join(ref.split(', ')[:2])   # Beit Yaakov, Shemos / Vayikra / ...: one file per volume
     return ref.split(',')[0] if ',' in ref else re.sub(r'\s+\d+(?::\d+)*$', '', ref)
 slug = lambda b: re.sub(r'[^a-z0-9]+', '-', b.lower()).strip('-')
 shards = collections.defaultdict(dict)

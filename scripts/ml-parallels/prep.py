@@ -5,7 +5,7 @@ import json, glob, re, collections, os, pickle
 import os
 S = os.environ.get('ML_WORK', 'ml-work')   # work dir: needs S/ci/dist/mcp-data (built site) and S/par/mafteach_parallels.json
 D = f'{S}/ci/dist/mcp-data'
-ISHBITZ = {'beit-yaakov-on-torah', 'mei-hashiloach', 'sod-yesharim', 'tiferet-yosef', 'sha-ar-haemunah-veyesod-hachasidut'}
+ISHBITZ = {'beit-yaakov-on-torah', 'beit-yaakov-shemos', 'beit-yaakov-vayikra', 'beit-yaakov-bamidbar', 'beit-yaakov-devarim', 'beit-yaakov-moadim', 'mei-hashiloach', 'sod-yesharim', 'tiferet-yosef', 'sha-ar-haemunah-veyesod-hachasidut'}
 SKIP_SEC = re.compile(r'(Title|Introduction|Preface|Approbation|Haskamah|Table of Contents|Publisher)', re.I)
 
 def norm_he(s):
