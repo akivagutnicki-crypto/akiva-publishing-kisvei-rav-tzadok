@@ -1,0 +1,1251 @@
+{
+ "version": "20261123-genre-reverse-v1",
+ "description": "The reverse of genre-parallels: for each Chassidus, Kabbalah, Machshava and Mussar passage, the Rav Tzadok and Ishbitz-Radzin teachings the model pairs with it. Items: [library ref, tier, probability, shared rare words, genre].",
+ "books": {
+  "Pardes Rimmonim": {
+   "file": "pardes-rimmonim.json",
+   "passages": 61,
+   "bytes": 12030
+  },
+  "Kad HaKemach": {
+   "file": "kad-hakemach.json",
+   "passages": 64,
+   "bytes": 14236
+  },
+  "Sefat Emet": {
+   "file": "sefat-emet.json",
+   "passages": 284,
+   "bytes": 44154
+  },
+  "Recanati on the Torah": {
+   "file": "recanati-on-the-torah.json",
+   "passages": 102,
+   "bytes": 21875
+  },
+  "Ketem Paz on Zohar": {
+   "file": "ketem-paz-on-zohar.json",
+   "passages": 110,
+   "bytes": 22120
+  },
+  "Sulam on Zohar": {
+   "file": "sulam-on-zohar.json",
+   "passages": 953,
+   "bytes": 159474
+  },
+  "Shenei Luchot HaBerit": {
+   "file": "shenei-luchot-haberit.json",
+   "passages": 72,
+   "bytes": 17084
+  },
+  "Agra DeKala": {
+   "file": "agra-dekala.json",
+   "passages": 153,
+   "bytes": 27331
+  },
+  "Peri HaAretz": {
+   "file": "peri-haaretz.json",
+   "passages": 3,
+   "bytes": 455
+  },
+  "Ohr HaMeir": {
+   "file": "ohr-hameir.json",
+   "passages": 72,
+   "bytes": 21290
+  },
+  "Ohr HaChammah on Zohar": {
+   "file": "ohr-hachammah-on-zohar.json",
+   "passages": 304,
+   "bytes": 53113
+  },
+  "Akeidat Yitzchak": {
+   "file": "akeidat-yitzchak.json",
+   "passages": 287,
+   "bytes": 103645
+  },
+  "Talks of Yeshayahu Leibowitz on the Parasha": {
+   "file": "talks-of-yeshayahu-leibowitz-on-the-parasha.json",
+   "passages": 131,
+   "bytes": 27122
+  },
+  "Shuvi Shuvi HaShulamit": {
+   "file": "shuvi-shuvi-hashulamit.json",
+   "passages": 4,
+   "bytes": 1168
+  },
+  "Yahel Ohr on Zohar": {
+   "file": "yahel-ohr-on-zohar.json",
+   "passages": 34,
+   "bytes": 5246
+  },
+  "HaGra on Sefer Yetzirah Gra Version": {
+   "file": "hagra-on-sefer-yetzirah-gra-version.json",
+   "passages": 7,
+   "bytes": 1087
+  },
+  "Zera Kodesh": {
+   "file": "zera-kodesh.json",
+   "passages": 50,
+   "bytes": 8494
+  },
+  "The Third Beit HaMikdash": {
+   "file": "the-third-beit-hamikdash.json",
+   "passages": 10,
+   "bytes": 1593
+  },
+  "The Wars of God": {
+   "file": "the-wars-of-god.json",
+   "passages": 12,
+   "bytes": 1872
+  },
+  "Zohar": {
+   "file": "zohar.json",
+   "passages": 388,
+   "bytes": 66569
+  },
+  "Notes by Rabbi Yehoshua Hartman on Derush al HaTorah": {
+   "file": "notes-by-rabbi-yehoshua-hartman-on-derush-al-hatorah.json",
+   "passages": 53,
+   "bytes": 10351
+  },
+  "Notes by Rabbi Yehoshua Hartman on Gevurot Hashem": {
+   "file": "notes-by-rabbi-yehoshua-hartman-on-gevurot-hashem.json",
+   "passages": 296,
+   "bytes": 60984
+  },
+  "Avodat HaKodesh (Ibn Gabbai)": {
+   "file": "avodat-hakodesh-ibn-gabbai.json",
+   "passages": 81,
+   "bytes": 15970
+  },
+  "Talmud Eser HaSefirot": {
+   "file": "talmud-eser-hasefirot.json",
+   "passages": 14,
+   "bytes": 2574
+  },
+  "Chanah Ariel": {
+   "file": "chanah-ariel.json",
+   "passages": 69,
+   "bytes": 24891
+  },
+  "Drashot Maharal": {
+   "file": "drashot-maharal.json",
+   "passages": 12,
+   "bytes": 2894
+  },
+  "Gevurot Hashem": {
+   "file": "gevurot-hashem.json",
+   "passages": 55,
+   "bytes": 8817
+  },
+  "Mikdash Melekh on Zohar": {
+   "file": "mikdash-melekh-on-zohar.json",
+   "passages": 129,
+   "bytes": 19838
+  },
+  "BePardes HaChasidut VeHakabbalah": {
+   "file": "bepardes-hachasidut-vehakabbalah.json",
+   "passages": 4,
+   "bytes": 1343
+  },
+  "Ohr Penimi on Talmud Eser HaSefirot": {
+   "file": "ohr-penimi-on-talmud-eser-hasefirot.json",
+   "passages": 4,
+   "bytes": 1052
+  },
+  "Maor VaShemesh": {
+   "file": "maor-vashemesh.json",
+   "passages": 157,
+   "bytes": 31368
+  },
+  "Be'er Mayim Chaim": {
+   "file": "be-er-mayim-chaim.json",
+   "passages": 323,
+   "bytes": 54702
+  },
+  "Tov haLevanon": {
+   "file": "tov-halevanon.json",
+   "passages": 6,
+   "bytes": 1528
+  },
+  "Gan Naul": {
+   "file": "gan-naul.json",
+   "passages": 69,
+   "bytes": 10895
+  },
+  "Sefer HaIkkarim": {
+   "file": "sefer-haikkarim.json",
+   "passages": 25,
+   "bytes": 4293
+  },
+  "Ohr HaTzafun": {
+   "file": "ohr-hatzafun.json",
+   "passages": 67,
+   "bytes": 11840
+  },
+  "Arvei Nachal": {
+   "file": "arvei-nachal.json",
+   "passages": 106,
+   "bytes": 16291
+  },
+  "Mikdash Melekh, RaMaZ Commentary on Zohar": {
+   "file": "mikdash-melekh-ramaz-commentary-on-zohar.json",
+   "passages": 64,
+   "bytes": 10781
+  },
+  "Shem MiShmuel": {
+   "file": "shem-mishmuel.json",
+   "passages": 508,
+   "bytes": 88369
+  },
+  "Notes by Rabbi Yehoshua Hartman on Be'er HaGolah": {
+   "file": "notes-by-rabbi-yehoshua-hartman-on-be-er-hagolah.json",
+   "passages": 74,
+   "bytes": 16019
+  },
+  "Adam Min HaAdamah": {
+   "file": "adam-min-haadamah.json",
+   "passages": 17,
+   "bytes": 2810
+  },
+  "Menorat HaMaor": {
+   "file": "menorat-hamaor.json",
+   "passages": 158,
+   "bytes": 34691
+  },
+  "Ohev Yisrael": {
+   "file": "ohev-yisrael.json",
+   "passages": 61,
+   "bytes": 11400
+  },
+  "Bnei Yissaschar": {
+   "file": "bnei-yissaschar.json",
+   "passages": 136,
+   "bytes": 24125
+  },
+  "Tiferet Yisrael": {
+   "file": "tiferet-yisrael.json",
+   "passages": 32,
+   "bytes": 8369
+  },
+  "Reshit Chokhmah": {
+   "file": "reshit-chokhmah.json",
+   "passages": 155,
+   "bytes": 31214
+  },
+  "Parashat Derakhim": {
+   "file": "parashat-derakhim.json",
+   "passages": 56,
+   "bytes": 9169
+  },
+  "Ma'alot HaMiddot": {
+   "file": "ma-alot-hamiddot.json",
+   "passages": 25,
+   "bytes": 4948
+  },
+  "Midrash HaIttamari": {
+   "file": "midrash-haittamari.json",
+   "passages": 40,
+   "bytes": 6792
+  },
+  "Hegyonei Uziel": {
+   "file": "hegyonei-uziel.json",
+   "passages": 51,
+   "bytes": 8481
+  },
+  "Tikkunei Zohar": {
+   "file": "tikkunei-zohar.json",
+   "passages": 15,
+   "bytes": 2642
+  },
+  "Imrei Binah": {
+   "file": "imrei-binah.json",
+   "passages": 38,
+   "bytes": 6962
+  },
+  "Sha'ar Ma'amarei Rashbi": {
+   "file": "sha-ar-ma-amarei-rashbi.json",
+   "passages": 17,
+   "bytes": 2927
+  },
+  "Be'er HaGolah": {
+   "file": "be-er-hagolah.json",
+   "passages": 25,
+   "bytes": 4433
+  },
+  "Da'at Tevunot": {
+   "file": "da-at-tevunot.json",
+   "passages": 2,
+   "bytes": 286
+  },
+  "Sidduro Shel Shabbat": {
+   "file": "sidduro-shel-shabbat.json",
+   "passages": 42,
+   "bytes": 10544
+  },
+  "Notes by Rabbi Yehoshua Hartman on Netzach Yisrael": {
+   "file": "notes-by-rabbi-yehoshua-hartman-on-netzach-yisrael.json",
+   "passages": 59,
+   "bytes": 10667
+  },
+  "Pat Lechem": {
+   "file": "pat-lechem.json",
+   "passages": 4,
+   "bytes": 946
+  },
+  "Ya'arot Devash I": {
+   "file": "ya-arot-devash-i.json",
+   "passages": 59,
+   "bytes": 19981
+  },
+  "Me'or Einayim": {
+   "file": "me-or-einayim.json",
+   "passages": 28,
+   "bytes": 5905
+  },
+  "Beit Elohim": {
+   "file": "beit-elohim.json",
+   "passages": 45,
+   "bytes": 7197
+  },
+  "Derekh HaMelekh": {
+   "file": "derekh-hamelekh.json",
+   "passages": 24,
+   "bytes": 5556
+  },
+  "Bat Ayin": {
+   "file": "bat-ayin.json",
+   "passages": 49,
+   "bytes": 8344
+  },
+  "Sichot Avodat Levi": {
+   "file": "sichot-avodat-levi.json",
+   "passages": 64,
+   "bytes": 14130
+  },
+  "Noam Elimelekh": {
+   "file": "noam-elimelekh.json",
+   "passages": 78,
+   "bytes": 14989
+  },
+  "Sha'arei HaYichud VeEmunah": {
+   "file": "sha-arei-hayichud-veemunah.json",
+   "passages": 14,
+   "bytes": 5842
+  },
+  "Ner Mitzvah": {
+   "file": "ner-mitzvah.json",
+   "passages": 7,
+   "bytes": 1966
+  },
+  "Darkhei Moshe (Amiel)": {
+   "file": "darkhei-moshe-amiel.json",
+   "passages": 36,
+   "bytes": 6252
+  },
+  "Ketonet Pasim": {
+   "file": "ketonet-pasim.json",
+   "passages": 40,
+   "bytes": 6551
+  },
+  "Chayyim VaChesed": {
+   "file": "chayyim-vachesed.json",
+   "passages": 53,
+   "bytes": 9006
+  },
+  "Yismach Moshe": {
+   "file": "yismach-moshe.json",
+   "passages": 237,
+   "bytes": 40933
+  },
+  "Notes by Rabbi Yehoshua Hartman on Derashat Shabbat HaGadol": {
+   "file": "notes-by-rabbi-yehoshua-hartman-on-derashat-shabbat-hagadol.json",
+   "passages": 72,
+   "bytes": 15973
+  },
+  "Ba'al Shem Tov": {
+   "file": "ba-al-shem-tov.json",
+   "passages": 71,
+   "bytes": 13546
+  },
+  "Sefer HaKanah": {
+   "file": "sefer-hakanah.json",
+   "passages": 26,
+   "bytes": 4724
+  },
+  "Shemirat HaLashon": {
+   "file": "shemirat-halashon.json",
+   "passages": 33,
+   "bytes": 6291
+  },
+  "Notes by Rabbi Yehoshua Hartman on Ohr Chadash": {
+   "file": "notes-by-rabbi-yehoshua-hartman-on-ohr-chadash.json",
+   "passages": 144,
+   "bytes": 27736
+  },
+  "Zohar Chadash": {
+   "file": "zohar-chadash.json",
+   "passages": 45,
+   "bytes": 8391
+  },
+  "Pele Yoetz": {
+   "file": "pele-yoetz.json",
+   "passages": 41,
+   "bytes": 5056
+  },
+  "Sefer Yesodei HaTorah": {
+   "file": "sefer-yesodei-hatorah.json",
+   "passages": 6,
+   "bytes": 1398
+  },
+  "Horeb": {
+   "file": "horeb.json",
+   "passages": 51,
+   "bytes": 10464
+  },
+  "Yesod VeShoresh HaAvodah": {
+   "file": "yesod-veshoresh-haavodah.json",
+   "passages": 47,
+   "bytes": 10270
+  },
+  "Avodat Yisrael": {
+   "file": "avodat-yisrael.json",
+   "passages": 44,
+   "bytes": 8366
+  },
+  "Ben Porat Yosef": {
+   "file": "ben-porat-yosef.json",
+   "passages": 54,
+   "bytes": 9430
+  },
+  "Beit Aharon": {
+   "file": "beit-aharon.json",
+   "passages": 73,
+   "bytes": 16969
+  },
+  "Dirshuni II": {
+   "file": "dirshuni-ii.json",
+   "passages": 12,
+   "bytes": 1835
+  },
+  "Toldot Yaakov Yosef": {
+   "file": "toldot-yaakov-yosef.json",
+   "passages": 128,
+   "bytes": 20442
+  },
+  "Kuntres Sefat Tamim": {
+   "file": "kuntres-sefat-tamim.json",
+   "passages": 1,
+   "bytes": 187
+  },
+  "The Dignity of Difference; How to Avoid the Clash of Civilizations": {
+   "file": "the-dignity-of-difference-how-to-avoid-the-clash-of-civilizations.json",
+   "passages": 2,
+   "bytes": 584
+  },
+  "Torah Ohr": {
+   "file": "torah-ohr.json",
+   "passages": 44,
+   "bytes": 5805
+  },
+  "Likkutei Torah": {
+   "file": "likkutei-torah.json",
+   "passages": 98,
+   "bytes": 15380
+  },
+  "Beur HaGra on Sifra DeTzniuta": {
+   "file": "beur-hagra-on-sifra-detzniuta.json",
+   "passages": 19,
+   "bytes": 3667
+  },
+  "Derashat Shabbat HaGadol": {
+   "file": "derashat-shabbat-hagadol.json",
+   "passages": 24,
+   "bytes": 4413
+  },
+  "Hegyonot El Ami": {
+   "file": "hegyonot-el-ami.json",
+   "passages": 51,
+   "bytes": 8516
+  },
+  "Ma'amar Torat HaBayit": {
+   "file": "ma-amar-torat-habayit.json",
+   "passages": 5,
+   "bytes": 853
+  },
+  "Shevet Musar": {
+   "file": "shevet-musar.json",
+   "passages": 12,
+   "bytes": 3639
+  },
+  "Divrei Emet": {
+   "file": "divrei-emet.json",
+   "passages": 34,
+   "bytes": 5740
+  },
+  "Panekha Avakesh": {
+   "file": "panekha-avakesh.json",
+   "passages": 23,
+   "bytes": 4824
+  },
+  "Kedushat Levi": {
+   "file": "kedushat-levi.json",
+   "passages": 78,
+   "bytes": 14074
+  },
+  "Shemonah Kevatzim": {
+   "file": "shemonah-kevatzim.json",
+   "passages": 45,
+   "bytes": 5876
+  },
+  "Mesillat Yesharim": {
+   "file": "mesillat-yesharim.json",
+   "passages": 10,
+   "bytes": 2065
+  },
+  "Tiferet Shlomo": {
+   "file": "tiferet-shlomo.json",
+   "passages": 96,
+   "bytes": 17031
+  },
+  "Torat HaOlah": {
+   "file": "torat-haolah.json",
+   "passages": 80,
+   "bytes": 13193
+  },
+  "Abarbanel on Guide for the Perplexed": {
+   "file": "abarbanel-on-guide-for-the-perplexed.json",
+   "passages": 8,
+   "bytes": 1875
+  },
+  "Mekor Mayim Chayim on Baal Shem Tov": {
+   "file": "mekor-mayim-chayim-on-baal-shem-tov.json",
+   "passages": 25,
+   "bytes": 5128
+  },
+  "Tzofnat Paneach": {
+   "file": "tzofnat-paneach.json",
+   "passages": 74,
+   "bytes": 12523
+  },
+  "Sha'ar HaMitzvot": {
+   "file": "sha-ar-hamitzvot.json",
+   "passages": 14,
+   "bytes": 2230
+  },
+  "Sefer Etz Chaim": {
+   "file": "sefer-etz-chaim.json",
+   "passages": 11,
+   "bytes": 2167
+  },
+  "Derekh Mitzvotekha": {
+   "file": "derekh-mitzvotekha.json",
+   "passages": 18,
+   "bytes": 3865
+  },
+  "Notes by Rabbi Yehoshua Hartman on Tiferet Yisrael": {
+   "file": "notes-by-rabbi-yehoshua-hartman-on-tiferet-yisrael.json",
+   "passages": 78,
+   "bytes": 14925
+  },
+  "Degel Machaneh Ephraim": {
+   "file": "degel-machaneh-ephraim.json",
+   "passages": 42,
+   "bytes": 7531
+  },
+  "Sha'ar HaPesukim": {
+   "file": "sha-ar-hapesukim.json",
+   "passages": 22,
+   "bytes": 3533
+  },
+  "Midbar Shur": {
+   "file": "midbar-shur.json",
+   "passages": 26,
+   "bytes": 3909
+  },
+  "To Heal a Fractured World; The Ethics of Responsibility": {
+   "file": "to-heal-a-fractured-world-the-ethics-of-responsibility.json",
+   "passages": 10,
+   "bytes": 2595
+  },
+  "Likutei Tefilot": {
+   "file": "likutei-tefilot.json",
+   "passages": 39,
+   "bytes": 6703
+  },
+  "Netzach Yisrael": {
+   "file": "netzach-yisrael.json",
+   "passages": 52,
+   "bytes": 9016
+  },
+  "Sermons Unto My People": {
+   "file": "sermons-unto-my-people.json",
+   "passages": 74,
+   "bytes": 15893
+  },
+  "Sha'arei Orah": {
+   "file": "sha-arei-orah.json",
+   "passages": 13,
+   "bytes": 2637
+  },
+  "Maaseh Rokeach on Mishnah": {
+   "file": "maaseh-rokeach-on-mishnah.json",
+   "passages": 41,
+   "bytes": 8951
+  },
+  "Ahavat David": {
+   "file": "ahavat-david.json",
+   "passages": 47,
+   "bytes": 8538
+  },
+  "Sources and References on Likkutei Torah": {
+   "file": "sources-and-references-on-likkutei-torah.json",
+   "passages": 10,
+   "bytes": 2121
+  },
+  "HaMiddot leCheker haHalakhah": {
+   "file": "hamiddot-lecheker-hahalakhah.json",
+   "passages": 31,
+   "bytes": 5007
+  },
+  "Kav HaYashar": {
+   "file": "kav-hayashar.json",
+   "passages": 20,
+   "bytes": 2682
+  },
+  "Nefesh David on Zohar": {
+   "file": "nefesh-david-on-zohar.json",
+   "passages": 28,
+   "bytes": 3944
+  },
+  "Sha'ar HaHakdamot": {
+   "file": "sha-ar-hahakdamot.json",
+   "passages": 4,
+   "bytes": 1817
+  },
+  "Tanya": {
+   "file": "tanya.json",
+   "passages": 10,
+   "bytes": 1267
+  },
+  "Sichot HaRan": {
+   "file": "sichot-haran.json",
+   "passages": 28,
+   "bytes": 4079
+  },
+  "Chesed LeAvraham": {
+   "file": "chesed-leavraham.json",
+   "passages": 5,
+   "bytes": 1236
+  },
+  "Maggid Devarav leYaakov": {
+   "file": "maggid-devarav-leyaakov.json",
+   "passages": 13,
+   "bytes": 3418
+  },
+  "Efodi on Guide for the Perplexed": {
+   "file": "efodi-on-guide-for-the-perplexed.json",
+   "passages": 2,
+   "bytes": 355
+  },
+  "Ohr LaShamayim": {
+   "file": "ohr-lashamayim.json",
+   "passages": 30,
+   "bytes": 4749
+  },
+  "Megalleh Amukkot on Parashat VaEtchanan": {
+   "file": "megalleh-amukkot-on-parashat-vaetchanan.json",
+   "passages": 42,
+   "bytes": 7028
+  },
+  "Chiddushei HaRim on Torah": {
+   "file": "chiddushei-harim-on-torah.json",
+   "passages": 6,
+   "bytes": 1498
+  },
+  "Not in God's Name; Confronting Religious Violence": {
+   "file": "not-in-god-s-name-confronting-religious-violence.json",
+   "passages": 2,
+   "bytes": 622
+  },
+  "Sha'arei Avodah": {
+   "file": "sha-arei-avodah.json",
+   "passages": 19,
+   "bytes": 3225
+  },
+  "Narboni on Guide for the Perplexed": {
+   "file": "narboni-on-guide-for-the-perplexed.json",
+   "passages": 6,
+   "bytes": 1543
+  },
+  "Zikaron leYom Rishon": {
+   "file": "zikaron-leyom-rishon.json",
+   "passages": 6,
+   "bytes": 1567
+  },
+  "Matteh Dan": {
+   "file": "matteh-dan.json",
+   "passages": 38,
+   "bytes": 5927
+  },
+  "Derashot HaRan": {
+   "file": "derashot-haran.json",
+   "passages": 14,
+   "bytes": 1796
+  },
+  "Pri Etz Chaim": {
+   "file": "pri-etz-chaim.json",
+   "passages": 22,
+   "bytes": 3965
+  },
+  "Keter Shem Tov": {
+   "file": "keter-shem-tov.json",
+   "passages": 15,
+   "bytes": 2038
+  },
+  "Notes by Rabbi Yehoshua Hartman on Netivot Olam": {
+   "file": "notes-by-rabbi-yehoshua-hartman-on-netivot-olam.json",
+   "passages": 13,
+   "bytes": 2669
+  },
+  "Tzava'at HaRivash": {
+   "file": "tzava-at-harivash.json",
+   "passages": 3,
+   "bytes": 622
+  },
+  "Pur Hu HaGoral; Homilies for Purim": {
+   "file": "pur-hu-hagoral-homilies-for-purim.json",
+   "passages": 8,
+   "bytes": 1914
+  },
+  "Ohr Yisrael": {
+   "file": "ohr-yisrael.json",
+   "passages": 25,
+   "bytes": 4396
+  },
+  "Sha'ar HaKavanot": {
+   "file": "sha-ar-hakavanot.json",
+   "passages": 15,
+   "bytes": 3397
+  },
+  "Em HaBanim Semecha": {
+   "file": "em-habanim-semecha.json",
+   "passages": 16,
+   "bytes": 2977
+  },
+  "What is the Talmud": {
+   "file": "what-is-the-talmud.json",
+   "passages": 4,
+   "bytes": 1183
+  },
+  "Maggid Meisharim": {
+   "file": "maggid-meisharim.json",
+   "passages": 9,
+   "bytes": 1246
+  },
+  "Derush Chiddushei HaLevanah": {
+   "file": "derush-chiddushei-halevanah.json",
+   "passages": 8,
+   "bytes": 1124
+  },
+  "Justice in the Jewish State according to the Torah": {
+   "file": "justice-in-the-jewish-state-according-to-the-torah.json",
+   "passages": 5,
+   "bytes": 990
+  },
+  "Mareh Yechezkel on Torah": {
+   "file": "mareh-yechezkel-on-torah.json",
+   "passages": 50,
+   "bytes": 8441
+  },
+  "Olat Reiyah": {
+   "file": "olat-reiyah.json",
+   "passages": 24,
+   "bytes": 3798
+  },
+  "Irin Kadishin": {
+   "file": "irin-kadishin.json",
+   "passages": 5,
+   "bytes": 660
+  },
+  "Sources and References on Torah Ohr": {
+   "file": "sources-and-references-on-torah-ohr.json",
+   "passages": 4,
+   "bytes": 650
+  },
+  "Irin Kadishin Tlita'a": {
+   "file": "irin-kadishin-tlita-a.json",
+   "passages": 3,
+   "bytes": 470
+  },
+  "Orot": {
+   "file": "orot.json",
+   "passages": 5,
+   "bytes": 777
+  },
+  "Shem Tov on Guide for the Perplexed": {
+   "file": "shem-tov-on-guide-for-the-perplexed.json",
+   "passages": 6,
+   "bytes": 1001
+  },
+  "Derush al HaTorah": {
+   "file": "derush-al-hatorah.json",
+   "passages": 9,
+   "bytes": 2039
+  },
+  "Sha'ar Ruach HaKodesh": {
+   "file": "sha-ar-ruach-hakodesh.json",
+   "passages": 9,
+   "bytes": 1900
+  },
+  "Chayei Moharan": {
+   "file": "chayei-moharan.json",
+   "passages": 18,
+   "bytes": 2756
+  },
+  "Zakhor VeShamor": {
+   "file": "zakhor-veshamor.json",
+   "passages": 44,
+   "bytes": 7388
+  },
+  "Minchat Kenaot": {
+   "file": "minchat-kenaot.json",
+   "passages": 3,
+   "bytes": 1554
+  },
+  "Crescas on Guide for the Perplexed": {
+   "file": "crescas-on-guide-for-the-perplexed.json",
+   "passages": 3,
+   "bytes": 517
+  },
+  "Notes by Rabbi Yehoshua Hartman on Ner Mitzvah": {
+   "file": "notes-by-rabbi-yehoshua-hartman-on-ner-mitzvah.json",
+   "passages": 9,
+   "bytes": 1746
+  },
+  "Al Kapot HaMan'ul; Homilies for the Days of Awe": {
+   "file": "al-kapot-haman-ul-homilies-for-the-days-of-awe.json",
+   "passages": 4,
+   "bytes": 804
+  },
+  "Marpeh la'Nefesh": {
+   "file": "marpeh-la-nefesh.json",
+   "passages": 5,
+   "bytes": 817
+  },
+  "Ya'arot Devash II": {
+   "file": "ya-arot-devash-ii.json",
+   "passages": 30,
+   "bytes": 4396
+  },
+  "Treatise on Logic": {
+   "file": "treatise-on-logic.json",
+   "passages": 1,
+   "bytes": 172
+  },
+  "Nishmat Chayyim": {
+   "file": "nishmat-chayyim.json",
+   "passages": 11,
+   "bytes": 2559
+  },
+  "LeNevukhei HaTekufah": {
+   "file": "lenevukhei-hatekufah.json",
+   "passages": 9,
+   "bytes": 1400
+  },
+  "Dirshuni I": {
+   "file": "dirshuni-i.json",
+   "passages": 9,
+   "bytes": 1969
+  },
+  "Darkhei Yesharim": {
+   "file": "darkhei-yesharim.json",
+   "passages": 2,
+   "bytes": 471
+  },
+  "Kalach Pitchei Chokhmah": {
+   "file": "kalach-pitchei-chokhmah.json",
+   "passages": 2,
+   "bytes": 317
+  },
+  "Mitpachat Sefarim": {
+   "file": "mitpachat-sefarim.json",
+   "passages": 1,
+   "bytes": 194
+  },
+  "Sha'arei Teshuvah": {
+   "file": "sha-arei-teshuvah.json",
+   "passages": 17,
+   "bytes": 3131
+  },
+  "Moreh Nevukhei HaZeman": {
+   "file": "moreh-nevukhei-hazeman.json",
+   "passages": 20,
+   "bytes": 5570
+  },
+  "Ceremony and Celebration; Introduction to the Holidays": {
+   "file": "ceremony-and-celebration-introduction-to-the-holidays.json",
+   "passages": 12,
+   "bytes": 3499
+  },
+  "Sha'ar HaGemul of the Ramban": {
+   "file": "sha-ar-hagemul-of-the-ramban.json",
+   "passages": 3,
+   "bytes": 469
+  },
+  "Sha'ar HaGilgulim": {
+   "file": "sha-ar-hagilgulim.json",
+   "passages": 6,
+   "bytes": 928
+  },
+  "Ohr Hashem": {
+   "file": "ohr-hashem.json",
+   "passages": 4,
+   "bytes": 1073
+  },
+  "Yesod Mora VeSod HaTorah": {
+   "file": "yesod-mora-vesod-hatorah.json",
+   "passages": 4,
+   "bytes": 697
+  },
+  "Ma'amar Zohar HaRakia": {
+   "file": "ma-amar-zohar-harakia.json",
+   "passages": 4,
+   "bytes": 1064
+  },
+  "Likkutei Etzot": {
+   "file": "likkutei-etzot.json",
+   "passages": 17,
+   "bytes": 3133
+  },
+  "Ma'amar al Yishmael": {
+   "file": "ma-amar-al-yishmael.json",
+   "passages": 3,
+   "bytes": 443
+  },
+  "Nefesh HaChayim": {
+   "file": "nefesh-hachayim.json",
+   "passages": 11,
+   "bytes": 1989
+  },
+  "Shomer Emunim": {
+   "file": "shomer-emunim.json",
+   "passages": 3,
+   "bytes": 510
+  },
+  "Sefer HaYirah": {
+   "file": "sefer-hayirah.json",
+   "passages": 1,
+   "bytes": 242
+  },
+  "Sefer HaMiddot": {
+   "file": "sefer-hamiddot.json",
+   "passages": 6,
+   "bytes": 855
+  },
+  "Rasag on Sefer Yetzirah": {
+   "file": "rasag-on-sefer-yetzirah.json",
+   "passages": 3,
+   "bytes": 581
+  },
+  "Ra'avad on Sefer Yetzirah": {
+   "file": "ra-avad-on-sefer-yetzirah.json",
+   "passages": 6,
+   "bytes": 1345
+  },
+  "Netivot Olam": {
+   "file": "netivot-olam.json",
+   "passages": 7,
+   "bytes": 975
+  },
+  "Sha'arei Kedusha": {
+   "file": "sha-arei-kedusha.json",
+   "passages": 4,
+   "bytes": 578
+  },
+  "Tomer Devorah": {
+   "file": "tomer-devorah.json",
+   "passages": 3,
+   "bytes": 490
+  },
+  "Ma'amar Tzipita LeYeshuah": {
+   "file": "ma-amar-tzipita-leyeshuah.json",
+   "passages": 3,
+   "bytes": 511
+  },
+  "Sha'ar Ma'amarei Razal": {
+   "file": "sha-ar-ma-amarei-razal.json",
+   "passages": 4,
+   "bytes": 920
+  },
+  "The Gate of Unity": {
+   "file": "the-gate-of-unity.json",
+   "passages": 2,
+   "bytes": 337
+  },
+  "Chovat HaTalmidim": {
+   "file": "chovat-hatalmidim.json",
+   "passages": 3,
+   "bytes": 539
+  },
+  "Ten Paths to God": {
+   "file": "ten-paths-to-god.json",
+   "passages": 1,
+   "bytes": 226
+  },
+  "Likutei Halakhot": {
+   "file": "likutei-halakhot.json",
+   "passages": 2,
+   "bytes": 330
+  },
+  "Yakar MiPaz": {
+   "file": "yakar-mipaz.json",
+   "passages": 2,
+   "bytes": 410
+  },
+  "Tzav VeZeruz": {
+   "file": "tzav-vezeruz.json",
+   "passages": 1,
+   "bytes": 154
+  },
+  "Likutei Moharan": {
+   "file": "likutei-moharan.json",
+   "passages": 1,
+   "bytes": 166
+  },
+  "Sefer Yetzirah Gra Version": {
+   "file": "sefer-yetzirah-gra-version.json",
+   "passages": 1,
+   "bytes": 1007
+  },
+  "Sefer Yetzirah": {
+   "file": "sefer-yetzirah.json",
+   "passages": 1,
+   "bytes": 863
+  },
+  "Cheshbon HaNefesh": {
+   "file": "cheshbon-hanefesh.json",
+   "passages": 2,
+   "bytes": 276
+  },
+  "Sefer HaBahir": {
+   "file": "sefer-habahir.json",
+   "passages": 6,
+   "bytes": 945
+  },
+  "Beit Yisrael (Ruzhin)": {
+   "file": "beit-yisrael-ruzhin.json",
+   "passages": 8,
+   "bytes": 1594
+  },
+  "Penei Sheviit Nekabelah": {
+   "file": "penei-sheviit-nekabelah.json",
+   "passages": 5,
+   "bytes": 938
+  },
+  "Esh Kodesh": {
+   "file": "esh-kodesh.json",
+   "passages": 13,
+   "bytes": 2158
+  },
+  "Ohr HaSekhel": {
+   "file": "ohr-hasekhel.json",
+   "passages": 1,
+   "bytes": 214
+  },
+  "Sha'arei Tzedek": {
+   "file": "sha-arei-tzedek.json",
+   "passages": 9,
+   "bytes": 1184
+  },
+  "Ramban on Sefer Yetzirah": {
+   "file": "ramban-on-sefer-yetzirah.json",
+   "passages": 1,
+   "bytes": 202
+  },
+  "Footnotes on Orot": {
+   "file": "footnotes-on-orot.json",
+   "passages": 1,
+   "bytes": 455
+  },
+  "Ma'arekhet HaElokut": {
+   "file": "ma-arekhet-haelokut.json",
+   "passages": 2,
+   "bytes": 403
+  },
+  "Darkah shel Torah": {
+   "file": "darkah-shel-torah.json",
+   "passages": 8,
+   "bytes": 1438
+  },
+  "Imrei Shefer": {
+   "file": "imrei-shefer.json",
+   "passages": 4,
+   "bytes": 614
+  },
+  "Talmud Series; Shemitah": {
+   "file": "talmud-series-shemitah.json",
+   "passages": 8,
+   "bytes": 1521
+  },
+  "Davar BeItto": {
+   "file": "davar-beitto.json",
+   "passages": 1,
+   "bytes": 172
+  },
+  "Ohr Ne'erav": {
+   "file": "ohr-ne-erav.json",
+   "passages": 3,
+   "bytes": 1076
+  },
+  "Nineteen Letters": {
+   "file": "nineteen-letters.json",
+   "passages": 5,
+   "bytes": 1527
+  },
+  "Musar Avikha": {
+   "file": "musar-avikha.json",
+   "passages": 2,
+   "bytes": 313
+  },
+  "Midrash Pinchas": {
+   "file": "midrash-pinchas.json",
+   "passages": 1,
+   "bytes": 302
+  },
+  "Sefer HaChaim": {
+   "file": "sefer-hachaim.json",
+   "passages": 4,
+   "bytes": 609
+  },
+  "Ali Be'er on Revealment and Concealment in Language": {
+   "file": "ali-be-er-on-revealment-and-concealment-in-language.json",
+   "passages": 3,
+   "bytes": 548
+  },
+  "Mivchar HaPeninim": {
+   "file": "mivchar-hapeninim.json",
+   "passages": 2,
+   "bytes": 288
+  },
+  "HaEmunot veHaDeot": {
+   "file": "haemunot-vehadeot.json",
+   "passages": 4,
+   "bytes": 807
+  },
+  "Hakhsharat HaAvrekhim": {
+   "file": "hakhsharat-haavrekhim.json",
+   "passages": 2,
+   "bytes": 547
+  },
+  "Derekh Hashem": {
+   "file": "derekh-hashem.json",
+   "passages": 1,
+   "bytes": 251
+  },
+  "Baal HaSulam's Preface to Zohar": {
+   "file": "baal-hasulam-s-preface-to-zohar.json",
+   "passages": 1,
+   "bytes": 303
+  },
+  "The Wars of the Lord": {
+   "file": "the-wars-of-the-lord.json",
+   "passages": 1,
+   "bytes": 232
+  },
+  "Kuntres Chovat HaShemirah": {
+   "file": "kuntres-chovat-hashemirah.json",
+   "passages": 3,
+   "bytes": 512
+  },
+  "The Home We Build Together; Recreating Society": {
+   "file": "the-home-we-build-together-recreating-society.json",
+   "passages": 1,
+   "bytes": 445
+  },
+  "Yosher Divrei Emet": {
+   "file": "yosher-divrei-emet.json",
+   "passages": 2,
+   "bytes": 387
+  },
+  "Gan Naul (Abulafia)": {
+   "file": "gan-naul-abulafia.json",
+   "passages": 5,
+   "bytes": 720
+  },
+  "The Improvement of the Moral Qualities": {
+   "file": "the-improvement-of-the-moral-qualities.json",
+   "passages": 4,
+   "bytes": 874
+  },
+  "Kuntres Mattan Torah": {
+   "file": "kuntres-mattan-torah.json",
+   "passages": 1,
+   "bytes": 246
+  },
+  "Irin Kadishin Tinyana": {
+   "file": "irin-kadishin-tinyana.json",
+   "passages": 3,
+   "bytes": 640
+  },
+  "Kuntres HaHitpa'alut": {
+   "file": "kuntres-hahitpa-alut.json",
+   "passages": 1,
+   "bytes": 203
+  },
+  "Sefer HaCheshek": {
+   "file": "sefer-hacheshek.json",
+   "passages": 1,
+   "bytes": 212
+  },
+  "Bnei Machshava Tova": {
+   "file": "bnei-machshava-tova.json",
+   "passages": 1,
+   "bytes": 228
+  },
+  "Baal HaSulam's Introduction to Zohar": {
+   "file": "baal-hasulam-s-introduction-to-zohar.json",
+   "passages": 1,
+   "bytes": 283
+  },
+  "Asarah Perakim LeRamchal": {
+   "file": "asarah-perakim-leramchal.json",
+   "passages": 1,
+   "bytes": 234
+  },
+  "Kol Dodi Dofek": {
+   "file": "kol-dodi-dofek.json",
+   "passages": 1,
+   "bytes": 223
+  },
+  "Future Tense; A Vision for Jews and Judaism in the Global Culture": {
+   "file": "future-tense-a-vision-for-jews-and-judaism-in-the-global-culture.json",
+   "passages": 1,
+   "bytes": 313
+  },
+  "Sefer HaMelitzah": {
+   "file": "sefer-hamelitzah.json",
+   "passages": 1,
+   "bytes": 215
+  },
+  "Get HaShemot": {
+   "file": "get-hashemot.json",
+   "passages": 1,
+   "bytes": 256
+  },
+  "Duties of the Heart": {
+   "file": "duties-of-the-heart.json",
+   "passages": 1,
+   "bytes": 217
+  },
+  "Radical Then, Radical Now": {
+   "file": "radical-then-radical-now.json",
+   "passages": 1,
+   "bytes": 212
+  },
+  "The Great Partnership; God, Science, and the Search for Meaning": {
+   "file": "the-great-partnership-god-science-and-the-search-for-meaning.json",
+   "passages": 1,
+   "bytes": 328
+  }
+ }
+}

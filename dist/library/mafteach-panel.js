@@ -7,7 +7,7 @@
   else root.AkivaMafteach = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this, function () {
   'use strict';
-  const VERSION = '20261102-mafteach-inline-v8';
+  const VERSION = '20261123-genre-reverse-v12';
   const SHOW = 8;
   const toHashDefault = ref => encodeURIComponent(ref).replace(/%20/g, '_').replace(/%2C/g, ',').replace(/%3A/g, ':');
   const escDefault = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -123,7 +123,23 @@
       return `<li class="maf-par${i >= SHOW ? ' maf-more' : ''}"><span class="maf-tier maf-${tier}">${TIER_LABEL[tier]}</span> <a class="maf-ref" href="#/read/${toHash(ref)}">${esc(ref)}</a>${ev ? `<div class="maf-why">${ev}</div>` : ''}</li>`;
     }).join('');
   }
-  function render(entry, sectionRef, opts = {}, ml = [], outside = []) {
+  // The other way: on a Chassidus / Kabbalah / Machshava / Mussar page opened in the reader, the Rav Tzadok and
+  // Ishbitz-Radzin teachings the model pairs with it (dist/library/genre-reverse). Item: [library ref, tier, p, words, genre]
+  function backFor(passages, sectionRef) {
+    if (!passages) return [];
+    const keys = Object.keys(passages).filter(k => k === sectionRef || k.startsWith(sectionRef + ':') || k.startsWith(sectionRef + ' ') || k.startsWith(sectionRef + ','));
+    const best = new Map();
+    for (const k of keys) for (const item of passages[k]) {
+      const cur = best.get(item[0]);
+      if (!cur || TIER_ORDER[item[1]] < TIER_ORDER[cur[1]] || (item[1] === cur[1] && item[2] > cur[2])) best.set(item[0], item);
+    }
+    return [...best.values()].sort((a, b) => TIER_ORDER[a[1]] - TIER_ORDER[b[1]] || b[2] - a[2]).slice(0, 16);
+  }
+  function renderBack(items, opts) {
+    const esc = opts.esc || escDefault, toHash = opts.toHash || toHashDefault;
+    return items.map(([ref, tier, p, words], i) => `<li class="maf-par${i >= SHOW ? ' maf-more' : ''}"><span class="maf-tier maf-${tier}">${TIER_LABEL[tier]}</span> <a class="maf-ref" href="#/read/${toHash(ref)}">${esc(ref)}</a>${words && words.length ? `<div class="maf-why"><span class="maf-why-label">Why · ${TIER_LABEL[tier].toLowerCase()} match</span> both use the uncommon words <span lang="he" class="maf-he">${esc(words.slice(0, 4).join(' · '))}</span>.</div>` : ''}</li>`).join('');
+  }
+  function render(entry, sectionRef, opts = {}, ml = [], outside = [], back = []) {
     const esc = opts.esc || escDefault, toHash = opts.toHash || toHashDefault;
     entry = entry || { t: [], s: [], p: [] };
     const par = entry.p.map(([ref, score, why], i) => `<li class="maf-par${i >= SHOW ? ' maf-more' : ''}"><a class="maf-ref" href="#/read/${toHash(ref)}">${esc(ref)}</a>${why[0] ? `<div class="maf-why">${whyLine(why, esc)}</div>` : ''}</li>`).join('');
@@ -134,13 +150,14 @@
     const topics = entry.t.map(([he, en], i) => `<span class="maf-topic${i >= 10 ? ' maf-more' : ''}"><span lang="he">${esc(he)}</span>${en ? ` · ${esc(en)}` : ''}</span>`).join('');
     const more = (n, what, k = SHOW) => n > k ? `<button type="button" class="btn maf-toggle" data-what="${what}">Show all ${n}</button>` : '';
     return `<details class="mafteach-panel" data-section="${esc(sectionRef)}">
-<summary><span class="note-en">Parallels — ${entry.p.length ? `${entry.p.length} from HaMafteach HaShalem` : ''}${entry.p.length && ml.length ? ', ' : ''}${ml.length ? `${ml.length} suggested` : ''}${outside.length ? `${entry.p.length || ml.length ? ', ' : ''}${outside.length} in other sefarim` : ''}${entry.s.length ? `, ${entry.s.length} source${entry.s.length === 1 ? '' : 's'}` : ''}</span><span class="note-he" lang="he">מקבילות</span></summary>
+<summary><span class="note-en">Parallels — ${entry.p.length ? `${entry.p.length} from HaMafteach HaShalem` : ''}${entry.p.length && ml.length ? ', ' : ''}${ml.length ? `${ml.length} suggested` : ''}${outside.length ? `${entry.p.length || ml.length ? ', ' : ''}${outside.length} in other sefarim` : ''}${back.length ? `${entry.p.length || ml.length || outside.length ? ', ' : ''}${back.length} in Rav Tzadok and Ishbitz-Radzin` : ''}${entry.s.length ? `, ${entry.s.length} source${entry.s.length === 1 ? '' : 's'}` : ''}</span><span class="note-he" lang="he">מקבילות</span></summary>
 ${par ? `<div class="maf-block"><h4>Parallel passages · HaMafteach HaShalem</h4><ol class="maf-list" data-list="par">${par}</ol>${more(entry.p.length, 'par')}</div>` : ''}
 ${ml.length ? `<div class="maf-block"><h4>More parallels · suggested by machine learning</h4><ol class="maf-list" data-list="ml">${renderMl(ml, opts)}</ol>${more(ml.length, 'ml')}</div>` : ''}
 ${outside.length ? `<div class="maf-block"><h4>In Chassidus, Kabbalah, Machshava and Mussar · suggested by machine learning</h4>${renderGenre(outside, opts)}</div>` : ''}
+${back.length ? `<div class="maf-block"><h4>In Kisvei Rav Tzadok and Ishbitz-Radzin · suggested by machine learning</h4><ol class="maf-list" data-list="back">${renderBack(back, opts)}</ol>${more(back.length, 'back')}</div>` : ''}
 ${src ? `<div class="maf-block"><h4>Sources it draws on</h4><ul class="maf-list" data-list="src">${src}</ul>${more(entry.s.length, 'src')}</div>` : ''}
 ${topics ? `<div class="maf-block"><h4>Indexed under</h4><div class="maf-topics" data-list="top">${topics}</div>${more(entry.t.length, 'top', 10)}</div>` : ''}
-<p class="maf-note">${entry.p.length || entry.s.length ? `HaMafteach HaShalem: R' Chaim Hirsch's complete index to Rav Tzadok's works (OCR'd and linked by Akiva Publishing); ★ = discussed at length. ` : ''}${outside.length ? `Chassidus, Kabbalah, Machshava and Mussar passages open in the reader. ` : ''}${ml.length ? `Suggested parallels: a model trained on HaMafteach's parallels, scoring shared sources, wording and rare words across Rav Tzadok and Ishbitz-Radzin. Strong ≈ 4 in 5 confirmed in testing, Likely ≈ 3 in 5, Possible ≈ 1 in 2. ` : ''}Check a passage before citing it.</p>
+<p class="maf-note">${entry.p.length || entry.s.length ? `HaMafteach HaShalem: R' Chaim Hirsch's complete index to Rav Tzadok's works (OCR'd and linked by Akiva Publishing); ★ = discussed at length. ` : ''}${outside.length ? `Chassidus, Kabbalah, Machshava and Mussar passages open in the reader. ` : ''}${back.length ? `These Rav Tzadok and Ishbitz-Radzin teachings were paired with this passage by the library's parallels model (the same links shown from their side); Strong ≈ 4 in 5 confirmed in testing, Likely ≈ 3 in 5, Possible ≈ 1 in 2. ` : ''}${ml.length ? `Suggested parallels: a model trained on HaMafteach's parallels, scoring shared sources, wording and rare words across Rav Tzadok and Ishbitz-Radzin. Strong ≈ 4 in 5 confirmed in testing, Likely ≈ 3 in 5, Possible ≈ 1 in 2. ` : ''}Check a passage before citing it.</p>
 </details>`;
   }
   const STYLE = `.mafteach-panel{margin:1.2em 0;border:1px solid var(--line,#ddd);border-radius:10px;padding:.4em .9em;background:var(--card,transparent)}
@@ -150,7 +167,7 @@ ${topics ? `<div class="maf-block"><h4>Indexed under</h4><div class="maf-topics"
 .maf-list{margin:.2em 0;padding-inline-start:1.4em}.maf-list li{margin:.35em 0}.maf-ref{font-weight:600;unicode-bidi:isolate}
 .maf-why{font-size:.88em;opacity:.85}.maf-he{font-family:inherit;direction:rtl;unicode-bidi:isolate}
 .maf-why-topic{font-style:italic}.maf-why-en{color:var(--muted)}.maf-star{color:#b8860b}.maf-more{display:none}.mafteach-panel.maf-open-par [data-list=par] .maf-more,.mafteach-panel.maf-open-src [data-list=src] .maf-more{display:list-item}.mafteach-panel.maf-open-top [data-list=top] .maf-more{display:inline-block}
-.maf-tier{font-size:.72em;border-radius:4px;padding:.05em .4em;vertical-align:.1em;border:1px solid currentColor}.maf-strong{color:#2e7d32}.maf-reviewed{color:#6a1b9a;font-weight:600}.maf-likely{color:#1565c0}.maf-possible{color:#8d6e63}.mafteach-panel.maf-open-ml [data-list=ml] .maf-more{display:list-item}
+.maf-tier{font-size:.72em;border-radius:4px;padding:.05em .4em;vertical-align:.1em;border:1px solid currentColor}.maf-strong{color:#2e7d32}.maf-reviewed{color:#6a1b9a;font-weight:600}.maf-likely{color:#1565c0}.maf-possible{color:#8d6e63}.mafteach-panel.maf-open-ml [data-list=ml] .maf-more,.mafteach-panel.maf-open-back [data-list=back] .maf-more{display:list-item}
 .maf-genre h5{margin:.6em 0 .2em;font-size:.88em;opacity:.85}
 .maf-note{font-size:.8em;opacity:.75;margin:.8em 0 .3em}.maf-toggle{margin:.2em 0}
 .maf-why-label{font-size:.78em;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--brass,#8a6d2f);margin-inline-end:.3em}.maf-why-he{opacity:.75;font-size:.95em}
@@ -209,6 +226,19 @@ ${topics ? `<div class="maf-block"><h4>Indexed under</h4><div class="maf-topics"
       const file = idx.books[key].file;
       if (!genreShardPromises.has(file)) genreShardPromises.set(file, getJson(base + 'genre-parallels/' + file + '?v=' + VERSION).catch(e => { genreShardPromises.delete(file); throw e; }));
       return genreFor((await genreShardPromises.get(file)).passages, sectionRef);
+    } catch { return []; }
+  }
+  let backIndexPromise = null;
+  const backShardPromises = new Map();
+  async function backEntries(base, sectionRef) {
+    try {
+      if (!backIndexPromise) backIndexPromise = getJson(base + 'genre-reverse/index.json?v=' + VERSION).catch(e => { backIndexPromise = null; throw e; });
+      const idx = await backIndexPromise;
+      const key = mlKey(idx.books, sectionRef);
+      if (!key) return [];
+      const file = idx.books[key].file;
+      if (!backShardPromises.has(file)) backShardPromises.set(file, getJson(base + 'genre-reverse/' + file + '?v=' + VERSION).catch(e => { backShardPromises.delete(file); throw e; }));
+      return backFor((await backShardPromises.get(file)).passages, sectionRef);
     } catch { return []; }
   }
   // ---- parallels at the phrase: underline the words Rav Tzadok quotes (a pasuk, a Chazal) and the heading words the
@@ -328,13 +358,13 @@ ${topics ? `<div class="maf-block"><h4>Indexed under</h4><div class="maf-topics"
       const base = opts.base || '';
       const entry = await mafteachEntry(base, data.sectionRef);
       const exclude = new Set((entry?.p || []).map(p => p[0]));
-      const [ml, outside] = await Promise.all([mlEntries(base, data.sectionRef, exclude), genreEntries(base, data.sectionRef)]);
-      if ((!entry || (!entry.p.length && !entry.s.length)) && !ml.length && !outside.length) return false;
+      const [ml, outside, back] = await Promise.all([mlEntries(base, data.sectionRef, exclude), genreEntries(base, data.sectionRef), backEntries(base, data.sectionRef)]);
+      if ((!entry || (!entry.p.length && !entry.s.length)) && !ml.length && !outside.length && !back.length) return false;
       if (!sectionElement.isConnected || sectionElement.querySelector('.mafteach-panel')) return false;
       if (typeof document !== 'undefined' && !document.getElementById('mafteach-panel-style')) {
         const st = document.createElement('style'); st.id = 'mafteach-panel-style'; st.textContent = STYLE; document.head.appendChild(st);
       }
-      sectionElement.insertAdjacentHTML('beforeend', render(entry, data.sectionRef, opts, ml, outside));
+      sectionElement.insertAdjacentHTML('beforeend', render(entry, data.sectionRef, opts, ml, outside, back));
       try { annotate(sectionElement, data.sectionRef, entry, ml, opts); } catch {}
       const panel = sectionElement.querySelector('.mafteach-panel');
       panel.querySelectorAll('.maf-toggle').forEach(b => b.addEventListener('click', () => { panel.classList.add('maf-open-' + b.dataset.what); b.remove(); }));
@@ -358,8 +388,8 @@ border:1px solid var(--line,#ddd);border-radius:10px;padding:10px 12px;margin:0 
   async function gather(sectionRef, base) {
     const entry = await mafteachEntry(base, sectionRef);
     const exclude = new Set((entry?.p || []).map(p => p[0]));
-    const [ml, outside] = await Promise.all([mlEntries(base, sectionRef, exclude), genreEntries(base, sectionRef)]);
-    return { entry, ml, outside };
+    const [ml, outside, back] = await Promise.all([mlEntries(base, sectionRef, exclude), genreEntries(base, sectionRef), backEntries(base, sectionRef)]);
+    return { entry, ml, outside, back };
   }
   async function panelTab(ref, container, opts = {}) {
     const esc = opts.esc || escDefault, alive = opts.alive || (() => true);
@@ -367,19 +397,19 @@ border:1px solid var(--line,#ddd);border-radius:10px;padding:10px 12px;margin:0 
     ensureStyle();
     container.innerHTML = '<div class="loading">Looking in HaMafteach HaShalem…</div>';
     let g;
-    try { g = await gather(sectionRef, opts.base || ''); } catch { g = { entry: null, ml: [], outside: [] }; }
+    try { g = await gather(sectionRef, opts.base || ''); } catch { g = { entry: null, ml: [], outside: [], back: [] }; }
     if (!alive()) return;
-    const { entry, ml, outside } = g;
+    const { entry, ml, outside, back = [] } = g;
     const topics = entry?.t || [];
     const q = encodeURIComponent;
     const S = typeof window !== 'undefined' && window.AkivaMafteachSearch;
     const parsha = S && /^Peri Tzadik, /.test(sectionRef) ? S.findParsha(sectionRef.replace(/^Peri Tzadik, /, '').replace(/\s+\d+(:\d+)?$/, '')) : null;
     const actions = `<div class="maf-side-actions">${parsha ? `<a class="btn" href="#/shiur?parsha=${q(parsha.key)}">Build a shiur on Parshas ${esc(parsha.ashk)}</a>` : ''}${topics.length ? `<a class="btn" href="#/mafteach?q=${q(topics[0][0])}">Topic: ${esc(topics[0][1] || topics[0][0])}</a>` : ''}<a class="btn" href="#/mafteach">Search the Mafteach</a></div>`;
-    if ((!entry || (!entry.p.length && !entry.s.length && !topics.length)) && !ml.length && !outside.length) {
+    if ((!entry || (!entry.p.length && !entry.s.length && !topics.length)) && !ml.length && !outside.length && !back.length) {
       container.innerHTML = `<div class="maf-side">${actions}<div class="empty">HaMafteach HaShalem has no entry for ${esc(sectionRef)}. (Some sefarim, like Dover Tzedek, are indexed by page and not linked to the library.)</div></div>`;
       return;
     }
-    const html = render(entry, sectionRef, opts, ml, outside).replace('<details class="mafteach-panel"', '<details open class="mafteach-panel"');
+    const html = render(entry, sectionRef, opts, ml, outside, back).replace('<details class="mafteach-panel"', '<details open class="mafteach-panel"');
     container.innerHTML = `<div class="maf-side"><p class="empty" style="padding:0 0 8px;font-size:.9rem">${esc(sectionRef)} in HaMafteach HaShalem: its parallels, the sources it draws on and the topics it is indexed under.</p>${actions}${html}</div>`;
     container.querySelectorAll('.maf-topic').forEach(el => {          // a topic opens its heading in the Mafteach search
       const he = el.querySelector('[lang=he]')?.textContent || '';
@@ -393,15 +423,15 @@ border:1px solid var(--line,#ddd);border-radius:10px;padding:10px 12px;margin:0 
   async function connectionsBanner(sectionRef, container, openTab, opts = {}) {
     const alive = opts.alive || (() => true);
     try {
-      const { entry, ml, outside } = await gather(sectionRef, opts.base || '');
+      const { entry, ml, outside, back = [] } = await gather(sectionRef, opts.base || '');
       if (!alive() || !container.isConnected || container.querySelector('.maf-banner')) return;
       const n = (entry?.p.length || 0) + ml.length, t = entry?.t.length || 0, sCount = entry?.s.length || 0;
-      if (!n && !t && !sCount && !outside.length) return;
+      if (!n && !t && !sCount && !outside.length && !back.length) return;
       ensureStyle();
-      const bits = [n && `${n} parallel${n === 1 ? '' : 's'}`, sCount && `${sCount} source${sCount === 1 ? '' : 's'}`, t && `${t} topic${t === 1 ? '' : 's'}`, outside.length && `${outside.length} in other sefarim`].filter(Boolean).join(' · ');
-      container.insertAdjacentHTML('afterbegin', `<button type="button" class="maf-banner"><div><b>HaMafteach HaShalem</b><span>${bits}</span></div><span aria-hidden="true">›</span></button>`);
+      const bits = [n && `${n} parallel${n === 1 ? '' : 's'}`, sCount && `${sCount} source${sCount === 1 ? '' : 's'}`, t && `${t} topic${t === 1 ? '' : 's'}`, outside.length && `${outside.length} in other sefarim`, back.length && `${back.length} in Rav Tzadok and Ishbitz-Radzin`].filter(Boolean).join(' · ');
+      container.insertAdjacentHTML('afterbegin', `<button type="button" class="maf-banner"><div><b>${n || t || sCount ? 'HaMafteach HaShalem' : 'Parallels'}</b><span>${bits}</span></div><span aria-hidden="true">›</span></button>`);
       container.querySelector('.maf-banner').addEventListener('click', e => { e.stopPropagation(); openTab(); });
     } catch {}
   }
-  return { VERSION, mount, render, whyLine, findPhrase, words, entryFor, shardKey, sefariaUrl, mlKey, mlFor, genreFor, sefariaRefUrl, panelTab, connectionsBanner };
+  return { VERSION, mount, render, whyLine, findPhrase, words, entryFor, shardKey, sefariaUrl, mlKey, mlFor, genreFor, backFor, sefariaRefUrl, panelTab, connectionsBanner };
 });
