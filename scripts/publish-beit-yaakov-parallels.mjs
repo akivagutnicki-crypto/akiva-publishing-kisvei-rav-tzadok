@@ -14,10 +14,10 @@ import {createHash} from 'node:crypto';
 import {fileURLToPath} from 'node:url';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
-const RELEASE = '20261123-beit-yaakov-parallels';
-const PANEL_V = '20261123-beit-yaakov-parallels-v10';
+const RELEASE = '20261123-beit-yaakov-parallels-both-ways';
+const PANEL_V = '20261123-beit-yaakov-parallels-v11';
 const DATA = 'sources/akiva/beit-yaakov-complete/parallels';      // committed release data (each file under 10 MB)
-const REPORT = 'library/beit-yaakov-parallels-20261123.json';
+const REPORT = 'library/beit-yaakov-parallels-20261123-v2.json';
 const STAGE = 'beit-yaakov-parallels-stage.json';
 const PREVIOUS = 'new-books-baseline.json', META = 'new-books-publication.json';
 const PUBLIC = 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/';
@@ -64,8 +64,8 @@ export function apply(site) {
   const before = read(ROOT, PREVIOUS).files, base = read(ROOT, META);
   const affected = new Set(), created = new Set();
   const touch = (name, data) => {
-    if (before[name]) assert.equal(digest(site, name), before[name], 'Site file changed since baseline: ' + name);
-    else { assert(!fs.existsSync(rel(site, name)), 'Untracked collision: ' + name); created.add(name); }
+    if (before[name] && !affected.has(name)) assert.equal(digest(site, name), before[name], 'Site file changed since baseline: ' + name);
+    else if (!affected.has(name)) { assert(!fs.existsSync(rel(site, name)), 'Untracked collision: ' + name); created.add(name); }
     write(site, name, data); affected.add(name);
   };
   for (const dir of DIRS) {
@@ -79,6 +79,38 @@ export function apply(site) {
     assert.equal(JSON.stringify(Object.entries(idx.books).filter(([k]) => !(k in BOOKS))), othersBefore, dir + ': other books changed');
     touch(idxName, JSON.stringify(idx, null, 1));
   }
+  // the other way: the other sefarim's passages list the Beit Yaakov osiyos that share their sources (Mafteach) or
+  // that the model pairs with them (machine-learned). Earlier links into Beit Yaakov are replaced; reviewed ones are kept.
+  const isB = r => r.startsWith('Beit Yaakov on Torah') || r.startsWith('Beit Yaakov, ');
+  const ORDER = {reviewed: -1, strong: 0, likely: 1, possible: 2};
+  let reverse = {passages: 0, links: 0, files: 0};
+  for (const dir of ['mafteach', 'ml-parallels']) {
+    const add = read(ROOT, `${DATA}/reverse/${dir}.json`);
+    const idxName = `library/${dir}/index.json`, idx = read(site, idxName);
+    for (const [book, {file: fallback, passages}] of Object.entries(add)) {
+      assert(!(book in BOOKS), 'Reverse data for a Beit Yaakov book: ' + book);
+      const file = idx.books[book]?.file || fallback;
+      const name = `library/${dir}/${file}`;
+      const d = fs.existsSync(rel(site, name)) ? read(site, name) : {version: RELEASE, ...(dir === 'mafteach' ? {book} : {}), passages: {}};
+      for (const [ref, items] of Object.entries(passages)) {
+        if (dir === 'mafteach') {
+          const e = d.passages[ref] ??= {t: [], s: [], p: []};
+          e.p = [...e.p.filter(x => !isB(x[0])), ...items].sort((a, b) => b[1] - a[1]);
+        } else {
+          const kept = (d.passages[ref] || []).filter(x => !isB(x[0]) || x[2] === 'reviewed');
+          const have = new Set(kept.map(x => x[0]));
+          d.passages[ref] = [...kept, ...items.filter(x => !have.has(x[0]))].sort((a, b) => ORDER[a[2]] - ORDER[b[2]] || b[1] - a[1]);
+        }
+        reverse.passages++; reverse.links += items.length;
+      }
+      const bytes = Buffer.from(JSON.stringify(d));
+      assert(bytes.length <= 10 * 1024 * 1024, 'Over 10 MB: ' + name);
+      touch(name, bytes); reverse.files++;
+      idx.books[book] = {...(idx.books[book] || {file}), file, passages: Object.keys(d.passages).length, bytes: bytes.length};
+    }
+    touch(idxName, JSON.stringify(idx, null, 1));
+  }
+  console.log(JSON.stringify({reverse}));
   // the panel script: Beit Yaakov volumes ("Beit Yaakov, Shemos, Bo 3") have their own data file; new cache version
   const panel = 'library/mafteach-panel.js', js = fs.readFileSync(rel(site, panel), 'utf8');
   const oldV = js.match(/const VERSION = '([^']+)';/)[1];
@@ -90,7 +122,7 @@ export function apply(site) {
     let u = t.replace(/mafteach-panel\.js\?v=[A-Za-z0-9._-]+/g, 'mafteach-panel.js?v=' + PANEL_V);
     if (name === 'library/sw.js') {
       assert.equal((u.match(/const SHELL = `[^`]+`;/g) || []).length, 1, 'Unexpected service worker cache revision');
-      u = u.replace(/const SHELL = `([^`]+)`;/, (_, v) => `const SHELL = \`${v}-beit-parallels\`;`);
+      u = u.replace(/const SHELL = `([^`]+)`;/, (_, v) => `const SHELL = \`${v}-beit-both-ways\`;`);
     }
     touch(name, u);
   }
