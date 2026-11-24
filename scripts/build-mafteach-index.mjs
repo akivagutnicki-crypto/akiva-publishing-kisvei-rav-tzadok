@@ -43,6 +43,48 @@ export function sourceShard(key) {
   return m ? [m[1], m[2]] : [key, null];
 }
 
+// Ishbitz-Radzin sefarim whose Akiva Publishing editions carry verified source notes, and the name each edition goes by
+export const EDITION_BOOKS = [
+  ['Beit Yaakov', 'the Akiva Publishing Beis Yaakov edition'],
+  ["Sha'ar HaEmunah VeYesod HaChasidut", "the Akiva Publishing Sha'ar HaEmunah edition"],
+  ["Ne'ot Deshe", 'the Akiva Publishing Naos Deshe edition'],
+  ['Tiferet HaChanokhi', 'the Akiva Publishing Tiferes HaChanochi edition'],
+  ['Ein HaTekhelet', 'the Akiva Publishing Ein HaTecheiles edition'],
+  ['Ptil Tekhelet', 'the Akiva Publishing Pesil Techeiles edition'],
+  ['Sefunei Temunei Chol', 'the Akiva Publishing Sefunei Temunei Chol edition'],
+  ['Orchot Chaim and Eser Milin', 'the Akiva Publishing Orchos Chaim and Eser Milin edition'],
+  ['Tiferet Yosef', 'the Akiva Publishing Tiferes Yosef edition'],
+];
+// A Sefaria ref of an edition note -> the index's source key: "Berakhot 6b:4" -> "Berakhot 6b", "Psalms 81:4-5" -> "Psalms 81:4",
+// "Bereshit Rabbah 3:1" stays; works the printed index has no heading for keep their own title ("Zohar, Terumah 39:4").
+export function editionKey(ref) {
+  let k = String(ref).trim().replace(/\s*-\s*[\d:ab]+$/, '');
+  k = k.replace(/^(.*\s\d+[ab])[:\s]\d+$/, '$1');
+  return k;
+}
+function editionEntries() {
+  const dir = path.join(SRC, 'curated-sources');
+  if (!fs.existsSync(dir)) return [];
+  const out = [], seen = new Set();
+  for (const file of fs.readdirSync(dir).filter(f => f.endsWith('.json')).sort()) {
+    const data = JSON.parse(fs.readFileSync(path.join(dir, file), 'utf8'));
+    for (const [passage, cited] of Object.entries(data)) {
+      const ed = EDITION_BOOKS.find(([t]) => passage === t || passage.startsWith(t + ',') || passage.startsWith(t + ' '));
+      if (!ed) continue;                        // R. Tzadok and Pri Tzaddik editions: the printed index already covers them
+      for (const [ref, label] of cited) {
+        const k = editionKey(ref);
+        if (!k || seen.has(passage + '\u0000' + k)) continue;
+        seen.add(passage + '\u0000' + k);
+        const [title, ch] = sourceShard(k);
+        out.push({ id: `ed-${out.length + 1}`, v: 'ed', x: 's', c: 'ir', p: 0, t: label || ref, k, zs: ref, ...(ch ? {} : { b: title }),
+          r: [[passage, passage]], added: true, ed: ed[1] });
+      }
+    }
+  }
+  console.log(`Mafteach edition notes: ${out.length} source entries from the Ishbitz-Radzin editions`);
+  return out;
+}
+
 export function buildMafteach(OUT) {
   if (!fs.existsSync(path.join(SRC, 'entries.jsonl.gz'))) { console.log('Mafteach: no source data, skipped'); return null; }
   const glossary = JSON.parse(fs.readFileSync(path.join(SRC, 'glossary.json'), 'utf8'));
@@ -63,6 +105,11 @@ export function buildMafteach(OUT) {
     }
     console.log(`Mafteach English: ${n} of ${entries.filter(e => e.x === 't').length} topic lines`);
   }
+  // The Ishbitz-Radzin editions (HaMafteach indexes only R. Tzadok): the verified Sefaria sources of each Akiva Publishing
+  // edition's notes (sources/mafteach/curated-sources/) join as source entries, flagged as edition notes and never as lines
+  // of the printed index, so mafteach_lookup_source and mafteach_lookup_passage reach these sefarim too.
+  const editions = editionEntries();
+  entries.push(...editions);
   const base = path.join(OUT, 'mafteach');
   fs.rmSync(base, { recursive: true, force: true });
   for (const d of ['topic', 'source', 'passage', 'text']) fs.mkdirSync(path.join(base, d), { recursive: true });
@@ -111,6 +158,7 @@ export function buildMafteach(OUT) {
   // as [English, topic id, [refs], treated at length, Hebrew, source key]
   const answer = [];
   for (const e of entries) {
+    if (e.v === 'ed') continue;                      // the written answers draw on the printed index only
     const refs = [...new Set(e.r.filter(r => r[1]).map(r => r[1]))];
     if (!refs.length) continue;
     const long = e.r.some(r => r[1] && String(r[r.length - 1]).includes('*')) ? 1 : 0;

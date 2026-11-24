@@ -13,7 +13,9 @@ import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 
 const DIR = process.argv[2] || 'dist/mcp-data';
-const READ_BUDGET_MB = 60;        // index data one library-wide search reads (h/e/d files; notes searches read notes files)
+const READ_BUDGET_MB = 75;        // index data one library-wide search reads (h/e/d files; notes searches read notes files)
+// Raised from 60 MB for the eight Izhbitz-Radzin editions (November 2026, 70.7 MB): the live Worker (Workers Paid) answered a
+// library-wide kisvei_search over them; the CPU checks below still hold every tool call to CPU_BUDGET_MS. A word index is next.
 const READ_WARN_MB = 45;          // past this, plan the next step (a word index, so a search reads only its words' entries)
 const CPU_BUDGET_MS = 1500;       // per tool call, measured here; the Worker failed at ~2,000 ms of the same work
 const MAX_FILE = 10_000_000;
@@ -21,7 +23,9 @@ const MAX_FILE = 10_000_000;
 // and this test makes it unreachable on a published site (it fails a publication whose chunks or index are missing).
 // cloudflare/mcp.mjs also refuses to load a whole-book file over 20 MB (wholeText), so the Worker never parses it.
 // Raised from 31 MB for the Pri Tzaddik Moadim editions (scripts/pri-moadim/).
-const GRANDFATHERED = { 'text/peri-tzadik.json': 45_000_000 };
+const GRANDFATHERED = { 'text/peri-tzadik.json': 45_000_000,
+  // the complete Bais Yaakov edition (November 2026): the tools read its text-chunks; the whole-book files are fallbacks
+  'text/beit-yaakov-on-torah.json': 16_000_000, 'text/beit-yaakov-shemos.json': 15_000_000 };
 let passed = 0;
 const fail = [];
 const check = (ok, what) => { ok ? passed++ : fail.push(what); };

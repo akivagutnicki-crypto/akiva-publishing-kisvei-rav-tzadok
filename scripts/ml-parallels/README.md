@@ -72,3 +72,10 @@ To re-run:
 ```
 ML_WORK=<work dir> python3 scripts/ml-parallels/genre_parallels.py genre-corpus.jsonl.gz dist/library/genre-parallels
 ```
+
+## The Ishbitz-Radzin editions (November 2026)
+`prep.py` counts Naos Deshe, Tiferes HaChanochi, Ein HaTecheiles, Pesil Techeiles, Sefunei Temunei Chol and Orchos Chaim with Eser
+Milin with the Ishbitz-Radzin school (Sha'ar HaEmunah's "Introduction to Beit Yaakov" chapters are teachings, not front matter).
+Retrained on 6,804 teachings: held-out AUC 0.898, precision@10 0.587. Only the eight editions' files and the links into them from the
+other sefarim were published (`scripts/publish-izhbitz-parallels.mjs`, data under `dist/library/`, manifest
+`sources/akiva/izhbitz-editions/parallels-manifest.json`); `mafteach_links.py` now counts all twelve Ishbitz-Radzin titles.

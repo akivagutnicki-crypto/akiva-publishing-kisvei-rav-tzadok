@@ -40,3 +40,21 @@ In use: Dover Tzedek, Kometz HaMincha, Ohr Zarua LaTzaddik, Yisrael Kedoshim, Ma
 HaShares, Poked Akarim, Meishiv Tzedek (8,450 references). Not yet: Resisei Layla, Takanas HaShavin, Divrei Soferim (below
 the bar), Sefer HaZichronos (the library edition does not align with the print), Likkutei Maamarim and the Pri Tzaddik
 supplements (no print supplied).
+
+## The Ishbitz-Radzin editions (edition notes, November 2026)
+HaMafteach HaShalem indexes only R. Tzadok. The Akiva Publishing editions of the Ishbitz-Radzin sefarim carry verified source
+notes with Sefaria links, and these join the index as **edition-note entries** — never as lines of the printed Mafteach:
+Beis Yaakov (all six volumes), Sha'ar HaEmunah VeYesod HaChasidut, Naos Deshe (`Ne'ot Deshe`), Tiferes HaChanochi
+(`Tiferet HaChanokhi`), Ein HaTecheiles (`Ein HaTekhelet`), Pesil Techeiles (`Ptil Tekhelet`), Sefunei Temunei Chol,
+Orchos Chaim and Eser Milin (`Orchot Chaim and Eser Milin`) and Tiferes Yosef (`Tiferet Yosef`).
+
+- **`curated-sources/izhbitz-editions.json`** (and `beit-yaakov-complete-edition.json`): `{section ref: [[Sefaria ref, label], ...]}`,
+  from each note's Sefaria links. `curated-parallels/izhbitz-editions.json`: the Rav Tzadok and Ishbitz-Radzin passages the notes name.
+- **Reader panel** (`scripts/build-mafteach-parallels.py`): passages citing the same verified source count as parallels, as with an index source line.
+- **MCP** (`scripts/build-mafteach-index.mjs`, `editionEntries`): one source entry per passage and source, `v: "ed"`, `c: "ir"`, `zs` = the
+  Sefaria ref, `ed` = the edition's name. `mafteach_lookup_source` lists them after the printed entries, `mafteach_lookup_passage` answers
+  for these sefarim (e.g. "Ne'ot Deshe, Bereishis", "Tiferet Yosef, Rosh Hashanah"), and `corpus: "ishbitz-radzin"` shows only them.
+  Each is marked "from the verified source notes of the Akiva Publishing … edition: not in the printed index". They stay out of the
+  written answers (`answer.json`), which draw on the printed index alone.
+- **`library-refs.txt`** lists the editions' section refs. Tiferet Yosef keeps the refs of its earlier reader edition (`Tiferet Yosef,
+  Rosh Hashanah:5` = os 5) and Sha'ar HaEmunah those of its Sefaria Hebrew snapshot.

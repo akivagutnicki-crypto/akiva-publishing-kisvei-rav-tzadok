@@ -1,0 +1,126 @@
+name: Publish the Izhbitz-Radzin editions in HaMafteach and the Parallels panel (eight books, both ways)
+
+# Adds the HaMafteach panel data, machine-learned parallels and Chassidus/Kabbalah/Machshava/Mussar parallels of the eight
+# Izhbitz-Radzin editions, the links into them from the other sefarim and the outside passages, the rebuilt HaMafteach
+# links, and the MCP HaMafteach index with the editions' verified source notes, over the exact current Pages artifact.
+# Every other published file is preserved byte for byte. Trigger with the commit tag [izhbitz-parallels] or workflow_dispatch.
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+  deployments: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: ${{ (github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[izhbitz-parallels]'))) && 'pages' || format('izhbitz-parallels-skipped-{0}', github.run_id) }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: ${{ github.repository == 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok' && github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[izhbitz-parallels]')) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    env:
+      NEW_BOOKS_SITE: .izhbitz-par-site
+    steps:
+      - name: Checkout reader source and the editorial master edition
+        uses: actions/checkout@v6
+
+      - name: Set up Node 24
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+
+      - name: Validate the eight books' panel data
+        run: node scripts/publish-izhbitz-parallels.mjs --check
+
+      - name: Identify the currently published complete Pages artifact
+        id: baseline
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/new-books-release.py metadata
+
+      - name: Download the exact current site without rebuilding the other seforim
+        uses: actions/download-artifact@v4
+        with:
+          artifact-ids: ${{ steps.baseline.outputs.artifact }}
+          run-id: ${{ steps.baseline.outputs.run }}
+          repository: akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/izhbitz-par-baseline
+          merge-multiple: true
+
+      - name: Safely restore every published book and site file
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PY'
+          import os,pathlib,tarfile
+          root=pathlib.Path('.izhbitz-par-site').resolve()
+          root.mkdir(exist_ok=True)
+          archive=pathlib.Path(os.environ['RUNNER_TEMP'])/'izhbitz-par-baseline/artifact.tar'
+          assert archive.is_file(), 'Missing complete Pages archive'
+          with tarfile.open(archive,'r:') as source:
+              members=source.getmembers()
+              for member in members:
+                  target=(root/member.name).resolve()
+                  assert target==root or root in target.parents, 'Path outside site'
+                  assert member.isdir() or member.isfile(), 'Unsafe archive entry'
+              source.extractall(root,members=members,filter='data')
+          PY
+          python3 scripts/new-books-release.py capture
+
+      - name: Add the six books' Mafteach and parallels data
+        run: |
+          node scripts/publish-izhbitz-parallels.mjs --apply .izhbitz-par-site
+          node scripts/publish-izhbitz-parallels.mjs --verify .izhbitz-par-site
+          node --check .izhbitz-par-site/library/sw.js
+          node --check .izhbitz-par-site/library/mafteach-panel.js
+
+      - name: Recheck original live site and main branch before artifact upload
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/new-books-release.py guard
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload complete preserved site with only the panel data and the MCP Mafteach index changed
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: .izhbitz-par-site
+          retention-days: 14
+
+      - name: Recheck main and latest publication before deployment
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/new-books-release.py guard
+
+      - name: Publish the Izhbitz-Radzin panel data and Mafteach index
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Verify exact public bytes of all changed reader files
+        run: node scripts/publish-izhbitz-parallels.mjs --live .izhbitz-par-site
+
+      - name: Save release and preservation verification
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: izhbitz-parallels-verification
+          retention-days: 90
+          if-no-files-found: warn
+          path: |
+            new-books-publication.json
+            new-books-baseline.json
+            izhbitz-parallels-stage.json
+                        .izhbitz-par-site/library/izhbitz-parallels-20261124.json

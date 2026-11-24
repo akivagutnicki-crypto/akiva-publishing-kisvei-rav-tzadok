@@ -592,7 +592,7 @@
     }).join('');
   }
   function schoolsHTML(ish, out, what) {
-    return `<section class="maf-sec" data-s="ish"><h3>In the Ishbitz–Radzin works <span class="maf-count">${ish.length}</span></h3><p class="maf-meta">Mei HaShiloach, Beis Yaakov, Sod Yesharim, Tiferes Yosef, Sha'ar HaEmunah — found by the machine-learned parallels of the Rav Tzadok passages here; Strong ones first.</p>${ishHTML(ish, what)}</section>
+    return `<section class="maf-sec" data-s="ish"><h3>In the Ishbitz–Radzin works <span class="maf-count">${ish.length}</span></h3><p class="maf-meta">Mei HaShiloach, Beis Yaakov, Sod Yesharim, Tiferes Yosef, Sha'ar HaEmunah, Naos Deshe, Tiferes HaChanochi, Ein HaTecheiles, Pesil Techeiles, Sefunei Temunei Chol, Orchos Chaim — found by the machine-learned parallels of the Rav Tzadok passages here; Strong ones first.</p>${ishHTML(ish, what)}</section>
       <section class="maf-sec" data-s="out"><h3>In Chassidus, Kabbalah, Machshava and Mussar <span class="maf-count">${out.length}</span></h3>${outHTML(out, what)}</section>`;
   }
   function sefariaUrl(key) {
