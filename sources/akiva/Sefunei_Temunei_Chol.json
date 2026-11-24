@@ -1,0 +1,52 @@
+{
+ "title": "Sefunei Temunei Chol",
+ "heTitle": "שפוני טמוני חול",
+ "language": "he",
+ "versionTitle": "Akiva Publishing interlinear edition with source notes (November 2026)",
+ "versionSource": "",
+ "license": "© Akiva Publishing",
+ "categories": [
+  "Chasidut",
+  "Izhbitz"
+ ],
+ "akiva": true,
+ "interlinear": true,
+ "editionId": "izhbitz-editions-2026-11",
+ "editionNote": "Sefunei Temunei Chol (Rabbi Gershon Henoch Leiner of Radzin): phrase-by-phrase vocalized Hebrew with English, 216 numbered source notes with Sefaria links.",
+ "downloads": [
+  {
+   "source": "sources/akiva/docx/sefunei-temunei-chol.docx",
+   "file": "downloads/sefunei-temunei-chol.docx",
+   "label": "Download Sefunei Temunei Chol (Word)"
+  }
+ ],
+ "footnoteImportInfo": {
+  "edition": "Akiva Publishing interlinear edition with source notes (November 2026)",
+  "notes": 216,
+  "firstNumber": 1,
+  "lastNumber": 216,
+  "anchorConvention": "Marker after the Hebrew phrase that carries the Word footnote reference (heCharOffset = phrase length)."
+ },
+ "tocGroups": [
+  {
+   "en": "Sefunei Temunei Chol",
+   "he": "שפוני טמוני חול",
+   "keys": [
+    "Original Title Page",
+    "Introduction",
+    "Opening Essay",
+    "First Objection",
+    "Second Objection",
+    "Third Objection",
+    "Fourth Objection",
+    "Siman 1",
+    "Siman 2",
+    "Siman 3"
+   ]
+  }
+ ],
+ "sectionsFiles": [
+  "sources/akiva/izhbitz-editions/Sefunei_Temunei_Chol.part1.json.gz"
+ ],
+ "sectionCount": 10
+}

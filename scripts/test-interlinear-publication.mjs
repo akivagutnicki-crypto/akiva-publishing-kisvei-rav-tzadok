@@ -6,9 +6,10 @@ const out='dist/library/data';
 const workerRevision = Number(fs.readFileSync('dist/library/sw.js', 'utf8').match(/const VERSION = 'v(\d+)-/)?.[1] || 0);
 const catalog=JSON.parse(fs.readFileSync(path.join(out,'catalog.json'),'utf8'));
 const books=[
-  {title:'Peri Tzadik',minPairs:3000,minLinks:40,required:'Peri Tzadik, Noach 1'},
-  {title:'Tiferet Yosef',minPairs:100,minLinks:10,required:'Tiferet Yosef, Bereshit 1'}
+  {title:'Peri Tzadik',minPairs:3000,minLinks:40,required:'Peri Tzadik, Noach 1'}
 ];
+// Tiferet Yosef is now a complete Akiva interlinear edition (sources/akiva/Tiferet_Yosef.json, November 2026) and is
+// checked by scripts/publish-izhbitz-editions.mjs --check-pack; its earlier eight-os study edition no longer applies.
 for(const b of books){
   const info=catalog.find(x=>x.title===b.title);
   if(!info)throw new Error('Book absent from catalog: '+b.title);

@@ -1,0 +1,113 @@
+{
+ "title": "Ein HaTekhelet",
+ "heTitle": "עין התכלת",
+ "language": "he",
+ "versionTitle": "Akiva Publishing interlinear edition with source notes (November 2026)",
+ "versionSource": "",
+ "license": "© Akiva Publishing",
+ "categories": [
+  "Chasidut",
+  "Izhbitz"
+ ],
+ "akiva": true,
+ "interlinear": true,
+ "editionId": "izhbitz-editions-2026-11",
+ "editionNote": "Ein HaTekhelet (Rabbi Gershon Henoch Leiner of Radzin): phrase-by-phrase vocalized Hebrew with English, 1173 numbered source notes with Sefaria links.",
+ "downloads": [
+  {
+   "source": "sources/akiva/docx/ein-hatekhelet.docx",
+   "file": "downloads/ein-hatekhelet.docx",
+   "label": "Download Ein HaTekhelet (Word)"
+  }
+ ],
+ "footnoteImportInfo": {
+  "edition": "Akiva Publishing interlinear edition with source notes (November 2026)",
+  "notes": 1173,
+  "firstNumber": 1,
+  "lastNumber": 1173,
+  "anchorConvention": "Marker after the Hebrew phrase that carries the Word footnote reference (heCharOffset = phrase length)."
+ },
+ "tocGroups": [
+  {
+   "en": "Introduction of the Gaon, the Author, of Righteous and Blessed Memory for the Life of the World to Come",
+   "he": "הַקְדָּמַת הַגָּאוֹן הַמְּחַבֵּר זֵכֶר צַדִּיק לִבְרָכָה לְחַיֵּי הָעוֹלָם הַבָּא",
+   "keys": [
+    "Introduction"
+   ]
+  },
+  {
+   "en": "First Article (Sections 1–46)",
+   "he": "מַאֲמָר רִאשׁוֹן",
+   "keys": [
+    "First Article 1",
+    "First Article 2",
+    "First Article 3",
+    "First Article 4",
+    "First Article 5",
+    "First Article 6",
+    "First Article 7",
+    "First Article 8",
+    "First Article 9",
+    "First Article 10",
+    "First Article 11",
+    "First Article 12",
+    "First Article 13",
+    "First Article 14",
+    "First Article 15",
+    "First Article 16",
+    "First Article 17",
+    "First Article 18",
+    "First Article 19",
+    "First Article 20",
+    "First Article 21",
+    "First Article 22",
+    "First Article 23",
+    "First Article 24",
+    "First Article 25",
+    "First Article 26",
+    "First Article 27",
+    "First Article 28",
+    "First Article 29",
+    "First Article 30",
+    "First Article 31",
+    "First Article 32",
+    "First Article 33",
+    "First Article 34",
+    "First Article 35",
+    "First Article 36",
+    "First Article 37",
+    "First Article 38",
+    "First Article 39",
+    "First Article 40",
+    "First Article 41",
+    "First Article 42",
+    "First Article 43",
+    "First Article 44",
+    "First Article 45",
+    "First Article 46"
+   ]
+  },
+  {
+   "en": "Second Article (Sections 1–3)",
+   "he": "מַאֲמָר שֵׁנִי (סְעִיפִים א–ג)",
+   "keys": [
+    "Second Article 1",
+    "Second Article 2",
+    "Second Article 3"
+   ]
+  },
+  {
+   "en": "Third Article (Sections 1–3)",
+   "he": "מַאֲמָר שְׁלִישִׁי (סְעִיפִים א–ג)",
+   "keys": [
+    "Third Article 1",
+    "Third Article 2",
+    "Third Article 3"
+   ]
+  }
+ ],
+ "sectionsFiles": [
+  "sources/akiva/izhbitz-editions/Ein_HaTekhelet.part1.json.gz"
+ ],
+ "sectionCount": 53
+}

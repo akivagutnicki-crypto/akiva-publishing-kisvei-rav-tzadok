@@ -1,0 +1,98 @@
+{
+ "title": "Tiferet Yosef",
+ "heTitle": "תפארת יוסף",
+ "language": "he",
+ "versionTitle": "Akiva Publishing interlinear edition with source notes (November 2026)",
+ "versionSource": "",
+ "license": "© Akiva Publishing",
+ "categories": [
+  "Chasidut",
+  "Izhbitz"
+ ],
+ "akiva": true,
+ "interlinear": true,
+ "editionId": "izhbitz-editions-2026-11",
+ "editionNote": "Tiferet Yosef (Rabbi Mordechai Yosef Elazar Leiner of Radzin): phrase-by-phrase vocalized Hebrew with English, 2434 numbered source notes with Sefaria links.",
+ "downloads": [
+  {
+   "source": "sources/akiva/docx/tiferes-yosef.docx",
+   "file": "downloads/tiferes-yosef.docx",
+   "label": "Download Tiferes Yosef (Word)"
+  }
+ ],
+ "footnoteImportInfo": {
+  "edition": "Akiva Publishing interlinear edition with source notes (November 2026)",
+  "notes": 2434,
+  "firstNumber": 1,
+  "lastNumber": 2434,
+  "anchorConvention": "Marker after the Hebrew phrase that carries the Word footnote reference (heCharOffset = phrase length)."
+ },
+ "tocGroups": [
+  {
+   "en": "Moadim and the Parashiyos",
+   "he": "מוֹעֲדִים וּפָרָשִׁיּוֹת",
+   "keys": [
+    "Rosh Hashanah",
+    "Vayeilech and Shabbat Shuvah",
+    "Ha'azinu and Shabbat Shuvah",
+    "Erev Yom Kippur",
+    "Motzei Yom Kippur",
+    "Sukkot",
+    "Shabbat Chol HaMoed Sukkot",
+    "Hoshana Rabba",
+    "Shemini Atzeret",
+    "Simchat Torah",
+    "Bereshit",
+    "Noach",
+    "Tetzaveh",
+    "Parashat Zakhor",
+    "Purim",
+    "Ki Tisa",
+    "Parashat Parah",
+    "Vayakhel",
+    "Pekudei",
+    "Parashat HaChodesh",
+    "Vayikra",
+    "Tzav",
+    "Shabbat HaGadol",
+    "Pesach",
+    "Shabbat Chol HaMoed Pesach",
+    "The Seventh Day of Pesach",
+    "The Eighth Day of Pesach",
+    "Shmini",
+    "Achrei Mot",
+    "Emor",
+    "Bamidbar",
+    "Machar Chodesh Haftarah",
+    "Rosh Chodesh Sivan",
+    "Shavuot",
+    "Nasso",
+    "Beha'alotcha",
+    "Korach",
+    "Ki Teitzei",
+    "Ki Tavo",
+    "Nitzavim"
+   ]
+  },
+  {
+   "en": "Likkutei HaShas (Gleanings on the Talmud)",
+   "he": "לִקּוּטֵי הַשִּׁשָּׁה סְדָרִים",
+   "keys": [
+    "Talmud Anthology, Berakhot",
+    "Talmud Anthology, Shabbat",
+    "Talmud Anthology, Pesachim",
+    "Talmud Anthology, Yoma",
+    "Talmud Anthology, Sukkah",
+    "Talmud Anthology, Rosh Hashanah",
+    "Talmud Anthology, Taanit",
+    "Talmud Anthology, Megillah",
+    "Talmud Anthology, Chagigah",
+    "Talmud Anthology, Sanhedrin"
+   ]
+  }
+ ],
+ "sectionsFiles": [
+  "sources/akiva/izhbitz-editions/Tiferet_Yosef.part1.json.gz"
+ ],
+ "sectionCount": 50
+}

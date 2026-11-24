@@ -1,0 +1,111 @@
+{
+ "title": "Sha'ar HaEmunah VeYesod HaChasidut",
+ "heTitle": "שער האמונה ויסוד החסידות",
+ "language": "he",
+ "versionTitle": "Akiva Publishing interlinear edition with source notes (November 2026)",
+ "versionSource": "",
+ "license": "© Akiva Publishing",
+ "categories": [
+  "Chasidut",
+  "Izhbitz"
+ ],
+ "akiva": true,
+ "interlinear": true,
+ "editionId": "izhbitz-editions-2026-11",
+ "editionNote": "Sha'ar HaEmunah VeYesod HaChasidut (Rabbi Gershon Henoch Leiner of Radzin): phrase-by-phrase vocalized Hebrew with English, 492 numbered source notes with Sefaria links.",
+ "downloads": [
+  {
+   "source": "sources/akiva/docx/shaar-haemunah.docx",
+   "file": "downloads/shaar-haemunah.docx",
+   "label": "Download Shaar HaEmunah VeYesod HaChassidus (Word)"
+  }
+ ],
+ "footnoteImportInfo": {
+  "edition": "Akiva Publishing interlinear edition with source notes (November 2026)",
+  "notes": 492,
+  "firstNumber": 1,
+  "lastNumber": 492,
+  "anchorConvention": "Marker after the Hebrew phrase that carries the Word footnote reference (heCharOffset = phrase length)."
+ },
+ "tocGroups": [
+  {
+   "en": "Part I: Introduction to Beit Yaakov",
+   "he": "חֵלֶק א׳: הַקְדָּמָה לְבֵית יַעֲקֹב",
+   "keys": [
+    "Introduction to Beit Yaakov 1",
+    "Introduction to Beit Yaakov 2",
+    "Introduction to Beit Yaakov 3",
+    "Introduction to Beit Yaakov 4",
+    "Introduction to Beit Yaakov 5",
+    "Introduction to Beit Yaakov 6",
+    "Introduction to Beit Yaakov 7",
+    "Introduction to Beit Yaakov 8",
+    "Introduction to Beit Yaakov 9",
+    "Introduction to Beit Yaakov 10",
+    "Introduction to Beit Yaakov 11",
+    "Introduction to Beit Yaakov 12",
+    "Introduction to Beit Yaakov 13",
+    "Introduction to Beit Yaakov 14",
+    "Introduction to Beit Yaakov 15",
+    "Introduction to Beit Yaakov 16",
+    "Introduction to Beit Yaakov 17",
+    "Introduction to Beit Yaakov 18",
+    "Introduction to Beit Yaakov 19",
+    "Introduction to Beit Yaakov 20",
+    "Introduction to Beit Yaakov 21",
+    "Introduction to Beit Yaakov 22",
+    "Introduction to Beit Yaakov 23",
+    "Introduction to Beit Yaakov 24",
+    "Introduction to Beit Yaakov 25",
+    "Introduction to Beit Yaakov 26",
+    "Introduction to Beit Yaakov 27",
+    "Introduction to Beit Yaakov 28",
+    "Introduction to Beit Yaakov 29",
+    "Introduction to Beit Yaakov 30",
+    "Introduction to Beit Yaakov 31"
+   ]
+  },
+  {
+   "en": "Part II: Entrance to the Gate of Beit Yaakov",
+   "he": "חֵלֶק ב׳: פֶּתַח הַשַּׁעַר לְבֵית יַעֲקֹב",
+   "keys": [
+    "Entrance to the Gate of Beit Yaakov 1",
+    "Entrance to the Gate of Beit Yaakov 2",
+    "Entrance to the Gate of Beit Yaakov 3",
+    "Entrance to the Gate of Beit Yaakov 4",
+    "Entrance to the Gate of Beit Yaakov 5",
+    "Entrance to the Gate of Beit Yaakov 6",
+    "Entrance to the Gate of Beit Yaakov 7",
+    "Entrance to the Gate of Beit Yaakov 8",
+    "Entrance to the Gate of Beit Yaakov 9",
+    "Entrance to the Gate of Beit Yaakov 10",
+    "Entrance to the Gate of Beit Yaakov 11",
+    "Entrance to the Gate of Beit Yaakov 12",
+    "Entrance to the Gate of Beit Yaakov 13",
+    "Entrance to the Gate of Beit Yaakov 14",
+    "Entrance to the Gate of Beit Yaakov 15",
+    "Entrance to the Gate of Beit Yaakov 16",
+    "Entrance to the Gate of Beit Yaakov 17",
+    "Entrance to the Gate of Beit Yaakov 18",
+    "Entrance to the Gate of Beit Yaakov 19",
+    "Entrance to the Gate of Beit Yaakov 20",
+    "Entrance to the Gate of Beit Yaakov 21",
+    "Entrance to the Gate of Beit Yaakov 22",
+    "Entrance to the Gate of Beit Yaakov 23",
+    "Entrance to the Gate of Beit Yaakov 24",
+    "Entrance to the Gate of Beit Yaakov 25"
+   ]
+  },
+  {
+   "en": "Ma'amar HaHashgachah: Discourse on Divine Providence",
+   "he": "מַאֲמַר הַהַשְׁגָּחָה",
+   "keys": [
+    "An exposition of the idea of Divine Providence"
+   ]
+  }
+ ],
+ "sectionsFiles": [
+  "sources/akiva/izhbitz-editions/Sha_ar_HaEmunah_VeYesod_HaChasidut.part1.json.gz"
+ ],
+ "sectionCount": 57
+}

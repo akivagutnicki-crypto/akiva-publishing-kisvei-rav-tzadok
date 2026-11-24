@@ -1,0 +1,127 @@
+{
+ "title": "Tiferet HaChanokhi",
+ "heTitle": "תפארת החנוכי",
+ "language": "he",
+ "versionTitle": "Akiva Publishing interlinear edition with source notes (November 2026)",
+ "versionSource": "",
+ "license": "© Akiva Publishing",
+ "categories": [
+  "Chasidut",
+  "Izhbitz"
+ ],
+ "akiva": true,
+ "interlinear": true,
+ "editionId": "izhbitz-editions-2026-11",
+ "editionNote": "Tiferet HaChanokhi on the Zohar (Rabbi Gershon Henoch Leiner of Radzin): phrase-by-phrase vocalized Hebrew with English, 2807 numbered source notes with Sefaria links.",
+ "downloads": [
+  {
+   "source": "sources/akiva/docx/tiferes-hachanochi.docx",
+   "file": "downloads/tiferes-hachanochi.docx",
+   "label": "Download Tiferes HaChanochi (Word)"
+  }
+ ],
+ "footnoteImportInfo": {
+  "edition": "Akiva Publishing interlinear edition with source notes (November 2026)",
+  "notes": 2807,
+  "firstNumber": 1,
+  "lastNumber": 2807,
+  "anchorConvention": "Marker after the Hebrew phrase that carries the Word footnote reference (heCharOffset = phrase length)."
+ },
+ "tocGroups": [
+  {
+   "en": "Introductions",
+   "he": "הַקְדָּמוֹת",
+   "keys": [
+    "Opening",
+    "Author's Son's Introduction",
+    "Notice",
+    "Introduction"
+   ]
+  },
+  {
+   "en": "Sefer Bereishis",
+   "he": "סֵפֶר בְּרֵאשִׁית",
+   "keys": [
+    "Bereishis",
+    "Noach",
+    "Lech Lecha",
+    "Vayeira",
+    "Chayei Sarah",
+    "Toldos",
+    "Toldos: Midrash HaNe'elam",
+    "The Holy Zohar: Parashas Toldos",
+    "Vayeitzei",
+    "Vayishlach",
+    "Vayeishev",
+    "Mikeitz",
+    "Vayigash",
+    "Vayechi"
+   ]
+  },
+  {
+   "en": "Sefer Shemos",
+   "he": "סֵפֶר שְׁמוֹת",
+   "keys": [
+    "Shemos",
+    "Va'eira",
+    "Bo",
+    "Beshalach",
+    "Yisro",
+    "Mishpatim",
+    "Terumah",
+    "(Sifra DeTzni'usa)",
+    "Tetzaveh",
+    "Ki Tisa",
+    "Vayakhel",
+    "Pekudei"
+   ]
+  },
+  {
+   "en": "Sefer Vayikra",
+   "he": "סֵפֶר וַיִּקְרָא",
+   "keys": [
+    "Vayikra",
+    "Tzav",
+    "Shemini",
+    "Tazria",
+    "Metzora",
+    "Acharei",
+    "Kedoshim",
+    "Emor",
+    "Behar",
+    "Bechukotai"
+   ]
+  },
+  {
+   "en": "Sefer Bamidbar",
+   "he": "סֵפֶר בַּמִּדְבָּר",
+   "keys": [
+    "Bamidbar",
+    "Naso",
+    "Beha'aloscha",
+    "Shelach",
+    "Korach",
+    "Chukas",
+    "Balak",
+    "Pinchas",
+    "Matos"
+   ]
+  },
+  {
+   "en": "Sefer Devarim",
+   "he": "סֵפֶר דְּבָרִים",
+   "keys": [
+    "Va'eschanan",
+    "Eikev",
+    "Shoftim",
+    "Ki Seitzei",
+    "Vayeilech",
+    "Ha'azinu"
+   ]
+  }
+ ],
+ "sectionsFiles": [
+  "sources/akiva/izhbitz-editions/Tiferet_HaChanokhi.part1.json.gz"
+ ],
+ "sectionCount": 55
+}

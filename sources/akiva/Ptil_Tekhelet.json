@@ -1,0 +1,52 @@
+{
+ "title": "Ptil Tekhelet",
+ "heTitle": "פתיל תכלת",
+ "language": "he",
+ "versionTitle": "Akiva Publishing interlinear edition with source notes (November 2026)",
+ "versionSource": "",
+ "license": "© Akiva Publishing",
+ "categories": [
+  "Chasidut",
+  "Izhbitz"
+ ],
+ "akiva": true,
+ "interlinear": true,
+ "editionId": "izhbitz-editions-2026-11",
+ "editionNote": "Ptil Tekhelet (Rabbi Gershon Henoch Leiner of Radzin): phrase-by-phrase vocalized Hebrew with English, 961 numbered source notes with Sefaria links.",
+ "downloads": [
+  {
+   "source": "sources/akiva/docx/ptil-tekhelet.docx",
+   "file": "downloads/ptil-tekhelet.docx",
+   "label": "Download Pesil Techeiles (Word)"
+  }
+ ],
+ "footnoteImportInfo": {
+  "edition": "Akiva Publishing interlinear edition with source notes (November 2026)",
+  "notes": 961,
+  "firstNumber": 1,
+  "lastNumber": 961,
+  "anchorConvention": "Marker after the Hebrew phrase that carries the Word footnote reference (heCharOffset = phrase length)."
+ },
+ "tocGroups": [
+  {
+   "en": "Pesil Techeiles",
+   "he": "פתיל תכלת",
+   "keys": [
+    "Original Title Page",
+    "Introduction",
+    "Part 1",
+    "Part 2",
+    "Part 3",
+    "Part 4",
+    "Part 5",
+    "Part 6",
+    "Part 7",
+    "Part 8"
+   ]
+  }
+ ],
+ "sectionsFiles": [
+  "sources/akiva/izhbitz-editions/Ptil_Tekhelet.part1.json.gz"
+ ],
+ "sectionCount": 10
+}

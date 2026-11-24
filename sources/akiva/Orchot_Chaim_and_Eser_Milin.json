@@ -1,0 +1,136 @@
+{
+ "title": "Orchot Chaim and Eser Milin",
+ "heTitle": "ארחות חיים ועשר מילין דחסידותא",
+ "language": "he",
+ "versionTitle": "Akiva Publishing interlinear edition with source notes (November 2026)",
+ "versionSource": "",
+ "license": "© Akiva Publishing",
+ "categories": [
+  "Chasidut",
+  "Izhbitz"
+ ],
+ "akiva": true,
+ "interlinear": true,
+ "editionId": "izhbitz-editions-2026-11",
+ "editionNote": "Orchot Chaim (Tzava'at Rabbi Eliezer HaGadol) and Eser Milin DeChasiduta, with the commentary of Rabbi Gershon Henoch Leiner of Radzin: phrase-by-phrase vocalized Hebrew with English, 1530 numbered source notes with Sefaria links.",
+ "downloads": [
+  {
+   "source": "sources/akiva/docx/orchos-chaim-eser-milin.docx",
+   "file": "downloads/orchos-chaim-eser-milin.docx",
+   "label": "Download Orchos Chaim and Eser Milin (Word)"
+  }
+ ],
+ "footnoteImportInfo": {
+  "edition": "Akiva Publishing interlinear edition with source notes (November 2026)",
+  "notes": 1530,
+  "firstNumber": 1,
+  "lastNumber": 1530,
+  "anchorConvention": "Marker after the Hebrew phrase that carries the Word footnote reference (heCharOffset = phrase length)."
+ },
+ "tocGroups": [
+  {
+   "en": "Front Matter",
+   "he": "שַׁעַר וְהַקְדָּמוֹת",
+   "keys": [
+    "Title Page",
+    "Publisher's Introduction",
+    "Offering of Thanksgiving",
+    "Author's Introduction"
+   ]
+  },
+  {
+   "en": "Sefer Orchos Chaim (Paths of Life)",
+   "he": "סֵפֶר אָרְחוֹת חַיִּים",
+   "keys": [
+    "Section 1",
+    "Section 2",
+    "Section 3",
+    "Section 4",
+    "Section 5",
+    "Section 6",
+    "Section 7",
+    "Section 8",
+    "Section 9",
+    "Section 10",
+    "Section 11",
+    "Section 12",
+    "Section 13",
+    "Section 14",
+    "Section 15",
+    "Section 16",
+    "Section 17",
+    "Section 18",
+    "Section 19",
+    "Section 20",
+    "Section 21",
+    "Section 22",
+    "Section 23",
+    "Section 24",
+    "Section 25",
+    "Section 26",
+    "Section 27",
+    "Section 28",
+    "Section 29",
+    "Section 30",
+    "Section 31",
+    "Section 32",
+    "Section 33",
+    "Section 34",
+    "Section 35",
+    "Section 36",
+    "Section 37",
+    "Section 38",
+    "Section 39",
+    "Section 40",
+    "Section 41",
+    "Section 42",
+    "Section 43",
+    "Section 44",
+    "Section 45",
+    "Section 46",
+    "Section 47",
+    "Section 48",
+    "Section 49",
+    "Section 50",
+    "Section 51",
+    "Section 52",
+    "Section 53",
+    "Section 54",
+    "Section 55",
+    "Section 56",
+    "Section 57",
+    "Section 58",
+    "Section 59",
+    "Continuation of Section 59",
+    "Section 60",
+    "Section 61",
+    "Section 62",
+    "Section 63",
+    "Section 64",
+    "Section 65",
+    "Section 66"
+   ]
+  },
+  {
+   "en": "Eser Milin D'Chasidusa (Ten Practices of Piety)",
+   "he": "עֶשֶׂר מִילִּין דַּחֲסִידוּתָא",
+   "keys": [
+    "Eser Milin Introduction",
+    "Practice 1",
+    "Practice 2",
+    "Practice 3",
+    "Practice 4 and 5",
+    "Practice 5",
+    "Practice 6",
+    "Practice 7",
+    "Practice 9",
+    "Practice 10",
+    "Conclusion of the Volume"
+   ]
+  }
+ ],
+ "sectionsFiles": [
+  "sources/akiva/izhbitz-editions/Orchot_Chaim_and_Eser_Milin.part1.json.gz"
+ ],
+ "sectionCount": 82
+}

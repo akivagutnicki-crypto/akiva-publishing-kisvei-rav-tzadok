@@ -332,6 +332,13 @@ if (fs.existsSync(remoteSourceDir)) {
       && Array.isArray(doc.sections) && doc.sections.length,
     'Invalid remote Hebrew source snapshot: ' + sourcePath);
     const existing = books.find(b => b.title === doc.title || b.slug === doc.slug);
+    // A complete Akiva interlinear edition of the same work, bundled with the reader, supersedes its remote Hebrew
+    // snapshot (Sha'ar HaEmunah, November 2026): the edition keeps the snapshot's section refs, so links still resolve.
+    if (existing && existing.akiva && existing.interlinear && existing.title === doc.title && existing.slug === doc.slug
+        && doc.extendsExisting !== true && doc.sections.every(s => existing.sections.some(x => x.ref === s.ref))) {
+      console.log(`${doc.title}: bundled Akiva edition supersedes the remote snapshot ${file}`);
+      continue;
+    }
     assert(!existing || (doc.extendsExisting === true && doc.title === 'Mei HaShiloach'
       && existing.title === doc.title && existing.slug === doc.slug && existing.group === doc.group),
       'A remote source snapshot cannot replace a bundled edition: ' + doc.title);

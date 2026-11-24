@@ -1,0 +1,144 @@
+{
+ "title": "Ne'ot Deshe",
+ "heTitle": "נאות דשא",
+ "language": "he",
+ "versionTitle": "Akiva Publishing interlinear edition with source notes (November 2026)",
+ "versionSource": "",
+ "license": "© Akiva Publishing",
+ "categories": [
+  "Chasidut",
+  "Izhbitz"
+ ],
+ "akiva": true,
+ "interlinear": true,
+ "editionId": "izhbitz-editions-2026-11",
+ "editionNote": "Ne'ot Deshe on the Torah and Moadim: phrase-by-phrase vocalized Hebrew with English, 2180 numbered source notes with Sefaria links.",
+ "downloads": [
+  {
+   "source": "sources/akiva/docx/naos-deshe.docx",
+   "file": "downloads/naos-deshe.docx",
+   "label": "Download Naos Deshe (Word)"
+  }
+ ],
+ "footnoteImportInfo": {
+  "edition": "Akiva Publishing interlinear edition with source notes (November 2026)",
+  "notes": 2180,
+  "firstNumber": 1,
+  "lastNumber": 2180,
+  "anchorConvention": "Marker after the Hebrew phrase that carries the Word footnote reference (heCharOffset = phrase length)."
+ },
+ "tocGroups": [
+  {
+   "en": "Sefer Bereishis",
+   "he": "סֵפֶר בְּרֵאשִׁית",
+   "keys": [
+    "Bereishis",
+    "Noach",
+    "Lech Lecha",
+    "Vayeira",
+    "Chayei Sarah",
+    "Toldos",
+    "Vayeitzei",
+    "Vayishlach",
+    "Vayeishev",
+    "Mikeitz",
+    "Vayigash",
+    "Vayechi"
+   ]
+  },
+  {
+   "en": "Sefer Shemos",
+   "he": "סֵפֶר שְׁמוֹת",
+   "keys": [
+    "Shemos",
+    "Va'eira",
+    "Bo",
+    "Beshalach",
+    "Yisro",
+    "Mishpatim",
+    "Terumah",
+    "Tetzaveh",
+    "Ki Sisa",
+    "Vayakhel",
+    "Pekudei"
+   ]
+  },
+  {
+   "en": "Sefer Vayikra",
+   "he": "סֵפֶר וַיִּקְרָא",
+   "keys": [
+    "Vayikra",
+    "Tzav",
+    "Shemini",
+    "Tazria",
+    "Metzora",
+    "Acharei Mos",
+    "Kedoshim",
+    "Emor",
+    "Behar",
+    "Bechukosai"
+   ]
+  },
+  {
+   "en": "Sefer Bamidbar",
+   "he": "סֵפֶר בְּמִדְבַּר",
+   "keys": [
+    "Bamidbar",
+    "Naso",
+    "Beha'aloscha",
+    "Shelach",
+    "Korach",
+    "Chukas",
+    "Balak",
+    "Pinchas",
+    "Matos",
+    "Masei"
+   ]
+  },
+  {
+   "en": "Sefer Devarim",
+   "he": "סֵפֶר דְּבָרִים",
+   "keys": [
+    "Devarim",
+    "Va'eschanan",
+    "Eikev",
+    "Re'eh",
+    "Shoftim",
+    "Ki Seitzei",
+    "Ki Savo",
+    "Nitzavim",
+    "Vayeilech",
+    "Ha'azinu",
+    "V'Zos HaBerachah"
+   ]
+  },
+  {
+   "en": "Moadim",
+   "he": "מוֹעֲדִים",
+   "keys": [
+    "Shekalim",
+    "Zachor",
+    "For Purim",
+    "Parah",
+    "HaChodesh",
+    "For Shabbos HaGadol",
+    "For Pesach",
+    "For Shabbos Chol HaMoed Pesach",
+    "For Chol HaMoed Pesach",
+    "For the Seventh Day of Pesach",
+    "For the Last Day of Pesach",
+    "For Shavuos",
+    "For Rosh Hashanah",
+    "For Erev Yom Kippur",
+    "For Sukkos",
+    "For Shabbos Chol HaMoed Sukkos",
+    "For Hoshana Rabbah",
+    "For Shemini Atzeres"
+   ]
+  }
+ ],
+ "sectionsFiles": [
+  "sources/akiva/izhbitz-editions/Ne_ot_Deshe.part1.json.gz"
+ ],
+ "sectionCount": 72
+}
