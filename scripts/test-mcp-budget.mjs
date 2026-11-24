@@ -13,7 +13,7 @@ import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 
 const DIR = process.argv[2] || 'dist/mcp-data';
-const READ_BUDGET_MB = 75;        // index data one library-wide search reads (h/e/d files; notes searches read notes files)
+const READ_BUDGET_MB = Number(process.env.MCP_READ_BUDGET_MB) || 75;        // index data one library-wide search reads (h/e/d files; notes searches read notes files)
 // Raised from 60 MB for the eight Izhbitz-Radzin editions (November 2026, 70.7 MB): the live Worker (Workers Paid) answered a
 // library-wide kisvei_search over them; the CPU checks below still hold every tool call to CPU_BUDGET_MS. A word index is next.
 const READ_WARN_MB = 45;          // past this, plan the next step (a word index, so a search reads only its words' entries)
