@@ -31,6 +31,7 @@ export function patchSearch(js) {
   return js.replace(ISH_OLD, ISH_NEW);
 }
 const MANIFEST = 'sources/akiva/izhbitz-editions/parallels-manifest.json';
+const REVERSE = 'sources/akiva/izhbitz-editions/parallels-reverse.json';
 const REPORT = 'library/izhbitz-parallels-20261124.json';
 const STAGE = 'izhbitz-parallels-stage.json';
 const PREVIOUS = 'new-books-baseline.json', META = 'new-books-publication.json';
@@ -86,17 +87,71 @@ export function apply(site) {
   const counts = check(), m = read(ROOT, MANIFEST);
   const before = read(ROOT, PREVIOUS).files, base = read(ROOT, META);
   const affected = new Set(), created = new Set(), removed = [];
-  // 1. panel data: each file must be exactly what the manifest expects on the live site before this release
-  for (const [name, f] of Object.entries(m.files)) {
-    assert.equal(digest(site, name), f.preimage, 'Live panel file is not the expected preimage: ' + name);
-    if (!f.preimage) created.add(name);
-    fs.mkdirSync(path.dirname(rel(site, name)), {recursive: true});
-    fs.copyFileSync(rel(ROOT, 'dist/' + name), rel(site, name)); affected.add(name);
+  // 1. panel data, merged into the LIVE files (the committed dist/library copy can differ from them in index metadata):
+  //    the eight books' own files are replaced; every other sefer's file loses its earlier links into these books
+  //    (reviewed links stay) and gains the fresh ones (sources/akiva/izhbitz-editions/parallels-reverse.json)
+  const ORDER = {reviewed: -1, strong: 0, likely: 1, possible: 2};
+  const isO = r => m.books.some(t => r === t || r.startsWith(t + ',') || r.startsWith(t + ' '));
+  const reverse = read(ROOT, REVERSE);
+  const put = (name, bytes) => {
+    if (digest(site, name) === sha(bytes)) return;
+    if (!fs.existsSync(rel(site, name))) created.add(name);
+    assert(bytes.length <= 10 * 1024 * 1024, 'Over 10 MB: ' + name);
+    fs.mkdirSync(path.dirname(rel(site, name)), {recursive: true}); fs.writeFileSync(rel(site, name), bytes); affected.add(name);
+  };
+  for (const dir of ['mafteach', 'ml-parallels', 'genre-parallels', 'genre-reverse']) {
+    const idxName = `library/${dir}/index.json`, idx = read(site, idxName);
+    if (dir !== 'genre-reverse') {
+      const mine = read(ROOT, `dist/${idxName}`);
+      for (const t of m.books) {
+        const e = mine.books[t]; assert(e, `${dir}: committed data lacks ${t}`);
+        const bytes = fs.readFileSync(rel(ROOT, `dist/library/${dir}/${e.file}`));
+        put(`library/${dir}/${e.file}`, bytes);
+        idx.books[t] = {...e, bytes: bytes.length};
+      }
+    }
+    if (dir === 'genre-parallels') { put(idxName, Buffer.from(JSON.stringify(idx, null, 1))); continue; }
+    const add = reverse[dir] || {};
+    const ownFiles = new Set(m.books.map(t => idx.books[t]?.file).filter(Boolean));
+    for (const [book, e] of Object.entries(idx.books)) {
+      if (ownFiles.has(e.file) || m.books.includes(book)) continue;
+      const name = `library/${dir}/${e.file}`;
+      if (!fs.existsSync(rel(site, name))) continue;
+      const d = read(site, name), fresh = add[e.file]?.passages || {};
+      let changed = false;
+      for (const ref of Object.keys(d.passages)) {
+        if (dir === 'mafteach') {
+          const ent = d.passages[ref];
+          if (ent.p.some(x => isO(x[0]))) { ent.p = ent.p.filter(x => !isO(x[0])); changed = true; }
+        } else {
+          const items = d.passages[ref];
+          const keep = items.filter(x => !isO(x[0]) || (dir === 'ml-parallels' && x[2] === 'reviewed'));
+          if (keep.length !== items.length) { changed = true; if (keep.length) d.passages[ref] = keep; else delete d.passages[ref]; }
+        }
+      }
+      for (const [ref, items] of Object.entries(fresh)) {
+        changed = true;
+        if (dir === 'mafteach') {
+          const ent = d.passages[ref] ??= {t: [], s: [], p: []};
+          ent.p = [...ent.p, ...items].sort((x, y) => y[1] - x[1]);
+        } else if (dir === 'ml-parallels') {
+          const have = new Set((d.passages[ref] || []).map(x => x[0]));
+          d.passages[ref] = [...(d.passages[ref] || []), ...items.filter(x => !have.has(x[0]))].sort((x, y) => ORDER[x[2]] - ORDER[y[2]] || y[1] - x[1]);
+        } else {
+          d.passages[ref] = [...(d.passages[ref] || []), ...items].sort((x, y) => ORDER[x[1]] - ORDER[y[1]] || y[2] - x[2]);
+        }
+      }
+      if (!changed) continue;
+      const bytes = Buffer.from(JSON.stringify(d));
+      put(name, bytes); idx.books[book] = {...e, passages: Object.keys(d.passages).length, bytes: bytes.length};
+    }
+    for (const f of Object.keys(add)) assert(Object.values(idx.books).some(e => e.file === f), `${dir}: reverse data for an unknown file ${f}`);
+    put(idxName, Buffer.from(JSON.stringify(idx, null, 1)));
   }
-  for (const [name, h] of Object.entries(m.removed)) {
-    assert.equal(digest(site, name), h, 'Live panel file is not the expected preimage: ' + name);
-    fs.rmSync(rel(site, name)); removed.push(name);
-  }
+  //    HaMafteach links, rebuilt from the merged data for all twelve Ishbitz-Radzin titles: the folder is replaced
+  const links = allFiles(rel(ROOT, 'dist/library/mafteach-links'));
+  for (const f of links) put('library/mafteach-links/' + f, fs.readFileSync(rel(ROOT, 'dist/library/mafteach-links/' + f)));
+  for (const f of allFiles(rel(site, 'library/mafteach-links'))) if (!links.includes(f)) { fs.rmSync(rel(site, 'library/mafteach-links/' + f)); removed.push('library/mafteach-links/' + f); }
   // 2. the MCP HaMafteach index, rebuilt over the site's mcp-data with the edition notes
   const mafBefore = new Set(allFiles(rel(site, 'mcp-data/mafteach')).map(f => 'mcp-data/mafteach/' + f));
   let r = spawnSync('node', ['scripts/build-mafteach-index.mjs', rel(site, 'mcp-data')], {cwd: ROOT, stdio: 'inherit'});
