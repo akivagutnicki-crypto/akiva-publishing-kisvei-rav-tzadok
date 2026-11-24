@@ -159,9 +159,7 @@ export function apply(site) {
   const mafAfter = allFiles(rel(site, 'mcp-data/mafteach')).map(f => 'mcp-data/mafteach/' + f);
   for (const name of mafAfter) if (digest(site, name) !== (before[name] || null)) { affected.add(name); if (!mafBefore.has(name)) created.add(name); }
   for (const name of mafBefore) if (!mafAfter.includes(name)) removed.push(name);
-  // This release does not touch the search index. The live site (after the Izhbitz-Radzin editions) reads 85.8 MB per
-  // library-wide search, and the live Worker answered such searches over the new books; the CPU checks still apply.
-  r = spawnSync('node', ['scripts/test-mcp-budget.mjs', rel(site, 'mcp-data')], {cwd: ROOT, stdio: 'inherit', env: {...process.env, MCP_READ_BUDGET_MB: '95'}});
+  r = spawnSync('node', ['scripts/test-mcp-budget.mjs', rel(site, 'mcp-data')], {cwd: ROOT, stdio: 'inherit'});
   assert.equal(r.status, 0, 'The MCP data is over the Worker budget');
   // 3. panel script version and the cache markers
   const panel = 'library/mafteach-panel.js', js = fs.readFileSync(rel(site, panel), 'utf8');

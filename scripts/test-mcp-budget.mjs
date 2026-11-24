@@ -6,18 +6,21 @@
 // Run before every publication (Pages build, Mafteach release). Fails when:
 //   - a book has no search index, or its index does not match the book's paragraphs;
 //   - a published MCP data file is over 10 MB (except files already over it on the live site, which may not grow);
-//   - one library-wide search would read more than READ_BUDGET_MB of index data (deterministic: file sizes);
+//   - one book's search index is over BOOK_READ_MB (it is read at once inside the 128 MB heap);
 //   - any tool call fails, or takes more than CPU_BUDGET_MS of CPU, inside a 128 MB heap (as on Cloudflare).
 import fs from 'node:fs';
 import path from 'node:path';
 import { spawnSync } from 'node:child_process';
 
 const DIR = process.argv[2] || 'dist/mcp-data';
-const READ_BUDGET_MB = Number(process.env.MCP_READ_BUDGET_MB) || 75;        // index data one library-wide search reads (h/e/d files; notes searches read notes files)
-// Raised from 60 MB for the eight Izhbitz-Radzin editions (November 2026, 70.7 MB): the live Worker (Workers Paid) answered a
-// library-wide kisvei_search over them; the CPU checks below still hold every tool call to CPU_BUDGET_MS. A word index is next.
-const READ_WARN_MB = 45;          // past this, plan the next step (a word index, so a search reads only its words' entries)
-const CPU_BUDGET_MS = 1500;       // per tool call, measured here; the Worker failed at ~2,000 ms of the same work
+// The Worker runs on Workers Paid (since November 2026) with "cpu_ms": 120000 in wrangler.jsonc: up to 2 minutes of CPU per
+// request (the free plan's limit ended kisvei_search at ~2,000 ms). Memory stays 128 MB on every plan, and a library-wide
+// search reads the books' index files ONE BOOK AT A TIME (cloudflare/mcp.mjs search()), so what memory bounds is the
+// largest single book's index, not the library's total. The total is reported, and its CPU cost is measured below.
+const WORKER_CPU_MS = 120_000;    // wrangler.jsonc limits.cpu_ms
+const CPU_BUDGET_MS = Number(process.env.MCP_CPU_BUDGET_MS) || 15_000;   // per tool call measured here: an 8x margin under the Worker's limit
+const BOOK_READ_MB = 40;          // one book's search index, read at once inside the 128 MB heap (parts are joined)
+const READ_WARN_MB = 150;         // library-wide total: past this, plan a word index so a search reads only its words' entries
 const MAX_FILE = 10_000_000;
 // Whole-book files over 10 MB. The tools read text-chunks/ and the search index; this whole-book file is only a fallback,
 // and this test makes it unreachable on a published site (it fails a publication whose chunks or index are missing).
@@ -35,6 +38,7 @@ const { books } = JSON.parse(fs.readFileSync(path.join(DIR, 'catalog.json'), 'ut
 const size = f => { try { return fs.statSync(path.join(DIR, f)).size; } catch { return -1; } };
 const readJson = f => JSON.parse(fs.readFileSync(path.join(DIR, f), 'utf8'));
 let mainBytes = 0, notesBytes = 0;
+const bookBytes = {};
 const lineCount = t => { let n = 0; for (let k = t.indexOf('\n'); k >= 0; k = t.indexOf('\n', k + 1)) n++; return n; };
 for (const b of books) {
   const paras = readJson(`text/${b.slug}.json`).paras.length;
@@ -47,7 +51,7 @@ for (const b of books) {
     for (const file of files) {
       if (size(file) < 0) { check(false, `search index part missing: ${file}`); continue; }
       lines += lineCount(fs.readFileSync(path.join(DIR, file), 'utf8'));
-      if (f === 'n') notesBytes += size(file); else if (f !== 'hl') mainBytes += size(file);
+      if (f === 'n') notesBytes += size(file); else if (f !== 'hl') { mainBytes += size(file); bookBytes[b.slug] = (bookBytes[b.slug] || 0) + size(file); }
     }
     check(lines === paras, `${name}: ${lines} lines for ${paras} paragraphs`);
   }
@@ -59,8 +63,7 @@ for (const f of walk(DIR)) {
   const rel = path.relative(DIR, f).split(path.sep).join('/'), s = fs.statSync(f).size;
   check(s <= (GRANDFATHERED[rel] ?? MAX_FILE), `${rel} is ${(s / 1e6).toFixed(1)} MB (limit ${((GRANDFATHERED[rel] ?? MAX_FILE) / 1e6).toFixed(1)} MB)`);
 }
-check(mainBytes / 1e6 <= READ_BUDGET_MB, `a library-wide search reads ${(mainBytes / 1e6).toFixed(1)} MB of index (budget ${READ_BUDGET_MB} MB)`);
-check(notesBytes / 1e6 <= READ_BUDGET_MB, `a library-wide notes search reads ${(notesBytes / 1e6).toFixed(1)} MB of index (budget ${READ_BUDGET_MB} MB)`);
+for (const [slug, mb] of Object.entries(bookBytes)) check(mb / 1e6 <= BOOK_READ_MB, `search index of ${slug} is ${(mb / 1e6).toFixed(1)} MB (one book, read at once: limit ${BOOK_READ_MB} MB)`);
 
 // --- every tool, in a 128 MB heap, one call per fresh process (a cold Worker), with CPU time measured
 const CALLS = [
@@ -109,8 +112,8 @@ for (const [name, args] of CALLS) {
   check(out.ms <= CPU_BUDGET_MS, `${label}: ${out.ms} ms CPU (budget ${CPU_BUDGET_MS} ms)`);
 }
 console.log(rows.join('\n'));
-console.log(`search index read per library-wide search: ${(mainBytes / 1e6).toFixed(1)} MB (notes ${(notesBytes / 1e6).toFixed(1)} MB); budget ${READ_BUDGET_MB} MB`);
+console.log(`search index read per library-wide search: ${(mainBytes / 1e6).toFixed(1)} MB (notes ${(notesBytes / 1e6).toFixed(1)} MB); largest book ${(Math.max(...Object.values(bookBytes)) / 1e6).toFixed(1)} MB (limit ${BOOK_READ_MB} MB)`);
 for (const [what, mb] of [['library-wide search', mainBytes / 1e6], ['notes search', notesBytes / 1e6]])
-  if (mb > READ_WARN_MB) console.log(`::warning::MCP ${what} reads ${mb.toFixed(1)} MB of index (warn ${READ_WARN_MB} MB, limit ${READ_BUDGET_MB} MB): time to add a word index`);
+  if (mb > READ_WARN_MB) console.log(`::warning::MCP ${what} reads ${mb.toFixed(1)} MB of index (warn ${READ_WARN_MB} MB): time to add a word index`);
 if (fail.length) { console.error('MCP budget test FAILED:\n  ' + fail.join('\n  ')); process.exit(1); }
 console.log(`PASS MCP budget: ${passed} checks`);
