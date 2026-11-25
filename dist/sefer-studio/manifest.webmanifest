@@ -1,10 +1,17 @@
 {
-  "id": "./",
+  "id": "/akiva-publishing-kisvei-rav-tzadok/sefer-studio/",
   "name": "SeferStudio Pro — Word DOCX, Publisher, PDF/OCR & Design",
   "short_name": "SeferStudio",
   "description": "Offline-capable Word (.docx) processor with true bottom-of-page footnotes & Ivrit BiDi, Publisher newsletters/flyers, PDF/OCR studio, Visual Design studio, and MCP Hub.",
   "start_url": "./",
   "scope": "./",
+  "launch_handler": {
+    "client_mode": [
+      "navigate-existing",
+      "auto"
+    ]
+  },
+  "handle_links": "preferred",
   "display": "standalone",
   "display_override": [
     "window-controls-overlay",

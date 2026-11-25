@@ -26,6 +26,10 @@ PREFIX = 'sefer-studio/'
 PRO_PREFIX = 'sefer-pro/'
 SOFER_PREFIX = 'sofer-studio/'
 APP_PREFIXES = (PREFIX, PRO_PREFIX, SOFER_PREFIX)
+# The Library's manifest gets the same app identity and link handling as the Sefer apps (November 2026: each installed
+# app opens its own links in its own window). It is replaced only when the live file is the known previous one.
+LIBRARY_MANIFEST = 'library/manifest.webmanifest'
+LIBRARY_MANIFEST_BEFORE = '66ad511e373d33176d00547a09505bb9073b7f3a34e4541934e7f5e55b105eb0'
 LIVE_GUARDS = ['index.html', 'library/index.html', 'library/sw.js',
                'library/data/catalog.json', 'library/data/cited/index.json']
 
@@ -243,6 +247,11 @@ def apply():
     replace_app(ROOT / PREFIX)
     build_app(ROOT / PRO_PREFIX)
     build_app(ROOT / SOFER_PREFIX, standalone=True)
+    live = ROOT / LIBRARY_MANIFEST
+    wanted = digest(Path('dist') / LIBRARY_MANIFEST)
+    if digest(live) != wanted:
+        assert digest(live) == LIBRARY_MANIFEST_BEFORE, 'Live Library manifest is not the known previous version'
+        shutil.copyfile(Path('dist') / LIBRARY_MANIFEST, live)
     verify()
 
 
@@ -253,9 +262,10 @@ def verify():
     removed = sorted(set(before) - set(after))
     changed = {name for name in after if before.get(name) != after[name]}
     assert all(name.startswith(APP_PREFIXES) for name in removed), 'An unrelated file was removed'
-    assert all(name.startswith(APP_PREFIXES) for name in changed), 'An unrelated file was changed'
+    assert all(name.startswith(APP_PREFIXES) or name == LIBRARY_MANIFEST for name in changed), 'An unrelated file was changed'
+    assert after.get(LIBRARY_MANIFEST) == digest(Path('dist') / LIBRARY_MANIFEST), 'Library manifest not the tracked one'
     for name, expected in before.items():
-        if not name.startswith(APP_PREFIXES):
+        if not name.startswith(APP_PREFIXES) and name != LIBRARY_MANIFEST:
             assert after.get(name) == expected, 'Unrelated published bytes changed: ' + name
     app_files = {name: value for name, value in after.items() if name.startswith(APP_PREFIXES)}
     assert app_files == state['inputs'] == source_inventory(), 'Staged app differs from tracked source'
@@ -274,6 +284,7 @@ def published():
     expected = {name: value for name, value in report['expectedLive'].items()
                 if not any(part.startswith('.') for part in PurePosixPath(name).parts)}
     expected.update({name: state['files'][name] for name in LIVE_GUARDS})
+    expected[LIBRARY_MANIFEST] = digest(Path('dist') / LIBRARY_MANIFEST)
     pending = dict(expected)
 
     def matches(item):
