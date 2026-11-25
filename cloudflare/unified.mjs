@@ -197,7 +197,7 @@ function ocrConfig(body) {
     engine: body.engine === 'gemini' ? body.gemini_model || 'gemini-4-neon' : body.engine || 'hybrid',
     soferMode: body.soferMode || body.sofer_ocr_mode || body.mode || 'enhanced',
     nikkud: bool(body.nikkud ?? body.add_nikkud, true), oldPrint: bool(body.oldPrint ?? body.older_print, true),
-    ...(body.tiles !== undefined ? { tiles: body.tiles } : {}), ...(body.proofread !== undefined ? { proofread: body.proofread === true } : {}),
+    ...(body.tiles !== undefined ? { tiles: body.tiles } : {}), ...(body.proofread !== undefined ? { proofread: body.proofread === true } : {}), ...(body.speed !== undefined ? { speed: body.speed } : {}),
   };
 }
 

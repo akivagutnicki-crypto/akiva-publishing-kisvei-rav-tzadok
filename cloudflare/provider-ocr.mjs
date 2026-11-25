@@ -8,7 +8,8 @@ const SOFER_URL = 'https://api.sofer.ai/v1/ocr/';
 const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/';
 const ENGINES = ['akiva', 'hybrid', 'gemini-4-neon', 'gemini-4-carbon', 'sofer'];
 const CLAUDE_URL = 'https://api.anthropic.com/v1/messages';
-const CLAUDE_MODEL = 'claude-opus-5-5';
+const CLAUDE_MODEL = 'claude-opus-5-5';          // dense, Rashi or old print: maximum detail
+const CLAUDE_FAST_MODEL = 'claude-sonnet-5-5';   // clear modern print: faster and less costly
 const MAX_TILES = 16;
 const MODES = ['standard', 'enhanced', 'handwriting'];
 const ALLOWED_HEADERS = 'Content-Type, X-Gemini-API-Key, X-Sofer-API-Key, X-Anthropic-API-Key';
@@ -39,7 +40,8 @@ async function requestData(request) {
       !['auto', 'rtl-columns', 'single', 'tzurat-hadaf'].includes(payload.layout) ||
       !Number.isSafeInteger(payload.pageNumber) || payload.pageNumber < 1 ||
       typeof payload.nikkud !== 'boolean' || typeof payload.oldPrint !== 'boolean' ||
-      (payload.proofread !== undefined && typeof payload.proofread !== 'boolean')) {
+      (payload.proofread !== undefined && typeof payload.proofread !== 'boolean') ||
+      (payload.speed !== undefined && !['fast', 'detail'].includes(payload.speed))) {
     throw badRequest('Invalid OCR engine, mode, page number, script, or layout.');
   }
   const source = payload.documentDataUrl ?? payload.imageDataUrl;
@@ -69,7 +71,7 @@ async function requestData(request) {
     });
   }
   const { imageDataUrl, documentDataUrl, tiles: _tiles, ...settings } = payload;
-  return { ...settings, mime, data, tiles, proofread: payload.proofread === true };
+  return { ...settings, mime, data, tiles, proofread: payload.proofread === true, speed: payload.speed === 'fast' ? 'fast' : 'detail' };
 }
 
 function requireKey(request, header, provider) {
@@ -203,7 +205,7 @@ async function claudeVision(fetcher, key, page, signal, draft) {
   const data = await upstreamJson(fetcher, CLAUDE_URL, {
     method: 'POST', signal,
     headers: { 'Content-Type': 'application/json', 'x-api-key': key, 'anthropic-version': '2023-06-01' },
-    body: JSON.stringify({ model: CLAUDE_MODEL, max_tokens: 32000, system: akivaPrompt(page, Boolean(draft)),
+    body: JSON.stringify({ model: page.speed === 'fast' ? CLAUDE_FAST_MODEL : CLAUDE_MODEL, max_tokens: 32000, system: akivaPrompt(page, Boolean(draft)),
       tools: [transcriptionTool], tool_choice: { type: 'tool', name: 'transcription' }, messages: [{ role: 'user', content }] }),
   }, 'Claude');
   const call = Array.isArray(data?.content) ? data.content.find((part) => part?.type === 'tool_use' && part.name === 'transcription') : null;
@@ -217,7 +219,7 @@ async function claudeVision(fetcher, key, page, signal, draft) {
 }
 async function akiva(fetcher, key, page, signal) {
   const first = await claudeVision(fetcher, key, page, signal);
-  const label = 'Claude vision · ' + (page.tiles.length ? page.tiles.length + ' close-up tiles' : 'whole page');
+  const label = 'Claude vision ' + (page.speed === 'fast' ? '(fast) · ' : '(max detail) · ') + (page.tiles.length ? page.tiles.length + ' close-up tiles' : 'whole page');
   if (!page.proofread || !first.text) return { ...first, provider: 'Akiva OCR', model: label };
   try {
     const checked = await claudeVision(fetcher, key, page, signal, first.text);

@@ -770,6 +770,13 @@
                 </select>
               </label>
               <label class="flex items-center gap-1.5"><input id="pdf-provider-nikkud" type="checkbox" /> + Nikkudot</label>
+              <label id="pdf-provider-speed-label" class="block">Akiva OCR mode
+                <select id="pdf-provider-speed" class="mt-1 w-full rounded border border-blue-200 bg-white p-1">
+                  <option value="auto" selected>Auto · fast for regular print, maximum detail for Rashi script</option>
+                  <option value="fast">Fast · regular Hebrew / English print (books, typed sefarim)</option>
+                  <option value="detail">Maximum detail · Rashi, dense, small or old print</option>
+                </select>
+              </label>
               <label id="pdf-provider-proofread-label" class="flex items-center gap-1.5"><input id="pdf-provider-proofread" type="checkbox" /> Double-check · a second proofreading pass (slower, most accurate)</label>
               <p id="pdf-provider-akiva-note" class="text-[11px] text-slate-700">Akiva OCR reads each page twice over: a whole-page view for columns, zones and reading order, and close-up tiles at full scan resolution for every letter, nikkud mark and Rashi-script form. Footnotes come after the body under ---.</p>
               <label id="pdf-provider-old-print-label" class="flex items-center gap-1.5"><input id="pdf-provider-old-print" type="checkbox" /> Old Print</label>
@@ -5689,6 +5696,7 @@
     document.getElementById('pdf-provider-sofer-note').classList.toggle('hidden', engine !== 'sofer');
     document.getElementById('pdf-provider-old-print-label').classList.toggle('hidden', engine === 'sofer');
     document.getElementById('pdf-provider-proofread-label').classList.toggle('hidden', engine !== 'akiva');
+    document.getElementById('pdf-provider-speed-label').classList.toggle('hidden', engine !== 'akiva');
     document.getElementById('pdf-provider-akiva-note').classList.toggle('hidden', engine !== 'akiva');
     const layout = document.getElementById('pdf-vision-layout');
     layout.querySelector('[value="tzurat-hadaf"]').hidden = !provider || engine === 'sofer';
@@ -5702,6 +5710,7 @@
     return { endpoint: PROVIDER_OCR_ENDPOINT, provider: engine, access, nikkud,
       soferMode: document.getElementById('pdf-provider-sofer-mode').value,
       proofread: engine === 'akiva' && document.getElementById('pdf-provider-proofread').checked,
+      speed: document.getElementById('pdf-provider-speed').value,
       oldPrint: engine !== 'sofer' && document.getElementById('pdf-provider-old-print').checked };
   }
 
@@ -6587,8 +6596,8 @@
   }
 
   // Akiva OCR: a reduced whole-page view plus overlapping close-up tiles at the scan's full resolution
-  function akivaOcrImages(canvas) {
-    const W = canvas.width, H = canvas.height, T = 1400, O = 64, BUDGET = 10_500_000;
+  function akivaOcrImages(canvas, fast = false) {
+    const W = canvas.width, H = canvas.height, O = 64, BUDGET = 10_500_000;
     const crop = (x, y, w, h, scale, quality) => {
       const c = document.createElement('canvas');
       c.width = Math.max(1, Math.round(w * scale)); c.height = Math.max(1, Math.round(h * scale));
@@ -6596,12 +6605,13 @@
       g.imageSmoothingQuality = 'high'; g.drawImage(canvas, x, y, w, h, 0, 0, c.width, c.height);
       return c.toDataURL('image/jpeg', quality);
     };
-    const spans = (total) => {
+    const spans = (total, T) => {
       const n = Math.max(1, Math.ceil((total - O) / (T - O)));
       const size = Math.min(total, Math.ceil((total + (n - 1) * O) / n));
       return Array.from({ length: n }, (_, i) => { const start = i === n - 1 ? total - size : i * (size - O); return [Math.max(0, start), size]; });
     };
-    const cols = spans(W), rows = spans(H);
+    // fast: full-width bands (regular print reads well at this size); detail: ~1400 px close-ups at full scan resolution
+    const cols = fast ? [[0, W]] : spans(W, 1400), rows = spans(H, fast ? Math.max(1400, Math.ceil(W * 0.65)) : 1400);
     const single = cols.length * rows.length === 1;
     for (const quality of [0.9, 0.82, 0.72, 0.62]) {
       const overview = crop(0, 0, W, H, Math.min(1, 1568 / Math.max(W, H)), single ? Math.max(quality, 0.85) : 0.8);
@@ -6618,13 +6628,14 @@
     await waitForVisionOcrSlot(run);
     assertOcrRun(run);
     const image = await renderOcrPage(run, page, run.limits);
-    const akivaImages = run.connection.provider === 'akiva' ? akivaOcrImages(image.canvas) : null;
+    const akivaSpeed = run.connection.speed === 'auto' ? (run.language === 'heb_rashi' || run.layout === 'tzurat-hadaf' || run.targetDpi === 400 ? 'detail' : 'fast') : run.connection.speed;
+    const akivaImages = run.connection.provider === 'akiva' ? akivaOcrImages(image.canvas, akivaSpeed === 'fast') : null;
     const imageDataUrl = akivaImages ? akivaImages.overview : image.canvas.toDataURL('image/jpeg', 0.96);
     if (imageDataUrl.length > run.limits.maxImageDataUrlChars) throw new Error('The image exceeds the service size limit. Choose 300 DPI and retry this page.');
     const connectedProvider = run.connection.provider;
     const body = JSON.stringify(connectedProvider
       ? { imageDataUrl, language: run.language, layout: run.layout, pageNumber: run.page, engine: connectedProvider, soferMode: run.connection.soferMode, nikkud: run.connection.nikkud, oldPrint: run.connection.oldPrint,
-          ...(akivaImages ? { tiles: akivaImages.tiles, proofread: run.connection.proofread } : {}) }
+          ...(akivaImages ? { tiles: akivaImages.tiles, proofread: run.connection.proofread, speed: akivaSpeed } : {}) }
       : { imageDataUrl, language: run.language === 'heb_rashi' ? 'heb' : run.language, layout: run.layout, pageNumber: run.page });
     const headers = { 'Content-Type': 'application/json' };
     headers.Authorization = 'Bearer ' + run.connection.access;

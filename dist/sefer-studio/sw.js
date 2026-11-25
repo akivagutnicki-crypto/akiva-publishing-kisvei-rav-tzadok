@@ -1,7 +1,7 @@
 // Keep this installation's cache separate from other apps on the same host.
 const APP_SCOPE = new URL(self.registration.scope);
 const CACHE_PREFIX = `seferstudio-${encodeURIComponent(APP_SCOPE.href)}-`;
-const CACHE_NAME = `${CACHE_PREFIX}v17-akiva-ocr`;
+const CACHE_NAME = `${CACHE_PREFIX}v18-akiva-ocr-fast`;
 const CORE_URLS = [
   './',
   './index.html',
