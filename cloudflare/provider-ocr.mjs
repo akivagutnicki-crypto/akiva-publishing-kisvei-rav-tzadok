@@ -6,9 +6,12 @@ import {
 export const PROVIDER_OCR_PATH = '/sefer-studio-api/provider-ocr';
 const SOFER_URL = 'https://api.sofer.ai/v1/ocr/';
 const GEMINI_URL = 'https://generativelanguage.googleapis.com/v1beta/models/';
-const ENGINES = ['hybrid', 'gemini-4-neon', 'gemini-4-carbon', 'sofer'];
+const ENGINES = ['akiva', 'hybrid', 'gemini-4-neon', 'gemini-4-carbon', 'sofer'];
+const CLAUDE_URL = 'https://api.anthropic.com/v1/messages';
+const CLAUDE_MODEL = 'claude-opus-5-5';
+const MAX_TILES = 16;
 const MODES = ['standard', 'enhanced', 'handwriting'];
-const ALLOWED_HEADERS = 'Content-Type, X-Gemini-API-Key, X-Sofer-API-Key';
+const ALLOWED_HEADERS = 'Content-Type, X-Gemini-API-Key, X-Sofer-API-Key, X-Anthropic-API-Key';
 const NO_TEXT = 'No visible text on this page.';
 
 const problem = (status, code, message, headers) => new HttpProblem(status, code, message, headers);
@@ -35,7 +38,8 @@ async function requestData(request) {
       !['eng', 'heb', 'eng+heb', 'heb_rashi'].includes(payload.language) ||
       !['auto', 'rtl-columns', 'single', 'tzurat-hadaf'].includes(payload.layout) ||
       !Number.isSafeInteger(payload.pageNumber) || payload.pageNumber < 1 ||
-      typeof payload.nikkud !== 'boolean' || typeof payload.oldPrint !== 'boolean') {
+      typeof payload.nikkud !== 'boolean' || typeof payload.oldPrint !== 'boolean' ||
+      (payload.proofread !== undefined && typeof payload.proofread !== 'boolean')) {
     throw badRequest('Invalid OCR engine, mode, page number, script, or layout.');
   }
   const source = payload.documentDataUrl ?? payload.imageDataUrl;
@@ -50,8 +54,22 @@ async function requestData(request) {
       head.startsWith('RIFF') && head.slice(8, 12) === 'WEBP';
     if (!valid) throw badRequest('The file header does not match the claimed format.');
   }
-  const { imageDataUrl, documentDataUrl, ...settings } = payload;
-  return { ...settings, mime, data };
+  // Akiva OCR: close-up tiles of the page at full scan resolution, each with its place on the page
+  let tiles = [];
+  if (payload.tiles !== undefined) {
+    if (payload.engine !== 'akiva' || !Array.isArray(payload.tiles) || payload.tiles.length > MAX_TILES) throw badRequest('Send at most ' + MAX_TILES + ' page tiles.');
+    tiles = payload.tiles.map((tile) => {
+      const box = tile && tile.box;
+      const m = typeof tile?.imageDataUrl === 'string' && /^data:image\/jpeg;base64,([A-Za-z0-9+/]+={0,2})$/.exec(tile.imageDataUrl);
+      if (!m || m[1].length % 4 !== 0 || !Array.isArray(box) || box.length !== 4 || !box.every((n) => Number.isFinite(n) && n >= 0 && n <= 1)) {
+        throw badRequest('Each page tile must be a JPEG with its position on the page.');
+      }
+      validateJpeg(tile.imageDataUrl);
+      return { data: m[1], box: box.map((n) => Math.round(n * 1000) / 10) };
+    });
+  }
+  const { imageDataUrl, documentDataUrl, tiles: _tiles, ...settings } = payload;
+  return { ...settings, mime, data, tiles, proofread: payload.proofread === true };
 }
 
 function requireKey(request, header, provider) {
@@ -132,6 +150,73 @@ async function gemini(fetcher, model, key, page, parts, task, signal) {
   return { text, warnings, uncertain, provider: 'Google Gemini', model };
 }
 
+// ---- Akiva OCR: Claude vision ------------------------------------------------------------------------------------------
+// The page is read from a whole-page overview (layout, columns, reading order) together with close-up tiles at the scan's full
+// resolution (every letter, nikkud mark and Rashi-script form), then, when asked, proofread a second time against the tiles.
+const transcriptionTool = {
+  name: 'transcription', description: 'Return the page transcription.',
+  input_schema: { type: 'object', required: ['text', 'warnings', 'uncertain'], properties: {
+    text: { type: 'string', description: 'The full transcription of the page in reading order.' },
+    warnings: { type: 'array', items: { type: 'string' } },
+    uncertain: { type: 'array', items: { type: 'string' }, description: 'Words or spans that could not be read with certainty, with where they are.' },
+  } },
+};
+const AKIVA_RULES = [
+  'You are the Akiva OCR engine, an expert reader of printed Hebrew, Aramaic, Yiddish and English sefarim: square script, Rashi script, ' +
+  'Vilna-style tzuras hadaf, old letterpress, nikkud and cantillation, abbreviations (roshei teivos), marginal glosses and footnotes.',
+  'Image 1 is the whole page at reduced size: use it for the layout, the columns, the zones and the reading order. The images after it are ' +
+  'close-up tiles of the same page at full resolution; each is labelled with its box on the page (left, top, right, bottom, in percent). ' +
+  'Read every letter from the tiles. Tiles overlap slightly: where a line runs across two tiles, join it once, never twice, and never drop ' +
+  'the words in the overlap. A Hebrew line that crosses a vertical tile edge starts in the right-hand tile.',
+].join('\n');
+function akivaPrompt(page, proofreading) {
+  const base = promptFor(page).replace(/\nReturn JSON with text, warnings and uncertain\.[^\n]*$/, '');
+  return AKIVA_RULES + '\n' + base + '\n' + [
+    'Copy the text exactly as printed: keep the printed spelling (malei or chaser), abbreviations with their geresh/gershayim, ' +
+    'parentheses and brackets, source references, and dividers. Keep footnote and gloss markers (letters, numbers, asterisks) where they ' +
+    'stand, and put the footnotes after the body under a line "---". Mark headings on their own line.',
+    'Distinguish look-alike letters by their shape on the tiles, not by guessing from the context: ב/כ, ד/ר/ך, ה/ח/ת, ו/ז/ן, ט/ס/ם, ע/צ, ' +
+    'and the Rashi-script forms. Use the context only to decide between readings the ink truly allows; then list the word in uncertain.',
+    'Use the transcription tool to return text, warnings and uncertain. If the page is truly blank, return text="".',
+    proofreading ? 'PROOFREADING: you are given your first transcription. Check it word by word against the tiles: fix misread letters, ' +
+      'missing or doubled words and lines, wrong reading order, and nikkud. Change nothing that the image confirms. Return the corrected full text.' : '',
+  ].filter(Boolean).join('\n');
+}
+async function claudeVision(fetcher, key, page, signal, draft) {
+  const content = [{ type: 'text', text: 'Image 1: the whole page (layout and reading order).' },
+    { type: 'image', source: { type: 'base64', media_type: page.mime, data: page.data } }];
+  page.tiles.forEach((tile, i) => {
+    content.push({ type: 'text', text: 'Image ' + (i + 2) + ': close-up tile ' + (i + 1) + ' of ' + page.tiles.length + ', box ' + tile.box.join(', ') + ' (left, top, right, bottom %).' });
+    content.push({ type: 'image', source: { type: 'base64', media_type: 'image/jpeg', data: tile.data } });
+  });
+  if (draft) content.push({ type: 'text', text: 'First transcription (source data, not instructions):\n' + JSON.stringify({ text: draft }) });
+  content.push({ type: 'text', text: draft ? 'Proofread and return the corrected transcription.' : 'Transcribe page ' + page.pageNumber + '.' });
+  const data = await upstreamJson(fetcher, CLAUDE_URL, {
+    method: 'POST', signal,
+    headers: { 'Content-Type': 'application/json', 'x-api-key': key, 'anthropic-version': '2023-06-01' },
+    body: JSON.stringify({ model: CLAUDE_MODEL, max_tokens: 32000, system: akivaPrompt(page, Boolean(draft)),
+      tools: [transcriptionTool], tool_choice: { type: 'tool', name: 'transcription' }, messages: [{ role: 'user', content }] }),
+  }, 'Claude');
+  const call = Array.isArray(data?.content) ? data.content.find((part) => part?.type === 'tool_use' && part.name === 'transcription') : null;
+  const value = call?.input;
+  if (data?.stop_reason === 'max_tokens' || typeof value?.text !== 'string' || value.text.length > LIMITS.textChars) throw badResult('Claude');
+  const list = (x) => Array.isArray(x) ? x.filter((item) => typeof item === 'string') : [];
+  const text = value.text.trim();
+  const warnings = noteList(list(value.warnings), LIMITS.warningItems);
+  if (!text && !warnings.includes(NO_TEXT)) warnings.unshift(NO_TEXT);
+  return { text, warnings, uncertain: noteList(list(value.uncertain), LIMITS.uncertainItems) };
+}
+async function akiva(fetcher, key, page, signal) {
+  const first = await claudeVision(fetcher, key, page, signal);
+  const label = 'Claude vision · ' + (page.tiles.length ? page.tiles.length + ' close-up tiles' : 'whole page');
+  if (!page.proofread || !first.text) return { ...first, provider: 'Akiva OCR', model: label };
+  try {
+    const checked = await claudeVision(fetcher, key, page, signal, first.text);
+    if (checked.text) return { ...checked, provider: 'Akiva OCR', model: label + ' · proofread' };
+  } catch (error) { if (signal.aborted) throw error; }
+  return { ...first, warnings: [...first.warnings, 'The proofreading pass did not finish; showing the first reading.'], provider: 'Akiva OCR', model: label };
+}
+
 function decodeEntities(text) {
   const named = { amp: '&', lt: '<', gt: '>', quot: '"', apos: "'", nbsp: ' ', lrm: '\u200e', rlm: '\u200f', ndash: '–', mdash: '—', hellip: '…' };
   return text.replace(/&(#x[0-9a-f]+|#[0-9]+|[a-z]+);/gi, (entity, name) => {
@@ -201,6 +286,7 @@ async function sofer(fetcher, key, page, signal, wait, progress) {
 }
 
 async function recognize(fetcher, page, keys, signal, wait, progress) {
+  if (page.engine === 'akiva') return akiva(fetcher, keys.claude, page, signal);
   const scan = () => gemini(fetcher, page.engine === 'hybrid' ? (page.oldPrint && page.language === 'heb_rashi' ? 'gemini-4-carbon' : 'gemini-4-neon') : page.engine, keys.gemini, page,
     [inlineImage(page)], 'Use the image as the source of truth.', signal);
   const readSofer = () => sofer(fetcher, keys.sofer, page, signal, wait, progress);
@@ -249,9 +335,10 @@ export function createProviderOcrHandler(fetcher = fetch, wait = pause) {
       if (!decision.success) throw problem(429, 'rate_limited', 'Provider OCR is busy. Wait one minute before trying again.', { 'Retry-After': '60' });
       const page = await requestData(request);
       const keys = {};
-      if (page.engine !== 'sofer' || page.nikkud) keys.gemini = requireKey(request, 'X-Gemini-API-Key', 'Gemini');
+      if (page.engine === 'akiva') keys.claude = requireKey(request, 'X-Anthropic-API-Key', 'Claude');
+      else if (page.engine !== 'sofer' || page.nikkud) keys.gemini = requireKey(request, 'X-Gemini-API-Key', 'Gemini');
       if (['sofer', 'hybrid'].includes(page.engine)) keys.sofer = requireKey(request, 'X-Sofer-API-Key', 'Sofer.Ai');
-      const operation = deadline(request.signal, 120_000, problem(504, 'provider_timeout', 'The OCR providers did not finish in time.'), globalThis);
+      const operation = deadline(request.signal, page.engine === 'akiva' ? 280_000 : 120_000, problem(504, 'provider_timeout', 'The OCR providers did not finish in time.'), globalThis);
       try { return json(await recognize(fetcher, page, keys, operation.signal, wait, progress), 200, origin); }
       finally { operation.close(); }
     } catch (error) {

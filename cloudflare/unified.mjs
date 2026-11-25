@@ -197,6 +197,7 @@ function ocrConfig(body) {
     engine: body.engine === 'gemini' ? body.gemini_model || 'gemini-4-neon' : body.engine || 'hybrid',
     soferMode: body.soferMode || body.sofer_ocr_mode || body.mode || 'enhanced',
     nikkud: bool(body.nikkud ?? body.add_nikkud, true), oldPrint: bool(body.oldPrint ?? body.older_print, true),
+    ...(body.tiles !== undefined ? { tiles: body.tiles } : {}), ...(body.proofread !== undefined ? { proofread: body.proofread === true } : {}),
   };
 }
 
@@ -330,7 +331,8 @@ export default async function unified(request, env) {
     if (path === '/v1/transcribe') return await transcribe(request, origin, body, env, owner);
     if (path === '/v1/nikkud') return await runAudio(request, origin, { action: 'nikkud', text: body.text, style: body.style }, env);
     const options = ocrConfig(body);
-    requireProviders(env, ['sofer', 'hybrid'].includes(options.engine), options.engine !== 'sofer' || options.nikkud);
+    if (options.engine === 'akiva') { if (!env.ANTHROPIC_API_KEY?.trim()) throw unavailable('The server operator must configure ANTHROPIC_API_KEY.'); }
+    else requireProviders(env, ['sofer', 'hybrid'].includes(options.engine), options.engine !== 'sofer' || options.nikkud);
     return await ocr.fetch(internalRequest(request, origin, options, env), env);
   } catch (error) {
     const issue = error instanceof HttpProblem ? error : unavailable('The SoferStudio API could not complete this request.');

@@ -745,9 +745,8 @@
           <div id="pdf-ocr-scope-summary" class="text-[11px] text-slate-600" aria-live="polite">Open a PDF to choose pages.</div>
           <div class="studio-fields-grid">
           <label class="studio-field">OCR Engine<select id="pdf-ocr-engine" aria-label="OCR engine" class="w-full border border-slate-300 rounded px-2 py-1 bg-white text-xs">
-            <option value="local">On-device OCR · ready to use</option>
-            <option value="gemini-4-neon">Gemini 4 Neon Vision</option>
-            <option value="gemini-4-carbon">Gemini 4 Carbon Vision</option>
+            <option value="akiva" selected>Akiva OCR · Claude vision (recommended)</option>
+            <option value="local">On-device OCR · free, works offline</option>
             <option value="vision">Connected AI vision · service access code</option>
           </select></label>
           <label class="studio-field">Script Type<select id="pdf-ocr-lang" aria-label="OCR Language" class="w-full min-w-0 border border-slate-300 rounded px-2 py-1 bg-white">
@@ -771,6 +770,8 @@
                 </select>
               </label>
               <label class="flex items-center gap-1.5"><input id="pdf-provider-nikkud" type="checkbox" /> + Nikkudot</label>
+              <label id="pdf-provider-proofread-label" class="flex items-center gap-1.5"><input id="pdf-provider-proofread" type="checkbox" /> Double-check · a second proofreading pass (slower, most accurate)</label>
+              <p id="pdf-provider-akiva-note" class="text-[11px] text-slate-700">Akiva OCR reads each page twice over: a whole-page view for columns, zones and reading order, and close-up tiles at full scan resolution for every letter, nikkud mark and Rashi-script form. Footnotes come after the body under ---.</p>
               <label id="pdf-provider-old-print-label" class="flex items-center gap-1.5"><input id="pdf-provider-old-print" type="checkbox" /> Old Print</label>
               <p id="pdf-provider-sofer-note" class="hidden text-[11px] text-slate-700">Sofer.Ai returns its own reading order. Select Hybrid to review column order against the image. Adding nikkud here uses Gemini and sends the extracted text to Google.</p>
               <p id="pdf-provider-status" role="status" class="text-[11px] text-blue-900"></p>
@@ -5687,6 +5688,8 @@
     document.getElementById('pdf-provider-sofer-mode-label').classList.toggle('hidden', !usesSofer);
     document.getElementById('pdf-provider-sofer-note').classList.toggle('hidden', engine !== 'sofer');
     document.getElementById('pdf-provider-old-print-label').classList.toggle('hidden', engine === 'sofer');
+    document.getElementById('pdf-provider-proofread-label').classList.toggle('hidden', engine !== 'akiva');
+    document.getElementById('pdf-provider-akiva-note').classList.toggle('hidden', engine !== 'akiva');
     const layout = document.getElementById('pdf-vision-layout');
     layout.querySelector('[value="tzurat-hadaf"]').hidden = !provider || engine === 'sofer';
     layout.disabled = engine === 'sofer';
@@ -5698,6 +5701,7 @@
     const access = window.StudioCreative.requireAccess();
     return { endpoint: PROVIDER_OCR_ENDPOINT, provider: engine, access, nikkud,
       soferMode: document.getElementById('pdf-provider-sofer-mode').value,
+      proofread: engine === 'akiva' && document.getElementById('pdf-provider-proofread').checked,
       oldPrint: engine !== 'sofer' && document.getElementById('pdf-provider-old-print').checked };
   }
 
@@ -6198,7 +6202,7 @@
     document.getElementById('pdf-ocr-rashi-fast-label').classList.toggle('hidden', !rashi || document.getElementById('pdf-ocr-engine').value !== 'local');
     const note = document.getElementById('pdf-ocr-profile-note');
     note.classList.toggle('hidden', !rashi);
-    note.textContent = document.getElementById('pdf-ocr-engine').value === 'local' ? 'Rashi script uses a specialized on-device model. Review square Hebrew headings, page numbers, and references; they can still be misread.' : 'AI vision reads this as Hebrew and is instructed to preserve Rashi-script wording. The specialized Rashi model is available with the on-device engine.';
+    note.textContent = document.getElementById('pdf-ocr-engine').value === 'local' ? 'Rashi script uses a specialized on-device model. Review square Hebrew headings, page numbers, and references; they can still be misread.' : (document.getElementById('pdf-ocr-engine').value === 'akiva' ? 'Akiva OCR reads Rashi script letter by letter from close-up tiles and keeps the wording as printed. Turn on Double-check for old or worn print.' : 'AI vision reads this as Hebrew and is instructed to preserve Rashi-script wording. The specialized Rashi model is available with the on-device engine.');
   }
 
   async function createOcrNumberWorker(run, dpi) {
@@ -6582,15 +6586,45 @@
     }
   }
 
+  // Akiva OCR: a reduced whole-page view plus overlapping close-up tiles at the scan's full resolution
+  function akivaOcrImages(canvas) {
+    const W = canvas.width, H = canvas.height, T = 1400, O = 64, BUDGET = 10_500_000;
+    const crop = (x, y, w, h, scale, quality) => {
+      const c = document.createElement('canvas');
+      c.width = Math.max(1, Math.round(w * scale)); c.height = Math.max(1, Math.round(h * scale));
+      const g = c.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, c.width, c.height);
+      g.imageSmoothingQuality = 'high'; g.drawImage(canvas, x, y, w, h, 0, 0, c.width, c.height);
+      return c.toDataURL('image/jpeg', quality);
+    };
+    const spans = (total) => {
+      const n = Math.max(1, Math.ceil((total - O) / (T - O)));
+      const size = Math.min(total, Math.ceil((total + (n - 1) * O) / n));
+      return Array.from({ length: n }, (_, i) => { const start = i === n - 1 ? total - size : i * (size - O); return [Math.max(0, start), size]; });
+    };
+    const cols = spans(W), rows = spans(H);
+    const single = cols.length * rows.length === 1;
+    for (const quality of [0.9, 0.82, 0.72, 0.62]) {
+      const overview = crop(0, 0, W, H, Math.min(1, 1568 / Math.max(W, H)), single ? Math.max(quality, 0.85) : 0.8);
+      const tiles = [];
+      if (!single) for (const [y, h] of rows) for (const [x, w] of [...cols].reverse()) {   // right to left, top to bottom
+        tiles.push({ imageDataUrl: crop(x, y, w, h, 1, quality), box: [x / W, y / H, (x + w) / W, (y + h) / H].map(n => Math.min(1, Math.max(0, n))) });
+      }
+      const size = overview.length + tiles.reduce((n, t) => n + t.imageDataUrl.length, 0);
+      if (size <= BUDGET || quality === 0.62) return { overview, tiles: tiles.slice(0, 16) };
+    }
+  }
+
   async function recognizeVisionOcrPage(run, page) {
     await waitForVisionOcrSlot(run);
     assertOcrRun(run);
     const image = await renderOcrPage(run, page, run.limits);
-    const imageDataUrl = image.canvas.toDataURL('image/jpeg', 0.96);
+    const akivaImages = run.connection.provider === 'akiva' ? akivaOcrImages(image.canvas) : null;
+    const imageDataUrl = akivaImages ? akivaImages.overview : image.canvas.toDataURL('image/jpeg', 0.96);
     if (imageDataUrl.length > run.limits.maxImageDataUrlChars) throw new Error('The image exceeds the service size limit. Choose 300 DPI and retry this page.');
     const connectedProvider = run.connection.provider;
     const body = JSON.stringify(connectedProvider
-      ? { imageDataUrl, language: run.language, layout: run.layout, pageNumber: run.page, engine: connectedProvider, soferMode: run.connection.soferMode, nikkud: run.connection.nikkud, oldPrint: run.connection.oldPrint }
+      ? { imageDataUrl, language: run.language, layout: run.layout, pageNumber: run.page, engine: connectedProvider, soferMode: run.connection.soferMode, nikkud: run.connection.nikkud, oldPrint: run.connection.oldPrint,
+          ...(akivaImages ? { tiles: akivaImages.tiles, proofread: run.connection.proofread } : {}) }
       : { imageDataUrl, language: run.language === 'heb_rashi' ? 'heb' : run.language, layout: run.layout, pageNumber: run.page });
     const headers = { 'Content-Type': 'application/json' };
     headers.Authorization = 'Bearer ' + run.connection.access;
@@ -6601,11 +6635,11 @@
     const abort = () => controller.abort();
     run.controller.signal.addEventListener('abort', abort, { once: true });
     let timedOut = false;
-    const timeout = setTimeout(() => { timedOut = true; controller.abort(); }, 150000);
+    const timeout = setTimeout(() => { timedOut = true; controller.abort(); }, akivaImages ? 300000 : 150000);
     try {
-      setOcrProgress(run, 'AI vision is reading Page ' + run.page);
+      setOcrProgress(run, akivaImages ? 'Akiva OCR is reading Page ' + run.page + (akivaImages.tiles.length ? ' (' + akivaImages.tiles.length + ' close-up tiles' + (run.connection.proofread ? ', then proofreading' : '') + ')' : '') : 'AI vision is reading Page ' + run.page);
       const recognitionStart = ocrClock();
-      visionOcrNextRequestAt = Date.now() + 13000;
+      visionOcrNextRequestAt = Date.now() + (akivaImages ? 1000 : 13000);
       const response = await awaitOcrStep(run, fetch(run.connection.endpoint, { method: 'POST', headers, credentials: 'omit', redirect: 'error', cache: 'no-store', referrerPolicy: 'no-referrer', signal: controller.signal, body }));
       let data;
       try { data = await awaitOcrStep(run, response.json()); }
