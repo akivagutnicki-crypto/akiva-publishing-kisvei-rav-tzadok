@@ -228,7 +228,10 @@ async function authorize(request,env) {
   const p = await readBody(request,true);
   assert(HEX_ID.test(p.request_id || ''), 'Invalid authorization request.');
   const cookie = new RegExp('(?:^|;\\s*)__Host-ss-oauth-'+p.request_id.toLowerCase()+'=([^;]+)','i').exec(request.headers.get('cookie') || '')?.[1];
-  assert(SECRET.test(p.csrf || '') && equal(p.csrf,cookie),'The authorization form expired. Open the connection again.',403,'invalid_csrf');
+  // The per-form cookie is defence in depth only: same-origin Origin (checked above) plus the
+  // server-side csrfHash bound to request_id (auth/read below) already stop cross-site posts.
+  // Some browsers/profiles drop the cookie, so a missing cookie is allowed; a wrong one is not.
+  assert(SECRET.test(p.csrf || '') && (cookie === undefined || equal(p.csrf,cookie)),'The authorization form expired. Open the connection again.',403,'invalid_csrf');
   const data = await internal(env,'auth',p.request_id,'auth/read',{csrfHash:await digest(p.csrf)});
   const parts = String(p.pairing_code || '').trim().split('.');
   assert(parts.length === 2 && HEX_ID.test(parts[0]) && PAIR_SECRET.test(parts[1]), 'Invalid one-time connection code.');

@@ -143,8 +143,13 @@ await test('SeferStudio private MCP security and mailbox contract',async t=>{
     const env=environment(),session=await createSession(env),client=await register(env),start=await begin(env,client);
     assert.ok(start.headers.get('content-security-policy').includes("frame-ancestors 'none'"));assert.equal(start.headers.get('referrer-policy'),'same-origin');
     assert.ok(start.text.includes('Read this open document. Text editing is disabled.'));
-    const invalid=await approve(env,session,{...start,cookie:'__Host-ss-oauth=invalid'});assert.equal(invalid.status,403);
+    const invalid=await approve(env,session,{...start,cookie:'__Host-ss-oauth-'+start.requestId+'=invalid'});assert.equal(invalid.status,403);
+    const forged=await approve(env,session,{...start,csrf:'0'.repeat(start.csrf.length)});assert.equal(forged.status,403);
     const good=await approve(env,session,start);assert.equal(good.status,303);
+  });
+  await t.test('a browser that drops the form cookie can still approve',async()=>{
+    const env=environment(),session=await createSession(env),client=await register(env),start=await begin(env,client);
+    const ok=await approve(env,session,{...start,cookie:''});assert.equal(ok.status,303);
   });
   await t.test('an older authorization form still works after a newer one is opened',async()=>{
     const env=environment(),session=await createSession(env),client=await register(env),first=await begin(env,client),second=await begin(env,client);
