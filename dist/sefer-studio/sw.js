@@ -1,18 +1,19 @@
 // Keep this installation's cache separate from other apps on the same host.
 const APP_SCOPE = new URL(self.registration.scope);
 const CACHE_PREFIX = `seferstudio-${encodeURIComponent(APP_SCOPE.href)}-`;
-const CACHE_NAME = `${CACHE_PREFIX}v19-claude-cover-designer`;
+const CACHE_NAME = `${CACHE_PREFIX}v20-claude-in-sefer-pro`;
 const CORE_URLS = [
   './',
   './index.html',
   './kdp-cover.css',
   './studio-creative.css',
-  './studio-creative.js?v=claude-engine',
+  './studio-creative.js?v=akiva-engine',
   './audio-segments.js',
   './kdp-geometry.js',
   './kdp-render.js',
   './kdp-png.js',
   './kdp-cover.js',
+  './studio-claude.js?v=1',
   './ocr-session.js?v=2',
   './ocr-header-coverage.js',
   './manifest.webmanifest',

@@ -6,7 +6,7 @@ This release adds a separate `/studio-mcp` endpoint to the existing Akiva Publis
 
 The identity being authorized is one explicitly paired SeferStudio browser tab, not a GitHub account. A tab starts read-only unless its user enables editing before creating the connection. Its browser credential stays in memory and is never included in a public URL, plugin manifest, or model tool argument. The one-use pairing code expires after ten minutes; the entire session expires after two hours. Disconnect immediately removes the mailbox, payloads, and all access credentials.
 
-ChatGPT authenticates with OAuth authorization code + PKCE S256. The service publishes protected-resource and authorization-server metadata and supports dynamic registration of exact ChatGPT callback URLs. OAuth consent names the client, callback origin, requested scopes, expiry, and document access. The scopes are `studio:read` and `studio:write`; read is required and is the default. Opaque access tokens are hashed in storage and last at most fifteen minutes. Rotating refresh tokens cannot outlive their two-hour browser session; replay of a spent refresh token revokes that grant and cancels its queued commands.
+Claude and ChatGPT authenticate with OAuth authorization code + PKCE S256. The service publishes protected-resource and authorization-server metadata and supports dynamic registration of exact Claude (`https://claude.ai/api/mcp/auth_callback`, `https://claude.com/api/mcp/auth_callback`) and ChatGPT callback URLs. The RFC 8707 `resource` parameter defaults to this server when a client omits it. OAuth consent names the client, callback origin, requested scopes, expiry, and document access. The scopes are `studio:read` and `studio:write`; read is required and is the default. Opaque access tokens are hashed in storage and last at most fifteen minutes. Rotating refresh tokens cannot outlive their two-hour browser session; replay of a spent refresh token revokes that grant and cancels its queued commands.
 
 ## Browser contract
 
@@ -55,3 +55,9 @@ The private plugin points to `/studio-mcp` with OAuth DCR, base/default scope `s
 ## Validation
 
 Run `node --test cloudflare/test/studio.test.mjs` from this release directory. The focused suite covers protocol discovery, OAuth/CSRF/PKCE/resource/client/redirect validation, single-use codes, cross-session isolation, permissions, heartbeat versus authorization, mutation idempotency, dispatch/receipt expiry, refresh replay revocation, request/queue limits, chunk persistence, bounded image content, disconnect and alarm cleanup. A separate independent route suite is maintained under `qa/studio-independent-security-check.mjs` in the working tree.
+
+## Claude inside Sefer Pro
+
+`POST /v1/assistant` (SoferStudio access key) lets the studio's Claude panel (`studio-claude.js`) talk to Claude without an Anthropic key in the browser. The browser sends the conversation plus the tools it can run locally (the same studio tools, the workspace paragraph/footnote tools when editing is on, and the public library `/mcp` tools); the Worker validates it, adds `ANTHROPIC_API_KEY` and returns Claude's next turn. Tool calls run only in the browser, against the open tab, with editing off unless the user turns on “Let Claude edit”.
+
+To use Claude from claude.ai instead, add `/studio-mcp` as a custom connector (Settings → Connectors → Add custom connector) and pair it with the code from “Connect Claude / ChatGPT”.

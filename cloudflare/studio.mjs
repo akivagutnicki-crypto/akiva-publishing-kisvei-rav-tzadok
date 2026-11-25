@@ -184,8 +184,10 @@ async function rateLimit(request,env,label) {
 function validRedirect(value) {
   try {
     const url = new URL(value);
-    return url.origin === 'https://chatgpt.com' && !url.username && !url.password && !url.hash && !url.search &&
-      (url.pathname === '/connector_platform_oauth_redirect' || /^\/connector\/oauth\/[A-Za-z0-9_-]{8,200}$/.test(url.pathname));
+    if (url.username || url.password || url.hash || url.search) return false;
+    if (url.origin === 'https://chatgpt.com') return url.pathname === '/connector_platform_oauth_redirect' || /^\/connector\/oauth\/[A-Za-z0-9_-]{8,200}$/.test(url.pathname);
+    // Claude (claude.ai web, desktop and mobile custom connectors)
+    return (url.origin === 'https://claude.ai' || url.origin === 'https://claude.com') && url.pathname === '/api/mcp/auth_callback';
   } catch { return false; }
 }
 function scopeList(raw) {
@@ -197,7 +199,7 @@ function scopeList(raw) {
 function consentPage(data,error = '') {
   const edit = data.scopes.includes('studio:write');
   const scopes = edit ? 'Read this open document and make targeted, reversible text edits.' : 'Read this open document. Text editing is disabled.';
-  return `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Connect SeferStudio to ChatGPT</title><style>body{font:16px/1.6 system-ui,sans-serif;color:#18243a;background:#f2f5fa;margin:0;padding:28px}main{max-width:620px;margin:6vh auto;background:white;border:1px solid #d9e0eb;border-radius:18px;padding:30px}h1{line-height:1.2;font-size:27px}label{display:block;font-weight:650;margin-top:22px}input{box-sizing:border-box;width:100%;padding:12px;border:1px solid #8996ac;border-radius:6px;font:14px monospace}button{background:#1e40af;color:white;font:600 16px system-ui;border:0;border-radius:7px;padding:12px 18px;margin-top:20px}small{color:#526079}.notice{padding:15px;background:#eef3ff;border-radius:8px}.error{color:#a31926}code{overflow-wrap:anywhere}</style><main><h1>Connect your open SeferStudio tab</h1><p>This connection grants access only to the tab whose one-time connection code you enter below. Keep that tab open.</p><div class="notice"><b>Requested access</b><br>${html(scopes)}<br><small>Client: ${html(data.clientName)}<br>Return destination: ${html(new URL(data.redirectUri).origin)}<br>Scopes: ${html(data.scopes.join(', '))}</small></div><p>The connection expires when you disconnect it or after two hours. Closing the tab makes commands unavailable. Manuscript snippets and command receipts pass through your Cloudflare service while connected; this does not publish your manuscript.</p>${error?'<p class="error">'+html(error)+'</p>':''}<form method="post" action="/studio-oauth/authorize"><input type="hidden" name="request_id" value="${html(data.requestId)}"><input type="hidden" name="csrf" value="${html(data.csrf)}"><label for="pairing">One-time connection code</label><p><small>In SeferStudio, open MCP Hub → Connect this tab to ChatGPT, then copy the code. ${edit?'Enable text editing there before connecting with write access.':''}</small></p><input id="pairing" name="pairing_code" type="password" autocomplete="off" spellcheck="false" required maxlength="60"><button type="submit">Allow this connection</button></form><p><small>You can revoke access using Disconnect in SeferStudio.</small></p></main></html>`;
+  return `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Connect Sefer Pro</title><style>body{font:16px/1.6 system-ui,sans-serif;color:#18243a;background:#f2f5fa;margin:0;padding:28px}main{max-width:620px;margin:6vh auto;background:white;border:1px solid #d9e0eb;border-radius:18px;padding:30px}h1{line-height:1.2;font-size:27px}label{display:block;font-weight:650;margin-top:22px}input{box-sizing:border-box;width:100%;padding:12px;border:1px solid #8996ac;border-radius:6px;font:14px monospace}button{background:#1e40af;color:white;font:600 16px system-ui;border:0;border-radius:7px;padding:12px 18px;margin-top:20px}small{color:#526079}.notice{padding:15px;background:#eef3ff;border-radius:8px}.error{color:#a31926}code{overflow-wrap:anywhere}</style><main><h1>Connect your open Sefer Pro tab to ${html(data.clientName)}</h1><p>This connection grants access only to the tab whose one-time connection code you enter below. Keep that tab open.</p><div class="notice"><b>Requested access</b><br>${html(scopes)}<br><small>Client: ${html(data.clientName)}<br>Return destination: ${html(new URL(data.redirectUri).origin)}<br>Scopes: ${html(data.scopes.join(', '))}</small></div><p>The connection expires when you disconnect it or after two hours. Closing the tab makes commands unavailable. Manuscript snippets and command receipts pass through your Cloudflare service while connected; this does not publish your manuscript.</p>${error?'<p class="error">'+html(error)+'</p>':''}<form method="post" action="/studio-oauth/authorize"><input type="hidden" name="request_id" value="${html(data.requestId)}"><input type="hidden" name="csrf" value="${html(data.csrf)}"><label for="pairing">One-time connection code</label><p><small>In Sefer Pro, click “Connect Claude / ChatGPT” in the toolbar, start a connection, then copy the code. ${edit?'Enable text editing there before connecting with write access.':''}</small></p><input id="pairing" name="pairing_code" type="password" autocomplete="off" spellcheck="false" required maxlength="60"><button type="submit">Allow this connection</button></form><p><small>You can revoke access any time with Disconnect in Sefer Pro.</small></p></main></html>`;
 }
 const pageHeaders = cookie => ({'content-type':'text/html; charset=utf-8','cache-control':'no-store','referrer-policy':'no-referrer','x-content-type-options':'nosniff','content-security-policy':"default-src 'none'; style-src 'unsafe-inline'; form-action 'self'; base-uri 'none'; frame-ancestors 'none'",...(cookie?{'set-cookie':cookie}:{})});
 
@@ -209,6 +211,7 @@ async function authorize(request,env) {
     assert(HEX_ID.test(p.client_id || ''), 'Unknown OAuth client.',400,'invalid_client');
     const client = await internal(env,'client',p.client_id,'client/read');
     assert(client.redirectUris.includes(p.redirect_uri) && validRedirect(p.redirect_uri), 'The callback does not match this client.');
+    if (p.resource === undefined) p.resource = resourceUrl(request); // RFC 8707 resource is optional for clients
     assert(p.resource === resourceUrl(request), 'The requested resource is not this studio MCP server.');
     assert(p.code_challenge_method === 'S256' && SECRET.test(p.code_challenge || ''), 'S256 PKCE is required.');
     assert(typeof p.state === 'string' && p.state.length >= 8 && p.state.length <= 512,'A valid OAuth state is required.');
@@ -248,6 +251,7 @@ async function oauthToken(request,env) {
   assert(['authorization_code','refresh_token'].includes(p.grant_type),'Unsupported grant type.',400,'unsupported_grant_type');
   assert(HEX_ID.test(p.client_id || ''),'Unknown OAuth client.',400,'invalid_client');
   const client = await internal(env,'client',p.client_id,'client/read');
+  if (p.resource === undefined) p.resource = resourceUrl(request);
   assert(p.resource === resourceUrl(request),'The token resource does not match this studio MCP server.');
   if (p.grant_type === 'authorization_code') {
     assert(validRedirect(p.redirect_uri) && client.redirectUris.includes(p.redirect_uri),'The callback does not match this client.');
@@ -333,12 +337,12 @@ export default async function studio(request,env) {
       assert(request.method === 'POST','Use POST.',405);
       await rateLimit(request,env,'register');
       const body = await readBody(request);
-      assert(Array.isArray(body.redirect_uris) && body.redirect_uris.length >= 1 && body.redirect_uris.length <= 5 && body.redirect_uris.every(validRedirect),'Only exact ChatGPT OAuth callback URLs can be registered.');
+      assert(Array.isArray(body.redirect_uris) && body.redirect_uris.length >= 1 && body.redirect_uris.length <= 5 && body.redirect_uris.every(validRedirect),'Only exact Claude or ChatGPT OAuth callback URLs can be registered.');
       assert(!body.token_endpoint_auth_method || body.token_endpoint_auth_method === 'none','Only public PKCE clients are supported.');
       assert(!body.grant_types || Array.isArray(body.grant_types) && body.grant_types.every(g => ['authorization_code','refresh_token'].includes(g)),'Unsupported OAuth grant.');
       assert(!body.response_types || Array.isArray(body.response_types) && body.response_types.every(g => g === 'code'),'Unsupported OAuth response type.');
       const id = randomId();
-      const name = typeof body.client_name === 'string' ? body.client_name.slice(0,100) : 'ChatGPT';
+      const name = typeof body.client_name === 'string' ? body.client_name.slice(0,100) : 'AI assistant';
       await internal(env,'client',id,'client/init',{id,name,redirectUris:[...new Set(body.redirect_uris)]});
       response = json({client_id:id,client_id_issued_at:Math.floor(now()/1000),redirect_uris:[...new Set(body.redirect_uris)],client_name:name,token_endpoint_auth_method:'none',grant_types:['authorization_code','refresh_token'],response_types:['code']},201);
     } else if (path === '/studio-oauth/token') response = await oauthToken(request,env);

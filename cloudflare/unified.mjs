@@ -1,11 +1,12 @@
 import { HttpProblem, deadline, json, parseAllowedOrigins, readBoundedText, responseHeaders } from './ocr.mjs';
 import audio, { audioUrl } from './audio.mjs';
 import { runDesign } from './design.mjs';
+import { runAssistant } from './assistant.mjs';
 import ocr from './provider-ocr.mjs';
 
 const tokenPattern = /^sfpro_[0-9a-f]{64}$/;
 const adminPath = '/v1/admin/keys';
-const apiPaths = new Set(['/v1/health', '/v1/audio', '/v1/transcribe', '/v1/ocr', '/v1/ocr/json', '/v1/nikkud', '/v1/audio-link', '/v1/design']);
+const apiPaths = new Set(['/v1/health', '/v1/audio', '/v1/transcribe', '/v1/ocr', '/v1/ocr/json', '/v1/nikkud', '/v1/audio-link', '/v1/design', '/v1/assistant']);
 const sizeLimit = 26 * 1024 * 1024;
 const problem = (status, code, message) => new HttpProblem(status, code, message);
 const bad = (message) => problem(400, 'invalid_request', message);
@@ -330,6 +331,7 @@ export default async function unified(request, env) {
     if (path === '/v1/audio') return await runAudio(request, origin, body, env, owner);
     if (path === '/v1/audio-link') return await audioLink(body, origin && incoming);
     if (path === '/v1/design') return json(await runDesign(body, env, request.signal), 200, origin && incoming);
+    if (path === '/v1/assistant') return json(await runAssistant(body, env, request.signal), 200, origin && incoming);
     if (path === '/v1/transcribe') return await transcribe(request, origin, body, env, owner);
     if (path === '/v1/nikkud') return await runAudio(request, origin, { action: 'nikkud', text: body.text, style: body.style }, env);
     const options = ocrConfig(body);

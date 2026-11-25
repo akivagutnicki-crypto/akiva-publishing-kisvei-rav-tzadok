@@ -128,6 +128,10 @@ await test('SeferStudio private MCP security and mailbox contract',async t=>{
       const r=await request(env,'/studio-oauth/register',{body:{redirect_uris:[uri]}});assert.equal(r.status,400);
     }
     await register(env,{redirect_uris:['https://chatgpt.com/connector/oauth/abcde_12345']});
+    await register(env,{redirect_uris:['https://claude.ai/api/mcp/auth_callback','https://claude.com/api/mcp/auth_callback']});
+    for(const uri of ['https://claude.ai/api/mcp/other','https://claude.ai.evil.test/api/mcp/auth_callback','https://claude.ai/api/mcp/auth_callback?x=1']) {
+      const r=await request(env,'/studio-oauth/register',{body:{redirect_uris:[uri]}});assert.equal(r.status,400);
+    }
   });
   await t.test('rejects invalid authorization client/resource/redirect/PKCE/state without raw 500',async()=>{
     const env=environment(),client=await register(env);

@@ -17,6 +17,7 @@
   <script defer src="./kdp-render.js"></script>
   <script defer src="./kdp-png.js"></script>
   <script defer src="./kdp-cover.js"></script>
+  <script defer src="./studio-claude.js?v=1"></script>
   <script defer src="./ocr-session.js?v=2"></script>
   <script defer src="./ocr-header-coverage.js"></script>
   <script src="https://cdn.tailwindcss.com/3.4.17"></script>
@@ -204,7 +205,7 @@
       <button type="button" id="btn-make-nicer" class="px-2.5 py-1 rounded bg-fuchsia-600 hover:bg-fuchsia-500 text-white font-semibold text-xs flex items-center gap-1 shadow-xs" title="1-Click Auto-Beautify Typography, Margins &amp; Palette"><i data-lucide="wand-sparkles" class="w-3.5 h-3.5"></i><span class="hidden md:inline">Make Nicer</span></button>
       <button type="button" id="btn-open-extensions" class="px-2.5 py-1 rounded bg-violet-600 hover:bg-violet-500 text-white font-semibold text-xs flex items-center gap-1 shadow-xs" title="Add Extensions &amp; Ask Claude / ChatGPT / Gemini"><i data-lucide="blocks" class="w-3.5 h-3.5"></i><span>Extensions</span></button>
       <button type="button" id="btn-open-mcp-hub" class="px-2.5 py-1 rounded bg-indigo-600 hover:bg-indigo-500 text-white font-semibold text-xs flex items-center gap-1 shadow-xs" title="Model Context Protocol (MCP) Client &amp; Built-in Server"><i data-lucide="plug-zap" class="w-3.5 h-3.5"></i><span>MCP Hub</span></button>
-      <button type="button" id="btn-open-studio-bridge" class="px-2.5 py-1 rounded bg-emerald-700 hover:bg-emerald-600 text-white font-semibold text-xs flex items-center gap-1 shadow-xs" title="Connect ChatGPT to this open manuscript"><i data-lucide="link" class="w-3.5 h-3.5"></i><span>ChatGPT Connection</span></button>
+      <button type="button" id="btn-open-studio-bridge" class="px-2.5 py-1 rounded bg-emerald-700 hover:bg-emerald-600 text-white font-semibold text-xs flex items-center gap-1 shadow-xs" title="Connect Claude (or ChatGPT) to this open manuscript"><i data-lucide="link" class="w-3.5 h-3.5"></i><span>Connect Claude / ChatGPT</span></button>
       <button type="button" id="btn-toggle-ai-drawer" class="px-2.5 py-1 rounded bg-gradient-to-r from-amber-400 to-orange-400 text-slate-950 font-semibold text-xs flex items-center gap-1 shadow-xs hover:brightness-105">
         <i data-lucide="sparkles" class="w-3.5 h-3.5"></i>
         <span>AI Copilot &amp; Plugins</span>
@@ -1077,14 +1078,14 @@
           <option value="builtin">Built-in Instant Assistant (No API Key Needed)</option>
           <option value="gemini">Google Gemini API (gemini-2.5-flash)</option>
           <option value="openai">OpenAI / ChatGPT Plugin (gpt-4o-mini)</option>
-          <option value="claude">Anthropic Claude Plugin (claude-3-5-sonnet)</option>
+          <option value="claude">Claude (built in — uses your SoferStudio access key, no API key)</option>
           <option value="custom">Custom OpenAI-Compatible HTTPS Plugin</option>
         </select>
       </div>
 
       <div id="ai-key-box" class="hidden space-y-1.5">
         <label class="block font-semibold text-slate-700">Provider API Key (stored in session memory):</label>
-        <input id="ai-api-key-input" type="password" placeholder="Paste Gemini, OpenAI, or Claude API key…" class="w-full border border-slate-300 rounded px-2 py-1.5 font-mono" />
+        <input id="ai-api-key-input" type="password" placeholder="Paste Gemini or OpenAI API key…" class="w-full border border-slate-300 rounded px-2 py-1.5 font-mono" />
       </div>
 
       <div id="ai-custom-box" class="hidden space-y-1.5">
@@ -7681,12 +7682,12 @@
       if (before === after) return { status: 'unchanged', ...pdfBridgeStatus() };
       const oldResult = ocrResults.get(args.page);
       const previous = { text: before, sourcePage: pdfState.ocrSourcePage, sourceEngine: pdfState.ocrSourceEngine, result: oldResult ? { ...oldResult, flags: [], flaggedCount: 0, reviewNotes: [] } : null };
-      storeOcrResult(args.page, { ...oldResult, ...remapEditedOcrWords(oldResult, after), text: after, wordCount: after.trim() ? after.trim().split(/\s+/).length : 0, engineConfidence: null, numericReview: null, headerCoverage: oldResult?.headerCoverage ? { ...oldResult.headerCoverage, editedAfterReview: true } : null, rashiRefinement: oldResult?.rashiRefinement ? { ...oldResult.rashiRefinement, editedAfterRefinement: true } : null, engine: 'chatgpt-review', status: 'edited', dir: 'auto', flags: [], flaggedCount: 0, reviewNotes: [], message: 'ChatGPT text; compare with the source page.' });
+      storeOcrResult(args.page, { ...oldResult, ...remapEditedOcrWords(oldResult, after), text: after, wordCount: after.trim() ? after.trim().split(/\s+/).length : 0, engineConfidence: null, numericReview: null, headerCoverage: oldResult?.headerCoverage ? { ...oldResult.headerCoverage, editedAfterReview: true } : null, rashiRefinement: oldResult?.rashiRefinement ? { ...oldResult.rashiRefinement, editedAfterRefinement: true } : null, engine: 'chatgpt-review', status: 'edited', dir: 'auto', flags: [], flaggedCount: 0, reviewNotes: [], message: 'AI-edited text; compare with the source page.' });
       pdfBridgeClearReviewEvidence();
       pdfState.ocrSourcePage = args.page; pdfState.ocrSourceEngine = 'chatgpt-review';
       pdfBridgeSync();
       pdfBridgeUndo = { id: crypto.randomUUID(), before: previous, after, page: args.page, afterRevision: String(pdfBridgeRevision) };
-      document.getElementById('pdf-ocr-status').textContent = 'ChatGPT text loaded for Page ' + args.page + '. Compare it with the scan before publishing.';
+      document.getElementById('pdf-ocr-status').textContent = 'AI-edited text loaded for Page ' + args.page + '. Compare it with the scan before publishing.';
       return { status: 'applied', reviewRequired: true, ...pdfBridgeStatus() };
     }
     if (name === 'studio_undo_ocr') {
@@ -7702,7 +7703,7 @@
       pdfBridgeClearReviewEvidence();
       pdfState.ocrSourcePage = change.before.sourcePage; pdfState.ocrSourceEngine = change.before.sourceEngine;
       pdfBridgeUndo = null; pdfBridgeSync();
-      document.getElementById('pdf-ocr-status').textContent = 'Undid the ChatGPT OCR text edit. Review the restored text against its source page.';
+      document.getElementById('pdf-ocr-status').textContent = 'Undid the AI OCR text edit. Review the restored text against its source page.';
       return { status: 'undone', ...pdfBridgeStatus() };
     }
     throw pdfBridgeError('unknown_tool', 'That PDF operation is unavailable.');
@@ -8773,6 +8774,24 @@
       'You are an expert bilingual English and Hebrew (Ivrit) publishing assistant for Word manuscripts, scholarly footnotes, Microsoft Publisher newsletters/flyers, and PDF editing. Respond concisely and directly.';
     const fullPrompt = `[Task: ${taskMode}] ${prompt}`;
 
+    if (aiState.provider === 'claude') {
+      try {
+        let access;
+        try { access = window.StudioCreative.requireAccess(); } catch (_e) { throw new Error('enter your SoferStudio access key (Studio Home → API Key)'); }
+        const resp = await fetch('https://akiva-publishing-kisvei-rav-tzadok.akivagutnicki.workers.dev/v1/assistant', {
+          method: 'POST', credentials: 'omit', referrerPolicy: 'no-referrer',
+          headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + access },
+          body: JSON.stringify({ speed: 'fast', notes: 'Copilot request (no document tools). Return only the requested text, ready to insert.', messages: [{ role: 'user', content: sysInstruction + '\n\n' + fullPrompt }] })
+        });
+        const data = await resp.json().catch(() => ({}));
+        if (!resp.ok) throw new Error(data.error || 'Claude HTTP ' + resp.status);
+        return (data.content || []).map((c) => c.text || '').join('').trim() || 'Empty Claude response.';
+      } catch (err) {
+        toast('Claude: ' + err.message + ' (used built-in fallback)', 'warn');
+        return runBuiltinScholarlyAssistant(prompt, taskMode);
+      }
+    }
+
     if (aiState.provider === 'builtin' || !aiState.apiKey.trim()) {
       return runBuiltinScholarlyAssistant(prompt, taskMode);
     }
@@ -8825,32 +8844,6 @@
       }
     }
 
-    if (aiState.provider === 'claude') {
-      try {
-        const resp = await fetch('https://api.anthropic.com/v1/messages', {
-          method: 'POST',
-          headers: {
-            'Content-Type': 'application/json',
-            'x-api-key': key,
-            'anthropic-version': '2023-06-01',
-            'anthropic-dangerous-direct-browser-access': 'true'
-          },
-          body: JSON.stringify({
-            model: 'claude-3-5-sonnet-latest',
-            max_tokens: 1024,
-            system: sysInstruction,
-            messages: [{ role: 'user', content: fullPrompt }]
-          })
-        });
-        const data = await resp.json();
-        if (!resp.ok) throw new Error((data.error && data.error.message) || 'Claude HTTP ' + resp.status);
-        return (data.content && data.content.map((c) => c.text || '').join('')) || 'Empty Claude response.';
-      } catch (err) {
-        toast('Claude API notice: ' + err.message + ' (used built-in fallback)', 'warn');
-        return runBuiltinScholarlyAssistant(prompt, taskMode);
-      }
-    }
-
     return runBuiltinScholarlyAssistant(prompt, taskMode);
   }
 
@@ -8870,7 +8863,7 @@
     function syncAiVisibility() {
       const p = provSel.value;
       aiState.provider = p;
-      keyBox.classList.toggle('hidden', p === 'builtin');
+      keyBox.classList.toggle('hidden', p === 'builtin' || p === 'claude');
       customBox.classList.toggle('hidden', p !== 'custom');
       try { localStorage.setItem('os_ai_prov', p); } catch (_e) {}
     }
@@ -9416,7 +9409,7 @@
   const writeTools = new Set(['studio_replace_text','studio_update_footnote','studio_undo','studio_set_ocr_text','studio_undo_ocr']);
   const pdfTools = new Set(['studio_get_pdf_state','studio_get_pdf_page','studio_get_ocr_text','studio_set_ocr_text','studio_undo_ocr']);
   const renderedPanels = new WeakMap();
-  const labels = { studio_get_state: 'Read document information', studio_read_paragraphs: 'Read paragraphs', studio_search: 'Search manuscript', studio_read_footnotes: 'Read footnotes', studio_replace_text: 'Edit paragraph text', studio_update_footnote: 'Edit footnote text', studio_undo: 'Undo ChatGPT edit', studio_navigate: 'Navigate manuscript', studio_prepare_export: 'Prepare export', studio_get_pdf_state: 'Read PDF information', studio_get_pdf_page: 'Review PDF page image', studio_get_ocr_text: 'Read OCR text', studio_set_ocr_text: 'Update OCR text', studio_undo_ocr: 'Undo OCR text edit' };
+  const labels = { studio_get_state: 'Read document information', studio_read_paragraphs: 'Read paragraphs', studio_search: 'Search manuscript', studio_read_footnotes: 'Read footnotes', studio_replace_text: 'Edit paragraph text', studio_update_footnote: 'Edit footnote text', studio_undo: 'Undo AI edit', studio_navigate: 'Navigate manuscript', studio_prepare_export: 'Prepare export', studio_get_pdf_state: 'Read PDF information', studio_get_pdf_page: 'Review PDF page image', studio_get_ocr_text: 'Read OCR text', studio_set_ocr_text: 'Update OCR text', studio_undo_ocr: 'Undo OCR text edit' };
   const state = { session: null, ownerToken: '', pairingCode: '', pairingExpiresAt: '', status: 'Disconnected', allowEditing: false, pending: false, generation: 0, timer: null, pendingResult: null, receipts: new Map(), activity: [], webController: null, webAvailable: false, renderSignature: '', showPairing: false };
   const schema = (properties = {}, required = []) => ({ type: 'object', properties, required, additionalProperties: false });
   const string = (description, maxLength = 10000) => ({ type: 'string', description, maxLength });
@@ -9430,7 +9423,7 @@
     { name: 'studio_read_footnotes', description: 'Read the text runs of specific native Word footnotes referenced in the manuscript.', inputSchema: schema({ ids: { type: 'array', description: 'Footnote identifiers returned by paragraph reads.', items: { type: 'string', minLength: 1, maxLength: 100 }, minItems: 1, maxItems: 10 } }, ['ids']) },
     { name: 'studio_replace_text', description: 'Replace one exact manuscript text run after a fresh read, preserving formatting and footnote references. Requires editing permission.', inputSchema: schema(replacement, Object.keys(replacement)) },
     { name: 'studio_update_footnote', description: 'Replace one exact text run in an existing footnote, preserving its formatting and anchor. Requires editing permission.', inputSchema: schema({ ...replacement, footnoteId: string('Existing footnote identifier.', 100) }, [...Object.keys(replacement), 'footnoteId']) },
-    { name: 'studio_undo', description: 'Undo the latest ChatGPT text edit only if no intervening edit changed the document.', inputSchema: schema({ ...version, undoId: string('Undo identity returned by the edit or current document state.', 100) }, ['documentId','expectedRevision','undoId']) },
+    { name: 'studio_undo', description: 'Undo the latest connected-AI text edit only if no intervening edit changed the document.', inputSchema: schema({ ...version, undoId: string('Undo identity returned by the edit or current document state.', 100) }, ['documentId','expectedRevision','undoId']) },
     { name: 'studio_navigate', description: 'Show a specific manuscript page, paragraph, or footnote. Supply exactly one target.', inputSchema: schema({ page: integer('One-based preview page.', 1), paragraphIndex: integer('Zero-based paragraph.'), footnoteId: string('Existing footnote identifier.', 100) }) },
     { name: 'studio_prepare_export', description: 'Open the app export dialog for a manual Word save, PDF print/save, or HTML print proof. This does not create or upload a file.', inputSchema: schema({ format: { type: 'string', description: 'Requested export format.', enum: ['docx','pdf','html'] } }) }
   ];
@@ -9439,8 +9432,18 @@
     { name: 'studio_get_pdf_page', description: 'Read one original PDF page as a bounded JPEG image for direct visual analysis and transcription.', inputSchema: schema({ documentId: string('Current PDF document identity.', 100), page: integer('One-based PDF page.', 1), maxWidth: integer('Maximum image width in pixels.', 400, 1600) }, ['documentId','page']) },
     { name: 'studio_get_ocr_text', description: 'Read the OCR review box with its actual source page and revision. Text must be checked against the scan.', inputSchema: schema() },
     { name: 'studio_set_ocr_text', description: 'Replace the OCR review text for the selected PDF page after reading its exact previous value. Requires editing permission; does not modify the PDF itself.', inputSchema: schema({ ...version, page: integer('Currently selected PDF page.', 1), expectedText: string('Exact complete text previously read from the OCR box.', 40000), replacementText: string('Reviewed transcription to put into the OCR box.', 40000) }, ['documentId','expectedRevision','page','expectedText','replacementText']) },
-    { name: 'studio_undo_ocr', description: 'Undo the latest ChatGPT OCR text edit only if the PDF page and text remain unchanged.', inputSchema: schema({ ...version, undoId: string('Undo identity returned by the OCR text edit.', 100) }, ['documentId','expectedRevision','undoId']) }
+    { name: 'studio_undo_ocr', description: 'Undo the latest connected-AI OCR text edit only if the PDF page and text remain unchanged.', inputSchema: schema({ ...version, undoId: string('Undo identity returned by the OCR text edit.', 100) }, ['documentId','expectedRevision','undoId']) }
   );
+  window.SeferStudioTools = {
+    definitions: toolDefinitions,
+    writeTools,
+    run(name, args, allowEditing) {
+      if (!Object.prototype.hasOwnProperty.call(labels, name)) throw new Error('Unknown Sefer Pro tool.');
+      if (writeTools.has(name) && !allowEditing) throw new Error('Editing is off. Turn on “Let Claude edit” to apply changes.');
+      const dispatcher = pdfTools.has(name) ? window.PdfStudioAPI.invokeBridge : window.WordStudioBridgeAPI.invoke;
+      return dispatcher(name, args || {}, { isActive: () => true, isAuthorized: () => !!allowEditing });
+    }
+  };
   const escape = value => String(value || '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
   const expiryTime = value => typeof value === 'number' ? value : Date.parse(value);
   const sessionActive = () => !!(state.session && expiryTime(state.session.expiresAt) > Date.now());
@@ -9623,11 +9626,11 @@
     const selection = focused && document.activeElement.selectionStart !== undefined ? [document.activeElement.selectionStart, document.activeElement.selectionEnd] : null;
     const active = !!state.session;
     host.innerHTML = `<div class="space-y-4 text-sm">
-      <div class="rounded-lg border ${active ? 'border-emerald-300 bg-emerald-50' : 'border-slate-200 bg-slate-50'} p-3"><div id="studio-bridge-status" role="status" class="font-semibold">${escape(state.status)}</div><p class="text-xs text-slate-600 mt-1">${active ? (state.allowEditing ? 'Reading and targeted text edits are enabled for this tab.' : 'Read-only connection. Manuscript edits are disabled.') : 'Let ChatGPT work with the manuscript open in this tab.'}</p></div>
-      <p class="text-slate-600 leading-relaxed">ChatGPT can inspect paragraphs and footnotes, search and navigate your manuscript, review PDF page images and OCR text, and prepare an export. Optional edits replace specific text while retaining formatting. This connection sends requested manuscript text and PDF page images to ChatGPT through your connection service; it does not publish your manuscript.</p>
-      <label class="flex items-start gap-2 p-3 border border-slate-200 rounded"><input id="studio-bridge-allow-edits" type="checkbox" ${state.allowEditing ? 'checked' : ''} ${active || state.pending ? 'disabled' : ''} class="mt-0.5"><span><strong>Allow targeted text edits</strong><span class="block text-xs text-slate-600 mt-1">Changes require a matching document revision and exact original text. Use Undo last ChatGPT edit if needed. Disconnect before changing this permission.</span></span></label>
-      ${active ? `<div class="space-y-2"><label class="block font-medium" for="studio-bridge-pairing-code">One-time pairing code</label><div class="flex gap-2"><input id="studio-bridge-pairing-code" type="${state.showPairing ? 'text' : 'password'}" autocomplete="off" spellcheck="false" readonly value="${escape(state.pairingCode)}" class="min-w-0 flex-1 border rounded px-2 py-1.5 font-mono"><button id="studio-bridge-show-code" type="button" class="px-3 py-1.5 rounded border">${state.showPairing ? 'Hide code' : 'Show code'}</button></div><p class="text-xs text-slate-600">Enter this code on the SeferStudio connection page opened by ChatGPT. It can be used once and expires after ten minutes. Keep it private.</p><button id="studio-bridge-renew" type="button" ${state.pending ? 'disabled' : ''} class="text-xs underline">Create a new pairing code</button></div>` : ''}
-      <div class="space-y-1"><label for="studio-bridge-mcp-url" class="block font-medium">ChatGPT MCP server URL</label><input id="studio-bridge-mcp-url" type="url" readonly value="${STUDIO_MCP_URL}" class="w-full border rounded px-2 py-1.5 text-xs font-mono"><p class="text-xs text-slate-600">Choose OAuth when adding this server in ChatGPT. Keep this tab open while using it.</p></div>
+      <div class="rounded-lg border ${active ? 'border-emerald-300 bg-emerald-50' : 'border-slate-200 bg-slate-50'} p-3"><div id="studio-bridge-status" role="status" class="font-semibold">${escape(state.status)}</div><p class="text-xs text-slate-600 mt-1">${active ? (state.allowEditing ? 'Reading and targeted text edits are enabled for this tab.' : 'Read-only connection. Manuscript edits are disabled.') : 'Let Claude (or ChatGPT) work with the manuscript open in this tab.'}</p></div>
+      <p class="text-slate-600 leading-relaxed">Claude or ChatGPT can inspect paragraphs and footnotes, search and navigate your manuscript, review PDF page images and OCR text, and prepare an export. Optional edits replace specific text while retaining formatting. This connection sends requested manuscript text and PDF page images to the connected AI app through your connection service; it does not publish your manuscript.</p>
+      <label class="flex items-start gap-2 p-3 border border-slate-200 rounded"><input id="studio-bridge-allow-edits" type="checkbox" ${state.allowEditing ? 'checked' : ''} ${active || state.pending ? 'disabled' : ''} class="mt-0.5"><span><strong>Allow targeted text edits</strong><span class="block text-xs text-slate-600 mt-1">Changes require a matching document revision and exact original text. Use Undo last manuscript edit if needed. Disconnect before changing this permission.</span></span></label>
+      ${active ? `<div class="space-y-2"><label class="block font-medium" for="studio-bridge-pairing-code">One-time pairing code</label><div class="flex gap-2"><input id="studio-bridge-pairing-code" type="${state.showPairing ? 'text' : 'password'}" autocomplete="off" spellcheck="false" readonly value="${escape(state.pairingCode)}" class="min-w-0 flex-1 border rounded px-2 py-1.5 font-mono"><button id="studio-bridge-show-code" type="button" class="px-3 py-1.5 rounded border">${state.showPairing ? 'Hide code' : 'Show code'}</button></div><p class="text-xs text-slate-600">Enter this code on the Sefer Pro connection page that Claude (or ChatGPT) opens. It can be used once and expires after ten minutes. Keep it private.</p><button id="studio-bridge-renew" type="button" ${state.pending ? 'disabled' : ''} class="text-xs underline">Create a new pairing code</button></div>` : ''}
+      <div class="space-y-1"><label for="studio-bridge-mcp-url" class="block font-medium">MCP server URL</label><input id="studio-bridge-mcp-url" type="url" readonly value="${STUDIO_MCP_URL}" class="w-full border rounded px-2 py-1.5 text-xs font-mono"><p class="text-xs text-slate-600"><strong>Claude:</strong> Settings → Connectors → Add custom connector, paste this URL, then Connect. <strong>ChatGPT:</strong> add it as a connector with OAuth. Keep this tab open while using it.</p></div>
       <p class="text-xs text-slate-500">A connection lasts up to two hours and ends locally when this page closes or reloads. Connection credentials are kept only in memory. ${state.webAvailable ? 'Browser-native tools are also active for this tab.' : ''}</p>
       <div class="flex flex-wrap gap-2">${active ? '<button id="studio-bridge-disconnect" type="button" class="rounded bg-slate-900 text-white px-4 py-2 font-semibold">Disconnect</button><button id="studio-bridge-undo" type="button" class="rounded border px-3 py-2">Undo last manuscript edit</button><button id="studio-bridge-undo-ocr" type="button" class="rounded border px-3 py-2">Undo OCR text edit</button>' : `<button id="studio-bridge-create" type="button" ${state.pending ? 'disabled' : ''} class="rounded bg-emerald-700 text-white px-4 py-2 font-semibold disabled:opacity-50">${state.pending ? 'Connecting…' : 'Connect this tab'}</button>`}</div>
       ${state.activity.length ? `<div class="border-t pt-3"><div class="font-medium mb-2">Recent activity</div><ul class="space-y-1 text-xs text-slate-600">${state.activity.map(item => `<li>${escape(item.time)} · ${escape(item.name)} · ${escape(item.status)}</li>`).join('')}</ul></div>` : ''}
@@ -9663,7 +9666,7 @@
       });
     }
   }
-  function openConnection() { window.SuiteUI.openModal('ChatGPT Connection', '<div id="studio-bridge-panel"></div>', renderConnection); }
+  function openConnection() { window.SuiteUI.openModal('Connect Claude / ChatGPT', '<div id="studio-bridge-panel"></div>', renderConnection); }
   window.addEventListener('DOMContentLoaded', () => { document.getElementById('btn-open-studio-bridge').addEventListener('click', openConnection); });
   window.addEventListener('pagehide', () => {
     if (!state.session) return;
