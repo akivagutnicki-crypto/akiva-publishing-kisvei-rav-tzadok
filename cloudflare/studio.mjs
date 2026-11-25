@@ -221,13 +221,13 @@ async function authorize(request,env) {
     const requestId = randomId();
     const data = {requestId, clientId:p.client_id, clientName:client.name, redirectUri:p.redirect_uri, resource:p.resource, state:p.state, challenge:p.code_challenge, scopes, expiresAt:now()+PAIR_MS, csrfHash:await digest(csrf)};
     await internal(env,'auth',requestId,'auth/init',data);
-    return new Response(consentPage({...data,csrf}),{headers:pageHeaders('__Host-ss-oauth='+csrf+'; Secure; HttpOnly; SameSite=Lax; Path=/; Max-Age=600')});
+    return new Response(consentPage({...data,csrf}),{headers:pageHeaders('__Host-ss-oauth-'+requestId+'='+csrf+'; Secure; HttpOnly; SameSite=Lax; Path=/; Max-Age=600')});
   }
   assert(request.method === 'POST','Use GET or POST.',405);
   assert(request.headers.get('origin') === new URL(request.url).origin,'The authorization form must be submitted from this service.',403,'origin_denied');
   const p = await readBody(request,true);
   assert(HEX_ID.test(p.request_id || ''), 'Invalid authorization request.');
-  const cookie = /(?:^|;\s*)__Host-ss-oauth=([^;]+)/.exec(request.headers.get('cookie') || '')?.[1];
+  const cookie = new RegExp('(?:^|;\\s*)__Host-ss-oauth-'+p.request_id.toLowerCase()+'=([^;]+)','i').exec(request.headers.get('cookie') || '')?.[1];
   assert(SECRET.test(p.csrf || '') && equal(p.csrf,cookie),'The authorization form expired. Open the connection again.',403,'invalid_csrf');
   const data = await internal(env,'auth',p.request_id,'auth/read',{csrfHash:await digest(p.csrf)});
   const parts = String(p.pairing_code || '').trim().split('.');
@@ -243,7 +243,7 @@ async function authorize(request,env) {
   destination.searchParams.set('code',parts[0]+'.'+grant.code);
   destination.searchParams.set('state',data.state);
   destination.searchParams.set('iss',issuerUrl(request));
-  return new Response(null,{status:303,headers:{location:destination.href,'cache-control':'no-store','referrer-policy':'no-referrer','set-cookie':'__Host-ss-oauth=; Secure; HttpOnly; SameSite=Lax; Path=/; Max-Age=0'}});
+  return new Response(null,{status:303,headers:{location:destination.href,'cache-control':'no-store','referrer-policy':'no-referrer','set-cookie':'__Host-ss-oauth-'+p.request_id.toLowerCase()+'=; Secure; HttpOnly; SameSite=Lax; Path=/; Max-Age=0'}});
 }
 
 async function oauthToken(request,env) {

@@ -146,6 +146,11 @@ await test('SeferStudio private MCP security and mailbox contract',async t=>{
     const invalid=await approve(env,session,{...start,cookie:'__Host-ss-oauth=invalid'});assert.equal(invalid.status,403);
     const good=await approve(env,session,start);assert.equal(good.status,303);
   });
+  await t.test('an older authorization form still works after a newer one is opened',async()=>{
+    const env=environment(),session=await createSession(env),client=await register(env),first=await begin(env,client),second=await begin(env,client);
+    const jar=new Map();for(const c of [first.cookie,second.cookie]){const i=c.indexOf('=');jar.set(c.slice(0,i),c.slice(i+1));}const both=[...jar].map(([k,v])=>k+'='+v).join('; ');
+    const ok=await approve(env,session,{...first,cookie:both});assert.equal(ok.status,303);
+  });
   await t.test('one-time pairing code cannot be reused',async()=>{
     const env=environment(),f=await flow(env);const second=await begin(env,f.client);
     assert.equal((await approve(env,f.session,second)).status,400);
