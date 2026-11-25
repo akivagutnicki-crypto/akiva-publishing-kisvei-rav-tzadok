@@ -141,7 +141,7 @@ await test('SeferStudio private MCP security and mailbox contract',async t=>{
   });
   await t.test('OAuth form uses CSP, no-referrer and CSRF cookie binding',async()=>{
     const env=environment(),session=await createSession(env),client=await register(env),start=await begin(env,client);
-    assert.ok(start.headers.get('content-security-policy').includes("frame-ancestors 'none'"));assert.equal(start.headers.get('referrer-policy'),'same-origin');
+    assert.ok(start.headers.get('content-security-policy').includes("frame-ancestors 'none'"));assert.ok(start.headers.get('content-security-policy').includes("form-action 'self' https://claude.ai"),'the consent form must be allowed to redirect back to Claude');assert.equal(start.headers.get('referrer-policy'),'same-origin');
     assert.ok(start.text.includes('Read this open document. Text editing is disabled.'));
     const invalid=await approve(env,session,{...start,cookie:'__Host-ss-oauth-'+start.requestId+'=invalid'});assert.equal(invalid.status,403);
     const forged=await approve(env,session,{...start,csrf:'0'.repeat(start.csrf.length)});assert.equal(forged.status,403);
