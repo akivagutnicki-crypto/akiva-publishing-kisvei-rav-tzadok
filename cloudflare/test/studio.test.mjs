@@ -147,6 +147,13 @@ await test('SeferStudio private MCP security and mailbox contract',async t=>{
     const forged=await approve(env,session,{...start,csrf:'0'.repeat(start.csrf.length)});assert.equal(forged.status,403);
     const good=await approve(env,session,start);assert.equal(good.status,303);
   });
+  await t.test('a double-submitted Allow repeats the same redirect',async()=>{
+    const env=environment(),session=await createSession(env),client=await register(env),start=await begin(env,client);
+    const first=await approve(env,session,start);assert.equal(first.status,303);
+    const second=await approve(env,session,start);assert.equal(second.status,303);
+    assert.equal(second.headers.get('location'),first.headers.get('location'));
+    const forged=await approve(env,session,{...start,csrf:'0'.repeat(start.csrf.length)});assert.equal(forged.status,403);
+  });
   await t.test('a browser that drops the form cookie can still approve',async()=>{
     const env=environment(),session=await createSession(env),client=await register(env),start=await begin(env,client);
     const ok=await approve(env,session,{...start,cookie:''});assert.equal(ok.status,303);

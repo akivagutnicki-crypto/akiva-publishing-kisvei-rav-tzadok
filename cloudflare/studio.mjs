@@ -233,6 +233,7 @@ async function authorize(request,env) {
   // Some browsers/profiles drop the cookie, so a missing cookie is allowed; a wrong one is not.
   assert(SECRET.test(p.csrf || '') && (cookie === undefined || equal(p.csrf,cookie)),'The authorization form expired. Open the connection again.',403,'invalid_csrf');
   const data = await internal(env,'auth',p.request_id,'auth/read',{csrfHash:await digest(p.csrf)});
+  if (data.consumed) return new Response(null,{status:303,headers:{location:data.redirect,'cache-control':'no-store','referrer-policy':'no-referrer'}});
   const parts = String(p.pairing_code || '').trim().split('.');
   assert(parts.length === 2 && HEX_ID.test(parts[0]) && PAIR_SECRET.test(parts[1]), 'Invalid one-time connection code.');
   let grant;
@@ -241,11 +242,11 @@ async function authorize(request,env) {
     if (!(error instanceof StudioError)) throw error;
     return new Response(consentPage({...data,csrf:p.csrf},error.message),{status:error.status,headers:pageHeaders()});
   }
-  await internal(env,'auth',p.request_id,'auth/consume',{csrfHash:await digest(p.csrf)});
   const destination = new URL(data.redirectUri);
   destination.searchParams.set('code',parts[0]+'.'+grant.code);
   destination.searchParams.set('state',data.state);
   destination.searchParams.set('iss',issuerUrl(request));
+  await internal(env,'auth',p.request_id,'auth/consume',{csrfHash:await digest(p.csrf),redirect:destination.href});
   return new Response(null,{status:303,headers:{location:destination.href,'cache-control':'no-store','referrer-policy':'no-referrer','set-cookie':'__Host-ss-oauth-'+p.request_id.toLowerCase()+'=; Secure; HttpOnly; SameSite=Lax; Path=/; Max-Age=0'}});
 }
 
@@ -501,7 +502,11 @@ export class SeferStudioSession {
     if (path === '/auth/read' || path === '/auth/consume') {
       const data = await this.live('auth');
       assert(equal(body.csrfHash,data.csrfHash),'The authorization form expired.',403,'invalid_csrf');
-      if (path === '/auth/consume') { await this.purge(); return {ok:true}; }
+      if (path === '/auth/consume') {
+        // Keep a 2-minute record so a double-submitted Allow repeats the same redirect instead of failing.
+        this.data = {kind:'auth',consumed:true,redirect:body.redirect,csrfHash:data.csrfHash,expiresAt:now()+2*60*1000};
+        await this.save(); return {ok:true};
+      }
       const copy = {...data}; delete copy.csrfHash; delete copy.kind; return copy;
     }
     if (path === '/session/init') {
