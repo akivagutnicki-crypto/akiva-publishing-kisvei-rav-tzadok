@@ -12,7 +12,7 @@
   <meta name="description" content="Edit Hebrew and English manuscripts, work with Word footnotes, create newsletters and covers, and open PDFs in SeferStudio Pro." />
   <link rel="stylesheet" href="./kdp-cover.css" />
   <link rel="stylesheet" href="./studio-creative.css" />
-  <script defer src="./studio-creative.js?v=claude-engine"></script>
+  <script defer src="./studio-creative.js?v=akiva-engine"></script>
   <script defer src="./kdp-geometry.js"></script>
   <script defer src="./kdp-render.js"></script>
   <script defer src="./kdp-png.js"></script>
@@ -746,10 +746,8 @@
           <div class="studio-fields-grid">
           <label class="studio-field">OCR Engine<select id="pdf-ocr-engine" aria-label="OCR engine" class="w-full border border-slate-300 rounded px-2 py-1 bg-white text-xs">
             <option value="local">On-device OCR · ready to use</option>
-            <option value="hybrid">Hybrid · Sofer.Ai + Gemini 4 Neon</option>
             <option value="gemini-4-neon">Gemini 4 Neon Vision</option>
             <option value="gemini-4-carbon">Gemini 4 Carbon Vision</option>
-            <option value="sofer">Sofer.Ai OCR</option>
             <option value="vision">Connected AI vision · service access code</option>
           </select></label>
           <label class="studio-field">Script Type<select id="pdf-ocr-lang" aria-label="OCR Language" class="w-full min-w-0 border border-slate-300 rounded px-2 py-1 bg-white">
@@ -765,7 +763,7 @@
               <label class="block">SoferStudio access key
                 <input id="pdf-provider-access" type="password" data-studio-access autocomplete="off" spellcheck="false" placeholder="sfpro_…" class="mt-1 w-full rounded border border-blue-200 bg-white p-1.5" />
               </label>
-              <label id="pdf-provider-sofer-mode-label" class="block">Sofer.Ai mode
+              <label id="pdf-provider-sofer-mode-label" class="hidden block">Sofer.Ai mode
                 <select id="pdf-provider-sofer-mode" class="mt-1 w-full rounded border border-blue-200 bg-white p-1">
                   <option value="standard">Standard</option>
                   <option value="enhanced" selected>Enhanced</option>
@@ -1000,7 +998,7 @@
     <p id="studio-access-status" role="status">The key stays in this page session. Transcription sends the selected source to the chosen provider and may incur provider charges.</p>
   </div>
   <div id="studio-audio-api-info" class="studio-creative-card studio-audio-credentials" hidden>
-    <a class="studio-creative-link" href="https://docs.sofer.ai/welcome" target="_blank" rel="noopener">Sofer.Ai API documentation ↗</a>
+    
     <a class="studio-creative-link" href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">Claude API keys ↗</a>
     <button type="button" id="studio-audio-install">Install the web app</button>
   </div>
@@ -1013,12 +1011,12 @@
         <div class="studio-record-row"><button type="button" id="studio-audio-record"><span aria-hidden="true">●</span> <strong>Record Live Shiur</strong></button><output id="studio-audio-timer" aria-label="Recording duration">00:00</output></div>
         <div id="studio-audio-preview" hidden><div class="studio-card-title"><span id="studio-audio-filename"></span><button type="button" id="studio-audio-clear">Remove</button></div><audio id="studio-audio-player" controls preload="metadata"></audio></div>
         <label>Or Audio / Shiur Link<input id="studio-audio-url" type="url" placeholder="https://example.com/shiur.m4a" /></label>
-        <p class="studio-creative-note">Upload audio up to 200 MB. Large recordings are split on this device before transcription. Links use Sofer.Ai.</p>
+        <p class="studio-creative-note">Upload audio up to 200 MB. Large recordings are split on this device before transcription. Links to a recording (.mp3, .m4a …) are downloaded by our server and transcribed the same way.</p>
       </section>
       <section class="studio-creative-card">
         <h2>Transcription Engine &amp; Nikkudot</h2>
         <div class="studio-fields-grid">
-          <label>Engine<select id="studio-audio-engine"><option value="claude">Akiva Engine · Sofer.Ai + Whisper + Claude (recommended)</option><option value="whisper-claude">Whisper + Claude (no Sofer.Ai)</option><option value="sofer">Sofer.Ai only</option></select></label>
+          <label>Engine<select id="studio-audio-engine"><option value="whisper-claude">Akiva Engine · Whisper + Claude</option></select></label>
           <label>Primary Language<select id="studio-audio-language"><option value="en">English + Hebrew</option><option value="he">Hebrew</option><option value="yi">Yiddish + Hebrew</option></select></label>
         </div>
         <label>Hebrew Word Format<select id="studio-audio-format"><option value="he">Hebrew letters</option><option value="both">Hebrew and transliteration</option><option value="hybrid">Hebrew quotes, transliterated short terms</option><option value="en">Transliteration</option></select></label>
@@ -1029,7 +1027,7 @@
         </div>
         <p id="studio-audio-engine-note" class="studio-creative-note"></p>
         <div class="studio-record-row"><button class="studio-creative-primary" type="button" id="studio-audio-run">Run Transcription</button><button type="button" id="studio-audio-stop" hidden>Stop</button></div>
-        <details id="studio-audio-resume-box"><summary>Retrieve a Sofer.Ai job by ID</summary><div id="studio-audio-resume-panel"><label>Sofer.Ai job ID<input id="studio-audio-job" type="text" autocomplete="off" /></label><button type="button" id="studio-audio-resume">Retrieve Transcription</button></div></details>
+        <details id="studio-audio-resume-box" hidden><summary>Retrieve a Sofer.Ai job by ID</summary><div id="studio-audio-resume-panel"><label>Sofer.Ai job ID<input id="studio-audio-job" type="text" autocomplete="off" /></label><button type="button" id="studio-audio-resume">Retrieve Transcription</button></div></details>
       </section>
     </div>
     <section class="studio-creative-card studio-transcript-card">

@@ -17,6 +17,25 @@
     if (!/^sfpro_[0-9a-f]{64}$/.test(accessKey)) throw new Error('Enter your SoferStudio access key under API Key.');
     return accessKey;
   }
+  // A shiur link: our server downloads the recording and hands it back, so it is split and transcribed like an upload
+  async function fetchLink(url, access) {
+    const response = await fetch(api + 'audio-link', {
+      method: 'POST', headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + access },
+      body: JSON.stringify({ url }), credentials: 'omit', redirect: 'error', cache: 'no-store', referrerPolicy: 'no-referrer',
+    });
+    if (!response.ok) {
+      let message = 'The recording at that link could not be downloaded.';
+      try { message = (await response.json()).error || message; } catch {}
+      throw new Error(message);
+    }
+    const blob = await response.blob();
+    if (blob.size < 1) throw new Error('The link returned an empty file.');
+    let name = 'shiur';
+    try { name = decodeURIComponent(response.headers.get('X-Audio-Name') || '') || name; } catch {}
+    const byType = { 'audio/mpeg':'mp3', 'audio/mp3':'mp3', 'audio/mp4':'m4a', 'audio/x-m4a':'m4a', 'audio/m4a':'m4a', 'audio/wav':'wav', 'audio/x-wav':'wav', 'audio/ogg':'ogg', 'audio/webm':'webm', 'audio/flac':'flac', 'audio/aac':'aac', 'audio/opus':'opus', 'video/mp4':'m4a' };
+    if (!formats[extension(name)] && byType[blob.type]) name = name.replace(/\.[^.]*$/, '') + '.' + byType[blob.type];
+    return new File([blob], name, { type: blob.type || 'application/octet-stream' });
+  }
   async function request(action, data, access, signal) {
     const headers = { 'Content-Type': 'application/json', Authorization: 'Bearer ' + access };
     const response = await fetch(endpoint, {
@@ -82,7 +101,7 @@
   function setFile(clip) {
     if (active || recording) return;
     if (clip && (!formats[extension(clip.name)] || clip.size < 1 || clip.size > MAX_AUDIO_BYTES)) {
-      status('Choose a supported audio file up to 200 MB. You can also use a Sofer.Ai link.'); return;
+      status('Choose a supported audio file up to 200 MB. You can also paste a link to a recording.'); return;
     }
     const audio = find('studio-audio-player');
     audio.pause(); audio.removeAttribute('src'); audio.load();
@@ -161,13 +180,9 @@
   }
   function updateEngine() {
     const engine = find('studio-audio-engine');
-    const linkMode = !!find('studio-audio-url').value.trim();
-    if (linkMode) engine.value = 'sofer';
-    engine.disabled = linkMode;
-    find('studio-audio-engine-note').textContent = engine.value === 'claude'
-      ? 'Sofer.Ai and Whisper listen to the shiur in parallel. Claude compares both drafts, corrects misheard Hebrew, Aramaic and English, restores quoted sources, then adds nikkud.'
-      : engine.value === 'whisper-claude' ? 'Whisper (on our own server) listens; Claude corrects the transcript and adds nikkud. No Sofer.Ai charge.'
-      : engine.value === 'sofer' ? 'Sofer.Ai handles the audio. Nikkud and abbreviation expansion use Claude.' : 'Gemini transcribes the audio using the selected language, script and timing options.';
+    if (![...engine.options].some(o => o.value === engine.value)) engine.value = 'whisper-claude';
+    engine.disabled = false;
+    find('studio-audio-engine-note').textContent = 'Akiva Engine: Whisper listens on our own server; Claude then corrects misheard Hebrew, Aramaic, Yiddish and English, keeps the speaker\'s mix of languages, restores quoted pesukim and sources, spells sefarim and names correctly, and adds nikkud.';
   }
   function options() {
     return {
@@ -175,23 +190,6 @@
       speakers: find('studio-audio-speakers').checked, nikkud: find('studio-audio-nikkud').checked,
       expand: find('studio-audio-expand').checked,
     };
-  }
-  async function waitForSofer(id, config, access, signal, progress) {
-    const end = Date.now() + 20 * 60 * 1000;
-    while (Date.now() < end) {
-      progress('Waiting for Sofer.Ai · job ' + id);
-      let result;
-      try { result = await request('sofer-poll', { id, speakers: config.speakers }, access, signal); }
-      catch (error) { if (error.status !== 429) throw error; await wait(60000, signal); continue; }
-      if (result.status === 'completed') return result;
-      if (result.status === 'failed') {
-        const error = new Error('Sofer.Ai reported a failed job. Job ID: ' + id);
-        error.failedJob = true;
-        throw error;
-      }
-      await wait(15000, signal);
-    }
-    throw new Error('Sofer.Ai is still processing. Use Retrieve Transcription with job ' + id + '.');
   }
   async function refine(text, config, access, signal) {
     if (config.expand) text = (await request('expand', { text }, access, signal)).text;
@@ -228,77 +226,23 @@
       return lead + '[' + stamp + ']';
     });
   }
-  async function transcribePart(media, engine, config, access, signal, part, progress) {
-    const runSofer = async () => {
-      if (!part.jobId) part.jobId = (await request('sofer-start', { ...config, ...media }, access, signal)).id;
-      const job = find('studio-audio-job');
-      job.value = part.jobId;
-      find('studio-audio-resume-box').open = true;
-      try { return await waitForSofer(part.jobId, config, access, signal, progress); }
-      catch (error) {
-        if (error.failedJob) part.jobId = null;
-        throw error;
-      }
-    };
-    const runGemini = (model) => request('gemini', { ...config, ...media, model }, access, signal);
-    if (engine === 'hybrid') {
-      const [sofer, neon] = await Promise.allSettled([runSofer(), runGemini('gemini-4-neon')]);
+  // The Akiva Engine: Whisper listens on our server (twice for a mixed shiur: free, and held to Hebrew); Claude edits the drafts
+  // into one transcript, keeping names and spellings consistent with the part before; then Claude adds nikkud.
+  async function transcribePart(media, engine, config, access, signal, part, progress, context = '') {
+    progress('Whisper is listening…');
+    const heard = await request('whisper', { ...config, ...media }, access, signal);
+    signal.throwIfAborted();
+    const notes = [];
+    let text = heard.text;
+    progress('Claude is correcting the transcript…');
+    try { text = (await request('claude-review', { ...config, whisper: heard.text, hebrew: heard.hebrew, context }, access, signal)).text; }
+    catch (error) {
       signal.throwIfAborted();
-      if (sofer.status === 'fulfilled' && neon.status === 'fulfilled') {
-        progress('Gemini Hydrogen is reconciling both transcripts…');
-        try {
-          return { text: (await request('reconcile', { ...config, sofer: sofer.value.text, neon: neon.value.text, ...media }, access, signal)).text };
-        } catch (error) {
-          signal.throwIfAborted();
-          return { text: neon.value.text, warning: 'Hydrogen reconciliation did not finish. Showing the Gemini Neon draft.' };
-        }
-      }
-      if (sofer.status === 'fulfilled') {
-        return { text: sofer.value.text, warning: 'Gemini Neon did not finish. Showing the Sofer.Ai draft.' };
-      }
-      if (neon.status === 'fulfilled') {
-        return { text: neon.value.text, warning: 'Sofer.Ai did not finish. Showing the Gemini Neon draft.' };
-      }
-      throw sofer.reason;
+      notes.push('Claude\'s review did not finish' + (error?.message ? ' (' + error.message + ')' : '') + '; showing the Whisper draft.');
     }
-    if (engine === 'claude' || engine === 'whisper-claude') {
-      // Akiva engine: Sofer.Ai and Whisper listen in parallel; Claude reads both drafts and writes one corrected transcript
-      const runWhisper = () => request('whisper', { ...config, ...media }, access, signal);
-      if (engine === 'claude') progress('Sofer.Ai and Whisper are listening…'); else progress('Whisper is listening…');
-      const [sofer, heard] = await Promise.allSettled(engine === 'claude' ? [runSofer(), runWhisper()] : [Promise.reject(new Error('not used')), runWhisper()]);
-      signal.throwIfAborted();
-      const drafts = {};
-      if (sofer.status === 'fulfilled') drafts.text = sofer.value.text;
-      if (heard.status === 'fulfilled') drafts.whisper = heard.value.text;
-      if (!drafts.text && !drafts.whisper) throw (engine === 'claude' ? sofer.reason : heard.reason);
-      const notes = [];
-      if (engine === 'claude' && !drafts.text) notes.push('Sofer.Ai did not finish this part.');
-      if (!drafts.whisper) notes.push('Whisper did not finish this part.');
-      let text = drafts.text || drafts.whisper;
-      progress('Claude is reviewing the transcript…');
-      try { text = (await request('claude-review', { ...config, ...drafts }, access, signal)).text; }
-      catch (error) {
-        signal.throwIfAborted();
-        notes.push('Claude\'s review did not finish' + (error?.message ? ' (' + error.message + ')' : '') + '; showing the ' + (drafts.text ? 'Sofer.Ai' : 'Whisper') + ' draft.');
-      }
-      try { if (config.nikkud || config.expand) { progress('Claude is adding nikkud…'); text = await refine(text, config, access, signal); } }
-      catch (error) { signal.throwIfAborted(); notes.push('The nikkud pass did not finish.'); }
-      return { text, warning: notes.join(' ') };
-    }
-    if (engine === 'sofer') {
-      const result = await runSofer();
-      let text = result.text;
-      let warning = config.speakers && !result.labelsAvailable ? 'Sofer.Ai did not return usable timestamps.' : '';
-
-      try { text = await refine(text, config, access, signal); }
-      catch (error) {
-        signal.throwIfAborted();
-        warning = [warning, 'The nikkud and abbreviation pass did not finish. Showing the transcript without it.'].filter(Boolean).join(' ');
-      }
-      return { text, warning };
-    }
-    progress('Gemini is transcribing the audio…');
-    return runGemini(engine);
+    try { if (config.nikkud || config.expand) { progress(config.nikkud ? 'Claude is adding nikkud…' : 'Claude is expanding roshei teivos…'); text = await refine(text, config, access, signal); } }
+    catch (error) { signal.throwIfAborted(); notes.push('The nikkud pass did not finish.'); }
+    return { text, warning: notes.join(' '), plain: text };
   }
   async function checkAudioAccess(access, engine, signal) {
     const response = await fetch(api + 'health', {
@@ -307,9 +251,7 @@
     });
     const result = await response.json();
     if (!response.ok || !result.authorized) throw new Error(result.error || 'The service could not verify your SoferStudio access key.');
-    const { sofer, gemini, claude } = result.providers;
-    const ready = engine === 'hybrid' ? sofer || gemini : engine === 'claude' ? sofer || result.providers.whisper : engine === 'whisper-claude' ? result.providers.whisper : engine === 'sofer' ? sofer : gemini;
-    if (!ready) throw new Error('The server operator still needs to configure provider credentials for this engine.');
+    if (!result.providers.whisper || !result.providers.claude) throw new Error('The Akiva Engine is not fully configured on the server yet (Whisper and Claude are both needed).');
   }
   async function transcribeLarge(clip, engine, config, access, signal, state) {
     await checkAudioAccess(access, engine, signal);
@@ -324,7 +266,8 @@
         const { bytes, offset, last } = await segmenter.request({ index });
         if (bytes) {
           const media = { mime: 'audio/wav', audio: await encodeAudio(new Blob([bytes], { type: 'audio/wav' }), signal) };
-          const result = await transcribePart(media, engine, config, access, signal, state.pending, progress);
+          const before = state.completed.length ? state.completed[state.completed.length - 1].text : '';
+          const result = await transcribePart(media, engine, config, access, signal, state.pending, progress, before);
           state.completed.push({ ...result, text: offsetTimes(result.text, offset) });
           state.pending = {};
         }
@@ -337,17 +280,22 @@
     if (active || recording || requestingMic) return;
     let access;
     const config = options();
-    const engine = retrieve ? 'sofer' : find('studio-audio-engine').value;
+    const engine = find('studio-audio-engine').value || 'whisper-claude';
     const url = find('studio-audio-url').value.trim();
-    const clip = !retrieve && !url ? file : null;
-    const cap = engine === 'sofer' ? INLINE_MIB.sofer : INLINE_MIB.gemini;
-    const large = clip && clip.size > cap * 1024 * 1024;
-    const signature = JSON.stringify({ engine, ...config });
+    let clip = !retrieve && !url ? file : null;
     try {
-      if (retrieve && !find('studio-audio-job').value.trim()) throw new Error('Enter the Sofer.Ai job ID.');
+      if (retrieve) throw new Error('Job retrieval is no longer used.');
       if (!retrieve && !clip && !url) throw new Error('Load a recording, record a shiur or paste a public audio link.');
       access = requireAccess();
     } catch (error) { status(error.message); return; }
+    if (url && !clip) {
+      try { status('Downloading the recording…'); clip = await fetchLink(url, access); }
+      catch (error) { status(error.message); return; }
+    }
+    // Every recording is converted on this device to 16 kHz WAV in 4-minute parts: Whisper hears clean audio of any format,
+    // Claude edits a manageable stretch at a time, and a long shiur can resume from the last finished part.
+    const large = true;
+    const signature = JSON.stringify({ engine, ...config, name: clip.name, size: clip.size });
     const snapshot = revision;
     const controller = active = new AbortController();
     const { signal } = controller;
@@ -363,8 +311,8 @@
         await transcribeLarge(clip, engine, config, access, signal, state);
         results = state.completed;
       } else {
-        const media = retrieve ? {} : url ? { url } : { mime: formats[extension(clip.name)], audio: await encodeAudio(clip, signal) };
-        const part = { jobId: retrieve ? find('studio-audio-job').value.trim() : null };
+        const media = { mime: formats[extension(clip.name)], audio: await encodeAudio(clip, signal) };
+        const part = { jobId: null };
         results = [await transcribePart(media, engine, config, access, signal, part, status)];
       }
       signal.throwIfAborted();
@@ -381,7 +329,7 @@
         const result = finished ? finished + ' part(s) completed. ' : '';
         status((signal.aborted ? 'Stopped. ' : error.message + ' ') + result + 'Select Run Transcription to resume.');
       } else {
-        status(signal.aborted ? 'Stopped. Retrieve a submitted Sofer.Ai job by ID when ready.' : error.message);
+        status(signal.aborted ? 'Stopped.' : error.message);
       }
     } finally { active = null; updateButtons(); }
   }
@@ -455,7 +403,7 @@
         const reply = await fetch(api + 'health', { headers: { Authorization: 'Bearer ' + access }, cache:'no-store', referrerPolicy:'no-referrer' });
         const data = await reply.json();
         if (!reply.ok || !data.authorized) throw new Error(data.error || 'The service could not verify access.');
-        const names = Object.entries(data.providers).filter(([, ready]) => ready).map(([name]) => ({ sofer: 'Sofer.Ai', claude: 'Claude', gemini: 'Gemini' }[name] || name));
+        const names = Object.entries(data.providers).filter(([name, ready]) => ready && name !== 'sofer').map(([name]) => ({ claude: 'Claude', gemini: 'Gemini', whisper: 'Whisper' }[name] || name));
         result.textContent = names.length ? 'Access verified. Server credentials configured for ' + names.join(' and ') + '.' : 'Access verified. The server operator still needs to configure provider credentials.';
       } catch (error) { result.textContent = error.message; }
     });

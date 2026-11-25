@@ -1,10 +1,10 @@
 import { HttpProblem, deadline, json, parseAllowedOrigins, readBoundedText, responseHeaders } from './ocr.mjs';
-import audio from './audio.mjs';
+import audio, { audioUrl } from './audio.mjs';
 import ocr from './provider-ocr.mjs';
 
 const tokenPattern = /^sfpro_[0-9a-f]{64}$/;
 const adminPath = '/v1/admin/keys';
-const apiPaths = new Set(['/v1/health', '/v1/audio', '/v1/transcribe', '/v1/ocr', '/v1/ocr/json', '/v1/nikkud']);
+const apiPaths = new Set(['/v1/health', '/v1/audio', '/v1/transcribe', '/v1/ocr', '/v1/ocr/json', '/v1/nikkud', '/v1/audio-link']);
 const sizeLimit = 26 * 1024 * 1024;
 const problem = (status, code, message) => new HttpProblem(status, code, message);
 const bad = (message) => problem(400, 'invalid_request', message);
@@ -253,7 +253,7 @@ async function transcribe(request, origin, body, env, owner) {
     return json({ status: 'pending', engine, id: job.id }, 202, request.headers.get('Origin'));
   }
   if (engine === 'whisper-claude') {
-    if (source.url) throw bad('Audio links use Sofer.Ai. Upload a file for Whisper + Claude.');
+    if (source.url) throw bad('Send the recording itself (POST /v1/audio-link downloads a public link for you).');
     const draft = await audioResult(request, origin, { ...config, ...source, action: 'whisper' }, env, owner);
     let text = draft.text, warning;
     if (env.ANTHROPIC_API_KEY?.trim()) {
@@ -277,6 +277,35 @@ async function transcribe(request, origin, body, env, owner) {
   }, sofer.status === 'fulfilled' ? 202 : 200, request.headers.get('Origin'));
 }
 
+// A public shiur link: the Worker downloads the recording and streams it back, so the browser splits it and
+// Whisper + Claude transcribe it like an upload (no third-party transcription service).
+const LINK_MAX = 200 * 1024 * 1024;
+async function audioLink(body, incoming) {
+  let href;
+  try { href = audioUrl(body.url); } catch (error) { throw bad(error.message || 'Enter a public HTTPS audio or shiur link.'); }
+  let upstream;
+  try { upstream = await fetch(href, { redirect: 'follow', headers: { Accept: 'audio/*,video/*;q=0.8,*/*;q=0.5' } }); }
+  catch { throw problem(502, 'link_failed', 'The audio link could not be reached.'); }
+  if (!upstream.ok || !upstream.body) throw problem(502, 'link_failed', 'The audio link returned an error (' + upstream.status + ').');
+  if (!/^https:/i.test(upstream.url || href)) throw bad('Enter a public HTTPS audio or shiur link.');
+  const type = (upstream.headers.get('Content-Type') || '').split(';')[0].trim().toLowerCase();
+  if (type && !/^(audio|video)\//.test(type) && type !== 'application/octet-stream' && type !== 'binary/octet-stream') {
+    throw bad('That link opens a web page, not an audio file. Use the direct link to the recording (.mp3, .m4a …).');
+  }
+  const size = Number(upstream.headers.get('Content-Length') || 0);
+  if (size > LINK_MAX) throw problem(413, 'audio_too_large', 'The recording at this link is over 200 MB.');
+  let seen = 0;
+  const capped = upstream.body.pipeThrough(new TransformStream({ transform(chunk, ctl) {
+    seen += chunk.byteLength;
+    if (seen > LINK_MAX) ctl.error(new Error('too large')); else ctl.enqueue(chunk);
+  } }));
+  const name = decodeURIComponent(new URL(upstream.url || href).pathname.split('/').pop() || 'shiur').slice(0, 120);
+  return new Response(capped, { status: 200, headers: responseHeaders(incoming, {
+    'Content-Type': type || 'application/octet-stream', ...(size ? { 'Content-Length': String(size) } : {}),
+    'X-Audio-Name': encodeURIComponent(name), 'Access-Control-Expose-Headers': 'X-Audio-Name',
+  }) });
+}
+
 export default async function unified(request, env) {
   const path = new URL(request.url).pathname;
   const incoming = request.headers.get('Origin');
@@ -297,6 +326,7 @@ export default async function unified(request, env) {
     const owner = await authorize(request, env);
     const body = await parseBody(request);
     if (path === '/v1/audio') return await runAudio(request, origin, body, env, owner);
+    if (path === '/v1/audio-link') return await audioLink(body, origin && incoming);
     if (path === '/v1/transcribe') return await transcribe(request, origin, body, env, owner);
     if (path === '/v1/nikkud') return await runAudio(request, origin, { action: 'nikkud', text: body.text, style: body.style }, env);
     const options = ocrConfig(body);
