@@ -9410,7 +9410,17 @@
   const pdfTools = new Set(['studio_get_pdf_state','studio_get_pdf_page','studio_get_ocr_text','studio_set_ocr_text','studio_undo_ocr']);
   const renderedPanels = new WeakMap();
   const labels = { studio_get_state: 'Read document information', studio_read_paragraphs: 'Read paragraphs', studio_search: 'Search manuscript', studio_read_footnotes: 'Read footnotes', studio_replace_text: 'Edit paragraph text', studio_update_footnote: 'Edit footnote text', studio_undo: 'Undo AI edit', studio_navigate: 'Navigate manuscript', studio_prepare_export: 'Prepare export', studio_get_pdf_state: 'Read PDF information', studio_get_pdf_page: 'Review PDF page image', studio_get_ocr_text: 'Read OCR text', studio_set_ocr_text: 'Update OCR text', studio_undo_ocr: 'Undo OCR text edit' };
-  const state = { session: null, ownerToken: '', pairingCode: '', pairingExpiresAt: '', status: 'Disconnected', allowEditing: false, pending: false, generation: 0, timer: null, pendingResult: null, receipts: new Map(), activity: [], webController: null, webAvailable: false, renderSignature: '', showPairing: false };
+  // The pairing is remembered on this computer (same origin for the Sefer Pro app and browser tab),
+  // so a reload or reopen resumes it without a new code or a new Claude sign-in. Disconnect forgets it.
+  const STORE_KEY = 'seferStudio.bridge.v1', EDIT_KEY = 'seferStudio.bridge.allowEditing', LOCK_NAME = 'seferStudio.bridge';
+  const store = {
+    load() { try { const v = JSON.parse(localStorage.getItem(STORE_KEY) || 'null'); return v && typeof v.sessionId === 'string' && typeof v.ownerToken === 'string' && v.ownerToken.length >= 24 ? v : null; } catch (_e) { return null; } },
+    save(v) { try { localStorage.setItem(STORE_KEY, JSON.stringify(v)); } catch (_e) {} },
+    clear() { try { localStorage.removeItem(STORE_KEY); } catch (_e) {} },
+    editing() { try { return localStorage.getItem(EDIT_KEY) === 'true'; } catch (_e) { return false; } },
+    setEditing(on) { try { localStorage.setItem(EDIT_KEY, on ? 'true' : 'false'); } catch (_e) {} }
+  };
+  const state = { releaseLock: null, savedExpiry: 0, session: null, ownerToken: '', pairingCode: '', pairingExpiresAt: '', status: 'Disconnected', allowEditing: store.editing(), pending: false, generation: 0, timer: null, pendingResult: null, receipts: new Map(), activity: [], webController: null, webAvailable: false, renderSignature: '', showPairing: false };
   const schema = (properties = {}, required = []) => ({ type: 'object', properties, required, additionalProperties: false });
   const string = (description, maxLength = 10000) => ({ type: 'string', description, maxLength });
   const integer = (description, minimum = 0, maximum = 1000000) => ({ type: 'integer', description, minimum, maximum });
@@ -9474,7 +9484,9 @@
     state.activity.unshift({ name: labels[name] || 'Connection request', status, time: new Date().toLocaleTimeString([], {hour: '2-digit', minute: '2-digit'}) });
     state.activity = state.activity.slice(0, 12);
   }
-  function stopLocalConnection(message) {
+  function stopLocalConnection(message, forget = true) {
+    if (forget) store.clear();
+    if (state.releaseLock) { state.releaseLock(); state.releaseLock = null; }
     clearTimeout(state.timer);
     state.timer = null;
     state.generation++;
@@ -9538,7 +9550,9 @@
       if (generation !== state.generation || !state.session) return;
       if (!data.session || typeof data.session.connected !== 'boolean') throw new Error('The service returned an invalid session response.');
       state.session = { ...state.session, ...data.session };
-      state.status = data.session.authorized === true ? 'Connected to ChatGPT' : 'Waiting for ChatGPT to connect';
+      const expiry = expiryTime(state.session.expiresAt);
+      if (Math.abs(expiry - state.savedExpiry) > 3600000) { state.savedExpiry = expiry; store.save({ sessionId: state.session.sessionId || state.session.id, ownerToken: state.ownerToken, expiresAt: state.session.expiresAt, allowEditing: state.session.allowEditing === true }); }
+      state.status = data.session.authorized === true ? 'Connected to Claude / ChatGPT' : 'Waiting for Claude / ChatGPT to connect';
       const command = data.command;
       if (command) {
         if (typeof command.jobId !== 'string' || !command.jobId || !Object.prototype.hasOwnProperty.call(labels, command.name)) throw new Error('The service returned an invalid command.');
@@ -9575,6 +9589,34 @@
       renderConnection();
     } finally { schedulePoll(generation); }
   }
+  function startServing(generation) {
+    if (!(navigator.locks && typeof navigator.locks.request === 'function')) { schedulePoll(generation, 0); return; }
+    const serve = () => new Promise(release => {
+      if (generation !== state.generation || !state.session) { release(); return; }
+      state.releaseLock = release;
+      schedulePoll(generation, 0);
+    });
+    navigator.locks.request(LOCK_NAME, { ifAvailable: true }, lock => {
+      if (lock) return serve();
+      if (generation === state.generation && state.session) { state.status = 'Connected through another open Sefer Pro window'; renderConnection(); }
+      navigator.locks.request(LOCK_NAME, serve).catch(() => {});
+      return null;
+    }).catch(() => {});
+  }
+  async function resumeConnection() {
+    const saved = store.load();
+    if (!saved || state.session || state.pending) return;
+    if (!(expiryTime(saved.expiresAt) > Date.now())) { store.clear(); return; }
+    state.session = { sessionId: saved.sessionId, expiresAt: saved.expiresAt, connected: false, allowEditing: saved.allowEditing === true };
+    state.ownerToken = saved.ownerToken;
+    state.allowEditing = saved.allowEditing === true;
+    state.savedExpiry = expiryTime(saved.expiresAt);
+    state.status = 'Reconnecting…';
+    const generation = ++state.generation;
+    await registerBrowserTools(generation);
+    renderConnection();
+    startServing(generation);
+  }
   async function createConnection() {
     if (state.pending || state.session) return;
     state.pending = true;
@@ -9587,12 +9629,14 @@
       state.ownerToken = data.ownerToken;
       state.pairingCode = data.pairingCode;
       state.pairingExpiresAt = data.pairingExpiresAt;
-      state.status = 'Waiting for ChatGPT to connect';
+      state.status = 'Waiting for Claude / ChatGPT to connect';
       state.pending = false;
+      state.savedExpiry = expiryTime(data.expiresAt);
+      store.save({ sessionId: data.sessionId, ownerToken: data.ownerToken, expiresAt: data.expiresAt, allowEditing: state.allowEditing });
       const generation = ++state.generation;
       await registerBrowserTools(generation);
       renderConnection();
-      schedulePoll(generation, 0);
+      startServing(generation);
     } catch (error) { state.pending = false; state.status = publicError(error); renderConnection(); }
   }
   async function disconnectConnection() {
@@ -9619,30 +9663,30 @@
     const toolbar = document.getElementById('btn-open-studio-bridge');
     if (toolbar) toolbar.dataset.connected = state.session ? 'true' : 'false';
     if (!host) return;
-    const signature = JSON.stringify({ session: state.session && (state.session.sessionId || state.session.id), status: state.status, allowEditing: state.allowEditing, pending: state.pending, pairingCode: state.pairingCode, activity: state.activity, webAvailable: state.webAvailable, showPairing: state.showPairing });
+    const signature = JSON.stringify({ authorized: !!(state.session && state.session.authorized), session: state.session && (state.session.sessionId || state.session.id), status: state.status, allowEditing: state.allowEditing, pending: state.pending, pairingCode: state.pairingCode, activity: state.activity, webAvailable: state.webAvailable, showPairing: state.showPairing });
     if (renderedPanels.get(host) === signature) return;
     renderedPanels.set(host, signature);
     const focused = host.contains(document.activeElement) ? document.activeElement.id : '';
     const selection = focused && document.activeElement.selectionStart !== undefined ? [document.activeElement.selectionStart, document.activeElement.selectionEnd] : null;
     const active = !!state.session;
     host.innerHTML = `<div class="space-y-4 text-sm">
-      <div class="rounded-lg border ${active ? 'border-emerald-300 bg-emerald-50' : 'border-slate-200 bg-slate-50'} p-3"><div id="studio-bridge-status" role="status" class="font-semibold">${escape(state.status)}</div><p class="text-xs text-slate-600 mt-1">${active ? (state.allowEditing ? 'Reading and targeted text edits are enabled for this tab.' : 'Read-only connection. Manuscript edits are disabled.') : 'Let Claude (or ChatGPT) work with the manuscript open in this tab.'}</p></div>
+      <div class="rounded-lg border ${active ? 'border-emerald-300 bg-emerald-50' : 'border-slate-200 bg-slate-50'} p-3"><div id="studio-bridge-status" role="status" class="font-semibold">${escape(state.status)}</div><p class="text-xs text-slate-600 mt-1">${active ? (state.allowEditing ? 'Reading and targeted text edits are enabled on this computer.' : 'Read-only connection. Manuscript edits are disabled.') : 'Let Claude (or ChatGPT) work with the manuscript open in Sefer Pro on this computer.'}</p></div>
       <p class="text-slate-600 leading-relaxed">Claude or ChatGPT can inspect paragraphs and footnotes, search and navigate your manuscript, review PDF page images and OCR text, and prepare an export. Optional edits replace specific text while retaining formatting. This connection sends requested manuscript text and PDF page images to the connected AI app through your connection service; it does not publish your manuscript.</p>
       <label class="flex items-start gap-2 p-3 border border-slate-200 rounded"><input id="studio-bridge-allow-edits" type="checkbox" ${state.allowEditing ? 'checked' : ''} ${active || state.pending ? 'disabled' : ''} class="mt-0.5"><span><strong>Allow targeted text edits</strong><span class="block text-xs text-slate-600 mt-1">Changes require a matching document revision and exact original text. Use Undo last manuscript edit if needed. Disconnect before changing this permission.</span></span></label>
-      ${active ? `<div class="space-y-2"><label class="block font-medium" for="studio-bridge-pairing-code">One-time pairing code</label><div class="flex gap-2"><input id="studio-bridge-pairing-code" type="${state.showPairing ? 'text' : 'password'}" autocomplete="off" spellcheck="false" readonly value="${escape(state.pairingCode)}" class="min-w-0 flex-1 border rounded px-2 py-1.5 font-mono"><button id="studio-bridge-show-code" type="button" class="px-3 py-1.5 rounded border">${state.showPairing ? 'Hide code' : 'Show code'}</button></div><p class="text-xs text-slate-600">Enter this code on the Sefer Pro connection page that Claude (or ChatGPT) opens. It can be used once and expires after ten minutes. Keep it private.</p><button id="studio-bridge-renew" type="button" ${state.pending ? 'disabled' : ''} class="text-xs underline">Create a new pairing code</button></div>` : ''}
-      <div class="space-y-1"><label for="studio-bridge-mcp-url" class="block font-medium">MCP server URL</label><input id="studio-bridge-mcp-url" type="url" readonly value="${STUDIO_MCP_URL}" class="w-full border rounded px-2 py-1.5 text-xs font-mono"><p class="text-xs text-slate-600"><strong>Claude:</strong> Settings → Connectors → Add custom connector, paste this URL, then Connect. <strong>ChatGPT:</strong> add it as a connector with OAuth. Keep this tab open while using it.</p></div>
-      <p class="text-xs text-slate-500">A connection lasts up to two hours and ends locally when this page closes or reloads. Connection credentials are kept only in memory. ${state.webAvailable ? 'Browser-native tools are also active for this tab.' : ''}</p>
+      ${active && !(state.session && state.session.authorized === true) ? `<div class="space-y-2"><label class="block font-medium" for="studio-bridge-pairing-code">One-time pairing code</label><div class="flex gap-2"><input id="studio-bridge-pairing-code" type="${state.showPairing ? 'text' : 'password'}" autocomplete="off" spellcheck="false" readonly value="${escape(state.pairingCode)}" class="min-w-0 flex-1 border rounded px-2 py-1.5 font-mono"><button id="studio-bridge-show-code" type="button" class="px-3 py-1.5 rounded border">${state.showPairing ? 'Hide code' : 'Show code'}</button></div><p class="text-xs text-slate-600">Enter this code on the Sefer Pro connection page that Claude (or ChatGPT) opens. It can be used once and expires after ten minutes. Keep it private.</p><button id="studio-bridge-renew" type="button" ${state.pending ? 'disabled' : ''} class="text-xs underline">Create a new pairing code</button></div>` : ''}
+      <div class="space-y-1"><label for="studio-bridge-mcp-url" class="block font-medium">MCP server URL</label><input id="studio-bridge-mcp-url" type="url" readonly value="${STUDIO_MCP_URL}" class="w-full border rounded px-2 py-1.5 text-xs font-mono"><p class="text-xs text-slate-600"><strong>Claude:</strong> Settings → Connectors → Add custom connector, paste this URL, then Connect. <strong>ChatGPT:</strong> add it as a connector with OAuth. You only need to do this once per computer.</p></div>
+      <p class="text-xs text-slate-500">Once paired, Sefer Pro reconnects by itself whenever it is open on this computer, even after a reload or restart, until you click Disconnect or 30 days pass without opening Sefer Pro. If several Sefer Pro windows are open, one of them serves Claude. ${state.webAvailable ? 'Browser-native tools are also active for this tab.' : ''}</p>
       <div class="flex flex-wrap gap-2">${active ? '<button id="studio-bridge-disconnect" type="button" class="rounded bg-slate-900 text-white px-4 py-2 font-semibold">Disconnect</button><button id="studio-bridge-undo" type="button" class="rounded border px-3 py-2">Undo last manuscript edit</button><button id="studio-bridge-undo-ocr" type="button" class="rounded border px-3 py-2">Undo OCR text edit</button>' : `<button id="studio-bridge-create" type="button" ${state.pending ? 'disabled' : ''} class="rounded bg-emerald-700 text-white px-4 py-2 font-semibold disabled:opacity-50">${state.pending ? 'Connecting…' : 'Connect this tab'}</button>`}</div>
       ${state.activity.length ? `<div class="border-t pt-3"><div class="font-medium mb-2">Recent activity</div><ul class="space-y-1 text-xs text-slate-600">${state.activity.map(item => `<li>${escape(item.time)} · ${escape(item.name)} · ${escape(item.status)}</li>`).join('')}</ul></div>` : ''}
     </div>`;
     const replacementFocus = focused && document.getElementById(focused);
     if (replacementFocus) { replacementFocus.focus(); if (selection && typeof replacementFocus.setSelectionRange === 'function') { try { replacementFocus.setSelectionRange(...selection); } catch (_error) {} } }
-    host.querySelector('#studio-bridge-allow-edits').addEventListener('change', event => { state.allowEditing = event.target.checked; });
+    host.querySelector('#studio-bridge-allow-edits').addEventListener('change', event => { state.allowEditing = event.target.checked; store.setEditing(state.allowEditing); });
     if (!active) host.querySelector('#studio-bridge-create').addEventListener('click', createConnection);
     else {
       host.querySelector('#studio-bridge-disconnect').addEventListener('click', disconnectConnection);
-      host.querySelector('#studio-bridge-renew').addEventListener('click', renewPairing);
-      host.querySelector('#studio-bridge-show-code').addEventListener('click', event => {
+      host.querySelector('#studio-bridge-renew')?.addEventListener('click', renewPairing);
+      host.querySelector('#studio-bridge-show-code')?.addEventListener('click', event => {
         const input = host.querySelector('#studio-bridge-pairing-code');
         state.showPairing = !state.showPairing;
         input.type = state.showPairing ? 'text' : 'password';
@@ -9667,12 +9711,11 @@
     }
   }
   function openConnection() { window.SuiteUI.openModal('Connect Claude / ChatGPT', '<div id="studio-bridge-panel"></div>', renderConnection); }
-  window.addEventListener('DOMContentLoaded', () => { document.getElementById('btn-open-studio-bridge').addEventListener('click', openConnection); });
-  window.addEventListener('pagehide', () => {
-    if (!state.session) return;
-    const session = state.session, owner = state.ownerToken;
-    stopLocalConnection('Disconnected');
-    requestStudio(sessionPath('disconnect', session), {}, owner, true).catch(() => {});
+  window.addEventListener('DOMContentLoaded', () => { document.getElementById('btn-open-studio-bridge').addEventListener('click', openConnection); resumeConnection(); });
+  // Closing or reloading keeps the pairing; another open Sefer Pro window takes over serving it.
+  window.addEventListener('storage', event => {
+    if (event.key === STORE_KEY && !event.newValue && state.session) stopLocalConnection('Disconnected in another Sefer Pro window', false);
+    if (event.key === STORE_KEY && event.newValue && !state.session) resumeConnection();
   });
 })();
 // END STUDIO AUTHENTICATED CONNECTION

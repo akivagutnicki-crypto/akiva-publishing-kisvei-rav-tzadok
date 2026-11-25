@@ -147,6 +147,22 @@ await test('SeferStudio private MCP security and mailbox contract',async t=>{
     const forged=await approve(env,session,{...start,csrf:'0'.repeat(start.csrf.length)});assert.equal(forged.status,403);
     const good=await approve(env,session,start);assert.equal(good.status,303);
   });
+  await t.test('a paired workspace slides its 30-day expiry while Sefer Pro keeps polling',async()=>{
+    const env=environment(),f=await flow(env);
+    for (let day=0;day<40;day++){clock+=24*60*60*1000;const poll=await browser(env,f.session,'poll');assert.equal(poll.status,200,'poll on day '+day);}
+    const tokens=await request(env,'/studio-oauth/token',{raw:new URLSearchParams({grant_type:'refresh_token',refresh_token:f.tokens.refresh_token,client_id:f.client.client_id,resource:RESOURCE}).toString()});
+    assert.equal(tokens.status,200,'refresh after 40 days of use');
+  });
+  await t.test('a long-lived pairing survives many refreshes and more than MAX_JOBS commands',async()=>{
+    const env=environment(),f=await flow(env);let tokens=f.tokens;
+    for (let i=0;i<200;i++){const r=await request(env,'/studio-oauth/token',{raw:new URLSearchParams({grant_type:'refresh_token',refresh_token:tokens.refresh_token,client_id:f.client.client_id,resource:RESOURCE}).toString()});assert.equal(r.status,200,'refresh '+i);tokens=r.data;}
+    for (let i=0;i<TEST_LIMITS.MAX_JOBS+20;i++){
+      await browser(env,f.session,'poll');
+      const queued=await rpc(env,tokens,'studio_get_state');assert.equal(output(queued).status,'queued','command '+i);
+      const poll=await browser(env,f.session,'poll');const command=poll.data.command;
+      const done=await browser(env,f.session,'result',{jobId:command.jobId,result:{ok:true},isError:false});assert.equal(done.status,200);
+    }
+  });
   await t.test('a double-submitted Allow repeats the same redirect',async()=>{
     const env=environment(),session=await createSession(env),client=await register(env),start=await begin(env,client);
     const first=await approve(env,session,start);assert.equal(first.status,303);

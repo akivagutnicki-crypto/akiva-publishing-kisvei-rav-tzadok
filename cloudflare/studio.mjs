@@ -2,7 +2,8 @@
 // The public Torah library /mcp is deliberately independent of this module.
 // No document, browser credential, or command is returned before session authorization.
 
-const SESSION_MS = 2 * 60 * 60 * 1000;
+// A paired Sefer Pro workspace stays connected for 30 days after it was last open (sliding).
+const SESSION_MS = 30 * 24 * 60 * 60 * 1000;
 const PAIR_MS = 10 * 60 * 1000;
 const ACCESS_MS = 15 * 60 * 1000;
 const AUTH_CODE_MS = 2 * 60 * 1000;
@@ -199,7 +200,7 @@ function scopeList(raw) {
 function consentPage(data,error = '') {
   const edit = data.scopes.includes('studio:write');
   const scopes = edit ? 'Read this open document and make targeted, reversible text edits.' : 'Read this open document. Text editing is disabled.';
-  return `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Connect Sefer Pro</title><style>body{font:16px/1.6 system-ui,sans-serif;color:#18243a;background:#f2f5fa;margin:0;padding:28px}main{max-width:620px;margin:6vh auto;background:white;border:1px solid #d9e0eb;border-radius:18px;padding:30px}h1{line-height:1.2;font-size:27px}label{display:block;font-weight:650;margin-top:22px}input{box-sizing:border-box;width:100%;padding:12px;border:1px solid #8996ac;border-radius:6px;font:14px monospace}button{background:#1e40af;color:white;font:600 16px system-ui;border:0;border-radius:7px;padding:12px 18px;margin-top:20px}small{color:#526079}.notice{padding:15px;background:#eef3ff;border-radius:8px}.error{color:#a31926}code{overflow-wrap:anywhere}</style><main><h1>Connect your open Sefer Pro tab to ${html(data.clientName)}</h1><p>This connection grants access only to the tab whose one-time connection code you enter below. Keep that tab open.</p><div class="notice"><b>Requested access</b><br>${html(scopes)}<br><small>Client: ${html(data.clientName)}<br>Return destination: ${html(new URL(data.redirectUri).origin)}<br>Scopes: ${html(data.scopes.join(', '))}</small></div><p>The connection expires when you disconnect it or after two hours. Closing the tab makes commands unavailable. Manuscript snippets and command receipts pass through your Cloudflare service while connected; this does not publish your manuscript.</p>${error?'<p class="error">'+html(error)+'</p>':''}<form method="post" action="/studio-oauth/authorize"><input type="hidden" name="request_id" value="${html(data.requestId)}"><input type="hidden" name="csrf" value="${html(data.csrf)}"><label for="pairing">One-time connection code</label><p><small>In Sefer Pro, click “Connect Claude / ChatGPT” in the toolbar, start a connection, then copy the code. ${edit?'Enable text editing there before connecting with write access.':''}</small></p><input id="pairing" name="pairing_code" type="password" autocomplete="off" spellcheck="false" required maxlength="60"><button type="submit">Allow this connection</button></form><p><small>You can revoke access any time with Disconnect in Sefer Pro.</small></p></main></html>`;
+  return `<!doctype html><html lang="en"><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Connect Sefer Pro</title><style>body{font:16px/1.6 system-ui,sans-serif;color:#18243a;background:#f2f5fa;margin:0;padding:28px}main{max-width:620px;margin:6vh auto;background:white;border:1px solid #d9e0eb;border-radius:18px;padding:30px}h1{line-height:1.2;font-size:27px}label{display:block;font-weight:650;margin-top:22px}input{box-sizing:border-box;width:100%;padding:12px;border:1px solid #8996ac;border-radius:6px;font:14px monospace}button{background:#1e40af;color:white;font:600 16px system-ui;border:0;border-radius:7px;padding:12px 18px;margin-top:20px}small{color:#526079}.notice{padding:15px;background:#eef3ff;border-radius:8px}.error{color:#a31926}code{overflow-wrap:anywhere}</style><main><h1>Connect your open Sefer Pro tab to ${html(data.clientName)}</h1><p>This connection grants access only to the tab whose one-time connection code you enter below. Keep that tab open.</p><div class="notice"><b>Requested access</b><br>${html(scopes)}<br><small>Client: ${html(data.clientName)}<br>Return destination: ${html(new URL(data.redirectUri).origin)}<br>Scopes: ${html(data.scopes.join(', '))}</small></div><p>The connection stays active on that computer until you click Disconnect in Sefer Pro, or after 30 days without opening Sefer Pro. While Sefer Pro is closed, Claude is asked to wait until you open it again. Manuscript snippets and command receipts pass through your Cloudflare service while connected; this does not publish your manuscript.</p>${error?'<p class="error">'+html(error)+'</p>':''}<form method="post" action="/studio-oauth/authorize"><input type="hidden" name="request_id" value="${html(data.requestId)}"><input type="hidden" name="csrf" value="${html(data.csrf)}"><label for="pairing">One-time connection code</label><p><small>In Sefer Pro, click “Connect Claude / ChatGPT” in the toolbar, start a connection, then copy the code. ${edit?'Enable text editing there before connecting with write access.':''}</small></p><input id="pairing" name="pairing_code" type="password" autocomplete="off" spellcheck="false" required maxlength="60"><button type="submit">Allow this connection</button></form><p><small>You can revoke access any time with Disconnect in Sefer Pro.</small></p></main></html>`;
 }
 // same-origin: with no-referrer, browsers send `Origin: null` when the consent form posts back, and the form is refused.
 const pageHeaders = cookie => ({'content-type':'text/html; charset=utf-8','cache-control':'no-store','referrer-policy':'same-origin','x-content-type-options':'nosniff','content-security-policy':"default-src 'none'; style-src 'unsafe-inline'; form-action 'self' https://claude.ai https://claude.com https://chatgpt.com; base-uri 'none'; frame-ancestors 'none'",...(cookie?{'set-cookie':cookie}:{})});
@@ -557,13 +558,16 @@ export class SeferStudioSession {
       assert(old && old.expiresAt > now() && old.clientId === body.clientId && old.resource === body.resource,'The refresh token is invalid or expired.',400,'invalid_grant');
       const scopes = body.scopes || old.scopes;
       assert(scopes.every(s => old.scopes.includes(s)) && scopes.includes('studio:read'),'A refresh cannot expand permissions.',400,'invalid_scope');
-      assert(Object.keys(this.data.spentRefresh).length < 128,'This session reached its token rotation limit. Pair a new session.',429,'session_limit');
+      // Long-lived pairings rotate refresh tokens many times; remember only the newest 128 spent ones.
+      for (const key of Object.keys(this.data.spentRefresh).slice(0,Math.max(0,Object.keys(this.data.spentRefresh).length-127))) delete this.data.spentRefresh[key];
       this.data.spentRefresh[body.refreshHash] = old.grantId;
       delete this.data.refresh[body.refreshHash]; delete this.data.tokens[old.accessHash];
       return this.issueTokens({clientId:old.clientId,resource:old.resource,scopes,grantId:old.grantId});
     }
     if (path === '/session/poll') {
       this.data.lastSeen = now();
+      this.data.expiresAt = Math.max(this.data.expiresAt,now()+SESSION_MS);
+      for (const refresh of Object.values(this.data.refresh)) refresh.expiresAt = this.data.expiresAt;
       let command = null;
       // Deliver only once. A lost receipt never causes a mutation to be replayed.
       const running = Object.values(this.data.jobs).some(job => job.status === 'running');
@@ -618,7 +622,13 @@ export class SeferStudioSession {
       }
       assert(now()-this.data.lastSeen <= HEARTBEAT_MS,'The paired SeferStudio tab is offline. Open it before submitting another command.',409,'browser_offline');
       assert(Object.values(this.data.jobs).filter(job=>['queued','running'].includes(job.status)).length < MAX_QUEUE,'The tab command queue is full. Wait for current results.',429,'queue_full');
-      assert(Object.keys(this.data.jobs).length < MAX_JOBS,'This session reached 100 commands. Disconnect and start a new session.',429,'session_limit');
+      // Long-lived pairings: forget the oldest finished commands (and their idempotency keys) to stay under MAX_JOBS.
+      for (const old of Object.values(this.data.jobs).filter(job=>!['queued','running'].includes(job.status)).sort((a,b)=>a.createdAt-b.createdAt)) {
+        if (Object.keys(this.data.jobs).length < MAX_JOBS) break;
+        await this.deletePayload(old,'args'); await this.deletePayload(old,'result'); delete this.data.jobs[old.jobId];
+        for (const [key,value] of Object.entries(this.data.requests)) if (value.jobId === old.jobId) delete this.data.requests[key];
+      }
+      assert(Object.keys(this.data.jobs).length < MAX_JOBS,'Too many commands are still pending. Wait for current results.',429,'queue_full');
       const jobId = crypto.randomUUID();
       const job = {jobId,name:body.name,grantId:token.grantId,canWrite:write && token.scopes.includes('studio:write') && this.data.allowEditing,status:'queued',createdAt:now(),expiresAt:Math.min(now()+JOB_MS,this.data.expiresAt)};
       await this.putPayload(job,'args',commandArgs);
