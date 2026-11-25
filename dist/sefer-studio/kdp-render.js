@@ -14,7 +14,7 @@
   const hebrew = /[\u0590-\u05ff]/;
   const combining = /[\u0300-\u036f\u0591-\u05bd\u05bf\u05c1-\u05c2\u05c4-\u05c5\u05c7]/;
   const segmenter = typeof Intl !== 'undefined' && Intl.Segmenter ? new Intl.Segmenter(undefined, { granularity: 'grapheme' }) : null;
-  const fonts = new Set(['Crimson Pro', 'Frank Ruhl Libre', 'Times New Roman', 'Georgia', 'Inter']);
+  const fonts = new Set(['Crimson Pro', 'EB Garamond', 'Playfair Display', 'Frank Ruhl Libre', 'David Libre', 'Noto Serif Hebrew', 'Miriam Libre', 'Secular One', 'Times New Roman', 'Georgia', 'Inter']);
   const colors = { bg: '#102338', accent: '#c6a45c', text: '#f4ecd7' };
 
   function finite(v, fallback) { const n = Number(v); return Number.isFinite(n) ? n : fallback; }
@@ -226,7 +226,7 @@
     const left = (align === 'left' ? x : x - w / 2);
     ctx.fillStyle = 'rgba(5,12,22,.9)'; ctx.fillRect(left, y - 6, w, 12); ctx.fillStyle = '#f8fafc'; ctx.fillText(text, align === 'left' ? x + 5 : x, y); ctx.restore();
   }
-  function drawGuides(ctx, g) {
+  function drawGuides(ctx, g, showBarcode) {
     ctx.save();
     for (const name of ['front', 'back']) {
       const panel = g.panels[name], r = rect(panel), safe = rect(panel.safe);
@@ -242,7 +242,7 @@
     const sr = rect(g.spineRect);
     dashedBox(ctx, sr, '#fb923c', .65);
     dashedBox(ctx, inset(sr, finite(g.spineSafe, .0625) * PT, .125 * PT), '#67e8f9', .55);
-    if (g.barcode) {
+    if (showBarcode && g.barcode) {
       const br = rect(g.barcode);
       ctx.fillStyle = 'rgba(255,255,255,.13)'; ctx.fillRect(br.x, br.y, br.w, br.h);
       dashedBox(ctx, br, '#facc15', .9);
@@ -275,6 +275,9 @@
     const glow = ctx.createRadialGradient(front.x + front.w / 2, front.y + front.h * .52, 0, front.x + front.w / 2, front.y + front.h * .52, front.h * .55);
     glow.addColorStop(0, theme.accent + '14'); glow.addColorStop(1, theme.accent + '00');
     ctx.fillStyle = glow; ctx.fillRect(front.x, front.y, front.w, front.h);
+    // Full-spread vector artwork (Claude's cover design): drawn at the export DPI, so it stays crisp in print.
+    if (project.art && !(options.images && options.images.art)) result.errors.push('The cover artwork has not loaded. Reload it before exporting.');
+    if (options.images && options.images.art) ctx.drawImage(options.images.art, 0, 0, width, height);
 
     for (const name of ['back', 'front']) {
       const panel = g.panels[name], config = project.panels && project.panels[name] || {}, safe = rect(panel.safe);
@@ -295,10 +298,14 @@
             result.errors.push(`${label} extends outside the safe area. Move or resize its text box.`);
             continue;
           }
-          if (name === 'back' && g.barcode && overlap(box, rect(g.barcode))) result.errors.push(`${label} overlaps the KDP barcode area. Move it above or away from that area.`);
+          if (name === 'back' && project.reserveBarcode && g.barcode && overlap(box, rect(g.barcode))) result.errors.push(`${label} overlaps the KDP barcode area. Move it above or away from that area.`);
           const layout = fitText(ctx, block, box);
           if (!layout.fits) result.errors.push(`${label} is too long to fit at 6 pt. Shorten it or increase its text box.`);
           else if (layout.size < finite(block.size, 24) - .1) result.warnings.push(`${label} was fitted to ${layout.size.toFixed(1)} pt.`);
+          // Two text boxes that share space print on top of each other: warn, naming both.
+          for (const other of result.blocks) if (other.panel === name && other.box && overlap(box, { x: other.box.x * PT, y: other.box.y * PT, w: other.box.w * PT, h: other.box.h * PT })) {
+            result.warnings.push(`${label} overlaps ${name} ${other.id}. Move one of them (Position & text area).`);
+          }
           paintType(ctx, block, box, layout, theme.text, false);
           result.blocks.push({ panel: name, id: block.id || 'text', actualSize: layout.size, lines: layout.lines.length, fits: layout.fits, box: { x: box.x / PT, y: box.y / PT, w: box.w / PT, h: box.h / PT } });
         }
@@ -308,7 +315,7 @@
     if (project.reserveBarcode && g.barcode) {
       const b = rect(g.barcode); ctx.fillStyle = '#ffffff'; ctx.fillRect(b.x, b.y, b.w, b.h);
     }
-    if (options.guides) drawGuides(ctx, g);
+    if (options.guides) drawGuides(ctx, g, !!project.reserveBarcode);
     ctx.restore();
     result.warnings = Array.from(new Set(result.warnings));
     result.errors = Array.from(new Set(result.errors));

@@ -8174,13 +8174,31 @@
     const style = styleSel.value || 'royal';
     const ratio = ratioSel.value || '3:4';
 
-    grid.innerHTML = '<div class="col-span-2 p-3 text-center text-xs text-purple-700 font-medium animate-pulse">Synthesizing 4 high-resolution variations…</div>';
+    // Claude draws 4 vector artworks from the description (API credits); without an access key the built-in patterns are used.
+    let access = null;
+    try { access = window.StudioCreative?.requireAccess?.(); } catch (_) { access = null; }
+    grid.innerHTML = '<div class="col-span-2 p-3 text-center text-xs text-purple-700 font-medium animate-pulse">' + (access ? 'Claude is drawing 4 variations of your description (about a minute)…' : 'Creating 4 built-in pattern variations… (enter your SoferStudio access key to have Claude draw from your description)') + '</div>';
     await new Promise((r) => setTimeout(r, 60));
-
-    // Generate 4 rich bespoke variations
+    const svgToDataUrl = (svg, w, h) => new Promise((resolve, reject) => {
+      const img = new Image();
+      img.onload = () => { const c = document.createElement('canvas'); c.width = w; c.height = h; const g = c.getContext('2d'); g.fillStyle = '#fff'; g.fillRect(0, 0, w, h); g.drawImage(img, 0, 0, w, h); resolve(c.toDataURL('image/jpeg', 0.93)); };
+      img.onerror = () => reject(new Error('The artwork could not be drawn.'));
+      img.src = 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+    });
     const urls = [];
-    for (let i = 0; i < 4; i++) {
-      urls.push(synthesizeHdArtworkDataUrl(prompt, style, ratio, i));
+    if (access) {
+      const results = await Promise.allSettled([0, 1, 2, 3].map(async (i) => {
+        const r = await fetch('https://akiva-publishing-kisvei-rav-tzadok.akivagutnicki.workers.dev/v1/design', { method: 'POST', credentials: 'omit', referrerPolicy: 'no-referrer',
+          headers: { 'Content-Type': 'application/json', Authorization: 'Bearer ' + access }, body: JSON.stringify({ action: 'art', prompt, style, ratio, variation: i }) });
+        const d = await r.json().catch(() => ({}));
+        if (!r.ok) throw new Error(d.error || 'HTTP ' + r.status);
+        return svgToDataUrl(d.svg, d.width, d.height);
+      }));
+      for (const [i, res] of results.entries()) urls.push(res.status === 'fulfilled' ? res.value : synthesizeHdArtworkDataUrl(prompt, style, ratio, i));
+      const failed = results.filter(r => r.status === 'rejected');
+      if (failed.length) toast('Claude did not finish ' + failed.length + ' of 4 (' + String(failed[0].reason?.message || '').slice(0, 80) + '); built-in patterns fill those slots.');
+    } else {
+      for (let i = 0; i < 4; i++) urls.push(synthesizeHdArtworkDataUrl(prompt, style, ratio, i));
     }
     designState.generatedVariations = urls;
 
@@ -8193,7 +8211,7 @@
         </div>
       </div>
     `).join('');
-    toast('Generated 4 artwork variations — click any image to add to canvas');
+    toast('4 artwork variations ready — hover an image to use it');
   }
 
   function initDesignStudio() {

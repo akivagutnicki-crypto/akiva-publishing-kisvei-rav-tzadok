@@ -3,12 +3,15 @@
   'use strict';
   const VERSION = 1;
   const STORAGE_KEY = 'seferstudio.kdp-cover.v1';
-  const FONTS = ['Crimson Pro', 'Frank Ruhl Libre', 'Times New Roman'];
+  const FONTS = ['Crimson Pro', 'EB Garamond', 'Playfair Display', 'Frank Ruhl Libre', 'David Libre', 'Noto Serif Hebrew', 'Miriam Libre', 'Secular One', 'Times New Roman'];
+  const DESIGN_API = 'https://akiva-publishing-kisvei-rav-tzadok.akivagutnicki.workers.dev/v1/design';
+  const svgUrl = svg => 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+  const validArt = v => typeof v === 'string' && v.startsWith('<svg') && v.length < 700000 && !/<script|<foreignObject|\son\w+\s*=/i.test(v);
   const clone = value => JSON.parse(JSON.stringify(value));
   const esc = value => String(value).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
   const block = (id, label, text, size, y, h, extra) => Object.assign({id,label,text,size,y,h,x:.07,w:.86,font:'Crimson Pro',bold:false,align:'center',direction:'auto'},extra || {});
   function defaultProject() {
-    return {version:VERSION,name:'Tzidkas HaTzadik - Volume I',settings:{format:'hardcover',trimW:7,trimH:10,pages:362,paper:'cream',ink:'bw',direction:'ltr',language:'hebrew'},theme:{bg:'#32181e',accent:'#be9b61',text:'#f4e4c8'},frame:true,reserveBarcode:false,
+    return {version:VERSION,name:'Tzidkas HaTzadik - Volume I',settings:{format:'hardcover',trimW:7,trimH:10,pages:362,paper:'cream',ink:'bw',direction:'ltr',language:'hebrew'},theme:{bg:'#32181e',accent:'#be9b61',text:'#f4e4c8'},frame:true,reserveBarcode:false,art:null,
       panels:{front:{image:null,showText:true,blocks:[
         block('series','Series','KISVEI RAV TZADOK',12,.10,.06),
         block('hebrew','Hebrew title','צדקת הצדיק',48,.20,.10,{font:'Frank Ruhl Libre',bold:true,direction:'rtl'}),
@@ -45,7 +48,7 @@
       if (!/^#[0-9a-f]{6}$/i.test(value.theme[key])) throw new Error('The project contains an invalid color.');
       p.theme[key] = value.theme[key];
     }
-    p.frame = value.frame !== false; p.reserveBarcode = value.reserveBarcode === true;
+    p.frame = value.frame !== false; p.reserveBarcode = value.reserveBarcode === true; p.art = validArt(value.art) ? value.art : null;
     for (const side of ['front','back']) {
       const data = value.panels[side];
       if (!data || !Array.isArray(data.blocks) || data.blocks.length > 35 || !allowedImage(data.image)) throw new Error('The project contains invalid panel artwork or text.');
@@ -53,7 +56,7 @@
         if (!b || typeof b.text !== 'string' || b.text.length > 20000) throw new Error('A text block is invalid or too long.');
         for (const k of ['x','y','w','h','size']) if (!Number.isFinite(b[k]) || Math.abs(b[k]) > 10000) throw new Error('A text position is invalid.');
         // Preserve editable drafts; print-safe geometry is checked at render/export.
-        return {id:side+'_'+i,label:String(b.label || 'Text '+(i+1)).slice(0,70),text:b.text,font:FONTS.includes(b.font)?b.font:'Crimson Pro',size:b.size,bold:!!b.bold,align:['left','center','right'].includes(b.align)?b.align:'center',direction:['ltr','rtl','auto'].includes(b.direction)?b.direction:'auto',x:b.x,y:b.y,w:b.w,h:b.h};
+        return {id:/^[\w-]{1,80}$/.test(b.id||'')?b.id:side+'_'+i,label:String(b.label || 'Text '+(i+1)).slice(0,70),text:b.text,font:FONTS.includes(b.font)?b.font:'Crimson Pro',size:b.size,bold:!!b.bold,italic:!!b.italic,...(/^#[0-9a-f]{6}$/i.test(b.color||'')?{color:b.color}:{}),align:['left','center','right'].includes(b.align)?b.align:'center',direction:['ltr','rtl','auto'].includes(b.direction)?b.direction:'auto',x:b.x,y:b.y,w:b.w,h:b.h};
       })};
     }
     for (const key of ['title','subtitle','volume','publisher']) p.spine[key] = String(value.spine[key] || '').slice(0,500);
@@ -84,6 +87,13 @@
       <div class="kdp-row"><label>Background<input type="color" id="kdp-bg"></label><label>Accent<input type="color" id="kdp-accent"></label></div><label>Text color<input type="color" id="kdp-text-color"></label>
       <label class="kdp-check"><input type="checkbox" id="kdp-frame"> Decorative frame</label><label class="kdp-check"><input type="checkbox" id="kdp-barcode"> White space for KDP barcode</label>
       <p class="kdp-help">No barcode is generated. Keep the marked area clear for the barcode KDP adds.</p>
+      <hr class="kdp-separator"><h2>✦ Design with Claude</h2>
+      <p class="kdp-help">Claude designs the whole wraparound cover (back, spine and front) as vector art that prints sharp at 300 DPI, and sets your titles and blurb on it. Your wording is never changed. Each design is 3 Claude requests from your API credits; it takes 1–3 minutes.</p>
+      <label>What should it look like? (optional)<textarea id="kdp-ai-brief" rows="3" maxlength="2000" placeholder="e.g. deep sapphire leather with gold filigree, a Jerusalem-stone arch on the front, quiet and dignified"></textarea></label>
+      <button type="button" id="kdp-ai-design" class="kdp-wide kdp-primary">Design 3 covers with Claude</button>
+      <div id="kdp-ai-results" class="kdp-ai-results" aria-live="polite"></div>
+      <button type="button" id="kdp-ai-remove" class="kdp-wide" hidden>Remove Claude artwork</button>
+      <hr class="kdp-separator">
       <button type="button" id="kdp-new" class="kdp-wide">New Tzidkas-style cover</button>
       <div id="kdp-preflight" class="kdp-status" role="status" aria-live="polite"></div>
       <p class="kdp-help">Review the exported cover in KDP Print Previewer before publication.</p></aside>
@@ -103,7 +113,7 @@
     const values={'kdp-name':project.name,'kdp-format':s.format,'kdp-pages':s.pages,'kdp-ink':s.ink,'kdp-paper':s.paper,'kdp-language':s.language,'kdp-direction':s.direction,'kdp-bg':project.theme.bg,'kdp-accent':project.theme.accent,'kdp-text-color':project.theme.text,'kdp-trim-w':s.trimW,'kdp-trim-h':s.trimH};
     for(const [id,val] of Object.entries(values)) $(id).value=val;
     $('kdp-palette').value=({'#16283b':'navy','#32181e':'burgundy','#18352e':'forest'})[project.theme.bg]||'custom';
-    $('kdp-frame').checked=project.frame;$('kdp-barcode').checked=project.reserveBarcode;
+    $('kdp-frame').checked=project.frame;$('kdp-barcode').checked=project.reserveBarcode;$('kdp-ai-remove').hidden=!project.art;
     const trims=(s.format==='hardcover'?window.KdpGeometry.SUPPORTED_HARDCOVER_TRIMS:window.KdpGeometry.SUPPORTED_PAPERBACK_TRIMS).map(t=>[t.trimW,t.trimH]);
     $('kdp-trim').innerHTML=trims.map(t=>`<option value="${t.join('x')}">${t[0]} × ${t[1]} inches</option>`).join('')+(s.format==='paperback'?'<option value="custom">Custom paperback size</option>':'');
     const match=trims.some(t=>t[0]===s.trimW&&t[1]===s.trimH);$('kdp-trim').value=match?s.trimW+'x'+s.trimH:'custom';$('kdp-custom-trim').classList.toggle('kdp-hidden',match||s.format==='hardcover');
@@ -123,7 +133,7 @@
     }
     const panel=project.panels[panelName];if(!panel.blocks.some(b=>b.id===selectedId))selectedId=panel.blocks[0]?.id||'';
     const b=panel.blocks.find(x=>x.id===selectedId);
-    mount.innerHTML=`<button type="button" id="kdp-upload-art" class="kdp-wide">Upload ${panelName} artwork</button>${panel.image?'<button type="button" id="kdp-remove-art" class="kdp-wide">Remove panel artwork</button>':''}${panelName==='front'?'<button type="button" id="kdp-use-design" class="kdp-wide">Use current Visual Studio design</button>':''}<p class="kdp-help">PNG, JPG or WebP. Artwork fills the panel; check cropping in the preview. Print quality is checked at its placed size.</p><label class="kdp-check"><input type="checkbox" id="kdp-show-text" ${panel.showText?'checked':''}> Show editable ${panelName} text</label><label>Text block<select id="kdp-block-select">${panel.blocks.map(x=>`<option value="${esc(x.id)}">${esc(x.label)}</option>`).join('')}</select></label><div class="kdp-row"><button type="button" id="kdp-add-text">+ Text block</button><button type="button" id="kdp-delete-text" class="kdp-delete" ${b?'':'disabled'}>Remove block</button></div>${b?`<div class="kdp-block-controls"><label>Text<textarea id="kdp-block-text" rows="${b.id==='blurb'?9:4}" dir="auto" maxlength="20000">${esc(b.text)}</textarea></label><div class="kdp-row"><label>Type size (pt)<input id="kdp-block-size" type="number" min="6" max="144" value="${b.size}"></label><label>Alignment<select id="kdp-block-align"><option value="left">Left</option><option value="center">Center</option><option value="right">Right</option></select></label></div><label>Typeface<select id="kdp-block-font">${FONTS.map(f=>`<option value="${f}">${f}</option>`).join('')}</select></label><div class="kdp-row"><label>Text direction<select id="kdp-block-direction"><option value="auto">Auto</option><option value="rtl">Hebrew RTL</option><option value="ltr">English LTR</option></select></label><label class="kdp-check"><input type="checkbox" id="kdp-block-bold" ${b.bold?'checked':''}> Bold</label></div><details><summary>Position &amp; text area</summary><p class="kdp-help">Positions are percentages of this panel’s safe area. Type fits within the selected box.</p><div class="kdp-row">${[['x','Left'],['y','Top'],['w','Width'],['h','Height']].map(([key,label])=>`<label>${label} (%)<input data-block-pos="${key}" type="number" min="0" max="100" step="1" value="${Math.round(b[key]*100)}"></label>`).join('')}</div></details></div>`:''}`;
+    mount.innerHTML=`<button type="button" id="kdp-upload-art" class="kdp-wide">Upload ${panelName} artwork</button>${panel.image?'<button type="button" id="kdp-remove-art" class="kdp-wide">Remove panel artwork</button>':''}${panelName==='front'?'<button type="button" id="kdp-use-design" class="kdp-wide">Use current Visual Studio design</button>':''}<p class="kdp-help">PNG, JPG or WebP. Artwork fills the panel; check cropping in the preview. Print quality is checked at its placed size.</p><label class="kdp-check"><input type="checkbox" id="kdp-show-text" ${panel.showText?'checked':''}> Show editable ${panelName} text</label><label>Text block<select id="kdp-block-select">${panel.blocks.map(x=>`<option value="${esc(x.id)}">${esc(x.label)}</option>`).join('')}</select></label><div class="kdp-row"><button type="button" id="kdp-add-text">+ Text block</button><button type="button" id="kdp-delete-text" class="kdp-delete" ${b?'':'disabled'}>Remove block</button></div>${b?`<div class="kdp-block-controls"><label>Text<textarea id="kdp-block-text" rows="${b.id==='blurb'?9:4}" dir="auto" maxlength="20000">${esc(b.text)}</textarea></label><div class="kdp-row"><label>Type size (pt)<input id="kdp-block-size" type="number" min="6" max="144" value="${b.size}"></label><label>Alignment<select id="kdp-block-align"><option value="left">Left</option><option value="center">Center</option><option value="right">Right</option></select></label></div><label>Typeface<select id="kdp-block-font">${FONTS.map(f=>`<option value="${f}">${f}</option>`).join('')}</select></label><div class="kdp-row"><label>Text direction<select id="kdp-block-direction"><option value="auto">Auto</option><option value="rtl">Hebrew RTL</option><option value="ltr">English LTR</option></select></label><label class="kdp-check"><input type="checkbox" id="kdp-block-bold" ${b.bold?'checked':''}> Bold</label></div><div class="kdp-row"><label>Text colour<input type="color" id="kdp-block-color" value="${b.color||project.theme.text}"></label><label class="kdp-check"><input type="checkbox" id="kdp-block-italic" ${b.italic?'checked':''}> Italic</label></div><details><summary>Position &amp; text area</summary><p class="kdp-help">Positions are percentages of this panel’s safe area. Type fits within the selected box.</p><div class="kdp-row">${[['x','Left'],['y','Top'],['w','Width'],['h','Height']].map(([key,label])=>`<label>${label} (%)<input data-block-pos="${key}" type="number" min="0" max="100" step="1" value="${Math.round(b[key]*100)}"></label>`).join('')}</div></details></div>`:''}`;
     if(b){$('kdp-block-select').value=b.id;$('kdp-block-align').value=b.align;$('kdp-block-font').value=b.font;$('kdp-block-direction').value=b.direction;}
   }
   function selectedBlock(){return project.panels[panelName]?.blocks.find(b=>b.id===selectedId);}
@@ -137,6 +147,7 @@
     else if(['kdp-bg','kdp-accent','kdp-text-color'].includes(id)){project.theme[{'kdp-bg':'bg','kdp-accent':'accent','kdp-text-color':'text'}[id]]=el.value;$('kdp-palette').value='custom';}
     else if(id==='kdp-block-text'&&b)b.text=el.value;
     else if(id==='kdp-block-size'&&b)b.size=Number(el.value);
+    else if(id==='kdp-block-color'&&b)b.color=el.value;
     else if(el.dataset.blockPos&&b)b[el.dataset.blockPos]=Number(el.value)/100;
     else if(el.dataset.spineKey)project.spine[el.dataset.spineKey]=el.value;
     else if(id==='kdp-spine-type')project.spine.size=Number(el.value);
@@ -161,6 +172,7 @@
     else if(id==='kdp-block-font'&&b)b.font=el.value;
     else if(id==='kdp-block-direction'&&b)b.direction=el.value;
     else if(id==='kdp-block-bold'&&b)b.bold=el.checked;
+    else if(id==='kdp-block-italic'&&b)b.italic=el.checked;
     else if(id==='kdp-spine-orientation')project.spine.direction=el.value;
     else if(id==='kdp-spine-show')project.spine.showText=el.checked;
     else if(id==='kdp-project-file'){const file=el.files[0];el.value='';if(file){setBusy(true,'Opening project…');try{await openProject(file);}finally{setBusy(false);}}return;}
@@ -173,6 +185,7 @@
     const btn=e.target.closest('button');if(!btn||exporting)return;
     try {
       if(btn.dataset.kdpPanel){panelName=btn.dataset.kdpPanel;renderEditor();return;}
+      if(btn.dataset.aiUse!==undefined){const d=aiResults[+btn.dataset.aiUse];if(d){project=applyDesign(project,d);await loadImage(svgUrl(project.art));setStatus('“'+d.name+'” applied. Every text block is still editable; check the preview, then export.');refreshUI();}return;}
       switch(btn.id){
         case 'kdp-close':close();break;
         case 'kdp-save':download(new Blob([JSON.stringify(project,null,2)],{type:'application/json'}),filename()+'.cover.json');setStatus('Cover project downloaded, including artwork and editable text.');queueRender();break;
@@ -181,6 +194,8 @@
         case 'kdp-upload-art':$('kdp-art-file').dataset.panel=panelName;$('kdp-art-file').click();break;
         case 'kdp-remove-art':project.panels[panelName].image=null;setStatus();refreshUI();break;
         case 'kdp-use-design':setBusy(true,'Importing design…');try{await useDesign();}finally{setBusy(false);}break;
+        case 'kdp-ai-design':await aiDesign();break;
+        case 'kdp-ai-remove':project.art=null;project.frame=true;setStatus('Claude artwork removed.');refreshUI();break;
         case 'kdp-export-pdf':await exportCover('pdf');break;
         case 'kdp-export-png':await exportCover('png');break;
         case 'kdp-proof':await exportCover('proof');break;
@@ -193,7 +208,51 @@
   function filename(){return(project.name||'Book_Cover').replace(/[^\p{L}\p{N}_-]+/gu,'_').replace(/^_|_$/g,'').slice(0,90)||'Book_Cover';}
   function download(blob,name){const url=URL.createObjectURL(blob),a=document.createElement('a');a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),60000);}
   function loadImage(src){if(!src)return Promise.resolve(null);if(imageCache.has(src))return imageCache.get(src);const promise=new Promise((resolve,reject)=>{const img=new Image();img.onload=()=>resolve(img);img.onerror=()=>reject(new Error('Panel artwork could not be loaded. Remove it and upload it again.'));img.src=src;});imageCache.set(src,promise);return promise;}
-  async function loadImages(p){const [front,back]=await Promise.all([loadImage(p.panels.front.image),loadImage(p.panels.back.image)]);return{front,back};}
+  async function loadImages(p){const [front,back,art]=await Promise.all([loadImage(p.panels.front.image),loadImage(p.panels.back.image),loadImage(p.art?svgUrl(p.art):null)]);return{front,back,art};}
+  // ---- Claude cover designer ----
+  let aiResults=[],aiRunning=false;
+  const pts=r=>r?{x:+(r.x*72).toFixed(2),y:+(r.y*72).toFixed(2),w:+(r.w*72).toFixed(2),h:+(r.h*72).toFixed(2)}:null;
+  function designRequest(variation){
+    const s=project.settings,g=window.KdpGeometry.calculate(s),panel=p=>({...pts(p),safe:pts(p.safe)}),texts=side=>project.panels[side].blocks.map(b=>({id:b.id,label:b.label,text:b.text}));
+    return{action:'cover',variation,brief:$('kdp-ai-brief').value,name:project.name,language:s.language,palette:project.theme,
+      geometry:{totalW:g.totalW,totalH:g.totalH,format:s.format,trim:s.trimW+' x '+s.trimH+' in',pages:g.effectivePages,
+        points:{viewBox:[0,0,+(g.totalW*72).toFixed(2),+(g.totalH*72).toFixed(2)],back:panel(g.panels.back),front:panel(g.panels.front),spine:{...pts(g.spineRect),safe:pts(g.spineRect.safe)},
+          hinges:g.hingeRects.map(pts),outerBleedOrWrap:+((g.wrap+g.bleed)*72).toFixed(2),backLowerRightKeepClear:pts(g.barcode),frontIsOn:g.panels.front.x>g.spineRect.x?'right':'left'}},
+      texts:{front:texts('front'),back:texts('back'),spine:{title:project.spine.title,subtitle:project.spine.subtitle,volume:project.spine.volume,publisher:project.spine.publisher}}};
+  }
+  function applyDesign(base,d){
+    const p=clone(base);if(d.palette)p.theme=d.palette;p.art=d.art;p.frame=false;
+    for(const side of ['front','back']){const byId=new Map((d[side]||[]).map(b=>[b.id,b]));p.panels[side].image=null;p.panels[side].showText=true;
+      p.panels[side].blocks=p.panels[side].blocks.map(o=>{const n=byId.get(o.id);if(!n)return o;const{text:_t,label:_l,id:_i,...style}=n;return{...o,...style,text:o.text};});}
+    if(d.spine?.size)p.spine.size=d.spine.size;if(d.spine?.direction)p.spine.direction=d.spine.direction;
+    return p;
+  }
+  async function aiThumb(d,slot){
+    const cand=applyDesign(project,d),g=window.KdpGeometry.calculate(cand.settings),art=await loadImage(svgUrl(d.art));await waitFonts(cand);
+    const c=document.createElement('canvas'),dpi=36;c.width=Math.ceil(g.totalW*dpi);c.height=Math.ceil(g.totalH*dpi);
+    const report=window.KdpRender.render(c.getContext('2d'),g,cand,{dpi,guides:false,images:{art}});
+    slot.textContent='';c.className='kdp-ai-thumb';c.setAttribute('role','img');c.setAttribute('aria-label','Cover design: '+d.name);
+    const cap=document.createElement('div');cap.className='kdp-ai-caption';const name=document.createElement('strong');name.textContent=d.name;
+    const use=document.createElement('button');use.type='button';use.dataset.aiUse=String(aiResults.indexOf(d));use.textContent='Use this design';
+    cap.append(name,use);slot.append(c,cap);
+    if(report.errors.length){const w=document.createElement('p');w.className='kdp-help';w.textContent='Needs a small fix after applying: '+report.errors[0];slot.append(w);}
+  }
+  async function aiDesign(){
+    if(aiRunning)return;let access;
+    try{access=window.StudioCreative.requireAccess();}catch(e){throw new Error('Enter your SoferStudio access key (Studio Home → API Key) to design with Claude.');}
+    const check=window.KdpGeometry.validate(project.settings);if(check.errors.length)throw new Error('Fix the book specifications first: '+check.errors[0]);
+    aiRunning=true;aiResults=[];const box=$('kdp-ai-results'),btn=$('kdp-ai-design');btn.disabled=true;btn.textContent='Claude is designing…';box.textContent='';
+    const slots=[0,1,2].map(i=>{const s=document.createElement('div');s.className='kdp-ai-slot';s.textContent='Design '+(i+1)+' · Claude is drawing (1–3 min)…';box.append(s);return s;});
+    let ok=0;
+    await Promise.all([0,1,2].map(async i=>{
+      try{const r=await fetch(DESIGN_API,{method:'POST',headers:{'Content-Type':'application/json',Authorization:'Bearer '+access},credentials:'omit',referrerPolicy:'no-referrer',body:JSON.stringify(designRequest(i))});
+        const d=await r.json().catch(()=>({}));if(!r.ok)throw new Error(d.error||'The design service returned HTTP '+r.status+'.');
+        aiResults.push(d);await aiThumb(d,slots[i]);ok++;}
+      catch(e){slots[i].textContent='Design '+(i+1)+' did not finish: '+e.message;slots[i].classList.add('kdp-ai-failed');}
+    }));
+    aiRunning=false;btn.disabled=false;btn.textContent='Design 3 more covers';
+    setStatus(ok?'Pick a design: “Use this design” puts it on your cover; all text stays editable.':'No design finished. Check your access key and API credits, then try again.');queueRender();
+  }
   async function waitFonts(p){if(!document.fonts)return;const families=new Set(['Frank Ruhl Libre','Crimson Pro']);for(const side of ['front','back'])for(const b of p.panels[side].blocks)families.add(b.font);await Promise.all([...families].flatMap(f=>[document.fonts.load(`400 24px "${f}"`,'אבג ABC'),document.fonts.load(`700 24px "${f}"`,'אבג ABC')]));await document.fonts.ready;}
   function extraChecks(p,g,images){const errors=[],warnings=[];for(const side of ['front','back']){const panel=p.panels[side];if(panel.showText)for(const b of panel.blocks){if(!Number.isFinite(b.size)||b.size<6||b.size>144)errors.push(`${side}: type size must be 6–144 pt.`);if(![b.x,b.y,b.w,b.h].every(Number.isFinite)||b.x<0||b.y<0||b.w<=0||b.h<=0||b.x+b.w>1.000001||b.y+b.h>1.000001)errors.push(`${side} “${b.label}”: keep its text box inside the safe area.`);}}if(!Number.isFinite(p.spine.size)||p.spine.size<6||p.spine.size>72)errors.push('Spine type size must be 6–72 pt.');return{errors,warnings};}
   function queueRender(){if(queued)return;queued=true;requestAnimationFrame(()=>{queued=false;renderPreview().catch(e=>showError(e.message));});}
