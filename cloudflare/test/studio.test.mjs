@@ -167,9 +167,14 @@ await test('SeferStudio private MCP security and mailbox contract',async t=>{
     const env=environment(),f=await flow(env);const second=await begin(env,f.client);
     assert.equal((await approve(env,f.session,second)).status,400);
   });
-  await t.test('read-only browser session cannot authorize write scope',async()=>{
+  await t.test('read-only browser session downgrades a write request to read-only',async()=>{
     const env=environment(),session=await createSession(env),client=await register(env),start=await begin(env,client,'studio:read studio:write');
-    const r=await approve(env,session,start);assert.equal(r.status,403);assert.ok(r.text.includes('This tab is read-only'));
+    const r=await approve(env,session,start);assert.equal(r.status,303);
+    const code=new URL(r.headers.get('location')).searchParams.get('code');
+    const tokens=await exchange(env,client,start,code);assert.equal(tokens.status,200);assert.equal(tokens.data.scope,'studio:read');
+  });
+  await t.test('editing-enabled session grants studio:write when asked',async()=>{
+    const env=environment(),f=await flow(env,true);assert.equal(f.tokens.scope,'studio:read studio:write');
   });
   await t.test('PKCE, client, redirect and resource must all match; codes single-use',async()=>{
     const env=environment(),session=await createSession(env),client=await register(env),other=await register(env),start=await begin(env,client);

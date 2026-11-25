@@ -363,7 +363,7 @@ export default async function studio(request,env) {
     const code = error instanceof StudioError ? error.code : 'internal_error';
     const message = error instanceof StudioError ? error.message : 'The studio service could not complete this request.';
     if (status === 405) headers.allow = 'POST, OPTIONS';
-    if (status === 401 || status === 403 && code === 'insufficient_scope') headers['www-authenticate'] = 'Bearer resource_metadata="'+new URL('/.well-known/oauth-protected-resource/studio-mcp',request.url).href+'", scope="studio:read'+(code === 'insufficient_scope'?' studio:write':'')+'", error="'+code+'"';
+    if (status === 401 || status === 403 && code === 'insufficient_scope') headers['www-authenticate'] = 'Bearer resource_metadata="'+new URL('/.well-known/oauth-protected-resource/studio-mcp',request.url).href+'", scope="studio:read studio:write", error="'+code+'"';
     return json({error:code,message},status,headers);
   }
 }
@@ -527,10 +527,11 @@ export class SeferStudioSession {
       assert(now()-this.data.lastSeen <= HEARTBEAT_MS,'The SeferStudio tab is offline. Return to the tab and try again.',409,'browser_offline');
       assert(body.resource === this.data.resource,'The authorization resource does not match.');
       assert(Array.isArray(body.scopes) && body.scopes.includes('studio:read') && body.scopes.every(s=>SCOPES.includes(s)),'Invalid permission scopes.');
-      assert(!body.scopes.includes('studio:write') || this.data.allowEditing,'This tab is read-only. Disconnect it, enable text editing, and create a new connection code.',403,'insufficient_scope');
+      // Clients ask for edit access by default; a tab that did not enable editing grants read-only instead of failing.
+      const scopes = this.data.allowEditing ? body.scopes : body.scopes.filter(s => s !== 'studio:write');
       assert(Object.keys(this.data.codes).length < 5 && Object.keys(this.data.refresh).length < 5,'This tab has reached its connection limit.',429,'connection_limit');
       const secret = randomSecret();
-      this.data.codes[await digest(secret)] = {clientId:body.clientId,redirectUri:body.redirectUri,resource:body.resource,challenge:body.challenge,scopes:body.scopes,expiresAt:Math.min(now()+AUTH_CODE_MS,this.data.expiresAt)};
+      this.data.codes[await digest(secret)] = {clientId:body.clientId,redirectUri:body.redirectUri,resource:body.resource,challenge:body.challenge,scopes,expiresAt:Math.min(now()+AUTH_CODE_MS,this.data.expiresAt)};
       this.data.pairHash = null;
       await this.save(); return {code:secret};
     }
