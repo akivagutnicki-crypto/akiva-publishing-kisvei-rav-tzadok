@@ -12,7 +12,7 @@
   <meta name="description" content="Edit Hebrew and English manuscripts, work with Word footnotes, create newsletters and covers, and open PDFs in SeferStudio Pro." />
   <link rel="stylesheet" href="./kdp-cover.css" />
   <link rel="stylesheet" href="./studio-creative.css" />
-  <script defer src="./studio-creative.js?v=audio-200mb"></script>
+  <script defer src="./studio-creative.js?v=claude-engine"></script>
   <script defer src="./kdp-geometry.js"></script>
   <script defer src="./kdp-render.js"></script>
   <script defer src="./kdp-png.js"></script>
@@ -1001,7 +1001,7 @@
   </div>
   <div id="studio-audio-api-info" class="studio-creative-card studio-audio-credentials" hidden>
     <a class="studio-creative-link" href="https://docs.sofer.ai/welcome" target="_blank" rel="noopener">Sofer.Ai API documentation ↗</a>
-    <a class="studio-creative-link" href="https://aistudio.google.com/apikey" target="_blank" rel="noopener">Gemini developer console ↗</a>
+    <a class="studio-creative-link" href="https://console.anthropic.com/settings/keys" target="_blank" rel="noopener">Claude API keys ↗</a>
     <button type="button" id="studio-audio-install">Install the web app</button>
   </div>
   <div class="studio-creative-grid">
@@ -1018,7 +1018,7 @@
       <section class="studio-creative-card">
         <h2>Transcription Engine &amp; Nikkudot</h2>
         <div class="studio-fields-grid">
-          <label>Engine<select id="studio-audio-engine"><option value="hybrid">Hybrid · Sofer.Ai + Gemini 4</option><option value="sofer">Sofer.Ai</option><option value="gemini-4-neon">Gemini 4 Neon</option><option value="gemini-4-carbon">Gemini 4 Carbon</option></select></label>
+          <label>Engine<select id="studio-audio-engine"><option value="claude">Akiva Engine · Sofer.Ai + Whisper + Claude (recommended)</option><option value="whisper-claude">Whisper + Claude (no Sofer.Ai)</option><option value="sofer">Sofer.Ai only</option></select></label>
           <label>Primary Language<select id="studio-audio-language"><option value="en">English + Hebrew</option><option value="he">Hebrew</option><option value="yi">Yiddish + Hebrew</option></select></label>
         </div>
         <label>Hebrew Word Format<select id="studio-audio-format"><option value="he">Hebrew letters</option><option value="both">Hebrew and transliteration</option><option value="hybrid">Hebrew quotes, transliterated short terms</option><option value="en">Transliteration</option></select></label>

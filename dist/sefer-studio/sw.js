@@ -1,13 +1,13 @@
 // Keep this installation's cache separate from other apps on the same host.
 const APP_SCOPE = new URL(self.registration.scope);
 const CACHE_PREFIX = `seferstudio-${encodeURIComponent(APP_SCOPE.href)}-`;
-const CACHE_NAME = `${CACHE_PREFIX}v14-separate-apps`;
+const CACHE_NAME = `${CACHE_PREFIX}v15-claude-engine`;
 const CORE_URLS = [
   './',
   './index.html',
   './kdp-cover.css',
   './studio-creative.css',
-  './studio-creative.js?v=audio-200mb',
+  './studio-creative.js?v=claude-engine',
   './audio-segments.js',
   './kdp-geometry.js',
   './kdp-render.js',

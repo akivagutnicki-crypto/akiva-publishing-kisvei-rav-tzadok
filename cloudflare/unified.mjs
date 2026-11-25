@@ -209,13 +209,21 @@ function internalRequest(request, origin, body, env) {
   const headers = new Headers({ Origin: origin, 'Content-Type': 'application/json' });
   if (env.SOFERAI_API_KEY) headers.set('X-Sofer-API-Key', env.SOFERAI_API_KEY.trim());
   if (env.GEMINI_API_KEY) headers.set('X-Gemini-API-Key', env.GEMINI_API_KEY.trim());
+  if (env.ANTHROPIC_API_KEY) headers.set('X-Anthropic-API-Key', env.ANTHROPIC_API_KEY.trim());
   const ip = request.headers.get('CF-Connecting-IP');
   if (ip) headers.set('CF-Connecting-IP', ip);
   return new Request(request.url, { method: 'POST', headers, body: JSON.stringify(body), signal: request.signal });
 }
 
 async function runAudio(request, origin, body, env, owner) {
-  requireProviders(env, ['sofer-start', 'sofer-poll'].includes(body.action), !['sofer-start', 'sofer-poll'].includes(body.action));
+  const soferAction = ['sofer-start', 'sofer-poll'].includes(body.action);
+  if (body.action === 'claude-review') {
+    if (!env.ANTHROPIC_API_KEY?.trim()) throw unavailable('The server operator must configure ANTHROPIC_API_KEY.');
+  } else if (body.action === 'whisper') {
+    // Workers AI: no provider key
+  } else if (!soferAction && ['nikkud', 'expand', 'translate'].includes(body.action) && env.ANTHROPIC_API_KEY?.trim()) {
+    // Claude does the text passes when it is configured
+  } else requireProviders(env, soferAction, !soferAction);
   if (body.action === 'sofer-poll' && !(await keyStore(env, 'job-read', { id: String(body.id || '').slice(0, 36), owner })).allowed) {
     throw problem(404, 'job_not_found', 'No recent transcription matches this key and job ID.');
   }
@@ -237,12 +245,22 @@ async function audioResult(request, origin, body, env, owner) {
 async function transcribe(request, origin, body, env, owner) {
   const config = audioConfig(body);
   const engine = body.engine || 'hybrid';
-  if (!['sofer', 'hybrid', 'gemini', 'gemini-4-neon', 'gemini-4-carbon'].includes(engine)) throw bad('Unknown transcription engine.');
+  if (!['claude', 'whisper-claude', 'sofer', 'hybrid', 'gemini', 'gemini-4-neon', 'gemini-4-carbon'].includes(engine)) throw bad('Unknown transcription engine.');
   const source = { audio: body.audio ?? body.audio_file, mime: body.mime || body.content_type, url: body.url || body.audio_url };
-  if (source.url && engine !== 'sofer') throw bad('Audio links use Sofer.Ai. Upload a file to use Gemini or Hybrid.');
-  if (engine === 'sofer') {
+  if (source.url && !['sofer', 'claude'].includes(engine)) throw bad('Audio links use Sofer.Ai. Upload a file to use Gemini or Hybrid.');
+  if (engine === 'sofer' || engine === 'claude') {   // claude: the client sends Sofer.Ai's transcript to action claude-review
     const job = await audioResult(request, origin, { ...config, ...source, action: 'sofer-start' }, env, owner);
     return json({ status: 'pending', engine, id: job.id }, 202, request.headers.get('Origin'));
+  }
+  if (engine === 'whisper-claude') {
+    if (source.url) throw bad('Audio links use Sofer.Ai. Upload a file for Whisper + Claude.');
+    const draft = await audioResult(request, origin, { ...config, ...source, action: 'whisper' }, env, owner);
+    let text = draft.text, warning;
+    if (env.ANTHROPIC_API_KEY?.trim()) {
+      try { text = (await audioResult(request, origin, { ...config, whisper: draft.text, action: 'claude-review' }, env, owner)).text; }
+      catch (error) { warning = 'Claude review did not finish: ' + error.message; }
+    } else warning = 'ANTHROPIC_API_KEY is not configured; showing the Whisper draft.';
+    return json({ status: 'completed', engine, text, ...(warning ? { warning } : {}) }, 200, request.headers.get('Origin'));
   }
   if (engine !== 'hybrid') return runAudio(request, origin, { ...config, ...source, action: 'gemini', model: engine === 'gemini' ? body.gemini_model || 'gemini-4-neon' : engine }, env);
   requireProviders(env, true, true);
@@ -271,7 +289,7 @@ export default async function unified(request, env) {
     }) });
     if (path === '/v1/health' && request.method === 'GET') {
       const authorized = request.headers.has('Authorization') ? Boolean(await authorize(request, env)) : false;
-      return json({ ready: Boolean(env.SOFER_KEY_STORE), authorized, providers: { sofer: Boolean(env.SOFERAI_API_KEY), gemini: Boolean(env.GEMINI_API_KEY) } }, 200, incoming);
+      return json({ ready: Boolean(env.SOFER_KEY_STORE), authorized, providers: { sofer: Boolean(env.SOFERAI_API_KEY), gemini: Boolean(env.GEMINI_API_KEY), claude: Boolean(env.ANTHROPIC_API_KEY), whisper: typeof env.AI?.run === 'function' } }, 200, incoming);
     }
     if (request.method !== 'POST') return json({ error: 'Use POST.' }, 405, incoming);
     const limit = await env.STUDIO_RATE_LIMITER?.limit({ key: 'sofer-unified:' + (request.headers.get('CF-Connecting-IP') || 'unknown') });

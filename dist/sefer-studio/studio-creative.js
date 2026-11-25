@@ -164,9 +164,10 @@
     const linkMode = !!find('studio-audio-url').value.trim();
     if (linkMode) engine.value = 'sofer';
     engine.disabled = linkMode;
-    find('studio-audio-engine-note').textContent = engine.value === 'hybrid'
-      ? 'Sofer.Ai and Gemini Neon transcribe in parallel. Gemini Hydrogen reconciles their readings.'
-      : engine.value === 'sofer' ? 'Sofer.Ai handles the audio. Nikkud and abbreviation expansion use Gemini Hydrogen.' : 'Gemini transcribes the audio using the selected language, script and timing options.';
+    find('studio-audio-engine-note').textContent = engine.value === 'claude'
+      ? 'Sofer.Ai and Whisper listen to the shiur in parallel. Claude compares both drafts, corrects misheard Hebrew, Aramaic and English, restores quoted sources, then adds nikkud.'
+      : engine.value === 'whisper-claude' ? 'Whisper (on our own server) listens; Claude corrects the transcript and adds nikkud. No Sofer.Ai charge.'
+      : engine.value === 'sofer' ? 'Sofer.Ai handles the audio. Nikkud and abbreviation expansion use Claude.' : 'Gemini transcribes the audio using the selected language, script and timing options.';
   }
   function options() {
     return {
@@ -260,14 +261,39 @@
       }
       throw sofer.reason;
     }
+    if (engine === 'claude' || engine === 'whisper-claude') {
+      // Akiva engine: Sofer.Ai and Whisper listen in parallel; Claude reads both drafts and writes one corrected transcript
+      const runWhisper = () => request('whisper', { ...config, ...media }, access, signal);
+      if (engine === 'claude') progress('Sofer.Ai and Whisper are listening…'); else progress('Whisper is listening…');
+      const [sofer, heard] = await Promise.allSettled(engine === 'claude' ? [runSofer(), runWhisper()] : [Promise.reject(new Error('not used')), runWhisper()]);
+      signal.throwIfAborted();
+      const drafts = {};
+      if (sofer.status === 'fulfilled') drafts.text = sofer.value.text;
+      if (heard.status === 'fulfilled') drafts.whisper = heard.value.text;
+      if (!drafts.text && !drafts.whisper) throw (engine === 'claude' ? sofer.reason : heard.reason);
+      const notes = [];
+      if (engine === 'claude' && !drafts.text) notes.push('Sofer.Ai did not finish this part.');
+      if (!drafts.whisper) notes.push('Whisper did not finish this part.');
+      let text = drafts.text || drafts.whisper;
+      progress('Claude is reviewing the transcript…');
+      try { text = (await request('claude-review', { ...config, ...drafts }, access, signal)).text; }
+      catch (error) {
+        signal.throwIfAborted();
+        notes.push('Claude\'s review did not finish' + (error?.message ? ' (' + error.message + ')' : '') + '; showing the ' + (drafts.text ? 'Sofer.Ai' : 'Whisper') + ' draft.');
+      }
+      try { if (config.nikkud || config.expand) { progress('Claude is adding nikkud…'); text = await refine(text, config, access, signal); } }
+      catch (error) { signal.throwIfAborted(); notes.push('The nikkud pass did not finish.'); }
+      return { text, warning: notes.join(' ') };
+    }
     if (engine === 'sofer') {
       const result = await runSofer();
       let text = result.text;
       let warning = config.speakers && !result.labelsAvailable ? 'Sofer.Ai did not return usable timestamps.' : '';
+
       try { text = await refine(text, config, access, signal); }
       catch (error) {
         signal.throwIfAborted();
-        warning = [warning, 'The Gemini text pass did not finish. Showing the Sofer.Ai transcript.'].filter(Boolean).join(' ');
+        warning = [warning, 'The nikkud and abbreviation pass did not finish. Showing the transcript without it.'].filter(Boolean).join(' ');
       }
       return { text, warning };
     }
@@ -281,8 +307,8 @@
     });
     const result = await response.json();
     if (!response.ok || !result.authorized) throw new Error(result.error || 'The service could not verify your SoferStudio access key.');
-    const { sofer, gemini } = result.providers;
-    const ready = engine === 'hybrid' ? sofer || gemini : engine === 'sofer' ? sofer : gemini;
+    const { sofer, gemini, claude } = result.providers;
+    const ready = engine === 'hybrid' ? sofer || gemini : engine === 'claude' ? sofer || result.providers.whisper : engine === 'whisper-claude' ? result.providers.whisper : engine === 'sofer' ? sofer : gemini;
     if (!ready) throw new Error('The server operator still needs to configure provider credentials for this engine.');
   }
   async function transcribeLarge(clip, engine, config, access, signal, state) {
@@ -367,7 +393,7 @@
     if (!text.trim() || active) return;
     const snapshot = revision;
     const controller = active = new AbortController();
-    updateButtons(); status('Adding nikkud with Gemini Hydrogen…');
+    updateButtons(); status('Adding nikkud with Claude…');
     try {
       const result = await textAction('nikkud', text, controller.signal, find('studio-nikkud-style').value);
       if (revision !== snapshot) throw new Error('The editor changed. Your edits were kept.');
@@ -429,7 +455,7 @@
         const reply = await fetch(api + 'health', { headers: { Authorization: 'Bearer ' + access }, cache:'no-store', referrerPolicy:'no-referrer' });
         const data = await reply.json();
         if (!reply.ok || !data.authorized) throw new Error(data.error || 'The service could not verify access.');
-        const names = Object.entries(data.providers).filter(([, ready]) => ready).map(([name]) => name === 'sofer' ? 'Sofer.Ai' : 'Gemini');
+        const names = Object.entries(data.providers).filter(([, ready]) => ready).map(([name]) => ({ sofer: 'Sofer.Ai', claude: 'Claude', gemini: 'Gemini' }[name] || name));
         result.textContent = names.length ? 'Access verified. Server credentials configured for ' + names.join(' and ') + '.' : 'Access verified. The server operator still needs to configure provider credentials.';
       } catch (error) { result.textContent = error.message; }
     });
@@ -581,7 +607,7 @@
       if (!text.trim() || output.readOnly) return;
       const guard = window.PdfStudioAPI.captureOcrText();
       const button = find('studio-pdf-point');
-      button.disabled = true; note.textContent = 'Adding nikkud with Gemini Hydrogen…';
+      button.disabled = true; note.textContent = 'Adding nikkud with Claude…';
       try {
         const replacement = await textAction('nikkud',text,AbortSignal.timeout(180000));
         if (!window.PdfStudioAPI.applyOcrText(guard,replacement)) throw new Error('The source page or text changed during the request. Earlier text was kept.');
