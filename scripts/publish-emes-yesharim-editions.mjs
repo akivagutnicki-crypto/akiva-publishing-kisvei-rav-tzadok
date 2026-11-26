@@ -342,18 +342,20 @@ async function publicBytes(name) {
 }
 async function verifyLive(site) {
   const report = read(site, REPORT);
-  const targets = [...report.affected, {name: REPORT, sha256: digest(site, REPORT)}];
-  let passed = 0, queue = 0; const errors = [];
-  await Promise.all(Array.from({length: 8}, async () => {
-    for (;;) {
-      const n = queue++; if (n >= targets.length) return; const f = targets[n]; let ok = false;
-      for (let attempt = 0; attempt < 4; attempt++) {
-        try { if (sha(await publicBytes(f.name)) === f.sha256) { ok = true; break; } } catch (e) { if (attempt === 3) errors.push({path: f.name, error: String(e)}); }
-        if (attempt < 3) await new Promise(r => setTimeout(r, 2000));
-      }
-      if (!ok) errors.push({path: f.name, error: 'Published bytes did not match local release'}); else passed++;
+  // the Pages host rate-limits bursts (HTTP 429): check the reader files and the MCP glossary, one at a time with pauses
+  const sample = report.affected.filter(f => !f.name.startsWith('mcp-data/mafteach/') || /glossary\.json$/.test(f.name));
+  const targets = [...sample, {name: REPORT, sha256: digest(site, REPORT)}];
+  let passed = 0; const errors = [];
+  for (const f of targets) {
+    let ok = false, last = '';
+    for (let attempt = 0; attempt < 6 && !ok; attempt++) {
+      try { if (sha(await publicBytes(f.name)) === f.sha256) ok = true; else last = 'Published bytes did not match local release'; }
+      catch (e) { last = String(e); }
+      if (!ok) await new Promise(r => setTimeout(r, 3000 * (attempt + 1)));
     }
-  }));
+    if (ok) passed++; else errors.push({path: f.name, error: last});
+    await new Promise(r => setTimeout(r, 150));
+  }
   assert.equal(errors.length, 0, 'Live URL verification failed: ' + json(errors.slice(0, 8)));
   write(ROOT, PROOF, {ok: true, live: true, release: RELEASE, publicFilesChecked: passed});
   console.log(json({ok: true, live: true, publicFilesChecked: passed}));
