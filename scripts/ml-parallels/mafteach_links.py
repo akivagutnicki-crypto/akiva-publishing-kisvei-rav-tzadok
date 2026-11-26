@@ -16,7 +16,7 @@ from pathlib import Path
 LIB = Path('dist/library')
 OUT = LIB / 'mafteach-links'
 ISH = ('Beit Yaakov on Torah', 'Beit Yaakov, ', 'Mei HaShiloach', 'Sod Yesharim', 'Tiferet Yosef', "Sha'ar HaEmunah VeYesod HaChasidut",
-       "Ne'ot Deshe", 'Tiferet HaChanokhi', 'Ein HaTekhelet', 'Ptil Tekhelet', 'Sefunei Temunei Chol', 'Orchot Chaim and Eser Milin', 'Sidrei Taharot')
+       "Ne'ot Deshe", 'Tiferet HaChanokhi', 'Ein HaTekhelet', 'Ptil Tekhelet', 'Sefunei Temunei Chol', 'Orchot Chaim and Eser Milin', 'Sidrei Taharot', 'Torat Emet', 'Imrei Emet')
 is_ish = lambda r: r.startswith(ISH)
 W = {'reviewed': 3.5, 'strong': 3.0, 'likely': 2.0, 'possible': 1.0}
 ORDER = {'reviewed': -1, 'strong': 0, 'likely': 1, 'possible': 2}
