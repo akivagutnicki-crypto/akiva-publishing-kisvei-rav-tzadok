@@ -143,7 +143,7 @@ export async function apply(site, build) {
       touch(name, fs.readFileSync(relative(build, name)));
     }
     assert.equal(notes, stats[slug].notes, slug + ' built notes'); assert.equal(paragraphs, stats[slug].paragraphs, slug + ' built paragraphs');
-    for (const f of ['toc.json', 'links.json']) touch(`library/data/${slug}/${f}`, fs.readFileSync(path.join(buildDir, f)));
+    for (const f of ['toc.json', 'links.json']) if (f === 'toc.json' || fs.existsSync(path.join(buildDir, f))) touch(`library/data/${slug}/${f}`, fs.readFileSync(path.join(buildDir, f)));   // a booklet citing nothing has no links.json
   }
   // 1b. files of these books that the fresh build no longer has
   const removed = [];

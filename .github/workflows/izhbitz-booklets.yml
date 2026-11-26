@@ -87,7 +87,7 @@ jobs:
           PY
           python3 scripts/new-books-release.py capture
 
-      - name: Add the seven new books and replace Tiferet Yosef
+      - name: Add the two booklets
         run: |
           node scripts/publish-izhbitz-booklets.mjs --apply .ibk-site .ibk-build
           node scripts/publish-izhbitz-booklets.mjs --finalize .ibk-site
