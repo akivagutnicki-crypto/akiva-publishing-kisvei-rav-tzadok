@@ -57,6 +57,11 @@ export const EDITION_BOOKS = [
   ['Tiferet Yosef', 'the Akiva Publishing Tiferes Yosef edition'],
   ['Sidrei Taharot, Ohalot', 'the Akiva Publishing Sidrei Taharos (Ohalos) edition', 'ir', 'edt'],   // own text part (10 MB file limit)
   ['Sidrei Taharot, Kelim', 'the Akiva Publishing Sidrei Taharos (Keilim) edition', 'ir', 'edt'],
+  ['Gibor BaShtikah', 'the Akiva Publishing book Gibor BaShtikah (on the Beis Yaakov)'],
+  ['Tekhelet Min HaYam', 'the Akiva Publishing book Techeiles Min HaYam (on the Baal HaTecheiles)'],
+  ['BeShuvah VaNachat', 'the Akiva Publishing book BeShuvah VaNachas (on the Tiferes Yosef)'],
+  ['Omed BaPeretz', 'the Akiva Publishing book Omed BaPeretz (on R. Shmuel Shlomo of Radzin)'],
+  ['VaYita Eshel', 'the Akiva Publishing book VaYita Eshel (on R. Avraham Yissachar Englard)'],
   ['Otzar HaMelekh', 'the Akiva Publishing Otzar HaMelech edition', 'rt'],
   ['Tiferet Tzvi, Part I', 'the Akiva Publishing Tiferes Tzvi (Part I) edition', 'rt'],
   ['Tiferet Tzvi, Part II', 'the Akiva Publishing Tiferes Tzvi (Part II) edition', 'rt'],
