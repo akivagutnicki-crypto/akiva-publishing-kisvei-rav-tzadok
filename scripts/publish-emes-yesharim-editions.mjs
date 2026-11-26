@@ -271,8 +271,7 @@ export function finalize(site) {
   const stamp = stage.sourceSha256.slice(0, 12);
   const folders = SLUGS.map(s => `url.startsWith('data/${s}/')`).join(' || ');
   // descriptions on the library shelf: Sod Yesharim's replaced in place, the new books added at the end of the table
-  const INFO_LAST = /(\n  "VaYita Eshel": \{d:'[^\n]*'\})\n\};/;
-  assert.equal((html.match(new RegExp(INFO_LAST.source, 'g')) || []).length, 1, 'Reader shelf descriptions unexpectedly changed');
+  const INFO_LAST = /(\n  "VaYita Eshel": \{d:'[^\n]*'\})\n\};/;   // only needed while a book's description is still new
   const q = t => t.replace(/\\/g, '\\\\').replace(/'/g, "\\'");
   let shelf = html; const fresh = [];
   for (const b of BOOKS) {
@@ -283,7 +282,10 @@ export function finalize(site) {
       shelf = shelf.replace(line, (_, x, z) => x + q(PACK[b[2]].desc) + z);
     } else fresh.push(`  ${JSON.stringify(b[1])}: {d:'${q(PACK[b[2]].desc)}'}`);
   }
-  if (fresh.length) shelf = shelf.replace(INFO_LAST, (_, last) => `${last},\n${fresh.join(',\n')}\n};`);
+  if (fresh.length) {
+    assert.equal((html.match(new RegExp(INFO_LAST.source, 'g')) || []).length, 1, 'Reader shelf descriptions unexpectedly changed');
+    shelf = shelf.replace(INFO_LAST, (_, last) => `${last},\n${fresh.join(',\n')}\n};`);
+  }
   touch(htmlName, shelf.replace(marker, marker + `/* ${RELEASE} */ (${folders} || url.startsWith('data/cited/') || url.startsWith('data/parallels/') || url === 'data/catalog.json' || url === 'data/files.json' || url === 'data/packs/sources.json') ? url + (url.includes('?') ? '&' : '?') + 'eye=${stamp}' :\n`));
   const swName = 'library/sw.js', sw = fs.readFileSync(relative(site, swName), 'utf8');
   assert.equal((sw.match(/const SHELL = `[^`]+`;/g) || []).length, 1, 'Unexpected service worker cache revision');
