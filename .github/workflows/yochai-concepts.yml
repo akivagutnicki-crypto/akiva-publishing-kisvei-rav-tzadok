@@ -1,0 +1,47 @@
+name: Yochai concepts for HaMafteach topics
+on:
+  workflow_dispatch:
+    inputs:
+      limit:
+        description: 'Only the first N topics (0 = all)'
+        default: '0'
+      min_sim:
+        description: 'Minimum concept similarity'
+        default: '0.8'
+      commit:
+        description: 'Commit the result'
+        type: boolean
+        default: true
+permissions:
+  contents: write
+concurrency:
+  group: yochai-concepts
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Query Yochai
+        env:
+          YOCHAI_API_KEY: ${{ secrets.YOCHAI_API_KEY }}
+          LIMIT: ${{ inputs.limit }}
+          MIN_SIM: ${{ inputs.min_sim }}
+        run: node scripts/yochai-concepts.mjs
+      - uses: actions/upload-artifact@v4
+        with:
+          name: yochai-concepts
+          path: sources/mafteach/yochai-concepts.json
+      - name: Commit
+        if: ${{ inputs.commit }}
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898732+github-actions[bot]@users.noreply.github.com"
+          git add sources/mafteach/yochai-concepts.json
+          git diff --cached --quiet && exit 0
+          git commit -m "HaMafteach: Yochai concept links for topics [workflow-maintenance]"
+          for i in 1 2 3; do git pull --rebase && git push && exit 0; sleep 10; done
+          exit 1
