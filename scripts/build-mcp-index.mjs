@@ -429,3 +429,9 @@ if (exists('parallels')) {
   const { buildMafteach } = await import('./build-mafteach-index.mjs');
   buildMafteach(OUT);
 }
+
+// Whole-book texts over 10 MB go out in parts (scripts/mcp-text-parts.mjs), after the search index has read them.
+{
+  const { splitLargeTexts } = await import('./mcp-text-parts.mjs');
+  for (const [slug, n] of splitLargeTexts(path.join(OUT, 'text'))) console.log(`MCP text: ${slug} split into ${n} parts under 10 MB`);
+}

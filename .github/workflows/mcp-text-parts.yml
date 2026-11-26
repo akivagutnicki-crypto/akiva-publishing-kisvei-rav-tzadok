@@ -1,0 +1,135 @@
+name: Publish the large MCP book texts in parts under 10 MB
+
+# Replaces the whole-book MCP texts of Sidrei Taharos (Ohalos, Keilim) and Tiferes Tzvi I with parts under 10 MB
+# (scripts/mcp-text-parts.mjs) over the exact current Pages artifact; every other file is preserved byte for byte.
+# Trigger with the commit tag [mcp-text-parts] or workflow_dispatch.
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+  deployments: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: ${{ (github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[mcp-text-parts]'))) && 'pages' || format('mcp-text-parts-skipped-{0}', github.run_id) }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: ${{ github.repository == 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok' && github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[mcp-text-parts]')) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    env:
+      NEW_BOOKS_SITE: .parts-site
+    steps:
+      - name: Checkout reader source and the editorial master edition
+        uses: actions/checkout@v6
+
+      - name: Set up Node 24
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+
+      - name: Check the release
+        run: node scripts/publish-mcp-text-parts.mjs --check-pack
+
+      - name: Build the MCP data with the canonical library builder
+        run: |
+          node scripts/import-mei-vayera-bo.mjs
+          node scripts/build-library.mjs
+          node scripts/build-mcp-index.mjs
+          node scripts/build-parallels.mjs
+          rm -rf .parts-build && mv dist .parts-build
+          git checkout -- dist
+
+      - name: Identify the currently published complete Pages artifact
+        id: baseline
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/new-books-release.py metadata
+
+      - name: Download the exact current site without rebuilding the other seforim
+        uses: actions/download-artifact@v4
+        with:
+          artifact-ids: ${{ steps.baseline.outputs.artifact }}
+          run-id: ${{ steps.baseline.outputs.run }}
+          repository: akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/parts-baseline
+          merge-multiple: true
+
+      - name: Safely restore every published book and site file
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PY'
+          import os,pathlib,tarfile
+          root=pathlib.Path('.parts-site').resolve()
+          root.mkdir(exist_ok=True)
+          archive=pathlib.Path(os.environ['RUNNER_TEMP'])/'parts-baseline/artifact.tar'
+          assert archive.is_file(), 'Missing complete Pages archive'
+          with tarfile.open(archive,'r:') as source:
+              members=source.getmembers()
+              for member in members:
+                  target=(root/member.name).resolve()
+                  assert target==root or root in target.parents, 'Path outside site'
+                  assert member.isdir() or member.isfile(), 'Unsafe archive entry'
+              source.extractall(root,members=members,filter='data')
+          PY
+          python3 scripts/new-books-release.py capture
+
+      - name: Add the seven new books and replace Tiferet Yosef
+        run: |
+          node scripts/publish-mcp-text-parts.mjs --apply .parts-site .parts-build
+          node scripts/publish-mcp-text-parts.mjs --finalize .parts-site
+          node scripts/publish-mcp-text-parts.mjs --verify .parts-site .parts-build
+          node --check .parts-site/library/sw.js
+
+      - name: Recheck original live site and main branch before artifact upload
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/new-books-release.py guard
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload complete preserved site with only the eight books changed
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: .parts-site
+          retention-days: 14
+
+      - name: Recheck main and latest publication before deployment
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/new-books-release.py guard
+
+      - name: Publish the Rav Tzadok and Sidrei Taharos editions
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Verify exact public bytes of all changed reader files
+        run: node scripts/publish-mcp-text-parts.mjs --live .parts-site
+
+      - name: Save release and preservation verification
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: mcp-text-parts-verification
+          retention-days: 90
+          if-no-files-found: warn
+          path: |
+            new-books-publication.json
+            new-books-baseline.json
+            mcp-text-parts-stage.json
+            artifacts/mcp-text-parts/
+            .parts-site/library/mcp-text-parts-20261126.json

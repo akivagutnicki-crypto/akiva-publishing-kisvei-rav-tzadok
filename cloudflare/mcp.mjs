@@ -83,7 +83,7 @@ async function wholeText(key) {
     const { readFile, stat } = await import('node:fs/promises');
     const file = `${process.env.MCP_DATA_DIR}/${key}`;
     if ((await stat(file)).size > WHOLE_TEXT_MAX) throw rebuilding();
-    return JSON.parse(await readFile(file, 'utf8'));
+    return joinParts(key, JSON.parse(await readFile(file, 'utf8')));
   }
   const res = await fetch(new URL(`mcp-data/${key}`, `${ORIGIN.replace(/\/+$/, '')}/`));
   if (!res.ok) throw new Error(`library data ${key} is unavailable (HTTP ${res.status})`);
@@ -101,7 +101,29 @@ async function wholeText(key) {
   const all = new Uint8Array(n);
   let at = 0;
   for (const p of parts) { all.set(p, at); at += p.byteLength; }
-  return JSON.parse(new TextDecoder().decode(all));
+  return joinParts(key, JSON.parse(new TextDecoder().decode(all)));
+}
+// A large book's whole text is published in parts under 10 MB (scripts/mcp-text-parts.mjs): {slug, parts, n} and
+// <slug>.part<k>.json. The parts are joined only while the whole stays under WHOLE_TEXT_MAX, as for a single file.
+async function joinParts(key, d) {
+  if (!d || !d.parts) return d;
+  const paras = []; let bytes = 0;
+  for (let k = 1; k <= d.parts; k++) {
+    const name = key.replace(/\.json$/, `.part${k}.json`);
+    let text;
+    if (typeof process !== 'undefined' && process.env?.MCP_DATA_DIR) {
+      const { readFile } = await import('node:fs/promises');
+      text = await readFile(`${process.env.MCP_DATA_DIR}/${name}`, 'utf8');
+    } else {
+      const res = await fetch(new URL(`mcp-data/${name}`, `${ORIGIN.replace(/\/+$/, '')}/`));
+      if (!res.ok) throw new Error(`library data ${name} is unavailable (HTTP ${res.status})`);
+      text = await res.text();
+    }
+    bytes += text.length;
+    if (bytes > WHOLE_TEXT_MAX) throw rebuilding();
+    paras.push(...JSON.parse(text).paras);
+  }
+  return { slug: d.slug, paras };
 }
 
 // The reader's own data files (library/...): the Mafteach panel, the machine-learned and the outside-genre parallels.

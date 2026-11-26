@@ -123,8 +123,10 @@ function sourceKey(ref) {
 // ---------- Read every paragraph
 const paras = [];                 // { ref, slug, sec, sources:Set, quoted:[], words:Set }
 const byRef = new Map();
+const { isPart, readBookText } = await import('./mcp-text-parts.mjs');
 for (const file of fs.readdirSync(TEXT).sort()) {
-  const { slug, paras: list } = JSON.parse(fs.readFileSync(path.join(TEXT, file), 'utf8'));
+  if (isPart(file)) continue;                // a large book's parts are read with its main file
+  const { slug, paras: list } = readBookText(TEXT, file.replace(/\.json$/, ''));
   const book = catalog.find(b => b.slug === slug);
   for (const p of list) {
     const he = p.p ? p.p.map(x => x[0]).join(' ') : p.t || '';

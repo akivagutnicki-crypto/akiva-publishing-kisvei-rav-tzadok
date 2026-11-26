@@ -2,6 +2,10 @@
 """Corpus for the parallels model: one unit per teaching (reader section; a Mei HaShiloach paragraph),
 with normalized Hebrew text and the sources it cites. Also the library engine's existing parallels, mapped to units."""
 import json, glob, re, collections, os, pickle
+def load_text(d, slug):   # a large book's text comes in parts (scripts/mcp-text-parts.mjs)
+    t = json.load(open(f"{d}/{slug}.json"))
+    if t.get('parts'): t = dict(slug=slug, paras=[p for k in range(1, t['parts'] + 1) for p in json.load(open(f"{d}/{slug}.part{k}.json"))['paras']])
+    return t
 import os
 S = os.environ.get('ML_WORK', 'ml-work')   # work dir: needs S/ci/dist/mcp-data (built site) and S/par/mafteach_parallels.json
 D = f'{S}/ci/dist/mcp-data'
@@ -21,7 +25,7 @@ cat = json.load(open(f'{D}/catalog.json'))
 units = collections.OrderedDict()          # ref -> dict
 para2unit = {}
 for b in cat['books']:
-    t = json.load(open(f"{D}/text/{b['slug']}.json"))
+    t = load_text(f"{D}/text", b['slug'])
     secs = b['sections']
     for p in t['paras']:
         si = int(p['s']) if str(p.get('s', '')).isdigit() else None

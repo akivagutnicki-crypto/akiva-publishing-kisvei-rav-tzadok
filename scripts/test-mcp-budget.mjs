@@ -28,9 +28,8 @@ const MAX_FILE = 10_000_000;
 // Raised from 31 MB for the Pri Tzaddik Moadim editions (scripts/pri-moadim/).
 const GRANDFATHERED = { 'text/peri-tzadik.json': 45_000_000,
   // the complete Bais Yaakov edition (November 2026): the tools read its text-chunks; the whole-book files are fallbacks
-  'text/beit-yaakov-on-torah.json': 16_000_000, 'text/beit-yaakov-shemos.json': 15_000_000,
-  // Sidrei Taharos and Tiferes Tzvi I (November 2026): read through their text-chunks; the Worker never parses whole files over 20 MB
-  'text/sidrei-taharot-kelim.json': 27_000_000, 'text/sidrei-taharot-ohalot.json': 24_000_000, 'text/tiferet-tzvi-part-i.json': 14_000_000 };
+  'text/beit-yaakov-on-torah.json': 16_000_000, 'text/beit-yaakov-shemos.json': 15_000_000 };
+// Sidrei Taharos and Tiferes Tzvi I are published in parts under 10 MB (scripts/mcp-text-parts.mjs).
 let passed = 0;
 const fail = [];
 const check = (ok, what) => { ok ? passed++ : fail.push(what); };
@@ -43,7 +42,13 @@ let mainBytes = 0, notesBytes = 0;
 const bookBytes = {};
 const lineCount = t => { let n = 0; for (let k = t.indexOf('\n'); k >= 0; k = t.indexOf('\n', k + 1)) n++; return n; };
 for (const b of books) {
-  const paras = readJson(`text/${b.slug}.json`).paras.length;
+  const whole = readJson(`text/${b.slug}.json`);
+  if (whole.parts) {                                 // a large book in parts (scripts/mcp-text-parts.mjs)
+    let n = 0;
+    for (let k = 1; k <= whole.parts; k++) { const f = `text/${b.slug}.part${k}.json`; if (size(f) < 0) { check(false, 'text part missing: ' + f); continue; } n += readJson(f).paras.length; }
+    check(n === whole.n, `text/${b.slug}: ${n} paragraphs in its parts for ${whole.n}`);
+  }
+  const paras = whole.parts ? whole.n : whole.paras.length;
   for (const f of ['h', 'hl', 'e', 'd', 'n']) {
     const name = `search/${b.slug}.${f}`;
     if (size(`${name}.txt`) < 0) { check(false, `search index missing: ${name}.txt`); continue; }

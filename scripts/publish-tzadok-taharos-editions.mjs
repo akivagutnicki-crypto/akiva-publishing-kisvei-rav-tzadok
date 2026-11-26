@@ -211,6 +211,8 @@ export async function apply(site, build) {
   for (const slug of SLUGS) {
     for (const name of [`mcp-data/text/${slug}.json`, `mcp-data/parallels/${slug}.json`, `library/data/parallels/${slug}.json`])
       if (exists(build, name)) touch(name, fs.readFileSync(relative(build, name)));
+    for (const f of fs.readdirSync(relative(build, 'mcp-data/text')).filter(f => f.startsWith(slug + '.part')).sort())
+      touch('mcp-data/text/' + f, fs.readFileSync(relative(build, 'mcp-data/text/' + f)));   // large books in parts under 10 MB
     let mcpFiles = 0;
     for (const f of fs.readdirSync(relative(build, 'mcp-data/search')).filter(f => f.startsWith(slug + '.')).sort()) {
       touch('mcp-data/search/' + f, fs.readFileSync(relative(build, 'mcp-data/search/' + f))); mcpFiles++;

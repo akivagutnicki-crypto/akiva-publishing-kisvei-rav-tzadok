@@ -147,8 +147,13 @@ function targetReader(catalog, mcpRoot) {
     assert(book, 'Target reference has no canonical library book: ' + ref);
     assert(/^[a-z0-9-]+$/.test(book.slug), 'Unexpected canonical book slug');
     if (!cache.has(book.slug)) {
-      const bytes = readRegular(path.join(mcpRoot, 'text', book.slug + '.json'));
-      const document = JSON.parse(bytes);
+      let bytes = readRegular(path.join(mcpRoot, 'text', book.slug + '.json'));
+      let document = JSON.parse(bytes);
+      if (document.parts) {                  // a large book in parts (scripts/mcp-text-parts.mjs)
+        const paras = [];
+        for (let k = 1; k <= document.parts; k++) paras.push(...JSON.parse(readRegular(path.join(mcpRoot, 'text', `${book.slug}.part${k}.json`))).paras);
+        document = {slug: book.slug, paras}; bytes = Buffer.from(JSON.stringify(document));
+      }
       assert(document.slug === book.slug && Array.isArray(document.paras), 'Invalid canonical text for ' + book.slug);
       cache.set(book.slug, {document, sha256: SHA(bytes)});
     }
