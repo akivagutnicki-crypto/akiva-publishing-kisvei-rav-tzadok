@@ -5,7 +5,7 @@
   "Beit Yaakov on Torah": {
    "file": "beit-yaakov-on-torah.json",
    "passages": 661,
-   "bytes": 1646032
+   "bytes": 1648505
   },
   "Divrei Chalomot": {
    "file": "divrei-chalomot.json",
@@ -30,7 +30,7 @@
   "Kometz HaMinchah": {
    "file": "kometz-haminchah.json",
    "passages": 184,
-   "bytes": 717357
+   "bytes": 717640
   },
   "Likkutei Maamarim": {
    "file": "likkutei-maamarim.json",
@@ -55,7 +55,7 @@
   "Meshiv Tzedek": {
    "file": "meshiv-tzedek.json",
    "passages": 61,
-   "bytes": 83091
+   "bytes": 83165
   },
   "Ohr Zarua LaTzadik": {
    "file": "ohr-zarua-latzadik.json",
@@ -205,7 +205,7 @@
   "Peri Tzadik, Masei": {
    "file": "peri-tzadik-masei.json",
    "passages": 15,
-   "bytes": 143418
+   "bytes": 143498
   },
   "Peri Tzadik, Matot": {
    "file": "peri-tzadik-matot.json",
@@ -245,7 +245,7 @@
   "Peri Tzadik, Nasso": {
    "file": "peri-tzadik-nasso.json",
    "passages": 19,
-   "bytes": 168723
+   "bytes": 168796
   },
   "Peri Tzadik, Nitzavim": {
    "file": "peri-tzadik-nitzavim.json",
@@ -575,7 +575,7 @@
   "Sefer HaZikhronot": {
    "file": "sefer-hazikhronot.json",
    "passages": 29,
-   "bytes": 51629
+   "bytes": 52606
   },
   "Sichat Malakhei HaSharet": {
    "file": "sichat-malakhei-hasharet.json",
@@ -590,12 +590,12 @@
   "Tiferet Yosef": {
    "file": "tiferet-yosef.json",
    "passages": 50,
-   "bytes": 178779
+   "bytes": 179532
   },
   "Tzidkat HaTzadik": {
    "file": "tzidkat-hatzadik.json",
    "passages": 263,
-   "bytes": 1554897
+   "bytes": 1555047
   },
   "Yisrael Kedoshim": {
    "file": "yisrael-kedoshim.json",
@@ -605,62 +605,77 @@
   "Beit Yaakov, Shemos": {
    "file": "beit-yaakov-shemos.json",
    "passages": 792,
-   "bytes": 1479819
+   "bytes": 1482873
   },
   "Beit Yaakov, Vayikra": {
    "file": "beit-yaakov-vayikra.json",
    "passages": 460,
-   "bytes": 963003
+   "bytes": 966508
   },
   "Beit Yaakov, Bamidbar": {
    "file": "beit-yaakov-bamidbar.json",
    "passages": 98,
-   "bytes": 149937
+   "bytes": 150450
   },
   "Beit Yaakov, Devarim": {
    "file": "beit-yaakov-devarim.json",
    "passages": 82,
-   "bytes": 125099
+   "bytes": 125494
   },
   "Beit Yaakov, Moadim": {
    "file": "beit-yaakov-moadim.json",
    "passages": 165,
-   "bytes": 256513
+   "bytes": 256744
   },
   "Sha'ar HaEmunah VeYesod HaChasidut": {
    "file": "sha-ar-haemunah-veyesod-hachasidut.json",
    "passages": 55,
-   "bytes": 96986
+   "bytes": 97971
   },
   "Ne'ot Deshe": {
    "file": "ne-ot-deshe.json",
    "passages": 72,
-   "bytes": 225361
+   "bytes": 227773
   },
   "Tiferet HaChanokhi": {
    "file": "tiferet-hachanokhi.json",
    "passages": 53,
-   "bytes": 185135
+   "bytes": 185752
   },
   "Ein HaTekhelet": {
    "file": "ein-hatekhelet.json",
    "passages": 51,
-   "bytes": 81489
+   "bytes": 86577
   },
   "Ptil Tekhelet": {
    "file": "ptil-tekhelet.json",
    "passages": 10,
-   "bytes": 40211
+   "bytes": 41651
   },
   "Sefunei Temunei Chol": {
    "file": "sefunei-temunei-chol.json",
    "passages": 10,
-   "bytes": 26347
+   "bytes": 26820
   },
   "Orchot Chaim and Eser Milin": {
    "file": "orchot-chaim-and-eser-milin.json",
    "passages": 81,
-   "bytes": 137731
+   "bytes": 142832
+  },
+  "Otzar HaMelekh": {
+   "file": "otzar-hamelekh.json",
+   "passages": 42,
+   "bytes": 87054
+  },
+  "Tiferet Tzvi": {
+   "file": "tiferet-tzvi.json",
+   "passages": 301,
+   "bytes": 500853
+  },
+  "Sidrei Taharot": {
+   "file": "sidrei-taharot.json",
+   "passages": 1016,
+   "bytes": 1233466
   }
  }
 }

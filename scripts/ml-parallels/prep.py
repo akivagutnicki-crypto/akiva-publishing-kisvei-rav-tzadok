@@ -6,7 +6,8 @@ import os
 S = os.environ.get('ML_WORK', 'ml-work')   # work dir: needs S/ci/dist/mcp-data (built site) and S/par/mafteach_parallels.json
 D = f'{S}/ci/dist/mcp-data'
 ISHBITZ = {'beit-yaakov-on-torah', 'beit-yaakov-shemos', 'beit-yaakov-vayikra', 'beit-yaakov-bamidbar', 'beit-yaakov-devarim', 'beit-yaakov-moadim', 'mei-hashiloach', 'sod-yesharim', 'tiferet-yosef', 'sha-ar-haemunah-veyesod-hachasidut',
-           'ne-ot-deshe', 'tiferet-hachanokhi', 'ein-hatekhelet', 'ptil-tekhelet', 'sefunei-temunei-chol', 'orchot-chaim-and-eser-milin'}
+           'ne-ot-deshe', 'tiferet-hachanokhi', 'ein-hatekhelet', 'ptil-tekhelet', 'sefunei-temunei-chol', 'orchot-chaim-and-eser-milin',
+           'sidrei-taharot-ohalot', 'sidrei-taharot-kelim'}
 SKIP_SEC = re.compile(r'(Title|Introduction(?! to Beit Yaakov)|Preface|Approbation|Haskamah|Table of Contents|Publisher)', re.I)
 
 def norm_he(s):

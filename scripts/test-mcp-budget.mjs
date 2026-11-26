@@ -28,7 +28,9 @@ const MAX_FILE = 10_000_000;
 // Raised from 31 MB for the Pri Tzaddik Moadim editions (scripts/pri-moadim/).
 const GRANDFATHERED = { 'text/peri-tzadik.json': 45_000_000,
   // the complete Bais Yaakov edition (November 2026): the tools read its text-chunks; the whole-book files are fallbacks
-  'text/beit-yaakov-on-torah.json': 16_000_000, 'text/beit-yaakov-shemos.json': 15_000_000 };
+  'text/beit-yaakov-on-torah.json': 16_000_000, 'text/beit-yaakov-shemos.json': 15_000_000,
+  // Sidrei Taharos and Tiferes Tzvi I (November 2026): read through their text-chunks; the Worker never parses whole files over 20 MB
+  'text/sidrei-taharot-kelim.json': 27_000_000, 'text/sidrei-taharot-ohalot.json': 24_000_000, 'text/tiferet-tzvi-part-i.json': 14_000_000 };
 let passed = 0;
 const fail = [];
 const check = (ok, what) => { ok ? passed++ : fail.push(what); };

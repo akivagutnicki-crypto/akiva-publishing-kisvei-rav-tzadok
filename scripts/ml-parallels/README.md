@@ -79,3 +79,10 @@ Milin with the Ishbitz-Radzin school (Sha'ar HaEmunah's "Introduction to Beit Ya
 Retrained on 6,804 teachings: held-out AUC 0.898, precision@10 0.587. Only the eight editions' files and the links into them from the
 other sefarim were published (`scripts/publish-izhbitz-parallels.mjs`, data under `dist/library/`, manifest
 `sources/akiva/izhbitz-editions/parallels-manifest.json`); `mafteach_links.py` now counts all twelve Ishbitz-Radzin titles.
+
+## The Rav Tzadok and Sidrei Taharos editions (November 2026)
+`prep.py` counts Sidrei Taharos on Ohalos and on Keilim with the Ishbitz-Radzin school; Otzar HaMelech and Tiferes Tzvi I-II are
+Rav Tzadok's. Their sections were added to `sources/mafteach/library-refs.txt`, and their verified sources
+(`sources/mafteach/curated-sources/tzadok-taharos-editions.json`) join the Mafteach parallels. Retrained on 8,258 teachings:
+held-out AUC 0.899, precision@10 0.504. Only these five books' files and the links into them from the other sefarim were
+published (`scripts/publish-tzadok-taharos-parallels.mjs`, manifest `sources/akiva/tzadok-taharos-editions/parallels-manifest.json`).

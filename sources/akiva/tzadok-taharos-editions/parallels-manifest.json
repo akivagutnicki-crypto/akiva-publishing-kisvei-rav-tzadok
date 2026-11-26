@@ -1,0 +1,1477 @@
+{
+ "release": "20261125-tzadok-taharos-parallels",
+ "books": [
+  "Otzar HaMelekh",
+  "Tiferet Tzvi, Part I",
+  "Tiferet Tzvi, Part II",
+  "Sidrei Taharot, Ohalot",
+  "Sidrei Taharot, Kelim"
+ ],
+ "files": {
+  "library/genre-parallels/index.json": {
+   "preimage": "1d7731d82942b4ef90019ce50a9a5e1d64a05a491326aa83adb2a47a212a1b8b",
+   "sha256": "9900021691f402e75d348d5b6f2b3a103dd9531561c66d27e0129cceff7c62fa"
+  },
+  "library/genre-parallels/otzar-hamelekh.json": {
+   "preimage": null,
+   "sha256": "a8dff480e6184654996e8ea404a255382aedf14a10a7cbe89f7511fa08ecc4b4"
+  },
+  "library/genre-parallels/sidrei-taharot-kelim.json": {
+   "preimage": null,
+   "sha256": "082e0be1c1bc67728a4cda6901dee0fd1e200e6bc8ae60a82df521a52943564d"
+  },
+  "library/genre-parallels/sidrei-taharot-ohalot.json": {
+   "preimage": null,
+   "sha256": "b026db565bc65411fc15936d9b3b03dc7547f453814da9ba0d1dd7a1a1f67aa0"
+  },
+  "library/genre-parallels/tiferet-tzvi-part-i.json": {
+   "preimage": null,
+   "sha256": "af933f6ab6d7a8cc8980282406410aaa42cbca63da60c01ab5715380c996f0f5"
+  },
+  "library/genre-parallels/tiferet-tzvi-part-ii.json": {
+   "preimage": null,
+   "sha256": "ff575796878cb7ba2d221eb832047209e04cceffe5e4a35ba591c5bccde05c7e"
+  },
+  "library/genre-reverse/abarbanel-on-guide-for-the-perplexed.json": {
+   "preimage": "d3711544d7306192da1f60ae0c6e3d888648aa34ff1913e0bb2241d34e46e303",
+   "sha256": "f5511667824ecb469dd7229737afdb753e9ba1d4f004467cceda63ae8784356c"
+  },
+  "library/genre-reverse/adam-min-haadamah.json": {
+   "preimage": "df8867d3bb7e8b9bcf15a6abe0972b64c8a7a5c54b7e8be8badffd71c7e71145",
+   "sha256": "caf9faeae048b14286f67335b3a5f64ef8c06ef15fe3bc895da4bd598714f769"
+  },
+  "library/genre-reverse/ahavat-david.json": {
+   "preimage": "9cc4154129c47dd79d7f01266eb489a8bf8e00304415d3918d6da9d70d632ec0",
+   "sha256": "68a4a79847e4c3ac360c0563a926312c15afb2235dac4855fd5b26bc096ec813"
+  },
+  "library/genre-reverse/akeidat-yitzchak.json": {
+   "preimage": "dc2664cf599ed5f7a55d2b39555c20dd61d5754185bd22d9c02c315a446d540c",
+   "sha256": "19edca35cbb6163fc6bd0e41dfb1e868079595ad38cfde307bce9d9e7a0b3f5b"
+  },
+  "library/genre-reverse/arvei-nachal.json": {
+   "preimage": "89cdb93d4b803fdc012b6c969a12c2a18717bd8567e28a972ee5692bcb37c246",
+   "sha256": "1061f441d6bcc74ae446bd31fef24618f8e64bdbaf5fb9d2db6e899459ed0181"
+  },
+  "library/genre-reverse/avodat-hakodesh-ibn-gabbai.json": {
+   "preimage": "30f8ccebd7ef2e661f41445b2f004ad06c2ba39421e46f686fb3812521273343",
+   "sha256": "914073cdf9b697f79b9ca0aefd7dfe6ae471b7d74ae608dcc393788e3bfa42ad"
+  },
+  "library/genre-reverse/avodat-yisrael.json": {
+   "preimage": "77b25f5b47ca41ae0f2029f7bbdebedefabe587070a37c7f6ba5aa75bda46928",
+   "sha256": "7fe837e8a4039261e644dc30c953407f9836dfb1256faae42b29a6b0fe9e7976"
+  },
+  "library/genre-reverse/ba-al-shem-tov.json": {
+   "preimage": "2366c629ec420a15e5484f67100b6900ce7087153dd7b4a0d461d4703e504ac4",
+   "sha256": "b18169fdf815dba4300987ea884e753ad3bdbad9df8452b0107cc961e8a2d527"
+  },
+  "library/genre-reverse/bat-ayin.json": {
+   "preimage": "3b98f25569972f9ba8673ccff6ab1cba621aba7848d3b0ee93842ae84851088c",
+   "sha256": "75df2b20e1c52e532e88bb8e533a061545487006f7c2653b0d4ece9d4e74f4a3"
+  },
+  "library/genre-reverse/be-er-hagolah.json": {
+   "preimage": "b0e02d1ae8de1e8a1632e2f24858acd60804f12dc063a572e5efd8ca89216529",
+   "sha256": "a126f1979f7699b05cbd175d382e8c8a676c4366382f9711dfa050afeb3acc51"
+  },
+  "library/genre-reverse/be-er-mayim-chaim.json": {
+   "preimage": "cdf742da6efc09483bc2a7989d0b18294288750b725a3a70d9142e7ce316d941",
+   "sha256": "1d14b8c8a211c5edb42ed98da271b7ac76752b9fdb5f84131d7a55fc10919213"
+  },
+  "library/genre-reverse/ben-porat-yosef.json": {
+   "preimage": "6bcd4341c99b142f243c08580c6b1513fb97b3b6cd849745bad97b3b66abcb98",
+   "sha256": "90364210f0533715da37f51e6fe29ef6cdb7c0f0065fda1d33ecaea3ab382838"
+  },
+  "library/genre-reverse/chanah-ariel.json": {
+   "preimage": "f10458d453e1b84ac652988c08a824afd5ccdea508e158b4193b5a2d36a4c14a",
+   "sha256": "1cddc63bbb2d0b4430f0332e35942c156423c958db48e99d302fe8f2d074fd04"
+  },
+  "library/genre-reverse/chayei-moharan.json": {
+   "preimage": "b3df3594e4f673925ba1136ed99459628ea0ba131418a029cc6b3322a519c6f7",
+   "sha256": "79d89096cfdf032015ee1b26035edb709876cb148643ea741e6424fb00b7377f"
+  },
+  "library/genre-reverse/chayyim-vachesed.json": {
+   "preimage": "b7c2252b85ad2a5689f001d55b0c0980c10a7591b3ecc7dc18af60133b581ea7",
+   "sha256": "5d2fad0c2761bce7b34ee75c870f7475730907ee81c7e263ed20d59bc80001c6"
+  },
+  "library/genre-reverse/chesed-leavraham.json": {
+   "preimage": "4aa35704dace1623628bd61fc02bd9bdc42f17a967bba2c3aa835cfdd64e74af",
+   "sha256": "70fe63e7b3bea42cde7bb2b8c79daa99042d19c4b561e5cc210fea28e936e546"
+  },
+  "library/genre-reverse/darkhei-moshe-amiel.json": {
+   "preimage": "0b30a5fd52022d41eaf80d1eb93b13666b80a88dbd417a2ab8f9ef535d79a380",
+   "sha256": "6e1a2397660e54b2db79e194a70c534140124ad43e7529f6aa66ef8dee5f1ab1"
+  },
+  "library/genre-reverse/derekh-mitzvotekha.json": {
+   "preimage": "4d1381c2c650f80b6eb8a4613097b4d5b2cbf44ccad67ef88e6a5bfcd2683749",
+   "sha256": "15314e5d8516cc69a6033702319a72f04b13f21322f02033b1c3a79f31fb8c84"
+  },
+  "library/genre-reverse/dirshuni-ii.json": {
+   "preimage": "e2cb492b55d13d20ee34b5e9462fa5383e907568313c58ac48985f1ff863ac89",
+   "sha256": "d3234993de6d779e837f366c55959ab2fd638402eea425ac7bd2257c2823de2c"
+  },
+  "library/genre-reverse/divrei-emet.json": {
+   "preimage": "36c6c1620aed26b6911dca8ed808d0bba8dbf18bd3cdd3e18d1cc473d808b661",
+   "sha256": "08a5cfcfe4c3268847f308d8b78ad8928d9c9b04de9e27ba2cfbd5d98536493e"
+  },
+  "library/genre-reverse/gan-naul.json": {
+   "preimage": "68eca01be92bf656c8f122c51518aea8a11a2f592f146967556b2bc4c5d9178f",
+   "sha256": "aeb19b669e7dae24ff72352f68dbac031ac46714ad607336a75e3c0e5da3df8a"
+  },
+  "library/genre-reverse/gevurot-hashem.json": {
+   "preimage": "970e50e043a8916c9bd6edd5427e9544af5c8ff67dbc065750b32e5d7321168d",
+   "sha256": "ac5c760a45c1e8269c7f946f92d562d66946ac0cd4da856058e5cd0e8ae3570b"
+  },
+  "library/genre-reverse/hamiddot-lecheker-hahalakhah.json": {
+   "preimage": "d357350037f2046443961eb62cab5e2b2931239c771c6656768dcc366c0f184b",
+   "sha256": "899778ebc5ba40cc69ab1623f2c8ad52881fe214e441298282b032e78970dbe2"
+  },
+  "library/genre-reverse/hegyonei-uziel.json": {
+   "preimage": "9a1b21af01a8fd724c406cfa8b0e0ad8aa3d217e1958a13e763a371779d466d8",
+   "sha256": "d4b90d995f19ad40afc29aef69fad762fc8165b0f7070102ec10c0ad16f0cbe9"
+  },
+  "library/genre-reverse/hegyonot-el-ami.json": {
+   "preimage": "dfa6e65b9a3a9a885fde957ff84ae6bea43777b871d0bac1dd8fc96b9ef0f464",
+   "sha256": "fff1dcbc01ec7d1e970268dd47dc6e8fa7e76570807f9083626ccf04803c51e7"
+  },
+  "library/genre-reverse/horeb.json": {
+   "preimage": "252c02801dc1e2ee31bd2fb339ab5194d1256e2ff1a428e7faa1ccb1da23b60a",
+   "sha256": "2306da6578942b65048a0b30668dd8f8214fd65c22d6d672d0dbb8ed93b7b783"
+  },
+  "library/genre-reverse/imrei-binah.json": {
+   "preimage": "e19c30c68d0187bce89e4eff310120924b91806911e79cc7caf28a11efd1da22",
+   "sha256": "d29c303e99ca7c452ea553e9d933fbd3766581d6c3401b067948e10c7d186a0d"
+  },
+  "library/genre-reverse/index.json": {
+   "preimage": "6fae4d252dc43f78acd7175c5e5264dda70b0f01266ece780e36ba8b4a3630fa",
+   "sha256": "d46dae8241b0e59480ded5733ff65e48b219965941766689ddd0b11444cf473f"
+  },
+  "library/genre-reverse/kad-hakemach.json": {
+   "preimage": "e7aba64c59bfb6a018c9938cf4ce83721899f767b0984025efc8df1c409210db",
+   "sha256": "93c07a1b12e86d4d612eb7335d3df2bc898bc01382fd9a0a22c839a0626bc5ff"
+  },
+  "library/genre-reverse/kedushat-levi.json": {
+   "preimage": "8263035d9d703c4ec44e9de5fb309539125f334a4164fd0b324f3a55c2299419",
+   "sha256": "418ef4813ce6ab0a1d89515c8d6da89a1f3cc06e4c75c72f4468939dde8e09b2"
+  },
+  "library/genre-reverse/ketem-paz-on-zohar.json": {
+   "preimage": "3b274e31a4f2f4d8fd76d1d7fa334921215ee0022fcb43309e2bfc107967117b",
+   "sha256": "58b521d6a7af1ea7c8858dbe7973e8266cc4539fdd437f7938a7ffe183657903"
+  },
+  "library/genre-reverse/ketonet-pasim.json": {
+   "preimage": "426a806060f7d83045cabd9d37e7dd8d0b2679db01d14164d1dfd5182bdc548e",
+   "sha256": "204195256084c811ac8c4dcfc66d07df93926744bc3d60e646b87b20759529c2"
+  },
+  "library/genre-reverse/lenevukhei-hatekufah.json": {
+   "preimage": "194b18a62bee3ec45f7e7a6e683aae61ff75c72f05019e5d8d186e6c0aff52e0",
+   "sha256": "d2aaf572236bb2a0227a95f9de4092ed34b224852c1f892ccd81595dd0c3ca96"
+  },
+  "library/genre-reverse/ma-amar-zohar-harakia.json": {
+   "preimage": "8b1652f6aa3af061cd693374c1e648f6a822ef2aa56db725d48698bfdeb4654f",
+   "sha256": "df90f4b30f97c57440bddbd4f729f7ab8a5475fa69741744af5d02f76ec1c7dc"
+  },
+  "library/genre-reverse/maaseh-rokeach-on-mishnah.json": {
+   "preimage": "2d3febd7b53afc33ab7808d5d7883045d535907b0ac4e98b816a482d28c17fab",
+   "sha256": "7fad31fae762a7a4347ae0131c9801aa880d680f1034802723f47496330f765b"
+  },
+  "library/genre-reverse/maggid-meisharim.json": {
+   "preimage": "c9942ec9bab31e837a7336f624805742b42bb41eeab2a302201971cc245bc7be",
+   "sha256": "0f40273aa3c9f349f8a08c09a4df4081b496cf4f560f6b38f69268bb2a915ebf"
+  },
+  "library/genre-reverse/maor-vashemesh.json": {
+   "preimage": "f1963c2d6fd1a1faabfbc5c75471fe665a9b7b8716cf97e5e53f7a62dc044d90",
+   "sha256": "897713fbef1106cb1976ffc3351ee7bec5ad1e11d46e9264d0b382c223c5a7eb"
+  },
+  "library/genre-reverse/matteh-dan.json": {
+   "preimage": "a0af9dbe4485928ce6ad4ba707d06d50e41c3aabb0669bc394c283e6e340e6bc",
+   "sha256": "39f2f808a2ff98d008e936b9133580008a27efff4cdadfd037768650f1d39dbc"
+  },
+  "library/genre-reverse/mekor-mayim-chayim-on-baal-shem-tov.json": {
+   "preimage": "8c528e8236df99cec671ec9ec8475d977008deb2b03026afc32dd390fbad3367",
+   "sha256": "9dedc70634f53e62261331717db9b3a0a8c43f98105d3bd0eebb47d2eb1c5b31"
+  },
+  "library/genre-reverse/menorat-hamaor.json": {
+   "preimage": "3df33c854fefc10a3351c08b4eff57522c69996970f44a0891959223708e54c7",
+   "sha256": "4a88a12267d231231b8bcf5a0a6a9a4a5418c92b5e9f8628ce79e132bf8eb782"
+  },
+  "library/genre-reverse/midrash-haittamari.json": {
+   "preimage": "62f1c8b381f189f222735dbe66f4f4cb17a22f2c03d678a8ee8642e55481efaa",
+   "sha256": "28c0f29791985f4497ed4250ace2616e2aff8bb9177a6fc6a6e757a3757757cb"
+  },
+  "library/genre-reverse/mikdash-melekh-on-zohar.json": {
+   "preimage": "4a2f221214638e38f609c525f76eb853dfc01f7a351652ce28b14e2257e3ef8c",
+   "sha256": "0ca609292f794cbbebe64a6c06a8c04c5e1babfeebd1b94e00760ebcd3b34f68"
+  },
+  "library/genre-reverse/minchat-kenaot.json": {
+   "preimage": "c8864adee53988877d71c4273e6209b6f3109b70dd383f8ff5eef64993343957",
+   "sha256": "810a7cc65c92e4d243ca400fb09b260cb148603a802951a5a42a3570cbab836b"
+  },
+  "library/genre-reverse/moreh-nevukhei-hazeman.json": {
+   "preimage": "2c745ed3164acffa7dc3fa2694a00080177e896d34408c758f6fadc46ae1406c",
+   "sha256": "8e055a182099a5ed986c1aeaf9018cdb0e8f2dea09dd371a59d5fb5932bf86ab"
+  },
+  "library/genre-reverse/nefesh-david-on-zohar.json": {
+   "preimage": "39890749796c27785232184caa870850e270fd96e8b87a556522405adff30da7",
+   "sha256": "c7379cc18515f52596d5f4df070ae40d38cb63515030075ba573c1b10be09046"
+  },
+  "library/genre-reverse/netzach-yisrael.json": {
+   "preimage": "5ca61f80ecc8e9691126f201f4793ab1298c20e094cbb33cdf3f9b3127394271",
+   "sha256": "a6885e1daf304abb1361df45acbb045945a0a09cc16dd476e6718ce51c9fdc87"
+  },
+  "library/genre-reverse/nishmat-chayyim.json": {
+   "preimage": "2c2514f99d0fc7b090c02d29689a58445c7ea4084215998e557faae945ed6916",
+   "sha256": "6e90cd957573df96dec203722b5c877b4e0adee6dfb17bf474048b3933a0b2bb"
+  },
+  "library/genre-reverse/noam-elimelekh.json": {
+   "preimage": "f1ba96a861af92df38e2b7bd4e9b835cff30079473268c632829e8aa337cbb79",
+   "sha256": "28e5f8ec8b560f599c0f1156545f9a0bd8a136b834feb3f1776db2db2c6cb854"
+  },
+  "library/genre-reverse/notes-by-rabbi-yehoshua-hartman-on-be-er-hagolah.json": {
+   "preimage": "7e0f59bbb43078925264f5964efbba41c82f56435dd9b6e00371efe8c4a2ddad",
+   "sha256": "6df9e6f9c3488b4d4ae84c0f8a2ee361591772b493392cabee011bf45fbd78bf"
+  },
+  "library/genre-reverse/notes-by-rabbi-yehoshua-hartman-on-derashat-shabbat-hagadol.json": {
+   "preimage": "e408d95f6cbb9d733d6246e3a66b40773d300a78aae0c63e660bfc96bd4c67b1",
+   "sha256": "b97c053f5cf565bfc1d202c27f93f3a2a6d9f98d279268a9a55d01b7344f4d5e"
+  },
+  "library/genre-reverse/notes-by-rabbi-yehoshua-hartman-on-derush-al-hatorah.json": {
+   "preimage": "cd4a26c6ab96e900e65d8afe198302ddf9db82f9142c218a3abc529e23a09506",
+   "sha256": "7284e25df7abdf6196cc9f45c7856a2373385fbea9810fde4cbd990c16d3acba"
+  },
+  "library/genre-reverse/notes-by-rabbi-yehoshua-hartman-on-gevurot-hashem.json": {
+   "preimage": "97beea7b31291dd302f64267d2b50aea54d00059a0168c4d3ea64009607081e2",
+   "sha256": "3456851465951b2d8d53aa60ee0972533aea160c017d16bfd4e43418d9a44450"
+  },
+  "library/genre-reverse/notes-by-rabbi-yehoshua-hartman-on-ner-mitzvah.json": {
+   "preimage": "704440484c83fffc71a87752cae1a7891ec54dcb41cac6e3cdcefc9a0d9e031f",
+   "sha256": "15332ed83992975dfd872ecefcedf1724da4df5bdf43bfb5da659725b9d5ca21"
+  },
+  "library/genre-reverse/notes-by-rabbi-yehoshua-hartman-on-netzach-yisrael.json": {
+   "preimage": "5577a931c447502192e95ca774ca46a5500e3542366752c9588c051691feffe8",
+   "sha256": "16f01a5f1651a7991b7fea4455e1f4534572f17b186f44afc5a6364b8337d300"
+  },
+  "library/genre-reverse/notes-by-rabbi-yehoshua-hartman-on-ohr-chadash.json": {
+   "preimage": "8b37091348affcc4ead006f86bd8644f30aefe4c99bfb4d4f99387723633cb2a",
+   "sha256": "b2870c86d60ad5259d344d2c929ac5c19e16e185a7c08876abd6c3fbb13ffb4d"
+  },
+  "library/genre-reverse/notes-by-rabbi-yehoshua-hartman-on-tiferet-yisrael.json": {
+   "preimage": "299786897c2799b19c3eab54e56d4d4adc9b10d2f4a1fe2253519b85c6679662",
+   "sha256": "c6c64cf446727256f9c08f4bacf42e2d82c6a9434b38677ac408925f5b3d1cc8"
+  },
+  "library/genre-reverse/panekha-avakesh.json": {
+   "preimage": "e5e83cd56dee5dcaabcceb2d92c80cdefa779abb7d4f1948f2d879555140ae07",
+   "sha256": "98f1f0df219ad1811d432ee82ba606cb41513921d4f338e9d1640856f216cd2e"
+  },
+  "library/genre-reverse/parashat-derakhim.json": {
+   "preimage": "4320f56adbfa79adce37f61b2e772e1787a068c8b1a25559449dd6579093076c",
+   "sha256": "cd3b9302ec98ed6707539bb1c13bb1ffe828fc54dba810273f07d0e84475d84d"
+  },
+  "library/genre-reverse/pele-yoetz.json": {
+   "preimage": "bcf3c614b2d83fd7ec33d5278afe0e26f6b1bfbc9cd703c46c68efbd921283b4",
+   "sha256": "363af4d55a6ec7c7dc3edbaf7ed9d58d76b08fc9e8d327edc63c0d8659ca8be6"
+  },
+  "library/genre-reverse/recanati-on-the-torah.json": {
+   "preimage": "6c936a910f9cc1e888706ba0f346e85c65662b4ac5d535b3dc46d7dd52dd5167",
+   "sha256": "fa6af013ca461d74175827f3842a30b3ab1a5d7bfd80fea7faed3734983491e6"
+  },
+  "library/genre-reverse/reshit-chokhmah.json": {
+   "preimage": "c6e0e1d984af0e038461ac4d3ba62ebdf7c1c09340a06698998593b139e1d971",
+   "sha256": "8bad543d91487bbb3f40f2b9825f58418f94ed812919da0c719580dd3e14f765"
+  },
+  "library/genre-reverse/sefer-hakanah.json": {
+   "preimage": "ebd4b08c2e4b0a066a156ccf34f13db711a838035e14b9df284dbe781cf1af84",
+   "sha256": "616bd7b6f84f0f0e290b74f2e03cbcff4744cb5bf03fd4fd6f83cedd7ccac077"
+  },
+  "library/genre-reverse/sermons-unto-my-people.json": {
+   "preimage": "3158551ed754d01616b36280c8b575482fcc5f09cb7cf9f9321fd64f56fd96f5",
+   "sha256": "da10d89db7689e7ba1d8f39df602f70f2df5ac5e586e991c0c0ff784dbed09db"
+  },
+  "library/genre-reverse/sha-ar-hamitzvot.json": {
+   "preimage": "ded1cb8f1ccf0c3017b598a97c0d4a1e256ede0d16c8b286908cb787704e0a7b",
+   "sha256": "ccd13f3685f0254a056a5411217fae8503d52fda3252b6e45a9024474a29c35a"
+  },
+  "library/genre-reverse/shem-mishmuel.json": {
+   "preimage": "e82cc7b918b52def1e7c0eaa5a72d222ca8217555a6ce3e30b894c14880b80c5",
+   "sha256": "728974e015a6bb9889daab942032dd4e3e376a28b19139b59802641f9994117c"
+  },
+  "library/genre-reverse/shem-tov-on-guide-for-the-perplexed.json": {
+   "preimage": "a7eb667d9642367cf7e504a7ad348653a84a3d24676c47b0c9310c6f85e1c2c9",
+   "sha256": "cd604175a073feff7120f76b94f717093f7440ec925e7f8541d4d6e25cfa22e4"
+  },
+  "library/genre-reverse/shemonah-kevatzim.json": {
+   "preimage": "8e63e94e69a40213324ff5a9a2ac9d1a10f7d6a757873227474a9afc3ce15eb5",
+   "sha256": "8253527afe609d4feba3616270ec39b3572ad80bafe907cb0897807ea8caff26"
+  },
+  "library/genre-reverse/shenei-luchot-haberit.json": {
+   "preimage": "cfd8deaf8af7c0cae65cd3614ccb6c69a771b8aa0b67efbe567ea5d832af4cc6",
+   "sha256": "cbeed026216993ac1fabc4681943761734b0c6235ed8ff99d655d9e8eda94e01"
+  },
+  "library/genre-reverse/shevet-musar.json": {
+   "preimage": "d57a32ed6729d8c916b837b91d29c97f9d6159ee7564fa921ecf6ca5c998c157",
+   "sha256": "fb6b17b1ba8c27e59040023b48511bed41fc91a478643971131eca6cf21d76a6"
+  },
+  "library/genre-reverse/shomer-emunim.json": {
+   "preimage": "5b66c50b7cd2d5586281b37397eb4e141a7f7275146bb6db89482a87362dfcd3",
+   "sha256": "9e8ab21730ffbc809b99ab615d81d8863bb3446135a472d94fb88c1d97d1e1a8"
+  },
+  "library/genre-reverse/sidduro-shel-shabbat.json": {
+   "preimage": "b6667c81df17095424ce691684c41a1f5b701d59a894a2293380c4278e7b37a8",
+   "sha256": "2691f7deb6a788d557d7c6635ef73538312b6e6d00f0b70bd61b9c01374cd5da"
+  },
+  "library/genre-reverse/sulam-on-zohar.json": {
+   "preimage": "d83df06b543f37df14ffd1f240153c3b6e98b810b75b71a804c0f7957dd2a76c",
+   "sha256": "85bc902e8ae510fb874529cebe6d45b596afce98ed4ff734bcfb1071fbe4e5b9"
+  },
+  "library/genre-reverse/talks-of-yeshayahu-leibowitz-on-the-parasha.json": {
+   "preimage": "db5556259d950a6cf206f76be0a9bfd0ed667b4f0f0dd14e39085140ff83e516",
+   "sha256": "49e9e84fc36a079d7e3aa56ee2b807d473f7d15425c843c606a3d1392aae3811"
+  },
+  "library/genre-reverse/tanya.json": {
+   "preimage": "6128603a734b6132d7ea5af5cfb26cf8b70b5fbbb0657d818856690b0edf3221",
+   "sha256": "6f4ac0259a737549c9df432281318cee4f3a627ecdc43757b761f4d30b67c6e7"
+  },
+  "library/genre-reverse/the-third-beit-hamikdash.json": {
+   "preimage": "f11a26f70001009ff7a8d98c11cad146b2a8477156788b6ee53df345820c0c6a",
+   "sha256": "0767c869fe9fe44d9bfc66aadb180c20733474ac5c0cd8192582135c30e1c83d"
+  },
+  "library/genre-reverse/the-wars-of-god.json": {
+   "preimage": "df7bebd71174ed0a912acb0913e023e342a38d2747ffa99f37f4011b763da12a",
+   "sha256": "2e3dc620da86ff3215609342dbdb740f98cd6fae568d8dbfb3a9621bdda55adf"
+  },
+  "library/genre-reverse/tiferet-shlomo.json": {
+   "preimage": "7b72dba1bd63f66955209897ef22d83607726f8f009d0567868ed4fd13494f1e",
+   "sha256": "cf32fa9463e6c2a4fb1b935ab2ba499b537d44d8ad550c85787815048407292b"
+  },
+  "library/genre-reverse/tiferet-yisrael.json": {
+   "preimage": "814cc22e35e2c605aa98c8578713f124e2b443fa6a96dc5a4a3c13a56484dd74",
+   "sha256": "1187d6dfd9fdb5900cda22600d58e1aa452c1adf9d29d889c4aa66c589c06ad6"
+  },
+  "library/genre-reverse/toldot-yaakov-yosef.json": {
+   "preimage": "0828dd5f88882de22384969a43c525a05ed34f11be43aa7dc8543402c44f52bd",
+   "sha256": "4efeaf17380d70a71fd82d054d2130aac56050cc3b77228b55397480b04ad653"
+  },
+  "library/genre-reverse/torat-haolah.json": {
+   "preimage": "8770e48b6e77a79be31ee9b111d156384a680adab607feb6fb27e5e8a6d4d5fe",
+   "sha256": "31947258f22552b02085e914cf57296e94f4e39621635e843b4ce6ad720dab9b"
+  },
+  "library/genre-reverse/tzofnat-paneach.json": {
+   "preimage": "3a9baf48d94f695ebdc515186c75cd4de8db184c3413c728010b1051ad7ca523",
+   "sha256": "541d1231bc8f4ef0e71a045be149e2f0b22f807afc5993947ed6fbec21b2a80a"
+  },
+  "library/genre-reverse/what-is-the-talmud.json": {
+   "preimage": "54219aeff14946afe309315f3c36e715b0618bd81a756f1764d4c078ec7993f9",
+   "sha256": "79443cd14f9296da256b6cf1c0e06e27dfd50356cd6feeec5fa204f83547f893"
+  },
+  "library/genre-reverse/ya-arot-devash-i.json": {
+   "preimage": "fe6060e50ec530e1bdd10006f6b3df7e6d20d989a58b5966bce5546fdcdedc2b",
+   "sha256": "6949adf71b5e8d99f4111ea7bc699141082c600aa61cfb186d175945f5e9d737"
+  },
+  "library/genre-reverse/ya-arot-devash-ii.json": {
+   "preimage": "80a9ca0917d83919ea8e9dc0cd093ea58555dcdc2507b934b4d9ac6f99f77d7d",
+   "sha256": "9a47af0fd986ecc6c20971d9e66fe89e35ae66b6b894f9f1cfcaba5bd32a544d"
+  },
+  "library/genre-reverse/yahel-ohr-on-zohar.json": {
+   "preimage": "713c1a334aadb34ec969c3248f2171ea59fc11ef5ed4b5b321e20ffb4b65e186",
+   "sha256": "961d69532eb0aa35f5b0287ed1c71a007fa37de7aacbdf2ec0970b1b1f713c82"
+  },
+  "library/genre-reverse/yesod-veshoresh-haavodah.json": {
+   "preimage": "c7edbeffd2d34f873def93044077691d2b65c079616ae13f7ce3ccc8fd19e101",
+   "sha256": "988877f755b55f455d313965f8da1ecbd013c3be143e32660bdbb46f1fdd4062"
+  },
+  "library/genre-reverse/yismach-moshe.json": {
+   "preimage": "08812c065eb8c8bfdb3b9b725eb965afa77692a354cbf0c67dbed170f4473d8e",
+   "sha256": "edaa4d36418a5b0bfb75c17f811df571c83b9f094f206949d9ad1de3d3685da3"
+  },
+  "library/genre-reverse/zakhor-veshamor.json": {
+   "preimage": "10678a7a77f377dc5c24a9d997594f0927cbac9627cfb170dc71224491665d2b",
+   "sha256": "85df69d31aaf6df6044fc7941b4682adf56a46842a52bfa716f212307648c8e7"
+  },
+  "library/genre-reverse/zohar.json": {
+   "preimage": "5138709ee20ee06a3f76dc1b850aa21d9e5ba5ba9ce7fe77843e725cdde06785",
+   "sha256": "edd7d3bb5926f76b3a6c2fe7111c3fee5020f516b172fffc9759eb3e3550631a"
+  },
+  "library/mafteach-links/sources-amos-8.json": {
+   "preimage": "ca45bb8456d028d809b776392046f091b66176c38754e9795a6508274ab40176",
+   "sha256": "9d22d9a3afa6cd769885482befb906fe1cb11bcdda86bd55160ffb4e3352d696"
+  },
+  "library/mafteach-links/sources-arakhin-16.json": {
+   "preimage": "cc18dca683c88d4a53e90b191f46b37823255e5ea26dca23fdb172ae8f01efc5",
+   "sha256": "375cc0a37e4a6e948b2e6579006d8c0a07c54656752e27ff57a4b06d2c00554c"
+  },
+  "library/mafteach-links/sources-arakhin-29.json": {
+   "preimage": "cd088f8e615eecc971ff42f77ca7d037e37a83b345e17335b8e8149934eb0c50",
+   "sha256": "2b6a0d6d6b3839e04d939658d614c170cd130f9e8ab60353a4cebb07d8b1ac13"
+  },
+  "library/mafteach-links/sources-arakhin-32.json": {
+   "preimage": "3772c3bd0c9ff48a11431bc1fc90e49e6da6a3d0433a547d426e6fc71eb7cb67",
+   "sha256": "3d982ff92988d5e04ce269b04e4ab75e4ec209caac1c1a7f003c43e1b9d85e1d"
+  },
+  "library/mafteach-links/sources-avodah-zarah-11.json": {
+   "preimage": "22cc87c75450d7bcf05be18dc9aa5bcc03491455d139352ec152c10c6ada61d2",
+   "sha256": "79e34b89d02c7681a5ce0899a9356f7ed910d65034e36a90e730954c54ccd4a1"
+  },
+  "library/mafteach-links/sources-bamidbar-rabbah-16.json": {
+   "preimage": "526ca03e1fb727a3883771f31424cdef798b03b9bc9b05e83e3a5ed5e4984fa9",
+   "sha256": "09c7581468483ca0f057d4bfd79a35230a354368f3cecba2412cd2f9d8f40f2d"
+  },
+  "library/mafteach-links/sources-bamidbar-rabbah-20.json": {
+   "preimage": "0402d91e4c24315be2255769aa882ece0e19565ef1c4224276f4160f88e11384",
+   "sha256": "1d4a3a42f879868a0a3197d731b0b6dc1b576e85abc35e4a5cfb9bda76852fe0"
+  },
+  "library/mafteach-links/sources-bamidbar-rabbah-7.json": {
+   "preimage": "dd48b2a669b340178226c54a0db4784fb0e75992018b8ae87321ac1f26e9574f",
+   "sha256": "c11c3501c572a07fdb34ed512fd76cd4052a794c1c0e55718ce8845528dece03"
+  },
+  "library/mafteach-links/sources-bava-batra-93.json": {
+   "preimage": "0dcad0637e2f1f8b6bb34c4e8e3d9fa06461bfa3e25a01e50abd1604d2f72939",
+   "sha256": "831a16097a54fee4c6307cb1a92fd022882dd449397a2a2d3d55d03ec5240246"
+  },
+  "library/mafteach-links/sources-bava-kamma-82.json": {
+   "preimage": "eac88fccfd83927f9b983930b12a1e70262b236165a4a153177e30fd09230fd8",
+   "sha256": "0faece2bb18540912d2beec042c90646f8344a7f17c9102a0f8f3dbaf4a50353"
+  },
+  "library/mafteach-links/sources-bava-metzia-114.json": {
+   "preimage": "2eb4e8fd56855289d0286ce0de1726ad1a8032a3cac874d4de6dccbf7271c921",
+   "sha256": "26193a0b571e6049dd550e1a3597af1ffee5960f6c43f25546f0df132aebe0f2"
+  },
+  "library/mafteach-links/sources-bava-metzia-59.json": {
+   "preimage": "bb7edf49b949e3a475215ace33ea1618c03cf7b870c7abca0f613716bc3a3fa7",
+   "sha256": "6fef9005d3411284edaa2a6d6cc8c4154d43cebaffe018159415e0e0ff52aad2"
+  },
+  "library/mafteach-links/sources-berakhot-2.json": {
+   "preimage": "773699324a7afc5cf304e51d40589d391142da68648b192e2edc6313c99b612b",
+   "sha256": "072730cc43824aa889fb4c245fab43310a4c735a6048e32906b9178a097cbe31"
+  },
+  "library/mafteach-links/sources-berakhot-30.json": {
+   "preimage": "4c0cce3dc6ffa49d4b0d12fffd1789b315bd2408ed7a9cc721d68f933caba35d",
+   "sha256": "3c93cee96a6e3cb4a0dea65fe0b5dcca8eb8511cef457e898b92b26671a13028"
+  },
+  "library/mafteach-links/sources-berakhot-32.json": {
+   "preimage": "1d4e5f418c17ad4e613dba2383b78a34e2f119a231a833dc69ac27590b686efb",
+   "sha256": "e0cc4e0e4d92b458725cbb3ed9cd65512aa42d01fb172e29d88c13c353b02795"
+  },
+  "library/mafteach-links/sources-berakhot-35.json": {
+   "preimage": "5717c9b52ef0bf64cbff8f404b7d524e2c22a5da7d9c3bcbd02e43f77b5b91ea",
+   "sha256": "5ab225f4978a208e0d37d242c8a6cdd7770935f02018c6076f1a954fa6a7de31"
+  },
+  "library/mafteach-links/sources-berakhot-39.json": {
+   "preimage": "0c84c3d0477226af6f898b75591707a3d7b8df23f268f56d93e685b24546b16f",
+   "sha256": "85719e431e99c1d7f3060855e447f040eee64c9b59efe13ffaf7b18707c6a077"
+  },
+  "library/mafteach-links/sources-bereshit-rabbah-21.json": {
+   "preimage": "1e9a682e3f196acd0ae769d5c5cc2cbe0e55f67041cb4b2bd31caf75d0d9126f",
+   "sha256": "5f7cac3606f5bc20aeb40a5c0035ebf31f7e0608ada62267169f6f6bbef8ed21"
+  },
+  "library/mafteach-links/sources-bereshit-rabbah-48.json": {
+   "preimage": "70c12cdccc445efaf7cd570f0e4b1ec7ded04803f606af2e4caeac7534897779",
+   "sha256": "0e1dbf123e6e12391b360b9fdf5ddffa2f65a22a835e2c55f9890034f15fbac1"
+  },
+  "library/mafteach-links/sources-bereshit-rabbah-6.json": {
+   "preimage": "7bdf644c0cbee209303632ae203e1c10d375c816fe83fe2a106915c61263f5ae",
+   "sha256": "d114f4c00144f43a8e299e87a9248f43136d1c3640afca8f06049a504f1ad326"
+  },
+  "library/mafteach-links/sources-bereshit-rabbah-82.json": {
+   "preimage": "084b11a79f4440951499c7484d454ed2bce2c4ca240868da1de7ce0cde18d5ea",
+   "sha256": "77f01532b035253dafb4baad50679bc07f600ce95d42bec01f12cd6cc81b7d22"
+  },
+  "library/mafteach-links/sources-bereshit-rabbah-89.json": {
+   "preimage": "a88b65027bb0f9d1b8efe658a5913a427069aaf5fccf4a063e9b0e7a046ce613",
+   "sha256": "6d8f4e431a2de0765cf3285c1278dbe601687382a949f77b9d96a4daaa38f05c"
+  },
+  "library/mafteach-links/sources-bereshit-rabbah-98.json": {
+   "preimage": "6ac1c46e86afe88660aadbfd185461804f4d06d786bdb4b4a4d7fa33bc5b6036",
+   "sha256": "510dc6119b219a41c4c8d6028dc2453f29815080ccdc129c0296f5449533ae2c"
+  },
+  "library/mafteach-links/sources-chagigah-10.json": {
+   "preimage": "7b7a925cbe7f577ca4c2379001272b61bafa7b565f1ccf1dbe9700289049c9b6",
+   "sha256": "6da36de5320e9199f27896ed816603bc930e0365483e7a1b444de711a32bff7f"
+  },
+  "library/mafteach-links/sources-chagigah-25.json": {
+   "preimage": "0a91dc00b371945db5811d424e565bb0ef22ca02bd142a884a92865af6a507f2",
+   "sha256": "28c1cdd14aba5f20c90291da0a22b2ad196ade7f7c7ba13ae4c46c5264a8847e"
+  },
+  "library/mafteach-links/sources-chagigah-26.json": {
+   "preimage": "724d8ad750cf360063dffbc9281ac6f74a47b18543928cd82f73dc8526377202",
+   "sha256": "7bac9e3fe29a05048b06f0dafc6aab8dbfbcb33ae3d342115cf2f6bfb8dc224b"
+  },
+  "library/mafteach-links/sources-chullin-133.json": {
+   "preimage": "771b28cc543e9352c4f9c1578b30d57b7abdc2c796fce8369f8c198723747e21",
+   "sha256": "a9168860956b06990b2b1cec2b1127175a615328842bea6122186287c50b656b"
+  },
+  "library/mafteach-links/sources-chullin-16.json": {
+   "preimage": "376a49e1150f116c37d75f92c20c2160fbe368ca798cdbc2b22d73d04d2f335d",
+   "sha256": "9dcb20e31c59629f1331356b1312d7aac073e9f396fb1ec1069b90093bff7e98"
+  },
+  "library/mafteach-links/sources-chullin-62.json": {
+   "preimage": "d85f8f7674be1430dad6083616838b016fec846aef5a190016e0f090f7f6c89f",
+   "sha256": "764d3b89ecbf3da449b4ccab82c215f07ad9e8f72cd435ad2141e3d6ca3aaed5"
+  },
+  "library/mafteach-links/sources-daniel-12.json": {
+   "preimage": "f9c7c63c026bba77fc34ec5d5febb33b78aba79c558d60f7154041ac28c7503b",
+   "sha256": "c5d56bf383c675527eca758eed0fed88e50c432d22a5b7be8cde3a170481693a"
+  },
+  "library/mafteach-links/sources-deuteronomy-1.json": {
+   "preimage": "64e9a61b5249c5937398b72521ae3d014b19576f8fd214a5e6f5b59c9f86116e",
+   "sha256": "24d6f0c985499f943221099cb01a8964d8311ed6acfcd938933e22536c01416e"
+  },
+  "library/mafteach-links/sources-deuteronomy-11.json": {
+   "preimage": "aa971d5a7bc7b2501f6be243369049740b5a9f89e8ff0986affeedce1647f5c2",
+   "sha256": "a94a9f58c3d47db3fb3e3712aae55821d7f121cc422d6831c6ca2956dc499c39"
+  },
+  "library/mafteach-links/sources-deuteronomy-14.json": {
+   "preimage": "0a93b861e619cebeb08cd00148e4b0444938a241f5c0049031d38ed45ed71858",
+   "sha256": "9d63a228b59d16081b33ea13136807a88c429f07ed74882106c4f2816d600c11"
+  },
+  "library/mafteach-links/sources-deuteronomy-23.json": {
+   "preimage": "36403dbe19364658290e8fbae28ece65beaef4476aa06a952de7d9aba886a3ea",
+   "sha256": "f9a5a6a69dfac9ffe16caeadd8d90f5c2e85dfa80c748beb93d73db488e19bd0"
+  },
+  "library/mafteach-links/sources-deuteronomy-31.json": {
+   "preimage": "312d7c6d870bc96d380489efa99777ce47cce97679717bc04a42f6495902a260",
+   "sha256": "d5df3ca45901cdf0020cf622afdc57eee22855afd52aef14074927865c49704f"
+  },
+  "library/mafteach-links/sources-deuteronomy-32.json": {
+   "preimage": "3b4f8fa7ea5666c6b2fa59521d34fe7a71dcf06dc6fb482b1dc46819fb7ba45d",
+   "sha256": "6df04a1bd07c67b294f2929d42887efc0c876d24ea6d2d84c4cf7c01dbddb487"
+  },
+  "library/mafteach-links/sources-deuteronomy-8.json": {
+   "preimage": "22205b981678d5eef6354290c2e5235fe579812526b25160a756ca21bcbc0386",
+   "sha256": "38d308d3e25a88f0951e134844d43dbc5265acb9ed879587e742ab621184d304"
+  },
+  "library/mafteach-links/sources-devarim-rabbah-2.json": {
+   "preimage": "feef8405d78e93778408a5651e1b0d1d7f98ca1ac876ef11c9072556a5373f81",
+   "sha256": "d29523f1e3e3b73200c209ab9f2f94079fd55cabf91ac6d1e7782160e3e3e3c5"
+  },
+  "library/mafteach-links/sources-ecclesiastes-12.json": {
+   "preimage": "900b5ce4dc7b86a10be2a04bdb1ef4174ec8f912759cc9cd81cbde76cead3d16",
+   "sha256": "4d83b2db5648bb6389d96630873af602f7e9b5e3e3b4e58f301190b8715d9d3b"
+  },
+  "library/mafteach-links/sources-eruvin-14.json": {
+   "preimage": "939ca58c7c293677b3c1f386dba0032e8fa5e7cd462d9abf8210f590dfbd4f0a",
+   "sha256": "c598865940801edc08d9be848bccf0f2a5b701fccce0d4109d25728e4ec75c19"
+  },
+  "library/mafteach-links/sources-eruvin-63.json": {
+   "preimage": "7b4be9781bfce3aa2b9d6f26af12fc4073762d7cf2119e00cae7bcda644c97cd",
+   "sha256": "f5c9a8383734c5647d117264c2a0d41352c0d6336f3d1250bda1dad5f8dc1b90"
+  },
+  "library/mafteach-links/sources-exodus-12.json": {
+   "preimage": "fbecc855a1144d0340fe692e5b0360f20c4bc5d3a5c91e134e725da694bc0e90",
+   "sha256": "953e7c9b79d94b94480fc167df387b4f2f41c7487e2e69b2b6de8e7dcba8b8a6"
+  },
+  "library/mafteach-links/sources-exodus-13.json": {
+   "preimage": "e155b6d334ad474cabbc5a9596ff5dc9a4035a3c8b971ec1b6c8835d4f20cdb6",
+   "sha256": "08244637e618bd9dd87910d0e5a7594359e803e8473420dce538dc1c0b074bf8"
+  },
+  "library/mafteach-links/sources-exodus-20.json": {
+   "preimage": "a1f5b81853e5b14a1f50632722bd03d68db49b7c99f4db9184491a0c87f7ee9b",
+   "sha256": "83147418587e7566b0d30d569bda35b4ad8f93a7a7c7aa915c0c636b13c752de"
+  },
+  "library/mafteach-links/sources-exodus-25.json": {
+   "preimage": "c9dd02ec71b0764b3079d19b4dcc3d023bad798de090039a76410ee813581344",
+   "sha256": "e485aefed6d0b1b5e394a940c5b79de56c63e50c92237831b1fdd5cdd6a8e266"
+  },
+  "library/mafteach-links/sources-exodus-28.json": {
+   "preimage": "4d29130bbe454e6099b3bffdeebb1bba6cbf8cf02a8ebdd88ff3484bcda53cf3",
+   "sha256": "66fe649e877a7964fe9520653c455b82aef5e2b749b6e5e966fa595a03bf358c"
+  },
+  "library/mafteach-links/sources-exodus-3.json": {
+   "preimage": "d06adb69d70a7bfab7a577823beb03db78e1db3be7dcaf3e61ba7a659fa42f3f",
+   "sha256": "6e85b1c4fa09e3a3a524edae316d7ba9f53d7bf531af8474bc882b70b47da4db"
+  },
+  "library/mafteach-links/sources-exodus-32.json": {
+   "preimage": "25c5182d25747bf8fcb6df2107762d6dc95c2313113c3e62783fc133f1ec3f6a",
+   "sha256": "705d8937fcce308331281251dd3c82729c35891591f52b08258dc9796c778111"
+  },
+  "library/mafteach-links/sources-exodus-5.json": {
+   "preimage": "4f60a3447ba0105bed492c6fefb92118bacc464e31dd44f0bb64abbc1415f1e5",
+   "sha256": "6a2fed44bd5460cc02114617bb853cbc221184478b37b0456a44dae744f11467"
+  },
+  "library/mafteach-links/sources-ezekiel-18.json": {
+   "preimage": "a8f2f9fe4bf7ca81e9986d2285ed4e095ec7e9022ef7ee288fef146ed2935547",
+   "sha256": "5fd1a1f37ed549b66e293d17b1bf1fabd272a02118cc856a318dab40b0770855"
+  },
+  "library/mafteach-links/sources-ezekiel-47.json": {
+   "preimage": "4a9ddd0ac882e29ce790436258c1919e509eb9e4d6a473cd9cd14e1a1f0b17d4",
+   "sha256": "04372ab8a188a9f2eb0474d58128d60a2c87b4ef6608f56d2161b9b1b02430c4"
+  },
+  "library/mafteach-links/sources-genesis-15.json": {
+   "preimage": "64196d46d33c28c272a648e7640bb4a64eae65329ff537adce9078546eb91347",
+   "sha256": "f315bbb9e80c738414e4e63b7f2e7501af05ab776ba985392229f2e6c9e29801"
+  },
+  "library/mafteach-links/sources-genesis-17.json": {
+   "preimage": "eb97859559b960309ff593e0799158d051613fd59396f2c33400a24df55e564e",
+   "sha256": "9d20b52bd0c8a78e16a2601c4adf2e77d08c1000ed7ed74819a832f1b379bb02"
+  },
+  "library/mafteach-links/sources-genesis-21.json": {
+   "preimage": "9826066f8e4ffa9eecf6ebbeb9bdcad254babff93486c7e66f918d1bab12be11",
+   "sha256": "a5660f2270d5559b41d385e869f9a23381f84ada7ee0c51a7ff327cf765aef33"
+  },
+  "library/mafteach-links/sources-genesis-24.json": {
+   "preimage": "a4105726f478e1730567c83712a8a8f301408694a6edf25db52cbd878fbd7367",
+   "sha256": "4a52b682a8f927cef30249d5763320094ad71dbcc05276e35de32ab36edc5084"
+  },
+  "library/mafteach-links/sources-genesis-25.json": {
+   "preimage": "86a2840afe6aca8afdef2f4fc1746fb280e24181e4403cf95df06757136c0e5f",
+   "sha256": "905b5c0ef3b5d437ee82066509b2fdae3c5b6ce77b8780aea5814e040e1ade8f"
+  },
+  "library/mafteach-links/sources-genesis-27.json": {
+   "preimage": "f78f27be6ef8598c93cbcb5eae32cc94b26aedc2560901bce173bf80f1696cb4",
+   "sha256": "9469b5b870df00cc41e8f02de90a5d44e8a40a437ad5de5b51bc1f96c2e60529"
+  },
+  "library/mafteach-links/sources-genesis-3.json": {
+   "preimage": "d9323b7672ec87780e28a6d6da777c672a604f6736b8d13ef0ffd1666a10f6ea",
+   "sha256": "6599c74a1deaa249ff03af49bdbbb456ecb0f664be331b07a5c3575cf7d0ec7e"
+  },
+  "library/mafteach-links/sources-genesis-37.json": {
+   "preimage": "2afa74124b99aa35fc9d7d84203fae64728295e6de5aa29148aa4744119d886f",
+   "sha256": "74b4ae1b22c23521e175e20b0c9607ab9ac65f07f12712834fe073e05d20d127"
+  },
+  "library/mafteach-links/sources-genesis-39.json": {
+   "preimage": "7526a6e9b072c45f37294c0a152d9d45c1726edf4b315d216de2c973a7e26587",
+   "sha256": "63c82b66136b523fb718b1028ff7f06e27eac690dcc81efd2ef4e3530f68089e"
+  },
+  "library/mafteach-links/sources-genesis-43.json": {
+   "preimage": "2c49f974a6dd650cde5b1a00a942da35923c2220513a93c93c5046778dfd9a38",
+   "sha256": "997c62e5b54c8b5871d97e7ad042e8aea12a3f0ccbf8111c70814ee57b476ff2"
+  },
+  "library/mafteach-links/sources-genesis-9.json": {
+   "preimage": "fc74a475a0a9658234b21be46479e86db86e6de2d64693f36ef941de6dbcc9b0",
+   "sha256": "4dd749277bd45ffb3fc0ceae236398ae75fc1b529af79bc26f72e4df709554aa"
+  },
+  "library/mafteach-links/sources-gittin-23.json": {
+   "preimage": "b1b9cff236a97602f28fdd807f10ae0e47cf27270ff0dea5bb2cbcbcde489428",
+   "sha256": "b2449c32f670c660924091e83b27e1a201140e0a2eefd2104eb36f2708ec562a"
+  },
+  "library/mafteach-links/sources-gittin-42.json": {
+   "preimage": "f7d10dd0ad1ef322e16161f87cd6a6806d1bccec75122428f588ef8e086517e1",
+   "sha256": "d33fecd65dea4335c26b27272172b3b4c7d94a3a4979466d74bceaf24413f8f4"
+  },
+  "library/mafteach-links/sources-gittin-52.json": {
+   "preimage": "98c8d0cc7c603fd4f9218d7b8cf192329659cbf2f93681c58383660ffd98bce7",
+   "sha256": "2090ad5c6cf2a95ab34f2e7f275945a1defbe69fc4729f9cc7d82a1b21d13d7b"
+  },
+  "library/mafteach-links/sources-gittin-55.json": {
+   "preimage": "c5ba65d93f6889c0123ed01d813147225268a814ddd69979c916490ddf5e8ecc",
+   "sha256": "9fcca840f573d59e31b90dc9e2c9b3038ab1d2f48545907b418e4a8c0dfba4cb"
+  },
+  "library/mafteach-links/sources-i-chronicles-17.json": {
+   "preimage": "749c00f75f3d7ac09e0d0270be882f9e7af771d43e94efc034fb9de52d8910c3",
+   "sha256": "70c1e09b809d8464e7bcd1f585e4cf6282535f7b093d9e3517f8768d32f86514"
+  },
+  "library/mafteach-links/sources-ii-kings-4.json": {
+   "preimage": "006b676473056ec50d1d131f58ebae3793eee17f4b91df4d50f60bd6430eaeee",
+   "sha256": "3605a2b7f15cd8a6432348279adf3faa9a9acd3ba0a1d3705a2e24381f0c0403"
+  },
+  "library/mafteach-links/sources-ii-samuel-2.json": {
+   "preimage": "87262b0ac3885431786975a9755fd9a7853610fc8c2c25daa645bd6b718d79a4",
+   "sha256": "11050df44dd6e6972ad7e572414b02f6376125194c1f54daafbdaf6d6ca8b80f"
+  },
+  "library/mafteach-links/sources-isaiah-4.json": {
+   "preimage": "80514c21e36bfd8e918e0d96e12e2be9e12924af8a435d324c4ae152262ec562",
+   "sha256": "4addc1a3e0c76e62beedf7eb6c272676ad13dc830055bde69e1f937dc94be7d6"
+  },
+  "library/mafteach-links/sources-isaiah-41.json": {
+   "preimage": "c0499c968a361cc8f07953f975ceced396ac19717d39bb6b4b43f76fb5ca33a7",
+   "sha256": "a4f3a9cbf13b765876c1412f0a016eaad2d045c637c4babc2cc4867420d990cb"
+  },
+  "library/mafteach-links/sources-isaiah-45.json": {
+   "preimage": "a75e7dfce745ed4194757b002ce6a00978ee4886b1bd541360ed26ec8a42a31f",
+   "sha256": "3ba4d5c1d26eee7d0c5e6e1dc316812c043b1513148f221ba83f8a2a96763e4d"
+  },
+  "library/mafteach-links/sources-isaiah-49.json": {
+   "preimage": "fa7b3d93cb76fb523319333a433b2b4c229f104d85c01ac5f6f0b1bdeef5276f",
+   "sha256": "6adf839e424bc46f8580225b67d678af30527eb7c45fa14c264880f5db562a5a"
+  },
+  "library/mafteach-links/sources-isaiah-51.json": {
+   "preimage": "5a74864e95e0dd402ba52052e3c38a2602546c6c8b7aefd9b4a6b93358cfc243",
+   "sha256": "f21b870cb8f34c2ad32186a67c90306ce76ad3eb1e1c031b7bdfc70c490f49b2"
+  },
+  "library/mafteach-links/sources-isaiah-53.json": {
+   "preimage": "b2fd82cf626ee6d7de34c4408986ae5cd0508f5c1aaf47f4853712a301f8405d",
+   "sha256": "e0f9c7566379662db1bf359406d279626d77243453d0837e41e49e5a37f4ffca"
+  },
+  "library/mafteach-links/sources-isaiah-65.json": {
+   "preimage": "1ad1eeb39a8ddd87cee03508635a86bca0614b8ab0995b0ecd3534a04dd77964",
+   "sha256": "fbbe0baf6f3d381a676b958d93fcaf67215052275a3122975a5f5df18b42aa96"
+  },
+  "library/mafteach-links/sources-jeremiah-27.json": {
+   "preimage": "39f37e7aad7712e72bc1970502f02e81e100998997651f0bd32a05014e956a71",
+   "sha256": "30f6b6c9668e450ee01e68e94749196b8ec981e851fdb100c1f36637e75d90e1"
+  },
+  "library/mafteach-links/sources-jeremiah-31.json": {
+   "preimage": "8569390916bb46a02f1a34154cf0e1539ed1c5d151ad37823c4e634c41315943",
+   "sha256": "5ae0fb48becc5d3d65ca1a33d9e98d96a47652b63eaf046c62d61e9248c375c6"
+  },
+  "library/mafteach-links/sources-jerusalem-talmud-berakhot-1.json": {
+   "preimage": "b386f0552d2b020adad45fe4f2fb7588436b324947ddb5186f72a47861c178c7",
+   "sha256": "c91a0b43ddd6aa6f8e7eae800349b1fb8ceb8fbc01dae03a45c0cb2a02157552"
+  },
+  "library/mafteach-links/sources-jerusalem-talmud-berakhot-9.json": {
+   "preimage": "857cebfb53289cf1157233e1c44b21ffa6635d8ee63640d6768f7f4ef4e4bcd3",
+   "sha256": "33205fba82d890645a00ff5a3601a08f3490c09f17dede51f7f8ad698ddca9fd"
+  },
+  "library/mafteach-links/sources-jerusalem-talmud-yoma-1.json": {
+   "preimage": "909a41cbe96b39cf5699653a53915df2ffc85a28ada5659532036e3e40b90569",
+   "sha256": "4ab8e60a6fee461935658bf41325cd55d907ab9ddb22c12471b46a41c4cf1389"
+  },
+  "library/mafteach-links/sources-job-12.json": {
+   "preimage": "de540f4ff93b73d4670bca1dbef91242bae7ec45fc5f1a8f33f5ea4dd4570e47",
+   "sha256": "4935d015918610a1961a83b75a0cb2df871cb2c23e8f95cd8e3072bd44cdb790"
+  },
+  "library/mafteach-links/sources-job-33.json": {
+   "preimage": "00356d52ba04113695a019d28d5ab047afcb3b092c611d143613d61349bf7d9e",
+   "sha256": "ee2b8b028f95ae9c8abe6a19d3041912b376c6e11668ba61d1f2aee7c9c57dfb"
+  },
+  "library/mafteach-links/sources-joshua-14.json": {
+   "preimage": "dfc532d46d8f72f4c055336bdae82954db6822e517a0376a3533e479debb429d",
+   "sha256": "7b5ed55f138fa5bf850e71a4381f77f73c99a0a6504beaa0c11488641dbfebc4"
+  },
+  "library/mafteach-links/sources-ketubot-85.json": {
+   "preimage": "3e9a477bb68d02ea786cfb77377f227347fef3dd6be1be2e07b6447a4c8b501d",
+   "sha256": "88730711667b9564ff59ea3e402f14617eee811fba78d0ba59caa04e67fa68fc"
+  },
+  "library/mafteach-links/sources-kiddushin-37.json": {
+   "preimage": "06b28dd8d2acdbf0ed854663f53b9b8c982060c5a7311ed350a07f6054a6fe58",
+   "sha256": "caa7021749fd14661ff07fbd8b7f208bc861aedc1b6c06e93fdafc5b56fe0251"
+  },
+  "library/mafteach-links/sources-kitzur-ba-al-haturim-on-exodus-27.json": {
+   "preimage": "f51335d51cda489d0693786d5c2f24f360010e9d1aa0ff734f6736241c5a9b0e",
+   "sha256": "0845224142615e831b67a72e730d53025de4e3976b373342826747b37438ceed"
+  },
+  "library/mafteach-links/sources-kohelet-rabbah-3.json": {
+   "preimage": "640efb5ab423c7ccb7d14f3d70f90c4694590cbe16a536728e894581729a190f",
+   "sha256": "4e322bc918a9d170c7df27da8a4d3422a1ef0c52cf0f802e3c6a2deb58378cfa"
+  },
+  "library/mafteach-links/sources-leviticus-19.json": {
+   "preimage": "ef089d0b2a6e6aec1e303a7d178f1773e0161056cc782333f0b1e003c0facc4a",
+   "sha256": "e6664461e25e552c13cd2f2d6c3180cdcbef7793307fb5310b3bfa2a8384f08b"
+  },
+  "library/mafteach-links/sources-leviticus-22.json": {
+   "preimage": "90bd7e2b542105d1ae8770d99a4355a4f770a20f1690899eede7e14da38ae22e",
+   "sha256": "7987f716eed66ddff05f08977eeb47c1ed40c515330f5a57ef01837ede049348"
+  },
+  "library/mafteach-links/sources-makkot-19.json": {
+   "preimage": "461e32d70263409d5a44978a937e439a24ffdbfbbe5b425d0446bafcdef633cc",
+   "sha256": "a69b3e2281bc1adb6298865f46179e0e0bedbb7ca3320a596b3d1cee6e8ae55b"
+  },
+  "library/mafteach-links/sources-megillah-14.json": {
+   "preimage": "766a9c18880fb8a8bb7f63465157045453a150067f5a996eb0385a111b74434f",
+   "sha256": "86caff0030b33129a3b3af1217a820b5317fa12ed356ff905529d335d0d94e62"
+  },
+  "library/mafteach-links/sources-megillah-28.json": {
+   "preimage": "41726ff7970914c361daba32251d4f7815d9c4c26a4dfd8d263178bb3e3c2754",
+   "sha256": "c1ae3559dc27a0e13c390ee314206eb3aa66fe5c9672268f0412f5f3fa9f0829"
+  },
+  "library/mafteach-links/sources-menachot-100.json": {
+   "preimage": "6b1658a5d4fea0eaedf182e3db833d79adcf449befd6e246ac9c69024f01e314",
+   "sha256": "0820093d72830dc52832d08c77eb2df413245876440a91fb0d71d57f9723523f"
+  },
+  "library/mafteach-links/sources-micah-4.json": {
+   "preimage": "d598311cf9da6b2f518e98f55254715b14e877eb9b9ad6cf75c05353aa0e125e",
+   "sha256": "5baa0bfa7d5008712bb18f0eddeb489b5f3959fa581b687dc7ff81c7fc20e8b6"
+  },
+  "library/mafteach-links/sources-midrash-tanchuma-tetzaveh-4.json": {
+   "preimage": "e9da2c0845e29abb30bb3234ccbb286b64610062404fbd296a3175661fcae2fd",
+   "sha256": "da72035f92122e8eff43128a795ad56c30f264f8a6896b9af0523ab71b01d403"
+  },
+  "library/mafteach-links/sources-midrash-tanchuma-tzav-14.json": {
+   "preimage": "0878703c8968e2cb3c24d9fb9f6241d37ced68be71364ce8be4983a92cc6f9eb",
+   "sha256": "9b08431865702ee0cff9b9c36b945331c85b1b10a07230fa7d8ac9bd322d8bbe"
+  },
+  "library/mafteach-links/sources-midrash-tanchuma-vayera-22.json": {
+   "preimage": "db01be2424f4462883174c416fb8be672467a2b8cab2e268911bdb564372bf11",
+   "sha256": "bf369212978b28014bde2ed9e8f745c56acd51c0b4363f8d4a2a2af3218df472"
+  },
+  "library/mafteach-links/sources-midrash-tehillim-132.json": {
+   "preimage": "f13d5fa2a5ddf71e7c346e4c8f55afa78a2274b9a7e594cbc90df9dadc5e64dc",
+   "sha256": "ebacb68e21183067513be6beccd36264ea20ed28f788e3abccb21afe70dc5cb6"
+  },
+  "library/mafteach-links/sources-nehemiah-12.json": {
+   "preimage": "a83f8fe75e1af636a14c0394d989d2966e4108b6456a3961a2268e0b551e4305",
+   "sha256": "1d4dbc304b4f22dff20e76a04ec4e5a68a237e38fe755892653247f94da5808d"
+  },
+  "library/mafteach-links/sources-niddah-6.json": {
+   "preimage": "cdbd0e10ab052eaa1574dad2ea0cbff69361e99c935e10a9a3db7065a8840501",
+   "sha256": "a260d09a2755a14d3f730d80a3af1da23920fee14cd20bb6bed256e1edadbb5b"
+  },
+  "library/mafteach-links/sources-numbers-10.json": {
+   "preimage": "d9fb6c3bb5b49a71d7c2b02d26c6061c78872f971e5ea71f1a4c6896a0d60aa7",
+   "sha256": "c4e4e02ab9f7985da36a9ec12d79f08818dccd5fd253223672db6ef5de3f3d86"
+  },
+  "library/mafteach-links/sources-numbers-17.json": {
+   "preimage": "283290ae082626697908f8bb09bcbb61d6d652f573ff0df4bf35e0e93a928aeb",
+   "sha256": "b7e0d11e4bef865d8ec450d8bd26b83f0a2c85744c7a107c169d44a9c8d6581b"
+  },
+  "library/mafteach-links/sources-numbers-19.json": {
+   "preimage": "228298017926ccd8f802e992623cb4456c0e711ea3f16019920be4afcb958126",
+   "sha256": "8e620643be4d19de91789d16e5bb979405b779bc90ccdd5ebca570921530caf7"
+  },
+  "library/mafteach-links/sources-numbers-25.json": {
+   "preimage": "80753a8a3a3ba817f97ec90dc34b14e6a842e7b6f6e3ca2e21a2f2e24cec5a20",
+   "sha256": "12d2ee9090618484e45f0a0d4407242ba1f7a6e9c7649a5183272c5c598510dd"
+  },
+  "library/mafteach-links/sources-numbers-3.json": {
+   "preimage": "586abc0e60a494e9b542cd1d0d1f8f73aeecae5e5d7b2a9b16da033a96ea42c1",
+   "sha256": "a8dc8a9b14bfa1011fdc09e96083d8f86f80cc4523826a24222fc1adc94fc692"
+  },
+  "library/mafteach-links/sources-peri-tzadik-lech-lecha-7.json": {
+   "preimage": "4ecacd92215db189a42abae6ca72bb34899c19f7aae09343d861c83b5ea4e5d0",
+   "sha256": "adc864a4ad9b81cb49cda0595d132d8e7efd924f626ae2b40d30c7f5a4c9aa25"
+  },
+  "library/mafteach-links/sources-pesachim-109.json": {
+   "preimage": "12c4d09cf43923078a8c06642efebddecc65c527edefc3147f6a30831ecece01",
+   "sha256": "90da9357e6638b1df27faec44af8761b76294eb85219f437df8634df6d1a30c4"
+  },
+  "library/mafteach-links/sources-pesachim-85.json": {
+   "preimage": "00534dc2a12796ac1446be102652085394c0450d3b8238296bef083bfae77656",
+   "sha256": "8150ff6df2020ceab6d713b61ea723dcb8e0d62f17c2464ac18fee61f6cba9a9"
+  },
+  "library/mafteach-links/sources-proverbs-1.json": {
+   "preimage": "cbc62056210e02f99353b6026bfd867078fca3596fe2ecdc97dfe6a09bd18dcd",
+   "sha256": "75d2917c0f155eb5bf5184adecdd1a8cfe89155eb412d7438a929e18a7da2c74"
+  },
+  "library/mafteach-links/sources-proverbs-2.json": {
+   "preimage": "cbb08f2000dc5f71c4fd573bd50ab050b22133237f8e2bd630944271e8e2e80d",
+   "sha256": "9184c2f4b2bfab02dd0ab133fd0a4a42f0064ac24cad97801bcb351fefa87017"
+  },
+  "library/mafteach-links/sources-proverbs-20.json": {
+   "preimage": "d8b0617d6a9237c98857396feda68eb94ad3794d82705fe294835acc6626ad84",
+   "sha256": "d6caa0127c187c1809fc97d6582dbaf423ba7cf2861dc69ae7954d00e11888c8"
+  },
+  "library/mafteach-links/sources-proverbs-23.json": {
+   "preimage": "b7b1c5d3fd811b874d18a35cadd8ba934c8d6e3d8ed984d8e65f48dcf9c5d737",
+   "sha256": "ee9fc68d6d78947246cc09485a3ec57b2c9ee59ca40ddc4d2e30c71a8efda5b3"
+  },
+  "library/mafteach-links/sources-proverbs-29.json": {
+   "preimage": "2712a24d6d88b2ca8fac95b2920f0ce489a3bc0a23120fc33e67033bf557c8b0",
+   "sha256": "16e86ec10f47451e66a409382e77fd124afe5ecd94a33e789dfcb180f2f58a0b"
+  },
+  "library/mafteach-links/sources-proverbs-8.json": {
+   "preimage": "0e49e44428ea703d81d283fdd75051ad3350c3e3d0df6192ea9748a598947313",
+   "sha256": "797b255b766ccb41ff7c02a2db2848351a7fc77a39800918920272d5ed007611"
+  },
+  "library/mafteach-links/sources-psalms-107.json": {
+   "preimage": "08fec39620a44a274a1a20efac475ec0b256d24df6634c7faf05b10bae97c68c",
+   "sha256": "c2518f8b546c5c7dd16ae0d45f678e9e2fe1b0836374c4ab2b11df8815063915"
+  },
+  "library/mafteach-links/sources-psalms-119.json": {
+   "preimage": "d0976f90c36cd614901e3d2f218c303a5796102560923d0f8ab913ef15cf2455",
+   "sha256": "9b638eb4742f5a2a0c06379897886e83123966b89eb0b41fb070d202e754facc"
+  },
+  "library/mafteach-links/sources-psalms-136.json": {
+   "preimage": "6eca99cf94c3295c4fa2680f42f673c520339be48c8807cbe6ff00894e83e5af",
+   "sha256": "203db9132897322326ec29e3c7121df54c1a734b64dbca3af5885701509b3714"
+  },
+  "library/mafteach-links/sources-psalms-2.json": {
+   "preimage": "36a2678937ce3671a4c10c40ef40b51a6a297c5dac3da0d2a1906054f478d874",
+   "sha256": "7ba0c44ee5342701987fea84eff453d0e3c5cdaa86be9fbef32a9b0a64e4884f"
+  },
+  "library/mafteach-links/sources-psalms-34.json": {
+   "preimage": "1db9e36834f7a267b175ccf47f57a33320ae1a78e95b38601fcc56f57ff9e85c",
+   "sha256": "835c76546e7fb81b8951f0acc61a1115f7be8f7b51786a270a4313583d2eab71"
+  },
+  "library/mafteach-links/sources-psalms-40.json": {
+   "preimage": "27a73e6096571751a3a55b1b5ff5ce099f8c20a580761d999029ccc80327dc2b",
+   "sha256": "97d2fcbc7dd4bc23db4e4577635b5444056a97097ef29004ec1bcfe1980ee121"
+  },
+  "library/mafteach-links/sources-psalms-74.json": {
+   "preimage": "378d1557310201a9fb4708e94aa656cae8e1b896fb39378945d29aadb84701c5",
+   "sha256": "1705a17b6488e19c328f1aafe3a5bff3d18f16a3a5a62dbb42ca700e18d5f962"
+  },
+  "library/mafteach-links/sources-rosh-hashanah-26.json": {
+   "preimage": "50cdd99212047f66f10ee97a9bcb8d3f76c00196b9d72ec94075c2aea318a4d9",
+   "sha256": "13b8a6db5e386b9bcb11c864084953c61ba1a90728079750e901e7b46ee1b0d9"
+  },
+  "library/mafteach-links/sources-rosh-hashanah-3.json": {
+   "preimage": "f8c12b47623d492f6561311222892034154ef88479844148178b399aafafb3eb",
+   "sha256": "f03e461d36beecda1bfad4067ddc3e8995f10d6a035b6509f4a1217343d427f5"
+  },
+  "library/mafteach-links/sources-ruth-1.json": {
+   "preimage": "50fba0cd4f2737c0f6987e45f88907bd8701bdfa89d087359b61144e1528a9df",
+   "sha256": "6e0b03003c25e516155bc58cc8c520087369ddf50ba53b4dd3df5b19027916cf"
+  },
+  "library/mafteach-links/sources-ruth-rabbah-5.json": {
+   "preimage": "640df8e75b5a50d5eaebcf16a43e5d0749b715547010327035f99de6d7f53ed2",
+   "sha256": "c7c49fe6722e95663ca56947e6a2922e6a3c102ea48fc70f0288f90294a6146d"
+  },
+  "library/mafteach-links/sources-sanhedrin-100.json": {
+   "preimage": "a0ba6a5b02d5ffeb9c9efc8ec15b4c2d66e91dff5a8df8c596243454712af9a5",
+   "sha256": "0cf57dcf9b5f5a272ee9751d29e96a4bd9a779f87eedd89202291bdf51e2266f"
+  },
+  "library/mafteach-links/sources-sanhedrin-103.json": {
+   "preimage": "c85bbc42f4dd0dcaaa2cb24dc94d49b8b789478678ba90914119409b7012ea3f",
+   "sha256": "90b8c068b2388bcfdb1e2897337726d46e05a7306509ee9bbe598439226d7cd0"
+  },
+  "library/mafteach-links/sources-sanhedrin-40.json": {
+   "preimage": "9ecc5f3ffe8da44de705290a48cd086eb4c9489bcf3316c5e7d611051522e561",
+   "sha256": "8ababd1c452fefc7ef94f2422fee301797adb7e6f11870d53ba5a8664675147c"
+  },
+  "library/mafteach-links/sources-sanhedrin-65.json": {
+   "preimage": "d54cf637f23852334f8c1c088a4326a57df54d1d98b2a675af8d662844538c3d",
+   "sha256": "41010e9a643a94d797b751db6793d8b87579ff634a8b4f1d974dd6fea0c3970a"
+  },
+  "library/mafteach-links/sources-sanhedrin-83.json": {
+   "preimage": "b85ab0d2e3b7d06c8b4558e9563dde293c1798b0bdbd5fc42a9fe25829fa29d4",
+   "sha256": "f90250650a38b1f83e8c28720d7d9500121adbb3deff88adb0414fa12341cf9d"
+  },
+  "library/mafteach-links/sources-sanhedrin-92.json": {
+   "preimage": "e962fd030d424261f18d178d62b0e535c54b793e24110cee42d760c3b05397ff",
+   "sha256": "c41fa9247a825e3f411e8067f7779a78bd0f76a137b123a4cbffe0cfa7bc026e"
+  },
+  "library/mafteach-links/sources-shabbat-12.json": {
+   "preimage": "d5087af8ee2d9c489f41d2587a32f142dfd43738d400ef02eea8cd448d6643d6",
+   "sha256": "6d65bd41d5964f695a7b84eda29b387cd04e8980d90218fd5006f680f72de050"
+  },
+  "library/mafteach-links/sources-shabbat-121.json": {
+   "preimage": "fac97b26560d73a703cba84f01556b5d686f596eff31fd665f3c5b5187851965",
+   "sha256": "e80c1cd3cca90afe1e3bcc2d7f3572d45603994cb379980b5999132168c026a8"
+  },
+  "library/mafteach-links/sources-shabbat-152.json": {
+   "preimage": "5626904ea9839b2d03e5dceabfaf78f4f160fab94b3e26f7d8ca020a78914546",
+   "sha256": "4c40d13fac1e13923f8a9098985e4e7af9b57d57eb0bbeb3cf37775a16017c2a"
+  },
+  "library/mafteach-links/sources-shabbat-153.json": {
+   "preimage": "3d899df89550f5dd10eca1e3a18bca0641a1bbb987b9eade22a62b5f0fbc7e8e",
+   "sha256": "7e9233b3b53600dd64c9bcf82d630e0d3496d7619b904c418fae31b70adf48a9"
+  },
+  "library/mafteach-links/sources-shabbat-17.json": {
+   "preimage": "bcc63f3fd647a3ed7808e10a46864327b375a5f428ed9e224dc14293a508354a",
+   "sha256": "b3bc75dddeaa408a0783650bc81a42e6de8ec03ce2324179c4b7f5fda75732c0"
+  },
+  "library/mafteach-links/sources-shemot-rabbah-2.json": {
+   "preimage": "70d7ad5fcdd5ea07187bbc6398443c5c7b4315c0625b571a9320fc36d4bd6ac9",
+   "sha256": "7d6aa3f1593e93e665dfd31d56bb484f5bc18c53523ac4ef23130cecfa8bc9d6"
+  },
+  "library/mafteach-links/sources-shemot-rabbah-3.json": {
+   "preimage": "dd412e9a576166f1f5789f9369302eeb4ba189bfa63bf6228ad8d3e4c2a45923",
+   "sha256": "5f38b8fcb466063f5bf26c0ed5bc29a03ec7de63c116149ba70f77e72981c78b"
+  },
+  "library/mafteach-links/sources-shemot-rabbah-37.json": {
+   "preimage": "035abe0753ca2a5733dc53d919cfea3867a9df6c92efc06b25639889893a9cab",
+   "sha256": "f70ce879f32d7c9523c48782b6f88f67c7ec5015278a1a980dab772cdc16bbc7"
+  },
+  "library/mafteach-links/sources-shemot-rabbah-42.json": {
+   "preimage": "88036d14e4aafbe9e6fa75ac61d4a2b44efd885f09d2f9d321567130f6abdb3f",
+   "sha256": "776a661e779cae7b393f655c5c002c25465de40b6e1c5966f0c6445c21b7c455"
+  },
+  "library/mafteach-links/sources-song-of-songs-7.json": {
+   "preimage": "633238cf327ef320b21873983c565b7b0b097affc5a09a654bdc1eabfca5d0e1",
+   "sha256": "8edd0fe1d9a59062fc17a2de6f7b3ad7ac4da09877d75b6293ee7a5b57e3d680"
+  },
+  "library/mafteach-links/sources-sotah-21.json": {
+   "preimage": "70f94060b9ae29a091541929f6526f09bcf347ffe98867cffdc1c23c4cb5d05f",
+   "sha256": "2554c6803464c7f0cf32177614b4a009410065af1ac775f2b2eb127d33940303"
+  },
+  "library/mafteach-links/sources-sotah-22.json": {
+   "preimage": "99d06b3ea5b20ccbf80a7bc27849ccaaba99f61c4167668a7c9eb2ac3731c446",
+   "sha256": "9cea577607ce318477c4db7b223c1ddcb1c9f0267c2a34ec0d19c9cc7d646043"
+  },
+  "library/mafteach-links/sources-sukkah-30.json": {
+   "preimage": "9148f3dc9cdcd1d6c0b57d5a001ea32d0d8d0716597d420a79f919b217b5f135",
+   "sha256": "51106e31512d7f4101060d34573452859b40e525a85d0deb692a0aeba3dfbc13"
+  },
+  "library/mafteach-links/sources-sukkah-45.json": {
+   "preimage": "050916f63fb61b43f9399a57c5c520c6d75212f980c22c45a122dcb2a44da154",
+   "sha256": "f627b2e2e394d74cd94afbb9ea40e54174316ef0e846a2a9f11f76a3faf91eca"
+  },
+  "library/mafteach-links/sources-taanit-24.json": {
+   "preimage": "14dfa893f4c71b6b3673400cfe7a1ef0693b97367d96e6788c52d85d49890653",
+   "sha256": "1bba93346ad737f71930de0bb1386a4a534854f2c8abc19b552cc70597a1ccb1"
+  },
+  "library/mafteach-links/sources-tanna-debei-eliyahu-rabbah-26.json": {
+   "preimage": "0cef675022e4b775b29aae9c11c7c633f6371f721abd0373e5184b269be0f346",
+   "sha256": "27e3be8bd0018308c0cfb83eff4857ac38356d46cbed1a8b63b222435a5d2798"
+  },
+  "library/mafteach-links/sources-tanna-devei-eliyahu-rabbah-5.json": {
+   "preimage": "dfcb9db7aa83112e0428b0764330699af0be865b7698573257d6998c02e94f25",
+   "sha256": "eaf1ea372b2b419cebbf07f4ee23923d688913551eda15bdc7e1953bc6a533ee"
+  },
+  "library/mafteach-links/sources-tikkunei-zohar-79.json": {
+   "preimage": "53025b1b58cc5263f02ae27a38ed73550d203129329d187416c87e8b4608561e",
+   "sha256": "aee7b872d066bd259e5d6c6bd30717a93960fc7b35d7d599c7778666417a4a25"
+  },
+  "library/mafteach-links/sources-tosafot-on-sotah-22.json": {
+   "preimage": "b08f4e0999b9b6ff851085ac94ff112f8bc46c818c73db888dabc29cd97862b9",
+   "sha256": "d8ec23e69243b18e90b13c0b06856fe500e491abb9873e71b9515a7e85f597fc"
+  },
+  "library/mafteach-links/sources-vayikra-rabbah-21.json": {
+   "preimage": "de0c31db74c923bfa8fa0322c39a088cf1733893ea8c27cad2c47932541bd57b",
+   "sha256": "66bd0a742f0bd53cb39f9bac6333079bc4500b6e1959f21586fa42f0288ce075"
+  },
+  "library/mafteach-links/sources-vayikra-rabbah-26.json": {
+   "preimage": "fb9163eb159de4b3860eed0dd789093165979106ec88e214b11dd2a673cc1432",
+   "sha256": "5f22b7824fadfdacea0a5f1bb8c73e816a42f8789081bdfa6fb30909f310364e"
+  },
+  "library/mafteach-links/sources-vayikra-rabbah-34.json": {
+   "preimage": "59d91705dde461daa633cfbd9f5dd9e5621cd13959daa1381c37a8ff21f0cc5e",
+   "sha256": "5fed436ee8662c893e1fd7a3037a99d9feac0068903e17298f4ae7c10dcedc17"
+  },
+  "library/mafteach-links/sources-vayikra-rabbah-4.json": {
+   "preimage": "31cd272f33d468555b911fb26ece668f6658202713f9c7e73e410b8028ffc442",
+   "sha256": "ce598dee6bec9fff87bcebfa24a8d08bd1c58e5d53554b0f2f7d3558a982536d"
+  },
+  "library/mafteach-links/sources-vayikra-rabbah-9.json": {
+   "preimage": "642b3c59d4286ddeada9d8e8068397b92d232afa59320918b485c5042b4679e3",
+   "sha256": "466092bbe6b7fcdc4fe298af55c1ab1621e5a39985209dbdc96c54697f140763"
+  },
+  "library/mafteach-links/sources-yevamot-35.json": {
+   "preimage": "f370ed48658621391bb7fe39af1a8caa56dc42f4ffd78521a14df6cb8ee3cc22",
+   "sha256": "f185b317b62052c547efcd9c63ea0686604fe9fbbbccd289a0f078d5b26da4ca"
+  },
+  "library/mafteach-links/sources-yoma-21.json": {
+   "preimage": "1d85c2b1d5843ca729868f955ded88fea3fb9dfcbbc850b491796a99120f33bf",
+   "sha256": "e32c8ef616288d8bf7779af78b102fdde3b8ae657d27a825c75314e0e4c67e0f"
+  },
+  "library/mafteach-links/sources-yoma-35.json": {
+   "preimage": "29bd696bf134211dc5b9267f605e69e2797380eb14ff43f224d0de4a7e001201",
+   "sha256": "a2a117b6ba59fa12f8c8bc87e049e5057747cc5cbc476e775595c3aed43a2879"
+  },
+  "library/mafteach-links/sources-yoma-36.json": {
+   "preimage": "ff91e441cd679b8eaa4132759f2e144e8b78c86356f715bce466b56160ba6832",
+   "sha256": "9be303ab80cb946fdbc0d894d030293636739c27b45dd7bb3727ca5351c15275"
+  },
+  "library/mafteach-links/sources-zevachim-118.json": {
+   "preimage": "a5694644ebdd4eee794c5d15d66c69dcdfdc10b9756392445e682cf1e79d7591",
+   "sha256": "6a5d6eba0faee9b27d14978fba9a246534d29a4f514784b8240769ce8e5b4c70"
+  },
+  "library/mafteach-links/sources-zevachim-3.json": {
+   "preimage": "c2b098324add8cf603636cbf27324d143ed7c6c2d94ec8d3f222ca48926df425",
+   "sha256": "bd1c0b83c87a268599fb2f31214a701f74cb66c20e6c32bdec2589a1e590eca9"
+  },
+  "library/mafteach-links/sources-zohar-i-1.json": {
+   "preimage": "fce705c1ff8e97fdf0318f05557f725e7fbeb3552186d7512eff28e04f944104",
+   "sha256": "d6dcbed408afaaeffd00bd2ddfd543296ac466d7508a85178d380df2b26f4497"
+  },
+  "library/mafteach-links/sources-zohar-i-103.json": {
+   "preimage": "ae8bb05c935c5037198988e1de1628eee2815e5d1bdedbadc18c2d075b1835b5",
+   "sha256": "58c27d4681756afe5669012a8da65f1e70fa4a1c2a23fc3324d1c3eef76b2ab5"
+  },
+  "library/mafteach-links/sources-zohar-i-124.json": {
+   "preimage": "02e2095652559772ea2389d542b116f5a0ed10b78f23fe203e6e78dc564e7334",
+   "sha256": "879791de545432c4ccab0b95e64d4772cb12e908d8d673ca092aa3cf99ca5908"
+  },
+  "library/mafteach-links/sources-zohar-i-131.json": {
+   "preimage": "b695d5ed560e9271bf58617c8b0286fc24c10f7a9e25d549ff0d01a5e24c90db",
+   "sha256": "e871f66fddcb5213851ff82bc992b8e580b913f15fd733063d6263c4c8377491"
+  },
+  "library/mafteach-links/sources-zohar-i-163.json": {
+   "preimage": "2f73de960ce812773b83187d130be47b7f12dcb86a715cc4facf69517c1d8fb9",
+   "sha256": "d2c42427e8f918f6a4289ca48510fd2ba54be68ff6bd72e77c355804ce0d1094"
+  },
+  "library/mafteach-links/sources-zohar-i-202.json": {
+   "preimage": "2b30882b7eb9b8070344ff74249e9ce9e2d36c3de4f6024f79dac0a598605e03",
+   "sha256": "8f6675f42c556c19d0f8910377e4fb190e40e773463505cc9ebd7e83498147c5"
+  },
+  "library/mafteach-links/sources-zohar-i-77.json": {
+   "preimage": "5378f17df34b0edf95ca48819afe69a9afbaa929989294d680315746ce3c4476",
+   "sha256": "3191066e7b0f72d74800453d216ae9e865b7bb9f5c06a3147f663690779636bb"
+  },
+  "library/mafteach-links/sources-zohar-i-97.json": {
+   "preimage": "185fecc01f62e6f1ed30a3ddb762b85ac43feb214d1f98784c0b6dcbd453238e",
+   "sha256": "8a9cea911732b73f5bc3f88a4274148a5aa95f86e5ac33b09a3f100175a5a62f"
+  },
+  "library/mafteach-links/sources-zohar-ii-179.json": {
+   "preimage": "8012d93cdf6c697a67d13532455994697613a94afe5bbbb8d91b69efb4dbbff9",
+   "sha256": "dd0b54885cf919ff65e6c685ebb2c7f6576f90267c935ab391988397f1202fbf"
+  },
+  "library/mafteach-links/sources-zohar-ii-205.json": {
+   "preimage": "bffd9344128d4783150e019130fe128474df82ab23540b8d0c731d4115d06183",
+   "sha256": "afb69db89d33b7ebdc73531b303b3c48a0587d903b6ec528dc04644aee1a83b8"
+  },
+  "library/mafteach-links/sources-zohar-ii-38.json": {
+   "preimage": "e0fe81e566e8c5d1d7073dd92962a38cf8f27ed9ecf324c8dab5e38fd8c52597",
+   "sha256": "3bae1b8441a0de512b8fa838a01f3ec5d2531775e0bdd25b7a13246e469c2e7e"
+  },
+  "library/mafteach-links/sources-zohar-ii-44.json": {
+   "preimage": "e91b50790f294ec1b17a7d4ec576a670f6c842ff9f70fa53da8ee47ac3ed8155",
+   "sha256": "970c0f513234aee1656c999629fd25b5786caf52b4221678a1d675da11758491"
+  },
+  "library/mafteach-links/sources-zohar-ii-46.json": {
+   "preimage": "75349ee93e5fda39acf861270b143a15e464f73eea9cc8f1e100ae911a1ff7d2",
+   "sha256": "ac1993c1b707815575aea8bf000f02efa8d0b1c8c6b41af0481e5138113a6561"
+  },
+  "library/mafteach-links/sources-zohar-ii-79.json": {
+   "preimage": "6413c5adc1096c288b3aafd415df50489ae943d153e24b4bb7aebe212534387d",
+   "sha256": "2defae35cd65f5f4affdd5345fe1c1c7c944333da2b4a43bd460cb9577e720dc"
+  },
+  "library/mafteach-links/sources-zohar-iii-129.json": {
+   "preimage": "4a30ade56d877a6fe32002cff8dd35f4d4ceee4bbf0852c5d1d396a101ddc3f7",
+   "sha256": "b48f659214c4946d561bfef6cd050d91ae166a56d4bb9b0f2902487db3067cf0"
+  },
+  "library/mafteach-links/sources-zohar-iii-136.json": {
+   "preimage": "3e81e43bf7701afce8bb6b8c5c1e8f71d88c1622289aab6ff23d797325cc0fed",
+   "sha256": "4728d13a3f23e34a6902bdaa2137d8a64856317e827ba5b1a889d45a705bee38"
+  },
+  "library/mafteach-links/sources-zohar-iii-229.json": {
+   "preimage": "e9399d471193c742bd5e38e860d3007788fb46c418e5286a3ff6e14c3a7889e6",
+   "sha256": "fa5281d8e98195b0757a593b225e9af14109608100e34a17e6f527bdd36d6cc6"
+  },
+  "library/mafteach-links/sources-zohar-iii-264.json": {
+   "preimage": "d5da10e2e7c908ec5c4e711cc2ad606a4aca7fc55485fd8adf2d1093aa61f21e",
+   "sha256": "d1c8bd3abf71ca3beb324e3790cd287ab694f7afdcc8a1ba82404a574367eed4"
+  },
+  "library/mafteach-links/sources-zohar-iii-273.json": {
+   "preimage": "1a1dfe57c65aada456cb8411f6380ac2e2214255f80fae08c815ca2b1a337a05",
+   "sha256": "7f6dd2ac00a730b26b936f332589087ac640e92565a50153e84f40aac96e4cb8"
+  },
+  "library/mafteach-links/sources-zohar-iii-298.json": {
+   "preimage": "97fed0ed31587923dab0e3358abe77fc95102870e695c9e5e04fbfac000b6d09",
+   "sha256": "3e2b292be0651d50835e502d1a0872c54478f3e46b632f885ebf2fdd8b57a74c"
+  },
+  "library/mafteach-links/sources-zohar-iii-3.json": {
+   "preimage": "293974ea16f18e95bdac64a34ac2d0049809a7b788e328728fe5406fcb876ef7",
+   "sha256": "d27fe3426fdc1fa9bb9e13834bba497a62628034d658a61693ac395c1b44fb0d"
+  },
+  "library/mafteach-links/topics-00.json": {
+   "preimage": "528d79a15198ca91a357a006d97fcfb90b71b1d47968fe80e0cace04c1ea96cd",
+   "sha256": "08d5d2d36009176858a95ab0db6277604d161c35403c28c1b0fbf1ca72638e55"
+  },
+  "library/mafteach-links/topics-01.json": {
+   "preimage": "a2bb37431484260b263081f4bd26fe4966193f8a4c6506a416a4183e8993a177",
+   "sha256": "a67f0e98bd374f1861fcda92ad5c25536acdb4f3bfc3ea0733e06354533ecabe"
+  },
+  "library/mafteach-links/topics-02.json": {
+   "preimage": "ef367bbf1abcaf689d5cd7b20aec1c28198e0377a13167e5344b6f12fe8d0122",
+   "sha256": "d673344965e15dd826ae508c6719f6eed7ba60ad49977abfdd7c7dbedfda1cc0"
+  },
+  "library/mafteach-links/topics-03.json": {
+   "preimage": "32b22fcebbfb778e60b76423279cc68dff5485c45f5d73de308d714214cd2b3e",
+   "sha256": "b0e24d838c84343415926f3cb954d61d5f51817495d5bb64b67b04e073fa6104"
+  },
+  "library/mafteach-links/topics-04.json": {
+   "preimage": "609c24199216248c0834b90cc11a950d0231928d80c5937db94376ee5a557fd1",
+   "sha256": "96c5196f0f3237a6b0e4f2a83c9465ba46c92051e79e0ab1bd1694e053f63713"
+  },
+  "library/mafteach-links/topics-06.json": {
+   "preimage": "19105d6dac4a0019d8adc3a86e649f58684e36a829de3dc521e5e8b889003040",
+   "sha256": "2f5b5e3ade8d804d1b127dc8f5d416f7634c9ae8f21af316db3604ecc5bf85ca"
+  },
+  "library/mafteach-links/topics-07.json": {
+   "preimage": "82380250625e3ade9d1494af85f4db484f2a2acd421bd2f3470b3732ff8b5963",
+   "sha256": "d6c9fa317f5c8e3ab47e2dd234bd4ae675629ab0dc737440e48f7a03ba5cc7e2"
+  },
+  "library/mafteach-links/topics-08.json": {
+   "preimage": "6fa9855b118f803e67eeb10ddf47125a5b439af0ca241b48b458a92130297e4a",
+   "sha256": "2dcbdbb30fde2d62224887982b73ab78451b2eece45b45d1041cba6def2ad3e5"
+  },
+  "library/mafteach-links/topics-09.json": {
+   "preimage": "3e2bcbd33d89d9902d0047c6d857aefe7be2587c6fb228b1efed6395cc95a3b9",
+   "sha256": "fb6a835d1dce5e4ec991a597ae68008ea241127c0bac158469d5e9bcbe1f0662"
+  },
+  "library/mafteach-links/topics-10.json": {
+   "preimage": "e5d9da0d9085ebf7bfafd2f8bfe2172c34d4cfe87aae496256a8b0eef7ca8fe2",
+   "sha256": "9af2381657128829d9dd1134f41244e8b92fdbb049cdb2a7de11dc5feb6586bd"
+  },
+  "library/mafteach-links/topics-11.json": {
+   "preimage": "30d454aeccf2a27b15a3935cf7eaeaf4145611f9c296f637cf1916c3ac80459f",
+   "sha256": "bedab7d9457884d3864e5d63581f4c0db526dd998edf72097027d601b9260520"
+  },
+  "library/mafteach-links/topics-12.json": {
+   "preimage": "635c8bdbd868cb32bf406ccb1f9c6438663b4a0c9787dea11e4127177c3d6541",
+   "sha256": "245ae1b2980072eada675001767759d8e63964d19e75b4b86ca2519fe902db51"
+  },
+  "library/mafteach-links/topics-13.json": {
+   "preimage": "ea6d2b44de70325a3d15d073ada58e753a0ad0ab883085a613da0fa8c98b801f",
+   "sha256": "e239d5333040df604392217e2a76176b38ac2b1b9f1e0595bd689339007aba04"
+  },
+  "library/mafteach-links/topics-14.json": {
+   "preimage": "7206afa48b4ea08b682a50cdc8e27ec8d16e775a4ce4a575c28890c19b34599e",
+   "sha256": "0ee2d8dafdce90b791b16f24faaa2110310ac68e2baf4283b81d3c0a9f4ef496"
+  },
+  "library/mafteach-links/topics-15.json": {
+   "preimage": "523040e2b1a869c0ff058477f10cc1a72932848e05222aae5efb2ab3d755f94b",
+   "sha256": "1a74d45af8b702917ab1cd28b2a84efaff5ed4f6686149dea5116b4b365c3e4b"
+  },
+  "library/mafteach/beit-yaakov-bamidbar.json": {
+   "preimage": "5f49a7066a368a6dc5a5b5fe560d0636bda72ce74a779108f69832d3badd6f99",
+   "sha256": "f27babc1eeda39cbd8351d997ca7bd01bc6a63ca5c8ac4894758ee088b44b347"
+  },
+  "library/mafteach/beit-yaakov-devarim.json": {
+   "preimage": "071330ba1ae764ec9797f000511ee7c79f5d9b8b3efb39744b31d32eaa1a9ab2",
+   "sha256": "d28a8cffbf54fdcab43c3a6f34a235984f44d71ddcc27b0f520b0f99f76ac6d2"
+  },
+  "library/mafteach/beit-yaakov-moadim.json": {
+   "preimage": "c269bd577315862d0f3324ca0f43941e87350e8292b8612827778bc73130406f",
+   "sha256": "38f6b59e627f104001f8e0cd86b6aaa51b06a72a58cd7184c107bf5ed6d81511"
+  },
+  "library/mafteach/beit-yaakov-on-torah.json": {
+   "preimage": "ef1058ff25e0b53b2337612863b8b6a8ca393b0c52a3a5bac082aa581f47aac0",
+   "sha256": "415670d1c6963e2103e0e46bf92ee0f58725b8195eddcace56ae5a92801660b7"
+  },
+  "library/mafteach/beit-yaakov-shemos.json": {
+   "preimage": "023775971fe4fbd057ac8a125bc0d88e69860e3669bb62ce00ad530a31086871",
+   "sha256": "04fd4da6b69aefcf215fac9e046dbee0402198828ff903bf3fd3edd5b49980c1"
+  },
+  "library/mafteach/beit-yaakov-vayikra.json": {
+   "preimage": "604eae291788e17eb75a9d5fad0006682e6f8c62fb65043d5c6f347c9b05e3cb",
+   "sha256": "75957224c1f38fdad0ae43f89e5ad0122dd0986cc15674f1491a17fe18f2b0b2"
+  },
+  "library/mafteach/ein-hatekhelet.json": {
+   "preimage": "9a74be3a128761319154c35009d3bc8382ed329bdbbf595cc14b239e32cbbfe3",
+   "sha256": "4d3aab83ae929de8dfdc830407cf7bc23be2bae181a45f478b2281bf1c268555"
+  },
+  "library/mafteach/index.json": {
+   "preimage": "39132dfc21d657426da784b6516552fcfa2d02b2f354a7ef08c338edbd53922c",
+   "sha256": "d2b024e9842071fb62ab6c7a474d47fdbebebad78b22ffe9d6b78d01d4dfabf1"
+  },
+  "library/mafteach/kometz-haminchah.json": {
+   "preimage": "65fbb88253a6a9f5509c4b2bfa0fc2d1f3d9552eb7a1316a32ed6e741301c57f",
+   "sha256": "331ea620bbc3a3ca47ea2766256208b040cfdf67798b8afea05c704d99ff98e9"
+  },
+  "library/mafteach/meshiv-tzedek.json": {
+   "preimage": "bae9a0bf348cf9e1ea4d77250c34bd650714aedfe4dbc51712282d3c81249cd0",
+   "sha256": "6dcbf523fb76211b4ee7d530497d8370e20127cc0e06d7b7bf3c40ce94f5395c"
+  },
+  "library/mafteach/ne-ot-deshe.json": {
+   "preimage": "a53946ac427f2662b82e8dd234452da2ce98bbe5b7b3ba1ebf75f2f05ce4281f",
+   "sha256": "81fe90438e86a95df1098bafe91406e54e65b9bc327761038e8c861b43dc098e"
+  },
+  "library/mafteach/orchot-chaim-and-eser-milin.json": {
+   "preimage": "545ad073f92a4be869968e734bdeafe45f1183d9a5cf97457bd4df4ad3c7af5c",
+   "sha256": "39168e6160b09f563a66d3f14c78dcb6b0374e950a6e118ce0091a60e17b88d8"
+  },
+  "library/mafteach/otzar-hamelekh.json": {
+   "preimage": null,
+   "sha256": "db3ad1e5192a4578424fee0cefba3d652dbb46266a2a32e8f9177dbe418f2c36"
+  },
+  "library/mafteach/peri-tzadik-masei.json": {
+   "preimage": "4e1f822fe09387514c53386f97c72ace6d0bde979e986ce0965fae69af6478d5",
+   "sha256": "b12eb8163ceea150e4ca6e0f4829df11ef1bbbec07601f81b87e2255e719974d"
+  },
+  "library/mafteach/peri-tzadik-nasso.json": {
+   "preimage": "2490fbd84411ccf00b3cea1e3e6a3a4f8c5aea1a5a64801b9c70035841a75a7d",
+   "sha256": "3385cb7e8add9c2857ef59aef09d1adce794c8bfb7a891cf0e45b54a9342f5d8"
+  },
+  "library/mafteach/ptil-tekhelet.json": {
+   "preimage": "7fce378d919b1197fe57951098e50294f46c57b81b3f6ba0fc157b6f7751aded",
+   "sha256": "155cbaf8ef35fed507f127141849c102c27e2b26647e84b867ae1796af7c06da"
+  },
+  "library/mafteach/sefer-hazikhronot.json": {
+   "preimage": "ea06d619dc6f511510e2da4944b1a3f38377531f61ac1cdb790382110422f770",
+   "sha256": "9301d8f4969a9937c04c3d25023afe497fbf2eb6de8c3c70778677a57460c418"
+  },
+  "library/mafteach/sefunei-temunei-chol.json": {
+   "preimage": "728f86a0d5898a241155e7a0d03d93de1b7dd9432974d03c1ad854b9eb4dce6b",
+   "sha256": "d408cec31c35b0e71461294b00b617f711fae1aa5fe262ba43d493179874463b"
+  },
+  "library/mafteach/sha-ar-haemunah-veyesod-hachasidut.json": {
+   "preimage": "7792dc6fdd13d521373b5b5c17be5f4e7c4c5c7f56239c73b2c6d5b822035d62",
+   "sha256": "eebea6557723ee00a69a5cec18d2f049d2a3a05573a26f7540efbaee0225d37f"
+  },
+  "library/mafteach/sidrei-taharot.json": {
+   "preimage": null,
+   "sha256": "4eb1e95803c30d8141cfbffe6ccaaca46ef81a25d613e7c06c0ed12a2f2f253c"
+  },
+  "library/mafteach/tiferet-hachanokhi.json": {
+   "preimage": "1b29bdc67bb545718711b40115d2fbaccaeecceb1df80b439af921fe9930b323",
+   "sha256": "d40c21c20c46096590dbe4159f4f3f0b73271ceb0c981057b38be04e84a82b7b"
+  },
+  "library/mafteach/tiferet-tzvi.json": {
+   "preimage": null,
+   "sha256": "df50478c2076fb9666f220d22a102e0a1d02aaa2844e778015fce1f03ef4670e"
+  },
+  "library/mafteach/tiferet-yosef.json": {
+   "preimage": "85d7f14e29f7ebf43767f9d50c8dcf79bf9e4ffee034e36d4097bbfbc39f5ff4",
+   "sha256": "5a203851a5c66f98653daf885fc91aec25df69cf72ada451050931329cf33b13"
+  },
+  "library/mafteach/tzidkat-hatzadik.json": {
+   "preimage": "5b19c428fd7902d8fe971a90a4a683d9c88c8bc328368407c561a90a11f1fbbc",
+   "sha256": "7a3c7554dfc30194fc65b6bd59cbf4a7d51d7948638c257c926d244ef0e90b44"
+  },
+  "library/ml-parallels/beit-yaakov-bamidbar.json": {
+   "preimage": "c611ad009d1bf1087b10045695e60a48c2425a7de7940870ff19a7c920c5dbcb",
+   "sha256": "cdbc8e203f4504b27451d8071dc32ea898330e93b95c579e434f9f0be0fd7f1e"
+  },
+  "library/ml-parallels/beit-yaakov-devarim.json": {
+   "preimage": "c062feeb76d48702370b2e97484ab2a8cb3a5b0580055489b04a5c60613021a9",
+   "sha256": "e282c6526bcb49a0e38a255bbb7070de3002f39d9da00b74b235f554b33b5a33"
+  },
+  "library/ml-parallels/beit-yaakov-moadim.json": {
+   "preimage": "03a046edae604efceb4bf9897e3f9deea6877e44e2fef1aee506771b3bd5d957",
+   "sha256": "1029b313ddfd84823dae025ca319ded51112ab1880f1f91f4ed939299eed6c9b"
+  },
+  "library/ml-parallels/beit-yaakov-on-torah.json": {
+   "preimage": "08cf38df9cbcc79ac56ce8d76c427cdefc65a74b9abae2246f7f62ef0c82b76b",
+   "sha256": "df08eee776462fe1caf580fbd5f5dfc20d0b2c0f087b646421381e4c1cadbdbf"
+  },
+  "library/ml-parallels/beit-yaakov-shemos.json": {
+   "preimage": "d6b96de90b5d6a3d0dada79fe5554bf2bb16e2266c4ad1ff3f4aa2356eddcc80",
+   "sha256": "edf997a85d25fa93ccd8e2bb6fde03fd46d58da3acc0e50afd22c45bf6fbf5f3"
+  },
+  "library/ml-parallels/beit-yaakov-vayikra.json": {
+   "preimage": "ca2546a3b523e1bcd985d39958e834ed1fad6d49cbf3cb5b5e1af03da45f0309",
+   "sha256": "d47b5b8e6fe73cc8e7ac2b00e72acdb73443e77fafd94eeb4e97a32900291c9f"
+  },
+  "library/ml-parallels/divrei-chalomot.json": {
+   "preimage": "cb78fbaf12f7aaee5ea26e2cef4bbf0e5b90fb628a714278e49609ae35c92403",
+   "sha256": "46d12016212c666a3748ed2418655b5a0df5c3d9e4ec18b1b18e1cbe4c0b90ac"
+  },
+  "library/ml-parallels/divrei-soferim.json": {
+   "preimage": "205163a68c5720eef8ebcfb945700682dbd2c0662030fba7d501662e358c22af",
+   "sha256": "2beebc44689d3b8efe628ef6d6f48534be01012a2bf07d0440b2449e1399d87b"
+  },
+  "library/ml-parallels/dover-tzedek.json": {
+   "preimage": "6de518a701faccb616529fefd67ed1c2b71b8f8fca330b78f669051ce2f61b09",
+   "sha256": "c40442052a329d17566c1ab6e0b5f26eefb366d2ee5f4ee2954ec28305e0284d"
+  },
+  "library/ml-parallels/ein-hatekhelet.json": {
+   "preimage": "6e27ffbdf33db52b7d0c42b002501e455f4368bbe3c2c6cff9a2ace12cfdeaeb",
+   "sha256": "b437057cbe6fbfd3eeb265e36075461308f95544210df4f4606c0595baabac7b"
+  },
+  "library/ml-parallels/et-haochel.json": {
+   "preimage": "0f1c07e958294962dda5b431ea5a47e28d513d8c2f8af0946bd7e282828bb17b",
+   "sha256": "223d01afb2957c20d7019fad1723811a8daa8f5975a2beefc88419fbe3d28477"
+  },
+  "library/ml-parallels/index.json": {
+   "preimage": "f4d86dad01ed86430a7aa7e145d3474fc564a9f96a1829c63afa2bc65ee59d9e",
+   "sha256": "9e0f6e71736bad58b7b0a71f811785b8a922609d0b69ce6e56bd3291e3050224"
+  },
+  "library/ml-parallels/kometz-haminchah.json": {
+   "preimage": "3eb4bc88694362cae6de2060b115daa8e38026458912c23f8232f9b66d040ef6",
+   "sha256": "ce997e587f9d7bc869045334947be62bb75d2f7203e7a238eec7467af9f5dbd2"
+  },
+  "library/ml-parallels/likkutei-maamarim.json": {
+   "preimage": "4368218f32841f26d0d1be8173c150497111988cca4b3f13c25cb9c6823e404d",
+   "sha256": "8a853af1cc11948caae7ca397d383f038980ee1c232841791d4053eb1222b18b"
+  },
+  "library/ml-parallels/mei-hashiloach-mei-hashiloach-anthology.json": {
+   "preimage": "fdce2909d53d17dd5de372c6805faf611fd502ebe247f0378333b71f9c4f0295",
+   "sha256": "b6bd4a56ce5d0196fe20e06546d869fca82c59c8812adab25974a4f2e57e3033"
+  },
+  "library/ml-parallels/mei-hashiloach-volume-i.json": {
+   "preimage": "af99226a8def59934cd04ebb08d9e2ef43ef25afb70c32e7e0bd55aff69279a5",
+   "sha256": "0bc3c1a1881ead83a8301a4f3461b7b3cfd9fd765c7b4e5260df176da8a69176"
+  },
+  "library/ml-parallels/meshiv-hata-anah.json": {
+   "preimage": "65ef317820a185eda7fee9d88b511c27779899e925ac93131ea60ee14ff08d3f",
+   "sha256": "dd37b6cab38ea4362f53a6dddf9e2a11803bf67544abb3373731e7855917c709"
+  },
+  "library/ml-parallels/meshiv-tzedek.json": {
+   "preimage": "773f854eb21e66fd53b75f82cecbfe7711ee2e98f7a6458302e42964a6574f04",
+   "sha256": "a6a0d7373fe40be0ace6391af619b74282424623663a63a7df2831ad686a553c"
+  },
+  "library/ml-parallels/ne-ot-deshe.json": {
+   "preimage": "632f19c65f4993f20c8c706b446671f65e5df010d5e13987449790885e50b4e7",
+   "sha256": "761ddb35420198cc2214a84d21f010935721673df69c34ea91bbf0901c737e7c"
+  },
+  "library/ml-parallels/ohr-zarua-latzadik.json": {
+   "preimage": "91cd101ff8271e56feb40321c63a2db4b5b49eb8295ae99e1e730ee451b8d47e",
+   "sha256": "86fc91d71b64667db422f9ec4373d123ce59fcff0c15f4ed3ca4b4b02a720a22"
+  },
+  "library/ml-parallels/orchot-chaim-and-eser-milin.json": {
+   "preimage": "6f49d777e9d1979bf536f07cadbafd3dbfac4a3ab2ecee00ca52037e677be541",
+   "sha256": "1eaceb594446f63555f76ed0a6cfae806c35a25dfac7a7e5d790ddc7f70ae739"
+  },
+  "library/ml-parallels/otzar-hamelekh.json": {
+   "preimage": null,
+   "sha256": "ee5fc2fff999a7506edbdd415862eca7c2003bf7169077cecd5dfcbee3e2d400"
+  },
+  "library/ml-parallels/peri-tzadik-chayei-sara.json": {
+   "preimage": "a4fba732845d34962fd27ba639a53223ba508a3eabcf97daf9c4db51001c13b5",
+   "sha256": "ee1c40a594e8badce7d7bfa9c256e4edc52543b272f091df4b3845a643f3f7f4"
+  },
+  "library/ml-parallels/peri-tzadik-chukat.json": {
+   "preimage": "dc81def533e6a17fc40bbdb5e7041ada2477519bde22d62d000129ce8eaba0f0",
+   "sha256": "ddb3cec254cf03380de8dd143bc9c49ab99b4642696ea1c2e559463b8d059d8b"
+  },
+  "library/ml-parallels/peri-tzadik-eikev.json": {
+   "preimage": "87ac8ac4b76193119bdacad61ba22faadb72ece7c27616f7597b404b3f08ba2e",
+   "sha256": "8a3f93415cef8602ae46446f15fdc0cb60122a14a54d34214dc291674fc36fab"
+  },
+  "library/ml-parallels/peri-tzadik-emor.json": {
+   "preimage": "c51e3e4b27479c64221821b5871943e4283e9cde584027818b8999d15227299e",
+   "sha256": "b205d449b71ee1dfd2a100ab72c4a99e0bc2f2ddfc8df599b482268eed276161"
+  },
+  "library/ml-parallels/peri-tzadik-kedoshim.json": {
+   "preimage": "28858c2445f7feacb803938461496c4bc1e50d67487388b06b76d9ad9ca6d054",
+   "sha256": "5df5de447cc2732e67c9f0ef0996b52b960433ae59e390084a2077f6eddd7385"
+  },
+  "library/ml-parallels/peri-tzadik-korach.json": {
+   "preimage": "fc12098d4a83e38a9bd9ddd721c54b198f4ffebf67ef77054bf3eab44affe019",
+   "sha256": "2490cfef20936079c8b1de7d7cab237b4804cbc0983339afea62952c75ee8d59"
+  },
+  "library/ml-parallels/peri-tzadik-metzora.json": {
+   "preimage": "48aeb97b76ae8874ee2e58af87ea9f623437790dc7f36804e21cbc6f181c1082",
+   "sha256": "4917ca4cc2fdabb5172a396167d95acea68de729a5cc2d48352c23211aa06dee"
+  },
+  "library/ml-parallels/peri-tzadik-miketz.json": {
+   "preimage": "2c9afc576fe30c360914ae5c412b78030030744bd8c587955d5bb853ec80f2a0",
+   "sha256": "7f7cab110b72d03707aede49bd402b99a995a1b3875fb6a6dbb6c6d306d5c880"
+  },
+  "library/ml-parallels/peri-tzadik-pesach.json": {
+   "preimage": "824aa8bb066a6c8a8685605da5417ab353bcd2e853c34f5516579ae3a8aaadcd",
+   "sha256": "b9d28e9dc955bf656c5e5a043898986b43a56f29b6a4d6fe699ff0ba2b61438f"
+  },
+  "library/ml-parallels/peri-tzadik-vayera.json": {
+   "preimage": "02e0cce061d4e55bcb775b079bd9620cd69242668b290febb85c40d2ee9c7537",
+   "sha256": "27bba2097aa44212e0335e6bc590c291b4e3f6e212ff2b448b45a6bccc9f5d0a"
+  },
+  "library/ml-parallels/peri-tzadik-vayikra.json": {
+   "preimage": "63c9021ba7a394745df87e951d4a8b11b109e9d360f7ce1a5fd8d321704fdf99",
+   "sha256": "55c1cdb3abac19c649425441ff0b38fc214270a73c6d4266fbc3f035d55d9a7f"
+  },
+  "library/ml-parallels/sefer-hazikhronot.json": {
+   "preimage": "ee6777389c4a091446c4939a1d43a3134dad8ad220cc10bedfb1b0a36ab57b88",
+   "sha256": "144be618060b16f836f7a4552c05df8ca470e49d9a03a3aa54f2e3d5aea34703"
+  },
+  "library/ml-parallels/sefunei-temunei-chol.json": {
+   "preimage": "fadced40a3eaac626932e96668ea7a7f10f10bfa83ea1170741989377da5f7c8",
+   "sha256": "7f43b2ae444f369113741bd852cb834907f4d2bd4eb05ce6cde8bdc422945770"
+  },
+  "library/ml-parallels/sha-ar-haemunah-veyesod-hachasidut.json": {
+   "preimage": "28cfcc3b56d606207fc371f8596af131090fc097f00ae0f76074b015298e9429",
+   "sha256": "9568c51a84f2e719923421d8f485c8af108ae12b7e82e3c051de59dab8c5814c"
+  },
+  "library/ml-parallels/sidrei-taharot-kelim.json": {
+   "preimage": null,
+   "sha256": "eb578cf654f52ffe2aab516732e91af1ee0ef41629cd03f8077b1af240791fe8"
+  },
+  "library/ml-parallels/sidrei-taharot-ohalot.json": {
+   "preimage": null,
+   "sha256": "b572b22cf35e4d091e987943379daea1b304dd7aa15faed560d85dda0c457265"
+  },
+  "library/ml-parallels/sod-yesharim.json": {
+   "preimage": "52755184ff5612782da35ed4e8e2ae506db5b604ec326ba7a2f1eae9bdfe9955",
+   "sha256": "7527d8b96152bf0dbacb3aa18c7e2d02b7b14694da0be3784a520aa8680abcd3"
+  },
+  "library/ml-parallels/tiferet-hachanokhi.json": {
+   "preimage": "beb8a20db2d2fdaff555cc4cf69de0eab16cd37fae8e382715799d51024f5a2b",
+   "sha256": "6ead6ad8959e2c5902afa4f093b50c06a4b23ee59b1052f68356875c3886e90b"
+  },
+  "library/ml-parallels/tiferet-tzvi-part-i.json": {
+   "preimage": null,
+   "sha256": "d23e249605e0cb3a7a5f9a3b449d81c420f8e481f01cd5cebc5dfff3a9f63ba7"
+  },
+  "library/ml-parallels/tiferet-tzvi-part-ii.json": {
+   "preimage": null,
+   "sha256": "44ab4d13eb3ec8efb2b038ad5557af4731801a09a6a942defc6c65fd381ffb3b"
+  },
+  "library/ml-parallels/toldos-hakohen.json": {
+   "preimage": "0d2fb4d738e41f50890ad7c202d942d35d3f3fa0fdc95ea3d56cea56afbe39e3",
+   "sha256": "975d97ea2d69f5d887f605cd3098fb7dac2f5bd312dad8543067a8e27d43f38b"
+  },
+  "library/ml-parallels/tzidkat-hatzadik.json": {
+   "preimage": "ddc6d3ce325a6a2bd441b650f12858865c25299d1ffd36453a804065f26d2273",
+   "sha256": "a4963fd761e2de067c341a66393748dcd33fbc2127c6c2ef93bcb3a3d4ba358b"
+  },
+  "library/ml-parallels/yisrael-kedoshim.json": {
+   "preimage": "2934f4b8c44ce8fe7b19117c9e5acc7a030cfdecca65e52adf7d230f87263d0f",
+   "sha256": "754fc3a3d094aca841cfe7ba3d7f02ce908f9ee95254c84880d4c3e3143d4dff"
+  }
+ },
+ "removed": {},
+ "stats": {
+  "maf_books": 3,
+  "maf_rev_links": 365,
+  "maf_rev_files": 20,
+  "ml_books": 5,
+  "ml_rev_links": 445,
+  "ml_rev_files": 39,
+  "genre_books": 5,
+  "genre_rev_links": 633,
+  "genre_rev_files": 88
+ },
+ "mafBooks": [
+  "Otzar HaMelekh",
+  "Tiferet Tzvi",
+  "Sidrei Taharot"
+ ]
+}
