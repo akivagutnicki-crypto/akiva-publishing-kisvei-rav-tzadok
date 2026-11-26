@@ -591,8 +591,8 @@
   },
   "Sod Yesharim": {
    "file": "sod-yesharim.json",
-   "passages": 736,
-   "bytes": 1036287
+   "passages": 74,
+   "bytes": 115276
   },
   "Yisrael Kedoshim": {
    "file": "yisrael-kedoshim.json",
@@ -703,6 +703,16 @@
    "file": "sidrei-taharot-kelim.json",
    "passages": 521,
    "bytes": 393928
+  },
+  "Torat Emet": {
+   "file": "torat-emet.json",
+   "passages": 616,
+   "bytes": 426462
+  },
+  "Imrei Emet": {
+   "file": "imrei-emet.json",
+   "passages": 589,
+   "bytes": 287902
   }
  }
 }

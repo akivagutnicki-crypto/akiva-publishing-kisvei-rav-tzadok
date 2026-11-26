@@ -96,7 +96,8 @@ TEXT = {}
 cat = json.loads((MCP / 'catalog.json').read_text())
 for b in cat['books']:
     if not b['title'].startswith(ISH): continue
-    paras = json.loads((MCP / 'text' / (b['slug'] + '.json')).read_text())['paras']
+    t = json.loads((MCP / 'text' / (b['slug'] + '.json')).read_text())
+    paras = [p for k in range(1, t['parts'] + 1) for p in json.loads((MCP / 'text' / f"{b['slug']}.part{k}.json").read_text())['paras']] if t.get('parts') else t['paras']   # large books in parts
     def pt(x):
         ph = x.get('p'); ph = json.loads(ph) if isinstance(ph, str) else ph
         return ' '.join(y[0] for y in ph) if ph else (x.get('t') or '')
