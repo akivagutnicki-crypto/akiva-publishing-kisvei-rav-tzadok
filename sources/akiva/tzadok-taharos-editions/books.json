@@ -1,0 +1,79 @@
+{
+ "otzar-hamelekh": {
+  "file": "sources/akiva/Otzar_HaMelekh.json",
+  "title": "Otzar HaMelekh",
+  "group": "R' Tzadok HaKohen",
+  "after": "yisrael-kedoshim",
+  "desc": "Rabbi Tzadok HaKohen on the Rambam's Mishneh Torah: Yesodei HaTorah, De'os, Talmud Torah, Avodah Zarah, Avadim, the Hagahos and Hilchos Tum'as Meis. Complete interlinear edition with source notes, parallels and Sefaria links.",
+  "sections": 43,
+  "paragraphs": 3130,
+  "pairs": 25879,
+  "notes": 2235,
+  "downloads": [
+   "downloads/otzar-hamelech.docx"
+  ],
+  "parts": 1
+ },
+ "tiferet-tzvi-part-i": {
+  "file": "sources/akiva/Tiferet_Tzvi_Part_I.json",
+  "title": "Tiferet Tzvi, Part I",
+  "group": "R' Tzadok HaKohen",
+  "after": "yisrael-kedoshim",
+  "desc": "Rabbi Tzadok HaKohen's novellae on Shulchan Aruch Yoreh De'ah (Hilchos Shechitah and Tereifos), with Likutei Tzvi and the indices, page by page. Complete interlinear edition with source notes, parallels and Sefaria links.",
+  "sections": 261,
+  "paragraphs": 1762,
+  "pairs": 48575,
+  "notes": 3662,
+  "downloads": [
+   "downloads/tiferes-tzvi-part-1.docx"
+  ],
+  "parts": 1
+ },
+ "tiferet-tzvi-part-ii": {
+  "file": "sources/akiva/Tiferet_Tzvi_Part_II.json",
+  "title": "Tiferet Tzvi, Part II",
+  "group": "R' Tzadok HaKohen",
+  "after": "yisrael-kedoshim",
+  "desc": "Rabbi Tzadok HaKohen on Hilchos Niddah (Shulchan Aruch Yoreh De'ah 183–198), with his responsa. Complete interlinear edition with source notes, parallels and Sefaria links.",
+  "sections": 51,
+  "paragraphs": 694,
+  "pairs": 33445,
+  "notes": 2274,
+  "downloads": [
+   "downloads/tiferes-tzvi-part-2.docx"
+  ],
+  "parts": 1
+ },
+ "sidrei-taharot-ohalot": {
+  "file": "sources/akiva/Sidrei_Taharot_Ohalot.json",
+  "title": "Sidrei Taharot, Ohalot",
+  "group": "Izhbitz",
+  "after": "tiferet-yosef",
+  "desc": "Rabbi Gershon Henoch of Radzin's Gemara on Maseches Ohalos, gathered from the Talmud and Rishonim, with his Peirush HaAruch and Peirush HaKatzar. Complete interlinear edition in two volumes, with source notes, parallels and Sefaria links.",
+  "sections": 553,
+  "paragraphs": 6345,
+  "pairs": 83782,
+  "notes": 3273,
+  "downloads": [
+   "downloads/sidrei-taharos-ohalos-vol-1.docx",
+   "downloads/sidrei-taharos-ohalos-vol-2.docx"
+  ],
+  "parts": 1
+ },
+ "sidrei-taharot-kelim": {
+  "file": "sources/akiva/Sidrei_Taharot_Kelim.json",
+  "title": "Sidrei Taharot, Kelim",
+  "group": "Izhbitz",
+  "after": "tiferet-yosef",
+  "desc": "Rabbi Gershon Henoch of Radzin's Gemara on Maseches Keilim, gathered from the Talmud and Rishonim, with his Peirush HaAruch and Peirush HaKatzar. Complete interlinear edition in two volumes, with source notes, parallels and Sefaria links.",
+  "sections": 554,
+  "paragraphs": 14696,
+  "pairs": 126892,
+  "notes": 5759,
+  "downloads": [
+   "downloads/sidrei-taharos-keilim-vol-1.docx",
+   "downloads/sidrei-taharos-keilim-vol-2.docx"
+  ],
+  "parts": 1
+ }
+}

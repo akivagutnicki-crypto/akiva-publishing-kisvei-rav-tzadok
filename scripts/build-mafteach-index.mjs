@@ -43,7 +43,8 @@ export function sourceShard(key) {
   return m ? [m[1], m[2]] : [key, null];
 }
 
-// Ishbitz-Radzin sefarim whose Akiva Publishing editions carry verified source notes, and the name each edition goes by
+// Sefarim the printed index does not cover whose Akiva Publishing editions carry verified source notes, the name each
+// edition goes by, and its corpus (ir = Ishbitz-Radzin; rt = R. Tzadok's own works outside HaMafteach HaShalem)
 export const EDITION_BOOKS = [
   ['Beit Yaakov', 'the Akiva Publishing Beis Yaakov edition'],
   ["Sha'ar HaEmunah VeYesod HaChasidut", "the Akiva Publishing Sha'ar HaEmunah edition"],
@@ -54,6 +55,11 @@ export const EDITION_BOOKS = [
   ['Sefunei Temunei Chol', 'the Akiva Publishing Sefunei Temunei Chol edition'],
   ['Orchot Chaim and Eser Milin', 'the Akiva Publishing Orchos Chaim and Eser Milin edition'],
   ['Tiferet Yosef', 'the Akiva Publishing Tiferes Yosef edition'],
+  ['Sidrei Taharot, Ohalot', 'the Akiva Publishing Sidrei Taharos (Ohalos) edition', 'ir', 'edt'],   // own text part (10 MB file limit)
+  ['Sidrei Taharot, Kelim', 'the Akiva Publishing Sidrei Taharos (Keilim) edition', 'ir', 'edt'],
+  ['Otzar HaMelekh', 'the Akiva Publishing Otzar HaMelech edition', 'rt'],
+  ['Tiferet Tzvi, Part I', 'the Akiva Publishing Tiferes Tzvi (Part I) edition', 'rt'],
+  ['Tiferet Tzvi, Part II', 'the Akiva Publishing Tiferes Tzvi (Part II) edition', 'rt'],
 ];
 // A Sefaria ref of an edition note -> the index's source key: "Berakhot 6b:4" -> "Berakhot 6b", "Psalms 81:4-5" -> "Psalms 81:4",
 // "Bereshit Rabbah 3:1" stays; works the printed index has no heading for keep their own title ("Zohar, Terumah 39:4").
@@ -69,19 +75,19 @@ function editionEntries() {
   for (const file of fs.readdirSync(dir).filter(f => f.endsWith('.json')).sort()) {
     const data = JSON.parse(fs.readFileSync(path.join(dir, file), 'utf8'));
     for (const [passage, cited] of Object.entries(data)) {
-      const ed = EDITION_BOOKS.find(([t]) => passage === t || passage.startsWith(t + ',') || passage.startsWith(t + ' '));
+      const ed = EDITION_BOOKS.filter(([t]) => passage === t || passage.startsWith(t + ',') || passage.startsWith(t + ' ')).sort((a, b) => b[0].length - a[0].length)[0];
       if (!ed) continue;                        // R. Tzadok and Pri Tzaddik editions: the printed index already covers them
       for (const [ref, label] of cited) {
         const k = editionKey(ref);
         if (!k || seen.has(passage + '\u0000' + k)) continue;
         seen.add(passage + '\u0000' + k);
         const [title, ch] = sourceShard(k);
-        out.push({ id: `ed-${out.length + 1}`, v: 'ed', x: 's', c: 'ir', p: 0, t: label || ref, k, zs: ref, ...(ch ? {} : { b: title }),
+        out.push({ id: `ed-${out.length + 1}`, v: ed[3] || (ed[2] === 'rt' ? 'edr' : 'ed'), x: 's', c: ed[2] || 'ir', p: 0, t: label || ref, k, zs: ref, ...(ch ? {} : { b: title }),
           r: [[passage, passage]], added: true, ed: ed[1] });
       }
     }
   }
-  console.log(`Mafteach edition notes: ${out.length} source entries from the Ishbitz-Radzin editions`);
+  console.log(`Mafteach edition notes: ${out.length} source entries from the Akiva Publishing editions outside the printed index`);
   return out;
 }
 
@@ -158,7 +164,7 @@ export function buildMafteach(OUT) {
   // as [English, topic id, [refs], treated at length, Hebrew, source key]
   const answer = [];
   for (const e of entries) {
-    if (e.v === 'ed') continue;                      // the written answers draw on the printed index only
+    if (e.ed) continue;                     // the written answers draw on the printed index only
     const refs = [...new Set(e.r.filter(r => r[1]).map(r => r[1]))];
     if (!refs.length) continue;
     const long = e.r.some(r => r[1] && String(r[r.length - 1]).includes('*')) ? 1 : 0;

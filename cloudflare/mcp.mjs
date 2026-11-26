@@ -26,7 +26,7 @@ const META = 'io.modelcontextprotocol/';
 const INSTRUCTIONS = `Kisvei Rav Tzadok Library: the writings of R. Tzadok HaKohen of Lublin and works of the Izhbitz-Radzin school, as published in Akiva Publishing's online library. Akiva Publishing interlinear editions give vocalized Hebrew phrase by phrase with English and source notes (© Akiva Publishing); the other works are the original Hebrew of public-domain printings.
 How to use: kisvei_search finds passages (Hebrew is matched without nikkud, prefixes included; spelling "loose" also ignores ו/י spelling differences); kisvei_get_text returns the exact text of a ref; kisvei_get_contents browses a book; kisvei_find_citing_passages lists every passage citing a source such as "Berakhot 6b" or "Genesis 1:1"; kisvei_get_cited_sources lists what a passage cites; kisvei_find_parallels lists the passages in Kisvei Rav Tzadok and the Ishbitz-Radzin works that share a passage's sources.
 Quote the text exactly as returned and give its ref. Refs follow the reader, e.g. "Resisei Layla 5:2", "Tzidkat HaTzadik 100", "Peri Tzadik, Bereshit 1:3". Ashkenazi spellings (Tzidkas HaTzaddik, Pri Tzaddik, Bereishis, Berachos) are accepted.
-HaMafteach HaShalem (R' Chaim Hirsch's complete index to R. Tzadok's works) is searchable too: mafteach_find_topic (a topic, person or concept: Hebrew, English, or Ashkenazi/Sefardi transliteration such as "emunah", "bitachon", "Shabbos", "Avrohom Avinu"), mafteach_lookup_source (a pasuk, daf or midrash: "Bereishis 2:7", "Berachos 6b", "Bereshit Rabbah 2:4"), mafteach_lookup_passage (the topics and sources indexed to a passage, for footnotes: "Tzidkas HaTzaddik 100", "Pri Tzaddik Vayechi 11") and mafteach_search (Hebrew words or a quote inside the entries). Its entries were OCR'd from the printed index; open the passage with kisvei_get_text before citing it. The Mafteach indexes only R. Tzadok; for the Ishbitz-Radzin editions (Beis Yaakov, Sha'ar HaEmunah, Naos Deshe, Tiferes HaChanochi, Ein HaTecheiles, Pesil Techeiles, Sefunei Temunei Chol, Orchos Chaim and Eser Milin, Tiferes Yosef) mafteach_lookup_source and mafteach_lookup_passage also return the verified sources of the Akiva Publishing edition notes, marked as edition notes.`;
+HaMafteach HaShalem (R' Chaim Hirsch's complete index to R. Tzadok's works) is searchable too: mafteach_find_topic (a topic, person or concept: Hebrew, English, or Ashkenazi/Sefardi transliteration such as "emunah", "bitachon", "Shabbos", "Avrohom Avinu"), mafteach_lookup_source (a pasuk, daf or midrash: "Bereishis 2:7", "Berachos 6b", "Bereshit Rabbah 2:4"), mafteach_lookup_passage (the topics and sources indexed to a passage, for footnotes: "Tzidkas HaTzaddik 100", "Pri Tzaddik Vayechi 11") and mafteach_search (Hebrew words or a quote inside the entries). Its entries were OCR'd from the printed index; open the passage with kisvei_get_text before citing it. The Mafteach indexes only R. Tzadok's sefarim and Pri Tzaddik; for the Ishbitz-Radzin editions (Beis Yaakov, Sha'ar HaEmunah, Naos Deshe, Tiferes HaChanochi, Ein HaTecheiles, Pesil Techeiles, Sefunei Temunei Chol, Orchos Chaim and Eser Milin, Tiferes Yosef, Sidrei Taharos on Ohalos and on Keilim) and for R. Tzadok's Otzar HaMelech and Tiferes Tzvi (Parts I and II), which the printed index does not cover, mafteach_lookup_source and mafteach_lookup_passage also return the verified sources of the Akiva Publishing edition notes, marked as edition notes.`;
 
 // ---------------------------------------------------------------- data
 
@@ -585,7 +585,7 @@ const TOOLS = [
   {
     name: 'mafteach_lookup_source',
     title: 'HaMafteach: where Rav Tzadok draws on a verse, daf or midrash',
-    description: 'From HaMafteach HaShalem\'s source indexes: every place R. Tzadok (his sefarim and Pri Tzaddik) uses a given pasuk, daf, Midrash Rabbah passage, or Zohar/Midrash/Rambam source, with the words he quotes and the passages as library refs; also the Ishbitz-Radzin sefarim whose Akiva Publishing editions cite it in their verified source notes (Beis Yaakov, Sha\'ar HaEmunah, Naos Deshe, Tiferes HaChanochi, Ein HaTecheiles, Pesil Techeiles, Sefunei Temunei Chol, Orchos Chaim and Eser Milin, Tiferes Yosef), each marked as an edition note, not a line of the printed index. Names in any spelling: "Genesis 2:7", "Bereishis 2:7", "Bereshit 2", "Berachos 6b", "Shabbos 88", "Yerushalmi Berakhot 1:1", "Bereshit Rabbah 2:4", "בראשית ב ז", "שבת פח ב", "Zohar Bereshit", "Tanchuma".',
+    description: 'From HaMafteach HaShalem\'s source indexes: every place R. Tzadok (his sefarim and Pri Tzaddik) uses a given pasuk, daf, Midrash Rabbah passage, or Zohar/Midrash/Rambam source, with the words he quotes and the passages as library refs; also the Ishbitz-Radzin sefarim whose Akiva Publishing editions cite it in their verified source notes (Beis Yaakov, Sha\'ar HaEmunah, Naos Deshe, Tiferes HaChanochi, Ein HaTecheiles, Pesil Techeiles, Sefunei Temunei Chol, Orchos Chaim and Eser Milin, Tiferes Yosef, Sidrei Taharos on Ohalos and Keilim), and R. Tzadok\'s Otzar HaMelech and Tiferes Tzvi, whose editions\' notes cite it, each marked as an edition note, not a line of the printed index. Names in any spelling: "Genesis 2:7", "Bereishis 2:7", "Bereshit 2", "Berachos 6b", "Shabbos 88", "Yerushalmi Berakhot 1:1", "Bereshit Rabbah 2:4", "בראשית ב ז", "שבת פח ב", "Zohar Bereshit", "Tanchuma".',
     inputSchema: {
       type: 'object',
       properties: {
@@ -603,7 +603,7 @@ const TOOLS = [
   {
     name: 'mafteach_lookup_passage',
     title: 'HaMafteach: topics and sources indexed to a passage',
-    description: 'Every HaMafteach HaShalem entry that points to one R. Tzadok passage: the topics the index files it under and the verses, dapim and midrashim it draws on. For an Ishbitz-Radzin passage with an Akiva Publishing edition (Beis Yaakov, Sha\'ar HaEmunah, Naos Deshe, Tiferes HaChanochi, Ein HaTecheiles, Pesil Techeiles, Sefunei Temunei Chol, Orchos Chaim, Tiferes Yosef), the verified sources of its edition notes. Use it to build footnotes and to find parallels. Refs in any form: "Tzidkat HaTzadik 100", "Tzidkas HaTzaddik 100", "Peri Tzadik, Vayechi 11", "Pri Tzaddik Vayechi 11", "Resisei Layla 57", "Ne\'ot Deshe, Bereishis", "Tiferet Yosef, Rosh Hashanah", "צדקת הצדיק ק", or a Mafteach code "צה-ק".',
+    description: 'Every HaMafteach HaShalem entry that points to one R. Tzadok passage: the topics the index files it under and the verses, dapim and midrashim it draws on. For an Ishbitz-Radzin passage with an Akiva Publishing edition (Beis Yaakov, Sha\'ar HaEmunah, Naos Deshe, Tiferes HaChanochi, Ein HaTecheiles, Pesil Techeiles, Sefunei Temunei Chol, Orchos Chaim, Tiferes Yosef, Sidrei Taharos on Ohalos and Keilim) or for R. Tzadok\'s Otzar HaMelech and Tiferes Tzvi (not in the printed index), the verified sources of its edition notes. Use it to build footnotes and to find parallels. Refs in any form: "Tzidkat HaTzadik 100", "Tzidkas HaTzaddik 100", "Peri Tzadik, Vayechi 11", "Pri Tzaddik Vayechi 11", "Resisei Layla 57", "Ne\'ot Deshe, Bereishis", "Tiferet Yosef, Rosh Hashanah", "צדקת הצדיק ק", or a Mafteach code "צה-ק".',
     inputSchema: {
       type: 'object',
       properties: {
@@ -1328,11 +1328,11 @@ async function findParallels({ ref, school, limit, response_format }) {
 // Hebrew, English, or Ashkenazi/Sefardi transliteration; every term carries all three.
 
 const fileKey = s => String(s).toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
-const MAF_PART = { '1-2': 'א-ב', '3': 'ג', '4': 'ד', '5': 'ה-ו', '7': 'ז', ed: 'edition notes' };
+const MAF_PART = { '1-2': 'א-ב', '3': 'ג', '4': 'ד', '5': 'ה-ו', '7': 'ז', ed: 'edition notes', edt: 'edition notes', edr: 'edition notes' };
 const MAF_CORPUS = { all: null, 'rav-tzadok': 'rt', 'pri-tzadik': 'pt', 'ishbitz-radzin': 'ir' };
 const MAF_CORPUS_SCHEMA = {
   type: 'string', enum: ['all', 'rav-tzadok', 'pri-tzadik', 'ishbitz-radzin'], default: 'all',
-  description: 'all; rav-tzadok = his sefarim other than Pri Tzaddik (Mafteach parts 1-3); pri-tzadik = Pri Tzaddik (parts 4-7); ishbitz-radzin = the verified source notes of the Akiva Publishing Ishbitz-Radzin editions (Beis Yaakov, Sha\'ar HaEmunah, Naos Deshe, Tiferes HaChanochi, Ein HaTecheiles, Pesil Techeiles, Sefunei Temunei Chol, Orchos Chaim, Tiferes Yosef), which the printed index does not cover.',
+  description: 'all; rav-tzadok = his sefarim other than Pri Tzaddik (Mafteach parts 1-3); pri-tzadik = Pri Tzaddik (parts 4-7); ishbitz-radzin = the verified source notes of the Akiva Publishing Ishbitz-Radzin editions (Beis Yaakov, Sha\'ar HaEmunah, Naos Deshe, Tiferes HaChanochi, Ein HaTecheiles, Pesil Techeiles, Sefunei Temunei Chol, Orchos Chaim, Tiferes Yosef, Sidrei Taharos on Ohalos and Keilim), which the printed index does not cover; rav-tzadok also includes the edition notes of Otzar HaMelech and Tiferes Tzvi.',
 };
 const MAF_CODES = { 'רל': 'Resisei Layla', 'צה': 'Tzidkat HaTzadik', 'מח': 'Machshavot Charutz', 'תה': 'Takanat HaShavin' };
 const MAF_STOP = new Set(['the', 'of', 'a', 'an', 'and', 'in', 'on', 'to', 'rav', 'tzadok', 'r']);
@@ -1474,7 +1474,7 @@ function mafEntryLine(M, e, { topic = false, source = true } = {}) {
 }
 function mafJson(M, e) {
   return {
-    id: e.id, part: MAF_PART[e.v], scan_page: e.ed ? undefined : e.p, index: e.x === 't' ? 'topics' : 'sources', corpus: e.c === 'pt' ? 'Pri Tzaddik' : e.c === 'ir' ? 'Ishbitz-Radzin edition notes' : 'Rav Tzadok sefarim', edition: e.ed || undefined,
+    id: e.id, part: MAF_PART[e.v], scan_page: e.ed ? undefined : e.p, index: e.x === 't' ? 'topics' : 'sources', corpus: e.c === 'pt' ? 'Pri Tzaddik' : e.c === 'ir' ? 'Ishbitz-Radzin edition notes' : e.ed ? 'Rav Tzadok edition notes' : 'Rav Tzadok sefarim', edition: e.ed || undefined,
     topic: e.T != null ? { he: M.byId.get(e.T)?.he, en: M.byId.get(e.T)?.en } : (e.Th || undefined),
     subtopic: e.U != null ? { he: M.byId.get(e.U)?.he, en: M.byId.get(e.U)?.en } : (e.Uh || undefined),
     source: e.x === 's' ? { key: e.k || null, book: e.b || null, chapter: e.ch || null, verse: e.vs || null, sefaria_ref: e.zs || (mafSefaria(e) ? e.k : null), sefaria_url: mafSefaria(e) } : undefined,
@@ -1599,8 +1599,8 @@ async function mafLookupSource({ source, corpus, offset, limit, response_format 
   if (response_format === 'json') return json({ source: label, total, offset, next_offset: more, entries: page.map(e => mafJson(M, e)) });
   if (!total) return `# ${label}\nHaMafteach HaShalem lists no entries for ${label}${corpus !== 'all' ? ` in ${corpus}` : ''}. (Its source volumes are OCR'd; also try kisvei_find_citing_passages.)`;
   const nEd = entries.filter(e => e.ed).length, nIdx = total - nEd;
-  const out = [`# ${label} — where ${nEd ? (nIdx ? 'Rav Tzadok and the Ishbitz-Radzin editions draw' : 'the Ishbitz-Radzin editions draw') : 'Rav Tzadok draws'} on it`,
-    `${nEd ? `HaMafteach HaShalem: ${nIdx} entr${nIdx === 1 ? 'y' : 'ies'}; Akiva Publishing Ishbitz-Radzin edition notes: ${nEd}` : `HaMafteach HaShalem: ${total} entr${total === 1 ? 'y' : 'ies'}`}; showing ${offset + 1}–${offset + page.length}. Each line: the quoted words, then the passages.`, ''];
+  const out = [`# ${label} — where ${nEd ? (nIdx ? 'Rav Tzadok and the Akiva Publishing editions draw' : 'the Akiva Publishing editions draw') : 'Rav Tzadok draws'} on it`,
+    `${nEd ? `HaMafteach HaShalem: ${nIdx} entr${nIdx === 1 ? 'y' : 'ies'}; Akiva Publishing edition notes: ${nEd}` : `HaMafteach HaShalem: ${total} entr${total === 1 ? 'y' : 'ies'}`}; showing ${offset + 1}–${offset + page.length}. Each line: the quoted words, then the passages.`, ''];
   for (const e of page) out.push(mafEntryLine(M, e, { source: true }));
   if (more != null) out.push('', `More: offset ${more}.`);
   out.push('', 'Refs in Library form open with kisvei_get_text. Index entries are OCR\'d from the printed Mafteach: check the passage before citing.');
@@ -1650,7 +1650,7 @@ async function mafSearch({ query, corpus, offset, limit, response_format }) {
     const phrases = [...q.matchAll(/"([^"]+)"|(\S+)/g)].map(m => (m[1] || m[2]).trim()).filter(Boolean);
     const terms = phrases.map(p => norm(p).trim()).filter(Boolean);
     if (!terms.length) throw new ToolError('the query has no letters to search for.');
-    const parts = MAF_CORPUS[corpus] === 'rt' ? ['1-2', '3'] : MAF_CORPUS[corpus] === 'pt' ? ['4', '5', '7'] : MAF_CORPUS[corpus] === 'ir' ? M.raw.parts.filter(p => p === 'ed') : M.raw.parts;
+    const parts = MAF_CORPUS[corpus] === 'rt' ? ['1-2', '3', ...M.raw.parts.filter(p => p === 'edr')] : MAF_CORPUS[corpus] === 'pt' ? ['4', '5', '7'] : MAF_CORPUS[corpus] === 'ir' ? M.raw.parts.filter(p => p === 'ed' || p === 'edt') : M.raw.parts;
     for (const p of parts) {
       let text = '';
       try {

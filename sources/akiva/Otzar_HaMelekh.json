@@ -1,0 +1,121 @@
+{
+ "title": "Otzar HaMelekh",
+ "heTitle": "אוצר המלך",
+ "language": "he",
+ "versionTitle": "Akiva Publishing interlinear edition with source notes and parallels (November 2026)",
+ "versionSource": "",
+ "license": "© Akiva Publishing",
+ "categories": [
+  "Chasidut",
+  "R' Tzadok HaKohen"
+ ],
+ "akiva": true,
+ "interlinear": true,
+ "editionId": "tzadok-taharos-editions-2026-11",
+ "editionNote": "Otzar HaMelech (Rabbi Tzadok HaKohen of Lublin) on the Rambam's Mishneh Torah: phrase-by-phrase vocalized Hebrew with English, 2235 numbered source and parallel notes with Sefaria links.",
+ "downloads": [
+  {
+   "source": "sources/akiva/docx/otzar-hamelech.docx",
+   "file": "downloads/otzar-hamelech.docx",
+   "label": "Download Otzar HaMelech (Word)"
+  }
+ ],
+ "footnoteImportInfo": {
+  "edition": "Akiva Publishing interlinear edition with source notes and parallels (November 2026)",
+  "notes": 2235,
+  "firstNumber": 1,
+  "lastNumber": 2235,
+  "anchorConvention": "Marker after the Hebrew phrase that carries the Word footnote reference (heCharOffset = phrase length)."
+ },
+ "tocGroups": [
+  {
+   "en": "Opening and the Introduction",
+   "he": "פְּתִיחָה וְהַקְדָּמָה",
+   "keys": [
+    "Author's Opening & Colophon",
+    "On the Rambam's Introduction: Achiya HaShiloni",
+    "On the Rambam's Introduction: The Court of Rebbi"
+   ]
+  },
+  {
+   "en": "Hilchos Yesodei HaTorah",
+   "he": "הִלְכוֹת יְסוֹדֵי הַתּוֹרָה •",
+   "keys": [
+    "Yesodei HaTorah 1",
+    "Yesodei HaTorah 2",
+    "Kuntres Acharon",
+    "Yesodei HaTorah 5",
+    "Yesodei HaTorah 6",
+    "Yesodei HaTorah 9"
+   ]
+  },
+  {
+   "en": "Hilchos De'os",
+   "he": "הִלְכוֹת דֵּעוֹת •",
+   "keys": [
+    "De'os 3",
+    "De'os 4",
+    "De'os 5",
+    "De'os 6",
+    "De'os 7"
+   ]
+  },
+  {
+   "en": "Hilchos Talmud Torah",
+   "he": "הִלְכוֹת תַּלְמוּד תּוֹרָה •",
+   "keys": [
+    "Talmud Torah 1",
+    "Talmud Torah 2",
+    "Talmud Torah 3",
+    "Talmud Torah 4"
+   ]
+  },
+  {
+   "en": "Hilchos Avodah Zarah",
+   "he": "הִלְכוֹת עֲבוֹדָה זָרָה •",
+   "keys": [
+    "Hilchos Avodah Zarah"
+   ]
+  },
+  {
+   "en": "Hilchos Avadim",
+   "he": "הִלְכוֹת עֲבָדִים •",
+   "keys": [
+    "Avadim 1",
+    "Avadim 2",
+    "Avadim 3",
+    "Addenda on Hilchos Yesodei HaTorah"
+   ]
+  },
+  {
+   "en": "Part II: Hagahos & Hilchos Tum'as Meis",
+   "he": "חֵלֶק ב׳: הַגָּהוֹת וְהִלְכוֹת טוּמְאַת מֵת •",
+   "keys": [
+    "Hagahos HaRambam",
+    "Hilchos Tum'as Meis 1",
+    "Hilchos Tum'as Meis 2",
+    "Hilchos Tum'as Meis 3",
+    "Hilchos Tum'as Meis 4",
+    "Hilchos Tum'as Meis 5",
+    "Hilchos Tum'as Meis 6",
+    "Hilchos Tum'as Meis 7",
+    "Hilchos Tum'as Meis 8",
+    "Hilchos Tum'as Meis 9",
+    "Hilchos Tum'as Meis 10",
+    "Hilchos Tum'as Meis 11",
+    "Hilchos Tum'as Meis 12",
+    "Hilchos Tum'as Meis 13",
+    "Hilchos Tum'as Meis 14",
+    "Hilchos Tum'as Meis 15",
+    "Hilchos Tum'as Meis 16",
+    "Hilchos Tum'as Meis 17",
+    "Hilchos Tum'as Meis 18",
+    "Closing Notes & Addenda"
+   ]
+  }
+ ],
+ "sectionsFiles": [
+  "sources/akiva/tzadok-taharos-editions/Otzar_HaMelekh.part1.json.gz"
+ ],
+ "sectionCount": 43
+}
