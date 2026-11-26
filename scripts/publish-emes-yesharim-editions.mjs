@@ -21,8 +21,8 @@ import {spawnSync} from 'node:child_process';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const EDITION_ID = 'emes-yesharim-editions-2026-11';
-const RELEASE = '20261126-emes-yesharim-editions';
-const REPORT = 'library/emes-yesharim-editions-20261126.json';
+const RELEASE = '20261126-emes-yesharim-editions-r2';
+const REPORT = 'library/emes-yesharim-editions-20261126-r2.json';
 const PROOF = 'artifacts/emes-yesharim-editions/final-verification.json';
 const STAGE = 'emes-yesharim-editions-stage.json';
 const PREVIOUS = 'new-books-baseline.json', META = 'new-books-publication.json';
