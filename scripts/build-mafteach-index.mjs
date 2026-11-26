@@ -65,6 +65,9 @@ export const EDITION_BOOKS = [
   ['Otzar HaMelekh', 'the Akiva Publishing Otzar HaMelech edition', 'rt'],
   ['Tiferet Tzvi, Part I', 'the Akiva Publishing Tiferes Tzvi (Part I) edition', 'rt'],
   ['Tiferet Tzvi, Part II', 'the Akiva Publishing Tiferes Tzvi (Part II) edition', 'rt'],
+  ['Torat Emet', 'the Akiva Publishing Toras Emes edition', 'ir', 'ede'],   // R. Leibele Eiger of Lublin; own text part (10 MB file limit)
+  ['Imrei Emet', 'the Akiva Publishing Imrei Emes edition', 'ir', 'ede'],
+  ['Sod Yesharim', 'the Akiva Publishing Sod Yesharim edition', 'ir', 'ede'],
 ];
 // A Sefaria ref of an edition note -> the index's source key: "Berakhot 6b:4" -> "Berakhot 6b", "Psalms 81:4-5" -> "Psalms 81:4",
 // "Bereshit Rabbah 3:1" stays; works the printed index has no heading for keep their own title ("Zohar, Terumah 39:4").

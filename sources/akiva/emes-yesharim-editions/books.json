@@ -1,0 +1,50 @@
+{
+ "torat-emet": {
+  "file": "sources/akiva/Torat_Emet.json",
+  "title": "Torat Emet",
+  "group": "Izhbitz",
+  "after": "sidrei-taharot-kelim",
+  "desc": "Rabbi Yehudah Leib (Leibele) Eiger of Lublin, disciple of the Mei HaShiloach: discourses on the Torah (Bereishis through Devarim) and the festivals, gathered by his son. Complete interlinear edition in three volumes, with source notes, parallels and Sefaria links.",
+  "sections": 650,
+  "paragraphs": 2015,
+  "pairs": 46483,
+  "notes": 6977,
+  "downloads": [
+   "downloads/toras-emes-vol-1.docx",
+   "downloads/toras-emes-vol-2.docx",
+   "downloads/toras-emes-vol-3-moadim.docx"
+  ],
+  "parts": 1
+ },
+ "imrei-emet": {
+  "file": "sources/akiva/Imrei_Emet.json",
+  "title": "Imrei Emet",
+  "group": "Izhbitz",
+  "after": "sidrei-taharot-kelim",
+  "desc": "Rabbi Yehudah Leib (Leibele) Eiger of Lublin's Shabbos and festival discourses on the Torah, with Likkutei Amarim and the Kuntres Acharon (Lublin 1902-1903). Complete interlinear edition with source notes, parallels and Sefaria links.",
+  "sections": 690,
+  "paragraphs": 2725,
+  "pairs": 30956,
+  "notes": 5290,
+  "downloads": [
+   "downloads/imrei-emes.docx"
+  ],
+  "parts": 1
+ },
+ "sod-yesharim": {
+  "file": "sources/akiva/Sod_Yesharim.json",
+  "title": "Sod Yesharim",
+  "group": "Izhbitz",
+  "after": "sidrei-taharot-kelim",
+  "desc": "Rabbi Gershon Henoch Leiner of Radzin on the Torah and the festivals, Rosh Hashanah through Pesach. Complete interlinear edition in two parts, with source notes, parallels and Sefaria links; the festival sections keep the os numbers of the earlier edition.",
+  "sections": 74,
+  "paragraphs": 1587,
+  "pairs": 60007,
+  "notes": 10875,
+  "downloads": [
+   "downloads/sod-yesharim-part-1.docx",
+   "downloads/sod-yesharim-part-2.docx"
+  ],
+  "parts": 2
+ }
+}

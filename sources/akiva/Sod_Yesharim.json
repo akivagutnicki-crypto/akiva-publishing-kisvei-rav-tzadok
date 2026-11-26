@@ -1,0 +1,164 @@
+{
+ "title": "Sod Yesharim",
+ "heTitle": "סוד ישרים",
+ "language": "he",
+ "versionTitle": "Akiva Publishing interlinear edition with source notes and parallels (November 2026)",
+ "versionSource": "",
+ "license": "© Akiva Publishing",
+ "categories": [
+  "Chasidut",
+  "Izhbitz"
+ ],
+ "akiva": true,
+ "interlinear": true,
+ "editionId": "emes-yesharim-editions-2026-11",
+ "editionNote": "Sod Yesharim (Rabbi Gershon Henoch Leiner of Radzin) on the Torah and the festivals: phrase-by-phrase vocalized Hebrew with English, 10875 numbered source and parallel notes with Sefaria links.",
+ "downloads": [
+  {
+   "source": "sources/akiva/docx/sod-yesharim-part-1.docx",
+   "file": "downloads/sod-yesharim-part-1.docx",
+   "label": "Download Sod Yesharim, Part 1 (Word)"
+  },
+  {
+   "source": "sources/akiva/docx/sod-yesharim-part-2.docx",
+   "file": "downloads/sod-yesharim-part-2.docx",
+   "label": "Download Sod Yesharim, Part 2 (Word)"
+  }
+ ],
+ "footnoteImportInfo": {
+  "edition": "Akiva Publishing interlinear edition with source notes and parallels (November 2026)",
+  "notes": 10875,
+  "firstNumber": 1,
+  "lastNumber": 10875,
+  "anchorConvention": "Marker after the Hebrew phrase that carries the Word footnote reference (heCharOffset = phrase length)."
+ },
+ "tocGroups": [
+  {
+   "en": "Sod Yesharim on the Torah",
+   "he": "סוֹד יְשָׁרִים עַל הַתּוֹרָה[",
+   "keys": [
+    "Bereishis",
+    "Noach",
+    "Lech Lecha",
+    "Vayera",
+    "Chayei Sarah",
+    "Toldos",
+    "Vayetzei",
+    "Vayishlach",
+    "Vayeshev",
+    "Miketz",
+    "Vayigash",
+    "Vayechi",
+    "Shemos",
+    "Vaera",
+    "Bo",
+    "Beshalach",
+    "Yisro",
+    "Mishpatim",
+    "Terumah",
+    "Tetzaveh",
+    "Ki Sisa",
+    "Vayakhel",
+    "Pekudei",
+    "Vayikra",
+    "Tzav",
+    "Shemini",
+    "Tazria",
+    "Acharei Mos",
+    "Emor",
+    "Behar",
+    "Bechukosai",
+    "Bamidbar",
+    "Nasso",
+    "Behaaloscha",
+    "Shelach",
+    "Korach",
+    "Chukas",
+    "Balak",
+    "Matos",
+    "Masei",
+    "Devarim",
+    "Va'eschanan",
+    "Eikev",
+    "Re'eh",
+    "Shoftim",
+    "Ki Seitzei",
+    "Ki Savo",
+    "Nitzavim",
+    "Vayelech",
+    "Haazinu",
+    "Public Appeal",
+    "Public Notice"
+   ]
+  },
+  {
+   "en": "Rosh Hashanah and Yom Kippur",
+   "he": "רֹאשׁ הַשָּׁנָה וְיוֹם הַכִּפּוּרִים[",
+   "keys": [
+    "Rosh Hashanah",
+    "Yom Kippur"
+   ]
+  },
+  {
+   "en": "Sukkos",
+   "he": "סֻכּוֹת[",
+   "keys": [
+    "First Night of Sukkot",
+    "Sukkot",
+    "Shabbat Chol HaMoed Sukkot"
+   ]
+  },
+  {
+   "en": "Hoshana Rabbah, Shemini Atzeres, and Simchas Torah",
+   "he": "הוֹשַׁעְנָא רַבָּה, שְׁמִינִי עֲצֶרֶת וְשִׂמְחַת תּוֹרָה[",
+   "keys": [
+    "Hoshana Rabba"
+   ]
+  },
+  {
+   "en": "Shemini Atzeres",
+   "he": "שְׁמִינִי עֲצֶרֶת[",
+   "keys": [
+    "Shemini Atzeret"
+   ]
+  },
+  {
+   "en": "Simchas Torah",
+   "he": "שִׂמְחַת תּוֹרָה[",
+   "keys": [
+    "Simchat Torah"
+   ]
+  },
+  {
+   "en": "Purim and the Four Parshiyos",
+   "he": "פּוּרִים וְאַרְבַּע פָּרָשִׁיּוֹת[",
+   "keys": [
+    "Parashat Shekalim",
+    "Parashat Zakhor",
+    "Purim",
+    "Parashat Parah",
+    "Parashat HaChodesh"
+   ]
+  },
+  {
+   "en": "Pesach",
+   "he": "פֶּסַח[",
+   "keys": [
+    "Shabbat HaGadol",
+    "The First Night of Pesach",
+    "The First Day of Pesach",
+    "The Second Day of Pesach",
+    "The Night of Shabbat Chol HaMoed Pesach",
+    "Shabbat Chol HaMoed Pesach",
+    "The Seventh Night of Pesach",
+    "The Seventh Day of Pesach",
+    "The Eighth Day of Pesach"
+   ]
+  }
+ ],
+ "sectionsFiles": [
+  "sources/akiva/emes-yesharim-editions/Sod_Yesharim.part1.json.gz",
+  "sources/akiva/emes-yesharim-editions/Sod_Yesharim.part2.json.gz"
+ ],
+ "sectionCount": 74
+}

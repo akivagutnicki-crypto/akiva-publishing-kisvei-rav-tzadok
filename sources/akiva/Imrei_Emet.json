@@ -1,0 +1,1122 @@
+{
+ "title": "Imrei Emet",
+ "heTitle": "אמרי אמת",
+ "language": "he",
+ "versionTitle": "Akiva Publishing interlinear edition with source notes and parallels (November 2026)",
+ "versionSource": "",
+ "license": "© Akiva Publishing",
+ "categories": [
+  "Chasidut",
+  "Izhbitz"
+ ],
+ "akiva": true,
+ "interlinear": true,
+ "editionId": "emes-yesharim-editions-2026-11",
+ "editionNote": "Imrei Emes (Rabbi Yehudah Leib Eiger of Lublin), Volumes I-II with Likkutei Amarim and the Kuntres Acharon: phrase-by-phrase vocalized Hebrew with English, 5290 numbered source and parallel notes with Sefaria links.",
+ "downloads": [
+  {
+   "source": "sources/akiva/docx/imrei-emes.docx",
+   "file": "downloads/imrei-emes.docx",
+   "label": "Download Imrei Emes (Word)"
+  }
+ ],
+ "footnoteImportInfo": {
+  "edition": "Akiva Publishing interlinear edition with source notes and parallels (November 2026)",
+  "notes": 5290,
+  "firstNumber": 1,
+  "lastNumber": 5290,
+  "anchorConvention": "Marker after the Hebrew phrase that carries the Word footnote reference (heCharOffset = phrase length)."
+ },
+ "tocGroups": [
+  {
+   "en": "Sefer Imrei Emes, Volume One (Title Page)",
+   "he": "סֵפֶר אִמְרֵי אֱמֶת, חֵלֶק רִאשׁוֹן (שַׁעַר)",
+   "keys": [
+    "Sefer Imrei Emes, Volume One (Title Page) 1"
+   ]
+  },
+  {
+   "en": "Words of the Publisher",
+   "he": "דִּבְרֵי הַמּוֹצִיא לָאוֹר",
+   "keys": [
+    "Words of the Publisher 1"
+   ]
+  },
+  {
+   "en": "Apology",
+   "he": "הִתְנַצְּלוּת",
+   "keys": [
+    "Apology 1"
+   ]
+  },
+  {
+   "en": "Parshas Bereishis",
+   "he": "פָּרָשַׁת בְּרֵאשִׁית",
+   "keys": [
+    "Parshas Bereishis 1",
+    "Parshas Bereishis 2",
+    "Parshas Bereishis 3"
+   ]
+  },
+  {
+   "en": "Parshas Noach",
+   "he": "פָּרָשַׁת נֹחַ",
+   "keys": [
+    "Parshas Noach 1",
+    "Parshas Noach 2",
+    "Parshas Noach 3",
+    "Parshas Noach 4",
+    "Parshas Noach 5",
+    "Parshas Noach 6",
+    "Parshas Noach 7",
+    "Parshas Noach 8",
+    "Parshas Noach 9",
+    "Parshas Noach 10"
+   ]
+  },
+  {
+   "en": "A Continuation of This Not Spoken on the Holy Shabbos, Rather I Merited to Hear It in Private",
+   "he": "הֶמְשֵׁךְ לָזֶה שֶׁלֹּא נֶאֱמַר בְּשַׁבָּת קֹדֶשׁ רַק זָכִיתִי לִשְׁמֹעַ בְּיִחוּד",
+   "keys": [
+    "A Continuation of This Not Spoken on the Holy Shabbos, Rathe 1",
+    "A Continuation of This Not Spoken on the Holy Shabbos, Rathe 2"
+   ]
+  },
+  {
+   "en": "Parashas Lech Lecha",
+   "he": "פָּרָשַׁת לֶךְ",
+   "keys": [
+    "Parshas Lech Lecha 1",
+    "Parshas Lech Lecha 2",
+    "Parshas Lech Lecha 3",
+    "Parshas Lech Lecha 4",
+    "Parshas Lech Lecha 6",
+    "Parshas Lech Lecha 7",
+    "Parshas Lech Lecha 8",
+    "Parshas Lech Lecha 9",
+    "Parshas Lech Lecha 10",
+    "Parshas Lech Lecha 11",
+    "Parshas Lech Lecha 12",
+    "Parshas Lech Lecha 13"
+   ]
+  },
+  {
+   "en": "Parshas Vayera",
+   "he": "פָּרָשַׁת וַיֵּרָא",
+   "keys": [
+    "Parshas Vayera 1",
+    "Parshas Vayera 2",
+    "Parshas Vayera 3",
+    "Parshas Vayera 4",
+    "Parshas Vayera 5",
+    "Parshas Vayera 6",
+    "Parshas Vayera 7",
+    "Parshas Vayera 8",
+    "Parshas Vayera 9",
+    "Parshas Vayera 10",
+    "Parshas Vayera 11",
+    "Parshas Vayera 12"
+   ]
+  },
+  {
+   "en": "Parashas Chayei Sarah",
+   "he": "פָּרָשַׁת חַיֵּי שָׂרָה",
+   "keys": [
+    "Parshas Chayei Sarah 1",
+    "Parshas Chayei Sarah 2",
+    "Parshas Chayei Sarah 3",
+    "Parshas Chayei Sarah 4",
+    "Parshas Chayei Sarah 5",
+    "Parshas Chayei Sarah 6",
+    "Parshas Chayei Sarah 7"
+   ]
+  },
+  {
+   "en": "Parashas Toldos",
+   "he": "פָּרָשַׁת תּוֹלְדוֹת",
+   "keys": [
+    "Parshas Toldos 1",
+    "Parshas Toldos 2",
+    "Parshas Toldos 3"
+   ]
+  },
+  {
+   "en": "Parashas Vayeitzei, Year 5624",
+   "he": "פָּרָשַׁת וַיֵּצֵא, שְׁנַת תַּרְכַּד",
+   "keys": [
+    "Parshas Vayeitzei, Year 5624 1",
+    "Parshas Vayeitzei, Year 5624 2",
+    "Parshas Vayeitzei, Year 5624 3",
+    "Parshas Vayeitzei, Year 5624 4",
+    "Parshas Vayeitzei, Year 5624 5"
+   ]
+  },
+  {
+   "en": "Parashas Vayishlach",
+   "he": "פָּרָשַׁת וַיִּשְׁלַח",
+   "keys": [
+    "Parshas Vayishlach 1",
+    "Parshas Vayishlach 2",
+    "Parshas Vayishlach 3",
+    "Parshas Vayishlach 4",
+    "Parshas Vayishlach 5",
+    "Parshas Vayishlach 6",
+    "Parshas Vayishlach 7",
+    "Parshas Vayishlach 8",
+    "Parshas Vayishlach 9",
+    "Parshas Vayishlach 10",
+    "Parshas Vayishlach 11",
+    "Parshas Vayishlach 12",
+    "Parshas Vayishlach 13",
+    "Parshas Vayishlach 14",
+    "Parshas Vayishlach 15",
+    "Parshas Vayishlach 16",
+    "Parshas Vayishlach 17",
+    "Parshas Vayishlach 18",
+    "Parshas Vayishlach 19",
+    "Parshas Vayishlach 20",
+    "Parshas Vayishlach 21",
+    "Parshas Vayishlach 22",
+    "Parshas Vayishlach 23",
+    "Parshas Vayishlach 24",
+    "Parshas Vayishlach 25",
+    "Parshas Vayishlach 26",
+    "Parshas Vayishlach 27",
+    "Parshas Vayishlach 29",
+    "Parshas Vayishlach 30",
+    "Parshas Vayishlach 31",
+    "Parshas Vayishlach 32",
+    "Parshas Vayishlach 33",
+    "Parshas Vayishlach 34",
+    "Parshas Vayishlach 35"
+   ]
+  },
+  {
+   "en": "Parshas Mikeitz and Shabbos Chanukah, 5623",
+   "he": "פָּרָשַׁת מִקֵּץ וְשַׁבַּת חֲנוּכָּה תַּרְכ״ג",
+   "keys": [
+    "Parshas Mikeitz and Shabbos Chanukah, 5623 1",
+    "Parshas Mikeitz and Shabbos Chanukah, 5623 2",
+    "Parshas Mikeitz and Shabbos Chanukah, 5623 3",
+    "Parshas Mikeitz and Shabbos Chanukah, 5623 4",
+    "Parshas Mikeitz and Shabbos Chanukah, 5623 5",
+    "Parshas Mikeitz and Shabbos Chanukah, 5623 6",
+    "Parshas Mikeitz and Shabbos Chanukah, 5623 7",
+    "Parshas Mikeitz and Shabbos Chanukah, 5623 8",
+    "Parshas Mikeitz and Shabbos Chanukah, 5623 9",
+    "Parshas Mikeitz and Shabbos Chanukah, 5623 10",
+    "Parshas Mikeitz and Shabbos Chanukah, 5623 11",
+    "Parshas Mikeitz and Shabbos Chanukah, 5623 12",
+    "Parshas Mikeitz and Shabbos Chanukah, 5623 13",
+    "Parshas Mikeitz and Shabbos Chanukah, 5623 14",
+    "Parshas Mikeitz and Shabbos Chanukah, 5623 15",
+    "Parshas Mikeitz and Shabbos Chanukah, 5623 16",
+    "Parshas Mikeitz and Shabbos Chanukah, 5623 17",
+    "Parshas Mikeitz and Shabbos Chanukah, 5623 18"
+   ]
+  },
+  {
+   "en": "Parshas Vayigash, 5623",
+   "he": "פָּרָשַׁת וַיִּגַּשׁ שְׁנַת תַּרְכֵּ״ג",
+   "keys": [
+    "Parshas Vayigash, 5623 1",
+    "Parshas Vayigash, 5623 2",
+    "Parshas Vayigash, 5623 3",
+    "Parshas Vayigash, 5623 4",
+    "Parshas Vayigash, 5623 5",
+    "Parshas Vayigash, 5623 6",
+    "Parshas Vayigash, 5623 7",
+    "Parshas Vayigash, 5623 8",
+    "Parshas Vayigash, 5623 9",
+    "Parshas Vayigash, 5623 10",
+    "Parshas Vayigash, 5623 11",
+    "Parshas Vayigash, 5623 12",
+    "Parshas Vayigash, 5623 13",
+    "Parshas Vayigash, 5623 14",
+    "Parshas Vayigash, 5623 15",
+    "Parshas Vayigash, 5623 16",
+    "Parshas Vayigash, 5623 17",
+    "Parshas Vayigash, 5623 18",
+    "Parshas Vayigash, 5623 19",
+    "Parshas Vayigash, 5623 20",
+    "Parshas Vayigash, 5623 21",
+    "Parshas Vayigash, 5623 22",
+    "Parshas Vayigash, 5623 23",
+    "Parshas Vayigash, 5623 24",
+    "Parshas Vayigash, 5623 25",
+    "Parshas Vayigash, 5623 27",
+    "Parshas Vayigash, 5623 28",
+    "Parshas Vayigash, 5623 29",
+    "Parshas Vayigash, 5623 30"
+   ]
+  },
+  {
+   "en": "Parashas Vayechi, Year 5623",
+   "he": "פָּרָשַׁת וַיְחִי תַּרְכ״ג",
+   "keys": [
+    "Parshas Vayechi, Year 5623 1",
+    "Parshas Vayechi, Year 5623 2",
+    "Parshas Vayechi, Year 5623 3",
+    "Parshas Vayechi, Year 5623 4",
+    "Parshas Vayechi, Year 5623 5",
+    "Parshas Vayechi, Year 5623 6",
+    "Parshas Vayechi, Year 5623 7",
+    "Parshas Vayechi, Year 5623 8",
+    "Parshas Vayechi, Year 5623 9",
+    "Parshas Vayechi, Year 5623 10",
+    "Parshas Vayechi, Year 5623 11",
+    "Parshas Vayechi, Year 5623 12",
+    "Parshas Vayechi, Year 5623 13",
+    "Parshas Vayechi, Year 5623 14",
+    "Parshas Vayechi, Year 5623 15",
+    "Parshas Vayechi, Year 5623 16",
+    "Parshas Vayechi, Year 5623 17",
+    "Parshas Vayechi, Year 5623 18",
+    "Parshas Vayechi, Year 5623 19",
+    "Parshas Vayechi, Year 5623 20",
+    "Parshas Vayechi, Year 5623 21",
+    "Parshas Vayechi, Year 5623 22",
+    "Parshas Vayechi, Year 5623 23",
+    "Parshas Vayechi, Year 5623 24",
+    "Parshas Vayechi, Year 5623 25",
+    "Parshas Vayechi, Year 5623 26",
+    "Parshas Vayechi, Year 5623 27",
+    "Parshas Vayechi, Year 5623 28",
+    "Parshas Vayechi, Year 5623 29",
+    "Parshas Vayechi, Year 5623 30",
+    "Parshas Vayechi, Year 5623 31",
+    "Parshas Vayechi, Year 5623 32",
+    "Parshas Vayechi, Year 5623 33",
+    "Parshas Vayechi, Year 5623 34"
+   ]
+  },
+  {
+   "en": "Parashas Va'eira",
+   "he": "פָּרָשַׁת וָאֵרָא",
+   "keys": [
+    "Parshas Va'eira 1",
+    "Parshas Va'eira 2",
+    "Parshas Va'eira 3",
+    "Parshas Va'eira 4",
+    "Parshas Va'eira 5",
+    "Parshas Va'eira 6",
+    "Parshas Va'eira 7",
+    "Parshas Va'eira 8",
+    "Parshas Va'eira 9",
+    "Parshas Va'eira 10",
+    "Parshas Va'eira 11",
+    "Parshas Va'eira 12",
+    "Parshas Va'eira 13",
+    "Parshas Va'eira 14",
+    "Parshas Va'eira 15",
+    "Parshas Va'eira 16",
+    "Parshas Va'eira 17"
+   ]
+  },
+  {
+   "en": "Parashas Bo",
+   "he": "פָּרָשַׁת בֹּא",
+   "keys": [
+    "Parshas Bo 1",
+    "Parshas Bo 2",
+    "Parshas Bo 3",
+    "Parshas Bo 4",
+    "Parshas Bo 5",
+    "Parshas Bo 6",
+    "Parshas Bo 7",
+    "Parshas Bo 8",
+    "Parshas Bo 9",
+    "Parshas Bo 10",
+    "Parshas Bo 11"
+   ]
+  },
+  {
+   "en": "Parshas Beshalach",
+   "he": "פָּרָשַׁת בְּשַׁלַּח",
+   "keys": [
+    "Parshas Beshalach 1",
+    "Parshas Beshalach 2",
+    "Parshas Beshalach 3",
+    "Parshas Beshalach 4",
+    "Parshas Beshalach 5",
+    "Parshas Beshalach 6",
+    "Parshas Beshalach 7",
+    "Parshas Beshalach 8"
+   ]
+  },
+  {
+   "en": "Parshas Yisro",
+   "he": "פָּרָשַׁת יִתְרוֹ",
+   "keys": [
+    "Parshas Yisro 1",
+    "Parshas Yisro 2",
+    "Parshas Yisro 3",
+    "Parshas Yisro 4",
+    "Parshas Yisro 5",
+    "Parshas Yisro 6",
+    "Parshas Yisro 7",
+    "Parshas Yisro 8",
+    "Parshas Yisro 9",
+    "Parshas Yisro 10"
+   ]
+  },
+  {
+   "en": "Parshas Mishpatim",
+   "he": "פָּרָשַׁת מִשְׁפָּטִים",
+   "keys": [
+    "Parshas Mishpatim 1",
+    "Parshas Mishpatim 2",
+    "Parshas Mishpatim 3",
+    "Parshas Mishpatim 4",
+    "Parshas Mishpatim 5",
+    "Parshas Mishpatim 6",
+    "Parshas Mishpatim 7"
+   ]
+  },
+  {
+   "en": "Parshas Terumah",
+   "he": "פָּרָשַׁת תְּרוּמָה",
+   "keys": [
+    "Parshas Terumah 1",
+    "Parshas Terumah 2",
+    "Parshas Terumah 3",
+    "Parshas Terumah 4",
+    "Parshas Terumah 5",
+    "Parshas Terumah 6",
+    "Parshas Terumah 7",
+    "Parshas Terumah 8",
+    "Parshas Terumah 9",
+    "Parshas Terumah 10",
+    "Parshas Terumah 11",
+    "Parshas Terumah 12",
+    "Parshas Terumah 13",
+    "Parshas Terumah 14",
+    "Parshas Terumah 15",
+    "Parshas Terumah 16",
+    "Parshas Terumah 17"
+   ]
+  },
+  {
+   "en": "Parshas Tetzaveh, Year Not Recorded, For the Friday Night Shabbos Meal",
+   "he": "פָּרָשַׁת תְּצַוֶּה לֹא נִרְשַׁם הַשָּׁנָה לִסְעוּדַת לֵיל שַׁבָּת",
+   "keys": [
+    "Parshas Tetzaveh, Year Not Recorded, For the Friday Night Sh 1",
+    "Parshas Tetzaveh, Year Not Recorded, For the Friday Night Sh 2",
+    "Parshas Tetzaveh, Year Not Recorded, For the Friday Night Sh 3",
+    "Parshas Tetzaveh, Year Not Recorded, For the Friday Night Sh 4"
+   ]
+  },
+  {
+   "en": "Parshas Ki Sisa",
+   "he": "פָּרָשַׁת תִּשָּׂא",
+   "keys": [
+    "Parshas Ki Sisa 1",
+    "Parshas Ki Sisa 2",
+    "Parshas Ki Sisa 3",
+    "Parshas Ki Sisa 4",
+    "Parshas Ki Sisa 5",
+    "Parshas Ki Sisa 6",
+    "Parshas Ki Sisa 7",
+    "Parshas Ki Sisa 8",
+    "Parshas Ki Sisa 9",
+    "Parshas Ki Sisa 10"
+   ]
+  },
+  {
+   "en": "Parshas Vayakhel and Parshas Parah",
+   "he": "פָּרָשַׁת וַיַּקְהֵל וּפָרָשַׁת פָּרָה",
+   "keys": [
+    "Parshas Vayakhel and Parshas Parah 1",
+    "Parshas Vayakhel and Parshas Parah 2",
+    "Parshas Vayakhel and Parshas Parah 3",
+    "Parshas Vayakhel and Parshas Parah 4",
+    "Parshas Vayakhel and Parshas Parah 5",
+    "Parshas Vayakhel and Parshas Parah 6",
+    "Parshas Vayakhel and Parshas Parah 7",
+    "Parshas Vayakhel and Parshas Parah 8",
+    "Parshas Vayakhel and Parshas Parah 9",
+    "Parshas Vayakhel and Parshas Parah 10",
+    "Parshas Vayakhel and Parshas Parah 11",
+    "Parshas Vayakhel and Parshas Parah 12",
+    "Parshas Vayakhel and Parshas Parah 13",
+    "Parshas Vayakhel and Parshas Parah 14",
+    "Parshas Vayakhel and Parshas Parah 15",
+    "Parshas Vayakhel and Parshas Parah 17",
+    "Parshas Vayakhel and Parshas Parah 18",
+    "Parshas Vayakhel and Parshas Parah 19",
+    "Parshas Vayakhel and Parshas Parah 20",
+    "Parshas Vayakhel and Parshas Parah 21"
+   ]
+  },
+  {
+   "en": "Parashas Zachor",
+   "he": "פָּרָשַׁת זָכוֹר",
+   "keys": [
+    "Parshas Zachor 1",
+    "Parshas Zachor 2",
+    "Parshas Zachor 3",
+    "Parshas Zachor 4",
+    "Parshas Zachor 5",
+    "Parshas Zachor 6",
+    "Parshas Zachor 8",
+    "Parshas Zachor 9",
+    "Parshas Zachor 10",
+    "Parshas Zachor 12",
+    "Parshas Zachor 13",
+    "Parshas Zachor 14",
+    "Parshas Zachor 15"
+   ]
+  },
+  {
+   "en": "Parshas HaChodesh",
+   "he": "פָּרָשַׁת הַחֹדֶשׁ",
+   "keys": [
+    "Parshas HaChodesh 1",
+    "Parshas HaChodesh 2",
+    "Parshas HaChodesh 3",
+    "Parshas HaChodesh 4",
+    "Parshas HaChodesh 5",
+    "Parshas HaChodesh 6",
+    "Parshas HaChodesh 7"
+   ]
+  },
+  {
+   "en": "Notes, Kuntres Acharon, Part One",
+   "he": "הֶעָרוֹת (קֻנְטְרֵס אַחֲרוֹן — חֵלֶק רִאשׁוֹן)",
+   "keys": [
+    "Notes, Kuntres Acharon, Part One 1",
+    "Notes, Kuntres Acharon, Part One 2",
+    "Notes, Kuntres Acharon, Part One 3",
+    "Notes, Kuntres Acharon, Part One 4",
+    "Notes, Kuntres Acharon, Part One 5",
+    "Notes, Kuntres Acharon, Part One 6",
+    "Notes, Kuntres Acharon, Part One 7",
+    "Notes, Kuntres Acharon, Part One 8",
+    "Notes, Kuntres Acharon, Part One 9",
+    "Notes, Kuntres Acharon, Part One 10",
+    "Notes, Kuntres Acharon, Part One 11",
+    "Notes, Kuntres Acharon, Part One 12",
+    "Notes, Kuntres Acharon, Part One 13",
+    "Notes, Kuntres Acharon, Part One 14",
+    "Notes, Kuntres Acharon, Part One 15",
+    "Notes, Kuntres Acharon, Part One 16",
+    "Notes, Kuntres Acharon, Part One 17",
+    "Notes, Kuntres Acharon, Part One 18",
+    "Notes, Kuntres Acharon, Part One 19",
+    "Notes, Kuntres Acharon, Part One 20",
+    "Notes, Kuntres Acharon, Part One 21",
+    "Notes, Kuntres Acharon, Part One 22",
+    "Notes, Kuntres Acharon, Part One 23",
+    "Notes, Kuntres Acharon, Part One 24",
+    "Notes, Kuntres Acharon, Part One 25"
+   ]
+  },
+  {
+   "en": "Purim",
+   "he": "פּוּרִים",
+   "keys": [
+    "Purim 1",
+    "Purim 2",
+    "Purim 3"
+   ]
+  },
+  {
+   "en": "Table of Corrections",
+   "he": "לוּחַ הַתִּקּוּן",
+   "keys": [
+    "Table of Corrections 1",
+    "Table of Corrections 2",
+    "Table of Corrections 3"
+   ]
+  },
+  {
+   "en": "Table of Corrections",
+   "he": "לוּחַ הַתִּקּוּן",
+   "keys": [
+    "Table of Corrections 1 (2)",
+    "Table of Corrections 2 (2)"
+   ]
+  },
+  {
+   "en": "In the Final Pamphlet",
+   "he": "בַּקּוּנְטְרֵס הָאַחֲרוֹן",
+   "keys": [
+    "In the Final Pamphlet 1",
+    "In the Final Pamphlet 2"
+   ]
+  },
+  {
+   "en": "Sefer Imrei Emes, Part Two (Title Page)",
+   "he": "סֵפֶר אִמְרֵי אֱמֶת, חֵלֶק שֵׁנִי (שַׁעַר)",
+   "keys": [
+    "Sefer Imrei Emes, Part Two (Title Page) 1"
+   ]
+  },
+  {
+   "en": "Parshas Vayikra, Year Not Recorded, Friday Night Meal",
+   "he": "פָּרָשַׁת וַיִּקְרָא לֹא נִרְשְׁמָה הַשָּׁנָה סְעוּדַת לֵיל שַׁבָּת",
+   "keys": [
+    "Parshas Vayikra, Year Not Recorded, Friday Night Meal 1",
+    "Parshas Vayikra, Year Not Recorded, Friday Night Meal 2"
+   ]
+  },
+  {
+   "en": "Parshas Tzav and Shabbos HaGadol, 5629 (1869), For the Second Meal",
+   "he": "פָּרָשַׁת צַו וְשַׁבָּת הַגָּדוֹל תרכ״ט לִסְעוּדָה שְׁנִיָּה",
+   "keys": [
+    "Parshas Tzav and Shabbos HaGadol, 5629 (1869), For the Secon 1",
+    "Parshas Tzav and Shabbos HaGadol, 5629 (1869), For the Secon 2"
+   ]
+  },
+  {
+   "en": "Parshas Shemini, 5625 (1865), After the Festival of Pesach",
+   "he": "פָּרָשַׁת שְׁמִינִי תרכ״ה אַחַר חַג הַפֶּסַח",
+   "keys": [
+    "Parshas Shemini, 5625 (1865), After the Festival of Pesach 1",
+    "Parshas Shemini, 5625 (1865), After the Festival of Pesach 2",
+    "Parshas Shemini, 5625 (1865), After the Festival of Pesach 3",
+    "Parshas Shemini, 5625 (1865), After the Festival of Pesach 4",
+    "Parshas Shemini, 5625 (1865), After the Festival of Pesach 5",
+    "Parshas Shemini, 5625 (1865), After the Festival of Pesach 6",
+    "Parshas Shemini, 5625 (1865), After the Festival of Pesach 7"
+   ]
+  },
+  {
+   "en": "Parshas Tazria, 5621 (1861)",
+   "he": "פָּרָשַׁת תַּזְרִיעַ תרכ״א",
+   "keys": [
+    "Parshas Tazria, 5621 (1861) 1",
+    "Parshas Tazria, 5621 (1861) 2",
+    "Parshas Tazria, 5621 (1861) 3",
+    "Parshas Tazria, 5621 (1861) 4"
+   ]
+  },
+  {
+   "en": "Parshas Metzora, 5624 (1864)",
+   "he": "פָּרָשַׁת מְצֹרָע תרכ״ד",
+   "keys": [
+    "Parshas Metzora, 5624 (1864) 1"
+   ]
+  },
+  {
+   "en": "Tazria-Metzora, 5625 (1865)",
+   "he": "תַּזְרִיעַ מְצֹרָע תרכ״ה",
+   "keys": [
+    "Tazria-Metzora, 5625 (1865) 1",
+    "Tazria-Metzora, 5625 (1865) 2",
+    "Tazria-Metzora, 5625 (1865) 3",
+    "Tazria-Metzora, 5625 (1865) 4",
+    "Tazria-Metzora, 5625 (1865) 5",
+    "Tazria-Metzora, 5625 (1865) 6"
+   ]
+  },
+  {
+   "en": "Parshas Acharei Mos, 5625",
+   "he": "פָּרָשַׁת אַחֲרֵי תַּרְכ״ה",
+   "keys": [
+    "Parshas Acharei Mos, 5625 1"
+   ]
+  },
+  {
+   "en": "Parshas Kedoshim, 5621",
+   "he": "פָּרָשַׁת קְדוֹשִׁים תַּרְכ״א",
+   "keys": [
+    "Parshas Kedoshim, 5621 1",
+    "Parshas Kedoshim, 5621 2",
+    "Parshas Kedoshim, 5621 3",
+    "Parshas Kedoshim, 5621 4",
+    "Parshas Kedoshim, 5621 5",
+    "Parshas Kedoshim, 5621 6",
+    "Parshas Kedoshim, 5621 7",
+    "Parshas Kedoshim, 5621 9"
+   ]
+  },
+  {
+   "en": "Parshas Emor, 5624",
+   "he": "פָּרָשַׁת אֱמוֹר תַּרְכ״ד",
+   "keys": [
+    "Parshas Emor, 5624 1",
+    "Parshas Emor, 5624 2",
+    "Parshas Emor, 5624 3",
+    "Parshas Emor, 5624 4",
+    "Parshas Emor, 5624 5",
+    "Parshas Emor, 5624 6",
+    "Parshas Emor, 5624 7",
+    "Parshas Emor, 5624 8",
+    "Parshas Emor, 5624 9",
+    "Parshas Emor, 5624 10",
+    "Parshas Emor, 5624 12",
+    "Parshas Emor, 5624 13",
+    "Parshas Emor, 5624 14",
+    "Parshas Emor, 5624 15",
+    "Parshas Emor, 5624 16",
+    "Parshas Emor, 5624 17",
+    "Parshas Emor, 5624 18",
+    "Parshas Emor, 5624 20",
+    "Parshas Emor, 5624 21",
+    "Parshas Emor, 5624 22",
+    "Parshas Emor, 5624 23",
+    "Parshas Emor, 5624 24",
+    "Parshas Emor, 5624 25"
+   ]
+  },
+  {
+   "en": "Parashas Bechukosai",
+   "he": "פָּרָשַׁת בְּחֻקֹּתַי",
+   "keys": [
+    "Parshas Bechukosai 1",
+    "Parshas Bechukosai 2",
+    "Parshas Bechukosai 3",
+    "Parshas Bechukosai 4",
+    "Parshas Bechukosai 5",
+    "Parshas Bechukosai 6",
+    "Parshas Bechukosai 7"
+   ]
+  },
+  {
+   "en": "Parashas Behar–Bechukosai",
+   "he": "פָּרָשַׁת בְּהַר בְּחֻקֹּתַי",
+   "keys": [
+    "Parshas Behar–Bechukosai 1",
+    "Parshas Behar–Bechukosai 2",
+    "Parshas Behar–Bechukosai 3",
+    "Parshas Behar–Bechukosai 4",
+    "Parshas Behar–Bechukosai 5",
+    "Parshas Behar–Bechukosai 6",
+    "Parshas Behar–Bechukosai 7",
+    "Parshas Behar–Bechukosai 8",
+    "Parshas Behar–Bechukosai 9",
+    "Parshas Behar–Bechukosai 10",
+    "Parshas Behar–Bechukosai 11",
+    "Parshas Behar–Bechukosai 12",
+    "Parshas Behar–Bechukosai 13",
+    "Parshas Behar–Bechukosai 14",
+    "Parshas Behar–Bechukosai 15",
+    "Parshas Behar–Bechukosai 16",
+    "Parshas Behar–Bechukosai 17",
+    "Parshas Behar–Bechukosai 18",
+    "Parshas Behar–Bechukosai 19",
+    "Parshas Behar–Bechukosai 20",
+    "Parshas Behar–Bechukosai 21",
+    "Parshas Behar–Bechukosai 22",
+    "Parshas Behar–Bechukosai 23"
+   ]
+  },
+  {
+   "en": "For the Festival of Shavuos, Year 5624",
+   "he": "לְחַג הַשָּׁבוּעוֹת תַּרְכ״ד",
+   "keys": [
+    "For the Festival of Shavuos, Year 5624 1",
+    "For the Festival of Shavuos, Year 5624 2",
+    "For the Festival of Shavuos, Year 5624 3",
+    "For the Festival of Shavuos, Year 5624 4",
+    "For the Festival of Shavuos, Year 5624 5",
+    "For the Festival of Shavuos, Year 5624 6",
+    "For the Festival of Shavuos, Year 5624 7",
+    "For the Festival of Shavuos, Year 5624 8"
+   ]
+  },
+  {
+   "en": "Parashas Naso, Year 5624",
+   "he": "פָּרָשַׁת נָשֹׂא תַּרְכ״ד",
+   "keys": [
+    "Parshas Naso, Year 5624 1",
+    "Parshas Naso, Year 5624 2",
+    "Parshas Naso, Year 5624 3",
+    "Parshas Naso, Year 5624 4",
+    "Parshas Naso, Year 5624 5",
+    "Parshas Naso, Year 5624 6",
+    "Parshas Naso, Year 5624 7",
+    "Parshas Naso, Year 5624 8",
+    "Parshas Naso, Year 5624 9"
+   ]
+  },
+  {
+   "en": "Parshas Beha'aloscha",
+   "he": "פָּרָשַׁת בְּהַעֲלֹתְךָ",
+   "keys": [
+    "Parshas Beha'aloscha 1",
+    "Parshas Beha'aloscha 2",
+    "Parshas Beha'aloscha 3",
+    "Parshas Beha'aloscha 4",
+    "Parshas Beha'aloscha 5",
+    "Parshas Beha'aloscha 6",
+    "Parshas Beha'aloscha 7",
+    "Parshas Beha'aloscha 8",
+    "Parshas Beha'aloscha 9",
+    "Parshas Beha'aloscha 10",
+    "Parshas Beha'aloscha 11",
+    "Parshas Beha'aloscha 12",
+    "Parshas Beha'aloscha 13",
+    "Parshas Beha'aloscha 14",
+    "Parshas Beha'aloscha 15",
+    "Parshas Beha'aloscha 16",
+    "Parshas Beha'aloscha 17",
+    "Parshas Beha'aloscha 18",
+    "Parshas Beha'aloscha 19",
+    "Parshas Beha'aloscha 20",
+    "Parshas Beha'aloscha 21",
+    "Parshas Beha'aloscha 22",
+    "Parshas Beha'aloscha 23"
+   ]
+  },
+  {
+   "en": "Parashas Shelach",
+   "he": "פָּרָשַׁת שְׁלַח",
+   "keys": [
+    "Parshas Shelach 1",
+    "Parshas Shelach 2",
+    "Parshas Shelach 3",
+    "Parshas Shelach 4",
+    "Parshas Shelach 5",
+    "Parshas Shelach 6",
+    "Parshas Shelach 7",
+    "Parshas Shelach 8",
+    "Parshas Shelach 9",
+    "Parshas Shelach 10",
+    "Parshas Shelach 11",
+    "Parshas Shelach 12",
+    "Parshas Shelach 13",
+    "Parshas Shelach 14",
+    "Parshas Shelach 15",
+    "Parshas Shelach 16",
+    "Parshas Shelach 17",
+    "Parshas Shelach 18",
+    "Parshas Shelach 19",
+    "Parshas Shelach 21",
+    "Parshas Shelach 22",
+    "Parshas Shelach 23",
+    "Parshas Shelach 24",
+    "Parshas Shelach 25",
+    "Parshas Shelach 26",
+    "Parshas Shelach 27",
+    "Parshas Shelach 28",
+    "Parshas Shelach 29",
+    "Parshas Shelach 30",
+    "Parshas Shelach 31",
+    "Parshas Shelach 32",
+    "Parshas Shelach 33",
+    "Parshas Shelach 34",
+    "Parshas Shelach 35",
+    "Parshas Shelach 36",
+    "Parshas Shelach 37",
+    "Parshas Shelach 38"
+   ]
+  },
+  {
+   "en": "Parshas Chukas",
+   "he": "פָּרָשַׁת חֻקַּת",
+   "keys": [
+    "Parshas Chukas 1",
+    "Parshas Chukas 2",
+    "Parshas Chukas 3",
+    "Parshas Chukas 4",
+    "Parshas Chukas 5",
+    "Parshas Chukas 6",
+    "Parshas Chukas 7",
+    "Parshas Chukas 8",
+    "Parshas Chukas 9",
+    "Parshas Chukas 10",
+    "Parshas Chukas 11",
+    "Parshas Chukas 12",
+    "Parshas Chukas 13",
+    "Parshas Chukas 14"
+   ]
+  },
+  {
+   "en": "Parshas Chukas and Balak",
+   "he": "פָּרָשַׁת חֻקַּת וּבָלָק",
+   "keys": [
+    "Parshas Chukas and Balak 1",
+    "Parshas Chukas and Balak 2",
+    "Parshas Chukas and Balak 3",
+    "Parshas Chukas and Balak 4",
+    "Parshas Chukas and Balak 5",
+    "Parshas Chukas and Balak 6",
+    "Parshas Chukas and Balak 7",
+    "Parshas Chukas and Balak 8",
+    "Parshas Chukas and Balak 9",
+    "Parshas Chukas and Balak 10",
+    "Parshas Chukas and Balak 11",
+    "Parshas Chukas and Balak 12",
+    "Parshas Chukas and Balak 13"
+   ]
+  },
+  {
+   "en": "Parshas Matos and Masei",
+   "he": "פָּרָשַׁת מַטּוֹת וּמַסְעֵי",
+   "keys": [
+    "Parshas Matos and Masei 1",
+    "Parshas Matos and Masei 2",
+    "Parshas Matos and Masei 3",
+    "Parshas Matos and Masei 4",
+    "Parshas Matos and Masei 5",
+    "Parshas Matos and Masei 6"
+   ]
+  },
+  {
+   "en": "Parshas Devarim",
+   "he": "פָּרָשַׁת דְּבָרִים",
+   "keys": [
+    "Parshas Devarim 1",
+    "Parshas Devarim 2",
+    "Parshas Devarim 3",
+    "Parshas Devarim 4",
+    "Parshas Devarim 5",
+    "Parshas Devarim 6",
+    "Parshas Devarim 7",
+    "Parshas Devarim 8",
+    "Parshas Devarim 9"
+   ]
+  },
+  {
+   "en": "Parshas Va'eschanan",
+   "he": "פָּרָשַׁת וָאֶתְחַנַּן",
+   "keys": [
+    "Parshas Va'eschanan 1",
+    "Parshas Va'eschanan 2",
+    "Parshas Va'eschanan 3",
+    "Parshas Va'eschanan 4",
+    "Parshas Va'eschanan 5",
+    "Parshas Va'eschanan 6",
+    "Parshas Va'eschanan 7",
+    "Parshas Va'eschanan 8",
+    "Parshas Va'eschanan 9",
+    "Parshas Va'eschanan 10",
+    "Parshas Va'eschanan 11",
+    "Parshas Va'eschanan 12"
+   ]
+  },
+  {
+   "en": "Parashas Eikev, Year 5624",
+   "he": "פָּרָשַׁת עֵקֶב שְׁנַת תַּרְכַּ״ד",
+   "keys": [
+    "Parshas Eikev, Year 5624 1",
+    "Parshas Eikev, Year 5624 2",
+    "Parshas Eikev, Year 5624 3",
+    "Parshas Eikev, Year 5624 4",
+    "Parshas Eikev, Year 5624 5",
+    "Parshas Eikev, Year 5624 6",
+    "Parshas Eikev, Year 5624 7",
+    "Parshas Eikev, Year 5624 8",
+    "Parshas Eikev, Year 5624 9",
+    "Parshas Eikev, Year 5624 10",
+    "Parshas Eikev, Year 5624 11",
+    "Parshas Eikev, Year 5624 12",
+    "Parshas Eikev, Year 5624 14",
+    "Parshas Eikev, Year 5624 15",
+    "Parshas Eikev, Year 5624 16",
+    "Parshas Eikev, Year 5624 17",
+    "Parshas Eikev, Year 5624 18",
+    "Parshas Eikev, Year 5624 19",
+    "Parshas Eikev, Year 5624 20",
+    "Parshas Eikev, Year 5624 21",
+    "Parshas Eikev, Year 5624 22",
+    "Parshas Eikev, Year 5624 23",
+    "Parshas Eikev, Year 5624 24",
+    "Parshas Eikev, Year 5624 25",
+    "Parshas Eikev, Year 5624 26"
+   ]
+  },
+  {
+   "en": "Parashas Ki Teitzei",
+   "he": "פָּרָשַׁת תֵּצֵא",
+   "keys": [
+    "Parshas Ki Teitzei 1",
+    "Parshas Ki Teitzei 2",
+    "Parshas Ki Teitzei 3",
+    "Parshas Ki Teitzei 4",
+    "Parshas Ki Teitzei 5",
+    "Parshas Ki Teitzei 6",
+    "Parshas Ki Teitzei 7",
+    "Parshas Ki Teitzei 9",
+    "Parshas Ki Teitzei 10",
+    "Parshas Ki Teitzei 11",
+    "Parshas Ki Teitzei 12",
+    "Parshas Ki Teitzei 13",
+    "Parshas Ki Teitzei 14",
+    "Parshas Ki Teitzei 15"
+   ]
+  },
+  {
+   "en": "Parshas Ki Tavo",
+   "he": "פָּרָשַׁת תָּבוֹא",
+   "keys": [
+    "Parshas Ki Tavo 1",
+    "Parshas Ki Tavo 2",
+    "Parshas Ki Tavo 3",
+    "Parshas Ki Tavo 4",
+    "Parshas Ki Tavo 5",
+    "Parshas Ki Tavo 6",
+    "Parshas Ki Tavo 7",
+    "Parshas Ki Tavo 8",
+    "Parshas Ki Tavo 9",
+    "Parshas Ki Tavo 10",
+    "Parshas Ki Tavo 11",
+    "Parshas Ki Tavo 12",
+    "Parshas Ki Tavo 13",
+    "Parshas Ki Tavo 14",
+    "Parshas Ki Tavo 15",
+    "Parshas Ki Tavo 16",
+    "Parshas Ki Tavo 17",
+    "Parshas Ki Tavo 18",
+    "Parshas Ki Tavo 19",
+    "Parshas Ki Tavo 20",
+    "Parshas Ki Tavo 21",
+    "Parshas Ki Tavo 22",
+    "Parshas Ki Tavo 23",
+    "Parshas Ki Tavo 24",
+    "Parshas Ki Tavo 25",
+    "Parshas Ki Tavo 26"
+   ]
+  },
+  {
+   "en": "Parashas Nitzavim",
+   "he": "פָּרָשַׁת נִצָּבִים",
+   "keys": [
+    "Parshas Nitzavim 1",
+    "Parshas Nitzavim 2",
+    "Parshas Nitzavim 3",
+    "Parshas Nitzavim 4",
+    "Parshas Nitzavim 5",
+    "Parshas Nitzavim 6",
+    "Parshas Nitzavim 7",
+    "Parshas Nitzavim 8",
+    "Parshas Nitzavim 9",
+    "Parshas Nitzavim 10",
+    "Parshas Nitzavim 11",
+    "Parshas Nitzavim 12",
+    "Parshas Nitzavim 13",
+    "Parshas Nitzavim 14",
+    "Parshas Nitzavim 15",
+    "Parshas Nitzavim 16",
+    "Parshas Nitzavim 17",
+    "Parshas Nitzavim 18",
+    "Parshas Nitzavim 19"
+   ]
+  },
+  {
+   "en": "For Rosh Hashanah, Year Not Recorded",
+   "he": "לְרֹאשׁ הַשָּׁנָה, לֹא נִרְשַׁם הַשָּׁנָה",
+   "keys": [
+    "For Rosh Hashanah, Year Not Recorded 1",
+    "For Rosh Hashanah, Year Not Recorded 2",
+    "For Rosh Hashanah, Year Not Recorded 3",
+    "For Rosh Hashanah, Year Not Recorded 4",
+    "For Rosh Hashanah, Year Not Recorded 6",
+    "For Rosh Hashanah, Year Not Recorded 7"
+   ]
+  },
+  {
+   "en": "Collected Discourses",
+   "he": "לִקּוּטֵי אֲמָרִים",
+   "keys": [
+    "Collected Discourses 1",
+    "Collected Discourses 2",
+    "Collected Discourses 3",
+    "Collected Discourses 4",
+    "Collected Discourses 5",
+    "Collected Discourses 6",
+    "Collected Discourses 7",
+    "Collected Discourses 8",
+    "Collected Discourses 9",
+    "Collected Discourses 10",
+    "Collected Discourses 11"
+   ]
+  },
+  {
+   "en": "Omissions from Part One, For Parshas Ki Sisa",
+   "he": "הַשְׁמָטוֹת מֵחֵלֶק רִאשׁוֹן לְפָרָשַׁת תִּשָּׂא",
+   "keys": [
+    "Omissions from Part One, For Parshas Ki Sisa 1",
+    "Omissions from Part One, For Parshas Ki Sisa 2",
+    "Omissions from Part One, For Parshas Ki Sisa 3"
+   ]
+  },
+  {
+   "en": "Omissions for Parshas Vayakhel",
+   "he": "הַשְׁמָטוֹת לְפָרָשַׁת וַיַּקְהֵל",
+   "keys": [
+    "Omissions for Parshas Vayakhel 1",
+    "Omissions for Parshas Vayakhel 2"
+   ]
+  },
+  {
+   "en": "Omissions for Parshas Pekudei",
+   "he": "הַשְׁמָטוֹת לְפָרָשַׁת פְּקוּדֵי",
+   "keys": [
+    "Omissions for Parshas Pekudei 1"
+   ]
+  },
+  {
+   "en": "Omissions for Shabbos, Rosh Chodesh, and Parshas HaChodesh",
+   "he": "הַשְׁמָטוֹת שַׁבָּת וְרֹאשׁ חֹדֶשׁ וּפָרָשַׁת הַחֹדֶשׁ",
+   "keys": [
+    "Omissions for Shabbos, Rosh Chodesh, and Parshas HaChodesh 1",
+    "Omissions for Shabbos, Rosh Chodesh, and Parshas HaChodesh 2"
+   ]
+  },
+  {
+   "en": "Notes (Kuntres Acharon, Part Two)",
+   "he": "הֶעָרוֹת (קֻנְטְרֵס אַחֲרוֹן, חֵלֶק שֵׁנִי)",
+   "keys": [
+    "Notes (Kuntres Acharon, Part Two) 1",
+    "Notes (Kuntres Acharon, Part Two) 2",
+    "Notes (Kuntres Acharon, Part Two) 3",
+    "Notes (Kuntres Acharon, Part Two) 4",
+    "Notes (Kuntres Acharon, Part Two) 5",
+    "Notes (Kuntres Acharon, Part Two) 6",
+    "Notes (Kuntres Acharon, Part Two) 7",
+    "Notes (Kuntres Acharon, Part Two) 8",
+    "Notes (Kuntres Acharon, Part Two) 9",
+    "Notes (Kuntres Acharon, Part Two) 10",
+    "Notes (Kuntres Acharon, Part Two) 11",
+    "Notes (Kuntres Acharon, Part Two) 12",
+    "Notes (Kuntres Acharon, Part Two) 13",
+    "Notes (Kuntres Acharon, Part Two) 14",
+    "Notes (Kuntres Acharon, Part Two) 15",
+    "Notes (Kuntres Acharon, Part Two) 16",
+    "Notes (Kuntres Acharon, Part Two) 17",
+    "Notes (Kuntres Acharon, Part Two) 18",
+    "Notes (Kuntres Acharon, Part Two) 19",
+    "Notes (Kuntres Acharon, Part Two) 20",
+    "Notes (Kuntres Acharon, Part Two) 21",
+    "Notes (Kuntres Acharon, Part Two) 22",
+    "Notes (Kuntres Acharon, Part Two) 23",
+    "Notes (Kuntres Acharon, Part Two) 24",
+    "Notes (Kuntres Acharon, Part Two) 25",
+    "Notes (Kuntres Acharon, Part Two) 26",
+    "Notes (Kuntres Acharon, Part Two) 27",
+    "Notes (Kuntres Acharon, Part Two) 28"
+   ]
+  },
+  {
+   "en": "For Rosh Hashanah, Shabbos Shuvah, and Erev Yom Kippur",
+   "he": "לְרֹאשׁ הַשָּׁנָה וְשַׁבָּת שׁוּבָה וְעֶרֶב יוֹם הַכִּפּוּרִים",
+   "keys": [
+    "For Rosh Hashanah, Shabbos Shuvah, and Erev Yom Kippur 1"
+   ]
+  },
+  {
+   "en": "Table of Corrections",
+   "he": "לוּחַ הַתִּקּוּנִים",
+   "keys": [
+    "Table of Corrections 1 (3)",
+    "Table of Corrections 2 (3)",
+    "Table of Corrections 3 (2)"
+   ]
+  },
+  {
+   "en": "In the Kuntres Acharon",
+   "he": "בַּקֻּנְטְרֵס הָאַחֲרוֹן",
+   "keys": [
+    "In the Kuntres Acharon 1",
+    "In the Kuntres Acharon 2"
+   ]
+  }
+ ],
+ "sectionsFiles": [
+  "sources/akiva/emes-yesharim-editions/Imrei_Emet.part1.json.gz"
+ ],
+ "sectionCount": 690
+}

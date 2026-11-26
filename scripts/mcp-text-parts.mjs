@@ -16,7 +16,7 @@ export function readBookText(dir, slug) {
 }
 // The books published in parts. Peri Tzadik and Bais Yaakov keep their whole files (grandfathered in
 // scripts/test-mcp-budget.mjs) because their own release scripts publish those files by name.
-export const SPLIT = new Set(['sidrei-taharot-kelim', 'sidrei-taharot-ohalot', 'tiferet-tzvi-part-i']);
+export const SPLIT = new Set(['sidrei-taharot-kelim', 'sidrei-taharot-ohalot', 'tiferet-tzvi-part-i', 'sod-yesharim', 'torat-emet', 'imrei-emet']);
 // Split those books' whole-book texts, when over 10 MB, into parts under PART_MAX bytes.
 export function splitLargeTexts(dir) {
   const out = [];
