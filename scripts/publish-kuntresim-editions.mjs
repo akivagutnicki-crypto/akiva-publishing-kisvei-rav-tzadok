@@ -20,8 +20,8 @@ import {spawnSync} from 'node:child_process';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const EDITION_ID = 'kuntresim-editions-2026-11';
-const RELEASE = '20261127-kuntresim-editions';
-const REPORT = 'library/kuntresim-editions-20261127.json';
+const RELEASE = '20261127-kuntresim-editions-r2';
+const REPORT = 'library/kuntresim-editions-20261127-r2.json';
 const PROOF = 'artifacts/kuntresim-editions/final-verification.json';
 const STAGE = 'kuntresim-editions-stage.json';
 const PREVIOUS = 'new-books-baseline.json', META = 'new-books-publication.json';

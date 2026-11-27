@@ -42,36 +42,39 @@ def pairs_runs(p):
         remap[i]=len(out); out.append((h,e,r))
     f2=[(fid,max(remap.get(pi,remap.get(pi-1,len(out)-1)),0),r) for fid,pi,r in fns]
     return out,f2
-st=collections.Counter()
-for x in MAN['files']:
-    path=WE+x['file']; z=zipfile.ZipFile(path); doc=etree.fromstring(z.read('word/document.xml')); FN=footnotes(z)
-    Ps=[]
-    for p in doc.find(W+'body'):
-        if p.tag!=W+'p': continue
-        pr,fns=pairs_runs(p)
-        if pr and any(re.search('[א-ת]',h) for h,e,r in pr) and fns: Ps.append((p,pr,fns))
-    allb=[[(h,e) for h,e,r in pr] for p,pr,fns in Ps]
-    dfb=collections.Counter(b for prs in allb for b in set().union(*[WR.bigrams(h) for h,e in prs]))
-    common=frozenset(b for b,c in dfb.items() if c>max(3,len(allb)*0.03))
-    for p,pr,fns in Ps:
-        pairs=[(h,e) for h,e,r in pr]
-        notes=[]; meta=[]
-        for fid,pi,r in fns:
-            if not FN.get(fid): continue
-            n={'paragraphs':FN[fid],'phraseIndex':min(pi,len(pairs)-1),'heCharOffset':0}
-            notes.append(n); meta.append((fid,r,n['phraseIndex']))
-        WR.mover(pairs,notes,common)
-        for n,(fid,r,old) in zip(notes,meta):
-            new=n['phraseIndex']
-            if new==old: continue
-            tr=pr[new][2]
-            if tr is None: continue
-            r.getparent().remove(r); tr.addnext(r); st['moved']+=1
-    tmp=path+'.tmp'
-    with zipfile.ZipFile(path) as zi, zipfile.ZipFile(tmp,'w',zipfile.ZIP_DEFLATED) as zo:
-        for it in zi.infolist():
-            data=zi.read(it.filename)
-            if it.filename=='word/document.xml': data=etree.tostring(doc,xml_declaration=True,encoding='UTF-8',standalone=True)
-            zo.writestr(it,data)
-    os.replace(tmp,path); print(x['file'],st['moved'])
-print(dict(st))
+def main():
+    st=collections.Counter()
+    for x in MAN['files']:
+        path=WE+x['file']; z=zipfile.ZipFile(path); doc=etree.fromstring(z.read('word/document.xml')); FN=footnotes(z)
+        Ps=[]
+        for p in doc.find(W+'body'):
+            if p.tag!=W+'p': continue
+            pr,fns=pairs_runs(p)
+            if pr and any(re.search('[א-ת]',h) for h,e,r in pr) and fns: Ps.append((p,pr,fns))
+        allb=[[(h,e) for h,e,r in pr] for p,pr,fns in Ps]
+        dfb=collections.Counter(b for prs in allb for b in set().union(*[WR.bigrams(h) for h,e in prs]))
+        common=frozenset(b for b,c in dfb.items() if c>max(3,len(allb)*0.03))
+        for p,pr,fns in Ps:
+            pairs=[(h,e) for h,e,r in pr]
+            notes=[]; meta=[]
+            for fid,pi,r in fns:
+                if not FN.get(fid): continue
+                n={'paragraphs':FN[fid],'phraseIndex':min(pi,len(pairs)-1),'heCharOffset':0}
+                notes.append(n); meta.append((fid,r,n['phraseIndex']))
+            WR.mover(pairs,notes,common)
+            for n,(fid,r,old) in zip(notes,meta):
+                new=n['phraseIndex']
+                if new==old: continue
+                tr=pr[new][2]
+                if tr is None: continue
+                r.getparent().remove(r); tr.addnext(r); st['moved']+=1
+        tmp=path+'.tmp'
+        with zipfile.ZipFile(path) as zi, zipfile.ZipFile(tmp,'w',zipfile.ZIP_DEFLATED) as zo:
+            for it in zi.infolist():
+                data=zi.read(it.filename)
+                if it.filename=='word/document.xml': data=etree.tostring(doc,xml_declaration=True,encoding='UTF-8',standalone=True)
+                zo.writestr(it,data)
+        os.replace(tmp,path); print(x['file'],st['moved'])
+    print(dict(st))
+
+if __name__=='__main__': main()

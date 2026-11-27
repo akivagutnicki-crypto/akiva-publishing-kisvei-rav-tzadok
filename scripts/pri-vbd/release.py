@@ -115,8 +115,9 @@ def apply(site):
     assert existing, 'No existing Pri Tzaddik study edition'
     prior = [x for x in existing['children'] if x.get(KEY)]
     before = sum(l.get('shape', 0) for x in prior for l in leaves(x))
+    prior_ids = {l.get('id') for x in prior for l in leaves(x)}      # an earlier run of this edition is replaced
     existing['children'][:] = [x for x in existing['children'] if not x.get(KEY)]
-    all_ids = {l.get('id') for l in leaves(original['toc'])}
+    all_ids = {l.get('id') for l in leaves(original['toc'])} - prior_ids
     assert not ({s['id'] for s in secs} & all_ids), 'Reader chapter id collision'
     # no earlier study chapter of these refs may remain beside the new one
     refs = {s['ref'] for s in secs}
