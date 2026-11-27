@@ -119,8 +119,11 @@ def main(root,dry=False,packdir='sources/akiva/edition-supplements'):
         # every paragraph ref already in the book's connections must be one we compute (section-wide refs aside)
         norm=lambda a: re.sub(r'[: ](\d+)$',r'|\1',a)
         known={norm(a) for _,a in anchor.values()}
+        byref={norm(a):loc for loc,(_,a) in anchor.items()}
         secs={r for _,r,_ in S}
-        stray=sorted({l['a'] for v in links.values() for l in v if norm(l['a']) not in known} - secs)
+        # only sections whose paragraphs were read (Pri Tzaddik's original-Hebrew volumes nest their sections in one file)
+        read_secs={a[0] for a in anchor.values()}
+        stray=sorted({l['a'] for k_,v in links.items() if k_ in read_secs for l in v if norm(l['a']) not in known} - secs)
         assert len(stray)<=3, f'{slug}: paragraph refs disagree with links.json, e.g. {stray[:5]}'
         items=[it for f in F for it in data[f] if isinstance(it,dict)]
         inline=any('footnote-marker' in str(it.get('p')) for it in items) and not any(it.get('footnotes') for it in items)
@@ -140,9 +143,12 @@ def main(root,dry=False,packdir='sources/akiva/edition-supplements'):
             # a book whose reader notes are its original notes keeps them; the Word edition's copies are not added again
             if n.get('kind')=='orig' and noted: dup+=1; continue
             loc=grams.get(n['sig'])
+            if not loc and n.get('ref'):        # placed by its paragraph ref (the study edition spells out abbreviations)
+                loc=byref.get(norm(n['ref']))
             if not loc: lost+=1; continue
             f,k=loc; it=data[f][k]
             have=set().union(set(),*[urls_of(x) for x in it.get('footnotes') or []])|inline_urls(it)
+            if any(x.get('sourceId')==n.get('sourceId') for x in it.get('footnotes') or []): dup+=1; continue
             mine={canon(s['url']) for s in n['sources'] if s.get('url')}
             if mine and mine<=have: dup+=1; continue
             if cap:
@@ -150,7 +156,8 @@ def main(root,dry=False,packdir='sources/akiva/edition-supplements'):
                 per[loc]=per.get(loc,0)+1
             phr=[bare(strip_notes(p[0] if isinstance(p,list) else p)) for p in it['p']]
             a=n['anchor']; two=' '.join(a.split()[:2])
-            pi=next((i for i,x in enumerate(phr) if a and a in x),-1)
+            pi=next((i for i,x in enumerate(phr) if n.get('key') and re.search(n['key'],x)),-1)
+            if pi<0: pi=next((i for i,x in enumerate(phr) if a and a in x),-1)
             if pi<0: pi=next((i for i,x in enumerate(phr) if two and two in x),len(phr)-1)
             if inline:
                 body=html.escape('\n'.join(x['text'] for x in n['paragraphs']),quote=False)

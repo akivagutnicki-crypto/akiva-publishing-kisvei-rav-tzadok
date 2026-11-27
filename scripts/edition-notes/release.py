@@ -20,9 +20,11 @@ import apply_notes, clean_resisei  # noqa: E402
 RELEASE = '20261126-edition-notes-' + (os.environ.get('GITHUB_SHA') or 'local')[:8]   # each run its own cache marker
 PUBLIC = 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/'
 PACKS = ROOT / 'sources/akiva/edition-supplements'
+PARALLELS = ROOT / 'sources/akiva/rt-parallels'      # Rav Tzadok and the Izhbitz teachings (ושמעתי / ואין מקום להאריך)
 REPORT = Path('edition-notes-release-report.json')
 LINKS = Path('edition-notes-links.json')
-SLUGS = sorted(p.stem for p in PACKS.glob('*.json'))
+EDITION_SLUGS = sorted(p.stem for p in PACKS.glob('*.json'))
+SLUGS = sorted(set(EDITION_SLUGS) | {p.stem for p in PARALLELS.glob('*.json')})
 rd = lambda p: json.loads(Path(p).read_text())
 wr = lambda p, v: Path(p).write_text(json.dumps(v, ensure_ascii=False, separators=(',', ':')))
 sha = lambda p: hashlib.sha256(Path(p).read_bytes()).hexdigest()
@@ -33,7 +35,7 @@ def repair_wording(data):
     """Tanach/Mishnah/Rambam quotations in every note of these books, restored to their source wording (text_repair)."""
     import text_repair
     counts = {}
-    for slug in SLUGS:
+    for slug in EDITION_SLUGS:
         d = data / slug; n = 0
         for f in apply_notes.files_in_order(str(d)):
             items = rd(d / f); changed = False
@@ -65,8 +67,13 @@ def apply(site):
     assert not missing, 'Books missing from the live site: ' + str(missing)
     # 1. notes (deduplicated against every note the reader already has), then the Resisei Layla cleanup and numbering
     report = apply_notes.main(str(data), packdir=str(PACKS))
-    wr(LINKS, {k: v['links'] for k, v in report.items() if isinstance(v, dict)})
+    second = apply_notes.main(str(data), packdir=str(PARALLELS))
+    links = {k: v['links'] for k, v in report.items() if isinstance(v, dict)}
+    for k, v in second.items():
+        if isinstance(v, dict): links.setdefault(k, []).extend(v['links'])
+    wr(LINKS, links)
     stats = {k: {x: y for x, y in v.items() if x != 'links'} for k, v in report.items()}
+    stats['izhbitz-parallels'] = {k: {x: y for x, y in v.items() if x != 'links'} for k, v in second.items()}
     stats['wording-repaired'] = repair_wording(data)
     out = subprocess.run([sys.executable, str(HERE / 'clean_resisei.py'), str(data / 'resisei-layla')], check=True,
                          capture_output=True, text=True).stdout
@@ -75,7 +82,7 @@ def apply(site):
     stats['connections'] = json.loads(run('node', 'scripts/edition-notes/connect.mjs', str(data), str(LINKS.resolve()),
                                           capture_output=True, text=True).stdout)
     # 3. MCP text of these books (strict for them), parallels and offline ZIPs, from the site's own data
-    titles = [b['title'] for b in rd(data / 'catalog.json') if b['slug'] in SLUGS]
+    titles = [b['title'] for b in rd(data / 'catalog.json') if b['slug'] in EDITION_SLUGS]
     text = site / 'mcp-data/text'; keep = Path(os.environ.get('RUNNER_TEMP', '/tmp')) / 'edition-notes-mcp-text'
     shutil.rmtree(keep, ignore_errors=True); shutil.copytree(text, keep)
     dist = ROOT / 'dist'; moved = None
@@ -87,10 +94,12 @@ def apply(site):
         # other books keep their published MCP text exactly
         for f in text.iterdir():
             slug = re.sub(r'(\.part\d+)?\.json$', '', f.name)
-            if slug not in SLUGS and (keep / f.name).exists(): shutil.copyfile(keep / f.name, f)
+            # Pri Tzaddik's MCP text is written by its own release scripts (edition fields the general builder lacks): kept
+            if (slug not in SLUGS or slug == 'peri-tzadik') and (keep / f.name).exists(): shutil.copyfile(keep / f.name, f)
         for f in keep.iterdir():
             if not (text / f.name).exists(): shutil.copyfile(f, text / f.name)
-        for slug in SLUGS: run('node', 'scripts/build-mcp-search-index.mjs', str(site / 'mcp-data'), slug)
+        for slug in SLUGS:
+            if slug != 'peri-tzadik': run('node', 'scripts/build-mcp-search-index.mjs', str(site / 'mcp-data'), slug)
         run('node', 'scripts/build-parallels.mjs')
         run('node', 'scripts/build-library-zips.mjs')
         cat = rd(site / 'mcp-data/catalog.json'); cat['version'] = rd(data / 'files.json')['version']; wr(site / 'mcp-data/catalog.json', cat)
@@ -127,7 +136,7 @@ def seal(site):
     bad = [k for k in changed if not ALLOWED.match(k)]
     assert not bad, 'Unrelated changes: ' + str(bad[:10])
     # MCP text of other books is unchanged
-    other = [k for k in changed if k.startswith('mcp-data/text/') and re.sub(r'(\.part\d+)?\.json$', '', k[14:]) not in SLUGS]
+    other = [k for k in changed if k.startswith('mcp-data/text/') and (re.sub(r'(\.part\d+)?\.json$', '', k[14:]) not in SLUGS or 'peri-tzadik' in k)]
     assert not other, 'MCP text of other books changed: ' + str(other[:5])
     big = [k for k in changed if k.startswith('mcp-data/') and (site / k).stat().st_size > 10_000_000]
     assert not big, 'MCP files over 10 MB: ' + str(big)
