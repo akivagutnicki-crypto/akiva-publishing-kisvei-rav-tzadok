@@ -68,6 +68,16 @@ def apply(site):
     # 1. notes (deduplicated against every note the reader already has), then the Resisei Layla cleanup and numbering
     report = apply_notes.main(str(data), packdir=str(PACKS))
     second = apply_notes.main(str(data), packdir=str(PARALLELS))
+    # every note must sit on a phrase with Hebrew: the reader anchors its marker to a Hebrew letter and refuses a section otherwise
+    empty = []
+    for slug in SLUGS:
+        for f in apply_notes.files_in_order(str(data / slug)) if (data / slug).is_dir() else []:
+            for it in rd(data / slug / f):
+                if not isinstance(it, dict) or not it.get('p'): continue
+                for x in it.get('footnotes') or []:
+                    i = x.get('phraseIndex', 0); ph = it['p'][i] if 0 <= i < len(it['p']) else ''
+                    if not apply_notes.plain(apply_notes.strip_notes(ph[0] if isinstance(ph, list) else ph)).strip(): empty.append((slug, f, x.get('sourceId')))
+    assert not empty, f'{len(empty)} notes on phrases without Hebrew, e.g. {empty[:5]}'
     links = {k: v['links'] for k, v in report.items() if isinstance(v, dict)}
     for k, v in second.items():
         if isinstance(v, dict): links.setdefault(k, []).extend(v['links'])

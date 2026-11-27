@@ -182,6 +182,23 @@ def main(root,dry=False,packdir='sources/akiva/edition-supplements'):
             for s_ in n['sources']:
                 if s_.get('ref') and s_.get('url','').startswith('https://www.sefaria.org/'): newlinks.append({'s':sec,'a':a,'r':s_['ref']})
             placed+=1
+        # a note on a phrase with no Hebrew (an English-only line such as "The theme: ...") has no letter for the reader to
+        # anchor its marker to, and the reader then refuses the whole section: move it to the nearest phrase with Hebrew
+        moved_empty=0
+        for f in F:
+            for it in data[f]:
+                if not isinstance(it,dict) or not it.get('footnotes') or not it.get('p'): continue
+                hes=[plain(strip_notes(ph[0] if isinstance(ph,list) else ph)) for ph in it['p']]
+                for x in it['footnotes']:
+                    i=x.get('phraseIndex',0)
+                    if 0<=i<len(hes) and hes[i].strip(): continue
+                    j=next((k for k in range(min(i,len(hes))-1,-1,-1) if hes[k].strip()),None)
+                    if j is None: j=next((k for k in range(max(i,0)+1,len(hes)) if hes[k].strip()),None)
+                    if j is None: continue
+                    he=hes[j]; ph=it['p'][j]; en=plain(ph[1]) if isinstance(ph,list) and len(ph)>1 else ''
+                    x.update(phraseIndex=j,heWord=len(he.split()),heCharOffset=len(he),heAnchorPrefix=he)
+                    if 'enCharOffset' in x: x.update(enCharOffset=len(en),enAnchorPrefix=en)
+                    moved_empty+=1
         # renumber the whole book in reading order (phrase order within a paragraph)
         removed=0
         if inline:
@@ -215,7 +232,7 @@ def main(root,dry=False,packdir='sources/akiva/edition-supplements'):
                     for x in it['footnotes']: num+=1; x['number']=num
         if not dry:
             for f in F: json.dump(data[f],open(os.path.join(d,f),'w'),ensure_ascii=False,separators=(',',':'))
-        report[slug]={'repeats_removed':removed if inline else 0,'refreshed':refreshed,'added':placed,'already_there':dup,'not_found':lost,'capped':capped,'notes_now':num,'links':newlinks}
+        report[slug]={'moved_off_empty_phrase':moved_empty,'repeats_removed':removed if inline else 0,'refreshed':refreshed,'added':placed,'already_there':dup,'not_found':lost,'capped':capped,'notes_now':num,'links':newlinks}
     return report
 if __name__=='__main__':
     r=main(sys.argv[1],'--dry' in sys.argv)
