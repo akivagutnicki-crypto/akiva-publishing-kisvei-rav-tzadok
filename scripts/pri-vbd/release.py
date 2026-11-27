@@ -174,7 +174,7 @@ def apply(site):
     wr(textpath, text); wr(catpath, cat)
     wr(lib / 'pri-vbd-publication.json', m)
     # kisvei_search's prebuilt index and the text chunks, from the site's own book texts; then the Worker budget guard
-    subprocess.run(['node', 'scripts/build-mcp-search-index.mjs', str(site / 'mcp-data')], check=True)
+    subprocess.run(['node', 'scripts/build-mcp-search-index.mjs', str(site / 'mcp-data'), 'peri-tzadik'], check=True)   # this book only; other books' bytes stay
     subprocess.run(['node', 'scripts/test-mcp-budget.mjs', str(site / 'mcp-data')], check=True)
     print('Applied', len(secs), 'sections,', m['paragraphs'], 'paragraphs,', m['pairs'], 'phrase pairs,', m['footnotes'], 'notes;',
           'mcp-data/text/peri-tzadik.json is', round(textpath.stat().st_size / 1e6, 2), 'MB')
@@ -222,7 +222,7 @@ def permitted(name):
     allowed = re.compile(r'^(library/index\.html|library/sw\.js|library/data/(catalog|files)\.json|library/data/peri-tzadik/(toc|'
                          + ids + r')\.json|library/downloads/(index\.json|rav-tzadok-library\.zip|books/peri-tzadik\.zip|'
                          + downloads + r')|library/pri-vbd-publication\.json|mcp-data/(catalog|text/peri-tzadik)\.json|'
-                         r'mcp-data/search/.+|mcp-data/text-chunks/.+)$')
+                         r'mcp-data/search/peri-tzadik\..+|mcp-data/text-chunks/peri-tzadik/.+)$')
     return bool(allowed.match(name))
 
 
@@ -231,7 +231,7 @@ def seal(site):
     changed = {k for k in set(before) | set(after) if before.get(k) != after.get(k)}
     removed = set(before) - set(after)
     # the search index may rename its parts (e.g. a file split in two); nothing else may disappear
-    assert all(k.startswith(('mcp-data/search/', 'mcp-data/text-chunks/')) for k in removed), 'Published files were removed: ' + str(sorted(removed)[:8])
+    assert all(k.startswith(('mcp-data/search/peri-tzadik.', 'mcp-data/text-chunks/peri-tzadik/')) for k in removed), 'Published files were removed: ' + str(sorted(removed)[:8])
     assert all(permitted(k) for k in changed), 'Unrelated changes: ' + str(sorted(k for k in changed if not permitted(k))[:10])
     # MCP data: <= 10 MB except the grandfathered whole-book file (held by scripts/test-mcp-budget.mjs)
     big = [k for k in changed if k in after and k.startswith('mcp-data/') and k != 'mcp-data/text/peri-tzadik.json' and (site / k).stat().st_size > MAX_BYTES]
