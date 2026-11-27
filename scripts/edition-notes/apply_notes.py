@@ -98,7 +98,7 @@ TANACH=re.compile(r'^(?:Source(?: of the quoted words)?: )?(?:Bereishis|Shemos|V
 def priority(n):
     t=n['paragraphs'][0]['text'] if n.get('paragraphs') else ''
     return 0 if t.startswith('Source of the quoted words') else (2 if TANACH.match(t) else 1)
-def main(root,dry=False,packdir='sources/akiva/edition-supplements'):
+def main(root,dry=False,packdir='sources/akiva/edition-supplements',skip_refs=frozenset()):
     report={}
     for pf in sorted(glob.glob(os.path.join(packdir,'*.json'))):
         pack=json.load(open(pf)); slug=pack['slug']; d=os.path.join(root,slug)
@@ -147,6 +147,8 @@ def main(root,dry=False,packdir='sources/akiva/edition-supplements'):
                 loc=byref.get(norm(n['ref']))
             if not loc: lost+=1; continue
             f,k=loc; it=data[f][k]
+            # a section the Word edition replaced already carries the Word file's own notes
+            if anchor[(f,k)][0] in skip_refs: dup+=1; continue
             have=set().union(set(),*[urls_of(x) for x in it.get('footnotes') or []])|inline_urls(it)
             if any(x.get('sourceId')==n.get('sourceId') for x in it.get('footnotes') or []): dup+=1; continue
             mine={canon(s['url']) for s in n['sources'] if s.get('url')}

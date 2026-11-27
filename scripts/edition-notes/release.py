@@ -85,9 +85,13 @@ def apply(site):
     site = Path(site).resolve(); data = site / 'library/data'
     missing = [s for s in SLUGS if not (data / s / 'toc.json').is_file()]
     assert not missing, 'Books missing from the live site: ' + str(missing)
+    # 0. the Word editions replace the text and notes of the sections they cover (the editor's instruction, 2026-11-27)
+    import word_replace
+    replaced = word_replace.main(str(data))
+    skip = frozenset(r for v in replaced.values() if isinstance(v, dict) for r in v.get('replacedRefs', []))
     # 1. notes (deduplicated against every note the reader already has), then the Resisei Layla cleanup and numbering
-    report = apply_notes.main(str(data), packdir=str(PACKS))
-    second = apply_notes.main(str(data), packdir=str(PARALLELS))
+    report = apply_notes.main(str(data), packdir=str(PACKS), skip_refs=skip)
+    second = apply_notes.main(str(data), packdir=str(PARALLELS), skip_refs=skip)
     # every note must sit on a phrase with Hebrew: the reader anchors its marker to a Hebrew letter and refuses a section otherwise
     empty = []
     for slug in SLUGS:
@@ -99,15 +103,20 @@ def apply(site):
                     if not apply_notes.plain(apply_notes.strip_notes(ph[0] if isinstance(ph, list) else ph)).strip(): empty.append((slug, f, x.get('sourceId')))
     assert not empty, f'{len(empty)} notes on phrases without Hebrew, e.g. {empty[:5]}'
     links = {k: v['links'] for k, v in report.items() if isinstance(v, dict)}
+    for k, v in replaced.items():
+        if isinstance(v, dict): links.setdefault(k, []).extend(v['links'])
     for k, v in second.items():
         if isinstance(v, dict): links.setdefault(k, []).extend(v['links'])
     wr(LINKS, links)
     stats = {k: {x: y for x, y in v.items() if x != 'links'} for k, v in report.items()}
     stats['izhbitz-parallels'] = {k: {x: y for x, y in v.items() if x != 'links'} for k, v in second.items()}
+    stats['word-editions-replaced'] = {k: ({x: y for x, y in v.items() if x not in ('links', 'replacedRefs')} if isinstance(v, dict) else v)
+                                        for k, v in replaced.items()}
     stats['wording-repaired'] = repair_wording(data)
-    out = subprocess.run([sys.executable, str(HERE / 'clean_resisei.py'), str(data / 'resisei-layla')], check=True,
-                         capture_output=True, text=True).stdout
-    stats['resisei-layla-cleanup'] = json.loads(out)
+    if not replaced.get('resisei-layla', {}).get('replaced'):    # the inline-note cleanup of the older Resisei Layla text
+        out = subprocess.run([sys.executable, str(HERE / 'clean_resisei.py'), str(data / 'resisei-layla')], check=True,
+                             capture_output=True, text=True).stdout
+        stats['resisei-layla-cleanup'] = json.loads(out)
     # 2. connections and the cited-source index
     stats['connections'] = json.loads(run('node', 'scripts/edition-notes/connect.mjs', str(data), str(LINKS.resolve()),
                                           capture_output=True, text=True).stdout)
