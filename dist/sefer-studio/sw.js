@@ -1,7 +1,7 @@
 // Keep this installation's cache separate from other apps on the same host.
 const APP_SCOPE = new URL(self.registration.scope);
 const CACHE_PREFIX = `seferstudio-${encodeURIComponent(APP_SCOPE.href)}-`;
-const CACHE_NAME = `${CACHE_PREFIX}v22-remembered-access-key`;
+const CACHE_NAME = `${CACHE_PREFIX}v23-create-access-key`;
 const CORE_URLS = [
   './',
   './index.html',

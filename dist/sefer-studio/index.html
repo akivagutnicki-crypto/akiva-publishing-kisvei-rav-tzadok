@@ -1004,7 +1004,12 @@
   <div id="studio-audio-credentials" class="studio-creative-card studio-audio-credentials" hidden>
     <label>SoferStudio access key<input id="studio-audio-access" type="password" data-studio-access autocomplete="off" spellcheck="false" placeholder="sfpro_…" /></label>
     <button type="button" id="studio-access-check">Check access</button>
-    <p id="studio-access-status" role="status">The key stays in this page session. Transcription sends the selected source to the chosen provider and may incur provider charges.</p>
+    <p id="studio-access-status" role="status">The key is saved in this browser, so you enter it once. Transcription sends the selected source to the chosen provider and may incur provider charges.</p>
+    <details id="studio-access-mint"><summary>Make a new access key</summary>
+      <label>Admin key (SOFERSTUDIO_ADMIN_KEY)<input id="studio-admin-key" type="password" autocomplete="off" spellcheck="false" placeholder="Your Cloudflare admin key" /></label>
+      <button type="button" id="studio-access-create">Create and save key</button>
+      <p id="studio-mint-status" role="status">The admin key is used once and never saved. The new key is saved in this browser and filled in above.</p>
+    </details>
   </div>
   <div id="studio-audio-api-info" class="studio-creative-card studio-audio-credentials" hidden>
     

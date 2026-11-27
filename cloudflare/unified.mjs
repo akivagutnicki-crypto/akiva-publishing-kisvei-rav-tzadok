@@ -314,7 +314,24 @@ export default async function unified(request, env) {
   const incoming = request.headers.get('Origin');
   let origin = null;
   try {
-    if (path === adminPath || path.startsWith(adminPath + '/')) return await admin(request, env, path);
+    if (path === adminPath || path.startsWith(adminPath + '/')) {
+      // Sefer Pro pages on the allowed origins may mint a key (POST, admin key required); listing and revoking stay direct-only.
+      const site = path === adminPath && incoming && parseAllowedOrigins(env.OCR_ALLOWED_ORIGINS).has(incoming) ? incoming : null;
+      if (request.method === 'OPTIONS') {
+        if (!site) throw problem(403, 'origin_not_allowed', 'This browser origin is not allowed.');
+        return new Response(null, { status: 204, headers: responseHeaders(site, {
+          'Access-Control-Allow-Methods': 'POST, OPTIONS', 'Access-Control-Allow-Headers': 'X-Admin-Key, Content-Type', 'Access-Control-Max-Age': '600',
+        }) });
+      }
+      if (site && request.method === 'POST') {
+        origin = site;
+        const limit = await env.STUDIO_RATE_LIMITER?.limit({ key: 'sofer-admin:' + (request.headers.get('CF-Connecting-IP') || 'unknown') });
+        if (!limit?.success) throw problem(limit ? 429 : 503, 'rate_limit', 'Too many attempts. Try again later.');
+      }
+      const response = await admin(request, env, path);
+      if (origin) response.headers.set('Access-Control-Allow-Origin', origin);
+      return response;
+    }
     origin = trustedOrigin(env, incoming);
     if (request.method === 'OPTIONS') return new Response(null, { status: 204, headers: responseHeaders(incoming, {
       'Access-Control-Allow-Methods': 'GET, POST, OPTIONS', 'Access-Control-Allow-Headers': 'Authorization, Content-Type', 'Access-Control-Max-Age': '600',
