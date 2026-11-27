@@ -45,7 +45,12 @@ def sections(d):
         while os.path.exists(os.path.join(d,f'{i}-{k}.json')): out.append((f'{i}-{k}.json',f"{lf['ref']} {k}",sep)); k+=1
     return out
 def files_in_order(d): return [f for f,_,_ in sections(d)]
-def plain(s): return html.unescape(re.sub(r'<[^>]*>','',str(s or '')))
+def plain(s):
+    """The phrase text exactly as scripts/build-mcp-index.mjs measures it (its plain(): <br> as a newline, tags
+    removed, entities decoded, spaces tidied and trimmed), so a note's character offset is valid there."""
+    t=html.unescape(re.sub(r'<[^>]*>','',re.sub(r'<br\s*/?>','\n',str(s or ''),flags=re.I)))
+    t=re.sub(r'[ \t\u00a0]+',' ',t); t=re.sub(r' *\n *','\n',t); t=re.sub(r'\n{3,}','\n\n',t)
+    return t.strip()
 INLINE=re.compile(r'<sup class="footnote-marker">\d+</sup><i class="footnote">\s*([^<—]{2,80}?)\s+—')
 def note_bodies(h):
     h=str(h); out=[]
