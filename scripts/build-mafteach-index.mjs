@@ -68,6 +68,11 @@ export const EDITION_BOOKS = [
   ['Torat Emet', 'the Akiva Publishing Toras Emes edition', 'ir', 'ede'],   // R. Leibele Eiger of Lublin; own text part (10 MB file limit)
   ['Imrei Emet', 'the Akiva Publishing Imrei Emes edition', 'ir', 'ede'],
   ['Sod Yesharim', 'the Akiva Publishing Sod Yesharim edition', 'ir', 'ede'],
+  // R. Tzadok's kuntresim, books of their own in the reader (sources/mafteach/curated-sources/kuntresim-editions.json)
+  ['Levushei Tzedakah', 'the Akiva Publishing Levushei Tzedakah edition', 'rt'],
+  ['Iggeret HaKodesh', 'the Akiva Publishing Iggeres HaKodesh edition', 'rt'],
+  ['Likkutei Torah on Shabbat', 'the Akiva Publishing Likkutei Torah on Shabbos edition', 'rt'],
+  ['Tumat Ohel Responsum', 'the Akiva Publishing Tumas Ohel responsum edition', 'rt'],
   // R. Tzadok's own sefarim (also in the printed index): the verified sources of the Word editions' notes (November 2026),
   // flagged as edition notes beside the printed index's lines (sources/mafteach/curated-sources/rav-tzadok-word-editions.json)
   ...[['Divrei Chalomot', 'Divrei Chalomos'], ['Divrei Soferim', 'Divrei Soferim'], ['Dover Tzedek', 'Dover Tzedek'],

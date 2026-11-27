@@ -1,0 +1,43 @@
+{
+ "title": "Iggeret HaKodesh",
+ "heTitle": "אגרת הקודש",
+ "language": "he",
+ "versionTitle": "Akiva Publishing interlinear edition with source notes and parallels (November 2026)",
+ "versionSource": "",
+ "license": "© Akiva Publishing",
+ "categories": [
+  "Chasidut",
+  "R' Tzadok HaKohen"
+ ],
+ "akiva": true,
+ "interlinear": true,
+ "editionId": "kuntresim-editions-2026-11",
+ "editionNote": "Iggeres HaKodesh, the letter of Rabbi Tzadok HaKohen of Lublin: phrase-by-phrase vocalized Hebrew with English, 22 numbered source and parallel notes with Sefaria links.",
+ "downloads": [
+  {
+   "source": "sources/akiva/docx/iggeres-hakodesh.docx",
+   "file": "downloads/iggeres-hakodesh.docx",
+   "label": "Download Iggeres HaKodesh (Word)"
+  }
+ ],
+ "footnoteImportInfo": {
+  "edition": "Akiva Publishing interlinear edition with source notes and parallels (November 2026)",
+  "notes": 22,
+  "firstNumber": 1,
+  "lastNumber": 22,
+  "anchorConvention": "Marker after the Hebrew phrase that carries the Word footnote reference (heCharOffset = phrase length)."
+ },
+ "tocGroups": [
+  {
+   "en": "The Holy Epistle",
+   "he": "אִגֶּרֶת הַקֹּדֶשׁ",
+   "keys": [
+    "1"
+   ]
+  }
+ ],
+ "sectionsFiles": [
+  "sources/akiva/kuntresim-editions/Iggeret_HaKodesh.part1.json.gz"
+ ],
+ "sectionCount": 1
+}

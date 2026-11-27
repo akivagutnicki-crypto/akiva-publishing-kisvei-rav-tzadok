@@ -1,0 +1,53 @@
+{
+ "title": "Tumat Ohel Responsum",
+ "heTitle": "תשובה בדין טומאת אהל",
+ "language": "he",
+ "versionTitle": "Akiva Publishing interlinear edition with source notes and parallels (November 2026)",
+ "versionSource": "",
+ "license": "© Akiva Publishing",
+ "categories": [
+  "Chasidut",
+  "R' Tzadok HaKohen"
+ ],
+ "akiva": true,
+ "interlinear": true,
+ "editionId": "kuntresim-editions-2026-11",
+ "editionNote": "The opening of Rabbi Tzadok HaKohen's responsum on Tum'as Ohel, with the Rambam passages it cites: phrase-by-phrase vocalized Hebrew with English, 21 numbered source and parallel notes with Sefaria links.",
+ "downloads": [
+  {
+   "source": "sources/akiva/docx/tumas-ohel-responsum.docx",
+   "file": "downloads/tumas-ohel-responsum.docx",
+   "label": "Download Tumas Ohel Responsum (Word)"
+  }
+ ],
+ "footnoteImportInfo": {
+  "edition": "Akiva Publishing interlinear edition with source notes and parallels (November 2026)",
+  "notes": 21,
+  "firstNumber": 1,
+  "lastNumber": 21,
+  "anchorConvention": "Marker after the Hebrew phrase that carries the Word footnote reference (heCharOffset = phrase length)."
+ },
+ "tocGroups": [
+  {
+   "en": "Opening of the Separate Tumat Ohel Responsum",
+   "he": "פְּתִיחַת הַתְּשׁוּבָה",
+   "keys": [
+    "Opening"
+   ]
+  },
+  {
+   "en": "Rambam Passages Cited in the Responsum",
+   "he": "דִּבְרֵי הָרַמְבַּ\"ם הַמּוּבָאִים בַּתְּשׁוּבָה",
+   "keys": [
+    "Rambam 1",
+    "Rambam 2",
+    "Rambam 3",
+    "Rambam 4"
+   ]
+  }
+ ],
+ "sectionsFiles": [
+  "sources/akiva/kuntresim-editions/Tumat_Ohel_Responsum.part1.json.gz"
+ ],
+ "sectionCount": 5
+}

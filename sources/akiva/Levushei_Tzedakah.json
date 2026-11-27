@@ -1,0 +1,138 @@
+{
+ "title": "Levushei Tzedakah",
+ "heTitle": "לבושי צדקה",
+ "language": "he",
+ "versionTitle": "Akiva Publishing interlinear edition with source notes and parallels (November 2026)",
+ "versionSource": "",
+ "license": "© Akiva Publishing",
+ "categories": [
+  "Chasidut",
+  "R' Tzadok HaKohen"
+ ],
+ "akiva": true,
+ "interlinear": true,
+ "editionId": "kuntresim-editions-2026-11",
+ "editionNote": "Levushei Tzedakah (Rabbi Tzadok HaKohen of Lublin) on Choshen Mishpat, with his novellae, Ein Yaakov on Shabbos and a responsum: phrase-by-phrase vocalized Hebrew with English, 186 numbered source and parallel notes with Sefaria links.",
+ "downloads": [
+  {
+   "source": "sources/akiva/docx/levushei-tzedakah.docx",
+   "file": "downloads/levushei-tzedakah.docx",
+   "label": "Download Levushei Tzedakah (Word)"
+  }
+ ],
+ "footnoteImportInfo": {
+  "edition": "Akiva Publishing interlinear edition with source notes and parallels (November 2026)",
+  "notes": 186,
+  "firstNumber": 1,
+  "lastNumber": 186,
+  "anchorConvention": "Marker after the Hebrew phrase that carries the Word footnote reference (heCharOffset = phrase length)."
+ },
+ "tocGroups": [
+  {
+   "en": "Title Page",
+   "he": "שַׁעַר הַסֵּפֶר",
+   "keys": [
+    "1"
+   ]
+  },
+  {
+   "en": "These Are the Words That Were Printed at the Opening of the Book in Its First Edition",
+   "he": "אֵלֶּה הַדְּבָרִים אֲשֶׁר נִדְפְּסוּ בִּפְתִיחַת הַסֵּפֶר בְּמַהֲדוּרָתוֹ הָרִאשׁוֹנָה",
+   "keys": [
+    "2"
+   ]
+  },
+  {
+   "en": "Levushei Tzedakah",
+   "he": "לְבוּשֵׁי צְדָקָה",
+   "keys": [
+    "3",
+    "4",
+    "5",
+    "6",
+    "7",
+    "8",
+    "9",
+    "10",
+    "11",
+    "12",
+    "13",
+    "14",
+    "15",
+    "16",
+    "17",
+    "18",
+    "19",
+    "20",
+    "21",
+    "22",
+    "23",
+    "24",
+    "25",
+    "26",
+    "27",
+    "28",
+    "29",
+    "30",
+    "31",
+    "32",
+    "33",
+    "34",
+    "35",
+    "36",
+    "37",
+    "38",
+    "39",
+    "40",
+    "41",
+    "42",
+    "43",
+    "44",
+    "45",
+    "46",
+    "47",
+    "48",
+    "49",
+    "50",
+    "51",
+    "52",
+    "53",
+    "54",
+    "55",
+    "56",
+    "57",
+    "58",
+    "59",
+    "60",
+    "61",
+    "62",
+    "63"
+   ]
+  },
+  {
+   "en": "Novellae from His Holy Manuscript",
+   "he": "חִדּוּשִׁים מִכְּתַב יַד קָדְשׁוֹ",
+   "keys": [
+    "64"
+   ]
+  },
+  {
+   "en": "With the Help of Heaven: Ein Yaakov on Tractate Shabbos (Page 10a)",
+   "he": "בְּסִיַּעְתָּא דִּשְׁמַיָּא עֵין יַעֲקֹב מִמַּסֶּכֶת שַׁבָּת (דַּף י׳ עַמּוּד א׳)",
+   "keys": [
+    "65"
+   ]
+  },
+  {
+   "en": "Responsum to Our Holy Master the Author of Toras Emes Regarding Spiritual Preparation Before the Mitzvah of Circumcision",
+   "he": "תְּשׁוּבָה לְרַבֵּינוּ הַקָּדוֹשׁ בַּעַל תּוֹרַת אֱמֶת בְּעִנְיַן הֲכָנָה לְמִצְוַת מִילָה",
+   "keys": [
+    "66"
+   ]
+  }
+ ],
+ "sectionsFiles": [
+  "sources/akiva/kuntresim-editions/Levushei_Tzedakah.part1.json.gz"
+ ],
+ "sectionCount": 66
+}

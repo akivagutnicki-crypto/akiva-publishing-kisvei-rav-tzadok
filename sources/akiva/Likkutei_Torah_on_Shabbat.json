@@ -1,0 +1,48 @@
+{
+ "title": "Likkutei Torah on Shabbat",
+ "heTitle": "לקוטי תורה על שבת",
+ "language": "he",
+ "versionTitle": "Akiva Publishing interlinear edition with source notes and parallels (November 2026)",
+ "versionSource": "",
+ "license": "© Akiva Publishing",
+ "categories": [
+  "Chasidut",
+  "R' Tzadok HaKohen"
+ ],
+ "akiva": true,
+ "interlinear": true,
+ "editionId": "kuntresim-editions-2026-11",
+ "editionNote": "Likkutei Torah on Shabbos, from the manuscript of Rabbi Tzadok HaKohen of Lublin: phrase-by-phrase vocalized Hebrew with English, 117 numbered source and parallel notes with Sefaria links.",
+ "downloads": [
+  {
+   "source": "sources/akiva/docx/likutei-torah-on-shabbos.docx",
+   "file": "downloads/likutei-torah-on-shabbos.docx",
+   "label": "Download Likkutei Torah on Shabbos (Word)"
+  }
+ ],
+ "footnoteImportInfo": {
+  "edition": "Akiva Publishing interlinear edition with source notes and parallels (November 2026)",
+  "notes": 117,
+  "firstNumber": 1,
+  "lastNumber": 117,
+  "anchorConvention": "Marker after the Hebrew phrase that carries the Word footnote reference (heCharOffset = phrase length)."
+ },
+ "tocGroups": [
+  {
+   "en": "Likkutei Torah on Shabbat",
+   "he": "לִקּוּטֵי תוֹרָה עַל שַׁבָּת",
+   "keys": [
+    "Introduction",
+    "1",
+    "2",
+    "3",
+    "4",
+    "5"
+   ]
+  }
+ ],
+ "sectionsFiles": [
+  "sources/akiva/kuntresim-editions/Likkutei_Torah_on_Shabbat.part1.json.gz"
+ ],
+ "sectionCount": 6
+}
