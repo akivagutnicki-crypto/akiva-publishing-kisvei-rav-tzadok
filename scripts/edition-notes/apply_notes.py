@@ -156,7 +156,11 @@ def main(root,dry=False,packdir='sources/akiva/edition-supplements'):
                 per[loc]=per.get(loc,0)+1
             phr=[bare(strip_notes(p[0] if isinstance(p,list) else p)) for p in it['p']]
             a=n['anchor']; two=' '.join(a.split()[:2])
-            pi=next((i for i,x in enumerate(phr) if n.get('key') and re.search(n['key'],x)),-1)
+            pi=-1
+            if n.get('cut'):        # the phrase that cuts the idea short, the one right after the locator word
+                cuts=[i for i,x in enumerate(phr) if re.search(n['cut'],x)]
+                pi=next((i for i in cuts if n.get('key') and re.search(n['key'],' '.join(phr[max(0,i-1):i+1]))),cuts[0] if cuts else -1)
+            if pi<0: pi=next((i for i,x in enumerate(phr) if n.get('key') and re.search(n['key'],x)),-1)
             if pi<0: pi=next((i for i,x in enumerate(phr) if a and a in x),-1)
             if pi<0: pi=next((i for i,x in enumerate(phr) if two and two in x),len(phr)-1)
             if inline:
