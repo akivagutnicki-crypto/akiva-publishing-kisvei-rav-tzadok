@@ -126,6 +126,11 @@ def apply(site):
     titles = [b['title'] for b in rd(data / 'catalog.json') if b['slug'] in EDITION_SLUGS]
     text = site / 'mcp-data/text'; keep = Path(os.environ.get('RUNNER_TEMP', '/tmp')) / 'edition-notes-mcp-text'
     shutil.rmtree(keep, ignore_errors=True); shutil.copytree(text, keep)
+    # Pri Tzaddik's search index, text chunks and catalog entry are written by its own release: kept exactly as published
+    mcp = site / 'mcp-data'; keep_pt = keep.parent / 'edition-notes-mcp-pt'; shutil.rmtree(keep_pt, ignore_errors=True); keep_pt.mkdir()
+    pt_search = {f.name: f.read_bytes() for f in (mcp / 'search').glob('peri-tzadik.*')}
+    if (mcp / 'text-chunks/peri-tzadik').exists(): shutil.copytree(mcp / 'text-chunks/peri-tzadik', keep_pt / 'chunks')
+    pt_cat = next((b for b in rd(mcp / 'catalog.json').get('books', []) if b.get('slug') == 'peri-tzadik'), None)
     dist = ROOT / 'dist'; moved = None
     if dist.exists() or dist.is_symlink(): moved = ROOT / '.dist-repo'; dist.rename(moved)
     dist.symlink_to(site)
@@ -142,8 +147,15 @@ def apply(site):
         # Pri Tzaddik is kept exactly as published: no part the builder wrote beyond the published ones may remain
         for f in list(text.glob('peri-tzadik.json')) + list(text.glob('peri-tzadik.part*.json')):
             if not (keep / f.name).exists(): f.unlink()
+        for f in (mcp / 'search').glob('peri-tzadik.*'):
+            if f.name not in pt_search: f.unlink()
+        for n, by in pt_search.items(): (mcp / 'search' / n).write_bytes(by)
+        if (keep_pt / 'chunks').exists():
+            shutil.rmtree(mcp / 'text-chunks/peri-tzadik', ignore_errors=True); shutil.copytree(keep_pt / 'chunks', mcp / 'text-chunks/peri-tzadik')
+        if pt_cat is not None:
+            c2 = rd(mcp / 'catalog.json'); c2['books'] = [pt_cat if x.get('slug') == 'peri-tzadik' else x for x in c2.get('books', [])]; wr(mcp / 'catalog.json', c2)
         for slug in SLUGS:
-            run('node', 'scripts/build-mcp-search-index.mjs', str(site / 'mcp-data'), slug)   # Pri Tzaddik's search index from its published text, so the two always agree
+            if slug != 'peri-tzadik': run('node', 'scripts/build-mcp-search-index.mjs', str(site / 'mcp-data'), slug)
         run('node', 'scripts/build-parallels.mjs')
         run('node', 'scripts/build-library-zips.mjs')
         cat = rd(site / 'mcp-data/catalog.json'); cat['version'] = rd(data / 'files.json')['version']; wr(site / 'mcp-data/catalog.json', cat)
