@@ -143,7 +143,7 @@ def apply(site):
         for f in list(text.glob('peri-tzadik.json')) + list(text.glob('peri-tzadik.part*.json')):
             if not (keep / f.name).exists(): f.unlink()
         for slug in SLUGS:
-            if slug != 'peri-tzadik': run('node', 'scripts/build-mcp-search-index.mjs', str(site / 'mcp-data'), slug)
+            run('node', 'scripts/build-mcp-search-index.mjs', str(site / 'mcp-data'), slug)   # Pri Tzaddik's search index from its published text, so the two always agree
         run('node', 'scripts/build-parallels.mjs')
         run('node', 'scripts/build-library-zips.mjs')
         cat = rd(site / 'mcp-data/catalog.json'); cat['version'] = rd(data / 'files.json')['version']; wr(site / 'mcp-data/catalog.json', cat)
