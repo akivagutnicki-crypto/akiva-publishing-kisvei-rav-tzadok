@@ -154,6 +154,9 @@ def main(root,dry=False,packdir='sources/akiva/edition-supplements'):
             if pi<0: pi=next((i for i,x in enumerate(phr) if two and two in x),len(phr)-1)
             if inline:
                 body=html.escape('\n'.join(x['text'] for x in n['paragraphs']),quote=False)
+                # already added by an earlier run (the inline note carries no link to compare): same opening words
+                if any(plain(b)[:60]==plain(body)[:60] for ph_ in it['p'] if isinstance(ph_,list) for b in note_bodies(ph_[0])):
+                    dup+=1; continue
                 ph=it['p'][pi]; ph[0]=ph[0]+f'<sup class="footnote-marker">0</sup><i class="footnote"> {body}</i>'
                 sec,a=anchor[(f,k)]
                 for s_ in n['sources']:
@@ -169,6 +172,30 @@ def main(root,dry=False,packdir='sources/akiva/edition-supplements'):
                 if s_.get('ref') and s_.get('url','').startswith('https://www.sefaria.org/'): newlinks.append({'s':sec,'a':a,'r':s_['ref']})
             placed+=1
         # renumber the whole book in reading order (phrase order within a paragraph)
+        removed=0
+        if inline:
+            for f in F:
+                for it in data[f]:
+                    if not isinstance(it,dict): continue
+                    seen=set()
+                    for ph in it.get('p') or []:
+                        if not isinstance(ph,list) or 'footnote-marker' not in ph[0]: continue
+                        h=ph[0]
+                        for m in reversed(list(re.finditer(r'<sup class="footnote-marker">\d+</sup><i class="footnote">',h))):
+                            pass
+                        out=[]; pos=0
+                        for m in re.finditer(r'<sup class="footnote-marker">\d+</sup><i class="footnote">',h):
+                            if m.start()<pos: continue
+                            depth=1; j=len(h)
+                            for t in re.finditer(r'<i[ >]|</i>',h[m.end():]):
+                                depth+=1 if t.group(0)!='</i>' else -1
+                                if depth==0: j=m.end()+t.end(); break
+                            key=plain(h[m.end():j-4])[:60]
+                            out.append(h[pos:m.start()])
+                            if key in seen: removed+=1
+                            else: seen.add(key); out.append(h[m.start():j])
+                            pos=j
+                        out.append(h[pos:]); ph[0]=''.join(out)
         num=renumber_inline([data[f] for f in F]) if inline else 0
         for f in F:
             for it in data[f]:
@@ -177,7 +204,7 @@ def main(root,dry=False,packdir='sources/akiva/edition-supplements'):
                     for x in it['footnotes']: num+=1; x['number']=num
         if not dry:
             for f in F: json.dump(data[f],open(os.path.join(d,f),'w'),ensure_ascii=False,separators=(',',':'))
-        report[slug]={'refreshed':refreshed,'added':placed,'already_there':dup,'not_found':lost,'capped':capped,'notes_now':num,'links':newlinks}
+        report[slug]={'repeats_removed':removed if inline else 0,'refreshed':refreshed,'added':placed,'already_there':dup,'not_found':lost,'capped':capped,'notes_now':num,'links':newlinks}
     return report
 if __name__=='__main__':
     r=main(sys.argv[1],'--dry' in sys.argv)
