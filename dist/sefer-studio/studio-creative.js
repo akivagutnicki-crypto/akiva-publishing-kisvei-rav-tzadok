@@ -417,6 +417,24 @@
         result.textContent = names.length ? 'Access verified. Server credentials configured for ' + names.join(' and ') + '.' : 'Access verified. The server operator still needs to configure provider credentials.';
       } catch (error) { result.textContent = error.message; }
     });
+    click('studio-access-create', async () => {
+      const result = find('studio-mint-status'), adminInput = find('studio-admin-key');
+      const adminKey = adminInput.value.trim();
+      if (!adminKey) { result.textContent = 'Enter your admin key first.'; adminInput.focus(); return; }
+      result.textContent = 'Creating a key…';
+      try {
+        const reply = await fetch(api + 'admin/keys', { method: 'POST', headers: { 'X-Admin-Key': adminKey, 'Content-Type': 'application/json' },
+          body: JSON.stringify({ label: 'Sefer Pro ' + new Date().toISOString().slice(0, 10) }), cache: 'no-store', referrerPolicy: 'no-referrer' });
+        const data = await reply.json().catch(() => ({}));
+        if (!reply.ok || !keyShape.test(data.key || '')) throw new Error(reply.status === 403 && data.code === 'invalid_admin_key' ? 'That admin key was not accepted.' : (data.error || 'The key could not be created.'));
+        const field = find('studio-audio-access');
+        field.value = data.key;
+        field.dispatchEvent(new Event('input'));
+        result.textContent = 'Done. Your new access key is saved in this browser and ready to use.';
+        find('studio-access-check').click();
+      } catch (error) { result.textContent = error.message; }
+      finally { adminInput.value = ''; }
+    });
     click('studio-audio-api', () => { const info = find('studio-audio-api-info'); info.hidden = !info.hidden; });
     click('studio-audio-install', () => find('btn-pwa-install').click());
     click('studio-audio-point', addNikkud);
