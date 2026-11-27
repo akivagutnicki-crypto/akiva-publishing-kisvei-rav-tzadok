@@ -47,7 +47,7 @@ def parse(path):
         if st=='Heading2': cur['title']=text; continue
         if st=='Heading3': pending.append(text); continue
         if not text and not p.findall('.//'+W+'footnoteReference'): continue
-        pairs=[]; fn_at=[]
+        pairs=[]; fn_at=[]; hr=[]   # hr: the last Hebrew run of each pair (where a note on that phrase goes)
         for r in p.iter(W+'r'):
             t=re.sub(r'[\u200e\u200f\u202a-\u202e]','',''.join(x.text or '' for x in r.findall(W+'t')))
             ref=r.find(W+'footnoteReference')
@@ -55,17 +55,17 @@ def parse(path):
             if core:
                 lat=bool(re.search('[A-Za-z]',core)); heb=bool(re.search('[א-ת]',core))
                 if heb and not lat:
-                    if not pairs or pairs[-1][1]: pairs.append([core,''])
-                    else: pairs[-1][0]+=' '+core
+                    if not pairs or pairs[-1][1]: pairs.append([core,'']); hr.append(r)
+                    else: pairs[-1][0]+=' '+core; hr[-1]=r
                 elif pairs: pairs[-1][1]=(pairs[-1][1]+' '+core).strip()
-                else: pairs.append(['',core])
+                else: pairs.append(['',core]); hr.append(None)
             if ref is not None:
                 fid=ref.get(W+'id')
                 if fid in notes: fn_at.append((max(0,len(pairs)-1),fid))
         if not pairs: continue
         # a running title at a parsha's end (PRI TZADDIK, פרשת צו, Parshas Tzav, Sefer Vayikra): not text
         if len(pairs)==1 and len(pairs[0][0]+pairs[0][1])<40 and not fn_at: continue
-        item={'pairs':pairs,'notes':fn_at}
+        item={'pairs':pairs,'notes':fn_at,'el':p,'hr':hr,'off':0}
         if pending: item['headings']=pending; pending=[]
         cur['items'].append(item)
     return secs,notes
@@ -139,9 +139,9 @@ def align(sec):
                 if hit: break
             if not hit: return None,f'para {k+1} not found'
             j,pi=hit; it=items[j]
-            a={'pairs':it['pairs'][:pi],'notes':[(x,f) for x,f in it['notes'] if x<pi]}
+            a={'pairs':it['pairs'][:pi],'notes':[(x,f) for x,f in it['notes'] if x<pi],'el':it.get('el'),'hr':it.get('hr'),'off':it.get('off',0)}
             if it.get('headings'): a['headings']=it['headings']
-            b={'pairs':it['pairs'][pi:],'notes':[(x-pi,f) for x,f in it['notes'] if x>=pi]}
+            b={'pairs':it['pairs'][pi:],'notes':[(x-pi,f) for x,f in it['notes'] if x>=pi],'el':it.get('el'),'hr':it.get('hr'),'off':it.get('off',0)+pi}
             if it.get('inline'): pass
             items[j:j+1]=[a,b]; dw[j:j+1]=[[re.sub(r'[^א-ת]','',w) for w in words(' '.join(h for h,_ in x['pairs']))[:25]] for x in (a,b)]
             best=(9,j+1)
