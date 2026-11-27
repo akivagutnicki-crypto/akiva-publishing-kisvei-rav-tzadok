@@ -17,7 +17,7 @@ for a, b in _M['en']:
 for v in EN.values(): v.sort(key=lambda x: -len(x[0]))
 HEWORD = re.compile(r'[א-ת]{4,}')
 MARK = re.compile(r'\s*\{[פסש]\}|\s*\*\([^)]{0,80}\)')
-ACRO = re.compile(r'(?<=[\s“‘;,.])[\u05d0-\u05ea](?=[A-Z][a-z])')
+ACRO = re.compile(r'([\s“‘;,.:!?])[\u05d0-\u05ea](?=[A-Z][a-z])')
 CUT = re.compile(r'(?<=[a-z;,.:!?”’)\]])([a-z]{1,2})(?=[A-Z“"\[(])')
 
 
@@ -43,7 +43,7 @@ def fix(t):
         seg = re.match(r'(.*?)( …”?|…”?|”)?$', body, re.S).group(1)
         if full.startswith(seg.rstrip()) or seg.startswith(full):
             t = t[:m.start()] + body[len(full) if seg.startswith(full) else len(seg):]; n += 1
-    t, k = ACRO.subn('', t); n += k                      # acrostic letters of Tehillim/Eichah in the English
+    t, k = ACRO.subn(lambda m: m.group(1) if m.group(1).isspace() or m.group(1) in '“‘' else m.group(1) + ' ', t); n += k                      # acrostic letters of Tehillim/Eichah in the English
     return t, (n if t != orig else 0)
 
 

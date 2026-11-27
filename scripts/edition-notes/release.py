@@ -17,7 +17,7 @@ ROOT = HERE.parent.parent
 sys.path.insert(0, str(HERE))
 import apply_notes, clean_resisei  # noqa: E402
 
-RELEASE = '20261126-edition-notes-v1'
+RELEASE = '20261126-edition-notes-' + (os.environ.get('GITHUB_SHA') or 'local')[:8]   # each run its own cache marker
 PUBLIC = 'https://akivagutnicki-crypto.github.io/akiva-publishing-kisvei-rav-tzadok/'
 PACKS = ROOT / 'sources/akiva/edition-supplements'
 REPORT = Path('edition-notes-release-report.json')
@@ -101,7 +101,8 @@ def apply(site):
     # 4. the reader fetches these books' data afresh once
     page = site / 'library/index.html'; html = page.read_text()
     marker = 'const editionDataUrl = url => '
-    assert html.count(marker) == 1 and RELEASE not in html, 'Reader cache helper unexpectedly changed'
+    html = re.sub(r'/\* 20261126-edition-notes-[^*]* \*/[^\n]*\n', '', html)      # an earlier run's marker
+    assert html.count(marker) == 1, 'Reader cache helper unexpectedly changed'
     folders = ' || '.join(f"url.startsWith('data/{s}/')" for s in SLUGS)
     page.write_text(html.replace(marker, marker + f"/* {RELEASE} */ ({folders} || url.startsWith('data/cited/') || "
                     f"url.startsWith('data/parallels/') || url === 'data/files.json') ? url + (url.includes('?') ? '&' : '?') + 'notes={RELEASE}' :\n"))
