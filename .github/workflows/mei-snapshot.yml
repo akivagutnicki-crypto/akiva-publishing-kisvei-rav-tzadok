@@ -1,0 +1,50 @@
+name: Snapshot the published Mei HaShiloach data
+
+on:
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  actions: read
+
+jobs:
+  snapshot:
+    if: ${{ github.repository == 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok' }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      GITHUB_TOKEN: ${{ github.token }}
+      GH_TOKEN: ${{ github.token }}
+      FORCE: 'true'
+    steps:
+      - uses: actions/checkout@v6
+        with:
+          ref: main
+      - name: Find the current publication
+        id: find
+        run: python3 scripts/site-mirror.py find
+      - name: Download it
+        uses: actions/download-artifact@v4
+        with:
+          artifact-ids: ${{ steps.find.outputs.artifact }}
+          run-id: ${{ steps.find.outputs.run }}
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/pages
+      - name: Extract the Mei HaShiloach files and commit them
+        run: |
+          set -e
+          TAR=$(find "$RUNNER_TEMP/pages" -name artifact.tar | head -1)
+          mkdir -p "$RUNNER_TEMP/x"
+          tar -xf "$TAR" -C "$RUNNER_TEMP/x" --wildcards './library/data/mei-ha-shiloach/*' './mcp-data/catalog.json' './library/data/catalog.json' './library/data/files.json' './mcp-data/text/mei-hashiloach*' 2>/dev/null || tar -xf "$TAR" -C "$RUNNER_TEMP/x" --wildcards 'library/data/mei-ha-shiloach/*' 'mcp-data/catalog.json' 'library/data/catalog.json' 'library/data/files.json' 'mcp-data/text/mei-hashiloach*'
+          D=editorial/snapshots/mei-live
+          rm -rf $D && mkdir -p $D
+          (cd "$RUNNER_TEMP/x" && find . -type f | sort) > $D/files.txt
+          cp -r "$RUNNER_TEMP/x"/. $D/
+          for f in $(find $D -name '*.json' -size +20M); do gzip -9 "$f"; done
+          echo "run=${{ steps.find.outputs.run }} artifact=${{ steps.find.outputs.artifact }}" > $D/source.txt
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add $D
+          git commit -m "Snapshot of the published Mei HaShiloach data (run ${{ steps.find.outputs.run }})"
+          for i in 1 2 3 4 5; do git pull --rebase origin main && git push origin HEAD:main && exit 0; sleep 15; done
+          exit 1
