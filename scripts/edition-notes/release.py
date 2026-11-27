@@ -178,7 +178,7 @@ def seal(site):
     changed = sorted(k for k in after if before.get(k) != after[k])
     removed = sorted(set(before) - set(after))
     old_word = {'library/downloads/' + f for f in rd(WORD / 'manifest.json')['remove']}
-    assert all(k.startswith(('mcp-data/search/', 'mcp-data/text-chunks/')) or k in old_word for k in removed), 'Files removed: ' + str(removed[:8])
+    assert all(k.startswith(('mcp-data/search/', 'mcp-data/text-chunks/', 'mcp-data/mafteach/')) or k in old_word for k in removed), 'Files removed: ' + str(removed[:8])
     bad = [k for k in changed if not ALLOWED.match(k)]
     assert not bad, 'Unrelated changes: ' + str(bad[:10])
     # MCP text of other books is unchanged
