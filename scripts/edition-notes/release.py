@@ -9,7 +9,7 @@ offline manifest/ZIPs and the cache markers change. Every other published file i
   release.py seal SITE     preservation check against new-books-baseline.json; writes the release report
   release.py live          the changed reader files are publicly live with the released bytes
 """
-import hashlib, json, os, re, shutil, subprocess, sys, time, urllib.request
+import hashlib, json, os, re, shutil, subprocess, sys, time, urllib.error, urllib.request
 from pathlib import Path
 
 HERE = Path(__file__).resolve().parent
@@ -61,6 +61,26 @@ def repair_wording(data):
     return counts
 
 
+WORD = ROOT / 'sources/akiva/word-editions'
+
+
+def word_downloads(site):
+    m = rd(WORD / 'manifest.json'); lib = site / 'library'; catalog = rd(lib / 'data/catalog.json')
+    gone = {'downloads/' + f for f in m['remove']}
+    for f in m['remove']:
+        if (lib / 'downloads' / f).exists(): (lib / 'downloads' / f).unlink()
+    by = {b['slug']: b for b in catalog}
+    for b in catalog:
+        if b.get('downloads'): b['downloads'] = [d for d in b['downloads'] if d['file'] not in gone]
+    for x in m['files']:
+        src = WORD / x['file']; assert src.stat().st_size < 10_000_000, x['file']
+        shutil.copyfile(src, lib / 'downloads' / x['file'])
+        book = by[x['slug']]; file = 'downloads/' + x['file']
+        book['downloads'] = [d for d in book.get('downloads') or [] if d['file'] != file] + [{'file': file, 'label': x['label']}]
+    wr(lib / 'data/catalog.json', catalog)
+    return {'added': len(m['files']), 'removed': sorted(gone)}
+
+
 def apply(site):
     site = Path(site).resolve(); data = site / 'library/data'
     missing = [s for s in SLUGS if not (data / s / 'toc.json').is_file()]
@@ -91,6 +111,8 @@ def apply(site):
     # 2. connections and the cited-source index
     stats['connections'] = json.loads(run('node', 'scripts/edition-notes/connect.mjs', str(data), str(LINKS.resolve()),
                                           capture_output=True, text=True).stdout)
+    # 2b. the Word editions as downloads: tonight's files replace the old ones (removed, so no older version stays downloadable)
+    stats['word-downloads'] = word_downloads(site)
     # 3. MCP text of these books (strict for them), parallels and offline ZIPs, from the site's own data
     titles = [b['title'] for b in rd(data / 'catalog.json') if b['slug'] in EDITION_SLUGS]
     text = site / 'mcp-data/text'; keep = Path(os.environ.get('RUNNER_TEMP', '/tmp')) / 'edition-notes-mcp-text'
@@ -127,7 +149,7 @@ def apply(site):
     assert html.count(marker) == 1, 'Reader cache helper unexpectedly changed'
     folders = ' || '.join(f"url.startsWith('data/{s}/')" for s in SLUGS)
     page.write_text(html.replace(marker, marker + f"/* {RELEASE} */ ({folders} || url.startsWith('data/cited/') || "
-                    f"url.startsWith('data/parallels/') || url === 'data/files.json') ? url + (url.includes('?') ? '&' : '?') + 'notes={RELEASE}' :\n"))
+                    f"url.startsWith('data/parallels/') || url === 'data/files.json' || url === 'data/catalog.json') ? url + (url.includes('?') ? '&' : '?') + 'notes={RELEASE}' :\n"))
     sw = site / 'library/sw.js'; text_sw = sw.read_text()
     text_sw, n = re.subn(r'const SHELL = `([^`]+)`;', lambda m: 'const SHELL = `' + m[1] + '-' + RELEASE + '`;', text_sw, count=1)
     assert n == 1; sw.write_text(text_sw)
@@ -137,7 +159,8 @@ def apply(site):
 
 ALLOWED = re.compile(r'^(library/index\.html|library/sw\.js|library/edition-notes-20261126\.json|'
                      r'library/data/(' + '|'.join(map(re.escape, SLUGS)) + r')/.+|library/data/(cited|parallels)/.+|'
-                     r'library/data/files\.json|library/downloads/.+\.(zip|json)|mcp-data/.+)$')
+                     r'library/data/files\.json|library/data/catalog\.json|library/downloads/.+\.(zip|json)|'
+                     r'library/downloads/(' + '|'.join(re.escape(x['file']) for x in rd(WORD / 'manifest.json')['files']) + r')|mcp-data/.+)$')
 
 
 def seal(site):
@@ -145,7 +168,8 @@ def seal(site):
     after = {p.relative_to(site).as_posix(): sha(p) for p in sorted(site.rglob('*')) if p.is_file()}
     changed = sorted(k for k in after if before.get(k) != after[k])
     removed = sorted(set(before) - set(after))
-    assert all(k.startswith(('mcp-data/search/', 'mcp-data/text-chunks/')) for k in removed), 'Files removed: ' + str(removed[:8])
+    old_word = {'library/downloads/' + f for f in rd(WORD / 'manifest.json')['remove']}
+    assert all(k.startswith(('mcp-data/search/', 'mcp-data/text-chunks/')) or k in old_word for k in removed), 'Files removed: ' + str(removed[:8])
     bad = [k for k in changed if not ALLOWED.match(k)]
     assert not bad, 'Unrelated changes: ' + str(bad[:10])
     # MCP text of other books is unchanged
@@ -177,6 +201,25 @@ def live():
         print('Waiting for', len(pending), 'files', flush=True); time.sleep(20)
     assert not pending, 'Not live: ' + str(list(pending)[:8])
     print('Live:', len(names), 'reader files match the release')
+    # the Word editions: each new file is served with the released bytes, and the old ones are gone
+    m = rd(WORD / 'manifest.json'); bad = []
+    for x in m['files']:
+        name = 'library/downloads/' + x['file']; ok = False
+        for attempt in range(6):
+            try:
+                with urllib.request.urlopen(PUBLIC + name + '?w=' + str(time.time_ns()), timeout=120) as r: ok = hashlib.sha256(r.read()).hexdigest() == sha(WORD / x['file'])
+            except Exception: pass
+            if ok: break
+            time.sleep(20)
+        if not ok: bad.append(name)
+        time.sleep(0.3)
+    for f in m['remove']:
+        try:
+            urllib.request.urlopen(PUBLIC + 'library/downloads/' + f + '?w=' + str(time.time_ns()), timeout=60); bad.append('still served: ' + f)
+        except urllib.error.HTTPError as e:
+            if e.code != 404: bad.append(f'{f}: {e.code}')
+    assert not bad, 'Word downloads not live: ' + str(bad)
+    print('Live:', len(m['files']), 'Word editions; old files removed:', m['remove'])
 
 
 if __name__ == '__main__':
