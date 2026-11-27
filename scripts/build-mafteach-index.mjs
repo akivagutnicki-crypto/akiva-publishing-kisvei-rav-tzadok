@@ -68,6 +68,17 @@ export const EDITION_BOOKS = [
   ['Torat Emet', 'the Akiva Publishing Toras Emes edition', 'ir', 'ede'],   // R. Leibele Eiger of Lublin; own text part (10 MB file limit)
   ['Imrei Emet', 'the Akiva Publishing Imrei Emes edition', 'ir', 'ede'],
   ['Sod Yesharim', 'the Akiva Publishing Sod Yesharim edition', 'ir', 'ede'],
+  // R. Tzadok's own sefarim (also in the printed index): the verified sources of the Word editions' notes (November 2026),
+  // flagged as edition notes beside the printed index's lines (sources/mafteach/curated-sources/rav-tzadok-word-editions.json)
+  ...[['Divrei Chalomot', 'Divrei Chalomos'], ['Divrei Soferim', 'Divrei Soferim'], ['Dover Tzedek', 'Dover Tzedek'],
+    ['Et HaOchel', 'Kitzur Kuntres Eis HaOchel'], ['Kometz HaMinchah', 'Kometz HaMinchah'], ['Likkutei Maamarim', 'Likutei Maamarim'],
+    ['Machshavot Charutz', 'Machshavos Charutz'], ["Meshiv HaTa'anah", 'Meshiv HaTaanah'], ['Meshiv Tzedek', 'Meshiv Tzedek'],
+    ['Ohr Zarua LaTzadik', 'Ohr Zarua LaTzaddik'], ['Poked Akarim', 'Poked Akarim'], ['Resisei Layla', 'Resisei Layla'],
+    ['Sefer HaZikhronot', 'Sefer HaZichronos'], ['Sichat Malakhei HaSharet', 'Sichas Malachei HaShareis'], ['Sichat Shedim', 'Sichas Sheidim'],
+    ['Takanat HaShavin', 'Takanas HaShavin'], ['Tzidkat HaTzadik', 'Tzidkas HaTzaddik'], ['Yisrael Kedoshim', 'Yisrael Kedoshim']]
+    .map(([t, he]) => [t, `the Akiva Publishing ${he} edition`, 'rt']),
+  // the Pri Tzaddik interlinear study editions (sources/mafteach/curated-sources/*-edition.json), as Pri Tzaddik edition notes
+  ['Peri Tzadik', 'the Akiva Publishing Pri Tzaddik study edition', 'pt', 'edp'],
 ];
 // A Sefaria ref of an edition note -> the index's source key: "Berakhot 6b:4" -> "Berakhot 6b", "Psalms 81:4-5" -> "Psalms 81:4",
 // "Bereshit Rabbah 3:1" stays; works the printed index has no heading for keep their own title ("Zohar, Terumah 39:4").
@@ -84,7 +95,7 @@ function editionEntries() {
     const data = JSON.parse(fs.readFileSync(path.join(dir, file), 'utf8'));
     for (const [passage, cited] of Object.entries(data)) {
       const ed = EDITION_BOOKS.filter(([t]) => passage === t || passage.startsWith(t + ',') || passage.startsWith(t + ' ')).sort((a, b) => b[0].length - a[0].length)[0];
-      if (!ed) continue;                        // R. Tzadok and Pri Tzaddik editions: the printed index already covers them
+      if (!ed) continue;                        // a work with no Akiva Publishing edition listed above
       for (const [ref, label] of cited) {
         const k = editionKey(ref);
         if (!k || seen.has(passage + '\u0000' + k)) continue;

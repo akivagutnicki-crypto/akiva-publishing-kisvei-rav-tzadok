@@ -1350,7 +1350,7 @@ async function findParallels({ ref, school, limit, response_format }) {
 // Hebrew, English, or Ashkenazi/Sefardi transliteration; every term carries all three.
 
 const fileKey = s => String(s).toLowerCase().normalize('NFKD').replace(/[\u0300-\u036f]/g, '').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
-const MAF_PART = { '1-2': 'א-ב', '3': 'ג', '4': 'ד', '5': 'ה-ו', '7': 'ז', ed: 'edition notes', edt: 'edition notes', edr: 'edition notes', ede: 'edition notes' };
+const MAF_PART = { '1-2': 'א-ב', '3': 'ג', '4': 'ד', '5': 'ה-ו', '7': 'ז', ed: 'edition notes', edt: 'edition notes', edr: 'edition notes', ede: 'edition notes', edp: 'edition notes' };
 const MAF_CORPUS = { all: null, 'rav-tzadok': 'rt', 'pri-tzadik': 'pt', 'ishbitz-radzin': 'ir' };
 const MAF_CORPUS_SCHEMA = {
   type: 'string', enum: ['all', 'rav-tzadok', 'pri-tzadik', 'ishbitz-radzin'], default: 'all',
@@ -1496,7 +1496,7 @@ function mafEntryLine(M, e, { topic = false, source = true } = {}) {
 }
 function mafJson(M, e) {
   return {
-    id: e.id, part: MAF_PART[e.v], scan_page: e.ed ? undefined : e.p, index: e.x === 't' ? 'topics' : 'sources', corpus: e.c === 'pt' ? 'Pri Tzaddik' : e.c === 'ir' ? 'Ishbitz-Radzin edition notes' : e.ed ? 'Rav Tzadok edition notes' : 'Rav Tzadok sefarim', edition: e.ed || undefined,
+    id: e.id, part: MAF_PART[e.v], scan_page: e.ed ? undefined : e.p, index: e.x === 't' ? 'topics' : 'sources', corpus: e.c === 'pt' ? (e.ed ? 'Pri Tzaddik edition notes' : 'Pri Tzaddik') : e.c === 'ir' ? 'Ishbitz-Radzin edition notes' : e.ed ? 'Rav Tzadok edition notes' : 'Rav Tzadok sefarim', edition: e.ed || undefined,
     topic: e.T != null ? { he: M.byId.get(e.T)?.he, en: M.byId.get(e.T)?.en } : (e.Th || undefined),
     subtopic: e.U != null ? { he: M.byId.get(e.U)?.he, en: M.byId.get(e.U)?.en } : (e.Uh || undefined),
     source: e.x === 's' ? { key: e.k || null, book: e.b || null, chapter: e.ch || null, verse: e.vs || null, sefaria_ref: e.zs || (mafSefaria(e) ? e.k : null), sefaria_url: mafSefaria(e) } : undefined,
@@ -1672,7 +1672,7 @@ async function mafSearch({ query, corpus, offset, limit, response_format }) {
     const phrases = [...q.matchAll(/"([^"]+)"|(\S+)/g)].map(m => (m[1] || m[2]).trim()).filter(Boolean);
     const terms = phrases.map(p => norm(p).trim()).filter(Boolean);
     if (!terms.length) throw new ToolError('the query has no letters to search for.');
-    const parts = MAF_CORPUS[corpus] === 'rt' ? ['1-2', '3', ...M.raw.parts.filter(p => p === 'edr')] : MAF_CORPUS[corpus] === 'pt' ? ['4', '5', '7'] : MAF_CORPUS[corpus] === 'ir' ? M.raw.parts.filter(p => p === 'ed' || p === 'edt' || p === 'ede') : M.raw.parts;
+    const parts = MAF_CORPUS[corpus] === 'rt' ? ['1-2', '3', ...M.raw.parts.filter(p => p === 'edr')] : MAF_CORPUS[corpus] === 'pt' ? ['4', '5', '7', ...M.raw.parts.filter(p => p === 'edp')] : MAF_CORPUS[corpus] === 'ir' ? M.raw.parts.filter(p => p === 'ed' || p === 'edt' || p === 'ede') : M.raw.parts;
     for (const p of parts) {
       let text = '';
       try {
