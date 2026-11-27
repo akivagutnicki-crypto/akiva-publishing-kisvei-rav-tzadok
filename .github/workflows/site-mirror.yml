@@ -68,4 +68,6 @@ jobs:
           echo "run=${{ steps.find.outputs.run }} artifact=${{ steps.find.outputs.artifact }}" > cloudflare/site-version.txt
           git add cloudflare/site-version.txt
           git commit -m "Cloudflare: site mirror ${{ steps.find.outputs.run }}"
-          git push origin HEAD:main
+          # another workflow may have pushed meanwhile: rebase and retry, so Cloudflare always gets the redeploy push
+          for i in 1 2 3 4 5; do git pull --rebase origin main && git push origin HEAD:main && exit 0; sleep 15; done
+          exit 1
