@@ -125,6 +125,13 @@ def main(root,dry=False,packdir='sources/akiva/edition-supplements'):
         items=[it for f in F for it in data[f] if isinstance(it,dict)]
         inline=any('footnote-marker' in str(it.get('p')) for it in items) and not any(it.get('footnotes') for it in items)
         noted=any(it.get('footnotes') for it in items) or inline
+        # notes this release published earlier: refreshed from the (corrected) pack
+        bysid={n['sourceId']:n for n in pack['notes']}; refreshed=0
+        for it in items:
+            for x in it.get('footnotes') or []:
+                src=bysid.get(x.get('sourceId'))
+                if src and x.get('supplement') and x['paragraphs']!=src['paragraphs']:
+                    x['paragraphs']=src['paragraphs']; x['sources']=src['sources']; refreshed+=1
         placed=dup=lost=0; newlinks=[]
         cap=CAP.get(slug); per={}; capped=0
         order=sorted(pack['notes'],key=priority) if cap else pack['notes']
@@ -170,7 +177,7 @@ def main(root,dry=False,packdir='sources/akiva/edition-supplements'):
                     for x in it['footnotes']: num+=1; x['number']=num
         if not dry:
             for f in F: json.dump(data[f],open(os.path.join(d,f),'w'),ensure_ascii=False,separators=(',',':'))
-        report[slug]={'added':placed,'already_there':dup,'not_found':lost,'capped':capped,'notes_now':num,'links':newlinks}
+        report[slug]={'refreshed':refreshed,'added':placed,'already_there':dup,'not_found':lost,'capped':capped,'notes_now':num,'links':newlinks}
     return report
 if __name__=='__main__':
     r=main(sys.argv[1],'--dry' in sys.argv)

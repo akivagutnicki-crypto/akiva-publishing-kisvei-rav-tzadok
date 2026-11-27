@@ -29,6 +29,36 @@ sha = lambda p: hashlib.sha256(Path(p).read_bytes()).hexdigest()
 run = lambda *a, **k: subprocess.run(list(a), check=True, cwd=ROOT, **k)
 
 
+def repair_wording(data):
+    """Tanach/Mishnah/Rambam quotations in every note of these books, restored to their source wording (text_repair)."""
+    import text_repair
+    counts = {}
+    for slug in SLUGS:
+        d = data / slug; n = 0
+        for f in apply_notes.files_in_order(str(d)):
+            items = rd(d / f); changed = False
+            for it in items:
+                if not isinstance(it, dict): continue
+                for x in it.get('footnotes') or []:
+                    for p in x.get('paragraphs') or []:
+                        t, k = text_repair.fix(p.get('text', ''))
+                        if k: p['text'] = t; n += 1; changed = True
+                        for r in p.get('rich') or []:
+                            if r.get('text'):
+                                t2, k2 = text_repair.fix(r['text'])
+                                if k2: r['text'] = t2; changed = True
+                for ph in it.get('p') or []:
+                    if isinstance(ph, list) and 'footnote-marker' in ph[0]:
+                        bodies = apply_notes.note_bodies(ph[0]); new = ph[0]
+                        for b in bodies:
+                            fixed, k = text_repair.fix_html(b)
+                            if k: new = new.replace(b, fixed, 1); n += 1
+                        if new != ph[0]: ph[0] = new; changed = True
+            if changed: wr(d / f, items)
+        counts[slug] = n
+    return counts
+
+
 def apply(site):
     site = Path(site).resolve(); data = site / 'library/data'
     missing = [s for s in SLUGS if not (data / s / 'toc.json').is_file()]
@@ -37,6 +67,7 @@ def apply(site):
     report = apply_notes.main(str(data), packdir=str(PACKS))
     wr(LINKS, {k: v['links'] for k, v in report.items() if isinstance(v, dict)})
     stats = {k: {x: y for x, y in v.items() if x != 'links'} for k, v in report.items()}
+    stats['wording-repaired'] = repair_wording(data)
     out = subprocess.run([sys.executable, str(HERE / 'clean_resisei.py'), str(data / 'resisei-layla')], check=True,
                          capture_output=True, text=True).stdout
     stats['resisei-layla-cleanup'] = json.loads(out)
