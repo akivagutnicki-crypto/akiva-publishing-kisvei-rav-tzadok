@@ -1,0 +1,508 @@
+{
+ "title": "Mei HaShiloach",
+ "heTitle": "מי השילוח",
+ "language": "he",
+ "versionTitle": "Akiva Publishing interlinear edition with source notes and parallels (November 2026)",
+ "versionSource": "",
+ "license": "© Akiva Publishing",
+ "categories": [
+  "Chasidut",
+  "Izhbitz"
+ ],
+ "akiva": true,
+ "interlinear": true,
+ "editionId": "mei-hashiloach-complete-2026-11",
+ "editionNote": "Mei HaShiloach (R. Mordechai Yosef Leiner of Izhbitz), Volumes I-II with the Likkutim: phrase-by-phrase vocalized Hebrew with English, 5173 numbered source and parallel notes, including parallels in the Beis Yaakov, Sod Yesharim, Tiferes Yosef, Rav Tzadok HaKohen and R. Leibele Eiger.",
+ "downloads": [
+  {
+   "source": "sources/akiva/docx/mei-hashiloach-complete.docx",
+   "file": "downloads/mei-hashiloach-complete.docx",
+   "label": "Download Mei HaShiloach, Complete Annotated Edition (Word)"
+  }
+ ],
+ "footnoteImportInfo": {
+  "edition": "Akiva Publishing interlinear edition with source notes and parallels (November 2026)",
+  "notes": 5173,
+  "firstNumber": 1,
+  "lastNumber": 5173,
+  "anchorConvention": "Marker after the Hebrew phrase that carries the Word footnote reference (heCharOffset = phrase length)."
+ },
+ "tocGroups": [
+  {
+   "en": "Sefer Mei HaShiloach — Part I",
+   "he": "סֵפֶר מֵי הַשִּׁלֹּחַ",
+   "keys": [
+    "Volume I, Editors' Introduction",
+    "Volume I, Introduction"
+   ]
+  },
+  {
+   "en": "Sefer Bereishis",
+   "he": "סֵפֶר בְּרֵאשִׁית",
+   "keys": [
+    "Volume I, Genesis, Bereshit",
+    "Volume I, Genesis, Noach",
+    "Volume I, Genesis, Lech Lecha",
+    "Volume I, Genesis, Vayera",
+    "Volume I, Genesis, Chayei Sarah",
+    "Volume I, Genesis, Toldot",
+    "Volume I, Genesis, Vayetzei",
+    "Volume I, Genesis, Vayishlach"
+   ]
+  },
+  {
+   "en": "Mei HaShiloach — Part I: Sefer Bereishis (Parshas Vayeshev – Parshas Vayechi)",
+   "he": "Mei HaShiloach — Part I: Sefer Bereishis (Parshas Vayeshev – Parshas Vayechi)",
+   "keys": [
+    "Volume I, Genesis, Vayeshev",
+    "Volume I, Genesis, Miketz",
+    "Volume I, Genesis, Vayigash",
+    "Volume I, Genesis, Vayechi"
+   ]
+  },
+  {
+   "en": "Sefer Shemos",
+   "he": "סֵפֶר שְׁמוֹת",
+   "keys": [
+    "Volume I, Exodus, Shemot",
+    "Volume I, Exodus, Vaera",
+    "Volume I, Exodus, Bo",
+    "Volume I, Exodus, Beshalach",
+    "Volume I, Exodus, Yitro",
+    "Volume I, Exodus, Mishpatim",
+    "Volume I, Exodus, Terumah",
+    "Volume I, Exodus, Tetzaveh",
+    "Volume I, Exodus, Ki Tisa",
+    "Volume I, Exodus, Vayakhel",
+    "Volume I, Exodus, Pekudei"
+   ]
+  },
+  {
+   "en": "Sefer Vayikra",
+   "he": "סֵפֶר וַיִּקְרָא",
+   "keys": [
+    "Volume I, Leviticus, Vayikra",
+    "Volume I, Leviticus, Tzav",
+    "Volume I, Leviticus, Shmini",
+    "Volume I, Leviticus, Tazria",
+    "Volume I, Leviticus, Metzora",
+    "Volume I, Leviticus, Achrei Mot",
+    "Volume I, Leviticus, Kedoshim",
+    "Volume I, Leviticus, Emor",
+    "Volume I, Leviticus, Behar",
+    "Volume I, Leviticus, Bechukotai"
+   ]
+  },
+  {
+   "en": "Sefer Bamidbar",
+   "he": "סֵפֶר בְּמִדְבַּר",
+   "keys": [
+    "Volume I, Numbers, Bamidbar",
+    "Volume I, Numbers, Nasso",
+    "Volume I, Numbers, Beha'alotcha",
+    "Volume I, Numbers, Sh'lach",
+    "Volume I, Numbers, Korach",
+    "Volume I, Numbers, Chukat",
+    "Volume I, Numbers, Balak",
+    "Volume I, Numbers, Pinchas",
+    "Volume I, Numbers, Matot",
+    "Volume I, Numbers, Masei"
+   ]
+  },
+  {
+   "en": "Sefer Devarim",
+   "he": "סֵפֶר דְּבָרִים",
+   "keys": [
+    "Volume I, Deuteronomy, Devarim",
+    "Volume I, Deuteronomy, Vaetchanan",
+    "Volume I, Deuteronomy, Eikev",
+    "Volume I, Deuteronomy, Re'eh",
+    "Volume I, Deuteronomy, Ki Teitzei",
+    "Volume I, Deuteronomy, Ki Tavo",
+    "Volume I, Deuteronomy, Nitzavim",
+    "Volume I, Deuteronomy, Vayeilech",
+    "Volume I, Deuteronomy, Ha'Azinu",
+    "Volume I, Deuteronomy, V'Zot HaBerachah",
+    "Volume I, Megillos, Rus"
+   ]
+  },
+  {
+   "en": "Nevi'im and Kesuvim",
+   "he": "נְבִיאִים וּכְתוּבִים",
+   "keys": [
+    "Volume I, Megillos, Koheles"
+   ]
+  },
+  {
+   "en": "Likkutim MiNevi'im (Selections from the Prophets)",
+   "he": "לִקּוּטִים מִנְּבִיאִים",
+   "keys": [
+    "Volume I, Neviim, Yehoshua",
+    "Volume I, Neviim, Shmuel I",
+    "Volume I, Neviim, Shmuel II",
+    "Volume I, Neviim, Melachim I",
+    "Volume I, Neviim, Melachim II",
+    "Volume I, Neviim, Yeshayahu",
+    "Volume I, Neviim, Hoshea"
+   ]
+  },
+  {
+   "en": "Likkutim MiKesuvim (Selections from the Writings)",
+   "he": "לִקּוּטִים מִכְּתוּבִים",
+   "keys": [
+    "Volume I, Kesuvim, Tehillim",
+    "Volume I, Kesuvim, Mishlei"
+   ]
+  },
+  {
+   "en": "Likkutei HaShas (Part I)",
+   "he": "לִקּוּטֵי הַשִּׁשָּׁה סְדָרִים",
+   "keys": [
+    "Volume I, Shas, Berachos",
+    "Volume I, Shas, Shabbos",
+    "Volume I, Shas, Pesachim",
+    "Volume I, Shas, Yoma",
+    "Volume I, Shas, Sukkah",
+    "Volume I, Shas, Beitzah",
+    "Volume I, Shas, Rosh Hashanah",
+    "Volume I, Shas, Megillah",
+    "Volume I, Shas, Taanis",
+    "Volume I, Shas, Chagigah",
+    "Volume I, Shas, Yevamos",
+    "Volume I, Shas, Kesubos",
+    "Volume I, Shas, Nedarim",
+    "Volume I, Shas, Nazir",
+    "Volume I, Shas, Bava Basra",
+    "Volume I, Shas, Avodah Zarah",
+    "Volume I, Shas, Sanhedrin",
+    "Volume I, Shas, Eduyos",
+    "Volume I, Shas, Avos",
+    "Volume I, Shas, Menachos",
+    "Volume I, Shas, Chullin",
+    "Volume I, Shas, Bechoros",
+    "Volume I, Shas, Uktzin",
+    "Volume I, Miscellany"
+   ]
+  },
+  {
+   "en": "Sefer Mei HaShiloach — Part II",
+   "he": "סֵפֶר מֵי הַשִּׁלֹּחַ",
+   "keys": [
+    "Volume II, Introduction"
+   ]
+  },
+  {
+   "en": "Sefer Bereishis",
+   "he": "סֵפֶר בְּרֵאשִׁית",
+   "keys": [
+    "Volume II, Genesis, Bereshit",
+    "Volume II, Genesis, Noach",
+    "Volume II, Genesis, Lech Lecha",
+    "Volume II, Genesis, Vayera",
+    "Volume II, Genesis, Chayei Sara",
+    "Volume II, Genesis, Toldot"
+   ]
+  },
+  {
+   "en": "Mei HaShiloach — Part II: Sefer Bereishis (Parshas Vayeitzei – Parshas Vayechi)",
+   "he": "Mei HaShiloach — Part II: Sefer Bereishis (Parshas Vayeitzei – Parshas Vayechi)",
+   "keys": [
+    "Volume II, Genesis, Vayetzei",
+    "Volume II, Genesis, Vayishlach",
+    "Volume II, Genesis, Vayeshev",
+    "Volume II, Genesis, Miketz",
+    "Volume II, Genesis, Vayigash",
+    "Volume II, Genesis, Vayechi"
+   ]
+  },
+  {
+   "en": "Sefer Shemos (Part II)",
+   "he": "סֵפֶר שְׁמוֹת (חֵלֶק ב׳)",
+   "keys": [
+    "Volume II, Exodus, Shemot",
+    "Volume II, Exodus, Vaera",
+    "Volume II, Exodus, Bo",
+    "Volume II, Exodus, Beshalach",
+    "Volume II, Exodus, Yitro",
+    "Volume II, Exodus, Mishpatim",
+    "Volume II, Exodus, Terumah",
+    "Volume II, Exodus, Tetzaveh",
+    "Volume II, Exodus, Ki Tisa",
+    "Volume II, Exodus, Vayakhel",
+    "Volume II, Exodus, Pekudei"
+   ]
+  },
+  {
+   "en": "Sefer Vayikra (Part II)",
+   "he": "סֵפֶר וַיִּקְרָא (חֵלֶק ב׳)",
+   "keys": [
+    "Volume II, Leviticus, Vayikra",
+    "Volume II, Leviticus, Tzav",
+    "Volume II, Leviticus, Shmini",
+    "Volume II, Leviticus, Tazria",
+    "Volume II, Leviticus, Metzora",
+    "Volume II, Leviticus, Achrei Mot",
+    "Volume II, Leviticus, Kedoshim",
+    "Volume II, Leviticus, Emor",
+    "Volume II, Leviticus, Behar",
+    "Volume II, Leviticus, Bechukotai"
+   ]
+  },
+  {
+   "en": "Sefer Bamidbar (Part II)",
+   "he": "סֵפֶר בְּמִדְבַּר (חֵלֶק ב׳)",
+   "keys": [
+    "Volume II, Numbers, Bamidbar",
+    "Volume II, Numbers, Nasso",
+    "Volume II, Numbers, Beha'alotcha",
+    "Volume II, Numbers, Sh'lach",
+    "Volume II, Numbers, Korach",
+    "Volume II, Numbers, Chukat",
+    "Volume II, Numbers, Balak",
+    "Volume II, Numbers, Pinchas",
+    "Volume II, Numbers, Matot",
+    "Volume II, Numbers, Masei"
+   ]
+  },
+  {
+   "en": "Sefer Devarim (Part II)",
+   "he": "סֵפֶר דְּבָרִים (חֵלֶק ב׳)",
+   "keys": [
+    "Volume II, Deuteronomy, Devarim",
+    "Volume II, Deuteronomy, Vaetchanan",
+    "Volume II, Deuteronomy, Eikev",
+    "Volume II, Deuteronomy, Re'eh",
+    "Volume II, Deuteronomy, Shoftim",
+    "Volume II, Deuteronomy, Ki Teitzei",
+    "Volume II, Deuteronomy, Ki Tavo",
+    "Volume II, Deuteronomy, Nitzavim",
+    "Volume II, Deuteronomy, Vayeilech",
+    "Volume II, Deuteronomy, Ha'Azinu",
+    "Volume II, Deuteronomy, V'Zot HaBerachah"
+   ]
+  },
+  {
+   "en": "Part II — Selections from the Five Megillos",
+   "he": "חֵלֶק בֵּית — לִקּוּטִים מֵחָמֵשׁ מְגִלּוֹת",
+   "keys": [
+    "Volume II, Megillos, Shir HaShirim",
+    "Volume II, Megillos, Koheles"
+   ]
+  },
+  {
+   "en": "Selections from Nevi'im (Prophets)",
+   "he": "לִקּוּטִים מִנְּבִיאִים",
+   "keys": [
+    "Volume II, Neviim, Yehoshua",
+    "Volume II, Neviim, Shoftim",
+    "Volume II, Neviim, Shmuel I",
+    "Volume II, Neviim, Shmuel II",
+    "Volume II, Neviim, Melachim I",
+    "Volume II, Neviim, Yeshayahu",
+    "Volume II, Neviim, Hoshea",
+    "Volume II, Neviim, Yoel",
+    "Volume II, Neviim, Yonah",
+    "Volume II, Neviim, Michah",
+    "Volume II, Neviim, Chavakuk",
+    "Volume II, Neviim, Zecharyah",
+    "Volume II, Neviim, Malachi"
+   ]
+  },
+  {
+   "en": "Selections from Kesuvim (Writings)",
+   "he": "לִקּוּטִים מִכְּתוּבִים",
+   "keys": [
+    "Volume II, Kesuvim, Tehillim",
+    "Volume II, Kesuvim, Mishlei",
+    "Volume II, Kesuvim, Divrei HaYamim II"
+   ]
+  },
+  {
+   "en": "Likkutei HaShas (Part II)",
+   "he": "לִקּוּטֵי הַשִּׁשָּׁה סְדָרִים",
+   "keys": [
+    "Volume II, Shas, Berachos",
+    "Volume II, Shas, Eruvin",
+    "Volume II, Shas, Pesachim",
+    "Volume II, Shas, Yoma",
+    "Volume II, Shas, Sukkah",
+    "Volume II, Shas, Rosh Hashanah",
+    "Volume II, Shas, Megillah",
+    "Volume II, Shas, Taanis",
+    "Volume II, Shas, Chagigah",
+    "Volume II, Shas, Yevamos",
+    "Volume II, Shas, Kesubos",
+    "Volume II, Shas, Kiddushin",
+    "Volume II, Shas, Bava Metzia",
+    "Volume II, Shas, Yerushalmi Bava Metzia",
+    "Volume II, Shas, Bava Basra",
+    "Volume II, Shas, Sanhedrin",
+    "Volume II, Shas, Avos",
+    "Volume II, Shas, Zevachim",
+    "Volume II, Shas, Menachos",
+    "Volume II, Shas, Taharos",
+    "Volume II, Anthology, For Shabbat Chanuka and Rosh Chodesh",
+    "Volume II, Anthology, For the Month of Elul",
+    "Volume II, Anthology, For Rosh Hashanah Prayers",
+    "Volume II, Anthology, For Shabbat",
+    "Volume II, Anthology, In Zohar",
+    "Volume II, Anthology, For Haggadah",
+    "Volume II, Anthology, Birkat HaMazon",
+    "Volume II, Anthology, Midrah Rabbah and Tanchuma",
+    "Volume II, Anthology, Miscellany"
+   ]
+  },
+  {
+   "en": "Sefer Likkutei Mei HaShiloach",
+   "he": "Sefer Likkutei Mei HaShiloach",
+   "keys": [
+    "Mei HaShiloach Anthology, Opening Foreword",
+    "Mei HaShiloach Anthology, Genesis, Bereshit",
+    "Mei HaShiloach Anthology, Genesis, Noach",
+    "Mei HaShiloach Anthology, Genesis, Lech Lecha",
+    "Mei HaShiloach Anthology, Genesis, Vayera",
+    "Mei HaShiloach Anthology, Genesis, Chayei Sara",
+    "Mei HaShiloach Anthology, Genesis, Toldot",
+    "Mei HaShiloach Anthology, Genesis, Vayetzei",
+    "Mei HaShiloach Anthology, Genesis, Vayeshev",
+    "Mei HaShiloach Anthology, Genesis, Vayigash",
+    "Mei HaShiloach Anthology, Genesis, Vayechi",
+    "Mei HaShiloach Anthology, Exodus, Shemot",
+    "Mei HaShiloach Anthology, Exodus, Bo",
+    "Mei HaShiloach Anthology, Exodus, Beshalach",
+    "Mei HaShiloach Anthology, Exodus, Yitro",
+    "Mei HaShiloach Anthology, Exodus, Mishpatim",
+    "Mei HaShiloach Anthology, Exodus, Ki Tisa",
+    "Mei HaShiloach Anthology, Exodus, Pekudei"
+   ]
+  },
+  {
+   "en": "Sefer Vayikra",
+   "he": "סֵפֶר וַיִּקְרָא",
+   "keys": [
+    "Mei HaShiloach Anthology, Leviticus, Metzora",
+    "Mei HaShiloach Anthology, Leviticus, Achrei Mot",
+    "Mei HaShiloach Anthology, Leviticus, Kedoshim",
+    "Mei HaShiloach Anthology, Leviticus, Emor",
+    "Mei HaShiloach Anthology, Leviticus, Behar"
+   ]
+  },
+  {
+   "en": "Sefer Bamidbar",
+   "he": "סֵפֶר בְּמִדְבַּר",
+   "keys": [
+    "Mei HaShiloach Anthology, Numbers, Nasso",
+    "Mei HaShiloach Anthology, Numbers, Beha'alotcha",
+    "Mei HaShiloach Anthology, Numbers, Korach",
+    "Mei HaShiloach Anthology, Numbers, Chukat",
+    "Mei HaShiloach Anthology, Numbers, Balak",
+    "Mei HaShiloach Anthology, Numbers, Pinchas"
+   ]
+  },
+  {
+   "en": "Sefer Devarim",
+   "he": "סֵפֶר דְּבָרִים",
+   "keys": [
+    "Mei HaShiloach Anthology, Deuteronomy, Devarim",
+    "Mei HaShiloach Anthology, Deuteronomy, Vaetchanan",
+    "Mei HaShiloach Anthology, Deuteronomy, Eikev",
+    "Mei HaShiloach Anthology, Deuteronomy, Re'eh",
+    "Mei HaShiloach Anthology, Deuteronomy, Shoftim",
+    "Mei HaShiloach Anthology, Deuteronomy, Ki Teitzei",
+    "Mei HaShiloach Anthology, Deuteronomy, Ki Tavo",
+    "Mei HaShiloach Anthology, Deuteronomy, Nitzavim",
+    "Mei HaShiloach Anthology, Deuteronomy, Ha'Azinu",
+    "Mei HaShiloach Anthology, Deuteronomy, V'Zot HaBerachah"
+   ]
+  },
+  {
+   "en": "Likkutim on the Five Megillos",
+   "he": "לִקּוּטִים מֵחָמֵשׁ מְגִלּוֹת",
+   "keys": [
+    "Mei HaShiloach Anthology, Megillos, Rus",
+    "Mei HaShiloach Anthology, Megillos, Koheles",
+    "Mei HaShiloach Anthology, Megillos, Eichah"
+   ]
+  },
+  {
+   "en": "Likkutim MiNevi'im (Selections from the Prophets)",
+   "he": "לִקּוּטִים מִנְּבִיאִים",
+   "keys": [
+    "Mei HaShiloach Anthology, Neviim, Yehoshua",
+    "Mei HaShiloach Anthology, Neviim, Shmuel I",
+    "Mei HaShiloach Anthology, Neviim, Shmuel II",
+    "Mei HaShiloach Anthology, Neviim, Melachim I",
+    "Mei HaShiloach Anthology, Neviim, Melachim II",
+    "Mei HaShiloach Anthology, Neviim, Yeshayahu",
+    "Mei HaShiloach Anthology, Neviim, Yirmiyahu",
+    "Mei HaShiloach Anthology, Neviim, Yechezkel",
+    "Mei HaShiloach Anthology, Neviim, Amos",
+    "Mei HaShiloach Anthology, Neviim, Michah",
+    "Mei HaShiloach Anthology, Neviim, Chavakuk",
+    "Mei HaShiloach Anthology, Neviim, Zecharyah",
+    "Mei HaShiloach Anthology, Neviim, Malachi"
+   ]
+  },
+  {
+   "en": "Likkutim MiKesuvim (Selections from the Writings)",
+   "he": "לִקּוּטִים מִכְּתוּבִים",
+   "keys": [
+    "Mei HaShiloach Anthology, Kesuvim, Tehillim",
+    "Mei HaShiloach Anthology, Kesuvim, Mishlei",
+    "Mei HaShiloach Anthology, Kesuvim, Iyov",
+    "Mei HaShiloach Anthology, Kesuvim, Divrei HaYamim I",
+    "Mei HaShiloach Anthology, Kesuvim, Divrei HaYamim II"
+   ]
+  },
+  {
+   "en": "Likkutei HaShas",
+   "he": "לִקּוּטֵי הַשִּׁשָּׁה סְדָרִים",
+   "keys": [
+    "Mei HaShiloach Anthology, Shas, Berachos",
+    "Mei HaShiloach Anthology, Shas, Shabbos",
+    "Mei HaShiloach Anthology, Shas, Eruvin",
+    "Mei HaShiloach Anthology, Shas, Pesachim",
+    "Mei HaShiloach Anthology, Shas, Yerushalmi Pesachim",
+    "Mei HaShiloach Anthology, Shas, Yoma",
+    "Mei HaShiloach Anthology, Shas, Sukkah",
+    "Mei HaShiloach Anthology, Shas, Rosh Hashanah",
+    "Mei HaShiloach Anthology, Shas, Taanis",
+    "Mei HaShiloach Anthology, Shas, Megillah",
+    "Mei HaShiloach Anthology, Shas, Chagigah",
+    "Mei HaShiloach Anthology, Shas, Yevamos",
+    "Mei HaShiloach Anthology, Shas, Kesubos",
+    "Mei HaShiloach Anthology, Shas, Nedarim",
+    "Mei HaShiloach Anthology, Shas, Sotah",
+    "Mei HaShiloach Anthology, Shas, Gittin",
+    "Mei HaShiloach Anthology, Shas, Bava Kamma",
+    "Mei HaShiloach Anthology, Shas, Bava Metzia",
+    "Mei HaShiloach Anthology, Shas, Bava Basra",
+    "Mei HaShiloach Anthology, Shas, Sanhedrin",
+    "Mei HaShiloach Anthology, Shas, Avodah Zarah",
+    "Mei HaShiloach Anthology, Shas, Avos",
+    "Mei HaShiloach Anthology, Shas, Zevachim",
+    "Mei HaShiloach Anthology, Shas, Chullin",
+    "Mei HaShiloach Anthology, Shas, Arachin",
+    "Mei HaShiloach Anthology, Shas, Kerisos"
+   ]
+  },
+  {
+   "en": "Likkutim",
+   "he": "לִקּוּטִים",
+   "keys": [
+    "Mei HaShiloach Anthology, Collectanea, Zohar Bereshit",
+    "Mei HaShiloach Anthology, Collectanea, Zohar Shemot",
+    "Mei HaShiloach Anthology, Collectanea, Zohar Devarim",
+    "Mei HaShiloach Anthology, Collectanea, Tikkunei Zohar",
+    "Mei HaShiloach Anthology, Collectanea, Sefer Yetzirah",
+    "Mei HaShiloach Anthology, Collectanea, Siddur",
+    "Mei HaShiloach Anthology, Collectanea, Miscellany",
+    "Mei HaShiloach Anthology, Sources"
+   ]
+  }
+ ],
+ "sectionsFiles": [
+  "sources/akiva/mei-edition/Mei_HaShiloach.part1.json.gz"
+ ],
+ "sectionCount": 286
+}

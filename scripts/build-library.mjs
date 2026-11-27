@@ -867,7 +867,8 @@ for (const dir of DIRS) {
 // stacked and side-by-side views continue to use Sefaria's existing English.
 // This dataset contributes ONLY phrase-by-phrase study pairs in Interlinear.
 const meiStudyPath = 'sources/akiva/overlays/mei-hashiloach-interlinear.json';
-if (fs.existsSync(meiStudyPath)) {
+// The complete Akiva edition (sources/akiva/Mei_HaShiloach.json) replaces this overlay.
+if (fs.existsSync(meiStudyPath) && !fs.existsSync('sources/akiva/Mei_HaShiloach.json')) {
   const study = JSON.parse(fs.readFileSync(meiStudyPath, 'utf8'));
   const slug = 'mei-ha-shiloach';
   const dest = path.join(OUT, slug);

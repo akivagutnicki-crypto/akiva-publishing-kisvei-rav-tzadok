@@ -331,6 +331,8 @@ if (fs.existsSync(remoteSourceDir)) {
       && /^https:\/\/www\.sefaria\.org\//.test(doc.source)
       && Array.isArray(doc.sections) && doc.sections.length,
     'Invalid remote Hebrew source snapshot: ' + sourcePath);
+    // The complete Akiva edition of Mei HaShiloach (November 2026) carries the whole text, so its old remote Hebrew snapshot is not needed.
+    if (doc.title === 'Mei HaShiloach' && fs.existsSync('sources/akiva/Mei_HaShiloach.json')) { console.log('Mei HaShiloach: the complete Akiva edition supersedes the remote snapshot ' + file); continue; }
     const existing = books.find(b => b.title === doc.title || b.slug === doc.slug);
     // A complete Akiva interlinear edition of the same work, bundled with the reader, supersedes its remote Hebrew
     // snapshot (Sha'ar HaEmunah, November 2026): the edition keeps the snapshot's section refs, so links still resolve.
