@@ -4,7 +4,7 @@
 // In:  sources/mafteach/yochai-source-ids.json (Yochai id -> Sefaria ref of a cited source; Sefaria ref -> library passages)
 //      genre-corpus.jsonl.gz (the Sefaria corpus of outside sefarim, release genre-corpus-2026-11) to name each lead's Sefaria ref
 // Out: sources/mafteach/yochai-parallels.json  { version, note, passages: { "<library passage>": [[sefaria ref, he title, genre, via]] } }
-// A lead is kept only when its own Hebrew quotes the cited source (four words in a row) and its Sefaria ref is found.
+// A lead is kept only when its own Hebrew quotes the cited source (three words in a row) and its Sefaria ref is found.
 import fs from 'node:fs';
 import zlib from 'node:zlib';
 
@@ -49,7 +49,8 @@ async function tool(name, args) {
   try { return JSON.parse(t.text); } catch { return {}; }
 }
 const norm = s => String(s || '').replace(/[֑-ׇ]/g, '').replace(/[^א-ת ]/g, ' ').replace(/[ךםןףץ]/g, c => 'כמנפצ'['ךםןףץ'.indexOf(c)]).replace(/\s+/g, ' ').trim();
-const grams = (s, n = 4) => { const w = norm(s).split(' ').filter(x => x.length > 1); const out = new Set(); for (let i = 0; i + n <= w.length; i++) out.add(w.slice(i, i + n).join(' ')); return out; };
+const STOP = new Set('את על אל כי לא כל אשר הוא היא זה זו גם עם מן או אם כן לו לה בו בה אין יש'.split(' '));
+const grams = (s, n = 3) => { const w = norm(s).split(' ').filter(x => x.length > 1); const out = new Set(); for (let i = 0; i + n <= w.length; i++) { const g = w.slice(i, i + n); if (g.filter(x => !STOP.has(x)).length >= 2) out.add(g.join(' ')); } return out; };
 const titleKey = s => String(s || '').toLowerCase().replace(/[^a-z]/g, '').replace(/tz/g, 'z').replace(/ch/g, 'h').replace(/kh/g, 'h').replace(/aa/g, 'a');
 
 await rpc('initialize', { protocolVersion: '2025-03-26', capabilities: {}, clientInfo: { name: 'akiva-mafteach', version: '1' } });
@@ -86,10 +87,10 @@ for (const line of zlib.gunzipSync(fs.readFileSync(CORPUS)).toString('utf8').spl
 function sefariaRef(p) {
   const list = byTitle.get(titleKey(p.text_title)) || [];
   const n = norm(p.hebrew); if (n.length < 40) return null;
-  for (const probe of [n.slice(0, 60), n.slice(Math.floor(n.length / 2), Math.floor(n.length / 2) + 60)]) {
-    const hit = list.find(x => x.n.includes(probe));
-    if (hit) return hit;
-  }
+  const probes = [n.slice(0, 60), n.slice(Math.floor(n.length / 2), Math.floor(n.length / 2) + 60)];
+  for (const probe of probes) { const hit = list.find(x => x.n.includes(probe)); if (hit) return hit; }
+  // Yochai spells some titles differently from Sefaria: look in the whole corpus
+  for (const probe of probes) for (const l of byTitle.values()) { const hit = l.find(x => x.n.includes(probe)); if (hit) return hit; }
   return null;
 }
 const out = {}; const stats = { leads: 0, quoted: 0, named: 0, kept: 0 };
@@ -113,5 +114,5 @@ for (const [a, L] of Object.entries(links)) {
   }
 }
 fs.writeFileSync(OUT, JSON.stringify({ version: new Date().toISOString().slice(0, 10), source: 'Yochai Knowledge Graph links, checked against the text and named by Sefaria ref',
-  note: 'Each lead quotes the same pasuk, daf or midrash (four words in a row) that the edition note cites. Leads to study, not verified citations.', stats, passages: out }, null, 0));
+  note: 'Each lead quotes the same pasuk, daf or midrash (three words in a row) that the edition note cites. Leads to study, not verified citations.', stats, passages: out }, null, 0));
 console.log('done', JSON.stringify(stats), 'library passages', Object.keys(out).length);

@@ -1,0 +1,29 @@
+name: Sefaria-linked leads for the Parallels panel
+# Asks Sefaria's link graph which Chassidus, Kabbalah, Machshava and Mussar passages cite each source the Word editions'
+# notes cite, keeps those that quote or name it, and commits sources/mafteach/sefaria-cited-parallels.json.
+on:
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: sefaria-cited-parallels
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 180
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+      - name: Query Sefaria's links and check each lead against the text
+        run: node scripts/sefaria-cited-parallels.mjs
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898732+github-actions[bot]@users.noreply.github.com"
+          git add sources/mafteach/sefaria-cited-parallels.json
+          git diff --cached --quiet && exit 0
+          git commit -m "HaMafteach: Sefaria-linked leads for the Parallels panel [workflow-maintenance]"
+          for i in 1 2 3; do git pull --rebase && git push && exit 0; sleep 10; done
+          exit 1

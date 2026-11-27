@@ -5,8 +5,13 @@ are replaced, so the merge can run again. A passage keeps at most 4 Yochai leads
 import json, os, re
 D = 'dist/library/genre-parallels'
 y = json.load(open('sources/mafteach/yochai-parallels.json'))['passages']
+sp = json.load(open('sources/mafteach/sefaria-cited-parallels.json'))['passages'] if os.path.exists('sources/mafteach/sefaria-cited-parallels.json') else {}
 idx = json.load(open(f'{D}/index.json'))
-SHOW = {'Genesis': 'Bereishis', 'Bereshit Rabbah': 'Bereishis Rabbah', 'Shabbat': 'Shabbos'}
+SHOW = {'Genesis': 'Bereishis', 'Exodus': 'Shemos', 'Leviticus': 'Vayikra', 'Numbers': 'Bamidbar', 'Deuteronomy': 'Devarim', 'Isaiah': 'Yeshayahu',
+        'Jeremiah': 'Yirmiyahu', 'Ezekiel': 'Yechezkel', 'Psalms': 'Tehillim', 'Proverbs': 'Mishlei', 'Ecclesiastes': 'Koheles', 'Song of Songs': 'Shir HaShirim',
+        'Bereshit Rabbah': 'Bereishis Rabbah', 'Shemot Rabbah': 'Shemos Rabbah', 'Berakhot': 'Berachos', 'Shabbat': 'Shabbos', 'Taanit': 'Taanis',
+        'Yevamot': 'Yevamos', 'Ketubot': 'Kesubos', 'Bava Batra': 'Bava Basra', 'Makkot': 'Makkos', 'Shevuot': 'Shevuos', 'Menachot': 'Menachos',
+        'Bekhorot': 'Bechoros', 'Keritot': 'Kerisos', 'Horayot': 'Horayos', 'Arakhin': 'Arachin', 'Pirkei Avot': 'Pirkei Avos'}
 def show(ref):
     m = re.match(r'(.+?) ([\d:ab]+)$', ref)
     return f"{SHOW.get(m[1], m[1])} {m[2]}" if m else ref
@@ -23,15 +28,17 @@ def load(k):
     return files[k][1]
 # drop earlier Yochai items everywhere
 for k in list(idx['books']):
-    for items in load(k)['passages'].values(): items[:] = [x for x in items if x[4] != 'yochai']
-for ref, leads in y.items():
-    k = key_of(ref)
-    if not k: missing += 1; continue
-    items = load(k)['passages'].setdefault(ref, [])
-    have = {x[0] for x in items}
-    for sref, he, genre, via in leads:
-        if sref in have: continue
-        items.append([sref, he, genre, 1.0, 'yochai', [], f'Yochai: both cite {show(via)}']); have.add(sref); added += 1
+    for items in load(k)['passages'].values(): items[:] = [x for x in items if x[4] not in ('yochai', 'cites')]
+for src_, tier in ((y, 'yochai'), (sp, 'cites')):
+    for ref, leads in src_.items():
+        k = key_of(ref)
+        if not k: missing += 1; continue
+        items = load(k)['passages'].setdefault(ref, [])
+        have = {x[0] for x in items}
+        for sref, he, genre, via, *how in leads:
+            if sref in have: continue
+            why = f'Yochai: both cite {show(via)}' if tier == 'yochai' else f"{'quotes' if (how or ['quotes'])[0] == 'quotes' else 'cites'} {show(via)}, as this passage's note does (Sefaria's links)"
+            items.append([sref, he, genre, 1.0, tier, [], why]); have.add(sref); added += 1
 for k, (f, data) in files.items():
     p = f'{D}/{f}'
     json.dump(data, open(p, 'w', encoding='utf-8'), ensure_ascii=False, separators=(',', ':'))
