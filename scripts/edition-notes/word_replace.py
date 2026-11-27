@@ -65,6 +65,30 @@ def note_of(slug, n, src, he, en):
     return x
 
 
+# Hebrew names by which a passage cites a work (a note on its own citation stays there)
+NAMES = {'Bereishis': 'בראשית', 'Shemos': 'שמות', 'Vayikra': 'ויקרא', 'Bamidbar': 'במדבר', 'Devarim': 'דברים', 'Yehoshua': 'יהושע',
+         'Shoftim': 'שופטים', 'Shmuel': 'שמואל', 'Melachim': 'מלכים', 'Yeshayahu': 'ישעיה', 'Yirmiyahu': 'ירמיה', 'Yechezkel': 'יחזקאל',
+         'Hoshea': 'הושע', 'Yoel': 'יואל', 'Amos': 'עמוס', 'Ovadiah': 'עובדיה', 'Yonah': 'יונה', 'Michah': 'מיכה', 'Nachum': 'נחום',
+         'Chavakuk': 'חבקוק', 'Tzefaniah': 'צפניה', 'Chaggai': 'חגי', 'Zechariah': 'זכריה', 'Malachi': 'מלאכי', 'Tehillim': 'תהלים',
+         'Mishlei': 'משלי', 'Iyov': 'איוב', 'Shir HaShirim': 'שיר', 'Rus': 'רות', 'Eichah': 'איכה', 'Koheles': 'קהלת', 'Esther': 'אסתר',
+         'Daniel': 'דניאל', 'Ezra': 'עזרא', 'Nechemiah': 'נחמיה', 'Divrei HaYamim': 'הימים', 'Rabbah': 'רבה', 'Bereshit': 'בראשית',
+         'Shemot': 'שמות', 'Kohelet': 'קהלת', 'Zohar': 'זהר', 'Tikkunei': 'תקוני', 'Tanchuma': 'תנחומא', 'Sifrei': 'ספרי', 'Sifra': 'ספרא',
+         'Mekhilta': 'מכילתא', 'Pesikta': 'פסיקתא', 'Yalkut': 'ילקוט', 'Midrash Tehillim': 'שוחר', 'Yerushalmi': 'ירושלמי',
+         'Rambam': 'רמבם', 'Avos': 'אבות', 'Pirkei': 'פרקי', 'Mishnah': 'משנה'}
+
+
+def names_source(label, phrase):
+    f = flat(phrase).replace('ה', '')
+    return any(k in label and flat(v).replace('ה', '') in f for k, v in NAMES.items()) or \
+        any(k in label and flat(v) in flat(phrase) for k, v in TALMUD.items())
+
+
+def cites_other(phrase):
+    """The phrase carries a citation in parentheses of some work (a note for another source does not move onto it)."""
+    m = re.findall(r'\(([^)]*)\)', NIK.sub('', phrase))
+    return any(flat(v) in flat(c) for c in m for v in list(NAMES.values()) + list(TALMUD.values()))
+
+
 def bigrams(s):
     w = [x for x in A.bare(s).split() if len(x) > 1]
     return {(w[i], w[i + 1]) for i in range(len(w) - 1)}
@@ -79,6 +103,8 @@ def mover(pairs, notes, common=frozenset()):
         t = ' '.join(p.get('text', '') for p in x['paragraphs'])
         if not re.match(r'\s*Source', t): continue
         cur = x['phraseIndex']; target = None
+        lab = re.match(r'\s*Source(?: of the quoted words)?: ([^—“]+)', t)
+        if lab and names_source(lab.group(1), pairs[cur][0]): continue      # the note sits on the citation of its source
         quote = bigrams(' '.join(re.findall(r'“([^”]*)”', t)[:1])) - common
         m = re.match(r'\s*Source(?: of the quoted words)?: (?:Tosafos, |Rashi, )?([A-Z][a-z]+(?: [A-Z][a-z]+)?) (\d+)([ab])\b', t)
         if m and m.group(1) in TALMUD:
@@ -89,7 +115,7 @@ def mover(pairs, notes, common=frozenset()):
         qw = {w for w in A.bare(' '.join(re.findall(r'“([^”]*)”', t)[:1])).split() if len(w) >= 4}
         if target is None and quote and not (bg[cur] & quote) and not (qw & {w for w in A.bare(pairs[cur][0]).split() if len(w) >= 4}):
             sc = [len(b & quote) for b in bg]; best = max(range(len(sc)), key=lambda i: (sc[i], -abs(i - cur)))
-            if sc[best] >= 2: target = best
+            if sc[best] >= 2 and not (cites_other(pairs[best][0]) and not (lab and names_source(lab.group(1), pairs[best][0]))): target = best
         if target is not None and target != cur:
             he, en = pairs[target]; hp, ep = A.plain(he), A.plain(en)
             x.update(phraseIndex=target, heWord=len(hp.split()), heCharOffset=len(hp), heAnchorPrefix=hp)
