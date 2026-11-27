@@ -21,8 +21,8 @@ import {spawnSync} from 'node:child_process';
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const EDITION_ID = 'mei-hashiloach-complete-2026-11';
-const RELEASE = '20261127-mei-complete-r1';
-const REPORT = 'library/mei-complete-20261127-r1.json';
+const RELEASE = '20261127-mei-complete-r2';
+const REPORT = 'library/mei-complete-20261127-r2.json';
 const PROOF = 'artifacts/mei-complete/final-verification.json';
 const STAGE = 'mei-complete-stage.json';
 const PREVIOUS = 'new-books-baseline.json', META = 'new-books-publication.json';
@@ -295,7 +295,13 @@ export function finalize(site) {
   assert.equal((shelf.match(new RegExp(studyRe.source, 'g')) || []).length, 1, 'Reader Mei study refs not found');
   shelf = shelf.replace(studyRe, 'const meiStudyRefs = new Set([]);');
   shelf = shelf.split("<span class=\"tag\">Interlinear · Bereishit–Bo</span>").join('<span class="tag">Complete interlinear edition</span>');
-  shelf = shelf.split('Lech Lecha · Interlinear DOCX').join('Lech Lecha · earlier study DOCX');
+  // nothing of the old edition is merged in: no connected-idea notes of the old overlay, no old Lech Lecha study downloads
+  const mount = 'async function mountConnectedIdeas(data,sectionElement) {';
+  assert.equal(shelf.split(mount).length, 2, 'Connected-ideas mount not found');
+  if (!shelf.includes(mount + "if(String(data?.sectionRef||'').startsWith('Mei HaShiloach, '))return;"))
+    shelf = shelf.replace(mount, mount + "if(String(data?.sectionRef||'').startsWith('Mei HaShiloach, '))return;");
+  shelf = shelf.replace(/\n\s*: d\.sectionRef\.startsWith\('Mei HaShiloach,'\) && d\.sectionRef\.endsWith\(', Lech Lecha'\)\n\s*\? 'mei-hashiloach-lech-lecha-interlinear\.docx' : null;/, ' : null;');
+  shelf = shelf.replace(/\$\{title === 'Mei HaShiloach' \? `<a class="btn" href="downloads\/mei-hashiloach-lech-lecha-interlinear\.docx" download>Lech Lecha · (?:Interlinear|earlier study) DOCX<\/a>` : ''\}/, '');
   touch(htmlName, shelf.replace(marker, marker + `/* ${RELEASE} */ (${folders} || url.startsWith('data/cited/') || url.startsWith('data/parallels/') || url === 'data/catalog.json' || url === 'data/files.json' || url === 'data/packs/sources.json') ? url + (url.includes('?') ? '&' : '?') + 'mei=${stamp}' :\n`));
   const swName = 'library/sw.js', sw = fs.readFileSync(relative(site, swName), 'utf8');
   assert.equal((sw.match(/const SHELL = `[^`]+`;/g) || []).length, 1, 'Unexpected service worker cache revision');
