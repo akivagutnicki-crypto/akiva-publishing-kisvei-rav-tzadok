@@ -71,7 +71,7 @@ check(/Machpelah/.test(cave.en), 'Mearas Machpeilah -> the Cave of Machpelah');
 check(A.seeAlso(M, await A.topicEntries(cave.id)).some(t => t.en === 'Hebron'), 'the Cave of Machpelah points to Hebron');
 // Ishbitz-Radzin and the other sefarim, for a topic and a source
 const fl = await A.topicLinks(107);
-check(fl && fl.ish.length >= 5 && fl.ish.every(x => /^(Beit Yaakov|Mei HaShiloach|Sod Yesharim|Tiferet Yosef|Sha'ar HaEmunah)/.test(x[0]) && x[3].length), 'Faith: Ishbitz-Radzin passages, each with the Rav Tzadok passages it comes through');
+check(fl && fl.ish.length >= 5 && fl.ish.every(x => /^(Beit Yaakov|Mei HaShiloach|Sod Yesharim|Tiferet Yosef|Sha'ar HaEmunah|Ne'ot Deshe|Tiferet HaChanokhi|Torat Emet|Imrei Emet)/.test(x[0]) && x[3].length), 'Faith: Ishbitz-Radzin passages, each with the Rav Tzadok passages it comes through');
 check(fl.ish[0][6] === 1 && new Set(fl.out.map(x => x[2])).size >= 2, 'the first is confirmed by its own text; outside parallels in several genres');
 const gl = await A.sourceLinks('Berakhot 35b');
 check(gl && (gl.ish.length + gl.out.length) > 0, 'Berakhot 35b: links beyond Rav Tzadok');
