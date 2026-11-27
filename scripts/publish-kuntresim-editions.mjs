@@ -328,7 +328,7 @@ export function verify(site, build) {
       anchors++; assert(valid.has(a), 'Stale anchor of these books in cited/' + f + ': ' + a);
     }
   }
-  assert(anchors > 1000, 'Too few citation anchors of these books: ' + anchors);
+  assert(anchors > 100, 'Too few citation anchors of these books: ' + anchors);   // four short kuntresim: about 200
   assert.equal(read(site, 'library/data/files.json').version, manifest(site).version, 'Offline manifest stale');
   const catalog = read(site, 'library/data/catalog.json');
   for (const slug of SLUGS) assert.equal(catalog.filter(b => b.slug === slug).length, 1, 'Catalog entry ' + slug);
