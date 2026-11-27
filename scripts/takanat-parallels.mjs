@@ -7,7 +7,8 @@ const TEXT = path.join(directory,'mcp-data/text');
 const MAX_PER_SCHOOL = 10, MAX_SOURCE_DF = 400, MAX_WORD_DF = 25, MIN_SCORE = 5.0;
 const catalog = JSON.parse(fs.readFileSync(path.join(directory,'mcp-data/catalog.json'), 'utf8')).books;
 const school = new Map(catalog.map(b => [b.slug, b.group === 'Izhbitz' ? 'Ishbitz–Radzin' : 'Kisvei Rav Tzadok']));
-const readerSlug = slug => (slug === 'mei-hashiloach' ? 'mei-ha-shiloach' : slug);
+// the complete Mei HaShiloach edition (November 2026) is an ordinary bundled book whose reader slug is mei-hashiloach
+const readerSlug = slug => (slug === 'mei-hashiloach' && !fs.existsSync('sources/akiva/Mei_HaShiloach.json') ? 'mei-ha-shiloach' : slug);
 
 // ---------- Hebrew words, loosely: no nikkud, no quote marks, final letters as medial, no ו/י (spelling varies)
 const FIN = { 'ך': 'כ', 'ם': 'מ', 'ן': 'נ', 'ף': 'פ', 'ץ': 'צ' };

@@ -37,10 +37,10 @@ const isOurAnchor = a => typeof a === 'string' && PREFIXES.some(p => a.startsWit
 // files of these books that the earlier editions published and the new build no longer has (old Tiferet Yosef leaves,
 // the Sha'ar HaEmunah snapshot's MCP files): removed, and listed in the report
 const OWN_DIRS = slug => [`library/data/${slug}/`, `mcp-data/text-chunks/${slug}/`];
-// the old MCP book of the overlay edition (slug mei-hashiloach): its text, search, chunk and parallel files go
-const OLD_SLUG = 'mei-hashiloach';
-const OLD_FILE = name => name.startsWith(`mcp-data/text-chunks/${OLD_SLUG}/`) || name.startsWith(`mcp-data/search/${OLD_SLUG}.`)
-  || name === `mcp-data/text/${OLD_SLUG}.json` || name.startsWith(`mcp-data/text/${OLD_SLUG}.part`) || name === `mcp-data/parallels/${OLD_SLUG}.json`;
+// the old overlay edition's reader files (data folder mei-ha-shiloach and its parallels index) go; the MCP book keeps its slug
+const OLD = 'mei-ha-shiloach';
+const OLD_FILE = name => name.startsWith(`library/data/${OLD}/`) || name === `library/data/parallels/${OLD}.json`
+  || name.startsWith('mcp-data/text/mei-hashiloach.') || name.startsWith('mcp-data/search/mei-hashiloach.') || name === 'mcp-data/parallels/mei-hashiloach.json';
 const OWN_FILE = (slug, name) => OWN_DIRS(slug).some(d => name.startsWith(d)) || (name.startsWith(`mcp-data/search/${slug}.`)) || OLD_FILE(name);
 
 const sha = bytes => createHash('sha256').update(bytes).digest('hex');
@@ -227,15 +227,13 @@ export async function apply(site, build) {
     assert(mcpFiles >= 1, 'Fresh build lacks the MCP search files of ' + slug);
     if (mc) {
       const be = bmc.books.find(b => b.slug === slug); assert(be, 'Fresh MCP catalog lacks ' + slug);
-      const old = mc.books.findIndex(b => b.slug === OLD_SLUG);   // the overlay edition's MCP book is replaced in place
-      if (old >= 0) mc.books.splice(old, 1, be);
-      const j = mc.books.findIndex(b => b.slug === slug);
-      if (old < 0 && j >= 0) mc.books[j] = be;
-      else if (old < 0) {
+      const j = mc.books.findIndex(b => b.slug === slug);   // the overlay edition's MCP book is replaced in place
+      if (j >= 0) mc.books[j] = be;
+      else {
         const first = mc.books.findIndex(b => b.group === be.group);
         mc.books.splice(first < 0 ? mc.books.length : first, 0, be);
       }
-      assert.equal(mc.books.filter(b => b.slug === slug).length, 1); assert(!mc.books.some(b => b.slug === OLD_SLUG));
+      assert.equal(mc.books.filter(b => b.slug === slug).length, 1);
     }
   }
   if (mc) touch(mcpCatalogName, mc);
@@ -317,7 +315,8 @@ export function verify(site, build) {
   for (const f of ['interlinear.json', 'headings.json', 'study-contents.json']) assert(!exists(site, 'library/data/mei-ha-shiloach/' + f), 'Old overlay file still published: ' + f);
   const page = fs.readFileSync(relative(site, 'library/index.html'), 'utf8');
   assert(page.includes('const meiStudyRefs = new Set([]);'), 'The old Mei HaShiloach study refs are still active in the reader');
-  if (exists(site, 'mcp-data/catalog.json')) assert(!read(site, 'mcp-data/catalog.json').books.some(b => b.slug === OLD_SLUG), 'Old MCP book still listed');
+  assert(!fs.readdirSync(relative(site, 'library/data')).includes(OLD), 'Old overlay folder still published');
+  assert(!exists(site, `library/data/parallels/${OLD}.json`), 'Old overlay parallels still published');
   for (const [name, hash] of Object.entries(before)) {
     if (gone.has(name)) continue;
     assert(fs.existsSync(relative(site, name)), 'Existing published file missing: ' + name);
