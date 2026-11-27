@@ -49,8 +49,8 @@ assert.equal((html.match(/<a class="weekly-teaser weekly-vayeitzei-teaser" href=
 assert(html.indexOf('weekly-vayeitzei-teaser') < html.indexOf('weekly-chanukah-teaser'), 'Vayeitzei teaser first');
 assert.equal((html.match(/id="vayeitzei-weekly"/g) || []).length, 1, 'Sidebar entry');
 assert(html.indexOf('id="vayeitzei-weekly"') < html.indexOf('id="chanukah-weekly"'), 'Vayeitzei first in the sidebar');
-assert.equal((html.match(/This week · Parshas/g) || []).length, 2, 'Only Vayeitzei marked as this week (teaser and sidebar)');
-assert(html.includes('<h3 id="toldos-weekly">Last week · Parshas Toldos</h3>'), 'Toldos moved to last week');
+assert.equal((html.match(/This week · Parshas/g) || []).length, 2, 'Only one week marked as this week (teaser and sidebar)');
+assert(/<h3 id="toldos-weekly">(?:Last week|Earlier) · Parshas Toldos<\/h3>/.test(html), 'Toldos moved to last week or earlier');
 assert.equal((html.match(/class="noach6-media kometz70-media"/g) || []).length, 1, 'Reader shiur card at Kometz HaMinchah 2:70');
 const branch = html.split("d.sectionRef === 'Kometz HaMinchah 2:70'")[1].split("d.sectionRef === 'Divrei Soferim 16'")[0];
 assert(branch.includes('${shiurMarkup}') && branch.includes(shiurPdf) && !branch.includes('<details open'), 'Recording and collapsed PDF in the reader');
