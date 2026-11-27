@@ -7,7 +7,7 @@
   else root.AkivaMafteach = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this, function () {
   'use strict';
-  const VERSION = '20261124-izhbitz-parallels-v13';
+  const VERSION = '20261127-yochai-leads-v14';
   const SHOW = 8;
   const toHashDefault = ref => encodeURIComponent(ref).replace(/%20/g, '_').replace(/%2C/g, ',').replace(/%3A/g, ':');
   const escDefault = s => String(s ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
@@ -77,7 +77,7 @@
     for (const k of Object.keys(books || {})) if ((sectionRef === k || sectionRef.startsWith(k + ',') || sectionRef.startsWith(k + ' ')) && (!best || k.length > best.length)) best = k;
     return best;
   }
-  const TIER_ORDER = { reviewed: -1, strong: 0, likely: 1, possible: 2 };
+  const TIER_ORDER = { reviewed: -1, strong: 0, likely: 1, possible: 2, yochai: 3 };
   function mlFor(passages, sectionRef, exclude = new Set()) {
     if (!passages) return [];
     const keys = passages[sectionRef] ? [sectionRef] : Object.keys(passages).filter(k => k.startsWith(sectionRef + ' ') && /^\d+$/.test(k.slice(sectionRef.length + 1)));
@@ -89,7 +89,7 @@
     }
     return out.sort((a, b) => TIER_ORDER[a[2]] - TIER_ORDER[b[2]] || b[1] - a[1]).slice(0, 20);
   }
-  const TIER_LABEL = { reviewed: 'Checked', strong: 'Strong', likely: 'Likely', possible: 'Possible' };
+  const TIER_LABEL = { reviewed: 'Checked', strong: 'Strong', likely: 'Likely', possible: 'Possible', yochai: 'Yochai' };
   // Outside parallels (dist/library/genre-parallels): [sefaria ref, Hebrew title, genre, probability, tier, [shared rare words]]
   const GENRES = [['Chassidus', 'חסידות'], ['Kabbalah', 'קבלה'], ['Machshava', 'מחשבה'], ['Mussar', 'מוסר']];
   function sefariaRefUrl(ref) {
@@ -102,7 +102,9 @@
     const keys = passages[sectionRef] ? [sectionRef] : Object.keys(passages).filter(k => k.startsWith(sectionRef + ' ') && /^\d+$/.test(k.slice(sectionRef.length + 1)));
     const seen = new Set(), out = [];
     for (const k of keys) for (const item of passages[k]) if (!seen.has(item[0])) { seen.add(item[0]); out.push(item); }
-    return out.sort((a, b) => TIER_ORDER[a[4]] - TIER_ORDER[b[4]] || b[3] - a[3]).slice(0, 16);
+    out.sort((a, b) => TIER_ORDER[a[4]] - TIER_ORDER[b[4]] || b[3] - a[3]);
+    // the model's best 16, then any Yochai leads (they cite the same source; never crowded out)
+    return out.filter(x => x[4] !== 'yochai').slice(0, 16).concat(out.filter(x => x[4] === 'yochai'));
   }
   function renderGenre(items, opts) {
     const esc = opts.esc || escDefault;
