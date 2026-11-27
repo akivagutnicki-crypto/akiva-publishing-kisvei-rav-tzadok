@@ -12,7 +12,7 @@ import hashlib, html, json, re, sys
 from pathlib import Path
 sys.path.insert(0, str(Path(__file__).parent))
 SOURCE = Path('sources/akiva/pri-vbd-20261126'); OUTPUT = Path('sources/akiva/overlays/pri-vbd-20261126')
-EDITION = 'pri-vbd-20261126-v1'; FIRST_ID = 4000
+EDITION = 'pri-vbd-20261126-v1'; FIRST_ID = 5000   # Shemos 3000–3147, Bereishis 3400–3549, Moadim 3600–3799, Purim 4000–4068, Pesach 4100–4168
 VOLUMES = [{'volume': 1, 'file': 'Pri_Tzaddik_Vayikra.docx', 'label': 'Sefer Vayikra', 'he': 'ספר ויקרא', 'download': 'pri-tzaddik-vayikra-interlinear.docx', 'pdf': 'pri-tzaddik-vayikra-interlinear.pdf'},
            {'volume': 2, 'file': 'Pri_Tzaddik_Bamidbar.docx', 'label': 'Sefer Bamidbar', 'he': 'ספר במדבר', 'download': 'pri-tzaddik-bamidbar-interlinear.docx', 'pdf': 'pri-tzaddik-bamidbar-interlinear.pdf'},
            {'volume': 3, 'file': 'Pri_Tzaddik_Devarim.docx', 'label': 'Sefer Devarim', 'he': 'ספר דברים', 'download': 'pri-tzaddik-devarim-interlinear.docx', 'pdf': 'pri-tzaddik-devarim-interlinear.pdf'}]
