@@ -13,6 +13,7 @@ const PART_BYTES = 7_000_000;
 const CHUNK_BYTES = 400_000;
 let chunkFiles = 0, largestChunk = 0;
 const { searchFields, searchNotes, looseOf } = await import('../cloudflare/mcp.mjs');
+const { readBookText } = await import('./mcp-text-parts.mjs');
 const { books } = JSON.parse(fs.readFileSync(path.join(DIR, 'catalog.json'), 'utf8'));
 const out = path.join(DIR, 'search');
 if (!ONLY) {
@@ -27,7 +28,8 @@ fs.mkdirSync(out, { recursive: true });
 let bytes = 0, files = 0, largest = 0;
 for (const b of books) {
   if (ONLY && b.slug !== ONLY) continue;
-  const t = JSON.parse(fs.readFileSync(path.join(DIR, 'text', `${b.slug}.json`), 'utf8'));
+  // a book published in parts (scripts/mcp-text-parts.mjs) is joined; a whole file reads as before
+  const t = readBookText(path.join(DIR, 'text'), b.slug);
   t.book = b;
   const idx = searchFields(t), notes = searchNotes(t);
   for (const [f, lines] of [['h', idx.h], ['hl', idx.h.map(looseOf)], ['e', idx.e], ['d', idx.d], ['n', notes.n]]) putText(`${b.slug}.${f}`, lines);
