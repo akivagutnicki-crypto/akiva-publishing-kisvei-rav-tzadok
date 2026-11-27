@@ -1,4 +1,4 @@
-"""Publish the weekly Torah releases (Vayeira, Chayei Sarah, Toldos, Chanukah, Vayeitzei) over the current complete Pages artifact.
+"""Publish the weekly Torah releases (Vayeira, Chayei Sarah, Toldos, Chanukah, Vayeitzei, Vayishlach) over the current complete Pages artifact.
 
 Verify every original Torah file and every unrelated site file remains identical.
 """
@@ -143,10 +143,16 @@ def verify_inputs():
              'library/downloads/vayeitzei-leaving-home-shiur.pdf',
              'library/downloads/kometz-haminchah-ii-70-72-interlinear-shiur.pdf',
              'library/audio/vayeitzei-leaving-home-shiur.m4a',
-             'library/blog-data.json', 'library/blog-app.css']
+             'library/blog-data.json', 'library/blog-app.css',
+             'library/blog/going-back-for-the-small-jars/going-back-for-the-small-jars.jpg',
+             'library/blog/pdfs/going-back-for-the-small-jars-vayishlach.pdf',
+             'library/blog/pdfs/going-back-for-the-small-jars-vayishlach-newsletter.pdf',
+             'library/blog/docs/going-back-for-the-small-jars-vayishlach.docx',
+             'library/downloads/kometz-haminchah-ii-79-small-jars-source.pdf']
     for folder in ['library/blog/even-the-world-to-come', 'library/blog/even-the-world-to-come/shiur',
                    'library/blog/from-the-east', 'library/blog/from-the-east/shiur', 'library/blog/the-kings-table', 'library/blog/the-sealed-cruse',
-                   'library/blog/leaving-home-and-learning-to-dream']:
+                   'library/blog/leaving-home-and-learning-to-dream', 'library/blog/going-back-for-the-small-jars',
+                   'library/blog/going-back-for-the-small-jars/newsletter']:
         pages = sorted((Path('dist') / folder / 'pages').glob('page-*.webp'))
         assert pages, 'Missing page images: ' + folder
         files += [folder + '/index.html'] + [page.relative_to('dist').as_posix() for page in pages]
@@ -203,7 +209,10 @@ elif mode == 'verify':
                          ('library/index.html', 'id="vayeitzei-weekly"'), ('library/index.html', 'href="blog/leaving-home-and-learning-to-dream/"'),
                          ('library/index.html', 'class="noach6-media kometz70-media"'), ('library/shiur-player.js', "'Kometz HaMinchah 2:70':"),
                          ('library/sw.js', '-20261119-vayeitzei-leaving-home-v1'), ('library/sw.js', '-20261119-kometz-interlinear-pdf-v2'),
-                         ('library/index.html', 'kometz-haminchah-ii-70-72-interlinear-shiur.pdf'), ('library/blog/index.html', 'vayeitzei-feature-title')]:
+                         ('library/index.html', 'kometz-haminchah-ii-70-72-interlinear-shiur.pdf'), ('library/blog/index.html', 'vayeitzei-feature-title'),
+                         ('library/index.html', 'id="vayishlach-weekly"'), ('library/index.html', 'href="blog/going-back-for-the-small-jars/"'),
+                         ('library/index.html', 'class="noach6-media kometz79-media"'), ('library/sw.js', '-20261127-vayishlach-small-jars-v1'),
+                         ('library/blog/index.html', 'vayishlach-feature-title')]:
         assert marker in (ROOT / name).read_text(), 'Missing study hook: ' + name
     report = {'publication': state['publication'], 'expectedHead': state['expectedHead'],
               'changed': sorted(changed), 'removed': [],

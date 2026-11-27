@@ -351,6 +351,59 @@ const vayeitzeiCard = `<article class="card" aria-labelledby="vayeitzei-feature-
 blog = upsert(blog, /<article class="card" aria-labelledby="vayeitzei-feature-title">[\s\S]*?<\/article>\n?/, vayeitzeiCard, '<article class="card" aria-labelledby="chanukah-feature-title">', 'Vayeitzei listing');
 fs.writeFileSync(blogPath, blog);
 
+// November 27 · Parshas Vayishlach: the blog "Going Back for the Small Jars" (Kometz HaMinchah II:79) and this week's
+// Weekly Torah newsletter, with the interlinear source PDF. The source PDF also opens in the reader at Kometz HaMinchah 2:79.
+// Vayishlach becomes this week, Vayeitzei last week and Toldos earlier. Safe to run again on an updated site.
+const vayishlachVersion = '20261127-vayishlach-small-jars-v1';
+const vayishlachBlog = 'blog/going-back-for-the-small-jars/';
+const vayishlachRef = 'Kometz_HaMinchah_2:79';
+const vayishlachSourcePdf = 'downloads/kometz-haminchah-ii-79-small-jars-source.pdf';
+const vayishlachNewsletterPdf = 'blog/pdfs/going-back-for-the-small-jars-vayishlach-newsletter.pdf';
+const vayishlachAlt = 'Small earthenware jars on a riverbank under a night sky, with the title Going Back for the Small Jars';
+html = fs.readFileSync(indexPath, 'utf8');
+const vayishlachTeaser = `<a class="weekly-teaser weekly-vayishlach-teaser" href="${vayishlachBlog}" aria-label="Read Going Back for the Small Jars, the Parshas Vayishlach blog and newsletter">\n        <img src="${vayishlachBlog}going-back-for-the-small-jars.jpg" alt="${vayishlachAlt}" loading="lazy">\n        <span class="weekly-teaser-copy"><span class="eyebrow">This week · Parshas Vayishlach</span><strong>Going Back for the Small Jars</strong><span>Yaakov crosses back alone at night: nobody is left behind, a wound that heals, and the strength only truth can give · Kometz HaMinchah II:79, the blog and this week’s newsletter →</span></span>\n      </a>\n      `;
+html = upsert(html, /<a class="weekly-teaser weekly-vayishlach-teaser"[\s\S]*?<\/a>\n      /, vayishlachTeaser, '<a class="weekly-teaser weekly-vayeitzei-teaser"', 'Vayishlach teaser');
+const vayishlachSidebar = `<h3 id="vayishlach-weekly">This week · Parshas Vayishlach</h3><p><strong>Going Back for the Small Jars</strong><br>Nobody left behind, a wound that heals, and the strength only truth can give · By Akiva Gutnicki</p><a class="link" href="${vayishlachBlog}">Read the blog →</a><a class="link" href="${vayishlachBlog}newsletter/">This week’s newsletter →</a><a class="link" href="${vayishlachNewsletterPdf}" target="_blank" rel="noopener">Newsletter PDF ↗</a><a class="link" href="${vayishlachSourcePdf}" target="_blank" rel="noopener">Kometz HaMinchah II:79 interlinear source PDF, 21 notes ↗</a><a class="link" href="#/read/${vayishlachRef}">Kometz HaMinchah II:79 in the reader →</a>`;
+html = upsert(html, /<h3 id="vayishlach-weekly">[\s\S]*?(?=<h3 id="vayeitzei-weekly">)/, vayishlachSidebar, '<h3 id="vayeitzei-weekly">', 'Vayishlach sidebar');
+html = html.replace('<h3 id="vayeitzei-weekly">This week · Parshas Vayeitzei</h3>', '<h3 id="vayeitzei-weekly">Last week · Parshas Vayeitzei</h3>')
+  .replace('<span class="eyebrow">This week · Parshas Vayeitzei</span>', '<span class="eyebrow">Last week · Parshas Vayeitzei</span>')
+  .replace('<h3 id="toldos-weekly">Last week · Parshas Toldos</h3>', '<h3 id="toldos-weekly">Earlier · Parshas Toldos</h3>')
+  .replace('<span class="eyebrow">Last week · Parshas Toldos</span>', '<span class="eyebrow">Earlier · Parshas Toldos</span>');
+fs.writeFileSync(indexPath, html);
+
+const kometz79Card = `  } else if (d.sectionRef === 'Kometz HaMinchah 2:79') {
+    html += \`<div class="noach6-media kometz79-media">
+      <details class="noach6-pdf kometz79-pdf">
+        <summary>📄 Preview the interlinear source of Kometz HaMinchah II:79 · 4-page PDF, 21 notes</summary>
+        <iframe title="Preview the interlinear source of Kometz HaMinchah II 79, Going Back for the Small Jars, 4 pages" loading="lazy"
+          src="${vayishlachSourcePdf}#toolbar=0&navpanes=0"></iframe>
+        <a class="btn" target="_blank" rel="noopener noreferrer"
+          href="${vayishlachSourcePdf}">Open or download PDF ↗</a>
+        <a class="btn" href="${vayishlachBlog}">Read the blog, Going Back for the Small Jars →</a>
+        <a class="btn" href="${vayishlachBlog}newsletter/">This week’s newsletter →</a>
+      </details>
+    </div>\`;
+`;
+for (const reader of ['index.html', 'open/index.html']) {
+  const readerPath = path.join(library, reader);
+  if (!fs.existsSync(readerPath)) continue;
+  let text = fs.readFileSync(readerPath, 'utf8');
+  if (!text.includes('const shiurMarkup =')) continue;
+  if (!text.includes('class="noach6-media kometz79-media"'))
+    text = once(text, "  } else if (d.sectionRef === 'Divrei Soferim 16') {", kometz79Card + "  } else if (d.sectionRef === 'Divrei Soferim 16') {", 'Kometz 79 media card');
+  fs.writeFileSync(readerPath, text);
+}
+
+sw = fs.readFileSync(swPath, 'utf8');
+if (!sw.includes('-' + vayishlachVersion)) sw = sw.replace(/(const SHELL = `[^`]+)(`;)/, `$1-${vayishlachVersion}$2`);
+if (!sw.includes(`'./${vayishlachBlog}'`)) sw = once(sw, "  './blog/', ", `  './blog/', './${vayishlachBlog}', `, 'offline Vayishlach page');
+fs.writeFileSync(swPath, sw);
+
+blog = fs.readFileSync(blogPath, 'utf8');
+const vayishlachCard = `<article class="card" aria-labelledby="vayishlach-feature-title"><div class="eyebrow">November 27, 2026 · Parshas Vayishlach 5787 · Kometz HaMinchah II:79</div><h2 id="vayishlach-feature-title"><a style="text-decoration:none" href="going-back-for-the-small-jars/">Going Back for the Small Jars</a></h2><p class="subtitle" style="margin:0 0 15px;text-align:left">Nobody left behind, a wound that heals, and the strength only truth can give</p><p><a href="going-back-for-the-small-jars/"><img src="going-back-for-the-small-jars/going-back-for-the-small-jars.jpg" width="1456" height="816" alt="${vayishlachAlt}" loading="lazy" style="display:block;width:100%;height:auto;border:1px solid var(--border);margin:0 0 14px"></a>Yaakov crosses the river alone at night to go back for a few small jars. Drawing on Rav Tzadok HaKohen’s Kometz HaMinchah (II:79), this essay asks who the small jars are, why no Jew is ever too small to go back for, and what kind of strength only truth can give. A 5-page essay with true stories, and this week’s 6-page Weekly Torah newsletter for the Shabbos table. By Akiva Gutnicki.</p><div class="actions" style="justify-content:flex-start"><a class="btn" href="going-back-for-the-small-jars/">Read the blog →</a><a class="btn secondary" href="going-back-for-the-small-jars/newsletter/">This week’s newsletter →</a><a class="btn secondary" href="pdfs/going-back-for-the-small-jars-vayishlach-newsletter.pdf" target="_blank" rel="noopener">Newsletter PDF ↗</a><a class="btn secondary" href="pdfs/going-back-for-the-small-jars-vayishlach.pdf" target="_blank" rel="noopener">Read PDF ↗</a><a class="btn secondary" href="pdfs/going-back-for-the-small-jars-vayishlach.pdf" download>Download PDF ↓</a><a class="btn secondary" href="docs/going-back-for-the-small-jars-vayishlach.docx" download>Download Word ↓</a><a class="btn secondary" href="../${vayishlachSourcePdf}" target="_blank" rel="noopener">Kometz HaMinchah II:79 interlinear source PDF ↗</a></div><p style="margin:0;font:700 13px/1.6 Arial,sans-serif"><a href="../#/read/${vayishlachRef}">Kometz HaMinchah II:79 in the reader (with the interlinear source PDF) →</a></p></article>\n`;
+blog = upsert(blog, /<article class="card" aria-labelledby="vayishlach-feature-title">[\s\S]*?<\/article>\n?/, vayishlachCard, '<article class="card" aria-labelledby="vayeitzei-feature-title">', 'Vayishlach listing');
+fs.writeFileSync(blogPath, blog);
+
 if (path.resolve(root) !== path.resolve('dist')) {
   const chayeiFiles = ['blog/from-the-east', 'blog/from-the-east/shiur'].flatMap(dir =>
     ['index.html', ...fs.readdirSync(path.join('dist/library', dir, 'pages')).sort().map(name => 'pages/' + name)].map(name => dir + '/' + name))
@@ -364,7 +417,11 @@ if (path.resolve(root) !== path.resolve('dist')) {
       'blog/leaving-home-and-learning-to-dream/index.html', 'blog/leaving-home-and-learning-to-dream/leaving-home-and-learning-to-dream.jpg',
       'blog/pdfs/leaving-home-and-learning-to-dream-vayeitzei.pdf', 'blog/pdfs/leaving-home-and-learning-to-dream-vayeitzei-newsletter.pdf', 'blog/docs/leaving-home-and-learning-to-dream-vayeitzei.docx',
       ...fs.readdirSync('dist/library/blog/leaving-home-and-learning-to-dream/pages').sort().map(name => 'blog/leaving-home-and-learning-to-dream/pages/' + name),
-      vayeitzeiShiurPdf, vayeitzeiAudio, kometzPdf, 'blog-data.json', 'blog-app.css']);
+      vayeitzeiShiurPdf, vayeitzeiAudio, kometzPdf, 'blog-data.json', 'blog-app.css',
+      ...['blog/going-back-for-the-small-jars', 'blog/going-back-for-the-small-jars/newsletter'].flatMap(dir =>
+        ['index.html', ...fs.readdirSync(path.join('dist/library', dir, 'pages')).sort().map(name => 'pages/' + name)].map(name => dir + '/' + name)),
+      'blog/going-back-for-the-small-jars/going-back-for-the-small-jars.jpg', 'blog/pdfs/going-back-for-the-small-jars-vayishlach.pdf',
+      vayishlachNewsletterPdf, 'blog/docs/going-back-for-the-small-jars-vayishlach.docx', vayishlachSourcePdf]);
   const blogPages = ['blog/even-the-world-to-come', 'blog/even-the-world-to-come/shiur'].flatMap(dir =>
     ['index.html', ...fs.readdirSync(path.join('dist/library', dir, 'pages')).sort().map(name => 'pages/' + name)].map(name => dir + '/' + name));
   for (const file of ['vayeira-study.js', 'studies/vayeira-mesiras-nefesh.json', 'downloads/vayeira-akeidah-mesiras-nefesh.pdf', 'downloads/vayeira-akeidah-mesiras-nefesh-cover.webp',
