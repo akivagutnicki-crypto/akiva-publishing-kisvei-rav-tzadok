@@ -54,7 +54,10 @@ def verify(site=None, archives=False):
     if site:
         site = Path(site); lib = site / 'library'; data = lib / 'data'
         cat = rd(site / 'mcp-data/catalog.json'); book = next(b for b in cat['books'] if b['slug'] == 'peri-tzadik')
-        text = rd(site / 'mcp-data/text/peri-tzadik.json')
+        tp = site / 'mcp-data/text/peri-tzadik.json'; text = rd(tp)
+        if text.get('parts'):   # published in parts under 10 MB (release.py write_text)
+            paras = [q for k in range(1, text['parts'] + 1) for q in rd(tp.with_name(f'peri-tzadik.part{k}.json'))['paras']]
+            assert len(paras) == text['n']; text = {'paras': paras}
         hebrew = {}
         for sc in book['sections']:
             if sc.get('il') or sc.get('edition') == 'interlinear': continue
@@ -76,7 +79,7 @@ def verify(site=None, archives=False):
         for v in m['volumes']:
             assert sha(lib / 'downloads' / v['download']) == v['sha256'], 'Download differs: ' + v['download']
             if v.get('pdfSha256'): assert sha(lib / 'downloads' / v['pdfDownload']) == v['pdfSha256']
-        assert (site / 'mcp-data/text/peri-tzadik.json').stat().st_size <= 60_000_000
+        assert all(f.stat().st_size <= 10_000_000 for f in (site / 'mcp-data/text').glob('peri-tzadik*.json')), 'Pri Tzaddik MCP file over 10 MB'
         if archives:
             files = rd(data / 'files.json'); index = rd(lib / 'downloads/index.json')
             assert files['version'] == index['version']

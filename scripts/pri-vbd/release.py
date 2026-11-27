@@ -35,6 +35,35 @@ KEY = 'vbdEdition'
 MAX_BYTES = 10_000_000
 
 
+PART_MAX = 9_000_000   # as scripts/mcp-text-parts.mjs
+
+
+def read_text(path):
+    """A book's MCP text, joining its parts (scripts/mcp-text-parts.mjs) when it is published in parts."""
+    d = rd(path)
+    if not d.get('parts'): return d
+    paras = []
+    for k in range(1, d['parts'] + 1): paras += rd(path.with_name(f"{path.stem}.part{k}.json"))['paras']
+    assert len(paras) == d['n'], (path, len(paras), d['n'])
+    return {k: v for k, v in d.items() if k not in ('parts', 'n')} | {'paras': paras}
+
+
+def write_text(path, text):
+    """Write a book's MCP text in parts under 9 MB with {slug, parts, n} in <slug>.json, removing stale parts."""
+    for old in path.parent.glob(f"{path.stem}.part*.json"): old.unlink()
+    parts, cur, size = [], [], 0
+    for p in text['paras']:
+        b = len(json.dumps(p, ensure_ascii=False, separators=(',', ':')).encode()) + 1
+        if cur and size + b > PART_MAX: parts.append(cur); cur, size = [], 0
+        cur.append(p); size += b
+    if cur: parts.append(cur)
+    slug = text.get('slug', path.stem)
+    for i, lst in enumerate(parts): wr(path.with_name(f"{path.stem}.part{i + 1}.json"), {'slug': slug, 'part': i + 1, 'paras': lst})
+    head = {k: v for k, v in text.items() if k != 'paras'} | {'slug': slug, 'parts': len(parts), 'n': len(text['paras'])}
+    wr(path, head)
+    return len(parts)
+
+
 def api(route):
     headers = {'Accept': 'application/vnd.github+json', 'X-GitHub-Api-Version': '2022-11-28'}
     if os.environ.get('GITHUB_TOKEN'): headers['Authorization'] = 'Bearer ' + os.environ['GITHUB_TOKEN']
@@ -147,7 +176,7 @@ def apply(site):
     sw.write_text(text)
     # MCP: keep every existing paragraph; replace an earlier copy of this edition, append the new one with its notes
     catpath = site / 'mcp-data/catalog.json'; textpath = site / 'mcp-data/text/peri-tzadik.json'
-    cat = rd(catpath); text = rd(textpath); mb = next(b for b in cat['books'] if b['slug'] == 'peri-tzadik')
+    cat = rd(catpath); text = read_text(textpath); mb = next(b for b in cat['books'] if b['slug'] == 'peri-tzadik')
     oldsec = mb['sections']; gone = {i for i, s in enumerate(oldsec) if s.get(KEY)}
     if gone:
         keep = [i for i in range(len(oldsec)) if i not in gone]; remap = {old: i for i, old in enumerate(keep)}
@@ -171,13 +200,13 @@ def apply(site):
                        'path': STUDY + ' › ' + s['parashah'], 'il': True, 'first': first, 'count': s['paragraphs'],
                        'edition': 'interlinear', 'parashah': s['parashah'], 'ois': s['ois'], KEY: B.EDITION})
     mb['paragraphs'] = len(text['paras']); mb['interlinear'] = True
-    wr(textpath, text); wr(catpath, cat)
+    nparts = write_text(textpath, text); wr(catpath, cat)
     wr(lib / 'pri-vbd-publication.json', m)
     # kisvei_search's prebuilt index and the text chunks, from the site's own book texts; then the Worker budget guard
     subprocess.run(['node', 'scripts/build-mcp-search-index.mjs', str(site / 'mcp-data'), 'peri-tzadik'], check=True)   # this book only; other books' bytes stay
     subprocess.run(['node', 'scripts/test-mcp-budget.mjs', str(site / 'mcp-data')], check=True)
     print('Applied', len(secs), 'sections,', m['paragraphs'], 'paragraphs,', m['pairs'], 'phrase pairs,', m['footnotes'], 'notes;',
-          'mcp-data/text/peri-tzadik.json is', round(textpath.stat().st_size / 1e6, 2), 'MB')
+          'mcp-data/text/peri-tzadik.json is in', nparts, 'parts under 9 MB')
 
 
 def exports(site):
@@ -221,7 +250,7 @@ def permitted(name):
     downloads = '|'.join(re.escape(x) for v in m['volumes'] for x in (v['download'], v['pdfDownload']))
     allowed = re.compile(r'^(library/index\.html|library/sw\.js|library/data/(catalog|files)\.json|library/data/peri-tzadik/(toc|'
                          + ids + r')\.json|library/downloads/(index\.json|rav-tzadok-library\.zip|books/peri-tzadik\.zip|'
-                         + downloads + r')|library/pri-vbd-publication\.json|mcp-data/(catalog|text/peri-tzadik)\.json|'
+                         + downloads + r')|library/pri-vbd-publication\.json|mcp-data/(catalog|text/peri-tzadik(\.part\d+)?)\.json|'
                          r'mcp-data/search/peri-tzadik\..+|mcp-data/text-chunks/peri-tzadik/.+)$')
     return bool(allowed.match(name))
 
@@ -231,10 +260,10 @@ def seal(site):
     changed = {k for k in set(before) | set(after) if before.get(k) != after.get(k)}
     removed = set(before) - set(after)
     # the search index may rename its parts (e.g. a file split in two); nothing else may disappear
-    assert all(k.startswith(('mcp-data/search/peri-tzadik.', 'mcp-data/text-chunks/peri-tzadik/')) for k in removed), 'Published files were removed: ' + str(sorted(removed)[:8])
+    assert all(k.startswith(('mcp-data/search/peri-tzadik.', 'mcp-data/text-chunks/peri-tzadik/', 'mcp-data/text/peri-tzadik.part')) for k in removed), 'Published files were removed: ' + str(sorted(removed)[:8])
     assert all(permitted(k) for k in changed), 'Unrelated changes: ' + str(sorted(k for k in changed if not permitted(k))[:10])
     # MCP data: <= 10 MB except the grandfathered whole-book file (held by scripts/test-mcp-budget.mjs)
-    big = [k for k in changed if k in after and k.startswith('mcp-data/') and k != 'mcp-data/text/peri-tzadik.json' and (site / k).stat().st_size > MAX_BYTES]
+    big = [k for k in changed if k in after and k.startswith('mcp-data/') and (site / k).stat().st_size > MAX_BYTES]
     assert not big, 'MCP files over 10 MB: ' + str(big)
     report = {'edition': B.EDITION, 'changed': len(changed), 'removed': sorted(removed),
               'unchanged': len(before) - sum(k in before for k in changed),

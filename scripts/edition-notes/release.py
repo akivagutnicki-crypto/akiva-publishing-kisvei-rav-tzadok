@@ -98,6 +98,9 @@ def apply(site):
             if (slug not in SLUGS or slug == 'peri-tzadik') and (keep / f.name).exists(): shutil.copyfile(keep / f.name, f)
         for f in keep.iterdir():
             if not (text / f.name).exists(): shutil.copyfile(f, text / f.name)
+        # Pri Tzaddik is kept exactly as published: no part the builder wrote beyond the published ones may remain
+        for f in text.glob('peri-tzadik.part*.json'):
+            if not (keep / f.name).exists(): f.unlink()
         for slug in SLUGS:
             if slug != 'peri-tzadik': run('node', 'scripts/build-mcp-search-index.mjs', str(site / 'mcp-data'), slug)
         run('node', 'scripts/build-parallels.mjs')

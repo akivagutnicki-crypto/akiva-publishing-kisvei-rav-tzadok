@@ -14,9 +14,10 @@ export function readBookText(dir, slug) {
   if (d.n != null && paras.length !== d.n) throw new Error(`text/${slug}: ${paras.length} paragraphs in the parts, ${d.n} expected`);
   return {slug, paras};
 }
-// The books published in parts. Peri Tzadik and Bais Yaakov keep their whole files (grandfathered in
+// The books published in parts. Peri Tzadik joined them with its Vayikra, Bamidbar and Devarim editions (its release
+// scripts read and write the parts: scripts/pri-vbd/release.py). Bais Yaakov keeps its whole files (grandfathered in
 // scripts/test-mcp-budget.mjs) because their own release scripts publish those files by name.
-export const SPLIT = new Set(['sidrei-taharot-kelim', 'sidrei-taharot-ohalot', 'tiferet-tzvi-part-i', 'sod-yesharim', 'torat-emet', 'imrei-emet']);
+export const SPLIT = new Set(['peri-tzadik', 'sidrei-taharot-kelim', 'sidrei-taharot-ohalot', 'tiferet-tzvi-part-i', 'sod-yesharim', 'torat-emet', 'imrei-emet']);
 // Split those books' whole-book texts, when over 10 MB, into parts under PART_MAX bytes.
 export function splitLargeTexts(dir) {
   const out = [];
