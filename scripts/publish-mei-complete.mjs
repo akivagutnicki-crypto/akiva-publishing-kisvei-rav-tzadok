@@ -163,6 +163,7 @@ export async function apply(site, build) {
     assert.equal(digest(site, name), before[name], 'Existing site file changed since baseline capture: ' + name);
     fs.rmSync(relative(site, name)); removed.push(name);
   }
+  if (exists(site, 'library/data/' + OLD) && allFiles(relative(site, 'library/data/' + OLD)).length === 0) fs.rmSync(relative(site, 'library/data/' + OLD), {recursive: true});
   // 2. catalog: Tiferet Yosef (and any earlier entry of these books) replaced in place; the new books after Bais Yaakov
   const catalogName = 'library/data/catalog.json', catalog = read(site, catalogName), bcatalog = read(build, catalogName);
   const fresh = new Map(SLUGS.map(slug => { const e = bcatalog.find(b => b.slug === slug); assert(e, 'Fresh catalog lacks ' + slug); return [slug, e]; }));
@@ -315,7 +316,7 @@ export function verify(site, build) {
   for (const f of ['interlinear.json', 'headings.json', 'study-contents.json']) assert(!exists(site, 'library/data/mei-ha-shiloach/' + f), 'Old overlay file still published: ' + f);
   const page = fs.readFileSync(relative(site, 'library/index.html'), 'utf8');
   assert(page.includes('const meiStudyRefs = new Set([]);'), 'The old Mei HaShiloach study refs are still active in the reader');
-  assert(!fs.readdirSync(relative(site, 'library/data')).includes(OLD), 'Old overlay folder still published');
+  assert(!exists(site, 'library/data/' + OLD) || allFiles(relative(site, 'library/data/' + OLD)).length === 0, 'Old overlay files still published');
   assert(!exists(site, `library/data/parallels/${OLD}.json`), 'Old overlay parallels still published');
   for (const [name, hash] of Object.entries(before)) {
     if (gone.has(name)) continue;
