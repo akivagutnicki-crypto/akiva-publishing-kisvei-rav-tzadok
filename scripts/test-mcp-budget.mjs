@@ -25,8 +25,9 @@ const MAX_FILE = 10_000_000;
 // Whole-book files over 10 MB. The tools read text-chunks/ and the search index; this whole-book file is only a fallback,
 // and this test makes it unreachable on a published site (it fails a publication whose chunks or index are missing).
 // cloudflare/mcp.mjs also refuses to load a whole-book file over 20 MB (wholeText), so the Worker never parses it.
-// Raised from 31 MB for the Pri Tzaddik Moadim editions (scripts/pri-moadim/).
-const GRANDFATHERED = { 'text/peri-tzadik.json': 45_000_000,
+// Raised from 31 MB for the Pri Tzaddik Moadim editions (scripts/pri-moadim/), and from 45 MB for the Vayikra, Bamidbar
+// and Devarim editions (scripts/pri-vbd/, about 57 MB).
+const GRANDFATHERED = { 'text/peri-tzadik.json': 60_000_000,
   // the complete Bais Yaakov edition (November 2026): the tools read its text-chunks; the whole-book files are fallbacks
   'text/beit-yaakov-on-torah.json': 16_000_000, 'text/beit-yaakov-shemos.json': 15_000_000 };
 // Sidrei Taharos and Tiferes Tzvi I are published in parts under 10 MB (scripts/mcp-text-parts.mjs).

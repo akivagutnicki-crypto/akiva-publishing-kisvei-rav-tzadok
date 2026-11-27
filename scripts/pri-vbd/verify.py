@@ -76,7 +76,7 @@ def verify(site=None, archives=False):
         for v in m['volumes']:
             assert sha(lib / 'downloads' / v['download']) == v['sha256'], 'Download differs: ' + v['download']
             if v.get('pdfSha256'): assert sha(lib / 'downloads' / v['pdfDownload']) == v['pdfSha256']
-        assert (site / 'mcp-data/text/peri-tzadik.json').stat().st_size <= 45_000_000
+        assert (site / 'mcp-data/text/peri-tzadik.json').stat().st_size <= 60_000_000
         if archives:
             files = rd(data / 'files.json'); index = rd(lib / 'downloads/index.json')
             assert files['version'] == index['version']
