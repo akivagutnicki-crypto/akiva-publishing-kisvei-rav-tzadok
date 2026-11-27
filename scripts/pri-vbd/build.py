@@ -10,7 +10,7 @@ chapters, in the shape of the Moadim edition (scripts/pri-moadim/build.py): one 
 Usage: build.py   (reads sources/akiva/pri-vbd-20261126/*.docx, writes sources/akiva/overlays/pri-vbd-20261126/)"""
 import hashlib, html, json, re, sys
 from pathlib import Path
-sys.path.insert(0, str(Path(__file__).parent)); import parse_docx as P
+sys.path.insert(0, str(Path(__file__).parent))
 SOURCE = Path('sources/akiva/pri-vbd-20261126'); OUTPUT = Path('sources/akiva/overlays/pri-vbd-20261126')
 EDITION = 'pri-vbd-20261126-v1'; FIRST_ID = 4000
 VOLUMES = [{'volume': 1, 'file': 'Pri_Tzaddik_Vayikra.docx', 'label': 'Sefer Vayikra', 'he': 'ספר ויקרא', 'download': 'pri-tzaddik-vayikra-interlinear.docx', 'pdf': 'pri-tzaddik-vayikra-interlinear.pdf'},
@@ -33,6 +33,7 @@ def wr(p, value):
 def digest(p): return hashlib.sha256(Path(p).read_bytes()).hexdigest()
 def plain(s): return re.sub(r'\s+', ' ', s).strip()
 def build():
+    import parse_docx as P   # lxml: needed only to rebuild from the Word files, not to publish
     sections, volumes, used = [], [], set()
     for v in VOLUMES:
         secs, notes = P.parse(str(SOURCE / v['file'])); number = 0; vol_notes = 0
