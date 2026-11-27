@@ -86,6 +86,13 @@ def renumber_inline(lists):
                 for ph in it.get('p') or []:
                     if isinstance(ph,list): ph[0]=re.sub(r'<sup class="footnote-marker">\d+</sup>',r,ph[0])
     return n
+# Resisei Layla's notes are already full (the editor's instruction): at most two new notes in a paragraph, the source of
+# the words it quotes first, then Gemara and Midrash, then pesukim.
+CAP={'resisei-layla':2}
+TANACH=re.compile(r'^(?:Source(?: of the quoted words)?: )?(?:Bereishis|Shemos|Vayikra|Bamidbar|Devarim|Yehoshua|Shoftim|Shmuel|Melachim|Yeshayahu|Yirmiyahu|Yechezkel|Hoshea|Yoel|Amos|Ovadiah|Yonah|Michah|Nachum|Chavakuk|Tzefaniah|Chaggai|Zechariah|Malachi|Tehillim|Mishlei|Iyov|Shir HaShirim|Rus|Eichah|Koheles|Esther|Daniel|Ezra|Nechemiah|Divrei HaYamim|Genesis|Exodus|Leviticus|Numbers|Deuteronomy|Psalms|Proverbs|Isaiah|Jeremiah|Ezekiel)\b')
+def priority(n):
+    t=n['paragraphs'][0]['text'] if n.get('paragraphs') else ''
+    return 0 if t.startswith('Source of the quoted words') else (2 if TANACH.match(t) else 1)
 def main(root,dry=False,packdir='sources/akiva/edition-supplements'):
     report={}
     for pf in sorted(glob.glob(os.path.join(packdir,'*.json'))):
@@ -114,7 +121,9 @@ def main(root,dry=False,packdir='sources/akiva/edition-supplements'):
         inline=any('footnote-marker' in str(it.get('p')) for it in items) and not any(it.get('footnotes') for it in items)
         noted=any(it.get('footnotes') for it in items) or inline
         placed=dup=lost=0; newlinks=[]
-        for n in pack['notes']:
+        cap=CAP.get(slug); per={}; capped=0
+        order=sorted(pack['notes'],key=priority) if cap else pack['notes']
+        for n in order:
             if n.get('kind')=='par': continue
             # a book whose reader notes are its original notes keeps them; the Word edition's copies are not added again
             if n.get('kind')=='orig' and noted: dup+=1; continue
@@ -124,6 +133,9 @@ def main(root,dry=False,packdir='sources/akiva/edition-supplements'):
             have=set().union(set(),*[urls_of(x) for x in it.get('footnotes') or []])|inline_urls(it)
             mine={canon(s['url']) for s in n['sources'] if s.get('url')}
             if mine and mine<=have: dup+=1; continue
+            if cap:
+                if per.get(loc,0)>=cap: capped+=1; continue
+                per[loc]=per.get(loc,0)+1
             phr=[bare(strip_notes(p[0] if isinstance(p,list) else p)) for p in it['p']]
             a=n['anchor']; two=' '.join(a.split()[:2])
             pi=next((i for i,x in enumerate(phr) if a and a in x),-1)
@@ -153,7 +165,7 @@ def main(root,dry=False,packdir='sources/akiva/edition-supplements'):
                     for x in it['footnotes']: num+=1; x['number']=num
         if not dry:
             for f in F: json.dump(data[f],open(os.path.join(d,f),'w'),ensure_ascii=False,separators=(',',':'))
-        report[slug]={'added':placed,'already_there':dup,'not_found':lost,'notes_now':num,'links':newlinks}
+        report[slug]={'added':placed,'already_there':dup,'not_found':lost,'capped':capped,'notes_now':num,'links':newlinks}
     return report
 if __name__=='__main__':
     r=main(sys.argv[1],'--dry' in sys.argv)

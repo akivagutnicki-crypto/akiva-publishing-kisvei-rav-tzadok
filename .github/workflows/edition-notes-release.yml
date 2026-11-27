@@ -1,0 +1,122 @@
+name: Publish the Word-edition source notes in fifteen reader books (book data only)
+
+# Adds the verified source notes of the November 2026 Word editions to fifteen books already in the reader (no note
+# doubled; Resisei Layla capped and cleaned per the editor's instructions), over the exact current Pages artifact.
+# Only these books' data, their connections, the cited index, parallels, their MCP text/search, the offline ZIPs
+# and the cache markers change (scripts/edition-notes/release.py seal). Trigger with [edition-notes-release].
+
+on:
+  push:
+    branches: ["main"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  actions: read
+  deployments: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: ${{ (github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[edition-notes-release]'))) && 'pages' || format('edition-notes-skipped-{0}', github.run_id) }}
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    if: ${{ github.repository == 'akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok' && github.ref == 'refs/heads/main' && (github.event_name == 'workflow_dispatch' || contains(github.event.head_commit.message, '[edition-notes-release]')) }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    env:
+      NEW_BOOKS_SITE: .notes-site
+    steps:
+      - name: Checkout the reader source
+        uses: actions/checkout@v6
+
+      - name: Set up Node 24
+        uses: actions/setup-node@v6
+        with:
+          node-version: '24'
+
+      - name: Identify the currently published complete Pages artifact
+        id: baseline
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/new-books-release.py metadata
+
+      - name: Download the exact current site without rebuilding the other seforim
+        uses: actions/download-artifact@v4
+        with:
+          artifact-ids: ${{ steps.baseline.outputs.artifact }}
+          run-id: ${{ steps.baseline.outputs.run }}
+          repository: akivagutnicki-crypto/akiva-publishing-kisvei-rav-tzadok
+          github-token: ${{ github.token }}
+          path: ${{ runner.temp }}/notes-baseline
+          merge-multiple: true
+
+      - name: Safely restore every published book and site file
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          python3 - <<'PY'
+          import os,pathlib,tarfile
+          root=pathlib.Path('.notes-site').resolve()
+          root.mkdir(exist_ok=True)
+          archive=pathlib.Path(os.environ['RUNNER_TEMP'])/'notes-baseline/artifact.tar'
+          assert archive.is_file(), 'Missing complete Pages archive'
+          with tarfile.open(archive,'r:') as source:
+              members=source.getmembers()
+              for member in members:
+                  target=(root/member.name).resolve()
+                  assert target==root or root in target.parents, 'Path outside site'
+                  assert member.isdir() or member.isfile(), 'Unsafe archive entry'
+              source.extractall(root,members=members,filter='data')
+          PY
+          python3 scripts/new-books-release.py capture
+
+      - name: Add the notes, clean Resisei Layla, rebuild these books' MCP text, parallels and ZIPs
+        run: |
+          python3 scripts/edition-notes/release.py apply .notes-site
+          python3 scripts/edition-notes/release.py seal .notes-site
+          node --check .notes-site/library/sw.js
+
+      - name: Recheck original live site and main branch before artifact upload
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/new-books-release.py guard
+
+      - name: Configure Pages
+        uses: actions/configure-pages@v5
+
+      - name: Upload the complete preserved site with only these books changed
+        uses: actions/upload-pages-artifact@v4
+        with:
+          path: .notes-site
+          retention-days: 14
+
+      - name: Recheck main and latest publication before deployment
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: python3 scripts/new-books-release.py guard
+
+      - name: Publish the edition notes
+        id: deployment
+        uses: actions/deploy-pages@v4
+
+      - name: Verify the changed reader files are live
+        run: python3 scripts/edition-notes/release.py live
+
+      - name: Save release verification
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: edition-notes-release-verification
+          retention-days: 90
+          if-no-files-found: warn
+          path: |
+            new-books-publication.json
+            new-books-baseline.json
+            edition-notes-release-report.json
+            edition-notes-links.json
