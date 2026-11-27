@@ -98,8 +98,31 @@ def mover(pairs, notes, common=frozenset()):
     return moved
 
 
+
+def unrelated(L):
+    """Talmud source notes with nothing linking them to their paragraph: the paragraph neither names the masechta nor
+    shares one uncommon word (four letters or more, in at most a tenth of the book's paragraphs) with the quotation.
+    Returned as the set of (paragraph index in L, note index); these notes are dropped (the editor's instruction)."""
+    B = [k for k, it in enumerate(L) if it['t'] == 'b']; nb = len(B)
+    df = collections.Counter(w for k in B for w in set(A.bare(' '.join(h for h, e in L[k]['pairs'])).split()))
+    out = set()
+    for k in B:
+        it = L[k]; ptxt = ' '.join(h for h, e in it['pairs']); pw = set(A.bare(ptxt).split()); pf = flat(ptxt)
+        for j, n in enumerate(it['notes']):
+            t = ' '.join(p.get('text', '') for p in n['paragraphs'])
+            m = re.match(r'\s*Source(?: of the quoted words)?: (?:Tosafos, |Rashi, )?([A-Z][a-z]+(?: [A-Z][a-z]+)?) \d+[ab]\b', t)
+            if not m or m.group(1) not in TALMUD or flat(TALMUD[m.group(1)]) in pf: continue
+            qw = set(A.bare(' '.join(re.findall(r'“([^”]*)”', t)[:1])).split())
+            if len(qw) < 4 or {w for w in qw & pw if len(w) >= 4 and df[w] <= nb * 0.10}: continue
+            out.add((k, j))
+    return out
+
 def replace_book(data, slug, rep):
     L = json.loads(gzip.open(PARSED / f'{slug}.json.gz').read())
+    drop = unrelated(L)
+    for k, it in enumerate(L):
+        if it['t'] == 'b': it['notes'] = [n for j, n in enumerate(it['notes']) if (k, j) not in drop]
+    rep_dropped = len(drop)
     d = os.path.join(data, slug); S = A.sections(d)
     files = {f: rd(os.path.join(d, f)) for f, _, _ in S}
     lk = os.path.join(d, 'links.json'); links = rd(lk) if os.path.exists(lk) else {}
@@ -254,7 +277,7 @@ def replace_book(data, slug, rep):
             node['shape'] = sum(1 for it in rd(os.path.join(d, f'{i}.json')) if isinstance(it, dict) and it.get('p'))
         for c in node.get('children') or []: walk(c)
     walk(toc['toc']); wr(os.path.join(d, 'toc.json'), toc)
-    out['notesNow'] = num
+    out['notesNow'] = num; out['unrelatedDropped'] = rep_dropped
     rep[slug] = out
     return set(out.get('replacedRefs', []))
 
