@@ -12,7 +12,17 @@
   const extension = (name) => name?.toLowerCase().split('.').pop();
   let file = null, previewUrl = '', recording = null, requestingMic = false, active = null, revision = 0;
 
+  // The SoferStudio key is remembered in this browser so it is entered once, not on every visit
+  const ACCESS_STORE = 'seferStudio.accessKey';
+  const keyShape = /^sfpro_[0-9a-f]{64}$/;
   let accessKey = '', segmentedRun = null;
+  try { const saved = localStorage.getItem(ACCESS_STORE) || ''; if (keyShape.test(saved)) accessKey = saved; } catch (_e) {}
+  function rememberAccess(value) {
+    try {
+      if (keyShape.test(value)) localStorage.setItem(ACCESS_STORE, value);
+      else if (!value) localStorage.removeItem(ACCESS_STORE);
+    } catch (_e) {}
+  }
   function requireAccess() {
     if (!/^sfpro_[0-9a-f]{64}$/.test(accessKey)) throw new Error('Enter your SoferStudio access key under API Key.');
     return accessKey;
@@ -567,10 +577,14 @@
   window.StudioCreative = { viewAudio, pdfLayout, textAction, requireAccess };
   document.addEventListener('DOMContentLoaded', () => {
     const inputs = [...document.querySelectorAll('[data-studio-access]')];
-    for (const input of inputs) input.addEventListener('input', () => {
-      accessKey = input.value.trim();
-      for (const other of inputs) if (other !== input) other.value = accessKey;
-    });
+    for (const input of inputs) {
+      if (accessKey) input.value = accessKey;
+      input.addEventListener('input', () => {
+        accessKey = input.value.trim();
+        rememberAccess(accessKey);
+        for (const other of inputs) if (other !== input) other.value = accessKey;
+      });
+    }
     bindAudio(); bindPdf();
     window.launchQueue?.setConsumer(async ({ files }) => {
       if (!files?.length) return;
