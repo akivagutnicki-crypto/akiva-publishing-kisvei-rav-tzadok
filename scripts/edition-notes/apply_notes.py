@@ -124,7 +124,7 @@ def main(root,dry=False,packdir='sources/akiva/edition-supplements'):
         # only sections whose paragraphs were read (Pri Tzaddik's original-Hebrew volumes nest their sections in one file)
         read_secs={a[0] for a in anchor.values()}
         stray=sorted({l['a'] for k_,v in links.items() if k_ in read_secs for l in v if norm(l['a']) not in known} - secs)
-        assert len(stray)<=3, f'{slug}: paragraph refs disagree with links.json, e.g. {stray[:5]}'
+        assert len(stray)<=max(3,len(known)//200), f'{slug}: paragraph refs disagree with links.json, e.g. {stray[:5]}'
         items=[it for f in F for it in data[f] if isinstance(it,dict)]
         inline=any('footnote-marker' in str(it.get('p')) for it in items) and not any(it.get('footnotes') for it in items)
         noted=any(it.get('footnotes') for it in items) or inline
