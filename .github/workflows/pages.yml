@@ -1,8 +1,8 @@
 name: Deploy Akiva Publishing to GitHub Pages
 
+# Manual only (since 2026-11-27): the site is published by the artifact-preserving release workflows, and a full
+# rebuild from sources would drop what those releases added. This run had failed on every push since 2026-10-22.
 on:
-  push:
-    branches: ["main"]
   workflow_dispatch:
 
 permissions:
